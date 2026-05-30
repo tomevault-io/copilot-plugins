@@ -1,0 +1,9 @@
+{
+  "name": "phuryn--grok-build-vscode",
+  "displayName": "grok-build-vscode",
+  "description": "Grok Build Visual Studio Code extension. A full embedded chat UI \u2014 not a terminal launcher.",
+  "version": "1.0.0",
+  "author": "phuryn",
+  "homepage": "https://github.com/phuryn/grok-build-vscode",
+  "skills": []
+}
