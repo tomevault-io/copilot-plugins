@@ -1,0 +1,9 @@
+{
+  "name": "sulrich--vanguard-analysis",
+  "displayName": "vanguard-analysis",
+  "description": "some quick and dirty scripts to analyze holdings and gauge potential tax exposure in accounts based on dividends, etc.",
+  "version": "1.0.0",
+  "author": "sulrich",
+  "homepage": "https://github.com/sulrich/vanguard-analysis",
+  "skills": []
+}
