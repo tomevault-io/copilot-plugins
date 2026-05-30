@@ -4,7 +4,7 @@
   "repo": "blender-mcp",
   "description": "Blender 3D automation via FastMCP 3.2 \u2014 41 portmanteau tools, 150+ operations. AI construction, VRM avatars, Gaussian splats, VSE video editing, Grease Pencil 2D animation, Tauri 2.0 desktop. React dashboard.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sandraschi/blender-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-30T04:38:36Z"
+  "distributed_at": "2026-05-30T04:39:04Z"
 }
