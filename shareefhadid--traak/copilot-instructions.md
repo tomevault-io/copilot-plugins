@@ -1,23 +1,32 @@
-## 03-data-storage
+## 04-ui-components
 
-> Interacting with the database, storing data, and retrieving data
+> When creating a new component, or trying to understand how components are structured
 
-# Data Storage
+# UI Components
 
-The application uses Isar as its local database solution.
+The application uses Flutter's Material Design components and custom widgets.
 
-## Service Configuration
-- [lib/services/isar_service.dart](mdc:lib/services/isar_service.dart) - Contains the Isar database initialization and management logic
+## Component Organization
+- Feature-specific components are stored in the `components` directory of each feature
+- [lib/shared/components/](mdc:lib/shared/components) contains reusable components used across the application
 
-## Data Flow
-1. The database is initialized in [main.dart](mdc:lib/main.dart)
-2. Feature repositories (like [lib/features/track/repositories/routine_repository.dart](mdc:lib/features/track/repositories/routine_repository.dart)) interact with the database through the IsarService
-3. Models are used to represent the data schema and are typically stored in the `models` directory of each feature
+## Screens
+- Screens represent full pages in the application
+- Each feature typically has one or more screens
+- Screen files are named with a `_screen.dart` suffix
+- Examples:
+  - [lib/features/track/track_screen.dart](mdc:lib/features/track/track_screen.dart)
+  - [lib/features/track/new_routine_screen.dart](mdc:lib/features/track/new_routine_screen.dart)
 
-## Working with Data
-- When adding a new data model, make sure to update the IsarService
-- Repositories should handle all database operations
-- Use the repository pattern to abstract database operations from the UI layer
+## Theming
+- [lib/theme.dart](mdc:lib/theme.dart) contains the application's theme configuration
+- Use the theme's colors, text styles, and other design tokens for consistency
+
+## Design Patterns
+- Widgets should be composable and reusable
+- Maximum one widget per file
+- Extract common UI patterns into shared components
+- Follow Flutter's widget hierarchy guidelines for performance
 
 ---
 > Source: [shareefhadid/traak](https://github.com/shareefhadid/traak) — distributed by [TomeVault](https://tomevault.io).
