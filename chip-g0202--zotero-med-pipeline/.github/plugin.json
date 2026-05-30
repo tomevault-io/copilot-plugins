@@ -1,0 +1,9 @@
+{
+  "name": "chip-g0202--zotero-med-pipeline",
+  "displayName": "zotero-med-pipeline",
+  "description": "\u57fa\u4e8e Codex \u6784\u5efa\u7684\u533b\u5b66\u6587\u732e\u81ea\u52a8\u5316\u5de5\u4f5c\u6d41\uff1aRSS + PubMed \u81ea\u52a8\u6293\u53d6 \u2192 AI \u5206\u7ea7 \u2192 Zotero \u5199\u56de \u2192 \u4e2d\u6587\u6807\u9898\u7ffb\u8bd1 \u2192 Excel \u62a5\u8868\uff0c\u5168\u7a0b\u65e0\u9700\u624b\u52a8\u7ffb\u671f\u520a\u3001\u7b5b\u6807\u9898\u3002",
+  "version": "1.0.0",
+  "author": "Chip-G0202",
+  "homepage": "https://github.com/Chip-G0202/zotero-med-pipeline",
+  "skills": []
+}
