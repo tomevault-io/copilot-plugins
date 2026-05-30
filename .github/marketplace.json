@@ -96419,11 +96419,6 @@
       "description": "Forked version of rust-sourcemap"
     },
     {
-      "name": "baekenough--oh-my-customcode",
-      "source": "./baekenough--oh-my-customcode",
-      "description": "oh-my-zsh style customization framework for Claude Code"
-    },
-    {
       "name": "utsmannn--commitah",
       "source": "./utsmannn--commitah",
       "description": "Generating commit messages using Generative AI"
@@ -96437,6 +96432,11 @@
       "name": "jamesdavid--inreader",
       "source": "./jamesdavid--inreader",
       "description": "A modern, keyboard-driven RSS feed reader that brings back the magic of Google Reader with AI! \ud83d\ude80"
+    },
+    {
+      "name": "baekenough--oh-my-customcode",
+      "source": "./baekenough--oh-my-customcode",
+      "description": "oh-my-zsh style customization framework for Claude Code"
     },
     {
       "name": "baekenough--oh-my-customcode",
@@ -169634,6 +169634,21 @@
       "description": "Model Context Protocol server for SuiteCRM integration. Enables AI assistants to interact with SuiteCRM for lead management, contact operations, and CRM workflows."
     },
     {
+      "name": "lennondotw--llm-thinking-animation",
+      "source": "./lennondotw--llm-thinking-animation",
+      "description": "A ChatGPT-o3-like LLM thinking animation demo"
+    },
+    {
+      "name": "lennondotw--llm-thinking-animation",
+      "source": "./lennondotw--llm-thinking-animation",
+      "description": "A ChatGPT-o3-like LLM thinking animation demo"
+    },
+    {
+      "name": "liquibase--setup-liquibase",
+      "source": "./liquibase--setup-liquibase",
+      "description": "Set up your GitHub Actions workflow with a specific version of Liquibase"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181357,6 +181372,36 @@
       "name": "verhas--perag",
       "source": "./verhas--perag",
       "description": "personal RAG for local projects"
+    },
+    {
+      "name": "plustar35--echo-reading",
+      "source": "./plustar35--echo-reading",
+      "description": "\u8ddf Claude Code \u4e00\u8d77\u6df1\u8bfb\u4e00\u672c\u4e66\u7684\u7b14\u8bb0\u672c\u9aa8\u67b6\u2014\u2014\u8fd9\u662f\u4e00\u79cd\u5bf9\u8bdd\u5f0f\u6df1\u8bfb\u4e00\u672c\u4e66\u7684\u4f53\u9a8c\uff0c\u8ba9\u8bfb\u4e66\u53d8\u6210\u4e00\u6b21\u6b21\u4e0eclaude\u7684\u4fc3\u819d\u957f\u8c08\u3002"
+    },
+    {
+      "name": "skyf0xx--pebble",
+      "source": "./skyf0xx--pebble",
+      "description": "A Hermes UI"
+    },
+    {
+      "name": "plustar35--echo-reading",
+      "source": "./plustar35--echo-reading",
+      "description": "\u8ddf Claude Code \u4e00\u8d77\u6df1\u8bfb\u4e00\u672c\u4e66\u7684\u7b14\u8bb0\u672c\u9aa8\u67b6\u2014\u2014\u8fd9\u662f\u4e00\u79cd\u5bf9\u8bdd\u5f0f\u6df1\u8bfb\u4e00\u672c\u4e66\u7684\u4f53\u9a8c\uff0c\u8ba9\u8bfb\u4e66\u53d8\u6210\u4e00\u6b21\u6b21\u4e0eclaude\u7684\u4fc3\u819d\u957f\u8c08\u3002"
+    },
+    {
+      "name": "radimsem--forge-skills",
+      "source": "./radimsem--forge-skills",
+      "description": "Combines the most-used agentic skills into one unified issue-fixing workflow \u2014 a true blacksmith from plan to shipped fix."
+    },
+    {
+      "name": "goodprovider--skyrimnet-sexlab",
+      "source": "./goodprovider--skyrimnet-sexlab",
+      "description": "Adds simple SexLab support to SkyrimNet"
+    },
+    {
+      "name": "kousen--osquerymcpserver",
+      "source": "./kousen--osquerymcpserver",
+      "description": "MCP wrapper and Claude Code Skill for osquery"
     },
     {
       "name": "cheerhuan--save-your-token",
