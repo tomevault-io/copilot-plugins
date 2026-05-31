@@ -1,0 +1,9 @@
+{
+  "name": "betastreetomnis--xhs-ai-publisher",
+  "displayName": "xhs_ai_publisher",
+  "description": "AI-powered Xiaohongshu/Rednote content creation and publishing tool with PyQt desktop UI, FastAPI service, login-state reuse, preview publish, and automated browser workflows.",
+  "version": "1.0.0",
+  "author": "BetaStreetOmnis",
+  "homepage": "https://github.com/BetaStreetOmnis/xhs_ai_publisher",
+  "skills": []
+}
