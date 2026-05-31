@@ -1,0 +1,9 @@
+{
+  "name": "hkuds--lightrag",
+  "displayName": "LightRAG",
+  "description": "[EMNLP2025] \"LightRAG: Simple and Fast Retrieval-Augmented Generation\"",
+  "version": "1.0.0",
+  "author": "HKUDS",
+  "homepage": "https://github.com/HKUDS/LightRAG",
+  "skills": []
+}
