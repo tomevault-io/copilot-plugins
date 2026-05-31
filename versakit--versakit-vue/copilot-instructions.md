@@ -1,100 +1,101 @@
-## accessibility
+## component-development
 
-> Versakit组件库遵循WCAG 2.1标准，确保所有组件都支持无障碍访问。开发者在创建和修改组件时，需遵循以下规范：
+> ├── index.ts         # 导出组件
 
-# 无障碍访问(A11y)规范
+# 组件开发规范
 
-## 基本原则
-
-Versakit组件库遵循WCAG 2.1标准，确保所有组件都支持无障碍访问。开发者在创建和修改组件时，需遵循以下规范：
-
-## 键盘可访问性
-
-- 所有交互式组件必须支持键盘操作
-- 使用正确的`tabindex`属性
-- 实现标准的键盘导航模式（Tab、箭头键、Enter、Space等）
-- 确保焦点顺序合理且可见
-
-```vue
-<!-- 示例：Button组件键盘支持 -->
-<button 
-  :tabindex="disabled ? -1 : 0"
-  @keydown.enter="handleClick"
-  @keydown.space.prevent="handleClick"
->
-  <slot />
-</button>
+## 目录结构
+每个组件目录应遵循以下结构:
+```
+ComponentName/
+├── index.ts         # 导出组件
+└── src/
+    ├── index.vue    # 组件实现
+    ├── type.ts      # 类型定义
+    ├── index.variants.ts # 样式定义
+    └── use-component-name.ts # 可选的组件逻辑
 ```
 
-## ARIA属性
+## 类型定义
 
-- 使用适当的ARIA角色和属性
-- 为非语义元素提供正确的角色
-- 使用`aria-label`、`aria-labelledby`、`aria-describedby`等属性提供额外信息
+- 所有props、emits和其他类型必须在`type.ts`中定义
+- 禁止使用`any`类型，必须提供精确类型
+- 组件Props接口命名格式为`ComponentNameProps`
+- 组件Emits常量命名格式为`ComponentNameEmits`
 
-```vue
-<!-- 示例：带ARIA属性的复选框 -->
-<div 
-  role="checkbox"
-  :aria-checked="checked"
-  :aria-disabled="disabled"
-  :tabindex="disabled ? -1 : 0"
->
-  <!-- 复选框内容 -->
-</div>
-```
-
-## 焦点管理
-
-- 确保所有交互元素有清晰可见的焦点状态
-- 使用`:focus-visible`伪类而非简单的`:focus`
-- 实现适当的焦点陷阱（如模态窗口）
-
+例如:
 ```ts
-// 焦点样式示例
-const buttonStyle = tv({
-  base: 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500',
-  // 其他样式...
+// type.ts
+export type ButtonProps = {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  disabled?: boolean
+  // ...其他属性
+  pt?: ButtonPT // 自定义样式传递
+}
+
+export const ButtonEmits = {
+  click: (evt: MouseEvent) => evt instanceof MouseEvent,
+}
+```
+
+## 样式定义
+
+- 所有样式必须使用`tailwind-variants`在`index.variants.ts`中定义
+- 组件需支持`unstyled`模式和`pt`（pass through）样式传递
+- 支持暗黑模式，使用Tailwind CSS的`dark:`前缀
+
+例如:
+```ts
+// index.variants.ts
+import { tv } from 'tailwind-variants'
+
+export const buttonStyle = tv({
+  base: 'inline-flex items-center justify-center...',
+  variants: {
+    variant: {
+      primary: 'bg-blue-500 text-white dark:bg-blue-600...',
+      // ...其他变体
+    },
+    // ...其他变量
+  },
+  // ...
 })
 ```
 
-## 颜色与对比度
+## 组件实现
 
-- 确保文本与背景之间有足够的对比度（符合WCAG AA级别，4.5:1）
-- 不仅依赖颜色传递信息，同时提供其他视觉或文本提示
-- 支持高对比度模式
+- 使用`<script setup lang="ts">`语法
+- 禁止在Vue文件中使用scoped CSS
+- 通过计算属性绑定样式
+- 支持无障碍访问属性
 
-## 屏幕阅读器支持
-
-- 使用正确的语义化HTML元素
-- 为屏幕阅读器提供适当的替代文本
-- 确保动态内容变化时通知屏幕阅读器
-
+例如:
 ```vue
-<!-- 正确的屏幕阅读器支持示例 -->
-<button aria-live="polite">
-  <span v-if="loading" aria-hidden="false">加载中...</span>
-  <span v-else>{{ buttonText }}</span>
-</button>
+<template>
+  <button :class="classes" :type="type" :disabled="disabled || loading">
+    <!-- 内容 -->
+  </button>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { buttonStyle } from './index.variants'
+import type { ButtonProps } from './type'
+import { ButtonEmits } from './type'
+
+// ...props和emits定义
+
+const classes = computed(() => {
+  return props.unstyled
+    ? props.pt?.root || ''
+    : buttonStyle({
+        variant: props.variant,
+        // ...其他样式属性
+      })
+})
+</script>
 ```
-
-## 响应式和适应性设计
-
-- 确保组件在不同缩放级别下仍可用
-- 支持文本大小增加到200%时的可用性
-- 确保触摸目标足够大（至少44×44像素）
-
-## 测试
-
-- 使用无障碍测试工具进行验证
-- 测试键盘导航
-- 使用屏幕阅读器验证体验
-
-## 文档
-
-- 为每个组件提供无障碍使用指南
-- 记录任何已知的无障碍限制
-- 提供无障碍最佳实践示例
 
 ---
 > Source: [Versakit/Versakit-Vue](https://github.com/Versakit/Versakit-Vue) — distributed by [TomeVault](https://tomevault.io).
