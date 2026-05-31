@@ -169874,6 +169874,11 @@
       "description": "A modern, strongly-typed, AOT-compatible mocking library for .NET, powered by source generators."
     },
     {
+      "name": "christian-katzmann--app-it",
+      "source": "./christian-katzmann--app-it",
+      "description": "A Claude Code + Codex skill that turns a local project into a macOS Dock-launchable app \u2014 native window, its own icon, no Electron. [The Windows version is in BETA]"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181914,6 +181919,26 @@
       "description": "A from-scratch, browser-based GTA-style 3D open-world driving slice in TypeScript + Three.js. (The name is a joke.)"
     },
     {
+      "name": "helpfeel--cosense-cli",
+      "source": "./helpfeel--cosense-cli",
+      "description": "Cosense\u306e\u30da\u30fc\u30b8\u3092\u8aad\u307f\u30fb\u8abf\u3079\u30fb\u7de8\u96c6\u3059\u308b\u70ba\u306eCLI\u3068Agent Skill\u306e\u30ea\u30ea\u30fc\u30b9\u30ea\u30dd\u30b8\u30c8\u30ea"
+    },
+    {
+      "name": "esamattis--mitmwall",
+      "source": "./esamattis--mitmwall",
+      "description": "A mitmproxy-based egress WAF that restricts connections to allowlisted HTTP routes"
+    },
+    {
+      "name": "kju4q--q-agent-harness",
+      "source": "./kju4q--q-agent-harness",
+      "description": "q-agent-harness"
+    },
+    {
+      "name": "helpfeel--cosense-cli",
+      "source": "./helpfeel--cosense-cli",
+      "description": "Cosense\u306e\u30da\u30fc\u30b8\u3092\u8aad\u307f\u30fb\u8abf\u3079\u30fb\u7de8\u96c6\u3059\u308b\u70ba\u306eCLI\u3068Agent Skill\u306e\u30ea\u30ea\u30fc\u30b9\u30ea\u30dd\u30b8\u30c8\u30ea"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -184822,6 +184847,11 @@
       "name": "hengxin666--gpt-web-cf-make",
       "source": "./hengxin666--gpt-web-cf-make",
       "description": "GPT \u7f51\u9875\u7aef Token \u4fdd\u6d3b + \u6ce8\u518c\u673a\u5e73\u53f0\u3002\u652f\u6301 refresh_token \u7eed\u671f access_token. \u652f\u6301\u53cd\u4ee3gpt-img2\u548c\u7f51\u9875\u7aef\u5bf9\u8bdd; \u652f\u6301\u4ee3\u7406\u6c60"
+    },
+    {
+      "name": "stephengpope--shockwave",
+      "source": "./stephengpope--shockwave",
+      "description": "shockwave"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
