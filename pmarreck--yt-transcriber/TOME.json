@@ -4,7 +4,7 @@
   "repo": "yt-transcriber",
   "description": "CLI app- Give it a YouTube URL and you get a transcription with possible speaker identification and optional summary or translation, all thanks to open-source AI tooling and my lack of enough free time to watch content-sparse YouTube videos",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pmarreck/yt-transcriber",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T23:51:31Z"
+  "distributed_at": "2026-05-31T23:54:59Z"
 }
