@@ -1,21 +1,23 @@
 # python-sdk
 
-> Tome by [askui](https://github.com/askui/python-sdk) — distributed by [TomeVault](https://tomevault.io/claim/askui)
+> Tome by [askui](https://github.com/askui/python-sdk) — distributed by [TomeVault](https://tomevault.io)
+
+Enable AI to control your desktop, mobile and HMI devices
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [askui/python-sdk](https://github.com/askui/python-sdk).
+Original source: `CLAUDE.md` in [askui/python-sdk](https://github.com/askui/python-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/askui#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/askui/python-sdk](https://github.com/askui/python-sdk)
 
 ---
 
