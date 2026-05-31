@@ -7,13 +7,13 @@ Website
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [webdevcody/survive-the-night-game](https://github.com/webdevcody/survive-the-night-game).
+Original source: `AGENTS.md` in [webdevcody/survive-the-night-game](https://github.com/webdevcody/survive-the-night-game).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
