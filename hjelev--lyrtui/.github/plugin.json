@@ -1,0 +1,9 @@
+{
+  "name": "hjelev--lyrtui",
+  "displayName": "lyrtui",
+  "description": "TUI for Lyrion Music Server",
+  "version": "1.0.0",
+  "author": "hjelev",
+  "homepage": "https://github.com/hjelev/lyrtui",
+  "skills": []
+}
