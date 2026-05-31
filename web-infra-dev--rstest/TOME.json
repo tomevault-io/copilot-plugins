@@ -4,7 +4,7 @@
   "repo": "rstest",
   "description": "The testing framework powered by Rspack.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/web-infra-dev/rstest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T21:54:28Z"
+  "distributed_at": "2026-05-31T21:55:59Z"
 }
