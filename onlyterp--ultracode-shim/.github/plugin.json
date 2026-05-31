@@ -1,0 +1,9 @@
+{
+  "name": "onlyterp--ultracode-shim",
+  "displayName": "UltraCode-Shim",
+  "description": "Give Claude Code's ultracode mode to ANY model you already pay for. A tiny local proxy + one config.json. Point your AI at AGENTS.md and it sets itself up.",
+  "version": "1.0.0",
+  "author": "OnlyTerp",
+  "homepage": "https://github.com/OnlyTerp/UltraCode-Shim",
+  "skills": []
+}
