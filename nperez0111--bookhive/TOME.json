@@ -4,7 +4,7 @@
   "repo": "bookhive",
   "description": "Track your books, share your shelves, see what others are reading",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nperez0111/bookhive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T22:06:46Z"
+  "distributed_at": "2026-05-31T22:13:56Z"
 }
