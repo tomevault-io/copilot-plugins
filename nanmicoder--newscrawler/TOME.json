@@ -1,0 +1,44 @@
+{
+  "name": "NewsCrawler",
+  "owner": "NanmiCoder",
+  "repo": "NewsCrawler",
+  "description": "\u591a\u5e73\u53f0\u65b0\u95fb & \u5185\u5bb9\u722c\u866b\u96c6\u5408 | Multi-platform News & Content Crawler Suite \u652f\u6301\uff1a\u5fae\u4fe1\u516c\u4f17\u53f7\u3001Twiiter\u3001\u4eca\u65e5\u5934\u6761\u3001\u7f51\u6613\u65b0\u95fb\u3001\u641c\u72d0\u65b0\u95fb\u3001\u817e\u8baf\u65b0\u95fb\u3001Naver\u3001Detik\u3001Quora \u7b49\u4e3b\u6d41\u5e73\u53f0 Supports crawling news & content from WeChat, Toutiao, Netease, Sohu, Tencent, Naver, CNN, BCC, Detik, Quora, and more",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NanmiCoder/NewsCrawler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-31T21:55:29Z"
+}
