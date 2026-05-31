@@ -1,0 +1,9 @@
+{
+  "name": "karamouche--noisekit",
+  "displayName": "noisekit",
+  "description": "Generate degraded speech datasets for noise-robust ASR benchmarking",
+  "version": "1.0.0",
+  "author": "karamouche",
+  "homepage": "https://github.com/karamouche/noisekit",
+  "skills": []
+}
