@@ -4,7 +4,7 @@
   "repo": "ag2",
   "description": "AG2 (formerly AutoGen): The Open-Source AgentOS.Join us at: https://discord.gg/sNGSwQME3x",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ag2ai/ag2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T19:30:53Z"
+  "distributed_at": "2026-05-31T19:35:46Z"
 }
