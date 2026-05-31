@@ -1,0 +1,44 @@
+{
+  "name": "gpt-web-cf-make",
+  "owner": "HengXin666",
+  "repo": "gpt-web-cf-make",
+  "description": "GPT \u7f51\u9875\u7aef Token \u4fdd\u6d3b + \u6ce8\u518c\u673a\u5e73\u53f0\u3002\u652f\u6301 refresh_token \u7eed\u671f access_token. \u652f\u6301\u53cd\u4ee3gpt-img2\u548c\u7f51\u9875\u7aef\u5bf9\u8bdd; \u652f\u6301\u4ee3\u7406\u6c60",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HengXin666/gpt-web-cf-make",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-31T14:32:24Z"
+}
