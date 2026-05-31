@@ -1,0 +1,150 @@
+{
+  "name": "d-o-hub--rust-self-learning-memory",
+  "displayName": "rust-self-learning-memory",
+  "description": "A modular Rust-based self-learning episodic memory system for AI agents, featuring hybrid storage with Turso (SQL) and redb (KV), async execution tracking, reward scoring, reflection, and pattern-base",
+  "version": "1.0.0",
+  "author": "d-o-hub",
+  "homepage": "https://github.com/d-o-hub/rust-self-learning-memory",
+  "skills": [
+    {
+      "name": "agent-coordination",
+      "description": ""
+    },
+    {
+      "name": "analysis-swarm",
+      "description": ""
+    },
+    {
+      "name": "architecture-validation",
+      "description": ""
+    },
+    {
+      "name": "build-compile",
+      "description": ""
+    },
+    {
+      "name": "build-rust",
+      "description": ""
+    },
+    {
+      "name": "ci-fix",
+      "description": ""
+    },
+    {
+      "name": "clean-code-developer",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "description": ""
+    },
+    {
+      "name": "codebase-analyzer",
+      "description": ""
+    },
+    {
+      "name": "codebase-consolidation",
+      "description": ""
+    },
+    {
+      "name": "codebase-locator",
+      "description": ""
+    },
+    {
+      "name": "debug-troubleshoot",
+      "description": ""
+    },
+    {
+      "name": "episode-start",
+      "description": ""
+    },
+    {
+      "name": "episodic-memory-testing",
+      "description": ""
+    },
+    {
+      "name": "feature-implement",
+      "description": ""
+    },
+    {
+      "name": "general",
+      "description": ""
+    },
+    {
+      "name": "github-release-best-practices",
+      "description": ""
+    },
+    {
+      "name": "github-workflows",
+      "description": ""
+    },
+    {
+      "name": "goap-agent",
+      "description": ""
+    },
+    {
+      "name": "loop-agent",
+      "description": ""
+    },
+    {
+      "name": "memory-cli-ops",
+      "description": ""
+    },
+    {
+      "name": "parallel-execution",
+      "description": ""
+    },
+    {
+      "name": "perplexity-researcher-reasoning-pro",
+      "description": ""
+    },
+    {
+      "name": "plan-gap-analysis",
+      "description": ""
+    },
+    {
+      "name": "quality-unit-testing",
+      "description": ""
+    },
+    {
+      "name": "release-guard",
+      "description": ""
+    },
+    {
+      "name": "rust-async-testing",
+      "description": ""
+    },
+    {
+      "name": "rust-code-quality",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "storage-sync",
+      "description": ""
+    },
+    {
+      "name": "task-decomposition",
+      "description": ""
+    },
+    {
+      "name": "test-fix",
+      "description": ""
+    },
+    {
+      "name": "test-optimization",
+      "description": ""
+    },
+    {
+      "name": "test-runner",
+      "description": ""
+    },
+    {
+      "name": "web-search-researcher",
+      "description": ""
+    }
+  ]
+}
