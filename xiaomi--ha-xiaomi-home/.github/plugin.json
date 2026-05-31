@@ -1,0 +1,9 @@
+{
+  "name": "xiaomi--ha-xiaomi-home",
+  "displayName": "ha_xiaomi_home",
+  "description": "Xiaomi Home Integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "XiaoMi",
+  "homepage": "https://github.com/XiaoMi/ha_xiaomi_home",
+  "skills": []
+}
