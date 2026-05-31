@@ -7,13 +7,13 @@ A browser extension that helps users publish content to multiple social media pl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [leaperone/MultiPost-Extension](https://github.com/leaperone/MultiPost-Extension).
+Original source: `CLAUDE.md` in [leaperone/MultiPost-Extension](https://github.com/leaperone/MultiPost-Extension).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
