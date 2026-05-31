@@ -169729,6 +169729,51 @@
       "description": "Plex Unlocker"
     },
     {
+      "name": "liuyoumi--codex-history",
+      "source": "./liuyoumi--codex-history",
+      "description": "A CLI tool to safely manage and purge local Codex conversation history"
+    },
+    {
+      "name": "junjihashimoto--louter",
+      "source": "./junjihashimoto--louter",
+      "description": "louter"
+    },
+    {
+      "name": "team-unstablers--noctilucaserver",
+      "source": "./team-unstablers--noctilucaserver",
+      "description": "A New Remote Desktop for macOS"
+    },
+    {
+      "name": "team-unstablers--noctilucaserver",
+      "source": "./team-unstablers--noctilucaserver",
+      "description": "A New Remote Desktop for macOS"
+    },
+    {
+      "name": "team-unstablers--noctilucaserver",
+      "source": "./team-unstablers--noctilucaserver",
+      "description": "A New Remote Desktop for macOS"
+    },
+    {
+      "name": "carrotly-ai--gluon-agent",
+      "source": "./carrotly-ai--gluon-agent",
+      "description": "AI coding agent orchestrator \u2014 run parallel Claude Code tasks in sandboxed Docker containers, monitor from a Kanban board or chat bot."
+    },
+    {
+      "name": "samcday--fastboop",
+      "source": "./samcday--fastboop",
+      "description": "Make fastboot pocket computer go brr"
+    },
+    {
+      "name": "taimo3810--kaggle-with-ai-template",
+      "source": "./taimo3810--kaggle-with-ai-template",
+      "description": "kaggle-with-ai-template"
+    },
+    {
+      "name": "not-manu--kel",
+      "source": "./not-manu--kel",
+      "description": "The AI agent that sees what you see."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181537,6 +181582,36 @@
       "name": "psylsph--givenergy-local",
       "source": "./psylsph--givenergy-local",
       "description": "Desktop app for monitoring and controlling GivEnergy solar inverters over your local network \u2014 no cloud account needed"
+    },
+    {
+      "name": "kevin100202--rocket-design-and-manufacturing-automation-program-from-shenzhen22highschool",
+      "source": "./kevin100202--rocket-design-and-manufacturing-automation-program-from-shenzhen22highschool",
+      "description": "Rocket Design and Manufacturing Automation Program By Students"
+    },
+    {
+      "name": "er1one--telegram-bot-template",
+      "source": "./er1one--telegram-bot-template",
+      "description": "Production-ready Telegram bot template with aiogram 3.x, PostgreSQL, Redis, and i18n support"
+    },
+    {
+      "name": "ml4t--live",
+      "source": "./ml4t--live",
+      "description": "live"
+    },
+    {
+      "name": "makomakogo--asmr-transformer",
+      "source": "./makomakogo--asmr-transformer",
+      "description": "\u81ea\u7528\u73a9\u5177\uff0c\u7eaf vibe coding\uff0c\u7528\u4e8e\u63d0\u53d6 r18 asmr \u4f5c\u54c1\u7684\u5b57\u5e55"
+    },
+    {
+      "name": "makomakogo--asmr-transformer",
+      "source": "./makomakogo--asmr-transformer",
+      "description": "\u81ea\u7528\u73a9\u5177\uff0c\u7eaf vibe coding\uff0c\u7528\u4e8e\u63d0\u53d6 r18 asmr \u4f5c\u54c1\u7684\u5b57\u5e55"
+    },
+    {
+      "name": "futuresolutiondev--deploy-center-server",
+      "source": "./futuresolutiondev--deploy-center-server",
+      "description": "Self-hosted CI/CD deployment platform with persistent queue (BullMQ + Redis), encrypted env vars, multi-channel notifications (Discord/Slack/Email), rollback UI, project templates, and workspaces. Typ"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -289027,6 +289102,186 @@
       "name": "matthewabbott--traderbot",
       "source": "./matthewabbott--traderbot",
       "description": "Petty HFT intra-hour mean reversion tactic"
+    },
+    {
+      "name": "studiolabs07--comparely-b2b",
+      "source": "./studiolabs07--comparely-b2b",
+      "description": "comparely-b2b"
+    },
+    {
+      "name": "kmzz522--navihive1117",
+      "source": "./kmzz522--navihive1117",
+      "description": "navihive1117"
+    },
+    {
+      "name": "titoxix--template-web",
+      "source": "./titoxix--template-web",
+      "description": "template-web"
+    },
+    {
+      "name": "ryba2323--trzecijavascript",
+      "source": "./ryba2323--trzecijavascript",
+      "description": "trzeciJavaScript"
+    },
+    {
+      "name": "ryba2323--trzecijavascript",
+      "source": "./ryba2323--trzecijavascript",
+      "description": "trzeciJavaScript"
+    },
+    {
+      "name": "yukiyukitun--lp-portfolio",
+      "source": "./yukiyukitun--lp-portfolio",
+      "description": "lp-portfolio"
+    },
+    {
+      "name": "yukiyukitun--lp-portfolio",
+      "source": "./yukiyukitun--lp-portfolio",
+      "description": "lp-portfolio"
+    },
+    {
+      "name": "sc30gsw--fate-hono-turso-sample",
+      "source": "./sc30gsw--fate-hono-turso-sample",
+      "description": "fate-hono-turso-sample"
+    },
+    {
+      "name": "theaddams--pa-sparet",
+      "source": "./theaddams--pa-sparet",
+      "description": "pa-sparet"
+    },
+    {
+      "name": "teslalyon--vmq-dashboard",
+      "source": "./teslalyon--vmq-dashboard",
+      "description": "VMQ-Dashboard"
+    },
+    {
+      "name": "luccii591--orient-bob-skill",
+      "source": "./luccii591--orient-bob-skill",
+      "description": "Transforma cualquier repo Node/TypeScript en un tour guiado de onboarding en menos de 60 segundos."
+    },
+    {
+      "name": "rafi983--fylo-data-storage",
+      "source": "./rafi983--fylo-data-storage",
+      "description": "fylo_data_storage"
+    },
+    {
+      "name": "jiangddddd--web3-chechin-fronted",
+      "source": "./jiangddddd--web3-chechin-fronted",
+      "description": "web3_chechin_fronted"
+    },
+    {
+      "name": "abboskhonov--pi-desktop-old",
+      "source": "./abboskhonov--pi-desktop-old",
+      "description": "pi-desktop-old"
+    },
+    {
+      "name": "sunshibao--cc-haha",
+      "source": "./sunshibao--cc-haha",
+      "description": "cc-haha"
+    },
+    {
+      "name": "kmzz522--navihive1117",
+      "source": "./kmzz522--navihive1117",
+      "description": "navihive1117"
+    },
+    {
+      "name": "hamna12--support-ticket-triage-agent",
+      "source": "./hamna12--support-ticket-triage-agent",
+      "description": "I participated in Hacker-Rank 24 hour of hackathon."
+    },
+    {
+      "name": "202510-phys-390--202510-phys-390-classroom-fem-current-flow-openems-template",
+      "source": "./202510-phys-390--202510-phys-390-classroom-fem-current-flow-openems-template",
+      "description": "202510-phys-390-classroom-fem-current-flow-openems-template created by GitHub Classroom"
+    },
+    {
+      "name": "guochencheng--personal-site-ai-template",
+      "source": "./guochencheng--personal-site-ai-template",
+      "description": "personal-site-ai-template"
+    },
+    {
+      "name": "vestermark10--dashboard-hm-sp",
+      "source": "./vestermark10--dashboard-hm-sp",
+      "description": "Created with CodeSandbox"
+    },
+    {
+      "name": "kkive--cardhub1",
+      "source": "./kkive--cardhub1",
+      "description": "cardhub1"
+    },
+    {
+      "name": "mexhiss--photofetcher",
+      "source": "./mexhiss--photofetcher",
+      "description": "photoFetcher"
+    },
+    {
+      "name": "saadhana20--thay-trust",
+      "source": "./saadhana20--thay-trust",
+      "description": "thay-trust"
+    },
+    {
+      "name": "j1angel--frontend-assessment",
+      "source": "./j1angel--frontend-assessment",
+      "description": "frontend-assessment"
+    },
+    {
+      "name": "bhargavmartha07--telegram-ai-assistant",
+      "source": "./bhargavmartha07--telegram-ai-assistant",
+      "description": "telegram_ai_assistant"
+    },
+    {
+      "name": "teslalyon--vmq-dashboard",
+      "source": "./teslalyon--vmq-dashboard",
+      "description": "VMQ-Dashboard"
+    },
+    {
+      "name": "josematheus2908--pdmo",
+      "source": "./josematheus2908--pdmo",
+      "description": "PDMO"
+    },
+    {
+      "name": "contacthafagroup-beep--lomi-cafe",
+      "source": "./contacthafagroup-beep--lomi-cafe",
+      "description": "lomi-cafe"
+    },
+    {
+      "name": "abboskhonov--pi-desktop-old",
+      "source": "./abboskhonov--pi-desktop-old",
+      "description": "pi-desktop-old"
+    },
+    {
+      "name": "izwanyusop--meowdah",
+      "source": "./izwanyusop--meowdah",
+      "description": "Meowdah"
+    },
+    {
+      "name": "sandy-jarvis--unicoconnect",
+      "source": "./sandy-jarvis--unicoconnect",
+      "description": "UnicoConnect"
+    },
+    {
+      "name": "christo-kv--wellness",
+      "source": "./christo-kv--wellness",
+      "description": "wellness"
+    },
+    {
+      "name": "spencerjireh--http-watcher",
+      "source": "./spencerjireh--http-watcher",
+      "description": "An Electron application for intercepting and analyzing HTTP/HTTPS traffic from Chrome browser instances using Chrome DevTools Protocol."
+    },
+    {
+      "name": "kmzz522--navihive1117",
+      "source": "./kmzz522--navihive1117",
+      "description": "navihive1117"
+    },
+    {
+      "name": "cgfeel--use-event-chat-demo",
+      "source": "./cgfeel--use-event-chat-demo",
+      "description": "\u4e00\u4e2a\u8de8\u7ec4\u4ef6\u901a\u4fe1\u7684\u4f8b\u5b50"
+    },
+    {
+      "name": "minnyat--ai4chill-vcode",
+      "source": "./minnyat--ai4chill-vcode",
+      "description": "AI-powered virtual coding environment and development tools"
     }
   ]
 }
