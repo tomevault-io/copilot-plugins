@@ -1,0 +1,9 @@
+{
+  "name": "spencerjireh--http-watcher",
+  "displayName": "http-watcher",
+  "description": "An Electron application for intercepting and analyzing HTTP/HTTPS traffic from Chrome browser instances using Chrome DevTools Protocol.",
+  "version": "1.0.0",
+  "author": "spencerjireh",
+  "homepage": "https://github.com/spencerjireh/http-watcher",
+  "skills": []
+}
