@@ -1,0 +1,43 @@
+## survive-the-night-game
+
+> const position = entity.getExt(ClientPositionable).getPosition();
+
+### How to get a position of an entity
+
+```ts
+const position = entity.getExt(ClientPositionable).getPosition();
+```
+
+### How to check if an entity has a position
+
+```ts
+if (entity.hasExt(ClientPositionable)) {
+  const position = entity.getExt(ClientPositionable).getPosition();
+}
+```
+
+### Wire protocol / stable numeric ids (game-shared)
+
+- Entity, item, event, and interactable-display-name encodings use **uint8** ids. Ids follow **registry / source declaration order**, not alphabetical sort.
+- **Append** new types at the **end** of config objects (`ITEM_CONFIGS`, `ENTITY_REGISTRATION_CONFIG` item section, `InteractableTexts`, `ServerSentEvents` / `ClientSentEvents`) so existing ids do not shift.
+- Map spawns-layer item fixtures: use `ITEM_FIXTURE_APPEND_ONLY_TYPES` in `spawn-palette.ts` for new pickups; dialogue NPC tiles are fixed **250/251**.
+
+### When adding a new zombie entity
+
+- remember to add it to the entity manager's entityMap
+- add an entity on the server
+- add an entity on the client
+- update entity factory on client
+- update the map manager's to spawn the new zombie type
+
+### game-server TypeScript
+
+- Source lives in `.ts` only under `packages/game-server/src`. `tsconfig` uses **`noEmit: true`** so `tsc` must not write `.js` next to sources (use `tsx` / `tsup`). Do not commit `.js`, `.js.map`, or a `.d.ts` next to the same-named `.ts` under `src/`. `npm test` in that package runs `check:ts-sources` first.
+
+### React Route 7
+
+- anything in the website package, remember I'm using react router 7. please refer to the docs for how to do things.
+
+---
+> Source: [webdevcody/survive-the-night-game](https://github.com/webdevcody/survive-the-night-game) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
