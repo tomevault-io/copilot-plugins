@@ -1,0 +1,9 @@
+{
+  "name": "jackhopkins--claude-code-plays-factorio",
+  "displayName": "claude-code-plays-factorio",
+  "description": "A starter repo for getting Claude Code to play Factorio built by the FLE team.",
+  "version": "1.0.0",
+  "author": "JackHopkins",
+  "homepage": "https://github.com/JackHopkins/claude-code-plays-factorio",
+  "skills": []
+}
