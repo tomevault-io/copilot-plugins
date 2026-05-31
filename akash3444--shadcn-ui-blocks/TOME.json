@@ -4,7 +4,7 @@
   "repo": "shadcn-ui-blocks",
   "description": "Customized Shadcn UI component and blocks. Just copy & Paste!",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/akash3444/shadcn-ui-blocks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T23:31:56Z"
+  "distributed_at": "2026-05-31T23:32:53Z"
 }
