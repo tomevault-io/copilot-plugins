@@ -1,0 +1,9 @@
+{
+  "name": "leonkohli--browser-fingerprint",
+  "displayName": "browser-fingerprint",
+  "description": "An app to demonstrate various browser fingerprinting techniques",
+  "version": "1.0.0",
+  "author": "LeonKohli",
+  "homepage": "https://github.com/LeonKohli/browser-fingerprint",
+  "skills": []
+}
