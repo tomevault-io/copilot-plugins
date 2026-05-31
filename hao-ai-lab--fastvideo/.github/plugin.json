@@ -1,0 +1,9 @@
+{
+  "name": "hao-ai-lab--fastvideo",
+  "displayName": "FastVideo",
+  "description": "A unified inference and post-training framework for accelerated video generation.",
+  "version": "1.0.0",
+  "author": "hao-ai-lab",
+  "homepage": "https://github.com/hao-ai-lab/FastVideo",
+  "skills": []
+}
