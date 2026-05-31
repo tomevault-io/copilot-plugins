@@ -1,0 +1,9 @@
+{
+  "name": "sockudo--sockudo",
+  "displayName": "sockudo",
+  "description": "Blazingly fast pusher drop-in replacement written in rust",
+  "version": "1.0.0",
+  "author": "sockudo",
+  "homepage": "https://github.com/sockudo/sockudo",
+  "skills": []
+}
