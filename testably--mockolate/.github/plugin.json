@@ -1,0 +1,9 @@
+{
+  "name": "testably--mockolate",
+  "displayName": "Mockolate",
+  "description": "A modern, strongly-typed, AOT-compatible mocking library for .NET, powered by source generators.",
+  "version": "1.0.0",
+  "author": "Testably",
+  "homepage": "https://github.com/Testably/Mockolate",
+  "skills": []
+}
