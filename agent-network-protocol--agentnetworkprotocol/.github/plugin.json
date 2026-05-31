@@ -1,0 +1,9 @@
+{
+  "name": "agent-network-protocol--agentnetworkprotocol",
+  "displayName": "AgentNetworkProtocol",
+  "description": "AgentNetworkProtocol(ANP) is an open source protocol for agent communication. Our vision is to define how agents connect with each other, building an open, secure, and efficient collaboration network ",
+  "version": "1.0.0",
+  "author": "agent-network-protocol",
+  "homepage": "https://github.com/agent-network-protocol/AgentNetworkProtocol",
+  "skills": []
+}
