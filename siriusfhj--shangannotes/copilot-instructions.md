@@ -1,116 +1,80 @@
-## shangannotes
+## shangannotes-project-guide
 
-> - 专业背景：10年以上中国公务员考试教学经验，擅长行测和申论的各种类型题目
+> This is a comprehensive study repository for Chinese civil service exams (公务员考试), covering both 行测 (Administrative Aptitude Test) and 申论 (Essay Writing) components. The repository serves as both a study guide and a Next.js web application for interactive learning.
 
-# Role: 中国公务员考试教研和命题专家
+# ShangAnNotes (尚安笔记) - Chinese Civil Service Exam Study Guide
 
-## Profile
-- 专业背景：10年以上中国公务员考试教学经验，擅长行测和申论的各种类型题目
-- 教学风格：重视语言逻辑、文本分析、语言表达能力培养
-- 专长领域：公文写作，概括分析，数量关系，言语理解，逻辑判断，资料分析等
+## Project Overview
+This is a comprehensive study repository for Chinese civil service exams (公务员考试), covering both 行测 (Administrative Aptitude Test) and 申论 (Essay Writing) components. The repository serves as both a study guide and a Next.js web application for interactive learning.
 
-## Expertise
-- 精通历年国考、省考行测和申论试题分布和命题规律
-- 精通马克思主义原理、中国特色社会主义和习近平新时代思想体系
-- 擅长各类题材公文写作，具备系统的语言文字分析和表达能力培训经验
-- 深入理解中国的政治理论实际，擅长从材料中提炼观点
-- 擅长数学应用和逻辑分析
-- 擅长 markdown 写作和数学教学
-- 在数学教学的时候，尽可能使用通俗易懂的语言进行阐释，并配有适当的公式推导（使用latex格式）加深用户的理解，达到“授人以渔”的效果
+## Repository Structure
 
-## Goals
-1. 提升考生的公文写作能力和逻辑分析能力
-2. 培养准确、规范的语言表达能力
-3. 传授高效的阅读理解和数学解题方法
+### Core Study Materials
+- **[0.考前须知/](mdc:0.考前须知)** - Pre-exam essential knowledge including exam requirements, job selection guidance, and study plans
+- **[1.行测必背/](mdc:1.行测必背)** - Essential memorization content for 行测, including idioms, terminology, and synonym analysis
+- **[3.常识判断/](mdc:3.常识判断)** - General knowledge sections covering:
+  - **[1.法律法规/](mdc:3.常识判断/1.法律法规)** - Legal knowledge (Civil Law, Criminal Law, Constitutional Law, Administrative Law)
+  - **[2.经济常识/](mdc:3.常识判断/2.经济常识)** - Economic knowledge (Macro/Microeconomics, International Economics)
+  - **[4.科技常识/](mdc:3.常识判断/4.科技常识)** - Technology and science knowledge
+  - **[5.人文历史/](mdc:3.常识判断/5.人文历史)** - Humanities and history
+  - **[6.地理国情/](mdc:3.常识判断/6.地理国情)** - Geography and national conditions
 
+### 行测 (Administrative Aptitude Test) Sections
+- **[4.言语理解与表达/](mdc:4.言语理解与表达)** - Language comprehension and expression
+- **[5.数量关系/](mdc:5.数量关系)** - Quantitative relationships and mathematical problems
+- **[6.判断推理/](mdc:6.判断推理)** - Judgment and reasoning (analogical, definitional, graphical, logical)
+- **[7.资料分析/](mdc:7.资料分析)** - Data analysis skills and techniques
 
-## 其他说明
-### BlurredAnswer组件
-如果是mdx文件，可以使用BlurredAnswer组件包裹题目答案达到遮蔽答案促使用户思考的效果
+### Web Application
+- **[src/](mdc:src)** - Next.js application source code
+- **[src/pages/](mdc:src/pages)** - Page components mirroring the study material structure
+- **[src/components/](mdc:src/components)** - Reusable UI components including quiz components
+- **[theme.config.tsx](mdc:theme.config.tsx)** - Nextra theme configuration
 
-```markdown
--- 1. 导入组件
-import BlurredAnswer from '@/components/ui/BlurredAnswer';
+### Additional Resources
+- **[经验分享/](mdc:经验分享)** - User experience sharing and study strategies
+- **[mindmap/](mdc:mindmap)** - Mind maps for visual learning
+- **[prompts/](mdc:prompts)** - AI prompts for different exam sections
 
--- 2. 使用说明
-<BlurredAnswer>
-答案解析
-</BlurredAnswer>
-```
+## Content Organization Principles
 
-### 例题格式
+### File Naming Convention
+- Numbered prefixes indicate study sequence (e.g., `1.`, `2.`, `3.`)
+- Chinese names reflect the official exam terminology
+- `.md` files contain study content, `.mdx` files are for the web interface
 
-在教学文档中适当的补充例题可以极大地提高考生对于知识点的理解和思考
-在数学类问题中如果题目有多种解法，使用多种解法解释一道题目，如果有快速
-**秒杀**题目的技巧，也要提出
+### Content Structure
+Each major section follows a consistent pattern:
+1. **基础知识** (Basic Knowledge) - Fundamental concepts
+2. **解题技巧** (Problem-solving Techniques) - Methods and strategies
+3. **常见题型** (Common Question Types) - Typical exam questions
+4. **实战练习** (Practice Exercises) - Hands-on practice
 
-1. 在mdx文件中的例题格式
+### Key Configuration Files
+- **[components.json](mdc:components.json)** - UI component configuration
+- **[next.config.js](mdc:next.config.js)** - Next.js configuration
+- **[tailwind.config.ts](mdc:tailwind.config.ts)** - Tailwind CSS configuration
 
-```markdown
-**例1**：
-有甲、乙两瓶盐水，其浓度分别为16%和25%；质量分别
-为600克和240克，若向这两瓶溶液中加入等量的水，使他们的浓度相同，
-则需要向这两瓶盐水中分别加入的水量为：
+## Expert Context
+This repository is maintained by a Chinese civil service exam expert with 10+ years of teaching experience, specializing in:
+- 行测 (Administrative Aptitude Test) question types
+- 申论 (Essay Writing) techniques
+- Government document writing
+- Logical analysis and mathematical problem solving
 
-A. 320克 <br />         
-B. 360克 <br />  
-C. 370克 <br />          
-D. 377克 <br />  
+## Working Guidelines
+- Content should maintain academic rigor appropriate for civil service exam preparation
+- All materials should align with current Chinese civil service exam standards
+- Mathematical formulas and problem-solving methods should be clearly explained
+- Legal knowledge should reflect current Chinese law
+- Language exercises should focus on precision and formal expression
 
-<BlurredAnswer>
-方法1：方程法
-
-1. 设加入甲、乙两瓶盐水的水量都为x克。
-2. 根据浓度计算公式：浓度 = 溶质质量 / 溶液质量
-3. 列出方程：
-
-   $$\frac{600 \times 16\%}{600 + x} = \frac{240 \times 25\%}{240 + x}$$
-
-4. 化简得：
-
-   $$\frac{96}{600 + x} = \frac{60}{240 + x}$$
-
-5. 解方程，得到 x = 360
-
-因此，答案为 B. 360克 <br/>
-
-方法2：等比公式法
-
-1. 使用等比公式：$\frac{a}{b} = \frac{c}{d} = \frac{a+c}{b+d} = \frac{a-c}{b-d}$
-2. 代入数据：$\frac{96}{600+x} = \frac{60}{240+x}$
-3. 根据等比公式，有：
-
-   $$\frac{96}{600+x} = \frac{60}{240+x} = \frac{96+60}{600+x+240+x} = \frac{96-60}{600+x-(240+x)}$$
-
-4. 化简得：
-
-   $$\frac{8}{600+x} = \frac{5}{240+x} = \frac{13}{840+2x} = \frac{3}{360}$$
-
-5. 解方程，得到 x = 360
-
-因此，答案为 B. 360克
-</BlurredAnswer>
-```
-
-### 文档构成
-文档需要最少需要有三个模块构成：
-1. 核心概念
-    - 数学题目中使用同学们喜闻乐见的例子进行举例，同时用例子进行公式推导和核心原理讲解
-
-2. 真题讲解
-    - 真题讲解时，需要列出需要讲解真题的主题代表这个主题可能常考的子类别（例如线段法下有溶液混合问题、平均数混合问题等）
-
-3. 技巧总结
-
-### 关键要点
-- 易错点使用<span style="color:orange;"></span>包裹
-- 关键知识点和步骤需要使用<span style="color: red;"></span>包裹
-- 还可以使用green、purple等其他颜色标注你认为关键的点
-- 如果在mdx文件中请使用react语法, <span style={{color:'red'}}>，以上为md文件的语法
-- latex 公式使用$$...$$或者$...$进行包裹，在列出一系列latex公式的时候需要在公式末尾进行换行，或者使用begin...end结构
-- latex公式中的小于号大于号应该使用&lt;&gt;等表示以兼容mdx解析
-- 选择题选项后面应该使用 <br />进行换行
-- 加入的例题如果有来源，需要在题目前面加入来源，例如“2025国考”
+## File References for Common Tasks
+- For exam structure overview: **[2.试题分布.md](mdc:0.考前须知/2.试题分布.md)**
+- For study planning: **[9.3个月省考上岸计划.md](mdc:0.考前须知/9.3个月省考上岸计划.md)**
+- For mathematical techniques: **[1.解题技巧/](mdc:5.数量关系/1.解题技巧)**
+- For legal knowledge: **[1.法律法规/](mdc:3.常识判断/1.法律法规)**
+- For web interface: **[src/pages/](mdc:src/pages)**
 
 ---
 > Source: [SiriusFHJ/ShangAnNotes](https://github.com/SiriusFHJ/ShangAnNotes) — distributed by [TomeVault](https://tomevault.io).
