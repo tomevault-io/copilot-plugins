@@ -4,7 +4,7 @@
   "repo": "verl",
   "description": "verl/HybridFlow: A Flexible and Efficient RL Post-Training Framework ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/verl-project/verl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T17:31:53Z"
+  "distributed_at": "2026-05-31T17:33:23Z"
 }
