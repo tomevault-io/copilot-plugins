@@ -1,0 +1,164 @@
+## general
+
+> You are an expert in TypeScript, Chrome Extensions API V3, React, WXT framework, and modern web development.
+
+You are an expert in TypeScript, Chrome Extensions API V3, React, WXT framework, and modern web development.
+
+## Project Architecture
+
+### WXT Framework
+- Use WXT as the primary build tool and framework for Chrome extension development
+- Follow WXT conventions for entrypoints: `src/app/` contains all extension pages/scripts
+- Leverage WXT's auto-imports and built-in TypeScript support
+- Use WXT modules: `@wxt-dev/module-react` for React integration, `@wxt-dev/auto-icons` for icon generation
+
+### Extension Structure
+- **Background Scripts**: Keep minimal, event-driven service workers in `src/app/background/`
+- **Content Scripts**: Place in `src/app/content/` - use sparingly, implement proper cleanup
+- **Popup**: Main UI in `src/app/popup/` - keep lightweight and responsive
+- **Options**: Settings page in `src/app/options/`
+- **Side Panel**: Modern UI extension in `src/app/sidepanel/`
+- **New Tab**: Custom new tab page in `src/app/newtab/`
+- **DevTools**: Development tools in `src/app/devtools/`
+
+## Code Style and Standards
+
+### TypeScript Configuration
+- Use strict TypeScript with `noUncheckedIndexedAccess: true`
+- Prefer interfaces over types for object shapes
+- Use Chrome Extension type definitions (`@types/chrome`)
+- Define strict types for message passing between extension components
+- Follow the existing tsconfig settings (ES2022, DOM, JSX preserve)
+
+### Formatting (Biome)
+- Use Biome for formatting and linting (configured in `biome.json`)
+- 2-space indentation, 80 character line width
+- Double quotes for strings
+- Auto-organize imports
+- Remove unused imports automatically
+
+### Naming Conventions
+- Use kebab-case for directories (`content-scripts/`, `ui-components/`)
+- Use PascalCase for React components and interfaces
+- Use camelCase for functions, variables, and object properties
+- Use descriptive names with auxiliary verbs (`isLoading`, `hasPermission`, `canAccess`)
+- Favor named exports over default exports
+
+## React and UI Development
+
+### React Patterns
+- Functional components with hooks exclusively
+- Use React Hook Form with Zod for form validation
+- Implement React Router DOM for multi-page navigation
+- Use React Query (@tanstack/react-query) for data fetching and state management
+
+### Component Structure
+- Place reusable components in `src/components/`
+- Organize by feature: `auth/`, `common/`, `layout/`, `ui/`
+- Use shadcn/ui patterns with Radix UI primitives
+- Implement proper TypeScript props interfaces
+
+### Styling
+- Use Tailwind CSS v4 with @tailwindcss/vite
+- Keep styles scoped to avoid conflicts with target pages
+- Use CSS variables for theming (next-themes integration)
+- Implement responsive design for popup windows (minimum 320px width)
+- Use Lucide React for consistent iconography
+
+## Chrome Extension Best Practices
+
+### Manifest V3
+- Follow Manifest V3 guidelines strictly
+- Use service workers instead of background pages
+- Implement proper permission handling and security practices
+- Use `chrome.storage` for persistent data
+- Leverage `chrome.sidePanel` for extended UI
+
+### Security and Permissions
+- Request minimal permissions in manifest
+- Use `host_permissions` judiciously
+- Implement Content Security Policy compliance
+- Sanitize user inputs and external content
+- Use secure communication between extension components
+
+### Message Passing
+- Use `@webext-core/messaging` for type-safe communication
+- Define message schemas with Zod validation
+- Implement proper error handling for async operations
+- Use structured message passing between background/content/popup
+
+### Performance Optimization
+- Lazy load components and heavy dependencies
+- Use React.memo for expensive components
+- Implement efficient state management patterns
+- Optimize bundle size with tree shaking
+- Use service worker caching strategies
+
+## Development Workflow
+
+### Build and Development
+- Use `bun dev` for Chrome development, `bun dev:firefox` for Firefox
+- Run `bun build` for production builds (both Chrome and Firefox)
+- Use `bun lint` for code quality checks
+- Run `bun typecheck` for TypeScript validation
+
+### Testing and Quality
+- Use Vitest for unit testing (configured but implement tests)
+- Test extension functionality across different browser contexts
+- Validate manifest permissions and CSP compliance
+- Use browser dev tools for debugging extension components
+
+### Git and Commits
+- Follow Conventional Commits (commitlint configured)
+- Use Husky for pre-commit hooks
+- Keep commits atomic and well-described
+- Use proper branch naming conventions
+
+## Integration and External Services
+
+### Data Layer
+- Use Supabase for backend services and authentication
+- Implement proper error boundaries and fallbacks
+- Use OpenPanel for analytics (privacy-conscious)
+- Leverage Chrome AI API when available
+
+### State Management
+- Use React Query for server state
+- Use React Context for global UI state
+- Implement proper loading and error states
+- Use optimistic updates where appropriate
+
+### Utilities and Helpers
+- Place shared utilities in `src/lib/`
+- Use `envin` for environment variable management
+- Implement proper TypeScript utility types
+- Use `clsx` and `tailwind-merge` for className composition
+
+## Error Handling and Debugging
+
+### Error Boundaries
+- Implement React error boundaries for UI components
+- Use proper try-catch blocks in async operations
+- Log errors appropriately without exposing sensitive data
+- Provide user-friendly error messages
+
+### Development Tools
+- Use Chrome DevTools for extension debugging
+- Implement proper console logging strategies
+- Use source maps for production debugging
+- Test across different Chrome versions and contexts
+
+## Key Principles
+
+1. **Security First**: Always prioritize security in extension development
+2. **Performance**: Keep bundles small and runtime efficient
+3. **User Experience**: Design for quick interactions and clear feedback
+4. **Compatibility**: Test across Chrome and Firefox (multi-browser support)
+5. **Maintainability**: Write clean, documented, and testable code
+6. **Modern Standards**: Use latest web standards and best practices
+
+Follow Chrome Extension documentation, WXT framework docs, and React best practices for comprehensive development guidance.
+
+---
+> Source: [turbostarter/extro](https://github.com/turbostarter/extro) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
