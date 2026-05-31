@@ -1779,6 +1779,11 @@
       "description": "\ud83d\udc38 Read Frog - Open Source Immersive Translate | \ud83d\udc38 \u966a\u8bfb\u86d9 - \u5f00\u6e90\u6c89\u6d78\u5f0f\u7ffb\u8bd1"
     },
     {
+      "name": "pdone--lx-music-source",
+      "source": "./pdone--lx-music-source",
+      "description": "\u6d1b\u96ea\u97f3\u4e50\u6e90"
+    },
+    {
       "name": "heygen-com--hyperframes",
       "source": "./heygen-com--hyperframes",
       "description": "Write HTML. Render video. Built for agents."
@@ -2269,6 +2274,11 @@
       "description": "Kode Agent \u2014 Design for post-human workflows. One unit agent for every human & computer task."
     },
     {
+      "name": "wxxsfxyzm--installerx-revived",
+      "source": "./wxxsfxyzm--installerx-revived",
+      "description": "More Expressive InstallerX !"
+    },
+    {
       "name": "quipnetwork--quip-node-manager",
       "source": "./quipnetwork--quip-node-manager",
       "description": "A simple GUI client to manage a Quip Network node"
@@ -2417,6 +2427,16 @@
       "name": "rikkahub--rikkahub",
       "source": "./rikkahub--rikkahub",
       "description": "RikkaHub is an Android APP that supports for multiple LLM providers."
+    },
+    {
+      "name": "ag2ai--ag2",
+      "source": "./ag2ai--ag2",
+      "description": "AG2 (formerly AutoGen): The Open-Source AgentOS.Join us at: https://discord.gg/sNGSwQME3x"
+    },
+    {
+      "name": "ag2ai--ag2",
+      "source": "./ag2ai--ag2",
+      "description": "AG2 (formerly AutoGen): The Open-Source AgentOS.Join us at: https://discord.gg/sNGSwQME3x"
     },
     {
       "name": "u14app--deep-research",
@@ -2987,6 +3007,31 @@
       "name": "anomalyco--models-dev",
       "source": "./anomalyco--models-dev",
       "description": "An open-source database of AI models."
+    },
+    {
+      "name": "morphik-org--morphik-core",
+      "source": "./morphik-org--morphik-core",
+      "description": "The most accurate document search and store for building AI apps"
+    },
+    {
+      "name": "morphik-org--morphik-core",
+      "source": "./morphik-org--morphik-core",
+      "description": "The most accurate document search and store for building AI apps"
+    },
+    {
+      "name": "flexprice--flexprice",
+      "source": "./flexprice--flexprice",
+      "description": "Usage-based pricing and billing for developers \ud83d\udd13 Cloud or self-hosted \u2699\ufe0f No-code UI \ud83d\udcb0 Realtime usage metering \ud83c\udf9f Credits & top-ups \ud83d\udd11 Control feature access"
+    },
+    {
+      "name": "flexprice--flexprice",
+      "source": "./flexprice--flexprice",
+      "description": "Usage-based pricing and billing for developers \ud83d\udd13 Cloud or self-hosted \u2699\ufe0f No-code UI \ud83d\udcb0 Realtime usage metering \ud83c\udf9f Credits & top-ups \ud83d\udd11 Control feature access"
+    },
+    {
+      "name": "flexprice--flexprice",
+      "source": "./flexprice--flexprice",
+      "description": "Usage-based pricing and billing for developers \ud83d\udd13 Cloud or self-hosted \u2699\ufe0f No-code UI \ud83d\udcb0 Realtime usage metering \ud83c\udf9f Credits & top-ups \ud83d\udd11 Control feature access"
     },
     {
       "name": "deanpeters--product-manager-skills",
@@ -3809,6 +3854,11 @@
       "description": "A lightweight command-line tool that spins up a local web server to display Git commit diffs in a GitHub-like Files changed view"
     },
     {
+      "name": "xiaomingx--ai-money-maker-handbook",
+      "source": "./xiaomingx--ai-money-maker-handbook",
+      "description": "ai\u526f\u4e1a\u8d5a\u94b1\u5927\u96c6\u5408\uff0c\u6559\u4f60\u5982\u4f55\u5229\u7528ai\u505a\u4e00\u4e9b\u526f\u4e1a\u9879\u76ee\uff0c\u8d5a\u53d6\u66f4\u591a\u989d\u5916\u6536\u76ca\u3002The Ultimate Guide to Making Money with AI Side Hustles: Learn how to leverage AI for some cool side gigs and rake in some extra cash. Check out the English version "
+    },
+    {
       "name": "moltis-org--moltis",
       "source": "./moltis-org--moltis",
       "description": "A secure persistent personal agent server in Rust. One binary, sandboxed execution, multi-provider LLMs, voice, memory, Telegram, WhatsApp, Discord, Teams, and MCP tools. Secure by design, runs on you"
@@ -3912,6 +3962,36 @@
       "name": "zhziszz--dllm",
       "source": "./zhziszz--dllm",
       "description": "dLLM: Simple Diffusion Language Modeling"
+    },
+    {
+      "name": "leaperone--multipost-extension",
+      "source": "./leaperone--multipost-extension",
+      "description": "A browser extension that helps users publish content to multiple social media platforms with one click."
+    },
+    {
+      "name": "leaperone--multipost-extension",
+      "source": "./leaperone--multipost-extension",
+      "description": "A browser extension that helps users publish content to multiple social media platforms with one click."
+    },
+    {
+      "name": "leaperone--multipost-extension",
+      "source": "./leaperone--multipost-extension",
+      "description": "A browser extension that helps users publish content to multiple social media platforms with one click."
+    },
+    {
+      "name": "leaperone--multipost-extension",
+      "source": "./leaperone--multipost-extension",
+      "description": "A browser extension that helps users publish content to multiple social media platforms with one click."
+    },
+    {
+      "name": "leaperone--multipost-extension",
+      "source": "./leaperone--multipost-extension",
+      "description": "A browser extension that helps users publish content to multiple social media platforms with one click."
+    },
+    {
+      "name": "leaperone--multipost-extension",
+      "source": "./leaperone--multipost-extension",
+      "description": "A browser extension that helps users publish content to multiple social media platforms with one click."
     },
     {
       "name": "qiuzhi2046--qclaw",
@@ -4047,6 +4127,11 @@
       "name": "public-clis--twitter-cli",
       "source": "./public-clis--twitter-cli",
       "description": "A CLI for Twitter/X \u2014 feed, bookmarks, and user timeline in terminal"
+    },
+    {
+      "name": "cleanuparr--cleanuparr",
+      "source": "./cleanuparr--cleanuparr",
+      "description": "Advanced download manager for the Servarr ecosystem"
     },
     {
       "name": "simon-he95--markstream-vue",
@@ -4197,6 +4282,11 @@
       "name": "freeu-group--freetodo",
       "source": "./freeu-group--freetodo",
       "description": "Auto-Manage Your Personal Task Context with AI."
+    },
+    {
+      "name": "apconw--aix-db",
+      "source": "./apconw--aix-db",
+      "description": "Aix-DB \u57fa\u4e8e LangChain/LangGraph \u6846\u67b6\uff0c\u7ed3\u5408 MCP Skills \u591a\u667a\u80fd\u4f53\u534f\u4f5c\u67b6\u6784\uff0c\u5b9e\u73b0\u81ea\u7136\u8bed\u8a00\u5230\u6570\u636e\u6d1e\u5bdf\u7684\u7aef\u5230\u7aef\u8f6c\u6362\u3002"
     },
     {
       "name": "yanjieze--gmr",
@@ -4512,6 +4602,11 @@
       "name": "breferrari--obsidian-mind",
       "source": "./breferrari--obsidian-mind",
       "description": "An Obsidian vault that gives AI coding agents persistent memory. Claude Code, Codex CLI, Gemini CLI."
+    },
+    {
+      "name": "betastreetomnis--xhs-ai-publisher",
+      "source": "./betastreetomnis--xhs-ai-publisher",
+      "description": "AI-powered Xiaohongshu/Rednote content creation and publishing tool with PyQt desktop UI, FastAPI service, login-state reuse, preview publish, and automated browser workflows."
     },
     {
       "name": "vercel--ai-elements",
@@ -5079,6 +5174,11 @@
       "description": "\u57fa\u4e8e Spring Boot 4.0 + Java 21 + Spring AI + PostgreSQL + pgvector + RustFS + Redis\uff0c\u5b9e\u73b0\u7b80\u5386\u667a\u80fd\u5206\u6790\u3001AI\u6a21\u62df\u9762\u8bd5\u3001\u77e5\u8bc6\u5e93RAG\u68c0\u7d22\u7b49\u6838\u5fc3\u529f\u80fd\u3002\u975e\u5e38\u9002\u5408\u4f5c\u4e3a\u5b66\u4e60\u548c\u7b80\u5386\u9879\u76ee\uff0c\u5b66\u4e60\u95e8\u69db\u4f4e\u3002"
     },
     {
+      "name": "k1tbyte--wand-enhancer",
+      "source": "./k1tbyte--wand-enhancer",
+      "description": "Advanced UX and interoperability extension for Wand (WeMod) app"
+    },
+    {
       "name": "c15t--c15t",
       "source": "./c15t--c15t",
       "description": "The Developer-First Cookie Banner"
@@ -5202,6 +5302,11 @@
       "name": "mcollina--skills",
       "source": "./mcollina--skills",
       "description": "My own collection of skills for modern Node.js development"
+    },
+    {
+      "name": "sendaifun--solana-agent-kit",
+      "source": "./sendaifun--solana-agent-kit",
+      "description": "connect any ai agents to solana protocols"
     },
     {
       "name": "wesm--msgvault",
@@ -5487,6 +5592,11 @@
       "name": "trailofbits--buttercup",
       "source": "./trailofbits--buttercup",
       "description": "Buttercup finds and patches software vulnerabilities"
+    },
+    {
+      "name": "mattpocock--evalite",
+      "source": "./mattpocock--evalite",
+      "description": "Evaluate your LLM-powered apps with TypeScript"
     },
     {
       "name": "rohithgilla12--data-peek",
@@ -5794,6 +5904,11 @@
       "description": "A dev agent multiplexer for git worktrees and coding agents."
     },
     {
+      "name": "internet-development--www-sacred",
+      "source": "./internet-development--www-sacred",
+      "description": "SRCL is an open-source React component and style repository that helps you build web applications, desktop applications, and static websites with terminal aesthetics."
+    },
+    {
       "name": "chrisryugj--korean-law-mcp",
       "source": "./chrisryugj--korean-law-mcp",
       "description": "\uad6d\uac00\ubc95\ub839\uc815\ubcf4MCP | \ubc95\uc81c\ucc98 41\uac1c API \u2192 16\uac1c MCP \ub3c4\uad6c. \ubc95\ub839\u00b7\ud310\ub840\u00b7\uc870\ub840\u00b7\uc870\uc57d\uc744 AI\ub85c \uac80\uc0c9\u00b7\uc870\ud68c\u00b7\ubd84\uc11d + LLM \ud658\uac01 \ubc29\uc9c0 \uc778\uc6a9 \uac80\uc99d | 41 Korean legal APIs \u2192 16 MCP tools with AI citation hallucination guard"
@@ -5927,6 +6042,11 @@
       "name": "nanonets--docstrange",
       "source": "./nanonets--docstrange",
       "description": "Extract and convert data from any document, images, pdfs, word doc, ppt or URL into multiple formats (Markdown, JSON, CSV, HTML) with intelligent structured data extraction and advanced OCR."
+    },
+    {
+      "name": "exa-labs--company-researcher",
+      "source": "./exa-labs--company-researcher",
+      "description": "Company Researcher tool helps you instantly understand any company inside out."
     },
     {
       "name": "renatoasse--opensquad",
@@ -6234,6 +6354,16 @@
       "description": "A terminal-based dashboard for managing cron jobs locally and on servers."
     },
     {
+      "name": "egoist--chatwise-releases",
+      "source": "./egoist--chatwise-releases",
+      "description": "The fastest AI Chatbot for any LLM"
+    },
+    {
+      "name": "egoist--chatwise-releases",
+      "source": "./egoist--chatwise-releases",
+      "description": "The fastest AI Chatbot for any LLM"
+    },
+    {
       "name": "cloudai-x--claude-workflow-v2",
       "source": "./cloudai-x--claude-workflow-v2",
       "description": "Universal Claude Code workflow plugin with agents, skills, hooks, and commands"
@@ -6427,6 +6557,16 @@
       "name": "kenryu42--claude-code-safety-net",
       "source": "./kenryu42--claude-code-safety-net",
       "description": "A coding agent hook that acts as a safety net, catching destructive git and filesystem commands before they execute."
+    },
+    {
+      "name": "zacsweers--metro",
+      "source": "./zacsweers--metro",
+      "description": "A multiplatform, compile-time dependency injection framework for Kotlin"
+    },
+    {
+      "name": "soloterm--solo",
+      "source": "./soloterm--solo",
+      "description": "Your all-in-one Laravel command to tame local development"
     },
     {
       "name": "kai-scheduler--kai-scheduler",
@@ -7127,6 +7267,11 @@
       "name": "i-am-bee--agentstack",
       "source": "./i-am-bee--agentstack",
       "description": "Deploy, and share agents with open infrastructure, free from vendor lock-in."
+    },
+    {
+      "name": "nvidia--kvpress",
+      "source": "./nvidia--kvpress",
+      "description": "LLM KV cache compression made easy"
     },
     {
       "name": "rue-language--rue",
@@ -9177,6 +9322,11 @@
       "name": "lubomirgeorgiev--cloudflare-workers-nextjs-saas-template",
       "source": "./lubomirgeorgiev--cloudflare-workers-nextjs-saas-template",
       "description": "Cloudflare Workers/Next.js SaaS Template"
+    },
+    {
+      "name": "lexmin0412--dify-app-hub",
+      "source": "./lexmin0412--dify-app-hub",
+      "description": "\u4e00\u4e2a Dify \u5e94\u7528\u7ba1\u7406\u5e73\u53f0\uff0c\u57fa\u4e8e Dify API \u6784\u5efa\uff0c\u63d0\u4f9b\u6df1\u5ea6\u4f18\u5316\u7684\u7528\u6237\u7aef\u4ea4\u4e92\u754c\u9762\uff0c\u652f\u6301 Chatflow\u3001Workflow \u7b49\u591a\u79cd Dify \u5e94\u7528\u7c7b\u578b\uff0c\u9002\u914d\u6df1\u5ea6\u601d\u8003\u3001\u601d\u7ef4\u94fe\u3001\u56fe\u8868\u6e32\u67d3\u3001\u6587\u4ef6\u5904\u7406\u7b49\u4e30\u5bcc\u7684 AI \u8f93\u51fa\u5f62\u5f0f\uff0c\u63d0\u4f9b\u5f00\u7bb1\u5373\u7528\u7684 AI \u5e94\u7528\u89e3\u51b3\u65b9\u6848\u3002"
     },
     {
       "name": "jezweb--claude-skills",
@@ -21864,6 +22014,16 @@
       "description": "Claude Deep Research config for Claude Code."
     },
     {
+      "name": "webdevcody--survive-the-night-game",
+      "source": "./webdevcody--survive-the-night-game",
+      "description": "Website"
+    },
+    {
+      "name": "webdevcody--survive-the-night-game",
+      "source": "./webdevcody--survive-the-night-game",
+      "description": "Website"
+    },
+    {
       "name": "xorbitsai--xagent",
       "source": "./xorbitsai--xagent",
       "description": "A production-ready platform for dynamic AI agents \u2014 plan, use tools, and complete real work without hardcoded workflows."
@@ -26637,6 +26797,16 @@
       "name": "arekhalpern--mcp-logo-gen",
       "source": "./arekhalpern--mcp-logo-gen",
       "description": "MCP-LOGO-GEN"
+    },
+    {
+      "name": "arcinstitute--sragent",
+      "source": "./arcinstitute--sragent",
+      "description": "LLM agents for working with the SRA and associated bioinformatics databases."
+    },
+    {
+      "name": "arcinstitute--sragent",
+      "source": "./arcinstitute--sragent",
+      "description": "LLM agents for working with the SRA and associated bioinformatics databases."
     },
     {
       "name": "onevcat--argue",
@@ -33324,6 +33494,11 @@
       "description": "Blorp \u2013 a Threadiverse client for Lemmy and PieFed. Web, iOS & macOS, and more!"
     },
     {
+      "name": "0xdea--haruspex",
+      "source": "./0xdea--haruspex",
+      "description": "Vulnerability research assistant that extracts pseudocode from the IDA Hex-Rays decompiler."
+    },
+    {
       "name": "anthaathi--pico",
       "source": "./anthaathi--pico",
       "description": "A web, mobile and desktop client for pi"
@@ -34184,6 +34359,46 @@
       "description": "convex-evals"
     },
     {
+      "name": "versakit--versakit-vue",
+      "source": "./versakit--versakit-vue",
+      "description": "A Vue3 component library that supports the desktop."
+    },
+    {
+      "name": "versakit--versakit-vue",
+      "source": "./versakit--versakit-vue",
+      "description": "A Vue3 component library that supports the desktop."
+    },
+    {
+      "name": "versakit--versakit-vue",
+      "source": "./versakit--versakit-vue",
+      "description": "A Vue3 component library that supports the desktop."
+    },
+    {
+      "name": "versakit--versakit-vue",
+      "source": "./versakit--versakit-vue",
+      "description": "A Vue3 component library that supports the desktop."
+    },
+    {
+      "name": "versakit--versakit-vue",
+      "source": "./versakit--versakit-vue",
+      "description": "A Vue3 component library that supports the desktop."
+    },
+    {
+      "name": "versakit--versakit-vue",
+      "source": "./versakit--versakit-vue",
+      "description": "A Vue3 component library that supports the desktop."
+    },
+    {
+      "name": "versakit--versakit-vue",
+      "source": "./versakit--versakit-vue",
+      "description": "A Vue3 component library that supports the desktop."
+    },
+    {
+      "name": "versakit--versakit-vue",
+      "source": "./versakit--versakit-vue",
+      "description": "A Vue3 component library that supports the desktop."
+    },
+    {
       "name": "lasect--pg-turret",
       "source": "./lasect--pg-turret",
       "description": "postgres extension for streaming logs"
@@ -34662,6 +34877,11 @@
       "name": "elegoo-3d--elegooslicer",
       "source": "./elegoo-3d--elegooslicer",
       "description": "ElegooSlicer is an open-source slicer compatible with most FDM printers. Currently, ElegooSlicer is undergoing rapid iteration, with more features to be released soon. Please stay tuned for updates."
+    },
+    {
+      "name": "pfrankov--obsidian-ai-providers",
+      "source": "./pfrankov--obsidian-ai-providers",
+      "description": "This plugin is a hub for setting AI providers (OpenAI-like, Ollama and more) in one place."
     },
     {
       "name": "iusztinpaul--designing-real-world-ai-agents-workshop",
@@ -89727,6 +89947,16 @@
       "name": "sophomoresty--wechat-mp-harvest",
       "source": "./sophomoresty--wechat-mp-harvest",
       "description": "WeChat MP article harvester with DLL injection for no-GUI automation"
+    },
+    {
+      "name": "johnbean393--keytype",
+      "source": "./johnbean393--keytype",
+      "description": "An open-source Cotypist with macOS system wide AI autocomplete"
+    },
+    {
+      "name": "johnbean393--keytype",
+      "source": "./johnbean393--keytype",
+      "description": "An open-source Cotypist with macOS system wide AI autocomplete"
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
