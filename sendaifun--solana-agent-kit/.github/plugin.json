@@ -1,0 +1,9 @@
+{
+  "name": "sendaifun--solana-agent-kit",
+  "displayName": "solana-agent-kit",
+  "description": "connect any ai agents to solana protocols",
+  "version": "1.0.0",
+  "author": "sendaifun",
+  "homepage": "https://github.com/sendaifun/solana-agent-kit",
+  "skills": []
+}
