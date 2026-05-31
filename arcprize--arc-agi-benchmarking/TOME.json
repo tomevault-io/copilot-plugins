@@ -4,7 +4,7 @@
   "repo": "arc-agi-benchmarking",
   "description": "Testing baseline LLMs performance across various models",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arcprize/arc-agi-benchmarking",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T23:50:29Z"
+  "distributed_at": "2026-05-31T23:52:59Z"
 }
