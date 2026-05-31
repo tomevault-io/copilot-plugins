@@ -7,11 +7,11 @@ UniFace: A Unified Face Analysis Library for Python | A comprehensive suite of h
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yakhyo/uniface](https://github.com/yakhyo/uniface).
+Original source: `CLAUDE.md` in [yakhyo/uniface](https://github.com/yakhyo/uniface).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
