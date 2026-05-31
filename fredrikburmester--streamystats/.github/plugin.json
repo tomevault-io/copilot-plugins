@@ -1,0 +1,9 @@
+{
+  "name": "fredrikburmester--streamystats",
+  "displayName": "streamystats",
+  "description": "Streamystats is a statistics service for Jellyfin, providing analytics and data visualization.",
+  "version": "1.0.0",
+  "author": "fredrikburmester",
+  "homepage": "https://github.com/fredrikburmester/streamystats",
+  "skills": []
+}
