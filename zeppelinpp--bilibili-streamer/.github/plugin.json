@@ -1,0 +1,9 @@
+{
+  "name": "zeppelinpp--bilibili-streamer",
+  "displayName": "bilibili-streamer",
+  "description": "Bilibili live streaming tool built with Tauri + React",
+  "version": "1.0.0",
+  "author": "Zeppelinpp",
+  "homepage": "https://github.com/Zeppelinpp/bilibili-streamer",
+  "skills": []
+}
