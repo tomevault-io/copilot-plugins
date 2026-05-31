@@ -1,0 +1,9 @@
+{
+  "name": "variantconst--openwebui-monitor",
+  "displayName": "OpenWebUI-Monitor",
+  "description": "A dashboard for tracking user activity and enforcing usage limits in OpenWebUI. Set user quotas efficiently.",
+  "version": "1.0.0",
+  "author": "VariantConst",
+  "homepage": "https://github.com/VariantConst/OpenWebUI-Monitor",
+  "skills": []
+}
