@@ -4,7 +4,7 @@
   "repo": "flexprice",
   "description": "Usage-based pricing and billing for developers \ud83d\udd13 Cloud or self-hosted \u2699\ufe0f No-code UI \ud83d\udcb0 Realtime usage metering \ud83c\udf9f Credits & top-ups \ud83d\udd11 Control feature access",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flexprice/flexprice",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T19:36:15Z"
+  "distributed_at": "2026-05-31T19:38:12Z"
 }
