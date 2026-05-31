@@ -1,0 +1,9 @@
+{
+  "name": "pmarreck--yt-transcriber",
+  "displayName": "yt-transcriber",
+  "description": "CLI app- Give it a YouTube URL and you get a transcription with possible speaker identification and optional summary or translation, all thanks to open-source AI tooling and my lack of enough free tim",
+  "version": "1.0.0",
+  "author": "pmarreck",
+  "homepage": "https://github.com/pmarreck/yt-transcriber",
+  "skills": []
+}
