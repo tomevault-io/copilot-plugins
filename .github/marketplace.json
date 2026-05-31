@@ -76574,6 +76574,11 @@
       "description": "A powerful dashboard for Todoist users, offering deep task analytics, productivity insights, and trend tracking. Built with Next.js, React, TypeScript, and Tailwind CSS. \ud83c\udf1f"
     },
     {
+      "name": "sandiiarov--skill-creator",
+      "source": "./sandiiarov--skill-creator",
+      "description": "Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a CLI at runtime."
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
