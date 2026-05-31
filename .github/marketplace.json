@@ -181889,6 +181889,26 @@
       "description": "TUI for Lyrion Music Server"
     },
     {
+      "name": "narze--aiupdate",
+      "source": "./narze--aiupdate",
+      "description": "Update your AI Agent Tools & Skills in one command `npx aiupdate`"
+    },
+    {
+      "name": "narze--aiupdate",
+      "source": "./narze--aiupdate",
+      "description": "Update your AI Agent Tools & Skills in one command `npx aiupdate`"
+    },
+    {
+      "name": "xiaolai--no-one-did-it",
+      "source": "./xiaolai--no-one-did-it",
+      "description": "No One Did It: Responsibility Laundering, from the Scapegoat to the Algorithm \u2014 published manuscript, 292-card source ledger, and the 13-agent apparatus that built it."
+    },
+    {
+      "name": "depixeled-chris--gta7",
+      "source": "./depixeled-chris--gta7",
+      "description": "A from-scratch, browser-based GTA-style 3D open-world driving slice in TypeScript + Three.js. (The name is a joke.)"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -184792,6 +184812,11 @@
       "name": "open-mercato--cezar",
       "source": "./open-mercato--cezar",
       "description": "Cezar is a team SaaS for running AI coding agents on GitHub issues. It's a cockpit: every agent run \u2014 queued, running, paused, failed, finished \u2014 is visible with controls. Incoming issues are auto-tri"
+    },
+    {
+      "name": "hengxin666--gpt-web-cf-make",
+      "source": "./hengxin666--gpt-web-cf-make",
+      "description": "GPT \u7f51\u9875\u7aef Token \u4fdd\u6d3b + \u6ce8\u518c\u673a\u5e73\u53f0\u3002\u652f\u6301 refresh_token \u7eed\u671f access_token. \u652f\u6301\u53cd\u4ee3gpt-img2\u548c\u7f51\u9875\u7aef\u5bf9\u8bdd; \u652f\u6301\u4ee3\u7406\u6c60"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
