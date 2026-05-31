@@ -1,0 +1,9 @@
+{
+  "name": "donisaac--zlint",
+  "displayName": "zlint",
+  "description": "A linter for the Zig programming language",
+  "version": "1.0.0",
+  "author": "DonIsaac",
+  "homepage": "https://github.com/DonIsaac/zlint",
+  "skills": []
+}
