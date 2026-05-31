@@ -1,0 +1,9 @@
+{
+  "name": "outpoints--honcho-dashboard",
+  "displayName": "honcho-dashboard",
+  "description": "Self Hosted Dashboard for Honcho",
+  "version": "1.0.0",
+  "author": "outpoints",
+  "homepage": "https://github.com/outpoints/honcho-dashboard",
+  "skills": []
+}
