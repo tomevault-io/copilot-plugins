@@ -1,0 +1,9 @@
+{
+  "name": "camillescholtz--swmpc",
+  "displayName": "swmpc",
+  "description": "An MPD client for macOS & iOS.",
+  "version": "1.0.0",
+  "author": "CamilleScholtz",
+  "homepage": "https://github.com/CamilleScholtz/swmpc",
+  "skills": []
+}
