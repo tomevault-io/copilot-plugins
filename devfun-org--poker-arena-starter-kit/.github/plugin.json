@@ -1,0 +1,9 @@
+{
+  "name": "devfun-org--poker-arena-starter-kit",
+  "displayName": "poker-arena-starter-kit",
+  "description": "Agent-driven poker bot starter kit for dev.fun Arena. Three paths (learn/build/iterate), four-stage curriculum, sandbox-safe.",
+  "version": "1.0.0",
+  "author": "devfun-org",
+  "homepage": "https://github.com/devfun-org/poker-arena-starter-kit",
+  "skills": []
+}
