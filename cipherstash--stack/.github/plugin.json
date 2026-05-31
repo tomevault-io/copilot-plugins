@@ -1,0 +1,9 @@
+{
+  "name": "cipherstash--stack",
+  "displayName": "stack",
+  "description": "Data level access controls via field level searchable encryption SDK for JavaScript/TypeScript",
+  "version": "1.0.0",
+  "author": "cipherstash",
+  "homepage": "https://github.com/cipherstash/stack",
+  "skills": []
+}
