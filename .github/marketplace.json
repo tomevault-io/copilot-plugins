@@ -169809,6 +169809,21 @@
       "description": "High performance Go-based DX cluster for amateur radio by N2WQ."
     },
     {
+      "name": "daoming-chen--motion-planning-for-manipulators",
+      "source": "./daoming-chen--motion-planning-for-manipulators",
+      "description": "A Jupyter book tutorial on 'Motion Planning for Manipulators' https://daoming-chen.github.io/Motion-Planning-for-Manipulators/"
+    },
+    {
+      "name": "domonic18--ai-pptist-system",
+      "source": "./domonic18--ai-pptist-system",
+      "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8ePPTist\u5f00\u53d1\u7684\u81ea\u52a8\u751f\u6210PPT\u7684\u7cfb\u7edf"
+    },
+    {
+      "name": "avikalpa--codex-litellm",
+      "source": "./avikalpa--codex-litellm",
+      "description": "Maintained LiteLLM patchset for Codex CLI."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181737,6 +181752,41 @@
       "name": "tally-evals--tally",
       "source": "./tally-evals--tally",
       "description": "tally"
+    },
+    {
+      "name": "redhatquickcourses--ocp-virt-cookbook",
+      "source": "./redhatquickcourses--ocp-virt-cookbook",
+      "description": "ocp-virt-cookbook"
+    },
+    {
+      "name": "redhatquickcourses--ocp-virt-cookbook",
+      "source": "./redhatquickcourses--ocp-virt-cookbook",
+      "description": "ocp-virt-cookbook"
+    },
+    {
+      "name": "redhatquickcourses--ocp-virt-cookbook",
+      "source": "./redhatquickcourses--ocp-virt-cookbook",
+      "description": "ocp-virt-cookbook"
+    },
+    {
+      "name": "saanseoi--overturist",
+      "source": "./saanseoi--overturist",
+      "description": "CLI for obtaining data Overture Maps"
+    },
+    {
+      "name": "rafael-nunezdearenas--pynetlibrary",
+      "source": "./rafael-nunezdearenas--pynetlibrary",
+      "description": "API context and reference scripts for Autodesk applications (Navisworks, Revit, Civil 3D), designed for the PyNet Platform. This repo provides Python-style stubs of the Autodesk"
+    },
+    {
+      "name": "redhatquickcourses--ocp-virt-cookbook",
+      "source": "./redhatquickcourses--ocp-virt-cookbook",
+      "description": "ocp-virt-cookbook"
+    },
+    {
+      "name": "redhatquickcourses--ocp-virt-cookbook",
+      "source": "./redhatquickcourses--ocp-virt-cookbook",
+      "description": "ocp-virt-cookbook"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -289442,6 +289492,21 @@
       "name": "ehwilhelmy--autopilottesting",
       "source": "./ehwilhelmy--autopilottesting",
       "description": "AutoPilotTesting"
+    },
+    {
+      "name": "bloo-berries--spectrum-shift",
+      "source": "./bloo-berries--spectrum-shift",
+      "description": "3D Action-Adventure Game. Vision conditions are reimagined as mystical superpowers, not disabilities. "
+    },
+    {
+      "name": "laks08--password-generator-mcp-server",
+      "source": "./laks08--password-generator-mcp-server",
+      "description": "A MCP server for Claude Desktop that generates cryptographically strong passwords, passphrases, API keys, and PINs. Features 7 tools including password strength analysis, batch generation, and themed "
+    },
+    {
+      "name": "nissan--auth-example",
+      "source": "./nissan--auth-example",
+      "description": "auth-example"
     }
   ]
 }
