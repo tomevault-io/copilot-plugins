@@ -1,0 +1,9 @@
+{
+  "name": "modelcontextprotocol--typescript-sdk",
+  "displayName": "typescript-sdk",
+  "description": "The official TypeScript SDK for Model Context Protocol servers and clients",
+  "version": "1.0.0",
+  "author": "modelcontextprotocol",
+  "homepage": "https://github.com/modelcontextprotocol/typescript-sdk",
+  "skills": []
+}
