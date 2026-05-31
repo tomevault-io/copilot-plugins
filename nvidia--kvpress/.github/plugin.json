@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--kvpress",
+  "displayName": "kvpress",
+  "description": "LLM KV cache compression made easy",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/kvpress",
+  "skills": []
+}
