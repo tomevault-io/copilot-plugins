@@ -1,0 +1,9 @@
+{
+  "name": "facebookexperimental--triton",
+  "displayName": "triton",
+  "description": "Github mirror of trition-lang/triton repo.",
+  "version": "1.0.0",
+  "author": "facebookexperimental",
+  "homepage": "https://github.com/facebookexperimental/triton",
+  "skills": []
+}
