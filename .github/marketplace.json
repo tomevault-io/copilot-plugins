@@ -54,6 +54,11 @@
       "description": "An open-source AI agent that brings the power of Gemini directly into your terminal."
     },
     {
+      "name": "browser-use--browser-use",
+      "source": "./browser-use--browser-use",
+      "description": "\ud83c\udf10 Make websites accessible for AI agents. Automate tasks online with ease."
+    },
+    {
       "name": "github--spec-kit",
       "source": "./github--spec-kit",
       "description": "\ud83d\udcab Toolkit to help you get started with Spec-Driven Development"
@@ -604,9 +609,19 @@
       "description": "A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities  - the IDE for your agent"
     },
     {
+      "name": "roocodeinc--roo-code",
+      "source": "./roocodeinc--roo-code",
+      "description": "Roo Code gives you a whole dev team of AI agents in your code editor."
+    },
+    {
       "name": "qwenlm--qwen-code",
       "source": "./qwenlm--qwen-code",
       "description": "An open-source AI agent that lives in your terminal."
+    },
+    {
+      "name": "lfnovo--open-notebook",
+      "source": "./lfnovo--open-notebook",
+      "description": "An Open Source implementation of Notebook LM with more flexibility and features"
     },
     {
       "name": "alexsjones--llmfit",
@@ -682,6 +697,16 @@
       "name": "cjpais--handy",
       "source": "./cjpais--handy",
       "description": "A free, open source, and extensible speech-to-text application that works completely offline."
+    },
+    {
+      "name": "verl-project--verl",
+      "source": "./verl-project--verl",
+      "description": "verl/HybridFlow: A Flexible and Efficient RL Post-Training Framework "
+    },
+    {
+      "name": "verl-project--verl",
+      "source": "./verl-project--verl",
+      "description": "verl/HybridFlow: A Flexible and Efficient RL Post-Training Framework "
     },
     {
       "name": "agentsmd--agents-md",
@@ -1232,6 +1257,11 @@
       "name": "valuecell-ai--valuecell",
       "source": "./valuecell-ai--valuecell",
       "description": "ValueCell is a community-driven, multi-agent platform for financial applications."
+    },
+    {
+      "name": "blinkospace--blinko",
+      "source": "./blinkospace--blinko",
+      "description": "An open-source, self-hosted personal AI note tool prioritizing privacy, built using TypeScript ."
     },
     {
       "name": "runanywhereai--runanywhere-sdks",
@@ -5197,6 +5227,21 @@
       "name": "davidmonterocrespo24--velxio",
       "source": "./davidmonterocrespo24--velxio",
       "description": "Emulate Arduino, ESP32 & Raspberry Pi. in your browser. Write code, compile, and run on 19 real boards \u2014 Arduino Uno, ESP32, ESP32-C3, Raspberry Pi Pico, Raspberry Pi 3, and more. No hardware, no clou"
+    },
+    {
+      "name": "redwoodjs--sdk",
+      "source": "./redwoodjs--sdk",
+      "description": "A simple framework for humans Server-first React, running on the Cloudflare platform. Simple to build. Easy to maintain."
+    },
+    {
+      "name": "redwoodjs--sdk",
+      "source": "./redwoodjs--sdk",
+      "description": "A simple framework for humans Server-first React, running on the Cloudflare platform. Simple to build. Easy to maintain."
+    },
+    {
+      "name": "redwoodjs--sdk",
+      "source": "./redwoodjs--sdk",
+      "description": "A simple framework for humans Server-first React, running on the Cloudflare platform. Simple to build. Easy to maintain."
     },
     {
       "name": "revokslab--shipfree",
