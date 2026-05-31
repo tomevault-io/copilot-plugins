@@ -1,0 +1,9 @@
+{
+  "name": "tokio-rs--toasty",
+  "displayName": "toasty",
+  "description": "An async ORM for Rust",
+  "version": "1.0.0",
+  "author": "tokio-rs",
+  "homepage": "https://github.com/tokio-rs/toasty",
+  "skills": []
+}
