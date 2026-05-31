@@ -1,0 +1,255 @@
+{
+  "name": "rust-self-learning-memory",
+  "owner": "d-o-hub",
+  "repo": "rust-self-learning-memory",
+  "description": "A modular Rust-based self-learning episodic memory system for AI agents, featuring hybrid storage with Turso (SQL) and redb (KV), async execution tracking, reward scoring, reflection, and pattern-based skill evolution. Designed for real-world applicability, maintainability, and scalable agent workflows.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-coordination",
+      "path": ".agents/skills/agent-coordination",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/agent-coordination",
+      "description": ""
+    },
+    {
+      "name": "analysis-swarm",
+      "path": ".agents/skills/analysis-swarm",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/analysis-swarm",
+      "description": ""
+    },
+    {
+      "name": "architecture-validation",
+      "path": ".agents/skills/architecture-validation",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/architecture-validation",
+      "description": ""
+    },
+    {
+      "name": "build-compile",
+      "path": ".agents/skills/build-compile",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/build-compile",
+      "description": ""
+    },
+    {
+      "name": "build-rust",
+      "path": ".agents/skills/build-rust",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/build-rust",
+      "description": ""
+    },
+    {
+      "name": "ci-fix",
+      "path": ".agents/skills/ci-fix",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/ci-fix",
+      "description": ""
+    },
+    {
+      "name": "clean-code-developer",
+      "path": ".agents/skills/clean-code-developer",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/clean-code-developer",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "path": ".agents/skills/code-quality",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/code-quality",
+      "description": ""
+    },
+    {
+      "name": "codebase-analyzer",
+      "path": ".agents/skills/codebase-analyzer",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/codebase-analyzer",
+      "description": ""
+    },
+    {
+      "name": "codebase-consolidation",
+      "path": ".agents/skills/codebase-consolidation",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/codebase-consolidation",
+      "description": ""
+    },
+    {
+      "name": "codebase-locator",
+      "path": ".agents/skills/codebase-locator",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/codebase-locator",
+      "description": ""
+    },
+    {
+      "name": "debug-troubleshoot",
+      "path": ".agents/skills/debug-troubleshoot",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/debug-troubleshoot",
+      "description": ""
+    },
+    {
+      "name": "episode-start",
+      "path": ".agents/skills/episode-start",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/episode-start",
+      "description": ""
+    },
+    {
+      "name": "episodic-memory-testing",
+      "path": ".agents/skills/episodic-memory-testing",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/episodic-memory-testing",
+      "description": ""
+    },
+    {
+      "name": "feature-implement",
+      "path": ".agents/skills/feature-implement",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/feature-implement",
+      "description": ""
+    },
+    {
+      "name": "general",
+      "path": ".agents/skills/general",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/general",
+      "description": ""
+    },
+    {
+      "name": "github-release-best-practices",
+      "path": ".agents/skills/github-release-best-practices",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/github-release-best-practices",
+      "description": ""
+    },
+    {
+      "name": "github-workflows",
+      "path": ".agents/skills/github-workflows",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/github-workflows",
+      "description": ""
+    },
+    {
+      "name": "goap-agent",
+      "path": ".agents/skills/goap-agent",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/goap-agent",
+      "description": ""
+    },
+    {
+      "name": "loop-agent",
+      "path": ".agents/skills/loop-agent",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/loop-agent",
+      "description": ""
+    },
+    {
+      "name": "memory-cli-ops",
+      "path": ".agents/skills/memory-cli-ops",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/memory-cli-ops",
+      "description": ""
+    },
+    {
+      "name": "parallel-execution",
+      "path": ".agents/skills/parallel-execution",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/parallel-execution",
+      "description": ""
+    },
+    {
+      "name": "perplexity-researcher-reasoning-pro",
+      "path": ".agents/skills/perplexity-researcher-reasoning-pro",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/perplexity-researcher-reasoning-pro",
+      "description": ""
+    },
+    {
+      "name": "plan-gap-analysis",
+      "path": ".agents/skills/plan-gap-analysis",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/plan-gap-analysis",
+      "description": ""
+    },
+    {
+      "name": "quality-unit-testing",
+      "path": ".agents/skills/quality-unit-testing",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/quality-unit-testing",
+      "description": ""
+    },
+    {
+      "name": "release-guard",
+      "path": ".agents/skills/release-guard",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/release-guard",
+      "description": ""
+    },
+    {
+      "name": "rust-async-testing",
+      "path": ".agents/skills/rust-async-testing",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/rust-async-testing",
+      "description": ""
+    },
+    {
+      "name": "rust-code-quality",
+      "path": ".agents/skills/rust-code-quality",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/rust-code-quality",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".agents/skills/skill-creator",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "storage-sync",
+      "path": ".agents/skills/storage-sync",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/storage-sync",
+      "description": ""
+    },
+    {
+      "name": "task-decomposition",
+      "path": ".agents/skills/task-decomposition",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/task-decomposition",
+      "description": ""
+    },
+    {
+      "name": "test-fix",
+      "path": ".agents/skills/test-fix",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/test-fix",
+      "description": ""
+    },
+    {
+      "name": "test-optimization",
+      "path": ".agents/skills/test-optimization",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/test-optimization",
+      "description": ""
+    },
+    {
+      "name": "test-runner",
+      "path": ".agents/skills/test-runner",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/test-runner",
+      "description": ""
+    },
+    {
+      "name": "web-search-researcher",
+      "path": ".agents/skills/web-search-researcher",
+      "github_url": "https://github.com/d-o-hub/rust-self-learning-memory/tree/main/.agents/skills/web-search-researcher",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/d-o-hub/rust-self-learning-memory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-31T04:30:23Z"
+}
