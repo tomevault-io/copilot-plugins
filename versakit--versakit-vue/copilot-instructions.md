@@ -1,78 +1,111 @@
-## file-structure
+## styling-guide
 
-> Versakit 项目采用monorepo结构，主要包含以下包:
+> Versakit使用Tailwind CSS和tailwind-variants来构建可定制的组件样式系统，支持以下特性:
 
-# 文件结构和命名规范
+# 样式开发指南
 
-## 项目结构
+## 样式系统概述
 
-Versakit 项目采用monorepo结构，主要包含以下包:
+Versakit使用Tailwind CSS和tailwind-variants来构建可定制的组件样式系统，支持以下特性:
 
-```
-Versakit-Vue/
-├── packages/
-│   ├── versakit-vue/      # 主组件库
-│   │   ├── src/
-│   │   │   ├── components/ # 所有组件
-│   │   │   ├── style/     # 全局样式
-│   │   │   └── index.ts   # 入口文件
-│   │   └── package.json
-│   └── versakit-shared/   # 共享工具库
-├── docs/                  # 文档站点
-└── storybook/             # Storybook示例
-```
+- 主题定制
+- 暗黑模式
+- 无障碍访问
+- 样式传递机制
 
-## 组件目录结构
+## 样式文件
 
-每个组件应遵循以下目录结构:
+每个组件必须有一个`index.variants.ts`文件，包含使用`tailwind-variants`定义的样式。
 
-```
-ComponentName/             # 使用大驼峰命名
-├── index.ts               # 导出文件
-└── src/
-    ├── index.vue          # 组件实现
-    ├── type.ts            # 类型定义
-    ├── index.variants.ts  # 样式变体定义
-    └── use-component-name.ts  # 组件逻辑hook (kebab-case命名)
-```
+## tailwind-variants使用规范
 
-## 文件命名规范
-
-- **TypeScript文件**: 必须使用`.ts`扩展名，不允许使用`.js`
-- **Vue组件文件**: 使用`.vue`扩展名
-- **样式变体文件**: 必须命名为`index.variants.ts`
-- **类型定义文件**: 命名为`type.ts`
-- **组件Hook文件**: 使用`use-[component-name].ts`形式命名 (kebab-case)
-
-## 导入路径规范
-
-- 使用相对路径导入同一组件内的文件
-- 使用别名导入其他组件或工具
+使用`tv`函数定义样式，结构如下:
 
 ```ts
-// 正确的导入方式
-import { Button } from './src/index.vue'
-import { buttonStyle } from './src/index.variants'
-import type { ButtonProps } from './src/type'
+import { tv } from 'tailwind-variants'
 
-// 导入其他组件或工具
-import { withInstall } from '@versakit/shared'
+export const componentStyle = tv({
+  base: 'base-styles-here',
+  variants: {
+    // 变体定义
+    variant: {
+      primary: 'primary-variant-styles',
+      secondary: 'secondary-variant-styles',
+      // ...其他变体
+    },
+    size: {
+      sm: 'small-size-styles',
+      md: 'medium-size-styles',
+      lg: 'large-size-styles',
+      // ...其他尺寸
+    },
+    // ...其他变体类型
+  },
+  compoundVariants: [
+    // 组合变体
+    {
+      variant: 'primary',
+      size: 'sm',
+      class: 'combined-styles'
+    },
+    // ...其他组合
+  ],
+  defaultVariants: {
+    // 默认变体
+    variant: 'primary',
+    size: 'md',
+  }
+})
 ```
 
-## 导出规范
+## 暗黑模式支持
 
-组件必须通过`index.ts`文件导出，并使用`withInstall`高阶函数:
+所有组件样式必须支持暗黑模式，使用Tailwind CSS的`dark:`前缀:
 
 ```ts
-// index.ts
-import { withInstall } from '@versakit/shared'
-import _Button from './src/index.vue'
-
-export const Button = withInstall(_Button)
-export default Button
-
-export * from './src/type'
+{
+  primary: 'bg-blue-500 text-white dark:bg-blue-700 dark:text-gray-100'
+}
 ```
+
+## 样式传递机制
+
+每个组件必须支持两种自定义样式的方式:
+
+1. **unstyled模式**: 通过`unstyled`属性完全禁用默认样式
+2. **PT样式传递**: 通过`pt`对象传递自定义类名
+
+在组件中实现:
+
+```vue
+<script setup lang="ts">
+// ...
+const classes = computed(() => {
+  return props.unstyled
+    ? props.pt?.root || ''
+    : componentStyle({
+        variant: props.variant,
+        size: props.size,
+        class: props.pt?.root, // 合并传入的根元素类名
+      })
+})
+
+const childClasses = computed(() => {
+  return props.unstyled
+    ? props.pt?.child || ''
+    : 'child-default-classes'
+})
+</script>
+```
+
+## 无障碍设计原则
+
+样式实现必须遵循WCAG标准:
+
+- 合适的对比度
+- 键盘可访问的焦点状态
+- 适当的文本大小和间距
+- 确保交互元素有足够的点击/触摸区域
 
 ---
 > Source: [Versakit/Versakit-Vue](https://github.com/Versakit/Versakit-Vue) — distributed by [TomeVault](https://tomevault.io).
