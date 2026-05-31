@@ -1,0 +1,9 @@
+{
+  "name": "arcprize--arc-agi-benchmarking",
+  "displayName": "arc-agi-benchmarking",
+  "description": "Testing baseline LLMs performance across various models",
+  "version": "1.0.0",
+  "author": "arcprize",
+  "homepage": "https://github.com/arcprize/arc-agi-benchmarking",
+  "skills": []
+}
