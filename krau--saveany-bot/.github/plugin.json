@@ -1,0 +1,9 @@
+{
+  "name": "krau--saveany-bot",
+  "displayName": "SaveAny-Bot",
+  "description": "Save Any Telegram File to Anywhere \ud83d\udcc2 (Alist, Disk, Webdav, S3, Rclone...) . Support restrict saving content and files beyond telegram.",
+  "version": "1.0.0",
+  "author": "krau",
+  "homepage": "https://github.com/krau/SaveAny-Bot",
+  "skills": []
+}
