@@ -140059,6 +140059,11 @@
       "description": "AI-powered video editor for natural-language timeline editing, captions, footage analysis, and cloud rendering."
     },
     {
+      "name": "mudler--parakeet-cpp",
+      "source": "./mudler--parakeet-cpp",
+      "description": "Parakeet implementation in C++ with ggml"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
