@@ -1,0 +1,9 @@
+{
+  "name": "depixeled-chris--gta7",
+  "displayName": "gta7",
+  "description": "A from-scratch, browser-based GTA-style 3D open-world driving slice in TypeScript + Three.js. (The name is a joke.)",
+  "version": "1.0.0",
+  "author": "depixeled-chris",
+  "homepage": "https://github.com/depixeled-chris/gta7",
+  "skills": []
+}
