@@ -4,7 +4,7 @@
   "repo": "morphik-core",
   "description": "The most accurate document search and store for building AI apps",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/morphik-org/morphik-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T19:32:26Z"
+  "distributed_at": "2026-05-31T19:33:50Z"
 }
