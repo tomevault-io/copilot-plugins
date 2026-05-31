@@ -1,0 +1,9 @@
+{
+  "name": "rafael-nunezdearenas--pynetlibrary",
+  "displayName": "PyNetLibrary",
+  "description": "API context and reference scripts for Autodesk applications (Navisworks, Revit, Civil 3D), designed for the PyNet Platform. This repo provides Python-style stubs of the Autodesk",
+  "version": "1.0.0",
+  "author": "Rafael-NunezDeArenas",
+  "homepage": "https://github.com/Rafael-NunezDeArenas/PyNetLibrary",
+  "skills": []
+}
