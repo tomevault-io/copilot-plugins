@@ -4,7 +4,7 @@
   "repo": "uniface",
   "description": "UniFace: A Unified Face Analysis Library for Python | A comprehensive suite of high-performance face analysis components that outperform leading alternatives.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yakhyo/uniface",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T21:48:27Z"
+  "distributed_at": "2026-05-31T21:48:56Z"
 }
