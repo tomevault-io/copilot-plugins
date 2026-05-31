@@ -1,0 +1,44 @@
+{
+  "name": "Snap-Solver",
+  "owner": "Zippland",
+  "repo": "Snap-Solver",
+  "description": "AI\u7b14\u8bd5\u6d4b\u8bc4\u5de5\u5177\uff0c\u4e13\u4e3a\u5b66\u751f\u3001\u8003\u751f\u548c\u81ea\u5b66\u8005\u8bbe\u8ba1\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Zippland/Snap-Solver",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-31T23:53:28Z"
+}
