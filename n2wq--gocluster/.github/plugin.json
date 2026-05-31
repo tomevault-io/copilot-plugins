@@ -1,0 +1,9 @@
+{
+  "name": "n2wq--gocluster",
+  "displayName": "GoCluster",
+  "description": "High performance Go-based DX cluster for amateur radio by N2WQ.",
+  "version": "1.0.0",
+  "author": "N2WQ",
+  "homepage": "https://github.com/N2WQ/GoCluster",
+  "skills": []
+}
