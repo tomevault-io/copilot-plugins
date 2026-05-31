@@ -1,0 +1,9 @@
+{
+  "name": "avikalpa--codex-litellm",
+  "displayName": "codex-litellm",
+  "description": "Maintained LiteLLM patchset for Codex CLI.",
+  "version": "1.0.0",
+  "author": "avikalpa",
+  "homepage": "https://github.com/avikalpa/codex-litellm",
+  "skills": []
+}
