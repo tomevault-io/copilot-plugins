@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [kmzz522/navihive1117](https://github.com/kmzz522/navihive1117).
+Original source: `CLAUDE.md` in [kmzz522/navihive1117](https://github.com/kmzz522/navihive1117).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [kmzz522/navihive1117](https://github.com/kmzz522/navihive1117) — a repo with 0+ stars on GitHub.
