@@ -1,0 +1,9 @@
+{
+  "name": "blinkospace--blinko",
+  "displayName": "blinko",
+  "description": "An open-source, self-hosted personal AI note tool prioritizing privacy, built using TypeScript .",
+  "version": "1.0.0",
+  "author": "blinkospace",
+  "homepage": "https://github.com/blinkospace/blinko",
+  "skills": []
+}
