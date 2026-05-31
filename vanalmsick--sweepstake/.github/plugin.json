@@ -1,0 +1,9 @@
+{
+  "name": "vanalmsick--sweepstake",
+  "displayName": "sweepstake",
+  "description": "Football prediction webapp \u2013 compete with friends via private tournaments, submit match/group/tournament winner predictions, and watch the leaderboard update live as results come in.",
+  "version": "1.0.0",
+  "author": "vanalmsick",
+  "homepage": "https://github.com/vanalmsick/sweepstake",
+  "skills": []
+}
