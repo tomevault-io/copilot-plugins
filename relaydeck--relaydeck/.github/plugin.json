@@ -1,0 +1,9 @@
+{
+  "name": "relaydeck--relaydeck",
+  "displayName": "relaydeck",
+  "description": "micro-agent orchestrator for local agents",
+  "version": "1.0.0",
+  "author": "relaydeck",
+  "homepage": "https://github.com/relaydeck/relaydeck",
+  "skills": []
+}
