@@ -4,7 +4,7 @@
   "repo": "GoCluster",
   "description": "High performance Go-based DX cluster for amateur radio by N2WQ.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/N2WQ/GoCluster",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T04:36:02Z"
+  "distributed_at": "2026-05-31T04:38:26Z"
 }
