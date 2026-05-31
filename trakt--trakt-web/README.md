@@ -7,11 +7,11 @@ Unlock the secrets of your watch history, explore hidden connections between fil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [trakt/trakt-web](https://github.com/trakt/trakt-web).
+Original source: `CLAUDE.md` in [trakt/trakt-web](https://github.com/trakt/trakt-web).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
