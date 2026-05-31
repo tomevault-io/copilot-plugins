@@ -1,0 +1,9 @@
+{
+  "name": "redwoodjs--sdk",
+  "displayName": "sdk",
+  "description": "A simple framework for humans Server-first React, running on the Cloudflare platform. Simple to build. Easy to maintain.",
+  "version": "1.0.0",
+  "author": "redwoodjs",
+  "homepage": "https://github.com/redwoodjs/sdk",
+  "skills": []
+}
