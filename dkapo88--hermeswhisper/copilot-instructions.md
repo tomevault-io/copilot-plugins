@@ -1,18 +1,16 @@
-## 001-project-structure
+## 002-swift-style
 
-> - **App sources**: ["HermesWhisper/"](mdc:HermesWhisper/)
+> - **Indentation**: 2 spaces; ~100‑char line limit.
 
-# HermesWhisper – Project Structure
+# Swift Style Guide
 
-- **App sources**: ["HermesWhisper/"](mdc:HermesWhisper/)
-  - Swift/SwiftUI sources, `Resources/Assets.xcassets`, `Info.plist`, `*.entitlements`.
-- **Tests**:
-  - Unit: ["HermesWhisperTests/"](mdc:HermesWhisperTests/)
-  - UI/flows: ["HermesWhisperUITests/"](mdc:HermesWhisperUITests/)
-- **Project**: ["HermesWhisper.xcodeproj"](mdc:HermesWhisper.xcodeproj)
-- **Scripts**: Scripts/ for maintenance tasks (format, lint, release)
+- **Indentation**: 2 spaces; ~100‑char line limit.
+- **Naming**: types `PascalCase`; methods/vars `camelCase`; constants `static let`.
+- **Files**: one primary type per file; filename matches type (e.g., `AudioTranscriber.swift`).
+- **UI**: prefer SwiftUI with small, composable views and preview providers.
+- **Formatting/Lint**: if configured, run `swiftformat .` and `swiftlint` before committing.
 
-Use this structure when navigating, creating files, and referencing paths.
+Favor clarity and explicitness. Avoid deep nesting beyond 2–3 levels; use guard clauses; handle errors explicitly.
 
 ---
 > Source: [dkapo88/hermeswhisper](https://github.com/dkapo88/hermeswhisper) — distributed by [TomeVault](https://tomevault.io).
