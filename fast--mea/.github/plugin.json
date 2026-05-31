@@ -1,0 +1,9 @@
+{
+  "name": "fast--mea",
+  "displayName": "mea",
+  "description": "Mea provides async primitives and combinators that are runtime agnostic.",
+  "version": "1.0.0",
+  "author": "fast",
+  "homepage": "https://github.com/fast/mea",
+  "skills": []
+}
