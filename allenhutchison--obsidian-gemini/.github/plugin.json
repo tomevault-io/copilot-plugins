@@ -1,0 +1,9 @@
+{
+  "name": "allenhutchison--obsidian-gemini",
+  "displayName": "obsidian-gemini",
+  "description": "An obsidian plugin to interact with Google Gemini",
+  "version": "1.0.0",
+  "author": "allenhutchison",
+  "homepage": "https://github.com/allenhutchison/obsidian-gemini",
+  "skills": []
+}
