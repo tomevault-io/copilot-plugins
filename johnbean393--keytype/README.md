@@ -7,13 +7,13 @@ An open-source Cotypist with macOS system wide AI autocomplete
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [johnbean393/KeyType](https://github.com/johnbean393/KeyType).
+Original source: `.cursor/rules/*.mdc` in [johnbean393/KeyType](https://github.com/johnbean393/KeyType).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
