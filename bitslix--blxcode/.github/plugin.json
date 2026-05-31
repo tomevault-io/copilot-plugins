@@ -1,0 +1,9 @@
+{
+  "name": "bitslix--blxcode",
+  "displayName": "BLXCode",
+  "description": "BLXCode is an open-source desktop workbench for running AI coding agents beside real terminals, project memory, tasks, and an embedded browser. It is built with Tauri 2, Rust, Leptos, and Trunk.",
+  "version": "1.0.0",
+  "author": "Bitslix",
+  "homepage": "https://github.com/Bitslix/BLXCode",
+  "skills": []
+}
