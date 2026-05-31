@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--cringe",
+  "displayName": "cringe",
+  "description": "OTP-native terminal UI toolkit for Elixir",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/cringe",
+  "skills": []
+}
