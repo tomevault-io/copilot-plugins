@@ -1,9 +1,9 @@
 {
   "name": "askui--python-sdk",
   "displayName": "python-sdk",
-  "description": "python-sdk",
+  "description": "Enable AI to control your desktop, mobile and HMI devices",
   "version": "1.0.0",
   "author": "askui",
-  "homepage": "https://tomevault.io/claim/askui",
+  "homepage": "https://github.com/askui/python-sdk",
   "skills": []
 }
