@@ -1,0 +1,44 @@
+{
+  "name": "2080Ti-LLM-Toolbox",
+  "owner": "weicj",
+  "repo": "2080Ti-LLM-Toolbox",
+  "description": "Single-request LLM serving recipes, patches, and benchmarks for modified RTX 2080 Ti 22GB / SM75 systems",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/weicj/2080Ti-LLM-Toolbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-31T04:31:42Z"
+}
