@@ -1,0 +1,9 @@
+{
+  "name": "laks08--password-generator-mcp-server",
+  "displayName": "password-generator-mcp-server",
+  "description": "A MCP server for Claude Desktop that generates cryptographically strong passwords, passphrases, API keys, and PINs. Features 7 tools including password strength analysis, batch generation, and themed ",
+  "version": "1.0.0",
+  "author": "laks08",
+  "homepage": "https://github.com/laks08/password-generator-mcp-server",
+  "skills": []
+}
