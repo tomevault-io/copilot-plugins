@@ -4,7 +4,7 @@
   "repo": "mrt-buddy",
   "description": "Check the Balance of your Dhaka MRT Pass or Rapid Pass",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aniruddha-adhikary/mrt-buddy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T23:49:01Z"
+  "distributed_at": "2026-05-31T23:52:00Z"
 }
