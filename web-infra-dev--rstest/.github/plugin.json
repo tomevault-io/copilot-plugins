@@ -1,0 +1,9 @@
+{
+  "name": "web-infra-dev--rstest",
+  "displayName": "rstest",
+  "description": "The testing framework powered by Rspack.",
+  "version": "1.0.0",
+  "author": "web-infra-dev",
+  "homepage": "https://github.com/web-infra-dev/rstest",
+  "skills": []
+}
