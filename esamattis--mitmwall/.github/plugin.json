@@ -1,0 +1,9 @@
+{
+  "name": "esamattis--mitmwall",
+  "displayName": "mitmwall",
+  "description": "A mitmproxy-based egress WAF that restricts connections to allowlisted HTTP routes",
+  "version": "1.0.0",
+  "author": "esamattis",
+  "homepage": "https://github.com/esamattis/mitmwall",
+  "skills": []
+}
