@@ -169774,6 +169774,41 @@
       "description": "The AI agent that sees what you see."
     },
     {
+      "name": "d-o-hub--rust-self-learning-memory",
+      "source": "./d-o-hub--rust-self-learning-memory",
+      "description": "A modular Rust-based self-learning episodic memory system for AI agents, featuring hybrid storage with Turso (SQL) and redb (KV), async execution tracking, reward scoring, reflection, and pattern-base"
+    },
+    {
+      "name": "fsans--fms-odata-mcp",
+      "source": "./fsans--fms-odata-mcp",
+      "description": "Model Context Protocol (MCP) server for FileMaker Server OData 4.01 API integration"
+    },
+    {
+      "name": "narekmanukyan--cupertino-native-plus",
+      "source": "./narekmanukyan--cupertino-native-plus",
+      "description": "Native Liquid Glass widgets for iOS and macOS with pixel-perfect fidelity."
+    },
+    {
+      "name": "tuco86--iced-nodegraph",
+      "source": "./tuco86--iced-nodegraph",
+      "description": "A node graph editor widget for Iced"
+    },
+    {
+      "name": "n2wq--gocluster",
+      "source": "./n2wq--gocluster",
+      "description": "High performance Go-based DX cluster for amateur radio by N2WQ."
+    },
+    {
+      "name": "aixgo-dev--aixgo",
+      "source": "./aixgo-dev--aixgo",
+      "description": "AI-native agent framework for Go."
+    },
+    {
+      "name": "n2wq--gocluster",
+      "source": "./n2wq--gocluster",
+      "description": "High performance Go-based DX cluster for amateur radio by N2WQ."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181612,6 +181647,96 @@
       "name": "futuresolutiondev--deploy-center-server",
       "source": "./futuresolutiondev--deploy-center-server",
       "description": "Self-hosted CI/CD deployment platform with persistent queue (BullMQ + Redis), encrypted env vars, multi-channel notifications (Discord/Slack/Email), rollback UI, project templates, and workspaces. Typ"
+    },
+    {
+      "name": "weicj--2080ti-llm-toolbox",
+      "source": "./weicj--2080ti-llm-toolbox",
+      "description": "Single-request LLM serving recipes, patches, and benchmarks for modified RTX 2080 Ti 22GB / SM75 systems"
+    },
+    {
+      "name": "dkapo88--hermeswhisper",
+      "source": "./dkapo88--hermeswhisper",
+      "description": "Voice AI Dictation + Hermes Manager "
+    },
+    {
+      "name": "strong-ai-lab--von",
+      "source": "./strong-ai-lab--von",
+      "description": "Intelligent Agent System for Scientific Research Support"
+    },
+    {
+      "name": "dkapo88--hermeswhisper",
+      "source": "./dkapo88--hermeswhisper",
+      "description": "Voice AI Dictation + Hermes Manager "
+    },
+    {
+      "name": "dkapo88--hermeswhisper",
+      "source": "./dkapo88--hermeswhisper",
+      "description": "Voice AI Dictation + Hermes Manager "
+    },
+    {
+      "name": "dkapo88--hermeswhisper",
+      "source": "./dkapo88--hermeswhisper",
+      "description": "Voice AI Dictation + Hermes Manager "
+    },
+    {
+      "name": "dkapo88--hermeswhisper",
+      "source": "./dkapo88--hermeswhisper",
+      "description": "Voice AI Dictation + Hermes Manager "
+    },
+    {
+      "name": "strong-ai-lab--von",
+      "source": "./strong-ai-lab--von",
+      "description": "Intelligent Agent System for Scientific Research Support"
+    },
+    {
+      "name": "rar--esphome-tigomonitor",
+      "source": "./rar--esphome-tigomonitor",
+      "description": "An ESPHome Based Tigo Monitor"
+    },
+    {
+      "name": "dkapo88--hermeswhisper",
+      "source": "./dkapo88--hermeswhisper",
+      "description": "Voice AI Dictation + Hermes Manager "
+    },
+    {
+      "name": "youversion--platform-sdk-kotlin",
+      "source": "./youversion--platform-sdk-kotlin",
+      "description": "Kotlin SDK for the YouVersion Platform"
+    },
+    {
+      "name": "dkapo88--hermeswhisper",
+      "source": "./dkapo88--hermeswhisper",
+      "description": "Voice AI Dictation + Hermes Manager "
+    },
+    {
+      "name": "dkapo88--hermeswhisper",
+      "source": "./dkapo88--hermeswhisper",
+      "description": "Voice AI Dictation + Hermes Manager "
+    },
+    {
+      "name": "tally-evals--tally",
+      "source": "./tally-evals--tally",
+      "description": "tally"
+    },
+    {
+      "name": "enriconunes--claude-autofix-action",
+      "source": "./enriconunes--claude-autofix-action",
+      "description": "claude-autofix-action"
+    },
+    {
+      "name": "tally-evals--tally",
+      "source": "./tally-evals--tally",
+      "description": "tally"
+    },
+    {
+      "name": "deriv-com--dtrader-template",
+      "source": "./deriv-com--dtrader-template",
+      "description": "A white-label derivatives trading platform template. Fork it, configure your brand, and deploy."
+    },
+    {
+      "name": "tally-evals--tally",
+      "source": "./tally-evals--tally",
+      "description": "tally"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -289282,6 +289407,41 @@
       "name": "minnyat--ai4chill-vcode",
       "source": "./minnyat--ai4chill-vcode",
       "description": "AI-powered virtual coding environment and development tools"
+    },
+    {
+      "name": "jasedbrown--jdb",
+      "source": "./jasedbrown--jdb",
+      "description": "jason's debugger"
+    },
+    {
+      "name": "lean-enlan--pildhora-expoapp",
+      "source": "./lean-enlan--pildhora-expoapp",
+      "description": "oc"
+    },
+    {
+      "name": "agentagentwonder--eclipse-market-test",
+      "source": "./agentagentwonder--eclipse-market-test",
+      "description": "Eclipse-Market-test"
+    },
+    {
+      "name": "bluesky78060--flutter-todo",
+      "source": "./bluesky78060--flutter-todo",
+      "description": "flutter-todo"
+    },
+    {
+      "name": "deckyfx--dioxus-react-ipc",
+      "source": "./deckyfx--dioxus-react-ipc",
+      "description": "Sample dioxus app that use react-integration and ipc"
+    },
+    {
+      "name": "barenakeddev--walkscore-editor",
+      "source": "./barenakeddev--walkscore-editor",
+      "description": "Walk Score Infographic Editor for hotel marketing materials"
+    },
+    {
+      "name": "ehwilhelmy--autopilottesting",
+      "source": "./ehwilhelmy--autopilottesting",
+      "description": "AutoPilotTesting"
     }
   ]
 }
