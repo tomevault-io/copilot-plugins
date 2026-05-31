@@ -1,0 +1,9 @@
+{
+  "name": "maplibre--maplibre-compose",
+  "displayName": "maplibre-compose",
+  "description": "Add interactive vector tile maps to your Compose app",
+  "version": "1.0.0",
+  "author": "maplibre",
+  "homepage": "https://github.com/maplibre/maplibre-compose",
+  "skills": []
+}
