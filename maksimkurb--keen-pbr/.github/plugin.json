@@ -1,0 +1,9 @@
+{
+  "name": "maksimkurb--keen-pbr",
+  "displayName": "keen-pbr",
+  "description": "keen-pbr is a Policy Based Routing toolkit for Keenetic and OpenWRT routers / \u0418\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b \u0434\u043b\u044f \u0432\u044b\u0431\u043e\u0440\u043e\u0447\u043d\u043e\u0439 \u043c\u0430\u0440\u0448\u0440\u0443\u0442\u0438\u0437\u0430\u0446\u0438\u0438 \u043d\u0430 \u0440\u043e\u0443\u0442\u0435\u0440\u0430\u0445 Keenetic \u0438 OpenWRT",
+  "version": "1.0.0",
+  "author": "maksimkurb",
+  "homepage": "https://github.com/maksimkurb/keen-pbr",
+  "skills": []
+}
