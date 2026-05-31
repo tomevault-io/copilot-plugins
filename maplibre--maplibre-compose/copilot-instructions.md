@@ -1,0 +1,97 @@
+## maplibre-compose
+
+> When you open a pull request, write **Description** and **Test plan** in at most
+
+## Pull requests
+
+When you open a pull request, write **Description** and **Test plan** in at most
+one sentence of prose each. I will expand the PR description if more detail is
+needed. More context: [AI_POLICY.md](./AI_POLICY.md).
+
+## Searching vendored MapLibre Native codebase
+
+When searching the vendored maplibre-native codebase:
+
+- Location: Look in `lib/maplibre-native-bindings-jni/vendor/maplibre-native/`
+- Key Directories:
+  - `platform/linux/` - Linux-specific code (includes linux.cmake)
+  - `platform/windows/` - Windows-specific code (includes windows.cmake)
+  - `platform/darwin/` - macOS/iOS-specific code (includes darwin.cmake)
+  - `platform/default/` - Cross-platform code
+  - `include/mbgl/` - Public headers
+  - `src/mbgl/` - Implementation files
+- Common Search Patterns:
+  - Platform-specific cmake: `platform/*/platform/*.cmake`
+  - MLN options: `option(MLN*WITH*\*`
+  - Compiler flags: `target_compile_options`, `target_link_options`
+  - Feature detection: `MLN_WITH_OPENGL`, `MLN_WITH_VULKAN`
+
+## Development Commands
+
+### Building and Running
+
+- **Run desktop demo:** `./gradlew :demo-app:run`
+- **Run web demo:** `./gradlew :demo-app:jsRun`
+- **Build all modules:** `./gradlew build`
+- **Clean build:** `./gradlew clean`
+
+### Documentation
+
+- **Generate docs:** `./gradlew generateDocs` (builds both MkDocs site and Dokka
+  API reference)
+- **Build MkDocs only:** `./gradlew mkdocsBuild`
+- **Build API docs only:** `./gradlew dokkaGenerate`
+
+### Testing
+
+Tests are located in platform-specific source sets:
+
+- Android device tests: `src/androidDeviceTest`
+- Android host tests: `src/androidHostTest`
+- iOS tests: `src/iosTest`
+- Common tests: `src/commonTest`
+
+## Architecture Overview
+
+MapLibre Compose is a Kotlin Multiplatform wrapper around MapLibre SDKs for
+rendering interactive maps across Android, iOS, Desktop, and Web platforms.
+
+### Project Structure
+
+- **`lib/`**: Core library modules
+  - `maplibre-compose`: Main map composables and core functionality
+  - `maplibre-compose-material3`: Material 3 themed UI components
+  - `maplibre-compose-gms`: Google location services components
+  - `maplibre-js-bindings`: Kotlin/JS bindings for MapLibre GL JS
+    - This wraps the TypeScript library whose original types are available at
+      build/js/node_modules/maplibre-gl/dist/maplibre-gl.d.ts
+  - `maplibre-native-bindings`: Kotlin/JVM bindings for MapLibre Native
+  - `maplibre-native-bindings-jni`: C++ library required by
+    `maplibre-native-bindings`
+    - This wraps the C++ library vendored at
+      lib/maplibre-native-bindings-jni/vendor/maplibre-native
+- **`demo-app/`**: Multiplatform demo application
+- **`iosApp/`**: iOS-specific demo app wrapper
+- **`buildSrc/`**: Custom Gradle build conventions
+
+### Key Packages
+
+- `org.maplibre.compose.map`: Core map composable and components
+- `org.maplibre.compose.camera`: Camera controls and positioning
+- `org.maplibre.compose.layers`: Layer composables for map visualization
+- `org.maplibre.compose.sources`: Data source composables
+- `org.maplibre.compose.expressions`: DSL for MapLibre expressions
+- `org.maplibre.compose.offline`: Offline map data management
+- `org.maplibre.compose.location`: Location engine
+
+### Platform Implementation
+
+The library uses platform-specific implementations:
+
+- **Android/iOS**: MapLibre Native SDKs (MapLibre Android SDK, MapLibre iOS)
+- **Web**: MapLibre GL JS via `maplibre-js-bindings`
+- **Desktop**: MapLibre Native Core via `maplibre-native-bindings`
+
+---
+> Source: [maplibre/maplibre-compose](https://github.com/maplibre/maplibre-compose) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
