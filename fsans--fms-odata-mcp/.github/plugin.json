@@ -1,0 +1,9 @@
+{
+  "name": "fsans--fms-odata-mcp",
+  "displayName": "FMS-ODATA-MCP",
+  "description": "Model Context Protocol (MCP) server for FileMaker Server OData 4.01 API integration",
+  "version": "1.0.0",
+  "author": "fsans",
+  "homepage": "https://github.com/fsans/FMS-ODATA-MCP",
+  "skills": []
+}
