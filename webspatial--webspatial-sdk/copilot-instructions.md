@@ -1,0 +1,65 @@
+## webspatial-sdk
+
+> This repository is a `pnpm` workspace monorepo that ships WebSpatial SDK packages, a local dev/test server, and an end-to-end (AVP simulator) CI harness.
+
+# WebSpatial SDK — Agent Guide
+
+This repository is a `pnpm` workspace monorepo that ships WebSpatial SDK packages, a local dev/test server, and an end-to-end (AVP simulator) CI harness.
+
+## Repository Layout
+
+- `packages/*`: published packages (Core SDK, React SDK, Builder CLI, platform shells).
+- `apps/test-server`: local dev site and demo pages used during development.
+- `tests/ci-test`: CI/e2e harness (Mocha/Chai) that runs against the Apple Vision Pro simulator.
+- `tests/autoTest`: Puppeteer-based browser automation suite for WebSpatial demo pages.
+- `tools/scripts`: repo scripts used by CI and pre-commit checks.
+
+## Quick Start (Local)
+
+From repo root:
+
+- Install + build packages: `npm run setup`
+- Start dev server: `npm run dev` (serves `apps/test-server`)
+- Run unit tests + typecheck: `pnpm test`
+
+## Common Tasks
+
+### Add a New Demo Page (Test Server)
+
+1. Create `apps/test-server/src/<test-name>/index.tsx` exporting a React component.
+2. Register the route in `apps/test-server/index.tsx`.
+3. Add a sidebar entry in `apps/test-server/src/components/Sidebar.tsx`.
+
+### Build SDK Packages
+
+- Build all `@webspatial/*` packages: `npm run buildPackages`
+
+### Run Browser Auto Tests
+
+- From repo root: `npm run test:auto`
+- Setup local browser auto test dependencies: `npm run test:auto:setup-local`
+
+### Run CI/E2E Harness
+
+- From repo root: `npm run ciTest`
+- Notes: requires Xcode + Apple Vision Pro simulator environment.
+
+## Conventions / Gotchas
+
+- Package manager is `pnpm` (enforced by `preinstall`).
+- Pre-commit runs `lint-staged`; it rejects files >= 1MB and non-English (CJK) characters.
+- Keep PRs focused: avoid committing local artifacts (`.trae/`, `node_modules/`, build outputs).
+- **AI Agent Rule:** When refactoring, moving, or modifying existing code, DO NOT strip, delete, or rewrite existing inline comments unless explicitly instructed to do so. Retain all original developer context.
+- **AI Agent Rule:** Keep refactors (like moving files or renaming variables) strictly separate from logic changes to make PRs easier to review.
+
+## Useful Entry Points
+
+- Root scripts: `package.json`.
+- Dev server docs: `apps/test-server/README.md`.
+- E2E harness docs: `tests/ci-test/README.md`.
+- Browser auto test docs: `tests/autoTest/README.md`.
+- Contributor setup: `CONTRIBUTING.md`.
+
+---
+> Source: [webspatial/webspatial-sdk](https://github.com/webspatial/webspatial-sdk) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
