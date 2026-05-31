@@ -1,0 +1,9 @@
+{
+  "name": "deckyfx--dioxus-react-ipc",
+  "displayName": "dioxus-react-ipc",
+  "description": "Sample dioxus app that use react-integration and ipc",
+  "version": "1.0.0",
+  "author": "deckyfx",
+  "homepage": "https://github.com/deckyfx/dioxus-react-ipc",
+  "skills": []
+}
