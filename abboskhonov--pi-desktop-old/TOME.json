@@ -4,7 +4,7 @@
   "repo": "pi-desktop-old",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abboskhonov/pi-desktop-old",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T02:46:26Z"
+  "distributed_at": "2026-05-31T02:53:56Z"
 }
