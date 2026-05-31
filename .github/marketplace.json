@@ -181499,6 +181499,16 @@
       "description": "Grok Build Visual Studio Code extension. A full embedded chat UI \u2014 not a terminal launcher."
     },
     {
+      "name": "am-will--lynk",
+      "source": "./am-will--lynk",
+      "description": "lynk"
+    },
+    {
+      "name": "psylsph--givenergy-local",
+      "source": "./psylsph--givenergy-local",
+      "description": "Desktop app for monitoring and controlling GivEnergy solar inverters over your local network \u2014 no cloud account needed"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -288972,6 +288982,21 @@
       "name": "shareefhadid--traak",
       "source": "./shareefhadid--traak",
       "description": "traak"
+    },
+    {
+      "name": "w3bsuki--elisbooks",
+      "source": "./w3bsuki--elisbooks",
+      "description": "elisbooks"
+    },
+    {
+      "name": "w3bsuki--elisbooks",
+      "source": "./w3bsuki--elisbooks",
+      "description": "elisbooks"
+    },
+    {
+      "name": "matthewabbott--traderbot",
+      "source": "./matthewabbott--traderbot",
+      "description": "Petty HFT intra-hour mean reversion tactic"
     }
   ]
 }
