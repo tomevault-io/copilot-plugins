@@ -2,9 +2,9 @@
   "name": "python-sdk",
   "owner": "askui",
   "repo": "python-sdk",
-  "description": "",
+  "description": "Enable AI to control your desktop, mobile and HMI devices",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/askui",
+  "source_url": "https://github.com/askui/python-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T12:44:28Z"
+  "distributed_at": "2026-05-31T23:46:05Z"
 }
