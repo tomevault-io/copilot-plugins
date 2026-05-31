@@ -1,0 +1,9 @@
+{
+  "name": "fosrl--pangolin",
+  "displayName": "pangolin",
+  "description": "Identity-aware VPN and tunneled reverse proxy for remote access based on WireGuard\u00ae.",
+  "version": "1.0.0",
+  "author": "fosrl",
+  "homepage": "https://github.com/fosrl/pangolin",
+  "skills": []
+}
