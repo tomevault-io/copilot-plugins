@@ -1,0 +1,9 @@
+{
+  "name": "soloterm--solo",
+  "displayName": "solo",
+  "description": "Your all-in-one Laravel command to tame local development",
+  "version": "1.0.0",
+  "author": "soloterm",
+  "homepage": "https://github.com/soloterm/solo",
+  "skills": []
+}
