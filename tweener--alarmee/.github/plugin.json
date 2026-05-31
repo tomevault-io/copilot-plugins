@@ -1,0 +1,9 @@
+{
+  "name": "tweener--alarmee",
+  "displayName": "alarmee",
+  "description": "A Kotlin/Compose Multiplatform library to schedule alarms, display local notifications, and handle push notifications on Android and iOS.",
+  "version": "1.0.0",
+  "author": "Tweener",
+  "homepage": "https://github.com/Tweener/alarmee",
+  "skills": []
+}
