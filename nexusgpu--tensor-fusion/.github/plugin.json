@@ -1,0 +1,9 @@
+{
+  "name": "nexusgpu--tensor-fusion",
+  "displayName": "tensor-fusion",
+  "description": "Tensor Fusion is a state-of-the-art GPU virtualization and pooling solution designed to optimize GPU cluster utilization to its fullest potential.",
+  "version": "1.0.0",
+  "author": "NexusGPU",
+  "homepage": "https://github.com/NexusGPU/tensor-fusion",
+  "skills": []
+}
