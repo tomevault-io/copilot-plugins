@@ -1,0 +1,9 @@
+{
+  "name": "er1one--telegram-bot-template",
+  "displayName": "telegram-bot-template",
+  "description": "Production-ready Telegram bot template with aiogram 3.x, PostgreSQL, Redis, and i18n support",
+  "version": "1.0.0",
+  "author": "Er1one",
+  "homepage": "https://github.com/Er1one/telegram-bot-template",
+  "skills": []
+}
