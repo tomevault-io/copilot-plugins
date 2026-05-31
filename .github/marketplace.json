@@ -140009,6 +140009,36 @@
       "description": "An elisp GNU Emacs configuration for Doom for OS-nixCfg via nix home-manager module, i.e., nix-doom-emacs-unstraightened"
     },
     {
+      "name": "kevinrss01--framedeck",
+      "source": "./kevinrss01--framedeck",
+      "description": "AI-powered video editor for natural-language timeline editing, captions, footage analysis, and cloud rendering."
+    },
+    {
+      "name": "kevinrss01--framedeck",
+      "source": "./kevinrss01--framedeck",
+      "description": "AI-powered video editor for natural-language timeline editing, captions, footage analysis, and cloud rendering."
+    },
+    {
+      "name": "kevinrss01--framedeck",
+      "source": "./kevinrss01--framedeck",
+      "description": "AI-powered video editor for natural-language timeline editing, captions, footage analysis, and cloud rendering."
+    },
+    {
+      "name": "kevinrss01--framedeck",
+      "source": "./kevinrss01--framedeck",
+      "description": "AI-powered video editor for natural-language timeline editing, captions, footage analysis, and cloud rendering."
+    },
+    {
+      "name": "kevinrss01--framedeck",
+      "source": "./kevinrss01--framedeck",
+      "description": "AI-powered video editor for natural-language timeline editing, captions, footage analysis, and cloud rendering."
+    },
+    {
+      "name": "kevinrss01--framedeck",
+      "source": "./kevinrss01--framedeck",
+      "description": "AI-powered video editor for natural-language timeline editing, captions, footage analysis, and cloud rendering."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
