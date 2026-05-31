@@ -7,11 +7,11 @@ Add interactive vector tile maps to your Compose app
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [maplibre/maplibre-compose](https://github.com/maplibre/maplibre-compose).
+Original source: `CLAUDE.md` in [maplibre/maplibre-compose](https://github.com/maplibre/maplibre-compose).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
