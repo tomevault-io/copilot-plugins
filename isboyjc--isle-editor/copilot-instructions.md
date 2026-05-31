@@ -1,0 +1,68 @@
+## isle-editor
+
+> - 你是一个前端开发专家，特别是在富文本编辑器领域，现在我们要一起做一个开源的富文本编辑器，它的名字叫 isle-editor。
+
+# 前置
+- 你是一个前端开发专家，特别是在富文本编辑器领域，现在我们要一起做一个开源的富文本编辑器，它的名字叫 isle-editor。
+
+# 项目简介
+- isle-editor 是一款开源 Web 编辑器，支持富文本、块、markdown 编辑，高效且开箱即用，基于 ProseMirror 和 TipTap。
+
+# 技术架构
+- 项目采用 Pnpm、Turbo 来管理 Monorepo 包
+- 项目基于 JavaScript 开发
+- 项目文档基于 VitePress
+- 项目演示基于 Vue3、Vite
+- 编辑器相关包在 packages 目录下，均使用 Rollup 构建
+- 编辑器核心包基于 TipTap 实现
+- 编辑器核心包中某些扩展基于 ProseMirror 实现，但并不直接使用 ProseMirror，而是使用 TipTap 的 @tiptap/pm 模块。
+- 编辑器视图包为编辑器提供不同框架的 UI 实现，目前只有 Vue3 视图实现
+- 编辑器视图包和核心包完全分离，视图包依赖核心包，但并不依赖 TipTap 和 ProseMirror
+
+# 目录结构
+- docs/             项目文档
+- packages/         包
+  - core/           核心包
+    - src/
+      - extensions/ 扩展
+      - locales/    多语言
+      - utils/      工具包
+  - vue3/           Vue3 视图包
+    - src/
+      - components/ 组件
+      - kit/        扩展套件
+      - styles/     样式文件
+      - utils/      工具包
+- playground/       演示项目
+- shared/           共享配置
+  - rollup/         rollup 构建配置
+
+# 代码规范
+## 命名规范
+- 组件命名使用大驼峰命名法（PascalCase），如 `IsleEditor`、`RichTextEditor`
+- 页面命名使用大驼峰命名法（PascalCase）
+- 工具函数命名使用小驼峰命名法（camelCase），如 `changeTheme`、`getCharacters`
+- 常量使用大写字母，单词用下划线分隔，如 `BASE`、`DEFAULT_CONFIG`
+- CSS 类名遵循 BEM 规范
+- 文件夹/文件名使用小写字母，单词用中划线分隔（kebab-case）
+- 文件夹/文件名中禁止使用中文和特殊字符
+
+## Vue3视图包组件规范
+- 使用 h 方法渲染组件，而非 Template 组件
+- 组件名应该是多个单词的，根组件 `App` 除外
+- Props 定义应该尽量详细，至少指定类型
+- 优先使用 `setup` 语法糖
+
+## 文档规范
+- 使用 Markdown 格式编写文档
+- 文档支持中文和英文两种语言
+- 中文文档使用中文标点符号，英文文档使用英文标点符号
+- 代码块需指定其语言类型
+- 重要的函数和组件需要添加注释说明
+
+## Git 提交规范
+- ${type}: ${emoji} ${description}
+
+---
+> Source: [isboyjc/isle-editor](https://github.com/isboyjc/isle-editor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
