@@ -1,0 +1,9 @@
+{
+  "name": "genaicpa--skillsforaudit",
+  "displayName": "SkillsforAudit",
+  "description": "AI-assisted financial audit workflows using Claude Skills",
+  "version": "1.0.0",
+  "author": "GenAICPA",
+  "homepage": "https://github.com/GenAICPA/SkillsforAudit",
+  "skills": []
+}
