@@ -1,0 +1,9 @@
+{
+  "name": "arcinstitute--sragent",
+  "displayName": "SRAgent",
+  "description": "LLM agents for working with the SRA and associated bioinformatics databases.",
+  "version": "1.0.0",
+  "author": "ArcInstitute",
+  "homepage": "https://github.com/ArcInstitute/SRAgent",
+  "skills": []
+}
