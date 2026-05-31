@@ -38164,6 +38164,11 @@
       "description": "HyprStream: agentic infrastructure for continous online-learning applications"
     },
     {
+      "name": "keys2023190905023--tinyedgebench",
+      "source": "./keys2023190905023--tinyedgebench",
+      "description": "TinyEdgeBench"
+    },
+    {
       "name": "mitchellh--go-libghostty",
       "source": "./mitchellh--go-libghostty",
       "description": "Go bindings for libghostty-vt."
