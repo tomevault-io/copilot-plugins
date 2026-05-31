@@ -1,290 +1,274 @@
-## framedeck
+## prompt-engineering-gpt-5-5
 
-> Framedeck is an AI-powered video editor. Users edit videos with natural language prompts to remove silences, add b-roll, generate subtitles, create motion designs, analyze footage, prepare voiceovers, and render finished videos.
+> Based on https://developers.openai.com/api/docs/guides/prompt-guidance
 
-# Framedeck - Agent Guide
 
-Framedeck is an AI-powered video editor. Users edit videos with natural language prompts to remove silences, add b-roll, generate subtitles, create motion designs, analyze footage, prepare voiceovers, and render finished videos.
+Based on https://developers.openai.com/api/docs/guides/prompt-guidance
 
-This file is the root guide for coding agents. Keep changes small, preserve the existing architecture, and prefer local project patterns over new abstractions.
+# GPT-5.5 prompting guide
 
-## Project Overview
+Prompt GPT-5.5 with outcome-first goals, concise style controls, retrieval budgets, and validation loops.
 
-Framedeck is a PNPM/Turborepo monorepo with a shared `ts-rest` contract.
+## New in GPT-5.5 vs GPT-5.4
+- Shorter, outcome-first prompts usually work better than process-heavy prompt stacks.
+- More efficient reasoning means `low` and `medium` effort should be re-evaluated before escalating.
+- Preambles, `phase` handling, and assistant-item replay remain important for tool-heavy Responses workflows.
+- Explicit personality, retrieval budgets, and validation rules help shape customer-facing and agentic UX.
+
+GPT-5.5 works best when prompts define the outcome and leave room for the model to choose an efficient solution path. Compared with earlier models, you can often use shorter, more outcome-oriented prompts: describe what good looks like, what constraints matter, what evidence is available, and what the final answer should contain.
+
+Avoid carrying over every instruction from an older prompt stack. Legacy prompts often over-specify the process because earlier models needed more help staying on track. With GPT-5.5, that can add noise, narrow the model's search space, or lead to overly mechanical answers.
+
+For more detail on GPT-5.5 behavior changes, start with the [Using GPT-5.5 guide](https://developers.openai.com/api/docs/guides/latest-model). This guide focuses on prompt changes that follow from those behavior changes.
+
+The patterns here are starting points. Adapt them to your product surface, tools, evals, and user experience goals.
+
+## Automated migration with Codex
+
+Codex can implement the changes from this guide with the [OpenAI Docs Skill](https://github.com/openai/skills/tree/main/skills/.curated/openai-docs).
 
 ```text
-apps/
-├── frontend/          # Next.js 16, React 19, Tailwind CSS v4, shadcn, Zustand, Remotion
-├── server/            # NestJS 11, AI SDK, S3, Socket.IO, ElevenLabs Scribe v2, TwelveLabs
-└── media-processor/   # Rust/Axum internal service for FFmpeg audio extraction
-packages/
-└── api-types/         # Shared ts-rest contracts, Zod schemas, realtime constants
+$openai-docs migrate this project to gpt-5.5
 ```
 
-The API contract in `packages/api-types` is the source of truth for frontend hooks and server handlers. Do not hardcode backend URLs in frontend code; use the generated `api` client and env-driven base URLs.
+To use this skill in other coding agents, download it from the [OpenAI skills repository](https://github.com/openai/skills/tree/main/skills/.curated/openai-docs).
 
-## Required Setup
+## Personality and behavior
 
-Prerequisites:
+GPT-5.5's default style is efficient, direct, and task-oriented. This is useful for production systems: responses stay focused, behavior is easier to steer, and the model avoids unnecessary conversational padding.
 
-- Node.js LTS and PNPM `10.22.0`
-- Rust toolchain and Cargo
-- FFmpeg for media extraction and local media workflows
-- App-specific `.env` files copied from each `.env.example`
-- Provider credentials as needed: AWS S3/Remotion, AI Gateway or OpenAI-compatible API, ElevenLabs, TwelveLabs, Deepgram
+For customer-facing assistants, support workflows, coaching experiences, and other conversational products, define both personality and collaboration style.
 
-Install dependencies from the repo root:
+- **Personality** controls how the assistant sounds: tone, warmth, directness, formality, humor, empathy, and level of polish.
+- **Collaboration style** controls how the assistant works: when it asks questions, when it makes assumptions, how proactive it should be, how much context it gives, when it checks work, and how it handles uncertainty or risk.
 
-```bash
-pnpm install
+Keep both short. Personality instructions should shape the user experience. Collaboration instructions should shape task behavior. Neither should replace clear goals, success criteria, tool rules, or stopping conditions.
+
+Example personality block for a steady task-focused assistant:
+
+```text
+# Personality
+You are a capable collaborator: approachable, steady, and direct. Assume the user is competent and acting in good faith, and respond with patience, respect, and practical helpfulness.
+
+Prefer making progress over stopping for clarification when the request is already clear enough to attempt. Use context and reasonable assumptions to move forward. Ask for clarification only when the missing information would materially change the answer or create meaningful risk, and keep any question narrow.
+
+Stay concise without becoming curt. Give enough context for the user to understand and trust the answer, then stop. Use examples, comparisons, or simple analogies when they make the point easier to grasp. When correcting the user or disagreeing, be candid but constructive. When an error is pointed out, acknowledge it plainly and focus on fixing it.
+
+Match the user's tone within professional bounds. Avoid emojis and profanity by default, unless the user explicitly asks for that style or has clearly established it as appropriate for the conversation.
 ```
 
-The root does not own a single combined env file. Configure env files per app:
+Example personality block for an expressive collaborative assistant:
 
-- `apps/frontend/.env`
-- `apps/server/.env`
-- `apps/media-processor/.env`
+```text
+# Personality
+Adopt a vivid conversational presence: intelligent, curious, playful when appropriate, and attentive to the user's thinking. Ask good questions when the problem is blurry, then become decisive once there is enough context.
 
-## Development Commands
+Be warm, collaborative, and polished. Conversation should feel easy and alive, but not chatty for its own sake. Offer a real point of view rather than merely mirroring the user, while staying responsive to their goals and constraints.
 
-Run the full stack:
-
-```bash
-pnpm dev
+Be thoughtful and grounded when the task calls for synthesis or advice. State a clear recommendation when you have enough context, explain important tradeoffs, and name uncertainty without becoming evasive.
 ```
 
-Run without portless URL injection:
+For more expressive products, add warmth, curiosity, humor, or point of view explicitly, but keep the block short. Use personality to shape the experience, not to compensate for unclear goals or missing task instructions.
 
-```bash
-pnpm dev:direct
+## Improve time to first visible token with a preamble
+
+In streaming applications, users notice how long it takes before the first visible response appears. GPT-5.5 may spend time reasoning, planning, or preparing tool calls before emitting visible text.
+
+For longer or tool-heavy tasks, prompt the model to start with a short preamble: a brief visible update that acknowledges the request and states the first step. This can improve perceived responsiveness without changing the underlying task.
+
+Use this pattern when the task may take more than one step, require tool calls, or involve a long-running agent workflow.
+
+```text
+Before any tool calls for a multi-step task, send a short user-visible update that acknowledges the request and states the first step. Keep it to one or two sentences.
 ```
 
-Run individual apps:
+For coding agents that expose separate message phases, you can be more explicit:
 
-```bash
-pnpm --filter frontend dev
-pnpm --filter server dev
-pnpm --filter media-processor dev
-pnpm --filter api-types dev
+```text
+You must always start with an intermediary update before any content in the analysis channel if the task will require calling tools. The user update should acknowledge the request and explain your first step.
 ```
 
-Common checks:
+## Outcome-first prompts and stopping conditions
 
-```bash
-pnpm typecheck
-pnpm test
-pnpm build
-pnpm --filter frontend lint
-pnpm --filter server lint
-pnpm --filter media-processor lint
+GPT-5.5 is strongest when the prompt defines the target outcome, success criteria, constraints, and available context, then lets the model choose the path.
+
+For many tasks, describe the destination rather than every step. This gives the model room to choose the right search, tool, or reasoning strategy for the task.
+
+Prefer this:
+
+```text
+Resolve the customer's issue end to end.
+
+Success means:
+- the eligibility decision is made from the available policy and account data
+- any allowed action is completed before responding
+- the final answer includes completed_actions, customer_message, and blockers
+- if evidence is missing, ask for the smallest missing field
 ```
 
-Package-specific commands:
+**Avoid unnecessary absolute rules.** Older prompts often use strict instructions like `ALWAYS`, `NEVER`, `must`, and `only` to control model behavior. Use those words for true invariants, such as safety rules, required output fields, or actions that should never happen. For judgment calls, such as when to search, ask for clarification, use a tool, or keep iterating, prefer decision rules instead.
 
-```bash
-pnpm --filter api-types build
-pnpm --filter frontend exec tsc
-pnpm --filter server exec tsc
-pnpm --filter server test
-pnpm --filter server test:e2e
-pnpm --filter server test:cov
-pnpm --filter media-processor test
+Avoid this style of instruction unless every step is truly required:
+
+```text
+First inspect A, then inspect B, then compare every field, then think through
+all possible exceptions, then decide which tool to call, then call the tool,
+then explain the entire process to the user.
 ```
 
-Portless dev URLs:
+Add explicit stopping conditions:
 
-- Frontend: `http://ai-video-editor.localhost:1355`
-- Backend: `http://api-ai-video-editor.localhost:1355`
-- Media processor: `http://media-ai-video-editor.localhost:1355`
+```text
+Resolve the user query in the fewest useful tool loops, but do not let loop minimization outrank correctness, accessible fallback evidence, calculations, or required citation tags for factual claims.
 
-Use `pnpm portless:list` to inspect active routes.
-
-## Architecture
-
-### ts-rest API Workflow
-
-When adding or changing an API route:
-
-1. Update `packages/api-types/src/index.ts` with Zod schemas and the `apiContracts` route.
-2. Build shared types with `pnpm --filter api-types build`.
-3. On the server, bind the route with `@TsRestHandler(apiContracts.<router>.<endpoint>)`.
-4. Keep business logic in services, not controllers.
-5. On the frontend, consume through `api.<router>.<endpoint>.useQuery()` or `.useMutation()`.
-
-Request and response shape changes must start in `api-types` so frontend and server compile against the same contract.
-
-### Upload Pipeline
-
-1. Client calls `POST /uploads/init` to create a multipart upload and receive presigned URLs.
-2. Client calls `POST /uploads/:uploadId/sign-parts` to sign chunks.
-3. Browser uploads directly to S3 through `directS3Upload()` with parallel multipart upload and Transfer Acceleration.
-4. Client calls `POST /uploads/:uploadId/complete`.
-5. Server starts ElevenLabs Scribe v2 transcription in the background.
-6. Server starts TwelveLabs video analysis in the background for video assets.
-7. Results arrive over WebSocket events such as `transcriptionComplete` and `upload:videoAnalysisComplete`.
-
-Asset statuses may include `pending-upload`, `uploading`, `in-progress`, `transcribing`, `ready`, `uploaded`, and `error`. Check existing frontend/server usage before renaming or consolidating statuses.
-
-### Video Analysis
-
-- TwelveLabs analysis is triggered after `POST /uploads/:uploadId/complete` for video assets.
-- It runs in parallel with ElevenLabs Scribe v2 transcription and must not block upload completion.
-- The pipeline is presigned S3 GET URL, TwelveLabs indexing, parallel prompt analysis, then WebSocket `upload:videoAnalysisComplete`.
-- Frontend stores analysis on `asset.summary` with fields such as `macroView`, `causalLogic`, `sequentialSummary`, `socket`, and `plug`.
-
-### Agent-Driven Editor
-
-- `ai-gateway.service.ts` streams text and reasoning through the AI SDK and calls tools from `ToolsService.getTools()`.
-- `tools.service.ts` defines Zod-validated tools named with `editorToolNames`.
-- Tool calls emit WebSocket start, delta, end, and result events.
-- `selectTimelineItems` dispatches through `RealtimeService`.
-- `removeSilences` waits for frontend results through `registerToolResult` using tool-call-id promises.
-- `WebSocketProvider.tsx` routes realtime messages by `RealtimeMessageType`.
-- `editor-realtime-bridge.tsx` handles editor messages, delegates to hooks, and reports tool results back to the server.
-
-### Media Processor
-
-The Rust service is internal to the server. For video transcription, the server sends a presigned S3 URL to the media processor, which streams the video through FFmpeg and returns MP3 bytes for ElevenLabs Scribe v2.
-
-Important endpoints:
-
-- `GET /health`
-- `GET /extract-audio?url=<presigned-s3-url>`
-
-## Code Style
-
-Core rules:
-
-- Keep code short and simple. Avoid overengineering.
-- Preserve existing module boundaries and naming.
-- Prefer single quotes in TypeScript/JavaScript.
-- Keep files under 300 lines when practical; extract to descriptive subfolders.
-- Add comments only when they clarify non-obvious behavior. Comments must be in English.
-- Use descriptive names such as `projectData` and `audioPlayerCurrentTime`, not `data` or `t`.
-- Booleans use `is`, `has`, or `can` prefixes.
-- Functions use action verbs such as `calculateDuration()` or `validatePermissions()`.
-- Components use PascalCase with a role, such as `TranslationProgressIndicator.tsx`.
-- For 3 or more function parameters, use an object parameter.
-
-```typescript
-function calculatePosition({ startTime, duration, pixelsPerSecond }: PositionParams): number;
+After each result, ask: "Can I answer the user's core request now with useful evidence and citations for the factual claims?" If yes, answer.
 ```
 
-Logging:
+Define missing-evidence behavior:
 
-- Use `console.log` or `this.logger.log` only for short-term debugging and remove it before finishing.
-- Use `console.debug` or `this.logger.debug` for long-term development logs.
-- On the backend, add useful `.catch` logs so failures are debuggable.
-- For important new backend functions, prefer a debug log at the beginning and a completion log at the end.
-
-## Frontend Guidelines
-
-- Use arrow function components: `const MyComponent: React.FC = () => { ... }`.
-- Type state explicitly: `useState<string>('')`, not `useState('')`.
-- Use shadcn/custom components from `apps/frontend/src/components`.
-- Always use `apps/frontend/src/components/tooltip.tsx` for tooltips.
-- Always use `apps/frontend/src/components/buttons/IconButton.tsx` for icon buttons.
-- Use `next/image` for images.
-- Upload files through `directS3Upload()` from the upload utility.
-- Transcription results arrive through the `useTranscriptionListener` hook.
-- Reuse existing hooks, Zustand stores, realtime bridge code, and editor utilities before adding new state paths.
-
-Remotion lives in the frontend. When working on video compositions, rendering, captions, or Remotion dependencies, read `.cursor/rules/remotion.mdc` first and follow the local Remotion patterns. Use:
-
-```bash
-pnpm --filter frontend remotion:studio
-pnpm --filter frontend remotion:deploy
+```text
+Use the minimum evidence sufficient to answer correctly, cite it precisely, then stop.
 ```
 
-UI-only changes outside the Remotion template folder do not require a Remotion Lambda redeploy.
+## Formatting
 
-## Server Guidelines
+GPT-5.5 is highly steerable on output format and structure. Use that control when it improves comprehension or product fit.
 
-- Use the AI SDK for AI calls; check Context7 MCP for current docs before changing AI SDK usage.
-- Controllers bind `ts-rest` handlers and delegate business logic to services.
-- Keep upload, transcription, realtime, render, and video-analysis responsibilities in their existing modules.
-- Temp files should use `temporary-files/[input|output]/[fileName]-${crypto.randomUUID()}`.
-- Use `RealtimeService` for Socket.IO messages instead of emitting ad hoc events.
-- For S3 multipart upload behavior, keep browser uploads direct-to-S3 and server routes focused on signing/completion.
+Set `text.verbosity`, describe the expected output shape, and reserve heavier structure for cases where it improves comprehension or your product UI needs a stable artifact. The API default for `text.verbosity` is `medium`; use `low` when you prefer shorter, more concise responses.
 
-Before implementing Supabase changes, read the most relevant guide in `docs/supabase` and follow it. If multiple guides apply, prioritize the most specific one:
+Plain conversational formatting:
 
-- `docs/supabase/create_migrations.md`
-- `docs/supabase/create_rls_policies.md`
-- `docs/supabase/declarative_database_schema.md`
-- `docs/supabase/postgres_sql_style_guide.md`
-- `docs/supabase/create_functions.md`
-- `docs/supabase/writing_supabase_edge_functions.md`
-- `docs/supabase/supabase_realtime_ai_assistant_guide.md`
-- `docs/supabase/bootstrap_next_js_v16_app_with_supabase_auth.md`
+```text
+Let formatting serve comprehension. Use plain paragraphs as the default format for normal conversation, explanations, reports, documentation, and technical writeups. Keep the presentation clean and readable without making the structure feel heavier than the content.
 
-## Testing and Verification
+Use headers, bold text, bullets, and numbered lists sparingly. Reach for them when the user requests them, when the answer needs clear comparison or ranking, or when the information would be harder to scan as prose. Otherwise, favor short paragraphs and natural transitions.
 
-Run the smallest relevant check first, then broaden based on risk.
+Respect formatting preferences from the user. If they ask for a terse answer, minimal formatting, no bullets, no headers, or a specific structure, follow that preference unless there is a strong reason not to.
+```
 
-- Shared contract changes: `pnpm --filter api-types build`
-- Frontend TS changes: `pnpm --filter frontend exec tsc`
-- Frontend lint-sensitive changes: `pnpm --filter frontend lint`
-- Server TS changes: `pnpm --filter server exec tsc`
-- Server behavior changes: `pnpm --filter server test`
-- Server API flow changes: `pnpm --filter server test:e2e`
-- Rust changes: `pnpm --filter media-processor test` and `pnpm --filter media-processor lint`
-- Cross-package changes: `pnpm typecheck`
-- Release/build confidence: `pnpm build`
+Add explicit audience and length guidance:
 
-Add or update focused tests when changing shared contracts, server services, upload behavior, realtime behavior, or media processing logic. If a command cannot run because of missing env or external services, report that clearly.
+```text
+Write for a senior business audience. Keep the answer under 400 words. Use short paragraphs and only include bullets when they improve scannability. Prioritize the conclusion first, then the reasoning, then caveats.
+```
 
-## Build and Deployment Notes
+For editing, rewriting, summaries, or customer-facing messages, tell the model what to preserve before asking it to improve style. This pattern is useful when you want polish without expansion.
 
-- `pnpm build` runs `turbo run build`.
-- Turborepo build outputs include `.next/**`, `dist/**`, and `target/release/**`.
-- `dev` tasks are persistent and uncached.
-- Build `api-types` before server/frontend checks when contract types changed.
-- Use `pnpm --filter server configure:s3-cors` when S3 CORS must be configured for browser multipart uploads.
-- Use `pnpm --filter frontend remotion:deploy` after changes under the Remotion template area that need Lambda deployment.
+```text
+Preserve the requested artifact, length, structure, and genre first. Quietly improve clarity, flow, and correctness. Do not add new claims, extra sections, or a more promotional tone unless explicitly requested.
+```
 
-## MCP and External Docs
+## Grounding, citations, and retrieval budgets
 
-Always use MCP for library documentation instead of web search when available.
+For grounded answers, citation behavior should be part of the prompt. Define what needs support, what counts as enough evidence, and how the model should behave when evidence is missing. Absence of evidence shouldn't automatically become a factual "no." For more details and examples, see the [citation formatting guide](https://developers.openai.com/api/docs/guides/citation-formatting).
 
-- Context7: external library docs such as AI SDK, Zustand, Next.js, NestJS, and React.
-- shadcn: search or install UI components.
-- Figma MCP: design-to-code or code-to-design workflows.
+### Add an explicit retrieval budget
 
-Check current docs before changing fast-moving libraries such as AI SDK, Next.js, Remotion, Supabase, or Stripe.
+Retrieval budgets are stopping rules for search. They tell the model when enough evidence is enough.
 
-## Security and Secrets
+```text
+For ordinary Q&A, start with one broad search using short, discriminative keywords. If the top results contain enough citable support for the core request, answer from those results instead of searching again.
 
-- Never commit `.env` files, provider keys, credentials, or local logs containing secrets.
-- Keep browser-exposed env vars prefixed appropriately, such as `NEXT_PUBLIC_*`.
-- Do not move secret-bearing operations into frontend code.
-- Use presigned URLs for direct S3 access; do not expose AWS secrets to the browser.
-- Preserve CORS and allowed-origin checks for frontend, WebSocket, and media routes.
+Make another retrieval call only when:
+- The top results do not answer the core question.
+- A required fact, parameter, owner, date, ID, or source is missing.
+- The user asked for exhaustive coverage, a comparison, or a comprehensive list.
+- A specific document, URL, email, meeting, record, or code artifact must be read.
+- The answer would otherwise contain an important unsupported factual claim.
 
-## Supported Media
+Do not search again to improve phrasing, add examples, cite nonessential details, or support wording that can safely be made more generic.
+```
 
-Audio: MP3, WAV, AAC, FLAC, OGG
+## Creative drafting guardrails
 
-Video: MP4, MOV, MKV, AVI, WebM, ProRes, including raw footage up to 50GB+
+For drafting tasks, tell the model which claims must come from sources and which parts may be creatively written. This is especially important for slides, launch copy, customer summaries, talk tracks, leadership blurbs, and narrative framing.
 
-Uploads use S3 multipart upload with Transfer Acceleration for large files.
+```text
+For creative or generative requests such as slides, leadership blurbs, outbound copy, summaries for sharing, talk tracks, or narrative framing, distinguish source-backed facts from creative wording.
 
-## Pull Request Guidance
+- Use retrieved or provided facts for concrete product, customer, metric, roadmap, date, capability, and competitive claims, and cite those claims.
+- Do not invent specific names, first-party data claims, metrics, roadmap status, customer outcomes, or product capabilities to make the draft sound stronger.
+- If there is little or no citable support, write a useful generic draft with placeholders or clearly labeled assumptions rather than unsupported specifics.
+```
 
-- Keep PRs focused and reviewable.
-- Mention contract changes, migration requirements, env changes, and external service impacts.
-- Before committing, run the checks that match the changed packages.
-- Do not commit generated caches, local logs, build outputs, secrets, or temporary media files.
-- If hooks or CI modify files, inspect the diff before committing.
+## Frontend engineering and visual taste
 
-## Common Gotchas
+For frontend work, refer to the [example instructions](https://developers.openai.com/api/docs/guides/frontend-prompt) for practical ways to steer UI quality. They cover product and user context, design-system alignment, first-screen usability, familiar controls, expected states, responsive behavior, and common generated-UI defaults to avoid, such as generic heroes, nested cards, decorative gradients, visible instructional text, and broken layouts.
 
-- Update `api-types` first for API shape changes; otherwise frontend/server types drift.
-- Realtime editor tools require both server tool events and frontend bridge handling.
-- Upload completion should start background processing but should not wait for long-running transcription or TwelveLabs analysis.
-- Portless dev scripts inject service URLs; direct mode requires env values to be correct.
-- The media processor depends on FFmpeg being installed locally.
-- Remotion Lambda deploys are only needed for composition/render template changes.
+## Prompt the model to check its work
+
+Give GPT-5.5 access to tools that let it check outputs when validation is possible.
+
+For coding agents, ask for concrete validation commands:
+
+```text
+After making changes, run the most relevant validation available:
+- targeted unit tests for changed behavior
+- type checks or lint checks when applicable
+- build checks for affected packages
+- a minimal smoke test when full validation is too expensive
+
+If validation cannot be run, explain why and describe the next best check.
+```
+
+For visual artifacts, ask for inspection after rendering:
+
+```text
+Render the artifact before finalizing. Inspect the rendered output for layout, clipping, spacing, missing content, and visual consistency. Revise until the rendered output matches the requirements.
+```
+
+For engineering and planning tasks, make implementation plans traceable:
+
+```text
+For implementation plans, include:
+- requirements and where each is addressed
+- named resources, files, APIs, or systems involved
+- state transitions or data flow where relevant
+- validation commands or checks
+- failure behavior
+- privacy and security considerations
+- open questions that materially affect implementation
+```
+
+## Phase parameter
+
+Starting with GPT-5.4, long-running or tool-heavy Responses workflows can use assistant-item `phase` values to distinguish intermediate updates from final answers. GPT-5.5 uses the same pattern.
+
+If you use `previous_response_id`, the API preserves prior assistant state automatically. If your application manually replays assistant output items into the next request, preserve each original `phase` value and pass it back unchanged. This matters most when a response includes preambles, repeated tool calls, or a final answer after intermediate assistant updates.
+
+```text
+If manually replaying assistant items:
+- Preserve assistant `phase` values exactly.
+- Use `phase: "commentary"` for intermediate user-visible updates.
+- Use `phase: "final_answer"` for the completed answer.
+- Do not add `phase` to user messages.
+```
+
+## Suggested prompt structure
+
+Use this structure as a starting point for complex prompts. Keep each section short. Add detail only where it changes behavior.
+
+```text
+Role: [1-2 sentences defining the model's function, context, and job]
+
+# Personality
+[tone, demeanor, and collaboration style]
+
+# Goal
+[user-visible outcome]
+
+# Success criteria
+[what must be true before the final answer]
+
+# Constraints
+[policy, safety, business, evidence, and side-effect limits]
+
+# Output
+[sections, length, and tone]
+
+# Stop rules
+[when to retry, fallback, abstain, ask, or stop]
+```
 
 ---
 > Source: [kevinrss01/framedeck](https://github.com/kevinrss01/framedeck) — distributed by [TomeVault](https://tomevault.io).
