@@ -7,11 +7,11 @@ A lightweight, flexible drag and drop library for Svelte 5 applications.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thisuxhq/sveltednd](https://github.com/thisuxhq/sveltednd).
+Original source: `CLAUDE.md` in [thisuxhq/sveltednd](https://github.com/thisuxhq/sveltednd).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
