@@ -1,0 +1,9 @@
+{
+  "name": "mudler--parakeet-cpp",
+  "displayName": "parakeet.cpp",
+  "description": "Parakeet implementation in C++ with ggml",
+  "version": "1.0.0",
+  "author": "mudler",
+  "homepage": "https://github.com/mudler/parakeet.cpp",
+  "skills": []
+}
