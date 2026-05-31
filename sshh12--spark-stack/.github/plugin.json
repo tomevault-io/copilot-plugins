@@ -1,0 +1,9 @@
+{
+  "name": "sshh12--spark-stack",
+  "displayName": "spark-stack",
+  "description": "Spark Stack is an tool for building web applications through an AI-powered chat interface. Create quick MVPs and prototypes using natural language prompts.",
+  "version": "1.0.0",
+  "author": "sshh12",
+  "homepage": "https://github.com/sshh12/spark-stack",
+  "skills": []
+}
