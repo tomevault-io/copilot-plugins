@@ -1,0 +1,9 @@
+{
+  "name": "oramasearch--oramacore",
+  "displayName": "oramacore",
+  "description": "OramaCore is the complete runtime you need for your projects, answer engines, copilots, and search. It includes a fully-fledged full-text search engine, vector database, LLM interface, and many more u",
+  "version": "1.0.0",
+  "author": "oramasearch",
+  "homepage": "https://github.com/oramasearch/oramacore",
+  "skills": []
+}
