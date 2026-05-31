@@ -4,7 +4,7 @@
   "repo": "chatwise-releases",
   "description": "The fastest AI Chatbot for any LLM",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/egoist/chatwise-releases",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T19:44:09Z"
+  "distributed_at": "2026-05-31T19:48:02Z"
 }
