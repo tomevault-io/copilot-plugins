@@ -1,0 +1,9 @@
+{
+  "name": "grafana--alloy-scenarios",
+  "displayName": "alloy-scenarios",
+  "description": "A collection of working Alloy scenarios",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/alloy-scenarios",
+  "skills": []
+}
