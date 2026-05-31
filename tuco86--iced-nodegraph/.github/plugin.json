@@ -1,0 +1,9 @@
+{
+  "name": "tuco86--iced-nodegraph",
+  "displayName": "iced_nodegraph",
+  "description": "A node graph editor widget for Iced",
+  "version": "1.0.0",
+  "author": "tuco86",
+  "homepage": "https://github.com/tuco86/iced_nodegraph",
+  "skills": []
+}
