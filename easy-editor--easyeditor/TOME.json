@@ -4,7 +4,7 @@
   "repo": "EasyEditor",
   "description": "Plugin-based cross-framework low-code engine for building visual application platforms  |  \u7528\u4e8e\u6784\u5efa\u53ef\u89c6\u5316\u5e94\u7528\u5e73\u53f0\u7684\u63d2\u4ef6\u5316\u8de8\u6846\u67b6\u4f4e\u4ee3\u7801\u5f15\u64ce",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Easy-Editor/EasyEditor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T23:37:18Z"
+  "distributed_at": "2026-05-31T23:53:58Z"
 }
