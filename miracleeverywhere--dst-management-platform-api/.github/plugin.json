@@ -1,0 +1,9 @@
+{
+  "name": "miracleeverywhere--dst-management-platform-api",
+  "displayName": "dst-management-platform-api",
+  "description": "\u9965\u8352\u7ba1\u7406\u5e73\u53f0(DMP)\uff0c\u6ee1\u8db3\u4e00\u952e\u5f00\u670d\u3001\u73a9\u5bb6\u7ba1\u7406\u3001\u623f\u95f4\u7ba1\u7406\u3001\u6570\u636e\u7edf\u8ba1\u3001\u5b9a\u65f6\u4efb\u52a1\u7b49\u529f\u80fd",
+  "version": "1.0.0",
+  "author": "miracleEverywhere",
+  "homepage": "https://github.com/miracleEverywhere/dst-management-platform-api",
+  "skills": []
+}
