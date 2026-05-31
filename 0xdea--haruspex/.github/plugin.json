@@ -1,0 +1,9 @@
+{
+  "name": "0xdea--haruspex",
+  "displayName": "haruspex",
+  "description": "Vulnerability research assistant that extracts pseudocode from the IDA Hex-Rays decompiler.",
+  "version": "1.0.0",
+  "author": "0xdea",
+  "homepage": "https://github.com/0xdea/haruspex",
+  "skills": []
+}
