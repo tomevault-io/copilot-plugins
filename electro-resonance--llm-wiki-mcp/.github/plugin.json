@@ -1,0 +1,9 @@
+{
+  "name": "electro-resonance--llm-wiki-mcp",
+  "displayName": "LLM-WIKI-MCP",
+  "description": "LLM\u202fWiki\u202fMCP \u2013 the local\u2011first Markdown knowledge\u2011base with both MCP and CLI",
+  "version": "1.0.0",
+  "author": "Electro-resonance",
+  "homepage": "https://github.com/Electro-resonance/LLM-WIKI-MCP",
+  "skills": []
+}
