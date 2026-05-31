@@ -1,0 +1,9 @@
+{
+  "name": "arafathusayn--tinygrad",
+  "displayName": "tinygrad",
+  "description": "Autograd engine in TS/JS with operator overloading",
+  "version": "1.0.0",
+  "author": "arafathusayn",
+  "homepage": "https://github.com/arafathusayn/tinygrad",
+  "skills": []
+}
