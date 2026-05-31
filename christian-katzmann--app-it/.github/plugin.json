@@ -1,0 +1,9 @@
+{
+  "name": "christian-katzmann--app-it",
+  "displayName": "app-it",
+  "description": "A Claude Code + Codex skill that turns a local project into a macOS Dock-launchable app \u2014 native window, its own icon, no Electron. [The Windows version is in BETA]",
+  "version": "1.0.0",
+  "author": "Christian-Katzmann",
+  "homepage": "https://github.com/Christian-Katzmann/app-it",
+  "skills": []
+}
