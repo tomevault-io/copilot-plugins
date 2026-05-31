@@ -1,0 +1,9 @@
+{
+  "name": "rar--esphome-tigomonitor",
+  "displayName": "esphome-tigomonitor",
+  "description": "An ESPHome Based Tigo Monitor",
+  "version": "1.0.0",
+  "author": "RAR",
+  "homepage": "https://github.com/RAR/esphome-tigomonitor",
+  "skills": []
+}
