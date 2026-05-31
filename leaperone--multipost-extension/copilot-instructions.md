@@ -1,77 +1,115 @@
-## typescript
+## ui
 
-> typescript
+> UI and Styling Guidelines:
 
-TypeScript Development Guidelines:
+UI and Styling Guidelines:
 
-- Don't `npm run build` or `pnpm build` for testing
+Component Library:
+- Use HeroUI and Tailwind for components and styling
+- Use lucide-react for icon. Sometime @iconify/react in code base, ignore it.
+- Implement responsive design with Tailwind CSS; use a mobile-first approach
 
-Code Style:
-- Use TypeScript for all code; prefer interfaces over types
-- Avoid enums; use maps instead
-- Use functional components with TypeScript interfaces
-- Write concise TypeScript code with accurate type definitions
-- Use functional and declarative programming patterns; avoid classes
-
-Naming Conventions:
-- Use PascalCase for components and interfaces
-- Use camelCase for utility functions, variables, and methods
-- Use SNAKE_CASE for constants
-```typescript
-// Component and Interface naming
-interface UserData {
-  email: string;
-  name: string;
-}
-
-function UserProfile() {}
-function AuthButton() {}
-
-// Utility function naming
-function formatDateTime() {}
-function parseUserData() {}
-
-// Constant naming
-const API_BASE_URL = "https://api.example.com";
-const MAX_RETRY_COUNT = 3;
+Tailwind CSS 使用规范:
+- 采用移动优先的响应式设计
+```tsx
+// ✅ 正确示例
+<div className="w-full md:w-1/2 lg:w-1/3">
 ```
 
-Error Handling and Type Safety:
-- Use early returns and guard clauses
-- Implement proper type checking
-- Use Zod for form validation and runtime type checking
-```typescript
-// ✅ Correct
-function processUserData(data?: UserData) {
-  if (!data) return null;
-  if (!data.email) return { error: "Email required" };
-  
-  return processData(data);
+布局规范:
+- 使用 Flexbox 和 Grid 进行布局
+- 使用 gap 替代 margin 处理元素间距
+```tsx
+// ✅ 正确示例
+<div className="flex gap-4">
+// ❌ 错误示例
+<div className="flex [&>*]:mr-4">
+```
+
+响应式设计断点:
+- sm: 640px
+- md: 768px
+- lg: 1024px
+- xl: 1280px
+- 2xl: 1536px
+
+可访问性规范:
+- 实现 ARIA 标签
+- 确保充足的颜色对比度
+- 支持屏幕阅读器
+- 添加键盘快捷键
+```tsx
+// ✅ 正确示例
+<button
+  aria-label="关闭对话框"
+  className="text-gray-500 hover:text-gray-700"
+  onClick={onClose}
+>
+```
+
+组件最佳实践:
+- 组件使用函数式声明
+- Props 使用 TypeScript 接口定义
+- 实现合适的加载和错误状态
+```tsx
+interface ButtonProps {
+  isLoading?: boolean;
+  variant?: 'primary' | 'secondary';
+  children: React.ReactNode;
 }
 
-// ❌ Incorrect
-function processUserData(data?: UserData) {
-  if (data) {
-    if (data.email) {
-      return processData(data);
-    }
-  }
+function Button({ isLoading, variant = 'primary', children }: ButtonProps) {
+  return (
+    <button
+      className={cn(
+        'px-4 py-2 rounded-md',
+        variant === 'primary' ? 'bg-primary-600' : 'bg-secondary-600',
+        isLoading && 'opacity-50 cursor-not-allowed'
+      )}
+      disabled={isLoading}
+    >
+      {isLoading ? <LoadingSpinner /> : children}
+    </button>
+  );
 }
 ```
 
-Variable Naming:
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
-```typescript
-// ✅ Correct
-const isLoading = true;
-const hasError = false;
-const fetchUserData = async () => {};
+性能优化:
+- 使用 React.memo() 优化渲染
+- 实现组件懒加载
+- 优化图片加载
+```tsx
+// 组件懒加载
+const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
+  loading: () => <LoadingSpinner />
+});
 
-// ❌ Incorrect
-const loading = true;
-const error = false;
-const userData = async () => {};
-``` 
+// 图片优化
+<Image
+  src="/hero.jpg"
+  alt="Hero image"
+  width={1200}
+  height={600}
+  placeholder="blur"
+  priority
+/>
+```
+
+主题和暗色模式:
+- use `bg-background` and `text-foreground`
+- 使用 Tailwind 的暗色模式, 实现一致的颜色系统
+```tsx
+// ✅ 正确示例
+<div className="bg-background">
+  <p className="text-foreground">
+```
+- 使用语义化的颜色变量
+```tsx
+// ✅ 正确示例
+<button className="bg-primary-600 hover:bg-primary-700">
+// ❌ 错误示例
+<button className="bg-blue-600 hover:bg-blue-700">
+```
 
 ---
 > Source: [leaperone/MultiPost-Extension](https://github.com/leaperone/MultiPost-Extension) — distributed by [TomeVault](https://tomevault.io).
