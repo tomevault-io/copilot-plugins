@@ -81979,6 +81979,11 @@
       "description": "mental-health-react-native"
     },
     {
+      "name": "barneyd66--open-warehouse-system",
+      "source": "./barneyd66--open-warehouse-system",
+      "description": "Chinese-first open-source WMS starter for cross-border warehouse, fulfillment, inventory, billing, returns, and 3PL operations."
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
