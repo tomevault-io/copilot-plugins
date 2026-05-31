@@ -1,0 +1,9 @@
+{
+  "name": "carrotly-ai--gluon-agent",
+  "displayName": "gluon-agent",
+  "description": "AI coding agent orchestrator \u2014 run parallel Claude Code tasks in sandboxed Docker containers, monitor from a Kanban board or chat bot.",
+  "version": "1.0.0",
+  "author": "carrotly-ai",
+  "homepage": "https://github.com/carrotly-ai/gluon-agent",
+  "skills": []
+}
