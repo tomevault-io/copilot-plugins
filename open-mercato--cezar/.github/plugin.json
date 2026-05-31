@@ -1,0 +1,9 @@
+{
+  "name": "open-mercato--cezar",
+  "displayName": "cezar",
+  "description": "Cezar is a team SaaS for running AI coding agents on GitHub issues. It's a cockpit: every agent run \u2014 queued, running, paused, failed, finished \u2014 is visible with controls. Incoming issues are auto-tri",
+  "version": "1.0.0",
+  "author": "open-mercato",
+  "homepage": "https://github.com/open-mercato/cezar",
+  "skills": []
+}
