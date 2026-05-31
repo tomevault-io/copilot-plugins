@@ -1,0 +1,9 @@
+{
+  "name": "futuresolutiondev--deploy-center-server",
+  "displayName": "Deploy-Center-Server",
+  "description": "Self-hosted CI/CD deployment platform with persistent queue (BullMQ + Redis), encrypted env vars, multi-channel notifications (Discord/Slack/Email), rollback UI, project templates, and workspaces. Typ",
+  "version": "1.0.0",
+  "author": "FutureSolutionDev",
+  "homepage": "https://github.com/FutureSolutionDev/Deploy-Center-Server",
+  "skills": []
+}
