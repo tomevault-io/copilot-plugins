@@ -1,0 +1,9 @@
+{
+  "name": "humanspeak--svelte-markdown",
+  "displayName": "svelte-markdown",
+  "description": "\ud83d\udcdd Markdown and HTML renderer for Svelte 5 \u2014 built for streaming AI agent output from Claude Code, ChatGPT, and agentic workflows. XSS-safe defaults, token caching, TypeScript types.",
+  "version": "1.0.0",
+  "author": "humanspeak",
+  "homepage": "https://github.com/humanspeak/svelte-markdown",
+  "skills": []
+}
