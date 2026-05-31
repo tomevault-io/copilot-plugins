@@ -1,0 +1,9 @@
+{
+  "name": "bo0tzz--pgmqtt",
+  "displayName": "pgmqtt",
+  "description": "Stateless and scalable MQTT broker backed by Postgres",
+  "version": "1.0.0",
+  "author": "bo0tzz",
+  "homepage": "https://github.com/bo0tzz/pgmqtt",
+  "skills": []
+}
