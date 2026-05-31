@@ -7,11 +7,11 @@ Zero-knowledge API keys for AI agents: the agent only ever sees a placeholder
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [inflightsec/agent-vault-proxy](https://github.com/inflightsec/agent-vault-proxy).
+Original source: `CLAUDE.md` in [inflightsec/agent-vault-proxy](https://github.com/inflightsec/agent-vault-proxy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
