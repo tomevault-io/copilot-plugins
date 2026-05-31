@@ -1,0 +1,9 @@
+{
+  "name": "psylsph--givenergy-local",
+  "displayName": "givenergy-local",
+  "description": "Desktop app for monitoring and controlling GivEnergy solar inverters over your local network \u2014 no cloud account needed",
+  "version": "1.0.0",
+  "author": "psylsph",
+  "homepage": "https://github.com/psylsph/givenergy-local",
+  "skills": []
+}
