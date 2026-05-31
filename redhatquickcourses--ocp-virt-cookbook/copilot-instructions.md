@@ -1,33 +1,64 @@
-## security-policy
+## shared-constraints
 
-> Credential handling, context exclusions, and cluster safety rules
+> Shared constraints for all agent personas -- git policy, commit attribution, tutorial content rules, build gate
 
 
-# Security Policy
+# Shared Constraints
 
-## Context Exclusions
+These rules apply to every agent persona in the OpenShift Virtualization Cookbook project. Individual personas may add stricter rules on top of these but must never relax them.
 
-The following file patterns must never be read, displayed, included in context, or committed:
+## Git Policy
 
-- `**/kubeconfig`
-- `**/kubeconfig.*`
-- `**/.env`
-- `**/.env.*`
-- `**/secrets/**`
-- `**/*.pem`
-- `**/*.key`
+- Work only on a local branch for the specific task. Never work on `main`.
+- Commit changes to that branch for human review.
+- NEVER open pull requests. NEVER push to any remote. NEVER comment on Issues or PRs remotely.
+- All changes stay local until the human user decides to push or open a PR.
 
-## Credential Handling
+**PR Reviewer exception:** The PR Reviewer persona is read-only. It never commits, never pushes, and never modifies the fetched branch. It writes logs to `.cursor/output/` and generates `gh api` commands but never executes them.
 
-- Only use the kubeconfig path the user explicitly provides. Never read or display its contents.
-- No secrets, tokens, passwords, or credentials in commits or documentation.
-- If a tutorial requires credentials (e.g., pull secrets), use placeholder values and document that the user must substitute their own.
+## Commit Attribution
 
-## Cluster Safety
+Every commit MUST include the following trailer as the **last line** of the commit message body, separated from the rest of the body by a blank line:
 
-- MCP servers run with minimal required permissions.
-- Never modify cluster-wide resources (CRDs, cluster roles, nodes) without explicit human confirmation.
-- Never delete resources that were not created during the current session.
+```
+Co-authored-by: cursor[bot] <206951365+cursor[bot]@users.noreply.github.com>
+```
+
+Use a HEREDOC to pass multi-line commit messages so the trailer is preserved exactly:
+
+```bash
+git commit -m "$(cat <<'EOF'
+<short title line>
+
+<optional body>
+
+Co-authored-by: cursor[bot] <206951365+cursor[bot]@users.noreply.github.com>
+EOF
+)"
+```
+
+## Upstream Repository
+
+The upstream repository for all `gh` commands is:
+
+```
+RedHatQuickCourses/ocp-virt-cookbook
+```
+
+Always use `--repo RedHatQuickCourses/ocp-virt-cookbook` when generating `gh` commands that target the upstream.
+
+## Tutorial Content Rules
+
+- Code blocks in tutorials must **NEVER** contain bash loops (`for`, `while`), conditionals (`if/then`), or multi-line shell scripts.
+- Each code block should contain a single command (or a single tightly coupled pipeline). When a step involves multiple commands, use a separate code block for each with a brief sentence of prose between them.
+- Host-side commands (`oc`, `virtctl`, `kubectl`) and guest-side commands (commands run inside a VM) must not be in the same code block. Separate them with prose explaining the context switch.
+- Single-line commands are acceptable as long as they are not overly complex with multiple pipes and/or `awk`/`sed` with regex.
+- When a code block starts with a shell command that embeds YAML (e.g., `oc apply -f - <<EOF`), tag it `[source,bash,role=execute]`, not `[source,yaml]`.
+
+## Build Gate
+
+- Run `npm run build` before committing. Fix any errors first.
+- A failing build is a blocker; do not commit broken builds.
 
 ---
 > Source: [RedHatQuickCourses/ocp-virt-cookbook](https://github.com/RedHatQuickCourses/ocp-virt-cookbook) — distributed by [TomeVault](https://tomevault.io).
