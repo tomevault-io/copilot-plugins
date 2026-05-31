@@ -1,0 +1,9 @@
+{
+  "name": "csprance--gecs",
+  "displayName": "gecs",
+  "description": "Godot Entity Component System - GECS",
+  "version": "1.0.0",
+  "author": "csprance",
+  "homepage": "https://github.com/csprance/gecs",
+  "skills": []
+}
