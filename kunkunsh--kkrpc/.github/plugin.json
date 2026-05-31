@@ -1,0 +1,9 @@
+{
+  "name": "kunkunsh--kkrpc",
+  "displayName": "kkrpc",
+  "description": "A TypeScript RPC protocol for multiple environments (iframe, web worker, stdio, http, WebSocket)",
+  "version": "1.0.0",
+  "author": "kunkunsh",
+  "homepage": "https://github.com/kunkunsh/kkrpc",
+  "skills": []
+}
