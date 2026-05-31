@@ -4,7 +4,7 @@
   "repo": "kunkun",
   "description": "An open source, cross-platform, extensible app launcher.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kunkunsh/kunkun",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T21:32:55Z"
+  "distributed_at": "2026-05-31T21:45:33Z"
 }
