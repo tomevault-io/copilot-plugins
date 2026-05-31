@@ -1,0 +1,9 @@
+{
+  "name": "webspatial--webspatial-sdk",
+  "displayName": "webspatial-sdk",
+  "description": "Unlock native-level spatial power with the WebSpatial SDK without losing the power of the web",
+  "version": "1.0.0",
+  "author": "webspatial",
+  "homepage": "https://github.com/webspatial/webspatial-sdk",
+  "skills": []
+}
