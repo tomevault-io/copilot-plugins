@@ -169854,6 +169854,11 @@
       "description": "hashicorp-vault-audit-analysis"
     },
     {
+      "name": "testably--mockolate",
+      "source": "./testably--mockolate",
+      "description": "A modern, strongly-typed, AOT-compatible mocking library for .NET, powered by source generators."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181829,6 +181834,41 @@
       "description": "Agent-driven poker bot starter kit for dev.fun Arena. Three paths (learn/build/iterate), four-stage curriculum, sandbox-safe."
     },
     {
+      "name": "elixir-vibe--cringe",
+      "source": "./elixir-vibe--cringe",
+      "description": "OTP-native terminal UI toolkit for Elixir"
+    },
+    {
+      "name": "vanalmsick--sweepstake",
+      "source": "./vanalmsick--sweepstake",
+      "description": "Football prediction webapp \u2013 compete with friends via private tournaments, submit match/group/tournament winner predictions, and watch the leaderboard update live as results come in."
+    },
+    {
+      "name": "inflightsec--agent-vault-proxy",
+      "source": "./inflightsec--agent-vault-proxy",
+      "description": "Zero-knowledge API keys for AI agents: the agent only ever sees a placeholder"
+    },
+    {
+      "name": "inflightsec--agent-vault-proxy",
+      "source": "./inflightsec--agent-vault-proxy",
+      "description": "Zero-knowledge API keys for AI agents: the agent only ever sees a placeholder"
+    },
+    {
+      "name": "djarvur--cc-websearch",
+      "source": "./djarvur--cc-websearch",
+      "description": "websearch tool for Claude Code to replace the standard one"
+    },
+    {
+      "name": "outpoints--honcho-dashboard",
+      "source": "./outpoints--honcho-dashboard",
+      "description": "Self Hosted Dashboard for Honcho"
+    },
+    {
+      "name": "jackhopkins--claude-code-plays-factorio",
+      "source": "./jackhopkins--claude-code-plays-factorio",
+      "description": "A starter repo for getting Claude Code to play Factorio built by the FLE team."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -184717,6 +184757,16 @@
       "name": "electro-resonance--llm-wiki-mcp",
       "source": "./electro-resonance--llm-wiki-mcp",
       "description": "LLM\u202fWiki\u202fMCP \u2013 the local\u2011first Markdown knowledge\u2011base with both MCP and CLI"
+    },
+    {
+      "name": "algorex-ph--stellarx-workshop-pup-may-2026",
+      "source": "./algorex-ph--stellarx-workshop-pup-may-2026",
+      "description": "StellarX-Workshop-PUP-May-2026"
+    },
+    {
+      "name": "karamouche--noisekit",
+      "source": "./karamouche--noisekit",
+      "description": "Generate degraded speech datasets for noise-robust ASR benchmarking"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -289572,6 +289622,26 @@
       "name": "heron11--vibesdk-production",
       "source": "./heron11--vibesdk-production",
       "description": "vibesdk-production"
+    },
+    {
+      "name": "arafathusayn--tinygrad",
+      "source": "./arafathusayn--tinygrad",
+      "description": "Autograd engine in TS/JS with operator overloading"
+    },
+    {
+      "name": "fandrialbara--aplikasijualbuah-fandrialbara-2317051057",
+      "source": "./fandrialbara--aplikasijualbuah-fandrialbara-2317051057",
+      "description": "AplikasiJualBuah_FandriAlbara_2317051057"
+    },
+    {
+      "name": "mediumwelldone4--open-api",
+      "source": "./mediumwelldone4--open-api",
+      "description": "Connect open api to analyze data set"
+    },
+    {
+      "name": "arafathusayn--tinygrad",
+      "source": "./arafathusayn--tinygrad",
+      "description": "Autograd engine in TS/JS with operator overloading"
     }
   ]
 }
