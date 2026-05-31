@@ -1,0 +1,44 @@
+{
+  "name": "http-watcher",
+  "owner": "spencerjireh",
+  "repo": "http-watcher",
+  "description": "An Electron application for intercepting and analyzing HTTP/HTTPS traffic from Chrome browser instances using Chrome DevTools Protocol.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/spencerjireh/http-watcher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-31T02:55:56Z"
+}
