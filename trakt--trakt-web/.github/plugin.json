@@ -1,0 +1,9 @@
+{
+  "name": "trakt--trakt-web",
+  "displayName": "trakt-web",
+  "description": "Unlock the secrets of your watch history, explore hidden connections between films, and delve into the depths of personalized recommendations. But tread carefully, for the Trakt API holds powers that ",
+  "version": "1.0.0",
+  "author": "trakt",
+  "homepage": "https://github.com/trakt/trakt-web",
+  "skills": []
+}
