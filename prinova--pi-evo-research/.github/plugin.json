@@ -1,0 +1,9 @@
+{
+  "name": "prinova--pi-evo-research",
+  "displayName": "pi-evo-research",
+  "description": "Population-guided evolutionary research for pi \u2014 evolve hypotheses, run measured experiments, keep what works.",
+  "version": "1.0.0",
+  "author": "PriNova",
+  "homepage": "https://github.com/PriNova/pi-evo-research",
+  "skills": []
+}
