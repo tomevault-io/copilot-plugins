@@ -1,0 +1,44 @@
+{
+  "name": "no-one-did-it",
+  "owner": "xiaolai",
+  "repo": "no-one-did-it",
+  "description": "No One Did It: Responsibility Laundering, from the Scapegoat to the Algorithm \u2014 published manuscript, 292-card source ledger, and the 13-agent apparatus that built it.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaolai/no-one-did-it",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-31T14:31:23Z"
+}
