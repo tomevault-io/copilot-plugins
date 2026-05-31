@@ -1,0 +1,9 @@
+{
+  "name": "chun92--card-framework",
+  "displayName": "card-framework",
+  "description": "A flexible and lightweight toolkit for building 2D card games (Solitaire, TCGs, roguelikes) in the Godot Engine.",
+  "version": "1.0.0",
+  "author": "chun92",
+  "homepage": "https://github.com/chun92/card-framework",
+  "skills": []
+}
