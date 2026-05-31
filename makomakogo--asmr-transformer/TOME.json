@@ -4,7 +4,7 @@
   "repo": "ASMR-Transformer",
   "description": "\u81ea\u7528\u73a9\u5177\uff0c\u7eaf vibe coding\uff0c\u7528\u4e8e\u63d0\u53d6 r18 asmr \u4f5c\u54c1\u7684\u5b57\u5e55",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/makoMakoGo/ASMR-Transformer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T02:39:35Z"
+  "distributed_at": "2026-05-31T02:40:05Z"
 }
