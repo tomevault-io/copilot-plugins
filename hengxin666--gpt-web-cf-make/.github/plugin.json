@@ -1,0 +1,9 @@
+{
+  "name": "hengxin666--gpt-web-cf-make",
+  "displayName": "gpt-web-cf-make",
+  "description": "GPT \u7f51\u9875\u7aef Token \u4fdd\u6d3b + \u6ce8\u518c\u673a\u5e73\u53f0\u3002\u652f\u6301 refresh_token \u7eed\u671f access_token. \u652f\u6301\u53cd\u4ee3gpt-img2\u548c\u7f51\u9875\u7aef\u5bf9\u8bdd; \u652f\u6301\u4ee3\u7406\u6c60",
+  "version": "1.0.0",
+  "author": "HengXin666",
+  "homepage": "https://github.com/HengXin666/gpt-web-cf-make",
+  "skills": []
+}
