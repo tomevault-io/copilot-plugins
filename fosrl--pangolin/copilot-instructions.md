@@ -1,9 +1,10 @@
-## localization
+## nomenclature
 
-> Always localize strings and use the `t` function to convert keys to strings. Add the keys to the en-us.json file. Never edit the other language files, as en-us.json is the single source of truth.
+> Proxy resources = public resources
 
 
-Always localize strings and use the `t` function to convert keys to strings. Add the keys to the en-us.json file. Never edit the other language files, as en-us.json is the single source of truth.
+Proxy resources = public resources
+Private resources = client resources = site resources
 
 ---
 > Source: [fosrl/pangolin](https://github.com/fosrl/pangolin) — distributed by [TomeVault](https://tomevault.io).
