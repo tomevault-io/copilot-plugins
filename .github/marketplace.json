@@ -181984,6 +181984,21 @@
       "description": "Cosense\u306e\u30da\u30fc\u30b8\u3092\u8aad\u307f\u30fb\u8abf\u3079\u30fb\u7de8\u96c6\u3059\u308b\u70ba\u306eCLI\u3068Agent Skill\u306e\u30ea\u30ea\u30fc\u30b9\u30ea\u30dd\u30b8\u30c8\u30ea"
     },
     {
+      "name": "abai569--flvx",
+      "source": "./abai569--flvx",
+      "description": "Flvx\u8f6c\u53d1\u9762\u677f"
+    },
+    {
+      "name": "nachtfux--claude-pocket",
+      "source": "./nachtfux--claude-pocket",
+      "description": "Voice assistant for the M5Stack Cardputer ADV. Two API keys, no middleware \u2014 Claude in your pocket."
+    },
+    {
+      "name": "henry3260--llm-fingerprinter",
+      "source": "./henry3260--llm-fingerprinter",
+      "description": "LLM-Fingerprinter"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -184897,6 +184912,11 @@
       "name": "stephengpope--shockwave",
       "source": "./stephengpope--shockwave",
       "description": "shockwave"
+    },
+    {
+      "name": "zeppelinpp--bilibili-streamer",
+      "source": "./zeppelinpp--bilibili-streamer",
+      "description": "Bilibili live streaming tool built with Tauri + React"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -289772,6 +289792,11 @@
       "name": "arafathusayn--tinygrad",
       "source": "./arafathusayn--tinygrad",
       "description": "Autograd engine in TS/JS with operator overloading"
+    },
+    {
+      "name": "xvc-com--cron",
+      "source": "./xvc-com--cron",
+      "description": "cron"
     }
   ]
 }
