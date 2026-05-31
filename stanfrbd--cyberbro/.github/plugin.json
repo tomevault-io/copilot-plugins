@@ -1,0 +1,9 @@
+{
+  "name": "stanfrbd--cyberbro",
+  "displayName": "cyberbro",
+  "description": "A simple application that extracts your IoCs from garbage input and checks their reputation using multiple CTI services.",
+  "version": "1.0.0",
+  "author": "stanfrbd",
+  "homepage": "https://github.com/stanfrbd/cyberbro",
+  "skills": []
+}
