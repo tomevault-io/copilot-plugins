@@ -1,0 +1,9 @@
+{
+  "name": "andyzasl--browserly",
+  "displayName": "browserly",
+  "description": "A smart macOS menu bar app that routes URLs to the right browser based on custom rules",
+  "version": "1.0.0",
+  "author": "andyzasl",
+  "homepage": "https://github.com/andyzasl/browserly",
+  "skills": []
+}
