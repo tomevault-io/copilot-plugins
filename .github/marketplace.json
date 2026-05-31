@@ -181874,6 +181874,16 @@
       "description": "A starter repo for getting Claude Code to play Factorio built by the FLE team."
     },
     {
+      "name": "bo0tzz--pgmqtt",
+      "source": "./bo0tzz--pgmqtt",
+      "description": "Stateless and scalable MQTT broker backed by Postgres"
+    },
+    {
+      "name": "hjelev--lyrtui",
+      "source": "./hjelev--lyrtui",
+      "description": "TUI for Lyrion Music Server"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -184772,6 +184782,11 @@
       "name": "karamouche--noisekit",
       "source": "./karamouche--noisekit",
       "description": "Generate degraded speech datasets for noise-robust ASR benchmarking"
+    },
+    {
+      "name": "open-mercato--cezar",
+      "source": "./open-mercato--cezar",
+      "description": "Cezar is a team SaaS for running AI coding agents on GitHub issues. It's a cockpit: every agent run \u2014 queued, running, paused, failed, finished \u2014 is visible with controls. Incoming issues are auto-tri"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
