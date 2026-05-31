@@ -1,0 +1,9 @@
+{
+  "name": "msc5--tmux-smart-pane",
+  "displayName": "tmux-smart-pane",
+  "description": "fzf-powered pane navigation and remote session management plugin for tmux.",
+  "version": "1.0.0",
+  "author": "msc5",
+  "homepage": "https://github.com/msc5/tmux-smart-pane",
+  "skills": []
+}
