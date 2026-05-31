@@ -1,98 +1,77 @@
-## dark-mode
+## file-structure
 
-> Versakit组件库要求所有组件都必须支持暗黑模式，确保在暗色主题下能够提供良好的用户体验。
+> Versakit 项目采用monorepo结构，主要包含以下包:
 
-# 暗黑模式支持规范
+# 文件结构和命名规范
 
-## 基本要求
+## 项目结构
 
-Versakit组件库要求所有组件都必须支持暗黑模式，确保在暗色主题下能够提供良好的用户体验。
+Versakit 项目采用monorepo结构，主要包含以下包:
 
-## 暗黑模式实现方式
+```
+Versakit-Vue/
+├── packages/
+│   ├── versakit-vue/      # 主组件库
+│   │   ├── src/
+│   │   │   ├── components/ # 所有组件
+│   │   │   ├── style/     # 全局样式
+│   │   │   └── index.ts   # 入口文件
+│   │   └── package.json
+│   └── versakit-shared/   # 共享工具库
+├── docs/                  # 文档站点
+└── storybook/             # Storybook示例
+```
 
-使用Tailwind CSS的`dark:`前缀来定义暗黑模式下的样式，结合HTML的`class="dark"`模式：
+## 组件目录结构
+
+每个组件应遵循以下目录结构:
+
+```
+ComponentName/             # 使用大驼峰命名
+├── index.ts               # 导出文件
+└── src/
+    ├── index.vue          # 组件实现
+    ├── type.ts            # 类型定义
+    ├── index.variants.ts  # 样式变体定义
+    └── use-component-name.ts  # 组件逻辑hook (kebab-case命名)
+```
+
+## 文件命名规范
+
+- **TypeScript文件**: 必须使用`.ts`扩展名，不允许使用`.js`
+- **Vue组件文件**: 使用`.vue`扩展名
+- **样式变体文件**: 必须命名为`index.variants.ts`
+- **类型定义文件**: 命名为`type.ts`
+- **组件Hook文件**: 使用`use-[component-name].ts`形式命名 (kebab-case)
+
+## 导入路径规范
+
+- 使用相对路径导入同一组件内的文件
+- 使用别名导入其他组件或工具
 
 ```ts
-// Button组件暗黑模式样式示例
-export const buttonStyle = tv({
-  variants: {
-    variant: {
-      primary: 'bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-100',
-      secondary: 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
-      outline: 'border border-gray-300 bg-transparent text-gray-800 dark:border-gray-600 dark:text-gray-200',
-      // 其他变体...
-    },
-    // 其他变量...
-  },
-})
+// 正确的导入方式
+import { Button } from './src/index.vue'
+import { buttonStyle } from './src/index.variants'
+import type { ButtonProps } from './src/type'
+
+// 导入其他组件或工具
+import { withInstall } from '@versakit/shared'
 ```
 
-## 颜色设计原则
+## 导出规范
 
-1. **减少亮度和饱和度**：暗黑模式下，颜色应当减少亮度和饱和度，避免刺眼
-2. **增加对比度**：确保文本与背景有足够的对比度
-3. **避免纯黑**：使用深灰色(`#121212`, `#1e1e1e`)替代纯黑色，减少视觉疲劳
-4. **减少阴影**：暗黑模式下应减少阴影使用或调整阴影颜色
-
-## 实现步骤
-
-1. **定义暗黑模式变量**：为每个组件定义暗黑模式下的颜色变量
-2. **添加暗黑模式样式**：使用`dark:`前缀为每个组件添加暗黑模式样式
-3. **测试两种模式**：确保组件在明亮模式和暗黑模式下都有良好表现
-
-## 切换机制
-
-暗黑模式的切换应该通过添加/移除`<html>`标签上的`dark`类来实现：
+组件必须通过`index.ts`文件导出，并使用`withInstall`高阶函数:
 
 ```ts
-// 暗黑模式切换示例
-const toggleDarkMode = () => {
-  document.documentElement.classList.toggle('dark')
-}
+// index.ts
+import { withInstall } from '@versakit/shared'
+import _Button from './src/index.vue'
 
-// 根据系统偏好设置暗黑模式
-const setDarkModeByPreference = () => {
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
-  }
-}
-```
+export const Button = withInstall(_Button)
+export default Button
 
-## 暗黑模式测试
-
-每个组件必须在以下方面进行暗黑模式测试：
-
-1. 组件在暗黑模式下的视觉表现
-2. 文本与背景的对比度是否符合WCAG标准
-3. 交互状态（悬停、聚焦、激活等）在暗黑模式下的表现
-4. 动态切换模式时的过渡效果
-
-## 常见问题与解决方案
-
-### 图片与插图
-
-- 为暗黑模式提供专用的图片资源
-- 使用SVG并应用currentColor属性
-- 应用适当的图片滤镜
-
-```html
-<img src="logo.svg" class="dark:invert" alt="Logo" />
-```
-
-### 阴影
-
-暗黑模式下应调整阴影颜色：
-
-```css
-/* 亮色模式阴影 */
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-/* 暗色模式阴影 */
-.dark .component {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-}
+export * from './src/type'
 ```
 
 ---
