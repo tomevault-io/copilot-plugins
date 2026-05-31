@@ -1,0 +1,9 @@
+{
+  "name": "artwork278--artwork-cqrs",
+  "displayName": "artwork-cqrs",
+  "description": "Standalone CQRS primitives for TypeScript applications.",
+  "version": "1.0.0",
+  "author": "artwork278",
+  "homepage": "https://github.com/artwork278/artwork-cqrs",
+  "skills": []
+}
