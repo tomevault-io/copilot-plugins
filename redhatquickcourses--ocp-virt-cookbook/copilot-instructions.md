@@ -1,34 +1,54 @@
-## allowed-commands
+## ocp-virt-cookbook
 
-> Allowed commands and binaries for terminal and tool use
+> Antora-based AsciiDoc documentation project. Tutorials live in `modules/<module>/pages/*.adoc`.
 
+# OpenShift Virtualization Cookbook
 
-# Allowed Commands and Binaries
+Antora-based AsciiDoc documentation project. Tutorials live in `modules/<module>/pages/*.adoc`.
 
-When running terminal commands or suggesting CLI usage, use only the following:
+## Rules
 
-## Allowed commands
+Read and follow these rules files on every interaction:
 
-- `oc` (OpenShift CLI) only when the user has chosen to use the cluster at
-  `KUBECONFIG=~/projects/ocp-install/bare-metal/kubeconfig` (see below).
-- `npm` (e.g. npm run build, npm install)
-- `node`
-- `git` (status, diff, add, commit, checkout, branch; no force-push unless explicitly requested)
-- `rg` / ripgrep (prefer over grep for search)
-- Standard shell built-ins and file operations (ls, cd, mkdir, cp, mv, rm with care)
+- `.cursor/rules/shared-constraints.mdc` -- git policy, commit attribution, content rules, build gate
+- `.cursor/rules/project-guidelines.mdc` -- AsciiDoc standards, review criteria, terminology, domain guidance
+- `.cursor/rules/security-policy.mdc` -- credential handling, context exclusions, cluster safety
+- `.cursor/rules/allowed-commands.mdc` -- whitelist of CLI commands
 
-Add or remove entries in this list to match your project's approved tooling.
+## Commit Attribution
 
-## OpenShift (oc) and cluster context
+When committing with Claude Code, use this trailer instead of the Cursor one:
 
-- When the user has chosen to use the cluster at
-  `KUBECONFIG=~/projects/ocp-install/bare-metal/kubeconfig`, the agent is allowed to run all `oc` commands (get, apply, create, delete, describe, logs, exec, etc.) against that cluster. Use that KUBECONFIG when running them, e.g. `KUBECONFIG=~/projects/ocp-install/bare-metal/kubeconfig oc get nodes`.
-- When the user has not chosen that cluster, do not run `oc` commands; ask which cluster they mean or wait for them to indicate they are using this one.
+```
+Co-authored-by: Claude <noreply@anthropic.com>
+```
 
-## Restrictions
+## Skills
 
-- Do not run or suggest commands not listed above without explicit user request.
-- For package installs or system tools, prefer the allowed set or ask before using others.
+Slash-command skills are in `.claude/skills/`. Each references an agent persona under `.cursor/agents/`.
+
+| Command | What it does |
+|---------|-------------|
+| `/tutorial` | Full pipeline (research, write, test, review, commit) from GitHub issues |
+| `/master-review` | Final unbiased review of ready branches before human handoff |
+| `/commit` | Commit with bulleted message |
+| `/pr-message` | Generate `gh pr create` command |
+| `/pr-review` | Review incoming upstream PRs |
+| `/pr-review-cleanup` | Clean up cluster resources from PR review |
+| `/qe-validate` | Validate tutorials against live cluster, update version annotations, generate issue commands |
+
+## Build
+
+```bash
+npm run build    # Antora build -- must pass before committing
+npm run serve    # Preview at http://localhost:8080
+```
+
+## Upstream Repository
+
+```
+RedHatQuickCourses/ocp-virt-cookbook
+```
 
 ---
 > Source: [RedHatQuickCourses/ocp-virt-cookbook](https://github.com/RedHatQuickCourses/ocp-virt-cookbook) — distributed by [TomeVault](https://tomevault.io).
