@@ -4,7 +4,7 @@
   "repo": "one",
   "description": "Make Your Ideas Real. Build Apps, Websites and AI Agents with Plain English with Astro, React, Shadcn and Cloudflare",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/one-ie/one",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T22:05:43Z"
+  "distributed_at": "2026-05-31T22:13:27Z"
 }
