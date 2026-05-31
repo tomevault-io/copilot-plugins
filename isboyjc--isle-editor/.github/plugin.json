@@ -1,0 +1,9 @@
+{
+  "name": "isboyjc--isle-editor",
+  "displayName": "isle-editor",
+  "description": "Open source web editor, supports rich text, block, markdown editing, efficient and out-of-the-box, based on ProseMirror and TipTap.",
+  "version": "1.0.0",
+  "author": "isboyjc",
+  "homepage": "https://github.com/isboyjc/isle-editor",
+  "skills": []
+}
