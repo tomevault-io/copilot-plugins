@@ -1,0 +1,9 @@
+{
+  "name": "aixgo-dev--aixgo",
+  "displayName": "aixgo",
+  "description": "AI-native agent framework for Go.",
+  "version": "1.0.0",
+  "author": "aixgo-dev",
+  "homepage": "https://github.com/aixgo-dev/aixgo",
+  "skills": []
+}
