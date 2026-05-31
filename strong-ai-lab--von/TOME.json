@@ -4,7 +4,7 @@
   "repo": "Von",
   "description": "Intelligent Agent System for Scientific Research Support",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Strong-AI-Lab/Von",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T04:33:42Z"
+  "distributed_at": "2026-05-31T04:39:49Z"
 }
