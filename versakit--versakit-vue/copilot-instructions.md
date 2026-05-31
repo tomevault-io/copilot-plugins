@@ -1,111 +1,115 @@
-## styling-guide
+## versakit-vue
 
-> Versakit使用Tailwind CSS和tailwind-variants来构建可定制的组件样式系统，支持以下特性:
+> This document serves as the unified instruction set for AI programming assistants (Cursor, Copilot, Cline, etc.) working on the Versakit-Vue project.
 
-# 样式开发指南
+# Versakit-Vue Agent Instructions
 
-## 样式系统概述
+This document serves as the unified instruction set for AI programming assistants (Cursor, Copilot, Cline, etc.) working on the Versakit-Vue project.
 
-Versakit使用Tailwind CSS和tailwind-variants来构建可定制的组件样式系统，支持以下特性:
+## 1. Project Overview
 
-- 主题定制
-- 暗黑模式
-- 无障碍访问
-- 样式传递机制
+**Versakit-Vue** is a modern UI component library for Vue 3, built with TypeScript, Vite, and Tailwind CSS. It follows a Monorepo structure managed by `pnpm` and `turbo`.
 
-## 样式文件
+### Tech Stack
 
-每个组件必须有一个`index.variants.ts`文件，包含使用`tailwind-variants`定义的样式。
+- **Framework**: Vue 3 (Composition API, `<script setup>`)
+- **Language**: TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS v4, `tailwind-variants`
+- **Monorepo**: Turbo Repo, pnpm workspaces
+- **Documentation**: VitePress
+- **Testing**: Vitest, Vue Test Utils
+- **Playground**: Monaco Editor Sandbox
 
-## tailwind-variants使用规范
+## 2. Directory Structure
 
-使用`tv`函数定义样式，结构如下:
-
-```ts
-import { tv } from 'tailwind-variants'
-
-export const componentStyle = tv({
-  base: 'base-styles-here',
-  variants: {
-    // 变体定义
-    variant: {
-      primary: 'primary-variant-styles',
-      secondary: 'secondary-variant-styles',
-      // ...其他变体
-    },
-    size: {
-      sm: 'small-size-styles',
-      md: 'medium-size-styles',
-      lg: 'large-size-styles',
-      // ...其他尺寸
-    },
-    // ...其他变体类型
-  },
-  compoundVariants: [
-    // 组合变体
-    {
-      variant: 'primary',
-      size: 'sm',
-      class: 'combined-styles'
-    },
-    // ...其他组合
-  ],
-  defaultVariants: {
-    // 默认变体
-    variant: 'primary',
-    size: 'md',
-  }
-})
+```text
+/
+├── packages/
+│   ├── versakit-vue/       # Core UI Library
+│   │   ├── src/components/ # Component implementations
+│   │   └── dist/           # Build output
+│   └── versakit-shared/    # Shared utilities
+├── docs/                   # VitePress Documentation
+├── storybook/              # Component Storybook
+├── monaco-editor/          # Online Sandbox (Monaco based)
+├── play/                   # Local dev playground
+└── .github/workflows/      # CI/CD pipelines
 ```
 
-## 暗黑模式支持
+## 3. Critical Rules & Conventions
 
-所有组件样式必须支持暗黑模式，使用Tailwind CSS的`dark:`前缀:
+### 3.1 Package Management
 
-```ts
-{
-  primary: 'bg-blue-500 text-white dark:bg-blue-700 dark:text-gray-100'
-}
+- **MUST** use `pnpm` for all package operations.
+- **NEVER** use `npm` or `yarn`.
+- Run commands from the project root using `pnpm run <script>` or `turbo run <task>`.
+
+### 3.2 Coding Standards
+
+- **Vue Style**: Always use **Composition API** with `<script setup lang="ts">`.
+- **TypeScript**: strict typing is required. Avoid `any` whenever possible.
+- **Styling**:
+  - Use **Tailwind CSS** utility classes.
+  - Use `tailwind-variants` for component variants and slot styling.
+  - Do not write raw CSS unless absolutely necessary (e.g., complex animations).
+- **Dark Mode**:
+  - Implemented via Tailwind's `darkMode: 'class'` strategy.
+  - Components must support dark mode using `dark:` modifiers (e.g., `dark:bg-gray-800`).
+
+### 3.3 Component Structure
+
+Each component in `packages/versakit-vue/src/components/` generally follows this structure:
+
+```text
+MyComponent/
+├── src/
+│   ├── my-component.vue    # Main component file
+│   ├── type.ts             # Props and Emits definitions
+│   └── index.variants.ts   # Tailwind variants style definition
+├── __tests__/
+│   └── MyComponent.test.ts # Vitest tests
+└── index.ts                # Export entry
 ```
 
-## 样式传递机制
+## 4. Common Workflows
 
-每个组件必须支持两种自定义样式的方式:
+### Running Development Servers
 
-1. **unstyled模式**: 通过`unstyled`属性完全禁用默认样式
-2. **PT样式传递**: 通过`pt`对象传递自定义类名
+- **Documentation**: `pnpm run docs:dev` (runs VitePress at http://localhost:5173)
+- **Playground (Local)**: `pnpm run play:dev` (runs `play/` folder)
+- **Sandbox (Monaco)**: `pnpm --filter monaco-editor-sandbox dev`
+- **Storybook**: `pnpm run storybook`
 
-在组件中实现:
+### Building
 
-```vue
-<script setup lang="ts">
-// ...
-const classes = computed(() => {
-  return props.unstyled
-    ? props.pt?.root || ''
-    : componentStyle({
-        variant: props.variant,
-        size: props.size,
-        class: props.pt?.root, // 合并传入的根元素类名
-      })
-})
+- **Build Library**: `pnpm run ui:build` (builds `@versakit/vue`)
+- **Build Docs**: `pnpm run docs:build`
+- **Build All**: `pnpm run site:build`
 
-const childClasses = computed(() => {
-  return props.unstyled
-    ? props.pt?.child || ''
-    : 'child-default-classes'
-})
-</script>
-```
+### Testing
 
-## 无障碍设计原则
+- **Run Tests**: `pnpm run test`
+- **Test UI**: `pnpm run test:ui`
 
-样式实现必须遵循WCAG标准:
+## 5. Tool Usage Guidelines (For Agents)
 
-- 合适的对比度
-- 键盘可访问的焦点状态
-- 适当的文本大小和间距
-- 确保交互元素有足够的点击/触摸区域
+- **Search First**: When asked to find code, use `SearchCodebase` with high-level queries first. Only use `Glob` if looking for specific file patterns.
+- **Context Awareness**: Before editing a file, always read its content to understand the current state and imports.
+- **Verification**: After making changes, verify the fix.
+  - For UI changes: Suggest checking the Playground or Storybook.
+  - For Logic changes: Run related tests.
+- **Monorepo Imports**: When working in `monaco-editor` or `play`, remember they depend on the local build of `@versakit/vue`. Ensure `pnpm run ui:build` has been run if changes aren't reflecting.
+
+## 6. Specific Configuration Details
+
+- **Tailwind Config**: Located in `packages/versakit-vue/tailwind.config.js` (if present) or configured via `@tailwindcss/vite` plugin in `vite.config.ts`.
+- **Vite Config**: Each package (`versakit-vue`, `docs`, `monaco-editor`) has its own `vite.config.ts`. Be careful which one you are editing.
+- **GitHub Actions**: Deployments are handled in `.github/workflows/deploy.yml`. The sandbox is deployed to `gh-pages` under `/playground/`.
+
+---
+
+_This file is the single source of truth for agent instructions. Do not create `.clinerules` or `.cursor/rules` manually; link them to this file if needed._
 
 ---
 > Source: [Versakit/Versakit-Vue](https://github.com/Versakit/Versakit-Vue) — distributed by [TomeVault](https://tomevault.io).
