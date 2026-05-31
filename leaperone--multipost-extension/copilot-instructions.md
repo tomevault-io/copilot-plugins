@@ -1,173 +1,51 @@
-## chrome-extension
+## i18n
 
-> You are an expert Chrome extension developer, proficient in JavaScript/TypeScript, browser extension APIs, and web development.
+> i18n, 国际化, 翻译, tanslation, chinese, english
 
-You are an expert Chrome extension developer, proficient in JavaScript/TypeScript, browser extension APIs, and web development.
+Internationalization (i18n) Guidelines:
 
-Code Style and Structure
-- Write clear, modular TypeScript code with proper type definitions
-- Follow functional programming patterns; avoid classes
-- Use descriptive variable names (e.g., isLoading, hasPermission)
-- Structure files logically: popup, background, content scripts, utils
-- Implement proper error handling and logging
-- Document code with JSDoc comments
+Message Structure:
+- Store all text content in `/locales/[locale]/messages.json`
+- Use descriptive message keys in camelCase: `errorImportingContent`
+- Include placeholders with $PLACEHOLDER$ syntax
+- Add descriptions for translators in message files
+- `console.log` don't need add i18n, only for UI text display on screen
 
-Architecture and Best Practices
-- Strictly follow Manifest V3 specifications
-- Divide responsibilities between background, content scripts and popup
-- Configure permissions following the principle of least privilege
-- Use modern build tools (webpack/vite) for development
-- Implement proper version control and change management
-
-Chrome API Usage
-- Use chrome.* APIs correctly (storage, tabs, runtime, etc.)
-- Handle asynchronous operations with Promises
-- Use Service Worker for background scripts (MV3 requirement)
-- Implement chrome.alarms for scheduled tasks
-- Use chrome.action API for browser actions
-- Handle offline functionality gracefully
-
-Security and Privacy
-- Implement Content Security Policy (CSP)
-- Handle user data securely
-- Prevent XSS and injection attacks
-- Use secure messaging between components
-- Handle cross-origin requests safely
-- Implement secure data encryption
-- Follow web_accessible_resources best practices
-
-Performance and Optimization
-- Minimize resource usage and avoid memory leaks
-- Optimize background script performance
-- Implement proper caching mechanisms
-- Handle asynchronous operations efficiently
-- Monitor and optimize CPU/memory usage
-
-UI and User Experience
-- Follow Material Design guidelines
-- Implement responsive popup windows
-- Provide clear user feedback
-- Support keyboard navigation
-- Ensure proper loading states
-- Add appropriate animations
-
-Internationalization
-- Use chrome.i18n API for translations
-- Follow _locales structure
-- Support RTL languages
-- Handle regional formats
-
-Accessibility
-- Implement ARIA labels
-- Ensure sufficient color contrast
-- Support screen readers
-- Add keyboard shortcuts
-
-Testing and Debugging
-- Use Chrome DevTools effectively
-- Write unit and integration tests
-- Test cross-browser compatibility
-- Monitor performance metrics
-- Handle error scenarios
-
-Publishing and Maintenance
-- Prepare store listings and screenshots
-- Write clear privacy policies
-- Implement update mechanisms
-- Handle user feedback
-- Maintain documentation
-
-Follow Official Documentation
-- Refer to Chrome Extension documentation
-- Stay updated with Manifest V3 changes
-- Follow Chrome Web Store guidelines
-- Monitor Chrome platform updates
-
-Output Expectations
-- Provide clear, working code examples
-- Include necessary error handling
-- Follow security best practices
-- Ensure cross-browser compatibility
-- Write maintainable and scalable code
-
-File Structure:
-```
-src/
-├── popup/           # Popup window related code
-├── background/      # Background service code
-├── contents/        # Content scripts
-├── components/      # Shared components
-│   ├── ui/         # UI components
-│   └── features/   # Feature components
-├── utils/          # Utility functions
-├── types/          # Type definitions
-└── static/         # Static assets
+Message Format:
+```json
+"extensionDisplayName": {
+  "message": "MultiPost",
+  "description": "Multipost Extension"
+},
 ```
 
-Chrome API Usage:
-- Properly use chrome.* APIs (storage, tabs, runtime, etc.)
-- Handle asynchronous operations with Promises
-- Use Service Worker for background scripts (MV3 requirement)
+Implementation:
+- Use `chrome.i18n.getMessage('extensionDisplayName')` for all user-facing text
+- Never hardcode text strings in UI components
+- Handle RTL languages with appropriate CSS
+- Set default_locale in manifest.json
+- Support fallback locales
+
+Best Practices:
+- Keep messages concise and clear
+- Use semantic keys (e.g., WELCOME_MESSAGE vs MSG_001)
+- Maintain consistent terminology across translations
+- Handle pluralization properly
+- Consider cultural differences in formatting dates, numbers, and currencies
+- Test UI with different language lengths
+
+Code Examples:
 ```typescript
-// Storage API example
-const storage = {
-  get: async <T>(key: string): Promise<T | undefined> => {
-    const result = await chrome.storage.local.get(key);
-    return result[key];
-  },
-  set: async <T>(key: string, value: T): Promise<void> => {
-    await chrome.storage.local.set({ [key]: value });
-  }
-};
+// Component usage
+const message = chrome.i18n.getMessage("WELCOME_MESSAGE", [username]);
 
-// Tabs API example
-const tabs = {
-  getCurrentTab: async () => {
-    const [tab] = await chrome.tabs.query({
-      active: true,
-      currentWindow: true
-    });
-    return tab;
-  }
-};
-```
-
-Security and Privacy:
-- Implement Content Security Policy (CSP)
-- Handle user data securely
-- Prevent XSS and injection attacks
-- Secure component communication
-- Handle cross-origin requests safely
-```typescript
-// Secure message passing
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (!sender.id || sender.id !== chrome.runtime.id) {
-    return;
-  }
-  // Process message
-});
-```
-
-Performance Optimization:
-- Minimize useEffect and setState usage
-- Use dynamic loading for non-critical components
-- Implement appropriate caching strategies
-```typescript
-// Caching strategy example
-const CACHE_DURATION = 1000 * 60 * 5; // 5 minutes
-
-async function fetchWithCache<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
-  const cached = await storage.get<{ data: T; timestamp: number }>(key);
-  
-  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-    return cached.data;
-  }
-  
-  const data = await fetcher();
-  await storage.set(key, { data, timestamp: Date.now() });
-  return data;
+// Manifest configuration
+{
+  "default_locale": "en",
+  "name": "__MSG_extension_name__",
+  "description": "__MSG_extension_description__"
 }
-``` 
+```
 
 ---
 > Source: [leaperone/MultiPost-Extension](https://github.com/leaperone/MultiPost-Extension) — distributed by [TomeVault](https://tomevault.io).
