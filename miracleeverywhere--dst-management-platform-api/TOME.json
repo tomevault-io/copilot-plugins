@@ -1,0 +1,44 @@
+{
+  "name": "dst-management-platform-api",
+  "owner": "miracleEverywhere",
+  "repo": "dst-management-platform-api",
+  "description": "\u9965\u8352\u7ba1\u7406\u5e73\u53f0(DMP)\uff0c\u6ee1\u8db3\u4e00\u952e\u5f00\u670d\u3001\u73a9\u5bb6\u7ba1\u7406\u3001\u623f\u95f4\u7ba1\u7406\u3001\u6570\u636e\u7edf\u8ba1\u3001\u5b9a\u65f6\u4efb\u52a1\u7b49\u529f\u80fd",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/miracleEverywhere/dst-management-platform-api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-31T23:55:59Z"
+}
