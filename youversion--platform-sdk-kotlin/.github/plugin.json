@@ -1,0 +1,9 @@
+{
+  "name": "youversion--platform-sdk-kotlin",
+  "displayName": "platform-sdk-kotlin",
+  "description": "Kotlin SDK for the YouVersion Platform",
+  "version": "1.0.0",
+  "author": "youversion",
+  "homepage": "https://github.com/youversion/platform-sdk-kotlin",
+  "skills": []
+}
