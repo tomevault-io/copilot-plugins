@@ -182694,6 +182694,16 @@
       "description": "Population-guided evolutionary research for pi \u2014 evolve hypotheses, run measured experiments, keep what works."
     },
     {
+      "name": "artwork278--artwork-cqrs",
+      "source": "./artwork278--artwork-cqrs",
+      "description": "Standalone CQRS primitives for TypeScript applications."
+    },
+    {
+      "name": "bitslix--blxcode",
+      "source": "./bitslix--blxcode",
+      "description": "BLXCode is an open-source desktop workbench for running AI coding agents beside real terminals, project memory, tasks, and an embedded browser. It is built with Tauri 2, Rust, Leptos, and Trunk."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -290492,6 +290502,31 @@
       "name": "xvc-com--cron",
       "source": "./xvc-com--cron",
       "description": "cron"
+    },
+    {
+      "name": "forreal360--specialonerexvilledash",
+      "source": "./forreal360--specialonerexvilledash",
+      "description": "SpecialOneRexvilleDash"
+    },
+    {
+      "name": "forreal360--specialonerexvilledash",
+      "source": "./forreal360--specialonerexvilledash",
+      "description": "SpecialOneRexvilleDash"
+    },
+    {
+      "name": "forreal360--specialonerexvilledash",
+      "source": "./forreal360--specialonerexvilledash",
+      "description": "SpecialOneRexvilleDash"
+    },
+    {
+      "name": "extrainjulian--assistant-api-test",
+      "source": "./extrainjulian--assistant-api-test",
+      "description": "assistant-api-test"
+    },
+    {
+      "name": "sheacoding--python-learning-assistant-cli",
+      "source": "./sheacoding--python-learning-assistant-cli",
+      "description": "python_learning_assistant_cli"
     }
   ]
 }
