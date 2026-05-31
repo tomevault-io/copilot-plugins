@@ -1,0 +1,9 @@
+{
+  "name": "djarvur--cc-websearch",
+  "displayName": "cc-websearch",
+  "description": "websearch tool for Claude Code to replace the standard one",
+  "version": "1.0.0",
+  "author": "Djarvur",
+  "homepage": "https://github.com/Djarvur/cc-websearch",
+  "skills": []
+}
