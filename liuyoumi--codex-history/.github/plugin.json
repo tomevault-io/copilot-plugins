@@ -1,0 +1,9 @@
+{
+  "name": "liuyoumi--codex-history",
+  "displayName": "codex-history",
+  "description": "A CLI tool to safely manage and purge local Codex conversation history",
+  "version": "1.0.0",
+  "author": "liuyoumi",
+  "homepage": "https://github.com/liuyoumi/codex-history",
+  "skills": []
+}
