@@ -1,0 +1,9 @@
+{
+  "name": "narze--aiupdate",
+  "displayName": "aiupdate",
+  "description": "Update your AI Agent Tools & Skills in one command `npx aiupdate`",
+  "version": "1.0.0",
+  "author": "narze",
+  "homepage": "https://github.com/narze/aiupdate",
+  "skills": []
+}
