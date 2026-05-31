@@ -1,0 +1,9 @@
+{
+  "name": "mjun0812--flash-attention-prebuild-wheels",
+  "displayName": "flash-attention-prebuild-wheels",
+  "description": "Provide with pre-build flash-attention 2 and 3 package wheels on Linux and Windows using GitHub Actions",
+  "version": "1.0.0",
+  "author": "mjun0812",
+  "homepage": "https://github.com/mjun0812/flash-attention-prebuild-wheels",
+  "skills": []
+}
