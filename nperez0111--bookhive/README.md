@@ -7,11 +7,11 @@ Track your books, share your shelves, see what others are reading
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nperez0111/bookhive](https://github.com/nperez0111/bookhive).
+Original source: `CLAUDE.md` in [nperez0111/bookhive](https://github.com/nperez0111/bookhive).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
