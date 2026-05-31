@@ -1,0 +1,9 @@
+{
+  "name": "proximafusion--vmecpp",
+  "displayName": "vmecpp",
+  "description": " From-scratch C++ and Python reimplementation of the Variational Moments Equilibrium Code (VMEC).",
+  "version": "1.0.0",
+  "author": "proximafusion",
+  "homepage": "https://github.com/proximafusion/vmecpp",
+  "skills": []
+}
