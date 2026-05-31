@@ -1,0 +1,9 @@
+{
+  "name": "red-hat-ai-innovation-team--sdg-hub",
+  "displayName": "sdg_hub",
+  "description": "Synthetic Data Generation Toolkit for LLMs",
+  "version": "1.0.0",
+  "author": "Red-Hat-AI-Innovation-Team",
+  "homepage": "https://github.com/Red-Hat-AI-Innovation-Team/sdg_hub",
+  "skills": []
+}
