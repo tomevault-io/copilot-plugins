@@ -1,0 +1,9 @@
+{
+  "name": "tensorlakeai--tensorlake",
+  "displayName": "tensorlake",
+  "description": "Tensorlake is a serverless runtime for sandboxes and deploying background agentic applications",
+  "version": "1.0.0",
+  "author": "tensorlakeai",
+  "homepage": "https://github.com/tensorlakeai/tensorlake",
+  "skills": []
+}
