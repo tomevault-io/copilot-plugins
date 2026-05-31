@@ -1,0 +1,9 @@
+{
+  "name": "coinbase--cds",
+  "displayName": "cds",
+  "description": "Coinbase Design System",
+  "version": "1.0.0",
+  "author": "coinbase",
+  "homepage": "https://github.com/coinbase/cds",
+  "skills": []
+}
