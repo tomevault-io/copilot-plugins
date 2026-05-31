@@ -4,7 +4,7 @@
   "repo": "lp-portfolio",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yukiyukitun/lp-portfolio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T02:42:31Z"
+  "distributed_at": "2026-05-31T02:43:01Z"
 }
