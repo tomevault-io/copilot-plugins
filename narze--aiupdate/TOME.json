@@ -4,7 +4,7 @@
   "repo": "aiupdate",
   "description": "Update your AI Agent Tools & Skills in one command `npx aiupdate`",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/narze/aiupdate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T14:30:23Z"
+  "distributed_at": "2026-05-31T14:30:53Z"
 }
