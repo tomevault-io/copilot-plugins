@@ -1,0 +1,9 @@
+{
+  "name": "inflightsec--agent-vault-proxy",
+  "displayName": "agent-vault-proxy",
+  "description": "Zero-knowledge API keys for AI agents: the agent only ever sees a placeholder",
+  "version": "1.0.0",
+  "author": "inflightsec",
+  "homepage": "https://github.com/inflightsec/agent-vault-proxy",
+  "skills": []
+}
