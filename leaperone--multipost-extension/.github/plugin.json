@@ -1,7 +1,7 @@
 {
   "name": "leaperone--multipost-extension",
   "displayName": "MultiPost-Extension",
-  "description": "MultiPost-Extension",
+  "description": "A browser extension that helps users publish content to multiple social media platforms with one click.",
   "version": "1.0.0",
   "author": "leaperone",
   "homepage": "https://github.com/leaperone/MultiPost-Extension",
