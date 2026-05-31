@@ -1,0 +1,9 @@
+{
+  "name": "spiffe--spike",
+  "displayName": "spike",
+  "description": "SPIKE is a lightweight secrets store that uses SPIFFE as its identity control plane. It protects your secrets and helps your ops, SREs, and sysadmins manage sensitive data securely with minimal overhe",
+  "version": "1.0.0",
+  "author": "spiffe",
+  "homepage": "https://github.com/spiffe/spike",
+  "skills": []
+}
