@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## chatwise-releases
 
 > This repo contains the release script to sync the github releases assets of ChatWise to its own S3 bucket, the script is using Bun instead of Node.js.
 
