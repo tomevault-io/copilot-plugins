@@ -1,100 +1,98 @@
-## component-development
+## dark-mode
 
-> ├── index.ts         # 导出组件
+> Versakit组件库要求所有组件都必须支持暗黑模式，确保在暗色主题下能够提供良好的用户体验。
 
-# 组件开发规范
+# 暗黑模式支持规范
 
-## 目录结构
-每个组件目录应遵循以下结构:
-```
-ComponentName/
-├── index.ts         # 导出组件
-└── src/
-    ├── index.vue    # 组件实现
-    ├── type.ts      # 类型定义
-    ├── index.variants.ts # 样式定义
-    └── use-component-name.ts # 可选的组件逻辑
-```
+## 基本要求
 
-## 类型定义
+Versakit组件库要求所有组件都必须支持暗黑模式，确保在暗色主题下能够提供良好的用户体验。
 
-- 所有props、emits和其他类型必须在`type.ts`中定义
-- 禁止使用`any`类型，必须提供精确类型
-- 组件Props接口命名格式为`ComponentNameProps`
-- 组件Emits常量命名格式为`ComponentNameEmits`
+## 暗黑模式实现方式
 
-例如:
+使用Tailwind CSS的`dark:`前缀来定义暗黑模式下的样式，结合HTML的`class="dark"`模式：
+
 ```ts
-// type.ts
-export type ButtonProps = {
-  variant?: ButtonVariant
-  size?: ButtonSize
-  disabled?: boolean
-  // ...其他属性
-  pt?: ButtonPT // 自定义样式传递
-}
-
-export const ButtonEmits = {
-  click: (evt: MouseEvent) => evt instanceof MouseEvent,
-}
-```
-
-## 样式定义
-
-- 所有样式必须使用`tailwind-variants`在`index.variants.ts`中定义
-- 组件需支持`unstyled`模式和`pt`（pass through）样式传递
-- 支持暗黑模式，使用Tailwind CSS的`dark:`前缀
-
-例如:
-```ts
-// index.variants.ts
-import { tv } from 'tailwind-variants'
-
+// Button组件暗黑模式样式示例
 export const buttonStyle = tv({
-  base: 'inline-flex items-center justify-center...',
   variants: {
     variant: {
-      primary: 'bg-blue-500 text-white dark:bg-blue-600...',
-      // ...其他变体
+      primary: 'bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-100',
+      secondary: 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
+      outline: 'border border-gray-300 bg-transparent text-gray-800 dark:border-gray-600 dark:text-gray-200',
+      // 其他变体...
     },
-    // ...其他变量
+    // 其他变量...
   },
-  // ...
 })
 ```
 
-## 组件实现
+## 颜色设计原则
 
-- 使用`<script setup lang="ts">`语法
-- 禁止在Vue文件中使用scoped CSS
-- 通过计算属性绑定样式
-- 支持无障碍访问属性
+1. **减少亮度和饱和度**：暗黑模式下，颜色应当减少亮度和饱和度，避免刺眼
+2. **增加对比度**：确保文本与背景有足够的对比度
+3. **避免纯黑**：使用深灰色(`#121212`, `#1e1e1e`)替代纯黑色，减少视觉疲劳
+4. **减少阴影**：暗黑模式下应减少阴影使用或调整阴影颜色
 
-例如:
-```vue
-<template>
-  <button :class="classes" :type="type" :disabled="disabled || loading">
-    <!-- 内容 -->
-  </button>
-</template>
+## 实现步骤
 
-<script setup lang="ts">
-import { computed } from 'vue'
-import { buttonStyle } from './index.variants'
-import type { ButtonProps } from './type'
-import { ButtonEmits } from './type'
+1. **定义暗黑模式变量**：为每个组件定义暗黑模式下的颜色变量
+2. **添加暗黑模式样式**：使用`dark:`前缀为每个组件添加暗黑模式样式
+3. **测试两种模式**：确保组件在明亮模式和暗黑模式下都有良好表现
 
-// ...props和emits定义
+## 切换机制
 
-const classes = computed(() => {
-  return props.unstyled
-    ? props.pt?.root || ''
-    : buttonStyle({
-        variant: props.variant,
-        // ...其他样式属性
-      })
-})
-</script>
+暗黑模式的切换应该通过添加/移除`<html>`标签上的`dark`类来实现：
+
+```ts
+// 暗黑模式切换示例
+const toggleDarkMode = () => {
+  document.documentElement.classList.toggle('dark')
+}
+
+// 根据系统偏好设置暗黑模式
+const setDarkModeByPreference = () => {
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+}
+```
+
+## 暗黑模式测试
+
+每个组件必须在以下方面进行暗黑模式测试：
+
+1. 组件在暗黑模式下的视觉表现
+2. 文本与背景的对比度是否符合WCAG标准
+3. 交互状态（悬停、聚焦、激活等）在暗黑模式下的表现
+4. 动态切换模式时的过渡效果
+
+## 常见问题与解决方案
+
+### 图片与插图
+
+- 为暗黑模式提供专用的图片资源
+- 使用SVG并应用currentColor属性
+- 应用适当的图片滤镜
+
+```html
+<img src="logo.svg" class="dark:invert" alt="Logo" />
+```
+
+### 阴影
+
+暗黑模式下应调整阴影颜色：
+
+```css
+/* 亮色模式阴影 */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+/* 暗色模式阴影 */
+.dark .component {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
 ```
 
 ---
