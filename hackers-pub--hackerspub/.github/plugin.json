@@ -1,0 +1,9 @@
+{
+  "name": "hackers-pub--hackerspub",
+  "displayName": "hackerspub",
+  "description": "ActivityPub-enabled social network for hackers",
+  "version": "1.0.0",
+  "author": "hackers-pub",
+  "homepage": "https://github.com/hackers-pub/hackerspub",
+  "skills": []
+}
