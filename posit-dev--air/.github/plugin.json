@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--air",
+  "displayName": "air",
+  "description": "R formatter and language server",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/air",
+  "skills": []
+}
