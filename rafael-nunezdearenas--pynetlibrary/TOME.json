@@ -1,0 +1,44 @@
+{
+  "name": "PyNetLibrary",
+  "owner": "Rafael-NunezDeArenas",
+  "repo": "PyNetLibrary",
+  "description": "API context and reference scripts for Autodesk applications (Navisworks, Revit, Civil 3D), designed for the PyNet Platform. This repo provides Python-style stubs of the Autodesk",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Rafael-NunezDeArenas/PyNetLibrary",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-31T06:34:43Z"
+}
