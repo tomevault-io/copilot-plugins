@@ -1,0 +1,9 @@
+{
+  "name": "deriv-com--dtrader-template",
+  "displayName": "dtrader-template",
+  "description": "A white-label derivatives trading platform template. Fork it, configure your brand, and deploy.",
+  "version": "1.0.0",
+  "author": "deriv-com",
+  "homepage": "https://github.com/deriv-com/dtrader-template",
+  "skills": []
+}
