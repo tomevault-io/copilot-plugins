@@ -1,111 +1,35 @@
-## type-definition
+## versakit-overview
 
-> - 必须使用TypeScript进行类型标注，**禁止使用`any`类型**
+> Versakit是一个现代化、高度可定制的Vue3组件库，基于TypeScript和Tailwind CSS开发。
 
-# TypeScript类型定义规范
+# Versakit 项目概述
 
-## 基本原则
+Versakit是一个现代化、高度可定制的Vue3组件库，基于TypeScript和Tailwind CSS开发。
 
-- 必须使用TypeScript进行类型标注，**禁止使用`any`类型**
-- 所有组件的Props、Emits及其他类型必须在单独的`type.ts`文件中定义
-- 类型名称应清晰表达其用途和所属组件
+## 项目结构
 
-## 组件Props类型定义
+- `packages/versakit-vue` - 主要的Vue3组件库包
+- `packages/versakit-shared` - 共享工具和类型定义
+- `docs` - 项目文档
+- `storybook` - Storybook示例和组件展示
 
-组件Props应使用TypeScript类型定义：
+## 开发规范
 
-```ts
-// 不要使用interface，优先使用type
-export type ButtonProps = {
-  variant?: ButtonVariant  // 使用具体的枚举类型
-  size?: ButtonSize        // 使用具体的枚举类型  
-  disabled?: boolean
-  loading?: boolean
-  fullWidth?: boolean
-  rounded?: boolean
-  type?: 'button' | 'submit' | 'reset'  // 使用字面量类型联合
-  unstyled?: boolean
-  pt?: ButtonPT  // 组件样式传递类型
-}
+- 使用TypeScript进行类型标注，禁止使用any类型
+- 组件文件必须为.ts格式（而非.js）
+- 支持暗黑模式
+- 支持无障碍访问
+- 样式工程必须使用index.variants.ts文件（使用tailwind-variants）
+- Vue组件内禁止使用scoped CSS，统一使用tailwind-variants
 
-// 枚举值使用联合类型
-export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'outline'
-  | 'ghost'
-  | 'link'
-  | 'danger'
-  | 'success'
-  | 'warning'
-  | 'info'
-  
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg'
-```
+## 组件结构
 
-## 组件Emits类型定义
-
-Emits需要使用对象方式定义，并包含类型验证函数：
-
-```ts
-// Emits定义
-export const ButtonEmits = {
-  click: (evt: MouseEvent) => evt instanceof MouseEvent,
-  // 其他事件...
-}
-
-// Emits类型
-export type ButtonEmits = typeof ButtonEmits
-```
-
-## 组件样式传递（PT）类型
-
-每个组件应定义自己的PT（Pass Through）类型，用于自定义样式传递：
-
-```ts
-export type ButtonPT = {
-  root?: string       // 根元素样式类
-  icon?: string       // 图标样式类
-  loader?: string     // 加载器样式类
-  // 其他元素...
-}
-```
-
-## 通用类型和工具类型
-
-公共类型应放在共享包中：
-
-```ts
-// @versakit/shared/src/types.ts
-export type Size = 'sm' | 'md' | 'lg' | 'xl'
-export type Variant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info'
-export type Status = 'idle' | 'loading' | 'success' | 'error'
-
-// 通用工具类型
-export type SFCWithInstall<T> = T & Plugin
-```
-
-## 类型导出规范
-
-- 类型应该显式导出，避免命名冲突
-- 使用`export type`导出类型
-- 在组件`index.ts`中重新导出所有类型
-
-```ts
-// index.ts
-export * from './src/type'
-```
-
-## 类型导入规范
-
-- 使用`import type`语法导入类型，与值导入分开
-- 避免循环依赖
-
-```ts
-// 正确的类型导入方式
-import type { ButtonProps, ButtonEmits } from './type'
-import { ref, computed } from 'vue'
-```
+每个组件通常包含以下文件:
+- `index.ts` - 组件导出入口
+- `src/index.vue` - 组件主文件
+- `src/type.ts` - 类型定义
+- `src/index.variants.ts` - 样式变体定义
+- `src/use-[component].ts` - 组件逻辑hooks（可选）
 
 ---
 > Source: [Versakit/Versakit-Vue](https://github.com/Versakit/Versakit-Vue) — distributed by [TomeVault](https://tomevault.io).
