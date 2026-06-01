@@ -1,0 +1,9 @@
+{
+  "name": "olliethedev--ui-builder",
+  "displayName": "ui-builder",
+  "description": "A React component that provides a no-code, visual way to create UIs, compatible with shadcn/ui and custom components.",
+  "version": "1.0.0",
+  "author": "olliethedev",
+  "homepage": "https://github.com/olliethedev/ui-builder",
+  "skills": []
+}
