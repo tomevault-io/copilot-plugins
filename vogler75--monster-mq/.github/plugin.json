@@ -1,0 +1,9 @@
+{
+  "name": "vogler75--monster-mq",
+  "displayName": "monster-mq",
+  "description": "MonsterMQ is a MQTT broker built on Vert.X and Hazelcast with data persistence through PostgreSQL or CrateDB or MongoDB..",
+  "version": "1.0.0",
+  "author": "vogler75",
+  "homepage": "https://github.com/vogler75/monster-mq",
+  "skills": []
+}
