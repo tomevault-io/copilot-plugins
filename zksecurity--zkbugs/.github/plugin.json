@@ -1,0 +1,9 @@
+{
+  "name": "zksecurity--zkbugs",
+  "displayName": "zkbugs",
+  "description": "Reproduce ZKP vulnerabilities",
+  "version": "1.0.0",
+  "author": "zksecurity",
+  "homepage": "https://github.com/zksecurity/zkbugs",
+  "skills": []
+}
