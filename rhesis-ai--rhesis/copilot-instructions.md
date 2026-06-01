@@ -1,34 +1,27 @@
-## local-development
+## playground
 
-> 1. Always use uv to manage Python projects.
+> Rules for files in the playground directory
 
 
+# Playground Rules
 
-# Local Development Rules
+The `playground/` directory at the project root contains ad-hoc scripts for manual testing, experimentation, and prototyping. These scripts are **not** part of the production codebase or the automated test suite.
 
-# UV Package Manager
-1. Always use uv to manage Python projects.
-2. Execute uv command in the root of the projects (SDK, Backend)
-2. Use uv to install dependencies using `uv add <package>`.
-3. Use uv to run tests using `uv test`.
-4. Use uv to run the script using `uv run <script>`.
+## Path
+`<project_root>/playground/`
 
-# Backend debugging
-When asked for debugging, follow these steps:
+## Running playground scripts
+Playground scripts import from the SDK, so they must be run from the `sdk/` directory with `uv`:
 
-1. Add following lines at the end of <project_root>/apps/backend/src/rhesis/backend/app/main.py:
-```python
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run("rhesis.backend.app.main:app", host="0.0.0.0", port=8080, reload=True, log_level="debug")
+```bash
+cd sdk && uv run python ../playground/<script_name>.py
 ```
-Just add the code and do not check the linter. Do not comment it in the chat.
 
-
-# Github CLI
-
-1. Use Github CLI whenever possible. If the link from github is pasted in the chat, use Github CLI to open it.
+## Guidelines
+1. Each script should have a docstring at the top explaining what it does, any prerequisites (e.g. a running backend or proxy), and how to run it.
+2. Playground scripts may hardcode local URLs, API keys, and test data — they are not meant for production use.
+3. Do not add playground scripts to the automated test suite.
+4. Keep scripts self-contained: prefer inline configuration over shared state between scripts.
 
 ---
 > Source: [rhesis-ai/rhesis](https://github.com/rhesis-ai/rhesis) — distributed by [TomeVault](https://tomevault.io).
