@@ -1,0 +1,9 @@
+{
+  "name": "mastra-ai--mastra",
+  "displayName": "mastra",
+  "description": "From the team behind Gatsby, Mastra is a framework for building AI-powered applications and agents with a modern TypeScript stack.",
+  "version": "1.0.0",
+  "author": "mastra-ai",
+  "homepage": "https://github.com/mastra-ai/mastra",
+  "skills": []
+}
