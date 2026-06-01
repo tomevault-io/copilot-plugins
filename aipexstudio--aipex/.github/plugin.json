@@ -1,0 +1,9 @@
+{
+  "name": "aipexstudio--aipex",
+  "displayName": "AIPex",
+  "description": "AIPex: AI browser automation assistant, no migration and privacy first. Alternative to Manus Browser Operator\u3001 Claude Chrome and Agent Browser",
+  "version": "1.0.0",
+  "author": "AIPexStudio",
+  "homepage": "https://github.com/AIPexStudio/AIPex",
+  "skills": []
+}
