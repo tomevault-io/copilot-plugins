@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--aisearch-openai-rag-audio",
+  "displayName": "aisearch-openai-rag-audio",
+  "description": "A simple example implementation of the VoiceRAG pattern to power interactive voice generative AI experiences using RAG with Azure AI Search and Azure OpenAI's gpt-4o-realtime-preview model. ",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/aisearch-openai-rag-audio",
+  "skills": []
+}
