@@ -1,143 +1,255 @@
-## remix-storefront-components
+## remix-storefront-optimization
 
-> Remix storefront component patterns with React, TypeScript, and Tailwind CSS for building reusable UI components and styling patterns
+> Remix storefront optimization patterns including performance, SEO, error handling, testing, and accessibility best practices
 
 
-# Remix Storefront Component & Styling Patterns
+# Remix Storefront Optimization & Best Practices
 
-You are an expert in React component development, TypeScript, and Tailwind CSS for building reusable, accessible, and performant UI components in e-commerce storefronts.
+You are an expert in web performance optimization, SEO, error handling, testing, and accessibility for React Router v7 (Remix) applications in e-commerce contexts.
 
 ## Core Principles
 
-- Write performant, accessible React components
-- Use TypeScript for type safety and better developer experience
-- Follow responsive design principles with Tailwind CSS
-- Create reusable component patterns and design systems
-- Prioritize user experience and accessibility
-- Implement proper component composition and prop patterns
+- Optimize for performance and user experience
+- Implement comprehensive SEO strategies
+- Handle errors gracefully and provide good user feedback
+- Write maintainable tests for components and user flows
+- Ensure accessibility compliance and inclusive design
+- Follow web standards and best practices
 
-## Component Patterns
+## Performance Optimization
 
-### Product Components
+### Image Optimization
 ```typescript
-// components/ProductCard.tsx
-interface ProductCardProps {
-  product: Product
-  className?: string
-}
+// Use proper image optimization
+<img
+  src={product.thumbnail}
+  alt={product.title}
+  loading="lazy"
+  className="aspect-square object-cover"
+  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
+/>
+```
 
-export function ProductCard({ product, className }: ProductCardProps) {
-  const variant = product.variants?.[0]
-  const price = variant?.prices?.[0]
+### Code Splitting
+```typescript
+// Use React.lazy for code splitting
+import { lazy, Suspense } from "react"
+
+const CheckoutForm = lazy(() => import("./CheckoutForm"))
+
+export function CheckoutPage() {
+  return (
+    <Suspense fallback={<div>Loading checkout...</div>}>
+      <CheckoutForm />
+    </Suspense>
+  )
+}
+```
+
+### Caching Strategies
+```typescript
+// Use proper cache headers in loaders
+export async function loader({ request }: LoaderFunctionArgs) {
+  const products = await getProducts()
+  
+  return data(
+    { products },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=300, s-maxage=3600",
+      },
+    }
+  )
+}
+```
+
+## SEO and Meta Tags
+
+### Dynamic Meta Tags
+```typescript
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  const product = data?.product
+  
+  if (!product) {
+    return [
+      { title: "Product Not Found" },
+      { name: "robots", content: "noindex" },
+    ]
+  }
+  
+  return [
+    { title: `${product.title} | Your Store` },
+    { name: "description", content: product.description },
+    { property: "og:title", content: product.title },
+    { property: "og:description", content: product.description },
+    { property: "og:image", content: product.thumbnail },
+    { property: "og:url", content: `https://yourstore.com${location.pathname}` },
+    { name: "twitter:card", content: "summary_large_image" },
+  ]
+}
+```
+
+### Structured Data
+```typescript
+// Add JSON-LD structured data
+export function ProductStructuredData({ product }: { product: Product }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.description,
+    image: product.thumbnail,
+    offers: {
+      "@type": "Offer",
+      price: product.variants?.[0]?.prices?.[0]?.amount,
+      priceCurrency: product.variants?.[0]?.prices?.[0]?.currency_code,
+      availability: "https://schema.org/InStock",
+    },
+  }
   
   return (
-    <div className={cn("group relative", className)}>
-      <div className="aspect-square overflow-hidden rounded-lg bg-gray-200">
-        <img
-          src={product.thumbnail || "/placeholder.jpg"}
-          alt={product.title}
-          className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform"
-        />
-      </div>
-      
-      <div className="mt-4 space-y-2">
-        <h3 className="text-sm font-medium text-gray-900">
-          <Link to={`/products/${product.handle}`}>
-            <span aria-hidden="true" className="absolute inset-0" />
-            {product.title}
-          </Link>
-        </h3>
-        
-        {price && (
-          <p className="text-sm text-gray-700">
-            {formatPrice(price.amount, price.currency_code)}
-          </p>
-        )}
-      </div>
-    </div>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
   )
 }
 ```
 
-### Layout Components
-```typescript
-// components/Layout.tsx
-import { Outlet } from "@react-router/react"
-import { Header } from "./Header"
-import { Footer } from "./Footer"
+## Error Handling
 
-export function Layout() {
+### Error Boundaries
+```typescript
+// components/ErrorBoundary.tsx
+import { isRouteErrorResponse, useRouteError } from "@react-router/react"
+
+export function ErrorBoundary() {
+  const error = useRouteError()
+  
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold">{error.status}</h1>
+          <p className="text-xl">{error.statusText}</p>
+        </div>
+      </div>
+    )
+  }
+  
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">
-        <Outlet />
-      </main>
-      <Footer />
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold">Oops!</h1>
+        <p className="text-xl">Something went wrong</p>
+      </div>
     </div>
   )
 }
 ```
 
-## Styling with Tailwind CSS
+## Testing Patterns
 
-### Responsive Design
+### Component Testing
 ```typescript
-// Use mobile-first responsive design
-<div className="
-  grid 
-  grid-cols-1 
-  gap-4 
-  sm:grid-cols-2 
-  md:grid-cols-3 
-  lg:grid-cols-4 
-  xl:grid-cols-5
-">
-  {products.map(product => (
-    <ProductCard key={product.id} product={product} />
-  ))}
+// __tests__/ProductCard.test.tsx
+import { render, screen } from "@testing-library/react"
+import { ProductCard } from "../ProductCard"
+
+const mockProduct = {
+  id: "1",
+  title: "Test Product",
+  handle: "test-product",
+  thumbnail: "/test.jpg",
+  variants: [{
+    prices: [{
+      amount: 1000,
+      currency_code: "usd",
+    }],
+  }],
+}
+
+test("renders product information", () => {
+  render(<ProductCard product={mockProduct} />)
+  
+  expect(screen.getByText("Test Product")).toBeInTheDocument()
+  expect(screen.getByRole("img")).toHaveAttribute("alt", "Test Product")
+})
+```
+
+## Accessibility
+
+### ARIA Labels and Roles
+```typescript
+// Proper accessibility attributes
+<button
+  aria-label={`Add ${product.title} to cart`}
+  aria-describedby={`price-${product.id}`}
+  onClick={handleAddToCart}
+>
+  Add to Cart
+</button>
+
+<span id={`price-${product.id}`} className="sr-only">
+  Price: {formatPrice(price.amount, price.currency_code)}
+</span>
+```
+
+### Keyboard Navigation
+```typescript
+// Implement proper keyboard navigation
+<div
+  role="button"
+  tabIndex={0}
+  onKeyDown={(e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      handleClick()
+    }
+  }}
+  onClick={handleClick}
+>
+  Interactive Element
 </div>
 ```
 
-### Component Variants
-```typescript
-// Use clsx for conditional classes
-import { clsx } from "clsx"
+## Common Patterns to Avoid
 
-interface ButtonProps {
-  variant?: "primary" | "secondary" | "outline"
-  size?: "sm" | "md" | "lg"
-  children: React.ReactNode
+- Don't use `useEffect` for data fetching (use loaders instead)
+- Avoid client-side routing for SEO-critical pages
+- Don't skip error boundaries
+- Avoid inline styles (use Tailwind classes)
+- Don't ignore accessibility requirements
+- Avoid large bundle sizes (use code splitting)
+- Don't skip image optimization
+- Avoid blocking the main thread with heavy computations
+
+## Environment Configuration
+
+### Environment Variables
+```typescript
+// app/lib/env.ts
+const requiredEnvVars = [
+  "MEDUSA_BACKEND_URL",
+  "STRIPE_PUBLISHABLE_KEY",
+] as const
+
+type EnvVar = typeof requiredEnvVars[number]
+
+function getEnvVar(name: EnvVar): string {
+  const value = process.env[name]
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`)
+  }
+  return value
 }
 
-export function Button({ 
-  variant = "primary", 
-  size = "md", 
-  children,
-  ...props 
-}: ButtonProps) {
-  return (
-    <button
-      className={clsx(
-        "inline-flex items-center justify-center rounded-md font-medium transition-colors",
-        {
-          "bg-blue-600 text-white hover:bg-blue-700": variant === "primary",
-          "bg-gray-200 text-gray-900 hover:bg-gray-300": variant === "secondary",
-          "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50": variant === "outline",
-        },
-        {
-          "px-3 py-2 text-sm": size === "sm",
-          "px-4 py-2 text-base": size === "md",
-          "px-6 py-3 text-lg": size === "lg",
-        }
-      )}
-      {...props}
-    >
-      {children}
-    </button>
-  )
+export const env = {
+  MEDUSA_BACKEND_URL: getEnvVar("MEDUSA_BACKEND_URL"),
+  STRIPE_PUBLISHABLE_KEY: getEnvVar("STRIPE_PUBLISHABLE_KEY"),
 }
 ```
+
+Remember: Always prioritize user experience, performance, and accessibility. Follow React Router v7 conventions and integrate seamlessly with the Medusa backend. Use TypeScript for type safety and Tailwind CSS for consistent styling.
 
 ---
 > Source: [lambda-curry/medusa2-starter](https://github.com/lambda-curry/medusa2-starter) — distributed by [TomeVault](https://tomevault.io).
