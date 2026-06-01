@@ -1,82 +1,46 @@
-## educational-rag-project
+## mkdocs-navigation
 
-> This is an educational project focused on systematically improving RAG (Retrieval-Augmented Generation) systems. The project contains multiple cohorts with weekly assignments teaching different aspects of RAG development, from basic evaluations to advanced techniques.
+> When updating the navigation in [mkdocs.yml](mdc:mkdocs.yml), follow these standards:
 
-# Educational RAG Project Rules
+# MkDocs Navigation Standards
 
-## Project Overview
-This is an educational project focused on systematically improving RAG (Retrieval-Augmented Generation) systems. The project contains multiple cohorts with weekly assignments teaching different aspects of RAG development, from basic evaluations to advanced techniques.
+When updating the navigation in [mkdocs.yml](mdc:mkdocs.yml), follow these standards:
 
-## Key Project Structure
-- `cohort_1/`, `cohort_2/`, `latest/`: Different iterations of the course
-- Weekly folders (`week0/`, `week1/`, etc.): Progressive learning modules
-- `capstone_project/`: Advanced projects applying learned concepts
-- Each week contains Jupyter notebooks with educational content
+## Talk Navigation Format
+For talks in the navigation, use the format: `"Topic - Speaker Name (Company)": talks/filename.md`
 
-## Development Guidelines
+### Examples:
+```yaml
+- "Coding Agents - Nik Pash (Cline)": talks/rag-is-dead-cline-nik.md
+- "RAG Anti-patterns - Skylar Payne": talks/rag-antipatterns-skylar-payne.md
+- "Semantic Search - Will Bryk (Exa)": talks/semantic-search-exa-will-bryk.md
+```
 
-### Package Management
-- **Always use `uv` instead of `pip`** for package installation
-- Use `uv add <package>` instead of `pip install <package>`
-- Follow the user's preference for uv in all Python environments
+## Navigation Organization
+Organize talks into logical chapters and subsections:
 
-### Educational Content Standards
-- **Write at 9th-grade reading level** - keep explanations clear and accessible
-- **Add educational markdown** between code sections explaining:
-  - What the code does and why
-  - Key concepts students should learn
-  - Real-world applications
-  - Best practices and common pitfalls
-- Use emojis and formatting to make content engaging but not overwhelming
+### Chapter 5 Structure:
+```yaml
+- "Chapter 5: User Experience":
+  - "Coding Agents":
+    - "Coding Agents - Nik Pash (Cline)": talks/rag-is-dead-cline-nik.md
+    - "SWE-Bench Agent - Colin Flaherty (Augment)": talks/colin-rag-agents.md
+  - "Document Processing":
+    - "Document Parsing - Adit (Reducto)": talks/reducto-docs-adit.md
+    - "Browser RAG - Michael (OpenBB)": talks/rag-without-apis-browser-michael-struwig.md
+  - "Search Technologies":
+    - "Semantic Search - Will Bryk (Exa)": talks/semantic-search-exa-will-bryk.md
+    - "RAG Anti-patterns - Skylar Payne": talks/rag-antipatterns-skylar-payne.md
+```
 
-### Jupyter Notebook Structure
-- Start with learning objectives and introduction
-- Include educational markdown cells between major code sections
-- End with conclusions, next steps, and homework suggestions
-- Use clear section headers with emoji indicators
-- Provide code comments explaining complex operations
+## Guidelines
+- Keep navigation titles shorter than full article titles for better UX
+- Include company names in parentheses when available
+- Group related talks into logical subsections
+- Maintain consistent formatting across all talk entries
+- Use descriptive topic names that indicate the main focus
 
-### Text Analysis and Clustering Patterns
-When working with text analysis:
-- Use sentence transformers for embeddings (prefer `all-MiniLM-L6-v2` for educational speed)
-- Apply k-means clustering for interpretable results
-- Use t-SNE for 2D visualization of high-dimensional embeddings
-- Always provide examples from each cluster for interpretation
-- Include quantitative analysis (cluster sizes, statistics)
-
-### RAG System Development
-- Focus on systematic improvement approaches
-- Include evaluation metrics and benchmarks
-- Demonstrate both basic and advanced techniques
-- Emphasize practical applications and real-world usage
-- Connect concepts to actual user needs and behaviors
-
-### Data Visualization
-- Use log scales when data spans multiple orders of magnitude
-- Provide clear axis labels and titles
-- Include statistical annotations (means, medians)
-- Use consistent color schemes and styling
-- Explain what visualizations reveal about the data
-
-### Code Quality
-- Prefer async over synchronous operations when applicable
-- Ask about parallelization opportunities when relevant
-- Include error handling for data loading and processing
-- Use efficient data processing techniques (vectorized operations)
-- Comment complex algorithms and ML techniques
-
-## File References
-- Main educational notebooks: [latest/week*/](mdc:latest/)
-- Capstone project: [latest/capstone_project/01_exploring_wildchat.ipynb](mdc:latest/capstone_project/01_exploring_wildchat.ipynb)
-- Project configuration: [latest/pyproject.toml](mdc:latest/pyproject.toml)
-
-## Common Patterns
-- Dataset loading with Hugging Face `datasets` library
-- Text preprocessing and filtering
-- Embedding creation with sentence transformers
-- Clustering analysis with interpretive examples
-- Statistical analysis and visualization
-- Educational explanations connecting theory to practice
+Reference [AGENTS.md](mdc:docs/talks/AGENTS.md) for complete talk organization guidelines.
 
 ---
 > Source: [jxnl/systematically-improving-rag](https://github.com/jxnl/systematically-improving-rag) — distributed by [TomeVault](https://tomevault.io).
