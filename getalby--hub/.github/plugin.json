@@ -1,0 +1,9 @@
+{
+  "name": "getalby--hub",
+  "displayName": "hub",
+  "description": "Alby Hub - Your own Bitcoin Lightning node: easy, connectable, feature-rich \u2728 Run anywhere. Become self-sovereign.",
+  "version": "1.0.0",
+  "author": "getAlby",
+  "homepage": "https://github.com/getAlby/hub",
+  "skills": []
+}
