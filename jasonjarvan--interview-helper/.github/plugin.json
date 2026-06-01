@@ -1,0 +1,9 @@
+{
+  "name": "jasonjarvan--interview-helper",
+  "displayName": "interview-helper",
+  "description": "\u5f00\u6e90\u7684AI\u9762\u8bd5\u52a9\u624b\uff0c\u4f7f\u7528OpenAI Whipser\u6a21\u578b\u8fdb\u884cSTT\uff08Speak to Text \u8bed\u97f3\u8f6c\u6587\u5b57\uff09\u8f6c\u5f55\uff0c\u7136\u540e\u5c06\u95ee\u9898\u4ea4\u7ed9ChatGPT\u56de\u7b54\u3002",
+  "version": "1.0.0",
+  "author": "JasonJarvan",
+  "homepage": "https://github.com/JasonJarvan/interview-helper",
+  "skills": []
+}
