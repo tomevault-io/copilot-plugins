@@ -4,7 +4,7 @@
   "repo": "nano",
   "description": "tiny java tool - back to basics!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NanoNative/nano",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T16:26:53Z"
+  "distributed_at": "2026-06-01T16:30:55Z"
 }
