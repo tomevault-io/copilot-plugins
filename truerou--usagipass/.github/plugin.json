@@ -1,0 +1,9 @@
+{
+  "name": "truerou--usagipass",
+  "displayName": "UsagiPass",
+  "description": "Dynamically Generate DXPASS Style Wahlap QR Code. \u52a8\u6001\u751f\u6210 DXPASS \u98ce\u683c\u7684\u73a9\u5bb6\u4e8c\u7ef4\u7801\u3002",
+  "version": "1.0.0",
+  "author": "TrueRou",
+  "homepage": "https://github.com/TrueRou/UsagiPass",
+  "skills": []
+}
