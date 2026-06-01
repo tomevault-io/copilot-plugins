@@ -1,0 +1,9 @@
+{
+  "name": "azure--co-op-translator",
+  "displayName": "co-op-translator",
+  "description": "Easily automate the translation of your documentation into multiple languages, powered by Azure AI Services",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/co-op-translator",
+  "skills": []
+}
