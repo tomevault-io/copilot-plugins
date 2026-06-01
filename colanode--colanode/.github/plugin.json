@@ -1,0 +1,9 @@
+{
+  "name": "colanode--colanode",
+  "displayName": "colanode",
+  "description": "Open-source and local-first Slack and Notion alternative that puts you in control of your data",
+  "version": "1.0.0",
+  "author": "colanode",
+  "homepage": "https://github.com/colanode/colanode",
+  "skills": []
+}
