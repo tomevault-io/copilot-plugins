@@ -1,76 +1,51 @@
-## path-safety
+## test-driven-workflow
 
-> description: 路径安全编码规范 — 编辑路由/Agent/Loader/Workspace/知识库代码时自动提醒
+> description: 测试优先开发与测试保护规则。确保新功能/Bug 修复必须有测试覆盖，测试失败时先诊断后修改。
 
 ---
-description: 路径安全编码规范 — 编辑路由/Agent/Loader/Workspace/知识库代码时自动提醒
-globs: py-src/data_formulator/{routes,agents,data_loader,datalake,security,knowledge}/**/*.py
-alwaysApply: false
+description: 测试优先开发与测试保护规则。确保新功能/Bug 修复必须有测试覆盖，测试失败时先诊断后修改。
+globs: 
+alwaysApply: true
 ---
 
-# 路径安全编码规范
+# Test-Driven Workflow
 
-编辑此目录下的文件时，请遵守以下安全规则（详见 `docs/dev-guides/8-path-safety.md` 和 `.cursor/skills/path-safety/SKILL.md`）：
+## 1. 测试优先：新功能 / Bug 修复必须有测试
 
-## ConfinedDir 是唯一的路径约束原语
+开发新功能或修复 Bug 时，**必须同步编写测试**，不能只提交业务代码：
 
-所有接受用户可控路径的代码，**必须**通过 `ConfinedDir` 实例访问文件系统。
+- **新功能** → 先写测试（或至少同步写），描述期望行为，再实现代码使测试通过
+- **Bug 修复** → 先写复现测试，确认测试失败，再修复代码使测试通过
+- **重构** → 确保重构前已有测试覆盖，重构后测试仍然全部通过
 
-```python
-from data_formulator.security.path_safety import ConfinedDir
+完成实现后，主动运行相关测试验证：
+- 后端：`python -m pytest tests/backend/ -q`
+- 前端：`yarn test`
 
-jail = ConfinedDir(root_dir, mkdir=False)
-try:
-    target = jail.resolve(user_input)
-except ValueError:
-    return {"error": "Access denied"}
-```
+## 2. 测试保护：不要轻易修改测试代码
 
-## 禁止的模式
+测试失败时，**禁止直接修改测试代码来让测试通过**。必须执行以下流程：
 
-```python
-# ❌ BAD — 裸路径拼接
-target = Path(root) / user_input
+1. **复现并定位**：运行失败的测试，确认失败现象
+2. **诊断分类**：
+   - A：测试本身有问题（断言错误、setup 不正确）
+   - B：业务实现有 Bug
+   - C：需求/规格变更导致测试过时
+3. **给出方案**：至少提供两个可选方案（改测试 / 改实现 / 补规格），说明各自影响和风险
+4. **等待确认**：由用户决定采用哪个方案，再执行修改
 
-# ❌ BAD — 手写 resolve + relative_to（已弃用，必须用 ConfinedDir）
-target = (root / user_input).resolve()
-try:
-    target.relative_to(root)
-except ValueError: ...
+**绝对禁止**：
+- 测试一红就直接改测试代码
+- 删除或跳过（`@pytest.mark.skip`）失败的测试来"解决"问题
+- 修改测试的断言值来匹配错误的实现
 
-# ❌ BAD — 手写 is_relative_to（已弃用，必须用 ConfinedDir）
-resolved = (root / user_input).resolve()
-if not resolved.is_relative_to(root.resolve()): ...
+## 3. 精准修改：不动无关测试
 
-# ❌ BAD — 路径比较用 str.startswith
-if str(target).startswith(str(root)): ...
-```
+与 Karpathy 编码准则的"精准修改"一致：
 
-## 正确的模式
-
-```python
-# ✅ GOOD — Agent 工具
-workspace_jail = self.workspace.confined_root
-scratch_jail = self.workspace.confined_scratch
-target = workspace_jail.resolve(rel_path)
-
-# ✅ GOOD — 文件下载 route
-scratch_jail = workspace.confined_scratch
-target = scratch_jail.resolve(filename)
-return send_file(target)
-
-# ✅ GOOD — 文件上传（两层防御）
-safe_name = secure_filename(raw_filename)
-target = scratch_jail.resolve(safe_name)
-
-# ✅ GOOD — Workspace data 文件
-path = workspace.get_file_path(filename)  # 内部使用 ConfinedDir
-```
-
-## 部署守卫
-
-- 新增读取宿主文件系统的 Loader 必须在 `_enforce_deployment_restrictions()` 注册多用户禁用
-- 多用户模式（`WORKSPACE_BACKEND != "local"`）必须启用沙箱
+- 不"顺手改进"与当前任务无关的测试代码
+- 不重构正在通过的测试
+- 不改变已有测试的断言逻辑，除非被明确要求
 
 ---
 > Source: [microsoft/data-formulator](https://github.com/microsoft/data-formulator) — distributed by [TomeVault](https://tomevault.io).
