@@ -4,7 +4,7 @@
   "repo": "wvlet",
   "description": "A flow-style query language for SQL engines",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wvlet/wvlet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T13:36:57Z"
+  "distributed_at": "2026-06-01T14:09:30Z"
 }
