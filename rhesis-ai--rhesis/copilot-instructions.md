@@ -1,24 +1,51 @@
-## tech-stack
+## testing
 
-> - **Language**: Python 3.10+
+> 1. The tests are stored in <project_root>/tests/sdk directory
 
+# Testing Rules
 
-# Rhesis technology stack and dependencies
+## SDK Tests
 
+1. The tests are stored in <project_root>/tests/sdk directory
+2. Unit tests can be run using:
+```bash
+cd sdk
+make test
+```
+3. SDK integration tests run the backend which SDK is connected to.
+```bash
+cd sdk
+make test-integration
+```
+Backend logs can be checked by using:
+```bash
+cd sdk
+docker compose -f ../tests/docker-compose.test.yml --profile sdk logs sdk-test-backend
+```
 
-## Core technology stack
+4. Run single tests by using uv in the sdk directory:
+For example:
+```bash
+cd sdk
+uv run pytest ../tests/sdk/integration/test_entities.py::test_endpoint
+```
 
-### Backend 
-- **Language**: Python 3.10+
-- **Package Manager**: uv with pyproject.toml
-- **Validation**: Pydantic 2.x
-- **Testing**: pytest
+## Backend Tests
 
-### Python SDK
-- **Language**: Python 3.10+
-- **Package Manager**: uv with pyproject.toml
-- **Validation**: Pydantic 2.x
-- **Testing**: pytest
+Backend tests must be run from the backend app directory (`apps/backend`). The backend's `pyproject.toml` configures pytest with `testpaths = ["../../tests/backend"]` and `pythonpath = ["src"]`, so `uv run pytest` must be executed from `apps/backend` for paths and imports to resolve correctly.
+
+1. Tests are stored in <project_root>/tests/backend.
+2. Always run pytest from the backend directory:
+```bash
+cd apps/backend
+uv run pytest ../../tests/backend/ -v
+```
+3. Run a specific test file or test class:
+```bash
+cd apps/backend
+uv run pytest ../../tests/backend/services/explorer/test_tests.py::TestCreateExplorerTestSet -v
+```
+4. Do not run backend tests from the project root (e.g. `uv run pytest tests/backend/...` from repo root); pytest will not be found or paths will be wrong.
 
 ---
 > Source: [rhesis-ai/rhesis](https://github.com/rhesis-ai/rhesis) — distributed by [TomeVault](https://tomevault.io).
