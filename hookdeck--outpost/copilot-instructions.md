@@ -1,17 +1,16 @@
-## agent-evaluation-authoring
+## outpost
 
-> Authoring standards for docs/agent-evaluation (no eval leakage in user turns)
+> When you change files under **`docs/agent-evaluation/`** (scenarios, scoring, harness docs), read and apply **[`docs/agent-evaluation/AGENTS.md`](docs/agent-evaluation/AGENTS.md)** first. It defines anti–“teach to the test” rules for user-turn wording and scenario structure.
 
+# Coding agent notes (Outpost)
 
-When editing anything under `docs/agent-evaluation/`, read and follow **`docs/agent-evaluation/AGENTS.md`**.
+When you change files under **`docs/agent-evaluation/`** (scenarios, scoring, harness docs), read and apply **[`docs/agent-evaluation/AGENTS.md`](docs/agent-evaluation/AGENTS.md)** first. It defines anti–“teach to the test” rules for user-turn wording and scenario structure.
 
-**Quick guardrails for `scenarios/*.md`:**
+For this repo’s PR review format, see **`CLAUDE.md`**.
 
-- **`### Turn N — User`** blockquotes = in-character **product engineer** speech only.
-- **Never** in user lines: `Option 1/2/3`, `Turn 0`, `scenario`, `eval`, `success criteria`, `scoreScenario`, references to “the prompt/instructions you already have” or named template sections.
-- Put rubric detail in **`## Success criteria`** / **Intent** / **Failure modes**, not in the user quote.
+## Website (`hookdeck.com`) and `docs/content`
 
-Full checklist and rationale: **`docs/agent-evaluation/AGENTS.md`**.
+Product docs under **`docs/content/`** (and images under **`docs/public/images/`**) are consumed by the **[`hookdeck/website`](https://github.com/hookdeck/website)** repo at build time. When those paths change on **`main`**, a GitHub Action notifies Hookdeck, which triggers a Vercel deploy of the site. See [`.github/workflows/trigger-website-deploy.yml`](https://github.com/hookdeck/outpost/blob/main/.github/workflows/trigger-website-deploy.yml) (repo variable `HOOKDECK_WEBSITE_DEPLOY_SOURCE_URL`, secret `VERCEL_WEBSITE_DEPLOY_HOOK_SOURCE_API_KEY`).
 
 ---
 > Source: [hookdeck/outpost](https://github.com/hookdeck/outpost) — distributed by [TomeVault](https://tomevault.io).
