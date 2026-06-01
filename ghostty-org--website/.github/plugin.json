@@ -1,0 +1,9 @@
+{
+  "name": "ghostty-org--website",
+  "displayName": "website",
+  "description": "Ghostty website. For the source to the Ghostty project, please see https://github.com/ghostty-org/ghostty",
+  "version": "1.0.0",
+  "author": "ghostty-org",
+  "homepage": "https://github.com/ghostty-org/website",
+  "skills": []
+}
