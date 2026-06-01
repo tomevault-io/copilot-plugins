@@ -1,0 +1,9 @@
+{
+  "name": "emarco177--dandi",
+  "displayName": "dandi",
+  "description": "Boilerplate for building AI-powered micro SaaS apps with Next.js, LangChain JS, Supabase, auth, rate limiting, and API keys.",
+  "version": "1.0.0",
+  "author": "emarco177",
+  "homepage": "https://github.com/emarco177/dandi",
+  "skills": []
+}
