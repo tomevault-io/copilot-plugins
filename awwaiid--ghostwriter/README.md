@@ -7,11 +7,11 @@ Use the reMarkable2 as an interface to vision-LLMs (ChatGPT, Claude, Gemini). Gh
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [awwaiid/ghostwriter](https://github.com/awwaiid/ghostwriter).
+Original source: `AGENTS.md` in [awwaiid/ghostwriter](https://github.com/awwaiid/ghostwriter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
