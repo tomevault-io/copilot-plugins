@@ -4,7 +4,7 @@
   "repo": "awesome-windows",
   "description": "An awesome & curated list of tools and apps for Windows 10/11.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0PandaDEV/awesome-windows",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T11:33:20Z"
+  "distributed_at": "2026-06-01T11:38:59Z"
 }
