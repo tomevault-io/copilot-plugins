@@ -100484,6 +100484,11 @@
       "description": "Jubilant is a Pythonic wrapper around the Juju CLI, primarily for charm integration testing."
     },
     {
+      "name": "elliot-at-liminalnook--a2a",
+      "source": "./elliot-at-liminalnook--a2a",
+      "description": "Rust A2A tools for the greater good"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -170929,6 +170934,11 @@
       "description": "activitywatch-mcp"
     },
     {
+      "name": "mbeacom--openleague",
+      "source": "./mbeacom--openleague",
+      "description": "A free platform for managing sports teams, leagues, and clubs. Simplify your season with tools for rostering, scheduling, and communication. Docs: https://openleague.dev/"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -183074,6 +183084,41 @@
       "description": "Real-time cross-machine MCP relay for Claude Code agents"
     },
     {
+      "name": "eemotionn--storyforge-ai",
+      "source": "./eemotionn--storyforge-ai",
+      "description": "\u4e00\u4e2a\u7528\u4e8e\u4e2d\u6587\u957f\u7bc7\u7f51\u6587\u521b\u4f5c\u7684\u591a Agent \u534f\u540c\u6bcd\u7248\u6846\u67b6\uff0c\u652f\u6301\u4e16\u754c\u89c2\u6784\u5efa\u3001\u5927\u7eb2\u89c4\u5212\u3001\u7ae0\u8282\u5361\u3001\u521d\u7a3f\u3001\u8bc4\u6d4b\u4e0e canon\u56de\u5199"
+    },
+    {
+      "name": "maweiruc--stat-toolkits-eif",
+      "source": "./maweiruc--stat-toolkits-eif",
+      "description": "Documentation-first toolkit for deriving, validating, and auditing efficient influence functions in semiparametric statistics."
+    },
+    {
+      "name": "whyiyhw--seek",
+      "source": "./whyiyhw--seek",
+      "description": " Not just an agent demo \u2014 a local coding-agent platform: plan mode, sub-agent teams, cron, memory, MCP. Single Go binary, DeepSeek-native, MIT."
+    },
+    {
+      "name": "whyiyhw--seek",
+      "source": "./whyiyhw--seek",
+      "description": " Not just an agent demo \u2014 a local coding-agent platform: plan mode, sub-agent teams, cron, memory, MCP. Single Go binary, DeepSeek-native, MIT."
+    },
+    {
+      "name": "billlucky--echocut",
+      "source": "./billlucky--echocut",
+      "description": "Turn raw footage into brand-ready, platform-optimized video with one command. Local-first: FFmpeg + WhisperX/MLX + Ollama."
+    },
+    {
+      "name": "1624899--ai-ppt-maker",
+      "source": "./1624899--ai-ppt-maker",
+      "description": "AI-driven PPT generation system with editable layered PPTX export."
+    },
+    {
+      "name": "billlucky--echocut",
+      "source": "./billlucky--echocut",
+      "description": "Turn raw footage into brand-ready, platform-optimized video with one command. Local-first: FFmpeg + WhisperX/MLX + Ollama."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -186002,6 +186047,11 @@
       "name": "skhoroshavin--pi-supergsd",
       "source": "./skhoroshavin--pi-supergsd",
       "description": "pi-supergsd"
+    },
+    {
+      "name": "josortmel--ecodb",
+      "source": "./josortmel--ecodb",
+      "description": "Collective AI memory for multi-agent teams. 10-stage GAMR search engine, knowledge graph (Apache AGE), document ingestion, 22+ MCP tools."
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
