@@ -152359,6 +152359,11 @@
       "description": "A wavy, rippling distortion transition that dissolves one photo into another \u2014 a glowing, noise-warped GLSL/WebGL wavefront with live controls. Inspired by Minsang (@radiofun8)."
     },
     {
+      "name": "labautomationandscreening--pyalab",
+      "source": "./labautomationandscreening--pyalab",
+      "description": "Library for generating Integra ViaLab files"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -174654,6 +174659,26 @@
       "description": "hermes-multi-agent-workflow"
     },
     {
+      "name": "compuficial--apery",
+      "source": "./compuficial--apery",
+      "description": "Synthetic Data Generator for Agents"
+    },
+    {
+      "name": "compuficial--apery",
+      "source": "./compuficial--apery",
+      "description": "Synthetic Data Generator for Agents"
+    },
+    {
+      "name": "jonhill90--vibes",
+      "source": "./jonhill90--vibes",
+      "description": "Vibes provides a shared set of skills, agents, and reference documentation for AI coding assistants. Write your agent instructions once in AGENTS.md, and every supported platform \u2014 Claude Code, GitHub"
+    },
+    {
+      "name": "jonhill90--vibes",
+      "source": "./jonhill90--vibes",
+      "description": "Vibes provides a shared set of skills, agents, and reference documentation for AI coding assistants. Write your agent instructions once in AGENTS.md, and every supported platform \u2014 Claude Code, GitHub"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -187047,6 +187072,16 @@
       "name": "jaironlanda--isupmap",
       "source": "./jaironlanda--isupmap",
       "description": "Live up/down heatmap for 40+ popular internet services. Built on Cloudflare Workers + D1."
+    },
+    {
+      "name": "digitalinnovationone--dio-agent",
+      "source": "./digitalinnovationone--dio-agent",
+      "description": "Agente de IA criado pela DIO para apoiar seus estudos."
+    },
+    {
+      "name": "digitalinnovationone--dio-agent",
+      "source": "./digitalinnovationone--dio-agent",
+      "description": "Agente de IA criado pela DIO para apoiar seus estudos."
     },
     {
       "name": "cheerhuan--save-your-token",
