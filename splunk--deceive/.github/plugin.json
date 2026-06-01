@@ -1,0 +1,9 @@
+{
+  "name": "splunk--deceive",
+  "displayName": "DECEIVE",
+  "description": "DECeption with Evaluative Integrated Validation Engine (DECEIVE): Let an LLM do all the hard honeypot work!",
+  "version": "1.0.0",
+  "author": "splunk",
+  "homepage": "https://github.com/splunk/DECEIVE",
+  "skills": []
+}
