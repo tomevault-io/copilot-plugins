@@ -1,0 +1,9 @@
+{
+  "name": "psviderski--uncloud",
+  "displayName": "uncloud",
+  "description": "A lightweight tool for deploying and managing containerised applications across a network of Docker hosts. Bridging the gap between Docker and Kubernetes \u2728",
+  "version": "1.0.0",
+  "author": "psviderski",
+  "homepage": "https://github.com/psviderski/uncloud",
+  "skills": []
+}
