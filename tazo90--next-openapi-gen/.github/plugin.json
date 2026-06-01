@@ -1,0 +1,9 @@
+{
+  "name": "tazo90--next-openapi-gen",
+  "displayName": "next-openapi-gen",
+  "description": "Automatically generate OpenAPI 3.0, 3.1, and 3.2 documentation from Next.js projects, with support for Zod schemas, TypeScript types, and reusable OpenAPI fragments.",
+  "version": "1.0.0",
+  "author": "tazo90",
+  "homepage": "https://github.com/tazo90/next-openapi-gen",
+  "skills": []
+}
