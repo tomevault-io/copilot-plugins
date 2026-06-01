@@ -1,71 +1,81 @@
-## frontend-test-conventions
+## i18n-no-hardcoded-strings
 
-> description: Frontend TypeScript test conventions (Vitest)
+> description: No hardcoded UI strings — use i18n translation keys
 
 ---
-description: Frontend TypeScript test conventions (Vitest)
-globs: tests/frontend/**/*.test.{ts,tsx}
-alwaysApply: false
+description: No hardcoded UI strings — use i18n translation keys
+globs: src/**/*.{ts,tsx}
+alwaysApply: true
 ---
 
-# Frontend Test Conventions
+# i18n: No Hardcoded UI Strings
 
-## File Location & Naming
+All user-visible text in the frontend MUST go through the i18n system. Never hardcode Chinese, English, or any other language string directly in components.
 
-- Place tests under `tests/frontend/unit/` mirroring the `src/` structure:
-  - `tests/frontend/unit/data/` → tests for `src/data/`
-  - `tests/frontend/unit/app/` → tests for `src/app/`
-  - `tests/frontend/unit/views/` → tests for `src/views/`
-- Name files `<functionOrFeature>.test.ts` (or `.test.tsx` for React rendering tests).
+## How to Use
 
-## File Structure
+```tsx
+import { useTranslation } from 'react-i18next';
 
-```typescript
-import { describe, it, expect } from 'vitest';
-// For React rendering tests:
-// import { render } from '@testing-library/react';
-
-import { myFunction } from '../../../../src/<path>';
-
-describe('myFunction', () => {
-  it('should handle <specific case>', () => {
-    expect(myFunction(input)).toBe(expected);
-  });
-});
-```
-
-## Conventions
-
-- Import `describe`, `it`, `expect` explicitly from `vitest` (globals are enabled but explicit imports improve readability).
-- Use `@testing-library/react` and `@testing-library/jest-dom` for component rendering tests.
-- Prefer testing **exported pure functions** over testing internal component state.
-- When component logic is complex, extract it into an exported helper and test that directly.
-- Group tests with `describe` blocks; use section comments (`// --- Null cases ---`) for clarity.
-- One assertion per `it` block when possible; name tests as `should <expected behavior>`.
-- Do **not** import from `node_modules` internals; only use public API.
-- Keep tests independent — no shared mutable state between `it` blocks.
-
-## Example
-
-```typescript
-// ❌ BAD – no describe, vague test name
-import { expect, test } from 'vitest';
-test('works', () => { expect(fn(1)).toBe(2); });
+const { t } = useTranslation();
 
 // ✅ GOOD
-import { describe, it, expect } from 'vitest';
-import { checkIsLikelyTextOnlyModel } from '../../../../src/views/DataLoadingThread';
+<Button>{t('common.save')}</Button>
+<Tooltip content={t('chart.noData')} />
 
-describe('checkIsLikelyTextOnlyModel', () => {
-  it('returns true for deepseek-chat', () => {
-    expect(checkIsLikelyTextOnlyModel('deepseek-chat')).toBe(true);
-  });
-
-  it('returns false for undefined', () => {
-    expect(checkIsLikelyTextOnlyModel(undefined)).toBe(false);
-  });
-});
+// ❌ BAD
+<Button>保存</Button>
+<Button>Save</Button>
+<Tooltip content="No data available" />
 ```
+
+## Non-Component Contexts (thunks, utilities, helpers)
+
+When you cannot use hooks (Redux thunks, plain `.ts` utilities, store helpers), import the i18n instance directly:
+
+```ts
+import i18n from '../i18n';
+
+// ✅ GOOD — works outside React components
+i18n.t('messages.rowLimitReached', { count: 20000 })
+
+// ❌ BAD — hooks only work inside React function components
+const { t } = useTranslation();  // will crash in a thunk
+```
+
+The same rule applies: every user-visible string must use `i18n.t()` with a translation key, never a hardcoded literal.
+
+## Translation Files
+
+- English: `src/i18n/locales/en/<namespace>.json`
+- Chinese: `src/i18n/locales/zh/<namespace>.json`
+- Namespaces: `common`, `upload`, `chart`, `model`, `encoding`, `messages`, `navigation`, `dataLoading`, `errors`
+
+When adding a new key, add it to **both** `en` and `zh` locale files. Pick the namespace that fits; create a new namespace only if none applies.
+
+## What Counts as User-Visible
+
+Must use `t()`: button labels, tooltips, placeholders, error messages, dialog titles, tab names, toast notifications, table headers, empty-state text.
+
+May stay hardcoded: log messages (`console.log`), error messages thrown but never displayed, internal constants, CSS class names, test IDs.
+
+**Cross-stack sentinel values** — strings shared between frontend and backend as identity markers (e.g. `UNTITLED_SESSION` in `dfSlice.ts` used by both Redux state and backend workspace API) must NOT be translated. They are internal constants, not display text. Translate them only at the UI rendering layer by mapping the sentinel to `t('...')`.
+
+## Backend Messages with message_code
+
+When the backend returns a user-visible message with a `message_code` (or `content_code`, `error_code`), use `translateBackend()` from `src/app/utils.tsx` to translate it:
+
+```tsx
+import { translateBackend } from '../app/utils';
+
+// Translate a backend error message
+const msg = translateBackend(event.message, event.message_code, event.message_params);
+
+// Translate options with parallel code arrays
+const options = translateBackendOptions(rawOptions, event.option_codes);
+```
+
+The translation keys live in `messages.json` under the `agent` section. Always add **both** `en` and `zh` entries.
 
 ---
 > Source: [microsoft/data-formulator](https://github.com/microsoft/data-formulator) — distributed by [TomeVault](https://tomevault.io).
