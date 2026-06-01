@@ -1,0 +1,9 @@
+{
+  "name": "macalbert--envilder",
+  "displayName": "envilder",
+  "description": "\ud83d\ude80 Envilder is an open-source developer toolkit for loading cloud secrets into your app runtime. Built as a monorepo with CLI, GitHub Action, and native SDKs. Supports AWS SSM and Azure Key Vault today",
+  "version": "1.0.0",
+  "author": "macalbert",
+  "homepage": "https://github.com/macalbert/envilder",
+  "skills": []
+}
