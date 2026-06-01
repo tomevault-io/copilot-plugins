@@ -1,0 +1,9 @@
+{
+  "name": "digitalinnovationone--dio-agent",
+  "displayName": "dio-agent",
+  "description": "Agente de IA criado pela DIO para apoiar seus estudos.",
+  "version": "1.0.0",
+  "author": "digitalinnovationone",
+  "homepage": "https://github.com/digitalinnovationone/dio-agent",
+  "skills": []
+}
