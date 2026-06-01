@@ -4,7 +4,7 @@
   "repo": "LLMServingSim",
   "description": "LLMServingSim 2.0: A Unified Simulator for Heterogeneous and Disaggregated LLM Serving Infrastructure",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/casys-kaist/LLMServingSim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T18:04:35Z"
+  "distributed_at": "2026-06-01T18:21:39Z"
 }
