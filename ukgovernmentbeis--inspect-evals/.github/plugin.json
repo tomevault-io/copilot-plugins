@@ -1,0 +1,9 @@
+{
+  "name": "ukgovernmentbeis--inspect-evals",
+  "displayName": "inspect_evals",
+  "description": "Collection of evals for Inspect AI",
+  "version": "1.0.0",
+  "author": "UKGovernmentBEIS",
+  "homepage": "https://github.com/UKGovernmentBEIS/inspect_evals",
+  "skills": []
+}
