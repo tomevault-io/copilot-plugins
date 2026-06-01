@@ -1,0 +1,9 @@
+{
+  "name": "feichai0017--nokv",
+  "displayName": "NoKV",
+  "description": "Native metadata service for distributed filesystems, object storage, and AI dataset workloads.",
+  "version": "1.0.0",
+  "author": "feichai0017",
+  "homepage": "https://github.com/feichai0017/NoKV",
+  "skills": []
+}
