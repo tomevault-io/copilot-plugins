@@ -1,0 +1,9 @@
+{
+  "name": "michael--svedit",
+  "displayName": "svedit",
+  "description": "A tiny library for building editable websites in Svelte",
+  "version": "1.0.0",
+  "author": "michael",
+  "homepage": "https://github.com/michael/svedit",
+  "skills": []
+}
