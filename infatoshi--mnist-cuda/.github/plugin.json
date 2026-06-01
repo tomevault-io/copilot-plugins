@@ -1,0 +1,9 @@
+{
+  "name": "infatoshi--mnist-cuda",
+  "displayName": "mnist-cuda",
+  "description": "mnist-cuda",
+  "version": "1.0.0",
+  "author": "Infatoshi",
+  "homepage": "https://github.com/Infatoshi/mnist-cuda",
+  "skills": []
+}
