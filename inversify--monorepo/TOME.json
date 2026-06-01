@@ -4,7 +4,7 @@
   "repo": "monorepo",
   "description": "A powerful and lightweight inversion of control container for JavaScript & Node.js apps powered by TypeScript.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/inversify/monorepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T05:49:49Z"
+  "distributed_at": "2026-06-01T05:51:50Z"
 }
