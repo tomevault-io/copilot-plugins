@@ -1,0 +1,9 @@
+{
+  "name": "neonwatty--meme-search",
+  "displayName": "meme-search",
+  "description": "The open source Meme Search Engine and Finder.  Free and built to self-host locally with Python, Ruby, and Docker.",
+  "version": "1.0.0",
+  "author": "neonwatty",
+  "homepage": "https://github.com/neonwatty/meme-search",
+  "skills": []
+}
