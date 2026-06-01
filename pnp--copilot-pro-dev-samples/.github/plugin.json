@@ -1,0 +1,9 @@
+{
+  "name": "pnp--copilot-pro-dev-samples",
+  "displayName": "copilot-pro-dev-samples",
+  "description": "Community contributed samples for the Microsoft 365 Copilot. Contributions welcome.",
+  "version": "1.0.0",
+  "author": "pnp",
+  "homepage": "https://github.com/pnp/copilot-pro-dev-samples",
+  "skills": []
+}
