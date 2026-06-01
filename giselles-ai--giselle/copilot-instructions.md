@@ -1,86 +1,88 @@
-## naming-guide
+## update-ai-sdk
 
-> Naming convention guide for Giselle codebase
+> Update ai-sdk(ai, @ai/*) to latest
 
-# Naming Guide
 
-## Case Conventions
+# Updating AI SDK in Giselle
 
-1. **File Naming: kebab-case**
-   - All filenames should use kebab-case (lowercase with hyphens)
-   - Examples:
-     - ✅ `user-profile.ts`
-     - ✅ `api-client.tsx`
-     - ❌ `UserProfile.ts`
-     - ❌ `apiClient.tsx`
+This document provides a step-by-step guide for updating the AI SDK packages in this project.
 
-2. **Component Naming: PascalCase**
-   - React components and classes should use PascalCase
-   - Examples:
-     - ✅ `UserProfile`
-     - ✅ `ApiClient`
-     - ❌ `userProfile`
-     - ❌ `user-profile`
+## What is AI SDK
 
-3. **Variable Naming: camelCase**
-   - Variables, functions, and methods should use camelCase
-   - Examples:
-     - ✅ `userEmail`
-     - ✅ `isActive`
-     - ❌ `UserEmail`
-     - ❌ `user-email`
+The AI SDK is a TypeScript toolkit for building AI-powered applications using frameworks like Next.js, React, Svelte, Vue and Node.js runtimes. It provides a unified interface for working with different AI providers.
 
-## Core Principles
+Package namespaces include `ai` and `@ai-sdk/{provider}` (such as `@ai-sdk/openai`, `@ai-sdk/anthropic`, etc.).
 
-1. **Readability First**
-   - Names should be self-explanatory and immediately understandable
-   - Avoid abbreviations unless they are widely known
-   - Use descriptive names that explain the purpose or behavior
+## Step 1: Check current AI SDK versions
 
-2. **Function Naming**
-   - Use verbs or verb phrases for function names
-   - Names should clearly indicate what the function does
-   - Avoid ambiguous names that could lead to misuse
-   - Examples:
-     - ✅ `calculateTotalPrice()`
-     - ✅ `validateUserInput()`
-     - ❌ `process()` (too vague)
-     - ❌ `doStuff()` (unclear purpose)
+Check which AI SDK packages need to be updated:
 
-3. **Variable Naming**
-   - Use nouns or noun phrases for variable names
-   - Names should describe what the variable represents
-   - Avoid single-letter variables except in very short scopes
-   - Examples:
-     - ✅ `userEmail`
-     - ✅ `isActive`
-     - ❌ `x` (unless in a mathematical context)
-     - ❌ `temp` (unless truly temporary)
+```sh
+pnpm outdated -r --json
+```
 
-4. **Boolean Variables and Functions**
-   - Use prefixes like `is`, `has`, `can`, `should` for both variables and functions returning boolean values
-   - Make the true/false meaning clear
-   - For variables examples:
-     - ✅ `isEnabled`
-     - ✅ `hasPermission`
-     - ❌ `status` (ambiguous boolean)
-   - For function examples:
-     - ✅ `isTriggerRequiringCallsign()`
-     - ✅ `hasActiveSubscription()`
-     - ❌ `requiresCallsign()` (less clear about boolean return type)
-     - ❌ `checkActive()` (ambiguous about what's returned)
+Look for entries with `ai` and `@ai-sdk/*` in the results.
 
-5. **Consistency**
-   - Follow consistent naming patterns across the codebase
-   - Use the same terms for the same concepts
-   - Maintain consistent casing (camelCase, PascalCase, etc.)
+## Step 2: Update catalog entries
 
-## Best Practices
+This project uses pnpm's "Catalogs" feature to define dependency version ranges as reusable constants. These constants can be referenced in package.json files.
 
-- When someone reads your code, they should understand the purpose without additional context
-- Function names should make it clear how to use them correctly
-- Avoid names that could be misinterpreted or used incorrectly
-- Consider the perspective of other developers who will maintain or use your code
+Update the catalog entries in `pnpm-workspace.yaml`:
+
+```yaml
+catalog:
+  "ai": 4.2.9              # Update to latest version
+  "@ai-sdk/openai": 1.3.6   # Update to latest version
+  "@ai-sdk/anthropic": 1.2.4 # Update to latest version
+  "@ai-sdk/google": 1.2.5   # Update to latest version
+  "@ai-sdk/react": 1.2.5    # Update to latest version
+  "@ai-sdk/fal": 0.1.1      # Update if needed
+```
+
+## Step 3: Install updated packages
+
+Run the installation command to update all packages:
+
+```sh
+pnpm i
+```
+
+
+## Step 4: Build the SDK
+
+After fixing type issues, build the SDK:
+
+```sh
+pnpm build-sdk
+```
+
+When you see these errors, record them and seek guidance on how to address each specific case.
+
+## Step 5: Verify types
+
+Run the type checking command to ensure there are no remaining type errors:
+
+```sh
+pnpm check-types
+```
+
+When you see these errors, record them and seek guidance on how to address each specific case.
+
+## Step 6: Test the application
+
+Run the application and request user to make sure everything works as expected:
+
+```sh
+pnpm dev
+```
+
+## Troubleshooting
+
+If you encounter peer dependency warnings, they may be safely ignored if the application works correctly. However, if you encounter runtime errors, you may need to:
+
+1. Revert to earlier versions of specific packages
+2. Update code to accommodate breaking changes in the new SDK versions
+3. Add explicit dependency resolutions in package.json
 
 ---
 > Source: [giselles-ai/giselle](https://github.com/giselles-ai/giselle) — distributed by [TomeVault](https://tomevault.io).
