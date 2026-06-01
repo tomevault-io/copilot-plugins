@@ -1,45 +1,60 @@
-## rules-index
+## typescript
 
-> All following rules are saved under `.cursor/rules/` directory:
+> TypeScript code style and optimization guidelines
 
 
-# Available project rules index
+# TypeScript Code Style Guide
 
-All following rules are saved under `.cursor/rules/` directory:
+## Types and Type Safety
 
-## Backend
+- avoid explicit type annotations when TypeScript can infer types.
+- avoid implicitly `any` variables; explicitly type when necessary (e.g., `let a: number` instead of `let a`).
+- use the most accurate type possible (e.g., prefer `Record<PropertyKey, unknown>` over `object` and `any`).
+- prefer `interface` over `type` for object shapes (e.g., React component props). Keep `type` for unions, intersections, and utility types.
+- prefer `as const satisfies XyzInterface` over plain `as const` when suitable.
+- prefer `@ts-expect-error` over `@ts-ignore` over `as any`
+- Avoid meaningless null/undefined parameters; design strict function contracts.
 
-- `drizzle-schema-style-guide.mdc` – Style guide for defining Drizzle ORM schemas
+## Imports and Modules
 
-## Frontend
+- When importing a directory module, prefer the explicit index path like `@/db/index` instead of `@/db`.
 
-- `react-component.mdc` – React component style guide and conventions
-- `i18n.mdc` – Internationalization guide using react-i18next
-- `typescript.mdc` – TypeScript code style guide
-- `packages/react-layout-kit.mdc` – Usage guide for react-layout-kit
+## Asynchronous Patterns and Concurrency
 
-## State Management
+- Prefer `async`/`await` over callbacks or chained `.then` promises.
+- Prefer async APIs over sync ones (avoid `*Sync`).
+- Prefer promise-based variants (e.g., `import { readFile } from 'fs/promises'`) over callback-based APIs from `fs`.
+- Where safe, convert sequential async flows to concurrent ones with `Promise.all`, `Promise.race`, etc.
 
-- `zustand-action-patterns.mdc` – Recommended patterns for organizing Zustand actions
-- `zustand-slice-organization.mdc` – Best practices for structuring Zustand slices
+## Code Structure and Readability
 
-## Desktop (Electron)
+- Prefer object destructuring when accessing and using properties.
+- Use consistent, descriptive naming; avoid obscure abbreviations.
+- Use semantically meaningful variable, function, and class names.
+- Replace magic numbers or strings with well-named constants.
+- Defer formatting to tooling; ignore purely formatting-only issues and autofixable lint problems.
 
-- `desktop-feature-implementation.mdc` – Implementing new Electron desktop features
-- `desktop-controller-tests.mdc` – Desktop controller unit testing guide
-- `desktop-local-tools-implement.mdc` – Workflow to add new desktop local tools
-- `desktop-menu-configuration.mdc` – Desktop menu configuration guide
-- `desktop-window-management.mdc` – Desktop window management guide
+## UI and Theming
 
-## Debugging
+- Use components from `@lobehub/ui`, Ant Design, or existing design system components instead of raw HTML tags (e.g., `Button` vs. `button`).
+- Design for dark mode and mobile responsiveness:
+  - Use the `antd-style` token system instead of hard-coded colors.
+  - Select appropriate component variants.
 
-- `debug-usage.mdc` – Using the debug package and namespace conventions
+## Performance
 
-## Testing
+- Prefer `for…of` loops to index-based `for` loops when feasible.
+- Reuse existing utils inside `packages/utils` or installed npm packages rather than reinventing the wheel.
+- Query only the required columns from a database rather than selecting entire rows.
 
-- `testing-guide/testing-guide.mdc` – Comprehensive testing guide for Vitest
-- `testing-guide/electron-ipc-test.mdc` – Electron IPC interface testing strategy
-- `testing-guide/db-model-test.mdc` – Database Model testing guide
+## Time and Consistency
+
+- Instead of calling `Date.now()` multiple times, assign it to a constant once and reuse it to ensure consistency and improve readability.
+
+## Logging
+
+- Never log user private information like api key, etc
+- Don't use `import { log } from 'debug'` to log messages, because it will directly log the message to the console.
 
 ---
 > Source: [vual/lobe-chat-pro](https://github.com/vual/lobe-chat-pro) — distributed by [TomeVault](https://tomevault.io).
