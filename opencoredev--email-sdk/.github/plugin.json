@@ -1,0 +1,9 @@
+{
+  "name": "opencoredev--email-sdk",
+  "displayName": "email-sdk",
+  "description": "Email SDK is a lightweight TypeScript library for sending email through Resend, Postmark, SendGrid, Mailgun, Brevo, SMTP, and more",
+  "version": "1.0.0",
+  "author": "opencoredev",
+  "homepage": "https://github.com/opencoredev/email-sdk",
+  "skills": []
+}
