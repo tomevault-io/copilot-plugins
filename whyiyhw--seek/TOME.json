@@ -4,7 +4,7 @@
   "repo": "seek",
   "description": " Not just an agent demo \u2014 a local coding-agent platform: plan mode, sub-agent teams, cron, memory, MCP. Single Go binary, DeepSeek-native, MIT.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/whyiyhw/seek",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T04:32:23Z"
+  "distributed_at": "2026-06-01T04:32:55Z"
 }
