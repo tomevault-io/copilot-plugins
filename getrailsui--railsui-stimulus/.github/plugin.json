@@ -1,0 +1,9 @@
+{
+  "name": "getrailsui--railsui-stimulus",
+  "displayName": "railsui-stimulus",
+  "description": "An ever-growing collection of Stimulus.js components built with Tailwind CSS.",
+  "version": "1.0.0",
+  "author": "getrailsui",
+  "homepage": "https://github.com/getrailsui/railsui-stimulus",
+  "skills": []
+}
