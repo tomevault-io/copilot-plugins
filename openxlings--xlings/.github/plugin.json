@@ -1,0 +1,9 @@
+{
+  "name": "openxlings--xlings",
+  "displayName": "xlings",
+  "description": "Universal package infrastructure with OS-like SubOS isolation - Multi-version \u00b7 Rootless \u00b7 Decentralized Index \u00b7 Agent-ready.",
+  "version": "1.0.0",
+  "author": "openxlings",
+  "homepage": "https://github.com/openxlings/xlings",
+  "skills": []
+}
