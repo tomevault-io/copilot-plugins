@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--profile-explorer",
+  "displayName": "profile-explorer",
+  "description": "CPU profiling trace viewer",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/profile-explorer",
+  "skills": []
+}
