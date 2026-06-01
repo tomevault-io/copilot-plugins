@@ -1,0 +1,9 @@
+{
+  "name": "clidey--whodb",
+  "displayName": "whodb",
+  "description": "A lightweight next-gen data explorer - Postgres, MySQL, SQLite, MongoDB, Redis, MariaDB, Elastic Search, and Clickhouse with Chat interface",
+  "version": "1.0.0",
+  "author": "clidey",
+  "homepage": "https://github.com/clidey/whodb",
+  "skills": []
+}
