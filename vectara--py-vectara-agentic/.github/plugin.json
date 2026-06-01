@@ -1,0 +1,9 @@
+{
+  "name": "vectara--py-vectara-agentic",
+  "displayName": "py-vectara-agentic",
+  "description": "A python library for creating AI assistants with Vectara, using Agentic RAG",
+  "version": "1.0.0",
+  "author": "vectara",
+  "homepage": "https://github.com/vectara/py-vectara-agentic",
+  "skills": []
+}
