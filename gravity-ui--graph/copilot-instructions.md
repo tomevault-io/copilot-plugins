@@ -1,77 +1,106 @@
-## story-rules
+## typescript-rules
 
-> Best practices for creation storybook graph stories
+> - Use explicit type annotations for function parameters and returns
 
-# Story Creation Rules
+# TypeScript Development Rules
 
-## Documentation and References
-- Read the `docs/react/usage.md` for general React integration documentation.
-- Refer to `/src/stories/Playground` for complex examples.
-- Always use `GraphBlock` for rendering graph blocks in the HTML layer unless you have a specific custom renderer.
-
-## Graph Initialization (Recommended Pattern)
-- **Use `useGraph` hook:** Initialize the graph instance within your story component using the `useGraph` hook from `src/react-component/hooks/useGraph.ts`.
+## Type Definitions
+- Use explicit type annotations for function parameters and returns
+- Prefer interfaces over type aliases for object types
+- Use type aliases for unions and complex types
+- Make types as specific as possible:
   ```typescript
-  import { Graph, GraphState } from "../../../graph"; // Adjust path as needed
-  import { GraphCanvas, useGraph } from "../../../react-component"; // Adjust path as needed
-  
-  const MyStoryComponent = (props) => {
-      const { graph } = useGraph({
-          // Initial graph configuration (e.g., layers, renderBlock)
-          layers: [[MyCustomLayer, { customProp: 'value' }]],
-          renderBlock: (g, block) => <GraphBlock graph={g} block={block}>...</GraphBlock>
-      });
-      // ... useEffect for setting data and starting
-      return <GraphCanvas graph={graph} ... />;
-  };
-  ```
-- **Set data and start in `useEffect`:** Use a `useEffect` hook (with `graph` as a dependency) to populate the graph with data (`graph.setEntities({ blocks: ..., connections: ... })`) and then start the graph (`graph.start()`). This ensures the graph is ready before data is loaded.
-  ```typescript
-  useEffect(() => {
-      if (graph) {
-          graph.setEntities({ blocks: blocksData, connections: connectionsData });
-          graph.start();
-      }
-  }, [graph]);
-  ```
-- **Avoid direct `new Graph()` in story render:** While possible, using `useGraph` is preferred as it integrates better with React's lifecycle and state management for stories.
+  // Good
+  interface BlockData {
+    id: string;
+    type: 'input' | 'output' | 'process';
+    position: { x: number; y: number };
+  }
 
-## Data Types and Required Fields
-- Ensure blocks have all required TBlock fields:
-  ```typescript
-  {
-    is: "Block" as const,
-    selected: false,
-    name: string,
-    anchors: [],
-    // other fields...
+  // Bad
+  interface BlockData {
+    [key: string]: any;
   }
   ```
-- Connections must include `sourceBlockId` and `targetBlockId`
-- Use generics to extend block data types if needed
 
-## Component Structure
-- Use `GraphCanvas` as the main container component
-- Wrap custom block content in `GraphBlock` component
-- Utilize `className` prop on `GraphBlock` for styling
-- Set explicit container dimensions (e.g., `height: "600px"`)
+## Generics
+- Use generics to create reusable components and functions
+- Provide clear and descriptive type constraints
+- Use meaningful type parameter names:
+  ```typescript
+  // Good
+  function transformBlock<TData extends BlockData>(block: TData): TransformedBlock<TData> {
+    // transform logic
+  }
 
-## UI Integration
-- Import and include UI library styles if using one
-- Wrap story in appropriate theme provider if needed
-- Use design system tokens/CSS variables for consistent styling
-- Use `useCallback` for `renderBlock` function to prevent unnecessary rerenders
+  // Bad
+  function transformBlock<T>(block: T): any {
+    // transform logic
+  }
+  ```
+
+## Type Safety
+- Avoid using `any` type
+- Use `unknown` instead of `any` for values of unknown type
+- Enable strict TypeScript compiler options:
+  ```json
+  {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true
+  }
+  ```
+- Use type guards for runtime type checking
+
+## Type Assertions
+- Minimize use of type assertions
+- Use `as const` for readonly arrays and objects
+- Prefer type guards over type assertions
+- Use `satisfies` operator for type checking:
+  ```typescript
+  const config = {
+    type: 'block',
+    dimensions: { width: 100, height: 100 }
+  } satisfies BlockConfig;
+  ```
+
+## Class Members
+- Use explicit accessibility modifiers (`public`, `private`, `protected`) for methods, accessors, and parameter properties.
+  - Constructors do not require `public`.
+  - Regular properties do not require explicit accessibility (default to `public`).
+- Parameter properties (e.g., `constructor(private name: string)`) are allowed and encouraged for conciseness.
+
+## Error Handling
+- Create custom error types for specific errors
+- Use discriminated unions for error states
+- Handle all possible error cases:
+  ```typescript
+  type Result<T> = 
+    | { success: true; data: T }
+    | { success: false; error: Error };
+  ```
+
+## Module Organization
+- Use barrel exports (index.ts) for public APIs
+- Keep internal types in separate files
+- Use namespaces sparingly
+- Export types explicitly when needed
+- Use type-only imports (`import type { MyType } from './types';`) when importing only types.
 
 ## Best Practices
-- Keep blocks and connections data outside the component
-- Use `useEffect` for graph initialization and setup
-- Follow the UI library's design system guidelines
-- Ensure proper cleanup in useEffect if needed
-- Test different zoom levels to verify both canvas and HTML rendering
-- **Testing Layers:** When creating stories for custom layers or components that interact heavily with the canvas/camera:
-    - Test behavior under different DPR settings (if possible, simulate different device pixel ratios).
-    - Verify rendering and interactions at various zoom levels (`ECameraScaleLevel.LOW`, `MEDIUM`, `HIGH`) and during camera panning.
-    - Test edge cases, like empty data or interactions near viewport boundaries. 
+- Write self-documenting code with clear types
+- Use TypeScript's built-in utility types when appropriate
+- Document complex types with JSDoc comments
+- Keep type definitions close to their usage
+- Use readonly modifiers for immutable data
+- Leverage TypeScript's inference when obvious
+- Avoid using bitwise operators (`&`, `|`, `^`, etc.).
+- Note on Allowed Practices: While generally discouraged in some styles, this project allows:
+  - Reassigning function parameters (`no-param-reassign: off`).
+  - Using `for...in` loops without explicit `hasOwnProperty` checks (`guard-for-in: off`).
+  - Assigning values within `return` statements (`no-return-assign: off`).
+  - Flexible member ordering within classes (`@typescript-eslint/member-ordering: off`). 
 
 ---
 > Source: [gravity-ui/graph](https://github.com/gravity-ui/graph) — distributed by [TomeVault](https://tomevault.io).
