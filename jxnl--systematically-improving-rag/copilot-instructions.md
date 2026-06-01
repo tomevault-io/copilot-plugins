@@ -1,63 +1,58 @@
-## systematically-improving-rag
+## coding-style
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - Never use emojis in code, comments, or console output
 
-# CLAUDE.md
+# Coding Style Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## General Rules
+- Never use emojis in code, comments, or console output
+- Write at a 9th-grade reading level
+- Always use `uv` instead of `pip` for Python package management
+- Use async over synchronous code when possible in Python
+- When things can be parallelized, mention it and ask for preferred method
 
-## Repository Overview
+## CLI Applications
+- Use `typer` for command-line interfaces instead of `argparse`
+- Use `rich` for console output, progress bars, and formatting
+- Keep console output simple and readable
+- Use consistent text indicators instead of emojis:
+  - "Loading..." instead of loading spinner emojis
+  - "Success:" instead of checkmark emojis  
+  - "Error:" instead of error emojis
+  - "Warning:" instead of warning emojis
 
-Educational course repository for "Systematically Improving RAG Applications" - teaches data-driven approaches to building and improving Retrieval-Augmented Generation (RAG) systems.
+## Console Output Style
+```python
+from rich.console import Console
+from rich.progress import track
+import typer
 
-## Common Commands
+console = Console()
 
-```bash
-# Package management (always use uv)
-uv install                    # Install dependencies
-uv add <package>              # Add new package
-uv sync                       # Sync dependencies
+# Good examples:
+console.print("Loading data...", style="blue")
+console.print("Success: Data loaded successfully", style="green")
+console.print("Error: Failed to connect", style="red")
+console.print("Warning: Large dataset detected", style="yellow")
 
-# Code quality
-uv run ruff check --fix --unsafe-fixes .
-uv run ruff format .
-
-# Documentation
-mkdocs serve                  # Local dev server at localhost:8000
-mkdocs build                  # Build static site
-
-# Tests
-uv run pytest -q              # Run tests
+# Use rich for progress tracking
+for item in track(items, description="Processing..."):
+    process(item)
 ```
 
 ## Project Structure
+- Main data processing scripts should be in [latest/capstone_project/utils/](mdc:latest/capstone_project/utils/)
+- Use the [WildChatDataLoader](mdc:latest/capstone_project/utils/dataloader.py) for loading conversation data
+- Follow the pattern established in [load_to_chromadb.py](mdc:latest/capstone_project/utils/load_to_chromadb.py) for CLI scripts
 
-```
-latest/           # Current course version (weeks 0-6, case study)
-cohort_1/         # Previous cohort materials (reference)
-cohort_2/         # Previous cohort materials (reference)
-docs/             # MkDocs documentation
-  workshops/      # Main ebook content (chapters 0-7)
-  office-hours/   # Q&A session summaries
-  talks/          # Industry expert presentations
-```
-
-## Code Style
-
-- Python 3.11, type hints throughout
-- Async-first for I/O operations
-- `typer` + `rich` for CLI tools
-- `pydantic` for validation
-- 9th-grade reading level for educational content
-- No emojis in code or docs
-
-## Key Patterns
-
-- **RAG Flywheel**: Measure → Analyze → Improve → Iterate
-- **Evaluation-first**: Always measure before and after changes
-- **Synthetic data**: For cold-start problems
+## Dependencies
+- Always use `uv add` for adding new dependencies
+- Prefer these libraries:
+  - `typer` for CLI applications
+  - `rich` for console output
+  - `pydantic` for data validation
+  - `chromadb` for vector database operations
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jxnl)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/jxnl)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [jxnl/systematically-improving-rag](https://github.com/jxnl/systematically-improving-rag) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
