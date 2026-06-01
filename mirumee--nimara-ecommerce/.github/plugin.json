@@ -1,0 +1,9 @@
+{
+  "name": "mirumee--nimara-ecommerce",
+  "displayName": "nimara-ecommerce",
+  "description": "Headless, composable ecommerce storefront built with Next.js, Typescript, and shadcn/ui.",
+  "version": "1.0.0",
+  "author": "mirumee",
+  "homepage": "https://github.com/mirumee/nimara-ecommerce",
+  "skills": []
+}
