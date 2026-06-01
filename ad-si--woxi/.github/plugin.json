@@ -1,0 +1,9 @@
+{
+  "name": "ad-si--woxi",
+  "displayName": "Woxi",
+  "description": "Wolfram Language / Mathematica reimplementation in Rust (Wolfram oxidized)",
+  "version": "1.0.0",
+  "author": "ad-si",
+  "homepage": "https://github.com/ad-si/Woxi",
+  "skills": []
+}
