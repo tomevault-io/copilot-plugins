@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--chatlas",
+  "displayName": "chatlas",
+  "description": "Your friendly guide to building LLM chat apps in Python with less effort and more clarity.",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/chatlas",
+  "skills": []
+}
