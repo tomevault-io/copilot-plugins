@@ -1,0 +1,9 @@
+{
+  "name": "0xdea--rhabdomancer",
+  "displayName": "rhabdomancer",
+  "description": "Vulnerability research assistant that locates calls to potentially insecure API functions in a binary file.",
+  "version": "1.0.0",
+  "author": "0xdea",
+  "homepage": "https://github.com/0xdea/rhabdomancer",
+  "skills": []
+}
