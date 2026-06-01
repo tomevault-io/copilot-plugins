@@ -1,0 +1,9 @@
+{
+  "name": "kdroidfilter--desktopnotifykt",
+  "displayName": "DesktopNotifyKT",
+  "description": "The DesktopNotifyKT is a Kotlin JVM library that enables developers to add notifications to their desktop applications in a unified way across different platforms, including Windows, macOS and Linux.",
+  "version": "1.0.0",
+  "author": "kdroidFilter",
+  "homepage": "https://github.com/kdroidFilter/DesktopNotifyKT",
+  "skills": []
+}
