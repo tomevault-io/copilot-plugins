@@ -1,0 +1,9 @@
+{
+  "name": "selfboot--ai-gallery",
+  "displayName": "ai_gallery",
+  "description": "Some interesting AI-generated showcase pages",
+  "version": "1.0.0",
+  "author": "selfboot",
+  "homepage": "https://github.com/selfboot/ai_gallery",
+  "skills": []
+}
