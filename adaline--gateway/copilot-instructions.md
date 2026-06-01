@@ -1,116 +1,143 @@
-## provider
+## providers
 
-> The provider package defines the core interfaces and base classes that all AI providers must implement. It provides a unified abstraction layer for different AI services.
+> The core providers module contains concrete implementations of AI provider integrations (Anthropic, OpenAI, Google, etc.) that implement the provider interfaces defined in the provider package.
 
 
-# Provider Package Rules
+# Core Providers Module Rules
 
-## Package Overview
+## Module Overview
 
-The provider package defines the core interfaces and base classes that all AI providers must implement. It provides a unified abstraction layer for different AI services.
+The core providers module contains concrete implementations of AI provider integrations (Anthropic, OpenAI, Google, etc.) that implement the provider interfaces defined in the provider package.
 
-## Provider Interface Rules
+## Provider Implementation Rules
 
-### 1. ProviderV1 Interface
+### 1. Provider Structure
 
-- **ALWAYS** implement the `ProviderV1` interface for new providers
-- **ALWAYS** use generic constraints for configuration types
-- **ALWAYS** provide both chat and embedding model support
-- **ALWAYS** implement version tracking with `readonly version = "v1"`
-- **ALWAYS** use descriptive provider names
+- **ALWAYS** create a dedicated directory for each provider: `core/providers/{provider-name}/`
+- **ALWAYS** implement the `ProviderV1` interface from `@adaline/provider`
+- **ALWAYS** use the naming pattern: `Provider{ProviderName}` (e.g., `Anthropic`, `OpenAI`)
+- **ALWAYS** export the provider class as the default export
+- **ALWAYS** include proper TypeScript generics for configuration types
 
-### 2. Model Factory Methods
+### 2. Provider Class Implementation
 
-- **ALWAYS** implement `chatModelLiterals()` returning available model names
-- **ALWAYS** implement `chatModelSchemas()` returning Zod schemas
-- **ALWAYS** implement `chatModel(options)` returning configured instances
-- **ALWAYS** implement `embeddingModelLiterals()` returning available model names
-- **ALWAYS** implement `embeddingModelSchemas()` returning Zod schemas
-- **ALWAYS** implement `embeddingModel(options)` returning configured instances
+- **ALWAYS** implement `readonly version = "v1" as const`
+- **ALWAYS** implement `readonly name = "{ProviderName}"`
+- **ALWAYS** use static constants for base URLs and endpoints
+- **ALWAYS** implement private model factories for both chat and embedding models
+- **ALWAYS** use proper type constraints for model factories
+
+### 3. Model Factory Pattern
+
+- **ALWAYS** create a private `chatModelFactories` record mapping model names to factories
+- **ALWAYS** create a private `embeddingModelFactories` record mapping model names to factories
+- **ALWAYS** each factory should include: model class, options schema, and model schema
+- **ALWAYS** use the pattern:
+
+```typescript
+private readonly chatModelFactories: Record<string, {
+  model: { new (options: any): ChatModelV1 };
+  modelOptions: z.ZodType<any>;
+  modelSchema: ChatModelSchemaType;
+}> = {
+  [ModelLiteral]: {
+    model: ModelClass,
+    modelOptions: ModelOptionsSchema,
+    modelSchema: ModelSchema,
+  },
+};
+```
 
 ## Model Implementation Rules
 
 ### 1. Chat Model Implementation
 
-- **ALWAYS** implement the `ChatModelV1` interface
-- **ALWAYS** provide model schema with name, provider, and capabilities
-- **ALWAYS** implement `completeChat()` method for synchronous responses
-- **ALWAYS** implement `streamChat()` method for streaming responses
-- **ALWAYS** implement `getModelPricing()` for cost calculation
-- **ALWAYS** implement `getCompleteChatUrl()`, `getCompleteChatHeaders()`, `getCompleteChatData()`
-- **ALWAYS** implement `transformCompleteChatResponse()` for response normalization
+- **ALWAYS** extend or implement the appropriate base chat model class
+- **ALWAYS** implement all required methods from `ChatModelV1`
+- **ALWAYS** provide proper model schemas with capabilities and limits
+- **ALWAYS** implement provider-specific API integration methods
+- **ALWAYS** handle provider-specific response formats and errors
 
 ### 2. Embedding Model Implementation
 
-- **ALWAYS** implement the `EmbeddingModelV1` interface
-- **ALWAYS** provide model schema with name, provider, and capabilities
-- **ALWAYS** implement `getEmbeddings()` method
-- **ALWAYS** implement `getEmbeddingsUrl()`, `getEmbeddingsHeaders()`, `getEmbeddingsData()`
-- **ALWAYS** implement `transformEmbeddingsResponse()` for response normalization
+- **ALWAYS** extend or implement the appropriate base embedding model class
+- **ALWAYS** implement all required methods from `EmbeddingModelV1`
+- **ALWAYS** provide proper model schemas with capabilities and limits
+- **ALWAYS** implement provider-specific API integration methods
+- **ALWAYS** handle provider-specific response formats and errors
 
 ### 3. Model Schema Definition
 
-- **ALWAYS** use Zod schemas for model configuration validation
-- **ALWAYS** include model name, provider, and version information
-- **ALWAYS** define input/output token limits
-- **ALWAYS** specify supported features (streaming, tools, etc.)
+- **ALWAYS** define model literals as constants: `ModelNameLiteral = "model-name"`
+- **ALWAYS** create Zod schemas for model options validation
+- **ALWAYS** create model schemas with proper metadata
 - **ALWAYS** include pricing information when available
+- **ALWAYS** specify supported features and limitations
 
 ## Configuration Management Rules
 
 ### 1. Configuration Schemas
 
-- **ALWAYS** use Zod for configuration validation
+- **ALWAYS** create base configuration schemas for each provider
+- **ALWAYS** extend base schemas for model-specific configurations
+- **ALWAYS** use Zod for all configuration validation
 - **ALWAYS** provide sensible defaults for optional parameters
-- **ALWAYS** validate API keys and endpoints
-- **ALWAYS** support environment variable overrides
-- **ALWAYS** include configuration examples in documentation
+- **ALWAYS** validate API keys, endpoints, and other critical parameters
 
 ### 2. Configuration Types
 
-- **ALWAYS** use descriptive type names ending with `OptionsType`
+- **ALWAYS** export configuration types for public use
+- **ALWAYS** use descriptive names ending with `OptionsType`
 - **ALWAYS** extend base configuration interfaces when appropriate
-- **ALWAYS** use union types for model-specific options
 - **ALWAYS** provide configuration builders for complex setups
+
+## API Integration Rules
+
+### 1. HTTP Client Usage
+
+- **ALWAYS** use the centralized HTTP client from the gateway
+- **ALWAYS** implement proper error handling for API failures
+- **ALWAYS** handle rate limits and quotas gracefully
+- **ALWAYS** implement retry logic with exponential backoff
+- **ALWAYS** include proper headers and authentication
+
+### 2. Response Handling
+
+- **ALWAYS** validate API responses before processing
+- **ALWAYS** transform provider responses to standard format
+- **ALWAYS** handle different response structures consistently
+- **ALWAYS** preserve all relevant information from provider
+- **ALWAYS** implement proper error handling for malformed responses
+
+### 3. Streaming Support
+
+- **ALWAYS** implement streaming for chat models when supported
+- **ALWAYS** handle streaming responses properly
+- **ALWAYS** implement proper cleanup for streaming connections
+- **ALWAYS** handle streaming errors gracefully
 
 ## Error Handling Rules
 
-### 1. Provider Errors
+### 1. Provider-Specific Errors
 
-- **ALWAYS** extend `ProviderError` for provider-specific errors
+- **ALWAYS** extend appropriate error classes for provider-specific errors
 - **ALWAYS** include provider name and context in error messages
 - **ALWAYS** handle API rate limits and quotas gracefully
 - **ALWAYS** provide retry guidance when appropriate
 - **ALWAYS** log errors with full context
 
-### 2. Validation Errors
+### 2. API Error Handling
 
-- **ALWAYS** validate configuration before making API calls
-- **ALWAYS** provide clear error messages for invalid configurations
-- **ALWAYS** suggest fixes for common configuration issues
-- **ALWAYS** validate model options before instantiation
-
-## Response Transformation Rules
-
-### 1. Chat Response Transformation
-
-- **ALWAYS** normalize provider responses to standard format
-- **ALWAYS** handle different response structures consistently
-- **ALWAYS** preserve all relevant information from provider
-- **ALWAYS** implement proper error handling for malformed responses
-- **ALWAYS** support streaming response transformation
-
-### 2. Embedding Response Transformation
-
-- **ALWAYS** normalize embedding vectors to standard format
-- **ALWAYS** handle different vector dimensions consistently
-- **ALWAYS** preserve metadata and usage information
-- **ALWAYS** implement proper error handling for malformed responses
+- **ALWAYS** catch and handle HTTP errors properly
+- **ALWAYS** parse error responses from providers
+- **ALWAYS** provide meaningful error messages for users
+- **ALWAYS** implement proper fallback mechanisms when possible
 
 ## Testing Rules
 
 ### 1. Provider Testing
 
+- **ALWAYS** create comprehensive test suites for each provider
 - **ALWAYS** test provider instantiation with valid configurations
 - **ALWAYS** test provider instantiation with invalid configurations
 - **ALWAYS** test model factory methods
@@ -121,9 +148,17 @@ The provider package defines the core interfaces and base classes that all AI pr
 
 - **ALWAYS** test model instantiation with valid options
 - **ALWAYS** test model instantiation with invalid options
+- **ALWAYS** test API integration methods
 - **ALWAYS** test response transformation methods
 - **ALWAYS** test error handling for API failures
 - **ALWAYS** test configuration validation
+
+### 3. Integration Testing
+
+- **ALWAYS** test complete request flows
+- **ALWAYS** test error scenarios and edge cases
+- **ALWAYS** test streaming functionality when available
+- **ALWAYS** test caching and retry mechanisms
 
 ## Performance Considerations
 
@@ -132,7 +167,7 @@ The provider package defines the core interfaces and base classes that all AI pr
 - **ALWAYS** implement proper cleanup for resources
 - **ALWAYS** use connection pooling for HTTP clients
 - **ALWAYS** implement request batching when possible
-- **ALWAYS** cache frequently used configurations
+- **ALWAYS** cache frequently used configurations and responses
 
 ### 2. Error Recovery
 
@@ -156,6 +191,25 @@ The provider package defines the core interfaces and base classes that all AI pr
 - **ALWAYS** sanitize user inputs before API calls
 - **ALWAYS** implement rate limiting for user requests
 - **ALWAYS** monitor for suspicious activity patterns
+
+## Documentation Rules
+
+### 1. Code Documentation
+
+- **ALWAYS** include JSDoc comments for public methods
+- **ALWAYS** document configuration options and their effects
+- **ALWAYS** provide usage examples in comments
+- **ALWAYS** document error scenarios and handling
+
+### 2. README Documentation
+
+- **ALWAYS** create comprehensive README files for each provider
+- **ALWAYS** include configuration examples
+- **ALWAYS** document supported models and features
+- **ALWAYS** provide troubleshooting guides
+- **ALWAYS** include performance considerations
+  globs: core/providers/\*\*
+  alwaysApply: false
 
 ---
 
