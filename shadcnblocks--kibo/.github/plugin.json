@@ -1,0 +1,9 @@
+{
+  "name": "shadcnblocks--kibo",
+  "displayName": "kibo",
+  "description": "A custom registry of composable, accessible and extensible components designed for use with shadcn/ui. Free and open source, forever.",
+  "version": "1.0.0",
+  "author": "shadcnblocks",
+  "homepage": "https://github.com/shadcnblocks/kibo",
+  "skills": []
+}
