@@ -1,0 +1,9 @@
+{
+  "name": "ntrospect0--glint",
+  "displayName": "glint",
+  "description": "Terminal TUI-based dashboard, serving at-a-glance information across multiple domains",
+  "version": "1.0.0",
+  "author": "ntrospect0",
+  "homepage": "https://github.com/ntrospect0/glint",
+  "skills": []
+}
