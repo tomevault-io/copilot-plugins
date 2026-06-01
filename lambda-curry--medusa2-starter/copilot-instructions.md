@@ -1,175 +1,231 @@
-## testing-patterns-integration
+## testing-patterns-unit
 
-> Integration testing patterns for Medusa applications including API testing, database testing, and workflow testing
+> Unit testing patterns for Medusa applications including service testing, component testing, and hook testing
 
 
-# Integration Testing Patterns for Medusa Applications
+# Unit Testing Patterns for Medusa Applications
 
-You are an expert in integration testing TypeScript applications, focusing on testing how different parts of the system work together in Medusa and React applications.
+You are an expert in unit testing TypeScript applications, focusing on testing individual components, services, and functions in isolation for Medusa and React applications.
 
 ## Core Testing Principles
 
-- Write tests that verify interactions between different system components
-- Test real integrations with databases, APIs, and external services
-- Use descriptive test names that explain the integration being tested
+- Write tests that are readable, maintainable, and reliable
+- Focus on testing individual units in isolation
+- Use descriptive test names that explain the behavior being tested
 - Arrange, Act, Assert (AAA) pattern for test structure
-- Test realistic scenarios and data flows
-- Use proper test data setup and cleanup
+- Test behavior, not implementation details
+- Use proper mocking and stubbing strategies
 - Ensure tests are isolated and can run independently
 
-## Integration Testing
+## Unit Testing Patterns
 
-### API Route Testing
+### Medusa Service Testing
 ```typescript
-// api/__tests__/products.test.ts
+// services/__tests__/UserService.test.ts
 import { createMedusaContainer } from "@medusajs/framework/utils"
-import { medusaIntegrationTestRunner } from "@medusajs/test-utils"
+import { UserService } from "../UserService"
+import { User } from "../models/User"
 
-medusaIntegrationTestRunner({
-  testSuite: ({ getContainer, api }) => {
-    describe("Products API", () => {
-      let container: MedusaContainer
+describe("UserService", () => {
+  let container: MedusaContainer
+  let userService: UserService
+  let mockRepository: jest.Mocked<any>
 
-      beforeEach(() => {
-        container = getContainer()
-      })
+  beforeEach(() => {
+    container = createMedusaContainer()
+    
+    mockRepository = {
+      create: jest.fn(),
+      findOne: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn(),
+    }
+    
+    container.register("userRepository", mockRepository)
+    userService = container.resolve("userService")
+  })
 
-      describe("GET /admin/products", () => {
-        it("should return list of products", async () => {
-          // Arrange - create test data
-          const productService = container.resolve("productService")
-          await productService.create({
-            title: "Test Product",
-            handle: "test-product",
-          })
+  describe("create", () => {
+    it("should create a new user with valid data", async () => {
+      // Arrange
+      const userData = {
+        name: "John Doe",
+        email: "john@example.com",
+      }
+      const expectedUser = { id: "user_123", ...userData }
+      mockRepository.create.mockResolvedValue(expectedUser)
 
-          // Act
-          const response = await api.get("/admin/products")
+      // Act
+      const result = await userService.create(userData)
 
-          // Assert
-          expect(response.status).toBe(200)
-          expect(response.data.products).toHaveLength(1)
-          expect(response.data.products[0].title).toBe("Test Product")
-        })
-
-        it("should filter products by title", async () => {
-          // Arrange
-          const productService = container.resolve("productService")
-          await productService.create({
-            title: "Product A",
-            handle: "product-a",
-          })
-          await productService.create({
-            title: "Product B",
-            handle: "product-b",
-          })
-
-          // Act
-          const response = await api.get("/admin/products?q=Product A")
-
-          // Assert
-          expect(response.status).toBe(200)
-          expect(response.data.products).toHaveLength(1)
-          expect(response.data.products[0].title).toBe("Product A")
-        })
-      })
-
-      describe("POST /admin/products", () => {
-        it("should create a new product", async () => {
-          // Arrange
-          const productData = {
-            title: "New Product",
-            handle: "new-product",
-            description: "A new product",
-          }
-
-          // Act
-          const response = await api.post("/admin/products", productData)
-
-          // Assert
-          expect(response.status).toBe(201)
-          expect(response.data.product.title).toBe(productData.title)
-          expect(response.data.product.handle).toBe(productData.handle)
-        })
-
-        it("should return validation error for invalid data", async () => {
-          // Arrange
-          const invalidData = {
-            title: "", // Empty title should fail validation
-          }
-
-          // Act
-          const response = await api.post("/admin/products", invalidData)
-
-          // Assert
-          expect(response.status).toBe(400)
-          expect(response.data.errors).toBeDefined()
-        })
-      })
+      // Assert
+      expect(mockRepository.create).toHaveBeenCalledWith(userData)
+      expect(result).toEqual(expectedUser)
     })
-  },
+
+    it("should throw validation error for invalid email", async () => {
+      // Arrange
+      const invalidUserData = {
+        name: "John Doe",
+        email: "invalid-email",
+      }
+
+      // Act & Assert
+      await expect(userService.create(invalidUserData))
+        .rejects
+        .toThrow("Invalid email format")
+    })
+  })
+
+  describe("findById", () => {
+    it("should return user when found", async () => {
+      // Arrange
+      const userId = "user_123"
+      const expectedUser = { id: userId, name: "John Doe" }
+      mockRepository.findOne.mockResolvedValue(expectedUser)
+
+      // Act
+      const result = await userService.findById(userId)
+
+      // Assert
+      expect(mockRepository.findOne).toHaveBeenCalledWith({ id: userId })
+      expect(result).toEqual(expectedUser)
+    })
+
+    it("should return null when user not found", async () => {
+      // Arrange
+      const userId = "nonexistent"
+      mockRepository.findOne.mockResolvedValue(null)
+
+      // Act
+      const result = await userService.findById(userId)
+
+      // Assert
+      expect(result).toBeNull()
+    })
+  })
 })
 ```
 
-### Database Integration Testing
+### React Component Testing
 ```typescript
-// modules/__tests__/UserModule.integration.test.ts
-import { createMedusaContainer } from "@medusajs/framework/utils"
-import { DataSource } from "typeorm"
+// components/__tests__/ProductCard.test.tsx
+import { render, screen, fireEvent } from "@testing-library/react"
+import { ProductCard } from "../ProductCard"
+import { Product } from "../../types"
 
-describe("User Module Integration", () => {
-  let container: MedusaContainer
-  let dataSource: DataSource
+const mockProduct: Product = {
+  id: "prod_123",
+  title: "Test Product",
+  description: "A test product",
+  handle: "test-product",
+  thumbnail: "/test-image.jpg",
+  variants: [{
+    id: "variant_123",
+    prices: [{
+      amount: 2000,
+      currency_code: "usd",
+    }],
+  }],
+}
 
-  beforeAll(async () => {
-    container = createMedusaContainer()
-    dataSource = container.resolve("dataSource")
-    await dataSource.initialize()
+describe("ProductCard", () => {
+  it("renders product information correctly", () => {
+    render(<ProductCard product={mockProduct} />)
+    
+    expect(screen.getByText("Test Product")).toBeInTheDocument()
+    expect(screen.getByText("$20.00")).toBeInTheDocument()
+    expect(screen.getByRole("img")).toHaveAttribute("alt", "Test Product")
   })
 
-  afterAll(async () => {
-    await dataSource.destroy()
+  it("calls onAddToCart when add to cart button is clicked", () => {
+    const mockOnAddToCart = jest.fn()
+    
+    render(
+      <ProductCard 
+        product={mockProduct} 
+        onAddToCart={mockOnAddToCart} 
+      />
+    )
+    
+    fireEvent.click(screen.getByText("Add to Cart"))
+    
+    expect(mockOnAddToCart).toHaveBeenCalledWith(mockProduct.variants[0].id)
   })
 
-  beforeEach(async () => {
-    // Clean database before each test
-    await dataSource.query("TRUNCATE TABLE users CASCADE")
-  })
-
-  it("should persist user data correctly", async () => {
-    // Arrange
-    const userService = container.resolve("userService")
-    const userData = {
-      name: "John Doe",
-      email: "john@example.com",
+  it("displays sold out state when no variants available", () => {
+    const soldOutProduct = {
+      ...mockProduct,
+      variants: [],
     }
+    
+    render(<ProductCard product={soldOutProduct} />)
+    
+    expect(screen.getByText("Sold Out")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toBeDisabled()
+  })
+})
+```
 
-    // Act
-    const createdUser = await userService.create(userData)
-    const retrievedUser = await userService.findById(createdUser.id)
+### Hook Testing
+```typescript
+// hooks/__tests__/useCart.test.ts
+import { renderHook, act } from "@testing-library/react"
+import { useCart } from "../useCart"
 
-    // Assert
-    expect(retrievedUser).toBeDefined()
-    expect(retrievedUser!.name).toBe(userData.name)
-    expect(retrievedUser!.email).toBe(userData.email)
-    expect(retrievedUser!.createdAt).toBeInstanceOf(Date)
+// Mock the medusa SDK
+jest.mock("../../lib/medusa", () => ({
+  medusa: {
+    store: {
+      cart: {
+        create: jest.fn(),
+        lineItem: {
+          create: jest.fn(),
+          update: jest.fn(),
+          delete: jest.fn(),
+        },
+      },
+    },
+  },
+}))
+
+describe("useCart", () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
   })
 
-  it("should handle database constraints", async () => {
-    // Arrange
-    const userService = container.resolve("userService")
-    const userData = {
-      name: "John Doe",
-      email: "john@example.com",
-    }
+  it("should initialize with empty cart", () => {
+    const { result } = renderHook(() => useCart())
+    
+    expect(result.current.items).toEqual([])
+    expect(result.current.total).toBe(0)
+  })
 
-    // Act - create first user
-    await userService.create(userData)
+  it("should add item to cart", async () => {
+    const { result } = renderHook(() => useCart())
+    
+    await act(async () => {
+      await result.current.addItem("variant_123", 2)
+    })
+    
+    expect(result.current.items).toHaveLength(1)
+    expect(result.current.items[0].quantity).toBe(2)
+  })
 
-    // Assert - creating user with same email should fail
-    await expect(userService.create(userData))
-      .rejects
-      .toThrow("Email already exists")
+  it("should update item quantity", async () => {
+    const { result } = renderHook(() => useCart())
+    
+    // Add item first
+    await act(async () => {
+      await result.current.addItem("variant_123", 1)
+    })
+    
+    // Update quantity
+    await act(async () => {
+      await result.current.updateQuantity("line_123", 3)
+    })
+    
+    expect(result.current.items[0].quantity).toBe(3)
   })
 })
 ```
