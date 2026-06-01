@@ -1,0 +1,9 @@
+{
+  "name": "onelevenvy--flock",
+  "displayName": "flock",
+  "description": "A multi agent desktop application built with Rust and Tauri.",
+  "version": "1.0.0",
+  "author": "Onelevenvy",
+  "homepage": "https://github.com/Onelevenvy/flock",
+  "skills": []
+}
