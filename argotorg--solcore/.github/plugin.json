@@ -1,0 +1,9 @@
+{
+  "name": "argotorg--solcore",
+  "displayName": "solcore",
+  "description": "experimental solidity compiler",
+  "version": "1.0.0",
+  "author": "argotorg",
+  "homepage": "https://github.com/argotorg/solcore",
+  "skills": []
+}
