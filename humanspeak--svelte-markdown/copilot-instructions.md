@@ -1,256 +1,169 @@
-## svelte
+## svelte-markdown
 
-> You are an expert in Svelte 5, SvelteKit, TypeScript, and modern web development.
+> This file provides guidance for AI assistants working with this codebase.
 
-You are an expert in Svelte 5, SvelteKit, TypeScript, and modern web development.
+# CLAUDE.md
 
-Key Principles
-- Write concise, technical code with accurate Svelte 5 and SvelteKit examples.
-- Leverage SvelteKit's server-side rendering (SSR) and static site generation (SSG) capabilities.
-- Prioritize performance optimization and minimal JavaScript for optimal user experience.
-- Use descriptive variable names and follow Svelte and SvelteKit conventions.
-- Organize files using SvelteKit's file-based routing system.
-- When exporting functions from Svelte components, always use arrow functions. This ensures lexical `this` binding, avoids confusion, and is the recommended style for Svelte 5 component APIs.
-- **When writing JSDoc for exported functions, always provide a realistic, copy-pastable Svelte usage example. Use the following template for guidance:**
+This file provides guidance for AI assistants working with this codebase.
 
+## Project Overview
+
+**@humanspeak/svelte-markdown** is a powerful, customizable markdown renderer for Svelte 5 with TypeScript support. Built as a successor to the original svelte-markdown package by Pablo Berganza, now maintained by Humanspeak, Inc.
+
+- **Package**: `@humanspeak/svelte-markdown`
+- **Homepage**: <https://markdown.svelte.page>
+- **Repository**: <https://github.com/humanspeak/svelte-markdown>
+
+## Key Technologies
+
+- **Svelte 5** with runes compatibility
+- **TypeScript** with strict typing
+- **Marked** for markdown parsing
+- **HTMLParser2** for secure HTML parsing
+- **github-slugger** for heading ID generation
+- **Vite** + **SvelteKit** for build system
+
+## Project Structure
+
+```text
+src/
+├── lib/
+│   ├── index.ts              # Main entry point / exports
+│   ├── SvelteMarkdown.svelte # Main component
+│   ├── types.ts              # TypeScript types
+│   ├── renderers/            # Markdown token renderers
+│   │   ├── *.svelte          # Individual renderers (Paragraph, Link, etc.)
+│   │   └── html/             # HTML element renderers
+│   │       └── *.svelte      # Individual HTML tags (Div, Span, etc.)
+│   └── utils/                # Utility functions
+│       ├── markdown-parser.js
+│       ├── token-cache.ts    # LRU caching for parsed tokens
+│       ├── cache.ts          # Generic memory cache
+│       ├── rendererKeys.ts   # Canonical renderer key lists
+│       └── unsupported*.ts   # Allow/deny helper utilities
+├── routes/                   # SvelteKit routes (for dev/testing)
+└── app.d.ts                  # App-level type declarations
+tests/                        # Playwright E2E tests
+docs/                         # Documentation site
 ```
-/**
- * Scrolls the virtual list to the item at the given index.
- *
- * @function scrollToIndex
- * @param index The index of the item to scroll to.
- * @param smoothScroll (default: true) Whether to use smooth scrolling.
- * @param shouldThrowOnBounds (default: true) Whether to throw an error if the index is out of bounds.
- *
- * @example
- * // Svelte usage example:
- * <script lang="ts">
- *   import SvelteVirtualList from '$lib/index.js';
- *   let virtualList;
- *   const items = Array.from({ length: 10000 }, (_, i) => ({ id: i, text: `Item ${i}` }));
- * </script>
- *
- * <button onclick={() => virtualList.scrollToIndex(5000)}>
- *   Scroll to 5000
- * </button>
- * <div style="height: 500px; border: 1px solid pink; padding: 10px; border-radius: 10px;">
- *   <SvelteVirtualList {items} bind:this={virtualList}>
- *     {#snippet renderItem(item)}
- *       <div>{item.text}</div>
- *     {/snippet}
- *   </SvelteVirtualList>
- * </div>
- *
- * @returns {void}
- * @throws {Error} If the index is out of bounds and shouldThrowOnBounds is true
- */
+
+## Development Commands
+
+```bash
+# Development
+pnpm dev              # Start dev server
+pnpm dev:pkg          # Watch and rebuild package
+
+# Testing
+pnpm test             # Run vitest with coverage
+pnpm test:only        # Run vitest without coverage
+pnpm test:watch       # Run vitest in watch mode
+pnpm test:e2e         # Run Playwright E2E tests
+pnpm test:all         # Run both unit and E2E tests
+
+# Building
+pnpm build            # Build the package
+pnpm package          # Create distributable package
+pnpm check            # Run svelte-check type checking
+
+# Code Quality
+pnpm lint             # Check linting (prettier + eslint)
+pnpm lint:fix         # Fix linting issues
+pnpm format           # Format code with prettier
 ```
 
-Code Style and Structure
-- Write concise, technical TypeScript or JavaScript code with accurate examples.
-- Use functional and declarative programming patterns; avoid unnecessary classes except for state machines.
-- Prefer iteration and modularization over code duplication.
-- Structure files: component logic, markup, styles, helpers, types.
-- Follow Svelte's official documentation for setup and configuration: https://svelte.dev/docs
+## Code Style & Linting
 
-Naming Conventions
-- Use lowercase with hyphens for component files (e.g., `components/auth-form.svelte`).
-- Use PascalCase for component names in imports and usage.
-- Use camelCase for variables, functions, and props.
+- **Trunk** is used for linting orchestration (see `.trunk/trunk.yaml`)
+- **ESLint** with TypeScript and Svelte plugins
+- **Prettier** with svelte, organize-imports, and tailwindcss plugins
+- **Husky** pre-commit hooks run `trunk fmt` before commits
+- Code style enforces camelCase, prefer-const, no-var
+- **Never use `eslint-disable` comments** (e.g., `eslint-disable-line`, `eslint-disable-next-line`). Always use Trunk's inline ignore syntax instead: `// trunk-ignore(eslint/rule-name)`. This applies to all files including tests.
 
-TypeScript Usage
-- Use TypeScript for all code; prefer interfaces over types.
-- Avoid enums; use const objects instead.
-- Use functional components with TypeScript interfaces for props.
-- Enable strict mode in TypeScript for better type safety.
+## Testing
 
-Svelte Runes
-- `$state`: Declare reactive state
-  ```typescript
-  let count = $state(0);
-  ```
-- `$derived`: Compute derived values
-  ```typescript
-  let doubled = $derived(count * 2);
-  ```
-- `$effect`: Manage side effects and lifecycle
-  ```typescript
-  $effect(() => {
-    console.log(`Count is now ${count}`);
-  });
-  ```
-- `$props`: Declare component props
-  ```typescript
-  let { optionalProp = 42, requiredProp } = $props();
-  ```
-- `$bindable`: Create two-way bindable props
-  ```typescript
-  let { bindableProp = $bindable() } = $props();
-  ```
-- `$inspect`: Debug reactive state (development only)
-  ```typescript
-  $inspect(count);
-  ```
+### Unit Tests (Vitest)
 
-UI and Styling
-- Use Tailwind CSS for utility-first styling approach.
-- Leverage Shadcn components for pre-built, customizable UI elements.
-- Import Shadcn components from `$lib/components/ui`.
-- Organize Tailwind classes using the `cn()` utility from `$lib/utils`.
-- Use Svelte's built-in transition and animation features.
+- Located in `src/lib/**/*.test.ts`
+- Uses JSDOM environment
+- Testing Library integration
+- Coverage target: 90%+
+- Run with: `pnpm test`
 
-Shadcn Color Conventions
-- Use `background` and `foreground` convention for colors.
-- Define CSS variables without color space function:
-  ```css
-  --primary: 222.2 47.4% 11.2%;
-  --primary-foreground: 210 40% 98%;
-  ```
-- Usage example:
-  ```svelte
-  <div class="bg-primary text-primary-foreground">Hello</div>
-  ```
-- Key color variables:
-  - `--background`, `--foreground`: Default body colors
-  - `--muted`, `--muted-foreground`: Muted backgrounds
-  - `--card`, `--card-foreground`: Card backgrounds
-  - `--popover`, `--popover-foreground`: Popover backgrounds
-  - `--border`: Default border color
-  - `--input`: Input border color
-  - `--primary`, `--primary-foreground`: Primary button colors
-  - `--secondary`, `--secondary-foreground`: Secondary button colors
-  - `--accent`, `--accent-foreground`: Accent colors
-  - `--destructive`, `--destructive-foreground`: Destructive action colors
-  - `--ring`: Focus ring color
-  - `--radius`: Border radius for components
+### E2E Tests (Playwright)
 
-SvelteKit Project Structure
-- Use the recommended SvelteKit project structure:
-  ```
-  - src/
-    - lib/
-    - routes/
-    - app.html
-  - static/
-  - svelte.config.js
-  - vite.config.js
-  ```
+- Located in `tests/`
+- Tests accessibility, reactivity, performance, edge cases
+- Cross-browser: Chrome, Firefox, Safari, Mobile
+- Run with: `pnpm test:e2e`
 
-Component Development
-- Create .svelte files for Svelte components.
-- Use .svelte.ts files for component logic and state machines.
-- Implement proper component composition and reusability.
-- Use Svelte's props for data passing.
-- Leverage Svelte's reactive declarations for local state management.
+### Issue Reproduction Tests
 
-State Management
-- Use classes for complex state management (state machines):
-  ```typescript
-  // counter.svelte.ts
-  class Counter {
-    count = $state(0);
-    incrementor = $state(1);
+- Located in `tests/issues/` (e.g., `issue-210.test.ts`)
+- Specific tests for GitHub issue fixes
 
-    increment() {
-      this.count += this.incrementor;
-    }
+## Architecture Notes
 
-    resetCount() {
-      this.count = 0;
-    }
+### Component Rendering System
 
-    resetIncrementor() {
-      this.incrementor = 1;
-    }
-  }
+- Main component: `SvelteMarkdown.svelte`
+- Renderers handle specific token types (paragraph, link, code, etc.)
+- HTML renderers handle raw HTML elements within markdown
+- Custom renderers can override defaults via `renderers` prop
 
-  export const counter = new Counter();
-  ```
-- Use in components:
-  ```svelte
-  <script lang="ts">
-  import { counter } from './counter.svelte.ts';
-  </script>
+### Token Caching
 
-  <button onclick={() => counter.increment()}>
-    Count: {counter.count}
-  </button>
-  ```
+- Built-in LRU cache for parsed markdown tokens
+- 50-200x faster re-renders for cached content
+- Configurable via `TokenCache` class
+- Default: 50 documents, 5-minute TTL
 
-Routing and Pages
-- Utilize SvelteKit's file-based routing system in the src/routes/ directory.
-- Implement dynamic routes using [slug] syntax.
-- Use load functions for server-side data fetching and pre-rendering.
-- Implement proper error handling with +error.svelte pages.
+### Helper Utilities for Allow/Deny Strategies
 
-Server-Side Rendering (SSR) and Static Site Generation (SSG)
-- Leverage SvelteKit's SSR capabilities for dynamic content.
-- Implement SSG for static pages using prerender option.
-- Use the adapter-auto for automatic deployment configuration.
+```typescript
+// HTML helpers
+allowHtmlOnly(['strong', 'em', 'a']) // Only allow these HTML tags
+excludeHtmlOnly(['iframe', 'script']) // Block specific tags
+buildUnsupportedHTML() // Block all HTML
 
-Performance Optimization
-- Leverage Svelte's compile-time optimizations.
-- Use `{#key}` blocks to force re-rendering of components when needed.
-- Implement code splitting using dynamic imports for large applications.
-- Profile and monitor performance using browser developer tools.
-- Use `$effect.tracking()` to optimize effect dependencies.
-- Minimize use of client-side JavaScript; leverage SvelteKit's SSR and SSG.
-- Implement proper lazy loading for images and other assets.
+// Markdown helpers
+allowRenderersOnly(['paragraph', 'link']) // Only allow these renderers
+excludeRenderersOnly(['html']) // Block specific renderers
+buildUnsupportedRenderers() // Block all markdown renderers
+```
 
-Data Fetching and API Routes
-- Use load functions for server-side data fetching.
-- Implement proper error handling for data fetching operations.
-- Create API routes in the src/routes/api/ directory.
-- Implement proper request handling and response formatting in API routes.
-- Use SvelteKit's hooks for global API middleware.
+## Non-Goals (Do Not Implement)
 
-SEO and Meta Tags
-- Use Svelte:head component for adding meta information.
-- Implement canonical URLs for proper SEO.
-- Create reusable SEO components for consistent meta tag management.
+The following are explicitly out of scope:
 
-Forms and Actions
-- Utilize SvelteKit's form actions for server-side form handling.
-- Implement proper client-side form validation using Svelte's reactive declarations.
-- Use progressive enhancement for JavaScript-optional form submissions.
+- Built-in HTML sanitization (provide hooks instead)
+- Remote fetching of markdown documents
+- WYSIWYG editor functionality
 
-Internationalization (i18n) with Paraglide.js
-- Use Paraglide.js for internationalization: https://inlang.com/m/gerre34r/library-inlang-paraglideJs
-- Install Paraglide.js: `npm install @inlang/paraglide-js`
-- Set up language files in the `languages` directory.
-- Use the `t` function to translate strings:
-  ```svelte
-  <script>
-  import { t } from '@inlang/paraglide-js';
-  </script>
+## Key Files to Understand
 
-  <h1>{t('welcome_message')}</h1>
-  ```
-- Support multiple languages and RTL layouts.
-- Ensure text scaling and font adjustments for accessibility.
+1. **`src/lib/index.ts`** - All public exports
+2. **`src/lib/SvelteMarkdown.svelte`** - Main component implementation
+3. **`src/lib/utils/markdown-parser.js`** - Token parsing logic
+4. **`src/lib/renderers/`** - Individual renderer components
+5. **`README.md`** - Usage documentation
 
-Accessibility
-- Ensure proper semantic HTML structure in Svelte components.
-- Implement ARIA attributes where necessary.
-- Ensure keyboard navigation support for interactive elements.
-- Use Svelte's bind:this for managing focus programmatically.
+## PR and Commit Guidelines
 
-Key Conventions
-1. Embrace Svelte's simplicity and avoid over-engineering solutions.
-2. Use SvelteKit for full-stack applications with SSR and API routes.
-3. Prioritize Web Vitals (LCP, FID, CLS) for performance optimization.
-4. Use environment variables for configuration management.
-5. Follow Svelte's best practices for component composition and state management.
-6. Ensure cross-browser compatibility by testing on multiple platforms.
-7. Keep your Svelte and SvelteKit versions up to date.
+- Tests required for new features
+- Coverage must remain at 90%+
+- Pre-commit hooks will format code automatically
+- CI runs on Node 20, 22, and 24
+- Package published automatically on release via GitHub Actions
+- **README.md must be updated** when adding new features, props, or public API changes
 
-Documentation
-- Svelte 5 Runes: https://svelte-5-preview.vercel.app/docs/runes
-- Svelte Documentation: https://svelte.dev/docs
-- SvelteKit Documentation: https://kit.svelte.dev/docs
-- Paraglide.js Documentation: https://inlang.com/m/gerre34r/library-inlang-paraglideJs/usage
+## Security Considerations
 
-Refer to Svelte, SvelteKit, and Paraglide.js documentation for detailed information on components, internationalization, and best practices.
+- No built-in HTML sanitization by default
+- XSS protection through secure parsing
+- Users should integrate their own sanitizer if needed
+- Use `allowHtmlOnly`/`excludeHtmlOnly` to restrict HTML tags
 
 ---
 > Source: [humanspeak/svelte-markdown](https://github.com/humanspeak/svelte-markdown) — distributed by [TomeVault](https://tomevault.io).
