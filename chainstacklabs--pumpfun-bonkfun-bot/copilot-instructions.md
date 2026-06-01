@@ -1,153 +1,251 @@
-## python-style
+## trading-bot
 
-> - Use 88 character line length limit
+> Maintain consistent structure across all bot configuration files:
 
 
-# Python Code Style Rules
+# Trading Bot Specific Rules
 
-## Formatting Standards
+## Bot Configuration Standards
 
-### Ruff Configuration Compliance
-- Use 88 character line length limit
-- Use 4 spaces for indentation (never tabs)
-- Use double quotes for strings consistently
-- Target Python 3.11+ features and syntax
-- Enable automatic import sorting and organization
+### YAML Configuration Structure
+Maintain consistent structure across all bot configuration files:
 
-### Import Organization
-```python
-# Standard library imports first
-import asyncio
-import logging
-from pathlib import Path
+```yaml
+# Bot identification
+name: "bot-sniper-1"
+platform: "pump_fun"  # or "lets_bonk"
+enabled: true  # Allow disabling without removing config
+separate_process: true  # Run in separate process for isolation
 
-# Third-party imports second
-import aiohttp
-from solana.rpc.async_api import AsyncClient
+# Environment and connection
+env_file: ".env"
+rpc_endpoint: "${SOLANA_NODE_RPC_ENDPOINT}"
+wss_endpoint: "${SOLANA_NODE_WSS_ENDPOINT}"
+private_key: "${SOLANA_PRIVATE_KEY}"
 
-# Local imports last
-from config_loader import load_bot_config
-from utils.logger import get_logger
+# Platform-specific configurations
+geyser:  # For faster data streams
+  endpoint: "${GEYSER_ENDPOINT}"
+  api_token: "${GEYSER_API_TOKEN}"
+  auth_type: "x-token"
+
+# Trading parameters
+trade:
+  buy_amount: 0.0001  # SOL amount
+  buy_slippage: 0.3   # 30%
+  sell_slippage: 0.3
+  exit_strategy: "time_based"  # "tp_sl", "manual"
+  extreme_fast_mode: true  # Skip validations for speed
 ```
 
-### Type Annotations
-- Add type hints to ALL public functions and methods
-- Use modern typing syntax (Python 3.9+ union syntax where applicable)
-- Include return type annotations
-- Use `from typing import Any` for complex types
+### Environment Variable Usage
+- Use `${VARIABLE_NAME}` syntax for environment interpolation
+- Never hardcode sensitive values in YAML files
+- Validate all required environment variables on startup
+- Provide clear error messages for missing variables
+
+## Trading Logic Rules
+
+### Transaction Handling
+- Always use priority fees for competitive transaction inclusion
+- Implement retry mechanisms with exponential backoff
+- Cache recent blockhash to avoid repeated RPC calls
+- Use compute unit limits to prevent transaction failures
 
 ```python
-def process_transaction(tx_data: dict[str, Any]) -> bool:
-    """Process transaction data and return success status."""
-    pass
-
-async def fetch_data(endpoint: str) -> dict[str, Any] | None:
-    """Fetch data from endpoint, return None on failure."""
-    pass
+# Good transaction building pattern
+instructions = [
+    set_compute_unit_limit(300_000),
+    set_compute_unit_price(priority_fee),
+    # ... trading instructions
+]
 ```
 
-## Documentation Standards
-
-### Docstring Format
-Use Google-style docstrings for all functions and classes:
+### Risk Management
+- Implement position size limits
+- Use slippage protection on all trades
+- Set maximum hold times to prevent stuck positions
+- Validate token data before trading
 
 ```python
-def calculate_slippage(amount: float, slippage_percent: float) -> float:
-    """Calculate slippage amount for a trade.
-    
-    Args:
-        amount: The trade amount in SOL
-        slippage_percent: Slippage percentage (0.1 = 10%)
-        
-    Returns:
-        The calculated slippage amount
-        
-    Raises:
-        ValueError: If slippage_percent is negative
-    """
-    if slippage_percent < 0:
-        raise ValueError("Slippage percentage cannot be negative")
-    return amount * slippage_percent
+# Risk validation example
+if token_age > self.max_token_age:
+    logger.warning(f"Token {mint} too old ({token_age}s), skipping")
+    return False
+
+if buy_amount > self.max_position_size:
+    logger.error(f"Buy amount {buy_amount} exceeds max position size")
+    return False
 ```
 
-## Error Handling
+### Exit Strategies
+Implement multiple exit strategy types:
 
-### Comprehensive Exception Handling
-- Use try-catch blocks for all external operations (RPC calls, file I/O)
-- Log exceptions with context using `logging.exception()`
-- Provide meaningful error messages
-- Don't suppress exceptions without good reason
+1. **Time-based**: Hold for fixed duration
+2. **Take Profit/Stop Loss**: Price-based exits
+3. **Manual**: No automatic selling
 
 ```python
-try:
-    result = await client.get_account_info(address)
-    logger.info(f"Successfully fetched account info for {address}")
-except Exception as e:
-    logger.exception(f"Failed to fetch account info for {address}: {e}")
-    raise
+class ExitStrategy(Enum):
+    TIME_BASED = "time_based"
+    TP_SL = "tp_sl"
+    MANUAL = "manual"
 ```
 
-## Logging Standards
+## Platform Integration Rules
 
-### Logger Usage
-- Use `get_logger(__name__)` pattern consistently
-- Import from `utils.logger`
-- Use appropriate log levels (DEBUG, INFO, WARNING, ERROR)
-- Include context in log messages
+### Multi-Platform Support
+- Use platform enum for type safety
+- Implement platform-specific address providers
+- Abstract platform differences in universal components
+- Validate platform-listener combinations
 
 ```python
-from utils.logger import get_logger
+# Platform validation
+if not validate_platform_listener_combination(platform, listener_type):
+    supported = get_supported_listeners_for_platform(platform)
+    raise ConfigurationError(
+        f"Listener '{listener_type}' not supported for {platform.value}. "
+        f"Supported: {supported}"
+    )
+```
 
-logger = get_logger(__name__)
+### Listener Types
+Support multiple data source types:
+- **geyser**: Fastest, requires special endpoint
+- **logs**: WebSocket log subscription
+- **blocks**: Block subscription (not all providers support)
+- **pumpportal**: Third-party aggregator
 
+## Performance Optimization
+
+### Speed vs Accuracy Tradeoffs
+- **Extreme Fast Mode**: Skip validations and price checks for speed
+- **Normal Mode**: Full validation and price checks
+- **Marry Mode**: Only buy, never sell (accumulation strategy)
+- **YOLO Mode**: Continuous trading without cooldowns
+
+### Caching Strategy
+```python
+# Cache expensive operations
+self._cached_blockhash: Hash | None = None
+self._blockhash_lock = asyncio.Lock()
+
+# Background blockhash updater
+async def start_blockhash_updater(self, interval: float = 5.0):
+    while True:
+        try:
+            blockhash = await self.get_latest_blockhash()
+            async with self._blockhash_lock:
+                self._cached_blockhash = blockhash
+        except Exception as e:
+            logger.exception(f"Failed to update blockhash: {e}")
+        await asyncio.sleep(interval)
+```
+
+## Monitoring and Logging
+
+### Log File Management
+- Create timestamped log files per bot instance
+- Format: `{bot_name}_{timestamp}.log`
+- Store in `logs/` directory
+- Implement log rotation for long-running bots
+
+### Trading Event Logging
+Log all significant events with context:
+
+```python
 # Good logging examples
-logger.info(f"Starting bot '{bot_name}' with platform {platform.value}")
+logger.info(f"New token detected: {mint} by {creator}")
+logger.info(f"Buy transaction submitted: {signature}")
 logger.warning(f"Transaction failed, attempt {attempt}/{max_attempts}")
-logger.error(f"Platform {platform.value} is not supported")
+logger.error(f"Platform {platform.value} not supported")
 ```
 
-## Security Rules
+### Performance Metrics
+Track key performance indicators:
+- Token detection latency
+- Transaction confirmation time
+- Success/failure rates
+- Slippage and fill rates
 
-### Sensitive Data
-- NEVER hardcode private keys, API tokens, or secrets
-- Use environment variables for all sensitive configuration
-- Don't log sensitive information
-- Validate all external inputs
+## Security and Safety Rules
 
-### Safe Practices
+### Private Key Management
+- Store private keys only in environment variables
+- Never log or expose private keys
+- Use separate wallets for testing vs production
+- Implement wallet balance checks before trading
+
+### Input Validation
 ```python
-# Good - using environment variables
-private_key = os.getenv("SOLANA_PRIVATE_KEY")
-if not private_key:
-    raise ValueError("SOLANA_PRIVATE_KEY environment variable is required")
-
-# Bad - hardcoded secrets
-private_key = "your_secret_key_here"  # NEVER DO THIS
+# Validate all external inputs
+def validate_mint_address(mint_str: str) -> bool:
+    try:
+        mint = Pubkey.from_string(mint_str)
+        return len(str(mint)) == 44  # Valid Solana address length
+    except Exception:
+        return False
 ```
 
-## Code Quality
+### Error Recovery
+- Implement graceful shutdown on critical errors
+- Provide cleanup mechanisms for stuck positions
+- Support manual intervention modes
+- Log all errors with sufficient context for debugging
 
-### Linting Compliance
-Ensure code passes all enabled Ruff rules:
-- Security best practices (S)
-- Type annotations (ANN)
-- Exception handling (BLE, TRY)
-- Code complexity (C90)
-- Pylint conventions (PL)
-- No commented-out code (ERA)
+## Testing and Validation
 
-### Performance Considerations
-- Use async/await for I/O operations
-- Implement proper connection pooling for HTTP clients
-- Cache expensive computations when appropriate
-- Use uvloop for better async performance
+### Learning Examples Usage
+Use learning examples for:
+- Testing new features before integration
+- Validating platform-specific functionality
+- Performance benchmarking
+- Educational purposes for new developers
+
+```bash
+# Test platform connectivity
+uv run learning-examples/fetch_price.py
+
+# Validate bonding curve calculations
+uv run learning-examples/compute_associated_bonding_curve.py
+
+# Compare listener performance
+uv run learning-examples/listen-new-tokens/compare_listeners.py
+```
+
+### Configuration Testing
+- Validate YAML syntax and required fields
+- Test environment variable interpolation
+- Verify platform-listener compatibility
+- Check wallet connectivity and balance
+
+## Deployment Guidelines
+
+### Production Checklist
+1. Test configuration with learning examples
+2. Verify environment variables are set
+3. Check wallet has sufficient SOL for gas fees
+4. Enable separate processes for isolation
+5. Monitor logs for successful startup
+6. Implement monitoring and alerting
+
+### Multi-Bot Management
+- Use descriptive bot names in configurations
+- Separate log files per bot instance
+- Monitor resource usage across all bots
+- Implement centralized configuration management
 
 ```python
-# Set uvloop policy at module level
-import asyncio
-import uvloop
-
-asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+# Bot process management
+if cfg.get("separate_process", False):
+    p = multiprocessing.Process(
+        target=run_bot_process, 
+        args=(str(file),), 
+        name=f"bot-{bot_name}"
+    )
+    p.start()
+    processes.append(p)
 ```
 
 ---
