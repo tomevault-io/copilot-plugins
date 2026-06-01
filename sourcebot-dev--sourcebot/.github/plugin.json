@@ -1,0 +1,9 @@
+{
+  "name": "sourcebot-dev--sourcebot",
+  "displayName": "sourcebot",
+  "description": "Sourcebot is a self-hosted tool that helps humans and agents understand your codebase.",
+  "version": "1.0.0",
+  "author": "sourcebot-dev",
+  "homepage": "https://github.com/sourcebot-dev/sourcebot",
+  "skills": []
+}
