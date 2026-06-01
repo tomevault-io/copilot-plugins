@@ -1,0 +1,9 @@
+{
+  "name": "ratatui--tui-widgets",
+  "displayName": "tui-widgets",
+  "description": "A collection of useful widgets for building terminal user interfaces using Ratatui",
+  "version": "1.0.0",
+  "author": "ratatui",
+  "homepage": "https://github.com/ratatui/tui-widgets",
+  "skills": []
+}
