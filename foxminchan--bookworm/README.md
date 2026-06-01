@@ -7,11 +7,11 @@ The practical implementation of Aspire using Microservices, AI-Agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [foxminchan/BookWorm](https://github.com/foxminchan/BookWorm).
+Original source: `AGENTS.md` in [foxminchan/BookWorm](https://github.com/foxminchan/BookWorm).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
