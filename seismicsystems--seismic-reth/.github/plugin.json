@@ -1,0 +1,9 @@
+{
+  "name": "seismicsystems--seismic-reth",
+  "displayName": "seismic-reth",
+  "description": "Execution client for Seismic",
+  "version": "1.0.0",
+  "author": "SeismicSystems",
+  "homepage": "https://github.com/SeismicSystems/seismic-reth",
+  "skills": []
+}
