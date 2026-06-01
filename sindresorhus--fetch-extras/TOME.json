@@ -4,7 +4,7 @@
   "repo": "fetch-extras",
   "description": "Useful utilities for working with Fetch",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sindresorhus/fetch-extras",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T18:02:51Z"
+  "distributed_at": "2026-06-01T18:14:33Z"
 }
