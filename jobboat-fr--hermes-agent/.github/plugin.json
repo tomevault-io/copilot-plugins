@@ -1,0 +1,9 @@
+{
+  "name": "jobboat-fr--hermes-agent",
+  "displayName": "hermes-agent",
+  "description": "Hermes Agent fork \u2014 V-Board ops layer (routing pipeline, council, runner, meeting-room) built on top of Hermes Agent by NousResearch",
+  "version": "1.0.0",
+  "author": "jobboat-fr",
+  "homepage": "https://github.com/jobboat-fr/hermes-agent",
+  "skills": []
+}
