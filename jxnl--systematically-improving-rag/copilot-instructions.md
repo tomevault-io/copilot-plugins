@@ -1,46 +1,38 @@
-## mkdocs-navigation
+## project-structure
 
-> When updating the navigation in [mkdocs.yml](mdc:mkdocs.yml), follow these standards:
+> This is a documentation and workshop project for RAG (Retrieval-Augmented Generation) applications.
 
-# MkDocs Navigation Standards
+# Systematically Improving RAG Project Structure
 
-When updating the navigation in [mkdocs.yml](mdc:mkdocs.yml), follow these standards:
+This is a documentation and workshop project for RAG (Retrieval-Augmented Generation) applications.
 
-## Talk Navigation Format
-For talks in the navigation, use the format: `"Topic - Speaker Name (Company)": talks/filename.md`
+## Key Directories
+- **`docs/`** - Main documentation using MkDocs
+  - **`docs/talks/`** - Industry expert talks and presentations
+  - **`docs/workshops/`** - Workshop chapters and exercises
+  - **`docs/office-hours/`** - Office hours summaries and FAQs
+- **`latest/`** - Current cohort materials and case studies
+- **`cohort_1/`** & **`cohort_2/`** - Previous cohort materials
+- **`data/`** - Sample datasets and examples
 
-### Examples:
-```yaml
-- "Coding Agents - Nik Pash (Cline)": talks/rag-is-dead-cline-nik.md
-- "RAG Anti-patterns - Skylar Payne": talks/rag-antipatterns-skylar-payne.md
-- "Semantic Search - Will Bryk (Exa)": talks/semantic-search-exa-will-bryk.md
-```
+## Important Files
+- **[mkdocs.yml](mdc:mkdocs.yml)** - Site navigation and configuration
+- **[docs/talks/AGENTS.md](mdc:docs/talks/AGENTS.md)** - Talk formatting guidelines
+- **[docs/talks/index.md](mdc:docs/talks/index.md)** - Talk directory index
+- **[pyproject.toml](mdc:pyproject.toml)** - Python dependencies using `uv`
 
-## Navigation Organization
-Organize talks into logical chapters and subsections:
+## User Preferences
+- Always use `uv` instead of `pip` for Python package management
+- Write at 9th-grade reading level
+- Use async over synchronous Python code when possible
+- Match existing document styles when writing
+- No emojis in documentation
 
-### Chapter 5 Structure:
-```yaml
-- "Chapter 5: User Experience":
-  - "Coding Agents":
-    - "Coding Agents - Nik Pash (Cline)": talks/rag-is-dead-cline-nik.md
-    - "SWE-Bench Agent - Colin Flaherty (Augment)": talks/colin-rag-agents.md
-  - "Document Processing":
-    - "Document Parsing - Adit (Reducto)": talks/reducto-docs-adit.md
-    - "Browser RAG - Michael (OpenBB)": talks/rag-without-apis-browser-michael-struwig.md
-  - "Search Technologies":
-    - "Semantic Search - Will Bryk (Exa)": talks/semantic-search-exa-will-bryk.md
-    - "RAG Anti-patterns - Skylar Payne": talks/rag-antipatterns-skylar-payne.md
-```
-
-## Guidelines
-- Keep navigation titles shorter than full article titles for better UX
-- Include company names in parentheses when available
-- Group related talks into logical subsections
-- Maintain consistent formatting across all talk entries
-- Use descriptive topic names that indicate the main focus
-
-Reference [AGENTS.md](mdc:docs/talks/AGENTS.md) for complete talk organization guidelines.
+## Build System
+- Uses MkDocs for documentation site generation
+- Deployed to GitHub Pages
+- Run `mkdocs serve` for local development
+- Run `mkdocs build` for production builds
 
 ---
 > Source: [jxnl/systematically-improving-rag](https://github.com/jxnl/systematically-improving-rag) — distributed by [TomeVault](https://tomevault.io).
