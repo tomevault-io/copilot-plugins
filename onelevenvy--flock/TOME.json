@@ -4,7 +4,7 @@
   "repo": "flock",
   "description": "A multi agent desktop application built with Rust and Tauri.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Onelevenvy/flock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T11:40:36Z"
+  "distributed_at": "2026-06-01T11:45:30Z"
 }
