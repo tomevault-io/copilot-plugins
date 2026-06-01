@@ -1,57 +1,45 @@
-## systematically-improving-rag
+## documentation-style
 
-> - `latest/`: Current course code and the WildChat case study (`latest/case_study/{core,pipelines}`).
+> When writing or editing documentation in the `docs/` directory, follow these style guidelines:
 
-# Repository Guidelines
+# Documentation Writing Style Guide
 
-## Project Structure & Module Organization
-- `latest/`: Current course code and the WildChat case study (`latest/case_study/{core,pipelines}`).
-- `cohort_1/`, `cohort_2/`: Earlier cohort materials kept for reference.
-- `docs/`: MkDocs book sources; site config in `mkdocs.yml`.
-- `docs/workshops/`: Chapter content `chapterN.md` and subparts `chapterN-M.md`; entrypoint is `docs/workshops/index.md`.
-- `docs/slides/`: Slide decks `chapterN-slides.md` for workshop chapters.
-- `md/`: Markdown exports of notebooks; images in `images/`.
-- `scripts/`, `build_book.sh`: Utilities for diagrams and building the PDF/ebook.
+When writing or editing documentation in the `docs/` directory, follow these style guidelines:
 
-## Build, Test, and Development Commands
-- Install deps: `uv install` (recommended) or `pip install -e .`.
-- Lint/fix: `uv run ruff check --fix --unsafe-fixes .`.
-- Format: `uv run ruff format .`.
-- Tests: `uv run pytest -q` (supports `pytest-asyncio`).
-- Docs (local): `mkdocs serve`  •  Docs (build): `mkdocs build`.
-- Book (optional): `bash build_book.sh` (requires `pandoc`; optional `tectonic` + `@mermaid-js/mermaid-cli`).
+## Writing Standards
+- **Reading level**: Write at 9th-grade reading level for accessibility
+- **No emojis**: Keep documentation professional and emoji-free
+- **Conversational tone**: Use "you", "we", "I" to make content personal and engaging
+- **Active voice**: Prefer active over passive voice
+- **Specific examples**: Include concrete examples and metrics when possible
 
-## Docs & Workshops Authoring
-- Front matter: include `title`, `description`, optional `authors`, `date`, `tags` (see `docs/workshops/chapter0.md`).
-- Naming: `chapter4-2.md` pattern for multi-part chapters; keep headings starting with a single `#`.
-- Admonitions: use MkDocs blocks like `!!! info` and `!!! success`; keep copy concise and actionable.
-- Diagrams: use fenced `mermaid` blocks; book build renders via Mermaid CLI when available.
-- Linking: link chapters relatively as in `docs/workshops/index.md`; avoid hard-coded site URLs.
-- Section order: place `### Key Insight` before `## Learning Objectives`. To fix inconsistencies, run `python scripts/normalize_workshops.py`.
+## Technical Content
+- **Actionable insights**: Focus on practical, implementable advice over theory
+- **Code examples**: Include working code snippets with proper syntax highlighting
+- **Performance metrics**: Include specific numbers and improvements when available
+- **Company attribution**: Reference companies and speakers for credibility
 
-## Coding Style & Naming Conventions
-- Python 3.11 required (`requires-python >=3.11,<3.12`). Use type hints throughout.
-- Indentation: 4 spaces; max line length per Ruff formatter.
-- Naming: `snake_case` functions/modules, `PascalCase` classes, `UPPER_SNAKE_CASE` constants.
-- Imports: standard → third‑party → local; prefer explicit exports.
-- Notebooks: keep outputs minimal; prefer moving reusable logic into importable modules under `latest/case_study/`.
+## Markdown Formatting
+- **Headers**: Use proper hierarchy (H1 for titles, H2 for main sections, H3 for subsections)
+- **Bold text**: Use `**bold**` for emphasis and labels
+- **Code blocks**: Use triple backticks with language specification
+- **Lists**: Use `-` for bullet points with consistent formatting
+- **Links**: Use descriptive link text, not "click here"
 
-## Testing Guidelines
-- Framework: `pytest` with `pytest-asyncio` for async code.
-- Location: create `tests/` at repo root; name files `test_*.py`.
-- Conventions: one behavior per test; use fixtures for external services; mock APIs.
-- Examples: `uv run pytest -q`, with coverage `uv run pytest --cov latest/case_study`.
+## Content Organization
+- **Clear structure**: Organize content with logical flow and clear headings
+- **Key takeaways**: Highlight main insights with `**Key Takeaway:**` format
+- **Scannable content**: Use bullet points, short paragraphs, and clear headings
+- **Consistent formatting**: Match existing document styles in the same directory
 
-## Commit & Pull Request Guidelines
-- Commits: imperative, present tense, concise (e.g., `fix: handle empty queries`).
-- PRs: include problem statement, summary of changes, and before/after screenshots for docs/UI.
-- Link issues when applicable; note follow‑ups and known limitations.
-- Checklist before opening PR: run Ruff (check + format), run tests, verify `mkdocs build` passes.
+## Technical Accuracy
+- **Verify examples**: Ensure all code examples work and are up-to-date
+- **Check links**: Verify all internal and external links are functional
+- **Consistent terminology**: Use the same terms throughout related documents
+- **Proper citations**: Reference sources and speakers appropriately
 
-## Security & Configuration Tips
-- Do not commit secrets. Store API keys in `.env` and load via `python-dotenv`.
-- Common vars: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `COHERE_API_KEY`, `LOGFIRE_*`.
-- Prefer configuration via environment variables over hard‑coding.
+## Project Setup
+- **Dependency installation**: Always use `uv sync --all-extras` to install all dependencies and extras for building and working with documentation.
 
 ---
 > Source: [jxnl/systematically-improving-rag](https://github.com/jxnl/systematically-improving-rag) — distributed by [TomeVault](https://tomevault.io).
