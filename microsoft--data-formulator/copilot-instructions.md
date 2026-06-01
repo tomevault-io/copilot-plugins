@@ -1,55 +1,72 @@
-## dataframe-serialization
+## dev-guides-first
 
-> All DataFrame-to-records conversion for API responses, streaming events, or
+> Require reading dev-guides before development and keeping docs in sync
 
-# DataFrame Serialization
 
-All DataFrame-to-records conversion for API responses, streaming events, or
-frontend-visible data MUST use the centralized helpers in
-`data_formulator.datalake.parquet_utils`:
+# Dev Guides First
 
-| Source type | Helper |
-|---|---|
-| `pd.DataFrame` | `df_to_safe_records(df)` |
-| `pa.Table` (Arrow) | `get_sample_rows_from_arrow(table)` |
+## Before Starting Any Development
 
-## Why
+Before implementing or designing a new feature, module, or significant change, **always
+read the relevant documents in `docs/dev-guides/`** to understand existing conventions:
 
-`pandas.DataFrame.to_json(orient='records')` defaults to `date_format='epoch'`,
-which serializes datetime columns as **epoch milliseconds** (e.g. `1773532800000`).
-The frontend interprets these as plain numbers and renders them with commas
-(`1,773,532,800,000`) instead of formatted dates.
+| Guide | When to Read |
+|-------|-------------|
+| `docs/dev-guides/1-streaming-protocol.md` | Any work on streaming endpoints or NDJSON protocol |
+| `docs/dev-guides/2-log-sanitization.md` | Any work involving logging, credentials, external services, or DataLoaders |
+| `docs/dev-guides/3-data-loader-development.md` | Any work on ExternalDataLoader, DataConnector, or connector routes |
+| `docs/dev-guides/4-authentication-oidc-tokenstore.md` | Any work on OIDC, TokenStore, AUTH_MODE, or SSO flows |
+| `docs/dev-guides/6-i18n-language-injection.md` | Any work on Agent prompts, Agent routes, backend user-visible messages, or frontend i18n |
+| `docs/dev-guides/7-unified-error-handling.md` | Any work on API errors, frontend API calls, streaming error events, or error tests |
+| `docs/dev-guides/8-path-safety.md` | Any work on backend file access, downloads, Workspace paths, Agent tools, DataLoaders, or sandbox config |
+| `docs/dev-guides/10-agent-knowledge-reasoning-log.md` | Any work on Agent knowledge injection, KnowledgeStore, reasoning logs, or experience distillation |
+| `docs/dev-guides/11-catalog-metadata-sync.md` | Any work on catalog sync, catalog_cache, catalog_annotations, metadata merge, Agent catalog tools, or frontend catalog browsing |
+| `docs/dev-guides/12-sandbox-session.md` | Any work on sandbox execution, Agent tool-calling loops, explore/execute_python code execution, or namespace management |
+| `docs/dev-guides/13-unified-row-limits.md` | Any work on row limits, data loading size caps, frontendRowLimit, MAX_IMPORT_ROWS, or DataLoader size parameter |
+| `docs/dev-guides/14-model-capability-runtime-degradation.md` | Any work on LLM Client calls, Agent LLM invocations, model capability checks, reasoning_effort, or image/vision degradation |
+| `docs/dev-guides/15-dataframe-serialization.md` | Any work on DataFrame→JSON serialization, Agent result rows, DataLoader sample_rows, or table API responses |
+| `.cursor/rules/i18n-no-hardcoded-strings.mdc` | Any work adding or changing user-visible strings in `src/` |
 
-`df_to_safe_records` enforces `date_format='iso'` and `default_handler=str`,
-ensuring datetimes become ISO-8601 strings and exotic types degrade gracefully.
+Also check `.cursor/rules/` and `.cursor/skills/` for related coding conventions.
 
-## Banned Patterns
+## After Introducing New Conventions
 
-```python
-# BAD — missing date_format, datetimes become epoch numbers
-json.loads(df.to_json(orient='records'))
+When your work establishes a new development pattern, convention, or architectural
+decision, you MUST update documentation before considering the task complete:
 
-# BAD — to_dict returns Timestamp objects, not JSON-safe values
-df.to_dict(orient='records')
+1. **Update existing dev-guide** — if your change extends an existing convention
+   (e.g. new sensitive key type → update `2-log-sanitization.md`)
 
-# ACCEPTABLE but should be unified for consistency
-json.loads(df.to_json(orient='records', date_format='iso'))
-```
+2. **Create new dev-guide** — if your change introduces a new cross-cutting convention
+   that future developers must follow. Place in `docs/dev-guides/` with the next number prefix.
 
-## Correct Pattern
+3. **Update existing SKILL** — if your change affects how an existing skill works
+   (e.g. new error handling pattern → update `error-handling/SKILL.md`)
 
-```python
-from data_formulator.datalake.parquet_utils import df_to_safe_records
+4. **Create new SKILL** — if your change introduces a reusable development workflow
+   that AI agents should follow. Place in `.cursor/skills/<name>/SKILL.md`.
 
-rows = df_to_safe_records(df)
-preview = df_to_safe_records(df.head(5))
-```
+5. **Update existing Rule** — if your change adds constraints to an existing rule
+   (e.g. new banned pattern → update the relevant `.mdc` file)
 
-## Exceptions
+6. **Create new Rule** — if your change introduces file-scoped coding conventions
+   that should be enforced automatically. Place in `.cursor/rules/<name>.mdc`.
 
-Internal data processing that never reaches the frontend or JSON serialization
-(e.g. Kusto SDK metadata parsing, Vega-Lite spec construction) may use
-`to_dict(orient='records')` directly.
+## Documentation Sync Checklist
+
+For every PR that introduces new patterns:
+
+- [ ] Searched `docs/dev-guides/` for related existing docs
+- [ ] Updated or created dev-guide if introducing cross-cutting conventions
+- [ ] Updated or created `.cursor/skills/` if introducing reusable workflows
+- [ ] Updated or created `.cursor/rules/` if introducing file-scoped constraints
+- [ ] New dev-guide includes a "New Module Checklist" section (if applicable)
+
+## File Naming Conventions
+
+- **dev-guides**: `<number>-<kebab-case-topic>.md` (e.g. `3-data-loader-development.md`)
+- **skills**: `.cursor/skills/<topic>/SKILL.md`
+- **rules**: `.cursor/rules/<kebab-case-topic>.mdc`
 
 ---
 > Source: [microsoft/data-formulator](https://github.com/microsoft/data-formulator) — distributed by [TomeVault](https://tomevault.io).
