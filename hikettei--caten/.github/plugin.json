@@ -1,0 +1,9 @@
+{
+  "name": "hikettei--caten",
+  "displayName": "Caten",
+  "description": "[wip] Deep Learning Compiler based on Polyhedral Compiler, Light-weight IRs, and Optimizing Pattern Matcher. (development is on hold)",
+  "version": "1.0.0",
+  "author": "hikettei",
+  "homepage": "https://github.com/hikettei/Caten",
+  "skills": []
+}
