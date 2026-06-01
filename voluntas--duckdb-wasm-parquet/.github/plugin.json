@@ -1,0 +1,9 @@
+{
+  "name": "voluntas--duckdb-wasm-parquet",
+  "displayName": "duckdb-wasm-parquet",
+  "description": "duckdb-wasm-parquet",
+  "version": "1.0.0",
+  "author": "voluntas",
+  "homepage": "https://github.com/voluntas/duckdb-wasm-parquet",
+  "skills": []
+}
