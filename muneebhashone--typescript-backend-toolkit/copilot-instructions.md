@@ -1,435 +1,439 @@
-## schemas
+## services
 
-> Zod schema patterns for validation and OpenAPI documentation
+> Service layer patterns for business logic and data access
 
 
-# Zod Schema Patterns
+# Service Layer Patterns
 
 ## Core Principle
 
-Every module should have a schema file that defines request/response validation using Zod schemas.
+Services contain business logic, database operations, external API calls, and complex computations. They should be framework-agnostic (no Express req/res).
 
-## Import Pattern
-
-```typescript
-import { z } from 'zod';
-import validator from 'validator';
-```
-
-## Complete Response Schema Workflow
-
-**IMPORTANT:** This section shows the complete pattern for defining response schemas, using them in routers, and typing controllers.
-
-### Step 1: Define in Schema File (`*.schema.ts`)
+## Service Template
 
 ```typescript
-import { z } from 'zod';
-import validator from 'validator';
-import { R } from '@/plugins/magic/response.builders';
-import { itemOutSchema } from './item.dto';
+import { Model } from './module.model';
+import { logger } from '@/plugins/logger';
+import type { CreateInput, UpdateInput } from './module.dto';
 
-// Request validation schemas
-export const createItemSchema = z.object({
-  name: z.string({ required_error: 'Name is required' }).min(1).max(100),
-  description: z.string().min(10).max(500).optional(),
-  status: z.enum(['active', 'inactive']).default('active'),
-});
+/**
+ * Find item by ID
+ */
+export const findById = async (id: string) => {
+  const item = await Model.findById(id);
+  return item;
+};
 
-export const updateItemSchema = z.object({
-  name: z.string().min(1).max(100).optional(),
-  description: z.string().min(10).max(500).optional(),
-  status: z.enum(['active', 'inactive']).optional(),
-});
+/**
+ * Find all items with pagination
+ */
+export const findAll = async (options: {
+  page: number;
+  limit: number;
+  search?: string;
+}) => {
+  const { page, limit, search } = options;
+  const skip = (page - 1) * limit;
 
-// Response schemas using R builders
-export const createItemResponseSchema = R.success(itemOutSchema);
-export const getItemByIdResponseSchema = R.success(itemOutSchema);
-export const getItemsResponseSchema = R.paginated(itemOutSchema);
-export const updateItemResponseSchema = R.success(itemOutSchema);
+  const query = search ? { name: { $regex: search, $options: 'i' } } : {};
 
-// Export request types
-export type CreateItemSchemaType = z.infer<typeof createItemSchema>;
-export type UpdateItemSchemaType = z.infer<typeof updateItemSchema>;
+  const [items, total] = await Promise.all([
+    Model.find(query).skip(skip).limit(limit).lean(),
+    Model.countDocuments(query),
+  ]);
 
-// Export response types (PascalCase for types)
-export type CreateItemResponseSchema = z.infer<typeof createItemResponseSchema>;
-export type GetItemByIdResponseSchema = z.infer<typeof getItemByIdResponseSchema>;
-export type GetItemsResponseSchema = z.infer<typeof getItemsResponseSchema>;
-export type UpdateItemResponseSchema = z.infer<typeof updateItemResponseSchema>;
-```
+  return {
+    data: items,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
 
-### Step 2: Use in Router (`*.router.ts`)
+/**
+ * Create new item
+ */
+export const create = async (data: CreateInput) => {
+  const item = await Model.create(data);
 
-```typescript
-import { MagicRouter } from '@/plugins/magic/router';
-import { canAccess } from '@/middlewares/can-access';
-import { 
-  createItemSchema,
-  updateItemSchema,
-  createItemResponseSchema,
-  getItemsResponseSchema,
-} from './item.schema';
-import { handleCreate, handleGetItems } from './item.controller';
+  logger.info('Item created', { itemId: item._id });
 
-const router = new MagicRouter();
+  return item.toObject();
+};
 
-router.post('/', {
-  requestType: { body: createItemSchema },
-  responses: { 201: createItemResponseSchema }, // Use response schema
-}, canAccess(), handleCreate);
-
-router.get('/', {
-  requestType: { query: listQuerySchema },
-  responses: { 200: getItemsResponseSchema }, // Use response schema
-}, canAccess(), handleGetItems);
-```
-
-### Step 3: Type Controller (`*.controller.ts`)
-
-```typescript
-import type { Request } from 'express';
-import type { ResponseExtended } from '@/types';
-import type {
-  CreateItemSchemaType,
-  CreateItemResponseSchema,
-} from './item.schema';
-import { createItem } from './item.service';
-
-export const handleCreate = async (
-  req: Request<unknown, unknown, CreateItemSchemaType>,
-  res: ResponseExtended<CreateItemResponseSchema>, // Typed response
+/**
+ * Update item
+ */
+export const update = async (
+  id: string,
+  data: UpdateInput,
+  userId?: string,
 ) => {
-  const item = await createItem(req.body);
-  
-  return res.created?.({ // Type-safe response
-    success: true,
-    message: 'Item created',
-    data: item,
+  const item = await Model.findById(id);
+
+  if (!item) {
+    return null;
+  }
+
+  // Business logic: Check permissions
+  if (item.createdBy?.toString() !== userId) {
+    const error = new Error('Forbidden') as any;
+    error.statusCode = 403;
+    throw error;
+  }
+
+  Object.assign(item, data);
+  await item.save();
+
+  logger.info('Item updated', { itemId: id, userId });
+
+  return item.toObject();
+};
+
+/**
+ * Delete item
+ */
+export const remove = async (id: string, userId?: string) => {
+  const item = await Model.findById(id);
+
+  if (!item) {
+    return false;
+  }
+
+  // Business logic: Check permissions
+  if (item.createdBy?.toString() !== userId) {
+    const error = new Error('Forbidden') as any;
+    error.statusCode = 403;
+    throw error;
+  }
+
+  await item.deleteOne();
+
+  logger.info('Item deleted', { itemId: id, userId });
+
+  return true;
+};
+
+/**
+ * Complex business logic example
+ */
+export const performComplexOperation = async (input: {
+  userId: string;
+  data: any;
+}) => {
+  // 1. Validate business rules
+  const user = await UserModel.findById(input.userId);
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  // 2. Perform operations
+  const result = await Model.create({
+    ...input.data,
+    userId: input.userId,
   });
+
+  // 3. Trigger background jobs if needed
+  await triggerEmailJob(user.email, result);
+
+  // 4. Return result
+  return result;
+};
+
+/**
+ * Trigger background job
+ */
+const triggerEmailJob = async (email: string, data: any) => {
+  const { emailQueue } = await import('@/queues/email.queue');
+  await emailQueue.add('sendNotification', { email, data });
 };
 ```
 
-**Benefits of this workflow:**
-- ✅ End-to-end type safety from request to response
-- ✅ Accurate OpenAPI documentation generation
-- ✅ Runtime validation (optional)
-- ✅ IDE autocomplete for response structure
-- ✅ Consistent response formats across API
+## Key Patterns
 
-## Schema Structure
+### Database Operations
 
-Schemas are exported directly, NOT wrapped in request/response objects:
+Use Mongoose models from `module.model.ts`:
 
 ```typescript
-import { z } from 'zod';
-import validator from 'validator';
+// Find
+const item = await Model.findById(id);
+const items = await Model.find({ status: 'active' });
 
-export const createItemSchema = z.object({
-  name: z.string({ required_error: 'Name is required' }).min(1).max(100),
-  description: z
-    .string({ required_error: 'Description is required' })
-    .min(10)
-    .max(500),
-  status: z.enum(['active', 'inactive']).default('active'),
-  categoryId: z
-    .string({ required_error: 'Category ID is required' })
-    .refine((value) => validator.isMongoId(value), 'Category ID must be valid'),
-});
+// Create
+const item = await Model.create({ name: 'Test' });
 
-export const updateItemSchema = z.object({
-  name: z.string().min(1).max(100).optional(),
-  description: z.string().min(10).max(500).optional(),
-  status: z.enum(['active', 'inactive']).optional(),
+// Update
+const item = await Model.findByIdAndUpdate(id, { name: 'New' }, { new: true });
+
+// Delete
+await Model.findByIdAndDelete(id);
+
+// Count
+const count = await Model.countDocuments({ status: 'active' });
+
+// Use .lean() for better performance (returns plain objects)
+const items = await Model.find().lean();
+```
+
+### Pagination Helper
+
+Use pagination utility from [pagination.utils.ts](mdc:src/utils/pagination.utils.ts):
+
+```typescript
+import { getPaginator } from '@/utils/pagination.utils';
+
+const paginatorInfo = getPaginator(limit, page, totalRecords);
+const items = await Model.find()
+  .skip(paginatorInfo.skip)
+  .limit(paginatorInfo.limit);
+```
+
+Or implement manually:
+
+```typescript
+const skip = (page - 1) * limit;
+const items = await Model.find().skip(skip).limit(limit);
+const total = await Model.countDocuments();
+```
+
+### Background Jobs
+
+Queue background tasks using BullMQ:
+
+```typescript
+import { emailQueue } from '@/queues/email.queue';
+
+await emailQueue.add(
+  'jobName',
+  { data },
+  {
+    delay: 5000, // Optional: delay in ms
+    attempts: 3, // Optional: retry attempts
+  },
+);
+```
+
+### Email Sending
+
+Send emails through queue system:
+
+```typescript
+import { sendEmail } from '@/email/email.service';
+
+await sendEmail({
+  to: user.email,
+  subject: 'Welcome',
+  template: 'Welcome',
+  data: { name: user.name },
 });
 ```
+
+### File Storage (S3)
+
+Use storage service from [storage.ts](mdc:src/lib/storage.ts):
+
+```typescript
+import { uploadFile, deleteFile, getFileUrl } from '@/lib/storage';
+
+// Upload file (usually in controller, after file is uploaded)
+const { url, key } = await uploadFile({
+  file: uploadedFile,
+  key: `uploads/${userId}/${filename}`,
+});
+
+// Delete file
+await deleteFile(fileKey);
+
+// Get file URL
+const url = getFileUrl(fileKey);
+```
+
+### Authentication & Tokens
+
+Use auth utilities from the src/utils folder:
+
+```typescript
+import { signToken, verifyToken } from '@/utils/jwt.utils';
+import { hashPassword, compareHash } from '@/utils/password.utils';
+import { generateOtp } from '@/utils/otp.utils';
+
+// Generate JWT
+const token = await signToken({
+  sub: user._id,
+  email: user.email,
+  username: user.username,
+  role: user.role,
+});
+
+// Verify JWT
+const payload = await verifyToken(token);
+
+// Hash password
+const hashed = await hashPassword(plainPassword);
+
+// Compare password
+const isValid = await compareHash(hashedPassword, plainPassword);
+
+// Generate OTP
+const otp = generateOtp({ length: 6, charset: 'numeric' });
+```
+
+### Error Handling
+
+**Services ALWAYS throw errors** - Controllers decide how to handle them.
+
+**Decision Tree:**
+
+1. **Not Found** - Return `null` or throw error (controller handles)
+2. **Validation Errors** - Throw with descriptive message
+3. **Permission Errors** - Throw with status code 403
+4. **Business Logic Errors** - Throw with appropriate status code
+5. **Unexpected Errors** - Let them bubble up (500)
+
+**Pattern Examples:**
+
+```typescript
+// Option 1: Return null for "not found" (RECOMMENDED for simple cases)
+export const findById = async (id: string) => {
+  const item = await Model.findById(id);
+  return item; // Returns null if not found - controller handles
+};
+
+// Option 2: Throw error for "not found" (for complex business logic)
+export const findByIdOrFail = async (id: string) => {
+  const item = await Model.findById(id);
+  if (!item) {
+    const error = new Error('Item not found') as any;
+    error.statusCode = 404;
+    throw error;
+  }
+  return item;
+};
+
+// Permission errors (always throw)
+export const updateItem = async (id: string, data: UpdateData, userId: string) => {
+  const item = await Model.findById(id);
+  
+  if (!item) {
+    return null; // Or throw based on your pattern
+  }
+  
+  // Business rule validation
+  if (item.createdBy?.toString() !== userId) {
+    const error = new Error('Forbidden: You do not own this item') as any;
+    error.statusCode = 403;
+    throw error;
+  }
+  
+  Object.assign(item, data);
+  return await item.save();
+};
+
+// Validation errors
+export const createItem = async (data: CreateData) => {
+  // Business validation
+  const exists = await Model.findOne({ slug: data.slug });
+  if (exists) {
+    const error = new Error('Item with this slug already exists') as any;
+    error.statusCode = 400;
+    throw error;
+  }
+  
+  return await Model.create(data);
+};
+
+// Unexpected errors (let them bubble up - will be 500)
+export const processComplexOperation = async (data: any) => {
+  // Any error here becomes 500 automatically
+  const result = await externalApiCall(data);
+  return result;
+};
+```
+
+**When to use each:**
+
+- **Return `null`**: Simple "not found" cases where controller decides the response
+- **Throw error**: Business logic failures, permission issues, validation errors
+- **Let bubble**: Unexpected errors (database, external API, etc.)
+
+### Logging
+
+Use Pino logger:
+
+```typescript
+import { logger } from '@/plugins/logger';
+
+logger.info('Operation performed', { userId, itemId });
+logger.error('Error occurred', { error: err.message, stack: err.stack });
+logger.warn('Warning', { data });
+logger.debug('Debug info', { data });
+```
+
+## Service Organization
+
+- One service file per module: `module.service.ts`
+- Export individual functions (not a class)
+- Keep functions focused and single-purpose
+- Use TypeScript types from `module.dto.ts`
 
 ## Common Patterns
 
-### String Validation with Required Error
+### Transaction Support (if needed)
 
 ```typescript
-z.string({ required_error: 'Field name is required' }).min(1).max(64);
+import { startSession } from 'mongoose';
+
+const session = await startSession();
+session.startTransaction();
+
+try {
+  await Model1.create([data1], { session });
+  await Model2.create([data2], { session });
+
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
 ```
 
-### Email Validation
+### Caching with Redis
 
 ```typescript
-z.string({ required_error: 'Email is required' }).email({
-  message: 'Email is not valid',
-});
+import { cacheClient } from '@/lib/cache';
+
+// Get from cache
+const cached = await cacheClient.get(`key:${id}`);
+if (cached) {
+  return JSON.parse(cached);
+}
+
+// Set cache
+await cacheClient.set(`key:${id}`, JSON.stringify(data), 'EX', 3600); // 1 hour
+
+// Delete from cache
+await cacheClient.del(`key:${id}`);
 ```
 
-### MongoDB ObjectId Validation
+## Common Mistakes to Avoid
 
-Use validator package, NOT regex:
+❌ DON'T import Express types (Request, Response)
+✅ DO keep services framework-agnostic
 
-```typescript
-z.string({ required_error: 'ID is required' })
-  .min(1)
-  .refine((value) => validator.isMongoId(value), 'ID must be valid');
-```
+❌ DON'T handle HTTP status codes in services (except throwing errors)
+✅ DO let controllers handle HTTP concerns
 
-### Alphanumeric Validation
+❌ DON'T perform heavy operations synchronously
+✅ DO use background jobs for heavy tasks
 
-```typescript
-z.string({ required_error: 'Code is required' })
-  .min(4)
-  .max(4)
-  .refine((value) => validator.isAlphanumeric(value), 'Code must be valid');
-```
-
-### Query Parameters with Transform
-
-```typescript
-export const listItemsQuerySchema = z.object({
-  searchString: z.string().optional(),
-  limitParam: z
-    .string()
-    .default('10')
-    .refine(
-      (value) => !Number.isNaN(Number(value)) && Number(value) >= 0,
-      'Input must be positive integer',
-    )
-    .transform(Number),
-  pageParam: z
-    .string()
-    .default('1')
-    .refine(
-      (value) => !Number.isNaN(Number(value)) && Number(value) >= 0,
-      'Input must be positive integer',
-    )
-    .transform(Number),
-  filterByStatus: z.enum(['active', 'inactive', 'archived']).optional(),
-});
-```
-
-### Enum Validation
-
-```typescript
-// From enum object keys
-z.enum(Object.keys(STATUS_ENUM) as [StatusType]).optional();
-
-// Direct enum values
-z.enum(['pending', 'approved', 'rejected']).optional();
-```
-
-## Schema Composition
-
-### Merging Schemas
-
-```typescript
-// Base schema
-export const baseItemSchema = z.object({
-  name: z.string({ required_error: 'Name is required' }).min(1),
-  description: z.string().optional(),
-});
-
-// Extended schema
-export const createItemSchema = z
-  .object({
-    categoryId: z.string().refine((value) => validator.isMongoId(value)),
-    tags: z.array(z.string()).optional(),
-  })
-  .merge(baseItemSchema)
-  .strict();
-```
-
-### Cross-Field Validation with .refine()
-
-```typescript
-export const createItemWithConfirmationSchema = z
-  .object({
-    price: z.number().positive(),
-    confirmPrice: z.number().positive(),
-    discountPrice: z.number().positive().optional(),
-  })
-  .refine(
-    ({ price, confirmPrice }) => price === confirmPrice,
-    'Price and confirm price must match',
-  )
-  .refine(
-    ({ price, discountPrice }) => !discountPrice || discountPrice < price,
-    'Discount price must be less than original price',
-  );
-```
-
-### Strict Mode
-
-Use `.strict()` to disallow extra properties:
-
-```typescript
-z.object({
-  name: z.string(),
-  email: z.string().email(),
-}).strict();
-```
-
-## Reusable Schema Patterns
-
-### Password Validation Function
-
-Define in `common.schema.ts`:
-
-```typescript
-export const passwordValidationSchema = (fieldName: string) =>
-  z
-    .string({ required_error: `${fieldName} is required` })
-    .min(8)
-    .max(64)
-    .refine(
-      (value) =>
-        validator.isStrongPassword(value, {
-          minLength: 8,
-          minLowercase: 1,
-          minNumbers: 1,
-          minUppercase: 1,
-          minSymbols: 1,
-        }),
-      'Password is too weak',
-    );
-```
-
-### MongoDB ID Schema
-
-```typescript
-export const mongoIdSchema = z.object({
-  id: z.string().refine((value) => validator.isMongoId(value)),
-});
-```
-
-### Response Schemas
-
-```typescript
-export const successResponseSchema = z.object({
-  success: z.boolean().default(true),
-  message: z.string().optional(),
-  data: z.record(z.string(), z.any()).optional(),
-});
-
-export const errorResponseSchema = z.object({
-  message: z.string(),
-  success: z.boolean().default(false),
-  data: z.record(z.string(), z.any()),
-  stack: z.string().optional(),
-});
-```
-
-### Paginator Schema
-
-```typescript
-export const paginatorSchema = z.object({
-  skip: z.number().min(0),
-  limit: z.number().min(1),
-  currentPage: z.number().min(1),
-  pages: z.number().min(0),
-  hasNextPage: z.boolean(),
-  totalRecords: z.number().min(0),
-  pageSize: z.number().min(1),
-});
-
-export const paginatedResponseSchema = z.object({
-  success: z.boolean().default(true),
-  message: z.string().optional(),
-  data: z
-    .object({
-      items: z.array(z.unknown()),
-      paginator: paginatorSchema,
-    })
-    .optional(),
-});
-```
-
-## Custom Validators
-
-Use `.refine()` with custom validation functions:
-
-```typescript
-export const createItemSchema = z.object({
-  slug: z
-    .string({ required_error: 'Slug is required' })
-    .min(1)
-    .refine((value) => isValidSlug(value), 'Slug must be valid'),
-  email: z
-    .string({ required_error: 'Email is required' })
-    .refine((value) => validator.isEmail(value), 'Email must be valid'),
-});
-```
-
-## Response Schemas (IMPORTANT)
-
-**See "Complete Response Schema Workflow" section above** for the full pattern.
-
-Response schemas should be defined in schema files and used in routers:
-
-```typescript
-import { z } from 'zod';
-import { R } from '@/plugins/magic/response.builders';
-import { itemOutSchema } from './item.dto';
-
-// Response schemas (camelCase for schema variables)
-export const createItemResponseSchema = R.success(itemOutSchema);
-export const getItemsResponseSchema = R.paginated(itemOutSchema);
-export const getItemByIdResponseSchema = R.success(itemOutSchema);
-export const updateItemResponseSchema = R.success(itemOutSchema);
-
-// Response types (PascalCase for type names)
-export type CreateItemResponseSchema = z.infer<typeof createItemResponseSchema>;
-export type GetItemsResponseSchema = z.infer<typeof getItemsResponseSchema>;
-export type GetItemByIdResponseSchema = z.infer<typeof getItemByIdResponseSchema>;
-export type UpdateItemResponseSchema = z.infer<typeof updateItemResponseSchema>;
-```
-
-**Available Response Builders:**
-
-- `R.success(schema)` - Standard success envelope: `{ success, message?, data? }`
-- `R.paginated(itemSchema)` - Paginated list: `{ success, message?, data: { items, paginator } }`
-- `R.noContent()` - Empty 204 response (no body)
-- `R.error(schema?)` - Error envelope (optional custom schema)
-- `R.raw(schema)` - Non-envelope response (e.g., healthcheck)
-
-**Naming Convention:**
-- Schema variables: `camelCase` (e.g., `createItemResponseSchema`)
-- Type names: `PascalCase` (e.g., `CreateItemResponseSchema`)
-
-## Type Inference
-
-Export TypeScript types from schemas:
-
-```typescript
-// Request types
-export type CreateItemSchemaType = z.infer<typeof createItemSchema>;
-export type UpdateItemSchemaType = z.infer<typeof updateItemSchema>;
-export type ListItemsQuerySchemaType = z.infer<typeof listItemsQuerySchema>;
-export type ItemParamsSchemaType = z.infer<typeof itemParamsSchema>;
-
-// Response types (NEW)
-export type CreateItemResponseSchema = z.infer<typeof createItemResponseSchema>;
-export type GetItemsResponseSchema = z.infer<typeof getItemsResponseSchema>;
-```
-
-## Key Patterns to Follow
-
-✅ DO use `import { z } from 'zod'` (named import)
-✅ DO import validator from "validator"
-✅ DO use `{ required_error: "message" }` for required fields
-✅ DO use `.min(1)` for required strings
-✅ DO use `.refine()` with validator functions
-✅ DO export schemas directly (not wrapped in objects)
-✅ DO export types using `z.infer<typeof schemaName>`
-✅ DO use `.merge()` to compose schemas
-✅ DO use `.strict()` to disallow extra properties
-✅ DO use `.refine()` for cross-field validation
-✅ DO create reusable schema functions in common.schema.ts
-✅ DO define response schemas using R.success() / R.paginated()
-✅ DO export response types from response schemas
-✅ DO use camelCase for schema variables, PascalCase for type names
-
-❌ DON'T use `import z from 'zod'` or `import * as z from 'zod'`
-❌ DON'T use `.openapi()` method in schema files
-❌ DON'T wrap schemas in request/response objects (that's for routers)
-❌ DON'T use regex for MongoDB IDs (use validator.isMongoId)
-❌ DON'T forget to handle query parameter transforms with .transform(Number)
-❌ DON'T define response schemas inline in routers (define in schema files)
+❌ DON'T forget to log important operations
+✅ DO log creates, updates, deletes, and errors
 
 ---
 > Source: [muneebhashone/typescript-backend-toolkit](https://github.com/muneebhashone/typescript-backend-toolkit) — distributed by [TomeVault](https://tomevault.io).
