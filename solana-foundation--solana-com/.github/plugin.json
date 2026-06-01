@@ -1,0 +1,9 @@
+{
+  "name": "solana-foundation--solana-com",
+  "displayName": "solana-com",
+  "description": "The solana.com website.",
+  "version": "1.0.0",
+  "author": "solana-foundation",
+  "homepage": "https://github.com/solana-foundation/solana-com",
+  "skills": []
+}
