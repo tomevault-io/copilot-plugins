@@ -1,0 +1,9 @@
+{
+  "name": "dundalek--stratify",
+  "displayName": "stratify",
+  "description": "Explore and improve architecture of software, visualize structure and dependencies of codebases, calculate code metrics",
+  "version": "1.0.0",
+  "author": "dundalek",
+  "homepage": "https://github.com/dundalek/stratify",
+  "skills": []
+}
