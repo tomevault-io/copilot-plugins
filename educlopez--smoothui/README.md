@@ -7,11 +7,11 @@ SmoothUI is a collection of beautifully designed components with smooth animatio
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [educlopez/smoothui](https://github.com/educlopez/smoothui).
+Original source: `CLAUDE.md` in [educlopez/smoothui](https://github.com/educlopez/smoothui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
