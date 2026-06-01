@@ -1,0 +1,9 @@
+{
+  "name": "godatadriven--dbt-bouncer",
+  "displayName": "dbt-bouncer",
+  "description": "Configure and enforce conventions for your dbt project.",
+  "version": "1.0.0",
+  "author": "godatadriven",
+  "homepage": "https://github.com/godatadriven/dbt-bouncer",
+  "skills": []
+}
