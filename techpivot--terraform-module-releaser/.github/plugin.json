@@ -1,0 +1,9 @@
+{
+  "name": "techpivot--terraform-module-releaser",
+  "displayName": "terraform-module-releaser",
+  "description": "GitHub Action to automate versioning, releases, and documentation for Terraform modules in monorepos.",
+  "version": "1.0.0",
+  "author": "techpivot",
+  "homepage": "https://github.com/techpivot/terraform-module-releaser",
+  "skills": []
+}
