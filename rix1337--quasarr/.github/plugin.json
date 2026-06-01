@@ -1,0 +1,9 @@
+{
+  "name": "rix1337--quasarr",
+  "displayName": "Quasarr",
+  "description": "Quasarr connects JDownloader with Radarr, Sonarr, Lidarr and Magazarr. It also decrypts links protected by CAPTCHAs.",
+  "version": "1.0.0",
+  "author": "rix1337",
+  "homepage": "https://github.com/rix1337/Quasarr",
+  "skills": []
+}
