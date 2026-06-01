@@ -1,0 +1,9 @@
+{
+  "name": "filipstrand--mflux",
+  "displayName": "mflux",
+  "description": "MLX native implementations of state-of-the-art generative image models",
+  "version": "1.0.0",
+  "author": "filipstrand",
+  "homepage": "https://github.com/filipstrand/mflux",
+  "skills": []
+}
