@@ -1,0 +1,9 @@
+{
+  "name": "openrouterteam--ai-sdk-provider",
+  "displayName": "ai-sdk-provider",
+  "description": "The OpenRouter provider for the Vercel AI SDK contains support for hundreds of models through the OpenRouter chat and completion APIs.",
+  "version": "1.0.0",
+  "author": "OpenRouterTeam",
+  "homepage": "https://github.com/OpenRouterTeam/ai-sdk-provider",
+  "skills": []
+}
