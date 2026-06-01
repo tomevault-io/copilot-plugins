@@ -7,13 +7,13 @@ NekroAgent 是一个面向多人互动场景的跨平台 Agent 框架，集 Clau
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KroMiose/nekro-agent](https://github.com/KroMiose/nekro-agent).
+Original source: `.cursor/rules/*.mdc` in [KroMiose/nekro-agent](https://github.com/KroMiose/nekro-agent).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
