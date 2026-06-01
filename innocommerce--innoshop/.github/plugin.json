@@ -1,0 +1,9 @@
+{
+  "name": "innocommerce--innoshop",
+  "displayName": "innoshop",
+  "description": "InnoShop is an AI-powered open source e-commerce system built on Laravel 12, designed for global commerce. It supports multiple AI models for intelligent automation, with native multi-language and mul",
+  "version": "1.0.0",
+  "author": "innocommerce",
+  "homepage": "https://github.com/innocommerce/innoshop",
+  "skills": []
+}
