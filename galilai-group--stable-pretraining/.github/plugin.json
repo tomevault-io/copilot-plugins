@@ -1,0 +1,9 @@
+{
+  "name": "galilai-group--stable-pretraining",
+  "displayName": "stable-pretraining",
+  "description": "Reliable, minimal and scalable library for pretraining foundation and world models",
+  "version": "1.0.0",
+  "author": "galilai-group",
+  "homepage": "https://github.com/galilai-group/stable-pretraining",
+  "skills": []
+}
