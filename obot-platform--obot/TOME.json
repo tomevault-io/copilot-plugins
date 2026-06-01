@@ -4,7 +4,7 @@
   "repo": "obot",
   "description": "Complete MCP Platform -- Hosting, Registry, Gateway, and Chat Client",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/obot-platform/obot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T11:48:53Z"
+  "distributed_at": "2026-06-01T11:50:33Z"
 }
