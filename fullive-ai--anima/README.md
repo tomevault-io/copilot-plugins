@@ -7,13 +7,13 @@ Make Every Hardware Intelligent — an open-source Agent OS for hardware intelli
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima).
+Original source: `CLAUDE.md` in [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
