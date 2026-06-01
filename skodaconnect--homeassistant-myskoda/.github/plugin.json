@@ -1,0 +1,9 @@
+{
+  "name": "skodaconnect--homeassistant-myskoda",
+  "displayName": "homeassistant-myskoda",
+  "description": "HomeAssistant integration for MySkoda.",
+  "version": "1.0.0",
+  "author": "skodaconnect",
+  "homepage": "https://github.com/skodaconnect/homeassistant-myskoda",
+  "skills": []
+}
