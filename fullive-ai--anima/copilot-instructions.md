@@ -1,25 +1,61 @@
-## self-install-tools-and-mcp-when-necessary
+## test-first-for-bugs-and-regression
 
-> If needed to complete the task, you may install required tools, dependencies, local utilities, skills, or MCP servers yourself.
+> For bug fixes and regression-sensitive work, use tests to reproduce, protect, and verify behavior whenever practical.
 
 
-If needed to complete the task, you may install required tools, dependencies, local utilities, skills, or MCP servers yourself.
+For bug fixes and regression-sensitive work, use tests to reproduce, protect, and verify behavior whenever practical.
 
-Only do this when the installation is clearly necessary for progress, validation, automation, debugging, or repository workflow support.
+## Core rule
 
-Prefer:
-- existing project tools first
-- minimal, well-scoped additions
-- commonly used, maintainable solutions
-- setup that matches the current project and workflow
+Do not just patch the symptom. First understand the failing behavior, then protect against its return.
 
-Do not install unnecessary, redundant, risky, or unrelated tools.
+## Preferred workflow for bug fixes
 
-When installing something new:
-- keep the change intentional and minimal
-- document it if it affects setup, workflow, or contributor experience
-- update relevant config or docs when needed
-- avoid destructive or high-impact system changes unless explicitly requested
+1. identify the failing behavior clearly
+2. locate or create the most targeted test that captures it
+3. confirm the failure when feasible
+4. implement the fix
+5. re-run the test
+6. run adjacent relevant checks to guard against regressions
+
+## Testing principles
+
+- prefer targeted tests over broad blind runs at first
+- add regression coverage for real bugs when practical
+- test the root behavior, not just incidental implementation details
+- include edge cases if they are directly related to the failure
+- keep tests readable and aligned with project conventions
+
+## When adding a new test
+
+Prefer tests that:
+
+- fail before the fix
+- pass after the fix
+- clearly describe the intended behavior
+- are narrow enough to diagnose future regressions quickly
+
+## If a test cannot be added immediately
+
+Then still:
+
+- document the failure mode clearly in your reasoning
+- validate the fix using the strongest available check
+- add a test if the codebase supports it and the scope allows it
+
+## Regression mindset
+
+After fixing a bug, also consider:
+
+- nearby code paths using the same logic
+- boundary conditions
+- serialization or interface effects
+- consumer-facing side effects
+- whether similar bugs could exist in sibling flows
+
+## Completion rule
+
+A bug fix is stronger when it leaves behind proof that the bug will be caught if it returns.
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
