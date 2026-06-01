@@ -7,11 +7,11 @@ Fusio provides file operations on multiple storages across various async runtime
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tonbo-io/fusio](https://github.com/tonbo-io/fusio).
+Original source: `AGENTS.md` in [tonbo-io/fusio](https://github.com/tonbo-io/fusio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
