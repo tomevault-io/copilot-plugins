@@ -1,30 +1,28 @@
-## cursor-rules
+## db-migrations
 
-> cursor rules writing and optimization guide
+> Always use defensive clauses to make migrations idempotent:
 
-当你编写或修改 Cursor Rule 时，请遵循以下准则：
 
-- 当你知道 rule 的文件名时，使用 `read_file` 而不是 `fetch_rules` 去读取它们，它们都在项目根目录的 `.cursor/rules/` 文件夹下
+# Database Migrations Guide
 
-- 代码示例
-  - 示例应尽量精简，仅保留演示核心
-  - 删除与示例无关的导入/导出语句，但保留必要的导入
-  - 同一文件存在多个示例时，若前文已演示模块导入，后续示例可省略重复导入
-  - 无需书写 `export`
-  - 可省略与演示无关或重复的 props、配置对象属性、try/catch、CSS 等代码
-  - 删除无关注释，保留有助理解的注释
+## Defensive Programming - Use Idempotent Clauses
 
-- 格式
-  - 修改前请先确认原始文档语言，并保持一致
-  - 无序列表统一使用 `-`
-  - 列表末尾的句号是多余的
-  - 非必要不使用加粗、行内代码等样式，Rule 主要供 LLM 阅读
-  - 避免中英文逐句对照。若括号内容为示例而非翻译，可保留
+Always use defensive clauses to make migrations idempotent:
 
-- Review
-  - 修正 Markdown 语法问题
-  - 纠正错别字
-  - 指出示例与说明不一致之处
+```sql
+-- ✅ Good: Idempotent operations
+ALTER TABLE "users" ADD COLUMN IF NOT EXISTS "avatar" text;
+DROP TABLE IF EXISTS "old_table";
+CREATE INDEX IF NOT EXISTS "users_email_idx" ON "users" ("email");
+ALTER TABLE "posts" DROP COLUMN IF EXISTS "deprecated_field";
+
+-- ❌ Bad: Non-idempotent operations
+ALTER TABLE "users" ADD COLUMN "avatar" text;
+DROP TABLE "old_table";
+CREATE INDEX "users_email_idx" ON "users" ("email");
+```
+
+**Important**: After modifying migration SQL (e.g., adding `IF NOT EXISTS` clauses), run `bun run db:generate-client` to update the hash in `packages/database/src/core/migrations.json`.
 
 ---
 > Source: [vual/lobe-chat-pro](https://github.com/vual/lobe-chat-pro) — distributed by [TomeVault](https://tomevault.io).
