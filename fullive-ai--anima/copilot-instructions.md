@@ -1,112 +1,33 @@
-## branch-and-commit-workflow
+## anima
 
-> Use a branch-first, commit-early workflow suitable for a maintained open source repository.
+> cp .env.example .env  # fill in ANIMA_LLM_API_KEY
 
+# Anima — Make Every Hardware Intelligent
 
-Use a branch-first, commit-early workflow suitable for a maintained open source repository.
+## Quick Start
+pnpm install
+cp .env.example .env  # fill in ANIMA_LLM_API_KEY
+pnpm dev              # starts MQTT broker + backend (port 8080) + frontend (port 3000) together
 
-## Core rule
+# Or start individually:
+# pnpm dev:broker    — MQTT broker (amqtt)
+# pnpm dev:backend   — Python backend only (uv run python -m core.main)
+# pnpm dev:frontend  — React dashboard only (port 3000)
 
-Before making meaningful code changes, ensure the work is on a dedicated task branch rather than on a protected or shared integration branch.
+## Test
+uv run pytest tests/ -v
 
-Once work starts, preserve progress through small, logical, reviewable commits instead of one large accumulated diff.
+## Architecture
+Thin Core (single asyncio process) + MQTT device layer.
+See docs/plans/2026-03-17-anima-design.md for full design.
 
-## Branch behavior
-
-At the beginning of meaningful work:
-
-1. Check the current branch.
-2. If already on a suitable task branch for the current task, continue there.
-3. If on a protected or shared branch such as `main`, `master`, `develop`, `dev`, or `release`, create and switch to a dedicated task branch before making meaningful edits.
-4. If on a branch unrelated to the current task, create and switch to a new task branch instead of mixing concerns.
-
-## Branch naming
-
-Use short, descriptive, task-focused branch names.
-
-Prefer patterns such as:
-
-- `fix/dashboard-refresh-bug`
-- `fix/mqtt-timeout-handling`
-- `feat/device-status-history`
-- `refactor/adapter-payload-parser`
-- `docs/env-setup-clarification`
-- `test/add-timeout-regression`
-
-Branch names should be:
-
-- lowercase
-- concise
-- descriptive
-- scoped to one task or one closely related set of changes
-
-Avoid vague names such as:
-
-- `temp`
-- `misc`
-- `work`
-- `updates`
-- `new-branch`
-
-## Commit behavior
-
-Commit after each completed, coherent unit of work.
-
-A commit should represent one logical step such as:
-
-- one bug fix
-- one small feature slice
-- one focused refactor
-- one interface update with its direct caller adjustments
-- one docs update tied to a code change
-- one regression test plus the related fix
-
-## Commit quality
-
-Each commit should be:
-
-- small enough to review easily
-- coherent in purpose
-- safe to revert independently
-- tied to a clear intent
-- validated whenever practical
-
-Write concise commit messages that describe the intent clearly.
-
-Prefer:
-
-- `fix dashboard polling after reconnect`
-- `add regression test for adapter timeout`
-- `refactor mqtt payload normalization`
-- `update docs for broker configuration`
-
-Avoid:
-
-- `changes`
-- `fix stuff`
-- `update code`
-- `wip`
-
-## Do not commit yet if
-
-- the code is in an obviously broken intermediate state
-- the change is only half-wired
-- imports, types, or tests are failing because the step is incomplete
-- the commit would include unrelated accidental edits
-
-## Safety rules
-
-- Do not commit secrets, credentials, tokens, or private keys.
-- Do not force-push, rewrite shared history, or delete branches unless explicitly requested.
-- Do not merge into protected branches unless explicitly requested.
-
-## End-state expectation
-
-By the end of the task:
-
-- work should live on a dedicated task branch
-- progress should be preserved in a sequence of small logical commits
-- history should be readable, reviewable, and easy to roll back
+## Key Directories
+- core/          — Core process (brain, events, rules, memory, scheduler, api)
+- adapters/      — Device adapters (miot, virtual)
+- skills/        — AI Skill packages (system: humidifier, air_conditioner, light, air_purifier, speaker, coordinator; custom: user-created)
+- dashboard/     — React + Vite + Tailwind frontend (port 3000)
+- data/          — Runtime data (memory, config) — persisted via Docker volume
+- tests/         — Test suite (pytest + Playwright E2E)
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
