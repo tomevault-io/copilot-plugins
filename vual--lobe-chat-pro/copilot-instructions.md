@@ -1,177 +1,30 @@
-## add-setting-env
+## cursor-rules
 
-> Guide for adding environment variables to configure user settings
+> cursor rules writing and optimization guide
 
+当你编写或修改 Cursor Rule 时，请遵循以下准则：
 
-# Adding Environment Variable for User Settings
+- 当你知道 rule 的文件名时，使用 `read_file` 而不是 `fetch_rules` 去读取它们，它们都在项目根目录的 `.cursor/rules/` 文件夹下
 
-Add server-side environment variables to configure default values for user settings.
+- 代码示例
+  - 示例应尽量精简，仅保留演示核心
+  - 删除与示例无关的导入/导出语句，但保留必要的导入
+  - 同一文件存在多个示例时，若前文已演示模块导入，后续示例可省略重复导入
+  - 无需书写 `export`
+  - 可省略与演示无关或重复的 props、配置对象属性、try/catch、CSS 等代码
+  - 删除无关注释，保留有助理解的注释
 
-**Priority**: User Custom > Server Env Var > Hardcoded Default
+- 格式
+  - 修改前请先确认原始文档语言，并保持一致
+  - 无序列表统一使用 `-`
+  - 列表末尾的句号是多余的
+  - 非必要不使用加粗、行内代码等样式，Rule 主要供 LLM 阅读
+  - 避免中英文逐句对照。若括号内容为示例而非翻译，可保留
 
-## Steps
-
-### 1. Define Environment Variable
-
-Create `src/envs/<domain>.ts`:
-
-```typescript
-import { createEnv } from '@t3-oss/env-nextjs';
-import { z } from 'zod';
-
-export const get<Domain>Config = () => {
-  return createEnv({
-    server: {
-      YOUR_ENV_VAR: z.coerce.number().min(MIN).max(MAX).optional(),
-    },
-    runtimeEnv: {
-      YOUR_ENV_VAR: process.env.YOUR_ENV_VAR,
-    },
-  });
-};
-
-export const <domain>Env = get<Domain>Config();
-```
-
-### 2. Update Type (Optional)
-
-**Skip this step if the domain field already exists in `GlobalServerConfig`.**
-
-Add to `packages/types/src/serverConfig.ts`:
-
-```typescript
-export interface GlobalServerConfig {
-  <domain>?: {
-    <settingName>?: <type>;
-  };
-}
-```
-
-**Prefer reusing existing types** from `packages/types/src/user/settings` with `PartialDeep`:
-
-```typescript
-import { User<Domain>Config } from './user/settings';
-
-export interface GlobalServerConfig {
-  <domain>?: PartialDeep<User<Domain>Config>;
-}
-```
-
-### 3. Assemble Server Config (Optional)
-
-**Skip this step if the domain field already exists in server config.**
-
-In `src/server/globalConfig/index.ts`:
-
-```typescript
-import { <domain>Env } from '@/envs/<domain>';
-import { cleanObject } from '@/utils/object';
-
-export const getServerGlobalConfig = async () => {
-  const config: GlobalServerConfig = {
-    // ...
-    <domain>: cleanObject({
-      <settingName>: <domain>Env.YOUR_ENV_VAR,
-    }),
-  };
-  return config;
-};
-```
-
-If the domain already exists, just add the new field to the existing `cleanObject()`:
-
-```typescript
-<domain>: cleanObject({
-  existingField: <domain>Env.EXISTING_VAR,
-  <settingName>: <domain>Env.YOUR_ENV_VAR, // Add this line
-}),
-```
-
-### 4. Merge to User Store (Optional)
-
-**Skip this step if the domain field already exists in `serverSettings`.**
-
-In `src/store/user/slices/common/action.ts`, add to `serverSettings`:
-
-```typescript
-const serverSettings: PartialDeep<UserSettings> = {
-  defaultAgent: serverConfig.defaultAgent,
-  <domain>: serverConfig.<domain>, // Add this line
-  // ...
-};
-```
-
-### 5. Update .env.example
-
-```bash
-# <Description> (range/options, default: X)
-# YOUR_ENV_VAR=<example>
-```
-
-### 6. Update Documentation
-
-Update both English and Chinese documentation:
-- `docs/self-hosting/environment-variables/basic.mdx`
-- `docs/self-hosting/environment-variables/basic.zh-CN.mdx`
-
-Add new section or subsection with environment variable details (type, description, default, example, range/constraints).
-
-## Type Reuse
-
-**Prefer reusing existing types** from `packages/types/src/user/settings` instead of defining inline types in `serverConfig.ts`.
-
-```typescript
-// ✅ Good - reuse existing type
-import { UserImageConfig } from './user/settings';
-
-export interface GlobalServerConfig {
-  image?: PartialDeep<UserImageConfig>;
-}
-
-// ❌ Bad - inline type definition
-export interface GlobalServerConfig {
-  image?: {
-    defaultImageNum?: number;
-  };
-}
-```
-
-## Example: AI_IMAGE_DEFAULT_IMAGE_NUM
-
-```typescript
-// src/envs/image.ts
-export const getImageConfig = () => {
-  return createEnv({
-    server: {
-      AI_IMAGE_DEFAULT_IMAGE_NUM: z.coerce.number().min(1).max(20).optional(),
-    },
-    runtimeEnv: {
-      AI_IMAGE_DEFAULT_IMAGE_NUM: process.env.AI_IMAGE_DEFAULT_IMAGE_NUM,
-    },
-  });
-};
-
-// packages/types/src/serverConfig.ts
-import { UserImageConfig } from './user/settings';
-
-export interface GlobalServerConfig {
-  image?: PartialDeep<UserImageConfig>;
-}
-
-// src/server/globalConfig/index.ts
-image: cleanObject({
-  defaultImageNum: imageEnv.AI_IMAGE_DEFAULT_IMAGE_NUM,
-}),
-
-// src/store/user/slices/common/action.ts
-const serverSettings: PartialDeep<UserSettings> = {
-  image: serverConfig.image,
-  // ...
-};
-
-// .env.example
-# AI_IMAGE_DEFAULT_IMAGE_NUM=4
-```
+- Review
+  - 修正 Markdown 语法问题
+  - 纠正错别字
+  - 指出示例与说明不一致之处
 
 ---
 > Source: [vual/lobe-chat-pro](https://github.com/vual/lobe-chat-pro) — distributed by [TomeVault](https://tomevault.io).
