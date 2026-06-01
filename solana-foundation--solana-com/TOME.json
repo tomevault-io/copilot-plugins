@@ -4,7 +4,7 @@
   "repo": "solana-com",
   "description": "The solana.com website.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/solana-foundation/solana-com",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T19:39:20Z"
+  "distributed_at": "2026-06-01T20:09:59Z"
 }
