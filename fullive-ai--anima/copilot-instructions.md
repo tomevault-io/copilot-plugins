@@ -1,54 +1,25 @@
-## secrets-and-environment-safety
+## self-install-tools-and-mcp-when-necessary
 
-> Handle secrets, environment variables, and operational configuration with extreme care.
+> If needed to complete the task, you may install required tools, dependencies, local utilities, skills, or MCP servers yourself.
 
 
-Handle secrets, environment variables, and operational configuration with extreme care.
+If needed to complete the task, you may install required tools, dependencies, local utilities, skills, or MCP servers yourself.
 
-## Never do these things
+Only do this when the installation is clearly necessary for progress, validation, automation, debugging, or repository workflow support.
 
-- never reveal secrets, tokens, API keys, passwords, private certificates, or credentials in output
-- never hardcode secrets into source files
-- never copy secret values into examples, tests, or docs
-- never overwrite existing secret files casually
-- never log sensitive values unless explicitly safe and redacted
+Prefer:
+- existing project tools first
+- minimal, well-scoped additions
+- commonly used, maintainable solutions
+- setup that matches the current project and workflow
 
-## Environment safety rules
+Do not install unnecessary, redundant, risky, or unrelated tools.
 
-- treat `.env` and similar files as sensitive
-- prefer `.env.example` or documented placeholders for required configuration
-- when adding a new environment variable, also update the example or docs where appropriate
-- do not assume production values
-- do not silently change operational defaults with risky impact
-
-## Operational safety
-
-Be cautious with changes affecting:
-
-- authentication
-- authorization
-- network endpoints
-- external service credentials
-- deployment settings
-- broker settings
-- database connection settings
-- billing or payment config
-- production runtime behavior
-
-## If a task requires secret-dependent work
-
-- use placeholders when possible
-- explain clearly what external value is required
-- continue all non-blocked work first
-- only pause when the missing secret or permission truly prevents further progress
-
-## Output discipline
-
-When discussing config changes:
-
-- reference variable names, not secret values
-- use sanitized examples
-- preserve user privacy and environment safety
+When installing something new:
+- keep the change intentional and minimal
+- document it if it affects setup, workflow, or contributor experience
+- update relevant config or docs when needed
+- avoid destructive or high-impact system changes unless explicitly requested
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
