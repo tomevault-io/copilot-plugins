@@ -1,224 +1,418 @@
-## environment
+## models
 
-> Environment configuration and secrets management
+> Mongoose model patterns for MongoDB schemas
 
 
-# Environment Configuration
+# Mongoose Model Patterns
 
-## Configuration Files
+## Core Principle
 
-- `.env.sample` - Template with all available variables
-- `.env` - Local development (gitignored)
-- `.env.local` - Local production build (gitignored)
-- `.env.production` - Production environment (gitignored)
-- [src/config/env.ts](mdc:src/config/env.ts) - Type-safe config with Zod validation
+Models define MongoDB schemas using Mongoose. Keep them simple and focused on data structure.
 
-## Configuration Pattern
-
-All environment variables are validated and typed in [env.ts](mdc:src/config/env.ts):
+## Model Template
 
 ```typescript
-import { z } from 'zod';
+import { Schema, model, type Document } from 'mongoose';
 
-const configSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']),
-  PORT: z.string().transform(Number),
-  DATABASE_URL: z.string().url(),
-  JWT_SECRET: z.string().min(32),
-  // ... more config
+// TypeScript interface
+export interface IModel extends Document {
+  name: string;
+  email: string;
+  status: 'active' | 'inactive';
+  metadata?: Record<string, any>;
+  createdBy?: Schema.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Mongoose schema
+const schema = new Schema<IModel>(
+  {
+    name: {
+      type: String,
+      required: [true, 'Name is required'],
+      trim: true,
+      minlength: [2, 'Name must be at least 2 characters'],
+      maxlength: [100, 'Name must not exceed 100 characters'],
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
+      lowercase: true,
+      trim: true,
+      match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email'],
+    },
+    status: {
+      type: String,
+      enum: {
+        values: ['active', 'inactive'],
+        message: 'Status must be either active or inactive',
+      },
+      default: 'active',
+    },
+    metadata: {
+      type: Schema.Types.Mixed,
+      default: {},
+    },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true, // Adds createdAt and updatedAt automatically
+    collection: 'models', // Optional: specify collection name
+  },
+);
+
+// Indexes for query performance
+schema.index({ email: 1 }); // Single field index
+schema.index({ status: 1, createdAt: -1 }); // Compound index
+schema.index({ name: 'text' }); // Text index for search
+
+// Virtual properties
+schema.virtual('displayName').get(function () {
+  return `${this.name} (${this.email})`;
 });
 
-export type Config = z.infer<typeof configSchema>;
+// Instance methods
+schema.methods.isActive = function () {
+  return this.status === 'active';
+};
 
-export const config: Config = configSchema.parse({
-  NODE_ENV: process.env.NODE_ENV || 'development',
-  PORT: process.env.PORT || '3000',
-  DATABASE_URL: process.env.DATABASE_URL,
-  JWT_SECRET: process.env.JWT_SECRET,
-  // ... more config
+schema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.__v; // Remove version key
+  return obj;
+};
+
+// Static methods
+schema.statics.findActive = function () {
+  return this.find({ status: 'active' });
+};
+
+schema.statics.findByEmail = function (email: string) {
+  return this.findOne({ email: email.toLowerCase() });
+};
+
+// Pre-save hook
+schema.pre('save', async function (next) {
+  // Example: Normalize email
+  if (this.isModified('email')) {
+    this.email = this.email.toLowerCase().trim();
+  }
+  next();
+});
+
+// Post-save hook
+schema.post('save', function (doc) {
+  // Example: Log creation
+  console.log('Document saved:', doc._id);
+});
+
+// Pre-remove hook
+schema.pre('remove', async function (next) {
+  // Example: Clean up related data
+  await RelatedModel.deleteMany({ modelId: this._id });
+  next();
+});
+
+// Create and export model
+export const Model = model<IModel>('Model', schema);
+```
+
+## Common Field Types
+
+### Basic Types
+
+```typescript
+{
+  stringField: { type: String },
+  numberField: { type: Number },
+  booleanField: { type: Boolean },
+  dateField: { type: Date },
+  bufferField: { type: Buffer },
+  mixedField: { type: Schema.Types.Mixed },
+}
+```
+
+### References
+
+```typescript
+{
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User", // Reference to User model
+    required: true,
+  },
+}
+```
+
+### Arrays
+
+```typescript
+{
+  tags: [String], // Array of strings
+  items: [{ // Array of subdocuments
+    name: String,
+    quantity: Number,
+  }],
+  userIds: [{
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  }],
+}
+```
+
+### Enums
+
+```typescript
+{
+  status: {
+    type: String,
+    enum: {
+      values: ["pending", "active", "inactive"],
+      message: "Invalid status value",
+    },
+    default: "pending",
+  },
+}
+```
+
+### Nested Objects
+
+```typescript
+{
+  address: {
+    street: String,
+    city: String,
+    country: String,
+    zipCode: String,
+  },
+}
+```
+
+## Field Options
+
+### Common Options
+
+```typescript
+{
+  field: {
+    type: String,
+    required: [true, "Error message"], // or just true
+    unique: true, // Creates unique index
+    index: true, // Creates index
+    default: "value", // or function: () => Date.now()
+    lowercase: true, // Auto-lowercase (String only)
+    uppercase: true, // Auto-uppercase (String only)
+    trim: true, // Remove whitespace (String only)
+    minlength: 5, // Min length (String only)
+    maxlength: 100, // Max length (String only)
+    min: 0, // Min value (Number/Date only)
+    max: 100, // Max value (Number/Date only)
+    match: /regex/, // Regex validation (String only)
+    validate: { // Custom validator
+      validator: (v) => v > 0,
+      message: "Must be positive",
+    },
+  },
+}
+```
+
+## Indexes
+
+Add indexes for frequently queried fields:
+
+```typescript
+// Single field index
+schema.index({ email: 1 }); // 1 = ascending, -1 = descending
+
+// Compound index
+schema.index({ status: 1, createdAt: -1 });
+
+// Text index for search
+schema.index({ name: 'text', description: 'text' });
+
+// Unique compound index
+schema.index({ userId: 1, itemId: 1 }, { unique: true });
+
+// Sparse index (only for documents with the field)
+schema.index({ optionalField: 1 }, { sparse: true });
+
+// TTL index (auto-delete after time)
+schema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+```
+
+## Hooks (Middleware)
+
+### Pre hooks
+
+```typescript
+// Before save
+schema.pre('save', async function (next) {
+  // this = document being saved
+  if (this.isModified('password')) {
+    // Hash password
+  }
+  next();
+});
+
+// Before remove
+schema.pre('remove', async function (next) {
+  // Clean up related data
+  next();
+});
+
+// Before findOneAndUpdate
+schema.pre('findOneAndUpdate', function (next) {
+  // this = query object
+  this.set({ updatedAt: new Date() });
+  next();
 });
 ```
 
-## Time Duration Format
-
-All time-based config values use milliseconds internally:
+### Post hooks
 
 ```typescript
-// In .env
-JWT_EXPIRES_IN=7d
-OTP_EXPIRES_IN=10m
+// After save
+schema.post('save', function (doc) {
+  // Log or trigger events
+});
 
-// In env.ts - convert to milliseconds
-import ms from "ms";
-
-JWT_EXPIRES_IN: z.string().transform((val) => ms(val)),
-// Converts "7d" → 604800000ms
-```
-
-## Required Environment Variables
-
-### Core
-
-```bash
-NODE_ENV=development
-PORT=3000
-```
-
-### Database
-
-```bash
-DATABASE_URL=mongodb://localhost:27017/your-db
-```
-
-### Authentication
-
-```bash
-JWT_SECRET=your-super-secret-key-at-least-32-characters
-JWT_EXPIRES_IN=7d
-OTP_EXPIRES_IN=10m
-OTP_SECRET=your-otp-secret-key
-```
-
-### Redis
-
-```bash
-REDIS_HOST=localhost
-REDIS_PORT=6379
-REDIS_PASSWORD=
-```
-
-### AWS S3 (File Uploads)
-
-```bash
-AWS_REGION=us-east-1
-AWS_ACCESS_KEY_ID=your-access-key
-AWS_SECRET_ACCESS_KEY=your-secret-key
-AWS_S3_BUCKET=your-bucket-name
-```
-
-### Email (Mailgun)
-
-```bash
-MAILGUN_API_KEY=your-mailgun-api-key
-MAILGUN_DOMAIN=your-domain.com
-MAILGUN_FROM=noreply@your-domain.com
-```
-
-### OAuth (Google)
-
-```bash
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-GOOGLE_CALLBACK_URL=http://localhost:3000/api/auth/google/callback
-```
-
-### Session
-
-```bash
-SESSION_SECRET=your-session-secret-key
-```
-
-### Frontend URL
-
-```bash
-FRONTEND_URL=http://localhost:5173
-```
-
-## Adding New Config Variables
-
-### Step 1: Add to `.env.sample`
-
-```bash
-# New Feature Config
-NEW_API_KEY=your-api-key
-NEW_API_TIMEOUT=30s
-```
-
-### Step 2: Add to config schema
-
-```typescript
-// In src/config/env.ts
-const configSchema = z.object({
-  // ... existing config
-  NEW_API_KEY: z.string().min(1),
-  NEW_API_TIMEOUT: z.string().transform((val) => ms(val)),
+// After find
+schema.post('find', function (docs) {
+  // Process results
 });
 ```
 
-### Step 3: Parse from environment
+## Virtual Properties
 
 ```typescript
-export const config: Config = configSchema.parse({
-  // ... existing config
-  NEW_API_KEY: process.env.NEW_API_KEY,
-  NEW_API_TIMEOUT: process.env.NEW_API_TIMEOUT || '30s',
+// Getter
+schema.virtual('fullName').get(function () {
+  return `${this.firstName} ${this.lastName}`;
+});
+
+// Setter
+schema.virtual('fullName').set(function (value: string) {
+  const [firstName, lastName] = value.split(' ');
+  this.firstName = firstName;
+  this.lastName = lastName;
+});
+
+// Include virtuals in JSON
+schema.set('toJSON', { virtuals: true });
+schema.set('toObject', { virtuals: true });
+
+// Virtual populate
+schema.virtual('posts', {
+  ref: 'Post',
+  localField: '_id',
+  foreignField: 'userId',
 });
 ```
 
-### Step 4: Use in code
+## Methods
+
+### Instance Methods
 
 ```typescript
-import config from '@/config/env';
+schema.methods.methodName = function () {
+  // this = document instance
+  return this.field;
+};
 
-const apiKey = config.NEW_API_KEY;
-const timeout = config.NEW_API_TIMEOUT; // In milliseconds
+// Usage: const result = await document.methodName();
 ```
 
-## Best Practices
+### Static Methods
 
-### Security
+```typescript
+schema.statics.methodName = function () {
+  // this = model
+  return this.find({ ... });
+};
 
-- NEVER commit actual `.env` files to git
-- Keep secrets in environment variables, not hardcoded
-- Use different secrets for development and production
-- Rotate secrets regularly
+// Usage: const result = await Model.methodName();
+```
 
-### Validation
+### Query Helpers
 
-- Always validate with Zod in env.ts
-- Fail fast if required config is missing
-- Provide sensible defaults where appropriate
-- Use type inference for type safety
+```typescript
+schema.query.byStatus = function (status: string) {
+  return this.where({ status });
+};
 
-### Documentation
+// Usage: await Model.find().byStatus("active");
+```
 
-- Document all variables in `.env.sample`
-- Add comments explaining what each variable does
-- Provide example values
-- Indicate which variables are required vs optional
+## Common Patterns
 
-### Time Values
+### Soft Delete
 
-- Always use human-readable format in .env (e.g., "7d", "10m", "30s")
-- Convert to milliseconds in env.ts using `ms` package
-- Never use raw milliseconds in .env files
+```typescript
+{
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+  deletedAt: Date,
+}
 
-## Docker Setup
+schema.pre(/^find/, function (next) {
+  this.where({ isDeleted: { $ne: true } });
+  next();
+});
+```
 
-For local development with Docker:
+### Timestamps
 
-```bash
-# Start services
-docker compose up -d
+```typescript
+// Option 1: Automatic (recommended)
+{ timestamps: true } // in schema options
 
-# Services included:
-# - MongoDB (port 27017)
-# - Redis (port 6379)
+// Option 2: Manual
+{
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+}
+
+schema.pre("save", function (next) {
+  this.updatedAt = new Date();
+  next();
+});
+```
+
+### User Reference
+
+```typescript
+{
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  updatedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+}
 ```
 
 ## Common Mistakes to Avoid
 
-❌ DON'T access `process.env` directly in code
-✅ DO import from `env.ts`
+❌ DON'T use arrow functions in methods/hooks (breaks `this`)
+✅ DO use regular functions
 
-❌ DON'T use hardcoded values
-✅ DO use environment variables
+❌ DON'T forget to create indexes for queried fields
+✅ DO add indexes for performance
 
-❌ DON'T forget to validate new config variables
-✅ DO add Zod validation in env.ts
+❌ DON'T validate in models AND Zod schemas (duplication)
+✅ DO use Zod for API validation, Mongoose for data integrity
 
-❌ DON'T commit `.env` files
-✅ DO commit `.env.sample` as template
+❌ DON'T put business logic in models
+✅ DO keep models simple, logic in services
 
 ---
 > Source: [muneebhashone/typescript-backend-toolkit](https://github.com/muneebhashone/typescript-backend-toolkit) — distributed by [TomeVault](https://tomevault.io).
