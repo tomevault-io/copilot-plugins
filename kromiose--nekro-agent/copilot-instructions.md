@@ -1,69 +1,48 @@
-## frontend-url-navigation
+## global
 
-> 前端 URL 与页面跳转统一规范
+> 项目通用规范与背景
 
-# URL 语义分层
+# 项目背景（简要）
 
-- `path` 负责表达“当前资源是谁”和“当前主视图在哪”
-- `query` 负责表达“当前筛选/搜索/排序/分页等可恢复状态”
-- `navigation state` 只用于一次性来源信息或不可分享的临时意图
+- Nekro Agent 是面向多平台的 Agent 系统，前后端一体，核心 API 使用标准 HTTP 状态码与统一错误结构
+- 认证系统当前仅支持 `admin` 登录（用户表历史遗留，普通用户登录功能暂停使用）
+- 日志系统支持子系统过滤（`subsystem`），方便按模块观测
+- 数据库迁移已切换到 Aerich，废弃自动 `generate_schemas` 与重置命令
 
-# 统一规则
+# 开发规范
 
-## 1. 资源标识必须进入 path
+- 先主动审查所有依赖与相关文件，再规划实现方案
+- 禁止假定、猜测任何实现
+- 除非用户要求否则保持最小化修改
+- 对参考信息有困惑时主动提问
+- 永远保持项目工程化、整洁性、可维护性，合理拆分功能模块
+- 执行严格地类型注解开发！慎用类型断言！
+- 尽可能使用主流的成熟的框架和组件开发，非必要不要自己造轮子
+- 始终处理因为修改产生的衍生 Linter 警告/错误，非必要禁止忽略它们！！！
+- 修改完成后，审查一遍所有依赖的逻辑是否存在且正确，是否存在未处理的 Linter 警告/错误！
+- 永远以严谨负责的态度完成任务，认真思考任务要求，处理好所有细节！以最高标准要求自己的代码！
 
-- 工作区详情使用 `/workspace/:workspaceId/...`
-- 适配器详情使用 `/adapters/:adapterKey/...`
-- 插件管理详情使用 `/plugins/management/:pluginId`
-- 聊天频道详情后续统一收敛到 `/chat-channel/:chatKey`
+# 文档
 
-## 2. 页面主视图必须进入稳定 path
+> 按需阅读文档，如有变化及时更新文档内容
 
-- 主 tab、主子页、主详情区都属于“主视图”
-- 主视图禁止通过 `?tab=...` 这类 query 进入后再删除
-- 主视图状态必须支持刷新恢复、分享链接、浏览器前进后退
+- 后端开发文档: [backend-rules.mdc](mdc:.cursor/rules/backend-rules.mdc)
+- 前端开发文档: [frontend-rules.mdc](mdc:.cursor/rules/frontend-rules.mdc)
+- 全局 SSE 状态推送: [sse-system-events.mdc](mdc:.cursor/rules/sse-system-events.mdc)
 
-示例：
+# 开发指南
 
-- 正确：`/workspace/12/comm`
-- 错误：`/workspace/12?tab=comm` 并在进入后清除
+## 功能/页面开发完整流程
 
-## 3. 列表和筛选状态必须进入 query
+1. 在 `frontend/src/pages` 下查找合适的页面或新建页面开始
+2. 在 `nekro_agent/routers` 下查找已存在的路由或者新建路由，遵循统一的 `AppError` 与标准响应结构
+3. 在 `frontend/src/services/api` 下准备合适的 API 路由实现
+4. 在 [index.tsx](mdc:frontend/src/router/index.tsx) 和 [MainLayout.tsx](mdc:frontend/src/layouts/MainLayout.tsx) 中注册路由和页面
+5. 检查所有修改中的 linter 警告或者错误并修复，直到没有错误！
+6. 开发过程中需要适当解释改动
+7. 永远保持项目工程化合理化，严禁为了一时方便随意乱放代码！
 
-- 搜索词：`search`
-- 页码：`page`
-- 每页条数：`pageSize`
-- 排序：`sort` / `order`
-- 业务筛选项使用稳定、可读、可枚举的 query key
-
-规则：
-
-- query 只存放“刷新后应该保留”的状态
-- 空值不要写入 URL
-- 非法值在解析后回退到默认值
-
-## 4. 只允许极少数一次性意图使用 navigation state
-
-- 例如：打开弹窗、滚动到某段、仅用于本次跳转的来源说明
-- 这类信息不应污染 URL
-- 如果状态需要可分享或可恢复，就不能使用 navigation state
-
-## 5. 一个功能只保留一个 canonical URL
-
-- 历史路径可以保留 redirect，但不能继续并行作为正式入口
-- 菜单、按钮、跨页跳转、文档链接、鉴权回跳都必须使用 canonical URL
-
-# 实施要求
-
-- 禁止在业务代码中散落硬编码路径拼接，优先复用集中路由辅助函数
-- 新页面设计时先判断：资源是谁、主视图是什么、筛选状态有哪些，再决定 path/query 分配
-- 页面如果已经支持 URL 状态，禁止“读入后立刻清空参数”，除非它真的是一次性 transient intent
-
-# 当前项目重点约定
-
-- 工作区 tab 使用 `/workspace/:workspaceId/:tab`
-- 插件管理按方案 A 使用 `/plugins/management/:pluginId`
-- 登录失效后跳转登录页必须带 `redirect` 参数，登录成功后自动跳回
+上述过程中，如有疑问可参考同级目录下的其他文件实现，不要重复造轮子
 
 ---
 > Source: [KroMiose/nekro-agent](https://github.com/KroMiose/nekro-agent) — distributed by [TomeVault](https://tomevault.io).
