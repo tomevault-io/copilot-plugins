@@ -1,0 +1,9 @@
+{
+  "name": "okwilkins--h8s",
+  "displayName": "h8s",
+  "description": "Homernetes is a Talos OS based K8s cluster for my homelab.",
+  "version": "1.0.0",
+  "author": "okwilkins",
+  "homepage": "https://github.com/okwilkins/h8s",
+  "skills": []
+}
