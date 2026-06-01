@@ -1,40 +1,61 @@
-## project-overview
+## styling-css-patterns
 
-> 这是一个基于 uniapp + Vue3 + TypeScript + Vite5 + UnoCSS 的跨平台开发框架。
+> - 项目使用 UnoCSS 作为原子化 CSS 框架
 
-# unibest 项目概览
+# 样式和 CSS 开发规范
 
-这是一个基于 uniapp + Vue3 + TypeScript + Vite5 + UnoCSS 的跨平台开发框架。
+## UnoCSS 原子化 CSS
+- 项目使用 UnoCSS 作为原子化 CSS 框架
+- 配置在 [uno.config.ts](mdc:uno.config.ts)
+- 支持预设和自定义规则
+- 优先使用原子化类名，减少自定义 CSS
 
-## 项目特点
-- 支持 H5、小程序、APP 多平台开发
-- 使用最新的前端技术栈
-- 内置约定式路由、layout布局、请求封装、登录拦截、自定义tabbar等功能
-- 无需依赖 HBuilderX，支持命令行开发
+## SCSS 规范
+- 使用 SCSS 预处理器
+- 样式文件使用 `lang="scss"` 和 `scoped` 属性
+- 遵循 BEM 命名规范
+- 使用变量和混入提高复用性
 
-## 核心配置文件
-- [package.json](mdc:package.json) - 项目依赖和脚本配置
-- [vite.config.ts](mdc:vite.config.ts) - Vite 构建配置
-- [pages.config.ts](mdc:pages.config.ts) - 页面路由配置
-- [manifest.config.ts](mdc:manifest.config.ts) - 应用清单配置
-- [uno.config.ts](mdc:uno.config.ts) - UnoCSS 配置
+## 样式组织
+- 全局样式在 [src/style/](mdc:src/style/) 目录下
+- 组件样式使用 scoped 作用域
+- 图标字体在 [src/style/iconfont.css](mdc:src/style/iconfont.css)
+- 主题变量在 [src/uni_modules/uni-scss/](mdc:src/uni_modules/uni-scss/) 目录下
 
-## 主要目录结构
-- `src/pages/` - 页面文件
-- `src/components/` - 组件文件
-- `src/layouts/` - 布局文件
-- `src/api/` - API 接口
-- `src/http/` - HTTP 请求封装
-- `src/store/` - 状态管理
-- `src/tabbar/` - 底部导航栏
-- `src/App.ku.vue` - 全局根组件（类似 App.vue 里面的 template作用）
+## 示例代码结构
+```vue
+<template>
+  <view class="container flex flex-col items-center p-4">
+    <text class="title text-lg font-bold mb-2">标题</text>
+    <view class="content bg-gray-100 rounded-lg p-3">
+      <!-- 内容 -->
+    </view>
+  </view>
+</template>
 
-## 开发命令
-- `pnpm dev` - 开发 H5 版本
-- `pnpm dev:mp` - 开发微信小程序
-- `pnpm dev:mp-alipay` - 开发支付宝小程序（含钉钉）
-- `pnpm dev:app` - 开发 APP 版本
-- `pnpm build` - 构建生产版本
+<style lang="scss" scoped>
+.container {
+  min-height: 100vh;
+  
+  .title {
+    color: var(--primary-color);
+  }
+  
+  .content {
+    width: 100%;
+    max-width: 600rpx;
+  }
+}
+</style>
+
+## 响应式设计
+- 使用 rpx 单位适配不同屏幕
+- 支持横屏和竖屏布局
+- 使用 flexbox 和 grid 布局
+- 考虑不同平台的样式差异
+---
+globs: *.vue,*.scss,*.css
+---
 
 ---
 > Source: [feige996/unibest](https://github.com/feige996/unibest) — distributed by [TomeVault](https://tomevault.io).
