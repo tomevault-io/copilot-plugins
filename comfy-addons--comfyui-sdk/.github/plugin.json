@@ -1,0 +1,9 @@
+{
+  "name": "comfy-addons--comfyui-sdk",
+  "displayName": "comfyui-sdk",
+  "description": "SDK for ComfyUI",
+  "version": "1.0.0",
+  "author": "comfy-addons",
+  "homepage": "https://github.com/comfy-addons/comfyui-sdk",
+  "skills": []
+}
