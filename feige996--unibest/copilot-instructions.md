@@ -1,69 +1,59 @@
-## uni-app-patterns
+## vue-typescript-patterns
 
-> - 页面文件放在 [src/pages/](mdc:src/pages/) 目录下
+> - 使用 Composition API 和 `<script setup>` 语法
 
-# uni-app 开发规范
+# Vue3 + TypeScript 开发规范
 
-## 页面开发
-- 页面文件放在 [src/pages/](mdc:src/pages/) 目录下
-- 使用约定式路由，文件名即路由路径
-- 页面配置在仅需要在 宏`definePage` 中配置标题等内容即可，会自动生成到 `pages.json` 中
-- definePage的顺序在最上面
+## Vue 组件规范
+- 使用 Composition API 和 `<script setup>` 语法
+- 组件文件使用 PascalCase 命名
+- 页面文件放在 `src/pages/` 目录下
+- 全局组件文件放在 `src/components/` 目录下
+- 局部组件文件放在页面的 `/components/` 目录下
 
-## 组件开发
-- 组件文件放在 [src/components/](mdc:src/components/) 或者 [src/pages/xx/components/](mdc:src/pages/xx/components/) 目录下
-- 使用 uni-app 内置组件和第三方组件库
-- 支持 wot-ui\uview-pro\uv-ui\sard-ui\uview-plus 等多种第三方组件库 和 z-paging 组件
-- 自定义组件遵循 uni-app 组件规范
+## Vue SFC 组件规范
+- `<script setup lang="ts">` 标签必须是第一个子元素
+- `<template>` 标签必须是第二个子元素
+- `<style scoped>` 标签必须是最后一个子元素（因为推荐使用原子化类名，所以很可能没有）
 
-## 平台适配
-- 使用条件编译处理平台差异
-- 支持 H5、小程序、APP 多平台
-- 注意各平台的 API 差异
-- 使用 uni.xxx API 替代原生 API
+## TypeScript 规范
+- 严格使用 TypeScript，避免使用 `any` 类型
+- 为 API 响应数据定义接口类型
+- 使用 `interface` 定义对象类型，`type` 定义联合类型
+- 导入类型时使用 `import type` 语法
+
+## 状态管理
+- 使用 Pinia 进行状态管理
+- Store 文件放在 `src/store/` 目录下
+- 使用 `defineStore` 定义 store
+- 支持持久化存储
 
 ## 示例代码结构
 ```vue
 <script setup lang="ts">
-// #ifdef H5
-import { h5Api } from '@/utils/h5'
-// #endif
+import { ref, onMounted } from 'vue'
+import type { UserInfo } from '@/types/user'
 
-// #ifdef MP-WEIXIN
-import { mpApi } from '@/utils/mp'
-// #endif
+const userInfo = ref<UserInfo | null>(null)
 
-const handleClick = () => {
-  // #ifdef H5
-  h5Api.showToast('H5 平台')
-  // #endif
-  
-  // #ifdef MP-WEIXIN
-  mpApi.showToast('微信小程序')
-  // #endif
-}
+onMounted(() => {
+  // 初始化逻辑
+})
 </script>
 
 <template>
-  <view class="page">
-    <!-- uni-app 组件 -->
-    <button @click="handleClick">点击</button>
-    
-    <!-- 条件渲染 -->
-    <!-- #ifdef H5 -->
-    <view>H5 特有内容</view>
-    <!-- #endif -->
+  <view class="container">
+    <!-- 模板内容 -->
   </view>
 </template>
-```
 
-## 生命周期
-- 使用 uni-app 页面生命周期
-- onLoad、onShow、onReady、onHide、onUnload
-- 组件生命周期遵循 Vue3 规范
-- 注意页面栈和导航管理
+<style lang="scss" scoped>
+.container {
+  // 样式
+}
+</style>
 ---
-globs: src/pages/*.vue,src/components/*.vue
+globs: *.vue,*.ts,*.tsx
 ---
 
 ---
