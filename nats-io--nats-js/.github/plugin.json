@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--nats-js",
+  "displayName": "nats.js",
+  "description": "JavaScript client for Node.js, Bun, Deno and browser for NATS, the cloud native messaging system",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/nats.js",
+  "skills": []
+}
