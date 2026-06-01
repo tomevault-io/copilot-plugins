@@ -1,0 +1,9 @@
+{
+  "name": "quantscious--finmlkit",
+  "displayName": "finmlkit",
+  "description": "An open-source, lightweight, and blazing-fast financial machine learning library built with Numba. Process raw trades, generate advanced bars, features, and labels for quantitative research.",
+  "version": "1.0.0",
+  "author": "quantscious",
+  "homepage": "https://github.com/quantscious/finmlkit",
+  "skills": []
+}
