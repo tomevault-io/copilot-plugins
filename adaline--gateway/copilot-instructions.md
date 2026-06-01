@@ -1,13 +1,13 @@
-## main
+## gateway
 
-> This is a TypeScript-based AI gateway service that provides unified interfaces for multiple AI providers (OpenAI, Anthropic, Google, etc.) with features like caching, queuing, analytics, and telemetry.
+> The gateway core module is the central orchestrator that handles AI provider requests, manages caching, queuing, and provides unified interfaces for chat completion, embeddings, and tool responses.
 
 
-# Adaline Gateway Repository - Main Rules
+# Gateway Core Module - Complete Rules & Implementation Guide
 
-## Repository Overview
+## Module Overview
 
-This is a TypeScript-based AI gateway service that provides unified interfaces for multiple AI providers (OpenAI, Anthropic, Google, etc.) with features like caching, queuing, analytics, and telemetry.
+The gateway core module is the central orchestrator that handles AI provider requests, manages caching, queuing, and provides unified interfaces for chat completion, embeddings, and tool responses.
 
 ## Core Architecture Principles
 
@@ -47,14 +47,6 @@ function processData(data: unknown): UserConfigType {
 }
 ```
 
-#### Implementation Steps
-
-1. **Install Zod**: `npm install zod`
-2. **Define Schema**: Create Zod schema with proper constraints
-3. **Infer Type**: Use `z.infer<typeof SchemaName>` for TypeScript types
-4. **Export Both**: Export schema for runtime validation, type for compile-time checking
-5. **Validate Input**: Use `schema.parse()` or `schema.safeParse()` for validation
-
 ### 2. Error Handling
 
 #### Rules
@@ -91,14 +83,6 @@ try {
   throw error;
 }
 ```
-
-#### Implementation Steps
-
-1. **Extend Base Error**: Create custom error class extending `GatewayError`
-2. **Include Context**: Add relevant properties for debugging
-3. **Meaningful Messages**: Provide clear, actionable error messages
-4. **Error Wrapping**: Wrap external errors with custom context
-5. **Proper Logging**: Log errors with full context before re-throwing
 
 ### 3. Logging & Telemetry
 
@@ -142,14 +126,6 @@ logger?.debug("Cache operation", {
   ttl: cachedResponse?.ttl,
 });
 ```
-
-#### Implementation Steps
-
-1. **Get Logger**: Use `LoggerManager.getLogger()` to get logger instance
-2. **Choose Level**: Use appropriate log level (debug, info, warn, error)
-3. **Add Context**: Include relevant metadata in log messages
-4. **Structured Format**: Use objects for structured logging
-5. **Performance**: Use optional chaining to avoid null checks
 
 ### 4. Testing Standards
 
@@ -219,30 +195,615 @@ describe("Gateway.completeChat", () => {
 });
 ```
 
-#### Implementation Steps
+## Gateway Class Rules
 
-1. **Setup Test Environment**: Use `beforeEach` for test setup
-2. **Mock Dependencies**: Mock external services and dependencies
-3. **Arrange-Act-Assert**: Follow AAA pattern for test structure
-4. **Test Scenarios**: Cover success, error, and edge cases
-5. **Descriptive Names**: Use clear, descriptive test names
-6. **Proper Assertions**: Use appropriate assertion methods
+### 1. Constructor & Initialization
 
-### 5. Code Organization
+- **ALWAYS** validate options using Zod schemas in constructor
+- **ALWAYS** check for browser environment unless explicitly allowed
+- **ALWAYS** initialize all plugins (logger, telemetry, analytics) before use
+- **ALWAYS** set up queues and caches with proper configuration
+- **ALWAYS** handle initialization errors gracefully
 
-#### Rules
+### 2. Request Handling
+
+- **ALWAYS** use the appropriate handler for each request type
+- **ALWAYS** validate requests before processing
+- **ALWAYS** include proper telemetry context
+- **ALWAYS** handle timeouts and retries appropriately
+- **ALWAYS** log request/response details at debug level
+
+### 3. Error Handling
+
+- **ALWAYS** catch and wrap provider errors in `GatewayError`
+- **ALWAYS** provide meaningful error context
+- **ALWAYS** log errors with full stack traces
+- **ALWAYS** return consistent error responses
+
+## Handler Rules
+
+### 1. Handler Structure
+
+- **ALWAYS** create separate handler files for each operation type
+- **ALWAYS** use the pattern: `{operation-name}.handler.ts`
+- **ALWAYS** export handler types from `{operation-name}.types.ts`
+- **ALWAYS** implement proper input validation using Zod schemas
+
+### 2. Handler Implementation
+
+- **ALWAYS** accept `HttpClient` and optional telemetry context
+- **ALWAYS** implement proper error handling with try-catch blocks
+- **ALWAYS** use the centralized logger for all logging
+- **ALWAYS** include proper telemetry spans and attributes
+- **ALWAYS** handle callbacks safely using `safelyInvokeCallbacks`
+
+### 3. Caching Strategy
+
+- **ALWAYS** check cache before making provider requests
+- **ALWAYS** use consistent cache key generation
+- **ALWAYS** set cache TTL appropriately for different response types
+- **ALWAYS** handle cache misses gracefully
+
+### 4. Provider Integration
+
+- **ALWAYS** use the model's methods for URL, headers, and data generation
+- **ALWAYS** transform provider responses using the model's transform methods
+- **ALWAYS** include source headers for non-browser environments
+- **ALWAYS** handle custom headers properly
+
+## Quick Start Guide
+
+### 1. Creating a New Handler
+
+#### Step-by-Step Instructions
+
+```typescript
+// 1. Create the handler directory structure
+// core/gateway/src/handlers/new-operation/
+// ├── new-operation.handler.ts
+// ├── new-operation.types.ts
+// └── index.ts
+
+// 2. Define types first (new-operation.types.ts)
+
+// 3. Implement the handler (new-operation.handler.ts)
+import { Context, Span, SpanStatusCode } from "@opentelemetry/api";
+import { z } from "zod";
+
+import { MessageType } from "@adaline/types";
+
+import { HttpClient, LoggerManager, TelemetryManager } from "../../plugins";
+import { NewOperationRequestType, NewOperationResponseType } from "./new-operation.types";
+
+export const NewOperationRequest = z.object({
+  messages: z.array(MessageType),
+  model: z.string(),
+  options: z
+    .object({
+      temperature: z.number().min(0).max(2).default(1.0),
+    })
+    .optional(),
+});
+
+export type NewOperationRequestType = z.infer<typeof NewOperationRequest>;
+
+export interface NewOperationResponse {
+  result: string;
+  metadata: Record<string, unknown>;
+}
+
+export type NewOperationResponseType = NewOperationResponse;
+
+export async function handleNewOperation(
+  request: NewOperationRequestType,
+  client: HttpClient,
+  telemetryContext?: Context
+): Promise<NewOperationResponseType> {
+  const logger = LoggerManager.getLogger();
+  const tracer = TelemetryManager.getTracer();
+
+  return tracer.startActiveSpan("handleNewOperation", async (span) => {
+    try {
+      logger?.debug("handleNewOperation invoked", { request });
+
+      // Validate request
+      const data = NewOperationRequest.parse(request);
+
+      // Your implementation logic here
+      const result = await processOperation(data);
+
+      span.setStatus({ code: SpanStatusCode.OK });
+      return result;
+    } catch (error) {
+      span.setStatus({
+        code: SpanStatusCode.ERROR,
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+      throw error;
+    } finally {
+      span.end();
+    }
+  });
+}
+
+// 4. Export from index.ts
+export * from "./new-operation.handler";
+export * from "./new-operation.types";
+```
+
+### 2. Adding a New Plugin
+
+#### Step-by-Step Instructions
+
+```typescript
+// 3. Implement the plugin (new-plugin.implementation.ts)
+import { NewPlugin } from "./new-plugin.interface";
+
+// 1. Create plugin directory structure
+// core/gateway/src/plugins/new-plugin/
+// ├── new-plugin.interface.ts
+// ├── new-plugin.implementation.ts
+// └── index.ts
+
+// 2. Define the interface (new-plugin.interface.ts)
+export interface NewPlugin {
+  initialize(): Promise<void>;
+  process(data: unknown): Promise<unknown>;
+  cleanup(): Promise<void>;
+}
+
+export class DefaultNewPlugin implements NewPlugin {
+  async initialize(): Promise<void> {
+    // Initialize plugin resources
+  }
+
+  async process(data: unknown): Promise<unknown> {
+    // Process data
+    return data;
+  }
+
+  async cleanup(): Promise<void> {
+    // Cleanup resources
+  }
+}
+
+// 4. Export from index.ts
+export * from "./new-plugin.interface";
+export { DefaultNewPlugin } from "./new-plugin.implementation";
+
+// 5. Add to main plugins index
+// core/gateway/src/plugins/index.ts
+export * from "./new-plugin";
+```
+
+### 3. Implementing Caching
+
+#### Step-by-Step Instructions
+
+```typescript
+// 1. Create cache key
+function getCacheKey(operation: string, data: unknown): string {
+  const hash = createHash('sha256')
+    .update(JSON.stringify(data))
+    .digest('hex');
+  return `${operation}:${hash}`;
+}
+
+// 2. Check cache before operation
+const cacheKey = getCacheKey('new-operation', request);
+if (request.enableCache) {
+  const cached = await cache.get(cacheKey);
+  if (cached) {
+    logger?.debug('Cache hit', { key: cacheKey });
+    return { ...cached, cached: true };
+  }
+}
+
+// 3. Store result in cache
+const result = await performOperation(request);
+if (request.enableCache) {
+  await cache.set(cacheKey, result, 300000); // 5 minutes TTL
+}
+```
+
+### 4. Implementing Queuing
+
+#### Step-by-Step Instructions
+
+```typescript
+// 1. Add to gateway constructor
+this.queues = {
+  // ... existing queues
+  newOperation: new SimpleQueue<NewOperationRequestType, NewOperationResponseType>({
+    maxConcurrentTasks: this.options.queueOptions?.maxConcurrentTasks || 4,
+    retryCount: this.options.queueOptions?.retryCount || 3,
+    retry: this.options.queueOptions?.retry || {
+      initialDelay: 1000,
+      exponentialFactor: 2,
+      maxDelay: 10000,
+    },
+  }),
+};
+
+// 2. Use queue in public method
+async newOperation(request: NewOperationRequestType): Promise<NewOperationResponseType> {
+  return this.queues.newOperation.enqueue(
+    async () => handleNewOperation(request, this.httpClient),
+    request
+  );
+}
+```
+
+### 5. Error Handling Patterns
+
+#### Step-by-Step Instructions
+
+```typescript
+// 1. Create custom error class
+export class NewOperationError extends GatewayError {
+  constructor(
+    message: string,
+    public readonly operation: string,
+    public readonly originalError?: Error
+  ) {
+    super(`New operation failed: ${message}`, 'NEW_OPERATION_ERROR');
+  }
+}
+
+// 2. Use in handler
+try {
+  const result = await externalService.call();
+  return result;
+} catch (error) {
+  if (error instanceof ExternalServiceError) {
+    throw new NewOperationError(
+      'External service unavailable',
+      'external-call',
+      error
+    );
+  }
+  throw error;
+}
+
+// 3. Log error with context
+logger?.error('New operation failed', {
+  error: error.message,
+  operation: 'new-operation',
+  requestId: request.id,
+  stack: error.stack,
+});
+```
+
+### 6. Testing Patterns
+
+#### Step-by-Step Instructions
+
+```typescript
+// 1. Test handler function
+describe("handleNewOperation", () => {
+  let mockHttpClient: any;
+  let mockLogger: any;
+
+  beforeEach(() => {
+    mockHttpClient = {
+      post: vi.fn(),
+      get: vi.fn(),
+    };
+
+    mockLogger = {
+      debug: vi.fn(),
+      info: vi.fn(),
+      error: vi.fn(),
+    };
+
+    vi.spyOn(LoggerManager, "getLogger").mockReturnValue(mockLogger);
+  });
+
+  it("should process valid request successfully", async () => {
+    // Arrange
+    const request = {
+      messages: [{ role: "user", content: "Hello" }],
+      model: "test-model",
+    };
+
+    const expectedResponse = {
+      result: "Hello response",
+      metadata: { tokens: 10 },
+    };
+
+    // Act
+    const result = await handleNewOperation(request, mockHttpClient);
+
+    // Assert
+    expect(result).toEqual(expectedResponse);
+    expect(mockLogger.debug).toHaveBeenCalledWith("handleNewOperation invoked", { request });
+  });
+
+  it("should handle validation errors", async () => {
+    // Arrange
+    const invalidRequest = {
+      messages: "not an array", // Invalid
+      model: "test-model",
+    };
+
+    // Act & Assert
+    await expect(handleNewOperation(invalidRequest, mockHttpClient)).rejects.toThrow();
+  });
+});
+```
+
+## Plugin System Rules
+
+### 1. Plugin Architecture
+
+- **ALWAYS** implement plugin interfaces for consistency
+- **ALWAYS** provide default implementations for all plugins
+- **ALWAYS** allow plugin injection through constructor options
+- **ALWAYS** use dependency injection pattern
+
+### 2. HTTP Client Plugin
+
+- **ALWAYS** implement retry logic with exponential backoff
+- **ALWAYS** handle different HTTP methods consistently
+- **ALWAYS** support streaming for appropriate endpoints
+- **ALWAYS** include proper error handling for network failures
+
+### 3. Cache Plugin
+
+- **ALWAYS** implement LRU eviction strategy
+- **ALWAYS** support TTL-based expiration
+- **ALWAYS** handle cache serialization/deserialization
+- **ALWAYS** provide cache statistics and monitoring
+
+### 4. Queue Plugin
+
+- **ALWAYS** implement concurrency control
+- **ALWAYS** support retry mechanisms
+- **ALWAYS** handle task prioritization
+- **ALWAYS** provide queue monitoring and metrics
+
+### 5. Logger Plugin
+
+- **ALWAYS** support multiple log levels
+- **ALWAYS** include timestamp and context in log messages
+- **ALWAYS** support structured logging
+- **ALWAYS** handle log rotation and persistence
+
+### 6. Telemetry Plugin
+
+- **ALWAYS** use OpenTelemetry standards
+- **ALWAYS** create spans for all major operations
+- **ALWAYS** include relevant attributes and metrics
+- **ALWAYS** support distributed tracing
+
+## Common Patterns
+
+### 1. Request Validation Pattern
+
+```typescript
+// Always validate at the start of handler
+const data = NewOperationRequest.parse(request);
+```
+
+### 2. Telemetry Pattern
+
+```typescript
+// Start span at beginning of handler
+return tracer.startActiveSpan('operationName', async (span) => {
+  try {
+    // Add attributes
+    span.setAttributes({
+      'operation.type': 'new-operation',
+      'request.model': data.model,
+      'request.messages.count': data.messages.length,
+    });
+
+    // Your logic here
+
+    span.setStatus({ code: SpanStatusCode.OK });
+    return result;
+  } catch (error) {
+    span.setStatus({
+      code: SpanStatusCode.ERROR,
+      message: error instanceof Error ? error.message : 'Unknown error'
+    });
+    throw error;
+  } finally {
+    span.end();
+  }
+});
+```
+
+### 3. Logging Pattern
+
+```typescript
+// Structured logging with context
+logger?.info("Operation completed", {
+  operation: "new-operation",
+  duration: Date.now() - startTime,
+  success: true,
+  metadata: { tokens: result.tokens },
+});
+```
+
+### 4. Cache Pattern
+
+```typescript
+// Check cache first
+if (data.enableCache) {
+  const cached = await cache.get(cacheKey);
+  if (cached) {
+    logger?.debug('Cache hit', { key: cacheKey });
+    return { ...cached, cached: true };
+  }
+}
+
+// Store in cache after operation
+if (data.enableCache) {
+  await cache.set(cacheKey, result, 300000);
+}
+```
+
+## Performance Tips
+
+### 1. Cache Key Generation
+
+```typescript
+// Use efficient cache key generation
+function getCacheKey(operation: string, data: unknown): string {
+  // Use stable stringification for consistent keys
+  const stableData = JSON.stringify(data, Object.keys(data).sort());
+  return `${operation}:${createHash("sha256").update(stableData).digest("hex")}`;
+}
+```
+
+### 2. Batch Operations
+
+```typescript
+// Batch multiple operations when possible
+async function batchProcess(requests: RequestType[]): Promise<ResponseType[]> {
+  const batchSize = 10;
+  const results: ResponseType[] = [];
+
+  for (let i = 0; i < requests.length; i += batchSize) {
+    const batch = requests.slice(i, i + batchSize);
+    const batchResults = await Promise.all(batch.map((req) => processSingle(req)));
+    results.push(...batchResults);
+  }
+
+  return results;
+}
+```
+
+### 3. Resource Pooling
+
+```typescript
+// Reuse expensive resources
+class ResourcePool<T> {
+  private pool: T[] = [];
+  private maxSize: number;
+
+  constructor(maxSize: number) {
+    this.maxSize = maxSize;
+  }
+
+  async acquire(): Promise<T> {
+    if (this.pool.length > 0) {
+      return this.pool.pop()!;
+    }
+    return this.createResource();
+  }
+
+  release(resource: T): void {
+    if (this.pool.length < this.maxSize) {
+      this.pool.push(resource);
+    }
+  }
+}
+```
+
+## Security Considerations
+
+### 1. Input Sanitization
+
+```typescript
+// Always sanitize user inputs
+function sanitizeInput(input: string): string {
+  return input
+    .replace(/[<>]/g, "") // Remove potential HTML
+    .trim()
+    .substring(0, 1000); // Limit length
+}
+```
+
+### 2. Rate Limiting
+
+```typescript
+// Implement rate limiting
+class RateLimiter {
+  private requests = new Map<string, number[]>();
+  private windowMs: number;
+  private maxRequests: number;
+
+  constructor(windowMs: number, maxRequests: number) {
+    this.windowMs = windowMs;
+    this.maxRequests = maxRequests;
+  }
+
+  isAllowed(key: string): boolean {
+    const now = Date.now();
+    const windowStart = now - this.windowMs;
+
+    if (!this.requests.has(key)) {
+      this.requests.set(key, [now]);
+      return true;
+    }
+
+    const requests = this.requests.get(key)!;
+    const recentRequests = requests.filter((time) => time > windowStart);
+
+    if (recentRequests.length >= this.maxRequests) {
+      return false;
+    }
+
+    recentRequests.push(now);
+    this.requests.set(key, recentRequests);
+    return true;
+  }
+}
+```
+
+## Testing Rules
+
+### 1. Handler Testing
+
+- **ALWAYS** test all handler functions with valid and invalid inputs
+- **ALWAYS** mock external dependencies (HttpClient, Cache, etc.)
+- **ALWAYS** test error scenarios and edge cases
+- **ALWAYS** verify telemetry and logging behavior
+
+### 2. Integration Testing
+
+- **ALWAYS** test the complete request flow
+- **ALWAYS** test caching behavior
+- **ALWAYS** test queue behavior under load
+- **ALWAYS** test error propagation
+
+## Performance Considerations
+
+### 1. Caching
+
+- **ALWAYS** cache responses when appropriate
+- **ALWAYS** use efficient cache key generation
+- **ALWAYS** implement cache warming strategies
+- **ALWAYS** monitor cache hit rates
+
+### 2. Queuing
+
+- **ALWAYS** use appropriate concurrency limits
+- **ALWAYS** implement proper backpressure handling
+- **ALWAYS** monitor queue depths and processing times
+- **ALWAYS** implement circuit breakers for failing providers
+
+### 3. Memory Management
+
+- **ALWAYS** implement proper cleanup for resources
+- **ALWAYS** monitor memory usage patterns
+- **ALWAYS** implement resource pooling where appropriate
+- **ALWAYS** handle large response payloads efficiently
+
+## Code Organization
+
+### Rules
 
 - **ALWAYS** follow the established folder structure
 - **ALWAYS** use index files for clean exports
 - **ALWAYS** separate interfaces from implementations
 - **ALWAYS** use consistent naming conventions
 
-#### Instructions
+### Instructions
 
 ```typescript
-// complete-chat.handler.ts
-import { CompleteChatRequestType } from "./complete-chat.types";
-
 // ✅ CORRECT: Proper file organization
 // core/gateway/src/handlers/complete-chat/
 // ├── complete-chat.handler.ts    // Implementation
@@ -266,128 +827,6 @@ export async function handleCompleteChat(request: CompleteChatRequestType): Prom
 export * from "./complete-chat.handler";
 export * from "./complete-chat.types";
 ```
-
-#### Implementation Steps
-
-1. **Create Directory Structure**: Follow established folder patterns
-2. **Separate Concerns**: Keep types, implementation, and exports separate
-3. **Use Index Files**: Create index.ts files for clean exports
-4. **Consistent Naming**: Use kebab-case for files, PascalCase for classes
-5. **Group Related Files**: Keep related functionality together
-
-### 6. Performance & Security
-
-#### Rules
-
-- **ALWAYS** implement proper caching strategies
-- **ALWAYS** use queues for rate limiting and concurrency control
-- **ALWAYS** validate and sanitize all inputs
-- **ALWAYS** implement proper retry mechanisms with exponential backoff
-
-#### Instructions
-
-```typescript
-// ✅ CORRECT: Caching with TTL
-class CacheManager {
-  private cache = new Map<string, { data: any; expires: number }>();
-
-  set(key: string, data: any, ttlMs: number): void {
-    const expires = Date.now() + ttlMs;
-    this.cache.set(key, { data, expires });
-  }
-
-  get(key: string): any | null {
-    const item = this.cache.get(key);
-    if (!item || Date.now() > item.expires) {
-      this.cache.delete(key);
-      return null;
-    }
-    return item.data;
-  }
-}
-
-// ✅ CORRECT: Retry with exponential backoff
-async function retryWithBackoff<T>(operation: () => Promise<T>, maxRetries: number = 3, baseDelay: number = 1000): Promise<T> {
-  let lastError: Error;
-
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    try {
-      return await operation();
-    } catch (error) {
-      lastError = error as Error;
-
-      if (attempt === maxRetries) {
-        throw lastError;
-      }
-
-      const delay = baseDelay * Math.pow(2, attempt);
-      await new Promise((resolve) => setTimeout(resolve, delay));
-    }
-  }
-
-  throw lastError!;
-}
-```
-
-#### Implementation Steps
-
-1. **Implement Caching**: Use LRU cache with TTL for frequently accessed data
-2. **Add Queuing**: Implement queues for rate limiting and concurrency control
-3. **Input Validation**: Validate all inputs using Zod schemas
-4. **Retry Logic**: Implement exponential backoff for transient failures
-5. **Security**: Sanitize inputs and implement proper access controls
-
-### 7. Documentation
-
-#### Rules
-
-- **ALWAYS** include JSDoc comments for public APIs
-- **ALWAYS** update CHANGELOG.md for breaking changes
-- **ALWAYS** provide clear examples in README files
-- **ALWAYS** document configuration options and their effects
-
-#### Instructions
-
-````typescript
-// ✅ CORRECT: Comprehensive JSDoc documentation
-/**
- * Processes a chat completion request and returns the response
- *
- * @param request - The chat completion request containing messages and options
- * @param options - Additional processing options
- * @returns Promise resolving to the chat completion response
- *
- * @example
- * ```typescript
- * const response = await gateway.completeChat({
- *   messages: [{ role: 'user', content: 'Hello, how are you?' }],
- *   model: 'claude-3-sonnet',
- *   temperature: 0.7,
- * });
- *
- * console.log(response.messages[0].content);
- * ```
- *
- * @throws {ValidationError} When the request format is invalid
- * @throws {ProviderError} When the AI provider returns an error
- * @throws {RateLimitError} When rate limits are exceeded
- */
-async completeChat(
-  request: CompleteChatRequest,
-  options?: ChatOptions
-): Promise<ChatResponse> {
-  // Implementation
-}
-````
-
-#### Implementation Steps
-
-1. **JSDoc Comments**: Add comprehensive documentation for public methods
-2. **Examples**: Include usage examples in documentation
-3. **Error Documentation**: Document all possible errors and their causes
-4. **Parameter Documentation**: Document all parameters and their types
-5. **Return Documentation**: Document return values and their structure
-6. **Update Changelog**: Document breaking changes in CHANGELOG.md
 
 ## File Naming Conventions
 
@@ -452,14 +891,6 @@ export * from './utils';
 export default class Gateway { } // Should use named export
 ```
 
-### Implementation Steps
-
-1. **Group Imports**: Organize imports by external, internal, then relative
-2. **Use Named Exports**: Export specific items rather than default exports
-3. **Create Index Files**: Use index.ts files to re-export from subdirectories
-4. **Absolute Paths**: Use package names for internal package imports
-5. **Clean Exports**: Export only what's needed publicly
-
 ## Code Style
 
 ### Rules
@@ -471,63 +902,30 @@ export default class Gateway { } // Should use named export
 - Use explicit return types for public functions
 - Use `const` by default, `let` only when reassignment is needed
 
-### Instructions
+## Troubleshooting Guide
 
-```typescript
-// ✅ CORRECT: Consistent code style
-interface UserConfig {
-  name: string;
-  email: string;
-  preferences: {
-    theme: "light" | "dark";
-    notifications: boolean;
-    language: string;
-  };
-}
+### 1. Common Issues
 
-class UserManager {
-  private users: Map<string, UserConfig> = new Map();
+- **Handler not found**: Check exports in index.ts files
+- **Type errors**: Ensure Zod schemas match TypeScript types
+- **Cache not working**: Verify cache key generation and TTL settings
+- **Queue stuck**: Check retry configuration and error handling
 
-  public async createUser(config: UserConfig): Promise<string> {
-    const userId = uuidv4();
+### 2. Debug Steps
 
-    this.users.set(userId, {
-      ...config,
-      preferences: {
-        theme: "light",
-        notifications: true,
-        language: "en",
-        ...config.preferences,
-      },
-    });
+1. Check logs for error messages
+2. Verify telemetry spans are created
+3. Test cache operations manually
+4. Check queue status and metrics
+5. Validate input data against schemas
 
-    return userId;
-  }
+### 3. Performance Issues
 
-  public getUser(id: string): UserConfig | undefined {
-    return this.users.get(id);
-  }
-}
-
-// ❌ INCORRECT: Inconsistent style
-interface UserConfig {
-  name: string;
-  email: string;
-  preferences: {
-    theme: "light" | "dark";
-    notifications: boolean;
-    language: string;
-  };
-}
-```
-
-### Implementation Steps
-
-1. **Configure ESLint**: Use ESLint with TypeScript rules
-2. **Use Prettier**: Configure Prettier for consistent formatting
-3. **Editor Settings**: Set up editor to use 2-space indentation
-4. **Pre-commit Hooks**: Use husky to enforce code style
-5. **Team Agreement**: Establish coding standards with the team
+1. Monitor cache hit rates
+2. Check queue depths and processing times
+3. Profile memory usage
+4. Monitor external API response times
+5. Check for memory leaks in resource pools
 
 ## Quick Reference Checklist
 
@@ -555,7 +953,9 @@ interface UserConfig {
 - [ ] Add telemetry and logging
 - [ ] Follow security best practices
 
----
+- **ALWAYS** monitor memory usage patterns
+- **ALWAYS** implement resource pooling where appropriate
+- **ALWAYS** handle large response payloads efficiently
 
 ---
 > Source: [adaline/gateway](https://github.com/adaline/gateway) — distributed by [TomeVault](https://tomevault.io).
