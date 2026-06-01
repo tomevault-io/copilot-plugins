@@ -1,532 +1,69 @@
-## frontend-theme-guidelines
+## frontend-url-navigation
 
-> 主题系统采用分层架构设计，将主题定义与使用完全分离，支持多主题扩展。
+> 前端 URL 与页面跳转统一规范
 
-# 前端主题系统开发指南
+# URL 语义分层
 
-## 主题系统架构
+- `path` 负责表达“当前资源是谁”和“当前主视图在哪”
+- `query` 负责表达“当前筛选/搜索/排序/分页等可恢复状态”
+- `navigation state` 只用于一次性来源信息或不可分享的临时意图
 
-主题系统采用分层架构设计，将主题定义与使用完全分离，支持多主题扩展。
+# 统一规则
 
-### 核心文件结构
+## 1. 资源标识必须进入 path
 
-- `palette.ts` - 调色板定义，包含所有主题的原始颜色配置
-- `themeConfig.ts` - 主题配置与管理，提供主题获取和切换的核心功能
-- `variants.ts` - 组件样式变体，定义各种UI组件的通用样式变体
-- `ThemeProvider.tsx` - 主题提供者组件，为整个应用提供主题
-- `ThemeToggleButton.tsx` - 主题切换按钮组件，用于切换主题模式
-- `index.tsx` - 主题入口文件，统一导出所有主题相关组件和功能
+- 工作区详情使用 `/workspace/:workspaceId/...`
+- 适配器详情使用 `/adapters/:adapterKey/...`
+- 插件管理详情使用 `/plugins/management/:pluginId`
+- 聊天频道详情后续统一收敛到 `/chat-channel/:chatKey`
 
-## 基本原则
+## 2. 页面主视图必须进入稳定 path
 
-- **严禁硬编码颜色值**：禁止在组件中使用硬编码的颜色值，必须从主题系统中获取
-- **禁止使用主题判断条件**：不要使用 `theme.palette.mode === 'dark'` 这类条件判断，应使用动态属性
-- **支持多主题模式**：系统支持亮色、暗色和跟随系统三种模式，未来可扩展为更多自定义主题
-- **组件样式变体化**：使用预定义的样式变体，而非在每个组件中重复定义样式
-- **调色板与使用分离**：调色板定义与样式使用完全分离，便于主题扩展和统一管理
-- **持续更新**：当实现发生变化或者追加新的重要知识时，持续更新本文档的内容保持其最新且可用
+- 主 tab、主子页、主详情区都属于“主视图”
+- 主视图禁止通过 `?tab=...` 这类 query 进入后再删除
+- 主视图状态必须支持刷新恢复、分享链接、浏览器前进后退
 
-## 主题使用指南
+示例：
 
-### 获取主题配置
+- 正确：`/workspace/12/comm`
+- 错误：`/workspace/12?tab=comm` 并在进入后清除
 
-通过主题配置管理函数获取当前主题配置：
+## 3. 列表和筛选状态必须进入 query
 
-```tsx
-import { getCurrentThemeMode, getCurrentPalette, getCurrentUIElements } from '../../theme/themeConfig';
+- 搜索词：`search`
+- 页码：`page`
+- 每页条数：`pageSize`
+- 排序：`sort` / `order`
+- 业务筛选项使用稳定、可读、可枚举的 query key
 
-// 获取当前主题模式 ('light' | 'dark')
-const mode = getCurrentThemeMode();
+规则：
 
-// 获取当前主题的调色板
-const palette = getCurrentPalette();
+- query 只存放“刷新后应该保留”的状态
+- 空值不要写入 URL
+- 非法值在解析后回退到默认值
 
-// 获取当前主题的UI元素配置
-const uiElements = getCurrentUIElements();
+## 4. 只允许极少数一次性意图使用 navigation state
 
-// 根据路径获取当前主题的特定配置项
-import { getThemeToken } from '../../theme/themeConfig';
-const palette = getThemeToken('palette');
-const ui = getThemeToken('ui');
-```
+- 例如：打开弹窗、滚动到某段、仅用于本次跳转的来源说明
+- 这类信息不应污染 URL
+- 如果状态需要可分享或可恢复，就不能使用 navigation state
 
-### 使用组件级样式
+## 5. 一个功能只保留一个 canonical URL
 
-对于特定组件的样式，使用预定义的组件级样式：
+- 历史路径可以保留 redirect，但不能继续并行作为正式入口
+- 菜单、按钮、跨页跳转、文档链接、鉴权回跳都必须使用 canonical URL
 
-```tsx
-import { LOG_TABLE_STYLES, LOGIN_PAGE_STYLES } from '../../theme/themeConfig';
+# 实施要求
 
-// 在组件中使用
-<Box sx={{
-  backgroundColor: LOG_TABLE_STYLES.SEVERITY.INFO.backgroundColor,
-  color: LOG_TABLE_STYLES.SEVERITY.INFO.color
-}} />
+- 禁止在业务代码中散落硬编码路径拼接，优先复用集中路由辅助函数
+- 新页面设计时先判断：资源是谁、主视图是什么、筛选状态有哪些，再决定 path/query 分配
+- 页面如果已经支持 URL 状态，禁止“读入后立刻清空参数”，除非它真的是一次性 transient intent
 
-// 登录页使用
-<Paper sx={{
-  boxShadow: LOGIN_PAGE_STYLES.SHADOW.CARD,
-  background: LOGIN_PAGE_STYLES.CARD,
-  border: LOGIN_PAGE_STYLES.BORDER
-}} />
-```
+# 当前项目重点约定
 
-### 使用样式变体
-
-样式变体是预定义的样式配置，用于快速应用常见样式：
-
-```tsx
-import { 
-  CARD_VARIANTS, 
-  BUTTON_VARIANTS, 
-  INPUT_VARIANTS, 
-  SCROLLBAR_VARIANTS
-} from '../../theme/variants';
-
-// 卡片变体
-<Card sx={CARD_VARIANTS.default.styles} />
-<Card sx={CARD_VARIANTS.flat.styles} />
-<Card sx={CARD_VARIANTS.transparent.styles} />
-
-// 按钮变体
-<Button sx={BUTTON_VARIANTS.primary.styles} />
-<Button sx={BUTTON_VARIANTS.secondary.styles} />
-
-// 输入框变体
-<TextField sx={INPUT_VARIANTS.default.styles} />
-
-// 滚动条样式
-<Box sx={SCROLLBAR_VARIANTS.default.styles} />
-<Box sx={SCROLLBAR_VARIANTS.thin.styles} />
-```
-
-### 使用主题切换按钮
-
-在应用中添加主题切换按钮：
-
-```tsx
-import { ThemeToggleButton } from '../../theme';
-
-// 使用默认大小
-<ThemeToggleButton />
-
-// 指定大小
-<ThemeToggleButton size="small" />
-```
-
-## 扩展主题系统
-
-### 添加新的主题
-
-要添加新的主题，需要在 `palette.ts` 中定义新的主题配置：
-
-```tsx
-// 在 palette.ts 文件中添加新主题
-export const themes: Record<ThemeKeys, ThemeConfig> = {
-  light: { /* 现有浅色主题 */ },
-  dark: { /* 现有暗色主题 */ },
-  myCustomTheme: {
-    palette: {
-      // 定义调色板
-      primary: {
-        main: '#3F51B5',
-        light: '#3F51B5',
-        dark: '#3F51B5',
-        lighter: '#7986CB',
-        darker: '#303F9F',
-        highlight: '#8C9EFF',
-      },
-      // 其他颜色...
-    },
-    ui: {
-      // 定义UI元素样式
-      background: {
-        main: '#FAFAFA',
-        // 其他背景样式...
-      },
-      // 其他UI样式...
-    }
-  }
-};
-```
-
-### 添加新的组件样式
-
-为特定组件添加专用主题样式：
-
-```tsx
-// 在 themeConfig.ts 文件中添加
-export const NEW_COMPONENT_STYLES = {
-  // 背景样式
-  get BACKGROUND() {
-    const { background } = getCurrentUIElements();
-    const mode = getCurrentThemeMode();
-    return {
-      light: `linear-gradient(...)`,
-      dark: `linear-gradient(...)`
-    }[mode];
-  },
-  // 其他样式...
-};
-```
-
-### 添加新的样式变体
-
-为组件添加新的样式变体：
-
-```tsx
-// 在 variants.ts 文件中添加
-export const MY_COMPONENT_VARIANTS = {
-  // 自定义变体
-  custom: {
-    get styles(): SxProps<Theme> {
-      const { shadow, border, background } = getThemeToken('ui');
-      return {
-        background: background.card,
-        boxShadow: shadow.card,
-        // 其他样式...
-      };
-    },
-  },
-};
-```
-
-## 主题切换原理
-
-主题切换基于 Zustand 状态管理和 React Context：
-
-1. `useColorMode` 存储当前主题模式（light/dark/system）
-2. `ThemeProvider` 根据当前模式创建并提供 MUI 主题
-3. 所有样式通过动态 getter 实时获取当前主题的样式
-
-主题切换顺序为：浅色 -> 暗色 -> 系统 -> 浅色
-
-## 最佳实践
-
-1. 使用组件样式变体代替内联样式
-2. 使用预定义的主题配置代替硬编码值
-3. 所有新增页面和组件必须支持浅色和暗色两种主题
-4. 通过扩展现有变体创建新样式，而非从头开始
-5. 为特殊页面创建专用样式对象，便于集中管理
-6. 确保透明度和阴影在两种主题下都有良好表现
-7. 测试所有组件在主题切换时的平滑过渡
-
-## 页面体验与信息架构约束
-
-以下规则适用于工作区页面、配置页、设置页以及其他带有编辑与切换行为的中后台页面。
-
-### 交互可供性优先于解释性文案
-
-- 不要通过“点击可查看”“可点击打开”“点击进入”这类说明性文字提示用户哪里可以交互
-- 可点击元素应通过悬浮态、按压反馈、指针样式、层级变化、图标暗示和动效来自然表达
-- 浮层、菜单和列表中的可点击项，默认应具备清晰的 hover 态和点击命中区，而不是额外附加解释文案
-- 若用户需要靠阅读说明才知道某处可以点击，优先判定为样式与信息层级设计失败，而不是文案缺失
-- 说明文案只用于补充业务语义，不用于弥补交互设计本身的可理解性不足
-
-### 1. 页面不应做成“表单堆叠”
-
-- 禁止把多个大号输入框或配置块直接从上到下平铺成“后台表单墙”
-- 优先使用“总览层 + 聚焦编辑层”的结构，让用户先理解信息分区，再进入具体编辑
-- 当页面存在多个语义区域时，顶部应先提供清晰的模块入口卡片、分段导航或摘要区，而不是直接暴露全部编辑器
-- 模块切换后的主要内容区域应尽量连续，不要被无关信息区块打断
-
-### 2. 信息按“用户目的”分组，而不是按实现过程分组
-
-- 页面分区名称必须面向最终用户的任务目标，不要暴露设计过程、实现历史、迁移状态或内部建模术语
-- 禁止在页面主文案中出现“升级为”“不再只是”“编排器”“系统改造”等研发过程描述
-- 如果必须保留技术术语，应将其降级为副标题、附注或悬浮说明，不应作为页面的主心智
-- 页面标题、分区标题、按钮文案应优先表达“用户现在能做什么”，而不是“系统内部如何工作”
-
-### 3. 文案保持专业、简洁、可直接操作
-
-- 面向最终用户的页面，默认使用简短、专业、明确的文案，避免教程式长段说明
-- 主区域只保留必要的短说明；补充解释、注意事项、概念说明优先放入 Tooltip、帮助图标或次级说明区
-- 如无必要，不要额外添加标题、引导语、说明段落或标签文字来解释一个本应通过结构和控件关系就能自解释的操作区
-- 模糊表述必须改成明确表述，例如“后续可继续更新”应改为“可由 CC 自动更新”
-- 不要随意引入新概念。如果用户已接受既有术语体系，应保持一致，不得擅自重命名为另一套说法
-
-### 4. 切换控件必须紧凑且一致
-
-- 所有具有“二选一 / 多选一”性质的切换控件，一律优先使用 `ButtonGroup`、Tabs 或 Segmented Control 风格，不要并排摆放多个独立按钮
-- 切换控件应尽量内聚到对应标题行、工具条或局部控制区，避免单独占据一整行造成空间浪费
-- 只读视图与编辑视图、预览与源码、不同对象配置之间的切换，应使用统一的控件形态和交互位置
-- 展开/收起类卡片，点击整个卡片主体即可触发展开时，不应只允许点击一个小图标
-- 页面级或模块级主导航使用 `Tabs`；工具条内的筛选、视图切换、预览/源码、局部模式切换使用 `SegmentedControl`；不要把两者混成同一种视觉层级
-- 新增局部切换控件时，优先复用公共 `SegmentedControl` 或其主题变体，不要在页面里重复手写 `ToggleButtonGroup` / `ButtonGroup` 的局部 `sx`
-- 分段切换控件的外层轮廓必须与输入框、选择框保持同一圆角基准，默认对齐 `8px` 体系；禁止做成高存在感的胶囊外框，避免在工具条里显得突兀
-- 分段切换的选中态应以轻底色、前景强调和轻微抬升为主，不依赖粗描边、高饱和底色或过强阴影建立识别
-- 图标型、文字型、紧凑型分段切换可以使用不同密度，但它们的圆角、边框、背景透明度和交互反馈必须来自同一套主题 token
-
-#### Tabs 分类定义
-
-- `PageTabs`：用于页面级或模块级主导航，例如工作区详情、适配器详情、插件管理、仪表盘时间范围。它应放在页面主标题或主卡片之后，承担一级信息切换，不用于局部小范围工具切换
-- `PanelTabs`：用于设置页、配置页、管理页中的区块级页签，通常配合带边框和轻背景的容器使用。它强调“同一页面内的分组切换”，但视觉权重低于 `PageTabs`
-- `InlineTabs`：用于卡片内部或信息面板内部的轻量页签，例如详情卡片中的子视图、预览区域内部的二级内容切换。它只保留轻量 indicator 和文字强调，不做高存在感选中块
-- `EditorTabs`：用于深色编辑器工具区、代码编辑头部或明显独立于页面主背景的编辑面板。它可以使用与编辑器背景匹配的高对比前景色，但不得外溢到普通页面区域
-
-#### Tabs 使用约束
-
-- 新增 `Tabs` 时，必须先判断它属于 `PageTabs`、`PanelTabs`、`InlineTabs`、`EditorTabs` 中的哪一类；不允许直接在页面里从零开始写一套新的 `Tabs` 样式
-- `PageTabs` 与 `PanelTabs` 可以有选中块和更强的容器感；`InlineTabs` 不应模拟主导航的高亮块；`EditorTabs` 不应复用于普通浅色页面
-- `Tabs` 的样式应统一收敛到公共组件或主题 token 中，页面内只允许调整必要的尺寸、对齐和 icon 排布，不应重写选中态、indicator、圆角和交互反馈逻辑
-
-### 4.1 基础交互控件必须先归类，再选择公共组件
-
-- 在页面中新增基础交互控件时，先判断它属于“主动作按钮、次动作按钮、轻操作图标按钮、搜索框、筛选选择器、局部切换、主导航页签”中的哪一类，再从公共组件层选择对应组件；不要直接从裸 `Button`、`IconButton`、`TextField`、`Select` 开始写局部样式
-- 页面可以调整宽度、布局、文案和少量间距，但不应在页面里重新定义按钮阴影、输入框状态色、图标按钮 hover 面层、搜索框清空按钮、筛选器圆角与边框
-- 工具条里的控件优先使用同一家族的实体面层和紧凑尺寸，不要把玻璃感搜索框、默认 MUI 下拉框、重阴影按钮和轻量分段切换混搭在同一行
-
-#### 按钮家族
-
-- `ActionButton`：用于页面、卡片、弹窗中的主要和次要文本按钮。通过 `tone` 区分 `primary`、`secondary`、`ghost`、`danger`，不要在页面里重新定义主次层级
-- `IconActionButton`：用于工具条、输入框尾部、轻量操作入口。通过 `tone` 区分普通、强调、危险，不允许再用裸 `IconButton` 配合多段 `sx` 模拟不同角色
-- 同一操作区默认只允许一个强主按钮；并列动作中的其余按钮必须降级为 `secondary`、`ghost` 或图标按钮，避免多个视觉中心
-- 危险动作默认使用轻底或描边加前景警示色，不使用高饱和实心底色作为默认样式
-
-#### 输入与筛选家族
-
-- `SearchField`：用于列表页、管理页和工具条中的搜索输入。统一包含搜索图标、清空动作和输入框基线样式，不再在页面里重复拼装输入前后缀
-- `FilterSelect`：用于工具条和筛选区中的单值下拉筛选。它应与 `SearchField`、`SegmentedControl` 和轻量按钮保持一致的尺寸和圆角体系
-- 搜索框与提交按钮、输入框与附属动作按钮如果被设计为一体化组合，接缝处必须是直边并共享同一条边界；不允许两个独立圆角在中间相接后仍被称为“组合”
-- 需要搜索与筛选组合时，优先使用 `SearchField + FilterSelect + SegmentedControl + ActionButton/IconActionButton` 的组合，不要在页面中混用普通 `TextField`、默认 `Select` 和局部样式按钮
-- 多个筛选器并排时，优先保持相同高度与接近宽度；在窄屏下改为纵向堆叠，不保留只适合桌面的固定宽度
-
-#### 工具条排列约束
-
-- 工具条按“搜索/筛选在前，辅助操作居中或靠后，主动作在末端”的顺序组织，减少认知跳跃
-- 搜索和筛选控件默认使用紧凑密度，并与局部切换控件保持同一纵向节奏；不要让单个按钮或下拉框显著高于相邻控件
-- 页面内出现同类工具条时，应优先复用同一套布局与控件选择，不再重新定义另一套搜索框、筛选器和操作按钮组合
-- 在桌面宽度足够时，搜索、筛选、局部切换、刷新、帮助和主动作应优先合并到一条主工具条中，不要把本可同层协作的控件拆成两行或两个彼此竞争的控制区
-- 只有在信息量确实超出一行承载能力，或移动端宽度明显不足时，才允许工具条换行；换行后的分组也必须保持明确主次，不允许出现上下两层权重接近、视觉重心缺失的平铺工具区
-- 页面布局评估不能只看单个组件是否美观，还必须评估这些控件在横向与纵向空间中的协同关系；节省纵向空间、保持横向节奏和操作重心清晰，是主题设计的一部分
-
-### 5. 卡片要有层次，但不要靠生硬描边制造层次
-
-- 亮色模式下卡片必须与页面背景有足够区分，避免与背景融成一片
-- 整体视觉策略应为“重前景色，轻微透明背景”，不要依赖大面积高透明浅底色来承担主要识别职责
-- 优先通过更明确的标题色、摘要字重、强调色图标、色带、标签前景色来建立识别性，而不是反过来依赖背景色块
-- 优先使用浅色衬底、柔和渐变、轻阴影和细腻的高光来拉开层次，不要使用生硬、发黑、存在感过强的边框
-- 在亮色模式下，背景色只用于轻微托层，透明度应克制；真正的层次和可辨识度应主要来自前景元素
-- 当页面背景本身已经较浅时，摘要卡、入口卡、面板卡应优先使用接近 `background.paper` 的实体面层，并通过更明确的阴影把卡片“抬起来”
-- 不要在亮色模式下把卡片主体做成高透明浅色块后再叠微弱阴影，这种组合很容易与页面背景融在一起
-- 亮色模式下的层次建立优先级应为：实体面层 > 阴影抬升 > 前景强调 > 极轻背景染色；不要反过来依赖背景染色
-- 强调色更适合作为顶部色带、图标、标签和选中态前景，不适合作为整张卡片的大面积浅色底
-- 卡片的选中态应通过整体气质变化体现，例如亮度、阴影、轻微抬升、色带强化，而不是只靠粗边框或高饱和描边
-- 同一行中的摘要卡必须保持相近高度，不应因单张卡片信息过多而把整个区域撑坏
-
-### 6. 页面要“有空间感”，但不能浮夸
-
-- 页面可以通过卡片、色带、浅渐变、阴影和聚焦面板建立空间感，但禁止堆砌花哨特效
-- 不要为了“高级感”引入过重的玻璃拟态、强动画、夸张发光、复杂背景纹理或多余装饰元素
-- 动效应服务于层级切换、选中态、展开收起等核心交互，不应喧宾夺主
-- 页面应优先呈现“清楚、干净、可进入”的结构，而不是追求视觉噱头
-
-### 7. 高时效信息与稳定信息必须分层
-
-- 会变化的协作状态、长期固定事实、执行规则等不同类型的信息必须分开承载，不得混写在同一个编辑层中
-- 用户可编辑的动态内容，应明确告知是否可能被系统或 Agent 自动更新
-- 如果某些内容不希望被自动改写，页面必须提供单独的稳定承载区，而不是让用户自行猜测应该写在哪里
-- 这类差异应通过分区和标签自然表达，而不是靠大段解释教育用户
-
-### 8. 说明信息优先“按需出现”
-
-- 默认情况下，页面应优先展示操作所需的核心信息；次级说明、概念解释、风险提醒应按需展示
-- 适合放在 Tooltip 的内容，不要强行常驻在页面主体中
-- 常驻说明仅保留真正影响当前操作决策的信息，且应尽量做成轻量提示，不要做成视觉上突兀的警告条
-- Placeholder 应用于提示输入方向，但不能承担主要说明职责
-
-### 9. 编辑区域要更像“工作台”，而不是普通输入框
-
-- 对于规则、说明、上下文、文档类内容，优先使用 Markdown 编辑器或更适合长文本的专业编辑器，而不是基础多行输入框
-- 编辑器应提供足够的可读性与结构感，例如合适的字号、行高、留白、源码/预览切换等
-- 编辑区的视觉重点应落在内容本身，外围装饰应尽量克制
-- 同一页面内的多个长文本编辑区，应保持统一的编辑器风格与交互模型
-
-### 10. 页面应尽量减少用户的认知跳跃
-
-- 用户点击某个模块后，相关配置、编辑区、说明和结果预览应尽量邻近呈现
-- 不要把“切换入口”和“切换结果区域”用无关卡片或其他信息区块隔开
-- 页面布局应尽量让用户形成稳定预期：上方选择，下方编辑，底部补充预览或只读信息
-- 对于辅助性内容，如系统生成结果、最终注入内容、调试信息，应放在主编辑流程之后，而不是插入主流程中间
-
-## 代码示例
-
-### 卡片组件示例
-
-```tsx
-import { CARD_VARIANTS, BORDER_RADIUS } from '../../theme/variants';
-
-function MyCard({ children }) {
-  return (
-    <Card
-      sx={{
-        ...CARD_VARIANTS.default.styles,
-        borderRadius: BORDER_RADIUS.LARGE,
-        padding: 3,
-        // 扩展默认样式
-      }}
-    >
-      {children}
-    </Card>
-  );
-}
-```
-
-### 表格组件示例
-
-```tsx
-import { LOG_TABLE_STYLES } from '../../theme/themeConfig';
-import { SCROLLBAR_VARIANTS } from '../../theme/variants';
-
-function MyTable() {
-  return (
-    <Box sx={{
-      ...SCROLLBAR_VARIANTS.thin.styles,
-      maxHeight: 400,
-      overflow: 'auto'
-    }}>
-      <Table>
-        <TableHead>
-          <TableRow
-            sx={{
-              '& th': {
-                fontWeight: 600
-              }
-            }}
-          >
-            <TableCell>名称</TableCell>
-            <TableCell>状态</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>示例数据</TableCell>
-            <TableCell>
-              <Box sx={{
-                ...LOG_TABLE_STYLES.SEVERITY.SUCCESS,
-                display: 'inline-block',
-                padding: '3px 8px',
-                borderRadius: '4px'
-              }}>
-                成功
-              </Box>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </Box>
-  );
-}
-```
-
-## 错误与修复
-
-### 常见错误
-
-1. 直接使用颜色代码：`color: '#ff0000'` ❌
-2. 使用主题判断：`theme.palette.mode === 'dark'` ❌
-3. 在组件中混合使用多种获取主题方式 ❌
-4. 使用固定阴影值而非主题提供的阴影 ❌
-5. **对 MUI `<Chip>` 使用 `color="warning"` / `color="success"` 等语义 color 属性** ❌
-
-### 正确做法
-
-1. 使用调色板颜色：`color: palette.error` ✅
-2. 使用样式变体：`sx={CARD_VARIANTS.default.styles}` ✅ 
-3. 使用组件级样式：`boxShadow: LOGIN_PAGE_STYLES.SHADOW.CARD` ✅
-4. 始终使用相对不透明度：`alpha(theme.palette.primary.main, 0.2)` ✅
-5. **Chip 必须用 `CHIP_VARIANTS.getCustomColorChip(theme.palette.xxx.main, isSmall)`** ✅
-
-### Chip 专项规范（高频错误，务必遵守）
-
-**禁止**使用 MUI Chip 的 `color` prop（如 `color="success"` / `color="warning"` / `color="error"`），这会绕过主题系统使用 MUI 默认颜色。
-
-**必须**通过 `useTheme()` 获取主题颜色，然后传给 `CHIP_VARIANTS.getCustomColorChip()`：
-
-```tsx
-// ❌ 错误：使用 MUI color prop
-<Chip color="success" label="已就绪" sx={CHIP_VARIANTS.base(true)} />
-<Chip color="warning" label="未拉取" sx={CHIP_VARIANTS.base(true)} />
-
-// ✅ 正确：通过主题获取颜色
-const theme = useTheme()
-<Chip label="已就绪" sx={CHIP_VARIANTS.getCustomColorChip(theme.palette.success.main, true)} />
-<Chip label="未拉取" sx={CHIP_VARIANTS.getCustomColorChip(theme.palette.warning.main, true)} />
-```
-
-常用颜色映射：
-- 成功/运行中 → `theme.palette.success.main`
-- 警告/未就绪 → `theme.palette.warning.main`
-- 错误/失败 → `theme.palette.error.main`
-- 主色/强调 → `theme.palette.primary.main`
-- 次要/停止 → `theme.palette.text.secondary`
-
----
-
-## 背景色规范（高频错误，务必遵守）
-
-### 禁止在组件内硬编码背景颜色
-
-**错误写法（已在项目中清除，绝对禁止再写）**：
-
-```tsx
-// ❌ 硬编码 rgba/grey，无法跟随品牌主色变化
-bgcolor: theme => theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.04)' : 'grey.50'
-backgroundColor: mode === 'light' ? 'rgba(255, 255, 255, 0.95)' : ...
-backgroundColor: mode === 'light' ? 'rgba(245, 245, 245, 0.85)' : ...
-```
-
-**正确方式：使用 `background.paper` token 或 `UNIFIED_TABLE_STYLES` 预定义样式**：
-
-```tsx
-// ✅ 通过 palette token
-const palette = getCurrentExtendedPalette()
-backgroundColor: mode === 'light' ? palette.background.paper : alpha(palette.background.paper, 0.95)
-
-// ✅ 直接使用预定义变体
-<Paper elevation={0} sx={UNIFIED_TABLE_STYLES.paper as SxProps<Theme>} />
-<Box sx={UNIFIED_TABLE_STYLES.pageTabContainer as object} />
-```
-
-### `background.paper` 是表格/卡片容器的唯一正确背景 token
-
-`palette.background.paper`（亮色 `#fafafa`，暗色 `#2f2f2f`）由 `palette.ts` 的 `generateBackgroundColors` 统一生成，是主题系统设计的唯一表格/卡片层背景。使用它能保证：
-1. 亮色和暗色模式下视觉层次一致
-2. 将来切换品牌主色时，背景自动跟随
-3. 不同页面的表格区域背景完全一致
-
-### 多页面共用同一结构时，样式必须收敛到 `variants.ts` 或 `themeConfig.ts`
-
-**禁止在多个页面/组件里各自复制相同的 `sx` 样式块**。当发现同一样式在两处以上出现，必须：
-
-1. 提取到 `UNIFIED_TABLE_STYLES`（表格系列）、`CARD_VARIANTS`（卡片系列）或新建专用变体
-2. 页面只引用变体名，不持有颜色逻辑
-
-当前已有的可复用变体（涵盖高频场景）：
-
-| 变体 | 用途 |
-|------|------|
-| `UNIFIED_TABLE_STYLES.paper` | 表格外层 Paper 容器 |
-| `UNIFIED_TABLE_STYLES.header` | 表格列头单元格 |
-| `UNIFIED_TABLE_STYLES.row` | 表格行 hover/斑马纹 |
-| `UNIFIED_TABLE_STYLES.cell` | 普通数据单元格 |
-| `UNIFIED_TABLE_STYLES.scrollbar` | 滚动条样式 |
-| `UNIFIED_TABLE_STYLES.pageTabContainer` | 页面顶部 Tabs 容器（配置页/模型管理页等） |
-| `CHIP_VARIANTS.getCustomColorChip(color, isSmall)` | 带颜色的 Chip（含 icon 颜色） |
-
-### `pageTabContainer` 专项说明
-
-凡是「页面顶部有 Tabs 分类导航」的设置/管理页，Tab 容器背景**必须使用 `UNIFIED_TABLE_STYLES.pageTabContainer`**，禁止各页各自写背景色：
-
-```tsx
-// ✅ 正确
-<Box sx={{ mb: 2, flexShrink: 0, ...(UNIFIED_TABLE_STYLES.pageTabContainer as object) }}>
-  <Tabs ...>...</Tabs>
-</Box>
-
-// ❌ 错误：各自写 bgcolor / background
-<Box sx={{ bgcolor: theme => theme.palette.mode === 'dark' ? '...' : 'grey.50' }}>
-```
+- 工作区 tab 使用 `/workspace/:workspaceId/:tab`
+- 插件管理按方案 A 使用 `/plugins/management/:pluginId`
+- 登录失效后跳转登录页必须带 `redirect` 参数，登录成功后自动跳回
 
 ---
 > Source: [KroMiose/nekro-agent](https://github.com/KroMiose/nekro-agent) — distributed by [TomeVault](https://tomevault.io).
