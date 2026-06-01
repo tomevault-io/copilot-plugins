@@ -4,7 +4,7 @@
   "repo": "minuet-ai.nvim",
   "description": "\ud83d\udc83 Dance with Intelligence in Your Code. Minuet offers code completion as-you-type from popular LLMs including OpenAI, Gemini, Claude, Ollama, Llama.cpp, Codestral, and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/milanglacier/minuet-ai.nvim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T17:53:31Z"
+  "distributed_at": "2026-06-01T18:00:29Z"
 }
