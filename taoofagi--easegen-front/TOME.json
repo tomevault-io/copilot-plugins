@@ -1,0 +1,44 @@
+{
+  "name": "easegen-front",
+  "owner": "taoofagi",
+  "repo": "easegen-front",
+  "description": "Easegen is an open-source digital human course creation platform offering comprehensive solutions from course production and video management to intelligent quiz generation.Easegen \u662f\u4e00\u4e2a\u5f00\u6e90\u7684\u6570\u5b57\u4eba\u8bfe\u7a0b\u5236\u4f5c\u5e73\u53f0\uff0c\u63d0\u4f9b\u4ece\u8bfe\u7a0b\u5236\u4f5c\u3001\u89c6\u9891\u7ba1\u7406\u5230\u667a\u80fd\u51fa\u9898\u7684\u5168\u65b9\u4f4d\u89e3\u51b3\u65b9\u6848\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/taoofagi/easegen-front",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T05:50:19Z"
+}
