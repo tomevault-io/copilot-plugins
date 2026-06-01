@@ -7,11 +7,11 @@ AI long-form novel writing pipeline with SQLite memory, guard registry, continui
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [remacheybn408-boop/Novel-Forge](https://github.com/remacheybn408-boop/Novel-Forge).
+Original source: `CLAUDE.md` in [remacheybn408-boop/Novel-Forge](https://github.com/remacheybn408-boop/Novel-Forge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
