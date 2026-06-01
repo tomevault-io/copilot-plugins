@@ -1,0 +1,9 @@
+{
+  "name": "symless--synergy",
+  "displayName": "synergy",
+  "description": "Use the keyboard, mouse, or trackpad of one computer to control nearby computers, and work seamlessly between them.",
+  "version": "1.0.0",
+  "author": "symless",
+  "homepage": "https://github.com/symless/synergy",
+  "skills": []
+}
