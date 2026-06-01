@@ -4,7 +4,7 @@
   "repo": "llm_chess",
   "description": "LLM Chess - evaluating Large Language Models' reasoning and instruction-following abilities by simulating chess games",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maxim-saplin/llm_chess",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T07:59:27Z"
+  "distributed_at": "2026-06-01T08:09:30Z"
 }
