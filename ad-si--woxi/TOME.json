@@ -4,7 +4,7 @@
   "repo": "Woxi",
   "description": "Wolfram Language / Mathematica reimplementation in Rust (Wolfram oxidized)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ad-si/Woxi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T11:52:14Z"
+  "distributed_at": "2026-06-01T11:52:47Z"
 }
