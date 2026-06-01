@@ -1,0 +1,9 @@
+{
+  "name": "dhth--hours",
+  "displayName": "hours",
+  "description": "A no-frills time tracking toolkit for command line nerds",
+  "version": "1.0.0",
+  "author": "dhth",
+  "homepage": "https://github.com/dhth/hours",
+  "skills": []
+}
