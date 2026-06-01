@@ -1,0 +1,9 @@
+{
+  "name": "caninehq--canine",
+  "displayName": "canine",
+  "description": "A developer friendly PaaS for your Kubernetes",
+  "version": "1.0.0",
+  "author": "CanineHQ",
+  "homepage": "https://github.com/CanineHQ/canine",
+  "skills": []
+}
