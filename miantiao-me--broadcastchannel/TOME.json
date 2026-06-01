@@ -4,7 +4,7 @@
   "repo": "BroadcastChannel",
   "description": "Turn your Telegram Channel into a MicroBlog.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/miantiao-me/BroadcastChannel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T15:48:27Z"
+  "distributed_at": "2026-06-01T15:57:51Z"
 }
