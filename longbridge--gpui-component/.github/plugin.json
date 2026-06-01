@@ -1,0 +1,9 @@
+{
+  "name": "longbridge--gpui-component",
+  "displayName": "gpui-component",
+  "description": "Rust GUI components for building fantastic cross-platform desktop application by using GPUI.",
+  "version": "1.0.0",
+  "author": "longbridge",
+  "homepage": "https://github.com/longbridge/gpui-component",
+  "skills": []
+}
