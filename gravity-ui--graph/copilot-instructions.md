@@ -1,43 +1,83 @@
-## prettier-style-rules
+## project-rules
 
-> Coding style guidelines derived from the project's Prettier configuration, intended for use by an LLM agent.
+> @gravity-ui/graph is a graph visualization library that combines the best of both worlds: Canvas for high performance when viewing the full graph and HTML/React for rich interactions when zoomed in.
 
-# Prettier Style Rules
+## Project Overview
+@gravity-ui/graph is a graph visualization library that combines the best of both worlds: Canvas for high performance when viewing the full graph and HTML/React for rich interactions when zoomed in.
 
-Coding style guidelines derived from the project's Prettier configuration, intended for use by an LLM agent.
+## Project Structure
+Project structure:
+- src/ - source code
+  - api/ - API for interacting with the graph
+  - components/ - Canvas components
+    - canvas/ - contains blocks, connections, anchors and layers for rendering
+  - lib/ - helper libraries
+  - plugins/ - plugins for extending functionality
+  - react-component/ - React wrappers for Canvas components
+  - services/ - services, including camera and others
+  - store/ - graph state storage
+  - stories/ - examples of component usage for Storybook
+  - utils/ - utility functions
+- docs/ - project documentation
+- .storybook/ - Storybook configuration
 
+## Key File Locations
+- **Main Graph Class:** `src/graph.ts` (Exports `Graph`, `TGraphConfig`)
+- **Base Layer Class:** `src/services/Layer.ts` (Exports `Layer`, `LayerProps`, `LayerContext`)
+- **Base Component Classes:** 
+    - `src/lib/CoreComponent.ts` (Exports `CoreComponent`, `CoreComponentProps`, `CoreComponentContext`)
+    - `src/lib/Component.ts` (Exports `Component`, `TComponentProps`, `TComponentState` - extends `CoreComponent`)
+- **Camera Service:** `src/services/camera/CameraService.ts` (Exports `CameraService`, `ICamera`, `TCameraState`)
+- **Block Definitions:**
+    - Base `Block` component: `src/components/canvas/blocks/Block.ts` (Exports `Block`, `TBlock`)
+    - Block Store State: `src/store/block/Block.ts` (Exports `BlockState`, `TBlockId`, `IS_BLOCK_TYPE`)
+- **Connection Definitions:**
+    - Connection Store State: `src/store/connection/ConnectionState.ts` (Exports `ConnectionState`, `TConnection`)
+    - Base `Connection` component: `src/components/canvas/connections/Connection.ts` (Exports `Connection`)
+- **React Integration:**
+    - `GraphCanvas` component: `src/react-component/GraphCanvas.tsx`
+    - `useGraph` hook: `src/react-component/hooks/useGraph.ts`
+    - `GraphBlock` component: `src/react-component/GraphBlock.tsx` (Or similar path)
 
+## Technologies
+Technology stack:
+- TypeScript - main development language
+- React - for creating user interfaces
+- Canvas API - for rendering high-performance graphics
+- Storybook - for component development and testing
+- Jest - for unit testing
+- ESLint/Prettier - for maintaining code quality and style
 
-1.  **Quotes:** Always use double quotes (`"`) for strings.
-    *   Example: `const message = "Hello world";`
-2.  **Semicolons:** Always end statements with a semicolon (`;`). (Based on Prettier default `semi: true` or inherited config).
-    *   Example: `const x = 10;`
-3.  **Trailing Commas:** Use trailing commas in multi-line arrays, objects, and function parameter lists. (Based on Prettier default or inherited config).
-    *   Example:
-        ```javascript
-        const arr = [
-            1,
-            2,
-            3, // <-- Trailing comma
-        ];
-        const obj = {
-            a: 1,
-            b: 2, // <-- Trailing comma
-        };
-        function greet(
-            name,
-            age, // <-- Trailing comma
-        ) { /* ... */ }
-        ```
-4.  **Line Length:** Keep lines of code under 100 characters long. Break longer lines logically. (Based on Prettier default or inherited config).
-5.  **Indentation:** Use 2 spaces for indentation in TypeScript/JavaScript files (`.ts`, `.tsx`, `.js`, `.jsx`).
-    *   Use 2 spaces for indentation in Markdown (`.md`), JSON (`.json`), YAML (`.yaml`, `.yml`) files.
-6.  **Spacing in Braces:** *Do* add spaces inside curly braces for object literals.
-    *   Correct: `{ foo: "bar" }`
-    *   Incorrect: `{foo: "bar"}`
-7.  **Parsing:** Ensure code is valid TypeScript for `.ts`, `.tsx`, `.js`, and `.jsx` files, as the TypeScript parser will be used.
+## Key Components
+Key components:
+- Graph - main class for graph management (src/graph.ts)
+- GraphCanvas - React component for displaying the graph (src/react-component/GraphCanvas.tsx)
+- Block - component for representing a graph block
+- Connection - component for connections between blocks
+- Anchor - components for connection attachment points
 
-8. **Fix error** If the file contains eslint errors, then do not try to fix them by rewriting, first run the command `npx eslint --fix PATH_TO_FILE`
+## Rendering System
+Rendering system:
+- Full graph is rendered on Canvas for performance
+- When zooming in, HTML/React mode is automatically enabled for interactive elements
+- Uses a smart system that tracks visible blocks and renders only them in React
+- Rendering is organized into Layers (`src/services/Layer.ts`) which control drawing order and can optimize rendering based on camera position and device pixel ratio (`respectPixelRatio`, `transformByCameraPosition` properties in `LayerProps`).
+
+## Development Guidelines
+Development guidelines:
+- To run the project locally, use `npm run storybook`
+- To build the project, use `npm run build`
+- Tests are run via `npm run test`
+- Use TypeScript for typing all code
+- Follow component architecture principles
+
+## File Naming Conventions
+File naming conventions:
+- Components: ComponentName.tsx
+- Utilities: utilityName.ts
+- Tests: ComponentName.test.ts
+- Styles: ComponentName.css
+- Types and interfaces: start with T or I (TBlock, IService) 
 
 ---
 > Source: [gravity-ui/graph](https://github.com/gravity-ui/graph) — distributed by [TomeVault](https://tomevault.io).
