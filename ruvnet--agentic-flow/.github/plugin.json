@@ -1,0 +1,9 @@
+{
+  "name": "ruvnet--agentic-flow",
+  "displayName": "agentic-flow",
+  "description": "Easily switch between alternative low-cost AI models in Claude Code/Agent SDK. For those comfortable using Claude agents and commands, it lets you take what you've created and deploy fully hosted agen",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/agentic-flow",
+  "skills": []
+}
