@@ -1,0 +1,9 @@
+{
+  "name": "fptn-project--fptn",
+  "displayName": "fptn",
+  "description": "FPTN VPN (Server + Desktop Client + FptnLibrary)",
+  "version": "1.0.0",
+  "author": "fptn-project",
+  "homepage": "https://github.com/fptn-project/fptn",
+  "skills": []
+}
