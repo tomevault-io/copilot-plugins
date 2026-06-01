@@ -1,0 +1,9 @@
+{
+  "name": "zml--zml",
+  "displayName": "zml",
+  "description": "Any model. Any hardware. Zero compromise. Built with @ziglang / @openxla / MLIR / @bazelbuild",
+  "version": "1.0.0",
+  "author": "zml",
+  "homepage": "https://github.com/zml/zml",
+  "skills": []
+}
