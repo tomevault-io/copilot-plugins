@@ -1,186 +1,177 @@
-## add-provider-doc
+## add-setting-env
 
-> Complete guide for adding a new AI provider documentation to LobeChat
+> Guide for adding environment variables to configure user settings
 
 
-# Adding New AI Provider Documentation
+# Adding Environment Variable for User Settings
 
-This document provides a step-by-step guide for adding documentation for a new AI provider to LobeChat, based on the complete workflow used for adding providers like BFL (Black Forest Labs) and FAL.
+Add server-side environment variables to configure default values for user settings.
 
-## Overview
+**Priority**: User Custom > Server Env Var > Hardcoded Default
 
-Adding a new provider requires creating both user-facing documentation and technical configuration files. The process involves:
+## Steps
 
-1. Creating usage documentation (EN + CN)
-2. Adding environment variable documentation (EN + CN)
-3. Updating Docker configuration files
-4. Updating .env.example file
-5. Preparing image resources
+### 1. Define Environment Variable
 
-## Step 1: Create Provider Usage Documentation
+Create `src/envs/<domain>.ts`:
 
-Create user-facing documentation that explains how to use the new provider.
+```typescript
+import { createEnv } from '@t3-oss/env-nextjs';
+import { z } from 'zod';
 
-### Required Files
+export const get<Domain>Config = () => {
+  return createEnv({
+    server: {
+      YOUR_ENV_VAR: z.coerce.number().min(MIN).max(MAX).optional(),
+    },
+    runtimeEnv: {
+      YOUR_ENV_VAR: process.env.YOUR_ENV_VAR,
+    },
+  });
+};
 
-Create both English and Chinese versions:
-- `docs/usage/providers/{provider-name}.mdx` (English)
-- `docs/usage/providers/{provider-name}.zh-CN.mdx` (Chinese)
-
-### Documentation Structure
-
-Follow the structure and format used in existing provider documentation. For reference, see:
-- `docs/usage/providers/fal.mdx` (English template)
-- `docs/usage/providers/fal.zh-CN.mdx` (Chinese template)
-
-### Key Requirements
-
-- **Images**: Prepare 5-6 screenshots showing the process
-- **Cover Image**: Create or obtain a cover image for the provider
-- **Accurate URLs**: Use real registration and dashboard URLs
-- **Service Type**: Specify whether it's for image generation, text generation, etc.
-- **Pricing Warning**: Include pricing information callout
-
-### Important Notes
-
-- **🔒 API Key Security**: Never include real API keys in documentation. Always use placeholder format (e.g., `bfl-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`)
-- **🖼️ Image Hosting**: Use LobeHub's CDN for all images: `hub-apac-1.lobeobjects.space`
-
-## Step 2: Update Environment Variables Documentation
-
-Add the new provider's environment variables to the self-hosting documentation.
-
-### Files to Update
-
-- `docs/self-hosting/environment-variables/model-provider.mdx` (English)
-- `docs/self-hosting/environment-variables/model-provider.zh-CN.mdx` (Chinese)
-
-### Content to Add
-
-Add two sections for each provider:
-
-```markdown
-### `{PROVIDER}_API_KEY`
-
-- Type: Required
-- Description: This is the API key you applied for in the {Provider Name} service.
-- Default: -
-- Example: `{api-key-format-example}`
-
-### `{PROVIDER}_MODEL_LIST`
-
-- Type: Optional
-- Description: Used to control the {Provider Name} model list. Use `+` to add a model, `-` to hide a model, and `model_name=display_name` to customize the display name of a model. Separate multiple entries with commas. The definition syntax follows the same rules as other providers' model lists.
-- Default: `-`
-- Example: `-all,+{model-id-1},+{model-id-2}={display-name}`
-
-The above example disables all models first, then enables `{model-id-1}` and `{model-id-2}` (displayed as `{display-name}`).
-
-[model-list]: /docs/self-hosting/advanced/model-list
+export const <domain>Env = get<Domain>Config();
 ```
 
-### Important Notes
+### 2. Update Type (Optional)
 
-- **API Key Format**: Use proper UUID format for examples (e.g., `12345678-1234-1234-1234-123456789abc`)
-- **Real Model IDs**: Use actual model IDs from the codebase, not placeholders
-- **Consistent Naming**: Follow the pattern `{PROVIDER}_API_KEY` and `{PROVIDER}_MODEL_LIST`
+**Skip this step if the domain field already exists in `GlobalServerConfig`.**
 
-## Step 3: Update Docker Configuration Files
+Add to `packages/types/src/serverConfig.ts`:
 
-Add environment variables to all Docker configuration files to ensure the provider works in containerized deployments.
-
-### Files to Update
-
-All Dockerfile variants must be updated:
-- `Dockerfile`
-- `Dockerfile.database`
-- `Dockerfile.pglite`
-
-### Changes Required
-
-Add the new provider's environment variables at the **end** of the ENV section, just before the final line:
-
-```dockerfile
-# Previous providers...
-    # 302.AI
-    AI302_API_KEY="" AI302_MODEL_LIST="" \
-    # {New Provider 1}
-    {PROVIDER1}_API_KEY="" {PROVIDER1}_MODEL_LIST="" \
-    # {New Provider 2}
-    {PROVIDER2}_API_KEY="" {PROVIDER2}_MODEL_LIST=""
+```typescript
+export interface GlobalServerConfig {
+  <domain>?: {
+    <settingName>?: <type>;
+  };
+}
 ```
 
-### Important Rules
+**Prefer reusing existing types** from `packages/types/src/user/settings` with `PartialDeep`:
 
-- **Position**: Add new providers at the **end** of the list
-- **Ordering**: When adding multiple providers, use alphabetical order (e.g., FAL before BFL)
-- **Consistency**: Maintain identical ordering across all Dockerfile variants
-- **Format**: Follow the pattern `{PROVIDER}_API_KEY="" {PROVIDER}_MODEL_LIST="" \`
+```typescript
+import { User<Domain>Config } from './user/settings';
 
-## Step 4: Update .env.example File
+export interface GlobalServerConfig {
+  <domain>?: PartialDeep<User<Domain>Config>;
+}
+```
 
-Add example configuration entries to help users understand how to configure the provider locally.
+### 3. Assemble Server Config (Optional)
 
-### File to Update
+**Skip this step if the domain field already exists in server config.**
 
-- `.env.example`
+In `src/server/globalConfig/index.ts`:
 
-### Content to Add
+```typescript
+import { <domain>Env } from '@/envs/<domain>';
+import { cleanObject } from '@/utils/object';
 
-Add new sections before the "Market Service" section:
+export const getServerGlobalConfig = async () => {
+  const config: GlobalServerConfig = {
+    // ...
+    <domain>: cleanObject({
+      <settingName>: <domain>Env.YOUR_ENV_VAR,
+    }),
+  };
+  return config;
+};
+```
+
+If the domain already exists, just add the new field to the existing `cleanObject()`:
+
+```typescript
+<domain>: cleanObject({
+  existingField: <domain>Env.EXISTING_VAR,
+  <settingName>: <domain>Env.YOUR_ENV_VAR, // Add this line
+}),
+```
+
+### 4. Merge to User Store (Optional)
+
+**Skip this step if the domain field already exists in `serverSettings`.**
+
+In `src/store/user/slices/common/action.ts`, add to `serverSettings`:
+
+```typescript
+const serverSettings: PartialDeep<UserSettings> = {
+  defaultAgent: serverConfig.defaultAgent,
+  <domain>: serverConfig.<domain>, // Add this line
+  // ...
+};
+```
+
+### 5. Update .env.example
 
 ```bash
-### {Provider Name} ###
-
-# {PROVIDER}_API_KEY={provider-prefix}-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# <Description> (range/options, default: X)
+# YOUR_ENV_VAR=<example>
 ```
 
-### Format Guidelines
+### 6. Update Documentation
 
-- **Section Header**: Use `### {Provider Name} ###` format
-- **Commented Example**: Use `#` to comment out the example
-- **Key Format**: Use appropriate prefix for the provider (e.g., `bfl-`, `fal-`, `sk-`)
-- **Position**: Add before the Market Service section
-- **Spacing**: Maintain consistent spacing with existing entries
+Update both English and Chinese documentation:
+- `docs/self-hosting/environment-variables/basic.mdx`
+- `docs/self-hosting/environment-variables/basic.zh-CN.mdx`
 
-## Step 5: Image Resources
+Add new section or subsection with environment variable details (type, description, default, example, range/constraints).
 
-Prepare all necessary image resources for the documentation.
+## Type Reuse
 
-### Required Images
+**Prefer reusing existing types** from `packages/types/src/user/settings` instead of defining inline types in `serverConfig.ts`.
 
-1. **Cover Image**: Provider logo or branded image
-2. **API Dashboard Screenshots**: 3-4 screenshots showing API key creation process
-3. **LobeChat Configuration Screenshots**: 2-3 screenshots showing provider setup in LobeChat
+```typescript
+// ✅ Good - reuse existing type
+import { UserImageConfig } from './user/settings';
 
-### Image Guidelines
+export interface GlobalServerConfig {
+  image?: PartialDeep<UserImageConfig>;
+}
 
-- **Quality**: Use high-resolution screenshots
-- **Consistency**: Maintain consistent styling across all screenshots
-- **Privacy**: Remove or blur any sensitive information
-- **Format**: Use PNG format for screenshots
-- **Hosting**: Use LobeHub's CDN (`hub-apac-1.lobeobjects.space`) for all images
+// ❌ Bad - inline type definition
+export interface GlobalServerConfig {
+  image?: {
+    defaultImageNum?: number;
+  };
+}
+```
 
-## Checklist
+## Example: AI_IMAGE_DEFAULT_IMAGE_NUM
 
-Before submitting your provider documentation:
+```typescript
+// src/envs/image.ts
+export const getImageConfig = () => {
+  return createEnv({
+    server: {
+      AI_IMAGE_DEFAULT_IMAGE_NUM: z.coerce.number().min(1).max(20).optional(),
+    },
+    runtimeEnv: {
+      AI_IMAGE_DEFAULT_IMAGE_NUM: process.env.AI_IMAGE_DEFAULT_IMAGE_NUM,
+    },
+  });
+};
 
-- [ ] Created both English and Chinese usage documentation
-- [ ] Added environment variable documentation (EN + CN)
-- [ ] Updated all 3 Dockerfile variants with consistent ordering
-- [ ] Updated .env.example with proper key format
-- [ ] Prepared all required screenshots and images
-- [ ] Used actual model IDs from the codebase
-- [ ] Verified no real API keys are included in documentation
-- [ ] Used LobeHub CDN for all image hosting
-- [ ] Tested the documentation for clarity and accuracy
+// packages/types/src/serverConfig.ts
+import { UserImageConfig } from './user/settings';
 
-## Reference
+export interface GlobalServerConfig {
+  image?: PartialDeep<UserImageConfig>;
+}
 
-This guide was created based on the implementation of BFL (Black Forest Labs) provider documentation. For a complete example, refer to:
-- Commits: `d2da03e1a` (documentation) and `6a2e95868` (environment variables)
-- Files: `docs/usage/providers/bfl.mdx`, `docs/usage/providers/bfl.zh-CN.mdx`
-- PR: Current branch `tj/feat/bfl-docs`
+// src/server/globalConfig/index.ts
+image: cleanObject({
+  defaultImageNum: imageEnv.AI_IMAGE_DEFAULT_IMAGE_NUM,
+}),
+
+// src/store/user/slices/common/action.ts
+const serverSettings: PartialDeep<UserSettings> = {
+  image: serverConfig.image,
+  // ...
+};
+
+// .env.example
+# AI_IMAGE_DEFAULT_IMAGE_NUM=4
+```
 
 ---
 > Source: [vual/lobe-chat-pro](https://github.com/vual/lobe-chat-pro) — distributed by [TomeVault](https://tomevault.io).
