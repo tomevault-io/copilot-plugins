@@ -4,7 +4,7 @@
   "repo": "rune",
   "description": "Experience timeless melodies with a music player that blends classic design with modern technology.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Losses/rune",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T19:33:29Z"
+  "distributed_at": "2026-06-01T20:01:32Z"
 }
