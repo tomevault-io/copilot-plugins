@@ -1,0 +1,9 @@
+{
+  "name": "mahocommerce--maho",
+  "displayName": "maho",
+  "description": "Modern PHP 8.3+ ecommerce platform built on Symfony, Doctrine DBAL, Laminas, 100% vanilla JS. Drop-in replacement for Magento 1 projects with full compatibility. Complete toolchain: Composer/PHPStan p",
+  "version": "1.0.0",
+  "author": "MahoCommerce",
+  "homepage": "https://github.com/MahoCommerce/maho",
+  "skills": []
+}
