@@ -1,0 +1,9 @@
+{
+  "name": "fatbobman--observabledefaults",
+  "displayName": "ObservableDefaults",
+  "description": "A comprehensive solution integrating SwiftUI + Observation + UserDefaults + iCloud Key-Value Store",
+  "version": "1.0.0",
+  "author": "fatbobman",
+  "homepage": "https://github.com/fatbobman/ObservableDefaults",
+  "skills": []
+}
