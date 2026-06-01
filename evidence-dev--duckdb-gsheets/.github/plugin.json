@@ -1,0 +1,9 @@
+{
+  "name": "evidence-dev--duckdb-gsheets",
+  "displayName": "duckdb_gsheets",
+  "description": "DuckDB extension to read and write Google Sheets using SQL",
+  "version": "1.0.0",
+  "author": "evidence-dev",
+  "homepage": "https://github.com/evidence-dev/duckdb_gsheets",
+  "skills": []
+}
