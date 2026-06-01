@@ -4,7 +4,7 @@
   "repo": "latitude-llm",
   "description": "Latitude is the open-source agent engineering platform",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/latitude-dev/latitude-llm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T21:58:02Z"
+  "distributed_at": "2026-06-01T22:05:19Z"
 }
