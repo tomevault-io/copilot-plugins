@@ -4,7 +4,7 @@
   "repo": "uncloud",
   "description": "A lightweight tool for deploying and managing containerised applications across a network of Docker hosts. Bridging the gap between Docker and Kubernetes \u2728",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/psviderski/uncloud",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T17:41:54Z"
+  "distributed_at": "2026-06-01T17:48:18Z"
 }
