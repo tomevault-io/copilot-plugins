@@ -1,252 +1,121 @@
-## trading-bot
+## pumpfun-bonkfun-bot
 
-> Maintain consistent structure across all bot configuration files:
+> This repository contains a Solana trading bot for pump.fun and letsbonk.fun platforms. When working on the project interactively with an agent (e.g. the Codex CLI) please follow the guidelines below for safe development and testing.
 
+# AGENTS Guidelines for This Repository
 
-# Trading Bot Specific Rules
+This repository contains a Solana trading bot for pump.fun and letsbonk.fun platforms. When working on the project interactively with an agent (e.g. the Codex CLI) please follow the guidelines below for safe development and testing.
 
-## Bot Configuration Standards
+## 1. Use Learning Examples for Testing
 
-### YAML Configuration Structure
-Maintain consistent structure across all bot configuration files:
+* **Always test with learning examples first** in `learning-examples/` before modifying the main bot.
+* **Do _not_ run the main bot with real funds** during agent development sessions.
+* **Test all changes** using manual buy/sell scripts with minimal amounts before production use.
+* **Use testnet** or paper trading when available to validate logic.
 
-```yaml
-# Bot identification
-name: "bot-sniper-1"
-platform: "pump_fun"  # or "lets_bonk"
-enabled: true  # Allow disabling without removing config
-separate_process: true  # Run in separate process for isolation
+## 2. Keep Dependencies in Sync
 
-# Environment and connection
-env_file: ".env"
-rpc_endpoint: "${SOLANA_NODE_RPC_ENDPOINT}"
-wss_endpoint: "${SOLANA_NODE_WSS_ENDPOINT}"
-private_key: "${SOLANA_PRIVATE_KEY}"
+If you add or update dependencies:
 
-# Platform-specific configurations
-geyser:  # For faster data streams
-  endpoint: "${GEYSER_ENDPOINT}"
-  api_token: "${GEYSER_API_TOKEN}"
-  auth_type: "x-token"
+1. Use `uv add <package>` to add new dependencies.
+2. The `uv.lock` file will be automatically updated.
+3. Restart any running bots after dependency changes.
+4. Verify compatibility with Python 3.9+ as specified in the project.
 
-# Trading parameters
-trade:
-  buy_amount: 0.0001  # SOL amount
-  buy_slippage: 0.3   # 30%
-  sell_slippage: 0.3
-  exit_strategy: "time_based"  # "tp_sl", "manual"
-  extreme_fast_mode: true  # Skip validations for speed
-```
+## 3. Coding Conventions
 
-### Environment Variable Usage
-- Use `${VARIABLE_NAME}` syntax for environment interpolation
-- Never hardcode sensitive values in YAML files
-- Validate all required environment variables on startup
-- Provide clear error messages for missing variables
+* Follow Ruff linting rules defined in `pyproject.toml`.
+* Use Google-style docstrings for functions and classes.
+* Include type hints for all public functions.
+* Use the centralized logger: `from src.utils.logger import get_logger`.
+* Keep line length to 88 characters (auto-formatted).
+* Use double quotes for strings.
 
-## Trading Logic Rules
+## 4. Code Quality Checks
 
-### Transaction Handling
-- Always use priority fees for competitive transaction inclusion
-- Implement retry mechanisms with exponential backoff
-- Cache recent blockhash to avoid repeated RPC calls
-- Use compute unit limits to prevent transaction failures
+Before completing any task, run these quality checks:
 
-```python
-# Good transaction building pattern
-instructions = [
-    set_compute_unit_limit(300_000),
-    set_compute_unit_price(priority_fee),
-    # ... trading instructions
-]
-```
+| Command                 | Purpose                                    |
+| ----------------------- | ------------------------------------------ |
+| `ruff format`           | Format code to project standards          |
+| `ruff check`            | Run linting checks                        |
+| `ruff check --fix`      | Auto-fix linting issues where possible    |
 
-### Risk Management
-- Implement position size limits
-- Use slippage protection on all trades
-- Set maximum hold times to prevent stuck positions
-- Validate token data before trading
+## 5. Testing Workflow
 
-```python
-# Risk validation example
-if token_age > self.max_token_age:
-    logger.warning(f"Token {mint} too old ({token_age}s), skipping")
-    return False
+Test changes progressively:
 
-if buy_amount > self.max_position_size:
-    logger.error(f"Buy amount {buy_amount} exceeds max position size")
-    return False
-```
+1. **Unit testing**: Use individual learning examples
+   ```bash
+   uv run learning-examples/fetch_price.py
+   ```
 
-### Exit Strategies
-Implement multiple exit strategy types:
+2. **Integration testing**: Test specific listeners
+   ```bash
+   uv run learning-examples/listen-new-tokens/listen_logsubscribe.py
+   ```
 
-1. **Time-based**: Hold for fixed duration
-2. **Take Profit/Stop Loss**: Price-based exits
-3. **Manual**: No automatic selling
+3. **Configuration testing**: Validate YAML configs before running
+   ```bash
+   # Check syntax and required fields manually
+   ```
 
-```python
-class ExitStrategy(Enum):
-    TIME_BASED = "time_based"
-    TP_SL = "tp_sl"
-    MANUAL = "manual"
-```
+4. **Dry run**: Use minimal amounts and conservative settings first
 
-## Platform Integration Rules
+## 6. Environment Configuration
 
-### Multi-Platform Support
-- Use platform enum for type safety
-- Implement platform-specific address providers
-- Abstract platform differences in universal components
-- Validate platform-listener combinations
+Never commit sensitive data:
 
-```python
-# Platform validation
-if not validate_platform_listener_combination(platform, listener_type):
-    supported = get_supported_listeners_for_platform(platform)
-    raise ConfigurationError(
-        f"Listener '{listener_type}' not supported for {platform.value}. "
-        f"Supported: {supported}"
-    )
-```
+* Keep private keys in `.env` file (git-ignored).
+* Use separate `.env` files for development and production.
+* Required environment variables:
+  ```env
+  SOLANA_RPC_WEBSOCKET=wss://...
+  SOLANA_RPC_HTTP=https://...
+  PRIVATE_KEY=your_private_key_here
+  ```
 
-### Listener Types
-Support multiple data source types:
-- **geyser**: Fastest, requires special endpoint
-- **logs**: WebSocket log subscription
-- **blocks**: Block subscription (not all providers support)
-- **pumpportal**: Third-party aggregator
+## 7. Bot Configuration Best Practices
 
-## Performance Optimization
+* Edit YAML files in `bots/` directory for bot instances.
+* Start with conservative settings:
+  - Low `buy_amount`
+  - High `min_sol_balance`
+  - Strict filters
+* Test one bot instance at a time during development.
+* Monitor logs in `logs/` directory for debugging.
 
-### Speed vs Accuracy Tradeoffs
-- **Extreme Fast Mode**: Skip validations and price checks for speed
-- **Normal Mode**: Full validation and price checks
-- **Marry Mode**: Only buy, never sell (accumulation strategy)
-- **YOLO Mode**: Continuous trading without cooldowns
+## 8. Platform-Specific Development
 
-### Caching Strategy
-```python
-# Cache expensive operations
-self._cached_blockhash: Hash | None = None
-self._blockhash_lock = asyncio.Lock()
+When adding features:
 
-# Background blockhash updater
-async def start_blockhash_updater(self, interval: float = 5.0):
-    while True:
-        try:
-            blockhash = await self.get_latest_blockhash()
-            async with self._blockhash_lock:
-                self._cached_blockhash = blockhash
-        except Exception as e:
-            logger.exception(f"Failed to update blockhash: {e}")
-        await asyncio.sleep(interval)
-```
+* Check platform compatibility (`pump_fun` vs `lets_bonk`).
+* Test with both platforms if changes affect core logic.
+* Update platform-specific implementations in `src/platforms/`.
+* Verify IDL files match the on-chain programs.
 
-## Monitoring and Logging
+## 9. Safety Reminders
 
-### Log File Management
-- Create timestamped log files per bot instance
-- Format: `{bot_name}_{timestamp}.log`
-- Store in `logs/` directory
-- Implement log rotation for long-running bots
+* **Never expose private keys** in code, logs, or commits.
+* **Test with minimal amounts** first.
+* **Verify transactions** on Solana explorer before scaling up.
+* **Monitor rate limits** of your RPC provider.
+* **Keep logs** for audit and debugging purposes.
 
-### Trading Event Logging
-Log all significant events with context:
+## 10. Useful Commands Recap
 
-```python
-# Good logging examples
-logger.info(f"New token detected: {mint} by {creator}")
-logger.info(f"Buy transaction submitted: {signature}")
-logger.warning(f"Transaction failed, attempt {attempt}/{max_attempts}")
-logger.error(f"Platform {platform.value} not supported")
-```
+| Command                                            | Purpose                           |
+| -------------------------------------------------- | --------------------------------- |
+| `uv sync`                                          | Install/update dependencies       |
+| `source .venv/bin/activate`                       | Activate virtual environment      |
+| `uv pip install -e .`                              | Install bot as editable package   |
+| `pump_bot`                                         | Run the main bot                  |
+| `uv run learning-examples/manual_buy.py`          | Test manual buy                   |
+| `uv run learning-examples/manual_sell.py`         | Test manual sell                  |
 
-### Performance Metrics
-Track key performance indicators:
-- Token detection latency
-- Transaction confirmation time
-- Success/failure rates
-- Slippage and fill rates
+---
 
-## Security and Safety Rules
-
-### Private Key Management
-- Store private keys only in environment variables
-- Never log or expose private keys
-- Use separate wallets for testing vs production
-- Implement wallet balance checks before trading
-
-### Input Validation
-```python
-# Validate all external inputs
-def validate_mint_address(mint_str: str) -> bool:
-    try:
-        mint = Pubkey.from_string(mint_str)
-        return len(str(mint)) == 44  # Valid Solana address length
-    except Exception:
-        return False
-```
-
-### Error Recovery
-- Implement graceful shutdown on critical errors
-- Provide cleanup mechanisms for stuck positions
-- Support manual intervention modes
-- Log all errors with sufficient context for debugging
-
-## Testing and Validation
-
-### Learning Examples Usage
-Use learning examples for:
-- Testing new features before integration
-- Validating platform-specific functionality
-- Performance benchmarking
-- Educational purposes for new developers
-
-```bash
-# Test platform connectivity
-uv run learning-examples/fetch_price.py
-
-# Validate bonding curve calculations
-uv run learning-examples/compute_associated_bonding_curve.py
-
-# Compare listener performance
-uv run learning-examples/listen-new-tokens/compare_listeners.py
-```
-
-### Configuration Testing
-- Validate YAML syntax and required fields
-- Test environment variable interpolation
-- Verify platform-listener compatibility
-- Check wallet connectivity and balance
-
-## Deployment Guidelines
-
-### Production Checklist
-1. Test configuration with learning examples
-2. Verify environment variables are set
-3. Check wallet has sufficient SOL for gas fees
-4. Enable separate processes for isolation
-5. Monitor logs for successful startup
-6. Implement monitoring and alerting
-
-### Multi-Bot Management
-- Use descriptive bot names in configurations
-- Separate log files per bot instance
-- Monitor resource usage across all bots
-- Implement centralized configuration management
-
-```python
-# Bot process management
-if cfg.get("separate_process", False):
-    p = multiprocessing.Process(
-        target=run_bot_process, 
-        args=(str(file),), 
-        name=f"bot-{bot_name}"
-    )
-    p.start()
-    processes.append(p)
-```
+Following these practices ensures safe development, prevents accidental trades, and maintains code quality. Always prioritize testing and security when working with trading bots.
 
 ---
 > Source: [chainstacklabs/pumpfun-bonkfun-bot](https://github.com/chainstacklabs/pumpfun-bonkfun-bot) — distributed by [TomeVault](https://tomevault.io).
