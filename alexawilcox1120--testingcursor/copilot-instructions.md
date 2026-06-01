@@ -1,77 +1,105 @@
-## rules
+## test-page
 
-> Cursor Rules Location
+> This rule provides guidance on when to use the TestPage component and example components versus creating new components.
 
-# Cursor Rules Location
+# Test Page Component Usage Guidelines
 
-Rules for placing and organizing Cursor rule files in the repository.
+This rule provides guidance on when to use the TestPage component and example components versus creating new components.
 
 <rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
+name: test_page_component_usage
+description: Guidelines for using TestPage and example components versus creating new components
 filters:
-  # Match any .mdc files
+  # Match React component files
   - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
+    pattern: "\\.(jsx|tsx)$"
+  # Match import statements that reference TestPage or example components
   - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
-  - type: event
-    pattern: "file_create"
+    pattern: "import.*(?:TestPage|CounterButton|ClaudeChat|OpenAIChat|GeminiChat|FireflyImageGenerator|FireflyVideoGenerator|FalImageGenerator|StockComponent|AudioMusicGenerator)"
+  # Match component usage in JSX
+  - type: content
+    pattern: "<(?:TestPage|CounterButton|ClaudeChat|OpenAIChat|GeminiChat|FireflyImageGenerator|FireflyVideoGenerator|FalImageGenerator|StockComponent|AudioMusicGenerator)"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
-
   - type: suggest
+    conditions:
+      # When TestPage is not displayed in App.tsx
+      - pattern: "^(?!.*<TestPage.*/>).*$"
+        context: "src/App.tsx"
+        message: "TestPage is not displayed - prioritize creating new components"
+      
     message: |
-      When creating Cursor rules:
+      ## Test Page Component Usage Guidelines
 
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
+      ### When TestPage is NOT displayed in App.tsx:
+      1. **Prioritize creating new components** based on user requirements
+      2. **Do not use existing example components** unless specifically requested
+      3. **Use example components only as reference** for:
+         - Understanding API patterns
+         - Learning service integration
+         - Seeing component structure examples
+      4. **Create fresh, purpose-built components** that:
+         - Meet the specific user requirements
+         - Follow Adobe Spectrum design patterns
+         - Are tailored to the user's needs
 
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
+      ### When TestPage IS displayed in App.tsx:
+      1. **Example components are available for use** and testing
+      2. **Can modify existing components** if they meet user needs
+      3. **Can use example components** for rapid prototyping
 
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
-         ```
+      ### Example Components (for reference only when TestPage not displayed):
+      - `CounterButton` - Basic state management example
+      - `ClaudeChat` - AI chat integration pattern
+      - `OpenAIChat` - OpenAI API usage example
+      - `GeminiChat` - Gemini API integration example
+      - `FireflyImageGenerator` - Image generation workflow
+      - `FireflyVideoGenerator` - Video generation workflow
+      - `FalImageGenerator` - Fal AI service usage
+      - `StockComponent` - Stock API integration
+      - `AudioMusicGenerator` - Audio service usage
 
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
+      ### Best Practices:
+      1. **Always check App.tsx first** to see if TestPage is displayed
+      2. **Create new components** that are specific to user requirements
+      3. **Use services directly** rather than copying example component patterns
+      4. **Focus on user experience** over reusing existing examples
+      5. **Build components from scratch** using Adobe Spectrum for consistency
 
 examples:
   - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
+      // When TestPage is not displayed in App.tsx
+      // User asks: "Create a music player component"
+      
+      // Bad approach:
+      import AudioMusicGenerator from './components/AudioMusicGenerator'
+      
+      // Good approach:
+      // Create a new MusicPlayer component from scratch
+      import { View, Heading, Button } from '@adobe/react-spectrum'
+      import { generateMusic } from '../services'
+      
+      const MusicPlayer: React.FC = () => {
+        // Build component specific to user needs
+      }
+    output: "Created purpose-built component instead of reusing example"
 
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
+  - input: |
+      // When TestPage IS displayed in App.tsx
+      // User asks: "Show me how to generate music"
+      
+      // Acceptable approach:
+      import AudioMusicGenerator from './components/AudioMusicGenerator'
+      // Can use or modify existing example component
+    output: "Using example component is acceptable when TestPage is displayed"
 
 metadata:
   priority: high
   version: 1.0
+  tags:
+    - component-usage
+    - development-workflow
+    - user-experience
 </rule>
 
 ---
