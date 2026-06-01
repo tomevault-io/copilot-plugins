@@ -1,25 +1,50 @@
-## incremental-development-cadence
+## language-injection-conventions
 
-> Enforce step-by-step implementation with design-doc checks, tests, and i18n after each step
+> description: Language injection conventions for LLM Agent prompts
 
+---
+description: Language injection conventions for LLM Agent prompts
+globs: py-src/data_formulator/agents/**/*.py,py-src/data_formulator/routes/agents.py
+alwaysApply: false
+---
 
-# Incremental Development Cadence
+# Language Injection Conventions
 
-Multi-step tasks MUST be implemented **one step at a time**. After each logical unit (function, endpoint, component), complete all cross-cutting concerns before moving on.
+Language flows per-request: `Frontend i18n → Accept-Language header → get_language_instruction() → system prompt`.
 
-## After Each Step
+## LLM Prompt Language Injection
 
-1. **Verify against design doc** — compare with `design-docs/` or issue spec; raise deviations before continuing
-2. **Add tests** — write/update tests for the just-implemented code, run and confirm green
-3. **Add i18n keys** — if user-visible text was introduced, add `en` + `zh` keys immediately
-4. **Update docs** — if a new cross-cutting convention was introduced, update dev-guide/Rule immediately
+1. **User-facing LLM output** MUST inject language via `get_language_instruction(mode=...)` in the route handler.
+2. **Mode selection:** `"full"` for text-heavy agents, `"compact"` for code-generation agents and short-text endpoints.
+3. **Inject into system prompt only** — use `inject_language_instruction()` from `agent_language.py`. Never inject into user messages.
+4. **Do NOT inject** for non-user-facing calls (health checks, internal tool calls).
+5. **Do NOT duplicate** — if upstream messages already contain language instruction, skip.
+6. **Do NOT** use env vars, global interceptors, or hardcoded language strings (e.g. `"回答请使用中文"`) — route handlers should use `get_language_instruction(mode=...)`.
+7. **New language?** Add to `LANGUAGE_DISPLAY_NAMES` in `agents/agent_language.py` and add locale files in `src/i18n/locales/<lang>/`.
 
-## Banned Patterns
+## Python-Side User-Visible Messages (message_code pattern)
 
-- ❌ Implementing 3+ functions/endpoints before writing any tests
-- ❌ Sweeping all i18n keys in a final pass after all code is done
-- ❌ Checking design docs only after the entire implementation is complete
-- ❌ Mentioning "tests and i18n still needed" only in the final response
+For **fixed strings in Python** that are shown in the UI (error messages, clarify options, completion summaries), do NOT translate in Python. Instead:
+
+1. Keep the English string as the default value.
+2. Add a `message_code` (or `content_code`, `error_code`, `summary_code`) field with a key like `"agent.someKey"`.
+3. Optionally add `message_params` for interpolation.
+4. The frontend translates using `translateBackend(fallback, code, params)` from `src/app/utils.tsx`.
+5. Add the translation key to `src/i18n/locales/{en,zh}/messages.json` under the `agent` section.
+
+```python
+# ✅ GOOD — backend returns code, frontend translates
+yield {
+    "type": "error",
+    "message": "Output DataFrame is empty (0 rows).",
+    "message_code": "agent.emptyDataframe",
+}
+
+# ❌ BAD — backend-side translation dict
+yield {"message": translate_in_python("empty_df", lang)}
+```
+
+For detailed architecture and anti-pattern explanations, see `docs/dev-guides/6-i18n-language-injection.md`.
 
 ---
 > Source: [microsoft/data-formulator](https://github.com/microsoft/data-formulator) — distributed by [TomeVault](https://tomevault.io).
