@@ -1,0 +1,9 @@
+{
+  "name": "compose-miuix-ui--miuix",
+  "displayName": "miuix",
+  "description": "A UI library for Compose Multiplatform.",
+  "version": "1.0.0",
+  "author": "compose-miuix-ui",
+  "homepage": "https://github.com/compose-miuix-ui/miuix",
+  "skills": []
+}
