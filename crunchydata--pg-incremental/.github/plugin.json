@@ -1,0 +1,9 @@
+{
+  "name": "crunchydata--pg-incremental",
+  "displayName": "pg_incremental",
+  "description": "Incremental Data Processing in PostgreSQL",
+  "version": "1.0.0",
+  "author": "CrunchyData",
+  "homepage": "https://github.com/CrunchyData/pg_incremental",
+  "skills": []
+}
