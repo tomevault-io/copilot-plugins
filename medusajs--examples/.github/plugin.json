@@ -1,9 +1,9 @@
 {
   "name": "medusajs--examples",
   "displayName": "examples",
-  "description": "examples",
+  "description": "All Medusa-related examples.",
   "version": "1.0.0",
   "author": "medusajs",
-  "homepage": "https://tomevault.io/claim/medusajs",
+  "homepage": "https://github.com/medusajs/examples",
   "skills": []
 }
