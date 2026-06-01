@@ -1,0 +1,9 @@
+{
+  "name": "getsolotech--solo-cli",
+  "displayName": "solo-cli",
+  "description": "CLI for Robot Training and Deployment",
+  "version": "1.0.0",
+  "author": "GetSoloTech",
+  "homepage": "https://github.com/GetSoloTech/solo-cli",
+  "skills": []
+}
