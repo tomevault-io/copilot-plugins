@@ -1,0 +1,9 @@
+{
+  "name": "ash-project--ash-ai",
+  "displayName": "ash_ai",
+  "description": "Structured outputs, vectorization and tool calling for your Ash application",
+  "version": "1.0.0",
+  "author": "ash-project",
+  "homepage": "https://github.com/ash-project/ash_ai",
+  "skills": []
+}
