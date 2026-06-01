@@ -1,83 +1,224 @@
-## project-rules
+## react-rules
 
-> @gravity-ui/graph is a graph visualization library that combines the best of both worlds: Canvas for high performance when viewing the full graph and HTML/React for rich interactions when zoomed in.
+> React rules
 
-## Project Overview
-@gravity-ui/graph is a graph visualization library that combines the best of both worlds: Canvas for high performance when viewing the full graph and HTML/React for rich interactions when zoomed in.
+# React Development Rules
 
-## Project Structure
-Project structure:
-- src/ - source code
-  - api/ - API for interacting with the graph
-  - components/ - Canvas components
-    - canvas/ - contains blocks, connections, anchors and layers for rendering
-  - lib/ - helper libraries
-  - plugins/ - plugins for extending functionality
-  - react-component/ - React wrappers for Canvas components
-  - services/ - services, including camera and others
-  - store/ - graph state storage
-  - stories/ - examples of component usage for Storybook
-  - utils/ - utility functions
-- docs/ - project documentation
-- .storybook/ - Storybook configuration
+## General React Guidelines
 
-## Key File Locations
-- **Main Graph Class:** `src/graph.ts` (Exports `Graph`, `TGraphConfig`)
-- **Base Layer Class:** `src/services/Layer.ts` (Exports `Layer`, `LayerProps`, `LayerContext`)
-- **Base Component Classes:** 
-    - `src/lib/CoreComponent.ts` (Exports `CoreComponent`, `CoreComponentProps`, `CoreComponentContext`)
-    - `src/lib/Component.ts` (Exports `Component`, `TComponentProps`, `TComponentState` - extends `CoreComponent`)
-- **Camera Service:** `src/services/camera/CameraService.ts` (Exports `CameraService`, `ICamera`, `TCameraState`)
-- **Block Definitions:**
-    - Base `Block` component: `src/components/canvas/blocks/Block.ts` (Exports `Block`, `TBlock`)
-    - Block Store State: `src/store/block/Block.ts` (Exports `BlockState`, `TBlockId`, `IS_BLOCK_TYPE`)
-- **Connection Definitions:**
-    - Connection Store State: `src/store/connection/ConnectionState.ts` (Exports `ConnectionState`, `TConnection`)
-    - Base `Connection` component: `src/components/canvas/connections/Connection.ts` (Exports `Connection`)
-- **React Integration:**
-    - `GraphCanvas` component: `src/react-component/GraphCanvas.tsx`
-    - `useGraph` hook: `src/react-component/hooks/useGraph.ts`
-    - `GraphBlock` component: `src/react-component/GraphBlock.tsx` (Or similar path)
+### Component Structure
+- Use functional components with hooks
+- Keep components focused and single-responsibility
+- Extract reusable logic into custom hooks
+- Implement proper cleanup in useEffect when needed
 
-## Technologies
-Technology stack:
-- TypeScript - main development language
-- React - for creating user interfaces
-- Canvas API - for rendering high-performance graphics
-- Storybook - for component development and testing
-- Jest - for unit testing
-- ESLint/Prettier - for maintaining code quality and style
+### State Management
+- Keep state as close to where it's used as possible
+- Use context for truly global state
+- Prefer controlled components over uncontrolled
+- Use state only for values that trigger re-renders
 
-## Key Components
-Key components:
-- Graph - main class for graph management (src/graph.ts)
-- GraphCanvas - React component for displaying the graph (src/react-component/GraphCanvas.tsx)
-- Block - component for representing a graph block
-- Connection - component for connections between blocks
-- Anchor - components for connection attachment points
+### Performance Optimization
+- Memoize callbacks with useCallback when passed to children
+- Use useMemo for expensive computations
+- Apply React.memo() for pure components that render often
+- Keep render logic simple and performant
 
-## Rendering System
-Rendering system:
-- Full graph is rendered on Canvas for performance
-- When zooming in, HTML/React mode is automatically enabled for interactive elements
-- Uses a smart system that tracks visible blocks and renders only them in React
-- Rendering is organized into Layers (`src/services/Layer.ts`) which control drawing order and can optimize rendering based on camera position and device pixel ratio (`respectPixelRatio`, `transformByCameraPosition` properties in `LayerProps`).
+### TypeScript Usage
+- Define explicit prop types using TypeScript interfaces
+- Use proper event typing
+- Document complex component behavior
+- Leverage TypeScript's type inference when possible
 
-## Development Guidelines
-Development guidelines:
-- To run the project locally, use `npm run storybook`
-- To build the project, use `npm run build`
-- Tests are run via `npm run test`
-- Use TypeScript for typing all code
-- Follow component architecture principles
+### Error Handling
+- Implement ErrorBoundary for error handling
+- Handle loading and error states explicitly
+- Provide meaningful error messages
+- Add fallback UI for error states
 
-## File Naming Conventions
-File naming conventions:
-- Components: ComponentName.tsx
-- Utilities: utilityName.ts
-- Tests: ComponentName.test.ts
-- Styles: ComponentName.css
-- Types and interfaces: start with T or I (TBlock, IService) 
+### Resource Cleanup
+- Clean up subscriptions in useEffect
+- Clear timers and intervals
+- Remove event listeners
+- Dispose of resources properly
+
+### Best Practices
+- Use semantic HTML elements
+- Implement proper accessibility attributes
+- Keep JSX clean and readable
+- Write unit tests for components
+- Use React.StrictMode in development
+
+## @gravity-ui/graph Specific Rules
+
+### Core Components
+
+#### GraphCanvas
+- Use as the main container for graph rendering
+- Always provide required props:
+  ```tsx
+  <GraphCanvas 
+    graph={graph}
+    renderBlock={renderBlock}
+  />
+  ```
+
+#### GraphBlock
+- Use for wrapping HTML block content
+- Component handles automatically:
+  - Position synchronization with canvas
+  - State management (selection, hover)
+  - Layout management
+  - Z-index handling
+  - CSS variables injection
+
+```tsx
+<GraphBlock 
+  graph={graph} 
+  block={block}
+  className="custom-block"
+>
+  <div>Block content</div>
+</GraphBlock>
+```
+
+#### GraphBlockAnchor
+- Use for rendering connection points on blocks
+- Supports two positioning modes:
+  1. `fixed` - exact coordinates relative to block
+  2. `auto` - automatic positioning based on type (input/output)
+
+```tsx
+<GraphBlockAnchor 
+  graph={graph} 
+  anchor={anchor}
+  position="fixed" // or "auto"
+>
+  {(state) => (
+    <div className={state.selected ? 'selected' : ''}>
+      {/* Anchor content */}
+    </div>
+  )}
+</GraphBlockAnchor>
+```
+
+### Layer Management
+
+#### useLayer Hook
+- Use for adding and managing layers:
+  ```tsx
+  const devToolsLayer = useLayer(graph, DevToolsLayer, {
+    showRuler: true,
+    rulerSize: 20,
+  });
+  ```
+- Hook features:
+  - Automatic layer initialization and cleanup
+  - Props updates handling
+  - TypeScript type support
+  - Direct layer instance access
+
+### Event Handling
+
+#### useGraphEvent Hook
+- Use for subscribing to graph events:
+```tsx
+useGraphEvent(graph, "connection-created", 
+  ({ sourceBlockId, targetBlockId }, event) => {
+    // Handle new connection
+    // Use event.preventDefault() to cancel
+});
+
+useGraphEvent(graph, "blocks-selection-change", 
+  ({ changes }) => {
+    console.log('Added:', changes.add);
+    console.log('Removed:', changes.removed);
+});
+```
+
+### Styling
+
+#### CSS Variables
+- Use CSS variables for component styling:
+```css
+.custom-block {
+  /* Positioning (automatic) */
+  --graph-block-geometry-x: 0px;
+  --graph-block-geometry-y: 0px;
+  --graph-block-geometry-width: 200px;
+  --graph-block-geometry-height: 100px;
+  --graph-block-z-index: 1;
+  
+  /* Theme (from graph settings) */
+  --graph-block-bg: rgba(37, 27, 37, 1);
+  --graph-block-border: rgba(229, 229, 229, 0.2);
+  --graph-block-border-selected: rgba(255, 190, 92, 1);
+}
+```
+
+### Configuration
+
+#### View Configuration
+- Configure appearance through viewConfiguration:
+```tsx
+const config = {
+  viewConfiguration: {
+    colors: {
+      block: {
+        background: "rgba(37, 27, 37, 1)",
+        border: "rgba(229, 229, 229, 0.2)",
+        selectedBorder: "rgba(255, 190, 92, 1)"
+      },
+      connection: {
+        background: "rgba(255, 255, 255, 0.5)",
+        selectedBackground: "rgba(234, 201, 74, 1)"
+      }
+    }
+  }
+};
+```
+
+#### Behavior Settings
+- Configure behavior through settings:
+```tsx
+const config = {
+  settings: {
+    canDragCamera: true,
+    canZoomCamera: true,
+    canDragBlocks: true,
+    canCreateNewConnections: true,
+    showConnectionArrows: true,
+    useBezierConnections: true
+  }
+};
+```
+
+### Library-Specific Best Practices
+
+1. **Graph State Management**
+   - Use graph's built-in state management for graph-related data
+   - Leverage graph events for state updates
+   - Keep external state synchronized with graph state
+
+2. **Performance**
+   - Use appropriate zoom levels for block rendering
+   - Implement proper layer management
+   - Optimize connection rendering with BatchPath2D
+
+3. **Type Safety**
+   - Use library's built-in types
+   - Define explicit types for custom blocks and anchors
+   - Leverage type inference from graph context
+
+4. **Resource Management**
+   - Clean up graph subscriptions
+   - Properly dispose of layers
+   - Handle graph lifecycle events
+
+5. **Error Handling**
+   - Implement fallbacks for graph rendering errors
+   - Handle connection validation errors
+   - Provide meaningful error states for blocks 
 
 ---
 > Source: [gravity-ui/graph](https://github.com/gravity-ui/graph) — distributed by [TomeVault](https://tomevault.io).
