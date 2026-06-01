@@ -7,11 +7,11 @@ Turn your Telegram Channel into a MicroBlog.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [miantiao-me/BroadcastChannel](https://github.com/miantiao-me/BroadcastChannel).
+Original source: `AGENTS.md` in [miantiao-me/BroadcastChannel](https://github.com/miantiao-me/BroadcastChannel).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
