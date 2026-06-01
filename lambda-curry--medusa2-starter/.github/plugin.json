@@ -1,0 +1,9 @@
+{
+  "name": "lambda-curry--medusa2-starter",
+  "displayName": "medusa2-starter",
+  "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a",
+  "version": "1.0.0",
+  "author": "lambda-curry",
+  "homepage": "https://github.com/lambda-curry/medusa2-starter",
+  "skills": []
+}
