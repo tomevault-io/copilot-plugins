@@ -1,9 +1,9 @@
 {
   "name": "av--harbor",
   "displayName": "harbor",
-  "description": "harbor",
+  "description": "Stop configuring your AI stack. Start using it. One command brings a complete pre-wired LLM stack with hundreds of services to explore.",
   "version": "1.0.0",
   "author": "av",
-  "homepage": "https://tomevault.io/claim/av",
+  "homepage": "https://github.com/av/harbor",
   "skills": []
 }
