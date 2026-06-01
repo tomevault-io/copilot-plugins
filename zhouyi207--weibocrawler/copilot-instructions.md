@@ -1,41 +1,42 @@
-## tauri-modular-commands
+## use-shadcn-components
 
-> Tauri React 前端模块化与 Rust command 薄层（YssGDD）
+> Use shadcn/ui components as the sole UI primitive library
 
 
-# Tauri 全栈：模块化与 Command 约定
+# Use shadcn/ui Components
 
-## React 前端（`src/`）
+All UI must be built with shadcn/ui components to ensure consistent styling across the project.
 
-- **分层**：`screens` / `ui` / `domain` / `project` / `tauri` 等职责清晰；界面只组合与触发，复杂逻辑进 hook 或纯函数模块。
-- **解耦**：业务与 Tauri 边界集中在 `src/app/tauri/commands.ts`（或其它单一 API 封装）；组件通过封装函数调用后端，避免在 UI 里直接散落 `invoke("...")`。
-- **类型**：领域类型放在 `domain/`，与存储、路由解耦；避免循环依赖（必要时提取共享类型或下层模块）。
+## Rules
 
-## Rust 后端（`src-tauri/src/`）
+- **Prefer shadcn/ui primitives** — Use `Button`, `Input`, `Dialog`, `Select`, `Card`, `Table`, `Tabs`, etc. from `@/components/ui/` before writing custom markup.
+- **No competing UI libraries** — Do not install or import MUI, Ant Design, Chakra, Mantine, or similar component libraries.
+- **Extend via shadcn variants** — When a new visual style is needed, add a variant to the existing shadcn component using `cva` instead of creating a one-off styled element.
+- **Raw HTML only as last resort** — Only use plain `<div>`, `<span>`, etc. for layout wrappers. Interactive elements (buttons, inputs, dialogs, tooltips…) must come from shadcn/ui.
 
-- **所有 `#[tauri::command]`** 只定义在 **`command/`**（例如 `command/mod.rs` 或 `command/*.rs`），不在 `project/`、`db/` 等业务模块上挂 command 属性。
-- **Command 要薄**：解析参数 → 调用 `crate::project::`、`crate::db::` 等纯逻辑 → 映射为 `Result` / DTO。避免在 command 里写长流程、重复校验或大段 `fs`/SQL。
-- **业务实现** 放在对应模块（如 `project/mod.rs`），对外暴露普通 Rust 函数或小型 `pub` API；`lib.rs` 的 `invoke_handler` 只注册 `command::...`。
-- **新建 command 时**：先在业务模块实现函数，再在 `command` 中加一行包装并注册，保持与前端 `commands.ts` 命名一致。
+## Examples
 
-## 反例
+```tsx
+// ❌ BAD — raw HTML button with inline styles
+<button className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
 
-```rust
-// ❌ 在 project/mod.rs 上写 #[tauri::command]
-// ❌ command 内 80 行业务逻辑 + 文件系统细节
+// ✅ GOOD — shadcn Button
+import { Button } from "@/components/ui/button"
+<Button variant="default">Submit</Button>
 ```
 
-```rust
-// ✅ command/mod.rs
-#[tauri::command]
-pub fn init_project(path: String) -> Result<(), String> {
-    crate::project::init_project(&path)
-}
-```
+```tsx
+// ❌ BAD — hand-rolled modal
+<div className="fixed inset-0 bg-black/50">
+  <div className="bg-white rounded p-6">…</div>
+</div>
 
-```typescript
-// ❌ 在随机组件里 invoke("init_project", …)
-// ✅ import { initProject } from "../tauri/commands"; await initProject(path);
+// ✅ GOOD — shadcn Dialog
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+<Dialog>
+  <DialogTrigger asChild><Button>Open</Button></DialogTrigger>
+  <DialogContent>…</DialogContent>
+</Dialog>
 ```
 
 ---
