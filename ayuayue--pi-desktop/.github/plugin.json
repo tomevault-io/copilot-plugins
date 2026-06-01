@@ -1,0 +1,9 @@
+{
+  "name": "ayuayue--pi-desktop",
+  "displayName": "pi-desktop",
+  "description": "Desktop workbench for managing multiple pi coding-agent sessions across project folders.",
+  "version": "1.0.0",
+  "author": "ayuayue",
+  "homepage": "https://github.com/ayuayue/pi-desktop",
+  "skills": []
+}
