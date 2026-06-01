@@ -1,0 +1,44 @@
+{
+  "name": "polymarket-pnl-tracker",
+  "owner": "cron-defi",
+  "repo": "polymarket-pnl-tracker",
+  "description": "polymarket pnl tracker. Polymarket dashboard with Home (combined P&L), Accounts (per-wallet), and Activity (wallet & group collections, active/closed positions).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cron-defi/polymarket-pnl-tracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T08:10:06Z"
+}
