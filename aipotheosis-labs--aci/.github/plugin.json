@@ -1,0 +1,9 @@
+{
+  "name": "aipotheosis-labs--aci",
+  "displayName": "aci",
+  "description": "ACI.dev is the open source tool-calling platform that hooks up 600+ tools into any agentic IDE or custom AI agent through direct function calling or a unified MCP server. The birthplace of VibeOps.",
+  "version": "1.0.0",
+  "author": "aipotheosis-labs",
+  "homepage": "https://github.com/aipotheosis-labs/aci",
+  "skills": []
+}
