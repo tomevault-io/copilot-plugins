@@ -1,0 +1,9 @@
+{
+  "name": "jaironlanda--isupmap",
+  "displayName": "isupmap",
+  "description": "Live up/down heatmap for 40+ popular internet services. Built on Cloudflare Workers + D1.",
+  "version": "1.0.0",
+  "author": "Jaironlanda",
+  "homepage": "https://github.com/Jaironlanda/isupmap",
+  "skills": []
+}
