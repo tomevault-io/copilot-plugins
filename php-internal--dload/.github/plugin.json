@@ -1,0 +1,9 @@
+{
+  "name": "php-internal--dload",
+  "displayName": "dload",
+  "description": "Helps to download binaries from release assets",
+  "version": "1.0.0",
+  "author": "php-internal",
+  "homepage": "https://github.com/php-internal/dload",
+  "skills": []
+}
