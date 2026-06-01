@@ -1,0 +1,9 @@
+{
+  "name": "sindresorhus--fetch-extras",
+  "displayName": "fetch-extras",
+  "description": "Useful utilities for working with Fetch",
+  "version": "1.0.0",
+  "author": "sindresorhus",
+  "homepage": "https://github.com/sindresorhus/fetch-extras",
+  "skills": []
+}
