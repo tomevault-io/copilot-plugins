@@ -7,11 +7,11 @@ Zhihu++ | 知乎++: Ad-free, low cost, AI powered zhihu android 3rd-party client
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [zly2006/zhihu-plus-plus](https://github.com/zly2006/zhihu-plus-plus).
+Original source: `AGENTS.md` in [zly2006/zhihu-plus-plus](https://github.com/zly2006/zhihu-plus-plus).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
