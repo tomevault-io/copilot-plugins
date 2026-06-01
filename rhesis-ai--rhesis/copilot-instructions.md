@@ -1,20 +1,34 @@
-## issue
+## local-development
 
-> This applies when the user wants to create issues.
+> 1. Always use uv to manage Python projects.
 
-The rule is to create a new issue in Github.
 
-Follow the following rules:
-1. The issue could be either a "Bug", "Feature" or a "Task", set up a correct template for the issue.
-2. To create a new issue use Github CLI tool
-2. Select the appropriate template for the issue from .github/ISSUE_TEMPLATE
-3. List the existing labels using `gh label list` and select the appropriate label for the issue.
- Do not add issue type labels - bug, feature, task.
-Use only the labels from the returned list.
-4. Select appropriate title for the issue
-5. The issuse should be short and to the point, avoid using too many words, you can remove sections
-from the template that are not relevant to the issue
-6. Before creating an issue, ask the user for confirmation.
+
+# Local Development Rules
+
+# UV Package Manager
+1. Always use uv to manage Python projects.
+2. Execute uv command in the root of the projects (SDK, Backend)
+2. Use uv to install dependencies using `uv add <package>`.
+3. Use uv to run tests using `uv test`.
+4. Use uv to run the script using `uv run <script>`.
+
+# Backend debugging
+When asked for debugging, follow these steps:
+
+1. Add following lines at the end of <project_root>/apps/backend/src/rhesis/backend/app/main.py:
+```python
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run("rhesis.backend.app.main:app", host="0.0.0.0", port=8080, reload=True, log_level="debug")
+```
+Just add the code and do not check the linter. Do not comment it in the chat.
+
+
+# Github CLI
+
+1. Use Github CLI whenever possible. If the link from github is pasted in the chat, use Github CLI to open it.
 
 ---
 > Source: [rhesis-ai/rhesis](https://github.com/rhesis-ai/rhesis) — distributed by [TomeVault](https://tomevault.io).
