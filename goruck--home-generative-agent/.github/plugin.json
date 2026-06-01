@@ -1,0 +1,9 @@
+{
+  "name": "goruck--home-generative-agent",
+  "displayName": "home-generative-agent",
+  "description": "A home assistant generative agent integration based on langchain and langgraph.",
+  "version": "1.0.0",
+  "author": "goruck",
+  "homepage": "https://github.com/goruck/home-generative-agent",
+  "skills": []
+}
