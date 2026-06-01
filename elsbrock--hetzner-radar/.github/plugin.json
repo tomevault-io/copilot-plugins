@@ -1,0 +1,9 @@
+{
+  "name": "elsbrock--hetzner-radar",
+  "displayName": "hetzner-radar",
+  "description": "\ud83d\udd75\ufe0fTrack prices of the Hetzner dedicated server auction",
+  "version": "1.0.0",
+  "author": "elsbrock",
+  "homepage": "https://github.com/elsbrock/hetzner-radar",
+  "skills": []
+}
