@@ -1,70 +1,86 @@
-## nekro-agent
+## backend-rules
 
-> 请先阅读并遵循以下规则文档，再开始修改代码：
+> 后端 FastAPI 服务开发指南
 
+# 技术栈
 
-# AI 开发指引入口
+- Python + FastAPI + NoneBot2
+- PostgreSQL + Tortoise ORM
+- Docker + Docker Compose
+- uv (Python 包管理器)
 
-请先阅读并遵循以下规则文档，再开始修改代码：
+# 目录结构
 
-- `.cursor/rules/global.mdc`
-- `.cursor/rules/backend-rules.mdc`
-- `.cursor/rules/frontend-rules.mdc`
+```
+nekro_agent/
+├── api/          # API 相关实现
+├── cli/          # 命令行工具
+├── core/         # 核心功能模块
+├── libs/         # 通用库
+├── matchers/     # NoneBot2 消息匹配器
+├── models/       # 数据模型定义
+├── routers/      # FastAPI 路由
+├── schemas/      # Pydantic 模型
+├── services/     # 业务服务层
+├── systems/      # 系统级功能
+└── tools/        # 工具类
+```
 
-如涉及插件或前端视觉规范，请额外阅读：
+# 核心组件
 
-- `.cursor/rules/plugin-rules.mdc`
-- `.cursor/rules/frontend-theme-guidelines.mdc`
+## 配置系统
 
-## 通用原则
+位置: [config.py](mdc:nekro_agent/core/config.py)
 
-- 永远使用**中文**回答
-- 除非必要，否则尽可能使用 Tool 而非终端命令（grep/find/etc.）来查阅代码
+```python
+from nekro_agent.core.config import config
 
----
+# 使用配置
+config.DATA_DIR
+```
 
-## 标准命令（必须使用，禁止使用 npm/npx/ruff/tsc 等原始命令）
+## 日志系统
 
-> 所有命令在项目根目录 `/home/miose/Projects/nekro-agent` 下执行。
+位置: [logger.py](mdc:nekro_agent/core/logger.py)
 
-### 后端（Python）— 使用 `poe`
+```python
+from nekro_agent.core.logger import get_sub_logger
 
-| 命令                     | 说明                                   |
-| ------------------------ | -------------------------------------- |
-| `poe lint`               | Ruff 代码检查（只检查，不修改）        |
-| `poe lint-fix`           | Ruff 代码检查并自动修复                |
-| `poe format`             | Ruff 代码格式化                        |
-| `poe typecheck`          | basedpyright 类型检查                  |
-| `poe check`              | 同时运行 lint + typecheck              |
-| `poe dev`                | 启动后端开发服务器（热重载）           |
-| `poe db-init`            | 初始化数据库迁移（首次部署）           |
-| `poe db-revision <name>` | 生成数据库迁移文件                     |
-| `poe db-migrate`         | 执行数据库迁移                         |
-| `poe sync`               | 同步项目依赖（uv sync）                |
-| `poe sync-dev`           | 同步含开发依赖（uv sync --all-extras） |
+# 记录日志
+logger = get_sub_logger("subsystem")
+logger.info("操作信息")
+logger.error("错误信息")
+```
 
-注意: 如果遇到权限问题，请使用 `sudo` 命令。
+# 规范
 
-### 前端（TypeScript/React）— 使用 `poe frontend-*` 或 `pnpm`（在 `frontend/` 目录下）
+- 执行完全严格的类型注解，除非必要不使用 `# type: ignore` 等方式忽略掉类型错误
+- 任何与外部系统交互的数据第一时间转化为 Pydantic 模型，尽可能不使用 `dict[key]` 来获取数据
+- 遵循 RUFF 代码规范
+- 异步优先原则，禁止使用同步阻塞
+- 路由层禁止宽泛 `try/except`，仅捕获特定异常；其他异常交由全局异常处理器
+- 路由层禁止 `logger.exception`，统一由全局异常处理器记录堆栈
+- 业务错误使用 `AppError` 体系（`nekro_agent/schemas/errors.py`），禁止使用旧的 `Ret` 返回结构
+- API 返回使用标准 HTTP 状态码，错误响应由全局处理器统一结构化并支持 i18n（Accept-Language）
+- 认证系统当前仅支持 `admin` 登录，普通用户登录逻辑暂停使用（避免访问历史遗留用户表）
+- 数据库迁移使用 Aerich：新部署执行 `poe db-init`，升级执行 `poe db-migrate`
+- 数据库变更标准流程：修改模型 → `aerich migrate --name <desc>` → 提交 `migrations/models/*.py` → 部署后执行 `poe db-migrate`（或自动迁移）
+- 禁止调用 `generate_schemas()` 与 `nekro_db_reset`，避免破坏已部署数据
+- 应用启动默认自动迁移（`AUTO_DB_MIGRATE=true`），可通过环境变量关闭
 
-| 命令                      | 说明                                                              |
-| ------------------------- | ----------------------------------------------------------------- |
-| `poe frontend-check`      | **全量检查**：typecheck + eslint（0 warnings），基础测试          |
-| `poe frontend-check-full` | **全量检查**：typecheck + eslint（0 warnings）+ build，提交前必跑 |
-| `poe frontend-typecheck`  | TypeScript 类型检查（tsc --noEmit）                               |
-| `poe frontend-lint`       | ESLint 检查（--max-warnings 0）                                   |
-| `poe frontend-build`      | 构建前端生产包                                                    |
-| `poe frontend-dev`        | 启动前端开发服务器                                                |
-| `poe frontend-install`    | 安装前端依赖（pnpm install）                                      |
-| `poe frontend-preview`    | 预览前端构建产物                                                  |
+# 全局 SSE 状态推送
 
-### 注意事项
+当需要向前端实时推送状态变化时，必须使用全局 SSE 广播系统（Snapshot + Delta 模式），禁止自行实现轮询或独立 SSE 端点。
 
-- **禁止**直接使用 `npx eslint`、`npm run lint`、`npx tsc`、`ruff check`、`basedpyright` 等原始命令
-- **禁止**用 `Bash` 工具读取文件（cat/head/tail/grep/find），一律使用 `Read`/`Grep`/`Glob` 工具
-- 前端代码变更后**必须**用 `poe frontend-check` 通过后才算完成
-- 后端代码变更后**必须**用 `poe lint` 通过后才算完成
-- **禁止手动创建迁移文件**，必须使用 `poe db-revision <name>` 命令生成，确保 `MODELS_STATE` 字段正确写入
+详细开发指南：[sse-system-events.mdc](mdc:.cursor/rules/sse-system-events.mdc)
+
+核心入口：
+* 事件模型与广播器: [system_broadcast.py](mdc:nekro_agent/services/system_broadcast.py)
+* SSE 路由端点: [events.py](mdc:nekro_agent/routers/events.py)
+
+# 扩展相关
+
+扩展可以被 AI 调用，用来增强 NekroAgent 的能力，开发文档参考 [Extension_Development.md](mdc:docs/Extension_Development.md)
 
 ---
 > Source: [KroMiose/nekro-agent](https://github.com/KroMiose/nekro-agent) — distributed by [TomeVault](https://tomevault.io).
