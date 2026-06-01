@@ -15,6 +15,8 @@ Harbor is a containerized LLM toolkit — a large Docker Compose project with a 
 - `docs/` — service and user documentation
 - `routines/` — CLI internals rewritten in Deno
 - `.scripts/` — dev scripts in Deno/Bash, run via `harbor dev <script>`
+- `tests/` — container-based test runner (suites, rows, orchestrator); see `tests/README.md`
+- `.scripts/lint/` — bash-compat lint rules (`HARBORxxx`), fixtures, and 3-pass orchestrator
 - `profiles/default.env` — default config distributed to users
 
 ### CLI Reference
@@ -52,6 +54,9 @@ harbor dev scaffold <service_name>      # scaffold a new service
 harbor dev docs                         # regenerate docs
 harbor dev seed                         # seed test data
 harbor dev add-logos [--dry-run]        # resolve and write service logos
+harbor dev test [--suite ...] [--distros ...] [--json]    # container test matrix
+harbor dev lint [--shellcheck|--rules|--compose] [--json] # 3-pass source lint
+harbor dev lint-self-test               # validate lint rules against fixtures
 ```
 
 Dev scripts live in `.scripts/` and must be run via `harbor dev`, not `deno run` directly.
@@ -105,7 +110,35 @@ Resolution order: GitHub homepage favicon → dashboardicons.com → GitHub owne
 - Comments only for non-obvious logic — never restate what the code does
 - No emojis in UI or copy — use Lucide icons instead
 
+### Release Notes
+
+When updating the `## News` / changelog section in the `README.md`, always use a bulleted list format: `- **vx.x.x** - one sentence`. Do not use a table.
+
+<!-- facts:start -->
+## Fact-driven development
+
+This project uses [facts](https://github.com/av/facts) for specification and documentation. All work flows through the fact sheet — it is the source of truth.
+
+**Every change starts with a fact.** Facts are the spec — they define what "done" means. Code that isn't described by a fact is unverifiable and will be treated as incorrect. The skill `facts skills show facts` has the full format spec and command reference.
+
+1. `facts list` — read the current spec to orient. Fact sheets can be large — use filters to focus: `--section "cli/init"`, `--tags "draft"`, `--file api.facts`, `--manual`. Read only the section relevant to your task, not the entire sheet.
+2. `facts add` — write facts describing what should be true when done. Each fact is a testable claim. You are not ready to write code until this step is complete.
+3. Implement the code to make those facts true
+4. `facts check --tags "<tag>"` or `facts get <id>` — verify your changes. Never run bare `facts check` unless asked.
+5. `facts edit <id> --add-tag implemented` — mark verified facts done
+
+Step 4 only works if step 2 happened. If you skipped step 2, go back now — you cannot verify work that has no fact.
+
+**Manual facts (`?` in check output):** these have no command, so you verify them by reading the relevant code. For each `?` fact: read what it claims, check the code, report PASS or FAIL with a one-line reason. Reporting "N manual" without verifying each one is not acceptable.
+
+**Lifecycle:** `@draft` → `@spec` → `@implemented`
+
+**Skills** (invoke via `facts skills show <name>`):
+- `facts-refine` — sharpen `@draft` facts into `@spec` with the user
+- `facts-discover` — scan the codebase and sync facts to reality (only when explicitly asked)
+- `facts-implement` — implement `@spec` facts in code, verify, tag `@implemented`
+<!-- facts:end -->
+
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/av)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/av)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [av/harbor](https://github.com/av/harbor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
