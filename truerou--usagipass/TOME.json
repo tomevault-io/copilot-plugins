@@ -1,0 +1,44 @@
+{
+  "name": "UsagiPass",
+  "owner": "TrueRou",
+  "repo": "UsagiPass",
+  "description": "Dynamically Generate DXPASS Style Wahlap QR Code. \u52a8\u6001\u751f\u6210 DXPASS \u98ce\u683c\u7684\u73a9\u5bb6\u4e8c\u7ef4\u7801\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TrueRou/UsagiPass",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T10:07:45Z"
+}
