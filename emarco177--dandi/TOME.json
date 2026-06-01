@@ -1,0 +1,44 @@
+{
+  "name": "dandi",
+  "owner": "emarco177",
+  "repo": "dandi",
+  "description": "Boilerplate for building AI-powered micro SaaS apps with Next.js, LangChain JS, Supabase, auth, rate limiting, and API keys.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/emarco177/dandi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T11:35:41Z"
+}
