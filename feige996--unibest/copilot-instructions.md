@@ -1,57 +1,49 @@
-## api-http-patterns
+## development-workflow
 
-> - 可以使用 `简单http` 或者 `alova` 或者 `@tanstack/vue-query` 进行请求管理
+> 1. 安装依赖：`pnpm install`
 
-# API 和 HTTP 请求规范
+# 开发工作流程
 
-## HTTP 请求封装
-- 可以使用 `简单http` 或者 `alova` 或者 `@tanstack/vue-query` 进行请求管理
-- HTTP 配置在 [src/http/](mdc:src/http/) 目录下
-- `简单http` - [src/http/http.ts](mdc:src/http/http.ts)
-- `alova` - [src/http/alova.ts](mdc:src/http/alova.ts)
-- `vue-query` - [src/http/vue-query.ts](mdc:src/http/vue-query.ts)
-- 请求拦截器在 [src/http/interceptor.ts](mdc:src/http/interceptor.ts)
-- 支持请求重试、缓存、错误处理
+## 项目启动
+1. 安装依赖：`pnpm install`
+2. 开发环境：
+   - H5: `pnpm dev` 或 `pnpm dev:h5`
+   - 微信小程序: `pnpm dev:mp`
+   - 支付宝小程序: `pnpm dev:mp-alipay`
+   - APP: `pnpm dev:app`
 
-## API 接口规范
-- API 接口定义在 [src/api/](mdc:src/api/) 目录下
-- 按功能模块组织 API 文件
-- 使用 TypeScript 定义请求和响应类型
-- 支持 `简单http`、`alova` 和 `vue-query` 三种请求方式
+## 代码规范
+- 使用 ESLint 进行代码检查：`pnpm lint`
+- 自动修复代码格式：`pnpm lint:fix`
+- 使用 eslint 格式化代码
+- 遵循 TypeScript 严格模式
 
+## 构建和部署
+- H5 构建：`pnpm build:h5`
+- 微信小程序构建：`pnpm build:mp`
+- 支付宝小程序构建：`pnpm build:mp-alipay`
+- APP 构建：`pnpm build:app`
+- 类型检查：`pnpm type-check`
 
-## 示例代码结构
-```typescript
-// API 接口定义
-export interface LoginParams {
-  username: string
-  password: string
-}
+## 开发工具
+- 推荐使用 VSCode 编辑器
+- 安装 Vue 和 TypeScript 相关插件
+- 使用 uni-app 开发者工具调试小程序
+- 使用 HBuilderX 调试 APP
 
-export interface LoginResponse {
-  token: string
-  userInfo: UserInfo
-}
+## 调试技巧
+- 使用 console.log 和 uni.showToast 调试
+- 利用 Vue DevTools 调试组件状态
+- 使用网络面板调试 API 请求
+- 平台差异测试和兼容性检查
 
-// alova 方式
-export const login = (params: LoginParams) => 
-  http.Post<LoginResponse>('/api/login', params)
-
-// vue-query 方式
-export const useLogin = () => {
-  return useMutation({
-    mutationFn: (params: LoginParams) => 
-      http.post<LoginResponse>('/api/login', params)
-  })
-}
-```
-
-## 错误处理
-- 统一错误处理在拦截器中配置
-- 支持网络错误、业务错误、认证错误等
-- 自动处理 token 过期和刷新
+## 性能优化
+- 使用懒加载和代码分割
+- 优化图片和静态资源
+- 减少不必要的重渲染
+- 合理使用缓存策略
 ---
-globs: src/api/*.ts,src/http/*.ts
+description: 开发工作流程和最佳实践指南
 ---
 
 ---
