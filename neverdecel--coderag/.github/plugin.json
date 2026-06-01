@@ -1,0 +1,9 @@
+{
+  "name": "neverdecel--coderag",
+  "displayName": "CodeRAG",
+  "description": "CodeRAG is an AI-powered tool for real-time codebase querying and augmentation using OpenAI and vector search.",
+  "version": "1.0.0",
+  "author": "Neverdecel",
+  "homepage": "https://github.com/Neverdecel/CodeRAG",
+  "skills": []
+}
