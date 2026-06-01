@@ -1,255 +1,201 @@
-## remix-storefront-optimization
+## remix-storefront-routing
 
-> Remix storefront optimization patterns including performance, SEO, error handling, testing, and accessibility best practices
+> Remix storefront routing patterns with React Router v7, TypeScript, and Medusa integration for route structure, forms, and API integration
 
 
-# Remix Storefront Optimization & Best Practices
+# Remix Storefront Routing & Integration Patterns
 
-You are an expert in web performance optimization, SEO, error handling, testing, and accessibility for React Router v7 (Remix) applications in e-commerce contexts.
+You are an expert in React Router v7 (Remix), TypeScript, React, and e-commerce storefront development with Medusa integration, focusing on routing patterns, form handling, and API integration.
 
 ## Core Principles
 
-- Optimize for performance and user experience
-- Implement comprehensive SEO strategies
-- Handle errors gracefully and provide good user feedback
-- Write maintainable tests for components and user flows
-- Ensure accessibility compliance and inclusive design
-- Follow web standards and best practices
+- Write performant, accessible React components
+- Follow React Router v7 conventions and patterns
+- Implement proper SEO optimization
+- Use TypeScript for type safety
+- Follow responsive design principles with Tailwind CSS
+- Integrate seamlessly with Medusa backend APIs
+- Prioritize user experience and performance
 
-## Performance Optimization
+## React Router v7 (Remix) Patterns
 
-### Image Optimization
+### Route Structure
 ```typescript
-// Use proper image optimization
-<img
-  src={product.thumbnail}
-  alt={product.title}
-  loading="lazy"
-  className="aspect-square object-cover"
-  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
-/>
-```
+// app/routes/products.$handle.tsx
+import type { LoaderFunctionArgs, MetaFunction } from "@react-router/node"
+import { useLoaderData } from "@react-router/react"
 
-### Code Splitting
-```typescript
-// Use React.lazy for code splitting
-import { lazy, Suspense } from "react"
-
-const CheckoutForm = lazy(() => import("./CheckoutForm"))
-
-export function CheckoutPage() {
-  return (
-    <Suspense fallback={<div>Loading checkout...</div>}>
-      <CheckoutForm />
-    </Suspense>
-  )
-}
-```
-
-### Caching Strategies
-```typescript
-// Use proper cache headers in loaders
-export async function loader({ request }: LoaderFunctionArgs) {
-  const products = await getProducts()
-  
-  return data(
-    { products },
-    {
-      headers: {
-        "Cache-Control": "public, max-age=300, s-maxage=3600",
-      },
-    }
-  )
-}
-```
-
-## SEO and Meta Tags
-
-### Dynamic Meta Tags
-```typescript
-export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
-  const product = data?.product
-  
-  if (!product) {
-    return [
-      { title: "Product Not Found" },
-      { name: "robots", content: "noindex" },
-    ]
-  }
-  
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
-    { title: `${product.title} | Your Store` },
-    { name: "description", content: product.description },
-    { property: "og:title", content: product.title },
-    { property: "og:description", content: product.description },
-    { property: "og:image", content: product.thumbnail },
-    { property: "og:url", content: `https://yourstore.com${location.pathname}` },
-    { name: "twitter:card", content: "summary_large_image" },
+    { title: data?.product?.title || "Product" },
+    { name: "description", content: data?.product?.description },
   ]
 }
-```
 
-### Structured Data
-```typescript
-// Add JSON-LD structured data
-export function ProductStructuredData({ product }: { product: Product }) {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.title,
-    description: product.description,
-    image: product.thumbnail,
-    offers: {
-      "@type": "Offer",
-      price: product.variants?.[0]?.prices?.[0]?.amount,
-      priceCurrency: product.variants?.[0]?.prices?.[0]?.currency_code,
-      availability: "https://schema.org/InStock",
-    },
+export async function loader({ params }: LoaderFunctionArgs) {
+  const product = await getProduct(params.handle!)
+  
+  if (!product) {
+    throw new Response("Not Found", { status: 404 })
   }
   
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-    />
-  )
+  return { product }
 }
-```
 
-## Error Handling
-
-### Error Boundaries
-```typescript
-// components/ErrorBoundary.tsx
-import { isRouteErrorResponse, useRouteError } from "@react-router/react"
-
-export function ErrorBoundary() {
-  const error = useRouteError()
-  
-  if (isRouteErrorResponse(error)) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold">{error.status}</h1>
-          <p className="text-xl">{error.statusText}</p>
-        </div>
-      </div>
-    )
-  }
+export default function ProductPage() {
+  const { product } = useLoaderData<typeof loader>()
   
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold">Oops!</h1>
-        <p className="text-xl">Something went wrong</p>
-      </div>
+    <div>
+      <h1>{product.title}</h1>
+      {/* Component implementation */}
     </div>
   )
 }
 ```
 
-## Testing Patterns
-
-### Component Testing
+### Form Handling
 ```typescript
-// __tests__/ProductCard.test.tsx
-import { render, screen } from "@testing-library/react"
-import { ProductCard } from "../ProductCard"
+// Use @lambdacurry/forms with remix-hook-form
+import { RemixFormProvider, useRemixForm } from "remix-hook-form"
+import { TextField } from "@lambdacurry/forms/remix-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
 
-const mockProduct = {
-  id: "1",
-  title: "Test Product",
-  handle: "test-product",
-  thumbnail: "/test.jpg",
-  variants: [{
-    prices: [{
-      amount: 1000,
-      currency_code: "usd",
-    }],
-  }],
-}
-
-test("renders product information", () => {
-  render(<ProductCard product={mockProduct} />)
-  
-  expect(screen.getByText("Test Product")).toBeInTheDocument()
-  expect(screen.getByRole("img")).toHaveAttribute("alt", "Test Product")
+const schema = z.object({
+  email: z.string().email("Please enter a valid email"),
+  firstName: z.string().min(1, "First name is required"),
 })
+
+export default function ContactForm() {
+  const form = useRemixForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: "",
+      firstName: "",
+    },
+  })
+
+  return (
+    <RemixFormProvider {...form}>
+      <form method="post">
+        <TextField 
+          name="email" 
+          label="Email" 
+          type="email"
+          required 
+        />
+        <TextField 
+          name="firstName" 
+          label="First Name" 
+          required 
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </RemixFormProvider>
+  )
+}
 ```
 
-## Accessibility
-
-### ARIA Labels and Roles
+### Action Handlers
 ```typescript
-// Proper accessibility attributes
-<button
-  aria-label={`Add ${product.title} to cart`}
-  aria-describedby={`price-${product.id}`}
-  onClick={handleAddToCart}
->
-  Add to Cart
-</button>
+import type { ActionFunctionArgs } from "@react-router/node"
+import { data } from "@react-router/node"
+import { getValidatedFormData } from "remix-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
-<span id={`price-${product.id}`} className="sr-only">
-  Price: {formatPrice(price.amount, price.currency_code)}
-</span>
-```
+export async function action({ request }: ActionFunctionArgs) {
+  const {
+    errors,
+    data: formData,
+    receivedValues,
+  } = await getValidatedFormData<FormData>(request, zodResolver(schema))
 
-### Keyboard Navigation
-```typescript
-// Implement proper keyboard navigation
-<div
-  role="button"
-  tabIndex={0}
-  onKeyDown={(e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      handleClick()
-    }
-  }}
-  onClick={handleClick}
->
-  Interactive Element
-</div>
-```
-
-## Common Patterns to Avoid
-
-- Don't use `useEffect` for data fetching (use loaders instead)
-- Avoid client-side routing for SEO-critical pages
-- Don't skip error boundaries
-- Avoid inline styles (use Tailwind classes)
-- Don't ignore accessibility requirements
-- Avoid large bundle sizes (use code splitting)
-- Don't skip image optimization
-- Avoid blocking the main thread with heavy computations
-
-## Environment Configuration
-
-### Environment Variables
-```typescript
-// app/lib/env.ts
-const requiredEnvVars = [
-  "MEDUSA_BACKEND_URL",
-  "STRIPE_PUBLISHABLE_KEY",
-] as const
-
-type EnvVar = typeof requiredEnvVars[number]
-
-function getEnvVar(name: EnvVar): string {
-  const value = process.env[name]
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`)
+  if (errors) {
+    return data({ errors }, { status: 400 })
   }
-  return value
-}
 
-export const env = {
-  MEDUSA_BACKEND_URL: getEnvVar("MEDUSA_BACKEND_URL"),
-  STRIPE_PUBLISHABLE_KEY: getEnvVar("STRIPE_PUBLISHABLE_KEY"),
+  try {
+    await processForm(formData)
+    return data({ success: true })
+  } catch (error) {
+    return data(
+      { errors: { root: { message: "Something went wrong" } } },
+      { status: 500 }
+    )
+  }
 }
 ```
 
-Remember: Always prioritize user experience, performance, and accessibility. Follow React Router v7 conventions and integrate seamlessly with the Medusa backend. Use TypeScript for type safety and Tailwind CSS for consistent styling.
+## Medusa Integration
+
+### SDK Usage
+```typescript
+// lib/medusa.ts
+import { Medusa } from "@medusajs/js-sdk"
+
+export const medusa = new Medusa({
+  baseUrl: process.env.MEDUSA_BACKEND_URL || "http://localhost:9000",
+  debug: process.env.NODE_ENV === "development",
+})
+
+// In route loaders
+export async function loader() {
+  const { products } = await medusa.store.product.list({
+    limit: 20,
+    fields: "+variants.prices",
+  })
+  
+  return { products }
+}
+```
+
+### Cart Management
+```typescript
+// hooks/useCart.ts
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
+
+interface CartState {
+  cartId: string | null
+  items: CartItem[]
+  addItem: (variantId: string, quantity: number) => Promise<void>
+  removeItem: (lineId: string) => Promise<void>
+  updateQuantity: (lineId: string, quantity: number) => Promise<void>
+}
+
+export const useCart = create<CartState>()(
+  persist(
+    (set, get) => ({
+      cartId: null,
+      items: [],
+      
+      addItem: async (variantId, quantity) => {
+        const { cartId } = get()
+        
+        if (!cartId) {
+          const cart = await medusa.store.cart.create({})
+          set({ cartId: cart.id })
+        }
+        
+        await medusa.store.cart.lineItem.create(cartId, {
+          variant_id: variantId,
+          quantity,
+        })
+        
+        // Refresh cart data
+        await refreshCart()
+      },
+      
+      // Other methods...
+    }),
+    {
+      name: "cart-storage",
+      partialize: (state) => ({ cartId: state.cartId }),
+    }
+  )
+)
+```
 
 ---
 > Source: [lambda-curry/medusa2-starter](https://github.com/lambda-curry/medusa2-starter) — distributed by [TomeVault](https://tomevault.io).
