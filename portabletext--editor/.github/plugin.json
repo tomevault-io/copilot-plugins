@@ -1,0 +1,9 @@
+{
+  "name": "portabletext--editor",
+  "displayName": "editor",
+  "description": "The Standalone Portable Text Editor",
+  "version": "1.0.0",
+  "author": "portabletext",
+  "homepage": "https://github.com/portabletext/editor",
+  "skills": []
+}
