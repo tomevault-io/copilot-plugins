@@ -1,0 +1,9 @@
+{
+  "name": "hyochan--expo-iap",
+  "displayName": "expo-iap",
+  "description": "In App Purchase module in Expo that confirms OpenIAP",
+  "version": "1.0.0",
+  "author": "hyochan",
+  "homepage": "https://github.com/hyochan/expo-iap",
+  "skills": []
+}
