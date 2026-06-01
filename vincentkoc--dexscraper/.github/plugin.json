@@ -1,0 +1,9 @@
+{
+  "name": "vincentkoc--dexscraper",
+  "displayName": "dexscraper",
+  "description": "Real-time DexScreener scraper python SDK for multi-chain token discovery, filtering, and OHLC/OHLCVT export for metatrader and bots.",
+  "version": "1.0.0",
+  "author": "vincentkoc",
+  "homepage": "https://github.com/vincentkoc/dexscraper",
+  "skills": []
+}
