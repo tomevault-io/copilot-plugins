@@ -4,7 +4,7 @@
   "repo": "giselle",
   "description": "Giselle: AI App Builder. Open Source.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/giselles-ai/giselle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T13:52:08Z"
+  "distributed_at": "2026-06-01T13:53:17Z"
 }
