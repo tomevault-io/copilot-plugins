@@ -1,0 +1,44 @@
+{
+  "name": "side",
+  "owner": "sipe-team",
+  "repo": "side",
+  "description": "\uc0ac\uc774\ud37c\ub4e4\uc5d0\uac8c \uc120\ud0dd\ubc1b\ub294 \uc720\uc77c\ud55c \ub514\uc790\uc778 \uc2dc\uc2a4\ud15c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sipe-team/side",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T00:02:37Z"
+}
