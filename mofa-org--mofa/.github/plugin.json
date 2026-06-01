@@ -1,0 +1,9 @@
+{
+  "name": "mofa-org--mofa",
+  "displayName": "mofa",
+  "description": "MoFA - Modular Framework for Agents. Modular, Compositional and Programmable.",
+  "version": "1.0.0",
+  "author": "mofa-org",
+  "homepage": "https://github.com/mofa-org/mofa",
+  "skills": []
+}
