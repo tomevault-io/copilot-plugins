@@ -1,0 +1,9 @@
+{
+  "name": "rasalas--msg-reader",
+  "displayName": "msg-reader",
+  "description": "Simple tool that allows you to view *.msg files from \"Old MS Outlook\". \"New MS Outlook\" requires an \"Office 365\" subscription to open .msg-Files, but hasn't implemented any way to confirm an active su",
+  "version": "1.0.0",
+  "author": "Rasalas",
+  "homepage": "https://github.com/Rasalas/msg-reader",
+  "skills": []
+}
