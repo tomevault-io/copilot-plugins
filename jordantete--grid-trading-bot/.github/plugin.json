@@ -1,0 +1,9 @@
+{
+  "name": "jordantete--grid-trading-bot",
+  "displayName": "grid_trading_bot",
+  "description": "\ud83e\udd16 Open-source cryptocurrency trading bot designed to perform grid trading strategies using historical data for backtesting",
+  "version": "1.0.0",
+  "author": "jordantete",
+  "homepage": "https://github.com/jordantete/grid_trading_bot",
+  "skills": []
+}
