@@ -1,0 +1,9 @@
+{
+  "name": "valuemelody--melody-auth",
+  "displayName": "melody-auth",
+  "description": "A turnkey OAuth & authentication system, designed for both Cloudflare Workers and Node.js",
+  "version": "1.0.0",
+  "author": "ValueMelody",
+  "homepage": "https://github.com/ValueMelody/melody-auth",
+  "skills": []
+}
