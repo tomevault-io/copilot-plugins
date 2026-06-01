@@ -1,0 +1,9 @@
+{
+  "name": "brizzbuzz--opnix",
+  "displayName": "opnix",
+  "description": "Agenix inspired tool enabling users to inject secrets from 1password into their Nix servers at build time",
+  "version": "1.0.0",
+  "author": "brizzbuzz",
+  "homepage": "https://github.com/brizzbuzz/opnix",
+  "skills": []
+}
