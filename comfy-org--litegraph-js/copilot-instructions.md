@@ -1,0 +1,24 @@
+## unit-test
+
+> Creating unit tests
+
+
+# Creating unit tests
+
+- This project uses `vitest` for unit testing
+- Tests are stored in the `test/` directory
+- Tests should be cross-platform compatible; able to run on Windows, macOS, and linux
+  - e.g. the use of `path.resolve`, or `path.join` and `path.sep` to ensure that tests work the same on all platforms
+- Tests should be mocked properly
+  - Mocks should be cleanly written and easy to understand
+  - Mocks should be re-usable where possible
+
+## Unit test style
+
+- Prefer the use of `test.extend` over loose variables
+  - To achieve this, import `test as baseTest` from `vitest`
+- Never use `it`; `test` should be used in place of this
+
+---
+> Source: [Comfy-Org/litegraph.js](https://github.com/Comfy-Org/litegraph.js) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
