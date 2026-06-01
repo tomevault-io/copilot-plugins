@@ -4,7 +4,7 @@
   "repo": "AIPex",
   "description": "AIPex: AI browser automation assistant, no migration and privacy first. Alternative to Manus Browser Operator\u3001 Claude Chrome and Agent Browser",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AIPexStudio/AIPex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T13:45:14Z"
+  "distributed_at": "2026-06-01T13:48:59Z"
 }
