@@ -1,0 +1,9 @@
+{
+  "name": "danielmiessler--daemon",
+  "displayName": "Daemon",
+  "description": "An open-source personal API framework.",
+  "version": "1.0.0",
+  "author": "danielmiessler",
+  "homepage": "https://github.com/danielmiessler/Daemon",
+  "skills": []
+}
