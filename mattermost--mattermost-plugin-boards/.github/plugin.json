@@ -1,0 +1,9 @@
+{
+  "name": "mattermost--mattermost-plugin-boards",
+  "displayName": "mattermost-plugin-boards",
+  "description": "Mattermost plugin for Boards. This will host plugin only and is independent of Focalboard.",
+  "version": "1.0.0",
+  "author": "mattermost",
+  "homepage": "https://github.com/mattermost/mattermost-plugin-boards",
+  "skills": []
+}
