@@ -1,55 +1,112 @@
-## architecture-guardrails
+## branch-and-commit-workflow
 
-> Protect the existing architecture unless the task explicitly requires architectural change.
+> Use a branch-first, commit-early workflow suitable for a maintained open source repository.
 
 
-Protect the existing architecture unless the task explicitly requires architectural change.
+Use a branch-first, commit-early workflow suitable for a maintained open source repository.
 
-## Core principles
+## Core rule
 
-- Prefer local, minimal, boundary-respecting changes.
-- Fit new work into existing module boundaries whenever possible.
-- Do not introduce new layers, abstractions, or patterns unless clearly justified.
-- Do not widen the change surface unnecessarily.
-- Do not use a bug fix or small feature as an excuse for broad redesign.
+Before making meaningful code changes, ensure the work is on a dedicated task branch rather than on a protected or shared integration branch.
 
-## Before changing code
+Once work starts, preserve progress through small, logical, reviewable commits instead of one large accumulated diff.
 
-First identify:
+## Branch behavior
 
-- the owning module or subsystem
-- its direct dependencies
-- the inbound callers or consumers
-- the outward contracts it exposes
-- whether the change belongs here or elsewhere
+At the beginning of meaningful work:
 
-## Guardrails
+1. Check the current branch.
+2. If already on a suitable task branch for the current task, continue there.
+3. If on a protected or shared branch such as `main`, `master`, `develop`, `dev`, or `release`, create and switch to a dedicated task branch before making meaningful edits.
+4. If on a branch unrelated to the current task, create and switch to a new task branch instead of mixing concerns.
 
-- Keep responsibilities separated.
-- Respect dependency direction.
-- Do not move logic across layers without a strong reason.
-- Avoid creating duplicate sources of truth.
-- Prefer extending an existing abstraction over inventing a parallel one.
-- Prefer explicit data flow over hidden coupling.
-- Keep cross-module changes small and intentional.
+## Branch naming
 
-## Prohibited behavior unless clearly necessary
+Use short, descriptive, task-focused branch names.
 
-- broad refactors unrelated to the task
-- introducing framework-level patterns for small local problems
-- changing multiple subsystems to support a narrow fix when a local fix is possible
-- creating generic helpers too early
-- mixing transport, domain, UI, persistence, and integration logic in the same place
+Prefer patterns such as:
 
-## If architectural change is genuinely required
+- `fix/dashboard-refresh-bug`
+- `fix/mqtt-timeout-handling`
+- `feat/device-status-history`
+- `refactor/adapter-payload-parser`
+- `docs/env-setup-clarification`
+- `test/add-timeout-regression`
 
-Then:
+Branch names should be:
 
-1. State why the existing structure blocks the task.
-2. Keep the change as small as possible.
-3. Preserve backward compatibility where feasible.
-4. Update tests and docs affected by the architectural shift.
-5. Avoid combining architectural cleanup with unrelated feature work.
+- lowercase
+- concise
+- descriptive
+- scoped to one task or one closely related set of changes
+
+Avoid vague names such as:
+
+- `temp`
+- `misc`
+- `work`
+- `updates`
+- `new-branch`
+
+## Commit behavior
+
+Commit after each completed, coherent unit of work.
+
+A commit should represent one logical step such as:
+
+- one bug fix
+- one small feature slice
+- one focused refactor
+- one interface update with its direct caller adjustments
+- one docs update tied to a code change
+- one regression test plus the related fix
+
+## Commit quality
+
+Each commit should be:
+
+- small enough to review easily
+- coherent in purpose
+- safe to revert independently
+- tied to a clear intent
+- validated whenever practical
+
+Write concise commit messages that describe the intent clearly.
+
+Prefer:
+
+- `fix dashboard polling after reconnect`
+- `add regression test for adapter timeout`
+- `refactor mqtt payload normalization`
+- `update docs for broker configuration`
+
+Avoid:
+
+- `changes`
+- `fix stuff`
+- `update code`
+- `wip`
+
+## Do not commit yet if
+
+- the code is in an obviously broken intermediate state
+- the change is only half-wired
+- imports, types, or tests are failing because the step is incomplete
+- the commit would include unrelated accidental edits
+
+## Safety rules
+
+- Do not commit secrets, credentials, tokens, or private keys.
+- Do not force-push, rewrite shared history, or delete branches unless explicitly requested.
+- Do not merge into protected branches unless explicitly requested.
+
+## End-state expectation
+
+By the end of the task:
+
+- work should live on a dedicated task branch
+- progress should be preserved in a sequence of small logical commits
+- history should be readable, reviewable, and easy to roll back
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
