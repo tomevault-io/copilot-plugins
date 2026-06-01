@@ -4,7 +4,7 @@
   "repo": "ViewComfy",
   "description": "ViewComfy is a open source tool to help you create beautiful web apps from ComfyUI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ViewComfy/ViewComfy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T07:38:20Z"
+  "distributed_at": "2026-06-01T07:48:38Z"
 }
