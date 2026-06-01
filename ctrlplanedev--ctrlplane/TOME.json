@@ -4,7 +4,7 @@
   "repo": "ctrlplane",
   "description": ":rocket: A deployment orchestration tool that simplifies multi-cloud, multi-region, and multi-service deployments.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ctrlplanedev/ctrlplane",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T14:11:55Z"
+  "distributed_at": "2026-06-01T14:23:41Z"
 }
