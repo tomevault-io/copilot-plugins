@@ -4,7 +4,7 @@
   "repo": "bmm",
   "description": "\ud83e\udd35 BMM - Your Personal Bookmark Manager | \u4f60\u7684\u4e13\u5c5e\u4e66\u7b7e\u7ba1\u5bb6",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Y80/bmm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T09:54:40Z"
+  "distributed_at": "2026-06-01T09:58:02Z"
 }
