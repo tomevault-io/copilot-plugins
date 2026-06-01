@@ -1,0 +1,9 @@
+{
+  "name": "streamyfin--streamyfin",
+  "displayName": "streamyfin",
+  "description": "A modern Jellyfin client built with Expo",
+  "version": "1.0.0",
+  "author": "streamyfin",
+  "homepage": "https://github.com/streamyfin/streamyfin",
+  "skills": []
+}
