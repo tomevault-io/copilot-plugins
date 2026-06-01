@@ -1,0 +1,9 @@
+{
+  "name": "comfy-org--litegraph-js",
+  "displayName": "litegraph.js",
+  "description": "\u26d4 ARCHIVED (See README). A graph node engine and editor written in Javascript similar to PD or UDK Blueprints, comes with its own editor in HTML5 Canvas2D. The engine can run client side or server sid",
+  "version": "1.0.0",
+  "author": "Comfy-Org",
+  "homepage": "https://github.com/Comfy-Org/litegraph.js",
+  "skills": []
+}
