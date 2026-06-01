@@ -1,0 +1,9 @@
+{
+  "name": "obot-platform--obot",
+  "displayName": "obot",
+  "description": "Complete MCP Platform -- Hosting, Registry, Gateway, and Chat Client",
+  "version": "1.0.0",
+  "author": "obot-platform",
+  "homepage": "https://github.com/obot-platform/obot",
+  "skills": []
+}
