@@ -1,0 +1,9 @@
+{
+  "name": "nicho810--xiao-powerbread",
+  "displayName": "XIAO-PowerBread",
+  "description": "An open-source hardware project designed to offer a reliable and efficient power solution for breadboard prototyping. Featuring built-in sensors, real-time monitoring, and the RP2040/2350/ESP32-S3/C3/",
+  "version": "1.0.0",
+  "author": "nicho810",
+  "homepage": "https://github.com/nicho810/XIAO-PowerBread",
+  "skills": []
+}
