@@ -1,0 +1,9 @@
+{
+  "name": "intel--ai-playground",
+  "displayName": "AI-Playground",
+  "description": "AI PC starter app for doing AI image creation, image stylizing, and chatbot on a PC powered by an Intel\u00ae Arc\u2122 GPU.",
+  "version": "1.0.0",
+  "author": "intel",
+  "homepage": "https://github.com/intel/AI-Playground",
+  "skills": []
+}
