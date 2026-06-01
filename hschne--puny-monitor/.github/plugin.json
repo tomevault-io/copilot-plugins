@@ -1,0 +1,9 @@
+{
+  "name": "hschne--puny-monitor",
+  "displayName": "puny-monitor",
+  "description": "A batteries-included monitoring tool for single hosts. Works great with Kamal \ud83d\udc8e",
+  "version": "1.0.0",
+  "author": "hschne",
+  "homepage": "https://github.com/hschne/puny-monitor",
+  "skills": []
+}
