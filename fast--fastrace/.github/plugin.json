@@ -1,0 +1,9 @@
+{
+  "name": "fast--fastrace",
+  "displayName": "fastrace",
+  "description": "A tracing library 10~100x faster than others.",
+  "version": "1.0.0",
+  "author": "fast",
+  "homepage": "https://github.com/fast/fastrace",
+  "skills": []
+}
