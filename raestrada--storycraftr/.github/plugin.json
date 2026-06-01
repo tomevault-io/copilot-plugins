@@ -1,0 +1,9 @@
+{
+  "name": "raestrada--storycraftr",
+  "displayName": "storycraftr",
+  "description": "StoryCraftr is an open-source AI-powered tool that helps writers craft stories, generate worldbuilding details, and create book outlines and chapters seamlessly through a simple CLI. Empower your crea",
+  "version": "1.0.0",
+  "author": "raestrada",
+  "homepage": "https://github.com/raestrada/storycraftr",
+  "skills": []
+}
