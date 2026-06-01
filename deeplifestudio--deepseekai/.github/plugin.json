@@ -1,0 +1,9 @@
+{
+  "name": "deeplifestudio--deepseekai",
+  "displayName": "DeepSeekAI",
+  "description": "Browser extension for invoking the DeepSeek AI large model.",
+  "version": "1.0.0",
+  "author": "DeepLifeStudio",
+  "homepage": "https://github.com/DeepLifeStudio/DeepSeekAI",
+  "skills": []
+}
