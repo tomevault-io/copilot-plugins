@@ -1,0 +1,9 @@
+{
+  "name": "skalenetwork--ima-agent-v3",
+  "displayName": "ima-agent-v3",
+  "description": "Brand new IMA Agent, in Python",
+  "version": "1.0.0",
+  "author": "skalenetwork",
+  "homepage": "https://github.com/skalenetwork/ima-agent-v3",
+  "skills": []
+}
