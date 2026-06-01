@@ -4,7 +4,7 @@
   "repo": "zudoku",
   "description": "Framework for building high quality, interactive API documentation.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zuplo/zudoku",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T13:32:52Z"
+  "distributed_at": "2026-06-01T13:51:23Z"
 }
