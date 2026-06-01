@@ -1,74 +1,113 @@
-## codeguard-0-data-storage
+## codeguard-0-framework-and-languages
 
-> rule_id: codeguard-0-data-storage
+> rule_id: codeguard-0-framework-and-languages
 
 
-rule_id: codeguard-0-data-storage
+rule_id: codeguard-0-framework-and-languages
 
-## Database Security Guidelines
+## Framework & Language Guides
 
-This rule advises on securely configuring SQL and NoSQL databases to protect against data breaches and unauthorized access:
+Apply secure‑by‑default patterns per platform. Harden configurations, use built‑in protections, and avoid common pitfalls.
 
-- Backend Database Protection
-  - Isolate database servers from other systems and limit host connections.
-  - Disable network (TCP) access when possible; use local socket files or named pipes.
-  - Configure database to bind only on localhost when appropriate.
-  - Restrict network port access to specific hosts with firewall rules.
-  - Place database server in separate DMZ isolated from application server.
-  - Never allow direct connections from thick clients to backend database.
+### Django
+- Disable DEBUG in production; keep Django and deps updated.
+- Enable `SecurityMiddleware`, clickjacking middleware, MIME sniffing protection.
+- Force HTTPS (`SECURE_SSL_REDIRECT`); configure HSTS; set secure cookie flags (`SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE`).
+- CSRF: ensure `CsrfViewMiddleware` and `{% csrf_token %}` in forms; proper AJAX token handling.
+- XSS: rely on template auto‑escaping; avoid `mark_safe` unless trusted; use `json_script` for JS.
+- Auth: use `django.contrib.auth`; validators in `AUTH_PASSWORD_VALIDATORS`.
+- Secrets: generate via `get_random_secret_key`; store in env/secrets manager.
 
-- Transport Layer Security
-  - Configure database to only allow encrypted connections.
-  - Install trusted digital certificates on database servers.
-  - Use TLSv1.2+ with modern ciphers (AES-GCM, ChaCha20) for client connections.
-  - Verify digital certificate validity in client applications.
-  - Ensure all database traffic is encrypted, not just initial authentication.
+### Django REST Framework (DRF)
+- Set `DEFAULT_AUTHENTICATION_CLASSES` and restrictive `DEFAULT_PERMISSION_CLASSES`; never leave `AllowAny` for protected endpoints.
+- Always call `self.check_object_permissions(request, obj)` for object‑level authz.
+- Serializers: explicit `fields=[...]`; avoid `exclude` and `"__all__"`.
+- Throttling: enable rate limits (and/or at gateway/WAF).
+- Disable unsafe HTTP methods where not needed. Avoid raw SQL; use ORM/parameters.
 
-- Secure Authentication Configuration
-  - Always require authentication, including from local server connections.
-  - Protect accounts with strong, unique passwords.
-  - Use dedicated accounts per application or service.
-  - Configure minimum required permissions only.
-  - Regularly review accounts and permissions.
-  - Remove accounts when applications are decommissioned.
-  - Change passwords when staff leave or compromise is suspected.
+### Laravel
+- Production: `APP_DEBUG=false`; generate app key; secure file perms.
+- Cookies/sessions: enable encryption middleware; set `http_only`, `same_site`, `secure`, short lifetimes.
+- Mass assignment: use `$request->only()` / `$request->validated()`; avoid `$request->all()`.
+- SQLi: use Eloquent parameterization; validate dynamic identifiers.
+- XSS: rely on Blade escaping; avoid `{!! ... !!}` for untrusted data.
+- File uploads: validate `file`, size, and `mimes`; sanitize filenames with `basename`.
+- CSRF: ensure middleware and form tokens enabled.
 
-- Database Credential Storage
-  - Never store credentials in application source code.
-  - Store credentials in configuration files outside web root.
-  - Set appropriate file permissions for credential access.
-  - Never check credential files into source code repositories.
-  - Encrypt credential storage using built-in functionality when available.
-  - Use environment variables or secrets management solutions.
+### Symfony
+- XSS: Twig auto‑escaping; avoid `|raw` unless trusted.
+- CSRF: use `csrf_token()` and `isCsrfTokenValid()` for manual flows; Forms include tokens by default.
+- SQLi: Doctrine parameterized queries; never concatenate inputs.
+- Command execution: avoid `exec/shell_exec`; use Filesystem component.
+- Uploads: validate with `#[File(...)]`; store outside public; unique names.
+- Directory traversal: validate `realpath`/`basename` and enforce allowed roots.
+- Sessions/security: configure secure cookies and authentication providers/firewalls.
 
-- Secure Permission Management
-  - Apply principle of least privilege to all database accounts.
-  - Do not use built-in root, sa, or SYS accounts.
-  - Do not grant administrative rights to application accounts.
-  - Restrict account connections to allowed hosts only.
-  - Use separate databases and accounts for Development, UAT, and Production.
-  - Grant only required permissions (SELECT, UPDATE, DELETE as needed).
-  - Avoid making accounts database owners to prevent privilege escalation.
-  - Implement table-level, column-level, and row-level permissions when needed.
+### Ruby on Rails
+- Avoid dangerous functions:
 
-- Database Configuration and Hardening
-  - Install required security updates and patches regularly.
-  - Run database services under low-privileged user accounts.
-  - Remove default accounts and sample databases.
-  - Store transaction logs on separate disk from main database files.
-  - Configure regular encrypted database backups with proper permissions.
-  - Disable unnecessary stored procedures and dangerous features.
-  - Implement database activity monitoring and alerting.
+```ruby
+eval("ruby code here")
+system("os command here")
+`ls -al /` # (backticks contain os command)
+exec("os command here")
+spawn("os command here")
+open("| os command here")
+Process.exec("os command here")
+Process.spawn("os command here")
+IO.binread("| os command here")
+IO.binwrite("| os command here", "foo")
+IO.foreach("| os command here") {}
+IO.popen("os command here")
+IO.read("| os command here")
+IO.readlines("| os command here")
+IO.write("| os command here", "foo")
+```
 
-- Platform-Specific Hardening
-  - SQL Server: Disable xp_cmdshell, CLR execution, SQL Browser service, Mixed Mode Authentication (unless required).
-  - MySQL/MariaDB: Run mysql_secure_installation, disable FILE privilege for users.
-  - PostgreSQL: Follow PostgreSQL security documentation guidelines.
-  - MongoDB: Implement MongoDB security checklist requirements.
-  - Redis: Follow Redis security guide recommendations.
+- SQLi: always parameterize; use `sanitize_sql_like` for LIKE patterns.
+- XSS: default auto‑escape; avoid `raw`, `html_safe` on untrusted data; use `sanitize` allow‑lists.
+- Sessions: database‑backed store for sensitive apps; force HTTPS (`config.force_ssl = true`).
+- Auth: use Devise or proven libraries; configure routes and protected areas.
+- CSRF: `protect_from_forgery` for state‑changing actions.
+- Secure redirects: validate/allow‑list targets.
+- Headers/CORS: set secure defaults; configure `rack-cors` carefully.
 
-Summary:  
-Isolate database systems, enforce encrypted connections, implement strong authentication, store credentials securely using secrets management, apply least privilege permissions, harden database configurations, and maintain regular security updates and monitoring.
+### .NET (ASP.NET Core)
+- Keep runtime and NuGet packages updated; enable SCA in CI.
+- Authz: use `[Authorize]` attributes; perform server‑side checks; prevent IDOR.
+- Authn/sessions: ASP.NET Identity; lockouts; cookies `HttpOnly`/`Secure`; short timeouts.
+- Crypto: use PBKDF2 for passwords, AES‑GCM for encryption; DPAPI for local secrets; TLS 1.2+.
+- Injection: parameterize SQL/LDAP; validate with allow‑lists.
+- Config: enforce HTTPS redirects; remove version headers; set CSP/HSTS/X‑Content‑Type‑Options.
+- CSRF: anti‑forgery tokens on state‑changing actions; validate on server.
+
+### Java and JAAS
+- SQL/JPA: use `PreparedStatement`/named parameters; never concatenate input.
+- XSS: allow‑list validation; sanitize output with reputable libs; encode for context.
+- Logging: parameterized logging to prevent log injection.
+- Crypto: AES‑GCM; secure random nonces; never hardcode keys; use KMS/HSM.
+- JAAS: configure `LoginModule` stanzas; implement `initialize/login/commit/abort/logout`; avoid exposing credentials; segregate public/private credentials; manage subject principals properly.
+
+### Node.js
+- Limit request sizes; validate and sanitize input; escape output.
+- Avoid `eval`, `child_process.exec` with user input; use `helmet` for headers; `hpp` for parameter pollution.
+- Rate limit auth endpoints; monitor event loop health; handle uncaught exceptions cleanly.
+- Cookies: set `secure`, `httpOnly`, `sameSite`; set `NODE_ENV=production`.
+- Keep packages updated; run `npm audit`; use security linters and ReDoS testing.
+
+### PHP Configuration
+- Production php.ini: `expose_php=Off`, log errors not display; restrict `allow_url_fopen/include`; set `open_basedir`.
+- Disable dangerous functions; set session cookie flags (`Secure`, `HttpOnly`, `SameSite=Strict`); enable strict session mode.
+- Constrain upload size/number; set resource limits (memory, post size, execution time).
+- Use Snuffleupagus or similar for additional hardening.
+
+### Implementation Checklist
+- Use each framework’s built‑in CSRF/XSS/session protections and secure cookie flags.
+- Parameterize all data access; avoid dangerous OS/exec functions with untrusted input.
+- Enforce HTTPS/HSTS; set secure headers.
+- Centralize secret management; never hardcode secrets; lock down debug in production.
+- Validate/allow‑list redirects and dynamic identifiers.
+- Keep dependencies and frameworks updated; run SCA and static analysis regularly.
 
 ---
 > Source: [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io).
