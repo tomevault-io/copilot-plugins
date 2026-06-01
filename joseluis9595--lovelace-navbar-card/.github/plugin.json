@@ -1,0 +1,9 @@
+{
+  "name": "joseluis9595--lovelace-navbar-card",
+  "displayName": "lovelace-navbar-card",
+  "description": "Custom lovelace card that displays a bottom nav in mobile devices, and a side nav in desktop devices for easy navigation.",
+  "version": "1.0.0",
+  "author": "joseluis9595",
+  "homepage": "https://github.com/joseluis9595/lovelace-navbar-card",
+  "skills": []
+}
