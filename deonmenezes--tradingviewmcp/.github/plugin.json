@@ -1,0 +1,9 @@
+{
+  "name": "deonmenezes--tradingviewmcp",
+  "displayName": "tradingviewmcp",
+  "description": "Wholesale fork of tradesdontlie/tradingview-mcp (MIT) \u2014 original work by tradesdontlie. MCP bridge for TradingView Desktop via Chrome DevTools Protocol.",
+  "version": "1.0.0",
+  "author": "deonmenezes",
+  "homepage": "https://github.com/deonmenezes/tradingviewmcp",
+  "skills": []
+}
