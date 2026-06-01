@@ -1,0 +1,9 @@
+{
+  "name": "smilezheng--gojaja",
+  "displayName": "gojaja",
+  "description": "Agent-agnostic file-system coordination layer for multi-LLM-agent collaboration (Codex / Claude Code / Cursor / generic).",
+  "version": "1.0.0",
+  "author": "smilezheng",
+  "homepage": "https://github.com/smilezheng/gojaja",
+  "skills": []
+}
