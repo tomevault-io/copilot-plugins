@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--topograph",
+  "displayName": "topograph",
+  "description": "A toolkit for discovering cluster network topology.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/topograph",
+  "skills": []
+}
