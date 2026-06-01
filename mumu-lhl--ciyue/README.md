@@ -1,23 +1,30 @@
-# Ciyue
+# AI instruction files for Ciyue
 
-> Config by [mumu-lhl](https://github.com/mumu-lhl/Ciyue) — distributed by [TomeVault](https://tomevault.io/claim/mumu-lhl)
+> Sourced from [mumu-lhl/Ciyue](https://github.com/mumu-lhl/Ciyue) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+A simple mdict dictionary with Android/Windows/Linux support
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [mumu-lhl/Ciyue](https://github.com/mumu-lhl/Ciyue).
+Original source: `AGENTS.md` in [mumu-lhl/Ciyue](https://github.com/mumu-lhl/Ciyue).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/mumu-lhl](https://tomevault.io/claim/mumu-lhl)
+From [mumu-lhl/Ciyue](https://github.com/mumu-lhl/Ciyue) — a repo with 575+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mumu-lhl) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install mumu-lhl/Ciyue
+```
+Source: [github.com/mumu-lhl/Ciyue](https://github.com/mumu-lhl/Ciyue).
+
+<!-- genome:a-i-s -->
