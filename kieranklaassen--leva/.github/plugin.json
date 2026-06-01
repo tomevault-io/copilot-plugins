@@ -1,0 +1,9 @@
+{
+  "name": "kieranklaassen--leva",
+  "displayName": "leva",
+  "description": "LLM Evaluation Framework for Rails apps to be used with production data.",
+  "version": "1.0.0",
+  "author": "kieranklaassen",
+  "homepage": "https://github.com/kieranklaassen/leva",
+  "skills": []
+}
