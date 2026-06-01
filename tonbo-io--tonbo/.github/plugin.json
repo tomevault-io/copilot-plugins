@@ -1,0 +1,9 @@
+{
+  "name": "tonbo-io--tonbo",
+  "displayName": "tonbo",
+  "description": "Tonbo is an embedded database for serverless and edge runtimes.",
+  "version": "1.0.0",
+  "author": "tonbo-io",
+  "homepage": "https://github.com/tonbo-io/tonbo",
+  "skills": []
+}
