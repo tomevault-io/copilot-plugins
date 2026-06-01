@@ -1,0 +1,9 @@
+{
+  "name": "netboxlabs--netbox-branching",
+  "displayName": "netbox-branching",
+  "description": "Official NetBox Labs plugin that implements git-like branching functionality for NetBox",
+  "version": "1.0.0",
+  "author": "netboxlabs",
+  "homepage": "https://github.com/netboxlabs/netbox-branching",
+  "skills": []
+}
