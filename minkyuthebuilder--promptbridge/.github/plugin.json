@@ -1,0 +1,9 @@
+{
+  "name": "minkyuthebuilder--promptbridge",
+  "displayName": "PromptBridge",
+  "description": "AI coding agent language bridge for non-English developers \u2014 write prompts in your native language, send optimized English instructions, and read responses back in your language.",
+  "version": "1.0.0",
+  "author": "MinkyuTheBuilder",
+  "homepage": "https://github.com/MinkyuTheBuilder/PromptBridge",
+  "skills": []
+}
