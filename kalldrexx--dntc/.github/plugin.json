@@ -1,0 +1,9 @@
+{
+  "name": "kalldrexx--dntc",
+  "displayName": "dntc",
+  "description": "Dotnet (MSIL) to C transpiler",
+  "version": "1.0.0",
+  "author": "KallDrexx",
+  "homepage": "https://github.com/KallDrexx/dntc",
+  "skills": []
+}
