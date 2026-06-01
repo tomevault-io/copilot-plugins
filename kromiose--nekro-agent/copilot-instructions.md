@@ -1,70 +1,105 @@
-## nekro-agent
+## frontend-rules
 
-> 请先阅读并遵循以下规则文档，再开始修改代码：
+> 前端 React 服务开发指南
 
+# 前端技术栈
 
-# AI 开发指引入口
+- React + TypeScript + Vite
+- Material-UI + TailwindCSS
+- Zustand + React Query
+- 使用 pnpm 进行包管理
 
-请先阅读并遵循以下规则文档，再开始修改代码：
+# 规范
 
-- `.cursor/rules/global.mdc`
-- `.cursor/rules/backend-rules.mdc`
-- `.cursor/rules/frontend-rules.mdc`
+* 前端页面必须尽可能使用 Material-UI 组件与 TailwindCSS 进行原子化样式开发
+* 涉及全局相关的样式/颜色/主题时，统一在 `frontend/src/theme` 中进行配置，不要在每个实现的地方硬编码颜色信息
+* API 调用统一放在 services/api 中
+* 统一通过 `axios` 拦截器处理错误与语言头，不要绕过封装直连请求
+* URL 设计、页面跳转、筛选参数映射遵循 [frontend-url-navigation.mdc](mdc:.cursor/rules/frontend-url-navigation.mdc)
 
-如涉及插件或前端视觉规范，请额外阅读：
+# 主题相关
 
-- `.cursor/rules/plugin-rules.mdc`
-- `.cursor/rules/frontend-theme-guidelines.mdc`
+* 主题系统: 请参考详细的 [前端主题系统开发指南](mdc:.cursor/rules/frontend-theme-guidelines.mdc)
+* 主题控制: [theme.ts](mdc:frontend/src/stores/theme.ts) (深色/浅色)
+* 主题定义: [palette.ts](mdc:frontend/src/theme/palette.ts), [themeConfig.ts](mdc:frontend/src/theme/themeConfig.ts), [variants.ts](mdc:frontend/src/theme/variants.ts), [ThemeProvider.tsx](mdc:frontend/src/theme/ThemeProvider.tsx)
 
-## 通用原则
+# 通知系统
 
-- 永远使用**中文**回答
-- 除非必要，否则尽可能使用 Tool 而非终端命令（grep/find/etc.）来查阅代码
+系统采用统一的通知组件系统，禁止直接使用原生的MUI Snackbar组件。
 
----
+## 核心组件和文件
 
-## 标准命令（必须使用，禁止使用 npm/npx/ruff/tsc 等原始命令）
+* 通知组件: [NekroNotification.tsx](mdc:frontend/src/components/common/NekroNotification.tsx) - 自定义通知组件，包含毛玻璃效果
+* 通知提供者: [NotificationProvider.tsx](mdc:frontend/src/components/common/NotificationProvider.tsx) - 全局通知提供者
+* 通知Hook: [useNotification.ts](mdc:frontend/src/hooks/useNotification.ts) - 提供便捷的通知方法
 
-> 所有命令在项目根目录 `/home/miose/Projects/nekro-agent` 下执行。
+## 通知系统使用指南
 
-### 后端（Python）— 使用 `poe`
+### 基本用法
 
-| 命令                     | 说明                                   |
-| ------------------------ | -------------------------------------- |
-| `poe lint`               | Ruff 代码检查（只检查，不修改）        |
-| `poe lint-fix`           | Ruff 代码检查并自动修复                |
-| `poe format`             | Ruff 代码格式化                        |
-| `poe typecheck`          | basedpyright 类型检查                  |
-| `poe check`              | 同时运行 lint + typecheck              |
-| `poe dev`                | 启动后端开发服务器（热重载）           |
-| `poe db-init`            | 初始化数据库迁移（首次部署）           |
-| `poe db-revision <name>` | 生成数据库迁移文件                     |
-| `poe db-migrate`         | 执行数据库迁移                         |
-| `poe sync`               | 同步项目依赖（uv sync）                |
-| `poe sync-dev`           | 同步含开发依赖（uv sync --all-extras） |
+```tsx
+// 导入通知hook
+import { useNotification } from '../../hooks/useNotification'
 
-注意: 如果遇到权限问题，请使用 `sudo` 命令。
+// 在组件中使用
+function MyComponent() {
+  // 获取通知实例
+  const notification = useNotification()
+  
+  // 显示不同类型的通知
+  notification.success('操作成功！')
+  notification.error('发生错误')
+  notification.warning('请注意')
+  notification.info('提示信息')
+  
+  // 自定义参数
+  notification.success('自定义配置', {
+    autoHideDuration: 5000, // 自动隐藏时间
+    anchorOrigin: { vertical: 'bottom', horizontal: 'right' } // 位置
+  })
+  
+  // 关闭通知
+  const key = notification.info('可关闭的通知')
+  notification.close(key) // 关闭特定通知
+  notification.closeAll() // 关闭所有通知
+  
+  return (...)
+}
+```
 
-### 前端（TypeScript/React）— 使用 `poe frontend-*` 或 `pnpm`（在 `frontend/` 目录下）
+## 设计原则
 
-| 命令                      | 说明                                                              |
-| ------------------------- | ----------------------------------------------------------------- |
-| `poe frontend-check`      | **全量检查**：typecheck + eslint（0 warnings），基础测试          |
-| `poe frontend-check-full` | **全量检查**：typecheck + eslint（0 warnings）+ build，提交前必跑 |
-| `poe frontend-typecheck`  | TypeScript 类型检查（tsc --noEmit）                               |
-| `poe frontend-lint`       | ESLint 检查（--max-warnings 0）                                   |
-| `poe frontend-build`      | 构建前端生产包                                                    |
-| `poe frontend-dev`        | 启动前端开发服务器                                                |
-| `poe frontend-install`    | 安装前端依赖（pnpm install）                                      |
-| `poe frontend-preview`    | 预览前端构建产物                                                  |
+1. **统一性**: 所有通知必须使用统一的样式和行为
+2. **主题集成**: 通知样式必须随主题变化而变化，具备毛玻璃效果
+3. **可扩展性**: 可根据需要扩展新的通知类型或样式
+4. **简单易用**: 提供简洁的API，降低使用门槛
 
-### 注意事项
+## 最佳实践
 
-- **禁止**直接使用 `npx eslint`、`npm run lint`、`npx tsc`、`ruff check`、`basedpyright` 等原始命令
-- **禁止**用 `Bash` 工具读取文件（cat/head/tail/grep/find），一律使用 `Read`/`Grep`/`Glob` 工具
-- 前端代码变更后**必须**用 `poe frontend-check` 通过后才算完成
-- 后端代码变更后**必须**用 `poe lint` 通过后才算完成
-- **禁止手动创建迁移文件**，必须使用 `poe db-revision <name>` 命令生成，确保 `MODELS_STATE` 字段正确写入
+* 为用户操作提供及时反馈，特别是异步操作
+* 错误通知显示时间应比其他类型长，默认为5秒
+* 使用适当的通知类型 - success、error、warning、info
+* 通知文本应简洁明了，不超过一行
+* 对于重要或需要用户交互的信息，考虑使用对话框而非通知
+
+# 流式请求
+
+当你需要开发流式推送服务时，复用已经实现的包含鉴权的流式请求工具 [stream.ts](mdc:frontend/src/services/api/utils/stream.ts) ，应用示例: [logs.py](mdc:nekro_agent/routers/logs.py), [logs.ts](mdc:frontend/src/services/api/logs.ts)
+
+# 全局 SSE 状态推送
+
+当需要在页面中消费后端实时状态（如工作区状态、CC 活跃状态等）时，使用 `useSystemEvents()` hook，禁止自行建立独立的 SSE 连接或轮询。
+
+详细开发指南：[sse-system-events.mdc](mdc:.cursor/rules/sse-system-events.mdc)
+
+核心入口：
+* SSE 订阅 Hook: [useSystemEvents.ts](mdc:frontend/src/hooks/useSystemEvents.ts)
+* 使用示例: [workspace/index.tsx](mdc:frontend/src/pages/workspace/index.tsx), [workspace/detail.tsx](mdc:frontend/src/pages/workspace/detail.tsx)
+
+# i18n 约定
+
+* 公共文案使用 `common.*` 命名空间（含分页/通用状态）
+* 新增 key 时需同步 `zh-CN` 与 `en-US`
 
 ---
 > Source: [KroMiose/nekro-agent](https://github.com/KroMiose/nekro-agent) — distributed by [TomeVault](https://tomevault.io).
