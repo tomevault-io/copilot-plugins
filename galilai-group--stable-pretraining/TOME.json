@@ -4,7 +4,7 @@
   "repo": "stable-pretraining",
   "description": "Reliable, minimal and scalable library for pretraining foundation and world models",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/galilai-group/stable-pretraining",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T18:11:41Z"
+  "distributed_at": "2026-06-01T18:26:32Z"
 }
