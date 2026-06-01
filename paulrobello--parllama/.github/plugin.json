@@ -1,0 +1,9 @@
+{
+  "name": "paulrobello--parllama",
+  "displayName": "parllama",
+  "description": "TUI for Ollama and other LLM providers",
+  "version": "1.0.0",
+  "author": "paulrobello",
+  "homepage": "https://github.com/paulrobello/parllama",
+  "skills": []
+}
