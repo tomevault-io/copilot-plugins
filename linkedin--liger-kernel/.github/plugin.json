@@ -1,0 +1,9 @@
+{
+  "name": "linkedin--liger-kernel",
+  "displayName": "Liger-Kernel",
+  "description": "Efficient Triton Kernels for LLM Training",
+  "version": "1.0.0",
+  "author": "linkedin",
+  "homepage": "https://github.com/linkedin/Liger-Kernel",
+  "skills": []
+}
