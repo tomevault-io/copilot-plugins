@@ -1,0 +1,9 @@
+{
+  "name": "opennextjs--opennextjs-cloudflare",
+  "displayName": "opennextjs-cloudflare",
+  "description": "Open Next.js adapter for Cloudflare",
+  "version": "1.0.0",
+  "author": "opennextjs",
+  "homepage": "https://github.com/opennextjs/opennextjs-cloudflare",
+  "skills": []
+}
