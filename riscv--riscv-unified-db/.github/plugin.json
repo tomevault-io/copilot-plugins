@@ -1,0 +1,9 @@
+{
+  "name": "riscv--riscv-unified-db",
+  "displayName": "riscv-unified-db",
+  "description": "Monorepo containing a machine-readable database of the RISC-V specification and artifact generation tools",
+  "version": "1.0.0",
+  "author": "riscv",
+  "homepage": "https://github.com/riscv/riscv-unified-db",
+  "skills": []
+}
