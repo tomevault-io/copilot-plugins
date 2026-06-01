@@ -1,0 +1,9 @@
+{
+  "name": "brunosabot--streamline-card",
+  "displayName": "streamline-card",
+  "description": "Streamline your Lovelace configuration with with a card template system.",
+  "version": "1.0.0",
+  "author": "brunosabot",
+  "homepage": "https://github.com/brunosabot/streamline-card",
+  "skills": []
+}
