@@ -1,0 +1,9 @@
+{
+  "name": "righttyper--righttyper",
+  "displayName": "RightTyper",
+  "description": "A fast and efficient type assistant for Python, including tensor shape inference",
+  "version": "1.0.0",
+  "author": "RightTyper",
+  "homepage": "https://github.com/RightTyper/RightTyper",
+  "skills": []
+}
