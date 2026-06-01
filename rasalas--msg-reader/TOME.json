@@ -1,0 +1,44 @@
+{
+  "name": "msg-reader",
+  "owner": "Rasalas",
+  "repo": "msg-reader",
+  "description": "Simple tool that allows you to view *.msg files from \"Old MS Outlook\". \"New MS Outlook\" requires an \"Office 365\" subscription to open .msg-Files, but hasn't implemented any way to confirm an active subscription, yet (it seems).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Rasalas/msg-reader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T14:24:17Z"
+}
