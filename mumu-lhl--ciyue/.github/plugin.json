@@ -1,9 +1,9 @@
 {
   "name": "mumu-lhl--ciyue",
   "displayName": "Ciyue",
-  "description": "Ciyue",
+  "description": "A simple mdict dictionary with Android/Windows/Linux support",
   "version": "1.0.0",
   "author": "mumu-lhl",
-  "homepage": "https://tomevault.io/claim/mumu-lhl",
+  "homepage": "https://github.com/mumu-lhl/Ciyue",
   "skills": []
 }
