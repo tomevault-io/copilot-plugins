@@ -1,200 +1,385 @@
-## commits
+## documentation
 
-> This rules needs to apply when commiting to git.
+> These rules MUST be applied whenever creating, modifying, or generating any documentation in the docs/ directory
 
+# Rhesis Documentation Rules
 
-## Branch policy
+**IMPORTANT**: These rules MUST be applied whenever creating, modifying, or generating any documentation in the `docs/` directory.
 
-- **Never commit on `main`.** Work on a feature or fix branch, commit there, and merge via pull request.
-- Before staging or committing, run `git branch --show-current` (or check `git status`). If the branch is `main`, **do not commit**. Tell the user to create and switch to a branch first, for example: `git fetch origin && git checkout main && git pull origin main && git checkout -b feature/short-description`.
-- Do not use `--amend` or other git write operations that would alter history on `main` when asked to commit; the same branch rule applies.
+## Quick Checklist for Documentation
 
-## Pre-Commit Workflow
+When generating or editing documentation, always:
+- ✅ Escape ALL curly braces in text: `\{id\}`, `\{value\}`, `\{placeholder\}`
+- ✅ Remove decorative emojis (use "Note:", "Warning:", "Tip:" instead)
+- ✅ Follow existing documentation style and structure
+- ✅ Include code examples with language tags (```python, ```typescript, ```bash)
+- ✅ Test that the documentation builds without errors
+- ✅ Link to related documentation pages
 
-### 1. Check Current Status
-Before creating commits, always review your current changes:
+## Documentation Framework and Standards
 
-```bash
-# Check which files have been modified
-git status
+**Framework**: We use Nextra for documentation, which processes MDX (Markdown + JSX) files.
 
-# See detailed changes in all modified files
-git diff
+### Key MDX Syntax Rules
 
-# See changes in specific files
-git diff <filename>
+#### Escaping Curly Braces
+**Critical**: MDX interprets anything inside curly braces `{...}` as a JSX expression. Always escape curly braces when you want to display them as literal text:
 
-# See staged vs unstaged changes
-git diff --cached  # Shows staged changes
-git diff HEAD      # Shows all changes (staged + unstaged)
+```mdx
+✅ GOOD: API PUT /test_results/\{id\}
+❌ BAD:  API PUT /test_results/{id}  ← This causes "ReferenceError: id is not defined"
 ```
 
-### 2. Review and Analyze Changes
-- Identify what functionality was added, modified, or removed
-- Group related changes by:
-  - Feature additions
-  - Bug fixes
-  - Refactoring
-  - Documentation updates
-  - Configuration changes
-  - Test modifications
+**Rule**: Any placeholder, variable, or example value in curly braces must be escaped: `\{value\}`
 
-### 3. Stage Changes Strategically
-Instead of `git add .`, stage files selectively:
+**Common scenarios requiring escaping**:
+- API endpoint paths: `/api/users/\{userId\}/profile`, `/posts/\{postId\}/comments/\{commentId\}`
+- Template strings: `"Hello \{name\}"`, `"User \{username\} logged in"`
+- Code examples in headings: `### Using \{variable\} in templates`
+- JSON examples: `\{"key": "value"\}`, `\{"status": "success"\}`
+- Path parameters: `/files/\{filename\}`, `/images/\{imageId\}.jpg`
+- Variable placeholders: `\{count\} items`, `\{total\} users`
 
-```bash
-# Stage specific files
-git add <file1> <file2>
+**When NOT to escape**:
+- Inside code blocks (fenced with ``` or ~~~) - these are already literal
+- Inside inline code: `` `{id}` `` - backticks make it literal
 
-# Stage parts of files interactively
-git add -p <filename>
+#### Documentation Style Guidelines
 
-# Stage all files of a certain type
-git add *.py
-git add *.md
+1. **Accessibility and Consistency**:
+   - Remove decorative emojis (🎉, ✨, 🚀, etc.) from documentation
+   - Use text-based indicators instead: "Note:", "Warning:", "Tip:"
+   - Emojis reduce accessibility for screen readers and appear inconsistent across platforms
 
-# Review what's staged
-git diff --cached
+2. **Follow Existing Style**:
+   - Match the tone, structure, and formatting of existing documentation
+   - Use consistent heading levels and hierarchy
+   - Follow established patterns for code examples, tables, and callouts
+
+3. **Code Examples**:
+   - Always specify language for syntax highlighting: ````python`, ````typescript`, ````bash`
+   - Include file paths in comments when helpful: `# apps/backend/src/...`
+   - Keep examples concise but complete enough to be useful
+
+4. **Structure**:
+   - Start with clear overview/introduction
+   - Use descriptive headings that answer "what", "why", "how"
+   - Include practical examples and common scenarios
+   - Link to related documentation
+
+## Material-UI Icons in MDX Files
+
+**Problem**: MDX files cannot directly import Material-UI icons due to module resolution issues.
+
+**Solution**: Always create a separate JSX component to handle icon imports, then use that component in MDX files.
+
+### Pattern to Follow:
+
+1. **Create a JSX component** in `/docs/src/components/` that imports the MUI icons:
+   ```jsx
+   'use client'
+
+   import React from 'react'
+   import IconName from '@mui/icons-material/IconName'
+   import { InfoCardHorizontal } from './InfoCardHorizontal'
+
+   export const MyComponent = () => {
+     return (
+       <InfoCardHorizontal icon={IconName} title="..." description="..." />
+     )
+   }
+   ```
+
+2. **Register the component** in `/docs/src/mdx-components.js`:
+   ```js
+   import { MyComponent } from './components/MyComponent'
+
+   export function useMDXComponents(components) {
+     return {
+       ...themeComponents,
+       ...components,
+       MyComponent,
+     }
+   }
+   ```
+
+3. **Use in MDX files** without any imports:
+   ```mdx
+   <MyComponent />
+   ```
+
+### Examples:
+- `FeatureOverview.jsx` - Imports MUI icons, exports component
+- `ArchitectureOverview.jsx` - Imports MUI icons, exports component
+- `PlatformFeatures.jsx` - Imports MUI icons, exports component
+
+**Never** try to import `@mui/icons-material/*` directly in `.mdx` files.
+
+## Documentation Directory Structure
+
+```
+docs/
+├── src/                           # Documentation site source
+│   ├── components/               # Reusable JSX components for MDX
+│   ├── app/                      # Next.js app directory
+│   └── mdx-components.js         # MDX component registry
+├── content/                      # All documentation content (MDX files)
+│   ├── _meta.tsx                # Root navigation config
+│   ├── index.mdx                # Home page
+│   ├── getting-started/         # Getting started guides
+│   ├── platform/                # Platform feature documentation
+│   ├── development/             # Development guides
+│   │   ├── backend/            # Backend development
+│   │   ├── frontend/           # Frontend development
+│   │   └── worker/             # Worker service
+│   └── sdk/                     # SDK documentation
+└── README.md                     # Documentation overview
 ```
 
-## Logical Commit Grouping
+## Navigation Configuration
 
-### Group Changes By:
+Each directory should have a `_meta.tsx` file to configure navigation:
 
-1. **Feature Scope**: Each new feature should be its own commit
-2. **Bug Fixes**: Each bug fix should be separate
-3. **Refactoring**: Code improvements without functional changes
-4. **Documentation**: README, comments, or doc updates
-5. **Configuration**: Settings, dependencies, or build changes
-6. **Tests**: New tests or test modifications
+```typescript
+import type { MetaRecord } from 'nextra'
 
-### Example Workflow:
+const meta: MetaRecord = {
+  index: 'Overview',
+  'getting-started': 'Getting Started',
+  'api-reference': 'API Reference',
+}
 
-```bash
-# 1. Check what changed
-git status
-git diff
-
-# 2. If you have mixed changes, create separate commits:
-
-# Commit 1: Fix a specific bug
-git add src/bug-file.py tests/test-bug-fix.py
-git commit -m "fix(api): resolve timeout issue in user endpoint"
-
-# Commit 2: Add new feature
-git add src/feature-file.py src/feature-helper.py
-git commit -m "feat(auth): add two-factor authentication"
-
-# Commit 3: Update documentation
-git add README.md docs/api.md
-git commit -m "docs: update authentication setup guide"
-
-# Commit 4: Refactor existing code
-git add src/utils.py
-git commit -m "refactor(utils): simplify date formatting functions"
+export default meta
 ```
 
-## Conventional Commits Rule
+Or for more complex configurations:
 
-Always follow the Conventional Commits specification for all commit messages.
-
-### Commit Message Format
+```typescript
+export default {
+  index: {
+    title: "Overview",
+    theme: {
+      layout: "full",
+    },
+  },
+  "feature-name": {
+    title: "Feature Name",
+  },
+}
 ```
-<type>[scope]: <description>
-
-[optional body]
-
-[optional footer(s)]
-```
-
-### Commit Types
-- **feat**: A new feature
-- **fix**: A bug fix
-- **docs**: Documentation only changes
-- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **perf**: A code change that improves performance
-- **test**: Adding missing tests or correcting existing tests
-- **build**: Changes that affect the build system or external dependencies
-- **ci**: Changes to CI configuration files and scripts
-- **chore**: Other changes that don't modify src or test files
-- **revert**: Reverts a previous commit
-
-
-### Scope
-**Use only one of these scopes.** Do not invent other scopes (e.g. no `adaptive-testing`, `api`, `auth`).
-
-- **backend**: Changes to the backend code (apps/backend/)
-- **frontend**: Changes to the frontend code (apps/frontend/)
-- **sdk**: Changes to the SDK code (sdk/)
-- **tests**: Changes to the test code (tests/)
-- **dev**: Changes to the development tools and configuration e.g. Makefile, .env files, etc.
-
-### Rules
-1. Use lowercase for type and description
-2. No period at the end of the description
-3. Use imperative mood in the description (e.g., "add" not "adds" or "added")
-4. Limit the description to 50 characters or less
-5. Use scope to specify the component/module affected (e.g., `feat(backend): add login validation`)
-6. Add body and footer if needed for breaking changes or additional context
-7. Use `BREAKING CHANGE:` in footer for breaking changes
-
-### Examples
-- `feat(backend): add user authentication`
-- `fix(frontend): resolve timeout issue in user endpoint`
-- `docs: update installation guide`
-- `refactor(backend): simplify date formatting function`
-- `feat!: remove deprecated API endpoints` (! indicates breaking change)
-
-## Advanced Git Commands for Commit Management
-
-### Splitting Large Changes
-
-```bash
-# If you have too many changes in one file, split them:
-git add -p <filename>  # Interactively stage hunks
-
-# Reset specific files from staging
-git reset <filename>
-
-# Reset specific hunks
-git reset -p <filename>
-```
-
-### Amending and Fixing Commits
-
-```bash
-# Add more changes to the last commit
-git add <forgotten-file>
-git commit --amend
-
-# Change the last commit message
-git commit --amend -m "new commit message"
-
-# Interactive rebase to reorganize recent commits
-git rebase -i HEAD~3  # Edit last 3 commits
-```
-
 
 ## Best Practices
 
-1. **Atomic Commits**: Each commit should represent one logical change
-2. **Frequent Commits**: Commit early and often, but keep commits meaningful
-3. **Clear History**: Your commit history should tell a story of your project's evolution
-4. **Review Before Push**: Always review your commits before pushing
-5. **Test Each Commit**: Ideally, each commit should leave the codebase in a working state
+### Writing Documentation
 
-## Quick Checklist Before Committing
+1. **Be Clear and Concise**: Write for developers of all skill levels
+2. **Use Examples**: Show, don't just tell - include code examples
+3. **Keep It Updated**: Documentation should match the current codebase
+4. **Link Related Topics**: Help users discover related information
+5. **Test Your Examples**: Ensure all code examples actually work
 
-- [ ] Confirm you are **not** on `main` (never commit on `main`)
-- [ ] Run `git status` to see what's changed
-- [ ] Run `git diff` to review the actual changes
-- [ ] Group related changes together
-- [ ] Write descriptive commit messages following conventional commits
-- [ ] Test that each commit doesn't break functionality
-- [ ] Consider if any commit needs a longer description or breaking change notice
+### Organizing Content
 
-When creating commits, always format them according to this specification, follow the logical grouping workflow, and obey the branch policy (no commits on `main`).
+1. **Logical Hierarchy**: Organize by feature/topic, not by file type
+2. **Progressive Disclosure**: Start simple, add complexity gradually
+3. **Consistent Naming**: Use kebab-case for file names: `test-result-status.mdx`
+4. **Clear Titles**: Make titles descriptive and searchable
+
+### Maintaining Quality
+
+1. **Review Changes**: Always build locally before committing
+2. **Check Links**: Verify internal and external links work
+3. **Validate Syntax**: Watch for MDX syntax errors (especially curly braces!)
+4. **Test Readability**: Have someone else review for clarity
+# Rhesis Documentation Rules
+
+**IMPORTANT**: These rules MUST be applied whenever creating, modifying, or generating any documentation in the `docs/` directory.
+
+## Quick Checklist for Documentation
+
+When generating or editing documentation, always:
+- ✅ Escape ALL curly braces in text: `\{id\}`, `\{value\}`, `\{placeholder\}`
+- ✅ Remove decorative emojis (use "Note:", "Warning:", "Tip:" instead)
+- ✅ Follow existing documentation style and structure
+- ✅ Include code examples with language tags (```python, ```typescript, ```bash)
+- ✅ Test that the documentation builds without errors
+- ✅ Link to related documentation pages
+
+## Documentation Framework and Standards
+
+**Framework**: We use Nextra for documentation, which processes MDX (Markdown + JSX) files.
+
+### Key MDX Syntax Rules
+
+#### Escaping Curly Braces
+**Critical**: MDX interprets anything inside curly braces `{...}` as a JSX expression. Always escape curly braces when you want to display them as literal text:
+
+```mdx
+✅ GOOD: API PUT /test_results/\{id\}
+❌ BAD:  API PUT /test_results/{id}  ← This causes "ReferenceError: id is not defined"
+```
+
+**Rule**: Any placeholder, variable, or example value in curly braces must be escaped: `\{value\}`
+
+**Common scenarios requiring escaping**:
+- API endpoint paths: `/api/users/\{userId\}/profile`, `/posts/\{postId\}/comments/\{commentId\}`
+- Template strings: `"Hello \{name\}"`, `"User \{username\} logged in"`
+- Code examples in headings: `### Using \{variable\} in templates`
+- JSON examples: `\{"key": "value"\}`, `\{"status": "success"\}`
+- Path parameters: `/files/\{filename\}`, `/images/\{imageId\}.jpg`
+- Variable placeholders: `\{count\} items`, `\{total\} users`
+
+**When NOT to escape**:
+- Inside code blocks (fenced with ``` or ~~~) - these are already literal
+- Inside inline code: `` `{id}` `` - backticks make it literal
+
+#### Documentation Style Guidelines
+
+1. **Accessibility and Consistency**:
+   - Remove decorative emojis (🎉, ✨, 🚀, etc.) from documentation
+   - Use text-based indicators instead: "Note:", "Warning:", "Tip:"
+   - Emojis reduce accessibility for screen readers and appear inconsistent across platforms
+
+2. **Follow Existing Style**:
+   - Match the tone, structure, and formatting of existing documentation
+   - Use consistent heading levels and hierarchy
+   - Follow established patterns for code examples, tables, and callouts
+
+3. **Code Examples**:
+   - Always specify language for syntax highlighting: ````python`, ````typescript`, ````bash`
+   - Include file paths in comments when helpful: `# apps/backend/src/...`
+   - Keep examples concise but complete enough to be useful
+
+4. **Structure**:
+   - Start with clear overview/introduction
+   - Use descriptive headings that answer "what", "why", "how"
+   - Include practical examples and common scenarios
+   - Link to related documentation
+
+## Material-UI Icons in MDX Files
+
+**Problem**: MDX files cannot directly import Material-UI icons due to module resolution issues.
+
+**Solution**: Always create a separate JSX component to handle icon imports, then use that component in MDX files.
+
+### Pattern to Follow:
+
+1. **Create a JSX component** in `/docs/src/components/` that imports the MUI icons:
+   ```jsx
+   'use client'
+
+   import React from 'react'
+   import IconName from '@mui/icons-material/IconName'
+   import { InfoCardHorizontal } from './InfoCardHorizontal'
+
+   export const MyComponent = () => {
+     return (
+       <InfoCardHorizontal icon={IconName} title="..." description="..." />
+     )
+   }
+   ```
+
+2. **Register the component** in `/docs/src/mdx-components.js`:
+   ```js
+   import { MyComponent } from './components/MyComponent'
+
+   export function useMDXComponents(components) {
+     return {
+       ...themeComponents,
+       ...components,
+       MyComponent,
+     }
+   }
+   ```
+
+3. **Use in MDX files** without any imports:
+   ```mdx
+   <MyComponent />
+   ```
+
+### Examples:
+- `FeatureOverview.jsx` - Imports MUI icons, exports component
+- `ArchitectureOverview.jsx` - Imports MUI icons, exports component
+- `PlatformFeatures.jsx` - Imports MUI icons, exports component
+
+**Never** try to import `@mui/icons-material/*` directly in `.mdx` files.
+
+## Documentation Directory Structure
+
+```
+docs/
+├── src/                           # Documentation site source
+│   ├── components/               # Reusable JSX components for MDX
+│   ├── app/                      # Next.js app directory
+│   └── mdx-components.js         # MDX component registry
+├── content/                      # All documentation content (MDX files)
+│   ├── _meta.tsx                # Root navigation config
+│   ├── index.mdx                # Home page
+│   ├── getting-started/         # Getting started guides
+│   ├── platform/                # Platform feature documentation
+│   ├── development/             # Development guides
+│   │   ├── backend/            # Backend development
+│   │   ├── frontend/           # Frontend development
+│   │   └── worker/             # Worker service
+│   └── sdk/                     # SDK documentation
+└── README.md                     # Documentation overview
+```
+
+## Navigation Configuration
+
+Each directory should have a `_meta.tsx` file to configure navigation:
+
+```typescript
+import type { MetaRecord } from 'nextra'
+
+const meta: MetaRecord = {
+  index: 'Overview',
+  'getting-started': 'Getting Started',
+  'api-reference': 'API Reference',
+}
+
+export default meta
+```
+
+Or for more complex configurations:
+
+```typescript
+export default {
+  index: {
+    title: "Overview",
+    theme: {
+      layout: "full",
+    },
+  },
+  "feature-name": {
+    title: "Feature Name",
+  },
+}
+```
+
+## Best Practices
+
+### Writing Documentation
+
+1. **Be Clear and Concise**: Write for developers of all skill levels
+2. **Use Examples**: Show, don't just tell - include code examples
+3. **Keep It Updated**: Documentation should match the current codebase
+4. **Link Related Topics**: Help users discover related information
+5. **Test Your Examples**: Ensure all code examples actually work
+
+### Organizing Content
+
+1. **Logical Hierarchy**: Organize by feature/topic, not by file type
+2. **Progressive Disclosure**: Start simple, add complexity gradually
+3. **Consistent Naming**: Use kebab-case for file names: `test-result-status.mdx`
+4. **Clear Titles**: Make titles descriptive and searchable
+
+### Maintaining Quality
+
+1. **Review Changes**: Always build locally before committing
+2. **Check Links**: Verify internal and external links work
+3. **Validate Syntax**: Watch for MDX syntax errors (especially curly braces!)
+4. **Test Readability**: Have someone else review for clarity
 
 ---
 > Source: [rhesis-ai/rhesis](https://github.com/rhesis-ai/rhesis) — distributed by [TomeVault](https://tomevault.io).
