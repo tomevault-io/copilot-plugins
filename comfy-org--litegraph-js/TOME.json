@@ -4,7 +4,7 @@
   "repo": "litegraph.js",
   "description": "\u26d4 ARCHIVED (See README). A graph node engine and editor written in Javascript similar to PD or UDK Blueprints, comes with its own editor in HTML5 Canvas2D. The engine can run client side or server side using Node. It allows to export graphs as JSONs to be included in applications independently.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Comfy-Org/litegraph.js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T20:22:06Z"
+  "distributed_at": "2026-06-01T20:32:07Z"
 }
