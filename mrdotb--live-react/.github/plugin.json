@@ -1,0 +1,9 @@
+{
+  "name": "mrdotb--live-react",
+  "displayName": "live_react",
+  "description": "\u2728 React inside Phoenix LiveView with seamless end-to-end reactivity",
+  "version": "1.0.0",
+  "author": "mrdotb",
+  "homepage": "https://github.com/mrdotb/live_react",
+  "skills": []
+}
