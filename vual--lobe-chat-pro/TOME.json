@@ -2,7 +2,7 @@
   "name": "lobe-chat-pro",
   "owner": "vual",
   "repo": "lobe-chat-pro",
-  "description": "",
+  "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/vual",
+  "source_url": "https://github.com/vual/lobe-chat-pro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T02:56:14Z"
+  "distributed_at": "2026-06-01T19:48:10Z"
 }
