@@ -1,0 +1,151 @@
+## snowboardkids2-decomp
+
+> This is a matching decompilation project for Snowboard Kids 2 (N64). The goal is to create C code that, when compiled, produces the exact same assembly as the original game ROM.
+
+# CLAUDE.md
+
+## Repository Overview
+
+This is a matching decompilation project for Snowboard Kids 2 (N64). The goal is to create C code that, when compiled, produces the exact same assembly as the original game ROM.
+
+## Project Structure
+
+- `src` decompiled (or partially decompiled) C code.
+- `include` headers for decompiled C code
+- `asm/nonmatchings` unmatched asm code extracted from the rom. Each file contains a separate function.
+- `asm/matchings` decompiled assembly code for already matched C functions. We keep this around as it's sometimes convenient to inspect.
+- `lib` library code such as Ultralib which we call and link against
+- `assets` binary asset blobs extracted from the rom
+- `include` common headers included in all C and/or assembly code
+
+## Tools
+
+- `./tools/build-and-verify.sh` build the project and verify that it matches the target.
+- `diff.py` you can view the difference between the compiled and target assembly code of a given function by running `python3 tools/asm-differ/diff.py --no-pager <function name>`
+- `./tools/claude --bootstrap-only <function name>` spin up a decompilation environment for a given function. It can also take an optional --id field. The script will only create the directory if one with a matching id does not already exist.
+- `python3 tools/score_functions.py <directory>` find the easiest function to decompile in a given directory (and its subdirectories).
+- `python3 tools/project_status.py` shows functions that are currently non-matching. Use this if `./tools/build-and-verify.sh` is failing and you're not sure which function is the problem.
+- `python3 tools/find_similar_functions.py <function id>` returns a list of similar functions to <function id>. This can provide a useful reference when trying to match code.
+- `python3 tools/data-differ/data_diff.py <symbol>` or `./tools/diff-data <symbol>` compares binary data between the target ROM and compiled output for a specific data symbol.
+- `python3 tools/data-differ/data_diff.py --find-first-mismatch` scans all data symbols in ROM order and shows the first one that doesn't match. Use this when the build fails to identify which data variable is causing the mismatch.
+
+## Tasks
+
+### Decompile assembly to C code
+
+You may be given a function and asked to decompile it to C code.
+
+#### Step 1
+
+First we need to spin up a decomp environment for the function, run:
+
+```
+./tools/claude --bootstrap-only <function name>
+```
+
+Move to the directory created by the script. This will be `nonmatchings/<function name>-<number (optional)>`.
+
+Use the tools in this directory to match the function. You may need to make several attempts. Each attempt should be in a new file (base\*1.c, base_2.c, ... base_n.c, etc).
+
+#### Step 2 (successful match, integrate changes into project)
+
+If you are able to match the function, update the C code to use it. The C code will be importing an assembly file, something along the lines of `INCLUDE_ASM/asm/nonmatchings/<function name>`. Replace this with the actual C code.
+
+- Update the rest of the project to fix any build issues.
+- If the function is defined in a header file (located in include/), this will also need to be updated. These other usages may teach you about the correct type of your function arguments or return types. DO NOT JUST MAKE EVERYTHING void\*!.
+- Make sure to search for any existing function / struct declarations in the project (under src/ and include/). We do not want duplicate or redundent declarations.
+
+Verify that the project still builds successfully by running `./tools/build-and-verify.sh`. If this check fails, the decompilation is NOT complete, even if individual functions appear to match.
+
+- If the checksum fails after your changes, use `python3 tools/asm-differ/diff.py --no-pager <function>` to check ALL functions in the modified file(s). Look for functions that access the same structs you modified. Fix any mismatches before declaring success.
+
+#### Step 3: Commit your successful match
+
+If you are able to get a perfect matching decompilation, commit the changes with an appropriate message describing what you matched and how.
+
+Respect any pre-commit hooks that prevent you from committing your change. A failed hook indicates that you have not correctly updates the C code.
+
+You are done. Do not attemp to find the next closest match.
+
+#### When to stop
+
+**These rules are mandatory. Do not override them.**
+
+If the build script tells you to stop, you MUST stop immediately. Do not make another attempt. Report:
+- Best score and which file achieved it
+- Summary of approaches tried
+- Analysis of remaining differences
+- Whether the remaining issues seem solvable or may need a different strategy
+
+## Validation Checklist
+
+Before declaring any changes to C code complete (including decompiling functions), verify:
+
+- [ ] No pointer arithmetic with manual offset calculations
+- [ ] All struct field accesses use `->` or `.` operators
+- [ ] No `void*` parameters that should be typed structs
+- [ ] Struct sizes match the assembly access patterns
+- [ ] `./tools/build-and-verify.sh` succeeds
+
+### Capture Learnings
+
+Update DECOMPILATION_LEARNINGS.md with any new insights from matching functions in this project. These include compiler behavior, codegen quirks, and patterns specific to KMC GCC 2.7.2.
+
+## Code Quality Standards
+
+### Avoid Pointer Arithmetic
+
+When you see pointer arithmetic patterns like `*(type*)((u8*)ptr + offset)`:
+
+1. **Identify the access pattern:**
+   - What offset is being accessed? (e.g., `0xC` means field at offset 12)
+   - Is it accessing an array element? (e.g., `arg1 * 36` means 36-byte elements)
+   - What field within the element? (e.g., `+ 0xA` means field at offset 10)
+
+2. **Create appropriate structs:**
+   - Define the element struct with correct size and field offsets
+   - Define the container struct with pointer at correct offset
+   - Use meaningful names or `unk[Offset]` naming convention
+
+3. **Verify struct sizes:**
+   - Calculate total size to ensure it matches the multiplier in pointer arithmetic
+   - Example: `arg1 * 36` means struct must be exactly 36 (0x24) bytes
+
+### Struct Modification and Extension
+
+When modifying struct definitions:
+
+- Search the entire codebase for other references to the same struct
+- Check if other functions access fields at nearby offsets
+- Verify ALL affected functions still match after struct changes
+- Example: If you add a field at offset 0x14, search for all functions accessing that struct and verify they still compile to the correct offsets
+
+### Avoid Redundent Declarations
+
+After adding your decompiled function, check for any redundant extern declarations:
+
+1. **Search for existing declarations**: For each extern function you used, search the codebase to see if it's already declared in a header file:
+   - Use `grep -r "void functionName" include/` to search headers
+   - Use `grep -r "void functionName" src/*.h` to search source headers
+
+2. **Remove redundant externs**: If a function is already declared in an included header file, remove your extern declaration to avoid duplication
+
+3. **Verify the build still works** after removing redundant externs
+
+Example: If you added `extern void setCallback(void *);` but `task_scheduler.h` (which is already included) declares it, remove your extern declaration.
+
+## Code Structure
+
+C files should be organised in the following way:
+
+- Macro definitions
+- Structs definitions
+- Global variables
+- Function declarations
+- Function implementations
+
+You should proactively reorganise code to preserve this structure.
+
+---
+> Source: [cdlewis/snowboardkids2-decomp](https://github.com/cdlewis/snowboardkids2-decomp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
