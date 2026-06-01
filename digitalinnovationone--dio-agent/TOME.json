@@ -4,7 +4,7 @@
   "repo": "dio-agent",
   "description": "Agente de IA criado pela DIO para apoiar seus estudos.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/digitalinnovationone/dio-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T22:30:57Z"
+  "distributed_at": "2026-06-01T22:32:00Z"
 }
