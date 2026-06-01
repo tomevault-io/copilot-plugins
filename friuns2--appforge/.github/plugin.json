@@ -1,0 +1,9 @@
+{
+  "name": "friuns2--appforge",
+  "displayName": "appforge",
+  "description": "App Forge is an AI-powered application generator that creates apps, websites, and online games using the Gemini API",
+  "version": "1.0.0",
+  "author": "friuns2",
+  "homepage": "https://github.com/friuns2/appforge",
+  "skills": []
+}
