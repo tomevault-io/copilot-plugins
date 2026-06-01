@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nvidia-resiliency-ext",
+  "displayName": "nvidia-resiliency-ext",
+  "description": "NVIDIA Resiliency Extension is a python package for framework developers and users to implement fault-tolerant features. It improves the effective training time by minimizing the downtime due to failu",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/nvidia-resiliency-ext",
+  "skills": []
+}
