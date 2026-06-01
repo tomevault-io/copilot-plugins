@@ -1,61 +1,73 @@
-## test-first-for-bugs-and-regression
+## verification-and-regression-checks
 
-> For bug fixes and regression-sensitive work, use tests to reproduce, protect, and verify behavior whenever practical.
+> Every meaningful change should be validated as strongly as the repo allows.
 
 
-For bug fixes and regression-sensitive work, use tests to reproduce, protect, and verify behavior whenever practical.
+Every meaningful change should be validated as strongly as the repo allows.
 
-## Core rule
+## Required behavior
 
-Do not just patch the symptom. First understand the failing behavior, then protect against its return.
+After making changes, run the most relevant available checks, such as:
 
-## Preferred workflow for bug fixes
+- targeted tests
+- affected test suites
+- lint
+- type-check
+- build
+- static analysis
+- framework-specific validation commands
 
-1. identify the failing behavior clearly
-2. locate or create the most targeted test that captures it
-3. confirm the failure when feasible
-4. implement the fix
-5. re-run the test
-6. run adjacent relevant checks to guard against regressions
+Do not skip validation just because the code looks correct.
 
-## Testing principles
+## Validation strategy
 
-- prefer targeted tests over broad blind runs at first
-- add regression coverage for real bugs when practical
-- test the root behavior, not just incidental implementation details
-- include edge cases if they are directly related to the failure
-- keep tests readable and aligned with project conventions
+Prefer this order:
 
-## When adding a new test
+1. run the most targeted checks first
+2. fix failures
+3. run broader relevant checks as needed
+4. confirm the task outcome
+5. watch for regressions in adjacent behavior
 
-Prefer tests that:
+## Bug fix rule
 
-- fail before the fix
-- pass after the fix
-- clearly describe the intended behavior
-- are narrow enough to diagnose future regressions quickly
+For bug fixes:
 
-## If a test cannot be added immediately
+- verify the original failure mode is addressed
+- add or update a regression test when feasible
+- confirm related behavior still works
 
-Then still:
+## Feature rule
 
-- document the failure mode clearly in your reasoning
-- validate the fix using the strongest available check
-- add a test if the codebase supports it and the scope allows it
+For features:
 
-## Regression mindset
+- validate the happy path
+- validate obvious edge states
+- ensure the feature is actually wired into the real flow
+- confirm types, imports, and integration points are correct
 
-After fixing a bug, also consider:
+## Failure handling
 
-- nearby code paths using the same logic
-- boundary conditions
-- serialization or interface effects
-- consumer-facing side effects
-- whether similar bugs could exist in sibling flows
+If a validation step fails:
 
-## Completion rule
+1. diagnose the failure
+2. determine whether it is caused by your change
+3. fix it if in scope or required for correctness
+4. re-run validation
+5. continue until passing or truly blocked
 
-A bug fix is stronger when it leaves behind proof that the bug will be caught if it returns.
+## Minimum expectation
+
+Never treat "edited code successfully" as equivalent to "task completed successfully."
+
+## Reporting
+
+When summarizing work, include:
+
+- what was validated
+- what passed
+- what could not be validated
+- any remaining caveats
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
