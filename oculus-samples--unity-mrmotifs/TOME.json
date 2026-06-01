@@ -4,7 +4,7 @@
   "repo": "Unity-MRMotifs",
   "description": "The developer community is beginning to show the world why Mixed Reality can be special. Developers come up with new mechanics that show why MR will be the best way to engage Quest users. MR Motifs is our format to broadcast them to other developers. The Oculus SDK and other supporting material is subject to the Oculus proprietary license.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oculus-samples/Unity-MRMotifs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T21:33:13Z"
+  "distributed_at": "2026-06-01T22:00:58Z"
 }
