@@ -1,45 +1,77 @@
-## prevent-duplicate-dev
+## project-organization
 
-> This rule prevents running `npm run dev` commands in terminal instances since we assume it's already running in another terminal.
+> Project organization
 
- # Prevent Duplicate Dev Server Commands
+# Project Organization Rules
 
-This rule prevents running `npm run dev` commands in terminal instances since we assume it's already running in another terminal.
+## Directory Structure Requirements
 
-<rule>
-name: prevent_duplicate_dev
-description: Prevents running duplicate dev server commands
-filters:
-  # Match terminal command events
-  - type: event
-    pattern: "terminal_command"
-  # Match npm run dev commands
-  - type: content
-    pattern: "npm run dev"
+### Required: Component Organization
+All components must be organized in a dedicated components directory:
 
-actions:
-  - type: reject
-    conditions:
-      - pattern: "npm run dev"
-        message: "Dev server is assumed to be already running. Please use the existing dev server instance instead of starting a new one."
+```yaml
+rule:
+  id: component-directory-structure
+  pattern: |
+    project/
+    ├── src/
+    │   ├── components/
+    │   │   └── *.ts
+    │   └── main.ts
+    ├── index.html
+    └── package.json
+  message: |
+    Components must be placed in the src/components directory.
+    This helps maintain a clean and organized codebase.
+  severity: error
+```
 
-  - type: suggest
-    message: |
-      The dev server is assumed to be already running in another terminal.
-      
-      Instead of starting a new dev server:
-      1. Use the existing dev server instance
-      2. If the dev server is not running, check your other terminal windows
-      3. Only start a new dev server if you've confirmed no other instance is running
+### Required: Component File Naming
+Component files should follow these naming conventions:
 
-examples:
-  - input: "npm run dev"
-    output: "Command rejected - dev server already running"
+```yaml
+rule:
+  id: component-file-naming
+  pattern: |
+    src/components/[component-name].ts
+  message: |
+    Component files should:
+    1. Be placed in src/components directory
+    2. Use kebab-case for file names
+    3. Have a .ts extension for TypeScript
+  severity: error
+```
 
-metadata:
-  priority: medium
-  version: 1.0
-</rule>
+### Best Practice: Component Organization
+Follow these guidelines for component organization:
+
+```yaml
+rule:
+  id: component-organization-best-practices
+  pattern: |
+    src/
+    ├── components/     # Reusable UI components
+    ├── pages/          # Page components (optional)
+    ├── models/         # Models or Stores (optional)
+    ├── utils/          # Utility functions
+    ├── types/          # TypeScript types/interfaces
+    └── main.ts         # Application entry point
+  message: |
+    Organize your project with clear separation of concerns:
+    - components/: for reusable UI components
+    - models/: for models or stores (if needed)
+    - pages/: for page components (if needed)
+    - utils/: for utility functions
+    - types/: for TypeScript types and interfaces
+  severity: warning
+```
+
+## Usage
+1. Place all component files in `src/components/`
+2. Use kebab-case for component file names
+3. Use camel-case for class file names
+4. Create additional directories (models, pages, etc.) as needed
+5. Keep main.ts as the application entry point 
 
 ---
 > Source: [alexawilcox1120/TestingCursor](https://github.com/alexawilcox1120/TestingCursor) — distributed by [TomeVault](https://tomevault.io).
