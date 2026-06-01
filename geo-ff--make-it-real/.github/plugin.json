@@ -1,0 +1,9 @@
+{
+  "name": "geo-ff--make-it-real",
+  "displayName": "make-it-real",
+  "description": "A portable AI-agent skill that turns rough ideas into project specs, delivery scopes, and task handoffs.",
+  "version": "1.0.0",
+  "author": "Geo-ff",
+  "homepage": "https://github.com/Geo-ff/make-it-real",
+  "skills": []
+}
