@@ -1,85 +1,189 @@
-## debug-usage
+## desktop-controller-tests
 
-> 包含添加 console.log 日志请求时
+> 桌面端测试
 
-# Debug 包使用指南
+# 桌面端控制器单元测试指南
 
-本项目使用 [debug](mdc:https:/github.com/debug-js/debug) 包进行调试日志记录。使用此规则来确保团队成员统一调试日志格式。
+## 测试框架与目录结构
 
-## 基本用法
+LobeChat 桌面端使用 Vitest 作为测试框架。控制器的单元测试应放置在对应控制器文件同级的 `__tests__` 目录下，并以原控制器文件名加 `.test.ts` 作为文件名。
 
-1. 导入 debug 包：
+```
+apps/desktop/src/main/controllers/
+├── __tests__/
+│   ├── index.test.ts
+│   ├── MenuCtr.test.ts
+│   └── ...
+├── McpCtr.ts
+├── MenuCtr.ts
+└── ...
+```
+
+## 测试文件基本结构
 
 ```typescript
-import debug from 'debug';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import type { App } from '@/core/App';
+
+import YourController from '../YourControllerName';
+
+// 模拟依赖
+vi.mock('依赖模块', () => ({
+  依赖函数: vi.fn(),
+}));
+
+// 模拟 App 实例
+const mockApp = {
+  // 按需模拟必要的 App 属性和方法
+} as unknown as App;
+
+describe('YourController', () => {
+  let controller: YourController;
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    controller = new YourController(mockApp);
+  });
+
+  describe('方法名', () => {
+    it('测试场景描述', async () => {
+      // 准备测试数据
+
+      // 执行被测方法
+      const result = await controller.方法名(参数);
+
+      // 验证结果
+      expect(result).toMatchObject(预期结果);
+    });
+  });
+});
 ```
 
-2. 创建一个命名空间的日志记录器：
+## 模拟外部依赖
+
+### 模拟模块函数
 
 ```typescript
-// 格式: lobe:[模块]:[子模块]
-const log = debug('lobe-[模块名]:[子模块名]');
+const mockFunction = vi.fn();
+
+vi.mock('module-name', () => ({
+  functionName: mockFunction,
+}));
 ```
 
-3. 使用日志记录器：
+### 模拟 Node.js 核心模块
+
+例如模拟 `child_process.exec` 和 `util.promisify`:
 
 ```typescript
-log('简单消息');
-log('带变量的消息: %O', object);
-log('格式化数字: %d', number);
+// 存储模拟的 exec 实现
+const mockExecImpl = vi.fn();
+
+// 模拟 child_process.exec
+vi.mock('child_process', () => ({
+  exec: vi.fn((cmd, callback) => {
+    return mockExecImpl(cmd, callback);
+  }),
+}));
+
+// 模拟 util.promisify
+vi.mock('util', () => ({
+  promisify: vi.fn((fn) => {
+    return async (cmd: string) => {
+      return new Promise((resolve, reject) => {
+        mockExecImpl(cmd, (error: Error | null, result: any) => {
+          if (error) reject(error);
+          else resolve(result);
+        });
+      });
+    };
+  }),
+}));
 ```
 
-## 命名空间约定
+## 编写有效的测试用例
 
-- 桌面应用相关: `lobe-desktop:[模块]`
-- 服务端相关: `lobe-server:[模块]`
-- 客户端相关: `lobe-client:[模块]`
-- 路由相关: `lobe-[类型]-router:[模块]`
+### 测试分类
 
-## 格式说明符
-
-- `%O` - 对象展开（推荐用于复杂对象）
-- `%o` - 对象
-- `%s` - 字符串
-- `%d` - 数字
-
-## 示例
-
-查看 [market/index.ts](mdc:src/server/routers/edge/market/index.ts) 中的使用示例：
+将测试用例分为不同类别，每个类别测试一个特定场景：
 
 ```typescript
-import debug from 'debug';
+// 成功场景
+it('应该成功完成操作', async () => {});
 
-const log = debug('lobe-edge-router:market');
+// 边界条件
+it('应该处理边界情况', async () => {});
 
-log('getAgent input: %O', input);
+// 错误处理
+it('应该优雅地处理错误', async () => {});
 ```
 
-## 启用调试
-
-要在开发时启用调试输出，需设置环境变量：
-
-### 在浏览器中
-
-在控制台执行：
-```javascript
-localStorage.debug = 'lobe-*'
-```
-
-### 在 Node.js 环境中
-
-```bash
-DEBUG=lobe-* npm run dev
-# 或者
-DEBUG=lobe-* pnpm dev
-```
-
-### 在 Electron 应用中
-
-可以在主进程和渲染进程启动前设置环境变量：
+### 设置测试数据
 
 ```typescript
-process.env.DEBUG = 'lobe-*';
+// 模拟返回值
+mockExecImpl.mockImplementation((cmd: string, callback: any) => {
+  if (cmd === '命令') {
+    callback(null, { stdout: '成功输出' });
+  } else {
+    callback(new Error('错误信息'), null);
+  }
+});
+```
+
+### 断言
+
+使用 Vitest 的断言函数验证结果：
+
+```typescript
+// 检查基本值
+expect(result.success).toBe(true);
+
+// 检查对象部分匹配
+expect(result.data).toMatchObject({
+  key: 'value',
+});
+
+// 检查数组
+expect(result.items).toHaveLength(2);
+expect(result.items[0].name).toBe('expectedName');
+
+// 检查函数调用
+expect(mockFunction).toHaveBeenCalledWith(expectedArgs);
+expect(mockFunction).toHaveBeenCalledTimes(1);
+```
+
+## 最佳实践
+
+1. **隔离测试**：确保每个测试互不影响，使用 `beforeEach` 重置模拟和状态
+2. **全面覆盖**：测试正常流程、边界条件和错误处理
+3. **清晰命名**：测试名称应清晰描述测试内容和预期结果
+4. **避免测试实现细节**：测试应该关注行为而非实现细节，使代码重构不会破坏测试
+5. **模拟外部依赖**：使用 `vi.mock()` 模拟所有外部依赖，减少测试的不确定性
+
+## 示例：测试 IPC 事件处理方法
+
+```typescript
+it('应该正确处理 IPC 事件', async () => {
+  // 模拟依赖
+  mockSomething.mockReturnValue({ result: 'success' });
+
+  // 调用 IPC 方法
+  const result = await controller.ipcMethodName({
+    param1: 'value1',
+    param2: 'value2',
+  });
+
+  // 验证结果
+  expect(result).toEqual({
+    success: true,
+    data: { result: 'success' },
+  });
+
+  // 验证依赖调用
+  expect(mockSomething).toHaveBeenCalledWith('value1', 'value2');
+});
 ```
 
 ---
