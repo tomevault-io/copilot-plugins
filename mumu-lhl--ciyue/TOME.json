@@ -2,9 +2,9 @@
   "name": "Ciyue",
   "owner": "mumu-lhl",
   "repo": "Ciyue",
-  "description": "",
+  "description": "A simple mdict dictionary with Android/Windows/Linux support",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/mumu-lhl",
+  "source_url": "https://github.com/mumu-lhl/Ciyue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T02:08:05Z"
+  "distributed_at": "2026-06-01T14:05:13Z"
 }
