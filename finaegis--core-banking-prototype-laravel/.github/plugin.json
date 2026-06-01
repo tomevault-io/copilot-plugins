@@ -1,0 +1,9 @@
+{
+  "name": "finaegis--core-banking-prototype-laravel",
+  "displayName": "core-banking-prototype-laravel",
+  "description": "Open-source core banking platform \u2014 56 DDD modules, event sourcing, CQRS, GraphQL, x402 payments. Laravel 12 / PHP 8.4",
+  "version": "1.0.0",
+  "author": "FinAegis",
+  "homepage": "https://github.com/FinAegis/core-banking-prototype-laravel",
+  "skills": []
+}
