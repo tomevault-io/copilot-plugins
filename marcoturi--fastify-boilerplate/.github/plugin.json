@@ -1,0 +1,9 @@
+{
+  "name": "marcoturi--fastify-boilerplate",
+  "displayName": "fastify-boilerplate",
+  "description": "Fastify 5 application boilerplate based on clean architecture, domain-driven design, CQRS, functional programming, vertical slice architecture for building production-grade applications \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "marcoturi",
+  "homepage": "https://github.com/marcoturi/fastify-boilerplate",
+  "skills": []
+}
