@@ -1,0 +1,9 @@
+{
+  "name": "meta-pytorch--attention-gym",
+  "displayName": "attention-gym",
+  "description": "Helpful tools and examples for working with flex-attention",
+  "version": "1.0.0",
+  "author": "meta-pytorch",
+  "homepage": "https://github.com/meta-pytorch/attention-gym",
+  "skills": []
+}
