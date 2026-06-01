@@ -1,0 +1,9 @@
+{
+  "name": "eunomia-bpf--llvmbpf",
+  "displayName": "llvmbpf",
+  "description": "Userspace/GPU eBPF VM with llvm JIT/AOT compiler",
+  "version": "1.0.0",
+  "author": "eunomia-bpf",
+  "homepage": "https://github.com/eunomia-bpf/llvmbpf",
+  "skills": []
+}
