@@ -1,0 +1,9 @@
+{
+  "name": "chainstacklabs--pumpfun-bonkfun-bot",
+  "displayName": "pumpfun-bonkfun-bot",
+  "description": "A fully functional pump.fun / letsbonk.fun trading and sniping bot not relying on any 3rd party APIs",
+  "version": "1.0.0",
+  "author": "chainstacklabs",
+  "homepage": "https://github.com/chainstacklabs/pumpfun-bonkfun-bot",
+  "skills": []
+}
