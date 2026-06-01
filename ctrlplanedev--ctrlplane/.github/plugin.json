@@ -1,0 +1,9 @@
+{
+  "name": "ctrlplanedev--ctrlplane",
+  "displayName": "ctrlplane",
+  "description": ":rocket: A deployment orchestration tool that simplifies multi-cloud, multi-region, and multi-service deployments.",
+  "version": "1.0.0",
+  "author": "ctrlplanedev",
+  "homepage": "https://github.com/ctrlplanedev/ctrlplane",
+  "skills": []
+}
