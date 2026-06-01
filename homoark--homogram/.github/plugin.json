@@ -1,0 +1,9 @@
+{
+  "name": "homoark--homogram",
+  "displayName": "Homogram",
+  "description": "Homogram is a 3rd-party Telegram client for HarmonyOS 5, driven by ArkTS/ArkUI (UI-layer) and Rust (native-layer).",
+  "version": "1.0.0",
+  "author": "HomoArk",
+  "homepage": "https://github.com/HomoArk/Homogram",
+  "skills": []
+}
