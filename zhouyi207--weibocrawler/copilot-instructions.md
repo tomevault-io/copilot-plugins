@@ -1,38 +1,41 @@
-## no-native-dialogs-except-path
+## tauri-modular-commands
 
-> 除路径选择外禁用原生 Windows 对话框（alert/prompt/confirm 等）
+> Tauri React 前端模块化与 Rust command 薄层（YssGDD）
 
 
-# 禁止使用「非路径」原生窗体
+# Tauri 全栈：模块化与 Command 约定
 
-在本项目（Tauri + React）中，**不要**使用会弹出独立 Windows 系统对话框、阻塞整窗的 API，**唯一例外**是用于**选择磁盘路径**的场景（目录/文件浏览）。
+## React 前端（`src/`）
 
-## 允许
+- **分层**：`screens` / `ui` / `domain` / `project` / `tauri` 等职责清晰；界面只组合与触发，复杂逻辑进 hook 或纯函数模块。
+- **解耦**：业务与 Tauri 边界集中在 `src/app/tauri/commands.ts`（或其它单一 API 封装）；组件通过封装函数调用后端，避免在 UI 里直接散落 `invoke("...")`。
+- **类型**：领域类型放在 `domain/`，与存储、路由解耦；避免循环依赖（必要时提取共享类型或下层模块）。
 
-- **路径检索**：`@tauri-apps/plugin-dialog` 的 `open`（`directory: true` 等）、以及后端仅为选路径而触发的对话框能力。
+## Rust 后端（`src-tauri/src/`）
 
-## 禁止（应改为应用内 UI）
+- **所有 `#[tauri::command]`** 只定义在 **`command/`**（例如 `command/mod.rs` 或 `command/*.rs`），不在 `project/`、`db/` 等业务模块上挂 command 属性。
+- **Command 要薄**：解析参数 → 调用 `crate::project::`、`crate::db::` 等纯逻辑 → 映射为 `Result` / DTO。避免在 command 里写长流程、重复校验或大段 `fs`/SQL。
+- **业务实现** 放在对应模块（如 `project/mod.rs`），对外暴露普通 Rust 函数或小型 `pub` API；`lib.rs` 的 `invoke_handler` 只注册 `command::...`。
+- **新建 command 时**：先在业务模块实现函数，再在 `command` 中加一行包装并注册，保持与前端 `commands.ts` 命名一致。
 
-- 浏览器 / WebView：`window.alert`、`window.prompt`、`window.confirm`、`beforeunload` 上的系统确认框等。
-- 为「提示、确认、错误、表单输入」新开原生消息框；应使用 **React 内 Modal、行内错误文案、Toast、自定义确认条** 等，与 `ProjectPickerScreen` / `NewProjectModal` 同一套壳层风格。
+## 反例
 
-## Rust 侧
+```rust
+// ❌ 在 project/mod.rs 上写 #[tauri::command]
+// ❌ command 内 80 行业务逻辑 + 文件系统细节
+```
 
-- **不要**为普通业务提示引入会弹出系统消息框的依赖或 API；错误与结果通过 **`tauri::command` 的 `Result`** 返回，由前端展示。
-
-## 简要对照
+```rust
+// ✅ command/mod.rs
+#[tauri::command]
+pub fn init_project(path: String) -> Result<(), String> {
+    crate::project::init_project(&path)
+}
+```
 
 ```typescript
-// ❌ 禁止（除路径 plugin 外）
-window.alert("…");
-window.prompt("…");
-window.confirm("…");
-
-// ✅ 路径选择
-await open({ directory: true, … });
-
-// ✅ 业务反馈
-setError("…"); // 或 Modal / toast
+// ❌ 在随机组件里 invoke("init_project", …)
+// ✅ import { initProject } from "../tauri/commands"; await initProject(path);
 ```
 
 ---
