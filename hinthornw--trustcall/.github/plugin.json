@@ -1,0 +1,9 @@
+{
+  "name": "hinthornw--trustcall",
+  "displayName": "trustcall",
+  "description": "Tenacious tool calling built on LangGraph",
+  "version": "1.0.0",
+  "author": "hinthornw",
+  "homepage": "https://github.com/hinthornw/trustcall",
+  "skills": []
+}
