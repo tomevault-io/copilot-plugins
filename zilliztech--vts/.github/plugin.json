@@ -1,0 +1,9 @@
+{
+  "name": "zilliztech--vts",
+  "displayName": "vts",
+  "description": "VTS is a tool designed for the transformation and transportation of vectors and unstructured data.",
+  "version": "1.0.0",
+  "author": "zilliztech",
+  "homepage": "https://github.com/zilliztech/vts",
+  "skills": []
+}
