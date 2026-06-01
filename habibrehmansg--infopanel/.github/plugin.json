@@ -1,0 +1,9 @@
+{
+  "name": "habibrehmansg--infopanel",
+  "displayName": "infopanel",
+  "description": "InfoPanel is a desktop visualization software designed to work with HWiNFO sensors via Shared Memory (SHM). It allows users to display system information on their desktop or external displays, includi",
+  "version": "1.0.0",
+  "author": "habibrehmansg",
+  "homepage": "https://github.com/habibrehmansg/infopanel",
+  "skills": []
+}
