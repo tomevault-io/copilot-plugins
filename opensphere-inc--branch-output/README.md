@@ -7,11 +7,11 @@ This is an OBS Studio plugin that allows to transmit video and audio with RTMP /
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [OPENSPHERE-Inc/branch-output](https://github.com/OPENSPHERE-Inc/branch-output).
+Original source: `AGENTS.md` in [OPENSPHERE-Inc/branch-output](https://github.com/OPENSPHERE-Inc/branch-output).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
