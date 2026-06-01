@@ -1,0 +1,9 @@
+{
+  "name": "sdfgeoff--html-agent",
+  "displayName": "HTML-agent",
+  "description": "Why don't we allow agents to inject HTML directly into the chat?",
+  "version": "1.0.0",
+  "author": "sdfgeoff",
+  "homepage": "https://github.com/sdfgeoff/HTML-agent",
+  "skills": []
+}
