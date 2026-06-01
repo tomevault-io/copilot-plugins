@@ -1,0 +1,9 @@
+{
+  "name": "cybrota--whispr",
+  "displayName": "whispr",
+  "description": "A multi-vault secret injection tool for safely injecting secrets into app environment",
+  "version": "1.0.0",
+  "author": "cybrota",
+  "homepage": "https://github.com/cybrota/whispr",
+  "skills": []
+}
