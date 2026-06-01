@@ -7,14 +7,14 @@ MCP Toolbox for Databases is an open source MCP server for databases.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox).
+Original source: `GEMINI.md` in [googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox)
