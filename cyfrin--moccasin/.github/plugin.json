@@ -1,0 +1,9 @@
+{
+  "name": "cyfrin--moccasin",
+  "displayName": "moccasin",
+  "description": "Titanoboa-based vyper smart contract development framework",
+  "version": "1.0.0",
+  "author": "Cyfrin",
+  "homepage": "https://github.com/Cyfrin/moccasin",
+  "skills": []
+}
