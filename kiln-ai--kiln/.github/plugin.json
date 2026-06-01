@@ -1,0 +1,9 @@
+{
+  "name": "kiln-ai--kiln",
+  "displayName": "Kiln",
+  "description": "Build, Evaluate, and Optimize AI Systems. Includes evals, RAG, agents, fine-tuning, synthetic data generation, dataset management, MCP, and more.",
+  "version": "1.0.0",
+  "author": "Kiln-AI",
+  "homepage": "https://github.com/Kiln-AI/Kiln",
+  "skills": []
+}
