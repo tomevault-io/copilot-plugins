@@ -1,0 +1,9 @@
+{
+  "name": "whynotmake-it--rivership",
+  "displayName": "rivership",
+  "description": "Infrastructure that we use in every project using hooks_riverpod.",
+  "version": "1.0.0",
+  "author": "whynotmake-it",
+  "homepage": "https://github.com/whynotmake-it/rivership",
+  "skills": []
+}
