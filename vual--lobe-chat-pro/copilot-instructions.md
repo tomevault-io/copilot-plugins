@@ -1,37 +1,185 @@
-## group-chat
+## i18n
 
-> Explain how group chat works in LobeHub (Multi-agent orchestratoin)
+> - Default language: Chinese (zh-CN) as the source language
 
+# LobeChat Internationalization Guide
 
-This rule explains how group chat (multi-agent orchestration) works. Not confused with session group, which is a organization method to manage session.
+## Key Points
 
-## Key points
+- Default language: Chinese (zh-CN) as the source language
+- Supported languages: 18 languages including English, Japanese, Korean, Arabic, etc.
+- Framework: react-i18next with Next.js app router
+- Translation automation: @lobehub/i18n-cli for automatic translation, config file: .i18nrc.js
+- Never manually modify any json file. You can only modify files in `default` folder
 
-- A supervisor will devide who and how will speak next
-- Each agent will speak just like in single chat (if was asked to speak)
-- Not coufused with session group
+## Directory Structure
 
-## Related Files
+```
+src/locales/
+├── default/           # Source language files (zh-CN)
+│   ├── index.ts      # Namespace exports
+│   ├── common.ts     # Common translations
+│   ├── chat.ts       # Chat-related translations
+│   ├── setting.ts    # Settings translations
+│   └── ...           # Other namespace files
+└── resources.ts      # Type definitions and language configuration
 
-- src/store/chat/slices/message/supervisor.ts
-- src/store/chat/slices/aiChat/actions/generateAIGroupChat.ts
-- src/prompts/groupChat/index.ts (All prompts here)
+locales/               # Translation files
+├── en-US/            # English translations
+│   ├── common.json   # Common translations
+│   ├── chat.json     # Chat translations
+│   ├── setting.json  # Settings translations
+│   └── ...           # Other namespace JSON files
+├── ja-JP/            # Japanese translations
+│   ├── common.json
+│   ├── chat.json
+│   └── ...
+└── ...               # Other language folders
+```
 
-## Snippets
+## Workflow for Adding New Translations
+
+### 1. Adding New Translation Keys
+
+Step 1: Add translation keys in the corresponding namespace files under src/locales/default directory
+
+```typescript
+// Example: src/locales/default/common.ts
+export default {
+  // ... existing keys
+  newFeature: {
+    title: '新功能标题',
+    description: '功能描述文案',
+    button: '操作按钮',
+  },
+};
+```
+
+Step 2: If creating a new namespace, export it in src/locales/default/index.ts
+
+```typescript
+import newNamespace from './newNamespace';
+
+const resources = {
+  // ... existing namespaces
+  newNamespace,
+} as const;
+```
+
+### 2. Translation Process
+
+Development mode:
+
+Generally, you don't need to help me run the automatic translation tool as it takes a long time. I'll run it myself when needed. However, to see immediate results, you still need to translate `locales/zh-CN/namespace.json` first, no need to translate other languages.
+
+Production mode:
+
+```bash
+# Generate translations for all languages
+npm run i18n
+```
+
+## Usage in Components
+
+### Basic Usage
 
 ```tsx
-// Detect whether in group chat
-const isGroupSession = useSessionStore(sessionSelectors.isCurrentSessionGroupSession);
+import { useTranslation } from 'react-i18next';
 
-// Member actions
-const addAgentsToGroup = useChatGroupStore((s) => s.addAgentsToGroup);
-const removeAgentFromGroup = useChatGroupStore((s) => s.removeAgentFromGroup);
-const persistReorder = useChatGroupStore((s) => s.reorderGroupMembers);
+const MyComponent = () => {
+  const { t } = useTranslation('common');
 
-// Get group info
-const groupConfig = useChatGroupStore(chatGroupSelectors.currentGroupConfig);
-const currentGroupMemebers = useSessionStore(sessionSelectors.currentGroupAgents);
+  return (
+    <div>
+      <h1>{t('newFeature.title')}</h1>
+      <p>{t('newFeature.description')}</p>
+      <button>{t('newFeature.button')}</button>
+    </div>
+  );
+};
 ```
+
+### Usage with Parameters
+
+```tsx
+const { t } = useTranslation('common');
+
+<p>{t('welcome.message', { name: 'John' })}</p>;
+
+// Corresponding language file:
+// welcome: { message: 'Welcome {{name}}!' }
+```
+
+### Multiple Namespaces
+
+```tsx
+const { t } = useTranslation(['common', 'chat']);
+
+<button>{t('common:save')}</button>
+<span>{t('chat:typing')}</span>
+```
+
+## Type Safety
+
+The project uses TypeScript to implement type-safe translations, with types automatically generated from src/locales/resources.ts:
+
+```typescript
+import type { DefaultResources, Locales, NS } from '@/locales/resources';
+
+// Available types:
+// - NS: Available namespace keys ('common' | 'chat' | 'setting' | ...)
+// - Locales: Supported language codes ('en-US' | 'zh-CN' | 'ja-JP' | ...)
+
+const namespace: NS = 'common';
+const locale: Locales = 'en-US';
+```
+
+## Best Practices
+
+### 1. Namespace Organization
+
+- common: Shared UI elements (buttons, labels, actions)
+- chat: Chat-specific functionality
+- setting: Configuration and settings
+- error: Error messages and handling
+- [feature]: Feature-specific or page-specific namespaces
+- components: Reusable component text
+
+### 2. Key Naming Conventions
+
+```typescript
+// ✅ Good: Hierarchical structure
+export default {
+  modal: {
+    confirm: {
+      title: '确认操作',
+      message: '确定要执行此操作吗？',
+      actions: {
+        confirm: '确认',
+        cancel: '取消',
+      },
+    },
+  },
+};
+
+// ❌ Avoid: Flat structure
+export default {
+  modalConfirmTitle: '确认操作',
+  modalConfirmMessage: '确定要执行此操作吗？',
+};
+```
+
+## Troubleshooting
+
+### Missing Translation Keys
+
+- Check if the key exists in src/locales/default/namespace.ts
+- Ensure the namespace is correctly imported in the component
+- Ensure new namespaces are exported in src/locales/default/index.ts
+
+- 检查键是否存在于 src/locales/default/namespace.ts 中
+- 确保在组件中正确导入命名空间
+- 确保新命名空间已在 src/locales/default/index.ts 中导出
 
 ---
 > Source: [vual/lobe-chat-pro](https://github.com/vual/lobe-chat-pro) — distributed by [TomeVault](https://tomevault.io).
