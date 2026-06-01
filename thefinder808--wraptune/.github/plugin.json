@@ -1,0 +1,9 @@
+{
+  "name": "thefinder808--wraptune",
+  "displayName": "WrapTune",
+  "description": "A friendly GUI for Microsoft's IntuneWinAppUtil.exe (Win32 Content Prep Tool) \u2014 package Windows apps for Microsoft Intune deployment.",
+  "version": "1.0.0",
+  "author": "thefinder808",
+  "homepage": "https://github.com/thefinder808/WrapTune",
+  "skills": []
+}
