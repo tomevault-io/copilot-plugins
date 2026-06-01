@@ -1,88 +1,86 @@
-## update-ai-sdk
+## vercel-cli
 
-> Update ai-sdk(ai, @ai/*) to latest
+> Setup Vercel CLI
 
 
-# Updating AI SDK in Giselle
+# Vercel CLI Setup Guide
 
-This document provides a step-by-step guide for updating the AI SDK packages in this project.
+## Installation
 
-## What is AI SDK
+To install Vercel CLI globally using pnpm (recommended for this project):
 
-The AI SDK is a TypeScript toolkit for building AI-powered applications using frameworks like Next.js, React, Svelte, Vue and Node.js runtimes. It provides a unified interface for working with different AI providers.
-
-Package namespaces include `ai` and `@ai-sdk/{provider}` (such as `@ai-sdk/openai`, `@ai-sdk/anthropic`, etc.).
-
-## Step 1: Check current AI SDK versions
-
-Check which AI SDK packages need to be updated:
-
-```sh
-pnpm outdated -r --json
+```bash
+pnpm i -g vercel
 ```
 
-Look for entries with `ai` and `@ai-sdk/*` in the results.
+## Authentication
 
-## Step 2: Update catalog entries
 
-This project uses pnpm's "Catalogs" feature to define dependency version ranges as reusable constants. These constants can be referenced in package.json files.
+Log in to your Vercel account:
 
-Update the catalog entries in `pnpm-workspace.yaml`:
-
-```yaml
-catalog:
-  "ai": 4.2.9              # Update to latest version
-  "@ai-sdk/openai": 1.3.6   # Update to latest version
-  "@ai-sdk/anthropic": 1.2.4 # Update to latest version
-  "@ai-sdk/google": 1.2.5   # Update to latest version
-  "@ai-sdk/react": 1.2.5    # Update to latest version
-  "@ai-sdk/fal": 0.1.1      # Update if needed
+```bash
+vercel login
 ```
 
-## Step 3: Install updated packages
+## Project Setup
 
-Run the installation command to update all packages:
+### Link to Existing Project
 
-```sh
-pnpm i
+```bash
+vercel link
 ```
 
+## Development Workflow
 
-## Step 4: Build the SDK
+### Test Locally
 
-After fixing type issues, build the SDK:
+Run a local development server that replicates the Vercel environment:
 
-```sh
-pnpm build-sdk
+```bash
+vercel dev
 ```
 
-When you see these errors, record them and seek guidance on how to address each specific case.
+## Environment Variables
 
-## Step 5: Verify types
+### Pull Environment Variables
 
-Run the type checking command to ensure there are no remaining type errors:
+Download environment variables to a local `.env` file:
 
-```sh
-pnpm check-types
+```bash
+vercel env pull
 ```
 
-When you see these errors, record them and seek guidance on how to address each specific case.
+## Common Commands
 
-## Step 6: Test the application
+### Check CLI Version
 
-Run the application and request user to make sure everything works as expected:
-
-```sh
-pnpm dev
+```bash
+vercel --version
 ```
 
-## Troubleshooting
+### Update CLI
 
-If you encounter peer dependency warnings, they may be safely ignored if the application works correctly. However, if you encounter runtime errors, you may need to:
+```bash
+pnpm i -g vercel@latest
+```
 
-1. Revert to earlier versions of specific packages
-2. Update code to accommodate breaking changes in the new SDK versions
-3. Add explicit dependency resolutions in package.json
+### View Deployments
+
+```bash
+vercel list
+```
+
+### View Logs
+
+```bash
+vercel logs [deployment-url]
+```
+
+## Project Configuration
+
+Vercel projects can be configured using a `vercel.json` file in your project root. This allows you to define build settings, routes, environment variables, and more.
+
+Refer to the [Vercel documentation](mdc:https:/vercel.com/docs/cli) for more detailed information on available commands and configuration options.
 
 ---
 > Source: [giselles-ai/giselle](https://github.com/giselles-ai/giselle) — distributed by [TomeVault](https://tomevault.io).
