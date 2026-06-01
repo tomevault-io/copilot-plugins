@@ -1,0 +1,9 @@
+{
+  "name": "khromov--ai-digest",
+  "displayName": "ai-digest",
+  "description": "A CLI tool to aggregate your codebase into a single Markdown file for use with Claude Projects or custom ChatGPTs.",
+  "version": "1.0.0",
+  "author": "khromov",
+  "homepage": "https://github.com/khromov/ai-digest",
+  "skills": []
+}
