@@ -1,0 +1,9 @@
+{
+  "name": "hookdeck--outpost",
+  "displayName": "outpost",
+  "description": "Open Source Outbound Webhooks and Event Destinations Infrastructure",
+  "version": "1.0.0",
+  "author": "hookdeck",
+  "homepage": "https://github.com/hookdeck/outpost",
+  "skills": []
+}
