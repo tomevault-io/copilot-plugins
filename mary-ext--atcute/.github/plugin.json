@@ -1,0 +1,9 @@
+{
+  "name": "mary-ext--atcute",
+  "displayName": "atcute",
+  "description": "a collection of lightweight TypeScript packages for AT Protocol, the protocol powering Bluesky.",
+  "version": "1.0.0",
+  "author": "mary-ext",
+  "homepage": "https://github.com/mary-ext/atcute",
+  "skills": []
+}
