@@ -1,0 +1,9 @@
+{
+  "name": "yamafaktory--hypergraphz",
+  "displayName": "hypergraphz",
+  "description": "HypergraphZ \u2013 directed hypergraph library in Zig with Python bindings",
+  "version": "1.0.0",
+  "author": "yamafaktory",
+  "homepage": "https://github.com/yamafaktory/hypergraphz",
+  "skills": []
+}
