@@ -1,6 +1,8 @@
 # lobe-chat-pro
 
-> Tome by [vual](https://github.com/vual/lobe-chat-pro) — distributed by [TomeVault](https://tomevault.io/claim/vual)
+> Tome by [vual](https://github.com/vual/lobe-chat-pro) — distributed by [TomeVault](https://tomevault.io)
+
+基于lobe-chat，增加了无限画布功能，支持doubao、google、openai、kling、midjourney等画图和视频模型，还有额外的独立的绘图、音乐、视频等创作面板，支持用户注册登录，充值消费，模型及价格管理，聊天、绘图、音乐、视频创作记录管理，通知公告等
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [vual/lobe-chat-pro](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/vual#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/vual/lobe-chat-pro](https://github.com/vual/lobe-chat-pro)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install vual/lobe-chat-pro
 ```
-Or browse all formats at [https://tomevault.io/claim/vual](https://tomevault.io/claim/vual).
+Source: [github.com/vual/lobe-chat-pro](https://github.com/vual/lobe-chat-pro).
 
 <!-- genome:t-i-q -->
