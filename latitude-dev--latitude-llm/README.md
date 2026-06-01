@@ -7,11 +7,11 @@ Latitude is the open-source agent engineering platform
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [latitude-dev/latitude-llm](https://github.com/latitude-dev/latitude-llm).
+Original source: `CLAUDE.md` in [latitude-dev/latitude-llm](https://github.com/latitude-dev/latitude-llm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
