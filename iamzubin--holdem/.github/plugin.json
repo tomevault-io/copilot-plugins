@@ -1,0 +1,9 @@
+{
+  "name": "iamzubin--holdem",
+  "displayName": "holdem",
+  "description": "Holdem is a lightweight, open-source tool for effortlessly dragging and organizing files on your desktop. Inspired by Dropover and built with Tauri, Holdem lets you collect and drop files in a tempora",
+  "version": "1.0.0",
+  "author": "iamzubin",
+  "homepage": "https://github.com/iamzubin/holdem",
+  "skills": []
+}
