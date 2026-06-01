@@ -1,0 +1,9 @@
+{
+  "name": "pydantic--pydantic-ai",
+  "displayName": "pydantic-ai",
+  "description": "AI Agent Framework, the Pydantic way",
+  "version": "1.0.0",
+  "author": "pydantic",
+  "homepage": "https://github.com/pydantic/pydantic-ai",
+  "skills": []
+}
