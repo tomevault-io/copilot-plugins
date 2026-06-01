@@ -1,0 +1,9 @@
+{
+  "name": "kirill-markin--repo-to-text",
+  "displayName": "repo-to-text",
+  "description": "Convert a repository structure and its contents into a single text file, including the tree output and file contents in markdown code blocks. It may be useful to chat with LLM about your code.",
+  "version": "1.0.0",
+  "author": "kirill-markin",
+  "homepage": "https://github.com/kirill-markin/repo-to-text",
+  "skills": []
+}
