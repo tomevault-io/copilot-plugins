@@ -4,7 +4,7 @@
   "repo": "outpost",
   "description": "Open Source Outbound Webhooks and Event Destinations Infrastructure",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hookdeck/outpost",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T13:47:42Z"
+  "distributed_at": "2026-06-01T13:50:18Z"
 }
