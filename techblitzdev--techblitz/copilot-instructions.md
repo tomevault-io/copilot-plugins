@@ -1,0 +1,50 @@
+## techblitz
+
+> // Next.js App Router .cursorrules
+
+// Next.js App Router .cursorrules
+
+// Next.js App Router best practices
+const nextjsAppRouterBestPractices = [
+"Use server components by default",
+"Implement client components only when necessary",
+"Utilize the new file-based routing system",
+"Use layout.tsx for shared layouts",
+"Implement loading.js for loading states",
+"Use error.js for error handling",
+"Utilize route handlers for API routes",
+];
+
+// Folder structure
+const folderStructure = `app/
+  layout.tsx
+  page.tsx
+components/
+  app/
+  auth/
+  global/
+  marketing/
+  mdx/
+  templates/
+  ui/
+lib/
+types/
+utils/
+public/`;
+
+// Additional instructions
+const additionalInstructions = `
+
+1. Use TypeScript for type safety
+2. Implement proper metadata for SEO
+3. Utilize Next.js Image component for optimized images
+4. Use CSS Modules or Tailwind CSS for styling
+5. Implement proper error boundaries
+6. Follow Next.js naming conventions for special files
+7. Use environment variables for configuration
+8. Do not remove any comments.
+   `;
+
+---
+> Source: [techblitzdev/TechBlitz](https://github.com/techblitzdev/TechBlitz) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
