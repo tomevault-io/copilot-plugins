@@ -1,0 +1,9 @@
+{
+  "name": "metamask--delegation-framework",
+  "displayName": "delegation-framework",
+  "description": "The contracts that power the Delegation Framework",
+  "version": "1.0.0",
+  "author": "MetaMask",
+  "homepage": "https://github.com/MetaMask/delegation-framework",
+  "skills": []
+}
