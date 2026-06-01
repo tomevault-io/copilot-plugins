@@ -1,0 +1,9 @@
+{
+  "name": "nshkrdotcom--pipeline-ex",
+  "displayName": "pipeline_ex",
+  "description": "Claude Code + Gemini AI collaboration orchestration tools",
+  "version": "1.0.0",
+  "author": "nshkrdotcom",
+  "homepage": "https://github.com/nshkrdotcom/pipeline_ex",
+  "skills": []
+}
