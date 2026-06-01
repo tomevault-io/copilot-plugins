@@ -1,0 +1,9 @@
+{
+  "name": "usenocturne--nocturne-ui",
+  "displayName": "nocturne-ui",
+  "description": "Nocturne's standalone web application built with Vite + React",
+  "version": "1.0.0",
+  "author": "usenocturne",
+  "homepage": "https://github.com/usenocturne/nocturne-ui",
+  "skills": []
+}
