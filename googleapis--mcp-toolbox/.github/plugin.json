@@ -1,0 +1,9 @@
+{
+  "name": "googleapis--mcp-toolbox",
+  "displayName": "mcp-toolbox",
+  "description": "MCP Toolbox for Databases is an open source MCP server for databases.",
+  "version": "1.0.0",
+  "author": "googleapis",
+  "homepage": "https://github.com/googleapis/mcp-toolbox",
+  "skills": []
+}
