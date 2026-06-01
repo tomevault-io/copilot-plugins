@@ -1,0 +1,44 @@
+{
+  "name": "agent-openai-java-banking-assistant",
+  "owner": "Azure-Samples",
+  "repo": "agent-openai-java-banking-assistant",
+  "description": "Multi-agent banking assistant with Java and Langchain4j",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Azure-Samples/agent-openai-java-banking-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T09:58:37Z"
+}
