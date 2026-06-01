@@ -7,13 +7,13 @@ Open-source AI resume builder • Next.js 15, React 19, Tailwind CSS • Tailor 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [olyaiy/resume-lm](https://github.com/olyaiy/resume-lm).
+Original source: `CLAUDE.md` in [olyaiy/resume-lm](https://github.com/olyaiy/resume-lm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
