@@ -1,0 +1,9 @@
+{
+  "name": "algorithmicsuperintelligence--optillm",
+  "displayName": "optillm",
+  "description": "Optimizing inference proxy for LLMs",
+  "version": "1.0.0",
+  "author": "algorithmicsuperintelligence",
+  "homepage": "https://github.com/algorithmicsuperintelligence/optillm",
+  "skills": []
+}
