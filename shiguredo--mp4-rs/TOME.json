@@ -4,7 +4,7 @@
   "repo": "mp4-rs",
   "description": "MP4 library",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shiguredo/mp4-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T12:03:52Z"
+  "distributed_at": "2026-06-01T12:04:28Z"
 }
