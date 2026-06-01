@@ -1,0 +1,9 @@
+{
+  "name": "yshmarov--moneygun",
+  "displayName": "moneygun",
+  "description": "SHIP YOUR NEXT APP FAST! Rails 8 SaaS Multitenancy boilerplate. Users-Memberships-Organizations. Row-based. Set tenant based on URL params.",
+  "version": "1.0.0",
+  "author": "yshmarov",
+  "homepage": "https://github.com/yshmarov/moneygun",
+  "skills": []
+}
