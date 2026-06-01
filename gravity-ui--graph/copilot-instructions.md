@@ -1,224 +1,77 @@
-## react-rules
+## story-rules
 
-> React rules
+> Best practices for creation storybook graph stories
 
-# React Development Rules
+# Story Creation Rules
 
-## General React Guidelines
+## Documentation and References
+- Read the `docs/react/usage.md` for general React integration documentation.
+- Refer to `/src/stories/Playground` for complex examples.
+- Always use `GraphBlock` for rendering graph blocks in the HTML layer unless you have a specific custom renderer.
 
-### Component Structure
-- Use functional components with hooks
-- Keep components focused and single-responsibility
-- Extract reusable logic into custom hooks
-- Implement proper cleanup in useEffect when needed
-
-### State Management
-- Keep state as close to where it's used as possible
-- Use context for truly global state
-- Prefer controlled components over uncontrolled
-- Use state only for values that trigger re-renders
-
-### Performance Optimization
-- Memoize callbacks with useCallback when passed to children
-- Use useMemo for expensive computations
-- Apply React.memo() for pure components that render often
-- Keep render logic simple and performant
-
-### TypeScript Usage
-- Define explicit prop types using TypeScript interfaces
-- Use proper event typing
-- Document complex component behavior
-- Leverage TypeScript's type inference when possible
-
-### Error Handling
-- Implement ErrorBoundary for error handling
-- Handle loading and error states explicitly
-- Provide meaningful error messages
-- Add fallback UI for error states
-
-### Resource Cleanup
-- Clean up subscriptions in useEffect
-- Clear timers and intervals
-- Remove event listeners
-- Dispose of resources properly
-
-### Best Practices
-- Use semantic HTML elements
-- Implement proper accessibility attributes
-- Keep JSX clean and readable
-- Write unit tests for components
-- Use React.StrictMode in development
-
-## @gravity-ui/graph Specific Rules
-
-### Core Components
-
-#### GraphCanvas
-- Use as the main container for graph rendering
-- Always provide required props:
-  ```tsx
-  <GraphCanvas 
-    graph={graph}
-    renderBlock={renderBlock}
-  />
-  ```
-
-#### GraphBlock
-- Use for wrapping HTML block content
-- Component handles automatically:
-  - Position synchronization with canvas
-  - State management (selection, hover)
-  - Layout management
-  - Z-index handling
-  - CSS variables injection
-
-```tsx
-<GraphBlock 
-  graph={graph} 
-  block={block}
-  className="custom-block"
->
-  <div>Block content</div>
-</GraphBlock>
-```
-
-#### GraphBlockAnchor
-- Use for rendering connection points on blocks
-- Supports two positioning modes:
-  1. `fixed` - exact coordinates relative to block
-  2. `auto` - automatic positioning based on type (input/output)
-
-```tsx
-<GraphBlockAnchor 
-  graph={graph} 
-  anchor={anchor}
-  position="fixed" // or "auto"
->
-  {(state) => (
-    <div className={state.selected ? 'selected' : ''}>
-      {/* Anchor content */}
-    </div>
-  )}
-</GraphBlockAnchor>
-```
-
-### Layer Management
-
-#### useLayer Hook
-- Use for adding and managing layers:
-  ```tsx
-  const devToolsLayer = useLayer(graph, DevToolsLayer, {
-    showRuler: true,
-    rulerSize: 20,
-  });
-  ```
-- Hook features:
-  - Automatic layer initialization and cleanup
-  - Props updates handling
-  - TypeScript type support
-  - Direct layer instance access
-
-### Event Handling
-
-#### useGraphEvent Hook
-- Use for subscribing to graph events:
-```tsx
-useGraphEvent(graph, "connection-created", 
-  ({ sourceBlockId, targetBlockId }, event) => {
-    // Handle new connection
-    // Use event.preventDefault() to cancel
-});
-
-useGraphEvent(graph, "blocks-selection-change", 
-  ({ changes }) => {
-    console.log('Added:', changes.add);
-    console.log('Removed:', changes.removed);
-});
-```
-
-### Styling
-
-#### CSS Variables
-- Use CSS variables for component styling:
-```css
-.custom-block {
-  /* Positioning (automatic) */
-  --graph-block-geometry-x: 0px;
-  --graph-block-geometry-y: 0px;
-  --graph-block-geometry-width: 200px;
-  --graph-block-geometry-height: 100px;
-  --graph-block-z-index: 1;
+## Graph Initialization (Recommended Pattern)
+- **Use `useGraph` hook:** Initialize the graph instance within your story component using the `useGraph` hook from `src/react-component/hooks/useGraph.ts`.
+  ```typescript
+  import { Graph, GraphState } from "../../../graph"; // Adjust path as needed
+  import { GraphCanvas, useGraph } from "../../../react-component"; // Adjust path as needed
   
-  /* Theme (from graph settings) */
-  --graph-block-bg: rgba(37, 27, 37, 1);
-  --graph-block-border: rgba(229, 229, 229, 0.2);
-  --graph-block-border-selected: rgba(255, 190, 92, 1);
-}
-```
-
-### Configuration
-
-#### View Configuration
-- Configure appearance through viewConfiguration:
-```tsx
-const config = {
-  viewConfiguration: {
-    colors: {
-      block: {
-        background: "rgba(37, 27, 37, 1)",
-        border: "rgba(229, 229, 229, 0.2)",
-        selectedBorder: "rgba(255, 190, 92, 1)"
-      },
-      connection: {
-        background: "rgba(255, 255, 255, 0.5)",
-        selectedBackground: "rgba(234, 201, 74, 1)"
+  const MyStoryComponent = (props) => {
+      const { graph } = useGraph({
+          // Initial graph configuration (e.g., layers, renderBlock)
+          layers: [[MyCustomLayer, { customProp: 'value' }]],
+          renderBlock: (g, block) => <GraphBlock graph={g} block={block}>...</GraphBlock>
+      });
+      // ... useEffect for setting data and starting
+      return <GraphCanvas graph={graph} ... />;
+  };
+  ```
+- **Set data and start in `useEffect`:** Use a `useEffect` hook (with `graph` as a dependency) to populate the graph with data (`graph.setEntities({ blocks: ..., connections: ... })`) and then start the graph (`graph.start()`). This ensures the graph is ready before data is loaded.
+  ```typescript
+  useEffect(() => {
+      if (graph) {
+          graph.setEntities({ blocks: blocksData, connections: connectionsData });
+          graph.start();
       }
-    }
+  }, [graph]);
+  ```
+- **Avoid direct `new Graph()` in story render:** While possible, using `useGraph` is preferred as it integrates better with React's lifecycle and state management for stories.
+
+## Data Types and Required Fields
+- Ensure blocks have all required TBlock fields:
+  ```typescript
+  {
+    is: "Block" as const,
+    selected: false,
+    name: string,
+    anchors: [],
+    // other fields...
   }
-};
-```
+  ```
+- Connections must include `sourceBlockId` and `targetBlockId`
+- Use generics to extend block data types if needed
 
-#### Behavior Settings
-- Configure behavior through settings:
-```tsx
-const config = {
-  settings: {
-    canDragCamera: true,
-    canZoomCamera: true,
-    canDragBlocks: true,
-    canCreateNewConnections: true,
-    showConnectionArrows: true,
-    useBezierConnections: true
-  }
-};
-```
+## Component Structure
+- Use `GraphCanvas` as the main container component
+- Wrap custom block content in `GraphBlock` component
+- Utilize `className` prop on `GraphBlock` for styling
+- Set explicit container dimensions (e.g., `height: "600px"`)
 
-### Library-Specific Best Practices
+## UI Integration
+- Import and include UI library styles if using one
+- Wrap story in appropriate theme provider if needed
+- Use design system tokens/CSS variables for consistent styling
+- Use `useCallback` for `renderBlock` function to prevent unnecessary rerenders
 
-1. **Graph State Management**
-   - Use graph's built-in state management for graph-related data
-   - Leverage graph events for state updates
-   - Keep external state synchronized with graph state
-
-2. **Performance**
-   - Use appropriate zoom levels for block rendering
-   - Implement proper layer management
-   - Optimize connection rendering with BatchPath2D
-
-3. **Type Safety**
-   - Use library's built-in types
-   - Define explicit types for custom blocks and anchors
-   - Leverage type inference from graph context
-
-4. **Resource Management**
-   - Clean up graph subscriptions
-   - Properly dispose of layers
-   - Handle graph lifecycle events
-
-5. **Error Handling**
-   - Implement fallbacks for graph rendering errors
-   - Handle connection validation errors
-   - Provide meaningful error states for blocks 
+## Best Practices
+- Keep blocks and connections data outside the component
+- Use `useEffect` for graph initialization and setup
+- Follow the UI library's design system guidelines
+- Ensure proper cleanup in useEffect if needed
+- Test different zoom levels to verify both canvas and HTML rendering
+- **Testing Layers:** When creating stories for custom layers or components that interact heavily with the canvas/camera:
+    - Test behavior under different DPR settings (if possible, simulate different device pixel ratios).
+    - Verify rendering and interactions at various zoom levels (`ECameraScaleLevel.LOW`, `MEDIUM`, `HIGH`) and during camera panning.
+    - Test edge cases, like empty data or interactions near viewport boundaries. 
 
 ---
 > Source: [gravity-ui/graph](https://github.com/gravity-ui/graph) — distributed by [TomeVault](https://tomevault.io).
