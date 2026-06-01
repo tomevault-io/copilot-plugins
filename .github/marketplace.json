@@ -172664,6 +172664,11 @@
       "description": "Bringing \u2728interactivity\u2728 to plotnine"
     },
     {
+      "name": "helsing-ai--tracing-scribe",
+      "source": "./helsing-ai--tracing-scribe",
+      "description": "A tracing-subscriber layer for beautifully printing spans and events to the terminal."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -184887,6 +184892,131 @@
       "name": "sdfgeoff--html-agent",
       "source": "./sdfgeoff--html-agent",
       "description": "Why don't we allow agents to inject HTML directly into the chat?"
+    },
+    {
+      "name": "lv-stupidboy--colink",
+      "source": "./lv-stupidboy--colink",
+      "description": "\u591a Agent \u534f\u540c\u5e73\u53f0\u2014\u2014\u81ea\u7531\u7ec4\u5efa\u4f60\u7684 AI \u4e13\u4e1a\u56e2\u961f\uff0c\u5b9a\u4e49\u89d2\u8272\u3001\u7f16\u6392\u534f\u4f5c\u3001\u6c89\u6dc0\u80fd\u529b\u3002"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "anandmt--deja",
+      "source": "./anandmt--deja",
+      "description": "Claude Code forgets everything between sessions. deja fixes that."
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "lv-stupidboy--colink",
+      "source": "./lv-stupidboy--colink",
+      "description": "\u591a Agent \u534f\u540c\u5e73\u53f0\u2014\u2014\u81ea\u7531\u7ec4\u5efa\u4f60\u7684 AI \u4e13\u4e1a\u56e2\u961f\uff0c\u5b9a\u4e49\u89d2\u8272\u3001\u7f16\u6392\u534f\u4f5c\u3001\u6c89\u6dc0\u80fd\u529b\u3002"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "whyzoo-lab--wz-pdf",
+      "source": "./whyzoo-lab--wz-pdf",
+      "description": "Presentation-focused PDF Viewer & Editor for Web and Desktop. Annotate, edit, export HTML/PNG, and package PDFs as standalone EXE applications."
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "imsai-sh--open-dynamic-workflows",
+      "source": "./imsai-sh--open-dynamic-workflows",
+      "description": "open-dynamic-workflows"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
+    },
+    {
+      "name": "fullive-ai--anima",
+      "source": "./fullive-ai--anima",
+      "description": "Make Every Hardware Intelligent \u2014 an open-source Agent OS for hardware intelligence"
     },
     {
       "name": "cheerhuan--save-your-token",
