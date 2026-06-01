@@ -1,0 +1,9 @@
+{
+  "name": "yamadashy--repomix",
+  "displayName": "repomix",
+  "description": "\ud83d\udce6 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like C",
+  "version": "1.0.0",
+  "author": "yamadashy",
+  "homepage": "https://github.com/yamadashy/repomix",
+  "skills": []
+}
