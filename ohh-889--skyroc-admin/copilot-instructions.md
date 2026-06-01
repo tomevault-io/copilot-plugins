@@ -1,34 +1,42 @@
-## naming
+## project
 
-> Naming conventions for files, symbols, and identifiers
+> Skyroc Admin project overview and workspace expectations
 
-# 命名约定 Naming Conventions
+# 项目背景 Project Overview
 
-## 文件与目录
-- 目录使用 **kebab-case**：`user-center`, `global-header`, `theme-drawer`。
-- React 组件文件：`ComponentName.tsx`（PascalCase）。页面目录使用 `index.tsx`、`layout.tsx`、`loading.tsx` 等约定命名。
-- 工具、hooks、服务文件：`use-xxx.ts`, `storage.ts`, `auth.ts`，保持小写 + 连字符或驼峰，取决于仓库既有风格。
-- 类型声明：放在 `src/types/*.d.ts` 或 `src/service/types/*.d.ts`，文件名采用领域名（`auth.d.ts`, `common.d.ts`）。
+Skyroc Admin 是一套基于 **React 19 + Vite 6 + TypeScript 5** 的中后台模板，整合了 Ant Design 5、Redux Toolkit、TanStack Query、UnoCSS 与 i18next 等能力。仓库采用 **pnpm monorepo**，根目录负责应用壳，`packages/` 存放可复用的工具包（`@sa/axios`、`@sa/utils`、`@sa/hooks`、`@sa/materials`、`@sa/scripts`、`@sa/uno-preset` 等）。
 
-## 代码符号
-- 组件、类、类型、接口：**PascalCase** (`SystemLogo`, `ThemeSettings`)。
-- 函数、变量、hooks：**camelCase** (`getThemeSettings`, `useAppSelector`, `setupIconifyOffline`)。
-- 常量：**SCREAMING_SNAKE_CASE** (`MAX_CACHE_COUNT`, `BACKEND_ERROR_CODE`)。
-- 枚举或联合 key：若写在对象上，可与后端保持一致（通常为 SCREAMING_SNAKE_CASE）。
+## 目录速览
+- `src/`：前端应用主体。
+  - `pages/`：文件系统路由，`(base)` 代表主布局，`(blank)` 用于登录等简化页面。
+  - `features/`：领域模块（auth、menu、theme 等），内部包含 hooks、store、组件。
+  - `layouts/`：布局骨架与全局模块（菜单、页签、主题抽屉）。
+  - `components/`：跨业务复用的基础组件。
+  - `router/`：路由初始化、鉴权与缓存控制。
+  - `service/`：请求客户端、接口定义、业务 hooks。
+  - `store/`：Redux store 配置与自定义 `createAppSlice`。
+  - `theme/`、`styles/`：主题 token、CSS/SCSS 与 UnoCSS 变量。
+- `packages/`：workspace 工具包，变更通用逻辑优先修改对应包后在 `src/` 中引用。
+- `build/`、`public/`：打包脚本与静态资源。
 
-## 命名空间与类型
-- 接口返回类型集中在 `Api.*` 命名空间（`src/service/types`），按模块嵌套子命名空间，如 `Api.Auth.LoginParams`。
-- 前端全局类型定义在 `App.*` 命名空间（`src/types/app.d.ts`、`src/types/router.d.ts` 等）。
-- UnoCSS 主题变量使用 `App.Theme.*` 类型，保持与 `themeVars` 中的 key 同步。
+## 运行与构建命令
+- `pnpm dev` / `pnpm dev:prod`：启动本地开发，默认加载测试/生产配置。
+- `pnpm build` / `pnpm build:test`：生产/测试环境构建。
+- `pnpm preview`：本地预览构建产物。
+- `pnpm lint`：使用 ESLint + Prettier 自动修正格式问题。
+- `pnpm typecheck`：在 strict 模式下执行 TypeScript 类型检查。
+- `pnpm gen-route`：基于 `src/pages` 结构重新生成路由声明。
+- `pnpm commit`：通过内置脚本生成符合 Conventional Commits 的提交信息。
 
-## 国际化 key
-- 路由、菜单：`route.xxx`，与 `BaseChildrenRoutes` / 菜单 JSON 对齐。
-- 页面文本：`page.xxx`、`common.xxx` 等。新增 key 时需同步更新所有语言文件。
+## 开发约定
+1. **使用 pnpm**：不要混用 npm/yarn。workspace 依赖通过 `workspace:*` 管理。
+2. **保持类型安全**：TS 配置开启 `strict` 与 `isolatedModules`，新增模块需提供类型。
+3. **遵守文件组织**：新增业务逻辑时优先在对应 feature 内扩展，而非随意创建新顶级目录。
+4. **国际化默认开启**：用户可选中英文，新增界面文本请落在 `src/locales` 中的语言包。
+5. **环境变量**：通过 Vite 的 `import.meta.env` 获取，公共配置集中在 `src/config.ts`。
+6. **脚手架脚本**：`packages/scripts` 内置常用 automation，新增脚本保持幂等并在 README 记录。
 
-## 其它约束
-- API URL 枚举放在 `src/service/urls.ts`（或同目录文件）中，常量使用 `PascalCase` + `URLS` 后缀，例如 `AUTH_URLS`。
-- Query key 常量集中在 `src/service/keys.ts`，以 `QUERY_KEYS` 根对象 + 模块命名。
-- CSS 变量命名遵循 `--color-name`，UnoCSS shortcut 使用 `kebab-case`。
+保持这些约定能确保 Cursor 在任意子目录下都有一致的上下文与期望。
 
 ---
 > Source: [Ohh-889/skyroc-admin](https://github.com/Ohh-889/skyroc-admin) — distributed by [TomeVault](https://tomevault.io).
