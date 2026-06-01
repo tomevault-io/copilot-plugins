@@ -183724,6 +183724,26 @@
       "description": "kokoro-tiny"
     },
     {
+      "name": "minkyuthebuilder--promptbridge",
+      "source": "./minkyuthebuilder--promptbridge",
+      "description": "AI coding agent language bridge for non-English developers \u2014 write prompts in your native language, send optimized English instructions, and read responses back in your language."
+    },
+    {
+      "name": "sepehrbayat--sepcc",
+      "source": "./sepehrbayat--sepcc",
+      "description": "SEPCC \u2014 A Claude Code proxy with context that survives. Route Claude Code through 17+ providers, resume sessions across restarts, and never lose your place. Fork of Free Claude Code."
+    },
+    {
+      "name": "hansun-infospaceai--hansun-tagflow-pdf-studio",
+      "source": "./hansun-infospaceai--hansun-tagflow-pdf-studio",
+      "description": "HanSun TagFlow PDF Studio\u7e41\u9ad4\u4e2d\u6587 Windows PDF \u5de5\u4f5c\u53f0\uff0c\u516c\u958b\u539f\u59cb\u78bc\uff0c\u50c5\u4f9b\u500b\u4eba\u8207\u975e\u5546\u696d\u7528\u9014\u3002"
+    },
+    {
+      "name": "sepehrbayat--sepcc",
+      "source": "./sepehrbayat--sepcc",
+      "description": "SEPCC \u2014 A Claude Code proxy with context that survives. Route Claude Code through 17+ providers, resume sessions across restarts, and never lose your place. Fork of Free Claude Code."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
