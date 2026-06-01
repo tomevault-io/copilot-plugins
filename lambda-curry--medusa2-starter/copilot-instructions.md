@@ -1,175 +1,143 @@
-## remix-hook-form-migration
+## remix-storefront-components
 
-> The codebase is being migrated from `remix-validated-form` to `@lambdacurry/forms` for form handling. This document outlines the key changes and patterns observed in the migration.
+> Remix storefront component patterns with React, TypeScript, and Tailwind CSS for building reusable UI components and styling patterns
 
-# Migration from remix-validated-form to @lambdacurry/forms
 
-## Overview
+# Remix Storefront Component & Styling Patterns
 
-The codebase is being migrated from `remix-validated-form` to `@lambdacurry/forms` for form handling. This document outlines the key changes and patterns observed in the migration.
+You are an expert in React component development, TypeScript, and Tailwind CSS for building reusable, accessible, and performant UI components in e-commerce storefronts.
 
-## Key Changes
+## Core Principles
 
-### 1. Form Validation
+- Write performant, accessible React components
+- Use TypeScript for type safety and better developer experience
+- Follow responsive design principles with Tailwind CSS
+- Create reusable component patterns and design systems
+- Prioritize user experience and accessibility
+- Implement proper component composition and prop patterns
 
-- **Before**: Used Yup schemas with `remix-validated-form`
-- **After**: Using Zod schemas with `@lambdacurry/forms`
+## Component Patterns
 
-Example of old validation (Yup):
-
+### Product Components
 ```typescript
-const schema = Yup.object({
-  name: Yup.string().required(),
-  email: Yup.string().email().required(),
-})
-```
-
-Example of new validation (Zod):
-
-```typescript
-const schema = z.object({
-  name: z.string().min(1, "Please enter your name"),
-  email: z.string().email("Please enter a valid email"),
-})
-```
-
-### 2. Form Components
-
-#### Form Provider
-
-- **Before**: Used `ValidatedForm` from `remix-validated-form`
-- **After**: Using `RemixFormProvider` from `remix-hook-form`
-
-#### Form Fields
-
-- **Before**: Custom field components with `useField` from `remix-validated-form`
-- **After**: Using components from `@lambdacurry/forms/remix-hook-form`:
-  - `TextField`
-  - `Textarea`
-  - `Checkbox`
-  - Other form components from the package
-
-### 3. Form Context
-
-- **Before**: Used `useField` from `remix-validated-form`
-- **After**: Using `useRemixFormContext` from `remix-hook-form`
-
-### 4. Form Submission
-
-- **Before**: Used built-in validation from `remix-validated-form`
-- **After**: Using `getValidatedFormData` from `remix-hook-form` with Zod resolver
-
-### 5. Error Handling
-
-- **Before**: Used `FormValidationError` with field-level errors
-- **After**: Using react-hook-form's error structure with root-level errors
-
-Example of new error handling:
-
-```typescript
-import { FieldErrors } from 'react-hook-form';
-
-// In your action:
-if (errors) {
-  return data({ errors }, { status: 400 });
+// components/ProductCard.tsx
+interface ProductCardProps {
+  product: Product
+  className?: string
 }
 
-// For form-level errors:
-return data(
-  { errors: { root: { message: 'Error message' } } as FieldErrors },
-  { status: 400 }
-);
-```
-
-### 6. Response Handling
-
-- **Before**: Used `json` from `@remix-run/node`
-- **After**: Using `data` from `@remix-run/node` for all responses
-
-Example of new response handling:
-
-```typescript
-import { data } from '@remix-run/node';
-
-// Success response
-return data({ success: true }, { headers: responseHeaders });
-
-// Error response
-return data({ errors: { root: { message: 'Error' } } }, { status: 400 });
-```
-
-## Example Migration
-
-### Before:
-
-```typescript
-import { ValidatedForm } from "remix-validated-form"
-import * as Yup from "yup"
-
-const schema = Yup.object({
-  email: Yup.string().email().required(),
-})
-
-export default function Form() {
+export function ProductCard({ product, className }: ProductCardProps) {
+  const variant = product.variants?.[0]
+  const price = variant?.prices?.[0]
+  
   return (
-    <ValidatedForm validator={withYup(schema)}>
-      <FieldText name="email" label="Email" />
-    </ValidatedForm>
+    <div className={cn("group relative", className)}>
+      <div className="aspect-square overflow-hidden rounded-lg bg-gray-200">
+        <img
+          src={product.thumbnail || "/placeholder.jpg"}
+          alt={product.title}
+          className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform"
+        />
+      </div>
+      
+      <div className="mt-4 space-y-2">
+        <h3 className="text-sm font-medium text-gray-900">
+          <Link to={`/products/${product.handle}`}>
+            <span aria-hidden="true" className="absolute inset-0" />
+            {product.title}
+          </Link>
+        </h3>
+        
+        {price && (
+          <p className="text-sm text-gray-700">
+            {formatPrice(price.amount, price.currency_code)}
+          </p>
+        )}
+      </div>
+    </div>
   )
 }
 ```
 
-### After:
-
+### Layout Components
 ```typescript
-import { RemixFormProvider, useRemixForm } from "remix-hook-form"
-import { TextField } from "@lambdacurry/forms/remix-hook-form"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
+// components/Layout.tsx
+import { Outlet } from "@react-router/react"
+import { Header } from "./Header"
+import { Footer } from "./Footer"
 
-const schema = z.object({
-  email: z.string().email("Please enter a valid email"),
-})
-
-export default function Form() {
-  const form = useRemixForm({
-    resolver: zodResolver(schema),
-  })
-
+export function Layout() {
   return (
-    <RemixFormProvider {...form}>
-      <TextField name="email" label="Email" />
-    </RemixFormProvider>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
   )
 }
 ```
 
-## Dependencies
+## Styling with Tailwind CSS
 
-The migration requires the following packages:
+### Responsive Design
+```typescript
+// Use mobile-first responsive design
+<div className="
+  grid 
+  grid-cols-1 
+  gap-4 
+  sm:grid-cols-2 
+  md:grid-cols-3 
+  lg:grid-cols-4 
+  xl:grid-cols-5
+">
+  {products.map(product => (
+    <ProductCard key={product.id} product={product} />
+  ))}
+</div>
+```
 
-- `@lambdacurry/forms`: ^0.13.4
-- `remix-hook-form`: 5.1.1
-- `@hookform/resolvers`: For Zod schema resolution
-- `zod`: For schema validation
+### Component Variants
+```typescript
+// Use clsx for conditional classes
+import { clsx } from "clsx"
 
-## Error Handling
+interface ButtonProps {
+  variant?: "primary" | "secondary" | "outline"
+  size?: "sm" | "md" | "lg"
+  children: React.ReactNode
+}
 
-Error handling has been updated to use:
-
-- `FieldErrors` from `react-hook-form` for type safety
-- Root-level errors for form-wide validation messages
-- Proper HTTP status codes (400 for validation, 500 for unexpected errors)
-- Consistent error structure across all endpoints
-
-## Additional Notes
-
-1. The migration appears to be part of a larger modernization effort, moving from Yup to Zod for schema validation.
-2. The new form system provides more modern React form handling capabilities through React Hook Form.
-3. The `@lambdacurry/forms` package provides pre-built components that integrate well with the new system.
-4. Form submission and validation are now handled through the React Hook Form ecosystem rather than the Remix Validated Form system.
-5. All responses should use the `data` function from `@remix-run/node` instead of `json`.
-6. Error handling should follow react-hook-form's structure with root-level errors for form-wide messages.
+export function Button({ 
+  variant = "primary", 
+  size = "md", 
+  children,
+  ...props 
+}: ButtonProps) {
+  return (
+    <button
+      className={clsx(
+        "inline-flex items-center justify-center rounded-md font-medium transition-colors",
+        {
+          "bg-blue-600 text-white hover:bg-blue-700": variant === "primary",
+          "bg-gray-200 text-gray-900 hover:bg-gray-300": variant === "secondary",
+          "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50": variant === "outline",
+        },
+        {
+          "px-3 py-2 text-sm": size === "sm",
+          "px-4 py-2 text-base": size === "md",
+          "px-6 py-3 text-lg": size === "lg",
+        }
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  )
+}
+```
 
 ---
 > Source: [lambda-curry/medusa2-starter](https://github.com/lambda-curry/medusa2-starter) — distributed by [TomeVault](https://tomevault.io).
