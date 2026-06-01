@@ -1,0 +1,44 @@
+{
+  "name": "innoshop",
+  "owner": "innocommerce",
+  "repo": "innoshop",
+  "description": "InnoShop is an AI-powered open source e-commerce system built on Laravel 12, designed for global commerce. It supports multiple AI models for intelligent automation, with native multi-language and multi-currency capabilities. The   modular architecture and flexible plugin/theme system make it highly adaptable to diverse business needs.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/innocommerce/innoshop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T22:10:15Z"
+}
