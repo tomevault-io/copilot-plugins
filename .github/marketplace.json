@@ -170924,6 +170924,11 @@
       "description": "Claude Code + Gemini AI collaboration orchestration tools"
     },
     {
+      "name": "auriora--activitywatch-mcp",
+      "source": "./auriora--activitywatch-mcp",
+      "description": "activitywatch-mcp"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -183054,6 +183059,21 @@
       "description": "pibot"
     },
     {
+      "name": "othorizon--anytocontext-ce",
+      "source": "./othorizon--anytocontext-ce",
+      "description": "Turn anything into information your agent can query directly."
+    },
+    {
+      "name": "othorizon--anytocontext-ce",
+      "source": "./othorizon--anytocontext-ce",
+      "description": "Turn anything into information your agent can query directly."
+    },
+    {
+      "name": "constripacity--claude-bridge",
+      "source": "./constripacity--claude-bridge",
+      "description": "Real-time cross-machine MCP relay for Claude Code agents"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -185972,6 +185992,16 @@
       "name": "zeppelinpp--bilibili-streamer",
       "source": "./zeppelinpp--bilibili-streamer",
       "description": "Bilibili live streaming tool built with Tauri + React"
+    },
+    {
+      "name": "boringstack-xyz--boringstack",
+      "source": "./boringstack-xyz--boringstack",
+      "description": "Arguably, the best production-ready starter on the internet. "
+    },
+    {
+      "name": "skhoroshavin--pi-supergsd",
+      "source": "./skhoroshavin--pi-supergsd",
+      "description": "pi-supergsd"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -290877,6 +290907,141 @@
       "name": "sheacoding--python-learning-assistant-cli",
       "source": "./sheacoding--python-learning-assistant-cli",
       "description": "python_learning_assistant_cli"
+    },
+    {
+      "name": "chc0331--composetoglance",
+      "source": "./chc0331--composetoglance",
+      "description": "ComposeToGlance"
+    },
+    {
+      "name": "aejaeshi--basic-learning-claude",
+      "source": "./aejaeshi--basic-learning-claude",
+      "description": "Basic_Learning_Claude"
+    },
+    {
+      "name": "chior1--copythat",
+      "source": "./chior1--copythat",
+      "description": "copythat"
+    },
+    {
+      "name": "anuska3435--ecodrop-web",
+      "source": "./anuska3435--ecodrop-web",
+      "description": "EcoDrop_Web"
+    },
+    {
+      "name": "fuqingyingbai-netizen--pomodoro-timer",
+      "source": "./fuqingyingbai-netizen--pomodoro-timer",
+      "description": "pomodoro-timer"
+    },
+    {
+      "name": "indiaanilkumawat-blip--assignment",
+      "source": "./indiaanilkumawat-blip--assignment",
+      "description": "assignment"
+    },
+    {
+      "name": "aldhosutra--scraut",
+      "source": "./aldhosutra--scraut",
+      "description": "Scraut: Scrum Automation"
+    },
+    {
+      "name": "yuvalarviv365--app-catalog",
+      "source": "./yuvalarviv365--app-catalog",
+      "description": "app-catalog"
+    },
+    {
+      "name": "rafaelmelo007--ulm",
+      "source": "./rafaelmelo007--ulm",
+      "description": "Unified CLI gateway for Claude, Codex, Gemini, and Ollama. Use your subscriptions, not API keys."
+    },
+    {
+      "name": "sybatic--wealthyrealm",
+      "source": "./sybatic--wealthyrealm",
+      "description": "a group of company for food, textile and real estate"
+    },
+    {
+      "name": "okface--iller8",
+      "source": "./okface--iller8",
+      "description": "iller8"
+    },
+    {
+      "name": "flysterpay-design--frs-bob",
+      "source": "./flysterpay-design--frs-bob",
+      "description": "frs_bob"
+    },
+    {
+      "name": "samikshab3610--ai-app-generator",
+      "source": "./samikshab3610--ai-app-generator",
+      "description": "ai-app-generator"
+    },
+    {
+      "name": "9brahiim--madina-traders",
+      "source": "./9brahiim--madina-traders",
+      "description": "Madina_Traders"
+    },
+    {
+      "name": "wailin0--asone",
+      "source": "./wailin0--asone",
+      "description": "asone"
+    },
+    {
+      "name": "jobboat-fr--hermes-agent",
+      "source": "./jobboat-fr--hermes-agent",
+      "description": "Hermes Agent fork \u2014 V-Board ops layer (routing pipeline, council, runner, meeting-room) built on top of Hermes Agent by NousResearch"
+    },
+    {
+      "name": "alisalman909--grocerylistproject",
+      "source": "./alisalman909--grocerylistproject",
+      "description": "GroceryListProject"
+    },
+    {
+      "name": "jainam662010-boop--os",
+      "source": "./jainam662010-boop--os",
+      "description": "OS"
+    },
+    {
+      "name": "alexanderbn-pr--spa-devices-ts",
+      "source": "./alexanderbn-pr--spa-devices-ts",
+      "description": "Proyecto de dispositivos en typescript"
+    },
+    {
+      "name": "migsii--portfolio",
+      "source": "./migsii--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "egonso--uni-seeburg-mba-2026-qual-01",
+      "source": "./egonso--uni-seeburg-mba-2026-qual-01",
+      "description": "Temporary public MBA thesis bootstrap workspace"
+    },
+    {
+      "name": "olamide-thinker--hiveforce",
+      "source": "./olamide-thinker--hiveforce",
+      "description": "hiveforce"
+    },
+    {
+      "name": "olesyastorchakprojects--thinking-memory-hub",
+      "source": "./olesyastorchakprojects--thinking-memory-hub",
+      "description": "MCP-based memory server and LangGraph backend for note storage, search, and messenger integrations."
+    },
+    {
+      "name": "ws0x--nexflow",
+      "source": "./ws0x--nexflow",
+      "description": "NexFlow"
+    },
+    {
+      "name": "steven-s-francis--musicmigrator",
+      "source": "./steven-s-francis--musicmigrator",
+      "description": "MusicMigrator"
+    },
+    {
+      "name": "khayson--ytdownloader",
+      "source": "./khayson--ytdownloader",
+      "description": "ytdownloader"
+    },
+    {
+      "name": "sazypapi--gospelhub",
+      "source": "./sazypapi--gospelhub",
+      "description": "Next Js + Admin Functionality for Gospel-Hub: A Website for Gospel Playlists"
     }
   ]
 }
