@@ -1,0 +1,9 @@
+{
+  "name": "arbitrate3280--lutristosunshine",
+  "displayName": "LutrisToSunshine",
+  "description": "This script lists games from Lutris, Heroic, Steam and More, adds them to Sunshine, and optionally downloads game covers from SteamGridDB.",
+  "version": "1.0.0",
+  "author": "Arbitrate3280",
+  "homepage": "https://github.com/Arbitrate3280/LutrisToSunshine",
+  "skills": []
+}
