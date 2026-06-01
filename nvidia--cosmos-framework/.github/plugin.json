@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--cosmos-framework",
+  "displayName": "cosmos-framework",
+  "description": "Our inference and training framework to run on the Cosmos Models",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/cosmos-framework",
+  "skills": []
+}
