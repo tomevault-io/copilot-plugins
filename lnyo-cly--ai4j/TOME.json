@@ -1,0 +1,44 @@
+{
+  "name": "ai4j",
+  "owner": "LnYo-Cly",
+  "repo": "ai4j",
+  "description": "\u4e00\u6b3eJavaSDK\u7528\u4e8e\u5feb\u901f\u63a5\u5165AI\u5927\u6a21\u578b\u5e94\u7528\uff0c\u6574\u5408\u591a\u5e73\u53f0\u5927\u6a21\u578b\uff0c\u5982OpenAi\u3001\u667a\u8c31Zhipu(ChatGLM)\u3001\u6df1\u5ea6\u6c42\u7d22DeepSeek\u3001\u6708\u4e4b\u6697\u9762Moonshot(Kimi)\u3001\u817e\u8baf\u6df7\u5143Hunyuan\u3001\u96f6\u4e00\u4e07\u7269(01)\u7b49\u7b49\uff0c\u63d0\u4f9b\u7edf\u4e00\u7684\u8f93\u5165\u8f93\u51fa(\u5bf9\u9f50OpenAi)\u6d88\u9664\u5dee\u5f02\u5316\uff0c\u4f18\u5316\u51fd\u6570\u8c03\u7528(Tool Call)\uff0c\u4f18\u5316RAG\u8c03\u7528\u3001\u652f\u6301\u5411\u91cf\u6570\u636e\u5e93(Pinecone)\u3001\u5185\u7f6e\u8054\u7f51\u589e\u5f3a\uff0c\u5e76\u4e14\u652f\u6301JDK1.8\uff0c\u4e3a\u7528\u6237\u63d0\u4f9b\u5feb\u901f\u6574\u5408AI\u7684\u80fd\u529b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LnYo-Cly/ai4j",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T14:08:54Z"
+}
