@@ -1,0 +1,9 @@
+{
+  "name": "codewithdennis--larament",
+  "displayName": "larament",
+  "description": "A bloat-free starter kit for Laravel 13.x with FilamentPHP 5.x pre-configured. Only essential development tools included.",
+  "version": "1.0.0",
+  "author": "CodeWithDennis",
+  "homepage": "https://github.com/CodeWithDennis/larament",
+  "skills": []
+}
