@@ -1,0 +1,9 @@
+{
+  "name": "vanilagy--mediabunny",
+  "displayName": "mediabunny",
+  "description": "Pure TypeScript media toolkit for reading, writing, and converting video and audio files, directly in the browser.",
+  "version": "1.0.0",
+  "author": "Vanilagy",
+  "homepage": "https://github.com/Vanilagy/mediabunny",
+  "skills": []
+}
