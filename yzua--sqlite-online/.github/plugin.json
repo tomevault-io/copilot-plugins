@@ -1,0 +1,9 @@
+{
+  "name": "yzua--sqlite-online",
+  "displayName": "sqlite-online",
+  "description": "Lightweight WebAssembly-powered SQLite viewer and editor. works entirely in your browser",
+  "version": "1.0.0",
+  "author": "yzua",
+  "homepage": "https://github.com/yzua/sqlite-online",
+  "skills": []
+}
