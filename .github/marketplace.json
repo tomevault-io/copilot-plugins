@@ -109,6 +109,16 @@
       "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls."
     },
     {
+      "name": "docling-project--docling",
+      "source": "./docling-project--docling",
+      "description": "Get your documents ready for gen AI"
+    },
+    {
+      "name": "docling-project--docling",
+      "source": "./docling-project--docling",
+      "description": "Get your documents ready for gen AI"
+    },
+    {
       "name": "paperclipai--paperclip",
       "source": "./paperclipai--paperclip",
       "description": "Open-source orchestration for zero-human companies"
@@ -584,6 +594,21 @@
       "description": "Get 10X more out of Claude Code, Codex or any coding agent"
     },
     {
+      "name": "yamadashy--repomix",
+      "source": "./yamadashy--repomix",
+      "description": "\ud83d\udce6 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like C"
+    },
+    {
+      "name": "yamadashy--repomix",
+      "source": "./yamadashy--repomix",
+      "description": "\ud83d\udce6 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like C"
+    },
+    {
+      "name": "yamadashy--repomix",
+      "source": "./yamadashy--repomix",
+      "description": "\ud83d\udce6 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like C"
+    },
+    {
       "name": "vercel-labs--agent-skills",
       "source": "./vercel-labs--agent-skills",
       "description": "Vercel's official collection of agent skills"
@@ -852,6 +877,16 @@
       "name": "voltagent--awesome-claude-code-subagents",
       "source": "./voltagent--awesome-claude-code-subagents",
       "description": "A collection of 100+ specialized Claude Code subagents covering a wide range of development use cases"
+    },
+    {
+      "name": "elizaos--eliza",
+      "source": "./elizaos--eliza",
+      "description": "Open source agentic operating system"
+    },
+    {
+      "name": "elizaos--eliza",
+      "source": "./elizaos--eliza",
+      "description": "Open source agentic operating system"
     },
     {
       "name": "addyosmani--agent-skills",
@@ -1924,6 +1959,11 @@
       "description": "\u6d1b\u96ea\u97f3\u4e50\u6e90"
     },
     {
+      "name": "katanemo--plano",
+      "source": "./katanemo--plano",
+      "description": "Plano is an AI-native proxy and data plane for agentic apps \u2014 with built-in orchestration, safety, observability, and smart LLM routing so you stay focused on your agents core logic. "
+    },
+    {
       "name": "heygen-com--hyperframes",
       "source": "./heygen-com--hyperframes",
       "description": "Write HTML. Render video. Built for agents."
@@ -2122,6 +2162,16 @@
       "name": "blockrunai--clawrouter",
       "source": "./blockrunai--clawrouter",
       "description": "The agent-native LLM router for OpenClaw. 41+ models, <1ms routing, USDC payments on Base & Solana via x402."
+    },
+    {
+      "name": "codebuffai--codebuff",
+      "source": "./codebuffai--codebuff",
+      "description": "Generate code from the terminal!"
+    },
+    {
+      "name": "codebuffai--codebuff",
+      "source": "./codebuffai--codebuff",
+      "description": "Generate code from the terminal!"
     },
     {
       "name": "facebook--pyrefly",
@@ -2339,6 +2389,16 @@
       "description": "Kernel-based Android Root Solution & KPM"
     },
     {
+      "name": "xerrors--yuxi",
+      "source": "./xerrors--yuxi",
+      "description": "\u7ed3\u5408\u77e5\u8bc6\u5e93\u3001\u77e5\u8bc6\u56fe\u8c31\u7ba1\u7406\u7684 \u591a\u79df\u6237 Agent Harness \u5e73\u53f0\u3002 An agent harness that integrates a LightRAG knowledge base and knowledge graphs. Build with LangChain + Vue + FastAPI, support DeepAgents\u3001MinerU PDF\u3001Neo4j \u3001MCP."
+    },
+    {
+      "name": "xerrors--yuxi",
+      "source": "./xerrors--yuxi",
+      "description": "\u7ed3\u5408\u77e5\u8bc6\u5e93\u3001\u77e5\u8bc6\u56fe\u8c31\u7ba1\u7406\u7684 \u591a\u79df\u6237 Agent Harness \u5e73\u53f0\u3002 An agent harness that integrates a LightRAG knowledge base and knowledge graphs. Build with LangChain + Vue + FastAPI, support DeepAgents\u3001MinerU PDF\u3001Neo4j \u3001MCP."
+    },
+    {
       "name": "tidedra--zotero-arxiv-daily",
       "source": "./tidedra--zotero-arxiv-daily",
       "description": "Recommend new arxiv papers of your interest daily according to your Zotero libarary."
@@ -2397,6 +2457,11 @@
       "name": "agricidaniel--claude-seo",
       "source": "./agricidaniel--claude-seo",
       "description": "Universal SEO skill for Claude Code. 19 sub-skills, 12 subagents, 3 extensions (DataForSEO, Firecrawl, Banana). Technical SEO, E-E-A-T, schema, GEO/AEO, backlinks, local SEO, maps intelligence, Google"
+    },
+    {
+      "name": "useplunk--plunk",
+      "source": "./useplunk--plunk",
+      "description": "The Open-Source Email Platform"
     },
     {
       "name": "vercel--streamdown",
@@ -2467,6 +2532,16 @@
       "name": "quipnetwork--quip-node-manager",
       "source": "./quipnetwork--quip-node-manager",
       "description": "A simple GUI client to manage a Quip Network node"
+    },
+    {
+      "name": "lakr233--asspp",
+      "source": "./lakr233--asspp",
+      "description": "The App Store for your multi-account eco system."
+    },
+    {
+      "name": "lakr233--asspp",
+      "source": "./lakr233--asspp",
+      "description": "The App Store for your multi-account eco system."
     },
     {
       "name": "mai-with-u--maibot",
@@ -3219,6 +3294,11 @@
       "description": "PostgreSQL extension for BM25 relevance-ranked full-text search. Postgres OSS licensed."
     },
     {
+      "name": "shuakami--qq-chat-exporter",
+      "source": "./shuakami--qq-chat-exporter",
+      "description": "\ud83d\ude80 QQ\u804a\u5929\u8bb0\u5f55\u3001\u8868\u60c5\u5305\u5bfc\u51fa\u5de5\u5177 | \u81ea\u52a8\u5316\u63d0\u53d6\u56fe\u7247/\u6587\u5b57/\u56fe\u7247\u6d88\u606f\uff0c\u652f\u6301TXT/JSON\u5bfc\u51fa\uff0c\u9ad8\u6548\u5907\u4efd\uff0c\u652f\u6301NT QQ "
+    },
+    {
       "name": "coleam00--local-ai-packaged",
       "source": "./coleam00--local-ai-packaged",
       "description": "Run all your local AI together in one package - Ollama, Supabase, n8n, Open WebUI, and more!"
@@ -3722,6 +3802,11 @@
       "name": "jgraph--drawio-mcp",
       "source": "./jgraph--drawio-mcp",
       "description": "drawio-mcp"
+    },
+    {
+      "name": "evilsocket--cake",
+      "source": "./evilsocket--cake",
+      "description": "Distributed inference for mobile, desktop and server."
     },
     {
       "name": "basicmachines-co--basic-memory",
@@ -4282,6 +4367,11 @@
       "name": "afilmory--afilmory",
       "source": "./afilmory--afilmory",
       "description": "Modern photo gallery for photographers, with S3/GitHub sync, EXIF details, maps, and a WebGL viewer."
+    },
+    {
+      "name": "anonfaded--fadcam",
+      "source": "./anonfaded--fadcam",
+      "description": "Open-source, ad-free Android multimedia recorder with background video recording, screen recording, live streaming, and remote camera control"
     },
     {
       "name": "researai--deepscientist",
@@ -4904,6 +4994,11 @@
       "description": "Ghidra MCP Server \u2014 200+ MCP tools for AI-powered reverse engineering. GUI plugin + headless server, lazy tool loading, convention enforcement, batch operations, Ghidra Server integration, and Docker "
     },
     {
+      "name": "lakr233--notchdrop",
+      "source": "./lakr233--notchdrop",
+      "description": "Use your MacBook's notch like Dynamic Island for temporary storing files and AirDrop"
+    },
+    {
       "name": "openstatushq--data-table-filters",
       "source": "./openstatushq--data-table-filters",
       "description": "Faceted filters, sorting & infinite scroll for React data tables - shadcn/ui + TanStack Table"
@@ -5187,6 +5282,11 @@
       "name": "mckaywrigley--mckays-app-template",
       "source": "./mckaywrigley--mckays-app-template",
       "description": "This is the template I use to start new full-stack projects."
+    },
+    {
+      "name": "miantiao-me--awesome-homelab",
+      "source": "./miantiao-me--awesome-homelab",
+      "description": "Curating Top Open Source Apps for Homelab Enthusiasts"
     },
     {
       "name": "vercel--workflow",
@@ -6294,6 +6394,11 @@
       "description": "An open-source background agents coding system"
     },
     {
+      "name": "tonbo-io--tonbo",
+      "source": "./tonbo-io--tonbo",
+      "description": "Tonbo is an embedded database for serverless and edge runtimes."
+    },
+    {
       "name": "nextify-limited--libra",
       "source": "./nextify-limited--libra",
       "description": "The open-source V0/Lovable alternative"
@@ -6637,6 +6742,11 @@
       "name": "agent-field--agentfield",
       "source": "./agent-field--agentfield",
       "description": "Build, run and scale AI agents like API and microservices - observable,auditable and identity-aware from day one."
+    },
+    {
+      "name": "kaiban-ai--kaibanjs",
+      "source": "./kaiban-ai--kaibanjs",
+      "description": "KaibanJS is a JavaScript-native framework for building and managing multi-agent systems  with a Kanban-inspired approach."
     },
     {
       "name": "gradio-app--trackio",
@@ -8644,6 +8754,16 @@
       "description": "FastAPI-compatible Python framework with Zig HTTP core; 7x faster, free-threading native"
     },
     {
+      "name": "losses--rune",
+      "source": "./losses--rune",
+      "description": "Experience timeless melodies with a music player that blends classic design with modern technology."
+    },
+    {
+      "name": "losses--rune",
+      "source": "./losses--rune",
+      "description": "Experience timeless melodies with a music player that blends classic design with modern technology."
+    },
+    {
       "name": "massgen--massgen",
       "source": "./massgen--massgen",
       "description": "\ud83d\ude80 MassGen is an open-source multi-agent scaling system that runs in your terminal, autonomously orchestrating frontier models and agents to collaborate, reason, and produce high-quality results. | Joi"
@@ -8652,6 +8772,11 @@
       "name": "zclucas--rmt",
       "source": "./zclucas--rmt",
       "description": "RMT (RuoMengTu) is a free, open-source macro tool built on AHKv2. Let the code handle the tedious work\u2014you have more meaningful things to do."
+    },
+    {
+      "name": "mjackson--remix-the-web",
+      "source": "./mjackson--remix-the-web",
+      "description": "Open source tools for Remix (or any framework!)"
     },
     {
       "name": "hookdeck--outpost",
@@ -9182,6 +9307,11 @@
       "name": "harlan-zw--mdream",
       "source": "./harlan-zw--mdream",
       "description": "\u2601\ufe0f The fastest HTML to markdown convertor on GitHub. Optimized for LLMs and supports streaming."
+    },
+    {
+      "name": "intel--ai-playground",
+      "source": "./intel--ai-playground",
+      "description": "AI PC starter app for doing AI image creation, image stylizing, and chatbot on a PC powered by an Intel\u00ae Arc\u2122 GPU."
     },
     {
       "name": "alumnium-hq--alumnium",
@@ -9739,6 +9869,11 @@
       "description": "TONL (Token-Optimized Notation Language)"
     },
     {
+      "name": "danielmiessler--substrate",
+      "source": "./danielmiessler--substrate",
+      "description": "An Open-source Framework for Human Understanding, Meaning, and Progress."
+    },
+    {
       "name": "getpaykit--paykit",
       "source": "./getpaykit--paykit",
       "description": "The billing framework for TypeScript. Code-first products, handles Stripe, webhooks, and usage state, runs in your app."
@@ -9969,6 +10104,16 @@
       "description": "Complete MCP Platform -- Hosting, Registry, Gateway, and Chat Client"
     },
     {
+      "name": "educlopez--smoothui",
+      "source": "./educlopez--smoothui",
+      "description": "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, Shadcn/ui and Motion"
+    },
+    {
+      "name": "educlopez--smoothui",
+      "source": "./educlopez--smoothui",
+      "description": "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, Shadcn/ui and Motion"
+    },
+    {
       "name": "simonschubert--kai",
       "source": "./simonschubert--kai",
       "description": "OpenClaw alternative in your pocket"
@@ -10137,6 +10282,11 @@
       "name": "compose-miuix-ui--miuix",
       "source": "./compose-miuix-ui--miuix",
       "description": "A UI library for Compose Multiplatform."
+    },
+    {
+      "name": "software-mansion--react-native-audio-api",
+      "source": "./software-mansion--react-native-audio-api",
+      "description": "High-performance audio engine for react-native"
     },
     {
       "name": "vllm-project--recipes",
@@ -11089,6 +11239,11 @@
       "description": "Hashbrown is a framework for building agents that run the browser. Built for Angular and React."
     },
     {
+      "name": "pmndrs--koota",
+      "source": "./pmndrs--koota",
+      "description": "\ud83c\udf0e Performant real-time state management for React and TypeScript"
+    },
+    {
       "name": "lightly-ai--lightly-studio",
       "source": "./lightly-ai--lightly-studio",
       "description": "Curate, Annotate, and Manage Your Data in LightlyStudio."
@@ -11287,6 +11442,11 @@
       "name": "yeuxuan--openclaw-docs",
       "source": "./yeuxuan--openclaw-docs",
       "description": "OpenClaw \u4e2d\u6587\u6587\u6863\u7ad9 | AI \u667a\u80fd\u4f53\u6846\u67b6 \u6e90\u7801\u5256\u6790 \u5b89\u88c5\u6559\u7a0b | WhatsApp Telegram Discord \u98de\u4e66   \u591a\u901a\u9053\u673a\u5668\u4eba"
+    },
+    {
+      "name": "khromov--ai-digest",
+      "source": "./khromov--ai-digest",
+      "description": "A CLI tool to aggregate your codebase into a single Markdown file for use with Claude Projects or custom ChatGPTs."
     },
     {
       "name": "dicklesworthstone--coding-agent-session-search",
@@ -11724,6 +11884,11 @@
       "description": "\ud83d\udd27 High-performance Python rate limiting library with multiple algorithms (Fixed Window, Sliding Window, Token Bucket, Leaky Bucket & GCRA) and storage backends (Redis, In-Memory)."
     },
     {
+      "name": "fptn-project--fptn",
+      "source": "./fptn-project--fptn",
+      "description": "FPTN VPN (Server + Desktop Client + FptnLibrary)"
+    },
+    {
       "name": "simonw--research",
       "source": "./simonw--research",
       "description": "Research projects"
@@ -11957,6 +12122,11 @@
       "name": "instructa--viber3d",
       "source": "./instructa--viber3d",
       "description": "A modern starter kit for 3D browser games powered by r3f and threejs - "
+    },
+    {
+      "name": "valuemelody--melody-auth",
+      "source": "./valuemelody--melody-auth",
+      "description": "A turnkey OAuth & authentication system, designed for both Cloudflare Workers and Node.js"
     },
     {
       "name": "aperoc--toolkami",
@@ -12837,6 +13007,16 @@
       "name": "goatplatform--goatdb",
       "source": "./goatplatform--goatdb",
       "description": "A peer-to-peer database that spans devices. For apps and agents that work everywhere."
+    },
+    {
+      "name": "commonwarexyz--monorepo",
+      "source": "./commonwarexyz--monorepo",
+      "description": "Commonware Library Primitives and Examples"
+    },
+    {
+      "name": "commonwarexyz--monorepo",
+      "source": "./commonwarexyz--monorepo",
+      "description": "Commonware Library Primitives and Examples"
     },
     {
       "name": "vinhnx--vtcode",
@@ -14399,6 +14579,21 @@
       "description": "Next.js Starter Kit"
     },
     {
+      "name": "solana-foundation--solana-com",
+      "source": "./solana-foundation--solana-com",
+      "description": "The solana.com website."
+    },
+    {
+      "name": "solana-foundation--solana-com",
+      "source": "./solana-foundation--solana-com",
+      "description": "The solana.com website."
+    },
+    {
+      "name": "solana-foundation--solana-com",
+      "source": "./solana-foundation--solana-com",
+      "description": "The solana.com website."
+    },
+    {
       "name": "apify--mcpc",
       "source": "./apify--mcpc",
       "description": "mcpc is a universal CLI client for MCP. It supports persistent sessions, stdio/HTTP, OAuth 2.1, tasks, JSON output for code mode, proxy for AI sandboxes, x402, and more."
@@ -15709,6 +15904,11 @@
       "description": "Introspecting Docker images as easy as using Git"
     },
     {
+      "name": "nats-io--nats-js",
+      "source": "./nats-io--nats-js",
+      "description": "JavaScript client for Node.js, Bun, Deno and browser for NATS, the cloud native messaging system"
+    },
+    {
       "name": "d-kuro--gwq",
       "source": "./d-kuro--gwq",
       "description": "\ud83c\udf33 Git worktree manager with fuzzy finder - Work on multiple branches simultaneously, perfect for parallel AI coding workflows \ud83c\udf4b"
@@ -15762,6 +15962,11 @@
       "name": "miantiao-me--dns-surf",
       "source": "./miantiao-me--dns-surf",
       "description": "Querying DNS Resolution Results in Different Regions Worldwide."
+    },
+    {
+      "name": "virgoone--next-money",
+      "source": "./virgoone--next-money",
+      "description": "Flux AI Image generator"
     },
     {
       "name": "hanshuaikang--nezha",
@@ -15987,6 +16192,11 @@
       "name": "hyperb1iss--droidmind",
       "source": "./hyperb1iss--droidmind",
       "description": "Control your Android devices with AI using Model Context Protocol"
+    },
+    {
+      "name": "moonbitlang--moon",
+      "source": "./moonbitlang--moon",
+      "description": "The build system and package manager for MoonBit"
     },
     {
       "name": "opendatalab--mineru-document-explorer",
@@ -16424,6 +16634,26 @@
       "description": "The ghost that keeps your builds fresh - Universal hot reload, file watcher and build automation for any language."
     },
     {
+      "name": "codewithdennis--larament",
+      "source": "./codewithdennis--larament",
+      "description": "A bloat-free starter kit for Laravel 13.x with FilamentPHP 5.x pre-configured. Only essential development tools included."
+    },
+    {
+      "name": "codewithdennis--larament",
+      "source": "./codewithdennis--larament",
+      "description": "A bloat-free starter kit for Laravel 13.x with FilamentPHP 5.x pre-configured. Only essential development tools included."
+    },
+    {
+      "name": "codewithdennis--larament",
+      "source": "./codewithdennis--larament",
+      "description": "A bloat-free starter kit for Laravel 13.x with FilamentPHP 5.x pre-configured. Only essential development tools included."
+    },
+    {
+      "name": "codewithdennis--larament",
+      "source": "./codewithdennis--larament",
+      "description": "A bloat-free starter kit for Laravel 13.x with FilamentPHP 5.x pre-configured. Only essential development tools included."
+    },
+    {
       "name": "aniruddha-adhikary--mrt-buddy",
       "source": "./aniruddha-adhikary--mrt-buddy",
       "description": "Check the Balance of your Dhaka MRT Pass or Rapid Pass"
@@ -16452,6 +16682,11 @@
       "name": "jabrena--cursor-rules-java",
       "source": "./jabrena--cursor-rules-java",
       "description": "A curated and opinionated collection of Skills and Agents to be used in modern SDLC workflows for Java Enterprise development with your favorite AI Agent harness."
+    },
+    {
+      "name": "nim-lang--nimony",
+      "source": "./nim-lang--nimony",
+      "description": "Nimony is a new Nim implementation that is in heavy development."
     },
     {
       "name": "quantumaikr--quant-cpp",
@@ -17619,6 +17854,11 @@
       "description": "Easiest way to give context to LLMs; Attachments has the ambition to be the general funnel for any files to be transformed into images+text for large language models context by only adding 2 lines to "
     },
     {
+      "name": "leoncuhk--awesome-quant-ai",
+      "source": "./leoncuhk--awesome-quant-ai",
+      "description": "A curated list of awesome resources for quantitative investment and trading strategies focusing on artificial intelligence and machine learning applications in finance."
+    },
+    {
       "name": "makenotion--workers-template",
       "source": "./makenotion--workers-template",
       "description": "Template for new Workers"
@@ -17712,6 +17952,21 @@
       "name": "superbasicstudio--claude-conductor",
       "source": "./superbasicstudio--claude-conductor",
       "description": "Claude Conductor - a simple Claude Code framework"
+    },
+    {
+      "name": "hyochan--expo-iap",
+      "source": "./hyochan--expo-iap",
+      "description": "In App Purchase module in Expo that confirms OpenIAP"
+    },
+    {
+      "name": "hyochan--expo-iap",
+      "source": "./hyochan--expo-iap",
+      "description": "In App Purchase module in Expo that confirms OpenIAP"
+    },
+    {
+      "name": "hyochan--expo-iap",
+      "source": "./hyochan--expo-iap",
+      "description": "In App Purchase module in Expo that confirms OpenIAP"
     },
     {
       "name": "mikeyobrien--rho",
@@ -18077,6 +18332,11 @@
       "name": "evidence-dev--duckdb-gsheets",
       "source": "./evidence-dev--duckdb-gsheets",
       "description": "DuckDB extension to read and write Google Sheets using SQL"
+    },
+    {
+      "name": "nvidia--cuda-q-academic",
+      "source": "./nvidia--cuda-q-academic",
+      "description": "This repo contains CUDA-Q Academic materials, including self-paced Jupyter notebook modules for building and optimizing hybrid quantum-classical algorithms using CUDA-Q."
     },
     {
       "name": "kkokosa--dotllm",
@@ -18767,6 +19027,16 @@
       "name": "elsbrock--hetzner-radar",
       "source": "./elsbrock--hetzner-radar",
       "description": "\ud83d\udd75\ufe0fTrack prices of the Hetzner dedicated server auction"
+    },
+    {
+      "name": "dhth--omm",
+      "source": "./dhth--omm",
+      "description": "on-my-mind: a keyboard-driven task manager for the command line"
+    },
+    {
+      "name": "dhth--omm",
+      "source": "./dhth--omm",
+      "description": "on-my-mind: a keyboard-driven task manager for the command line"
     },
     {
       "name": "timwuhaotian--the-pair",
@@ -21559,6 +21829,111 @@
       "description": "Packmind seamlessly captures your engineering playbook and turns it into AI context, guardrails, and governance."
     },
     {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
+      "name": "vual--lobe-chat-pro",
+      "source": "./vual--lobe-chat-pro",
+      "description": "\u57fa\u4e8elobe-chat\uff0c\u589e\u52a0\u4e86\u65e0\u9650\u753b\u5e03\u529f\u80fd\uff0c\u652f\u6301doubao\u3001google\u3001openai\u3001kling\u3001midjourney\u7b49\u753b\u56fe\u548c\u89c6\u9891\u6a21\u578b\uff0c\u8fd8\u6709\u989d\u5916\u7684\u72ec\u7acb\u7684\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u7b49\u521b\u4f5c\u9762\u677f\uff0c\u652f\u6301\u7528\u6237\u6ce8\u518c\u767b\u5f55\uff0c\u5145\u503c\u6d88\u8d39\uff0c\u6a21\u578b\u53ca\u4ef7\u683c\u7ba1\u7406\uff0c\u804a\u5929\u3001\u7ed8\u56fe\u3001\u97f3\u4e50\u3001\u89c6\u9891\u521b\u4f5c\u8bb0\u5f55\u7ba1\u7406\uff0c\u901a\u77e5\u516c\u544a\u7b49"
+    },
+    {
       "name": "redai-infra--relax",
       "source": "./redai-infra--relax",
       "description": "An Asynchronous Reinforcement Learning Engine for Omni-Modal Post-Training at Scale"
@@ -22017,6 +22392,16 @@
       "name": "obra--superpowers-chrome",
       "source": "./obra--superpowers-chrome",
       "description": "Claude Code plugin for direct Chrome browser control via DevTools Protocol - zero dependencies"
+    },
+    {
+      "name": "getalby--hub",
+      "source": "./getalby--hub",
+      "description": "Alby Hub - Your own Bitcoin Lightning node: easy, connectable, feature-rich \u2728 Run anywhere. Become self-sovereign."
+    },
+    {
+      "name": "getalby--hub",
+      "source": "./getalby--hub",
+      "description": "Alby Hub - Your own Bitcoin Lightning node: easy, connectable, feature-rich \u2728 Run anywhere. Become self-sovereign."
     },
     {
       "name": "teng-lin--agent-fetch",
@@ -22764,6 +23149,11 @@
       "description": "MCP for Pwn"
     },
     {
+      "name": "riderlty--fontinass",
+      "source": "./riderlty--fontinass",
+      "description": "\u5b9e\u65f6\u5c06\u5b57\u4f53\u5b50\u96c6\u5316\u540e\u5d4c\u5165ass\u7684\u5c0f\u5de5\u5177\uff0c\u7528\u4e8e\u5728\u672a\u5b89\u88c5\u5bf9\u5e94\u5b57\u4f53\u7684\u7cfb\u7edf\u4e0a\u6b63\u786e\u663e\u793a\u5b57\u5e55\u3002"
+    },
+    {
       "name": "7df-lab--claw-code-rust",
       "source": "./7df-lab--claw-code-rust",
       "description": "Open source AI coding agent, Claude Code / codex Alternative."
@@ -22867,6 +23257,16 @@
       "name": "echelon-ai-labs--servicenow-mcp",
       "source": "./echelon-ai-labs--servicenow-mcp",
       "description": "MCP Server for ServiceNow"
+    },
+    {
+      "name": "comfy-org--litegraph-js",
+      "source": "./comfy-org--litegraph-js",
+      "description": "\u26d4 ARCHIVED (See README). A graph node engine and editor written in Javascript similar to PD or UDK Blueprints, comes with its own editor in HTML5 Canvas2D. The engine can run client side or server sid"
+    },
+    {
+      "name": "comfy-org--litegraph-js",
+      "source": "./comfy-org--litegraph-js",
+      "description": "\u26d4 ARCHIVED (See README). A graph node engine and editor written in Javascript similar to PD or UDK Blueprints, comes with its own editor in HTML5 Canvas2D. The engine can run client side or server sid"
     },
     {
       "name": "komunite--kalfa",
@@ -22997,6 +23397,11 @@
       "name": "tessera-ui--tessera",
       "source": "./tessera-ui--tessera",
       "description": "A cross-platform declarative & functional UI library for rust, focused on performance and extensibility."
+    },
+    {
+      "name": "medusajs--examples",
+      "source": "./medusajs--examples",
+      "description": "All Medusa-related examples."
     },
     {
       "name": "codefactory-co--kimoring-ai-skills",
@@ -23437,6 +23842,41 @@
       "name": "stolinski--zero-svelte",
       "source": "./stolinski--zero-svelte",
       "description": "zero-svelte"
+    },
+    {
+      "name": "jxnl--systematically-improving-rag",
+      "source": "./jxnl--systematically-improving-rag",
+      "description": "systematically-improving-rag"
+    },
+    {
+      "name": "jxnl--systematically-improving-rag",
+      "source": "./jxnl--systematically-improving-rag",
+      "description": "systematically-improving-rag"
+    },
+    {
+      "name": "jxnl--systematically-improving-rag",
+      "source": "./jxnl--systematically-improving-rag",
+      "description": "systematically-improving-rag"
+    },
+    {
+      "name": "jxnl--systematically-improving-rag",
+      "source": "./jxnl--systematically-improving-rag",
+      "description": "systematically-improving-rag"
+    },
+    {
+      "name": "jxnl--systematically-improving-rag",
+      "source": "./jxnl--systematically-improving-rag",
+      "description": "systematically-improving-rag"
+    },
+    {
+      "name": "jxnl--systematically-improving-rag",
+      "source": "./jxnl--systematically-improving-rag",
+      "description": "systematically-improving-rag"
+    },
+    {
+      "name": "jxnl--systematically-improving-rag",
+      "source": "./jxnl--systematically-improving-rag",
+      "description": "systematically-improving-rag"
     },
     {
       "name": "paid-tw--skills",
@@ -23957,6 +24397,21 @@
       "name": "humanstack--vibe-coding-template",
       "source": "./humanstack--vibe-coding-template",
       "description": "Ultimate vibe coding full stack template with code context - Build better apps faster with less tokens with AI coding agents"
+    },
+    {
+      "name": "v112263--it-autonomos-spain",
+      "source": "./v112263--it-autonomos-spain",
+      "description": "it-autonomos-spain"
+    },
+    {
+      "name": "v112263--it-autonomos-spain",
+      "source": "./v112263--it-autonomos-spain",
+      "description": "it-autonomos-spain"
+    },
+    {
+      "name": "v112263--it-autonomos-spain",
+      "source": "./v112263--it-autonomos-spain",
+      "description": "it-autonomos-spain"
     },
     {
       "name": "dcramer--dex",
@@ -25557,6 +26012,11 @@
       "name": "flyeric0212--cursor-history-links",
       "source": "./flyeric0212--cursor-history-links",
       "description": "\u81ea\u52a8\u6293\u53d6\u5e76\u7ef4\u62a4Cursor\u5404\u5e73\u53f0(Windows\u3001macOS\u3001Linux)\u7684\u5386\u53f2\u7248\u672c\u4e0b\u8f7d\u94fe\u63a5\uff0c\u8ba9\u7528\u6237\u53ef\u4ee5\u6839\u636e\u9700\u8981\u5b89\u88c5\u6216\u964d\u7ea7\u5230\u7279\u5b9a\u7248\u672c\u3002"
+    },
+    {
+      "name": "metamask--delegation-framework",
+      "source": "./metamask--delegation-framework",
+      "description": "The contracts that power the Delegation Framework"
     },
     {
       "name": "andreaskelm--pm-brain",
@@ -27864,6 +28324,11 @@
       "description": "\u4e00\u6b3e\u57fa\u4e8e Selenium \u5f00\u53d1\u7684 Windows \u7f51\u9875\u7aef\u62a2\u8d2d\u5de5\u5177\uff0c\u652f\u6301\u6dd8\u5b9d\u3001\u4eac\u4e1c\u5e73\u53f0\u5546\u54c1\u5b9a\u65f6\u81ea\u52a8\u63d0\u4ea4\u8ba2\u5355"
     },
     {
+      "name": "elrizwiraswara--flutter-pos",
+      "source": "./elrizwiraswara--flutter-pos",
+      "description": "A Point of Sale (POS) application built with Flutter, demonstrating Clean Architecture principles and offline-first design patterns."
+    },
+    {
       "name": "cksac--turboquant-model",
       "source": "./cksac--turboquant-model",
       "description": "turboquant-model"
@@ -28849,6 +29314,11 @@
       "description": "Structured outputs, vectorization and tool calling for your Ash application"
     },
     {
+      "name": "brizzbuzz--opnix",
+      "source": "./brizzbuzz--opnix",
+      "description": "Agenix inspired tool enabling users to inject secrets from 1password into their Nix servers at build time"
+    },
+    {
       "name": "decentpaste--decentpaste",
       "source": "./decentpaste--decentpaste",
       "description": "Universal Clipboard for Every Device"
@@ -29277,6 +29747,11 @@
       "name": "vashkatsi--deply",
       "source": "./vashkatsi--deply",
       "description": "Keep your python architecture clean."
+    },
+    {
+      "name": "riscv--riscv-unified-db",
+      "source": "./riscv--riscv-unified-db",
+      "description": "Monorepo containing a machine-readable database of the RISC-V specification and artifact generation tools"
     },
     {
       "name": "delbaoliveira--learn-claude-code",
@@ -33819,6 +34294,11 @@
       "description": "Quasarr connects JDownloader with Radarr, Sonarr, Lidarr and Magazarr. It also decrypts links protected by CAPTCHAs."
     },
     {
+      "name": "langgenius--dify-plugin-sdks",
+      "source": "./langgenius--dify-plugin-sdks",
+      "description": "SDK for Dify plugins"
+    },
+    {
       "name": "correctroadh--opentoggl",
       "source": "./correctroadh--opentoggl",
       "description": "OpenToggl is a free, private-first, AI-friendly alternative to Toggl"
@@ -34767,6 +35247,11 @@
       "name": "webspatial--webspatial-sdk",
       "source": "./webspatial--webspatial-sdk",
       "description": "Unlock native-level spatial power with the WebSpatial SDK without losing the power of the web"
+    },
+    {
+      "name": "openhue--openhue-go",
+      "source": "./openhue--openhue-go",
+      "description": "OpenHue Go is a library written in Golang for interacting with the Philips Hue smart lighting systems"
     },
     {
       "name": "trngtien--vfs",
@@ -35962,6 +36447,11 @@
       "name": "sublayerapp--monkeyspaw",
       "source": "./sublayerapp--monkeyspaw",
       "description": "monkeyspaw"
+    },
+    {
+      "name": "gravity-ui--graph",
+      "source": "./gravity-ui--graph",
+      "description": "graph"
     },
     {
       "name": "alfredolopez80--multi-agent-ralph-loop",
@@ -37307,6 +37797,11 @@
       "name": "smilehancn--easytsf",
       "source": "./smilehancn--easytsf",
       "description": "Experiment ASsistance for Your Time-Series Forecasting, EasyTSF"
+    },
+    {
+      "name": "theexgenesis--community-archive",
+      "source": "./theexgenesis--community-archive",
+      "description": "An open tweet database and API anyone can build on."
     },
     {
       "name": "theexgenesis--community-archive",
@@ -41604,6 +42099,11 @@
       "description": "\u2728 PhlexyUI is a Ruby UI component library for DaisyUI using Phlex"
     },
     {
+      "name": "php-internal--dload",
+      "source": "./php-internal--dload",
+      "description": "Helps to download binaries from release assets"
+    },
+    {
       "name": "0xsanei--darwinia",
       "source": "./0xsanei--darwinia",
       "description": "The Self-Evolving Agent Ecosystem \u2014 Trading agents that evolve through Darwinian selection and adversarial self-play"
@@ -41797,6 +42297,11 @@
       "name": "friuns2--appforge",
       "source": "./friuns2--appforge",
       "description": "App Forge is an AI-powered application generator that creates apps, websites, and online games using the Gemini API"
+    },
+    {
+      "name": "init4tech--trevm",
+      "source": "./init4tech--trevm",
+      "description": "the EVM, simplified"
     },
     {
       "name": "mitchellh--go-libghostty",
@@ -47272,6 +47777,11 @@
       "name": "playhyperia--hyperforge",
       "source": "./playhyperia--hyperforge",
       "description": "MMORPG for humans and agents. In development. Powered by ElizaOS"
+    },
+    {
+      "name": "kitlangton--terminal-control",
+      "source": "./kitlangton--terminal-control",
+      "description": "terminal-control"
     },
     {
       "name": "dotnet--maui-labs",
@@ -186059,6 +186569,26 @@
       "description": "Source-available Salesforce Apex + LWC framework and library suite \u2014 SOQL builder, DML wrapper, trigger framework, async orchestration, feature flags, validation, logging, data masking, REST APIs (inb"
     },
     {
+      "name": "irere123--expo-template",
+      "source": "./irere123--expo-template",
+      "description": "React native expo template"
+    },
+    {
+      "name": "irere123--expo-template",
+      "source": "./irere123--expo-template",
+      "description": "React native expo template"
+    },
+    {
+      "name": "cpilot-gui--amis",
+      "source": "./cpilot-gui--amis",
+      "description": "\ud83d\udda5\ufe0f Local AI platform & Edge inference infrastructure. Desktop Agent Station and Token Hub built with Electron, React, and TypeScript."
+    },
+    {
+      "name": "xrf-9527--obsidian-minimal-workflow",
+      "source": "./xrf-9527--obsidian-minimal-workflow",
+      "description": "obsidian-minimal-workflow"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -189002,6 +189532,11 @@
       "name": "deonmenezes--tradingviewmcp",
       "source": "./deonmenezes--tradingviewmcp",
       "description": "Wholesale fork of tradesdontlie/tradingview-mcp (MIT) \u2014 original work by tradesdontlie. MCP bridge for TradingView Desktop via Chrome DevTools Protocol."
+    },
+    {
+      "name": "fb0sh--pentester",
+      "source": "./fb0sh--pentester",
+      "description": "\u57fa\u4e8e AI Agent \u7684\u6e17\u900f\u6d4b\u8bd5\u81ea\u52a8\u5316\u6846\u67b6\uff0c\u4e25\u683c\u9075\u5faa **PTES\uff08Penetration Testing Execution Standard\uff09** \u6807\u51c6\uff0c\u8986\u76d6\u6e17\u900f\u6d4b\u8bd5\u5168\u751f\u547d\u5468\u671f\u3002"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
