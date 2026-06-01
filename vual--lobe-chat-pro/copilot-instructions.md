@@ -1,127 +1,187 @@
-## lobe-chat-pro
+## add-provider-doc
 
-> Project directory structure overview
+> Complete guide for adding a new AI provider documentation to LobeChat
 
 
-# LobeChat Project Structure
+# Adding New AI Provider Documentation
 
-## Complete Project Structure
+This document provides a step-by-step guide for adding documentation for a new AI provider to LobeChat, based on the complete workflow used for adding providers like BFL (Black Forest Labs) and FAL.
 
-This project uses common monorepo structure. The workspace packages name use `@lobechat/` namespace.
+## Overview
 
-**note**: some not very important files are not shown for simplicity.
+Adding a new provider requires creating both user-facing documentation and technical configuration files. The process involves:
 
-```plaintext
-lobe-chat/
-├── apps/
-│   └── desktop/
-├── docs/
-├── locales/
-│   ├── en-US/
-│   └── zh-CN/
-├── packages/
-│   ├── const/
-│   ├── context-engine/
-│   ├── database/
-│   │   ├── src/
-│   │   │   ├── models/
-│   │   │   ├── schemas/
-│   │   │   └── repositories/
-│   ├── model-bank/
-│   │   └── src/
-│   │       └── aiModels/
-│   ├── model-runtime/
-│   │   └── src/
-│   │       ├── core/
-│   │       └── providers/
-│   ├── types/
-│   │   └── src/
-│   │       ├── message/
-│   │       └── user/
-│   └── utils/
-├── public/
-├── scripts/
-├── src/
-│   ├── app/
-│   │   ├── (backend)/
-│   │   │   ├── api/
-│   │   │   │   ├── auth/
-│   │   │   │   └── webhooks/
-│   │   │   ├── middleware/
-│   │   │   ├── oidc/
-│   │   │   ├── trpc/
-│   │   │   └── webapi/
-│   │   │       ├── chat/
-│   │   │       └── tts/
-│   │   ├── [variants]/
-│   │   │   ├── (main)/
-│   │   │   │   ├── chat/
-│   │   │   │   └── settings/
-│   │   │   └── @modal/
-│   │   └── manifest.ts
-│   ├── components/
-│   ├── config/
-│   ├── features/
-│   │   └── ChatInput/
-│   ├── hooks/
-│   ├── layout/
-│   │   ├── AuthProvider/
-│   │   └── GlobalProvider/
-│   ├── libs/
-│   │   └── oidc-provider/
-│   ├── locales/
-│   │   └── default/
-│   ├── server/
-│   │   ├── modules/
-│   │   ├── routers/
-│   │   │   ├── async/
-│   │   │   ├── desktop/
-│   │   │   ├── edge/
-│   │   │   └── lambda/
-│   │   └── services/
-│   ├── services/
-│   │   ├── user/
-│   │   │   ├── client.ts
-│   │   │   └── server.ts
-│   │   └── message/
-│   ├── store/
-│   │   ├── agent/
-│   │   ├── chat/
-│   │   └── user/
-│   ├── styles/
-│   └── utils/
-└── package.json
+1. Creating usage documentation (EN + CN)
+2. Adding environment variable documentation (EN + CN)
+3. Updating Docker configuration files
+4. Updating .env.example file
+5. Preparing image resources
+
+## Step 1: Create Provider Usage Documentation
+
+Create user-facing documentation that explains how to use the new provider.
+
+### Required Files
+
+Create both English and Chinese versions:
+- `docs/usage/providers/{provider-name}.mdx` (English)
+- `docs/usage/providers/{provider-name}.zh-CN.mdx` (Chinese)
+
+### Documentation Structure
+
+Follow the structure and format used in existing provider documentation. For reference, see:
+- `docs/usage/providers/fal.mdx` (English template)
+- `docs/usage/providers/fal.zh-CN.mdx` (Chinese template)
+
+### Key Requirements
+
+- **Images**: Prepare 5-6 screenshots showing the process
+- **Cover Image**: Create or obtain a cover image for the provider
+- **Accurate URLs**: Use real registration and dashboard URLs
+- **Service Type**: Specify whether it's for image generation, text generation, etc.
+- **Pricing Warning**: Include pricing information callout
+
+### Important Notes
+
+- **🔒 API Key Security**: Never include real API keys in documentation. Always use placeholder format (e.g., `bfl-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`)
+- **🖼️ Image Hosting**: Use LobeHub's CDN for all images: `hub-apac-1.lobeobjects.space`
+
+## Step 2: Update Environment Variables Documentation
+
+Add the new provider's environment variables to the self-hosting documentation.
+
+### Files to Update
+
+- `docs/self-hosting/environment-variables/model-provider.mdx` (English)
+- `docs/self-hosting/environment-variables/model-provider.zh-CN.mdx` (Chinese)
+
+### Content to Add
+
+Add two sections for each provider:
+
+```markdown
+### `{PROVIDER}_API_KEY`
+
+- Type: Required
+- Description: This is the API key you applied for in the {Provider Name} service.
+- Default: -
+- Example: `{api-key-format-example}`
+
+### `{PROVIDER}_MODEL_LIST`
+
+- Type: Optional
+- Description: Used to control the {Provider Name} model list. Use `+` to add a model, `-` to hide a model, and `model_name=display_name` to customize the display name of a model. Separate multiple entries with commas. The definition syntax follows the same rules as other providers' model lists.
+- Default: `-`
+- Example: `-all,+{model-id-1},+{model-id-2}={display-name}`
+
+The above example disables all models first, then enables `{model-id-1}` and `{model-id-2}` (displayed as `{display-name}`).
+
+[model-list]: /docs/self-hosting/advanced/model-list
 ```
 
-## Architecture Map
+### Important Notes
 
-- UI Components: `src/components`, `src/features`
-- Global providers: `src/layout`
-- Zustand stores: `src/store`
-- Client Services: `src/services/` cross-platform services
-  - clientDB: `src/services/<domain>/client.ts`
-  - serverDB: `src/services/<domain>/server.ts`
-- API Routers:
-  - `src/app/(backend)/webapi` (REST)
-  - `src/server/routers/{edge|lambda|async|desktop|tools}` (tRPC)
-- Server:
-  - Services(can access serverDB): `src/server/services` server-used-only services
-  - Modules(can't access db): `src/server/modules` (Server only Third-party Service Module)
-- Database:
-  - Schema (Drizzle): `packages/database/src/schemas`
-  - Model (CRUD): `packages/database/src/models`
-  - Repository (bff-queries): `packages/database/src/repositories`
-- Third-party Integrations: `src/libs` — analytics, oidc etc.
+- **API Key Format**: Use proper UUID format for examples (e.g., `12345678-1234-1234-1234-123456789abc`)
+- **Real Model IDs**: Use actual model IDs from the codebase, not placeholders
+- **Consistent Naming**: Follow the pattern `{PROVIDER}_API_KEY` and `{PROVIDER}_MODEL_LIST`
 
-## Data Flow Architecture
+## Step 3: Update Docker Configuration Files
 
-- **Web with ClientDB**: React UI → Client Service → Direct Model Access → PGLite (Web WASM)
-- **Web with ServerDB**: React UI → Client Service → tRPC Lambda → Server Services → PostgreSQL (Remote)
-- **Desktop**:
-  - Cloud sync disabled: Electron UI → Client Service → tRPC Lambda → Local Server Services → PGLite (Node WASM)
-  - Cloud sync enabled: Electron UI → Client Service → tRPC Lambda → Cloud Server Services → PostgreSQL (Remote)
+Add environment variables to all Docker configuration files to ensure the provider works in containerized deployments.
+
+### Files to Update
+
+All Dockerfile variants must be updated:
+- `Dockerfile`
+- `Dockerfile.database`
+- `Dockerfile.pglite`
+
+### Changes Required
+
+Add the new provider's environment variables at the **end** of the ENV section, just before the final line:
+
+```dockerfile
+# Previous providers...
+    # 302.AI
+    AI302_API_KEY="" AI302_MODEL_LIST="" \
+    # {New Provider 1}
+    {PROVIDER1}_API_KEY="" {PROVIDER1}_MODEL_LIST="" \
+    # {New Provider 2}
+    {PROVIDER2}_API_KEY="" {PROVIDER2}_MODEL_LIST=""
+```
+
+### Important Rules
+
+- **Position**: Add new providers at the **end** of the list
+- **Ordering**: When adding multiple providers, use alphabetical order (e.g., FAL before BFL)
+- **Consistency**: Maintain identical ordering across all Dockerfile variants
+- **Format**: Follow the pattern `{PROVIDER}_API_KEY="" {PROVIDER}_MODEL_LIST="" \`
+
+## Step 4: Update .env.example File
+
+Add example configuration entries to help users understand how to configure the provider locally.
+
+### File to Update
+
+- `.env.example`
+
+### Content to Add
+
+Add new sections before the "Market Service" section:
+
+```bash
+### {Provider Name} ###
+
+# {PROVIDER}_API_KEY={provider-prefix}-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+### Format Guidelines
+
+- **Section Header**: Use `### {Provider Name} ###` format
+- **Commented Example**: Use `#` to comment out the example
+- **Key Format**: Use appropriate prefix for the provider (e.g., `bfl-`, `fal-`, `sk-`)
+- **Position**: Add before the Market Service section
+- **Spacing**: Maintain consistent spacing with existing entries
+
+## Step 5: Image Resources
+
+Prepare all necessary image resources for the documentation.
+
+### Required Images
+
+1. **Cover Image**: Provider logo or branded image
+2. **API Dashboard Screenshots**: 3-4 screenshots showing API key creation process
+3. **LobeChat Configuration Screenshots**: 2-3 screenshots showing provider setup in LobeChat
+
+### Image Guidelines
+
+- **Quality**: Use high-resolution screenshots
+- **Consistency**: Maintain consistent styling across all screenshots
+- **Privacy**: Remove or blur any sensitive information
+- **Format**: Use PNG format for screenshots
+- **Hosting**: Use LobeHub's CDN (`hub-apac-1.lobeobjects.space`) for all images
+
+## Checklist
+
+Before submitting your provider documentation:
+
+- [ ] Created both English and Chinese usage documentation
+- [ ] Added environment variable documentation (EN + CN)
+- [ ] Updated all 3 Dockerfile variants with consistent ordering
+- [ ] Updated .env.example with proper key format
+- [ ] Prepared all required screenshots and images
+- [ ] Used actual model IDs from the codebase
+- [ ] Verified no real API keys are included in documentation
+- [ ] Used LobeHub CDN for all image hosting
+- [ ] Tested the documentation for clarity and accuracy
+
+## Reference
+
+This guide was created based on the implementation of BFL (Black Forest Labs) provider documentation. For a complete example, refer to:
+- Commits: `d2da03e1a` (documentation) and `6a2e95868` (environment variables)
+- Files: `docs/usage/providers/bfl.mdx`, `docs/usage/providers/bfl.zh-CN.mdx`
+- PR: Current branch `tj/feat/bfl-docs`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/vual)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/vual)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [vual/lobe-chat-pro](https://github.com/vual/lobe-chat-pro) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
