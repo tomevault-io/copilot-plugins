@@ -1,0 +1,9 @@
+{
+  "name": "vndee--llm-sandbox",
+  "displayName": "llm-sandbox",
+  "description": "Lightweight and portable LLM sandbox runtime (code interpreter) Python library.",
+  "version": "1.0.0",
+  "author": "vndee",
+  "homepage": "https://github.com/vndee/llm-sandbox",
+  "skills": []
+}
