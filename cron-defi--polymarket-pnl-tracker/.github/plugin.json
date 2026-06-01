@@ -1,0 +1,9 @@
+{
+  "name": "cron-defi--polymarket-pnl-tracker",
+  "displayName": "polymarket-pnl-tracker",
+  "description": "polymarket pnl tracker. Polymarket dashboard with Home (combined P&L), Accounts (per-wallet), and Activity (wallet & group collections, active/closed positions).",
+  "version": "1.0.0",
+  "author": "cron-defi",
+  "homepage": "https://github.com/cron-defi/polymarket-pnl-tracker",
+  "skills": []
+}
