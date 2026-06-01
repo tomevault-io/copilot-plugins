@@ -4,7 +4,7 @@
   "repo": "minion",
   "description": "\ud83d\udc77\u200d\u2642\ufe0fHigh performance agent framework that can do everything. Minion is designed to execute any type of queries, offering a variety of features that demonstrate its flexibility and intelligence.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/femto/minion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T16:21:41Z"
+  "distributed_at": "2026-06-01T16:22:16Z"
 }
