@@ -1,0 +1,9 @@
+{
+  "name": "rafaelmelo007--ulm",
+  "displayName": "ulm",
+  "description": "Unified CLI gateway for Claude, Codex, Gemini, and Ollama. Use your subscriptions, not API keys.",
+  "version": "1.0.0",
+  "author": "rafaelmelo007",
+  "homepage": "https://github.com/rafaelmelo007/ulm",
+  "skills": []
+}
