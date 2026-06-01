@@ -1,34 +1,55 @@
-## floating-scroll-area
+## frontend-code-organization
 
-> 可滚动区域统一使用 FloatingScrollArea，禁止依赖系统默认滚动条
+> Frontend source code directory organization and layered architecture
 
 
-# 滚动条：仅使用 FloatingScrollArea
+# Frontend Code Organization
 
-## 必须遵守
+All frontend code under `src/` must follow this structure:
 
-- 面向用户的 **纵向**可滚动区域（列表、主工作区、侧栏长内容、模态内长表单等）须用 **`src/app/ui/FloatingScrollArea.tsx`** 包裹内容，由组件提供 **悬浮、不占布局宽度** 的滚动条；父级链需保留 **`flex` + `min-h-0`**（及常见 **`flex-1`**），否则无法正确撑满与滚动。
-- **不要**为同一用途再写一套自定义 `::-webkit-scrollbar` / `scrollbar-width` 仅作美化；全局视口隐藏样式只在 **`App.css` 的 `.floating-scroll-area-viewport`** 与组件配合使用，**不要**给任意 `overflow-auto` 容器零散加「隐藏原生条 + 自绘条」的重复实现。
-- **不要**依赖 **浏览器/Tauri WebView 默认滚动条** 作为产品主界面滚动方案（即避免在长页面区域仅使用裸 `overflow-y-auto` / `overflow-auto` 而不包 `FloatingScrollArea`）。
-
-## 不要求替换（当前组件为纵向）
-
-- **`overflow-x-auto`** 等 **纯横向**滚动（如宽表格、代码块）在未提供横向版 `FloatingScrollArea` 前可暂用原生横向条。
-- **`overflow-hidden`** 仅作裁剪、不参与滚动时不在此列。
-
-## 新建与修改时的检查
-
-- 新增或改动带 `overflow-y-auto` / `overflow-auto` 的容器时：先判断是否为用户可滚动的 **纵向**主区域；若是，**改为** `FloatingScrollArea` + 子级内容结构，而不是追加默认滑块或复制滚动条样式。
-
-```tsx
-// ❌ 长列表主区域仅靠原生滚动条
-<section className="min-h-0 flex-1 overflow-y-auto">...</section>
-
-// ✅ 使用统一组件（外层 section 保持 flex + min-h-0 + flex-1）
-<section className="flex min-h-0 flex-1 flex-col">
-  <FloatingScrollArea>...</FloatingScrollArea>
-</section>
 ```
+src/
+├─ app/                 # 应用入口与全局配置
+│   ├─ main.tsx         # 入口文件
+│   ├─ App.tsx          # 根组件
+│   └─ providers/       # 全局 Provider（Settings、Theme 等）
+│
+├─ views/               # 纯 UI 视图层
+│
+├─ features/            # 业务逻辑（三层架构）
+│   ├─ domain/          # 领域层：纯业务模型与纯函数
+│   ├─ application/     # 应用层：用例编排与 Hook 协调
+│   └─ core/            # 核心层：基础设施与共享能力
+│
+├─ services/            # 服务层：封装所有后端调用
+│
+└─ components/          # 共享组件资源
+```
+
+## Rules
+
+- **app/**: Only entry-point bootstrapping, root component, and global providers. No business logic.
+- **views/**: Pure presentational pages/screens. Compose `components/` and consume hooks from `features/application/`.
+- **features/domain/**: Pure business models, types, value objects, and pure functions. Zero side-effects, no framework imports.
+- **features/application/**: Use-case orchestration hooks that coordinate domain logic and services. The only layer that bridges domain and services.
+- **features/core/**: Shared infrastructure utilities (e.g. storage adapters, event bus, base classes) used across features.
+- **services/**: All backend/API call wrappers (Tauri invoke, HTTP, etc.). No UI or domain logic.
+- **components/**: Reusable, domain-agnostic UI components shared across views.
+
+## Dependency Direction
+
+```
+views → features/application → features/domain
+                             → services
+                             → features/core
+components → (standalone, no feature imports)
+```
+
+- `views/` may import from `features/application/`, `components/`, and `services/`.
+- `features/application/` may import from `features/domain/`, `features/core/`, and `services/`.
+- `features/domain/` must not import from any other `src/` layer.
+- `components/` must not import from `features/` or `views/`.
+- `services/` must not import from `features/` or `views/`.
 
 ---
 > Source: [zhouyi207/WeiBoCrawler](https://github.com/zhouyi207/WeiBoCrawler) — distributed by [TomeVault](https://tomevault.io).
