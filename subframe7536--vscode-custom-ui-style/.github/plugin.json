@@ -1,0 +1,9 @@
+{
+  "name": "subframe7536--vscode-custom-ui-style",
+  "displayName": "vscode-custom-ui-style",
+  "description": "VSCode extension that modify CSS and JS code in both editor and webview, unify global font family, setup background image and Electron BrowserWindow options, add your custom CSS or JS code, and even p",
+  "version": "1.0.0",
+  "author": "subframe7536",
+  "homepage": "https://github.com/subframe7536/vscode-custom-ui-style",
+  "skills": []
+}
