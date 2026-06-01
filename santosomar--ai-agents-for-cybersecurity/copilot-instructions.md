@@ -1,95 +1,53 @@
-## codeguard-0-authentication-mfa
+## codeguard-0-authorization-access-control
 
-> Authentication and MFA best practices (passwords, MFA, OAuth/OIDC, SAML,
+> Authorization and access control (RBAC/ABAC/ReBAC, IDOR, mass assignment,
 
 
-rule_id: codeguard-0-authentication-mfa
+rule_id: codeguard-0-authorization-access-control
 
-## Authentication & MFA
+## Authorization & Access Control
 
-Build a resilient, user-friendly authentication system that resists credential attacks, protects secrets, and supports strong, phishing-resistant MFA and secure recovery.
+Enforce least privilege and precise access decisions for every request and resource, prevent IDOR and mass assignment, and provide strong transaction authorization where necessary.
 
-### Account Identifiers and UX
-- Use non-public, random, and unique internal user identifiers. Allow login via verified email or username.
-- Always return generic error messages (e.g., "Invalid username or password"). Keep timing consistent to prevent account enumeration.
-- Support password managers: `<input type="password">`, allow paste, no JS blocks.
+### Core Principles
+1.  Deny by Default: The default for any access request should be 'deny'. Explicitly grant permissions to roles or users rather than explicitly denying them. When no allow rule matches, return HTTP 403 Forbidden.
+2.  Principle of Least Privilege: Grant users the minimum level of access required to perform their job functions. Regularly audit permissions to ensure they are not excessive.
+3.  Validate Permissions on Every Request: Check authorization for every single request, regardless of source (AJAX, API, direct). Use middleware/filters to ensure consistent enforcement.
+4.  Prefer ABAC/ReBAC over RBAC: Use Attribute-Based Access Control (ABAC) or Relationship-Based Access Control (ReBAC) for fine-grained permissions instead of simple role-based access control.
 
-### Password Policy
-- Accept passphrases and full Unicode; minimum 8 characters; avoid composition rules. Set only a reasonable maximum length (64+).
-- Check new passwords against breach corpora (e.g., k‑anonymity APIs); reject breached/common passwords.
+### Systemic Controls
+- Centralize authorization at service boundaries via middleware/policies/filters.
+- Model permissions at the resource level (ownership/tenancy) and enforce scoping in data queries.
+- Return generic 403/404 responses to avoid leaking resource existence.
+- Log all denials with user, action, resource identifier (non-PII), and rationale code.
 
-### Password Storage (Hashing)
-- Hash, do not encrypt. Use slow, memory‑hard algorithms with unique per‑user salts and constant‑time comparison.
-- Preferred order and parameters (tune to your hardware; target <1s on server):
-  - Argon2id: m=19–46 MiB, t=2–1, p=1 (or equivalent security trade‑offs)
-  - scrypt: N=2^17, r=8, p=1 (or equivalent)
-  - bcrypt (legacy only): cost ≥10, be aware of 72‑byte input limit
-  - PBKDF2 (FIPS): PBKDF2‑HMAC‑SHA‑256 ≥600k, or SHA‑1 ≥1.3M
-- Optional pepper: store outside DB (KMS/HSM); if used, apply via HMAC or pre‑hashing. Plan for user resets if pepper rotates.
-- Unicode and null bytes must be supported end‑to‑end by the library.
+### Preventing IDOR
+- Never trust user-supplied identifiers alone. Always verify access to each object instance.
+- Resolve resources through user-scoped queries or server-side lookups. Example: `currentUser.projects.find(id)` instead of `Project.find(id)`.
+- Use non-enumerable identifiers (UUIDs/random) as defense-in-depth. Do not rely on obscurity alone.
 
-### Authentication Flow Hardening
-- Enforce TLS for all auth endpoints and token transport; enable HSTS.
-- Implement rate limits per IP, account, and globally; add proof‑of‑work or CAPTCHA only as last resort.
-- Lockouts/throttling: progressive backoff; avoid permanent lockout via resets/alerts.
-- Uniform responses and code paths to reduce oracle/timing signals.
+### Preventing Mass Assignment
+- Do not bind request bodies directly to domain objects containing sensitive fields.
+- Expose only safe, editable fields via DTOs. Maintain explicit allow-lists for patch/update.
+- Use framework features to block-list sensitive fields if allow-listing is infeasible.
 
-### Multi‑Factor Authentication (MFA)
-- Adopt phishing‑resistant factors by default for sensitive accounts: passkeys/WebAuthn (FIDO2) or hardware U2F.
-- Acceptable: TOTP (app‑based), smart cards with PIN. Avoid for sensitive use: SMS/voice, email codes; never rely on security questions.
-- Require MFA for: login, password/email changes, disabling MFA, privilege elevation, high‑value transactions, new devices/locations.
-- Risk‑based MFA signals: new device, geo‑velocity, IP reputation, unusual time, breached credentials.
-- MFA recovery: provide single‑use backup codes, encourage multiple factors, and require strong identity verification for resets.
-- Handle failed MFA: offer alternative enrolled methods, notify users of failures, and log context (no secrets).
+### Transaction Authorization (Step-Up)
+- Require a second factor for sensitive actions (wire transfers, privilege elevation, data export). Apply What‑You‑See‑Is‑What‑You‑Sign: show critical fields for user confirmation.
+- Use unique, time‑limited authorization credentials per transaction; reject on data changes mid‑flow.
+- Enforce the chosen authorization method server-side; prevent client‑side downgrades.
+- Protect against brute-force with throttling and complete flow restarts after failures.
 
-### Federation and Protocols (OAuth 2.0 / OIDC / SAML)
-- Use standard protocols only; do not build your own.
-- OAuth 2.0/OIDC:
-  - Prefer Authorization Code with PKCE for public/native apps; avoid Implicit and ROPC.
-  - Validate state and nonce; use exact redirect URI matching; prevent open redirects.
-  - Constrain tokens to audience/scope; use DPoP or mTLS for sender‑constraining when possible.
-  - Rotate refresh tokens; revoke on logout or risk signals.
-- SAML:
-  - TLS 1.2+; sign responses/assertions; encrypt sensitive assertions.
-  - Validate issuers, InResponseTo, timestamps (NotBefore/NotOnOrAfter), Recipient; verify against trusted keys.
-  - Prevent XML signature wrapping with strict schema validation and hardened XPath selection.
-  - Keep response lifetimes short; prefer SP‑initiated flows; validate RelayState; implement replay detection.
-
-### Tokens (JWT and Opaque)
-- Prefer opaque server‑managed tokens for simplicity and revocation. If using JWTs:
-  - Explicitly pin algorithms; reject "none"; validate iss/aud/exp/iat/nbf; use short lifetimes and rotation.
-  - Store secrets/keys securely (KMS/HSM). Use strong HMAC secrets or asymmetric keys; never hardcode.
-  - Consider binding tokens to a client context (e.g., fingerprint hash in cookie) to reduce replay.
-  - Implement denylist/allowlist for revocation on logout and critical events.
-
-### Recovery and Reset
-- Return the same response for existing and non‑existing accounts (no enumeration). Normalize timing.
-- Generate 32+ byte, CSPRNG tokens; single‑use; store as hashes; short expiry.
-- Use HTTPS reset links to pinned, trusted domains; add referrer policy (no‑referrer) on UI.
-- After reset: require re‑authentication, rotate sessions, and do not auto‑login.
-- Never lock accounts due to reset attempts; rate‑limit and monitor instead.
-
-### Administrative and Internal Accounts
-- Separate admin login from public forms; enforce stronger MFA, device posture checks, IP allowlists, and step‑up auth.
-- Use distinct session contexts and stricter timeouts for admin operations.
-
-### Monitoring and Signals
-- Log auth events (failures/successes, MFA enroll/verify, resets, lockouts) with stable fields and correlation IDs; never log secrets or raw tokens.
-- Detect credential stuffing: high failure rates, many IPs/agents, impossible travel. Notify users of new device logins.
+### Testing and Automation
+- Maintain an authorization matrix (YAML/JSON) listing endpoints/resources, roles/attributes, and expected outcomes.
+- Automate integration tests that iterate the matrix, mint role tokens, and assert allow/deny results—including token expiry/revocation cases.
+- Exercise negative tests: swapped IDs, downgraded roles, missing scopes, and bypass attempts.
 
 ### Implementation Checklist
-- Passwords: Argon2id (preferred) with per‑user salt, constant‑time verify; breached password checks on change/set.
-- MFA: WebAuthn/passkeys or hardware tokens for high‑risk; TOTP as fallback; secure recovery with backup codes.
-- Federation: Authorization Code + PKCE; strict redirect URI validation; audience/scope enforced; token rotation.
-- Tokens: short‑lived, sender‑constrained where possible; revocation implemented; secrets in KMS/HSM.
-- Recovery: single‑use, hashed, time‑boxed tokens; consistent responses; re‑auth required after reset; sessions rotated.
-- Abuse: rate limits, throttling, and anomaly detection on auth endpoints; uniform error handling.
-- Admin: isolated flows with stricter policies and device checks.
-
-### Test Plan
-- Unit/integration tests for login, MFA enroll/verify, resets, and lockouts with uniform errors.
-- Protocol tests: PKCE, state/nonce, redirect URI validation, token audience/scope.
-- Dynamic tests for credential stuffing resistance and token replay; validate revocation after logout and role change.
+- Middleware/policies enforce deny-by-default and resource checks on every endpoint.
+- Query scoping ensures users only access permitted rows/objects.
+- DTOs and allow-lists prevent mass assignment; sensitive fields never bindable.
+- Step-up authorization in place for sensitive operations with unique, short-lived credentials.
+- Authorization matrix drives CI tests; failures block merges.
 
 ---
 > Source: [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io).
