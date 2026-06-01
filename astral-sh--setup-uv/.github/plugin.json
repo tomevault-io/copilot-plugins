@@ -1,0 +1,9 @@
+{
+  "name": "astral-sh--setup-uv",
+  "displayName": "setup-uv",
+  "description": "Set up your GitHub Actions workflow with a specific version of https://docs.astral.sh/uv/",
+  "version": "1.0.0",
+  "author": "astral-sh",
+  "homepage": "https://github.com/astral-sh/setup-uv",
+  "skills": []
+}
