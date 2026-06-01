@@ -1,371 +1,495 @@
-## rhesis
+## codebase-structure
 
-> - **Language**: Python 3.10+
+> Apply when navigating or understanding the codebase structure
 
-# Rhesis Project Rules
 
-## Technology Stack
+# Codebase Directory Structure
 
-### Backend
-- **Language**: Python 3.10+
-- **Package Manager**: uv with pyproject.toml
-- **Validation**: Pydantic 2.x
-- **Testing**: pytest
-
-### Python SDK
-- **Language**: Python 3.10+
-- **Package Manager**: uv with pyproject.toml
-- **Validation**: Pydantic 2.x
-- **Testing**: pytest
+This document provides detailed directory trees for the main components of the Rhesis platform.
 
 ---
 
-## Python Code Quality
+## Backend (`apps/backend/`)
 
-### Ruff Linting and Formatting
-
-Run ruff checks and formatting **only before pushing** (e.g. before `git push` or creating a pull request):
-
-```bash
-# Check for linting issues
-uvx ruff check <path/to/file.py>
-
-# Auto-format the code
-uvx ruff format <path/to/file.py>
-
-# Check again to verify
-uvx ruff check <path/to/file.py>
-```
-
-Run ruff only when preparing to push or open a PR, not after every Python file change.
-
-### Fixing Line Length Issues
-
-If ruff reports line length violations (E501), fix them by:
-
-1. Breaking long strings into multiple lines
-2. Breaking long f-strings
-3. Breaking long function calls
-
-Maximum line length: 100 characters
-
----
-
-## Local Development
-
-### UV Package Manager
-1. Always use uv to manage Python projects
-2. Execute uv command in the root of the projects (SDK, Backend)
-3. Use `uv add <package>` to install dependencies
-4. Use `uv test` to run tests
-5. Use `uv run <script>` to run scripts
-
-### Backend Debugging
-When debugging, add the following at the end of `apps/backend/src/rhesis/backend/app/main.py`:
-```python
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run("rhesis.backend.app.main:app", host="0.0.0.0", port=8080, reload=True, log_level="debug")
-```
-
-### GitHub CLI
-Use GitHub CLI whenever possible. If a GitHub link is pasted, use GitHub CLI to open it.
-
----
-
-## Testing
-
-### SDK Tests
-
-1. Tests are stored in `<project_root>/tests/sdk` directory
-2. Run unit tests:
-```bash
-cd sdk
-make test
-```
-
-3. Run integration tests (starts backend):
-```bash
-cd sdk
-make test-integration
-```
-
-4. Check backend logs:
-```bash
-cd sdk
-docker compose -f ../tests/docker-compose.test.yml --profile sdk logs sdk-test-backend
-```
-
-5. Run single tests:
-```bash
-cd sdk
-uv run pytest ../tests/sdk/integration/test_entities.py::test_endpoint
-```
-
----
-
-## Git Commits
-
-### Pre-Commit Workflow
-
-1. Check current status:
-```bash
-git status
-git diff
-```
-
-2. Review and analyze changes - group by:
-   - Feature additions
-   - Bug fixes
-   - Refactoring
-   - Documentation updates
-   - Configuration changes
-   - Test modifications
-
-3. Stage changes strategically (avoid `git add .`):
-```bash
-git add <file1> <file2>
-git add -p <filename>  # Stage parts of files
-```
-
-### Conventional Commits
-
-Format:
-```
-<type>[optional scope]: <description>
-
-[optional body]
-
-[optional footer(s)]
-```
-
-Types:
-- **feat**: A new feature
-- **fix**: A bug fix
-- **docs**: Documentation only changes
-- **style**: Formatting changes (no code meaning change)
-- **refactor**: Code change that neither fixes a bug nor adds a feature
-- **perf**: Performance improvement
-- **test**: Adding or correcting tests
-- **build**: Build system or dependency changes
-- **ci**: CI configuration changes
-- **chore**: Other changes that don't modify src or test files
-- **revert**: Reverts a previous commit
-
-Rules:
-1. Use lowercase for type and description
-2. No period at the end of the description
-3. Use imperative mood ("add" not "adds" or "added")
-4. Limit description to 50 characters or less
-5. Use scope to specify component (e.g., `feat(auth): add login validation`)
-6. Use `BREAKING CHANGE:` in footer for breaking changes
-
-Examples:
-- `feat: add user authentication`
-- `fix(api): resolve timeout issue in user endpoint`
-- `docs: update installation guide`
-- `feat!: remove deprecated API endpoints` (! indicates breaking change)
-
----
-
-## Pull Requests
-
-### Core Principles
-
-1. **Write Small PRs**: Easier to review, less bugs, clearer history
-2. **One Logical Change Per PR**: Avoid mixing unrelated changes
-
-### Branch Creation
-```bash
-git fetch origin
-git checkout main
-git pull origin main
-git checkout -b feature/your-feature-name
-```
-
-### PR Title Guidelines
-- Use clear, descriptive titles
-- Start with action verb (Add, Fix, Update, Remove)
-- Keep under 72 characters
-
-### PR Description Template
-```markdown
-## Purpose
-[Explain why this change is needed]
-
-## What Changed
-- [Key change 1]
-- [Key change 2]
-
-## Additional Context
-- [Links to issues, tickets]
-- [Breaking changes or migration notes]
-
-## Testing
-[How to test these changes]
-```
-
-### Size Guidelines
-- **Ideal**: 1-200 lines
-- **Acceptable**: 200-400 lines
-- **Large**: 400+ lines (break down if possible)
-
----
-
-## GitHub Issues
-
-When creating issues:
-1. Use appropriate template (Bug, Feature, or Task) from `.github/ISSUE_TEMPLATE`
-2. Use GitHub CLI: `gh issue create`
-3. List existing labels: `gh label list` and select appropriate ones (don't add issue type labels)
-4. Keep issues short and to the point
-5. Ask user for confirmation before creating
-
----
-
-## Documentation (docs/ directory)
-
-### Framework
-Nextra for documentation (MDX files).
-
-### Critical Rules
-
-**Escape Curly Braces**: MDX interprets `{...}` as JSX expressions.
-```mdx
-✅ GOOD: API PUT /test_results/\{id\}
-❌ BAD:  API PUT /test_results/{id}
-```
-
-**When NOT to escape**:
-- Inside code blocks (fenced with ```)
-- Inside inline code with backticks
-
-### Style Guidelines
-- Remove decorative emojis (use "Note:", "Warning:", "Tip:" instead)
-- Follow existing documentation style
-- Include code examples with language tags
-- Test that documentation builds without errors
-
-### Material-UI Icons in MDX
-Never import `@mui/icons-material/*` directly in `.mdx` files. Create a JSX component in `/docs/src/components/` and register it in `/docs/src/mdx-components.js`.
-
----
-
-## Codebase Structure
-
-### Backend (`apps/backend/`)
 FastAPI-based REST API with Celery task processing.
 
-Key directories:
-- `src/rhesis/backend/app/` - FastAPI application core
-  - `models/` - SQLAlchemy ORM models
-  - `schemas/` - Pydantic request/response schemas
-  - `routers/` - FastAPI route handlers
-  - `services/` - Business logic layer
-  - `auth/` - Authentication & authorization
-- `alembic/` - Database migrations
-- `tasks/` - Celery background tasks
-- `metrics/` - Evaluation metrics
+```
+apps/backend/
+├── pyproject.toml              # Python package configuration and dependencies (uv)
+├── uv.lock                     # Locked dependency versions
+├── Makefile                    # Build automation: test, lint, format
+├── Dockerfile                  # Production container image
+├── Dockerfile.dev              # Development container with hot-reload
+├── start.sh                    # Container entrypoint script
+├── migrate.sh                  # Database migration runner
+├── CHANGELOG.md                # Version history and release notes
+├── CONTRIBUTING.md             # Development guidelines
+├── README.md                   # Project overview and setup
+│
+└── src/rhesis/backend/         # Main source code
+    │
+    ├── app/                    # FastAPI application core
+    │   ├── main.py             # FastAPI entry point, router registration
+    │   ├── database.py         # SQLAlchemy engine, session management
+    │   ├── dependencies.py     # Dependency injection (auth, db sessions)
+    │   ├── crud.py             # Generic CRUD operations base
+    │   ├── constants.py        # Application-wide constants
+    │   ├── error_handlers.py   # Global exception handlers
+    │   │
+    │   ├── auth/               # Authentication & authorization
+    │   │   ├── oauth.py        # OAuth2 flow implementation
+    │   │   ├── permissions.py  # Role-based permission checks
+    │   │   ├── decorators.py   # Auth decorators for routes
+    │   │   ├── token_utils.py  # JWT token generation/parsing
+    │   │   ├── token_validation.py  # Token verification logic
+    │   │   ├── user_utils.py   # User lookup helpers
+    │   │   ├── auth_utils.py   # General auth utilities
+    │   │   └── url_utils.py    # Auth URL builders
+    │   │
+    │   ├── config/             # Application configuration
+    │   │   └── cascade_config.py  # Cascade delete/update rules
+    │   │
+    │   ├── middleware/         # FastAPI middleware
+    │   │   └── organization_filter.py  # Multi-tenant org filtering
+    │   │
+    │   ├── models/             # SQLAlchemy ORM models (39 files)
+    │   │   ├── base.py         # Base model with common fields
+    │   │   ├── mixins.py       # Reusable mixins (timestamps, soft delete)
+    │   │   ├── user.py, organization.py, project.py
+    │   │   ├── test.py, test_set.py, test_run.py, test_result.py
+    │   │   ├── endpoint.py, prompt.py, metric.py
+    │   │   └── ...             # Other domain models
+    │   │
+    │   ├── schemas/            # Pydantic request/response schemas (43 files)
+    │   │   ├── base.py         # Base schema with common fields
+    │   │   └── ...             # Corresponding schemas for each model
+    │   │
+    │   ├── routers/            # FastAPI route handlers (40 files)
+    │   │   ├── base.py         # Base router with common CRUD endpoints
+    │   │   ├── auth.py         # Authentication endpoints
+    │   │   ├── test.py, test_run.py, telemetry.py
+    │   │   └── ...             # Other resource routers
+    │   │
+    │   ├── services/           # Business logic layer (87 files)
+    │   │   ├── test_execution.py   # Test execution orchestration
+    │   │   ├── test_run.py         # Test run management
+    │   │   ├── organization.py     # Org provisioning
+    │   │   ├── task_management.py  # Celery task management
+    │   │   │
+    │   │   ├── connector/      # External system connectors
+    │   │   │   ├── manager.py, handler.py
+    │   │   │   ├── handlers/   # Connector implementations
+    │   │   │   └── mapping/    # Data mapping between systems
+    │   │   │
+    │   │   ├── endpoint/       # Endpoint testing services
+    │   │   │   ├── service.py  # Endpoint validation and testing
+    │   │   │   └── validation.py
+    │   │   │
+    │   │   ├── invokers/       # Target system invocation
+    │   │   │   ├── base.py     # Base invoker interface
+    │   │   │   ├── rest_invoker.py, sdk_invoker.py, websocket_invoker.py
+    │   │   │   ├── auth/       # Invoker authentication
+    │   │   │   ├── conversation/  # Multi-turn handling
+    │   │   │   └── templating/    # Request/response templating
+    │   │   │
+    │   │   ├── stats/          # Statistics calculation
+    │   │   │   └── calculator.py, test_result.py
+    │   │   │
+    │   │   ├── telemetry/      # Telemetry processing
+    │   │   │   ├── enricher.py, tree_builder.py, linking_service.py
+    │   │   │
+    │   │   └── handlers/       # Document handlers
+    │   │
+    │   ├── templates/          # Jinja2 prompt templates (*.jinja2)
+    │   │
+    │   ├── utils/              # Utility functions (18 files)
+    │   │   ├── crud_utils.py, odata.py, encryption.py, rate_limit.py
+    │   │
+    │
+    ├── alembic/                # Database migrations
+    │   ├── env.py              # Alembic environment config
+    │   ├── versions/           # Migration scripts (115+ files)
+    │   ├── templates/          # SQL templates for migrations
+    │   └── utils/              # Migration utilities
+    │
+    ├── tasks/                  # Celery background tasks
+    │   ├── base.py             # Base task class
+    │   ├── enums.py            # Task status enums
+    │   │
+    │   ├── execution/          # Test execution tasks
+    │   │   ├── orchestration.py, parallel.py, sequential.py
+    │   │   ├── evaluation.py   # Metric evaluation tasks
+    │   │   ├── result_processor.py
+    │   │   └── executors/      # Execution strategies
+    │   │       ├── single_turn.py, multi_turn.py
+    │   │
+    │   └── telemetry/
+    │       └── enrich.py       # Span enrichment tasks
+    │
+    ├── metrics/                # Evaluation metrics
+    │   ├── evaluator.py        # Metric evaluation engine
+    │   ├── score_evaluator.py  # Score calculation
+    │   ├── deepeval/, ragas/, rhesis/  # Metric providers
+    │
+    ├── notifications/
+    │   └── email/              # Email notifications
+    │       ├── service.py, smtp.py, template_service.py
+    │       └── templates/      # Email templates (*.jinja2)
+    │
+    ├── telemetry/              # OpenTelemetry instrumentation
+    │   ├── instrumentation.py, middleware.py
+    │
+    ├── logging/
+    │   └── rhesis_logger.py    # Custom logger setup
+    │
+    └── worker.py               # Celery worker entry point
+```
 
-Key patterns:
-- Layered Architecture: routers → services → models/crud
-- Multi-tenancy: Organization-based data isolation
-- Background Processing: Celery tasks for test execution
-- Feature Gating: `FeatureRegistry` in `app/features/` is the single
-  place to check whether a gated capability is available for an
-  organization. See "Feature Gating" below.
-
-### SDK (`sdk/`)
-Python SDK for interacting with Rhesis platform.
-
-Key directories:
-- `src/rhesis/sdk/`
-  - `client.py` - Main RhesisClient
-  - `entities/` - API entity wrappers
-  - `decorators/` - `@endpoint` and `@observe` decorators
-  - `connector/` - Bidirectional connector for test execution
-  - `metrics/` - Evaluation metrics
-  - `models/` - LLM model providers
-  - `synthesizers/` - Test data generation
-  - `telemetry/` - OpenTelemetry integration
-
-Key patterns:
-- Entity Pattern: Pythonic wrappers for API resources
-- Provider Pattern: Pluggable LLM and metric providers
-- Decorator Pattern: `@endpoint` and `@observe` for instrumentation
-
-### Frontend (`apps/frontend/`)
-Next.js 14+ with App Router and Material UI.
-
-Key directories:
-- `src/app/` - Next.js App Router pages
-  - `(protected)/` - Authenticated routes
-- `src/components/` - Shared components
-  - `common/` - Reusable UI components
-- `src/utils/api-client/` - Backend API clients
-- `src/hooks/` - Custom React hooks
-
-Key patterns:
-- App Router: File-based routing with layouts
-- Route Groups: `(protected)` for authenticated routes
-- Dynamic Routes: `[identifier]` for entity pages
-- Feature Gating: `FeaturesProvider` + `useFeature` / `<FeatureGate>`
-  consume `GET /features` to conditionally render gated UI. See
-  "Feature Gating" below.
+### Key Patterns
+- **Layered Architecture**: routers → services → models/crud
+- **Multi-tenancy**: Organization-based data isolation via middleware
+- **Background Processing**: Celery tasks for test execution and telemetry
+- **Metrics Evaluation**: Pluggable evaluators (DeepEval, RAGAS, custom)
+- **Invokers**: Abstraction for calling targets (REST, SDK, WebSocket)
 
 ---
 
-## Feature Gating
+## SDK (`sdk/`)
 
-Gated capabilities (e.g. SSO) flow through a single primitive on the
-backend and a mirrored one on the frontend. No ad-hoc `if` checks
-scattered across routers or components.
+Python SDK for interacting with Rhesis platform and running evaluations.
 
-### Backend
+```
+sdk/
+├── pyproject.toml              # Package configuration (uv)
+├── uv.lock                     # Locked dependencies
+├── Makefile                    # Build automation
+├── CHANGELOG.md                # Version history
+├── CONTRIBUTING.md             # Contribution guidelines
+├── README.md                   # SDK documentation
+│
+└── src/rhesis/sdk/             # Main source code
+    │
+    ├── client.py               # Main RhesisClient for API communication
+    ├── config.py               # SDK configuration management
+    ├── cli.py                  # Command-line interface
+    ├── enums.py                # SDK enumerations
+    ├── errors.py               # Custom exception classes
+    ├── utils.py                # General utilities
+    │
+    ├── entities/               # API entity wrappers
+    │   ├── base_entity.py      # Base entity class
+    │   ├── base_collection.py  # Collection operations
+    │   ├── test.py             # Test entity
+    │   ├── test_set.py         # TestSet entity
+    │   ├── test_run.py         # TestRun entity
+    │   ├── test_result.py      # TestResult entity
+    │   ├── test_configuration.py
+    │   ├── endpoint.py         # Endpoint entity
+    │   ├── prompt.py           # Prompt entity
+    │   ├── behavior.py, category.py, topic.py, status.py
+    │
+    ├── decorators/             # Function decorators
+    │   ├── endpoint.py         # @endpoint decorator for wrapping functions
+    │   ├── observe.py          # @observe decorator for telemetry
+    │   ├── builders.py         # Decorator builders
+    │   └── _state.py           # Decorator state management
+    │
+    ├── connector/              # Bidirectional connector for test execution
+    │   ├── connection.py       # WebSocket/HTTP connection
+    │   ├── executor.py         # Test executor
+    │   ├── manager.py          # Connection manager
+    │   ├── registry.py         # Endpoint registry
+    │   ├── schemas.py          # Connector schemas
+    │   └── types.py            # Type definitions
+    │
+    ├── metrics/                # Evaluation metrics
+    │   ├── base.py             # Base metric interface
+    │   ├── factory.py          # Metric factory
+    │   ├── constants.py        # Metric constants
+    │   ├── utils.py            # Metric utilities
+    │   │
+    │   ├── config/             # Metric configurations
+    │   │
+    │   ├── conversational/     # Multi-turn metrics
+    │   │
+    │   └── providers/          # Metric implementations
+    │       ├── deepeval/       # DeepEval metrics
+    │       │   ├── metrics.py, conversational_metrics.py
+    │       │   ├── metric_base.py, factory.py
+    │       │
+    │       ├── ragas/          # RAGAS metrics
+    │       │   ├── metrics.py, metric_base.py, factory.py
+    │       │
+    │       └── native/         # Built-in Rhesis metrics
+    │           ├── base.py, factory.py
+    │           ├── categorical_judge.py, numeric_judge.py
+    │           ├── conversational_judge.py, goal_achievement_judge.py
+    │           └── templates/  # Jinja templates for prompts
+    │
+    ├── models/                 # LLM model providers
+    │   ├── base.py             # Base model interface
+    │   ├── factory.py          # Model factory
+    │   ├── utils.py            # Model utilities
+    │   │
+    │   └── providers/          # Provider implementations
+    │       ├── openai.py       # OpenAI
+    │       ├── anthropic.py    # Anthropic Claude
+    │       ├── gemini.py       # Google Gemini
+    │       ├── vertex_ai.py    # Google Vertex AI
+    │       ├── mistral.py      # Mistral AI
+    │       ├── cohere.py       # Cohere
+    │       ├── groq.py         # Groq
+    │       ├── ollama.py       # Ollama (local)
+    │       ├── litellm.py      # LiteLLM (unified)
+    │       ├── together_ai.py  # Together AI
+    │       ├── huggingface.py  # HuggingFace
+    │       ├── replicate.py    # Replicate
+    │       ├── openrouter.py   # OpenRouter
+    │       ├── perplexity.py   # Perplexity
+    │       ├── polyphemus.py   # Rhesis Polyphemus
+    │       └── native.py       # Native implementation
+    │
+    ├── synthesizers/           # Test data generation
+    │   ├── base.py             # Base synthesizer
+    │   ├── synthesizer.py      # Main synthesizer
+    │   ├── config_synthesizer.py    # Config generation
+    │   ├── context_synthesizer.py   # Context generation
+    │   ├── prompt_synthesizer.py    # Prompt generation
+    │   ├── utils.py            # Synthesizer utilities
+    │   ├── assets/             # Jinja templates
+    │   └── multi_turn/         # Multi-turn synthesis
+    │
+    ├── services/               # SDK services
+    │   ├── chunker.py          # Text chunking
+    │   ├── extractor.py        # Data extraction
+    │   └── mcp/                # MCP integration
+    │
+    ├── telemetry/              # OpenTelemetry integration
+    │   ├── tracer.py           # Span creation
+    │   ├── provider.py         # OTEL provider setup
+    │   ├── exporter.py         # Span exporter to Rhesis
+    │   ├── observer.py         # Observation utilities
+    │   ├── context.py          # Context propagation
+    │   ├── attributes.py       # Span attributes
+    │   ├── constants.py        # Telemetry constants
+    │   ├── schemas.py          # Telemetry schemas
+    │   │
+    │   ├── integrations/       # Framework integrations
+    │   │   ├── base.py         # Base integration
+    │   │   ├── langchain.py    # LangChain integration
+    │   │   ├── langgraph.py    # LangGraph integration
+    │   │   └── autogen.py      # AutoGen integration
+    │   │
+    │   └── utils/              # Telemetry utilities
+    │
+    └── adaptive_testing/       # Adaptive test generation
+        └── client/, utils/
+```
 
-- `apps/backend/src/rhesis/backend/app/features/__init__.py` -- the
-  `FeatureRegistry`, `Feature` dataclass, `FeatureName` str-Enum, and
-  `LicenseProvider` protocol. `DefaultLicenseProvider` is the stub
-  used today; a real one installs via
-  `FeatureRegistry.set_license_provider(...)` when licensing lands.
-- `apps/backend/src/rhesis/backend/app/features_bootstrap.py` --
-  declarative list of features, called once from `main.py` lifespan.
-- `apps/backend/src/rhesis/backend/app/auth/feature_gates.py` --
-  FastAPI dependencies `require_feature` (404 on denial, no
-  enumeration leak) and `has_feature` (bool for branching).
-- `apps/backend/src/rhesis/backend/app/routers/features.py` --
-  `GET /features` returns license info and the enabled feature names.
+### Key Patterns
+- **Entity Pattern**: Pythonic wrappers for API resources
+- **Provider Pattern**: Pluggable LLM and metric providers
+- **Decorator Pattern**: `@endpoint` and `@observe` for instrumentation
+- **Connector**: Bidirectional communication for test execution
 
-### Frontend
+---
 
-- `apps/frontend/src/constants/features.ts` -- `FeatureName` mirror of
-  the backend enum. Keep in sync when adding features.
-- `apps/frontend/src/contexts/FeaturesContext.tsx` -- `FeaturesProvider`
-  (mounted in the protected layout), `useFeature(name)`, and
-  `<FeatureGate feature={...}>`. Fail-closed: features are `false`
-  during the initial fetch and on error.
-- `apps/frontend/src/utils/api-client/features-client.ts` -- typed
-  client for `GET /features`.
+## Frontend (`apps/frontend/`)
 
-### Adding a new EE feature
+Next.js 14+ application with App Router and Material UI.
 
-Community features are never registered. The `FeatureRegistry` is for EE
-features only; if a capability ships in `apps/backend/` under MIT, it is
-unconditionally available and needs no gating.
+```
+apps/frontend/
+├── package.json                # Dependencies and scripts
+├── package-lock.json           # Locked versions
+├── next.config.mjs             # Next.js configuration
+├── tsconfig.json               # TypeScript configuration
+├── eslint.config.mjs           # ESLint configuration
+├── jest.config.js              # Jest test configuration
+├── Makefile                    # Build automation
+├── Dockerfile                  # Production container
+├── start.sh                    # Container entrypoint
+├── CHANGELOG.md                # Version history
+├── CONTRIBUTING.md             # Contribution guidelines
+├── README.md                   # Frontend documentation
+│
+├── public/                     # Static assets
+│   ├── logos/                  # Brand logos and icons
+│   ├── fonts/                  # Custom fonts (Be Vietnam Pro, Sora)
+│   └── elements/               # SVG elements
+│
+├── scripts/                    # Build/dev scripts
+│   ├── generate-templates.js   # Template generation
+│   └── validate.sh             # Validation scripts
+│
+└── src/
+    │
+    ├── app/                    # Next.js App Router pages
+    │   ├── layout.tsx          # Root layout
+    │   ├── page.tsx            # Landing page
+    │   │
+    │   ├── auth/               # Authentication pages
+    │   │   └── signin/, error/
+    │   │
+    │   ├── api/                # API routes
+    │   │
+    │   └── (protected)/        # Authenticated routes
+    │       ├── layout.tsx      # Protected layout with nav
+    │       │
+    │       ├── dashboard/      # Dashboard views
+    │       │   └── components/ # DashboardKPIs, ActivityTimeline
+    │       │
+    │       ├── projects/       # Project management
+    │       │   ├── [identifier]/  # Dynamic project routes
+    │       │   ├── components/    # Project components
+    │       │   └── create-new/    # Project creation wizard
+    │       │
+    │       ├── tests/          # Test management
+    │       │   ├── [identifier]/  # Test detail views
+    │       │   ├── components/    # Test components
+    │       │   ├── new-generated/ # AI test generation
+    │       │   └── new-manual/    # Manual test creation
+    │       │
+    │       ├── test-sets/      # Test set management
+    │       │   ├── [identifier]/
+    │       │   └── components/
+    │       │
+    │       ├── test-runs/      # Test execution runs
+    │       │   ├── [identifier]/  # Run details, results
+    │       │   └── components/
+    │       │
+    │       ├── test-results/   # Test result views
+    │       │   └── components/
+    │       │
+    │       ├── endpoints/      # Endpoint configuration
+    │       │   ├── [identifier]/, new/, swagger/
+    │       │   └── components/
+    │       │
+    │       ├── metrics/        # Metric management
+    │       │   ├── [identifier]/, new/
+    │       │   └── components/
+    │       │
+    │       ├── behaviors/      # Behavior management
+    │       │   └── components/
+    │       │
+    │       ├── traces/         # Telemetry traces
+    │       │   └── components/
+    │       │
+    │       ├── knowledge/      # Knowledge base
+    │       │   ├── [identifier]/
+    │       │   └── components/
+    │       │
+    │       ├── models/         # Model configuration
+    │       │   └── components/
+    │       │
+    │       ├── mcp/            # MCP integration
+    │       │   └── components/
+    │       │
+    │       ├── tokens/         # API token management
+    │       │   └── components/
+    │       │
+    │       ├── tasks/          # Task management
+    │       │   ├── [identifier]/
+    │       │   └── components/
+    │       │
+    │       ├── organizations/  # Organization management
+    │       │   ├── [identifier]/, settings/, team/
+    │       │   └── components/
+    │       │
+    │       ├── onboarding/     # User onboarding flow
+    │       │   └── components/
+    │       │
+    │       └── generation/     # AI generation tools
+    │
+    ├── components/             # Shared components
+    │   ├── common/             # Reusable UI components
+    │   │   ├── BaseDataGrid.tsx    # Data grid wrapper
+    │   │   ├── BaseDrawer.tsx      # Slide-out drawer
+    │   │   ├── BaseTable.tsx       # Table component
+    │   │   ├── BaseChartsGrid.tsx  # Chart grid
+    │   │   ├── BaseLineChart.tsx, BasePieChart.tsx, BaseScatterChart.tsx
+    │   │   ├── ActionBar.tsx       # Page action bar
+    │   │   ├── GridToolbar.tsx
+    │   │   ├── StatusChip.tsx      # Status indicators
+    │   │   ├── EntityCard.tsx      # Entity display card
+    │   │   ├── DeleteModal.tsx     # Confirmation modal
+    │   │   ├── FeedbackModal.tsx   # User feedback
+    │   │   ├── ConversationHistory.tsx  # Chat display
+    │   │   ├── DragAndDropUpload.tsx
+    │   │   ├── NotificationContext.tsx
+    │   │   └── ErrorBoundary.tsx
+    │   │
+    │   ├── auth/               # Auth components
+    │   ├── layout/             # Layout components
+    │   ├── navigation/         # Nav components
+    │   ├── comments/           # Comment system
+    │   ├── tasks/              # Task components
+    │   ├── onboarding/         # Onboarding components
+    │   └── providers/          # Context providers
+    │
+    ├── utils/                  # Utility functions
+    │   ├── api-client/         # Backend API clients
+    │   │   ├── base-client.ts      # Base HTTP client
+    │   │   ├── client-factory.ts   # Client factory
+    │   │   ├── config.ts           # API configuration
+    │   │   ├── tests-client.ts, test-runs-client.ts, ...
+    │   │   └── interfaces/         # TypeScript interfaces (31 files)
+    │   │
+    │   ├── date-utils.ts       # Date formatting
+    │   ├── odata-filter.ts     # OData query building
+    │   ├── validation.ts       # Form validation
+    │   ├── trace-utils.ts      # Trace utilities
+    │   ├── status-colors.ts    # Status color mapping
+    │   └── ...
+    │
+    ├── hooks/                  # Custom React hooks
+    │   ├── useComments.ts      # Comments hook
+    │   ├── useTasks.ts         # Tasks hook
+    │   ├── useOnboardingTour.ts
+    │   ├── useDocumentTitle.ts
+    │   └── useGridStateStorage.ts
+    │
+    ├── contexts/               # React contexts
+    │   └── OnboardingContext.tsx
+    │
+    ├── config/                 # App configuration
+    │   ├── test-templates.ts   # Test templates
+    │   ├── model-providers.tsx # LLM provider config
+    │   ├── mcp-providers.tsx   # MCP provider config
+    │   └── onboarding-tours.ts
+    │
+    ├── constants/              # Application constants
+    │   ├── paths.ts            # Route paths
+    │   ├── auth.ts             # Auth constants
+    │   ├── test-types.ts       # Test type definitions
+    │   └── ...
+    │
+    ├── types/                  # TypeScript type definitions
+    │
+    ├── styles/                 # CSS and theme
+    │   ├── theme.ts            # MUI theme configuration
+    │   ├── fonts.css           # Font definitions
+    │   └── *.module.css        # Component styles
+    │
+    ├── actions/                # Server actions
+    │   ├── auth.ts, auth/signin.ts
+    │   └── endpoints/
+    │
+    ├── lib/
+    │   └── telemetry.ts        # Client telemetry
+    │
+    ├── middleware.ts           # Next.js middleware (auth)
+    │
+    └── auth.ts                 # NextAuth configuration
+```
 
-1. Add a member to `FeatureName` in
-   `apps/backend/src/rhesis/backend/app/features/__init__.py`.
-2. Implement the feature under `ee/backend/src/rhesis/backend/ee/<feature>/`.
-3. Register it in `ee/backend/src/rhesis/backend/ee/__init__.py:bootstrap()`
-   by calling `FeatureRegistry.register(Feature(...))` with an optional
-   `runtime_check`, then `app.include_router(...)` for any new endpoints.
-4. Gate routes with `Depends(require_feature(FeatureName.X))`. Use
-   `FeatureRegistry.is_available(name, org)` for org-aware checks elsewhere
-   and `FeatureRegistry.is_registered(name)` for early-bailout checks
-   before an org has been resolved (e.g. inside an OIDC callback).
-5. Mirror the name in `apps/frontend/src/constants/features.ts` and wrap
-   the UI in `<FeatureGate feature={FeatureName.X}>`.
+### Key Patterns
+- **App Router**: File-based routing with layouts
+- **Route Groups**: `(protected)` for authenticated routes
+- **Dynamic Routes**: `[identifier]` for entity pages
+- **Component Co-location**: Components next to pages
+- **API Client Layer**: Typed clients for backend communication
+- **Server Actions**: For auth and mutations
 
 ---
 > Source: [rhesis-ai/rhesis](https://github.com/rhesis-ai/rhesis) — distributed by [TomeVault](https://tomevault.io).
