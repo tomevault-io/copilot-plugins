@@ -7,11 +7,11 @@ SEPCC — A Claude Code proxy with context that survives. Route Claude Code thro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sepehrbayat/SEPCC](https://github.com/sepehrbayat/SEPCC).
+Original source: `AGENTS.md` in [sepehrbayat/SEPCC](https://github.com/sepehrbayat/SEPCC).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
