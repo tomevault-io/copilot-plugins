@@ -1,0 +1,9 @@
+{
+  "name": "jvb-consulting--kerndx",
+  "displayName": "kerndx",
+  "description": "Source-available Salesforce Apex + LWC framework and library suite \u2014 SOQL builder, DML wrapper, trigger framework, async orchestration, feature flags, validation, logging, data masking, REST APIs (inb",
+  "version": "1.0.0",
+  "author": "JVB-Consulting",
+  "homepage": "https://github.com/JVB-Consulting/kerndx",
+  "skills": []
+}
