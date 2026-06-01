@@ -1,302 +1,116 @@
-## zustand-slice-organization
+## lobe-chat-pro
 
-> 本文档描述了 LobeChat 项目中 Zustand Store 的模块化 Slice 组织方式，展示如何通过分片架构管理复杂的应用状态。
+> This document serves as a comprehensive guide for all team members when developing LobeChat.
 
-# LobeChat Zustand Store Slice 组织架构
+# LobeChat Development Guidelines
 
-本文档描述了 LobeChat 项目中 Zustand Store 的模块化 Slice 组织方式，展示如何通过分片架构管理复杂的应用状态。
+This document serves as a comprehensive guide for all team members when developing LobeChat.
 
-## 顶层 Store 结构
+## Tech Stack
 
-LobeChat 的 `chat` store (`src/store/chat/`) 采用模块化的 slice 结构来组织状态和逻辑。
+Built with modern technologies:
 
-### 关键聚合文件
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **UI Components**: Ant Design, @lobehub/ui, antd-style
+- **State Management**: Zustand, SWR
+- **Database**: PostgreSQL, PGLite, Drizzle ORM
+- **Testing**: Vitest, Testing Library
+- **Package Manager**: pnpm (monorepo structure)
+- **Build Tools**: Next.js (Turbopack in dev, Webpack in prod)
 
-- `src/store/chat/initialState.ts`: 聚合所有 slice 的初始状态
-- `src/store/chat/store.ts`: 定义顶层的 `ChatStore`，组合所有 slice 的 actions
-- `src/store/chat/selectors.ts`: 统一导出所有 slice 的 selectors
-- `src/store/chat/helpers.ts`: 提供聊天相关的辅助函数
+## Directory Structure
 
-### Store 聚合模式
+The project follows a well-organized monorepo structure:
 
-```typescript
-// src/store/chat/initialState.ts
-import { ChatTopicState, initialTopicState } from './slices/topic/initialState';
-import { ChatMessageState, initialMessageState } from './slices/message/initialState';
-import { ChatAIChatState, initialAiChatState } from './slices/aiChat/initialState';
+- `apps/` - Main applications
+- `packages/` - Shared packages and libraries
+- `src/` - Main source code
+- `docs/` - Documentation
+- `.cursor/rules/` - Development rules and guidelines
 
-export type ChatStoreState = ChatTopicState &
-  ChatMessageState &
-  ChatAIChatState &
-  // ...其他 slice states
+## Development Workflow
 
-export const initialState: ChatStoreState = {
-  ...initialMessageState,
-  ...initialTopicState,
-  ...initialAiChatState,
-  // ...其他 initial slice states
-};
-```
+### Git Workflow
 
-```typescript
-// src/store/chat/store.ts
-import { ChatMessageAction, chatMessage } from './slices/message/action';
-import { ChatTopicAction, chatTopic } from './slices/topic/action';
-import { ChatAIChatAction, chatAiChat } from './slices/aiChat/actions';
+- Use rebase for git pull
+- Git commit messages should prefix with gitmoji
+- Git branch name format: `username/feat/feature-name`
+- Use `.github/PULL_REQUEST_TEMPLATE.md` for PR descriptions
 
-export interface ChatStoreAction
-  extends ChatMessageAction,
-    ChatTopicAction,
-    ChatAIChatAction,
-    // ...其他 slice actions
+### Package Management
 
-const createStore: StateCreator<ChatStore, [['zustand/devtools', never]]> = (...params) => ({
-  ...initialState,
-  ...chatMessage(...params),
-  ...chatTopic(...params),
-  ...chatAiChat(...params),
-  // ...其他 slice action creators
-});
+- Use `pnpm` as the primary package manager
+- Use `bun` to run npm scripts
+- Use `bunx` to run executable npm packages
+- Navigate to specific packages using `cd packages/<package-name>`
 
-export const useChatStore = createWithEqualityFn<ChatStore>()(
-  subscribeWithSelector(devtools(createStore)),
-  shallow,
-);
-```
+### Code Style Guidelines
 
-## 单个 Slice 的标准结构
+#### TypeScript
 
-每个 slice 位于 `src/store/chat/slices/[sliceName]/` 目录下：
+- Prefer interfaces over types for object shapes
 
-```
-src/store/chat/slices/
-└── [sliceName]/                 # 例如 message, topic, aiChat, builtinTool
-    ├── action.ts                # 定义 actions (或者是一个 actions/ 目录)
-    ├── initialState.ts          # 定义 state 结构和初始值
-    ├── reducer.ts               # (可选) 如果使用 reducer 模式
-    ├── selectors.ts             # 定义 selectors
-    └── index.ts                 # (可选) 重新导出模块内容
-```
+### Testing Strategy
 
-### 文件职责说明
+**Required Rule**: `testing-guide/testing-guide.mdc`
 
-1. `initialState.ts`:
-   - 定义 slice 的 TypeScript 状态接口
-   - 提供初始状态默认值
+**Commands**:
 
-```typescript
-// 典型的 initialState.ts 结构
-export interface ChatTopicState {
-  activeTopicId?: string;
-  topicMaps: Record<string, ChatTopic[]>; // 核心数据结构
-  topicsInit: boolean;
-  topicLoadingIds: string[];
-  // ...其他状态字段
-}
+- Web: `bunx vitest run --silent='passed-only' '[file-path-pattern]'`
+- Packages: `cd packages/[package-name] && bunx vitest run --silent='passed-only' '[file-path-pattern]'` (each subpackage contains its own vitest.config.mts)
 
-export const initialTopicState: ChatTopicState = {
-  activeTopicId: undefined,
-  topicMaps: {},
-  topicsInit: false,
-  topicLoadingIds: [],
-  // ...其他初始值
-};
-```
+**Important Notes**:
 
-2. `reducer.ts` (复杂状态使用):
-   - 定义纯函数 reducer，处理同步状态转换
-   - 使用 `immer` 确保不可变更新
+- Wrap file paths in single quotes to avoid shell expansion
+- Never run `bun run test` - this runs all tests and takes \~10 minutes
 
-```typescript
-// 典型的 reducer.ts 结构
-import { produce } from 'immer';
+### Type Checking
 
-interface AddChatTopicAction {
-  type: 'addTopic';
-  value: CreateTopicParams & { id?: string };
-}
+- Use `bun run type-check` to check for type errors
 
-interface UpdateChatTopicAction {
-  id: string;
-  type: 'updateTopic';
-  value: Partial<ChatTopic>;
-}
+### i18n
 
-export type ChatTopicDispatch = AddChatTopicAction | UpdateChatTopicAction;
+- **Keys**: Add to `src/locales/default/namespace.ts`
+- **Dev**: Translate `locales/zh-CN/namespace.json` locale file only for preview
+- DON'T run `pnpm i18n`, let CI auto handle it
 
-export const topicReducer = (state: ChatTopic[] = [], payload: ChatTopicDispatch): ChatTopic[] => {
-  switch (payload.type) {
-    case 'addTopic': {
-      return produce(state, (draftState) => {
-        draftState.unshift({
-          ...payload.value,
-          id: payload.value.id ?? Date.now().toString(),
-          createdAt: Date.now(),
-        });
-      });
-    }
-    case 'updateTopic': {
-      return produce(state, (draftState) => {
-        const index = draftState.findIndex((topic) => topic.id === payload.id);
-        if (index !== -1) {
-          draftState[index] = { ...draftState[index], ...payload.value };
-        }
-      });
-    }
-    default:
-      return state;
-  }
-};
-```
+## Project Rules Index
 
-3. `selectors.ts`:
-   - 提供状态查询和计算函数
-   - 供 UI 组件使用的状态订阅接口
-   - 重要: 使用 `export const xxxSelectors` 模式聚合所有 selectors
+All following rules are saved under `.cursor/rules/` directory:
 
-```typescript
-// 典型的 selectors.ts 结构
-import { ChatStoreState } from '../../initialState';
+### Backend
 
-const currentTopics = (s: ChatStoreState): ChatTopic[] | undefined => 
-  s.topicMaps[s.activeId];
+- `drizzle-schema-style-guide.mdc` – Style guide for defining Drizzle ORM schemas
 
-const currentActiveTopic = (s: ChatStoreState): ChatTopic | undefined => {
-  return currentTopics(s)?.find((topic) => topic.id === s.activeTopicId);
-};
+### Frontend
 
-const getTopicById = (id: string) => (s: ChatStoreState): ChatTopic | undefined =>
-  currentTopics(s)?.find((topic) => topic.id === id);
+- `react-component.mdc` – React component style guide and conventions
+- `i18n.mdc` – Internationalization guide using react-i18next
+- `typescript.mdc` – TypeScript code style guide
+- `packages/react-layout-kit.mdc` – Usage guide for react-layout-kit
 
-// 核心模式：使用 xxxSelectors 聚合导出
-export const topicSelectors = {
-  currentActiveTopic,
-  currentTopics,
-  getTopicById,
-  // ...其他 selectors
-};
-```
+### State Management
 
-## 特殊 Slice 组织模式
+- `zustand-action-patterns.mdc` – Recommended patterns for organizing Zustand actions
+- `zustand-slice-organization.mdc` – Best practices for structuring Zustand slices
 
-### 复杂 Actions 的子目录结构 (aiChat Slice)
+### Desktop (Electron)
 
-当 slice 的 actions 过于复杂时，可以拆分到子目录：
+- `desktop-feature-implementation.mdc` – Implementing new Electron desktop features
+- `desktop-controller-tests.mdc` – Desktop controller unit testing guide
+- `desktop-local-tools-implement.mdc` – Workflow to add new desktop local tools
+- `desktop-menu-configuration.mdc` – Desktop menu configuration guide
+- `desktop-window-management.mdc` – Desktop window management guide
 
-```
-src/store/chat/slices/aiChat/
-├── actions/
-│   ├── generateAIChat.ts       # AI 对话生成
-│   ├── rag.ts                  # RAG 检索增强生成
-│   ├── memory.ts               # 对话记忆管理
-│   └── index.ts                # 聚合所有 actions
-├── initialState.ts
-├── selectors.ts
-└── index.ts
-```
+### Debugging
 
-参考：`src/store/chat/slices/aiChat/actions/`
+- `debug-usage.mdc` – Using the debug package and namespace conventions
 
-### 工具类 Slice (builtinTool)
+### Testing
 
-管理多种内置工具的状态：
-
-```
-src/store/chat/slices/builtinTool/
-├── actions/
-│   ├── dalle.ts                # DALL-E 图像生成
-│   ├── search.ts               # 搜索功能
-│   ├── localFile.ts            # 本地文件操作
-│   └── index.ts
-├── initialState.ts
-├── selectors.ts
-└── index.ts
-```
-
-参考：`src/store/chat/slices/builtinTool/`
-
-## 状态设计模式
-
-### 1. Map 结构用于关联数据
-```typescript
-// 以 sessionId 为 key，管理多个会话的数据
-topicMaps: Record<string, ChatTopic[]>
-messagesMap: Record<string, ChatMessage[]>
-```
-
-### 2. 数组用于加载状态管理
-```typescript
-// 管理多个并发操作的加载状态
-messageLoadingIds: string[]
-topicLoadingIds: string[]
-chatLoadingIds: string[]
-```
-
-### 3. 可选字段用于当前活动项
-```typescript
-// 当前激活的实体 ID
-activeId: string
-activeTopicId?: string
-activeThreadId?: string
-```
-
-## Slice 集成到顶层 Store
-
-### 1. 状态聚合
-```typescript
-// 在 initialState.ts 中
-export type ChatStoreState = ChatTopicState &
-  ChatMessageState &
-  ChatAIChatState &
-  // ...其他 slice states
-```
-
-### 2. Action 接口聚合
-```typescript
-// 在 store.ts 中
-export interface ChatStoreAction
-  extends ChatMessageAction,
-    ChatTopicAction,
-    ChatAIChatAction,
-    // ...其他 slice actions
-```
-
-### 3. Selector 统一导出
-```typescript
-// 在 selectors.ts 中 - 统一聚合 selectors
-export { chatSelectors } from './slices/message/selectors';
-export { topicSelectors } from './slices/topic/selectors';
-export { aiChatSelectors } from './slices/aiChat/selectors';
-
-// 每个 slice 的 selectors.ts 都使用 xxxSelectors 模式：
-// export const chatSelectors = { ... }
-// export const topicSelectors = { ... }
-// export const aiChatSelectors = { ... }
-```
-
-## 最佳实践
-
-1. Slice 划分原则:
-   - 按功能领域划分（message, topic, aiChat 等）
-   - 每个 slice 管理相关的状态和操作
-   - 避免 slice 之间的强耦合
-
-2. 文件命名规范:
-   - 使用小驼峰命名 slice 目录
-   - 文件名使用一致的模式（action.ts, selectors.ts 等）
-   - 复杂 actions 时使用 actions/ 子目录
-
-3. 状态结构设计:
-   - 扁平化的状态结构，避免深层嵌套
-   - 使用 Map 结构管理列表数据
-   - 分离加载状态和业务数据
-
-4. 类型安全:
-   - 为每个 slice 定义清晰的 TypeScript 接口
-   - 使用 Zustand 的 StateCreator 确保类型一致性
-   - 在顶层聚合时保持类型安全
-
-这种模块化的 slice 组织方式使得大型应用的状态管理变得清晰、可维护，并且易于扩展。
+- `testing-guide/testing-guide.mdc` – Comprehensive testing guide for Vitest
+- `testing-guide/electron-ipc-test.mdc` – Electron IPC interface testing strategy
+- `testing-guide/db-model-test.mdc` – Database Model testing guide
 
 ---
 > Source: [vual/lobe-chat-pro](https://github.com/vual/lobe-chat-pro) — distributed by [TomeVault](https://tomevault.io).
