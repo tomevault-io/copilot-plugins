@@ -7,13 +7,13 @@ Some interesting AI-generated showcase pages
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [selfboot/ai_gallery](https://github.com/selfboot/ai_gallery).
+Original source: `AGENTS.md` in [selfboot/ai_gallery](https://github.com/selfboot/ai_gallery).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
