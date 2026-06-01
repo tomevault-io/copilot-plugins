@@ -1,54 +1,45 @@
-## docs-and-runbook-sync
+## english-first-engineering-workflow
 
-> When code changes affect usage, setup, behavior, operations, or developer workflow, update the relevant documentation.
+> Use English as the default language for all implementation work.
 
 
-When code changes affect usage, setup, behavior, operations, or developer workflow, update the relevant documentation.
+Use English as the default language for all implementation work.
 
-## Update docs when changes affect
+1. Use English for all engineering artifacts and execution
+- Code
+- Comments
+- Variable names, function names, class names
+- Commit messages
+- CLI commands
+- Logs
+- Error analysis
+- Tool output
+- Internal workflow notes
+- Text inside diagrams, charts, screenshots, and images produced for code or documentation
 
-- setup or installation
-- configuration or environment variables
-- API behavior
-- command usage
-- UI flows
-- operational procedures
-- architecture boundaries
-- message formats
-- testing or development workflow
-- deployment expectations
+2. Use Chinese only when interacting with me in the following cases
+- You need my decision
+- You need me to review an intermediate file, draft, or result
+- You need me to choose between options
+- You are giving me the final summary
 
-## Documentation targets may include
+3. Interaction rules
+- Do not translate implementation steps into Chinese
+- Do not write comments in Chinese
+- Do not write commit messages in Chinese
+- Do not put Chinese text inside code-related images or diagrams
+- Keep the full development workflow in English unless you are explicitly asking for my decision or review, or providing the final summary
 
-- README files
-- module-level docs
-- runbooks
-- architecture notes
-- inline examples
-- `.env.example`
-- setup instructions
-- developer guides
-- troubleshooting notes
+4. Output behavior
+- Implementation process: English
+- Requests for my decision: Chinese
+- Requests for my review: Chinese
+- Final summary: Chinese
 
-## Core rule
-
-Do not leave docs stale when the code changed in a user-visible, developer-visible, or operator-visible way.
-
-## Required behavior
-
-- update the nearest relevant documentation
-- prefer small precise documentation edits over broad rewrites
-- keep examples consistent with current behavior
-- remove or adjust outdated instructions caused by the change
-- mention new requirements and changed assumptions
-
-## If docs are not updated
-
-Be sure the omission is justified because the change is truly internal and has no effect on usage, operations, or maintenance.
-
-## Summary behavior
-
-When relevant, mention which documentation was updated or still should be updated.
+5. Priority
+If there is any conflict:
+- 中文for decision requests, review requests, and final summaries
+- English for everything else in the engineering workflow
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
