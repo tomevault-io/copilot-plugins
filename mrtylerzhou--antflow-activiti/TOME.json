@@ -1,0 +1,44 @@
+{
+  "name": "AntFlow-activiti",
+  "owner": "mrtylerzhou",
+  "repo": "AntFlow-activiti",
+  "description": "\ud83d\udc1cAntFlow is an activiti based,\ud83d\udee9\ufe0ebattle tested,enterprise grade workflow engine.It is easy to use,easy to maintenance. If you love it,please \u2b50\ufe0f it  \ud83d\udc1c AntFlow\u662f\u4e00\u6b3e\u91c7\u7528Springboot+MybatisPlus+activiti+ruoyi+vue3\u7b49\u4e3b\u6d41\u524d\u540e\u7aef\u6280\u672f\u5f00\u53d1\u7684\u4eff\u9489\u9489\u5de5\u4f5c\u6d41\u5f15\u64ce\u3002\u53ef\u4ee5\u4f5c\u4e3a\u9489\u9489\u5de5\u4f5c\u6d41\u7684\u5f00\u6e90\u66ff\u4ee3\u3002\u5982\u679c\u559c\u6b22\u8bf7\u7ed9\u9897\u2b50\ufe0f,\u4f60\u7684\u9f13\u52b1\u662f\u6211\u5728\u5f00\u6e90\u8def\u4e0a\u524d\u8fdb\u7684\u6700\u5927\u52a8\u529b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mrtylerzhou/AntFlow-activiti",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T14:14:18Z"
+}
