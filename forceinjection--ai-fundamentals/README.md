@@ -7,11 +7,11 @@ AI 基础知识 - GPU 架构、CUDA 编程、大模型基础及AI Agent 相关�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ForceInjection/AI-fundamentals](https://github.com/ForceInjection/AI-fundamentals).
+Original source: `CLAUDE.md` in [ForceInjection/AI-fundamentals](https://github.com/ForceInjection/AI-fundamentals).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
