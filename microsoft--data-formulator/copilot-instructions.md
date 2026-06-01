@@ -1,51 +1,177 @@
-## test-driven-workflow
+## unified-error-protocol
 
-> description: 测试优先开发与测试保护规则。确保新功能/Bug 修复必须有测试覆盖，测试失败时先诊断后修改。
+> Unified error handling protocol for backend and frontend
 
----
-description: 测试优先开发与测试保护规则。确保新功能/Bug 修复必须有测试覆盖，测试失败时先诊断后修改。
-globs: 
-alwaysApply: true
----
 
-# Test-Driven Workflow
+# Unified Error Protocol
 
-## 1. 测试优先：新功能 / Bug 修复必须有测试
+See `docs/dev-guides/7-unified-error-handling.md` for the full developer guide.
 
-开发新功能或修复 Bug 时，**必须同步编写测试**，不能只提交业务代码：
+## HTTP Status Code Policy
 
-- **新功能** → 先写测试（或至少同步写），描述期望行为，再实现代码使测试通过
-- **Bug 修复** → 先写复现测试，确认测试失败，再修复代码使测试通过
-- **重构** → 确保重构前已有测试覆盖，重构后测试仍然全部通过
+**All application-controlled errors return HTTP 200** with `status: "error"` in the body.
+This applies to both non-streaming JSON APIs and streaming pre-flight errors.
 
-完成实现后，主动运行相关测试验证：
-- 后端：`python -m pytest tests/backend/ -q`
-- 前端：`yarn test`
+Only these scenarios use non-200:
+- `401` — `AUTH_REQUIRED` / `AUTH_EXPIRED` (so transport layer can intercept)
+- `403` — `ACCESS_DENIED` (so transport layer can intercept)
+- `404` — Flask routing: no matching route handler
+- `413` — WSGI: request body exceeds `MAX_CONTENT_LENGTH`
+- `500` — Unhandled exception that escaped all error handling
 
-## 2. 测试保护：不要轻易修改测试代码
+**Streaming NDJSON APIs:**
+- Pre-stream validation failure: HTTP `200` + `application/json` (use `stream_preflight_error()`)
+- In-stream error: NDJSON `{"type": "error", "error": {...}}`
+- In-stream warning: NDJSON `{"type": "warning", "warning": {...}}`
 
-测试失败时，**禁止直接修改测试代码来让测试通过**。必须执行以下流程：
+## Backend: Non-streaming JSON Format
 
-1. **复现并定位**：运行失败的测试，确认失败现象
-2. **诊断分类**：
-   - A：测试本身有问题（断言错误、setup 不正确）
-   - B：业务实现有 Bug
-   - C：需求/规格变更导致测试过时
-3. **给出方案**：至少提供两个可选方案（改测试 / 改实现 / 补规格），说明各自影响和风险
-4. **等待确认**：由用户决定采用哪个方案，再执行修改
+```jsonc
+// Success (HTTP 200)
+{"status": "success", "data": {...}}
 
-**绝对禁止**：
-- 测试一红就直接改测试代码
-- 删除或跳过（`@pytest.mark.skip`）失败的测试来"解决"问题
-- 修改测试的断言值来匹配错误的实现
+// Error (HTTP 200 for business errors, 401/403 for auth errors)
+{
+    "status": "error",
+    "error": {
+        "code": "TABLE_NOT_FOUND",
+        "message": "Table not found",
+        "retry": false,
+        "detail": "..."  // Only in debug mode
+    }
+}
+```
 
-## 3. 精准修改：不动无关测试
+## Backend: Streaming NDJSON Format
 
-与 Karpathy 编码准则的"精准修改"一致：
+All streaming endpoints use `application/x-ndjson`. Each line is one JSON object:
 
-- 不"顺手改进"与当前任务无关的测试代码
-- 不重构正在通过的测试
-- 不改变已有测试的断言逻辑，除非被明确要求
+```jsonc
+{"type": "text_delta", "data": {...}}
+{"type": "error", "error": {"code": "LLM_TIMEOUT", "message": "...", "retry": true}}
+{"type": "done", "data": {...}}
+```
+
+## Backend: How to Handle Errors
+
+```python
+from data_formulator.errors import AppError, ErrorCode
+from data_formulator.error_handler import json_ok, stream_preflight_error
+from data_formulator.error_handler import stream_error_event, classify_and_wrap_llm_error
+
+# Non-streaming: success
+return json_ok(data)
+
+# Non-streaming: error (global handler returns HTTP 200, auth errors get 401/403)
+raise AppError(ErrorCode.TABLE_NOT_FOUND, "Table not found")
+
+# Streaming: pre-flight error (always HTTP 200)
+return stream_preflight_error(AppError(ErrorCode.INVALID_REQUEST, "Bad input"))
+
+# Streaming: in-stream error
+yield stream_error_event(classify_and_wrap_llm_error(e))
+```
+
+## Frontend: How to Consume APIs
+
+```typescript
+import { apiRequest, streamRequest } from '../app/apiClient';
+import { handleApiError } from '../app/errorHandler';
+
+// Non-streaming — apiRequest checks body.status (main path) and HTTP status (auth/infra)
+try {
+    const { data } = await apiRequest<MyType>(url, options);
+} catch (e) {
+    handleApiError(e, 'my-component');
+}
+
+// Streaming — streamRequest handles pre-flight JSON errors and NDJSON events
+try {
+    for await (const event of streamRequest(url, options, signal)) {
+        if (event.type === 'error') { /* handle inline */ }
+        // ...process events...
+    }
+} catch (e) {
+    handleApiError(e, 'my-component');
+}
+```
+
+API consumers MUST use `apiRequest()` / `streamRequest()` plus `handleApiError()`.
+Direct `fetchWithIdentity()` is reserved for lower-level clients and explicit protocol
+exceptions such as file downloads, blob/CSV responses, SPA/OIDC redirects, or third-party URLs.
+
+## Prohibited Patterns
+
+### Backend
+- ❌ `return jsonify({"status": "ok", "data": data})` — use `json_ok(data)` instead
+- ❌ `return jsonify({"error_message": str(e)})` — use `raise AppError(...)` instead
+- ❌ `yield json.dumps({"type": "error", "error": str(e)})` — use `stream_error_event()`
+- ❌ Bare `except:` or `except Exception: pass` — always log or propagate
+- ❌ `yield 'error: ' + json.dumps(...)` — non-standard prefix
+
+### Frontend
+- ❌ `.catch(() => {})` — either add a comment explaining why (best-effort), or use `handleApiError`
+- ❌ `.catch(console.error)` without user feedback — dispatch `addMessages` or use `handleApiError`
+- ❌ Raw `fetch()` for `/api/` URLs — use `fetchWithIdentity` (identity headers + 401 retry)
+- ❌ RTK thunk without `.rejected` handler — always add `.addCase(thunk.rejected, ...)` with `addMessages`
+- ❌ New code using `fetchWithIdentity().json()` — use `apiRequest()` instead
+
+### RTK Thunk Rejected Handler Pattern
+
+```typescript
+.addCase(myThunk.rejected, (state, action) => {
+    if (action.error?.name !== 'AbortError') {
+        state.messages.push({
+            timestamp: Date.now(), type: 'warning',
+            component: 'my-component',
+            value: 'Human-readable error description',
+        });
+    }
+})
+```
+
+## Migrated Streaming Endpoints
+
+All streaming endpoints now use `application/x-ndjson` and `stream_error_event()`:
+
+| Endpoint | Old format | New format | Status |
+|----|-----|---|-----|
+| `/data-agent-streaming` | `{status:"error", error_message}` + `application/json` | `stream_error_event()` + `application/x-ndjson` | ✅ Done |
+| `/get-recommendation-questions` | `error: {json}` prefix + `application/json` | `stream_error_event()` + `application/x-ndjson` | ✅ Done |
+| `/generate-report-chat` | `data: {json}` SSE prefix + `text/event-stream` | Pure NDJSON + `application/x-ndjson` | ✅ Done |
+| `/data-loading-chat` | `str(e)` in error field | `stream_error_event()` safe message | ✅ Done |
+| `/clean-data-stream` | `\n{json}\n` + `application/json` | `stream_error_event()` + `application/x-ndjson` | ✅ Done |
+
+## Complete ErrorCode Reference
+
+```
+AUTH_REQUIRED, AUTH_EXPIRED, ACCESS_DENIED
+INVALID_REQUEST, TABLE_NOT_FOUND, FILE_PARSE_ERROR, FILE_TOO_LARGE, VALIDATION_ERROR
+LLM_AUTH_FAILED, LLM_RATE_LIMIT, LLM_CONTEXT_TOO_LONG, LLM_MODEL_NOT_FOUND
+LLM_TIMEOUT, LLM_SERVICE_ERROR, LLM_CONTENT_FILTERED, LLM_UNKNOWN_ERROR
+DB_CONNECTION_FAILED, DB_QUERY_ERROR, DATA_LOAD_ERROR, CONNECTOR_ERROR
+CODE_EXECUTION_ERROR, AGENT_ERROR
+CATALOG_SYNC_TIMEOUT, CATALOG_NOT_FOUND, ANNOTATION_CONFLICT, ANNOTATION_INVALID_PATCH
+INTERNAL_ERROR, SERVICE_UNAVAILABLE
+```
+
+## Adding a New Error Code
+
+1. Add constant to `py-src/data_formulator/errors.py` `ErrorCode` class (no HTTP mapping needed, defaults to 200)
+2. Add i18n mapping to `src/app/errorCodes.ts` `ERROR_CODE_I18N_MAP`
+3. Add translations to `src/i18n/locales/en/errors.json` AND `zh/errors.json`
+
+## New Endpoint Checklist
+
+When adding a new API endpoint, verify:
+- [ ] Success: `json_ok(data)` → `{"status": "success", "data": ...}`, HTTP 200
+- [ ] Error: `raise AppError(...)` → HTTP 200 + error body (auth errors get 401/403)
+- [ ] Streaming pre-flight: `stream_preflight_error(...)` → HTTP 200 + `application/json`
+- [ ] Streaming in-stream: `stream_error_event(...)` via NDJSON
+- [ ] No `str(e)` in any response body
+- [ ] No naked `except:` — use specific exception types or `except Exception as e:` with logging
+- [ ] Frontend uses `apiRequest()` (non-streaming) or `streamRequest()` (streaming)
+- [ ] Error test cases assert HTTP 200 + `body.status == "error"` (auth: 401/403)
 
 ---
 > Source: [microsoft/data-formulator](https://github.com/microsoft/data-formulator) — distributed by [TomeVault](https://tomevault.io).
