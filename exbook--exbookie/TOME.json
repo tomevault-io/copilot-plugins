@@ -1,0 +1,44 @@
+{
+  "name": "ExBookie",
+  "owner": "ExBook",
+  "repo": "ExBookie",
+  "description": "\u4e00\u4e2a\u4e3a\u5236\u4f5c\u505a\u9898\u672c/\u5237\u9898\u672c\u800c\u8bbe\u8ba1\u7684 LaTex \u6587\u6863\u7c7b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ExBook/ExBookie",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T12:09:46Z"
+}
