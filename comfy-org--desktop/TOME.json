@@ -4,7 +4,7 @@
   "repo": "desktop",
   "description": "The desktop app for ComfyUI (Windows & macOS)",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Comfy-Org/desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T13:44:09Z"
+  "distributed_at": "2026-06-01T13:44:37Z"
 }
