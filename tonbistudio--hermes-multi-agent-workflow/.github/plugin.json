@@ -1,0 +1,9 @@
+{
+  "name": "tonbistudio--hermes-multi-agent-workflow",
+  "displayName": "hermes-multi-agent-workflow",
+  "description": "hermes-multi-agent-workflow",
+  "version": "1.0.0",
+  "author": "tonbistudio",
+  "homepage": "https://github.com/tonbistudio/hermes-multi-agent-workflow",
+  "skills": []
+}
