@@ -1,68 +1,34 @@
-## comments
+## naming
 
-> React component conventions for Skyroc Admin
+> Naming conventions for files, symbols, and identifiers
 
-# 组件开发规范 Component Guidelines
+# 命名约定 Naming Conventions
 
-## 通用原则
-- **函数式组件 + Hooks**：所有 UI 使用函数式组件，遵循 React 19 的写法。以箭头函数定义组件并导出（单组件默认导出，组合导出使用命名导出）。
-- **按需拆分**：优先将业务逻辑沉入 `src/features/<domain>`，页面只组织展示与组合。
-- **稳定的依赖顺序**：导入顺序建议为：React/库 → 三方 hooks → `@sa/*` 包 → `@/` 别名模块 → 相对路径资源 → 样式文件。
-- **受控 props**：Props 接口应显式声明，必要时提供 `Partial<>` 或默认值。避免在 props 上写 `any`。
+## 文件与目录
+- 目录使用 **kebab-case**：`user-center`, `global-header`, `theme-drawer`。
+- React 组件文件：`ComponentName.tsx`（PascalCase）。页面目录使用 `index.tsx`、`layout.tsx`、`loading.tsx` 等约定命名。
+- 工具、hooks、服务文件：`use-xxx.ts`, `storage.ts`, `auth.ts`，保持小写 + 连字符或驼峰，取决于仓库既有风格。
+- 类型声明：放在 `src/types/*.d.ts` 或 `src/service/types/*.d.ts`，文件名采用领域名（`auth.d.ts`, `common.d.ts`）。
 
-## 状态与副作用
-- 本地 UI 状态使用 `useState`、或 ahooks，跨组件状态抽离到 Redux slice 或 TanStack Query。
-- 异步请求推荐：
-  - 表单/按钮类操作：`useMutation`。
-  - 数据展示：`useQuery`，在 `service/hooks` 中封装共享逻辑。
-- 副作用集中在 `useEffect`/`useLayoutEffect`，需要清理时返回 cleanup。避免在组件主体内直接访问 `window`，请放到自定义 hook。
+## 代码符号
+- 组件、类、类型、接口：**PascalCase** (`SystemLogo`, `ThemeSettings`)。
+- 函数、变量、hooks：**camelCase** (`getThemeSettings`, `useAppSelector`, `setupIconifyOffline`)。
+- 常量：**SCREAMING_SNAKE_CASE** (`MAX_CACHE_COUNT`, `BACKEND_ERROR_CODE`)。
+- 枚举或联合 key：若写在对象上，可与后端保持一致（通常为 SCREAMING_SNAKE_CASE）。
 
-## 组合 UI
-- 使用 Ant Design 组件时，统一从 `antd` 导入并搭配 UnoCSS class 管理间距与布局。
-- 公共视觉效果（波浪背景、图标、翻牌数字等）收敛在 `src/components`，复用时传入语义化 props。
-- 通过 `src/components/ErrorBoundary.tsx` 和 `keepalive-for-react` 提供错误兜底与缓存。新页面若有潜在异常，请嵌入 `ErrorBoundary`。
+## 命名空间与类型
+- 接口返回类型集中在 `Api.*` 命名空间（`src/service/types`），按模块嵌套子命名空间，如 `Api.Auth.LoginParams`。
+- 前端全局类型定义在 `App.*` 命名空间（`src/types/app.d.ts`、`src/types/router.d.ts` 等）。
+- UnoCSS 主题变量使用 `App.Theme.*` 类型，保持与 `themeVars` 中的 key 同步。
 
-## 目录组织
-- 页面目录：
-  - `index.tsx` 或 `[id].tsx` 渲染核心内容。
-  - 局部子组件放在 `components/` 子目录。
-  - 页面级 hooks 放在 `hooks/` 子目录，命名 `useXxx.ts`。
-- Feature 模块：统一暴露 `index.ts`。在 `providers/`、`hooks/`、`components/` 等子目录中组织资源，避免跨域引用内部实现细节。
+## 国际化 key
+- 路由、菜单：`route.xxx`，与 `BaseChildrenRoutes` / 菜单 JSON 对齐。
+- 页面文本：`page.xxx`、`common.xxx` 等。新增 key 时需同步更新所有语言文件。
 
-## 示例
-```tsx
-import { Card } from 'antd';
-import { motion } from 'motion/react';
-import { useTranslation } from 'react-i18next';
-
-import { useAppSelector } from '@/hooks/business/useStore';
-import { getThemeSettings } from '@/features/theme';
-
-interface OverviewCardProps {
-  icon: string;
-  titleKey: string;
-  value: number;
-}
-
-const OverviewCard = ({ icon, titleKey, value }: OverviewCardProps) => {
-  const { t } = useTranslation();
-  const theme = useAppSelector(getThemeSettings);
-
-  return (
-    <Card className="flex flex-col gap-12px">
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <Icon icon={icon} className="text-icon" style={{ color: theme.themeColor }} />
-        <p className="text-16px font-500">{t(titleKey)}</p>
-        <span className="text-24px font-600">{value}</span>
-      </motion.div>
-    </Card>
-  );
-};
-
-export default OverviewCard;
-```
-
-该示例体现了：类型声明、路径别名、UnoCSS 类与动画库协同的推荐写法。
+## 其它约束
+- API URL 枚举放在 `src/service/urls.ts`（或同目录文件）中，常量使用 `PascalCase` + `URLS` 后缀，例如 `AUTH_URLS`。
+- Query key 常量集中在 `src/service/keys.ts`，以 `QUERY_KEYS` 根对象 + 模块命名。
+- CSS 变量命名遵循 `--color-name`，UnoCSS shortcut 使用 `kebab-case`。
 
 ---
 > Source: [Ohh-889/skyroc-admin](https://github.com/Ohh-889/skyroc-admin) — distributed by [TomeVault](https://tomevault.io).
