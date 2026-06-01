@@ -1,114 +1,37 @@
-## integration-testing
+## playwright
 
-> Integration testing guide for ComfyUI Desktop
+> Playwright End-to-End Testing
 
 
-# Integration Testing Guide
+# Playwright End-to-End Testing
 
-This document provides quick reference for writing integration tests. For complete details, refer to [README.md](mdc:tests/integration/README.md).
+- This project uses `Playwright` for end-to-end testing
+- Tests are stored in subdirectories of `tests/integration/`
+- Directory structure of `tests/integration/` is based on the test phase the tests
+- Tests should use the convenience methods and properties defined in the helper classes
+  - Prefer adding properties to test classes over using locator selectors directly in tests
+  - Test classes are stored in the `tests/integrations` directory
+- Tests should be cross-platform compatible; able to run on Windows, macOS, and linux
+  - e.g. the use of `path.join` and `path.sep` to ensure tests work the same on all platforms
 
-## Quick Start
+## Test phases (Playwright projects)
 
-- Framework: Playwright + TypeScript for Electron testing
-- Location: `/tests/integration/`
-- Environment: Requires `COMFYUI_ENABLE_VOLATILE_TESTS=1` or CI environment
-- Import fixtures from `testExtensions.ts`, not raw Playwright
+1. `install`: The install phase resets the entire test environment after each test.
+2. `post-install-setup`: Installs the app with default settings, creating a baseline for each test in the next phase (`post-install`)
+3. `post-install`: Tests post-install features of the desktop app, with each test starting from the state set in `post-install-setup`
 
-## Test Projects
+## Spec files: \*.spec.ts
 
-- `install`: Fresh install tests (no pre-existing state)
-- `post-install-setup`: Sets up an installed app state
-- `post-install`: Tests requiring an installed app
-- `post-install-teardown`: Cleanup after post-install tests
+- Prefer imports from [testExtensions.ts](mdc:tests/integration/testExtensions.ts) over playwright defaults.
 
-## Available Fixtures
+## Snapshots
 
-```typescript
-import { expect, test } from '../testExtensions';
+- Update E2E snapshots with `yarn test:e2e:update`
 
-// Core fixtures
-app: TestApp                    // Electron application
-window: Page                    // Main Playwright page
+## Test helper classes: tests/integration/test\*.ts
 
-// UI Component fixtures  
-installWizard: TestInstallWizard
-serverStart: TestServerStart
-installedApp: TestInstalledApp
-troubleshooting: TestTroubleshooting
-graphCanvas: TestGraphCanvas
-
-// Utility
-attachScreenshot: (name) => Promise<void>
-```
-
-## Common Patterns
-
-### Basic Test Structure
-```typescript
-import { expect, test } from '../testExtensions';
-
-test('should do something', async ({ window, installWizard }) => {
-  await installWizard.clickGetStarted();
-  await expect(window).toHaveScreenshot('screenshot.png');
-});
-```
-
-### Simulating Failures
-```typescript
-// TestEnvironment provides error simulation
-await app.testEnvironment.breakInstallPath();
-await app.testEnvironment.breakVenv();
-await app.testEnvironment.breakServerStart();
-// All automatically restored after test
-```
-
-### Mocking Native Dialogs
-```typescript
-await app.app.evaluate((electron, path) => {
-  electron.dialog.showOpenDialog = async () => ({
-    canceled: false,
-    filePaths: [path]
-  });
-}, selectedPath);
-```
-
-## Key Classes
-
-- `TestApp`: Manages Electron process and test environment
-- `TestEnvironment`: File system state and error simulation
-- `TestInstallWizard`: Installation flow navigation
-- `TestInstalledApp`: Post-install app state
-- `TestServerStart`: Server startup monitoring
-- `TestTroubleshooting`: Error recovery UI
-
-## Running Tests
-
-```bash
-# Set environment variable
-export COMFYUI_ENABLE_VOLATILE_TESTS=1
-
-# Run all integration tests
-yarn test:e2e
-
-# Run specific test
-yarn playwright test tests/integration/install/installWizard.spec.ts
-
-# Update screenshots
-yarn test:e2e:update
-```
-
-## Best Practices
-
-1. Always import from `testExtensions`, not raw Playwright
-2. Use fixture classes instead of raw locators
-3. Leverage TestEnvironment for state manipulation
-4. Trust auto-cleanup via Symbol.asyncDispose
-5. Mark slow tests with `test.slow()`
-6. Add screenshots for visual regression
-7. Mock native dialogs when needed
-8. Check CI behavior with `process.env.CI`
-
-For complete documentation including all test classes, methods, and detailed examples, see [README.md](mdc:tests/integration/README.md).
+- These files contain clean methods and properties for use in spec files
+- Use of these classes is preferred whenever possible, as they make the code easier to read
 
 ---
 > Source: [Comfy-Org/desktop](https://github.com/Comfy-Org/desktop) — distributed by [TomeVault](https://tomevault.io).
