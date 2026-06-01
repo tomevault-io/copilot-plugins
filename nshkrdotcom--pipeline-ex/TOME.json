@@ -4,7 +4,7 @@
   "repo": "pipeline_ex",
   "description": "Claude Code + Gemini AI collaboration orchestration tools",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nshkrdotcom/pipeline_ex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T00:32:55Z"
+  "distributed_at": "2026-06-01T00:33:26Z"
 }
