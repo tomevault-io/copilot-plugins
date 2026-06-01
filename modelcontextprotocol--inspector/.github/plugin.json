@@ -1,0 +1,9 @@
+{
+  "name": "modelcontextprotocol--inspector",
+  "displayName": "inspector",
+  "description": "Visual testing tool for MCP servers",
+  "version": "1.0.0",
+  "author": "modelcontextprotocol",
+  "homepage": "https://github.com/modelcontextprotocol/inspector",
+  "skills": []
+}
