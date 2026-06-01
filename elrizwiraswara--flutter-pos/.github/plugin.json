@@ -1,0 +1,9 @@
+{
+  "name": "elrizwiraswara--flutter-pos",
+  "displayName": "flutter_pos",
+  "description": "A Point of Sale (POS) application built with Flutter, demonstrating Clean Architecture principles and offline-first design patterns.",
+  "version": "1.0.0",
+  "author": "elrizwiraswara",
+  "homepage": "https://github.com/elrizwiraswara/flutter_pos",
+  "skills": []
+}
