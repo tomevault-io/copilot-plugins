@@ -4,7 +4,7 @@
   "repo": "Daemon",
   "description": "An open-source personal API framework.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danielmiessler/Daemon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T07:39:34Z"
+  "distributed_at": "2026-06-01T07:49:11Z"
 }
