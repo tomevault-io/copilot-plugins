@@ -1,0 +1,9 @@
+{
+  "name": "codebuffai--codebuff",
+  "displayName": "codebuff",
+  "description": "Generate code from the terminal!",
+  "version": "1.0.0",
+  "author": "CodebuffAI",
+  "homepage": "https://github.com/CodebuffAI/codebuff",
+  "skills": []
+}
