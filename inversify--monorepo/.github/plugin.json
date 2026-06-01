@@ -1,0 +1,9 @@
+{
+  "name": "inversify--monorepo",
+  "displayName": "monorepo",
+  "description": "A powerful and lightweight inversion of control container for JavaScript & Node.js apps powered by TypeScript.",
+  "version": "1.0.0",
+  "author": "inversify",
+  "homepage": "https://github.com/inversify/monorepo",
+  "skills": []
+}
