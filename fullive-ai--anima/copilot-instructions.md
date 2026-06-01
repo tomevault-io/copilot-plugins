@@ -1,14 +1,14 @@
-## open-source-contribution-workflow
+## pull-request-readiness-and-reviewer-hygiene
 
-> Work as if the repository is maintained in public.
+> Make every meaningful change PR-ready.
 
 
-Work as if the repository is maintained in public.
+Make every meaningful change PR-ready.
 
-Keep changes understandable, testable, documented, and easy for contributors to follow.
-Do not rely on hidden local knowledge or conversation-only context.
+Keep diffs focused, avoid unrelated churn, and optimize for reviewer clarity.
+Include relevant validation, tests, and documentation updates when behavior changes.
 
-If a workflow, setup step, or behavior changes, update the relevant contributor-facing documentation.
+Prefer small, easy-to-review change sets over large mixed diffs.
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
