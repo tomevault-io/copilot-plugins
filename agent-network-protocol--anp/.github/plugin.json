@@ -1,0 +1,9 @@
+{
+  "name": "agent-network-protocol--anp",
+  "displayName": "anp",
+  "description": "Our vision is to provide communication capabilities for intelligent agents, allowing them to connect with each other to form a collaborative network of intelligent agents.",
+  "version": "1.0.0",
+  "author": "agent-network-protocol",
+  "homepage": "https://github.com/agent-network-protocol/anp",
+  "skills": []
+}
