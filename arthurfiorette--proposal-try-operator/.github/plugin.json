@@ -1,0 +1,9 @@
+{
+  "name": "arthurfiorette--proposal-try-operator",
+  "displayName": "proposal-try-operator",
+  "description": "A proposal to bring ergonomic, inline error handling to JavaScript through a new try operator that always returns a Result.",
+  "version": "1.0.0",
+  "author": "arthurfiorette",
+  "homepage": "https://github.com/arthurfiorette/proposal-try-operator",
+  "skills": []
+}
