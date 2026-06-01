@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-social-login",
+  "displayName": "capacitor-social-login",
+  "description": "Capacitor plugin to make login with Google,Apple,Facebook and so on, simple and fast to implement",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-social-login",
+  "skills": []
+}
