@@ -1,0 +1,9 @@
+{
+  "name": "marmot-protocol--whitenoise-rs",
+  "displayName": "whitenoise-rs",
+  "description": "The Rust brain for the White Noise app",
+  "version": "1.0.0",
+  "author": "marmot-protocol",
+  "homepage": "https://github.com/marmot-protocol/whitenoise-rs",
+  "skills": []
+}
