@@ -1,149 +1,51 @@
-## event-model-rules
+## general-coding-rules
 
-> Rules and best practices for working with the event model in @gravity-ui/graph (Based on docs/system/events.md and docs/react/usage.md)
+> General coding rules and best practices for @gravity-ui/graph
 
-## Event System Overview
-The event system allows communication between different parts of the graph.
-The primary event hub is the main **`Graph` instance**. Events related to specific components (like blocks or connections) are also typically emitted by the main `Graph` instance, carrying information about the target component in the event detail.
 
-The system uses **`CustomEvent`**, and interaction follows a `.on`/`.off`/`.emit` pattern on the `Graph` instance.
+## Type Safety
 
-## Key Concepts
-- **Event Emitter:** The main `Graph` instance is the primary emitter.
-- **Event Object:** Instances of `CustomEvent`. Data is in **`event.detail`**.
-- **Target Component:** For interaction events (e.g., `block:select`, `click`), `event.detail.target` often references the specific `GraphComponent` interacted with.
-- **Source Event:** `event.detail.sourceEvent` may contain the original low-level DOM/Canvas event.
-- **Event Types:** String names. See `docs/system/events.md` for a list.
-- **Subscription API (Core):** Uses **`graph.on(event, callback, options)`**.
-- **Unsubscription API (Core):** Uses **`graph.off(event, callback)`**. **Crucial for cleanup.**
-- **Control Flow:** Standard `event.preventDefault()` and `event.stopPropagation()` can be used on the `CustomEvent` object.
+### Avoid `any` Type
+- **Never use the `any` type** in your code. Instead:
+  - Use specific types whenever possible (e.g., `MouseEvent`, `KeyboardEvent`, `HTMLElement`)
+  - Use `void` for function return types when the function doesn't return a value
+  - Use `unknown` only as a last resort when the type is truly unpredictable
+  - Implement appropriate interfaces (e.g., `EventListenerObject`) instead of type casting
+  - Use generics to create flexible but type-safe APIs
 
-## Working with Events
+### Type Casting
+- Avoid type casting with `as any`
+- If type casting is necessary, use `as unknown as TargetType` to make the cast more explicit and safer
+- Prefer type guards (`instanceof`, `typeof`, custom type predicates) over type casting
 
-### 1. Subscribing to Graph Events (Core API)
-   - **How:** Use the main `Graph` instance.
-   - **API:** `graph.on(eventName, callback, options)`.
-   - **Context:** Access the graph instance via `this.context.graph` in non-React components.
-   - **Use Case:** Reacting to global changes or interactions outside of React components. Remember to manage unsubscription manually (e.g., in `unmount`).
-   ```typescript
-   // Example: Global camera update listener in a non-React component
-   const unsubscribeCamera = this.context.graph.on('camera:update', (event: CustomEvent</* TCameraState */>) => {
-     const cameraState = event.detail;
-     console.log('Camera moved:', cameraState);
-   });
-   // In unmount(): if (unsubscribeCamera) unsubscribeCamera();
-   ```
+## Code Quality
 
-### 2. Handling Events in React (`<GraphCanvas>` wrapper)
-   - **Obtaining the Graph Instance:** Within React components, the `Graph` instance needed for event handling (especially with `useGraphEvent`) is typically obtained using the **`useGraph()`** hook: `const { graph } = useGraph(config);`.
-   - **Method A (Recommended): `useGraphEvent` Hook:** The primary way to listen to graph events within React function components.
-     - **Requires:** The `graph` instance obtained from `useGraph()`.
-     - **Pros:** Automatically handles subscription/unsubscription; provides `detail` and `event` objects.
-     - **Cons:** Only usable within React function components.
-     ```jsx
-     import { useGraph, useGraphEvent, GraphCanvas } from '@gravity-ui/graph';
+### Function Return Types
+- Always specify return types for functions
+- Use `void` for functions that don't return a value
+- Be explicit about nullable return types (e.g., `string | null`)
 
-     function MyReactComponent() {
-       const { graph } = useGraph(/* config */);
+### Error Handling
+- Use specific error types instead of generic `Error`
+- Provide meaningful error messages
+- Handle errors at the appropriate level
 
-       useGraphEvent(graph, 'block:select', (detail, event) => {
-         console.log('React Hook: Block selected:', detail.target?.id);
-       });
+### Documentation
+- Document public APIs with JSDoc comments
+- Include parameter descriptions and return type descriptions
+- Document complex logic with inline comments
 
-       // ... other useGraphEvent calls
+## Performance
 
-       return <GraphCanvas graph={graph} /* ... */ />;
-     }
-     ```
-   - **Method B: `onEventName` Props:** Use dedicated props on **`<GraphCanvas>`** for common, predefined events.
-     - **Requires:** Passing the `graph` instance to `<GraphCanvas>`.
-     - **Pros:** Declarative, simple for common cases.
-     - **Cons:** Limited to the specific events exposed as props.
-     ```jsx
-     import { GraphCanvas } from '@gravity-ui/graph';
+### Event Handlers
+- Keep event handlers lightweight
+- Debounce or throttle handlers for frequent events (resize, scroll, mousemove)
+- Clean up event listeners when components are unmounted
 
-     // ... assume graph instance is available
-
-     <GraphCanvas
-       graph={graph}
-       onBlockSelectionChange={(event: CustomEvent<SelectionEvent<TBlockId>>) => {
-         console.log('React Prop: Blocks selected:', event.detail.list);
-       }}
-       // ... other props
-     />
-     ```
-
-### General Best Practices
-- **Prioritize `useGraphEvent`:** In React, prefer the hook for its robustness and lifecycle management.
-- **Always Unsubscribe (Core API):** If using `graph.on` directly (outside React hooks), ensure cleanup with `graph.off()`.
-- **Use `event.detail`:** Access event-specific data here.
-- **Check `event.detail.target`:** Identify the specific component involved.
-- **Emit Custom Events:** Use `graph.emit(...)` to broadcast custom global events.
-- **Performance:** Avoid heavy logic in listeners.
-
-## Preferred Event Subscription Pattern
-
-### Using AbortController
-When implementing event subscriptions in this project:
-
-1. **Prefer AbortController over manual unsubscribe functions**
-   - Use the AbortController pattern for managing event listeners
-   - Pass the abort signal to all `graph.on()` calls and DOM event listeners
-   - This ensures proper cleanup and prevents memory leaks
-   - Example:
-     ```typescript
-     // Preferred approach
-     const controller = new AbortController();
-     graph.on("event-name", handler, { signal: controller.signal });
-     
-     // Later, to clean up:
-     controller.abort();
-     
-     // Instead of:
-     const unsubscribe = graph.on("event-name", handler);
-     // Later:
-     unsubscribe();
-     ```
-
-2. **In Layer classes**
-   - Use the built-in `eventAbortController` for all event subscriptions
-   - Always use the wrapper methods (`onGraphEvent`, `onHtmlEvent`, `onCanvasEvent`, `onRootEvent`) in the `afterInit()` method, NOT in the constructor
-   - This ensures that event subscriptions are properly set up when the layer is reattached
-   - When a layer is unmounted, the AbortController is aborted and a new one is created
-   - When the layer is reattached, afterInit() is called again, which sets up new subscriptions
-   - Call `super.afterInit()` at the end of your `afterInit()` method
-   - Call `super.unmount()` in the `unmount` method to ensure proper cleanup
-   - No need to manually remove event listeners in the `unmount` method
-   - Example:
-     ```typescript
-     export class MyLayer extends Layer {
-       constructor(props) {
-         super(props);
-         // Initialize properties, but DO NOT register event listeners here
-       }
-       
-       protected afterInit(): void {
-         // Register graph events with the onGraphEvent wrapper method
-         this.onGraphEvent("camera-change", this.handleCameraChange);
-         
-         // Register DOM events with the appropriate wrapper methods
-         if (this.canvas) {
-           this.onCanvasEvent("mousedown", this.handleMouseDown);
-         }
-         
-         if (this.html) {
-           this.onHtmlEvent("click", this.handleHtmlClick);
-         }
-         
-         if (this.root) {
-           this.onRootEvent("keydown", this.handleRootKeyDown);
-         }
-         
-         // Always call super.afterInit() at the end
-         super.afterInit();
-       }
-     }
-     ```
+### Memory Management
+- Avoid memory leaks by properly cleaning up resources
+- Use AbortController for managing event listeners
+- Unsubscribe from subscriptions when components are unmounted
 
 ---
 > Source: [gravity-ui/graph](https://github.com/gravity-ui/graph) — distributed by [TomeVault](https://tomevault.io).
