@@ -4,7 +4,7 @@
   "repo": "dstack",
   "description": "Open framework for confidential AI",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Dstack-TEE/dstack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T09:32:54Z"
+  "distributed_at": "2026-06-01T09:50:10Z"
 }
