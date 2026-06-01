@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--cuda-q-academic",
+  "displayName": "cuda-q-academic",
+  "description": "This repo contains CUDA-Q Academic materials, including self-paced Jupyter notebook modules for building and optimizing hybrid quantum-classical algorithms using CUDA-Q.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/cuda-q-academic",
+  "skills": []
+}
