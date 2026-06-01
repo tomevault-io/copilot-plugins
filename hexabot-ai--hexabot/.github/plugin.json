@@ -1,0 +1,9 @@
+{
+  "name": "hexabot-ai--hexabot",
+  "displayName": "Hexabot",
+  "description": "Hexabot v3 is an AI automation platform, combining workflows, actions, agents, and conversational channels in one runtime.",
+  "version": "1.0.0",
+  "author": "hexabot-ai",
+  "homepage": "https://github.com/hexabot-ai/Hexabot",
+  "skills": []
+}
