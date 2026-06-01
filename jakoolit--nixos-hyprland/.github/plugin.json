@@ -1,0 +1,9 @@
+{
+  "name": "jakoolit--nixos-hyprland",
+  "displayName": "NixOS-Hyprland",
+  "description": "To Automate Installation of Hyprland on NixOS using flakes. NOTE: Dot configs are not written in Nix.",
+  "version": "1.0.0",
+  "author": "JaKooLit",
+  "homepage": "https://github.com/JaKooLit/NixOS-Hyprland",
+  "skills": []
+}
