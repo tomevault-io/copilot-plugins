@@ -1,0 +1,9 @@
+{
+  "name": "2fastlabs--agent-squad",
+  "displayName": "agent-squad",
+  "description": "Flexible and powerful framework for managing multiple AI agents and handling complex conversations",
+  "version": "1.0.0",
+  "author": "2FastLabs",
+  "homepage": "https://github.com/2FastLabs/agent-squad",
+  "skills": []
+}
