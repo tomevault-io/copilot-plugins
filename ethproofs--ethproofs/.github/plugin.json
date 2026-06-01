@@ -1,0 +1,9 @@
+{
+  "name": "ethproofs--ethproofs",
+  "displayName": "ethproofs",
+  "description": "the race to mainnet-grade L1 zkEVMs",
+  "version": "1.0.0",
+  "author": "ethproofs",
+  "homepage": "https://github.com/ethproofs/ethproofs",
+  "skills": []
+}
