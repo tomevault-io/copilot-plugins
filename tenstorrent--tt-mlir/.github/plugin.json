@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--tt-mlir",
+  "displayName": "tt-mlir",
+  "description": "Tenstorrent MLIR compiler",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-mlir",
+  "skills": []
+}
