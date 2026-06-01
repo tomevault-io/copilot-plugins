@@ -1,0 +1,9 @@
+{
+  "name": "togatoga--karukan",
+  "displayName": "karukan",
+  "description": "Japanese Input Method System for Linux, Neural Kana-Kanji Conversion Engine + fcitx5 IME",
+  "version": "1.0.0",
+  "author": "togatoga",
+  "homepage": "https://github.com/togatoga/karukan",
+  "skills": []
+}
