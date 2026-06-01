@@ -1,0 +1,9 @@
+{
+  "name": "olesyastorchakprojects--thinking-memory-hub",
+  "displayName": "thinking_memory_hub",
+  "description": "MCP-based memory server and LangGraph backend for note storage, search, and messenger integrations.",
+  "version": "1.0.0",
+  "author": "olesyastorchakprojects",
+  "homepage": "https://github.com/olesyastorchakprojects/thinking_memory_hub",
+  "skills": []
+}
