@@ -171849,6 +171849,31 @@
       "description": "A free platform for managing sports teams, leagues, and clubs. Simplify your season with tools for rostering, scheduling, and communication. Docs: https://openleague.dev/"
     },
     {
+      "name": "geo-ff--make-it-real",
+      "source": "./geo-ff--make-it-real",
+      "description": "A portable AI-agent skill that turns rough ideas into project specs, delivery scopes, and task handoffs."
+    },
+    {
+      "name": "yanhanruan--mutsumi",
+      "source": "./yanhanruan--mutsumi",
+      "description": "Mutsumi"
+    },
+    {
+      "name": "geo-ff--make-it-real",
+      "source": "./geo-ff--make-it-real",
+      "description": "A portable AI-agent skill that turns rough ideas into project specs, delivery scopes, and task handoffs."
+    },
+    {
+      "name": "geo-ff--make-it-real",
+      "source": "./geo-ff--make-it-real",
+      "description": "A portable AI-agent skill that turns rough ideas into project specs, delivery scopes, and task handoffs."
+    },
+    {
+      "name": "y-sunflower--ninejs",
+      "source": "./y-sunflower--ninejs",
+      "description": "Bringing \u2728interactivity\u2728 to plotnine"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -184052,6 +184077,11 @@
       "name": "sepehrbayat--sepcc",
       "source": "./sepehrbayat--sepcc",
       "description": "SEPCC \u2014 A Claude Code proxy with context that survives. Route Claude Code through 17+ providers, resume sessions across restarts, and never lose your place. Fork of Free Claude Code."
+    },
+    {
+      "name": "ffffhx--codex-snapshots",
+      "source": "./ffffhx--codex-snapshots",
+      "description": "codex-snapshots"
     },
     {
       "name": "cheerhuan--save-your-token",
