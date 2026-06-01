@@ -4,7 +4,7 @@
   "repo": "nimara-ecommerce",
   "description": "Headless, composable ecommerce storefront built with Next.js, Typescript, and shadcn/ui.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mirumee/nimara-ecommerce",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T09:41:26Z"
+  "distributed_at": "2026-06-01T10:06:00Z"
 }
