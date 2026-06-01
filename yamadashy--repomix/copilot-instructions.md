@@ -1,4 +1,4 @@
-## base
+## repomix
 
 > Core project guidelines for the Repomix codebase. Apply these rules when working on any code, documentation, or configuration files within the Repomix project.
 
