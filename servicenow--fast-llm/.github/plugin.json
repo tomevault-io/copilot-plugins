@@ -1,0 +1,9 @@
+{
+  "name": "servicenow--fast-llm",
+  "displayName": "Fast-LLM",
+  "description": "Accelerating your LLM training to full speed! Made with \u2764\ufe0f by ServiceNow Research",
+  "version": "1.0.0",
+  "author": "ServiceNow",
+  "homepage": "https://github.com/ServiceNow/Fast-LLM",
+  "skills": []
+}
