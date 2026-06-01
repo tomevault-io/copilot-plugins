@@ -1,0 +1,9 @@
+{
+  "name": "olyaiy--resume-lm",
+  "displayName": "resume-lm",
+  "description": "Open-source AI resume builder \u2022 Next.js 15, React 19, Tailwind CSS \u2022 Tailor job-ready resumes in minutes.",
+  "version": "1.0.0",
+  "author": "olyaiy",
+  "homepage": "https://github.com/olyaiy/resume-lm",
+  "skills": []
+}
