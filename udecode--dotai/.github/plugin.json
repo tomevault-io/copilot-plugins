@@ -1,0 +1,9 @@
+{
+  "name": "udecode--dotai",
+  "displayName": "dotai",
+  "description": "Context manager for all agents",
+  "version": "1.0.0",
+  "author": "udecode",
+  "homepage": "https://github.com/udecode/dotai",
+  "skills": []
+}
