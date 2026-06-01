@@ -7,11 +7,11 @@ Aranya user library, daemon, and policy code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [aranya-project/aranya](https://github.com/aranya-project/aranya).
+Original source: `AGENTS.md` in [aranya-project/aranya](https://github.com/aranya-project/aranya).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
