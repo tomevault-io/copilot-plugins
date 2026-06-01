@@ -1,0 +1,9 @@
+{
+  "name": "6kmfi6hp--edtunnel",
+  "displayName": "EDtunnel",
+  "description": "EDtunnel \u662f\u4e00\u4e2a\u57fa\u4e8e Cloudflare Workers \u548c Pages \u7684\u4ee3\u7406\u5de5\u5177\uff0c\u652f\u6301\u591a\u79cd\u534f\u8bae\u548c\u914d\u7f6e\u9009\u9879\u3002  EDtunnel is a proxy tool based on Cloudflare Workers and Pages, supporting multiple protocols and configuration options.",
+  "version": "1.0.0",
+  "author": "6Kmfi6HP",
+  "homepage": "https://github.com/6Kmfi6HP/EDtunnel",
+  "skills": []
+}
