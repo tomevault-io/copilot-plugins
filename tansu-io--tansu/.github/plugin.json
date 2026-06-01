@@ -1,0 +1,9 @@
+{
+  "name": "tansu-io--tansu",
+  "displayName": "tansu",
+  "description": "Apache Kafka\u00ae compatible broker with S3, PostgreSQL, SQLite, Apache Iceberg and Delta Lake",
+  "version": "1.0.0",
+  "author": "tansu-io",
+  "homepage": "https://github.com/tansu-io/tansu",
+  "skills": []
+}
