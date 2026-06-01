@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-nemo--run",
+  "displayName": "Run",
+  "description": "A tool to configure, launch and manage your machine learning experiments.",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/Run",
+  "skills": []
+}
