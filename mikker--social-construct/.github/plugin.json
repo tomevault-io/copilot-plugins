@@ -1,0 +1,9 @@
+{
+  "name": "mikker--social-construct",
+  "displayName": "social_construct",
+  "description": "Generate social sharing images directly in your Rails app",
+  "version": "1.0.0",
+  "author": "mikker",
+  "homepage": "https://github.com/mikker/social_construct",
+  "skills": []
+}
