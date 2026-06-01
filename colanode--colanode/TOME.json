@@ -4,7 +4,7 @@
   "repo": "colanode",
   "description": "Open-source and local-first Slack and Notion alternative that puts you in control of your data",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/colanode/colanode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T17:44:15Z"
+  "distributed_at": "2026-06-01T17:50:37Z"
 }
