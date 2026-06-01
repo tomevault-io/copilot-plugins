@@ -2,9 +2,9 @@
   "name": "harbor",
   "owner": "av",
   "repo": "harbor",
-  "description": "",
+  "description": "Stop configuring your AI stack. Start using it. One command brings a complete pre-wired LLM stack with hundreds of services to explore.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/av",
+  "source_url": "https://github.com/av/harbor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T22:02:47Z"
+  "distributed_at": "2026-06-01T17:48:52Z"
 }
