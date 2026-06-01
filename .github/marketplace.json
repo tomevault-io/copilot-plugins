@@ -1349,6 +1349,11 @@
       "description": "The most powerful local music generation model that outperforms almost all commercial alternatives, supporting Mac, AMD, Intel, and CUDA devices."
     },
     {
+      "name": "modelcontextprotocol--inspector",
+      "source": "./modelcontextprotocol--inspector",
+      "description": "Visual testing tool for MCP servers"
+    },
+    {
       "name": "vectorize-io--hindsight",
       "source": "./vectorize-io--hindsight",
       "description": "Hindsight: Agent Memory That  Learns"
@@ -1502,6 +1507,16 @@
       "name": "moonshotai--kimi-cli",
       "source": "./moonshotai--kimi-cli",
       "description": "Kimi Code CLI is your next CLI agent."
+    },
+    {
+      "name": "modelcontextprotocol--modelcontextprotocol",
+      "source": "./modelcontextprotocol--modelcontextprotocol",
+      "description": "Specification and\u00a0documentation for the Model Context Protocol"
+    },
+    {
+      "name": "modelcontextprotocol--modelcontextprotocol",
+      "source": "./modelcontextprotocol--modelcontextprotocol",
+      "description": "Specification and\u00a0documentation for the Model Context Protocol"
     },
     {
       "name": "larksuite--cli",
@@ -1862,6 +1877,11 @@
       "name": "superdesigndev--superdesign",
       "source": "./superdesigndev--superdesign",
       "description": "AI Product Design Agent - Open Source"
+    },
+    {
+      "name": "superradcompany--microsandbox",
+      "source": "./superradcompany--microsandbox",
+      "description": "\ud83e\uddf1 secure, local and programmable sandboxes for AI agents"
     },
     {
       "name": "composiohq--agent-orchestrator",
@@ -2227,6 +2247,11 @@
       "name": "sohzm--cheating-daddy",
       "source": "./sohzm--cheating-daddy",
       "description": "a free and opensource app that lets you gain an unfair advantage"
+    },
+    {
+      "name": "serafimcloud--21st",
+      "source": "./serafimcloud--21st",
+      "description": "npm for design engineers: largest marketplace of shadcn/ui-based React Tailwind components, blocks and hooks"
     },
     {
       "name": "sooperset--mcp-atlassian",
@@ -2637,6 +2662,11 @@
       "name": "openai--harmony",
       "source": "./openai--harmony",
       "description": "Renderer for the harmony response format to be used with gpt-oss"
+    },
+    {
+      "name": "mostlygeek--llama-swap",
+      "source": "./mostlygeek--llama-swap",
+      "description": "Reliable model swapping for any local OpenAI/Anthropic compatible server - llama.cpp, vllm, etc"
     },
     {
       "name": "pgdogdev--pgdog",
@@ -3857,6 +3887,16 @@
       "name": "spring-ai-alibaba--examples",
       "source": "./spring-ai-alibaba--examples",
       "description": "Examples demonstrating usage of Spring AI & Spring AI Alibaba \ud83d\udcdc"
+    },
+    {
+      "name": "zly2006--zhihu-plus-plus",
+      "source": "./zly2006--zhihu-plus-plus",
+      "description": "Zhihu++ | \u77e5\u4e4e++: Ad-free, low cost, AI powered zhihu android 3rd-party client. \u53bb\u5e7f\u544a\u3001\u5360\u7528\u4f4e\u3001AI\u5927\u6a21\u578b\u7684\u65b0\u65f6\u4ee3\u77e5\u4e4e\u5b89\u5353\u7aef\u4f53\u9a8c"
+    },
+    {
+      "name": "zly2006--zhihu-plus-plus",
+      "source": "./zly2006--zhihu-plus-plus",
+      "description": "Zhihu++ | \u77e5\u4e4e++: Ad-free, low cost, AI powered zhihu android 3rd-party client. \u53bb\u5e7f\u544a\u3001\u5360\u7528\u4f4e\u3001AI\u5927\u6a21\u578b\u7684\u65b0\u65f6\u4ee3\u77e5\u4e4e\u5b89\u5353\u7aef\u4f53\u9a8c"
     },
     {
       "name": "coder--claudecode-nvim",
@@ -5394,6 +5434,11 @@
       "description": "My own collection of skills for modern Node.js development"
     },
     {
+      "name": "nvlabs--protomotions",
+      "source": "./nvlabs--protomotions",
+      "description": "ProtoMotions is a GPU-accelerated simulation and learning framework for training physically simulated digital humans and humanoid robots."
+    },
+    {
       "name": "sendaifun--solana-agent-kit",
       "source": "./sendaifun--solana-agent-kit",
       "description": "connect any ai agents to solana protocols"
@@ -5662,6 +5707,11 @@
       "name": "jdx--fnox",
       "source": "./jdx--fnox",
       "description": "encrypted/remote secret manager"
+    },
+    {
+      "name": "templui--templui",
+      "source": "./templui--templui",
+      "description": "A growing collection of beautifully designed UI components for Go and templ. Install via CLI. Customize everything. Own your code."
     },
     {
       "name": "kartiklabhshetwar--better-shot",
@@ -6292,6 +6342,11 @@
       "name": "lightricks--ltx-desktop",
       "source": "./lightricks--ltx-desktop",
       "description": "An open-source desktop app for generating videos with LTX models"
+    },
+    {
+      "name": "callstack--react-native-bottom-tabs",
+      "source": "./callstack--react-native-bottom-tabs",
+      "description": "Native Bottom Tabs for React Native"
     },
     {
       "name": "limecloud--lime",
@@ -10249,6 +10304,11 @@
       "description": "Claude Code Emacs integration"
     },
     {
+      "name": "steve02081504--fount",
+      "source": "./steve02081504--fount",
+      "description": "\u26f2Imagination, Given Voice.\u2728"
+    },
+    {
       "name": "promtengineer--agentic-file-search",
       "source": "./promtengineer--agentic-file-search",
       "description": "agentic-file-search"
@@ -10939,6 +10999,26 @@
       "description": "Research projects"
     },
     {
+      "name": "viewcomfy--viewcomfy",
+      "source": "./viewcomfy--viewcomfy",
+      "description": "ViewComfy is a open source tool to help you create beautiful web apps from ComfyUI"
+    },
+    {
+      "name": "viewcomfy--viewcomfy",
+      "source": "./viewcomfy--viewcomfy",
+      "description": "ViewComfy is a open source tool to help you create beautiful web apps from ComfyUI"
+    },
+    {
+      "name": "viewcomfy--viewcomfy",
+      "source": "./viewcomfy--viewcomfy",
+      "description": "ViewComfy is a open source tool to help you create beautiful web apps from ComfyUI"
+    },
+    {
+      "name": "viewcomfy--viewcomfy",
+      "source": "./viewcomfy--viewcomfy",
+      "description": "ViewComfy is a open source tool to help you create beautiful web apps from ComfyUI"
+    },
+    {
       "name": "deusyu--translate-book",
       "source": "./deusyu--translate-book",
       "description": "Claude Code skill that translates entire books (PDF/DOCX/EPUB) into any language using parallel subagents"
@@ -11107,6 +11187,11 @@
       "name": "effect-ts--effect-smol",
       "source": "./effect-ts--effect-smol",
       "description": "Core libraries and experimental work for Effect v4"
+    },
+    {
+      "name": "huami1314--dyyy",
+      "source": "./huami1314--dyyy",
+      "description": "\u7528\u4e8e\u8c03\u6574\u6296\u97f3\u7684UI\u7684Tweak"
     },
     {
       "name": "eastreams--loong",
@@ -12534,6 +12619,11 @@
       "description": "Official JavaScript SDK for the Agent2Agent (A2A) Protocol"
     },
     {
+      "name": "dyne--cjit",
+      "source": "./dyne--cjit",
+      "description": "Tiny and portable C compiler"
+    },
+    {
       "name": "wecode-ai--wegent",
       "source": "./wecode-ai--wegent",
       "description": "An open-source AI-native operating system to define, organize, and run intelligent agent teams"
@@ -12639,6 +12729,16 @@
       "description": "  \ud83e\udde0 Context Engineering Research - Not just another agent collection, but using research and context engineering to function as a collective. Hub-and-spoke coordination through Claude   Code."
     },
     {
+      "name": "ukgovernmentbeis--inspect-evals",
+      "source": "./ukgovernmentbeis--inspect-evals",
+      "description": "Collection of evals for Inspect AI"
+    },
+    {
+      "name": "ukgovernmentbeis--inspect-evals",
+      "source": "./ukgovernmentbeis--inspect-evals",
+      "description": "Collection of evals for Inspect AI"
+    },
+    {
       "name": "miantiao-me--aigc-weekly",
       "source": "./miantiao-me--aigc-weekly",
       "description": "Agili \u7684 AIGC \u5468\u520a - \u4e00\u4e2a\u7531 Agentic AI Agent \u9a71\u52a8\u7684 AIGC\uff08\u4eba\u5de5\u667a\u80fd\u751f\u6210\u5185\u5bb9\uff09\u7cbe\u9009\u5468\u520a\u3002"
@@ -12672,6 +12772,16 @@
       "name": "kleneway--next-ai-starter",
       "source": "./kleneway--next-ai-starter",
       "description": "Opinionated batteries-included starter kit optimized for building applications using AI coding tools"
+    },
+    {
+      "name": "awwaiid--ghostwriter",
+      "source": "./awwaiid--ghostwriter",
+      "description": "Use the reMarkable2 as an interface to vision-LLMs (ChatGPT, Claude, Gemini). Ghost in the machine!"
+    },
+    {
+      "name": "awwaiid--ghostwriter",
+      "source": "./awwaiid--ghostwriter",
+      "description": "Use the reMarkable2 as an interface to vision-LLMs (ChatGPT, Claude, Gemini). Ghost in the machine!"
     },
     {
       "name": "steveclarke--real-world-rails",
@@ -18889,6 +18999,11 @@
       "description": "Claude Code \u9006\u5411\u5de5\u7a0b\u7814\u7a76\u4ed3\u5e93"
     },
     {
+      "name": "nvidia--nvidia-resiliency-ext",
+      "source": "./nvidia--nvidia-resiliency-ext",
+      "description": "NVIDIA Resiliency Extension is a python package for framework developers and users to implement fault-tolerant features. It improves the effective training time by minimizing the downtime due to failu"
+    },
+    {
       "name": "ayush-that--jiang-clips",
       "source": "./ayush-that--jiang-clips",
       "description": "Automated pipeline that converts long-form YouTube videos into viral-ready vertical clips"
@@ -22804,6 +22919,11 @@
       "description": "A lightweight monitoring agent that detects anomalies, auto-diagnoses root causes with AI, and lets you troubleshoot interactively via chat"
     },
     {
+      "name": "crunchydata--pg-incremental",
+      "source": "./crunchydata--pg-incremental",
+      "description": "Incremental Data Processing in PostgreSQL"
+    },
+    {
       "name": "pacificstudio--openase",
       "source": "./pacificstudio--openase",
       "description": "Ticket-Driven Automated Software Engineering. OpenASE is an all-in-one platform that turns tickets into working code \u2014 AI agents automatically pick up tickets, execute workflows on your machines, and "
@@ -23502,6 +23622,16 @@
       "name": "ityonemo--clr",
       "source": "./ityonemo--clr",
       "description": "Checker for Lifetimes and other Refinement types"
+    },
+    {
+      "name": "danielmiessler--daemon",
+      "source": "./danielmiessler--daemon",
+      "description": "An open-source personal API framework."
+    },
+    {
+      "name": "danielmiessler--daemon",
+      "source": "./danielmiessler--daemon",
+      "description": "An open-source personal API framework."
     },
     {
       "name": "scarletkc--vexor",
@@ -25264,6 +25394,11 @@
       "description": "Website as a service plugin for WordPress Multisite"
     },
     {
+      "name": "hanfangyuan4396--gewechat-python",
+      "source": "./hanfangyuan4396--gewechat-python",
+      "description": "gewechat python client"
+    },
+    {
       "name": "austintgriffith--ethskills",
       "source": "./austintgriffith--ethskills",
       "description": "The missing knowledge between AI agents and production Ethereum."
@@ -25362,6 +25497,16 @@
       "name": "starknightt--prasendev",
       "source": "./starknightt--prasendev",
       "description": "A modern, responsive portfolio website built with Next.js 14, TypeScript, Tailwind CSS, Magic UI and Framer Motion."
+    },
+    {
+      "name": "aranya-project--aranya",
+      "source": "./aranya-project--aranya",
+      "description": "Aranya user library, daemon, and policy code"
+    },
+    {
+      "name": "aranya-project--aranya",
+      "source": "./aranya-project--aranya",
+      "description": "Aranya user library, daemon, and policy code"
     },
     {
       "name": "themattberman--meta-ads-kit",
@@ -26039,6 +26184,11 @@
       "description": "A modular, scalable ecosystem for building sophisticated node-based applications in Flutter."
     },
     {
+      "name": "tyx-editor--tyx",
+      "source": "./tyx-editor--tyx",
+      "description": "A LyX-like experience rewritten for Typst and the modern era"
+    },
+    {
       "name": "peiiii--nextclaw",
       "source": "./peiiii--nextclaw",
       "description": "NextClaw: Your omnipotent personal assistant, residing above the digital realm. Basically Ultra-Lightweight OpenClaw Pro Max."
@@ -26202,6 +26352,11 @@
       "name": "mizdra--css-modules-kit",
       "source": "./mizdra--css-modules-kit",
       "description": "A toolkit for making CSS Modules useful."
+    },
+    {
+      "name": "stvnksslr--uv-migrator",
+      "source": "./stvnksslr--uv-migrator",
+      "description": "tool for migrating to the uv package manager"
     },
     {
       "name": "nokodo-labs--os1",
@@ -26579,6 +26734,11 @@
       "description": "A QA testing framework for your coding agent."
     },
     {
+      "name": "cxbdasheng--aio",
+      "source": "./cxbdasheng--aio",
+      "description": "\u9648\u5927\u5269\u5bb6\u5ead All-in-One \u670d\u52a1\u5668\u642d\u5efa\u6307\u5357\uff0c\u8fd9\u662f\u4e00\u4e2a\u5b8c\u6574\u7684\u5bb6\u5ead All-in-One \u670d\u52a1\u5668\u642d\u5efa\u6307\u5357\uff0c\u5e2e\u52a9\u5927\u5bb6\u5728\u5bb6\u4e2d\u642d\u5efa\u4f01\u4e1a\u7ea7\u7684\u865a\u62df\u5316\u73af\u5883\u3002"
+    },
+    {
       "name": "tukuaiai--fatecat",
       "source": "./tukuaiai--fatecat",
       "description": "fatecat"
@@ -26777,6 +26937,16 @@
       "name": "nomicfoundation--solx",
       "source": "./nomicfoundation--solx",
       "description": "LLVM-based Solidity compiler."
+    },
+    {
+      "name": "tooonychen--authinbox",
+      "source": "./tooonychen--authinbox",
+      "description": "Auth Inbox \ud83d\udcec is a self-hosted, open-source platform for receiving multiple email verification codes and real-time notifications, built using Cloudflare's free services. | Auth Inbox \ud83d\udcec \u662f\u4e00\u4e2a\u81ea\u5efa\u7684\u5f00\u6e90\u591a\u90ae\u7bb1\u9a8c\u8bc1\u7801\u7684\u63a5"
+    },
+    {
+      "name": "tooonychen--authinbox",
+      "source": "./tooonychen--authinbox",
+      "description": "Auth Inbox \ud83d\udcec is a self-hosted, open-source platform for receiving multiple email verification codes and real-time notifications, built using Cloudflare's free services. | Auth Inbox \ud83d\udcec \u662f\u4e00\u4e2a\u81ea\u5efa\u7684\u5f00\u6e90\u591a\u90ae\u7bb1\u9a8c\u8bc1\u7801\u7684\u63a5"
     },
     {
       "name": "maslennikov-ig--claude-code-orchestrator-kit",
@@ -27047,6 +27217,11 @@
       "name": "solana-foundation--kora",
       "source": "./solana-foundation--kora",
       "description": "Implementation of a Solana relayer. Provides a lib and cli crate in order to enable signing experiences on Solana"
+    },
+    {
+      "name": "xemantic--claudine",
+      "source": "./xemantic--claudine",
+      "description": "The older sister of Claude Code - useful for learning harness engineering"
     },
     {
       "name": "decentpaste--decentpaste",
@@ -27352,6 +27527,11 @@
       "name": "kh4f--flexplorer",
       "source": "./kh4f--flexplorer",
       "description": "\ud83d\uddc3\ufe0f Obsidian File Explorer Enhancer"
+    },
+    {
+      "name": "tazo90--next-openapi-gen",
+      "source": "./tazo90--next-openapi-gen",
+      "description": "Automatically generate OpenAPI 3.0, 3.1, and 3.2 documentation from Next.js projects, with support for Zod schemas, TypeScript types, and reusable OpenAPI fragments."
     },
     {
       "name": "vijaygupta18--system-design-simulator",
@@ -28414,6 +28594,11 @@
       "description": "An LLM-powered, autonomous coding assistant. Also offers an MCP and ACP mode."
     },
     {
+      "name": "danielrosehill--awesome-obsidian-ai-tools",
+      "source": "./danielrosehill--awesome-obsidian-ai-tools",
+      "description": "Obsidian plugins focused on leveraging AI & LLMs inside of (and beyond) vaults"
+    },
+    {
       "name": "jduncan-rva--skill-porter",
       "source": "./jduncan-rva--skill-porter",
       "description": "Universal tool to convert Claude Code skills to Gemini CLI extensions and vice versa"
@@ -28589,6 +28774,11 @@
       "description": "Sanity + Next.js page-builder template"
     },
     {
+      "name": "wnkz--monoglow-nvim",
+      "source": "./wnkz--monoglow-nvim",
+      "description": "\ud83c\udf86 A dark, mostly monochrome colorscheme with a touch of glowing."
+    },
+    {
       "name": "ntygod--zhiwei",
       "source": "./ntygod--zhiwei",
       "description": "\u672c\u5730\u4f18\u5148\u7684\u4e2a\u4eba AI Agent \u52a9\u624b\uff0c\u652f\u6301\u8bb0\u5fc6\u3001\u81ea\u4e3b\u4efb\u52a1\u3001\u5de5\u5177\u6388\u6743\u548c\u5de5\u4f5c\u6d41\u3002"
@@ -28672,6 +28862,11 @@
       "name": "kunkunsh--kkrpc",
       "source": "./kunkunsh--kkrpc",
       "description": "A TypeScript RPC protocol for multiple environments (iframe, web worker, stdio, http, WebSocket)"
+    },
+    {
+      "name": "kdroidfilter--desktopnotifykt",
+      "source": "./kdroidfilter--desktopnotifykt",
+      "description": "The DesktopNotifyKT is a Kotlin JVM library that enables developers to add notifications to their desktop applications in a unified way across different platforms, including Windows, macOS and Linux."
     },
     {
       "name": "xenios-jp--xenios",
@@ -29464,6 +29659,51 @@
       "description": "A comprehensive 2D open-world survival game built with React, Vite, and SpacetimeDB. Designed for developers who want to build real-time multiplayer survival games with persistent world state, customi"
     },
     {
+      "name": "lambda-curry--medusa2-starter",
+      "source": "./lambda-curry--medusa2-starter",
+      "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a"
+    },
+    {
+      "name": "lambda-curry--medusa2-starter",
+      "source": "./lambda-curry--medusa2-starter",
+      "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a"
+    },
+    {
+      "name": "lambda-curry--medusa2-starter",
+      "source": "./lambda-curry--medusa2-starter",
+      "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a"
+    },
+    {
+      "name": "lambda-curry--medusa2-starter",
+      "source": "./lambda-curry--medusa2-starter",
+      "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a"
+    },
+    {
+      "name": "lambda-curry--medusa2-starter",
+      "source": "./lambda-curry--medusa2-starter",
+      "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a"
+    },
+    {
+      "name": "lambda-curry--medusa2-starter",
+      "source": "./lambda-curry--medusa2-starter",
+      "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a"
+    },
+    {
+      "name": "lambda-curry--medusa2-starter",
+      "source": "./lambda-curry--medusa2-starter",
+      "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a"
+    },
+    {
+      "name": "lambda-curry--medusa2-starter",
+      "source": "./lambda-curry--medusa2-starter",
+      "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a"
+    },
+    {
+      "name": "lambda-curry--medusa2-starter",
+      "source": "./lambda-curry--medusa2-starter",
+      "description": "A Turborepo monorepo integrating a Medusa2 backend with a Remix frontend, featuring a Coffee Roast themed dynamic storefront. Includes Stripe payment integration, scalability with unlimited products a"
+    },
+    {
       "name": "cnighswonger--claude-code-cache-fix",
       "source": "./cnighswonger--claude-code-cache-fix",
       "description": "Fixes prompt cache regression in Claude Code that causes up to 20x cost increase on resumed sessions"
@@ -29967,6 +30207,11 @@
       "name": "phil65--agentpool",
       "source": "./phil65--agentpool",
       "description": "A unified agent orchestration hub that lets you configure and manage multiple AI agents (native, ACP, AGUI, Claude Code) via YAML, and exposes them through standardized protocols (ACP/OpenCode Server)"
+    },
+    {
+      "name": "thavarshan--phpvm",
+      "source": "./thavarshan--phpvm",
+      "description": "\ud83d\udcdf Simple PHP version manager for MacOS and Linux."
     },
     {
       "name": "jayminwest--agentic-engineering-book",
@@ -30662,6 +30907,21 @@
       "name": "habedi--gogg",
       "source": "./habedi--gogg",
       "description": "A multiplatform game file downloader for GOG"
+    },
+    {
+      "name": "cdlewis--snowboardkids2-decomp",
+      "source": "./cdlewis--snowboardkids2-decomp",
+      "description": "Decompilation of snowboard kids 2 (N64)"
+    },
+    {
+      "name": "cdlewis--snowboardkids2-decomp",
+      "source": "./cdlewis--snowboardkids2-decomp",
+      "description": "Decompilation of snowboard kids 2 (N64)"
+    },
+    {
+      "name": "cdlewis--snowboardkids2-decomp",
+      "source": "./cdlewis--snowboardkids2-decomp",
+      "description": "Decompilation of snowboard kids 2 (N64)"
     },
     {
       "name": "inclusionai--asystem-awex",
@@ -32784,6 +33044,11 @@
       "description": "A multi-vault secret injection tool for safely injecting secrets into app environment"
     },
     {
+      "name": "iamzubin--holdem",
+      "source": "./iamzubin--holdem",
+      "description": "Holdem is a lightweight, open-source tool for effortlessly dragging and organizing files on your desktop. Inspired by Dropover and built with Tauri, Holdem lets you collect and drop files in a tempora"
+    },
+    {
       "name": "aitorllj93--obsidian-lovely-bases",
       "source": "./aitorllj93--obsidian-lovely-bases",
       "description": "Beautiful, visual bases views for Obsidian"
@@ -33332,6 +33597,11 @@
       "name": "moonshotai--kimi-code",
       "source": "./moonshotai--kimi-code",
       "description": "The Starting Point for Next-Gen Agents"
+    },
+    {
+      "name": "nvidia--topograph",
+      "source": "./nvidia--topograph",
+      "description": "A toolkit for discovering cluster network topology."
     },
     {
       "name": "currycan--hatickets",
@@ -36444,6 +36714,16 @@
       "description": "Vulnerability research assistant that locates calls to potentially insecure API functions in a binary file."
     },
     {
+      "name": "bernatvadell--muonline",
+      "source": "./bernatvadell--muonline",
+      "description": "muonline"
+    },
+    {
+      "name": "bernatvadell--muonline",
+      "source": "./bernatvadell--muonline",
+      "description": "muonline"
+    },
+    {
       "name": "sk-wang--slio-git",
       "source": "./sk-wang--slio-git",
       "description": "A fast, native Git GUI inspired by Intellij Idea and Meld. Built with Rust + Iced."
@@ -38329,6 +38609,11 @@
       "description": "hugo-saasify-theme"
     },
     {
+      "name": "quantscious--finmlkit",
+      "source": "./quantscious--finmlkit",
+      "description": "An open-source, lightweight, and blazing-fast financial machine learning library built with Numba. Process raw trades, generate advanced bars, features, and labels for quantitative research."
+    },
+    {
       "name": "aws-samples--sample-kolya-br-proxy",
       "source": "./aws-samples--sample-kolya-br-proxy",
       "description": "sample-kolya-br-proxy"
@@ -39262,6 +39547,16 @@
       "name": "tantara--transformers-js-chrome",
       "source": "./tantara--transformers-js-chrome",
       "description": "Chrome extension for running Generative AI in your browser locally"
+    },
+    {
+      "name": "maxim-saplin--llm-chess",
+      "source": "./maxim-saplin--llm-chess",
+      "description": "LLM Chess - evaluating Large Language Models' reasoning and instruction-following abilities by simulating chess games"
+    },
+    {
+      "name": "maxim-saplin--llm-chess",
+      "source": "./maxim-saplin--llm-chess",
+      "description": "LLM Chess - evaluating Large Language Models' reasoning and instruction-following abilities by simulating chess games"
     },
     {
       "name": "0xsanei--darwinia",
@@ -74254,6 +74549,11 @@
       "description": "vasta"
     },
     {
+      "name": "cron-defi--polymarket-pnl-tracker",
+      "source": "./cron-defi--polymarket-pnl-tracker",
+      "description": "polymarket pnl tracker. Polymarket dashboard with Home (combined P&L), Accounts (per-wallet), and Activity (wallet & group collections, active/closed positions)."
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -108564,6 +108864,11 @@
       "description": "Connect Client SDK and CLI"
     },
     {
+      "name": "nvidia--cosmos-framework",
+      "source": "./nvidia--cosmos-framework",
+      "description": "Our inference and training framework to run on the Cosmos Models"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -135787,6 +136092,11 @@
       "name": "3760362028-hash--ai-app-generator",
       "source": "./3760362028-hash--ai-app-generator",
       "description": "AI \u5e94\u7528\u751f\u6210\u5668\u5e73\u53f0\u2014\u2014\u901a\u8fc7\u81ea\u7136\u8bed\u8a00\u63cf\u8ff0\u81ea\u52a8\u751f\u6210\u5e76\u90e8\u7f72\u5b8c\u6574\u7684 Web \u5e94\u7528"
+    },
+    {
+      "name": "tovtechorg--tov-learn",
+      "source": "./tovtechorg--tov-learn",
+      "description": "Interactive AI tutor built as a Claude Code skill \u2014 teaches with spaced repetition, personalized project examples, and a visual progress dashboard"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
