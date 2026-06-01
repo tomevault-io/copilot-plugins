@@ -1,49 +1,104 @@
-## codeguard-0-supply-chain-security
+## codeguard-0-xml-and-serialization
 
-> Dependency & supply chain security (pinning, SBOM, provenance, integrity,
+> XML security and safe deserialization (DTD/XXE hardening, schema validation,
 
 
-rule_id: codeguard-0-supply-chain-security
+rule_id: codeguard-0-xml-and-serialization
 
-## Dependency & Supply Chain Security
+## XML & Serialization Hardening
 
-Control third‑party risk across ecosystems, from selection and pinning to provenance, scanning, and rapid response.
+Secure parsing and processing of XML and serialized data; prevent XXE, entity expansion, SSRF, DoS, and unsafe deserialization across platforms.
 
-### Policy and Governance
-- Maintain allow‑listed registries and scopes; disallow direct installs from untrusted sources.
-- Require lockfiles and version pinning; prefer digest pinning for images and vendored assets.
-- Generate SBOMs for apps/images; store with artifacts; attest provenance (SLSA, Sigstore).
+### XML Parser Hardening
+- Disable DTDs and external entities by default; reject DOCTYPE declarations.
+- Validate strictly against local, trusted XSDs; set explicit limits (size, depth, element counts).
+- Sandbox or block resolver access; no network fetches during parsing; monitor for unexpected DNS activity.
 
-### Package Hygiene (npm focus applicable to others)
-- Regularly audit (`npm audit`, ecosystem SCA) and patch; enforce SLAs by severity.
-- Use deterministic builds: `npm ci` (not `npm install`) in CI/CD; maintain lockfile consistency.
-- Avoid install scripts that execute on install when possible; review for risk.
-- Use `.npmrc` to scope private registries; avoid wildcard registries; enable integrity verification.
-- Enable account 2FA for publishing
+#### Java
+General principle:
+```java
+factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+```
 
-### Development Practices
-- Minimize dependency footprint; remove unused packages; prefer stdlib/first‑party for trivial tasks.
-- Protect against typosquatting and protestware: pin maintainers, monitor releases, and use provenance checks.
-- Hermetic builds: no network in compile/packaging stages unless required; cache with authenticity checks.
+Disabling DTDs protects against XXE and Billion Laughs attacks. If DTDs cannot be disabled, disable external entities using parser-specific methods.
 
-### CI/CD Integration
-- SCA, SAST, IaC scans in gates; fail on criticals; require approvals for overrides with compensating controls.
-- Sign artifacts; verify signatures at deploy; enforce policy in admission.
+### Java
 
-### Vulnerability Management
-- For patched vulnerabilities: test and deploy updates; document any API breaking changes.
-- For unpatched vulnerabilities: implement compensating controls (input validation, wrappers) based on CVE type; prefer direct dependency fixes over transitive workarounds.
-- Document risk decisions; escalate acceptance to appropriate authority with business justification.
+Java parsers have XXE enabled by default.
 
-### Incident Response
-- Maintain rapid rollback; isolate compromised packages; throttle rollouts; notify stakeholders.
-- Monitor threat intel feeds (e.g., npm advisories); auto‑open tickets for critical CVEs.
+DocumentBuilderFactory/SAXParserFactory/DOM4J:
+
+```java
+DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+String FEATURE = null;
+try {
+    // PRIMARY defense - disallow DTDs completely
+    FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+    dbf.setFeature(FEATURE, true);
+    dbf.setXIncludeAware(false);
+} catch (ParserConfigurationException e) {
+    logger.info("ParserConfigurationException was thrown. The feature '" + FEATURE
+    + "' is not supported by your XML processor.");
+}
+```
+
+If DTDs cannot be completely disabled:
+
+```java
+DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+String[] featuresToDisable = {
+    "http://xml.org/sax/features/external-general-entities",
+    "http://xml.org/sax/features/external-parameter-entities",
+    "http://apache.org/xml/features/nonvalidating/load-external-dtd"
+};
+
+for (String feature : featuresToDisable) {
+    try {    
+        dbf.setFeature(feature, false); 
+    } catch (ParserConfigurationException e) {
+        logger.info("ParserConfigurationException was thrown. The feature '" + feature
+        + "' is probably not supported by your XML processor.");
+    }
+}
+dbf.setXIncludeAware(false);
+dbf.setExpandEntityReferences(false);
+dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+```
+
+#### .NET
+```csharp
+var settings = new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
+var reader = XmlReader.Create(stream, settings);
+```
+
+#### Python
+```python
+from defusedxml import ElementTree as ET
+ET.parse('file.xml')
+# or lxml
+from lxml import etree
+parser = etree.XMLParser(resolve_entities=False, no_network=True)
+tree = etree.parse('filename.xml', parser)
+```
+
+### Secure XSLT/Transformer Usage
+- Set `ACCESS_EXTERNAL_DTD` and `ACCESS_EXTERNAL_STYLESHEET` to empty; avoid loading remote resources.
+
+### Deserialization Safety
+- Never deserialize untrusted native objects. Prefer JSON with schema validation.
+- Enforce size/structure limits before parsing. Reject polymorphic types unless strictly allow‑listed.
+- Language specifics:
+  - PHP: avoid `unserialize()`; use `json_decode()`.
+  - Python: avoid `pickle` and unsafe YAML (`yaml.safe_load` only).
+  - Java: override `ObjectInputStream#resolveClass` to allow‑list; avoid enabling default typing in Jackson; use XStream allow‑lists.
+  - .NET: avoid `BinaryFormatter`; prefer `DataContractSerializer` or `System.Text.Json` with `TypeNameHandling=None` for JSON.NET.
+- Sign and verify serialized payloads where applicable; log and alert on deserialization failures and anomalies.
 
 ### Implementation Checklist
-- Lockfiles present; integrity checks on; private registries configured.
-- SBOM + provenance stored; signatures verified pre‑deploy.
-- Automated dependency updates with tests and review gates.
-- High‑sev vulns remediated within SLA or mitigated and documented.
+- DTDs off; external entities disabled; strict schema validation; parser limits set.
+- No network access during parsing; resolvers restricted; auditing in place.
+- No unsafe native deserialization; strict allow‑listing and schema validation for supported formats.
+- Regular library updates and tests with XXE/deserialization payloads.
 
 ---
 > Source: [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io).
