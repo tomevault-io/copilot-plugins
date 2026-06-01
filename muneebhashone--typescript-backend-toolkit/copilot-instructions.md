@@ -1,47 +1,82 @@
-## typescript-backend-toolkit
+## architecture
 
-> - `src/` holds runtime code: `app/` (Express setup), `modules/` (domain logic), `lib/` (DB, queues, email, storage), `routes/` (HTTP wiring).
+> Core architecture and patterns for the TypeScript backend toolkit
 
-# Repository Guidelines
 
-## Project Structure & Module Organization
+# Architecture Overview
 
-- `src/` holds runtime code: `app/` (Express setup), `modules/` (domain logic), `lib/` (DB, queues, email, storage), `routes/` (HTTP wiring).
-- Shared helpers: `src/common/`, `src/utils/`, `src/observability/` — prefer reuse over new utilities.
-- Assets: emails in `src/email/templates/`, static files in `public/`.
-- Configuration: `src/config/` with environment schema in `src/config/env.ts`.
+This is a TypeScript Express.js backend toolkit with a modular, type-safe architecture.
 
-## Build, Test & Development Commands
+## Core Patterns
 
-- `docker compose up -d` — start MongoDB and Redis locally.
-- `pnpm dev` — watch server and run the email previewer.
-- `pnpm build` — compile TypeScript via `tsup` to `dist/`.
-- `pnpm start` | `pnpm start:dev|:prod|:local` — run compiled or env-specific entry via `dotenv-cli`.
-- `pnpm typecheck` — strict type checks without emit. `pnpm lint` | `pnpm lint:fix` — ESLint with Prettier.
-- Useful: `pnpm tbk docs:openapi` (generate spec), `pnpm tbk seed` (dev seed), `pnpm email:dev` (preview emails).
+### MagicRouter System
 
-## Coding Style & Naming Conventions
+- All routes MUST use MagicRouter from [router.ts](mdc:src/plugins/magic/router.ts)
+- MagicRouter automatically generates OpenAPI/Swagger documentation from Zod schemas
+- Never use plain Express `app.get()` or `router.get()` - always use MagicRouter
 
-- TypeScript, 2-space indentation, organized imports; prefer named exports from shared modules.
-- Naming: camelCase (vars/functions), PascalCase (classes), kebab-case (feature files).
-- Linting: ESLint + Prettier; avoid `any`, remove unused code before PRs.
+### Module Structure
 
-## Testing Guidelines
+Modules live in [src/modules/](mdc:src/modules/) and follow this structure:
 
-- No test runner is configured yet. If adding tests, prefer colocated specs (`*.spec.ts`) near source or `__tests__/` under `src/`.
-- Focus on unit tests for `modules/` and `utils/`; mock integrations from `lib/`.
-- Aim for meaningful coverage on controllers, services, and schema validation. Keep tests fast and deterministic.
+```
+module-name/
+  ├── module.controller.ts    # Business logic handlers
+  ├── module.router.ts        # MagicRouter route definitions
+  ├── module.service.ts       # Database and external service interactions
+  ├── module.schema.ts        # Zod schemas for validation
+  ├── module.model.ts         # Mongoose models
+  └── module.dto.ts           # TypeScript types/interfaces
+```
 
-## Commit & Pull Request Guidelines
+### Validation & Type Safety
 
-- Use Conventional Commits: `feat:`, `fix:`, `refactor:`, `chore:` — one logical change per commit.
-- PRs must describe problem, solution, and rollout (migrations, flags, ops). Link issues; include logs/screens for ops-facing changes.
-- Document new env vars and update `.env.sample` and `src/config/env.ts` together.
+- ALWAYS use Zod schemas for request/response validation
+- Runtime validation via [validate-zod-schema.ts](mdc:src/middlewares/validate-zod-schema.ts)
+- Extend Zod with OpenAPI metadata using `.openapi()` method from [zod-extend.ts](mdc:src/plugins/magic/zod-extend.ts)
+- Use TypeScript strict mode - no `any` types
 
-## Security & Configuration Tips
+### Configuration
 
-- Never commit secrets. Source config from env; validate via `src/config/env.ts`.
-- Protect admin surfaces (e.g., `/queues`, `/ops/*`) behind auth in production; document access controls when changing them.
+- All config in [env.ts](mdc:src/config/env.ts)
+- Environment variables validated with Zod
+- Time values are in milliseconds (converted from strings like "1d" or "7d")
+
+### Database
+
+- MongoDB with Mongoose ODM
+- Connection managed in [database.ts](mdc:src/lib/database.ts)
+- Models defined per module (e.g., [user.model.ts](mdc:src/modules/user/user.model.ts))
+
+### Background Jobs & Queues
+
+- BullMQ with Redis for all background jobs
+- Email queue in [email.queue.ts](mdc:src/queues/email.queue.ts)
+- Admin dashboard at `/queues`
+
+### Error Handling
+
+- Global error handler in [error-handler.ts](mdc:src/middlewares/error-handler.ts)
+- Throw errors with proper HTTP status codes
+- Errors are automatically caught and formatted
+
+## Technology Stack
+
+- **Runtime**: Node.js with TypeScript
+- **Framework**: Express.js
+- **Validation**: Zod
+- **Database**: MongoDB + Mongoose
+- **Cache/Queue**: Redis + BullMQ
+- **Auth**: JWT (with optional OTP)
+- **Storage**: AWS S3 (or R2 or Local)
+- **Email**: React Email + Mailgun / Resend / Nodemailer
+- **Real-time**: Socket.io
+- **API Docs**: Swagger/OpenAPI (auto-generated)
+- **Logger**: Pino
+
+## Package Manager
+
+ALWAYS use `pnpm` - never npm or yarn
 
 ---
 > Source: [muneebhashone/typescript-backend-toolkit](https://github.com/muneebhashone/typescript-backend-toolkit) — distributed by [TomeVault](https://tomevault.io).
