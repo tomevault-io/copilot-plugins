@@ -1,0 +1,44 @@
+{
+  "name": "strapi-next-monorepo-starter",
+  "owner": "notum-cz",
+  "repo": "strapi-next-monorepo-starter",
+  "description": "This is a ready-to-go starter template for Strapi projects. It combines the power of Strapi, NextJS, Shadcn/ui libraries with Turborepo setup and kickstarts your project development.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/notum-cz/strapi-next-monorepo-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T18:19:51Z"
+}
