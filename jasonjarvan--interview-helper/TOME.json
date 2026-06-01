@@ -1,0 +1,44 @@
+{
+  "name": "interview-helper",
+  "owner": "JasonJarvan",
+  "repo": "interview-helper",
+  "description": "\u5f00\u6e90\u7684AI\u9762\u8bd5\u52a9\u624b\uff0c\u4f7f\u7528OpenAI Whipser\u6a21\u578b\u8fdb\u884cSTT\uff08Speak to Text \u8bed\u97f3\u8f6c\u6587\u5b57\uff09\u8f6c\u5f55\uff0c\u7136\u540e\u5c06\u95ee\u9898\u4ea4\u7ed9ChatGPT\u56de\u7b54\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JasonJarvan/interview-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T22:23:20Z"
+}
