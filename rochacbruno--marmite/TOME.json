@@ -4,7 +4,7 @@
   "repo": "marmite",
   "description": "Markdown makes sites - A Static Site Generator for Blogs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rochacbruno/marmite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T05:33:24Z"
+  "distributed_at": "2026-06-01T05:33:54Z"
 }
