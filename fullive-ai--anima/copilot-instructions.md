@@ -1,33 +1,57 @@
-## anima
+## change-scope-control
 
-> cp .env.example .env  # fill in ANIMA_LLM_API_KEY
+> Keep every change tightly scoped to the requested goal.
 
-# Anima — Make Every Hardware Intelligent
 
-## Quick Start
-pnpm install
-cp .env.example .env  # fill in ANIMA_LLM_API_KEY
-pnpm dev              # starts MQTT broker + backend (port 8080) + frontend (port 3000) together
+Keep every change tightly scoped to the requested goal.
 
-# Or start individually:
-# pnpm dev:broker    — MQTT broker (amqtt)
-# pnpm dev:backend   — Python backend only (uv run python -m core.main)
-# pnpm dev:frontend  — React dashboard only (port 3000)
+## Core rule
 
-## Test
-uv run pytest tests/ -v
+Solve the target problem completely, but do not let the task expand into unrelated cleanup, redesign, or opportunistic refactoring.
 
-## Architecture
-Thin Core (single asyncio process) + MQTT device layer.
-See docs/plans/2026-03-17-anima-design.md for full design.
+## Scope rules
 
-## Key Directories
-- core/          — Core process (brain, events, rules, memory, scheduler, api)
-- adapters/      — Device adapters (miot, virtual)
-- skills/        — AI Skill packages (system: humidifier, air_conditioner, light, air_purifier, speaker, coordinator; custom: user-created)
-- dashboard/     — React + Vite + Tailwind frontend (port 3000)
-- data/          — Runtime data (memory, config) — persisted via Docker volume
-- tests/         — Test suite (pytest + Playwright E2E)
+- Implement the smallest sufficient change that correctly solves the task.
+- Fix directly related issues when needed to make the solution complete.
+- Avoid unrelated renames, formatting sweeps, moves, or cleanups.
+- Avoid changing code that is not necessary for correctness, integration, validation, or compatibility.
+- Do not introduce new dependencies unless required.
+
+## Allowed scope expansion
+
+You may extend scope slightly only when the additional work is:
+
+- necessary to complete the task correctly
+- needed to prevent an obvious regression
+- required for compatibility
+- required to keep tests or builds passing
+- small, low-risk, and directly adjacent to the same root cause
+
+## Disallowed scope expansion
+
+Do not expand scope just because you noticed:
+
+- old code you dislike
+- naming inconsistencies
+- possible future improvements
+- architectural ideas unrelated to the request
+- broad style issues
+- unrelated technical debt
+
+## Before making extra changes
+
+Ask internally:
+
+- Is this required for the requested outcome?
+- Is it required for correctness or compatibility?
+- Is it required for validation to pass?
+- Is it directly tied to the same root cause?
+
+If not, leave it alone.
+
+## Completion rule
+
+A task is better completed with a focused, safe, reviewable diff than with a large diff that tries to improve everything.
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
