@@ -7,11 +7,11 @@ Helpful tools and examples for working with flex-attention
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [meta-pytorch/attention-gym](https://github.com/meta-pytorch/attention-gym).
+Original source: `AGENTS.md` in [meta-pytorch/attention-gym](https://github.com/meta-pytorch/attention-gym).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
