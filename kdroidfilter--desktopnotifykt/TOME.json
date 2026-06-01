@@ -1,0 +1,44 @@
+{
+  "name": "DesktopNotifyKT",
+  "owner": "kdroidFilter",
+  "repo": "DesktopNotifyKT",
+  "description": "The DesktopNotifyKT is a Kotlin JVM library that enables developers to add notifications to their desktop applications in a unified way across different platforms, including Windows, macOS and Linux.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kdroidFilter/DesktopNotifyKT",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T08:05:52Z"
+}
