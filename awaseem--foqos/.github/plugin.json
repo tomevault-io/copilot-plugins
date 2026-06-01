@@ -1,0 +1,9 @@
+{
+  "name": "awaseem--foqos",
+  "displayName": "foqos",
+  "description": "Foqos allows you to lock apps behind the tap of a NFC tag or scan of a QR code. Free and open source alternative to Brick, Opal, Unpluq, Blok and more!",
+  "version": "1.0.0",
+  "author": "awaseem",
+  "homepage": "https://github.com/awaseem/foqos",
+  "skills": []
+}
