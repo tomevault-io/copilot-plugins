@@ -1,0 +1,9 @@
+{
+  "name": "xmlui-org--xmlui",
+  "displayName": "xmlui",
+  "description": "A framework for building user interfaces declaratively, with XML markup and flexible theming",
+  "version": "1.0.0",
+  "author": "xmlui-org",
+  "homepage": "https://github.com/xmlui-org/xmlui",
+  "skills": []
+}
