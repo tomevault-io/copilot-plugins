@@ -1,0 +1,9 @@
+{
+  "name": "notum-cz--strapi-next-monorepo-starter",
+  "displayName": "strapi-next-monorepo-starter",
+  "description": "This is a ready-to-go starter template for Strapi projects. It combines the power of Strapi, NextJS, Shadcn/ui libraries with Turborepo setup and kickstarts your project development.",
+  "version": "1.0.0",
+  "author": "notum-cz",
+  "homepage": "https://github.com/notum-cz/strapi-next-monorepo-starter",
+  "skills": []
+}
