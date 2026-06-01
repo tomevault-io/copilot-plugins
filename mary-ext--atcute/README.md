@@ -7,11 +7,11 @@ a collection of lightweight TypeScript packages for AT Protocol, the protocol po
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mary-ext/atcute](https://github.com/mary-ext/atcute).
+Original source: `AGENTS.md` in [mary-ext/atcute](https://github.com/mary-ext/atcute).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
