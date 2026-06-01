@@ -4,7 +4,7 @@
   "repo": "codebuff",
   "description": "Generate code from the terminal!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CodebuffAI/codebuff",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T19:50:24Z"
+  "distributed_at": "2026-06-01T19:50:59Z"
 }
