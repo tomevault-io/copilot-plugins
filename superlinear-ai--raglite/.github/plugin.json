@@ -1,0 +1,9 @@
+{
+  "name": "superlinear-ai--raglite",
+  "displayName": "raglite",
+  "description": "\ud83e\udd64 RAGLite is a Python toolkit for Retrieval-Augmented Generation (RAG) with DuckDB or PostgreSQL",
+  "version": "1.0.0",
+  "author": "superlinear-ai",
+  "homepage": "https://github.com/superlinear-ai/raglite",
+  "skills": []
+}
