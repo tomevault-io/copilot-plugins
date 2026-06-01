@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--tt-forge",
+  "displayName": "tt-forge",
+  "description": "Tenstorrent's MLIR Based Compiler. We aim to enable developers to run AI on all configurations of Tenstorrent hardware, through an open-source, general, and performant compiler. ",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-forge",
+  "skills": []
+}
