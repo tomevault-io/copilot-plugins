@@ -4,7 +4,7 @@
   "repo": "vibes",
   "description": "Vibes provides a shared set of skills, agents, and reference documentation for AI coding assistants. Write your agent instructions once in AGENTS.md, and every supported platform \u2014 Claude Code, GitHub Copilot, Codex CLI \u2014 gets the same guidance through symlinks and platform-specific configuration.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jonhill90/vibes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T22:34:04Z"
+  "distributed_at": "2026-06-01T22:34:37Z"
 }
