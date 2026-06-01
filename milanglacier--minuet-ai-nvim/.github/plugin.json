@@ -1,0 +1,9 @@
+{
+  "name": "milanglacier--minuet-ai-nvim",
+  "displayName": "minuet-ai.nvim",
+  "description": "\ud83d\udc83 Dance with Intelligence in Your Code. Minuet offers code completion as-you-type from popular LLMs including OpenAI, Gemini, Claude, Ollama, Llama.cpp, Codestral, and more.",
+  "version": "1.0.0",
+  "author": "milanglacier",
+  "homepage": "https://github.com/milanglacier/minuet-ai.nvim",
+  "skills": []
+}
