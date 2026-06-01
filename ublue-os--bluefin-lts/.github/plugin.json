@@ -1,0 +1,9 @@
+{
+  "name": "ublue-os--bluefin-lts",
+  "displayName": "bluefin-lts",
+  "description": "Bluefin LTS, built on CentOS with bootc",
+  "version": "1.0.0",
+  "author": "ublue-os",
+  "homepage": "https://github.com/ublue-os/bluefin-lts",
+  "skills": []
+}
