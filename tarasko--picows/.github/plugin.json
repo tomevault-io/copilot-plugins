@@ -1,0 +1,9 @@
+{
+  "name": "tarasko--picows",
+  "displayName": "picows",
+  "description": "Ultra-fast websocket client and server for asyncio",
+  "version": "1.0.0",
+  "author": "tarasko",
+  "homepage": "https://github.com/tarasko/picows",
+  "skills": []
+}
