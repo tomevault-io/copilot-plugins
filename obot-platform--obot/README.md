@@ -7,11 +7,11 @@ Complete MCP Platform -- Hosting, Registry, Gateway, and Chat Client
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [obot-platform/obot](https://github.com/obot-platform/obot).
+Original source: `CLAUDE.md` in [obot-platform/obot](https://github.com/obot-platform/obot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
