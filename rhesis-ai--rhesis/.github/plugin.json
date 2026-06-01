@@ -1,0 +1,9 @@
+{
+  "name": "rhesis-ai--rhesis",
+  "displayName": "rhesis",
+  "description": "The testing platform for AI teams. Bring engineers, PMs, and domain experts together to generate tests, simulate (adversarial) conversations, and trace every failure to its root cause.",
+  "version": "1.0.0",
+  "author": "rhesis-ai",
+  "homepage": "https://github.com/rhesis-ai/rhesis",
+  "skills": []
+}
