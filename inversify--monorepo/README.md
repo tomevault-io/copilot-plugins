@@ -7,11 +7,11 @@ A powerful and lightweight inversion of control container for JavaScript & Node.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [inversify/monorepo](https://github.com/inversify/monorepo).
+Original source: `CLAUDE.md` in [inversify/monorepo](https://github.com/inversify/monorepo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
