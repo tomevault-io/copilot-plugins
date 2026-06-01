@@ -1,0 +1,9 @@
+{
+  "name": "minusxai--minusx-metabase",
+  "displayName": "minusx-metabase",
+  "description": "MinusX is an AI Data Analyst that you can add to your Metabase. It helps you ask business questions to your dashboards and dig deeper through followups.",
+  "version": "1.0.0",
+  "author": "minusxai",
+  "homepage": "https://github.com/minusxai/minusx-metabase",
+  "skills": []
+}
