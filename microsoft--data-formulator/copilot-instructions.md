@@ -1,72 +1,161 @@
-## dev-guides-first
+## error-response-safety
 
-> Require reading dev-guides before development and keeping docs in sync
+> Prevent information exposure through exception messages in HTTP responses
 
 
-# Dev Guides First
+# Error Response Safety
 
-## Before Starting Any Development
+Never return raw exception text (`str(e)`, `f"...{e}"`) directly in HTTP responses.
+Python exceptions may contain stack traces, file paths, database connection strings,
+API keys, or internal IP addresses — all of which are security risks (CWE-209).
 
-Before implementing or designing a new feature, module, or significant change, **always
-read the relevant documents in `docs/dev-guides/`** to understand existing conventions:
+See `docs/dev-guides/7-unified-error-handling.md` for the full error handling contract.
 
-| Guide | When to Read |
-|-------|-------------|
-| `docs/dev-guides/1-streaming-protocol.md` | Any work on streaming endpoints or NDJSON protocol |
-| `docs/dev-guides/2-log-sanitization.md` | Any work involving logging, credentials, external services, or DataLoaders |
-| `docs/dev-guides/3-data-loader-development.md` | Any work on ExternalDataLoader, DataConnector, or connector routes |
-| `docs/dev-guides/4-authentication-oidc-tokenstore.md` | Any work on OIDC, TokenStore, AUTH_MODE, or SSO flows |
-| `docs/dev-guides/6-i18n-language-injection.md` | Any work on Agent prompts, Agent routes, backend user-visible messages, or frontend i18n |
-| `docs/dev-guides/7-unified-error-handling.md` | Any work on API errors, frontend API calls, streaming error events, or error tests |
-| `docs/dev-guides/8-path-safety.md` | Any work on backend file access, downloads, Workspace paths, Agent tools, DataLoaders, or sandbox config |
-| `docs/dev-guides/10-agent-knowledge-reasoning-log.md` | Any work on Agent knowledge injection, KnowledgeStore, reasoning logs, or experience distillation |
-| `docs/dev-guides/11-catalog-metadata-sync.md` | Any work on catalog sync, catalog_cache, catalog_annotations, metadata merge, Agent catalog tools, or frontend catalog browsing |
-| `docs/dev-guides/12-sandbox-session.md` | Any work on sandbox execution, Agent tool-calling loops, explore/execute_python code execution, or namespace management |
-| `docs/dev-guides/13-unified-row-limits.md` | Any work on row limits, data loading size caps, frontendRowLimit, MAX_IMPORT_ROWS, or DataLoader size parameter |
-| `docs/dev-guides/14-model-capability-runtime-degradation.md` | Any work on LLM Client calls, Agent LLM invocations, model capability checks, reasoning_effort, or image/vision degradation |
-| `docs/dev-guides/15-dataframe-serialization.md` | Any work on DataFrame→JSON serialization, Agent result rows, DataLoader sample_rows, or table API responses |
-| `.cursor/rules/i18n-no-hardcoded-strings.mdc` | Any work adding or changing user-visible strings in `src/` |
+## Unified Error System
 
-Also check `.cursor/rules/` and `.cursor/skills/` for related coding conventions.
+New error paths should use the `AppError` / `error_handler` infrastructure from
+`errors.py` and `error_handler.py`. Legacy `message` / `error_message` bodies are
+historical formats; do not add compatibility branches for them in new code.
+All application-controlled errors return **HTTP 200** with `status: "error"` in the body.
+Only auth errors (401/403) and uncontrolled transport errors (404/413/500) use non-200.
 
-## After Introducing New Conventions
+### Non-streaming routes
 
-When your work establishes a new development pattern, convention, or architectural
-decision, you MUST update documentation before considering the task complete:
+Raise `AppError` for new code or when structured error codes are useful. The
+global error handler returns HTTP 200 + JSON error envelope:
 
-1. **Update existing dev-guide** — if your change extends an existing convention
-   (e.g. new sensitive key type → update `2-log-sanitization.md`)
+```python
+from data_formulator.errors import AppError, ErrorCode
 
-2. **Create new dev-guide** — if your change introduces a new cross-cutting convention
-   that future developers must follow. Place in `docs/dev-guides/` with the next number prefix.
+# Business error — raise with appropriate code and safe message
+raise AppError(ErrorCode.TABLE_NOT_FOUND, "Table not found")
 
-3. **Update existing SKILL** — if your change affects how an existing skill works
-   (e.g. new error handling pattern → update `error-handling/SKILL.md`)
+# LLM / external API error — use classify_and_wrap_llm_error
+from data_formulator.error_handler import classify_and_wrap_llm_error
 
-4. **Create new SKILL** — if your change introduces a reusable development workflow
-   that AI agents should follow. Place in `.cursor/skills/<name>/SKILL.md`.
+except Exception as e:
+    raise classify_and_wrap_llm_error(e) from e
+```
 
-5. **Update existing Rule** — if your change adds constraints to an existing rule
-   (e.g. new banned pattern → update the relevant `.mdc` file)
+### Streaming routes
 
-6. **Create new Rule** — if your change introduces file-scoped coding conventions
-   that should be enforced automatically. Place in `.cursor/rules/<name>.mdc`.
+Use `stream_error_event()` to yield a unified NDJSON error line.
+Validation before the stream starts returns `200 application/json` (not NDJSON):
 
-## Documentation Sync Checklist
+```python
+from data_formulator.errors import AppError, ErrorCode
+from data_formulator.error_handler import (
+    classify_and_wrap_llm_error,
+    stream_error_event,
+    stream_preflight_error,
+)
 
-For every PR that introduces new patterns:
+except AppError as e:
+    yield stream_error_event(e)
+except Exception as e:
+    yield stream_error_event(classify_and_wrap_llm_error(e))
+```
 
-- [ ] Searched `docs/dev-guides/` for related existing docs
-- [ ] Updated or created dev-guide if introducing cross-cutting conventions
-- [ ] Updated or created `.cursor/skills/` if introducing reusable workflows
-- [ ] Updated or created `.cursor/rules/` if introducing file-scoped constraints
-- [ ] New dev-guide includes a "New Module Checklist" section (if applicable)
+### Real examples from migrated endpoints
 
-## File Naming Conventions
+```python
+# /data-agent-streaming — standard NDJSON error event
+except Exception as e:
+    logger.error("Error in data-agent-streaming", exc_info=e)
+    from data_formulator.error_handler import stream_error_event, classify_and_wrap_llm_error
+    yield stream_error_event(classify_and_wrap_llm_error(e))
 
-- **dev-guides**: `<number>-<kebab-case-topic>.md` (e.g. `3-data-loader-development.md`)
-- **skills**: `.cursor/skills/<topic>/SKILL.md`
-- **rules**: `.cursor/rules/<kebab-case-topic>.mdc`
+# /generate-report-chat — same pattern
+except Exception as e:
+    logger.exception("generate-report-chat failed")
+    from data_formulator.error_handler import stream_error_event, classify_and_wrap_llm_error
+    yield stream_error_event(classify_and_wrap_llm_error(e))
+
+# Validation failure before stream starts — use 200 JSON, not NDJSON
+if not request.is_json:
+    return stream_preflight_error(AppError(ErrorCode.INVALID_REQUEST, "Invalid request"))
+```
+
+### Database / workspace errors (tables.py)
+
+Use `classify_and_raise_db_error()` instead of the legacy `sanitize_db_error_message()`:
+
+```python
+from data_formulator.routes.tables import classify_and_raise_db_error
+
+except Exception as e:
+    classify_and_raise_db_error(e)  # raises AppError with safe message
+```
+
+### Connector errors (data_connector.py)
+
+Use `classify_and_raise_connector_error()` instead of the legacy `_sanitize_error()`:
+
+```python
+from data_formulator.data_connector import classify_and_raise_connector_error
+
+except Exception as e:
+    classify_and_raise_connector_error(e)  # raises AppError with safe message
+```
+
+### Legacy functions (deprecated)
+
+These functions still exist as wrappers but should NOT be used in new code:
+- `sanitize_db_error_message()` → use `classify_and_raise_db_error()`
+- `_sanitize_error()` → use `classify_and_raise_connector_error()`
+- `safe_error_response()` / `sanitize_error_message()` → use `raise AppError(...)`
+- `classify_llm_error()` is used internally by `classify_and_wrap_llm_error()`
+
+## Rules
+
+1. **Application errors** — HTTP 200 + `status: "error"`; prefer `error: {...}` for new code and never expose exception details.
+2. **Auth errors** — `AUTH_REQUIRED`/`AUTH_EXPIRED` → 401, `ACCESS_DENIED` → 403 (transport layer interception).
+3. **Transport errors** (uncontrolled) — only `404` (no route), `413` (body limit), `500` (unhandled crash) may be non-200.
+4. **Streaming errors** — always use `stream_error_event()` for NDJSON error lines.
+5. **Logging** — always log the full exception server-side (`logger.warning` / `logger.error`
+   with `exc_info=True` when needed). The client never needs the stack trace.
+6. **Debug detail** — `AppError.detail` is only included in responses when `app.debug is True`.
+
+## Bare except Policy
+
+- **Never** use naked `except:` — always specify at least `except Exception:`
+- Use specific exception types when possible (`except (ValueError, TypeError):`)
+- Always log caught exceptions: `logger.warning(...)` for degraded operations, `logger.debug(...)` for expected failures
+- Process cleanup code (`terminate`, `join`, `close`) is exempt from logging requirements
+
+## Common Mistakes
+
+```python
+# ❌ BAD — raw exception leaks internal details
+return jsonify({"message": str(e)}), 500
+return jsonify({"error": f"Failed: {e}"}), 502
+yield json.dumps({"type": "error", "error": str(e)}) + "\n"
+
+# ❌ BAD — non-200 HTTP status code for application errors
+return jsonify({"status": "error", "error_message": "..."}), 400
+
+# ❌ BAD — naked except catches SystemExit/KeyboardInterrupt
+except:
+    pass
+
+# ❌ BAD — silent swallow without logging
+except Exception:
+    pass
+
+# ✅ GOOD — non-streaming (global handler returns HTTP 200)
+raise AppError(ErrorCode.TABLE_NOT_FOUND, "Table not found")
+
+# ✅ GOOD — streaming
+yield stream_error_event(AppError(ErrorCode.LLM_TIMEOUT, "Timeout", retry=True))
+
+# ✅ GOOD — graceful degradation with logging
+except Exception as e:
+    logger.warning("Could not read schema for %s", table_name, exc_info=e)
+
+# ✅ GOOD — specific exception types
+except (ValueError, TypeError):
+    pass  # safe fallback
+```
 
 ---
 > Source: [microsoft/data-formulator](https://github.com/microsoft/data-formulator) — distributed by [TomeVault](https://tomevault.io).
