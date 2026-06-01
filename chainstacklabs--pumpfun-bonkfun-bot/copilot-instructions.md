@@ -1,144 +1,154 @@
-## architecture
+## python-style
 
-> Maintain clear separation of concerns:
+> - Use 88 character line length limit
 
 
-# Project Architecture Rules
+# Python Code Style Rules
 
-## Directory Structure
+## Formatting Standards
 
-### Package Organization
-Maintain clear separation of concerns:
+### Ruff Configuration Compliance
+- Use 88 character line length limit
+- Use 4 spaces for indentation (never tabs)
+- Use double quotes for strings consistently
+- Target Python 3.11+ features and syntax
+- Enable automatic import sorting and organization
 
-```
-src/
-├── __init__.py
-├── bot_runner.py              # Main entry point
-├── config_loader.py           # Configuration management
-├── core/                      # Core blockchain functionality
-│   ├── client.py             # Solana RPC client abstraction
-│   ├── wallet.py             # Wallet operations
-│   └── priority_fee/         # Fee management
-├── platforms/                # Platform-specific implementations
-│   ├── pumpfun/             # pump.fun specific code
-│   └── letsbonk/            # letsbonk.fun specific code
-├── trading/                  # Trading logic
-│   ├── base.py              # Base trading classes
-│   ├── universal_trader.py   # Platform-agnostic trader
-│   └── position.py          # Position management
-├── monitoring/               # Event listening and monitoring
-│   ├── base_listener.py     # Base listener interface
-│   └── universal_*_listener.py  # Specific listeners
-├── interfaces/               # Abstract base classes
-└── utils/                    # Utilities and helpers
-    ├── logger.py            # Logging utilities
-    └── idl_manager.py       # IDL management
+### Import Organization
+```python
+# Standard library imports first
+import asyncio
+import logging
+from pathlib import Path
+
+# Third-party imports second
+import aiohttp
+from solana.rpc.async_api import AsyncClient
+
+# Local imports last
+from config_loader import load_bot_config
+from utils.logger import get_logger
 ```
 
-### File Naming Conventions
-- Use snake_case for all Python files and directories
-- Prefix abstract base classes with "Base" or put in `interfaces/`
-- Use "Universal" prefix for platform-agnostic implementations
-- Group related functionality in subdirectories
-
-## Design Patterns
-
-### Platform Abstraction
-Implement platform-specific functionality using the factory pattern:
+### Type Annotations
+- Add type hints to ALL public functions and methods
+- Use modern typing syntax (Python 3.9+ union syntax where applicable)
+- Include return type annotations
+- Use `from typing import Any` for complex types
 
 ```python
-# interfaces/core.py - Define abstract interfaces
-from abc import ABC, abstractmethod
+def process_transaction(tx_data: dict[str, Any]) -> bool:
+    """Process transaction data and return success status."""
+    pass
 
-class AddressProvider(ABC):
-    @abstractmethod
-    def get_program_address(self) -> str:
-        pass
-
-# platforms/pumpfun/address_provider.py - Concrete implementation
-class PumpFunAddressProvider(AddressProvider):
-    def get_program_address(self) -> str:
-        return "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+async def fetch_data(endpoint: str) -> dict[str, Any] | None:
+    """Fetch data from endpoint, return None on failure."""
+    pass
 ```
 
-### Universal Components
-Create platform-agnostic wrappers that delegate to platform-specific implementations:
+## Documentation Standards
+
+### Docstring Format
+Use Google-style docstrings for all functions and classes:
 
 ```python
-class UniversalTrader:
-    def __init__(self, platform: Platform, **kwargs):
-        self.platform = platform
-        self.platform_trader = self._create_platform_trader()
+def calculate_slippage(amount: float, slippage_percent: float) -> float:
+    """Calculate slippage amount for a trade.
     
-    def _create_platform_trader(self):
-        # Factory method to create platform-specific trader
-        pass
+    Args:
+        amount: The trade amount in SOL
+        slippage_percent: Slippage percentage (0.1 = 10%)
+        
+    Returns:
+        The calculated slippage amount
+        
+    Raises:
+        ValueError: If slippage_percent is negative
+    """
+    if slippage_percent < 0:
+        raise ValueError("Slippage percentage cannot be negative")
+    return amount * slippage_percent
 ```
 
-### Configuration Management
-- Use YAML files for bot configurations in `bots/` directory
-- Support environment variable interpolation with `${VARIABLE}` syntax
-- Validate configurations before starting bots
-- Separate environment-specific settings in `.env` files
+## Error Handling
 
-## Module Dependencies
+### Comprehensive Exception Handling
+- Use try-catch blocks for all external operations (RPC calls, file I/O)
+- Log exceptions with context using `logging.exception()`
+- Provide meaningful error messages
+- Don't suppress exceptions without good reason
 
-### Import Rules
-- Core modules should not import from trading or monitoring
-- Platform-specific modules should only import from their own package and core/interfaces
-- Avoid circular imports between packages
-- Use dependency injection for cross-package dependencies
+```python
+try:
+    result = await client.get_account_info(address)
+    logger.info(f"Successfully fetched account info for {address}")
+except Exception as e:
+    logger.exception(f"Failed to fetch account info for {address}: {e}")
+    raise
+```
 
-### Dependency Layers (from low to high level)
-1. **utils/** - Utilities and helpers (no business logic dependencies)
-2. **interfaces/** - Abstract base classes and protocols
-3. **core/** - Blockchain and infrastructure (depends on utils, interfaces)
-4. **platforms/** - Platform implementations (depends on core, interfaces)
-5. **trading/** - Trading logic (depends on core, platforms, interfaces)
-6. **monitoring/** - Event listening (depends on core, platforms, interfaces)
-7. **bot_runner.py** - Main orchestrator (depends on all layers)
+## Logging Standards
 
-## Async Architecture
+### Logger Usage
+- Use `get_logger(__name__)` pattern consistently
+- Import from `utils.logger`
+- Use appropriate log levels (DEBUG, INFO, WARNING, ERROR)
+- Include context in log messages
 
-### Event Loop Management
-- Use uvloop for better performance
-- Set event loop policy at application startup
-- Use asyncio.create_task() for concurrent operations
-- Implement proper cleanup on shutdown
+```python
+from utils.logger import get_logger
 
-### Connection Management
-- Use connection pooling for HTTP clients
-- Implement reconnection logic for WebSocket connections
-- Cache expensive resources (blockhash, account info)
-- Use async context managers for resource cleanup
+logger = get_logger(__name__)
 
-## Testing Strategy
+# Good logging examples
+logger.info(f"Starting bot '{bot_name}' with platform {platform.value}")
+logger.warning(f"Transaction failed, attempt {attempt}/{max_attempts}")
+logger.error(f"Platform {platform.value} is not supported")
+```
 
-### Test Organization
-- Use `learning-examples/` for integration testing and validation
-- Test platform-specific components independently
-- Mock external dependencies (RPC calls, WebSocket connections)
-- Validate configurations with actual bot startup
+## Security Rules
 
-### Test Data
-- Use test networks for development
-- Never test with real funds or production keys
-- Create fixtures for common test scenarios
-- Document test account requirements
+### Sensitive Data
+- NEVER hardcode private keys, API tokens, or secrets
+- Use environment variables for all sensitive configuration
+- Don't log sensitive information
+- Validate all external inputs
 
-## Performance Considerations
+### Safe Practices
+```python
+# Good - using environment variables
+private_key = os.getenv("SOLANA_PRIVATE_KEY")
+if not private_key:
+    raise ValueError("SOLANA_PRIVATE_KEY environment variable is required")
 
-### Caching Strategy
-- Cache recent blockhash in background task
-- Cache account information where appropriate
-- Use local caching for IDL data
-- Implement TTL for cached data
+# Bad - hardcoded secrets
+private_key = "your_secret_key_here"  # NEVER DO THIS
+```
 
-### Resource Management
-- Limit concurrent operations based on RPC provider limits
-- Implement backoff strategies for failed requests
-- Use separate processes for production bot instances
-- Monitor memory usage in long-running processes
+## Code Quality
+
+### Linting Compliance
+Ensure code passes all enabled Ruff rules:
+- Security best practices (S)
+- Type annotations (ANN)
+- Exception handling (BLE, TRY)
+- Code complexity (C90)
+- Pylint conventions (PL)
+- No commented-out code (ERA)
+
+### Performance Considerations
+- Use async/await for I/O operations
+- Implement proper connection pooling for HTTP clients
+- Cache expensive computations when appropriate
+- Use uvloop for better async performance
+
+```python
+# Set uvloop policy at module level
+import asyncio
+import uvloop
+
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+```
 
 ---
 > Source: [chainstacklabs/pumpfun-bonkfun-bot](https://github.com/chainstacklabs/pumpfun-bonkfun-bot) — distributed by [TomeVault](https://tomevault.io).
