@@ -4,7 +4,7 @@
   "repo": "mofa",
   "description": "MoFA - Modular Framework for Agents. Modular, Compositional and Programmable.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mofa-org/mofa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T21:35:59Z"
+  "distributed_at": "2026-06-01T22:16:52Z"
 }
