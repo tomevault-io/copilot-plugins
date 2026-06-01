@@ -4,7 +4,7 @@
   "repo": "hub",
   "description": "Alby Hub - Your own Bitcoin Lightning node: easy, connectable, feature-rich \u2728 Run anywhere. Become self-sovereign.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getAlby/hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T20:24:27Z"
+  "distributed_at": "2026-06-01T20:28:36Z"
 }
