@@ -1,0 +1,9 @@
+{
+  "name": "foxminchan--bookworm",
+  "displayName": "BookWorm",
+  "description": "The practical implementation of Aspire using Microservices, AI-Agents",
+  "version": "1.0.0",
+  "author": "foxminchan",
+  "homepage": "https://github.com/foxminchan/BookWorm",
+  "skills": []
+}
