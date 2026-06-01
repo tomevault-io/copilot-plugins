@@ -1,0 +1,9 @@
+{
+  "name": "whyzoo-lab--wz-pdf",
+  "displayName": "WZ-PDF",
+  "description": "Presentation-focused PDF Viewer & Editor for Web and Desktop. Annotate, edit, export HTML/PNG, and package PDFs as standalone EXE applications.",
+  "version": "1.0.0",
+  "author": "whyzoo-lab",
+  "homepage": "https://github.com/whyzoo-lab/WZ-PDF",
+  "skills": []
+}
