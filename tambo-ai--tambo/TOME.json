@@ -4,7 +4,7 @@
   "repo": "tambo",
   "description": "Generative UI SDK for React",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tambo-ai/tambo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T23:34:55Z"
+  "distributed_at": "2026-06-01T23:35:26Z"
 }
