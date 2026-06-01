@@ -1,0 +1,9 @@
+{
+  "name": "helsing-ai--tracing-scribe",
+  "displayName": "tracing-scribe",
+  "description": "A tracing-subscriber layer for beautifully printing spans and events to the terminal.",
+  "version": "1.0.0",
+  "author": "helsing-ai",
+  "homepage": "https://github.com/helsing-ai/tracing-scribe",
+  "skills": []
+}
