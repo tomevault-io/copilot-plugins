@@ -1,0 +1,9 @@
+{
+  "name": "labautomationandscreening--pyalab",
+  "displayName": "pyalab",
+  "description": "Library for generating Integra ViaLab files",
+  "version": "1.0.0",
+  "author": "LabAutomationAndScreening",
+  "homepage": "https://github.com/LabAutomationAndScreening/pyalab",
+  "skills": []
+}
