@@ -1,0 +1,9 @@
+{
+  "name": "theihasan--geezap",
+  "displayName": "geezap",
+  "description": "Geezap is an AI-powered job aggregation platform built with Laravel that unifies job listings from LinkedIn, Upwork, Indeed, and ZipRecruiter. Features include smart job matching, automated cover lett",
+  "version": "1.0.0",
+  "author": "theihasan",
+  "homepage": "https://github.com/theihasan/geezap",
+  "skills": []
+}
