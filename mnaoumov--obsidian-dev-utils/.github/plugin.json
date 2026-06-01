@@ -1,0 +1,9 @@
+{
+  "name": "mnaoumov--obsidian-dev-utils",
+  "displayName": "obsidian-dev-utils",
+  "description": "Collection of essential functions and CLI tools designed to streamline your Obsidian plugin development process",
+  "version": "1.0.0",
+  "author": "mnaoumov",
+  "homepage": "https://github.com/mnaoumov/obsidian-dev-utils",
+  "skills": []
+}
