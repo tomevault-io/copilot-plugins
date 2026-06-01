@@ -2,6 +2,8 @@
 
 > Tome by [santosomar](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io)
 
+This repository contains resources and materials for courses and presentations related to AI Agents and Agentic Systems for Cybersecurity Operations by Omar Santos.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.windsurf/rules/*.md` in [santosomar/AI-agents-for-cybersecuri
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — a repo with 0+ stars on GitHub.
+From [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — a repo with 194+ stars on GitHub.
 
 ---
 
