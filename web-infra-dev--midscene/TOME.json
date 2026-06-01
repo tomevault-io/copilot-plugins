@@ -4,7 +4,7 @@
   "repo": "midscene",
   "description": "AI-powered, vision-driven UI automation for every platform.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/web-infra-dev/midscene",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T17:34:31Z"
+  "distributed_at": "2026-06-01T17:41:21Z"
 }
