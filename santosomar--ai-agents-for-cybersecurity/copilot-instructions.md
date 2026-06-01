@@ -1,60 +1,69 @@
-## codeguard-0-devops-ci-cd-containers
+## codeguard-0-file-handling-and-uploads
 
-> DevOps, CI/CD, and containers (pipeline hardening, artifacts, Docker/K8s
+> Secure file handling & uploads (validation, storage isolation, scanning,
 
 
-rule_id: codeguard-0-devops-ci-cd-containers
+rule_id: codeguard-0-file-handling-and-uploads
 
-## DevOps, CI/CD, and Containers
+## File Upload Security Guidelines
 
-Secure the build, packaging, and deployment supply chain: protect pipelines and artifacts, harden containers, and use virtual patching and toolchain flags when necessary.
+This rule advises on secure file upload practices to prevent malicious file attacks and protect system integrity:
 
-### CI/CD Pipeline Security
-- Repos: protected branches; mandatory reviews; signed commits.
-- Secrets: never hardcode; fetch at runtime from vault/KMS; mask in logs.
-- Least privilege: ephemeral, isolated runners with minimal permissions.
-- Security gates in CI: SAST, SCA, DAST, IaC scanning; block on criticals.
-- Dependencies: pin via lockfiles; verify integrity; use private registries.
-- Sign everything: commits and artifacts (containers/jars) and verify prior to deploy; adopt SLSA provenance.
+- Extension Validation
+  - List allowed extensions only for business-critical functionality.
+  - Ensure input validation is applied before validating extensions.
+  - Avoid double extensions (e.g., `.jpg.php`) and null byte injection (e.g., `.php%00.jpg`).
+  - Use allowlist approach rather than denylist for file extensions.
+  - Validate extensions after decoding filename to prevent bypass attempts.
 
-### Docker and Container Hardening
-- User: run as non‑root; set `USER` in Dockerfile
-- Use `--security-opt=no-new-privileges` to prevent privilege escalation.
-- Capabilities: `--cap-drop all` and add only what you need; never `--privileged`.
-- Daemon socket: never mount `/var/run/docker.sock`
-- DO NOT enable TCP Docker daemon socket (`-H tcp://0.0.0.0:XXX`) without TLS.
-- Avoid `- "/var/run/docker.sock:/var/run/docker.sock"` in docker-compose files.
-- Filesystems: read‑only root, tmpfs for temp write; resource limits (CPU/mem).
-- Networks: avoid host network; define custom networks; limit exposed ports.
-- Images: minimal base (distroless/alpine), pin tags and digests; remove package managers and tools from final image; add `HEALTHCHECK`.
-- Secrets: Docker/Kubernetes secrets; never in layers/env; mount via runtime secrets.
-- Scanning: scan images on build and admission; block high‑severity vulns.
+- Content Type and File Signature Validation
+  - Never trust client-supplied Content-Type headers as they can be spoofed.
+  - Validate file signatures (magic numbers) in conjunction with Content-Type checking.
+  - Implement allowlist approach for MIME types as a quick protection layer.
+  - Use file signature validation but not as a standalone security measure.
 
-### Node.js in Containers
-- Deterministic builds: `npm ci --omit=dev`; pin base image with digest.
-- Production env: `ENV NODE_ENV=production`.
-- Non‑root: copy with correct ownership and drop to `USER node`.
-- Signals: use an init (e.g., `dumb-init`) and implement graceful shutdown handlers.
-- Multi‑stage builds: separate build and runtime; mount secrets via BuildKit; use `.dockerignore`.
+- Filename Security
+  - Generate random filenames (UUID/GUID) instead of using user-supplied names.
+  - If user filenames required, implement maximum length limits.
+  - Restrict characters to alphanumeric, hyphens, spaces, and periods only.
+  - Prevent leading periods (hidden files) and sequential periods (directory traversal).
+  - Avoid leading hyphens or spaces for safer shell script processing.
 
-### Virtual Patching (Temporary Mitigation)
-- Use WAF/IPS/ModSecurity for immediate protection when code fixes are not yet possible.
-- Prefer positive security rules (allow‑list) for accuracy; avoid exploit‑specific signatures.
-- Process: prepare tooling in advance; analyze CVEs; implement patches in log‑only first, then enforce; track and retire after code fix.
+- File Content Validation
+  - For images, apply image rewriting techniques to destroy malicious content.
+  - For Microsoft documents, use Apache POI for validation.
+  - Avoid ZIP files due to numerous attack vectors.
+  - Implement manual file review in sandboxed environments when resources allow.
+  - Integrate antivirus scanning and Content Disarm & Reconstruct (CDR) for applicable file types.
 
-### C/C++ Toolchain Hardening (when applicable)
-- Compiler: `-Wall -Wextra -Wconversion`, `-fstack-protector-all`, PIE (`-fPIE`/`-pie`), `_FORTIFY_SOURCE=2`, CFI (`-fsanitize=cfi` with LTO).
-- Linker: RELRO/now, noexecstack, NX/DEP and ASLR.
-- Debug vs Release: enable sanitizers in debug; enable hardening flags in release; assert in debug only.
-- CI checks: verify flags (`checksec`) and fail builds if protections missing.
+- Storage Security
+  - Store files on different servers for complete segregation when possible.
+  - Store files outside webroot with administrative access only.
+  - If storing in webroot, set write-only permissions with proper access controls.
+  - Use application handlers that map IDs to filenames for public access.
+  - Consider database storage for specific use cases with DBA expertise.
 
-### Implementation Checklist
-- Pipeline: secrets in vault; ephemeral runners; security scans; signed artifacts with provenance.
-- Containers: non‑root, least privilege, read‑only FS, resource limits; no daemon socket mounts.
-- Images: minimal, pinned, scanned; healthchecks; `.dockerignore` maintained.
-- Node images: `npm ci`, `NODE_ENV=production`, proper init and shutdown.
-- Virtual patching: defined process; accurate rules; logs; retirement after fix.
-- Native builds: hardening flags enabled and verified in CI.
+- Access Control and Authentication
+  - Require user authentication before allowing file uploads.
+  - Implement proper authorization levels for file access and modification.
+  - Set filesystem permissions on principle of least privilege.
+  - Scan files before execution if execution permission is required.
+
+- Upload and Download Limits
+  - Set proper file size limits for upload protection.
+  - Consider post-decompression size limits for compressed files.
+  - Implement request limits for download services to prevent DoS attacks.
+  - Use secure methods to calculate ZIP file sizes safely.
+
+- Additional Security Measures
+  - Protect file upload endpoints from CSRF attacks.
+  - Keep all file processing libraries securely configured and updated.
+  - Implement logging and monitoring for upload activities.
+  - Provide user reporting mechanisms for illegal content.
+  - Use secure extraction methods for compressed files.
+
+Summary:  
+Implement defense-in-depth for file uploads through multi-layered validation, secure storage practices, proper access controls, and comprehensive monitoring. Never rely on single validation methods and always generate safe filenames to prevent attacks.
 
 ---
 > Source: [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io).
