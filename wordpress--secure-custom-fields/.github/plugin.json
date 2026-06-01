@@ -1,0 +1,9 @@
+{
+  "name": "wordpress--secure-custom-fields",
+  "displayName": "secure-custom-fields",
+  "description": "Secure Custom Fields",
+  "version": "1.0.0",
+  "author": "WordPress",
+  "homepage": "https://github.com/WordPress/secure-custom-fields",
+  "skills": []
+}
