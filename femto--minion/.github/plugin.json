@@ -1,0 +1,9 @@
+{
+  "name": "femto--minion",
+  "displayName": "minion",
+  "description": "\ud83d\udc77\u200d\u2642\ufe0fHigh performance agent framework that can do everything. Minion is designed to execute any type of queries, offering a variety of features that demonstrate its flexibility and intelligence.",
+  "version": "1.0.0",
+  "author": "femto",
+  "homepage": "https://github.com/femto/minion",
+  "skills": []
+}
