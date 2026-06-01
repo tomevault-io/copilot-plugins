@@ -1,0 +1,9 @@
+{
+  "name": "viewcomfy--viewcomfy",
+  "displayName": "ViewComfy",
+  "description": "ViewComfy is a open source tool to help you create beautiful web apps from ComfyUI",
+  "version": "1.0.0",
+  "author": "ViewComfy",
+  "homepage": "https://github.com/ViewComfy/ViewComfy",
+  "skills": []
+}
