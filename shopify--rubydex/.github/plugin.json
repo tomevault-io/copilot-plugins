@@ -1,0 +1,9 @@
+{
+  "name": "shopify--rubydex",
+  "displayName": "rubydex",
+  "description": "A high-performance Ruby indexer",
+  "version": "1.0.0",
+  "author": "Shopify",
+  "homepage": "https://github.com/Shopify/rubydex",
+  "skills": []
+}
