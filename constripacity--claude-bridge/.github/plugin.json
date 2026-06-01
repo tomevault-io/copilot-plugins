@@ -1,0 +1,9 @@
+{
+  "name": "constripacity--claude-bridge",
+  "displayName": "Claude-Bridge",
+  "description": "Real-time cross-machine MCP relay for Claude Code agents",
+  "version": "1.0.0",
+  "author": "constripacity",
+  "homepage": "https://github.com/constripacity/Claude-Bridge",
+  "skills": []
+}
