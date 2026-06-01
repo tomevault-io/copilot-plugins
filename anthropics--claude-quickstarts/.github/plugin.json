@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--claude-quickstarts",
+  "displayName": "claude-quickstarts",
+  "description": "A collection of projects designed to help developers quickly get started with building deployable applications using the Claude API",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/claude-quickstarts",
+  "skills": []
+}
