@@ -1,37 +1,159 @@
-## playwright
+## desktop
 
-> Playwright End-to-End Testing
+> **ComfyUI Desktop** (@comfyorg/comfyui-electron) is an Electron-based desktop application that packages ComfyUI with a user-friendly interface. It's "the best modular GUI to run AI diffusion models" and automatically handles Python environment setup, dependency management, and provides a seamless desktop experience for running AI models.
 
+# ComfyUI Desktop - Claude Code Instructions
 
-# Playwright End-to-End Testing
+## Project Overview
 
-- This project uses `Playwright` for end-to-end testing
-- Tests are stored in subdirectories of `tests/integration/`
-- Directory structure of `tests/integration/` is based on the test phase the tests
-- Tests should use the convenience methods and properties defined in the helper classes
-  - Prefer adding properties to test classes over using locator selectors directly in tests
-  - Test classes are stored in the `tests/integrations` directory
-- Tests should be cross-platform compatible; able to run on Windows, macOS, and linux
-  - e.g. the use of `path.join` and `path.sep` to ensure tests work the same on all platforms
+**ComfyUI Desktop** (@comfyorg/comfyui-electron) is an Electron-based desktop application that packages ComfyUI with a user-friendly interface. It's "the best modular GUI to run AI diffusion models" and automatically handles Python environment setup, dependency management, and provides a seamless desktop experience for running AI models.
 
-## Test phases (Playwright projects)
+- **Homepage**: https://comfy.org
 
-1. `install`: The install phase resets the entire test environment after each test.
-2. `post-install-setup`: Installs the app with default settings, creating a baseline for each test in the next phase (`post-install`)
-3. `post-install`: Tests post-install features of the desktop app, with each test starting from the state set in `post-install-setup`
+## Key Technologies
 
-## Spec files: \*.spec.ts
+- **Electron**: Desktop app framework
+- **TypeScript**: Primary language
+- **Vite**: Build tool and bundler
+- **Node.js**: Runtime (use nvm)
+- **Yarn**: Package manager
+- **Vitest**: Unit testing
+- **Playwright**: E2E testing
+- **ESLint**: Linting
+- **Prettier**: Formatting
 
-- Prefer imports from [testExtensions.ts](mdc:tests/integration/testExtensions.ts) over playwright defaults.
+## Development Commands
 
-## Snapshots
+### Code Quality (ALWAYS RUN AFTER CHANGES)
 
-- Update E2E snapshots with `yarn test:e2e:update`
+```bash
+yarn lint              # Check & auto-fix ESLint issues
+yarn format            # Auto-format code
+yarn typecheck         # TypeScript type checking (all)
+```
 
-## Test helper classes: tests/integration/test\*.ts
+### Development
 
-- These files contain clean methods and properties for use in spec files
-- Use of these classes is preferred whenever possible, as they make the code easier to read
+```bash
+yarn start             # Build and launch app with file watching
+yarn make:assets       # Download ComfyUI dependencies
+yarn clean             # Remove build artifacts
+```
+
+### Testing
+
+```bash
+yarn test:unit         # Run unit tests (Vitest)
+yarn test:e2e          # Run E2E tests (Playwright)
+yarn test:e2e:update   # Update Playwright snapshots
+```
+
+### Building
+
+```bash
+yarn make              # Build platform package
+yarn make:nvidia       # Build with NVIDIA GPU support
+yarn vite:compile      # Compile with Vite
+```
+
+### Troubleshooting
+
+- If you encounter errors regarding `NODE_MODULE_VERSION`, try running `npx electron-rebuild` before other troubleshooting steps.
+  - If that still fails, try `yarn rebuild`
+
+## Custom testing
+
+We have testing configured with Vitest. Use vitest to create any tests you need. Do not attempt to custom code your own testing infrastructure, as that is pointless and will do nothing but derail you.
+
+## Project Structure
+
+### Source Code (`/src/`)
+
+- **`main.ts`**: Main Electron process entry point
+- **`desktopApp.ts`**: Core application logic
+- **`preload.ts`**: Electron preload script
+- **`main-process/`**: Main process modules
+  - `comfyDesktopApp.ts` - ComfyUI server management
+  - `appWindow.ts` - Window management
+  - `comfyServer.ts` - Server lifecycle
+- **`install/`**: Installation & setup logic
+- **`handlers/`**: IPC message handlers
+- **`services/`**: Core services (telemetry, Sentry)
+- **`config/`**: Configuration management
+- **`store/`**: Persistent storage
+- **`utils.ts`**: Utility functions
+
+### Tests (`/tests/`)
+
+- **`unit/`**: Vitest-based component tests
+- **`integration/`**: Playwright E2E tests
+  - `install/` - Fresh installation testing
+  - `post-install/` - Tests after app setup
+  - `shared/` - Common test functionality
+
+## Development Setup
+
+- **Python 3.12+** with virtual environment support required
+- **Node.js v20.x** (use nvm for version management)
+- **Visual Studio 2019+** with C++ workload (Windows)
+- **Spectre-mitigated libraries** for node-gyp compilation
+
+## Important Files & Configuration
+
+- **`package.json`**: Defines ComfyUI versions and dependencies
+- **`assets/requirements/`**: Pre-compiled Python requirements by platform
+- **`todesktop.json`**: Cloud build and distribution config
+- **`builder-debug.config.ts`**: Local development build settings
+- **Multi-config Vite setup** with separate configs for main, preload, and types
+
+## Bundled Components
+
+The app packages these components:
+
+- **ComfyUI**: AI diffusion model GUI
+- **ComfyUI_frontend**: Modern web frontend
+- **ComfyUI-Manager**: Plugin/extension manager
+- **uv**: Fast Python package manager
+
+## Development Environment Variables
+
+- **`--dev-mode`**: Flag for packaged apps in development
+- **`COMFY_HOST`/`COMFY_PORT`**: External server for development
+- **`VUE_DEVTOOLS_PATH`**: Frontend debugging support
+
+## Platform-Specific Paths
+
+- **Windows**: `%APPDATA%\ComfyUI` (config), `%LOCALAPPDATA%\Programs\ComfyUI` (app)
+- **macOS**: `~/Library/Application Support/ComfyUI`
+- **Linux**: `~/.config/ComfyUI`
+
+## Code Style & Conventions
+
+- Follow existing TypeScript patterns in the codebase
+- Use ESLint and Prettier for code formatting
+- Maintain clean separation between main process, renderer, and preload scripts
+- Follow Electron security best practices
+- Use the existing store patterns for configuration management
+- Test changes with both unit tests (Vitest) and E2E tests (Playwright)
+- Use JSDoc format to write documentation for methods
+  - Common tags are `@param`, and `@return` (do not use for `void` return type)
+  - Use `{@link }` to reference symbols
+
+### Type constraints
+
+This project must maintain exceptionally high type standards. The `any` type must not be used. `unknown` can be used when the type is unknown.
+
+- `unknown` means "I do not know what the type is".
+- `any` means "I do not **care** what the type is".
+
+## Before Committing
+
+1. Use `yarn format` to ensure consistent formatting
+1. Run `yarn lint` and `yarn typecheck` to check code quality
+1. Run `yarn test:unit` to ensure unit tests pass
+1. Consider running `yarn test:e2e` for UI changes
+
+This is a sophisticated Electron application with comprehensive testing, automated CI/CD, cross-platform support, and professional development practices.
 
 ---
 > Source: [Comfy-Org/desktop](https://github.com/Comfy-Org/desktop) — distributed by [TomeVault](https://tomevault.io).
