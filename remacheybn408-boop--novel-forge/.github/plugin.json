@@ -1,0 +1,9 @@
+{
+  "name": "remacheybn408-boop--novel-forge",
+  "displayName": "Novel-Forge",
+  "description": "AI long-form novel writing pipeline with SQLite memory, guard registry, continuity evidence, anti-hallucination checks, and revision loop.",
+  "version": "1.0.0",
+  "author": "remacheybn408-boop",
+  "homepage": "https://github.com/remacheybn408-boop/Novel-Forge",
+  "skills": []
+}
