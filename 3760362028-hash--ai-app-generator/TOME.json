@@ -1,0 +1,44 @@
+{
+  "name": "ai-app-generator",
+  "owner": "3760362028-hash",
+  "repo": "ai-app-generator",
+  "description": "AI \u5e94\u7528\u751f\u6210\u5668\u5e73\u53f0\u2014\u2014\u901a\u8fc7\u81ea\u7136\u8bed\u8a00\u63cf\u8ff0\u81ea\u52a8\u751f\u6210\u5e76\u90e8\u7f72\u5b8c\u6574\u7684 Web \u5e94\u7528",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/3760362028-hash/ai-app-generator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T06:03:46Z"
+}
