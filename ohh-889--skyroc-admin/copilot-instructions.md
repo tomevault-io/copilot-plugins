@@ -1,42 +1,47 @@
-## project
+## reduxing
 
-> Skyroc Admin project overview and workspace expectations
+> State management practices for Skyroc Admin
 
-# 项目背景 Project Overview
+# 状态管理规范 State Management
 
-Skyroc Admin 是一套基于 **React 19 + Vite 6 + TypeScript 5** 的中后台模板，整合了 Ant Design 5、Redux Toolkit、TanStack Query、UnoCSS 与 i18next 等能力。仓库采用 **pnpm monorepo**，根目录负责应用壳，`packages/` 存放可复用的工具包（`@sa/axios`、`@sa/utils`、`@sa/hooks`、`@sa/materials`、`@sa/scripts`、`@sa/uno-preset` 等）。
+Skyroc Admin 结合 **Redux Toolkit** 与 **TanStack Query** 构建数据层，遵循以下原则：
 
-## 目录速览
-- `src/`：前端应用主体。
-  - `pages/`：文件系统路由，`(base)` 代表主布局，`(blank)` 用于登录等简化页面。
-  - `features/`：领域模块（auth、menu、theme 等），内部包含 hooks、store、组件。
-  - `layouts/`：布局骨架与全局模块（菜单、页签、主题抽屉）。
-  - `components/`：跨业务复用的基础组件。
-  - `router/`：路由初始化、鉴权与缓存控制。
-  - `service/`：请求客户端、接口定义、业务 hooks。
-  - `store/`：Redux store 配置与自定义 `createAppSlice`。
-  - `theme/`、`styles/`：主题 token、CSS/SCSS 与 UnoCSS 变量。
-- `packages/`：workspace 工具包，变更通用逻辑优先修改对应包后在 `src/` 中引用。
-- `build/`、`public/`：打包脚本与静态资源。
+## Redux Toolkit
+- Store 由 `src/store/index.ts` 通过 `combineSlices` 聚合，slice 建议放在对应 feature 下。
+- 使用 `createAppSlice`（封装自 `buildCreateSlice`）创建 slice，并通过 `create.asyncThunk` 声明异步逻辑。这样可以获得 typed selectors。
+- 导出 `selectors`、`actions` 与 `reducer`：
+  ```ts
+  export const themeSlice = createAppSlice({
+    name: 'theme',
+    initialState,
+    reducers: create => ({
+      setThemeColor: create.reducer((state, { payload }: PayloadAction<string>) => {
+        state.themeColor = payload;
+      })
+    }),
+    selectors: {
+      getThemeSettings: state => state
+    }
+  });
+  ```
+- 统一使用 `useAppDispatch`、`useAppSelector`（位于 `src/hooks/business/useStore.ts`）获取类型安全的 dispatch/select。
+- 当状态需要持久化时，复用 `src/utils/storage.ts` 封装的 `localStg`/`sessionStg` 或 `localforage` 工具，不要直接访问 `localStorage`。
+- 缓存路由、标签页等全局状态集中在 `features/router`、`features/tab`，组件层不要重复存储相同信息。
 
-## 运行与构建命令
-- `pnpm dev` / `pnpm dev:prod`：启动本地开发，默认加载测试/生产配置。
-- `pnpm build` / `pnpm build:test`：生产/测试环境构建。
-- `pnpm preview`：本地预览构建产物。
-- `pnpm lint`：使用 ESLint + Prettier 自动修正格式问题。
-- `pnpm typecheck`：在 strict 模式下执行 TypeScript 类型检查。
-- `pnpm gen-route`：基于 `src/pages` 结构重新生成路由声明。
-- `pnpm commit`：通过内置脚本生成符合 Conventional Commits 的提交信息。
+## TanStack Query
+- 接口请求封装在 `src/service/api`，Query hook 位于 `src/service/hooks`。遵循 `useResource` 命名，并在 `QUERY_KEYS` 中集中管理 key。
+- 读取数据时使用 `useQuery`，突变使用 `useMutation`（可放在同一 hooks 文件）。对 Query 做缓存/刷新时通过 `queryClient`，必要时调用 `ensureQueryData` 预取。
+- 将 Query 与 Redux 结合：例如登录后调用 `queryClient.invalidateQueries` 刷新用户信息，并同步更新 Redux token。
 
-## 开发约定
-1. **使用 pnpm**：不要混用 npm/yarn。workspace 依赖通过 `workspace:*` 管理。
-2. **保持类型安全**：TS 配置开启 `strict` 与 `isolatedModules`，新增模块需提供类型。
-3. **遵守文件组织**：新增业务逻辑时优先在对应 feature 内扩展，而非随意创建新顶级目录。
-4. **国际化默认开启**：用户可选中英文，新增界面文本请落在 `src/locales` 中的语言包。
-5. **环境变量**：通过 Vite 的 `import.meta.env` 获取，公共配置集中在 `src/config.ts`。
-6. **脚手架脚本**：`packages/scripts` 内置常用 automation，新增脚本保持幂等并在 README 记录。
+## 何时使用哪一种
+- **本地 UI 或需要全局广播的同步状态**：使用 Redux slice。
+- **服务端数据、分页列表、依赖缓存的请求**：使用 TanStack Query。
+- 如果同一数据既需要请求又要在多个模块共享，可用 Query 负责远程数据、Redux 存储派生状态（如缓存 key、布局设置）。
 
-保持这些约定能确保 Cursor 在任意子目录下都有一致的上下文与期望。
+## 其他注意事项
+- 所有异步操作需处理异常，使用 `try/catch` 或 Query 的 `onError`，并调用 `window.$message?.error` 展示提示。
+- 避免在组件中直接调用 `store.dispatch`，通过 `useAppDispatch()` 获取。
+- 当新增 slice 时，别忘了在 `src/store/index.ts` 中组合，并在 `src/types` 更新对应的状态类型（若需要全局声明）。
 
 ---
 > Source: [Ohh-889/skyroc-admin](https://github.com/Ohh-889/skyroc-admin) — distributed by [TomeVault](https://tomevault.io).
