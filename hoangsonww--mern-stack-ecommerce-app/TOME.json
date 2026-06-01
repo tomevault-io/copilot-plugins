@@ -4,7 +4,7 @@
   "repo": "MERN-Stack-Ecommerce-App",
   "description": "\ud83d\uded2 Welcome to Fusion Electronics -  a sample full-stack, lightweight, and modern online e-commerce application, built with the MERN (MongoDB, Express, React, Node.js) stack! Also features a product recommendation service using vector search, FAISS, and the Weaviate/Pinecone vector DB!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangsonww/MERN-Stack-Ecommerce-App",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T22:17:26Z"
+  "distributed_at": "2026-06-01T22:26:02Z"
 }
