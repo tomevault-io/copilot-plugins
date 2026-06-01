@@ -1,0 +1,44 @@
+{
+  "name": "Novel-Forge",
+  "owner": "remacheybn408-boop",
+  "repo": "Novel-Forge",
+  "description": "AI long-form novel writing pipeline with SQLite memory, guard registry, continuity evidence, anti-hallucination checks, and revision loop.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/remacheybn408-boop/Novel-Forge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T10:10:42Z"
+}
