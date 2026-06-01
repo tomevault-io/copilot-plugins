@@ -1,62 +1,153 @@
-## nextjs-standards
+## solana-com
 
-> description: Global Next.js + TypeScript standards (Tailwind, Shadcn, Radix, RSC, Zustand, TanStack Query, Zod, Jest/RTL).
+> Start here before exploring the repo in depth.
 
----
-description: Global Next.js + TypeScript standards (Tailwind, Shadcn, Radix, RSC, Zustand, TanStack Query, Zod, Jest/RTL).
-alwaysApply: true
----
+# Solana.com Monorepo Agent Guide
 
-## Authoritative guidelines
+Start here before exploring the repo in depth.
 
-### Code style
-- Write **TypeScript** with functional, declarative patterns – never classes.
-- Prefer **early returns** and **guard clauses**; avoid nested conditionals.
-- Name booleans with auxiliaries (`isLoading`, `hasError`).
+## What This Repo Is
 
-### File & folder conventions
-- Each component in its own folder:  
-  `components/auth-wizard/*`
-- Export **top-level component**, optional `Subcomponents.tsx`, `helpers.ts`, `types.ts`.
-- Use **kebab-case** for directories.
+This is a `pnpm` workspace + Turborepo monorepo for several separately deployed
+Next.js apps that are stitched together behind `solana.com` with rewrites and
+asset prefixes.
 
-### Rendering strategy
-- Default to **React Server Components**; mark client code with `'use client'` only when interactive.
-- Favour **SSR / SSG** data hooks (`fetch` in RSC, `getStaticProps`, etc.).
-- Use **dynamic imports** (`next/dynamic`) for heavy, client-only bundles.
+Most apps are not standalone product islands. They share:
 
-### State & data
-- **Local:** `useState` / `useReducer` for component-scoped concerns.
-- **Global:** Zustand slices in `src/stores/`.
-- **Async:** TanStack React Query (`suspense: true`) for server/data fetching.
-- **Validation:** Zod at all IO boundaries (APIs, forms, env).
+- `@workspace/i18n` for locale config and routing helpers
+- `@workspace/ui` for reusable UI primitives
+- `@solana-com/ui-chrome` for shared header, footer, cross-app links, alerts,
+  and Inkeep integrations
+- Turborepo tasks defined in the root `package.json` and `turbo.json`
 
-### UI / Styling
-- Style with **Tailwind CSS**; compose primitives with **Shadcn UI** & **Radix UI**.
-- Mobile-first, fluid spacing, responsive breakpoints (`sm/ md/ lg/ xl/ 2xl`).
-- Optimise images: `<Image src="*.webp" fill sizes />`, `loading="lazy"`.
+## Fast Routing Map
 
-### Error handling
-- Throw **custom errors** (`class AppError extends Error { cause?: unknown }`).
-- Wrap async operations in `try/catch`; surface via an error boundary.
+Pick the app first. That usually cuts exploration time in half.
 
-### Performance & security
-- Enable **Content-Security-Policy**, **X-Frame-Options**, **Strict-Transport-Security** headers.
-- Strip unreachable code with `@next/bundle-analyzer`.
-- Use **sentry-nextjs** for monitoring.
+| Area                  | Workspace                                   | Local Port | Key Route Prefixes                                                 |
+| --------------------- | ------------------------------------------- | ---------- | ------------------------------------------------------------------ |
+| Main marketing site   | `apps/web` / `solana-com`                   | `3000`     | `/`, `/solutions`, `/developers`, `/ecosystem`, `/events`, `/news` |
+| Developer docs        | `apps/docs` / `solana-docs`                 | `3003`     | `/docs`, `/developers/cookbook`, `/developers/guides`              |
+| Media/blog            | `apps/media` / `solana-com-media`           | `3002`     | `/news`, `/podcasts`, `/keystatic`                                 |
+| Templates showcase    | `apps/templates` / `solana-templates`       | `3001`     | `/developers/templates` via rewrites                               |
+| Accelerate event site | `apps/accelerate` / `solana-com-accelerate` | `3004`     | `/accelerate` via rewrites                                         |
+| Breakpoint event site | `apps/breakpoint` / `solana-com-breakpoint` | `3005`     | `/breakpoint` via rewrites                                         |
 
-### Testing & docs
-- Unit test with **Jest + React Testing Library**; cover hooks & edge cases.
-- Keep comments explanatory, not redundant.
+## Repo Layout
 
-### Exports
+### Apps
 
-- Use named exports for all components, hooks, and utilities:
-  ```tsx
-  export const MyComponent = () => { ... }
-  ```
-- Do not use default exports for components or functions.
-- This improves auto-imports, refactoring, and code clarity.
+- `apps/web`: main `solana.com` app, large surface area, mix of marketing,
+  ecosystem, events, news aggregation, and developer entry points
+- `apps/docs`: Fumadocs-based developer docs with MDX content under `content/`
+- `apps/media`: Keystatic-backed news and podcast site with content in
+  `content/`
+- `apps/templates`: templates browser that fetches metadata from GitHub
+- `apps/accelerate`: event microsite with its own asset prefix and route
+  rewrites
+- `apps/breakpoint`: event microsite with its own asset prefix and route
+  rewrites
+
+### Shared packages
+
+- `packages/i18n`: locale list, routing helpers, shared message loading
+- `packages/ui`: reusable UI primitives
+- `packages/ui-chrome`: shared nav/footer/theme/cross-app link behavior
+- `packages/ecosystem-data`: canonical company and logo registry used by apps
+- `packages/sentry`: shared Sentry helpers
+- `packages/config-eslint`, `packages/config-typescript`: shared configs
+
+## First Commands To Reach For
+
+From repo root:
+
+```bash
+pnpm install
+pnpm dev
+pnpm dev:web
+pnpm dev:media
+pnpm dev:acc
+pnpm --filter solana-docs dev
+pnpm --filter solana-templates dev
+pnpm --filter solana-com-breakpoint dev
+pnpm lint
+pnpm test
+pnpm --filter <workspace> lint
+pnpm --filter <workspace> check-types
+pnpm --filter <workspace> test
+```
+
+Periodic agent-doc refresh:
+
+```bash
+node skills/refresh-agent-context/scripts/workspace_inventory.mjs
+```
+
+Useful filters:
+
+- `solana-com`
+- `solana-docs`
+- `solana-com-media`
+- `solana-templates`
+- `solana-com-accelerate`
+- `solana-com-breakpoint`
+
+## Turborepo Rules That Matter
+
+- Root scripts call `turbo run ...`
+- `build` depends on ancestor `build` tasks and reads `.env*`
+- `dev` is uncached and persistent
+- `test` has no cached outputs
+- Shared env pass-through is declared in [`turbo.json`](./turbo.json)
+
+When a change needs validation, prefer targeted workspace commands before
+running the whole repo.
+
+If repo structure changed and the onboarding docs may be stale, use the
+`refresh-agent-context` skill in `skills/refresh-agent-context/`.
+
+## Cross-App Behavior
+
+- Non-web apps set `NEXT_PUBLIC_APP_NAME` in `next.config.ts`
+- `@solana-com/ui-chrome/url-config` uses that value to decide whether a link
+  should use Next client navigation or a full page load across app boundaries
+- Several apps use `assetPrefix` plus rewrites so they can live behind
+  `solana.com` without breaking static assets
+
+If you touch navigation, shared header/footer behavior, or route ownership,
+inspect `packages/ui-chrome` and the target app `next.config.ts` together.
+
+## Content Ownership
+
+- `apps/docs/content`: source of truth for docs, cookbook, and guides
+- `apps/media/content`: source of truth for posts, podcasts, authors, tags, and
+  global CMS content
+- `packages/i18n/messages/*`: shared UI message catalogs by app
+- `packages/ecosystem-data`: shared company metadata and logos, not app-specific
+  marketing copy
+
+## OpenSpec
+
+Some apps use OpenSpec instructions. If a request is about a proposal, major new
+capability, architecture shift, or ambiguous scoped change, read the app-local
+`openspec/AGENTS.md` before implementing.
+
+Current app-level OpenSpec entry points:
+
+- `apps/web/openspec/AGENTS.md`
+- `apps/accelerate/openspec/AGENTS.md`
+- `apps/breakpoint/openspec/`
+- `apps/media/openspec/`
+
+## Best Next File
+
+After reading this file:
+
+- open the target app's `AGENTS.md` if it exists
+- then open that app's `package.json`
+- then inspect `next.config.ts`
+
+That usually gives enough context to make a safe first edit.
 
 ---
 > Source: [solana-foundation/solana-com](https://github.com/solana-foundation/solana-com) — distributed by [TomeVault](https://tomevault.io).
