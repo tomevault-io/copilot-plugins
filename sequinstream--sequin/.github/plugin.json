@@ -1,0 +1,9 @@
+{
+  "name": "sequinstream--sequin",
+  "displayName": "sequin",
+  "description": "Postgres change data capture to streams, queues, and search indexes like Kafka, SQS, Elasticsearch, HTTP endpoints, and more",
+  "version": "1.0.0",
+  "author": "sequinstream",
+  "homepage": "https://github.com/sequinstream/sequin",
+  "skills": []
+}
