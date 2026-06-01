@@ -1,0 +1,9 @@
+{
+  "name": "comfy-org--comfyui-frontend",
+  "displayName": "ComfyUI_frontend",
+  "description": "Official front-end implementation of ComfyUI",
+  "version": "1.0.0",
+  "author": "Comfy-Org",
+  "homepage": "https://github.com/Comfy-Org/ComfyUI_frontend",
+  "skills": []
+}
