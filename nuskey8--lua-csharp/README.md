@@ -7,11 +7,11 @@ High performance Lua interpreter implemented in C# for .NET and Unity
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nuskey8/Lua-CSharp](https://github.com/nuskey8/Lua-CSharp).
+Original source: `AGENTS.md` in [nuskey8/Lua-CSharp](https://github.com/nuskey8/Lua-CSharp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
