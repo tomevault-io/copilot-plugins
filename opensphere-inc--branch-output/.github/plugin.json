@@ -1,0 +1,9 @@
+{
+  "name": "opensphere-inc--branch-output",
+  "displayName": "branch-output",
+  "description": "This is an OBS Studio plugin that allows to transmit video and audio with RTMP / SRT etc. for each source individually.",
+  "version": "1.0.0",
+  "author": "OPENSPHERE-Inc",
+  "homepage": "https://github.com/OPENSPHERE-Inc/branch-output",
+  "skills": []
+}
