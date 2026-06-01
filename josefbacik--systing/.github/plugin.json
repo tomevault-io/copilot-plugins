@@ -1,0 +1,9 @@
+{
+  "name": "josefbacik--systing",
+  "displayName": "systing",
+  "description": "A libbpf based tracer to help figure out what an application is doing.",
+  "version": "1.0.0",
+  "author": "josefbacik",
+  "homepage": "https://github.com/josefbacik/systing",
+  "skills": []
+}
