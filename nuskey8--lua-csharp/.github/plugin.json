@@ -1,0 +1,9 @@
+{
+  "name": "nuskey8--lua-csharp",
+  "displayName": "Lua-CSharp",
+  "description": "High performance Lua interpreter implemented in C# for .NET and Unity",
+  "version": "1.0.0",
+  "author": "nuskey8",
+  "homepage": "https://github.com/nuskey8/Lua-CSharp",
+  "skills": []
+}
