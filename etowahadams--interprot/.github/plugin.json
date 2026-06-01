@@ -1,0 +1,9 @@
+{
+  "name": "etowahadams--interprot",
+  "displayName": "interprot",
+  "description": "[ICML 25] We train and evaluate SAEs to identify interpretable features in pLMs and show their potential for scientific discovery.",
+  "version": "1.0.0",
+  "author": "etowahadams",
+  "homepage": "https://github.com/etowahadams/interprot",
+  "skills": []
+}
