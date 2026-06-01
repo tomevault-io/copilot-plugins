@@ -1,0 +1,26 @@
+# wealthyrealm
+
+> Tome by [sybatic](https://github.com/sybatic/wealthyrealm) — distributed by [TomeVault](https://tomevault.io)
+
+a group of company for food, textile and real estate
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [sybatic/wealthyrealm](https://github.com/sybatic/wealthyrealm).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [sybatic/wealthyrealm](https://github.com/sybatic/wealthyrealm) — a repo with 0+ stars on GitHub.
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
