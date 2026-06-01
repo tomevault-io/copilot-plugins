@@ -1,0 +1,9 @@
+{
+  "name": "maxim-saplin--llm-chess",
+  "displayName": "llm_chess",
+  "description": "LLM Chess - evaluating Large Language Models' reasoning and instruction-following abilities by simulating chess games",
+  "version": "1.0.0",
+  "author": "maxim-saplin",
+  "homepage": "https://github.com/maxim-saplin/llm_chess",
+  "skills": []
+}
