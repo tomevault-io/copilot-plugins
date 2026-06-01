@@ -1,0 +1,9 @@
+{
+  "name": "99percentpeople--weblink",
+  "displayName": "weblink",
+  "description": "A browser-based P2P chat and file transfer app with integrated screen sharing, powered by WebRTC.",
+  "version": "1.0.0",
+  "author": "99percentpeople",
+  "homepage": "https://github.com/99percentpeople/weblink",
+  "skills": []
+}
