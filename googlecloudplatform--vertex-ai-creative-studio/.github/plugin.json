@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--vertex-ai-creative-studio",
+  "displayName": "vertex-ai-creative-studio",
+  "description": "GenMedia Creative Studio is a Vertex AI generative media user experience highlighting the use of Gemini, Veo, Gemini Image \ud83c\udf4c, Gemini TTS, Chirp 3, Lyria and other generative media APIs on Google Cloud",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/vertex-ai-creative-studio",
+  "skills": []
+}
