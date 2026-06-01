@@ -1,73 +1,54 @@
-## dependency-and-interface-safety
+## docs-and-runbook-sync
 
-> Treat shared interfaces, schemas, contracts, and dependency relationships as high-sensitivity areas.
+> When code changes affect usage, setup, behavior, operations, or developer workflow, update the relevant documentation.
 
 
-Treat shared interfaces, schemas, contracts, and dependency relationships as high-sensitivity areas.
+When code changes affect usage, setup, behavior, operations, or developer workflow, update the relevant documentation.
+
+## Update docs when changes affect
+
+- setup or installation
+- configuration or environment variables
+- API behavior
+- command usage
+- UI flows
+- operational procedures
+- architecture boundaries
+- message formats
+- testing or development workflow
+- deployment expectations
+
+## Documentation targets may include
+
+- README files
+- module-level docs
+- runbooks
+- architecture notes
+- inline examples
+- `.env.example`
+- setup instructions
+- developer guides
+- troubleshooting notes
 
 ## Core rule
 
-Before changing an interface, find who depends on it.
+Do not leave docs stale when the code changed in a user-visible, developer-visible, or operator-visible way.
 
-## Interfaces include
+## Required behavior
 
-- public functions
-- exported types
-- module contracts
-- API request and response shapes
-- event payloads
-- message formats
-- topic names
-- config structures
-- CLI arguments
-- database-facing schemas
-- file formats
+- update the nearest relevant documentation
+- prefer small precise documentation edits over broad rewrites
+- keep examples consistent with current behavior
+- remove or adjust outdated instructions caused by the change
+- mention new requirements and changed assumptions
 
-## Required behavior before changing an interface
+## If docs are not updated
 
-Identify:
+Be sure the omission is justified because the change is truly internal and has no effect on usage, operations, or maintenance.
 
-- producers
-- consumers
-- callers
-- downstream dependents
-- test coverage around the contract
-- whether the change is backward compatible
+## Summary behavior
 
-## Preferred approach
-
-- preserve backward compatibility by default
-- prefer additive changes over breaking changes
-- update all affected callers when a contract must change
-- keep dependency relationships clear and stable
-- avoid hidden contract drift
-
-## Breaking changes
-
-Only make a breaking change when clearly necessary.
-
-If required:
-
-1. minimize the blast radius
-2. update all affected code paths
-3. update tests
-4. update docs
-5. call out the compatibility impact explicitly in your summary
-
-## Dependency safety
-
-- do not create circular dependencies
-- do not introduce a new dependency for a trivial local need
-- prefer existing project patterns and libraries
-- avoid tight coupling between unrelated modules
-- keep abstractions honest and narrow
-
-## Avoid
-
-- changing one side of an interface without updating the other side
-- silently altering payload meanings
-- reusing a contract for a different semantic purpose
-- weakening types or schemas just to make code compile
+When relevant, mention which documentation was updated or still should be updated.
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
