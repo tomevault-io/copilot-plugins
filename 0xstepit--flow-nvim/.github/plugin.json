@@ -1,0 +1,9 @@
+{
+  "name": "0xstepit--flow-nvim",
+  "displayName": "flow.nvim",
+  "description": "A flow-immersive Nvim colorscheme with fluorescent details.",
+  "version": "1.0.0",
+  "author": "0xstepit",
+  "homepage": "https://github.com/0xstepit/flow.nvim",
+  "skills": []
+}
