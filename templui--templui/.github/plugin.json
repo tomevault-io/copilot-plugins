@@ -1,0 +1,9 @@
+{
+  "name": "templui--templui",
+  "displayName": "templui",
+  "description": "A growing collection of beautifully designed UI components for Go and templ. Install via CLI. Customize everything. Own your code.",
+  "version": "1.0.0",
+  "author": "templui",
+  "homepage": "https://github.com/templui/templui",
+  "skills": []
+}
