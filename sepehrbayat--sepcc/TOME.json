@@ -4,7 +4,7 @@
   "repo": "SEPCC",
   "description": "SEPCC \u2014 A Claude Code proxy with context that survives. Route Claude Code through 17+ providers, resume sessions across restarts, and never lose your place. Fork of Free Claude Code.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sepehrbayat/SEPCC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T08:31:10Z"
+  "distributed_at": "2026-06-01T08:32:25Z"
 }
