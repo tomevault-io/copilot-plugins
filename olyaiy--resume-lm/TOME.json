@@ -4,7 +4,7 @@
   "repo": "resume-lm",
   "description": "Open-source AI resume builder \u2022 Next.js 15, React 19, Tailwind CSS \u2022 Tailor job-ready resumes in minutes.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/olyaiy/resume-lm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T15:40:28Z"
+  "distributed_at": "2026-06-01T16:13:37Z"
 }
