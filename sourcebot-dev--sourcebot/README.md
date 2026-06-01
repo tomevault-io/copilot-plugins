@@ -7,13 +7,13 @@ Sourcebot is a self-hosted tool that helps humans and agents understand your cod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [sourcebot-dev/sourcebot](https://github.com/sourcebot-dev/sourcebot).
+Original source: `AGENTS.md` in [sourcebot-dev/sourcebot](https://github.com/sourcebot-dev/sourcebot).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
