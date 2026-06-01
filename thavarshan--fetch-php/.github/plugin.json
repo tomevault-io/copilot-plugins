@@ -1,0 +1,9 @@
+{
+  "name": "thavarshan--fetch-php",
+  "displayName": "fetch-php",
+  "description": "\ud83d\ude80 A lightweight HTTP library inspired by JavaScript's fetch, bringing simplicity and flexibility to PHP HTTP requests.",
+  "version": "1.0.0",
+  "author": "Thavarshan",
+  "homepage": "https://github.com/Thavarshan/fetch-php",
+  "skills": []
+}
