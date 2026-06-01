@@ -4,7 +4,7 @@
   "repo": "branch-output",
   "description": "This is an OBS Studio plugin that allows to transmit video and audio with RTMP / SRT etc. for each source individually.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OPENSPHERE-Inc/branch-output",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T18:18:40Z"
+  "distributed_at": "2026-06-01T18:30:36Z"
 }
