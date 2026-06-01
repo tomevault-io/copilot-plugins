@@ -1,0 +1,9 @@
+{
+  "name": "kaiban-ai--kaibanjs",
+  "displayName": "KaibanJS",
+  "description": "KaibanJS is a JavaScript-native framework for building and managing multi-agent systems  with a Kanban-inspired approach.",
+  "version": "1.0.0",
+  "author": "kaiban-ai",
+  "homepage": "https://github.com/kaiban-ai/KaibanJS",
+  "skills": []
+}
