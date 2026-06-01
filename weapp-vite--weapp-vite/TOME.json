@@ -1,0 +1,44 @@
+{
+  "name": "weapp-vite",
+  "owner": "weapp-vite",
+  "repo": "weapp-vite",
+  "description": "weapp-vite \u628a\u73b0\u4ee3\u5316\u7684 web \u5f00\u53d1\u65b9\u5f0f\uff0c\u5e26\u5165\u4f20\u7edf\u7684\u5c0f\u7a0b\u5e8f\u5f00\u53d1\u5427\uff01",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/weapp-vite/weapp-vite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T09:52:59Z"
+}
