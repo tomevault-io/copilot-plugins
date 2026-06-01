@@ -1,0 +1,44 @@
+{
+  "name": "generative-ai-with-javascript",
+  "owner": "microsoft",
+  "repo": "generative-ai-with-javascript",
+  "description": "Join a time-traveling adventure where you meet history\u2019s legends while learning Generative AI technologies! \u2728",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/microsoft/generative-ai-with-javascript",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T18:02:15Z"
+}
