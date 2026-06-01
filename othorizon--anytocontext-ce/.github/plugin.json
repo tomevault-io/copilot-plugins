@@ -1,0 +1,9 @@
+{
+  "name": "othorizon--anytocontext-ce",
+  "displayName": "anytocontext-ce",
+  "description": "Turn anything into information your agent can query directly.",
+  "version": "1.0.0",
+  "author": "othorizon",
+  "homepage": "https://github.com/othorizon/anytocontext-ce",
+  "skills": []
+}
