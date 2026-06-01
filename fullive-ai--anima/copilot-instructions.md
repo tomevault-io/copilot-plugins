@@ -1,45 +1,23 @@
-## english-first-engineering-workflow
+## github-mcp-available
 
-> Use English as the default language for all implementation work.
+> GitHub MCP is installed and available.
 
 
-Use English as the default language for all implementation work.
+GitHub MCP is installed and available.
 
-1. Use English for all engineering artifacts and execution
-- Code
-- Comments
-- Variable names, function names, class names
-- Commit messages
-- CLI commands
-- Logs
-- Error analysis
-- Tool output
-- Internal workflow notes
-- Text inside diagrams, charts, screenshots, and images produced for code or documentation
+When repository work requires GitHub operations, you may use GitHub MCP directly for actions such as:
 
-2. Use Chinese only when interacting with me in the following cases
-- You need my decision
-- You need me to review an intermediate file, draft, or result
-- You need me to choose between options
-- You are giving me the final summary
+- reading repository information
+- viewing issues and pull requests
+- creating or updating issues
+- creating or updating pull requests
+- reading comments, reviews, and discussions
+- checking branch and commit context
+- performing other safe repository management actions supported by GitHub MCP
 
-3. Interaction rules
-- Do not translate implementation steps into Chinese
-- Do not write comments in Chinese
-- Do not write commit messages in Chinese
-- Do not put Chinese text inside code-related images or diagrams
-- Keep the full development workflow in English unless you are explicitly asking for my decision or review, or providing the final summary
+Prefer using GitHub MCP for GitHub-specific workflows instead of asking the user to perform those steps manually.
 
-4. Output behavior
-- Implementation process: English
-- Requests for my decision: Chinese
-- Requests for my review: Chinese
-- Final summary: Chinese
-
-5. Priority
-If there is any conflict:
-- 中文for decision requests, review requests, and final summaries
-- English for everything else in the engineering workflow
+Do not assume every GitHub action is safe to execute automatically. For destructive, irreversible, or high-impact actions, require explicit user intent.
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
