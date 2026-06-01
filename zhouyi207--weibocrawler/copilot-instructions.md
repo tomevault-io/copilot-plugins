@@ -1,55 +1,39 @@
-## frontend-code-organization
+## no-native-dialogs-except-path
 
-> Frontend source code directory organization and layered architecture
+> 除路径选择外禁用原生 Windows 对话框（alert/prompt/confirm 等）
 
 
-# Frontend Code Organization
+# 禁止使用「非路径」原生窗体
 
-All frontend code under `src/` must follow this structure:
+在本项目（Tauri + React）中，**不要**使用会弹出独立 Windows 系统对话框、阻塞整窗的 API，**唯一例外**是用于**选择磁盘路径**的场景（目录/文件浏览）。
 
+## 允许
+
+- **路径检索**：`@tauri-apps/plugin-dialog` 的 `open`（`directory: true` 等）、以及后端仅为选路径而触发的对话框能力。
+
+## 禁止（应改为应用内 UI）
+
+- 浏览器 / WebView：`window.alert`、`window.prompt`、`window.confirm`、`beforeunload` 上的系统确认框等。
+- 为「提示、确认、错误、表单输入」新开原生消息框；应使用 **React 内 Modal、行内错误文案、Toast、自定义确认条** 等，与 `ProjectPickerScreen` / `NewProjectModal` 同一套壳层风格。
+
+## Rust 侧
+
+- **不要**为普通业务提示引入会弹出系统消息框的依赖或 API；错误与结果通过 **`tauri::command` 的 `Result`** 返回，由前端展示。
+
+## 简要对照
+
+```typescript
+// ❌ 禁止（除路径 plugin 外）
+window.alert("…");
+window.prompt("…");
+window.confirm("…");
+
+// ✅ 路径选择
+await open({ directory: true, … });
+
+// ✅ 业务反馈
+setError("…"); // 或 Modal / toast
 ```
-src/
-├─ app/                 # 应用入口与全局配置
-│   ├─ main.tsx         # 入口文件
-│   ├─ App.tsx          # 根组件
-│   └─ providers/       # 全局 Provider（Settings、Theme 等）
-│
-├─ views/               # 纯 UI 视图层
-│
-├─ features/            # 业务逻辑（三层架构）
-│   ├─ domain/          # 领域层：纯业务模型与纯函数
-│   ├─ application/     # 应用层：用例编排与 Hook 协调
-│   └─ core/            # 核心层：基础设施与共享能力
-│
-├─ services/            # 服务层：封装所有后端调用
-│
-└─ components/          # 共享组件资源
-```
-
-## Rules
-
-- **app/**: Only entry-point bootstrapping, root component, and global providers. No business logic.
-- **views/**: Pure presentational pages/screens. Compose `components/` and consume hooks from `features/application/`.
-- **features/domain/**: Pure business models, types, value objects, and pure functions. Zero side-effects, no framework imports.
-- **features/application/**: Use-case orchestration hooks that coordinate domain logic and services. The only layer that bridges domain and services.
-- **features/core/**: Shared infrastructure utilities (e.g. storage adapters, event bus, base classes) used across features.
-- **services/**: All backend/API call wrappers (Tauri invoke, HTTP, etc.). No UI or domain logic.
-- **components/**: Reusable, domain-agnostic UI components shared across views.
-
-## Dependency Direction
-
-```
-views → features/application → features/domain
-                             → services
-                             → features/core
-components → (standalone, no feature imports)
-```
-
-- `views/` may import from `features/application/`, `components/`, and `services/`.
-- `features/application/` may import from `features/domain/`, `features/core/`, and `services/`.
-- `features/domain/` must not import from any other `src/` layer.
-- `components/` must not import from `features/` or `views/`.
-- `services/` must not import from `features/` or `views/`.
 
 ---
 > Source: [zhouyi207/WeiBoCrawler](https://github.com/zhouyi207/WeiBoCrawler) — distributed by [TomeVault](https://tomevault.io).
