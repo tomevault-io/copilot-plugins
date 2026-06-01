@@ -1,0 +1,9 @@
+{
+  "name": "thomasboom--yam-launcher",
+  "displayName": "YAM-Launcher",
+  "description": "A minimal android launcher with weather integration.",
+  "version": "1.0.0",
+  "author": "thomasboom",
+  "homepage": "https://github.com/thomasboom/YAM-Launcher",
+  "skills": []
+}
