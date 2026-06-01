@@ -1,30 +1,25 @@
-## implementation-review-checklist
+## incremental-development-cadence
 
-> Require structural code review after implementation before final response
+> Enforce step-by-step implementation with design-doc checks, tests, and i18n after each step
 
 
-# Implementation Review Checklist
+# Incremental Development Cadence
 
-After any substantive implementation, before the final response, review the
-uncommitted diff from a maintainer/code-review perspective. Do not only verify
-that the feature works.
+Multi-step tasks MUST be implemented **one step at a time**. After each logical unit (function, endpoint, component), complete all cross-cutting concerns before moving on.
 
-## Required Checks
+## After Each Step
 
-- Inspect `git diff --stat` and relevant diffs to understand the actual blast radius.
-- Check responsibility boundaries: frontend UI, API route, service/helper, storage/session, and tests should each own the right part of the behavior.
-- Check API semantics: endpoint names, HTTP methods, response shapes, and side effects must match the product action. Similar UI actions should call the same backend API.
-- Check frontend/backend state consistency: after mutations, make sure Redux/local state, backend session/token/vault state, and subsequent list/status APIs agree.
-- Check duplication: if two paths clear the same state or perform the same API flow, extract a small helper or route instead of copying logic.
-- Check regression surfaces: refresh/reload/list/status paths must respect new flags or state, not just the primary click path.
-- Check tests: add or update focused tests for the changed contract; include at least one test for the bug/regression path when practical.
-- Check docs/rules/dev-guides when the change introduces or changes a cross-cutting convention.
+1. **Verify against design doc** — compare with `design-docs/` or issue spec; raise deviations before continuing
+2. **Add tests** — write/update tests for the just-implemented code, run and confirm green
+3. **Add i18n keys** — if user-visible text was introduced, add `en` + `zh` keys immediately
+4. **Update docs** — if a new cross-cutting convention was introduced, update dev-guide/Rule immediately
 
-## Reporting
+## Banned Patterns
 
-If issues are found during this review, fix clear issues before finalizing. If a
-trade-off remains, call it out explicitly in the final response with the risk and
-why it was left as-is.
+- ❌ Implementing 3+ functions/endpoints before writing any tests
+- ❌ Sweeping all i18n keys in a final pass after all code is done
+- ❌ Checking design docs only after the entire implementation is complete
+- ❌ Mentioning "tests and i18n still needed" only in the final response
 
 ---
 > Source: [microsoft/data-formulator](https://github.com/microsoft/data-formulator) — distributed by [TomeVault](https://tomevault.io).
