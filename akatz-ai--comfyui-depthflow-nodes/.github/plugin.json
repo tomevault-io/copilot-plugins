@@ -1,0 +1,9 @@
+{
+  "name": "akatz-ai--comfyui-depthflow-nodes",
+  "displayName": "ComfyUI-Depthflow-Nodes",
+  "description": "An implementation of Depthflow in ComfyUI",
+  "version": "1.0.0",
+  "author": "akatz-ai",
+  "homepage": "https://github.com/akatz-ai/ComfyUI-Depthflow-Nodes",
+  "skills": []
+}
