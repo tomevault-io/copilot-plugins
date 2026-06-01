@@ -1,0 +1,9 @@
+{
+  "name": "flashbots--builder-playground",
+  "displayName": "builder-playground",
+  "description": "A fast, self-contained environment for end-to-end block building on L1s and L2s.",
+  "version": "1.0.0",
+  "author": "flashbots",
+  "homepage": "https://github.com/flashbots/builder-playground",
+  "skills": []
+}
