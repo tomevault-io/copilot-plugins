@@ -1,0 +1,9 @@
+{
+  "name": "kattouf--sake",
+  "displayName": "Sake",
+  "description": "\ud83c\udf76 Swift-based utility for managing project commands, inspired by Make.",
+  "version": "1.0.0",
+  "author": "kattouf",
+  "homepage": "https://github.com/kattouf/Sake",
+  "skills": []
+}
