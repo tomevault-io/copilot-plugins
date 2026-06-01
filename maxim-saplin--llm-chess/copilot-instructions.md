@@ -1,0 +1,14 @@
+## unit-tests
+
+> proper way to run unit tests (parallel by default)
+
+
+Preferred runner is pytest with xdist for parallel execution. Use the project venv via uv.
+
+- Parallel run (default): `uv run pytest -q -n auto tests |& tee >(tail -n 30) >/dev/null`
+- Filter to specific tests: `uv run pytest -q -n auto -k "substring_or_expr" tests`
+- Serial fallback (rare): `uv run -m unittest -v -s ./tests -p "test_*.py" -t . |& tee >(tail -n 30) >/dev/null`
+
+---
+> Source: [maxim-saplin/llm_chess](https://github.com/maxim-saplin/llm_chess) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
