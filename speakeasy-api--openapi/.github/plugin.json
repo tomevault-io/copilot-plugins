@@ -1,0 +1,9 @@
+{
+  "name": "speakeasy-api--openapi",
+  "displayName": "openapi",
+  "description": "A set of packages and tools for working with OpenAPI, Swagger, Arazzo and Overlay Specification documents.",
+  "version": "1.0.0",
+  "author": "speakeasy-api",
+  "homepage": "https://github.com/speakeasy-api/openapi",
+  "skills": []
+}
