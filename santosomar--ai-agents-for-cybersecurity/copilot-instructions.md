@@ -1,61 +1,76 @@
-## ai-agents-for-cybersecurity
+## codeguard-0-api-web-services
 
-> rule_id: codeguard-0-additional-cryptography
+> rule_id: codeguard-0-api-web-services
 
 
-rule_id: codeguard-0-additional-cryptography
+rule_id: codeguard-0-api-web-services
 
-## Additional Cryptography & TLS
+## API & Web Services Security
 
-Apply modern, vetted cryptography for data at rest and in transit. Manage keys safely, configure TLS correctly, deploy HSTS, and consider pinning only when appropriate.
+Secure REST, GraphQL, and SOAP/WS services end‑to‑end: transport, authn/z, schema validation, SSRF controls, DoS limits, and microservice‑safe patterns.
 
-### Algorithms and Modes
-- Symmetric: AES‑GCM or ChaCha20‑Poly1305 preferred. Avoid ECB. CBC/CTR only with encrypt‑then‑MAC.
-- Asymmetric: RSA ≥2048 or modern ECC (Curve25519/Ed25519). Use OAEP for RSA encryption.
-- Hashing: SHA‑256+ for integrity; avoid MD5/SHA‑1.
-- RNG: Use CSPRNG appropriate to platform (e.g., SecureRandom, crypto.randomBytes, secrets module). Never use non‑crypto RNGs.
+### Transport and TLS
+- HTTPS only; consider mTLS for high‑value/internal services. Validate certs (CN/SAN, revocation) and prevent mixed content.
 
-### Key Management
-- Generate keys within validated modules (HSM/KMS) and never from passwords or predictable inputs.
-- Separate keys by purpose (encryption, signing, wrapping). Rotate on compromise, cryptoperiod, or policy.
-- Store keys in KMS/HSM or vault; never hardcode; avoid plain env vars. Use KEK to wrap DEKs; store separately.
-- Control access to trust stores; validate updates; audit all key access and operations.
+### Authentication and Tokens
+- Use standard flows (OAuth2/OIDC) for clients; avoid custom schemes. For services, use mTLS or signed service tokens.
+- JWTs: pin algorithms; validate iss/aud/exp/nbf; short lifetimes; rotation; denylist on logout/revoke. Prefer opaque tokens when revocation is required and central store is available.
+- API keys: scope narrowly; rate limit; monitor usage; do not use alone for sensitive operations.
 
-### Data at Rest
-- Encrypt sensitive data; minimize stored secrets; tokenize where possible.
-- Use authenticated encryption; manage nonces/IVs properly; keep salts unique per item.
-- Protect backups: encrypt, restrict access, test restores, manage retention.
+### Authorization
+- Enforce per‑endpoint, per‑resource checks server‑side; deny by default.
+- For microservices, authorize at gateway (coarse) and service (fine) layers; propagate signed internal identity, not external tokens.
 
-### TLS Configuration
-- Protocols: TLS 1.3 preferred; allow TLS 1.2 only for legacy compatibility; disable TLS 1.0/1.1 and SSL. Enable TLS_FALLBACK_SCSV.
-- Ciphers: prefer AEAD suites; disable NULL/EXPORT/anon. Keep libraries updated; disable compression.
-- Key exchange groups: prefer x25519/secp256r1; configure secure FFDHE groups if needed.
-- Certificates: 2048‑bit+ keys, SHA‑256, correct CN/SAN. Manage lifecycle and revocation (OCSP stapling).
-- Application: HTTPS site‑wide; redirect HTTP→HTTPS; prevent mixed content; set cookies `Secure`.
+### Input and Content Handling
+- Validate inputs via contracts: OpenAPI/JSON Schema, GraphQL SDL, XSD. Reject unknown fields and oversize payloads; set limits.
+- Content types: enforce explicit Content‑Type/Accept; reject unsupported combinations. Harden XML parsers against XXE/expansion.
 
-### HSTS
-- Send Strict‑Transport‑Security only over HTTPS. Phase rollout:
-  - Test: short max‑age (e.g., 86400) with includeSubDomains
-  - Prod: ≥1 year max‑age; includeSubDomains when safe
-  - Optional preload once mature; understand permanence and subdomain impact
+### SQL/Injection Safety in Resolvers and Handlers
+- Use parameterized queries/ORM bind parameters; never concatenate user input into queries or commands.
 
-### Pinning
-- Avoid browser HPKP. Consider pinning only for controlled clients (e.g., mobile) and when you own both ends.
-- Prefer SPKI pinning with backup pins; plan secure update channels; never allow user bypass.
-- Thoroughly test rotation and failure handling; understand operational risk.
+### GraphQL‑Specific Controls
+- Limit query depth and overall complexity; enforce pagination; timeouts on execution; disable introspection and IDEs in production.
+- Implement field/object‑level authorization to prevent IDOR/BOLA; validate batching and rate limit per object type.
+
+### SSRF Prevention for Outbound Calls
+- Do not accept raw URLs. Validate domains/IPs using libraries; restrict to HTTP/HTTPS only (block file://, gopher://, ftp://, etc.).
+- Case 1 (fixed partners): strict allow‑lists; disable redirects; network egress allow‑lists.
+- Case 2 (arbitrary): block private/link‑local/localhost ranges; resolve and verify all IPs are public; require signed tokens from the target where feasible.
+
+### SOAP/WS and XML Safety
+- Validate SOAP payloads with XSD; limit message sizes; enable XML signatures/encryption where required.
+- Configure parsers against XXE, entity expansion, and recursive payloads; scan attachments.
+
+### Rate Limiting and DoS
+- Apply per‑IP/user/client limits, circuit breakers, and timeouts. Use server‑side batching and caching to reduce load.
+
+### Management Endpoints
+- Do not expose over the Internet. Require strong auth (MFA), network restrictions, and separate ports/hosts.
+
+### Testing and Assessment
+- Maintain formal API definitions; drive contract tests and fuzzing from specs.
+- Assess endpoints for authn/z bypass, SSRF, injection, and information leakage; log token validation failures.
+
+### Microservices Practices
+- Policy‑as‑code with embedded decision points; sidecar or library PDPs.
+- Service identity via mTLS or signed tokens; never reuse external tokens internally.
+- Centralized structured logging with correlation IDs; sanitize sensitive data.
 
 ### Implementation Checklist
-- AEAD everywhere; vetted libraries only; no custom crypto.
-- Keys generated and stored in KMS/HSM; purpose‑scoped; rotation documented.
-- TLS 1.3/1.2 with strong ciphers; compression off; OCSP stapling on.
-- HSTS deployed per phased plan; mixed content eliminated.
-- Pinning used only where justified, with backups and update path.
+- HTTPS/mTLS configured; certs managed; no mixed content.
+- Contract validation at the edge and service; unknown fields rejected; size/time limits enforced.
+- Strong authn/z per endpoint; GraphQL limits applied; introspection disabled in prod.
+- SSRF protections at app and network layers; redirects disabled; allow‑lists where possible.
+- Rate limiting, circuit breakers, and resilient patterns in place.
+- Management endpoints isolated and strongly authenticated.
+- Logs structured and privacy‑safe with correlation IDs.
 
 ### Test Plan
-- Automated config scans (e.g., SSL Labs, testssl.sh) for protocol/cipher/HSTS.
-- Code review for crypto API misuse; tests for key rotation, backup/restore.
-- Pinning simulations for rotation/failures if deployed.
+- Contract tests for schema adherence; fuzzing with schema‑aware tools.
+- Pen tests for SSRF, IDOR/BOLA, and authz bypass; performance tests for DoS limits.
+- Test all HTTP methods per endpoint; discover parameters in URL paths, headers, and structured data beyond obvious query strings.
+- Automated checks for token validation and revocation behavior.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/santosomar) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
