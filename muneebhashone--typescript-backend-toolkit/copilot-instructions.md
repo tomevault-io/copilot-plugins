@@ -1,357 +1,464 @@
-## development
+## email
 
-> Development workflow and commands
+> Email system using React Email and Mailgun with queue-based sending
 
 
-# Development Workflow
+# Email System
 
-## Setup
+## Architecture
 
-### Initial Setup
+- **Templates**: React Email components in [src/email/templates/](mdc:src/email/templates/)
+- **Service**: Email service in [src/email/email.service.ts](mdc:src/email/email.service.ts)
+- **Provider**: Email provider abstraction in [src/lib/email.ts](mdc:src/lib/email.ts) (supports Mailgun & SMTP)
+- **Queue**: Background sending via [src/queues/email.queue.ts](mdc:src/queues/email.queue.ts)
+- **Development**: Preview server for templates
+
+## Email Configuration
+
+### Environment Variables
 
 ```bash
-# 1. Install dependencies
-pnpm install
+# Option 1: Mailgun (Recommended)
+MAILGUN_API_KEY=your-mailgun-api-key
+MAILGUN_DOMAIN=your-domain.com
+MAILGUN_FROM_EMAIL=noreply@your-domain.com
 
-# 2. Start Docker services (MongoDB + Redis)
-docker compose up -d
+# Option 2: SMTP (Fallback)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+SMTP_FROM=noreply@your-domain.com
+EMAIL_FROM=noreply@your-domain.com
 
-# 3. Copy environment template
-cp .env.sample .env
-
-# 4. Edit .env with your values
-nano .env
-
-# 5. (Optional) Seed database
-pnpm run seeder
-
-# 6. Start development server
-pnpm run dev
+# Note: Provider auto-selects Mailgun if configured, otherwise SMTP
 ```
 
-### Prerequisites
+## Creating Email Templates
 
-- Node.js (v18+)
-- pnpm (package manager)
-- Docker and Docker Compose
-- MongoDB (via Docker or local)
-- Redis (via Docker or local)
+### Step 1: Create React Component
 
-## Development Commands
+Create new file in `src/email/templates/TemplateName.tsx`:
 
-### Running the Server
+```typescript
+import {
+  Html,
+  Head,
+  Body,
+  Container,
+  Section,
+  Text,
+  Button,
+  Hr,
+  Img,
+} from "@react-email/components";
 
-```bash
-# Development with hot reload
-pnpm run dev
+interface TemplateNameProps {
+  name: string;
+  actionUrl: string;
+}
 
-# Backend only (without email template server)
-pnpm run start:dev
+export default function TemplateName({ name, actionUrl }: TemplateNameProps) {
+  return (
+    <Html>
+      <Head />
+      <Body style={styles.body}>
+        <Container style={styles.container}>
+          <Section style={styles.section}>
+            <Img
+              src="https://your-domain.com/logo.png"
+              alt="Logo"
+              width="150"
+              height="50"
+              style={styles.logo}
+            />
 
-# Production build + start
-pnpm run build && pnpm run start:prod
+            <Text style={styles.heading}>Hello, {name}!</Text>
 
-# Local production (uses .env.local)
-pnpm run start:local
+            <Text style={styles.text}>
+              Your email content goes here.
+            </Text>
+
+            <Button style={styles.button} href={actionUrl}>
+              Click Here
+            </Button>
+
+            <Hr style={styles.hr} />
+
+            <Text style={styles.footer}>
+              © 2025 Your Company. All rights reserved.
+            </Text>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  );
+}
+
+const styles = {
+  body: {
+    backgroundColor: "#f6f9fc",
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  },
+  container: {
+    margin: "0 auto",
+    padding: "20px 0",
+  },
+  section: {
+    backgroundColor: "#ffffff",
+    borderRadius: "8px",
+    padding: "40px",
+  },
+  logo: {
+    margin: "0 auto 20px",
+    display: "block",
+  },
+  heading: {
+    fontSize: "24px",
+    fontWeight: "bold",
+    margin: "20px 0",
+    color: "#1a1a1a",
+  },
+  text: {
+    fontSize: "16px",
+    lineHeight: "24px",
+    color: "#525252",
+    margin: "16px 0",
+  },
+  button: {
+    backgroundColor: "#007bff",
+    color: "#ffffff",
+    padding: "12px 32px",
+    borderRadius: "6px",
+    textDecoration: "none",
+    display: "inline-block",
+    margin: "20px 0",
+  },
+  hr: {
+    borderColor: "#e6e6e6",
+    margin: "30px 0",
+  },
+  footer: {
+    fontSize: "14px",
+    color: "#8c8c8c",
+    textAlign: "center" as const,
+  },
+};
+
+// Preview props for development
+TemplateName.PreviewProps = {
+  name: "John Doe",
+  actionUrl: "https://example.com/action",
+} as TemplateNameProps;
 ```
 
-### Building
+### Step 2: Test Template
 
 ```bash
-# Build TypeScript to dist/
-pnpm run build
-
-# Build uses tsup (configured in build.ts)
-```
-
-### Linting
-
-```bash
-# Check for linting errors
-pnpm run lint
-
-# Auto-fix linting errors
-pnpm run lint:fix
-```
-
-### Database
-
-```bash
-# Run database seeder
-pnpm run seeder
-```
-
-### Email Development
-
-```bash
-# Start email template development server
+# Start email development server
 pnpm run email:dev
 
-# Access at: http://localhost:3001
+# Open browser to preview
+# http://localhost:3001
 ```
 
-## Project Structure
+## Sending Emails
 
-```
-src/
-├── main.ts                 # Application entry point
-├── config/                 # Configuration management
-├── lib/                    # Core libraries (DB, Redis, AWS, etc.)
-├── modules/                # Feature modules (auth, user, etc.)
-│   └── module-name/
-│       ├── module.model.ts
-│       ├── module.controller.ts
-│       ├── module.service.ts
-│       ├── module.router.ts
-│       ├── module.schema.ts
-│       └── module.dto.ts
-├── middlewares/            # Express middlewares
-├── queues/                 # BullMQ background jobs
-├── routes/                 # Route registration
-├── email/                  # Email templates (React Email)
-└── utils/                  # Utility functions
+### Method 1: Direct Send (Simple)
+
+```typescript
+import { sendEmail } from '@/email/email.service';
+
+await sendEmail({
+  to: 'user@example.com',
+  subject: 'Welcome!',
+  template: 'TemplateName',
+  data: {
+    name: 'John Doe',
+    actionUrl: 'https://example.com/verify',
+  },
+});
 ```
 
-## Key Endpoints
+### Method 2: Queue-based (Recommended)
 
-### API Documentation
+```typescript
+import { emailQueue } from '@/queues/email.queue';
 
-- Swagger UI: `http://localhost:3000/docs`
-- OpenAPI JSON: `http://localhost:3000/openapi.yml`
+await emailQueue.add('sendEmail', {
+  to: 'user@example.com',
+  subject: 'Welcome!',
+  template: 'TemplateName',
+  data: {
+    name: 'John Doe',
+    actionUrl: 'https://example.com/verify',
+  },
+});
+```
+
+## Email Service Usage
+
+The email service in [email.service.ts](mdc:src/email/email.service.ts) handles:
+
+- Template rendering
+- HTML/text generation
+- Queue job creation
+
+### Function Signature
+
+```typescript
+interface SendEmailOptions {
+  to: string | string[]; // Recipient(s)
+  subject: string;
+  template: string; // Template name (without .tsx)
+  data: Record<string, any>; // Props for template
+  from?: string; // Optional: override default sender
+  replyTo?: string; // Optional: reply-to address
+  attachments?: Array<{
+    filename: string;
+    content: Buffer | string;
+    contentType?: string;
+  }>;
+}
+
+export const sendEmail = async (options: SendEmailOptions): Promise<void>;
+```
+
+## Queue System
+
+Email queue in [email.queue.ts](mdc:src/queues/email.queue.ts) provides:
+
+- Async sending (doesn't block API response)
+- Automatic retries on failure
+- Queue monitoring via dashboard
+
+### Queue Configuration
+
+```typescript
+// Default options
+{
+  attempts: 3, // Retry up to 3 times
+  backoff: {
+    type: "exponential",
+    delay: 1000, // Start with 1 second delay
+  },
+}
+```
+
+### Custom Queue Options
+
+```typescript
+await emailQueue.add(
+  'sendEmail',
+  { to, subject, template, data },
+  {
+    delay: 60000, // Send after 1 minute
+    attempts: 5, // Retry up to 5 times
+    priority: 1, // Higher priority (default: 0)
+  },
+);
+```
+
+## Common Email Templates
+
+### Welcome Email
+
+```typescript
+await sendEmail({
+  to: user.email,
+  subject: 'Welcome to Our Platform!',
+  template: 'Welcome',
+  data: {
+    name: user.name,
+    verifyUrl: `${config.FRONTEND_URL}/verify?token=${token}`,
+  },
+});
+```
+
+### Password Reset
+
+```typescript
+await sendEmail({
+  to: user.email,
+  subject: 'Reset Your Password',
+  template: 'ResetPassword',
+  data: {
+    name: user.name,
+    resetUrl: `${config.FRONTEND_URL}/reset-password?token=${token}`,
+    expiresIn: '1 hour',
+  },
+});
+```
+
+### OTP Verification
+
+```typescript
+await sendEmail({
+  to: user.email,
+  subject: 'Your Verification Code',
+  template: 'OTP',
+  data: {
+    name: user.name,
+    otp: otpCode,
+    expiresIn: '10 minutes',
+  },
+});
+```
+
+### Notification
+
+```typescript
+await sendEmail({
+  to: user.email,
+  subject: 'New Activity',
+  template: 'Notification',
+  data: {
+    name: user.name,
+    message: 'You have a new message',
+    actionUrl: `${config.FRONTEND_URL}/messages`,
+  },
+});
+```
+
+## React Email Components
+
+### Available Components
+
+- `Html` - Root HTML element
+- `Head` - Head section
+- `Body` - Body section
+- `Container` - Main container
+- `Section` - Content section
+- `Text` - Text paragraph
+- `Heading` - Heading element
+- `Button` - Button/link
+- `Hr` - Horizontal rule
+- `Img` - Image
+- `Link` - Hyperlink
+- `Row` / `Column` - Grid layout
+
+### Styling
+
+```typescript
+// Inline styles (required for email compatibility)
+const styles = {
+  element: {
+    backgroundColor: "#ffffff",
+    padding: "20px",
+    fontSize: "16px",
+  },
+};
+
+<Text style={styles.element}>Content</Text>
+```
+
+## Monitoring
 
 ### Queue Dashboard
 
-- BullMQ Admin: `http://localhost:3000/queues`
+Access BullMQ dashboard at: `http://localhost:3000/queues`
 
-### Health Check
+View:
 
-- `GET http://localhost:3000/api/health`
+- Queued emails
+- Processing status
+- Failed emails
+- Retry attempts
 
-## Development Workflow
+### Logs
 
-### Creating a New Feature
-
-1. Create new module in `src/modules/feature-name/`
-2. Create model, controller, service, router, schema files
-3. Register router in `src/routes/routes.ts`
-4. Test in Swagger UI
-5. (Optional) Add seeder
-
-See [new-module.mdc](mdc:.cursor/rules/new-module.mdc) for detailed steps.
-
-### Making Changes
-
-1. Edit files (hot reload enabled in dev mode)
-2. Check for linter errors: `pnpm run lint`
-3. Fix errors: `pnpm run lint:fix`
-4. Test changes in Swagger UI or API client
-5. Commit changes
-
-### Adding Dependencies
-
-```bash
-# Add runtime dependency
-pnpm add package-name
-
-# Add dev dependency
-pnpm add -D package-name
-```
-
-## Testing the API
-
-### Using Swagger UI
-
-1. Navigate to `http://localhost:3000/docs`
-2. Expand endpoint
-3. Click "Try it out"
-4. Fill in parameters
-5. Execute request
-6. View response
-
-### Using curl
-
-```bash
-# Public endpoint
-curl http://localhost:3000/api/health
-
-# Protected endpoint (requires JWT)
-curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  http://localhost:3000/api/user/profile
-
-# POST request
-curl -X POST http://localhost:3000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"password123"}'
-```
-
-### Using Postman/Insomnia
-
-1. Import OpenAPI spec from `http://localhost:3000/docs.json`
-2. All endpoints auto-configured
-3. Set Authorization header for protected routes
-
-## Debugging
-
-### Logging
-
-Logs use Pino logger from [logger.ts](mdc:src/plugins/observability/logger.ts):
+Check email sending logs:
 
 ```typescript
 import { logger } from '@/plugins/logger';
 
-logger.info('Info message', { data });
-logger.error('Error message', { error });
-logger.debug('Debug message', { data });
+// Logs are automatically added by email service
+logger.info('Email sent', { to, template });
+logger.error('Email failed', { to, template, error });
 ```
 
-### VS Code Debugging
+## Testing Emails
 
-Add to `.vscode/launch.json`:
+### Development Mode
 
-```json
-{
-  "type": "node",
-  "request": "launch",
-  "name": "Debug Dev Server",
-  "runtimeExecutable": "pnpm",
-  "runtimeArgs": ["run", "dev"],
-  "skipFiles": ["<node_internals>/**"]
-}
-```
-
-### MongoDB Debugging
+Set `MAILGUN_TO_OVERRIDE` to redirect all emails:
 
 ```bash
-# Connect to MongoDB
-docker exec -it mongodb mongosh
-
-# List databases
-show dbs
-
-# Use database
-use your-db-name
-
-# List collections
-show collections
-
-# Query data
-db.users.find()
+MAILGUN_TO_OVERRIDE=dev@example.com
 ```
 
-### Redis Debugging
+All emails will be sent to this address instead of actual recipients.
+
+### Preview in Browser
 
 ```bash
-# Connect to Redis
-docker exec -it redis redis-cli
+# Start dev server
+pnpm run email:dev
 
-# List all keys
-KEYS *
-
-# Get value
-GET key-name
-
-# Monitor commands
-MONITOR
+# Visit http://localhost:3001
+# All templates listed with previews
 ```
 
-## Common Issues
-
-### Port Already in Use
+### Manual Testing
 
 ```bash
-# Find process using port 3000
-lsof -i :3000
+# In development console or test file
+import { sendEmail } from "@/email/email.service";
 
-# Kill process
-kill -9 PID
+await sendEmail({
+  to: "test@example.com",
+  subject: "Test Email",
+  template: "TemplateName",
+  data: { /* test data */ },
+});
 ```
-
-### MongoDB Connection Failed
-
-- Check Docker is running: `docker ps`
-- Check connection string in `.env`
-- Restart MongoDB: `docker compose restart mongodb`
-
-### Redis Connection Failed
-
-- Check Docker is running: `docker ps`
-- Check Redis config in `.env`
-- Restart Redis: `docker compose restart redis`
-
-### TypeScript Errors
-
-```bash
-# Check TypeScript errors
-npx tsc --noEmit
-
-# Clean build and rebuild
-rm -rf dist && pnpm run build
-```
-
-### Module Not Found
-
-```bash
-# Clear node_modules and reinstall
-rm -rf node_modules pnpm-lock.yaml
-pnpm install
-```
-
-## Production Deployment
-
-### Build
-
-```bash
-pnpm run build
-```
-
-### Start Production Server
-
-```bash
-# Using .env.production
-pnpm run start:prod
-
-# Using PM2 (recommended)
-pm2 start ecosystem.config.js
-```
-
-### Environment Variables
-
-- Set all required variables in production environment
-- Use strong secrets (min 32 characters)
-- Enable production mode: `NODE_ENV=production`
 
 ## Best Practices
 
-### Code Style
+### Template Design
 
-- Use TypeScript strict mode
-- No `any` types
-- Use Zod for validation
-- Follow ESLint rules
-- Use async/await (not callbacks)
+- Keep templates simple and clean
+- Use inline styles (required for email clients)
+- Test in multiple email clients
+- Provide plain text fallback
+- Include unsubscribe link (if applicable)
+- Use responsive design
+- Optimize images (small file sizes)
 
-### Git Workflow
+### Sending
 
-- Create feature branches
-- Write descriptive commit messages
-- Keep commits focused
-- Review changes before committing
-- Never commit `.env` files
+- Always use queue for production (async)
+- Set appropriate retry attempts
+- Handle failures gracefully
+- Log all email operations
+- Rate limit sending if needed
+- Verify email addresses before sending
 
-### Performance
+### Content
 
-- Use `.lean()` for Mongoose queries when not modifying
-- Add database indexes for queried fields
-- Use background jobs for heavy operations
-- Cache frequently accessed data in Redis
+- Personalize with user data
+- Clear subject lines
+- Brief and actionable content
+- Include clear call-to-action
+- Mobile-friendly design
+- Avoid spam trigger words
 
-### Security
+## Common Mistakes to Avoid
 
-- Never log sensitive data (passwords, tokens)
-- Validate all inputs with Zod
-- Use JWT for authentication
-- Rate limit API endpoints (if configured)
-- Keep dependencies updated
+❌ DON'T send emails synchronously in API handlers
+✅ DO use queue for background sending
+
+❌ DON'T use external CSS
+✅ DO use inline styles
+
+❌ DON'T forget to handle email failures
+✅ DO set retry logic and monitor queue
+
+❌ DON'T send sensitive data in emails
+✅ DO send links to secure pages instead
+
+❌ DON'T spam users
+✅ DO respect user preferences and rate limits
 
 ---
 > Source: [muneebhashone/typescript-backend-toolkit](https://github.com/muneebhashone/typescript-backend-toolkit) — distributed by [TomeVault](https://tomevault.io).
