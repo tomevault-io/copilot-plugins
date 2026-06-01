@@ -7,11 +7,11 @@ The solana.com website.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [solana-foundation/solana-com](https://github.com/solana-foundation/solana-com).
+Original source: `CLAUDE.md` in [solana-foundation/solana-com](https://github.com/solana-foundation/solana-com).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
