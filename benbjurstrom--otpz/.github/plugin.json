@@ -1,0 +1,9 @@
+{
+  "name": "benbjurstrom--otpz",
+  "displayName": "otpz",
+  "description": "\ud83d\udd12 First Factor One-Time Passwords for Laravel (Passwordless OTP Login)",
+  "version": "1.0.0",
+  "author": "benbjurstrom",
+  "homepage": "https://github.com/benbjurstrom/otpz",
+  "skills": []
+}
