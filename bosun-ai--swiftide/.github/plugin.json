@@ -1,0 +1,9 @@
+{
+  "name": "bosun-ai--swiftide",
+  "displayName": "swiftide",
+  "description": "Fast, streaming indexing, query, and agentic LLM applications in Rust",
+  "version": "1.0.0",
+  "author": "bosun-ai",
+  "homepage": "https://github.com/bosun-ai/swiftide",
+  "skills": []
+}
