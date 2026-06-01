@@ -1,0 +1,9 @@
+{
+  "name": "josortmel--ecodb",
+  "displayName": "EcoDB",
+  "description": "Collective AI memory for multi-agent teams. 10-stage GAMR search engine, knowledge graph (Apache AGE), document ingestion, 22+ MCP tools.",
+  "version": "1.0.0",
+  "author": "josortmel",
+  "homepage": "https://github.com/josortmel/EcoDB",
+  "skills": []
+}
