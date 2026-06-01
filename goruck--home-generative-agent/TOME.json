@@ -4,7 +4,7 @@
   "repo": "home-generative-agent",
   "description": "A home assistant generative agent integration based on langchain and langgraph.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/goruck/home-generative-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T16:16:27Z"
+  "distributed_at": "2026-06-01T16:18:47Z"
 }
