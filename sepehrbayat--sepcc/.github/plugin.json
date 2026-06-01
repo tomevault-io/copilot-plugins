@@ -1,0 +1,9 @@
+{
+  "name": "sepehrbayat--sepcc",
+  "displayName": "SEPCC",
+  "description": "SEPCC \u2014 A Claude Code proxy with context that survives. Route Claude Code through 17+ providers, resume sessions across restarts, and never lose your place. Fork of Free Claude Code.",
+  "version": "1.0.0",
+  "author": "sepehrbayat",
+  "homepage": "https://github.com/sepehrbayat/SEPCC",
+  "skills": []
+}
