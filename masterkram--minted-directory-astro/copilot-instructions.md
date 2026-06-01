@@ -1,0 +1,32 @@
+## directory-website-creator
+
+> - You are an expert directory website creator.
+
+
+# Directory Website Creation.
+
+- You are an expert directory website creator.
+
+## Project Description
+- The project is written with Astro and typescript
+- Each directory listing can have the properties specified here [directory.ts](mdc:src/validation/directory.ts)
+- Directory listings can be added in json format in [directory.json](mdc:src/data/directory/directory.json)
+  - The root of the json should be an array. where all of the listings are added to.
+  - Remember that `id` is required for each listing when adding them with json.
+- If the user needs the directory listings to have their own page with content:
+  - you need to set in [settings.toml](mdc:src/config/settings.toml) `directory.data.source` to `default`
+  - you need to set `directory.data.links` to outbound to directly redirect the user to the website when each listing is clicked.
+  - then add markdown files in `src/data/directory/`.
+  - use frontmatter to add the properties that the listings need.
+
+## Steps To Follow
+1. Find potential listings online with the search tool. Only search for listings in the niche that the user requested.
+2. Read the file [settings.toml](mdc:src/config/settings.toml). This file contains the settings for the directory.
+  - The options are contained in [settings.ts](mdc:src/validation/settings.ts)
+  - customize the [settings.toml](mdc:src/config/settings.toml) file to the directory of the user if it does not fit the needs of the directory.
+  - do not include images since this will be easier for the user to do themselves, keep it empty.
+3. Finally update the [index.mdx](mdc:src/data/pages/index.mdx) file which is the frontpage of the directory only by replacing the text inside of SimpleLeftHero.
+
+---
+> Source: [masterkram/minted-directory-astro](https://github.com/masterkram/minted-directory-astro) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
