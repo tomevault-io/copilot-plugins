@@ -1,0 +1,9 @@
+{
+  "name": "zizmorcore--zizmor",
+  "displayName": "zizmor",
+  "description": "Static analysis for GitHub Actions",
+  "version": "1.0.0",
+  "author": "zizmorcore",
+  "homepage": "https://github.com/zizmorcore/zizmor",
+  "skills": []
+}
