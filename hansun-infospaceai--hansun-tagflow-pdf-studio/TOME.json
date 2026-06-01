@@ -1,0 +1,44 @@
+{
+  "name": "Hansun-Tagflow-PDF-Studio",
+  "owner": "Hansun-infospaceai",
+  "repo": "Hansun-Tagflow-PDF-Studio",
+  "description": "HanSun TagFlow PDF Studio\u7e41\u9ad4\u4e2d\u6587 Windows PDF \u5de5\u4f5c\u53f0\uff0c\u516c\u958b\u539f\u59cb\u78bc\uff0c\u50c5\u4f9b\u500b\u4eba\u8207\u975e\u5546\u696d\u7528\u9014\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Hansun-infospaceai/Hansun-Tagflow-PDF-Studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-01T08:31:48Z"
+}
