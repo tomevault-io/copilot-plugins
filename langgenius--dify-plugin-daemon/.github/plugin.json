@@ -1,0 +1,9 @@
+{
+  "name": "langgenius--dify-plugin-daemon",
+  "displayName": "dify-plugin-daemon",
+  "description": "dify-plugin-daemon",
+  "version": "1.0.0",
+  "author": "langgenius",
+  "homepage": "https://github.com/langgenius/dify-plugin-daemon",
+  "skills": []
+}
