@@ -1,0 +1,9 @@
+{
+  "name": "dhth--omm",
+  "displayName": "omm",
+  "description": "on-my-mind: a keyboard-driven task manager for the command line",
+  "version": "1.0.0",
+  "author": "dhth",
+  "homepage": "https://github.com/dhth/omm",
+  "skills": []
+}
