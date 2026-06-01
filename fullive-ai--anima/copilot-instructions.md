@@ -1,66 +1,14 @@
-## migration-and-backward-compatibility
+## open-source-contribution-workflow
 
-> Any change that affects stored data, config formats, message contracts, or upgrade paths must preserve compatibility or manage migration explicitly.
+> Work as if the repository is maintained in public.
 
 
-Any change that affects stored data, config formats, message contracts, or upgrade paths must preserve compatibility or manage migration explicitly.
+Work as if the repository is maintained in public.
 
-## Core rule
+Keep changes understandable, testable, documented, and easy for contributors to follow.
+Do not rely on hidden local knowledge or conversation-only context.
 
-Prefer backward-compatible evolution. If backward compatibility is not possible, implement a safe migration path.
-
-## Compatibility-sensitive areas
-
-- persisted data
-- database schemas
-- config structures
-- API contracts
-- event schemas
-- message payloads
-- topic structures
-- cache formats
-- file formats
-- serialized state
-- user settings
-- integration boundaries
-
-## Preferred approach
-
-- make additive changes first
-- support old and new formats during transition when feasible
-- avoid instant hard breaks
-- preserve existing behavior for existing consumers unless the task explicitly requires change
-
-## If a migration is needed
-
-Do the following where applicable:
-
-1. identify what old state exists
-2. define the new target state
-3. provide a transition path
-4. update readers and writers consistently
-5. preserve idempotency when possible
-6. add migration or compatibility tests
-7. update docs and examples
-
-## Breaking compatibility
-
-Only break compatibility when necessary.
-
-If required:
-
-- minimize the blast radius
-- update all known dependents
-- document the change clearly
-- note any manual migration steps
-- avoid partial migration states that are hard to recover from
-
-## Avoid
-
-- silently changing formats
-- upgrading only one side of a producer-consumer boundary
-- assuming all existing data already matches the new model
-- deleting compatibility code before consumers are updated
+If a workflow, setup step, or behavior changes, update the relevant contributor-facing documentation.
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
