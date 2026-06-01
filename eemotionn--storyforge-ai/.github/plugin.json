@@ -1,0 +1,9 @@
+{
+  "name": "eemotionn--storyforge-ai",
+  "displayName": "StoryForge-AI",
+  "description": "\u4e00\u4e2a\u7528\u4e8e\u4e2d\u6587\u957f\u7bc7\u7f51\u6587\u521b\u4f5c\u7684\u591a Agent \u534f\u540c\u6bcd\u7248\u6846\u67b6\uff0c\u652f\u6301\u4e16\u754c\u89c2\u6784\u5efa\u3001\u5927\u7eb2\u89c4\u5212\u3001\u7ae0\u8282\u5361\u3001\u521d\u7a3f\u3001\u8bc4\u6d4b\u4e0e canon\u56de\u5199",
+  "version": "1.0.0",
+  "author": "eemotionn",
+  "homepage": "https://github.com/eemotionn/StoryForge-AI",
+  "skills": []
+}
