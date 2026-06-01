@@ -1,0 +1,9 @@
+{
+  "name": "investbrainapp--investbrain",
+  "displayName": "investbrain",
+  "description": "Smart LLM-enabled investment tracker that consolidates and monitors market performance across your different brokerages",
+  "version": "1.0.0",
+  "author": "investbrainapp",
+  "homepage": "https://github.com/investbrainapp/investbrain",
+  "skills": []
+}
