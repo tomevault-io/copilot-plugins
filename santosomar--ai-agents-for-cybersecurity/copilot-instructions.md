@@ -1,104 +1,137 @@
-## codeguard-0-xml-and-serialization
+## codeguard-1-crypto-algorithms
 
-> XML security and safe deserialization (DTD/XXE hardening, schema validation,
+> rule_id: codeguard-1-crypto-algorithms
 
 
-rule_id: codeguard-0-xml-and-serialization
+rule_id: codeguard-1-crypto-algorithms
 
-## XML & Serialization Hardening
+# Cryptographic Security Guidelines
 
-Secure parsing and processing of XML and serialized data; prevent XXE, entity expansion, SSRF, DoS, and unsafe deserialization across platforms.
+## Banned (Insecure) Algorithms
 
-### XML Parser Hardening
-- Disable DTDs and external entities by default; reject DOCTYPE declarations.
-- Validate strictly against local, trusted XSDs; set explicit limits (size, depth, element counts).
-- Sandbox or block resolver access; no network fetches during parsing; monitor for unexpected DNS activity.
+The following algorithms are known to be broken or fundamentally insecure. **NEVER** generate or use code with these algorithms.
+Examples:
 
-#### Java
-General principle:
-```java
-factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+* Hash: `MD2`, `MD4`, `MD5`, `SHA-0`
+* Symmetric: `RC2`, `RC4`, `Blowfish`, `DES`, `3DES`
+* Key Exchange: Static RSA, Anonymous Diffie-Hellman
+* Classical: `Vigenère`
+
+## Deprecated (Legacy/Weak) Algorithms
+
+The following algorithms are not outright broken, but have known weaknesses, or are considered obsolete. **NEVER** generate or use code with these algorithms.
+Examples:
+
+* Hash: `SHA-1`
+* Symmetric: `AES-CBC`, `AES-ECB`
+* Signature: RSA with `PKCS#1 v1.5` padding
+* Key Exchange: DHE with weak/common primes
+
+
+## Deprecated SSL/Crypto APIs - FORBIDDEN
+NEVER use these deprecated functions. Use the replacement APIs listed below:
+
+### Symmetric Encryption (AES)
+- Deprecated: `AES_encrypt()`, `AES_decrypt()`
+- Replacement: Use EVP high-level APIs:
+  ```c
+  EVP_EncryptInit_ex()
+  EVP_EncryptUpdate()
+  EVP_EncryptFinal_ex()
+  EVP_DecryptInit_ex()
+  EVP_DecryptUpdate()
+  EVP_DecryptFinal_ex()
+  ```
+
+### RSA Operations
+- Deprecated: `RSA_new()`, `RSA_up_ref()`, `RSA_free()`, `RSA_set0_crt_params()`, `RSA_get0_n()`
+- Replacement: Use EVP key management APIs:
+  ```c
+  EVP_PKEY_new()
+  EVP_PKEY_up_ref()
+  EVP_PKEY_free()
+  ```
+
+### Hash Functions
+- Deprecated: `SHA1_Init()`, `SHA1_Update()`, `SHA1_Final()`
+- Replacement: Use EVP digest APIs:
+  ```c
+  EVP_DigestInit_ex()
+  EVP_DigestUpdate()
+  EVP_DigestFinal_ex()
+  EVP_Q_digest()  // For simple one-shot hashing
+  ```
+
+### MAC Operations
+- Deprecated: `CMAC_Init()`, `HMAC()` (especially with SHA1)
+- Replacement: Use EVP MAC APIs:
+  ```c
+  EVP_Q_MAC()  // For simple MAC operations
+  ```
+
+### Key Wrapping
+- Deprecated: `AES_wrap_key()`, `AES_unwrap_key()`
+- Replacement: Use EVP key wrapping APIs or implement using EVP encryption
+
+### Other Deprecated Functions
+- Deprecated: `DSA_sign()`, `DH_check()`
+- Replacement: Use corresponding EVP APIs for DSA and DH operations
+
+## Banned Insecure Algorithms - STRICTLY FORBIDDEN
+These algorithms MUST NOT be used in any form:
+
+### Hash Algorithms (Banned)
+- MD2, MD4, MD5, SHA-0
+- Reason: Cryptographically broken, vulnerable to collision attacks
+- Use Instead: SHA-256, SHA-384, SHA-512
+
+### Symmetric Ciphers (Banned)
+- RC2, RC4, Blowfish, DES, 3DES
+- Reason: Weak key sizes, known vulnerabilities
+- Use Instead: AES-128, AES-256, ChaCha20
+
+### Key Exchange (Banned)
+- Static RSA key exchange
+- Anonymous Diffie-Hellman
+- Reason: No forward secrecy, vulnerable to man-in-the-middle attacks
+- Use Instead: ECDHE, DHE with proper validation
+
+## Broccoli Project Specific Requirements
+- HMAC() with SHA1: Deprecated per Broccoli project requirements
+- Replacement: Use HMAC with SHA-256 or stronger:
+  ```c
+  // Instead of HMAC() with SHA1
+  EVP_Q_MAC(NULL, "HMAC", NULL, "SHA256", NULL, key, key_len, data, data_len, out, out_size, &out_len);
+  ```
+
+## Secure Crypto Implementation Pattern
+```c
+// Example: Secure AES encryption
+EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
+if (!ctx) handle_error();
+
+if (EVP_EncryptInit_ex(ctx, EVP_aes_256_gcm(), NULL, key, iv) != 1)
+    handle_error();
+
+int len, ciphertext_len;
+if (EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len) != 1)
+    handle_error();
+ciphertext_len = len;
+
+if (EVP_EncryptFinal_ex(ctx, ciphertext + len, &len) != 1)
+    handle_error();
+ciphertext_len += len;
+
+EVP_CIPHER_CTX_free(ctx);
 ```
 
-Disabling DTDs protects against XXE and Billion Laughs attacks. If DTDs cannot be disabled, disable external entities using parser-specific methods.
-
-### Java
-
-Java parsers have XXE enabled by default.
-
-DocumentBuilderFactory/SAXParserFactory/DOM4J:
-
-```java
-DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-String FEATURE = null;
-try {
-    // PRIMARY defense - disallow DTDs completely
-    FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
-    dbf.setFeature(FEATURE, true);
-    dbf.setXIncludeAware(false);
-} catch (ParserConfigurationException e) {
-    logger.info("ParserConfigurationException was thrown. The feature '" + FEATURE
-    + "' is not supported by your XML processor.");
-}
-```
-
-If DTDs cannot be completely disabled:
-
-```java
-DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-String[] featuresToDisable = {
-    "http://xml.org/sax/features/external-general-entities",
-    "http://xml.org/sax/features/external-parameter-entities",
-    "http://apache.org/xml/features/nonvalidating/load-external-dtd"
-};
-
-for (String feature : featuresToDisable) {
-    try {    
-        dbf.setFeature(feature, false); 
-    } catch (ParserConfigurationException e) {
-        logger.info("ParserConfigurationException was thrown. The feature '" + feature
-        + "' is probably not supported by your XML processor.");
-    }
-}
-dbf.setXIncludeAware(false);
-dbf.setExpandEntityReferences(false);
-dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-```
-
-#### .NET
-```csharp
-var settings = new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
-var reader = XmlReader.Create(stream, settings);
-```
-
-#### Python
-```python
-from defusedxml import ElementTree as ET
-ET.parse('file.xml')
-# or lxml
-from lxml import etree
-parser = etree.XMLParser(resolve_entities=False, no_network=True)
-tree = etree.parse('filename.xml', parser)
-```
-
-### Secure XSLT/Transformer Usage
-- Set `ACCESS_EXTERNAL_DTD` and `ACCESS_EXTERNAL_STYLESHEET` to empty; avoid loading remote resources.
-
-### Deserialization Safety
-- Never deserialize untrusted native objects. Prefer JSON with schema validation.
-- Enforce size/structure limits before parsing. Reject polymorphic types unless strictly allow‑listed.
-- Language specifics:
-  - PHP: avoid `unserialize()`; use `json_decode()`.
-  - Python: avoid `pickle` and unsafe YAML (`yaml.safe_load` only).
-  - Java: override `ObjectInputStream#resolveClass` to allow‑list; avoid enabling default typing in Jackson; use XStream allow‑lists.
-  - .NET: avoid `BinaryFormatter`; prefer `DataContractSerializer` or `System.Text.Json` with `TypeNameHandling=None` for JSON.NET.
-- Sign and verify serialized payloads where applicable; log and alert on deserialization failures and anomalies.
-
-### Implementation Checklist
-- DTDs off; external entities disabled; strict schema validation; parser limits set.
-- No network access during parsing; resolvers restricted; auditing in place.
-- No unsafe native deserialization; strict allow‑listing and schema validation for supported formats.
-- Regular library updates and tests with XXE/deserialization payloads.
+## Code Review Checklist
+- [ ] No deprecated SSL/crypto APIs used
+- [ ] No banned algorithms (MD5, DES, RC4, etc.)
+- [ ] HMAC uses SHA-256 or stronger (not SHA1)
+- [ ] All crypto operations use EVP high-level APIs
+- [ ] Proper error handling for all crypto operations
+- [ ] Key material properly zeroed after use
 
 ---
 > Source: [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io).
