@@ -1,0 +1,9 @@
+{
+  "name": "shader-slang--slang-rhi",
+  "displayName": "slang-rhi",
+  "description": "Slang Render Hardware Interface",
+  "version": "1.0.0",
+  "author": "shader-slang",
+  "homepage": "https://github.com/shader-slang/slang-rhi",
+  "skills": []
+}
