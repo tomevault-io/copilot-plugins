@@ -1,45 +1,82 @@
-## documentation-style
+## educational-rag-project
 
-> When writing or editing documentation in the `docs/` directory, follow these style guidelines:
+> This is an educational project focused on systematically improving RAG (Retrieval-Augmented Generation) systems. The project contains multiple cohorts with weekly assignments teaching different aspects of RAG development, from basic evaluations to advanced techniques.
 
-# Documentation Writing Style Guide
+# Educational RAG Project Rules
 
-When writing or editing documentation in the `docs/` directory, follow these style guidelines:
+## Project Overview
+This is an educational project focused on systematically improving RAG (Retrieval-Augmented Generation) systems. The project contains multiple cohorts with weekly assignments teaching different aspects of RAG development, from basic evaluations to advanced techniques.
 
-## Writing Standards
-- **Reading level**: Write at 9th-grade reading level for accessibility
-- **No emojis**: Keep documentation professional and emoji-free
-- **Conversational tone**: Use "you", "we", "I" to make content personal and engaging
-- **Active voice**: Prefer active over passive voice
-- **Specific examples**: Include concrete examples and metrics when possible
+## Key Project Structure
+- `cohort_1/`, `cohort_2/`, `latest/`: Different iterations of the course
+- Weekly folders (`week0/`, `week1/`, etc.): Progressive learning modules
+- `capstone_project/`: Advanced projects applying learned concepts
+- Each week contains Jupyter notebooks with educational content
 
-## Technical Content
-- **Actionable insights**: Focus on practical, implementable advice over theory
-- **Code examples**: Include working code snippets with proper syntax highlighting
-- **Performance metrics**: Include specific numbers and improvements when available
-- **Company attribution**: Reference companies and speakers for credibility
+## Development Guidelines
 
-## Markdown Formatting
-- **Headers**: Use proper hierarchy (H1 for titles, H2 for main sections, H3 for subsections)
-- **Bold text**: Use `**bold**` for emphasis and labels
-- **Code blocks**: Use triple backticks with language specification
-- **Lists**: Use `-` for bullet points with consistent formatting
-- **Links**: Use descriptive link text, not "click here"
+### Package Management
+- **Always use `uv` instead of `pip`** for package installation
+- Use `uv add <package>` instead of `pip install <package>`
+- Follow the user's preference for uv in all Python environments
 
-## Content Organization
-- **Clear structure**: Organize content with logical flow and clear headings
-- **Key takeaways**: Highlight main insights with `**Key Takeaway:**` format
-- **Scannable content**: Use bullet points, short paragraphs, and clear headings
-- **Consistent formatting**: Match existing document styles in the same directory
+### Educational Content Standards
+- **Write at 9th-grade reading level** - keep explanations clear and accessible
+- **Add educational markdown** between code sections explaining:
+  - What the code does and why
+  - Key concepts students should learn
+  - Real-world applications
+  - Best practices and common pitfalls
+- Use emojis and formatting to make content engaging but not overwhelming
 
-## Technical Accuracy
-- **Verify examples**: Ensure all code examples work and are up-to-date
-- **Check links**: Verify all internal and external links are functional
-- **Consistent terminology**: Use the same terms throughout related documents
-- **Proper citations**: Reference sources and speakers appropriately
+### Jupyter Notebook Structure
+- Start with learning objectives and introduction
+- Include educational markdown cells between major code sections
+- End with conclusions, next steps, and homework suggestions
+- Use clear section headers with emoji indicators
+- Provide code comments explaining complex operations
 
-## Project Setup
-- **Dependency installation**: Always use `uv sync --all-extras` to install all dependencies and extras for building and working with documentation.
+### Text Analysis and Clustering Patterns
+When working with text analysis:
+- Use sentence transformers for embeddings (prefer `all-MiniLM-L6-v2` for educational speed)
+- Apply k-means clustering for interpretable results
+- Use t-SNE for 2D visualization of high-dimensional embeddings
+- Always provide examples from each cluster for interpretation
+- Include quantitative analysis (cluster sizes, statistics)
+
+### RAG System Development
+- Focus on systematic improvement approaches
+- Include evaluation metrics and benchmarks
+- Demonstrate both basic and advanced techniques
+- Emphasize practical applications and real-world usage
+- Connect concepts to actual user needs and behaviors
+
+### Data Visualization
+- Use log scales when data spans multiple orders of magnitude
+- Provide clear axis labels and titles
+- Include statistical annotations (means, medians)
+- Use consistent color schemes and styling
+- Explain what visualizations reveal about the data
+
+### Code Quality
+- Prefer async over synchronous operations when applicable
+- Ask about parallelization opportunities when relevant
+- Include error handling for data loading and processing
+- Use efficient data processing techniques (vectorized operations)
+- Comment complex algorithms and ML techniques
+
+## File References
+- Main educational notebooks: [latest/week*/](mdc:latest/)
+- Capstone project: [latest/capstone_project/01_exploring_wildchat.ipynb](mdc:latest/capstone_project/01_exploring_wildchat.ipynb)
+- Project configuration: [latest/pyproject.toml](mdc:latest/pyproject.toml)
+
+## Common Patterns
+- Dataset loading with Hugging Face `datasets` library
+- Text preprocessing and filtering
+- Embedding creation with sentence transformers
+- Clustering analysis with interpretive examples
+- Statistical analysis and visualization
+- Educational explanations connecting theory to practice
 
 ---
 > Source: [jxnl/systematically-improving-rag](https://github.com/jxnl/systematically-improving-rag) — distributed by [TomeVault](https://tomevault.io).
