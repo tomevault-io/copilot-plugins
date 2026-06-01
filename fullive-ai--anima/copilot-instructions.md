@@ -1,23 +1,14 @@
-## github-mcp-available
+## license-and-dependency-compliance
 
-> GitHub MCP is installed and available.
+> Be careful with dependencies, copied code, and license implications.
 
 
-GitHub MCP is installed and available.
+Be careful with dependencies, copied code, and license implications.
 
-When repository work requires GitHub operations, you may use GitHub MCP directly for actions such as:
+Prefer existing project dependencies and patterns when reasonable.
+When adding or updating dependencies, keep the change intentional, minimal, and consistent with the project.
 
-- reading repository information
-- viewing issues and pull requests
-- creating or updating issues
-- creating or updating pull requests
-- reading comments, reviews, and discussions
-- checking branch and commit context
-- performing other safe repository management actions supported by GitHub MCP
-
-Prefer using GitHub MCP for GitHub-specific workflows instead of asking the user to perform those steps manually.
-
-Do not assume every GitHub action is safe to execute automatically. For destructive, irreversible, or high-impact actions, require explicit user intent.
+Avoid unclear provenance, unnecessary dependency bloat, and unrelated lockfile churn.
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
