@@ -1,0 +1,9 @@
+{
+  "name": "openhue--openhue-go",
+  "displayName": "openhue-go",
+  "description": "OpenHue Go is a library written in Golang for interacting with the Philips Hue smart lighting systems",
+  "version": "1.0.0",
+  "author": "openhue",
+  "homepage": "https://github.com/openhue/openhue-go",
+  "skills": []
+}
