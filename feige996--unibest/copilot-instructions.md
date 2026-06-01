@@ -1,50 +1,40 @@
-## development-workflow
+## project-overview
 
-> 1. 安装依赖：`pnpm install`
+> 这是一个基于 uniapp + Vue3 + TypeScript + Vite5 + UnoCSS 的跨平台开发框架。
 
-# 开发工作流程
+# unibest 项目概览
 
-## 项目启动
-1. 安装依赖：`pnpm install`
-2. 开发环境：
-   - H5: `pnpm dev` 或 `pnpm dev:h5`
-   - 微信小程序: `pnpm dev:mp`
-   - 支付宝小程序: `pnpm dev:mp-alipay`
-   - APP: `pnpm dev:app`
+这是一个基于 uniapp + Vue3 + TypeScript + Vite5 + UnoCSS 的跨平台开发框架。
 
-## 代码规范
-- 使用 ESLint 进行代码检查：`pnpm lint`
-- 自动修复代码格式：`pnpm lint:fix`
-- 使用 eslint 格式化代码
-- 遵循 TypeScript 严格模式
+## 项目特点
+- 支持 H5、小程序、APP 多平台开发
+- 使用最新的前端技术栈
+- 内置约定式路由、layout布局、请求封装、登录拦截、自定义tabbar等功能
+- 无需依赖 HBuilderX，支持命令行开发
 
-## 构建和部署
-- H5 构建：`pnpm build:h5`
-- 微信小程序构建：`pnpm build:mp`
-- 支付宝小程序构建：`pnpm build:mp-alipay`
-- APP 构建：`pnpm build:app`
-- 类型检查：`pnpm type-check`
+## 核心配置文件
+- [package.json](mdc:package.json) - 项目依赖和脚本配置
+- [vite.config.ts](mdc:vite.config.ts) - Vite 构建配置
+- [pages.config.ts](mdc:pages.config.ts) - 页面路由配置
+- [manifest.config.ts](mdc:manifest.config.ts) - 应用清单配置
+- [uno.config.ts](mdc:uno.config.ts) - UnoCSS 配置
 
-## 开发工具
-- 推荐使用 VSCode 编辑器
-- 安装 Vue 和 TypeScript 相关插件
-- 使用 uni-app 开发者工具调试小程序
-- 使用 HBuilderX 调试 APP
+## 主要目录结构
+- `src/pages/` - 页面文件
+- `src/components/` - 组件文件
+- `src/layouts/` - 布局文件
+- `src/api/` - API 接口
+- `src/http/` - HTTP 请求封装
+- `src/store/` - 状态管理
+- `src/tabbar/` - 底部导航栏
+- `src/App.ku.vue` - 全局根组件（类似 App.vue 里面的 template作用）
 
-## 调试技巧
-- 使用 console.log 和 uni.showToast 调试
-- 利用 Vue DevTools 调试组件状态
-- 使用网络面板调试 API 请求
-- 平台差异测试和兼容性检查
-
-## 性能优化
-- 使用懒加载和代码分割
-- 优化图片和静态资源
-- 减少不必要的重渲染
-- 合理使用缓存策略
----
-description: 开发工作流程和最佳实践指南
----
+## 开发命令
+- `pnpm dev` - 开发 H5 版本
+- `pnpm dev:mp` - 开发微信小程序
+- `pnpm dev:mp-alipay` - 开发支付宝小程序（含钉钉）
+- `pnpm dev:app` - 开发 APP 版本
+- `pnpm build` - 构建生产版本
 
 ---
 > Source: [feige996/unibest](https://github.com/feige996/unibest) — distributed by [TomeVault](https://tomevault.io).
