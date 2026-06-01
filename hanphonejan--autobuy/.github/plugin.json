@@ -1,0 +1,9 @@
+{
+  "name": "hanphonejan--autobuy",
+  "displayName": "AutoBuy",
+  "description": "\u4e00\u6b3e\u57fa\u4e8e Selenium \u5f00\u53d1\u7684 Windows \u7f51\u9875\u7aef\u62a2\u8d2d\u5de5\u5177\uff0c\u652f\u6301\u6dd8\u5b9d\u3001\u4eac\u4e1c\u5e73\u53f0\u5546\u54c1\u5b9a\u65f6\u81ea\u52a8\u63d0\u4ea4\u8ba2\u5355",
+  "version": "1.0.0",
+  "author": "HanphoneJan",
+  "homepage": "https://github.com/HanphoneJan/AutoBuy",
+  "skills": []
+}
