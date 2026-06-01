@@ -1,87 +1,44 @@
-## codeguard-0-input-validation-injection
+## codeguard-0-logging
 
-> rule_id: codeguard-0-input-validation-injection
+> rule_id: codeguard-0-logging
 
 
-rule_id: codeguard-0-input-validation-injection
+rule_id: codeguard-0-logging
 
-## Input Validation & Injection Defense
+## Logging & Monitoring
 
-Ensure untrusted input is validated and never interpreted as code. Prevent injection across SQL, LDAP, OS commands, templating, and JavaScript runtime object graphs.
+Produce structured, privacy‑aware telemetry that supports detection, response, and forensics without exposing secrets.
 
-### Core Strategy
-- Validate early at trust boundaries with positive (allow‑list) validation and canonicalization.
-- Treat all untrusted input as data, never as code. Use safe APIs that separate code from data.
-- Parameterize queries/commands; escape only as last resort and context‑specific.
+### What to Log
+- Authn/authz events; admin actions; config changes; sensitive data access; input validation failures; security errors.
+- Include correlation/request IDs, user/session IDs (non‑PII), source IP, user agent, timestamps (UTC, RFC3339).
 
-### Validation Playbook
-- Syntactic validation: enforce format, type, ranges, and lengths for each field.
-- Semantic validation: enforce business rules (e.g., start ≤ end date, enum allow‑lists).
-- Normalization: canonicalize encodings before validation; validate complete strings (regex anchors ^$); beware ReDoS.
-- Free‑form text: define character class allow‑lists; normalize Unicode; set length bounds.
-- Files: validate by content type (magic), size caps, and safe extensions; server‑generate filenames; scan; store outside web root.
+### How to Log
+- Structured logs (JSON) with stable field names; avoid free‑form text for critical signals.
+- Sanitize all log inputs to prevent log injection (strip CR/LF/delimiters); validate data from other trust zones.
+- Redact/tokenize secrets and sensitive fields; never log credentials, tokens, recovery codes, or raw session IDs.
+- Ensure integrity: append‑only or WORM storage; tamper detection; centralized aggregation; access controls and retention policies.
 
-### SQL Injection Prevention
-- Use prepared statements and parameterized queries for 100% of data access.
-- Use bind variables for any dynamic SQL construction within stored procedures and never concatenate user input into SQL.
-- Prefer least‑privilege DB users and views; never grant admin to app accounts.
-- Escaping is fragile and discouraged; parameterization is the primary defense.
+### Detection & Alerting
+- Build alerts for auth anomalies (credential stuffing patterns, impossible travel), privilege changes, excessive failures, SSRF indicators, and data exfil patterns.
+- Tune thresholds; provide runbooks; ensure on‑call coverage; test alert flows.
 
-Example (Java PreparedStatement):
-```java
-String custname = request.getParameter("customerName");
-String query = "SELECT account_balance FROM user_data WHERE user_name = ? ";  
-PreparedStatement pstmt = connection.prepareStatement( query );
-pstmt.setString( 1, custname);
-ResultSet results = pstmt.executeQuery( );
-```
+### Storage & Protection
+- Isolate log storage (separate partition/database); strict file/directory permissions; store outside web‑accessible locations.
+- Synchronize time across systems; use secure protocols for transmission; implement tamper detection and monitoring.
 
-### LDAP Injection Prevention
-- Always apply context‑appropriate escaping:
-  - DN escaping for `\ # + < > , ; " =` and leading/trailing spaces
-  - Filter escaping for `* ( ) \ NUL`
-- Validate inputs with allow‑lists before constructing queries; use libraries that provide DN/filter encoders.
-- Use least‑privilege LDAP connections with bind authentication; avoid anonymous binds for application queries.
-
-### OS Command Injection Defense
-- Prefer built‑in APIs instead of shelling out (e.g., library calls over `exec`).
-- If unavoidable, use structured execution that separates command and arguments (e.g., ProcessBuilder). Do not invoke shells.
-- Strictly allow‑list commands and validate arguments with allow‑list regex; exclude metacharacters (& | ; $ > < ` \ ! ' " ( ) and whitespace as needed).
-- Use `--` to delimit arguments where supported to prevent option injection.
-
-Example (Java ProcessBuilder):
-```java
-ProcessBuilder pb = new ProcessBuilder("TrustedCmd", "Arg1", "Arg2");
-Map<String,String> env = pb.environment();
-pb.directory(new File("TrustedDir"));
-Process p = pb.start();
-```
-
-### Query Parameterization Guidance
-- Use the platform’s parameterization features (JDBC PreparedStatement, .NET SqlCommand, Ruby ActiveRecord bind params, PHP PDO, SQLx bind, etc.).
-- For stored procedures, ensure parameters are bound; never build dynamic SQL via string concatenation inside procedures.
-
-### Prototype Pollution (JavaScript)
-- Developers should use `new Set()` or `new Map()` instead of using object literals
-- When objects are required, create with `Object.create(null)` or `{ __proto__: null }` to avoid inherited prototypes.
-- Freeze or seal objects that should be immutable; consider Node `--disable-proto=delete` as defense‑in‑depth.
-- Avoid unsafe deep merge utilities; validate keys against allow‑lists and block `__proto__`, `constructor`, `prototype`.
-
-### Caching and Transport
-- Apply `Cache-Control: no-store` on responses containing sensitive data; enforce HTTPS across data flows.
+### Privacy & Compliance
+- Maintain data inventory and classification; minimize personal data in logs; honor retention and deletion policies.
+- Provide mechanisms to trace and delete user‑linked log data where required by policy.
 
 ### Implementation Checklist
-- Central validators: types, ranges, lengths, enums; canonicalization before checks.
-- 100% parameterization coverage for SQL; dynamic identifiers via allow‑lists only.
-- LDAP DN/filter escaping in use; inputs validated prior to query.
-- No shell invocation for untrusted input; if unavoidable, structured exec + allow‑list + regex validation.
-- JS object graph hardened: safe constructors, blocked prototype paths, safe merge utilities.
-- File uploads validated by content, size, and extension; stored outside web root and scanned.
+- JSON logging enabled; log injection sanitization active; redaction filters active; correlation IDs on all requests.
+- Isolated log storage with tamper detection; centralized log pipeline with integrity protections; retention configured.
+- Security alerts defined and tested; dashboards and reports in place.
 
-### Test Plan
-- Static checks for string concatenation in queries/commands and dangerous DOM/merge sinks.
-- Fuzzing for SQL/LDAP/OS injection vectors; unit tests for validator edge cases.
-- Negative tests exercising blocked prototype keys and deep merge behavior.
+### Validation
+- Unit/integration tests assert presence/absence of key fields; redaction unit tests.
+- Periodic audits for secret/PII leakage; tabletop exercises for incident workflows.
 
 ---
 > Source: [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io).
