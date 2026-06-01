@@ -1,0 +1,9 @@
+{
+  "name": "dobin--rededr",
+  "displayName": "RedEdr",
+  "description": "Collect Windows telemetry for Maldev",
+  "version": "1.0.0",
+  "author": "dobin",
+  "homepage": "https://github.com/dobin/RedEdr",
+  "skills": []
+}
