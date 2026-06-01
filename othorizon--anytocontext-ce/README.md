@@ -7,11 +7,11 @@ Turn anything into information your agent can query directly.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [othorizon/anytocontext-ce](https://github.com/othorizon/anytocontext-ce).
+Original source: `CLAUDE.md` in [othorizon/anytocontext-ce](https://github.com/othorizon/anytocontext-ce).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
