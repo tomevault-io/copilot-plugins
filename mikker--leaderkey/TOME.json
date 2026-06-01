@@ -4,7 +4,7 @@
   "repo": "LeaderKey",
   "description": "The *faster than your launcher* launcher",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikker/LeaderKey",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T15:45:35Z"
+  "distributed_at": "2026-06-01T15:50:52Z"
 }
