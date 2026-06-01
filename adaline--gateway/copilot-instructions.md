@@ -1,961 +1,490 @@
-## gateway
+## types
 
-> The gateway core module is the central orchestrator that handles AI provider requests, manages caching, queuing, and provides unified interfaces for chat completion, embeddings, and tool responses.
+> The types package contains shared type definitions, Zod schemas, and interfaces used across the entire Adaline Gateway ecosystem. This package serves as the single source of truth for all data structures.
 
 
-# Gateway Core Module - Complete Rules & Implementation Guide
+# Types Package Rules & Instructions
 
-## Module Overview
+## Package Overview
 
-The gateway core module is the central orchestrator that handles AI provider requests, manages caching, queuing, and provides unified interfaces for chat completion, embeddings, and tool responses.
+The types package contains shared type definitions, Zod schemas, and interfaces used across the entire Adaline Gateway ecosystem. This package serves as the single source of truth for all data structures.
 
-## Core Architecture Principles
+## Type Definition Rules
 
-### 1. Type Safety & Schema Validation
+### 1. Schema-First Approach
 
-#### Rules
+- **ALWAYS** define Zod schemas first, then derive TypeScript types
+- **ALWAYS** export both the schema and the inferred type
+- **ALWAYS** use descriptive schema names ending with descriptive suffixes
+- **NEVER** define types without corresponding schemas
 
-- **ALWAYS** use Zod schemas for runtime validation
-- **ALWAYS** export both the schema and inferred types
-- **NEVER** use `any` type - use proper generic constraints
-- **ALWAYS** validate input/output at runtime using schemas
+### 2. Naming Conventions
 
-#### Instructions
+- **ALWAYS** use PascalCase for schema names: `ChatResponse`, `MessageContent`
+- **ALWAYS** use PascalCase + `Type` suffix for type names: `ChatResponseType`, `MessageContentType`
+- **ALWAYS** use descriptive names that clearly indicate purpose
+- **ALWAYS** follow the pattern: `{SchemaName}` and `{SchemaName}Type`
+
+## Schema Definition Instructions
+
+### 1. Basic Schema Structure
 
 ```typescript
 // ✅ CORRECT: Define schema first, then type
-import { z } from 'zod';
-
-const UserConfig = z.object({
-  apiKey: z.string().min(1),
-  model: z.string().min(1),
-  temperature: z.number().min(0).max(2).default(1.0),
+const ChatResponse = z.object({
+  messages: z.array(Message()),
+  usage: ChatUsage.optional(),
+  logProbs: ChatLogProbs.optional(),
 });
-type UserConfigType = z.infer<typeof UserConfig>;
+type ChatResponseType = z.infer<typeof ChatResponse>;
 
-// Export both schema and type
-export { UserConfig, type UserConfigType };
-
-// ❌ INCORRECT: Using any type
-function processData(data: any): any {
-  return data; // Unsafe and loses type information
-}
-
-// ✅ CORRECT: Proper typing with validation
-function processData(data: unknown): UserConfigType {
-  return UserConfig.parse(data); // Validates at runtime
-}
+// ❌ INCORRECT: Define type without schema
+type ChatResponseType = {
+  messages: MessageType[];
+  usage?: ChatUsageType;
+  logProbs?: ChatLogProbsType;
+};
 ```
 
-### 2. Error Handling
-
-#### Rules
-
-- **ALWAYS** use custom error classes extending `GatewayError`
-- **ALWAYS** provide meaningful error messages with context
-- **ALWAYS** handle errors gracefully with proper logging
-- **NEVER** let unhandled errors bubble up
-
-#### Instructions
+### 2. Schema Composition
 
 ```typescript
-// ✅ CORRECT: Custom error class with context
-import { GatewayError } from "./errors";
-
-export class ProviderConnectionError extends GatewayError {
-  constructor(
-    message: string,
-    public readonly provider: string,
-    public readonly statusCode: number,
-    public readonly originalError?: Error
-  ) {
-    super(`Failed to connect to ${provider}: ${message} (Status: ${statusCode})`, "PROVIDER_CONNECTION_ERROR");
-  }
-}
-
-// Usage in code
-try {
-  await provider.makeRequest();
-} catch (error) {
-  if (error instanceof HttpError) {
-    throw new ProviderConnectionError("API request failed", "anthropic", error.status, error);
-  }
-  throw error;
-}
-```
-
-### 3. Logging & Telemetry
-
-#### Rules
-
-- **ALWAYS** use the centralized logger from `LoggerManager`
-- **ALWAYS** include relevant context in log messages
-- **ALWAYS** use OpenTelemetry for tracing and metrics
-- **ALWAYS** log at appropriate levels (debug, info, warn, error)
-
-#### Instructions
-
-```typescript
-// ✅ CORRECT: Centralized logging with context
-import { LoggerManager } from "./plugins/logger";
-
-const logger = LoggerManager.getLogger();
-
-// Structured logging with context
-logger?.info("Processing chat request", {
-  requestId: request.id,
-  model: request.model,
-  provider: request.provider,
-  timestamp: new Date().toISOString(),
+// ✅ CORRECT: Compose schemas from smaller parts
+const ChatUsage = z.object({
+  promptTokens: z.number().nonnegative(),
+  completionTokens: z.number().nonnegative(),
+  totalTokens: z.number().nonnegative(),
 });
 
-// Error logging with full context
-logger?.error("Provider request failed", {
-  error: error.message,
-  stack: error.stack,
-  requestId: request.id,
-  provider: request.provider,
-  statusCode: response.status,
+const ChatResponse = z.object({
+  messages: z.array(Message()),
+  usage: ChatUsage.optional(),
 });
 
-// Debug logging for troubleshooting
-logger?.debug("Cache operation", {
-  operation: "get",
-  key: cacheKey,
-  hit: !!cachedResponse,
-  ttl: cachedResponse?.ttl,
+// ❌ INCORRECT: Duplicate schema definitions
+const ChatResponse = z.object({
+  messages: z.array(Message()),
+  usage: z.object({
+    promptTokens: z.number().nonnegative(),
+    completionTokens: z.number().nonnegative(),
+    totalTokens: z.number().nonnegative(),
+  }).optional(),
 });
 ```
 
-### 4. Testing Standards
-
-#### Rules
-
-- **ALWAYS** write comprehensive tests for new functionality
-- **ALWAYS** use Vitest as the testing framework
-- **ALWAYS** mock external dependencies
-- **ALWAYS** test both success and error scenarios
-- **ALWAYS** use descriptive test names and proper assertions
-
-#### Instructions
+### 3. Optional vs Required Fields
 
 ```typescript
-// ✅ CORRECT: Comprehensive test structure
-import { beforeEach, describe, expect, it, vi } from "vitest";
+// ✅ CORRECT: Use .optional() for truly optional fields
+const Message = z.object({
+  role: z.enum(['user', 'assistant', 'system']), // Required
+  content: z.array(MessageContent()), // Required
+  name: z.string().optional(), // Optional
+  toolCalls: z.array(ToolCall()).optional(), // Optional
+});
 
-import { Gateway } from "./gateway";
-
-describe("Gateway.completeChat", () => {
-  let gateway: Gateway;
-  let mockProvider: any;
-
-  beforeEach(() => {
-    // Setup mocks
-    mockProvider = {
-      completeChat: vi.fn(),
-      getModelPricing: vi.fn(),
-    };
-
-    gateway = new Gateway({
-      providers: { anthropic: mockProvider },
-    });
-  });
-
-  it("should successfully complete chat request", async () => {
-    // Arrange
-    const request = {
-      messages: [{ role: "user", content: "Hello" }],
-      model: "claude-3-sonnet",
-    };
-
-    const expectedResponse = {
-      messages: [{ role: "assistant", content: "Hi there!" }],
-      usage: { promptTokens: 5, completionTokens: 3, totalTokens: 8 },
-    };
-
-    mockProvider.completeChat.mockResolvedValue(expectedResponse);
-
-    // Act
-    const result = await gateway.completeChat(request);
-
-    // Assert
-    expect(result).toEqual(expectedResponse);
-    expect(mockProvider.completeChat).toHaveBeenCalledWith(request);
-  });
-
-  it("should handle provider errors gracefully", async () => {
-    // Arrange
-    const request = { messages: [], model: "invalid-model" };
-    const error = new Error("Model not found");
-    mockProvider.completeChat.mockRejectedValue(error);
-
-    // Act & Assert
-    await expect(gateway.completeChat(request)).rejects.toThrow("Model not found");
-  });
+// ❌ INCORRECT: Making required fields optional
+const Message = z.object({
+  role: z.enum(['user', 'assistant', 'system']).optional(), // Should be required
+  content: z.array(MessageContent()).optional(), // Should be required
 });
 ```
 
-## Gateway Class Rules
+## Type Export Instructions
 
-### 1. Constructor & Initialization
-
-- **ALWAYS** validate options using Zod schemas in constructor
-- **ALWAYS** check for browser environment unless explicitly allowed
-- **ALWAYS** initialize all plugins (logger, telemetry, analytics) before use
-- **ALWAYS** set up queues and caches with proper configuration
-- **ALWAYS** handle initialization errors gracefully
-
-### 2. Request Handling
-
-- **ALWAYS** use the appropriate handler for each request type
-- **ALWAYS** validate requests before processing
-- **ALWAYS** include proper telemetry context
-- **ALWAYS** handle timeouts and retries appropriately
-- **ALWAYS** log request/response details at debug level
-
-### 3. Error Handling
-
-- **ALWAYS** catch and wrap provider errors in `GatewayError`
-- **ALWAYS** provide meaningful error context
-- **ALWAYS** log errors with full stack traces
-- **ALWAYS** return consistent error responses
-
-## Handler Rules
-
-### 1. Handler Structure
-
-- **ALWAYS** create separate handler files for each operation type
-- **ALWAYS** use the pattern: `{operation-name}.handler.ts`
-- **ALWAYS** export handler types from `{operation-name}.types.ts`
-- **ALWAYS** implement proper input validation using Zod schemas
-
-### 2. Handler Implementation
-
-- **ALWAYS** accept `HttpClient` and optional telemetry context
-- **ALWAYS** implement proper error handling with try-catch blocks
-- **ALWAYS** use the centralized logger for all logging
-- **ALWAYS** include proper telemetry spans and attributes
-- **ALWAYS** handle callbacks safely using `safelyInvokeCallbacks`
-
-### 3. Caching Strategy
-
-- **ALWAYS** check cache before making provider requests
-- **ALWAYS** use consistent cache key generation
-- **ALWAYS** set cache TTL appropriately for different response types
-- **ALWAYS** handle cache misses gracefully
-
-### 4. Provider Integration
-
-- **ALWAYS** use the model's methods for URL, headers, and data generation
-- **ALWAYS** transform provider responses using the model's transform methods
-- **ALWAYS** include source headers for non-browser environments
-- **ALWAYS** handle custom headers properly
-
-## Quick Start Guide
-
-### 1. Creating a New Handler
-
-#### Step-by-Step Instructions
+### 1. Export Pattern
 
 ```typescript
-// 1. Create the handler directory structure
-// core/gateway/src/handlers/new-operation/
-// ├── new-operation.handler.ts
-// ├── new-operation.types.ts
-// └── index.ts
-
-// 2. Define types first (new-operation.types.ts)
-
-// 3. Implement the handler (new-operation.handler.ts)
-import { Context, Span, SpanStatusCode } from "@opentelemetry/api";
-import { z } from "zod";
-
-import { MessageType } from "@adaline/types";
-
-import { HttpClient, LoggerManager, TelemetryManager } from "../../plugins";
-import { NewOperationRequestType, NewOperationResponseType } from "./new-operation.types";
-
-export const NewOperationRequest = z.object({
-  messages: z.array(MessageType),
-  model: z.string(),
-  options: z
-    .object({
-      temperature: z.number().min(0).max(2).default(1.0),
-    })
-    .optional(),
-});
-
-export type NewOperationRequestType = z.infer<typeof NewOperationRequest>;
-
-export interface NewOperationResponse {
-  result: string;
-  metadata: Record<string, unknown>;
-}
-
-export type NewOperationResponseType = NewOperationResponse;
-
-export async function handleNewOperation(
-  request: NewOperationRequestType,
-  client: HttpClient,
-  telemetryContext?: Context
-): Promise<NewOperationResponseType> {
-  const logger = LoggerManager.getLogger();
-  const tracer = TelemetryManager.getTracer();
-
-  return tracer.startActiveSpan("handleNewOperation", async (span) => {
-    try {
-      logger?.debug("handleNewOperation invoked", { request });
-
-      // Validate request
-      const data = NewOperationRequest.parse(request);
-
-      // Your implementation logic here
-      const result = await processOperation(data);
-
-      span.setStatus({ code: SpanStatusCode.OK });
-      return result;
-    } catch (error) {
-      span.setStatus({
-        code: SpanStatusCode.ERROR,
-        message: error instanceof Error ? error.message : "Unknown error",
-      });
-      throw error;
-    } finally {
-      span.end();
-    }
-  });
-}
-
-// 4. Export from index.ts
-export * from "./new-operation.handler";
-export * from "./new-operation.types";
-```
-
-### 2. Adding a New Plugin
-
-#### Step-by-Step Instructions
-
-```typescript
-// 3. Implement the plugin (new-plugin.implementation.ts)
-import { NewPlugin } from "./new-plugin.interface";
-
-// 1. Create plugin directory structure
-// core/gateway/src/plugins/new-plugin/
-// ├── new-plugin.interface.ts
-// ├── new-plugin.implementation.ts
-// └── index.ts
-
-// 2. Define the interface (new-plugin.interface.ts)
-export interface NewPlugin {
-  initialize(): Promise<void>;
-  process(data: unknown): Promise<unknown>;
-  cleanup(): Promise<void>;
-}
-
-export class DefaultNewPlugin implements NewPlugin {
-  async initialize(): Promise<void> {
-    // Initialize plugin resources
-  }
-
-  async process(data: unknown): Promise<unknown> {
-    // Process data
-    return data;
-  }
-
-  async cleanup(): Promise<void> {
-    // Cleanup resources
-  }
-}
-
-// 4. Export from index.ts
-export * from "./new-plugin.interface";
-export { DefaultNewPlugin } from "./new-plugin.implementation";
-
-// 5. Add to main plugins index
-// core/gateway/src/plugins/index.ts
-export * from "./new-plugin";
-```
-
-### 3. Implementing Caching
-
-#### Step-by-Step Instructions
-
-```typescript
-// 1. Create cache key
-function getCacheKey(operation: string, data: unknown): string {
-  const hash = createHash('sha256')
-    .update(JSON.stringify(data))
-    .digest('hex');
-  return `${operation}:${hash}`;
-}
-
-// 2. Check cache before operation
-const cacheKey = getCacheKey('new-operation', request);
-if (request.enableCache) {
-  const cached = await cache.get(cacheKey);
-  if (cached) {
-    logger?.debug('Cache hit', { key: cacheKey });
-    return { ...cached, cached: true };
-  }
-}
-
-// 3. Store result in cache
-const result = await performOperation(request);
-if (request.enableCache) {
-  await cache.set(cacheKey, result, 300000); // 5 minutes TTL
-}
-```
-
-### 4. Implementing Queuing
-
-#### Step-by-Step Instructions
-
-```typescript
-// 1. Add to gateway constructor
-this.queues = {
-  // ... existing queues
-  newOperation: new SimpleQueue<NewOperationRequestType, NewOperationResponseType>({
-    maxConcurrentTasks: this.options.queueOptions?.maxConcurrentTasks || 4,
-    retryCount: this.options.queueOptions?.retryCount || 3,
-    retry: this.options.queueOptions?.retry || {
-      initialDelay: 1000,
-      exponentialFactor: 2,
-      maxDelay: 10000,
-    },
-  }),
+// ✅ CORRECT: Export both schema and type
+export {
+  ChatResponse,
+  ChatUsage,
+  type ChatResponseType,
+  type ChatUsageType,
 };
 
-// 2. Use queue in public method
-async newOperation(request: NewOperationRequestType): Promise<NewOperationResponseType> {
-  return this.queues.newOperation.enqueue(
-    async () => handleNewOperation(request, this.httpClient),
-    request
-  );
+// ❌ INCORRECT: Export only types
+export type {
+  ChatResponseType,
+  ChatUsageType,
+};
+```
+
+### 2. Index File Organization
+
+```typescript
+// ✅ CORRECT: Re-export from subdirectories
+export * from "./chat";
+export * from "./config";
+export * from "./embedding";
+export * from "./errors";
+export * from "./message";
+export * from "./pricing";
+export * from "./tool";
+export * from "./utils";
+
+// ❌ INCORRECT: Export individual items
+export { ChatResponse, ChatUsage } from "./chat";
+export { ConfigType } from "./config";
+```
+
+## Validation Instructions
+
+### 1. Input Validation
+
+```typescript
+// ✅ CORRECT: Validate input using schemas
+function processChatResponse(data: unknown): ChatResponseType {
+  return ChatResponse.parse(data);
+}
+
+// ❌ INCORRECT: Type assertion without validation
+function processChatResponse(data: unknown): ChatResponseType {
+  return data as ChatResponseType; // Unsafe!
 }
 ```
 
-### 5. Error Handling Patterns
-
-#### Step-by-Step Instructions
+### 2. Safe Parsing
 
 ```typescript
-// 1. Create custom error class
-export class NewOperationError extends GatewayError {
-  constructor(
-    message: string,
-    public readonly operation: string,
-    public readonly originalError?: Error
-  ) {
-    super(`New operation failed: ${message}`, 'NEW_OPERATION_ERROR');
-  }
+// ✅ CORRECT: Use safeParse for error handling
+const result = ChatResponse.safeParse(data);
+if (result.success) {
+  // result.data is ChatResponseType
+  return result.data;
+} else {
+  // result.error contains validation errors
+  throw new ValidationError(result.error.errors);
 }
 
-// 2. Use in handler
+// ❌ INCORRECT: Ignoring validation errors
 try {
-  const result = await externalService.call();
-  return result;
+  return ChatResponse.parse(data);
 } catch (error) {
-  if (error instanceof ExternalServiceError) {
-    throw new NewOperationError(
-      'External service unavailable',
-      'external-call',
-      error
-    );
-  }
+  // Error handling is missing
   throw error;
 }
+```
 
-// 3. Log error with context
-logger?.error('New operation failed', {
-  error: error.message,
-  operation: 'new-operation',
-  requestId: request.id,
-  stack: error.stack,
+## Schema Design Instructions
+
+### 1. Union Types
+
+```typescript
+// ✅ CORRECT: Use discriminated unions for different content types
+const MessageContent = z.discriminatedUnion('type', [
+  z.object({
+    type: z.literal('text'),
+    text: z.string(),
+  }),
+  z.object({
+    type: z.literal('image'),
+    imageUrl: z.string().url(),
+    altText: z.string().optional(),
+  }),
+]);
+
+// ❌ INCORRECT: Simple union without discrimination
+const MessageContent = z.union([
+  z.string(),
+  z.object({ imageUrl: z.string() }),
+]);
+```
+
+### 2. Constrained Types
+
+```typescript
+// ✅ CORRECT: Use appropriate constraints
+const TokenCount = z.number().int().nonnegative();
+const ModelName = z.string().min(1).max(100);
+const ApiKey = z.string().regex(/^sk-[a-zA-Z0-9]{32,}$/);
+
+// ❌ INCORRECT: Overly permissive types
+const TokenCount = z.number(); // Allows negative numbers
+const ModelName = z.string(); // Allows empty strings
+const ApiKey = z.string(); // Allows any string
+```
+
+### 3. Default Values
+
+```typescript
+// ✅ CORRECT: Provide sensible defaults
+const ChatOptions = z.object({
+  temperature: z.number().min(0).max(2).default(1.0),
+  maxTokens: z.number().int().positive().default(1000),
+  stream: z.boolean().default(false),
+});
+
+// ❌ INCORRECT: No defaults for common options
+const ChatOptions = z.object({
+  temperature: z.number().min(0).max(2),
+  maxTokens: z.number().int().positive(),
+  stream: z.boolean(),
 });
 ```
 
-### 6. Testing Patterns
+## Error Handling Instructions
 
-#### Step-by-Step Instructions
+### 1. Custom Error Types
 
 ```typescript
-// 1. Test handler function
-describe("handleNewOperation", () => {
-  let mockHttpClient: any;
-  let mockLogger: any;
+// ✅ CORRECT: Extend base error classes
+export class ValidationError extends GatewayBaseError {
+  constructor(
+    message: string,
+    public readonly validationErrors: z.ZodError['errors']
+  ) {
+    super(message, 'VALIDATION_ERROR');
+  }
+}
 
-  beforeEach(() => {
-    mockHttpClient = {
-      post: vi.fn(),
-      get: vi.fn(),
+// ❌ INCORRECT: Generic error handling
+export class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
+```
+
+### 2. Error Context
+
+```typescript
+// ✅ CORRECT: Provide meaningful error context
+export class InvalidConfigError extends GatewayBaseError {
+  constructor(
+    message: string,
+    public readonly configPath: string,
+    public readonly configValue: unknown
+  ) {
+    super(`Configuration error at ${configPath}: ${message}`, 'INVALID_CONFIG');
+  }
+}
+
+// ❌ INCORRECT: Generic error messages
+export class InvalidConfigError extends GatewayBaseError {
+  constructor(message: string) {
+    super(message, 'INVALID_CONFIG');
+  }
+}
+```
+
+## Testing Instructions
+
+### 1. Schema Testing
+
+```typescript
+// ✅ CORRECT: Test schema validation
+describe("ChatResponse schema", () => {
+  it("should validate valid chat response", () => {
+    const validData = {
+      messages: [{ role: "user", content: [{ type: "text", text: "Hello" }] }],
+      usage: { promptTokens: 10, completionTokens: 5, totalTokens: 15 },
     };
 
-    mockLogger = {
-      debug: vi.fn(),
-      info: vi.fn(),
-      error: vi.fn(),
-    };
-
-    vi.spyOn(LoggerManager, "getLogger").mockReturnValue(mockLogger);
+    const result = ChatResponse.safeParse(validData);
+    expect(result.success).toBe(true);
   });
 
-  it("should process valid request successfully", async () => {
-    // Arrange
-    const request = {
-      messages: [{ role: "user", content: "Hello" }],
-      model: "test-model",
+  it("should reject invalid chat response", () => {
+    const invalidData = {
+      messages: "not an array", // Invalid type
     };
 
-    const expectedResponse = {
-      result: "Hello response",
-      metadata: { tokens: 10 },
-    };
-
-    // Act
-    const result = await handleNewOperation(request, mockHttpClient);
-
-    // Assert
-    expect(result).toEqual(expectedResponse);
-    expect(mockLogger.debug).toHaveBeenCalledWith("handleNewOperation invoked", { request });
-  });
-
-  it("should handle validation errors", async () => {
-    // Arrange
-    const invalidRequest = {
-      messages: "not an array", // Invalid
-      model: "test-model",
-    };
-
-    // Act & Assert
-    await expect(handleNewOperation(invalidRequest, mockHttpClient)).rejects.toThrow();
+    const result = ChatResponse.safeParse(invalidData);
+    expect(result.success).toBe(false);
+    expect(result.error?.errors).toHaveLength(1);
   });
 });
 ```
 
-## Plugin System Rules
-
-### 1. Plugin Architecture
-
-- **ALWAYS** implement plugin interfaces for consistency
-- **ALWAYS** provide default implementations for all plugins
-- **ALWAYS** allow plugin injection through constructor options
-- **ALWAYS** use dependency injection pattern
-
-### 2. HTTP Client Plugin
-
-- **ALWAYS** implement retry logic with exponential backoff
-- **ALWAYS** handle different HTTP methods consistently
-- **ALWAYS** support streaming for appropriate endpoints
-- **ALWAYS** include proper error handling for network failures
-
-### 3. Cache Plugin
-
-- **ALWAYS** implement LRU eviction strategy
-- **ALWAYS** support TTL-based expiration
-- **ALWAYS** handle cache serialization/deserialization
-- **ALWAYS** provide cache statistics and monitoring
-
-### 4. Queue Plugin
-
-- **ALWAYS** implement concurrency control
-- **ALWAYS** support retry mechanisms
-- **ALWAYS** handle task prioritization
-- **ALWAYS** provide queue monitoring and metrics
-
-### 5. Logger Plugin
-
-- **ALWAYS** support multiple log levels
-- **ALWAYS** include timestamp and context in log messages
-- **ALWAYS** support structured logging
-- **ALWAYS** handle log rotation and persistence
-
-### 6. Telemetry Plugin
-
-- **ALWAYS** use OpenTelemetry standards
-- **ALWAYS** create spans for all major operations
-- **ALWAYS** include relevant attributes and metrics
-- **ALWAYS** support distributed tracing
-
-## Common Patterns
-
-### 1. Request Validation Pattern
+### 2. Type Inference Testing
 
 ```typescript
-// Always validate at the start of handler
-const data = NewOperationRequest.parse(request);
-```
+// ✅ CORRECT: Test type inference
+it("should infer correct types from schema", () => {
+  // This test ensures TypeScript compilation
+  const response: ChatResponseType = {
+    messages: [],
+    usage: {
+      promptTokens: 0,
+      completionTokens: 0,
+      totalTokens: 0,
+    },
+  };
 
-### 2. Telemetry Pattern
-
-```typescript
-// Start span at beginning of handler
-return tracer.startActiveSpan('operationName', async (span) => {
-  try {
-    // Add attributes
-    span.setAttributes({
-      'operation.type': 'new-operation',
-      'request.model': data.model,
-      'request.messages.count': data.messages.length,
-    });
-
-    // Your logic here
-
-    span.setStatus({ code: SpanStatusCode.OK });
-    return result;
-  } catch (error) {
-    span.setStatus({
-      code: SpanStatusCode.ERROR,
-      message: error instanceof Error ? error.message : 'Unknown error'
-    });
-    throw error;
-  } finally {
-    span.end();
-  }
+  expect(response.messages).toBeInstanceOf(Array);
+  expect(response.usage?.totalTokens).toBe(0);
 });
 ```
 
-### 3. Logging Pattern
+## Performance Instructions
+
+### 1. Schema Caching
 
 ```typescript
-// Structured logging with context
-logger?.info("Operation completed", {
-  operation: "new-operation",
-  duration: Date.now() - startTime,
-  success: true,
-  metadata: { tokens: result.tokens },
+// ✅ CORRECT: Cache parsed schemas when possible
+const cachedSchemas = new Map<string, z.ZodSchema>();
+
+function getCachedSchema<T>(schema: z.ZodSchema<T>): z.ZodSchema<T> {
+  const key = schema.toString();
+  if (!cachedSchemas.has(key)) {
+    cachedSchemas.set(key, schema);
+  }
+  return cachedSchemas.get(key)!;
+}
+
+// ❌ INCORRECT: Creating new schemas for each validation
+function validateData(data: unknown) {
+  return z
+    .object({
+      /* ... */
+    })
+    .parse(data); // New schema each time
+}
+```
+
+### 2. Lazy Validation
+
+```typescript
+// ✅ CORRECT: Validate only when needed
+class LazyValidator<T> {
+  private schema: z.ZodSchema<T>;
+  private validated: T | null = null;
+
+  constructor(schema: z.ZodSchema<T>) {
+    this.schema = schema;
+  }
+
+  validate(data: unknown): T {
+    if (this.validated === null) {
+      this.validated = this.schema.parse(data);
+    }
+    return this.validated;
+  }
+}
+```
+
+## Migration Instructions
+
+### 1. Schema Evolution
+
+```typescript
+// ✅ CORRECT: Use .transform() for backward compatibility
+const LegacyMessage = z.object({
+  content: z.string(),
+  role: z.string(),
 });
+
+const NewMessage = z.object({
+  content: z.array(MessageContent()),
+  role: z.enum(["user", "assistant", "system"]),
+});
+
+const Message = z.union([
+  NewMessage,
+  LegacyMessage.transform((legacy) => ({
+    content: [{ type: "text" as const, text: legacy.content }],
+    role: legacy.role as "user" | "assistant" | "system",
+  })),
+]);
 ```
 
-### 4. Cache Pattern
+### 2. Versioning
 
 ```typescript
-// Check cache first
-if (data.enableCache) {
-  const cached = await cache.get(cacheKey);
-  if (cached) {
-    logger?.debug('Cache hit', { key: cacheKey });
-    return { ...cached, cached: true };
-  }
-}
+// ✅ CORRECT: Version schemas for breaking changes
+const MessageV1 = z.object({
+  content: z.string(),
+  role: z.string(),
+});
 
-// Store in cache after operation
-if (data.enableCache) {
-  await cache.set(cacheKey, result, 300000);
-}
+const MessageV2 = z.object({
+  content: z.array(MessageContent()),
+  role: z.enum(['user', 'assistant', 'system']),
+});
+
+export const Message = MessageV2; // Current version
+export const MessageV1 = MessageV1; // Legacy version
 ```
 
-## Performance Tips
+## Documentation Instructions
 
-### 1. Cache Key Generation
+### 1. Schema Documentation
+
+````typescript
+// ✅ CORRECT: Document schemas with examples
+/**
+ * Chat response containing messages and usage information
+ *
+ * @example
+ * ```typescript
+ * const response: ChatResponseType = {
+ *   messages: [
+ *     { role: 'user', content: [{ type: 'text', text: 'Hello' }] },
+ *     { role: 'assistant', content: [{ type: 'text', text: 'Hi there!' }] }
+ *   ],
+ *   usage: { promptTokens: 5, completionTokens: 3, totalTokens: 8 }
+ * };
+ * ```
+ */
+const ChatResponse = z.object({
+  messages: z.array(Message()),
+  usage: ChatUsage.optional(),
+});
+````
+
+### 2. Type Documentation
 
 ```typescript
-// Use efficient cache key generation
-function getCacheKey(operation: string, data: unknown): string {
-  // Use stable stringification for consistent keys
-  const stableData = JSON.stringify(data, Object.keys(data).sort());
-  return `${operation}:${createHash("sha256").update(stableData).digest("hex")}`;
-}
+// ✅ CORRECT: Document complex types
+/**
+ * Configuration options for chat models
+ *
+ * @property temperature - Controls randomness (0.0 = deterministic, 2.0 = very random)
+ * @property maxTokens - Maximum number of tokens to generate
+ * @property stream - Whether to stream the response
+ */
+export type ChatOptionsType = z.infer<typeof ChatOptions>;
 ```
 
-### 2. Batch Operations
+## Integration Instructions
+
+### 1. Provider Integration
 
 ```typescript
-// Batch multiple operations when possible
-async function batchProcess(requests: RequestType[]): Promise<ResponseType[]> {
-  const batchSize = 10;
-  const results: ResponseType[] = [];
+// ✅ CORRECT: Use types in provider implementations
+import { ChatResponseType, MessageType } from "@adaline/types";
 
-  for (let i = 0; i < requests.length; i += batchSize) {
-    const batch = requests.slice(i, i + batchSize);
-    const batchResults = await Promise.all(batch.map((req) => processSingle(req)));
-    results.push(...batchResults);
-  }
-
-  return results;
-}
-```
-
-### 3. Resource Pooling
-
-```typescript
-// Reuse expensive resources
-class ResourcePool<T> {
-  private pool: T[] = [];
-  private maxSize: number;
-
-  constructor(maxSize: number) {
-    this.maxSize = maxSize;
-  }
-
-  async acquire(): Promise<T> {
-    if (this.pool.length > 0) {
-      return this.pool.pop()!;
-    }
-    return this.createResource();
-  }
-
-  release(resource: T): void {
-    if (this.pool.length < this.maxSize) {
-      this.pool.push(resource);
-    }
-  }
-}
-```
-
-## Security Considerations
-
-### 1. Input Sanitization
-
-```typescript
-// Always sanitize user inputs
-function sanitizeInput(input: string): string {
-  return input
-    .replace(/[<>]/g, "") // Remove potential HTML
-    .trim()
-    .substring(0, 1000); // Limit length
-}
-```
-
-### 2. Rate Limiting
-
-```typescript
-// Implement rate limiting
-class RateLimiter {
-  private requests = new Map<string, number[]>();
-  private windowMs: number;
-  private maxRequests: number;
-
-  constructor(windowMs: number, maxRequests: number) {
-    this.windowMs = windowMs;
-    this.maxRequests = maxRequests;
-  }
-
-  isAllowed(key: string): boolean {
-    const now = Date.now();
-    const windowStart = now - this.windowMs;
-
-    if (!this.requests.has(key)) {
-      this.requests.set(key, [now]);
-      return true;
-    }
-
-    const requests = this.requests.get(key)!;
-    const recentRequests = requests.filter((time) => time > windowStart);
-
-    if (recentRequests.length >= this.maxRequests) {
-      return false;
-    }
-
-    recentRequests.push(now);
-    this.requests.set(key, recentRequests);
-    return true;
+class AnthropicProvider {
+  async completeChat(messages: MessageType[]): Promise<ChatResponseType> {
+    // Implementation using shared types
   }
 }
 ```
 
-## Testing Rules
-
-### 1. Handler Testing
-
-- **ALWAYS** test all handler functions with valid and invalid inputs
-- **ALWAYS** mock external dependencies (HttpClient, Cache, etc.)
-- **ALWAYS** test error scenarios and edge cases
-- **ALWAYS** verify telemetry and logging behavior
-
-### 2. Integration Testing
-
-- **ALWAYS** test the complete request flow
-- **ALWAYS** test caching behavior
-- **ALWAYS** test queue behavior under load
-- **ALWAYS** test error propagation
-
-## Performance Considerations
-
-### 1. Caching
-
-- **ALWAYS** cache responses when appropriate
-- **ALWAYS** use efficient cache key generation
-- **ALWAYS** implement cache warming strategies
-- **ALWAYS** monitor cache hit rates
-
-### 2. Queuing
-
-- **ALWAYS** use appropriate concurrency limits
-- **ALWAYS** implement proper backpressure handling
-- **ALWAYS** monitor queue depths and processing times
-- **ALWAYS** implement circuit breakers for failing providers
-
-### 3. Memory Management
-
-- **ALWAYS** implement proper cleanup for resources
-- **ALWAYS** monitor memory usage patterns
-- **ALWAYS** implement resource pooling where appropriate
-- **ALWAYS** handle large response payloads efficiently
-
-## Code Organization
-
-### Rules
-
-- **ALWAYS** follow the established folder structure
-- **ALWAYS** use index files for clean exports
-- **ALWAYS** separate interfaces from implementations
-- **ALWAYS** use consistent naming conventions
-
-### Instructions
+### 2. Gateway Integration
 
 ```typescript
-// ✅ CORRECT: Proper file organization
-// core/gateway/src/handlers/complete-chat/
-// ├── complete-chat.handler.ts    // Implementation
-// ├── complete-chat.types.ts      // Types and interfaces
-// └── index.ts                    // Exports
+// ✅ CORRECT: Use types in gateway handlers
+import { ChatResponseType } from "@adaline/types";
 
-// complete-chat.types.ts
-export interface CompleteChatRequest {
-  messages: Message[];
-  model: string;
-  options?: ChatOptions;
+async function handleCompleteChat(request: CompleteChatRequestType): Promise<ChatResponseType> {
+  // Handler implementation using shared types
 }
-
-export type CompleteChatRequestType = CompleteChatRequest;
-
-export async function handleCompleteChat(request: CompleteChatRequestType): Promise<ChatResponse> {
-  // Implementation
-}
-
-// index.ts
-export * from "./complete-chat.handler";
-export * from "./complete-chat.types";
 ```
 
-## File Naming Conventions
+## Best Practices Summary
 
-### Rules
+1. **Schema First**: Always define Zod schemas before TypeScript types
+2. **Composition**: Build complex schemas from simple, reusable parts
+3. **Validation**: Use schemas for runtime validation, not just type checking
+4. **Documentation**: Document schemas with examples and usage patterns
+5. **Testing**: Test both schema validation and type inference
+6. **Performance**: Cache schemas and use lazy validation when appropriate
+7. **Migration**: Use transforms and versioning for backward compatibility
+8. **Integration**: Use shared types consistently across the ecosystem
 
-- Use kebab-case for file names: `complete-chat.handler.ts`
-- Use PascalCase for class names: `Gateway`, `AnthropicProvider`
-- Use camelCase for functions and variables: `handleCompleteChat`, `chatModel`
-- Use UPPER_SNAKE_CASE for constants: `MAX_CONCURRENT_TASKS`
-
-### Examples
-
-```typescript
-// ✅ CORRECT: File naming
-// complete-chat.handler.ts
-export async function handleCompleteChat() {}
-
-// gateway.ts
-export class Gateway {}
-
-// constants.ts
-export const MAX_CONCURRENT_TASKS = 10;
-export const DEFAULT_TIMEOUT_MS = 30000;
-
-// ❌ INCORRECT: Inconsistent naming
-// CompleteChatHandler.ts (should be complete-chat.handler.ts)
-export async function HandleCompleteChat() {} // Should be handleCompleteChat
-```
-
-## Import/Export Patterns
-
-### Rules
-
-- **ALWAYS** use named exports for public APIs
-- **ALWAYS** use index files to re-export from subdirectories
-- **ALWAYS** group imports: external libraries, internal modules, relative imports
-- **ALWAYS** use absolute imports for packages: `@adaline/provider`
-
-### Instructions
-
-```typescript
-// ✅ CORRECT: Import organization
-// 1. External libraries
-import { z } from 'zod';
-import { v4 as uuidv4 } from 'uuid';
-
-// 2. Internal packages
-import { ChatModelV1, ProviderV1 } from '@adaline/provider';
-import { MessageType, ChatResponseType } from '@adaline/types';
-
-// 3. Relative imports
-import { GatewayError } from './errors';
-import { handleCompleteChat } from './handlers/complete-chat';
-
-// ✅ CORRECT: Export pattern
-export { Gateway, type GatewayOptionsType };
-export * from './handlers';
-export * from './plugins';
-export * from './utils';
-
-// ❌ INCORRECT: Default exports for classes
-export default class Gateway { } // Should use named export
-```
-
-## Code Style
-
-### Rules
-
-- Use 2-space indentation
-- Use semicolons at the end of statements
-- Use single quotes for strings
-- Use trailing commas in objects and arrays
-- Use explicit return types for public functions
-- Use `const` by default, `let` only when reassignment is needed
-
-## Troubleshooting Guide
-
-### 1. Common Issues
-
-- **Handler not found**: Check exports in index.ts files
-- **Type errors**: Ensure Zod schemas match TypeScript types
-- **Cache not working**: Verify cache key generation and TTL settings
-- **Queue stuck**: Check retry configuration and error handling
-
-### 2. Debug Steps
-
-1. Check logs for error messages
-2. Verify telemetry spans are created
-3. Test cache operations manually
-4. Check queue status and metrics
-5. Validate input data against schemas
-
-### 3. Performance Issues
-
-1. Monitor cache hit rates
-2. Check queue depths and processing times
-3. Profile memory usage
-4. Monitor external API response times
-5. Check for memory leaks in resource pools
-
-## Quick Reference Checklist
-
-### Before Committing Code
-
-- [ ] All Zod schemas are properly defined and exported
-- [ ] Custom error classes extend `GatewayError`
-- [ ] All public methods have JSDoc documentation
-- [ ] Tests cover success and error scenarios
-- [ ] Code follows naming conventions
-- [ ] Imports are properly organized
-- [ ] No `any` types are used
-- [ ] Error handling is implemented
-- [ ] Logging is added at appropriate levels
-- [ ] Performance considerations are addressed
-
-### When Adding New Features
-
-- [ ] Create proper folder structure
-- [ ] Define types and interfaces first
-- [ ] Implement with proper error handling
-- [ ] Add comprehensive tests
-- [ ] Update documentation
-- [ ] Consider caching and performance
-- [ ] Add telemetry and logging
-- [ ] Follow security best practices
-
-- **ALWAYS** monitor memory usage patterns
-- **ALWAYS** implement resource pooling where appropriate
-- **ALWAYS** handle large response payloads efficiently
+---
 
 ---
 > Source: [adaline/gateway](https://github.com/adaline/gateway) — distributed by [TomeVault](https://tomevault.io).
