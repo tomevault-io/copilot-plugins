@@ -44,8 +44,6 @@ The project uses `justfile` to manage common development tasks.
 | **Migrations** | `just make-migrations` | Generates database migrations using Drift. |
 | **Icons** | `just icon` | Generates app launcher icons. |
 | **Count Code** | `just count-codes` | Counts lines of code excluding generated files. |
-| **Package AppImage** | `just build-appimage` | Builds a Linux AppImage. |
-| **Package RPM** | `just build-rpm` | Builds a Linux RPM package. |
 
 ### Standard Flutter Commands
 *   **Run:** `flutter run`
@@ -81,6 +79,5 @@ The project uses `justfile` to manage common development tasks.
 *   **Issues:** Search existing issues before creating new ones.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/mumu-lhl)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/mumu-lhl)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [mumu-lhl/Ciyue](https://github.com/mumu-lhl/Ciyue) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
