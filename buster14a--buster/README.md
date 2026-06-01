@@ -7,14 +7,14 @@ Buster monorepository
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [buster14a/buster](https://github.com/buster14a/buster).
+Original source: `CLAUDE.md` in [buster14a/buster](https://github.com/buster14a/buster).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [buster14a/buster](https://github.com/buster14a/buster) — a repo with 0+ stars on GitHub.
