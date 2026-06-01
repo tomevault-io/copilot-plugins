@@ -1,0 +1,9 @@
+{
+  "name": "nvlabs--protomotions",
+  "displayName": "ProtoMotions",
+  "description": "ProtoMotions is a GPU-accelerated simulation and learning framework for training physically simulated digital humans and humanoid robots.",
+  "version": "1.0.0",
+  "author": "NVlabs",
+  "homepage": "https://github.com/NVlabs/ProtoMotions",
+  "skills": []
+}
