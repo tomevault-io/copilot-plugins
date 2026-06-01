@@ -1,0 +1,9 @@
+{
+  "name": "comfy-org--desktop",
+  "displayName": "desktop",
+  "description": "The desktop app for ComfyUI (Windows & macOS)",
+  "version": "1.0.0",
+  "author": "Comfy-Org",
+  "homepage": "https://github.com/Comfy-Org/desktop",
+  "skills": []
+}
