@@ -148669,6 +148669,11 @@
       "description": "cryri"
     },
     {
+      "name": "vjdev1212--strmify",
+      "source": "./vjdev1212--strmify",
+      "description": "Strmify is your streaming companion for discovering and streaming movies and TV shows through various add-on sources and third-party integrations. Find, search, and play content using your preferred m"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -170904,6 +170909,21 @@
       "description": "A Claude Code + Codex skill that turns a local project into a macOS Dock-launchable app \u2014 native window, its own icon, no Electron. [The Windows version is in BETA]"
     },
     {
+      "name": "engineering4ai--nanoclaw",
+      "source": "./engineering4ai--nanoclaw",
+      "description": "Minimal personal AI assistant: gateway agent for Telegram, Slack & Discord. ~1,500 lines of Python, no bloat."
+    },
+    {
+      "name": "nshkrdotcom--pipeline-ex",
+      "source": "./nshkrdotcom--pipeline-ex",
+      "description": "Claude Code + Gemini AI collaboration orchestration tools"
+    },
+    {
+      "name": "nshkrdotcom--pipeline-ex",
+      "source": "./nshkrdotcom--pipeline-ex",
+      "description": "Claude Code + Gemini AI collaboration orchestration tools"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -183017,6 +183037,21 @@
       "name": "bitslix--blxcode",
       "source": "./bitslix--blxcode",
       "description": "BLXCode is an open-source desktop workbench for running AI coding agents beside real terminals, project memory, tasks, and an embedded browser. It is built with Tauri 2, Rust, Leptos, and Trunk."
+    },
+    {
+      "name": "unclejobs-ai--satgat",
+      "source": "./unclejobs-ai--satgat",
+      "description": "satgat"
+    },
+    {
+      "name": "miolamio--dev-compact-skills",
+      "source": "./miolamio--dev-compact-skills",
+      "description": "dev-compact-skills"
+    },
+    {
+      "name": "badlogic--pibot",
+      "source": "./badlogic--pibot",
+      "description": "pibot"
     },
     {
       "name": "cheerhuan--save-your-token",
