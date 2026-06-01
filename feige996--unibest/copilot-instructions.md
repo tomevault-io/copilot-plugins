@@ -1,60 +1,69 @@
-## styling-css-patterns
+## uni-app-patterns
 
-> - 项目使用 UnoCSS 作为原子化 CSS 框架
+> - 页面文件放在 [src/pages/](mdc:src/pages/) 目录下
 
-# 样式和 CSS 开发规范
+# uni-app 开发规范
 
-## UnoCSS 原子化 CSS
-- 项目使用 UnoCSS 作为原子化 CSS 框架
-- 配置在 [uno.config.ts](mdc:uno.config.ts)
-- 支持预设和自定义规则
-- 优先使用原子化类名，减少自定义 CSS
+## 页面开发
+- 页面文件放在 [src/pages/](mdc:src/pages/) 目录下
+- 使用约定式路由，文件名即路由路径
+- 页面配置在仅需要在 宏`definePage` 中配置标题等内容即可，会自动生成到 `pages.json` 中
+- definePage的顺序在最上面
 
-## SCSS 规范
-- 使用 SCSS 预处理器
-- 样式文件使用 `lang="scss"` 和 `scoped` 属性
-- 遵循 BEM 命名规范
-- 使用变量和混入提高复用性
+## 组件开发
+- 组件文件放在 [src/components/](mdc:src/components/) 或者 [src/pages/xx/components/](mdc:src/pages/xx/components/) 目录下
+- 使用 uni-app 内置组件和第三方组件库
+- 支持 wot-ui\uview-pro\uv-ui\sard-ui\uview-plus 等多种第三方组件库 和 z-paging 组件
+- 自定义组件遵循 uni-app 组件规范
 
-## 样式组织
-- 全局样式在 [src/style/](mdc:src/style/) 目录下
-- 组件样式使用 scoped 作用域
-- 图标字体在 [src/style/iconfont.css](mdc:src/style/iconfont.css)
-- 主题变量在 [src/uni_modules/uni-scss/](mdc:src/uni_modules/uni-scss/) 目录下
+## 平台适配
+- 使用条件编译处理平台差异
+- 支持 H5、小程序、APP 多平台
+- 注意各平台的 API 差异
+- 使用 uni.xxx API 替代原生 API
 
 ## 示例代码结构
 ```vue
+<script setup lang="ts">
+// #ifdef H5
+import { h5Api } from '@/utils/h5'
+// #endif
+
+// #ifdef MP-WEIXIN
+import { mpApi } from '@/utils/mp'
+// #endif
+
+const handleClick = () => {
+  // #ifdef H5
+  h5Api.showToast('H5 平台')
+  // #endif
+  
+  // #ifdef MP-WEIXIN
+  mpApi.showToast('微信小程序')
+  // #endif
+}
+</script>
+
 <template>
-  <view class="container flex flex-col items-center p-4">
-    <text class="title text-lg font-bold mb-2">标题</text>
-    <view class="content bg-gray-100 rounded-lg p-3">
-      <!-- 内容 -->
-    </view>
+  <view class="page">
+    <!-- uni-app 组件 -->
+    <button @click="handleClick">点击</button>
+    
+    <!-- 条件渲染 -->
+    <!-- #ifdef H5 -->
+    <view>H5 特有内容</view>
+    <!-- #endif -->
   </view>
 </template>
+```
 
-<style lang="scss" scoped>
-.container {
-  min-height: 100vh;
-  
-  .title {
-    color: var(--primary-color);
-  }
-  
-  .content {
-    width: 100%;
-    max-width: 600rpx;
-  }
-}
-</style>
-
-## 响应式设计
-- 使用 rpx 单位适配不同屏幕
-- 支持横屏和竖屏布局
-- 使用 flexbox 和 grid 布局
-- 考虑不同平台的样式差异
+## 生命周期
+- 使用 uni-app 页面生命周期
+- onLoad、onShow、onReady、onHide、onUnload
+- 组件生命周期遵循 Vue3 规范
+- 注意页面栈和导航管理
 ---
-globs: *.vue,*.scss,*.css
+globs: src/pages/*.vue,src/components/*.vue
 ---
 
 ---
