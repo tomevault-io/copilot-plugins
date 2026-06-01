@@ -1,0 +1,9 @@
+{
+  "name": "mozilla-firefox--firefox",
+  "displayName": "firefox",
+  "description": "The official repository of Mozilla's Firefox web browser.",
+  "version": "1.0.0",
+  "author": "mozilla-firefox",
+  "homepage": "https://github.com/mozilla-firefox/firefox",
+  "skills": []
+}
