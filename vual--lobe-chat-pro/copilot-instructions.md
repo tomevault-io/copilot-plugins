@@ -1,189 +1,155 @@
-## desktop-controller-tests
+## desktop-feature-implementation
 
-> 桌面端测试
+> 当要做 electron 相关工作时
 
-# 桌面端控制器单元测试指南
+**桌面端新功能实现指南**
 
-## 测试框架与目录结构
+## 桌面端应用架构概述
 
-LobeChat 桌面端使用 Vitest 作为测试框架。控制器的单元测试应放置在对应控制器文件同级的 `__tests__` 目录下，并以原控制器文件名加 `.test.ts` 作为文件名。
+LobeChat 桌面端基于 Electron 框架构建，采用主进程-渲染进程架构：
 
-```
-apps/desktop/src/main/controllers/
-├── __tests__/
-│   ├── index.test.ts
-│   ├── MenuCtr.test.ts
-│   └── ...
-├── McpCtr.ts
-├── MenuCtr.ts
-└── ...
-```
+1. **主进程 (Main Process)**：
+   - 位置：`apps/desktop/src/main`
+   - 职责：控制应用生命周期、系统API交互、窗口管理、后台服务
 
-## 测试文件基本结构
+2. **渲染进程 (Renderer Process)**：
+   - 复用 Web 端代码，位于 `src` 目录
+   - 通过 IPC 与主进程通信
 
-```typescript
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+3. **预加载脚本 (Preload)**：
+   - 位置：`apps/desktop/src/preload`
+   - 职责：安全地暴露主进程功能给渲染进程
 
-import type { App } from '@/core/App';
+## 添加新桌面端功能流程
 
-import YourController from '../YourControllerName';
+### 1. 确定功能需求与设计
 
-// 模拟依赖
-vi.mock('依赖模块', () => ({
-  依赖函数: vi.fn(),
-}));
+首先确定新功能的需求和设计，包括：
+- 功能描述和用例
+- 是否需要系统级API（如文件系统、网络等）
+- UI/UX设计（如必要）
+- 与现有功能的交互方式
 
-// 模拟 App 实例
-const mockApp = {
-  // 按需模拟必要的 App 属性和方法
-} as unknown as App;
+### 2. 在主进程中实现核心功能
 
-describe('YourController', () => {
-  let controller: YourController;
+1. **创建控制器 (Controller)**
+   - 位置：`apps/desktop/src/main/controllers/`
+   - 示例：创建 `NewFeatureCtr.ts`
+   - 规范：按 `_template.ts` 模板格式实现
+   - 注册：在 `apps/desktop/src/main/controllers/index.ts` 导出
 
-  beforeEach(() => {
-    vi.clearAllMocks();
-    controller = new YourController(mockApp);
-  });
+2. **定义 IPC 事件处理器**
+   - 使用 `@ipcClientEvent('eventName')` 装饰器注册事件处理函数
+   - 处理函数应接收前端传递的参数并返回结果
+   - 处理可能的错误情况
 
-  describe('方法名', () => {
-    it('测试场景描述', async () => {
-      // 准备测试数据
+3. **实现业务逻辑**
+   - 可能需要调用 Electron API 或 Node.js 原生模块
+   - 对于复杂功能，可以创建专门的服务类 (`services/`)
 
-      // 执行被测方法
-      const result = await controller.方法名(参数);
+### 3. 定义 IPC 通信类型
 
-      // 验证结果
-      expect(result).toMatchObject(预期结果);
-    });
-  });
-});
-```
+1. **在共享类型定义中添加新类型**
+   - 位置：`packages/electron-client-ipc/src/types.ts`
+   - 添加参数类型接口（如 `NewFeatureParams`）
+   - 添加返回结果类型接口（如 `NewFeatureResult`）
 
-## 模拟外部依赖
+### 4. 在渲染进程实现前端功能
 
-### 模拟模块函数
+1. **创建服务层**
+   - 位置：`src/services/electron/`
+   - 添加服务方法调用 IPC
+   - 使用 `dispatch` 或 `invoke` 函数
 
-```typescript
-const mockFunction = vi.fn();
+   ```typescript
+   // src/services/electron/newFeatureService.ts
+   import { dispatch } from '@lobechat/electron-client-ipc';
+   import { NewFeatureParams } from 'types';
 
-vi.mock('module-name', () => ({
-  functionName: mockFunction,
-}));
-```
+   export const newFeatureService = async (params: NewFeatureParams) => {
+     return dispatch('newFeatureEventName', params);
+   };
+   ```
 
-### 模拟 Node.js 核心模块
+2. **实现 Store Action**
+   - 位置：`src/store/`
+   - 添加状态更新逻辑和错误处理
 
-例如模拟 `child_process.exec` 和 `util.promisify`:
+3. **添加 UI 组件**
+   - 根据需要在适当位置添加UI组件
+   - 通过 Store 或 Service 层调用功能
 
-```typescript
-// 存储模拟的 exec 实现
-const mockExecImpl = vi.fn();
+### 5. 如果是新增内置工具，遵循工具实现流程
 
-// 模拟 child_process.exec
-vi.mock('child_process', () => ({
-  exec: vi.fn((cmd, callback) => {
-    return mockExecImpl(cmd, callback);
-  }),
-}));
+参考 [desktop-local-tools-implement.mdc](mdc:desktop-local-tools-implement.mdc) 了解更多关于添加内置工具的详细步骤。
 
-// 模拟 util.promisify
-vi.mock('util', () => ({
-  promisify: vi.fn((fn) => {
-    return async (cmd: string) => {
-      return new Promise((resolve, reject) => {
-        mockExecImpl(cmd, (error: Error | null, result: any) => {
-          if (error) reject(error);
-          else resolve(result);
-        });
-      });
-    };
-  }),
-}));
-```
+### 6. 添加测试
 
-## 编写有效的测试用例
+1. **单元测试**
+   - 位置：`apps/desktop/src/main/controllers/__tests__/`
+   - 测试主进程组件功能
 
-### 测试分类
-
-将测试用例分为不同类别，每个类别测试一个特定场景：
-
-```typescript
-// 成功场景
-it('应该成功完成操作', async () => {});
-
-// 边界条件
-it('应该处理边界情况', async () => {});
-
-// 错误处理
-it('应该优雅地处理错误', async () => {});
-```
-
-### 设置测试数据
-
-```typescript
-// 模拟返回值
-mockExecImpl.mockImplementation((cmd: string, callback: any) => {
-  if (cmd === '命令') {
-    callback(null, { stdout: '成功输出' });
-  } else {
-    callback(new Error('错误信息'), null);
-  }
-});
-```
-
-### 断言
-
-使用 Vitest 的断言函数验证结果：
-
-```typescript
-// 检查基本值
-expect(result.success).toBe(true);
-
-// 检查对象部分匹配
-expect(result.data).toMatchObject({
-  key: 'value',
-});
-
-// 检查数组
-expect(result.items).toHaveLength(2);
-expect(result.items[0].name).toBe('expectedName');
-
-// 检查函数调用
-expect(mockFunction).toHaveBeenCalledWith(expectedArgs);
-expect(mockFunction).toHaveBeenCalledTimes(1);
-```
+2. **集成测试**
+   - 测试 IPC 通信和功能完整流程
 
 ## 最佳实践
 
-1. **隔离测试**：确保每个测试互不影响，使用 `beforeEach` 重置模拟和状态
-2. **全面覆盖**：测试正常流程、边界条件和错误处理
-3. **清晰命名**：测试名称应清晰描述测试内容和预期结果
-4. **避免测试实现细节**：测试应该关注行为而非实现细节，使代码重构不会破坏测试
-5. **模拟外部依赖**：使用 `vi.mock()` 模拟所有外部依赖，减少测试的不确定性
+1. **安全性考虑**
+   - 谨慎处理用户数据和文件系统访问
+   - 适当验证和清理输入数据
+   - 限制暴露给渲染进程的API范围
 
-## 示例：测试 IPC 事件处理方法
+2. **性能优化**
+   - 对于耗时操作，考虑使用异步方法
+   - 大型数据传输考虑分批处理
+
+3. **用户体验**
+   - 为长时间操作添加进度指示
+   - 提供适当的错误反馈
+   - 考虑操作的可撤销性
+
+4. **代码组织**
+   - 遵循项目现有的命名和代码风格约定
+   - 为新功能添加适当的文档和注释
+   - 功能模块化，避免过度耦合
+
+## 示例：实现系统通知功能
 
 ```typescript
-it('应该正确处理 IPC 事件', async () => {
-  // 模拟依赖
-  mockSomething.mockReturnValue({ result: 'success' });
+// apps/desktop/src/main/controllers/NotificationCtr.ts
+import { BrowserWindow, Notification } from 'electron';
+import { ipcClientEvent } from 'electron-client-ipc';
 
-  // 调用 IPC 方法
-  const result = await controller.ipcMethodName({
-    param1: 'value1',
-    param2: 'value2',
-  });
+interface ShowNotificationParams {
+  title: string;
+  body: string;
+}
 
-  // 验证结果
-  expect(result).toEqual({
-    success: true,
-    data: { result: 'success' },
-  });
+export class NotificationCtr {
+  @ipcClientEvent('showNotification')
+  async handleShowNotification({ title, body }: ShowNotificationParams) {
+    try {
+      if (!Notification.isSupported()) {
+        return { success: false, error: 'Notifications not supported' };
+      }
 
-  // 验证依赖调用
-  expect(mockSomething).toHaveBeenCalledWith('value1', 'value2');
-});
+      const notification = new Notification({
+        title,
+        body,
+      });
+
+      notification.show();
+
+      return { success: true };
+    } catch (error) {
+      console.error('Failed to show notification:', error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+}
 ```
 
 ---
