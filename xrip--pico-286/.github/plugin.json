@@ -1,0 +1,9 @@
+{
+  "name": "xrip--pico-286",
+  "displayName": "pico-286",
+  "description": "RP2040/RP2350 286 PC emulator for MURMULATOR dev board",
+  "version": "1.0.0",
+  "author": "xrip",
+  "homepage": "https://github.com/xrip/pico-286",
+  "skills": []
+}
