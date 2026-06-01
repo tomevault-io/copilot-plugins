@@ -4,7 +4,7 @@
   "repo": "agentcontrolplane",
   "description": "ACP is the Agent Control Plane - a distributed agent scheduler optimized for simplicity, clarity, and control. It is designed for outer-loop agents that run without supervision, and make asynchronous tool calls like requesting human feedback on key operations. Full MCP support.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/humanlayer/agentcontrolplane",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T05:32:29Z"
+  "distributed_at": "2026-06-01T05:40:19Z"
 }
