@@ -1,0 +1,9 @@
+{
+  "name": "dyne--cjit",
+  "displayName": "cjit",
+  "description": "Tiny and portable C compiler",
+  "version": "1.0.0",
+  "author": "dyne",
+  "homepage": "https://github.com/dyne/cjit",
+  "skills": []
+}
