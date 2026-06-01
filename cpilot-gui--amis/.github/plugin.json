@@ -1,0 +1,9 @@
+{
+  "name": "cpilot-gui--amis",
+  "displayName": "Amis",
+  "description": "\ud83d\udda5\ufe0f Local AI platform & Edge inference infrastructure. Desktop Agent Station and Token Hub built with Electron, React, and TypeScript.",
+  "version": "1.0.0",
+  "author": "cPilot-GUI",
+  "homepage": "https://github.com/cPilot-GUI/Amis",
+  "skills": []
+}
