@@ -1,16 +1,69 @@
-## code-formatters
+## conventional-commits
 
-> These tools modify code automatically. Run them before finalizing changes so the codebase stays consistent.
+> Use Conventional Commits format for all commit messages
 
 
-# Code formatters & refactors (auto-updating tools)
+# Conventional Commits
 
-These tools modify code automatically. Run them before finalizing changes so the codebase stays consistent.
+## Format
 
-## Rector
+```
+<type>[optional scope]: <description>
 
-- Run `vendor/bin/rector --ansi` before finalizing changes so refactoring rules are applied.
-- Rector updates code on its own; run it to keep the codebase aligned with configured rules.
+[optional body]
+
+[optional footer(s)]
+```
+
+## Types
+
+| Type | Use when |
+|------|----------|
+| `feat` | Adding a new feature (MINOR in SemVer) |
+| `fix` | Patching a bug (PATCH in SemVer) |
+| `docs` | Documentation only |
+| `style` | Formatting, whitespace, no code change |
+| `refactor` | Code change that neither fixes a bug nor adds a feature |
+| `perf` | Performance improvement |
+| `test` | Adding or updating tests |
+| `build` | Build system or dependencies |
+| `ci` | CI configuration |
+| `chore` | Other changes (maintenance, tooling) |
+
+## Scope
+
+Optional. Use a noun describing the affected area in parentheses: `feat(auth):`, `fix(api):`.
+
+## Examples
+
+```
+feat: add user registration endpoint
+```
+
+```
+fix(login): prevent redirect loop on session expiry
+```
+
+```
+chore(hooks): rename run-quality-checks to run-phpstan-on-stop
+```
+
+```
+docs: correct spelling of CHANGELOG
+```
+
+```
+feat(api)!: drop support for deprecated endpoints
+
+BREAKING CHANGE: /v1/users has been removed. Use /v2/users instead.
+```
+
+## Rules
+
+- Description is required and MUST immediately follow the type/scope.
+- Use imperative mood: "add feature" not "added feature".
+- No period at the end of the description.
+- Use `!` after type/scope or `BREAKING CHANGE:` in footer for breaking changes.
 
 ---
 > Source: [CodeWithDennis/larament](https://github.com/CodeWithDennis/larament) — distributed by [TomeVault](https://tomevault.io).
