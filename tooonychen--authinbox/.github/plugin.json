@@ -1,0 +1,9 @@
+{
+  "name": "tooonychen--authinbox",
+  "displayName": "AuthInbox",
+  "description": "Auth Inbox \ud83d\udcec is a self-hosted, open-source platform for receiving multiple email verification codes and real-time notifications, built using Cloudflare's free services. | Auth Inbox \ud83d\udcec \u662f\u4e00\u4e2a\u81ea\u5efa\u7684\u5f00\u6e90\u591a\u90ae\u7bb1\u9a8c\u8bc1\u7801\u7684\u63a5",
+  "version": "1.0.0",
+  "author": "TooonyChen",
+  "homepage": "https://github.com/TooonyChen/AuthInbox",
+  "skills": []
+}
