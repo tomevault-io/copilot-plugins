@@ -1,0 +1,9 @@
+{
+  "name": "0xplaygrounds--rig",
+  "displayName": "rig",
+  "description": "\u2699\ufe0f\ud83e\udd80 Build modular and scalable LLM Applications in Rust",
+  "version": "1.0.0",
+  "author": "0xPlaygrounds",
+  "homepage": "https://github.com/0xPlaygrounds/rig",
+  "skills": []
+}
