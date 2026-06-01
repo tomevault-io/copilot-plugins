@@ -1,0 +1,9 @@
+{
+  "name": "tomquist--astrameter",
+  "displayName": "AstraMeter",
+  "description": "This project emulates Smart Meter devices for Marstek storages such as the B2500, Marstek Jupiter and Marstek Venus energy storage system while allowing integration with almost any smart meters.",
+  "version": "1.0.0",
+  "author": "tomquist",
+  "homepage": "https://github.com/tomquist/AstraMeter",
+  "skills": []
+}
