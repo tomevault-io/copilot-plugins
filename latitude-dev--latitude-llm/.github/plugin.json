@@ -1,0 +1,9 @@
+{
+  "name": "latitude-dev--latitude-llm",
+  "displayName": "latitude-llm",
+  "description": "Latitude is the open-source agent engineering platform",
+  "version": "1.0.0",
+  "author": "latitude-dev",
+  "homepage": "https://github.com/latitude-dev/latitude-llm",
+  "skills": []
+}
