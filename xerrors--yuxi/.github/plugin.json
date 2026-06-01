@@ -1,0 +1,9 @@
+{
+  "name": "xerrors--yuxi",
+  "displayName": "Yuxi",
+  "description": "\u7ed3\u5408\u77e5\u8bc6\u5e93\u3001\u77e5\u8bc6\u56fe\u8c31\u7ba1\u7406\u7684 \u591a\u79df\u6237 Agent Harness \u5e73\u53f0\u3002 An agent harness that integrates a LightRAG knowledge base and knowledge graphs. Build with LangChain + Vue + FastAPI, support DeepAgents\u3001MinerU PDF\u3001Neo4j \u3001MCP.",
+  "version": "1.0.0",
+  "author": "xerrors",
+  "homepage": "https://github.com/xerrors/Yuxi",
+  "skills": []
+}
