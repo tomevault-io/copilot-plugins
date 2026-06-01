@@ -2,7 +2,7 @@
   "name": "AI-agents-for-cybersecurity",
   "owner": "santosomar",
   "repo": "AI-agents-for-cybersecurity",
-  "description": "",
+  "description": "This repository contains resources and materials for courses and presentations related to AI Agents and Agentic Systems for Cybersecurity Operations by Omar Santos.",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/santosomar/AI-agents-for-cybersecurity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T16:05:38Z"
+  "distributed_at": "2026-06-01T15:34:06Z"
 }
