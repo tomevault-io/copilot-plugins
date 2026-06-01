@@ -1,50 +1,109 @@
-## language-injection-conventions
+## log-sanitization
 
-> description: Language injection conventions for LLM Agent prompts
+> Prevent sensitive data leakage in server-side log messages
 
----
-description: Language injection conventions for LLM Agent prompts
-globs: py-src/data_formulator/agents/**/*.py,py-src/data_formulator/routes/agents.py
-alwaysApply: false
----
 
-# Language Injection Conventions
+# Log Sanitization
 
-Language flows per-request: `Frontend i18n → Accept-Language header → get_language_instruction() → system prompt`.
+Server-side logs must never contain passwords, tokens, API keys, or other credentials
+in plain text. This rule complements `error-response-safety.mdc` (which covers client
+responses) by addressing the **logging** side.
 
-## LLM Prompt Language Injection
+## Architecture: Defense in Depth
 
-1. **User-facing LLM output** MUST inject language via `get_language_instruction(mode=...)` in the route handler.
-2. **Mode selection:** `"full"` for text-heavy agents, `"compact"` for code-generation agents and short-text endpoints.
-3. **Inject into system prompt only** — use `inject_language_instruction()` from `agent_language.py`. Never inject into user messages.
-4. **Do NOT inject** for non-user-facing calls (health checks, internal tool calls).
-5. **Do NOT duplicate** — if upstream messages already contain language instruction, skip.
-6. **Do NOT** use env vars, global interceptors, or hardcoded language strings (e.g. `"回答请使用中文"`) — route handlers should use `get_language_instruction(mode=...)`.
-7. **New language?** Add to `LANGUAGE_DISPLAY_NAMES` in `agents/agent_language.py` and add locale files in `src/i18n/locales/<lang>/`.
+Two layers protect against sensitive data in logs:
 
-## Python-Side User-Visible Messages (message_code pattern)
+1. **Layer 1 — Explicit utilities** (call-site): developers use `sanitize_url()`,
+   `sanitize_params()`, `redact_token()` from `security/log_sanitizer.py`.
+2. **Layer 2 — SensitiveDataFilter** (global): a `logging.Filter` registered on all
+   handlers in `configure_logging()` auto-redacts patterns that slip through.
 
-For **fixed strings in Python** that are shown in the UI (error messages, clarify options, completion summaries), do NOT translate in Python. Instead:
+Layer 1 is the primary defense; Layer 2 is a safety net. Both are required.
 
-1. Keep the English string as the default value.
-2. Add a `message_code` (or `content_code`, `error_code`, `summary_code`) field with a key like `"agent.someKey"`.
-3. Optionally add `message_params` for interpolation.
-4. The frontend translates using `translateBackend(fallback, code, params)` from `src/app/utils.tsx`.
-5. Add the translation key to `src/i18n/locales/{en,zh}/messages.json` under the `agent` section.
+## When to Use Each Utility
+
+| Data Type | Utility | Example |
+|-----------|---------|---------|
+| `dict` with password/secret/token keys | `sanitize_params(params)` | `log.info("Init: %s", sanitize_params(params))` |
+| URL (may have `user:pass@host` or sensitive query params) | `sanitize_url(url)` | `logger.info("Connecting to %s", sanitize_url(url))` |
+| Bearer / access token | `redact_token(token)` | `logger.debug("Token: %s", redact_token(token))` |
+| Normal string (no secrets) | Nothing needed | `logger.info("Processing table %s", name)` |
+
+## Rules
+
+1. **Never log raw `params` / `config` dicts** that may contain `password`, `secret`,
+   `api_key`, `token`, or `connection_string` keys. Always use `sanitize_params()`.
+
+2. **Never log full tokens or API keys.** Use `redact_token()` if you need to identify
+   a token in logs.
+
+3. **Prefer `type(exc).__name__`** over `str(exc)` in warning/info logs when the
+   exception may contain connection strings or upstream response bodies. Use
+   `exc_info=True` for full tracebacks at ERROR level (the filter sanitizes `exc_text`).
+
+4. **URL logging** — use `sanitize_url()` for any URL from configuration or
+   environment variables (issuer URLs, JWKS URLs, database URLs, API base URLs).
+   It masks embedded credentials and sensitive query parameters such as
+   `password`, `client_secret`, `token`, and `api_key`.
+
+5. **Use `%s`-style formatting** instead of f-strings for log messages. This allows
+   the filter to intercept arguments before formatting and provides better
+   compatibility with log aggregation tools.
+
+## Common Mistakes
 
 ```python
-# ✅ GOOD — backend returns code, frontend translates
-yield {
-    "type": "error",
-    "message": "Output DataFrame is empty (0 rows).",
-    "message_code": "agent.emptyDataframe",
-}
+# BAD — dict may contain password
+log.info(f"Connecting with {params}")
+log.info("Connecting with %s", params)
 
-# ❌ BAD — backend-side translation dict
-yield {"message": translate_in_python("empty_df", lang)}
+# GOOD
+from data_formulator.security.log_sanitizer import sanitize_params
+log.info("Connecting with %s", sanitize_params(params))
+
+# BAD — URL may embed credentials
+logger.warning("Failed for %s", discovery_url)
+
+# GOOD
+from data_formulator.security.log_sanitizer import sanitize_url
+logger.warning("Failed for %s", sanitize_url(discovery_url))
+
+# BAD — exception may leak connection string or upstream body
+logger.warning("Error: %s", exc)
+
+# GOOD — log type name at warning level, full traceback at error level
+logger.warning("Error: %s", type(exc).__name__)
+logger.error("Unexpected failure", exc_info=True)
+
+# BAD — full token in logs
+logger.debug("Using token %s", token)
+
+# GOOD
+from data_formulator.security.log_sanitizer import redact_token
+logger.debug("Using token %s", redact_token(token))
 ```
 
-For detailed architecture and anti-pattern explanations, see `docs/dev-guides/6-i18n-language-injection.md`.
+## Disabling for Local Debug
+
+Set `LOG_SANITIZE=false` to disable the global filter during local debugging.
+This should **never** be used in production or CI.
+
+## Adding New Sensitive Keys
+
+If your module introduces a new credential key name (e.g. `custom_auth_token`),
+add it to `SENSITIVE_KEYS` in `security/log_sanitizer.py` and add a corresponding
+regex pattern to `_SENSITIVE_KEY_NAMES` if needed.
+
+## New Module Checklist
+
+When creating a new module or feature that handles credentials or external services:
+
+- [ ] Audit all `logger.*()` calls — do any log connection params, URLs, or tokens?
+- [ ] Use `sanitize_params()` for any dict that may contain credentials
+- [ ] Use `sanitize_url()` for any URL from config/env
+- [ ] Use `redact_token()` for any token/key value
+- [ ] If introducing new credential key names, update `SENSITIVE_KEYS`
+- [ ] Run `python -m pytest tests/backend/security/test_log_sanitizer.py` to verify
 
 ---
 > Source: [microsoft/data-formulator](https://github.com/microsoft/data-formulator) — distributed by [TomeVault](https://tomevault.io).
