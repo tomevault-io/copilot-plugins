@@ -1,0 +1,9 @@
+{
+  "name": "stippi--code-assistant",
+  "displayName": "code-assistant",
+  "description": "An LLM-powered, autonomous coding assistant. Also offers an MCP and ACP mode.",
+  "version": "1.0.0",
+  "author": "stippi",
+  "homepage": "https://github.com/stippi/code-assistant",
+  "skills": []
+}
