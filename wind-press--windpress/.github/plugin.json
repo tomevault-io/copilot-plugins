@@ -1,0 +1,9 @@
+{
+  "name": "wind-press--windpress",
+  "displayName": "windpress",
+  "description": "Use Tailwind CSS within the block editor, page builders, plugins, and themes \u2014 no build step is required",
+  "version": "1.0.0",
+  "author": "wind-press",
+  "homepage": "https://github.com/wind-press/windpress",
+  "skills": []
+}
