@@ -1,154 +1,124 @@
-## adobe-spectrum-usage
+## build-vite
 
-> Styling and Design System Guidance
+> Build system
 
- # Adobe Spectrum Usage Guidelines
+# Build Tools Rules
 
-This rule provides standards for using Adobe React Spectrum components and Spectrum design tokens throughout the codebase.
+## Vite Build Tool Requirements
 
-<rule>
-name: adobe_spectrum_usage
-description: Guidelines for using Adobe React Spectrum components and Spectrum design tokens
-filters:
-  # Match React component files
-  - type: file_extension
-    pattern: "\\.(jsx|tsx)$"
-  # Match CSS/SCSS files
-  - type: file_extension
-    pattern: "\\.(css|scss|less)$"
-  # Match style objects in JS/TS files
-  - type: content
-    pattern: "(?:style|styles|css|className)\\s*=\\s*[{'\"]"
+### Required: Use Vite as Build Tool
+All new web projects must use Vite as the build tool and development server.
 
-actions:
-  - type: suggest
-    conditions:
-      # Detect hardcoded color values
-      - pattern: "(?:color|background|border)\\s*:\\s*['\"#][a-fA-F0-9]{3,8}['\"]"
-        message: "Use Spectrum color tokens instead of hardcoded colors"
-      # Detect hardcoded spacing values
-      - pattern: "(?:margin|padding|gap)\\s*:\\s*['\"]\\d+(?:px|rem|em)['\"]"
-        message: "Use Spectrum spacing tokens instead of hardcoded spacing values"
-      # Detect non-Spectrum components that have Spectrum equivalents
-      - pattern: "<(?:Button|Input|Checkbox|Radio|Select|Slider|Switch|Textarea|Dialog|Modal|Tooltip|Menu|Tabs)\\s"
-        message: "Use Adobe React Spectrum components instead of custom or third-party components"
+```yaml
+rule:
+  id: use-vite-build
+  pattern-either:
+    - pattern: |
+        "vite": "^[0-9]"
+    - pattern: |
+        "@vitejs/plugin-"
+  pattern-not: |
+    "webpack":|"parcel":|"rollup":
+  message: |
+    Use Vite as the build tool for development and production.
+    Visit https://vitejs.dev/ for documentation.
+  severity: error
+  languages: [json]
+```
 
-    message: |
-      ## Adobe React Spectrum Usage Guidelines
+### Required: Vite Configuration File
+Projects must include a properly configured Vite configuration file.
 
-      ### Component Usage
-      - Import and use React Spectrum components instead of custom implementations:
-        ```jsx
-        import { Button, TextField, Checkbox } from '@adobe/react-spectrum';
-        
-        // Instead of <button> or other custom buttons
-        <Button variant="primary">Submit</Button>
-        
-        // Instead of <input>
-        <TextField label="Name" />
-        
-        // Instead of custom checkboxes
-        <Checkbox>Enable feature</Checkbox>
-        ```
+```yaml
+rule:
+  id: vite-config-presence
+  pattern-either:
+    - pattern: |
+        vite.config.ts
+    - pattern: |
+        vite.config.js
+  message: |
+    Project must include a Vite configuration file (vite.config.js/ts).
+    Example: https://vitejs.dev/config/
+  severity: error
+  languages: [javascript, typescript]
+```
 
-      ### Design Token Usage
-      - Use Spectrum design tokens for consistent styling:
-        ```jsx
-        // For colors
-        import { colorValue } from '@react-spectrum/color';
-        
-        // In styles
-        const styles = {
-          backgroundColor: 'var(--spectrum-global-color-gray-100)',
-          color: 'var(--spectrum-semantic-negative-color-text)',
-        };
-        
-        // For spacing
-        const containerStyles = {
-          padding: 'var(--spectrum-global-dimension-size-200)',
-          gap: 'var(--spectrum-global-dimension-size-100)',
-        };
-        ```
+### Required: Vite Scripts in Package.json
+Package.json must include standard Vite scripts for development and building.
 
-      ### CSS Variables Pattern
-      - Use CSS variables for Spectrum tokens in CSS files:
-        ```css
-        .container {
-          background-color: var(--spectrum-global-color-gray-50);
-          color: var(--spectrum-global-color-gray-900);
-          padding: var(--spectrum-global-dimension-size-200);
-        }
-        ```
+```yaml
+rule:
+  id: vite-npm-scripts
+  pattern: |
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "preview": "vite preview"
+    }
+  message: |
+    Include standard Vite scripts in package.json for development and building.
+  severity: error
+  languages: [json]
+```
 
-      ### Theme Awareness
-      - Ensure components and styles respect the current Spectrum theme:
-        ```jsx
-        import { Provider, defaultTheme } from '@adobe/react-spectrum';
-        
-        <Provider theme={defaultTheme}>
-          <YourApp />
-        </Provider>
-        ```
+### Required: Use Vite for Static Asset Handling
+Use Vite's built-in static asset handling capabilities.
 
-examples:
-  - input: |
-      // Bad: Hardcoded colors and custom components
-      const styles = {
-        backgroundColor: '#f5f5f5',
-        color: '#333',
-        padding: '16px',
-      };
-      
-      return (
-        <div style={styles}>
-          <button className="custom-button">Submit</button>
-          <input type="text" placeholder="Enter name" />
-        </div>
-      );
-    output: |
-      // Good: Using Spectrum tokens and components
-      import { Flex, Button, TextField } from '@adobe/react-spectrum';
-      
-      const styles = {
-        backgroundColor: 'var(--spectrum-global-color-gray-100)',
-        color: 'var(--spectrum-global-color-gray-800)',
-        padding: 'var(--spectrum-global-dimension-size-200)',
-      };
-      
-      return (
-        <Flex direction="column" gap="size-100" style={styles}>
-          <Button variant="primary">Submit</Button>
-          <TextField label="Enter name" />
-        </Flex>
-      );
+```yaml
+rule:
+  id: vite-asset-handling
+  pattern-either:
+    - pattern: |
+        import.meta.url
+    - pattern: |
+        new URL('path', import.meta.url)
+  message: |
+    Use Vite's asset handling features for importing static assets.
+    Example: new URL('./img.png', import.meta.url)
+  severity: warning
+  languages: [javascript, typescript]
+```
 
-  - input: |
-      /* Bad: CSS with hardcoded values */
-      .container {
-        background-color: #ffffff;
-        color: #333333;
-        padding: 16px;
-        margin: 8px;
-        border: 1px solid #cccccc;
-      }
-    output: |
-      /* Good: CSS with Spectrum tokens */
-      .container {
-        background-color: var(--spectrum-global-color-gray-50);
-        color: var(--spectrum-global-color-gray-800);
-        padding: var(--spectrum-global-dimension-size-200);
-        margin: var(--spectrum-global-dimension-size-100);
-        border: var(--spectrum-alias-border-size-thin) solid var(--spectrum-global-color-gray-300);
-      }
+### Best Practice: Use Vite Plugins
+Utilize official Vite plugins for framework integration.
 
-metadata:
-  priority: high
-  version: 1.0
-  tags:
-    - design-system
-    - styling
-    - components
-</rule>
+```yaml
+rule:
+  id: vite-plugins
+  pattern-either:
+    - pattern: |
+        "@vitejs/plugin-vue"
+    - pattern: |
+        "@vitejs/plugin-react"
+    - pattern: |
+        "@vitejs/plugin-legacy"
+  message: |
+    Use official Vite plugins for framework integration and browser support.
+  severity: warning
+  languages: [javascript, typescript]
+```
+
+### Required: Node.js Version Compatibility
+Ensure Node.js version compatibility with Vite requirements.
+
+```yaml
+rule:
+  id: vite-node-version
+  pattern: |
+    "engines": {
+      "node": ">=18"
+    }
+  message: |
+    Vite requires Node.js version 18+ or 20+.
+  severity: error
+  languages: [json]
+```
+
+## References
+- [Vite Documentation](mdc:https:/vitejs.dev/guide)
+- [Vite Config Reference](mdc:https:/vitejs.dev/config)
+- [Vite Plugins](mdc:https:/vitejs.dev/plugins) 
 
 ---
 > Source: [alexawilcox1120/TestingCursor](https://github.com/alexawilcox1120/TestingCursor) — distributed by [TomeVault](https://tomevault.io).
