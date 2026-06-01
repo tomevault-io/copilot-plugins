@@ -1,0 +1,9 @@
+{
+  "name": "hanniballei--follow-stock-kol",
+  "displayName": "follow-stock-kol",
+  "description": "AI-powered daily digest-monitors top stock kols in X, remixes their content into digestible summaries.",
+  "version": "1.0.0",
+  "author": "hanniballei",
+  "homepage": "https://github.com/hanniballei/follow-stock-kol",
+  "skills": []
+}
