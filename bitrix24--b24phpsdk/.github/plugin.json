@@ -1,0 +1,9 @@
+{
+  "name": "bitrix24--b24phpsdk",
+  "displayName": "b24phpsdk",
+  "description": "Bitrix24 PHP SDK for REST API",
+  "version": "1.0.0",
+  "author": "bitrix24",
+  "homepage": "https://github.com/bitrix24/b24phpsdk",
+  "skills": []
+}
