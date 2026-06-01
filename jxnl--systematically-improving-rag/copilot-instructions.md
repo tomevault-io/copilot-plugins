@@ -1,57 +1,57 @@
-## coding-style
+## systematically-improving-rag
 
-> - Never use emojis in code, comments, or console output
+> - `latest/`: Current course code and the WildChat case study (`latest/case_study/{core,pipelines}`).
 
-# Coding Style Guidelines
+# Repository Guidelines
 
-## General Rules
-- Never use emojis in code, comments, or console output
-- Write at a 9th-grade reading level
-- Always use `uv` instead of `pip` for Python package management
-- Use async over synchronous code when possible in Python
-- When things can be parallelized, mention it and ask for preferred method
+## Project Structure & Module Organization
+- `latest/`: Current course code and the WildChat case study (`latest/case_study/{core,pipelines}`).
+- `cohort_1/`, `cohort_2/`: Earlier cohort materials kept for reference.
+- `docs/`: MkDocs book sources; site config in `mkdocs.yml`.
+- `docs/workshops/`: Chapter content `chapterN.md` and subparts `chapterN-M.md`; entrypoint is `docs/workshops/index.md`.
+- `docs/slides/`: Slide decks `chapterN-slides.md` for workshop chapters.
+- `md/`: Markdown exports of notebooks; images in `images/`.
+- `scripts/`, `build_book.sh`: Utilities for diagrams and building the PDF/ebook.
 
-## CLI Applications
-- Use `typer` for command-line interfaces instead of `argparse`
-- Use `rich` for console output, progress bars, and formatting
-- Keep console output simple and readable
-- Use consistent text indicators instead of emojis:
-  - "Loading..." instead of loading spinner emojis
-  - "Success:" instead of checkmark emojis  
-  - "Error:" instead of error emojis
-  - "Warning:" instead of warning emojis
+## Build, Test, and Development Commands
+- Install deps: `uv install` (recommended) or `pip install -e .`.
+- Lint/fix: `uv run ruff check --fix --unsafe-fixes .`.
+- Format: `uv run ruff format .`.
+- Tests: `uv run pytest -q` (supports `pytest-asyncio`).
+- Docs (local): `mkdocs serve`  •  Docs (build): `mkdocs build`.
+- Book (optional): `bash build_book.sh` (requires `pandoc`; optional `tectonic` + `@mermaid-js/mermaid-cli`).
 
-## Console Output Style
-```python
-from rich.console import Console
-from rich.progress import track
-import typer
+## Docs & Workshops Authoring
+- Front matter: include `title`, `description`, optional `authors`, `date`, `tags` (see `docs/workshops/chapter0.md`).
+- Naming: `chapter4-2.md` pattern for multi-part chapters; keep headings starting with a single `#`.
+- Admonitions: use MkDocs blocks like `!!! info` and `!!! success`; keep copy concise and actionable.
+- Diagrams: use fenced `mermaid` blocks; book build renders via Mermaid CLI when available.
+- Linking: link chapters relatively as in `docs/workshops/index.md`; avoid hard-coded site URLs.
+- Section order: place `### Key Insight` before `## Learning Objectives`. To fix inconsistencies, run `python scripts/normalize_workshops.py`.
 
-console = Console()
+## Coding Style & Naming Conventions
+- Python 3.11 required (`requires-python >=3.11,<3.12`). Use type hints throughout.
+- Indentation: 4 spaces; max line length per Ruff formatter.
+- Naming: `snake_case` functions/modules, `PascalCase` classes, `UPPER_SNAKE_CASE` constants.
+- Imports: standard → third‑party → local; prefer explicit exports.
+- Notebooks: keep outputs minimal; prefer moving reusable logic into importable modules under `latest/case_study/`.
 
-# Good examples:
-console.print("Loading data...", style="blue")
-console.print("Success: Data loaded successfully", style="green")
-console.print("Error: Failed to connect", style="red")
-console.print("Warning: Large dataset detected", style="yellow")
+## Testing Guidelines
+- Framework: `pytest` with `pytest-asyncio` for async code.
+- Location: create `tests/` at repo root; name files `test_*.py`.
+- Conventions: one behavior per test; use fixtures for external services; mock APIs.
+- Examples: `uv run pytest -q`, with coverage `uv run pytest --cov latest/case_study`.
 
-# Use rich for progress tracking
-for item in track(items, description="Processing..."):
-    process(item)
-```
+## Commit & Pull Request Guidelines
+- Commits: imperative, present tense, concise (e.g., `fix: handle empty queries`).
+- PRs: include problem statement, summary of changes, and before/after screenshots for docs/UI.
+- Link issues when applicable; note follow‑ups and known limitations.
+- Checklist before opening PR: run Ruff (check + format), run tests, verify `mkdocs build` passes.
 
-## Project Structure
-- Main data processing scripts should be in [latest/capstone_project/utils/](mdc:latest/capstone_project/utils/)
-- Use the [WildChatDataLoader](mdc:latest/capstone_project/utils/dataloader.py) for loading conversation data
-- Follow the pattern established in [load_to_chromadb.py](mdc:latest/capstone_project/utils/load_to_chromadb.py) for CLI scripts
-
-## Dependencies
-- Always use `uv add` for adding new dependencies
-- Prefer these libraries:
-  - `typer` for CLI applications
-  - `rich` for console output
-  - `pydantic` for data validation
-  - `chromadb` for vector database operations
+## Security & Configuration Tips
+- Do not commit secrets. Store API keys in `.env` and load via `python-dotenv`.
+- Common vars: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `COHERE_API_KEY`, `LOGFIRE_*`.
+- Prefer configuration via environment variables over hard‑coding.
 
 ---
 > Source: [jxnl/systematically-improving-rag](https://github.com/jxnl/systematically-improving-rag) — distributed by [TomeVault](https://tomevault.io).
