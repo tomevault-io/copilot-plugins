@@ -1,0 +1,9 @@
+{
+  "name": "agent0ai--agent-zero",
+  "displayName": "agent-zero",
+  "description": "Agent Zero AI framework",
+  "version": "1.0.0",
+  "author": "agent0ai",
+  "homepage": "https://github.com/agent0ai/agent-zero",
+  "skills": []
+}
