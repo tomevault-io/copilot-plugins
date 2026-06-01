@@ -1,0 +1,9 @@
+{
+  "name": "eversinc33--mogvmp",
+  "displayName": "MogVMP",
+  "description": "Static devirtualizer for VMProtect 3.5. Lifts virtualized code to LLVM using Remill and strips the VM layer through optimization.",
+  "version": "1.0.0",
+  "author": "eversinc33",
+  "homepage": "https://github.com/eversinc33/MogVMP",
+  "skills": []
+}
