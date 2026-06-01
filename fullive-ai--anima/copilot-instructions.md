@@ -1,53 +1,54 @@
-## repo-navigation-and-module-ownership
+## secrets-and-environment-safety
 
-> Before editing, orient yourself in the repository and identify the correct ownership boundary.
+> Handle secrets, environment variables, and operational configuration with extreme care.
 
 
-Before editing, orient yourself in the repository and identify the correct ownership boundary.
+Handle secrets, environment variables, and operational configuration with extreme care.
 
-## Required behavior
+## Never do these things
 
-For each task:
+- never reveal secrets, tokens, API keys, passwords, private certificates, or credentials in output
+- never hardcode secrets into source files
+- never copy secret values into examples, tests, or docs
+- never overwrite existing secret files casually
+- never log sensitive values unless explicitly safe and redacted
 
-1. Determine which module, package, app, service, or subsystem owns the change.
-2. Inspect the nearest relevant files before making edits.
-3. Follow local conventions in that part of the repo.
-4. Limit changes to the owning area unless downstream or upstream compatibility requires more.
+## Environment safety rules
 
-## Navigation principles
+- treat `.env` and similar files as sensitive
+- prefer `.env.example` or documented placeholders for required configuration
+- when adding a new environment variable, also update the example or docs where appropriate
+- do not assume production values
+- do not silently change operational defaults with risky impact
 
-- Start from the entry point most relevant to the request.
-- Trace usage through imports, calls, routes, handlers, adapters, and tests.
-- Prefer modifying the true owner of the behavior, not a random nearby consumer.
-- Avoid scattering a single concern across multiple modules.
+## Operational safety
 
-## Ownership rules
+Be cautious with changes affecting:
 
-- Put business logic in the business logic owner.
-- Put UI behavior in the UI owner.
-- Put integration glue in the integration owner.
-- Put protocol handling in the protocol owner.
-- Put tests next to or clearly aligned with the owning behavior.
+- authentication
+- authorization
+- network endpoints
+- external service credentials
+- deployment settings
+- broker settings
+- database connection settings
+- billing or payment config
+- production runtime behavior
 
-## Cross-module changes
+## If a task requires secret-dependent work
 
-If multiple modules must change:
+- use placeholders when possible
+- explain clearly what external value is required
+- continue all non-blocked work first
+- only pause when the missing secret or permission truly prevents further progress
 
-1. Identify the dependency chain first.
-2. List the affected boundaries mentally before editing.
-3. Keep the interface between modules clear.
-4. Change only the modules necessary to complete the task safely.
+## Output discipline
 
-## Avoid
+When discussing config changes:
 
-- editing whichever file appears first in search results without understanding ownership
-- patching symptoms in consumers when the root cause belongs in a shared owner
-- creating shadow logic in a second module
-- spreading fixes across the repo without a clear dependency reason
-
-## Preferred mindset
-
-Understand where the change belongs before deciding how to implement it.
+- reference variable names, not secret values
+- use sanitized examples
+- preserve user privacy and environment safety
 
 ---
 > Source: [Fullive-AI/Anima](https://github.com/Fullive-AI/Anima) — distributed by [TomeVault](https://tomevault.io).
