@@ -4,7 +4,7 @@
   "repo": "slang-rhi",
   "description": "Slang Render Hardware Interface",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shader-slang/slang-rhi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T14:07:05Z"
+  "distributed_at": "2026-06-01T14:20:28Z"
 }
