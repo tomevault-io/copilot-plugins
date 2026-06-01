@@ -1,0 +1,9 @@
+{
+  "name": "antgroup--vsag",
+  "displayName": "vsag",
+  "description": "vsag is a vector indexing library used for similarity search.",
+  "version": "1.0.0",
+  "author": "antgroup",
+  "homepage": "https://github.com/antgroup/vsag",
+  "skills": []
+}
