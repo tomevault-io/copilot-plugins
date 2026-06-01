@@ -1,28 +1,32 @@
-## styling
+## typescript
 
-> Styling rules covering UnoCSS, Ant Design tokens, and global styles
+> TypeScript usage and typing standards
 
-# 样式规范 Styling Guide
+# TypeScript 规范 Type System Rules
 
-## 技术栈
-- **UnoCSS** 负责大部分原子化样式，配置位于 `uno.config.ts`，启用了 `presetUno`、`presetSkyrocAdmin`、`transformer-directives`、`transformer-variant-group`。
-- 全局 token 定义在 `src/theme/vars.ts` 和 `src/theme/settings.ts`，通过 CSS 变量提供给 UnoCSS 与 Ant Design。
-- 仍需编写样式文件时，优先使用 `*.module.scss` 或 `*.css`，并放在组件同级目录下。
+## 编译配置
+- `tsconfig.json` 启用了 `strict`、`isolatedModules`、`forceConsistentCasingInFileNames`。不要关闭这些选项。
+- 支持从 TypeScript 文件导入扩展名（`allowImportingTsExtensions: true`），保持与现有代码一致。
+- 路径别名：`@/*` → `src/*`，`~/*` → 仓库根目录。新增文件时尽量使用别名避免深层相对路径。
 
-## 使用约定
-- UnoCSS 类命名遵循 `结构 → 状态 → 修饰`，常见 shortcut（如 `card-wrapper`）已在 `uno.config.ts` 定义，可直接复用。
-- Ant Design 主题通过 `ConfigProvider` 注入，若需调整全局主题色，修改 `features/theme` 模块的设置后更新 `themeVars`。
-- 避免在组件内写内联 magic number。若需要固定尺寸，请在 `App.Theme.ThemeToken` 中扩展后引用。
-- 滚动条、全局重置、暗色模式等基础样式在 `src/styles/css`、`src/styles/scss`。仅当需要全局效果时才修改这些文件。
+## 类型声明
+- 公共类型集中在 `src/types`，使用 `declare namespace App { ... }` 组织，如 `App.Theme`, `App.Page`。
+- 接口类型放在 `src/service/types` 的 `Api.*` 命名空间；如果后端 schema 变更，先更新类型再改业务逻辑。
+- Redux store 相关类型在 `src/store/index.ts` 推断，不需要手写 `RootState`。
+- UnoCSS 自动导入的类型位于 `src/types/auto-imports.d.ts`，不要手动修改（由脚本生成）。
 
-## 资源与图标
-- 图标使用 `@iconify/react`（`Icon` 组件）或 `local icon`。`IconLocal*` 资源存放于 `src/assets/icons` 并通过 `vite-plugin-svg-icons` 注入。
-- 动画推荐使用 `motion`（`motion/react`）或 CSS 变量驱动的过渡，确保 prefers-reduced-motion 用户体验。
+## 写法要求
+- 禁止使用 `any`，改用 `unknown`、具体接口或泛型参数。
+- 函数组件 props/返回值显式声明。对于简单组件可依赖 TS 推断，但导出类型需准确。
+- Promise API 返回 `Promise<具体类型>`，避免 `Promise<any>`。
+- TanStack Query hooks 通过泛型约束返回值，例如 `useQuery<Api.SystemManage.RoleList>`。
+- 使用 `satisfies` 验证常量（如路由配置、主题 token），保持类型安全。
 
-## 开发小贴士
-- 在 VSCode / Cursor 中开启 UnoCSS 插件以获得类名提示。
-- 更新主题变量后需要重启 UnoCSS 以便热更新新 token。
-- 若引入第三方 CSS（例如 Antd 组件样式），请在 `src/plugins/assets.ts` 统一引入，保持入口整洁。
+## d.ts 管理
+- 若需要全局补充类型（如模块声明、自定义 window 属性），请在 `src/types/global.d.ts` 或新的 `.d.ts` 文件中声明，并确保被 `tsconfig` include。
+- 自动生成的类型文件（如 `auto-imports.d.ts`）由脚本维护，禁止手动编辑；若需更新执行对应命令。
+
+严格遵循上述约束有助于维持项目的类型可靠性与可维护性。
 
 ---
 > Source: [Ohh-889/skyroc-admin](https://github.com/Ohh-889/skyroc-admin) — distributed by [TomeVault](https://tomevault.io).
