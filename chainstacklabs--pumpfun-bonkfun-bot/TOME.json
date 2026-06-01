@@ -4,7 +4,7 @@
   "repo": "pumpfun-bonkfun-bot",
   "description": "A fully functional pump.fun / letsbonk.fun trading and sniping bot not relying on any 3rd party APIs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chainstacklabs/pumpfun-bonkfun-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T11:44:58Z"
+  "distributed_at": "2026-06-01T11:47:49Z"
 }
