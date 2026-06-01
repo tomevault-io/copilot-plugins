@@ -1,0 +1,9 @@
+{
+  "name": "tovtechorg--tov-learn",
+  "displayName": "Tov-learn",
+  "description": "Interactive AI tutor built as a Claude Code skill \u2014 teaches with spaced repetition, personalized project examples, and a visual progress dashboard",
+  "version": "1.0.0",
+  "author": "TovTechOrg",
+  "homepage": "https://github.com/TovTechOrg/Tov-learn",
+  "skills": []
+}
