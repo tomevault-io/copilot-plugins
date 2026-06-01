@@ -1,0 +1,9 @@
+{
+  "name": "pando85--kaniop",
+  "displayName": "kaniop",
+  "description": "Kubernetes operator for managing Kanidm",
+  "version": "1.0.0",
+  "author": "pando85",
+  "homepage": "https://github.com/pando85/kaniop",
+  "skills": []
+}
