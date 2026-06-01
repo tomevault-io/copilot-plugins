@@ -1,0 +1,9 @@
+{
+  "name": "thelastoutpostworkshop--arduino-maker-workshop",
+  "displayName": "arduino-maker-workshop",
+  "description": "The ultimate tool for makers to bring Arduino projects to life in Visual Studio Code",
+  "version": "1.0.0",
+  "author": "thelastoutpostworkshop",
+  "homepage": "https://github.com/thelastoutpostworkshop/arduino-maker-workshop",
+  "skills": []
+}
