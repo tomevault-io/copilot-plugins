@@ -1,0 +1,9 @@
+{
+  "name": "siege-perilous--tableslayer",
+  "displayName": "tableslayer",
+  "description": "Tools to create animated battle maps for in person RPG games.",
+  "version": "1.0.0",
+  "author": "Siege-Perilous",
+  "homepage": "https://github.com/Siege-Perilous/tableslayer",
+  "skills": []
+}
