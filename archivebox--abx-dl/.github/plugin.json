@@ -1,0 +1,9 @@
+{
+  "name": "archivebox--abx-dl",
+  "displayName": "abx-dl",
+  "description": "\u2b07\ufe0f A simple all-in-one CLI tool to download EVERYTHING from a URL (like youtube-dl/yt-dlp, forum-dl, gallery-dl, simpler ArchiveBox). \ud83c\udfad Uses headless Chrome to get HTML, JS, CSS, images/video/audio/su",
+  "version": "1.0.0",
+  "author": "ArchiveBox",
+  "homepage": "https://github.com/ArchiveBox/abx-dl",
+  "skills": []
+}
