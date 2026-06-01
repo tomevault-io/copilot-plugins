@@ -4,7 +4,7 @@
   "repo": "Stitch",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/StitchDesign/Stitch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T23:45:25Z"
+  "distributed_at": "2026-06-01T23:56:34Z"
 }
