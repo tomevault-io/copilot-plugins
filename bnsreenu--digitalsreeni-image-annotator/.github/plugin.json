@@ -1,0 +1,9 @@
+{
+  "name": "bnsreenu--digitalsreeni-image-annotator",
+  "displayName": "digitalsreeni-image-annotator",
+  "description": "A python based GUI to annotate images and save annotations as COCO style JSON format. ",
+  "version": "1.0.0",
+  "author": "bnsreenu",
+  "homepage": "https://github.com/bnsreenu/digitalsreeni-image-annotator",
+  "skills": []
+}
