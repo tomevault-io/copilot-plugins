@@ -1,0 +1,9 @@
+{
+  "name": "engineering4ai--nanoclaw",
+  "displayName": "nanoclaw",
+  "description": "Minimal personal AI assistant: gateway agent for Telegram, Slack & Discord. ~1,500 lines of Python, no bloat.",
+  "version": "1.0.0",
+  "author": "Engineering4AI",
+  "homepage": "https://github.com/Engineering4AI/nanoclaw",
+  "skills": []
+}
