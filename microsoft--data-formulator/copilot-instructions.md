@@ -1,81 +1,30 @@
-## i18n-no-hardcoded-strings
+## implementation-review-checklist
 
-> description: No hardcoded UI strings — use i18n translation keys
+> Require structural code review after implementation before final response
 
----
-description: No hardcoded UI strings — use i18n translation keys
-globs: src/**/*.{ts,tsx}
-alwaysApply: true
----
 
-# i18n: No Hardcoded UI Strings
+# Implementation Review Checklist
 
-All user-visible text in the frontend MUST go through the i18n system. Never hardcode Chinese, English, or any other language string directly in components.
+After any substantive implementation, before the final response, review the
+uncommitted diff from a maintainer/code-review perspective. Do not only verify
+that the feature works.
 
-## How to Use
+## Required Checks
 
-```tsx
-import { useTranslation } from 'react-i18next';
+- Inspect `git diff --stat` and relevant diffs to understand the actual blast radius.
+- Check responsibility boundaries: frontend UI, API route, service/helper, storage/session, and tests should each own the right part of the behavior.
+- Check API semantics: endpoint names, HTTP methods, response shapes, and side effects must match the product action. Similar UI actions should call the same backend API.
+- Check frontend/backend state consistency: after mutations, make sure Redux/local state, backend session/token/vault state, and subsequent list/status APIs agree.
+- Check duplication: if two paths clear the same state or perform the same API flow, extract a small helper or route instead of copying logic.
+- Check regression surfaces: refresh/reload/list/status paths must respect new flags or state, not just the primary click path.
+- Check tests: add or update focused tests for the changed contract; include at least one test for the bug/regression path when practical.
+- Check docs/rules/dev-guides when the change introduces or changes a cross-cutting convention.
 
-const { t } = useTranslation();
+## Reporting
 
-// ✅ GOOD
-<Button>{t('common.save')}</Button>
-<Tooltip content={t('chart.noData')} />
-
-// ❌ BAD
-<Button>保存</Button>
-<Button>Save</Button>
-<Tooltip content="No data available" />
-```
-
-## Non-Component Contexts (thunks, utilities, helpers)
-
-When you cannot use hooks (Redux thunks, plain `.ts` utilities, store helpers), import the i18n instance directly:
-
-```ts
-import i18n from '../i18n';
-
-// ✅ GOOD — works outside React components
-i18n.t('messages.rowLimitReached', { count: 20000 })
-
-// ❌ BAD — hooks only work inside React function components
-const { t } = useTranslation();  // will crash in a thunk
-```
-
-The same rule applies: every user-visible string must use `i18n.t()` with a translation key, never a hardcoded literal.
-
-## Translation Files
-
-- English: `src/i18n/locales/en/<namespace>.json`
-- Chinese: `src/i18n/locales/zh/<namespace>.json`
-- Namespaces: `common`, `upload`, `chart`, `model`, `encoding`, `messages`, `navigation`, `dataLoading`, `errors`
-
-When adding a new key, add it to **both** `en` and `zh` locale files. Pick the namespace that fits; create a new namespace only if none applies.
-
-## What Counts as User-Visible
-
-Must use `t()`: button labels, tooltips, placeholders, error messages, dialog titles, tab names, toast notifications, table headers, empty-state text.
-
-May stay hardcoded: log messages (`console.log`), error messages thrown but never displayed, internal constants, CSS class names, test IDs.
-
-**Cross-stack sentinel values** — strings shared between frontend and backend as identity markers (e.g. `UNTITLED_SESSION` in `dfSlice.ts` used by both Redux state and backend workspace API) must NOT be translated. They are internal constants, not display text. Translate them only at the UI rendering layer by mapping the sentinel to `t('...')`.
-
-## Backend Messages with message_code
-
-When the backend returns a user-visible message with a `message_code` (or `content_code`, `error_code`), use `translateBackend()` from `src/app/utils.tsx` to translate it:
-
-```tsx
-import { translateBackend } from '../app/utils';
-
-// Translate a backend error message
-const msg = translateBackend(event.message, event.message_code, event.message_params);
-
-// Translate options with parallel code arrays
-const options = translateBackendOptions(rawOptions, event.option_codes);
-```
-
-The translation keys live in `messages.json` under the `agent` section. Always add **both** `en` and `zh` entries.
+If issues are found during this review, fix clear issues before finalizing. If a
+trade-off remains, call it out explicitly in the final response with the risk and
+why it was left as-is.
 
 ---
 > Source: [microsoft/data-formulator](https://github.com/microsoft/data-formulator) — distributed by [TomeVault](https://tomevault.io).
