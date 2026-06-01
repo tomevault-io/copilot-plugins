@@ -4,7 +4,7 @@
   "repo": "atcute",
   "description": "a collection of lightweight TypeScript packages for AT Protocol, the protocol powering Bluesky.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mary-ext/atcute",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T11:53:55Z"
+  "distributed_at": "2026-06-01T11:54:30Z"
 }
