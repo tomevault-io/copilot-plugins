@@ -1,0 +1,9 @@
+{
+  "name": "humanlayer--agentcontrolplane",
+  "displayName": "agentcontrolplane",
+  "description": "ACP is the Agent Control Plane - a distributed agent scheduler optimized for simplicity, clarity, and control. It is designed for outer-loop agents that run without supervision, and make asynchronous ",
+  "version": "1.0.0",
+  "author": "humanlayer",
+  "homepage": "https://github.com/humanlayer/agentcontrolplane",
+  "skills": []
+}
