@@ -1,0 +1,9 @@
+{
+  "name": "maweiruc--stat-toolkits-eif",
+  "displayName": "stat-toolkits-eif",
+  "description": "Documentation-first toolkit for deriving, validating, and auditing efficient influence functions in semiparametric statistics.",
+  "version": "1.0.0",
+  "author": "maweiruc",
+  "homepage": "https://github.com/maweiruc/stat-toolkits-eif",
+  "skills": []
+}
