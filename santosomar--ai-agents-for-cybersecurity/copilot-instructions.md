@@ -1,69 +1,113 @@
-## codeguard-0-file-handling-and-uploads
+## codeguard-0-framework-and-languages
 
-> Secure file handling & uploads (validation, storage isolation, scanning,
+> rule_id: codeguard-0-framework-and-languages
 
 
-rule_id: codeguard-0-file-handling-and-uploads
+rule_id: codeguard-0-framework-and-languages
 
-## File Upload Security Guidelines
+## Framework & Language Guides
 
-This rule advises on secure file upload practices to prevent malicious file attacks and protect system integrity:
+Apply secure‑by‑default patterns per platform. Harden configurations, use built‑in protections, and avoid common pitfalls.
 
-- Extension Validation
-  - List allowed extensions only for business-critical functionality.
-  - Ensure input validation is applied before validating extensions.
-  - Avoid double extensions (e.g., `.jpg.php`) and null byte injection (e.g., `.php%00.jpg`).
-  - Use allowlist approach rather than denylist for file extensions.
-  - Validate extensions after decoding filename to prevent bypass attempts.
+### Django
+- Disable DEBUG in production; keep Django and deps updated.
+- Enable `SecurityMiddleware`, clickjacking middleware, MIME sniffing protection.
+- Force HTTPS (`SECURE_SSL_REDIRECT`); configure HSTS; set secure cookie flags (`SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE`).
+- CSRF: ensure `CsrfViewMiddleware` and `{% csrf_token %}` in forms; proper AJAX token handling.
+- XSS: rely on template auto‑escaping; avoid `mark_safe` unless trusted; use `json_script` for JS.
+- Auth: use `django.contrib.auth`; validators in `AUTH_PASSWORD_VALIDATORS`.
+- Secrets: generate via `get_random_secret_key`; store in env/secrets manager.
 
-- Content Type and File Signature Validation
-  - Never trust client-supplied Content-Type headers as they can be spoofed.
-  - Validate file signatures (magic numbers) in conjunction with Content-Type checking.
-  - Implement allowlist approach for MIME types as a quick protection layer.
-  - Use file signature validation but not as a standalone security measure.
+### Django REST Framework (DRF)
+- Set `DEFAULT_AUTHENTICATION_CLASSES` and restrictive `DEFAULT_PERMISSION_CLASSES`; never leave `AllowAny` for protected endpoints.
+- Always call `self.check_object_permissions(request, obj)` for object‑level authz.
+- Serializers: explicit `fields=[...]`; avoid `exclude` and `"__all__"`.
+- Throttling: enable rate limits (and/or at gateway/WAF).
+- Disable unsafe HTTP methods where not needed. Avoid raw SQL; use ORM/parameters.
 
-- Filename Security
-  - Generate random filenames (UUID/GUID) instead of using user-supplied names.
-  - If user filenames required, implement maximum length limits.
-  - Restrict characters to alphanumeric, hyphens, spaces, and periods only.
-  - Prevent leading periods (hidden files) and sequential periods (directory traversal).
-  - Avoid leading hyphens or spaces for safer shell script processing.
+### Laravel
+- Production: `APP_DEBUG=false`; generate app key; secure file perms.
+- Cookies/sessions: enable encryption middleware; set `http_only`, `same_site`, `secure`, short lifetimes.
+- Mass assignment: use `$request->only()` / `$request->validated()`; avoid `$request->all()`.
+- SQLi: use Eloquent parameterization; validate dynamic identifiers.
+- XSS: rely on Blade escaping; avoid `{!! ... !!}` for untrusted data.
+- File uploads: validate `file`, size, and `mimes`; sanitize filenames with `basename`.
+- CSRF: ensure middleware and form tokens enabled.
 
-- File Content Validation
-  - For images, apply image rewriting techniques to destroy malicious content.
-  - For Microsoft documents, use Apache POI for validation.
-  - Avoid ZIP files due to numerous attack vectors.
-  - Implement manual file review in sandboxed environments when resources allow.
-  - Integrate antivirus scanning and Content Disarm & Reconstruct (CDR) for applicable file types.
+### Symfony
+- XSS: Twig auto‑escaping; avoid `|raw` unless trusted.
+- CSRF: use `csrf_token()` and `isCsrfTokenValid()` for manual flows; Forms include tokens by default.
+- SQLi: Doctrine parameterized queries; never concatenate inputs.
+- Command execution: avoid `exec/shell_exec`; use Filesystem component.
+- Uploads: validate with `#[File(...)]`; store outside public; unique names.
+- Directory traversal: validate `realpath`/`basename` and enforce allowed roots.
+- Sessions/security: configure secure cookies and authentication providers/firewalls.
 
-- Storage Security
-  - Store files on different servers for complete segregation when possible.
-  - Store files outside webroot with administrative access only.
-  - If storing in webroot, set write-only permissions with proper access controls.
-  - Use application handlers that map IDs to filenames for public access.
-  - Consider database storage for specific use cases with DBA expertise.
+### Ruby on Rails
+- Avoid dangerous functions:
 
-- Access Control and Authentication
-  - Require user authentication before allowing file uploads.
-  - Implement proper authorization levels for file access and modification.
-  - Set filesystem permissions on principle of least privilege.
-  - Scan files before execution if execution permission is required.
+```ruby
+eval("ruby code here")
+system("os command here")
+`ls -al /` # (backticks contain os command)
+exec("os command here")
+spawn("os command here")
+open("| os command here")
+Process.exec("os command here")
+Process.spawn("os command here")
+IO.binread("| os command here")
+IO.binwrite("| os command here", "foo")
+IO.foreach("| os command here") {}
+IO.popen("os command here")
+IO.read("| os command here")
+IO.readlines("| os command here")
+IO.write("| os command here", "foo")
+```
 
-- Upload and Download Limits
-  - Set proper file size limits for upload protection.
-  - Consider post-decompression size limits for compressed files.
-  - Implement request limits for download services to prevent DoS attacks.
-  - Use secure methods to calculate ZIP file sizes safely.
+- SQLi: always parameterize; use `sanitize_sql_like` for LIKE patterns.
+- XSS: default auto‑escape; avoid `raw`, `html_safe` on untrusted data; use `sanitize` allow‑lists.
+- Sessions: database‑backed store for sensitive apps; force HTTPS (`config.force_ssl = true`).
+- Auth: use Devise or proven libraries; configure routes and protected areas.
+- CSRF: `protect_from_forgery` for state‑changing actions.
+- Secure redirects: validate/allow‑list targets.
+- Headers/CORS: set secure defaults; configure `rack-cors` carefully.
 
-- Additional Security Measures
-  - Protect file upload endpoints from CSRF attacks.
-  - Keep all file processing libraries securely configured and updated.
-  - Implement logging and monitoring for upload activities.
-  - Provide user reporting mechanisms for illegal content.
-  - Use secure extraction methods for compressed files.
+### .NET (ASP.NET Core)
+- Keep runtime and NuGet packages updated; enable SCA in CI.
+- Authz: use `[Authorize]` attributes; perform server‑side checks; prevent IDOR.
+- Authn/sessions: ASP.NET Identity; lockouts; cookies `HttpOnly`/`Secure`; short timeouts.
+- Crypto: use PBKDF2 for passwords, AES‑GCM for encryption; DPAPI for local secrets; TLS 1.2+.
+- Injection: parameterize SQL/LDAP; validate with allow‑lists.
+- Config: enforce HTTPS redirects; remove version headers; set CSP/HSTS/X‑Content‑Type‑Options.
+- CSRF: anti‑forgery tokens on state‑changing actions; validate on server.
 
-Summary:  
-Implement defense-in-depth for file uploads through multi-layered validation, secure storage practices, proper access controls, and comprehensive monitoring. Never rely on single validation methods and always generate safe filenames to prevent attacks.
+### Java and JAAS
+- SQL/JPA: use `PreparedStatement`/named parameters; never concatenate input.
+- XSS: allow‑list validation; sanitize output with reputable libs; encode for context.
+- Logging: parameterized logging to prevent log injection.
+- Crypto: AES‑GCM; secure random nonces; never hardcode keys; use KMS/HSM.
+- JAAS: configure `LoginModule` stanzas; implement `initialize/login/commit/abort/logout`; avoid exposing credentials; segregate public/private credentials; manage subject principals properly.
+
+### Node.js
+- Limit request sizes; validate and sanitize input; escape output.
+- Avoid `eval`, `child_process.exec` with user input; use `helmet` for headers; `hpp` for parameter pollution.
+- Rate limit auth endpoints; monitor event loop health; handle uncaught exceptions cleanly.
+- Cookies: set `secure`, `httpOnly`, `sameSite`; set `NODE_ENV=production`.
+- Keep packages updated; run `npm audit`; use security linters and ReDoS testing.
+
+### PHP Configuration
+- Production php.ini: `expose_php=Off`, log errors not display; restrict `allow_url_fopen/include`; set `open_basedir`.
+- Disable dangerous functions; set session cookie flags (`Secure`, `HttpOnly`, `SameSite=Strict`); enable strict session mode.
+- Constrain upload size/number; set resource limits (memory, post size, execution time).
+- Use Snuffleupagus or similar for additional hardening.
+
+### Implementation Checklist
+- Use each framework’s built‑in CSRF/XSS/session protections and secure cookie flags.
+- Parameterize all data access; avoid dangerous OS/exec functions with untrusted input.
+- Enforce HTTPS/HSTS; set secure headers.
+- Centralize secret management; never hardcode secrets; lock down debug in production.
+- Validate/allow‑list redirects and dynamic identifiers.
+- Keep dependencies and frameworks updated; run SCA and static analysis regularly.
 
 ---
 > Source: [santosomar/AI-agents-for-cybersecurity](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io).
