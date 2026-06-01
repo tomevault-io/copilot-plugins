@@ -1,0 +1,9 @@
+{
+  "name": "tonbo-io--fusio",
+  "displayName": "fusio",
+  "description": "Fusio provides file operations on multiple storages across various async runtimes.",
+  "version": "1.0.0",
+  "author": "tonbo-io",
+  "homepage": "https://github.com/tonbo-io/fusio",
+  "skills": []
+}
