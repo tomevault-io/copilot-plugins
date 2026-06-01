@@ -7,11 +7,11 @@ NobodyWho is an inference engine that lets you run LLMs locally and efficiently 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nobodywho-ooo/nobodywho](https://github.com/nobodywho-ooo/nobodywho).
+Original source: `CLAUDE.md` in [nobodywho-ooo/nobodywho](https://github.com/nobodywho-ooo/nobodywho).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
