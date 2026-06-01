@@ -1,0 +1,9 @@
+{
+  "name": "agentstation--uuidkey",
+  "displayName": "uuidkey",
+  "description": "The uuidkey package encodes UUIDs to a readable Key format via the Base32-Crockford codec.",
+  "version": "1.0.0",
+  "author": "agentstation",
+  "homepage": "https://github.com/agentstation/uuidkey",
+  "skills": []
+}
