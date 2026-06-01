@@ -1,0 +1,9 @@
+{
+  "name": "langgenius--dify-plugin-sdks",
+  "displayName": "dify-plugin-sdks",
+  "description": "SDK for Dify plugins",
+  "version": "1.0.0",
+  "author": "langgenius",
+  "homepage": "https://github.com/langgenius/dify-plugin-sdks",
+  "skills": []
+}
