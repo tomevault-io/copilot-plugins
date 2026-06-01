@@ -2,7 +2,7 @@
   "name": "examples",
   "owner": "medusajs",
   "repo": "examples",
-  "description": "",
+  "description": "All Medusa-related examples.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/medusajs",
+  "source_url": "https://github.com/medusajs/examples",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T07:15:08Z"
+  "distributed_at": "2026-06-01T20:23:59Z"
 }
