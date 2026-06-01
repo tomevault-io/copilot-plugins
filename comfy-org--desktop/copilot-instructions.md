@@ -1,159 +1,89 @@
-## desktop
+## typescript
 
-> **ComfyUI Desktop** (@comfyorg/comfyui-electron) is an Electron-based desktop application that packages ComfyUI with a user-friendly interface. It's "the best modular GUI to run AI diffusion models" and automatically handles Python environment setup, dependency management, and provides a seamless desktop experience for running AI models.
+> TypeScript Code Standards (Modern, strict, readable)
 
-# ComfyUI Desktop - Claude Code Instructions
 
-## Project Overview
+## Modern TypeScript Standards
 
-**ComfyUI Desktop** (@comfyorg/comfyui-electron) is an Electron-based desktop application that packages ComfyUI with a user-friendly interface. It's "the best modular GUI to run AI diffusion models" and automatically handles Python environment setup, dependency management, and provides a seamless desktop experience for running AI models.
+These rules define how we write modern, strict, and highly readable TypeScript across this repository.
 
-- **Homepage**: https://comfy.org
+### Language level and project defaults
 
-## Key Technologies
+- **TypeScript version**: Use features available in TypeScript 5.x.
+- **Module system**: **ESM only** (`type: module`). Avoid CommonJS (`require`, `module.exports`).
+- **Target**: ESNext runtime APIs and syntax. Prefer top‑level `await` only when it improves clarity.
+- **Strictness**: `strict` and `noImplicitAny` are enabled. Code must compile with zero implicit `any`.
+- **Libraries**: `skipLibCheck` is enabled for speed; do not rely on it to mask type issues in our code.
 
-- **Electron**: Desktop app framework
-- **TypeScript**: Primary language
-- **Vite**: Build tool and bundler
-- **Node.js**: Runtime (use nvm)
-- **Yarn**: Package manager
-- **Vitest**: Unit testing
-- **Playwright**: E2E testing
-- **ESLint**: Linting
-- **Prettier**: Formatting
+### Types, interfaces, and aliases
 
-## Development Commands
+- **Prefer precise types**: Use `unknown` instead of `any`. Narrow with type guards. `any` is allowed only when interfacing with untyped code and must be localized and justified.
+- **Interfaces vs type aliases**:
+  - Use **`interface`** for public object shapes intended for extension/implementation.
+  - Use **`type`** for unions, mapped/conditional types, function types, and when composition is needed.
+- **Discriminated unions**: Model domain variants with a discriminant field (e.g., `kind: 'X' | 'Y'`). Use exhaustive `switch`es.
+- **Constants and enums**: Prefer `as const` objects and string/number literal unions over `enum`.
+- **Immutability**: Prefer `readonly` properties and `ReadonlyArray<T>` where appropriate. Do not mutate function parameters.
+- **Array and record syntax**: Prefer `T[]` over `Array<T>` for readability. Prefer `Record<Key, T>` for simple maps; use `Map`/`Set` when iteration semantics or key types require it.
+- **Narrowing**: Avoid non‑null assertions (`!`). Use optional chaining, nullish coalescing, and explicit guards.
+- **Satisfies**: Use `satisfies` to enforce object literal conformance without widening values.
 
-### Code Quality (ALWAYS RUN AFTER CHANGES)
+### Functions, modules, and exports
 
-```bash
-yarn lint              # Check & auto-fix ESLint issues
-yarn format            # Auto-format code
-yarn typecheck         # TypeScript type checking (all)
-```
+- **Named exports**: Prefer named exports. Default exports are allowed only when a module clearly has a single primary export.
+- **Type‑only imports**: Use `import type { X } from '…'` for types. Keep value and type imports separated when helpful for clarity and bundling.
+- **Explicit public types**: Exported functions, classes, and public APIs must have explicit parameter and return types. Internal locals can rely on inference.
+- **Arrow functions**: Prefer arrow functions for local functions and callbacks. Use function declarations when hoisting or `this` binding is required.
+- **No side‑effect modules**: Modules should be pure. Avoid executing logic at import time unless necessary (e.g., polyfills).
 
-### Development
+### Async code and Promises
 
-```bash
-yarn start             # Build and launch app with file watching
-yarn make:assets       # Download ComfyUI dependencies
-yarn clean             # Remove build artifacts
-```
+- **Prefer async/await** over raw `then`/`catch` chains. Keep linear flow and use `try/catch` for failures.
+- **No floating promises**: Either `await` promises or deliberately mark them with `void` and a comment explaining the fire‑and‑forget behavior.
+- **Return types**: Functions returning async results should return `Promise<T>` (not `Promise<any>`). Use `Promise<void>` only when there is nothing meaningful to return.
 
-### Testing
+### Errors and control flow
 
-```bash
-yarn test:unit         # Run unit tests (Vitest)
-yarn test:e2e          # Run E2E tests (Playwright)
-yarn test:e2e:update   # Update Playwright snapshots
-```
+- **Throw `Error` (or subclasses)** with actionable messages. Avoid throwing strings.
+- **Type‑safe handling**: Treat caught errors as `unknown` and narrow with `instanceof Error` (or custom guards) before access.
+- **Exhaustiveness**: Use exhaustive `switch` statements over unions and assert on the `never` case (e.g., via an `assertUnreachable` helper).
 
-### Building
+### Collections and data modeling
 
-```bash
-yarn make              # Build platform package
-yarn make:nvidia       # Build with NVIDIA GPU support
-yarn vite:compile      # Compile with Vite
-```
+- **Prefer domain types**: Centralize reusable domain types in `src/**` where discoverable. Avoid ad‑hoc inline types for shared structures.
+- **Prefer `Map`/`Set`** when key presence and iteration order matter. Use `Record` for simple string/number keyed collections.
 
-### Troubleshooting
+### Nullability and optionality
 
-- If you encounter errors regarding `NODE_MODULE_VERSION`, try running `npx electron-rebuild` before other troubleshooting steps.
-  - If that still fails, try `yarn rebuild`
+- **Prefer `undefined`** for absence. Avoid `null` unless interoperating with external APIs that require it.
+- **Optional fields**: Use optional properties (`foo?: T`) judiciously; narrow before use.
 
-## Custom testing
+### Readability and structure
 
-We have testing configured with Vitest. Use vitest to create any tests you need. Do not attempt to custom code your own testing infrastructure, as that is pointless and will do nothing but derail you.
+- **Small modules**: Keep files focused and cohesive. Extract helpers when a module exceeds a clear single responsibility.
+- **Naming**: Use descriptive, intention‑revealing names. Avoid abbreviations. Classes/types use `PascalCase`; variables/functions use `camelCase`.
+- **Comments**: Document exported APIs with concise JSDoc. Explain “why”, not “what”. Prefer `@param` and `@return` (omit `@return` for `void`), and use `{@link}` to reference symbols. Avoid stale comments and TODOs—prefer immediate implementation.
 
-## Project Structure
+### Interop and boundaries
 
-### Source Code (`/src/`)
+- **Runtime validation at boundaries**: Validate untrusted inputs at process, network, or file boundaries. Keep types honest across IO.
+- **Serialization**: Define stable shapes for data persisted or sent across IPC. Prefer explicit schemas/types.
 
-- **`main.ts`**: Main Electron process entry point
-- **`desktopApp.ts`**: Core application logic
-- **`preload.ts`**: Electron preload script
-- **`main-process/`**: Main process modules
-  - `comfyDesktopApp.ts` - ComfyUI server management
-  - `appWindow.ts` - Window management
-  - `comfyServer.ts` - Server lifecycle
-- **`install/`**: Installation & setup logic
-- **`handlers/`**: IPC message handlers
-- **`services/`**: Core services (telemetry, Sentry)
-- **`config/`**: Configuration management
-- **`store/`**: Persistent storage
-- **`utils.ts`**: Utility functions
+### Linting alignment (enforced or advisory)
 
-### Tests (`/tests/`)
+- **Readonly preference**: `@typescript-eslint/prefer-readonly` is enabled—prefer immutable data.
+- **Template expressions**: Be mindful of `restrict-template-expressions` (relaxed in this repo). Convert values to strings explicitly when ambiguous.
+- **Tests**: Test code may relax some strictness to maximize ergonomics (unsafe rules are off under `tests/**/*`). Keep type escapes localized.
 
-- **`unit/`**: Vitest-based component tests
-- **`integration/`**: Playwright E2E tests
-  - `install/` - Fresh installation testing
-  - `post-install/` - Tests after app setup
-  - `shared/` - Common test functionality
+### Do and Don’t quick reference
 
-## Development Setup
-
-- **Python 3.12+** with virtual environment support required
-- **Node.js v20.x** (use nvm for version management)
-- **Visual Studio 2019+** with C++ workload (Windows)
-- **Spectre-mitigated libraries** for node-gyp compilation
-
-## Important Files & Configuration
-
-- **`package.json`**: Defines ComfyUI versions and dependencies
-- **`assets/requirements/`**: Pre-compiled Python requirements by platform
-- **`todesktop.json`**: Cloud build and distribution config
-- **`builder-debug.config.ts`**: Local development build settings
-- **Multi-config Vite setup** with separate configs for main, preload, and types
-
-## Bundled Components
-
-The app packages these components:
-
-- **ComfyUI**: AI diffusion model GUI
-- **ComfyUI_frontend**: Modern web frontend
-- **ComfyUI-Manager**: Plugin/extension manager
-- **uv**: Fast Python package manager
-
-## Development Environment Variables
-
-- **`--dev-mode`**: Flag for packaged apps in development
-- **`COMFY_HOST`/`COMFY_PORT`**: External server for development
-- **`VUE_DEVTOOLS_PATH`**: Frontend debugging support
-
-## Platform-Specific Paths
-
-- **Windows**: `%APPDATA%\ComfyUI` (config), `%LOCALAPPDATA%\Programs\ComfyUI` (app)
-- **macOS**: `~/Library/Application Support/ComfyUI`
-- **Linux**: `~/.config/ComfyUI`
-
-## Code Style & Conventions
-
-- Follow existing TypeScript patterns in the codebase
-- Use ESLint and Prettier for code formatting
-- Maintain clean separation between main process, renderer, and preload scripts
-- Follow Electron security best practices
-- Use the existing store patterns for configuration management
-- Test changes with both unit tests (Vitest) and E2E tests (Playwright)
-- Use JSDoc format to write documentation for methods
-  - Common tags are `@param`, and `@return` (do not use for `void` return type)
-  - Use `{@link }` to reference symbols
-
-### Type constraints
-
-This project must maintain exceptionally high type standards. The `any` type must not be used. `unknown` can be used when the type is unknown.
-
-- `unknown` means "I do not know what the type is".
-- `any` means "I do not **care** what the type is".
-
-## Before Committing
-
-1. Use `yarn format` to ensure consistent formatting
-1. Run `yarn lint` and `yarn typecheck` to check code quality
-1. Run `yarn test:unit` to ensure unit tests pass
-1. Consider running `yarn test:e2e` for UI changes
-
-This is a sophisticated Electron application with comprehensive testing, automated CI/CD, cross-platform support, and professional development practices.
+- Do use `unknown` + narrowing instead of `any`.
+- Do use discriminated unions and exhaustive `switch`.
+- Do export named symbols and add explicit public types.
+- Do use `import type` for type‑only imports.
+- Do prefer `readonly`, `as const`, and `satisfies` for safety.
+- Don’t use non‑null assertions or `@ts-ignore`; use `@ts-expect-error` with an explanation when unavoidable.
+- Don’t mutate inputs or shared state; favor pure functions and clear ownership.
 
 ---
 > Source: [Comfy-Org/desktop](https://github.com/Comfy-Org/desktop) — distributed by [TomeVault](https://tomevault.io).
