@@ -1,0 +1,9 @@
+{
+  "name": "yastman--rag",
+  "displayName": "rag",
+  "description": "AI real-estate automation platform: Telegram bot, RAG, apartment search, CRM workflows, voice agent, Langfuse observability, and Dockerized AI runtime.",
+  "version": "1.0.0",
+  "author": "yastman",
+  "homepage": "https://github.com/yastman/rag",
+  "skills": []
+}
