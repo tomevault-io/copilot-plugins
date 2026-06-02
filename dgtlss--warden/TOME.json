@@ -4,7 +4,7 @@
   "repo": "warden",
   "description": "A Laravel package that proactively monitors your dependencies for security vulnerabilities by running automated composer audits and sending notifications via webhooks and email",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dgtlss/warden",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T17:32:23Z"
+  "distributed_at": "2026-06-02T17:43:49Z"
 }
