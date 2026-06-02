@@ -1,0 +1,9 @@
+{
+  "name": "composefs--composefs-rs",
+  "displayName": "composefs-rs",
+  "description": "Rust library for the composefs filesystem",
+  "version": "1.0.0",
+  "author": "composefs",
+  "homepage": "https://github.com/composefs/composefs-rs",
+  "skills": []
+}
