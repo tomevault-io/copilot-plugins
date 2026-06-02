@@ -1,6 +1,8 @@
-# api-automation-agent — distributed by TomeVault
+# api-automation-agent
 
-> Originally from [TestCraft-App/api-automation-agent](https://github.com/TestCraft-App/api-automation-agent). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [TestCraft-App/api-automation-agent](https://github.com/TestCraft-App/api-automation-agent) — distributed by [TomeVault](https://tomevault.io)
+
+Agent that generates API automation tests based on an OpenAPI definition
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.windsurf/rules/*.md` in [TestCraft-App/api-automation-agent](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/TestCraft-App#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/TestCraft-App/api-automation-agent](https://github.com/TestCraft-App/api-automation-agent)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/TestCraft-App) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
