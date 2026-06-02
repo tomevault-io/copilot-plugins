@@ -1,0 +1,9 @@
+{
+  "name": "fabiotheo--ipcom-ari",
+  "displayName": "ipcom-ari",
+  "description": "A modern TypeScript/JavaScript library for interacting with the Asterisk REST Interface (ARI), offering robust WebSocket support for real-time events, full type safety, and simplified handling of Aste",
+  "version": "1.0.0",
+  "author": "fabiotheo",
+  "homepage": "https://github.com/fabiotheo/ipcom-ari",
+  "skills": []
+}
