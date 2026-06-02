@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--sphinx-llm",
+  "displayName": "sphinx-llm",
+  "description": "LLM extensions for Sphinx Documentation",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/sphinx-llm",
+  "skills": []
+}
