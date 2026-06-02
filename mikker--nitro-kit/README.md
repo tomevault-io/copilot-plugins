@@ -7,11 +7,11 @@ A good-to-go UI kit for Ruby on Rails
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mikker/nitro_kit](https://github.com/mikker/nitro_kit).
+Original source: `AGENTS.md` in [mikker/nitro_kit](https://github.com/mikker/nitro_kit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
