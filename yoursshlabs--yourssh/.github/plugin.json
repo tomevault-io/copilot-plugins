@@ -1,0 +1,9 @@
+{
+  "name": "yoursshlabs--yourssh",
+  "displayName": "yourssh",
+  "description": "A professional, open-source SSH client for macOS, Windows, and Linux built with Flutter. Designed for developers and sysadmins who want a fast, keyboard-friendly terminal experience with built-in SFTP",
+  "version": "1.0.0",
+  "author": "YoursshLabs",
+  "homepage": "https://github.com/YoursshLabs/yourssh",
+  "skills": []
+}
