@@ -1,0 +1,9 @@
+{
+  "name": "johnixr--peeky",
+  "displayName": "peeky",
+  "description": "A transparent floating macOS desktop AI companion \u2014 a magic sprite that peeks at your screen and helps at the right moment. Tauri 2 (Rust + TS).",
+  "version": "1.0.0",
+  "author": "Johnixr",
+  "homepage": "https://github.com/Johnixr/peeky",
+  "skills": []
+}
