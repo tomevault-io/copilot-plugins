@@ -1,0 +1,9 @@
+{
+  "name": "purrgrammer--chachi",
+  "displayName": "chachi",
+  "description": "a nostr group chat client",
+  "version": "1.0.0",
+  "author": "purrgrammer",
+  "homepage": "https://github.com/purrgrammer/chachi",
+  "skills": []
+}
