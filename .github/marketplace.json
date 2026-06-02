@@ -74904,6 +74904,11 @@
       "description": "Github homepage releases feed is always broken - so I created my own"
     },
     {
+      "name": "pood1e--wa-app",
+      "source": "./pood1e--wa-app",
+      "description": "wa-app"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
