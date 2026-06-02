@@ -1,0 +1,9 @@
+{
+  "name": "estebanforge--unrepress",
+  "displayName": "UnrePress",
+  "description": "An independent Core, Plugins and Themes updater for WordPress. No wp.org dependency.",
+  "version": "1.0.0",
+  "author": "EstebanForge",
+  "homepage": "https://github.com/EstebanForge/UnrePress",
+  "skills": []
+}
