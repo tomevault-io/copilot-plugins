@@ -1,0 +1,9 @@
+{
+  "name": "arloliu--go-secs",
+  "displayName": "go-secs",
+  "description": "A library that implements SES-II/HSMS/SML in Go",
+  "version": "1.0.0",
+  "author": "arloliu",
+  "homepage": "https://github.com/arloliu/go-secs",
+  "skills": []
+}
