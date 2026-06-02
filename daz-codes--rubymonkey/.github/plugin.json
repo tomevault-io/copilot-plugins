@@ -1,0 +1,9 @@
+{
+  "name": "daz-codes--rubymonkey",
+  "displayName": "rubymonkey",
+  "description": "Monkey patching Javascript to be more like Ruby",
+  "version": "1.0.0",
+  "author": "daz-codes",
+  "homepage": "https://github.com/daz-codes/rubymonkey",
+  "skills": []
+}
