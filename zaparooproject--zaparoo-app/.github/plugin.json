@@ -1,0 +1,9 @@
+{
+  "name": "zaparooproject--zaparoo-app",
+  "displayName": "zaparoo-app",
+  "description": "The official Zaparoo app and primary interface for the core software",
+  "version": "1.0.0",
+  "author": "ZaparooProject",
+  "homepage": "https://github.com/ZaparooProject/zaparoo-app",
+  "skills": []
+}
