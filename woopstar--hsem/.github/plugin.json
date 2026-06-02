@@ -1,0 +1,9 @@
+{
+  "name": "woopstar--hsem",
+  "displayName": "hsem",
+  "description": "Maximize the potential of your Huawei solar battery system with this powerful Home Assistant custom integration.",
+  "version": "1.0.0",
+  "author": "woopstar",
+  "homepage": "https://github.com/woopstar/hsem",
+  "skills": []
+}
