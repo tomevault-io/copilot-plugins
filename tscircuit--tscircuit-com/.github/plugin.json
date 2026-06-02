@@ -1,0 +1,9 @@
+{
+  "name": "tscircuit--tscircuit-com",
+  "displayName": "tscircuit.com",
+  "description": "The main website, playground and online development environment for tscircuit (React Electronics)",
+  "version": "1.0.0",
+  "author": "tscircuit",
+  "homepage": "https://github.com/tscircuit/tscircuit.com",
+  "skills": []
+}
