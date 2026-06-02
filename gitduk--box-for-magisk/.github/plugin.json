@@ -1,0 +1,9 @@
+{
+  "name": "gitduk--box-for-magisk",
+  "displayName": "box_for_magisk",
+  "description": "singbox for magisk",
+  "version": "1.0.0",
+  "author": "gitduk",
+  "homepage": "https://github.com/gitduk/box_for_magisk",
+  "skills": []
+}
