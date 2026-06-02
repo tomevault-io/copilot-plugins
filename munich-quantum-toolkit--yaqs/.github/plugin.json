@@ -1,0 +1,9 @@
+{
+  "name": "munich-quantum-toolkit--yaqs",
+  "displayName": "yaqs",
+  "description": "YAQS: A Tool for Simulating Open Quantum Systems, Noisy Quantum Circuits, and Realistic Quantum Hardware",
+  "version": "1.0.0",
+  "author": "munich-quantum-toolkit",
+  "homepage": "https://github.com/munich-quantum-toolkit/yaqs",
+  "skills": []
+}
