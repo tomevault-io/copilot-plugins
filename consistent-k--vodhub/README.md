@@ -7,11 +7,11 @@ VodHub 是一个电影、电视剧、动漫等标准CMS资源播放器
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [consistent-k/VodHub](https://github.com/consistent-k/VodHub).
+Original source: `CLAUDE.md` in [consistent-k/VodHub](https://github.com/consistent-k/VodHub).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
