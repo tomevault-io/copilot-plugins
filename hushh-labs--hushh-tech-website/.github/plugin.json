@@ -1,0 +1,9 @@
+{
+  "name": "hushh-labs--hushh-tech-website",
+  "displayName": "hushh_Tech_website",
+  "description": "Public Hushh web/app wrapper for product surfaces, API integrations, Supabase workflows, tests, CI, and repo governance.",
+  "version": "1.0.0",
+  "author": "hushh-labs",
+  "homepage": "https://github.com/hushh-labs/hushh_Tech_website",
+  "skills": []
+}
