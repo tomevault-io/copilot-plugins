@@ -4,7 +4,7 @@
   "repo": "student-llm-wiki",
   "description": "\ud83d\udcda Student LLM Wiki \u2014 AI-compiled knowledge base for university students. Drop course slides, get a persistent interlinked wiki. Feynman review, exam prep, confidence decay, cross-course connections. Based on Karpathy's LLM Wiki pattern. Works with Claude Cowork / Claude Code / Claudian + Obsidian.\u5b66\u751f\u5927\u8bed\u8a00\u6a21\u578b\u7ef4\u57fa\u767e\u79d1\u2014\u2014\u4e13\u4e3a\u5927\u5b66\u751f\u6253\u9020\u7684AI\u7f16\u8bd1\u77e5\u8bc6\u5e93\u3002",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IssacW228/student-llm-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T12:35:46Z"
+  "distributed_at": "2026-06-02T12:36:14Z"
 }
