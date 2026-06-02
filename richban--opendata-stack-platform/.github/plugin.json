@@ -1,0 +1,9 @@
+{
+  "name": "richban--opendata-stack-platform",
+  "displayName": "opendata-stack-platform",
+  "description": "Open Data Stack Platform: a collection of projects and pipelines built with open data stack tools for scalable, observable  data platform.",
+  "version": "1.0.0",
+  "author": "richban",
+  "homepage": "https://github.com/richban/opendata-stack-platform",
+  "skills": []
+}
