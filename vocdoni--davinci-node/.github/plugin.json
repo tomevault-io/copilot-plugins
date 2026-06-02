@@ -1,0 +1,9 @@
+{
+  "name": "vocdoni--davinci-node",
+  "displayName": "davinci-node",
+  "description": "{Decentralized Autonomous Vote Integrity Network with Cryptographic Inference} The node (aka sequencer) is a specialized component designed to handle the voting process using zero-knowledge proof mech",
+  "version": "1.0.0",
+  "author": "vocdoni",
+  "homepage": "https://github.com/vocdoni/davinci-node",
+  "skills": []
+}
