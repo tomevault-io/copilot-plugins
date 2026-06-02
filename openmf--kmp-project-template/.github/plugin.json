@@ -1,0 +1,9 @@
+{
+  "name": "openmf--kmp-project-template",
+  "displayName": "kmp-project-template",
+  "description": "The Kotlin Multiplatform Multi-module Template generator simplifies cross-platform development by enabling shared business logic and UI components across Android, iOS, Desktop, and Web, while retainin",
+  "version": "1.0.0",
+  "author": "openMF",
+  "homepage": "https://github.com/openMF/kmp-project-template",
+  "skills": []
+}
