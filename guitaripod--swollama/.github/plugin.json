@@ -1,0 +1,9 @@
+{
+  "name": "guitaripod--swollama",
+  "displayName": "Swollama",
+  "description": "A comprehensive Swift SDK for Ollama",
+  "version": "1.0.0",
+  "author": "guitaripod",
+  "homepage": "https://github.com/guitaripod/Swollama",
+  "skills": []
+}
