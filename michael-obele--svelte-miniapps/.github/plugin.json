@@ -1,0 +1,9 @@
+{
+  "name": "michael-obele--svelte-miniapps",
+  "displayName": "Svelte-MiniApps",
+  "description": "This project is a collection of small, single-purpose applications written in Svelte 5. Each mini-app tackles a specific task, offering a simple and user-friendly experience for users.",
+  "version": "1.0.0",
+  "author": "Michael-Obele",
+  "homepage": "https://github.com/Michael-Obele/Svelte-MiniApps",
+  "skills": []
+}
