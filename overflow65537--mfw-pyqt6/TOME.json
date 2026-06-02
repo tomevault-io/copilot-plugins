@@ -1,0 +1,44 @@
+{
+  "name": "MFW-PyQt6",
+  "owner": "overflow65537",
+  "repo": "MFW-PyQt6",
+  "description": "\u4e00\u4e2a\u57fa\u4e8ePySide6\u7684MAAFramework\u56fe\u5f62\u5316\u64cd\u4f5c\u754c\u9762",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/overflow65537/MFW-PyQt6",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T21:32:11Z"
+}
