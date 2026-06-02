@@ -115349,6 +115349,16 @@
       "description": "LLM-powered Chrome extension for automatic web form filling. All data stays local."
     },
     {
+      "name": "enderzcx--pi-docs-playbook",
+      "source": "./enderzcx--pi-docs-playbook",
+      "description": "A docs navigator and agent-readable playbook for building on earendil-works/pi"
+    },
+    {
+      "name": "agntcms--agntcms",
+      "source": "./agntcms--agntcms",
+      "description": "Agentic headless cms. Built on Next.js. Powered by Claude. Owned by you."
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -145307,6 +145317,11 @@
       "name": "pinto-org--protocol",
       "source": "./pinto-org--protocol",
       "description": "Pinto is low volatility money built on Base."
+    },
+    {
+      "name": "prabirshrestha--ai-rs",
+      "source": "./prabirshrestha--ai-rs",
+      "description": "ai.rs"
     },
     {
       "name": "lightninglabs--lnget",
