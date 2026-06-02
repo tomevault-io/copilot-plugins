@@ -1,0 +1,9 @@
+{
+  "name": "luxms--pgnats",
+  "displayName": "pgnats",
+  "description": "PostgreSQL extension for NATS messaging",
+  "version": "1.0.0",
+  "author": "luxms",
+  "homepage": "https://github.com/luxms/pgnats",
+  "skills": []
+}
