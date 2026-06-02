@@ -4,7 +4,7 @@
   "repo": "Svelte-MiniApps",
   "description": "This project is a collection of small, single-purpose applications written in Svelte 5. Each mini-app tackles a specific task, offering a simple and user-friendly experience for users.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Michael-Obele/Svelte-MiniApps",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T17:33:31Z"
+  "distributed_at": "2026-06-02T17:57:04Z"
 }
