@@ -1,0 +1,44 @@
+{
+  "name": "Meilisearch4TelegramSearchCKJ",
+  "owner": "clionertr",
+  "repo": "Meilisearch4TelegramSearchCKJ",
+  "description": "\u672c\u9879\u76ee\u57fa\u4e8epython\uff0c\u4f7f\u7528userbot\u4e0b\u8f7dTelegram\u5386\u53f2\u6d88\u606f\u5230meilisearch\u6570\u636e\u5e93\uff0c\u89e3\u51b3telegram\u539f\u751f\u641c\u7d22\u65e0\u6cd5\u5904\u7406\u4e2d\u6587\u65ad\u8bcd\u7684\u95ee\u9898\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/clionertr/Meilisearch4TelegramSearchCKJ",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T16:59:16Z"
+}
