@@ -1,0 +1,9 @@
+{
+  "name": "fiscalapi--fiscalapi-node",
+  "displayName": "fiscalapi-node",
+  "description": "SDK oficial de fiscalapi para consumo desde aplicaciones JavaScript ",
+  "version": "1.0.0",
+  "author": "FiscalAPI",
+  "homepage": "https://github.com/FiscalAPI/fiscalapi-node",
+  "skills": []
+}
