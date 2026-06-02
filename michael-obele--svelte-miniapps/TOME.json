@@ -1,0 +1,44 @@
+{
+  "name": "Svelte-MiniApps",
+  "owner": "Michael-Obele",
+  "repo": "Svelte-MiniApps",
+  "description": "This project is a collection of small, single-purpose applications written in Svelte 5. Each mini-app tackles a specific task, offering a simple and user-friendly experience for users.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Michael-Obele/Svelte-MiniApps",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T17:33:31Z"
+}
