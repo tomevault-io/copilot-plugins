@@ -1,0 +1,9 @@
+{
+  "name": "nizie002--pyrth",
+  "displayName": "PyRth",
+  "description": "PyRth is an open-source Python package designed for evaluating thermal transient measurement data, such as those obtained from devices like the T3ster. It processes thermal transient data using specia",
+  "version": "1.0.0",
+  "author": "nizie002",
+  "homepage": "https://github.com/nizie002/PyRth",
+  "skills": []
+}
