@@ -7,11 +7,11 @@ A command-line tool for streamlining end-to-end compliance workflows on local sy
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [complytime/complyctl](https://github.com/complytime/complyctl).
+Original source: `CLAUDE.md` in [complytime/complyctl](https://github.com/complytime/complyctl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
