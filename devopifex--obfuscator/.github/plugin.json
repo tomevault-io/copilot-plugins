@@ -1,0 +1,9 @@
+{
+  "name": "devopifex--obfuscator",
+  "displayName": "obfuscator",
+  "description": "R code obfuscator",
+  "version": "1.0.0",
+  "author": "devOpifex",
+  "homepage": "https://github.com/devOpifex/obfuscator",
+  "skills": []
+}
