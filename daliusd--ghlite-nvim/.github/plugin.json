@@ -1,0 +1,9 @@
+{
+  "name": "daliusd--ghlite-nvim",
+  "displayName": "ghlite.nvim",
+  "description": "Neovim plugin to work GitHub PRs quickly.",
+  "version": "1.0.0",
+  "author": "daliusd",
+  "homepage": "https://github.com/daliusd/ghlite.nvim",
+  "skills": []
+}
