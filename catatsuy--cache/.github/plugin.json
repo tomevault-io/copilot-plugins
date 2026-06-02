@@ -1,0 +1,9 @@
+{
+  "name": "catatsuy--cache",
+  "displayName": "cache",
+  "description": "Cache Library for Go",
+  "version": "1.0.0",
+  "author": "catatsuy",
+  "homepage": "https://github.com/catatsuy/cache",
+  "skills": []
+}
