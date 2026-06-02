@@ -2,9 +2,9 @@
   "name": "cursor_latex_template",
   "owner": "yang3kc",
   "repo": "cursor_latex_template",
-  "description": "",
+  "description": "Cursor configuration for LaTeX projects",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/yang3kc",
+  "source_url": "https://github.com/yang3kc/cursor_latex_template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T07:53:01Z"
+  "distributed_at": "2026-06-02T22:36:40Z"
 }
