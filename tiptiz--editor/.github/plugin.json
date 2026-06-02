@@ -1,0 +1,9 @@
+{
+  "name": "tiptiz--editor",
+  "displayName": "editor",
+  "description": "HTML5 & Email friendly WYSIWYG rich text editor by Tiptap & web comonents (WIP)",
+  "version": "1.0.0",
+  "author": "tiptiz",
+  "homepage": "https://github.com/tiptiz/editor",
+  "skills": []
+}
