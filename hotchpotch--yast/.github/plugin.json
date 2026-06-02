@@ -1,0 +1,9 @@
+{
+  "name": "hotchpotch--yast",
+  "displayName": "yast",
+  "description": "YAST - Yet Another SPLADE or Sparse Trainer",
+  "version": "1.0.0",
+  "author": "hotchpotch",
+  "homepage": "https://github.com/hotchpotch/yast",
+  "skills": []
+}
