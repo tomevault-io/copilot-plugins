@@ -187789,6 +187789,21 @@
       "description": "[100% AI Generated Code] Lightweight LLVM Symbolic Execution Engine"
     },
     {
+      "name": "sandeepmvl--rails-skills",
+      "source": "./sandeepmvl--rails-skills",
+      "description": "rails-skills"
+    },
+    {
+      "name": "fxrayhughes--foundation",
+      "source": "./fxrayhughes--foundation",
+      "description": "foundation"
+    },
+    {
+      "name": "haujetzhao--asr-hotword",
+      "source": "./haujetzhao--asr-hotword",
+      "description": "\u6700\u68d2\u7684\u7684ASR\u540e\u5904\u7406\u70ed\u8bcd\u65b9\u6848\uff0c\u57fa\u4e8e\u97f3\u7d20\u7f16\u8f91\u8ddd\u79bb\uff0c\u5b9e\u73b0\u70ed\u8bcd\u66ff\u6362\u3002"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -190792,6 +190807,31 @@
       "name": "ahoo-wang--godex",
       "source": "./ahoo-wang--godex",
       "description": "Make every model a CodeX engine through an OpenAI-compatible Responses API gateway"
+    },
+    {
+      "name": "nomadamas--agentdir",
+      "source": "./nomadamas--agentdir",
+      "description": "mkdir for agents - agent-optimized & read-only virtual folder"
+    },
+    {
+      "name": "asta-nguyen--kamehadb",
+      "source": "./asta-nguyen--kamehadb",
+      "description": "KamehaDB is a cross-platform database GUI - AI. Support query via human language"
+    },
+    {
+      "name": "echoer009--nion",
+      "source": "./echoer009--nion",
+      "description": "AI companion + task manager \u00b7 nags you so you don't forget"
+    },
+    {
+      "name": "avelino--outl",
+      "source": "./avelino--outl",
+      "description": "Local-first outliner. Markdown is the source of truth. Sync that doesn't corrupt your tree when two devices edit offline"
+    },
+    {
+      "name": "itsmeeaera--claude-switcher",
+      "source": "./itsmeeaera--claude-switcher",
+      "description": "TUI profile switcher for Claude Code API endpoints"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -295982,6 +296022,11 @@
       "name": "nishanth919--litellm",
       "source": "./nishanth919--litellm",
       "description": "litellm"
+    },
+    {
+      "name": "charlescrowellnv--mintlify-docs",
+      "source": "./charlescrowellnv--mintlify-docs",
+      "description": "mintlify-docs"
     }
   ]
 }
