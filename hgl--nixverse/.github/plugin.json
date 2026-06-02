@@ -1,0 +1,9 @@
+{
+  "name": "hgl--nixverse",
+  "displayName": "nixverse",
+  "description": "Filesystem-based nix flake framework for multi-node configurations, cascading secrets management, parallel deployments, etc.",
+  "version": "1.0.0",
+  "author": "hgl",
+  "homepage": "https://github.com/hgl/nixverse",
+  "skills": []
+}
