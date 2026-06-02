@@ -1,0 +1,9 @@
+{
+  "name": "cognipilot--rumoca",
+  "displayName": "rumoca",
+  "description": "a rust-native Modelica compiler for fast, composable, scientific computing",
+  "version": "1.0.0",
+  "author": "CogniPilot",
+  "homepage": "https://github.com/CogniPilot/rumoca",
+  "skills": []
+}
