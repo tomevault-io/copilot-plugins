@@ -1,0 +1,9 @@
+{
+  "name": "recallai--voice-agent-demo",
+  "displayName": "voice-agent-demo",
+  "description": "voice-agent-demo",
+  "version": "1.0.0",
+  "author": "recallai",
+  "homepage": "https://github.com/recallai/voice-agent-demo",
+  "skills": []
+}
