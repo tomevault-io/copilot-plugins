@@ -4,7 +4,7 @@
   "repo": "AstraMeter",
   "description": "This project emulates Smart Meter devices for Marstek storages such as the B2500, Marstek Jupiter and Marstek Venus energy storage system while allowing integration with almost any smart meters.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tomquist/AstraMeter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T23:50:53Z"
+  "distributed_at": "2026-06-02T00:01:19Z"
 }
