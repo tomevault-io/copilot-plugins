@@ -1,126 +1,138 @@
-## nss-boilerplate
+## create-db-functions
 
-> This project is a modern full-stack boilerplate utilizing Next.js 15, Supabase, Shadcn/UI, and more. It provides a solid foundation for building web applications with authentication, internationalization, and database integration.
+> Guidelines for writing Supabase database functions
 
-# Next.js + Supabase + Shadcn/UI (NSS) Boilerplate
 
-This project is a modern full-stack boilerplate utilizing Next.js 15, Supabase, Shadcn/UI, and more. It provides a solid foundation for building web applications with authentication, internationalization, and database integration.
+# Database: Create functions
 
-## Project Structure
+You're a Supabase Postgres expert in writing database functions. Generate **high-quality PostgreSQL functions** that adhere to the following best practices:
 
-The project follows a well-organized structure:
+## General Guidelines
 
+1. **Default to `SECURITY INVOKER`:**
+
+   - Functions should run with the permissions of the user invoking the function, ensuring safer access control.
+   - Use `SECURITY DEFINER` only when explicitly required and explain the rationale.
+
+2. **Set the `search_path` Configuration Parameter:**
+
+   - Always set `search_path` to an empty string (`set search_path = '';`).
+   - This avoids unexpected behavior and security risks caused by resolving object references in untrusted or unintended schemas.
+   - Use fully qualified names (e.g., `schema_name.table_name`) for all database objects referenced within the function.
+
+3. **Adhere to SQL Standards and Validation:**
+   - Ensure all queries within the function are valid PostgreSQL SQL queries and compatible with the specified context (ie. Supabase).
+
+## Best Practices
+
+1. **Minimize Side Effects:**
+
+   - Prefer functions that return results over those that modify data unless they serve a specific purpose (e.g., triggers).
+
+2. **Use Explicit Typing:**
+
+   - Clearly specify input and output types, avoiding ambiguous or loosely typed parameters.
+
+3. **Default to Immutable or Stable Functions:**
+
+   - Where possible, declare functions as `IMMUTABLE` or `STABLE` to allow better optimization by PostgreSQL. Use `VOLATILE` only if the function modifies data or has side effects.
+
+4. **Triggers (if Applicable):**
+   - If the function is used as a trigger, include a valid `CREATE TRIGGER` statement that attaches the function to the desired table and event (e.g., `BEFORE INSERT`).
+
+## Example Templates
+
+### Simple Function with `SECURITY INVOKER`
+
+```sql
+create or replace function my_schema.hello_world()
+returns text
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+begin
+  return 'hello world';
+end;
+$$;
 ```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── auth/               # Authentication routes
-│   │   ├── confirm/        # Email confirmation
-│   │   ├── forgot-password/
-│   │   └── login/
-│   └── todos/              # Example feature
-├── components/             # Reusable components
-│   └── ui/                 # Shadcn/UI components
-├── fonts/                  # Font assets
-├── hooks/                  # Custom React hooks
-├── i18n/                   # Internationalization
-│   └── messages/           # Translation files
-│       ├── en.json         # English translations
-│       └── fr.json         # French translations
-├── lib/                    # Utility configurations
-│   ├── api/                # API utilities
-│   │   ├── queries.ts      # React Query definitions
-│   │   └── todos.ts        # Todo API functions
-│   ├── supabase/           # Supabase client config
-│   ├── cookies.ts          # Cookie handling
-│   ├── env.ts              # Environment variables
-│   ├── supabase-client.ts  # Supabase client setup
-│   └── utils.ts            # General utilities
-├── stories/                # Storybook stories
-├── types/                  # TypeScript type definitions
-│   └── database.ts         # Supabase schema types
-├── middleware.ts           # Next.js middleware
-└── supabase/               # Supabase configuration
+
+### Function with Parameters and Fully Qualified Object Names
+
+```sql
+create or replace function public.calculate_total_price(order_id bigint)
+returns numeric
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+declare
+  total numeric;
+begin
+  select sum(price * quantity)
+  into total
+  from public.order_items
+  where order_id = calculate_total_price.order_id;
+
+  return total;
+end;
+$$;
 ```
 
-## Good Practices and DRY Principle
+### Function as a Trigger
 
-To maintain a clean, efficient, and maintainable codebase, follow these good practices and adhere strictly to the DRY (Don't Repeat Yourself) principle:
+```sql
+create or replace function my_schema.update_updated_at()
+returns trigger
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+begin
+  -- Update the "updated_at" column on row modification
+  new.updated_at := now();
+  return new;
+end;
+$$;
 
-- **Reusable Components**:
-  - Keep components atomic, reusable, and clearly named.
-  - Centralize component logic in the `src/components/ui/` directory.
+create trigger update_updated_at_trigger
+before update on my_schema.my_table
+for each row
+execute function my_schema.update_updated_at();
+```
 
-- **Abstract Common Logic**:
-  - Extract frequently used logic into custom hooks (`src/hooks/`) and utilities (`src/lib/utils.ts`).
-  - Avoid duplicating code by creating utility functions for common tasks (e.g., API calls, data formatting, error handling).
+### Function with Error Handling
 
-- **Single Source of Truth**:
-  - Centralize configurations (e.g., environment variables in `src/lib/env.ts`, database schema types in `src/types/database.ts`).
-  - Always regenerate types with `npm run gen:types` after database schema changes to avoid manual type duplication.
+```sql
+create or replace function my_schema.safe_divide(numerator numeric, denominator numeric)
+returns numeric
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+begin
+  if denominator = 0 then
+    raise exception 'Division by zero is not allowed';
+  end if;
 
-- **Consistent Styling & Theming**:
-  - Maintain consistent styling using Tailwind CSS utility classes.
-  - Leverage global theme management (`next-themes`) to ensure consistent theming across components.
+  return numerator / denominator;
+end;
+$$;
+```
 
-- **Maintainable Translations**:
-  - Organize translations hierarchically and avoid duplications across translation files (`src/i18n/messages/`).
+### Immutable Function for Better Optimization
 
-- **Clear Separation of Concerns**:
-  - Clearly separate UI components, business logic, data fetching, and state management.
-
-## Key Technologies & Libraries
-
-### Core Technologies
-- **Next.js 15**: React framework with App Router
-- **Supabase**: Open-source Firebase alternative for backend services
-- **TypeScript**: Static type checking
-- **React 18**: UI library
-
-### UI & Styling
-- **Shadcn/UI**: Reusable UI components based on Radix UI
-- **Tailwind CSS**: Utility-first CSS framework
-- **Lucide React**: Icon library
-- **Next Themes**: Theme management (light/dark mode)
-
-### Form Management
-- **React Hook Form**: Form validation and state management
-- **Zod**: Schema validation
-- **@hookform/resolvers**: Connects Zod with React Hook Form
-
-### Data Fetching
-- **TanStack Query (React Query)**: Data fetching and state management
-
-### Internationalization
-- **next-intl**: Library for i18n in Next.js applications
-- Translation files located in `src/i18n/messages/` (en.json, fr.json, etc.)
-
-### Development & Testing
-- **Storybook**: Component documentation and development
-- **Cypress**: End-to-end testing
-- **Vitest**: Unit testing
-- **ESLint & Prettier**: Code linting and formatting
-
-## Development Workflow
-
-- **Development**: `npm run dev`
-- **Type Checking**: `npm run typecheck`
-- **Linting**: `npm run lint`
-- **Formatting**: `npm run format`
-- **Database Types**: `npm run gen:types`
-- **Testing**: `npm run test` (Vitest) or `npm run cypress:open` (E2E)
-- **Component Development**: `npm run storybook`
-
-## Customization
-
-This boilerplate is designed to be extended and customized. Key areas for customization:
-
-- Create new routes in `src/app/`
-- Add components in `src/components/`
-- Extend the database schema and update types with `npm run gen:types` (**never manually edit the database.ts file**)
-- Add new translations to support additional languages
-- Configure environment variables for different deployment environments
-
-For further guidance on authentication, internationalization, customization, and best practices, please refer to the project's README and code comments.
+```sql
+create or replace function my_schema.full_name(first_name text, last_name text)
+returns text
+language sql
+security invoker
+set search_path = ''
+immutable
+as $$
+  select first_name || ' ' || last_name;
+$$;
+```
 
 ---
 > Source: [tractr/nss-boilerplate](https://github.com/tractr/nss-boilerplate) — distributed by [TomeVault](https://tomevault.io).
