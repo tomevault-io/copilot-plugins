@@ -4,7 +4,7 @@
   "repo": "hushh_Tech_website",
   "description": "Public Hushh web/app wrapper for product surfaces, API integrations, Supabase workflows, tests, CI, and repo governance.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hushh-labs/hushh_Tech_website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T16:30:28Z"
+  "distributed_at": "2026-06-02T16:32:22Z"
 }
