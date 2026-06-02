@@ -1,0 +1,9 @@
+{
+  "name": "afernandes--globalkeyboardcapture-maui",
+  "displayName": "GlobalKeyboardCapture.Maui",
+  "description": "A powerful .NET MAUI library for global keyboard capture with support for barcode scanners, hotkeys, and cross-platform input handling.",
+  "version": "1.0.0",
+  "author": "afernandes",
+  "homepage": "https://github.com/afernandes/GlobalKeyboardCapture.Maui",
+  "skills": []
+}
