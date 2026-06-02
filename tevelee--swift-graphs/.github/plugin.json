@@ -1,0 +1,9 @@
+{
+  "name": "tevelee--swift-graphs",
+  "displayName": "swift-graphs",
+  "description": "A composable, extensible library for graph structures with support for a wide range of algorithms",
+  "version": "1.0.0",
+  "author": "tevelee",
+  "homepage": "https://github.com/tevelee/swift-graphs",
+  "skills": []
+}
