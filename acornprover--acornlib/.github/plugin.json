@@ -1,0 +1,9 @@
+{
+  "name": "acornprover--acornlib",
+  "displayName": "acornlib",
+  "description": "Acorn's standard library of mathematical facts.",
+  "version": "1.0.0",
+  "author": "acornprover",
+  "homepage": "https://github.com/acornprover/acornlib",
+  "skills": []
+}
