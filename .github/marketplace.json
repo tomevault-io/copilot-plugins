@@ -70194,6 +70194,11 @@
       "description": "MCP Google Doc"
     },
     {
+      "name": "arcinstitute--cyto",
+      "source": "./arcinstitute--cyto",
+      "description": "A mapper for 10x-flex single cell sequencing reads with fixed abstract geometries"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -71194,6 +71199,21 @@
       "description": "EasyDashboard is a data visualization dashboard solution developed based on the EasyEditor.  |  EasyDashboard \u662f\u57fa\u4e8e EasyEditor \u4f4e\u4ee3\u7801\u5f15\u64ce\u5f00\u53d1\u7684\u6570\u636e\u53ef\u89c6\u5316\u5927\u5c4f\u89e3\u51b3\u65b9\u6848"
     },
     {
+      "name": "linkupplatform--linkup-python-sdk",
+      "source": "./linkupplatform--linkup-python-sdk",
+      "description": "A Python SDK for the Linkup API"
+    },
+    {
+      "name": "tiptiz--editor",
+      "source": "./tiptiz--editor",
+      "description": "HTML5 & Email friendly WYSIWYG rich text editor by Tiptap & web comonents (WIP)"
+    },
+    {
+      "name": "tiptiz--editor",
+      "source": "./tiptiz--editor",
+      "description": "HTML5 & Email friendly WYSIWYG rich text editor by Tiptap & web comonents (WIP)"
+    },
+    {
       "name": "agents-squads--squads-cli",
       "source": "./agents-squads--squads-cli",
       "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents."
@@ -72147,6 +72167,31 @@
       "name": "oraylis--datam8-cli",
       "source": "./oraylis--datam8-cli",
       "description": "datam8-cli"
+    },
+    {
+      "name": "ainoya--chrome-extension-web-transcriptor-ai",
+      "source": "./ainoya--chrome-extension-web-transcriptor-ai",
+      "description": "Privacy-focused Chrome extension that transcribes audio from browser tabs locally using transformers.js and the TabCapture API. All processing occurs within the browser, ensuring that audio data is ne"
+    },
+    {
+      "name": "pdevito3--stewardef",
+      "source": "./pdevito3--stewardef",
+      "description": "\ud83d\udee0\ufe0f Simplifies EF management by helping to squash migrations"
+    },
+    {
+      "name": "nikolainobadi--dbmultiverse",
+      "source": "./nikolainobadi--dbmultiverse",
+      "description": "An iOS app to read and manage the DB Multiverse webcomic, built with a modular architecture."
+    },
+    {
+      "name": "nikolainobadi--dbmultiverse",
+      "source": "./nikolainobadi--dbmultiverse",
+      "description": "An iOS app to read and manage the DB Multiverse webcomic, built with a modular architecture."
+    },
+    {
+      "name": "nette--assets",
+      "source": "./nette--assets",
+      "description": "Elegant asset management for PHP with versioning, caching and providers for various storage backends"
     },
     {
       "name": "janbjorge--rekal",
@@ -73117,6 +73162,31 @@
       "name": "aipmer--book",
       "source": "./aipmer--book",
       "description": "\u300aCodex\u5b9e\u6218\u84dd\u76ae\u4e66\u300b\uff1aAI\u539f\u751f\u65f6\u4ee3\u7684\u4ea7\u54c1\u7814\u53d1\u4e0e\u591a\u7aef\u7f16\u6392\u5b9e\u6218\u6307\u5357\u3002"
+    },
+    {
+      "name": "marques-kevin--zenless-zone-zero-music-app",
+      "source": "./marques-kevin--zenless-zone-zero-music-app",
+      "description": "zenless-zone-zero-music.app"
+    },
+    {
+      "name": "marques-kevin--zenless-zone-zero-music-app",
+      "source": "./marques-kevin--zenless-zone-zero-music-app",
+      "description": "zenless-zone-zero-music.app"
+    },
+    {
+      "name": "sbounmy--hongbao-bitcoin",
+      "source": "./sbounmy--hongbao-bitcoin",
+      "description": "Satoshis for everyone. Turn Bitcoin gifting to a shared Bitcoin journey."
+    },
+    {
+      "name": "fiscalapi--fiscalapi-node",
+      "source": "./fiscalapi--fiscalapi-node",
+      "description": "SDK oficial de fiscalapi para consumo desde aplicaciones JavaScript "
+    },
+    {
+      "name": "wandelbotsgmbh--wandelbots-nova",
+      "source": "./wandelbotsgmbh--wandelbots-nova",
+      "description": "NOVA Python SDK https://deepwiki.com/wandelbotsgmbh/wandelbots-nova"
     },
     {
       "name": "66reapollo2--agentsge",
@@ -77009,6 +77079,11 @@
       "description": "Beautifully designed UI components and AI Agent tooling for Solana builders"
     },
     {
+      "name": "munich-quantum-toolkit--yaqs",
+      "source": "./munich-quantum-toolkit--yaqs",
+      "description": "YAQS: A Tool for Simulating Open Quantum Systems, Noisy Quantum Circuits, and Realistic Quantum Hardware"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -78197,6 +78272,21 @@
       "name": "cron-defi--polymarket-pnl-tracker",
       "source": "./cron-defi--polymarket-pnl-tracker",
       "description": "polymarket pnl tracker. Polymarket dashboard with Home (combined P&L), Accounts (per-wallet), and Activity (wallet & group collections, active/closed positions)."
+    },
+    {
+      "name": "mohamedsadiq--lightup",
+      "source": "./mohamedsadiq--lightup",
+      "description": "AI Genius annotations for every page on the web."
+    },
+    {
+      "name": "mohamedsadiq--lightup",
+      "source": "./mohamedsadiq--lightup",
+      "description": "AI Genius annotations for every page on the web."
+    },
+    {
+      "name": "mohamedsadiq--lightup",
+      "source": "./mohamedsadiq--lightup",
+      "description": "AI Genius annotations for every page on the web."
     },
     {
       "name": "affitor--open-affiliate",
@@ -81844,6 +81934,11 @@
       "description": "Smart contracts for Ekubo Protocol on EVM blockchains"
     },
     {
+      "name": "komakt--koma",
+      "source": "./komakt--koma",
+      "description": "A Kotlin Multiplatform Flux framework."
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -82977,6 +83072,11 @@
       "name": "freshfriedfish--claude-tokenizer",
       "source": "./freshfriedfish--claude-tokenizer",
       "description": "official unofficial wrapper for anthropic's tokenization api"
+    },
+    {
+      "name": "anote-ai--autonomous-intelligence",
+      "source": "./anote-ai--autonomous-intelligence",
+      "description": "Autonomous Intelligence is a framework for building collaborative, intelligent multi agent AI systems. The framework provides a robust infrastructure for creating and managing multiple AI agents, and "
     },
     {
       "name": "skywind3000--gamesample",
@@ -84267,6 +84367,21 @@
       "name": "saadshahd--moo-md",
       "source": "./saadshahd--moo-md",
       "description": "Structured thinking for Claude Code \u2014 ask before building, search before writing, verify before shipping"
+    },
+    {
+      "name": "curtmorgan3--quest-bound",
+      "source": "./curtmorgan3--quest-bound",
+      "description": "Free and Open Source Tabletop Game Engine"
+    },
+    {
+      "name": "vist233--infinity-agents",
+      "source": "./vist233--infinity-agents",
+      "description": "An AI agent for convert nature language to shell or python command and search paper for you"
+    },
+    {
+      "name": "alepee--hass-hitachi-yutaki",
+      "source": "./alepee--hass-hitachi-yutaki",
+      "description": "A custom Home Assistant integration to control and monitor Hitachi heat pumps through ATW-MBS-02 and HC-A(16/64)MB Modbus gateway."
     },
     {
       "name": "inureyes--gyeol",
@@ -85667,6 +85782,31 @@
       "name": "laulauland--bluesky-context-server",
       "source": "./laulauland--bluesky-context-server",
       "description": "Bluesky MCP server"
+    },
+    {
+      "name": "complytime--complyctl",
+      "source": "./complytime--complyctl",
+      "description": "A command-line tool for streamlining end-to-end compliance workflows on local systems."
+    },
+    {
+      "name": "dreamy-ui--dreamy-ui",
+      "source": "./dreamy-ui--dreamy-ui",
+      "description": "Dreamy UI is build-time CSS-in-JS React component library. Powered by Panda CSS."
+    },
+    {
+      "name": "complytime--complyctl",
+      "source": "./complytime--complyctl",
+      "description": "A command-line tool for streamlining end-to-end compliance workflows on local systems."
+    },
+    {
+      "name": "dreamy-ui--dreamy-ui",
+      "source": "./dreamy-ui--dreamy-ui",
+      "description": "Dreamy UI is build-time CSS-in-JS React component library. Powered by Panda CSS."
+    },
+    {
+      "name": "complytime--complyctl",
+      "source": "./complytime--complyctl",
+      "description": "A command-line tool for streamlining end-to-end compliance workflows on local systems."
     },
     {
       "name": "compozy--kb",
@@ -88822,6 +88962,16 @@
       "name": "mindfiredigital--pivothead",
       "source": "./mindfiredigital--pivothead",
       "description": "HeadlessPivot"
+    },
+    {
+      "name": "0xc3u--indiko-maui-controls-chat",
+      "source": "./0xc3u--indiko-maui-controls-chat",
+      "description": "Indiko.Maui.Controls.Chat"
+    },
+    {
+      "name": "bjarneo--pipe",
+      "source": "./bjarneo--pipe",
+      "description": "\ud83d\udc0b Pipe builds your Docker image locally, transfers only the changed layers to your server, and starts your container. It's like git push for containers."
     },
     {
       "name": "mulhamna--jira-commands",
@@ -92859,6 +93009,11 @@
       "description": "Hardware Agent"
     },
     {
+      "name": "kasianov-mikhail--scout",
+      "source": "./kasianov-mikhail--scout",
+      "description": "CloudKit as a Log Storage"
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -95002,6 +95157,26 @@
       "name": "animation-lab--proteinblender",
       "source": "./animation-lab--proteinblender",
       "description": "ProteinBlender"
+    },
+    {
+      "name": "humanspeak--svelte-headless-table",
+      "source": "./humanspeak--svelte-headless-table",
+      "description": "A powerful, headless table library for Svelte that provides complete control over table UI while handling complex data operations like sorting, filtering, pagination, grouping, and row expansion. Buil"
+    },
+    {
+      "name": "azzgo--excali-local",
+      "source": "./azzgo--excali-local",
+      "description": "a offline excalidraw editor wrapped as chrome extension"
+    },
+    {
+      "name": "refaim--missingcrafts",
+      "source": "./refaim--missingcrafts",
+      "description": "Vanilla WoW 1.12.1 and Turtle WoW addon. Shows the missing crafts for your crafting professions and how to obtain them."
+    },
+    {
+      "name": "humanspeak--svelte-headless-table",
+      "source": "./humanspeak--svelte-headless-table",
+      "description": "A powerful, headless table library for Svelte that provides complete control over table UI while handling complex data operations like sorting, filtering, pagination, grouping, and row expansion. Buil"
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -97187,6 +97362,16 @@
       "name": "pixellab-code--pixellab-python",
       "source": "./pixellab-code--pixellab-python",
       "description": "Python SDK for Pixel Lab"
+    },
+    {
+      "name": "tale--rootbeer",
+      "source": "./tale--rootbeer",
+      "description": "Deterministically manage your system using Lua!"
+    },
+    {
+      "name": "duzefu--d4keyhelp",
+      "source": "./duzefu--d4keyhelp",
+      "description": "\u6697\u9ed14  \u5e26UI\u7684AHK\u5b8f\u811a\u672c/Diablo4 AHK key helper with UI"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -99507,6 +99692,11 @@
       "name": "valtteril--harjus",
       "source": "./valtteril--harjus",
       "description": "Triangular arbitrage bot for Binance Spot market with userspace networking"
+    },
+    {
+      "name": "purrgrammer--chachi",
+      "source": "./purrgrammer--chachi",
+      "description": "a nostr group chat client"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -104832,6 +105022,21 @@
       "name": "elliot-at-liminalnook--a2a",
       "source": "./elliot-at-liminalnook--a2a",
       "description": "Rust A2A tools for the greater good"
+    },
+    {
+      "name": "richban--opendata-stack-platform",
+      "source": "./richban--opendata-stack-platform",
+      "description": "Open Data Stack Platform: a collection of projects and pipelines built with open data stack tools for scalable, observable  data platform."
+    },
+    {
+      "name": "richban--opendata-stack-platform",
+      "source": "./richban--opendata-stack-platform",
+      "description": "Open Data Stack Platform: a collection of projects and pipelines built with open data stack tools for scalable, observable  data platform."
+    },
+    {
+      "name": "richban--opendata-stack-platform",
+      "source": "./richban--opendata-stack-platform",
+      "description": "Open Data Stack Platform: a collection of projects and pipelines built with open data stack tools for scalable, observable  data platform."
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -122544,6 +122749,11 @@
       "description": "localclash-luci"
     },
     {
+      "name": "thomhurst--sourcy",
+      "source": "./thomhurst--sourcy",
+      "description": "Sourcy"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -126092,6 +126302,11 @@
       "name": "publicrust--rust-analyzer",
       "source": "./publicrust--rust-analyzer",
       "description": "rust-analyzer"
+    },
+    {
+      "name": "younes101020--delivery",
+      "source": "./younes101020--delivery",
+      "description": "\u2709\ufe0flightweight self-hostable Coolify, Vercel, Heroku alternative focusing on one single thing: deploying your applications as simply as possible, without any vendor lock-in."
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -130047,6 +130262,16 @@
       "name": "caiiiycuk--vcmi-wasm",
       "source": "./caiiiycuk--vcmi-wasm",
       "description": "vcmi-wasm"
+    },
+    {
+      "name": "asrieal--hoverreveal",
+      "source": "./asrieal--hoverreveal",
+      "description": "HoverReveal"
+    },
+    {
+      "name": "huntsyea--nextjs-directory-boilerplate",
+      "source": "./huntsyea--nextjs-directory-boilerplate",
+      "description": "Production-ready Next.js 15 boilerplate for content-driven websites with MDX, shadcn/ui, and TypeScript."
     },
     {
       "name": "mohiwalla--memes",
@@ -134817,6 +135042,21 @@
       "name": "bastidood--spectro",
       "source": "./bastidood--spectro",
       "description": "A multi-channel confession bot for Discord that supports anonymous replies and channel moderation."
+    },
+    {
+      "name": "aim-harvard--tumorimagingbench",
+      "source": "./aim-harvard--tumorimagingbench",
+      "description": "TumorImagingBench"
+    },
+    {
+      "name": "open-mbee--flexo-mms-sysmlv2",
+      "source": "./open-mbee--flexo-mms-sysmlv2",
+      "description": "flexo-mms-sysmlv2"
+    },
+    {
+      "name": "bloo-berries--awesome-endo-adeno-resources",
+      "source": "./bloo-berries--awesome-endo-adeno-resources",
+      "description": "Comprehensively and confidently navigating Endometriosis and Adenomyosis and their comorbidities. #MaintainerMonth"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -140062,6 +140302,11 @@
       "name": "koudaiii--azureupdatepptx",
       "source": "./koudaiii--azureupdatepptx",
       "description": "Azure Updates Summary"
+    },
+    {
+      "name": "esotericsoftware--nateclipse",
+      "source": "./esotericsoftware--nateclipse",
+      "description": "Eclipse plugin for coding agents and other improvements"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
