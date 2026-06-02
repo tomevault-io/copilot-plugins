@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [huanyuzhilv/skills-travel-planner](https://github.com/huanyuzhilv/skills-travel-planner).
+Original source: `CLAUDE.md` in [huanyuzhilv/skills-travel-planner](https://github.com/huanyuzhilv/skills-travel-planner).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
