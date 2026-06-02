@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--undici-cache-redis",
+  "displayName": "undici-cache-redis",
+  "description": "undici-cache-redis",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/undici-cache-redis",
+  "skills": []
+}
