@@ -1,0 +1,9 @@
+{
+  "name": "acornprover--acorn",
+  "displayName": "acorn",
+  "description": "The core implementation of the Acorn language.",
+  "version": "1.0.0",
+  "author": "acornprover",
+  "homepage": "https://github.com/acornprover/acorn",
+  "skills": []
+}
