@@ -1,0 +1,9 @@
+{
+  "name": "cipherstash--proxy",
+  "displayName": "proxy",
+  "description": "Encrypt and search your sensitive data in PostgreSQL, with no SQL changes",
+  "version": "1.0.0",
+  "author": "cipherstash",
+  "homepage": "https://github.com/cipherstash/proxy",
+  "skills": []
+}
