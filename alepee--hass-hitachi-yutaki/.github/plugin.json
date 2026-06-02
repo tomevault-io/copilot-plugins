@@ -1,0 +1,9 @@
+{
+  "name": "alepee--hass-hitachi-yutaki",
+  "displayName": "hass-hitachi_yutaki",
+  "description": "A custom Home Assistant integration to control and monitor Hitachi heat pumps through ATW-MBS-02 and HC-A(16/64)MB Modbus gateway.",
+  "version": "1.0.0",
+  "author": "alepee",
+  "homepage": "https://github.com/alepee/hass-hitachi_yutaki",
+  "skills": []
+}
