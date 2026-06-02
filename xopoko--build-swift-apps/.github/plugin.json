@@ -1,0 +1,9 @@
+{
+  "name": "xopoko--build-swift-apps",
+  "displayName": "build-swift-apps",
+  "description": "Multi-agent skills for building, debugging, profiling, testing, and shipping Swift apps across Apple platforms",
+  "version": "1.0.0",
+  "author": "Xopoko",
+  "homepage": "https://github.com/Xopoko/build-swift-apps",
+  "skills": []
+}
