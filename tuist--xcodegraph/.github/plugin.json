@@ -1,0 +1,9 @@
+{
+  "name": "tuist--xcodegraph",
+  "displayName": "XcodeGraph",
+  "description": "\u1368 A Swift Package with data structures to model Xcode workspaces and projects",
+  "version": "1.0.0",
+  "author": "tuist",
+  "homepage": "https://github.com/tuist/XcodeGraph",
+  "skills": []
+}
