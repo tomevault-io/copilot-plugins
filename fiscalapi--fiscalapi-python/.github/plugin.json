@@ -1,0 +1,9 @@
+{
+  "name": "fiscalapi--fiscalapi-python",
+  "displayName": "fiscalapi-python",
+  "description": "Crea facturas CFDI en python consumiendo el api de Fiscalapi. Factura sin dolor!! ",
+  "version": "1.0.0",
+  "author": "FiscalAPI",
+  "homepage": "https://github.com/FiscalAPI/fiscalapi-python",
+  "skills": []
+}
