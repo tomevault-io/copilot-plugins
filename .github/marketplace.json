@@ -175229,6 +175229,26 @@
       "description": "graphiti-mcp-but-working"
     },
     {
+      "name": "operationt00--t-code",
+      "source": "./operationt00--t-code",
+      "description": "\u4e00\u6b3e\u96c6\u6210\u4e86ReAct\uff0cPlan-and-Execute\u548cMulti-Agent\u7684coding agent"
+    },
+    {
+      "name": "operationt00--t-code",
+      "source": "./operationt00--t-code",
+      "description": "\u4e00\u6b3e\u96c6\u6210\u4e86ReAct\uff0cPlan-and-Execute\u548cMulti-Agent\u7684coding agent"
+    },
+    {
+      "name": "chenchenyaqi--learn-anything",
+      "source": "./chenchenyaqi--learn-anything",
+      "description": "AI-powered recursive learning system \u2014 Socratic deep-dives and TDD-style exercises integrated directly into your coding assistant."
+    },
+    {
+      "name": "kjx-talesofai--md-agent-pro",
+      "source": "./kjx-talesofai--md-agent-pro",
+      "description": "A minimal, standalone CLI agent demonstrating the core concepts of autonomous AI systems. Built with OpenAI's tool calling API, this project shows how simple file operations can enable powerful automa"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -187659,6 +187679,16 @@
       "description": "Spark Pulse is a web control plane for spark-vllm-docker"
     },
     {
+      "name": "xiansa20--huoguang-voice-assistant",
+      "source": "./xiansa20--huoguang-voice-assistant",
+      "description": "\u706b\u5149 AI \u8bed\u97f3\u52a9\u624b\uff1aAI \u5bf9\u8bdd\u4e0e\u706b\u5c71\u5f15\u64ce\u8bed\u97f3\u751f\u6210\u5de5\u5177"
+    },
+    {
+      "name": "yastman--rag",
+      "source": "./yastman--rag",
+      "description": "AI real-estate automation platform: Telegram bot, RAG, apartment search, CRM workflows, voice agent, Langfuse observability, and Dockerized AI runtime."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -190612,6 +190642,46 @@
       "name": "roam-bit--ai-collaboration-notebook",
       "source": "./roam-bit--ai-collaboration-notebook",
       "description": "\u8ba9 AI \u4e3b\u52a8\u8bb0\u9519\u9898\u3001\u81ea\u6211\u8fed\u4ee3\u7684\u534f\u4f5c\u673a\u5236 \u00b7 A framework that makes your AI reflect on its own mistakes and stop repeating them"
+    },
+    {
+      "name": "00prabalk00--continuum",
+      "source": "./00prabalk00--continuum",
+      "description": "Local shared memory and controlled workflows for AI coding agents."
+    },
+    {
+      "name": "nvidia-omniverse--usd-optimize",
+      "source": "./nvidia-omniverse--usd-optimize",
+      "description": "usd-optimize"
+    },
+    {
+      "name": "nvidia-omniverse--usd-optimize",
+      "source": "./nvidia-omniverse--usd-optimize",
+      "description": "usd-optimize"
+    },
+    {
+      "name": "leriart--nothingless",
+      "source": "./leriart--nothingless",
+      "description": "A high-performance, deeply customizable Wayland shell built with Quickshell. "
+    },
+    {
+      "name": "00prabalk00--continuum",
+      "source": "./00prabalk00--continuum",
+      "description": "Local shared memory and controlled workflows for AI coding agents."
+    },
+    {
+      "name": "breadddevv--feedbase",
+      "source": "./breadddevv--feedbase",
+      "description": "Open source feedback management platform for product teams."
+    },
+    {
+      "name": "vibe-coding-era--goal-teams",
+      "source": "./vibe-coding-era--goal-teams",
+      "description": "goal-teams"
+    },
+    {
+      "name": "00prabalk00--continuum",
+      "source": "./00prabalk00--continuum",
+      "description": "Local shared memory and controlled workflows for AI coding agents."
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -295747,6 +295817,26 @@
       "name": "gretenataliya--projektimperiet",
       "source": "./gretenataliya--projektimperiet",
       "description": "Projektimperiet"
+    },
+    {
+      "name": "karem505--ailigent-spark",
+      "source": "./karem505--ailigent-spark",
+      "description": "AI-powered business automation platform by Ailigent"
+    },
+    {
+      "name": "quincyco--incremental-resource-mgmt",
+      "source": "./quincyco--incremental-resource-mgmt",
+      "description": "Godot being made"
+    },
+    {
+      "name": "liulb--mediamtx",
+      "source": "./liulb--mediamtx",
+      "description": "This is a self-hosted telemedicine video streaming system that replaces Tencent Cloud TRTC service to achieve 90% cost savings (from \u00a57,300/month to \u00a5700/month). The system enables **bidirectional vid"
+    },
+    {
+      "name": "earbunsong--hospital-system",
+      "source": "./earbunsong--hospital-system",
+      "description": "hospital_system"
     }
   ]
 }
