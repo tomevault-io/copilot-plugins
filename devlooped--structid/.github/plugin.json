@@ -1,0 +1,9 @@
+{
+  "name": "devlooped--structid",
+  "displayName": "StructId",
+  "description": "Automatic implemention of stronly typed IDs via record structs with compile-time feature auto-detection",
+  "version": "1.0.0",
+  "author": "devlooped",
+  "homepage": "https://github.com/devlooped/StructId",
+  "skills": []
+}
