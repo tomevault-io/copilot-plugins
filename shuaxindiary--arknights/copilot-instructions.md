@@ -1,0 +1,151 @@
+## project
+
+> - **框架**: React 19 + TypeScript
+
+
+# 明日方舟信息生成器 - 项目开发规范
+
+## 技术栈
+
+- **框架**: React 19 + TypeScript
+- **构建工具**: Rsbuild
+- **UI 组件库**: HeroUI (@heroui/react)
+- **样式**: Tailwind CSS
+- **路由**: React Router v7
+- **状态管理**: ahooks (useLocalStorageState 等)
+- **动画**: Framer Motion
+- **国际化**: i18next + react-i18next
+- **主题**: next-themes
+
+## 代码规范
+
+### 异步代码
+
+所有异步操作必须使用 `async/await` 语法：
+
+```typescript
+// ❌ BAD
+function fetchData() {
+  return fetch('/api/data')
+    .then(res => res.json())
+    .then(data => processData(data));
+}
+
+// ✅ GOOD
+async function fetchData() {
+  const res = await fetch('/api/data');
+  const data = await res.json();
+  return processData(data);
+}
+```
+
+### 常量管理
+
+常量逻辑抽离为独立变量，维护在当前文件最顶部（import 语句之后）：
+
+```typescript
+import { useState } from 'react';
+
+// 常量定义区域
+const DEFAULT_PAGE_SIZE = 10;
+const API_TIMEOUT_MS = 5000;
+const SUPPORTED_FORMATS = ['jpg', 'png', 'webp'];
+
+// 组件/函数实现
+export function MyComponent() {
+  // ...
+}
+```
+
+### 注释规范
+
+所有逻辑变量和 TypeScript 类型都需要有注释：
+
+```typescript
+/** 用户信息类型 */
+interface UserInfo {
+  /** 用户唯一标识 */
+  id: string;
+  /** 用户显示名称 */
+  name: string;
+  /** 用户头像 URL */
+  avatar?: string;
+}
+
+/** 当前页码，从 1 开始 */
+const [page, setPage] = useState(1);
+
+/** 是否正在加载数据 */
+const [loading, setLoading] = useState(false);
+```
+
+### React 组件
+
+- 使用函数式组件和 Hooks
+- 组件文件使用 PascalCase 命名，如 `FormItemCard.tsx`
+- 优先使用 HeroUI 组件（Button, Card, Modal, Input, Autocomplete 等）
+- 自定义组件放在 `src/components/` 目录下
+- 页面组件放在 `src/pages/` 目录下
+
+### TypeScript
+
+- 为 props 定义明确的 interface
+- 使用 ReactNode 类型支持灵活的子组件传入
+- 避免使用 any，必要时使用 `@ts-ignore` 并添加注释说明
+
+### 样式
+
+- 优先使用 Tailwind CSS 类名
+- 遵循 HeroUI 的设计规范和颜色系统
+- 使用 Tailwind 的响应式前缀处理移动端适配
+- 常用颜色类：`text-default-500`, `bg-primary`, `text-default-800` 等
+
+### Hooks 使用
+
+- 使用 ahooks 提供的 hooks：`useThrottleFn`, `useLocalStorageState` 等
+- 自定义 hooks 放在 `src/hooks/` 目录
+- 使用项目封装的 `useLocalData` 管理本地存储数据
+- 使用 `useToTop` 在页面切换时滚动到顶部
+
+### 国际化
+
+- 使用 `THook()` 获取翻译函数 `t`
+- 翻译 key 必须在 i18n 配置中定义
+- 支持的语言：zh（中文）、en（英文）、jp（日文）
+- 文案维护在 src/utils/I18n/i18n.ts
+
+### 动画
+
+- 使用 Framer Motion 实现页面过渡和交互动画
+- 常用组件：`motion.div`, `AnimatePresence`
+- 定义 variants 对象管理动画状态
+
+### 数据管理
+
+- 表单数据使用 `RESULT_DATA_KEY` 存储在 localStorage
+- 静态数据放在 `src/data/` 目录
+- 表单配置统一在 `FormRender.tsx` 的 `FormMap` 中定义
+
+## 文件结构
+
+```
+src/
+├── components/     # 通用组件
+├── pages/          # 页面组件
+├── data/           # 静态数据
+├── hooks/          # 自定义 hooks
+├── utils/          # 工具函数和常量
+│   ├── constant.ts # 常量定义
+│   └── I18n/       # 国际化配置
+└── main.tsx        # 入口文件和路由配置
+```
+
+## 常用命令
+
+- `pnpm dev` - 启动开发服务器
+- `pnpm build` - 构建生产版本
+- `pnpm lint` - 代码检查
+
+---
+> Source: [SHUAXINDIARY/Arknights](https://github.com/SHUAXINDIARY/Arknights) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
