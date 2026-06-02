@@ -1,0 +1,9 @@
+{
+  "name": "open-audio-stack--open-audio-stack-registry",
+  "displayName": "open-audio-stack-registry",
+  "description": "Audio registry with searchable list of packages containing Plugins, Presets and Projects.",
+  "version": "1.0.0",
+  "author": "open-audio-stack",
+  "homepage": "https://github.com/open-audio-stack/open-audio-stack-registry",
+  "skills": []
+}
