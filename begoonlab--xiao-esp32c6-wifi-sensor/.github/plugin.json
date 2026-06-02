@@ -1,0 +1,9 @@
+{
+  "name": "begoonlab--xiao-esp32c6-wifi-sensor",
+  "displayName": "xiao-esp32c6-wifi-sensor",
+  "description": "Wi-Fi sensor based on XIAO ESP32-C6",
+  "version": "1.0.0",
+  "author": "BegoonLab",
+  "homepage": "https://github.com/BegoonLab/xiao-esp32c6-wifi-sensor",
+  "skills": []
+}
