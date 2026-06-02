@@ -1,0 +1,9 @@
+{
+  "name": "biont--shellm",
+  "displayName": "shellm",
+  "description": "A one-file Ollama CLI client written in bash",
+  "version": "1.0.0",
+  "author": "Biont",
+  "homepage": "https://github.com/Biont/shellm",
+  "skills": []
+}
