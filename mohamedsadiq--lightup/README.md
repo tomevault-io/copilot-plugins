@@ -2,6 +2,8 @@
 
 > Sourced from [mohamedsadiq/LightUp](https://github.com/mohamedsadiq/LightUp) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+AI Genius annotations for every page on the web.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.windsurf/rules/*.md` in [mohamedsadiq/LightUp](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/mohamedsadiq#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/mohamedsadiq/LightUp](https://github.com/mohamedsadiq/LightUp)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install mohamedsadiq/LightUp
 ```
-Or browse all formats at [https://tomevault.io/claim/mohamedsadiq](https://tomevault.io/claim/mohamedsadiq).
+Source: [github.com/mohamedsadiq/LightUp](https://github.com/mohamedsadiq/LightUp).
 
 <!-- genome:a-i-q -->
