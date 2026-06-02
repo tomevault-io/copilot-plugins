@@ -8739,6 +8739,11 @@
       "description": "AI Elements Vue is a component library built on top of shadcn-vue to help you build AI-native applications faster."
     },
     {
+      "name": "butterbase-ai--butterbase",
+      "source": "./butterbase-ai--butterbase",
+      "description": "Open-source backend-as-a-service. Postgres, auth, storage, functions, AI gateway, MCP."
+    },
+    {
       "name": "cloudflare--kumo",
       "source": "./cloudflare--kumo",
       "description": "Cloudflare's component library for building modern web applications."
@@ -94739,6 +94744,16 @@
       "description": "Lunch Money Telegram bot"
     },
     {
+      "name": "krispuckett--swiftuishaders",
+      "source": "./krispuckett--swiftuishaders",
+      "description": "41 hand-curated drop-in SwiftUI Metal shader effects \u2014 holographic foil, kaleidoscope, magnetic fields, glitch, neon edges and more. Typed View modifiers, agent-friendly docs."
+    },
+    {
+      "name": "krispuckett--swiftuishaders",
+      "source": "./krispuckett--swiftuishaders",
+      "description": "41 hand-curated drop-in SwiftUI Metal shader effects \u2014 holographic foil, kaleidoscope, magnetic fields, glitch, neon edges and more. Typed View modifiers, agent-friendly docs."
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -152882,6 +152897,16 @@
       "name": "psbrew--mkpfs",
       "source": "./psbrew--mkpfs",
       "description": "Create and Manage Unsigned PFS (Playstation File System) image files with file compression and checksum support."
+    },
+    {
+      "name": "chenhg5--imole",
+      "source": "./chenhg5--imole",
+      "description": "An open-source iPhone slimming toolkit to find storage hogs, back up media locally, and safely free up space without relying on iCloud."
+    },
+    {
+      "name": "chenhg5--imole",
+      "source": "./chenhg5--imole",
+      "description": "An open-source iPhone slimming toolkit to find storage hogs, back up media locally, and safely free up space without relying on iCloud."
     },
     {
       "name": "yschimke--compose-ai-tools",
