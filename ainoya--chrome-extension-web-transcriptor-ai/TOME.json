@@ -1,0 +1,44 @@
+{
+  "name": "chrome-extension-web-transcriptor-ai",
+  "owner": "ainoya",
+  "repo": "chrome-extension-web-transcriptor-ai",
+  "description": "Privacy-focused Chrome extension that transcribes audio from browser tabs locally using transformers.js and the TabCapture API. All processing occurs within the browser, ensuring that audio data is never sent to external servers.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ainoya/chrome-extension-web-transcriptor-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T18:34:04Z"
+}
