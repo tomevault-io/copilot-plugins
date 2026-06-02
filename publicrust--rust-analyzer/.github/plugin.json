@@ -1,0 +1,9 @@
+{
+  "name": "publicrust--rust-analyzer",
+  "displayName": "rust-analyzer",
+  "description": "rust-analyzer",
+  "version": "1.0.0",
+  "author": "publicrust",
+  "homepage": "https://github.com/publicrust/rust-analyzer",
+  "skills": []
+}
