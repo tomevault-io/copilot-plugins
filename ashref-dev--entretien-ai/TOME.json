@@ -1,0 +1,44 @@
+{
+  "name": "entretien-ai",
+  "owner": "Ashref-dev",
+  "repo": "entretien-ai",
+  "description": "Land Your Dream Job With Our Interview Practice. \ud83d\ude80 Get instant feedback, improve fast, and land your dream role. 95% of users increased confidence after just 3 sessions.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ashref-dev/entretien-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T21:35:22Z"
+}
