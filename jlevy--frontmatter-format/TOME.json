@@ -4,7 +4,7 @@
   "repo": "frontmatter-format",
   "description": "A simple convention for YAML metadata on any file",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jlevy/frontmatter-format",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T20:45:48Z"
+  "distributed_at": "2026-06-02T20:46:21Z"
 }
