@@ -152939,6 +152939,11 @@
       "description": "LeonAI"
     },
     {
+      "name": "sanster--string-catalog",
+      "source": "./sanster--string-catalog",
+      "description": "string-catalog"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -175314,6 +175319,11 @@
       "description": "duckdb-cityjson"
     },
     {
+      "name": "seemseam--agent-roles-spec",
+      "source": "./seemseam--agent-roles-spec",
+      "description": "agent-roles-spec"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -187814,6 +187824,31 @@
       "description": "\u6700\u68d2\u7684\u7684ASR\u540e\u5904\u7406\u70ed\u8bcd\u65b9\u6848\uff0c\u57fa\u4e8e\u97f3\u7d20\u7f16\u8f91\u8ddd\u79bb\uff0c\u5b9e\u73b0\u70ed\u8bcd\u66ff\u6362\u3002"
     },
     {
+      "name": "webdastur--dj-admin-tui",
+      "source": "./webdastur--dj-admin-tui",
+      "description": "Drive the Django admin from your terminal \u2014 browse, search, filter, edit, and run admin actions, with the same permissions and audit as the web admin. Built on Textual."
+    },
+    {
+      "name": "magnus919--hermes-skillopt",
+      "source": "./magnus919--hermes-skillopt",
+      "description": "Controlled skill optimization for Hermes Agent \u2014 derives from Microsoft Research's SkillOpt: 52/52 settings improved through text-space optimization with validation gates."
+    },
+    {
+      "name": "sagargupta16--financial-dashboard",
+      "source": "./sagargupta16--financial-dashboard",
+      "description": "React TypeScript financial dashboard with Chart.js analytics, data visualization, trends forecasting, and responsive Tailwind CSS design"
+    },
+    {
+      "name": "dzvyagin--ai-clean-arch-demo",
+      "source": "./dzvyagin--ai-clean-arch-demo",
+      "description": "ai-clean-arch-demo"
+    },
+    {
+      "name": "derekphilipau--museum-semantic-search",
+      "source": "./derekphilipau--museum-semantic-search",
+      "description": "AI-powered semantic search for museum collections."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -190842,6 +190877,21 @@
       "name": "itsmeeaera--claude-switcher",
       "source": "./itsmeeaera--claude-switcher",
       "description": "TUI profile switcher for Claude Code API endpoints"
+    },
+    {
+      "name": "magicbug--oscarwatch-tracker",
+      "source": "./magicbug--oscarwatch-tracker",
+      "description": "OscarWatch Multiplatform Satellite Tracking System"
+    },
+    {
+      "name": "issacw228--student-llm-wiki",
+      "source": "./issacw228--student-llm-wiki",
+      "description": "\ud83d\udcda Student LLM Wiki \u2014 AI-compiled knowledge base for university students. Drop course slides, get a persistent interlinked wiki. Feynman review, exam prep, confidence decay, cross-course connections. B"
+    },
+    {
+      "name": "issacw228--student-llm-wiki",
+      "source": "./issacw228--student-llm-wiki",
+      "description": "\ud83d\udcda Student LLM Wiki \u2014 AI-compiled knowledge base for university students. Drop course slides, get a persistent interlinked wiki. Feynman review, exam prep, confidence decay, cross-course connections. B"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
