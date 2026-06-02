@@ -1,0 +1,9 @@
+{
+  "name": "gosuda--randflake",
+  "displayName": "randflake",
+  "description": "Randflake ID: a distributed, uniform, unpredictable, unique random ID generator.",
+  "version": "1.0.0",
+  "author": "gosuda",
+  "homepage": "https://github.com/gosuda/randflake",
+  "skills": []
+}
