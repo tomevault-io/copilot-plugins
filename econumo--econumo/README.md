@@ -7,11 +7,11 @@ Econumo - A personal and family budgeting app with multi-currency support, share
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [econumo/econumo](https://github.com/econumo/econumo).
+Original source: `AGENTS.md` in [econumo/econumo](https://github.com/econumo/econumo).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
