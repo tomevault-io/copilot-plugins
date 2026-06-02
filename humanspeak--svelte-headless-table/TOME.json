@@ -4,7 +4,7 @@
   "repo": "svelte-headless-table",
   "description": "A powerful, headless table library for Svelte that provides complete control over table UI while handling complex data operations like sorting, filtering, pagination, grouping, and row expansion. Build custom, accessible data tables with zero styling opinions.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/humanspeak/svelte-headless-table",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T18:46:02Z"
+  "distributed_at": "2026-06-02T18:55:50Z"
 }
