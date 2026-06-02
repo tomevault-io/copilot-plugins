@@ -1,0 +1,9 @@
+{
+  "name": "itsmeeaera--claude-switcher",
+  "displayName": "claude-switcher",
+  "description": "TUI profile switcher for Claude Code API endpoints",
+  "version": "1.0.0",
+  "author": "ItsMeEAera",
+  "homepage": "https://github.com/ItsMeEAera/claude-switcher",
+  "skills": []
+}
