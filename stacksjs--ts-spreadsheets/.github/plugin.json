@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--ts-spreadsheets",
+  "displayName": "ts-spreadsheets",
+  "description": "\ud83d\udcca Easily manage & generate spreadsheets. CSV & Excel files supported.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/ts-spreadsheets",
+  "skills": []
+}
