@@ -1,0 +1,9 @@
+{
+  "name": "ainoya--chrome-extension-web-transcriptor-ai",
+  "displayName": "chrome-extension-web-transcriptor-ai",
+  "description": "Privacy-focused Chrome extension that transcribes audio from browser tabs locally using transformers.js and the TabCapture API. All processing occurs within the browser, ensuring that audio data is ne",
+  "version": "1.0.0",
+  "author": "ainoya",
+  "homepage": "https://github.com/ainoya/chrome-extension-web-transcriptor-ai",
+  "skills": []
+}
