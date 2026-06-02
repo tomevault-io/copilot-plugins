@@ -1,0 +1,9 @@
+{
+  "name": "roam-bit--ai-collaboration-notebook",
+  "displayName": "ai-collaboration-notebook",
+  "description": "\u8ba9 AI \u4e3b\u52a8\u8bb0\u9519\u9898\u3001\u81ea\u6211\u8fed\u4ee3\u7684\u534f\u4f5c\u673a\u5236 \u00b7 A framework that makes your AI reflect on its own mistakes and stop repeating them",
+  "version": "1.0.0",
+  "author": "roam-bit",
+  "homepage": "https://github.com/roam-bit/ai-collaboration-notebook",
+  "skills": []
+}
