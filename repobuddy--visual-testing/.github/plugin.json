@@ -1,0 +1,9 @@
+{
+  "name": "repobuddy--visual-testing",
+  "displayName": "visual-testing",
+  "description": "storybook visual snapshot addon",
+  "version": "1.0.0",
+  "author": "repobuddy",
+  "homepage": "https://github.com/repobuddy/visual-testing",
+  "skills": []
+}
