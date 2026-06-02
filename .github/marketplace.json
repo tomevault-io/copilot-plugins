@@ -69479,6 +69479,16 @@
       "description": "Experimental CUDA kernel framework unifying typed dimensions, NVRTC JIT specialization, and ML\u2011guided tuning."
     },
     {
+      "name": "open-audio-stack--open-audio-stack-registry",
+      "source": "./open-audio-stack--open-audio-stack-registry",
+      "description": "Audio registry with searchable list of packages containing Plugins, Presets and Projects."
+    },
+    {
+      "name": "chriskoch--ngx-renamer",
+      "source": "./chriskoch--ngx-renamer",
+      "description": "AI-powered post-consume script for Paperless NGX that generates high-quality, language-aware document titles using OpenAI, Claude or local Ollama models."
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -70407,6 +70417,21 @@
       "name": "arcinstitute--cyto",
       "source": "./arcinstitute--cyto",
       "description": "A mapper for 10x-flex single cell sequencing reads with fixed abstract geometries"
+    },
+    {
+      "name": "fatbobman--simplelogger",
+      "source": "./fatbobman--simplelogger",
+      "description": "A simple logging library for Swift 6, providing easy-to-use logging functionalities with support for different log levels and backends."
+    },
+    {
+      "name": "recallai--voice-agent-demo",
+      "source": "./recallai--voice-agent-demo",
+      "description": "voice-agent-demo"
+    },
+    {
+      "name": "fatbobman--simplelogger",
+      "source": "./fatbobman--simplelogger",
+      "description": "A simple logging library for Swift 6, providing easy-to-use logging functionalities with support for different log levels and backends."
     },
     {
       "name": "izittmarvin--memcoach",
@@ -71422,6 +71447,11 @@
       "name": "tiptiz--editor",
       "source": "./tiptiz--editor",
       "description": "HTML5 & Email friendly WYSIWYG rich text editor by Tiptap & web comonents (WIP)"
+    },
+    {
+      "name": "naverpaydev--hidash",
+      "source": "./naverpaydev--hidash",
+      "description": "Improved lodash"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -73399,6 +73429,16 @@
       "description": "NOVA Python SDK https://deepwiki.com/wandelbotsgmbh/wandelbots-nova"
     },
     {
+      "name": "dkyazzentwatwa--cypher-pn532",
+      "source": "./dkyazzentwatwa--cypher-pn532",
+      "description": "A tiny ESP32 device that interacts with RFID + NFC devices using the PN532 chip."
+    },
+    {
+      "name": "dkyazzentwatwa--cypher-pn532",
+      "source": "./dkyazzentwatwa--cypher-pn532",
+      "description": "A tiny ESP32 device that interacts with RFID + NFC devices using the PN532 chip."
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -74442,6 +74482,16 @@
       "name": "devlooped--structid",
       "source": "./devlooped--structid",
       "description": "Automatic implemention of stronly typed IDs via record structs with compile-time feature auto-detection"
+    },
+    {
+      "name": "gotray--go-python",
+      "source": "./gotray--go-python",
+      "description": "Write Python in Go - The most intuitive Python wrapper for Golang"
+    },
+    {
+      "name": "dtedesco1--nextjs-markdown-boilerplate",
+      "source": "./dtedesco1--nextjs-markdown-boilerplate",
+      "description": "A minimal Next.js 15 application that renders content from Markdown files."
     },
     {
       "name": "yoloshii--mcp-code-execution-enhanced",
@@ -77294,6 +77344,11 @@
       "description": "YAQS: A Tool for Simulating Open Quantum Systems, Noisy Quantum Circuits, and Realistic Quantum Hardware"
     },
     {
+      "name": "brokenalarms--hey-proton",
+      "source": "./brokenalarms--hey-proton",
+      "description": "Sieve filters for Proton inspired by HEY."
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -79667,6 +79722,11 @@
       "name": "hanniballei--follow-stock-kol",
       "source": "./hanniballei--follow-stock-kol",
       "description": "AI-powered daily digest-monitors top stock kols in X, remixes their content into digestible summaries."
+    },
+    {
+      "name": "foobarz076--gtss-ai-docs",
+      "source": "./foobarz076--gtss-ai-docs",
+      "description": "\u539f\u8ba1\u5212\u662f AIGC+GTS \u521b\u4f5c\u76f8\u5173\u7684\u6559\u7a0b\uff0c\u76f4\u5230\u53d1\u73b0\u5927\u591a\u6570\u4eba\u9996\u5148\u7f3a\u4e4f\u57fa\u7840\u77e5\u8bc6\uff0c\u76f8\u5173\u7684\u5de5\u5177\u7528\u6cd5\u4e5f\u662f\u4e00\u95ee\u4e09\u4e0d\u77e5\u3002 \u4e8e\u662f\u8f6c\u5411\u5148\u666e\u53ca\u5de5\u5177\u4f7f\u7528\uff0c\u518d\u6dfb\u52a0 XP \uff08\uff1f\uff09"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -82149,6 +82209,16 @@
       "description": "A Kotlin Multiplatform Flux framework."
     },
     {
+      "name": "luxms--pgnats",
+      "source": "./luxms--pgnats",
+      "description": "PostgreSQL extension for NATS messaging"
+    },
+    {
+      "name": "barredterra--pretty-release-notes",
+      "source": "./barredterra--pretty-release-notes",
+      "description": "Turn GitHub's auto-generated release notes into human-readable sentences."
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -83287,6 +83357,21 @@
       "name": "anote-ai--autonomous-intelligence",
       "source": "./anote-ai--autonomous-intelligence",
       "description": "Autonomous Intelligence is a framework for building collaborative, intelligent multi agent AI systems. The framework provides a robust infrastructure for creating and managing multiple AI agents, and "
+    },
+    {
+      "name": "near-horizon--near-protocol-rewards",
+      "source": "./near-horizon--near-protocol-rewards",
+      "description": "A transparent, metric-based rewards system for NEAR projects that directly ties incentives to development activity and user adoption."
+    },
+    {
+      "name": "ferritin-bio--ferritin",
+      "source": "./ferritin-bio--ferritin",
+      "description": "protein utilities in Rust"
+    },
+    {
+      "name": "ferritin-bio--ferritin",
+      "source": "./ferritin-bio--ferritin",
+      "description": "protein utilities in Rust"
     },
     {
       "name": "skywind3000--gamesample",
@@ -86019,6 +86104,21 @@
       "description": "A command-line tool for streamlining end-to-end compliance workflows on local systems."
     },
     {
+      "name": "biont--shellm",
+      "source": "./biont--shellm",
+      "description": "A one-file Ollama CLI client written in bash"
+    },
+    {
+      "name": "intrinsec--s3proxy",
+      "source": "./intrinsec--s3proxy",
+      "description": "S3 Proxy for client side encryption"
+    },
+    {
+      "name": "justinmdickey--goplaying",
+      "source": "./justinmdickey--goplaying",
+      "description": "Now Playing TUI written in Go"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -87592,6 +87692,21 @@
       "name": "barneyd66--open-warehouse-system",
       "source": "./barneyd66--open-warehouse-system",
       "description": "Chinese-first open-source WMS starter for cross-border warehouse, fulfillment, inventory, billing, returns, and 3PL operations."
+    },
+    {
+      "name": "arloliu--go-secs",
+      "source": "./arloliu--go-secs",
+      "description": "A library that implements SES-II/HSMS/SML in Go"
+    },
+    {
+      "name": "arloliu--go-secs",
+      "source": "./arloliu--go-secs",
+      "description": "A library that implements SES-II/HSMS/SML in Go"
+    },
+    {
+      "name": "drmichaeldouglass--dicomator",
+      "source": "./drmichaeldouglass--dicomator",
+      "description": "A Blender Add-On for making synthetic CT datasets from 3D meshes"
     },
     {
       "name": "navikt--cplt",
@@ -89182,6 +89297,11 @@
       "name": "bjarneo--pipe",
       "source": "./bjarneo--pipe",
       "description": "\ud83d\udc0b Pipe builds your Docker image locally, transfers only the changed layers to your server, and starts your container. It's like git push for containers."
+    },
+    {
+      "name": "qazsato--openapi-generate-html",
+      "source": "./qazsato--openapi-generate-html",
+      "description": "Generate standalone HTML from OpenAPI Specification."
     },
     {
       "name": "mulhamna--jira-commands",
@@ -102229,6 +102349,21 @@
       "description": "oh-my-zsh style customization framework for Claude Code"
     },
     {
+      "name": "jlevy--frontmatter-format",
+      "source": "./jlevy--frontmatter-format",
+      "description": "A simple convention for YAML metadata on any file"
+    },
+    {
+      "name": "jlevy--frontmatter-format",
+      "source": "./jlevy--frontmatter-format",
+      "description": "A simple convention for YAML metadata on any file"
+    },
+    {
+      "name": "kcp-dev--kcp-operator",
+      "source": "./kcp-dev--kcp-operator",
+      "description": "A Kubernetes operator to deploy and manage kcp instances."
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -107774,6 +107909,16 @@
       "description": "New web apps for Operaton"
     },
     {
+      "name": "hotchpotch--yast",
+      "source": "./hotchpotch--yast",
+      "description": "YAST - Yet Another SPLADE or Sparse Trainer"
+    },
+    {
+      "name": "modfin--cove",
+      "source": "./modfin--cove",
+      "description": "Embedded cache lib using sqlite for storage"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -110352,6 +110497,11 @@
       "name": "simpleappsgr--flutter-skeleton",
       "source": "./simpleappsgr--flutter-skeleton",
       "description": "flutter_skeleton"
+    },
+    {
+      "name": "vocdoni--davinci-node",
+      "source": "./vocdoni--davinci-node",
+      "description": "{Decentralized Autonomous Vote Integrity Network with Cryptographic Inference} The node (aka sequencer) is a specialized component designed to handle the voting process using zero-knowledge proof mech"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -116054,6 +116204,11 @@
       "description": "ZKsync SSO SDK"
     },
     {
+      "name": "nuxdie--ai-pricing",
+      "source": "./nuxdie--ai-pricing",
+      "description": "Compare AI model pricing and performance in a simple interactive web app."
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -119477,6 +119632,26 @@
       "name": "opencoredev--email-sdk",
       "source": "./opencoredev--email-sdk",
       "description": "Email SDK is a lightweight TypeScript library for sending email through Resend, Postmark, SendGrid, Mailgun, Brevo, SMTP, and more"
+    },
+    {
+      "name": "renlabs-dev--torus-ts",
+      "source": "./renlabs-dev--torus-ts",
+      "description": "Monorepo for the Torus Network TypesSript Ecosystem. It's managed with Turborepo and pnpm."
+    },
+    {
+      "name": "renlabs-dev--torus-ts",
+      "source": "./renlabs-dev--torus-ts",
+      "description": "Monorepo for the Torus Network TypesSript Ecosystem. It's managed with Turborepo and pnpm."
+    },
+    {
+      "name": "devopifex--obfuscator",
+      "source": "./devopifex--obfuscator",
+      "description": "R code obfuscator"
+    },
+    {
+      "name": "guitaripod--swollama",
+      "source": "./guitaripod--swollama",
+      "description": "A comprehensive Swift SDK for Ollama"
     },
     {
       "name": "13point5--agent-canvas",
@@ -122962,6 +123137,16 @@
       "name": "thomhurst--sourcy",
       "source": "./thomhurst--sourcy",
       "description": "Sourcy"
+    },
+    {
+      "name": "harveyton--trilium-blog",
+      "source": "./harveyton--trilium-blog",
+      "description": "\u5c06 Trilium Notes \u53d1\u5e03\u4e3a\u73b0\u4ee3\u535a\u5ba2\uff0c\u652f\u6301 AI \u6458\u8981\u3001\u7cbe\u9009\u6587\u7ae0\u3001\u641c\u7d22\u4e0e\u6c89\u6d78\u5f0f\u9605\u8bfb\u4f53\u9a8c\u3002"
+    },
+    {
+      "name": "twelvelabs-io--twelvelabs-developer-experience",
+      "source": "./twelvelabs-io--twelvelabs-developer-experience",
+      "description": "twelvelabs-developer-experience"
     },
     {
       "name": "vm--nila-code",
@@ -126517,6 +126702,21 @@
       "name": "younes101020--delivery",
       "source": "./younes101020--delivery",
       "description": "\u2709\ufe0flightweight self-hostable Coolify, Vercel, Heroku alternative focusing on one single thing: deploying your applications as simply as possible, without any vendor lock-in."
+    },
+    {
+      "name": "mediolano-app--mediolano-contracts",
+      "source": "./mediolano-app--mediolano-contracts",
+      "description": "Cairo Smart Contracts @ Mediolano - intellectual property provider for the integrity web. Powered on Starknet."
+    },
+    {
+      "name": "mediolano-app--mediolano-contracts",
+      "source": "./mediolano-app--mediolano-contracts",
+      "description": "Cairo Smart Contracts @ Mediolano - intellectual property provider for the integrity web. Powered on Starknet."
+    },
+    {
+      "name": "iyism--docker-tengine",
+      "source": "./iyism--docker-tengine",
+      "description": "Supports Lua, GeoIP2, PCRE2, Brotli, and GmSSL (via Tongsuo)."
     },
     {
       "name": "claude-php--claude-php-agent",
