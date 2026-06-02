@@ -134464,6 +134464,11 @@
       "description": "This is a web-based tool that allows users to filter books from Goodreads based on genres and ratings."
     },
     {
+      "name": "litellm-labs--litellm-rust",
+      "source": "./litellm-labs--litellm-rust",
+      "description": "A minimal Rust gateway built for coding agents (LiteLLM-Compatible)"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -152912,6 +152917,11 @@
       "name": "chenhg5--imole",
       "source": "./chenhg5--imole",
       "description": "An open-source iPhone slimming toolkit to find storage hogs, back up media locally, and safely free up space without relying on iCloud."
+    },
+    {
+      "name": "lingliren731108-arch--leonai",
+      "source": "./lingliren731108-arch--leonai",
+      "description": "LeonAI"
     },
     {
       "name": "yschimke--compose-ai-tools",
