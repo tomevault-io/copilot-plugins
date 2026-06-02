@@ -1,0 +1,9 @@
+{
+  "name": "justinmdickey--goplaying",
+  "displayName": "goplaying",
+  "description": "Now Playing TUI written in Go",
+  "version": "1.0.0",
+  "author": "justinmdickey",
+  "homepage": "https://github.com/justinmdickey/goplaying",
+  "skills": []
+}
