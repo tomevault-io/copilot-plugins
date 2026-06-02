@@ -1,0 +1,9 @@
+{
+  "name": "ekuboprotocol--evm-contracts",
+  "displayName": "evm-contracts",
+  "description": "Smart contracts for Ekubo Protocol on EVM blockchains",
+  "version": "1.0.0",
+  "author": "EkuboProtocol",
+  "homepage": "https://github.com/EkuboProtocol/evm-contracts",
+  "skills": []
+}
