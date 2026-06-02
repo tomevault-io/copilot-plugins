@@ -1,0 +1,9 @@
+{
+  "name": "qazsato--openapi-generate-html",
+  "displayName": "openapi-generate-html",
+  "description": "Generate standalone HTML from OpenAPI Specification.",
+  "version": "1.0.0",
+  "author": "qazsato",
+  "homepage": "https://github.com/qazsato/openapi-generate-html",
+  "skills": []
+}
