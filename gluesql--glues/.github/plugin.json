@@ -1,0 +1,9 @@
+{
+  "name": "gluesql--glues",
+  "displayName": "glues",
+  "description": "Vim-inspired TUI note-taking app with multi-backend storage \u2014 privacy-focused",
+  "version": "1.0.0",
+  "author": "gluesql",
+  "homepage": "https://github.com/gluesql/glues",
+  "skills": []
+}
