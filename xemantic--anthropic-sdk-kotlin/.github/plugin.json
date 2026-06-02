@@ -1,0 +1,9 @@
+{
+  "name": "xemantic--anthropic-sdk-kotlin",
+  "displayName": "anthropic-sdk-kotlin",
+  "description": "Unofficial Kotlin multiplatform variant of the Anthropic SDK",
+  "version": "1.0.0",
+  "author": "xemantic",
+  "homepage": "https://github.com/xemantic/anthropic-sdk-kotlin",
+  "skills": []
+}
