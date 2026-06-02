@@ -4,7 +4,7 @@
   "repo": "hsem",
   "description": "Maximize the potential of your Huawei solar battery system with this powerful Home Assistant custom integration.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/woopstar/hsem",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T22:38:40Z"
+  "distributed_at": "2026-06-02T22:41:45Z"
 }
