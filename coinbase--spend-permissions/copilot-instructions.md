@@ -1,158 +1,134 @@
-## spend-permissions
+## solidity-natspec
 
-> You are a Staff Blockchain Engineer expert in Solidity, smart contract development, and protocol design. You write clean, secure, and properly documented smart contracts. You ensure code written is gas-optimized, secure, and follows industry best practices. You always consider security implications and write corresponding tests.
+> Solidity NatSpec conventions (first-party)
 
-You are a Staff Blockchain Engineer expert in Solidity, smart contract development, and protocol design. You write clean, secure, and properly documented smart contracts. You ensure code written is gas-optimized, secure, and follows industry best practices. You always consider security implications and write corresponding tests.
 
-## Core Principles
+# Solidity NatSpec (project style)
 
-- **Security First**: Always prioritize security over convenience. Follow checks-effects-interactions pattern.
-- **Gas Optimization**: Write gas-efficient code without compromising readability or security.
-- **Documentation**: Comprehensive NatSpec documentation for all public interfaces.
+Follow this NatSpec style when editing first-party Solidity under `src/`, `script/`, and `test/` (do not modify vendored/dependency code under `lib/`).
 
-## Style Guide Compliance
+## When adding new contract surface area (required)
 
-### Base Standard
+If you introduce a **new natspeccable thing**, you MUST add/update NatSpec for it in the same change. This includes:
 
-Unless an exception or addition is specifically noted, we follow the [Solidity Style Guide](https://docs.soliditylang.org/en/latest/style-guide.html).
+- New or materially-changed **contracts/libraries**
+- New or materially-changed **external/public functions**
+- New **events**, **errors**, **modifiers**
+- New **structs/enums** and their fields (units/constraints)
+- New **storage variables**, constants, and immutables (meaning, key-space for mappings, sentinel values)
 
-### Key Exceptions and Additions
+If you change behavior (even without changing signatures), update existing NatSpec so it remains truthful.
 
-#### 1. Internal Library Functions
+## General principles
 
-**Names of internal functions in a library should NOT have an underscore prefix.**
+- Prefer documenting **behavior, assumptions, invariants, and trust boundaries** over narrating syntax.
+- Keep docs **truthful** (describe what the code does today, not intended behavior).
+- Use `@notice` for the primary "what/outcome"; use `@dev` for edge cases, auth, ordering, and gotchas.
+- Use short paragraphs and blank `///` separators.
 
-```solidity
-// GOOD: Clear and readable
-Library.function()
+## NatSpec spacing (required)
 
-// BAD: Visually confusing
-Library._function()
-```
+Always insert a **blank NatSpec line** (`///`) between logical sections:
 
-#### 2. Terminology
+- Between `@notice` and any `@dev`
+- Between separate `@dev` paragraphs
+- Between the last `@dev` (or `@notice` if no dev) and the `@param`/`@return` block
 
-- **Use "onchain"** (one word, no hyphen) instead of "on-chain" or "on chain". Same for "offchain".
-
-#### 3. Error Handling
-
-- **Prefer custom errors** over `require` strings for gas efficiency
-- **Custom error names should be CapWords style** (e.g., `InsufficientBalance`, `Unauthorized`)
-
-#### 4. Events
-
-- **Event names should be past tense** - Events track things that _happened_
-- Using past tense helps avoid naming collisions with structs or functions
-- Example: `TokenTransferred` not `TokenTransfer`
-
-#### 5. Mappings
-
-**Prefer named parameters in mapping types** for clarity:
+Example:
 
 ```solidity
-// GOOD
-mapping(address account => mapping(address asset => uint256 amount)) public balances;
-
-// BAD
-mapping(uint256 => mapping(address => uint256)) public balances;
+/// @notice Emitted when a fee transfer fails
+///
+/// @dev Applies to both attempted sends and distributions of fees
+///
+/// @param campaign Address of the campaign
+/// @param token Address of the token that failed to transfer
+/// @param key Key for the fees
+/// @param recipient Address receiving the fees
+/// @param amount Amount of tokens that failed to transfer
+/// @param extraData Extra data for the payout to attach in events
 ```
 
-#### 6. Contract Architecture
+## Contract headers
 
-- **Prefer composition over inheritance** when functions could reasonably be in separate contracts
-- **Avoid writing interfaces** unless absolutely necessary - they separate NatSpec from logic
-- **Avoid using assembly** unless gas savings are very consequential (>25%)
+At the contract level, use:
 
-#### 7. Imports
+- `/// @title <Name>`
+- blank `///`
+- `/// @notice <Protocol-level summary>`
+- optional `/// @dev` bullets for constraints/assumptions
+- blank `///`
+- `/// @author <Org> (<repo link>)` when appropriate
 
-**Use named imports** and order alphabetically:
+## Sections and ordering
 
-```solidity
-// GOOD
-import {Contract} from "./contract.sol";
+- Use section dividers (e.g. `//////////////////////////////////////////////////////////////`) **only** when they improve readability and the file is long enough to benefit.
+- Prefer grouping into: Types, Constants/Immutables, Storage, Events, Errors, Modifiers, Constructor, External, Public, Internal, Private.
 
-// Group imports by external and local
-import {Math} from '/solady/Math.sol';
+## Types (struct/enum)
 
-import {MyHelper} from './MyHelper.sol';
-```
+- Add `/// @notice` describing the type's purpose.
+- Add per-field docs using `/// @dev` for meaning, units, and constraints.
+- If a type participates in EIP-712 hashing/signatures, document the binding between fields and the signed intent in `@dev`.
 
-#### 8. Testing Standards
+## State variables / constants / immutables
 
-- **Test file names**: `ContractName.t.sol` or `functionName.t.sol`
-- **Test contract names**:
-  - Contract-scoped suites: `ContractNameTest`
-  - Function-scoped suites: `FunctionNameTest` (CapWords, even when file is lower camelCase)
-- **Test function names**: If the test contract already scopes the function, use `test_outcome_optionalContext`, otherwise use `test_functionName_outcome_optionalContext`
+- Add `/// @notice` describing what the value represents (include units like `wad`, `bps`, `seconds`, `wei` where relevant).
+- For mappings, describe the key-space and what values mean (including sentinel values such as "0 means unset").
 
-## Contract Layout (in order)
+## Events
 
-1. License identifier
-2. Pragma statements
-3. Import statements
-4. Contract declaration
-5. State variables (grouped by visibility)
-6. Events
-7. Errors
-8. Modifiers
-9. Constructor/Initializer
-10. External functions
-11. Public functions
-12. Internal functions
-13. Private functions
+For each event:
 
-## Documentation Standards
+- `/// @notice` describes the business event.
+- blank `///`
+- `/// @param <name> <meaning>` for every field (avoid type narration).
 
-### NatSpec Requirements
+## Errors
 
-- **All external functions, events, and errors should have complete NatSpec**
-- Minimally include `@notice`
-- Include `@param` and `@return` for parameters and return values
-- Insert blank NatSpec lines (`///`) between logical sections (@notice, @dev, @param blocks)
+For each custom error:
 
-## Security Standards
+- `/// @notice` describes when it is thrown.
+- optional `/// @dev` for applicability ("applies to X and Y paths", "only for relayed calls", etc.)
+- `@param` docs for error fields.
 
-### Input Validation
+## Modifiers
 
-- Validate all inputs at function entry
-- Check for zero addresses where applicable
-- Validate array lengths and bounds
+- `/// @notice` describes the guard.
+- `@param` docs for modifier parameters.
 
-### State Management
+## Functions (all visibilities)
 
-- Update state before external calls
-- Use reentrancy guards where needed
-- Avoid state changes after external calls
+For every function (including internal/private when it clarifies protocol assumptions):
 
-## Gas Optimization Guidelines
+- `/// @notice` one-sentence summary of effect/outcome.
+- Optional `/// @dev` covering:
+  - **auth model** (who can call, what signatures are required, relayer expectations)
+  - **idempotency** / replay behavior / nonce usage
+  - **side effects** and ordering constraints ("emits before calling hooks", "updates state before external call")
+  - **edge cases** (zero amounts, empty arrays, boundary timestamps, optional calldata)
+- blank `///`
+- `@param` for every argument.
+- blank `///`
+- `@return` for every return value (semantic meaning).
 
-- Pack struct members efficiently (256-bit boundaries)
-- Use mappings over arrays when possible for lookups
-- Use `external` visibility when function won't be called internally
-- Use `immutable` and `constant` appropriately
-- Avoid unbounded loops
+### Overrides / inheritdoc
 
-## Fuzz Testing
+- If the parent interface/base fully describes behavior, prefer `/// @inheritdoc <Base>` and add `@dev` only for deltas/extra constraints.
+- If the override meaningfully changes behavior, use full NatSpec (and do not rely solely on `@inheritdoc`).
 
-- Use `bound()` over `vm.assume()` when possible
-- Define constants instead of magic numbers
-- Every fuzz parameter must be used
-- NatSpec every fuzz parameter with `@param`
+## Tests (`test/**/*.t.sol`)
 
-## General Rules
+- Document test contracts and key helper functions.
+- Do not add verbose NatSpec for every single test unless it adds real clarity; prefer concise intent statements for complex invariants.
 
-- Cut the fluff. Code or detailed explanations only.
-- Accuracy and depth matter.
-- Stick to existing code style.
-- Don't be lazy, write all the code to implement features asked for.
-- Do what has been asked; nothing more, nothing less.
+## Quick checklist (before you stop)
 
-## Important
-
-- NEVER create files unless they're absolutely necessary
-- ALWAYS prefer editing an existing file to creating a new one
-- NEVER proactively create documentation files unless explicitly requested
+- All `@param` / `@return` names match the signature.
+- Units are explicit where non-obvious (e.g., `wad`, `bps`, seconds).
+- Auth/trust boundaries are stated for entrypoints and hooks.
+- Any "escape hatch" or idempotent behavior is explicitly documented.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/coinbase) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [coinbase/spend-permissions](https://github.com/coinbase/spend-permissions) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
