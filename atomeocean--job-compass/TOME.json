@@ -4,7 +4,7 @@
   "repo": "job-compass",
   "description": "\u627e\u5de5\u6c42\u804c\u4fe1\u606f",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atomeocean/job-compass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T00:36:35Z"
+  "distributed_at": "2026-06-02T00:39:36Z"
 }
