@@ -1,0 +1,9 @@
+{
+  "name": "ferdousbhai--tasty-agent",
+  "displayName": "tasty-agent",
+  "description": "Let Claude manage your tastytrade portfolio.",
+  "version": "1.0.0",
+  "author": "ferdousbhai",
+  "homepage": "https://github.com/ferdousbhai/tasty-agent",
+  "skills": []
+}
