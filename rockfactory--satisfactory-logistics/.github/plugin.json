@@ -1,0 +1,9 @@
+{
+  "name": "rockfactory--satisfactory-logistics",
+  "displayName": "satisfactory-logistics",
+  "description": "A web tool to keep track of Satisfactory logistics",
+  "version": "1.0.0",
+  "author": "rockfactory",
+  "homepage": "https://github.com/rockfactory/satisfactory-logistics",
+  "skills": []
+}
