@@ -1,0 +1,9 @@
+{
+  "name": "jlevy--frontmatter-format",
+  "displayName": "frontmatter-format",
+  "description": "A simple convention for YAML metadata on any file",
+  "version": "1.0.0",
+  "author": "jlevy",
+  "homepage": "https://github.com/jlevy/frontmatter-format",
+  "skills": []
+}
