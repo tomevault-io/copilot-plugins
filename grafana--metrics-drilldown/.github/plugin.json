@@ -1,0 +1,9 @@
+{
+  "name": "grafana--metrics-drilldown",
+  "displayName": "metrics-drilldown",
+  "description": "A queryless experience for browsing Prometheus-compatible metrics. Quickly find related metrics without writing PromQL queries.",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/metrics-drilldown",
+  "skills": []
+}
