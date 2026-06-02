@@ -43869,6 +43869,11 @@
       "description": "A dead simple CSS-in-JS for React 19"
     },
     {
+      "name": "aws--aws-cdk-cli",
+      "source": "./aws--aws-cdk-cli",
+      "description": "AWS CDK Toolkit"
+    },
+    {
       "name": "livekit--livekit-wakeword",
       "source": "./livekit--livekit-wakeword",
       "description": "An open-source wake word library for creating voice-enabled applications."
@@ -44042,6 +44047,11 @@
       "name": "paker-kk--flovart-cc",
       "source": "./paker-kk--flovart-cc",
       "description": "Fuck-lovart-cc is dedicated to bridging the gap in canvas automation. It empowers Claude Code to orchestrate custom visual workflows using your own 3rd-party API keys, all while delivering a premium, "
+    },
+    {
+      "name": "render-oss--cli",
+      "source": "./render-oss--cli",
+      "description": "The Official Render CLI"
     },
     {
       "name": "espennilsen--pi",
@@ -44677,6 +44687,11 @@
       "name": "consistent-k--vodhub",
       "source": "./consistent-k--vodhub",
       "description": "VodHub \u662f\u4e00\u4e2a\u7535\u5f71\u3001\u7535\u89c6\u5267\u3001\u52a8\u6f2b\u7b49\u6807\u51c6CMS\u8d44\u6e90\u64ad\u653e\u5668"
+    },
+    {
+      "name": "blockblaz--zeam",
+      "source": "./blockblaz--zeam",
+      "description": "Ethereum Lean client in Zig (wip)"
     },
     {
       "name": "nickcirv--engram",
@@ -46469,6 +46484,11 @@
       "description": "A \"code intepreter\" for Lean"
     },
     {
+      "name": "ombrac--ombrac",
+      "source": "./ombrac--ombrac",
+      "description": "Safe, fast, small TCP/UDP-over-QUIC tunnel written in Rust"
+    },
+    {
       "name": "pikapikaspeedup--antigravity-mobility-cli",
       "source": "./pikapikaspeedup--antigravity-mobility-cli",
       "description": "\u4e00\u4e2a\u5b9e\u73b0 antigravity \u81ea\u7531\u7684\u9879\u76ee\uff0c\u4f60\u7684 OpenClaw \u4f55\u5fc5\u662f OpenClaw"
@@ -46767,6 +46787,11 @@
       "name": "yavorsky--unbuilt-app",
       "source": "./yavorsky--unbuilt-app",
       "description": "Free and Open Source technology detection tool"
+    },
+    {
+      "name": "kaushikgopal--playground-android",
+      "source": "./kaushikgopal--playground-android",
+      "description": "Opinionated Android app starter template. I pick the best choice(s) of libraries & solutions (imo) and keep it ready for forking off and building your next Android app."
     },
     {
       "name": "cohen-liel--hivemind",
@@ -47389,6 +47414,11 @@
       "description": "Developer productivity tools for Claude Code & other AI assistants"
     },
     {
+      "name": "netboxlabs--orb-agent",
+      "source": "./netboxlabs--orb-agent",
+      "description": "Orb network observability agent, part of the NetBox ecosystem and developed by NetBox Labs"
+    },
+    {
       "name": "kulterryan--who-to-bother-at-on-x",
       "source": "./kulterryan--who-to-bother-at-on-x",
       "description": "Find the right people to reach out to at your favorite tech companies"
@@ -47687,6 +47717,26 @@
       "name": "daliusd--ghlite-nvim",
       "source": "./daliusd--ghlite-nvim",
       "description": "Neovim plugin to work GitHub PRs quickly."
+    },
+    {
+      "name": "hicder--muopdb",
+      "source": "./hicder--muopdb",
+      "description": "MuopDB - A Vector Database"
+    },
+    {
+      "name": "stacksjs--ts-spreadsheets",
+      "source": "./stacksjs--ts-spreadsheets",
+      "description": "\ud83d\udcca Easily manage & generate spreadsheets. CSV & Excel files supported."
+    },
+    {
+      "name": "hicder--muopdb",
+      "source": "./hicder--muopdb",
+      "description": "MuopDB - A Vector Database"
+    },
+    {
+      "name": "hicder--muopdb",
+      "source": "./hicder--muopdb",
+      "description": "MuopDB - A Vector Database"
     },
     {
       "name": "qtzx06--yolodex",
@@ -48764,6 +48814,11 @@
       "description": "New features and parity between Terraform and OpenTofu"
     },
     {
+      "name": "bluelibs--runner",
+      "source": "./bluelibs--runner",
+      "description": "Modular and functional approach to building large scale apps."
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -49392,6 +49447,16 @@
       "name": "ivanwng97--pixtuoid",
       "source": "./ivanwng97--pixtuoid",
       "description": "Terminal pixel-art office for AI coding agents \u2014 watch your Claude Code sessions type, walk, and nap in a coworking lounge. Half-block rendering, A* pathfinding, per-tool monitor glow. Pure Rust, runs"
+    },
+    {
+      "name": "proyecto26--projectx",
+      "source": "./proyecto26--projectx",
+      "description": "Tame full-stack chaos with Temporal workflows and React wizardry, the ultimate event-driven architecture for your apps \ud83e\uddd9\u200d\u2642\ufe0f\u2728"
+    },
+    {
+      "name": "proyecto26--projectx",
+      "source": "./proyecto26--projectx",
+      "description": "Tame full-stack chaos with Temporal workflows and React wizardry, the ultimate event-driven architecture for your apps \ud83e\uddd9\u200d\u2642\ufe0f\u2728"
     },
     {
       "name": "keep-starknet-strange--starknet-agentic",
@@ -51254,6 +51319,21 @@
       "description": "A deterministic fixed-point math library for .NET"
     },
     {
+      "name": "rameerez--nondisposable",
+      "source": "./rameerez--nondisposable",
+      "description": "\ud83d\uddd1\ufe0f Block disposable emails in your Rails app"
+    },
+    {
+      "name": "composefs--composefs-rs",
+      "source": "./composefs--composefs-rs",
+      "description": "Rust library for the composefs filesystem"
+    },
+    {
+      "name": "rameerez--nondisposable",
+      "source": "./rameerez--nondisposable",
+      "description": "\ud83d\uddd1\ufe0f Block disposable emails in your Rails app"
+    },
+    {
       "name": "liangdabiao--tikhub-api-skill",
       "source": "./liangdabiao--tikhub-api-skill",
       "description": "TikHub API \u52a9\u624b\u662f\u4e00\u4e2a Claude Code Agent Skill\uff0c\u7528\u4e8e\u5e2e\u52a9\u7528\u6237\u641c\u7d22\u3001\u53d1\u73b0\u548c\u8c03\u7528 TikHub API\u3002TikHub \u63d0\u4f9b\u4e86\u591a\u5e73\u53f0\u793e\u4ea4\u5a92\u4f53\u6570\u636e API\uff0c\u652f\u6301\u6296\u97f3\u3001TikTok\u3001\u5c0f\u7ea2\u4e66\u3001Instagram\u3001YouTube\u3001Twitter\u3001Reddit \u7b49\u5e73\u53f0\u3002This is a TikHub API skill/documentation repository. Tik"
@@ -53032,6 +53112,21 @@
       "name": "sunkenintime--icarus",
       "source": "./sunkenintime--icarus",
       "description": "Valorant Strategy Creator"
+    },
+    {
+      "name": "datazoode--flapi",
+      "source": "./datazoode--flapi",
+      "description": "API Framework heavily relying on the power of DuckDB and DuckDB extensions. Ready to build performant and cost-efficient APIs on top of BigQuery or Snowflake  for AI Agents and Data Apps"
+    },
+    {
+      "name": "datazoode--flapi",
+      "source": "./datazoode--flapi",
+      "description": "API Framework heavily relying on the power of DuckDB and DuckDB extensions. Ready to build performant and cost-efficient APIs on top of BigQuery or Snowflake  for AI Agents and Data Apps"
+    },
+    {
+      "name": "tevelee--swift-graphs",
+      "source": "./tevelee--swift-graphs",
+      "description": "A composable, extensible library for graph structures with support for a wide range of algorithms"
     },
     {
       "name": "dceoy--speckit-agent-skills",
@@ -55604,6 +55699,11 @@
       "description": "AsterDEX trading bot, perp trading, asterDEX auto trading bot, asterDEX trading bot, perp trading, asterDEX auto trading bot, asterDEX trading bot, perp trading, asterDEX auto trading bot, asterDEX tr"
     },
     {
+      "name": "rte-france--bertrend",
+      "source": "./rte-france--bertrend",
+      "description": "BERTrend"
+    },
+    {
       "name": "chongdashu--phaserjs-oakwoods",
       "source": "./chongdashu--phaserjs-oakwoods",
       "description": "A vibe coded implementation of an RPG platformer"
@@ -55977,6 +56077,16 @@
       "name": "opentools--cli",
       "source": "./opentools--cli",
       "description": "cli"
+    },
+    {
+      "name": "xemantic--anthropic-sdk-kotlin",
+      "source": "./xemantic--anthropic-sdk-kotlin",
+      "description": "Unofficial Kotlin multiplatform variant of the Anthropic SDK"
+    },
+    {
+      "name": "catatsuy--cache",
+      "source": "./catatsuy--cache",
+      "description": "Cache Library for Go"
     },
     {
       "name": "marciogranzotto--clawd-tank",
@@ -57564,6 +57674,21 @@
       "description": "A project to provide the simplest, self hosted route to get \"I want AI to help me by passively observing me\" - Join the development! https://discord.gg/faqfXEwm5v"
     },
     {
+      "name": "estebanforge--unrepress",
+      "source": "./estebanforge--unrepress",
+      "description": "An independent Core, Plugins and Themes updater for WordPress. No wp.org dependency."
+    },
+    {
+      "name": "estebanforge--unrepress",
+      "source": "./estebanforge--unrepress",
+      "description": "An independent Core, Plugins and Themes updater for WordPress. No wp.org dependency."
+    },
+    {
+      "name": "estebanforge--unrepress",
+      "source": "./estebanforge--unrepress",
+      "description": "An independent Core, Plugins and Themes updater for WordPress. No wp.org dependency."
+    },
+    {
       "name": "ursushoribilismusic--agentic-fleet-hub",
       "source": "./ursushoribilismusic--agentic-fleet-hub",
       "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy."
@@ -58092,6 +58217,11 @@
       "name": "osu-nlp-group--saev",
       "source": "./osu-nlp-group--saev",
       "description": "Sparse autoencoders for vision"
+    },
+    {
+      "name": "begoonlab--xiao-esp32c6-wifi-sensor",
+      "source": "./begoonlab--xiao-esp32c6-wifi-sensor",
+      "description": "Wi-Fi sensor based on XIAO ESP32-C6"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -59304,6 +59434,11 @@
       "description": "Getting Shit Done, the Aftermath"
     },
     {
+      "name": "acornprover--acornlib",
+      "source": "./acornprover--acornlib",
+      "description": "Acorn's standard library of mathematical facts."
+    },
+    {
       "name": "shinchven--nano-banana-skills",
       "source": "./shinchven--nano-banana-skills",
       "description": "Nano Banana Pro Skills"
@@ -59862,6 +59997,16 @@
       "name": "lvtd-llc--tuxseo",
       "source": "./lvtd-llc--tuxseo",
       "description": "Automated Blog Content Creation for Founders Who Hate Writing"
+    },
+    {
+      "name": "xhongc--photozen",
+      "source": "./xhongc--photozen",
+      "description": "NAS\u9ad8\u6027\u80fd\u7684\u81ea\u6258\u7ba1\u7167\u7247\u548c\u89c6\u9891\u7ba1\u7406\u89e3\u51b3\u65b9\u6848"
+    },
+    {
+      "name": "5dplay-game-studio--bleachvsnaruto",
+      "source": "./5dplay-game-studio--bleachvsnaruto",
+      "description": "\u6b7b\u795evs\u706b\u5f71 \u662f\u4e00\u4e2a\u7531 \u5251jian \u53ca\u5176\u6240\u5c5e\u5236\u4f5c\u7ec4 5DPLAY Game Studio \u5236\u4f5c\u7684\u540c\u4eba\u65b0\u6982\u5ff5\u7b56\u7565\u683c\u6597\u6e38\u620f\u3002  \u5728\u8fd9\u91cc\uff0c\u4f60\u53ef\u4ee5\u6311\u6218\u81ea\u5df1\u64cd\u4f5c\u4e0e\u53cd\u5e94\u7684\u6781\u9650\uff0c\u4e5f\u53ef\u4ee5\u4f5c\u4e3a\u56e2\u961f\u7684\u6838\u5fc3\u51b3\u7b56\u8fd9\u4f53\u9a8c\u8fd0\u7b79\u5e37\u5e44\u7684\u7545\u5feb\u3002"
     },
     {
       "name": "rstackjs--agent-skills",
@@ -61044,6 +61189,11 @@
       "description": "A user friendly json library written in pure Mojo"
     },
     {
+      "name": "cipherstash--proxy",
+      "source": "./cipherstash--proxy",
+      "description": "Encrypt and search your sensitive data in PostgreSQL, with no SQL changes"
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -61739,6 +61889,11 @@
       "description": "Filesystem-based nix flake framework for multi-node configurations, cascading secrets management, parallel deployments, etc."
     },
     {
+      "name": "sliday--telegram-ai-digest",
+      "source": "./sliday--telegram-ai-digest",
+      "description": "Automates Telegram message digests using Claude AI for summaries and Replicate API for image generation, sending results to saved messages."
+    },
+    {
       "name": "domye--solace",
       "source": "./domye--solace",
       "description": "Solace - \u57fa\u4e8e Go + React + TypeScript + PostgreSQL \u7684\u5168\u6808\u535a\u5ba2\u7cfb\u7edf\u3002\u652f\u6301 Markdown \u7f16\u8f91\u3001\u76f8\u518c\u7ba1\u7406\u3001\u6df1\u8272\u6a21\u5f0f\u3001SEO \u4f18\u5316\u3001Docker \u90e8\u7f72\u3002\u91c7\u7528\u6574\u6d01\u67b6\u6784\uff0c\u9002\u5408\u4e2a\u4eba\u535a\u5ba2\u3001\u6280\u672f\u535a\u5ba2\u3001\u5f00\u53d1\u8005\u4f5c\u54c1\u96c6\u3002MIT \u5f00\u6e90\uff0c\u751f\u4ea7\u5c31\u7eea"
@@ -62407,6 +62562,11 @@
       "name": "lifinance--bigmi",
       "source": "./lifinance--bigmi",
       "description": "TypeScript library focused on providing reactive primitives for Bitcoin apps."
+    },
+    {
+      "name": "dagster-io--community-integrations",
+      "source": "./dagster-io--community-integrations",
+      "description": "Community supported integrations for the Dagster platform."
     },
     {
       "name": "anhtester--antigravity-testing-kit",
@@ -64089,6 +64249,31 @@
       "description": "Combines the ideas of Seerr, Navidrome, Lidarr and Soulseek into one"
     },
     {
+      "name": "playgama--bridge-unity",
+      "source": "./playgama--bridge-unity",
+      "description": "One SDK for cross-platform publishing HTML5 games"
+    },
+    {
+      "name": "playgama--bridge-unity",
+      "source": "./playgama--bridge-unity",
+      "description": "One SDK for cross-platform publishing HTML5 games"
+    },
+    {
+      "name": "cyanheads--repo-map",
+      "source": "./cyanheads--repo-map",
+      "description": "repo-map generates LLM-enhanced summaries and analysis of software repositories, providing developers with valuable insights into project structures, file purposes, and potential considerations across"
+    },
+    {
+      "name": "platformatic--undici-cache-redis",
+      "source": "./platformatic--undici-cache-redis",
+      "description": "undici-cache-redis"
+    },
+    {
+      "name": "cyanheads--repo-map",
+      "source": "./cyanheads--repo-map",
+      "description": "repo-map generates LLM-enhanced summaries and analysis of software repositories, providing developers with valuable insights into project structures, file purposes, and potential considerations across"
+    },
+    {
       "name": "lktiep--cortex-hub",
       "source": "./lktiep--cortex-hub",
       "description": "Self-hosted AI Agent Memory + Code Intelligence Platform \u2014 one MCP endpoint for persistent memory, AST-aware code search, shared knowledge, and quality enforcement across all your AI coding agents."
@@ -64927,6 +65112,16 @@
       "name": "tunnels-is--tunnels",
       "source": "./tunnels-is--tunnels",
       "description": "Networking Software"
+    },
+    {
+      "name": "xemantic--xemantic-ai-tool-schema",
+      "source": "./xemantic--xemantic-ai-tool-schema",
+      "description": "AI/LLM tool use (function calling) JSON Schema generator - a Kotlin multiplatform library"
+    },
+    {
+      "name": "tscircuit--tscircuit-com",
+      "source": "./tscircuit--tscircuit-com",
+      "description": "The main website, playground and online development environment for tscircuit (React Electronics)"
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -65969,6 +66164,11 @@
       "description": "Land Your Dream Job With Our Interview Practice. \ud83d\ude80 Get instant feedback, improve fast, and land your dream role. 95% of users increased confidence after just 3 sessions."
     },
     {
+      "name": "satisfactory-factories--application",
+      "source": "./satisfactory-factories--application",
+      "description": "A web tool for planning production chains with dependency management within the game Satisfactory."
+    },
+    {
       "name": "timoncool--ace-step-studio",
       "source": "./timoncool--ace-step-studio",
       "description": "Portable AI music generator \u2014 full songs with vocals, covers, music videos. One-click install, 100% offline, NVIDIA GPU."
@@ -66959,6 +67159,16 @@
       "description": "DuckDB CronJob Extension"
     },
     {
+      "name": "lumirlumir--npm-bananass",
+      "source": "./lumirlumir--npm-bananass",
+      "description": "Baekjoon Framework for JavaScript. \ubc31\uc900 \uc790\ubc14\uc2a4\ud06c\ub9bd\ud2b8 \ud504\ub808\uc784\uc6cc\ud06c.\ud83c\udf4c"
+    },
+    {
+      "name": "gelasdev--comfyui-flux-bfl-api",
+      "source": "./gelasdev--comfyui-flux-bfl-api",
+      "description": "ComfyUI-FLUX-BFL-API"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -67777,6 +67987,36 @@
       "name": "julian-at--synth-ui",
       "source": "./julian-at--synth-ui",
       "description": "Generate & Ship UI with minimal effort - Open Source Generative UI with natural language"
+    },
+    {
+      "name": "acornprover--acorn",
+      "source": "./acornprover--acorn",
+      "description": "The core implementation of the Acorn language."
+    },
+    {
+      "name": "flashnightmodreborn--crazyflashnight",
+      "source": "./flashnightmodreborn--crazyflashnight",
+      "description": "\u95ea7\u91cd\u7f6e\u7248\u9879\u76ee"
+    },
+    {
+      "name": "coollabsio--ideas",
+      "source": "./coollabsio--ideas",
+      "description": "Ideas worth building."
+    },
+    {
+      "name": "acornprover--acorn",
+      "source": "./acornprover--acorn",
+      "description": "The core implementation of the Acorn language."
+    },
+    {
+      "name": "flashnightmodreborn--crazyflashnight",
+      "source": "./flashnightmodreborn--crazyflashnight",
+      "description": "\u95ea7\u91cd\u7f6e\u7248\u9879\u76ee"
+    },
+    {
+      "name": "coollabsio--ideas",
+      "source": "./coollabsio--ideas",
+      "description": "Ideas worth building."
     },
     {
       "name": "rudrankriyam--foundation-models-framework-cli",
@@ -68607,6 +68847,11 @@
       "name": "coinbase--spend-permissions",
       "source": "./coinbase--spend-permissions",
       "description": "spend-permissions"
+    },
+    {
+      "name": "centrifuge--protocol",
+      "source": "./centrifuge--protocol",
+      "description": "Centrifuge Protocol: The open infrastructure for onchain asset management"
     },
     {
       "name": "rust-works--succinctly",
@@ -70644,6 +70889,11 @@
       "description": "Web application for Cashu mint management"
     },
     {
+      "name": "elgentos--magento2-playwright",
+      "source": "./elgentos--magento2-playwright",
+      "description": "magento2-playwright"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -72647,6 +72897,11 @@
       "name": "sandeberger--thetab-ninja",
       "source": "./sandeberger--thetab-ninja",
       "description": "This is a tab and bookmark manager that opens when you create a new page. Compability for the moment: Chromium"
+    },
+    {
+      "name": "goldbergyoni--golden-testing-rules-for-ai",
+      "source": "./goldbergyoni--golden-testing-rules-for-ai",
+      "description": "Instructions for LLMs on how to produce great tests with best practices inside"
     },
     {
       "name": "janbjorge--rekal",
