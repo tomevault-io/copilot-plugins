@@ -1,0 +1,9 @@
+{
+  "name": "nomadamas--agentdir",
+  "displayName": "agentdir",
+  "description": "mkdir for agents - agent-optimized & read-only virtual folder",
+  "version": "1.0.0",
+  "author": "NomaDamas",
+  "homepage": "https://github.com/NomaDamas/agentdir",
+  "skills": []
+}
