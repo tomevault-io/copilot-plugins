@@ -1,0 +1,9 @@
+{
+  "name": "mrdav30--fixedmathsharp",
+  "displayName": "FixedMathSharp",
+  "description": "A deterministic fixed-point math library for .NET",
+  "version": "1.0.0",
+  "author": "mrdav30",
+  "homepage": "https://github.com/mrdav30/FixedMathSharp",
+  "skills": []
+}
