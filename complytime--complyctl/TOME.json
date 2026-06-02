@@ -4,7 +4,7 @@
   "repo": "complyctl",
   "description": "A command-line tool for streamlining end-to-end compliance workflows on local systems.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/complytime/complyctl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T18:44:19Z"
+  "distributed_at": "2026-06-02T18:51:48Z"
 }
