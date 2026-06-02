@@ -1,0 +1,9 @@
+{
+  "name": "b7s--neuraphp",
+  "displayName": "neuraphp",
+  "description": "NeuraPHP brings local AI embeddings to PHP - no APIs, no subscriptions, no external services",
+  "version": "1.0.0",
+  "author": "b7s",
+  "homepage": "https://github.com/b7s/neuraphp",
+  "skills": []
+}
