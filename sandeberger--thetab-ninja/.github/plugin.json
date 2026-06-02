@@ -1,0 +1,9 @@
+{
+  "name": "sandeberger--thetab-ninja",
+  "displayName": "TheTab.Ninja",
+  "description": "This is a tab and bookmark manager that opens when you create a new page. Compability for the moment: Chromium",
+  "version": "1.0.0",
+  "author": "sandeberger",
+  "homepage": "https://github.com/sandeberger/TheTab.Ninja",
+  "skills": []
+}
