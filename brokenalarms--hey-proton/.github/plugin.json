@@ -1,0 +1,9 @@
+{
+  "name": "brokenalarms--hey-proton",
+  "displayName": "hey-proton",
+  "description": "Sieve filters for Proton inspired by HEY.",
+  "version": "1.0.0",
+  "author": "brokenalarms",
+  "homepage": "https://github.com/brokenalarms/hey-proton",
+  "skills": []
+}
