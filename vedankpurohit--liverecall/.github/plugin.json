@@ -1,0 +1,9 @@
+{
+  "name": "vedankpurohit--liverecall",
+  "displayName": "LiveRecall",
+  "description": "Welcome to **LiveRecall**, the open-source alternative to Microsoft's Recall. LiveRecall captures snapshots of your screen and allows you to recall them using natural language queries, leveraging sema",
+  "version": "1.0.0",
+  "author": "VedankPurohit",
+  "homepage": "https://github.com/VedankPurohit/LiveRecall",
+  "skills": []
+}
