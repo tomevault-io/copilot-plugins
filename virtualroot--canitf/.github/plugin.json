@@ -1,0 +1,9 @@
+{
+  "name": "virtualroot--canitf",
+  "displayName": "canitf",
+  "description": "New features and parity between Terraform and OpenTofu",
+  "version": "1.0.0",
+  "author": "virtualroot",
+  "homepage": "https://github.com/virtualroot/canitf",
+  "skills": []
+}
