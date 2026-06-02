@@ -152874,6 +152874,16 @@
       "description": "Template machine learning project using wandb, hydra-zen and submitit on Slurm with Apptainer"
     },
     {
+      "name": "psbrew--mkpfs",
+      "source": "./psbrew--mkpfs",
+      "description": "Create and Manage Unsigned PFS (Playstation File System) image files with file compression and checksum support."
+    },
+    {
+      "name": "psbrew--mkpfs",
+      "source": "./psbrew--mkpfs",
+      "description": "Create and Manage Unsigned PFS (Playstation File System) image files with file compression and checksum support."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
