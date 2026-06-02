@@ -1,0 +1,9 @@
+{
+  "name": "intrinsec--s3proxy",
+  "displayName": "s3proxy",
+  "description": "S3 Proxy for client side encryption",
+  "version": "1.0.0",
+  "author": "Intrinsec",
+  "homepage": "https://github.com/Intrinsec/s3proxy",
+  "skills": []
+}
