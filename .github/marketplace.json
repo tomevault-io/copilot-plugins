@@ -42229,6 +42229,11 @@
       "description": "The project originally known as Sneakers"
     },
     {
+      "name": "appledog-xyz--polymarket-5min-btc-trading-bot",
+      "source": "./appledog-xyz--polymarket-5min-btc-trading-bot",
+      "description": "Polymarket trading bot: python arbitrage trading bot built for Polymarket repricing lag, polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading "
+    },
+    {
       "name": "odradekai--bundles-forge",
       "source": "./odradekai--bundles-forge",
       "description": "An agentic skills framework & bundle-plugin engineering toolkit that works."
@@ -43854,6 +43859,11 @@
       "description": "Modern, full-featured, production-ready native iOS app with user authentication and background tag reading."
     },
     {
+      "name": "gpu-mode--kernelbot",
+      "source": "./gpu-mode--kernelbot",
+      "description": "Write a fast kernel and see how you compare against the best humans and AI on gpumode.com"
+    },
+    {
       "name": "livekit--livekit-wakeword",
       "source": "./livekit--livekit-wakeword",
       "description": "An open-source wake word library for creating voice-enabled applications."
@@ -44627,6 +44637,41 @@
       "name": "mikker--nitro-kit",
       "source": "./mikker--nitro-kit",
       "description": "A good-to-go UI kit for Ruby on Rails"
+    },
+    {
+      "name": "umijs--tnf",
+      "source": "./umijs--tnf",
+      "description": "tnf"
+    },
+    {
+      "name": "hopsoft--local-bus",
+      "source": "./hopsoft--local-bus",
+      "description": "A lightweight pub/sub system for decoupled intra-process communication in Ruby applications"
+    },
+    {
+      "name": "umijs--tnf",
+      "source": "./umijs--tnf",
+      "description": "tnf"
+    },
+    {
+      "name": "consistent-k--vodhub",
+      "source": "./consistent-k--vodhub",
+      "description": "VodHub \u662f\u4e00\u4e2a\u7535\u5f71\u3001\u7535\u89c6\u5267\u3001\u52a8\u6f2b\u7b49\u6807\u51c6CMS\u8d44\u6e90\u64ad\u653e\u5668"
+    },
+    {
+      "name": "umijs--tnf",
+      "source": "./umijs--tnf",
+      "description": "tnf"
+    },
+    {
+      "name": "umijs--tnf",
+      "source": "./umijs--tnf",
+      "description": "tnf"
+    },
+    {
+      "name": "consistent-k--vodhub",
+      "source": "./consistent-k--vodhub",
+      "description": "VodHub \u662f\u4e00\u4e2a\u7535\u5f71\u3001\u7535\u89c6\u5267\u3001\u52a8\u6f2b\u7b49\u6807\u51c6CMS\u8d44\u6e90\u64ad\u653e\u5668"
     },
     {
       "name": "nickcirv--engram",
@@ -46174,6 +46219,26 @@
       "description": "A Laravel package that proactively monitors your dependencies for security vulnerabilities by running automated composer audits and sending notifications via webhooks and email"
     },
     {
+      "name": "albumentations-team--benchmark",
+      "source": "./albumentations-team--benchmark",
+      "description": "benchmark"
+    },
+    {
+      "name": "albumentations-team--benchmark",
+      "source": "./albumentations-team--benchmark",
+      "description": "benchmark"
+    },
+    {
+      "name": "albumentations-team--benchmark",
+      "source": "./albumentations-team--benchmark",
+      "description": "benchmark"
+    },
+    {
+      "name": "albumentations-team--benchmark",
+      "source": "./albumentations-team--benchmark",
+      "description": "benchmark"
+    },
+    {
       "name": "peteromallet--vibecomfy",
       "source": "./peteromallet--vibecomfy",
       "description": "VibeComfy"
@@ -46682,6 +46747,11 @@
       "name": "bozp-pzob--digital-gardener",
       "source": "./bozp-pzob--digital-gardener",
       "description": "Cultivate your organization's knowledge with our AI-powered information garden. Plant seeds from multiple sources, watch insights bloom in real-time, and harvest beautifully tended summaries grown in "
+    },
+    {
+      "name": "yavorsky--unbuilt-app",
+      "source": "./yavorsky--unbuilt-app",
+      "description": "Free and Open Source technology detection tool"
     },
     {
       "name": "cohen-liel--hivemind",
@@ -47582,6 +47652,21 @@
       "name": "epicweb-dev--epic-stack-with-stripe",
       "source": "./epicweb-dev--epic-stack-with-stripe",
       "description": "Intentionally minimal Stripe subscriptions integration with payment links"
+    },
+    {
+      "name": "esmuellert--nvim-eslint",
+      "source": "./esmuellert--nvim-eslint",
+      "description": "An ESLint plugin for Neovim, using VSCode ESLint LSP and native nvim LSP client"
+    },
+    {
+      "name": "unvariance--collector",
+      "source": "./unvariance--collector",
+      "description": "Unvariance collector: a Kubernetes-native collector for monitoring memory subsystem interference between pods"
+    },
+    {
+      "name": "zhaofu-hhh--synthetix",
+      "source": "./zhaofu-hhh--synthetix",
+      "description": "\u81f4\u529b\u4e8e\u66f4\u4f18\u96c5\u7684AI\u751f\u6210\u77ed\u89c6\u9891\uff0c\u5e76\u63d0\u4f9bwebui\u754c\u9762\uff0c\u65b9\u4fbf\u521b\u4f5c"
     },
     {
       "name": "qtzx06--yolodex",
@@ -49589,6 +49674,11 @@
       "description": "This repository is for active development of the Microsoft 365 Agent SDK components for JavaScript"
     },
     {
+      "name": "scrapegraphai--scrapegraph-py",
+      "source": "./scrapegraphai--scrapegraph-py",
+      "description": "Official Python SDK for the ScrapeGraph AI   API. Smart scraping, search, crawling,   markdownify, agentic browser automation,   scheduled jobs, and structured data   extraction "
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
@@ -50674,6 +50764,11 @@
       "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers."
     },
     {
+      "name": "openmf--kmp-project-template",
+      "source": "./openmf--kmp-project-template",
+      "description": "The Kotlin Multiplatform Multi-module Template generator simplifies cross-platform development by enabling shared business logic and UI components across Android, iOS, Desktop, and Web, while retainin"
+    },
+    {
       "name": "pproenca--agent-tui",
       "source": "./pproenca--agent-tui",
       "description": "TUI automation for AI agents. Control any terminal app from code."
@@ -51092,6 +51187,11 @@
       "name": "testcraft-app--api-automation-agent",
       "source": "./testcraft-app--api-automation-agent",
       "description": "Agent that generates API automation tests based on an OpenAPI definition"
+    },
+    {
+      "name": "mrdav30--fixedmathsharp",
+      "source": "./mrdav30--fixedmathsharp",
+      "description": "A deterministic fixed-point math library for .NET"
     },
     {
       "name": "liangdabiao--tikhub-api-skill",
@@ -51659,6 +51759,11 @@
       "description": "Laravel package to generate Eloquent  models and migration files from DBML schema files. Simplify DBML parsing, automate relationship creation, and speed up your development workflow."
     },
     {
+      "name": "borneo-iot--borneo",
+      "source": "./borneo-iot--borneo",
+      "description": "The world's most advanced open-source aquarium LED PWM controller & mobile app."
+    },
+    {
       "name": "ersinkoc--fluidflow",
       "source": "./ersinkoc--fluidflow",
       "description": "Sketch to App"
@@ -52142,6 +52247,16 @@
       "name": "nvidia--multi-storage-client",
       "source": "./nvidia--multi-storage-client",
       "description": "Unified high-performance Python client for object and file stores."
+    },
+    {
+      "name": "karakeep-app--liteque",
+      "source": "./karakeep-app--liteque",
+      "description": "A SQLite based job queue implementation in typescript"
+    },
+    {
+      "name": "georgelyon--swiftclaude",
+      "source": "./georgelyon--swiftclaude",
+      "description": "A Swift SDK for Anthropic's Claude API"
     },
     {
       "name": "tmdgusya--engineering-discipline",
@@ -53189,6 +53304,11 @@
       "description": "A powerful Obsidian plugin that integrates with Letta to provide a stateful AI agent that knows your vault contents and remembers your conversations"
     },
     {
+      "name": "chimera-nas--chimera",
+      "source": "./chimera-nas--chimera",
+      "description": "high performance multi-protocol NAS stack with asynchronous VFS backend"
+    },
+    {
       "name": "aelf-hzz780--ai-bounty-skill",
       "source": "./aelf-hzz780--ai-bounty-skill",
       "description": "Public Codex skill for claiming AI bounty on aelf tDVV via RewardClaimContract, supporting EOA Claim() and Portkey CA ClaimByPortkeyToCa()."
@@ -54232,6 +54352,11 @@
       "name": "ferdousbhai--tasty-agent",
       "source": "./ferdousbhai--tasty-agent",
       "description": "Let Claude manage your tastytrade portfolio."
+    },
+    {
+      "name": "boostcampwm-2024--web05-denamu",
+      "source": "./boostcampwm-2024--web05-denamu",
+      "description": "\uac1c\ubc1c\uc790\ub4e4\uc758 \uc774\uc57c\uae30\uac00 \uc790\ub77c\ub098\ub294 \uacf3, \ub370\ub098\ubb34 \ud83c\udf84"
     },
     {
       "name": "knowsuchagency--fulcrum",
@@ -58584,6 +58709,21 @@
       "description": "Code base for OSS OpenFrame single tenant version"
     },
     {
+      "name": "jlowin--copychat",
+      "source": "./jlowin--copychat",
+      "description": "\ud83d\udccb\ud83d\udcac Simple code-to-context utility "
+    },
+    {
+      "name": "ad-sdl--madsci",
+      "source": "./ad-sdl--madsci",
+      "description": "Main repository for the Modular Autonomous Discovery for Science (MADSci) Framework"
+    },
+    {
+      "name": "ad-sdl--madsci",
+      "source": "./ad-sdl--madsci",
+      "description": "Main repository for the Modular Autonomous Discovery for Science (MADSci) Framework"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -59609,6 +59749,11 @@
       "description": "Enforce better exception handling in C#/.NET by ensuring exceptions are explicitly handled."
     },
     {
+      "name": "lvtd-llc--tuxseo",
+      "source": "./lvtd-llc--tuxseo",
+      "description": "Automated Blog Content Creation for Founders Who Hate Writing"
+    },
+    {
       "name": "rstackjs--agent-skills",
       "source": "./rstackjs--agent-skills",
       "description": "A collection of Agent Skills for Rstack."
@@ -60287,6 +60432,11 @@
       "name": "arjitvermaco--dbdost",
       "source": "./arjitvermaco--dbdost",
       "description": "DbDost"
+    },
+    {
+      "name": "siriwatknp--tailwindcss-jun-layout",
+      "source": "./siriwatknp--tailwindcss-jun-layout",
+      "description": "tailwindcss-jun-layout"
     },
     {
       "name": "tencentcloud--cubesandbox",
@@ -63024,6 +63174,11 @@
       "description": "Go Artificial Intelligence (GAI) helps you work with foundational models, large language models, and other AI models."
     },
     {
+      "name": "modern-python--modern-di",
+      "source": "./modern-python--modern-di",
+      "description": "Powerful DI-framework with scopes"
+    },
+    {
       "name": "andrew-malitchuk--kite-aos",
       "source": "./andrew-malitchuk--kite-aos",
       "description": "Modern, open-source Android kiosk application designed to transform tablets into dedicated smart home dashboards."
@@ -64597,6 +64752,16 @@
       "name": "demonixis--oxrsys",
       "source": "./demonixis--oxrsys",
       "description": "OXRSys"
+    },
+    {
+      "name": "prowler-cloud--prowler-studio",
+      "source": "./prowler-cloud--prowler-studio",
+      "description": "Prowler Studio an AI workflow that ensures Claude Code follows Prowler's guardrails to deliver consistent, tested, and PR-ready threat detection checks, remediations and update compliance frameworks."
+    },
+    {
+      "name": "cybozu--prompt-hardener",
+      "source": "./cybozu--prompt-hardener",
+      "description": "Prompt Hardener analyzes prompt-injection-originated risk in LLM-based agents and applications."
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -68244,6 +68409,16 @@
       "description": "solana-private-channels"
     },
     {
+      "name": "rockfactory--satisfactory-logistics",
+      "source": "./rockfactory--satisfactory-logistics",
+      "description": "A web tool to keep track of Satisfactory logistics"
+    },
+    {
+      "name": "rockfactory--satisfactory-logistics",
+      "source": "./rockfactory--satisfactory-logistics",
+      "description": "A web tool to keep track of Satisfactory logistics"
+    },
+    {
       "name": "rust-works--succinctly",
       "source": "./rust-works--succinctly",
       "description": "Succinct data structures"
@@ -69267,6 +69442,41 @@
       "name": "michael-obele--svelte-miniapps",
       "source": "./michael-obele--svelte-miniapps",
       "description": "This project is a collection of small, single-purpose applications written in Svelte 5. Each mini-app tackles a specific task, offering a simple and user-friendly experience for users."
+    },
+    {
+      "name": "radiantlogicinc--fastworkflow",
+      "source": "./radiantlogicinc--fastworkflow",
+      "description": "A framework for building large-scale, deterministic, interactive workflows with a fault-tolerant, conversational UX"
+    },
+    {
+      "name": "radiantlogicinc--fastworkflow",
+      "source": "./radiantlogicinc--fastworkflow",
+      "description": "A framework for building large-scale, deterministic, interactive workflows with a fault-tolerant, conversational UX"
+    },
+    {
+      "name": "radiantlogicinc--fastworkflow",
+      "source": "./radiantlogicinc--fastworkflow",
+      "description": "A framework for building large-scale, deterministic, interactive workflows with a fault-tolerant, conversational UX"
+    },
+    {
+      "name": "radiantlogicinc--fastworkflow",
+      "source": "./radiantlogicinc--fastworkflow",
+      "description": "A framework for building large-scale, deterministic, interactive workflows with a fault-tolerant, conversational UX"
+    },
+    {
+      "name": "radiantlogicinc--fastworkflow",
+      "source": "./radiantlogicinc--fastworkflow",
+      "description": "A framework for building large-scale, deterministic, interactive workflows with a fault-tolerant, conversational UX"
+    },
+    {
+      "name": "radiantlogicinc--fastworkflow",
+      "source": "./radiantlogicinc--fastworkflow",
+      "description": "A framework for building large-scale, deterministic, interactive workflows with a fault-tolerant, conversational UX"
+    },
+    {
+      "name": "andravin--spio",
+      "source": "./andravin--spio",
+      "description": "Experimental CUDA kernel framework unifying typed dimensions, NVRTC JIT specialization, and ML\u2011guided tuning."
     },
     {
       "name": "zhaono1--agent-playbook",
@@ -145974,6 +146184,11 @@
       "description": "\u672c\u9879\u76ee\u57fa\u4e8epython\uff0c\u4f7f\u7528userbot\u4e0b\u8f7dTelegram\u5386\u53f2\u6d88\u606f\u5230meilisearch\u6570\u636e\u5e93\uff0c\u89e3\u51b3telegram\u539f\u751f\u641c\u7d22\u65e0\u6cd5\u5904\u7406\u4e2d\u6587\u65ad\u8bcd\u7684\u95ee\u9898\u3002"
     },
     {
+      "name": "your-quantguy--crypto-portfolio-tracker-oss",
+      "source": "./your-quantguy--crypto-portfolio-tracker-oss",
+      "description": "crypto-portfolio-tracker-oss"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -153642,6 +153857,21 @@
       "name": "vfarcic--idp-full-demo",
       "source": "./vfarcic--idp-full-demo",
       "description": "idp-full-demo"
+    },
+    {
+      "name": "llamastash--llamastash",
+      "source": "./llamastash--llamastash",
+      "description": "A fast terminal native app (TUI) and CLI with init wizard for launching local LLMs via llama.cpp with zero overhead"
+    },
+    {
+      "name": "exon-research--genomi",
+      "source": "./exon-research--genomi",
+      "description": "An open-source agent harness that turns your AI agent into your personal DNA expert"
+    },
+    {
+      "name": "exon-research--genomi",
+      "source": "./exon-research--genomi",
+      "description": "An open-source agent harness that turns your AI agent into your personal DNA expert"
     },
     {
       "name": "yschimke--compose-ai-tools",
