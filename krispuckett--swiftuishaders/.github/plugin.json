@@ -1,0 +1,9 @@
+{
+  "name": "krispuckett--swiftuishaders",
+  "displayName": "SwiftUIShaders",
+  "description": "41 hand-curated drop-in SwiftUI Metal shader effects \u2014 holographic foil, kaleidoscope, magnetic fields, glitch, neon edges and more. Typed View modifiers, agent-friendly docs.",
+  "version": "1.0.0",
+  "author": "krispuckett",
+  "homepage": "https://github.com/krispuckett/SwiftUIShaders",
+  "skills": []
+}
