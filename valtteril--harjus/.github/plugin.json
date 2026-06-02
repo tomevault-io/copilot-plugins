@@ -1,0 +1,9 @@
+{
+  "name": "valtteril--harjus",
+  "displayName": "harjus",
+  "description": "Triangular arbitrage bot for Binance Spot market with userspace networking",
+  "version": "1.0.0",
+  "author": "ValtteriL",
+  "homepage": "https://github.com/ValtteriL/harjus",
+  "skills": []
+}
