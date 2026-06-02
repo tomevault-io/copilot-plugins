@@ -1,0 +1,9 @@
+{
+  "name": "block--elasticgraph",
+  "displayName": "elasticgraph",
+  "description": "Schema-driven, scalable, cloud-native, batteries-included GraphQL, backed by Elasticsearch/OpenSearch",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/elasticgraph",
+  "skills": []
+}
