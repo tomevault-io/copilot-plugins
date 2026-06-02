@@ -1,0 +1,9 @@
+{
+  "name": "satisfactory-factories--application",
+  "displayName": "application",
+  "description": "A web tool for planning production chains with dependency management within the game Satisfactory.",
+  "version": "1.0.0",
+  "author": "satisfactory-factories",
+  "homepage": "https://github.com/satisfactory-factories/application",
+  "skills": []
+}
