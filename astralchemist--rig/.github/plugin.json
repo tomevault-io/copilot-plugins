@@ -1,0 +1,9 @@
+{
+  "name": "astralchemist--rig",
+  "displayName": "rig",
+  "description": "Local-first semantic knowledge graph with magnetic-pull retrieval",
+  "version": "1.0.0",
+  "author": "Astralchemist",
+  "homepage": "https://github.com/Astralchemist/rig",
+  "skills": []
+}
