@@ -1,0 +1,9 @@
+{
+  "name": "blockblaz--zeam",
+  "displayName": "zeam",
+  "description": "Ethereum Lean client in Zig (wip)",
+  "version": "1.0.0",
+  "author": "blockblaz",
+  "homepage": "https://github.com/blockblaz/zeam",
+  "skills": []
+}
