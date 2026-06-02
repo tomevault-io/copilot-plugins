@@ -1,0 +1,9 @@
+{
+  "name": "cityjson--duckdb-cityjson",
+  "displayName": "duckdb-cityjson",
+  "description": "duckdb-cityjson",
+  "version": "1.0.0",
+  "author": "cityjson",
+  "homepage": "https://github.com/cityjson/duckdb-cityjson",
+  "skills": []
+}
