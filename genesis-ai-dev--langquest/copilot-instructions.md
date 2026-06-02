@@ -1,319 +1,234 @@
-## app-database-migration
+## creating-components
 
-> Guidelines for modifying Drizzle schema and creating migrations. Auto-attached when editing Supabase migrations, Drizzle schema files, or db/constants.ts.
+> Guidelines for creating and updating components following components.build standards
 
 
-# Database: Drizzle Schema Migration Process
+## Methodology
 
-## ⛔ Hard rule: version bumps come in pairs
+Follow the [components.build](https://www.components.build/) specification for building modern, composable, and accessible UI components. Use the [Composition Pattern](https://www.radix-ui.com/primitives/docs/guides/composition).
 
-**`APP_SCHEMA_VERSION` and `get_schema_info()` change together, or neither changes. There is no third option.**
+## Artifact Taxonomy
 
-Run this check on every migration diff:
+Understand the hierarchy of UI artifacts we work with:
 
-| `APP_SCHEMA_VERSION` bumped? | Migration contains `create or replace function public.get_schema_info()`? | Verdict |
-|---|---|---|
-| ❌ No | ❌ No | ✅ Server-only — Path A |
-| ✅ Yes | ✅ Yes (matching version) | ✅ Client schema change — Path B |
-| ❌ No | ✅ Yes | 🛑 Broken — remove the `get_schema_info()` block |
-| ✅ Yes | ❌ No | 🛑 Broken — add the `get_schema_info()` bump |
+1. **Primitive** - Lowest-level building block providing behavior and accessibility without styling (e.g., Radix UI Primitives)
+2. **Component** - Styled, reusable UI unit that adds visual design to primitives (e.g., shadcn/ui components)
+3. **Pattern** - Specific composition solving a UI/UX problem (e.g., form validation with inline errors)
 
-**Default = Path A.** If you cannot point to a specific client code change (a Drizzle column the app reads/writes, a sync-rules change clients must satisfy, a renamed table the client queries), do not touch `APP_SCHEMA_VERSION` or `get_schema_info()`. Incorrectly bumping either blocks sync for users on current app builds.
+## Core Principles
 
-> **Real incidents this prevents.** `20260529120000_rename_project_language_suggestion_to_languoid.sql` shipped a `get_schema_info()` bump to `2.5 / min 2.4` while `APP_SCHEMA_VERSION` stayed at `2.3` — blocked sync for every user on the current build and required `20260530120000_revert_schema_info_to_2_3.sql` to undo. `20260520210000_invite_bounce_type_and_reason.sql` made the same mistake (server-only `bounce_type`/`bounce_reason` columns, bumped to `2.4` anyway).
+### Composability and Reusability
 
-## Decision: Path A or Path B?
+- Favor composition over inheritance
+- Build components that can be combined and nested
+- Expose clear API via props/slots for customization
+- Make components reusable in different contexts
 
-| Change type | Supabase migration | `APP_SCHEMA_VERSION` | `get_schema_info()` | Drizzle schema | Local `db/migrations/` |
-|---|---|---|---|---|---|
-| Server-only nullable column | ✅ | ❌ | ❌ | ❌ | ❌ |
-| RLS / triggers / functions / indexes | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Client reads/writes new synced column | ✅ | minor bump | ✅ | ✅ | maybe |
-| Destructive client column change | ✅ | major bump | ✅ | ✅ | ✅ |
-| Server RPC transform for legacy uploads | ✅ | with client | ✅ | maybe | ❌ |
+### Accessible by Default
 
-**Path A — server-only:** Postgres changes the client doesn't see. Examples: nullable columns the app never reads, RLS, triggers, indexes, server functions, backfills, invite bounce-tracking columns. Only output: a Supabase SQL migration. Do **not** edit `db/constants.ts`, the Drizzle schemas, or `db/migrations/`.
+- Accessibility is not optional - it's a baseline feature
+- See the detailed [Accessibility](#accessibility) section below for implementation guidelines
 
-**Path B — client schema change:** App code or the client sync contract changes. Examples: client reads/writes a new column, required field, rename/drop a column the client uses, sync-rules change old clients can't satisfy. Coordinate steps 1–6 below.
+### Customizability and Theming
 
-## PowerSync is schemaless
+- Avoid hard-coding visual styles that cannot be overridden
+- Provide mechanisms for theming (CSS variables, className, style props)
+- Come with sensible defaults but allow easy customization
+- Use design tokens for visual values (see [Styling](#styling) section)
 
-PowerSync stores synced data as schemaless JSON; the client Drizzle schema is just a view on top.
+### Lightweight and Performant
 
-> "Updating this client-side schema is immediate when the new version of the app runs, with no client-side migrations required." — [PowerSync: Implementing Schema Changes](https://docs.powersync.com/usage/lifecycle-maintenance/implementing-schema-changes)
+- Minimize dependencies
+- Avoid bloating with unnecessary logic
+- Strive for good rendering and interaction performance
+- Minimize unnecessary re-renders
 
-Practical consequences:
+## Existing Components & Library Selection
 
-- **Adding a nullable column** to a synced table does not need a local SQLite migration. Existing records read `undefined`, equivalent to `NULL`.
-- **Local migrations are needed** only when client code actively reads/writes a column with non-null semantics, when removing/renaming a column the client uses, or when existing local data needs transformation/backfill.
-- Both synced tables and `*_local` tables use the same JSON-storage architecture — the difference is sync scope, not storage mechanism.
+**Decision order when building features:**
 
-## Path A: Server-only Supabase migration
+1. **Check existing UI components** (in order):
+   - [React Native Reusables](https://reactnativereusables.com/docs) - UI components
+   - [React Native Primitives](https://rn-primitives.vercel.app/) - Radix primitives
+   - [RNR Community Resources](https://github.com/founded-labs/react-native-reusables/blob/main/COMMUNITY_RESOURCES.md) - Community examples
 
-```sql
--- Migration: Add server_only_flag to invite (server-side delivery tracking)
--- NO schema version bump — server-only, nullable, not in client Drizzle schema
+2. **Check Expo SDK** - [Expo SDK docs](https://docs.expo.dev/versions/latest/) for native APIs (camera, file system, haptics, etc.)
 
-alter table public.invite
-  add column if not exists server_only_flag text;
+3. **Only then** consider third-party libraries or custom components.
 
-comment on column public.invite.server_only_flag is 'Used by Resend webhook; not synced to client.';
+## Composition Patterns
+
+### Children / Slots
+
+- **Children** (implicit slot): JSX between opening/closing tags
+- **Named slots**: Props like `icon`, `footer`, or `<Component.Slot>` subcomponents
+- **Slot forwarding**: Pass DOM attributes/className/refs through to underlying element
+
+### Render Props (Function-as-Child)
+
+Use when parent must own data/behavior but consumer must fully control markup:
+
+```tsx
+<ParentComponent data={data}>
+  {(item) => <ChildComponent key={item.id} {...item} />}
+</ParentComponent>
 ```
 
-Do **not** include `create or replace function public.get_schema_info()` in this migration.
+### Compound Components
 
-## Path B: Step-by-step (client schema change)
+Use separate component imports to compose complex UI (shadcn-style):
 
-### 1. Modify shared schema definitions
+```tsx
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter
+} from '@/components/ui/card';
 
-Edit `db/drizzleSchemaColumns.ts` — its functions are reused by both `drizzleSchema.ts` (synced tables) and `drizzleSchemaLocal.ts` (`*_local` tables).
+<Card>
+  <CardHeader>Title</CardHeader>
+  <CardContent>Body</CardContent>
+  <CardFooter>Actions</CardFooter>
+</Card>;
+```
 
-```typescript
-export function createAssetTable(source: TableSource, refs: {...}) {
-  return tableCreator(source)('asset', {
-    ...getBaseColumns(source),
-    new_field: text(),
+### Controlled vs. Uncontrolled
+
+- **Controlled**: Value driven by props, emits `onChange` (source of truth is parent)
+- **Uncontrolled**: Holds internal state, may expose `defaultValue` and imperative reset
+- Many inputs should support both patterns
+
+### Polymorphism / asChild
+
+Use `asChild` prop to allow component to render as a different element:
+
+```tsx
+<Button asChild>
+  <Link href="/">Click me</Link>
+</Button>
+```
+
+This renders as `<Link>` instead of `<button>`, preserving all Button behavior.
+
+## Accessibility
+
+### Keyboard Navigation
+
+- Document and implement keyboard map for every interactive component
+- Support standard patterns: `Tab`, `Arrow keys`, `Home/End`, `Escape`
+- Ensure all interactive elements are keyboard accessible
+
+### Focus Management
+
+- Rules for initial focus, roving focus, focus trapping
+- Focus return on teardown (e.g., modals)
+- Focus indicators visible and clear
+
+### ARIA Attributes
+
+- Use semantic HTML elements (`<button>`, `<ul>/<li>`, etc.)
+- Augment with ARIA when necessary:
+  - `role` - Communicate semantics (`role="menu"`)
+  - `aria-*` states - State (`aria-checked`, `aria-expanded`)
+  - `aria-*` properties - Relationships (`aria-controls`, `aria-labelledby`)
+
+### Color Contrast
+
+- Ensure sufficient color contrast for text and interactive elements
+- Don't rely solely on color to convey information
+
+## Implementation Notes
+
+### Styling
+
+- Don't use margin (`m-*` properties in tailwind), use `View`s with flex (`flex`), flex gap (`gap-*`), and flex direction (`flex-[row|col]`).
+- Don't concatenate tailwind classnames with template strings, always use the `cn` utility in `utils/styleUtils.ts`.
+- Don't use Tailwind leading-none or anything with a line-height less than 1.3, as it causes text clipping.
+- Don't use `SafeAreaView` around `ScrollView` or `FlatList`. Instead, always use `contentInsetAdjustmentBehavior="automatic"` prop on the scrollable component itself.
+- Use **variants** for discrete style/behavior permutations (e.g., `size="sm|md|lg"`, `tone="neutral|destructive"`). Variants are not separate components.
+- Use **design tokens** (CSS variables) for theming: `--color-bg`, `--radius-md`, `--space-2`
+- Support **className** merging for customization
+- Components should be **headless** (behavior only) or **styled** (default visual design but override-friendly)
+
+### Icons
+
+- When looking for a suitable icon, use the lucide-icons MCP.
+- Import icons from `lucide-react-native` with `Icon` suffix: `MailIcon`, `BellIcon`.
+- Use the `Icon` component from `components/ui/icon.tsx` with the `as` prop to render icons, ex. `<Icon as={MailIcon} />`.
+
+- **Loading Indicators**: Always use `ActivityIndicator` from `react-native` for loading states. Don't use custom spinners or loading icons like `Loader2Icon` with animations.
+
+### React 19
+
+- Don't use `React.forwardRef` anymore. In React 19, components can accept `ref` as a regular prop directly. Simply add `ref` to your component's props interface and use it directly.
+
+### Colors accessed in JavaScript
+
+Use `useThemeColor` hook from `components` for colors in JavaScript (not Tailwind classes) to support dark/light mode. In non-component contexts, use `getThemeColor`.
+
+### Worklet Threading
+
+Use `scheduleOnRN` from `react-native-worklets` (not `runOnJS` or `queueMicrotask`) to schedule work on the React Native thread. **CRITICAL**: Pass function references only, never inline arrow functions - these crash. Declare wrapper functions outside worklets and pass by reference. Example: `const updateState = (value) => setState(value);` then `scheduleOnRN(updateState, newValue)`.
+
+## React Compiler & Memoization
+
+**Reference**: [I tried React Compiler today, and guess what...](https://www.developerway.com/posts/i-tried-react-compiler)
+
+While React Compiler can automatically memoize components, it has limitations and doesn't solve all re-render problems. Understanding memoization patterns is still essential:
+
+- **Mutation Hooks**: When using hooks like `useMutation` (e.g., from TanStack Query), extract the `mutate` function from the returned object rather than using the entire object as a dependency. The returned object itself is not memoized, but `mutate` is.
+
+- **Dynamic Lists**: For lists rendered with `.map()`, always use stable, unique keys (not array indices). Extract list items into separate components when they contain complex JSX - this helps the compiler optimize them.
+
+- **Children Props**: Components that accept `children` props are harder for the compiler to optimize. Prefer composition patterns like passing elements as props or using render props when performance matters.
+
+- **Manual Memoization**: Don't assume React Compiler handles everything. For performance-critical components, you may still need `React.memo`, `useMemo`, or `useCallback`. The compiler shows components as "memoized" in DevTools, but this doesn't guarantee they won't re-render unnecessarily.
+
+- **Composition Over Memoization**: When dealing with re-render issues, prefer composition techniques (moving state down, splitting contexts, extracting components) over manual memoization when possible.
+
+- **ESLint Disable Comments**: Never use `// eslint-disable-next-line` or similar ESLint disable comments in your code. These comments prevent React Compiler from properly analyzing and optimizing your code. If ESLint flags an issue, fix the underlying problem rather than suppressing the warning. For legitimate cases where a dependency should be excluded (like stable functions or refs), refactor the code to make the stability explicit rather than disabling the exhaustive-deps rule.
+
+- **React Native Reanimated Shared Values**: When working with React Native Reanimated's `useSharedValue`, use the `.get()` and `.set()` methods instead of accessing `.value` directly. This is the React Compiler-compliant API that avoids the need for refs or workarounds. Example:
+
+```tsx
+function App() {
+  const sv = useSharedValue(100);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    'worklet';
+    return { width: sv.get() * 100 };
   });
+
+  const handlePress = () => {
+    sv.set(withTiming(200, { duration: 300 }));
+  };
 }
 ```
 
-### 2. Bump `APP_SCHEMA_VERSION` + update `get_schema_info()`
+This eliminates the need for refs (`useRef`) and `useEffect` when modifying shared values in inline handlers, as React Compiler treats direct `.value` access as immutable mutations.
 
-These two move together (see hard rule). Format: `MAJOR.MINOR`.
+### Types and Props API
 
-- **Minor bump** (`2.0 → 2.1`): additive client changes (new columns/tables the app uses).
-- **Major bump** (`2.0 → 3.0`): destructive client changes (removed/renamed columns, type changes, dropped tables).
+- **TypeScript**: Ship with comprehensive types for maximum safety and autocomplete
+- **Props API**: Stable, typed, documented with defaults and a11y ramifications
+- Support both **controlled** and **uncontrolled** patterns where applicable (see [Controlled vs. Uncontrolled](#controlled-vs-uncontrolled))
+- Document all props: name, type, default, required, description
+- Document purpose, usage, accessibility notes (keyboard controls, ARIA attributes), and customization options
 
-```typescript
-// db/constants.ts
-export const APP_SCHEMA_VERSION = '2.1';
+### Data Attributes
+
+Use data attributes for styling hooks and state:
+
+- `data-slot` - Identify component parts for styling
+- `data-state` - Indicate component state (open, closed, checked, etc.)
+- `data-disabled`, `data-selected`, etc. - State indicators
+
+Example:
+
+```tsx
+<View data-slot="trigger" data-state={isOpen ? 'open' : 'closed'}>
 ```
-
-```sql
--- in your Supabase migration
-create or replace function public.get_schema_info()
-returns jsonb
-language sql
-security invoker
-set search_path = public
-as $$
-  select jsonb_build_object(
-    'schema_version', '2.1',
-    'min_required_schema_version', '2.0',
-    'notes', 'Clients must be at least 2.0 to sync.'
-  );
-$$;
-```
-
-`min_required_schema_version` lets you ship the DB migration before the app update is approved: clients with `schema_version >= min_required_schema_version` keep syncing. After app adoption, raise the minimum to phase out older versions. If unset, falls back to exact-match. See `db/schemaVersionService.ts`.
-
-### 3. Update `db/drizzleSchemaLocal.ts`
-
-`drizzleSchemaLocal.ts` is hand-maintained. When `drizzleSchemaColumns.ts` changes, update the corresponding `*_local` table:
-
-```typescript
-export const asset_local = createAssetTable('local', {
-  language: language_local,
-  project: project_local,
-  profile: profile_local
-});
-```
-
-The third argument adds **local-only columns** (not synced to cloud, no Supabase migration needed):
-
-```typescript
-export const asset_local = createAssetTable(
-  'local',
-  { language: language_local, project: project_local, profile: profile_local },
-  {
-    local_cache_flag: text().default('false'),
-    offline_metadata: text({ mode: 'json' }).$type<Record<string, unknown>>()
-  }
-);
-```
-
-For local-only columns: skip the Supabase migration, but still create a local migration if you're adding the column to an existing table. Make sure the name doesn't collide with cloud schema columns.
-
-### 4. Create the Supabase migration
-
-File: `supabase/migrations/YYYYMMDDHHmmss_short_description.sql`. See `.cursor/rules/supabase/create-migration.mdc`.
-
-```sql
--- Migration: Add new_field to asset table
--- Path B client change — bumps APP_SCHEMA_VERSION 2.0 → 2.1 in same release
-
-alter table asset add column new_field text;
-comment on column asset.new_field is 'Description of the new field';
-
-update asset set new_field = 'default_value' where new_field is null;
-```
-
-For destructive changes, copy data before dropping the old column:
-
-```sql
-alter table asset add column new_field text;
-update asset set new_field = deprecated_field where deprecated_field is not null;
-alter table asset drop column deprecated_field;
-```
-
-### 5. Create the local migration (when needed)
-
-Required for: local-only columns on existing tables; synced columns the client actively reads/writes with non-nullable semantics; data backfills/transformations on existing local records. Not required for nullable columns the client doesn't actively use, server-only Postgres columns, or schema-only changes (PowerSync handles those automatically).
-
-File: `db/migrations/MAJOR_MINOR-to-MAJOR_MINOR.ts` (e.g., `2.0-to-2.1.ts`).
-
-```typescript
-import type { Migration } from './index';
-import { addColumn } from './utils';
-
-export const migration_2_0_to_2_1: Migration = {
-  fromVersion: '2.0',
-  toVersion: '2.1',
-  description: 'Add new_field to asset_local table',
-
-  async migrate(db, onProgress) {
-    onProgress?.(1, 1, 'Adding new_field column');
-    await addColumn(db, 'asset_local', 'new_field TEXT DEFAULT NULL');
-  }
-};
-```
-
-Rules for local migrations:
-
-- **Only touch `*_local` tables.** Synced tables are transformed server-side via RPC when local data uploads — see "Server-side RPC transforms" below.
-- **Idempotent** — safe to re-run.
-- **Destructive pattern:** add new column → copy/transform data → drop old column. Use `addColumn`, `copyColumn`, `transformColumn`, `dropColumn` from `db/migrations/utils.ts`.
-- **Never delete user data** — transform in place.
-
-### 6. Register the local migration
-
-```typescript
-// db/migrations/index.ts
-import { migration_2_0_to_2_1 } from './2.0-to-2.1';
-
-export const migrations: Migration[] = [
-  migration_0_0_to_1_0,
-  migration_1_0_to_2_0,
-  migration_2_0_to_2_1,
-];
-```
-
-## Common mistakes
-
-```sql
--- ❌ WRONG: server-only column with a version bump — blocks all current app users
-alter table invite add column bounce_reason text;
-create or replace function public.get_schema_info() ... 'schema_version', '2.4' ...;
-
--- ✅ RIGHT: server-only — no get_schema_info()
-alter table invite add column bounce_reason text;
-comment on column invite.bounce_reason is 'Set by Resend webhook; server-only.';
-```
-
-```typescript
-// ❌ WRONG: bumped APP_SCHEMA_VERSION for a column the app doesn't read/write
-export const APP_SCHEMA_VERSION = '2.4';
-
-// ✅ RIGHT: leave it alone; only the Postgres migration changes
-export const APP_SCHEMA_VERSION = '2.3';
-```
-
-## Migration utilities
-
-From `db/migrations/utils.ts`:
-
-- `addColumn(db, table, definition)` — add a column
-- `renameColumn(db, table, oldName, newName)` — SQLite-safe rename
-- `dropColumn(db, table, column)` — SQLite 3.35+
-- `copyColumn(db, table, src, dest)` — copy data between columns
-- `transformColumn(db, table, column, expr, where?)` — SQL-expression transform
-- `updateInBatches(db, table, query, where, batchSize, progress?)` — batched updates for large datasets
-- `updateMetadataVersion(db, version)` — updates `_metadata.schema_version` (called automatically)
-
-## Testing checklist
-
-- [ ] Confirmed Path A vs Path B — server-only migrations don't touch `get_schema_info()` or `APP_SCHEMA_VERSION`
-- [ ] Tested with realistic data
-- [ ] Tested migration chain (`1.0→1.1→1.2`) and direct (`1.0→1.2`) — Path B only
-- [ ] Verified `_metadata.schema_version` is correct — Path B only
-- [ ] Verified only `*_local` tables were touched (synced tables go through server RPC)
-- [ ] Checked performance with large datasets
-- [ ] Tested on iOS and Android if relevant
-
-## Server-side RPC transforms (uploads from older clients)
-
-Separate concern from the schema-migration steps above. Use these when synced tables need data **transformed at upload time** so older clients can keep writing — e.g., enriching records with fields the new schema requires, splitting one table into many, or backfilling derived values from an older field.
-
-Pattern: a `vN_to_vN+1(p_ops mutation_op[], p_meta jsonb)` function rewrites operations missing the new field, then `apply_table_mutation` / `apply_table_mutation_transaction` chain transforms based on the client's `schema_version`.
-
-```sql
-CREATE OR REPLACE FUNCTION public.v1_to_v2(
-  p_ops public.mutation_op[],
-  p_meta jsonb
-) RETURNS public.mutation_op[]
-LANGUAGE plpgsql AS $$
-DECLARE
-  out_ops public.mutation_op[] := '{}';
-  op public.mutation_op;
-  v_record jsonb;
-BEGIN
-  FOREACH op IN ARRAY p_ops LOOP
-    IF lower(op.table_name) = 'table_name' THEN
-      v_record := op.record;
-      IF (v_record->>'new_field') IS NULL AND (v_record->>'old_field') IS NOT NULL THEN
-        v_record := v_record || jsonb_build_object('new_field', /* derive from old_field */);
-      END IF;
-      out_ops := out_ops || (row(op.table_name, op.op, v_record))::public.mutation_op;
-    ELSE
-      out_ops := out_ops || op;  -- passthrough
-    END IF;
-  END LOOP;
-  RETURN out_ops;
-END;
-$$;
-```
-
-Chain in mutation handlers based on the client's schema version:
-
-```sql
--- in apply_table_mutation / apply_table_mutation_transaction
-DECLARE
-  v_meta text := coalesce(
-    p_client_meta->>'schema_version',  -- new format
-    p_client_meta->>'metadata',         -- legacy format
-    '0'                                 -- default to v0
-  );
-BEGIN
-  IF v_meta = '0' OR v_meta LIKE '0.%' THEN
-    ops := public.v0_to_v1(ops, p_client_meta);
-    ops := public.v1_to_v2(ops, p_client_meta);
-  ELSIF v_meta = '1' OR v_meta LIKE '1.%' THEN
-    ops := public.v1_to_v2(ops, p_client_meta);
-  END IF;
-  -- v2+ passes through unchanged
-END;
-```
-
-Key principles:
-
-- Only transform older versions; passthrough current. Don't transform v2 data with `v1_to_v2`.
-- Don't modify ops in place — emit new `mutation_op` rows.
-- Use lookup tables (e.g., `language_languoid_map`) to cache expensive derivations; back them with `SECURITY DEFINER` helpers like `get_or_create_languoid_for_language(uuid)`.
-- `raise log` aggressively for debugging.
-- Don't use RPC transforms for local-only changes — those are client-side only.
-- Transforms only run if you wire them into the mutation handlers above.
-
-## References
-
-- Example transform: `supabase/migrations/20251128120000_add_v1_to_v2_transform.sql`
-- Mutation handlers: `apply_table_mutation`, `apply_table_mutation_transaction`
-- Mutation op type: `public.mutation_op` (`table_name`, `op`, `record`)
-- Local migration helpers: `db/migrations/utils.ts`
-- Local migration README: `db/migrations/README.md`
-- Example local migration: `db/migrations/EXAMPLE_1.0-to-1.1.ts`
-- Schema version constant: `db/constants.ts` (`APP_SCHEMA_VERSION`)
-- Client-side schema version service: `db/schemaVersionService.ts`
-- Supabase migration rules: `.cursor/rules/supabase/create-migration.mdc`
 
 ---
 > Source: [genesis-ai-dev/langquest](https://github.com/genesis-ai-dev/langquest) — distributed by [TomeVault](https://tomevault.io).
