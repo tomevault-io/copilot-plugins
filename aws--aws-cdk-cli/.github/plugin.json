@@ -1,0 +1,9 @@
+{
+  "name": "aws--aws-cdk-cli",
+  "displayName": "aws-cdk-cli",
+  "description": "AWS CDK Toolkit",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/aws-cdk-cli",
+  "skills": []
+}
