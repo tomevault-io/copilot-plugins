@@ -1,0 +1,9 @@
+{
+  "name": "esmuellert--nvim-eslint",
+  "displayName": "nvim-eslint",
+  "description": "An ESLint plugin for Neovim, using VSCode ESLint LSP and native nvim LSP client",
+  "version": "1.0.0",
+  "author": "esmuellert",
+  "homepage": "https://github.com/esmuellert/nvim-eslint",
+  "skills": []
+}
