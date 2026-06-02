@@ -7,11 +7,11 @@ Tame full-stack chaos with Temporal workflows and React wizardry, the ultimate e
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [proyecto26/projectx](https://github.com/proyecto26/projectx).
+Original source: `AGENTS.md` in [proyecto26/projectx](https://github.com/proyecto26/projectx).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
