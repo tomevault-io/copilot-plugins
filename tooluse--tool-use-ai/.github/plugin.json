@@ -1,0 +1,9 @@
+{
+  "name": "tooluse--tool-use-ai",
+  "displayName": "tool-use-ai",
+  "description": "Tools to simplify life with AI",
+  "version": "1.0.0",
+  "author": "ToolUse",
+  "homepage": "https://github.com/ToolUse/tool-use-ai",
+  "skills": []
+}
