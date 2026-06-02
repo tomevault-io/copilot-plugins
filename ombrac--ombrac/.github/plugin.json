@@ -1,0 +1,9 @@
+{
+  "name": "ombrac--ombrac",
+  "displayName": "ombrac",
+  "description": "Safe, fast, small TCP/UDP-over-QUIC tunnel written in Rust",
+  "version": "1.0.0",
+  "author": "ombrac",
+  "homepage": "https://github.com/ombrac/ombrac",
+  "skills": []
+}
