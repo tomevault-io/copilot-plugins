@@ -1,27 +1,83 @@
 ## cursor-latex-template
 
-> Follow the instructions to assist scientific writing
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Role
+# CLAUDE.md
 
-You are a scientific writing assistant, and your goal is to help me draft a scientific paper.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Instructions
+## Project Overview
 
-## Writing styles
+This is a LaTeX template repository designed to configure Cursor for LaTeX document editing. The repository provides installation scripts and Cursor rules to enable LLM-assisted LaTeX editing.
 
-When editing, please focus on improving clarity, conciseness, and coherence while maintaining the technical accuracy and integrity of the content.
-Ensure that the tone remains formal but accessible for the general public.
-Please diversify the use of words and avoid overusing certain words or phrases, especially in the same sentence.
-Write in full sentences and avoid using bullet points.
+## Key Components
 
-## Format
+### Cursor Rules for LaTeX
 
-The document is written in LaTeX, so when you make changes, follow the LaTeX syntax.
+The main configuration is in `.cursor/rules/latex-instructions.mdc`, which instructs AI assistants to:
+- Act as a scientific writing assistant for drafting papers
+- Focus on clarity, conciseness, and coherence while maintaining technical accuracy
+- Use formal but accessible tone
+- Follow LaTeX syntax when making changes
+- Start a new line for each sentence in LaTeX files
+- Write in full sentences and avoid bullet points
 
-You should start a new line for each sentence.
+This rule applies only to `*.tex` files (`alwaysApply: false`, `globs: *.tex`).
+
+### Installation System
+
+The repository uses a two-script installation system:
+
+1. **install.sh**: Installs `init_cursor_latex` as a system-wide command
+   - Creates a symlink in the specified installation path (e.g., `/usr/local/bin`)
+   - Makes `init_cursor_latex.sh` executable
+   - Usage: `./install.sh /path/to/installation`
+
+2. **init_cursor_latex.sh**: Copies Cursor configuration to LaTeX projects
+   - Copies `.cursor/rules/` directory to target project
+   - Copies `.gitignore` file for LaTeX projects
+   - Preserves existing files (uses `cp -n` flag)
+   - Resolves symlinks to find source files
+   - Usage: Run in the target LaTeX project directory
+
+## Common Tasks
+
+### Installing the tool system-wide
+
+```bash
+chmod +x install.sh
+./install.sh /usr/local/bin  # or any directory in your PATH
+```
+
+### Setting up a new LaTeX project
+
+```bash
+cd /path/to/your/latex/project
+init_cursor_latex
+```
+
+### Running scripts without installation
+
+```bash
+# From anywhere
+bash /path/to/this/repo/init_cursor_latex.sh
+```
+
+## Integration with Overleaf
+
+This template supports working with Overleaf via Git integration. Users can clone Overleaf projects locally, work with Cursor, and push changes back to Overleaf's remote repository.
+
+## LaTeX Compilation
+
+This repository does not include LaTeX compilation scripts. Users are expected to:
+- Use the LaTeX Workshop extension for VSCode/Cursor
+- Have a local TeX distribution installed (MacTeX for macOS, TeX Live for others)
+- Compile through the LaTeX Workshop extension interface
+
+## Git Workflow
+
+The `.gitignore` file excludes LaTeX intermediate files (`.aux`, `.log`, `.out`, `.toc`, etc.) as well as the `.cursor/` directory and `.gitignore` itself from version control.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/yang3kc)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/yang3kc)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [yang3kc/cursor_latex_template](https://github.com/yang3kc/cursor_latex_template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
