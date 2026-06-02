@@ -1,0 +1,9 @@
+{
+  "name": "bastidood--spectro",
+  "displayName": "spectro",
+  "description": "A multi-channel confession bot for Discord that supports anonymous replies and channel moderation.",
+  "version": "1.0.0",
+  "author": "BastiDood",
+  "homepage": "https://github.com/BastiDood/spectro",
+  "skills": []
+}
