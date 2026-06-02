@@ -1,0 +1,9 @@
+{
+  "name": "cyanheads--repo-map",
+  "displayName": "repo-map",
+  "description": "repo-map generates LLM-enhanced summaries and analysis of software repositories, providing developers with valuable insights into project structures, file purposes, and potential considerations across",
+  "version": "1.0.0",
+  "author": "cyanheads",
+  "homepage": "https://github.com/cyanheads/repo-map",
+  "skills": []
+}
