@@ -1,0 +1,9 @@
+{
+  "name": "marvinsxtr--ml-project-template",
+  "displayName": "ml-project-template",
+  "description": "Template machine learning project using wandb, hydra-zen and submitit on Slurm with Apptainer",
+  "version": "1.0.0",
+  "author": "marvinsxtr",
+  "homepage": "https://github.com/marvinsxtr/ml-project-template",
+  "skills": []
+}
