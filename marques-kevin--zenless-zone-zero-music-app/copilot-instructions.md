@@ -1,203 +1,149 @@
-## create-news
+## store-new-songs
 
-> When a user wants to create a news article, follow these steps to properly create and store it:
+> When a user downloads a song from YouTube using `yarn mp3`, follow these steps to properly store it in the database:
 
 
-# Creating News Articles
+# Storing YouTube-Downloaded Songs
 
-When a user wants to create a news article, follow these steps to properly create and store it:
+When a user downloads a song from YouTube using `yarn mp3`, follow these steps to properly store it in the database:
 
 ## Step-by-Step Process
 
-### 1. Get the Last Commit Information
+### 1. Move and Rename the File
 
-**Important**: News articles are always based on the **last/most recent commit**. Extract the commit information to use as the basis for the news article.
+- **Source**: Files are downloaded to `scripts/youtube-downloader/files/`
+- **Destination**: Move to `musics/` directory
+- **Naming Convention**: `{version}--{title-in-kebab-case}.mp3`
+  - Example: `Ye_Shunguang_EP_-_A_Thousand_First_Meetings_Zenless_Zone_Zero.mp3` → `2.5--ye-shunguang-ep--a-thousand-first-meetings.mp3`
+  - Filename must start with the ZZZ version (e.g., `2.4`, `2.5`)
+  - Use double dashes (`--`) to separate version from title
+  - Convert title to kebab-case (lowercase, hyphens instead of spaces)
 
-Get the last commit's title, description, and ID by running:
+### 2. Get Track Duration
 
-```bash
-# Get commit ID (7-character short hash)
-git rev-parse --short HEAD
-
-# Get commit message (title and description)
-git log -1 --pretty=format:"%s%n%n%b"
-```
-
-Or get all information at once:
+Run the duration script:
 
 ```bash
-git log -1 --pretty=format:"%H%n%s%n%b"
+./scripts/get-music-durations.sh "filename.mp3"
 ```
 
-This will give you:
+or multiple files
 
-- **Commit ID**: The 7-character hash (use `git rev-parse --short HEAD` for just the ID)
-- **Commit Title**: The first line of the commit message
-- **Commit Description**: The rest of the commit message (if any)
-
-### 2. Transform Commit Information to News Format
-
-Convert the commit information into user-friendly news content:
-
-- **Title**: Transform the commit title into a clear, user-friendly news title
-
-  - Remove technical jargon
-  - Make it descriptive and engaging
-  - Example: `feat: add ye shunguang character album` → `"New Ye Shunguang character album added"`
-
-- **Description**: Create a brief summary (1-2 sentences) based on the commit message
-
-  - Explain what was added/changed in plain language
-  - Focus on what users will benefit from
-  - Example: `"Added Ye Shunguang character album with EP track 'A Thousand First Meetings'"`
-
-- **Published Date**: Use today's date in `YYYY-MM-DD` format
-
-- **Content**: Write the main body text in plain, everyday language based on the commit changes
-  - Explain what the change means for users
-  - Avoid technical details
-  - Use multiple paragraphs for readability
-
-### 3. Create the News File
-
-**Location**: `cms/news/`
-
-**Naming Convention**: `{language}-{date}-{commit_id}.md`
-
-- Example: `en-2025-12-26-d8a6391.md`
-- Format: `{lang}-{YYYY-MM-DD}-{7-char-commit-hash}.md`
-
-### 4. File Structure
-
-The news file should follow this structure:
-
-```markdown
----
-published_at: 2025-12-26
-commit_id: d8a6391
-title: "Your News Title"
-description: "A brief description of what this news is about."
-language: en
----
-
-Your news content goes here. Write in plain, everyday language.
-
-You can use multiple paragraphs to explain the changes or updates.
-
-Keep it simple and user-friendly, avoiding technical jargon when possible.
+```bash
+./scripts/get-music-durations.sh "2.5-*.mp3"
 ```
 
-### 5. Frontmatter Fields
+The output will show the duration in seconds (e.g., `292.392000` → use `292`).
 
-**Required fields:**
+### 3. Determine Album and Artist
 
-- `published_at`: Date in `YYYY-MM-DD` format
-- `commit_id`: 7-character git commit hash
-- `title`: News title (string, can include quotes)
-- `description`: Brief summary (1-2 sentences)
-- `language`: Language code (e.g., `en`, `fr`, `es`)
+- **Version Albums**: Tracks belong to version albums (e.g., `2.4`, `2.5`) defined in `src/database/albums.ts`
+- **Character Albums**: If the track is character-specific (EP, theme), it may also belong to a character album
+- **Artists**: Use version numbers as artists (e.g., `Artists["2.5"]`)
 
-**Example:**
+### 4. Add Track to Version Album
 
-```yaml
----
-published_at: 2025-12-26
-commit_id: d8a6391
-title: "Zhao EP and 2.5 soundtrack update"
-description: "Added the new Zhao EP album featuring 'Tiny Giant' track, along with the 2.5 soundtrack album and new character assets."
-language: en
----
+Edit the version album file (e.g., `src/database/albums/2.5.ts`):
+
+```typescript
+{
+  title: "Ye Shunguang EP - A Thousand First Meetings",
+  title_id: "ye-shunguang-ep--a-thousand-first-meetings", // kebab-case, unique
+  source: "/musics/2.5--ye-shunguang-ep--a-thousand-first-meetings.mp3",
+  duration: 292, // from step 2
+  created_at: new Date("2025-12-26"), // release date
+  ...Artists["2.5"], // spread artist
+}
 ```
 
-### 6. Content Guidelines
+Then map to add album properties:
 
-- **Write in plain language**: Use everyday language, avoid technical jargon
-- **Be concise**: Keep paragraphs short and focused
-- **User-focused**: Explain what the change means for users, not just what was changed
-- **Use markdown**: You can use markdown formatting for emphasis, lists, etc.
-- **Multiple paragraphs**: Use multiple paragraphs for better readability
+```typescript
+].map((track) => ({
+  ...track,
+  ...Albums["2.5"],
+}));
+```
 
-**Example content:**
+### 5. Add Character Album (if applicable)
 
-```markdown
-We've added the Zhao EP to the music library, featuring the track "Tiny Giant" from the 2.5 update.
+If the track is character-specific (EP, character theme):
 
-The new Zhao EP album is now available, along with the 2.5 soundtrack album. We've also added character assets for Zhao and Ye Shunguang, expanding the character gallery with these new additions.
+**5a. Add album definition** to `src/database/albums.ts`:
 
-You can now enjoy this latest addition to the Zenless Zone Zero music collection, bringing more of the game's soundtrack to your listening experience.
+```typescript
+"ye-shunguang": {
+  playlist_name: "Ye Shunguang",
+  playlist_cover: "/characters/ye_shunguang.webp",
+  playlist_id: "ye-shunguang",
+  playlist_type: "character",
+},
+```
+
+**5b. Create character album file** `src/database/albums/ye-shunguang.ts`:
+
+```typescript
+import { Track } from "@/types/track.type";
+import { Albums } from "../albums";
+import { Artists } from "../artists";
+
+export const YeShunguangTracks: Track[] = [
+  {
+    title: "Ye Shunguang EP - A Thousand First Meetings",
+    title_id: "ye-shunguang-ep--a-thousand-first-meetings",
+    source: "/musics/2.5--ye-shunguang-ep--a-thousand-first-meetings.mp3",
+    duration: 292,
+    created_at: new Date("2025-12-26"),
+    ...Artists["2.5"],
+  },
+].map((track) => ({
+  ...track,
+  ...Albums["ye-shunguang"],
+}));
+```
+
+### 6. Update tracks.ts
+
+**6a. Add import** at the top:
+
+```typescript
+import { YeShunguangTracks } from "./albums/ye-shunguang";
+```
+
+**6b. Add to exports** in the `Tracks` array:
+
+```typescript
+export const Tracks: Track[] = [
+  // ... other tracks
+  ...YeShunguangTracks,
+];
 ```
 
 ### 7. Verify
 
-- Check that the filename follows the convention: `{lang}-{date}-{commit_id}.md`
-- Ensure the date format is correct: `YYYY-MM-DD`
-- Verify commit_id is 7 characters
-- Confirm frontmatter is properly formatted with `---` delimiters
-- Check that title and description are clear and user-friendly
+- Check that `title_id` is unique across all tracks
+- Ensure file path matches actual file location
+- Verify duration is accurate
+- Confirm album and artist exist in their respective files
 
 ## Important Notes
 
-- **File location**: All news files go in `cms/news/` directory
-- **Naming**: Must follow `{language}-{date}-{commit_id}.md` pattern exactly
-- **Date format**: Always use `YYYY-MM-DD` format
-- **Commit ID**: Always use the first 7 characters of the **most recent commit** hash (from `git rev-parse --short HEAD`)
-- **Commit-based**: News articles are always based on the last commit - extract title, description, and ID from the commit message
-- **User-friendly transformation**: Convert technical commit messages into plain, user-friendly language
-- **Language**: Currently only English (`en`) news files exist, but the system supports multiple languages
-- **Content style**: Write for end users, not developers - use plain language
-- **Frontmatter**: Must be valid YAML between `---` markers
+- **Same track, multiple albums**: If a track belongs to both a version album and character album, create separate entries with the same `title_id` but different album spreads
+- **File naming**: Always use double dashes (`--`) between version and title
+- **title_id**: Must be unique, kebab-case, and match the filename pattern (without version prefix)
+- **Character images**: Ensure character image exists in `static/characters/` or `public/characters/`
+- **Date format**: Use `new Date("YYYY-MM-DD")` for `created_at`
 
 ## Example: Complete Flow
 
-1. **Get the last commit information**:
-
-   ```bash
-   git rev-parse --short HEAD
-   # Returns: d8a6391
-
-   git log -1 --pretty=format:"%s"
-   # Returns: feat: add ye shunguang character album
-   ```
-
-2. **Transform to news format**:
-
-   - Commit ID: `d8a6391`
-   - Commit Title: `feat: add ye shunguang character album`
-   - News Title: `"New Ye Shunguang character album added"`
-   - News Description: `"Added Ye Shunguang character album with EP track 'A Thousand First Meetings'"`
-   - Date: `2025-12-26` (today's date)
-
-3. **Create file**: `cms/news/en-2025-12-26-d8a6391.md`
-
-4. **Add frontmatter**:
-
-```yaml
----
-published_at: 2025-12-26
-commit_id: d8a6391
-title: "New character album added"
-description: "Added Ye Shunguang character album with EP track"
-language: en
----
-```
-
-5. **Add content**:
-
-```markdown
-We've added a new character album for Ye Shunguang, featuring the EP track "A Thousand First Meetings".
-
-You can now find this track in both the Ye Shunguang character album and the 2.5 version album.
-```
-
-6. **Done!** The news will automatically appear in the app's news panel.
-
-## Common News Types
-
-- **New songs/tracks**: Announce new music additions
-- **New features**: Explain new functionality (e.g., ladders, news system)
-- **Updates**: Describe improvements or changes
-- **Character albums**: Announce new character-specific music collections
-- **Version albums**: Announce new version soundtracks
+1. File downloaded: `scripts/youtube-downloader/files/Ye_Shunguang_EP_-_A_Thousand_First_Meetings_Zenless_Zone_Zero.mp3`
+2. Move & rename: `musics/2.5--ye-shunguang-ep--a-thousand-first-meetings.mp3`
+3. Get duration: `292 seconds`
+4. Add to `2.5.ts` (version album)
+5. Create `ye-shunguang.ts` (character album) if needed
+6. Add album definition to `albums.ts` if new character
+7. Import and export in `tracks.ts`
+8. Done!
 
 ---
 > Source: [marques-kevin/zenless-zone-zero-music.app](https://github.com/marques-kevin/zenless-zone-zero-music.app) — distributed by [TomeVault](https://tomevault.io).
