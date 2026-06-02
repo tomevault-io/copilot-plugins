@@ -1,0 +1,9 @@
+{
+  "name": "datazoode--flapi",
+  "displayName": "flapi",
+  "description": "API Framework heavily relying on the power of DuckDB and DuckDB extensions. Ready to build performant and cost-efficient APIs on top of BigQuery or Snowflake  for AI Agents and Data Apps",
+  "version": "1.0.0",
+  "author": "DataZooDE",
+  "homepage": "https://github.com/DataZooDE/flapi",
+  "skills": []
+}
