@@ -52739,6 +52739,11 @@
       "description": "ACP adapter for Amp Code"
     },
     {
+      "name": "swiftfulthinking--swiftfulstarterproject",
+      "source": "./swiftfulthinking--swiftfulstarterproject",
+      "description": "Starter project for VIPER/RIBs in SwiftUI"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -60584,6 +60589,11 @@
       "description": "uniez-template\uff0c\u4e00\u4e2a\u201c\u529f\u80fd\u201d\u548c\u201c\u5f00\u53d1\u4f53\u9a8c\u201d\u4f18\u5148\u7684 uniapp \u6a21\u677f"
     },
     {
+      "name": "smalinux--md",
+      "source": "./smalinux--md",
+      "description": "md"
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -62807,6 +62817,16 @@
       "name": "kriegcloud--beep-effect",
       "source": "./kriegcloud--beep-effect",
       "description": "beep-effect"
+    },
+    {
+      "name": "maragudk--gai",
+      "source": "./maragudk--gai",
+      "description": "Go Artificial Intelligence (GAI) helps you work with foundational models, large language models, and other AI models."
+    },
+    {
+      "name": "maragudk--gai",
+      "source": "./maragudk--gai",
+      "description": "Go Artificial Intelligence (GAI) helps you work with foundational models, large language models, and other AI models."
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -73924,6 +73944,11 @@
       "description": "FastPLMs"
     },
     {
+      "name": "devlooped--structid",
+      "source": "./devlooped--structid",
+      "description": "Automatic implemention of stronly typed IDs via record structs with compile-time feature auto-detection"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -81592,6 +81617,11 @@
       "name": "sandiiarov--skill-creator",
       "source": "./sandiiarov--skill-creator",
       "description": "Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a CLI at runtime."
+    },
+    {
+      "name": "ekuboprotocol--evm-contracts",
+      "source": "./ekuboprotocol--evm-contracts",
+      "description": "Smart contracts for Ekubo Protocol on EVM blockchains"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -94704,6 +94734,11 @@
       "description": "An open-source Cotypist with macOS system wide AI autocomplete"
     },
     {
+      "name": "casidiablo--lonchera",
+      "source": "./casidiablo--lonchera",
+      "description": "Lunch Money Telegram bot"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -96872,6 +96907,16 @@
       "name": "przeblysk--next-starter",
       "source": "./przeblysk--next-starter",
       "description": "A modern, feature-rich Next.js starter template to kickstart your web development projects with best practices and powerful tools pre-configured."
+    },
+    {
+      "name": "se-uhd--llm-guidelines-website",
+      "source": "./se-uhd--llm-guidelines-website",
+      "description": "Website with community guidelines for empirical studies involving LLMs."
+    },
+    {
+      "name": "se-uhd--llm-guidelines-website",
+      "source": "./se-uhd--llm-guidelines-website",
+      "description": "Website with community guidelines for empirical studies involving LLMs."
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -99167,6 +99212,16 @@
       "name": "onlyterp--ultracode-shim",
       "source": "./onlyterp--ultracode-shim",
       "description": "Give Claude Code's ultracode mode to ANY model you already pay for. A tiny local proxy + one config.json. Point your AI at AGENTS.md and it sets itself up."
+    },
+    {
+      "name": "shuaxindiary--arknights",
+      "source": "./shuaxindiary--arknights",
+      "description": "Arknights\u751f\u6daf\u751f\u6210\u5668"
+    },
+    {
+      "name": "maxghi8--hypernos",
+      "source": "./maxghi8--hypernos",
+      "description": "HyperNOs"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -109592,6 +109647,11 @@
       "name": "xemantic--xemantic-kotlin-test",
       "source": "./xemantic--xemantic-kotlin-test",
       "description": "An AX-first (AI/Agent Experience) Kotlin multiplatform testing library with power-assert compatible assertions DSL and other testing goodies."
+    },
+    {
+      "name": "simpleappsgr--flutter-skeleton",
+      "source": "./simpleappsgr--flutter-skeleton",
+      "description": "flutter_skeleton"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -122129,6 +122189,26 @@
       "description": "Paced resonance breathing in your terminal"
     },
     {
+      "name": "atomeocean--job-compass",
+      "source": "./atomeocean--job-compass",
+      "description": "\u627e\u5de5\u6c42\u804c\u4fe1\u606f"
+    },
+    {
+      "name": "runelabsxyz--ponziland",
+      "source": "./runelabsxyz--ponziland",
+      "description": "PonziLand"
+    },
+    {
+      "name": "atomeocean--job-compass",
+      "source": "./atomeocean--job-compass",
+      "description": "\u627e\u5de5\u6c42\u804c\u4fe1\u606f"
+    },
+    {
+      "name": "atomeocean--job-compass",
+      "source": "./atomeocean--job-compass",
+      "description": "\u627e\u5de5\u6c42\u804c\u4fe1\u606f"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -125657,6 +125737,11 @@
       "name": "iamshobe--cruncher",
       "source": "./iamshobe--cruncher",
       "description": "Your logs, Your data - crunch it however you like"
+    },
+    {
+      "name": "teddyenn--shinyp",
+      "source": "./teddyenn--shinyp",
+      "description": "An R/Shiny platform for genome-wide SNP analysis and visualization with AI-assisted features"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -129597,6 +129682,11 @@
       "name": "aglowinthefield--mo2-fomod-plus",
       "source": "./aglowinthefield--mo2-fomod-plus",
       "description": "mo2-fomod-plus"
+    },
+    {
+      "name": "xenonjuice--livonia",
+      "source": "./xenonjuice--livonia",
+      "description": "A lightweight web server implemented in Java"
     },
     {
       "name": "mohiwalla--memes",
@@ -134337,6 +134427,21 @@
       "name": "agglayer--aggkit",
       "source": "./agglayer--aggkit",
       "description": "Connect any chain to the Agglayer"
+    },
+    {
+      "name": "linancn--tiangong-ai-langgraph-server",
+      "source": "./linancn--tiangong-ai-langgraph-server",
+      "description": "tiangong-ai-langgraph-server"
+    },
+    {
+      "name": "gitduk--box-for-magisk",
+      "source": "./gitduk--box-for-magisk",
+      "description": "singbox for magisk"
+    },
+    {
+      "name": "kardeepakkumar--goodreads-advanced-search",
+      "source": "./kardeepakkumar--goodreads-advanced-search",
+      "description": "This is a web-based tool that allows users to filter books from Goodreads based on genres and ratings."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -139537,6 +139642,16 @@
       "name": "agent0ai--dox",
       "source": "./agent0ai--dox",
       "description": "Self-documenting AGENTS.md"
+    },
+    {
+      "name": "prompt-edu--prompt",
+      "source": "./prompt-edu--prompt",
+      "description": "PROMPT 2.0: A Modular and Scalable Management Platform for Project-Based Teaching"
+    },
+    {
+      "name": "prompt-edu--prompt",
+      "source": "./prompt-edu--prompt",
+      "description": "PROMPT 2.0: A Modular and Scalable Management Platform for Project-Based Teaching"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -145142,6 +145257,11 @@
       "name": "smilezheng--gojaja",
       "source": "./smilezheng--gojaja",
       "description": "Agent-agnostic file-system coordination layer for multi-LLM-agent collaboration (Codex / Claude Code / Cursor / generic)."
+    },
+    {
+      "name": "pinto-org--protocol",
+      "source": "./pinto-org--protocol",
+      "description": "Pinto is low volatility money built on Base."
     },
     {
       "name": "lightninglabs--lnget",
@@ -152747,6 +152867,11 @@
       "name": "labautomationandscreening--pyalab",
       "source": "./labautomationandscreening--pyalab",
       "description": "Library for generating Integra ViaLab files"
+    },
+    {
+      "name": "marvinsxtr--ml-project-template",
+      "source": "./marvinsxtr--ml-project-template",
+      "description": "Template machine learning project using wandb, hydra-zen and submitit on Slurm with Apptainer"
     },
     {
       "name": "yschimke--compose-ai-tools",
