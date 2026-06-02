@@ -1,0 +1,9 @@
+{
+  "name": "cdot65--pan-scm-sdk",
+  "displayName": "pan-scm-sdk",
+  "description": "Python SDK for Palo Alto Networks Strata Cloud Manager.",
+  "version": "1.0.0",
+  "author": "cdot65",
+  "homepage": "https://github.com/cdot65/pan-scm-sdk",
+  "skills": []
+}
