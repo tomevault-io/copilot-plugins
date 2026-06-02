@@ -1,0 +1,9 @@
+{
+  "name": "svenvc--rpn-calculator",
+  "displayName": "rpn_calculator",
+  "description": "An RPN Calculator written using Elixir Phoenix LiveView and Fluxon UI",
+  "version": "1.0.0",
+  "author": "svenvc",
+  "homepage": "https://github.com/svenvc/rpn_calculator",
+  "skills": []
+}
