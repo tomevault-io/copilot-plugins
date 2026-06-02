@@ -1,0 +1,9 @@
+{
+  "name": "exon-research--genomi",
+  "displayName": "genomi",
+  "description": "An open-source agent harness that turns your AI agent into your personal DNA expert",
+  "version": "1.0.0",
+  "author": "exon-research",
+  "homepage": "https://github.com/exon-research/genomi",
+  "skills": []
+}
