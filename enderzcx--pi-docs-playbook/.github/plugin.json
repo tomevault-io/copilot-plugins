@@ -1,0 +1,9 @@
+{
+  "name": "enderzcx--pi-docs-playbook",
+  "displayName": "pi-docs-playbook",
+  "description": "A docs navigator and agent-readable playbook for building on earendil-works/pi",
+  "version": "1.0.0",
+  "author": "enderzcx",
+  "homepage": "https://github.com/enderzcx/pi-docs-playbook",
+  "skills": []
+}
