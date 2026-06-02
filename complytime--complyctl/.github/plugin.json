@@ -1,0 +1,9 @@
+{
+  "name": "complytime--complyctl",
+  "displayName": "complyctl",
+  "description": "A command-line tool for streamlining end-to-end compliance workflows on local systems.",
+  "version": "1.0.0",
+  "author": "complytime",
+  "homepage": "https://github.com/complytime/complyctl",
+  "skills": []
+}
