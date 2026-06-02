@@ -1,0 +1,9 @@
+{
+  "name": "marinasundstrom--checkedexceptions",
+  "displayName": "CheckedExceptions",
+  "description": "Enforce better exception handling in C#/.NET by ensuring exceptions are explicitly handled.",
+  "version": "1.0.0",
+  "author": "marinasundstrom",
+  "homepage": "https://github.com/marinasundstrom/CheckedExceptions",
+  "skills": []
+}
