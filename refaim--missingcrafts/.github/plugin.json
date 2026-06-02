@@ -1,0 +1,9 @@
+{
+  "name": "refaim--missingcrafts",
+  "displayName": "MissingCrafts",
+  "description": "Vanilla WoW 1.12.1 and Turtle WoW addon. Shows the missing crafts for your crafting professions and how to obtain them.",
+  "version": "1.0.0",
+  "author": "refaim",
+  "homepage": "https://github.com/refaim/MissingCrafts",
+  "skills": []
+}
