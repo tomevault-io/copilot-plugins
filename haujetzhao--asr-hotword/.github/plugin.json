@@ -1,0 +1,9 @@
+{
+  "name": "haujetzhao--asr-hotword",
+  "displayName": "asr-hotword",
+  "description": "\u6700\u68d2\u7684\u7684ASR\u540e\u5904\u7406\u70ed\u8bcd\u65b9\u6848\uff0c\u57fa\u4e8e\u97f3\u7d20\u7f16\u8f91\u8ddd\u79bb\uff0c\u5b9e\u73b0\u70ed\u8bcd\u66ff\u6362\u3002",
+  "version": "1.0.0",
+  "author": "HaujetZhao",
+  "homepage": "https://github.com/HaujetZhao/asr-hotword",
+  "skills": []
+}
