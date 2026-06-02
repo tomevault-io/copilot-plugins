@@ -1,0 +1,9 @@
+{
+  "name": "renlabs-dev--torus-ts",
+  "displayName": "torus-ts",
+  "description": "Monorepo for the Torus Network TypesSript Ecosystem. It's managed with Turborepo and pnpm.",
+  "version": "1.0.0",
+  "author": "renlabs-dev",
+  "homepage": "https://github.com/renlabs-dev/torus-ts",
+  "skills": []
+}
