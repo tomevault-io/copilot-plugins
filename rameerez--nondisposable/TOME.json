@@ -4,7 +4,7 @@
   "repo": "nondisposable",
   "description": "\ud83d\uddd1\ufe0f Block disposable emails in your Rails app",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rameerez/nondisposable",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T23:40:47Z"
+  "distributed_at": "2026-06-02T23:43:25Z"
 }
