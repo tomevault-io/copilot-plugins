@@ -1,13 +1,14 @@
-## api-automation-agent
+## run-tests-after-changes
 
-> After each change to the agent code (/src), always review the following doc files and update them accordingly to reflect changes:
+> After making changes to any agent code (files in the `src/` directory), always run the test suite to ensure all tests pass.
 
 
-After each change to the agent code (/src), always review the following doc files and update them accordingly to reflect changes:
-- README.md
-- USAGE-GUIDE.txt
-- benchmarks/README.md
+After making changes to any agent code (files in the `src/` directory), always run the test suite to ensure all tests pass.
+
+Do not run all tests, but try to run the ones that might be impacted by the change.
+
+Do not skip running tests after code changes. If tests fail, fix the issues before considering the task complete.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/TestCraft-App) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [TestCraft-App/api-automation-agent](https://github.com/TestCraft-App/api-automation-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
