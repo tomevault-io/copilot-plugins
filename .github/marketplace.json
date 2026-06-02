@@ -21389,6 +21389,11 @@
       "description": "DECeption with Evaluative Integrated Validation Engine (DECEIVE): Let an LLM do all the hard honeypot work!"
     },
     {
+      "name": "cisco-talos--deceive",
+      "source": "./cisco-talos--deceive",
+      "description": "DECeption with Evaluative Integrated Validation Engine (DECEIVE): Let an LLM do all the hard honeypot work!"
+    },
+    {
       "name": "uburuntu--meridian",
       "source": "./uburuntu--meridian",
       "description": "One command deploys a censorship-resistant VLESS+Reality proxy server. Perfectly configured out-of-the-box. Relay nodes supported."
@@ -44229,6 +44234,11 @@
       "description": "A font editor built with Bevy"
     },
     {
+      "name": "steel-dev--steel-cookbook",
+      "source": "./steel-dev--steel-cookbook",
+      "description": "Examples and guides for using the Steel API"
+    },
+    {
       "name": "xiashao--kaiyantool",
       "source": "./xiashao--kaiyantool",
       "description": "\u5f00\u6f14AI \u5c06\u5f71\u89c6\u521b\u4f5c\u5168\u6d41\u7a0b\u6574\u5408\u5230\u4e00\u4e2a\u5f3a\u5927\u7684\u5e73\u53f0\u4e2d\u3002\u4ece\u5267\u672c\u521b\u4f5c\u5230\u89c6\u9891\u5236\u4f5c\uff0c\u6211\u4eec\u7684AI\u5de5\u5177\u5e2e\u52a9\u521b\u4f5c\u8005\u66f4\u5feb\u5730\u5c06\u6545\u4e8b\u53d8\u4e3a\u73b0\u5b9e\u3002  \u6838\u5fc3\u4f18\u52bf\uff1a  \ud83c\udfaf \u4e00\u7ad9\u5f0f\u89e3\u51b3\u65b9\u6848 - \u5267\u672c\u3001\u5206\u955c\u3001\u56fe\u50cf\u3001\u89c6\u9891\u4e00\u7ad9\u5f0f\u5b8c\u6210 \ud83e\udd16 AI\u9a71\u52a8 - \u667a\u80fd\u89e3\u6790\u3001\u751f\u6210\u548c\u4f18\u5316 \u26a1 \u6781\u901f\u521b\u4f5c - \u79d2\u7ea7\u751f\u6210\u5206\u955c\uff0c\u544a\u522b\u7e41\u7410\u5de5\u4f5c \ud83c\udfa8 \u4e13\u4e1a\u54c1\u8d28 - \u7535\u5f71\u7ea7\u8f93\u51fa\u8d28\u91cf"
@@ -44609,6 +44619,16 @@
       "description": "codeguide-starter-pro"
     },
     {
+      "name": "mikker--nitro-kit",
+      "source": "./mikker--nitro-kit",
+      "description": "A good-to-go UI kit for Ruby on Rails"
+    },
+    {
+      "name": "mikker--nitro-kit",
+      "source": "./mikker--nitro-kit",
+      "description": "A good-to-go UI kit for Ruby on Rails"
+    },
+    {
       "name": "nickcirv--engram",
       "source": "./nickcirv--engram",
       "description": "The context spine for AI coding agents. 8 providers, 88% proven token savings, 5 IDE integrations (Claude Code, Continue.dev, Cursor, Zed, Aider). Hook-based Read interception, HTTP API, tree-sitter A"
@@ -44827,6 +44847,11 @@
       "name": "m6r-ai--humbug",
       "source": "./m6r-ai--humbug",
       "description": "Humbug: building an operating system for human-AI collaboration"
+    },
+    {
+      "name": "illyism--sidejot",
+      "source": "./illyism--sidejot",
+      "description": "AI Task Planner & Pomodoro Assistant"
     },
     {
       "name": "weaviate--agent-skills",
@@ -46137,6 +46162,16 @@
       "name": "federicofanini--gymbrah-com",
       "source": "./federicofanini--gymbrah-com",
       "description": "Build better tiny habits to get fit and healthy."
+    },
+    {
+      "name": "dgtlss--warden",
+      "source": "./dgtlss--warden",
+      "description": "A Laravel package that proactively monitors your dependencies for security vulnerabilities by running automated composer audits and sending notifications via webhooks and email"
+    },
+    {
+      "name": "dgtlss--warden",
+      "source": "./dgtlss--warden",
+      "description": "A Laravel package that proactively monitors your dependencies for security vulnerabilities by running automated composer audits and sending notifications via webhooks and email"
     },
     {
       "name": "peteromallet--vibecomfy",
@@ -49549,6 +49584,11 @@
       "description": "NetBox Custom Objects plugin"
     },
     {
+      "name": "microsoft--agents-for-js",
+      "source": "./microsoft--agents-for-js",
+      "description": "This repository is for active development of the Microsoft 365 Agent SDK components for JavaScript"
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
@@ -49904,6 +49944,11 @@
       "description": "ai agents doing agentic things on cloudflare durable objects"
     },
     {
+      "name": "cognipilot--rumoca",
+      "source": "./cognipilot--rumoca",
+      "description": "a rust-native Modelica compiler for fast, composable, scientific computing"
+    },
+    {
       "name": "m1zz--higlab",
       "source": "./m1zz--higlab",
       "description": "HIGLab"
@@ -50222,6 +50267,21 @@
       "name": "platformatic--watt-admin",
       "source": "./platformatic--watt-admin",
       "description": "watt-admin"
+    },
+    {
+      "name": "elevate-code--better-voice-typing",
+      "source": "./elevate-code--better-voice-typing",
+      "description": "Lightweight Python desktop app for Windows that improves upon Windows Voice Typing (Win+H) by offering superior transcription accuracy while maintaining a simple, intuitive interface."
+    },
+    {
+      "name": "econumo--econumo",
+      "source": "./econumo--econumo",
+      "description": "Econumo - A personal and family budgeting app with multi-currency support, shared accounts, and flexible budgets"
+    },
+    {
+      "name": "econumo--econumo",
+      "source": "./econumo--econumo",
+      "description": "Econumo - A personal and family budgeting app with multi-currency support, shared accounts, and flexible budgets"
     },
     {
       "name": "edisonwong520--wanny",
@@ -51014,6 +51074,26 @@
       "description": "Flarekit is a scalable, modular, and developer-friendly monorepo ecosystem designed to build and deploy high-performance web applications leveraging Cloudflare Infrastructure. It provides seamless int"
     },
     {
+      "name": "testcraft-app--api-automation-agent",
+      "source": "./testcraft-app--api-automation-agent",
+      "description": "Agent that generates API automation tests based on an OpenAPI definition"
+    },
+    {
+      "name": "testcraft-app--api-automation-agent",
+      "source": "./testcraft-app--api-automation-agent",
+      "description": "Agent that generates API automation tests based on an OpenAPI definition"
+    },
+    {
+      "name": "testcraft-app--api-automation-agent",
+      "source": "./testcraft-app--api-automation-agent",
+      "description": "Agent that generates API automation tests based on an OpenAPI definition"
+    },
+    {
+      "name": "testcraft-app--api-automation-agent",
+      "source": "./testcraft-app--api-automation-agent",
+      "description": "Agent that generates API automation tests based on an OpenAPI definition"
+    },
+    {
       "name": "liangdabiao--tikhub-api-skill",
       "source": "./liangdabiao--tikhub-api-skill",
       "description": "TikHub API \u52a9\u624b\u662f\u4e00\u4e2a Claude Code Agent Skill\uff0c\u7528\u4e8e\u5e2e\u52a9\u7528\u6237\u641c\u7d22\u3001\u53d1\u73b0\u548c\u8c03\u7528 TikHub API\u3002TikHub \u63d0\u4f9b\u4e86\u591a\u5e73\u53f0\u793e\u4ea4\u5a92\u4f53\u6570\u636e API\uff0c\u652f\u6301\u6296\u97f3\u3001TikTok\u3001\u5c0f\u7ea2\u4e66\u3001Instagram\u3001YouTube\u3001Twitter\u3001Reddit \u7b49\u5e73\u53f0\u3002This is a TikHub API skill/documentation repository. Tik"
@@ -51574,6 +51654,11 @@
       "description": "Unified execution environment for Python code, shell commands, and programmatic MCP tool calls."
     },
     {
+      "name": "egyjs--dbml-to-laravel",
+      "source": "./egyjs--dbml-to-laravel",
+      "description": "Laravel package to generate Eloquent  models and migration files from DBML schema files. Simplify DBML parsing, automate relationship creation, and speed up your development workflow."
+    },
+    {
       "name": "ersinkoc--fluidflow",
       "source": "./ersinkoc--fluidflow",
       "description": "Sketch to App"
@@ -52052,6 +52137,11 @@
       "name": "solanakite--anchor-escrow-2026",
       "source": "./solanakite--anchor-escrow-2026",
       "description": "A working minimal Solana Anchor Escrow app, always up to date, with an animated explanation."
+    },
+    {
+      "name": "nvidia--multi-storage-client",
+      "source": "./nvidia--multi-storage-client",
+      "description": "Unified high-performance Python client for object and file stores."
     },
     {
       "name": "tmdgusya--engineering-discipline",
@@ -52747,6 +52837,16 @@
       "name": "swiftfulthinking--swiftfulstarterproject",
       "source": "./swiftfulthinking--swiftfulstarterproject",
       "description": "Starter project for VIPER/RIBs in SwiftUI"
+    },
+    {
+      "name": "sunkenintime--icarus",
+      "source": "./sunkenintime--icarus",
+      "description": "Valorant Strategy Creator"
+    },
+    {
+      "name": "sunkenintime--icarus",
+      "source": "./sunkenintime--icarus",
+      "description": "Valorant Strategy Creator"
     },
     {
       "name": "dceoy--speckit-agent-skills",
@@ -54122,6 +54222,16 @@
       "name": "xlydiansoftware--qubx",
       "source": "./xlydiansoftware--qubx",
       "description": "Framework for quantitative strategies development, backtesting and live execution."
+    },
+    {
+      "name": "ductwork--ductwork",
+      "source": "./ductwork--ductwork",
+      "description": "A durable workflow orchestration platform for Ruby"
+    },
+    {
+      "name": "ferdousbhai--tasty-agent",
+      "source": "./ferdousbhai--tasty-agent",
+      "description": "Let Claude manage your tastytrade portfolio."
     },
     {
       "name": "knowsuchagency--fulcrum",
@@ -56189,6 +56299,36 @@
       "description": "FormCmsPortal"
     },
     {
+      "name": "atopile--nonos",
+      "source": "./atopile--nonos",
+      "description": "nonos"
+    },
+    {
+      "name": "atopile--nonos",
+      "source": "./atopile--nonos",
+      "description": "nonos"
+    },
+    {
+      "name": "goplasmatic--datalogic-rs",
+      "source": "./goplasmatic--datalogic-rs",
+      "description": "A fast, type-safe Rust implementation of JSONLogic for evaluating logical rules as JSON. Perfect for business rules engines and dynamic filtering in Rust applications."
+    },
+    {
+      "name": "fiscalapi--fiscalapi-python",
+      "source": "./fiscalapi--fiscalapi-python",
+      "description": "Crea facturas CFDI en python consumiendo el api de Fiscalapi. Factura sin dolor!! "
+    },
+    {
+      "name": "jackysi--pawtunes",
+      "source": "./jackysi--pawtunes",
+      "description": "Discover PawTunes, The Ultimate HTML5 Internet Radio Player with Purrfect Visuals, Customizable Templates, and Clean Code. Built for Pros, Loved by Cats!"
+    },
+    {
+      "name": "atopile--nonos",
+      "source": "./atopile--nonos",
+      "description": "nonos"
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -56667,6 +56807,11 @@
       "name": "adird--nestjs-context-logger",
       "source": "./adird--nestjs-context-logger",
       "description": "Contextual Logger for NestJS"
+    },
+    {
+      "name": "craftreactnative--templates",
+      "source": "./craftreactnative--templates",
+      "description": "React Native templates based on Unistyles that you can copy to your projects"
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -57189,6 +57334,11 @@
       "description": "\ud83d\udecb\ufe0f Ship code from your couch. Control your AI coding assistant with a gamepad \ud83c\udfae"
     },
     {
+      "name": "betmoar--tracklistify",
+      "source": "./betmoar--tracklistify",
+      "description": "Automatically identify and catalog tracks from DJ mixes, live streams, and audio files using audio fingerprinting. Generate formatted track lists in JSON, Markdown, and M3U formats."
+    },
+    {
       "name": "ursushoribilismusic--agentic-fleet-hub",
       "source": "./ursushoribilismusic--agentic-fleet-hub",
       "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy."
@@ -57692,6 +57842,21 @@
       "name": "aimebox--aime-box",
       "source": "./aimebox--aime-box",
       "description": "\u4e00\u6b3e\u57fa\u4e8e langchain + electron\u5f00\u53d1\u7684\u591a\u5e73\u53f0\u684c\u9762\u7aef Chat \u5ba2\u6237\u7aef \u652f\u6301\u672c\u5730\u77e5\u8bc6\u5e93\uff0ctool\u8c03\u7528\uff0c\u591a\u4e2a\u667a\u80fdagent\u8c03\u7528  \u76ee\u6807\u5c3d\u91cf\u5b9e\u73b0\u5168\u79bb\u7ebf\u672c\u5730\u53ef\u6267\u884c\u7684\u667a\u80fdagent"
+    },
+    {
+      "name": "getlawrence--otail",
+      "source": "./getlawrence--otail",
+      "description": "Tail Sampling UI"
+    },
+    {
+      "name": "fiscalapi--fiscalapi-php",
+      "source": "./fiscalapi--fiscalapi-php",
+      "description": "SDK oficial de fiscalapi para consumo desde aplicaciones php"
+    },
+    {
+      "name": "fiscalapi--fiscalapi-java",
+      "source": "./fiscalapi--fiscalapi-java",
+      "description": "SDK oficial de fiscalapi para consumo desde aplicaciones Java"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -59439,6 +59604,11 @@
       "description": "hyperliquid trading bot, perp trading bot, hyperliquid profitable trading bot, hyperliquid trading bot, perp trading bot, hyperliquid profitable trading bot, hyperliquid trading bot, perp trading bot,"
     },
     {
+      "name": "marinasundstrom--checkedexceptions",
+      "source": "./marinasundstrom--checkedexceptions",
+      "description": "Enforce better exception handling in C#/.NET by ensuring exceptions are explicitly handled."
+    },
+    {
       "name": "rstackjs--agent-skills",
       "source": "./rstackjs--agent-skills",
       "description": "A collection of Agent Skills for Rstack."
@@ -60112,6 +60282,11 @@
       "name": "bun-workspaces--bun-workspaces",
       "source": "./bun-workspaces--bun-workspaces",
       "description": "A tool for managing monorepos using Bun. Not a framework but an enhancement to native workspaces. Develop JavaScript and TypeScript projects with the bun-workspaces CLI and API."
+    },
+    {
+      "name": "arjitvermaco--dbdost",
+      "source": "./arjitvermaco--dbdost",
+      "description": "DbDost"
     },
     {
       "name": "tencentcloud--cubesandbox",
@@ -61289,6 +61464,11 @@
       "description": "workerflow"
     },
     {
+      "name": "hgl--nixverse",
+      "source": "./hgl--nixverse",
+      "description": "Filesystem-based nix flake framework for multi-node configurations, cascading secrets management, parallel deployments, etc."
+    },
+    {
       "name": "domye--solace",
       "source": "./domye--solace",
       "description": "Solace - \u57fa\u4e8e Go + React + TypeScript + PostgreSQL \u7684\u5168\u6808\u535a\u5ba2\u7cfb\u7edf\u3002\u652f\u6301 Markdown \u7f16\u8f91\u3001\u76f8\u518c\u7ba1\u7406\u3001\u6df1\u8272\u6a21\u5f0f\u3001SEO \u4f18\u5316\u3001Docker \u90e8\u7f72\u3002\u91c7\u7528\u6574\u6d01\u67b6\u6784\uff0c\u9002\u5408\u4e2a\u4eba\u535a\u5ba2\u3001\u6280\u672f\u535a\u5ba2\u3001\u5f00\u53d1\u8005\u4f5c\u54c1\u96c6\u3002MIT \u5f00\u6e90\uff0c\u751f\u4ea7\u5c31\u7eea"
@@ -61942,6 +62122,16 @@
       "name": "mp-lb--zapper",
       "source": "./mp-lb--zapper",
       "description": "Run your projects without the need to think. For busy devs."
+    },
+    {
+      "name": "elroy-bot--elroy",
+      "source": "./elroy-bot--elroy",
+      "description": "An AI assistant that remembers and sets goals"
+    },
+    {
+      "name": "elroy-bot--elroy",
+      "source": "./elroy-bot--elroy",
+      "description": "An AI assistant that remembers and sets goals"
     },
     {
       "name": "anhtester--antigravity-testing-kit",
@@ -66424,6 +66614,16 @@
       "description": "Generate social sharing images directly in your Rails app"
     },
     {
+      "name": "meeting-baas--speaking-meeting-bot",
+      "source": "./meeting-baas--speaking-meeting-bot",
+      "description": "Fully autonomous speaking bots built using the MeetingBaas API and Pipecat."
+    },
+    {
+      "name": "query-farm--cronjob",
+      "source": "./query-farm--cronjob",
+      "description": "DuckDB CronJob Extension"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -69057,6 +69257,16 @@
       "name": "ttmouse--x-data",
       "source": "./ttmouse--x-data",
       "description": "X-data"
+    },
+    {
+      "name": "michael-obele--svelte-miniapps",
+      "source": "./michael-obele--svelte-miniapps",
+      "description": "This project is a collection of small, single-purpose applications written in Svelte 5. Each mini-app tackles a specific task, offering a simple and user-friendly experience for users."
+    },
+    {
+      "name": "michael-obele--svelte-miniapps",
+      "source": "./michael-obele--svelte-miniapps",
+      "description": "This project is a collection of small, single-purpose applications written in Svelte 5. Each mini-app tackles a specific task, offering a simple and user-friendly experience for users."
     },
     {
       "name": "zhaono1--agent-playbook",
@@ -122327,6 +122537,11 @@
       "name": "gfazioli--mantine-parallax",
       "source": "./gfazioli--mantine-parallax",
       "description": "A Mantine UI Library Extension Parallax component to replicate the Apple TV Card"
+    },
+    {
+      "name": "qoli--localclash-luci",
+      "source": "./qoli--localclash-luci",
+      "description": "localclash-luci"
     },
     {
       "name": "vm--nila-code",
