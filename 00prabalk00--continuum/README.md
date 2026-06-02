@@ -7,11 +7,11 @@ Local shared memory and controlled workflows for AI coding agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [00PrabalK00/Continuum](https://github.com/00PrabalK00/Continuum).
+Original source: `AGENTS.md` in [00PrabalK00/Continuum](https://github.com/00PrabalK00/Continuum).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
