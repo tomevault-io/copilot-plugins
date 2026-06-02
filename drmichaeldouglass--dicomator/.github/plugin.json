@@ -1,0 +1,9 @@
+{
+  "name": "drmichaeldouglass--dicomator",
+  "displayName": "DICOMator",
+  "description": "A Blender Add-On for making synthetic CT datasets from 3D meshes",
+  "version": "1.0.0",
+  "author": "drmichaeldouglass",
+  "homepage": "https://github.com/drmichaeldouglass/DICOMator",
+  "skills": []
+}
