@@ -4,7 +4,7 @@
   "repo": "satisfactory-logistics",
   "description": "A web tool to keep track of Satisfactory logistics",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rockfactory/satisfactory-logistics",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T19:54:40Z"
+  "distributed_at": "2026-06-02T19:56:56Z"
 }
