@@ -1,34 +1,11 @@
-## general
+## test
 
-> General Rules
+> Rules for test files
 
 
-## General
+# Your rule content
 
-- This is a monorepo, node, typescript project as a Framework for building web applications.
-- Don't be lazy, write all the code to implement features I ask for.
-- Keep a log of what, why and how you did what you did in "fyi.md". Keep it updated.
-
-## File Structure
-
-- src/: Source code.
-  - src/doctor/: Doctor.
-  - src/sync/: Sync.
-  - src/cli/: CLI.
-  - src/fishkit/: Fishkit.
-  - src/doctor/: Doctor.
-  - src/sync/: Sync.
-  - src/cli/: CLI.
-  - src/fishkit/: Fishkit.
-- examples/: Examples.
-- create-tnf/: Create TNF project.
-
-## Code Style
-
-- Use TypeScript.
-- File names should be in lowercase with dash separators.
-- Api, commands and config in README.md should be ordered alphabetically.
-- Test. 1) Use vitest for test cases, not jest. 2) Test cases should be in the same file as the code that is being tested. e.g. `foo.test.ts` for `foo.ts`.
+- Do use `test()` instead of `describe() + it()` for test cases.
 
 ---
 > Source: [umijs/tnf](https://github.com/umijs/tnf) — distributed by [TomeVault](https://tomevault.io).
