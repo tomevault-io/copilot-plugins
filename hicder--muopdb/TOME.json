@@ -4,7 +4,7 @@
   "repo": "muopdb",
   "description": "MuopDB - A Vector Database",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hicder/muopdb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T23:37:43Z"
+  "distributed_at": "2026-06-02T23:38:44Z"
 }
