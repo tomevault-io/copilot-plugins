@@ -1,0 +1,9 @@
+{
+  "name": "fiscalapi--fiscalapi-php",
+  "displayName": "fiscalapi-php",
+  "description": "SDK oficial de fiscalapi para consumo desde aplicaciones php",
+  "version": "1.0.0",
+  "author": "FiscalAPI",
+  "homepage": "https://github.com/FiscalAPI/fiscalapi-php",
+  "skills": []
+}
