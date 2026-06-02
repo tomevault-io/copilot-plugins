@@ -88599,6 +88599,21 @@
       "description": "Convex-Better-Auth-UI"
     },
     {
+      "name": "nvidia--sphinx-llm",
+      "source": "./nvidia--sphinx-llm",
+      "description": "LLM extensions for Sphinx Documentation"
+    },
+    {
+      "name": "mindfiredigital--pivothead",
+      "source": "./mindfiredigital--pivothead",
+      "description": "HeadlessPivot"
+    },
+    {
+      "name": "mindfiredigital--pivothead",
+      "source": "./mindfiredigital--pivothead",
+      "description": "HeadlessPivot"
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -92624,6 +92639,16 @@
       "description": "Keep one source of truth for your AI coding-agent rules. Convert and sync between AGENTS.md, CLAUDE.md, .cursorrules, Copilot, Windsurf, Cline, Aider & Gemini \u2014 or scaffold a fresh AGENTS.md. Zero dep"
     },
     {
+      "name": "masc-ucsc--hagent",
+      "source": "./masc-ucsc--hagent",
+      "description": "Hardware Agent"
+    },
+    {
+      "name": "masc-ucsc--hagent",
+      "source": "./masc-ucsc--hagent",
+      "description": "Hardware Agent"
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -94757,6 +94782,16 @@
       "name": "krispuckett--swiftuishaders",
       "source": "./krispuckett--swiftuishaders",
       "description": "41 hand-curated drop-in SwiftUI Metal shader effects \u2014 holographic foil, kaleidoscope, magnetic fields, glitch, neon edges and more. Typed View modifiers, agent-friendly docs."
+    },
+    {
+      "name": "andrew-scorchsoft--scorchsoft-quick-whisper",
+      "source": "./andrew-scorchsoft--scorchsoft-quick-whisper",
+      "description": "Quick Whisper is a free speech-to-copy-edited-text software tool that uses AI to convert spoken audio into a copy-edited transcript, automatically pasting it into your active application. "
+    },
+    {
+      "name": "animation-lab--proteinblender",
+      "source": "./animation-lab--proteinblender",
+      "description": "ProteinBlender"
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -96937,6 +96972,11 @@
       "name": "se-uhd--llm-guidelines-website",
       "source": "./se-uhd--llm-guidelines-website",
       "description": "Website with community guidelines for empirical studies involving LLMs."
+    },
+    {
+      "name": "pixellab-code--pixellab-python",
+      "source": "./pixellab-code--pixellab-python",
+      "description": "Python SDK for Pixel Lab"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -99242,6 +99282,21 @@
       "name": "maxghi8--hypernos",
       "source": "./maxghi8--hypernos",
       "description": "HyperNOs"
+    },
+    {
+      "name": "hyperbrowserai--python-sdk",
+      "source": "./hyperbrowserai--python-sdk",
+      "description": "python-sdk"
+    },
+    {
+      "name": "hyperbrowserai--python-sdk",
+      "source": "./hyperbrowserai--python-sdk",
+      "description": "python-sdk"
+    },
+    {
+      "name": "valtteril--harjus",
+      "source": "./valtteril--harjus",
+      "description": "Triangular arbitrage bot for Binance Spot market with userspace networking"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -112369,6 +112424,16 @@
       "description": "Our inference and training framework to run on the Cosmos Models"
     },
     {
+      "name": "cjohndesign--fen-sliders",
+      "source": "./cjohndesign--fen-sliders",
+      "description": "Slidev implementation"
+    },
+    {
+      "name": "cjohndesign--fen-sliders",
+      "source": "./cjohndesign--fen-sliders",
+      "description": "Slidev implementation"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -115357,6 +115422,11 @@
       "name": "agntcms--agntcms",
       "source": "./agntcms--agntcms",
       "description": "Agentic headless cms. Built on Next.js. Powered by Claude. Owned by you."
+    },
+    {
+      "name": "matter-labs--zksync-sso",
+      "source": "./matter-labs--zksync-sso",
+      "description": "ZKsync SSO SDK"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -122249,6 +122319,16 @@
       "description": "patchbay-cli"
     },
     {
+      "name": "fabiotheo--ipcom-ari",
+      "source": "./fabiotheo--ipcom-ari",
+      "description": "A modern TypeScript/JavaScript library for interacting with the Asterisk REST Interface (ARI), offering robust WebSocket support for real-time events, full type safety, and simplified handling of Aste"
+    },
+    {
+      "name": "gfazioli--mantine-parallax",
+      "source": "./gfazioli--mantine-parallax",
+      "description": "A Mantine UI Library Extension Parallax component to replicate the Apple TV Card"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -125787,6 +125867,16 @@
       "name": "chrisryugj--archhub-mcp",
       "source": "./chrisryugj--archhub-mcp",
       "description": "\uad6d\ud1a0\uad50\ud1b5\ubd80 \uac74\ucd95HUB \u2192 MCP \uc11c\ubc84. \uac74\ucd95\ubb3c\ub300\uc7a5\u00b7\uac74\ucd95\uc778\ud5c8\uac00\u00b7\uc8fc\ud0dd\uc778\ud5c8\uac00 + \ubc95\uc815\ub3d9\ucf54\ub4dc + \ud55c \ud544\uc9c0 \uc885\ud569\uce74\ub4dc\u00b7\ub3d9 \ub2e8\uc704 \ud1b5\uacc4\u00b7\ub178\ud6c4\uac74\ucd95\ubb3c \ubd84\uc11d. \uacf5\uc6a9\ud0a4 \ud0d1\uc7ac remote \ucee4\ub125\ud130(URL\ub9cc \ub4f1\ub85d)"
+    },
+    {
+      "name": "alexanderop--sqlite-vue-example",
+      "source": "./alexanderop--sqlite-vue-example",
+      "description": "sqlite-vue-example"
+    },
+    {
+      "name": "publicrust--rust-analyzer",
+      "source": "./publicrust--rust-analyzer",
+      "description": "rust-analyzer"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -129732,6 +129822,16 @@
       "name": "xenonjuice--livonia",
       "source": "./xenonjuice--livonia",
       "description": "A lightweight web server implemented in Java"
+    },
+    {
+      "name": "kaichen--mcp-config-editor",
+      "source": "./kaichen--mcp-config-editor",
+      "description": "A simple GUI for managing MCP servers, for easy toggle mcp servers."
+    },
+    {
+      "name": "caiiiycuk--vcmi-wasm",
+      "source": "./caiiiycuk--vcmi-wasm",
+      "description": "vcmi-wasm"
     },
     {
       "name": "mohiwalla--memes",
@@ -134492,6 +134592,16 @@
       "name": "litellm-labs--litellm-rust",
       "source": "./litellm-labs--litellm-rust",
       "description": "A minimal Rust gateway built for coding agents (LiteLLM-Compatible)"
+    },
+    {
+      "name": "bastidood--spectro",
+      "source": "./bastidood--spectro",
+      "description": "A multi-channel confession bot for Discord that supports anonymous replies and channel moderation."
+    },
+    {
+      "name": "bastidood--spectro",
+      "source": "./bastidood--spectro",
+      "description": "A multi-channel confession bot for Discord that supports anonymous replies and channel moderation."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -139707,6 +139817,36 @@
       "name": "ricocc--ricoui-astro-starter",
       "source": "./ricocc--ricoui-astro-starter",
       "description": "Astro Starter template"
+    },
+    {
+      "name": "hushh-labs--hushh-tech-website",
+      "source": "./hushh-labs--hushh-tech-website",
+      "description": "Public Hushh web/app wrapper for product surfaces, API integrations, Supabase workflows, tests, CI, and repo governance."
+    },
+    {
+      "name": "hushh-labs--hushh-tech-website",
+      "source": "./hushh-labs--hushh-tech-website",
+      "description": "Public Hushh web/app wrapper for product surfaces, API integrations, Supabase workflows, tests, CI, and repo governance."
+    },
+    {
+      "name": "hushh-labs--hushh-tech-website",
+      "source": "./hushh-labs--hushh-tech-website",
+      "description": "Public Hushh web/app wrapper for product surfaces, API integrations, Supabase workflows, tests, CI, and repo governance."
+    },
+    {
+      "name": "hushh-labs--hushh-tech-website",
+      "source": "./hushh-labs--hushh-tech-website",
+      "description": "Public Hushh web/app wrapper for product surfaces, API integrations, Supabase workflows, tests, CI, and repo governance."
+    },
+    {
+      "name": "hushh-labs--hushh-tech-website",
+      "source": "./hushh-labs--hushh-tech-website",
+      "description": "Public Hushh web/app wrapper for product surfaces, API integrations, Supabase workflows, tests, CI, and repo governance."
+    },
+    {
+      "name": "koudaiii--azureupdatepptx",
+      "source": "./koudaiii--azureupdatepptx",
+      "description": "Azure Updates Summary"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -145322,6 +145462,56 @@
       "name": "prabirshrestha--ai-rs",
       "source": "./prabirshrestha--ai-rs",
       "description": "ai.rs"
+    },
+    {
+      "name": "tractr--nss-boilerplate",
+      "source": "./tractr--nss-boilerplate",
+      "description": "NSS for NextSupabaseShadcn"
+    },
+    {
+      "name": "tractr--nss-boilerplate",
+      "source": "./tractr--nss-boilerplate",
+      "description": "NSS for NextSupabaseShadcn"
+    },
+    {
+      "name": "tractr--nss-boilerplate",
+      "source": "./tractr--nss-boilerplate",
+      "description": "NSS for NextSupabaseShadcn"
+    },
+    {
+      "name": "tractr--nss-boilerplate",
+      "source": "./tractr--nss-boilerplate",
+      "description": "NSS for NextSupabaseShadcn"
+    },
+    {
+      "name": "tractr--nss-boilerplate",
+      "source": "./tractr--nss-boilerplate",
+      "description": "NSS for NextSupabaseShadcn"
+    },
+    {
+      "name": "tractr--nss-boilerplate",
+      "source": "./tractr--nss-boilerplate",
+      "description": "NSS for NextSupabaseShadcn"
+    },
+    {
+      "name": "tractr--nss-boilerplate",
+      "source": "./tractr--nss-boilerplate",
+      "description": "NSS for NextSupabaseShadcn"
+    },
+    {
+      "name": "zaparooproject--zaparoo-app",
+      "source": "./zaparooproject--zaparoo-app",
+      "description": "The official Zaparoo app and primary interface for the core software"
+    },
+    {
+      "name": "ordiscan--ordiscan-sdk",
+      "source": "./ordiscan--ordiscan-sdk",
+      "description": "TypeScript wrapper for the Ordiscan API"
+    },
+    {
+      "name": "clionertr--meilisearch4telegramsearchckj",
+      "source": "./clionertr--meilisearch4telegramsearchckj",
+      "description": "\u672c\u9879\u76ee\u57fa\u4e8epython\uff0c\u4f7f\u7528userbot\u4e0b\u8f7dTelegram\u5386\u53f2\u6d88\u606f\u5230meilisearch\u6570\u636e\u5e93\uff0c\u89e3\u51b3telegram\u539f\u751f\u641c\u7d22\u65e0\u6cd5\u5904\u7406\u4e2d\u6587\u65ad\u8bcd\u7684\u95ee\u9898\u3002"
     },
     {
       "name": "lightninglabs--lnget",
@@ -152962,6 +153152,36 @@
       "name": "sanster--string-catalog",
       "source": "./sanster--string-catalog",
       "description": "string-catalog"
+    },
+    {
+      "name": "afernandes--globalkeyboardcapture-maui",
+      "source": "./afernandes--globalkeyboardcapture-maui",
+      "description": "A powerful .NET MAUI library for global keyboard capture with support for barcode scanners, hotkeys, and cross-platform input handling."
+    },
+    {
+      "name": "ivandembicki--top",
+      "source": "./ivandembicki--top",
+      "description": "Tree Oriented Programming "
+    },
+    {
+      "name": "sebastienduruz--window-switcher",
+      "source": "./sebastienduruz--window-switcher",
+      "description": "A simple application to switch between windows with clickable thumbnails"
+    },
+    {
+      "name": "vjj1999--lazy-cursor",
+      "source": "./vjj1999--lazy-cursor",
+      "description": "awesome rules"
+    },
+    {
+      "name": "nizie002--pyrth",
+      "source": "./nizie002--pyrth",
+      "description": "PyRth is an open-source Python package designed for evaluating thermal transient measurement data, such as those obtained from devices like the T3ster. It processes thermal transient data using specia"
+    },
+    {
+      "name": "vfarcic--idp-full-demo",
+      "source": "./vfarcic--idp-full-demo",
+      "description": "idp-full-demo"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -175349,6 +175569,16 @@
       "description": "control_tutorial"
     },
     {
+      "name": "brianblakely--omarchy-plugins",
+      "source": "./brianblakely--omarchy-plugins",
+      "description": "omarchy-plugins"
+    },
+    {
+      "name": "virinvictus--lattice",
+      "source": "./virinvictus--lattice",
+      "description": "CLI toolkit for music collectors \u2014 library trees, integrity checks, cover art, tag audits."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -187902,6 +188132,16 @@
       "name": "perfectra1n--kopiur",
       "source": "./perfectra1n--kopiur",
       "description": "kopiur"
+    },
+    {
+      "name": "barryu9--voice-chat-room-web",
+      "source": "./barryu9--voice-chat-room-web",
+      "description": "A discord-like mediasoup WebRTC voice chat room"
+    },
+    {
+      "name": "purzbeats--esp32-147b-genart",
+      "source": "./purzbeats--esp32-147b-genart",
+      "description": "Generative art on the Waveshare ESP32-S3-LCD-1.47B (1.47\" ST7789, 172x320) \u2014 CPU framebuffer effects via Arduino + LovyanGFX"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -296157,6 +296397,11 @@
       "name": "charlescrowellnv--mintlify-docs",
       "source": "./charlescrowellnv--mintlify-docs",
       "description": "mintlify-docs"
+    },
+    {
+      "name": "javierludena--game-collection-app",
+      "source": "./javierludena--game-collection-app",
+      "description": "Full-stack Node.js game collection management system with eBay API price estimation"
     }
   ]
 }
