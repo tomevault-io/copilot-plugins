@@ -1,0 +1,9 @@
+{
+  "name": "masc-ucsc--hagent",
+  "displayName": "hagent",
+  "description": "Hardware Agent",
+  "version": "1.0.0",
+  "author": "masc-ucsc",
+  "homepage": "https://github.com/masc-ucsc/hagent",
+  "skills": []
+}
