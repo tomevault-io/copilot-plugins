@@ -1,0 +1,9 @@
+{
+  "name": "komakt--koma",
+  "displayName": "koma",
+  "description": "A Kotlin Multiplatform Flux framework.",
+  "version": "1.0.0",
+  "author": "komakt",
+  "homepage": "https://github.com/komakt/koma",
+  "skills": []
+}
