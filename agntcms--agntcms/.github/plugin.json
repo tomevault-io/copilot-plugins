@@ -1,0 +1,9 @@
+{
+  "name": "agntcms--agntcms",
+  "displayName": "agntcms",
+  "description": "Agentic headless cms. Built on Next.js. Powered by Claude. Owned by you.",
+  "version": "1.0.0",
+  "author": "agntcms",
+  "homepage": "https://github.com/agntcms/agntcms",
+  "skills": []
+}
