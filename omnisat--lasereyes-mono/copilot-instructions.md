@@ -1,154 +1,164 @@
-## lasereyes-core
+## lasereyes-react
 
-> This document outlines the guidelines and standards for contributing to the `@omnisat/lasereyes-core` package. Following these rules will ensure consistency, maintainability, and quality throughout the project.
+> This document outlines the guidelines and standards for contributing to the `@omnisat/lasereyes-react` package. Following these rules will ensure consistency, maintainability, and quality throughout the React-specific implementation.
 
-# Project Rules for `@omnisat/lasereyes-core`
+# Project Rules for `@omnisat/lasereyes-react`
 
-This document outlines the guidelines and standards for contributing to the `@omnisat/lasereyes-core` package. Following these rules will ensure consistency, maintainability, and quality throughout the project.
+This document outlines the guidelines and standards for contributing to the `@omnisat/lasereyes-react` package. Following these rules will ensure consistency, maintainability, and quality throughout the React-specific implementation.
 
 ## 🌟 Overview
 
-`@omnisat/lasereyes-core` is a framework-agnostic library designed to provide Bitcoin wallet integration for dApps. It abstracts wallet-specific interactions and offers a unified interface for working with various Bitcoin wallets.
+`@omnisat/lasereyes-react` is a React-specific package built on top of `@omnisat/lasereyes-core`. It provides React hooks, context providers, and wallet icon components to make it easy to integrate Bitcoin wallet support into React applications.
 
 ## 📋 General Code Guidelines
 
-1. **TypeScript Required**: All code must be written in TypeScript with proper type definitions.
-2. **Clean Code**: Follow clean code principles - meaningful variable names, clear functions, and appropriate comments.
-3. **No `any` Types**: Avoid using `any` type. Use proper typing or `unknown` when necessary.
-4. **ESLint**: All code must pass ESLint checks using the project's configuration.
-5. **Documentation**: All public methods, classes, and interfaces must be documented with TSDoc comments.
-6. **Error Handling**: Implement proper error handling and provide meaningful error messages.
+1. **React + TypeScript**: All components must be written in TypeScript with proper type definitions.
+2. **Functional Components**: Use functional components with hooks, not class components.
+3. **ESLint & Prettier**: All code must pass ESLint checks and follow the project's Prettier configuration.
+4. **No `any` Types**: Avoid using `any` type. Use proper typing or `unknown` when necessary.
+5. **Documentation**: All components, hooks, and utilities must be properly documented with JSDoc comments.
+6. **Performance**: Consider React rendering optimization techniques where appropriate.
 
 ## 🏗️ Project Structure
 
 1. **Module Organization**:
-   - `/src/client`: Contains the client-facing API
-   - `/src/lib`: Shared utilities and helpers
-   - `/src/constants`: Project constants
-   - `/src/types`: TypeScript type definitions
-
+   - `/lib/providers`: React context providers and hooks
+   - `/lib/icons`: Wallet icon components
+   - `/lib/utils`: React-specific utilities
+   
 2. **Exports**:
    - Export only what's necessary in `index.ts`
-   - Internal utilities should not be exposed
+   - Keep internal utilities and components private
 
 ## 📐 Architecture Guidelines
 
-1. **Provider Pattern**:
-   - Each wallet provider must implement the `WalletProvider` interface
-   - Providers must handle their specific wallet interactions
-   - All providers should be registered in `LaserEyesClient`
+1. **Context Provider Pattern**:
+   - Use React Context for state management
+   - Provide a clean provider interface with `LaserEyesProvider`
+   - Keep provider implementation details hidden from consumers
 
-2. **Client Implementation**:
-   - The `LaserEyesClient` should maintain a unified interface
-   - Wallet-specific logic should be abstracted away in providers
-   - Client methods should proxy to the appropriate provider methods
+2. **Hook Implementation**:
+   - Create custom hooks that encapsulate wallet functionality
+   - Follow React hooks naming convention (`use*`)
+   - Make hooks composition-friendly
 
-3. **Error Management**:
-   - Use consistent error types across providers
-   - Normalize errors from different wallet implementations
+3. **Core Integration**:
+   - Maintain a clean separation between React components and core functionality
+   - Use the core API through properly typed interfaces
+   - Don't duplicate core logic in React components
+
+## 🎨 UI Component Guidelines
+
+1. **Icon Components**:
+   - All wallet icons should be implemented as React components
+   - Support size and color customization via props
+   - Implement proper accessibility attributes
+
+2. **Component Props**:
+   - Use proper TypeScript interfaces for component props
+   - Include default values for optional props
+   - Extend from standard HTML element props where appropriate
+
+3. **Styling**:
+   - Keep components unstyled or minimally styled by default
+   - Allow style customization via className props
+   - Avoid direct styling dependencies (like styled-components)
 
 ## 🔄 State Management
 
-1. **Store Usage**:
-   - Use nanostores for state management
-   - Keep state atomized and focused
-   - Avoid storing sensitive information in state
+1. **Context Usage**:
+   - Use React Context to provide wallet state
+   - Memoize context values to prevent unnecessary re-renders
+   - Structure context to allow for partial state updates
 
-2. **Events**:
-   - Handle wallet connection events appropriately
-   - Propagate events through the client interface
+2. **NanoStores Integration**:
+   - Properly integrate with nanostores from the core package
+   - Use `useStore` hook from `@nanostores/react` for efficient state access
+   - Implement batched updates for performance
+
+## 🪝 Hook Guidelines
+
+1. **`useLaserEyes` Hook**:
+   - Make the main hook intuitive and easy to use
+   - Support TypeScript inference for hook return values
+   - Allow for selective state access to prevent unnecessary re-renders
+
+2. **Hook Responsibilities**:
+   - Each hook should have a single responsibility
+   - Hooks should compose well with other hooks
+   - Document hook dependencies and side effects
 
 ## 🧪 Testing Standards
 
-1. **Unit Tests**:
-   - All core functionality must have unit tests
-   - Mock external wallet dependencies for testing
-   - Test edge cases and error handling
+1. **Component Tests**:
+   - Test all React components with React Testing Library
+   - Focus on testing component behavior, not implementation details
+   - Mock context providers for isolated component testing
 
-2. **Integration Tests**:
-   - Test integration with mock wallet providers
-   - Ensure proper state management and event propagation
+2. **Hook Tests**:
+   - Test custom hooks with renderHook
+   - Verify hook behavior with different inputs
+   - Test edge cases and error handling
 
 ## 🛠️ Development Workflow
 
-1. **Branching Strategy**:
-   - Feature branches should be created from `main`
-   - Use meaningful branch names: `feature/wallet-integration`, `fix/error-handling`, etc.
-
-2. **Commits**:
-   - Write clear, descriptive commit messages
-   - Reference issues in commit messages when applicable
-
-3. **Pull Requests**:
-   - PRs should include a clear description of changes
-   - All PRs must pass CI checks before merging
-   - PRs should be reviewed by at least one team member
+1. **Component Development**:
+   - Develop components in isolation first
+   - Then integrate with actual wallet functionality
+   - Document component usage examples with code samples
+   - Test components in a real application environment
 
 ## 📦 Package Management
 
 1. **Dependencies**:
-   - Keep dependencies minimal and up-to-date
-   - Avoid adding dependencies for simple utilities
-   - Consider bundle size impact when adding dependencies
+   - Keep React dependencies as peer dependencies
+   - Keep bundle size minimal
+   - Avoid unnecessary dependencies
 
 2. **Versioning**:
-   - Follow semantic versioning
+   - Sync versions with the core package
    - Document breaking changes in CHANGELOG.md
 
-## 🌍 Wallet Support Guidelines
+## 🔒 Framework Compatibility
 
-1. **Adding New Wallets**:
-   - Create a new provider class that extends `WalletProvider`
-   - Implement all required methods
-   - Add wallet constants to the constants file
-   - Register the provider in `LaserEyesClient`
-   - Add tests for the new provider
+1. **React Versions**:
+   - Support the last two major versions of React
+   - Test with different React versions
+   - Document minimum required React version
 
-2. **Wallet Features**:
-   - Support basic operations (connect, disconnect, sign)
-   - Implement advanced features when available (inscriptions, runes)
-   - Handle wallet-specific error scenarios
-
-## 🌐 Network Support
-
-1. **Multiple Networks**:
-   - Support mainnet, testnet, and other networks
-   - Properly handle network switching
-   - Maintain network state in the client
-
-## 📊 Data Sources
-
-1. **Data Source Architecture**:
-   - Follow the Data Source Manager pattern for accessing external APIs
-   - All data sources must implement the `DataSource` interface
-   - Use the manager to handle fallbacks between different data sources
-
-2. **Adding New Data Sources**:
-   - Create a new data source class that implements the `DataSource` interface
-   - Implement required methods based on the capabilities of the API
-   - Register the data source in the `DataSourceManager`
-   - Add appropriate normalization functions for the data returned
-
-3. **Data Normalization**:
-   - Always normalize responses from different data sources into standard formats
-   - Use helper functions in the normalization module
-   - Handle edge cases where data may be missing or in unexpected formats
-
-4. **Error Handling**:
-   - Implement proper error handling for API failures
-   - Use fallback mechanisms when primary data sources are unavailable
-   - Log meaningful error messages when data source operations fail
+2. **Next.js Support**:
+   - Ensure compatibility with Next.js (both Pages and App Router)
+   - Include `'use client'` directives where needed
+   - Test with both client and server components
 
 ## 📃 Documentation Requirements
 
 1. **API Documentation**:
-   - Document all public methods, interfaces, and types
-   - Include examples in comments for complex methods
+   - Document all hooks, components, and context providers
+   - Include TypeScript types in documentation
+   - Provide usage examples for each hook and component
 
 2. **README**:
    - Keep the README up-to-date with new features
-   - Document supported wallets and networks
-   - Include basic usage examples
+   - Include basic usage examples for the most common use cases
+   - Document component props and hook return values
+
+## 🖼️ Icon Component Guidelines
+
+1. **SVG Usage**:
+   - Use SVG for all wallet icons
+   - Optimize SVG code (remove unnecessary attributes)
+   - Support different color variants
+
+2. **Accessibility**:
+   - Include accessible names for all icon components
+   - Support aria attributes
+   - Ensure proper contrast for icon variants
+
+3. **Consistency**:
+   - Maintain consistent styling across all wallet icons
+   - Use a consistent API for all icon components
+   - Support the same set of props across all icons
 
 ---
 
