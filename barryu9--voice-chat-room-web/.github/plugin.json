@@ -1,0 +1,9 @@
+{
+  "name": "barryu9--voice-chat-room-web",
+  "displayName": "Voice_Chat_Room_Web",
+  "description": "A discord-like mediasoup WebRTC voice chat room",
+  "version": "1.0.0",
+  "author": "barryu9",
+  "homepage": "https://github.com/barryu9/Voice_Chat_Room_Web",
+  "skills": []
+}
