@@ -1,0 +1,9 @@
+{
+  "name": "lifinance--bigmi",
+  "displayName": "bigmi",
+  "description": "TypeScript library focused on providing reactive primitives for Bitcoin apps.",
+  "version": "1.0.0",
+  "author": "lifinance",
+  "homepage": "https://github.com/lifinance/bigmi",
+  "skills": []
+}
