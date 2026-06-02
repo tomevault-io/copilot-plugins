@@ -7,13 +7,13 @@ A framework for building large-scale, deterministic, interactive workflows with 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [radiantlogicinc/fastworkflow](https://github.com/radiantlogicinc/fastworkflow).
+Original source: `AGENTS.md` in [radiantlogicinc/fastworkflow](https://github.com/radiantlogicinc/fastworkflow).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
