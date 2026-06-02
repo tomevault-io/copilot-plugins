@@ -1,0 +1,9 @@
+{
+  "name": "ordiscan--ordiscan-sdk",
+  "displayName": "ordiscan-sdk",
+  "description": "TypeScript wrapper for the Ordiscan API",
+  "version": "1.0.0",
+  "author": "ordiscan",
+  "homepage": "https://github.com/ordiscan/ordiscan-sdk",
+  "skills": []
+}
