@@ -1,0 +1,9 @@
+{
+  "name": "arcinstitute--cyto",
+  "displayName": "cyto",
+  "description": "A mapper for 10x-flex single cell sequencing reads with fixed abstract geometries",
+  "version": "1.0.0",
+  "author": "ArcInstitute",
+  "homepage": "https://github.com/ArcInstitute/cyto",
+  "skills": []
+}
