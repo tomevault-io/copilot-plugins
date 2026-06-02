@@ -1,85 +1,48 @@
-## cursor-rules
+## installing-packages
 
-> How to add or edit Cursor rules in our project
+> How to installing packages
 
-# Cursor Rules Location
+# Installing Packages
 
-How to add new cursor rules to the project
+This rule explains how to properly install new dependencies (packages) in this project, including workspace and local package management, and best practices.
 
-1. Always place rule files in `PROJECT_ROOT/.cursor/rules/`:
+## Step-by-step Instructions
 
-  ```
-  .cursor/rules/
-  ├── your-rule-name.mdc
-  ├── another-rule.mdc
-  └── ...
-  ```
+1. **Determine the correct workspace**: Make sure you are in the correct package directory (e.g., `libraries/design`, `apps/web`, etc.) before running any install command.
+2. **Use the correct package manager**: This project uses [pnpm](mdc:https:/pnpm.io).
+3. **Install a new dependency**:
+   - For a regular dependency: `pnpm add <package-name>`
+   - For a dev dependency: `pnpm add -D <package-name>`
+   - For a specific version: `pnpm add <package-name>@<version>`
+4. **For monorepos (workspaces)**:
+   - To add a dependency to the root: `pnpm add -w <package-name>`
+5. **Commit changes**: After installing, commit the updated `package.json` and `pnpm-lock.yaml` files.
+6. **Avoid unnecessary global installs**: Prefer local installs unless a tool must be available globally.
 
-2. Follow the naming convention:
+## Guidelines
 
-  - Use kebab-case for filenames
-  - Always use .mdc extension
-  - Make names descriptive of the rule's purpose
+- Always check if the package already exists in the workspace before installing.
+- Prefer the latest stable version unless a specific version is required.
+- For peer dependencies, follow the instructions in the package documentation.
+- If you encounter issues, check the package manager's documentation or consult the team.
 
-3. Directory structure:
+## Example
 
-  ```
-  PROJECT_ROOT/
-  ├── .cursor/
-  │   └── rules/
-  │       ├── your-rule-name.mdc
-  │       └── ...
-  └── ...
-  ```
+```sh
+# Install a regular dependency in the current package
+pnpm add lodash
 
-4. Never place rule files:
+# Install a dev dependency in the currend package
+pnpm add -D typescript --workspace=design
 
-  - In the project root
-  - In subdirectories outside `.cursor/rules`
-  - In any other location
+# Install a specific version
+pnpm add react@19.1.0
 
-5. Cursor rules have the following structure:
-
-````
----
-description: Short description of the rule's purpose
-globs: optional/path/pattern/**/*
-alwaysApply: false
----
-
-# Rule Title
-
-Main content explaining the rule with markdown formatting.
-
-1. Step-by-step instructions
-2. Code examples
-3. Guidelines
-4. Add this instruction: "when you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename."
-
-Example:
-
-```typescript
-// ✅ Good example
-function goodExample() {
-  // Implementation following guidelines
-}
-
-// ❌ Bad example
-function badExample() {
-  // Implementation not following guidelines
-}
+# Install a dependency in the root
+pnpm add -w typescript
 ```
-````
 
-6. Default rule type to `Agent Requested` and add the rule purpose to the `description`.
-
-7. Update [master.mdc](mdc:.cursor/rules/master.mdc) to reference the new rule and describe its purpose
-
-8. When writing code snippets in markdown, follow the same code formatting as in real code:
-   - Use proper indentation (spaces or tabs, consistent with project style)
-   - Maintain consistent spacing and line breaks
-   - Follow the same style guide as the actual codebase
-   - Code examples should be formatted exactly as they would appear in source files
+When you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename.
 
 ---
 > Source: [repobuddy/visual-testing](https://github.com/repobuddy/visual-testing) — distributed by [TomeVault](https://tomevault.io).
