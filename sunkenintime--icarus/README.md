@@ -7,13 +7,13 @@ Valorant Strategy Creator
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [SunkenInTime/icarus](https://github.com/SunkenInTime/icarus).
+Original source: `AGENTS.md` in [SunkenInTime/icarus](https://github.com/SunkenInTime/icarus).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
