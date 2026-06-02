@@ -1,0 +1,9 @@
+{
+  "name": "nette--assets",
+  "displayName": "assets",
+  "description": "Elegant asset management for PHP with versioning, caching and providers for various storage backends",
+  "version": "1.0.0",
+  "author": "nette",
+  "homepage": "https://github.com/nette/assets",
+  "skills": []
+}
