@@ -1,0 +1,9 @@
+{
+  "name": "karakeep-app--liteque",
+  "displayName": "liteque",
+  "description": "A SQLite based job queue implementation in typescript",
+  "version": "1.0.0",
+  "author": "karakeep-app",
+  "homepage": "https://github.com/karakeep-app/liteque",
+  "skills": []
+}
