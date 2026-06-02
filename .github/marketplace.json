@@ -43864,6 +43864,11 @@
       "description": "Write a fast kernel and see how you compare against the best humans and AI on gpumode.com"
     },
     {
+      "name": "yukukotani--just-styled",
+      "source": "./yukukotani--just-styled",
+      "description": "A dead simple CSS-in-JS for React 19"
+    },
+    {
       "name": "livekit--livekit-wakeword",
       "source": "./livekit--livekit-wakeword",
       "description": "An open-source wake word library for creating voice-enabled applications."
@@ -46239,6 +46244,16 @@
       "description": "benchmark"
     },
     {
+      "name": "databricks--databricks-ai-bridge",
+      "source": "./databricks--databricks-ai-bridge",
+      "description": "databricks-ai-bridge"
+    },
+    {
+      "name": "databricks--databricks-ai-bridge",
+      "source": "./databricks--databricks-ai-bridge",
+      "description": "databricks-ai-bridge"
+    },
+    {
       "name": "peteromallet--vibecomfy",
       "source": "./peteromallet--vibecomfy",
       "description": "VibeComfy"
@@ -47669,6 +47684,11 @@
       "description": "\u81f4\u529b\u4e8e\u66f4\u4f18\u96c5\u7684AI\u751f\u6210\u77ed\u89c6\u9891\uff0c\u5e76\u63d0\u4f9bwebui\u754c\u9762\uff0c\u65b9\u4fbf\u521b\u4f5c"
     },
     {
+      "name": "daliusd--ghlite-nvim",
+      "source": "./daliusd--ghlite-nvim",
+      "description": "Neovim plugin to work GitHub PRs quickly."
+    },
+    {
       "name": "qtzx06--yolodex",
       "source": "./qtzx06--yolodex",
       "description": "agent skills for autonomous data labeling, winner at openai codex hackathon 2026"
@@ -48729,6 +48749,21 @@
       "description": "terminal-control"
     },
     {
+      "name": "overflow65537--mfw-pyqt6",
+      "source": "./overflow65537--mfw-pyqt6",
+      "description": "\u4e00\u4e2a\u57fa\u4e8ePySide6\u7684MAAFramework\u56fe\u5f62\u5316\u64cd\u4f5c\u754c\u9762"
+    },
+    {
+      "name": "vrsen--agency-voice-interface",
+      "source": "./vrsen--agency-voice-interface",
+      "description": "agency-voice-interface"
+    },
+    {
+      "name": "virtualroot--canitf",
+      "source": "./virtualroot--canitf",
+      "description": "New features and parity between Terraform and OpenTofu"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -49679,6 +49714,11 @@
       "description": "Official Python SDK for the ScrapeGraph AI   API. Smart scraping, search, crawling,   markdownify, agentic browser automation,   scheduled jobs, and structured data   extraction "
     },
     {
+      "name": "grantmcdermott--dbreg",
+      "source": "./grantmcdermott--dbreg",
+      "description": "Fast regressions on database backends"
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
@@ -50374,6 +50414,21 @@
       "description": "Econumo - A personal and family budgeting app with multi-currency support, shared accounts, and flexible budgets"
     },
     {
+      "name": "fisand--f3-app",
+      "source": "./fisand--f3-app",
+      "description": "f3-app"
+    },
+    {
+      "name": "fisand--f3-app",
+      "source": "./fisand--f3-app",
+      "description": "f3-app"
+    },
+    {
+      "name": "fisand--f3-app",
+      "source": "./fisand--f3-app",
+      "description": "f3-app"
+    },
+    {
       "name": "edisonwong520--wanny",
       "source": "./edisonwong520--wanny",
       "description": "A real Jarvis, connecting your appliances, AI controls everything in realworld. Wanny = nanny in Wechat"
@@ -50767,6 +50822,11 @@
       "name": "openmf--kmp-project-template",
       "source": "./openmf--kmp-project-template",
       "description": "The Kotlin Multiplatform Multi-module Template generator simplifies cross-platform development by enabling shared business logic and UI components across Android, iOS, Desktop, and Web, while retainin"
+    },
+    {
+      "name": "mikodin--obsidian-scribe",
+      "source": "./mikodin--obsidian-scribe",
+      "description": "Record, transcribe, and transform voice notes into structured insights. Leverage Whisper or AssemblyAI and ChatGPT to fill in gaps, generate summaries, and visualize ideas \u2014 all seamlessly integrated "
     },
     {
       "name": "pproenca--agent-tui",
@@ -52547,6 +52607,16 @@
       "name": "nuyoahwjl--medicheck",
       "source": "./nuyoahwjl--medicheck",
       "description": "Recommend health check packages based on user information."
+    },
+    {
+      "name": "block--elasticgraph",
+      "source": "./block--elasticgraph",
+      "description": "Schema-driven, scalable, cloud-native, batteries-included GraphQL, backed by Elasticsearch/OpenSearch"
+    },
+    {
+      "name": "block--elasticgraph",
+      "source": "./block--elasticgraph",
+      "description": "Schema-driven, scalable, cloud-native, batteries-included GraphQL, backed by Elasticsearch/OpenSearch"
     },
     {
       "name": "motoya0118--pavlok-cli-agent",
@@ -54904,6 +54974,21 @@
       "description": "hyperliquid trading bot, perp trading bot, hyperliquid profitable trading bot, hyperliquid trading bot, perp trading bot, hyperliquid profitable trading bot, hyperliquid trading bot, perp trading bot,"
     },
     {
+      "name": "irislib--iris-client",
+      "source": "./irislib--iris-client",
+      "description": "iris-client"
+    },
+    {
+      "name": "irislib--iris-client",
+      "source": "./irislib--iris-client",
+      "description": "iris-client"
+    },
+    {
+      "name": "aikrice--homebrew-badgetizr",
+      "source": "./aikrice--homebrew-badgetizr",
+      "description": "Badgetizr is a tool to allow custom badges automatically added and updated according the content of your pull request."
+    },
+    {
       "name": "olorehq--olore",
       "source": "./olorehq--olore",
       "description": "Turn library docs into local Agent Skills"
@@ -56454,6 +56539,11 @@
       "description": "nonos"
     },
     {
+      "name": "melodee-project--melodee",
+      "source": "./melodee-project--melodee",
+      "description": "Industrial grade self-hosted streaming music server."
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -56937,6 +57027,11 @@
       "name": "craftreactnative--templates",
       "source": "./craftreactnative--templates",
       "description": "React Native templates based on Unistyles that you can copy to your projects"
+    },
+    {
+      "name": "coboglobal--cobo-cli",
+      "source": "./coboglobal--cobo-cli",
+      "description": "cobo-cli"
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -57464,6 +57559,11 @@
       "description": "Automatically identify and catalog tracks from DJ mixes, live streams, and audio files using audio fingerprinting. Generate formatted track lists in JSON, Markdown, and M3U formats."
     },
     {
+      "name": "simpleopensoftware--chronicle",
+      "source": "./simpleopensoftware--chronicle",
+      "description": "A project to provide the simplest, self hosted route to get \"I want AI to help me by passively observing me\" - Join the development! https://discord.gg/faqfXEwm5v"
+    },
+    {
       "name": "ursushoribilismusic--agentic-fleet-hub",
       "source": "./ursushoribilismusic--agentic-fleet-hub",
       "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy."
@@ -57982,6 +58082,16 @@
       "name": "fiscalapi--fiscalapi-java",
       "source": "./fiscalapi--fiscalapi-java",
       "description": "SDK oficial de fiscalapi para consumo desde aplicaciones Java"
+    },
+    {
+      "name": "osu-nlp-group--saev",
+      "source": "./osu-nlp-group--saev",
+      "description": "Sparse autoencoders for vision"
+    },
+    {
+      "name": "osu-nlp-group--saev",
+      "source": "./osu-nlp-group--saev",
+      "description": "Sparse autoencoders for vision"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -60439,6 +60549,11 @@
       "description": "tailwindcss-jun-layout"
     },
     {
+      "name": "sensiolabs--minify-bundle",
+      "source": "./sensiolabs--minify-bundle",
+      "description": "Asset Minifier for Symfony Asset Mapper - Made by SensioLabs"
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -60922,6 +61037,11 @@
       "name": "smalinux--md",
       "source": "./smalinux--md",
       "description": "md"
+    },
+    {
+      "name": "bgreni--emberjson",
+      "source": "./bgreni--emberjson",
+      "description": "A user friendly json library written in pure Mojo"
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -62282,6 +62402,11 @@
       "name": "elroy-bot--elroy",
       "source": "./elroy-bot--elroy",
       "description": "An AI assistant that remembers and sets goals"
+    },
+    {
+      "name": "lifinance--bigmi",
+      "source": "./lifinance--bigmi",
+      "description": "TypeScript library focused on providing reactive primitives for Bitcoin apps."
     },
     {
       "name": "anhtester--antigravity-testing-kit",
@@ -63954,6 +64079,16 @@
       "description": "Rubyzen is a modern linter for Ruby that allows you to write architectural lint rules as unit tests. In the era of AI-generated code, Rubyzen provides your team with deterministic guardrails to keep y"
     },
     {
+      "name": "mtrab--stromligning",
+      "source": "./mtrab--stromligning",
+      "description": "Home Assistant integration for the Str\u00f8mligning API"
+    },
+    {
+      "name": "schaka--naviseerr",
+      "source": "./schaka--naviseerr",
+      "description": "Combines the ideas of Seerr, Navidrome, Lidarr and Soulseek into one"
+    },
+    {
       "name": "lktiep--cortex-hub",
       "source": "./lktiep--cortex-hub",
       "description": "Self-hosted AI Agent Memory + Code Intelligence Platform \u2014 one MCP endpoint for persistent memory, AST-aware code search, shared knowledge, and quality enforcement across all your AI coding agents."
@@ -64762,6 +64897,36 @@
       "name": "cybozu--prompt-hardener",
       "source": "./cybozu--prompt-hardener",
       "description": "Prompt Hardener analyzes prompt-injection-originated risk in LLM-based agents and applications."
+    },
+    {
+      "name": "repobuddy--visual-testing",
+      "source": "./repobuddy--visual-testing",
+      "description": "storybook visual snapshot addon"
+    },
+    {
+      "name": "repobuddy--visual-testing",
+      "source": "./repobuddy--visual-testing",
+      "description": "storybook visual snapshot addon"
+    },
+    {
+      "name": "repobuddy--visual-testing",
+      "source": "./repobuddy--visual-testing",
+      "description": "storybook visual snapshot addon"
+    },
+    {
+      "name": "repobuddy--visual-testing",
+      "source": "./repobuddy--visual-testing",
+      "description": "storybook visual snapshot addon"
+    },
+    {
+      "name": "repobuddy--visual-testing",
+      "source": "./repobuddy--visual-testing",
+      "description": "storybook visual snapshot addon"
+    },
+    {
+      "name": "tunnels-is--tunnels",
+      "source": "./tunnels-is--tunnels",
+      "description": "Networking Software"
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -65797,6 +65962,11 @@
       "name": "saleem-shaik-git--penny-black-stamp-ai",
       "source": "./saleem-shaik-git--penny-black-stamp-ai",
       "description": "AI-based image recognition system for identifying Penny Black stamp plate numbers"
+    },
+    {
+      "name": "ashref-dev--entretien-ai",
+      "source": "./ashref-dev--entretien-ai",
+      "description": "Land Your Dream Job With Our Interview Practice. \ud83d\ude80 Get instant feedback, improve fast, and land your dream role. 95% of users increased confidence after just 3 sessions."
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -67604,6 +67774,11 @@
       "description": "\ud83d\ude80 A powerful Flutter-based AI chat application that lets you run LLMs directly on your mobile device or connect to local model servers. Features offline model execution, Ollama/LLMStudio integration, "
     },
     {
+      "name": "julian-at--synth-ui",
+      "source": "./julian-at--synth-ui",
+      "description": "Generate & Ship UI with minimal effort - Open Source Generative UI with natural language"
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -68417,6 +68592,21 @@
       "name": "rockfactory--satisfactory-logistics",
       "source": "./rockfactory--satisfactory-logistics",
       "description": "A web tool to keep track of Satisfactory logistics"
+    },
+    {
+      "name": "coinbase--spend-permissions",
+      "source": "./coinbase--spend-permissions",
+      "description": "spend-permissions"
+    },
+    {
+      "name": "coinbase--spend-permissions",
+      "source": "./coinbase--spend-permissions",
+      "description": "spend-permissions"
+    },
+    {
+      "name": "coinbase--spend-permissions",
+      "source": "./coinbase--spend-permissions",
+      "description": "spend-permissions"
     },
     {
       "name": "rust-works--succinctly",
@@ -70432,6 +70622,26 @@
       "name": "fatbobman--simplelogger",
       "source": "./fatbobman--simplelogger",
       "description": "A simple logging library for Swift 6, providing easy-to-use logging functionalities with support for different log levels and backends."
+    },
+    {
+      "name": "gp0119--taby",
+      "source": "./gp0119--taby",
+      "description": "A simple new tab extension"
+    },
+    {
+      "name": "cashubtc--orchard",
+      "source": "./cashubtc--orchard",
+      "description": "Web application for Cashu mint management"
+    },
+    {
+      "name": "elllkere--misterfishdpi",
+      "source": "./elllkere--misterfishdpi",
+      "description": "misterfishdpi"
+    },
+    {
+      "name": "cashubtc--orchard",
+      "source": "./cashubtc--orchard",
+      "description": "Web application for Cashu mint management"
     },
     {
       "name": "izittmarvin--memcoach",
@@ -154072,6 +154282,16 @@
       "name": "exon-research--genomi",
       "source": "./exon-research--genomi",
       "description": "An open-source agent harness that turns your AI agent into your personal DNA expert"
+    },
+    {
+      "name": "microsoft--awesome-rayfin",
+      "source": "./microsoft--awesome-rayfin",
+      "description": "Community-driven templates for Rayfin"
+    },
+    {
+      "name": "home-operations--kopiur",
+      "source": "./home-operations--kopiur",
+      "description": "kopiur"
     },
     {
       "name": "yschimke--compose-ai-tools",
