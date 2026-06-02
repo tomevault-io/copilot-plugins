@@ -1,0 +1,74 @@
+## acorn
+
+> - When writing Rust code, before telling the user you're finished, you should run the tests,
+
+## Instructions
+
+- When writing Rust code, before telling the user you're finished, you should run the tests,
+  Rust compiler check, and autoformat:
+  `cargo test`
+  `cargo check`
+  `cargo fmt`
+
+- If we make changes to the elaborator or the kernel, we should run a full check to ensure we didn't
+  break anything.
+  `cargo run --profile release --features validate -- check`
+
+  This verifies the code in `~/acornlib`, which you can inspect to figure out verification failures.
+
+- If a unit test breaks, but just in the verifier or prover, we should try to add another,
+  narrower unit test, that catches the problem in the underlying data structure.
+
+## Acorn CLI Usage
+
+- `cargo run --profile release -- check` is the thorough correctness check for existing proofs.
+  It verifies cached certificates without relying on prover search, and should be run after
+  completing work.
+
+- `cargo run --profile release -- verify [target]` is the normal incremental way to check Acorn
+  code. It uses the cache when possible and searches for missing proofs when necessary.
+
+- `cargo run --profile release -- verify [target] --force-search` bypasses cached proofs and
+  forces prover search. Use it only for testing prover behavior, not for routine correctness checks
+  or cache rewrites.
+
+- If we run into an error during check mode, to debug it, it can help to
+  run check just on the module that failed at a higher log level. For example:
+  `RUST_LOG=acorn=trace cargo run --profile release -- check list.list_base`
+
+- To rewrite certificate caches without testing prover search, use `verify --ignore-hash`, not
+  `verify --force-search`. For example:
+  `cargo run --profile release -- verify finite_group --ignore-hash`
+
+  `verify --force-search` forces the prover to run and should be reserved for testing prover
+  behavior.
+
+- A full force-search run is slow, but sometimes finds obscure bugs that nothing else finds. We
+  generally only want to do this when the user asks for it:
+
+  `cargo run --profile release --features validate -- verify --force-search`
+
+  When you do a full force-search run, it's okay if some propositions can't be verified. What
+  indicates a real problem is if the prover crashes.
+
+- If we find errors during a "check" or force-search operation, we should add a unit test that
+  catches this case.
+
+- If we change normalization, clausification, claim serialization, or claim parsing, we must
+  continue to satisfy the normalization contract in `docs/normalization.md`. In particular, exact
+  normalized certificate `(clause, var_map)` roundtrips are a requirement, not a best-effort goal.
+
+## Project Structure
+
+- `/src` - Core Rust implementation
+- `/vscode` - VS Code extension and assistant interface
+- `/python` - Training scripts for the scoring model
+
+## Versioning
+
+- The "acornlib project format version" is defined by `PROJECT_FORMAT_VERSION` in
+  `src/manifest.rs`. Bump this when making breaking changes to the project format.
+
+---
+> Source: [acornprover/acorn](https://github.com/acornprover/acorn) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
