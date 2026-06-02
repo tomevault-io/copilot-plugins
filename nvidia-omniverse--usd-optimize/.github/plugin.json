@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--usd-optimize",
+  "displayName": "usd-optimize",
+  "description": "usd-optimize",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/usd-optimize",
+  "skills": []
+}
