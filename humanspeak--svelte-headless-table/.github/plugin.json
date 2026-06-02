@@ -1,0 +1,9 @@
+{
+  "name": "humanspeak--svelte-headless-table",
+  "displayName": "svelte-headless-table",
+  "description": "A powerful, headless table library for Svelte that provides complete control over table UI while handling complex data operations like sorting, filtering, pagination, grouping, and row expansion. Buil",
+  "version": "1.0.0",
+  "author": "humanspeak",
+  "homepage": "https://github.com/humanspeak/svelte-headless-table",
+  "skills": []
+}
