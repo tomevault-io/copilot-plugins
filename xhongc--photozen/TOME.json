@@ -1,0 +1,44 @@
+{
+  "name": "PhotoZen",
+  "owner": "xhongc",
+  "repo": "PhotoZen",
+  "description": "NAS\u9ad8\u6027\u80fd\u7684\u81ea\u6258\u7ba1\u7167\u7247\u548c\u89c6\u9891\u7ba1\u7406\u89e3\u51b3\u65b9\u6848",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xhongc/PhotoZen",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T23:45:58Z"
+}
