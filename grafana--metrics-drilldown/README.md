@@ -7,13 +7,13 @@ A queryless experience for browsing Prometheus-compatible metrics. Quickly find 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [grafana/metrics-drilldown](https://github.com/grafana/metrics-drilldown).
+Original source: `AGENTS.md` in [grafana/metrics-drilldown](https://github.com/grafana/metrics-drilldown).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
