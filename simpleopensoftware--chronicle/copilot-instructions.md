@@ -1,0 +1,624 @@
+## chronicle
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Chronicle is at the core an AI-powered personal system - various devices, including but not limited to wearables from OMI can be used for at the very least audio capture, speaker specific transcription, memory extraction and retrieval.
+On top of that - it is being designed to support other services, that can help a user with these inputs such as reminders, action items, personal diagnosis etc.
+
+This supports a comprehensive web dashboard for management.
+
+**⚠️ Active Development Notice**: This project is under active development. Do not create migration scripts or assume stable APIs. Only offer suggestions and improvements when requested.
+
+**❌ No Backward Compatibility**: Do NOT add backward compatibility code unless explicitly requested. This includes fallback logic, legacy field support, or compatibility layers. Always ask before adding backward compatibility - in most cases the answer is no during active development.
+
+## Initial Setup & Configuration
+
+Chronicle includes an **interactive setup wizard** for easy configuration. The wizard guides you through:
+- Service selection (backend + optional services)
+- Authentication setup (admin account, JWT secrets)
+- Transcription provider configuration (Deepgram or offline ASR)
+- LLM provider setup (OpenAI or Ollama)
+- Memory provider selection (Chronicle Native with Qdrant or OpenMemory MCP)
+- Network configuration and HTTPS setup
+- Optional services (speaker recognition, Parakeet ASR)
+
+### Quick Start
+```bash
+# Run the interactive setup wizard from project root (recommended)
+./wizard.sh
+
+# Or use direct command:
+uv run --with-requirements setup-requirements.txt python wizard.py
+
+# For step-by-step instructions, see quickstart.md
+```
+
+**Note on Convenience Scripts**: Chronicle provides wrapper scripts (`./wizard.sh`, `./start.sh`, `./restart.sh`, `./stop.sh`, `./status.sh`) that simplify the longer `uv run --with-requirements setup-requirements.txt python` commands. Use these for everyday operations.
+
+### Setup Documentation
+For detailed setup instructions and troubleshooting, see:
+- **[@quickstart.md](quickstart.md)**: Beginner-friendly step-by-step setup guide
+- **[@Docs/init-system.md](Docs/init-system.md)**: Complete initialization system architecture and design
+
+### Wizard Architecture
+The initialization system uses a **root orchestrator pattern**:
+- **`wizard.py`**: Root setup orchestrator for service selection and delegation
+- **`backends/advanced/init.py`**: Backend configuration wizard
+- **`extras/speaker-recognition/init.py`**: Speaker recognition setup
+- **Service setup scripts**: Individual setup for ASR services and OpenMemory MCP
+
+Key features:
+- Interactive prompts with validation
+- API key masking and secure credential handling
+- Environment file generation with placeholders
+- HTTPS configuration with SSL certificate generation
+- Service status display and health checks
+- Automatic backup of existing configurations
+
+## Development Commands
+
+### Backend Development (Advanced Backend - Primary)
+```bash
+cd backends/advanced
+
+# Start full stack with Docker
+docker compose up --build -d
+
+uv run python src/main.py
+
+# Code formatting and linting
+uv run black src/
+uv run isort src/
+
+# Run tests
+uv run pytest
+uv run pytest tests/test_memory_service.py  # Single test file
+
+# Run integration tests (local script mirrors CI)
+./run-test.sh  # Complete integration test suite
+
+# Environment setup
+cp .env.template .env  # Configure environment variables
+
+# Reset data (development)
+sudo rm -rf backends/advanced/data/
+```
+
+### Running Tests
+
+#### Quick Commands
+All test operations are managed through a simple Makefile interface:
+
+```bash
+cd tests
+
+# Full test workflow (recommended)
+make test              # Start containers + run all tests
+
+# Or step by step
+make start             # Start test containers (with health checks)
+make test-all          # Run all test suites
+make stop              # Stop containers (preserves volumes)
+
+# Run specific test suites
+make test-endpoints    # API endpoint tests (~40 tests, fast)
+make test-integration  # End-to-end workflows (~15 tests, slower)
+make test-infra        # Infrastructure resilience (~5 tests)
+
+# Quick iteration (reuse existing containers)
+make test-quick        # Run tests without restarting containers
+```
+
+#### Container Management
+All container operations automatically preserve logs before cleanup:
+
+```bash
+make start             # Start test containers
+make stop              # Stop containers (keep volumes)
+make restart           # Restart without rebuild
+make rebuild           # Rebuild images + restart (for code changes)
+make containers-clean  # SAVES LOGS → removes everything
+make status            # Show container health
+make logs SERVICE=<name>  # View specific service logs
+```
+
+**Log Preservation:** All cleanup operations save container logs to `tests/logs/YYYY-MM-DD_HH-MM-SS/`
+
+#### Test Environment
+
+Test services use isolated ports and database:
+- **Ports:** Backend (8001), MongoDB (27018), Redis (6380), Qdrant (6337/6338)
+- **Database:** `test_db` (separate from production)
+- **Credentials:** `test-admin@example.com` / `test-admin-password-123`
+
+**For complete test documentation, see `tests/README.md`**
+
+### Mobile App Development
+```bash
+cd app
+
+# Start Expo development server
+npm start
+
+# Platform-specific builds
+npm run android
+npm run ios
+npm run web
+```
+
+### Additional Services
+```bash
+# ASR Services
+cd extras/asr-services
+docker compose up parakeet-asr   # Offline ASR with Parakeet
+
+# Speaker Recognition (with tests)
+cd extras/speaker-recognition
+docker compose up --build
+./run-test.sh  # Run speaker recognition integration tests
+
+# HAVPE Relay (ESP32 bridge)
+cd extras/havpe-relay
+docker compose up --build
+```
+
+## Architecture Overview
+
+### Key Components
+- **Audio Pipeline**: Real-time Opus/PCM → Application-level processing → Deepgram transcription → memory extraction
+- **Wyoming Protocol**: WebSocket communication uses Wyoming protocol (JSONL + binary) for structured audio sessions
+- **Unified Pipeline**: Job-based tracking system for all audio processing (WebSocket and file uploads)
+- **Job Tracker**: Tracks pipeline jobs with stage events (audio → transcription → memory) and completion status
+- **Task Management**: BackgroundTaskManager tracks all async tasks to prevent orphaned processes
+- **Unified Transcription**: Deepgram transcription with fallback to offline ASR services
+- **Memory System**: Pluggable providers (Chronicle native or OpenMemory MCP)
+- **Authentication**: Email-based login with MongoDB ObjectId user system
+- **Client Management**: Auto-generated client IDs as `{user_id_suffix}-{device_name}`, centralized ClientManager
+- **Data Storage**: MongoDB (`audio_chunks` collection for conversations), vector storage (Qdrant or OpenMemory)
+- **Web Interface**: React-based web dashboard with authentication and real-time monitoring
+
+### Service Dependencies
+```yaml
+Required:
+  - MongoDB: User data and conversations
+  - Redis: Job queues (RQ workers) and session state
+  - Qdrant: Vector storage for memory search
+  - FastAPI Backend: Core audio processing
+  - LLM Service: Memory extraction and action items (OpenAI or Ollama)
+
+Recommended:
+  - Transcription: Deepgram or offline ASR services
+
+Optional:
+  - Parakeet ASR: Offline transcription service
+  - Speaker Recognition: Voice identification service
+  - Caddy: HTTPS reverse proxy (auto-configured when HTTPS enabled)
+  - OpenMemory MCP: For cross-client memory compatibility
+```
+
+## Data Flow Architecture
+
+1. **Audio Ingestion**: OMI devices stream audio via WebSocket using Wyoming protocol with JWT auth
+2. **Wyoming Protocol Session Management**: Clients send audio-start/audio-stop events for session boundaries
+3. **Application-Level Processing**: Global queues and processors handle all audio/transcription/memory tasks
+4. **Speech-Driven Conversation Creation**: User-facing conversations only created when speech is detected
+5. **Dual Storage System**: Audio sessions always stored in `audio_chunks`, conversations created in `conversations` collection only with speech
+6. **Versioned Processing**: Transcript and memory versions tracked with active version pointers
+7. **Memory Processing**: Pluggable providers (Chronicle native with individual facts or OpenMemory MCP delegation)
+8. **Memory Storage**: Direct Qdrant (Chronicle) or OpenMemory server (MCP provider)
+9. **Audio Optimization**: Speech segment extraction removes silence automatically
+10. **Task Tracking**: BackgroundTaskManager ensures proper cleanup of all async operations
+
+### Speech-Driven Architecture
+
+**Core Principle**: Conversations are only created when speech is detected, eliminating noise-only sessions from user interfaces.
+
+**Storage Architecture**:
+- **`audio_chunks` Collection**: Always stores audio sessions by `audio_uuid` (raw audio capture)
+- **`conversations` Collection**: Only created when speech is detected, identified by `conversation_id`
+- **Speech Detection**: Analyzes transcript content, duration, and meaningfulness before conversation creation
+- **Automatic Filtering**: No user-facing conversations for silence, noise, or brief audio without speech
+
+**Benefits**:
+- Clean user experience with only meaningful conversations displayed
+- Reduced noise in conversation lists and memory processing
+- Efficient storage utilization for speech-only content
+- Automatic quality filtering without manual intervention
+
+## Authentication & Security
+
+- **User System**: Email-based authentication with MongoDB ObjectId user IDs
+- **Client Registration**: Automatic `{objectid_suffix}-{device_name}` format
+- **Data Isolation**: All data scoped by user_id with efficient permission checking
+- **API Security**: JWT tokens required for all endpoints and WebSocket connections
+- **Admin Bootstrap**: Automatic admin account creation with ADMIN_EMAIL/ADMIN_PASSWORD
+
+## Configuration
+
+### Required Environment Variables
+```bash
+# Authentication
+AUTH_SECRET_KEY=your-super-secret-jwt-key-here
+ADMIN_PASSWORD=your-secure-admin-password
+ADMIN_EMAIL=admin@example.com
+
+# LLM Configuration
+LLM_PROVIDER=openai  # or ollama
+OPENAI_API_KEY=your-openai-key-here
+OPENAI_BASE_URL=https://api.openai.com/v1
+OPENAI_MODEL=gpt-4o-mini
+
+# Speech-to-Text
+DEEPGRAM_API_KEY=your-deepgram-key-here
+# Optional: PARAKEET_ASR_URL=http://host.docker.internal:8767
+# Optional: TRANSCRIPTION_PROVIDER=deepgram
+
+# Memory Provider
+MEMORY_PROVIDER=chronicle  # or openmemory_mcp
+
+# Database
+MONGODB_URI=mongodb://mongo:27017
+# Database name: chronicle
+QDRANT_BASE_URL=qdrant
+
+# Network Configuration
+HOST_IP=localhost
+BACKEND_PUBLIC_PORT=8000
+WEBUI_PORT=3010  # Production port (5173 is Vite dev server only)
+CORS_ORIGINS=http://localhost:3010,http://localhost:8000
+```
+
+### Memory Provider Configuration
+
+Chronicle supports two pluggable memory backends:
+
+#### Chronicle Memory Provider (Default)
+```bash
+# Use Chronicle memory provider (default)
+MEMORY_PROVIDER=chronicle
+
+# LLM Configuration for memory extraction
+LLM_PROVIDER=openai
+OPENAI_API_KEY=your-openai-key-here
+OPENAI_MODEL=gpt-4o-mini
+
+# Vector Storage
+QDRANT_BASE_URL=qdrant
+```
+
+#### OpenMemory MCP Provider
+```bash
+# Use OpenMemory MCP provider
+MEMORY_PROVIDER=openmemory_mcp
+
+# OpenMemory MCP Server Configuration
+OPENMEMORY_MCP_URL=http://host.docker.internal:8765
+OPENMEMORY_CLIENT_NAME=chronicle
+OPENMEMORY_USER_ID=openmemory
+OPENMEMORY_TIMEOUT=30
+
+# OpenAI key for OpenMemory server
+OPENAI_API_KEY=your-openai-key-here
+```
+
+### Transcription Provider Configuration
+
+Chronicle supports multiple transcription services:
+
+```bash
+# Option 1: Deepgram (High quality, recommended)
+TRANSCRIPTION_PROVIDER=deepgram
+DEEPGRAM_API_KEY=your-deepgram-key-here
+
+# Option 2: Local ASR (Parakeet)
+PARAKEET_ASR_URL=http://host.docker.internal:8767
+```
+
+### Additional Service Configuration
+```bash
+# LLM Processing
+OLLAMA_BASE_URL=http://ollama:11434
+
+# Speaker Recognition
+SPEAKER_SERVICE_URL=http://speaker-recognition:8085
+```
+
+### Plugin Security Architecture
+
+**Three-File Separation**:
+
+1. **backends/advanced/.env** - Secrets (gitignored)
+   ```bash
+   SMTP_PASSWORD=abcdefghijklmnop
+   OPENAI_API_KEY=sk-proj-...
+   ```
+
+2. **config/plugins.yml** - Orchestration (uses env var references)
+   ```yaml
+   plugins:
+     email_summarizer:
+       enabled: true
+       smtp_password: ${SMTP_PASSWORD}  # Reference, not actual value!
+   ```
+
+3. **plugins/{plugin_id}/config.yml** - Non-secret defaults
+   ```yaml
+   subject_prefix: "Conversation Summary"
+   ```
+
+**CRITICAL**: Never hardcode secrets in `config/plugins.yml`. Always use `${ENV_VAR}` syntax.
+
+## Quick API Reference
+
+### Common Endpoints
+- **GET /health**: Basic application health check
+- **GET /readiness**: Service dependency validation
+- **WS /ws**: Audio streaming endpoint with codec parameter (Wyoming protocol, supports pcm and opus codecs)
+- **GET /api/conversations**: User's conversations with transcripts
+- **GET /api/memories/search**: Semantic memory search with relevance scoring
+- **POST /auth/jwt/login**: Email-based login (returns JWT token)
+
+### Authentication Flow
+```bash
+# 1. Get auth token
+curl -s -X POST \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "username=admin@example.com&password=your-password-here" \
+  http://localhost:8000/auth/jwt/login
+
+# 2. Use token in API calls
+curl -s -H "Authorization: Bearer YOUR_TOKEN" \
+  http://localhost:8000/api/conversations
+```
+
+### Backend API Interaction Rules
+- **Get token first**: Always authenticate in a separate Bash call, store the token, then use it in subsequent calls. Never chain login + API call in one command.
+- **Read .env with Read tool**: Use the Read tool to get values from `.env` files. Don't use `grep | sed | cut` in Bash to extract env values.
+- **Keep Bash simple**: Each Bash call should do one thing. Don't string together complex piped commands for backend queries.
+
+### Development Reset Commands
+```bash
+# Reset all data (development only)
+cd backends/advanced
+sudo rm -rf data/
+
+# Reset Docker volumes
+docker compose down -v
+docker compose up --build -d
+```
+
+## Add Existing Data
+
+### Audio File Upload & Processing
+
+The system supports processing existing audio files through the file upload API. This allows you to import and process pre-recorded conversations without requiring a live WebSocket connection.
+
+**Upload and Process WAV Files:**
+```bash
+export USER_TOKEN="your-jwt-token"
+
+# Upload single WAV file
+curl -X POST "http://localhost:8000/api/audio/upload" \
+  -H "Authorization: Bearer $USER_TOKEN" \
+  -F "files=@/path/to/audio.wav" \
+  -F "device_name=file_upload"
+
+# Upload multiple WAV files
+curl -X POST "http://localhost:8000/api/audio/upload" \
+  -H "Authorization: Bearer $USER_TOKEN" \
+  -F "files=@/path/to/recording1.wav" \
+  -F "files=@/path/to/recording2.wav" \
+  -F "device_name=import_batch"
+```
+
+**Response Example:**
+```json
+{
+  "message": "Successfully processed 2 audio files",
+  "processed_files": [
+    {
+      "filename": "recording1.wav",
+      "sample_rate": 16000,
+      "channels": 1,
+      "duration_seconds": 120.5,
+      "size_bytes": 3856000
+    },
+    {
+      "filename": "recording2.wav",
+      "sample_rate": 44100,
+      "channels": 2,
+      "duration_seconds": 85.2,
+      "size_bytes": 7532800
+    }
+  ],
+  "client_id": "user01-import_batch"
+}
+```
+
+## HAVPE Relay Configuration
+
+For ESP32 audio streaming using the HAVPE relay (`extras/havpe-relay/`):
+
+```bash
+# Environment variables for HAVPE relay
+export AUTH_USERNAME="user@example.com"       # Email address
+export AUTH_PASSWORD="your-password"
+export DEVICE_NAME="havpe"                    # Device identifier
+
+# Run the relay
+cd extras/havpe-relay
+uv run python main.py --backend-url http://your-server:8000 --backend-ws-url ws://your-server:8000
+```
+
+The relay will automatically:
+- Authenticate using `AUTH_USERNAME` (email address)
+- Generate client ID as `objectid_suffix-havpe`
+- Forward ESP32 audio to the backend with proper authentication
+- Handle token refresh and reconnection
+
+## Distributed Deployment
+
+### Single Machine vs Distributed Setup
+
+**Single Machine (Default):**
+```bash
+# Everything on one machine
+docker compose up --build -d
+```
+
+**Distributed Setup (GPU + Backend separation):**
+
+#### GPU Machine Setup
+```bash
+# Start GPU-accelerated services
+cd extras/asr-services
+docker compose up moonshine -d
+
+cd extras/speaker-recognition
+docker compose up --build -d
+
+# Ollama with GPU support
+docker run -d --gpus=all -p 11434:11434 \
+  -v ollama:/root/.ollama \
+  ollama/ollama:latest
+```
+
+#### Backend Machine Configuration
+```bash
+# .env configuration for distributed services
+OLLAMA_BASE_URL=http://[gpu-machine-tailscale-ip]:11434
+SPEAKER_SERVICE_URL=http://[gpu-machine-tailscale-ip]:8085
+PARAKEET_ASR_URL=http://[gpu-machine-tailscale-ip]:8080
+
+# Start lightweight backend services
+docker compose up --build -d
+```
+
+#### Tailscale Networking
+```bash
+# Install on each machine
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up
+
+# Find machine IPs
+tailscale ip -4
+```
+
+**Benefits of Distributed Setup:**
+- GPU services on dedicated hardware
+- Lightweight backend on VPS/Raspberry Pi
+- Automatic Tailscale IP support (100.x.x.x) - no CORS configuration needed
+- Encrypted inter-service communication
+
+**Service Examples:**
+- GPU machine: LLM inference, ASR, speaker recognition
+- Backend machine: FastAPI, WebUI, databases
+- Database machine: MongoDB, Qdrant (optional separation)
+
+## Development Notes
+
+### Package Management
+- **Backend**: Uses `uv` for Python dependency management (faster than pip)
+- **Mobile**: Uses `npm` with React Native and Expo
+- **Docker**: Primary deployment method with docker-compose
+
+### Testing Strategy
+- **Makefile-Based**: All test operations through simple `make` commands (`make test`, `make start`, `make stop`)
+- **Log Preservation**: Container logs always saved before cleanup (never lose debugging info)
+- **End-to-End Integration**: Robot Framework validates complete audio processing pipeline
+- **Environment Flexibility**: Tests work with both local .env files and CI environment variables
+- **CI/CD Integration**: Same test logic locally and in GitHub Actions
+
+### Code Style
+- **Python**: Black formatter with 100-character line length, isort for imports
+- **TypeScript**: Standard React Native conventions
+- **Import Guidelines**:
+  - NEVER import modules in the middle of functions or files
+  - ALL imports must be at the top of the file after the docstring
+  - Use lazy imports sparingly and only when absolutely necessary for circular import issues
+  - Group imports: standard library, third-party, local imports
+- **Error Handling Guidelines**:
+  - **Always raise errors, never silently ignore**: Use explicit error handling with proper exceptions rather than silent failures
+  - **Understand data structures**: Research and understand input/response or class structure instead of adding defensive `hasattr()` checks
+
+### Docker Build Cache Management
+- **Default Behavior**: Docker automatically detects file changes in Dockerfile COPY/ADD instructions and invalidates cache as needed
+- **No --no-cache by Default**: Only use `--no-cache` when explicitly needed (e.g., package updates, dependency issues)
+- **Smart Caching**: Docker checks file modification times and content hashes to determine when rebuilds are necessary
+- **Development Efficiency**: Trust Docker's cache system - it handles most development scenarios correctly
+
+### Health Monitoring
+The system includes comprehensive health checks:
+- `/readiness`: Service dependency validation
+- `/health`: Basic application status
+- Memory debug system for transcript processing monitoring
+
+### Integration Test Infrastructure
+- **Makefile Interface**: Simple `make` commands for all operations (see `tests/README.md`)
+- **Test Environment**: `docker-compose-test.yml` with isolated services on separate ports
+- **Test Database**: Uses `test_db` database (separate from production)
+- **Log Preservation**: All cleanup operations save logs to `tests/logs/` automatically
+- **CI Compatibility**: Same test logic runs locally and in GitHub Actions
+
+### Cursor Rule Integration
+Project includes `.cursor/rules/always-plan-first.mdc` requiring understanding before coding. Always explain the task and confirm approach before implementation.
+
+## Extended Documentation
+
+For detailed technical documentation, see:
+- **[@Docs/overview.md](Docs/overview.md)**: Architecture overview and technical deep dive
+- **[@Docs/init-system.md](Docs/init-system.md)**: Initialization system and service management
+- **[@Docs/ssl-certificates.md](Docs/ssl-certificates.md)**: HTTPS/SSL setup details
+- **[@Docs/audio-pipeline-architecture.md](Docs/audio-pipeline-architecture.md)**: Audio pipeline design
+- **[@backends/advanced/Docs/auth.md](backends/advanced/Docs/auth.md)**: Authentication architecture
+- **[backends/advanced/Docs/architecture.md](backends/advanced/Docs/architecture.md)**: Backend architecture details
+- **[backends/advanced/Docs/memories.md](backends/advanced/Docs/memories.md)**: Memory system documentation
+- **[backends/advanced/Docs/plugin-development-guide.md](backends/advanced/Docs/plugin-development-guide.md)**: Plugin development guide
+
+## Robot Framework Testing
+
+**IMPORTANT: When writing or modifying Robot Framework tests, you MUST follow the testing guidelines.**
+
+Before writing any Robot Framework test:
+1. **Read [@tests/TESTING_GUIDELINES.md](tests/TESTING_GUIDELINES.md)** for comprehensive testing patterns and standards
+2. **Check [@tests/tags.md](tests/tags.md)** for approved tags - ONLY 11 tags are permitted
+3. **SCAN existing resource files** for keywords - NEVER write code that duplicates existing keywords
+4. **Follow the Arrange-Act-Assert pattern** with inline verifications (not abstracted to keywords)
+
+Key Testing Rules:
+- **Check Existing Keywords FIRST**: Before writing ANY test code, scan relevant resource files (`websocket_keywords.robot`, `queue_keywords.robot`, `conversation_keywords.robot`, etc.) for existing keywords
+- **Tags**: ONLY use the 11 approved tags from tags.md, tab-separated (e.g., `[Tags]    infra	audio-streaming`)
+- **Verifications**: Write assertions directly in tests, not in resource keywords
+- **Keywords**: Only create keywords for reusable setup/action operations AFTER confirming no existing keyword exists
+- **Resources**: Always check existing resource files before creating new keywords or duplicating logic
+- **Naming**: Use descriptive names that explain business purpose, not technical implementation
+
+**DO NOT:**
+- Write inline code without checking if a keyword already exists for that operation
+- Create custom tags (use only the 11 approved tags)
+- Abstract verifications into keywords (keep them inline in tests)
+- Use space-separated tags (must be tab-separated)
+- Skip reading the guidelines before writing tests
+
+## Notes for Claude
+Check if the src/ is volume mounted. If not, do compose build so that code changes are reflected. Do not simply run `docker compose restart` as it will not rebuild the image.
+Check backends/advanced/Docs for up to date information on advanced backend.
+All docker projects have .dockerignore following the exclude pattern. That means files need to be included for them to be visible to docker.
+The uv package manager is used for all python projects. Wherever you'd call `python3 main.py` you'd call `uv run python main.py`
+
+**Docker Build Guidelines:**
+- Use `docker compose build` without `--no-cache` by default for faster builds
+- Only use `--no-cache` when explicitly needed (e.g., if cached layers are causing issues or when troubleshooting build problems)
+- Docker's build cache is efficient and saves significant time during development
+
+- Remember that whenever there's a python command, you should use uv run python3 instead
+
+---
+> Source: [SimpleOpenSoftware/chronicle](https://github.com/SimpleOpenSoftware/chronicle) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
