@@ -1,0 +1,9 @@
+{
+  "name": "atomflow-ai--molecode",
+  "displayName": "MoleCode",
+  "description": "Molecule as code: enabling LLMs to operate and reason on chemistry directly.",
+  "version": "1.0.0",
+  "author": "AtomFlow-AI",
+  "homepage": "https://github.com/AtomFlow-AI/MoleCode",
+  "skills": []
+}
