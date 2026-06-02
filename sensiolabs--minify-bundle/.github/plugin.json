@@ -1,0 +1,9 @@
+{
+  "name": "sensiolabs--minify-bundle",
+  "displayName": "minify-bundle",
+  "description": "Asset Minifier for Symfony Asset Mapper - Made by SensioLabs",
+  "version": "1.0.0",
+  "author": "sensiolabs",
+  "homepage": "https://github.com/sensiolabs/minify-bundle",
+  "skills": []
+}
