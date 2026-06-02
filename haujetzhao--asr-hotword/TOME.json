@@ -1,0 +1,44 @@
+{
+  "name": "asr-hotword",
+  "owner": "HaujetZhao",
+  "repo": "asr-hotword",
+  "description": "\u6700\u68d2\u7684\u7684ASR\u540e\u5904\u7406\u70ed\u8bcd\u65b9\u6848\uff0c\u57fa\u4e8e\u97f3\u7d20\u7f16\u8f91\u8ddd\u79bb\uff0c\u5b9e\u73b0\u70ed\u8bcd\u66ff\u6362\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HaujetZhao/asr-hotword",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T10:33:17Z"
+}
