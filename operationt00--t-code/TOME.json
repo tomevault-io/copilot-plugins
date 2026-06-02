@@ -1,0 +1,44 @@
+{
+  "name": "T-Code",
+  "owner": "OperationT00",
+  "repo": "T-Code",
+  "description": "\u4e00\u6b3e\u96c6\u6210\u4e86ReAct\uff0cPlan-and-Execute\u548cMulti-Agent\u7684coding agent",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/OperationT00/T-Code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T04:30:23Z"
+}
