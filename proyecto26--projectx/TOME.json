@@ -4,7 +4,7 @@
   "repo": "projectx",
   "description": "Tame full-stack chaos with Temporal workflows and React wizardry, the ultimate event-driven architecture for your apps \ud83e\uddd9\u200d\u2642\ufe0f\u2728",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/proyecto26/projectx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T23:39:14Z"
+  "distributed_at": "2026-06-02T23:41:20Z"
 }
