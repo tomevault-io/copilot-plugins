@@ -1,0 +1,9 @@
+{
+  "name": "chimera-nas--chimera",
+  "displayName": "chimera",
+  "description": "high performance multi-protocol NAS stack with asynchronous VFS backend",
+  "version": "1.0.0",
+  "author": "chimera-nas",
+  "homepage": "https://github.com/chimera-nas/chimera",
+  "skills": []
+}
