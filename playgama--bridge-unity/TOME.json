@@ -4,7 +4,7 @@
   "repo": "bridge-unity",
   "description": "One SDK for cross-platform publishing HTML5 games",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Playgama/bridge-unity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T23:49:44Z"
+  "distributed_at": "2026-06-02T23:50:17Z"
 }
