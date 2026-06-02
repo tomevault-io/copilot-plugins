@@ -1,0 +1,9 @@
+{
+  "name": "azzgo--excali-local",
+  "displayName": "excali-local",
+  "description": "a offline excalidraw editor wrapped as chrome extension",
+  "version": "1.0.0",
+  "author": "azzgo",
+  "homepage": "https://github.com/azzgo/excali-local",
+  "skills": []
+}
