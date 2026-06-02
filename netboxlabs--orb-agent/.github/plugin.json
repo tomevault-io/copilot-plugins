@@ -1,0 +1,9 @@
+{
+  "name": "netboxlabs--orb-agent",
+  "displayName": "orb-agent",
+  "description": "Orb network observability agent, part of the NetBox ecosystem and developed by NetBox Labs",
+  "version": "1.0.0",
+  "author": "netboxlabs",
+  "homepage": "https://github.com/netboxlabs/orb-agent",
+  "skills": []
+}
