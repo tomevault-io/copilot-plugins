@@ -4,7 +4,7 @@
   "repo": "skills-travel-planner",
   "description": "\u5f00\u6e90 AI \u8def\u4e66\u751f\u6210\u5de5\u5177 \u00b7 Cursor/Claude Agent Skill\uff1a\u7b80\u7248\u884c\u7a0b\u8868 \u2192 tripData.json \u2192 \u53ef\u4ea4\u4ed8 HTML/PDF\u3002\u5c0f\u7ea2\u4e66\u914d\u56fe\u3001LLM \u6da6\u8272\u3001\u98de\u732a\u9152\u5e97\u6570\u636e\u3002Open-source AI travel roadbook generator for custom tour advisors.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huanyuzhilv/skills-travel-planner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T14:33:20Z"
+  "distributed_at": "2026-06-02T14:34:00Z"
 }
