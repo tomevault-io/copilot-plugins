@@ -2,7 +2,7 @@
   "name": "lasereyes-mono",
   "owner": "omnisat",
   "repo": "lasereyes-mono",
-  "description": "",
+  "description": "Connect to any Bitcoin wallet, handle transactions, and work with Ordinals & BRC-20 tokens with just a few lines of code.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/omnisat",
+  "source_url": "https://github.com/omnisat/lasereyes-mono",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T09:41:16Z"
+  "distributed_at": "2026-06-02T22:32:06Z"
 }
