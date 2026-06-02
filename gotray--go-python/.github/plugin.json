@@ -1,0 +1,9 @@
+{
+  "name": "gotray--go-python",
+  "displayName": "go-python",
+  "description": "Write Python in Go - The most intuitive Python wrapper for Golang",
+  "version": "1.0.0",
+  "author": "gotray",
+  "homepage": "https://github.com/gotray/go-python",
+  "skills": []
+}
