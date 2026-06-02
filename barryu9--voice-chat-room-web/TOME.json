@@ -1,0 +1,44 @@
+{
+  "name": "Voice_Chat_Room_Web",
+  "owner": "barryu9",
+  "repo": "Voice_Chat_Room_Web",
+  "description": "A discord-like mediasoup WebRTC voice chat room",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/barryu9/Voice_Chat_Room_Web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T16:57:34Z"
+}
