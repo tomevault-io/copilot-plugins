@@ -1,0 +1,9 @@
+{
+  "name": "near-horizon--near-protocol-rewards",
+  "displayName": "near-protocol-rewards",
+  "description": "A transparent, metric-based rewards system for NEAR projects that directly ties incentives to development activity and user adoption.",
+  "version": "1.0.0",
+  "author": "near-horizon",
+  "homepage": "https://github.com/near-horizon/near-protocol-rewards",
+  "skills": []
+}
