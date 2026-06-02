@@ -1,0 +1,9 @@
+{
+  "name": "hiroki-kawakami--tab5-screen-streamer",
+  "displayName": "Tab5-Screen-Streamer",
+  "description": "Stream PC Screen Capture to M5Stack Tab5",
+  "version": "1.0.0",
+  "author": "Hiroki-Kawakami",
+  "homepage": "https://github.com/Hiroki-Kawakami/Tab5-Screen-Streamer",
+  "skills": []
+}
