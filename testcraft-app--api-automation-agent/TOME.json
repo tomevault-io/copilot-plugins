@@ -4,7 +4,7 @@
   "repo": "api-automation-agent",
   "description": "Agent that generates API automation tests based on an OpenAPI definition",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TestCraft-App/api-automation-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T17:34:07Z"
+  "distributed_at": "2026-06-02T17:36:26Z"
 }
