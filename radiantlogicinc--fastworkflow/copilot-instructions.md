@@ -1,33 +1,46 @@
-## testing-rules
+## fastworkflow
 
-> - Don't use Mock fixtures. All our tests are integration tests
+> This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
 
-# Testing Patterns for FastWorkflow
+# Agent Instructions
 
-- Don't use Mock fixtures. All our tests are integration tests
-- Do not remove pytest tests without explicit user approval
+This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
 
-## MCP Integration Testing
+## Quick Reference
 
-### Test Structure
-- **./tests** - Folder with all the tests
-- **[tests/conftest.py](mdc:tests/conftest.py)** - Pytest configuration and shared fixtures
-- **[tests/README.md](mdc:tests/README.md)** - Testing documentation and usage guide
-
-### Testing Best Practices
-
-#### Integration Testing Philosophy
-```python
-# ✅ DO: Use real test workflows
-workflow_path = os.path.join("tests", "example_workflow") 
-workflow_path = os.path.join("tests", "hello_world_workflow") 
-
-# ✅ DO: Test end-to-end functionality
-result = mcp_server.call_tool("get_user_details", {"user_id": "sara_doe_496"})
-
-# ❌ DON'T: Mock FastWorkflow components
-# ❌ DON'T: Use fake data when real data is available
+```bash
+bd ready              # Find available work
+bd show <id>          # View issue details
+bd update <id> --status in_progress  # Claim work
+bd close <id>         # Complete work
+bd sync               # Sync with git
 ```
+
+## Landing the Plane (Session Completion)
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   bd sync
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
 
 ---
 > Source: [radiantlogicinc/fastworkflow](https://github.com/radiantlogicinc/fastworkflow) — distributed by [TomeVault](https://tomevault.io).
