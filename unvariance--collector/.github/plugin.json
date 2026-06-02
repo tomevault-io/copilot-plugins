@@ -1,0 +1,9 @@
+{
+  "name": "unvariance--collector",
+  "displayName": "collector",
+  "description": "Unvariance collector: a Kubernetes-native collector for monitoring memory subsystem interference between pods",
+  "version": "1.0.0",
+  "author": "unvariance",
+  "homepage": "https://github.com/unvariance/collector",
+  "skills": []
+}
