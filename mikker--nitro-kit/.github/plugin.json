@@ -1,0 +1,9 @@
+{
+  "name": "mikker--nitro-kit",
+  "displayName": "nitro_kit",
+  "description": "A good-to-go UI kit for Ruby on Rails",
+  "version": "1.0.0",
+  "author": "mikker",
+  "homepage": "https://github.com/mikker/nitro_kit",
+  "skills": []
+}
