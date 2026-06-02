@@ -4,7 +4,7 @@
   "repo": "DBMultiverse",
   "description": "An iOS app to read and manage the DB Multiverse webcomic, built with a modular architecture.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nikolainobadi/DBMultiverse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T18:37:30Z"
+  "distributed_at": "2026-06-02T18:38:04Z"
 }
