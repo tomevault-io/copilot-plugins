@@ -175284,6 +175284,21 @@
       "description": "Stream PC Screen Capture to M5Stack Tab5"
     },
     {
+      "name": "djskncxm--duckagent",
+      "source": "./djskncxm--duckagent",
+      "description": "DuckAgent"
+    },
+    {
+      "name": "cityjson--duckdb-cityjson",
+      "source": "./cityjson--duckdb-cityjson",
+      "description": "duckdb-cityjson"
+    },
+    {
+      "name": "cityjson--duckdb-cityjson",
+      "source": "./cityjson--duckdb-cityjson",
+      "description": "duckdb-cityjson"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -187754,6 +187769,21 @@
       "description": "esp32-key"
     },
     {
+      "name": "sanbei101--mini-minio",
+      "source": "./sanbei101--mini-minio",
+      "description": "\u4ece0\u52301\u5b9e\u73b0\u4e00\u4e2a\u7b80\u5316\u7248\u672c\u7684minio"
+    },
+    {
+      "name": "qingkongfeixing--smart-album",
+      "source": "./qingkongfeixing--smart-album",
+      "description": "\u672c\u5730\u76f8\u518c AI \u641c\u7d22\u5de5\u5177 \u2014\u901a\u8fc7\u7b2c\u4e09\u65b9\u89c6\u89c9\u5927\u6a21\u578b\u81ea\u52a8\u4e3a\u56fe\u7247\u751f\u6210\u6807\u7b7e\uff0c\u652f\u6301\u81ea\u7136\u8bed\u8a00\u5173\u952e\u8bcd\u641c\u7d22"
+    },
+    {
+      "name": "eversinc33--karyo",
+      "source": "./eversinc33--karyo",
+      "description": "[100% AI Generated Code] Lightweight LLVM Symbolic Execution Engine"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -190747,6 +190777,16 @@
       "name": "00prabalk00--continuum",
       "source": "./00prabalk00--continuum",
       "description": "Local shared memory and controlled workflows for AI coding agents."
+    },
+    {
+      "name": "ahoo-wang--godex",
+      "source": "./ahoo-wang--godex",
+      "description": "Make every model a CodeX engine through an OpenAI-compatible Responses API gateway"
+    },
+    {
+      "name": "ahoo-wang--godex",
+      "source": "./ahoo-wang--godex",
+      "description": "Make every model a CodeX engine through an OpenAI-compatible Responses API gateway"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
