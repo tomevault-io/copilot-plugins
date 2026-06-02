@@ -1,0 +1,9 @@
+{
+  "name": "andywiranata--jetproxy",
+  "displayName": "jetproxy",
+  "description": "Java-based Application Proxy using Jetty. Scalable, Robust, Open Source alternative to Traefik",
+  "version": "1.0.0",
+  "author": "andywiranata",
+  "homepage": "https://github.com/andywiranata/jetproxy",
+  "skills": []
+}
