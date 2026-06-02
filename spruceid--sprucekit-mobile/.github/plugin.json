@@ -1,0 +1,9 @@
+{
+  "name": "spruceid--sprucekit-mobile",
+  "displayName": "sprucekit-mobile",
+  "description": "Libraries and examples for integrating verifiable credentials (VC) and mobile driver's licenses (mDL) into mobile apps.",
+  "version": "1.0.0",
+  "author": "spruceid",
+  "homepage": "https://github.com/spruceid/sprucekit-mobile",
+  "skills": []
+}
