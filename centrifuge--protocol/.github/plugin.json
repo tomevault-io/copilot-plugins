@@ -1,0 +1,9 @@
+{
+  "name": "centrifuge--protocol",
+  "displayName": "protocol",
+  "description": "Centrifuge Protocol: The open infrastructure for onchain asset management",
+  "version": "1.0.0",
+  "author": "centrifuge",
+  "homepage": "https://github.com/centrifuge/protocol",
+  "skills": []
+}
