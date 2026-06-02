@@ -1,86 +1,203 @@
-## hushh-tech-website
+## clean-architecture-rules
 
-> Use this file as the GitHub-wide onboarding context for Copilot cloud agent, Copilot code review, and repository chat.
+> Clean Architecture + MVVM Rules for Hushh Intelligence
 
-# Hushh Tech Copilot Instructions
 
-Use this file as the GitHub-wide onboarding context for Copilot cloud agent, Copilot code review, and repository chat.
+# Hushh Intelligence - Clean Architecture + MVVM Rules
 
-## Grounding Order
+When working in the `src/hushh-intelligence/` directory, follow these strict architectural rules:
 
-When working in this repository, ground decisions in this order:
+## Architecture Layers
 
-1. `AGENTS.md`
-2. `QODO.MD`
-3. `.pr_agent.toml`
-4. `best_practices.md`
-5. `docs/project_context_map.md`
-6. `README.md`, `CONTRIBUTING.md`, `SECURITY.md`
-7. Checked-in code and workflows on the base branch
+### 1. Core Layer (`core/`)
+- **NO external dependencies** - pure TypeScript only
+- Contains: config, constants, errors, types, utils
+- Can be imported by ANY layer
+- Example: `import { ENV } from '@/hushh-intelligence/core'`
 
-Treat `main` as the current source of truth for runtime behavior, CI policy, and deploy policy. If a behavior is not visible in the repository, say that the evidence is not shown here instead of inferring hidden services or hidden configuration.
+### 2. Domain Layer (`domain/`)
+- **NO React, NO external libs** - pure business logic
+- Depends ONLY on Core layer
+- Contains: entities, repository interfaces, use cases
+- Example entities: Agent, Chat, Message, KYC
 
-## Repository Shape
+### 3. Data Layer (`data/`)
+- Implements domain interfaces
+- Depends on: Core, Domain
+- Contains: API clients, repository implementations, DTOs
+- Supabase calls happen HERE, not in domain
 
-- This is a Hushh Tech web repository built as a `Vite + React` SPA under `src/`.
-- The production web runtime is `server.js` on Cloud Run.
-- API handlers live under `api/` and are loaded by `server.js`.
-- Shared backend helpers live under `api/shared/`.
-- Supabase migrations, functions, and local assets live under `supabase/`.
-- Additional service deployments live under `cloud-run/`.
-- CI and deploy policy live under `.github/workflows/`, `scripts/ci/`, and `scripts/security/`.
+### 4. Presentation Layer (`presentation/`)
+- React components and ViewModels
+- Depends on: Core, Domain, Data
+- Contains: viewmodels, views, pages, hooks
+- Views are DUMB - only render what ViewModel provides
 
-Do not use `.cursorrules` as the stack or runtime source of truth for this repository.
-
-## High-Signal Code Map
-
-- Frontend entrypoint: `src/main.tsx`
-- Frontend router root: `src/App.tsx`
-- Frontend routes and UI: `src/pages/**`, `src/components/**`
-- Auth and token lifecycle: `src/auth/**`, `src/services/authentication/**`
-- Browser services: `src/services/**`
-- Web runtime and SPA fallback: `server.js`
-- Backend request handlers: `api/**`
-- Backend shared utilities: `api/shared/**`
-- Data-contract and migration surfaces: `supabase/**`
-- Deploy and validation governance: `.github/workflows/**`, `scripts/ci/**`, `scripts/security/**`
-
-## Non-Negotiable Hushh Rules
-
-- `VITE_*` variables are browser-visible. Do not treat them as secrets.
-- Route changes under `api/**` are incomplete if `server.js` runtime wiring is not kept in sync.
-- Auth, env, workflow, deploy, and migration changes require proof, not just intent.
-- `PR Validation` is the authoritative code-executing merge gate. Advisory reviewers do not replace it.
-- Prefer narrow, evidence-backed findings. Do not invent architecture, hidden services, or vendor behavior that is not checked in.
-
-## Validation Commands
-
-Use the smallest relevant set of commands first:
-
-```bash
-npm test
-npx tsc --noEmit
-npm run build:web
-npm run env:check
-npm run lint:ci
-npm run security:gitleaks
-npm run security:audit
-npm run smoke:ci
+## Dependency Rule (CRITICAL)
+```
+✅ Presentation → Data → Domain → Core
+❌ Core → Domain → Data → Presentation (NEVER!)
 ```
 
-For local runtime work:
+## File Naming Conventions
+| Type | Pattern | Example |
+|------|---------|---------|
+| Entity | `PascalCase.ts` | `Agent.ts` |
+| Use Case | `VerbNounUseCase.ts` | `GetAgentUseCase.ts` |
+| Repository Interface | `INounRepository.ts` | `IAgentRepository.ts` |
+| Repository Impl | `NounRepositoryImpl.ts` | `AgentRepositoryImpl.ts` |
+| ViewModel | `NounViewModel.ts` | `AgentViewModel.ts` |
+| View | `NounComponent.tsx` | `AgentCard.tsx` |
+| Hook | `useNoun.ts` | `useAgent.ts` |
 
-```bash
-npm run dev
-npm run dev:api
+## MVVM Pattern Rules
+
+### Views (React Components)
+```typescript
+// ✅ GOOD - View only renders
+const AgentCard = ({ agent, onEdit }: Props) => {
+  return (
+    <div>
+      <h1>{agent.name}</h1>
+      <button onClick={onEdit}>Edit</button>
+    </div>
+  );
+};
+
+// ❌ BAD - View has business logic
+const AgentCard = () => {
+  const [agent, setAgent] = useState();
+  useEffect(() => {
+    fetch('/api/agent').then(...); // NO! Use ViewModel
+  }, []);
+};
 ```
 
-## Working Style
+### ViewModels
+```typescript
+// ✅ GOOD - ViewModel handles state + logic
+export const useAgentViewModel = () => {
+  const [agent, setAgent] = useState<Agent | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-- Start with the grounding files above before broad repo search.
-- Search only when those files are incomplete, contradicted by current code, or the task is path-specific.
-- Keep suggestions production-relevant: correctness, security, auth, env wiring, CI/deploy safety, data contracts, and missing proof.
-- If a task touches `server.js`, `api/**`, `src/auth/**`, `src/services/authentication/**`, `supabase/**`, `.github/workflows/**`, or `scripts/ci/**`, treat it as high-risk and validate more aggressively.
+  const getAgentUseCase = useMemo(() => new GetAgentUseCase(agentRepo), []);
+
+  const fetchAgent = async (id: string) => {
+    setIsLoading(true);
+    try {
+      const result = await getAgentUseCase.execute(id);
+      setAgent(result);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { agent, isLoading, error, fetchAgent };
+};
+```
+
+### Use Cases
+```typescript
+// ✅ GOOD - One class, one action
+export class GetAgentUseCase {
+  constructor(private repository: IAgentRepository) {}
+
+  async execute(id: string): Promise<Agent> {
+    return this.repository.getById(id);
+  }
+}
+
+// ❌ BAD - Multiple responsibilities
+export class AgentUseCase {
+  getAgent() {}
+  updateAgent() {}
+  deleteAgent() {}
+}
+```
+
+### Repository Pattern
+```typescript
+// Domain Layer - Interface
+export interface IAgentRepository {
+  getById(id: string): Promise<Agent>;
+  create(agent: Agent): Promise<Agent>;
+}
+
+// Data Layer - Implementation
+export class AgentRepositoryImpl implements IAgentRepository {
+  constructor(private supabase: SupabaseClient) {}
+
+  async getById(id: string): Promise<Agent> {
+    const { data, error } = await this.supabase
+      .from('agents')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error) throw new ApiError(error.message);
+    return AgentMapper.toDomain(data);
+  }
+}
+```
+
+## Code Quality Checklist
+
+Before committing code in `hushh-intelligence/`:
+
+- [ ] Domain layer has NO React imports
+- [ ] Views don't call APIs directly
+- [ ] Use Cases have single responsibility
+- [ ] Repository interfaces are in `domain/repositories/`
+- [ ] DTOs have mappers to domain entities
+- [ ] ViewModels use hooks, not class components
+- [ ] All async operations have error handling
+- [ ] Types are defined in appropriate layer
+
+## Import Rules
+
+```typescript
+// ✅ GOOD - Layer-appropriate imports
+// In presentation layer:
+import { Agent } from '../domain/entities/Agent';
+import { GetAgentUseCase } from '../domain/usecases/agent/GetAgentUseCase';
+import { AgentRepositoryImpl } from '../data/repositories/AgentRepositoryImpl';
+
+// ❌ BAD - Crossing layer boundaries incorrectly
+// In domain layer:
+import { useState } from 'react'; // NO REACT IN DOMAIN!
+import { supabase } from '@/lib/supabase'; // NO SUPABASE IN DOMAIN!
+```
+
+## Error Handling Pattern
+
+```typescript
+// Use custom errors from core/errors
+import { ApiError, ValidationError } from '../core/errors';
+
+// In repository
+if (!data) throw new ApiError('Agent not found', 404);
+
+// In ViewModel
+try {
+  await useCase.execute(id);
+} catch (error) {
+  if (error instanceof ApiError) {
+    setError(error.message);
+  } else {
+    setError('An unexpected error occurred');
+  }
+}
+```
+
+## Testing Guidelines
+
+- Domain layer: Unit tests (pure functions)
+- Data layer: Integration tests (mock Supabase)
+- Presentation layer: Component tests (React Testing Library)
+- ViewModels: Hook tests (@testing-library/react-hooks)
 
 ---
 > Source: [hushh-labs/hushh_Tech_website](https://github.com/hushh-labs/hushh_Tech_website) — distributed by [TomeVault](https://tomevault.io).
