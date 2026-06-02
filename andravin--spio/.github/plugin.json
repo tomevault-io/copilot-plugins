@@ -1,0 +1,9 @@
+{
+  "name": "andravin--spio",
+  "displayName": "spio",
+  "description": "Experimental CUDA kernel framework unifying typed dimensions, NVRTC JIT specialization, and ML\u2011guided tuning.",
+  "version": "1.0.0",
+  "author": "andravin",
+  "homepage": "https://github.com/andravin/spio",
+  "skills": []
+}
