@@ -1,0 +1,44 @@
+{
+  "name": "ai-collaboration-notebook",
+  "owner": "roam-bit",
+  "repo": "ai-collaboration-notebook",
+  "description": "\u8ba9 AI \u4e3b\u52a8\u8bb0\u9519\u9898\u3001\u81ea\u6211\u8fed\u4ee3\u7684\u534f\u4f5c\u673a\u5236 \u00b7 A framework that makes your AI reflect on its own mistakes and stop repeating them",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/roam-bit/ai-collaboration-notebook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T02:33:33Z"
+}
