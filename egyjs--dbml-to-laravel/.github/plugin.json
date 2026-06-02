@@ -1,0 +1,9 @@
+{
+  "name": "egyjs--dbml-to-laravel",
+  "displayName": "dbml-to-laravel",
+  "description": "Laravel package to generate Eloquent  models and migration files from DBML schema files. Simplify DBML parsing, automate relationship creation, and speed up your development workflow.",
+  "version": "1.0.0",
+  "author": "egyjs",
+  "homepage": "https://github.com/egyjs/dbml-to-laravel",
+  "skills": []
+}
