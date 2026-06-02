@@ -1,0 +1,53 @@
+## anthropic-sdk-kotlin
+
+> This file captures only what cannot be inferred from the codebase itself.
+
+# CLAUDE.md
+
+This file captures only what cannot be inferred from the codebase itself.
+
+## Rules for editing this file
+
+Both developers and AI agents are expected to add entries as they encounter surprises.
+
+- **Add an entry** when you encounter something unexpected: a build quirk, a non-obvious constraint, a dependency gotcha, or any behavior that would surprise the next agent or developer.
+- **Add an entry** when a developer flags an anti-pattern produced by AI — describe the anti-pattern and the preferred alternative.
+- **Do not** add codebase overviews, directory listings, or anything discoverable by reading the source.
+- Keep entries concise: one line per lesson, grouped under a heading if a theme emerges.
+
+## Known gotchas
+
+- Copyright year range (e.g. 2025-2026) is applied on autosave — new files should use only the current year (e.g. 2026).
+- Kotlin context-sensitive resolution (`-Xcontext-sensitive-resolution`, preview in 2.2 / refined in 2.3) is enabled in the convention plugin. Inside a `when` whose subject has a known sealed type (or for `is`/`as` against that type), drop the type prefix on subclass references — write `is Heading` / `Paragraph`, not `is BlockMode.Heading` / `BlockMode.Paragraph`. CSR also applies to explicit return types, declared variable types, and parameter types when an outer expected type drives resolution. It does NOT apply to functions, properties with parameters, extension properties with receivers, type-annotation positions for variables, supertype lists, or generic constraints — keep the prefix in those positions.
+- In Claude Code "auto mode", never commit on your own — leave changes in the working tree so the user can review the diff first. Only commit when the user explicitly asks for it.
+- When generating backtick-quoted Kotlin identifiers (e.g. test names) from arbitrary input, strip CR, LF, and ``` ` \ < > [ ] / . : ; * ? " | ``` before wrapping in backticks.
+- Anthropic's OpenAPI schema splits each content block into a response type and a write-only `*Param` sibling (e.g. `ThinkingBlock` / `ThinkingBlockParam`); the official Python/TypeScript SDKs ship both because they're code-generated. This SDK collapses such mirrors into one Kotlin type when the wire format is identical (as already done for `Text`, `Image`, `Document`, etc.) — do not introduce new `*Param` companions unless the request/response shapes genuinely diverge.
+
+### Testing
+
+- Most tests are live integration tests against Anthropic APIs and require `ANTHROPIC_API_KEY` in the environment; without it they fail rather than skip.
+- Tests default to Claude Haiku to keep API costs down — preserve that default when adding new tests unless a specific model is under test.
+- Tests can be flaky due to AI model variability; release builds intentionally skip tests for this reason, so don't gate releases on green test runs.
+- Tests must retain `// given`, `// when`, `// then` comment structure — AI agents tend to omit these.
+- Test-name filter patterns are not portable across targets. JVM's `filter.excludeTestsMatching("ClassName")` matches by simple class name, but Kotlin/Native's `--ktest_negative_gradle_filter=...` and Kotlin/JS's `filter.excludeTestsMatching(...)` match against the fully-qualified test descriptor — bare class names silently fail to match. Use `*ClassName*` (or fully-qualified `pkg.ClassName`) for native and JS.
+- Browser tests (Karma for `js`/`wasmJs`) have no OS environment — env vars reach the bundle only through Webpack's `DefinePlugin` in `webpack.config.d/env-config.js`. Any env var consumed by a browser test (e.g. `MOONSHOT_API_BASE_URL`) must be listed there *in addition to* the `environment(...)` wiring in `build.gradle.kts`; otherwise `getEnv(name)` returns `null` at runtime and `env[name]` throws "No such environment variable". Node-based JS/wasmJs tests inherit `process.env` directly and don't need the DefinePlugin entry.
+
+### Auto mode
+
+- Do not commit when auto mode is active — wait for an explicit commit instruction from the user.
+
+### Building
+
+- `./gradlew build -PjvmOnlyBuild=true` skips non-JVM targets for faster local iteration — useful when you don't need to verify multiplatform output.
+
+### Adding new models
+
+- Verify pricing at anthropic.com/pricing before adding a `Model` enum entry — pricing isn't derivable from code and is the most common source of incorrect entries.
+
+## Anti-patterns to avoid
+
+- Do not add content to this file that is already discoverable by reading the source or build scripts — that inflates context without adding signal, reducing AI agent task success rates (see [arxiv 2602.11988](https://arxiv.org/abs/2602.11988)).
+
+---
+> Source: [xemantic/anthropic-sdk-kotlin](https://github.com/xemantic/anthropic-sdk-kotlin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
