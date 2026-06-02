@@ -7,11 +7,11 @@ repo-map generates LLM-enhanced summaries and analysis of software repositories,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cyanheads/repo-map](https://github.com/cyanheads/repo-map).
+Original source: `CLAUDE.md` in [cyanheads/repo-map](https://github.com/cyanheads/repo-map).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
