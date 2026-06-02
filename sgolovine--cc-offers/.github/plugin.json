@@ -1,0 +1,9 @@
+{
+  "name": "sgolovine--cc-offers",
+  "displayName": "cc-offers",
+  "description": "Open dataset of credit card offers.",
+  "version": "1.0.0",
+  "author": "sgolovine",
+  "homepage": "https://github.com/sgolovine/cc-offers",
+  "skills": []
+}
