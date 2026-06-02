@@ -1,0 +1,9 @@
+{
+  "name": "mtrab--stromligning",
+  "displayName": "stromligning",
+  "description": "Home Assistant integration for the Str\u00f8mligning API",
+  "version": "1.0.0",
+  "author": "MTrab",
+  "homepage": "https://github.com/MTrab/stromligning",
+  "skills": []
+}
