@@ -1,0 +1,9 @@
+{
+  "name": "llamastash--llamastash",
+  "displayName": "llamastash",
+  "description": "A fast terminal native app (TUI) and CLI with init wizard for launching local LLMs via llama.cpp with zero overhead",
+  "version": "1.0.0",
+  "author": "llamastash",
+  "homepage": "https://github.com/llamastash/llamastash",
+  "skills": []
+}
