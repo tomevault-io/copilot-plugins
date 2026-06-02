@@ -1,0 +1,44 @@
+{
+  "name": "esp32-147b-genart",
+  "owner": "purzbeats",
+  "repo": "esp32-147b-genart",
+  "description": "Generative art on the Waveshare ESP32-S3-LCD-1.47B (1.47\" ST7789, 172x320) \u2014 CPU framebuffer effects via Arduino + LovyanGFX",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/purzbeats/esp32-147b-genart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T16:59:51Z"
+}
