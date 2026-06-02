@@ -1,0 +1,9 @@
+{
+  "name": "prowler-cloud--prowler-studio",
+  "displayName": "prowler-studio",
+  "description": "Prowler Studio an AI workflow that ensures Claude Code follows Prowler's guardrails to deliver consistent, tested, and PR-ready threat detection checks, remediations and update compliance frameworks.",
+  "version": "1.0.0",
+  "author": "prowler-cloud",
+  "homepage": "https://github.com/prowler-cloud/prowler-studio",
+  "skills": []
+}
