@@ -1,0 +1,9 @@
+{
+  "name": "kardeepakkumar--goodreads-advanced-search",
+  "displayName": "goodreads-advanced-search",
+  "description": "This is a web-based tool that allows users to filter books from Goodreads based on genres and ratings.",
+  "version": "1.0.0",
+  "author": "kardeepakkumar",
+  "homepage": "https://github.com/kardeepakkumar/goodreads-advanced-search",
+  "skills": []
+}
