@@ -4,7 +4,7 @@
   "repo": "orchard",
   "description": "Web application for Cashu mint management",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cashubtc/orchard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T21:53:24Z"
+  "distributed_at": "2026-06-02T21:56:33Z"
 }
