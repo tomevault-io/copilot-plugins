@@ -1,0 +1,9 @@
+{
+  "name": "jellydn--vscode-hurl-runner",
+  "displayName": "vscode-hurl-runner",
+  "description": "Hurl Runner is a VS Code extension designed to run HTTP requests directly from `.hurl` files.",
+  "version": "1.0.0",
+  "author": "jellydn",
+  "homepage": "https://github.com/jellydn/vscode-hurl-runner",
+  "skills": []
+}
