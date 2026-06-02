@@ -1,104 +1,143 @@
-## security-principles
+## testing-rls-policies
 
-> Security best practices and principles for Expo and React Native development
+> Guidelines for testing Supabase Row Level Security (RLS) policies during development directly against the database
 
 
-# Security Development Principles for Expo & React Native
+## Connecting to the Local Development Database
 
-These rules define essential practices for writing secure code in Expo and React Native applications.
+```bash
+PGPASSWORD=postgres psql -h localhost -p 54322 -U postgres -d postgres
+```
 
-**Source:** Based on [cursor-security-rules](https://github.com/matank001/cursor-security-rules) by Matan Kotick and Amit Ziv.
+Refer to supabase/config.toml if anon users are enabled, if not then don't login as an anon user.
 
-## Core Security Principles
+## Testing Procedures
 
-### 1. Do Not Expose Secrets in Client-Side Code
+To test policies on the database itself (from the SQL Editor or from `psql`) without switching to your frontend and logging in as different users, you can utilize these helper SQL procedures:
 
-- **Rule:** Secrets such as API keys, credentials, private keys, or tokens must never appear in client-side code, public repositories, or bundled app files.
-- **Action:**
-  - Use environment variables with `EXPO_PUBLIC_` prefix for non-sensitive config only
-  - Store sensitive data in `expo-secure-store` or backend
-  - Never commit secrets to version control
+```sql
+grant anon, authenticated to postgres;
 
-### 2. Use Secure Storage for Sensitive Data
+create or replace procedure auth.login_as_user (user_email text)
+    language plpgsql
+    as $$
+declare
+    auth_user auth.users;
+begin
+    select
+        * into auth_user
+    from
+        auth.users
+    where
+        email = user_email;
+    execute format('set request.jwt.claim.sub=%L', (auth_user).id::text);
+    execute format('set request.jwt.claim.role=%I', (auth_user).role);
+    execute format('set request.jwt.claim.email=%L', (auth_user).email);
+    execute format('set request.jwt.claims=%L', json_strip_nulls(json_build_object('app_metadata', (auth_user).raw_app_meta_data))::text);
 
-- **Rule:** Sensitive data (tokens, passwords, PII) must be stored securely, not in AsyncStorage or plain text.
-- **Action:**
-  - Use `expo-secure-store` for sensitive data
-  - Never store credentials in AsyncStorage, SharedPreferences, or UserDefaults
+    raise notice '%', format( 'set role %I; -- logging in as %L (%L)', (auth_user).role, (auth_user).id, (auth_user).email);
+    execute format('set role %I', (auth_user).role);
+end;
+$$;
 
-### 3. Enforce Secure Communication Protocols
+create or replace procedure auth.login_as_anon ()
+    language plpgsql
+    as $$
+begin
+    set request.jwt.claim.sub='';
+    set request.jwt.claim.role='';
+    set request.jwt.claim.email='';
+    set request.jwt.claims='';
+    set role anon;
+end;
+$$;
 
-- **Rule:** Only secure protocols (HTTPS, TLS) must be used for all external communications.
-- **Action:**
-  - Never use HTTP for API calls or data transmission
-  - Enforce TLS/HTTPS in all `fetch()` calls and API requests
+create or replace procedure auth.logout ()
+    language plpgsql
+    as $$
+begin
+    set request.jwt.claim.sub='';
+    set request.jwt.claim.role='';
+    set request.jwt.claim.email='';
+    set request.jwt.claims='';
+    set role postgres;
+end;
+$$;
+```
 
-### 4. Validate All User Input
+## Usage
 
-- **Rule:** All user input must be validated before use, especially before sending to backend, database, or rendering.
-- **Action:**
-  - Validate input type, length, and format on the client
-  - Use allow-lists where possible
-  - Remember: client-side validation is for UX only; backend must also validate
+### Switch to a specific user
 
-### 5. Do Not Log Sensitive Information
+```sql
+call auth.login_as_user('user@example.com');
+```
 
-- **Rule:** Logs must not contain credentials, tokens, personal identifiers, or other sensitive data.
-- **Action:**
-  - Sanitize logs before writing
-  - Avoid logging user input, API keys, or tokens
-  - Be careful with React Native debuggers and console logs
+### Switch to anonymous role
 
-### 6. Avoid Executing Dynamic Code
+```sql
+call auth.login_as_anon();
+```
 
-- **Rule:** Dynamically constructed code or expressions must not be executed at runtime.
-- **Action:**
-  - Avoid `eval()`, `Function()`, or similar dynamic code execution
-  - Never execute user-provided code strings
-  - Be cautious with WebView content and injected scripts
+### Return to postgres role
 
-### 7. Never Trust Client-Side Security Logic
+```sql
+call auth.logout();
+```
 
-- **Rule:** Critical security logic (authentication, authorization, validation) must never rely solely on client-side code.
-- **Action:**
-  - Always validate and enforce security on the backend/Supabase
-  - Client-side checks are for UX only
-  - Use Supabase Row Level Security (RLS) for data access control
+## Testing Example
 
-### 8. Sanitize Data Before Rendering
+Here's an example workflow for testing RLS policies:
 
-- **Rule:** User-generated content must be sanitized before rendering to prevent XSS attacks.
-- **Action:**
-  - Escape HTML/JavaScript in text content
-  - Be careful with WebView content
-  - Validate URLs before rendering links
+```sql
+-- Start with postgres role (full access)
+postgres=> select id, email from auth.users;
+                  id                  |       email
+--------------------------------------+-------------------
+ d4f0aa86-e6f6-41d1-bd32-391f077cf1b9 | user1@example.com
+ 15d6811a-16ee-4fa2-9b18-b63085688be4 | user2@example.com
+(2 rows)
 
-## Secure Local Database Usage (PowerSync + Drizzle ORM)
+-- Test as anonymous user
+postgres=> call auth.login_as_anon();
+CALL
+postgres=> update public.profiles set updated_at=now();
+UPDATE 0 -- anon users cannot update any profile
 
-- **Rule:** Never construct SQL queries by concatenating or interpolating user input directly into the query string.
-- **Action:** Use Drizzle ORM query builder (`system.db.query.*`) which automatically parameterizes queries. Never use raw SQL with string interpolation or `db.execute()` with user input.
+-- Test as authenticated user
+postgres=> call auth.login_as_user('user1@example.com');
+NOTICE:  set role authenticated; -- logging in as 'd4f0aa86-e6f6-41d1-bd32-391f077cf1b9' ('user1@example.com')
+CALL
+postgres=> update public.profiles set updated_at=now();
+UPDATE 1 -- authenticated users can update their own profile
 
-## PowerSync Security
+-- Return to postgres role
+postgres=> call auth.logout();
+CALL
+postgres=> update public.profiles set updated_at=now();
+UPDATE 2 -- postgres role has full access
+```
 
-**Critical:** PowerSync Sync Rules control what data users can access.
+## Best Practices
 
-- **Sync Rules** are defined in `supabase/config/sync-rules.yml`
-- Never expose sensitive data in global buckets — use user-specific buckets with `request.user_id()`
-- Review Sync Rules changes carefully — they control what data syncs to which users
-- Never expose PowerSync JWT secrets in client code
-- Validate data on client before PowerSync uploads to backend
+1. **Always test with different roles**: Test your policies with `anon`, `authenticated`, and specific user contexts
+2. **Use in development**: These procedures are perfect for development and testing environments
+3. **pgTAP integration**: These procedures can be used for writing pgTAP unit tests for policies
+4. **Clean up after testing**: Always call `auth.logout()` when finished testing to return to postgres role
+5. **Verify expected behavior**: Make sure your policies behave as intended for each role
 
-## File Operations
+## When to Use
 
-- Validate file paths and restrict to app's document directory
-- Never use user input directly in file paths
-- Check file types and sizes before processing
+- **Policy development**: When writing new RLS policies
+- **Policy debugging**: When existing policies aren't working as expected
+- **Unit testing**: For automated testing of database policies
+- **Security validation**: To ensure data access is properly restricted
 
-## Deep Links and URL Handling
+## Security Notes
 
-- Validate deep link URLs before processing
-- Sanitize URL parameters
-- Don't trust deep link data without validation
+- These procedures should only be used in development and testing environments
+- Never use these in production
+- Always logout after testing to avoid accidentally running queries with wrong permissions
 
 ---
 > Source: [genesis-ai-dev/langquest](https://github.com/genesis-ai-dev/langquest) — distributed by [TomeVault](https://tomevault.io).
