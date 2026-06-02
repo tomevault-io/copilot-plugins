@@ -4,7 +4,7 @@
   "repo": "peeky",
   "description": "A transparent floating macOS desktop AI companion \u2014 a magic sprite that peeks at your screen and helps at the right moment. Tauri 2 (Rust + TS).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Johnixr/peeky",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T06:30:26Z"
+  "distributed_at": "2026-06-02T06:30:58Z"
 }
