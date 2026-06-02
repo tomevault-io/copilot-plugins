@@ -1,0 +1,44 @@
+{
+  "name": "synthetix",
+  "owner": "zhaofu-hhh",
+  "repo": "synthetix",
+  "description": "\u81f4\u529b\u4e8e\u66f4\u4f18\u96c5\u7684AI\u751f\u6210\u77ed\u89c6\u9891\uff0c\u5e76\u63d0\u4f9bwebui\u754c\u9762\uff0c\u65b9\u4fbf\u521b\u4f5c",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhaofu-hhh/synthetix",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T19:43:25Z"
+}
