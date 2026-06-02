@@ -1,0 +1,9 @@
+{
+  "name": "meeting-baas--speaking-meeting-bot",
+  "displayName": "speaking-meeting-bot",
+  "description": "Fully autonomous speaking bots built using the MeetingBaas API and Pipecat.",
+  "version": "1.0.0",
+  "author": "Meeting-BaaS",
+  "homepage": "https://github.com/Meeting-BaaS/speaking-meeting-bot",
+  "skills": []
+}
