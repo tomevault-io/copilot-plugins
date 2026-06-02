@@ -1,0 +1,9 @@
+{
+  "name": "cybozu--prompt-hardener",
+  "displayName": "prompt-hardener",
+  "description": "Prompt Hardener analyzes prompt-injection-originated risk in LLM-based agents and applications.",
+  "version": "1.0.0",
+  "author": "cybozu",
+  "homepage": "https://github.com/cybozu/prompt-hardener",
+  "skills": []
+}
