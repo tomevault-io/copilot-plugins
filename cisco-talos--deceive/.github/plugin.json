@@ -1,0 +1,9 @@
+{
+  "name": "cisco-talos--deceive",
+  "displayName": "DECEIVE",
+  "description": "DECeption with Evaluative Integrated Validation Engine (DECEIVE): Let an LLM do all the hard honeypot work!",
+  "version": "1.0.0",
+  "author": "Cisco-Talos",
+  "homepage": "https://github.com/Cisco-Talos/DECEIVE",
+  "skills": []
+}
