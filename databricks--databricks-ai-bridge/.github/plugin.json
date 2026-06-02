@@ -1,0 +1,9 @@
+{
+  "name": "databricks--databricks-ai-bridge",
+  "displayName": "databricks-ai-bridge",
+  "description": "databricks-ai-bridge",
+  "version": "1.0.0",
+  "author": "databricks",
+  "homepage": "https://github.com/databricks/databricks-ai-bridge",
+  "skills": []
+}
