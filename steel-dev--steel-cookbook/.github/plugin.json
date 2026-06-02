@@ -1,0 +1,9 @@
+{
+  "name": "steel-dev--steel-cookbook",
+  "displayName": "steel-cookbook",
+  "description": "Examples and guides for using the Steel API",
+  "version": "1.0.0",
+  "author": "steel-dev",
+  "homepage": "https://github.com/steel-dev/steel-cookbook",
+  "skills": []
+}
