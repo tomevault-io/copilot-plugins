@@ -1,0 +1,44 @@
+{
+  "name": "kmp-project-template",
+  "owner": "openMF",
+  "repo": "kmp-project-template",
+  "description": "The Kotlin Multiplatform Multi-module Template generator simplifies cross-platform development by enabling shared business logic and UI components across Android, iOS, Desktop, and Web, while retaining native platform functionality.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/openMF/kmp-project-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T19:46:52Z"
+}
