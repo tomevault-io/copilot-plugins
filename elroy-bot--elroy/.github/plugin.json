@@ -1,0 +1,9 @@
+{
+  "name": "elroy-bot--elroy",
+  "displayName": "elroy",
+  "description": "An AI assistant that remembers and sets goals",
+  "version": "1.0.0",
+  "author": "elroy-bot",
+  "homepage": "https://github.com/elroy-bot/elroy",
+  "skills": []
+}
