@@ -1,0 +1,9 @@
+{
+  "name": "androiddevnotes--ktor-demo-api-server",
+  "displayName": "ktor-demo-api-server",
+  "description": "Demo API using Ktor Server, Exposed, Postgres, Swagger, OpenAPI, Heroku",
+  "version": "1.0.0",
+  "author": "androiddevnotes",
+  "homepage": "https://github.com/androiddevnotes/ktor-demo-api-server",
+  "skills": []
+}
