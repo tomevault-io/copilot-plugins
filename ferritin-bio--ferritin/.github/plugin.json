@@ -1,0 +1,9 @@
+{
+  "name": "ferritin-bio--ferritin",
+  "displayName": "ferritin",
+  "description": "protein utilities in Rust",
+  "version": "1.0.0",
+  "author": "ferritin-bio",
+  "homepage": "https://github.com/ferritin-bio/ferritin",
+  "skills": []
+}
