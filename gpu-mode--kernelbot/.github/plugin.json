@@ -1,0 +1,9 @@
+{
+  "name": "gpu-mode--kernelbot",
+  "displayName": "kernelbot",
+  "description": "Write a fast kernel and see how you compare against the best humans and AI on gpumode.com",
+  "version": "1.0.0",
+  "author": "gpu-mode",
+  "homepage": "https://github.com/gpu-mode/kernelbot",
+  "skills": []
+}
