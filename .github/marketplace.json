@@ -115339,6 +115339,11 @@
       "description": "Spring Boot Starter for Multi Data Source."
     },
     {
+      "name": "kalinplus--auto-filler",
+      "source": "./kalinplus--auto-filler",
+      "description": "LLM-powered Chrome extension for automatic web form filling. All data stays local."
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
