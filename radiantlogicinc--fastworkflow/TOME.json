@@ -4,7 +4,7 @@
   "repo": "fastworkflow",
   "description": "A framework for building large-scale, deterministic, interactive workflows with a fault-tolerant, conversational UX",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/radiantlogicinc/fastworkflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T19:54:13Z"
+  "distributed_at": "2026-06-02T19:55:48Z"
 }
