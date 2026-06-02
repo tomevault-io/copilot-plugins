@@ -1,9 +1,9 @@
-## image-custom-transforms-architecture
+## video-custom-transforms-architecture
 
-> Architecture of the image benchmark system — how transform spec files work, what BenchmarkRunner expects, and how built-in vs custom transforms differ.
+> Architecture of the video benchmark system — how video transform spec files work, what BenchmarkRunner expects for video mode, and library-specific calling conventions.
 
 
-# Image Benchmark Architecture
+# Video Benchmark Architecture
 
 ## Transform Spec File Contract
 
@@ -12,9 +12,10 @@ Every spec file (built-in or custom) must define three things at module level:
 ```python
 LIBRARY = "albumentationsx"  # controls which venv/requirements are used
 
-def __call__(transform: Any, image: Any) -> Any:  # noqa: N807
-    """Called once per image during benchmarking."""
-    return transform(image=image)["image"]
+def __call__(transform: Any, video: Any) -> Any:  # noqa: N807
+    """Called once per video during benchmarking."""
+    result = transform(images=video)["images"]
+    return np.ascontiguousarray(result)
 
 TRANSFORMS = [
     {"name": "HorizontalFlip", "transform": A.HorizontalFlip(p=1)},
@@ -22,70 +23,69 @@ TRANSFORMS = [
 ```
 
 Key details:
-- `__call__` receives **a single image**, not a batch — the runner loops over images itself
+- `__call__` receives **a single video** (not batched) — the runner loops over videos itself
+- Video shape is `(T, H, W, C)` for numpy-based libraries (AlbumentationsX, Albumentations MIT)
+- Albumentations built-in video specs use `transform(images=video)["images"]` — the library’s native multi-frame API; one parameter sample applies to the whole clip
+- Video shape is `(T, C, H, W)` for tensor-based libraries (torchvision, Kornia)
 - `name` appears verbatim in result JSON keys and comparison tables
 - All transforms must have `p=1` for deterministic benchmarking
 - The module is validated by `load_from_python_file()` in `benchmark/runner.py`
-- Micro specs must stay native: do not add `Normalize`, `ToTensor`, axis conversion, or DataLoader collation work to
-  `*_impl.py` micro transform specs. Pipeline recipe specs (`*_pipeline_impl.py`) are the place for
-  `Normalize+ToTensor`.
 
-## BenchmarkRunner (`benchmark/runner.py`)
+## BenchmarkRunner in video mode (`benchmark/runner.py`)
 
-`BenchmarkRunner` is unified for both image and video — parameterized by `MediaType`:
+`VideoBenchmarkRunner` in `benchmark/video_runner.py` is a compatibility shim — the real implementation is `BenchmarkRunner(media_type=MediaType.VIDEO)`:
 
 ```python
 BenchmarkRunner(
-    library=library,        # str, used for image loader selection
-    data_dir=data_dir,      # Path to images (RGB only, grayscale skipped)
+    library=library,        # str, used for video loader and GPU handling
+    data_dir=data_dir,      # Path, searched recursively for .mp4/.avi/.mov
     transforms=transforms,  # list[{"name": str, "transform": Any}]
     call_fn=call_fn,        # the __call__ function from spec file
-    media_type=MediaType.IMAGE,
-    num_items=1000,
-    max_warmup_iterations=1000,
-    warmup_subset_size=10,
-    slow_threshold=0.1,
-    min_iterations_before_stopping=10,
-    max_time_per_transform=60,
+    media_type=MediaType.VIDEO,
+    num_items=50,
+    max_warmup_iterations=100,
+    warmup_subset_size=3,
+    slow_threshold=2.0,
+    min_iterations_before_stopping=5,
+    max_time_per_transform=120,
 )
 ```
 
 Warmup early-stops if:
-- `time_per_image > 0.1` sec (after 10+ iterations)
-- total warmup time > 60 sec
+- `time_per_video > 2.0` sec (after 5+ iterations)
+- total warmup time > 120 sec
+
+Videos are pre-loaded into memory (GPU if available for tensor libraries). For Kornia, videos are kept as `float16` on GPU.
 
 ## Built-in vs Custom Transform Files
 
-**Built-in** (`benchmark/transforms/*_impl.py`):
+**Built-in** (`benchmark/transforms/*_video_impl.py`):
 - Import `TRANSFORM_SPECS` from `benchmark/transforms/specs.py`
-- Use a `create_transform(spec)` factory to build transforms from the shared spec
-- Ensure all libraries benchmark the same operations for fair comparison
+- Use a `create_transform(spec)` factory for shared spec → library transform mapping
+- Ensures all libraries benchmark the same operations for fair comparison
 
-**Custom** (user files, e.g. `examples/custom_image_transforms.py`):
+**Custom** (user files, e.g. `examples/custom_video_specs_template.py`):
 - Define `TRANSFORMS` directly with arbitrary transform instances
 - Full control over parameters; useful for parametric testing
 
 ```bash
 # Built-in (all libraries)
-python -m benchmark.cli run --media image -d /images -o output/
+python -m benchmark.cli run --media video -d /videos -o output_videos/
 
 # Single library
-python -m benchmark.cli run --media image -d /images -o output/ --libraries albumentationsx
+python -m benchmark.cli run --media video -d /videos -o output_videos/ --libraries albumentationsx
 
 # Custom spec
-python -m benchmark.cli run --media image -d /images -o output/ --spec my_transforms.py
+python -m benchmark.cli run --media video -d /videos -o output_videos/ --spec my_transforms.py
 
 # Single transform regression check
-python -m benchmark.cli run --media image -d /images -o output/ \
-  --libraries albumentationsx --transforms HorizontalFlip
+python -m benchmark.cli run --media video -d /videos -o output_videos/ \
+  --libraries kornia --transforms HorizontalFlip
 ```
 
-## Image Loading
+## Video Loading
 
-Images are loaded via `get_image_loader(library)` from `benchmark/utils.py`. The runner:
-1. Pre-checks each file with `cv2.IMREAD_UNCHANGED` — skips grayscale (< 3 channels)
-2. Loads with the library-specific loader (numpy array, PIL Image, torch Tensor, etc.)
-3. Only processes RGB images
+Videos are loaded via `get_video_loader(library)` from `benchmark/utils.py`. Files are discovered recursively (`.mp4`, `.avi`, `.mov`). For GPU libraries (kornia, torchvision), tensors are moved to device during loading, before benchmarking begins.
 
 ## Output Format
 
@@ -95,14 +95,15 @@ Images are loaded via `get_image_loader(library)` from `benchmark/utils.py`. The
     "system_info": {...},
     "library_versions": {...},
     "thread_settings": {"OMP_NUM_THREADS": "1", ...},
-    "benchmark_params": {"num_images": 2000, "num_runs": 5, ...}
+    "benchmark_params": {"num_videos": 50, "num_runs": 5, ...},
+    "precision": "torch.float16"
   },
   "results": {
     "HorizontalFlip": {
       "supported": true,
-      "median_throughput": 1234.5,
-      "std_throughput": 45.2,
-      "warmup_iterations": 12,
+      "median_throughput": 45.2,
+      "std_throughput": 1.8,
+      "warmup_iterations": 8,
       "variance_stable": true,
       "early_stopped": false,
       "early_stop_reason": null
@@ -111,34 +112,49 @@ Images are loaded via `get_image_loader(library)` from `benchmark/utils.py`. The
 }
 ```
 
+`precision` field only present for tensor-based libraries.
+
 ## Library-specific `__call__` patterns
 
-**AlbumentationsX** — single image, dict access:
+**AlbumentationsX / Albumentations (MIT)** — numpy `(T, H, W, C)`, batch API:
 ```python
-def __call__(transform, image):
-    return np.ascontiguousarray(transform(image=image)["image"])
+def __call__(transform, video):
+    result = transform(images=video)["images"]
+    return np.ascontiguousarray(result)
 ```
 
-**torchvision** — expects `(C, H, W)` tensor:
+Do not loop `transform(image=frame)` per frame for the default benchmark: that resamples parameters each frame and is slower and semantically different from clip-consistent video augmentation.
+
+**torchvision** — tensor `(T, C, H, W)`, GPU if available:
 ```python
-def __call__(transform, image):
-    return transform(image)
+def __call__(transform, video):
+    torch.manual_seed(42)
+    if device.type == "cuda" and not isinstance(transform, v2.JPEG):
+        video = (video.float() / 255.0).half()
+    return transform(video).contiguous()
 ```
 
-**kornia** — GPU tensor `(C, H, W)`, unsqueeze for batch dim:
+**Kornia** — tensor `(T, C, H, W)`, GPU float16, treats T as batch:
 ```python
-def __call__(transform, image):
-    return transform(image.unsqueeze(0)).squeeze(0)
+def __call__(transform, video):
+    if device.type == "cuda":
+        video = video.half()
+    # same_on_batch=True required for consistent transform across frames
+    return transform(video)
 ```
 
-## Differences from Video Benchmark
+Use `same_on_batch=True` on Kornia transforms so all frames get the same spatial transform.
 
-| Aspect | Image | Video |
+## Differences from Image Benchmark
+
+| Aspect | Video | Image |
 |--------|-------|-------|
-| `__call__` receives | single image | single video `(T, H, W, C)` |
-| Slow threshold | 0.1 sec/image | 2.0 sec/video |
-| Default num items | 2000 images | 50 videos |
-| Warmup subset | 10 images | 3 videos |
+| `__call__` receives | single video `(T, H, W, C)` | single image |
+| Slow threshold | 2.0 sec/video | 0.1 sec/image |
+| Default num items | 50 videos | 2000 images |
+| Warmup subset | 3 videos | 10 images |
+| GPU support | yes (kornia, torchvision) | no |
+| File discovery | recursive `.mp4/.avi/.mov` | flat dir glob |
 | Extra libraries | — | — |
 
 ---
