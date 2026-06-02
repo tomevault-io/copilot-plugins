@@ -1,0 +1,9 @@
+{
+  "name": "dalafiarisamuel--contactpickerkmp",
+  "displayName": "ContactPickerKMP",
+  "description": " ContactPicker is a component written in Kotlin Multiplatform that natively implements selecting a contact for Android and iOS.",
+  "version": "1.0.0",
+  "author": "dalafiarisamuel",
+  "homepage": "https://github.com/dalafiarisamuel/ContactPickerKMP",
+  "skills": []
+}
