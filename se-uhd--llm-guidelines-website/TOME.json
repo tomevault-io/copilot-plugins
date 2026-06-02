@@ -4,7 +4,7 @@
   "repo": "llm-guidelines-website",
   "description": "Website with community guidelines for empirical studies involving LLMs.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/se-uhd/llm-guidelines-website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T00:37:32Z"
+  "distributed_at": "2026-06-02T00:38:34Z"
 }
