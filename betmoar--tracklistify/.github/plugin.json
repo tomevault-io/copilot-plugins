@@ -1,0 +1,9 @@
+{
+  "name": "betmoar--tracklistify",
+  "displayName": "tracklistify",
+  "description": "Automatically identify and catalog tracks from DJ mixes, live streams, and audio files using audio fingerprinting. Generate formatted track lists in JSON, Markdown, and M3U formats.",
+  "version": "1.0.0",
+  "author": "betmoar",
+  "homepage": "https://github.com/betmoar/tracklistify",
+  "skills": []
+}
