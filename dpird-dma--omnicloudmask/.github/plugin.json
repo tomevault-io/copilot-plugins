@@ -1,0 +1,9 @@
+{
+  "name": "dpird-dma--omnicloudmask",
+  "displayName": "OmniCloudMask",
+  "description": "OmniCloudMask is a Python library for fast, accurate cloud and cloud shadow segmentation in satellite imagery.",
+  "version": "1.0.0",
+  "author": "DPIRD-DMA",
+  "homepage": "https://github.com/DPIRD-DMA/OmniCloudMask",
+  "skills": []
+}
