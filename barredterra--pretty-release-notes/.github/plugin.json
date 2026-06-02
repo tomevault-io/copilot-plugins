@@ -1,0 +1,9 @@
+{
+  "name": "barredterra--pretty-release-notes",
+  "displayName": "pretty_release_notes",
+  "description": "Turn GitHub's auto-generated release notes into human-readable sentences.",
+  "version": "1.0.0",
+  "author": "barredterra",
+  "homepage": "https://github.com/barredterra/pretty_release_notes",
+  "skills": []
+}
