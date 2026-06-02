@@ -7,11 +7,11 @@ High-performance Go library for repairing invalid JSON documents, tuned for LLM-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kaptinlin/jsonrepair](https://github.com/kaptinlin/jsonrepair).
+Original source: `AGENTS.md` in [kaptinlin/jsonrepair](https://github.com/kaptinlin/jsonrepair).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
