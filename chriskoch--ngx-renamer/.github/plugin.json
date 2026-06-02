@@ -1,0 +1,9 @@
+{
+  "name": "chriskoch--ngx-renamer",
+  "displayName": "ngx-renamer",
+  "description": "AI-powered post-consume script for Paperless NGX that generates high-quality, language-aware document titles using OpenAI, Claude or local Ollama models.",
+  "version": "1.0.0",
+  "author": "chriskoch",
+  "homepage": "https://github.com/chriskoch/ngx-renamer",
+  "skills": []
+}
