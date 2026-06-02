@@ -1,126 +1,108 @@
-## stack
+## writing-supabase-edge-functions
 
-> Explanation of the main stack / structure of the project
+> Coding rules for Supabase Edge Functions
 
-# Next.js + Supabase + Shadcn/UI (NSS) Boilerplate
 
-This project is a modern full-stack boilerplate utilizing Next.js 15, Supabase, Shadcn/UI, and more. It provides a solid foundation for building web applications with authentication, internationalization, and database integration.
+# Writing Supabase Edge Functions
 
-## Project Structure
+You're an expert in writing TypeScript and Deno JavaScript runtime. Generate **high-quality Supabase Edge Functions** that adhere to the following best practices:
 
-The project follows a well-organized structure:
+## Guidelines
 
+1. Try to use Web APIs and Deno’s core APIs instead of external dependencies (eg: use fetch instead of Axios, use WebSockets API instead of node-ws)
+2. If you are reusing utility methods between Edge Functions, add them to `supabase/functions/_shared` and import using a relative path. Do NOT have cross dependencies between Edge Functions.
+3. Do NOT use bare specifiers when importing dependecnies. If you need to use an external dependency, make sure it's prefixed with either `npm:` or `jsr:`. For example, `@supabase/supabase-js` should be written as `npm:@supabase/supabase-js`.
+4. For external imports, always define a version. For example, `npm:@express` should be written as `npm:express@4.18.2`.
+5. For external dependencies, importing via `npm:` and `jsr:` is preferred. Minimize the use of imports from @`deno.land/x` , `esm.sh` and @`unpkg.com` . If you have a package from one of those CDNs, you can replace the CDN hostname with `npm:` specifier.
+6. You can also use Node built-in APIs. You will need to import them using `node:` specifier. For example, to import Node process: `import process from "node:process". Use Node APIs when you find gaps in Deno APIs.
+7. Do NOT use `import { serve } from "https://deno.land/std@0.168.0/http/server.ts"`. Instead use the built-in `Deno.serve`.
+8. Following environment variables (ie. secrets) are pre-populated in both local and hosted Supabase environments. Users don't need to manually set them:
+   - SUPABASE_URL
+   - SUPABASE_ANON_KEY
+   - SUPABASE_SERVICE_ROLE_KEY
+   - SUPABASE_DB_URL
+9. To set other environment variables (ie. secrets) users can put them in a env file and run the `supabase secrets set --env-file path/to/env-file`
+10. A single Edge Function can handle multiple routes. It is recommended to use a library like Express or Hono to handle the routes as it's easier for developer to understand and maintain. Each route must be prefixed with `/function-name` so they are routed correctly.
+11. File write operations are ONLY permitted on `/tmp` directory. You can use either Deno or Node File APIs.
+12. Use `EdgeRuntime.waitUntil(promise)` static method to run long-running tasks in the background without blocking response to a request. Do NOT assume it is available in the request / execution context.
+
+## Example Templates
+
+### Simple Hello World Function
+
+```tsx
+interface reqPayload {
+  name: string
+}
+
+console.info('server started')
+
+Deno.serve(async (req: Request) => {
+  const { name }: reqPayload = await req.json()
+  const data = {
+    message: `Hello ${name} from foo!`,
+  }
+
+  return new Response(JSON.stringify(data), {
+    headers: { 'Content-Type': 'application/json', Connection: 'keep-alive' },
+  })
+})
 ```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── auth/               # Authentication routes
-│   │   ├── confirm/        # Email confirmation
-│   │   ├── forgot-password/
-│   │   └── login/
-│   └── todos/              # Example feature
-├── components/             # Reusable components
-│   └── ui/                 # Shadcn/UI components
-├── fonts/                  # Font assets
-├── hooks/                  # Custom React hooks
-├── i18n/                   # Internationalization
-│   └── messages/           # Translation files
-│       ├── en.json         # English translations
-│       └── fr.json         # French translations
-├── lib/                    # Utility configurations
-│   ├── api/                # API utilities
-│   │   ├── queries.ts      # React Query definitions
-│   │   └── todos.ts        # Todo API functions
-│   ├── supabase/           # Supabase client config
-│   ├── cookies.ts          # Cookie handling
-│   ├── env.ts              # Environment variables
-│   ├── supabase-client.ts  # Supabase client setup
-│   └── utils.ts            # General utilities
-├── stories/                # Storybook stories
-├── types/                  # TypeScript type definitions
-│   └── database.ts         # Supabase schema types
-├── middleware.ts           # Next.js middleware
-└── supabase/               # Supabase configuration
+
+### Example Function using Node built-in API
+
+```tsx
+import { randomBytes } from 'node:crypto'
+import { createServer } from 'node:http'
+import process from 'node:process'
+
+const generateRandomString = (length) => {
+  const buffer = randomBytes(length)
+  return buffer.toString('hex')
+}
+
+const randomString = generateRandomString(10)
+console.log(randomString)
+
+const server = createServer((req, res) => {
+  const message = `Hello`
+  res.end(message)
+})
+
+server.listen(9999)
 ```
 
-## Good Practices and DRY Principle
+### Using npm packages in Functions
 
-To maintain a clean, efficient, and maintainable codebase, follow these good practices and adhere strictly to the DRY (Don't Repeat Yourself) principle:
+```tsx
+import express from 'npm:express@4.18.2'
 
-- **Reusable Components**:
-  - Keep components atomic, reusable, and clearly named.
-  - Centralize component logic in the `src/components/ui/` directory.
+const app = express()
 
-- **Abstract Common Logic**:
-  - Extract frequently used logic into custom hooks (`src/hooks/`) and utilities (`src/lib/utils.ts`).
-  - Avoid duplicating code by creating utility functions for common tasks (e.g., API calls, data formatting, error handling).
+app.get(/(.*)/, (req, res) => {
+  res.send('Welcome to Supabase')
+})
 
-- **Single Source of Truth**:
-  - Centralize configurations (e.g., environment variables in `src/lib/env.ts`, database schema types in `src/types/database.ts`).
-  - Always regenerate types with `npm run gen:types` after database schema changes to avoid manual type duplication.
+app.listen(8000)
+```
 
-- **Consistent Styling & Theming**:
-  - Maintain consistent styling using Tailwind CSS utility classes.
-  - Leverage global theme management (`next-themes`) to ensure consistent theming across components.
+### Generate embeddings using built-in @Supabase.ai API
 
-- **Maintainable Translations**:
-  - Organize translations hierarchically and avoid duplications across translation files (`src/i18n/messages/`).
+```tsx
+const model = new Supabase.ai.Session('gte-small')
 
-- **Clear Separation of Concerns**:
-  - Clearly separate UI components, business logic, data fetching, and state management.
-
-## Key Technologies & Libraries
-
-### Core Technologies
-- **Next.js 15**: React framework with App Router
-- **Supabase**: Open-source Firebase alternative for backend services
-- **TypeScript**: Static type checking
-- **React 18**: UI library
-
-### UI & Styling
-- **Shadcn/UI**: Reusable UI components based on Radix UI
-- **Tailwind CSS**: Utility-first CSS framework
-- **Lucide React**: Icon library
-- **Next Themes**: Theme management (light/dark mode)
-
-### Form Management
-- **React Hook Form**: Form validation and state management
-- **Zod**: Schema validation
-- **@hookform/resolvers**: Connects Zod with React Hook Form
-
-### Data Fetching
-- **TanStack Query (React Query)**: Data fetching and state management
-
-### Internationalization
-- **next-intl**: Library for i18n in Next.js applications
-- Translation files located in `src/i18n/messages/` (en.json, fr.json, etc.)
-
-### Development & Testing
-- **Storybook**: Component documentation and development
-- **Cypress**: End-to-end testing
-- **Vitest**: Unit testing
-- **ESLint & Prettier**: Code linting and formatting
-
-## Development Workflow
-
-- **Development**: `npm run dev`
-- **Type Checking**: `npm run typecheck`
-- **Linting**: `npm run lint`
-- **Formatting**: `npm run format`
-- **Database Types**: `npm run gen:types`
-- **Testing**: `npm run test` (Vitest) or `npm run cypress:open` (E2E)
-- **Component Development**: `npm run storybook`
-
-## Customization
-
-This boilerplate is designed to be extended and customized. Key areas for customization:
-
-- Create new routes in `src/app/`
-- Add components in `src/components/`
-- Extend the database schema and update types with `npm run gen:types` (**never manually edit the database.ts file**)
-- Add new translations to support additional languages
-- Configure environment variables for different deployment environments
-
-For further guidance on authentication, internationalization, customization, and best practices, please refer to the project's README and code comments.
+Deno.serve(async (req: Request) => {
+  const params = new URL(req.url).searchParams
+  const input = params.get('text')
+  const output = await model.run(input, { mean_pool: true, normalize: true })
+  return new Response(JSON.stringify(output), {
+    headers: {
+      'Content-Type': 'application/json',
+      Connection: 'keep-alive',
+    },
+  })
+})
+```
 
 ---
 > Source: [tractr/nss-boilerplate](https://github.com/tractr/nss-boilerplate) — distributed by [TomeVault](https://tomevault.io).
