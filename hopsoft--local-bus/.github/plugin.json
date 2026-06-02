@@ -1,0 +1,9 @@
+{
+  "name": "hopsoft--local-bus",
+  "displayName": "local_bus",
+  "description": "A lightweight pub/sub system for decoupled intra-process communication in Ruby applications",
+  "version": "1.0.0",
+  "author": "hopsoft",
+  "homepage": "https://github.com/hopsoft/local_bus",
+  "skills": []
+}
