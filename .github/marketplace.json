@@ -72644,6 +72644,11 @@
       "description": "Elegant asset management for PHP with versioning, caching and providers for various storage backends"
     },
     {
+      "name": "sandeberger--thetab-ninja",
+      "source": "./sandeberger--thetab-ninja",
+      "description": "This is a tab and bookmark manager that opens when you create a new page. Compability for the moment: Chromium"
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -73647,6 +73652,21 @@
       "name": "dkyazzentwatwa--cypher-pn532",
       "source": "./dkyazzentwatwa--cypher-pn532",
       "description": "A tiny ESP32 device that interacts with RFID + NFC devices using the PN532 chip."
+    },
+    {
+      "name": "omnisat--lasereyes-mono",
+      "source": "./omnisat--lasereyes-mono",
+      "description": "Connect to any Bitcoin wallet, handle transactions, and work with Ordinals & BRC-20 tokens with just a few lines of code."
+    },
+    {
+      "name": "omnisat--lasereyes-mono",
+      "source": "./omnisat--lasereyes-mono",
+      "description": "Connect to any Bitcoin wallet, handle transactions, and work with Ordinals & BRC-20 tokens with just a few lines of code."
+    },
+    {
+      "name": "omnisat--lasereyes-mono",
+      "source": "./omnisat--lasereyes-mono",
+      "description": "Connect to any Bitcoin wallet, handle transactions, and work with Ordinals & BRC-20 tokens with just a few lines of code."
     },
     {
       "name": "66reapollo2--agentsge",
@@ -74704,6 +74724,11 @@
       "description": "A minimal Next.js 15 application that renders content from Markdown files."
     },
     {
+      "name": "yanolja--ogem",
+      "source": "./yanolja--ogem",
+      "description": "ogem"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -75657,6 +75682,11 @@
       "name": "pood1e--wa-app",
       "source": "./pood1e--wa-app",
       "description": "wa-app"
+    },
+    {
+      "name": "gosuda--randflake",
+      "source": "./gosuda--randflake",
+      "description": "Randflake ID: a distributed, uniform, unpredictable, unique random ID generator."
     },
     {
       "name": "w3cj--ruta",
@@ -77557,6 +77587,11 @@
       "name": "brokenalarms--hey-proton",
       "source": "./brokenalarms--hey-proton",
       "description": "Sieve filters for Proton inspired by HEY."
+    },
+    {
+      "name": "yang3kc--cursor-latex-template",
+      "source": "./yang3kc--cursor-latex-template",
+      "description": "Cursor configuration for LaTeX projects"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -79939,6 +79974,11 @@
       "description": "\u539f\u8ba1\u5212\u662f AIGC+GTS \u521b\u4f5c\u76f8\u5173\u7684\u6559\u7a0b\uff0c\u76f4\u5230\u53d1\u73b0\u5927\u591a\u6570\u4eba\u9996\u5148\u7f3a\u4e4f\u57fa\u7840\u77e5\u8bc6\uff0c\u76f8\u5173\u7684\u5de5\u5177\u7528\u6cd5\u4e5f\u662f\u4e00\u95ee\u4e09\u4e0d\u77e5\u3002 \u4e8e\u662f\u8f6c\u5411\u5148\u666e\u53ca\u5de5\u5177\u4f7f\u7528\uff0c\u518d\u6dfb\u52a0 XP \uff08\uff1f\uff09"
     },
     {
+      "name": "daddodev--pimpmyrice",
+      "source": "./daddodev--pimpmyrice",
+      "description": "The overkill theme manager"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -81242,6 +81282,11 @@
       "name": "ethanhq--cc-fleet",
       "source": "./ethanhq--cc-fleet",
       "description": "\ud83d\udea2  Spawn any vendor LLM \u2014 DeepSeek \u00b7 GLM \u00b7 Qwen \u00b7 Kimi \u00b7 MiniMax \u2026 \u2014 as real Claude Code teammates or \u26a1 one-shot subagents \ud83d\ude80 \uff5c\ud83e\udd16 \u8ba9 Claude Code \u63a5\u5165\u4efb\u610f\u7b2c\u4e09\u65b9\u6a21\u578b(DeepSeek \u00b7 GLM \u00b7 Qwen \u00b7 Kimi \u00b7 MiniMax \u2026\u2026),\u4f5c\u4e3a\u539f\u751f "
+    },
+    {
+      "name": "daz-codes--rubymonkey",
+      "source": "./daz-codes--rubymonkey",
+      "description": "Monkey patching Javascript to be more like Ruby"
     },
     {
       "name": "r44vc0rp--itui",
@@ -84889,6 +84934,11 @@
       "description": "A custom Home Assistant integration to control and monitor Hitachi heat pumps through ATW-MBS-02 and HC-A(16/64)MB Modbus gateway."
     },
     {
+      "name": "resuite--retend",
+      "source": "./resuite--retend",
+      "description": "JSX framework for user interfaces."
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -87919,6 +87969,21 @@
       "description": "A Blender Add-On for making synthetic CT datasets from 3D meshes"
     },
     {
+      "name": "tooluse--tool-use-ai",
+      "source": "./tooluse--tool-use-ai",
+      "description": "Tools to simplify life with AI"
+    },
+    {
+      "name": "woopstar--hsem",
+      "source": "./woopstar--hsem",
+      "description": "Maximize the potential of your Huawei solar battery system with this powerful Home Assistant custom integration."
+    },
+    {
+      "name": "woopstar--hsem",
+      "source": "./woopstar--hsem",
+      "description": "Maximize the potential of your Huawei solar battery system with this powerful Home Assistant custom integration."
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -89512,6 +89577,11 @@
       "name": "qazsato--openapi-generate-html",
       "source": "./qazsato--openapi-generate-html",
       "description": "Generate standalone HTML from OpenAPI Specification."
+    },
+    {
+      "name": "zebreus--rudelblinken",
+      "source": "./zebreus--rudelblinken",
+      "description": "Syncing and blinking cat ears"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -93552,6 +93622,21 @@
       "name": "kasianov-mikhail--scout",
       "source": "./kasianov-mikhail--scout",
       "description": "CloudKit as a Log Storage"
+    },
+    {
+      "name": "grafana--metrics-drilldown",
+      "source": "./grafana--metrics-drilldown",
+      "description": "A queryless experience for browsing Prometheus-compatible metrics. Quickly find related metrics without writing PromQL queries."
+    },
+    {
+      "name": "grafana--metrics-drilldown",
+      "source": "./grafana--metrics-drilldown",
+      "description": "A queryless experience for browsing Prometheus-compatible metrics. Quickly find related metrics without writing PromQL queries."
+    },
+    {
+      "name": "grafana--metrics-drilldown",
+      "source": "./grafana--metrics-drilldown",
+      "description": "A queryless experience for browsing Prometheus-compatible metrics. Quickly find related metrics without writing PromQL queries."
     },
     {
       "name": "10xchengtu--mux0",
@@ -102574,6 +102659,11 @@
       "description": "A Kubernetes operator to deploy and manage kcp instances."
     },
     {
+      "name": "mmalmi--nostr-double-ratchet",
+      "source": "./mmalmi--nostr-double-ratchet",
+      "description": "nostr-double-ratchet"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -105594,6 +105684,16 @@
       "description": "Open Data Stack Platform: a collection of projects and pipelines built with open data stack tools for scalable, observable  data platform."
     },
     {
+      "name": "getstream--stream-feeds-js",
+      "source": "./getstream--stream-feeds-js",
+      "description": "stream-feeds-js"
+    },
+    {
+      "name": "getstream--stream-feeds-js",
+      "source": "./getstream--stream-feeds-js",
+      "description": "stream-feeds-js"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -108127,6 +108227,16 @@
       "name": "modfin--cove",
       "source": "./modfin--cove",
       "description": "Embedded cache lib using sqlite for storage"
+    },
+    {
+      "name": "pymmcore-plus--pymmcore-gui",
+      "source": "./pymmcore-plus--pymmcore-gui",
+      "description": "Pure Python Micro-Manager GUI Application, built on pymmcore-plus"
+    },
+    {
+      "name": "pymmcore-plus--pymmcore-gui",
+      "source": "./pymmcore-plus--pymmcore-gui",
+      "description": "Pure Python Micro-Manager GUI Application, built on pymmcore-plus"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -110712,6 +110822,16 @@
       "name": "vocdoni--davinci-node",
       "source": "./vocdoni--davinci-node",
       "description": "{Decentralized Autonomous Vote Integrity Network with Cryptographic Inference} The node (aka sequencer) is a specialized component designed to handle the voting process using zero-knowledge proof mech"
+    },
+    {
+      "name": "logicblocks--event-store",
+      "source": "./logicblocks--event-store",
+      "description": "Eventing infrastructure for event sourced architectures."
+    },
+    {
+      "name": "flox--floxenvs",
+      "source": "./flox--floxenvs",
+      "description": " Example Flox environments "
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -116419,6 +116539,21 @@
       "description": "Compare AI model pricing and performance in a simple interactive web app."
     },
     {
+      "name": "andywiranata--jetproxy",
+      "source": "./andywiranata--jetproxy",
+      "description": "Java-based Application Proxy using Jetty. Scalable, Robust, Open Source alternative to Traefik"
+    },
+    {
+      "name": "jellydn--vscode-hurl-runner",
+      "source": "./jellydn--vscode-hurl-runner",
+      "description": "Hurl Runner is a VS Code extension designed to run HTTP requests directly from `.hurl` files."
+    },
+    {
+      "name": "macavity--siyuan-database-properties-panel",
+      "source": "./macavity--siyuan-database-properties-panel",
+      "description": "siyuan-database-properties-panel"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -119862,6 +119997,11 @@
       "name": "guitaripod--swollama",
       "source": "./guitaripod--swollama",
       "description": "A comprehensive Swift SDK for Ollama"
+    },
+    {
+      "name": "tristancgardner--macos-dictate",
+      "source": "./tristancgardner--macos-dictate",
+      "description": "macos-dictate"
     },
     {
       "name": "13point5--agent-canvas",
@@ -123357,6 +123497,36 @@
       "name": "twelvelabs-io--twelvelabs-developer-experience",
       "source": "./twelvelabs-io--twelvelabs-developer-experience",
       "description": "twelvelabs-developer-experience"
+    },
+    {
+      "name": "hex-digital--lucidity-next-sanity-starter",
+      "source": "./hex-digital--lucidity-next-sanity-starter",
+      "description": "WIP - Lucidity - The Enterprise-Ready Next.js 16 + SanityCMS Starter Template"
+    },
+    {
+      "name": "androiddevnotes--ktor-demo-api-server",
+      "source": "./androiddevnotes--ktor-demo-api-server",
+      "description": "Demo API using Ktor Server, Exposed, Postgres, Swagger, OpenAPI, Heroku"
+    },
+    {
+      "name": "afedukov--searchtweak",
+      "source": "./afedukov--searchtweak",
+      "description": "Optimize and Enhance Your Search Quality"
+    },
+    {
+      "name": "spruceid--sprucekit-mobile",
+      "source": "./spruceid--sprucekit-mobile",
+      "description": "Libraries and examples for integrating verifiable credentials (VC) and mobile driver's licenses (mDL) into mobile apps."
+    },
+    {
+      "name": "hyperjiang--futu",
+      "source": "./hyperjiang--futu",
+      "description": "Futu open api golang client. \u5bcc\u9014Open API\u6700\u597d\u7528\u7684Golang\u5ba2\u6237\u7aef"
+    },
+    {
+      "name": "cdot65--pan-scm-sdk",
+      "source": "./cdot65--pan-scm-sdk",
+      "description": "Python SDK for Palo Alto Networks Strata Cloud Manager."
     },
     {
       "name": "vm--nila-code",
@@ -126927,6 +127097,16 @@
       "name": "iyism--docker-tengine",
       "source": "./iyism--docker-tengine",
       "description": "Supports Lua, GeoIP2, PCRE2, Brotli, and GmSSL (via Tongsuo)."
+    },
+    {
+      "name": "canonical--concierge",
+      "source": "./canonical--concierge",
+      "description": "An opinionated utility for provisioning charm development and testing machines."
+    },
+    {
+      "name": "ntindle--gridfinity-space-optimizer",
+      "source": "./ntindle--gridfinity-space-optimizer",
+      "description": "gridfinity-space-optimizer"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -130892,6 +131072,46 @@
       "name": "huntsyea--nextjs-directory-boilerplate",
       "source": "./huntsyea--nextjs-directory-boilerplate",
       "description": "Production-ready Next.js 15 boilerplate for content-driven websites with MDX, shadcn/ui, and TypeScript."
+    },
+    {
+      "name": "mckaywrigley--takeoff-perplexity-clone-mckay",
+      "source": "./mckaywrigley--takeoff-perplexity-clone-mckay",
+      "description": "takeoff-perplexity-clone-mckay"
+    },
+    {
+      "name": "genesis-ai-dev--langquest",
+      "source": "./genesis-ai-dev--langquest",
+      "description": "langquest"
+    },
+    {
+      "name": "genesis-ai-dev--langquest",
+      "source": "./genesis-ai-dev--langquest",
+      "description": "langquest"
+    },
+    {
+      "name": "genesis-ai-dev--langquest",
+      "source": "./genesis-ai-dev--langquest",
+      "description": "langquest"
+    },
+    {
+      "name": "genesis-ai-dev--langquest",
+      "source": "./genesis-ai-dev--langquest",
+      "description": "langquest"
+    },
+    {
+      "name": "genesis-ai-dev--langquest",
+      "source": "./genesis-ai-dev--langquest",
+      "description": "langquest"
+    },
+    {
+      "name": "genesis-ai-dev--langquest",
+      "source": "./genesis-ai-dev--langquest",
+      "description": "langquest"
+    },
+    {
+      "name": "dalafiarisamuel--contactpickerkmp",
+      "source": "./dalafiarisamuel--contactpickerkmp",
+      "description": " ContactPicker is a component written in Kotlin Multiplatform that natively implements selecting a contact for Android and iOS."
     },
     {
       "name": "mohiwalla--memes",
