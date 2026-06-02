@@ -1,0 +1,9 @@
+{
+  "name": "zkeyoned--map-of-us-template",
+  "displayName": "map-of-us-template",
+  "description": "Open-source private memory map template built with Next.js and Supabase",
+  "version": "1.0.0",
+  "author": "zkeyoned",
+  "homepage": "https://github.com/zkeyoned/map-of-us-template",
+  "skills": []
+}
