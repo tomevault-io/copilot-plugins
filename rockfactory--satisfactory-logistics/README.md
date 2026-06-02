@@ -7,11 +7,11 @@ A web tool to keep track of Satisfactory logistics
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rockfactory/satisfactory-logistics](https://github.com/rockfactory/satisfactory-logistics).
+Original source: `CLAUDE.md` in [rockfactory/satisfactory-logistics](https://github.com/rockfactory/satisfactory-logistics).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
