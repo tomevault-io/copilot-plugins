@@ -4,7 +4,7 @@
   "repo": "prompt",
   "description": "PROMPT 2.0: A Modular and Scalable Management Platform for Project-Based Teaching",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prompt-edu/prompt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T00:42:49Z"
+  "distributed_at": "2026-06-02T00:43:49Z"
 }
