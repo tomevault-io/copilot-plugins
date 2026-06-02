@@ -1,0 +1,9 @@
+{
+  "name": "goplasmatic--datalogic-rs",
+  "displayName": "datalogic-rs",
+  "description": "A fast, type-safe Rust implementation of JSONLogic for evaluating logical rules as JSON. Perfect for business rules engines and dynamic filtering in Rust applications.",
+  "version": "1.0.0",
+  "author": "GoPlasmatic",
+  "homepage": "https://github.com/GoPlasmatic/datalogic-rs",
+  "skills": []
+}
