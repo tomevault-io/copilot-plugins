@@ -7,11 +7,11 @@ vanilla private server
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pikdum/thistle_tea](https://github.com/pikdum/thistle_tea).
+Original source: `AGENTS.md` in [pikdum/thistle_tea](https://github.com/pikdum/thistle_tea).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
