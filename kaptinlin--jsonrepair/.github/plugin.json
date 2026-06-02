@@ -1,0 +1,9 @@
+{
+  "name": "kaptinlin--jsonrepair",
+  "displayName": "jsonrepair",
+  "description": "High-performance Go library for repairing invalid JSON documents, tuned for LLM-generated output",
+  "version": "1.0.0",
+  "author": "kaptinlin",
+  "homepage": "https://github.com/kaptinlin/jsonrepair",
+  "skills": []
+}
