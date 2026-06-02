@@ -1,0 +1,9 @@
+{
+  "name": "kalinplus--auto-filler",
+  "displayName": "auto-filler",
+  "description": "LLM-powered Chrome extension for automatic web form filling. All data stays local.",
+  "version": "1.0.0",
+  "author": "kalinplus",
+  "homepage": "https://github.com/kalinplus/auto-filler",
+  "skills": []
+}
