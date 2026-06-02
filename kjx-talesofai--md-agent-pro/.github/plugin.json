@@ -1,0 +1,9 @@
+{
+  "name": "kjx-talesofai--md-agent-pro",
+  "displayName": "md_agent_pro",
+  "description": "A minimal, standalone CLI agent demonstrating the core concepts of autonomous AI systems. Built with OpenAI's tool calling API, this project shows how simple file operations can enable powerful automa",
+  "version": "1.0.0",
+  "author": "kjx-talesofai",
+  "homepage": "https://github.com/kjx-talesofai/md_agent_pro",
+  "skills": []
+}
