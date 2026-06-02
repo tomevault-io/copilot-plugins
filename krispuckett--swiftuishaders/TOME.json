@@ -4,7 +4,7 @@
   "repo": "SwiftUIShaders",
   "description": "41 hand-curated drop-in SwiftUI Metal shader effects \u2014 holographic foil, kaleidoscope, magnetic fields, glitch, neon edges and more. Typed View modifiers, agent-friendly docs.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/krispuckett/SwiftUIShaders",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T03:30:54Z"
+  "distributed_at": "2026-06-02T03:31:26Z"
 }
