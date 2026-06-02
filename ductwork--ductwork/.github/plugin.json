@@ -1,0 +1,9 @@
+{
+  "name": "ductwork--ductwork",
+  "displayName": "ductwork",
+  "description": "A durable workflow orchestration platform for Ruby",
+  "version": "1.0.0",
+  "author": "ductwork",
+  "homepage": "https://github.com/ductwork/ductwork",
+  "skills": []
+}
