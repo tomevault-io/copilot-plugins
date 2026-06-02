@@ -1,0 +1,9 @@
+{
+  "name": "kharkevich-engineering-lab--spark-pulse",
+  "displayName": "spark-pulse",
+  "description": "Spark Pulse is a web control plane for spark-vllm-docker",
+  "version": "1.0.0",
+  "author": "kharkevich-engineering-lab",
+  "homepage": "https://github.com/kharkevich-engineering-lab/spark-pulse",
+  "skills": []
+}
