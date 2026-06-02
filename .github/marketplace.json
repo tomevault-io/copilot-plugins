@@ -122229,6 +122229,11 @@
       "description": "\u627e\u5de5\u6c42\u804c\u4fe1\u606f"
     },
     {
+      "name": "lifuyue--patchbay-cli",
+      "source": "./lifuyue--patchbay-cli",
+      "description": "patchbay-cli"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -139682,6 +139687,11 @@
       "name": "prompt-edu--prompt",
       "source": "./prompt-edu--prompt",
       "description": "PROMPT 2.0: A Modular and Scalable Management Platform for Project-Based Teaching"
+    },
+    {
+      "name": "ricocc--ricoui-astro-starter",
+      "source": "./ricocc--ricoui-astro-starter",
+      "description": "Astro Starter template"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
