@@ -1,0 +1,9 @@
+{
+  "name": "kaichen--mcp-config-editor",
+  "displayName": "mcp-config-editor",
+  "description": "A simple GUI for managing MCP servers, for easy toggle mcp servers.",
+  "version": "1.0.0",
+  "author": "kaichen",
+  "homepage": "https://github.com/kaichen/mcp-config-editor",
+  "skills": []
+}
