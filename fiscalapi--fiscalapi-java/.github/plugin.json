@@ -1,0 +1,9 @@
+{
+  "name": "fiscalapi--fiscalapi-java",
+  "displayName": "fiscalapi-java",
+  "description": "SDK oficial de fiscalapi para consumo desde aplicaciones Java",
+  "version": "1.0.0",
+  "author": "FiscalAPI",
+  "homepage": "https://github.com/FiscalAPI/fiscalapi-java",
+  "skills": []
+}
