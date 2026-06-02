@@ -1,0 +1,9 @@
+{
+  "name": "mediolano-app--mediolano-contracts",
+  "displayName": "mediolano-contracts",
+  "description": "Cairo Smart Contracts @ Mediolano - intellectual property provider for the integrity web. Powered on Starknet.",
+  "version": "1.0.0",
+  "author": "mediolano-app",
+  "homepage": "https://github.com/mediolano-app/mediolano-contracts",
+  "skills": []
+}
