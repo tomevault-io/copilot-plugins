@@ -1,0 +1,9 @@
+{
+  "name": "playgama--bridge-unity",
+  "displayName": "bridge-unity",
+  "description": "One SDK for cross-platform publishing HTML5 games",
+  "version": "1.0.0",
+  "author": "Playgama",
+  "homepage": "https://github.com/Playgama/bridge-unity",
+  "skills": []
+}
