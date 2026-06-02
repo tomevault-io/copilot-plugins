@@ -1,0 +1,35 @@
+## complyctl
+
+> This project follows coding conventions defined in
+
+# Unbound Force — managed by uf init
+
+This project follows coding conventions defined in
+AGENTS.md and enforced through convention packs. Before
+writing or reviewing code, read the applicable convention
+pack(s) from .opencode/uf/packs/ and apply all rules
+marked [MUST].
+
+Available packs:
+- .opencode/uf/packs/default.md
+- .opencode/uf/packs/default-custom.md
+- .opencode/uf/packs/severity.md
+- .opencode/uf/packs/content.md
+- .opencode/uf/packs/content-custom.md
+- .opencode/uf/packs/go.md
+- .opencode/uf/packs/go-custom.md
+
+For engineering philosophy and coding principles, read
+.opencode/agents/cobalt-crush-dev.md.
+
+When reviewing code, consult the applicable reviewer
+checklist from .opencode/agents/:
+- divisor-guard.md — intent drift, constitution
+- divisor-architect.md — structure, patterns, DRY
+- divisor-adversary.md — security, error handling
+- divisor-testing.md — test quality, assertions
+- divisor-sre.md — operations, performance
+
+---
+> Source: [complytime/complyctl](https://github.com/complytime/complyctl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
