@@ -1,0 +1,44 @@
+{
+  "name": "huoguang-voice-assistant",
+  "owner": "xiansa20",
+  "repo": "huoguang-voice-assistant",
+  "description": "\u706b\u5149 AI \u8bed\u97f3\u52a9\u624b\uff1aAI \u5bf9\u8bdd\u4e0e\u706b\u5c71\u5f15\u64ce\u8bed\u97f3\u751f\u6210\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiansa20/huoguang-voice-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T04:32:27Z"
+}
