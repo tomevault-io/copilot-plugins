@@ -1,0 +1,9 @@
+{
+  "name": "dgtlss--warden",
+  "displayName": "warden",
+  "description": "A Laravel package that proactively monitors your dependencies for security vulnerabilities by running automated composer audits and sending notifications via webhooks and email",
+  "version": "1.0.0",
+  "author": "dgtlss",
+  "homepage": "https://github.com/dgtlss/warden",
+  "skills": []
+}
