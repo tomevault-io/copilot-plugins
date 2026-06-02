@@ -1,0 +1,9 @@
+{
+  "name": "bgreni--emberjson",
+  "displayName": "EmberJson",
+  "description": "A user friendly json library written in pure Mojo",
+  "version": "1.0.0",
+  "author": "bgreni",
+  "homepage": "https://github.com/bgreni/EmberJson",
+  "skills": []
+}
