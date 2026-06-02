@@ -1,0 +1,9 @@
+{
+  "name": "kcp-dev--kcp-operator",
+  "displayName": "kcp-operator",
+  "description": "A Kubernetes operator to deploy and manage kcp instances.",
+  "version": "1.0.0",
+  "author": "kcp-dev",
+  "homepage": "https://github.com/kcp-dev/kcp-operator",
+  "skills": []
+}
