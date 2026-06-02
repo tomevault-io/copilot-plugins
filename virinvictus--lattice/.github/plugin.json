@@ -1,0 +1,9 @@
+{
+  "name": "virinvictus--lattice",
+  "displayName": "Lattice",
+  "description": "CLI toolkit for music collectors \u2014 library trees, integrity checks, cover art, tag audits.",
+  "version": "1.0.0",
+  "author": "VirInvictus",
+  "homepage": "https://github.com/VirInvictus/Lattice",
+  "skills": []
+}
