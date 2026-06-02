@@ -1,0 +1,9 @@
+{
+  "name": "grantmcdermott--dbreg",
+  "displayName": "dbreg",
+  "description": "Fast regressions on database backends",
+  "version": "1.0.0",
+  "author": "grantmcdermott",
+  "homepage": "https://github.com/grantmcdermott/dbreg",
+  "skills": []
+}
