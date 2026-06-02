@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--multi-storage-client",
+  "displayName": "multi-storage-client",
+  "description": "Unified high-performance Python client for object and file stores.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/multi-storage-client",
+  "skills": []
+}
