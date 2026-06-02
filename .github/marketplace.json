@@ -175254,6 +175254,26 @@
       "description": "A minimal, standalone CLI agent demonstrating the core concepts of autonomous AI systems. Built with OpenAI's tool calling API, this project shows how simple file operations can enable powerful automa"
     },
     {
+      "name": "johnixr--peeky",
+      "source": "./johnixr--peeky",
+      "description": "A transparent floating macOS desktop AI companion \u2014 a magic sprite that peeks at your screen and helps at the right moment. Tauri 2 (Rust + TS)."
+    },
+    {
+      "name": "johnixr--peeky",
+      "source": "./johnixr--peeky",
+      "description": "A transparent floating macOS desktop AI companion \u2014 a magic sprite that peeks at your screen and helps at the right moment. Tauri 2 (Rust + TS)."
+    },
+    {
+      "name": "zkeyoned--map-of-us-template",
+      "source": "./zkeyoned--map-of-us-template",
+      "description": "Open-source private memory map template built with Next.js and Supabase"
+    },
+    {
+      "name": "hiroki-kawakami--tab5-screen-streamer",
+      "source": "./hiroki-kawakami--tab5-screen-streamer",
+      "description": "Stream PC Screen Capture to M5Stack Tab5"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -187692,6 +187712,36 @@
       "name": "yastman--rag",
       "source": "./yastman--rag",
       "description": "AI real-estate automation platform: Telegram bot, RAG, apartment search, CRM workflows, voice agent, Langfuse observability, and Dockerized AI runtime."
+    },
+    {
+      "name": "yoursshlabs--yourssh",
+      "source": "./yoursshlabs--yourssh",
+      "description": "A professional, open-source SSH client for macOS, Windows, and Linux built with Flutter. Designed for developers and sysadmins who want a fast, keyboard-friendly terminal experience with built-in SFTP"
+    },
+    {
+      "name": "jherr--tanmaxx-17",
+      "source": "./jherr--tanmaxx-17",
+      "description": "TanMaxx using 17 TanStack Projects"
+    },
+    {
+      "name": "dkyazzentwatwa--esp32-key",
+      "source": "./dkyazzentwatwa--esp32-key",
+      "description": "esp32-key"
+    },
+    {
+      "name": "atomflow-ai--molecode",
+      "source": "./atomflow-ai--molecode",
+      "description": "Molecule as code: enabling LLMs to operate and reason on chemistry directly."
+    },
+    {
+      "name": "fengfengzhidao--loglite",
+      "source": "./fengfengzhidao--loglite",
+      "description": "\u672c\u5730\u65e5\u5fd7\u67e5\u770b\u5668"
+    },
+    {
+      "name": "dkyazzentwatwa--esp32-key",
+      "source": "./dkyazzentwatwa--esp32-key",
+      "description": "esp32-key"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -295842,6 +295892,41 @@
       "name": "earbunsong--hospital-system",
       "source": "./earbunsong--hospital-system",
       "description": "hospital_system"
+    },
+    {
+      "name": "nishanth919--litellm",
+      "source": "./nishanth919--litellm",
+      "description": "litellm"
+    },
+    {
+      "name": "daisukeman32--shanghai-swap",
+      "source": "./daisukeman32--shanghai-swap",
+      "description": "Shanghai-swap"
+    },
+    {
+      "name": "nishanth919--litellm",
+      "source": "./nishanth919--litellm",
+      "description": "litellm"
+    },
+    {
+      "name": "yelihu--yelihu-github-io",
+      "source": "./yelihu--yelihu-github-io",
+      "description": "yelihu.github.io"
+    },
+    {
+      "name": "svenvc--rpn-calculator",
+      "source": "./svenvc--rpn-calculator",
+      "description": "An RPN Calculator written using Elixir Phoenix LiveView and Fluxon UI"
+    },
+    {
+      "name": "daisukeman32--shanghai-swap",
+      "source": "./daisukeman32--shanghai-swap",
+      "description": "Shanghai-swap"
+    },
+    {
+      "name": "nishanth919--litellm",
+      "source": "./nishanth919--litellm",
+      "description": "litellm"
     }
   ]
 }
