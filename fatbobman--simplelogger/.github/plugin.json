@@ -1,0 +1,9 @@
+{
+  "name": "fatbobman--simplelogger",
+  "displayName": "SimpleLogger",
+  "description": "A simple logging library for Swift 6, providing easy-to-use logging functionalities with support for different log levels and backends.",
+  "version": "1.0.0",
+  "author": "fatbobman",
+  "homepage": "https://github.com/fatbobman/SimpleLogger",
+  "skills": []
+}
