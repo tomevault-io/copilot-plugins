@@ -1,7 +1,8 @@
-## ato
+## nonos
 
 > ato is a declarative DSL to design electronics (PCBs) with.
 
+# CLAUDE.md
 
 ato is a declarative DSL to design electronics (PCBs) with.
 It is part of the atopile project.
