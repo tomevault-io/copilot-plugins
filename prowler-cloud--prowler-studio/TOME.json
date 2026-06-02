@@ -1,0 +1,44 @@
+{
+  "name": "prowler-studio",
+  "owner": "prowler-cloud",
+  "repo": "prowler-studio",
+  "description": "Prowler Studio an AI workflow that ensures Claude Code follows Prowler's guardrails to deliver consistent, tested, and PR-ready threat detection checks, remediations and update compliance frameworks.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/prowler-cloud/prowler-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T19:51:21Z"
+}
