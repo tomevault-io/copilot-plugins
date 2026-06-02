@@ -1,0 +1,9 @@
+{
+  "name": "hyperjiang--futu",
+  "displayName": "futu",
+  "description": "Futu open api golang client. \u5bcc\u9014Open API\u6700\u597d\u7528\u7684Golang\u5ba2\u6237\u7aef",
+  "version": "1.0.0",
+  "author": "hyperjiang",
+  "homepage": "https://github.com/hyperjiang/futu",
+  "skills": []
+}
