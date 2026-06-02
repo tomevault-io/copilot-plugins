@@ -1,0 +1,9 @@
+{
+  "name": "ad-sdl--madsci",
+  "displayName": "MADSci",
+  "description": "Main repository for the Modular Autonomous Discovery for Science (MADSci) Framework",
+  "version": "1.0.0",
+  "author": "AD-SDL",
+  "homepage": "https://github.com/AD-SDL/MADSci",
+  "skills": []
+}
