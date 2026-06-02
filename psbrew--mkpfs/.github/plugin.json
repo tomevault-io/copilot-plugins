@@ -1,0 +1,9 @@
+{
+  "name": "psbrew--mkpfs",
+  "displayName": "MkPFS",
+  "description": "Create and Manage Unsigned PFS (Playstation File System) image files with file compression and checksum support.",
+  "version": "1.0.0",
+  "author": "PSBrew",
+  "homepage": "https://github.com/PSBrew/MkPFS",
+  "skills": []
+}
