@@ -1,0 +1,9 @@
+{
+  "name": "quolpr--quicktest-nvim",
+  "displayName": "quicktest.nvim",
+  "description": "Run your tests inside nvim in split window or popup with live feedback",
+  "version": "1.0.0",
+  "author": "quolpr",
+  "homepage": "https://github.com/quolpr/quicktest.nvim",
+  "skills": []
+}
