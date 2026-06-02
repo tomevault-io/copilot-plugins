@@ -1,0 +1,9 @@
+{
+  "name": "iyism--docker-tengine",
+  "displayName": "docker-tengine",
+  "description": "Supports Lua, GeoIP2, PCRE2, Brotli, and GmSSL (via Tongsuo).",
+  "version": "1.0.0",
+  "author": "iYism",
+  "homepage": "https://github.com/iYism/docker-tengine",
+  "skills": []
+}
