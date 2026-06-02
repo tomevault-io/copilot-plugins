@@ -1,0 +1,9 @@
+{
+  "name": "zoedsoupe--peri",
+  "displayName": "peri",
+  "description": "Elixir library for declarative data description and validation",
+  "version": "1.0.0",
+  "author": "zoedsoupe",
+  "homepage": "https://github.com/zoedsoupe/peri",
+  "skills": []
+}
