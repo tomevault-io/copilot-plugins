@@ -1,0 +1,9 @@
+{
+  "name": "operationt00--t-code",
+  "displayName": "T-Code",
+  "description": "\u4e00\u6b3e\u96c6\u6210\u4e86ReAct\uff0cPlan-and-Execute\u548cMulti-Agent\u7684coding agent",
+  "version": "1.0.0",
+  "author": "OperationT00",
+  "homepage": "https://github.com/OperationT00/T-Code",
+  "skills": []
+}
