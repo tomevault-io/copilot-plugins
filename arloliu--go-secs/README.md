@@ -7,11 +7,11 @@ A library that implements SES-II/HSMS/SML in Go
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [arloliu/go-secs](https://github.com/arloliu/go-secs).
+Original source: `CLAUDE.md` in [arloliu/go-secs](https://github.com/arloliu/go-secs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
