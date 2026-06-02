@@ -1,143 +1,124 @@
-## testing-rls-policies
+## writing
 
-> Guidelines for testing Supabase Row Level Security (RLS) policies during development directly against the database
+> Writing style guidelines for clear, human-centered communication
 
 
-## Connecting to the Local Development Database
+## Sentence structure
 
-```bash
-PGPASSWORD=postgres psql -h localhost -p 54322 -U postgres -d postgres
-```
+- Write short, declarative sentences most of the time.
+- Vary sentence length to avoid sounding robotic. Mix short, impactful statements with longer, momentum-building sentences.
+- Every time you use a comma, ask whether you can use a period instead.
+- Avoid repeating the same words in a paragraph. Use synonyms or rephrase.
 
-Refer to supabase/config.toml if anon users are enabled, if not then don't login as an anon user.
+## Voice and tone
 
-## Testing Procedures
+- Write like humans speak. Avoid corporate jargon and marketing fluff.
+- Be confident and direct. Avoid softening phrases like "I think," "maybe," or "could."
+- Use active voice instead of passive voice.
+- Use positive phrasing—say what something _is_ rather than what it _isn't_.
+- Say "you" more than "we" when addressing external audiences.
+- Use contractions like "I'll," "won't," and "can't" for a warmer tone.
 
-To test policies on the database itself (from the SQL Editor or from `psql`) without switching to your frontend and logging in as different users, you can utilize these helper SQL procedures:
+## Specificity and evidence
 
-```sql
-grant anon, authenticated to postgres;
+- Be specific with facts and data instead of vague superlatives.
+- Back up claims with concrete examples or metrics.
+- Highlight customers and community members over company achievements.
+- Use realistic, product-based examples instead of `foo/bar/baz` in code.
+- Make content concrete, visual, and falsifiable.
 
-create or replace procedure auth.login_as_user (user_email text)
-    language plpgsql
-    as $$
-declare
-    auth_user auth.users;
-begin
-    select
-        * into auth_user
-    from
-        auth.users
-    where
-        email = user_email;
-    execute format('set request.jwt.claim.sub=%L', (auth_user).id::text);
-    execute format('set request.jwt.claim.role=%I', (auth_user).role);
-    execute format('set request.jwt.claim.email=%L', (auth_user).email);
-    execute format('set request.jwt.claims=%L', json_strip_nulls(json_build_object('app_metadata', (auth_user).raw_app_meta_data))::text);
+## Title creation
 
-    raise notice '%', format( 'set role %I; -- logging in as %L (%L)', (auth_user).role, (auth_user).id, (auth_user).email);
-    execute format('set role %I', (auth_user).role);
-end;
-$$;
+- Make a promise in the title so readers know exactly what they'll get if they click.
+- Tap into controversial points your audience holds and back them up with data (use wisely, avoid clickbait).
+- Share something uniquely helpful that makes readers better at meaningful aspects of their lives.
+- Avoid vague titles like "My Thoughts On XYZ." Titles should be opinions or shareable facts.
+- Write placeholder titles first, complete the content, then spend time iterating on titles at the end.
 
-create or replace procedure auth.login_as_anon ()
-    language plpgsql
-    as $$
-begin
-    set request.jwt.claim.sub='';
-    set request.jwt.claim.role='';
-    set request.jwt.claim.email='';
-    set request.jwt.claims='';
-    set role anon;
-end;
-$$;
+## Banned words
 
-create or replace procedure auth.logout ()
-    language plpgsql
-    as $$
-begin
-    set request.jwt.claim.sub='';
-    set request.jwt.claim.role='';
-    set request.jwt.claim.email='';
-    set request.jwt.claims='';
-    set role postgres;
-end;
-$$;
-```
+- `a bit` → remove
+- `a little` → remove
+- `actually/actual` → remove
+- `agile` → remove
+- `arguably` → remove
+- `assistance` → "help"
+- `attempt` → "try"
+- `battle tested` → remove
+- `best practices` → "proven approaches"
+- `blazing fast/lightning fast` → "build XX% faster"
+- `business logic` → remove
+- `cognitive load` → remove
+- `commence` → "start"
+- `delve` → "go into"
+- `disrupt/disruptive` → remove
+- `facilitate` → "help" or "ease"
+- `game-changing` → specific benefit
+- `great` → remove or be specific
+- `implement` → "do"
+- `individual` → "man" or "woman"
+- `initial` → "first"
+- `innovative` → remove
+- `just` → remove
+- `leverage` → "use"
+- `mission-critical` → "important"
+- `modern/modernized` → remove
+- `numerous` → "many"
+- `out of the box` → remove
+- `performant` → "fast and reliable"
+- `pretty/quite/rather/really/very` → remove
+- `referred to as` → "called"
+- `remainder` → "rest"
+- `robust` → "strong"
+- `seamless/seamlessly` → "automatic"
+- `sufficient` → "enough"
+- `that` → often removable, context dependent
+- `thing` → be specific
+- `utilize` → "use"
+- `webinar` → "online event"
 
-## Usage
+## Banned phrases
 
-### Switch to a specific user
+- `I think/I believe/we believe` → `state directly`
+- `it seems` → `remove`
+- `sort of/kind of` → `remove`
+- `pretty much` → `remove`
+- `a lot/a little` → `be specific`
+- `By developers, for developers` → `remove`
+- `We can't wait to see what you'll build` → `remove`
+- `We obsess over ___` → `remove`
+- `The future of ___` → `remove`
+- `We're excited` → `"We look forward"`
+- `Today, we're excited to` → `remove`
 
-```sql
-call auth.login_as_user('user@example.com');
-```
+## Avoid LLM patterns
 
-### Switch to anonymous role
+- Replace em dashes (-) with semicolons, commas, or sentence breaks.
+- Avoid starting responses with "Great question!", "You're right!", or "Let me help you."
+- Don't use phrases like "Let's dive into..."
+- Skip cliché intros like "In today's fast-paced digital world" or "In the ever-evolving landscape of."
+- Avoid phrases like "it's not just [x], it's [y]."
+- Avoid self-referential disclaimers like "As an AI" or "I'm here to help you with."
+- Don't use high-school essay closers: "In conclusion," "Overall," or "To summarize."
+- Avoid numbered lists in cases where bullets work better.
+- Don't end with "Hope this helps!" or similar closers.
+- Avoid overusing transition words like "Furthermore," "Additionally," or "Moreover."
+- Replace "In conclusion" with direct statements.
+- Avoid hedge words: "might," "perhaps," "potentially" unless uncertainty is real.
+- Don't stack hedging phrases: "may potentially," "it's important to note that."
+- Don't create perfectly symmetrical paragraphs or lists that start with "Firstly... Secondly..."
+- Avoid title-case headings; prefer sentence casing.
+- Remove Unicode artifacts when copy-pasting: smart quotes ("), em-dashes, non-breaking spaces.
+- Use " instead of "
+- Use ' instead of '
+- Delete empty citation placeholders like "[1]" with no actual source.
 
-```sql
-call auth.login_as_anon();
-```
+## Punctuation and formatting
 
-### Return to postgres role
-
-```sql
-call auth.logout();
-```
-
-## Testing Example
-
-Here's an example workflow for testing RLS policies:
-
-```sql
--- Start with postgres role (full access)
-postgres=> select id, email from auth.users;
-                  id                  |       email
---------------------------------------+-------------------
- d4f0aa86-e6f6-41d1-bd32-391f077cf1b9 | user1@example.com
- 15d6811a-16ee-4fa2-9b18-b63085688be4 | user2@example.com
-(2 rows)
-
--- Test as anonymous user
-postgres=> call auth.login_as_anon();
-CALL
-postgres=> update public.profiles set updated_at=now();
-UPDATE 0 -- anon users cannot update any profile
-
--- Test as authenticated user
-postgres=> call auth.login_as_user('user1@example.com');
-NOTICE:  set role authenticated; -- logging in as 'd4f0aa86-e6f6-41d1-bd32-391f077cf1b9' ('user1@example.com')
-CALL
-postgres=> update public.profiles set updated_at=now();
-UPDATE 1 -- authenticated users can update their own profile
-
--- Return to postgres role
-postgres=> call auth.logout();
-CALL
-postgres=> update public.profiles set updated_at=now();
-UPDATE 2 -- postgres role has full access
-```
-
-## Best Practices
-
-1. **Always test with different roles**: Test your policies with `anon`, `authenticated`, and specific user contexts
-2. **Use in development**: These procedures are perfect for development and testing environments
-3. **pgTAP integration**: These procedures can be used for writing pgTAP unit tests for policies
-4. **Clean up after testing**: Always call `auth.logout()` when finished testing to return to postgres role
-5. **Verify expected behavior**: Make sure your policies behave as intended for each role
-
-## When to Use
-
-- **Policy development**: When writing new RLS policies
-- **Policy debugging**: When existing policies aren't working as expected
-- **Unit testing**: For automated testing of database policies
-- **Security validation**: To ensure data access is properly restricted
-
-## Security Notes
-
-- These procedures should only be used in development and testing environments
-- Never use these in production
-- Always logout after testing to avoid accidentally running queries with wrong permissions
+- Use Oxford commas consistently.
+- Use exclamation points sparingly.
+- Sentences can start with "But" and "And"-but don't overuse.
+- Use periods instead of commas when possible for clarity.
 
 ---
 > Source: [genesis-ai-dev/langquest](https://github.com/genesis-ai-dev/langquest) — distributed by [TomeVault](https://tomevault.io).
