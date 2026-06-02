@@ -1,0 +1,9 @@
+{
+  "name": "se-uhd--llm-guidelines-website",
+  "displayName": "llm-guidelines-website",
+  "description": "Website with community guidelines for empirical studies involving LLMs.",
+  "version": "1.0.0",
+  "author": "se-uhd",
+  "homepage": "https://github.com/se-uhd/llm-guidelines-website",
+  "skills": []
+}
