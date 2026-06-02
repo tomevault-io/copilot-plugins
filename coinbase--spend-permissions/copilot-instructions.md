@@ -1,133 +1,116 @@
-## solidity-natspec
+## solidity-testing
 
-> Solidity NatSpec conventions (first-party)
+> Foundry Solidity testing conventions (base harness, structure, stub-first)
 
 
-# Solidity NatSpec (project style)
+# Solidity Testing Conventions (Foundry)
 
-Follow this NatSpec style when editing first-party Solidity under `src/`, `script/`, and `test/` (do not modify vendored/dependency code under `lib/`).
+Applies to first-party tests under `test/` (do not modify dependency tests under `lib/`).
 
-## When adding new contract surface area (required)
+## Directory structure (required)
 
-If you introduce a **new natspeccable thing**, you MUST add/update NatSpec for it in the same change. This includes:
+- `test/base/`
+  - Base test harness contracts (shared fixtures + helpers)
+  - e.g. `SpendPermissionManagerBase.sol`, `Base.sol`, `Static.sol`
+- `test/mocks/`
+  - Shared mocks/utilities used across multiple suites
+- `test/src/<Area>/`
+  - Unit tests scoped to a single contract/function/feature area
+  - Prefer one `.t.sol` per function or tightly-related group of functions unless contract is quite small (less than 4 testable functions)
 
-- New or materially-changed **contracts/libraries**
-- New or materially-changed **external/public functions**
-- New **events**, **errors**, **modifiers**
-- New **structs/enums** and their fields (units/constraints)
-- New **storage variables**, constants, and immutables (meaning, key-space for mappings, sentinel values)
+Recommended shape (examples):
+- `test/base/SpendPermissionManagerBase.sol`
+- `test/mocks/MockCoinbaseSmartWallet.sol`
+- `test/src/SpendRouter/spendAndRoute.t.sol`
+- `test/src/SpendPermissions/approve.t.sol`
 
-If you change behavior (even without changing signatures), update existing NatSpec so it remains truthful.
+## Base harness pattern (required)
 
-## General principles
+- Put shared deployment/setup/helpers in an `abstract contract <X>TestBase is Test` (or `<X>Base`) under `test/base/` or co-located with the test suite.
+- Child unit tests inherit the base and call a single base setup entrypoint from `setUp()`.
+- Centralize "builders" and helpers in the base:
+  - Signature helpers (`_signPermission`, `_applySignatureWrapper`, etc.)
+  - Common fixtures (accounts, deployed contracts, default configs)
+  - Fuzz bounds helpers (wrap `bound()` into semantically-named helpers)
 
-- Prefer documenting **behavior, assumptions, invariants, and trust boundaries** over narrating syntax.
-- Keep docs **truthful** (describe what the code does today, not intended behavior).
-- Use `@notice` for the primary "what/outcome"; use `@dev` for edge cases, auth, ordering, and gotchas.
-- Use short paragraphs and blank `///` separators.
+## Naming + organization
 
-## NatSpec spacing (required)
+- **Test file names**:
+  - Contract-scoped suites: `ContractName.t.sol`
+  - Function-scoped suites: `functionName.t.sol` (lower camelCase; matches the Solidity function name)
+- **Test contract names**:
+  - Contract-scoped suites: `ContractNameTest`
+  - Function-scoped suites: `FunctionNameTest` (CapWords, even when the file is lower camelCase like `spendAndRoute.t.sol`)
+- **Test function names**:
+  - If contract name already scopes the function, use `test_outcome_optionalContext`
+  - Otherwise use `test_functionName_outcome_optionalContext`
 
-Always insert a **blank NatSpec line** (`///`) between logical sections:
+Keep separation of concerns:
+- Core protocol tests (SpendPermissionManager) separate from router-specific tests (SpendRouter).
 
-- Between `@notice` and any `@dev`
-- Between separate `@dev` paragraphs
-- Between the last `@dev` (or `@notice` if no dev) and the `@param`/`@return` block
+## NatSpec for tests (required)
 
-Example:
+- Test functions MUST have a NatSpec `@notice` that describes the case being asserted.
+- Any fuzzed test function MUST NatSpec every parameter with `@param <name> ...` (no unnamed parameters).
+- Use `@dev` only when it adds durable clarity (e.g., expected typed error, important invariants, or why a bound/transform is used).
+
+## Reverts + events (preferred patterns)
+
+- Reverts:
+  - Prefer typed errors: `vm.expectRevert(SomeError.selector)`
+  - If args matter: `vm.expectRevert(abi.encodeWithSelector(SomeError.selector, ...))`
+- Events:
+  - Use `vm.expectEmit(...)` and emit the event with expected args immediately before the call.
+  - Give **each unique event emission** its own dedicated test (do not bundle event assertions with state/happy-path assertions, even if redundant).
+  - For "should not emit" cases, prefer `vm.recordLogs()` + scan for the signature.
+
+## Assertion scope (preferred)
+
+- Prefer **one thing per test**:
+  - A test should usually validate a single expected outcome (one revert, one event emission, or one state transition).
+  - Avoid packing multiple unrelated subcases into a single test.
+- Multiple assertions are fine when they are all part of probing the **same desired end state** (e.g., several state fields that jointly define correctness).
+
+## Fuzzing conventions (required)
+
+- Prefer `bound()` over `vm.assume()` when possible.
+- Define meaningful constants for fuzz bounds (no magic numbers).
+- Every fuzz parameter must be used (or be explicitly part of the stub-only phase; see below).
+- Keep assumptions minimal and targeted (e.g., inequality between two bounded addresses).
+
+## Stub-first workflow (required)
+
+When creating new coverage, **stub the full case matrix first** (tests compile, run, and are explicitly skipped), then implement bodies in a later pass.
+
+### Stub rule
+
+- A stub test MUST call `vm.skip(true);` to keep `forge test` green while the case is still being specified.
+- The stub's NatSpec/docstring should clearly state the expected revert/event/state transitions (this is the "spec").
+
+Example stub shape:
 
 ```solidity
-/// @notice Emitted when a fee transfer fails
-///
-/// @dev Applies to both attempted sends and distributions of fees
-///
-/// @param campaign Address of the campaign
-/// @param token Address of the token that failed to transfer
-/// @param key Key for the fees
-/// @param recipient Address receiving the fees
-/// @param amount Amount of tokens that failed to transfer
-/// @param extraData Extra data for the payout to attach in events
+function test_reverts_whenFooIsBar(uint256 x) public {
+    vm.skip(true);
+}
 ```
 
-## Contract headers
+## Test Implementation Rules (implementing pre-written test stubs)
+- Only implement existing test stubs, never create new test functions
+- Only modify specified test files
+- Use inherited test library functions; add utilities to base classes if needed
+- Run `forge fmt` after code changes
+- For revert tests, find typed errors in contract or dependencies
 
-At the contract level, use:
+## Test Quality
+- Run tests after implementation with `-vvvv` for debugging
+- Fix all failures systematically until 100% pass
+- Assert everything necessary to verify expected behavior
+- Comment only non-obvious or crucial setup, avoid narration
+- Run full test suite before finishing to ensure no regressions
 
-- `/// @title <Name>`
-- blank `///`
-- `/// @notice <Protocol-level summary>`
-- optional `/// @dev` bullets for constraints/assumptions
-- blank `///`
-- `/// @author <Org> (<repo link>)` when appropriate
-
-## Sections and ordering
-
-- Use section dividers (e.g. `//////////////////////////////////////////////////////////////`) **only** when they improve readability and the file is long enough to benefit.
-- Prefer grouping into: Types, Constants/Immutables, Storage, Events, Errors, Modifiers, Constructor, External, Public, Internal, Private.
-
-## Types (struct/enum)
-
-- Add `/// @notice` describing the type's purpose.
-- Add per-field docs using `/// @dev` for meaning, units, and constraints.
-- If a type participates in EIP-712 hashing/signatures, document the binding between fields and the signed intent in `@dev`.
-
-## State variables / constants / immutables
-
-- Add `/// @notice` describing what the value represents (include units like `wad`, `bps`, `seconds`, `wei` where relevant).
-- For mappings, describe the key-space and what values mean (including sentinel values such as "0 means unset").
-
-## Events
-
-For each event:
-
-- `/// @notice` describes the business event.
-- blank `///`
-- `/// @param <name> <meaning>` for every field (avoid type narration).
-
-## Errors
-
-For each custom error:
-
-- `/// @notice` describes when it is thrown.
-- optional `/// @dev` for applicability ("applies to X and Y paths", "only for relayed calls", etc.)
-- `@param` docs for error fields.
-
-## Modifiers
-
-- `/// @notice` describes the guard.
-- `@param` docs for modifier parameters.
-
-## Functions (all visibilities)
-
-For every function (including internal/private when it clarifies protocol assumptions):
-
-- `/// @notice` one-sentence summary of effect/outcome.
-- Optional `/// @dev` covering:
-  - **auth model** (who can call, what signatures are required, relayer expectations)
-  - **idempotency** / replay behavior / nonce usage
-  - **side effects** and ordering constraints ("emits before calling hooks", "updates state before external call")
-  - **edge cases** (zero amounts, empty arrays, boundary timestamps, optional calldata)
-- blank `///`
-- `@param` for every argument.
-- blank `///`
-- `@return` for every return value (semantic meaning).
-
-### Overrides / inheritdoc
-
-- If the parent interface/base fully describes behavior, prefer `/// @inheritdoc <Base>` and add `@dev` only for deltas/extra constraints.
-- If the override meaningfully changes behavior, use full NatSpec (and do not rely solely on `@inheritdoc`).
-
-## Tests (`test/**/*.t.sol`)
-
-- Document test contracts and key helper functions.
-- Do not add verbose NatSpec for every single test unless it adds real clarity; prefer concise intent statements for complex invariants.
-
-## Quick checklist (before you stop)
-
-- All `@param` / `@return` names match the signature.
-- Units are explicit where non-obvious (e.g., `wad`, `bps`, seconds).
-- Auth/trust boundaries are stated for entrypoints and hooks.
-- Any "escape hatch" or idempotent behavior is explicitly documented.
+## Bug Reporting
+- If you suspect a protocol bug during testing, stop immediately and report findings with reasoning
 
 ---
 > Source: [coinbase/spend-permissions](https://github.com/coinbase/spend-permissions) — distributed by [TomeVault](https://tomevault.io).
