@@ -1,0 +1,44 @@
+{
+  "name": "lucidity-next-sanity-starter",
+  "owner": "hex-digital",
+  "repo": "lucidity-next-sanity-starter",
+  "description": "WIP - Lucidity - The Enterprise-Ready Next.js 16 + SanityCMS Starter Template",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hex-digital/lucidity-next-sanity-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-02T22:35:44Z"
+}
