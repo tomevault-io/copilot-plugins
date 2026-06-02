@@ -4,7 +4,7 @@
   "repo": "f3-app",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fisand/f3-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T21:40:34Z"
+  "distributed_at": "2026-06-02T21:41:07Z"
 }
