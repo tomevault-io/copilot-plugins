@@ -1,0 +1,9 @@
+{
+  "name": "canonical--concierge",
+  "displayName": "concierge",
+  "description": "An opinionated utility for provisioning charm development and testing machines.",
+  "version": "1.0.0",
+  "author": "canonical",
+  "homepage": "https://github.com/canonical/concierge",
+  "skills": []
+}
