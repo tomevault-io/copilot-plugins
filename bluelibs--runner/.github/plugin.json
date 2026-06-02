@@ -1,0 +1,9 @@
+{
+  "name": "bluelibs--runner",
+  "displayName": "runner",
+  "description": "Modular and functional approach to building large scale apps.",
+  "version": "1.0.0",
+  "author": "bluelibs",
+  "homepage": "https://github.com/bluelibs/runner",
+  "skills": []
+}
