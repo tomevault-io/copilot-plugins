@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--cronjob",
+  "displayName": "cronjob",
+  "description": "DuckDB CronJob Extension",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/cronjob",
+  "skills": []
+}
