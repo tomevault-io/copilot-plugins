@@ -1,0 +1,9 @@
+{
+  "name": "webdastur--dj-admin-tui",
+  "displayName": "dj-admin-tui",
+  "description": "Drive the Django admin from your terminal \u2014 browse, search, filter, edit, and run admin actions, with the same permissions and audit as the web admin. Built on Textual.",
+  "version": "1.0.0",
+  "author": "webdastur",
+  "homepage": "https://github.com/webdastur/dj-admin-tui",
+  "skills": []
+}
