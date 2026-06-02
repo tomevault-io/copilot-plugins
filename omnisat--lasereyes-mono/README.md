@@ -1,6 +1,8 @@
 # lasereyes-mono
 
-> Tome by [omnisat](https://github.com/omnisat/lasereyes-mono) — distributed by [TomeVault](https://tomevault.io/claim/omnisat)
+> Tome by [omnisat](https://github.com/omnisat/lasereyes-mono) — distributed by [TomeVault](https://tomevault.io)
+
+Connect to any Bitcoin wallet, handle transactions, and work with Ordinals & BRC-20 tokens with just a few lines of code.
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [omnisat/lasereyes-mono](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/omnisat#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/omnisat/lasereyes-mono](https://github.com/omnisat/lasereyes-mono)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install omnisat/lasereyes-mono
 ```
-Or browse all formats at [https://tomevault.io/claim/omnisat](https://tomevault.io/claim/omnisat).
+Source: [github.com/omnisat/lasereyes-mono](https://github.com/omnisat/lasereyes-mono).
 
 <!-- genome:t-i-q -->
