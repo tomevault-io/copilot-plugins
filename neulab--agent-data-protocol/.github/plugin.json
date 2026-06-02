@@ -1,0 +1,9 @@
+{
+  "name": "neulab--agent-data-protocol",
+  "displayName": "agent-data-protocol",
+  "description": "agent-data-protocol",
+  "version": "1.0.0",
+  "author": "neulab",
+  "homepage": "https://github.com/neulab/agent-data-protocol",
+  "skills": []
+}
