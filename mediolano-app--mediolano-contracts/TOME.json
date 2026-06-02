@@ -4,7 +4,7 @@
   "repo": "mediolano-contracts",
   "description": "Cairo Smart Contracts @ Mediolano - intellectual property provider for the integrity web. Powered on Starknet.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mediolano-app/mediolano-contracts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T20:34:59Z"
+  "distributed_at": "2026-06-02T20:53:05Z"
 }
