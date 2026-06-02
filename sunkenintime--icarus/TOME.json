@@ -4,7 +4,7 @@
   "repo": "icarus",
   "description": "Valorant Strategy Creator",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SunkenInTime/icarus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T17:42:47Z"
+  "distributed_at": "2026-06-02T17:48:54Z"
 }
