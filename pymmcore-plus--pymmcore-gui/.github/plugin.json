@@ -1,0 +1,9 @@
+{
+  "name": "pymmcore-plus--pymmcore-gui",
+  "displayName": "pymmcore-gui",
+  "description": "Pure Python Micro-Manager GUI Application, built on pymmcore-plus",
+  "version": "1.0.0",
+  "author": "pymmcore-plus",
+  "homepage": "https://github.com/pymmcore-plus/pymmcore-gui",
+  "skills": []
+}
