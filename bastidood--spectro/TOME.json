@@ -4,7 +4,7 @@
   "repo": "spectro",
   "description": "A multi-channel confession bot for Discord that supports anonymous replies and channel moderation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BastiDood/spectro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T16:42:44Z"
+  "distributed_at": "2026-06-02T16:47:19Z"
 }
