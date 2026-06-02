@@ -1,6 +1,6 @@
 # spend-permissions
 
-> Tome by [coinbase](https://github.com/coinbase/spend-permissions) — distributed by [TomeVault](https://tomevault.io/claim/coinbase)
+> Tome by [coinbase](https://github.com/coinbase/spend-permissions) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [coinbase/spend-permissions](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/coinbase)
+From [coinbase/spend-permissions](https://github.com/coinbase/spend-permissions) — a repo with 47+ stars on GitHub.
 
 ---
 
