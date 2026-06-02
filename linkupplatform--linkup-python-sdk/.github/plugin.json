@@ -1,0 +1,9 @@
+{
+  "name": "linkupplatform--linkup-python-sdk",
+  "displayName": "linkup-python-sdk",
+  "description": "A Python SDK for the Linkup API",
+  "version": "1.0.0",
+  "author": "LinkupPlatform",
+  "homepage": "https://github.com/LinkupPlatform/linkup-python-sdk",
+  "skills": []
+}
