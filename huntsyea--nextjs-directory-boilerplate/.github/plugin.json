@@ -1,0 +1,9 @@
+{
+  "name": "huntsyea--nextjs-directory-boilerplate",
+  "displayName": "nextjs-directory-boilerplate",
+  "description": "Production-ready Next.js 15 boilerplate for content-driven websites with MDX, shadcn/ui, and TypeScript.",
+  "version": "1.0.0",
+  "author": "huntsyea",
+  "homepage": "https://github.com/huntsyea/nextjs-directory-boilerplate",
+  "skills": []
+}
