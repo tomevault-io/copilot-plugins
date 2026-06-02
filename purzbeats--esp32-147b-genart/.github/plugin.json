@@ -1,0 +1,9 @@
+{
+  "name": "purzbeats--esp32-147b-genart",
+  "displayName": "esp32-147b-genart",
+  "description": "Generative art on the Waveshare ESP32-S3-LCD-1.47B (1.47\" ST7789, 172x320) \u2014 CPU framebuffer effects via Arduino + LovyanGFX",
+  "version": "1.0.0",
+  "author": "purzbeats",
+  "homepage": "https://github.com/purzbeats/esp32-147b-genart",
+  "skills": []
+}
