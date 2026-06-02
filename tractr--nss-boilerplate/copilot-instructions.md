@@ -1,135 +1,126 @@
-## postgres-sql-style-guide
+## stack
 
-> Guidelines for writing Postgres SQL
+> Explanation of the main stack / structure of the project
 
+# Next.js + Supabase + Shadcn/UI (NSS) Boilerplate
 
-# Postgres SQL Style Guide
+This project is a modern full-stack boilerplate utilizing Next.js 15, Supabase, Shadcn/UI, and more. It provides a solid foundation for building web applications with authentication, internationalization, and database integration.
 
-## General
+## Project Structure
 
-- Use lowercase for SQL reserved words to maintain consistency and readability.
-- Employ consistent, descriptive identifiers for tables, columns, and other database objects.
-- Use white space and indentation to enhance the readability of your code.
-- Store dates in ISO 8601 format (`yyyy-mm-ddThh:mm:ss.sssss`).
-- Include comments for complex logic, using '/_ ... _/' for block comments and '--' for line comments.
+The project follows a well-organized structure:
 
-## Naming Conventions
-
-- Avoid SQL reserved words and ensure names are unique and under 63 characters.
-- Use snake_case for tables and columns.
-- Prefer plurals for table names
-- Prefer singular names for columns.
-
-## Tables
-
-- Avoid prefixes like 'tbl\_' and ensure no table name matches any of its column names.
-- Always add an `id` column of type `identity generated always` unless otherwise specified.
-- Create all tables in the `public` schema unless otherwise specified.
-- Always add the schema to SQL queries for clarity.
-- Always add a comment to describe what the table does. The comment can be up to 1024 characters.
-
-## Columns
-
-- Use singular names and avoid generic names like 'id'.
-- For references to foreign tables, use the singular of the table name with the `_id` suffix. For example `user_id` to reference the `users` table
-- Always use lowercase except in cases involving acronyms or when readability would be enhanced by an exception.
-
-#### Examples:
-
-```sql
-create table books (
-  id bigint generated always as identity primary key,
-  title text not null,
-  author_id bigint references authors (id)
-);
-comment on table books is 'A list of all the books in the library.';
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── auth/               # Authentication routes
+│   │   ├── confirm/        # Email confirmation
+│   │   ├── forgot-password/
+│   │   └── login/
+│   └── todos/              # Example feature
+├── components/             # Reusable components
+│   └── ui/                 # Shadcn/UI components
+├── fonts/                  # Font assets
+├── hooks/                  # Custom React hooks
+├── i18n/                   # Internationalization
+│   └── messages/           # Translation files
+│       ├── en.json         # English translations
+│       └── fr.json         # French translations
+├── lib/                    # Utility configurations
+│   ├── api/                # API utilities
+│   │   ├── queries.ts      # React Query definitions
+│   │   └── todos.ts        # Todo API functions
+│   ├── supabase/           # Supabase client config
+│   ├── cookies.ts          # Cookie handling
+│   ├── env.ts              # Environment variables
+│   ├── supabase-client.ts  # Supabase client setup
+│   └── utils.ts            # General utilities
+├── stories/                # Storybook stories
+├── types/                  # TypeScript type definitions
+│   └── database.ts         # Supabase schema types
+├── middleware.ts           # Next.js middleware
+└── supabase/               # Supabase configuration
 ```
 
-## Queries
+## Good Practices and DRY Principle
 
-- When the query is shorter keep it on just a few lines. As it gets larger start adding newlines for readability
-- Add spaces for readability.
+To maintain a clean, efficient, and maintainable codebase, follow these good practices and adhere strictly to the DRY (Don't Repeat Yourself) principle:
 
-Smaller queries:
+- **Reusable Components**:
+  - Keep components atomic, reusable, and clearly named.
+  - Centralize component logic in the `src/components/ui/` directory.
 
-```sql
-select *
-from employees
-where end_date is null;
+- **Abstract Common Logic**:
+  - Extract frequently used logic into custom hooks (`src/hooks/`) and utilities (`src/lib/utils.ts`).
+  - Avoid duplicating code by creating utility functions for common tasks (e.g., API calls, data formatting, error handling).
 
-update employees
-set end_date = '2023-12-31'
-where employee_id = 1001;
-```
+- **Single Source of Truth**:
+  - Centralize configurations (e.g., environment variables in `src/lib/env.ts`, database schema types in `src/types/database.ts`).
+  - Always regenerate types with `npm run gen:types` after database schema changes to avoid manual type duplication.
 
-Larger queries:
+- **Consistent Styling & Theming**:
+  - Maintain consistent styling using Tailwind CSS utility classes.
+  - Leverage global theme management (`next-themes`) to ensure consistent theming across components.
 
-```sql
-select
-  first_name,
-  last_name
-from employees
-where start_date between '2021-01-01' and '2021-12-31' and status = 'employed';
-```
+- **Maintainable Translations**:
+  - Organize translations hierarchically and avoid duplications across translation files (`src/i18n/messages/`).
 
-### Joins and Subqueries
+- **Clear Separation of Concerns**:
+  - Clearly separate UI components, business logic, data fetching, and state management.
 
-- Format joins and subqueries for clarity, aligning them with related SQL clauses.
-- Prefer full table names when referencing tables. This helps for readability.
+## Key Technologies & Libraries
 
-```sql
-select
-  employees.employee_name,
-  departments.department_name
-from
-  employees
-  join departments on employees.department_id = departments.department_id
-where employees.start_date > '2022-01-01';
-```
+### Core Technologies
+- **Next.js 15**: React framework with App Router
+- **Supabase**: Open-source Firebase alternative for backend services
+- **TypeScript**: Static type checking
+- **React 18**: UI library
 
-## Aliases
+### UI & Styling
+- **Shadcn/UI**: Reusable UI components based on Radix UI
+- **Tailwind CSS**: Utility-first CSS framework
+- **Lucide React**: Icon library
+- **Next Themes**: Theme management (light/dark mode)
 
-- Use meaningful aliases that reflect the data or transformation applied, and always include the 'as' keyword for clarity.
+### Form Management
+- **React Hook Form**: Form validation and state management
+- **Zod**: Schema validation
+- **@hookform/resolvers**: Connects Zod with React Hook Form
 
-```sql
-select count(*) as total_employees
-from employees
-where end_date is null;
-```
+### Data Fetching
+- **TanStack Query (React Query)**: Data fetching and state management
 
-## Complex queries and CTEs
+### Internationalization
+- **next-intl**: Library for i18n in Next.js applications
+- Translation files located in `src/i18n/messages/` (en.json, fr.json, etc.)
 
-- If a query is extremely complex, prefer a CTE.
-- Make sure the CTE is clear and linear. Prefer readability over performance.
-- Add comments to each block.
+### Development & Testing
+- **Storybook**: Component documentation and development
+- **Cypress**: End-to-end testing
+- **Vitest**: Unit testing
+- **ESLint & Prettier**: Code linting and formatting
 
-```sql
-with
-  department_employees as (
-    -- Get all employees and their departments
-    select
-      employees.department_id,
-      employees.first_name,
-      employees.last_name,
-      departments.department_name
-    from
-      employees
-      join departments on employees.department_id = departments.department_id
-  ),
-  employee_counts as (
-    -- Count how many employees in each department
-    select
-      department_name,
-      count(*) as num_employees
-    from department_employees
-    group by department_name
-  )
-select
-  department_name,
-  num_employees
-from employee_counts
-order by department_name;
-```
+## Development Workflow
+
+- **Development**: `npm run dev`
+- **Type Checking**: `npm run typecheck`
+- **Linting**: `npm run lint`
+- **Formatting**: `npm run format`
+- **Database Types**: `npm run gen:types`
+- **Testing**: `npm run test` (Vitest) or `npm run cypress:open` (E2E)
+- **Component Development**: `npm run storybook`
+
+## Customization
+
+This boilerplate is designed to be extended and customized. Key areas for customization:
+
+- Create new routes in `src/app/`
+- Add components in `src/components/`
+- Extend the database schema and update types with `npm run gen:types` (**never manually edit the database.ts file**)
+- Add new translations to support additional languages
+- Configure environment variables for different deployment environments
+
+For further guidance on authentication, internationalization, customization, and best practices, please refer to the project's README and code comments.
 
 ---
 > Source: [tractr/nss-boilerplate](https://github.com/tractr/nss-boilerplate) — distributed by [TomeVault](https://tomevault.io).
