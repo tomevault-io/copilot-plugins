@@ -4,7 +4,7 @@
   "repo": "torus-ts",
   "description": "Monorepo for the Torus Network TypesSript Ecosystem. It's managed with Turborepo and pnpm.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/renlabs-dev/torus-ts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T20:49:45Z"
+  "distributed_at": "2026-06-02T20:50:21Z"
 }
