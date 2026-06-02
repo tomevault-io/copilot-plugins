@@ -1,0 +1,9 @@
+{
+  "name": "georgelyon--swiftclaude",
+  "displayName": "SwiftClaude",
+  "description": "A Swift SDK for Anthropic's Claude API",
+  "version": "1.0.0",
+  "author": "GeorgeLyon",
+  "homepage": "https://github.com/GeorgeLyon/SwiftClaude",
+  "skills": []
+}
