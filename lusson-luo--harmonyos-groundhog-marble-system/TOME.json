@@ -1,0 +1,44 @@
+{
+  "name": "HarmonyOS-groundhog-marble-system",
+  "owner": "lusson-luo",
+  "repo": "HarmonyOS-groundhog-marble-system",
+  "description": "\u571f\u62e8\u9f20\u5f00\u6e90\u5927\u7406\u77f3\u5e93\u5b58\u7cfb\u7edf\u662f\u4e00\u5957\u5305\u542b\u3010\u9e3f\u8499\u3011\u6ca1\u6709\u3001\u5fae\u4fe1\u5c0f\u7a0b\u5e8f\u3001\u4e91\u5e73\u53f0\u5145\u7535\u8bbe\u5907\u7ba1\u7406\u7cfb\u7edf\u3002 \u9e3f\u8499App\u4f7f\u7528HarmonyOS Next \u5f00\u53d1\uff0c\u5c0f\u7a0b\u5e8f\u4f7f\u7528uniapp\u5f00\u53d1\uff1b\u529f\u80fd\u6d89\u53ca\uff1a\u5927\u677f\u5c55\u793a\uff0c\u8352\u6599\u5c55\u793a\uff0c\u5546\u54c1\u5c55\u793a\u7b49 \u4e91\u5e73\u53f0\u4f7f\u7528Vue3+vite+ts+Element Plus\u5f00\u53d1\uff0c\u6743\u9650\u3001\u5ba1\u8ba1\u3001\u5927\u677f/\u8352\u6599\u7ba1\u7406\u7b49 \u540e\u53f0\u4f7f\u7528 Go \u8bed\u8a00 goframe \u6846\u67b6",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lusson-luo/HarmonyOS-groundhog-marble-system",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T02:46:58Z"
+}
