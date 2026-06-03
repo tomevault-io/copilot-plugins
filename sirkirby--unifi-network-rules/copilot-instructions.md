@@ -1,27 +1,30 @@
-## unifi-network-rules
+## unr-rules
 
-> This file contains instructions for GitHub Copilot when working with this project.
+> Purpose of this custom home assistant integration along with general coding practices and scope guidance
 
-# GitHub Copilot Instructions
 
-This file contains instructions for GitHub Copilot when working with this project.
+# Rules
 
----
+- Always keep the code DRY for testability and separation of concerns
+- Prioritize native Home Assistant libraries, like aiounifi, and other core capabilities to respect available resources and to avoid building duplicate functionality. Leverage the latest Home Assistant documentation.
+- Diagnostics enabled for observability and debugging should be targeted, respecting the resources of the system
+- All data retrieved and stored from the API should be typed, if not supplied by aiounifi, then a custom type should be created
+- When designing a new feature, prefer elegant solutions using established best practices and patterns.
+- When fixing a problem or bug, avoid treating the symptom, look for the root cause.
+- Details matter, ensure to always preserve existing functionality unless otherwise instructed.
+- KISS
+- Maintain consistent code hygiene by addressing code and markdown linting errors and warnings.
 
-## Project Constitution
+## Notes
 
-This project follows engineering standards and conventions defined in the project constitution.
+- If a reference to the aiounifi library is needed or required, check for a local copy in the root /aiounifi
+- Changes preserving backwards compatibility may not be required, ask before assuming.
+- Avoid excessive code comments
+- Keep a rolling log of each change you make in a file called changelog.md
 
-**Read the constitution first:** [../oak/constitution.md](../oak/constitution.md)
+## Purpose
 
-The constitution defines:
-- Architecture principles and patterns
-- Code standards and best practices
-- Testing requirements
-- Documentation standards
-- Governance and decision-making processes
-
-All suggestions and code generated must align with the constitution.
+The focus of this home assistant custom integration is to extend the functionality of the Unifi Network application within the home assistant ecosystem. Build upon the home assistant unifi core integration and the aiounifi library. Bundling and enabling advanced automation, customizable backup and restore, and to be generally useful for homelab and home automation environments. Some examples: enhancing guest network access. Managing child device access. Promoting good security practices. This is open source and should remain accessible and usable by a wide variety of users and supported devices.
 
 ---
 > Source: [sirkirby/unifi-network-rules](https://github.com/sirkirby/unifi-network-rules) — distributed by [TomeVault](https://tomevault.io).
