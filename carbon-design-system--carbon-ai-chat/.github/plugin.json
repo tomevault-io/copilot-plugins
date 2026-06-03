@@ -1,0 +1,9 @@
+{
+  "name": "carbon-design-system--carbon-ai-chat",
+  "displayName": "carbon-ai-chat",
+  "description": "Carbon AI chat is a front-end chat framework from the IBM Carbon team.",
+  "version": "1.0.0",
+  "author": "carbon-design-system",
+  "homepage": "https://github.com/carbon-design-system/carbon-ai-chat",
+  "skills": []
+}
