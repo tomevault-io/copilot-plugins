@@ -4,7 +4,7 @@
   "repo": "insanely-fast-whisper-rocm",
   "description": "insanely-fast-whisper with support for AMD GPU's with rocm 6.1 - 7.1",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/beecave-homelab/insanely-fast-whisper-rocm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T16:33:37Z"
+  "distributed_at": "2026-06-03T16:35:59Z"
 }
