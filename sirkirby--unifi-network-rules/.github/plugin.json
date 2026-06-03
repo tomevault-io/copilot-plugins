@@ -1,0 +1,9 @@
+{
+  "name": "sirkirby--unifi-network-rules",
+  "displayName": "unifi-network-rules",
+  "description": "Allows you to manage, backup, and automate your UDM firewall policies, routes, and rules in Home Assistant",
+  "version": "1.0.0",
+  "author": "sirkirby",
+  "homepage": "https://github.com/sirkirby/unifi-network-rules",
+  "skills": []
+}
