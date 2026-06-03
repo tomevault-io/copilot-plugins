@@ -1,0 +1,9 @@
+{
+  "name": "fazil47--wgpu-renderer",
+  "displayName": "wgpu-renderer",
+  "description": "A rasterizer and raytracer renderer written in Rust using the wgpu library.",
+  "version": "1.0.0",
+  "author": "fazil47",
+  "homepage": "https://github.com/fazil47/wgpu-renderer",
+  "skills": []
+}
