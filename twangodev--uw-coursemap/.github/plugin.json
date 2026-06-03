@@ -1,0 +1,9 @@
+{
+  "name": "twangodev--uw-coursemap",
+  "displayName": "uw-coursemap",
+  "description": "Explore the courses offered by UW-Madison in a visual and interactive way.",
+  "version": "1.0.0",
+  "author": "twangodev",
+  "homepage": "https://github.com/twangodev/uw-coursemap",
+  "skills": []
+}
