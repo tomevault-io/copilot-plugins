@@ -4,7 +4,7 @@
   "repo": "Residential-Energy-Efficiency-Application",
   "description": "A Streamlit-based application for monitoring and optimizing residential energy consumption. Provides real-time insights and recommendations to reduce energy waste, promoting sustainable behaviors aligned with UN Sustainable Development Goal 7 (Clean and Affordable Energy).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danimoreira90/Residential-Energy-Efficiency-Application",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T06:38:36Z"
+  "distributed_at": "2026-06-03T06:40:18Z"
 }
