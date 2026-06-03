@@ -1,0 +1,44 @@
+{
+  "name": "bob-plugin-ollama-translator",
+  "owner": "CaicoLeung",
+  "repo": "bob-plugin-ollama-translator",
+  "description": "\u652f\u6301\u591a\u79cdAI\u670d\u52a1\uff08Ollama/Qwen/OpenAI/Grok/Claude/Gemini\u7b49\uff09\u7684\u7ffb\u8bd1\u548c\u89e3\u91ca\u63d2\u4ef6\uff0c\u53ef\u8fdb\u884c\u5355\u8bcd\u3001\u6574\u53e5\u7ffb\u8bd1\u53ca\u767e\u79d1\u89e3\u91ca",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CaicoLeung/bob-plugin-ollama-translator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T20:43:58Z"
+}
