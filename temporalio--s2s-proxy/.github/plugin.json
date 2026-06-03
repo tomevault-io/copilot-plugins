@@ -1,0 +1,9 @@
+{
+  "name": "temporalio--s2s-proxy",
+  "displayName": "s2s-proxy",
+  "description": "s2s-proxy is a service that intercepts and forwards requests between two Temporal servers.",
+  "version": "1.0.0",
+  "author": "temporalio",
+  "homepage": "https://github.com/temporalio/s2s-proxy",
+  "skills": []
+}
