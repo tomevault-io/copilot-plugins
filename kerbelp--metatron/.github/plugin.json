@@ -1,0 +1,9 @@
+{
+  "name": "kerbelp--metatron",
+  "displayName": "metatron",
+  "description": "Metatron is a self-hosted system that captures a codebase's real implementation decisions \u2014 preferred patterns, rejected approaches, edge cases, internal conventions \u2014 as structured priors, and serves",
+  "version": "1.0.0",
+  "author": "kerbelp",
+  "homepage": "https://github.com/kerbelp/metatron",
+  "skills": []
+}
