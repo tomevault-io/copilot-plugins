@@ -1,0 +1,9 @@
+{
+  "name": "tanduy03--cloudflare-d1-database",
+  "displayName": "cloudflare-d1-database",
+  "description": "Laravel database driver for Cloudflare D1 - supports REST & Worker, Eloquent-ready - TanDuy03",
+  "version": "1.0.0",
+  "author": "TanDuy03",
+  "homepage": "https://github.com/TanDuy03/cloudflare-d1-database",
+  "skills": []
+}
