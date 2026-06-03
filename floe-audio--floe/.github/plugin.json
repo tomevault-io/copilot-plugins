@@ -1,0 +1,9 @@
+{
+  "name": "floe-audio--floe",
+  "displayName": "Floe",
+  "description": "Sample library platform with a simple, powerful interface | CLAP, VST3, AU",
+  "version": "1.0.0",
+  "author": "floe-audio",
+  "homepage": "https://github.com/floe-audio/Floe",
+  "skills": []
+}
