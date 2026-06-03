@@ -1,0 +1,9 @@
+{
+  "name": "digidem--earth-defenders-assistant",
+  "displayName": "earth-defenders-assistant",
+  "description": "Platform for creating audio-first AI assistants that can work offline using a flexible plugin architecture",
+  "version": "1.0.0",
+  "author": "digidem",
+  "homepage": "https://github.com/digidem/earth-defenders-assistant",
+  "skills": []
+}
