@@ -64774,6 +64774,16 @@
       "description": "Web app to aid with the legal name and gender marker change process in the U.S."
     },
     {
+      "name": "meverastudios--imperat",
+      "source": "./meverastudios--imperat",
+      "description": "Enterprise command dispatching framework with optimal performance"
+    },
+    {
+      "name": "bareboat-necessities--bbn-wave-period-esp32",
+      "source": "./bareboat-necessities--bbn-wave-period-esp32",
+      "description": "Estimate ocean wave height (or vessel heave), waves direction, and period from accelerations using IMU on esp32 using advanced Kalman filters"
+    },
+    {
       "name": "lktiep--cortex-hub",
       "source": "./lktiep--cortex-hub",
       "description": "Self-hosted AI Agent Memory + Code Intelligence Platform \u2014 one MCP endpoint for persistent memory, AST-aware code search, shared knowledge, and quality enforcement across all your AI coding agents."
@@ -67699,6 +67709,11 @@
       "description": "ComfyUI-FLUX-BFL-API"
     },
     {
+      "name": "clockobot--clockobot",
+      "source": "./clockobot--clockobot",
+      "description": "Timesheets for freelancers made easy and efficient"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -68549,6 +68564,11 @@
       "description": "Ideas worth building."
     },
     {
+      "name": "provos--planai",
+      "source": "./provos--planai",
+      "description": "PlanAI: A graph-based framework for complex task automation integrating traditional compute and LLM capabilities"
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -69387,6 +69407,11 @@
       "name": "brightdigit--datathespian",
       "source": "./brightdigit--datathespian",
       "description": "Concurrency-Friendly SwiftData"
+    },
+    {
+      "name": "shpigford--society-fail",
+      "source": "./shpigford--society-fail",
+      "description": "Browser-based incremental post-apocalyptic clicker game"
     },
     {
       "name": "rust-works--succinctly",
@@ -70459,6 +70484,11 @@
       "description": "AI-powered post-consume script for Paperless NGX that generates high-quality, language-aware document titles using OpenAI, Claude or local Ollama models."
     },
     {
+      "name": "pujo-atlas-kolkata--pujoatlaskol-web",
+      "source": "./pujo-atlas-kolkata--pujoatlaskol-web",
+      "description": "The most advanced pandal hopping experience in the world*"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -71447,6 +71477,16 @@
       "name": "ttmouse--wispr-flow-cn",
       "source": "./ttmouse--wispr-flow-cn",
       "description": "Wispr-Flow-CN"
+    },
+    {
+      "name": "joncrangle--sketchybar-system-stats",
+      "source": "./joncrangle--sketchybar-system-stats",
+      "description": "A simple CPU, memory and disk usage event provider for Sketchybar"
+    },
+    {
+      "name": "muneebhashone--ts-easy",
+      "source": "./muneebhashone--ts-easy",
+      "description": "ts-easy is your minimalist TypeScript starter for Node.js projects. No fluff, just the essentials to get you up and running with TypeScript, Biome, and more. Perfect for initiating any TypeScript proj"
     },
     {
       "name": "izittmarvin--memcoach",
@@ -73472,6 +73512,21 @@
       "name": "redhat-developer--rhdh-plugins",
       "source": "./redhat-developer--rhdh-plugins",
       "description": "Red Hat Developer Hub plugins"
+    },
+    {
+      "name": "litestar-org--litestar-fullstack-inertia",
+      "source": "./litestar-org--litestar-fullstack-inertia",
+      "description": "A fully-functional reference application using Litestar, Inertia JS, and Advanced Alchemy"
+    },
+    {
+      "name": "litestar-org--litestar-fullstack-inertia",
+      "source": "./litestar-org--litestar-fullstack-inertia",
+      "description": "A fully-functional reference application using Litestar, Inertia JS, and Advanced Alchemy"
+    },
+    {
+      "name": "litestar-org--litestar-fullstack-inertia",
+      "source": "./litestar-org--litestar-fullstack-inertia",
+      "description": "A fully-functional reference application using Litestar, Inertia JS, and Advanced Alchemy"
     },
     {
       "name": "janbjorge--rekal",
@@ -77619,6 +77674,11 @@
       "description": "Toolkit for AsciiDoc\u2122 in rust"
     },
     {
+      "name": "globalbibletools--platform",
+      "source": "./globalbibletools--platform",
+      "description": "platform"
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -78562,6 +78622,16 @@
       "name": "embeddedgui--embeddedgui",
       "source": "./embeddedgui--embeddedgui",
       "description": "\u652f\u6301FPB\u3001\u6297\u952f\u9f7f\u3001\u52a8\u753b\u3001\u810f\u77e9\u9635\u7684\u9ad8\u6548\u5d4c\u5165\u5f0fGUI"
+    },
+    {
+      "name": "atlassian-labs--atlaspack",
+      "source": "./atlassian-labs--atlaspack",
+      "description": "Atlaspack is the frontend bundler used to build Atlassian products, written in JavaScript and Rust by core contributors of Parcel. "
+    },
+    {
+      "name": "atlassian-labs--atlaspack",
+      "source": "./atlassian-labs--atlaspack",
+      "description": "Atlaspack is the frontend bundler used to build Atlassian products, written in JavaScript and Rust by core contributors of Parcel. "
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -82334,6 +82404,11 @@
       "description": "Balancer frontend apps and packages. Includes the official Balancer web application."
     },
     {
+      "name": "zgiai--zgi",
+      "source": "./zgiai--zgi",
+      "description": "ZGI is an open-source platform for building AI applications. Its intuitive interface combines workflow design, agent orchestration, dataset management, and model integration\u2014allowing you to quickly mo"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -83517,6 +83592,11 @@
       "name": "barredterra--pretty-release-notes",
       "source": "./barredterra--pretty-release-notes",
       "description": "Turn GitHub's auto-generated release notes into human-readable sentences."
+    },
+    {
+      "name": "confluentinc--vscode",
+      "source": "./confluentinc--vscode",
+      "description": "Confluent for Visual Studio Code"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -89114,6 +89194,16 @@
       "description": "Programmable assets on Bitcoin and beyond"
     },
     {
+      "name": "parkerdgabel--quackml",
+      "source": "./parkerdgabel--quackml",
+      "description": "A duckDB extension implementing a full service AI/ML enginer"
+    },
+    {
+      "name": "plugboard-dev--plugboard",
+      "source": "./plugboard-dev--plugboard",
+      "description": "Plugboard is an event driven modelling and orchestration framework in Python for simulating and driving complex processes with many interconnected stateful components."
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -90742,6 +90832,11 @@
       "name": "mikedesu--raylib-rpg-c",
       "source": "./mikedesu--raylib-rpg-c",
       "description": "An rpg written in C/C++ using raylib"
+    },
+    {
+      "name": "oaknational--oak-ai-lesson-assistant",
+      "source": "./oaknational--oak-ai-lesson-assistant",
+      "description": "Oak's AI Projects including our AI Lesson Planning Assistant (Aila)"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -97104,6 +97199,11 @@
       "description": "The EDK is a collection of packages to aid in the development of electron applications. It does not build, nor test, applications. It simply provides functionality through dedciated modules."
     },
     {
+      "name": "tanduy03--cloudflare-d1-database",
+      "source": "./tanduy03--cloudflare-d1-database",
+      "description": "Laravel database driver for Cloudflare D1 - supports REST & Worker, Eloquent-ready - TanDuy03"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -99357,6 +99457,16 @@
       "name": "fabceolin--the-edge-agent",
       "source": "./fabceolin--the-edge-agent",
       "description": "Neurosymbolic AI agent framework - LLM + Prolog reasoning for small models. Single binary, runs offline or cloud-ready. Python & Rust."
+    },
+    {
+      "name": "perawallet--pera-android",
+      "source": "./perawallet--pera-android",
+      "description": "The Android repository of Pera"
+    },
+    {
+      "name": "perawallet--pera-android",
+      "source": "./perawallet--pera-android",
+      "description": "The Android repository of Pera"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -104054,6 +104164,21 @@
       "description": "Create blog thumbnails easily and quickly with Thumbnail Maker"
     },
     {
+      "name": "kleer001--text-loom",
+      "source": "./kleer001--text-loom",
+      "description": "Network for procedural editing of text with LLMs"
+    },
+    {
+      "name": "lokeshwardewangan--budgetter-webapp",
+      "source": "./lokeshwardewangan--budgetter-webapp",
+      "description": "Production-ready expense tracking platform delivering real-time financial insights, secure authentication, and scalable architecture for data-driven personal finance management."
+    },
+    {
+      "name": "lokeshwardewangan--budgetter-webapp",
+      "source": "./lokeshwardewangan--budgetter-webapp",
+      "description": "Production-ready expense tracking platform delivering real-time financial insights, secure authentication, and scalable architecture for data-driven personal finance management."
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -107137,6 +107262,11 @@
       "name": "os-migrate--vmware-migration-kit",
       "source": "./os-migrate--vmware-migration-kit",
       "description": "VMWare to OpenStack Migration Toolkit"
+    },
+    {
+      "name": "candidtim--f2-commander",
+      "source": "./candidtim--f2-commander",
+      "description": "F2 Commander is an orthodox file manager for the modern world"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -112367,6 +112497,11 @@
       "name": "pypomp--pypomp",
       "source": "./pypomp--pypomp",
       "description": "Inference and modeling for partially observed Markov process (POMP) models"
+    },
+    {
+      "name": "devaryakjha--tagflow",
+      "source": "./devaryakjha--tagflow",
+      "description": "A flutter package that takes html string as input and parses and converts that to Flutter widgets based on the provided configuration. "
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -118194,6 +118329,11 @@
       "description": "An organizer for our family, meant to be both an app and a dashboard"
     },
     {
+      "name": "craft-thu--activen",
+      "source": "./craft-thu--activen",
+      "description": "RISC-V-based many-core neuromorphic architecture"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -121757,6 +121897,11 @@
       "name": "nopara73--longevityworldcup",
       "source": "./nopara73--longevityworldcup",
       "description": "Open-source longevity sport platform with biological-age calculators, athlete profiles, and public leaderboards."
+    },
+    {
+      "name": "myui--rtrec",
+      "source": "./myui--rtrec",
+      "description": "An realtime recommendation system supporting online updates"
     },
     {
       "name": "13point5--agent-canvas",
@@ -129012,6 +129157,16 @@
       "name": "goerz--muxdisplay-jl",
       "source": "./goerz--muxdisplay-jl",
       "description": "A Julia display showing graphics in a multiplexer pane"
+    },
+    {
+      "name": "arcjet--arcjet-docs",
+      "source": "./arcjet--arcjet-docs",
+      "description": "Arcjet's documentation."
+    },
+    {
+      "name": "ajeygore--coredns-ui",
+      "source": "./ajeygore--coredns-ui",
+      "description": "CoreDNS UI for managing CoreDNS using Redis plugin, this repository allows managing the records using web interface and provides rest apis"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -137922,6 +138077,11 @@
       "name": "veteranbv--aicrawl",
       "source": "./veteranbv--aicrawl",
       "description": "aicrawl"
+    },
+    {
+      "name": "dxpr--ckeditor5-ai-agent",
+      "source": "./dxpr--ckeditor5-ai-agent",
+      "description": "ckeditor5-ai-agent"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -194919,21 +195079,6 @@
       "description": "PayForApi"
     },
     {
-      "name": "ancplua--ancplua-claude-plugins",
-      "source": "./ancplua--ancplua-claude-plugins",
-      "description": "ancplua-claude-plugins"
-    },
-    {
-      "name": "ancplua--ancplua-claude-plugins",
-      "source": "./ancplua--ancplua-claude-plugins",
-      "description": "ancplua-claude-plugins"
-    },
-    {
-      "name": "ancplua--ancplua-claude-plugins",
-      "source": "./ancplua--ancplua-claude-plugins",
-      "description": "ancplua-claude-plugins"
-    },
-    {
       "name": "ldmoxeii--only-engine",
       "source": "./ldmoxeii--only-engine",
       "description": "only-engine"
@@ -218592,11 +218737,6 @@
       "name": "tdiorio2323--cabanamgmt",
       "source": "./tdiorio2323--cabanamgmt",
       "description": "cabanamgmt"
-    },
-    {
-      "name": "malikkotb--infinite-grid-navigation",
-      "source": "./malikkotb--infinite-grid-navigation",
-      "description": "infinite-grid-navigation"
     },
     {
       "name": "jarvis823--astro-50mm",
