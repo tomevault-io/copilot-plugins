@@ -1,0 +1,9 @@
+{
+  "name": "zcash--wallet",
+  "displayName": "wallet",
+  "description": "Repo for replacing the zcashd wallet",
+  "version": "1.0.0",
+  "author": "zcash",
+  "homepage": "https://github.com/zcash/wallet",
+  "skills": []
+}
