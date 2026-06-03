@@ -7,11 +7,11 @@ A collection of tools for building nostr web clients
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hzrd149/applesauce](https://github.com/hzrd149/applesauce).
+Original source: `CLAUDE.md` in [hzrd149/applesauce](https://github.com/hzrd149/applesauce).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
