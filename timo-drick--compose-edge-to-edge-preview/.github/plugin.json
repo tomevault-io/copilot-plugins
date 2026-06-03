@@ -1,0 +1,9 @@
+{
+  "name": "timo-drick--compose-edge-to-edge-preview",
+  "displayName": "compose_edge_to_edge_preview",
+  "description": "jetpack Compose previews for edge-to-edge design in Android Studio",
+  "version": "1.0.0",
+  "author": "timo-drick",
+  "homepage": "https://github.com/timo-drick/compose_edge_to_edge_preview",
+  "skills": []
+}
