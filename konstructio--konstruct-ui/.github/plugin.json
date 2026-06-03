@@ -1,0 +1,9 @@
+{
+  "name": "konstructio--konstruct-ui",
+  "displayName": "konstruct-ui",
+  "description": "This repository contains a set of reusable and customizable React components built for Konstruct's infrastructure.",
+  "version": "1.0.0",
+  "author": "konstructio",
+  "homepage": "https://github.com/konstructio/konstruct-ui",
+  "skills": []
+}
