@@ -1,34 +1,13 @@
-## core-package-conventions
+## general-monorepo-guidelines
 
-> Conventions and guidelines specific to the `packages/core` package.
+> General guidelines for working within this monorepo package structure.
 
 
-- Follow all `general-monorepo-guidelines`.
-- This package provides core, framework-agnostic logic and utilities. Do **not** introduce React-specific dependencies or concepts here.
-- Ensure code is well-documented with TSDoc comments.
-- Tests utilize Vitest. Focus on unit testing individual functions and classes.
-
-## Timers in cleanup/unsubscribe handlers
-
-Use `setCleanupTimeout` (from `../utils/setCleanupTimeout`) instead of `setTimeout` for any timer whose purpose is deferred cleanup - subscription removal, state expiration, node release, etc.
-
-In Node.js, `setTimeout` keeps the process alive until the timer fires. Cleanup timers should never prevent process exit. `setCleanupTimeout` calls `.unref()` on the timer in Node.js so the process can exit naturally, while still firing the callback if the process is running for other reasons. In browsers, it behaves identically to `setTimeout`.
-
-```ts
-// Don't: keeps Node.js alive for the duration of the delay
-return () => {
-  setTimeout(() => {
-    state.set('removeSubscription', cleanup(id))
-  }, STATE_CLEAR_DELAY)
-}
-
-// Do: lets the process exit if nothing else is keeping it alive
-return () => {
-  setCleanupTimeout(() => {
-    state.set('removeSubscription', cleanup(id))
-  }, STATE_CLEAR_DELAY)
-}
-```
+- This project is a monorepo. Shared configurations (ESLint, TypeScript) are likely located in a root-level directory (e.g., `@repo/` or `config/`) and extended by individual packages. Refer to these base configurations for foundational rules.
+- Packages typically contain `src/` for source code, `test/` for tests (using Vitest), and `dist/` for build outputs (do not edit files in `dist/`).
+- Strictly adhere to the project's ESLint rules, which enforce code style, quality, and TSDoc comment usage (`@repo/config-eslint`, `@repo/config-eslint/tsdoc`). Run the linter (`eslint .`) regularly.
+- Ensure all exported members (functions, classes, types, variables) have comprehensive TSDoc comments.
+- Check the relevant `tsconfig.settings.json` and the base `tsconfig.json` for path aliases and compiler options.
 
 ---
 > Source: [sanity-io/sdk](https://github.com/sanity-io/sdk) — distributed by [TomeVault](https://tomevault.io).
