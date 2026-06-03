@@ -1,0 +1,9 @@
+{
+  "name": "kapetan-io--querator",
+  "displayName": "querator",
+  "description": "An Almost Exactly Once Delivery (AEOD) queue",
+  "version": "1.0.0",
+  "author": "kapetan-io",
+  "homepage": "https://github.com/kapetan-io/querator",
+  "skills": []
+}
