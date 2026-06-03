@@ -1,0 +1,9 @@
+{
+  "name": "ttsds--ttsds",
+  "displayName": "ttsds",
+  "description": "The TTSDS benchmark evaluates synthetic speech quality by considering prosody, speaker identity, and intelligibility, comparing these factors with real speech and noise datasets.",
+  "version": "1.0.0",
+  "author": "ttsds",
+  "homepage": "https://github.com/ttsds/ttsds",
+  "skills": []
+}
