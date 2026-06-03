@@ -7,11 +7,11 @@ PyExamine: A Comprehensive, Un-Opinionated Smell Detection Tool for Python
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KarthikShivasankar/python_smells_detector](https://github.com/KarthikShivasankar/python_smells_detector).
+Original source: `CLAUDE.md` in [KarthikShivasankar/python_smells_detector](https://github.com/KarthikShivasankar/python_smells_detector).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
