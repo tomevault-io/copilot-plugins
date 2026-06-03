@@ -1,0 +1,9 @@
+{
+  "name": "sanity-io--sdk",
+  "displayName": "sdk",
+  "description": "Sanity App SDK",
+  "version": "1.0.0",
+  "author": "sanity-io",
+  "homepage": "https://github.com/sanity-io/sdk",
+  "skills": []
+}
