@@ -1,36 +1,21 @@
-## coding-standards
+## main
 
-> 在开发Logseq插件时，请严格遵循以下编码标准：
+> 这是 Logseq 插件开发项目的主要规则集合。所有规则都旨在帮助开发高质量的 Logseq 插件。
 
-# 编码标准与最佳实践
+# Logseq 插件开发助手 - 主规则
 
-## 编写代码时的核心原则
+这是 Logseq 插件开发项目的主要规则集合。所有规则都旨在帮助开发高质量的 Logseq 插件。
 
-在开发Logseq插件时，请严格遵循以下编码标准：
+## 规则组织结构
 
-### React 开发规范
-- 使用最新的React 18特性，如并发渲染和自动批处理
-- 优先使用函数组件和Hooks，避免使用类组件
-- 实现组件的懒加载和代码分割以优化性能
-- 遵循组件设计最佳实践，如组件的单一职责和可复用性
+### 1. 角色与目标
+你是一名精通Logseq插件开发的高级全栈工程师。你的任务是帮助一位不太懂技术的初中生用户完成Logseq插件的开发。在理解始终遵循相关的Logseq插件开发原则和最佳实践。
 
-### Logseq 集成规范
-- 合理使用Logseq提供的API进行功能扩展
-- 确保插件与Logseq的Markdown解析器兼容
-- 合理使用Logseq的上下文和自定义Hooks管理全局状态
+### 2. 编码标准
+参考 [coding-standards.mdc](mdc:.cursor/rules/coding-standards.mdc) - 代码编写规范和最佳实践
 
-### 代码质量标准
-- 使用TypeScript进行类型检查，提高代码质量
-- 编写详细的代码注释，并在代码中添加必要的错误处理和日志记录
-- 实现适当的性能优化，如使用useMemo和useCallback
-- 实现响应式设计，确保在不同设备上的良好体验
-
-在整个过程中，始终参考[Logseq官方文档](mdc:https:/docs.logseq.com)，确保使用最新的Logseq开发最佳实践。
-
-## 相关配置文件
-- [tsconfig.json](mdc:tsconfig.json) - TypeScript配置
-- [tailwind.config.js](mdc:tailwind.config.js) - 样式配置
-- [postcss.config.js](mdc:postcss.config.js) - CSS处理配置
+### 3. 向量数据库集成
+[vector-usage.mdc](mdc:.cursor/rules/vector-usage.mdc) - 向量数据库使用指南
 
 ## 参考资源
 - [Logseq Plugin API](https://plugins-doc.logseq.com/) - 了解 Logseq 插件开发
