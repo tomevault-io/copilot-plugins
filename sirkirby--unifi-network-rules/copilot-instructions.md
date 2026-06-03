@@ -1,29 +1,36 @@
-## python-rules
+## specify-rules
 
-> Python project and code rules
+> Auto-generated from all feature plans. Last updated: 2025-11-11
 
+# unifi-network-rules Development Guidelines
 
-# Clean, Testable, & Performant Python Code Rules
+Auto-generated from all feature plans. Last updated: 2025-11-11
 
-* Readability First (Zen of Python): Follow PEP 8 (naming, indentation, whitespace, line length). Use clear, descriptive names for variables, functions, and classes.
-* Single Responsibility Principle (SRP): Functions and classes should do one thing and do it well. Keep functions small and focused.
-* Idempotence & Purity (for Testability): Prefer pure functions (no side effects) where possible, especially in core logic, as they are trivial to test. Isolate I/O and state changes.
-* Type Hinting: Use type hints heavily (def calculate_area(length: float, width: float) -> float:). This improves clarity, enables static analysis (like mypy), and aids tooling.
-* Concise & Idiomatic Code: Leverage Python features like list comprehensions, generator expressions, and context managers (with) instead of long, verbose loops or try/finally blocks.
-* Performance Awareness: Understand Python's data structures (e.g., set lookups are O(1)). Profile critical sections of code before optimizing, and avoid premature optimization. Use built-in functions and standard library modules where possible (they are often implemented in C and faster).
-* Documentation: Document public APIs (classes, methods, functions) using clear docstrings (e.g., NumPy or Google style) explaining what they do, why, and how to use them.
+## Active Technologies
 
-## Good & Well-Organized Python Project Structure Rules
+- Python 3.13 + Home Assistant Core, aiounifi (local copy in `/aiounifi`), existing UNR coordinator infrastructure (001-oon-policies)
 
-* Standard Directory Layout
-* * Root: Contains meta-files: README.md, LICENSE, configuration files (.pre-commit-config.yaml), and top-level build files (pyproject.toml, setup.cfg).
-* * Source Code: Place all reusable library code in a single top-level package directory named after the project (e.g., custom_components/unifi_network_rules).
-* * Tests: Use a dedicated directory for tests, often named tests/, outside the source package.
-* Dependency Management: Explicitly manage dependencies using a tool like Poetry or PDM (preferred modern methods) or traditional requirements.txt/setup.py/pyproject.toml.
-* Environment Isolation: Always use virtual environments (e.g., venv) to isolate project dependencies.
-* Configuration Separation: Separate configuration (e.g., environment variables, settings files) from code. Do not hardcode secrets.
-* Tooling Consistency: Enforce code style and quality checks automatically using tools like linters (e.g., Ruff, Flake8), formatters (e.g., Black), and type checkers (e.g., mypy) via pre-commit hooks.
-  
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+cd src [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] pytest [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] ruff check .
+
+## Code Style
+
+Python 3.13: Follow standard conventions
+
+## Recent Changes
+
+- 001-oon-policies: Added Python 3.13 + Home Assistant Core, aiounifi (local copy in `/aiounifi`), existing UNR coordinator infrastructure
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
 
 ---
 > Source: [sirkirby/unifi-network-rules](https://github.com/sirkirby/unifi-network-rules) — distributed by [TomeVault](https://tomevault.io).
