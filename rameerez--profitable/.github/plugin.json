@@ -1,0 +1,9 @@
+{
+  "name": "rameerez--profitable",
+  "displayName": "profitable",
+  "description": "\ud83d\udcb8 Calculate the MRR, ARR, TTM, churn, LTV, ARPU, total revenue & valuation of your pay-powered Rails SaaS app. MRR dashboard for your Rails app.",
+  "version": "1.0.0",
+  "author": "rameerez",
+  "homepage": "https://github.com/rameerez/profitable",
+  "skills": []
+}
