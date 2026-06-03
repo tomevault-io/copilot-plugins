@@ -1,0 +1,69 @@
+## ras-commander
+
+> RAS Commander development guidance
+
+# RAS Commander - Cursor Rules
+
+This file provides navigation to authoritative documentation. **Do not duplicate content here.**
+
+## Primary Sources (Read These)
+
+### Strategic Guidance
+- **`CLAUDE.md`** (root) - Project overview, architecture, development principles
+- **`AGENTS.md`** (root) - Library overview and capabilities
+
+### Topic-Specific Rules (Auto-Load in Claude Code)
+Located in `.claude/rules/`:
+
+**Python Patterns** (`.claude/rules/python/`):
+- `static-classes.md` - No instantiation pattern (RasCmdr, Hdf*, Ras*)
+- `decorators.md` - @log_call, @staticmethod, @standardize_input
+- `path-handling.md` - pathlib.Path for all operations
+- `error-handling.md` - LoggingConfig, exception patterns
+- `naming-conventions.md` - snake_case, PascalCase, abbreviations
+- `import-patterns.md` - Flexible imports for dev vs installed
+
+**HEC-RAS Domain** (`.claude/rules/hec-ras/`):
+- `execution.md` - RasCmdr.compute_plan(), parallel modes
+- `remote.md` - session_id=2, Group Policy requirements
+- `hdf-files.md` - Results extraction, steady vs unsteady
+- `geometry.md` - Fixed-width parsing, bank stations
+- `dss-files.md` - Boundary conditions, Java bridge
+- `usgs.md` - Gauge discovery, data retrieval
+- `precipitation.md` - AORC, Atlas 14
+
+**Testing & Documentation** (`.claude/rules/testing/`, `.claude/rules/documentation/`):
+- `tdd-approach.md` - Test with real HEC-RAS projects
+- `environment-management.md` - uv for agents, Anaconda for notebooks
+- `notebook-standards.md` - H1 title required
+- `mkdocs-config.md` - Build configuration
+
+### Subpackage Context
+Each subpackage has scoped guidance:
+- `ras_commander/AGENTS.md` - Library API patterns
+- `ras_commander/hdf/AGENTS.md` - HDF operations
+- `ras_commander/usgs/CLAUDE.md` - USGS workflows
+- `ras_commander/remote/AGENTS.md` - Remote execution
+- `examples/AGENTS.md` - Notebook index
+
+## Quick Reference
+
+### Core Pattern
+```python
+# Static classes - call directly, no instantiation
+from ras_commander import RasCmdr, init_ras_project
+init_ras_project("/path/to/project", "6.5")
+RasCmdr.compute_plan("01")  # Not RasCmdr().compute_plan()
+```
+
+### Key Principles
+1. Use `pathlib.Path` for all file operations
+2. Test with `RasExamples.extract_project()`, not mocks
+3. Use `@log_call` decorator on all public functions
+4. Static class pattern for most classes (exceptions: RasPrj, Workers, Callbacks)
+
+## See CLAUDE.md for Complete Documentation
+
+---
+> Source: [gpt-cmdr/ras-commander](https://github.com/gpt-cmdr/ras-commander) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
