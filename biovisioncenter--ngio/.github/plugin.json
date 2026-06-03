@@ -1,0 +1,9 @@
+{
+  "name": "biovisioncenter--ngio",
+  "displayName": "ngio",
+  "description": "ngio is a Python library to streamline OME-Zarr image analysis workflows.",
+  "version": "1.0.0",
+  "author": "BioVisionCenter",
+  "homepage": "https://github.com/BioVisionCenter/ngio",
+  "skills": []
+}
