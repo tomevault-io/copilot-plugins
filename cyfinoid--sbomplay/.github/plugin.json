@@ -1,0 +1,9 @@
+{
+  "name": "cyfinoid--sbomplay",
+  "displayName": "sbomplay",
+  "description": "Browser based Privacy Aware SBoM Exploration",
+  "version": "1.0.0",
+  "author": "cyfinoid",
+  "homepage": "https://github.com/cyfinoid/sbomplay",
+  "skills": []
+}
