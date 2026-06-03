@@ -1,0 +1,9 @@
+{
+  "name": "grafana--faro-flutter-sdk",
+  "displayName": "faro-flutter-sdk",
+  "description": "The Grafana Faro Flutter SDK, part of the Grafana Faro project, is a highly configurable flutter SDK for real user monitoring (RUM) that instruments flutter applications to capture observability signa",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/faro-flutter-sdk",
+  "skills": []
+}
