@@ -1,0 +1,9 @@
+{
+  "name": "cloud-apim--otoroshi-llm-extension",
+  "displayName": "otoroshi-llm-extension",
+  "description": "Connect, setup, secure and seamlessly manage LLM models using an Universal/OpenAI compatible API",
+  "version": "1.0.0",
+  "author": "cloud-apim",
+  "homepage": "https://github.com/cloud-apim/otoroshi-llm-extension",
+  "skills": []
+}
