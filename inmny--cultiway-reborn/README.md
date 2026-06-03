@@ -1,0 +1,24 @@
+# Cultiway-Reborn
+
+> Source: [inmny/Cultiway-Reborn](https://github.com/inmny/Cultiway-Reborn) — distributed by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [inmny/Cultiway-Reborn](https://github.com/inmny/Cultiway-Reborn).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+From [inmny/Cultiway-Reborn](https://github.com/inmny/Cultiway-Reborn) — a repo with 16+ stars on GitHub.
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-s -->
