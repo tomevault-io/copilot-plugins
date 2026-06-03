@@ -1,0 +1,9 @@
+{
+  "name": "leoswing--comparequeries-datasource-rc",
+  "displayName": "comparequeries-datasource-rc",
+  "description": "Grafana plugin for time-shifted query comparison across datasources",
+  "version": "1.0.0",
+  "author": "leoswing",
+  "homepage": "https://github.com/leoswing/comparequeries-datasource-rc",
+  "skills": []
+}
