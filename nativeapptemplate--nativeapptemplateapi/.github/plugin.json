@@ -1,0 +1,9 @@
+{
+  "name": "nativeapptemplate--nativeapptemplateapi",
+  "displayName": "nativeapptemplateapi",
+  "description": "Rails 8.1 API backend for NativeAppTemplate iOS/Android mobile applications",
+  "version": "1.0.0",
+  "author": "nativeapptemplate",
+  "homepage": "https://github.com/nativeapptemplate/nativeapptemplateapi",
+  "skills": []
+}
