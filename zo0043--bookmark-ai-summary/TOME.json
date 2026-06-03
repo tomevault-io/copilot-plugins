@@ -1,0 +1,44 @@
+{
+  "name": "bookmark-ai-summary",
+  "owner": "zo0043",
+  "repo": "bookmark-ai-summary",
+  "description": "\u7528 LLM \u548c jina reader \u751f\u6210\u7684\u603b\u7ed3",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zo0043/bookmark-ai-summary",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T05:32:30Z"
+}
