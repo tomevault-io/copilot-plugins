@@ -1,0 +1,9 @@
+{
+  "name": "rock3r--camerasync",
+  "displayName": "CameraSync",
+  "description": "Sync GPS and date/time with your Ricoh or Sony camera.",
+  "version": "1.0.0",
+  "author": "rock3r",
+  "homepage": "https://github.com/rock3r/CameraSync",
+  "skills": []
+}
