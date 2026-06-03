@@ -1,28 +1,19 @@
-## changesets
+## pre-push-quality
 
-> How to record user-facing package changes for releases
+> Build, lint, and format before pushing changes
 
 
-# Changesets (release notes)
+# Pre-push quality (build, lint, format)
 
-This repo uses [Changesets](https://github.com/changesets/changesets). **Do not** hand-edit per-package `CHANGELOG.md` files for new work: they are updated automatically when releases run.
+Before **every** `git push` (including the first push on a branch), agents must ensure the project builds cleanly, passes lint, and is formatted according to repo tooling.
 
-When a change should appear in the next release notes:
+1. **Format** — Apply the repository’s formatter (for this workspace: `bun run format` from the repo root).
+2. **Lint** — Run lint across affected packages or the whole workspace (for this workspace: `bunx turbo run lint` from the repo root, or the equivalent documented in `package.json` / CI).
+3. **Build** — Run a full or workspace build so TypeScript and bundlers succeed (for this workspace: `bunx turbo run build` from the repo root, or the equivalent used in CI).
 
-1. Add a new markdown file under `.changeset/` (e.g. `.changeset/some-topic.md`).
-2. Use the standard frontmatter listing affected packages and bump type (`patch`, `minor`, or `major`):
+If a command fails, fix the underlying issues and re-run the failing step before pushing. Do not push with known build, lint, or format failures unless the user has explicitly agreed to that exception for a specific change.
 
-   ```yaml
-   ---
-   "@prosemark/core": patch
-   ---
-   ```
-
-   For multiple packages, list each on its own line under the same `---` block.
-
-3. After the frontmatter, write a concise summary in the imperative or plain past tense, as you want it to read in the changelog.
-
-Remove or avoid duplicate descriptions in `CHANGELOG.md`; rely on the changeset file only.
+When instructions from cloud agents or CI already require tests or other checks, treat those as additive: still satisfy build, lint, and format before push unless they are clearly redundant with a single combined script you are instructed to run instead.
 
 ---
 > Source: [jsimonrichard/ProseMark](https://github.com/jsimonrichard/ProseMark) — distributed by [TomeVault](https://tomevault.io).
