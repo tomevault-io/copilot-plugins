@@ -1,0 +1,9 @@
+{
+  "name": "huawei-csl--kvarn",
+  "displayName": "KVarN",
+  "description": "KVarN is a native vLLM KV-cache quantization backend for your agents: 3-5x more context, throughput above FP16, and FP16-level accuracy. Calibration-free, one flag.",
+  "version": "1.0.0",
+  "author": "huawei-csl",
+  "homepage": "https://github.com/huawei-csl/KVarN",
+  "skills": []
+}
