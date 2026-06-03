@@ -1,0 +1,44 @@
+{
+  "name": "IARA.jl",
+  "owner": "psrenergy",
+  "repo": "IARA.jl",
+  "description": "IARA is open-source software for analyzing electricity market design choices and price formation schemes and their consequences for agents' strategies for participating in these markets.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/psrenergy/IARA.jl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T05:37:44Z"
+}
