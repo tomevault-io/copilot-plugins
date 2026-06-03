@@ -1,0 +1,9 @@
+{
+  "name": "pnsk-lab--hikkaku",
+  "displayName": "hikkaku",
+  "description": "Let AI create Scratch projects, via TypeScript",
+  "version": "1.0.0",
+  "author": "pnsk-lab",
+  "homepage": "https://github.com/pnsk-lab/hikkaku",
+  "skills": []
+}
