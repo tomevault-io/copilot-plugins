@@ -1,0 +1,14 @@
+{
+  "name": "realfascinated--scoresaber-reloaded",
+  "displayName": "scoresaber-reloaded",
+  "description": "ScoreSaber Reloaded is a new way to view your scores and get more stats about you and your plays",
+  "version": "1.0.0",
+  "author": "RealFascinated",
+  "homepage": "https://github.com/RealFascinated/scoresaber-reloaded",
+  "skills": [
+    {
+      "name": "next-best-practices",
+      "description": ""
+    }
+  ]
+}
