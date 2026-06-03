@@ -1,0 +1,9 @@
+{
+  "name": "plugboard-dev--plugboard",
+  "displayName": "plugboard",
+  "description": "Plugboard is an event driven modelling and orchestration framework in Python for simulating and driving complex processes with many interconnected stateful components.",
+  "version": "1.0.0",
+  "author": "plugboard-dev",
+  "homepage": "https://github.com/plugboard-dev/plugboard",
+  "skills": []
+}
