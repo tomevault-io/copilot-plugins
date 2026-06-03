@@ -1,0 +1,9 @@
+{
+  "name": "reasv--panoptikon",
+  "displayName": "panoptikon",
+  "description": "AI-based media indexing, tagging, and semantic search engine for local files",
+  "version": "1.0.0",
+  "author": "reasv",
+  "homepage": "https://github.com/reasv/panoptikon",
+  "skills": []
+}
