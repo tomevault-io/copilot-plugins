@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--shadcn-htmx",
+  "displayName": "shadcn-htmx",
+  "description": "shadcn-style UI components for htmx v4 + Tailwind v4 \u2014 82 web-standards components in 5 flavours (Hono JSX, Jinja2, Go, Phoenix, raw HTML), WAI-ARIA accessible, with a flavour-aware CLI.",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/shadcn-htmx",
+  "skills": []
+}
