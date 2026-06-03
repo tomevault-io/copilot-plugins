@@ -1,76 +1,71 @@
-## 400-ui-routing
+## 400-ui-storybook
 
-> Routing guidelines for TanStack Router including route types, creation, and navigation patterns
+> Storybook guidelines and instructions
 
 
 guidelines:
-  route_types:
-    public: src/routes/_marketing/ # Marketing/public pages
-    auth: src/routes/_auth/ # Authentication-related pages
-    dashboard: src/routes/dashboard/ # Protected pages requiring authentication
-    admin: src/routes/dashboard/admin/ # Protected pages requiring admin role
+  core:
+    - Create stories only for distinct, meaningful states
+    - Keep controls simple with just type and description
+    - Use autodocs for documentation
+    - Keep mock data realistic but minimal
 
-  principles:
-    - Place routes in correct directory for proper protection
-    - Authorization is handled by parent layouts
-    - No explicit auth checks needed in route files
+  story_states:
+    - Default state
+    - Loading state
+    - Error state
+    - Empty state
+    - Interactive variants
+
+  controls:
+    - Always include control/action and description
+    - Use appropriate control types (text, boolean, select)
+    - Set control: false for render-only props
+    - Use actions for event handlers
 
 examples:
-  basic_route: |
-    import { createFileRoute } from '@tanstack/react-router'
-
-    export const Route = createFileRoute('/your-path')({
-      loader: () => ({
-        crumb: "Your crumb"
-      }),
+  basic_story: |
+    const meta = {
+      title: 'Category/Component',
       component: YourComponent,
-    })
+      tags: ['autodocs'],
+      parameters: {
+        layout: 'centered', // or 'padded' for larger components
+      },
+      argTypes: {
+        text: {
+          control: 'text',
+          description: 'Clear description of what this prop does',
+        },
+        onClick: {
+          action: 'clicked',
+          description: 'Called when component is clicked',
+        },
+        isEnabled: {
+          control: 'boolean',
+          description: 'Whether the component is enabled',
+        },
+      },
+    } satisfies Meta<typeof YourComponent>
 
-  dashboard_navigation: |
-    // In dashboard.tsx
-    import { YourIcon } from 'lucide-react'
-
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <SidebarMenuButton tooltip={m.nav_label()} asChild>
-          <NavLink to="/dashboard/your-route">
-            <YourIcon />
-            <span>Your route</span>
-          </NavLink>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-    </SidebarMenu>
-
-  nested_routes: |
-    // Parent: /dashboard/parent/index.tsx
-    export const Route = createFileRoute('/dashboard/parent')({
-      component: () => <Outlet />,
-    })
-
-    // Child: /dashboard/parent/child.tsx
-    export const Route = createFileRoute('/dashboard/parent/child')({
-      component: ChildComponent,
-    })
-
-  page_title: |
-    export const Route = createFileRoute('/your-path')({
-      head: () => ({
-        meta: [{ title: "some page title" }],
-      }),
-    })
+    export const Default: Story = {
+      args: {
+        text: 'Default State',
+      },
+    }
 
 key_points:
-  structure:
-    - Public routes in _marketing
-    - Auth routes in _auth
-    - Protected routes in dashboard
-    - Admin routes in dashboard/admin
+  stories:
+    - Quality over quantity
+    - Only distinct states
+    - Avoid redundant stories
+    - Use controls over separate stories
 
-  features:
-    - Automatic authorization
-    - Nested routing support
-    - Page titles via head
-    - Breadcrumb support
+  documentation:
+    - Use autodocs tag
+    - Clear prop descriptions
+    - Minimal component descriptions
+    - Realistic mock data
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
