@@ -1,113 +1,114 @@
-## pr
+## metamask-design-system
 
-> Generate a comprehensive PR description using the pull request template and current branch diff
+> Design tokens and components for MetaMask extension (React) and mobile (React Native).
 
+# MetaMask Design System
 
-When the user types `@pr`, automatically generate a comprehensive pull request description and create the PR using GitHub CLI by:
+Design tokens and components for MetaMask extension (React) and mobile (React Native).
 
-1. **Analyzing the current branch diff** to understand:
+## Documentation for AI Agents
 
-   - What files were added, modified, or deleted
-   - What components/features were changed
-   - The scope and nature of changes (feat, fix, chore, etc.)
-   - Any new dependencies or breaking changes
+Repository-specific conventions and patterns:
 
-2. **Following the PR template structure** from `.github/pull_request_template.md`:
+- @.cursor/rules/styling.md
+- @.cursor/rules/testing.md
+- @.cursor/rules/component-documentation.md
+- @.cursor/rules/component-architecture.md
+- @.cursor/rules/component-creation.md
+- @.cursor/rules/component-enum-union-migration.md
+- @.cursor/rules/component-migration.md
+- @.cursor/rules/figma-integration.md
+- @.cursor/rules/release-workflow.md
 
-   - Fill in the Description section with a clear summary
-   - Identify any related issues if mentioned in commits
-   - Suggest manual testing steps based on changes
-   - Note if screenshots/recordings would be helpful
-   - Pre-check relevant checklist items
+See @docs/ai-agents.md for comprehensive strategy explanation.
 
-3. **Smart content generation**:
+## Monorepo Structure
 
-   - **Description**: Write 2-3 sentences explaining what changed and why
-   - **Related issues**: Look for issue references in commit messages
-   - **Manual testing steps**: Generate realistic testing steps based on the components changed
-   - **Screenshots/Recordings**: Suggest if UI/visual changes are detected
-   - **Checklist items**: Auto-check items that are clearly satisfied
+**This is a yarn workspaces monorepo.** Run all commands from the repository root.
 
-4. **Component-specific intelligence**:
+### Command Patterns
 
-   - For Figma Code Connect files: Mention design system alignment
-   - For React/React Native changes: Note cross-platform consistency
-   - For test files: Highlight testing improvements
-   - For build/config changes: Note infrastructure updates
-   - For documentation: Mention docs updates
+Two ways to run commands:
 
-5. **Create the PR using GitHub CLI**:
+1. **Root scripts** (preferred for common tasks)
 
-   - Generate a concise PR title based on the changes (e.g., "feat: add Avatar Figma Code Connect integration")
-   - Create a secure temporary file with a unique name using a UUID or random string (e.g., `pr-description-[uuid].md`)
-   - Ensure the `.cursor/temp/` directory exists, create it if needed
-   - Save the generated description to the temporary file
-   - Execute: `gh pr create --title "[generated-title]" --body-file .cursor/temp/pr-description-[unique-id].md --draft`
-   - If successful, display: "✅ Draft PR created successfully: [PR-URL]"
-   - Provide next steps: "Review the description and run `gh pr ready` when ready for review"
-   - Clean up temporary file after successful PR creation
-   - If PR creation fails, ensure the temporary file is deleted to prevent accumulation
+   ```bash
+   yarn build                 # Builds all packages
+   yarn test                  # Runs all tests
+   yarn lint                  # Lints entire monorepo
+   ```
 
-6. **Display the generated description and PR creation status**:
+2. **Workspace-specific commands** (for targeting single packages)
+   ```bash
+   yarn workspace @metamask/design-system-react run test
+   yarn workspace @metamask/design-system-react run build
+   yarn workspace @metamask/design-system-react run lint
+   ```
 
-```markdown
-## **Description**
+**Never** use `cd packages/*/` - always run commands from root using one of the patterns above.
 
-[Auto-generated description based on diff analysis]
+### Essential Commands
 
-## **Related issues**
+```bash
+# Build
+yarn build                    # All packages
+yarn build:types              # TypeScript only
 
-[Auto-detected or "Fixes: <!-- Add issue links -->"]
+# Test
+yarn test                     # All tests
+yarn test:storybook           # Accessibility tests
+yarn workspace @metamask/design-system-react run test              # Single package
 
-## **Manual testing steps**
+# Lint
+yarn lint                     # Check all
+yarn lint:fix                 # Auto-fix
 
-[Component-specific testing steps based on changes]
+# Component Creation
+yarn create-component:react --name ComponentName --description "Brief description"
+yarn create-component:react-native --name ComponentName --description "Brief description"
 
-## **Screenshots/Recordings**
+# Storybook
+yarn storybook                # React web (port 6006)
+yarn storybook:ios            # React Native iOS
+yarn storybook:android        # React Native Android
 
-[Indicate if needed based on UI changes]
-
-## **Pre-merge author checklist**
-
-- [x] [Auto-check items that are clearly satisfied]
-- [ ] [Leave unchecked items that need manual verification]
-
-## **Pre-merge reviewer checklist**
-
-- [ ] I've manually tested the PR (e.g. pull and build branch, run the app, test code being changed).
-- [ ] I confirm that this PR addresses all acceptance criteria described in the ticket it closes and includes the necessary testing evidence such as recordings and or screenshots.
+# Dependencies
+yarn constraints --fix        # Fix dependency constraints
+yarn dedupe                   # Deduplicate dependencies
 ```
 
-**Special handling for common patterns**:
+### Packages
 
-- Avatar components → "Enhances avatar component suite with..."
-- Figma files → "Adds Figma Code Connect integration for..."
-- Build configs → "Updates build configuration to..."
-- Bug fixes → "Resolves issue with..."
-- New features → "Implements new functionality for..."
+- `@metamask/design-tokens` - Foundation tokens
+- `@metamask/design-system-shared` - Shared utilities
+- `@metamask/design-system-react` - Web components
+- `@metamask/design-system-react-native` - Mobile components
+- `@metamask/design-system-tailwind-preset` - Web Tailwind preset
+- `@metamask/design-system-twrnc-preset` - Mobile twrnc preset
 
-**Example auto-generated descriptions**:
+### Apps (Consumer Platforms)
 
-- For Avatar Figma files: "Adds Figma Code Connect integration for Avatar components, ensuring design-to-code alignment between React and React Native implementations."
-- For build changes: "Updates TypeScript build configuration to exclude Figma Code Connect files from production builds while maintaining development type checking."
-- For component updates: "Enhances [ComponentName] with [specific improvements] and ensures cross-platform consistency between React and React Native versions."
+Storybook apps in `apps/` consume packages for development and testing:
 
-**GitHub CLI Integration**:
+- `@metamask/storybook-react` - Web component development (`yarn storybook`)
+- `@metamask/storybook-react-native` - Mobile development (`yarn storybook:ios|android`)
 
-- Always create PR as draft initially using `--draft` flag
-- Use semantic PR titles following conventional commits (feat:, fix:, chore:, etc.)
-- Generate unique temporary filenames using UUIDs or random strings to avoid conflicts
-- Show the GitHub CLI command being executed: `gh pr create --title "..." --body-file .cursor/temp/pr-description-[unique-id].md --draft`
-- After successful creation, display: "✅ Draft PR created successfully: [PR-URL]"
-- Provide next steps: "Review the description and run `gh pr ready` when ready for review"
-- If `gh` command fails, display the generated description and provide manual instructions
-- Always clean up temporary files regardless of success or failure to prevent accumulation
+These platforms are for manual testing and component showcase. Visual regression testing is planned but not yet implemented.
 
-**Error Handling**:
+**Import using package names, never file paths:**
 
-- If GitHub CLI is not installed: "Please install GitHub CLI: `brew install gh` or visit https://cli.github.com"
-- If not authenticated: "Please authenticate with GitHub: `gh auth login`"
-- If branch has no remote: "Please push your branch first: `git push -u origin [branch-name]`"
+```tsx
+// ✅ Correct
+import { Button } from '@metamask/design-system-react';
+
+// ❌ Wrong
+import { Button } from '../../../packages/design-system-react';
+```
+
+## Personal Overrides
+
+As per [Claude Code best practices](https://code.claude.com/docs/en/best-practices), create `CLAUDE.local.md` for personal preferences (gitignored).
+See `CLAUDE.local.md.example` for template.
 
 ---
 > Source: [MetaMask/metamask-design-system](https://github.com/MetaMask/metamask-design-system) — distributed by [TomeVault](https://tomevault.io).
