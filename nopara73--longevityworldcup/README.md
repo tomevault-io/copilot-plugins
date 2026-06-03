@@ -2,6 +2,8 @@
 
 > Sourced from [nopara73/LongevityWorldCup](https://github.com/nopara73/LongevityWorldCup) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Open-source longevity sport platform with biological-age calculators, athlete profiles, and public leaderboards.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [nopara73/LongevityWorldCup](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/nopara73)
+From [nopara73/LongevityWorldCup](https://github.com/nopara73/LongevityWorldCup) — a repo with 17+ stars on GitHub.
 
 ---
 
