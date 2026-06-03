@@ -1,0 +1,9 @@
+{
+  "name": "upstash--react-redis-browser",
+  "displayName": "react-redis-browser",
+  "description": "React component for Redis data browser",
+  "version": "1.0.0",
+  "author": "upstash",
+  "homepage": "https://github.com/upstash/react-redis-browser",
+  "skills": []
+}
