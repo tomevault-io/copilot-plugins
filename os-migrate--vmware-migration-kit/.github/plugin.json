@@ -1,0 +1,9 @@
+{
+  "name": "os-migrate--vmware-migration-kit",
+  "displayName": "vmware-migration-kit",
+  "description": "VMWare to OpenStack Migration Toolkit",
+  "version": "1.0.0",
+  "author": "os-migrate",
+  "homepage": "https://github.com/os-migrate/vmware-migration-kit",
+  "skills": []
+}
