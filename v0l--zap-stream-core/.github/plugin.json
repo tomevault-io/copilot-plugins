@@ -1,0 +1,9 @@
+{
+  "name": "v0l--zap-stream-core",
+  "displayName": "zap-stream-core",
+  "description": "Streaming backed for zap.stream",
+  "version": "1.0.0",
+  "author": "v0l",
+  "homepage": "https://github.com/v0l/zap-stream-core",
+  "skills": []
+}
