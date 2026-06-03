@@ -1,60 +1,53 @@
-## 100-core-project-structure
+## 200-vcs-commit-conventions
 
-> Project structure and organization guidelines
+> Commit message format and type guidelines
 
 
 guidelines:
-  tech_stack:
-    core:
-      - React 19
-      - TypeScript
-      - TanStack (Router, Query, Start)
-      - SQLite/Turso with Drizzle ORM
-    tooling:
-      - bun
-      - Better-auth with GitHub SSO
-      - react-hook-form
-      - TailwindCSS 4 with shadcn/ui
-      - trigger.dev
-      - Fly.io
-      - zod
+  format: "<type>(<scope>): <subject>"
+  principles:
+    - Keep messages concise and clear
+    - Use imperative mood
+    - No period at end
+    - Start with capital letter
+    - Max 50 characters for subject
+
+  types:
+    feat: New features
+    fix: Bug fixes
+    docs: Documentation
+    style: Formatting
+    refactor: Code improvements
+    test: Test changes
+    chore: Maintenance
 
 examples:
-  structure: |
-    src/
-    ├── components/     # Shared UI components
-    ├── drizzle/       # Database schemas and migrations
-    ├── features/      # Feature-specific code
-    │   └── feature-name/
-    │       ├── api/        # API layer (server functions + React Query)
-    │       ├── domain/     # Business logic + DB operations
-    │       ├── emails/     # Email templates (react-email)
-    │       ├── hooks/      # React hooks
-    │       ├── ui/         # UI components
-    │       ├── utils/      # Utility functions
-    │       ├── stories/    # Storybook stories
-    │       ├── tests/      # Unit tests
-    │       └── types/      # TypeScript types
-    ├── hooks/         # Shared hooks
-    ├── lib/           # Core utilities
-    │   ├── client/     # Client-side core
-    │   └── server/     # Server-side core
-    ├── routes/        # Route components
-    ├── styles/        # Global styles
-    └── tests/         # Test setup
+  basic: |
+    feat(auth): Add SSO support
+    fix(api): Handle timeout errors
+    docs: Update API docs
+    style: Format with prettier
+    refactor(db): Extract config
+    test: Add auth tests
+    chore(deps): Bump versions
+
+  breaking_change: |
+    feat(api)!: Change auth flow
+
+    BREAKING CHANGE: New token format
 
 key_points:
-  organization:
-    - Feature-based structure
-    - Clear separation of concerns
-    - Consistent directory structure
-    - Core utilities in lib/
+  message:
+    - Use type prefixes
+    - Keep it brief
+    - Be descriptive
+    - Use scopes when relevant
 
-  features:
-    - Self-contained modules
-    - Standard directory structure
-    - Clear responsibility separation
-    - Reusable patterns
+  style:
+    - Imperative mood
+    - No period
+    - Capital first letter
+    - Under 50 chars
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
