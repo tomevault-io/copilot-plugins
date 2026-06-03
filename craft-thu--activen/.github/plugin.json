@@ -1,0 +1,9 @@
+{
+  "name": "craft-thu--activen",
+  "displayName": "ActiveN",
+  "description": "RISC-V-based many-core neuromorphic architecture",
+  "version": "1.0.0",
+  "author": "CRAFT-THU",
+  "homepage": "https://github.com/CRAFT-THU/ActiveN",
+  "skills": []
+}
