@@ -1,0 +1,9 @@
+{
+  "name": "seed-hypermedia--seed",
+  "displayName": "seed",
+  "description": "Desktop+Web app for self-publishing, powered by the open Hypermedia protocol",
+  "version": "1.0.0",
+  "author": "seed-hypermedia",
+  "homepage": "https://github.com/seed-hypermedia/seed",
+  "skills": []
+}
