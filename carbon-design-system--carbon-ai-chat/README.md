@@ -7,11 +7,11 @@ Carbon AI chat is a front-end chat framework from the IBM Carbon team.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [carbon-design-system/carbon-ai-chat](https://github.com/carbon-design-system/carbon-ai-chat).
+Original source: `AGENTS.md` in [carbon-design-system/carbon-ai-chat](https://github.com/carbon-design-system/carbon-ai-chat).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
