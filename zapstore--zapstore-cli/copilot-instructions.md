@@ -1,59 +1,35 @@
-## quality-bar
+## vision
 
-> Quality expectations — when to spec, testing, anti-patterns, AI workflow
+> Product vision — what zapstore-cli is, who uses it, what success means
 
 
-# zapstore-cli — Quality Bar
+# zapstore-cli — Vision
 
-## When to Create a Feature Spec
+## What zapstore-cli Is
 
-Create a spec if the work:
+`zapstore-cli` is a command-line package manager for desktop platforms (Linux, macOS). It installs, updates, and manages apps distributed via Zapstore — using Nostr for metadata and Blossom for binaries.
 
-- Changes install, update, or remove behavior
-- Modifies verification logic
-- Adds a new subcommand
-- Changes the filesystem layout or symlink strategy
-- Modifies platform/arch detection or asset filtering
-- Could affect correctness of installed binaries
+It follows the XDG Base Directory Specification and integrates naturally into Unix workflows.
 
-**Skip the spec** if:
+## Who Uses It
 
-- Output formatting changes (colors, copy)
-- Flag alias additions
-- Dependency update with no API changes
-- Bug fix with obvious cause and fix
+- Developers and power users who prefer the terminal
+- CI/CD pipelines that need to install Zapstore-distributed tools
+- Users on platforms without a native Zapstore GUI app
 
-## Testing
+## What Success Means
 
-- Verification logic must be unit-tested with known-good and known-bad hashes.
-- Filesystem operations must be tested with temp directories.
-- Platform detection must be tested for all supported OS/arch combinations.
-- No real relay queries in tests — mock the Nostr client.
+- Users can install any Zapstore app in one command: `zapstore install <app-id>`
+- Installed binaries are immediately available on PATH
+- Updates are reliable and verifiable
+- Piping and scripting work correctly (`--json`, `--quiet`)
 
-## Implementation Expectations
+## Non-Goals
 
-- `store/` handles all filesystem operations — commands must not do direct file I/O.
-- `nostr/` handles all relay queries — commands must not construct filters directly.
-- Output formatting lives in `ui/` — commands call `ui.Action(...)`, not `fmt.Printf`.
-- Prefer extending existing commands over adding new packages.
-
-## Anti-Patterns
-
-- Installing a binary without verifying its hash
-- Comparing version names instead of version codes
-- Writing partial downloads to the final install path
-- Mixing status output (stderr) with data output (stdout)
-- Hardcoding relay URLs (use env var with default)
-
-## Working With AI
-
-- Spec-first for install/verify/update flow changes.
-- Work packets in `spec/work/` for non-trivial tasks.
-- Never modify `spec/guidelines/` without explicit permission.
-
-## Knowledge Entries
-
-After a work packet merges, promote non-obvious decisions to `spec/knowledge/DEC-XXX-*.md`. See `spec/knowledge/_TEMPLATE.md` for format and criteria.
+- `zapstore-cli` does not publish apps (that's `zsp`)
+- `zapstore-cli` does not have a GUI
+- `zapstore-cli` does not support Android APK installation (that's the Flutter app)
+- `zapstore-cli` does not manage user accounts or signing keys
 
 ---
 > Source: [zapstore/zapstore-cli](https://github.com/zapstore/zapstore-cli) — distributed by [TomeVault](https://tomevault.io).
