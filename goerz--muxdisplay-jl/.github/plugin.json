@@ -1,0 +1,9 @@
+{
+  "name": "goerz--muxdisplay-jl",
+  "displayName": "MuxDisplay.jl",
+  "description": "A Julia display showing graphics in a multiplexer pane",
+  "version": "1.0.0",
+  "author": "goerz",
+  "homepage": "https://github.com/goerz/MuxDisplay.jl",
+  "skills": []
+}
