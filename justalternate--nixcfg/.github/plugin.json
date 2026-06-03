@@ -1,0 +1,9 @@
+{
+  "name": "justalternate--nixcfg",
+  "displayName": "nixcfg",
+  "description": "A repository containing all my systems configuration as code (laptop, desktop, server, mac, pi...)",
+  "version": "1.0.0",
+  "author": "JustAlternate",
+  "homepage": "https://github.com/JustAlternate/nixcfg",
+  "skills": []
+}
