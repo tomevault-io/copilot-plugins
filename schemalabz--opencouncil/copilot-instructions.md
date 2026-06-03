@@ -1,87 +1,19 @@
-## opencouncil
+## auth
 
-> Next.js Best Practices:
+> This rules specifies how authentication checks are done on the OpenCouncil repo.
 
-Next.js Best Practices:
 
-Use the App Router for improved performance and better routing
-Implement server-side rendering for SEO and performance benefits
-Utilize Next.js built-in image optimization for faster load times
-Leverage Next.js API routes for server-side logic and improved security
-Implement proper error handling and error boundaries
-Use Next.js built-in internationalization features for better user experience
+This rules specifies how authentication checks are done on the OpenCouncil repo.
 
-React Best Practices:
+1. Use the methods in src/lib/auth.ts.
+2. Two main methods exist: isUserAuthorizedToEdit (returns a boolean) and withUserAuthorizedToEdit (throws if not authorized).
+3. Both methods are asynchronous, and should be await-ed -- otherwise this can lead to serious authentication bugs.
 
-Use functional components and hooks instead of class components
-Implement proper use of React.memo and useMemo for performance optimization
-Follow the React hooks rules strictly to avoid common pitfalls
-Utilize context API for efficient state management across components
-Implement proper prop type validation for better code quality and maintainability
+Example usage:
+    const editable = await isUserAuthorizedToEdit({ cityId: data.meeting.cityId });
 
-TypeScript Best Practices:
-
-Enable TypeScript strict mode for enhanced type safety
-Use interfaces and types to define clear contracts for your data structures
-Implement proper error handling with try-catch blocks and type guards
-Utilize generics for reusable and type-safe components and functions
-Leverage TypeScript's union types and discriminated unions for better type modeling
-
-Prisma Best Practices:
-
-Use Prisma Client for type-safe database queries
-Implement proper error handling for database operations
-Utilize Prisma Migrate for version-controlled database schema changes
-Leverage Prisma's relation fields for efficient data modeling
-Implement proper transaction management for complex database operations
-
-Next-Auth Best Practices:
-
-Implement proper session management and security measures
-Use Next-Auth's built-in providers for easy authentication integration
-Implement proper error handling for authentication flows
-Utilize Next-Auth's JWT strategy for stateless authentication
-Implement proper authorization checks throughout your application
-
-React Hook Form Best Practices:
-
-Use React Hook Form for efficient form handling and validation
-Implement proper error handling and user feedback for form submissions
-Utilize React Hook Form's built-in validation for better user experience
-Leverage React Hook Form's watch function for real-time form state management
-Implement proper form accessibility features
-
-Tailwind CSS Best Practices:
-
-Use Tailwind's utility-first approach for consistent and maintainable styles
-Implement proper responsive design using Tailwind's responsive modifiers
-Utilize Tailwind's custom theme configuration for brand consistency
-Leverage Tailwind's JIT mode for faster build times and smaller CSS output
-Implement proper accessibility features using Tailwind's accessibility classes
-
-Zod Best Practices:
-
-Use Zod for runtime type checking and validation
-Implement proper error handling for validation failures
-Utilize Zod's inferred types for better TypeScript integration
-Leverage Zod's custom validation rules for complex data validation
-Implement proper schema reuse and composition for maintainable validation logic
-
-Axios Best Practices:
-
-Use Axios for efficient HTTP requests
-Implement proper error handling for network operations
-Utilize Axios interceptors for global request/response handling
-Leverage Axios' cancel token feature for managing long-running requests
-Implement proper timeout configuration for improved performance and user experience
-
-Date-fns Best Practices:
-
-Use Date-fns for lightweight and modular date manipulation
-Implement proper timezone handling for international applications
-Utilize Date-fns' locale support for internationalization
-Leverage Date-fns' tree-shaking capabilities for smaller bundle sizes
-Implement proper date formatting for consistent user experience
+or:
+    await withUserAuthorizedToEdit({ partyId: params.partyId })
 
 ---
 > Source: [schemalabz/opencouncil](https://github.com/schemalabz/opencouncil) — distributed by [TomeVault](https://tomevault.io).
