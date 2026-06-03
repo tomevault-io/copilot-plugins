@@ -1,0 +1,9 @@
+{
+  "name": "ajeygore--coredns-ui",
+  "displayName": "coredns_ui",
+  "description": "CoreDNS UI for managing CoreDNS using Redis plugin, this repository allows managing the records using web interface and provides rest apis",
+  "version": "1.0.0",
+  "author": "ajeygore",
+  "homepage": "https://github.com/ajeygore/coredns_ui",
+  "skills": []
+}
