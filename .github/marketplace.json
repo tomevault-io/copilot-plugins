@@ -44919,6 +44919,16 @@
       "description": "AI Task Planner & Pomodoro Assistant"
     },
     {
+      "name": "focu-app--focu",
+      "source": "./focu-app--focu",
+      "description": "Open-source Mindful Productivity App for macOS"
+    },
+    {
+      "name": "focu-app--focu",
+      "source": "./focu-app--focu",
+      "description": "Open-source Mindful Productivity App for macOS"
+    },
+    {
       "name": "weaviate--agent-skills",
       "source": "./weaviate--agent-skills",
       "description": "Agent Skills to empower developers building AI applications with Weaviate."
@@ -45107,6 +45117,11 @@
       "name": "aws-samples--sample-agentic-platform",
       "source": "./aws-samples--sample-agentic-platform",
       "description": "A sample agentic ai platform to run agentic workflows on AWS using either EKS or Bedrock AgentCore with open source frameworks like LangChain/LangGraph, Strands, etc..  "
+    },
+    {
+      "name": "elliotxie--cassia",
+      "source": "./elliotxie--cassia",
+      "description": "CASSIA: A Multi-Agent LLM-Based Single-Cell Cell Type Annotation Framework"
     },
     {
       "name": "freepeak--leankg",
@@ -45624,6 +45639,11 @@
       "description": "Use local issues file deal with Cursor and Vscode"
     },
     {
+      "name": "caol64--wenyan-pc",
+      "source": "./caol64--wenyan-pc",
+      "description": "\u6587\u989c- Markdown\u6587\u7ae0\u6392\u7248\u7f8e\u5316\u5de5\u5177\uff0c\u652f\u6301\u5fae\u4fe1\u516c\u4f17\u53f7\u3001\u4eca\u65e5\u5934\u6761\u3001\u77e5\u4e4e\u7b49\u5e73\u53f0\u3002"
+    },
+    {
       "name": "sugarforever--01coder-agent-skills",
       "source": "./sugarforever--01coder-agent-skills",
       "description": "01coder-agent-skills"
@@ -45877,6 +45897,11 @@
       "name": "corasan--react-native-nitro-mlx",
       "source": "./corasan--react-native-nitro-mlx",
       "description": "Run LLMs on device using Apple's MLX"
+    },
+    {
+      "name": "playbooks-ai--playbooks",
+      "source": "./playbooks-ai--playbooks",
+      "description": "\u25b6\ud83d\udcda Playbooks is a semantic programming system for AI agents"
     },
     {
       "name": "jjongguet--oh-my-product",
@@ -47107,6 +47132,16 @@
       "name": "arpitnath--claude-capsule-kit",
       "source": "./arpitnath--claude-capsule-kit",
       "description": "A toolkit that makes Claude Code better at engineering \u2014 session memory, dependency analysis, large file navigation, 18 specialist agents, and crew teams for parallel multi-branch work."
+    },
+    {
+      "name": "posaune0423--use-haptic",
+      "source": "./posaune0423--use-haptic",
+      "description": "A convenient React hook that utilizes input[switch] introduced in Safari 18.0 to trigger haptic feedback anytime, anywhere in your application."
+    },
+    {
+      "name": "posaune0423--use-haptic",
+      "source": "./posaune0423--use-haptic",
+      "description": "A convenient React hook that utilizes input[switch] introduced in Safari 18.0 to trigger haptic feedback anytime, anywhere in your application."
     },
     {
       "name": "mag123c--toktrack",
@@ -48819,6 +48854,21 @@
       "description": "Modular and functional approach to building large scale apps."
     },
     {
+      "name": "cwne88--topdogspectrumanalyser",
+      "source": "./cwne88--topdogspectrumanalyser",
+      "description": "Python Spectrum Analyser using HackRF or RTL-SDR"
+    },
+    {
+      "name": "jparkerweb--ai-assistant-skills",
+      "source": "./jparkerweb--ai-assistant-skills",
+      "description": "\ud83e\udd16 A collection of AI agent skills that automate recurring engineering workflows that can be installed across multiple AI coding assistants."
+    },
+    {
+      "name": "jparkerweb--ai-assistant-skills",
+      "source": "./jparkerweb--ai-assistant-skills",
+      "description": "\ud83e\udd16 A collection of AI agent skills that automate recurring engineering workflows that can be installed across multiple AI coding assistants."
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -50142,6 +50192,16 @@
       "name": "cognipilot--rumoca",
       "source": "./cognipilot--rumoca",
       "description": "a rust-native Modelica compiler for fast, composable, scientific computing"
+    },
+    {
+      "name": "galaxies-dev--threads-clone-react-native",
+      "source": "./galaxies-dev--threads-clone-react-native",
+      "description": "threads-clone-react-native"
+    },
+    {
+      "name": "synth-laboratories--synth-ai",
+      "source": "./synth-laboratories--synth-ai",
+      "description": "Prompt Optimization"
     },
     {
       "name": "m1zz--higlab",
@@ -51904,6 +51964,11 @@
       "description": "The world's most advanced open-source aquarium LED PWM controller & mobile app."
     },
     {
+      "name": "sheldon123z--zotero-notion-paper-flow",
+      "source": "./sheldon123z--zotero-notion-paper-flow",
+      "description": "\u901a\u8fc7\u626b\u63cfhuggingface\u548carxiv\u76f4\u63a5\u6dfb\u52a0\u6700\u65b0\u6587\u732e\u5230Notion\u3001Wolai\u3001\u4ee5\u53ca\u8bba\u6587\u9605\u8bfb\u795e\u5668Zotero\uff01\u540c\u65f6\uff0c\u53ef\u4ee5\u901a\u8fc7\u5927\u6a21\u578bapi\u76f4\u63a5\u8d8a\u8fc7Notion AI\uff0c\u4f7f\u7528\u5927\u6a21\u578b\u603b\u7ed3\u6587\u732e\u4e3b\u8981\u5185\u5bb9\u4f20\u9012\u5230Notion\u9875\u9762\u7684\u5173\u952e\u5b57\u4e2d\uff0c\u5efa\u8bae\u4f7f\u7528deepseek\uff0c\u6309\u9700\u4f7f\u7528\uff0c\u5988\u5988\u518d\u4e5f\u4e0d\u7528\u62c5\u5fc3\u6da8\u4ef7\u7684Notion AI\u4e86\uff01"
+    },
+    {
       "name": "ersinkoc--fluidflow",
       "source": "./ersinkoc--fluidflow",
       "description": "Sketch to App"
@@ -53127,6 +53192,26 @@
       "name": "tevelee--swift-graphs",
       "source": "./tevelee--swift-graphs",
       "description": "A composable, extensible library for graph structures with support for a wide range of algorithms"
+    },
+    {
+      "name": "vapiai--docs",
+      "source": "./vapiai--docs",
+      "description": "Vapi docs"
+    },
+    {
+      "name": "vapiai--docs",
+      "source": "./vapiai--docs",
+      "description": "Vapi docs"
+    },
+    {
+      "name": "vapiai--docs",
+      "source": "./vapiai--docs",
+      "description": "Vapi docs"
+    },
+    {
+      "name": "vapiai--docs",
+      "source": "./vapiai--docs",
+      "description": "Vapi docs"
     },
     {
       "name": "dceoy--speckit-agent-skills",
@@ -55702,6 +55787,11 @@
       "name": "rte-france--bertrend",
       "source": "./rte-france--bertrend",
       "description": "BERTrend"
+    },
+    {
+      "name": "tenstorrent--tt-xla",
+      "source": "./tenstorrent--tt-xla",
+      "description": "Repo for AI Compiler team.  The intended purpose of this repo is for implementation of a PJRT device."
     },
     {
       "name": "chongdashu--phaserjs-oakwoods",
@@ -60699,6 +60789,21 @@
       "description": "Asset Minifier for Symfony Asset Mapper - Made by SensioLabs"
     },
     {
+      "name": "openmeet-team--openmeet-platform",
+      "source": "./openmeet-team--openmeet-platform",
+      "description": "Opensource Meetup.com replacement; find or create your communities"
+    },
+    {
+      "name": "filiptrivan--spiderly",
+      "source": "./filiptrivan--spiderly",
+      "description": ".NET (C#) Web App Framework Built For AI Coding Agents"
+    },
+    {
+      "name": "marchen-dev--marchen-player",
+      "source": "./marchen-dev--marchen-player",
+      "description": "Marchen Player \u662f\u672c\u5730\u89c6\u9891\u7684\u5f39\u5e55\u64ad\u653e\u5668\uff0c\u4f7f\u7528\u5f39\u5f39play API\uff0c\u652f\u6301\u8de8\u5e73\u53f0\uff0c\u62d6\u5165\u52a8\u6f2b\u5373\u53ef\u5339\u914d\u5f39\u5e55"
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -61192,6 +61297,21 @@
       "name": "cipherstash--proxy",
       "source": "./cipherstash--proxy",
       "description": "Encrypt and search your sensitive data in PostgreSQL, with no SQL changes"
+    },
+    {
+      "name": "rogie--figui3",
+      "source": "./rogie--figui3",
+      "description": "A lightweight, customizable web component library that uses Figmas UI3 style for modern web applications, but specifically for Figma plugins."
+    },
+    {
+      "name": "rogie--figui3",
+      "source": "./rogie--figui3",
+      "description": "A lightweight, customizable web component library that uses Figmas UI3 style for modern web applications, but specifically for Figma plugins."
+    },
+    {
+      "name": "alnitak--flutter-recorder",
+      "source": "./alnitak--flutter-recorder",
+      "description": "A low-level audio recorder plugin which uses miniaudio as backend and supporting all the platforms. It can detect silence and save to WAV audio file. Audio wave and FFT data can be get in real-time as"
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -61892,6 +62012,36 @@
       "name": "sliday--telegram-ai-digest",
       "source": "./sliday--telegram-ai-digest",
       "description": "Automates Telegram message digests using Claude AI for summaries and Replicate API for image generation, sending results to saved messages."
+    },
+    {
+      "name": "sirkirby--unifi-network-rules",
+      "source": "./sirkirby--unifi-network-rules",
+      "description": "Allows you to manage, backup, and automate your UDM firewall policies, routes, and rules in Home Assistant"
+    },
+    {
+      "name": "skodaconnect--myskoda",
+      "source": "./skodaconnect--myskoda",
+      "description": "Python library for interacting with MySkoda APIs."
+    },
+    {
+      "name": "sirkirby--unifi-network-rules",
+      "source": "./sirkirby--unifi-network-rules",
+      "description": "Allows you to manage, backup, and automate your UDM firewall policies, routes, and rules in Home Assistant"
+    },
+    {
+      "name": "sirkirby--unifi-network-rules",
+      "source": "./sirkirby--unifi-network-rules",
+      "description": "Allows you to manage, backup, and automate your UDM firewall policies, routes, and rules in Home Assistant"
+    },
+    {
+      "name": "sirkirby--unifi-network-rules",
+      "source": "./sirkirby--unifi-network-rules",
+      "description": "Allows you to manage, backup, and automate your UDM firewall policies, routes, and rules in Home Assistant"
+    },
+    {
+      "name": "sirkirby--unifi-network-rules",
+      "source": "./sirkirby--unifi-network-rules",
+      "description": "Allows you to manage, backup, and automate your UDM firewall policies, routes, and rules in Home Assistant"
     },
     {
       "name": "domye--solace",
@@ -142329,6 +142479,11 @@
       "description": "GitHub Discussions Blog Loader for Astro"
     },
     {
+      "name": "magicwand1993--tts-studio-pro",
+      "source": "./magicwand1993--tts-studio-pro",
+      "description": "tts-studio-pro"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -155962,6 +156117,11 @@
       "name": "babylonlabs-io--babylon-staking-indexer",
       "source": "./babylonlabs-io--babylon-staking-indexer",
       "description": "babylon-staking-indexer"
+    },
+    {
+      "name": "marvekg--bestaitrader",
+      "source": "./marvekg--bestaitrader",
+      "description": "BestAITrader"
     },
     {
       "name": "yschimke--compose-ai-tools",
