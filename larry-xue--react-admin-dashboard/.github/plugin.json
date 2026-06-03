@@ -1,0 +1,9 @@
+{
+  "name": "larry-xue--react-admin-dashboard",
+  "displayName": "react-admin-dashboard",
+  "description": "A React admin dashboard template developed with React 18 + TypeScript + Vite 5 + Ant Design v5 + React Router v6 + Zustand v4 + Ant Design Charts.",
+  "version": "1.0.0",
+  "author": "larry-xue",
+  "homepage": "https://github.com/larry-xue/react-admin-dashboard",
+  "skills": []
+}
