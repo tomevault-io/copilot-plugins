@@ -1,0 +1,9 @@
+{
+  "name": "devaryakjha--tagflow",
+  "displayName": "tagflow",
+  "description": "A flutter package that takes html string as input and parses and converts that to Flutter widgets based on the provided configuration. ",
+  "version": "1.0.0",
+  "author": "devaryakjha",
+  "homepage": "https://github.com/devaryakjha/tagflow",
+  "skills": []
+}
