@@ -1,19 +1,16 @@
-## auth
+## general
 
-> This rules specifies how authentication checks are done on the OpenCouncil repo.
+> - Never cast to any, and avoid using any as a type in general
 
 
-This rules specifies how authentication checks are done on the OpenCouncil repo.
-
-1. Use the methods in src/lib/auth.ts.
-2. Two main methods exist: isUserAuthorizedToEdit (returns a boolean) and withUserAuthorizedToEdit (throws if not authorized).
-3. Both methods are asynchronous, and should be await-ed -- otherwise this can lead to serious authentication bugs.
-
-Example usage:
-    const editable = await isUserAuthorizedToEdit({ cityId: data.meeting.cityId });
-
-or:
-    await withUserAuthorizedToEdit({ partyId: params.partyId })
+- Never cast to any, and avoid using any as a type in general
+- Store shared Prisma types in `src/lib/db/types/{entity}.ts`, re-export from `src/lib/db/types/index.ts`, and import from `@/lib/db/types` to prevent circular dependencies.
+- Never use dynamic imports, unless asked to specifically (e.g. `await import(...)`)
+- Do not add extra, unecessary try / catch blocks
+- Never create markdown (`.md`) files after you're done -- unless you're directly asked. It's okay to update existing docs
+- Never use emojis in your replies
+- I know i am absolutely right, no need to mention it
+- Use the time formatting utilities from `src/lib/formatters/time.ts` (e.g., `formatTimestamp`, `formatDate`, `formatDuration`) instead of redefining them locally.
 
 ---
 > Source: [schemalabz/opencouncil](https://github.com/schemalabz/opencouncil) — distributed by [TomeVault](https://tomevault.io).
