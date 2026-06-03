@@ -1,0 +1,9 @@
+{
+  "name": "jparkerweb--rich-foot",
+  "displayName": "rich-foot",
+  "description": "\ud83e\uddb6 Obsidian plugin that adds backlink/outlink tags and created/modified dates to the footer of your notes",
+  "version": "1.0.0",
+  "author": "jparkerweb",
+  "homepage": "https://github.com/jparkerweb/rich-foot",
+  "skills": []
+}
