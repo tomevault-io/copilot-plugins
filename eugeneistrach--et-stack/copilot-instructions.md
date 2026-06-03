@@ -1,66 +1,60 @@
-## 100-core-file-conventions
+## 100-core-project-structure
 
-> File naming and organization conventions
+> Project structure and organization guidelines
 
 
 guidelines:
-  directories:
-    - Use lowercase with dashes (kebab-case)
-    - Group by feature or responsibility
-    - Keep nesting to a minimum
-    - Use consistent names across features
-
-  files:
-    components:
-      - Name: component-name.tsx
-      - Stories: component-name.stories.tsx
-      - Tests: component-name.test.tsx
-
-    backend:
-      - Domain logic: module-name.server.ts
-      - API layer: module-name.api.ts
-      - Database: module-name.schema.ts
-      - Types: module-name.types.ts
-
-    routes:
-      - Index routes: index.tsx
-      - Named routes: route-name.tsx
-      - Layout routes: _layout.tsx
-      - Auth routes: _auth.tsx
+  tech_stack:
+    core:
+      - React 19
+      - TypeScript
+      - TanStack (Router, Query, Start)
+      - SQLite/Turso with Drizzle ORM
+    tooling:
+      - bun
+      - Better-auth with GitHub SSO
+      - react-hook-form
+      - TailwindCSS 4 with shadcn/ui
+      - trigger.dev
+      - Fly.io
+      - zod
 
 examples:
-  component: |
-    // user-card.tsx
-    export const UserCard = () => { ... }
-
-    // user-card.stories.tsx
-    export default { component: UserCard }
-
-    // user-card.test.tsx
-    describe('UserCard', () => { ... })
-
-  backend: |
-    // users.server.ts
-    export const createUser = async () => { ... }
-
-    // users.api.ts
-    export const $createUser = createServerFn()
-
-    // users.schema.ts
-    export const UsersTable = sqliteTable(...)
+  structure: |
+    src/
+    ├── components/     # Shared UI components
+    ├── drizzle/       # Database schemas and migrations
+    ├── features/      # Feature-specific code
+    │   └── feature-name/
+    │       ├── api/        # API layer (server functions + React Query)
+    │       ├── domain/     # Business logic + DB operations
+    │       ├── emails/     # Email templates (react-email)
+    │       ├── hooks/      # React hooks
+    │       ├── ui/         # UI components
+    │       ├── utils/      # Utility functions
+    │       ├── stories/    # Storybook stories
+    │       ├── tests/      # Unit tests
+    │       └── types/      # TypeScript types
+    ├── hooks/         # Shared hooks
+    ├── lib/           # Core utilities
+    │   ├── client/     # Client-side core
+    │   └── server/     # Server-side core
+    ├── routes/        # Route components
+    ├── styles/        # Global styles
+    └── tests/         # Test setup
 
 key_points:
-  naming:
-    - Use kebab-case for files and directories
-    - Be descriptive and consistent
-    - Follow established patterns
-    - Use appropriate suffixes
-
   organization:
-    - Group related files together
-    - Maintain consistent structure
-    - Keep paths predictable
-    - Use clear file purposes
+    - Feature-based structure
+    - Clear separation of concerns
+    - Consistent directory structure
+    - Core utilities in lib/
+
+  features:
+    - Self-contained modules
+    - Standard directory structure
+    - Clear responsibility separation
+    - Reusable patterns
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
