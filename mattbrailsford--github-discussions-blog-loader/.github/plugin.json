@@ -1,0 +1,9 @@
+{
+  "name": "mattbrailsford--github-discussions-blog-loader",
+  "displayName": "github-discussions-blog-loader",
+  "description": "GitHub Discussions Blog Loader for Astro",
+  "version": "1.0.0",
+  "author": "mattbrailsford",
+  "homepage": "https://github.com/mattbrailsford/github-discussions-blog-loader",
+  "skills": []
+}
