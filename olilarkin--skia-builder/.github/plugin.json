@@ -1,0 +1,9 @@
+{
+  "name": "olilarkin--skia-builder",
+  "displayName": "skia-builder",
+  "description": "Build Skia libs for multiple platforms",
+  "version": "1.0.0",
+  "author": "olilarkin",
+  "homepage": "https://github.com/olilarkin/skia-builder",
+  "skills": []
+}
