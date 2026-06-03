@@ -1,0 +1,9 @@
+{
+  "name": "obmondo--kubeaid-cli",
+  "displayName": "kubeaid-cli",
+  "description": "KubeAid CLI helps you operate KubeAid managed Kubernetes cluster lifecycle in a GitOps native way",
+  "version": "1.0.0",
+  "author": "Obmondo",
+  "homepage": "https://github.com/Obmondo/kubeaid-cli",
+  "skills": []
+}
