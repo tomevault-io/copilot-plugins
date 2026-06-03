@@ -43894,6 +43894,16 @@
       "description": "Indonesia Stock Exchange (Bursa Efek Indonesia) Scraper"
     },
     {
+      "name": "teczer--fast-expo-app",
+      "source": "./teczer--fast-expo-app",
+      "description": "\u26a1 Fast Expo App - React Native boilerplate CLI for rapid mobile app development. Instantly scaffold Expo projects with TypeScript, Nativewind, Unistyles, Expo Router, MMKV storage, React Query, Jest t"
+    },
+    {
+      "name": "martincostello--openapi-extensions",
+      "source": "./martincostello--openapi-extensions",
+      "description": "Extensions for Microsoft.AspNetCore.OpenApi"
+    },
+    {
       "name": "livekit--livekit-wakeword",
       "source": "./livekit--livekit-wakeword",
       "description": "An open-source wake word library for creating voice-enabled applications."
@@ -44297,6 +44307,11 @@
       "name": "steel-dev--steel-cookbook",
       "source": "./steel-dev--steel-cookbook",
       "description": "Examples and guides for using the Steel API"
+    },
+    {
+      "name": "t94j0--adexplorersnapshot-rs",
+      "source": "./t94j0--adexplorersnapshot-rs",
+      "description": "adexplorersnapshot-rs"
     },
     {
       "name": "xiashao--kaiyantool",
@@ -45174,6 +45189,16 @@
       "description": "A modern programming language for .NET - Compiler inspired by the .NET Roslyn compiler architecture."
     },
     {
+      "name": "openhwp--openhwp",
+      "source": "./openhwp--openhwp",
+      "description": "An all-in-one project to create a library, viewer, and editor for HWP documents"
+    },
+    {
+      "name": "librespark--libredomains",
+      "source": "./librespark--libredomains",
+      "description": "\u514d\u8d39\u516c\u76ca\u4e8c\u7ea7\u57df\u540d\uff0c\u70b9\u70b9star~"
+    },
+    {
       "name": "freepeak--leankg",
       "source": "./freepeak--leankg",
       "description": "LeanKG: Stop Burning Tokens. Start Coding Lean."
@@ -45697,6 +45722,16 @@
       "name": "marijnbent--obsidian-print",
       "source": "./marijnbent--obsidian-print",
       "description": "Print your notes directly from Obsidian"
+    },
+    {
+      "name": "wimpysworld--stream-sprout",
+      "source": "./wimpysworld--stream-sprout",
+      "description": "Restream a video source to multiple destinations such as Twitch, YouTube, Owncast and Peertube \ud83d\udce1"
+    },
+    {
+      "name": "moganlab--goldfish",
+      "source": "./moganlab--goldfish",
+      "description": "Goldfish Scheme / \u91d1\u9c7cScheme"
     },
     {
       "name": "sugarforever--01coder-agent-skills",
@@ -46349,6 +46384,11 @@
       "description": "databricks-ai-bridge"
     },
     {
+      "name": "oboard--mocket",
+      "source": "./oboard--mocket",
+      "description": "A web framework for MoonBit."
+    },
+    {
       "name": "peteromallet--vibecomfy",
       "source": "./peteromallet--vibecomfy",
       "description": "VibeComfy"
@@ -46567,6 +46607,16 @@
       "name": "ombrac--ombrac",
       "source": "./ombrac--ombrac",
       "description": "Safe, fast, small TCP/UDP-over-QUIC tunnel written in Rust"
+    },
+    {
+      "name": "ttsds--ttsds",
+      "source": "./ttsds--ttsds",
+      "description": "The TTSDS benchmark evaluates synthetic speech quality by considering prosody, speaker identity, and intelligibility, comparing these factors with real speech and noise datasets."
+    },
+    {
+      "name": "ttsds--ttsds",
+      "source": "./ttsds--ttsds",
+      "description": "The TTSDS benchmark evaluates synthetic speech quality by considering prosody, speaker identity, and intelligibility, comparing these factors with real speech and noise datasets."
     },
     {
       "name": "pikapikaspeedup--antigravity-mobility-cli",
@@ -46882,6 +46932,11 @@
       "name": "bitdriftlabs--pulse",
       "source": "./bitdriftlabs--pulse",
       "description": "bitdrift observability proxy"
+    },
+    {
+      "name": "maxandron--goplements-nvim",
+      "source": "./maxandron--goplements-nvim",
+      "description": "Visualize Go struct and interface implementations"
     },
     {
       "name": "cohen-liel--hivemind",
@@ -48984,6 +49039,11 @@
       "description": "GitHub Actions OpenTelemetry"
     },
     {
+      "name": "dsummersl--sn2md",
+      "source": "./dsummersl--sn2md",
+      "description": "Documents (images, pdfs, supernote) to Markdown"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -49287,6 +49347,11 @@
       "name": "codeclimbersio--ebb-app",
       "source": "./codeclimbersio--ebb-app",
       "description": "macOS app to help you focus. "
+    },
+    {
+      "name": "tgoodwin--kamera",
+      "source": "./tgoodwin--kamera",
+      "description": "kamera is a simulation toolkit for observing, analyzing, and verifying the behavior of Kubernetes control planes."
     },
     {
       "name": "sonarsource--sonarqube-agent-plugins",
@@ -57024,6 +57089,11 @@
       "description": "A web component for Google Drive Picker"
     },
     {
+      "name": "powerappsdarren--powerfxsnippets",
+      "source": "./powerappsdarren--powerfxsnippets",
+      "description": "My bag of tricks for the Power Platform, mostly canvas Power Apps (PowerFx & YAML)"
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -58074,6 +58144,11 @@
       "description": "An independent Core, Plugins and Themes updater for WordPress. No wp.org dependency."
     },
     {
+      "name": "xavescor--smartbundle",
+      "source": "./xavescor--smartbundle",
+      "description": "Just Code, No Configs. The Library Bundler That Respects Your Time"
+    },
+    {
       "name": "ursushoribilismusic--agentic-fleet-hub",
       "source": "./ursushoribilismusic--agentic-fleet-hub",
       "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy."
@@ -58607,6 +58682,11 @@
       "name": "begoonlab--xiao-esp32c6-wifi-sensor",
       "source": "./begoonlab--xiao-esp32c6-wifi-sensor",
       "description": "Wi-Fi sensor based on XIAO ESP32-C6"
+    },
+    {
+      "name": "bedrock-crustaceans--chorus",
+      "source": "./bedrock-crustaceans--chorus",
+      "description": "Minecraft: Bedrock server software, open source and written in Rust"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -61724,6 +61804,16 @@
       "description": "Experimental JFR parser"
     },
     {
+      "name": "lightningdevkit--ldk-server",
+      "source": "./lightningdevkit--ldk-server",
+      "description": "LDK Server is a fully-functional Lightning node in daemon form."
+    },
+    {
+      "name": "lightningdevkit--ldk-server",
+      "source": "./lightningdevkit--ldk-server",
+      "description": "LDK Server is a fully-functional Lightning node in daemon form."
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -62467,6 +62557,26 @@
       "name": "pnsk-lab--hikkaku",
       "source": "./pnsk-lab--hikkaku",
       "description": "Let AI create Scratch projects, via TypeScript"
+    },
+    {
+      "name": "xenoatom--xenoatom-logging",
+      "source": "./xenoatom--xenoatom-logging",
+      "description": "Zero-alloc structured logging for .NET - fast formatters, rich terminal visuals, production-ready file & JSON sinks."
+    },
+    {
+      "name": "caoccao--bettermediainfo",
+      "source": "./caoccao--bettermediainfo",
+      "description": "A better GUI for MediaInfo."
+    },
+    {
+      "name": "xenoatom--xenoatom-logging",
+      "source": "./xenoatom--xenoatom-logging",
+      "description": "Zero-alloc structured logging for .NET - fast formatters, rich terminal visuals, production-ready file & JSON sinks."
+    },
+    {
+      "name": "caoccao--bettermediainfo",
+      "source": "./caoccao--bettermediainfo",
+      "description": "A better GUI for MediaInfo."
     },
     {
       "name": "domye--solace",
@@ -65784,6 +65894,11 @@
       "description": "Not just an alternative to Pandas in Go. A next-generation data analysis library for Golang with factor analysis, Parquet, CSV, JSON, Excel, and seamless Python integration."
     },
     {
+      "name": "terraconstructs--base",
+      "source": "./terraconstructs--base",
+      "description": "TerraConstructs"
+    },
+    {
       "name": "hyhmrright--brooks-lint",
       "source": "./hyhmrright--brooks-lint",
       "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix"
@@ -67842,6 +67957,11 @@
       "name": "clockobot--clockobot",
       "source": "./clockobot--clockobot",
       "description": "Timesheets for freelancers made easy and efficient"
+    },
+    {
+      "name": "fehbari--sunshine-scripts",
+      "source": "./fehbari--sunshine-scripts",
+      "description": "Scripts for Sunshine game stream host."
     },
     {
       "name": "mikkelkrogsholm--skills",
@@ -143669,6 +143789,11 @@
       "description": "\u8dd1\u5728 Claude Code / Codex \u4e4b\u4e0a\u7684\u672c\u5730\u591a Agent \u534f\u4f5c\u811a\u624b\u67b6:\u4e00\u4e2a\u4eba\u4e0b\u6307\u4ee4,\u4e3b Agent \u62c6\u89e3\u5206\u6d3e\u7ed9\u4e13\u804c\u89d2\u8272,\u5171\u7528\u6587\u4ef6\u7ea7\u8bb0\u5fc6\u5c42\u3002\u4f5c\u8005\u81ea\u7528\u7684\u4e3b\u8981\u65b9\u6cd5\u662f\u63a5\u7ed9\u98de\u4e66bot\uff0cElon\u4f1a\u9ed8\u8ba4\u79f0\u547c\u4f60\u4e3a\u201d\u8463\u4e8b\u957f\u201c"
     },
     {
+      "name": "yaodub--cast",
+      "source": "./yaodub--cast",
+      "description": "Your agent team, on your machine. Open-source harness for multi-user Claude agents."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -157317,6 +157442,16 @@
       "name": "ysx12138--business-analysis-learning-agent-skill",
       "source": "./ysx12138--business-analysis-learning-agent-skill",
       "description": "business-analysis-learning-agent-skill"
+    },
+    {
+      "name": "productdevbook--shadcn-htmx",
+      "source": "./productdevbook--shadcn-htmx",
+      "description": "shadcn-style UI components for htmx v4 + Tailwind v4 \u2014 82 web-standards components in 5 flavours (Hono JSX, Jinja2, Go, Phoenix, raw HTML), WAI-ARIA accessible, with a flavour-aware CLI."
+    },
+    {
+      "name": "sikaka--poe2radar",
+      "source": "./sikaka--poe2radar",
+      "description": "POE2Radar"
     },
     {
       "name": "yschimke--compose-ai-tools",
