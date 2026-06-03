@@ -1,0 +1,44 @@
+{
+  "name": "boost-search-engine",
+  "owner": "ffengc",
+  "repo": "boost-search-engine",
+  "description": "This search engine leverages the Boost library for efficient document search, featuring data preprocessing, index creation, and advanced search functionalities. It uses C++, HTML, CSS, and JavaScript, enhancing access to Boost technical documents for developers.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ffengc/boost-search-engine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T19:51:06Z"
+}
