@@ -1,0 +1,9 @@
+{
+  "name": "zhangfisher--autostore",
+  "displayName": "autostore",
+  "description": "Very easy and elegant state management library. It is based on proxy and provides functions such as signaling, computation, and watching to ensure fine-grained updates",
+  "version": "1.0.0",
+  "author": "zhangfisher",
+  "homepage": "https://github.com/zhangfisher/autostore",
+  "skills": []
+}
