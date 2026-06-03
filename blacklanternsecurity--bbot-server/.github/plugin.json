@@ -1,0 +1,9 @@
+{
+  "name": "blacklanternsecurity--bbot-server",
+  "displayName": "bbot-server",
+  "description": "A persistent database + CLI for your BBOT scan data \ud83e\udde1",
+  "version": "1.0.0",
+  "author": "blacklanternsecurity",
+  "homepage": "https://github.com/blacklanternsecurity/bbot-server",
+  "skills": []
+}
