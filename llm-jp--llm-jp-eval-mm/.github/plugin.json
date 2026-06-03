@@ -1,0 +1,9 @@
+{
+  "name": "llm-jp--llm-jp-eval-mm",
+  "displayName": "llm-jp-eval-mm",
+  "description": "A lightweight framework for evaluating visual-language models.",
+  "version": "1.0.0",
+  "author": "llm-jp",
+  "homepage": "https://github.com/llm-jp/llm-jp-eval-mm",
+  "skills": []
+}
