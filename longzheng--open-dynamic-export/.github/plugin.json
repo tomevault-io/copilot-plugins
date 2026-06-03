@@ -1,0 +1,9 @@
+{
+  "name": "longzheng--open-dynamic-export",
+  "displayName": "open-dynamic-export",
+  "description": "Dynamic export control/solar curtailment of inverters for dynamic connections (CSIP-AUS/SEP2/IEEE 2030.5), fixed/zero export or negative feed-in",
+  "version": "1.0.0",
+  "author": "longzheng",
+  "homepage": "https://github.com/longzheng/open-dynamic-export",
+  "skills": []
+}
