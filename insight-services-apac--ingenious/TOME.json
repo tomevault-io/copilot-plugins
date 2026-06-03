@@ -4,7 +4,7 @@
   "repo": "ingenious",
   "description": "General-purpose Gen AI Accelerator developed for Insight APAC projects",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Insight-Services-APAC/ingenious",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T06:35:16Z"
+  "distributed_at": "2026-06-03T06:35:48Z"
 }
