@@ -4,7 +4,7 @@
   "repo": "metamask-design-system",
   "description": "The design system for MetaMask products",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MetaMask/metamask-design-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T10:32:15Z"
+  "distributed_at": "2026-06-03T10:38:51Z"
 }
