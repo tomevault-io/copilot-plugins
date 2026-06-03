@@ -1,0 +1,9 @@
+{
+  "name": "zapstore--zapstore-cli",
+  "displayName": "zapstore-cli",
+  "description": "The permissionless package manager",
+  "version": "1.0.0",
+  "author": "zapstore",
+  "homepage": "https://github.com/zapstore/zapstore-cli",
+  "skills": []
+}
