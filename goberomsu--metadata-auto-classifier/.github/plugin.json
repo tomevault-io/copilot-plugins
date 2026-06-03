@@ -1,0 +1,9 @@
+{
+  "name": "goberomsu--metadata-auto-classifier",
+  "displayName": "Metadata-Auto-Classifier",
+  "description": "AI-powered Obsidian plugin that automatically classifies and generates metadata (tags, frontmatter) for your notes.",
+  "version": "1.0.0",
+  "author": "GoBeromsu",
+  "homepage": "https://github.com/GoBeromsu/Metadata-Auto-Classifier",
+  "skills": []
+}
