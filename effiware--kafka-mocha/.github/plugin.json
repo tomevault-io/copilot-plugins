@@ -1,0 +1,9 @@
+{
+  "name": "effiware--kafka-mocha",
+  "displayName": "kafka-mocha",
+  "description": "Embedded Kafka for Python - Testing library for confluent_kafka",
+  "version": "1.0.0",
+  "author": "Effiware",
+  "homepage": "https://github.com/Effiware/kafka-mocha",
+  "skills": []
+}
