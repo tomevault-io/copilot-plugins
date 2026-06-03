@@ -1,0 +1,44 @@
+{
+  "name": "hyper-magic-window-web-ui",
+  "owner": "sothx",
+  "repo": "hyper-magic-window-web-ui",
+  "description": "\u300aHyperOS For Pad/Fold \u5b8c\u7f8e\u6a2a\u5c4f\u5e94\u7528\u8ba1\u5212\u300b Web UI \u7aef\uff0c\u63d0\u4f9b\u53ef\u89c6\u5316\u4fee\u6539\u6a21\u5757\u90e8\u5206\u914d\u7f6e\u7684\u80fd\u529b",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sothx/hyper-magic-window-web-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T05:31:34Z"
+}
