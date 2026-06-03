@@ -1,0 +1,9 @@
+{
+  "name": "zl-asica--suzublog",
+  "displayName": "SuzuBlog",
+  "description": "A minimalist and fast Next.js blog template, one-click deploy, writing in Markdown. \u57fa\u4e8e Next.js \u7684\u535a\u5ba2\u6a21\u677f\uff0c\u4e00\u952e\u542f\u52a8\uff0c\u7b80\u6613\u914d\u7f6e\uff0c\u4f7f\u7528 Markdown \u64b0\u5199\u4f60\u7684\u6587\u7ae0\u3002",
+  "version": "1.0.0",
+  "author": "ZL-Asica",
+  "homepage": "https://github.com/ZL-Asica/SuzuBlog",
+  "skills": []
+}
