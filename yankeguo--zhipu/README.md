@@ -7,11 +7,11 @@ A 3rd-Party Golang Client Library for Zhipu AI Platform
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yankeguo/zhipu](https://github.com/yankeguo/zhipu).
+Original source: `AGENTS.md` in [yankeguo/zhipu](https://github.com/yankeguo/zhipu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
