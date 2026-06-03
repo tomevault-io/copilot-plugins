@@ -4,7 +4,7 @@
   "repo": "open-sidenotes",
   "description": "This is a open source sidenote app,with concise and fast.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mlhiter/open-sidenotes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T02:43:50Z"
+  "distributed_at": "2026-06-03T02:45:56Z"
 }
