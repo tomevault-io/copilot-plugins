@@ -1,0 +1,9 @@
+{
+  "name": "vouillon--wax",
+  "displayName": "wax",
+  "description": "Rust-like syntax for WebAssembly featuring a full toolchain for conversion, type-checking, and auto-formatting.",
+  "version": "1.0.0",
+  "author": "vouillon",
+  "homepage": "https://github.com/vouillon/wax",
+  "skills": []
+}
