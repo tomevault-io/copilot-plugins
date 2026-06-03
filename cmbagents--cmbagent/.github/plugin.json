@@ -1,0 +1,9 @@
+{
+  "name": "cmbagents--cmbagent",
+  "displayName": "cmbagent",
+  "description": "Multi-agent system for research, powered by ag2",
+  "version": "1.0.0",
+  "author": "CMBAgents",
+  "homepage": "https://github.com/CMBAgents/cmbagent",
+  "skills": []
+}
