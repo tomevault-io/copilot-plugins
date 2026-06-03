@@ -1,0 +1,9 @@
+{
+  "name": "magnus-trent--electron-devkit",
+  "displayName": "electron-devkit",
+  "description": "The EDK is a collection of packages to aid in the development of electron applications. It does not build, nor test, applications. It simply provides functionality through dedciated modules.",
+  "version": "1.0.0",
+  "author": "magnus-trent",
+  "homepage": "https://github.com/magnus-trent/electron-devkit",
+  "skills": []
+}
