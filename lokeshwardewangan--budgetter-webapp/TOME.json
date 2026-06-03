@@ -4,7 +4,7 @@
   "repo": "Budgetter-Webapp",
   "description": "Production-ready expense tracking platform delivering real-time financial insights, secure authentication, and scalable architecture for data-driven personal finance management.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lokeshwardewangan/Budgetter-Webapp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T14:46:12Z"
+  "distributed_at": "2026-06-03T14:48:13Z"
 }
