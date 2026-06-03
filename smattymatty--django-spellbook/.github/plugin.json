@@ -1,0 +1,9 @@
+{
+  "name": "smattymatty--django-spellbook",
+  "displayName": "django_spellbook",
+  "description": "Transforms markdown files into fully-rendered Django templates with auto-generated views and URLs, eliminating boilerplate code while maintaining Django's flexibility.",
+  "version": "1.0.0",
+  "author": "smattymatty",
+  "homepage": "https://github.com/smattymatty/django_spellbook",
+  "skills": []
+}
