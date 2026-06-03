@@ -4,7 +4,7 @@
   "repo": "antikythera",
   "description": "Automated test generation for spring apps",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Cloud-Solutions-International/antikythera",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T00:34:47Z"
+  "distributed_at": "2026-06-03T00:45:49Z"
 }
