@@ -1,0 +1,44 @@
+{
+  "name": "solana-starter",
+  "owner": "stevesarmiento",
+  "repo": "solana-starter",
+  "description": "An open-source solana starter using Next 15, Turbopack, Tanstack, Shadcn, Tailwind, Solana 2.0, Wallet Stadard, and Plausible",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/stevesarmiento/solana-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T02:32:32Z"
+}
