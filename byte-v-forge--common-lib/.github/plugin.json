@@ -1,0 +1,9 @@
+{
+  "name": "byte-v-forge--common-lib",
+  "displayName": "common-lib",
+  "description": "Shared platform contracts and libraries for Byte V Forge",
+  "version": "1.0.0",
+  "author": "byte-v-forge",
+  "homepage": "https://github.com/byte-v-forge/common-lib",
+  "skills": []
+}
