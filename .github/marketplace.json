@@ -72904,6 +72904,11 @@
       "description": "Instructions for LLMs on how to produce great tests with best practices inside"
     },
     {
+      "name": "fazil47--wgpu-renderer",
+      "source": "./fazil47--wgpu-renderer",
+      "description": "A rasterizer and raytracer renderer written in Rust using the wgpu library."
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -74984,6 +74989,31 @@
       "description": "ogem"
     },
     {
+      "name": "carbon-design-system--carbon-ai-chat",
+      "source": "./carbon-design-system--carbon-ai-chat",
+      "description": "Carbon AI chat is a front-end chat framework from the IBM Carbon team."
+    },
+    {
+      "name": "ifokeev--telegram-ai-agent",
+      "source": "./ifokeev--telegram-ai-agent",
+      "description": "Telegram AI Agent: A powerful Python library for creating AI-powered Telegram bots"
+    },
+    {
+      "name": "carbon-design-system--carbon-ai-chat",
+      "source": "./carbon-design-system--carbon-ai-chat",
+      "description": "Carbon AI chat is a front-end chat framework from the IBM Carbon team."
+    },
+    {
+      "name": "richardknop--minisql",
+      "source": "./richardknop--minisql",
+      "description": "Embedded single file SQL database written in Golang"
+    },
+    {
+      "name": "richardknop--minisql",
+      "source": "./richardknop--minisql",
+      "description": "Embedded single file SQL database written in Golang"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -76942,6 +76972,16 @@
       "name": "mattgodbolt--specbolt",
       "source": "./mattgodbolt--specbolt",
       "description": "Yet another ZX Spectrum Emulator"
+    },
+    {
+      "name": "dtinth--mockapis",
+      "source": "./dtinth--mockapis",
+      "description": "Mock API endpoints to make end-to-end testing more convenient"
+    },
+    {
+      "name": "nlopes--acdc",
+      "source": "./nlopes--acdc",
+      "description": "Toolkit for AsciiDoc\u2122 in rust"
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -79054,6 +79094,11 @@
       "description": "AI Genius annotations for every page on the web."
     },
     {
+      "name": "gravity-ui--charts",
+      "source": "./gravity-ui--charts",
+      "description": "React charting library with 10+ chart types: area, bar, line, pie, scatter, treemap, and more"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -80232,6 +80277,11 @@
       "name": "daddodev--pimpmyrice",
       "source": "./daddodev--pimpmyrice",
       "description": "The overkill theme manager"
+    },
+    {
+      "name": "proscia--proscia-ai-tools",
+      "source": "./proscia--proscia-ai-tools",
+      "description": "Proscia AI tools"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -81542,6 +81592,11 @@
       "name": "daz-codes--rubymonkey",
       "source": "./daz-codes--rubymonkey",
       "description": "Monkey patching Javascript to be more like Ruby"
+    },
+    {
+      "name": "shuhuiluo--uniswap-v4-sdk-rs",
+      "source": "./shuhuiluo--uniswap-v4-sdk-rs",
+      "description": "Opinionated Rust implementation of the Uniswap V4 SDK with a focus on readability and performance"
     },
     {
       "name": "r44vc0rp--itui",
@@ -83882,6 +83937,16 @@
       "name": "ferritin-bio--ferritin",
       "source": "./ferritin-bio--ferritin",
       "description": "protein utilities in Rust"
+    },
+    {
+      "name": "dncraptor--pico-spec",
+      "source": "./dncraptor--pico-spec",
+      "description": "ESPectrum port for RP2040/RP2350 (Raspberry Pi Pico / Pico 2)"
+    },
+    {
+      "name": "dncraptor--pico-spec",
+      "source": "./dncraptor--pico-spec",
+      "description": "ESPectrum port for RP2040/RP2350 (Raspberry Pi Pico / Pico 2)"
     },
     {
       "name": "skywind3000--gamesample",
@@ -86634,6 +86699,11 @@
       "description": "Now Playing TUI written in Go"
     },
     {
+      "name": "roberthsu2003--llms-raspberry",
+      "source": "./roberthsu2003--llms-raspberry",
+      "description": "\u672c\u5730\u7aefLLMs\u5728Raspberry\u4e0a\u7684\u61c9\u7528"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -88239,6 +88309,11 @@
       "description": "Maximize the potential of your Huawei solar battery system with this powerful Home Assistant custom integration."
     },
     {
+      "name": "zcash--wallet",
+      "source": "./zcash--wallet",
+      "description": "Repo for replacing the zcashd wallet"
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -89837,6 +89912,16 @@
       "name": "zebreus--rudelblinken",
       "source": "./zebreus--rudelblinken",
       "description": "Syncing and blinking cat ears"
+    },
+    {
+      "name": "fredaime--openwheel",
+      "source": "./fredaime--openwheel",
+      "description": "Set of tools for handling ASUS Dial and simmilar designware hardware under Linux"
+    },
+    {
+      "name": "acquire-project--acquire-zarr",
+      "source": "./acquire-project--acquire-zarr",
+      "description": "Streaming directly to Zarr on the file system or S3"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -105949,6 +106034,11 @@
       "description": "stream-feeds-js"
     },
     {
+      "name": "ikuzweelisa--code-copilot",
+      "source": "./ikuzweelisa--code-copilot",
+      "description": " AProgramming Assistant"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -108492,6 +108582,26 @@
       "name": "pymmcore-plus--pymmcore-gui",
       "source": "./pymmcore-plus--pymmcore-gui",
       "description": "Pure Python Micro-Manager GUI Application, built on pymmcore-plus"
+    },
+    {
+      "name": "karthikshivasankar--python-smells-detector",
+      "source": "./karthikshivasankar--python-smells-detector",
+      "description": "PyExamine: A Comprehensive, Un-Opinionated Smell Detection Tool for Python"
+    },
+    {
+      "name": "rameerez--trackdown",
+      "source": "./rameerez--trackdown",
+      "description": "\ud83d\udccd Ruby gem to geolocate IPs easily"
+    },
+    {
+      "name": "karthikshivasankar--python-smells-detector",
+      "source": "./karthikshivasankar--python-smells-detector",
+      "description": "PyExamine: A Comprehensive, Un-Opinionated Smell Detection Tool for Python"
+    },
+    {
+      "name": "rameerez--trackdown",
+      "source": "./rameerez--trackdown",
+      "description": "\ud83d\udccd Ruby gem to geolocate IPs easily"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -113792,6 +113902,11 @@
       "name": "cjohndesign--fen-sliders",
       "source": "./cjohndesign--fen-sliders",
       "description": "Slidev implementation"
+    },
+    {
+      "name": "midpoint--everyday",
+      "source": "./midpoint--everyday",
+      "description": "\u6bcf\u65e5\u65e9\u62a5"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -123784,6 +123899,26 @@
       "description": "Python SDK for Palo Alto Networks Strata Cloud Manager."
     },
     {
+      "name": "cloud-solutions-international--antikythera",
+      "source": "./cloud-solutions-international--antikythera",
+      "description": "Automated test generation for spring apps"
+    },
+    {
+      "name": "sadekur--commercekit",
+      "source": "./sadekur--commercekit",
+      "description": "Tagline: Essential tools for smarter selling. Why it works: Sounds like a toolkit, aligns well with a feature-rich helper plugin."
+    },
+    {
+      "name": "cloud-solutions-international--antikythera",
+      "source": "./cloud-solutions-international--antikythera",
+      "description": "Automated test generation for spring apps"
+    },
+    {
+      "name": "sadekur--commercekit",
+      "source": "./sadekur--commercekit",
+      "description": "Tagline: Essential tools for smarter selling. Why it works: Sounds like a toolkit, aligns well with a feature-rich helper plugin."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -127362,6 +127497,11 @@
       "name": "ntindle--gridfinity-space-optimizer",
       "source": "./ntindle--gridfinity-space-optimizer",
       "description": "gridfinity-space-optimizer"
+    },
+    {
+      "name": "starlightdamian--seagull",
+      "source": "./starlightdamian--seagull",
+      "description": "Local quantitative research platform"
     },
     {
       "name": "claude-php--claude-php-agent",
