@@ -4,7 +4,7 @@
   "repo": "XenoAtom.Logging",
   "description": "Zero-alloc structured logging for .NET - fast formatters, rich terminal visuals, production-ready file & JSON sinks.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XenoAtom/XenoAtom.Logging",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T17:42:47Z"
+  "distributed_at": "2026-06-03T17:46:15Z"
 }
