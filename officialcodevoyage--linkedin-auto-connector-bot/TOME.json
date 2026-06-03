@@ -1,0 +1,44 @@
+{
+  "name": "LinkedIn_Auto_Connector_Bot",
+  "owner": "OfficialCodeVoyage",
+  "repo": "LinkedIn_Auto_Connector_Bot",
+  "description": "The LinkedIn Auto Connector Bot is a powerful tool designed to automate connection requests on LinkedIn. This bot helps users expand their professional network by sending connection requests to a targeted audience based on specified search criteria. ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/OfficialCodeVoyage/LinkedIn_Auto_Connector_Bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T19:44:24Z"
+}
