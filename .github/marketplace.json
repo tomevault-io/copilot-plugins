@@ -43904,6 +43904,26 @@
       "description": "Extensions for Microsoft.AspNetCore.OpenApi"
     },
     {
+      "name": "cjinhuo--blazwitcher",
+      "source": "./cjinhuo--blazwitcher",
+      "description": "A Chrome Extension to blaze through your tabs, bookmarks, and history \u2014 with powerful fuzzy Pinyin search and grouping tags by AI. \u4e00\u6b3e\u53ef\u4ee5\u5168\u5c40\u641c\u7d22\u6807\u7b7e\u3001\u4e66\u7b7e\u548c\u5386\u53f2\u8bb0\u5f55\u7684 Chrome \u6d4f\u89c8\u5668\u6269\u5c55\uff0c\u652f\u6301\u62fc\u97f3\u6a21\u7cca\u641c\u7d22\u548c AI \u6807\u7b7e\u5206\u7ec4"
+    },
+    {
+      "name": "cjinhuo--blazwitcher",
+      "source": "./cjinhuo--blazwitcher",
+      "description": "A Chrome Extension to blaze through your tabs, bookmarks, and history \u2014 with powerful fuzzy Pinyin search and grouping tags by AI. \u4e00\u6b3e\u53ef\u4ee5\u5168\u5c40\u641c\u7d22\u6807\u7b7e\u3001\u4e66\u7b7e\u548c\u5386\u53f2\u8bb0\u5f55\u7684 Chrome \u6d4f\u89c8\u5668\u6269\u5c55\uff0c\u652f\u6301\u62fc\u97f3\u6a21\u7cca\u641c\u7d22\u548c AI \u6807\u7b7e\u5206\u7ec4"
+    },
+    {
+      "name": "keychat-io--keychat-app",
+      "source": "./keychat-io--keychat-app",
+      "description": "Keychat is the super app for Bitcoiners. Autonomous IDs, Bitcoin ecash wallet, secure chat, and rich mini apps \u2014 all in Keychat. Autonomy. Security. Richness."
+    },
+    {
+      "name": "keychat-io--keychat-app",
+      "source": "./keychat-io--keychat-app",
+      "description": "Keychat is the super app for Bitcoiners. Autonomous IDs, Bitcoin ecash wallet, secure chat, and rich mini apps \u2014 all in Keychat. Autonomy. Security. Richness."
+    },
+    {
       "name": "livekit--livekit-wakeword",
       "source": "./livekit--livekit-wakeword",
       "description": "An open-source wake word library for creating voice-enabled applications."
@@ -45994,6 +46014,36 @@
       "description": "\u25b6\ud83d\udcda Playbooks is a semantic programming system for AI agents"
     },
     {
+      "name": "kkrt-labs--keth",
+      "source": "./kkrt-labs--keth",
+      "description": "A EVM block proving backend in Cairo"
+    },
+    {
+      "name": "kkrt-labs--keth",
+      "source": "./kkrt-labs--keth",
+      "description": "A EVM block proving backend in Cairo"
+    },
+    {
+      "name": "kkrt-labs--keth",
+      "source": "./kkrt-labs--keth",
+      "description": "A EVM block proving backend in Cairo"
+    },
+    {
+      "name": "kkrt-labs--keth",
+      "source": "./kkrt-labs--keth",
+      "description": "A EVM block proving backend in Cairo"
+    },
+    {
+      "name": "kkrt-labs--keth",
+      "source": "./kkrt-labs--keth",
+      "description": "A EVM block proving backend in Cairo"
+    },
+    {
+      "name": "kkrt-labs--keth",
+      "source": "./kkrt-labs--keth",
+      "description": "A EVM block proving backend in Cairo"
+    },
+    {
       "name": "jjongguet--oh-my-product",
       "source": "./jjongguet--oh-my-product",
       "description": "oh-my-product"
@@ -46387,6 +46437,31 @@
       "name": "oboard--mocket",
       "source": "./oboard--mocket",
       "description": "A web framework for MoonBit."
+    },
+    {
+      "name": "taro-28--tanstack-table-search-params",
+      "source": "./taro-28--tanstack-table-search-params",
+      "description": "React Hook for syncing TanStack Table state with URL search params."
+    },
+    {
+      "name": "taro-28--tanstack-table-search-params",
+      "source": "./taro-28--tanstack-table-search-params",
+      "description": "React Hook for syncing TanStack Table state with URL search params."
+    },
+    {
+      "name": "taro-28--tanstack-table-search-params",
+      "source": "./taro-28--tanstack-table-search-params",
+      "description": "React Hook for syncing TanStack Table state with URL search params."
+    },
+    {
+      "name": "cartodb--raquet",
+      "source": "./cartodb--raquet",
+      "description": "RaQuet is a specification for storing and querying raster data using Apache Parquet."
+    },
+    {
+      "name": "taro-28--tanstack-table-search-params",
+      "source": "./taro-28--tanstack-table-search-params",
+      "description": "React Hook for syncing TanStack Table state with URL search params."
     },
     {
       "name": "peteromallet--vibecomfy",
@@ -46937,6 +47012,11 @@
       "name": "maxandron--goplements-nvim",
       "source": "./maxandron--goplements-nvim",
       "description": "Visualize Go struct and interface implementations"
+    },
+    {
+      "name": "kszucs--marrow",
+      "source": "./kszucs--marrow",
+      "description": "Arrow implementation in Mojo"
     },
     {
       "name": "cohen-liel--hivemind",
@@ -47602,6 +47682,11 @@
       "name": "khrnchn--sedekah-je",
       "source": "./khrnchn--sedekah-je",
       "description": "qr code directory of malaysian mosques, suraus, and islamic institutions."
+    },
+    {
+      "name": "vincentkoc--airgapped-offfline-rag",
+      "source": "./vincentkoc--airgapped-offfline-rag",
+      "description": "Secure, locally-run Retrieval-Augmented Generation system for document-based question-answering, utilizing Llama 3, Mistral, and Gemini models with a user-friendly Streamlit interface."
     },
     {
       "name": "kulterryan--who-to-bother-at-on-x",
@@ -48322,6 +48407,11 @@
       "name": "aurcode--ankineitor",
       "source": "./aurcode--ankineitor",
       "description": "The best automatic workflow for create your own custom flashcards in Anki"
+    },
+    {
+      "name": "officialcodevoyage--linkedin-auto-connector-bot",
+      "source": "./officialcodevoyage--linkedin-auto-connector-bot",
+      "description": "The LinkedIn Auto Connector Bot is a powerful tool designed to automate connection requests on LinkedIn. This bot helps users expand their professional network by sending connection requests to a targ"
     },
     {
       "name": "databricks--databricks-agent-skills",
@@ -50017,6 +50107,26 @@
       "name": "ivorforce--numdot",
       "source": "./ivorforce--numdot",
       "description": "Tensor math and scientific computation for the Godot game engine."
+    },
+    {
+      "name": "snapchat--gigl",
+      "source": "./snapchat--gigl",
+      "description": "Gigantic Graph Learning (GiGL) Framework: Large-scale training and inference for Graph Neural Networks"
+    },
+    {
+      "name": "snapchat--gigl",
+      "source": "./snapchat--gigl",
+      "description": "Gigantic Graph Learning (GiGL) Framework: Large-scale training and inference for Graph Neural Networks"
+    },
+    {
+      "name": "snapchat--gigl",
+      "source": "./snapchat--gigl",
+      "description": "Gigantic Graph Learning (GiGL) Framework: Large-scale training and inference for Graph Neural Networks"
+    },
+    {
+      "name": "snapchat--gigl",
+      "source": "./snapchat--gigl",
+      "description": "Gigantic Graph Learning (GiGL) Framework: Large-scale training and inference for Graph Neural Networks"
     },
     {
       "name": "alibaba--opc-starter",
@@ -53459,6 +53569,11 @@
       "description": "White-label AI-mentor LMS platform for enterprise L&D"
     },
     {
+      "name": "fsterthanlight--automatic-clicker-2",
+      "source": "./fsterthanlight--automatic-clicker-2",
+      "description": "\u81ea\u52a8\u5316\u63a7\u5236\u3001\u53ef\u89c6\u5316\u64cd\u4f5c\u3001\u81ea\u52a8\u8fde\u70b9\u5668\u3001\u6d41\u7a0b\u81ea\u52a8\u5316\u3001RPA"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -54882,6 +54997,11 @@
       "name": "jetrockets--ui-jetrockets-com",
       "source": "./jetrockets--ui-jetrockets-com",
       "description": "A comprehensive Rails component library built with ViewComponent, TailwindCSS 4.0, and Stimulus. This template provides a complete set of reusable UI components that developers can copy and customize "
+    },
+    {
+      "name": "flaringapp--composecollapsingtopbar",
+      "source": "./flaringapp--composecollapsingtopbar",
+      "description": "The ultimate Compose Multiplatform collapsing toolbar library with dynamic sizing, different scroll modes, and extensive customization options"
     },
     {
       "name": "knowsuchagency--fulcrum",
@@ -56504,6 +56624,11 @@
       "description": "AtomOne chain software"
     },
     {
+      "name": "stompgg--chomp",
+      "source": "./stompgg--chomp",
+      "description": "chomp"
+    },
+    {
       "name": "marciogranzotto--clawd-tank",
       "source": "./marciogranzotto--clawd-tank",
       "description": "clawd-tank"
@@ -57597,6 +57722,11 @@
       "name": "mikker--sprinkles",
       "source": "./mikker--sprinkles",
       "description": "Customize any website with your own JS and CSS"
+    },
+    {
+      "name": "langchain-ai--langchain-redis",
+      "source": "./langchain-ai--langchain-redis",
+      "description": "langchain-redis"
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -59449,6 +59579,11 @@
       "description": "ChouTiUI is a Swift framework for building delightful user interfaces on macOS and iOS."
     },
     {
+      "name": "ffengc--boost-search-engine",
+      "source": "./ffengc--boost-search-engine",
+      "description": "This search engine leverages the Boost library for efficient document search, featuring data preprocessing, index creation, and advanced search functionalities. It uses C++, HTML, CSS, and JavaScript,"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -61257,6 +61392,16 @@
       "name": "martinnormark--neural-mesh-simplification",
       "source": "./martinnormark--neural-mesh-simplification",
       "description": "Un-official and WIP Implementation of the Neural Mesh Simplification paper"
+    },
+    {
+      "name": "timo-drick--compose-edge-to-edge-preview",
+      "source": "./timo-drick--compose-edge-to-edge-preview",
+      "description": "jetpack Compose previews for edge-to-edge design in Android Studio"
+    },
+    {
+      "name": "yoziru--tesla-ble",
+      "source": "./yoziru--tesla-ble",
+      "description": "C++ library to communicate directly with Tesla vehicles over the BLE API"
     },
     {
       "name": "tencentcloud--cubesandbox",
@@ -63259,6 +63404,26 @@
       "description": "luci-app-fleth \u306f\u3001IPv4 over IPv6\u30c8\u30f3\u30cd\u30eb\uff08DS-Lite/MAP-E/IPIP6\uff09\u306e\u81ea\u52d5\u8a2d\u5b9a\u30d8\u30eb\u30d1\u3067\u3059\u3002"
     },
     {
+      "name": "xenoatom--xenoatom-allocators",
+      "source": "./xenoatom--xenoatom-allocators",
+      "description": "This library provides fast, lightweight and low-level memory allocators for .NET (e.g TLSF)"
+    },
+    {
+      "name": "danny-avila--agents",
+      "source": "./danny-avila--agents",
+      "description": "agents"
+    },
+    {
+      "name": "xenoatom--xenoatom-allocators",
+      "source": "./xenoatom--xenoatom-allocators",
+      "description": "This library provides fast, lightweight and low-level memory allocators for .NET (e.g TLSF)"
+    },
+    {
+      "name": "danny-avila--agents",
+      "source": "./danny-avila--agents",
+      "description": "agents"
+    },
+    {
       "name": "anhtester--antigravity-testing-kit",
       "source": "./anhtester--antigravity-testing-kit",
       "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL, WORKFLOW, RULE do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Antigravity h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
@@ -64184,6 +64349,21 @@
       "description": "insanely-fast-whisper with support for AMD GPU's with rocm 6.1 - 7.1"
     },
     {
+      "name": "seed-hypermedia--seed",
+      "source": "./seed-hypermedia--seed",
+      "description": "Desktop+Web app for self-publishing, powered by the open Hypermedia protocol"
+    },
+    {
+      "name": "seed-hypermedia--seed",
+      "source": "./seed-hypermedia--seed",
+      "description": "Desktop+Web app for self-publishing, powered by the open Hypermedia protocol"
+    },
+    {
+      "name": "seed-hypermedia--seed",
+      "source": "./seed-hypermedia--seed",
+      "description": "Desktop+Web app for self-publishing, powered by the open Hypermedia protocol"
+    },
+    {
       "name": "andrew-malitchuk--kite-aos",
       "source": "./andrew-malitchuk--kite-aos",
       "description": "Modern, open-source Android kiosk application designed to transform tablets into dedicated smart home dashboards."
@@ -65017,6 +65197,16 @@
       "name": "bareboat-necessities--bbn-wave-period-esp32",
       "source": "./bareboat-necessities--bbn-wave-period-esp32",
       "description": "Estimate ocean wave height (or vessel heave), waves direction, and period from accelerations using IMU on esp32 using advanced Kalman filters"
+    },
+    {
+      "name": "tscircuit--core",
+      "source": "./tscircuit--core",
+      "description": "Create electronics with Typescript and React. Compile Typescript to Circuit JSON"
+    },
+    {
+      "name": "tscircuit--core",
+      "source": "./tscircuit--core",
+      "description": "Create electronics with Typescript and React. Compile Typescript to Circuit JSON"
     },
     {
       "name": "lktiep--cortex-hub",
@@ -66952,6 +67142,11 @@
       "name": "pabloroman--virtua-fc",
       "source": "./pabloroman--virtua-fc",
       "description": "virtua-fc"
+    },
+    {
+      "name": "tsenoner--protspace",
+      "source": "./tsenoner--protspace",
+      "description": "ProtSpace is program that helps in visualizing and investigating our protein embedding space."
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -149729,6 +149924,11 @@
       "description": "CLIR, the Command Line Interface Router."
     },
     {
+      "name": "onlyterp--hermes-caduceus",
+      "source": "./onlyterp--hermes-caduceus",
+      "description": "Caduceus \u2014 Hermes-native UltraCode dynamic-workflow mode (Dynamic Workflows)"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -157602,6 +157802,21 @@
       "name": "sikaka--poe2radar",
       "source": "./sikaka--poe2radar",
       "description": "POE2Radar"
+    },
+    {
+      "name": "kerbelp--metatron",
+      "source": "./kerbelp--metatron",
+      "description": "Metatron is a self-hosted system that captures a codebase's real implementation decisions \u2014 preferred patterns, rejected approaches, edge cases, internal conventions \u2014 as structured priors, and serves"
+    },
+    {
+      "name": "kerbelp--metatron",
+      "source": "./kerbelp--metatron",
+      "description": "Metatron is a self-hosted system that captures a codebase's real implementation decisions \u2014 preferred patterns, rejected approaches, edge cases, internal conventions \u2014 as structured priors, and serves"
+    },
+    {
+      "name": "greatwallisme--juncture",
+      "source": "./greatwallisme--juncture",
+      "description": "A Rust implementation of LangGraph's state machine framework for building LLM agent applications. "
     },
     {
       "name": "yschimke--compose-ai-tools",
