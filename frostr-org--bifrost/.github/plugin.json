@@ -1,0 +1,9 @@
+{
+  "name": "frostr-org--bifrost",
+  "displayName": "bifrost",
+  "description": "Core library for implementing the FROSTR signing protocol.",
+  "version": "1.0.0",
+  "author": "FROSTR-ORG",
+  "homepage": "https://github.com/FROSTR-ORG/bifrost",
+  "skills": []
+}
