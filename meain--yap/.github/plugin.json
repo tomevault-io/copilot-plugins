@@ -1,0 +1,9 @@
+{
+  "name": "meain--yap",
+  "displayName": "yap",
+  "description": "Your Assistant for Prompting LLMs",
+  "version": "1.0.0",
+  "author": "meain",
+  "homepage": "https://github.com/meain/yap",
+  "skills": []
+}
