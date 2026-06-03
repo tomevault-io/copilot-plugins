@@ -1,0 +1,9 @@
+{
+  "name": "stevegeek--awfy",
+  "displayName": "awfy",
+  "description": "CLI tool to help run suites of benchmarks , and compare results over time, between control implementations, across branches and with or without YJIT.",
+  "version": "1.0.0",
+  "author": "stevegeek",
+  "homepage": "https://github.com/stevegeek/awfy",
+  "skills": []
+}
