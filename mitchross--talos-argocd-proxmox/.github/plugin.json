@@ -1,0 +1,9 @@
+{
+  "name": "mitchross--talos-argocd-proxmox",
+  "displayName": "talos-argocd-proxmox",
+  "description": "Talos ArgoCD Homelab. My personal production Cluster. ",
+  "version": "1.0.0",
+  "author": "mitchross",
+  "homepage": "https://github.com/mitchross/talos-argocd-proxmox",
+  "skills": []
+}
