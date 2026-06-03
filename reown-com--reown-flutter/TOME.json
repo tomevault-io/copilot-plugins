@@ -4,7 +4,7 @@
   "repo": "reown_flutter",
   "description": "Reown is the onchain UX platform that provides toolkits built on top of the WalletConnect Network that enable builders to create onchain user experiences that make digital ownership effortless, intuitive, and secure.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reown-com/reown_flutter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T11:52:12Z"
+  "distributed_at": "2026-06-03T11:56:18Z"
 }
