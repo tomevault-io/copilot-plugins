@@ -1,0 +1,9 @@
+{
+  "name": "beecave-homelab--insanely-fast-whisper-rocm",
+  "displayName": "insanely-fast-whisper-rocm",
+  "description": "insanely-fast-whisper with support for AMD GPU's with rocm 6.1 - 7.1",
+  "version": "1.0.0",
+  "author": "beecave-homelab",
+  "homepage": "https://github.com/beecave-homelab/insanely-fast-whisper-rocm",
+  "skills": []
+}
