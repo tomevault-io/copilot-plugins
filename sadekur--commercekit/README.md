@@ -7,11 +7,11 @@ Tagline: Essential tools for smarter selling. Why it works: Sounds like a toolki
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sadekur/commercekit](https://github.com/sadekur/commercekit).
+Original source: `CLAUDE.md` in [sadekur/commercekit](https://github.com/sadekur/commercekit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
