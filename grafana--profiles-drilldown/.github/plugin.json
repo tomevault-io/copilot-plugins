@@ -1,0 +1,9 @@
+{
+  "name": "grafana--profiles-drilldown",
+  "displayName": "profiles-drilldown",
+  "description": "Profiles Drilldown is a native Grafana application designed to integrate seamlessly with Pyroscope, the open-source continuous profiling platform, providing a smooth, query-less experience for browsin",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/profiles-drilldown",
+  "skills": []
+}
