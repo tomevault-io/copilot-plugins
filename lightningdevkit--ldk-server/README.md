@@ -7,11 +7,11 @@ LDK Server is a fully-functional Lightning node in daemon form.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lightningdevkit/ldk-server](https://github.com/lightningdevkit/ldk-server).
+Original source: `CLAUDE.md` in [lightningdevkit/ldk-server](https://github.com/lightningdevkit/ldk-server).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
