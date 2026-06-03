@@ -1,0 +1,9 @@
+{
+  "name": "fhir--fhir-candle",
+  "displayName": "fhir-candle",
+  "description": "fhir-candle - A FHIR development and test server implemented in C#",
+  "version": "1.0.0",
+  "author": "FHIR",
+  "homepage": "https://github.com/FHIR/fhir-candle",
+  "skills": []
+}
