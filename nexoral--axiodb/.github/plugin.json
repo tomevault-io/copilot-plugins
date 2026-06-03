@@ -1,0 +1,9 @@
+{
+  "name": "nexoral--axiodb",
+  "displayName": "AxioDB",
+  "description": "A fast, lightweight, and scalable open-source DBMS for modern apps. Supports JSON-based data storage, simple APIs, and secure data management. Ideal for projects needing efficient and flexible databas",
+  "version": "1.0.0",
+  "author": "nexoral",
+  "homepage": "https://github.com/nexoral/AxioDB",
+  "skills": []
+}
