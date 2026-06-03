@@ -1,12 +1,35 @@
-## react-package-conventions
+## request-tag-conventions
 
-> Conventions and guidelines specific to the `packages/react` package.
+> Conventions for Sanity API request tags and requestTagPrefix usage
 
 
-- Follow all `general-monorepo-guidelines`.
-- This package contains React components and hooks. Adhere to React best practices and the specific React linting rules (`@repo/config-eslint/react`).
-- Prefer functional components and Hooks over class components.
-- Tests utilize Vitest with `@testing-library/react`. Use `@testing-library/jest-dom` matchers for DOM assertions. Ensure components, hooks, and interactions are well-tested.
+# Request Tag Conventions
+
+All outgoing Sanity API requests from the SDK must use the `sanity.sdk.*` tag namespace for observability.
+
+## How tags work
+
+`@sanity/client` composes the effective tag as `${requestTagPrefix}.${tag}`. The prefix is set on the client; the tag is set per-request.
+
+## Rules
+
+1. **Never use ad hoc `requestTagPrefix` strings.** Use `REQUEST_TAG_PREFIX` from `authConstants.ts` for auth code, or rely on the default `'sanity.sdk'` from `clientStore.ts` for everything else.
+
+2. **Every `.request()`, `.fetch()`, `.listen()`, and `.action()` call must include a `tag` property** that describes the operation (e.g., `'users.get-current'`, `'logout'`, `'document.action'`).
+
+3. **Tag names should be short, lowercase, dot-separated descriptors** of the operation — not the endpoint path.
+
+## Example
+
+```typescript
+// ❌ BAD — ad hoc prefix, no request tag
+const client = clientFactory({ requestTagPrefix: 'my-feature' })
+await client.request({ uri: '/users/me', method: 'GET' })
+
+// ✅ GOOD — shared constant prefix, explicit request tag
+const client = clientFactory({ requestTagPrefix: REQUEST_TAG_PREFIX })
+await client.request({ uri: '/users/me', method: 'GET', tag: 'users.get-current' })
+```
 
 ---
 > Source: [sanity-io/sdk](https://github.com/sanity-io/sdk) — distributed by [TomeVault](https://tomevault.io).
