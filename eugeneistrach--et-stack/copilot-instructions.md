@@ -1,94 +1,80 @@
-## 300-data-api-layer
+## 300-data-database
 
-> API layer guidelines including TanStack Start server functions, query/mutation patterns, and best practices
+> Database schema creation and management guidelines
 
 
 guidelines:
-  core_concepts:
-    - API files serve as our API layer
-    - Server functions provide typesafe client-server bridge
-    - Server functions only call domain and service methods
-    - Query options define reusable react query calls
-    - Mutations handle invalidations for related queries
-
-  file_structure:
-    path: src/features/feature-name/api/module-name.api.ts
-    organization:
-      - Group by feature
-      - Keep related endpoints together
-
-  naming_conventions:
-    server_functions: Prefix with $ (e.g., $getUsers)
-    queries: use[Resource]QueryOptions
-    mutations: use[Action][Resource]Mutation
-    query_keys: Include all dependencies ['resource', { params }]
-
-  best_practices:
-    - Always use validation
-    - Maintain consistent query keys
-    - Group related endpoints
-
-examples:
-  query_options:
-    basic: |
-      export const useUserQueryOptions = (id: string) =>
-        queryOptions({
-          queryKey: ['user', id],
-          queryFn: () => $getUser({ data: { id } })
-        })
-
-    with_pagination: |
-      export const useUsersQueryOptions = ({ page = 1, pageSize = 10 }) =>
-        queryOptions({
-          queryKey: ['users', { page, pageSize }],
-          queryFn: () => $getUsers({ data: { page, pageSize } }),
-          placeholderData: keepPreviousData
-        })
-
-  server_function: |
-    const createUserSchema = z.object({
-      id: z.string(),
-      profile: z.object({
-        avatar: z.string().optional(),
-        bio: z.string().max(1000).optional()
-      }).optional(),
-      preferences: z.object({
-        theme: z.enum(['light', 'dark']).default('light'),
-        notifications: z.boolean().default(true).optional()
-      })
-    })
-
-    const $createUser = createServerFn({ method: 'POST' })
-      .validator(createUserSchema)
-      .handler(async ({ data }) => {
-        return await UserService.createUser()
-      })
-
-  mutation: |
-    export const useCreateUserMutation = () =>
-      useMutation({
-        mutationFn: (data: z.infer<typeof createUserSchema>) => $createUser({ data }),
-        onSuccess: () => {
-          void queryClient.invalidateQueries({ queryKey: ['users'] })
-        }
-      })
-
-key_points:
   structure:
-    - Organize by feature in dedicated API files
-    - Keep related endpoints together
-    - Follow consistent file naming patterns
+    schemas_dir: src/drizzle/schemas/
+    key_files:
+      _exports: Exports all schemas for drizzle-kit
+      schema: Combines all tables into single schema object
+      feature: Individual feature schemas as [feature]-schema.ts
 
-  implementation:
-    - Use server functions for type-safe API calls
-    - Implement proper validation
-    - Maintain consistent query key structure
+  naming:
+    tables: lowercase_with_underscores
+    schema_files: kebab-case-schema.ts
+    table_exports: PascalCase with Table suffix
+    type_exports: PascalCase without suffix
 
   patterns:
-    - Prefix private server functions with $
-    - Follow naming conventions for queries and mutations
-    - Group related query options and mutations
-    - Implement proper cache invalidation
+    - Always use textId() for primary keys
+    - Include dateTableFields for timestamps
+    - Define relations in schema.ts
+    - Use text fields with enums
+
+examples:
+  new_schema: |
+    import { sqliteTable } from 'drizzle-orm/sqlite-core'
+    import { dateTableFields, textId } from '@/drizzle/table-fields'
+
+    export const FeatureTable = sqliteTable('feature_name', {
+      id: textId(),
+      // ... other fields
+      ...dateTableFields,
+    })
+
+    export type Feature = typeof FeatureTable.$inferSelect
+
+  field_types: |
+    // Date/Timestamp
+    createdAt: t.integer({ mode: 'timestamp' })
+      .notNull()
+      .default(sql`(strftime('%s', 'now'))`),
+
+    // Boolean
+    isActive: t.integer({ mode: 'boolean' })
+      .notNull()
+      .default(sql`0`),
+
+    // Enum
+    status: t.text({ enum: ['ACTIVE', 'INACTIVE'] }).notNull()
+
+  relations: |
+    // Foreign key
+    userId: t.text().references(() => UserTable.id),
+
+    // Relations definition
+    export const tableRelations = relations(Table, ({ one, many }) => ({
+      posts: many(PostTable),
+      user: one(UserTable, {
+        fields: [Table.userId],
+        references: [UserTable.id],
+      }),
+    }))
+
+key_points:
+  setup:
+    - Create feature schema file
+    - Add to _exports.ts
+    - Add to schema.ts with relations
+    - Run bun run db:generate after changes
+
+  patterns:
+    - Use textId for PKs
+    - Include date fields
+    - Define relations
+    - Use proper field types
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
