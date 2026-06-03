@@ -4,7 +4,7 @@
   "repo": "bbot-server",
   "description": "A persistent database + CLI for your BBOT scan data \ud83e\udde1",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/blacklanternsecurity/bbot-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T22:30:24Z"
+  "distributed_at": "2026-06-03T22:30:55Z"
 }
