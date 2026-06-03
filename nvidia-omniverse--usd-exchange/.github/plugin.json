@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--usd-exchange",
+  "displayName": "usd-exchange",
+  "description": "OpenUSD Exchange SDK",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/usd-exchange",
+  "skills": []
+}
