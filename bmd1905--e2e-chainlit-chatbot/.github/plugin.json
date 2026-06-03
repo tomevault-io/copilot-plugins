@@ -1,0 +1,9 @@
+{
+  "name": "bmd1905--e2e-chainlit-chatbot",
+  "displayName": "e2e-chainlit-chatbot",
+  "description": "End-to-end example of a multi-agent chatbot with search and authentication capabilities built using Chainlit and Workflow's LlamaIndex..",
+  "version": "1.0.0",
+  "author": "bmd1905",
+  "homepage": "https://github.com/bmd1905/e2e-chainlit-chatbot",
+  "skills": []
+}
