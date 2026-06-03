@@ -1,79 +1,66 @@
-## 100-core-code-standards
+## 100-core-file-conventions
 
-> TypeScript code style and functional programming patterns
+> File naming and organization conventions
 
 
 guidelines:
-  code_style:
-    - Write concise, technical TypeScript code
-    - Use functional and declarative patterns
-    - Avoid classes and OOP patterns
-    - Follow Write Everything Twice principle over premature abstraction
-    - Use descriptive variable names with auxiliary verbs (isLoading, hasError)
+  directories:
+    - Use lowercase with dashes (kebab-case)
+    - Group by feature or responsibility
+    - Keep nesting to a minimum
+    - Use consistent names across features
 
-  typescript:
-    - Use TypeScript for all code
-    - Prefer types over interfaces for consistency
-    - Avoid non-strippable TypeScript features:
-      - No enums (use const objects with 'as const')
-      - No namespaces (use modules)
-    - Use absolute imports with @/ prefix
-    - Keep types simple and straightforward
+  files:
+    components:
+      - Name: component-name.tsx
+      - Stories: component-name.stories.tsx
+      - Tests: component-name.test.tsx
+
+    backend:
+      - Domain logic: module-name.server.ts
+      - API layer: module-name.api.ts
+      - Database: module-name.schema.ts
+      - Types: module-name.types.ts
+
+    routes:
+      - Index routes: index.tsx
+      - Named routes: route-name.tsx
+      - Layout routes: _layout.tsx
+      - Auth routes: _auth.tsx
 
 examples:
-  variable_naming: |
-    // Good
-    const isLoading = true
-    const hasError = false
-    const shouldRefetch = true
-    const wasSuccessful = false
+  component: |
+    // user-card.tsx
+    export const UserCard = () => { ... }
 
-  const_over_typescript_features: |
-    // Bad - using TypeScript-only feature
-    enum Status {
-      PENDING,
-      SUCCESS,
-      ERROR
-    }
+    // user-card.stories.tsx
+    export default { component: UserCard }
 
-    // Good - using strippable JavaScript
-    const Status = {
-      PENDING: 'PENDING',
-      SUCCESS: 'SUCCESS',
-      ERROR: 'ERROR'
-    } as const
+    // user-card.test.tsx
+    describe('UserCard', () => { ... })
 
-    type Status = typeof Status[keyof typeof Status]
+  backend: |
+    // users.server.ts
+    export const createUser = async () => { ... }
 
-  type_definition: |
-    // Good - simple type
-    type User = {
-      id: string
-      name: string
-      email: string
-    }
+    // users.api.ts
+    export const $createUser = createServerFn()
 
-    // Good - union type
-    type Status = 'pending' | 'success' | 'error'
-
-    // Good - extending types
-    type AdminUser = User & {
-      permissions: string[]
-    }
+    // users.schema.ts
+    export const UsersTable = sqliteTable(...)
 
 key_points:
-  style:
-    - Functional over OOP
-    - Descriptive naming
-    - Avoid premature abstraction
-    - Write concise, focused code
+  naming:
+    - Use kebab-case for files and directories
+    - Be descriptive and consistent
+    - Follow established patterns
+    - Use appropriate suffixes
 
-  typescript:
-    - Full TypeScript coverage
-    - Types over interfaces
-    - Avoid non-strippable features (enums, namespaces, decorators)
-    - Keep types simple and clear
-    - Absolute imports
+  organization:
+    - Group related files together
+    - Maintain consistent structure
+    - Keep paths predictable
+    - Use clear file purposes
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
