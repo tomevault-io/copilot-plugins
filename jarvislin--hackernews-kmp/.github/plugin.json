@@ -1,0 +1,9 @@
+{
+  "name": "jarvislin--hackernews-kmp",
+  "displayName": "HackerNews-KMP",
+  "description": "This is a Hacker News reader app implemented using Kotlin Multiplatform Compose for Android and iOS.",
+  "version": "1.0.0",
+  "author": "jarvislin",
+  "homepage": "https://github.com/jarvislin/HackerNews-KMP",
+  "skills": []
+}
