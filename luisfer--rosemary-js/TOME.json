@@ -1,0 +1,44 @@
+{
+  "name": "rosemary-js",
+  "owner": "luisfer",
+  "repo": "rosemary-js",
+  "description": "Rosemary.js: A flexible and powerful knowledge management library that serves as a canvas for organizing, connecting, and analyzing ideas and data. It provides tools for creating an organic, interconnected web of information with tagging, searching, and CLI capabilities.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/luisfer/rosemary-js",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T08:39:34Z"
+}
