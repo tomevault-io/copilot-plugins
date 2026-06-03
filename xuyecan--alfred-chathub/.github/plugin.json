@@ -1,0 +1,9 @@
+{
+  "name": "xuyecan--alfred-chathub",
+  "displayName": "alfred-chathub",
+  "description": "A chat alfred-workflow that integrates multiple popular large language model (LLM) services, including OpenAI, Anthropic, Gemini, etc",
+  "version": "1.0.0",
+  "author": "xuyecan",
+  "homepage": "https://github.com/xuyecan/alfred-chathub",
+  "skills": []
+}
