@@ -1,0 +1,9 @@
+{
+  "name": "zotero-rag--zotero-rag",
+  "displayName": "zotero-rag",
+  "description": "A RAG-based Q&A and search system for Zotero",
+  "version": "1.0.0",
+  "author": "zotero-rag",
+  "homepage": "https://github.com/zotero-rag/zotero-rag",
+  "skills": []
+}
