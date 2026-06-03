@@ -1,0 +1,9 @@
+{
+  "name": "charmsdev--charms",
+  "displayName": "charms",
+  "description": "Programmable assets on Bitcoin and beyond",
+  "version": "1.0.0",
+  "author": "CharmsDev",
+  "homepage": "https://github.com/CharmsDev/charms",
+  "skills": []
+}
