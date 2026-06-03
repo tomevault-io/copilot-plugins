@@ -1,0 +1,9 @@
+{
+  "name": "aniviaflome--nix-config",
+  "displayName": "nix-config",
+  "description": "My Nixos Config",
+  "version": "1.0.0",
+  "author": "AniviaFlome",
+  "homepage": "https://github.com/AniviaFlome/nix-config",
+  "skills": []
+}
