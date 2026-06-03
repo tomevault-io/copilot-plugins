@@ -91924,6 +91924,11 @@
       "description": "docs"
     },
     {
+      "name": "phpx-foundation--website",
+      "source": "./phpx-foundation--website",
+      "description": "website"
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -96144,6 +96149,11 @@
       "description": "A powerful, headless table library for Svelte that provides complete control over table UI while handling complex data operations like sorting, filtering, pagination, grouping, and row expansion. Buil"
     },
     {
+      "name": "smattymatty--django-spellbook",
+      "source": "./smattymatty--django-spellbook",
+      "description": "Transforms markdown files into fully-rendered Django templates with auto-generated views and URLs, eliminating boilerplate code while maintaining Django's flexibility."
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -98337,6 +98347,11 @@
       "name": "duzefu--d4keyhelp",
       "source": "./duzefu--d4keyhelp",
       "description": "\u6697\u9ed14  \u5e26UI\u7684AHK\u5b8f\u811a\u672c/Diablo4 AHK key helper with UI"
+    },
+    {
+      "name": "ar-jan--llm-venice",
+      "source": "./ar-jan--llm-venice",
+      "description": "LLM plugin for Venice AI"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -141544,6 +141559,11 @@
       "description": "Eclipse plugin for coding agents and other improvements"
     },
     {
+      "name": "dikibagast--systematic-trading-framework",
+      "source": "./dikibagast--systematic-trading-framework",
+      "description": "Open-source systematic trading framework that is optimized for performance and reduce probabilities of bias and overfitting."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -147212,6 +147232,16 @@
       "name": "your-quantguy--crypto-portfolio-tracker-oss",
       "source": "./your-quantguy--crypto-portfolio-tracker-oss",
       "description": "crypto-portfolio-tracker-oss"
+    },
+    {
+      "name": "kevinraymond--wave-network",
+      "source": "./kevinraymond--wave-network",
+      "description": "wave-network"
+    },
+    {
+      "name": "upstash--react-redis-browser",
+      "source": "./upstash--react-redis-browser",
+      "description": "React component for Redis data browser"
     },
     {
       "name": "lightninglabs--lnget",
@@ -154907,6 +154937,21 @@
       "name": "home-operations--kopiur",
       "source": "./home-operations--kopiur",
       "description": "kopiur"
+    },
+    {
+      "name": "starkware-libs--starknet-perpetual",
+      "source": "./starkware-libs--starknet-perpetual",
+      "description": "starknet-perpetual"
+    },
+    {
+      "name": "cofide--cofidectl",
+      "source": "./cofide--cofidectl",
+      "description": "A CLI for Kubernetes workload identity"
+    },
+    {
+      "name": "cofide--cofidectl",
+      "source": "./cofide--cofidectl",
+      "description": "A CLI for Kubernetes workload identity"
     },
     {
       "name": "yschimke--compose-ai-tools",
