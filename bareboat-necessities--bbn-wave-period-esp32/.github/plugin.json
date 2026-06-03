@@ -1,0 +1,9 @@
+{
+  "name": "bareboat-necessities--bbn-wave-period-esp32",
+  "displayName": "bbn-wave-period-esp32",
+  "description": "Estimate ocean wave height (or vessel heave), waves direction, and period from accelerations using IMU on esp32 using advanced Kalman filters",
+  "version": "1.0.0",
+  "author": "bareboat-necessities",
+  "homepage": "https://github.com/bareboat-necessities/bbn-wave-period-esp32",
+  "skills": []
+}
