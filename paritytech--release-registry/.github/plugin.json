@@ -1,0 +1,9 @@
+{
+  "name": "paritytech--release-registry",
+  "displayName": "release-registry",
+  "description": "Tracking past and future releases of the Polkadot SDK.",
+  "version": "1.0.0",
+  "author": "paritytech",
+  "homepage": "https://github.com/paritytech/release-registry",
+  "skills": []
+}
