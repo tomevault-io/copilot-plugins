@@ -1,0 +1,9 @@
+{
+  "name": "j-clemons--dbt-language-server",
+  "displayName": "dbt-language-server",
+  "description": "LSP for dbt",
+  "version": "1.0.0",
+  "author": "j-clemons",
+  "homepage": "https://github.com/j-clemons/dbt-language-server",
+  "skills": []
+}
