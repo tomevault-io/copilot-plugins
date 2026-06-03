@@ -1,0 +1,9 @@
+{
+  "name": "degraciamathieu--php-class-dependencies-analyzer",
+  "displayName": "php-class-dependencies-analyzer",
+  "description": "This tool allows you to monitor the dependencies and instability of your classes",
+  "version": "1.0.0",
+  "author": "DeGraciaMathieu",
+  "homepage": "https://github.com/DeGraciaMathieu/php-class-dependencies-analyzer",
+  "skills": []
+}
