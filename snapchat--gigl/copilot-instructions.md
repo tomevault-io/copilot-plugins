@@ -1,100 +1,20 @@
 ## gigl
 
-> Core coding standards - explicit naming and fail-fast error handling
+> This file provides guidance to coding agents working in this repository.
 
+# AGENTS.md
 
-# Coding Standards
+This file provides guidance to coding agents working in this repository.
 
-## Use Explicit Variable Names
+## Coordination With CLAUDE.md
 
-Never abbreviate variable names unless the abbreviation is universally understood in the domain
-(e.g. `i` for a loop index, `e` in a catch block, `url`, `id`, `config`).
-Shortened names reduce readability and make code harder to search and refactor.
-It is ok to shorten or abbreviate names to avoid shadowing other variables.
-
-```python
-# BAD - unclear abbreviation
-for nt in node_types:
-    et = edge_type_map.get(nt)
-
-# GOOD - explicit and readable
-for node_type in node_types:
-    edge_type = edge_type_map[node_type]
-```
-
-When in doubt, spell it out.
-
-## Fail Fast on Invalid State
-
-Surface errors immediately when invariants are violated.
-Do not silently swallow errors, return defaults, or skip logic when the situation is genuinely unexpected.
-
-### Dict Access
-
-Use `dict[key]` (bracket access) when the key **must** exist.
-Only use `dict.get(key, default)` when the absence of a key is a valid, expected case with a meaningful default.
-
-```python
-# BAD - silently returns None when the key is missing, hiding bugs downstream
-value = config.get("required_setting")
-
-# GOOD - raises KeyError immediately, surfacing the real problem
-value = config["required_setting"]
-
-# OK - .get() is correct when absence is an expected, handled case
-value = optional_overrides.get("timeout", DEFAULT_TIMEOUT)
-```
-
-### Validate Preconditions Early
-
-Check invariants at function entry. Prefer raising an explicit exception over silently continuing
-with bad data.
-
-```python
-# BAD - silently skips work on invalid input
-def process_batch(batch):
-    if batch:
-        ...
-
-# GOOD - fails immediately with a clear message
-def process_batch(batch):
-    if not batch:
-        raise ValueError("process_batch received an empty batch")
-    ...
-```
-
-## Verify Features Before Submitting
-
-Once a feature is code complete, verify it works by running the type checker and relevant tests.
-Do not skip these steps or suppress errors with workarounds like `# type: ignore`.
-
-### Type Checking
-
-Run the type checker to ensure all type annotations are correct:
-
-```bash
-make type_check
-```
-
-If there are type errors, fix them properly. Do **not** add `# type: ignore` comments to silence them.
-
-### Unit Tests
-
-Run the unit tests for the files affected by your change:
-
-```bash
-make unit_test_py PY_TEST_FILES="path/to/test_file.py"
-```
-
-### Integration Tests
-
-If the change touches cross-component behavior, also run integration tests:
-
-```bash
-make integration_test PY_TEST_FILES="path/to/test_file.py"
-```
+- CLAUDE.md is the canonical source of truth for project context, architecture intent, and workflow conventions.
+- At the start of every session: read [CLAUDE.md](CLAUDE.md) together with this file before making repository changes.
+- At the start of every session: discover available skills under [.claude/skills](.claude/skills).
+- When a relevant skill exists under `.claude/skills`, use it.
+- This file should only direct agents to read CLAUDE.md and discover/use `.claude/skills`, and make no other statements
+  about this repository.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Snapchat)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Snapchat)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [Snapchat/GiGL](https://github.com/Snapchat/GiGL) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
