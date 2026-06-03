@@ -1,0 +1,88 @@
+## minecraft-plugin
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+AbstractMenus is a GUI plugin for SpigotMC/PaperMC Minecraft servers (1.20.6+) that allows creating custom inventory-based menus. Written in Java 21, it uses Gradle with PaperMC Paperweight userdev and Shadow plugin.
+
+## Build Commands
+
+```bash
+./gradlew build          # Compile and run tests
+./gradlew shadowJar      # Create fat JAR with bundled dependencies (output: build/libs/AbstractMenus-<version>.jar)
+./gradlew test           # Run JUnit 5 tests only
+```
+
+Tests are in `src/test/java/` using JUnit 5 (Jupiter). There are currently 4 test classes. Run a single test with:
+```bash
+./gradlew test --tests "ru.abstractmenus.TestValueComparator"
+```
+
+## Architecture
+
+### Plugin Entry Point
+`ru.abstractmenus.AbstractMenus` extends `JavaPlugin`. Initialization order in `onEnable()`:
+1. Load `MainConfig` from HOCON config
+2. Initialize core services (VariableManager, BungeeManager, MenuManager, etc.)
+3. Register external provider handlers (Vault, LuckPerms, PlaceholderAPI, SkinsRestorer)
+4. Register type registries: `ItemProps` → `Activators` → `MenuActions` → `MenuRules` → `Catalogs`
+5. Load menus from disk, register event listeners
+
+### Type Registry System (Core Pattern)
+The plugin uses a centralized type registry (`Types` from the API module) where actions, rules, item properties, activators, and catalogs are registered by name. Each type has a corresponding `NodeSerializer` for HOCON deserialization. Registration happens in static `init()` methods:
+- `MenuActions.init()` — registers ~50 action types (e.g., `"openMenu"` → `ActionMenuOpen`)
+- `MenuRules.init()` — registers ~25 rule types (e.g., `"permission"` → `RulePermission`)
+- `ItemProps.init()` — registers ~25 item property types (e.g., `"material"` → `PropMaterial`)
+- `Activators.init()` — registers ~15 activator types (e.g., `"command"` → `OpenCommand`)
+- `Catalogs.init()` — registers catalog types
+
+### Menu Hierarchy
+```
+Menu (API interface)
+├── AbstractMenu (base with title, size, items, rules, actions)
+│   ├── SimpleMenu (standard inventory GUI)
+│   ├── AnimatedMenu (frame-based animations)
+│   └── GeneratedMenu (dynamic layout via Matrix)
+```
+
+### Package Structure (`ru.abstractmenus`)
+- **`data/`** — Largest package (~164 files). Contains all action, rule, activator, item property, and catalog implementations. Each has an inner `Serializer` class.
+- **`services/`** — Core managers: `MenuManager` (menu lifecycle, 20-tick update loop), `BungeeManager`, `HeadAnimManager`, `ProfileStorage`
+- **`handlers/`** — Abstraction layer over external plugins (Economy, Permissions, Levels, Placeholders, Skins). Accessed via `Handlers` static facade.
+- **`serializers/`** — HOCON deserialization: `ItemSerializer`, `LocationSerializer`, type adapters
+- **`commands/`** — `/am`, `/var`, `/varp` commands and subcommands
+- **`command/`** — Command framework (parsing, arguments, context)
+- **`variables/`** — Global/player variable system with SQLite persistence
+- **`placeholders/`** — PlaceholderAPI integration and built-in placeholder handlers
+- **`menu/`** — Menu classes, items, frames
+- **`listeners/`** — Bukkit event listeners (inventory clicks, chat, player join, WorldGuard regions)
+- **`nms/`** — NMS code for ActionBar, Title, Book via reflection
+- **`extractors/`** — Context extractors (Block, Entity, NPC, ItemStack, Region, World)
+- **`datatype/`** — Type wrappers (TypeBool, TypeInt, TypeLocation, TypeMaterial, etc.)
+
+### Configuration Format
+Menus and config use HOCON format (not YAML). The internal HOCON library is at `ru.abstractmenus.hocon`.
+
+### Key Dependencies
+- **API module**: `com.github.AbstractMenus:api` (separate repo, pulled via JitPack)
+- **Lombok**: Used throughout for `@Getter`/`@Setter`/`@AllArgsConstructor`
+- **Kyori Adventure + MiniMessage**: Rich text component API
+- **FoliaLib**: Thread-safe task scheduling (Folia compatibility)
+- **Paperweight userdev**: NMS access with Mojang mappings
+
+### Adding a New Action/Rule/Property/Activator
+1. Create class in the appropriate `data/` subpackage
+2. Add an inner `Serializer extends NodeSerializer` class for HOCON deserialization
+3. Register it in the corresponding `init()` method (e.g., `MenuActions.init()`) via `Types.registerAction(name, class, serializer)`
+
+### External Plugin Integration
+External plugins are accessed through handler interfaces in `handlers/`. The `Handlers` class holds static references. Provider detection and registration happens in `AbstractMenus.registerProviders()`. Soft dependencies are declared in `plugin.yml`.
+
+---
+> Source: [AbstractMenus/minecraft-plugin](https://github.com/AbstractMenus/minecraft-plugin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
