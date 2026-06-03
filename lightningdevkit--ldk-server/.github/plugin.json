@@ -1,0 +1,9 @@
+{
+  "name": "lightningdevkit--ldk-server",
+  "displayName": "ldk-server",
+  "description": "LDK Server is a fully-functional Lightning node in daemon form.",
+  "version": "1.0.0",
+  "author": "lightningdevkit",
+  "homepage": "https://github.com/lightningdevkit/ldk-server",
+  "skills": []
+}
