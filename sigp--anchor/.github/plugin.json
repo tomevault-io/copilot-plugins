@@ -1,0 +1,9 @@
+{
+  "name": "sigp--anchor",
+  "displayName": "anchor",
+  "description": "Rust implementation of the SSV protocol",
+  "version": "1.0.0",
+  "author": "sigp",
+  "homepage": "https://github.com/sigp/anchor",
+  "skills": []
+}
