@@ -1,0 +1,54 @@
+## second-brain-template
+
+> This repository is an Obsidian-compatible second brain. It preserves raw source
+
+# Second Brain Agent Contract
+
+This repository is an Obsidian-compatible second brain. It preserves raw source
+material, then gradually curates it into concise, linked wiki pages that
+compound over time.
+
+## Source Of Truth
+
+- `schema/` contains the durable rules, templates, category map, and workflows.
+- `.agents/automations/` contains portable automation definitions.
+- `.agents/skills/` contains task-specific workflows.
+- `AGENTS.md` is the single source for agent rules. Keep it short, stable, and broadly applicable. Do not duplicate its rules into other files or turn it into a mini-wiki of the vault.
+- Update `schema/` before making major structural changes. If the vault structure stops fitting real notes, update schema first.
+- Always inspect current files before relying on summaries.
+
+## Knowledge Lifecycle
+
+- New source material starts in `raw/unprocessed/`.
+- Reviewed source material moves to `raw/processed/`.
+- Durable synthesis lives in `wiki/`.
+- Good answers and maintenance discoveries should be filed back into `wiki/` when durable.
+- Treat raw material as source evidence, not polished writing. Preserve original wording and filenames. Do not rewrite or clean up raw notes in place; if curation is useful, create or update a page in `wiki/` instead.
+- Supporting files live near their source bundle when possible.
+- Shared attachments may live in `attachments/`. Link to them from the wiki page or source note that depends on them. Avoid renaming attachments unless doing so improves traceability.
+
+## Wiki Discipline
+
+- Search existing wiki pages before creating a near-duplicate.
+- Prefer concise curated pages over copied raw dumps. Prefer synthesis over copied raw excerpts.
+- Use Obsidian-friendly Markdown.
+- Use wikilinks (`[[Related Page]]`) for internal references.
+- Add YAML frontmatter with `aliases`, `tags`, `status`, and `sources` to curated knowledge pages.
+- Operational pages (`wiki/index.md`, `wiki/log.md`, category `README.md` files) may use simpler maintenance formats.
+- Add a `Related` section to curated pages when cross-links are useful.
+- Cite processed raw sources from curated pages.
+- Update `wiki/index.md` when creating, renaming, merging, or retiring curated pages.
+- Update `wiki/log.md` after meaningful curation or maintenance work.
+
+## Routing
+
+- Use `.agents/skills/ingest-note/` for processing raw notes.
+- Use `.agents/skills/synthesize-topic/` for building or refreshing topic pages.
+- Use `.agents/skills/maintain-wiki/` for duplicates, stale pages, broken links, and structure checks.
+- Use `.agents/skills/answer-from-vault/` for answering questions from the vault.
+- Use `.agents/skills/daily-curation/` for scheduled compounding passes.
+- Use `.agents/automations/daily-curation.md` as the portable daily automation definition.
+
+---
+> Source: [ek0212/second-brain-template](https://github.com/ek0212/second-brain-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
