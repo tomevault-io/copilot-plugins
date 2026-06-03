@@ -1,0 +1,18 @@
+{
+  "name": "confluentinc--vscode",
+  "displayName": "vscode",
+  "description": "Confluent for Visual Studio Code",
+  "version": "1.0.0",
+  "author": "confluentinc",
+  "homepage": "https://github.com/confluentinc/vscode",
+  "skills": [
+    {
+      "name": "pr-review",
+      "description": ""
+    },
+    {
+      "name": "vscode-api",
+      "description": ""
+    }
+  ]
+}
