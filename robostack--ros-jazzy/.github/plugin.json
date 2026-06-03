@@ -1,0 +1,9 @@
+{
+  "name": "robostack--ros-jazzy",
+  "displayName": "ros-jazzy",
+  "description": "Recipes and patches for ros-jazzy conda packages",
+  "version": "1.0.0",
+  "author": "RoboStack",
+  "homepage": "https://github.com/RoboStack/ros-jazzy",
+  "skills": []
+}
