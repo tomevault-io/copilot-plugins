@@ -1,0 +1,9 @@
+{
+  "name": "yamahigashi--mayameshretarget",
+  "displayName": "MayaMeshRetarget",
+  "description": "a tool for retargeting mesh deformation using Radial Basis Functions (RBF) and skin weight-based clustering. It is primarily designed for use in Autodesk Maya, and uses both Maya's OpenMaya API and Sc",
+  "version": "1.0.0",
+  "author": "yamahigashi",
+  "homepage": "https://github.com/yamahigashi/MayaMeshRetarget",
+  "skills": []
+}
