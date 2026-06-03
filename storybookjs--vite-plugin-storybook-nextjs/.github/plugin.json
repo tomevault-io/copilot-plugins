@@ -1,0 +1,9 @@
+{
+  "name": "storybookjs--vite-plugin-storybook-nextjs",
+  "displayName": "vite-plugin-storybook-nextjs",
+  "description": "vite-plugin-storybook-nextjs",
+  "version": "1.0.0",
+  "author": "storybookjs",
+  "homepage": "https://github.com/storybookjs/vite-plugin-storybook-nextjs",
+  "skills": []
+}
