@@ -1,0 +1,9 @@
+{
+  "name": "dncraptor--pico-spec",
+  "displayName": "pico-spec",
+  "description": "ESPectrum port for RP2040/RP2350 (Raspberry Pi Pico / Pico 2)",
+  "version": "1.0.0",
+  "author": "DnCraptor",
+  "homepage": "https://github.com/DnCraptor/pico-spec",
+  "skills": []
+}
