@@ -1,0 +1,9 @@
+{
+  "name": "floppyfk--kittyhack",
+  "displayName": "kittyhack",
+  "description": "Project to revive the KittyFlap: A web GUI that allows control of the cat flap on the local network without the official KittyFlap app.",
+  "version": "1.0.0",
+  "author": "floppyFK",
+  "homepage": "https://github.com/floppyFK/kittyhack",
+  "skills": []
+}
