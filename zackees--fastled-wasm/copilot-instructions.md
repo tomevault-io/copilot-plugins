@@ -1,81 +1,65 @@
 ## fastled-wasm
 
-> **ALWAYS use `uv` to run Python code, NOT `python` or `python3`!**
+> This file is read by Claude Code, Codex, and other coding agents that work on this repo. Codex agents should also see `CODEX.md`, which points back here.
 
-# Cursor Rules for FastLED WASM Project
+# Agent Instructions
 
-## CRITICAL: Python Command Usage
+This file is read by Claude Code, Codex, and other coding agents that work on this repo. Codex agents should also see `CODEX.md`, which points back here.
 
-**ALWAYS use `uv` to run Python code, NOT `python` or `python3`!**
+## Layout
 
-### Command Guidelines:
-- ✅ Use: `uv run <script.py>`
-- ✅ Use: `uv run -m <module>`
-- ✅ Use: `uv run python <script.py>` (if explicitly needed)
-- ❌ NEVER use: `python <script.py>`
-- ❌ NEVER use: `python3 <script.py>`
+- Python package shim: `src/fastled/`
+- Rust workspace: `crates/fastled-cli`
+- Tests: `tests/unit/` (thin Python API smoke tests), `soldr cargo test --workspace` (Rust)
+- CI workflows: `.github/workflows/_*.yml`
+- Dev scripts: `./install`, `./lint`, `./test`, `./build-wheel`, `./clean`
 
-### Examples:
-- Instead of `python src/fastled/cli.py`, use `uv run src/fastled/cli.py`
-- Instead of `python -m pytest`, use `uv run -m pytest`
-- Instead of `python3 build_exe.py`, use `uv run build_exe.py`
+## Build Cache
 
-### Rationale:
-- This project uses `uv` for Python package and environment management
-- Using `python` or `python3` directly may use the wrong Python version or miss dependencies
-- `uv` ensures consistent execution with the project's specified Python version and dependencies
+Use `soldr cargo ...`, `soldr rustfmt ...`, and related soldr-wrapped commands for Rust work. Plain `cargo`, `rustc`, `rustfmt`, and `rustup` bypass soldr and are blocked by `ci/hooks/tool_guard.py`.
 
-### Testing:
-- Follow the user rule: run unit tests with `bash test`
-- For manual testing, use `uv run` prefix for any Python commands
+If `soldr` is not on PATH, install it with `uv tool install soldr`.
 
-### Development Workflow:
-1. Use `uv` for all Python execution
-2. Ensure virtual environment is managed by `uv`
-3. Install dependencies with `uv add <package>`
-4. Run scripts with `uv run <script>`
+## Tests
 
-## Emoji/Emoticon Usage
+`bash test` runs the Python API smoke tests plus the Rust workspace tests. End-to-end WASM compiles should be run only when the change touches the native build backend.
 
-**ALWAYS use the `EMO()` function for emojis, NEVER hardcode emojis directly!**
+For iterative work:
 
-### Guidelines:
-- ✅ Use: `from fastled.emoji_util import EMO` then `EMO('⚠️', 'WARNING:')`
-- ✅ Use: `from fastled.emoji_util import safe_print` for Unicode-safe printing
-- ❌ NEVER use: hardcoded emojis like `print("⚠️ Warning")`
-- ❌ NEVER use: raw Unicode without fallback handling
-
-### Common Patterns:
-- Warning messages: `EMO('⚠️', 'WARNING:')`
-- Success messages: `EMO('✅', 'SUCCESS:')`
-- Error messages: `EMO('❌', 'ERROR:')`
-- Info messages: `EMO('ℹ️', 'INFO:')`
-- Playwright/browser: `EMO('🎭', '*')`
-- Package/install: `EMO('📦', '*')`
-
-### Rationale:
-- Windows cmd.exe has poor Unicode support and will crash on raw emojis
-- The `EMO()` function provides fallback text for systems that don't support emojis
-- Ensures consistent behavior across all platforms (Windows, macOS, Linux)
-- Prevents application crashes due to encoding issues
-
-### Examples:
-```python
-# Good - with EMO function
-from fastled.emoji_util import EMO
-print(f"{EMO('⚠️', 'WARNING:')} Debug mode detected with Playwright installed")
-
-# Bad - hardcoded emoji
-print("⚠️ Debug mode detected with Playwright installed")
+```bash
+uv run pytest tests/unit/test_python_api.py -v
+soldr cargo test --workspace
 ```
 
-## Additional Rules:
-- When suggesting Python commands, always prefix with `uv run`
-- When creating scripts that execute Python, use `uv run` in the script
-- When documenting Python usage, emphasize `uv run` syntax
-- Update any existing scripts that use `python` or `python3` to use `uv run`
-- When adding user-facing messages with emojis, always use the `EMO()` function
+Do not pipe pytest through `| tail -N` if you want streaming output; it buffers until pytest exits.
+
+## Architecture Notes
+
+- The user-facing CLI is the Rust binary `fastled` built from `crates/fastled-cli`.
+- Python `cli.py` and `app.py` are tiny shims that call `fastled._rust_cli.invoke_rust_fastled_cli`.
+- The Python package intentionally does not ship a PyO3 extension; it bundles and launches the native Rust CLI.
+- The compile path is Rust-owned through `crates/fastled-cli/src/build.rs` and `crates/fastled-cli/src/wasm_build.rs`.
+- Python no longer owns build, toolchain, sketch selection, project init, install, server, debug-symbol, or frontend-bundling orchestration.
+
+## Conventions
+
+- Lint command: `bash lint`.
+- Test command: `bash test` or targeted subsets above.
+- Prefer native Rust implementations and fail-loud behavior over silent Python fallbacks.
+- Do not add backwards-compat hacks for code paths that no longer exist.
+
+## Common Gotchas
+
+- The installed `fastled` CLI on PATH may be a Python compatibility shim or stale script; the bundled native binary is `fastled[.exe]`.
+- Error messages from the Rust CLI go to stderr.
+- On Windows, stale generated binaries under `src/fastled/bin/` are build artifacts and should not be committed.
+
+## Filing Issues / PRs
+
+- `gh issue create --repo zackees/fastled-wasm ...`
+- `gh pr create ...`
+- Reference the originating issue (`Refs #72`) in commits/PRs when applicable.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/zackees) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [zackees/fastled-wasm](https://github.com/zackees/fastled-wasm) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
