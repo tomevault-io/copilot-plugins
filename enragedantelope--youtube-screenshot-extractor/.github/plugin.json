@@ -1,0 +1,9 @@
+{
+  "name": "enragedantelope--youtube-screenshot-extractor",
+  "displayName": "youtube-screenshot-extractor",
+  "description": "Dataset helper for loras or checkpoints! Extract highest-available-quality screenshots from YouTube and many other sources, auto filter for aesthetics, and more!",
+  "version": "1.0.0",
+  "author": "EnragedAntelope",
+  "homepage": "https://github.com/EnragedAntelope/youtube-screenshot-extractor",
+  "skills": []
+}
