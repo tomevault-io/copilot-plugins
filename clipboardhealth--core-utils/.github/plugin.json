@@ -1,0 +1,9 @@
+{
+  "name": "clipboardhealth--core-utils",
+  "displayName": "core-utils",
+  "description": "Clipboard's core libraries and utilities.",
+  "version": "1.0.0",
+  "author": "ClipboardHealth",
+  "homepage": "https://github.com/ClipboardHealth/core-utils",
+  "skills": []
+}
