@@ -1,0 +1,9 @@
+{
+  "name": "paper2--github-actions-opentelemetry",
+  "displayName": "github-actions-opentelemetry",
+  "description": "GitHub Actions OpenTelemetry",
+  "version": "1.0.0",
+  "author": "paper2",
+  "homepage": "https://github.com/paper2/github-actions-opentelemetry",
+  "skills": []
+}
