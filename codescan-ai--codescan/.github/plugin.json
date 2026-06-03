@@ -1,0 +1,9 @@
+{
+  "name": "codescan-ai--codescan",
+  "displayName": "codescan",
+  "description": "CodeScanAI is an open source tool that utilizes powerful AI models (OpenAI, Gemini, and even self-hosted servers) to scan your codebase for possible security vulnerabilities.",
+  "version": "1.0.0",
+  "author": "codescan-ai",
+  "homepage": "https://github.com/codescan-ai/codescan",
+  "skills": []
+}
