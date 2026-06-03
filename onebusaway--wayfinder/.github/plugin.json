@@ -1,0 +1,9 @@
+{
+  "name": "onebusaway--wayfinder",
+  "displayName": "wayfinder",
+  "description": "Modern web app frontend for OneBusAway built in JavaScript with SvelteKit",
+  "version": "1.0.0",
+  "author": "OneBusAway",
+  "homepage": "https://github.com/OneBusAway/wayfinder",
+  "skills": []
+}
