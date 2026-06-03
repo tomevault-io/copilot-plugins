@@ -2,7 +2,7 @@
 
 > CASSIA (Collaborative Agent System for Single-cell Interpretable Annotation) is a multi-agent LLM framework for automated, reference-free cell type annotation in single-cell RNA-seq data. Maintains both Python and R implementations sharing core Python logic.
 
-# CLAUDE.md
+# AGENTS.md
 
 ## Project Overview
 
@@ -16,10 +16,10 @@ CASSIA (Collaborative Agent System for Single-cell Interpretable Annotation) is 
 | `CASSIA_R/R/` | R package wrappers (GitHub) |
 | `CASSIA_R/inst/python/` | Python code synced to R package |
 | `Test/` | Test suite with `shared/` utilities |
-| `docs/cassia_javascript/cassia-web` | Next.js web app for online use | cassia.bio
-| `docs/CASSIA_Tutorial_Web/` | Documentation and vignettes |doc.cassia.bio
+| `docs/cassia_javascript/cassia-web` | Next.js web app for online use: cassia.bio |
+| `docs/CASSIA_Tutorial_Web/` | Documentation and vignettes: doc.cassia.bio |
 | `docs/README.md`, `README_CN.md` | English/Chinese READMEs |
-| 'doccs/CASSIA-Benchmark' | CASSIA Benchmark |
+| `docs/CASSIA-Benchmark/` | CASSIA Benchmark |
 
 ## Multi-Agent System
 
@@ -40,6 +40,5 @@ CASSIA (Collaborative Agent System for Single-cell Interpretable Annotation) is 
 7. **Bump version** for PyPI release — update version in both `setup.py` and `__init__.py` (patch version for small changes)
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ElliotXie)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ElliotXie)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [ElliotXie/CASSIA](https://github.com/ElliotXie/CASSIA) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
