@@ -1,0 +1,9 @@
+{
+  "name": "spigell--pulumi-talos-cluster",
+  "displayName": "pulumi-talos-cluster",
+  "description": "Create a talos cluster with pulumi!",
+  "version": "1.0.0",
+  "author": "spigell",
+  "homepage": "https://github.com/spigell/pulumi-talos-cluster",
+  "skills": []
+}
