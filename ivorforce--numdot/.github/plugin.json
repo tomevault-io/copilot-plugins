@@ -1,0 +1,9 @@
+{
+  "name": "ivorforce--numdot",
+  "displayName": "NumDot",
+  "description": "Tensor math and scientific computation for the Godot game engine.",
+  "version": "1.0.0",
+  "author": "Ivorforce",
+  "homepage": "https://github.com/Ivorforce/NumDot",
+  "skills": []
+}
