@@ -1,0 +1,9 @@
+{
+  "name": "ivrit-ai--runpod-serverless",
+  "displayName": "runpod-serverless",
+  "description": "runpod serverless endpoint for ivrit.ai transcription models",
+  "version": "1.0.0",
+  "author": "ivrit-ai",
+  "homepage": "https://github.com/ivrit-ai/runpod-serverless",
+  "skills": []
+}
