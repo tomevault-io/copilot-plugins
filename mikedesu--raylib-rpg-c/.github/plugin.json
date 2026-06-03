@@ -1,0 +1,9 @@
+{
+  "name": "mikedesu--raylib-rpg-c",
+  "displayName": "raylib-rpg-c",
+  "description": "An rpg written in C/C++ using raylib",
+  "version": "1.0.0",
+  "author": "mikedesu",
+  "homepage": "https://github.com/mikedesu/raylib-rpg-c",
+  "skills": []
+}
