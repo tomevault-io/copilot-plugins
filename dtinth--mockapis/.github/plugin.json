@@ -1,0 +1,9 @@
+{
+  "name": "dtinth--mockapis",
+  "displayName": "mockapis",
+  "description": "Mock API endpoints to make end-to-end testing more convenient",
+  "version": "1.0.0",
+  "author": "dtinth",
+  "homepage": "https://github.com/dtinth/mockapis",
+  "skills": []
+}
