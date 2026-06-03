@@ -1,0 +1,9 @@
+{
+  "name": "simoneavogadro--humandetection4tasker",
+  "displayName": "HumanDetection4Tasker",
+  "description": "Android app providing ML vision features to Tasker/Macrodroid automations",
+  "version": "1.0.0",
+  "author": "SimoneAvogadro",
+  "homepage": "https://github.com/SimoneAvogadro/HumanDetection4Tasker",
+  "skills": []
+}
