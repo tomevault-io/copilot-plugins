@@ -1,0 +1,9 @@
+{
+  "name": "acquire-project--acquire-zarr",
+  "displayName": "acquire-zarr",
+  "description": "Streaming directly to Zarr on the file system or S3",
+  "version": "1.0.0",
+  "author": "acquire-project",
+  "homepage": "https://github.com/acquire-project/acquire-zarr",
+  "skills": []
+}
