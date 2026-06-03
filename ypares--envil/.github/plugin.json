@@ -1,0 +1,9 @@
+{
+  "name": "ypares--envil",
+  "displayName": "envil",
+  "description": "envil forges Nix flakes and manages stacked environments",
+  "version": "1.0.0",
+  "author": "YPares",
+  "homepage": "https://github.com/YPares/envil",
+  "skills": []
+}
