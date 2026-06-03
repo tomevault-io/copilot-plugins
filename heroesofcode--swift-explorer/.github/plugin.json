@@ -1,0 +1,9 @@
+{
+  "name": "heroesofcode--swift-explorer",
+  "displayName": "swift-explorer",
+  "description": "Desktop tool to quickly explore and analyze Swift code",
+  "version": "1.0.0",
+  "author": "heroesofcode",
+  "homepage": "https://github.com/heroesofcode/swift-explorer",
+  "skills": []
+}
