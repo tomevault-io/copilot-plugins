@@ -1,9 +1,9 @@
 {
   "name": "nopara73--longevityworldcup",
   "displayName": "LongevityWorldCup",
-  "description": "LongevityWorldCup",
+  "description": "Open-source longevity sport platform with biological-age calculators, athlete profiles, and public leaderboards.",
   "version": "1.0.0",
   "author": "nopara73",
-  "homepage": "https://tomevault.io/claim/nopara73",
+  "homepage": "https://github.com/nopara73/LongevityWorldCup",
   "skills": []
 }
