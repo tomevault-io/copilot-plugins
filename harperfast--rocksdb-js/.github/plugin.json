@@ -1,0 +1,9 @@
+{
+  "name": "harperfast--rocksdb-js",
+  "displayName": "rocksdb-js",
+  "description": "RocksDB binding for Node.js",
+  "version": "1.0.0",
+  "author": "HarperFast",
+  "homepage": "https://github.com/HarperFast/rocksdb-js",
+  "skills": []
+}
