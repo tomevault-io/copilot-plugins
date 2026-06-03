@@ -1,0 +1,9 @@
+{
+  "name": "get-convex--workflow",
+  "displayName": "workflow",
+  "description": "Convex component for durably executing workflows.",
+  "version": "1.0.0",
+  "author": "get-convex",
+  "homepage": "https://github.com/get-convex/workflow",
+  "skills": []
+}
