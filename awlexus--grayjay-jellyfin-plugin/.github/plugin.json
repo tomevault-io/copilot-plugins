@@ -1,0 +1,9 @@
+{
+  "name": "awlexus--grayjay-jellyfin-plugin",
+  "displayName": "grayjay-jellyfin-plugin",
+  "description": "A grayjay plugin for playing media from your jellyfin media server",
+  "version": "1.0.0",
+  "author": "Awlexus",
+  "homepage": "https://github.com/Awlexus/grayjay-jellyfin-plugin",
+  "skills": []
+}
