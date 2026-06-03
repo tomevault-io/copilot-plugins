@@ -1,476 +1,1162 @@
-## laravel-boost
+## poykott
 
-> <laravel-boost-guidelines>
+> First and foremost, Laravel provides the most value when you write things the way Laravel intended you to write. If there's a documented way to achieve something, follow it. Whenever you do something differently, make sure you have a justification for *why* you didn't follow the defaults.
 
-<laravel-boost-guidelines>
-=== foundation rules ===
+## About Laravel
 
-# Laravel Boost Guidelines
+First and foremost, Laravel provides the most value when you write things the way Laravel intended you to write. If there's a documented way to achieve something, follow it. Whenever you do something differently, make sure you have a justification for *why* you didn't follow the defaults.
 
-The Laravel Boost guidelines are specifically curated by Laravel maintainers for this application. These guidelines should be followed closely to enhance the user's satisfaction building Laravel applications.
+## General PHP Rules
 
-## Foundational Context
-This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.
+Code style must follow [PSR-1](http://www.php-fig.org/psr/psr-1/), [PSR-2](http://www.php-fig.org/psr/psr-2/) and [PSR-12](https://www.php-fig.org/psr/psr-12/). Generally speaking, everything string-like that's not public-facing should use camelCase. Detailed examples on these are spread throughout the guide in their relevant sections.
 
-- php - 8.3.24
-- filament/filament (FILAMENT) - v3
-- laravel/framework (LARAVEL) - v11
-- laravel/nightwatch (NIGHTWATCH) - v1
-- laravel/prompts (PROMPTS) - v0
-- livewire/livewire (LIVEWIRE) - v3
-- laravel/pint (PINT) - v1
-- pestphp/pest (PEST) - v3
-- rector/rector (RECTOR) - v1
-- tailwindcss (TAILWINDCSS) - v3
+### Class defaults
 
+By default, we don't use `final`. In our team, there aren't many benefits that `final` offers as we don't rely too much on inheritance. For our open source stuff, we assume that all our users know they are responsible for writing tests for any overwritten behaviour.
 
-## Conventions
-- You must follow all existing code conventions used in this application. When creating or editing a file, check sibling files for the correct structure, approach, naming.
-- Use descriptive names for variables and methods. For example, `isRegisteredForDiscounts`, not `discount()`.
-- Check for existing components to reuse before writing a new one.
+### Nullable and union types
 
-## Verification Scripts
-- Do not create verification scripts or tinker when tests cover that functionality and prove it works. Unit and feature tests are more important.
+Whenever possible use the short nullable notation of a type, instead of using a union of the type with `null`.
 
-## Application Structure & Architecture
-- Stick to existing directory structure - don't create new base folders without approval.
-- Do not change the application's dependencies without approval.
+[good]
+```php
+public ?string $variable;
+```
+[/good]
 
-## Frontend Bundling
-- If the user doesn't see a frontend change reflected in the UI, it could mean they need to run `npm run build`, `npm run dev`, or `composer run dev`. Ask them.
+[bad]
+```php
+public string | null $variable;
+```
+[/bad]
 
-## Replies
-- Be concise in your explanations - focus on what's important rather than explaining obvious details.
+### Void return types
 
-## Documentation Files
-- You must only create documentation files if explicitly requested by the user.
+If a method returns nothing, it should be indicated with `void`.
+This makes it clearer to the users of your code what your intention was when writing it.
 
-
-=== boost rules ===
-
-## Laravel Boost
-- Laravel Boost is an MCP server that comes with powerful tools designed specifically for this application. Use them.
-
-## Artisan
-- Use the `list-artisan-commands` tool when you need to call an Artisan command to double check the available parameters.
-
-## URLs
-- Whenever you share a project URL with the user you should use the `get-absolute-url` tool to ensure you're using the correct scheme, domain / IP, and port.
-
-## Tinker / Debugging
-- You should use the `tinker` tool when you need to execute PHP to debug code or query Eloquent models directly.
-- Use the `database-query` tool when you only need to read from the database.
-
-## Reading Browser Logs With the `browser-logs` Tool
-- You can read browser logs, errors, and exceptions using the `browser-logs` tool from Boost.
-- Only recent browser logs will be useful - ignore old logs.
-
-## Searching Documentation (Critically Important)
-- Boost comes with a powerful `search-docs` tool you should use before any other approaches. This tool automatically passes a list of installed packages and their versions to the remote Boost API, so it returns only version-specific documentation specific for the user's circumstance. You should pass an array of packages to filter on if you know you need docs for particular packages.
-- The 'search-docs' tool is perfect for all Laravel related packages, including Laravel, Inertia, Livewire, Filament, Tailwind, Pest, Nova, Nightwatch, etc.
-- You must use this tool to search for Laravel-ecosystem documentation before falling back to other approaches.
-- Search the documentation before making code changes to ensure we are taking the correct approach.
-- Use multiple, broad, simple, topic based queries to start. For example: `['rate limiting', 'routing rate limiting', 'routing']`.
-- Do not add package names to queries - package information is already shared. For example, use `test resource table`, not `filament 4 test resource table`.
-
-### Available Search Syntax
-- You can and should pass multiple queries at once. The most relevant results will be returned first.
-
-1. Simple Word Searches with auto-stemming - query=authentication - finds 'authenticate' and 'auth'
-2. Multiple Words (AND Logic) - query=rate limit - finds knowledge containing both "rate" AND "limit"
-3. Quoted Phrases (Exact Position) - query="infinite scroll" - Words must be adjacent and in that order
-4. Mixed Queries - query=middleware "rate limit" - "middleware" AND exact phrase "rate limit"
-5. Multiple Queries - queries=["authentication", "middleware"] - ANY of these terms
-
-
-=== php rules ===
-
-## PHP
-
-- Always use curly braces for control structures, even if it has one line.
-
-### Constructors
-- Use PHP 8 constructor property promotion in `__construct()`.
-    - <code-snippet>public function __construct(public GitHub $github) { }</code-snippet>
-- Do not allow empty `__construct()` methods with zero parameters.
-
-### Type Declarations
-- Always use explicit return type declarations for methods and functions.
-- Use appropriate PHP type hints for method parameters.
-
-<code-snippet name="Explicit Return Types and Method Params" lang="php">
-protected function isAccessible(User $user, ?string $path = null): bool
+[good]
+```php
+// in a Laravel model
+public function scopeArchived(Builder $query): void
 {
-    ...
+    $query->
+        ...
 }
-</code-snippet>
+```
+[/good]
 
-## Comments
-- Prefer PHPDoc blocks over comments. Never use comments within the code itself unless there is something _very_ complex going on.
 
-## PHPDoc Blocks
-- Add useful array shape type definitions for arrays when appropriate.
+## Typed properties
+
+You should type a property whenever possible. Don't use a docblock.
+
+[good]
+```php
+class Foo
+{
+    public string $bar;
+}
+```
+[/good]
+
+
+[bad]
+```
+class Foo
+{
+    /** @var string */
+    public $bar;
+}
+```
+[/bad]
 
 ## Enums
-- That being said, keys in an Enum should follow existing application Enum conventions.
+
+Values in enums should use PascalCase.
+
+```php
+enum Suit {
+    case Clubs;
+    case Diamonds;
+    case Hearts;
+    case Spades;
+}
+
+Suit::Diamonds;
+```
+
+## Docblocks
+
+Don't use docblocks for methods that can be fully type hinted (unless you need a description).
+
+Only add a description when it provides more context than the method signature itself. Use full sentences for descriptions, including a period at the end.
+
+[good]
+```php
+class Url
+{
+    public static function fromString(string $url): Url
+    {
+        // ...
+    }
+}
+```
+[/good]
+
+[bad]
+```php
+// The description is redundant, and the method is fully type-hinted.
+class Url
+{
+    /**
+     * Create a url from a string.
+     *
+     * @param string $url
+     *
+     * @return \Spatie\Url\Url
+     */
+    public static function fromString(string $url): Url
+    {
+        // ...
+    }
+}
+```
+[/bad]
+
+Always import the classnames in docblocks.
+
+[good]
+```php
+use \Spatie\Url\Url
+
+/**
+ * @param string $foo
+ *
+ * @return Url
+ */
+ ```
+[/good]
+
+[bad]
+```php
+/**
+ * @param string $url
+ *
+ * @return \Spatie\Url\Url
+ */
+```
+[/bad]
+
+Using multiple lines for a docblock, might draw too much attention to it. When possible, docblocks should be written on one line.
+
+[good]
+```php
+/** @var string */
+/** @test */
+```
+[/good]
+
+[bad]
+```php
+/**
+ * @test
+ */
+```
+[/bad]
+
+If a variable has multiple types, the most common occurring type should be first.
+
+[good]
+```php
+/** @var \Illuminate\Support\Collection|\SomeWeirdVendor\Collection */
+```
+[/good]
+
+[bad]
+```php
+/** @var \SomeWeirdVendor\Collection|\Illuminate\Support\Collection */
+```
+[/bad]
+
+If a function requires a docblock for a single parameter or return type, add all other docblocks as well.
+
+[good]
+```php
+/**
+ * @param string $name
+ * @return \Illuminate\Support\Collection<SomeObject>
+ */
+function someFunction(string $name): Collection {
+    //
+}
+```
+[/good]
+
+[bad]
+```php
+/**
+ * @return \Illuminate\Support\Collection<SomeObject>
+ */
+function someFunction(string $name): Collection {
+    //
+}
+```
+[/bad]
+
+## Docblocks for iterables
+
+When your function gets passed an iterable, you should add a docblock to specify the type of key and value. This will greatly help static analysis tools understand the code, and IDEs to provide autocompletion.
+
+```php
+/**
+ * @param $myArray array<int, MyObject>
+ */
+function someFunction(array $myArray) {
+
+}
+```
 
 
-=== filament/core rules ===
+In this example, `typedArgument` needs a docblock too:
 
-## Filament
-- Filament is used by this application, check how and where to follow existing application conventions.
-- Filament is a Server-Driven UI (SDUI) framework for Laravel. It allows developers to define user interfaces in PHP using structured configuration objects. It is built on top of Livewire, Alpine.js, and Tailwind CSS.
-- You can use the `search-docs` tool to get information from the official Filament documentation when needed. This is very useful for Artisan command arguments, specific code examples, testing functionality, relationship management, and ensuring you're following idiomatic practices.
-- Utilize static `make()` methods for consistent component initialization.
+```php
+/**
+ * @param $myArray array<int, MyObject>
+ * @param int $typedArgument
+ */
+function someFunction(array $myArray, int $typedArgument) {
 
-### Artisan
-- You must use the Filament specific Artisan commands to create new files or components for Filament. You can find these with the `list-artisan-commands` tool, or with `php artisan` and the `--help` option.
-- Inspect the required options, always pass `--no-interaction`, and valid arguments for other options when applicable.
+}
+```
 
-### Filament's Core Features
-- Actions: Handle doing something within the application, often with a button or link. Actions encapsulate the UI, the interactive modal window, and the logic that should be executed when the modal window is submitted. They can be used anywhere in the UI and are commonly used to perform one-time actions like deleting a record, sending an email, or updating data in the database based on modal form input.
-- Forms: Dynamic forms rendered within other features, such as resources, action modals, table filters, and more.
-- Infolists: Read-only lists of data.
-- Notifications: Flash notifications displayed to users within the application.
-- Panels: The top-level container in Filament that can include all other features like pages, resources, forms, tables, notifications, actions, infolists, and widgets.
-- Resources: Static classes that are used to build CRUD interfaces for Eloquent models. Typically live in `app/Filament/Resources`.
-- Schemas: Represent components that define the structure and behavior of the UI, such as forms, tables, or lists.
-- Tables: Interactive tables with filtering, sorting, pagination, and more.
-- Widgets: Small component included within dashboards, often used for displaying data in charts, tables, or as a stat.
+The keys and values of iterables that get returned should always be typed.
 
-### Relationships
-- Determine if you can use the `relationship()` method on form components when you need `options` for a select, checkbox, repeater, or when building a `Fieldset`:
+```php
+use \Illuminate\Support\Collection
 
-<code-snippet name="Relationship example for Form Select" lang="php">
-Forms\Components\Select::make('user_id')
-    ->label('Author')
-    ->relationship('author')
-    ->required(),
-</code-snippet>
+/**
+ * @return \Illuminate\Support\Collection<int,SomeObject>
+ */
+function someFunction(): Collection {
+    //
+}
+```
+
+If your array or collection has a few fixed keys, you can typehint them too using `{}` notation.
+
+```php
+use \Illuminate\Support\Collection
+
+/**
+ * @return array{first: SomeClass, second: SomeClass}
+ */
+function someFunction(): array {
+    //
+}
+```
+
+If there is only one docblock needed, you may use the short version.
+
+```php
+use \Illuminate\Support\Collection
+
+/** @return \Illuminate\Support\Collection<int,SomeObject> */
+function someFunction(): Collection {
+    //
+}
+```
+
+## Constructor property promotion
+
+Use constructor property promotion if all properties can be promoted. To make it readable, put each one on a line of its own. Use a comma after the last one.
+
+[good]
+```php
+class MyClass {
+    public function __construct(
+        protected string $firstArgument,
+        protected string $secondArgument,
+    ) {}
+}
+```
+[/good]
+
+[bad]
+```php
+class MyClass {
+    protected string $secondArgument
+
+    public function __construct(protected string $firstArgument, string $secondArgument)
+    {
+        $this->secondArgument = $secondArgument;
+    }
+}
+```
+[/bad]
+
+## Traits
+
+Each applied trait should go on its own line, and the `use` keyword should be used for each of them. This will result in clean diffs when traits are added or removed.
+
+[good]
+```php
+class MyClass
+{
+    use TraitA;
+    use TraitB;
+}
+```
+[/good]
+
+[bad]
+```php
+class MyClass
+{
+    use TraitA, TraitB;
+}
+```
+[/bad]
+
+## Strings
+
+When possible prefer string interpolation above `sprintf` and the `.` operator.
+
+[good]
+```php
+$greeting = "Hi, I am {$name}.";
+```
+[/good]
+
+[bad]
+```php
+$greeting = 'Hi, I am ' . $name . '.';
+```
+[/bad]
 
 
-## Testing
-- It's important to test Filament functionality for user satisfaction.
-- Ensure that you are authenticated to access the application within the test.
-- Filament uses Livewire, so start assertions with `livewire()` or `Livewire::test()`.
+## Ternary operators
 
-### Example Tests
+Every portion of a ternary expression should be on its own line unless it's a really short expression.
 
-<code-snippet name="Filament Table Test" lang="php">
-    livewire(ListUsers::class)
-        ->assertCanSeeTableRecords($users)
-        ->searchTable($users->first()->name)
-        ->assertCanSeeTableRecords($users->take(1))
-        ->assertCanNotSeeTableRecords($users->skip(1))
-        ->searchTable($users->last()->email)
-        ->assertCanSeeTableRecords($users->take(-1))
-        ->assertCanNotSeeTableRecords($users->take($users->count() - 1));
-</code-snippet>
+[good]
+```php
+$name = $isFoo ? 'foo' : 'bar';
+```
+[/good]
 
-<code-snippet name="Filament Create Resource Test" lang="php">
-    livewire(CreateUser::class)
-        ->fillForm([
-            'name' => 'Howdy',
-            'email' => 'howdy@example.com',
-        ])
-        ->call('create')
-        ->assertNotified()
-        ->assertRedirect();
+[good]
+```php
+$result = $object instanceof Model ?
+    $object->name :
+   'A default value';
+```
+[/good]
 
-    assertDatabaseHas(User::class, [
-        'name' => 'Howdy',
-        'email' => 'howdy@example.com',
+## If statements
+
+### Bracket position
+
+Always use curly brackets.
+
+[good]
+```php
+if ($condition) {
+   ...
+}
+```
+[/good]
+
+[bad]
+```php
+if ($condition) ...
+```
+[/bad]
+
+### Happy path
+
+Generally a function should have its unhappy path first and its happy path last. In most cases this will cause the happy path being in an unindented part of the function which makes it more readable.
+
+[good]
+```php
+if (! $goodCondition) {
+  throw new Exception;
+}
+```
+[/good]
+
+
+[bad]
+```php
+if ($goodCondition) {
+ // do work
+}
+
+throw new Exception;
+```
+[/bad]
+
+### Avoid else
+
+In general, `else` should be avoided because it makes code less readable. In most cases it can be refactored using early returns. This will also cause the happy path to go last, which is desirable.
+
+[good]
+```php
+if (! $conditionA) {
+   // condition A failed
+
+   return;
+}
+
+if (! $conditionB) {
+   // condition A passed, B failed
+
+   return;
+}
+
+// condition A and B passed
+```
+[/good]
+
+[bad]
+```php
+if ($conditionA) {
+   if ($conditionB) {
+      // condition A and B passed
+   }
+   else {
+     // condition A passed, B failed
+   }
+}
+else {
+   // condition A failed
+}
+```
+[/bad]
+
+Another option to refactor an `else` away is using a ternary
+
+[bad]
+```php
+if ($condition) {
+    $this->doSomething();
+}
+else {
+    $this->doSomethingElse();
+}
+```
+[/bad]
+
+[good]
+```php
+$condition
+    ? $this->doSomething()
+    : $this->doSomethingElse();
+```
+[/good]
+
+### Compound ifs
+
+In general, separate `if` statements should be preferred over a compound condition. This makes debugging code easier.
+
+
+[good]
+```php
+if (! $conditionA) {
+   return;
+}
+
+if (! $conditionB) {
+   return;
+}
+
+if (! $conditionC) {
+   return;
+}
+
+// do stuff
+```
+[/good]
+
+[bad]
+```php
+if ($conditionA && $conditionB && $conditionC) {
+  // do stuff
+}
+```
+[/bad]
+
+## Comments
+
+Comments should be avoided as much as possible by writing expressive code. If you do need to use a comment, format it like this:
+
+```php
+// There should be a space before a single line comment.
+
+/*
+ * If you need to explain a lot you can use a comment block. Notice the
+ * single * on the first line. Comment blocks don't need to be three
+ * lines long or three characters shorter than the previous line.
+ */
+```
+
+A possible strategy to refactor away a comment is to create a function with name that describes the comment
+
+[good]
+```php
+$this->calculateLoans();
+```
+[/good]
+
+[bad]
+```php
+// Start calculating loans
+```
+[/bad]
+
+## Test classes
+
+If you need a specific class for your test cases, you should keep them within the same test file when possible. When you want to reuse test classes throughout tests, it's fine to make a dedicated class instead. Here's an example of internal classes:
+
+```php
+<?php
+
+namespace Spatie\EventSourcing\Tests\AggregateRoots;
+
+// …
+
+class AggregateEntityTest extends TestCase
+{
+    /** @test */
+    public function test_entities()
+    {
+        // …
+    }
+}
+
+class ItemAdded extends ShouldBeStored
+{
+    public function __construct(
+        public string $name
+    ) {
+    }
+}
+
+class CartCleared extends ShouldBeStored
+{
+}
+```
+
+## Whitespace
+
+Statements should be allowed to breathe. In general always add blank lines between statements, unless they're a sequence of single-line equivalent operations. This isn't something enforceable, it's a matter of what looks best in its context.
+
+[good]
+```php
+public function getPage($url)
+{
+    $page = $this->pages()->where('slug', $url)->first();
+
+    if (! $page) {
+        return null;
+    }
+
+    if ($page['private'] && ! Auth::check()) {
+        return null;
+    }
+
+    return $page;
+}
+```
+[/good]
+
+[bad]
+```php
+// Everything's cramped together.
+public function getPage($url)
+{
+    $page = $this->pages()->where('slug', $url)->first();
+    if (! $page) {
+        return null;
+    }
+    if ($page['private'] && ! Auth::check()) {
+        return null;
+    }
+    return $page;
+}
+```
+[/bad]
+
+[good]
+```php
+// A sequence of single-line equivalent operations.
+public function up()
+{
+    Schema::create('users', function (Blueprint $table) {
+        $table->increments('id');
+        $table->string('name');
+        $table->string('email')->unique();
+        $table->string('password');
+        $table->rememberToken();
+        $table->timestamps();
+    });
+}
+```
+[/good]
+
+Don't add any extra empty lines between `{}` brackets.
+
+[good]
+```php
+if ($foo) {
+    $this->foo = $foo;
+}
+```
+[/good]
+
+[bad]
+```php
+if ($foo) {
+
+    $this->foo = $foo;
+}
+```
+[/bad]
+
+## Configuration
+
+Configuration files must use kebab-case.
+
+```
+config/
+  pdf-generator.php
+```
+
+Configuration keys must use snake_case.
+
+```php
+// config/pdf-generator.php
+return [
+    'chrome_path' => env('CHROME_PATH'),
+];
+```
+
+Avoid using the `env` helper outside of configuration files. Create a configuration value from the `env` variable like above.
+
+When adding config values for a specific service, add them to the `services` config file. Do not create a new config file.
+
+[good]
+```php
+// Adding credentials to `config/services.php`
+return [
+    'ses' => [
+        'key' => env('SES_AWS_ACCESS_KEY_ID'),
+        'secret' => env('SES_AWS_SECRET_ACCESS_KEY'),
+        'region' => env('SES_AWS_DEFAULT_REGION', 'us-east-1'),
+    ],
+
+    'github' => [
+        'username' => env('GITHUB_USERNAME'),
+        'token' => env('GITHUB_TOKEN'),
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('GITHUB_CALLBACK_URL'),
+        'docs_access_token' => env('GITHUB_ACCESS_TOKEN'),
+    ],
+
+    'weyland_yutani' => [
+        'token' => env('WEYLAND_YUTANI_TOKEN')
+    ],
+];
+```
+[/good]
+
+[bad]
+```php
+// Creating a new config file: `weyland-yutani.php`
+
+return [
+    'weyland_yutani' => [
+        'token' => env('WEYLAND_YUTANI_TOKEN')
+    ],
+]
+```
+[/bad]
+
+## Artisan commands
+
+The names given to artisan commands should all be kebab-cased.
+
+[good]
+```bash
+php artisan delete-old-records
+```
+[/good]
+
+[bad]
+```bash
+php artisan deleteOldRecords
+```
+[/bad]
+
+A command should always give some feedback on what the result is. Minimally you should let the `handle` method spit out a comment at the end indicating that all went well.
+
+```php
+// in a Command
+public function handle()
+{
+    // do some work
+
+    $this->comment('All ok!');
+}
+```
+
+When the main function of a result is processing items, consider adding output inside of the loop, so progress can be tracked. Put the output before the actual process. If something goes wrong, this makes it easy to know which item caused the error.
+
+At the end of the command, provide a summary on how much processing was done.
+
+```php
+// in a Command
+public function handle()
+{
+    $this->comment("Start processing items...");
+
+    // do some work
+    $items->each(function(Item $item) {
+        $this->info("Processing item id `{$item-id}`...");
+
+        $this->processItem($item);
+    });
+
+    $this->comment("Processed {$item->count()} items.");
+}
+```
+
+## Routing
+
+Public-facing urls must use kebab-case.
+
+```
+https://spatie.be/open-source
+https://spatie.be/jobs/front-end-developer
+```
+
+Prefer to use the route tuple notation when possible.
+
+[good]
+```php
+Route::get('open-source', [OpenSourceController::class, 'index']);
+```
+[/good]
+
+
+[bad]
+```php
+Route::get('open-source', 'OpenSourceController@index');
+```
+[/bad]
+
+[good]
+```html
+<a href="{{ action([\App\Http\Controllers\OpenSourceController::class, 'index']) }}">
+    Open Source
+</a>
+```
+[/good]
+
+Route names must use camelCase.
+
+[good]
+```php
+Route::get('open-source', [OpenSourceController::class, 'index'])->name('openSource');
+```
+[/good]
+
+[bad]
+```php
+Route::get('open-source', [OpenSourceController::class, 'index'])->name('open-source');
+```
+[/bad]
+
+All routes have an HTTP verb, that's why we like to put the verb first when defining a route. It makes a group of routes very readable. Any other route options should come after it.
+
+[good]
+```php
+// all HTTP verbs come first
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('open-source', [OpenSourceController::class, 'index'])->name('openSource');
+```
+[/good]
+
+[bad]
+```php
+// HTTP verbs not easily scannable
+Route::name('home')->get('/', [HomeController::class, 'index']);
+Route::name('openSource')->get([OpenSourceController::class, 'index']);
+```
+[/bad]
+
+Route parameters should use camelCase.
+
+```php
+Route::get('news/{newsItem}', [NewsItemsController::class, 'index']);
+```
+
+A route url should not start with `/` unless the url would be an empty string.
+
+[good]
+```php
+Route::get('/', [HomeController::class, 'index']);
+Route::get('open-source', [OpenSourceController::class, 'index']);
+```
+[/good]
+
+[bad]
+```php
+Route::get('', [HomeController::class, 'index']);
+Route::get('/open-source', [OpenSourceController::class, 'index']);
+```
+[/bad]
+
+## API routing
+
+Naming conventions:
+1. Use the **plural** form of the resource name. (e.g. `errors`)
+2. Use **kebab-case** for the resource name. (e.g. `error-occurrences`)
+3. **Limit deep nesting**. Deeply nested routes can make the API complex and harder to manage. By limiting nesting, you maintain simplicity and improve readability.
+
+[bad]
+```
+/projects/1/errors/1/error-occurrences/1
+```
+[/bad]
+
+[good]
+```
+/error-occurrences/1
+```
+[/good]
+
+There are situations where providing context through nesting is necessary and beneficial. If the relationship between resources requires additional context, it's acceptable to use deeper nesting.
+
+If you need to access all occurrences of a specific error, nesting occurrences under errors provides clear context.
+
+[good]
+```
+/errors/1/occurrences
+```
+[/good]
+
+## Controllers
+
+Controllers that control a resource must use the plural resource name.
+
+```php
+class PostsController
+{
+    // ...
+}
+```
+
+Try to keep controllers simple and stick to the default CRUD keywords (`index`, `create`, `store`, `show`, `edit`, `update`, `destroy`). Extract a new controller if you need other actions.
+
+In the following example, we could have `PostsController@favorite`, and `PostsController@unfavorite`, or we could extract it to a separate `FavoritePostsController`.
+
+```php
+class PostsController
+{
+    public function create()
+    {
+        // ...
+    }
+
+    // ...
+
+    public function favorite(Post $post)
+    {
+        request()->user()->favorites()->attach($post);
+
+        return response(null, 200);
+    }
+
+    public function unfavorite(Post $post)
+    {
+        request()->user()->favorites()->detach($post);
+
+        return response(null, 200);
+    }
+}
+```
+
+Here we fall back to default CRUD words, `store` and `destroy`.
+
+```php
+class FavoritePostsController
+{
+    public function store(Post $post)
+    {
+        request()->user()->favorites()->attach($post);
+
+        return response(null, 200);
+    }
+
+    public function destroy(Post $post)
+    {
+        request()->user()->favorites()->detach($post);
+
+        return response(null, 200);
+    }
+}
+```
+
+This is a loose guideline that doesn't need to be enforced.
+
+## Views
+
+View files must use camelCase.
+
+```
+resources/
+  views/
+    openSource.blade.php
+```
+
+```php
+class OpenSourceController
+{
+    public function index() {
+        return view('openSource');
+    }
+}
+```
+
+## Validation
+
+When using multiple rules for one field in a form request, avoid using `|`, always use array notation. Using an array notation will make it easier to apply custom rule classes to a field.
+
+[good]
+```php
+public function rules()
+{
+    return [
+        'email' => ['required', 'email'],
+    ];
+}
+```
+[/good]
+
+[bad]
+```php
+public function rules()
+{
+    return [
+        'email' => 'required|email',
+    ];
+}
+```
+[/bad]
+
+
+All custom validation rules must use snake_case:
+
+```php
+Validator::extend('organisation_type', function ($attribute, $value) {
+    return OrganisationType::isValid($value);
+});
+```
+
+Use `$request->validate` instead of `Validator::make` whenever possible.
+
+[good]
+```php
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        // validation rules
+    ])
+}
+```
+[/good]
+
+[bad]
+```php
+public function store(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        // validation rules
     ]);
-</code-snippet>
 
-<code-snippet name="Testing Multiple Panels (setup())" lang="php">
-    use Filament\Facades\Filament;
+    if ($validator->fails()) {
+        // retrun validation errors
+    }
+}
+```
+[/bad]
 
-    Filament::setCurrentPanel('app');
-</code-snippet>
+Use Rule fluent methods whenever possible.
 
-<code-snippet name="Calling an Action in a Test" lang="php">
-    livewire(EditInvoice::class, [
-        'invoice' => $invoice,
-    ])->callAction('send');
+[good]
+```php
+public function rules()
+{
+    return [
+        'status' => ['required', Rule::in(['admin', 'user'])],
+    ];
+}
+```
+[/good]
 
-    expect($invoice->refresh())->isSent()->toBeTrue();
-</code-snippet>
+[bad]
+```php
+public function rules()
+{
+    return [
+        'status' => ['required', 'in:admin,user'],
+    ];
+}
+```
+[/bad]
 
+## Blade Templates
 
-=== filament/v3 rules ===
+Indent using four spaces.
 
-## Filament 3
+```html
+<a href="/open-source">
+    Open Source
+</a>
+```
 
-## Version 3 Changes To Focus On
-- Resources are located in `app/Filament/Resources/` directory.
-- Resource pages (List, Create, Edit) are auto-generated within the resource's directory - e.g., `app/Filament/Resources/PostResource/Pages/`.
-- Forms use the `Forms\Components` namespace for form fields.
-- Tables use the `Tables\Columns` namespace for table columns.
-- A new `Filament\Forms\Components\RichEditor` component is available.
-- Form and table schemas now use fluent method chaining.
-- Added `php artisan filament:optimize` command for production optimization.
-- Requires implementing `FilamentUser` contract for production access control.
+Don't add spaces after control structures.
 
+```html
+@if($condition)
+    Something
+@endif
+```
 
-=== laravel/core rules ===
+## Authorization
 
-## Do Things the Laravel Way
+Policies must use camelCase.
 
-- Use `php artisan make:` commands to create new files (i.e. migrations, controllers, models, etc.). You can list available Artisan commands using the `list-artisan-commands` tool.
-- If you're creating a generic PHP class, use `artisan make:class`.
-- Pass `--no-interaction` to all Artisan commands to ensure they work without user input. You should also pass the correct `--options` to ensure correct behavior.
-
-### Database
-- Always use proper Eloquent relationship methods with return type hints. Prefer relationship methods over raw queries or manual joins.
-- Use Eloquent models and relationships before suggesting raw database queries
-- Avoid `DB::`; prefer `Model::query()`. Generate code that leverages Laravel's ORM capabilities rather than bypassing them.
-- Generate code that prevents N+1 query problems by using eager loading.
-- Use Laravel's query builder for very complex database operations.
-
-### Model Creation
-- When creating new models, create useful factories and seeders for them too. Ask the user if they need any other things, using `list-artisan-commands` to check the available options to `php artisan make:model`.
-
-### APIs & Eloquent Resources
-- For APIs, default to using Eloquent API Resources and API versioning unless existing API routes do not, then you should follow existing application convention.
-
-### Controllers & Validation
-- Always create Form Request classes for validation rather than inline validation in controllers. Include both validation rules and custom error messages.
-- Check sibling Form Requests to see if the application uses array or string based validation rules.
-
-### Queues
-- Use queued jobs for time-consuming operations with the `ShouldQueue` interface.
-
-### Authentication & Authorization
-- Use Laravel's built-in authentication and authorization features (gates, policies, Sanctum, etc.).
-
-### URL Generation
-- When generating links to other pages, prefer named routes and the `route()` function.
-
-### Configuration
-- Use environment variables only in configuration files - never use the `env()` function directly outside of config files. Always use `config('app.name')`, not `env('APP_NAME')`.
-
-### Testing
-- When creating models for tests, use the factories for the models. Check if the factory has custom states that can be used before manually setting up the model.
-- Faker: Use methods such as `$this->faker->word()` or `fake()->randomDigit()`. Follow existing conventions whether to use `$this->faker` or `fake()`.
-- When creating tests, make use of `php artisan make:test [options] <name>` to create a feature test, and pass `--unit` to create a unit test. Most tests should be feature tests.
-
-### Vite Error
-- If you receive an "Illuminate\Foundation\ViteException: Unable to locate file in Vite manifest" error, you can run `npm run build` or ask the user to run `npm run dev` or `composer run dev`.
-
-
-=== laravel/v11 rules ===
-
-## Laravel 11
-
-- Use the `search-docs` tool to get version specific documentation.
-- Laravel 11 brought a new streamlined file structure which this project now uses.
-
-### Laravel 11 Structure
-- No middleware files in `app/Http/Middleware/`.
-- `bootstrap/app.php` is the file to register middleware, exceptions, and routing files.
-- `bootstrap/providers.php` contains application specific service providers.
-- **No app\Console\Kernel.php** - use `bootstrap/app.php` or `routes/console.php` for console configuration.
-- **Commands auto-register** - files in `app/Console/Commands/` are automatically available and do not require manual registration.
-
-### Database
-- When modifying a column, the migration must include all of the attributes that were previously defined on the column. Otherwise, they will be dropped and lost.
-- Laravel 11 allows limiting eagerly loaded records natively, without external packages: `$query->latest()->limit(10);`.
-
-### Models
-- Casts can and likely should be set in a `casts()` method on a model rather than the `$casts` property. Follow existing conventions from other models.
-
-### New Artisan Commands
-- List Artisan commands using Boost's MCP tool, if available. New commands available in Laravel 11:
-    - `php artisan make:enum`
-    - `php artisan make:class`
-    - `php artisan make:interface`
-
-
-=== livewire/core rules ===
-
-## Livewire Core
-- Use the `search-docs` tool to find exact version specific documentation for how to write Livewire & Livewire tests.
-- Use the `php artisan make:livewire [Posts\CreatePost]` artisan command to create new components
-- State should live on the server, with the UI reflecting it.
-- All Livewire requests hit the Laravel backend, they're like regular HTTP requests. Always validate form data, and run authorization checks in Livewire actions.
-
-## Livewire Best Practices
-- Livewire components require a single root element.
-- Use `wire:loading` and `wire:dirty` for delightful loading states.
-- Add `wire:key` in loops:
-
-    ```blade
-    @foreach ($items as $item)
-        <div wire:key="item-{{ $item->id }}">
-            {{ $item->name }}
-        </div>
-    @endforeach
-    ```
-
-- Prefer lifecycle hooks like `mount()`, `updatedFoo()`) for initialization and reactive side effects:
-
-<code-snippet name="Lifecycle hook examples" lang="php">
-    public function mount(User $user) { $this->user = $user; }
-    public function updatedSearch() { $this->resetPage(); }
-</code-snippet>
-
-
-## Testing Livewire
-
-<code-snippet name="Example Livewire component test" lang="php">
-    Livewire::test(Counter::class)
-        ->assertSet('count', 0)
-        ->call('increment')
-        ->assertSet('count', 1)
-        ->assertSee(1)
-        ->assertStatus(200);
-</code-snippet>
-
-
-    <code-snippet name="Testing a Livewire component exists within a page" lang="php">
-        $this->get('/posts/create')
-        ->assertSeeLivewire(CreatePost::class);
-    </code-snippet>
-
-
-=== livewire/v3 rules ===
-
-## Livewire 3
-
-### Key Changes From Livewire 2
-- These things changed in Livewire 2, but may not have been updated in this application. Verify this application's setup to ensure you conform with application conventions.
-    - Use `wire:model.live` for real-time updates, `wire:model` is now deferred by default.
-    - Components now use the `App\Livewire` namespace (not `App\Http\Livewire`).
-    - Use `$this->dispatch()` to dispatch events (not `emit` or `dispatchBrowserEvent`).
-    - Use the `components.layouts.app` view as the typical layout path (not `layouts.app`).
-
-### New Directives
-- `wire:show`, `wire:transition`, `wire:cloak`, `wire:offline`, `wire:target` are available for use. Use the documentation to find usage examples.
-
-### Alpine
-- Alpine is now included with Livewire, don't manually include Alpine.js.
-- Plugins included with Alpine: persist, intersect, collapse, and focus.
-
-### Lifecycle Hooks
-- You can listen for `livewire:init` to hook into Livewire initialization, and `fail.status === 419` for the page expiring:
-
-<code-snippet name="livewire:load example" lang="js">
-document.addEventListener('livewire:init', function () {
-    Livewire.hook('request', ({ fail }) => {
-        if (fail && fail.status === 419) {
-            alert('Your session expired');
-        }
-    });
-
-    Livewire.hook('message.failed', (message, component) => {
-        console.error(message);
-    });
+```php
+Gate::define('editPost', function ($user, $post) {
+    return $user->id == $post->user_id;
 });
-</code-snippet>
+```
 
+```html
+@can('editPost', $post)
+    <a href="{{ route('posts.edit', $post) }}">
+        Edit
+    </a>
+@endcan
+```
 
-=== pint/core rules ===
+Try to name abilities using default CRUD words. One exception: replace `show` with `view`. A server shows a resource, a user views it.
 
-## Laravel Pint Code Formatter
+## Translations
 
-- You must run `vendor/bin/pint --dirty` before finalizing changes to ensure your code matches the project's expected style.
-- Do not run `vendor/bin/pint --test`, simply run `vendor/bin/pint` to fix any formatting issues.
+Translations must be rendered with the `__` function. We prefer using this over `@lang` in Blade views because `__` can be used in both Blade views and regular PHP code. Here's an example:
 
+```php
+<h2>{{ __('newsletter.form.title') }}</h2>
 
-=== pest/core rules ===
+{!! __('newsletter.form.description') !!}
+```
 
-## Pest
+## Naming Classes
 
-### Testing
-- If you need to verify a feature is working, write or update a Unit / Feature test.
+Naming things is often seen as one of the harder things in programming. That's why we've established some high level guidelines for naming classes.
 
-### Pest Tests
-- All tests must be written using Pest. Use `php artisan make:test --pest <name>`.
-- You must not remove any tests or test files from the tests directory without approval. These are not temporary or helper files - these are core to the application.
-- Tests should test all of the happy paths, failure paths, and weird paths.
-- Tests live in the `tests/Feature` and `tests/Unit` directories.
-- Pest tests look and behave like this:
-<code-snippet name="Basic Pest Test Example" lang="php">
-it('is true', function () {
-    expect(true)->toBeTrue();
-});
-</code-snippet>
+### Controllers
 
-### Running Tests
-- Run the minimal number of tests using an appropriate filter before finalizing code edits.
-- To run all tests: `php artisan test`.
-- To run all tests in a file: `php artisan test tests/Feature/ExampleTest.php`.
-- To filter on a particular test name: `php artisan test --filter=testName` (recommended after making a change to a related file).
-- When the tests relating to your changes are passing, ask the user if they would like to run the entire test suite to ensure everything is still passing.
+Generally controllers are named by the plural form of their corresponding resource and a `Controller` suffix. This is to avoid naming collisions with models that are often equally named.
 
-### Pest Assertions
-- When asserting status codes on a response, use the specific method like `assertForbidden` and `assertNotFound` instead of using `assertStatus(403)` or similar, e.g.:
-<code-snippet name="Pest Example Asserting postJson Response" lang="php">
-it('returns all', function () {
-    $response = $this->postJson('/api/docs', []);
+e.g. `UsersController` or `EventDaysController`
 
-    $response->assertSuccessful();
-});
-</code-snippet>
+When writing non-resourceful controllers you might come across invokable controllers that perform a single action. These can be named by the action they perform again suffixed by `Controller`.
 
-### Mocking
-- Mocking can be very helpful when appropriate.
-- When mocking, you can use the `Pest\Laravel\mock` Pest function, but always import it via `use function Pest\Laravel\mock;` before using it. Alternatively, you can use `$this->mock()` if existing tests do.
-- You can also create partial mocks using the same import or self method.
+e.g. `PerformCleanupController`
 
-### Datasets
-- Use datasets in Pest to simplify tests which have a lot of duplicated data. This is often the case when testing validation rules, so consider going with this solution when writing tests for validation rules.
+For any logic inside the controller, it should be in an action class with one execute method. Add the action class to the controller method as a dependency.
 
-<code-snippet name="Pest Dataset Example" lang="php">
-it('has emails', function (string $email) {
-    expect($email)->not->toBeEmpty();
-})->with([
-    'james' => 'james@laravel.com',
-    'taylor' => 'taylor@laravel.com',
-]);
-</code-snippet>
+```php
+class PostController {
+    public function store(Request $request, PostProccessAction $postProccessAction)
+    {
+        $validated = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
 
+        $post = Post::create($validated);
+        $post = $postProccessAction->execute($post);
 
-=== tailwindcss/core rules ===
+        return response($post, 201);
+    }
+}
+```
 
-## Tailwind Core
+Use type-hinting for dependencies in controllers instead of Model::findOrFail.
 
-- Use Tailwind CSS classes to style HTML, check and use existing tailwind conventions within the project before writing your own.
-- Offer to extract repeated patterns into components that match the project's conventions (i.e. Blade, JSX, Vue, etc..)
-- Think through class placement, order, priority, and defaults - remove redundant classes, add classes to parent or child carefully to limit repetition, group elements logically
-- You can use the `search-docs` tool to get exact examples from the official documentation when needed.
+[good]
+```php
+public function post(Request $request, Post $post)
+{
+    // $post is already loaded
+}
+```
+[/good]
 
-### Spacing
-- When listing items, use gap utilities for spacing, don't use margins.
+[bad]
+```php
+public function post(Request $request)
+{
+    $post = Post::findOrFail($request->post_id);
+}
+```
+[/bad]
 
-    <code-snippet name="Valid Flex Gap Spacing Example" lang="html">
-        <div class="flex gap-8">
-            <div>Superior</div>
-            <div>Michigan</div>
-            <div>Erie</div>
-        </div>
-    </code-snippet>
+### Resources (and transformers)
 
+Both Eloquent resources and Fractal transformers are plural resources suffixed with `Resource` or `Transformer` accordingly. This is to avoid naming collisions with models.
 
-### Dark Mode
-- If existing pages and components support dark mode, new pages and components must support dark mode in a similar way, typically using `dark:`.
+### Jobs
 
+A job's name should describe its action.
 
-=== tailwindcss/v3 rules ===
+E.g. `CreateUser` or `PerformDatabaseCleanup`
 
-## Tailwind 3
+### Events
 
-- Always use Tailwind CSS v3 - verify you're using only classes supported by this version.
+Events will often be fired before or after the actual event. This should be very clear by the tense used in their name.
 
+E.g. `ApprovingLoan` before the action is completed and `LoanApproved` after the action is completed.
 
-=== tests rules ===
+### Listeners
 
-## Test Enforcement
+Listeners will perform an action based on an incoming event. Their name should reflect that action with a `Listener` suffix. This might seem strange at first but will avoid naming collisions with jobs.
 
-- Every change must be programmatically tested. Write a new test or update an existing test, then run the affected tests to make sure they pass.
-- Run the minimum number of tests needed to ensure code quality and speed. Use `php artisan test` with a specific filename or filter.
-</laravel-boost-guidelines>
+E.g. `SendInvitationMailListener`
+
+### Commands
+
+To avoid naming collisions we'll suffix commands with `Command`, so they are easiliy distinguisable from jobs.
+
+e.g. `PublishScheduledPostsCommand`
+
+### Mailables
+
+Again to avoid naming collisions we'll suffix mailables with `Mail`, as they're often used to convey an event, action or question.
+
+e.g. `AccountActivatedMail` or `NewEventMail`
+
+### Enums
+
+Enums don't need to be prefixed as in most cases, it is clear by reading the name that it is an enum.
+
+e.g. `OrderStatus` or `BookingType` or `Suit`
 
 ---
 > Source: [TheBSD/poykott](https://github.com/TheBSD/poykott) — distributed by [TomeVault](https://tomevault.io).
