@@ -1,0 +1,9 @@
+{
+  "name": "brickfrog--ankigen",
+  "displayName": "ankigen",
+  "description": "Gradio application using LLMs to generate csv/apkg to aid with memorizing topics in Anki",
+  "version": "1.0.0",
+  "author": "brickfrog",
+  "homepage": "https://github.com/brickfrog/ankigen",
+  "skills": []
+}
