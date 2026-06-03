@@ -1,0 +1,9 @@
+{
+  "name": "bitdriftlabs--pulse",
+  "displayName": "pulse",
+  "description": "bitdrift observability proxy",
+  "version": "1.0.0",
+  "author": "bitdriftlabs",
+  "homepage": "https://github.com/bitdriftlabs/pulse",
+  "skills": []
+}
