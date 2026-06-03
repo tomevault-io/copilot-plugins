@@ -1,0 +1,9 @@
+{
+  "name": "jsulpis--radiance",
+  "displayName": "radiance",
+  "description": "Lightweight, reactive WebGL library for working with shaders",
+  "version": "1.0.0",
+  "author": "jsulpis",
+  "homepage": "https://github.com/jsulpis/radiance",
+  "skills": []
+}
