@@ -1,0 +1,9 @@
+{
+  "name": "nlopes--acdc",
+  "displayName": "acdc",
+  "description": "Toolkit for AsciiDoc\u2122 in rust",
+  "version": "1.0.0",
+  "author": "nlopes",
+  "homepage": "https://github.com/nlopes/acdc",
+  "skills": []
+}
