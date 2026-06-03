@@ -1,0 +1,9 @@
+{
+  "name": "benbjurstrom--plink",
+  "displayName": "plink",
+  "description": "\ud83d\udd17 Passwordless Log-In Links for Laravel",
+  "version": "1.0.0",
+  "author": "benbjurstrom",
+  "homepage": "https://github.com/benbjurstrom/plink",
+  "skills": []
+}
