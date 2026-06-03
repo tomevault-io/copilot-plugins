@@ -4,7 +4,7 @@
   "repo": "Floe",
   "description": "Sample library platform with a simple, powerful interface | CLAP, VST3, AU",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/floe-audio/Floe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T23:43:01Z"
+  "distributed_at": "2026-06-03T23:43:33Z"
 }
