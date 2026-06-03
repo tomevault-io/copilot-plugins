@@ -1,0 +1,9 @@
+{
+  "name": "gpt-cmdr--ras-commander",
+  "displayName": "ras-commander",
+  "description": "The RAS-Commander library provides a python API for automating HEC-RAS 6.x and accessing HDF data using Python, built with and driven by large language models.",
+  "version": "1.0.0",
+  "author": "gpt-cmdr",
+  "homepage": "https://github.com/gpt-cmdr/ras-commander",
+  "skills": []
+}
