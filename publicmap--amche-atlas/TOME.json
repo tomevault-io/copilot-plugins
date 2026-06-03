@@ -4,7 +4,7 @@
   "repo": "amche-atlas",
   "description": "A lightweight and customizable web GIS platform for the state of Goa, India. Designed as a community maintained tool for hyperlocal spatial data exploration and decision making.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/publicmap/amche-atlas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T02:42:57Z"
+  "distributed_at": "2026-06-03T02:56:33Z"
 }
