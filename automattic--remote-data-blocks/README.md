@@ -7,13 +7,13 @@ Remote Data Blocks: a WordPress plugin for creating flexible, data-enriched cont
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Automattic/remote-data-blocks](https://github.com/Automattic/remote-data-blocks).
+Original source: `AGENTS.md` in [Automattic/remote-data-blocks](https://github.com/Automattic/remote-data-blocks).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
