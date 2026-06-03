@@ -1,0 +1,44 @@
+{
+  "name": "microi.net",
+  "owner": "itdos",
+  "repo": "microi.net",
+  "description": "\ud83d\udd25 AI \u6df1\u5ea6\u878d\u5408 V8\u5f15\u64ce \u7684\u5f00\u6e90\u4f4e\u4ee3\u7801\u5e73\u53f0\u3002AI \u672c\u5730 V8\u5f15\u64ce \u7f16\u7a0b\uff08VS Code Copilot/Cursor/Claude + MCP + Skills\uff09\u3001AI \u5728\u7ebf\u7f16\u7a0b\u3001AI \u6570\u636e\u5206\u6790\u3002.NET10 + Vue3 + \u8de8\u6570\u636e\u5e93/\u8de8\u5e73\u53f0\uff0c\u5206\u5e03\u5f0f\u67b6\u6784\u3001\u9ad8\u6027\u80fd\uff08L1/L2\u7ea7\u7f13\u5b58\uff09\u3002\u59cb\u4e8e2014\u5e74\uff08\u57fa\u4e8eAvalon.js\uff09\uff0c2018\u5e74\u4f7f\u7528Vue\u91cd\u6784\uff0c\u4e8e2025\u5e74\u5f00\u6e90\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/itdos/microi.net",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T04:39:58Z"
+}
