@@ -1,0 +1,9 @@
+{
+  "name": "atlassian-labs--atlaspack",
+  "displayName": "atlaspack",
+  "description": "Atlaspack is the frontend bundler used to build Atlassian products, written in JavaScript and Rust by core contributors of Parcel. ",
+  "version": "1.0.0",
+  "author": "atlassian-labs",
+  "homepage": "https://github.com/atlassian-labs/atlaspack",
+  "skills": []
+}
