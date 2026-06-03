@@ -1,0 +1,9 @@
+{
+  "name": "stephenlzc--ai-agent-debate-autogen-turtorial",
+  "displayName": "AI-Agent-Debate_Autogen_Turtorial",
+  "description": "\ud83e\udd16 \u57fa\u4e8eAutoGen\u7684AI\u8fa9\u8bba\u7cfb\u7edf | \ud83d\udde3\ufe0f \u652f\u6301\u4e2d\u6587\u4ea4\u4e92 | \ud83d\udd04 \u591a\u667a\u80fd\u4f53\u534f\u4f5c | \ud83d\udcdd \u81ea\u52a8\u8bb0\u5f55\u8fa9\u8bba\u8fc7\u7a0b  \ud83e\udd16 AI Debate System based on AutoGen | \ud83d\udde3\ufe0f Chinese Interaction | \ud83d\udd04 Multi-Agent Collaboration | \ud83d\udcdd Auto Debate Recording",
+  "version": "1.0.0",
+  "author": "stephenlzc",
+  "homepage": "https://github.com/stephenlzc/AI-Agent-Debate_Autogen_Turtorial",
+  "skills": []
+}
