@@ -1,0 +1,9 @@
+{
+  "name": "nikolainobadi--nncredentialkit",
+  "displayName": "NnCredentialKit",
+  "description": "Swift package for managing account linking, credential handling, and social authentication in iOS apps.",
+  "version": "1.0.0",
+  "author": "nikolainobadi",
+  "homepage": "https://github.com/nikolainobadi/NnCredentialKit",
+  "skills": []
+}
