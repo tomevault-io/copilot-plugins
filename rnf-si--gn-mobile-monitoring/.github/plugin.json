@@ -1,0 +1,9 @@
+{
+  "name": "rnf-si--gn-mobile-monitoring",
+  "displayName": "gn_mobile_monitoring",
+  "description": "Version mobile du module monitoring de geonature.",
+  "version": "1.0.0",
+  "author": "RNF-SI",
+  "homepage": "https://github.com/RNF-SI/gn_mobile_monitoring",
+  "skills": []
+}
