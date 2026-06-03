@@ -1,0 +1,9 @@
+{
+  "name": "gentleeduck--duck-ui",
+  "displayName": "duck-ui",
+  "description": "React component library, headless primitives, hooks, variants, and developer tooling for the Gentleduck design system.",
+  "version": "1.0.0",
+  "author": "gentleeduck",
+  "homepage": "https://github.com/gentleeduck/duck-ui",
+  "skills": []
+}
