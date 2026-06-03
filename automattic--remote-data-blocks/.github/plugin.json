@@ -1,0 +1,9 @@
+{
+  "name": "automattic--remote-data-blocks",
+  "displayName": "remote-data-blocks",
+  "description": "Remote Data Blocks: a WordPress plugin for creating flexible, data-enriched content with remote data integration",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/remote-data-blocks",
+  "skills": []
+}
