@@ -1,11 +1,13 @@
-# toolkit-remix — distributed by TomeVault
+# toolkit-remix
 
-> Originally from [NVIDIAGameWorks/toolkit-remix](https://github.com/NVIDIAGameWorks/toolkit-remix). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [NVIDIAGameWorks/toolkit-remix](https://github.com/NVIDIAGameWorks/toolkit-remix) — distributed by [TomeVault](https://tomevault.io)
+
+RTX Remix Toolkit
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [NVIDIAGameWorks/toolkit-remix](https://github.com/NVIDIAGameWorks/toolkit-remix).
+Original source: `GEMINI.md` in [NVIDIAGameWorks/toolkit-remix](https://github.com/NVIDIAGameWorks/toolkit-remix).
 
 ## Also available for
 
@@ -13,9 +15,9 @@ Original source: `.windsurf/rules/*.md` in [NVIDIAGameWorks/toolkit-remix](https
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/NVIDIAGameWorks#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/NVIDIAGameWorks/toolkit-remix](https://github.com/NVIDIAGameWorks/toolkit-remix)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install NVIDIAGameWorks/toolkit-remix
 ```
-Or browse all formats at [https://tomevault.io/claim/NVIDIAGameWorks](https://tomevault.io/claim/NVIDIAGameWorks).
+Source: [github.com/NVIDIAGameWorks/toolkit-remix](https://github.com/NVIDIAGameWorks/toolkit-remix).
 
 <!-- genome:d-i-q -->
