@@ -1,0 +1,9 @@
+{
+  "name": "consol-lab--pumpkin",
+  "displayName": "Pumpkin",
+  "description": "A Lazy Clause Generation Constraint Programming solver written in Rust.",
+  "version": "1.0.0",
+  "author": "ConSol-Lab",
+  "homepage": "https://github.com/ConSol-Lab/Pumpkin",
+  "skills": []
+}
