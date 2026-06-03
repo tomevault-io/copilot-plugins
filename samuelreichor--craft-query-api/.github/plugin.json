@@ -1,0 +1,9 @@
+{
+  "name": "samuelreichor--craft-query-api",
+  "displayName": "craft-query-api",
+  "description": "Craft CMS Plugin to use the query builder in js frameworks",
+  "version": "1.0.0",
+  "author": "samuelreichor",
+  "homepage": "https://github.com/samuelreichor/craft-query-api",
+  "skills": []
+}
