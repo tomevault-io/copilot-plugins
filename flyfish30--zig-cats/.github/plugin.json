@@ -1,0 +1,9 @@
+{
+  "name": "flyfish30--zig-cats",
+  "displayName": "zig-cats",
+  "description": "A category theory and functional programing library for Zig language",
+  "version": "1.0.0",
+  "author": "flyfish30",
+  "homepage": "https://github.com/flyfish30/zig-cats",
+  "skills": []
+}
