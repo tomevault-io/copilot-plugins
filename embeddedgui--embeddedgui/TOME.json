@@ -2,9 +2,9 @@
   "name": "EmbeddedGUI",
   "owner": "EmbeddedGUI",
   "repo": "EmbeddedGUI",
-  "description": "",
+  "description": "\u652f\u6301FPB\u3001\u6297\u952f\u9f7f\u3001\u52a8\u753b\u3001\u810f\u77e9\u9635\u7684\u9ad8\u6548\u5d4c\u5165\u5f0fGUI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/EmbeddedGUI",
+  "source_url": "https://github.com/EmbeddedGUI/EmbeddedGUI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T22:04:23Z"
+  "distributed_at": "2026-06-03T12:48:09Z"
 }
