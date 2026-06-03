@@ -1,7 +1,7 @@
 {
   "name": "the-cafe--git-ai-commit",
   "displayName": "git-ai-commit",
-  "description": "git-ai-commit",
+  "description": "let AI write your commit messages",
   "version": "1.0.0",
   "author": "the-cafe",
   "homepage": "https://github.com/the-cafe/git-ai-commit",
