@@ -1,0 +1,9 @@
+{
+  "name": "soteria-tools--soteria",
+  "displayName": "soteria",
+  "description": "Sound static analysis for the masses.",
+  "version": "1.0.0",
+  "author": "soteria-tools",
+  "homepage": "https://github.com/soteria-tools/soteria",
+  "skills": []
+}
