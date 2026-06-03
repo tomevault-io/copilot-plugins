@@ -1,0 +1,9 @@
+{
+  "name": "vincentkoc--airgapped-offfline-rag",
+  "displayName": "airgapped-offfline-rag",
+  "description": "Secure, locally-run Retrieval-Augmented Generation system for document-based question-answering, utilizing Llama 3, Mistral, and Gemini models with a user-friendly Streamlit interface.",
+  "version": "1.0.0",
+  "author": "vincentkoc",
+  "homepage": "https://github.com/vincentkoc/airgapped-offfline-rag",
+  "skills": []
+}
