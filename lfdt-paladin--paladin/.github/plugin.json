@@ -1,0 +1,9 @@
+{
+  "name": "lfdt-paladin--paladin",
+  "displayName": "paladin",
+  "description": "Paladin is a platform for building programmable privacy preserving tokens on EVM, with integrated client and wallet. Support for several privacy frameworks including ZKP tokens, issuer-backed tokens, ",
+  "version": "1.0.0",
+  "author": "LFDT-Paladin",
+  "homepage": "https://github.com/LFDT-Paladin/paladin",
+  "skills": []
+}
