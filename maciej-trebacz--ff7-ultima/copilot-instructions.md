@@ -60,5 +60,5 @@ invoke('my_custom_command', {
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/maciej-trebacz) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [maciej-trebacz/ff7-ultima](https://github.com/maciej-trebacz/ff7-ultima) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
