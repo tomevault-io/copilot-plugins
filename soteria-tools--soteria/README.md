@@ -7,11 +7,11 @@ Sound static analysis for the masses.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [soteria-tools/soteria](https://github.com/soteria-tools/soteria).
+Original source: `AGENTS.md` in [soteria-tools/soteria](https://github.com/soteria-tools/soteria).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
