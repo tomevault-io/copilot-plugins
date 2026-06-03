@@ -1,0 +1,9 @@
+{
+  "name": "kdunee--intentguard",
+  "displayName": "intentguard",
+  "description": "A Python library for verifying code properties using natural language assertions.",
+  "version": "1.0.0",
+  "author": "kdunee",
+  "homepage": "https://github.com/kdunee/intentguard",
+  "skills": []
+}
