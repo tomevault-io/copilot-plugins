@@ -1,0 +1,9 @@
+{
+  "name": "jhillyerd--labcoat",
+  "displayName": "labcoat",
+  "description": "NixOS system deployment TUI",
+  "version": "1.0.0",
+  "author": "jhillyerd",
+  "homepage": "https://github.com/jhillyerd/labcoat",
+  "skills": []
+}
