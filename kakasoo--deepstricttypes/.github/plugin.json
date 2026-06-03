@@ -1,0 +1,9 @@
+{
+  "name": "kakasoo--deepstricttypes",
+  "displayName": "DeepStrictTypes",
+  "description": "Utility Types to quickly query and Omit, Pick keys inside nested arrays and objects",
+  "version": "1.0.0",
+  "author": "kakasoo",
+  "homepage": "https://github.com/kakasoo/DeepStrictTypes",
+  "skills": []
+}
