@@ -1,0 +1,9 @@
+{
+  "name": "ideallab--engibench",
+  "displayName": "EngiBench",
+  "description": "Benchmarks for automated engineering design",
+  "version": "1.0.0",
+  "author": "IDEALLab",
+  "homepage": "https://github.com/IDEALLab/EngiBench",
+  "skills": []
+}
