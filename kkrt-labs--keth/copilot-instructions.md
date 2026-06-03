@@ -1,45 +1,71 @@
-## imports
+## navigation
 
-> Cairo Imports
+> Navigation Guide
 
-# Imports
+# Navigation Rules for Keth Codebase
 
-This file is a non-exhaustive list of some common imports and their usage.
+## Project Structure Overview
 
-## Standard Cairo Library
-- Cairo standard library functions
-  - Used in: Various Cairo files
-  - Import: `from starkware.cairo.common.dict import dict_read, dict_write`
-  - Import: `from starkware.cairo.common.math import assert_le, assert_lt`
-  - Import: `from starkware.cairo.common.memcpy import memcpy`
-  - Import: `from starkware.cairo.common.alloc import alloc`
-- Builtins:
-  - Import: `from starkware.cairo.common.cairo_builtins import BitwiseBuiltin, PoseidonBuiltin`, and others
+The Keth codebase is an EVM implementation written in Cairo Zero with the following organization:
 
+- `cairo/ethereum/`: Core EVM implementation files
+  - `prague/`: prague fork-specific EVM components
+  - `crypto/`: Cryptographic primitives implementation specifically for Ethereum
+  - `utils/`: Utility functions for the EVM
 
-## Core Type Definitions
-- `ethereum_types/bytes`: Byte array implementation
-  - Used in: Most Cairo files dealing with byte data
-  - Import: `from ethereum_types.bytes import Bytes, BytesStruct`
-- `ethereum_types/numeric`: Numeric type definitions
-  - Used in: Arithmetic operations
-  - Import: `from ethereum_types.numeric import u8, u16, u32, u64, u128, u160, u256`
+- `cairo/ethereum_types/`: Core Ethereum types in Cairo
+  - `bytes.cairo`: Bytes type implementation
+  - `numeric.cairo`: Numeric type definitions
 
-## EVM Components
-- `ethereum/prague/vm/stack`: EVM stack implementation
-  - Used in: VM and instruction files
-  - Import: `from ethereum.prague.vm.stack import Stack`
-- `ethereum/prague/vm/memory`: EVM memory implementation
-  - Used in: VM execution files
-  - Import: `from ethereum.prague.vm.memory import Memory`
-- `ethereum/prague/vm/exceptions`: EVM error types
-  - Used in: Error handling across the codebase
-  - Import: `from ethereum.prague.vm.exceptions import OutOfGasError`
+- `cairo/tests/`: Tests organized to mirror the source structure
+  - `ef_tests/`: Ethereum Foundation tests
+  - `ethereum/`: Fuzzed tests against the reference Execution-Spec implementation
 
-## Import Patterns
-- Only use absolute imports
-- Group imports by category (standard library, types, EVM components)
-- Always import specific types and functions, not entire modules
+## Key Directories and Files
+
+### Core EVM Components
+- `cairo/ethereum/prague/vm/`: Virtual machine implementation
+  - `stack.cairo`: EVM stack implementation
+  - `memory.cairo`: EVM memory implementation
+  - `instructions.cairo`: EVM opcode implementations
+  - `exceptions.cairo`: Error type definitions
+  - `interpreter.cairo`: Core EVM interpreter
+
+- `cairo/ethereum/prague/state.cairo`: State implementation
+- `cairo/ethereum/prague/trie.cairo`: Merkle Patricia Trie implementation
+- `cairo/ethereum/prague/transactions.cairo`: Transaction processing
+- `cairo/ethereum/prague/fork.cairo`: Entrypoint to the STF function with `state_transition`
+
+### Type System
+- `cairo/tests/utils/args_gen.py`: Type generation from Python to Cairo
+- `cairo/tests/utils/serde.py`: Conversion from Cairo Memory values to Python types
+- `cairo/tests/utils/strategies.py`: Testing strategies for property-based testing
+
+## Navigation Patterns
+
+1. **Understanding the Type System**:
+   - Start with `cairo/tests/utils/args_gen.py` to understand Python to Cairo type mapping
+   - Explore type implementations in `cairo/ethereum_types/`
+   - See how types are serialized back in `cairo/tests/utils/serde.py`
+
+2. **Following the EVM Execution Flow**:
+   - Start at the virtual machine implementation in `cairo/ethereum/prague/vm.cairo`
+   - Examine the instruction interpretation in `cairo/ethereum/prague/vm/interpreter.cairo`
+   - Explore state in `cairo/ethereum/prague/state.cairo`
+   - Check error handling in `cairo/ethereum/prague/vm/exceptions.cairo`
+
+3. **Exploring Test Structure**:
+   - Tests mirror the source directory structure
+   - `cairo/tests/ethereum/` contains the property-based tests.
+   - `cairo_run` fixture in `cairo/tests/conftest.py` is used to execute Cairo functions
+   - `cairo/tests/ef_tests/` contains Ethereum Foundation adapted tests. Never modify
+
+## Common Navigation Tasks
+
+- **To understand a new type implementation**: Look at both the Cairo definition in `cairo/ethereum_types/` and its Python mapping in `args_gen.py`
+- **To find error handling for a component**: Check the `exceptions.cairo` file and component implementation
+- **To see test examples for a component**: Find the corresponding test file in the mirrored test structure
+- **To explore mutable data structures**: Check implementations of Stack, Memory, and TransientStorage
 
 ---
 > Source: [kkrt-labs/keth](https://github.com/kkrt-labs/keth) — distributed by [TomeVault](https://tomevault.io).
