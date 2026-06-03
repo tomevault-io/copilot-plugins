@@ -2,9 +2,9 @@
   "name": "GiGL",
   "owner": "Snapchat",
   "repo": "GiGL",
-  "description": "",
+  "description": "Gigantic Graph Learning (GiGL) Framework: Large-scale training and inference for Graph Neural Networks",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Snapchat",
+  "source_url": "https://github.com/Snapchat/GiGL",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T09:56:50Z"
+  "distributed_at": "2026-06-03T19:42:12Z"
 }
