@@ -1,144 +1,187 @@
-## code-standards
+## content-templates
 
-> Code quality standards and best practices for documentation examples. Should be used whenever a code snippet needs to be included in the document.
+> Content templates and page skeletons for common documentation patterns. Use this when creating new documents, creating feature overviews, etc.
 
 
-# Code Quality Standards
+# Content Templates
 
-## General Principles
+## Page Templates
 
-### Code Documentation
-- All code examples must be **tested and functional**
-- Include all necessary imports and dependencies
-- Use realistic placeholder values (e.g., `YOUR_API_KEY`, `your-assistant-id`)
-- Follow language-specific conventions and best practices
-
-### Error Handling
-- Include proper error handling in all examples
-- Show both success and failure scenarios
-- Provide meaningful error messages and debugging guidance
-- Use try-catch blocks where appropriate
-
-### Security Best Practices
-- Never hardcode API keys or sensitive data
-- Use environment variables for configuration
-- Include security warnings where relevant
-- Follow OAuth/API key best practices
-
-## Language-Specific Standards
-
-### TypeScript/JavaScript
-```typescript
-// ✅ Good - Proper imports and error handling
-import { VapiClient } from "@vapi-ai/server-sdk";
-
-const vapi = new VapiClient({ 
-  token: process.env.VAPI_API_KEY 
-});
-
-try {
-  const assistant = await vapi.assistants.create({
-    name: "Customer Support",
-    // ... configuration
-  });
-  console.log(`Assistant created: ${assistant.id}`);
-} catch (error) {
-  console.error("Failed to create assistant:", error);
-}
-```
-
-### Python
-```python
-# ✅ Good - Proper imports and error handling
-import os
-from vapi import Vapi
-
-client = Vapi(token=os.getenv("VAPI_API_KEY"))
-
-try:
-    assistant = client.assistants.create(
-        name="Customer Support",
-        # ... configuration
-    )
-    print(f"Assistant created: {assistant.id}")
-except Exception as error:
-    print(f"Failed to create assistant: {error}")
-```
-
-### cURL
-```bash
-# ✅ Good - Proper headers and error codes
-curl -X POST "https://api.vapi.ai/assistant" \
-     -H "Authorization: Bearer $VAPI_API_KEY" \
-     -H "Content-Type: application/json" \
-     -d '{
-       "name": "Customer Support"
-     }' \
-     --fail-with-body
-```
-
-## Code Block Formatting
-
-### Multi-language Examples
-Always provide multiple implementation options using Fern's `<CodeBlocks>`:
-
+### Standard Documentation Page
 ```mdx
-<CodeBlocks>
-```typescript title="TypeScript SDK"
-// Complete working example
-```
-```python title="Python SDK"
-# Complete working example
-```
-```bash title="cURL"
-# Complete working example
-```
-</CodeBlocks>
-```
+---
+title: [Page title]
+subtitle: [Brief description]
+slug: [category]/[page-name]
+description: [Short description for preview link]
+---
 
-### Code Attributes
-Use appropriate attributes for code blocks:
-- `maxLines=10` for long examples
-- `wordWrap` for wide content
-- `title="filename.ext"` for file examples
-- `{2-4}` for line highlighting
+## Overview
 
-### Placeholder Standards
-- `YOUR_API_KEY` for API keys
-- `YOUR_ASSISTANT_ID` for resource IDs
-- `your-phone-number` for phone numbers
-- `your-webhook-url` for URLs
+[Brief description of what this page covers and who it's for]
 
-## Production Readiness
+- [Key point or capability 1]
+- [Key point or capability 2]  
+- [Key point or capability 3]
 
-### Environment Configuration
-```typescript
-// ✅ Good - Environment-based configuration
-const config = {
-  apiKey: process.env.VAPI_API_KEY,
-  baseUrl: process.env.VAPI_BASE_URL || 'https://api.vapi.ai',
-  timeout: parseInt(process.env.VAPI_TIMEOUT || '30000')
-};
+For details, see **[Related Section]**.
+
+## [Main Content Section]
+
+[Core content with examples, steps, or explanations]
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="[Common question]">
+    [Clear, helpful answer]
+  </Accordion>
+</AccordionGroup>
 ```
 
-### Rate Limiting
-```typescript
-// ✅ Good - Include rate limiting considerations
-async function bulkCreateAssistants(configs: AssistantConfig[]) {
-  const results = [];
-  for (const config of configs) {
-    try {
-      const assistant = await vapi.assistants.create(config);
-      results.push(assistant);
-      
-      // Rate limiting - wait between requests
-      await new Promise(resolve => setTimeout(resolve, 1000));
-    } catch (error) {
-      console.error(`Failed to create assistant: ${error}`);
-    }
-  }
-  return results;
-}
+### Feature Overview Page
+```mdx
+---
+title: [Feature name]
+subtitle: Learn [what users will accomplish]
+---
+
+## Overview
+
+[Feature name] enables you to [main capability]. This [type of solution] helps you [business outcome].
+
+**[Feature] allows you to:**
+- [Specific capability 1]
+- [Specific capability 2]
+- [Specific capability 3]
+
+## How [feature] works
+
+[Brief explanation of the underlying process or technology]
+
+<CardGroup cols={3}>
+  <Card title="[Step 1]" icon="[icon]" iconType="solid">
+    [Brief description of first step]
+  </Card>
+  <Card title="[Step 2]" icon="[icon]" iconType="solid">
+    [Brief description of second step]
+  </Card>
+  <Card title="[Step 3]" icon="[icon]" iconType="solid">
+    [Brief description of third step]
+  </Card>
+</CardGroup>
+
+## Key capabilities
+
+- **[Capability 1]:** [Description with benefits]
+- **[Capability 2]:** [Description with benefits]
+- **[Capability 3]:** [Description with benefits]
+
+## [Implementation paths or next steps]
+
+<CardGroup cols={2}>
+  <Card
+    title="[Option 1]"
+    icon="[icon]"
+    href="/path/to/guide"
+  >
+    [Description and use case]
+  </Card>
+  <Card
+    title="[Option 2]"  
+    icon="[icon]"
+    href="/path/to/guide"
+  >
+    [Description and use case]
+  </Card>
+</CardGroup>
+```
+
+## Content Patterns
+
+### Introduction Patterns
+**For overviews:**
+> "[Product/Feature] is [brief definition]. We handle [complex part] so you can focus on [user value]."
+
+**For tutorials:**
+> "Build [specific outcome] step by step. Choose between using the Dashboard interface or programmatic APIs to suit your workflow."
+
+**For examples:**
+> "Build a [use case] with [key technologies]. The [agent/workflow] handles [business scenario] using [technical approach]."
+
+### Step Introduction Patterns
+**For setup steps:**
+> "Configure [component] to [achieve specific outcome]."
+
+**For implementation steps:**
+> "Create [thing] that [does what] for [user benefit]."
+
+**For testing steps:**
+> "Validate [thing] works correctly with [test scenario]."
+
+### Closing Patterns
+**For tutorials:**
+> "Now that you have [accomplished goal], consider [next steps or enhancements]:"
+
+**For examples:**
+> "Just like that, you've built [outcome]. Consider reading the following guides to further enhance your [solution]:"
+
+**For overviews:**
+> "Ready to get started? Check out [most relevant next step] or explore [alternative path]."
+
+## Component Usage Patterns
+
+### Card Groups for Options
+```mdx
+<CardGroup cols={2}>
+  <Card
+    title="[Option A]"
+    icon="[icon]"
+    href="/path"
+  >
+    **Best for:** [use case]
+    
+    [Brief description]
+  </Card>
+  <Card
+    title="[Option B]"
+    icon="[icon]"  
+    href="/path"
+  >
+    **Best for:** [use case]
+    
+    [Brief description]
+  </Card>
+</CardGroup>
+```
+
+### Step Lists for Procedures
+```mdx
+<Steps>
+  <Step title="[Action verb] [object]">
+    [Brief explanation of purpose]
+
+    [Implementation details or sub-steps]
+  </Step>
+  <Step title="[Next action]">
+    [Continue with logical flow]
+  </Step>
+</Steps>
+```
+
+### Tabs for Multi-modal Implementation
+```mdx
+<Tabs>
+  <Tab title="Dashboard">
+    [Visual, no-code approach]
+  </Tab>
+  <Tab title="TypeScript (Server SDK)">
+    [Programmatic implementation]
+  </Tab>
+  <Tab title="Python (Server SDK)">
+    [Alternative SDK implementation]
+  </Tab>
+</Tabs>
 ``` 
 
 ---
