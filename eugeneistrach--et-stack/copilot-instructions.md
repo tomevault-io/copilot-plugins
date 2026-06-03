@@ -1,52 +1,75 @@
-## 400-ui-component-library
+## 400-ui-forms
 
-> Component library guidelines - all shadcn components are pre-installed
+> react-hook-form instructions and guidelines
 
 
 guidelines:
   core:
-    - All shadcn components are already installed
-    - Import from @/components/ui/[component-name]
-    - Style with Tailwind CSS
-    - Use cn() utility for class merging
-
-  workflow:
-    - No need to install components - all are pre-installed
-    - Import directly from @/components/ui
-    - Check existing components before creating new ones
+    - Use react-hook-form for form state management
+    - Refer to @validation.mdc for validation instructions
+    - Use controlled components sparingly - prefer uncontrolled when possible
+    - Implement proper form submission handling with loading states
+    - Use [loading-button.tsx](mdc:src/components/ui/loading-button.tsx) for form submissions
 
 examples:
-  import: |
-    import { Button } from "@/components/ui/button"
-    import { Input } from "@/components/ui/input"
+  form: |
+    const formSchema = z.object({
+      email: z.string().email("Invalid email address"),
+      password: z.string().min(8, "Password must be at least 8 characters")
+    })
 
-  styling: |
-    import { cn } from "@/lib/utils"
+    const Form = () => {
+      const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema)
+      })
 
-    <Button
-      className={cn(
-        "bg-primary",
-        className
-      )}
-    >
-      Click me
-    </Button>
+      const { mutate, isLoading } = useMutation()
 
-  installation: |
-    # You shouldn't need this - all components are installed
-    # Only as reference if needed:
-    bunx shadcn@latest add button
+      return (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(mutate)}>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <LoadingButton type="submit" isLoading={isLoading}>
+              Submit
+            </LoadingButton>
+          </form>
+        </Form>
+      )
+    }
 
 key_points:
-  components:
-    - All shadcn components pre-installed
-    - Import from @/components/ui
-    - Check before creating new ones
-
-  styling:
-    - Use Tailwind CSS
-    - Merge classes with cn()
-    - Follow Shadcn patterns
+  usage:
+    - Use for all form state management
+    - Prefer uncontrolled components
+    - Always handle loading states
+    - Use LoadingButton component
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
