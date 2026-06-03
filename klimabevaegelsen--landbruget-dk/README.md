@@ -2,6 +2,8 @@
 
 > Sourced from [Klimabevaegelsen/landbruget.dk](https://github.com/Klimabevaegelsen/landbruget.dk) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Et projekt for at formidle data om dansk landbrug
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
