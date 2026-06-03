@@ -1,9 +1,9 @@
-## architecture
+## code-comments
 
-> Extension design, USD contexts, lifecycle, events — core architectural patterns
+> Docstring requirements and code comment standards
 
 
-@.agents/context/architecture.md
+@.agents/rules/code-comments.md
 
 ---
 > Source: [NVIDIAGameWorks/toolkit-remix](https://github.com/NVIDIAGameWorks/toolkit-remix) — distributed by [TomeVault](https://tomevault.io).
