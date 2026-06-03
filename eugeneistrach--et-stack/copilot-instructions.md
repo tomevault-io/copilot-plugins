@@ -1,80 +1,104 @@
-## 300-data-database
+## 400-ui-client-base
 
-> Database schema creation and management guidelines
+> Guidelines for dumb React components with React 19 and Storybook-first development
 
 
 guidelines:
-  structure:
-    schemas_dir: src/drizzle/schemas/
-    key_files:
-      _exports: Exports all schemas for drizzle-kit
-      schema: Combines all tables into single schema object
-      feature: Individual feature schemas as [feature]-schema.ts
+  state_management:
+    - Keep components dumb and free of data fetching logic
+    - Data fetching and state management should be in container/page components
+    - Pass data and callbacks as props to components
+    - Use TanStack Router and Query only in containers/pages
+    - useState only for component local state
+    - Avoid useEffect except for external system synchronization
 
-  naming:
-    tables: lowercase_with_underscores
-    schema_files: kebab-case-schema.ts
-    table_exports: PascalCase with Table suffix
-    type_exports: PascalCase without suffix
+  react_19_features:
+    - Automatic ref forwarding to DOM elements
+    - No need for forwardRef wrapper
+    - Use ComponentProps for proper typing
+    - Simplified component definitions
 
-  patterns:
-    - Always use textId() for primary keys
-    - Include dateTableFields for timestamps
-    - Define relations in schema.ts
-    - Use text fields with enums
+  component_practices:
+    - Build dumb, reusable components that are easy to test
+    - Components should accept data and callbacks via props
+    - Single responsibility per component
+    - Composition over inheritance
+    - Extract reusable logic to hooks
+    - Use TypeScript discriminated unions for props
+    - Follow prop naming conventions (e.g., onSubmit, isLoading)
+    - Use Tailwind classes instead of inline styles
+    - Keep components small and manageable
+    - Design components for Storybook first
 
 examples:
-  new_schema: |
-    import { sqliteTable } from 'drizzle-orm/sqlite-core'
-    import { dateTableFields, textId } from '@/drizzle/table-fields'
+  ref_forwarding:
+    react_18: |
+      const Input = forwardRef<HTMLInputElement>((props, ref) => (
+        <input ref={ref} {...props} />
+      ))
 
-    export const FeatureTable = sqliteTable('feature_name', {
-      id: textId(),
-      // ... other fields
-      ...dateTableFields,
-    })
+    react_19: |
+      const Input = ({ ref, ...props }: ComponentProps<'input'>) =>
+        <input ref={ref} {...props} />
 
-    export type Feature = typeof FeatureTable.$inferSelect
+    usage: |
+      const MyForm = () => {
+        const inputRef = useRef<HTMLInputElement>(null)
+        return <Input ref={inputRef} type="text" placeholder="Enter text" />
+      }
 
-  field_types: |
-    // Date/Timestamp
-    createdAt: t.integer({ mode: 'timestamp' })
-      .notNull()
-      .default(sql`(strftime('%s', 'now'))`),
+  dumb_component: |
+    const UserCard = ({
+      user,
+      onEdit,
+      isEditable = false
+    }: {
+      user: User
+      onEdit: (id: string) => void
+      isEditable?: boolean
+    }) => (
+      <div className="p-4 border rounded">
+        <h3>{user.name}</h3>
+        {isEditable && (
+          <Button onClick={() => onEdit(user.id)}>Edit</Button>
+        )}
+      </div>
+    )
 
-    // Boolean
-    isActive: t.integer({ mode: 'boolean' })
-      .notNull()
-      .default(sql`0`),
+    // Usage in container/page:
+    const UserPage = () => {
+      const { data: user } = useUser()
+      const { mutate: editUser } = useEditUserMutation()
 
-    // Enum
-    status: t.text({ enum: ['ACTIVE', 'INACTIVE'] }).notNull()
-
-  relations: |
-    // Foreign key
-    userId: t.text().references(() => UserTable.id),
-
-    // Relations definition
-    export const tableRelations = relations(Table, ({ one, many }) => ({
-      posts: many(PostTable),
-      user: one(UserTable, {
-        fields: [Table.userId],
-        references: [UserTable.id],
-      }),
-    }))
+      return user ? (
+        <UserCard
+          user={user}
+          onEdit={editUser}
+          isEditable={true}
+        />
+      ) : null
+    }
 
 key_points:
-  setup:
-    - Create feature schema file
-    - Add to _exports.ts
-    - Add to schema.ts with relations
-    - Run bun run db:generate after changes
+  state:
+    - Keep data fetching in containers/pages
+    - Pass data down via props
+    - Local state with useState only
+    - Minimal useEffect usage
 
-  patterns:
-    - Use textId for PKs
-    - Include date fields
-    - Define relations
-    - Use proper field types
+  components:
+    - Build dumb, reusable components
+    - Focus on single responsibility
+    - Design for Storybook testing
+    - Use composition patterns
+    - Leverage TypeScript features
+    - Follow naming conventions
+    - Maintain small component size
+
+  styling:
+    - Use Tailwind classes
+    - Avoid inline styles
+    - Keep styling consistent
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
