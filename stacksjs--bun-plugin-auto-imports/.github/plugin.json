@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--bun-plugin-auto-imports",
+  "displayName": "bun-plugin-auto-imports",
+  "description": "Auto Imports support for Bun.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/bun-plugin-auto-imports",
+  "skills": []
+}
