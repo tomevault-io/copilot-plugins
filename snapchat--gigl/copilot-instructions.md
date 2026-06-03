@@ -1,211 +1,198 @@
-## python-patterns
+## testing-patterns
 
-> Python coding patterns and conventions for GiGL
+> Testing patterns and conventions for GiGL components
 
+# Testing Patterns & Conventions
 
+## Python Testing Patterns
 
+### Test Structure
 
-# Key Principles
-
-1. Write concise, technical responses with accurate PyTorch / PyG / GLT examples.
-2. Prioritize clarity, efficiency, and best practices in GNN workflows.
-3. Use OOP for model architectures and functional style for data transforms/pipelines.
-4. Re-use / refactor existing code as a priority instead of implementing new code.
-5. Implement proper GPU utilization, distributed training, and mixed precision.
-6. Use PEP 8–compliant, descriptive names with snake_case; modular code organization.
-
-# Python Coding Patterns & Conventions
-
-## Code Style & Structure
-
-### Class Design
-
-- Use descriptive class names with proper CamelCase
-- Include comprehensive docstrings for all classes
-- Use `@dataclass(frozen=True)` for immutable data containers
-- Implement `__init__.py` files that define a minimal, consistent, and well-documented public API. Only expose stable,
-  user-facing classes and functions through __init__.py using __all__. Keep helpers/internal logic in private modules.
-
-Example:
+Use the standard unittest framework with descriptive test organization:
 
 ```python
-@dataclass(frozen=True)
-class TestArgs:
-    """Container for CLI arguments to Python tests.
-
-    Attributes:
-        test_file_pattern (str): Glob pattern for filtering test files.
-    """
-    test_file_pattern: str
-```
-
-### Type Annotations and DocStrings
-
-- Always use type annotations for function parameters and return values
-- Prefer not using typing module imports if it can be done without i.e. `arg: dict[str, str]` is preferred over
-  `arg: typing.Dict[str, str]`.
-- For Protocol Buffer types, import from `snapchat.research.gbml`
-- Use `Final` for constants
-- Always add pydoc-style docstrings for all public functions and methods. Include a one-line summary, optional details,
-  Example with >>> for doctests, Args, Returns, and Raises if applicable. Docstrings should be clear, consistent,
-  testable, and Sphinx-compatible.
-
-
-```python
-from typing import Final, Optional
-
-MAGIC_NUMBER: Final[int] = 42
-
-def add_to_magic_number(
-    number_1: int,
-    numbers: Optional[list[int]] = None
-) -> int:
-    """
-    Add a number and a list of numbers to MAGIC_NUMBER.
-
-    Example:
-        >>> MAGIC_NUMBER = 10
-        >>> add_to_magic_number(5, [1, 2, 3])
-        21
-        >>> add_to_magic_number(2)
-        12
-
-    Args:
-        number_1 (int): A single number to add.
-        numbers (Optional[list[int]]): List of numbers to sum and add. Default is None.
-
-    Returns:
-        int: The sum of MAGIC_NUMBER, number_1, and the numbers in the list.
-    """
-    return MAGIC_NUMBER + number_1 + sum(numbers)
-```
-
-#### Empty-Initialized Containers Must Be Typed
-
-Always annotate empty containers at the point of initialization. Without an annotation the type checker (and the reader)
-cannot infer the element type.
-
-```python
-# BAD - type is ambiguous
-names = []
-counts = {}
-
-# GOOD - element type is explicit
-names: list[str] = []
-counts: dict[str, int] = {}
-```
-
-### Error Handling & Logging
-
-- Use the GiGL logger: `from gigl.common.logger import Logger`
-- Create module-level logger instances as such: `logger = Logger()`
-- Provide informative error messages with context
-- Use appropriate log levels (info, warning, error, debug)
-
-Example:
-
-```python
-from gigl.common.logger import Logger
-
-logger = Logger()
-
-def validate_config(config: Dict[str, Any]) -> bool:
-    try:
-        # validation logic
-        logger.info("Configuration validation successful")
-        return True
-    except Exception as e:
-        logger.error(f"Configuration validation failed: {e}")
-        raise
-```
-
-## Component Patterns
-
-### Abstract Base Classes
-
-Use ABC for component interfaces:
-
-```python
-from abc import ABC, abstractmethod
-
-class DataPreprocessorConfig(ABC):
-    @abstractmethod
-    def get_feature_spec(self) -> dict[str, Any]:
-        raise NotImplementedError
-```
-
-### Protocol Buffer Handling
-
-- Import protocol buffer types from `snapchat.research.gbml`
-- Use wrapper classes for protocol buffer operations located in `gigl/src/common/types/pb_wrappers`
-  - `GbmlConfigPbWrapper` is used for `gbml_config_pb2.GbmlConfig`, otherwise known as task config, or template task
-    config
-  - `GiglResourceConfigWrapper` is used for `gigl_resource_config_pb2.GiglResourceConfig`
-- Ensure that all protos are deserialized into their respective wrapper objects or explicit data classes as early as
-  possible. This should ideally happen inside one of the following entry point files:
-  - Config Populator: gigl.src.config_populator.config_populator.ConfigPopulator
-  - Data Preprocessor: gigl.src.data_preprocessor.data_preprocessor.DataPreprocessor
-  - Subgraph Sampler: gigl.src.subgraph_sampler.subgraph_sampler.SubgraphSampler
-  - Split Generator: gigl.src.split_generator.split_generator.SplitGenerator
-  - Trainer: gigl.src.training.trainer.Trainer
-  - Inferencer: gigl.src.inference.inferencer.Inferencer Anything that these entrypoint files call should not be passed
-    `GbmlConfigPbWrapper` or `GiglResourceConfigWrapper` directly.
-
-Example:
-
-```python
-from snapchat.research.gbml import gbml_config_pb2
-from gigl.src.common.types.pb_wrappers.gbml_config import GbmlConfigPbWrapper
-
-def process_gbml_config(config_path: str) -> gbml_config_pb2.GbmlConfig:
-    wrapper = GbmlConfigPbWrapper()
-    return wrapper.load_from_file(config_path)
-```
-
-## Performance & Optimization
-
-### Memory Management
-
-- Use generators for large data processing
-- Implement proper cleanup in `__del__` methods where needed
-- Be mindful of memory usage in distributed settings
-
-### Async/Concurrent Processing
-
-- Use `concurrent.futures.ProcessPoolExecutor` for CPU-bound tasks
-- Implement proper timeout handling using GiGL's timeout utilities
-
-Example:
-
-```python
-from gigl.src.common.utils.timeout import timeout
-
-@timeout(seconds=300, error_message="Processing timeout")
-def long_running_task():
-    # implementation
-```
-
-## Configuration & Constants
-
-### Constants Definition
-
-- Use `Final` type annotations for constants
-- Group related constants in dedicated modules
-- Use descriptive constant names in UPPER_CASE
-
-Example:
-
-```python
-from typing import Final
 from pathlib import Path
+from typing import Dict, Any
 
-GIGL_ROOT_DIR: Final[Path] = Path(__file__).resolve().parent.parent.parent
-DEFAULT_TIMEOUT_SECONDS: Final[int] = 300
+from gigl.common.utils.test_utils import TestArgs
+from gigl.src.data_preprocessor.data_preprocessor import DataPreprocessor
+from tests.test_assets.test_case import TestCase
+
+class TestDataPreprocessor(TestCase):
+    """Test suite for DataPreprocessor component."""
+
+    def setUp(self) -> None:
+        """Set up test fixtures before each test method."""
+        self.test_data_dir = Path("tests/test_assets/small_graph")
+
+
+    def tearDown(self) -> None:
+        """Clean up after each test method."""
+        if self.test_data_dir.is_dir():
+            shutil.rmtree(self.test_data_dir)
 ```
 
-## Remember
+NOTE: We use `tests.test_assets.test_case.TestCase` as our TestCase, *not* `unittest.TestCase`
 
-Always prioritize code clarity, maintainability, and consistency with the existing GiGL codebase.
+### Test Data Management
+
+Use the `tests/test_assets/` directory for test data:
+
+```python
+class TestWithAssets(TestCase):
+    """Test class that uses test assets."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        """Set up test class with shared resources."""
+        cls.test_assets_dir = Path("tests/test_assets")
+        cls.celeb_graph_dir = cls.test_assets_dir / "celeb_test_graph"
+        cls.small_graph_dir = cls.test_assets_dir / "small_graph"
+
+    def test_load_test_graph(self):
+        """Test loading test graph data."""
+        graph_config = self.small_graph_dir / "graph_config.yaml"
+        self.assertTrue(graph_config.exists())
+
+        # Load and validate test graph
+        with open(graph_config) as f:
+            config = yaml.safe_load(f)
+
+        self.assertIn("nodes", config)
+        self.assertIn("edges", config)
+```
+
+### Testing Errors
+
+Error cases *should* be tested, with `self.assertRaises`.
+Be careful when checking for error messages in the test case, as it makes it hard to update logs in the future.
+Some examples where we *should* check for error messages:
+
+```py
+# Example 1: Multiple errors - we should make sure we are raising when expected
+def foo():
+    # Check when bar fails
+    if not bar():
+        raise ValueError("bar() failed!")
+
+    # Check when baz fails
+    if not baz():
+        raise ValueError("baz() failed!")
+
+# Example 2: When the error message has load bearing use downstream - e.g. error reporting
+def qux():
+    if not some_check():
+        raise ValueError(f"Structured error: my/namespace/tries/10")
+```
+
+In all other cases, we should not be checking the exact error message.
+E.g. if the error message is formatted with the input:
+
+```py
+def assert_even(x: int):
+    if not x % 2:
+        raise ValueError(f"{x} is not even")
+```
+
+### Integration Testing
+
+For integration tests that require cloud resources, add them to the `tests/integration` directory
+
+### Mocking External Dependencies
+
+Use mocking for external services and expensive operations:
+
+```python
+from unittest.mock import Mock, patch, MagicMock
+
+class TestWithMocks(TestCase):
+    """Test class demonstrating mocking patterns."""
+
+    @patch('gigl.common.services.dataproc.DataprocClient')
+    def test_dataproc_job_submission(self, mock_dataproc):
+        """Test Dataproc job submission with mocked client."""
+        # Arrange
+        mock_client = Mock()
+        mock_dataproc.return_value = mock_client
+        mock_client.submit_job.return_value = {"job_id": "test-job-123"}
+
+        # Act
+        result = submit_spark_job("test-job", "gs://bucket/jar")
+
+        # Assert
+        self.assertEqual(result["job_id"], "test-job-123")
+        mock_client.submit_job.assert_called_once()
+```
+
+### Test Configuration Files
+
+Create minimal test configurations in `tests/test_assets/configs/`:
+
+```yaml
+# tests/test_assets/configs/test_resource_config.yaml
+shared_resource_config:
+  resource_labels:
+    cost_resource_group_tag: unittest_COMPONENT
+    cost_resource_group: gigl_test
+  common_compute_config:
+    project: "test-project"
+    region: "us-central1"
+    temp_assets_bucket: "gs://test-bucket"
+    temp_regional_assets_bucket: "gs://test-bucket"
+    perm_assets_bucket: "gs://test-bucket"
+    temp_assets_bq_dataset_name: "test_dataset"
+    embedding_bq_dataset_name: "test_embeddings"
+    gcp_service_account_email: "test-sa@test-project.iam.gserviceaccount.com"
+    dataflow_runner: "DirectRunner"  # Use DirectRunner for local testing
+```
+
+### Test Graph Data
+
+Create small, deterministic test graphs if needed:
+
+```python
+# tests/test_assets/small_graph/graph_data.py
+TEST_NODES = [
+    {"node_id": 1, "node_type": "user", "features": [0.1, 0.2, 0.3]},
+    {"node_id": 2, "node_type": "user", "features": [0.4, 0.5, 0.6]},
+    {"node_id": 3, "node_type": "item", "features": [0.7, 0.8, 0.9]},
+]
+
+TEST_EDGES = [
+    {"src_id": 1, "dst_id": 2, "edge_type": "friend", "weight": 1.0},
+    {"src_id": 1, "dst_id": 3, "edge_type": "likes", "weight": 0.8},
+    {"src_id": 2, "dst_id": 3, "edge_type": "likes", "weight": 0.9},
+]
+```
+
+## Test Execution & CI
+
+### Test Organization
+
+- **Unit tests**: Dir: `tests/unit/` - Fast, isolated tests
+- **Integration tests**: Dir: `tests/integration/` - Component interaction tests
+- **End-to-end tests**: Defined in `Makefile` target: `_run_e2e_kfp_test` - Test complete workflows
+- **Config/project-level tests**: Dir: `tests/config_tests`
+
+### Test Execution
+
+Use the following commands to evaluate a test:
+
+- unit test: `make unit_test_py`
+  - Set PY_TEST_FILES=\<TEST_FILE_NAME_GLOB> to test a specifc file.
+  - Ex. `make unit_test_py PY_TEST_FILES="eval_metrics_test.py"`
+  - By default, runs all tests under tests/unit.
+- integration test: `make integration_test PY_TEST_FILES="some_test.py"`
+  - ensure to use `PY_TEST_FILES` and run integration tests one at a time as they take a long time to run
+
+### Test Data Lifecycle
+
+- Use temporary directories for test outputs
+- Clean up test data after execution
+- Use deterministic test data for reproducible results
+- Version control test configurations and small test datasets
+
+Always write tests that are fast, reliable, deterministic, and provide good coverage of critical functionality.
 
 ---
 > Source: [Snapchat/GiGL](https://github.com/Snapchat/GiGL) — distributed by [TomeVault](https://tomevault.io).
