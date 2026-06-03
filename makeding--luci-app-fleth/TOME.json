@@ -1,0 +1,44 @@
+{
+  "name": "luci-app-fleth",
+  "owner": "makeding",
+  "repo": "luci-app-fleth",
+  "description": "luci-app-fleth \u306f\u3001IPv4 over IPv6\u30c8\u30f3\u30cd\u30eb\uff08DS-Lite/MAP-E/IPIP6\uff09\u306e\u81ea\u52d5\u8a2d\u5b9a\u30d8\u30eb\u30d1\u3067\u3059\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/makeding/luci-app-fleth",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T16:34:09Z"
+}
