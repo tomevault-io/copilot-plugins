@@ -7,11 +7,11 @@ ESPectrum port for RP2040/RP2350 (Raspberry Pi Pico / Pico 2)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DnCraptor/pico-spec](https://github.com/DnCraptor/pico-spec).
+Original source: `CLAUDE.md` in [DnCraptor/pico-spec](https://github.com/DnCraptor/pico-spec).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
