@@ -1,0 +1,9 @@
+{
+  "name": "yoziru--tesla-ble",
+  "displayName": "tesla-ble",
+  "description": "C++ library to communicate directly with Tesla vehicles over the BLE API",
+  "version": "1.0.0",
+  "author": "yoziru",
+  "homepage": "https://github.com/yoziru/tesla-ble",
+  "skills": []
+}
