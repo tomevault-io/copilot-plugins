@@ -1,0 +1,125 @@
+## m0n1t0r
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+For detailed code reference (all types, traits, API routes, data flows), see [CODEBASE.md](CODEBASE.md).
+
+## Project Overview
+
+m0n1t0r is a cross-platform C2 (command and control) framework written in Rust. It consists of a server, client agent, shared library, and a React web dashboard.
+
+## Build Commands
+
+### Prerequisites
+- Rust 1.85+ (edition 2024)
+- xmake (C/C++ build system)
+- cxxbridge-cmd: `cargo install cxxbridge-cmd`
+- **With `rd` feature only**: vcpkg with packages: `libvpx libyuv opus aom ffmpeg`; system media libs (`nasm ffmpeg libavcodec-dev ...` on Linux, `brew install ffmpeg` on macOS)
+
+### First-Time Setup
+```
+cargo xtask -i    # interactive config.toml generator
+cargo xtask -c    # generate TLS certificates
+cargo xtask -i --force  # regenerate config.toml
+cargo xtask -c --force  # regenerate TLS certificates
+```
+
+### Build Rust Binaries
+Platform feature flags are **required** and mutually exclusive: `macos`, `linux`, `winnt`, `winnt-uac`
+Optional feature: `rd` (remote desktop — enables ffmpeg, scrap, hbb_common dependencies; requires vcpkg + media system libraries)
+```
+# With remote desktop (requires vcpkg + media deps)
+cargo build --bin m0n1t0r-server --features macos,rd -r
+cargo build --bin m0n1t0r-client --features macos,rd -r
+
+# Without remote desktop (lightweight, no vcpkg needed)
+cargo build --bin m0n1t0r-server --features macos -r
+cargo build --bin m0n1t0r-client --features macos -r
+```
+
+### Build UI
+```
+cd m0n1t0r-ui && bun install && bun run build
+```
+
+### Lint UI
+```
+cd m0n1t0r-ui && bun run lint
+```
+
+### Run Server
+```
+./target/release/m0n1t0r-server [config.toml]
+```
+Configuration is read from a TOML file (defaults to `config.toml` in the working directory).
+
+### Client
+In debug mode, connects to `127.0.0.1`. In release mode, server address and port are baked in from `config.toml` `[cert].domain` and `[conn].addr` at compile time.
+
+## Architecture
+
+### Workspace Structure
+- **m0n1t0r-server** — Actix-web REST/WebSocket API + TLS listener for client connections
+- **m0n1t0r-client** — Agent binary that connects back to the server over TLS
+- **m0n1t0r-common** — Shared types, RPC trait definitions, error types (the contract between server and client)
+- **m0n1t0r-ui** — React + TypeScript + Vite + Ant Design web dashboard
+- **m0n1t0r-build** — Build toolkit (config loading, cert validation, version tracking via vergen, dependency validation, platform feature validation, Windows resource embedding)
+- **xtask** — Build automation (interactive config generator, cert generation via rcgen; use `--force` to overwrite existing files)
+- **deps/** — Vendored dependencies (qqkey, scrap with wayland support)
+
+### Communication Model
+1. **Client → Server**: TLS connection (port configurable via `[conn].addr`), bidirectional async RPC via `remoc` crate with MessagePack serialization
+2. **UI → Server**: HTTP REST API + WebSocket (port configurable via `[api].addr`) at `/api/v1/`
+3. Server maintains a `ServerMap` tracking connected clients as `ServerObj` instances
+4. API handlers look up clients in the map and invoke RPC methods through remoc channels
+
+### Server API Layout (`m0n1t0r-server/src/web/api/`)
+- `client/` — Per-client endpoints: fs, process, proxy, rd (remote desktop, requires `rd` feature), qq, update, autorun
+- `server/` — Server-wide: notifications, proxy list
+- `session/` — Authentication (TODO)
+- `global/` — Server info, version
+- Response envelope: `{ code: int, body: T }`
+
+### Client Platform Code (`m0n1t0r-client/src/client/`)
+- `general/` — Cross-platform handlers
+- `windows/` — Win32-specific (blind/ETW patching, autorun, filesystem charset)
+- `unix/` — Linux/macOS-specific
+- Platform dispatch uses Cargo features and `cfg_block`
+
+### Key Dependencies
+- **tokio** — Async runtime
+- **actix-web** — HTTP server (with rustls, secure cookies, WebSocket via actix-ws)
+- **remoc** — Async RPC framework (MessagePack codec over TLS)
+- **rustls** — TLS implementation (both server and client)
+- **rcgen** — Pure Rust TLS certificate generation (xtask)
+- **cxx** — C++ FFI for platform-specific native code
+- **ffmpeg-next** — Video encoding for remote desktop (optional, behind `rd` feature)
+- **scrap** — Screen capture (vendored, with wayland support, optional behind `rd` feature)
+
+### Release Profile
+Binaries are optimized for size: `opt-level = "z"`, LTO enabled, single codegen unit, symbols stripped, panic=abort.
+
+### Key Patterns
+
+- **RPC via remoc**: All agent traits in `m0n1t0r-common` use `#[rtc::remote]` which auto-generates `*Client` and `*ServerSharedMut` types. The `create_agent_instance!` macro in the client spawns a server/client pair for each agent.
+- **Platform dispatch**: `declare_agents!` macro conditionally imports platform-specific modules based on feature flags; `default_agents!` generates no-op fallbacks returning `Error::Unsupported`.
+- **C++ FFI**: Windows-specific code (process injection, ETW patching, autorun infection, charset) uses `cxx::bridge` calling C++ headers in `m0n1t0r-cpp-windows-lib/`. FFI calls are wrapped in `std::thread::spawn` + `oneshot::channel` to avoid blocking the async runtime.
+- **WebSocket pattern**: All WS endpoints use `actix_ws::handle()` → `task::spawn_local(util::handle_websocket(...))` with `tokio::select!` to multiplex WebSocket messages, remoc channels, and cancellation tokens.
+- **Error codes**: Response envelope `{ code: i16, body: T }` where `code = 0` means success, negative values are error discriminants (see `web::error::Error::discriminant()`).
+- **Proxy lifecycle**: Proxy sessions are tracked in a global `PROXY_MAP` (lazy_static `SlotMap`), cleaned up when either the client disconnects or the session is explicitly closed.
+
+### Configuration (`config.toml`)
+Generated interactively via `cargo xtask -i`. See `config.example.toml` for reference.
+- **`[general]`** — `log_level` (default: `debug`), `secret` (session cookie signing key)
+- **`[conn]`** — `addr` (default: `0.0.0.0:27853`, client TLS listener)
+- **`[api]`** — `addr` (default: `0.0.0.0:10801`, REST/WebSocket API), `use_https` (default: `false`)
+- **`[tls]`** — `key`, `cert`, `ca` (PEM file paths for TLS)
+- **`[cert]`** — `country`, `state`, `locality`, `org`, `unit`, `domain` (used by `cargo xtask -c` to generate TLS certs; `domain` is also baked into client binary)
+
+---
+> Source: [MMitsuha/m0n1t0r](https://github.com/MMitsuha/m0n1t0r) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
