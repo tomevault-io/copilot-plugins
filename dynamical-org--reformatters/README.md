@@ -7,11 +7,11 @@ Reformat weather datasets into Zarr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dynamical-org/reformatters](https://github.com/dynamical-org/reformatters).
+Original source: `CLAUDE.md` in [dynamical-org/reformatters](https://github.com/dynamical-org/reformatters).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
