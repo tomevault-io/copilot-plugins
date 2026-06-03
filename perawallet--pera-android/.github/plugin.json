@@ -1,0 +1,9 @@
+{
+  "name": "perawallet--pera-android",
+  "displayName": "pera-android",
+  "description": "The Android repository of Pera",
+  "version": "1.0.0",
+  "author": "perawallet",
+  "homepage": "https://github.com/perawallet/pera-android",
+  "skills": []
+}
