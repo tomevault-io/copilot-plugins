@@ -1,0 +1,9 @@
+{
+  "name": "marc-shade--ollama-workbench",
+  "displayName": "Ollama-Workbench",
+  "description": "A comprehensive platform for managing, testing, and leveraging Ollama AI models with advanced features for customization, workflow automation, and collaborative development.",
+  "version": "1.0.0",
+  "author": "marc-shade",
+  "homepage": "https://github.com/marc-shade/Ollama-Workbench",
+  "skills": []
+}
