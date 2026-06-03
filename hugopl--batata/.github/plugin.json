@@ -1,0 +1,9 @@
+{
+  "name": "hugopl--batata",
+  "displayName": "batata",
+  "description": "A tiled terminal emulator for gnome.",
+  "version": "1.0.0",
+  "author": "hugopl",
+  "homepage": "https://github.com/hugopl/batata",
+  "skills": []
+}
