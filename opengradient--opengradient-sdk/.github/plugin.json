@@ -1,0 +1,9 @@
+{
+  "name": "opengradient--opengradient-sdk",
+  "displayName": "OpenGradient-SDK",
+  "description": "Python SDK for using verifiable AI inference on OpenGradient",
+  "version": "1.0.0",
+  "author": "OpenGradient",
+  "homepage": "https://github.com/OpenGradient/OpenGradient-SDK",
+  "skills": []
+}
