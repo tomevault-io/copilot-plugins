@@ -1,0 +1,306 @@
+## vaila
+
+> Rules for developing and maintaining the vailá multimodal biomechanical toolbox (Python 3.12, Astral toolchain)
+
+
+# vailá Development Rules
+
+## Project Identity
+- **vailá** — open-source Python 3.12 biomechanical analysis toolbox (AGPLv3)
+- Sensors: IMU, MoCap, Markerless (MediaPipe/YOLO), EMG, Force Plates, GNSS/GPS
+- GUI: **Tkinter only** — never introduce Qt, wx, Dear PyGui, or any other GUI framework
+- Build: `hatchling` backend managed via `uv`
+
+---
+
+## Astral Toolchain (mandatory)
+
+The project uses the full Astral Rust-based stack. **Never use** bare `pip`, `black`, `isort`, `flake8`, or `mypy`.
+
+| Tool | Role | Docs |
+|------|------|------|
+| `uv` | Package manager, venv, Python installer | https://docs.astral.sh/uv/ |
+| `ruff` | Linter + formatter | https://docs.astral.sh/ruff/ |
+| `ty` | Type checker (beta) | https://docs.astral.sh/ty/ |
+
+---
+
+## uv Commands
+
+```bash
+uv run vaila.py                  # run the app
+uv sync                          # default: CUDA 12.8 PyTorch (pytorch-cu128 index)
+uv sync --extra gpu              # adds tensorrt + nvidia-ml-py on CUDA workstation
+uv sync --extra sam              # optional SAM 3; CUDA required at runtime
+uv sync --extra fifa             # FIFA Skeletal Tracking Light stack
+uv sync --frozen                 # CI mode: strict lock
+uv add <pkg>                     # add runtime dep
+uv add --dev <pkg>               # add dev dep
+uv lock --upgrade                # upgrade all packages
+uv export --format requirements-txt > requirements.txt
+```
+
+> Always prefix tool runs with `uv run` — never activate the venv manually.
+
+> **Note (v0.3.44):** the checked-in `pyproject.toml` now points `torch`,
+> `torchvision`, `torchaudio` at the explicit `pytorch-cu128` index. CPU-only
+> machines must switch to the universal template before `uv sync`
+> (`bash bin/use_pyproject_universal_cpu.sh`).
+
+---
+
+## ruff Commands
+
+```bash
+uv run ruff check vaila/ --fix        # lint + auto-fix
+uv run ruff format vaila/             # format (replaces black)
+uv run ruff check vaila/ --diff       # preview lint fixes
+uv run ruff format vaila/ --check     # CI: check without writing
+```
+
+**Config in `pyproject.toml`:**
+```toml
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "N", "NPY", "UP", "B", "C4", "SIM"]
+ignore = ["E501", "N806", "N803"]  # scientific uppercase vars OK
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]           # intentional re-exports
+```
+
+**Inline suppression:** `# noqa: F841` or `# noqa: F841, E501`
+
+---
+
+## ty Commands
+
+```bash
+uv run ty check vaila/                # type-check all files
+uv run ty check vaila/ --watch        # watch mode (re-checks on save)
+uv run ty check vaila/ --error unresolved-import
+uv run ty check vaila/ --warn  possibly-unbound
+uv run ty check vaila/ --ignore division-by-zero
+```
+
+**Config in `pyproject.toml`:**
+```toml
+[tool.ty.rules]
+unresolved-import     = "warn"
+possibly-unbound      = "warn"
+division-by-zero      = "error"
+unused-ignore-comment = "warn"
+
+[tool.ty.src]
+include = ["vaila", "tests"]
+```
+
+**Inline suppression:** `# ty: ignore[invalid-assignment]`
+
+> `ty` is in **beta** — use it as a complement to ruff, not a strict gate.
+
+---
+
+## Full QA Pipeline (run before every commit)
+
+```bash
+uv run ruff check vaila/ --fix && \
+uv run ruff format vaila/         && \
+uv run ty check vaila/            && \
+uv run pytest tests/ -v
+```
+
+---
+
+## Python Version & Style
+
+- Target: **Python 3.12 strictly** (`>=3.12,<3.13`)
+- Use `match/case`, `tomllib`, structural pattern matching where appropriate
+- Scientific variable names (X, Y, Z, F, R, T, etc.) are **valid** — suppressed in ruff
+- Output dirs: always timestamped → `processed_<type>_YYYYMMDD_HHMMSS/`
+- No hard-coded absolute paths
+- No files ≥20 MiB (git hook enforced via `install-hooks.sh`)
+
+---
+
+## Mandatory Dual-Import Pattern
+
+Every `vaila/` module must support both package import AND standalone execution:
+
+```python
+try:
+    from .common_utils import get_headers      # package import
+    from .dialogsuser import ask_for_directory
+    from .filtering import butter_filter
+except ImportError:
+    from common_utils import get_headers       # standalone fallback
+    from dialogsuser import ask_for_directory
+    from filtering import butter_filter
+```
+
+---
+
+## New Module Template
+
+```python
+"""Short description of this module."""
+from __future__ import annotations
+
+from pathlib import Path
+import numpy as np
+import pandas as pd
+
+try:
+    from .common_utils import get_headers
+    from .dialogsuser import ask_for_directory
+except ImportError:
+    from common_utils import get_headers
+    from dialogsuser import ask_for_directory
+
+
+def run_my_module() -> None:
+    """GUI entry point — called from vaila.py."""
+    input_dir = ask_for_directory("Select input directory")
+    if not input_dir:
+        return
+    # ... analysis logic ...
+    output_dir = Path(input_dir) / f"processed_mymodule_{timestamp()}"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    # write CSV + PNG results to output_dir
+
+
+if __name__ == "__main__":
+    # Optional CLI support
+    run_my_module()
+```
+
+---
+
+## GUI Dispatch in vaila.py
+
+### Pattern 1 — Direct import (same process)
+```python
+def _on_my_analysis(self) -> None:
+    from vaila import my_module
+    my_module.run_my_module()
+```
+
+### Pattern 2 — Subprocess (use when module creates its own Tk root)
+```python
+def _on_my_analysis(self) -> None:
+    self.run_vaila_module("my_module")
+```
+
+---
+
+## Shared Modules — Reuse, Never Duplicate
+
+| Module | Use for |
+|--------|---------|
+| `data_processing.py` | Reading CSV/C3D with auto-header detection |
+| `filtering.py` / `filter_utils.py` | Butterworth & FIR filters |
+| `common_utils.py` | Header detection, CSV reshaping |
+| `dialogsuser.py` | Tkinter prompts (sample rate, dir, file type) |
+| `hardware_manager.py` | GPU/CPU detection — **never duplicate** |
+| `interp_smooth_split.py` | Interpolation, smoothing, splitting (GUI + CLI) |
+
+---
+
+## SAM 3 & FIFA Skeletal Tracking
+
+### SAM 3 Video Segmentation (`vaila/vaila_sam.py`)
+- Extra: `uv sync --extra sam` (CUDA required at runtime; no CPU/MPS path; `--frame-by-frame` is VRAM-only on CUDA)
+- Weights: `vaila/models/sam3/sam3.pt` or `sam3.1_multiplex.pt` (gitignored; `--download-weights` or HF Hub)
+- CLI: `uv run vaila/vaila_sam.py -i VIDEO -o OUT -t person`
+- GUI: `uv run vaila/vaila_sam.py` (no args → Tkinter dialog); the dialog has a
+  **Help** button and an editable combobox of prompt presets (person, player,
+  goalkeeper, referee, football, ball, team in red, team in blue, …).
+- Help: `vaila/help/vaila_sam.html` / `vaila/help/vaila_sam.md`
+- Skill: `.claude/skills/sam3-video/SKILL.md`
+
+### FIFA Skeletal Tracking Light (`vaila_sam.py fifa`)
+- Extra: `uv sync --extra fifa` (combine with `--extra gpu` on CUDA template)
+- Subcommands: `bootstrap`, `prepare`, `boxes`, `preprocess`, `baseline`, **`dlt-export`**, `pack`
+- Per-frame DLT for moving broadcast cameras: `vaila/fifa_to_dlt.py` (CLI + GUI **FIFA cams→DLT**); feeds **`rec2d.py` / `rec3d.py`**. Fixed-camera-only: `rec2d_one_dlt2d.py` / `rec3d_one_dlt3d.py`
+- Pipeline: `vaila/fifa_skeletal_pipeline.py`
+- Bootstrap helper: `vaila/fifa_bootstrap.py` (symlinks + `sequences_*.txt` + `pitch_points.txt`)
+- Starter lib (vendored MIT): `vaila/fifa_starter_lib/camera_tracker.py`,
+  `postprocess.py`, `pitch_points.txt` (see `vaila/fifa_starter_lib/VENDOR.md`)
+- SAM 3D Body: **not committed** — run `bash bin/setup_fifa_sam3d.sh` or
+  `pwsh bin/setup_fifa_sam3d.ps1` to clone `sam_3d_body/` and download the
+  gated `facebook/sam-3d-body-dinov3` weights into `vaila/models/sam-3d-dinov3/`.
+- Companion tool: `vaila/soccerfield_calib.py` (button **Soccer-Field Calib** in
+  Frame C of `vaila.py`) — DLT2D homography from 29 FIFA keypoints; can emit
+  `cameras/<stem>_homography.npz` as a fallback when a sequence has no official
+  `cameras/*.npz`.
+- Skill: `.claude/skills/fifa-skeletal-tracking/SKILL.md`
+- Agent: `.claude/agents/fifa-challenge.md`
+- Tests: `tests/test_fifa_skeletal_pipeline.py`, `tests/test_fifa_bootstrap.py`,
+  `tests/test_fifa_to_dlt.py`, `tests/test_soccerfield_calib.py`, `tests/test_vaila_sam.py`
+
+> **Never confuse SAM 3 video** (`sam3.pt`, `vaila/models/sam3/`) **with SAM 3D Body** (`model.ckpt`, `vaila/models/sam-3d-dinov3/`). They are different models.
+
+---
+
+## Testing
+
+Always add/update tests when changing analysis logic:
+
+```bash
+uv run pytest tests/ -v
+uv run pytest tests/test_vaila_and_jump.py -v
+uv run pytest tests/test_tugturn.py -v
+uv run pytest tests/test_dlt_rec.py -v
+uv run pytest tests/test_dlt_rec_integration.py -v
+uv run pytest tests/test_vaila_sam.py -v
+uv run pytest tests/test_fifa_skeletal_pipeline.py -v
+uv run pytest tests/test_fifa_bootstrap.py -v
+uv run pytest tests/test_fifa_to_dlt.py -v
+uv run pytest tests/test_soccerfield_calib.py -v
+```
+
+Sample data: `tests/vaila_and_jump/` (CSV + TOML). SAM smoke tests: `tests/SAM/` (see `tests/SAM/README.md`).
+
+---
+
+## Platform Configuration (pyproject.toml templates)
+
+Copy the correct template **before** `uv python pin` / `uv venv`:
+
+| File | Platform | `uv sync` flags |
+|------|----------|-----------------|
+| `pyproject_linux_cuda12.toml` (**default in git**) | Linux + NVIDIA CUDA 12.8 | `--extra gpu` (tensorrt + nvidia-ml-py) |
+| `pyproject_win_cuda12.toml` | Windows + NVIDIA CUDA 12.1 | `--extra gpu` |
+| `pyproject_macos.toml` | macOS Apple Silicon (Metal/MPS) | none |
+| `pyproject_universal_cpu.toml` | CPU-only fallback | none |
+
+The checked-in `pyproject.toml` mirrors **`pyproject_linux_cuda12.toml`**
+(version `0.3.44`): PyTorch resolves from the explicit `pytorch-cu128` index.
+Use the `bin/use_pyproject_*.sh` / `.ps1` helpers to switch templates; each
+helper runs `uv lock` and regenerates `uv.lock` for the chosen hardware
+matrix.
+
+---
+
+## ✅ Do / ❌ Don't
+
+✅ Use `uv run`, `uv add`, `uv sync`, `uv lock`
+✅ Use `ruff check --fix` + `ruff format` before committing
+✅ Use `ty check` for type safety
+✅ Apply dual-import pattern in every `vaila/` module
+✅ Write results to timestamped output subdirectories
+✅ Support `if __name__ == "__main__":` for CLI usage
+
+❌ `pip install` — use `uv add` or `uv sync`
+❌ `black`, `isort`, `flake8`, `mypy` — use `ruff` and `ty`
+❌ Other GUI frameworks (Qt, wx, Dear PyGui, etc.)
+❌ Duplicate GPU detection (use `hardware_manager.py`)
+❌ Hard-coded absolute paths
+❌ Files ≥20 MiB in the repo (pre-commit hook blocks them; large fixtures like `tests/Deadlift/*.mp4` must stay local or be `.gitignore`d)
+
+---
+> Source: [vaila-multimodaltoolbox/vaila](https://github.com/vaila-multimodaltoolbox/vaila) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
