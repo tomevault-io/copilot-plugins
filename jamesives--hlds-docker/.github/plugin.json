@@ -1,0 +1,9 @@
+{
+  "name": "jamesives--hlds-docker",
+  "displayName": "hlds-docker",
+  "description": "\ud83d\udc0b \ud83d\udce6 Half-Life Dedicated Server powered by Docker, supporting all the classic GoldSrc Half-Life games and mods-including Counter-Strike 1.6, Team Fortress Classic, Day of Defeat and more. Easily extend",
+  "version": "1.0.0",
+  "author": "JamesIves",
+  "homepage": "https://github.com/JamesIves/hlds-docker",
+  "skills": []
+}
