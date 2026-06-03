@@ -1,0 +1,9 @@
+{
+  "name": "litestar-org--litestar-fullstack-inertia",
+  "displayName": "litestar-fullstack-inertia",
+  "description": "A fully-functional reference application using Litestar, Inertia JS, and Advanced Alchemy",
+  "version": "1.0.0",
+  "author": "litestar-org",
+  "homepage": "https://github.com/litestar-org/litestar-fullstack-inertia",
+  "skills": []
+}
