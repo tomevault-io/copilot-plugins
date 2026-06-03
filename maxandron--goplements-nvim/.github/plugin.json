@@ -1,0 +1,9 @@
+{
+  "name": "maxandron--goplements-nvim",
+  "displayName": "goplements.nvim",
+  "description": "Visualize Go struct and interface implementations",
+  "version": "1.0.0",
+  "author": "maxandron",
+  "homepage": "https://github.com/maxandron/goplements.nvim",
+  "skills": []
+}
