@@ -1,146 +1,84 @@
-## jsts
+## rust
 
-> Coding rules for TypeScript and JavaScript
+> Coding rules for Rust implementation in FlatCityBuf
 
-# Web Development Coding Guidelines
+# Rust Coding Guidelines for Library Development
 
-## Development Philosophy
-- Write clean, maintainable, and scalable code.
-- Follow SOLID principles.
-- Prefer functional and declarative programming patterns over imperative.
-- Emphasize type safety and static analysis.
-- Practice component-driven development.
+## General Principles
 
----
-
-## Code Style and Structure
-- Write concise, modular TypeScript code with accurate examples.
-- Prefer functional components over class components.
-- Avoid code duplication; prioritize iteration and modularization.
-- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`).
-- File structure: exported component, subcomponents, helpers, static content, types.
-- Follow a consistent project structure.
+- Write **idiomatic Rust** code that is clear, efficient, and maintainable.
+- Prioritize **safety, performance, and modularity**.
+- Follow **Rust’s naming conventions**:
+  - Use `snake_case` for variables, functions, and module names.
+  - Use `PascalCase` for structs, enums, and traits.
+  - Use `SCREAMING_SNAKE_CASE` for constants and static variables.
+- Keep code **DRY (Don't Repeat Yourself)** by using functions, modules, and generics.
+- Use **explicit, descriptive names** for variables, functions, and types.
+- **Avoid `unwrap()` except in test cases**, ensuring proper error handling.
+- **Use generics, traits, and interface programming** where applicable.
+- **If any grammar mistakes are found in comments, suggestions for improvement should be provided.**
 
 ---
 
-## Naming Conventions
-- **Directories & Files:** Use kebab-case (e.g., `components/auth-wizard`).
-- **Components:** PascalCase (e.g., `UserProfile`).
-- **Variables, Functions, Methods, Props:** camelCase (e.g., `fetchData`).
-- **Boolean Variables:** Prefix with verbs (e.g., `isLoading`, `hasError`).
-- **Event Handlers:** Prefix with `handle` (e.g., `handleClick`).
-- **Custom Hooks:** Prefix with `use` (e.g., `useAuth`).
-- **Constants & Environment Variables:** UPPER_CASE (e.g., `API_URL`).
+## Error Handling
 
----
-
-## TypeScript Usage
-- Use TypeScript for all code.
-- Prefer interfaces over types.
-- Avoid enums; use maps instead.
-- Enable strict mode for better type safety.
-- Use TypeScript utility types (`Partial`, `Pick`, `Omit`) for cleaner, reusable code.
-- Apply generics where necessary.
-
----
-
-## Syntax and Formatting
-- Use single quotes (`'`) for strings.
-- Use early returns to improve readability.
-- Use `const` whenever possible.
-- Omit semicolons unless required for disambiguation.
-- Add space after keywords and before function parentheses.
-- Always use strict equality (`===`).
-- Use Prettier for consistent formatting.
-- Keep line length under 80 characters.
-- Use trailing commas in multiline object/array literals.
-
----
-
-## UI and Styling
-- Use **Tailwind CSS** for utility-based styling.
-- Use **Shadcn UI** for accessible components.
-- Use **Radix UI** primitives where necessary.
-- Follow a mobile-first responsive design approach.
-- Implement dark mode using CSS variables or Tailwind’s dark mode.
-- Ensure high accessibility (a11y) standards using ARIA roles and semantic HTML.
-
----
-
-## State Management
-- Use `useState` for component-level state.
-- Use `useReducer` for complex state logic.
-- Use `useContext` for shared state.
-- Use **Redux Toolkit** for global state management.
-- Normalize state structure to avoid deep nesting.
-- Use selectors to encapsulate state access.
+- Use `thiserror` to make custom error for package-level errors. You shouldn't use `anyhow` unless I explictly approve you to do that.
+- Avoid panics in library code; return errors instead.
+- Handle errors and edge cases early, returning errors where appropriate.
 
 ---
 
 ## Performance Optimization
-- Minimize the use of `useState` and `useEffect`.
-- Use `useCallback` to memoize functions.
-- Use `useMemo` for expensive calculations.
-- Implement code splitting using dynamic imports.
-- Avoid inline function definitions in JSX.
+
+- Use **iterators instead of loops** for better performance and readability.
+- Minimize memory allocations by using **borrowed references (`&str`, `&[u8]`)** where possible.
+- Optimize for **human readability** while maintaining machine efficiency.
+- Use `criterion` for benchmarking.
 
 ---
 
-## Routing and Navigation (Next.js)
-- Use Next.js **App Router** for routing.
-- Use the **Link** component for client-side navigation.
-- Use dynamic imports for better performance.
-- Implement proper loading and error states.
-- Use **next-i18next** for internationalization.
+## Async Programming
+
+- Use `tokio` as the async runtime.
+- Prefer **channels over mutexes** where applicable.
+- Implement **structured concurrency** using `tokio::select!`.
+- Use `tokio::sync::mpsc` for multi-producer, single-consumer communication.
+- Use `tokio::sync::broadcast` for broadcasting messages.
 
 ---
 
-## Error Handling and Validation
-- Use **Zod** for schema validation.
-- Implement error boundaries for UI stability.
-- Use Sentry for error logging and monitoring.
-- Handle errors at the start of functions.
-- Use early returns instead of deeply nested `if` statements.
+## API Design
+
+- Follow **Rust’s API guidelines** for public interfaces.
+- Use **builder patterns** for complex configurations.
+- Try to proper trait definition and implementation to invert dependencies and testability.
+- reexport public types and functions from the root crate.
 
 ---
 
 ## Testing
-- Use Jest and React Testing Library for unit tests.
-- Follow the Arrange-Act-Assert pattern.
-- Mock external dependencies.
-- Use snapshot testing selectively.
-- Ensure full keyboard navigation support in accessibility tests.
+
+- Write **unit tests** with `#[cfg(test)]`.
+- Use **integration tests** for public APIs in the `tests/` directory.
+- Mock external dependencies where necessary.
+- Use `tokio::test` for as
+mentation
+- Write **Rustdoc** comments for public functions and structs.
+- Include examples in   preview document
 
 ---
 
-## Security
-- Sanitize user input to prevent XSS attacks.
-- Use **DOMPurify** for HTML sanitization.
-- Implement secure authentication methods.
-- Ensure API communication is encrypted over HTTPS.
+## Dependency Management
+
+- Use `cargo-audit` to che**minimal and up-to-date**.
+- Add crates to workspace's `Cargo.toml` file. Don't add them to individual crates' `Cargo.toml` files.
 
 ---
 
-## Internationalization (i18n)
-- Use **next-i18next** for handling translations.
-- Implement locale detection and proper formatting for numbers and dates.
-- Support RTL layouts where necessary.
+## Logging and Debugging
 
----
-
-## Documentation
-- Use **JSDoc** for documenting functions and interfaces.
-- Document public APIs and components.
-- Include examples where applicable.
-- Use markdown formatting for better readability.
-
----
-
-## Final Notes
-- Follow a **DRY** (Don’t Repeat Yourself) principle.
-- Write code that is **readable and maintainable** over premature optimization.
-- Avoid TODOs or placeholders in production code.
-- Verify and test all functionality before deployment.
+- Use `tracing` for structured logging.
+- Enable debug assertions wit_assert!()`.
 
 ---
 > Source: [cityjson/flatcitybuf](https://github.com/cityjson/flatcitybuf) — distributed by [TomeVault](https://tomevault.io).
