@@ -1,0 +1,9 @@
+{
+  "name": "kaisery--ooxmlsdk",
+  "displayName": "ooxmlsdk",
+  "description": "Open XML SDK for Rust",
+  "version": "1.0.0",
+  "author": "KaiserY",
+  "homepage": "https://github.com/KaiserY/ooxmlsdk",
+  "skills": []
+}
