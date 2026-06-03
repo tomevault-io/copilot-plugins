@@ -1,0 +1,44 @@
+{
+  "name": "automatic_clicker_2",
+  "owner": "FsterThanLight",
+  "repo": "automatic_clicker_2",
+  "description": "\u81ea\u52a8\u5316\u63a7\u5236\u3001\u53ef\u89c6\u5316\u64cd\u4f5c\u3001\u81ea\u52a8\u8fde\u70b9\u5668\u3001\u6d41\u7a0b\u81ea\u52a8\u5316\u3001RPA",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FsterThanLight/automatic_clicker_2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T19:43:51Z"
+}
