@@ -1,0 +1,9 @@
+{
+  "name": "whetstoneresearch--doppler",
+  "displayName": "doppler",
+  "description": "Core contracts for the Doppler Protocol",
+  "version": "1.0.0",
+  "author": "whetstoneresearch",
+  "homepage": "https://github.com/whetstoneresearch/doppler",
+  "skills": []
+}
