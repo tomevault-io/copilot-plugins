@@ -4,7 +4,7 @@
   "repo": "keychat-app",
   "description": "Keychat is the super app for Bitcoiners. Autonomous IDs, Bitcoin ecash wallet, secure chat, and rich mini apps \u2014 all in Keychat. Autonomy. Security. Richness.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/keychat-io/keychat-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T19:36:11Z"
+  "distributed_at": "2026-06-03T19:37:50Z"
 }
