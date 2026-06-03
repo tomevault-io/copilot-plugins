@@ -7,11 +7,11 @@ Talos ArgoCD Homelab. My personal production Cluster.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mitchross/talos-argocd-proxmox](https://github.com/mitchross/talos-argocd-proxmox).
+Original source: `AGENTS.md` in [mitchross/talos-argocd-proxmox](https://github.com/mitchross/talos-argocd-proxmox).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
