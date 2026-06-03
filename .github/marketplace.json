@@ -94079,6 +94079,11 @@
       "description": "A modular and extensible behavior tree framework for AI development in C# for the .NET and Godot Engine."
     },
     {
+      "name": "grlt-hub--app-compose",
+      "source": "./grlt-hub--app-compose",
+      "description": "Lightweight IoC for the front-end. Compose apps you can control and trust."
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -96257,6 +96262,11 @@
       "name": "acbcdev--runts",
       "source": "./acbcdev--runts",
       "description": "\ud83e\udde9 An interactive playground for JavaScript and TypeScript, built with React and Tailwind CSS."
+    },
+    {
+      "name": "stevegeek--awfy",
+      "source": "./stevegeek--awfy",
+      "description": "CLI tool to help run suites of benchmarks , and compare results over time, between control implementations, across branches and with or without YJIT."
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -98457,6 +98467,11 @@
       "name": "ar-jan--llm-venice",
       "source": "./ar-jan--llm-venice",
       "description": "LLM plugin for Venice AI"
+    },
+    {
+      "name": "stephenlzc--ai-agent-debate-autogen-turtorial",
+      "source": "./stephenlzc--ai-agent-debate-autogen-turtorial",
+      "description": "\ud83e\udd16 \u57fa\u4e8eAutoGen\u7684AI\u8fa9\u8bba\u7cfb\u7edf | \ud83d\udde3\ufe0f \u652f\u6301\u4e2d\u6587\u4ea4\u4e92 | \ud83d\udd04 \u591a\u667a\u80fd\u4f53\u534f\u4f5c | \ud83d\udcdd \u81ea\u52a8\u8bb0\u5f55\u8fa9\u8bba\u8fc7\u7a0b  \ud83e\udd16 AI Debate System based on AutoGen | \ud83d\udde3\ufe0f Chinese Interaction | \ud83d\udd04 Multi-Agent Collaboration | \ud83d\udcdd Auto Debate Recording"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -100787,6 +100802,16 @@
       "name": "pdstat--graphqlextractor",
       "source": "./pdstat--graphqlextractor",
       "description": "Extract GraphQL operations from javascript"
+    },
+    {
+      "name": "chiicharlito--perplexicapp",
+      "source": "./chiicharlito--perplexicapp",
+      "description": "Cross-platform mobile app for Perplexica Project"
+    },
+    {
+      "name": "zackees--fastled-wasm",
+      "source": "./zackees--fastled-wasm",
+      "description": "The FastLED web compiler. Lightning fast 3 second compile and 1 second deploy on fast machines."
     },
     {
       "name": "iamtouchskyer--logex",
@@ -108752,6 +108777,11 @@
       "name": "floppyfk--kittyhack",
       "source": "./floppyfk--kittyhack",
       "description": "Project to revive the KittyFlap: A web GUI that allows control of the cat flap on the local network without the official KittyFlap app."
+    },
+    {
+      "name": "kaizenode--safeswap",
+      "source": "./kaizenode--safeswap",
+      "description": "A safe marketplace for buyers and sellers"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -117079,6 +117109,16 @@
       "description": "siyuan-database-properties-panel"
     },
     {
+      "name": "realfascinated--scoresaber-reloaded",
+      "source": "./realfascinated--scoresaber-reloaded",
+      "description": "ScoreSaber Reloaded is a new way to view your scores and get more stats about you and your plays"
+    },
+    {
+      "name": "ember-native--ember-native",
+      "source": "./ember-native--ember-native",
+      "description": "ember-native"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -120542,6 +120582,61 @@
       "name": "zotero-rag--zotero-rag",
       "source": "./zotero-rag--zotero-rag",
       "description": "A RAG-based Q&A and search system for Zotero"
+    },
+    {
+      "name": "hackclub--podium",
+      "source": "./hackclub--podium",
+      "description": "Podium is Hack Club's open-source peer-judging platform for hackathons"
+    },
+    {
+      "name": "sanity-io--sdk",
+      "source": "./sanity-io--sdk",
+      "description": "Sanity App SDK"
+    },
+    {
+      "name": "sanity-io--sdk",
+      "source": "./sanity-io--sdk",
+      "description": "Sanity App SDK"
+    },
+    {
+      "name": "sanity-io--sdk",
+      "source": "./sanity-io--sdk",
+      "description": "Sanity App SDK"
+    },
+    {
+      "name": "sanity-io--sdk",
+      "source": "./sanity-io--sdk",
+      "description": "Sanity App SDK"
+    },
+    {
+      "name": "hackclub--podium",
+      "source": "./hackclub--podium",
+      "description": "Podium is Hack Club's open-source peer-judging platform for hackathons"
+    },
+    {
+      "name": "sanity-io--sdk",
+      "source": "./sanity-io--sdk",
+      "description": "Sanity App SDK"
+    },
+    {
+      "name": "awlexus--grayjay-jellyfin-plugin",
+      "source": "./awlexus--grayjay-jellyfin-plugin",
+      "description": "A grayjay plugin for playing media from your jellyfin media server"
+    },
+    {
+      "name": "paritytech--polkadot-bulletin-chain",
+      "source": "./paritytech--polkadot-bulletin-chain",
+      "description": "polkadot-bulletin-chain"
+    },
+    {
+      "name": "hackclub--podium",
+      "source": "./hackclub--podium",
+      "description": "Podium is Hack Club's open-source peer-judging platform for hackathons"
+    },
+    {
+      "name": "awslabs--nki-autotune",
+      "source": "./awslabs--nki-autotune",
+      "description": "nki-autotune"
     },
     {
       "name": "13point5--agent-canvas",
@@ -127697,6 +127792,21 @@
       "name": "jongwoo328--cloudip",
       "source": "./jongwoo328--cloudip",
       "description": "CLI tool to identify whether an IP address belongs to AWS, GCP, or Azure."
+    },
+    {
+      "name": "strickvl--panlabel",
+      "source": "./strickvl--panlabel",
+      "description": "Universal annotation converter"
+    },
+    {
+      "name": "strickvl--panlabel",
+      "source": "./strickvl--panlabel",
+      "description": "Universal annotation converter"
+    },
+    {
+      "name": "samuelreichor--craft-query-api",
+      "source": "./samuelreichor--craft-query-api",
+      "description": "Craft CMS Plugin to use the query builder in js frameworks"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -136549,6 +136659,21 @@
       "description": "CSS-in-JS library for React, Next.js, Server Components and more "
     },
     {
+      "name": "digidem--earth-defenders-assistant",
+      "source": "./digidem--earth-defenders-assistant",
+      "description": "Platform for creating audio-first AI assistants that can work offline using a flexible plugin architecture"
+    },
+    {
+      "name": "openharmony--graphic-graphic-2d",
+      "source": "./openharmony--graphic-graphic-2d",
+      "description": "\u6682\u65e0\u63cf\u8ff0"
+    },
+    {
+      "name": "miracleeverywhere--dst-management-platform-web",
+      "source": "./miracleeverywhere--dst-management-platform-web",
+      "description": "dst-management-platform-api\u9879\u76ee\u7684\u524d\u7aef\u9875\u9762"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -141812,6 +141937,26 @@
       "name": "remy2404--polymind",
       "source": "./remy2404--polymind",
       "description": "A powerful, multi-modal Telegram bot leveraging cutting-edge AI technologies including Gemini, DeepSeek, OpenRouter, and 50+ AI models for comprehensive conversational assistance, media processing, an"
+    },
+    {
+      "name": "itdos--microi-net",
+      "source": "./itdos--microi-net",
+      "description": "\ud83d\udd25 AI \u6df1\u5ea6\u878d\u5408 V8\u5f15\u64ce \u7684\u5f00\u6e90\u4f4e\u4ee3\u7801\u5e73\u53f0\u3002AI \u672c\u5730 V8\u5f15\u64ce \u7f16\u7a0b\uff08VS Code Copilot/Cursor/Claude + MCP + Skills\uff09\u3001AI \u5728\u7ebf\u7f16\u7a0b\u3001AI \u6570\u636e\u5206\u6790\u3002.NET10 + Vue3 + \u8de8\u6570\u636e\u5e93/\u8de8\u5e73\u53f0\uff0c\u5206\u5e03\u5f0f\u67b6\u6784\u3001\u9ad8\u6027\u80fd\uff08L1/L2\u7ea7\u7f13\u5b58\uff09\u3002\u59cb\u4e8e2014\u5e74\uff08\u57fa\u4e8eAvalon.js\uff09\uff0c2018\u5e74\u4f7f\u7528Vue\u91cd\u6784\uff0c\u4e8e2025\u5e74\u5f00\u6e90\u3002"
+    },
+    {
+      "name": "itdos--microi-net",
+      "source": "./itdos--microi-net",
+      "description": "\ud83d\udd25 AI \u6df1\u5ea6\u878d\u5408 V8\u5f15\u64ce \u7684\u5f00\u6e90\u4f4e\u4ee3\u7801\u5e73\u53f0\u3002AI \u672c\u5730 V8\u5f15\u64ce \u7f16\u7a0b\uff08VS Code Copilot/Cursor/Claude + MCP + Skills\uff09\u3001AI \u5728\u7ebf\u7f16\u7a0b\u3001AI \u6570\u636e\u5206\u6790\u3002.NET10 + Vue3 + \u8de8\u6570\u636e\u5e93/\u8de8\u5e73\u53f0\uff0c\u5206\u5e03\u5f0f\u67b6\u6784\u3001\u9ad8\u6027\u80fd\uff08L1/L2\u7ea7\u7f13\u5b58\uff09\u3002\u59cb\u4e8e2014\u5e74\uff08\u57fa\u4e8eAvalon.js\uff09\uff0c2018\u5e74\u4f7f\u7528Vue\u91cd\u6784\uff0c\u4e8e2025\u5e74\u5f00\u6e90\u3002"
+    },
+    {
+      "name": "lychen-lab--lychen",
+      "source": "./lychen-lab--lychen",
+      "description": "\ud83c\udf31 Environmental and agricultural symbiosis platform aiming to connect diverse actors across the local territory"
+    },
+    {
+      "name": "itdos--microi-net",
+      "source": "./itdos--microi-net",
+      "description": "\ud83d\udd25 AI \u6df1\u5ea6\u878d\u5408 V8\u5f15\u64ce \u7684\u5f00\u6e90\u4f4e\u4ee3\u7801\u5e73\u53f0\u3002AI \u672c\u5730 V8\u5f15\u64ce \u7f16\u7a0b\uff08VS Code Copilot/Cursor/Claude + MCP + Skills\uff09\u3001AI \u5728\u7ebf\u7f16\u7a0b\u3001AI \u6570\u636e\u5206\u6790\u3002.NET10 + Vue3 + \u8de8\u6570\u636e\u5e93/\u8de8\u5e73\u53f0\uff0c\u5206\u5e03\u5f0f\u67b6\u6784\u3001\u9ad8\u6027\u80fd\uff08L1/L2\u7ea7\u7f13\u5b58\uff09\u3002\u59cb\u4e8e2014\u5e74\uff08\u57fa\u4e8eAvalon.js\uff09\uff0c2018\u5e74\u4f7f\u7528Vue\u91cd\u6784\uff0c\u4e8e2025\u5e74\u5f00\u6e90\u3002"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -147517,6 +147662,21 @@
       "name": "stacksjs--bun-plugin-auto-imports",
       "source": "./stacksjs--bun-plugin-auto-imports",
       "description": "Auto Imports support for Bun."
+    },
+    {
+      "name": "gainforest--ecocertain",
+      "source": "./gainforest--ecocertain",
+      "description": "ecocertain"
+    },
+    {
+      "name": "jialechen7--goshop",
+      "source": "./jialechen7--goshop",
+      "description": "\u57fa\u4e8e GoFrame V2 \u5f00\u53d1\u7684\u5355\u4f53\u7535\u5546\u9879\u76ee"
+    },
+    {
+      "name": "vulnerability-lookup--fedivuln",
+      "source": "./vulnerability-lookup--fedivuln",
+      "description": "A client to gather vulnerability-related information from the Fediverse."
     },
     {
       "name": "lightninglabs--lnget",
@@ -155272,6 +155432,21 @@
       "name": "weicj--vllm-2080ti-definitive",
       "source": "./weicj--vllm-2080ti-definitive",
       "description": "The definitive vLLM runtime for dual RTX 2080 Ti 22GB + NVLink, delivering 27B/31B local inference with 100+ tok/s single-request decode and native 262K context."
+    },
+    {
+      "name": "quanphm--hoalu",
+      "source": "./quanphm--hoalu",
+      "description": "An open-source spending management app"
+    },
+    {
+      "name": "saleor--quickstart",
+      "source": "./saleor--quickstart",
+      "description": "This repository will be responsible for a new approach on how customers start working with Saleor, prioritizing commerce as code instead of changing fields"
+    },
+    {
+      "name": "frostr-org--bifrost",
+      "source": "./frostr-org--bifrost",
+      "description": "Core library for implementing the FROSTR signing protocol."
     },
     {
       "name": "yschimke--compose-ai-tools",
