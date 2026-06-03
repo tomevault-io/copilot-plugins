@@ -43884,6 +43884,11 @@
       "description": "\ud83d\udcb8 Calculate the MRR, ARR, TTM, churn, LTV, ARPU, total revenue & valuation of your pay-powered Rails SaaS app. MRR dashboard for your Rails app."
     },
     {
+      "name": "nichsedge--idx-bei",
+      "source": "./nichsedge--idx-bei",
+      "description": "Indonesia Stock Exchange (Bursa Efek Indonesia) Scraper"
+    },
+    {
       "name": "livekit--livekit-wakeword",
       "source": "./livekit--livekit-wakeword",
       "description": "An open-source wake word library for creating voice-enabled applications."
@@ -44067,6 +44072,16 @@
       "name": "whetstoneresearch--doppler",
       "source": "./whetstoneresearch--doppler",
       "description": "Core contracts for the Doppler Protocol"
+    },
+    {
+      "name": "anyproto--anytype-api",
+      "source": "./anyproto--anytype-api",
+      "description": "Start building with Anytype's API. The developer portal for extending Anytype through powerful integrations."
+    },
+    {
+      "name": "jigsaw-code--sensemaking-tools",
+      "source": "./jigsaw-code--sensemaking-tools",
+      "description": "sensemaking-tools"
     },
     {
       "name": "espennilsen--pi",
@@ -46854,6 +46869,11 @@
       "description": "Ask questions about your Obsidian notes using local AI. Privacy-first RAG with Ollama, LM Studio, or any OpenAI-compatible server. Obsidian plugin + Docker + PyPI."
     },
     {
+      "name": "bitdriftlabs--pulse",
+      "source": "./bitdriftlabs--pulse",
+      "description": "bitdrift observability proxy"
+    },
+    {
       "name": "cohen-liel--hivemind",
       "source": "./cohen-liel--hivemind",
       "description": "One prompt. A full AI engineering team. Go lie on the couch. \ud83e\udde0"
@@ -47487,6 +47507,26 @@
       "name": "netboxlabs--orb-agent",
       "source": "./netboxlabs--orb-agent",
       "description": "Orb network observability agent, part of the NetBox ecosystem and developed by NetBox Labs"
+    },
+    {
+      "name": "automattic--remote-data-blocks",
+      "source": "./automattic--remote-data-blocks",
+      "description": "Remote Data Blocks: a WordPress plugin for creating flexible, data-enriched content with remote data integration"
+    },
+    {
+      "name": "automattic--remote-data-blocks",
+      "source": "./automattic--remote-data-blocks",
+      "description": "Remote Data Blocks: a WordPress plugin for creating flexible, data-enriched content with remote data integration"
+    },
+    {
+      "name": "kristofferr--iptvchecker-python",
+      "source": "./kristofferr--iptvchecker-python",
+      "description": "Script that goes through a playlist to check IPTV channels"
+    },
+    {
+      "name": "automattic--remote-data-blocks",
+      "source": "./automattic--remote-data-blocks",
+      "description": "Remote Data Blocks: a WordPress plugin for creating flexible, data-enriched content with remote data integration"
     },
     {
       "name": "kulterryan--who-to-bother-at-on-x",
@@ -52539,6 +52579,11 @@
       "description": "A Swift SDK for Anthropic's Claude API"
     },
     {
+      "name": "s-stolz--algotrader",
+      "source": "./s-stolz--algotrader",
+      "description": "Custom Trading App for Algorithmic Trading"
+    },
+    {
       "name": "tmdgusya--engineering-discipline",
       "source": "./tmdgusya--engineering-discipline",
       "description": "SKILL for engineering-discipline"
@@ -54699,6 +54744,16 @@
       "description": "\uac1c\ubc1c\uc790\ub4e4\uc758 \uc774\uc57c\uae30\uac00 \uc790\ub77c\ub098\ub294 \uacf3, \ub370\ub098\ubb34 \ud83c\udf84"
     },
     {
+      "name": "melvynx--next-zod-route",
+      "source": "./melvynx--next-zod-route",
+      "description": "Create zod-safe route for your Next.js App Directory app"
+    },
+    {
+      "name": "melvynx--next-zod-route",
+      "source": "./melvynx--next-zod-route",
+      "description": "Create zod-safe route for your Next.js App Directory app"
+    },
+    {
       "name": "knowsuchagency--fulcrum",
       "source": "./knowsuchagency--fulcrum",
       "description": "What if Openclaw, Vibe Kanban, Vibetunnel, and Dokploy had a baby?"
@@ -55257,6 +55312,16 @@
       "name": "aikrice--homebrew-badgetizr",
       "source": "./aikrice--homebrew-badgetizr",
       "description": "Badgetizr is a tool to allow custom badges automatically added and updated according the content of your pull request."
+    },
+    {
+      "name": "fluid-design-io--vision-ui",
+      "source": "./fluid-design-io--vision-ui",
+      "description": "VisionOS UI built with React \u269b\ufe0f"
+    },
+    {
+      "name": "fluid-design-io--vision-ui",
+      "source": "./fluid-design-io--vision-ui",
+      "description": "VisionOS UI built with React \u269b\ufe0f"
     },
     {
       "name": "olorehq--olore",
@@ -56274,6 +56339,11 @@
       "description": "Cache Library for Go"
     },
     {
+      "name": "kakasoo--deepstricttypes",
+      "source": "./kakasoo--deepstricttypes",
+      "description": "Utility Types to quickly query and Omit, Pick keys inside nested arrays and objects"
+    },
+    {
       "name": "marciogranzotto--clawd-tank",
       "source": "./marciogranzotto--clawd-tank",
       "description": "clawd-tank"
@@ -56854,6 +56924,11 @@
       "description": "The RAS-Commander library provides a python API for automating HEC-RAS 6.x and accessing HDF data using Python, built with and driven by large language models."
     },
     {
+      "name": "googleworkspace--drive-picker-element",
+      "source": "./googleworkspace--drive-picker-element",
+      "description": "A web component for Google Drive Picker"
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -57352,6 +57427,11 @@
       "name": "soteria-tools--soteria",
       "source": "./soteria-tools--soteria",
       "description": "Sound static analysis for the masses."
+    },
+    {
+      "name": "mikker--sprinkles",
+      "source": "./mikker--sprinkles",
+      "description": "Customize any website with your own JS and CSS"
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -59187,6 +59267,11 @@
       "name": "rabbitmq--rabbitmq-amqp-go-client",
       "source": "./rabbitmq--rabbitmq-amqp-go-client",
       "description": "Golang RabbitMQ client for AMQP 1.0"
+    },
+    {
+      "name": "honghaoz--choutiui",
+      "source": "./honghaoz--choutiui",
+      "description": "ChouTiUI is a Swift framework for building delightful user interfaces on macOS and iOS."
     },
     {
       "name": "bioliminal--bioliminal-mobile-application",
@@ -61504,6 +61589,31 @@
       "description": "A low-level audio recorder plugin which uses miniaudio as backend and supporting all the platforms. It can detect silence and save to WAV audio file. Audio wave and FFT data can be get in real-time as"
     },
     {
+      "name": "pathoplexus--pathoplexus",
+      "source": "./pathoplexus--pathoplexus",
+      "description": "An open-source pathogen sequence database dedicated to equitable sharing, transparent governance, & empowering global public health."
+    },
+    {
+      "name": "genlayerlabs--genlayer-js",
+      "source": "./genlayerlabs--genlayer-js",
+      "description": "genlayer-js"
+    },
+    {
+      "name": "codescan-ai--codescan",
+      "source": "./codescan-ai--codescan",
+      "description": "CodeScanAI is an open source tool that utilizes powerful AI models (OpenAI, Gemini, and even self-hosted servers) to scan your codebase for possible security vulnerabilities."
+    },
+    {
+      "name": "pathoplexus--pathoplexus",
+      "source": "./pathoplexus--pathoplexus",
+      "description": "An open-source pathogen sequence database dedicated to equitable sharing, transparent governance, & empowering global public health."
+    },
+    {
+      "name": "pathoplexus--pathoplexus",
+      "source": "./pathoplexus--pathoplexus",
+      "description": "An open-source pathogen sequence database dedicated to equitable sharing, transparent governance, & empowering global public health."
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -62242,6 +62352,11 @@
       "name": "goberomsu--metadata-auto-classifier",
       "source": "./goberomsu--metadata-auto-classifier",
       "description": "AI-powered Obsidian plugin that automatically classifies and generates metadata (tags, frontmatter) for your notes."
+    },
+    {
+      "name": "pnsk-lab--hikkaku",
+      "source": "./pnsk-lab--hikkaku",
+      "description": "Let AI create Scratch projects, via TypeScript"
     },
     {
       "name": "domye--solace",
