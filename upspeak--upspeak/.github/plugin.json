@@ -1,0 +1,9 @@
+{
+  "name": "upspeak--upspeak",
+  "displayName": "upspeak",
+  "description": "Knowledge management system and information client. Organise notes, discussions, blogs, articles into queryable archives.",
+  "version": "1.0.0",
+  "author": "upspeak",
+  "homepage": "https://github.com/upspeak/upspeak",
+  "skills": []
+}
