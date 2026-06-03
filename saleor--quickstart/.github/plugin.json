@@ -1,0 +1,9 @@
+{
+  "name": "saleor--quickstart",
+  "displayName": "quickstart",
+  "description": "This repository will be responsible for a new approach on how customers start working with Saleor, prioritizing commerce as code instead of changing fields",
+  "version": "1.0.0",
+  "author": "saleor",
+  "homepage": "https://github.com/saleor/quickstart",
+  "skills": []
+}
