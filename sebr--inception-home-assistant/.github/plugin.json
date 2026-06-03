@@ -1,0 +1,9 @@
+{
+  "name": "sebr--inception-home-assistant",
+  "displayName": "inception-home-assistant",
+  "description": "InnerRange Inception Home-Assistant custom component",
+  "version": "1.0.0",
+  "author": "sebr",
+  "homepage": "https://github.com/sebr/inception-home-assistant",
+  "skills": []
+}
