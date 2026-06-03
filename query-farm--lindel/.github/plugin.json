@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--lindel",
+  "displayName": "lindel",
+  "description": "DuckDB Extension Linearization/Delinearization, Z-Order, Hilbert and Morton Curves",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/lindel",
+  "skills": []
+}
