@@ -72909,6 +72909,11 @@
       "description": "A rasterizer and raytracer renderer written in Rust using the wgpu library."
     },
     {
+      "name": "discoursegraphs--discourse-graph",
+      "source": "./discoursegraphs--discourse-graph",
+      "description": "A tool and ecosystem for collaborative knowledge synthesis"
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -79139,6 +79144,11 @@
       "description": "Explore the courses offered by UW-Madison in a visual and interactive way."
     },
     {
+      "name": "zl-asica--suzublog",
+      "source": "./zl-asica--suzublog",
+      "description": "A minimalist and fast Next.js blog template, one-click deploy, writing in Markdown. \u57fa\u4e8e Next.js \u7684\u535a\u5ba2\u6a21\u677f\uff0c\u4e00\u952e\u542f\u52a8\uff0c\u7b80\u6613\u914d\u7f6e\uff0c\u4f7f\u7528 Markdown \u64b0\u5199\u4f60\u7684\u6587\u7ae0\u3002"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -81652,6 +81662,11 @@
       "name": "shuhuiluo--uniswap-v4-sdk-rs",
       "source": "./shuhuiluo--uniswap-v4-sdk-rs",
       "description": "Opinionated Rust implementation of the Uniswap V4 SDK with a focus on readability and performance"
+    },
+    {
+      "name": "kdunee--intentguard",
+      "source": "./kdunee--intentguard",
+      "description": "A Python library for verifying code properties using natural language assertions."
     },
     {
       "name": "r44vc0rp--itui",
@@ -127809,6 +127824,11 @@
       "description": "Craft CMS Plugin to use the query builder in js frameworks"
     },
     {
+      "name": "zo0043--bookmark-ai-summary",
+      "source": "./zo0043--bookmark-ai-summary",
+      "description": "\u7528 LLM \u548c jina reader \u751f\u6210\u7684\u603b\u7ed3"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -131837,6 +131857,21 @@
       "name": "someacg--someacg-next",
       "source": "./someacg--someacg-next",
       "description": "Rebuilt SomeACG Website with Next.js"
+    },
+    {
+      "name": "sothx--hyper-magic-window-web-ui",
+      "source": "./sothx--hyper-magic-window-web-ui",
+      "description": "\u300aHyperOS For Pad/Fold \u5b8c\u7f8e\u6a2a\u5c4f\u5e94\u7528\u8ba1\u5212\u300b Web UI \u7aef\uff0c\u63d0\u4f9b\u53ef\u89c6\u5316\u4fee\u6539\u6a21\u5757\u90e8\u5206\u914d\u7f6e\u7684\u80fd\u529b"
+    },
+    {
+      "name": "sothx--hyper-magic-window-web-ui",
+      "source": "./sothx--hyper-magic-window-web-ui",
+      "description": "\u300aHyperOS For Pad/Fold \u5b8c\u7f8e\u6a2a\u5c4f\u5e94\u7528\u8ba1\u5212\u300b Web UI \u7aef\uff0c\u63d0\u4f9b\u53ef\u89c6\u5316\u4fee\u6539\u6a21\u5757\u90e8\u5206\u914d\u7f6e\u7684\u80fd\u529b"
+    },
+    {
+      "name": "sothx--hyper-magic-window-web-ui",
+      "source": "./sothx--hyper-magic-window-web-ui",
+      "description": "\u300aHyperOS For Pad/Fold \u5b8c\u7f8e\u6a2a\u5c4f\u5e94\u7528\u8ba1\u5212\u300b Web UI \u7aef\uff0c\u63d0\u4f9b\u53ef\u89c6\u5316\u4fee\u6539\u6a21\u5757\u90e8\u5206\u914d\u7f6e\u7684\u80fd\u529b"
     },
     {
       "name": "mohiwalla--memes",
@@ -136672,6 +136707,11 @@
       "name": "miracleeverywhere--dst-management-platform-web",
       "source": "./miracleeverywhere--dst-management-platform-web",
       "description": "dst-management-platform-api\u9879\u76ee\u7684\u524d\u7aef\u9875\u9762"
+    },
+    {
+      "name": "baz-scm--pgmq-ts",
+      "source": "./baz-scm--pgmq-ts",
+      "description": "Native SQL implementation for PGMQ in typescript, based on pgmq-rs"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -141957,6 +141997,21 @@
       "name": "itdos--microi-net",
       "source": "./itdos--microi-net",
       "description": "\ud83d\udd25 AI \u6df1\u5ea6\u878d\u5408 V8\u5f15\u64ce \u7684\u5f00\u6e90\u4f4e\u4ee3\u7801\u5e73\u53f0\u3002AI \u672c\u5730 V8\u5f15\u64ce \u7f16\u7a0b\uff08VS Code Copilot/Cursor/Claude + MCP + Skills\uff09\u3001AI \u5728\u7ebf\u7f16\u7a0b\u3001AI \u6570\u636e\u5206\u6790\u3002.NET10 + Vue3 + \u8de8\u6570\u636e\u5e93/\u8de8\u5e73\u53f0\uff0c\u5206\u5e03\u5f0f\u67b6\u6784\u3001\u9ad8\u6027\u80fd\uff08L1/L2\u7ea7\u7f13\u5b58\uff09\u3002\u59cb\u4e8e2014\u5e74\uff08\u57fa\u4e8eAvalon.js\uff09\uff0c2018\u5e74\u4f7f\u7528Vue\u91cd\u6784\uff0c\u4e8e2025\u5e74\u5f00\u6e90\u3002"
+    },
+    {
+      "name": "pnsk-lab--eclipsa",
+      "source": "./pnsk-lab--eclipsa",
+      "description": "\ud83c\udf02Performance + Experience\ud83c\udf19"
+    },
+    {
+      "name": "zktx-io--ptb-builder-monorepo",
+      "source": "./zktx-io--ptb-builder-monorepo",
+      "description": "Visual drag-and-drop builder for Sui Programmable Transaction Blocks that lets anyone design, simulate, and execute PTBs with automatic TypeScript generation and on-chain support."
+    },
+    {
+      "name": "gyrinx-app--gyrinx",
+      "source": "./gyrinx-app--gyrinx",
+      "description": "Core Gyrinx application"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -147677,6 +147732,16 @@
       "name": "vulnerability-lookup--fedivuln",
       "source": "./vulnerability-lookup--fedivuln",
       "description": "A client to gather vulnerability-related information from the Fediverse."
+    },
+    {
+      "name": "chenklein26-maker--harness-starter",
+      "source": "./chenklein26-maker--harness-starter",
+      "description": "\u4e00\u5957\u6210\u719f\u5b8c\u5584\u7684\u5f00\u7bb1\u5373\u7528\u7684 Claude Code Harness Engineering \u6a21\u677f\u3002\u4e09\u5c42\u81ea\u52a8\u5316\uff08\u5b89\u5168/\u611f\u77e5/\u5ba1\u67e5\uff09\uff0c\u96c6\u6210 LSP\u3001OpenSpec SDD \u5de5\u4f5c\u6d41\u548c AI \u4e00\u952e\u521d\u59cb\u5316\u3002\u65b0\u9879\u76ee\u548c\u5df2\u6709\u9879\u76ee\u5747\u53ef\u4f7f\u7528\u3002"
+    },
+    {
+      "name": "teal-insights--r-wbids",
+      "source": "./teal-insights--r-wbids",
+      "description": "R package to access and analyze World Bank International Debt Statistics (IDS)"
     },
     {
       "name": "lightninglabs--lnget",
@@ -155447,6 +155512,21 @@
       "name": "frostr-org--bifrost",
       "source": "./frostr-org--bifrost",
       "description": "Core library for implementing the FROSTR signing protocol."
+    },
+    {
+      "name": "namvox--simx",
+      "source": "./namvox--simx",
+      "description": "Agent-friendly iOS Simulator pool and browser streaming CLI"
+    },
+    {
+      "name": "openpipe--best-hn",
+      "source": "./openpipe--best-hn",
+      "description": "best-hn"
+    },
+    {
+      "name": "psrenergy--iara-jl",
+      "source": "./psrenergy--iara-jl",
+      "description": "IARA is open-source software for analyzing electricity market design choices and price formation schemes and their consequences for agents' strategies for participating in these markets."
     },
     {
       "name": "yschimke--compose-ai-tools",
