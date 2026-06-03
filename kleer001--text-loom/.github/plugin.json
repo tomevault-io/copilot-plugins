@@ -1,9 +1,9 @@
 {
   "name": "kleer001--text-loom",
   "displayName": "Text_Loom",
-  "description": "Text_Loom",
+  "description": "Network for procedural editing of text with LLMs",
   "version": "1.0.0",
   "author": "kleer001",
-  "homepage": "https://tomevault.io/claim/kleer001",
+  "homepage": "https://github.com/kleer001/Text_Loom",
   "skills": []
 }
