@@ -1,53 +1,94 @@
-## 200-vcs-commit-conventions
+## 300-data-api-layer
 
-> Commit message format and type guidelines
+> API layer guidelines including TanStack Start server functions, query/mutation patterns, and best practices
 
 
 guidelines:
-  format: "<type>(<scope>): <subject>"
-  principles:
-    - Keep messages concise and clear
-    - Use imperative mood
-    - No period at end
-    - Start with capital letter
-    - Max 50 characters for subject
+  core_concepts:
+    - API files serve as our API layer
+    - Server functions provide typesafe client-server bridge
+    - Server functions only call domain and service methods
+    - Query options define reusable react query calls
+    - Mutations handle invalidations for related queries
 
-  types:
-    feat: New features
-    fix: Bug fixes
-    docs: Documentation
-    style: Formatting
-    refactor: Code improvements
-    test: Test changes
-    chore: Maintenance
+  file_structure:
+    path: src/features/feature-name/api/module-name.api.ts
+    organization:
+      - Group by feature
+      - Keep related endpoints together
+
+  naming_conventions:
+    server_functions: Prefix with $ (e.g., $getUsers)
+    queries: use[Resource]QueryOptions
+    mutations: use[Action][Resource]Mutation
+    query_keys: Include all dependencies ['resource', { params }]
+
+  best_practices:
+    - Always use validation
+    - Maintain consistent query keys
+    - Group related endpoints
 
 examples:
-  basic: |
-    feat(auth): Add SSO support
-    fix(api): Handle timeout errors
-    docs: Update API docs
-    style: Format with prettier
-    refactor(db): Extract config
-    test: Add auth tests
-    chore(deps): Bump versions
+  query_options:
+    basic: |
+      export const useUserQueryOptions = (id: string) =>
+        queryOptions({
+          queryKey: ['user', id],
+          queryFn: () => $getUser({ data: { id } })
+        })
 
-  breaking_change: |
-    feat(api)!: Change auth flow
+    with_pagination: |
+      export const useUsersQueryOptions = ({ page = 1, pageSize = 10 }) =>
+        queryOptions({
+          queryKey: ['users', { page, pageSize }],
+          queryFn: () => $getUsers({ data: { page, pageSize } }),
+          placeholderData: keepPreviousData
+        })
 
-    BREAKING CHANGE: New token format
+  server_function: |
+    const createUserSchema = z.object({
+      id: z.string(),
+      profile: z.object({
+        avatar: z.string().optional(),
+        bio: z.string().max(1000).optional()
+      }).optional(),
+      preferences: z.object({
+        theme: z.enum(['light', 'dark']).default('light'),
+        notifications: z.boolean().default(true).optional()
+      })
+    })
+
+    const $createUser = createServerFn({ method: 'POST' })
+      .validator(createUserSchema)
+      .handler(async ({ data }) => {
+        return await UserService.createUser()
+      })
+
+  mutation: |
+    export const useCreateUserMutation = () =>
+      useMutation({
+        mutationFn: (data: z.infer<typeof createUserSchema>) => $createUser({ data }),
+        onSuccess: () => {
+          void queryClient.invalidateQueries({ queryKey: ['users'] })
+        }
+      })
 
 key_points:
-  message:
-    - Use type prefixes
-    - Keep it brief
-    - Be descriptive
-    - Use scopes when relevant
+  structure:
+    - Organize by feature in dedicated API files
+    - Keep related endpoints together
+    - Follow consistent file naming patterns
 
-  style:
-    - Imperative mood
-    - No period
-    - Capital first letter
-    - Under 50 chars
+  implementation:
+    - Use server functions for type-safe API calls
+    - Implement proper validation
+    - Maintain consistent query key structure
+
+  patterns:
+    - Prefix private server functions with $
+    - Follow naming conventions for queries and mutations
+    - Group related query options and mutations
+    - Implement proper cache invalidation
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
