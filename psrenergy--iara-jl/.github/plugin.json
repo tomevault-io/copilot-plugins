@@ -1,0 +1,9 @@
+{
+  "name": "psrenergy--iara-jl",
+  "displayName": "IARA.jl",
+  "description": "IARA is open-source software for analyzing electricity market design choices and price formation schemes and their consequences for agents' strategies for participating in these markets.",
+  "version": "1.0.0",
+  "author": "psrenergy",
+  "homepage": "https://github.com/psrenergy/IARA.jl",
+  "skills": []
+}
