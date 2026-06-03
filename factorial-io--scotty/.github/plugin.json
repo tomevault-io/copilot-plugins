@@ -1,0 +1,9 @@
+{
+  "name": "factorial-io--scotty",
+  "displayName": "scotty",
+  "description": "Scotty is a combination of an api server and a cli application to manage a set of short-living, docker-compose-based applications",
+  "version": "1.0.0",
+  "author": "factorial-io",
+  "homepage": "https://github.com/factorial-io/scotty",
+  "skills": []
+}
