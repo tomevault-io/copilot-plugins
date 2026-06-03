@@ -4,7 +4,7 @@
   "repo": "ras-commander",
   "description": "The RAS-Commander library provides a python API for automating HEC-RAS 6.x and accessing HDF data using Python, built with and driven by large language models.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gpt-cmdr/ras-commander",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T11:48:40Z"
+  "distributed_at": "2026-06-03T11:52:47Z"
 }
