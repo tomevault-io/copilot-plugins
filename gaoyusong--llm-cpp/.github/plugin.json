@@ -1,0 +1,9 @@
+{
+  "name": "gaoyusong--llm-cpp",
+  "displayName": "llm.cpp",
+  "description": "A C++ port of karpathy/llm.c features a tiny torch library while maintaining overall simplicity.",
+  "version": "1.0.0",
+  "author": "GaoYusong",
+  "homepage": "https://github.com/GaoYusong/llm.cpp",
+  "skills": []
+}
