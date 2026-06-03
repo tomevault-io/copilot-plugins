@@ -7,11 +7,11 @@ Grafana plugin for time-shifted query comparison across datasources
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [leoswing/comparequeries-datasource-rc](https://github.com/leoswing/comparequeries-datasource-rc).
+Original source: `CLAUDE.md` in [leoswing/comparequeries-datasource-rc](https://github.com/leoswing/comparequeries-datasource-rc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
