@@ -1,0 +1,44 @@
+{
+  "name": "brume",
+  "owner": "aftertonesignal",
+  "repo": "brume",
+  "description": "A 24-voice, multi-part synthesizer for the Raspberry Pi CM5. Touchscreen UI, audio and MIDI over USB, four sound engines, no samples.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aftertonesignal/brume",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T23:34:37Z"
+}
