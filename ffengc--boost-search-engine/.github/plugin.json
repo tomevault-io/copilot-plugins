@@ -1,0 +1,9 @@
+{
+  "name": "ffengc--boost-search-engine",
+  "displayName": "boost-search-engine",
+  "description": "This search engine leverages the Boost library for efficient document search, featuring data preprocessing, index creation, and advanced search functionalities. It uses C++, HTML, CSS, and JavaScript,",
+  "version": "1.0.0",
+  "author": "ffengc",
+  "homepage": "https://github.com/ffengc/boost-search-engine",
+  "skills": []
+}
