@@ -1,0 +1,9 @@
+{
+  "name": "quarkusio--quarkus-workshop-langchain4j",
+  "displayName": "quarkus-workshop-langchain4j",
+  "description": "Quarkus LangChain4J Workshop that demonstrates both single AI service capabilities and Agentic AI orchestration",
+  "version": "1.0.0",
+  "author": "quarkusio",
+  "homepage": "https://github.com/quarkusio/quarkus-workshop-langchain4j",
+  "skills": []
+}
