@@ -1,0 +1,9 @@
+{
+  "name": "dynamical-org--reformatters",
+  "displayName": "reformatters",
+  "description": "Reformat weather datasets into Zarr",
+  "version": "1.0.0",
+  "author": "dynamical-org",
+  "homepage": "https://github.com/dynamical-org/reformatters",
+  "skills": []
+}
