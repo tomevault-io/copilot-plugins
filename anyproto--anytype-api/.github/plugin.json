@@ -1,0 +1,9 @@
+{
+  "name": "anyproto--anytype-api",
+  "displayName": "anytype-api",
+  "description": "Start building with Anytype's API. The developer portal for extending Anytype through powerful integrations.",
+  "version": "1.0.0",
+  "author": "anyproto",
+  "homepage": "https://github.com/anyproto/anytype-api",
+  "skills": []
+}
