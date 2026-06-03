@@ -1,0 +1,9 @@
+{
+  "name": "dereje1--smart-recipe-generator",
+  "displayName": "smart-recipe-generator",
+  "description": "Smart Recipe Generator is an AI-powered web app that creates unique recipes based on user-selected ingredients and dietary preferences. Built with Next.js and MongoDB, and deployed on Vercel.",
+  "version": "1.0.0",
+  "author": "Dereje1",
+  "homepage": "https://github.com/Dereje1/smart-recipe-generator",
+  "skills": []
+}
