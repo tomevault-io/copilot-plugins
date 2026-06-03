@@ -2,9 +2,9 @@
   "name": "ff7-ultima",
   "owner": "maciej-trebacz",
   "repo": "ff7-ultima",
-  "description": "",
+  "description": "Real-time Final Fantasy VII editor",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -39,7 +39,6 @@
   ],
   "skills": [],
   "source_url": "https://github.com/maciej-trebacz/ff7-ultima",
-  "claim_url": "https://tomevault.io/claim/maciej-trebacz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T08:53:17Z"
+  "distributed_at": "2026-06-03T12:30:27Z"
 }
