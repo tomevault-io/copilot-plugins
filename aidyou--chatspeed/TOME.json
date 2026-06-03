@@ -1,0 +1,44 @@
+{
+  "name": "chatspeed",
+  "owner": "aidyou",
+  "repo": "chatspeed",
+  "description": "An AI chat proxy with universal tool access, protocol conversion, load balancing, key isolation, prompt enhancement, centralized MCP hub, and built-in WebSearch & WebFetch \u2014 more than an AI assistant for chat, translation, mind maps, flowcharts, and search.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aidyou/chatspeed",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T02:33:02Z"
+}
