@@ -1,0 +1,9 @@
+{
+  "name": "managedcode--orleans-graph",
+  "displayName": "Orleans.Graph",
+  "description": "Managing and validating grain call transitions in Microsoft Orleans applications. It allows you to define allowed communication patterns between grains",
+  "version": "1.0.0",
+  "author": "managedcode",
+  "homepage": "https://github.com/managedcode/Orleans.Graph",
+  "skills": []
+}
