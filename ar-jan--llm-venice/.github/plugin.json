@@ -1,0 +1,9 @@
+{
+  "name": "ar-jan--llm-venice",
+  "displayName": "llm-venice",
+  "description": "LLM plugin for Venice AI",
+  "version": "1.0.0",
+  "author": "ar-jan",
+  "homepage": "https://github.com/ar-jan/llm-venice",
+  "skills": []
+}
