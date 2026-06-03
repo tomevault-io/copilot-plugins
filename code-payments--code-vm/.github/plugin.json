@@ -1,0 +1,9 @@
+{
+  "name": "code-payments--code-vm",
+  "displayName": "code-vm",
+  "description": "Purpose built VM for reduced fees on Solana",
+  "version": "1.0.0",
+  "author": "code-payments",
+  "homepage": "https://github.com/code-payments/code-vm",
+  "skills": []
+}
