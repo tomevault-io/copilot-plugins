@@ -1,0 +1,9 @@
+{
+  "name": "teal-insights--r-wbids",
+  "displayName": "r-wbids",
+  "description": "R package to access and analyze World Bank International Debt Statistics (IDS)",
+  "version": "1.0.0",
+  "author": "Teal-Insights",
+  "homepage": "https://github.com/Teal-Insights/r-wbids",
+  "skills": []
+}
