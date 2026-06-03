@@ -1,0 +1,9 @@
+{
+  "name": "aio-libs--propcache",
+  "displayName": "propcache",
+  "description": "Fast property caching",
+  "version": "1.0.0",
+  "author": "aio-libs",
+  "homepage": "https://github.com/aio-libs/propcache",
+  "skills": []
+}
