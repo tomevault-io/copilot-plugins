@@ -1,0 +1,9 @@
+{
+  "name": "short-io--otm-detector",
+  "displayName": "otm-detector",
+  "description": "Detect one-time mail services, the new way",
+  "version": "1.0.0",
+  "author": "Short-io",
+  "homepage": "https://github.com/Short-io/otm-detector",
+  "skills": []
+}
