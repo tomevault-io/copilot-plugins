@@ -1,0 +1,9 @@
+{
+  "name": "jsimonrichard--prosemark",
+  "displayName": "ProseMark",
+  "description": "A toolkit for building open-source \"What you see is what you mean\" markdown editors, like Obsidian or Typora",
+  "version": "1.0.0",
+  "author": "jsimonrichard",
+  "homepage": "https://github.com/jsimonrichard/ProseMark",
+  "skills": []
+}
