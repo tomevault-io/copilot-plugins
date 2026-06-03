@@ -1,0 +1,9 @@
+{
+  "name": "idreamshen--esphome-uart-vrf",
+  "displayName": "esphome-uart-vrf",
+  "description": "\u4e2d\u592e\u7a7a\u8c03\u7f51\u5173 VRF ESPHome \u4e32\u53e3\u901a\u4fe1\u56fa\u4ef6\u3002\u652f\u6301\u5fb7\u59c6\u745eDEMRY\u3001\u5e73\u5934\u718aPTXZN\u3001\u4e2d\u5f18\u7cfb\u5217\u3002",
+  "version": "1.0.0",
+  "author": "idreamshen",
+  "homepage": "https://github.com/idreamshen/esphome-uart-vrf",
+  "skills": []
+}
