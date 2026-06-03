@@ -1,0 +1,9 @@
+{
+  "name": "lantean-code--qbtmud",
+  "displayName": "qbtmud",
+  "description": "qbtmud is a drop-in replacement for qBittorrent's default WebUI. It keeps qBittorrent's Web API semantics and core workflows, while adding a more polished application experience around setup, customiz",
+  "version": "1.0.0",
+  "author": "lantean-code",
+  "homepage": "https://github.com/lantean-code/qbtmud",
+  "skills": []
+}
