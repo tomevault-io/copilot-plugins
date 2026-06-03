@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--ttnn-visualizer",
+  "displayName": "ttnn-visualizer",
+  "description": "A comprehensive tool for visualizing and analyzing model execution, offering interactive graphs, memory plots, tensor details, buffer overviews, operation flow graphs, and multi-instance support with ",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/ttnn-visualizer",
+  "skills": []
+}
