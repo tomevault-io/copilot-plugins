@@ -1,0 +1,9 @@
+{
+  "name": "tensorcircuit--tensorcircuit-ng",
+  "displayName": "tensorcircuit-ng",
+  "description": "The next-gen AI-native tensor-network-based quantum software framework",
+  "version": "1.0.0",
+  "author": "tensorcircuit",
+  "homepage": "https://github.com/tensorcircuit/tensorcircuit-ng",
+  "skills": []
+}
