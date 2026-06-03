@@ -1,0 +1,33 @@
+## takeoff-todo-app
+
+> Use the project specification and guidelines to build the Todo app.
+
+# Project Specification & Guidelines
+
+Use the project specification and guidelines to build the Todo app.
+
+## Overview
+
+Todo is a web app that allows you to manage your todos.
+
+## Tech Stack
+
+- Frontend: Next.js, Tailwind, Shadcn, Framer Motion
+- Backend: Supabase, Drizzle, Server Actions
+- Auth: Clerk
+- Payments: Stripe
+
+## Specification
+
+## Guidelines
+
+Follow these rules:
+
+- All components should go in `/components` and be named like `example-component.tsx` unless otherwise specified
+- All actions should go in `/actions` and be named like `example-actions.ts` unless otherwise specified
+- All schemas should go in `/db/schema` and be named like `example-schema.ts` unless otherwise specified
+- All queries should go in `/db/queries` and be named like `example-queries.ts` unless otherwise specified
+
+---
+> Source: [mckaywrigley/takeoff-todo-app](https://github.com/mckaywrigley/takeoff-todo-app) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
