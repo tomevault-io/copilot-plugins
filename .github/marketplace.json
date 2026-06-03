@@ -45474,6 +45474,11 @@
       "description": "OR-LLM-Agent: Automating Modeling and Solving of Operations Research Optimization Problems with Reasoning LLM"
     },
     {
+      "name": "daytimedrinkingclub--shipstation",
+      "source": "./daytimedrinkingclub--shipstation",
+      "description": "Generate and manage your personal website and portfolio with ease"
+    },
+    {
       "name": "insajin--autopus-adk",
       "source": "./insajin--autopus-adk",
       "description": "Autopus-ADK is of the agents, by the agents. for the agents. Multi-model orchestration (consensus/pipeline/debate/fastest). Architecture-as-Code, Lore decision tracking, SPEC/EARS engine."
@@ -46042,6 +46047,11 @@
       "name": "kkrt-labs--keth",
       "source": "./kkrt-labs--keth",
       "description": "A EVM block proving backend in Cairo"
+    },
+    {
+      "name": "open-lm-engine--accelerated-model-architectures",
+      "source": "./open-lm-engine--accelerated-model-architectures",
+      "description": "A bunch of kernels that might make stuff slower \ud83d\ude09"
     },
     {
       "name": "jjongguet--oh-my-product",
@@ -49134,6 +49144,11 @@
       "description": "Documents (images, pdfs, supernote) to Markdown"
     },
     {
+      "name": "hadrien--fastsqla",
+      "source": "./hadrien--fastsqla",
+      "description": "Async SQLAlchemy 2.0+ extension for FastAPI with SQLModel support, built-in pagination & more"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -50859,6 +50874,11 @@
       "description": "f3-app"
     },
     {
+      "name": "consol-lab--pumpkin",
+      "source": "./consol-lab--pumpkin",
+      "description": "A Lazy Clause Generation Constraint Programming solver written in Rust."
+    },
+    {
       "name": "edisonwong520--wanny",
       "source": "./edisonwong520--wanny",
       "description": "A real Jarvis, connecting your appliances, AI controls everything in realworld. Wanny = nanny in Wechat"
@@ -51262,6 +51282,11 @@
       "name": "flyfish30--zig-cats",
       "source": "./flyfish30--zig-cats",
       "description": "A category theory and functional programing library for Zig language"
+    },
+    {
+      "name": "lfdt-paladin--paladin",
+      "source": "./lfdt-paladin--paladin",
+      "description": "Paladin is a platform for building programmable privacy preserving tokens on EVM, with integrated client and wallet. Support for several privacy frameworks including ZKP tokens, issuer-backed tokens, "
     },
     {
       "name": "pproenca--agent-tui",
@@ -52302,6 +52327,16 @@
       "name": "lvyww--bime",
       "source": "./lvyww--bime",
       "description": "bime\uff0c\u5916\u6302\u5f0f\u5f62\u7801\u8f93\u5165\u5e73\u53f0"
+    },
+    {
+      "name": "arizona-framework--arizona",
+      "source": "./arizona-framework--arizona",
+      "description": "A web framework for Erlang/OTP"
+    },
+    {
+      "name": "arizona-framework--arizona",
+      "source": "./arizona-framework--arizona",
+      "description": "A web framework for Erlang/OTP"
     },
     {
       "name": "ersinkoc--fluidflow",
@@ -53574,6 +53609,11 @@
       "description": "\u81ea\u52a8\u5316\u63a7\u5236\u3001\u53ef\u89c6\u5316\u64cd\u4f5c\u3001\u81ea\u52a8\u8fde\u70b9\u5668\u3001\u6d41\u7a0b\u81ea\u52a8\u5316\u3001RPA"
     },
     {
+      "name": "community-of-python--microbootstrap",
+      "source": "./community-of-python--microbootstrap",
+      "description": "Bootstrap your microservices in a second!"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -53922,6 +53962,11 @@
       "name": "tedawf--tedawf-com",
       "source": "./tedawf--tedawf-com",
       "description": "My personal site built with Next.js"
+    },
+    {
+      "name": "cmbagents--cmbagent",
+      "source": "./cmbagents--cmbagent",
+      "description": "Multi-agent system for research, powered by ag2"
     },
     {
       "name": "aelf-hzz780--ai-bounty-skill",
@@ -54457,6 +54502,21 @@
       "name": "tmr232--function-graph-overview",
       "source": "./tmr232--function-graph-overview",
       "description": "Control-Flow Graph (CFG) Visualizer for VSCode"
+    },
+    {
+      "name": "windscribe--ios-app",
+      "source": "./windscribe--ios-app",
+      "description": "Complete source code of the official Windscribe iOS application."
+    },
+    {
+      "name": "reasv--panoptikon",
+      "source": "./reasv--panoptikon",
+      "description": "AI-based media indexing, tagging, and semantic search engine for local files"
+    },
+    {
+      "name": "windscribe--ios-app",
+      "source": "./windscribe--ios-app",
+      "description": "Complete source code of the official Windscribe iOS application."
     },
     {
       "name": "0xranx--agentbrief",
@@ -56627,6 +56687,21 @@
       "name": "stompgg--chomp",
       "source": "./stompgg--chomp",
       "description": "chomp"
+    },
+    {
+      "name": "jsimonrichard--prosemark",
+      "source": "./jsimonrichard--prosemark",
+      "description": "A toolkit for building open-source \"What you see is what you mean\" markdown editors, like Obsidian or Typora"
+    },
+    {
+      "name": "jsimonrichard--prosemark",
+      "source": "./jsimonrichard--prosemark",
+      "description": "A toolkit for building open-source \"What you see is what you mean\" markdown editors, like Obsidian or Typora"
+    },
+    {
+      "name": "query-farm--lindel",
+      "source": "./query-farm--lindel",
+      "description": "DuckDB Extension Linearization/Delinearization, Z-Order, Hilbert and Morton Curves"
     },
     {
       "name": "marciogranzotto--clawd-tank",
@@ -60649,6 +60724,16 @@
       "description": "\u6b7b\u795evs\u706b\u5f71 \u662f\u4e00\u4e2a\u7531 \u5251jian \u53ca\u5176\u6240\u5c5e\u5236\u4f5c\u7ec4 5DPLAY Game Studio \u5236\u4f5c\u7684\u540c\u4eba\u65b0\u6982\u5ff5\u7b56\u7565\u683c\u6597\u6e38\u620f\u3002  \u5728\u8fd9\u91cc\uff0c\u4f60\u53ef\u4ee5\u6311\u6218\u81ea\u5df1\u64cd\u4f5c\u4e0e\u53cd\u5e94\u7684\u6781\u9650\uff0c\u4e5f\u53ef\u4ee5\u4f5c\u4e3a\u56e2\u961f\u7684\u6838\u5fc3\u51b3\u7b56\u8fd9\u4f53\u9a8c\u8fd0\u7b79\u5e37\u5e44\u7684\u7545\u5feb\u3002"
     },
     {
+      "name": "dereje1--smart-recipe-generator",
+      "source": "./dereje1--smart-recipe-generator",
+      "description": "Smart Recipe Generator is an AI-powered web app that creates unique recipes based on user-selected ingredients and dietary preferences. Built with Next.js and MongoDB, and deployed on Vercel."
+    },
+    {
+      "name": "ekristen--distillery",
+      "source": "./ekristen--distillery",
+      "description": "like homebrew but with less fizz. install binaries as fast and as easy as possible. no package manager, no recipes or metadata to update, just install and go"
+    },
+    {
       "name": "rstackjs--agent-skills",
       "source": "./rstackjs--agent-skills",
       "description": "A collection of Agent Skills for Rstack."
@@ -61404,6 +61489,76 @@
       "description": "C++ library to communicate directly with Tesla vehicles over the BLE API"
     },
     {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "minhomega--react-theme-switch-animation",
+      "source": "./minhomega--react-theme-switch-animation",
+      "description": "React Theme Switch with smooth animation supports dark and light modes on NextJS, ReactJS, and more ..."
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
+      "name": "nvidiagameworks--toolkit-remix",
+      "source": "./nvidiagameworks--toolkit-remix",
+      "description": "RTX Remix Toolkit"
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -61957,6 +62112,11 @@
       "name": "lightningdevkit--ldk-server",
       "source": "./lightningdevkit--ldk-server",
       "description": "LDK Server is a fully-functional Lightning node in daemon form."
+    },
+    {
+      "name": "jhillyerd--labcoat",
+      "source": "./jhillyerd--labcoat",
+      "description": "NixOS system deployment TUI"
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -65209,6 +65369,11 @@
       "description": "Create electronics with Typescript and React. Compile Typescript to Circuit JSON"
     },
     {
+      "name": "jaleelb--readium-x",
+      "source": "./jaleelb--readium-x",
+      "description": "An open source tool that provides access to premium Medium articles without the paywall, allowing you to bookmark, and manage your reading experience across any device."
+    },
+    {
       "name": "lktiep--cortex-hub",
       "source": "./lktiep--cortex-hub",
       "description": "Self-hosted AI Agent Memory + Code Intelligence Platform \u2014 one MCP endpoint for persistent memory, AST-aware code search, shared knowledge, and quality enforcement across all your AI coding agents."
@@ -68182,6 +68347,11 @@
       "name": "biovisioncenter--ngio",
       "source": "./biovisioncenter--ngio",
       "description": "ngio is a Python library to streamline OME-Zarr image analysis workflows."
+    },
+    {
+      "name": "lazyagi--lazymind",
+      "source": "./lazyagi--lazymind",
+      "description": "LazyMind"
     },
     {
       "name": "mikkelkrogsholm--skills",
@@ -157937,6 +158107,11 @@
       "name": "greatwallisme--juncture",
       "source": "./greatwallisme--juncture",
       "description": "A Rust implementation of LangGraph's state machine framework for building LLM agent applications. "
+    },
+    {
+      "name": "dgdev25--ruvos",
+      "source": "./dgdev25--ruvos",
+      "description": "rUvOS \u2014 the agentic operating system. A single static Rust binary that runs as an MCP server, giving Claude Code persistent memory, resumable signed sessions, multi-agent orchestration, a knowledge gr"
     },
     {
       "name": "yschimke--compose-ai-tools",
