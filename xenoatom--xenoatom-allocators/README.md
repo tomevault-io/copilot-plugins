@@ -7,11 +7,11 @@ This library provides fast, lightweight and low-level memory allocators for .NET
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [XenoAtom/XenoAtom.Allocators](https://github.com/XenoAtom/XenoAtom.Allocators).
+Original source: `CLAUDE.md` in [XenoAtom/XenoAtom.Allocators](https://github.com/XenoAtom/XenoAtom.Allocators).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
