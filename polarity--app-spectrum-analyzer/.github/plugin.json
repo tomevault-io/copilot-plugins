@@ -1,0 +1,9 @@
+{
+  "name": "polarity--app-spectrum-analyzer",
+  "displayName": "app.spectrum.analyzer",
+  "description": "Spectrum Analyzer for the Browser",
+  "version": "1.0.0",
+  "author": "polarity",
+  "homepage": "https://github.com/polarity/app.spectrum.analyzer",
+  "skills": []
+}
