@@ -4,7 +4,7 @@
   "repo": "zapstore-cli",
   "description": "The permissionless package manager",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zapstore/zapstore-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T18:37:52Z"
+  "distributed_at": "2026-06-03T18:39:39Z"
 }
