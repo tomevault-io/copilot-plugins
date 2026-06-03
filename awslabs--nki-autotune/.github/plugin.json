@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--nki-autotune",
+  "displayName": "nki-autotune",
+  "description": "nki-autotune",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/nki-autotune",
+  "skills": []
+}
