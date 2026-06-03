@@ -1,19 +1,45 @@
-## documentation
+## imports
 
-> Documentation
+> Cairo Imports
 
-# Documentation
+# Imports
 
-## External Resources
-- Ethereum Execution Specs: [https://github.com/ethereum/execution-specs](mdc:https:/github.com/ethereum/execution-specs)
-  - Reference for EVM behavior and state transition functions
-- Cairo Zero Documentation: @https://docs.cairo-lang.org/hello_cairo/index.html
-  - Details on Cairo Zero language features and patterns
+This file is a non-exhaustive list of some common imports and their usage.
 
-## Internal Documentation
-- README.md: Contains project overview and setup instructions
-- @.cursor/rules: Comprehensive documentation of code patterns and architecture for AI
-- Function docstrings in Cairo files document behavior and parameters
+## Standard Cairo Library
+- Cairo standard library functions
+  - Used in: Various Cairo files
+  - Import: `from starkware.cairo.common.dict import dict_read, dict_write`
+  - Import: `from starkware.cairo.common.math import assert_le, assert_lt`
+  - Import: `from starkware.cairo.common.memcpy import memcpy`
+  - Import: `from starkware.cairo.common.alloc import alloc`
+- Builtins:
+  - Import: `from starkware.cairo.common.cairo_builtins import BitwiseBuiltin, PoseidonBuiltin`, and others
+
+
+## Core Type Definitions
+- `ethereum_types/bytes`: Byte array implementation
+  - Used in: Most Cairo files dealing with byte data
+  - Import: `from ethereum_types.bytes import Bytes, BytesStruct`
+- `ethereum_types/numeric`: Numeric type definitions
+  - Used in: Arithmetic operations
+  - Import: `from ethereum_types.numeric import u8, u16, u32, u64, u128, u160, u256`
+
+## EVM Components
+- `ethereum/prague/vm/stack`: EVM stack implementation
+  - Used in: VM and instruction files
+  - Import: `from ethereum.prague.vm.stack import Stack`
+- `ethereum/prague/vm/memory`: EVM memory implementation
+  - Used in: VM execution files
+  - Import: `from ethereum.prague.vm.memory import Memory`
+- `ethereum/prague/vm/exceptions`: EVM error types
+  - Used in: Error handling across the codebase
+  - Import: `from ethereum.prague.vm.exceptions import OutOfGasError`
+
+## Import Patterns
+- Only use absolute imports
+- Group imports by category (standard library, types, EVM components)
+- Always import specific types and functions, not entire modules
 
 ---
 > Source: [kkrt-labs/keth](https://github.com/kkrt-labs/keth) — distributed by [TomeVault](https://tomevault.io).
