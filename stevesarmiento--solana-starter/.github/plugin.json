@@ -1,0 +1,9 @@
+{
+  "name": "stevesarmiento--solana-starter",
+  "displayName": "solana-starter",
+  "description": "An open-source solana starter using Next 15, Turbopack, Tanstack, Shadcn, Tailwind, Solana 2.0, Wallet Stadard, and Plausible",
+  "version": "1.0.0",
+  "author": "stevesarmiento",
+  "homepage": "https://github.com/stevesarmiento/solana-starter",
+  "skills": []
+}
