@@ -1,0 +1,9 @@
+{
+  "name": "schwa--compute",
+  "displayName": "Compute",
+  "description": "A high-level Swift framework that simplifies working with GPU Metal Compute.",
+  "version": "1.0.0",
+  "author": "schwa",
+  "homepage": "https://github.com/schwa/Compute",
+  "skills": []
+}
