@@ -1,0 +1,9 @@
+{
+  "name": "blankeos--solid-launch",
+  "displayName": "solid-launch",
+  "description": "\ud83e\uddca My opinionated SolidJS+Vike+Hono starter w/ batteries-included.",
+  "version": "1.0.0",
+  "author": "Blankeos",
+  "homepage": "https://github.com/Blankeos/solid-launch",
+  "skills": []
+}
