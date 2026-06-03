@@ -1,187 +1,124 @@
-## content-templates
+## examples-documentation
 
-> Content templates and page skeletons for common documentation patterns. Use this when creating new documents, creating feature overviews, etc.
+> Guidelines for example documentation and use case implementations
 
 
-# Content Templates
+# Example Documentation Standards
 
-## Page Templates
+Examples should be **small, focused demos** that show how to implement one feature or use case.
 
-### Standard Documentation Page
+## Required Sections
+
+1. **Overview** - What the example builds and demonstrates
+2. **Prerequisites** - Account requirements and setup needed
+3. **Step-by-step implementation** - Detailed walkthrough
+4. **Testing/validation** - How to verify it works
+5. **Next steps** - Links to related examples or advanced topics
+
+## Content Guidelines
+
+### Opening Structure
+```mdx
+## Overview
+
+[1-2 sentence description of what this example demonstrates]
+
+**[Agent/Workflow] Capabilities:**
+* [Specific capability 1]
+* [Specific capability 2]
+
+**What You'll Build:**
+* [Concrete deliverable 1]
+* [Concrete deliverable 2]
+* [Concrete deliverable 3]
+```
+
+### Implementation Approach
+- **Multi-modal examples**: Always provide both Dashboard and SDK approaches
+- **Complete code**: Include all imports, error handling, and setup
+- **Real-world context**: Use realistic data and scenarios
+- **Production-ready**: Follow best practices and include security considerations
+
+### Code Organization
+Use `<Tabs>` or `<CodeBlocks>` for multiple implementation approaches:
+- Dashboard (visual, no-code)
+- TypeScript (Server SDK)
+- Python (Server SDK)
+- Additional languages as relevant
+
+### Data and Assets
+- Include downloadable sample data (CSVs, JSON files)
+- Provide realistic test scenarios
+- Use placeholder data that reflects real use cases
+
+## Quality Standards
+
+### Code Quality
+- All code examples must be tested and functional
+- Include proper error handling
+- Use environment variables for sensitive data
+- Follow language-specific best practices
+
+### Documentation Quality
+- Explain the reasoning behind implementation choices
+- Include common gotchas and troubleshooting
+- Provide context for business use cases
+- Link to relevant API documentation
+
+### User Experience
+- Clear success criteria for each step
+- Visual confirmation (screenshots, videos)
+- Downloadable resources when helpful
+- Progressive complexity (simple → advanced)
+
+## Templates
+
+### Example Overview
 ```mdx
 ---
-title: [Page title]
-subtitle: [Brief description]
-slug: [category]/[page-name]
-description: [Short description for preview link]
+title: [Use case name]
+subtitle: [Brief description of what users will build]
+slug: [category]/examples/[example-name]
 ---
 
 ## Overview
 
-[Brief description of what this page covers and who it's for]
+[Detailed description of the use case and what the example demonstrates]
 
-- [Key point or capability 1]
-- [Key point or capability 2]  
-- [Key point or capability 3]
+**[Type] Capabilities:**
+* [Key capability 1]
+* [Key capability 2]
 
-For details, see **[Related Section]**.
+**What You'll Build:**
+* [Deliverable 1 with tools/integrations]
+* [Deliverable 2 with specific features]
+* [Deliverable 3 with validation/testing]
 
-## [Main Content Section]
+## Prerequisites
 
-[Core content with examples, steps, or explanations]
-
-## FAQ
-
-<AccordionGroup>
-  <Accordion title="[Common question]">
-    [Clear, helpful answer]
-  </Accordion>
-</AccordionGroup>
+* [Account requirement]
+* [Tool/service requirement if applicable]
 ```
 
-### Feature Overview Page
-```mdx
----
-title: [Feature name]
-subtitle: Learn [what users will accomplish]
----
-
-## Overview
-
-[Feature name] enables you to [main capability]. This [type of solution] helps you [business outcome].
-
-**[Feature] allows you to:**
-- [Specific capability 1]
-- [Specific capability 2]
-- [Specific capability 3]
-
-## How [feature] works
-
-[Brief explanation of the underlying process or technology]
-
-<CardGroup cols={3}>
-  <Card title="[Step 1]" icon="[icon]" iconType="solid">
-    [Brief description of first step]
-  </Card>
-  <Card title="[Step 2]" icon="[icon]" iconType="solid">
-    [Brief description of second step]
-  </Card>
-  <Card title="[Step 3]" icon="[icon]" iconType="solid">
-    [Brief description of third step]
-  </Card>
-</CardGroup>
-
-## Key capabilities
-
-- **[Capability 1]:** [Description with benefits]
-- **[Capability 2]:** [Description with benefits]
-- **[Capability 3]:** [Description with benefits]
-
-## [Implementation paths or next steps]
-
-<CardGroup cols={2}>
-  <Card
-    title="[Option 1]"
-    icon="[icon]"
-    href="/path/to/guide"
-  >
-    [Description and use case]
-  </Card>
-  <Card
-    title="[Option 2]"  
-    icon="[icon]"
-    href="/path/to/guide"
-  >
-    [Description and use case]
-  </Card>
-</CardGroup>
-```
-
-## Content Patterns
-
-### Introduction Patterns
-**For overviews:**
-> "[Product/Feature] is [brief definition]. We handle [complex part] so you can focus on [user value]."
-
-**For tutorials:**
-> "Build [specific outcome] step by step. Choose between using the Dashboard interface or programmatic APIs to suit your workflow."
-
-**For examples:**
-> "Build a [use case] with [key technologies]. The [agent/workflow] handles [business scenario] using [technical approach]."
-
-### Step Introduction Patterns
-**For setup steps:**
-> "Configure [component] to [achieve specific outcome]."
-
-**For implementation steps:**
-> "Create [thing] that [does what] for [user benefit]."
-
-**For testing steps:**
-> "Validate [thing] works correctly with [test scenario]."
-
-### Closing Patterns
-**For tutorials:**
-> "Now that you have [accomplished goal], consider [next steps or enhancements]:"
-
-**For examples:**
-> "Just like that, you've built [outcome]. Consider reading the following guides to further enhance your [solution]:"
-
-**For overviews:**
-> "Ready to get started? Check out [most relevant next step] or explore [alternative path]."
-
-## Component Usage Patterns
-
-### Card Groups for Options
-```mdx
-<CardGroup cols={2}>
-  <Card
-    title="[Option A]"
-    icon="[icon]"
-    href="/path"
-  >
-    **Best for:** [use case]
-    
-    [Brief description]
-  </Card>
-  <Card
-    title="[Option B]"
-    icon="[icon]"  
-    href="/path"
-  >
-    **Best for:** [use case]
-    
-    [Brief description]
-  </Card>
-</CardGroup>
-```
-
-### Step Lists for Procedures
+### Step Implementation
 ```mdx
 <Steps>
-  <Step title="[Action verb] [object]">
-    [Brief explanation of purpose]
+  <Step title="[Action-oriented title]">
+    [Brief explanation of the step's purpose]
 
-    [Implementation details or sub-steps]
-  </Step>
-  <Step title="[Next action]">
-    [Continue with logical flow]
+    <Tabs>
+      <Tab title="Dashboard">
+        [Visual step-by-step with screenshots]
+      </Tab>
+      <Tab title="TypeScript (Server SDK)">
+        [Complete code example]
+      </Tab>
+      <Tab title="Python (Server SDK)">
+        [Complete code example]
+      </Tab>
+    </Tabs>
   </Step>
 </Steps>
-```
-
-### Tabs for Multi-modal Implementation
-```mdx
-<Tabs>
-  <Tab title="Dashboard">
-    [Visual, no-code approach]
-  </Tab>
-  <Tab title="TypeScript (Server SDK)">
-    [Programmatic implementation]
-  </Tab>
-  <Tab title="Python (Server SDK)">
-    [Alternative SDK implementation]
-  </Tab>
-</Tabs>
 ``` 
 
 ---
