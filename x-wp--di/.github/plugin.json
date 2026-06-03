@@ -1,0 +1,9 @@
+{
+  "name": "x-wp--di",
+  "displayName": "di",
+  "description": "Dependency Injection System for WordPress",
+  "version": "1.0.0",
+  "author": "x-wp",
+  "homepage": "https://github.com/x-wp/di",
+  "skills": []
+}
