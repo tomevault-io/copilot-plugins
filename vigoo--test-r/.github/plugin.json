@@ -1,0 +1,9 @@
+{
+  "name": "vigoo--test-r",
+  "displayName": "test-r",
+  "description": "A test framework for Rust",
+  "version": "1.0.0",
+  "author": "vigoo",
+  "homepage": "https://github.com/vigoo/test-r",
+  "skills": []
+}
