@@ -1,0 +1,9 @@
+{
+  "name": "arizona-framework--arizona",
+  "displayName": "arizona",
+  "description": "A web framework for Erlang/OTP",
+  "version": "1.0.0",
+  "author": "arizona-framework",
+  "homepage": "https://github.com/arizona-framework/arizona",
+  "skills": []
+}
