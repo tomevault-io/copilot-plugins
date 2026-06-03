@@ -4,7 +4,7 @@
   "repo": "podium",
   "description": "Podium is Hack Club's open-source peer-judging platform for hackathons",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hackclub/podium",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T04:32:48Z"
+  "distributed_at": "2026-06-03T04:41:54Z"
 }
