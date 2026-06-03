@@ -1,0 +1,9 @@
+{
+  "name": "rogie--figui3",
+  "displayName": "figui3",
+  "description": "A lightweight, customizable web component library that uses Figmas UI3 style for modern web applications, but specifically for Figma plugins.",
+  "version": "1.0.0",
+  "author": "rogie",
+  "homepage": "https://github.com/rogie/figui3",
+  "skills": []
+}
