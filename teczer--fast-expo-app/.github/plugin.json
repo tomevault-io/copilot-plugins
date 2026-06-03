@@ -1,0 +1,9 @@
+{
+  "name": "teczer--fast-expo-app",
+  "displayName": "fast-expo-app",
+  "description": "\u26a1 Fast Expo App - React Native boilerplate CLI for rapid mobile app development. Instantly scaffold Expo projects with TypeScript, Nativewind, Unistyles, Expo Router, MMKV storage, React Query, Jest t",
+  "version": "1.0.0",
+  "author": "Teczer",
+  "homepage": "https://github.com/Teczer/fast-expo-app",
+  "skills": []
+}
