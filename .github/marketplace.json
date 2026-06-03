@@ -72914,6 +72914,11 @@
       "description": "A tool and ecosystem for collaborative knowledge synthesis"
     },
     {
+      "name": "redhat-developer--rhdh-plugins",
+      "source": "./redhat-developer--rhdh-plugins",
+      "description": "Red Hat Developer Hub plugins"
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -98539,6 +98544,11 @@
       "description": "General-purpose Gen AI Accelerator developed for Insight APAC projects"
     },
     {
+      "name": "benbjurstrom--plink",
+      "source": "./benbjurstrom--plink",
+      "description": "\ud83d\udd17 Passwordless Log-In Links for Laravel"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -100884,6 +100894,11 @@
       "description": "P\u00e1same el C\u00f3digo es una web open source con apuntes y ejercicios resueltos de las diferentes asignaturas que componen el Grado de Enxe\u00f1er\u00eda Inform\u00e1tica da Universidade da Coru\u00f1a."
     },
     {
+      "name": "brickfrog--ankigen",
+      "source": "./brickfrog--ankigen",
+      "description": "Gradio application using LLMs to generate csv/apkg to aid with memorizing topics in Anki"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -103222,6 +103237,11 @@
       "name": "mmalmi--nostr-double-ratchet",
       "source": "./mmalmi--nostr-double-ratchet",
       "description": "nostr-double-ratchet"
+    },
+    {
+      "name": "sumi-0011--thumbnail-maker",
+      "source": "./sumi-0011--thumbnail-maker",
+      "description": "Create blog thumbnails easily and quickly with Thumbnail Maker"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -106277,6 +106297,26 @@
       "name": "aaker--netsapiens-loadgenerator",
       "source": "./aaker--netsapiens-loadgenerator",
       "description": "netsapiens-loadgenerator"
+    },
+    {
+      "name": "nexoral--axiodb",
+      "source": "./nexoral--axiodb",
+      "description": "A fast, lightweight, and scalable open-source DBMS for modern apps. Supports JSON-based data storage, simple APIs, and secure data management. Ideal for projects needing efficient and flexible databas"
+    },
+    {
+      "name": "nexoral--axiodb",
+      "source": "./nexoral--axiodb",
+      "description": "A fast, lightweight, and scalable open-source DBMS for modern apps. Supports JSON-based data storage, simple APIs, and secure data management. Ideal for projects needing efficient and flexible databas"
+    },
+    {
+      "name": "nexoral--axiodb",
+      "source": "./nexoral--axiodb",
+      "description": "A fast, lightweight, and scalable open-source DBMS for modern apps. Supports JSON-based data storage, simple APIs, and secure data management. Ideal for projects needing efficient and flexible databas"
+    },
+    {
+      "name": "nexoral--axiodb",
+      "source": "./nexoral--axiodb",
+      "description": "A fast, lightweight, and scalable open-source DBMS for modern apps. Supports JSON-based data storage, simple APIs, and secure data management. Ideal for projects needing efficient and flexible databas"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -111459,6 +111499,21 @@
       "description": "An AI chat proxy with universal tool access, protocol conversion, load balancing, key isolation, prompt enhancement, centralized MCP hub, and built-in WebSearch & WebFetch \u2014 more than an AI assistant "
     },
     {
+      "name": "degraciamathieu--php-class-dependencies-analyzer",
+      "source": "./degraciamathieu--php-class-dependencies-analyzer",
+      "description": "This tool allows you to monitor the dependencies and instability of your classes"
+    },
+    {
+      "name": "luisfer--rosemary-js",
+      "source": "./luisfer--rosemary-js",
+      "description": "Rosemary.js: A flexible and powerful knowledge management library that serves as a canvas for organizing, connecting, and analyzing ideas and data. It provides tools for creating an organic, interconn"
+    },
+    {
+      "name": "polarity--app-spectrum-analyzer",
+      "source": "./polarity--app-spectrum-analyzer",
+      "description": "Spectrum Analyzer for the Browser"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -114167,6 +114222,11 @@
       "name": "midpoint--everyday",
       "source": "./midpoint--everyday",
       "description": "\u6bcf\u65e5\u65e9\u62a5"
+    },
+    {
+      "name": "ypares--envil",
+      "source": "./ypares--envil",
+      "description": "envil forges Nix flakes and manages stacked environments"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -120812,6 +120872,11 @@
       "name": "gizmodata--ibis-gizmosql",
       "source": "./gizmodata--ibis-gizmosql",
       "description": "An Ibis back-end for the GizmoSQL Arrow Flight SQL Server (with the DuckDB engine)"
+    },
+    {
+      "name": "mr3zee--kotlin-external-fir-support",
+      "source": "./mr3zee--kotlin-external-fir-support",
+      "description": "IDE Integration for Kotlin FIR Compiler Plugins"
     },
     {
       "name": "13point5--agent-canvas",
@@ -128027,6 +128092,31 @@
       "name": "lqvp--misskey-tempura",
       "source": "./lqvp--misskey-tempura",
       "description": "A feature-rich Misskey fork focused on enhancing security, privacy, and user experience."
+    },
+    {
+      "name": "jkorf--coinbase-net",
+      "source": "./jkorf--coinbase-net",
+      "description": "A C# .netstandard client library for the Bybit REST and Websocket V5 API focusing on clear usage and models"
+    },
+    {
+      "name": "mckaywrigley--takeoff-perplexity-clone-final",
+      "source": "./mckaywrigley--takeoff-perplexity-clone-final",
+      "description": "takeoff-perplexity-clone-final"
+    },
+    {
+      "name": "douglasmatheus--canvas-editor-pdf",
+      "source": "./douglasmatheus--canvas-editor-pdf",
+      "description": "Pdf exporter to canvas-editor."
+    },
+    {
+      "name": "douglasmatheus--canvas-editor-pdf",
+      "source": "./douglasmatheus--canvas-editor-pdf",
+      "description": "Pdf exporter to canvas-editor."
+    },
+    {
+      "name": "goerz--muxdisplay-jl",
+      "source": "./goerz--muxdisplay-jl",
+      "description": "A Julia display showing graphics in a multiplexer pane"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -142224,6 +142314,21 @@
       "description": "Core Gyrinx application"
     },
     {
+      "name": "vo1dee--psychochauffeurbot",
+      "source": "./vo1dee--psychochauffeurbot",
+      "description": "A smart Telegram bot for video downloads, link optimization, AI responses, and useful utilities. \ud83d\ude97"
+    },
+    {
+      "name": "suprsend--cli",
+      "source": "./suprsend--cli",
+      "description": "SuprSend CLI"
+    },
+    {
+      "name": "mattbrailsford--github-discussions-blog-loader",
+      "source": "./mattbrailsford--github-discussions-blog-loader",
+      "description": "GitHub Discussions Blog Loader for Astro"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -147972,6 +148077,41 @@
       "name": "konstructio--konstruct-ui",
       "source": "./konstructio--konstruct-ui",
       "description": "This repository contains a set of reusable and customizable React components built for Konstruct's infrastructure."
+    },
+    {
+      "name": "worklenz--worklenz-v2",
+      "source": "./worklenz--worklenz-v2",
+      "description": "worklenz-v2"
+    },
+    {
+      "name": "bmd1905--e2e-chainlit-chatbot",
+      "source": "./bmd1905--e2e-chainlit-chatbot",
+      "description": "End-to-end example of a multi-agent chatbot with search and authentication capabilities built using Chainlit and Workflow's LlamaIndex.."
+    },
+    {
+      "name": "chiimagnus--logseq-aisearch",
+      "source": "./chiimagnus--logseq-aisearch",
+      "description": "AI Search your Logseq docs based on the current block, returning note sources and AI summarization"
+    },
+    {
+      "name": "chiimagnus--logseq-aisearch",
+      "source": "./chiimagnus--logseq-aisearch",
+      "description": "AI Search your Logseq docs based on the current block, returning note sources and AI summarization"
+    },
+    {
+      "name": "chiimagnus--logseq-aisearch",
+      "source": "./chiimagnus--logseq-aisearch",
+      "description": "AI Search your Logseq docs based on the current block, returning note sources and AI summarization"
+    },
+    {
+      "name": "stackpress--idea",
+      "source": "./stackpress--idea",
+      "description": "Meta files to express and transform ideas to reality."
+    },
+    {
+      "name": "maragudk--clir",
+      "source": "./maragudk--clir",
+      "description": "CLIR, the Command Line Interface Router."
     },
     {
       "name": "lightninglabs--lnget",
@@ -155792,6 +155932,36 @@
       "name": "quochuyyy1839--crawl-market-vn",
       "source": "./quochuyyy1839--crawl-market-vn",
       "description": "Crawl Price Gold"
+    },
+    {
+      "name": "abstractmenus--minecraft-plugin",
+      "source": "./abstractmenus--minecraft-plugin",
+      "description": "minecraft-plugin"
+    },
+    {
+      "name": "alastairlundy--cliinvoke",
+      "source": "./alastairlundy--cliinvoke",
+      "description": "CliInvoke is a .NET library for interacting with Command Line Interfaces and wrapping around executables."
+    },
+    {
+      "name": "thalerjonathan--rust-ddd",
+      "source": "./thalerjonathan--rust-ddd",
+      "description": "Exploring implementing DDD and Microservices with the help of LLMs in Rust "
+    },
+    {
+      "name": "catonetworks--terraform-provider-cato",
+      "source": "./catonetworks--terraform-provider-cato",
+      "description": "This package is a plugin for Terraform, and is designed to be used to auto-provision sites and configurations in the Cato Management Application (CMA) via API from the terraform cli/yaml configuration"
+    },
+    {
+      "name": "vibspatial--targeted-transcriptomics-training",
+      "source": "./vibspatial--targeted-transcriptomics-training",
+      "description": "targeted_transcriptomics_training"
+    },
+    {
+      "name": "babylonlabs-io--babylon-staking-indexer",
+      "source": "./babylonlabs-io--babylon-staking-indexer",
+      "description": "babylon-staking-indexer"
     },
     {
       "name": "yschimke--compose-ai-tools",
