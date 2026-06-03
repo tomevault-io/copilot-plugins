@@ -1,0 +1,9 @@
+{
+  "name": "discoursegraphs--discourse-graph",
+  "displayName": "discourse-graph",
+  "description": "A tool and ecosystem for collaborative knowledge synthesis",
+  "version": "1.0.0",
+  "author": "DiscourseGraphs",
+  "homepage": "https://github.com/DiscourseGraphs/discourse-graph",
+  "skills": []
+}
