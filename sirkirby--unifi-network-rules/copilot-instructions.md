@@ -1,36 +1,27 @@
-## specify-rules
+## unifi-network-rules
 
-> Auto-generated from all feature plans. Last updated: 2025-11-11
+> This file contains instructions for GitHub Copilot when working with this project.
 
-# unifi-network-rules Development Guidelines
+# GitHub Copilot Instructions
 
-Auto-generated from all feature plans. Last updated: 2025-11-11
+This file contains instructions for GitHub Copilot when working with this project.
 
-## Active Technologies
+---
 
-- Python 3.13 + Home Assistant Core, aiounifi (local copy in `/aiounifi`), existing UNR coordinator infrastructure (001-oon-policies)
+## Project Constitution
 
-## Project Structure
+This project follows engineering standards and conventions defined in the project constitution.
 
-```text
-src/
-tests/
-```
+**Read the constitution first:** [../oak/constitution.md](../oak/constitution.md)
 
-## Commands
+The constitution defines:
+- Architecture principles and patterns
+- Code standards and best practices
+- Testing requirements
+- Documentation standards
+- Governance and decision-making processes
 
-cd src [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] pytest [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] ruff check .
-
-## Code Style
-
-Python 3.13: Follow standard conventions
-
-## Recent Changes
-
-- 001-oon-policies: Added Python 3.13 + Home Assistant Core, aiounifi (local copy in `/aiounifi`), existing UNR coordinator infrastructure
-
-<!-- MANUAL ADDITIONS START -->
-<!-- MANUAL ADDITIONS END -->
+All suggestions and code generated must align with the constitution.
 
 ---
 > Source: [sirkirby/unifi-network-rules](https://github.com/sirkirby/unifi-network-rules) — distributed by [TomeVault](https://tomevault.io).
