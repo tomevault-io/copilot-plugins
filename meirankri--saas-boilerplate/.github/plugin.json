@@ -1,0 +1,9 @@
+{
+  "name": "meirankri--saas-boilerplate",
+  "displayName": "saas-boilerplate",
+  "description": "Next js SaaS boilerplate with app router, stripe, prisma, lucia-auth",
+  "version": "1.0.0",
+  "author": "meirankri",
+  "homepage": "https://github.com/meirankri/saas-boilerplate",
+  "skills": []
+}
