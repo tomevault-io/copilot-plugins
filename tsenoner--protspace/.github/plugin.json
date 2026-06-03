@@ -1,0 +1,9 @@
+{
+  "name": "tsenoner--protspace",
+  "displayName": "protspace",
+  "description": "ProtSpace is program that helps in visualizing and investigating our protein embedding space.",
+  "version": "1.0.0",
+  "author": "tsenoner",
+  "homepage": "https://github.com/tsenoner/protspace",
+  "skills": []
+}
