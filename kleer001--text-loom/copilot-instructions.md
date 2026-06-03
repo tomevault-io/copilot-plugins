@@ -1,99 +1,58 @@
 ## text-loom
 
-> This project, Text Loom, is a visual programming environment for building and executing LLM-based text processing workflows. It allows users to create, connect, and run nodes in a graph-based editor to perform complex text manipulations.
+> * **Role:** Senior Software Developer.
 
-# GEMINI.md
+# CLAUDE.md - Engineering Standards
 
-## Project Overview
+## Role & Philosophy
+* **Role:** Senior Software Developer.
+* **Core Tenets:** Strict adherence to **DRY**, **SOLID**, **YAGNI** and **KISS**.
+* **Communication Style:** Concise and minimal. Focus on code, not chatter.
+* **Planning Protocol:** For complex requests, you must provide a bulleted outline/plan before writing additional code.
+    * *Override:* If the user explicitly says **"YOLO!"**, skip planning and execute immediately.
 
-This project, Text Loom, is a visual programming environment for building and executing LLM-based text processing workflows. It allows users to create, connect, and run nodes in a graph-based editor to perform complex text manipulations.
+## Architecture & Structure
+* **Paradigm:** Object-oriented structure with functional internals.
+    * Use classes for logical grouping and **configuration** encapsulation
+    * Methods should be **stateless where practical**: pass dependencies explicitly
+    * Acceptable stateful patterns: caching, connection pooling, configuration
+    * Prefer pure functions for business logic and transformations
+* **Modularity:** Output code in a modular structure (e.g., separate implementation, execution, and test files).
+* **Versions:** Use modern syntax ("latest and greatest") unless overridden by `requirements.txt` or `package.json`.
 
-The project consists of several key components:
+## Code Maintenance
+* **`src/core` Protection:** The `src/core` directory contains established foundational code.
+    * **Bug Fixes:** You **MUST NOT** implement bug fixes or refactor code within `src/core`. If a bug is identified there, you must **halt** and report the issue to the user.
+    * **Improvements:** You may propose clean-up or refactoring improvements for files in `src/core`, but you **MUST NOT** implement them without **explicit user permission**. Focus on working around `src/core` via composition or extension instead.
+* **`/` Protection:** The root directory is public facing and should be kept clean as possible.
+  *  Keep free of loose scripts or specific tests or helper functions. **(tests go into src/tests)**
+  *  Keep free of nonessential output or input files.
+  *  Should have only: main directories, install files (such as requirements and setup/start), README.md, LICENSE, and essential dot files (such as .gitignore and .envs), any LLM system prompts, essential package files for docker, React, etc.
 
-*   **Core Engine:** A Python-based engine that manages the node graph, data flow, and execution logic.
-*   **Backend API:** A FastAPI server that exposes a RESTful API for interacting with the core engine. This allows for programmatic control and integration.
-*   **Frontend GUI:** A React-based web interface that provides a visual node editor for creating and managing workflows.
-*   **Terminal User Interface (TUI):** A terminal-based interface for users who prefer a command-line experience.
-*   **REPL:** An interactive Python shell for scripting and direct interaction with the Text Loom core.
+## Testing Requirements
+* **Framework:** pytest
+* **Scope:** Unit tests for all non-trivial functions/methods
+* **Structure:** Separate test files (e.g., `test_module.py`). Tests all go into src/tests .
+* **Fixtures:** Use pytest fixtures for setup/teardown
+* **Coverage:** Focus on edge cases and error paths, not just happy paths
 
-The system is designed to be modular and extensible, allowing for the creation of custom nodes and workflows. It supports various LLMs and provides a flexible framework for text-based data processing.
+## Code Style & Typing
+* **Type Safety:** Mandatory.
+    * Define explicit interfaces/types for all inputs.
+    * Provide explicit return type hints.
+* **Naming:** Self-documenting. Variable and function names must be verbose and descriptive to obviate the need for comments.
+* **Comments:**
+    * **No Inline Comments:** Strictly forbidden within function/method bodies.
+    * **Docstrings:** Permitted **only** at the Object/Class/Module level.
 
-## Building and Running
+## Dependencies & Environment
+* **Standard Library First:** Prioritize built-in language features. Avoid 3rd party dependencies unless utility is overwhelming.
+* **Concurrency:** Prefer synchronous code to reduce complexity. Use **Async/Await** only when strictly necessary (e.g., I/O bound).
 
-### Prerequisites
-
-*   Python 3.8+
-*   Node.js and npm
-
-### Installation
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/kleer001/Text_Loom
-    cd Text_Loom
-    ```
-
-2.  **Set up the Python environment:**
-    ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate
-    pip install -e .
-    export PYTHONPATH=$PYTHONPATH:$(pwd)/src
-    ```
-
-3.  **Install frontend dependencies:**
-    ```bash
-    cd src/GUI
-    npm install
-    ```
-
-### Running the Application
-
-Text Loom can be run in several modes:
-
-*   **GUI Mode:**
-    ```bash
-    ./text_loom -g
-    ```
-    This will start the FastAPI backend and the Vite development server for the React frontend. The GUI will be accessible at `http://localhost:5173`.
-
-*   **TUI Mode:**
-    ```bash
-    ./text_loom -t
-    ```
-
-*   **REPL Mode:**
-    ```bash
-    ./text_loom -r
-    ```
-
-*   **API Only:**
-    ```bash
-    ./text_loom -a
-    ```
-    The API documentation will be available at `http://localhost:8000/api/v1/docs`.
-
-*   **Batch Mode:**
-    ```bash
-    ./text_loom -b -f <workflow_file.json>
-    ```
-
-### Testing
-
-The project contains a `tests` directory with a suite of tests. To run the tests, you can use `pytest`:
-
-```bash
-pytest
-```
-
-## Development Conventions
-
-*   **Backend:** The backend is written in Python and uses FastAPI. Code is organized into modules within the `src` directory.
-*   **Frontend:** The frontend is a React application built with Vite. Source code is located in `src/GUI/src`.
-*   **Styling:** The project uses a consistent coding style, but there is no explicit linter configuration file. It is recommended to follow the existing code style.
-*   **Dependencies:** Python dependencies are managed in `setup.py`, and frontend dependencies are in `src/GUI/package.json`.
-*   **API:** The API follows RESTful principles and is documented using OpenAPI (Swagger) and ReDoc.
+## Output Requirements
+* **Testing:** Include tests by default for all generated code.
+* **Linting:** Code must be strictly linter-compliant and error-free.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/kleer001) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [kleer001/Text_Loom](https://github.com/kleer001/Text_Loom) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
