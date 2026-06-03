@@ -1,42 +1,146 @@
-## general
+## jsts
 
-> General rules about the project and coding guidelines
+> Coding rules for TypeScript and JavaScript
 
-# Important Rules for LLM
+# Web Development Coding Guidelines
 
-## General Guidelines
-
-- If a test fails more than twice in a row, analyze the current situation and collaborate with the user to determine a solution. Avoid trial-and-error testing without a hypothesis.
-- The user has extensive knowledge gained from GitHub and can implement individual algorithms and libraries faster than you. Code should be written while explaining to the user, using test cases to verify correctness.
-- When you work on the bigger tasks, you should plan first and document list of tasks to be done and update progress.md
-
-### Core Files (Mandatory)
-
-1. **`productContext.md`** [productContext.md](mdc:.llm/docs/productContext.md)
-   - Explains the purpose of the project.
-   - Identifies the problem it solves.
-   - Describes expected functionality and user experience goals.
-
-2. **`specification.md`** [specification.md](mdc:.llm/docs/specification.md)
-   - Explains the detail of FlatCityBuf specification
-   - Describes its encoding strategy and decisions made
-
-### Additional Context Files
-
-Additional files and folders can be created inside `.llm/docs/*` if they aid in organization:
-
-- Documentation for complex features.
-- Integration specifications.
-- API documentation.
-- Testing strategies.
-- Deployment procedures.
+## Development Philosophy
+- Write clean, maintainable, and scalable code.
+- Follow SOLID principles.
+- Prefer functional and declarative programming patterns over imperative.
+- Emphasize type safety and static analysis.
+- Practice component-driven development.
 
 ---
 
-## Integration with GitHub
-you can expect that runtime has gh CLI, rather than using GitHub MCP, simply use gh CLI to create pull requests, etc.
+## Code Style and Structure
+- Write concise, modular TypeScript code with accurate examples.
+- Prefer functional components over class components.
+- Avoid code duplication; prioritize iteration and modularization.
+- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`).
+- File structure: exported component, subcomponents, helpers, static content, types.
+- Follow a consistent project structure.
 
 ---
+
+## Naming Conventions
+- **Directories & Files:** Use kebab-case (e.g., `components/auth-wizard`).
+- **Components:** PascalCase (e.g., `UserProfile`).
+- **Variables, Functions, Methods, Props:** camelCase (e.g., `fetchData`).
+- **Boolean Variables:** Prefix with verbs (e.g., `isLoading`, `hasError`).
+- **Event Handlers:** Prefix with `handle` (e.g., `handleClick`).
+- **Custom Hooks:** Prefix with `use` (e.g., `useAuth`).
+- **Constants & Environment Variables:** UPPER_CASE (e.g., `API_URL`).
+
+---
+
+## TypeScript Usage
+- Use TypeScript for all code.
+- Prefer interfaces over types.
+- Avoid enums; use maps instead.
+- Enable strict mode for better type safety.
+- Use TypeScript utility types (`Partial`, `Pick`, `Omit`) for cleaner, reusable code.
+- Apply generics where necessary.
+
+---
+
+## Syntax and Formatting
+- Use single quotes (`'`) for strings.
+- Use early returns to improve readability.
+- Use `const` whenever possible.
+- Omit semicolons unless required for disambiguation.
+- Add space after keywords and before function parentheses.
+- Always use strict equality (`===`).
+- Use Prettier for consistent formatting.
+- Keep line length under 80 characters.
+- Use trailing commas in multiline object/array literals.
+
+---
+
+## UI and Styling
+- Use **Tailwind CSS** for utility-based styling.
+- Use **Shadcn UI** for accessible components.
+- Use **Radix UI** primitives where necessary.
+- Follow a mobile-first responsive design approach.
+- Implement dark mode using CSS variables or Tailwind’s dark mode.
+- Ensure high accessibility (a11y) standards using ARIA roles and semantic HTML.
+
+---
+
+## State Management
+- Use `useState` for component-level state.
+- Use `useReducer` for complex state logic.
+- Use `useContext` for shared state.
+- Use **Redux Toolkit** for global state management.
+- Normalize state structure to avoid deep nesting.
+- Use selectors to encapsulate state access.
+
+---
+
+## Performance Optimization
+- Minimize the use of `useState` and `useEffect`.
+- Use `useCallback` to memoize functions.
+- Use `useMemo` for expensive calculations.
+- Implement code splitting using dynamic imports.
+- Avoid inline function definitions in JSX.
+
+---
+
+## Routing and Navigation (Next.js)
+- Use Next.js **App Router** for routing.
+- Use the **Link** component for client-side navigation.
+- Use dynamic imports for better performance.
+- Implement proper loading and error states.
+- Use **next-i18next** for internationalization.
+
+---
+
+## Error Handling and Validation
+- Use **Zod** for schema validation.
+- Implement error boundaries for UI stability.
+- Use Sentry for error logging and monitoring.
+- Handle errors at the start of functions.
+- Use early returns instead of deeply nested `if` statements.
+
+---
+
+## Testing
+- Use Jest and React Testing Library for unit tests.
+- Follow the Arrange-Act-Assert pattern.
+- Mock external dependencies.
+- Use snapshot testing selectively.
+- Ensure full keyboard navigation support in accessibility tests.
+
+---
+
+## Security
+- Sanitize user input to prevent XSS attacks.
+- Use **DOMPurify** for HTML sanitization.
+- Implement secure authentication methods.
+- Ensure API communication is encrypted over HTTPS.
+
+---
+
+## Internationalization (i18n)
+- Use **next-i18next** for handling translations.
+- Implement locale detection and proper formatting for numbers and dates.
+- Support RTL layouts where necessary.
+
+---
+
+## Documentation
+- Use **JSDoc** for documenting functions and interfaces.
+- Document public APIs and components.
+- Include examples where applicable.
+- Use markdown formatting for better readability.
+
+---
+
+## Final Notes
+- Follow a **DRY** (Don’t Repeat Yourself) principle.
+- Write code that is **readable and maintainable** over premature optimization.
+- Avoid TODOs or placeholders in production code.
+- Verify and test all functionality before deployment.
 
 ---
 > Source: [cityjson/flatcitybuf](https://github.com/cityjson/flatcitybuf) — distributed by [TomeVault](https://tomevault.io).
