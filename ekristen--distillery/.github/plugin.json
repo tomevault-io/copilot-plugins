@@ -1,0 +1,9 @@
+{
+  "name": "ekristen--distillery",
+  "displayName": "distillery",
+  "description": "like homebrew but with less fizz. install binaries as fast and as easy as possible. no package manager, no recipes or metadata to update, just install and go",
+  "version": "1.0.0",
+  "author": "ekristen",
+  "homepage": "https://github.com/ekristen/distillery",
+  "skills": []
+}
