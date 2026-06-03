@@ -4,7 +4,7 @@
   "repo": "gptcomet",
   "description": "GPTComet: AI-Powered Git Commit Message Generator",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/belingud/gptcomet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T16:41:26Z"
+  "distributed_at": "2026-06-03T16:42:01Z"
 }
