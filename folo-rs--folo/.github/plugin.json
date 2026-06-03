@@ -1,0 +1,9 @@
+{
+  "name": "folo-rs--folo",
+  "displayName": "folo",
+  "description": "Mechanisms for high-performance hardware-aware programming in Rust",
+  "version": "1.0.0",
+  "author": "folo-rs",
+  "homepage": "https://github.com/folo-rs/folo",
+  "skills": []
+}
