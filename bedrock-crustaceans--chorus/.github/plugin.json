@@ -1,0 +1,9 @@
+{
+  "name": "bedrock-crustaceans--chorus",
+  "displayName": "chorus",
+  "description": "Minecraft: Bedrock server software, open source and written in Rust",
+  "version": "1.0.0",
+  "author": "bedrock-crustaceans",
+  "homepage": "https://github.com/bedrock-crustaceans/chorus",
+  "skills": []
+}
