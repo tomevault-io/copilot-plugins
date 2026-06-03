@@ -1,0 +1,12 @@
+## coding-standards
+
+> 本项目为支撑《HyperOS 完美横屏应用计划》模块的 Web UI 端，提供可视化界面修改模块部分配置的能力。
+
+
+## 项目说明
+
+本项目为支撑《HyperOS 完美横屏应用计划》模块的 Web UI 端，提供可视化界面修改模块部分配置的能力。
+
+---
+> Source: [sothx/hyper-magic-window-web-ui](https://github.com/sothx/hyper-magic-window-web-ui) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
