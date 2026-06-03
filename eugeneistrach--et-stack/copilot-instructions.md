@@ -1,104 +1,52 @@
-## 400-ui-client-base
+## 400-ui-component-library
 
-> Guidelines for dumb React components with React 19 and Storybook-first development
+> Component library guidelines - all shadcn components are pre-installed
 
 
 guidelines:
-  state_management:
-    - Keep components dumb and free of data fetching logic
-    - Data fetching and state management should be in container/page components
-    - Pass data and callbacks as props to components
-    - Use TanStack Router and Query only in containers/pages
-    - useState only for component local state
-    - Avoid useEffect except for external system synchronization
+  core:
+    - All shadcn components are already installed
+    - Import from @/components/ui/[component-name]
+    - Style with Tailwind CSS
+    - Use cn() utility for class merging
 
-  react_19_features:
-    - Automatic ref forwarding to DOM elements
-    - No need for forwardRef wrapper
-    - Use ComponentProps for proper typing
-    - Simplified component definitions
-
-  component_practices:
-    - Build dumb, reusable components that are easy to test
-    - Components should accept data and callbacks via props
-    - Single responsibility per component
-    - Composition over inheritance
-    - Extract reusable logic to hooks
-    - Use TypeScript discriminated unions for props
-    - Follow prop naming conventions (e.g., onSubmit, isLoading)
-    - Use Tailwind classes instead of inline styles
-    - Keep components small and manageable
-    - Design components for Storybook first
+  workflow:
+    - No need to install components - all are pre-installed
+    - Import directly from @/components/ui
+    - Check existing components before creating new ones
 
 examples:
-  ref_forwarding:
-    react_18: |
-      const Input = forwardRef<HTMLInputElement>((props, ref) => (
-        <input ref={ref} {...props} />
-      ))
+  import: |
+    import { Button } from "@/components/ui/button"
+    import { Input } from "@/components/ui/input"
 
-    react_19: |
-      const Input = ({ ref, ...props }: ComponentProps<'input'>) =>
-        <input ref={ref} {...props} />
+  styling: |
+    import { cn } from "@/lib/utils"
 
-    usage: |
-      const MyForm = () => {
-        const inputRef = useRef<HTMLInputElement>(null)
-        return <Input ref={inputRef} type="text" placeholder="Enter text" />
-      }
+    <Button
+      className={cn(
+        "bg-primary",
+        className
+      )}
+    >
+      Click me
+    </Button>
 
-  dumb_component: |
-    const UserCard = ({
-      user,
-      onEdit,
-      isEditable = false
-    }: {
-      user: User
-      onEdit: (id: string) => void
-      isEditable?: boolean
-    }) => (
-      <div className="p-4 border rounded">
-        <h3>{user.name}</h3>
-        {isEditable && (
-          <Button onClick={() => onEdit(user.id)}>Edit</Button>
-        )}
-      </div>
-    )
-
-    // Usage in container/page:
-    const UserPage = () => {
-      const { data: user } = useUser()
-      const { mutate: editUser } = useEditUserMutation()
-
-      return user ? (
-        <UserCard
-          user={user}
-          onEdit={editUser}
-          isEditable={true}
-        />
-      ) : null
-    }
+  installation: |
+    # You shouldn't need this - all components are installed
+    # Only as reference if needed:
+    bunx shadcn@latest add button
 
 key_points:
-  state:
-    - Keep data fetching in containers/pages
-    - Pass data down via props
-    - Local state with useState only
-    - Minimal useEffect usage
-
   components:
-    - Build dumb, reusable components
-    - Focus on single responsibility
-    - Design for Storybook testing
-    - Use composition patterns
-    - Leverage TypeScript features
-    - Follow naming conventions
-    - Maintain small component size
+    - All shadcn components pre-installed
+    - Import from @/components/ui
+    - Check before creating new ones
 
   styling:
-    - Use Tailwind classes
-    - Avoid inline styles
-    - Keep styling consistent
+    - Use Tailwind CSS
+    - Merge classes with cn()
+    - Follow Shadcn patterns
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
