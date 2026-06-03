@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq--rabbitmq-amqp-go-client",
+  "displayName": "rabbitmq-amqp-go-client",
+  "description": "Golang RabbitMQ client for AMQP 1.0",
+  "version": "1.0.0",
+  "author": "rabbitmq",
+  "homepage": "https://github.com/rabbitmq/rabbitmq-amqp-go-client",
+  "skills": []
+}
