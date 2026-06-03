@@ -1,0 +1,9 @@
+{
+  "name": "ifokeev--telegram-ai-agent",
+  "displayName": "telegram-ai-agent",
+  "description": "Telegram AI Agent: A powerful Python library for creating AI-powered Telegram bots",
+  "version": "1.0.0",
+  "author": "ifokeev",
+  "homepage": "https://github.com/ifokeev/telegram-ai-agent",
+  "skills": []
+}
