@@ -1,0 +1,9 @@
+{
+  "name": "proof--proof-vc-web",
+  "displayName": "proof-vc-web",
+  "description": "Web Components for Proof Digital Credentials.",
+  "version": "1.0.0",
+  "author": "proof",
+  "homepage": "https://github.com/proof/proof-vc-web",
+  "skills": []
+}
