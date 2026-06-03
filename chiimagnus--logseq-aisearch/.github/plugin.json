@@ -1,0 +1,9 @@
+{
+  "name": "chiimagnus--logseq-aisearch",
+  "displayName": "logseq-AIsearch",
+  "description": "AI Search your Logseq docs based on the current block, returning note sources and AI summarization",
+  "version": "1.0.0",
+  "author": "chiimagnus",
+  "homepage": "https://github.com/chiimagnus/logseq-AIsearch",
+  "skills": []
+}
