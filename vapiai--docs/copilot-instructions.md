@@ -1,125 +1,99 @@
-## examples-documentation
+## index
 
-> Guidelines for example documentation and use case implementations
+> Main documentation rules index and system overview
 
 
-# Example Documentation Standards
+# Vapi Documentation Rules System
 
-Examples should be **small, focused demos** that show how to implement one feature or use case.
+This is the main entry point for Vapi documentation rules. All documentation should follow these core principles and leverage specific rules based on content type.
 
-## Required Sections
+## Core Documentation Standards
 
-1. **Overview** - What the example builds and demonstrates
-2. **Prerequisites** - Account requirements and setup needed
-3. **Step-by-step implementation** - Detailed walkthrough
-4. **Testing/validation** - How to verify it works
-5. **Next steps** - Links to related examples or advanced topics
+Every page must be:
 
-## Content Guidelines
+- **Clear** - Use plain language, avoid jargon
+- **Brief** - Keep sentences and paragraphs short  
+- **Task-oriented** - Present steps in logical order
+- **Scannable** - Use headings, spacing, and components effectively
+- **Outcome-focused** - Ensure every section supports user success
 
-### Opening Structure
+## Active Rules
+
+### Always Applied
+
+- **This index** - System overview and rule navigation
+- **Core principles** ([core-principles.mdc](mdc:.cursor/rules/always-applied/core-principles.mdc)) - Writing style, tone, and fundamental standards
+- **Fern components** ([fern-components.mdc](mdc:.cursor/rules/always-applied/fern-components.mdc)) - Framework-specific component usage
+
+### Content-Type Rules
+
+These apply automatically based on file paths:
+
+- **MDX Components** ([mdx-components.mdc](mdc:.cursor/rules/glob-based/mdx-components.mdc)) - For all `.mdx` files - front-matter, components, formatting
+- **Quickstart Guides** ([quickstart-guide.mdc](mdc:.cursor/rules/glob-based/quickstart-guide.mdc)) - For `/quickstart/` paths - tutorial structure and flow
+- **Examples** ([examples-documentation.mdc](mdc:.cursor/rules/glob-based/examples-documentation.mdc)) - For `/examples/` paths - use case implementations
+- **Workflows** ([workflows-documentation.mdc](mdc:.cursor/rules/glob-based/workflows-documentation.mdc)) - For `/workflows/` paths - complex multi-step processes  
+
+### Agent-requested or Manually applied rules (applied via @rule-name when needed)
+
+- **Code Standards** ([code-standards.mdc](mdc:.cursor/rules/code-standards.mdc)) - Code quality, testing standards
+- **Content Templates** ([content-templates.mdc](mdc:.cursor/rules/content-templates.mdc)) - Page templates and content patterns
+
+## When to Consult Specific Rules
+
+| Working on... | Consult Rule | For guidance on... |
+|---------------|--------------|-------------------|
+| Any `.mdx` file | [mdx-components.mdc](mdc:.cursor/rules/glob-based/mdx-components.mdc) + [fern-components.mdc](mdc:.cursor/rules/always-applied/fern-components.mdc) | Components, front-matter, formatting |
+| Getting started guides | [quickstart-guide.mdc](mdc:.cursor/rules/glob-based/quickstart-guide.mdc) | Tutorial structure, step flow, prerequisites |
+| Use case examples | [examples-documentation.mdc](mdc:.cursor/rules/glob-based/examples-documentation.mdc) | Implementation patterns, multi-modal examples |
+| Complex workflows | [workflows-documentation.mdc](mdc:.cursor/rules/glob-based/workflows-documentation.mdc) | Decision trees, data flow, business context |
+| Code examples | [code-standards.mdc](mdc:.cursor/rules/code-standards.mdc) | Quality, security, best practices |
+| New page types | [content-templates.mdc](mdc:.cursor/rules/content-templates.mdc) | Templates, patterns, structure |
+| Fern components | [fern-components.mdc](mdc:.cursor/rules/always-applied/fern-components.mdc) | Framework-specific components and features |
+
+## Quick Reference
+
+### Standard Opening
 ```mdx
 ## Overview
 
-[1-2 sentence description of what this example demonstrates]
+[Brief description of what users will build/accomplish]
 
-**[Agent/Workflow] Capabilities:**
-* [Specific capability 1]
-* [Specific capability 2]
-
-**What You'll Build:**
-* [Concrete deliverable 1]
-* [Concrete deliverable 2]
-* [Concrete deliverable 3]
+**In this [guide/example], you'll learn to:**
+- [Specific actionable outcome 1]
+- [Specific actionable outcome 2]
 ```
 
-### Implementation Approach
-- **Multi-modal examples**: Always provide both Dashboard and SDK approaches
-- **Complete code**: Include all imports, error handling, and setup
-- **Real-world context**: Use realistic data and scenarios
-- **Production-ready**: Follow best practices and include security considerations
-
-### Code Organization
-Use `<Tabs>` or `<CodeBlocks>` for multiple implementation approaches:
-- Dashboard (visual, no-code)
-- TypeScript (Server SDK)
-- Python (Server SDK)
-- Additional languages as relevant
-
-### Data and Assets
-- Include downloadable sample data (CSVs, JSON files)
-- Provide realistic test scenarios
-- Use placeholder data that reflects real use cases
-
-## Quality Standards
-
-### Code Quality
-- All code examples must be tested and functional
-- Include proper error handling
-- Use environment variables for sensitive data
-- Follow language-specific best practices
-
-### Documentation Quality
-- Explain the reasoning behind implementation choices
-- Include common gotchas and troubleshooting
-- Provide context for business use cases
-- Link to relevant API documentation
-
-### User Experience
-- Clear success criteria for each step
-- Visual confirmation (screenshots, videos)
-- Downloadable resources when helpful
-- Progressive complexity (simple → advanced)
-
-## Templates
-
-### Example Overview
+### Implementation / User Journey Tabs (Fern)
 ```mdx
----
-title: [Use case name]
-subtitle: [Brief description of what users will build]
-slug: [category]/examples/[example-name]
----
-
-## Overview
-
-[Detailed description of the use case and what the example demonstrates]
-
-**[Type] Capabilities:**
-* [Key capability 1]
-* [Key capability 2]
-
-**What You'll Build:**
-* [Deliverable 1 with tools/integrations]
-* [Deliverable 2 with specific features]
-* [Deliverable 3 with validation/testing]
-
-## Prerequisites
-
-* [Account requirement]
-* [Tool/service requirement if applicable]
+<CodeBlocks>
+```txt title="Dashboard"
+// Complete working example
+```
+```typescript title="TypeScript (Server SDK)"
+// Complete working example
+```
+```python title="Python (Server SDK)"
+# Complete working example
+```
+```bash title="cURL"
+# Complete working example
+```
+</CodeBlocks>
 ```
 
-### Step Implementation
+### Standard Closing
 ```mdx
-<Steps>
-  <Step title="[Action-oriented title]">
-    [Brief explanation of the step's purpose]
+## Next steps
 
-    <Tabs>
-      <Tab title="Dashboard">
-        [Visual step-by-step with screenshots]
-      </Tab>
-      <Tab title="TypeScript (Server SDK)">
-        [Complete code example]
-      </Tab>
-      <Tab title="Python (Server SDK)">
-        [Complete code example]
-      </Tab>
-    </Tabs>
-  </Step>
-</Steps>
-``` 
+Now that you have [accomplished goal]:
+- **[Advanced topic]:** [Description with link]
+- **[Related feature]:** [Description with link]
+```
+
+---
+
+**Rule of thumb:** Every sentence should clarify *why* or *how*—if it does neither, remove or rewrite it. 
 
 ---
 > Source: [VapiAI/docs](https://github.com/VapiAI/docs) — distributed by [TomeVault](https://tomevault.io).
