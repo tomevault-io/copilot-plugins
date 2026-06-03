@@ -43874,6 +43874,16 @@
       "description": "AWS CDK Toolkit"
     },
     {
+      "name": "rameerez--profitable",
+      "source": "./rameerez--profitable",
+      "description": "\ud83d\udcb8 Calculate the MRR, ARR, TTM, churn, LTV, ARPU, total revenue & valuation of your pay-powered Rails SaaS app. MRR dashboard for your Rails app."
+    },
+    {
+      "name": "rameerez--profitable",
+      "source": "./rameerez--profitable",
+      "description": "\ud83d\udcb8 Calculate the MRR, ARR, TTM, churn, LTV, ARPU, total revenue & valuation of your pay-powered Rails SaaS app. MRR dashboard for your Rails app."
+    },
+    {
       "name": "livekit--livekit-wakeword",
       "source": "./livekit--livekit-wakeword",
       "description": "An open-source wake word library for creating voice-enabled applications."
@@ -44052,6 +44062,11 @@
       "name": "render-oss--cli",
       "source": "./render-oss--cli",
       "description": "The Official Render CLI"
+    },
+    {
+      "name": "whetstoneresearch--doppler",
+      "source": "./whetstoneresearch--doppler",
+      "description": "Core contracts for the Doppler Protocol"
     },
     {
       "name": "espennilsen--pi",
@@ -45124,6 +45139,16 @@
       "description": "CASSIA: A Multi-Agent LLM-Based Single-Cell Cell Type Annotation Framework"
     },
     {
+      "name": "altaflux--gb-rp2350",
+      "source": "./altaflux--gb-rp2350",
+      "description": "gb-rp2350"
+    },
+    {
+      "name": "opengradient--opengradient-sdk",
+      "source": "./opengradient--opengradient-sdk",
+      "description": "Python SDK for using verifiable AI inference on OpenGradient"
+    },
+    {
       "name": "freepeak--leankg",
       "source": "./freepeak--leankg",
       "description": "LeanKG: Stop Burning Tokens. Start Coding Lean."
@@ -45642,6 +45667,11 @@
       "name": "caol64--wenyan-pc",
       "source": "./caol64--wenyan-pc",
       "description": "\u6587\u989c- Markdown\u6587\u7ae0\u6392\u7248\u7f8e\u5316\u5de5\u5177\uff0c\u652f\u6301\u5fae\u4fe1\u516c\u4f17\u53f7\u3001\u4eca\u65e5\u5934\u6761\u3001\u77e5\u4e4e\u7b49\u5e73\u53f0\u3002"
+    },
+    {
+      "name": "marijnbent--obsidian-print",
+      "source": "./marijnbent--obsidian-print",
+      "description": "Print your notes directly from Obsidian"
     },
     {
       "name": "sugarforever--01coder-agent-skills",
@@ -46817,6 +46847,11 @@
       "name": "kaushikgopal--playground-android",
       "source": "./kaushikgopal--playground-android",
       "description": "Opinionated Android app starter template. I pick the best choice(s) of libraries & solutions (imo) and keep it ready for forking off and building your next Android app."
+    },
+    {
+      "name": "vasallo94--obsidianrag",
+      "source": "./vasallo94--obsidianrag",
+      "description": "Ask questions about your Obsidian notes using local AI. Privacy-first RAG with Ollama, LM Studio, or any OpenAI-compatible server. Obsidian plugin + Docker + PyPI."
     },
     {
       "name": "cohen-liel--hivemind",
@@ -48159,6 +48194,11 @@
       "description": "Play Balatro with LLMs \ud83c\udfaf"
     },
     {
+      "name": "aurcode--ankineitor",
+      "source": "./aurcode--ankineitor",
+      "description": "The best automatic workflow for create your own custom flashcards in Anki"
+    },
+    {
       "name": "databricks--databricks-agent-skills",
       "source": "./databricks--databricks-agent-skills",
       "description": "databricks-agent-skills"
@@ -48867,6 +48907,11 @@
       "name": "jparkerweb--ai-assistant-skills",
       "source": "./jparkerweb--ai-assistant-skills",
       "description": "\ud83e\udd16 A collection of AI agent skills that automate recurring engineering workflows that can be installed across multiple AI coding assistants."
+    },
+    {
+      "name": "paper2--github-actions-opentelemetry",
+      "source": "./paper2--github-actions-opentelemetry",
+      "description": "GitHub Actions OpenTelemetry"
     },
     {
       "name": "dotnet--maui-labs",
@@ -49834,6 +49879,11 @@
       "description": "Fast regressions on database backends"
     },
     {
+      "name": "ivorforce--numdot",
+      "source": "./ivorforce--numdot",
+      "description": "Tensor math and scientific computation for the Godot game engine."
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
@@ -50202,6 +50252,16 @@
       "name": "synth-laboratories--synth-ai",
       "source": "./synth-laboratories--synth-ai",
       "description": "Prompt Optimization"
+    },
+    {
+      "name": "tensorcircuit--tensorcircuit-ng",
+      "source": "./tensorcircuit--tensorcircuit-ng",
+      "description": "The next-gen AI-native tensor-network-based quantum software framework"
+    },
+    {
+      "name": "tensorcircuit--tensorcircuit-ng",
+      "source": "./tensorcircuit--tensorcircuit-ng",
+      "description": "The next-gen AI-native tensor-network-based quantum software framework"
     },
     {
       "name": "m1zz--higlab",
@@ -50952,6 +51012,11 @@
       "name": "mikodin--obsidian-scribe",
       "source": "./mikodin--obsidian-scribe",
       "description": "Record, transcribe, and transform voice notes into structured insights. Leverage Whisper or AssemblyAI and ChatGPT to fill in gaps, generate summaries, and visualize ideas \u2014 all seamlessly integrated "
+    },
+    {
+      "name": "flyfish30--zig-cats",
+      "source": "./flyfish30--zig-cats",
+      "description": "A category theory and functional programing library for Zig language"
     },
     {
       "name": "pproenca--agent-tui",
@@ -51967,6 +52032,16 @@
       "name": "sheldon123z--zotero-notion-paper-flow",
       "source": "./sheldon123z--zotero-notion-paper-flow",
       "description": "\u901a\u8fc7\u626b\u63cfhuggingface\u548carxiv\u76f4\u63a5\u6dfb\u52a0\u6700\u65b0\u6587\u732e\u5230Notion\u3001Wolai\u3001\u4ee5\u53ca\u8bba\u6587\u9605\u8bfb\u795e\u5668Zotero\uff01\u540c\u65f6\uff0c\u53ef\u4ee5\u901a\u8fc7\u5927\u6a21\u578bapi\u76f4\u63a5\u8d8a\u8fc7Notion AI\uff0c\u4f7f\u7528\u5927\u6a21\u578b\u603b\u7ed3\u6587\u732e\u4e3b\u8981\u5185\u5bb9\u4f20\u9012\u5230Notion\u9875\u9762\u7684\u5173\u952e\u5b57\u4e2d\uff0c\u5efa\u8bae\u4f7f\u7528deepseek\uff0c\u6309\u9700\u4f7f\u7528\uff0c\u5988\u5988\u518d\u4e5f\u4e0d\u7528\u62c5\u5fc3\u6da8\u4ef7\u7684Notion AI\u4e86\uff01"
+    },
+    {
+      "name": "get-convex--workflow",
+      "source": "./get-convex--workflow",
+      "description": "Convex component for durably executing workflows."
+    },
+    {
+      "name": "get-convex--workflow",
+      "source": "./get-convex--workflow",
+      "description": "Convex component for durably executing workflows."
     },
     {
       "name": "ersinkoc--fluidflow",
@@ -53214,6 +53289,11 @@
       "description": "Vapi docs"
     },
     {
+      "name": "arcjet--well-known-bots",
+      "source": "./arcjet--well-known-bots",
+      "description": "List of well-known bots and user-agent patterns to detect them"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -53557,6 +53637,11 @@
       "name": "chimera-nas--chimera",
       "source": "./chimera-nas--chimera",
       "description": "high performance multi-protocol NAS stack with asynchronous VFS backend"
+    },
+    {
+      "name": "tedawf--tedawf-com",
+      "source": "./tedawf--tedawf-com",
+      "description": "My personal site built with Next.js"
     },
     {
       "name": "aelf-hzz780--ai-bounty-skill",
@@ -54087,6 +54172,11 @@
       "name": "elizaos--knowledge",
       "source": "./elizaos--knowledge",
       "description": "Data: Ecosystem news, GitHub updates, discussion summaries, and other useful bits for knowledge / RAG systems"
+    },
+    {
+      "name": "tmr232--function-graph-overview",
+      "source": "./tmr232--function-graph-overview",
+      "description": "Control-Flow Graph (CFG) Visualizer for VSCode"
     },
     {
       "name": "0xranx--agentbrief",
@@ -55794,6 +55884,11 @@
       "description": "Repo for AI Compiler team.  The intended purpose of this repo is for implementation of a PJRT device."
     },
     {
+      "name": "ekala-project--corepkgs",
+      "source": "./ekala-project--corepkgs",
+      "description": "Core packages and NixOS modules for a poly-repo nixpkgs fork"
+    },
+    {
       "name": "chongdashu--phaserjs-oakwoods",
       "source": "./chongdashu--phaserjs-oakwoods",
       "description": "A vibe coded implementation of an RPG platformer"
@@ -56744,6 +56839,21 @@
       "description": "Industrial grade self-hosted streaming music server."
     },
     {
+      "name": "gpt-cmdr--ras-commander",
+      "source": "./gpt-cmdr--ras-commander",
+      "description": "The RAS-Commander library provides a python API for automating HEC-RAS 6.x and accessing HDF data using Python, built with and driven by large language models."
+    },
+    {
+      "name": "gpt-cmdr--ras-commander",
+      "source": "./gpt-cmdr--ras-commander",
+      "description": "The RAS-Commander library provides a python API for automating HEC-RAS 6.x and accessing HDF data using Python, built with and driven by large language models."
+    },
+    {
+      "name": "gpt-cmdr--ras-commander",
+      "source": "./gpt-cmdr--ras-commander",
+      "description": "The RAS-Commander library provides a python API for automating HEC-RAS 6.x and accessing HDF data using Python, built with and driven by large language models."
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -57232,6 +57342,16 @@
       "name": "coboglobal--cobo-cli",
       "source": "./coboglobal--cobo-cli",
       "description": "cobo-cli"
+    },
+    {
+      "name": "soteria-tools--soteria",
+      "source": "./soteria-tools--soteria",
+      "description": "Sound static analysis for the masses."
+    },
+    {
+      "name": "soteria-tools--soteria",
+      "source": "./soteria-tools--soteria",
+      "description": "Sound static analysis for the masses."
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -59054,6 +59174,21 @@
       "description": "Main repository for the Modular Autonomous Discovery for Science (MADSci) Framework"
     },
     {
+      "name": "mckaywrigley--slack-customer-service-ai-agent",
+      "source": "./mckaywrigley--slack-customer-service-ai-agent",
+      "description": "slack-customer-service-ai-agent"
+    },
+    {
+      "name": "zsteinkamp--m4l-knobbler4",
+      "source": "./zsteinkamp--m4l-knobbler4",
+      "description": "The best parameter control surface for Ableton Live."
+    },
+    {
+      "name": "rabbitmq--rabbitmq-amqp-go-client",
+      "source": "./rabbitmq--rabbitmq-amqp-go-client",
+      "description": "Golang RabbitMQ client for AMQP 1.0"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -59527,6 +59662,26 @@
       "name": "acornprover--acornlib",
       "source": "./acornprover--acornlib",
       "description": "Acorn's standard library of mathematical facts."
+    },
+    {
+      "name": "reown-com--reown-flutter",
+      "source": "./reown-com--reown-flutter",
+      "description": "Reown is the onchain UX platform that provides toolkits built on top of the WalletConnect Network that enable builders to create onchain user experiences that make digital ownership effortless, intuit"
+    },
+    {
+      "name": "jwalsh--aif-c01",
+      "source": "./jwalsh--aif-c01",
+      "description": "AWS Certified AI Practitioner (AIF-C01) exam preparation"
+    },
+    {
+      "name": "reown-com--reown-flutter",
+      "source": "./reown-com--reown-flutter",
+      "description": "Reown is the onchain UX platform that provides toolkits built on top of the WalletConnect Network that enable builders to create onchain user experiences that make digital ownership effortless, intuit"
+    },
+    {
+      "name": "jwalsh--aif-c01",
+      "source": "./jwalsh--aif-c01",
+      "description": "AWS Certified AI Practitioner (AIF-C01) exam preparation"
     },
     {
       "name": "shinchven--nano-banana-skills",
@@ -60804,6 +60959,41 @@
       "description": "Marchen Player \u662f\u672c\u5730\u89c6\u9891\u7684\u5f39\u5e55\u64ad\u653e\u5668\uff0c\u4f7f\u7528\u5f39\u5f39play API\uff0c\u652f\u6301\u8de8\u5e73\u53f0\uff0c\u62d6\u5165\u52a8\u6f2b\u5373\u53ef\u5339\u914d\u5f39\u5e55"
     },
     {
+      "name": "studydrift--lextures",
+      "source": "./studydrift--lextures",
+      "description": "The first truly adaptive learning environment"
+    },
+    {
+      "name": "studydrift--lextures",
+      "source": "./studydrift--lextures",
+      "description": "The first truly adaptive learning environment"
+    },
+    {
+      "name": "reown-com--reown-kotlin",
+      "source": "./reown-com--reown-kotlin",
+      "description": "reown-kotlin"
+    },
+    {
+      "name": "enragedantelope--youtube-screenshot-extractor",
+      "source": "./enragedantelope--youtube-screenshot-extractor",
+      "description": "Dataset helper for loras or checkpoints! Extract highest-available-quality screenshots from YouTube and many other sources, auto filter for aesthetics, and more!"
+    },
+    {
+      "name": "kaisery--ooxmlsdk",
+      "source": "./kaisery--ooxmlsdk",
+      "description": "Open XML SDK for Rust"
+    },
+    {
+      "name": "reown-com--reown-kotlin",
+      "source": "./reown-com--reown-kotlin",
+      "description": "reown-kotlin"
+    },
+    {
+      "name": "studydrift--lextures",
+      "source": "./studydrift--lextures",
+      "description": "The first truly adaptive learning environment"
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -62042,6 +62232,16 @@
       "name": "sirkirby--unifi-network-rules",
       "source": "./sirkirby--unifi-network-rules",
       "description": "Allows you to manage, backup, and automate your UDM firewall policies, routes, and rules in Home Assistant"
+    },
+    {
+      "name": "goberomsu--metadata-auto-classifier",
+      "source": "./goberomsu--metadata-auto-classifier",
+      "description": "AI-powered Obsidian plugin that automatically classifies and generates metadata (tags, frontmatter) for your notes."
+    },
+    {
+      "name": "goberomsu--metadata-auto-classifier",
+      "source": "./goberomsu--metadata-auto-classifier",
+      "description": "AI-powered Obsidian plugin that automatically classifies and generates metadata (tags, frontmatter) for your notes."
     },
     {
       "name": "domye--solace",
@@ -63614,6 +63814,26 @@
       "description": "Powerful DI-framework with scopes"
     },
     {
+      "name": "zhangfisher--autostore",
+      "source": "./zhangfisher--autostore",
+      "description": "Very easy and elegant state management library. It is based on proxy and provides functions such as signaling, computation, and watching to ensure fine-grained updates"
+    },
+    {
+      "name": "jparkerweb--rich-foot",
+      "source": "./jparkerweb--rich-foot",
+      "description": "\ud83e\uddb6 Obsidian plugin that adds backlink/outlink tags and created/modified dates to the footer of your notes"
+    },
+    {
+      "name": "tinyplex--tinywidgets",
+      "source": "./tinyplex--tinywidgets",
+      "description": "A collection of tiny, reusable, UI components \u2014 wrapped in a helpful app layout with header, side bar, dark mode, and more."
+    },
+    {
+      "name": "zhangfisher--autostore",
+      "source": "./zhangfisher--autostore",
+      "description": "Very easy and elegant state management library. It is based on proxy and provides functions such as signaling, computation, and watching to ensure fine-grained updates"
+    },
+    {
       "name": "andrew-malitchuk--kite-aos",
       "source": "./andrew-malitchuk--kite-aos",
       "description": "Modern, open-source Android kiosk application designed to transform tablets into dedicated smart home dashboards."
@@ -64422,6 +64642,21 @@
       "name": "cyanheads--repo-map",
       "source": "./cyanheads--repo-map",
       "description": "repo-map generates LLM-enhanced summaries and analysis of software repositories, providing developers with valuable insights into project structures, file purposes, and potential considerations across"
+    },
+    {
+      "name": "tranhuudat2004--tranhuudat2004-github-io",
+      "source": "./tranhuudat2004--tranhuudat2004-github-io",
+      "description": "My personal portfolio website built with HTML, CSS, and JavaScript, showcasing my projects, skills, and resume. Hosted on GitHub Pages."
+    },
+    {
+      "name": "namesakefyi--namesake-convex",
+      "source": "./namesakefyi--namesake-convex",
+      "description": "Web app to aid with the legal name and gender marker change process in the U.S."
+    },
+    {
+      "name": "namesakefyi--namesake-convex",
+      "source": "./namesakefyi--namesake-convex",
+      "description": "Web app to aid with the legal name and gender marker change process in the U.S."
     },
     {
       "name": "lktiep--cortex-hub",
@@ -65272,6 +65507,31 @@
       "name": "tscircuit--tscircuit-com",
       "source": "./tscircuit--tscircuit-com",
       "description": "The main website, playground and online development environment for tscircuit (React Electronics)"
+    },
+    {
+      "name": "schemalabz--opencouncil",
+      "source": "./schemalabz--opencouncil",
+      "description": "Making local government more transparent and accessible"
+    },
+    {
+      "name": "schemalabz--opencouncil",
+      "source": "./schemalabz--opencouncil",
+      "description": "Making local government more transparent and accessible"
+    },
+    {
+      "name": "schemalabz--opencouncil",
+      "source": "./schemalabz--opencouncil",
+      "description": "Making local government more transparent and accessible"
+    },
+    {
+      "name": "schemalabz--opencouncil",
+      "source": "./schemalabz--opencouncil",
+      "description": "Making local government more transparent and accessible"
+    },
+    {
+      "name": "hazelnutparadise--insyra",
+      "source": "./hazelnutparadise--insyra",
+      "description": "Not just an alternative to Pandas in Go. A next-generation data analysis library for Golang with factor analysis, Parquet, CSV, JSON, Excel, and seamless Python integration."
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -66317,6 +66577,11 @@
       "name": "satisfactory-factories--application",
       "source": "./satisfactory-factories--application",
       "description": "A web tool for planning production chains with dependency management within the game Satisfactory."
+    },
+    {
+      "name": "slothvips--vue-command-component",
+      "source": "./slothvips--vue-command-component",
+      "description": "Vue3\u547d\u4ee4\u5f0f\u7ec4\u4ef6\u89e3\u51b3\u65b9\u6848"
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -142629,6 +142894,16 @@
       "description": "tts-studio-pro"
     },
     {
+      "name": "nils0000shiyong--claude-cyber-company",
+      "source": "./nils0000shiyong--claude-cyber-company",
+      "description": "\u8dd1\u5728 Claude Code / Codex \u4e4b\u4e0a\u7684\u672c\u5730\u591a Agent \u534f\u4f5c\u811a\u624b\u67b6:\u4e00\u4e2a\u4eba\u4e0b\u6307\u4ee4,\u4e3b Agent \u62c6\u89e3\u5206\u6d3e\u7ed9\u4e13\u804c\u89d2\u8272,\u5171\u7528\u6587\u4ef6\u7ea7\u8bb0\u5fc6\u5c42\u3002\u4f5c\u8005\u81ea\u7528\u7684\u4e3b\u8981\u65b9\u6cd5\u662f\u63a5\u7ed9\u98de\u4e66bot\uff0cElon\u4f1a\u9ed8\u8ba4\u79f0\u547c\u4f60\u4e3a\u201d\u8463\u4e8b\u957f\u201c"
+    },
+    {
+      "name": "nils0000shiyong--claude-cyber-company",
+      "source": "./nils0000shiyong--claude-cyber-company",
+      "description": "\u8dd1\u5728 Claude Code / Codex \u4e4b\u4e0a\u7684\u672c\u5730\u591a Agent \u534f\u4f5c\u811a\u624b\u67b6:\u4e00\u4e2a\u4eba\u4e0b\u6307\u4ee4,\u4e3b Agent \u62c6\u89e3\u5206\u6d3e\u7ed9\u4e13\u804c\u89d2\u8272,\u5171\u7528\u6587\u4ef6\u7ea7\u8bb0\u5fc6\u5c42\u3002\u4f5c\u8005\u81ea\u7528\u7684\u4e3b\u8981\u65b9\u6cd5\u662f\u63a5\u7ed9\u98de\u4e66bot\uff0cElon\u4f1a\u9ed8\u8ba4\u79f0\u547c\u4f60\u4e3a\u201d\u8463\u4e8b\u957f\u201c"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -156267,6 +156542,11 @@
       "name": "marvekg--bestaitrader",
       "source": "./marvekg--bestaitrader",
       "description": "BestAITrader"
+    },
+    {
+      "name": "buffer121328--deparchitect",
+      "source": "./buffer121328--deparchitect",
+      "description": "\u672c\u9879\u76ee\u662f\u4e00\u4e2avibe coding\u9879\u76ee\uff0c\u53ef\u4ee5\u5f53\u4f5c\u5b66\u4e60vibe coding\u7684\u4e00\u4e2a\u5b9e\u6218\u6848\u4f8b\uff0c\u6216\u8005\u5f53\u4f5c\u4e00\u4e2a\u72ec\u7acb\u7684\u5f00\u6e90\u9879\u76ee\u6765\u4f7f\u7528\u3002 \u9879\u76ee\u91c7\u7528\u7684\u662fopencode+omo-slim+openspec\u7684\u5f00\u53d1\u6d41\u7a0b\u548c\u89c4\u8303"
     },
     {
       "name": "yschimke--compose-ai-tools",
