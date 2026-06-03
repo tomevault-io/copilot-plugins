@@ -1,0 +1,9 @@
+{
+  "name": "vasallo94--obsidianrag",
+  "displayName": "ObsidianRAG",
+  "description": "Ask questions about your Obsidian notes using local AI. Privacy-first RAG with Ollama, LM Studio, or any OpenAI-compatible server. Obsidian plugin + Docker + PyPI.",
+  "version": "1.0.0",
+  "author": "Vasallo94",
+  "homepage": "https://github.com/Vasallo94/ObsidianRAG",
+  "skills": []
+}
