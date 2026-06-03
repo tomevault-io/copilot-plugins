@@ -4,7 +4,7 @@
   "repo": "applesauce",
   "description": "A collection of tools for building nostr web clients",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hzrd149/applesauce",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T10:30:27Z"
+  "distributed_at": "2026-06-03T10:31:02Z"
 }
