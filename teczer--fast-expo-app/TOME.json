@@ -1,0 +1,44 @@
+{
+  "name": "fast-expo-app",
+  "owner": "Teczer",
+  "repo": "fast-expo-app",
+  "description": "\u26a1 Fast Expo App - React Native boilerplate CLI for rapid mobile app development. Instantly scaffold Expo projects with TypeScript, Nativewind, Unistyles, Expo Router, MMKV storage, React Query, Jest testing, and expo-dev-client. Features modular architecture, dark mode support, ESLint, Prettier, and automated setup",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Teczer/fast-expo-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T17:32:51Z"
+}
