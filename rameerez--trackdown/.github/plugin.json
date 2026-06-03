@@ -1,0 +1,9 @@
+{
+  "name": "rameerez--trackdown",
+  "displayName": "trackdown",
+  "description": "\ud83d\udccd Ruby gem to geolocate IPs easily",
+  "version": "1.0.0",
+  "author": "rameerez",
+  "homepage": "https://github.com/rameerez/trackdown",
+  "skills": []
+}
