@@ -1,0 +1,9 @@
+{
+  "name": "alastairlundy--cliinvoke",
+  "displayName": "CliInvoke",
+  "description": "CliInvoke is a .NET library for interacting with Command Line Interfaces and wrapping around executables.",
+  "version": "1.0.0",
+  "author": "alastairlundy",
+  "homepage": "https://github.com/alastairlundy/CliInvoke",
+  "skills": []
+}
