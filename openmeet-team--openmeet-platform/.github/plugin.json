@@ -1,0 +1,9 @@
+{
+  "name": "openmeet-team--openmeet-platform",
+  "displayName": "openmeet-platform",
+  "description": "Opensource Meetup.com replacement; find or create your communities",
+  "version": "1.0.0",
+  "author": "OpenMeet-Team",
+  "homepage": "https://github.com/OpenMeet-Team/openmeet-platform",
+  "skills": []
+}
