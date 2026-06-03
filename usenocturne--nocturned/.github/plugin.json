@@ -1,0 +1,9 @@
+{
+  "name": "usenocturne--nocturned",
+  "displayName": "nocturned",
+  "description": "Local daemon for real-time web/host communication",
+  "version": "1.0.0",
+  "author": "usenocturne",
+  "homepage": "https://github.com/usenocturne/nocturned",
+  "skills": []
+}
