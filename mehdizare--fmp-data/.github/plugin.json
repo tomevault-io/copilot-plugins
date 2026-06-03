@@ -1,0 +1,9 @@
+{
+  "name": "mehdizare--fmp-data",
+  "displayName": "fmp-data",
+  "description": "FMP Data: A Modern Python Client for Financial Modeling Prep API",
+  "version": "1.0.0",
+  "author": "MehdiZare",
+  "homepage": "https://github.com/MehdiZare/fmp-data",
+  "skills": []
+}
