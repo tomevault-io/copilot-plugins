@@ -7,13 +7,13 @@ qr code directory of malaysian mosques, suraus, and islamic institutions.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [khrnchn/sedekah-je](https://github.com/khrnchn/sedekah-je).
+Original source: `CLAUDE.md` in [khrnchn/sedekah-je](https://github.com/khrnchn/sedekah-je).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
