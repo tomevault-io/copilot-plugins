@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--crypto",
+  "displayName": "crypto",
+  "description": "DuckDB Extension for cryptographic hash functions and HMAC",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/crypto",
+  "skills": []
+}
