@@ -1,0 +1,9 @@
+{
+  "name": "cityjson--flatcitybuf",
+  "displayName": "flatcitybuf",
+  "description": "CityJSON encoding with FlatBuffers",
+  "version": "1.0.0",
+  "author": "cityjson",
+  "homepage": "https://github.com/cityjson/flatcitybuf",
+  "skills": []
+}
