@@ -1,0 +1,9 @@
+{
+  "name": "cjinhuo--blazwitcher",
+  "displayName": "blazwitcher",
+  "description": "A Chrome Extension to blaze through your tabs, bookmarks, and history \u2014 with powerful fuzzy Pinyin search and grouping tags by AI. \u4e00\u6b3e\u53ef\u4ee5\u5168\u5c40\u641c\u7d22\u6807\u7b7e\u3001\u4e66\u7b7e\u548c\u5386\u53f2\u8bb0\u5f55\u7684 Chrome \u6d4f\u89c8\u5668\u6269\u5c55\uff0c\u652f\u6301\u62fc\u97f3\u6a21\u7cca\u641c\u7d22\u548c AI \u6807\u7b7e\u5206\u7ec4",
+  "version": "1.0.0",
+  "author": "cjinhuo",
+  "homepage": "https://github.com/cjinhuo/blazwitcher",
+  "skills": []
+}
