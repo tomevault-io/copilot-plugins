@@ -1,0 +1,9 @@
+{
+  "name": "grlt-hub--app-compose",
+  "displayName": "app-compose",
+  "description": "Lightweight IoC for the front-end. Compose apps you can control and trust.",
+  "version": "1.0.0",
+  "author": "grlt-hub",
+  "homepage": "https://github.com/grlt-hub/app-compose",
+  "skills": []
+}
