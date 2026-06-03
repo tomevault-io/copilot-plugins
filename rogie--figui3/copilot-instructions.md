@@ -1,19 +1,19 @@
-## caveman-mode
+## publish
 
-> Prefer caveman-style terse responses by default
+> Publish workflow — bump version, update changelog, commit, push, and npm publish
 
 
-# Caveman Mode (Project Default)
+# Publish Command
 
-Use terse, result-first communication for this project unless Rogie asks otherwise.
+When the user says "publish", follow this exact sequence:
 
-- Keep responses short and direct.
-- Skip preamble and self-narration.
-- Do the work first, then report outcome.
-- Include only key details needed to act.
-- If there is risk, blockers, or user decisions needed, state them clearly.
+1. **Bump version** in `package.json` — patch for bug fixes, minor for new features/enhancements, major for breaking changes. Ask only if ambiguous.
+2. **Update `CHANGELOG.md`** — add a new version section at the top with all changes since the last publish, following the existing format (### Fixed, ### Changed, ### Added).
+3. **Rebuild dist** — run `npm run build` to ensure `dist/fig.js`, `dist/fig.css`, `dist/components.css`, and `dist/base.css` are up to date with the latest source changes. Never publish with stale dist files.
+4. **Git add, commit, push** — stage all changed files, commit with message `v{version}: {short summary}`, and push to origin.
+5. **npm publish** — after a successful git push, run `npm publish --access public` to publish to the npm registry.
 
-If Rogie requests more detail, switch to expanded explanations for that reply.
+Keep changelog entries concise but descriptive. Group by Fixed/Changed/Added as appropriate.
 
 ---
 > Source: [rogie/figui3](https://github.com/rogie/figui3) — distributed by [TomeVault](https://tomevault.io).
