@@ -1,0 +1,9 @@
+{
+  "name": "orange-opensource--ouds-ios",
+  "displayName": "ouds-ios",
+  "description": "A Swift Package of SwiftUI components library for Orange developers with Orange Unified Design System. Build Sharper. Ship faster. Perform better.",
+  "version": "1.0.0",
+  "author": "Orange-OpenSource",
+  "homepage": "https://github.com/Orange-OpenSource/ouds-ios",
+  "skills": []
+}
