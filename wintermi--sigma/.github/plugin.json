@@ -1,0 +1,9 @@
+{
+  "name": "wintermi--sigma",
+  "displayName": "sigma",
+  "description": "sigma is a Go package for provider-neutral AI model calls.",
+  "version": "1.0.0",
+  "author": "wintermi",
+  "homepage": "https://github.com/wintermi/sigma",
+  "skills": []
+}
