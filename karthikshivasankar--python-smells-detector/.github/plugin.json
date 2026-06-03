@@ -1,0 +1,9 @@
+{
+  "name": "karthikshivasankar--python-smells-detector",
+  "displayName": "python_smells_detector",
+  "description": "PyExamine: A Comprehensive, Un-Opinionated Smell Detection Tool for Python",
+  "version": "1.0.0",
+  "author": "KarthikShivasankar",
+  "homepage": "https://github.com/KarthikShivasankar/python_smells_detector",
+  "skills": []
+}
