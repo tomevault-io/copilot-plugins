@@ -1,0 +1,9 @@
+{
+  "name": "martinnormark--neural-mesh-simplification",
+  "displayName": "neural-mesh-simplification",
+  "description": "Un-official and WIP Implementation of the Neural Mesh Simplification paper",
+  "version": "1.0.0",
+  "author": "martinnormark",
+  "homepage": "https://github.com/martinnormark/neural-mesh-simplification",
+  "skills": []
+}
