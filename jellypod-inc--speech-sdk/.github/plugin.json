@@ -1,0 +1,9 @@
+{
+  "name": "jellypod-inc--speech-sdk",
+  "displayName": "speech-sdk",
+  "description": "Universal Text-To-Speech TypeScript SDK with Multi-Provider Support.",
+  "version": "1.0.0",
+  "author": "Jellypod-Inc",
+  "homepage": "https://github.com/Jellypod-Inc/speech-sdk",
+  "skills": []
+}
