@@ -1,0 +1,9 @@
+{
+  "name": "civictechdc--cib-mango-tree",
+  "displayName": "cib-mango-tree",
+  "description": "An interactive python terminal UI wrapper for mango tree analyzers",
+  "version": "1.0.0",
+  "author": "civictechdc",
+  "homepage": "https://github.com/civictechdc/cib-mango-tree",
+  "skills": []
+}
