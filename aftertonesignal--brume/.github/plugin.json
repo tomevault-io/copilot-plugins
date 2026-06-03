@@ -1,0 +1,9 @@
+{
+  "name": "aftertonesignal--brume",
+  "displayName": "brume",
+  "description": "A 24-voice, multi-part synthesizer for the Raspberry Pi CM5. Touchscreen UI, audio and MIDI over USB, four sound engines, no samples.",
+  "version": "1.0.0",
+  "author": "aftertonesignal",
+  "homepage": "https://github.com/aftertonesignal/brume",
+  "skills": []
+}
