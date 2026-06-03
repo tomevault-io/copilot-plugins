@@ -4,7 +4,7 @@
   "repo": "faro-flutter-sdk",
   "description": "The Grafana Faro Flutter SDK, part of the Grafana Faro project, is a highly configurable flutter SDK for real user monitoring (RUM) that instruments flutter applications to capture observability signals. Flutter frontend telemetry can then be correlated with backend and infrastructure data for full-stack observability.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/grafana/faro-flutter-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T12:43:26Z"
+  "distributed_at": "2026-06-03T12:45:11Z"
 }
