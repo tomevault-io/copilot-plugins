@@ -1,0 +1,9 @@
+{
+  "name": "pypomp--pypomp",
+  "displayName": "pypomp",
+  "description": "Inference and modeling for partially observed Markov process (POMP) models",
+  "version": "1.0.0",
+  "author": "pypomp",
+  "homepage": "https://github.com/pypomp/pypomp",
+  "skills": []
+}
