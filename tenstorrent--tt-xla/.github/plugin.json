@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--tt-xla",
+  "displayName": "tt-xla",
+  "description": "Repo for AI Compiler team.  The intended purpose of this repo is for implementation of a PJRT device.",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-xla",
+  "skills": []
+}
