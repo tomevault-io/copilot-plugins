@@ -1,0 +1,9 @@
+{
+  "name": "open-lm-engine--accelerated-model-architectures",
+  "displayName": "accelerated-model-architectures",
+  "description": "A bunch of kernels that might make stuff slower \ud83d\ude09",
+  "version": "1.0.0",
+  "author": "open-lm-engine",
+  "homepage": "https://github.com/open-lm-engine/accelerated-model-architectures",
+  "skills": []
+}
