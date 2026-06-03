@@ -4,7 +4,7 @@
   "repo": "python_smells_detector",
   "description": "PyExamine: A Comprehensive, Un-Opinionated Smell Detection Tool for Python",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KarthikShivasankar/python_smells_detector",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T00:42:32Z"
+  "distributed_at": "2026-06-03T00:45:19Z"
 }
