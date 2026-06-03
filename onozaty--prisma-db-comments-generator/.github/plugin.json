@@ -1,0 +1,9 @@
+{
+  "name": "onozaty--prisma-db-comments-generator",
+  "displayName": "prisma-db-comments-generator",
+  "description": "Generate database comments from Prisma schema.",
+  "version": "1.0.0",
+  "author": "onozaty",
+  "homepage": "https://github.com/onozaty/prisma-db-comments-generator",
+  "skills": []
+}
