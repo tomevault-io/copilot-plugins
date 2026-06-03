@@ -1,0 +1,9 @@
+{
+  "name": "kkrt-labs--keth",
+  "displayName": "keth",
+  "description": "A EVM block proving backend in Cairo",
+  "version": "1.0.0",
+  "author": "kkrt-labs",
+  "homepage": "https://github.com/kkrt-labs/keth",
+  "skills": []
+}
