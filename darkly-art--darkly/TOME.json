@@ -4,7 +4,7 @@
   "repo": "darkly",
   "description": "Entropic Editor for Artists \ud83d\ude08",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/darkly-art/darkly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T23:30:24Z"
+  "distributed_at": "2026-06-03T23:30:56Z"
 }
