@@ -1,0 +1,9 @@
+{
+  "name": "myui--rtrec",
+  "displayName": "rtrec",
+  "description": "An realtime recommendation system supporting online updates",
+  "version": "1.0.0",
+  "author": "myui",
+  "homepage": "https://github.com/myui/rtrec",
+  "skills": []
+}
