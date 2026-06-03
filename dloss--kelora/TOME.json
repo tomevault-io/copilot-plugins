@@ -4,7 +4,7 @@
   "repo": "kelora",
   "description": "CLI log processor with embedded Rhai scripting and built-in functions for parsing, transforming, and analyzing logs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dloss/kelora",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T18:33:22Z"
+  "distributed_at": "2026-06-03T18:33:56Z"
 }
