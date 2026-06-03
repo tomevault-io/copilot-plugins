@@ -1,0 +1,9 @@
+{
+  "name": "yaodub--cast",
+  "displayName": "cast",
+  "description": "Your agent team, on your machine. Open-source harness for multi-user Claude agents.",
+  "version": "1.0.0",
+  "author": "yaodub",
+  "homepage": "https://github.com/yaodub/cast",
+  "skills": []
+}
