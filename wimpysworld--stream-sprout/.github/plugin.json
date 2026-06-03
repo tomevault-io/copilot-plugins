@@ -1,0 +1,9 @@
+{
+  "name": "wimpysworld--stream-sprout",
+  "displayName": "stream-sprout",
+  "description": "Restream a video source to multiple destinations such as Twitch, YouTube, Owncast and Peertube \ud83d\udce1",
+  "version": "1.0.0",
+  "author": "wimpysworld",
+  "homepage": "https://github.com/wimpysworld/stream-sprout",
+  "skills": []
+}
