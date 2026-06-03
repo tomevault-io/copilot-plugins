@@ -1,9 +1,9 @@
 {
   "name": "embeddedgui--embeddedgui",
   "displayName": "EmbeddedGUI",
-  "description": "EmbeddedGUI",
+  "description": "\u652f\u6301FPB\u3001\u6297\u952f\u9f7f\u3001\u52a8\u753b\u3001\u810f\u77e9\u9635\u7684\u9ad8\u6548\u5d4c\u5165\u5f0fGUI",
   "version": "1.0.0",
   "author": "EmbeddedGUI",
-  "homepage": "https://tomevault.io/claim/EmbeddedGUI",
+  "homepage": "https://github.com/EmbeddedGUI/EmbeddedGUI",
   "skills": []
 }
