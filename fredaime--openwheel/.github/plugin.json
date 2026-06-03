@@ -1,0 +1,9 @@
+{
+  "name": "fredaime--openwheel",
+  "displayName": "openwheel",
+  "description": "Set of tools for handling ASUS Dial and simmilar designware hardware under Linux",
+  "version": "1.0.0",
+  "author": "fredaime",
+  "homepage": "https://github.com/fredaime/openwheel",
+  "skills": []
+}
