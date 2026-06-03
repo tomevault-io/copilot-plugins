@@ -1,0 +1,9 @@
+{
+  "name": "cartodb--raquet",
+  "displayName": "raquet",
+  "description": "RaQuet is a specification for storing and querying raster data using Apache Parquet.",
+  "version": "1.0.0",
+  "author": "CartoDB",
+  "homepage": "https://github.com/CartoDB/raquet",
+  "skills": []
+}
