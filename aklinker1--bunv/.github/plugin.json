@@ -1,0 +1,9 @@
+{
+  "name": "aklinker1--bunv",
+  "displayName": "bunv",
+  "description": "Corepack for Bun. PoC for implementing a version manager inside bun itself.",
+  "version": "1.0.0",
+  "author": "aklinker1",
+  "homepage": "https://github.com/aklinker1/bunv",
+  "skills": []
+}
