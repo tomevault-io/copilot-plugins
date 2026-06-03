@@ -1,9 +1,9 @@
 {
   "name": "zackees--fastled-wasm",
   "displayName": "fastled-wasm",
-  "description": "fastled-wasm",
+  "description": "The FastLED web compiler. Lightning fast 3 second compile and 1 second deploy on fast machines.",
   "version": "1.0.0",
   "author": "zackees",
-  "homepage": "https://tomevault.io/claim/zackees",
+  "homepage": "https://github.com/zackees/fastled-wasm",
   "skills": []
 }
