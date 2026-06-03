@@ -1,0 +1,9 @@
+{
+  "name": "parkerdgabel--quackml",
+  "displayName": "quackML",
+  "description": "A duckDB extension implementing a full service AI/ML enginer",
+  "version": "1.0.0",
+  "author": "parkerdgabel",
+  "homepage": "https://github.com/parkerdgabel/quackML",
+  "skills": []
+}
