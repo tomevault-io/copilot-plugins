@@ -1,0 +1,9 @@
+{
+  "name": "posaune0423--use-haptic",
+  "displayName": "use-haptic",
+  "description": "A convenient React hook that utilizes input[switch] introduced in Safari 18.0 to trigger haptic feedback anytime, anywhere in your application.",
+  "version": "1.0.0",
+  "author": "posaune0423",
+  "homepage": "https://github.com/posaune0423/use-haptic",
+  "skills": []
+}
