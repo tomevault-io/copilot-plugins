@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--evalexpr-rhai",
+  "displayName": "evalexpr_rhai",
+  "description": "A DuckDB extension to evaluate the Rhai scripting language as part of SQL.",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/evalexpr_rhai",
+  "skills": []
+}
