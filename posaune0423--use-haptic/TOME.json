@@ -4,7 +4,7 @@
   "repo": "use-haptic",
   "description": "A convenient React hook that utilizes input[switch] introduced in Safari 18.0 to trigger haptic feedback anytime, anywhere in your application.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/posaune0423/use-haptic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T09:33:59Z"
+  "distributed_at": "2026-06-03T09:40:56Z"
 }
