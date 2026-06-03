@@ -1,0 +1,9 @@
+{
+  "name": "jihad--n8n-fireflyiii-node",
+  "displayName": "n8n-fireflyiii-node",
+  "description": "Custom n8n node to interact with FireFly iii API",
+  "version": "1.0.0",
+  "author": "Jihad",
+  "homepage": "https://github.com/Jihad/n8n-fireflyiii-node",
+  "skills": []
+}
