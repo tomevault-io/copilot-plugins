@@ -4,7 +4,7 @@
   "repo": "misskey-tempura",
   "description": "A feature-rich Misskey fork focused on enhancing security, privacy, and user experience.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lqvp/misskey-tempura",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T07:36:03Z"
+  "distributed_at": "2026-06-03T07:41:36Z"
 }
