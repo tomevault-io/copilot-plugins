@@ -1,0 +1,9 @@
+{
+  "name": "marinasundstrom--raven",
+  "displayName": "raven",
+  "description": "A modern programming language for .NET - Compiler inspired by the .NET Roslyn compiler architecture.",
+  "version": "1.0.0",
+  "author": "marinasundstrom",
+  "homepage": "https://github.com/marinasundstrom/raven",
+  "skills": []
+}
