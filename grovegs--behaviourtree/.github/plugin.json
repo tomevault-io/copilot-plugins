@@ -1,0 +1,9 @@
+{
+  "name": "grovegs--behaviourtree",
+  "displayName": "BehaviourTree",
+  "description": "A modular and extensible behavior tree framework for AI development in C# for the .NET and Godot Engine.",
+  "version": "1.0.0",
+  "author": "grovegs",
+  "homepage": "https://github.com/grovegs/BehaviourTree",
+  "skills": []
+}
