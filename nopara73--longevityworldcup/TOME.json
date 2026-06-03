@@ -2,7 +2,7 @@
   "name": "LongevityWorldCup",
   "owner": "nopara73",
   "repo": "LongevityWorldCup",
-  "description": "",
+  "description": "Open-source longevity sport platform with biological-age calculators, athlete profiles, and public leaderboards.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/nopara73",
+  "source_url": "https://github.com/nopara73/LongevityWorldCup",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T10:54:10Z"
+  "distributed_at": "2026-06-03T10:37:19Z"
 }
