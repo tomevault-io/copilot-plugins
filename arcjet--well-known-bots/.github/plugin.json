@@ -1,0 +1,9 @@
+{
+  "name": "arcjet--well-known-bots",
+  "displayName": "well-known-bots",
+  "description": "List of well-known bots and user-agent patterns to detect them",
+  "version": "1.0.0",
+  "author": "arcjet",
+  "homepage": "https://github.com/arcjet/well-known-bots",
+  "skills": []
+}
