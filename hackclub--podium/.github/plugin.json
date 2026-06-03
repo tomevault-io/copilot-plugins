@@ -1,0 +1,9 @@
+{
+  "name": "hackclub--podium",
+  "displayName": "podium",
+  "description": "Podium is Hack Club's open-source peer-judging platform for hackathons",
+  "version": "1.0.0",
+  "author": "hackclub",
+  "homepage": "https://github.com/hackclub/podium",
+  "skills": []
+}
