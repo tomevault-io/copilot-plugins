@@ -1,0 +1,9 @@
+{
+  "name": "baz-scm--pgmq-ts",
+  "displayName": "pgmq-ts",
+  "description": "Native SQL implementation for PGMQ in typescript, based on pgmq-rs",
+  "version": "1.0.0",
+  "author": "baz-scm",
+  "homepage": "https://github.com/baz-scm/pgmq-ts",
+  "skills": []
+}
