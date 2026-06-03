@@ -1,0 +1,9 @@
+{
+  "name": "aidyou--chatspeed",
+  "displayName": "chatspeed",
+  "description": "An AI chat proxy with universal tool access, protocol conversion, load balancing, key isolation, prompt enhancement, centralized MCP hub, and built-in WebSearch & WebFetch \u2014 more than an AI assistant ",
+  "version": "1.0.0",
+  "author": "aidyou",
+  "homepage": "https://github.com/aidyou/chatspeed",
+  "skills": []
+}
