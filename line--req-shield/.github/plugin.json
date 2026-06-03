@@ -1,0 +1,9 @@
+{
+  "name": "line--req-shield",
+  "displayName": "req-shield",
+  "description": "The Req-Shield is a lib that regulates the cache-based requests an application receives in terms of request-collapsing",
+  "version": "1.0.0",
+  "author": "line",
+  "homepage": "https://github.com/line/req-shield",
+  "skills": []
+}
