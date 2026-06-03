@@ -1,0 +1,9 @@
+{
+  "name": "publicmap--amche-atlas",
+  "displayName": "amche-atlas",
+  "description": "A lightweight and customizable web GIS platform for the state of Goa, India. Designed as a community maintained tool for hyperlocal spatial data exploration and decision making.",
+  "version": "1.0.0",
+  "author": "publicmap",
+  "homepage": "https://github.com/publicmap/amche-atlas",
+  "skills": []
+}
