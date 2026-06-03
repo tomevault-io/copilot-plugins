@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--inference-playground",
+  "displayName": "inference-playground",
+  "description": "inference-playground",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/inference-playground",
+  "skills": []
+}
