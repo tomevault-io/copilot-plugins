@@ -77919,6 +77919,16 @@
       "description": "Et projekt for at formidle data om dansk landbrug"
     },
     {
+      "name": "playgama--bridge",
+      "source": "./playgama--bridge",
+      "description": "One SDK for cross-platform publishing HTML5 games"
+    },
+    {
+      "name": "playgama--bridge",
+      "source": "./playgama--bridge",
+      "description": "One SDK for cross-platform publishing HTML5 games"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -81667,6 +81677,11 @@
       "name": "kdunee--intentguard",
       "source": "./kdunee--intentguard",
       "description": "A Python library for verifying code properties using natural language assertions."
+    },
+    {
+      "name": "aio-libs--propcache",
+      "source": "./aio-libs--propcache",
+      "description": "Fast property caching"
     },
     {
       "name": "r44vc0rp--itui",
@@ -86772,6 +86787,16 @@
       "name": "roberthsu2003--llms-raspberry",
       "source": "./roberthsu2003--llms-raspberry",
       "description": "\u672c\u5730\u7aefLLMs\u5728Raspberry\u4e0a\u7684\u61c9\u7528"
+    },
+    {
+      "name": "x-wp--di",
+      "source": "./x-wp--di",
+      "description": "Dependency Injection System for WordPress"
+    },
+    {
+      "name": "x-wp--di",
+      "source": "./x-wp--di",
+      "description": "Dependency Injection System for WordPress"
     },
     {
       "name": "compozy--kb",
@@ -117184,6 +117209,66 @@
       "description": "Gravity\u2019s Performance-Optimized Reth Fork"
     },
     {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "asfernandes--fb-cpp",
+      "source": "./asfernandes--fb-cpp",
+      "description": "A modern C++ wrapper for the Firebird database API"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
+      "name": "eugeneistrach--et-stack",
+      "source": "./eugeneistrach--et-stack",
+      "description": "et-stack"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -127934,6 +128019,16 @@
       "description": "Get your project up and running in minutes on your vps."
     },
     {
+      "name": "lqvp--misskey-tempura",
+      "source": "./lqvp--misskey-tempura",
+      "description": "A feature-rich Misskey fork focused on enhancing security, privacy, and user experience."
+    },
+    {
+      "name": "lqvp--misskey-tempura",
+      "source": "./lqvp--misskey-tempura",
+      "description": "A feature-rich Misskey fork focused on enhancing security, privacy, and user experience."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -136822,6 +136917,11 @@
       "name": "baz-scm--pgmq-ts",
       "source": "./baz-scm--pgmq-ts",
       "description": "Native SQL implementation for PGMQ in typescript, based on pgmq-rs"
+    },
+    {
+      "name": "veteranbv--aicrawl",
+      "source": "./veteranbv--aicrawl",
+      "description": "aicrawl"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -147864,6 +147964,16 @@
       "description": "Alternate document browser for document apps"
     },
     {
+      "name": "vouillon--wax",
+      "source": "./vouillon--wax",
+      "description": "Rust-like syntax for WebAssembly featuring a full toolchain for conversion, type-checking, and auto-formatting."
+    },
+    {
+      "name": "konstructio--konstruct-ui",
+      "source": "./konstructio--konstruct-ui",
+      "description": "This repository contains a set of reusable and customizable React components built for Konstruct's infrastructure."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -155672,6 +155782,16 @@
       "name": "stanfordspezi--spezi-web-design-system",
       "source": "./stanfordspezi--spezi-web-design-system",
       "description": "Spezi Web Frontend Design System and Reusable Components"
+    },
+    {
+      "name": "wintermi--sigma",
+      "source": "./wintermi--sigma",
+      "description": "sigma is a Go package for provider-neutral AI model calls."
+    },
+    {
+      "name": "quochuyyy1839--crawl-market-vn",
+      "source": "./quochuyyy1839--crawl-market-vn",
+      "description": "Crawl Price Gold"
     },
     {
       "name": "yschimke--compose-ai-tools",
