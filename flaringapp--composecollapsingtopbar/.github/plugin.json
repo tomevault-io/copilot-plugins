@@ -1,0 +1,9 @@
+{
+  "name": "flaringapp--composecollapsingtopbar",
+  "displayName": "ComposeCollapsingTopBar",
+  "description": "The ultimate Compose Multiplatform collapsing toolbar library with dynamic sizing, different scroll modes, and extensive customization options",
+  "version": "1.0.0",
+  "author": "flaringapp",
+  "homepage": "https://github.com/flaringapp/ComposeCollapsingTopBar",
+  "skills": []
+}
