@@ -1,0 +1,44 @@
+{
+  "name": "DepArchitect",
+  "owner": "buffer121328",
+  "repo": "DepArchitect",
+  "description": "\u672c\u9879\u76ee\u662f\u4e00\u4e2avibe coding\u9879\u76ee\uff0c\u53ef\u4ee5\u5f53\u4f5c\u5b66\u4e60vibe coding\u7684\u4e00\u4e2a\u5b9e\u6218\u6848\u4f8b\uff0c\u6216\u8005\u5f53\u4f5c\u4e00\u4e2a\u72ec\u7acb\u7684\u5f00\u6e90\u9879\u76ee\u6765\u4f7f\u7528\u3002 \u9879\u76ee\u91c7\u7528\u7684\u662fopencode+omo-slim+openspec\u7684\u5f00\u53d1\u6d41\u7a0b\u548c\u89c4\u8303",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/buffer121328/DepArchitect",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T11:33:57Z"
+}
