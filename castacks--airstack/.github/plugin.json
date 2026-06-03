@@ -1,0 +1,9 @@
+{
+  "name": "castacks--airstack",
+  "displayName": "AirStack",
+  "description": "Boilerplate for robot autonomy. Designed for multi-robot, real world deployment with TAK.",
+  "version": "1.0.0",
+  "author": "castacks",
+  "homepage": "https://github.com/castacks/AirStack",
+  "skills": []
+}
