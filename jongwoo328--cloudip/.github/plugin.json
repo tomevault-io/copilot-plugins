@@ -1,0 +1,9 @@
+{
+  "name": "jongwoo328--cloudip",
+  "displayName": "cloudip",
+  "description": "CLI tool to identify whether an IP address belongs to AWS, GCP, or Azure.",
+  "version": "1.0.0",
+  "author": "jongwoo328",
+  "homepage": "https://github.com/jongwoo328/cloudip",
+  "skills": []
+}
