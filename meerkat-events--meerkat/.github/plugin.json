@@ -1,0 +1,9 @@
+{
+  "name": "meerkat-events--meerkat",
+  "displayName": "meerkat",
+  "description": "Audience engagement tool for questions and answers",
+  "version": "1.0.0",
+  "author": "meerkat-events",
+  "homepage": "https://github.com/meerkat-events/meerkat",
+  "skills": []
+}
