@@ -1,7 +1,7 @@
 {
   "name": "klimabevaegelsen--landbruget-dk",
   "displayName": "landbruget.dk",
-  "description": "landbruget.dk",
+  "description": "Et projekt for at formidle data om dansk landbrug",
   "version": "1.0.0",
   "author": "Klimabevaegelsen",
   "homepage": "https://github.com/Klimabevaegelsen/landbruget.dk",
