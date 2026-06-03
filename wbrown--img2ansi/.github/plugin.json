@@ -1,0 +1,9 @@
+{
+  "name": "wbrown--img2ansi",
+  "displayName": "img2ansi",
+  "description": "Image to ANSI program targeting 16-color ANSI palettes",
+  "version": "1.0.0",
+  "author": "wbrown",
+  "homepage": "https://github.com/wbrown/img2ansi",
+  "skills": []
+}
