@@ -1,0 +1,9 @@
+{
+  "name": "audulus--filebrowser",
+  "displayName": "FileBrowser",
+  "description": "Alternate document browser for document apps",
+  "version": "1.0.0",
+  "author": "audulus",
+  "homepage": "https://github.com/audulus/FileBrowser",
+  "skills": []
+}
