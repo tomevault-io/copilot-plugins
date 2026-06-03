@@ -7,11 +7,11 @@ The next-gen AI-native tensor-network-based quantum software framework
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tensorcircuit/tensorcircuit-ng](https://github.com/tensorcircuit/tensorcircuit-ng).
+Original source: `CLAUDE.md` in [tensorcircuit/tensorcircuit-ng](https://github.com/tensorcircuit/tensorcircuit-ng).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
