@@ -7,11 +7,11 @@ A Streamlit-based application for monitoring and optimizing residential energy c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [danimoreira90/Residential-Energy-Efficiency-Application](https://github.com/danimoreira90/Residential-Energy-Efficiency-Application).
+Original source: `CLAUDE.md` in [danimoreira90/Residential-Energy-Efficiency-Application](https://github.com/danimoreira90/Residential-Energy-Efficiency-Application).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
