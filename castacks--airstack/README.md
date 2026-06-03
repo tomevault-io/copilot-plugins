@@ -7,11 +7,11 @@ Boilerplate for robot autonomy. Designed for multi-robot, real world deployment 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [castacks/AirStack](https://github.com/castacks/AirStack).
+Original source: `CLAUDE.md` in [castacks/AirStack](https://github.com/castacks/AirStack).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
