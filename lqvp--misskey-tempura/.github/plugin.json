@@ -1,0 +1,9 @@
+{
+  "name": "lqvp--misskey-tempura",
+  "displayName": "misskey-tempura",
+  "description": "A feature-rich Misskey fork focused on enhancing security, privacy, and user experience.",
+  "version": "1.0.0",
+  "author": "lqvp",
+  "homepage": "https://github.com/lqvp/misskey-tempura",
+  "skills": []
+}
