@@ -1,0 +1,9 @@
+{
+  "name": "marchen-dev--marchen-player",
+  "displayName": "marchen-player",
+  "description": "Marchen Player \u662f\u672c\u5730\u89c6\u9891\u7684\u5f39\u5e55\u64ad\u653e\u5668\uff0c\u4f7f\u7528\u5f39\u5f39play API\uff0c\u652f\u6301\u8de8\u5e73\u53f0\uff0c\u62d6\u5165\u52a8\u6f2b\u5373\u53ef\u5339\u914d\u5f39\u5e55",
+  "version": "1.0.0",
+  "author": "marchen-dev",
+  "homepage": "https://github.com/marchen-dev/marchen-player",
+  "skills": []
+}
