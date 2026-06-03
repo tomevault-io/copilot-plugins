@@ -1,0 +1,9 @@
+{
+  "name": "flatroy--stupid-inventory-laravel",
+  "displayName": "stupid-inventory-laravel",
+  "description": "WIP: Simple stupid inventory and organization system built for the Home User. Inspired by Homebox. Build on top of FilamentPHP. Would be self-hosted and as SaaS. Demo:",
+  "version": "1.0.0",
+  "author": "Flatroy",
+  "homepage": "https://github.com/Flatroy/stupid-inventory-laravel",
+  "skills": []
+}
