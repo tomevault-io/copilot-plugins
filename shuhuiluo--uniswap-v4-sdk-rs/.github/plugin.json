@@ -1,0 +1,9 @@
+{
+  "name": "shuhuiluo--uniswap-v4-sdk-rs",
+  "displayName": "uniswap-v4-sdk-rs",
+  "description": "Opinionated Rust implementation of the Uniswap V4 SDK with a focus on readability and performance",
+  "version": "1.0.0",
+  "author": "shuhuiluo",
+  "homepage": "https://github.com/shuhuiluo/uniswap-v4-sdk-rs",
+  "skills": []
+}
