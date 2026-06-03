@@ -4,7 +4,7 @@
   "repo": "profitable",
   "description": "\ud83d\udcb8 Calculate the MRR, ARR, TTM, churn, LTV, ARPU, total revenue & valuation of your pay-powered Rails SaaS app. MRR dashboard for your Rails app.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rameerez/profitable",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T11:34:31Z"
+  "distributed_at": "2026-06-03T11:36:48Z"
 }
