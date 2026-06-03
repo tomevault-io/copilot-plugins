@@ -1,0 +1,9 @@
+{
+  "name": "kousen--aijavalabs",
+  "displayName": "AiJavaLabs",
+  "description": "Exercises for a course on integrating AI services with Java.",
+  "version": "1.0.0",
+  "author": "kousen",
+  "homepage": "https://github.com/kousen/AiJavaLabs",
+  "skills": []
+}
