@@ -1,0 +1,9 @@
+{
+  "name": "taiga-family--ng-draw-flow",
+  "displayName": "ng-draw-flow",
+  "description": "A customizable Angular component for building node-based editors and interactive diagrams",
+  "version": "1.0.0",
+  "author": "taiga-family",
+  "homepage": "https://github.com/taiga-family/ng-draw-flow",
+  "skills": []
+}
