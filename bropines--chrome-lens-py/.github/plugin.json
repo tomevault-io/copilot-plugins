@@ -1,0 +1,9 @@
+{
+  "name": "bropines--chrome-lens-py",
+  "displayName": "chrome-lens-py",
+  "description": "Library to use Google Lens OCR for free, via API used in Chromium on python.",
+  "version": "1.0.0",
+  "author": "bropines",
+  "homepage": "https://github.com/bropines/chrome-lens-py",
+  "skills": []
+}
