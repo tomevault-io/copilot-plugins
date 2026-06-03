@@ -1,0 +1,9 @@
+{
+  "name": "prefecthq--prefect-operator",
+  "displayName": "prefect-operator",
+  "description": "A Kubernetes operator for managing Prefect servers and work pools",
+  "version": "1.0.0",
+  "author": "PrefectHQ",
+  "homepage": "https://github.com/PrefectHQ/prefect-operator",
+  "skills": []
+}
