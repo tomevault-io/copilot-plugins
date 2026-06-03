@@ -1,0 +1,9 @@
+{
+  "name": "doublelam--react-native-free-canvas",
+  "displayName": "react-native-free-canvas",
+  "description": "A high-performance drawing and sketching library for React Native, built on @shopify/react-native-skia, with smooth zoom and pan functionalities.",
+  "version": "1.0.0",
+  "author": "doublelam",
+  "homepage": "https://github.com/doublelam/react-native-free-canvas",
+  "skills": []
+}
