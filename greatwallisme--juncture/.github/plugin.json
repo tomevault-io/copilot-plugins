@@ -1,0 +1,9 @@
+{
+  "name": "greatwallisme--juncture",
+  "displayName": "juncture",
+  "description": "A Rust implementation of LangGraph's state machine framework for building LLM agent applications. ",
+  "version": "1.0.0",
+  "author": "greatwallisme",
+  "homepage": "https://github.com/greatwallisme/juncture",
+  "skills": []
+}
