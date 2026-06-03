@@ -1,0 +1,9 @@
+{
+  "name": "lincc-frameworks--hyrax",
+  "displayName": "hyrax",
+  "description": "Hyrax - A low-code framework for rapid experimentation with ML & unsupervised discovery in astronomy",
+  "version": "1.0.0",
+  "author": "lincc-frameworks",
+  "homepage": "https://github.com/lincc-frameworks/hyrax",
+  "skills": []
+}
