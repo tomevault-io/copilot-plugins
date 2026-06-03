@@ -1,0 +1,9 @@
+{
+  "name": "yinqiwen--rapidudf",
+  "displayName": "rapidudf",
+  "description": "A High-Performance JIT-Based C++ Expression/Script Execution Engine with SIMD Vectorization Support",
+  "version": "1.0.0",
+  "author": "yinqiwen",
+  "homepage": "https://github.com/yinqiwen/rapidudf",
+  "skills": []
+}
