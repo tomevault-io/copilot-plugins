@@ -1,0 +1,9 @@
+{
+  "name": "pharmaverse--anca",
+  "displayName": "aNCA",
+  "description": "Shiny App to perform NCA on (pre-)clinical data",
+  "version": "1.0.0",
+  "author": "pharmaverse",
+  "homepage": "https://github.com/pharmaverse/aNCA",
+  "skills": []
+}
