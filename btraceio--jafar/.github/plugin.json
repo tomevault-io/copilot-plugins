@@ -1,0 +1,9 @@
+{
+  "name": "btraceio--jafar",
+  "displayName": "jafar",
+  "description": "Experimental JFR parser",
+  "version": "1.0.0",
+  "author": "btraceio",
+  "homepage": "https://github.com/btraceio/jafar",
+  "skills": []
+}
