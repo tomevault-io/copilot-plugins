@@ -1,0 +1,9 @@
+{
+  "name": "catonetworks--terraform-provider-cato",
+  "displayName": "terraform-provider-cato",
+  "description": "This package is a plugin for Terraform, and is designed to be used to auto-provision sites and configurations in the Cato Management Application (CMA) via API from the terraform cli/yaml configuration",
+  "version": "1.0.0",
+  "author": "catonetworks",
+  "homepage": "https://github.com/catonetworks/terraform-provider-cato",
+  "skills": []
+}
