@@ -1,0 +1,9 @@
+{
+  "name": "kristofferr--iptvchecker-python",
+  "displayName": "IPTVChecker-Python",
+  "description": "Script that goes through a playlist to check IPTV channels",
+  "version": "1.0.0",
+  "author": "kristofferR",
+  "homepage": "https://github.com/kristofferR/IPTVChecker-Python",
+  "skills": []
+}
