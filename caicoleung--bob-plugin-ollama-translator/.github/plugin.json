@@ -1,0 +1,9 @@
+{
+  "name": "caicoleung--bob-plugin-ollama-translator",
+  "displayName": "bob-plugin-ollama-translator",
+  "description": "\u652f\u6301\u591a\u79cdAI\u670d\u52a1\uff08Ollama/Qwen/OpenAI/Grok/Claude/Gemini\u7b49\uff09\u7684\u7ffb\u8bd1\u548c\u89e3\u91ca\u63d2\u4ef6\uff0c\u53ef\u8fdb\u884c\u5355\u8bcd\u3001\u6574\u53e5\u7ffb\u8bd1\u53ca\u767e\u79d1\u89e3\u91ca",
+  "version": "1.0.0",
+  "author": "CaicoLeung",
+  "homepage": "https://github.com/CaicoLeung/bob-plugin-ollama-translator",
+  "skills": []
+}
