@@ -1,0 +1,9 @@
+{
+  "name": "pantelis--eng-ai-agents",
+  "displayName": "eng-ai-agents",
+  "description": "Docker Dev Environments for AI, CV and Robotics Courses at NJIT and NYU",
+  "version": "1.0.0",
+  "author": "pantelis",
+  "homepage": "https://github.com/pantelis/eng-ai-agents",
+  "skills": []
+}
