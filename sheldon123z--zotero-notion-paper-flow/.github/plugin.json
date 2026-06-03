@@ -1,0 +1,9 @@
+{
+  "name": "sheldon123z--zotero-notion-paper-flow",
+  "displayName": "Zotero-Notion-Paper-Flow",
+  "description": "\u901a\u8fc7\u626b\u63cfhuggingface\u548carxiv\u76f4\u63a5\u6dfb\u52a0\u6700\u65b0\u6587\u732e\u5230Notion\u3001Wolai\u3001\u4ee5\u53ca\u8bba\u6587\u9605\u8bfb\u795e\u5668Zotero\uff01\u540c\u65f6\uff0c\u53ef\u4ee5\u901a\u8fc7\u5927\u6a21\u578bapi\u76f4\u63a5\u8d8a\u8fc7Notion AI\uff0c\u4f7f\u7528\u5927\u6a21\u578b\u603b\u7ed3\u6587\u732e\u4e3b\u8981\u5185\u5bb9\u4f20\u9012\u5230Notion\u9875\u9762\u7684\u5173\u952e\u5b57\u4e2d\uff0c\u5efa\u8bae\u4f7f\u7528deepseek\uff0c\u6309\u9700\u4f7f\u7528\uff0c\u5988\u5988\u518d\u4e5f\u4e0d\u7528\u62c5\u5fc3\u6da8\u4ef7\u7684Notion AI\u4e86\uff01",
+  "version": "1.0.0",
+  "author": "sheldon123z",
+  "homepage": "https://github.com/sheldon123z/Zotero-Notion-Paper-Flow",
+  "skills": []
+}
