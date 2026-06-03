@@ -1,0 +1,9 @@
+{
+  "name": "gravity-ui--charts",
+  "displayName": "charts",
+  "description": "React charting library with 10+ chart types: area, bar, line, pie, scatter, treemap, and more",
+  "version": "1.0.0",
+  "author": "gravity-ui",
+  "homepage": "https://github.com/gravity-ui/charts",
+  "skills": []
+}
