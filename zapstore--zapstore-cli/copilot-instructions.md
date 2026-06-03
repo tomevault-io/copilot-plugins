@@ -1,57 +1,65 @@
-## architecture
+## go
 
-> Architecture — package layout, command structure, XDG layout, Nostr query flow
+> Go conventions
 
 
-# zapstore-cli — Architecture
+# Go Conventions
 
-## Core Principle
+## Style
 
-`zapstore-cli` is a package manager for desktop platforms. It queries Nostr for app metadata, downloads and verifies binaries, and manages them on the filesystem. The filesystem is the sole source of truth — no separate state database.
+- Standard library style. Run `gofmt`. No third-party linters beyond `go vet`.
+- Use `internal/` for private packages. Public API surface should be minimal.
+- Prefer flat package structure within `internal/` — one package per concern, not deep nesting.
+- Reference existing patterns in the same project before inventing new ones.
 
-## Package Layout
+## Error Handling
 
-```
-main.go                  Entry point, command dispatch
-cmd/                     One file per subcommand (install, remove, update, list, search, cleanup)
-nostr/                   Nostr relay queries — fetch apps (32267), releases (30063), assets (3063)
-platform/                Platform detection (OS, arch) and asset filtering
-store/                   Filesystem operations — install paths, symlinks, XDG layout
-ui/                      Output formatting — Cargo-style action verbs, color, JSON mode
-version/                 Version comparison (versionCode integers only)
-install/                 Download, SHA-256 verification, binary placement
-```
+- Wrap errors with `fmt.Errorf("context: %w", err)` — always add context.
+- Return errors; don't panic. Panics are only acceptable for programmer bugs (unreachable code).
+- Use `errors.Is` / `errors.As` for sentinel and typed error checks.
+- Define sentinel errors as package-level `var ErrFoo = errors.New("foo")`.
 
-## XDG Filesystem Layout
+## Testing
 
-```
-$XDG_DATA_HOME/zapstore/packages/<hex-pubkey>-<app-id>/<version>/   Installed binaries
-~/.local/bin/<app-id>                                                 Symlinks to active binary
-$XDG_CACHE_HOME/zapstore/                                             Profile cache
-$XDG_CONFIG_HOME/zapstore/config.env                                  User config
-```
+- Table-driven tests. Name subtests clearly.
+- Test files live next to the code they test (`foo_test.go` beside `foo.go`).
+- Use `testdata/` for fixtures.
+- No test frameworks — standard `testing` package only.
 
-The package directory is prefixed with the publisher's hex pubkey for namespacing.
+## Dependencies
 
-## Command Flow
+- Prefer the standard library. Add a dependency only when it saves significant complexity.
+- All projects use `github.com/nbd-wtf/go-nostr` for Nostr operations.
+- Pin dependency versions via `go.sum`. Run `go mod tidy` after changes.
 
-### install / update
-1. Query relay for app (32267) → release (30063) → asset (3063) matching platform+arch
-2. Download binary to temp path
-3. Verify SHA-256 against asset event `x` tag
-4. Move to `packages/<pubkey>-<appid>/<version>/`
-5. Symlink `~/.local/bin/<appid>` → versioned binary
+## Concurrency
 
-### list
-Read `packages/` directory — no relay query needed.
+- Use `context.Context` for cancellation. Pass it as the first parameter.
+- Prefer `sync.WaitGroup` or `errgroup.Group` over bare goroutines.
+- No goroutine leaks — every goroutine must have a clear shutdown path.
+- Use channels for communication, mutexes for state protection. Don't mix.
 
-### search
-NIP-50 full-text search on relay.
+## Naming
 
-## Output Design
+- Short, clear names. `src` not `sourceManager`. `cfg` not `configuration`.
+- Interfaces describe behavior: `Signer`, `Publisher`, not `ISignerInterface`.
+- Acronyms are all-caps: `URL`, `HTTP`, `APK`, `ID`.
 
-Status messages → stderr. Data (JSON) → stdout.
-Cargo-style action-verb prefix: `   Resolving`, `  Downloading`, `   Verifying`, `  Installing`, `    Finished`.
+## Project Layout
+
+- `main.go` — entry point, minimal logic, delegates to `internal/`.
+- `internal/` — all business logic, one package per domain.
+- `testdata/` — test fixtures, config examples.
+- `Makefile` — build commands where applicable.
+
+## Build
+
+- Use `-ldflags` for version injection at build time.
+- Support `go install module@latest` with embedded build info fallback.
+- CGo is acceptable where needed (e.g. SQLite) but prefer pure Go when possible.
+- `make` (default `build` target) produces a single binary named after the project at the repo root.
+- `make all` cross-compiles for all supported platforms into `dist/` as `<binary>-<os>-<arch>`.
+- Always pass `-trimpath -ldflags '-s -w'` for reproducible, stripped binaries.
 
 ---
 > Source: [zapstore/zapstore-cli](https://github.com/zapstore/zapstore-cli) — distributed by [TomeVault](https://tomevault.io).
