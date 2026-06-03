@@ -7,11 +7,11 @@ Compress videos to fit Discord's file size limits. Cross-platform desktop app po
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cyroz1/vidcord](https://github.com/cyroz1/vidcord).
+Original source: `CLAUDE.md` in [cyroz1/vidcord](https://github.com/cyroz1/vidcord).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
