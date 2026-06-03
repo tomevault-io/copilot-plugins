@@ -43659,6 +43659,11 @@
       "description": "Adaptive Agentic AI Reasoning using Microsoft Agent Framework -- Join the Discord for suggestion or support !  https://discord.gg/ebgy7gtZHK"
     },
     {
+      "name": "yinqiwen--rapidudf",
+      "source": "./yinqiwen--rapidudf",
+      "description": "A High-Performance JIT-Based C++ Expression/Script Execution Engine with SIMD Vectorization Support"
+    },
+    {
       "name": "okikusan-public--stock-skills",
       "source": "./okikusan-public--stock-skills",
       "description": "stock_skills"
@@ -45162,6 +45167,11 @@
       "name": "opengradient--opengradient-sdk",
       "source": "./opengradient--opengradient-sdk",
       "description": "Python SDK for using verifiable AI inference on OpenGradient"
+    },
+    {
+      "name": "marinasundstrom--raven",
+      "source": "./marinasundstrom--raven",
+      "description": "A modern programming language for .NET - Compiler inspired by the .NET Roslyn compiler architecture."
     },
     {
       "name": "freepeak--leankg",
@@ -47529,6 +47539,16 @@
       "description": "Remote Data Blocks: a WordPress plugin for creating flexible, data-enriched content with remote data integration"
     },
     {
+      "name": "khrnchn--sedekah-je",
+      "source": "./khrnchn--sedekah-je",
+      "description": "qr code directory of malaysian mosques, suraus, and islamic institutions."
+    },
+    {
+      "name": "khrnchn--sedekah-je",
+      "source": "./khrnchn--sedekah-je",
+      "description": "qr code directory of malaysian mosques, suraus, and islamic institutions."
+    },
+    {
       "name": "kulterryan--who-to-bother-at-on-x",
       "source": "./kulterryan--who-to-bother-at-on-x",
       "description": "Find the right people to reach out to at your favorite tech companies"
@@ -47847,6 +47867,16 @@
       "name": "hicder--muopdb",
       "source": "./hicder--muopdb",
       "description": "MuopDB - A Vector Database"
+    },
+    {
+      "name": "the-cafe--git-ai-commit",
+      "source": "./the-cafe--git-ai-commit",
+      "description": "let AI write your commit messages"
+    },
+    {
+      "name": "schwa--compute",
+      "source": "./schwa--compute",
+      "description": "A high-level Swift framework that simplifies working with GPU Metal Compute."
     },
     {
       "name": "qtzx06--yolodex",
@@ -51499,6 +51529,16 @@
       "description": "\ud83d\uddd1\ufe0f Block disposable emails in your Rails app"
     },
     {
+      "name": "mitchross--talos-argocd-proxmox",
+      "source": "./mitchross--talos-argocd-proxmox",
+      "description": "Talos ArgoCD Homelab. My personal production Cluster. "
+    },
+    {
+      "name": "mitchross--talos-argocd-proxmox",
+      "source": "./mitchross--talos-argocd-proxmox",
+      "description": "Talos ArgoCD Homelab. My personal production Cluster. "
+    },
+    {
       "name": "liangdabiao--tikhub-api-skill",
       "source": "./liangdabiao--tikhub-api-skill",
       "description": "TikHub API \u52a9\u624b\u662f\u4e00\u4e2a Claude Code Agent Skill\uff0c\u7528\u4e8e\u5e2e\u52a9\u7528\u6237\u641c\u7d22\u3001\u53d1\u73b0\u548c\u8c03\u7528 TikHub API\u3002TikHub \u63d0\u4f9b\u4e86\u591a\u5e73\u53f0\u793e\u4ea4\u5a92\u4f53\u6570\u636e API\uff0c\u652f\u6301\u6296\u97f3\u3001TikTok\u3001\u5c0f\u7ea2\u4e66\u3001Instagram\u3001YouTube\u3001Twitter\u3001Reddit \u7b49\u5e73\u53f0\u3002This is a TikHub API skill/documentation repository. Tik"
@@ -52084,6 +52124,11 @@
       "description": "Convex component for durably executing workflows."
     },
     {
+      "name": "lvyww--bime",
+      "source": "./lvyww--bime",
+      "description": "bime\uff0c\u5916\u6302\u5f0f\u5f62\u7801\u8f93\u5165\u5e73\u53f0"
+    },
+    {
       "name": "ersinkoc--fluidflow",
       "source": "./ersinkoc--fluidflow",
       "description": "Sketch to App"
@@ -52582,6 +52627,11 @@
       "name": "s-stolz--algotrader",
       "source": "./s-stolz--algotrader",
       "description": "Custom Trading App for Algorithmic Trading"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100 Days of Code | Daily Challenges | Beautifully Crafted Designs | Created for Full-stack/Frontend/Web Developers - Vibe Code with AI."
     },
     {
       "name": "tmdgusya--engineering-discipline",
@@ -53337,6 +53387,11 @@
       "name": "arcjet--well-known-bots",
       "source": "./arcjet--well-known-bots",
       "description": "List of well-known bots and user-agent patterns to detect them"
+    },
+    {
+      "name": "selleo--mentingo",
+      "source": "./selleo--mentingo",
+      "description": "White-label AI-mentor LMS platform for enterprise L&D"
     },
     {
       "name": "dceoy--speckit-agent-skills",
@@ -54754,6 +54809,16 @@
       "description": "Create zod-safe route for your Next.js App Directory app"
     },
     {
+      "name": "mckaywrigley--takeoff-cursor-course",
+      "source": "./mckaywrigley--takeoff-cursor-course",
+      "description": "For the Takeoff Cursor course."
+    },
+    {
+      "name": "jetrockets--ui-jetrockets-com",
+      "source": "./jetrockets--ui-jetrockets-com",
+      "description": "A comprehensive Rails component library built with ViewComponent, TailwindCSS 4.0, and Stimulus. This template provides a complete set of reusable UI components that developers can copy and customize "
+    },
+    {
       "name": "knowsuchagency--fulcrum",
       "source": "./knowsuchagency--fulcrum",
       "description": "What if Openclaw, Vibe Kanban, Vibetunnel, and Dokploy had a baby?"
@@ -55322,6 +55387,16 @@
       "name": "fluid-design-io--vision-ui",
       "source": "./fluid-design-io--vision-ui",
       "description": "VisionOS UI built with React \u269b\ufe0f"
+    },
+    {
+      "name": "bropines--chrome-lens-py",
+      "source": "./bropines--chrome-lens-py",
+      "description": "Library to use Google Lens OCR for free, via API used in Chromium on python."
+    },
+    {
+      "name": "sigp--anchor",
+      "source": "./sigp--anchor",
+      "description": "Rust implementation of the SSV protocol"
     },
     {
       "name": "olorehq--olore",
@@ -55954,6 +56029,11 @@
       "description": "Core packages and NixOS modules for a poly-repo nixpkgs fork"
     },
     {
+      "name": "clipboardhealth--core-utils",
+      "source": "./clipboardhealth--core-utils",
+      "description": "Clipboard's core libraries and utilities."
+    },
+    {
       "name": "chongdashu--phaserjs-oakwoods",
       "source": "./chongdashu--phaserjs-oakwoods",
       "description": "A vibe coded implementation of an RPG platformer"
@@ -56342,6 +56422,21 @@
       "name": "kakasoo--deepstricttypes",
       "source": "./kakasoo--deepstricttypes",
       "description": "Utility Types to quickly query and Omit, Pick keys inside nested arrays and objects"
+    },
+    {
+      "name": "neurons-me--all-this",
+      "source": "./neurons-me--all-this",
+      "description": "all.this \u26a1 stuff together"
+    },
+    {
+      "name": "code-payments--code-vm",
+      "source": "./code-payments--code-vm",
+      "description": "Purpose built VM for reduced fees on Solana"
+    },
+    {
+      "name": "atomone-hub--atomone",
+      "source": "./atomone-hub--atomone",
+      "description": "AtomOne chain software"
     },
     {
       "name": "marciogranzotto--clawd-tank",
@@ -61077,6 +61172,11 @@
       "name": "studydrift--lextures",
       "source": "./studydrift--lextures",
       "description": "The first truly adaptive learning environment"
+    },
+    {
+      "name": "martinnormark--neural-mesh-simplification",
+      "source": "./martinnormark--neural-mesh-simplification",
+      "description": "Un-official and WIP Implementation of the Neural Mesh Simplification paper"
     },
     {
       "name": "tencentcloud--cubesandbox",
@@ -107269,6 +107369,11 @@
       "description": "F2 Commander is an orthodox file manager for the modern world"
     },
     {
+      "name": "huawei-csl--kvarn",
+      "source": "./huawei-csl--kvarn",
+      "description": "KVarN is a native vLLM KV-cache quantization backend for your agents: 3-5x more context, throughput above FP16, and FP16-level accuracy. Calibration-free, one flag."
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -121902,6 +122007,11 @@
       "name": "myui--rtrec",
       "source": "./myui--rtrec",
       "description": "An realtime recommendation system supporting online updates"
+    },
+    {
+      "name": "albertcheng19--medskillos",
+      "source": "./albertcheng19--medskillos",
+      "description": "Medical-grade agent skills for clinical and biomedical workflows"
     },
     {
       "name": "13point5--agent-canvas",
@@ -157057,6 +157167,11 @@
       "name": "buffer121328--deparchitect",
       "source": "./buffer121328--deparchitect",
       "description": "\u672c\u9879\u76ee\u662f\u4e00\u4e2avibe coding\u9879\u76ee\uff0c\u53ef\u4ee5\u5f53\u4f5c\u5b66\u4e60vibe coding\u7684\u4e00\u4e2a\u5b9e\u6218\u6848\u4f8b\uff0c\u6216\u8005\u5f53\u4f5c\u4e00\u4e2a\u72ec\u7acb\u7684\u5f00\u6e90\u9879\u76ee\u6765\u4f7f\u7528\u3002 \u9879\u76ee\u91c7\u7528\u7684\u662fopencode+omo-slim+openspec\u7684\u5f00\u53d1\u6d41\u7a0b\u548c\u89c4\u8303"
+    },
+    {
+      "name": "ysx12138--business-analysis-learning-agent-skill",
+      "source": "./ysx12138--business-analysis-learning-agent-skill",
+      "description": "business-analysis-learning-agent-skill"
     },
     {
       "name": "yschimke--compose-ai-tools",
