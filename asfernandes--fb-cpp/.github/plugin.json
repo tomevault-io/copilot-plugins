@@ -1,0 +1,9 @@
+{
+  "name": "asfernandes--fb-cpp",
+  "displayName": "fb-cpp",
+  "description": "A modern C++ wrapper for the Firebird database API",
+  "version": "1.0.0",
+  "author": "asfernandes",
+  "homepage": "https://github.com/asfernandes/fb-cpp",
+  "skills": []
+}
