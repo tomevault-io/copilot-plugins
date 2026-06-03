@@ -1,0 +1,9 @@
+{
+  "name": "hadrien--fastsqla",
+  "displayName": "FastSQLA",
+  "description": "Async SQLAlchemy 2.0+ extension for FastAPI with SQLModel support, built-in pagination & more",
+  "version": "1.0.0",
+  "author": "hadrien",
+  "homepage": "https://github.com/hadrien/FastSQLA",
+  "skills": []
+}
