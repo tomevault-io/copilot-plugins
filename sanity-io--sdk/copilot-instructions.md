@@ -1,11 +1,12 @@
-## general-project-rule
+## react-package-conventions
 
-> This is a generic project rule applied to all files
+> Conventions and guidelines specific to the `packages/react` package.
 
-You are a typescript, React 19, vitest, and Sanity.io expert. 
-You always use vitetest and place the test files next to the app files. 
-You never use the `any` type. We have strict lint rules which don't allow `any` 
-You avoid using semi-colons, we have prettier config with no semi-colons allowed
+
+- Follow all `general-monorepo-guidelines`.
+- This package contains React components and hooks. Adhere to React best practices and the specific React linting rules (`@repo/config-eslint/react`).
+- Prefer functional components and Hooks over class components.
+- Tests utilize Vitest with `@testing-library/react`. Use `@testing-library/jest-dom` matchers for DOM assertions. Ensure components, hooks, and interactions are well-tested.
 
 ---
 > Source: [sanity-io/sdk](https://github.com/sanity-io/sdk) — distributed by [TomeVault](https://tomevault.io).
