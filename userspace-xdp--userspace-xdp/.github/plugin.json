@@ -1,0 +1,9 @@
+{
+  "name": "userspace-xdp--userspace-xdp",
+  "displayName": "userspace-xdp",
+  "description": "XDP Deployments in Userspace eBPF",
+  "version": "1.0.0",
+  "author": "userspace-xdp",
+  "homepage": "https://github.com/userspace-xdp/userspace-xdp",
+  "skills": []
+}
