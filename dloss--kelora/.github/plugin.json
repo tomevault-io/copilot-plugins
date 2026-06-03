@@ -1,0 +1,9 @@
+{
+  "name": "dloss--kelora",
+  "displayName": "kelora",
+  "description": "CLI log processor with embedded Rhai scripting and built-in functions for parsing, transforming, and analyzing logs",
+  "version": "1.0.0",
+  "author": "dloss",
+  "homepage": "https://github.com/dloss/kelora",
+  "skills": []
+}
