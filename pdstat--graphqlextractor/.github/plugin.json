@@ -1,0 +1,9 @@
+{
+  "name": "pdstat--graphqlextractor",
+  "displayName": "graphqlextractor",
+  "description": "Extract GraphQL operations from javascript",
+  "version": "1.0.0",
+  "author": "pdstat",
+  "homepage": "https://github.com/pdstat/graphqlextractor",
+  "skills": []
+}
