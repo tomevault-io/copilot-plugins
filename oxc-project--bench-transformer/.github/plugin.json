@@ -1,0 +1,9 @@
+{
+  "name": "oxc-project--bench-transformer",
+  "displayName": "bench-transformer",
+  "description": "Bench transformer and isolated declarations",
+  "version": "1.0.0",
+  "author": "oxc-project",
+  "homepage": "https://github.com/oxc-project/bench-transformer",
+  "skills": []
+}
