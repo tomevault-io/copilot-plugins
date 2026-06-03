@@ -1,0 +1,9 @@
+{
+  "name": "namvox--simx",
+  "displayName": "simx",
+  "description": "Agent-friendly iOS Simulator pool and browser streaming CLI",
+  "version": "1.0.0",
+  "author": "namvox",
+  "homepage": "https://github.com/namvox/simx",
+  "skills": []
+}
