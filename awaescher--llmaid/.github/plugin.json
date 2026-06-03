@@ -1,0 +1,9 @@
+{
+  "name": "awaescher--llmaid",
+  "displayName": "llmaid",
+  "description": "Mass-edit files with LLMs",
+  "version": "1.0.0",
+  "author": "awaescher",
+  "homepage": "https://github.com/awaescher/llmaid",
+  "skills": []
+}
