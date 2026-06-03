@@ -1,0 +1,9 @@
+{
+  "name": "freifahren--freifahren",
+  "displayName": "FreiFahren",
+  "description": "A web and mobile app to show and report ticket inspectors in Berlin",
+  "version": "1.0.0",
+  "author": "FreiFahren",
+  "homepage": "https://github.com/FreiFahren/FreiFahren",
+  "skills": []
+}
