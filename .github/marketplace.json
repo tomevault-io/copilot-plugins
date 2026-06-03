@@ -61714,6 +61714,16 @@
       "description": "An open-source pathogen sequence database dedicated to equitable sharing, transparent governance, & empowering global public health."
     },
     {
+      "name": "btraceio--jafar",
+      "source": "./btraceio--jafar",
+      "description": "Experimental JFR parser"
+    },
+    {
+      "name": "btraceio--jafar",
+      "source": "./btraceio--jafar",
+      "description": "Experimental JFR parser"
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -63134,6 +63144,11 @@
       "description": "Community supported integrations for the Dagster platform."
     },
     {
+      "name": "makeding--luci-app-fleth",
+      "source": "./makeding--luci-app-fleth",
+      "description": "luci-app-fleth \u306f\u3001IPv4 over IPv6\u30c8\u30f3\u30cd\u30eb\uff08DS-Lite/MAP-E/IPIP6\uff09\u306e\u81ea\u52d5\u8a2d\u5b9a\u30d8\u30eb\u30d1\u3067\u3059\u3002"
+    },
+    {
       "name": "anhtester--antigravity-testing-kit",
       "source": "./anhtester--antigravity-testing-kit",
       "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL, WORKFLOW, RULE do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Antigravity h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
@@ -64047,6 +64062,16 @@
       "name": "zhangfisher--autostore",
       "source": "./zhangfisher--autostore",
       "description": "Very easy and elegant state management library. It is based on proxy and provides functions such as signaling, computation, and watching to ensure fine-grained updates"
+    },
+    {
+      "name": "beecave-homelab--insanely-fast-whisper-rocm",
+      "source": "./beecave-homelab--insanely-fast-whisper-rocm",
+      "description": "insanely-fast-whisper with support for AMD GPU's with rocm 6.1 - 7.1"
+    },
+    {
+      "name": "beecave-homelab--insanely-fast-whisper-rocm",
+      "source": "./beecave-homelab--insanely-fast-whisper-rocm",
+      "description": "insanely-fast-whisper with support for AMD GPU's with rocm 6.1 - 7.1"
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -66807,6 +66832,11 @@
       "name": "slothvips--vue-command-component",
       "source": "./slothvips--vue-command-component",
       "description": "Vue3\u547d\u4ee4\u5f0f\u7ec4\u4ef6\u89e3\u51b3\u65b9\u6848"
+    },
+    {
+      "name": "pabloroman--virtua-fc",
+      "source": "./pabloroman--virtua-fc",
+      "description": "virtua-fc"
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -72609,6 +72639,11 @@
       "description": "Improved lodash"
     },
     {
+      "name": "gentleeduck--duck-ui",
+      "source": "./gentleeduck--duck-ui",
+      "description": "React component library, headless primitives, hooks, variants, and developer tooling for the Gentleduck design system."
+    },
+    {
       "name": "agents-squads--squads-cli",
       "source": "./agents-squads--squads-cli",
       "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents."
@@ -76764,6 +76799,16 @@
       "description": "Shiny App to perform NCA on (pre-)clinical data"
     },
     {
+      "name": "trf2-jus-br--apoia",
+      "source": "./trf2-jus-br--apoia",
+      "description": "apoia"
+    },
+    {
+      "name": "visualizevalue--mint",
+      "source": "./visualizevalue--mint",
+      "description": "An open source internet protocol enabling the creation and collection of digital artifacts on the Ethereum Virtual Machine"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -77777,6 +77822,11 @@
       "name": "globalbibletools--platform",
       "source": "./globalbibletools--platform",
       "description": "platform"
+    },
+    {
+      "name": "tenxhq--tenx",
+      "source": "./tenxhq--tenx",
+      "description": "A sharp command-line tool for AI-assisted coding."
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -79967,6 +80017,11 @@
       "name": "open-fractal--flur",
       "source": "./open-fractal--flur",
       "description": "FLUR.GG"
+    },
+    {
+      "name": "lincc-frameworks--hyrax",
+      "source": "./lincc-frameworks--hyrax",
+      "description": "Hyrax - A low-code framework for rapid experimentation with ML & unsupervised discovery in astronomy"
     },
     {
       "name": "affitor--open-affiliate",
@@ -87674,6 +87729,11 @@
       "description": "HPRO: Hamiltonian Projection and Reconstruction to atomic Orbitals"
     },
     {
+      "name": "jayshah5696--pravah",
+      "source": "./jayshah5696--pravah",
+      "description": "LLM powered local Search Engine"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -92984,6 +93044,26 @@
       "description": "A fluent, scalable, and easy-to-use LLM data processing framework."
     },
     {
+      "name": "find-xposed-magisk--lobe-chat",
+      "source": "./find-xposed-magisk--lobe-chat",
+      "description": "\u4e00\u4e2a\u5f00\u6e90\u7684\uff0c\u73b0\u4ee3\u8bbe\u8ba1\u7684LLMS/\u4eba\u5de5\u667a\u80fd\u804a\u5929\u6846\u67b6\u3002\u652f\u6301\u591a\u4eba\u5de5\u667a\u80fd\u4f9b\u5e94\u5546\uff08OpenAI/Claude 3/Gemini/Ollama/Bedrock/Azure/Mistral/Conspirity\uff09\uff0c\u591a\u6a21\u6001\uff08Vision/TTS\uff09\u548c\u63d2\u4ef6\u7cfb\u7edf\u3002\u4e00\u952e\u514d\u8d39\u90e8\u7f72\u60a8\u7684\u79c1\u4ebaChatGPT\u804a\u5929\u5e94\u7528\u7a0b\u5e8f\u3002Lobe Chat - an open-source, modern-design LLMs/AI chat "
+    },
+    {
+      "name": "find-xposed-magisk--lobe-chat",
+      "source": "./find-xposed-magisk--lobe-chat",
+      "description": "\u4e00\u4e2a\u5f00\u6e90\u7684\uff0c\u73b0\u4ee3\u8bbe\u8ba1\u7684LLMS/\u4eba\u5de5\u667a\u80fd\u804a\u5929\u6846\u67b6\u3002\u652f\u6301\u591a\u4eba\u5de5\u667a\u80fd\u4f9b\u5e94\u5546\uff08OpenAI/Claude 3/Gemini/Ollama/Bedrock/Azure/Mistral/Conspirity\uff09\uff0c\u591a\u6a21\u6001\uff08Vision/TTS\uff09\u548c\u63d2\u4ef6\u7cfb\u7edf\u3002\u4e00\u952e\u514d\u8d39\u90e8\u7f72\u60a8\u7684\u79c1\u4ebaChatGPT\u804a\u5929\u5e94\u7528\u7a0b\u5e8f\u3002Lobe Chat - an open-source, modern-design LLMs/AI chat "
+    },
+    {
+      "name": "belingud--gptcomet",
+      "source": "./belingud--gptcomet",
+      "description": "GPTComet: AI-Powered Git Commit Message Generator"
+    },
+    {
+      "name": "belingud--gptcomet",
+      "source": "./belingud--gptcomet",
+      "description": "GPTComet: AI-Powered Git Commit Message Generator"
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -95097,6 +95177,16 @@
       "name": "shkctl--mini-redis",
       "source": "./shkctl--mini-redis",
       "description": "mini-redis"
+    },
+    {
+      "name": "cablehead--how-to-embed-nu",
+      "source": "./cablehead--how-to-embed-nu",
+      "description": "A guide to embed Nushell in your application"
+    },
+    {
+      "name": "userspace-xdp--userspace-xdp",
+      "source": "./userspace-xdp--userspace-xdp",
+      "description": "XDP Deployments in Userspace eBPF"
     },
     {
       "name": "10xchengtu--mux0",
@@ -101919,6 +102009,11 @@
       "description": "Gradio application using LLMs to generate csv/apkg to aid with memorizing topics in Anki"
     },
     {
+      "name": "meerkat-events--meerkat",
+      "source": "./meerkat-events--meerkat",
+      "description": "Audience engagement tool for questions and answers"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -107374,6 +107469,11 @@
       "description": "KVarN is a native vLLM KV-cache quantization backend for your agents: 3-5x more context, throughput above FP16, and FP16-level accuracy. Calibration-free, one flag."
     },
     {
+      "name": "fluffylabs--graypaper-reader",
+      "source": "./fluffylabs--graypaper-reader",
+      "description": "A tool to help to read & analyze the Gray Paper."
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -109967,6 +110067,21 @@
       "name": "paritytech--release-registry",
       "source": "./paritytech--release-registry",
       "description": "Tracking past and future releases of the Polkadot SDK."
+    },
+    {
+      "name": "bsutton--hmb",
+      "source": "./bsutton--hmb",
+      "description": "Hold My Beer is a CRM for single person handyman business as a mobile app."
+    },
+    {
+      "name": "paxoslabs--nucleus-boring-vault",
+      "source": "./paxoslabs--nucleus-boring-vault",
+      "description": "nucleus-boring-vault"
+    },
+    {
+      "name": "nikolainobadi--nncredentialkit",
+      "source": "./nikolainobadi--nncredentialkit",
+      "description": "Swift package for managing account linking, credential handling, and social authentication in iOS apps."
     },
     {
       "name": "develite98--angular-best-practices",
@@ -115327,6 +115442,11 @@
       "name": "xability--maidr",
       "source": "./xability--maidr",
       "description": "Multimodal Access and Interactive Data Representation"
+    },
+    {
+      "name": "wbrown--img2ansi",
+      "source": "./wbrown--img2ansi",
+      "description": "Image to ANSI program targeting 16-color ANSI palettes"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -122012,6 +122132,31 @@
       "name": "albertcheng19--medskillos",
       "source": "./albertcheng19--medskillos",
       "description": "Medical-grade agent skills for clinical and biomedical workflows"
+    },
+    {
+      "name": "vaila-multimodaltoolbox--vaila",
+      "source": "./vaila-multimodaltoolbox--vaila",
+      "description": "https://vaila.readthedocs.io/"
+    },
+    {
+      "name": "prefecthq--prefect-operator",
+      "source": "./prefecthq--prefect-operator",
+      "description": "A Kubernetes operator for managing Prefect servers and work pools"
+    },
+    {
+      "name": "vaila-multimodaltoolbox--vaila",
+      "source": "./vaila-multimodaltoolbox--vaila",
+      "description": "https://vaila.readthedocs.io/"
+    },
+    {
+      "name": "prefecthq--prefect-operator",
+      "source": "./prefecthq--prefect-operator",
+      "description": "A Kubernetes operator for managing Prefect servers and work pools"
+    },
+    {
+      "name": "vaila-multimodaltoolbox--vaila",
+      "source": "./vaila-multimodaltoolbox--vaila",
+      "description": "https://vaila.readthedocs.io/"
     },
     {
       "name": "13point5--agent-canvas",
