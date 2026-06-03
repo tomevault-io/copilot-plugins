@@ -1,0 +1,9 @@
+{
+  "name": "cortesi--ruskel",
+  "displayName": "ruskel",
+  "description": "Ruskel generates skeletonized outlines of Rust crates.",
+  "version": "1.0.0",
+  "author": "cortesi",
+  "homepage": "https://github.com/cortesi/ruskel",
+  "skills": []
+}
