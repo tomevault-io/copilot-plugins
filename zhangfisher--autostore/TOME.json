@@ -4,7 +4,7 @@
   "repo": "autostore",
   "description": "Very easy and elegant state management library. It is based on proxy and provides functions such as signaling, computation, and watching to ensure fine-grained updates",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhangfisher/autostore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T11:57:58Z"
+  "distributed_at": "2026-06-03T12:03:28Z"
 }
