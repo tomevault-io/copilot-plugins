@@ -1,0 +1,9 @@
+{
+  "name": "suprsend--cli",
+  "displayName": "cli",
+  "description": "SuprSend CLI",
+  "version": "1.0.0",
+  "author": "suprsend",
+  "homepage": "https://github.com/suprsend/cli",
+  "skills": []
+}
