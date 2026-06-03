@@ -1,0 +1,9 @@
+{
+  "name": "neonwatty--bleep-that-shit",
+  "displayName": "bleep-that-shit",
+  "description": "Free in-browser audio & video censorship tool. AI-powered transcription with Whisper, 100% private client-side processing. Bleep profanity, custom words, or any phrase.",
+  "version": "1.0.0",
+  "author": "neonwatty",
+  "homepage": "https://github.com/neonwatty/bleep-that-shit",
+  "skills": []
+}
