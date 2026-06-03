@@ -75014,6 +75014,16 @@
       "description": "Embedded single file SQL database written in Golang"
     },
     {
+      "name": "thebsd--poykott",
+      "source": "./thebsd--poykott",
+      "description": "previously boycottisraelitech.com"
+    },
+    {
+      "name": "thebsd--poykott",
+      "source": "./thebsd--poykott",
+      "description": "previously boycottisraelitech.com"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -80322,6 +80332,11 @@
       "name": "project-89--argos",
       "source": "./project-89--argos",
       "description": "Experimental framework for ECS based AI agent simulations"
+    },
+    {
+      "name": "xord--reight",
+      "source": "./xord--reight",
+      "description": "A Retro Game Engine for Ruby"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -94059,6 +94074,11 @@
       "description": "A lightweight and customizable web GIS platform for the state of Goa, India. Designed as a community maintained tool for hyperlocal spatial data exploration and decision making."
     },
     {
+      "name": "grovegs--behaviourtree",
+      "source": "./grovegs--behaviourtree",
+      "description": "A modular and extensible behavior tree framework for AI development in C# for the .NET and Godot Engine."
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -106147,6 +106167,16 @@
       "name": "jalexsocial--rizzyui",
       "source": "./jalexsocial--rizzyui",
       "description": "RizzyUI"
+    },
+    {
+      "name": "mehdizare--fmp-data",
+      "source": "./mehdizare--fmp-data",
+      "description": "FMP Data: A Modern Python Client for Financial Modeling Prep API"
+    },
+    {
+      "name": "mehdizare--fmp-data",
+      "source": "./mehdizare--fmp-data",
+      "description": "FMP Data: A Modern Python Client for Financial Modeling Prep API"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -120504,6 +120534,16 @@
       "description": "Mouse and touch friendly artboard library to pan and zoom any DOM element or canvas."
     },
     {
+      "name": "leandrodaf--pianalyze",
+      "source": "./leandrodaf--pianalyze",
+      "description": "\ud83c\udfb9 App desktop gratuito para aprender piano \u2014 an\u00e1lise MIDI em tempo real, detec\u00e7\u00e3o de acordes, modo pr\u00e1tica com feedback de timing. Free piano learning app built with Go + Svelte."
+    },
+    {
+      "name": "zotero-rag--zotero-rag",
+      "source": "./zotero-rag--zotero-rag",
+      "description": "A RAG-based Q&A and search system for Zotero"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -127654,6 +127694,11 @@
       "description": "\u81ea\u7528\u65b9\u4fbf\u7248mihomo\u955c\u50cf\uff0c\u96c6\u6210\u754c\u9762\uff0c\u652f\u6301\u81ea\u52a8\u5316\u8ba2\u9605\u3001\u8f6c\u6362\u3001\u8986\u5199"
     },
     {
+      "name": "jongwoo328--cloudip",
+      "source": "./jongwoo328--cloudip",
+      "description": "CLI tool to identify whether an IP address belongs to AWS, GCP, or Azure."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -131672,6 +131717,16 @@
       "name": "upspeak--upspeak",
       "source": "./upspeak--upspeak",
       "description": "Knowledge management system and information client. Organise notes, discussions, blogs, articles into queryable archives."
+    },
+    {
+      "name": "nativeapptemplate--nativeapptemplateapi",
+      "source": "./nativeapptemplate--nativeapptemplateapi",
+      "description": "Rails 8.1 API backend for NativeAppTemplate iOS/Android mobile applications"
+    },
+    {
+      "name": "someacg--someacg-next",
+      "source": "./someacg--someacg-next",
+      "description": "Rebuilt SomeACG Website with Next.js"
     },
     {
       "name": "mohiwalla--memes",
@@ -136487,6 +136542,11 @@
       "name": "rock3r--camerasync",
       "source": "./rock3r--camerasync",
       "description": "Sync GPS and date/time with your Ricoh or Sony camera."
+    },
+    {
+      "name": "margarita-form--salty-css",
+      "source": "./margarita-form--salty-css",
+      "description": "CSS-in-JS library for React, Next.js, Server Components and more "
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -147449,6 +147509,16 @@
       "description": "This is a open source sidenote app,with concise and fast."
     },
     {
+      "name": "moonbitlang--moonlex",
+      "source": "./moonbitlang--moonlex",
+      "description": "moonlex"
+    },
+    {
+      "name": "stacksjs--bun-plugin-auto-imports",
+      "source": "./stacksjs--bun-plugin-auto-imports",
+      "description": "Auto Imports support for Bun."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -155182,6 +155252,26 @@
       "name": "mmitsuha--m0n1t0r",
       "source": "./mmitsuha--m0n1t0r",
       "description": "A high performance and high reliability command and control tool set for red teams"
+    },
+    {
+      "name": "ek0212--second-brain-template",
+      "source": "./ek0212--second-brain-template",
+      "description": "second-brain-template"
+    },
+    {
+      "name": "veha0001--demodapk",
+      "source": "./veha0001--demodapk",
+      "description": "Script for APK modification with configuration "
+    },
+    {
+      "name": "byte-v-forge--common-lib",
+      "source": "./byte-v-forge--common-lib",
+      "description": "Shared platform contracts and libraries for Byte V Forge"
+    },
+    {
+      "name": "weicj--vllm-2080ti-definitive",
+      "source": "./weicj--vllm-2080ti-definitive",
+      "description": "The definitive vLLM runtime for dual RTX 2080 Ti 22GB + NVLink, delivering 27B/31B local inference with 100+ tok/s single-request decode and native 262K context."
     },
     {
       "name": "yschimke--compose-ai-tools",
