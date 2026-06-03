@@ -1,9 +1,9 @@
 {
   "name": "nvidiagameworks--toolkit-remix",
   "displayName": "toolkit-remix",
-  "description": "toolkit-remix",
+  "description": "RTX Remix Toolkit",
   "version": "1.0.0",
   "author": "NVIDIAGameWorks",
-  "homepage": "https://tomevault.io/claim/NVIDIAGameWorks",
+  "homepage": "https://github.com/NVIDIAGameWorks/toolkit-remix",
   "skills": []
 }
