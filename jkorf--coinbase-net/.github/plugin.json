@@ -1,0 +1,9 @@
+{
+  "name": "jkorf--coinbase-net",
+  "displayName": "Coinbase.Net",
+  "description": "A C# .netstandard client library for the Bybit REST and Websocket V5 API focusing on clear usage and models",
+  "version": "1.0.0",
+  "author": "JKorf",
+  "homepage": "https://github.com/JKorf/Coinbase.Net",
+  "skills": []
+}
