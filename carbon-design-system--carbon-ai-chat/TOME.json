@@ -4,7 +4,7 @@
   "repo": "carbon-ai-chat",
   "description": "Carbon AI chat is a front-end chat framework from the IBM Carbon team.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/carbon-design-system/carbon-ai-chat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T00:30:57Z"
+  "distributed_at": "2026-06-03T00:33:04Z"
 }
