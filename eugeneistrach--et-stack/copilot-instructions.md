@@ -1,75 +1,76 @@
-## 400-ui-forms
+## 400-ui-routing
 
-> react-hook-form instructions and guidelines
+> Routing guidelines for TanStack Router including route types, creation, and navigation patterns
 
 
 guidelines:
-  core:
-    - Use react-hook-form for form state management
-    - Refer to @validation.mdc for validation instructions
-    - Use controlled components sparingly - prefer uncontrolled when possible
-    - Implement proper form submission handling with loading states
-    - Use [loading-button.tsx](mdc:src/components/ui/loading-button.tsx) for form submissions
+  route_types:
+    public: src/routes/_marketing/ # Marketing/public pages
+    auth: src/routes/_auth/ # Authentication-related pages
+    dashboard: src/routes/dashboard/ # Protected pages requiring authentication
+    admin: src/routes/dashboard/admin/ # Protected pages requiring admin role
+
+  principles:
+    - Place routes in correct directory for proper protection
+    - Authorization is handled by parent layouts
+    - No explicit auth checks needed in route files
 
 examples:
-  form: |
-    const formSchema = z.object({
-      email: z.string().email("Invalid email address"),
-      password: z.string().min(8, "Password must be at least 8 characters")
+  basic_route: |
+    import { createFileRoute } from '@tanstack/react-router'
+
+    export const Route = createFileRoute('/your-path')({
+      loader: () => ({
+        crumb: "Your crumb"
+      }),
+      component: YourComponent,
     })
 
-    const Form = () => {
-      const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema)
-      })
+  dashboard_navigation: |
+    // In dashboard.tsx
+    import { YourIcon } from 'lucide-react'
 
-      const { mutate, isLoading } = useMutation()
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <SidebarMenuButton tooltip={m.nav_label()} asChild>
+          <NavLink to="/dashboard/your-route">
+            <YourIcon />
+            <span>Your route</span>
+          </NavLink>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
 
-      return (
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(mutate)}>
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+  nested_routes: |
+    // Parent: /dashboard/parent/index.tsx
+    export const Route = createFileRoute('/dashboard/parent')({
+      component: () => <Outlet />,
+    })
 
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    // Child: /dashboard/parent/child.tsx
+    export const Route = createFileRoute('/dashboard/parent/child')({
+      component: ChildComponent,
+    })
 
-            <LoadingButton type="submit" isLoading={isLoading}>
-              Submit
-            </LoadingButton>
-          </form>
-        </Form>
-      )
-    }
+  page_title: |
+    export const Route = createFileRoute('/your-path')({
+      head: () => ({
+        meta: [{ title: "some page title" }],
+      }),
+    })
 
 key_points:
-  usage:
-    - Use for all form state management
-    - Prefer uncontrolled components
-    - Always handle loading states
-    - Use LoadingButton component
+  structure:
+    - Public routes in _marketing
+    - Auth routes in _auth
+    - Protected routes in dashboard
+    - Admin routes in dashboard/admin
+
+  features:
+    - Automatic authorization
+    - Nested routing support
+    - Page titles via head
+    - Breadcrumb support
 
 ---
 > Source: [EugenEistrach/et-stack](https://github.com/EugenEistrach/et-stack) — distributed by [TomeVault](https://tomevault.io).
