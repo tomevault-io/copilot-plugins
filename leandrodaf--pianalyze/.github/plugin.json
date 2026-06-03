@@ -1,0 +1,9 @@
+{
+  "name": "leandrodaf--pianalyze",
+  "displayName": "pianalyze",
+  "description": "\ud83c\udfb9 App desktop gratuito para aprender piano \u2014 an\u00e1lise MIDI em tempo real, detec\u00e7\u00e3o de acordes, modo pr\u00e1tica com feedback de timing. Free piano learning app built with Go + Svelte.",
+  "version": "1.0.0",
+  "author": "leandrodaf",
+  "homepage": "https://github.com/leandrodaf/pianalyze",
+  "skills": []
+}
