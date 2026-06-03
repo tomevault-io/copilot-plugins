@@ -1,0 +1,9 @@
+{
+  "name": "adamkali--dotnvim",
+  "displayName": "dotnvim",
+  "description": "A plugin for dotnet development because i really dislike the tooling in neovim for dotnet",
+  "version": "1.0.0",
+  "author": "adamkali",
+  "homepage": "https://github.com/adamkali/dotnvim",
+  "skills": []
+}
