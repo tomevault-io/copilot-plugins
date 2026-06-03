@@ -1,0 +1,44 @@
+{
+  "name": "insanely-fast-whisper-rocm",
+  "owner": "beecave-homelab",
+  "repo": "insanely-fast-whisper-rocm",
+  "description": "insanely-fast-whisper with support for AMD GPU's with rocm 6.1 - 7.1",
+  "type": "config",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/beecave-homelab/insanely-fast-whisper-rocm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-03T16:33:37Z"
+}
