@@ -1,0 +1,9 @@
+{
+  "name": "balancer--frontend-monorepo",
+  "displayName": "frontend-monorepo",
+  "description": "Balancer frontend apps and packages. Includes the official Balancer web application.",
+  "version": "1.0.0",
+  "author": "balancer",
+  "homepage": "https://github.com/balancer/frontend-monorepo",
+  "skills": []
+}
