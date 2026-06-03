@@ -1,0 +1,9 @@
+{
+  "name": "hazelnutparadise--insyra",
+  "displayName": "insyra",
+  "description": "Not just an alternative to Pandas in Go. A next-generation data analysis library for Golang with factor analysis, Parquet, CSV, JSON, Excel, and seamless Python integration.",
+  "version": "1.0.0",
+  "author": "HazelnutParadise",
+  "homepage": "https://github.com/HazelnutParadise/insyra",
+  "skills": []
+}
