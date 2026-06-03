@@ -1,9 +1,9 @@
-## code-style
+## commands
 
-> Python code style — formatting, imports, naming conventions
+> Auto-dispatch agent commands for known operations
 
 
-@.agents/rules/code-style.md
+@.agents/rules/commands.md
 
 ---
 > Source: [NVIDIAGameWorks/toolkit-remix](https://github.com/NVIDIAGameWorks/toolkit-remix) — distributed by [TomeVault](https://tomevault.io).
