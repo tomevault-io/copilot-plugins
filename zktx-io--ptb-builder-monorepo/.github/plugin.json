@@ -1,0 +1,9 @@
+{
+  "name": "zktx-io--ptb-builder-monorepo",
+  "displayName": "ptb-builder-monorepo",
+  "description": "Visual drag-and-drop builder for Sui Programmable Transaction Blocks that lets anyone design, simulate, and execute PTBs with automatic TypeScript generation and on-chain support.",
+  "version": "1.0.0",
+  "author": "zktx-io",
+  "homepage": "https://github.com/zktx-io/ptb-builder-monorepo",
+  "skills": []
+}
