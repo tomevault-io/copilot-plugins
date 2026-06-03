@@ -1,0 +1,9 @@
+{
+  "name": "camunda--camunda-distributions",
+  "displayName": "camunda-distributions",
+  "description": "Camunda 8 Self-Managed Distributions",
+  "version": "1.0.0",
+  "author": "camunda",
+  "homepage": "https://github.com/camunda/camunda-distributions",
+  "skills": []
+}
