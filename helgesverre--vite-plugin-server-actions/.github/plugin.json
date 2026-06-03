@@ -1,0 +1,9 @@
+{
+  "name": "helgesverre--vite-plugin-server-actions",
+  "displayName": "vite-plugin-server-actions",
+  "description": "Write server functions. Call them from the client. That's it.",
+  "version": "1.0.0",
+  "author": "HelgeSverre",
+  "homepage": "https://github.com/HelgeSverre/vite-plugin-server-actions",
+  "skills": []
+}
