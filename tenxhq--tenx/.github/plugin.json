@@ -1,0 +1,9 @@
+{
+  "name": "tenxhq--tenx",
+  "displayName": "tenx",
+  "description": "A sharp command-line tool for AI-assisted coding.",
+  "version": "1.0.0",
+  "author": "tenxhq",
+  "homepage": "https://github.com/tenxhq/tenx",
+  "skills": []
+}
