@@ -1,0 +1,9 @@
+{
+  "name": "xenoatom--xenoatom-logging",
+  "displayName": "XenoAtom.Logging",
+  "description": "Zero-alloc structured logging for .NET - fast formatters, rich terminal visuals, production-ready file & JSON sinks.",
+  "version": "1.0.0",
+  "author": "XenoAtom",
+  "homepage": "https://github.com/XenoAtom/XenoAtom.Logging",
+  "skills": []
+}
