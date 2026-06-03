@@ -7,11 +7,11 @@ Sync GPS and date/time with your Ricoh or Sony camera.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rock3r/CameraSync](https://github.com/rock3r/CameraSync).
+Original source: `CLAUDE.md` in [rock3r/CameraSync](https://github.com/rock3r/CameraSync).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
