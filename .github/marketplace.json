@@ -67149,6 +67149,21 @@
       "description": "ProtSpace is program that helps in visualizing and investigating our protein embedding space."
     },
     {
+      "name": "longzheng--open-dynamic-export",
+      "source": "./longzheng--open-dynamic-export",
+      "description": "Dynamic export control/solar curtailment of inverters for dynamic connections (CSIP-AUS/SEP2/IEEE 2030.5), fixed/zero export or negative feed-in"
+    },
+    {
+      "name": "inetsoft-technology--stylebi",
+      "source": "./inetsoft-technology--stylebi",
+      "description": "StyleBI is a cloud-native, small-footprint business intelligence web application powered by a combination of visualization and data transformation pipeline"
+    },
+    {
+      "name": "gaoyusong--llm-cpp",
+      "source": "./gaoyusong--llm-cpp",
+      "description": "A C++ port of karpathy/llm.c features a tiny torch library while maintaining overall simplicity."
+    },
+    {
       "name": "timoncool--ace-step-studio",
       "source": "./timoncool--ace-step-studio",
       "description": "Portable AI music generator \u2014 full songs with vocals, covers, music videos. One-click install, 100% offline, NVIDIA GPU."
@@ -68157,6 +68172,16 @@
       "name": "fehbari--sunshine-scripts",
       "source": "./fehbari--sunshine-scripts",
       "description": "Scripts for Sunshine game stream host."
+    },
+    {
+      "name": "huggingface--inference-playground",
+      "source": "./huggingface--inference-playground",
+      "description": "inference-playground"
+    },
+    {
+      "name": "biovisioncenter--ngio",
+      "source": "./biovisioncenter--ngio",
+      "description": "ngio is a Python library to streamline OME-Zarr image analysis workflows."
     },
     {
       "name": "mikkelkrogsholm--skills",
@@ -69862,6 +69887,11 @@
       "name": "shpigford--society-fail",
       "source": "./shpigford--society-fail",
       "description": "Browser-based incremental post-apocalyptic clicker game"
+    },
+    {
+      "name": "yofardev--yofardev-ai",
+      "source": "./yofardev--yofardev-ai",
+      "description": "yofardev_ai"
     },
     {
       "name": "rust-works--succinctly",
@@ -71942,6 +71972,16 @@
       "name": "open-rct3--open-rct3",
       "source": "./open-rct3--open-rct3",
       "description": "An open source re-implementation of RollerCoaster Tycoon 3"
+    },
+    {
+      "name": "web3insight-ai--web3insight",
+      "source": "./web3insight-ai--web3insight",
+      "description": "Discover, analyze, and connect with Web3 developers. Powered by GitHub data and on-chain activity for ecosystem growth."
+    },
+    {
+      "name": "web3insight-ai--web3insight",
+      "source": "./web3insight-ai--web3insight",
+      "description": "Discover, analyze, and connect with Web3 developers. Powered by GitHub data and on-chain activity for ecosystem growth."
     },
     {
       "name": "izittmarvin--memcoach",
@@ -76154,6 +76194,16 @@
       "description": "Docker Dev Environments for AI, CV and Robotics Courses at NJIT and NYU"
     },
     {
+      "name": "llm-jp--llm-jp-eval-mm",
+      "source": "./llm-jp--llm-jp-eval-mm",
+      "description": "A lightweight framework for evaluating visual-language models."
+    },
+    {
+      "name": "ivrit-ai--runpod-serverless",
+      "source": "./ivrit-ai--runpod-serverless",
+      "description": "runpod serverless endpoint for ivrit.ai transcription models"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -79129,6 +79179,16 @@
       "description": "Atlaspack is the frontend bundler used to build Atlassian products, written in JavaScript and Rust by core contributors of Parcel. "
     },
     {
+      "name": "simoneavogadro--humandetection4tasker",
+      "source": "./simoneavogadro--humandetection4tasker",
+      "description": "Android app providing ML vision features to Tasker/Macrodroid automations"
+    },
+    {
+      "name": "kousen--aijavalabs",
+      "source": "./kousen--aijavalabs",
+      "description": "Exercises for a course on integrating AI services with Java."
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -81572,6 +81632,11 @@
       "name": "mikker--flickring",
       "source": "./mikker--flickring",
       "description": "Action ring for your normie mouse"
+    },
+    {
+      "name": "webtv-redialed--redialed-service",
+      "source": "./webtv-redialed--redialed-service",
+      "description": "The WebTV Redialed service"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -89719,6 +89784,11 @@
       "description": "Plugboard is an event driven modelling and orchestration framework in Python for simulating and driving complex processes with many interconnected stateful components."
     },
     {
+      "name": "maximiliana-dev--lucientes",
+      "source": "./maximiliana-dev--lucientes",
+      "description": "Lucientes is a simple web service for converting HTML files into high-quality images"
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -91357,6 +91427,16 @@
       "name": "openmf--mifos-gazelle",
       "source": "./openmf--mifos-gazelle",
       "description": "Mifos-Gazelle is a DPI as a Service offering a Deployable Package for Mifos X, Payment Hub EE, and VNext. With other DPGs planned"
+    },
+    {
+      "name": "refined-prun--refined-prun",
+      "source": "./refined-prun--refined-prun",
+      "description": "Browser extension that simplifies the Prosperous Universe interface and adds useful features"
+    },
+    {
+      "name": "cortesi--ruskel",
+      "source": "./cortesi--ruskel",
+      "description": "Ruskel generates skeletonized outlines of Rust crates."
     },
     {
       "name": "mulhamna--jira-commands",
@@ -93422,6 +93502,11 @@
       "name": "belingud--gptcomet",
       "source": "./belingud--gptcomet",
       "description": "GPTComet: AI-Powered Git Commit Message Generator"
+    },
+    {
+      "name": "zipline-ai--chronon",
+      "source": "./zipline-ai--chronon",
+      "description": "chronon"
     },
     {
       "name": "khangbdd--phoenix",
@@ -97754,6 +97839,11 @@
       "description": "Laravel database driver for Cloudflare D1 - supports REST & Worker, Eloquent-ready - TanDuy03"
     },
     {
+      "name": "caicoleung--bob-plugin-ollama-translator",
+      "source": "./caicoleung--bob-plugin-ollama-translator",
+      "description": "\u652f\u6301\u591a\u79cdAI\u670d\u52a1\uff08Ollama/Qwen/OpenAI/Grok/Claude/Gemini\u7b49\uff09\u7684\u7ffb\u8bd1\u548c\u89e3\u91ca\u63d2\u4ef6\uff0c\u53ef\u8fdb\u884c\u5355\u8bcd\u3001\u6574\u53e5\u7ffb\u8bd1\u53ca\u767e\u79d1\u89e3\u91ca"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -100032,6 +100122,11 @@
       "name": "hylozoic--hylo",
       "source": "./hylozoic--hylo",
       "description": "hylo"
+    },
+    {
+      "name": "query-farm--evalexpr-rhai",
+      "source": "./query-farm--evalexpr-rhai",
+      "description": "A DuckDB extension to evaluate the Rhai scripting language as part of SQL."
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -104747,6 +104842,21 @@
       "name": "lokeshwardewangan--budgetter-webapp",
       "source": "./lokeshwardewangan--budgetter-webapp",
       "description": "Production-ready expense tracking platform delivering real-time financial insights, secure authentication, and scalable architecture for data-driven personal finance management."
+    },
+    {
+      "name": "ever-co--ever-rec-desktop",
+      "source": "./ever-co--ever-rec-desktop",
+      "description": "Ever\u00ae Rec\u2122 - Open Screen Capture, Screen Recording, Images & Video Sharing Platform - https://rec.so"
+    },
+    {
+      "name": "ever-co--ever-rec-desktop",
+      "source": "./ever-co--ever-rec-desktop",
+      "description": "Ever\u00ae Rec\u2122 - Open Screen Capture, Screen Recording, Images & Video Sharing Platform - https://rec.so"
+    },
+    {
+      "name": "ever-co--ever-rec-desktop",
+      "source": "./ever-co--ever-rec-desktop",
+      "description": "Ever\u00ae Rec\u2122 - Open Screen Capture, Screen Recording, Images & Video Sharing Platform - https://rec.so"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -110502,6 +110612,11 @@
       "name": "cyroz1--vidcord",
       "source": "./cyroz1--vidcord",
       "description": "Compress videos to fit Discord's file size limits. Cross-platform desktop app powered by FFmpeg \u2014 Windows, macOS, Linux."
+    },
+    {
+      "name": "meain--yap",
+      "source": "./meain--yap",
+      "description": "Your Assistant for Prompting LLMs"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -118997,6 +119112,11 @@
       "name": "fhir--fhir-candle",
       "source": "./fhir--fhir-candle",
       "description": "fhir-candle - A FHIR development and test server implemented in C#"
+    },
+    {
+      "name": "cloud-apim--otoroshi-llm-extension",
+      "source": "./cloud-apim--otoroshi-llm-extension",
+      "description": "Connect, setup, secure and seamlessly manage LLM models using an Universal/OpenAI compatible API"
     },
     {
       "name": "skenetechnologies--plg-skills",
