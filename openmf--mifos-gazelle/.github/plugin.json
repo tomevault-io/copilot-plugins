@@ -1,0 +1,9 @@
+{
+  "name": "openmf--mifos-gazelle",
+  "displayName": "mifos-gazelle",
+  "description": "Mifos-Gazelle is a DPI as a Service offering a Deployable Package for Mifos X, Payment Hub EE, and VNext. With other DPGs planned",
+  "version": "1.0.0",
+  "author": "openMF",
+  "homepage": "https://github.com/openMF/mifos-gazelle",
+  "skills": []
+}
