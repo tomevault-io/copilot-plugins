@@ -1,71 +1,40 @@
-## navigation
+## project-instructions
 
-> Navigation Guide
+> Project Instructions
 
-# Navigation Rules for Keth Codebase
+# Project Instructions
 
-## Project Structure Overview
+## Overview
+- Keth is an open-source proving backend for the Ethereum Execution Layer built with Kakarot Core EVM and Cairo.
+- Purpose: To prove Ethereum state transitions asynchronously by pulling pre-state, executing transactions, and computing post-state.
 
-The Keth codebase is an EVM implementation written in Cairo Zero with the following organization:
+## Architecture
+- Bridges Python and Cairo through three components:
+  - Type Generation (`args_gen.py`): Converts Python values to Cairo memory layout
+  - Serialization (`serde.py`): Converts values in Cairo memory to Python types
+  - Test Runner (`runner.py`): Orchestrates program execution and manages memory segments
 
-- `cairo/ethereum/`: Core EVM implementation files
-  - `prague/`: prague fork-specific EVM components
-  - `crypto/`: Cryptographic primitives implementation specifically for Ethereum
-  - `utils/`: Utility functions for the EVM
+- Implements the Ethereum Virtual Machine (EVM) in Cairo Zero
+  - Core EVM components in `cairo/ethereum/prague/`
+  - Type system in `cairo/ethereum_types/`
+  - Test framework adapted from Ethereum Execution Specs
 
-- `cairo/ethereum_types/`: Core Ethereum types in Cairo
-  - `bytes.cairo`: Bytes type implementation
-  - `numeric.cairo`: Numeric type definitions
+## Goals
+- Implement a complete EVM in Cairo for provable execution
+- Maintain strict compatibility with Ethereum's execution semantics
+- Optimize for provability while maintaining readability
+- Support the prague fork of Ethereum
 
-- `cairo/tests/`: Tests organized to mirror the source structure
-  - `ef_tests/`: Ethereum Foundation tests
-  - `ethereum/`: Fuzzed tests against the reference Execution-Spec implementation
+## AI Guidance
+- For type system questions, focus on both the Cairo implementation and Python bridging, refer to patterns in @common_patterns.mdc
+- For generic Cairo questions, refer to @coding_standards.mdc and @common_patterns.mdc
+- For EVM logic, refer to the Ethereum execution specs and the Cairo implementation
+- When implementing new features, follow the established patterns for error handling, type wrapping, and testing
 
-## Key Directories and Files
 
-### Core EVM Components
-- `cairo/ethereum/prague/vm/`: Virtual machine implementation
-  - `stack.cairo`: EVM stack implementation
-  - `memory.cairo`: EVM memory implementation
-  - `instructions.cairo`: EVM opcode implementations
-  - `exceptions.cairo`: Error type definitions
-  - `interpreter.cairo`: Core EVM interpreter
+## Python project setup
 
-- `cairo/ethereum/prague/state.cairo`: State implementation
-- `cairo/ethereum/prague/trie.cairo`: Merkle Patricia Trie implementation
-- `cairo/ethereum/prague/transactions.cairo`: Transaction processing
-- `cairo/ethereum/prague/fork.cairo`: Entrypoint to the STF function with `state_transition`
-
-### Type System
-- `cairo/tests/utils/args_gen.py`: Type generation from Python to Cairo
-- `cairo/tests/utils/serde.py`: Conversion from Cairo Memory values to Python types
-- `cairo/tests/utils/strategies.py`: Testing strategies for property-based testing
-
-## Navigation Patterns
-
-1. **Understanding the Type System**:
-   - Start with `cairo/tests/utils/args_gen.py` to understand Python to Cairo type mapping
-   - Explore type implementations in `cairo/ethereum_types/`
-   - See how types are serialized back in `cairo/tests/utils/serde.py`
-
-2. **Following the EVM Execution Flow**:
-   - Start at the virtual machine implementation in `cairo/ethereum/prague/vm.cairo`
-   - Examine the instruction interpretation in `cairo/ethereum/prague/vm/interpreter.cairo`
-   - Explore state in `cairo/ethereum/prague/state.cairo`
-   - Check error handling in `cairo/ethereum/prague/vm/exceptions.cairo`
-
-3. **Exploring Test Structure**:
-   - Tests mirror the source directory structure
-   - `cairo/tests/ethereum/` contains the property-based tests.
-   - `cairo_run` fixture in `cairo/tests/conftest.py` is used to execute Cairo functions
-   - `cairo/tests/ef_tests/` contains Ethereum Foundation adapted tests. Never modify
-
-## Common Navigation Tasks
-
-- **To understand a new type implementation**: Look at both the Cairo definition in `cairo/ethereum_types/` and its Python mapping in `args_gen.py`
-- **To find error handling for a component**: Check the `exceptions.cairo` file and component implementation
-- **To see test examples for a component**: Find the corresponding test file in the mirrored test structure
-- **To explore mutable data structures**: Check implementations of Stack, Memory, and TransientStorage
+- The python project is set up with `uv`. You can run `uv run <script_path>` to run a python script, or `uv run pytest <path_to_test>` to run tests.
 
 ---
 > Source: [kkrt-labs/keth](https://github.com/kkrt-labs/keth) — distributed by [TomeVault](https://tomevault.io).
