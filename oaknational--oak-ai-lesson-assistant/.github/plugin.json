@@ -1,0 +1,26 @@
+{
+  "name": "oaknational--oak-ai-lesson-assistant",
+  "displayName": "oak-ai-lesson-assistant",
+  "description": "Oak's AI Projects including our AI Lesson Planning Assistant (Aila)",
+  "version": "1.0.0",
+  "author": "oaknational",
+  "homepage": "https://github.com/oaknational/oak-ai-lesson-assistant",
+  "skills": [
+    {
+      "name": "code-style",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "local-development",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    }
+  ]
+}
