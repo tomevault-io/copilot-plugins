@@ -1,0 +1,9 @@
+{
+  "name": "tmr232--function-graph-overview",
+  "displayName": "function-graph-overview",
+  "description": "Control-Flow Graph (CFG) Visualizer for VSCode",
+  "version": "1.0.0",
+  "author": "tmr232",
+  "homepage": "https://github.com/tmr232/function-graph-overview",
+  "skills": []
+}
