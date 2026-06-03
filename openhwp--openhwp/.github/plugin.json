@@ -1,0 +1,9 @@
+{
+  "name": "openhwp--openhwp",
+  "displayName": "openhwp",
+  "description": "An all-in-one project to create a library, viewer, and editor for HWP documents",
+  "version": "1.0.0",
+  "author": "openhwp",
+  "homepage": "https://github.com/openhwp/openhwp",
+  "skills": []
+}
