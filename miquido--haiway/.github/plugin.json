@@ -1,0 +1,9 @@
+{
+  "name": "miquido--haiway",
+  "displayName": "haiway",
+  "description": "Modern Python framework for functional programming and structured concurrency. Developed by Miquido.",
+  "version": "1.0.0",
+  "author": "miquido",
+  "homepage": "https://github.com/miquido/haiway",
+  "skills": []
+}
