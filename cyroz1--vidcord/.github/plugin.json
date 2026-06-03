@@ -1,0 +1,9 @@
+{
+  "name": "cyroz1--vidcord",
+  "displayName": "vidcord",
+  "description": "Compress videos to fit Discord's file size limits. Cross-platform desktop app powered by FFmpeg \u2014 Windows, macOS, Linux.",
+  "version": "1.0.0",
+  "author": "cyroz1",
+  "homepage": "https://github.com/cyroz1/vidcord",
+  "skills": []
+}
