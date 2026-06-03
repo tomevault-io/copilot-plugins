@@ -1,9 +1,9 @@
-## project
+## testing
 
-> RTX Remix Toolkit project overview — build, run, and test commands
+> Test coverage requirements and test-first planning
 
 
-@.agents/context/project.md
+@.agents/rules/testing.md
 
 ---
 > Source: [NVIDIAGameWorks/toolkit-remix](https://github.com/NVIDIAGameWorks/toolkit-remix) — distributed by [TomeVault](https://tomevault.io).
