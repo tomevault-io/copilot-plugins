@@ -1,9 +1,9 @@
 {
   "name": "elliotxie--cassia",
   "displayName": "CASSIA",
-  "description": "CASSIA",
+  "description": "CASSIA: A Multi-Agent LLM-Based Single-Cell Cell Type Annotation Framework",
   "version": "1.0.0",
   "author": "ElliotXie",
-  "homepage": "https://tomevault.io/claim/ElliotXie",
+  "homepage": "https://github.com/ElliotXie/CASSIA",
   "skills": []
 }
