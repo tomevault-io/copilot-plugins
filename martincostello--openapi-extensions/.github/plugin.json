@@ -1,0 +1,9 @@
+{
+  "name": "martincostello--openapi-extensions",
+  "displayName": "openapi-extensions",
+  "description": "Extensions for Microsoft.AspNetCore.OpenApi",
+  "version": "1.0.0",
+  "author": "martincostello",
+  "homepage": "https://github.com/martincostello/openapi-extensions",
+  "skills": []
+}
