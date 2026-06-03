@@ -1,0 +1,9 @@
+{
+  "name": "typetale-app--mailgun-ses-proxy",
+  "displayName": "mailgun-ses-proxy",
+  "description": "AWS SES Proxy for Ghost CMS: A lightweight Node.js mailer proxy to replace Mailgun with AWS SES. Save on email costs by routing Ghost's bulk newsletters through Amazon Simple Email Service via a Mailg",
+  "version": "1.0.0",
+  "author": "typetale-app",
+  "homepage": "https://github.com/typetale-app/mailgun-ses-proxy",
+  "skills": []
+}
