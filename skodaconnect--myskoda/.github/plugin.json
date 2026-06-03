@@ -1,0 +1,9 @@
+{
+  "name": "skodaconnect--myskoda",
+  "displayName": "myskoda",
+  "description": "Python library for interacting with MySkoda APIs.",
+  "version": "1.0.0",
+  "author": "skodaconnect",
+  "homepage": "https://github.com/skodaconnect/myskoda",
+  "skills": []
+}
