@@ -1,0 +1,9 @@
+{
+  "name": "uilibs--uiprotect",
+  "displayName": "uiprotect",
+  "description": "Python API for UniFi Protect (Unofficial)",
+  "version": "1.0.0",
+  "author": "uilibs",
+  "homepage": "https://github.com/uilibs/uiprotect",
+  "skills": []
+}
