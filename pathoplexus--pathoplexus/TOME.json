@@ -4,7 +4,7 @@
   "repo": "pathoplexus",
   "description": "An open-source pathogen sequence database dedicated to equitable sharing, transparent governance, & empowering global public health.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pathoplexus/pathoplexus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T13:36:19Z"
+  "distributed_at": "2026-06-03T13:45:01Z"
 }
