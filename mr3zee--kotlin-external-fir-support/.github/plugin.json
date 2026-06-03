@@ -1,0 +1,9 @@
+{
+  "name": "mr3zee--kotlin-external-fir-support",
+  "displayName": "Kotlin-External-FIR-Support",
+  "description": "IDE Integration for Kotlin FIR Compiler Plugins",
+  "version": "1.0.0",
+  "author": "Mr3zee",
+  "homepage": "https://github.com/Mr3zee/Kotlin-External-FIR-Support",
+  "skills": []
+}
