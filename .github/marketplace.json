@@ -71139,6 +71139,26 @@
       "description": "The most advanced pandal hopping experience in the world*"
     },
     {
+      "name": "blacklanternsecurity--bbot-server",
+      "source": "./blacklanternsecurity--bbot-server",
+      "description": "A persistent database + CLI for your BBOT scan data \ud83e\udde1"
+    },
+    {
+      "name": "blacklanternsecurity--bbot-server",
+      "source": "./blacklanternsecurity--bbot-server",
+      "description": "A persistent database + CLI for your BBOT scan data \ud83e\udde1"
+    },
+    {
+      "name": "ozma-io--ozma",
+      "source": "./ozma-io--ozma",
+      "description": "Ozma is an CRM/ERP platform that enables rapid development of customizable enterprise-level systems. Build and tailor CRM/ERP solutions quickly and efficiently to meet your specific business needs."
+    },
+    {
+      "name": "taiga-family--ng-draw-flow",
+      "source": "./taiga-family--ng-draw-flow",
+      "description": "A customizable Angular component for building node-based editors and interactive diagrams"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -73177,6 +73197,11 @@
       "name": "gentleeduck--duck-ui",
       "source": "./gentleeduck--duck-ui",
       "description": "React component library, headless primitives, hooks, variants, and developer tooling for the Gentleduck design system."
+    },
+    {
+      "name": "grafana--profiles-drilldown",
+      "source": "./grafana--profiles-drilldown",
+      "description": "Profiles Drilldown is a native Grafana application designed to integrate seamlessly with Pyroscope, the open-source continuous profiling platform, providing a smooth, query-less experience for browsin"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -76374,6 +76399,21 @@
       "description": "runpod serverless endpoint for ivrit.ai transcription models"
     },
     {
+      "name": "yankeguo--zhipu",
+      "source": "./yankeguo--zhipu",
+      "description": "A 3rd-Party Golang Client Library for Zhipu AI Platform"
+    },
+    {
+      "name": "jarvislin--hackernews-kmp",
+      "source": "./jarvislin--hackernews-kmp",
+      "description": "This is a Hacker News reader app implemented using Kotlin Multiplatform Compose for Android and iOS."
+    },
+    {
+      "name": "yankeguo--zhipu",
+      "source": "./yankeguo--zhipu",
+      "description": "A 3rd-Party Golang Client Library for Zhipu AI Platform"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -78392,6 +78432,11 @@
       "name": "tenxhq--tenx",
       "source": "./tenxhq--tenx",
       "description": "A sharp command-line tool for AI-assisted coding."
+    },
+    {
+      "name": "aggiesportsanalytics--courtcheck",
+      "source": "./aggiesportsanalytics--courtcheck",
+      "description": "CourtCheck is a computer vision project that detects/tracks tennis court boundaries and ball movements"
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -80599,6 +80644,11 @@
       "description": "Hyrax - A low-code framework for rapid experimentation with ML & unsupervised discovery in astronomy"
     },
     {
+      "name": "robostack--ros-jazzy",
+      "source": "./robostack--ros-jazzy",
+      "description": "Recipes and patches for ros-jazzy conda packages"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -81807,6 +81857,16 @@
       "name": "webtv-redialed--redialed-service",
       "source": "./webtv-redialed--redialed-service",
       "description": "The WebTV Redialed service"
+    },
+    {
+      "name": "stringandstickytape--maxsaistudio",
+      "source": "./stringandstickytape--maxsaistudio",
+      "description": "A Windows tool to query various LLM AIs.  Supports branched conversations, history and summaries among others."
+    },
+    {
+      "name": "arthurdanjou--artsite",
+      "source": "./arthurdanjou--artsite",
+      "description": "\ud83c\udf0d My personal website, my portfolio, and my blog. \ud83d\ude80 Built and powered by Nuxt Stack (Content, Hub, Studio, UI) & Nitro"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -83149,6 +83209,16 @@
       "description": "A plugin for dotnet development because i really dislike the tooling in neovim for dotnet"
     },
     {
+      "name": "larry-xue--react-admin-dashboard",
+      "source": "./larry-xue--react-admin-dashboard",
+      "description": "A React admin dashboard template developed with React 18 + TypeScript + Vite 5 + Ant Design v5 + React Router v6 + Zustand v4 + Ant Design Charts."
+    },
+    {
+      "name": "edisonlee0212--evoengine",
+      "source": "./edisonlee0212--evoengine",
+      "description": "An early-stage, cross-platform interactive application and rendering framework."
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -84344,6 +84414,11 @@
       "description": "\ud83d\udcfb My personal portfolio website, inspired by Spotify."
     },
     {
+      "name": "j-clemons--dbt-language-server",
+      "source": "./j-clemons--dbt-language-server",
+      "description": "LSP for dbt"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -85522,6 +85597,31 @@
       "name": "ideallab--engibench",
       "source": "./ideallab--engibench",
       "description": "Benchmarks for automated engineering design"
+    },
+    {
+      "name": "onebusaway--wayfinder",
+      "source": "./onebusaway--wayfinder",
+      "description": "Modern web app frontend for OneBusAway built in JavaScript with SvelteKit"
+    },
+    {
+      "name": "d4vidsha--scheduler",
+      "source": "./d4vidsha--scheduler",
+      "description": "Automatically schedule tasks and see it in a calendar view."
+    },
+    {
+      "name": "gitbutlerapp--gitbutler-docs",
+      "source": "./gitbutlerapp--gitbutler-docs",
+      "description": "GitButler Documentation"
+    },
+    {
+      "name": "d4vidsha--scheduler",
+      "source": "./d4vidsha--scheduler",
+      "description": "Automatically schedule tasks and see it in a calendar view."
+    },
+    {
+      "name": "gitbutlerapp--gitbutler-docs",
+      "source": "./gitbutlerapp--gitbutler-docs",
+      "description": "GitButler Documentation"
     },
     {
       "name": "skywind3000--gamesample",
@@ -88324,6 +88424,16 @@
       "description": "LLM powered local Search Engine"
     },
     {
+      "name": "idreamshen--esphome-uart-vrf",
+      "source": "./idreamshen--esphome-uart-vrf",
+      "description": "\u4e2d\u592e\u7a7a\u8c03\u7f51\u5173 VRF ESPHome \u4e32\u53e3\u901a\u4fe1\u56fa\u4ef6\u3002\u652f\u6301\u5fb7\u59c6\u745eDEMRY\u3001\u5e73\u5934\u718aPTXZN\u3001\u4e2d\u5f18\u7cfb\u5217\u3002"
+    },
+    {
+      "name": "orange-opensource--ouds-ios",
+      "source": "./orange-opensource--ouds-ios",
+      "description": "A Swift Package of SwiftUI components library for Orange developers with Orange Unified Design System. Build Sharper. Ship faster. Perform better."
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -89957,6 +90067,11 @@
       "name": "maximiliana-dev--lucientes",
       "source": "./maximiliana-dev--lucientes",
       "description": "Lucientes is a simple web service for converting HTML files into high-quality images"
+    },
+    {
+      "name": "daley-mottley--portfolio",
+      "source": "./daley-mottley--portfolio",
+      "description": "Feel free to rate my portfolio page by giving it a \u2b50 if you like it. Thank you, I appreciate your feedback!"
     },
     {
       "name": "navikt--cplt",
@@ -91607,6 +91722,16 @@
       "name": "cortesi--ruskel",
       "source": "./cortesi--ruskel",
       "description": "Ruskel generates skeletonized outlines of Rust crates."
+    },
+    {
+      "name": "storybookjs--vite-plugin-storybook-nextjs",
+      "source": "./storybookjs--vite-plugin-storybook-nextjs",
+      "description": "vite-plugin-storybook-nextjs"
+    },
+    {
+      "name": "storybookjs--vite-plugin-storybook-nextjs",
+      "source": "./storybookjs--vite-plugin-storybook-nextjs",
+      "description": "vite-plugin-storybook-nextjs"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -93677,6 +93802,26 @@
       "name": "zipline-ai--chronon",
       "source": "./zipline-ai--chronon",
       "description": "chronon"
+    },
+    {
+      "name": "kongfoo-ai--internta",
+      "source": "./kongfoo-ai--internta",
+      "description": "Multi-agent AI Teaching Assistant Learns from Limited Data"
+    },
+    {
+      "name": "query-farm--crypto",
+      "source": "./query-farm--crypto",
+      "description": "DuckDB Extension for cryptographic hash functions and HMAC"
+    },
+    {
+      "name": "dalafiarisamuel--unsplash-kmp",
+      "source": "./dalafiarisamuel--unsplash-kmp",
+      "description": "A project to display images from https://unsplash.com using Kotlin Multiplatform"
+    },
+    {
+      "name": "semoss--semoss-ui",
+      "source": "./semoss--semoss-ui",
+      "description": "semoss-ui"
     },
     {
       "name": "khangbdd--phoenix",
@@ -102654,6 +102799,11 @@
       "description": "Audience engagement tool for questions and answers"
     },
     {
+      "name": "oxc-project--bench-transformer",
+      "source": "./oxc-project--bench-transformer",
+      "description": "Bench transformer and isolated declarations"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -110789,6 +110939,11 @@
       "description": "Your Assistant for Prompting LLMs"
     },
     {
+      "name": "gropaul--dash-ui",
+      "source": "./gropaul--dash-ui",
+      "description": "dash-ui"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -113432,6 +113587,21 @@
       "name": "hugopl--batata",
       "source": "./hugopl--batata",
       "description": "A tiled terminal emulator for gnome."
+    },
+    {
+      "name": "programaconnosotros--pcn-website",
+      "source": "./programaconnosotros--pcn-website",
+      "description": "Website de PCN, comunidad de apasionados por el software. Si te gustar\u00eda colaborar, contactanos."
+    },
+    {
+      "name": "vigoo--test-r",
+      "source": "./vigoo--test-r",
+      "description": "A test framework for Rust"
+    },
+    {
+      "name": "programaconnosotros--pcn-website",
+      "source": "./programaconnosotros--pcn-website",
+      "description": "Website de PCN, comunidad de apasionados por el software. Si te gustar\u00eda colaborar, contactanos."
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -119289,6 +119459,11 @@
       "description": "Connect, setup, secure and seamlessly manage LLM models using an Universal/OpenAI compatible API"
     },
     {
+      "name": "dmgerman--org-roam-gt",
+      "source": "./dmgerman--org-roam-gt",
+      "description": "Faster finding of nodes and better templates"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -122889,6 +123064,16 @@
       "description": "https://vaila.readthedocs.io/"
     },
     {
+      "name": "orange-opensource--ouds-android",
+      "source": "./orange-opensource--ouds-android",
+      "description": " Android library of reusable graphical components for Orange Unified Design System"
+    },
+    {
+      "name": "carcutter--cars-webplayer-js",
+      "source": "./carcutter--cars-webplayer-js",
+      "description": "WebPlayer, a framework-agnostic web component that seamlessly integrates CarCutter\u2019s immersive car showrooms into any website. This decision reflects our dedication to transparency, collaboration, and"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -126477,6 +126662,11 @@
       "name": "sunny352--docker",
       "source": "./sunny352--docker",
       "description": "docker"
+    },
+    {
+      "name": "heroesofcode--swift-explorer",
+      "source": "./heroesofcode--swift-explorer",
+      "description": "Desktop tool to quickly explore and analyze Swift code"
     },
     {
       "name": "vm--nila-code",
@@ -134237,6 +134427,16 @@
       "name": "portkey-ai--docs-core",
       "source": "./portkey-ai--docs-core",
       "description": "docs-core"
+    },
+    {
+      "name": "temporalio--s2s-proxy",
+      "source": "./temporalio--s2s-proxy",
+      "description": "s2s-proxy is a service that intercepts and forwards requests between two Temporal servers."
+    },
+    {
+      "name": "jaewone--icon-bullet-helper",
+      "source": "./jaewone--icon-bullet-helper",
+      "description": "Helps you styling checkboxes in preview mode."
     },
     {
       "name": "mohiwalla--memes",
