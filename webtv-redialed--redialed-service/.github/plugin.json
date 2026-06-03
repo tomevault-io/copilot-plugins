@@ -1,0 +1,9 @@
+{
+  "name": "webtv-redialed--redialed-service",
+  "displayName": "redialed-service",
+  "description": "The WebTV Redialed service",
+  "version": "1.0.0",
+  "author": "webtv-redialed",
+  "homepage": "https://github.com/webtv-redialed/redialed-service",
+  "skills": []
+}
