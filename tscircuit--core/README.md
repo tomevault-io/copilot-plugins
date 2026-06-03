@@ -7,11 +7,11 @@ Create electronics with Typescript and React. Compile Typescript to Circuit JSON
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tscircuit/core](https://github.com/tscircuit/core).
+Original source: `CLAUDE.md` in [tscircuit/core](https://github.com/tscircuit/core).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
