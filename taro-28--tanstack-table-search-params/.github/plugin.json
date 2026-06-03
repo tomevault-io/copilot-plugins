@@ -1,0 +1,9 @@
+{
+  "name": "taro-28--tanstack-table-search-params",
+  "displayName": "tanstack-table-search-params",
+  "description": "React Hook for syncing TanStack Table state with URL search params.",
+  "version": "1.0.0",
+  "author": "taro-28",
+  "homepage": "https://github.com/taro-28/tanstack-table-search-params",
+  "skills": []
+}
