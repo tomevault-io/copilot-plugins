@@ -4,7 +4,7 @@
   "repo": "XenoAtom.Allocators",
   "description": "This library provides fast, lightweight and low-level memory allocators for .NET (e.g TLSF)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XenoAtom/XenoAtom.Allocators",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T19:50:34Z"
+  "distributed_at": "2026-06-03T19:52:46Z"
 }
