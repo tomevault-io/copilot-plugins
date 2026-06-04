@@ -1,0 +1,44 @@
+{
+  "name": "gem-to-agent-kit",
+  "owner": "mathruffian-dot",
+  "repo": "gem-to-agent-kit",
+  "description": "\u8b93\u4efb\u4f55 AI agent \u5316\u8eab\u5347\u7d1a\u9867\u554f\uff0c\u628a Google Gemini \u7684 Gem \u5347\u7d1a\u6210 Agent \u5de5\u4f5c\u6d41\uff08\u4e3b\u6253 Antigravity\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mathruffian-dot/gem-to-agent-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T21:32:59Z"
+}
