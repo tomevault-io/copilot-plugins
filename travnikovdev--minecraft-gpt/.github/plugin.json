@@ -1,0 +1,9 @@
+{
+  "name": "travnikovdev--minecraft-gpt",
+  "displayName": "Minecraft-GPT",
+  "description": "Bot which using Open AI to control Minecraft character",
+  "version": "1.0.0",
+  "author": "TravnikovDev",
+  "homepage": "https://github.com/TravnikovDev/Minecraft-GPT",
+  "skills": []
+}
