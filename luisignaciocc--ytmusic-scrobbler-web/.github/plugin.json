@@ -1,0 +1,9 @@
+{
+  "name": "luisignaciocc--ytmusic-scrobbler-web",
+  "displayName": "ytmusic-scrobbler-web",
+  "description": "a Last.fm scrobbler from your YouTube Music history. a monorepo with a web app and background workers",
+  "version": "1.0.0",
+  "author": "luisignaciocc",
+  "homepage": "https://github.com/luisignaciocc/ytmusic-scrobbler-web",
+  "skills": []
+}
