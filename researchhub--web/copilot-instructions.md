@@ -1,72 +1,375 @@
-## project-structure
+## senior-eng-review
 
-> This document outlines the structure and organization of the ResearchHub codebase to help ensure consistency and maintainability.
+> This is a document that provides key PR reviewing as if they were a senior engineer
 
- # ResearchHub Project Structure Guidelines
+# Key Learnings from Senior Engineer Code Review
 
-This document outlines the structure and organization of the ResearchHub codebase to help ensure consistency and maintainability.
+1. **Leverage React Providers for Global State**
 
-## Directory Structure
+   - Using context providers (like the ExchangeRateContext) is an effective way to share data application-wide.
+   - Encapsulating fetch logic within these providers or in dedicated hooks can simplify the rest of the codebase and improve maintainability.
 
-The project follows a standard Next.js 15 application structure with TypeScript:
+2. **Separate Concerns Between Services and View Layer**
 
-- `app/` - Contains the App Router and related components (Next.js 15 page structure)
-- `pages/` - Contains the legacy Pages Router components
-- `components/` - Contains reusable UI components
-  - `ui/` - Contains base UI components (buttons, inputs, etc.)
-  - `[Feature]/` - Feature-specific components (organized by domain)
-- `hooks/` - Custom React hooks
-- `utils/` - Helper functions and utilities
-- `services/` - API service functions
-- `contexts/` - React context providers
-- `public/` - Static assets
-- `store/` - State management
-- `types/` - TypeScript type definitions
-- `constants/` - Application constants and configuration
+   - Keep the "services" layer focused on fetching and basic data transformations.
+   - Avoid placing view-specific formatting (e.g., icon lookup or UI-ready strings) inside services—this leads to entanglement and potential reusability issues.
+   - Move highly UI-related transforms (for example, mapping distribution types to icons) into a dedicated "lib" or the "view layer" (e.g., inside component utilities or dedicated functions).
 
-## Naming Conventions
+3. **Use Dedicated Transformers Carefully**
 
-Follow these naming conventions throughout the codebase:
+   - Keep data transformations minimal and "model-oriented" in services, returning clean, typed data.
+   - Perform purely presentational transformations (e.g., formatting numeric values or currency strings) within the view layer to reduce the likelihood of unnecessary re-fetching or tight coupling.
 
-1. **Files and Directories**:
-   - React components: PascalCase (e.g., `Button.tsx`, `UserProfile.tsx`)
-   - Utility files: camelCase (e.g., `formatDate.ts`, `apiHelpers.ts`)
-   - Test files: Same name as the file being tested with `.test` or `.spec` (e.g., `Button.test.tsx`)
+4. **Consider Creating Custom Hooks for Data Fetching**
 
-2. **Component Organization**:
-   - Group related components in feature-specific directories
-   - Place shared/generic UI components in the `components/ui/` directory
-   - Create index files for easier imports
+   - Custom hooks (like "useUserBalance") can abstract away internal fetch logic and state management, similar to how "useSession" works in Next.js.
+   - This pattern improves readability, makes the code more composable, and centralizes asynchronous logic behind a well-defined interface.
 
-## Import Order
+5. **Watch Out for Unnecessary Re-Renders and Side Effects**
 
-Maintain a consistent import order in all files:
+   - Multiple data retrieval triggers can cause performance issues or data inconsistencies if not handled carefully.
+   - Use checks to ensure that data is only fetched when needed. Employ memoization or context effectively to prevent repetitive fetch calls.
 
-1. React and Next.js imports
-2. Third-party library imports
-3. Component imports
-4. Hook imports
-5. Utility/helper imports
-6. Type imports
-7. Asset imports (styles, images, etc.)
+6. **Embrace a Layered Architecture**
 
-## Code Organization
+   - A "service" layer for API interactions.
+   - A "types/model" layer to define and represent data structures.
+   - A "view/presentation" layer (React components) that handles all UI and formatting.
+   - This structure is analogous to classic architectural patterns (e.g., "MVC") and ensures a more scalable and maintainable application over time.
 
-- Keep files reasonably sized (aim for <300 lines where possible)
-- Extract reusable logic into custom hooks
-- Extract complex or reusable UI elements into dedicated components
+7. **Balance Raw Data vs. Derived Data**
 
-## Path Aliases
+   - Keep a reference to the raw data (unformatted, untransformed) for potential debugging and logic needs.
+   - Derive only what's necessary for display in the UI to avoid confusion or data loss.
 
-Use the configured path aliases to maintain clean imports:
+8. **Consistent, Incremental Refinement**
 
-- `@/components` - For component imports
-- `@/hooks` - For hook imports
-- `@/utils` - For utility imports
-- `@/types` - For type imports
-- etc.
+   - Small refactors—such as relocating formatting functions and hooking into contexts—can make a significant difference in clarity and scalability.
+   - Regular feedback loops and code reviews help solidify best practices and ensure the application remains well-structured as it grows.
 
-This structure ensures code is organized logically and consistently throughout the project.
+9. **Minimal Client-Side Caching and Centralized Data**
+
+   - Use React Context for global or shared data rather than implementing multiple fetch calls or storing redundant data in each component.
+   - Avoid heavy local caching or memoization beyond what React already provides; excessive caching can introduce staleness bugs and complicate the code.
+   - Avoid React Query.
+   - Fetch data once (for instance, in a provider) and rely on that single source of truth across your application.
+   - Keep caching boundaries small: if data is needed by multiple components, lifting it into Context makes sense; otherwise, store it locally.
+   - Be mindful of Next.js server/client boundaries; avoid turning everything into a client-side component, as it diminishes server-rendering advantages.
+
+10. **Keep File and Folder Names Consistent**
+
+    - Use a clear and consistent naming scheme for files and folders. For example, if you have a component for an item in a list, call it `TransactionListItem.tsx`, not `TransactionItem.tsx`.
+    - For directories, use lowercase (e.g., `services`, `skeletons`) and consider capitalization for React component files.
+
+11. **Use Descriptive Names That Reflect Purpose**
+
+    - Choose intuitive front-end labels that reflect the actual functionality; avoid ambiguous terms.
+    - If you have a button that exports data, label it "Export CSV" or "Export," rather than something vague like "export by year."
+
+12. **DTO vs. "Plain" Types**
+
+    - In service files, use type names like `SomethingApiResponse` or `SomethingDto` to indicate it's a direct mapping from an API payload.
+    - For app-wide types (after you've transformed them), use straightforward names like `Transaction` or `Notification` that don't reference the API layer.
+
+13. **Keep Function Names Action-Oriented**
+
+    - Use verbs and descriptive phrases, like `markAllAsRead()` instead of `mark()`.
+    - For fetching or transforming data, name them accordingly, e.g. `getTransactions()` or `transformTransaction()`.
+
+14. **Use Short but Unambiguous Events or Handlers**
+
+    - Handlers should be clear about which user action they handle, such as `onClickDeposit` or `handleDeposit`.
+    - Keep them concise: `onClose`, `onClick`, `handleSubmit`, etc.
+
+15. **Simplify Type Organization and API Integration**
+
+    - Avoid using `.dto` files for API types unless specifically needed (e.g., authentication).
+    - Maintain two primary files for each domain:
+      1. A service file (e.g., `services/organization.service.ts`) handling API calls
+      2. A types file (e.g., `types/organization.ts`) containing domain types and transformers
+    - Use `any` type for raw API responses in service files since we don't control the API
+    - Define clean, transformed types in the types directory that match our application's needs
+    - Implement defensive transformers with null checks (e.g., `response.items || []`)
+    - Keep service methods focused on API calls and basic error handling
+    - Return transformed, application-specific types from service methods
+    - Consider adding specific error classes for each service domain
+
+16. **State Management Best Practices**
+
+    - Be cautious with object dependencies in useEffect hooks
+    - Remember that object reassignment (even with same values) triggers effects due to reference changes
+    - Use additional state variables to prevent unnecessary re-fetching when dealing with session-like objects
+    - Consider implementing fetch flags or other mechanisms to prevent duplicate API calls
+
+17. **Type Naming Conventions**
+
+    - Avoid prefixes like "Formatted" in type names
+    - Use clear, domain-focused names (e.g., `Organization` instead of `FormattedOrganization`)
+    - Keep type definitions close to their domain context
+    - Use transformer functions to convert API data to application types
+
+18. **Error Handling Philosophy**
+
+    - Let errors bubble up naturally unless there's a specific need to handle them
+    - Remove unnecessary try-catch blocks that just re-throw errors
+    - Fail fast when data is invalid rather than trying to recover silently
+    - Use try-catch only when:
+      1. You can meaningfully recover from the error
+      2. You need to transform the error type
+      3. The API doesn't return data in the expected format
+    - For API interactions:
+      1. Always use try-catch to transform technical errors into domain-specific ones
+      2. Ensure errors are followed by user-facing alerts (even if implementation is deferred)
+      3. Keep error messages user-friendly but specific enough for debugging
+
+19. **Debugging and Logging**
+
+    - Avoid committing console.log statements to production code
+    - Use proper error tracking and monitoring tools instead
+    - If logging is needed, implement structured logging with proper levels
+    - Consider adding debug flags for development-only logging
+
+20. **Component Naming Best Practices**
+
+    - Name components based on their primary function, not their location or styling
+    - Use action-oriented names for interactive components (e.g., `OrganizationSwitcher` instead of `OrganizationHeader`)
+    - Consider the component's role in the larger application context
+    - Examples:
+      - ✅ `OrganizationSwitcher` (describes action/purpose)
+      - ❌ `OrganizationHeader` (describes location/styling)
+      - ✅ `NoteList` (describes content type)
+      - ❌ `SidebarContent` (too generic/location-based)
+
+21. **Avoid Premature Library Adoption**
+
+    - Carefully evaluate third-party libraries before adoption, even popular ones like React Query. 
+    - Consider future architecture plans (e.g., potential GraphQL migration) when making library choices
+    - Prefer built-in React patterns (contexts, custom hooks) for data fetching until complexity justifies additional abstractions
+    - Development-mode double rendering (from React Strict Mode) is expected; validate actual issues in staging/production before optimizing
+
+
+22. **URL as Source of Truth**
+
+    - Use URL parameters as the primary source of truth for route-dependent state
+    - Instead of managing parallel state that needs to stay in sync with the URL:
+      ```typescript
+      // ❌ Don't sync state manually
+      const [currentOrg, setCurrentOrg] = useState(null);
+      useEffect(() => {
+        setCurrentOrg(findOrgBySlug(params.orgSlug));
+      }, [params.orgSlug]);
+
+      // ✅ Derive state from URL directly
+      const params = useParams();
+      const currentOrg = organizations.find(o => o.slug === params.orgSlug);
+      ```
+    - Let the URL drive state changes rather than managing duplicate state
+    - Avoid storing URL-derived data in local state unless absolutely necessary
+
+23. **Provider-Based State Management**
+
+    - Design providers to be self-contained and autonomous:
+      ```typescript
+      // ❌ Don't expose state management methods
+      const OrgContext = {
+        selectedOrg,
+        setSelectedOrg,
+        syncWithUrl,  // Avoid external sync methods
+      };
+
+      // ✅ Handle state management internally
+      const OrgContext = {
+        selectedOrg,  // Only expose read-only state
+        organizations,
+        isLoading,
+      };
+      ```
+    - Providers should manage their own state synchronization
+    - Components should not need to know how provider state is managed
+    - Minimize the API surface of providers to prevent misuse
+
+24. **Component State Dependencies**
+
+    - Be explicit about component state dependencies:
+      ```typescript
+      // ❌ Don't depend on multiple sources of truth
+      if (isLoadingNotes || !note || orgSlug !== selectedOrg?.slug) {
+        return <Loading />;
+      }
+
+      // ✅ Use derived state from a single source
+      const isReady = selectedOrg?.slug === orgSlug && !isLoading && note;
+      if (!isReady) return <Loading />;
+      ```
+    - Avoid components having to reconcile state from multiple sources
+    - Let providers handle state reconciliation
+    - Components should consume ready-to-use state
+
+25. **Effect Dependencies in Providers**
+
+    - Keep effect dependencies minimal and stable:
+      ```typescript
+      // ❌ Don't include unnecessary dependencies
+      useEffect(() => {
+        syncOrganization(selectedOrg, currentSlug);
+      }, [selectedOrg, organizations, currentSlug]); // Too many deps
+
+      // ✅ Use minimal, stable dependencies
+      useEffect(() => {
+        if (!organizations.length || !currentSlug) return;
+        const org = organizations.find(o => o.slug === currentSlug);
+        setSelectedOrg(org);
+      }, [currentSlug, organizations]); // Only essential deps
+      ```
+    - Providers should have clear, focused effects
+    - Each effect should have a single responsibility
+    - Use early returns to prevent unnecessary state updates
+
+26. **Navigation and State Updates**
+
+    - Separate navigation from state management:
+      ```typescript
+      // ❌ Don't couple navigation with state updates
+      const handleOrgSelect = async (org) => {
+        setSelectedOrg(org);
+        await router.push(`/org/${org.slug}`);
+      };
+
+      // ✅ Handle navigation only, let providers manage state
+      const handleOrgSelect = (org) => {
+        router.push(`/org/${org.slug}`);
+      };
+      ```
+    - Let URL changes drive state updates through providers
+    - Components should focus on navigation and UI interactions
+    - Avoid mixing navigation logic with state management
+
+    These patterns help prevent:
+    - Duplicate API calls from multiple state syncs
+    - Race conditions in state updates
+    - Unnecessary component re-renders
+    - Complex state management in components
+
+
+27. **Smart Orchestration Layer**
+
+    - Use a smart orchestration layer between services and view components:
+      ```typescript
+      // ❌ Don't fetch data directly in view components
+      const NoteEditor = () => {
+        const { note } = useNote(noteId);
+        return <Editor content={note.content} />;
+      };
+
+      // ✅ Use a smart orchestrator to manage data flow
+      const NotePage = () => {
+        const { notes } = useOrganizationNotes();
+        const initialNote = notes.find(n => n.id === noteId);
+        const [shouldFetchContent, setShouldFetchContent] = useState(false);
+
+        // Control when to fetch full content
+        useEffect(() => {
+          if (initialNote) setShouldFetchContent(true);
+        }, [initialNote?.id]);
+
+        return <Editor content={note.content} />;
+      };
+      ```
+    - Orchestration layer responsibilities:
+      1. Coordinate data dependencies
+      2. Control fetch timing
+      3. Handle loading states
+      4. Transform data for view layer
+    - Benefits:
+      - Prevents duplicate API calls
+      - Provides better loading UX
+      - Keeps view components simple
+      - Makes data flow explicit
+
+28. **Progressive Data Loading**
+
+    - Load data in stages based on what the user needs immediately:
+      ```typescript
+      // ❌ Don't fetch everything upfront
+      const { fullNote } = useNote(noteId);
+
+      // ✅ Load progressively
+      const { metadata } = useNotesList();  // Quick list view
+      const { content } = useNoteContent(shouldLoad ? id : null);  // Full content when needed
+      ```
+    - Implementation patterns:
+      1. Start with minimal metadata
+      2. Show immediate UI feedback
+      3. Load full content when needed
+      4. Update UI progressively
+    - Key principles:
+      - Show something to users as quickly as possible
+      - Only fetch what's needed when it's needed
+      - Use loading states to maintain UI responsiveness
+      - Let the orchestration layer control the loading sequence
+
+29. **Data Flow Control**
+
+    - Manage data flow through clear boundaries:
+      ```typescript
+      // ❌ Don't mix concerns
+      const Component = () => {
+        const [data, setData] = useState(null);
+        useEffect(() => {
+          fetchData().then(setData);
+        }, [id]);
+      };
+
+      // ✅ Separate concerns with clear boundaries
+      // Service layer - Data fetching
+      const useNoteService = (id) => {
+        return NoteService.getNote(id);
+      };
+
+      // Orchestration layer - Flow control
+      const NotePage = () => {
+        const { initialNote } = useNotesList();
+        const { fullNote } = useNoteContent(whenReady ? id : null);
+      };
+
+      // View layer - Display only
+      const NoteEditor = ({ content, isLoading }) => {
+        return <Editor content={content} />;
+      };
+      ```
+    - Key principles:
+      - Services handle raw data fetching
+      - Orchestration controls data flow
+      - Views handle presentation only
+      - Each layer has a single responsibility
+
+  30. **URL-Driven Navigation Patterns**
+
+    - Handle navigation state changes in a predictable sequence:
+      ```typescript
+      // ❌ Don't mix navigation and data dependencies
+      const handleSwitch = async (item) => {
+        setSelected(item);
+        if (data.length) {
+          await router.push(`/${item.slug}/${data[0].id}`);
+        } else {
+          await router.push(`/${item.slug}`);
+        }
+      };
+
+      // ✅ Use conditional navigation with clear fallbacks
+      const handleSwitch = async (item) => {
+        const targetPath = data.length > 0
+          ? `/${item.slug}/${data[0].id}`
+          : `/${item.slug}`;
+        await router.push(targetPath);
+      };
+      ```
+    - Key principles:
+      - Let URL changes trigger state updates, not the other way around
+      - Handle navigation edge cases (e.g., missing data) with clear fallbacks
+      - Keep navigation logic separate from data fetching
+      - Use the URL to drive the initial state of the application
 
 ---
 > Source: [ResearchHub/web](https://github.com/ResearchHub/web) — distributed by [TomeVault](https://tomevault.io).
