@@ -1,0 +1,9 @@
+{
+  "name": "jtklinger--claude-code-backup-guide",
+  "displayName": "claude-code-backup-guide",
+  "description": "A comprehensive guide to backing up and restoring Claude Code settings across machines",
+  "version": "1.0.0",
+  "author": "jtklinger",
+  "homepage": "https://github.com/jtklinger/claude-code-backup-guide",
+  "skills": []
+}
