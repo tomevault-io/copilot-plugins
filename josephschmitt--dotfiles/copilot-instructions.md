@@ -1,0 +1,280 @@
+## dotfiles
+
+> - **Repository Type**: Personal dotfiles managed with GNU Stow
+
+# Agent Guidelines for Dotfiles Repository
+
+## Critical Context
+- **Repository Type**: Personal dotfiles managed with GNU Stow
+- **No Build System**: Configuration files only, no tests/linting
+- **Platforms**: macOS (primary), Ubuntu Server (secondary)
+- **Shells**: Fish (primary) → Zsh (secondary) → Bash (fallback)
+- **Editors**: Neovim (triple setup: Kickstart + LazyVim + AstroNvim) + Helix (secondary)
+- **Profiles**: `shared/` (all), `personal/` (macOS), `work/` (macOS), `remote-sandbox/` (remote Linux base), `rca/` (RCA overlay), `crafting/` (crafting.dev overlay), `ubuntu-server/` (Ubuntu)
+
+### Stow Commands
+```bash
+stow .                                 # Install all
+stow shared personal                   # Install specific profiles (macOS)
+stow shared ubuntu-server              # Install specific profiles (Ubuntu)
+stow shared remote-sandbox rca         # RCA machine
+stow shared remote-sandbox crafting    # Crafting.dev sandbox
+stow -R .                              # Restow (re-link)
+stow -D .                              # Uninstall
+```
+
+## Troubleshooting
+
+When helping debug issues with tools in this repository:
+1. **Check first**: Read `TROUBLESHOOTING.md` for known issues and fixes
+2. **Document fixes**: After resolving a new issue, add it to `TROUBLESHOOTING.md` with symptom/cause/fix
+
+## Shell Configuration Architecture
+
+### CRITICAL RULE: Zero Duplication
+**Define once, source everywhere.** Changes must work across ALL shells: Bash, Zsh, Fish.
+
+### Shell Configuration Map
+| File | Purpose | Sources |
+|------|---------|---------|
+| `.profile` | POSIX environment (PATH, exports) | - |
+| `.profile.d/*.sh` | Profile-specific `.profile` extensions | - |
+| `.config/shell/exports.sh` | Shared environment variables | - |
+| `.config/shell/aliases.sh` | Shared aliases (POSIX) | - |
+| `.config/shell/functions.sh` | Shared functions (POSIX) | - |
+| `.bash_profile` | Bash login shell | `.profile`, `.bashrc` |
+| `.bashrc` | Bash interactive | `shell/{exports,aliases,functions}.sh` |
+| `.bashrc.d/*.sh` | Profile-specific `.bashrc` extensions | - |
+| `.zshenv` | Zsh environment | `.profile` |
+| `.zshrc` | Zsh interactive | `shell/{exports,aliases,functions}.sh` |
+| `.zshrc.d/*.sh` | Profile-specific `.zshrc` extensions | - |
+| `.zprofile` | Zsh login shell | - |
+| `.zprofile.d/*.sh` | Profile-specific `.zprofile` extensions | - |
+| `fish/config.fish` | Fish (self-contained) | Fish-specific equivalents |
+
+### Decision Tree for Configuration Changes
+```
+New configuration needed?
+├─ Environment variable → `.config/shell/exports.sh` + Fish equivalent
+├─ Alias/Function → Is it profile-specific?
+│  ├─ YES → `{profile}/.config/shell/aliases.{profile}.sh` + Fish equivalent
+│  └─ NO → `.config/shell/aliases.sh` + Fish equivalent
+├─ Interactive feature → Shell-specific rc file only
+└─ Profile-specific shell init logic (not an alias/export/function)?
+   └─ `{profile}/.bashrc.d/{profile}.sh` / `.zshrc.d/` / `.profile.d/` / `.zprofile.d/`
+```
+
+### Multi-Shell Requirements (NON-NEGOTIABLE)
+**Task incomplete until implemented in ALL shells: Bash, Zsh, Fish**
+
+1. Add to POSIX shells: `.config/shell/*.sh`
+2. Add Fish equivalent: `.config/fish/config.fish` or `functions/*.fish`
+3. Test in all three shells
+4. Document shell-specific workarounds if needed
+
+### PATH Priority vs Homebrew (nix-darwin)
+Nix-darwin generates system shell configs (`/etc/fish/config.fish`, `/etc/zshrc`, `/etc/bashrc`) that run `brew shellenv`, which prepends `/opt/homebrew/bin` to PATH. This runs **after** the initial PATH setup in `exports.sh`/`env.fish` but **before** user rc files (`.bashrc`/`.zshrc`/`config.fish`).
+
+To ensure custom paths (go, cargo, etc.) take priority over Homebrew:
+- **Fish**: `fish_add_path` must use `--move` flag (without it, existing paths aren't repositioned)
+- **Bash/Zsh**: `.bashrc`/`.zshrc` re-source `exports.sh` to re-prepend custom paths after `brew shellenv`
+
+When adding new PATH entries that should beat Homebrew, ensure they follow this pattern in all three shells.
+
+### CI Performance Tracking
+**When modifying shell startup:** Update `.github/workflows/shell-performance.yml`
+
+**Startup dependencies** (auto-run on shell init): oh-my-posh, zoxide, fzf, basher, zinit
+- Add new tools to CI "Install shell startup tools" step
+- Remove from CI when lazy-loading or removing tools
+
+## Code Style (Quick Reference)
+| Language | Style |
+|----------|-------|
+| **Shell** | `#!/bin/sh`, `${var}` format, `[[ ]]` for bash tests |
+| **Lua** | 2-space indent, 120 char width, return tables, `-- stylua: ignore` to skip format |
+| **TOML** | 2-space indent, lowercase-with-hyphens keys |
+
+## File Organization
+```
+.config/
+├── nvim/lua/custom/plugins/   # Kickstart Neovim plugins (default config)
+├── lazyvim/lua/plugins/       # LazyVim plugins
+├── astronvim/lua/plugins/     # AstroNvim plugins
+├── fish/functions/            # Fish functions
+├── shell/                     # Shared POSIX configs (exports, aliases, functions)
+└── opencode/agents/           # ⚠️ MUST be 'agents/' plural (not 'agent/' - conflicts with Copilot)
+
+{profile}/.config/
+├── shell/aliases.{profile}.sh # Profile-specific POSIX configs
+└── fish/config.{profile}.fish # Profile-specific Fish configs
+
+{profile}/
+├── .bashrc.d/{profile}.sh     # Profile-specific .bashrc extensions
+├── .zshrc.d/{profile}.sh      # Profile-specific .zshrc extensions
+├── .profile.d/{profile}.sh    # Profile-specific .profile extensions
+└── .zprofile.d/{profile}.sh   # Profile-specific .zprofile extensions
+
+Root:
+├── .profile, .zshrc, .bashrc  # Shell init files
+├── .profile.d/, .bashrc.d/, .zshrc.d/, .zprofile.d/  # Profile extension dirs
+└── bin/                       # Utilities
+
+ubuntu-server/.config/nix/     # Nix configs and services
+```
+
+## Profile Hooks (`.hooks/`)
+
+Profiles can define lifecycle scripts in a `.hooks/` directory. `install.sh` runs them automatically — no profile-specific logic belongs in install.sh itself.
+
+| Hook | When | Sourced? | Use case |
+|------|------|----------|----------|
+| `.hooks/pre-stow.sh` | After submodule init, before `stow` | Yes (PATH changes propagate) | Install deps, remove conflicting files |
+| `.hooks/post-stow.sh` | After `stow` completes | No | Build caches, install plugins |
+
+**Environment variables available to hooks:**
+- `DEPS_PRESET` — value of `--deps-preset` flag (empty if not specified)
+- `DOTFILES_DIR` — absolute path to the dotfiles repo
+
+**Rules:**
+- Hooks must be executable (`chmod +x`)
+- Hooks must be excluded from stow via `.stow-local-ignore` (add `\.hooks` entry)
+- Pre-stow hooks are **sourced** (`. script`), so `export` and PATH changes persist
+- Post-stow hooks are **executed** in a subshell
+- Keep hooks idempotent — `install.sh` may be re-run
+
+**Existing hooks:**
+| Profile | Hook | Does |
+|---------|------|------|
+| `remote-sandbox` | `pre-stow` | Installs userland deps, removes conflicting default configs |
+| `shared` | `post-stow` | Rebuilds bat cache, installs/updates TPM + tmux plugins |
+
+## Nix-Darwin (macOS System Management)
+
+### Convenience Aliases
+| Alias | Purpose |
+|-------|---------|
+| `nix_rebuild` | Rebuild nix-darwin config (auto-detects machine) |
+| `nix_update` | Update flake lockfile |
+
+**NEVER use raw `darwin-rebuild` commands** — always use the `nix_rebuild` alias, which wraps `darwin-rebuild-wrapper.sh` with automatic machine detection (personal vs work, pure vs impure).
+
+### Configuration Location
+- Shared config: `shared/.config/nix-darwin/darwin.nix`
+- Machine configs: `shared/.config/nix-darwin/machines/` and `work/.config/nix-darwin/machines/`
+- Flake: `shared/.config/nix-darwin/flake.nix`
+
+## Neovim Configuration (Triple Setup)
+
+### Critical Context: Three Separate Neovim Configs
+This repository maintains **three independent Neovim configurations** using `NVIM_APPNAME`:
+
+| Config | Location | Based On | Aliases |
+|--------|----------|----------|---------|
+| **Kickstart (default)** | `shared/.config/nvim/` | [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) | `nvim`, `vim` (bare command) |
+| **LazyVim** | `shared/.config/lazyvim/` | [LazyVim](https://www.lazyvim.org/) | `lazyvim` |
+| **AstroNvim** | `shared/.config/astronvim/` | [AstroNvim v5+](https://astronvim.com/) | `astrovim` |
+
+**Key Points**:
+- Completely isolated (separate plugins, data, state, cache)
+- Current default: `nvim`/`vim` launches **Kickstart** (bare `command nvim`, no `NVIM_APPNAME`)
+- Each has own README.md and/or CLAUDE.md with configuration docs
+
+### Decision Tree for Neovim Changes
+```
+User requests Neovim configuration change?
+├─ User says "neovim" or "nvim" or "my editor" (ambiguous)
+│  └─ ASK: "Which config? Kickstart (shared/.config/nvim/), LazyVim, or AstroNvim?"
+├─ User says "kickstart" or context is clearly about the default config
+│  └─ Modify shared/.config/nvim/
+├─ User says "lazyvim"
+│  └─ Modify shared/.config/lazyvim/
+├─ User says "astrovim" or "astronvim"
+│  └─ Modify shared/.config/astronvim/
+└─ User asks for all / multiple
+   └─ Modify each specified configuration
+```
+
+### MANDATORY: Ask for Clarification
+**Always ask which config to modify unless explicitly specified:**
+- ❌ "neovim", "nvim", "my editor" → ASK for clarification
+- ✅ "kickstart" → Modify `shared/.config/nvim/`
+- ✅ "lazyvim" → Modify `shared/.config/lazyvim/`
+- ✅ "astrovim", "astronvim" → Modify `shared/.config/astronvim/`
+
+**Use the `AskUserQuestion` tool** when prompting for clarification — not plain text. Offer Kickstart, LazyVim, and AstroNvim as options (Kickstart first, marked "(Recommended)" since it's the default).
+
+### Kickstart-Specific Guidelines
+When modifying Kickstart config (`shared/.config/nvim/`):
+1. **Read** `shared/.config/nvim/CLAUDE.md` first (philosophy, architecture, lazy-loading rules)
+2. Keep `init.lua` close to upstream kickstart.nvim — all customizations in `lua/custom/plugins/`
+3. Every plugin must have a lazy-loading trigger (see nvim CLAUDE.md for details)
+4. One feature per file, one feature per commit
+
+### AstroNvim-Specific Guidelines
+When modifying AstroNvim config (`shared/.config/astronvim/`):
+1. **Read** `shared/.config/astronvim/AGENTS.md` first (contains AstroVim-specific workflows)
+2. Follow "AstroVim way": Prefer AstroCommunity plugins over custom specs
+3. Use AstroCore/AstroLSP/AstroUI override pattern (see existing plugins)
+4. Update `shared/.config/astronvim/README.md` with new keybindings/features
+
+### Vimrc Companion (`shared/.vimrc`)
+
+A plain-Vim port of the Kickstart config lives at `shared/.vimrc` for use on SSH boxes without Neovim. Neovim ignores `~/.vimrc`, so it only loads under plain `vim`.
+
+**When adding/modifying a feature in any Neovim config, evaluate whether it's worth porting to the vimrc.**
+
+| Type of change | Action for `shared/.vimrc` |
+|---|---|
+| Vim option (e.g. `relativenumber`, `scrolloff`) | Port directly — almost always 1:1 |
+| Keybinding that uses only built-ins (`gh`/`gl`, `<C-hjkl>`, `J`/`K` scroll, `jk` escape) | Port directly |
+| Plugin-driven feature with a pure-vimscript equivalent (commentary, surround, fugitive, fzf.vim) | Port using the equivalent plugin |
+| LSP / treesitter / blink.cmp / mason / snacks / mini.* / which-key | **Skip** — no realistic plain-vim equivalent |
+| Colorscheme highlight tweak | Port to the inline tokyonight-moon palette in `shared/.vimrc` |
+
+**Workflow:**
+1. After making the Neovim change, ask: "Is this an option, a vim-builtin keybinding, or a colorscheme tweak?" If yes → port it.
+2. If it's a plugin-driven feature, check whether a pure-vimscript plugin offers the same UX (e.g. `tpope/*`, `junegunn/fzf.vim`, `Yggdroot/LeaderF`).
+3. If neither applies, **skip silently** — don't add a half-baked stub. The vimrc explicitly accepts feature gaps.
+4. Commit vimrc changes alongside the Neovim change in the same PR/branch when possible, with a `(also vimrc)` note in the commit body.
+
+### CRITICAL: .config Symlinking Rules
+**NEVER `stow` entire `.config/` directory** - symlink individual app configs only
+
+```bash
+# ✅ CORRECT
+stow --target=~/.config/lazyvim shared/.config/lazyvim
+
+# ❌ WRONG - includes local-only configs (.config/gh/, .config/1Password/, etc.)
+stow --target=~/.config shared/.config
+```
+
+## Documentation Updates (Required for Config Changes)
+
+### Update Triggers (Config Change → Documentation Update)
+| Change Type | Update These Files |
+|-------------|-------------------|
+| Config file modified | `.config/{tool}/README.md` (mandatory) |
+| Major tool added/removed | `/README.md` + `/shared/README.md` |
+| Keybinding changed | `.config/{tool}/README.md` keybindings section |
+| Theme/appearance changed | `/README.md` features + tool README |
+| Shell support added | `/README.md` + `AGENTS.md` |
+| Neovim config modified | `.config/{nvim|lazyvim|astronvim}/README.md` + `/README.md` (if affects "Neovim Setup") |
+
+### Update Workflow (Atomic Commits)
+1. Make config changes → Test changes
+2. Update `.config/{tool}/README.md` (if applicable)
+3. Update `/README.md` (if major change affects Features/Core Tools/Repository Structure sections)
+4. Update `/shared/README.md` (if affects installation/troubleshooting)
+5. Update `AGENTS.md` (if changes agent workflow)
+6. **Commit all together** (config + documentation in single commit)
+
+### Documentation Standards
+- **Tool READMEs**: Link to project homepage in first line: `Configuration for [Tool Name](url) - description`
+- **Keybindings**: Keep tables/lists current
+- **Examples**: Include "why" behind non-obvious settings
+- **Cross-reference**: Link related tools and integrations
+
+---
+> Source: [josephschmitt/dotfiles](https://github.com/josephschmitt/dotfiles) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
