@@ -1,0 +1,9 @@
+{
+  "name": "hi-upchen--kobo-up",
+  "displayName": "kobo-up",
+  "description": "A website reads Kobo database (sqlite) and shows the book and notes.",
+  "version": "1.0.0",
+  "author": "hi-upchen",
+  "homepage": "https://github.com/hi-upchen/kobo-up",
+  "skills": []
+}
