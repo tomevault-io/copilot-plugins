@@ -1,0 +1,9 @@
+{
+  "name": "corrin--akahu-to-budget",
+  "displayName": "akahu_to_budget",
+  "description": "One-way sync of transactions from Akahu to either YNAB or Actual Budget.",
+  "version": "1.0.0",
+  "author": "corrin",
+  "homepage": "https://github.com/corrin/akahu_to_budget",
+  "skills": []
+}
