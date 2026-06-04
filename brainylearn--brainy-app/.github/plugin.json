@@ -1,0 +1,9 @@
+{
+  "name": "brainylearn--brainy-app",
+  "displayName": "brainy-app",
+  "description": "Brainy is a learning app with focus on active repetitions, and spaced learning.",
+  "version": "1.0.0",
+  "author": "brainylearn",
+  "homepage": "https://github.com/brainylearn/brainy-app",
+  "skills": []
+}
