@@ -1,0 +1,14 @@
+{
+  "name": "raffertyuy--github-copilot-prompts",
+  "displayName": "github-copilot-prompts",
+  "description": "github-copilot-prompts",
+  "version": "1.0.0",
+  "author": "raffertyuy",
+  "homepage": "https://github.com/raffertyuy/github-copilot-prompts",
+  "skills": [
+    {
+      "name": "generate-copilot-instructions",
+      "description": ""
+    }
+  ]
+}
