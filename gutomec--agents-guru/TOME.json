@@ -4,7 +4,7 @@
   "repo": "agents-guru",
   "description": "Sistema de engenharia agentico, portavel e agnostico de framework, para qualquer agente de IA via CLI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gutomec/agents-guru",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T02:34:08Z"
+  "distributed_at": "2026-06-04T02:35:39Z"
 }
