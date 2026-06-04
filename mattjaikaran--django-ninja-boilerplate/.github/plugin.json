@@ -1,0 +1,9 @@
+{
+  "name": "mattjaikaran--django-ninja-boilerplate",
+  "displayName": "django-ninja-boilerplate",
+  "description": "Django Ninja and Postgres Boilerplate w/ Docker and UV",
+  "version": "1.0.0",
+  "author": "mattjaikaran",
+  "homepage": "https://github.com/mattjaikaran/django-ninja-boilerplate",
+  "skills": []
+}
