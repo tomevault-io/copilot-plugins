@@ -1,0 +1,9 @@
+{
+  "name": "taco-xyz--tacoq",
+  "displayName": "tacoq",
+  "description": "Multi-language distributed task queue",
+  "version": "1.0.0",
+  "author": "taco-xyz",
+  "homepage": "https://github.com/taco-xyz/tacoq",
+  "skills": []
+}
