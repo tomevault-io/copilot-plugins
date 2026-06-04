@@ -2,9 +2,9 @@
   "name": "PyQtInspect-Open",
   "owner": "JezaChen",
   "repo": "PyQtInspect-Open",
-  "description": "",
+  "description": "An inspection tool for PyQt/PySide applications like Chrome DevTools.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JezaChen/PyQtInspect-Open",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T16:15:29Z"
+  "distributed_at": "2026-06-04T15:36:18Z"
 }
