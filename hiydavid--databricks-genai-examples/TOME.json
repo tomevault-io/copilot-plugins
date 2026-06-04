@@ -4,7 +4,7 @@
   "repo": "databricks-genai-examples",
   "description": "A repo of code examples for building GenAI / ML projects on Databricks",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hiydavid/databricks-genai-examples",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T06:47:42Z"
+  "distributed_at": "2026-06-04T06:49:55Z"
 }
