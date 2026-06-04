@@ -1,0 +1,9 @@
+{
+  "name": "esmap-world-bank-group--epm",
+  "displayName": "EPM",
+  "description": "EPM (Electricity Planning Model) is a least-cost power system planning tool.",
+  "version": "1.0.0",
+  "author": "ESMAP-World-Bank-Group",
+  "homepage": "https://github.com/ESMAP-World-Bank-Group/EPM",
+  "skills": []
+}
