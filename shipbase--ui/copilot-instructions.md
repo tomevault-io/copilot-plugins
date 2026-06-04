@@ -1,42 +1,67 @@
-## project-structure
+## ui
 
-> This is a monorepo-based UI component library project supporting React and Vue frameworks, built with Ark UI and Tailwind CSS.
+> This is a monorepo for a UI component library similar to shadcn/ui, built with Ark UI instead of Radix UI. It provides accessible, customizable components for React and Vue.
 
-# Project Structure Guide
+# AGENTS.md
 
-## Overview
-This is a monorepo-based UI component library project supporting React and Vue frameworks, built with Ark UI and Tailwind CSS.
+## Project Overview
 
-## Core Files
-- [package.json](mdc:package.json) - Root level package configuration file
-- [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml) - pnpm workspace configuration and dependency catalog
-- [turbo.json](mdc:turbo.json) - Turbo build tool configuration
-- [biome.jsonc](mdc:biome.jsonc) - Code formatting and linting configuration
+This is a monorepo for a UI component library similar to shadcn/ui, built with Ark UI instead of Radix UI. It provides accessible, customizable components for React and Vue.
 
-## Directory Structure
+## Architecture
 
-### Apps Directory
-- [apps/www/](mdc:apps/www) - Main documentation website (Astro)
-  - [apps/www/astro.config.ts](mdc:apps/www/astro.config.ts) - Astro configuration
-  - [apps/www/src/](mdc:apps/www/src) - Website source code
+### Tech Stack
 
-### Packages Directory  
-- [packages/react/](mdc:packages/react) - React component package
-- [packages/vue/](mdc:packages/vue) - Vue component package
-- [packages/lib/](mdc:packages/lib) - Shared libraries and utilities
-- [packages/cli/](mdc:packages/cli) - CLI tools
+- pnpm for package management
+- turborepo for monorepo tasks management
+- oxlint for linting, oxfmt for formatting
+- typescript for type checking
+- vitest for testing
+- changesets for version management
+- ark-ui for primitive components
+- tailwindcss v4 for styling
+- lucide-react for icons
+- xstate for state management
+- astro for documentation site
+- mdx for documentation
 
-### Tooling Directory
-- [tooling/](mdc:tooling) - Build tools and configurations
+### Directory Structure
 
-## Tech Stack
-- **Frameworks**: React 18/19, Vue 3
-- **Build Tools**: Turbo, Vite, Astro
-- **Styling**: Tailwind CSS
-- **Component Library**: Ark UI
-- **Package Management**: pnpm workspace
-- **Code Quality**: Biome (formatting + linting)
-- **Version Management**: Changesets
+```
+ui/
+├── apps/
+│   └── www/                # Documentation site built with Astro, MDX, and Tailwind CSS v4
+├── packages/
+│   ├── react/              # React primitive component implementations, examples, stories
+│   ├── vue/                # Vue primitive component implementations, examples, stories
+│   └── lib/                # Shared utilities
+└── tools/                  # Shared configurations (Tailwind, TypeScript)
+```
+
+## Development Workflow
+
+### Component Development Workflow
+
+Components are built on top of Ark UI, with primitive component, examples, stories, and documentation.
+
+- Each component has framework-specific implementations in `packages/react` and `packages/vue`
+- Examples live in `src/examples/` within each framework package
+- Stories live in `src/stories/` within each framework package
+- Documentation MDX files are in `apps/www/content`
+
+### Commands that you can use
+
+- !`pnpm run test` for testing, use `--filter={package_path}` to run tests for a specific package.
+- !`pnpm run build` for building, use `--filter={package_path}` to build a specific package.
+- !`pnpm run typecheck` for type checking, use `--filter={package_path}` to type check a specific package.
+- !`pnpm run check` for linting.
+- !`pnpm run format` for formatting.
+
+> don't use any stub, dev to run this project for testing, the dev server is running before i work with you.
+
+## Specific Rules
+
+### Code Quality
 
 ---
 > Source: [shipbase/ui](https://github.com/shipbase/ui) — distributed by [TomeVault](https://tomevault.io).
