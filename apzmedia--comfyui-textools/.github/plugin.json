@@ -1,0 +1,9 @@
+{
+  "name": "apzmedia--comfyui-textools",
+  "displayName": "comfyui-textools",
+  "description": "ComfyUI-APZmedia-textTools",
+  "version": "1.0.0",
+  "author": "APZmedia",
+  "homepage": "https://github.com/APZmedia/comfyui-textools",
+  "skills": []
+}
