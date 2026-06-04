@@ -1,246 +1,72 @@
-## performance-optimization
+## project-structure
 
-> This document outlines the performance optimization strategies used in the ResearchHub codebase.
+> This document outlines the structure and organization of the ResearchHub codebase to help ensure consistency and maintainability.
 
- # ResearchHub Performance Optimization
+ # ResearchHub Project Structure Guidelines
 
-This document outlines the performance optimization strategies used in the ResearchHub codebase.
+This document outlines the structure and organization of the ResearchHub codebase to help ensure consistency and maintainability.
 
-## React Optimization
+## Directory Structure
 
+The project follows a standard Next.js 15 application structure with TypeScript:
 
-2. **Hook Optimization**:
-   - Use `useCallback()` for functions passed as props
-   - Always specify dependencies correctly in dependency arrays
+- `app/` - Contains the App Router and related components (Next.js 15 page structure)
+- `pages/` - Contains the legacy Pages Router components
+- `components/` - Contains reusable UI components
+  - `ui/` - Contains base UI components (buttons, inputs, etc.)
+  - `[Feature]/` - Feature-specific components (organized by domain)
+- `hooks/` - Custom React hooks
+- `utils/` - Helper functions and utilities
+- `services/` - API service functions
+- `contexts/` - React context providers
+- `public/` - Static assets
+- `store/` - State management
+- `types/` - TypeScript type definitions
+- `constants/` - Application constants and configuration
 
-   ```tsx
+## Naming Conventions
 
-   // Event handler passed as prop
-   const handleEdit = useCallback((id: string) => {
-     // Edit logic
-   }, [/* dependencies */]);
-   ```
+Follow these naming conventions throughout the codebase:
 
-3. **State Management**:
-   - Split large state objects into smaller, more focused pieces
-   - Use context selectors to prevent unnecessary re-renders
-   - Consider using libraries like Zustand or Jotai for complex state management
+1. **Files and Directories**:
+   - React components: PascalCase (e.g., `Button.tsx`, `UserProfile.tsx`)
+   - Utility files: camelCase (e.g., `formatDate.ts`, `apiHelpers.ts`)
+   - Test files: Same name as the file being tested with `.test` or `.spec` (e.g., `Button.test.tsx`)
 
-## Next.js Optimization
+2. **Component Organization**:
+   - Group related components in feature-specific directories
+   - Place shared/generic UI components in the `components/ui/` directory
+   - Create index files for easier imports
 
-1. **Image Optimization**:
-   - Use Next.js `Image` component for all images
-   - Specify width and height to prevent layout shifts
-   - Use appropriate loading strategies (`lazy` for below-the-fold content)
+## Import Order
 
-   ```tsx
-   import Image from 'next/image';
+Maintain a consistent import order in all files:
 
-   // Good usage
-   <Image 
-     src="/profile.jpg" 
-     width={640} 
-     height={480} 
-     alt="User profile" 
-     loading="lazy" 
-   />
-   ```
+1. React and Next.js imports
+2. Third-party library imports
+3. Component imports
+4. Hook imports
+5. Utility/helper imports
+6. Type imports
+7. Asset imports (styles, images, etc.)
 
-2. **Code Splitting**:
-   - Use dynamic imports for large components and libraries
-   - Implement page-level code splitting with Next.js's built-in features
+## Code Organization
 
-   ```tsx
-   // Dynamic import for a large component
-   const HeavyChart = dynamic(() => import('@/components/HeavyChart'), {
-     loading: () => <LoadingSpinner />,
-     ssr: false, // If not needed on the server
-   });
-   ```
+- Keep files reasonably sized (aim for <300 lines where possible)
+- Extract reusable logic into custom hooks
+- Extract complex or reusable UI elements into dedicated components
 
-3. **Server Components**:
-   - Use React Server Components for data fetching and rendering static content
-   - Keep client components small and focused on interactive elements
+## Path Aliases
 
-4. **Font Optimization**:
-   - Use Next.js font optimization to reduce CLS
-   - Preload critical fonts
+Use the configured path aliases to maintain clean imports:
 
-   ```tsx
-   import { Inter } from 'next/font/google';
+- `@/components` - For component imports
+- `@/hooks` - For hook imports
+- `@/utils` - For utility imports
+- `@/types` - For type imports
+- etc.
 
-   const inter = Inter({
-     subsets: ['latin'],
-     display: 'swap',
-   });
-   ```
-
-## Rendering Optimization
-
-1. **List Virtualization**:
-   - Implement virtualization for long lists (>50 items)
-   - Consider using libraries like `react-window` or `react-virtualized`
-
-   ```tsx
-   import { FixedSizeList } from 'react-window';
-
-   const VirtualizedList = ({ items }) => (
-     <FixedSizeList
-       height={500}
-       width="100%"
-       itemCount={items.length}
-       itemSize={50}
-     >
-       {({ index, style }) => (
-         <div style={style}>
-           {items[index].name}
-         </div>
-       )}
-     </FixedSizeList>
-   );
-   ```
-
-2. **Debouncing and Throttling**:
-   - Debounce search inputs and form fields that trigger API calls
-   - Throttle scroll and resize event handlers
-
-   ```tsx
-   import { useState, useEffect } from 'react';
-   import { debounce } from 'lodash-es';
-
-   const SearchInput = () => {
-     const [value, setValue] = useState('');
-     
-     useEffect(() => {
-       const handleSearch = debounce((term: string) => {
-         // Perform search
-       }, 300);
-       
-       if (value) handleSearch(value);
-       
-       return () => {
-         handleSearch.cancel();
-       };
-     }, [value]);
-     
-     return (
-       <input 
-         type="text" 
-         value={value} 
-         onChange={(e) => setValue(e.target.value)} 
-       />
-     );
-   };
-   ```
-
-3. **Lazy Loading**:
-   - Implement lazy loading for below-the-fold content
-   - Use intersection observer for efficient detection
-
-   ```tsx
-   import { useEffect, useRef, useState } from 'react';
-
-   const LazyLoadedComponent = () => {
-     const [isVisible, setIsVisible] = useState(false);
-     const ref = useRef(null);
-     
-     useEffect(() => {
-       const observer = new IntersectionObserver(
-         ([entry]) => {
-           if (entry.isIntersecting) {
-             setIsVisible(true);
-             observer.disconnect();
-           }
-         },
-         { rootMargin: '100px' }
-       );
-       
-       if (ref.current) {
-         observer.observe(ref.current);
-       }
-       
-       return () => {
-         observer.disconnect();
-       };
-     }, []);
-     
-     return (
-       <div ref={ref}>
-         {isVisible ? <HeavyComponent /> : <Placeholder />}
-       </div>
-     );
-   };
-   ```
-
-## Network Optimization
-
-
-1. **Optimistic Updates**:
-   - Implement optimistic UI updates for better user experience
-   - Always handle failure cases gracefully
-
-   ```tsx
-   import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-   const UpdateButton = ({ user }) => {
-     const queryClient = useQueryClient();
-     
-     const mutation = useMutation({
-       mutationFn: updateUser,
-       onMutate: async (newUser) => {
-         await queryClient.cancelQueries(['user', user.id]);
-         const previousUser = queryClient.getQueryData(['user', user.id]);
-         queryClient.setQueryData(['user', user.id], newUser);
-         return { previousUser };
-       },
-       onError: (err, newUser, context) => {
-         queryClient.setQueryData(
-           ['user', user.id], 
-           context.previousUser
-         );
-       },
-       onSettled: () => {
-         queryClient.invalidateQueries(['user', user.id]);
-       },
-     });
-     
-     return (
-       <button onClick={() => mutation.mutate({ ...user, name: 'New Name' })}>
-         Update Name
-       </button>
-     );
-   };
-   ```
-
-3. **API Response Size**:
-   - Request only necessary data from APIs
-   - Implement pagination for large datasets
-
-## Bundle Optimization
-
-1. **Tree Shaking**:
-   - Import only what you need from libraries
-   - Use selective imports for large libraries
-
-   ```tsx
-   // Good - only imports what's needed
-   import { Button } from '@/components/ui';
-   import { formatDate } from '@/utils/date';
-   
-   // Bad - imports the entire library
-   import * as UI from '@/components/ui';
-   import * as Utils from '@/utils';
-   ```
-
-2. **Bundle Analysis**:
-   - Regularly analyze bundle size with tools like `@next/bundle-analyzer`
-   - Optimize or replace large dependencies
-
-3. **Code Splitting**:
-   - Split code at the route level
-   - Use dynamic imports for features not needed on initial load
-
-These performance optimization guidelines ensure that the ResearchHub application provides a smooth and responsive user experience.
+This structure ensures code is organized logically and consistently throughout the project.
 
 ---
 > Source: [ResearchHub/web](https://github.com/ResearchHub/web) — distributed by [TomeVault](https://tomevault.io).
