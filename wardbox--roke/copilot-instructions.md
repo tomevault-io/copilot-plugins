@@ -1,79 +1,75 @@
-## schema-data-models
+## state-management-forms
 
-> Schema & Data Models
+> State management and forms
 
-# Schema & Data Models
+# State Management & Forms
+## State Management
 
-## Entity Definition
+- Use Wasp's built-in auth state management
+- Use Wasp's built-in useQuery for server state
+- Use local state (useState) for UI state
+- Use context sparingly and only for truly global state
+- Use appropriate hooks for state management
+- Keep state as local as possible
+- Avoid prop drilling with context when needed
+- Implement proper error boundaries
 
-- Entities are defined in `schema.prisma` as Prisma models (not in main.wasp)
-- Each Prisma model in schema.prisma represents a Wasp Entity
-- Follow these steps when working with entities:
-  1. Create/update models in `schema.prisma`
-  2. Run `wasp db migrate-dev` to sync the database
-  3. Commit generated migration scripts in the `migrations/` folder
-  4. Use Wasp's JavaScript API to interact with entities
+## Forms
 
-## Prisma Schema Guidelines
+- Use React Hook Form for form actions like useForm and zodresolver
+- Use Zod to validate form schemas
+- Type validate all form inputs
+- Example form structure:
 
-- Use meaningful names for models and fields
-- Add proper relations between models
-- Include field validations where needed
-- Provide default values where it makes common sense (fields like createdAt and
-  updatedAt)
-- Follow Prisma naming conventions:
-  - ✓ Model names: PascalCase (User, Task)
-  - ✓ Field names: camelCase (firstName, createdAt)
+```tsx
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
-## Forward-Only Migration Strategy
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 
-- Use forward-only migrations to avoid dangerous database operations in
-  production
-- Never rename fields directly - instead create a new field with the desired
-  name and phase out the old one
-- When changing a field's type or properties, create a new field and migrate
-  data gradually
-- For schema changes that require data transformation, split into multiple
-  migrations:
-  1. Add new fields/columns (safe operation)
-  2. Deploy application code that writes to both old and new fields
-  3. Run data migration script to copy data from old to new fields
-  4. Deploy application code that reads from new fields but still writes to both
-  5. Finally, after confirming everything works, deploy code that only uses new
-     fields
+const formSchema = z.object({
+  username: z.string().min(2, {
+    message: 'Username must be at least 2 characters.',
+  }),
+})
 
-### Example: Safe Field Renaming
+export function ProfileForm() {
+  // ...
 
-```prisma
-// INSTEAD OF directly renaming accountId to userId (unsafe)
-
-// DO THIS:
-model Transaction {
-  id        String   @id @default(uuid())
-  accountId String?  // Mark as optional to prepare for deprecation
-  userId    String?  // New field that will replace accountId
-  amount    Decimal
-  createdAt DateTime @default(now())
-}
-
-// LATER, when accountId is no longer used:
-model Transaction {
-  id        String   @id @default(uuid())
-  userId    String   // Now required after migration is complete
-  amount    Decimal
-  createdAt DateTime @default(now())
-}
-```
-
-## Example Entity
-
-```prisma
-model Task {
-  id          String   @id @default(uuid())
-  description String
-  isDone      Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        <FormField
+          control={form.control}
+          name='username'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder='shadcn' {...field} />
+              </FormControl>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type='submit'>Submit</Button>
+      </form>
+    </Form>
+  )
 }
 ```
 
