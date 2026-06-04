@@ -1,0 +1,9 @@
+{
+  "name": "southshuquilt--advise-project-approach-275",
+  "displayName": "advise-project-approach-275",
+  "description": "A Claude/Codex skill that researches the best way to build your project before you commit to the wrong stack.",
+  "version": "1.0.0",
+  "author": "Southshuquilt",
+  "homepage": "https://github.com/Southshuquilt/advise-project-approach-275",
+  "skills": []
+}
