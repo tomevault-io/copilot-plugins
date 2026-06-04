@@ -1,0 +1,9 @@
+{
+  "name": "contextlab--llm-course",
+  "displayName": "llm-course",
+  "description": "Dartmouth undergraduate course on large language models and chatbots",
+  "version": "1.0.0",
+  "author": "ContextLab",
+  "homepage": "https://github.com/ContextLab/llm-course",
+  "skills": []
+}
