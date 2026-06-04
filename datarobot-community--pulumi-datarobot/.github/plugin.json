@@ -1,0 +1,9 @@
+{
+  "name": "datarobot-community--pulumi-datarobot",
+  "displayName": "pulumi-datarobot",
+  "description": "The DataRobot Resource Provider lets you manage DataRobot resources.",
+  "version": "1.0.0",
+  "author": "datarobot-community",
+  "homepage": "https://github.com/datarobot-community/pulumi-datarobot",
+  "skills": []
+}
