@@ -1,0 +1,9 @@
+{
+  "name": "beibingyangliuying--python-typst",
+  "displayName": "python-typst",
+  "description": "Python interface to generate Typst code.",
+  "version": "1.0.0",
+  "author": "beibingyangliuying",
+  "homepage": "https://github.com/beibingyangliuying/python-typst",
+  "skills": []
+}
