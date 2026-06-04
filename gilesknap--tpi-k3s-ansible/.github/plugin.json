@@ -1,0 +1,9 @@
+{
+  "name": "gilesknap--tpi-k3s-ansible",
+  "displayName": "tpi-k3s-ansible",
+  "description": "Infrastructure as code",
+  "version": "1.0.0",
+  "author": "gilesknap",
+  "homepage": "https://github.com/gilesknap/tpi-k3s-ansible",
+  "skills": []
+}
