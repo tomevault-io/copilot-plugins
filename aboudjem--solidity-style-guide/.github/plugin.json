@@ -1,0 +1,9 @@
+{
+  "name": "aboudjem--solidity-style-guide",
+  "displayName": "solidity-style-guide",
+  "description": "AI-ready Solidity style guide for Solidity 0.8.30 \u2014 naming, layout, NatSpec, custom errors, ERC-7201 storage, transient storage, Foundry tests, gas & security. Ships Solhint + Prettier configs, Claude",
+  "version": "1.0.0",
+  "author": "Aboudjem",
+  "homepage": "https://github.com/Aboudjem/solidity-style-guide",
+  "skills": []
+}
