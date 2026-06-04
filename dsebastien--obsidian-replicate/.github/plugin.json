@@ -1,0 +1,9 @@
+{
+  "name": "dsebastien--obsidian-replicate",
+  "displayName": "obsidian-replicate",
+  "description": "Integrate Replicate.com with Obsidian",
+  "version": "1.0.0",
+  "author": "dsebastien",
+  "homepage": "https://github.com/dsebastien/obsidian-replicate",
+  "skills": []
+}
