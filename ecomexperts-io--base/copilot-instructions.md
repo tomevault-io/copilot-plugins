@@ -1,36 +1,139 @@
-## rules-of-enagagment
+## schemas
 
-> - **Keep `layout/theme.liquid` concise**: Aim for an average of 200–300 lines. Extract markup into well-named snippets and sections to keep `theme.liquid` readable and maintainable.
+> Every section and block must include a `{% schema %}` tag with valid JSON structure.
 
-# Rules of Engagement
+# Schema Standards
 
-## Theme Structure
+Every section and block must include a `{% schema %}` tag with valid JSON structure.
 
-- **Keep `layout/theme.liquid` concise**: Aim for an average of 200–300 lines. Extract markup into well-named snippets and sections to keep `theme.liquid` readable and maintainable.
-- **Prefer snippets for composition**: Use snippets to organize, modals, and reusable UI fragments. Avoid large monolithic blocks inside `theme.liquid`.
+We write our schemas in the schemas folder and then run `npm run build:schemas` to push them to the `.liquid` files.  This allows us to take advantage of Typescript for validation and reuse parts of schemas to avoid re-writing them many times.
 
-## JavaScript Practices
+## Schema Structure
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["name", "settings"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "tag": {
+      "type": "string",
+      "enum": ["div", "section", "aside", "header", "footer", "main"]
+    },
+    "class": {
+      "type": "string"
+    },
+    "settings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "id", "label"],
+        "properties": {
+          "type": {
+            "enum": ["text", "textarea", "number", "range", "color", "checkbox", "select", "radio", "collection", "product", "blog", "page", "header", "paragraph", "image_picker", "font_picker", "video", "richtext"]
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "visible_if": {
+            "type": "string",
+            "pattern": "\\{\\{\\s+[a-zA-Z_][a-zA-Z0-9_]*\\s+\\}\\}"
+          }
+        }
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "required": ["type", "name", "settings"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "pattern": "^(@theme|@app|[a-z][a-z0-9_]*)$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "settings": {
+            "type": "array"
+          }
+        }
+      }
+    },
+    "presets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "settings": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}
+```
 
-- **Prefer Custom Elements over `DOMContentLoaded`**: Do not attach logic using `document.addEventListener('DOMContentLoaded', ...)`. Instead, wrap the relevant HTML in a custom element and implement a class that extends `HTMLElement` (register it with `customElements.define`).
-- **Avoid `DOMContentLoaded` entirely when possible**: Use `connectedCallback`/`disconnectedCallback` lifecycle hooks of your custom element to initialize and clean up behavior.
-- **Do not use jQuery**: Never add jQuery to the codebase. Prefer native browser APIs and/or Alpine.js (already included in `theme.liquid`) for light interactivity and state.
+## Setting Types and Usage
 
-## Formatting and Readability
+### Input settings
 
-- **Indent consistently**: Poorly formatted code is hard to read and maintain. Always keep indentation and spacing consistent with the project’s existing style (do not mix tabs and spaces).
-- **Auto-format on save**: Use the project formatter configuration where available. If no formatter is configured, match the surrounding file’s style.
+These are the bulk of the settings with which the merchant will interact.
 
-## Code Hygiene
+See [input settings documentation](mdc:https:/shopify.dev/docs/storefronts/themes/architecture/settings/input-settings)
 
-- **Do not leave commented-out code**: Either delete unused code or re-enable it. Do not keep large commented blocks or "temporary" comments in commits.
+### Sidebar settings
 
-## Quick Checklist
+These are informative settings to guide the merchant.
 
-- `theme.liquid` is <= ~300 lines and delegates to snippets/sections
-- No new uses of `DOMContentLoaded`; behavior lives in custom elements
-- Custom elements extend `HTMLElement` and are registered once
-- Code is consistently indented and formatted
-- No commented-out code left behind
+See [sidebar settings documentation](mdc:https:/shopify.dev/docs/storefronts/themes/architecture/settings/sidebar-settings)
+
+
+## Best practices
+
+### Label Guidelines
+
+- Keep labels concise (under 30 characters)
+- Setting type provides context - "Columns" not "Number of columns"
+- No verb-based labels for checkboxes
+- Use title case: "Show Vendor" not "show vendor"
+
+
+### Setting Organization Rules
+
+**1. Resource Pickers First**
+- Collection, product, blog, page pickers come first
+- These are required for section functionality
+
+**2. Visual Impact Order**
+- Layout settings (columns, spacing)
+- Typography settings (fonts, sizes)
+- Color settings (background, text)
+- Padding/margin last
+
+**3. Group settings using Headers**
+```json
+{
+  "type": "header",
+  "content": "Layout"
+}
+```
 
 ---
 > Source: [EcomExperts-io/Base](https://github.com/EcomExperts-io/Base) — distributed by [TomeVault](https://tomevault.io).
