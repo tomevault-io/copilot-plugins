@@ -1,0 +1,9 @@
+{
+  "name": "issol14--paper2code-skill",
+  "displayName": "paper2code-skill",
+  "description": "A Claude Code Skill that converts research papers into executable code - no extra API costs",
+  "version": "1.0.0",
+  "author": "issol14",
+  "homepage": "https://github.com/issol14/paper2code-skill",
+  "skills": []
+}
