@@ -1,27 +1,42 @@
-## error-handling-accessibility
+## imports
 
-> Error Handling & Accessibility
+> Import rules and conventions for the project
 
-# Error Handling & Accessibility
+# Import rules and conventions for the project
 
-## Error Handling
+## Wasp Imports
 
-- Implement proper error boundaries
-- Use type-safe error handling
-- Log errors appropriately
-- Provide user-friendly error messages
-- Handle operation errors appropriately:
-  - ✓ `try { await createTask(...) } catch (e) { handleError(e) }`
+- Always import Wasp functions from 'wasp' package, not '@wasp' Do this:
+- `import { Event } from 'wasp/entities'`
+- `import { type GetEvents } from 'wasp/server/operations'`
+- `import { getEvents, useQuery } from 'wasp/client/operations'`
 
-## Accessibility
+Do not do this
 
-- Use semantic HTML elements
-- Include proper ARIA labels
-- Ensure keyboard navigation works
-- Maintain sufficient color contrast
-- Support reduced motion preferences
-- Support screen readers
-- Implement proper ARIA attributes
+- `import { ... } from '@wasp/...'`
+
+## React Imports
+
+- Do not import React from 'react' because it's automatically imported
+- Import hooks directly from packages:
+
+Do this:
+
+- `import { useState } from 'react'`
+
+Do not do this:
+
+- `import React, { useState } from 'react'`
+
+## Motion Imports
+
+- Import from 'motion/react' instead of 'framer-motion' Do this:
+- `import { motion } from 'motion/react'` Do not do this:
+- `import { motion } from 'framer-motion'`
+
+## General Imports
+
+- Never use the @ alias in src code, use relative imports only
 
 ---
 > Source: [wardbox/roke](https://github.com/wardbox/roke) — distributed by [TomeVault](https://tomevault.io).
