@@ -1,127 +1,77 @@
-## masumi-payment-service
+## frontend
 
-> Cardano blockchain payment escrow service with Aiken smart contracts. Enables secure peer-to-peer payments with dispute resolution for AI agent marketplace.
+> Frontend React and Next.js patterns
 
-# Masumi Payment Service
 
-Cardano blockchain payment escrow service with Aiken smart contracts. Enables secure peer-to-peer payments with dispute resolution for AI agent marketplace.
+You are an expert in React, Next.js, TypeScript, and modern frontend development with TanStack Query.
 
-## Quick Reference
+Key Principles
 
-| Action                 | Command                                     |
-| ---------------------- | ------------------------------------------- |
-| Start dev server       | `pnpm dev`                                  |
-| Run linting            | `pnpm run lint`                             |
-| Format code            | `pnpm run format`                           |
-| Run tests              | `pnpm run test`                             |
-| Run DB migrations      | `pnpm run prisma:migrate:dev`               |
-| Generate Prisma client | `pnpm run prisma:generate`                  |
-| Generate OpenAPI types | `cd frontend && pnpm run openapi-ts-latest` |
-| Generate Swagger JSON  | `pnpm run swagger-json`                     |
+- Write functional components using TypeScript with explicit prop interfaces.
+- Use TanStack Query (React Query) for all server state management.
+- Leverage React context for global client state; avoid prop drilling.
+- Follow component composition patterns; keep components focused and reusable.
+- Use Shadcn UI components from `components/ui/` for consistent styling.
 
-## Tech Stack
+Generated Code
 
-- Backend: Node.js, TypeScript, Express, express-zod-api
-- Database: PostgreSQL with Prisma ORM
-- Blockchain: Cardano via MeshSDK and Blockfrost API
-- Smart Contracts: Aiken language
-- Frontend: Next.js, React, TanStack Query, Shadcn UI
+- Never manually edit files in `frontend/src/lib/api/generated/`; these are auto-generated from OpenAPI spec.
+- Run `cd frontend && pnpm run openapi-ts-latest` after backend API changes to regenerate types.
+- Import API types from generated files for type-safe API interactions.
+- Do not use unknown-valued map types in frontend code; prefer explicit JSON/object types and runtime property helpers for narrowing `unknown`.
 
-## Project Structure
+Component Structure
 
-- `src/routes/api/` - API endpoints using express-zod-api
-- `src/services/` - Business logic services
-- `src/utils/` - Utility functions and helpers
-- `src/generated/prisma/` - Prisma client (auto-generated, do not edit)
-- `frontend/` - Next.js frontend application
-- `frontend/src/lib/api/generated/` - API types (auto-generated, do not edit)
-- `smart-contracts/payment/` - Payment escrow smart contract
-- `smart-contracts/registry/` - Registry minting contract
-- `prisma/` - Database schema and migrations
+- Place components in `components/{feature}/` directories organized by feature.
+- Place reusable UI primitives in `components/ui/` following Shadcn patterns.
+- Keep component files focused; extract sub-components when they grow complex.
+- Define TypeScript interfaces for props at the top of component files.
 
-## Key Principles
+Data Fetching
 
-- Write clear, technical TypeScript code following established patterns.
-- Use functional programming patterns; avoid classes except for services.
-- Prioritize readability and maintainability over cleverness.
-- Use descriptive variable names with auxiliary verbs (isLoading, hasError).
-- Handle errors explicitly with proper status codes and logging.
+- Use TanStack Query hooks (useQuery, useMutation) for all API calls.
+- Define query keys consistently for proper cache invalidation.
+- Handle loading, error, and success states explicitly in components.
+- Use `queryClient.invalidateQueries()` after mutations to refresh data.
 
-## Critical Guidelines
+Context Providers
 
-- Import Zod from `@/utils/zod-openapi`, never from 'zod' directly.
-- Use BigInt for all monetary amounts; never use Number for lovelace values.
-- Convert BigInt to string for API responses; JSON cannot serialize BigInt.
-- Use `createHttpError()` for HTTP errors, never throw plain Error.
-- Use logger from `@/utils/logger`; never use console.log.
-- Encrypt wallet secrets using `@/utils/security/encryption` utilities.
-- Never use unknown-valued map types; use domain types, Prisma JSON types, or explicit property guards.
-- Never edit files in `src/generated/` or `frontend/src/lib/api/generated/`.
-- Cursor pagination on list endpoints is intentionally inclusive. Do not add `skip: 1` to Prisma cursor queries
-  unless the API contract is deliberately changed; clients should tolerate receiving the cursor row again.
+- Use `AppContext` for application-wide state and settings.
+- Use `DialogContext` for managing dialog/modal state globally.
+- Use `ThemeContext` for theme management.
+- Use `SidebarContext` for sidebar navigation state.
+- Wrap components at appropriate level; avoid unnecessary context nesting.
 
-## Formatting Standards
+Styling
 
-- Use single quotes for strings.
-- Use 2 spaces for indentation.
-- Include trailing commas in multi-line structures.
-- End statements with semicolons.
-- Prefix unused variables with underscore.
-- Run lint and format before committing.
+- Use Tailwind CSS for all styling; avoid inline styles and CSS modules.
+- Follow mobile-first responsive design approach.
+- Use Shadcn UI component variants for consistent styling.
+- Keep custom styles minimal; leverage existing design system.
 
-## Commit Standards
+State Management
 
-- Follow conventional commits: type(scope): description
-- Types: feat, fix, docs, style, refactor, test, chore, perf, ci
-- Keep header under 72 characters
-- Use lowercase for type; no period at end
+- Prefer server state (TanStack Query) over client state when possible.
+- Use React useState for local component state.
+- Use React context for shared client state across components.
+- Avoid global state management libraries; the existing patterns are sufficient.
 
-## Payment Contract States
+Performance
 
-- FundsLocked: Initial state when funds are locked in contract
-- ResultSubmitted: Seller has submitted a result hash
-- RefundRequested: Buyer has requested a refund
-- Disputed: Result submitted but refund is requested
+- Use React.memo for expensive components that receive stable props.
+- Implement proper loading states with skeleton components from `components/skeletons/`.
+- Use dynamic imports for code splitting on non-critical components.
+- Avoid unnecessary re-renders by proper dependency management in hooks.
 
-## API Authentication
+Dependencies
 
-- Three permission levels: Read, ReadAndPay, Admin
-- Use readAuthenticatedEndpointFactory for read operations
-- Use payAuthenticatedEndpointFactory for payment operations
-- Use adminAuthenticatedEndpointFactory for admin operations
+- Next.js (React framework)
+- TanStack Query (server state management)
+- Tailwind CSS (styling)
+- Shadcn UI (component library)
+- React Hook Form (form handling when needed)
 
-## Dependencies
-
-- express-zod-api for API endpoints with Zod validation
-- Prisma for database access via `@/utils/db`
-- http-errors for HTTP error handling
-- Winston for logging via `@/utils/logger`
-- @meshsdk/core for Cardano operations
-- @blockfrost/blockfrost-js for blockchain queries
-- async-mutex for concurrency control
-- advanced-retry for retry logic
-- @paralleldrive/cuid2 for ID generation
-
-## Key Files
-
-- Entry point: `src/index.ts`
-- Configuration: `src/utils/config/index.ts`
-- Database schema: `prisma/schema.prisma`
-- Zod extension: `src/utils/zod-openapi.ts`
-- Payment contract: `smart-contracts/payment/validators/vested_pay.ak`
-- State machine docs: `smart-contracts/payment/state_machine_diagram.md`
-
-## Pre-push Hooks
-
-The following run automatically before push:
-
-- ESLint check on full project
-- Swagger JSON generation
-- Postman collection update
-- Frontend type generation
-- Protected branch check (blocks direct push to main/dev)
-
-Refer to documentation in `docs/` for detailed guides on configuration, deployment, and security.
+Refer to existing components in `frontend/src/components/` for implementation patterns.
 
 ---
 > Source: [masumi-network/masumi-payment-service](https://github.com/masumi-network/masumi-payment-service) — distributed by [TomeVault](https://tomevault.io).
