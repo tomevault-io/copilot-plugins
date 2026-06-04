@@ -4,7 +4,7 @@
   "repo": "anticapture",
   "description": "The DAO governance security platform that provides data-driven analysis to help identify, assess, and mitigate governance capture risks.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/blockful/anticapture",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T22:38:41Z"
+  "distributed_at": "2026-06-04T22:39:12Z"
 }
