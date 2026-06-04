@@ -1,556 +1,238 @@
-## database-tables
-
-> This document provides a comprehensive reference of table compositions in the ResearchHub database.
-
-# ResearchHub Database Tables (Cursor Rule)
-
-This document provides a comprehensive reference of table compositions in the ResearchHub database.
-
-## User Management
-
-### nonprofit_org
-
-**Description**: Nonprofit organizations that can receive donations.
-
-| Column               | Type                     | Description                        |
-| ----- | --- | ---- |
-| id                   | integer                  | Primary key                        |
-| name                 | character varying(255)   | Name of the nonprofit              |
-| ein                  | character varying(20)    | Employer Identification Number     |
-| endaoment_org_id     | character varying(100)   | Unique ID in Endaoment system      |
-| base_wallet_address  | character varying(42)    | Blockchain wallet address          |
-| created_date         | timestamp with time zone | Creation timestamp                 |
-| updated_date         | timestamp with time zone | Last update timestamp              |
-
-### nonprofit_fundraise_link
-
-**Description**: Join table connecting nonprofits and fundraising campaigns.
-
-| Column         | Type                       | Description                          |
-| ----- | ----- | --- |
-| id             | integer                    | Primary key                          |
-| nonprofit_id   | integer                    | Foreign key to nonprofit_org         |
-| fundraise_id   | integer                    | Foreign key to purchase_fundraise    |
-| note           | text                       | Notes about this specific link       |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-
-### user_user
-
-**Description**: Core user account table.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| username       | character varying          | Unique username                      |
-| email          | character varying          | User's email address                 |
-| password       | character varying          | Hashed password                      |
-| first_name     | character varying          | User's first name                    |
-| last_name      | character varying          | User's last name                     |
-| is_active      | boolean                    | Whether the account is active        |
-| date_joined    | timestamp with time zone   | When the user joined                 |
-| reputation     | integer                    | User's reputation score              |
-| is_staff       | boolean                    | Whether user has staff privileges    |
-| is_superuser   | boolean                    | Whether user has superuser privileges|
-
-### user_author
-
-**Description**: Author profile information linked to users.
-
-| Column             | Type                   | Description                         |
-| ------------------ | ---------------------- | ----------------------------------- |
-| id                 | integer                | Primary key                         |
-| first_name         | character varying      | Author's first name                 |
-| last_name          | character varying      | Author's last name                  |
-| user_id            | integer                | Foreign key to user_user            |
-| orcid              | character varying      | ORCID identifier                    |
-| scopus_author_id   | character varying      | Scopus author identifier            |
-| google_scholar_id  | character varying      | Google Scholar identifier           |
-| twitter            | character varying      | Twitter handle                      |
-| linkedin           | character varying      | LinkedIn profile URL                |
-| website            | character varying      | Personal website URL                |
-
-### user_userverification
-
-**Description**: User verification information.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| first_name     | text                       | User's first name                    |
-| last_name      | text                       | User's last name                     |
-| status         | text                       | Verification status                  |
-| verified_by    | text                       | Verification method                  |
-| external_id    | text                       | External identifier                  |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| user_id        | integer                    | Foreign key to user_user             |
-
-### user_follow
-
-**Description**: User following relationships.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| object_id      | integer                    | ID of followed object                |
-| content_type_id| integer                    | Type of followed content             |
-| user_id        | integer                    | User who follows                     |
-
-### user_action
-
-**Description**: User actions on the platform.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| object_id      | integer                    | ID of action object                  |
-| content_type_id| integer                    | Type of content                      |
-| user_id        | integer                    | User who performed action            |
-| read_date      | timestamp with time zone   | When action was read                 |
-| display        | boolean                    | Whether to display action            |
-| is_removed     | boolean                    | Whether action is removed            |
-
-## Paper Resources
-
-### paper_paper
-
-**Description**: Research paper metadata.
-
-| Column               | Type                     | Description                        |
-| -------------------- | ------------------------ | ---------------------------------- |
-| id                   | integer                  | Primary key                        |
-| title                | character varying(1024)  | Paper title                        |
-| created_date         | timestamp with time zone | Creation timestamp                 |
-| updated_date         | timestamp with time zone | Last update timestamp              |
-| paper_publish_date   | date                     | Publication date                   |
-| doi                  | character varying(255)   | Digital Object Identifier          |
-| url                  | character varying(1024)  | URL to paper                       |
-| uploaded_by_id       | integer                  | User who uploaded the paper        |
-| file                 | character varying(512)   | File path                          |
-| abstract             | text                     | Paper abstract                     |
-| is_public            | boolean                  | Whether paper is public            |
-| is_removed           | boolean                  | Whether paper has been removed     |
-| slug                 | character varying(1024)  | URL-friendly slug                  |
-| paper_type           | character varying(32)    | Type of paper                      |
-| score                | integer                  | Aggregated score                   |
-| citations            | integer                  | Citation count                     |
-| downloads            | integer                  | Download count                     |
-| views                | integer                  | View count                         |
-| unified_document_id  | integer                  | Related unified document           |
-| is_open_access       | boolean                  | Whether paper is open access       |
-
-### paper_authorship
-
-**Description**: Paper author relationships.
-
-| Column           | Type                     | Description                        |
-| ---------------- | ------------------------ | ---------------------------------- |
-| id               | integer                  | Primary key                        |
-| created_date     | timestamp with time zone | Creation timestamp                 |
-| updated_date     | timestamp with time zone | Last update timestamp              |
-| author_position  | character varying(10)    | Position in author list            |
-| is_corresponding | boolean                  | Whether author is corresponding    |
-| raw_author_name  | character varying(255)   | Raw author name from source        |
-| author_id        | integer                  | Foreign key to user_author         |
-| paper_id         | integer                  | Foreign key to paper_paper         |
-| email            | character varying(255)   | Author's email                     |
-| department       | character varying(255)   | Author's department                |
-
-## Discussion Resources
-
-### discussion_thread
-
-**Description**: Discussion threads associated with papers.
-
-| Column               | Type                     | Description                        |
-| -------------------- | ------------------------ | ---------------------------------- |
-| id                   | integer                  | Primary key                        |
-| created_date         | timestamp with time zone | Creation timestamp                 |
-| updated_date         | timestamp with time zone | Last update timestamp              |
-| is_public            | boolean                  | Whether thread is public           |
-| is_removed           | boolean                  | Whether thread has been removed    |
-| text                 | jsonb                    | Text content (rich format)         |
-| title                | character varying(255)   | Thread title                       |
-| created_by_id        | integer                  | User who created the thread        |
-| paper_id             | integer                  | Related paper                      |
-| was_edited           | boolean                  | Whether thread was edited          |
-| plain_text           | text                     | Plain text version                 |
-| source               | character varying(32)    | Source of the thread               |
-| score                | integer                  | Thread score                       |
-| discussion_post_type | character varying(16)    | Type of discussion post            |
-| is_accepted_answer   | boolean                  | Whether marked as accepted answer  |
-
-## Content Types
-
-### django_content_type
-
-**Description**: Maps content types to their IDs.
-
-| Column      | Type                  | Description                         |
-| ----------- | --------------------- | ----------------------------------- |
-| id          | integer               | Primary key                         |
-| app_label   | character varying(100)| Application label                   |
-| model       | character varying(100)| Model name                          |
-
-## Feed System
-
-### feed_feedentry
-
-**Description**: Feed entries for user activity.
-
-| Column               | Type                     | Description                        |
-| -------------------- | ------------------------ | ---------------------------------- |
-| id                   | bigint                   | Primary key                        |
-| created_date         | timestamp with time zone | Creation timestamp                 |
-| updated_date         | timestamp with time zone | Last update timestamp              |
-| object_id            | integer                  | ID of feed object                  |
-| parent_object_id     | integer                  | ID of parent object                |
-| action               | text                     | Action performed                   |
-| action_date          | timestamp with time zone | When action was performed          |
-| content_type_id      | integer                  | Type of content                    |
-| parent_content_type_id| integer                 | Type of parent content             |
-| user_id              | integer                  | User associated with feed entry    |
-
-## Notes System
-
-### note_note
-
-**Description**: Notes created by users.
-
-| Column               | Type                     | Description                        |
-| -------------------- | ------------------------ | ---------------------------------- |
-| id                   | integer                  | Primary key                        |
-| created_date         | timestamp with time zone | Creation timestamp                 |
-| updated_date         | timestamp with time zone | Last update timestamp              |
-| created_by_id        | integer                  | User who created the note          |
-| latest_version_id    | integer                  | Latest version of note content     |
-| organization_id      | integer                  | Associated organization            |
-| unified_document_id  | integer                  | Related unified document           |
-| title                | text                     | Note title                         |
-
-### note_notecontent
-
-**Description**: Content of notes.
-
-| Column      | Type                   | Description                         |
-| ----------- | ---------------------- | ----------------------------------- |
-| id          | integer                | Primary key                         |
-| created_date| timestamp with time zone| Creation timestamp                 |
-| src         | character varying(512) | Source of content                   |
-| plain_text  | text                   | Plain text version                  |
-| note_id     | integer                | Related note                        |
-| json        | jsonb                  | JSON content                        |
-
-## Purchase System
-
-### purchase_balance
-
-**Description**: User balances.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| object_id      | integer                    | Associated object ID                 |
-| amount         | character varying(255)     | Balance amount                       |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| content_type_id| integer                    | Type of content                      |
-| user_id        | integer                    | Associated user                      |
-| testnet_amount | character varying(255)     | Testnet balance amount               |
-
-### purchase_fundraise
-
-**Description**: Fundraising campaigns.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| status         | character varying(32)      | Fundraise status                     |
-| goal_amount    | numeric                    | Goal amount                          |
-| goal_currency  | character varying(16)      | Currency of goal                     |
-| start_date     | timestamp with time zone   | Start date                           |
-| end_date       | timestamp with time zone   | End date                             |
-| created_by_id  | integer                    | User who created fundraise           |
-| escrow_id      | integer                    | Associated escrow                    |
-| unified_document_id | integer               | Related unified document             |
-
-### purchase_purchase
-
-**Description**: User purchases.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| object_id      | integer                    | Associated object ID                 |
-| purchase_type  | character varying(32)      | Type of purchase                     |
-| amount         | character varying(255)     | Purchase amount                      |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| content_type_id| integer                    | Type of content                      |
-| user_id        | integer                    | User who made purchase               |
-| purchase_hash  | character varying(32)      | Purchase hash                        |
-| purchase_method| character varying(16)      | Purchase method                      |
-| transaction_hash| character varying(255)    | Blockchain transaction hash          |
-| boost_time     | double precision           | Boost time                           |
-| paid_date      | timestamp with time zone   | Payment date                         |
-| paid_status    | character varying(255)     | Payment status                       |
-| group_id       | integer                    | Group ID for batch purchases         |
-
-## Reputation System
-
-### reputation_score
-
-**Description**: User reputation scores.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| score          | integer                    | Reputation score value               |
-| author_id      | integer                    | Related author                       |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| hub_id         | integer                    | Related hub                          |
-
-### reputation_scorechange
-
-**Description**: Changes to reputation scores.
-
-| Column               | Type                     | Description                        |
-| -------------------- | ------------------------ | ---------------------------------- |
-| id                   | integer                  | Primary key                        |
-| updated_date         | timestamp with time zone | Last update timestamp              |
-| algorithm_version    | integer                  | Algorithm version                  |
-| score_after_change   | integer                  | Score after change                 |
-| score_change         | integer                  | Amount of change                   |
-| raw_value_change     | integer                  | Raw value change                   |
-| changed_object_id    | integer                  | Changed object ID                  |
-| changed_object_field | character varying(100)   | Field that changed                 |
-| variable_counts      | jsonb                    | Variable counts                    |
-| created_date         | timestamp with time zone | Creation timestamp                 |
-| algorithm_variables_id| integer                 | Algorithm variables                |
-| changed_content_type_id| integer               | Changed content type               |
-| score_id             | integer                  | Related score                      |
-
-### reputation_distribution
-
-**Description**: Reputation distribution transactions.
-
-| Column           | Type                     | Description                           |
-| ---------------- | ------------------------ | ------------------------------------- |
-| id               | integer                  | Primary key                           |
-| amount           | integer                  | Amount distributed                    |
-| created_date     | timestamp with time zone | Creation timestamp                    |
-| updated_date     | timestamp with time zone | Last update timestamp                 |
-| sender_id        | integer                  | User sending reputation               |
-| recipient_id     | integer                  | User receiving reputation             |
-| content_type_id  | integer                  | Type of content                       |
-| object_id        | integer                  | ID of related object                  |
-| distribution_type| character varying        | Type of distribution                  |
-
-### reputation_bounty
-
-**Description**: Bounties for content contributions.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| amount         | integer                    | Bounty amount                        |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| creator_id     | integer                    | User who created bounty              |
-| content_type_id| integer                    | Type of content                      |
-| object_id      | integer                    | ID of related object                 |
-| expires_date   | timestamp with time zone   | Expiration date                      |
-| status         | character varying          | Bounty status                        |
-
-### reputation_escrow
-
-**Description**: Escrow for reputation transactions.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| hold_type      | character varying(16)      | Type of hold                         |
-| amount_holding | numeric                    | Amount in escrow                     |
-| object_id      | integer                    | Associated object ID                 |
-| status         | character varying(16)      | Escrow status                        |
-| content_type_id| integer                    | Type of content                      |
-| created_by_id  | integer                    | User who created escrow              |
-| bounty_fee_id  | integer                    | Associated bounty fee                |
-| amount_paid    | numeric                    | Amount paid out                      |
-
-### reputation_escrowrecipients
-
-**Description**: Recipients of escrow payouts.
-
-| Column         | Type                       | Description                          |
-| -------------- | -------------------------- | ------------------------------------ |
-| id             | integer                    | Primary key                          |
-| created_date   | timestamp with time zone   | Creation timestamp                   |
-| updated_date   | timestamp with time zone   | Last update timestamp                |
-| amount         | numeric                    | Amount to receive                    |
-| escrow_id      | integer                    | Associated escrow                    |
-| user_id        | integer                    | User receiving payout                |
-
-### reputation_withdrawal
-
-**Description**: Withdrawal of reputation tokens.
-
-| Column           | Type                     | Description                           |
-| ---------------- | ------------------------ | ------------------------------------- |
-| id               | integer                  | Primary key                           |
-| from_address     | character varying(255)   | From address                          |
-| to_address       | character varying(255)   | To address                            |
-| created_date     | timestamp with time zone | Creation timestamp                    |
-| updated_date     | timestamp with time zone | Last update timestamp                 |
-| paid_date        | timestamp with time zone | Payment date                          |
-| transaction_hash | character varying(255)   | Transaction hash                      |
-| user_id          | integer                  | Associated user                       |
-| is_removed       | boolean                  | Whether withdrawal is removed         |
-| is_removed_date  | timestamp with time zone | When withdrawal was removed           |
-| paid_status      | character varying(255)   | Payment status                        |
-| token_address    | character varying(255)   | Token address                         |
-| amount           | character varying(255)   | Withdrawal amount                     |
-| fee              | character varying(255)   | Withdrawal fee                        |
-| is_public        | boolean                  | Whether withdrawal is public          |
-| network          | character varying(10)    | Blockchain network                    |
-
-## Document System
-
-### researchhub_document_researchhubunifieddocument
-
-**Description**: Unified document model combining different content types.
-
-| Column             | Type                     | Description                          |
-| ------------------ | ------------------------ | ------------------------------------ |
-| id                 | integer                  | Primary key                          |
-| created_date       | timestamp with time zone | Creation timestamp                   |
-| updated_date       | timestamp with time zone | Last update timestamp                |
-| document_type      | character varying(32)    | Type of document                     |
-| score              | integer                  | Document score                       |
-| is_removed         | boolean                  | Whether document is removed          |
-| published_date     | timestamp with time zone | Publication date                     |
-| is_public          | boolean                  | Whether document is public           |
-| hot_score          | integer                  | Hot score for trending               |
-| document_filter_id | integer                  | Associated document filter           |
-| is_removed_date    | timestamp with time zone | When document was removed            |
-
-### researchhub_document_researchhubpost
-
-**Description**: Posts in ResearchHub.
-
-| Column             | Type                     | Description                          |
-| ------------------ | ------------------------ | ------------------------------------ |
-| id                 | integer                  | Primary key                          |
-| version_number     | integer                  | Version number                       |
-| prev_version_id    | integer                  | Previous version ID                  |
-| unified_document_id| integer                  | Related unified document             |
-| created_date       | timestamp with time zone | Creation timestamp                   |
-| discussion_src     | character varying(512)   | Discussion source                    |
-| editor_type        | character varying(32)    | Type of editor                       |
-| eln_src            | character varying(512)   | ELN source                           |
-| renderable_text    | text                     | Renderable text content              |
-| updated_date       | timestamp with time zone | Last update timestamp                |
-| title              | text                     | Post title                           |
-| document_type      | character varying(32)    | Type of document                     |
-| created_by_id      | integer                  | User who created post                |
-| preview_img        | character varying(200)   | Preview image                        |
-| discussion_count   | integer                  | Count of discussions                 |
-| slug               | character varying(1024)  | URL-friendly slug                    |
-| note_id            | integer                  | Associated note                      |
-| doi                | character varying(255)   | Digital Object Identifier            |
-| bounty_type        | character varying(64)    | Type of bounty                       |
-| score              | integer                  | Post score                           |
-
-### researchhub_document_unifieddocumentconcepts
-
-**Description**: Concepts associated with unified documents.
-
-| Column             | Type                     | Description                          |
-| ------------------ | ------------------------ | ------------------------------------ |
-| id                 | integer                  | Primary key                          |
-| created_date       | timestamp with time zone | Creation timestamp                   |
-| updated_date       | timestamp with time zone | Last update timestamp                |
-| relevancy_score    | double precision         | Relevancy score                      |
-| level              | integer                  | Concept level                        |
-| concept_id         | integer                  | Associated concept                   |
-| unified_document_id| integer                  | Related unified document             |
-
-## Reviews
-
-### review_review
-
-**Description**: Reviews of content.
-
-| Column             | Type                     | Description                          |
-| ------------------ | ------------------------ | ------------------------------------ |
-| id                 | integer                  | Primary key                          |
-| created_date       | timestamp with time zone | Creation timestamp                   |
-| updated_date       | timestamp with time zone | Last update timestamp                |
-| score              | double precision         | Review score                         |
-| created_by_id      | integer                  | User who created review              |
-| unified_document_id| integer                  | Related unified document             |
-| is_removed         | boolean                  | Whether review is removed            |
-| is_public          | boolean                  | Whether review is public             |
-| is_removed_date    | timestamp with time zone | When review was removed              |
-| content_type_id    | integer                  | Type of content                      |
-| object_id          | integer                  | ID of reviewed object                |
-
-## Topics
-
-### topic_topic
-
-**Description**: Research topics.
-
-| Column                | Type                     | Description                          |
-| --------------------- | ------------------------ | ------------------------------------ |
-| id                    | bigint                   | Primary key                          |
-| created_date          | timestamp with time zone | Creation timestamp                   |
-| updated_date          | timestamp with time zone | Last update timestamp                |
-| openalex_id           | character varying(255)   | OpenAlex ID                          |
-| display_name          | text                     | Display name                         |
-| works_count           | integer                  | Count of works                       |
-| cited_by_count        | integer                  | Count of citations                   |
-| keywords              | ARRAY                    | Keywords array                       |
-| openalex_updated_date | timestamp with time zone | OpenAlex update timestamp            |
-| subfield_id           | bigint                   | Associated subfield                  |
-| openalex_created_date | timestamp with time zone | OpenAlex creation timestamp          |
-
-### topic_subfield
-
-**Description**: Research subfields.
-
-| Column                | Type                     | Description                          |
-| --------------------- | ------------------------ | ------------------------------------ |
-| id                    | bigint                   | Primary key                          |
-| created_date          | timestamp with time zone | Creation timestamp                   |
-| updated_date          | timestamp with time zone | Last update timestamp                |
-| openalex_id           | character varying(255)   | OpenAlex ID                          |
-| display_name          | text                     | Display name                         |
-| field_id              | bigint                   | Associated field                     |
-
-### topic_unifieddocumenttopics
-
-**Description**: Association between documents and topics.
-
-| Column             | Type                     | Description                          |
-| ------------------ | ------------------------ | ------------------------------------ |
-| id                 | bigint                   | Primary key                          |
-| created_date       | timestamp with time zone | Creation timestamp                   |
-| updated_date       | timestamp with time zone | Last update timestamp                |
-| relevancy_score    | double precision         | Relevancy score                      |
-| topic_id           | bigint                   | Associated topic                     |
-| unified_document_id| integer                  | Related unified document             |
-| is_primary         | boolean                  | Whether topic is primary             |
+## design-system
+
+> This document outlines the design system and styling guidelines used in the ResearchHub codebase.
+
+ # ResearchHub Design System
+
+This document outlines the design system and styling guidelines used in the ResearchHub codebase.
+
+## Styling Approach
+
+ResearchHub uses Tailwind CSS as the primary styling solution, complemented by CSS modules for complex components when necessary.
+
+1. **Tailwind CSS**:
+   - Use Tailwind utility classes for most styling needs
+   - Follow the "utility-first" approach
+   - Use Tailwind's built-in responsive classes for responsive design
+
+2. **CSS Modules**:
+   - Use CSS modules for complex components that require custom animations or styles that are difficult to achieve with Tailwind
+   - Name CSS module files with the `.module.css` extension
+
+3. **Styling Utilities**:
+   - Use the `cn()` utility function for conditional class name composition
+   - Use `class-variance-authority` (cva) for component variants
+
+## Color System
+
+1. **Color Palette**:
+   - Use the color tokens defined in the Tailwind configuration
+   - Primary colors: Shades of indigo and blue
+   - Secondary colors: Gray scale and orange/yellow for accent
+   - Semantic colors: Success (green), warning (yellow), error (red), info (blue)
+
+   ```tsx
+   // Use semantic color tokens
+   <div className="bg-primary-600 text-white">Primary button</div>
+   <div className="bg-gray-100 text-gray-800">Secondary button</div>
+   <div className="bg-red-100 text-red-800">Error state</div>
+   ```
+
+2. **Color Usage**:
+   - Use primary colors for primary actions and branding
+   - Use gray scale for UI structure, backgrounds, and secondary elements
+   - Use semantic colors consistently for their respective meanings
+   - Maintain appropriate contrast ratios for accessibility (4.5:1 minimum)
+
+## Typography
+
+1. **Font Family**:
+   - Primary font: Inter (sans-serif)
+   - Heading font: Cal Sans for titles and large headings
+   - Monospace font: For code blocks and technical content
+
+2. **Font Sizes**:
+   - Follow the Tailwind CSS font size scale
+   - Use relative units (rem) for font sizes to support user preferences
+
+   ```tsx
+   <h1 className="text-3xl font-semibold text-gray-900">Page Title</h1>
+   <h2 className="text-xl font-medium text-gray-800">Section Heading</h2>
+   <p className="text-base text-gray-700">Body text</p>
+   <span className="text-sm text-gray-500">Caption text</span>
+   ```
+
+3. **Font Weights**:
+   - Regular (400) for body text
+   - Medium (500) for semi-emphasis
+   - Semibold (600) for headings and emphasis
+   - Bold (700) for strong emphasis
+
+4. **Line Heights**:
+   - Use appropriate line heights for readability
+   - Body text: `leading-normal` (1.5)
+   - Headings: `leading-tight` (1.25)
+   - Single-line elements: `leading-none` (1)
+
+## Spacing
+
+1. **Spacing Scale**:
+   - Follow the Tailwind CSS spacing scale
+   - Use consistent spacing for margins and padding
+   - Use the spacing scale for gaps, grid gaps, and other spacing properties
+
+   ```tsx
+   <div className="p-4">
+     <div className="mb-6">
+       <h2 className="mb-2">Section Title</h2>
+       <p>Content</p>
+     </div>
+   </div>
+   ```
+
+2. **Layout Spacing**:
+   - Page margins: px-4 sm:px-6 md:px-8 lg:px-12
+   - Section spacing: my-8 md:my-12 lg:my-16
+   - Component spacing: p-4 for cards, p-2 for smaller components
+
+## Components
+
+1. **Base Components**:
+   - Use the components in the `components/ui` directory as the foundation
+   - Common components include Button, Input, Card, Badge, and more
+   - All components are built with accessibility in mind
+
+2. **Component Variants**:
+   - Components have consistent variants using `class-variance-authority`
+   - Common variants include size, color, and emphasis level
+
+   ```tsx
+   // Button with variants
+   <Button variant="primary" size="md">Primary Action</Button>
+   <Button variant="secondary" size="sm">Secondary Action</Button>
+   ```
+
+3. **Component Composition**:
+   - Build complex UI by composing smaller components
+   - Use the children prop for flexible content
+   - Use render props for complex rendering logic
+
+## Icons
+
+1. **Icon System**:
+   - Use Lucide icons as the primary icon set
+   - Use Font Awesome for additional icons when necessary
+   - Keep icons consistent in style and usage
+
+   ```tsx
+   import { User, Settings, Bell } from 'lucide-react';
+
+   <Button>
+     <User className="w-4 h-4 mr-2" />
+     Profile
+   </Button>
+   ```
+
+2. **Icon Sizing**:
+   - Use consistent sizing: sm (16px), md (20px), lg (24px)
+   - Adjust stroke width for better visibility at different sizes
+   - Maintain proper alignment with text using flex layout
+
+## Responsive Design
+
+1. **Breakpoints**:
+   - Follow Tailwind's breakpoint system:
+     - sm: 640px
+     - md: 768px
+     - lg: 1024px
+     - xl: 1280px
+     - 2xl: 1536px
+     - custom: wide (1200px), 3xl (1600px)
+
+2. **Mobile-first Approach**:
+   - Start with mobile layouts and progressively enhance for larger screens
+   - Use responsive utilities to adapt layout, typography, and spacing
+
+   ```tsx
+   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+     {/* Content */}
+   </div>
+   ```
+
+3. **Responsive Components**:
+   - Design components to adapt to different screen sizes
+   - Use responsive variants for component properties
+   - Test all components across different breakpoints
+
+## Accessibility
+
+1. **Color Contrast**:
+   - Maintain a minimum contrast ratio of 4.5:1 for normal text
+   - Maintain a minimum contrast ratio of 3:1 for large text and UI components
+   - Test color combinations with accessibility tools
+
+2. **Keyboard Navigation**:
+   - Ensure all interactive elements are keyboard accessible
+   - Implement proper focus states with visible focus indicators
+   - Maintain a logical tab order
+
+3. **Screen Readers**:
+   - Add appropriate ARIA attributes when necessary
+   - Use semantic HTML elements when possible
+   - Provide alt text for images and aria-labels for interactive elements
+
+4. **Reduced Motion**:
+   - Respect user preferences for reduced motion
+   - Provide alternatives to motion-heavy interactions
+
+   ```tsx
+   <div className="transition-transform motion-reduce:transition-none">
+     {/* Content */}
+   </div>
+   ```
+
+## Dark Mode
+
+1. **Color Adaptation**:
+   - Use Tailwind's dark mode utilities to adapt colors
+   - Keep proper contrast in both light and dark modes
+   - Test all components in both modes
+
+   ```tsx
+   <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+     {/* Content */}
+   </div>
+   ```
+
+2. **Dark Mode Strategy**:
+   - Implement dark mode based on user preference
+   - Allow user toggling with persistent preference
+   - Ensure smooth transitions between modes
+
+## Animation and Interaction
+
+1. **Transitions**:
+   - Use subtle transitions for state changes
+   - Keep transitions short (150-300ms)
+   - Use appropriate easing functions
+
+   ```tsx
+   <button className="transition-colors duration-200 ease-in-out">
+     {/* Content */}
+   </button>
+   ```
+
+2. **Hover and Focus States**:
+   - Provide clear visual feedback for hover and focus states
+   - Keep hover effects subtle but noticeable
+   - Ensure focus states meet accessibility standards
+
+3. **Loading States**:
+   - Show appropriate loading indicators for async operations
+   - Use skeleton loaders for content loading
+   - Maintain layout stability during loading states
+
+These design system guidelines ensure a consistent, accessible, and visually cohesive user experience throughout the ResearchHub application.
 
 ---
 > Source: [ResearchHub/web](https://github.com/ResearchHub/web) — distributed by [TomeVault](https://tomevault.io).
