@@ -1,0 +1,9 @@
+{
+  "name": "robzilla1738--macbox",
+  "displayName": "macbox",
+  "description": "Local macOS app testing sandbox with a CLI and MCP server for disposable Tart VMs.",
+  "version": "1.0.0",
+  "author": "robzilla1738",
+  "homepage": "https://github.com/robzilla1738/macbox",
+  "skills": []
+}
