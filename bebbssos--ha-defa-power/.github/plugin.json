@@ -1,0 +1,9 @@
+{
+  "name": "bebbssos--ha-defa-power",
+  "displayName": "ha-defa-power",
+  "description": "DEFA Power & eRange EV Charger integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "Bebbssos",
+  "homepage": "https://github.com/Bebbssos/ha-defa-power",
+  "skills": []
+}
