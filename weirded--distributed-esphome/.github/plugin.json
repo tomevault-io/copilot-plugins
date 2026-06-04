@@ -1,0 +1,9 @@
+{
+  "name": "weirded--distributed-esphome",
+  "displayName": "distributed-esphome",
+  "description": "ESPHome Fleet - Better ESPHome management add-on. ",
+  "version": "1.0.0",
+  "author": "weirded",
+  "homepage": "https://github.com/weirded/distributed-esphome",
+  "skills": []
+}
