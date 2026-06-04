@@ -1,0 +1,9 @@
+{
+  "name": "deusyu--superforecasting-skill",
+  "displayName": "superforecasting-skill",
+  "description": "Turn vague concerns into resolvable, updatable, scoreable probabilistic forecasts. A Claude Code / Codex skill.",
+  "version": "1.0.0",
+  "author": "deusyu",
+  "homepage": "https://github.com/deusyu/superforecasting-skill",
+  "skills": []
+}
