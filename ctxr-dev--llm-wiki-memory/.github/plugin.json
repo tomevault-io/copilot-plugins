@@ -1,0 +1,9 @@
+{
+  "name": "ctxr-dev--llm-wiki-memory",
+  "displayName": "llm-wiki-memory",
+  "description": "Local, git-versioned memory for AI coding agents. No RAG, no Docker, no external service. Capture, compile, recall over a local LLM wiki with on-device embeddings and an MCP server.",
+  "version": "1.0.0",
+  "author": "ctxr-dev",
+  "homepage": "https://github.com/ctxr-dev/llm-wiki-memory",
+  "skills": []
+}
