@@ -7,11 +7,11 @@ Open-source research pipeline — literature review, novelty generation, citatio
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Magicdellaregain/sisyphus-academica-727](https://github.com/Magicdellaregain/sisyphus-academica-727).
+Original source: `AGENTS.md` in [Magicdellaregain/sisyphus-academica-727](https://github.com/Magicdellaregain/sisyphus-academica-727).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
