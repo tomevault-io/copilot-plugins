@@ -1,0 +1,9 @@
+{
+  "name": "pagcoinbr--brln-os",
+  "displayName": "brln-os",
+  "description": "Uma iniciativa BRLN para incentivo da lightning no Brasil.",
+  "version": "1.0.0",
+  "author": "pagcoinbr",
+  "homepage": "https://github.com/pagcoinbr/brln-os",
+  "skills": []
+}
