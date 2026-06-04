@@ -4,7 +4,7 @@
   "repo": "library-template",
   "description": "Template for library projects",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ascorbic/library-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T23:34:04Z"
+  "distributed_at": "2026-06-04T23:36:49Z"
 }
