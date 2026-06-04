@@ -1,0 +1,9 @@
+{
+  "name": "upstash--workflow-py",
+  "displayName": "workflow-py",
+  "description": "Durable, Reliable and Performant Serverless Functions",
+  "version": "1.0.0",
+  "author": "upstash",
+  "homepage": "https://github.com/upstash/workflow-py",
+  "skills": []
+}
