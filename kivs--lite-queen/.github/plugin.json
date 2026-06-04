@@ -1,0 +1,9 @@
+{
+  "name": "kivs--lite-queen",
+  "displayName": "lite-queen",
+  "description": "Lite Queen is an open-source SQLite database management software that runs on your server.",
+  "version": "1.0.0",
+  "author": "kivS",
+  "homepage": "https://github.com/kivS/lite-queen",
+  "skills": []
+}
