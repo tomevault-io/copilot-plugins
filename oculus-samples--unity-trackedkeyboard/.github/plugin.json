@@ -1,0 +1,9 @@
+{
+  "name": "oculus-samples--unity-trackedkeyboard",
+  "displayName": "Unity-TrackedKeyboard",
+  "description": "A comprehensive Unity sample project for the Tracked Keyboard feature, designed to demonstrate best practice UX for text input implementation across MR and VR.",
+  "version": "1.0.0",
+  "author": "oculus-samples",
+  "homepage": "https://github.com/oculus-samples/Unity-TrackedKeyboard",
+  "skills": []
+}
