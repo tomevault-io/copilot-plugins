@@ -4,7 +4,7 @@
   "repo": "freedraw",
   "description": "Free alternative to Lucidapp",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saeedvaziry/freedraw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T19:32:48Z"
+  "distributed_at": "2026-06-04T19:33:26Z"
 }
