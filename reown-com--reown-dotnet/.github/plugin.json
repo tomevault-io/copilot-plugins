@@ -1,0 +1,9 @@
+{
+  "name": "reown-com--reown-dotnet",
+  "displayName": "reown-dotnet",
+  "description": "Toolkits to build onchain UX in .NET and Unity",
+  "version": "1.0.0",
+  "author": "reown-com",
+  "homepage": "https://github.com/reown-com/reown-dotnet",
+  "skills": []
+}
