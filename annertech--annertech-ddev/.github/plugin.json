@@ -1,0 +1,9 @@
+{
+  "name": "annertech--annertech-ddev",
+  "displayName": "annertech-ddev",
+  "description": "A set of opinionated tools and configurations for DDEV",
+  "version": "1.0.0",
+  "author": "Annertech",
+  "homepage": "https://github.com/Annertech/annertech-ddev",
+  "skills": []
+}
