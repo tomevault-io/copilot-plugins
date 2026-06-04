@@ -1,0 +1,9 @@
+{
+  "name": "mazdak--audiowhisper",
+  "displayName": "AudioWhisper",
+  "description": "A lightweight macOS menu bar app for quick audio transcription using OpenAI Whisper or Google Gemini. Press a hotkey, record your thoughts, and get instant text that's automatically copied to your cli",
+  "version": "1.0.0",
+  "author": "mazdak",
+  "homepage": "https://github.com/mazdak/AudioWhisper",
+  "skills": []
+}
