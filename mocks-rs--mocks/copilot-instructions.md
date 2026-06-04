@@ -1,525 +1,525 @@
-## api-design
+## development-workflow
 
-> REST API design principles for mock endpoints
+> Development commands and quality checks for mocks project
 
 
-# REST API Design Principles
+# Development Workflow for Mocks Project
 
-This rule defines REST API design patterns and best practices for the mocks server handlers.
+This rule defines essential development commands, quality checks, and workflow patterns for the mocks CLI tool.
 
-## CRUD Endpoint Patterns
+## Build and Run Commands
 
-### GET Operations (Read)
+### Basic Build Operations
+```bash
+# Debug build (fast compilation, includes debug info)
+cargo build
 
-#### Get All Resources
+# Release build (optimized, smaller binary)
+cargo build --release
+
+# Check compilation without building binary
+cargo check
+
+# Build documentation
+cargo doc --open
+```
+
+### Running the Application
+```bash
+# Run with default settings
+cargo run -- run storage.json
+
+# Run with custom host and port
+cargo run -- run -H 127.0.0.1 -p 8080 storage.json
+
+# Run without file modifications (read-only mode)
+cargo run -- run --no-overwrite storage.json
+
+# Initialize new storage file
+cargo run -- init storage.json
+
+# Initialize empty storage file
+cargo run -- init --empty storage.json
+
+# View help information
+cargo run -- --help
+cargo run -- run --help
+cargo run -- init --help
+```
+
+### Environment Variables
+```bash
+# Disable colored output
+NO_COLOR=1 cargo run -- run storage.json
+
+# Enable debug file overwrite tracking
+MOCKS_DEBUG_OVERWRITTEN_FILE=1 cargo run -- run storage.json
+```
+
+## Testing Commands
+
+### Unit and Integration Tests
+```bash
+# Run all tests
+cargo test
+
+# Run tests with output
+cargo test -- --nocapture
+
+# Run specific test
+cargo test test_parse_socket_addr
+
+# Run tests in specific module
+cargo test storage::tests
+
+# Run tests with specific pattern
+cargo test "test_*_operation"
+
+# Run tests in parallel (default) or single-threaded
+cargo test -- --test-threads=1
+```
+
+### End-to-End Testing
+```bash
+# Run E2E tests with runn
+cd runn-e2e
+runn run runbooks/test.yml --verbose
+
+# Run specific E2E test
+runn run runbooks/test_post.yml
+
+# Run E2E tests with debug output
+RUST_LOG=debug runn run runbooks/test.yml
+```
+
+### Coverage Generation
+```bash
+# Install coverage tool (one-time setup)
+cargo install cargo-llvm-cov --locked
+
+# Generate coverage report (HTML)
+cargo llvm-cov --html
+
+# Generate coverage report (terminal output)
+cargo llvm-cov
+
+# Coverage for specific test
+cargo llvm-cov --test integration_tests
+
+# Coverage with specific output format
+cargo llvm-cov --lcov --output-path coverage.lcov
+```
+
+## Code Quality Commands
+
+### Formatting
+```bash
+# Format all code
+cargo fmt
+
+# Check if code is formatted without making changes
+cargo fmt -- --check
+
+# Format specific file
+cargo fmt src/main.rs
+
+# Format with specific config
+cargo fmt -- --config imports_granularity=Crate
+```
+
+### Linting with Clippy
+```bash
+# Run clippy with default settings
+cargo clippy
+
+# Run clippy with strict warnings (project standard)
+cargo clippy -- -D warnings
+
+# Run clippy on all targets
+cargo clippy --all-targets -- -D warnings
+
+# Run clippy with specific lint levels
+cargo clippy -- -W clippy::pedantic -D warnings
+
+# Fix clippy suggestions automatically (where possible)
+cargo clippy --fix
+```
+
+### MSRV (Minimum Supported Rust Version) Checks
+```bash
+# Install MSRV checker (one-time setup)
+cargo install cargo-msrv --locked
+
+# Find minimum supported Rust version
+cargo msrv find
+
+# Verify current MSRV (1.78.0 for this project)
+cargo msrv verify
+
+# List Rust versions for testing
+cargo msrv list
+```
+
+## Security and Dependency Management
+
+### Security Auditing
+```bash
+# Install cargo-audit (one-time setup)
+cargo install cargo-audit --locked
+
+# Run security audit
+cargo audit
+
+# Audit with JSON output
+cargo audit --json
+
+# Fix security vulnerabilities (where possible)
+cargo audit fix
+```
+
+### Dependency Management
+```bash
+# Update dependencies
+cargo update
+
+# Add new dependency
+cargo add serde_json
+
+# Add development dependency
+cargo add --dev tempfile
+
+# Remove dependency
+cargo remove unused_crate
+
+# Check for outdated dependencies
+cargo outdated
+```
+
+## Performance and Optimization
+
+### Benchmarking
+```bash
+# Run benchmarks (if any exist)
+cargo bench
+
+# Profile with perf (Linux)
+cargo build --release
+perf record --call-graph=dwarf target/release/mocks run storage.json
+perf report
+
+# Memory profiling with valgrind
+cargo build --release
+valgrind --tool=massif target/release/mocks run storage.json
+```
+
+### Binary Size Optimization
+```bash
+# Build with size optimization
+RUSTFLAGS="-C target-cpu=native" cargo build --release
+
+# Strip binary (reduce size)
+strip target/release/mocks
+
+# Check binary size
+ls -lh target/release/mocks
+
+# Analyze binary composition
+cargo bloat --release
+```
+
+## Development Environment Setup
+
+### Required Tools
+```bash
+# Install required tools for development
+cargo install cargo-llvm-cov --locked
+cargo install cargo-msrv --locked
+cargo install cargo-audit --locked
+cargo install cargo-outdated --locked
+cargo install cargo-bloat --locked
+
+# Install runn for E2E testing
+go install github.com/k1LoW/runn/cmd/runn@latest
+# or
+brew install k1LoW/tap/runn
+```
+
+### Git Hooks Setup
+```bash
+# Create pre-commit hook for quality checks
+cat > .git/hooks/pre-commit << 'EOF'
+#!/bin/bash
+set -e
+
+echo "Running pre-commit checks..."
+
+# Format check
+cargo fmt -- --check
+
+# Lint check
+cargo clippy -- -D warnings
+
+# Test check
+cargo test
+
+echo "All checks passed!"
+EOF
+
+chmod +x .git/hooks/pre-commit
+```
+
+## Continuous Integration Workflow
+
+### Local CI Simulation
+```bash
+# Run the same checks as CI locally
+#!/bin/bash
+set -e
+
+echo "=== Running CI checks locally ==="
+
+# 1. Format check
+echo "Checking code formatting..."
+cargo fmt -- --check
+
+# 2. Lint check
+echo "Running clippy..."
+cargo clippy -- -D warnings
+
+# 3. Test suite
+echo "Running test suite..."
+cargo test
+
+# 4. MSRV compatibility
+echo "Checking MSRV compatibility..."
+cargo msrv verify
+
+# 5. Security audit
+echo "Running security audit..."
+cargo audit
+
+# 6. Coverage check
+echo "Generating coverage report..."
+cargo llvm-cov --html
+
+echo "All CI checks passed! ✅"
+```
+
+### Release Workflow Commands
+```bash
+# Version bump (using cargo-release or manual)
+# Update version in Cargo.toml
+# Update CHANGELOG.md
+
+# Pre-release checks
+cargo fmt -- --check
+cargo clippy -- -D warnings
+cargo test
+cargo msrv verify
+cargo audit
+
+# Build release binary
+cargo build --release
+
+# Test release binary
+./target/release/mocks init test.json
+./target/release/mocks run test.json &
+# Test endpoints...
+pkill mocks
+
+# Create git tag
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+## Debugging Commands
+
+### Debug Build and Execution
+```bash
+# Build with debug symbols
+cargo build
+
+# Run with debug output
+RUST_LOG=debug cargo run -- run storage.json
+
+# Run with trace output
+RUST_LOG=trace cargo run -- run storage.json
+
+# Debug specific module
+RUST_LOG=mocks::storage=debug cargo run -- run storage.json
+```
+
+### Using Debugger
+```bash
+# Run with gdb
+cargo build
+gdb target/debug/mocks
+
+# Run with lldb (macOS)
+cargo build
+lldb target/debug/mocks
+```
+
+### Memory Debugging
+```bash
+# Run with AddressSanitizer (nightly Rust)
+RUSTFLAGS=-Zsanitizer=address cargo +nightly run -- run storage.json
+
+# Run with Valgrind (Linux)
+cargo build
+valgrind --leak-check=full target/debug/mocks run storage.json
+```
+
+## Documentation Generation
+
+### Project Documentation
+```bash
+# Generate and open documentation
+cargo doc --open
+
+# Generate documentation with private items
+cargo doc --document-private-items
+
+# Generate documentation for dependencies
+cargo doc --open --document-private-items --include-dep-docs
+```
+
+### Code Documentation Guidelines
 ```rust
-// GET /{resource} - List all items in a resource
-pub async fn get_all(
-    State(state): State<SharedState>,
-    Path(resource): Path<String>,
-    Query(params): Query<HashMap<String, String>>,
-) -> Result<Json<Value>, StatusCode> {
-    let state = state.lock().await;
-    
-    // Support filtering with query parameters
-    let data = if params.is_empty() {
-        select_all(&state.storage.data, &resource)
-    } else {
-        select_with_filter(&state.storage.data, &resource, &params)
-    };
-    
-    match data {
-        Ok(result) => Ok(Json(result)),
-        Err(_) => Err(StatusCode::NOT_FOUND),
-    }
+// Always document public APIs
+/// Starts the mock server with the given configuration
+///
+/// # Arguments
+/// * `socket_addr` - The socket address to bind the server to
+/// * `storage` - The storage instance containing mock data
+///
+/// # Returns
+/// * `Result<(), MocksError>` - Ok if server starts successfully
+///
+/// # Examples
+/// ```
+/// let addr = "127.0.0.1:3000".parse().unwrap();
+/// let storage = Storage::new("storage.json", true)?;
+/// Server::startup(addr, storage).await?;
+/// ```
+pub async fn startup(socket_addr: SocketAddr, storage: Storage) -> Result<(), MocksError> {
+    // Implementation
 }
 ```
 
-#### Get Single Resource
-```rust
-// GET /{resource}/{id} - Get specific item by ID
-pub async fn get_one(
-    State(state): State<SharedState>,
-    Path((resource, id)): Path<(String, String)>,
-) -> Result<Json<Value>, StatusCode> {
-    let state = state.lock().await;
-    
-    match select_one(&state.storage.data, &resource, &id) {
-        Ok(item) => Ok(Json(item)),
-        Err(_) => Err(StatusCode::NOT_FOUND),
-    }
-}
+## Project Structure Commands
+
+### File Organization
+```bash
+# View project structure
+tree -I 'target|node_modules'
+
+# Find files by pattern
+find . -name "*.rs" -not -path "./target/*"
+
+# Check file sizes
+du -sh src/
+du -sh target/release/
+
+# Count lines of code
+find src/ -name "*.rs" -exec wc -l {} + | tail -1
 ```
 
-### POST Operations (Create)
+### Code Analysis
+```bash
+# Analyze dependencies
+cargo tree
 
-#### Create New Resource
-```rust
-// POST /{resource} - Create new item
-pub async fn post(
-    State(state): State<SharedState>,
-    Path(resource): Path<String>,
-    Json(input): Json<Value>,
-) -> Result<(StatusCode, Json<Value>), StatusCode> {
-    let mut state = state.lock().await;
-    
-    // Validate input before processing
-    if let Err(_) = validate_input(&input) {
-        return Err(StatusCode::BAD_REQUEST);
-    }
-    
-    match insert(&mut state.storage.data, &resource, input) {
-        Ok(created_item) => {
-            // Write to file if overwrite enabled
-            if state.storage.overwrite {
-                if let Err(_) = Writer::new(&state.storage.file)
-                    .write(&state.storage.data) {
-                    return Err(StatusCode::INTERNAL_SERVER_ERROR);
-                }
-            }
-            Ok((StatusCode::CREATED, Json(created_item)))
-        }
-        Err(_) => Err(StatusCode::BAD_REQUEST),
-    }
-}
+# Find unused dependencies
+cargo machete
+
+# Check for duplicate dependencies
+cargo duplicate-finder
+
+# Analyze compile times
+cargo clean
+cargo build --timings
 ```
 
-### PUT Operations (Replace)
+## Quick Reference Commands
 
-#### Replace Entire Resource
-```rust
-// PUT /{resource}/{id} - Replace entire item
-pub async fn put(
-    State(state): State<SharedState>,
-    Path((resource, id)): Path<(String, String)>,
-    Json(input): Json<Value>,
-) -> Result<Json<Value>, StatusCode> {
-    let mut state = state.lock().await;
-    
-    match replace(&mut state.storage.data, &resource, &id, input) {
-        Ok(updated_item) => {
-            if state.storage.overwrite {
-                let _ = Writer::new(&state.storage.file)
-                    .write(&state.storage.data);
-            }
-            Ok(Json(updated_item))
-        }
-        Err(_) => Err(StatusCode::NOT_FOUND),
-    }
-}
+### Daily Development
+```bash
+# Standard development cycle
+cargo check           # Quick compilation check
+cargo test            # Run tests
+cargo clippy          # Lint check
+cargo fmt             # Format code
 
-// PUT /{resource} - Replace entire collection (special case)
-pub async fn put_one(
-    State(state): State<SharedState>,
-    Path(resource): Path<String>,
-    Json(input): Json<Value>,
-) -> Result<Json<Value>, StatusCode> {
-    let mut state = state.lock().await;
-    
-    match replace_one(&mut state.storage.data, &resource, input) {
-        Ok(result) => {
-            if state.storage.overwrite {
-                let _ = Writer::new(&state.storage.file)
-                    .write(&state.storage.data);
-            }
-            Ok(Json(result))
-        }
-        Err(_) => Err(StatusCode::NOT_FOUND),
-    }
-}
+# Before committing
+cargo fmt -- --check
+cargo clippy -- -D warnings
+cargo test
 ```
 
-### PATCH Operations (Partial Update)
-
-#### Partial Update of Resource
-```rust
-// PATCH /{resource}/{id} - Partial update of item
-pub async fn patch(
-    State(state): State<SharedState>,
-    Path((resource, id)): Path<(String, String)>,
-    Json(input): Json<Value>,
-) -> Result<Json<Value>, StatusCode> {
-    let mut state = state.lock().await;
-    
-    match update(&mut state.storage.data, &resource, &id, input) {
-        Ok(updated_item) => {
-            if state.storage.overwrite {
-                let _ = Writer::new(&state.storage.file)
-                    .write(&state.storage.data);
-            }
-            Ok(Json(updated_item))
-        }
-        Err(_) => Err(StatusCode::NOT_FOUND),
-    }
-}
-
-// PATCH /{resource} - Partial update of collection
-pub async fn patch_one(
-    State(state): State<SharedState>,
-    Path(resource): Path<String>,
-    Json(input): Json<Value>,
-) -> Result<Json<Value>, StatusCode> {
-    let mut state = state.lock().await;
-    
-    match update_one(&mut state.storage.data, &resource, input) {
-        Ok(result) => {
-            if state.storage.overwrite {
-                let _ = Writer::new(&state.storage.file)
-                    .write(&state.storage.data);
-            }
-            Ok(Json(result))
-        }
-        Err(_) => Err(StatusCode::NOT_FOUND),
-    }
-}
+### Release Preparation
+```bash
+# Full quality check
+cargo fmt -- --check
+cargo clippy -- -D warnings
+cargo test
+cargo msrv verify
+cargo audit
+cargo llvm-cov --html
+cargo build --release
 ```
 
-### DELETE Operations (Remove)
+### Troubleshooting
+```bash
+# Clean and rebuild
+cargo clean
+cargo build
 
-#### Delete Resource
-```rust
-// DELETE /{resource}/{id} - Delete specific item
-pub async fn delete(
-    State(state): State<SharedState>,
-    Path((resource, id)): Path<(String, String)>,
-) -> Result<StatusCode, StatusCode> {
-    let mut state = state.lock().await;
-    
-    match remove(&mut state.storage.data, &resource, &id) {
-        Ok(_) => {
-            if state.storage.overwrite {
-                let _ = Writer::new(&state.storage.file)
-                    .write(&state.storage.data);
-            }
-            Ok(StatusCode::NO_CONTENT)
-        }
-        Err(_) => Err(StatusCode::NOT_FOUND),
-    }
-}
+# Update toolchain
+rustup update
+
+# Check toolchain version
+rustc --version
+cargo --version
+
+# Verbose build output
+cargo build --verbose
 ```
 
-## HTTP Status Code Mapping
+## Environment Configuration
 
-### Success Responses
-```rust
-// Use appropriate status codes for different operations
-match operation_type {
-    OperationType::Create => StatusCode::CREATED,        // 201
-    OperationType::Read => StatusCode::OK,               // 200
-    OperationType::Update => StatusCode::OK,             // 200
-    OperationType::Delete => StatusCode::NO_CONTENT,     // 204
-}
+### Recommended .gitignore additions
+```gitignore
+# Coverage reports
+/coverage/
+*.profraw
+
+# Benchmark results
+/target/criterion/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.debug.json
 ```
 
-### Error Responses
-```rust
-// Map errors to appropriate HTTP status codes
-impl From<MocksError> for StatusCode {
-    fn from(error: MocksError) -> Self {
-        match error {
-            MocksError::ResourceNotFound(_) => StatusCode::NOT_FOUND,           // 404
-            MocksError::InvalidArgs(_) => StatusCode::BAD_REQUEST,              // 400
-            MocksError::InvalidJson(_) => StatusCode::BAD_REQUEST,              // 400
-            MocksError::FailedReadFile(_) => StatusCode::INTERNAL_SERVER_ERROR, // 500
-            MocksError::FailedWriteFile(_) => StatusCode::INTERNAL_SERVER_ERROR,// 500
-            MocksError::Exception(_) => StatusCode::INTERNAL_SERVER_ERROR,      // 500
-            MocksError::Aborted => StatusCode::CONFLICT,                        // 409
-            MocksError::InvalidDataStructure => StatusCode::UNPROCESSABLE_ENTITY, // 422
-        }
-    }
-}
-```
-
-## JSON Request/Response Handling
-
-### Input Validation
-```rust
-fn validate_input(input: &Value) -> Result<(), ValidationError> {
-    match input {
-        Value::Object(obj) => {
-            // Validate required fields
-            if obj.is_empty() {
-                return Err(ValidationError::EmptyObject);
-            }
-            
-            // Check for invalid field names
-            for key in obj.keys() {
-                if key.starts_with('_') {
-                    return Err(ValidationError::ReservedField(key.clone()));
-                }
-            }
-            
-            Ok(())
-        }
-        Value::Array(_) => Ok(()),
-        _ => Err(ValidationError::InvalidType),
-    }
-}
-```
-
-### Response Formatting
-```rust
-// Consistent response structure
-#[derive(Serialize)]
-struct ApiResponse<T> {
-    data: T,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    error: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    message: Option<String>,
-}
-
-impl<T> ApiResponse<T> {
-    fn success(data: T) -> Self {
-        Self {
-            data,
-            error: None,
-            message: None,
-        }
-    }
-    
-    fn error(error: String) -> ApiResponse<()> {
-        ApiResponse {
-            data: (),
-            error: Some(error),
-            message: None,
-        }
-    }
-}
-```
-
-### Content-Type Handling
-```rust
-// Ensure proper content-type headers
-use axum::http::{HeaderMap, HeaderValue};
-
-fn set_json_headers() -> HeaderMap {
-    let mut headers = HeaderMap::new();
-    headers.insert(
-        "content-type", 
-        HeaderValue::from_static("application/json")
-    );
-    headers
-}
-```
-
-## Query Parameter Handling
-
-### Filtering Support
-```rust
-// Support common query parameters for filtering
-pub async fn get_all_with_query(
-    State(state): State<SharedState>,
-    Path(resource): Path<String>,
-    Query(params): Query<HashMap<String, String>>,
-) -> Result<Json<Value>, StatusCode> {
-    let state = state.lock().await;
-    
-    let mut data = select_all(&state.storage.data, &resource)?;
-    
-    // Apply filters
-    if let Some(filter_value) = params.get("filter") {
-        data = apply_filter(data, filter_value)?;
-    }
-    
-    // Apply sorting
-    if let Some(sort_field) = params.get("sort") {
-        data = apply_sort(data, sort_field, params.get("order"))?;
-    }
-    
-    // Apply pagination
-    if let (Some(page), Some(limit)) = (params.get("page"), params.get("limit")) {
-        data = apply_pagination(data, page, limit)?;
-    }
-    
-    Ok(Json(data))
-}
-```
-
-### Pagination Implementation
-```rust
-fn apply_pagination(
-    data: Value, 
-    page: &str, 
-    limit: &str
-) -> Result<Value, MocksError> {
-    let page: usize = page.parse()
-        .map_err(|_| MocksError::InvalidArgs("Invalid page number".to_string()))?;
-    let limit: usize = limit.parse()
-        .map_err(|_| MocksError::InvalidArgs("Invalid limit".to_string()))?;
-    
-    if let Value::Array(items) = data {
-        let start = (page - 1) * limit;
-        let end = start + limit;
-        
-        let paginated: Vec<Value> = items
-            .into_iter()
-            .skip(start)
-            .take(limit)
-            .collect();
-            
-        Ok(Value::Array(paginated))
-    } else {
-        Ok(data)
-    }
-}
-```
-
-## Health Check Implementation
-
-### Standard Health Check Endpoint
-```rust
-// GET /_hc - Health check endpoint
-pub async fn hc() -> StatusCode {
-    StatusCode::NO_CONTENT  // 204 indicates service is healthy
-}
-```
-
-### Detailed Health Check (Optional)
-```rust
-#[derive(Serialize)]
-struct HealthStatus {
-    status: String,
-    timestamp: String,
-    version: String,
-    storage: StorageHealth,
-}
-
-#[derive(Serialize)]
-struct StorageHealth {
-    accessible: bool,
-    file_path: String,
-    last_modified: Option<String>,
-}
-
-pub async fn detailed_health_check(
-    State(state): State<SharedState>,
-) -> Result<Json<HealthStatus>, StatusCode> {
-    let state = state.lock().await;
-    
-    let storage_health = StorageHealth {
-        accessible: std::path::Path::new(&state.storage.file).exists(),
-        file_path: state.storage.file.clone(),
-        last_modified: get_file_modified_time(&state.storage.file),
-    };
-    
-    let health = HealthStatus {
-        status: "ok".to_string(),
-        timestamp: chrono::Utc::now().to_rfc3339(),
-        version: env!("CARGO_PKG_VERSION").to_string(),
-        storage: storage_health,
-    };
-    
-    Ok(Json(health))
-}
-```
-
-## Error Response Formatting
-
-### Consistent Error Structure
-```rust
-#[derive(Serialize)]
-struct ErrorResponse {
-    error: String,
-    message: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    details: Option<Value>,
-}
-
-impl ErrorResponse {
-    fn from_error(error: MocksError) -> Self {
-        Self {
-            error: error.error_type(),
-            message: error.to_string(),
-            details: error.details(),
-        }
-    }
-}
-
-impl MocksError {
-    fn error_type(&self) -> String {
-        match self {
-            MocksError::ResourceNotFound(_) => "NOT_FOUND".to_string(),
-            MocksError::InvalidArgs(_) => "INVALID_ARGS".to_string(),
-            MocksError::InvalidJson(_) => "INVALID_JSON".to_string(),
-            _ => "INTERNAL_ERROR".to_string(),
-        }
-    }
-    
-    fn details(&self) -> Option<Value> {
-        match self {
-            MocksError::InvalidJson(msg) => {
-                Some(json!({ "json_error": msg }))
-            }
-            _ => None,
-        }
-    }
-}
-```
-
-## Middleware Patterns
-
-### Request Logging Middleware
-```rust
-use axum::middleware::{self, Next};
-use axum::http::Request;
-
-pub async fn logging_middleware<B>(
-    request: Request<B>,
-    next: Next<B>,
-) -> Result<impl axum::response::IntoResponse, axum::http::StatusCode> {
-    let method = request.method().clone();
-    let uri = request.uri().clone();
-    
-    println!("{} {}", method, uri);
-    
-    let response = next.run(request).await;
-    
-    Ok(response)
-}
-```
-
-### CORS Headers Middleware
-```rust
-use axum::http::{HeaderValue, Method};
-use tower_http::cors::{CorsLayer, Any};
-
-pub fn cors_layer() -> CorsLayer {
-    CorsLayer::new()
-        .allow_methods([Method::GET, Method::POST, Method::PUT, Method::PATCH, Method::DELETE])
-        .allow_headers(Any)
-        .allow_origin(Any)
-}
-```
-
-## Request Context Pattern
-
-### Extracting Request Information
-```rust
-use axum::http::HeaderMap;
-
-pub struct RequestContext {
-    pub user_agent: Option<String>,
-    pub content_type: Option<String>,
-    pub accept: Option<String>,
-}
-
-impl RequestContext {
-    pub fn from_headers(headers: &HeaderMap) -> Self {
-        Self {
-            user_agent: headers
-                .get("user-agent")
-                .and_then(|h| h.to_str().ok())
-                .map(|s| s.to_string()),
-            content_type: headers
-                .get("content-type")
-                .and_then(|h| h.to_str().ok())
-                .map(|s| s.to_string()),
-            accept: headers
-                .get("accept")
-                .and_then(|h| h.to_str().ok())
-                .map(|s| s.to_string()),
-        }
+### Recommended VS Code settings
+```json
+{
+    "rust-analyzer.cargo.allFeatures": true,
+    "rust-analyzer.checkOnSave.command": "clippy",
+    "rust-analyzer.checkOnSave.allFeatures": true,
+    "editor.formatOnSave": true,
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer"
     }
 }
 ```
