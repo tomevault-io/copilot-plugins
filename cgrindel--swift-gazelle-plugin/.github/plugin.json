@@ -1,0 +1,9 @@
+{
+  "name": "cgrindel--swift-gazelle-plugin",
+  "displayName": "swift_gazelle_plugin",
+  "description": "Gazelle plugin for Swift files.",
+  "version": "1.0.0",
+  "author": "cgrindel",
+  "homepage": "https://github.com/cgrindel/swift_gazelle_plugin",
+  "skills": []
+}
