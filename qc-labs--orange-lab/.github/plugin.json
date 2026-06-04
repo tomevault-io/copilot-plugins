@@ -1,0 +1,9 @@
+{
+  "name": "qc-labs--orange-lab",
+  "displayName": "orange-lab",
+  "description": "Private infrastructure on consumer hardware based on K3s, Tailscale, Pulumi and Longhorn",
+  "version": "1.0.0",
+  "author": "QC-Labs",
+  "homepage": "https://github.com/QC-Labs/orange-lab",
+  "skills": []
+}
