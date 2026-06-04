@@ -1,0 +1,9 @@
+{
+  "name": "southshuquilt--prompt-cache-skills-189",
+  "displayName": "prompt-cache-skills-189",
+  "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches.",
+  "version": "1.0.0",
+  "author": "Southshuquilt",
+  "homepage": "https://github.com/Southshuquilt/prompt-cache-skills-189",
+  "skills": []
+}
