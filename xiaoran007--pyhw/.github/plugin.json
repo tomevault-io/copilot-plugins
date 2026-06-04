@@ -1,0 +1,9 @@
+{
+  "name": "xiaoran007--pyhw",
+  "displayName": "pyhw",
+  "description": "pyhw, a neofetch-like command line tool for fetching system information but written mostly in Python.",
+  "version": "1.0.0",
+  "author": "xiaoran007",
+  "homepage": "https://github.com/xiaoran007/pyhw",
+  "skills": []
+}
