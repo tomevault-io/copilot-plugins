@@ -1,0 +1,9 @@
+{
+  "name": "opensphere-inc--src-link",
+  "displayName": "src-link",
+  "description": "Transmit cleanfeed OBS to OBS, switching ton of video streams on your OBS without complicated setup.",
+  "version": "1.0.0",
+  "author": "OPENSPHERE-Inc",
+  "homepage": "https://github.com/OPENSPHERE-Inc/src-link",
+  "skills": []
+}
