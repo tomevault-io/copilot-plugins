@@ -4,7 +4,7 @@
   "repo": "factoryfloor",
   "description": "AI-powered macOS development workspace. Git worktrees, Claude Code sessions, and dev servers in a single native app.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alltuner/factoryfloor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T08:42:28Z"
+  "distributed_at": "2026-06-04T08:53:16Z"
 }
