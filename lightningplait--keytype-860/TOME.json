@@ -4,7 +4,7 @@
   "repo": "KeyType-860",
   "description": "An open-source Cotypist with macOS system wide AI autocomplete",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LightningPlait/KeyType-860",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T17:34:25Z"
+  "distributed_at": "2026-06-04T17:41:17Z"
 }
