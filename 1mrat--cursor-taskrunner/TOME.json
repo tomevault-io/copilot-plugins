@@ -1,0 +1,44 @@
+{
+  "name": "cursor-taskrunner",
+  "owner": "1mrat",
+  "repo": "cursor-taskrunner",
+  "description": "This is a proof of concept that shows how you can get cursor to execute tasks like creating images. It require the new composer multi file edit mode.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1mrat/cursor-taskrunner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T22:35:06Z"
+}
