@@ -1,0 +1,9 @@
+{
+  "name": "lvboda--vscode-i18n-fast",
+  "displayName": "vscode-i18n-fast",
+  "description": "A hook-driven i18n plugin that supports diverse development scenarios.",
+  "version": "1.0.0",
+  "author": "lvboda",
+  "homepage": "https://github.com/lvboda/vscode-i18n-fast",
+  "skills": []
+}
