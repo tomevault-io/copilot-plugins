@@ -1,0 +1,9 @@
+{
+  "name": "burggraf--property-manager",
+  "displayName": "property-manager",
+  "description": "svelte 5, tailwindcss, shadcn-svelte",
+  "version": "1.0.0",
+  "author": "burggraf",
+  "homepage": "https://github.com/burggraf/property-manager",
+  "skills": []
+}
