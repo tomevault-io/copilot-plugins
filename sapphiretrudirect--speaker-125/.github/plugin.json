@@ -1,0 +1,9 @@
+{
+  "name": "sapphiretrudirect--speaker-125",
+  "displayName": "speaker-125",
+  "description": "Speaker is a Codex skill project for academic presentations: read real.pptx, combine text extraction, PPTX structure parsing, page-by-page rendering, OCR, and visual review to generate page-by-page sp",
+  "version": "1.0.0",
+  "author": "Sapphiretrudirect",
+  "homepage": "https://github.com/Sapphiretrudirect/speaker-125",
+  "skills": []
+}
