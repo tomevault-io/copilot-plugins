@@ -1,0 +1,9 @@
+{
+  "name": "stefanoginella--auto-bmad",
+  "displayName": "auto-bmad",
+  "description": "BMAD module that drives the full BMAD story workflow end-to-end, one story at a time, on Claude Code or Codex \u2014 delegating each step to model/effort-tuned subagents.",
+  "version": "1.0.0",
+  "author": "stefanoginella",
+  "homepage": "https://github.com/stefanoginella/auto-bmad",
+  "skills": []
+}
