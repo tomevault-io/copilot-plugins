@@ -1,0 +1,9 @@
+{
+  "name": "kristopherkubicki--glimpser",
+  "displayName": "glimpser",
+  "description": "a simple tool for real-time monitoring video and summarization with LLMs",
+  "version": "1.0.0",
+  "author": "KristopherKubicki",
+  "homepage": "https://github.com/KristopherKubicki/glimpser",
+  "skills": []
+}
