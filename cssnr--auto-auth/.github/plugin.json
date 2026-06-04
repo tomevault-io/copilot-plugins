@@ -1,0 +1,9 @@
+{
+  "name": "cssnr--auto-auth",
+  "displayName": "auto-auth",
+  "description": "Modern Chrome Web Extension and Firefox Browser Addon for Automatic Basic HTTP Authentication with many Options and Features.",
+  "version": "1.0.0",
+  "author": "cssnr",
+  "homepage": "https://github.com/cssnr/auto-auth",
+  "skills": []
+}
