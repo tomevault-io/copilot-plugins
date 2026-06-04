@@ -1,0 +1,9 @@
+{
+  "name": "evermind-ai--everme",
+  "displayName": "EverMe",
+  "description": "Open-source CLI and Agent plugin suite for EverMe \u2014 cross-device, cross-Agent personal memory for AI Agents.",
+  "version": "1.0.0",
+  "author": "EverMind-AI",
+  "homepage": "https://github.com/EverMind-AI/EverMe",
+  "skills": []
+}
