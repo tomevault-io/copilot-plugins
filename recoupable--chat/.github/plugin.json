@@ -1,7 +1,7 @@
 {
   "name": "recoupable--chat",
   "displayName": "chat",
-  "description": "chat",
+  "description": "Web interface for building and managing your own agentic record label. ",
   "version": "1.0.0",
   "author": "recoupable",
   "homepage": "https://github.com/recoupable/chat",
