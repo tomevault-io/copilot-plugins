@@ -1,79 +1,63 @@
-## component-development
+## development-workflow
 
-> React components are located in [packages/react/src/components/ui/](mdc:packages/react/src/components/ui), using single-file architecture:
+> pnpm dev           # Start all app development servers
 
-# Component Development Guide
+# Development Workflow Guide
 
-## Component Architecture
+## Quick Start
 
-### React Components
-React components are located in [packages/react/src/components/ui/](mdc:packages/react/src/components/ui), using single-file architecture:
-- One `.tsx` file per component
-- Uses class-variance-authority (CVA) to manage style variants
-- Built on top of Ark UI components
-- Supports forwardRef and complete TypeScript types
-
-Example component structure - [button.tsx](mdc:packages/react/src/components/ui/button.tsx):
-```tsx
-const buttonVariants = cva(/* base styles and variants */)
-export interface ButtonProps extends HTMLAttributes, VariantProps {}
-const Button = React.forwardRef(/* component implementation */)
-export { Button, buttonVariants }
+### Install Dependencies
+```bash
+pnpm install
 ```
 
-### Vue Components  
-Vue components are located in [packages/vue/src/components/ui/](mdc:packages/vue/src/components/ui), using directory architecture:
-- One directory per component (e.g. `button/`)
-- Main component file `Button.vue`
-- Accompanying type and style files
-- Uses Composition API and TypeScript
-
-Example component structure - [Button.vue](mdc:packages/vue/src/components/ui/button/Button.vue):
-```vue
-<script setup lang="ts">
-interface Props { /* component prop types */ }
-const props = defineProps<Props>()
-</script>
-<template>
-  <ark.button :class="cn(buttonVariants({ variant, size }), props.class)">
-    <slot />
-  </ark.button>
-</template>
+### Development Mode
+```bash
+pnpm dev           # Start all app development servers
+pnpm dev:storybook # Start Storybook development environment
 ```
 
-## Development Standards
+## Main Commands
 
-### Styling System
-- Use Tailwind CSS for styling
-- Define component variants through CVA
-- Use `cn()` utility function to merge class names
-- Support custom className overrides
+### Build Related
+- `pnpm build` - Build all packages and applications
+- `pnpm test` - Run all tests
+- `pnpm typecheck` - Type checking
 
-### Component Design Principles
-1. **Accessibility First**: Built on Ark UI ensuring accessibility
-2. **Type Safety**: Complete TypeScript support
-3. **Customizable**: Support style and behavior customization
-4. **Consistency**: Maintain API consistency across frameworks
+### Code Quality
+- `pnpm lint` - Run Biome linter
+- `pnpm lint:fix` - Auto-fix lint issues  
+- `pnpm format` - Format code
+- `pnpm check:repo` - Check repository dependency consistency
+- `pnpm check:repo:fix` - Auto-fix repository dependency issues
 
-### Storybook Development
-- React: [packages/react/src/stories/](mdc:packages/react/src/stories)
-- Vue: [packages/vue/src/stories/](mdc:packages/vue/src/stories)
-- Each component provides complete Story examples
-- Includes demonstrations of different variants and states
+### Dependency Management
+- `pnpm bump` - Update dependency versions
+- `pnpm clean` - Clean all node_modules and build artifacts
 
-### Example Code
-- React examples: [packages/react/src/examples/](mdc:packages/react/src/examples)
-- Vue examples: [packages/vue/src/examples/](mdc:packages/vue/src/examples)
+## Turbo Task Configuration
 
-## Testing
-- Uses Vitest for unit testing
-- Test files located in each package's `test/` directory
-- Run tests: `pnpm test`
+Refer to [turbo.json](mdc:turbo.json) for task dependency relationships:
 
-## Build and Packaging
-- Uses Vite to build component packages
-- Configuration files: [packages/react/vite.config.ts](mdc:packages/react/vite.config.ts) and [packages/vue/vite.config.ts](mdc:packages/vue/vite.config.ts)
-- Output directory: `dist/`
+- **dev**: Development mode task, no cache, persistent running
+- **build**: Build task, depends on other packages' builds completing
+- **typecheck**: Type checking task, depends on other packages' type checking
+- **test**: Test task
+- **storybook**: Storybook task, no cache
+
+## Pre-commit Checks
+
+Project has configured git hooks:
+- Uses [simple-git-hooks](mdc:package.json) to run lint-staged on pre-commit
+- Automatically formats and checks committed files
+
+## Version Release
+
+Uses Changesets for version management:
+```bash
+pnpm changeset      # Create change record
+pnpm version        # Update versions and format code
+```
 
 ---
 > Source: [shipbase/ui](https://github.com/shipbase/ui) — distributed by [TomeVault](https://tomevault.io).
