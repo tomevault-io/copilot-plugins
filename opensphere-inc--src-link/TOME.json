@@ -4,7 +4,7 @@
   "repo": "src-link",
   "description": "Transmit cleanfeed OBS to OBS, switching ton of video streams on your OBS without complicated setup.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OPENSPHERE-Inc/src-link",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T20:43:49Z"
+  "distributed_at": "2026-06-04T20:48:50Z"
 }
