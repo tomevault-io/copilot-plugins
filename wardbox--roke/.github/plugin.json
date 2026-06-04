@@ -1,0 +1,9 @@
+{
+  "name": "wardbox--roke",
+  "displayName": "roke",
+  "description": "A Wasp starter with sensible defaults.",
+  "version": "1.0.0",
+  "author": "wardbox",
+  "homepage": "https://github.com/wardbox/roke",
+  "skills": []
+}
