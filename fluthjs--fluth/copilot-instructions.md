@@ -1,0 +1,245 @@
+## project-rules
+
+> This document describes the folder structure and component functionality of the Fluth project.
+
+# Fluth Project Structure Rules
+
+This document describes the folder structure and component functionality of the Fluth project.
+
+## Project Overview
+
+Fluth is a Promise-like asynchronous flow control library that provides powerful stream programming capabilities.
+
+## Directory Structure
+
+### 📁 Root Directory Files
+
+- **`index.ts`** - Main entry file that exports all public APIs
+- **`package.json`** - Project configuration file containing dependencies, scripts, and metadata
+- **`README.md`** - Project documentation
+- **`LICENSE`** - MIT open source license file
+- **`CHANGELOG.md`** - Version update changelog
+- **`pnpm-lock.yaml`** - pnpm package manager lock file
+
+### 📁 Source Code Directory (`src/`)
+
+Core business logic code containing the following modules:
+
+- **`observable.ts`** - Observable class implementation providing core observable object functionality
+- **`stream.ts`** - Stream class implementation extending Observable with streaming operations
+- **`factory.ts`** - Factory functions for creating Stream instances
+- **`operator.ts`** - Operator implementations providing various stream operations (combine, merge, race, etc.)
+- **`plugins.ts`** - Plugin system providing delay, throttle, debounce and other functional plugins
+- **`utils.ts`** - Utility function collection
+
+### 📁 Test Directory (`test/`)
+
+Contains all test files corresponding to the `src/` directory structure:
+
+- **`factory.test.ts`** - Factory function tests
+- **`observer.test.ts`** - Observable related tests
+- **`operator.test.ts`** - Operator functionality tests
+- **`plugins.test.ts`** - Plugin system tests
+- **`stream.test.ts`** - Stream class tests
+- **`utils.ts`** - Test utility functions
+
+### 📁 Configuration Directories
+
+#### `.github/workflows/`
+
+GitHub Actions workflow configurations:
+
+- **`check.yml`** - Code checking workflow
+- **`release-publish.yml`** - Release workflow
+
+#### `.husky/`
+
+Git hooks configuration:
+
+- **`commit-msg`** - Commit message format checking
+- **`pre-commit`** - Pre-commit code checking
+
+### 📁 Configuration Files
+
+#### TypeScript Configuration
+
+- **`tsconfig.json`** - Base TypeScript configuration
+- **`tsconfig.cjs.json`** - CommonJS module build configuration
+- **`tsconfig.mjs.json`** - ES module build configuration
+
+#### Code Quality Tools
+
+- **`eslint.config.mjs`** - ESLint code checking configuration
+- **`.lintstagedrc.cjs`** - lint-staged configuration for pre-commit checking
+- **`.prettierrc.json`** - Prettier code formatting configuration
+- **`.prettierignore`** - Prettier ignore file configuration
+- **`.commitlintrc.mjs`** - Commit message convention configuration
+
+#### Test Configuration
+
+- **`vitest.config.js`** - Vitest testing framework configuration
+
+#### Other Configuration
+
+- **`.gitignore`** - Git ignore file configuration
+
+## Development Standards
+
+### Language Requirements
+
+- **All code must be written in English** - Variable names, function names, class names, and all identifiers
+- **All comments must be in English** - Including JSDoc comments, inline comments, and documentation
+- **All commit messages must be in English** - Following conventional commit format
+- **All documentation must be in English** - README, API docs, and inline documentation
+
+### File Naming Conventions
+
+- Source files use lowercase letters and hyphens
+- Test files end with `.test.ts`
+- Configuration files named according to tool requirements
+
+### Code Organization Standards
+
+- Core functionality code in `src/` directory
+- Each module has corresponding test files
+- Public APIs exported uniformly through `index.ts`
+- Plugins and operators organized in separate files
+
+### Operator Design Rules
+
+#### Stream Lifecycle Management
+
+- When designing operators with stream inputs and outputs, consider the impact of input streams that are already finished on the output stream
+- When designing operators with stream inputs and outputs, consider the impact of input stream unsubscription on the output stream
+- When designing operators with stream inputs and outputs, consider the impact of output stream unsubscription on the input stream
+- When designing operators with stream inputs and outputs, consider the impact of input empty
+- Properly handle stream completion and unsubscription propagation in both directions
+
+#### Memory Management
+
+- When designing operators with stream inputs and outputs, consider memory leak issues
+- Implement proper cleanup mechanisms for all subscriptions and references
+- Use `useUnsubscribeCallback` utility for managing multiple stream unsubscriptions
+- Clear arrays and references in cleanup callbacks to prevent memory leaks
+- Handle circular references and parent-child relationships properly
+
+#### Input Validation and Edge Cases
+
+- Thoroughly consider input boundary conditions when designing operators
+- Validate input types and throw appropriate errors for invalid inputs
+- Handle empty input scenarios gracefully
+- Consider single stream vs multiple stream scenarios
+- Handle mixed valid/invalid input combinations
+
+#### Status and State Management
+
+- Properly track and propagate PromiseStatus (PENDING, RESOLVED, REJECTED)
+- Handle already finished streams correctly during operator initialization
+- Ensure consistent status updates across all stream operations
+- Implement proper finishCount tracking for multiple stream scenarios
+
+#### Operator Function Design Patterns
+
+- Use higher-order functions that return operator functions for pipe syntax compatibility
+- Return new Stream instances rather than modifying existing ones
+- Implement proper type inference for input/output stream types
+- Use StreamTupleValues type for operators that work with multiple streams
+
+#### Error Handling and Propagation
+
+- Implement comprehensive error handling for all operator scenarios
+- Properly propagate errors from input streams to output streams
+- Handle Promise rejections and exceptions within operator logic
+- Use Promise.reject() for error propagation in stream emissions
+
+#### Concurrency and Timing
+
+- Consider concurrent execution scenarios for multiple stream inputs
+- Handle timing-dependent operations with proper synchronization
+- Use appropriate delay mechanisms (utils.sleep) for testing time-dependent behavior
+- Implement proper debouncing, throttling, and buffering where needed
+
+#### Cleanup and Resource Management
+
+- Implement afterUnsubscribe callbacks for proper cleanup
+- Use offUnsubscribe and offComplete to remove callbacks during cleanup
+- Handle nested observable subscriptions and their cleanup
+- Ensure all timers and async operations are properly cleaned up
+
+#### Testing Requirements for Operators
+
+- Test with both Stream and Observable inputs
+- Test with already finished streams
+- Test unsubscribe behavior and cleanup
+- Test error propagation and rejection scenarios
+- Test edge cases like empty inputs, single inputs, and mixed scenarios
+- Verify proper finishCount and status tracking
+
+## Test Rules
+
+### Test Coverage Requirements
+
+- Tests should cover all function functionalities including normal cases, exception cases, and boundary cases
+- Each public API must have corresponding test cases
+- Error handling and edge cases should be thoroughly tested
+- Input validation should be tested with both valid and invalid inputs
+
+### Test Organization and Structure
+
+- Test cases should be generated around function features and logically ordered
+- Tests should be structured so that function capabilities can be quickly understood through test cases
+- Group related test cases using descriptive test names
+- Avoid nested describe blocks (user preference)
+- Use clear, descriptive test descriptions that explain what is being tested
+
+### Test Quality Standards
+
+- Tests should be deterministic and repeatable
+- Use appropriate test utilities like `streamFactory`, `sleep`, `consoleSpy`
+- **The stream does not need sleep when next synchronous data, but only when next asynchronous data**
+- Mock external dependencies appropriately
+- Test both success and failure scenarios
+- Verify expected behavior through assertions, not just absence of errors
+
+### Test operator rules
+
+- test operators with stream inputs and outputs, consider the impact of input streams that are already finished on the output stream
+- test operators with stream inputs and outputs, consider the impact of input stream unsubscription on the output stream
+- test operators with stream inputs and outputs, consider the impact of output stream unsubscription on the input stream
+- test operators with stream inputs and outputs, consider the impact of input empty
+- test operators with stream inputs and outputs, consider the impact of input stream that is not finished on the output stream
+
+### Debugging and Problem Resolution
+
+- **Critical Rule**: If generated test cases cannot pass, investigate whether there are issues with the function implementation rather than constantly adjusting test cases to make them pass
+- When tests fail, analyze the root cause systematically
+- Document and report actual vs expected behavior clearly
+- Use test failures as indicators of potential bugs in the implementation
+
+### Project-Specific Guidelines
+
+- For operators, test with pipe syntax as required by the project
+- Use `utils.sleep` instead of manual Promise-based delays
+- Use `streamFactory` to create Stream instances consistently
+- When testing `observable$.execute()`, always use `stream$.next('test value')` to trigger execution
+- Test unsubscribe behavior and cleanup mechanisms
+- Verify proper status propagation (RESOLVED/REJECTED/PENDING)
+- Test completion callbacks and afterComplete/afterUnsubscribe hooks
+
+### Test Environment Setup
+
+- Use fake timers when testing time-dependent behavior
+- Clean up spies and mocks between tests
+- Handle unhandled promise rejections appropriately
+- Set appropriate process limits for concurrent operations
+
+### Code Quality in Tests
+
+- All test code comments must be written in English
+- Use TypeScript types appropriately in test code
+- Follow the same code quality standards as production code
+- Keep tests maintainable and readable
+
+---
+> Source: [fluthjs/fluth](https://github.com/fluthjs/fluth) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
