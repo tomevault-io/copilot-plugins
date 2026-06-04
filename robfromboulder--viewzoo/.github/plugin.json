@@ -1,0 +1,9 @@
+{
+  "name": "robfromboulder--viewzoo",
+  "displayName": "viewzoo",
+  "description": "Lightweight storage for Trino views",
+  "version": "1.0.0",
+  "author": "robfromboulder",
+  "homepage": "https://github.com/robfromboulder/viewzoo",
+  "skills": []
+}
