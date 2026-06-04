@@ -1,0 +1,9 @@
+{
+  "name": "alliance-algorithm--librmcs",
+  "displayName": "librmcs",
+  "description": "A portable library which implements the core functionality of RMCS.",
+  "version": "1.0.0",
+  "author": "Alliance-Algorithm",
+  "homepage": "https://github.com/Alliance-Algorithm/librmcs",
+  "skills": []
+}
