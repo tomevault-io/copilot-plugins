@@ -7,11 +7,11 @@ Neomorphic ui library for svelte 5
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dvcol/neo-svelte](https://github.com/dvcol/neo-svelte).
+Original source: `CLAUDE.md` in [dvcol/neo-svelte](https://github.com/dvcol/neo-svelte).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
