@@ -1,72 +1,91 @@
-## backend
+## database
 
-> Backend TypeScript patterns for Express, Zod, and Prisma
+> Prisma ORM and PostgreSQL database patterns
 
 
-You are an expert in TypeScript, Express.js, express-zod-api, Prisma ORM, and building scalable REST APIs.
+You are an expert in Prisma ORM, PostgreSQL, database design, and data modeling for TypeScript applications.
 
 Key Principles
 
-- Use express-zod-api for all endpoint definitions with Zod schemas for validation.
-- Keep route handlers thin; delegate business logic to service functions.
 - Use Prisma ORM for all database interactions; avoid raw SQL queries.
-- Handle errors consistently using http-errors package with appropriate status codes.
-- Log all significant operations using the Winston logger, never console.log.
+- Define schema in `prisma/schema.prisma`; generate client after changes.
+- Use migrations for all schema changes; never modify database directly.
+- Handle BigInt properly for monetary values and timestamps.
+- Use transactions for operations that require atomicity.
 
-Import Conventions
+Schema Management
 
-- Import Zod from `@/utils/zod-openapi`, never from 'zod' directly; this ensures OpenAPI compatibility.
-- Import Prisma client from `@/utils/db` as the singleton instance.
-- Import generated types from `@/generated/prisma/client` for type safety.
-- Use path aliases (`@/`) for all imports; avoid relative paths.
-- Do not use unknown-valued map types in backend code; prefer domain-specific interfaces, Prisma JSON/input JSON types, or object-property guard helpers.
+- The Prisma schema is located at `prisma/schema.prisma`.
+- The generated client is output to `src/generated/prisma/client`; never edit manually.
+- Run `pnpm run prisma:generate` after schema changes to regenerate client.
+- Run `pnpm run prisma:migrate:dev --name descriptive_name` to create migrations.
+- Use descriptive migration names that explain the change.
 
-Endpoint Development
+Generated Code
 
-- Use the appropriate authenticated endpoint factory based on permission level required.
-- Use `readAuthenticatedEndpointFactory` for read-only operations.
-- Use `payAuthenticatedEndpointFactory` for payment-related operations.
-- Use `adminAuthenticatedEndpointFactory` for administrative operations.
-- Define input and output schemas explicitly using Zod for automatic validation and documentation.
+- Never manually edit files in `src/generated/prisma/`; they are auto-generated.
+- Import types from `@/generated/prisma/client` for type safety.
+- Import the Prisma client instance from `@/utils/db`.
 
 BigInt Handling
 
-- Use BigInt for all monetary amounts, fees, and lovelace values; never use Number.
-- Store BigInt in database; Prisma handles this automatically.
-- Convert BigInt to string when returning in API responses; JSON cannot serialize BigInt.
-- Use BigInt literals with `n` suffix (e.g., `5000000n`) or `BigInt()` constructor.
+- Use BigInt type in Prisma schema for monetary amounts, fees, and timestamps.
+- Prisma returns BigInt values as JavaScript BigInt type.
+- Convert BigInt to string for JSON serialization in API responses.
+- Use BigInt literals (e.g., `5000000n`) or `BigInt()` constructor in code.
 
-Error Handling
+Query Patterns
 
-- Throw HTTP errors using `createHttpError(statusCode, message)` from http-errors package.
-- Use 400 for validation errors, 401 for authentication, 404 for not found, 500 for internal errors.
-- Log errors with context using `logger.error(message, { context })`.
-- Use `errorToString()` utility to safely convert unknown errors to strings for logging.
+- Use `findUnique()` for fetching single records by unique identifier.
+- Use `findMany()` for fetching multiple records with filters.
+- Use `create()`, `update()`, and `delete()` for mutations.
+- Use `include` option to fetch related records in a single query.
+- Use `select` option to fetch only needed fields for performance.
 
-Service Pattern
+Related Data Loading
 
-- Create services in `src/services/{name}/{name}.service.ts` structure.
-- Use Mutex from async-mutex for operations that require exclusive access.
-- Use `tryAcquire(mutex).acquire()` pattern to prevent blocking on mutex acquisition.
-- Always release mutex in finally block to prevent deadlocks.
-- Use `advancedRetryAll` with `delayErrorResolver` for operations that may need retries.
+- Use `include` to eagerly load related models in queries.
+- Define complex includes with nested objects for deep relations.
+- Use Prisma's `GetPayload` type helper for typing queries with includes.
+- Avoid N+1 queries by including related data in initial query.
 
-ID Generation
+Transactions
 
-- Use `createId()` from `@paralleldrive/cuid2` for generating unique identifiers.
-- Never use UUID or custom ID generation; cuid2 is the project standard.
+- Use `prisma.$transaction()` for operations requiring atomicity.
+- Pass async function to transaction; all operations use transaction client.
+- Transaction automatically rolls back on any error.
+- Use transactions for multi-step operations that must succeed together.
 
-Dependencies
+Soft Deletes
 
-- express-zod-api (API framework with Zod validation)
-- Prisma (database ORM)
-- http-errors (HTTP error handling)
-- Winston via `@/utils/logger` (logging)
-- async-mutex (concurrency control)
-- advanced-retry (retry logic)
-- @paralleldrive/cuid2 (ID generation)
+- Many models use `deletedAt` field for soft deletes.
+- Filter soft-deleted records with `where: { deletedAt: null }`.
+- Set `deletedAt: new Date()` instead of deleting records.
+- Consider soft-deleted records when querying; exclude them explicitly.
 
-Refer to existing endpoints in `src/routes/api/` for implementation patterns.
+Row Locking
+
+- Use `lockAndQueryPayments()` utility for concurrent processing scenarios.
+- Row-level locking prevents race conditions in concurrent operations.
+- Always release locks by completing transactions.
+
+Common Commands
+
+- `pnpm run prisma:migrate:dev` - Create and apply migration in development.
+- `pnpm run prisma:migrate` - Apply pending migrations (deploy to production).
+- `pnpm run prisma:generate` - Regenerate Prisma client.
+- `pnpm run prisma:seed` - Seed the database with initial data.
+- `npx prisma studio` - Open Prisma Studio for database browsing (not a script, run directly).
+- `npx prisma migrate reset` - Reset database (destroys all data, run directly).
+
+Performance Considerations
+
+- Add database indexes for frequently queried fields.
+- Use `select` to limit returned fields when full records aren't needed.
+- Use pagination for large result sets.
+- Monitor query performance and optimize slow queries.
+
+Refer to `prisma/schema.prisma` for the complete data model and relationships.
 
 ---
 > Source: [masumi-network/masumi-payment-service](https://github.com/masumi-network/masumi-payment-service) — distributed by [TomeVault](https://tomevault.io).
