@@ -1,0 +1,30 @@
+{
+  "name": "gaia-react--gaia",
+  "displayName": "gaia",
+  "description": "The Claude-native foundation you build your whole app on. React frontend handled, your backend builds on top. Strict tooling, pre-commit gates, code-review audit before every merge.",
+  "version": "1.0.0",
+  "author": "gaia-react",
+  "homepage": "https://github.com/gaia-react/gaia",
+  "skills": [
+    {
+      "name": "gaia",
+      "description": ""
+    },
+    {
+      "name": "release-notes",
+      "description": ""
+    },
+    {
+      "name": "gaia-handoff",
+      "description": ""
+    },
+    {
+      "name": "gaia-wiki",
+      "description": ""
+    },
+    {
+      "name": "gaia-pickup",
+      "description": ""
+    }
+  ]
+}
