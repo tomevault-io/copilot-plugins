@@ -2,7 +2,7 @@
   "name": "strata-sdk-rails",
   "owner": "navapbc",
   "repo": "strata-sdk-rails",
-  "description": "",
+  "description": "A SDK that empowers teams to accelerate delivery through self-service tools and training.",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/navapbc/strata-sdk-rails",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T05:34:01Z"
+  "distributed_at": "2026-06-04T06:48:16Z"
 }
