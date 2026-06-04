@@ -1,0 +1,44 @@
+{
+  "name": "gdg-hackathon-2026",
+  "owner": "cesarszv",
+  "repo": "gdg-hackathon-2026",
+  "description": "plataforma de simulaci\u00f3n asistida por IA que ayuda a investigar c\u00f3mo convertir residuos bioorg\u00e1nicos en electricidad",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cesarszv/gdg-hackathon-2026",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T02:56:41Z"
+}
