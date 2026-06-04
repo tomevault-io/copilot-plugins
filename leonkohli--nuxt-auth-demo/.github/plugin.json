@@ -1,0 +1,9 @@
+{
+  "name": "leonkohli--nuxt-auth-demo",
+  "displayName": "nuxt-auth-demo",
+  "description": "nuxt-auth-utils Demo app using prisma orm",
+  "version": "1.0.0",
+  "author": "LeonKohli",
+  "homepage": "https://github.com/LeonKohli/nuxt-auth-demo",
+  "skills": []
+}
