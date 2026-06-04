@@ -1,0 +1,9 @@
+{
+  "name": "bcallender--allaboard",
+  "displayName": "AllAboard",
+  "description": "Code for the All Aboard! CS II mod! This mod forces transit vehicles to leave even if all passengers are not boarded",
+  "version": "1.0.0",
+  "author": "bcallender",
+  "homepage": "https://github.com/bcallender/AllAboard",
+  "skills": []
+}
