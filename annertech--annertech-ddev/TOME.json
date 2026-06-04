@@ -4,7 +4,7 @@
   "repo": "annertech-ddev",
   "description": "A set of opinionated tools and configurations for DDEV",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Annertech/annertech-ddev",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T16:53:29Z"
+  "distributed_at": "2026-06-04T16:58:32Z"
 }
