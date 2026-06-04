@@ -1,0 +1,9 @@
+{
+  "name": "ghostvolunteer--speaker-332",
+  "displayName": "speaker-332",
+  "description": "Speaker is a Codex skill project for academic presentations: read real.pptx, combine text extraction, PPTX structure parsing, page-by-page rendering, OCR, and visual review to generate page-by-page sp",
+  "version": "1.0.0",
+  "author": "GhostVolunteer",
+  "homepage": "https://github.com/GhostVolunteer/speaker-332",
+  "skills": []
+}
