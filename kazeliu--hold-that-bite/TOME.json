@@ -1,0 +1,44 @@
+{
+  "name": "hold-that-bite",
+  "owner": "KazeLiu",
+  "repo": "hold-that-bite",
+  "description": "\u5b88\u4f4f\u8fd9\u53e3\uff01\u6ca1\u6709\u4efb\u4f55\u5f3a\u5236\uff0c\u6ca1\u6709\u4efb\u4f55\u70ed\u91cf\u8ba1\u7b97\uff0c\u6ca1\u6709\u51cf\u80a5\u7126\u8651\u300216+8\u51cf\u80a5\u6cd5\uff0c\u6bcf\u5929\u5b8c\u6210\u5c31\u6253\u5361\uff0c\u4f53\u91cd\u6084\u6084\u964d",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KazeLiu/hold-that-bite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T02:42:15Z"
+}
