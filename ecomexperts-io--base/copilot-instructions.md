@@ -1,478 +1,168 @@
-## javascript-standards
+## liquid
 
-> Writing JavaScript inside `.js` files, or within the `{% javascript %}` or `{% script %}` or <script> </script> tags in `.liquid` files.
+> Liquid syntax standards
 
-# JavaScript Standards
 
-## General Principles
+# Liquid Syntax Standards
 
-- **Zero external dependencies** - Use native browser APIs
-- **Avoid mutation** - Use `const` over `let` unless necessary  
-- **Use `for (const item of items)`** over `items.forEach()`
-- **Add new lines before blocks** with `{` and `}`
-- **Use vanilla Web Components** - Extend HTMLElement directly for custom elements
+## Valid Tags with Parameters
 
-## Async Operations and Request Management
+**Control Flow:**
 
-**Always use async/await over .then() chaining:**
+- `if condition` / `endif` - Conditional logic
+- `unless condition` / `endunless` - Negative conditional
+- `case variable` / `when value` / `endcase` - Switch statement
+- `for item in array` / `endfor` - Loop with optional `limit:`, `offset:`
 
-```javascript
-async renderSection(hasDifferentProductUrl, productUrl) {
-  this.abortController?.abort();
-  this.abortController = new AbortController();
+**Variable Assignment:**
 
-  try {
-    const response = await fetch(`${productUrl}?option_values=${this.selectedOptionValues}&section_id=${this.dataset.section}`, {
-      signal: this.abortController.signal,
-    });
-    
-    const responseText = await response.text();
-    const html = new DOMParser().parseFromString(responseText, 'text/html');
-    const variant = this.getSelectedVariant(html);
-    
-    if (hasDifferentProductUrl) {
-      const productInfo = html.querySelector('product-info');
-      this.replaceWith(productInfo);
-      productInfo.updateURL(variant?.id);
-    } else {
-      this.updateMedia(variant?.featured_media?.id);
-      this.updateURL(variant?.id);
-      this.updateVariantInputs(variant?.id);
-      this.updateSourceFromDestination(html, `price-${this.dataset.section}`);
-    }
-  } catch (error) {
-    if (error.name === 'AbortError') {
-      console.log('Fetch aborted by user');
-    } else {
-      console.error(error);
-    }
-  }
-}
-```
+- `assign variable = value` - Create variable
+- `capture variable` / `endcapture` - Capture output
+- `increment variable` - Add 1 to counter
+- `decrement variable` - Subtract 1 from counter
 
-## Web Components Pattern
+**Template Inclusion:**
 
-**Use vanilla Web Components with HTMLElement:**
+- `render 'snippet-name'` - Include snippet
+- `render 'snippet-name', param: value` - With parameters
+- `section 'section-name'` - Include section
 
-```javascript
-if (!customElements.get('product-info')) {
-  class ProductInfo extends HTMLElement {
-    // Property declarations with initialization
-    abortController = undefined;
-    swiper = null;
+**Forms:**
 
-    constructor() {
-      super();
-      // Minimal constructor - defer setup to connectedCallback
-    }
+- `form 'cart'` / `endform` - Cart form
+- `form 'product'` / `endform` - Product form
+- `form 'customer_login'` / `endform` - Login form
 
-    setupEventListeners() {
-      this.variantSelector?.addEventListener('change', this.onVariantChange.bind(this));
-      this.quantitySelector.addEventListener('change', this.onQuantitySelectorEvent.bind(this));
-      this.quantitySelector.querySelector('button[name="plus"]').addEventListener('click', this.onQuantitySelectorEvent.bind(this));
-      this.quantitySelector.querySelector('button[name="minus"]').addEventListener('click', this.onQuantitySelectorEvent.bind(this));
-      document.getElementById('swiper-script').addEventListener('load', this.initSwiper.bind(this));
-      document.addEventListener('liquid-ajax-cart:request-end', this.onCartUpdate.bind(this));
-    }
+**Other:**
 
-    connectedCallback() {
-      this.setupEventListeners();
-      if (typeof Swiper !== 'undefined') {
-        this.initSwiper();
-      }
-    }
+- `paginate collection.products by 12` / `endpaginate` - Paginate results
+- `liquid` / `endliquid` - Multiline Liquid block
+- `comment` / `endcomment` - Block comments
+- `raw` / `endraw` - Output without processing
 
-    disconnectedCallback() {
-      this.abortController?.abort();
-      this.swiper?.destroy();
-    }
+## Valid Filters
 
-    // Getter methods for DOM element access
-    get variantSelector() {
-      return this.querySelector('variant-selector');
-    }
+**Array Filters:**
 
-    get quantitySelector() {
-      return this.querySelector('quantity-selector');
-    }
+- `compact` - Remove nil values: `array | compact`
+- `concat` - Join arrays: `array | concat: array`
+- `find` - Find object: `array | find: property, value`
+- `where` - Filter objects: `array | where: property, value`
+- `map` - Extract property: `array | map: property`
+- `sort` - Sort array: `array | sort`
+- `reverse` - Reverse order: `array | reverse`
+- `first` - First item: `array | first`
+- `last` - Last item: `array | last`
+- `size` - Count items: `array | size`
 
-    // Event handlers with descriptive names
-    onVariantChange(e) {
-      const hasDifferentProductUrl = e.target?.dataset?.productUrl ? 
-        (e.target?.dataset?.productUrl !== this.dataset.url) : false;
-      const productUrl = e.target?.dataset?.productUrl || this.dataset.url;
-      this.renderSection(hasDifferentProductUrl, productUrl);
-    }
+**String Filters:**
 
-    // Public methods for external component communication
-    updateMedia(variantFeaturedMediaId) {
-      if (!variantFeaturedMediaId) return;
-      var index = this.querySelector(`.swiper-slide[data-media-id="${variantFeaturedMediaId}"]`).dataset.mediaIndex;
-      this.swiper?.slideTo(index);
-    }
+- `escape` - HTML escape: `string | escape`
+- `truncate` - Limit length: `string | truncate: 150`
+- `handleize` - URL handle: `string | handleize`
+- `replace` - Replace text: `string | replace: 'old', 'new'`
+- `split` - Split string: `string | split: 'delimiter'`
+- `upcase` - Uppercase: `string | upcase`
+- `downcase` - Lowercase: `string | downcase`
+- `capitalize` - Capitalize: `string | capitalize`
 
-    // Arrow function for helper methods
-    updateSourceFromDestination = (html, id) => {
-      const source = html.getElementById(`${id}`);
-      const destination = this.querySelector(`#${id}`);
-      if (source && destination) {
-        destination.innerHTML = source.innerHTML;
-      }
-    };
-  }
+**Money Filters:**
 
-  customElements.define('product-info', ProductInfo);
-}
-```
+- `money` - Format price: `price | money`
+- `money_with_currency` - With symbol: `price | money_with_currency`
+- `money_without_currency` - No symbol: `price | money_without_currency`
 
-**HTML integration with Liquid templates:**
+**Media Filters:**
+
+- `image_url` - Responsive image: `image | image_url: width: 800`
+- `image_tag` - Complete img tag: `image | image_tag`
+- `asset_url` - Theme asset: `'style.css' | asset_url`
+
+## Syntax Rules
+
+- Use `{% liquid %}` for multiline code blocks
+- Use `{% # comment %}` for inline comments
+- Never invent new filters, tags, or objects
+- Follow proper tag closing order (last opened, first closed)
+- Use object dot notation: `product.title` not `product['title']`
+- Respect object scope and availability
+
+## Inline Variables Pattern
+
+For props that are relatively straightforward, prefer to inline the liquid instead of declaring extra variables. In smaller components it doesn't make a big difference, but in bigger ones it helps not having to scroll up and down to know what is being applied where.
+
+**✅ Do this (inline approach):**
 
 ```liquid
-<product-info
-  data-url="{{ product.url}}"
-  data-section="{{ section.id }}"
-  class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
+<div
+  class='component component--{{ settings.style_modifier }}'
+  style='
+    color: {{ settings.text_color }};
+    {% if settings.show_border %}
+      border: 1px solid {{ settings.border_color }};
+    {% endif %}
+  '
 >
-  <!-- Component content with nested custom elements -->
-  <variant-selector id="variant-selector-{{ section.id }}" data-picker-type="{{ block.settings.picker_type }}">
-    <!-- Variant selection UI -->
-  </variant-selector>
-  
-  <quantity-selector>
-    <!-- Quantity controls -->
-  </quantity-selector>
-</product-info>
+  <h2>{{ 'sections.component.title' | t }}</h2>
 
-<!-- Load component script -->
-<script src="{{ 'component-product-info.js' | asset_url }}" defer="defer"></script>
+  {{ content | truncate: settings.max_length | default: 200 }}
+
+  <a
+    href='{{ link_url }}'
+    class='link--{{ settings.link_style | default: 'primary' }}'
+  >
+    {{ 'general.read_more' | t }}
+  </a>
+</div>
 ```
 
-## Early Returns and Conditional Logic
-
-**Use early returns over nested conditionals:**
-
-```javascript
-// Good
-const processOrder = (order) => {
-  if (!order) return;
-  if (!order.items.length) return;
-  if (order.status !== 'pending') return;
-
-  // Process the order
-  updateOrderStatus(order.id, 'processing');
-  sendConfirmationEmail(order.email);
-};
-
-// Avoid
-const processOrder = (order) => {
-  if (order) {
-    if (order.items.length) {
-      if (order.status === 'pending') {
-        updateOrderStatus(order.id, 'processing');
-        sendConfirmationEmail(order.email);
-      }
-    }
-  }
-};
-```
-
-**Optional chaining guidelines:**
-
-```javascript
-// Multiple chains - use early return
-const updateButton = (product) => {
-  const button = product.querySelector('[data-ref="button"]');
-  if (!button) return;
-
-  button.disabled = false;
-  button.textContent = 'Add to cart';
-};
-
-// Single chain is fine
-const updateButton = (product) => {
-  const button = product.querySelector('[data-ref="button"]');
-  button?.enable();
-};
-```
-
-## Simplification Patterns
-
-**Ternary operators for simple conditions:**
-```javascript
-const buttonText = isLoading ? 'Loading...' : 'Add to cart';
-element.textContent = buttonText;
-```
-
-**One-liner conditionals:**
-```javascript
-if (isOutOfStock) return;
-```
-
-**Return boolean comparisons directly:**
-```javascript
-const isAvailable = product.available && product.price > 0;
-return isAvailable;
-```
-
-## Event-Driven Architecture
-
-**Use custom events for component communication:**
-
-```javascript
-class ProductInfo extends HTMLElement {
-  onCartUpdate(e) {
-    // Check page context before executing
-    if (!window.location.pathname.includes('/products/')) return;
-    
-    const { requestState } = e.detail;
-    
-    // If the "add to cart" request is successful
-    if (requestState.requestType === 'add' && requestState.responseData?.ok) {
-      // Add the CSS class to the "body" tag
-      document.body.classList.add('js-show-ajax-cart');
-      
-      // Dispatch a custom event for other components
-      document.dispatchEvent(
-        new CustomEvent('item-added-to-cart', {
-          detail: requestState?.responseData?.body,
-        })
-      );
-    }
-  }
-
-  setupEventListeners() {
-    // Listen to third-party library events
-    document.addEventListener('liquid-ajax-cart:request-end', this.onCartUpdate.bind(this));
-    // Listen to own component events
-    this.variantSelector?.addEventListener('change', this.onVariantChange.bind(this));
-  }
-}
-```
-
-**Page context awareness:**
-
-```javascript
-class ProductInfo extends HTMLElement {
-  updateURL(variantId) {
-    // Only execute on product pages
-    if (!window.location.pathname.includes('/products/')) return;
-    window.history.replaceState({}, '', `${this.dataset.url}${variantId ? `?variant=${variantId}` : ''}`);
-  }
-
-  onCartUpdate(e) {
-    // Only execute on product pages
-    if (!window.location.pathname.includes('/products/')) return;
-    // Implementation
-  }
-}
-```
-
-## External Library Integration
-
-**Check for library availability before initialization:**
-
-```javascript
-class ProductInfo extends HTMLElement {
-  connectedCallback() {
-    this.setupEventListeners();
-    
-    // Check if external library is loaded
-    if (typeof Swiper !== 'undefined') {
-      this.initSwiper();
-    }
-  }
-
-  initSwiper() {
-    this.swiper = new Swiper('.swiper', {
-      autoHeight: true,
-      direction: 'horizontal',
-      pagination: {
-        el: '.swiper-pagination',
-      },
-      navigation: {
-        prevEl: '.swiper-button-prev',
-        nextEl: '.swiper-button-next',
-      },
-    });
-  }
-
-  setupEventListeners() {
-    // Listen for external script loading
-    document.getElementById('swiper-script').addEventListener('load', this.initSwiper.bind(this));
-  }
-
-  disconnectedCallback() {
-    // Clean up external library instances
-    this.swiper?.destroy();
-  }
-}
-```
-
-**Loading external scripts in Liquid templates:**
+**❌ Don't do this (variable declaration approach):**
 
 ```liquid
-<script src="{{ "swiper7.4.1.min.js" | asset_url }}" defer="defer" id="swiper-script"></script>
-<script src="{{ 'component-product-info.js' | asset_url }}" defer="defer"></script>
+{% liquid
+  assign component_class = 'component component--' | append: settings.style_modifier
+  assign text_color = settings.text_color
+  assign truncate_length = settings.max_length | default: 200
+  assign link_class = 'link--' | append: settings.link_style | default: 'primary'
+%}
+
+{% capture component_style %}
+  color: {{ text_color }};
+  {% if settings.show_border %}
+    border: 1px solid {{ settings.border_color }};
+  {% endif %}
+{% endcapture %}
+
+<div
+  class='{{ component_class }}'
+  style='{{ component_style }}'
+>
+  <h2>{{ 'sections.component.title' | t }}</h2>
+
+  {{ content | truncate: truncate_length }}
+
+  <a
+    href='{{ link_url }}'
+    class='{{ link_class }}'
+  >
+    {{ 'general.read_more' | t }}
+  </a>
+</div>
 ```
 
-## Input Validation and Bounds Checking
+**Exceptions:**
 
-**Always validate and constrain input values:**
+- When Liquid filter parameters require string values and complex logic cannot be inlined
+- When the same complex calculation is used multiple times
+- When the logic is extremely complex and would harm readability
+- When you need to build a string incrementally with conditional parts
 
-```javascript
-class ProductInfo extends HTMLElement {
-  onQuantitySelectorEvent(e) {
-    const quantityInput = this.quantitySelector.querySelector('input[type="number"]');
-    let currentValue = parseInt(quantityInput.value);
-    const minValue = parseInt(quantityInput.getAttribute('min')) || 0;
-    const maxValue = parseInt(quantityInput.getAttribute('max')) || Infinity;
+**Benefits:**
 
-    if (e.target.name === 'minus' && currentValue > minValue) {
-      quantityInput.value = currentValue - 1;
-    } else if (e.target.name === 'plus' && currentValue < maxValue) {
-      quantityInput.value = currentValue + 1;
-    } else if (e.type === 'change') {
-      if (currentValue < minValue) {
-        quantityInput.value = minValue;
-      } else if (currentValue > maxValue) {
-        quantityInput.value = maxValue;
-      }
-    }
-  }
-}
-```
-
-## Data Parsing and JSON Handling
-
-**Parse JSON data with error handling:**
-
-```javascript
-class ProductInfo extends HTMLElement {
-  getSelectedVariant(html) {
-    const selectedVariant = html.querySelector('[data-selected-variant]')?.innerHTML;
-    return !!selectedVariant ? JSON.parse(selectedVariant) : null;
-  }
-}
-```
-
-**Embed JSON data in Liquid templates:**
-
-```liquid
-<script type="application/json" data-selected-variant>
-  {{ selected_variant | json }}
-</script>
-```
-
-## DOM Manipulation Patterns
-
-**Update specific sections with helper methods:**
-
-```javascript
-class ProductInfo extends HTMLElement {
-  updateSourceFromDestination = (html, id) => {
-    const source = html.getElementById(`${id}`);
-    const destination = this.querySelector(`#${id}`);
-    if (source && destination) {
-      destination.innerHTML = source.innerHTML;
-    }
-  };
-
-  updateVariantInputs(variantId) {
-    this.querySelectorAll(`#product-form-${this.dataset.section}, #product-form-installment-${this.dataset.section}`).forEach(
-      (productForm) => {
-        const input = productForm.querySelector('input[name="id"]');
-        input.value = variantId ?? '';
-      }
-    );
-  }
-}
-```
-
-
-
-## AbortController for Request Cancellation
-
-**Use AbortController to cancel previous requests:**
-
-```javascript
-class ProductInfo extends HTMLElement {
-  abortController = undefined;
-
-  async renderSection(hasDifferentProductUrl, productUrl) {
-    // Cancel previous request
-    this.abortController?.abort();
-    this.abortController = new AbortController();
-
-    try {
-      const response = await fetch(`${productUrl}?option_values=${this.selectedOptionValues}&section_id=${this.dataset.section}`, {
-        signal: this.abortController.signal,
-      });
-      
-      const responseText = await response.text();
-      // Process response
-    } catch (error) {
-      if (error.name === 'AbortError') {
-        console.log('Fetch aborted by user');
-      } else {
-        console.error(error);
-      }
-    }
-  }
-
-  disconnectedCallback() {
-    this.abortController?.abort();
-  }
-}
-```
-
-## Error Handling
-
-**Always handle errors gracefully:**
-
-```javascript
-const fetchData = async (url) => {
-  try {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Fetch error:', error);
-    // Return fallback data or empty state
-    return null;
-  }
-};
-```
-
-## Type Safety with JSDoc
-
-**Always annotate function parameters, return types, and complex objects:**
-
-```javascript
-/**
- * @typedef {Object} ProductData
- * @property {string} id - Product identifier
- * @property {number} price - Product price
- * @property {boolean} [available] - Availability status (optional)
- */
-
-/**
- * Updates product pricing display
- * @param {ProductData} product - The product to update
- * @param {HTMLElement} container - Target container element
- * @returns {Promise<void>}
- * @throws {Error} If container element is invalid
- */
-const updateProductDisplay = async (product, container) => {
-  if (!(container instanceof HTMLElement)) {
-    throw new Error('Invalid container element');
-  }
-  // Implementation
-};
-```
+- Easier to understand what's being applied where
+- No need to scroll up and down to find variable definitions
+- Reduces cognitive load in larger components
+- Makes the code more maintainable
 
 ---
 > Source: [EcomExperts-io/Base](https://github.com/EcomExperts-io/Base) — distributed by [TomeVault](https://tomevault.io).
