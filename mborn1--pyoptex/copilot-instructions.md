@@ -1,41 +1,66 @@
-## project
+## python-style
 
-> Project overview, layout, and dev setup for pyoptex
+> Python coding style conventions for pyoptex source and tests
 
 
-# PyOptEx
+# Python Style
 
-Python library for optimal design of experiments (DoE). Python 3.10–3.12. Hot paths are in Cython (`.pyx`).
+## Formatting
 
-- **Fixed structure** (`src/pyoptex/doe/fixed_structure/`): split-plot, strip-plot, splitk-plot, staggered-level designs
-- **Cost-optimal CODEX** (`src/pyoptex/doe/cost_optimal/`): resource/cost-constrained designs
-- **Analysis** (`src/pyoptex/analysis/`): SAMS model selection, estimators, transformers
+- Line length: **120 characters** (enforced by ruff)
+- Formatter: `ruff format` (black-compatible)
 
-## Layout
+## Imports
 
+Order: stdlib → third-party → first-party (`pyoptex`), each group separated by a blank line.
+
+```python
+# stdlib
+import os
+from pathlib import Path
+
+# third-party
+import numpy as np
+import pandas as pd
+
+# first-party
+from pyoptex.utils.factor import Factor
 ```
-src/pyoptex/     package (doe/, analysis/, utils/, _seed)
-tests/           pytest
-examples/        standalone scripts (not in package)
-docs/            Sphinx
-venv/            virtualenv (Makefile uses venv/bin/)
+
+Use `ruff check --fix` to auto-sort imports.
+
+## Type Hints
+
+- Add type hints to new public functions and methods.
+- `ignore_missing_imports = true` is set in mypy config -- stubs are not required for numba/scipy/etc.
+- Use `np.ndarray` for numpy arrays; `pd.DataFrame` for dataframes.
+
+## Docstrings
+
+Use triple-quoted Google-style or plain multi-line docstrings consistent with existing code:
+
+```python
+def example(x: np.ndarray) -> float:
+    """
+    One-line summary.
+
+    Parameters
+    ----------
+    x : np.ndarray
+        Input array.
+
+    Returns
+    -------
+    float
+        Result value.
+    """
 ```
 
-## Dev setup
+## Numpy / Scientific Conventions
 
-```bash
-venv/bin/pip install -e ".[dev]"
-```
-
-Makefile targets use `venv/bin/`; activation optional.
-
-## Commit messages
-
-Imperative, present tense; first line under 72 characters.
-
----
-
-Verification and rules of engagement: **workflow.mdc**. Build commands: **building.mdc**. Style: **python-style.mdc**. Cython: **cython.mdc**. Caveats: **environment.mdc**.
+- Prefer vectorized numpy operations over Python loops.
+- Avoid `numba` JIT (`@numba.njit`) if possible (prefer Cython)
+- Avoid in-place mutation of function arguments unless explicitly documented.
 
 ---
 > Source: [mborn1/pyoptex](https://github.com/mborn1/pyoptex) — distributed by [TomeVault](https://tomevault.io).
