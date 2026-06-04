@@ -4,7 +4,7 @@
   "repo": "DocuThinker-AI-App",
   "description": "\ud83d\udcdd An AI-powered document analysis app that turns long, complex documents into summaries, key insights, analytics, and contextual conversations, helping people understand and work with information in seconds instead of hours.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangsonww/DocuThinker-AI-App",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T14:30:30Z"
+  "distributed_at": "2026-06-04T14:31:07Z"
 }
