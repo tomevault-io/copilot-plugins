@@ -1,0 +1,9 @@
+{
+  "name": "sojohnnysaid--vim-restman",
+  "displayName": "vim-restman",
+  "description": "make an api call to get your token, have it saved, make other requests, all in a file using vim",
+  "version": "1.0.0",
+  "author": "sojohnnysaid",
+  "homepage": "https://github.com/sojohnnysaid/vim-restman",
+  "skills": []
+}
