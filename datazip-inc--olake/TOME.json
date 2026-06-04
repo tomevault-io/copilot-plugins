@@ -1,0 +1,44 @@
+{
+  "name": "olake",
+  "owner": "datazip-inc",
+  "repo": "olake",
+  "description": "OLake - Fastest Databases, Kafka & S3 Replication to Apache Iceberg with Table optimization (Called OLake Fusion). \u26a1 Efficient, quick and scalable data ingestion for real-time analytics.  Supported sources :  Postgres, MongoDB, MySQL, Oracle, MSSql, DB2, Kafka, S3.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/datazip-inc/olake",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T08:38:40Z"
+}
