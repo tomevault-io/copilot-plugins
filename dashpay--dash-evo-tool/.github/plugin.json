@@ -1,0 +1,9 @@
+{
+  "name": "dashpay--dash-evo-tool",
+  "displayName": "dash-evo-tool",
+  "description": "A tool to interact with Evolution",
+  "version": "1.0.0",
+  "author": "dashpay",
+  "homepage": "https://github.com/dashpay/dash-evo-tool",
+  "skills": []
+}
