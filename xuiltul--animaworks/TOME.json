@@ -4,7 +4,7 @@
   "repo": "animaworks",
   "description": "Organization-as-Code for autonomous AI agents. Brain-inspired memory that grows, consolidates, and forgets. Multi-model (Claude/Codex/Gemini/Cursor/Ollama).",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xuiltul/animaworks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T08:36:26Z"
+  "distributed_at": "2026-06-04T08:43:03Z"
 }
