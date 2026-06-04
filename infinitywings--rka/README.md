@@ -7,11 +7,11 @@ Research Knowledge Agent — MCP server + REST API + React dashboard for AI-assi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [infinitywings/rka](https://github.com/infinitywings/rka).
+Original source: `CLAUDE.md` in [infinitywings/rka](https://github.com/infinitywings/rka).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
