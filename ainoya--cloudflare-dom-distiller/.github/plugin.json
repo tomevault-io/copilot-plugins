@@ -1,0 +1,9 @@
+{
+  "name": "ainoya--cloudflare-dom-distiller",
+  "displayName": "cloudflare-dom-distiller",
+  "description": "A Cloudflare Workers-based API for extracting and converting web page content to Markdown using DOM-Distiller and Turndown.",
+  "version": "1.0.0",
+  "author": "ainoya",
+  "homepage": "https://github.com/ainoya/cloudflare-dom-distiller",
+  "skills": []
+}
