@@ -1,0 +1,9 @@
+{
+  "name": "holochain--kitsune2",
+  "displayName": "kitsune2",
+  "description": "p2p / dht communication framework",
+  "version": "1.0.0",
+  "author": "holochain",
+  "homepage": "https://github.com/holochain/kitsune2",
+  "skills": []
+}
