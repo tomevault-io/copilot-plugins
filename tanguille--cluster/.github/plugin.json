@@ -1,0 +1,9 @@
+{
+  "name": "tanguille--cluster",
+  "displayName": "cluster",
+  "description": "My home kubernetes GitOps repository.",
+  "version": "1.0.0",
+  "author": "Tanguille",
+  "homepage": "https://github.com/Tanguille/cluster",
+  "skills": []
+}
