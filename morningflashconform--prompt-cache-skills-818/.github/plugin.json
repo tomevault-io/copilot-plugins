@@ -1,0 +1,9 @@
+{
+  "name": "morningflashconform--prompt-cache-skills-818",
+  "displayName": "prompt-cache-skills-818",
+  "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches.",
+  "version": "1.0.0",
+  "author": "MorningFlashConform",
+  "homepage": "https://github.com/MorningFlashConform/prompt-cache-skills-818",
+  "skills": []
+}
