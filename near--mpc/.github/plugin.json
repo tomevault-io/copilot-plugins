@@ -1,0 +1,9 @@
+{
+  "name": "near--mpc",
+  "displayName": "mpc",
+  "description": "MPC Node. Implements secure multi-party threshold signature generation as part of NEAR's chain abstraction infrastructure",
+  "version": "1.0.0",
+  "author": "near",
+  "homepage": "https://github.com/near/mpc",
+  "skills": []
+}
