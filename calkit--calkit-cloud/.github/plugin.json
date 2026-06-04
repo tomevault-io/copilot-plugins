@@ -1,0 +1,9 @@
+{
+  "name": "calkit--calkit-cloud",
+  "displayName": "calkit-cloud",
+  "description": "A platform for creating and sharing knowledge via Calkit projects.",
+  "version": "1.0.0",
+  "author": "calkit",
+  "homepage": "https://github.com/calkit/calkit-cloud",
+  "skills": []
+}
