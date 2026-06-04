@@ -1,0 +1,9 @@
+{
+  "name": "go-tapd--tapd",
+  "displayName": "tapd",
+  "description": "The Go Tapd SDK is a Go client library for accessing the Tapd API",
+  "version": "1.0.0",
+  "author": "go-tapd",
+  "homepage": "https://github.com/go-tapd/tapd",
+  "skills": []
+}
