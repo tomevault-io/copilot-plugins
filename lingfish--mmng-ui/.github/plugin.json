@@ -1,0 +1,9 @@
+{
+  "name": "lingfish--mmng-ui",
+  "displayName": "mmng-ui",
+  "description": "A Textual TUI for multimon-ng \u2014 decode POCSAG and FLEX pager messages from SDR applications in your terminal or web browser.",
+  "version": "1.0.0",
+  "author": "lingfish",
+  "homepage": "https://github.com/lingfish/mmng-ui",
+  "skills": []
+}
