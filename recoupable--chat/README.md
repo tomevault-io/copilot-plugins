@@ -2,6 +2,8 @@
 
 > Source: [recoupable/chat](https://github.com/recoupable/chat) — distributed by [TomeVault](https://tomevault.io)
 
+Web interface for building and managing your own agentic record label. 
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [recoupable/chat](https://github.com/r
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [recoupable/chat](https://github.com/recoupable/chat) — a repo with 0+ stars on GitHub.
+From [recoupable/chat](https://github.com/recoupable/chat) — a repo with 11+ stars on GitHub.
 
 ---
 
