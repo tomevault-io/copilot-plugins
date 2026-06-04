@@ -1,0 +1,44 @@
+{
+  "name": "dauphin-ios",
+  "owner": "tkuitocc",
+  "repo": "dauphin-ios",
+  "description": "Dauphin est une application iOS non officielle pour les \u00e9tudiants de l\u2019Universit\u00e9 Tamkang, d\u00e9velopp\u00e9e ind\u00e9pendamment par un \u00e9tudiant.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tkuitocc/dauphin-ios",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T06:37:52Z"
+}
