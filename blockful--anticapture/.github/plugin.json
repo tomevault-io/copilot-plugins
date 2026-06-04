@@ -1,0 +1,9 @@
+{
+  "name": "blockful--anticapture",
+  "displayName": "anticapture",
+  "description": "The DAO governance security platform that provides data-driven analysis to help identify, assess, and mitigate governance capture risks.",
+  "version": "1.0.0",
+  "author": "blockful",
+  "homepage": "https://github.com/blockful/anticapture",
+  "skills": []
+}
