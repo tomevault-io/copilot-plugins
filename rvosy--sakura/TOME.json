@@ -1,0 +1,44 @@
+{
+  "name": "Sakura",
+  "owner": "Rvosy",
+  "repo": "Sakura",
+  "description": "\u4e00\u4e2a\u901a\u7528\u684c\u5ba0 Agent \u6846\u67b6\uff0c\u80fd\u5bfc\u5165\u81ea\u5b9a\u4e49\u89d2\u8272\u5305\uff0c\u5e76\u8ba9\u89d2\u8272\u611f\u77e5\u5c4f\u5e55\u5185\u5bb9\u4e0e\u7cfb\u7edf\u4e8b\u4ef6\uff0c\u6839\u636e\u7528\u6237\u5f53\u524d\u573a\u666f\u4e3b\u52a8\u505a\u51fa\u81ea\u7136\u53cd\u5e94\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Rvosy/Sakura",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T13:30:31Z"
+}
