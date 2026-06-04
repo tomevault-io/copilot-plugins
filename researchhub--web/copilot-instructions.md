@@ -1,322 +1,306 @@
-## testing-standards
+## types-architecture
 
-> This document outlines the testing standards and best practices used in the ResearchHub codebase.
+> This document outlines the architectural patterns and best practices for TypeScript types in the ResearchHub codebase.
 
- # ResearchHub Testing Standards
+ # ResearchHub Types Architecture
 
-This document outlines the testing standards and best practices used in the ResearchHub codebase.
+This document outlines the architectural patterns and best practices for TypeScript types in the ResearchHub codebase.
 
-## Testing Framework
+## Type Organization
 
-ResearchHub uses the following testing stack:
+1. **Domain-specific Files**:
+   - Organize types by domain in dedicated files (e.g., `feed.ts`, `note.ts`)
+   - Group related interfaces, types, and enums together
+   - Export all types needed by consumers
 
-1. **Jest** - For test running and assertions
-2. **React Testing Library** - For testing React components
-3. **MSW (Mock Service Worker)** - For mocking API requests
-4. **Cypress** - For end-to-end testing
-
-## Test Types
-
-1. **Unit Tests**:
-   - Test individual functions and components in isolation
-   - Mock all external dependencies
-   - Focus on testing the logic rather than implementation details
-
-2. **Integration Tests**:
-   - Test multiple components or functions working together
-   - Test interactions between components
-   - Test API calls with mocked responses using MSW
-
-3. **End-to-End Tests**:
-   - Test entire workflows from the user's perspective
-   - Use Cypress to interact with the application
-   - Focus on critical user paths
-
-## Test File Organization
-
-1. **File Naming**:
-   - Unit and integration tests: `ComponentName.test.tsx` or `functionName.test.ts`
-   - End-to-end tests: `feature-name.spec.ts`
-
-2. **File Location**:
-   - Co-locate unit and integration tests with the code they're testing
-   - Place end-to-end tests in a dedicated `cypress/integration` directory
-
-   ```
-   components/
-   ├── Button/
-   │   ├── Button.tsx
-   │   └── Button.test.tsx
-   utils/
-   ├── formatDate.ts
-   └── formatDate.test.ts
+   ```typescript
+   // feed.ts
+   export interface FeedEntry { /* ... */ }
+   export type FeedActionType = 'upvote' | 'comment' | 'create';
+   export enum ContentType { /* ... */ }
    ```
 
-## Unit Testing Standards
+2. **Naming Conventions**:
+   - Use PascalCase for interfaces, types, and enums
+   - Use descriptive names that convey purpose and structure
+   - Add appropriate suffixes to indicate usage (e.g., `Response`, `Params`)
 
-1. **Component Testing**:
-   - Focus on testing behavior, not implementation details
-   - Test user interactions (clicks, input changes, etc.)
-   - Test rendering logic and conditional rendering
-   - Test accessibility features
-
-   ```tsx
-   import { render, screen, fireEvent } from '@testing-library/react';
-   import { Button } from './Button';
-
-   describe('Button', () => {
-     it('renders with correct text', () => {
-       render(<Button>Click me</Button>);
-       expect(screen.getByRole('button', { name: /click me/i })).toBeInTheDocument();
-     });
-
-     it('calls onClick when clicked', () => {
-       const handleClick = jest.fn();
-       render(<Button onClick={handleClick}>Click me</Button>);
-       fireEvent.click(screen.getByRole('button'));
-       expect(handleClick).toHaveBeenCalledTimes(1);
-     });
-
-     it('is disabled when disabled prop is true', () => {
-       render(<Button disabled>Click me</Button>);
-       expect(screen.getByRole('button')).toBeDisabled();
-     });
-   });
+   ```typescript
+   // Good naming examples
+   export interface NoteApiResponse { /* ... */ }
+   export type ContentType = 'paper' | 'post' | 'bounty';
+   export enum FundingRequestStatus { /* ... */ }
    ```
 
-2. **Utility Function Testing**:
-   - Test all edge cases
-   - Test with a variety of inputs
-   - Test error handling
+## Interface Structure
 
-   ```tsx
-   import { formatCurrency } from './formatCurrency';
+1. **API Response Interfaces**:
+   - Define interfaces for all API responses
+   - Include API-specific naming (e.g., snake_case properties)
+   - Use the `ApiResponse` suffix for clarity
 
-   describe('formatCurrency', () => {
-     it('formats positive numbers correctly', () => {
-       expect(formatCurrency(1000)).toBe('$1,000.00');
-       expect(formatCurrency(1000.5)).toBe('$1,000.50');
-     });
-
-     it('formats negative numbers correctly', () => {
-       expect(formatCurrency(-1000)).toBe('-$1,000.00');
-     });
-
-     it('handles zero correctly', () => {
-       expect(formatCurrency(0)).toBe('$0.00');
-     });
-
-     it('throws an error for non-numeric input', () => {
-       expect(() => formatCurrency('abc' as any)).toThrow();
-     });
-   });
+   ```typescript
+   export interface NoteApiResponse {
+     id: string;
+     title: string;
+     content: string;
+     created_by: string;
+     created_at: string;
+     updated_at: string;
+     // Other API properties
+   }
    ```
 
-3. **Hook Testing**:
-   - Use `renderHook` from `@testing-library/react-hooks`
-   - Test initial values, updates, and edge cases
+2. **Application Model Interfaces**:
+   - Create client-side model interfaces with camelCase properties
+   - Include all properties needed by UI components
+   - Add optional properties for partial data scenarios
 
-   ```tsx
-   import { renderHook, act } from '@testing-library/react-hooks';
-   import { useCounter } from './useCounter';
-
-   describe('useCounter', () => {
-     it('initializes with default value', () => {
-       const { result } = renderHook(() => useCounter());
-       expect(result.current.count).toBe(0);
-     });
-
-     it('initializes with provided value', () => {
-       const { result } = renderHook(() => useCounter(10));
-       expect(result.current.count).toBe(10);
-     });
-
-     it('increments the counter', () => {
-       const { result } = renderHook(() => useCounter());
-       act(() => {
-         result.current.increment();
-       });
-       expect(result.current.count).toBe(1);
-     });
-   });
+   ```typescript
+   export interface Note {
+     id: string;
+     title: string;
+     content: string;
+     createdBy: string;
+     createdAt: Date;
+     updatedAt: Date;
+     isEditable?: boolean;
+     // Other client-side properties
+   }
    ```
 
-## Integration Testing Standards
+3. **Extension Patterns**:
+   - Use interface extension to build upon base interfaces
+   - Create specialized interfaces for specific use cases
+   - Avoid deep inheritance hierarchies (prefer composition)
 
-1. **Component Integration**:
-   - Test groups of components working together
-   - Test state changes and their effects on the UI
-   - Use context providers when necessary
-
-   ```tsx
-   import { render, screen, fireEvent } from '@testing-library/react';
-   import { TodoList } from './TodoList';
-   import { TodoProvider } from '@/contexts/TodoContext';
-
-   describe('TodoList', () => {
-     it('adds a new todo when form is submitted', () => {
-       render(
-         <TodoProvider>
-           <TodoList />
-         </TodoProvider>
-       );
-
-       // Fill in the form
-       fireEvent.change(screen.getByLabelText(/new todo/i), {
-         target: { value: 'Test todo' },
-       });
-
-       // Submit the form
-       fireEvent.click(screen.getByRole('button', { name: /add/i }));
-
-       // Check that the todo was added
-       expect(screen.getByText('Test todo')).toBeInTheDocument();
-     });
-   });
+   ```typescript
+   export interface BaseNote {
+     id: string;
+     title: string;
+   }
+   
+   export interface NoteWithContent extends BaseNote {
+     content: string;
+     collaborators: User[];
+   }
+   
+   export interface NoteListItem extends BaseNote {
+     excerpt: string;
+     updatedAt: Date;
+   }
    ```
 
-2. **API Mocking**:
-   - Use MSW to mock API requests
-   - Test success and error scenarios
-   - Test loading states
+## Type Definitions
 
-   ```tsx
-   import { rest } from 'msw';
-   import { setupServer } from 'msw/node';
-   import { render, screen, waitFor } from '@testing-library/react';
-   import { UserProfile } from './UserProfile';
+1. **Union Types**:
+   - Use union types for values with a finite set of options
+   - Define clear, specific union types for related values
+   - Add documentation for non-obvious union types
 
-   const server = setupServer(
-     rest.get('/api/user/:id', (req, res, ctx) => {
-       return res(
-         ctx.json({
-           id: '123',
-           name: 'John Doe',
-           email: 'john@example.com',
-         })
-       );
-     })
-   );
-
-   beforeAll(() => server.listen());
-   afterEach(() => server.resetHandlers());
-   afterAll(() => server.close());
-
-   describe('UserProfile', () => {
-     it('renders user data after loading', async () => {
-       render(<UserProfile userId="123" />);
-
-       // Initially shows loading state
-       expect(screen.getByText(/loading/i)).toBeInTheDocument();
-
-       // After loading, shows user data
-       await waitFor(() => {
-         expect(screen.getByText('John Doe')).toBeInTheDocument();
-         expect(screen.getByText('john@example.com')).toBeInTheDocument();
-       });
-     });
-
-     it('handles error state', async () => {
-       server.use(
-         rest.get('/api/user/:id', (req, res, ctx) => {
-           return res(ctx.status(500));
-         })
-       );
-
-       render(<UserProfile userId="123" />);
-
-       await waitFor(() => {
-         expect(screen.getByText(/error/i)).toBeInTheDocument();
-       });
-     });
-   });
+   ```typescript
+   // Simple union of string literals
+   export type ContentType = 'paper' | 'post' | 'bounty' | 'funding_request';
+   
+   // Union of interfaces
+   export type Content = Paper | Post | Bounty | FundingRequest;
    ```
 
-## End-to-End Testing Standards
+2. **Enums**:
+   - Use enums for fixed sets of related values
+   - Prefer string enums for better debugging and serialization
+   - Document enum values with JSDoc comments
 
-1. **Test Coverage**:
-   - Test critical user flows
-   - Test authentication and authorization
-   - Test form submissions and validations
-
-   ```tsx
-   describe('Authentication', () => {
-     beforeEach(() => {
-       cy.visit('/login');
-     });
-
-     it('allows users to log in', () => {
-       cy.intercept('POST', '/api/login', {
-         body: {
-           token: 'fake-token',
-           user: { id: '123', name: 'Test User' },
-         },
-       }).as('loginRequest');
-
-       cy.get('input[name="email"]').type('user@example.com');
-       cy.get('input[name="password"]').type('password123');
-       cy.get('button[type="submit"]').click();
-
-       cy.wait('@loginRequest');
-       cy.url().should('include', '/dashboard');
-       cy.contains('Welcome, Test User');
-     });
-
-     it('shows error messages for invalid login', () => {
-       cy.intercept('POST', '/api/login', {
-         statusCode: 401,
-         body: { message: 'Invalid credentials' },
-       }).as('loginRequest');
-
-       cy.get('input[name="email"]').type('user@example.com');
-       cy.get('input[name="password"]').type('wrong-password');
-       cy.get('button[type="submit"]').click();
-
-       cy.wait('@loginRequest');
-       cy.contains('Invalid credentials');
-       cy.url().should('include', '/login');
-     });
-   });
+   ```typescript
+   /**
+    * Status of a funding request
+    */
+   export enum FundingRequestStatus {
+     DRAFT = 'draft',
+     SUBMITTED = 'submitted',
+     APPROVED = 'approved',
+     REJECTED = 'rejected',
+     FUNDED = 'funded',
+     COMPLETED = 'completed',
+   }
    ```
 
-2. **Test Isolation**:
-   - Reset state between tests
-   - Use fixtures for test data
-   - Clean up after tests
+3. **Literal Types**:
+   - Use literal types for specific, known values
+   - Combine literals into union types for better type checking
+   - Use const assertions for object literals when appropriate
 
-## Test Coverage Requirements
+   ```typescript
+   // Literal type with union
+   type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
+   
+   // Const assertion for object literal
+   const ROUTES = {
+     HOME: '/',
+     FEED: '/feed',
+     PROFILE: '/profile',
+   } as const;
+   
+   type Route = typeof ROUTES[keyof typeof ROUTES];
+   ```
 
-1. **Coverage Targets**:
-   - Unit tests: 85% code coverage
-   - Integration tests: Critical user flows
-   - End-to-end tests: Core user journeys
+## Type Transformations
 
-2. **Critical Areas**:
-   - Authentication and authorization
-   - Form validation and submission
-   - Data fetching and error handling
-   - Complex business logic
+1. **Transformer Pattern**:
+   - Use transformer functions to convert between API and client models
+   - Maintain consistent transformation patterns across the application
+   - Preserve raw data for debugging when needed
 
-## Testing Best Practices
+   ```typescript
+   // Using the transformer utility
+   import { createTransformer } from '../types/transformer';
+   
+   export const transformNote = createTransformer<NoteApiResponse, Note>((data) => ({
+     id: data.id,
+     title: data.title,
+     content: data.content,
+     createdBy: data.created_by,
+     createdAt: new Date(data.created_at),
+     updatedAt: new Date(data.updated_at),
+     // Transform other properties
+   }));
+   ```
 
-1. **General Best Practices**:
-   - Write tests before or alongside code (TDD where appropriate)
-   - Keep tests simple and focused
-   - Don't test implementation details
-   - Test behavior, not functions
+2. **Partial Types**:
+   - Use `Partial<Type>` for optional update operations
+   - Define specific input types for partial updates
+   - Document which fields are required vs. optional
 
-2. **Maintainability**:
-   - Use descriptive test names
-   - Organize tests logically
-   - Extract common test setup into helper functions
-   - Keep tests independent of each other
+   ```typescript
+   export interface UpdateNoteParams {
+     id: string; // Required
+     title?: string; // Optional update fields
+     content?: string;
+     collaborators?: string[];
+   }
+   
+   // Or using utility types
+   export type UpdateNoteParams = {
+     id: string; // Required
+   } & Partial<Pick<Note, 'title' | 'content' | 'collaborators'>>;
+   ```
 
-3. **Performance**:
-   - Keep unit tests fast
-   - Run slow tests (integration, e2e) in CI only
-   - Use mocks for external services
+## Type Utilities
 
-These testing standards ensure code quality, prevent regressions, and provide confidence when refactoring or adding new features to the ResearchHub application.
+1. **Pick and Omit**:
+   - Use `Pick` to create a type with a subset of properties
+   - Use `Omit` to create a type without specific properties
+   - Combine utility types for complex type transformations
+
+   ```typescript
+   // Creating a type with only specific properties
+   type NotePreview = Pick<Note, 'id' | 'title' | 'excerpt' | 'updatedAt'>;
+   
+   // Creating a type without specific properties
+   type NoteForCreation = Omit<Note, 'id' | 'createdAt' | 'updatedAt'>;
+   ```
+
+2. **Type Guards**:
+   - Implement type guards to narrow types
+   - Use descriptive function names for type guards
+   - Return type predicates for better type inference
+
+   ```typescript
+   // Type guard for Content union type
+   export function isPaper(content: Content): content is Paper {
+     return content.type === 'paper';
+   }
+   
+   // Usage example
+   if (isPaper(content)) {
+     // Content is now narrowed to Paper type
+     console.log(content.doi); // TypeScript knows this property exists
+   }
+   ```
+
+## Documentation
+
+1. **JSDoc Comments**:
+   - Document complex types with JSDoc comments
+   - Include descriptions for non-obvious properties
+   - Add examples for complex or unusual types
+
+   ```typescript
+   /**
+    * Represents a feed entry in the application
+    * @property id - Unique identifier for the entry
+    * @property content - The content object (Paper, Post, etc.)
+    * @property contentType - The type of content
+    * @property actions - List of actions performed on this content
+    */
+   export interface FeedEntry {
+     id: string;
+     content: Content;
+     contentType: ContentType;
+     actions: FeedAction[];
+     // Other properties
+   }
+   ```
+
+2. **Inline Comments**:
+   - Add inline comments for complex type expressions
+   - Document the purpose of utility type transformations
+   - Explain non-obvious type constraints
+
+   ```typescript
+   // Maps API response fields to client model fields
+   type UserModelMapping = {
+     [K in keyof UserApiResponse as CamelCase<K>]: UserApiResponse[K];
+   };
+   
+   // Creates a discriminated union based on content type
+   type ContentByType = {
+     [K in ContentType]: { type: K } & ContentTypeMapping[K];
+   }[ContentType];
+   ```
+
+## Type Safety
+
+1. **Strict Type Checking**:
+   - Enable strict mode in TypeScript configuration
+   - Avoid use of `any` type
+   - Use `unknown` instead of `any` for values of uncertain type
+
+   ```typescript
+   // Avoid this
+   function processData(data: any): any {
+     return data.value;
+   }
+   
+   // Prefer this
+   function processData(data: unknown): number {
+     if (typeof data === 'object' && data !== null && 'value' in data) {
+       return typeof data.value === 'number' ? data.value : 0;
+     }
+     return 0;
+   }
+   ```
+
+2. **Nullability**:
+   - Use optional properties (`?`) instead of union with `null`
+   - Handle null and undefined values consistently
+   - Use non-null assertion (`!`) sparingly and only when certain
+
+   ```typescript
+   // Prefer optional properties
+   interface User {
+     id: string;
+     name: string;
+     bio?: string; // Better than bio: string | null
+   }
+   
+   // Handle nullability carefully
+   function getUserName(user?: User): string {
+     return user?.name ?? 'Unknown User';
+   }
+   ```
+
+These patterns ensure consistent, maintainable, and type-safe code throughout the ResearchHub application.
 
 ---
 > Source: [ResearchHub/web](https://github.com/ResearchHub/web) — distributed by [TomeVault](https://tomevault.io).
