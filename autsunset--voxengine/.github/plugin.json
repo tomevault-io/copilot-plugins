@@ -1,0 +1,9 @@
+{
+  "name": "autsunset--voxengine",
+  "displayName": "VoxEngine",
+  "description": "Android \u7cfb\u7edf\u7ea7 TTS \u8bed\u97f3\u5408\u6210\u5f15\u64ce\uff0c\u652f\u6301\u5c0f\u7c73mimotts\u591a\u5f15\u64ce\u5207\u6362\u3001\u97f3\u8272\u514b\u9686\u4e0e\u8bbe\u8ba1\u3002\u6ce8\u518c\u4e3a\u7cfb\u7edf TTS \u670d\u52a1\u540e\uff0c\u4efb\u610f\u652f\u6301\u7cfb\u7edf\u8bed\u97f3\u5408\u6210\u7684\u5e94\u7528\u5747\u53ef\u76f4\u63a5\u8c03\u7528\u3002",
+  "version": "1.0.0",
+  "author": "Autsunset",
+  "homepage": "https://github.com/Autsunset/VoxEngine",
+  "skills": []
+}
