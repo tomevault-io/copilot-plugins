@@ -4,7 +4,7 @@
   "repo": "lsp-fuzz",
   "description": "A grey-box hybrid fuzzer that generates test cases for language servers",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/henryhchchc/lsp-fuzz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T14:55:58Z"
+  "distributed_at": "2026-06-04T14:59:09Z"
 }
