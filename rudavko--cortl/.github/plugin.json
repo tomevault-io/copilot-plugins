@@ -1,0 +1,9 @@
+{
+  "name": "rudavko--cortl",
+  "displayName": "cortl",
+  "description": "VMs for agents to drive and be inside of: macOS and Alpine. Super fast(sub 500 ms) warm boot an alpine VM to arbitrary workspace, and drive macOS guest VM",
+  "version": "1.0.0",
+  "author": "rudavko",
+  "homepage": "https://github.com/rudavko/cortl",
+  "skills": []
+}
