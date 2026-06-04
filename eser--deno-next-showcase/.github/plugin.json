@@ -1,0 +1,9 @@
+{
+  "name": "eser--deno-next-showcase",
+  "displayName": "deno-next-showcase",
+  "description": "a project is designed to demonstrate the brand-new features of Deno 2, Next 15 and React 19",
+  "version": "1.0.0",
+  "author": "eser",
+  "homepage": "https://github.com/eser/deno-next-showcase",
+  "skills": []
+}
