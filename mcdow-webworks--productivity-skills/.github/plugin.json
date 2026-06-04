@@ -1,0 +1,14 @@
+{
+  "name": "mcdow-webworks--productivity-skills",
+  "displayName": "productivity-skills",
+  "description": "Transform Claude into your AI-powered productivity partner. Note-taking skill creates an AI-navigable second brain    with conversational capture, intelligent search, and pattern recognition across al",
+  "version": "1.0.0",
+  "author": "mcdow-webworks",
+  "homepage": "https://github.com/mcdow-webworks/productivity-skills",
+  "skills": [
+    {
+      "name": "note-taking",
+      "description": ""
+    }
+  ]
+}
