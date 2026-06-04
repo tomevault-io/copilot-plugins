@@ -1,0 +1,9 @@
+{
+  "name": "bunkerity--bunkerweb-helm",
+  "displayName": "bunkerweb-helm",
+  "description": "BunkerWeb Kubernetes helm charts.",
+  "version": "1.0.0",
+  "author": "bunkerity",
+  "homepage": "https://github.com/bunkerity/bunkerweb-helm",
+  "skills": []
+}
