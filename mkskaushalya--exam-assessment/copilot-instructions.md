@@ -42,5 +42,5 @@ A full-stack monorepo for an exam assessment platform.
 - `pnpm build`: Build all workspace packages
 
 ---
-> Source: [mkskaushalya/exam-assessment](https://github.com/mkskaushalya/exam-assessment) — distributed by [TomeVault](https://tomevault.io/claim/mkskaushalya).
-<!-- tomevault:4.0:copilot_instructions:2026-04-18 -->
+> Source: [mkskaushalya/exam-assessment](https://github.com/mkskaushalya/exam-assessment) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
