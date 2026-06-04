@@ -1,120 +1,90 @@
-## cci-python-tasks
+## cci-task-definitions
 
-> CumulusCI Python task authoring conventions — base classes, options, _run_task patterns, registration
+> CumulusCI task and flow definition conventions — naming, groups, feature flags, flow/task authoring, YAML anchors
 
 
-# CCI Python Task Authoring Rules
+# CCI Task/Flow Definition Rules
+
+## After Editing
+
+Regenerate the CCI skill reference files:
+
+```bash
+python scripts/ai/generate_cci_reference.py
+```
 
 ## DO NOT
 
-- Pass `access_token` to `sf` CLI commands — use `org_config.username`
-- Log access tokens or session IDs
-- Use `org_config.name` (CCI alias) as `--target-org` — use `.username`
-- Write SOQL in loops (batch-query before processing)
+- Skip `group:` on tasks or flows
+- List excluded objects in task descriptions
+- Use `$$` syntax in `when:` conditions (use `project_config.project__custom__<flag>`)
+- Add steps to `prepare_rlm_org` before their dependencies are deployed
 
-## Base Class Selection
+## Task Naming
 
-| Need | Base Class | Import |
-|------|-----------|--------|
-| Local task (no org) | `BaseTask` | `cumulusci.core.tasks` |
-| REST/Connect/Tooling API | `BaseTask` | `cumulusci.core.tasks` |
-| Calls `sf` CLI | `SFDXBaseTask` | `cumulusci.tasks.sfdx` |
-| Robot Framework wrapper | `BaseTask` | `cumulusci.core.tasks` |
+| Pattern | Purpose |
+|---------|---------|
+| `insert_qb_{plan}_data` | Load a data plan |
+| `delete_qb_{plan}_data` | Delete plan data |
+| `extract_qb_{plan}_data` | Extract from org |
+| `test_qb_{plan}_idempotency` | Idempotency test |
+| `activate_{thing}` | Apex activation script |
+| `deploy_*` | Deploy metadata bundles |
+| `refresh_dt_*` | Refresh decision tables |
+| `manage_*` | Comprehensive management tasks |
 
-**Prefer `BaseTask`** for new tasks — simpler than `SFDXBaseTask` and gives
-access to `self.org_config.access_token` / `self.org_config.instance_url`
-without keychain boilerplate.
-
-## Import Guard
-
-Always wrap CCI imports so the module can be imported without CCI:
-
-```python
-try:
-    from cumulusci.core.tasks import BaseTask
-    from cumulusci.core.exceptions import TaskOptionsError, CommandException
-except ImportError:
-    BaseTask = object
-    TaskOptionsError = Exception
-    CommandException = Exception
-```
-
-## Option Definition
-
-Use the `task_options` class dict:
-
-```python
-class MyTask(BaseTask):
-    task_options = {
-        "operation": {
-            "description": "What to do",
-            "required": True,
-        },
-        "dry_run": {
-            "description": "Preview without changes",
-            "required": False,
-        },
-    }
-```
-
-Access via `self.options.get("key", default)`.
-
-## `_run_task()` Pattern
-
-All logic goes in `_run_task()`. For REST API tasks:
-
-```python
-def _run_task(self):
-    headers = {
-        "Authorization": f"Bearer {self.org_config.access_token}",
-        "Content-Type": "application/json",
-    }
-    url = f"{self.org_config.instance_url}/services/data/v66.0/query/"
-    resp = requests.get(url, headers=headers, params={"q": soql})
-    resp.raise_for_status()
-```
-
-## Feature Flag Access
-
-```python
-billing = self.project_config.project__custom__billing
-tso = self.project_config.project__custom__tso
-```
-
-## Org Identity — CLI vs REST
-
-- **`sf` CLI calls** (`sf data query`, `sf apex run`, `sf org open`):
-  use `self.org_config.username` as `--target-org`. Never pass `access_token`
-  to CLI commands (fails auth, leaks secrets).
-- **REST API calls** (`requests.get/post/patch`): use
-  `self.org_config.access_token` + `self.org_config.instance_url`.
-- **`self.org_config.name`** returns the CCI alias (e.g. `beta`), NOT
-  the SF CLI alias (`rlm-base__beta`). Use only for logging.
-
-## Coding Standards
-
-- **No SOQL in loops** — batch-query before processing
-- **Bulk DML** — never single-record DML in a loop
-- **Logging** — `self.logger.info()`, `.warning()`, `.error()`
-- **Errors** — `TaskOptionsError` for config, `CommandException` for runtime
-- **Non-fatal tasks** — catch + `self.logger.warning()` (see `StampGitCommit`)
-- **API version** — use `v66.0` (Spring '26) in REST URLs
-
-## Registration in cumulusci.yml
+## Required Fields
 
 ```yaml
 tasks:
-  my_task:
-    group: Revenue Lifecycle Management
+  my_task_name:
+    group: Data Maintenance    # Required — groups tasks in cci task list
     description: >
-      Specific description of affected objects/APIs.
-    class_path: tasks.my_module.MyTaskClass
+      Specific description of what objects/SObjects are affected.
+    class_path: tasks.rlm_sfdmu.LoadSFDMUData
     options:
-      operation: list
+      pathtoexportjson: datasets/sfdmu/qb/en-US/qb-pricing
 ```
 
-For detailed patterns and the full module index, read
-`.cursor/skills/cci-orchestration/custom-task-authoring.md`.
+## Task Groups
+
+| Group | Purpose |
+|-------|---------|
+| `Revenue Lifecycle Management` | Core RLM tasks |
+| `Data Maintenance` | Delete/reset data plans |
+| `Data Management - Extract` | Extract data from org to CSV |
+| `Data Management - Idempotency` | Idempotency tests |
+| `UX Personalization` | Flexipage/layout/profile assembly |
+| `E2E Testing` | Robot Framework UI tests |
+| `Partner Relationship Management` | PRM-specific tasks |
+
+## Feature Flags
+
+- Defined under `project.custom` — boolean flags
+- `when: project_config.project__custom__billing`
+- Compound: `when: project_config.project__custom__dro and project_config.project__custom__qb`
+- Negation: `when: not project_config.project__custom__refresh`
+- Scratch org: `when: org_config.scratch and not project_config.project__custom__tso`
+
+## Flow Steps
+
+Steps are integer keys. Flows can call other flows or tasks:
+
+```yaml
+flows:
+  my_flow:
+    group: Revenue Lifecycle Management
+    description: What this flow does.
+    steps:
+      1:
+        flow: prepare_core
+      2:
+        task: deploy_full
+        when: project_config.project__custom__billing
+```
+
+For detailed YAML anchor patterns, `prepare_rlm_org` step ordering, and
+`org_config.scratch` usage, see `.cursor/skills/cci-orchestration/SKILL.md`.
 
 ---
 > Source: [bgaldino/rlm-base-dev](https://github.com/bgaldino/rlm-base-dev) — distributed by [TomeVault](https://tomevault.io).
