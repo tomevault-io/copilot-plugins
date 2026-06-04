@@ -1,0 +1,9 @@
+{
+  "name": "popschlock--claude-harness-generator",
+  "displayName": "Claude-Harness-Generator",
+  "description": "Generate a production-ready, best-practice Claude Code harness tailored to your use case in minutes -- at any skill level. Or validate, update, and improve a harness you already have.",
+  "version": "1.0.0",
+  "author": "Popschlock",
+  "homepage": "https://github.com/Popschlock/Claude-Harness-Generator",
+  "skills": []
+}
