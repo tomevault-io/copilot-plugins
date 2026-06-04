@@ -1,0 +1,9 @@
+{
+  "name": "heysamtexas--django-oauth2-capture",
+  "displayName": "django-oauth2-capture",
+  "description": "A Django app to capture OAuth2 tokens for non-authentication purposes, enabling your application to act on behalf of users across external platforms like GitHub, LinkedIn, and X (Twitter)",
+  "version": "1.0.0",
+  "author": "heysamtexas",
+  "homepage": "https://github.com/heysamtexas/django-oauth2-capture",
+  "skills": []
+}
