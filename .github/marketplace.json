@@ -41279,6 +41279,11 @@
       "description": "A URL Shortener built on Cloudflare Developer Platform"
     },
     {
+      "name": "rvosy--sakura",
+      "source": "./rvosy--sakura",
+      "description": "\u4e00\u4e2a\u901a\u7528\u684c\u5ba0 Agent \u6846\u67b6\uff0c\u80fd\u5bfc\u5165\u81ea\u5b9a\u4e49\u89d2\u8272\u5305\uff0c\u5e76\u8ba9\u89d2\u8272\u611f\u77e5\u5c4f\u5e55\u5185\u5bb9\u4e0e\u7cfb\u7edf\u4e8b\u4ef6\uff0c\u6839\u636e\u7528\u6237\u5f53\u524d\u573a\u666f\u4e3b\u52a8\u505a\u51fa\u81ea\u7136\u53cd\u5e94\u3002"
+    },
+    {
       "name": "productdevbook--sumak",
       "source": "./productdevbook--sumak",
       "description": "Type-safe SQL query builder. Zero dependencies, AST-first, hookable, tree-shakeable. Pure TypeScript."
@@ -56972,6 +56977,11 @@
       "name": "query-farm--lindel",
       "source": "./query-farm--lindel",
       "description": "DuckDB Extension Linearization/Delinearization, Z-Order, Hilbert and Morton Curves"
+    },
+    {
+      "name": "nexu-io--html-video",
+      "source": "./nexu-io--html-video",
+      "description": "HTML\u2192Video meta-layer for coding agents"
     },
     {
       "name": "marciogranzotto--clawd-tank",
@@ -96524,6 +96534,16 @@
       "description": "One-way sync of transactions from Akahu to either YNAB or Actual Budget."
     },
     {
+      "name": "seanchatmangpt--dslmodel",
+      "source": "./seanchatmangpt--dslmodel",
+      "description": "Structured outputs from DSPy and Jinja2"
+    },
+    {
+      "name": "seanchatmangpt--dslmodel",
+      "source": "./seanchatmangpt--dslmodel",
+      "description": "Structured outputs from DSPy and Jinja2"
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -111799,6 +111819,16 @@
       "description": "docs-builder"
     },
     {
+      "name": "rudavko--cortl",
+      "source": "./rudavko--cortl",
+      "description": "VMs for agents to drive and be inside of: macOS and Alpine. Super fast(sub 500 ms) warm boot an alpine VM to arbitrary workspace, and drive macOS guest VM"
+    },
+    {
+      "name": "rudavko--cortl",
+      "source": "./rudavko--cortl",
+      "description": "VMs for agents to drive and be inside of: macOS and Alpine. Super fast(sub 500 ms) warm boot an alpine VM to arbitrary workspace, and drive macOS guest VM"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -117237,6 +117267,11 @@
       "name": "cardano-hydrozoa--hydrozoa",
       "source": "./cardano-hydrozoa--hydrozoa",
       "description": "Hydrozoa: Lightweight multi-party state channels for Cardano"
+    },
+    {
+      "name": "psylsph--home-energy-manager",
+      "source": "./psylsph--home-energy-manager",
+      "description": "Desktop app for monitoring and controlling GivEnergy solar inverters over your local network \u2014 no cloud account needed"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -151839,6 +151874,11 @@
       "description": "terraform-proxmox-talos-k8s-cluster"
     },
     {
+      "name": "qian-gugugaga--character-skill-producer",
+      "source": "./qian-gugugaga--character-skill-producer",
+      "description": "Character Skill Producer \u2014 distill anime characters into executable agent skills"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -159837,6 +159877,21 @@
       "name": "pflareproject--pflare",
       "source": "./pflareproject--pflare",
       "description": "Parallel iterative methods for asymmetric linear systems "
+    },
+    {
+      "name": "tririver--arc",
+      "source": "./tririver--arc",
+      "description": "Advanced Research Compass (ARC) is a set of skills and tools (MCP) for theoretical physics literature review, idea generation and performing calculations."
+    },
+    {
+      "name": "robzilla1738--codex-workflows",
+      "source": "./robzilla1738--codex-workflows",
+      "description": "Claude-style workflow-as-code runtime for Codex"
+    },
+    {
+      "name": "robzilla1738--codex-workflows",
+      "source": "./robzilla1738--codex-workflows",
+      "description": "Claude-style workflow-as-code runtime for Codex"
     },
     {
       "name": "yschimke--compose-ai-tools",
