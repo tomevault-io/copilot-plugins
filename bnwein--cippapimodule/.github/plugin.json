@@ -1,0 +1,9 @@
+{
+  "name": "bnwein--cippapimodule",
+  "displayName": "CIPPAPIModule",
+  "description": "A PowerShell Module for the CIPP API",
+  "version": "1.0.0",
+  "author": "BNWEIN",
+  "homepage": "https://github.com/BNWEIN/CIPPAPIModule",
+  "skills": []
+}
