@@ -85184,6 +85184,16 @@
       "description": "Modern webview inspired by webview_deno"
     },
     {
+      "name": "pjq--sap-ai-core-llm-proxy",
+      "source": "./pjq--sap-ai-core-llm-proxy",
+      "description": "SAP AI Core Open AI Compatible LLM Proxy(gpt-5, claude sonnet 4.6, claude opus 4.6, gemini-2.5-pro)"
+    },
+    {
+      "name": "pjq--sap-ai-core-llm-proxy",
+      "source": "./pjq--sap-ai-core-llm-proxy",
+      "description": "SAP AI Core Open AI Compatible LLM Proxy(gpt-5, claude sonnet 4.6, claude opus 4.6, gemini-2.5-pro)"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -86427,6 +86437,16 @@
       "name": "brgkdm--dayzen-good-first-issue",
       "source": "./brgkdm--dayzen-good-first-issue",
       "description": "A user-friendly dashboard for beginners and advanced students that allows them to input and visualize their daily routine."
+    },
+    {
+      "name": "ahonn--keygen-rs",
+      "source": "./ahonn--keygen-rs",
+      "description": "Unofficial Rust SDK for integrating with the keygen.sh licensing service. "
+    },
+    {
+      "name": "kristopherkubicki--glimpser",
+      "source": "./kristopherkubicki--glimpser",
+      "description": "a simple tool for real-time monitoring video and summarization with LLMs"
     },
     {
       "name": "skywind3000--gamesample",
@@ -94732,6 +94752,11 @@
       "name": "eser--deno-next-showcase",
       "source": "./eser--deno-next-showcase",
       "description": "a project is designed to demonstrate the brand-new features of Deno 2, Next 15 and React 19"
+    },
+    {
+      "name": "ever-co--ever-rec",
+      "source": "./ever-co--ever-rec",
+      "description": "Ever\u00ae Rec\u2122 - Open Screen Capture, Screen Recording, Images & Video Sharing Platform - https://rec.so"
     },
     {
       "name": "khangbdd--phoenix",
@@ -141399,6 +141424,36 @@
       "description": "MCJPG\u7ec4\u7ec7\u7f51\u7ad9\u4ed3\u5e93"
     },
     {
+      "name": "ctxr-dev--llm-wiki-memory",
+      "source": "./ctxr-dev--llm-wiki-memory",
+      "description": "Local, git-versioned memory for AI coding agents. No RAG, no Docker, no external service. Capture, compile, recall over a local LLM wiki with on-device embeddings and an MCP server."
+    },
+    {
+      "name": "ctxr-dev--llm-wiki-memory",
+      "source": "./ctxr-dev--llm-wiki-memory",
+      "description": "Local, git-versioned memory for AI coding agents. No RAG, no Docker, no external service. Capture, compile, recall over a local LLM wiki with on-device embeddings and an MCP server."
+    },
+    {
+      "name": "ctxr-dev--llm-wiki-memory",
+      "source": "./ctxr-dev--llm-wiki-memory",
+      "description": "Local, git-versioned memory for AI coding agents. No RAG, no Docker, no external service. Capture, compile, recall over a local LLM wiki with on-device embeddings and an MCP server."
+    },
+    {
+      "name": "roger-creus--xgenius",
+      "source": "./roger-creus--xgenius",
+      "description": "Autonomous research at scale with Claude and SLURM :rocket:"
+    },
+    {
+      "name": "ctxr-dev--llm-wiki-memory",
+      "source": "./ctxr-dev--llm-wiki-memory",
+      "description": "Local, git-versioned memory for AI coding agents. No RAG, no Docker, no external service. Capture, compile, recall over a local LLM wiki with on-device embeddings and an MCP server."
+    },
+    {
+      "name": "ctxr-dev--llm-wiki-memory",
+      "source": "./ctxr-dev--llm-wiki-memory",
+      "description": "Local, git-versioned memory for AI coding agents. No RAG, no Docker, no external service. Capture, compile, recall over a local LLM wiki with on-device embeddings and an MCP server."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -146902,6 +146957,16 @@
       "name": "opensphere-inc--src-link",
       "source": "./opensphere-inc--src-link",
       "description": "Transmit cleanfeed OBS to OBS, switching ton of video streams on your OBS without complicated setup."
+    },
+    {
+      "name": "pokt-network--path",
+      "source": "./pokt-network--path",
+      "description": "An open source framework that enables developers to sovereignly access Pocket Network."
+    },
+    {
+      "name": "grafana--tsqtsq",
+      "source": "./grafana--tsqtsq",
+      "description": "tsqtsq - A PromQL Query Library"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -161102,6 +161167,21 @@
       "name": "tosun-si--world-cup-qatar-elt-dbt",
       "source": "./tosun-si--world-cup-qatar-elt-dbt",
       "description": "This repo shows a real world use case with DBT, BigQuery and Google Cloud. The raw and input data are represented by the Qatar Fifa World Cup Players stats, some transformations are applied with the E"
+    },
+    {
+      "name": "apzmedia--comfyui-textools",
+      "source": "./apzmedia--comfyui-textools",
+      "description": "ComfyUI-APZmedia-textTools"
+    },
+    {
+      "name": "mathruffian-dot--gem-to-agent-kit",
+      "source": "./mathruffian-dot--gem-to-agent-kit",
+      "description": "\u8b93\u4efb\u4f55 AI agent \u5316\u8eab\u5347\u7d1a\u9867\u554f\uff0c\u628a Google Gemini \u7684 Gem \u5347\u7d1a\u6210 Agent \u5de5\u4f5c\u6d41\uff08\u4e3b\u6253 Antigravity\uff09"
+    },
+    {
+      "name": "bcallender--allaboard",
+      "source": "./bcallender--allaboard",
+      "description": "Code for the All Aboard! CS II mod! This mod forces transit vehicles to leave even if all passengers are not boarded"
     },
     {
       "name": "yschimke--compose-ai-tools",
