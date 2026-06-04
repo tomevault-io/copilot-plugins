@@ -1,0 +1,44 @@
+{
+  "name": "ble_speed",
+  "owner": "hackers365",
+  "repo": "ble_speed",
+  "description": "\u57fa\u4e8e1.8\u5bf8esp32s3\u5706\u5c4f \u901a\u8fc7ble\u8fde\u63a5obd2\u9002\u914d\u5668 \u663e\u793a \u65f6\u901f/\u8f6c\u6570/\u6c34\u6e29 \u7b49\u4fe1\u606f",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hackers365/ble_speed",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T06:32:37Z"
+}
