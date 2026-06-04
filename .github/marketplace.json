@@ -77569,6 +77569,11 @@
       "description": "Next js SaaS boilerplate with app router, stripe, prisma, lucia-auth"
     },
     {
+      "name": "razr001--align-dev",
+      "source": "./razr001--align-dev",
+      "description": "AlignDev helps AI-assisted frontend teams generate shared coding standards and SKILL.md so Claude Code, Cursor, Copilot, and other agents write consistently."
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -139584,6 +139589,16 @@
       "description": "\u5f71\u50cf\u8655\u7406\u76f8\u95dc"
     },
     {
+      "name": "ferdinandobons--awsbedrockagentcoreskill",
+      "source": "./ferdinandobons--awsbedrockagentcoreskill",
+      "description": "Authoritative, source-cited Claude Code plugin/skill that lets a coding agent autonomously build production-grade AI agents on AWS (Strands Agents, Amazon Bedrock, Bedrock AgentCore) with official bes"
+    },
+    {
+      "name": "nerochain--nero-docs",
+      "source": "./nerochain--nero-docs",
+      "description": "Nero-docs"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -150719,6 +150734,16 @@
       "description": "A 24-voice, multi-part synthesizer for the Raspberry Pi CM5. Touchscreen UI, audio and MIDI over USB, four sound engines, no samples."
     },
     {
+      "name": "popschlock--claude-harness-generator",
+      "source": "./popschlock--claude-harness-generator",
+      "description": "Generate a production-ready, best-practice Claude Code harness tailored to your use case in minutes -- at any skill level. Or validate, update, and improve a harness you already have."
+    },
+    {
+      "name": "felipeluissalgueiro--hive",
+      "source": "./felipeluissalgueiro--hive",
+      "description": "Run your company with AI agents. Open source harness for operating a full company with specialized Claude Code squads."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -158622,6 +158647,11 @@
       "name": "darkly-art--darkly",
       "source": "./darkly-art--darkly",
       "description": "Entropic Editor for Artists \ud83d\ude08"
+    },
+    {
+      "name": "whoamihappyhacking--just-talk-go",
+      "source": "./whoamihappyhacking--just-talk-go",
+      "description": "Just Talk \u662f\u4e00\u4e2a\u9762\u5411\u684c\u9762\u73af\u5883\u7684\u8bed\u97f3\u8f93\u5165\u5de5\u5177\u3002\u5b83\u901a\u8fc7\u5168\u5c40\u5feb\u6377\u952e\u5f55\u97f3\uff0c\u628a\u8bed\u97f3\u8bc6\u522b\u7ed3\u679c\u590d\u5236\u5230\u526a\u8d34\u677f\uff0c\u6216\u76f4\u63a5\u4e0a\u5c4f\u5230\u5f53\u524d\u8f93\u5165\u6846\uff0c\u9002\u5408\u5199\u4ee3\u7801\u3001\u804a\u5929\u3001\u8bb0\u7b14\u8bb0\u548c\u5904\u7406\u957f\u6587\u672c\u8f93\u5165\u3002"
     },
     {
       "name": "yschimke--compose-ai-tools",
