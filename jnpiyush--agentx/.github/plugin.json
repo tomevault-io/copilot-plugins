@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "jnPiyush",
   "homepage": "https://github.com/jnPiyush/AgentX",
-  "skills": [
-    {
-      "name": "ai-agent-development",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
