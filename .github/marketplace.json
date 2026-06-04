@@ -61169,6 +61169,16 @@
       "description": "qbtmud is a drop-in replacement for qBittorrent's default WebUI. It keeps qBittorrent's Web API semantics and core workflows, while adding a more polished application experience around setup, customiz"
     },
     {
+      "name": "vergewarlord--ai-rules-sync-906",
+      "source": "./vergewarlord--ai-rules-sync-906",
+      "description": "Keep one source of truth for your AI coding-agent rules. Convert and sync between AGENTS.md, CLAUDE.md, .cursorrules, Copilot, Windsurf, Cline, Aider & Gemini \u2014 or scaffold a fresh AGENTS.md. Zero dep"
+    },
+    {
+      "name": "sapphiretrudirect--speaker-125",
+      "source": "./sapphiretrudirect--speaker-125",
+      "description": "Speaker is a Codex skill project for academic presentations: read real.pptx, combine text extraction, PPTX structure parsing, page-by-page rendering, OCR, and visual review to generate page-by-page sp"
+    },
+    {
       "name": "rstackjs--agent-skills",
       "source": "./rstackjs--agent-skills",
       "description": "A collection of Agent Skills for Rstack."
@@ -128374,6 +128384,11 @@
       "description": "AI Music Video Generator automates music video creation using AI for lyrics, images, music, and video. It integrates OpenAI for lyrics, DALL-E for images, Suno for music, and FFmpeg for video processi"
     },
     {
+      "name": "fluthjs--fluth",
+      "source": "./fluthjs--fluth",
+      "description": "A javascript promise stream library"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -146789,6 +146804,11 @@
       "description": "A cross-platform smart account library"
     },
     {
+      "name": "dsebastien--obsidian-replicate",
+      "source": "./dsebastien--obsidian-replicate",
+      "description": "Integrate Replicate.com with Obsidian"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -160892,6 +160912,26 @@
       "name": "reclaimprotocol--docs",
       "source": "./reclaimprotocol--docs",
       "description": "Documentation for Reclaim Protocol"
+    },
+    {
+      "name": "saeedvaziry--freedraw",
+      "source": "./saeedvaziry--freedraw",
+      "description": "Free alternative to Lucidapp"
+    },
+    {
+      "name": "saeedvaziry--freedraw",
+      "source": "./saeedvaziry--freedraw",
+      "description": "Free alternative to Lucidapp"
+    },
+    {
+      "name": "jacob-bd--the-ai-counsel",
+      "source": "./jacob-bd--the-ai-counsel",
+      "description": "The AI Counsel \u2014 Collective AI Intelligence through multi-model deliberation and persona-driven debate"
+    },
+    {
+      "name": "jacob-bd--the-ai-counsel",
+      "source": "./jacob-bd--the-ai-counsel",
+      "description": "The AI Counsel \u2014 Collective AI Intelligence through multi-model deliberation and persona-driven debate"
     },
     {
       "name": "yschimke--compose-ai-tools",
