@@ -4,7 +4,7 @@
   "repo": "omniprobe",
   "description": "Simply log all kernel durations",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AMDResearch/omniprobe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T22:40:13Z"
+  "distributed_at": "2026-06-04T22:40:44Z"
 }
