@@ -1,198 +1,77 @@
-## adding-new-fixtures
+## cursor-rules-location
 
-> Comprehensive guide for adding new fixture types to the vlt benchmarks suite.
+> Cursor Rules Location
 
-# Adding New Fixtures to Benchmarks
+# Cursor Rules Location
 
-Comprehensive guide for adding new fixture types to the vlt benchmarks suite.
+Rules for placing and organizing Cursor rule files in the repository.
 
 <rule>
-name: adding_new_fixtures
-description: Complete checklist and procedures for adding new benchmark fixtures
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
 filters:
-  # Match fixture-related files and directories
-  - type: path
-    pattern: "^fixtures/"
-  - type: path
-    pattern: "scripts/(generate-chart\\.js|process-results\\.sh|benchmark\\.sh)"
-  - type: path
-    pattern: "app/src/(types|hooks|lib|components)/"
-  - type: path
-    pattern: "\\.github/workflows/"
-  # Match package.json files in fixtures
-  - type: path
-    pattern: "fixtures/.*/package\\.json$"
+  # Match any .mdc files
+  - type: file_extension
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
+  - type: content
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
+  - type: event
+    pattern: "file_create"
 
 actions:
+  - type: reject
+    conditions:
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+
   - type: suggest
     message: |
-      ## Adding a New Fixture Checklist
+      When creating Cursor rules:
 
-      When adding a new fixture (e.g., "my-fixture"), follow these steps:
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+         ```
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
+         ```
 
-      ### 1. Create Fixture Directory and Configuration
-      ```bash
-      mkdir -p fixtures/my-fixture
-      ```
-      
-      Create `fixtures/my-fixture/package.json` with:
-      - Appropriate dependencies for your test case
-      - Valid npm package.json structure
-      - Consider the fixture's purpose (small, large, specific framework, etc.)
+      2. Follow the naming convention:
+         - Use kebab-case for filenames
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
 
-      ### 2. Update Scripts (Data Processing)
-      
-      **File: `scripts/generate-chart.js`**
-      ```javascript
-      // Line ~54: Add fixture to the fixtures array
-      const fixtures = ["next", "astro", "svelte", "vue", "large", "my-fixture", "run"];
-      ```
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
+         ```
 
-      **File: `scripts/process-results.sh`**
-      ```bash
-      # Line ~55: Add fixture to the processing loop
-      for fixture in next astro svelte vue large my-fixture; do
-      ```
-
-      ### 3. Update TypeScript Types
-
-      **File: `app/src/types/chart-data.ts`**
-      ```typescript
-      // Line ~13: Add to Fixture type union
-      export type Fixture = "next" | "astro" | "svelte" | "vue" | "large" | "my-fixture" | "run";
-      ```
-
-      ### 4. Update React Application
-
-      **File: `app/src/hooks/use-package-count-data.ts`**
-      ```typescript
-      // Lines ~26-33: Add to fixtures array
-      const fixtures: Fixture[] = sortFixtures([
-        "next",
-        "astro", 
-        "svelte",
-        "vue",
-        "large",
-        "my-fixture",
-        "run",
-      ]);
-      ```
-
-      **File: `app/src/lib/utils.ts`**
-      ```typescript
-      // Line ~334: Add to sortFixtures preferredOrder
-      const preferredOrder: Fixture[] = ["next", "vue", "svelte", "astro", "large", "my-fixture", "run"];
-      ```
-
-      ### 5. Update GitHub Actions Workflow
-
-      **File: `.github/workflows/benchmark.yaml`**
-      ```yaml
-      # Line ~8: Update default fixtures list
-      default: '["next", "astro", "vue", "svelte", "large", "my-fixture"]'
-
-      # Line ~36: Update matrix fixture list  
-      fixture: ${{ fromJson(inputs.fixtures || '["next", "astro", "vue", "svelte", "large", "my-fixture"]') }}
-
-      # Lines ~102-108: Update JavaScript fixtures array
-      const fixtures = [
-        "next",
-        "astro", 
-        "vue",
-        "svelte",
-        "large",
-        "my-fixture", 
-        "run"
-      ];
-      ```
-
-      ### 6. Update Icon Support (Optional)
-
-      **File: `app/src/lib/get-icons.ts`**
-      ```typescript
-      // Import appropriate icon or use existing one
-      import { MyFixtureIcon } from "@/components/icons/index";
-
-      // Add to frameworkMap
-      const frameworkMap: Partial<Record<Fixture, LucideIcon>> = {
-        astro: Astro,
-        next: Next,
-        svelte: Svelte,
-        vue: Vue,
-        large: Package,
-        "my-fixture": MyFixtureIcon, // or reuse existing icon
-      };
-      ```
-
-      ### 7. Update Documentation
-
-      **File: `README.md`**
-      ```markdown
-      ### Project Types (fixtures)
-      - Next.js
-      - Astro
-      - Svelte
-      - Vue
-      - Large
-      - My Fixture (description of what this fixture tests)
-      ```
-
-      ### 8. Verification Steps
-
-      After making all changes:
-
-      1. **Lint Check**: Run linting on modified TypeScript files
-      2. **Directory Check**: Verify fixture directory exists with package.json
-      3. **Build Test**: Test that the app builds successfully
-      4. **Workflow Test**: Verify GitHub Actions workflow accepts the new fixture
-
-      ### 9. Fixture Design Considerations
-
-      When creating the fixture's `package.json`:
-      
-      - **Small fixtures**: 5-15 dependencies (testing basic scenarios)
-      - **Medium fixtures**: 20-50 dependencies (realistic projects)  
-      - **Large fixtures**: 50+ dependencies (stress testing)
-      - **Framework fixtures**: Use actual framework templates
-      - **Specific use cases**: Target particular scenarios (monorepo, TypeScript, etc.)
-
-      ### 10. Common Pitfalls
-
-      ⚠️ **Don't forget to update ALL locations**:
-      - Missing GitHub Actions updates will cause CI failures
-      - Missing TypeScript type updates will cause build errors
-      - Missing script updates will exclude fixture from processing
-      - Missing icon mapping will show no icon in UI
-
-      ⚠️ **Maintain consistent ordering**:
-      - Keep the same fixture order across all files
-      - Follow the established naming conventions
-      - Use kebab-case for fixture directory names
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
 
 examples:
   - input: |
-      # Example: Adding a "typescript" fixture
-      
-      1. Create fixtures/typescript/package.json
-      2. Update all 7+ files mentioned above
-      3. Use TypeScript icon or create new one
-      4. Update README with description
-      
-    output: "Complete fixture integration following all steps"
+      # Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
+
+      # Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+    output: "Correctly placed Cursor rule file"
 
 metadata:
   priority: high
   version: 1.0
-  last_updated: "2024-09-25"
-  related_files:
-    - "scripts/generate-chart.js"
-    - "scripts/process-results.sh" 
-    - "app/src/types/chart-data.ts"
-    - "app/src/hooks/use-package-count-data.ts"
-    - "app/src/lib/utils.ts"
-    - ".github/workflows/benchmark.yaml"
-    - "app/src/lib/get-icons.ts"
-    - "README.md"
 </rule>
 
 ---
