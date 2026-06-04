@@ -1,0 +1,9 @@
+{
+  "name": "ferdinandobons--awsbedrockagentcoreskill",
+  "displayName": "AWSBedrockAgentCoreSkill",
+  "description": "Authoritative, source-cited Claude Code plugin/skill that lets a coding agent autonomously build production-grade AI agents on AWS (Strands Agents, Amazon Bedrock, Bedrock AgentCore) with official bes",
+  "version": "1.0.0",
+  "author": "ferdinandobons",
+  "homepage": "https://github.com/ferdinandobons/AWSBedrockAgentCoreSkill",
+  "skills": []
+}
