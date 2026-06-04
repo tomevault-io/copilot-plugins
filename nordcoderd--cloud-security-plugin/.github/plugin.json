@@ -1,0 +1,9 @@
+{
+  "name": "nordcoderd--cloud-security-plugin",
+  "displayName": "cloud-security-plugin",
+  "description": "Cloud (IaC) Security plugin for JetBrains IDEs (e.g., IntelliJ IDEA, PyCharm)",
+  "version": "1.0.0",
+  "author": "NordCoderd",
+  "homepage": "https://github.com/NordCoderd/cloud-security-plugin",
+  "skills": []
+}
