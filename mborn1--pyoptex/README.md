@@ -7,13 +7,13 @@ Flexible and accessible design of experiments in Python. Provides industry with 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mborn1/pyoptex](https://github.com/mborn1/pyoptex).
+Original source: `.cursor/rules/*.mdc` in [mborn1/pyoptex](https://github.com/mborn1/pyoptex).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
