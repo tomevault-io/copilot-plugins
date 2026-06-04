@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--prettify-manga",
+  "displayName": "prettify-manga",
+  "description": "Chrome extension to enable double page reading for most fansub manga websites",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/prettify-manga",
+  "skills": []
+}
