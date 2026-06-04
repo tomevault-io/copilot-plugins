@@ -1,0 +1,9 @@
+{
+  "name": "suse--release-notes",
+  "displayName": "release-notes",
+  "description": "SUSE release notes",
+  "version": "1.0.0",
+  "author": "SUSE",
+  "homepage": "https://github.com/SUSE/release-notes",
+  "skills": []
+}
