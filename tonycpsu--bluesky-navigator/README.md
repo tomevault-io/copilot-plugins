@@ -7,11 +7,11 @@ Userscript for Bluesky that adds Vim-like navigation, read/unread post-tracking,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tonycpsu/bluesky-navigator](https://github.com/tonycpsu/bluesky-navigator).
+Original source: `CLAUDE.md` in [tonycpsu/bluesky-navigator](https://github.com/tonycpsu/bluesky-navigator).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
