@@ -1,0 +1,9 @@
+{
+  "name": "socketdev--socket-registry",
+  "displayName": "socket-registry",
+  "description": "Optimized package overrides for Socket Optimize",
+  "version": "1.0.0",
+  "author": "SocketDev",
+  "homepage": "https://github.com/SocketDev/socket-registry",
+  "skills": []
+}
