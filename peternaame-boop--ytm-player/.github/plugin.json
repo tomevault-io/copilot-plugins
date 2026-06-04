@@ -1,0 +1,9 @@
+{
+  "name": "peternaame-boop--ytm-player",
+  "displayName": "ytm-player",
+  "description": "YouTube Music TUI client with vim keybindings, synced lyrics, and cross-platform media keys",
+  "version": "1.0.0",
+  "author": "peternaame-boop",
+  "homepage": "https://github.com/peternaame-boop/ytm-player",
+  "skills": []
+}
