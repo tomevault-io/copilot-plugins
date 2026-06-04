@@ -1,204 +1,460 @@
-## solidity
+## typescript
 
-> - **Think first, code second**: Minimize the number of lines changed and consider ripple effects across the codebase.
+> When building generic functions, you may need to use any inside the function
 
-# Solidity Development Guidelines for Asset Tokenization Kit
 
-## General Principles
+# Any inside generic functions
 
-- **Think first, code second**: Minimize the number of lines changed and consider ripple effects across the codebase.
-- **Prefer simplicity**: Fewer moving parts → fewer bugs and lower audit overhead.
+When building generic functions, you may need to use any inside the function
+body.
 
-## Assembly Usage
+This is because TypeScript often cannot match your runtime logic to the logic
+done inside your types.
 
-| Rule | Rationale |
-|------|-----------|
-| Use assembly only when essential. | Keeps code readable and auditable. |
-| Assembly is mandatory for low-level external calls. | Gives full control over call parameters & return data, and saves gas. |
-| Precede every assembly block with: • A brief justification (1-2 lines). • Equivalent Solidity pseudocode. | Documents intent for reviewers. |
-| Mark assembly blocks memory-safe when the Solidity docs' criteria are met. | Enables compiler optimizations. |
+One example:
 
-## Gas Optimization
-
-- Keep a dedicated **Gas Optimization** section in the PR description; justify any measurable gas deltas.
-- Prefer `calldata` over `memory`.
-- Limit storage (`sstore`, `sload`) operations; cache in memory wherever possible.
-- Use forge snapshot and benchmarks:
-  ```bash
-  forge snapshot                # Create gas snapshot
-  forge test --gas-report       # Gas report for tests
-  forge test --match-test bench # Run benchmarks
-  ```
-- Large regressions must be explained.
-
-## Handling "Stack Too Deep"
-
-- **Struct hack (tests only)**: Bundle local variables into a temporary struct declared above the test.
-- **Scoped blocks**: Wrap code in `{ ... }` to drop unused vars from the stack.
-- **Internal helper functions**: Encapsulate logic to shorten call frames.
-- **Refactor / delete unnecessary variables before other tricks**.
-
-## Security Checklist
-
-- Review every change with an adversarial mindset.
-- Favor the simplest design that meets requirements.
-- After coding, ask: "What new attack surface did I introduce?"
-- Reject any change that raises security risk without strong justification.
-- Follow SMART protocol security patterns for ERC-3643 compliance.
-
-## Error Handling Style
-
-Always use custom errors with the revert pattern instead of require statements:
-
-```solidity
-// ❌ Don't use require with string messages
-require(amount > 0, "Amount must be positive");
-require(to != address(0), "Cannot transfer to zero address");
-
-// ✅ Do use custom errors with if/revert pattern
-error AmountMustBePositive();
-error CannotTransferToZeroAddress();
-
-if (amount == 0) revert AmountMustBePositive();
-if (to == address(0)) revert CannotTransferToZeroAddress();
+```ts
+const youSayGoodbyeISayHello = <TInput extends "hello" | "goodbye">(
+  input: TInput
+): TInput extends "hello" ? "goodbye" : "hello" => {
+  if (input === "goodbye") {
+    return "hello"; // Error!
+  } else {
+    return "goodbye"; // Error!
+  }
+};
 ```
 
-**Benefits of custom errors**:
-- More gas efficient than require strings
-- Better error identification in tests and debugging
-- Cleaner, more professional code
-- Consistent with modern Solidity best practices
+On the type level (and the runtime), this function returns `goodbye` when the
+input is `hello`.
 
-## Testing Guidelines
+There is no way to make this work concisely in TypeScript.
 
-### Core Testing Principles
+So using `any` is the most concise solution:
 
-**Every feature or change MUST have comprehensive tests before creating a PR**. This is non-negotiable for maintaining code quality and preventing regressions.
+```ts
+const youSayGoodbyeISayHello = <TInput extends "hello" | "goodbye">(
+  input: TInput
+): TInput extends "hello" ? "goodbye" : "hello" => {
+  if (input === "goodbye") {
+    return "hello" as any;
+  } else {
+    return "goodbye" as any;
+  }
+};
+```
 
-### When to Write Tests
+Outside of generic functions, use `any` extremely sparingly.
 
-- **New Features**: Write tests that demonstrate the complete flow and all edge cases
-- **Bug Fixes**: Add tests that reproduce the bug and verify the fix
-- **Refactoring**: Ensure existing tests still pass; add new ones if behavior changes
-- **Gas Optimizations**: Include benchmark tests showing before/after comparisons
+# Default exports
 
-### Types of Required Tests
+Unless explicitly required by the framework, do not use default exports.
 
-**Unit Tests**:
-- Write clear unit tests that demonstrate the general flow of your feature/change
-- Test both happy paths and failure cases
-- Include edge cases and boundary conditions
-- Test revert conditions with specific error messages
-
-**Fuzz Tests**:
-- **Fuzz tests are highly encouraged** for all new functionality
-- Use Foundry's built-in fuzzing capabilities
-- Apply random arguments to thoroughly test your implementation
-
-Example fuzz test pattern:
-```solidity
-function testFuzz_myFeature(uint256 amount, address user) public {
-    // Bound inputs to reasonable ranges
-    amount = bound(amount, 1, type(uint128).max);
-    vm.assume(user != address(0));
-    
-    // Test your feature with random inputs
-    myContract.myFeature(amount, user);
-    
-    // Assert expected outcomes
-    assertEq(myContract.balanceOf(user), amount);
+```ts
+// BAD
+export default function myFunction() {
+  return <div>Hello</div>;
 }
 ```
 
-### Testing Checklist Before PR
-
-Before opening any PR, ensure:
-- [ ] All new functions have unit tests
-- [ ] Critical paths have fuzz tests with random inputs
-- [ ] Edge cases and revert scenarios are tested
-- [ ] Gas benchmarks are included for optimizations
-- [ ] All tests pass: `forge test`
-- [ ] No test coverage regression: `forge coverage`
-
-## Verification Workflow
-
-```bash
-forge build                    # compile
-forge test                     # full test suite
-forge snapshot                 # gas snapshot
-forge test --match-test bench  # run benchmarks
-forge test --gas-report        # gas usage report
-forge coverage                 # code coverage
+```ts
+// GOOD
+export function myFunction() {
+  return <div>Hello</div>;
+}
 ```
 
-## Asset Tokenization Kit Specific Guidelines
+Default exports create confusion from the importing file.
 
-### Contract Structure
-- Follow the SMART protocol patterns for all asset implementations
-- Use the established factory pattern (`ATKBondFactory`, `ATKEquityFactory`, etc.)
-- Implement proper ERC-3643 compliance for all tokenized assets
-- Utilize the extension system (`SMARTBurnable`, `SMARTCapped`, etc.) for modularity
+```ts
+// BAD
+import myFunction from "./myFunction";
+```
 
-### Testing Assets
-When testing tokenized assets:
-- Test compliance features (identity registry, claim topics)
-- Test factory deployment patterns
-- Test proxy upgradeability
-- Test all extensions used by the asset
-- Include integration tests with the compliance system
+```ts
+// GOOD
+import { myFunction } from "./myFunction";
+```
 
-### Common Patterns
-- Use `AccessControl` for role-based permissions
-- Implement `Pausable` for emergency stops
-- Follow ERC-3643 for identity and compliance
-- Use proxy patterns for upgradeability
+There are certain situations where a framework may require a default export. For
+instance, Next.js requires a default export for pages.
 
-### Available Tools
+```tsx
+// This is fine, if required by the framework
+export default function MyPage() {
+  return <div>Hello</div>;
+}
+```
 
-The Asset Tokenization Kit includes:
-- Foundry for contract compilation and testing
-- OpenZeppelin contracts for base implementations
-- SMART protocol contracts for compliance
-- Hardhat for additional tooling support
+# Discriminated unions
 
-### Project Structure
+Proactively use discriminated unions to model data that can be in one of a few
+different shapes.
 
-- `contracts/`: Smart contract source files
-  - `assets/`: Asset factories and implementations
-  - `smart/`: SMART protocol base contracts and extensions
-  - `system/`: Compliance and registry contracts
-  - `test/`: Test contracts and utilities
-- `test/`: Foundry tests
-- `scripts/`: Deployment and utility scripts
+For example, when sending events between environments:
 
-## Critical Reminders
+```ts
+type UserCreatedEvent = {
+  type: "user.created";
+  data: { id: string; email: string };
+};
 
-### DO NOT
+type UserDeletedEvent = {
+  type: "user.deleted";
+  data: { id: string };
+};
 
-- Use require() statements - always use custom errors
-- Create contracts without comprehensive tests
-- Make gas-intensive changes without benchmarks
-- Skip security considerations for any change
-- Use inline strings for errors
+type Event = UserCreatedEvent | UserDeletedEvent;
+```
 
-### ALWAYS
+Use switch statements to handle the results of discriminated unions:
 
-- Follow SMART protocol patterns
-- Test all compliance features
-- Measure gas impact of changes
-- Consider upgradeability implications
-- Use established factory patterns
-- Document assembly blocks
-- Run full test suite before PR
+```ts
+const handleEvent = (event: Event) => {
+  switch (event.type) {
+    case "user.created":
+      console.log(event.data.email);
+      break;
+    case "user.deleted":
+      console.log(event.data.id);
+      break;
+  }
+};
+```
 
-## Continuous Learning
+Use discriminated unions to prevent the 'bag of optionals' problem.
 
-- Consult SMART protocol documentation
-- Review OpenZeppelin best practices
-- Study ERC-3643 compliance requirements
-- Learn from audited tokenization projects
+For example, when describing a fetching state:
 
-Apply these rules rigorously when working with Solidity files in the Asset Tokenization Kit.
+```ts
+// BAD - allows impossible states
+type FetchingState<TData> = {
+  status: "idle" | "loading" | "success" | "error";
+  data?: TData;
+  error?: Error;
+};
+
+// GOOD - prevents impossible states
+type FetchingState<TData> =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: TData }
+  | { status: "error"; error: Error };
+```
+
+# Enums
+
+Do not introduce new enums into the codebase. Retain existing enums.
+
+If you require enum-like behaviour, use an `as const` object:
+
+```ts
+const backendToFrontendEnum = {
+  xs: "EXTRA_SMALL",
+  sm: "SMALL",
+  md: "MEDIUM",
+} as const;
+
+type LowerCaseEnum = keyof typeof backendToFrontendEnum; // "xs" | "sm" | "md"
+
+type UpperCaseEnum = (typeof backendToFrontendEnum)[LowerCaseEnum]; // "EXTRA_SMALL" | "SMALL" | "MEDIUM"
+```
+
+Remember that numeric enums behave differently to string enums. Numeric enums
+produce a reverse mapping:
+
+```ts
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right,
+}
+
+const direction = Direction.Up; // 0
+const directionName = Direction[0]; // "Up"
+```
+
+This means that the enum `Direction` above will have eight keys instead of four.
+
+```ts
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right,
+}
+
+Object.keys(Direction).length; // 8
+```
+
+# Import type
+
+Use import type whenever you are importing a type.
+
+Prefer top-level `import type` over inline `import { type ... }`.
+
+```ts
+// BAD
+import { type User } from "./user";
+```
+
+```ts
+// GOOD
+import type { User } from "./user";
+```
+
+The reason for this is that in certain environments, the first version's import
+will not be erased. So you'll be left with:
+
+```ts
+// Before transpilation
+import { type User } from "./user";
+
+// After transpilation
+import "./user";
+```
+
+# Installing packages
+
+When installing libraries, do not rely on your own training data.
+
+Your training data has a cut-off date. You're probably not aware of all of the
+latest developments in the JavaScript and TypeScript world.
+
+This means that instead of picking a version manually (via updating the
+`package.json` file), you should use a script to install the latest version of a
+library.
+
+```bash
+bun add -D @typescript-eslint/eslint-plugin
+```
+
+This will ensure you're always using the latest version.
+
+Prefer to install packages, not in the root, but in the mono repo packages
+
+# Interface extends
+
+ALWAYS prefer interfaces when modelling inheritance.
+
+The `&` operator has terrible performance in TypeScript. Only use it where
+`interface extends` is not possible.
+
+```ts
+// BAD
+
+type A = {
+  a: string;
+};
+
+type B = {
+  b: string;
+};
+
+type C = A & B;
+```
+
+```ts
+// GOOD
+
+interface A {
+  a: string;
+}
+
+interface B {
+  b: string;
+}
+
+interface C extends A, B {
+  // Additional properties can be added here
+}
+```
+
+# Jsdoc
+
+Use JSDoc comments to annotate functions and types.
+
+Be concise in JSDoc comments, and only provide JSDoc comments if the function's
+behaviour is not self-evident for a novice developer.
+
+Use the JSDoc inline `@link` tag to link to other functions and types within the
+same file.
+
+```ts
+/**
+ * Subtracts two numbers
+ */
+const subtract = (a: number, b: number) => a - b;
+
+/**
+ * Does the opposite to {@link subtract}
+ */
+const add = (a: number, b: number) => a + b;
+```
+
+# Naming conventions
+
+- Use kebab-case for file names (e.g., `my-component.ts`)
+- Use camelCase for variables and function names (e.g., `myVariable`,
+  `myFunction()`)
+- Use UpperCamelCase (PascalCase) for classes, types, and interfaces (e.g.,
+  `MyClass`, `MyInterface`)
+- Use ALL_CAPS for constants and enum values (e.g., `MAX_COUNT`, `Color.RED`)
+- Inside generic types, functions or classes, prefix type parameters with `T`
+  (e.g., `TKey`, `TValue`)
+
+```ts
+type RecordOfArrays<TItem> = Record<string, TItem[]>;
+```
+
+# No unchecked access
+
+If the user has this rule enabled in their `tsconfig.json`, indexing into
+objects and arrays will behave differently from how you expect.
+
+```ts
+const obj: Record<string, string> = {};
+
+// With noUncheckedIndexedAccess, value will
+// be `string | undefined`
+// Without it, value will be `string`
+const value = obj.key;
+```
+
+```ts
+const arr: string[] = [];
+
+// With noUncheckedIndexedAccess, value will
+// be `string | undefined`
+// Without it, value will be `string`
+const value = arr[0];
+```
+
+# Optional properties
+
+Use optional properties extremely sparingly. Only use them when the property is
+truly optional, and consider whether bugs may be caused by a failure to pass the
+property.
+
+In the example below we always want to pass user ID to `AuthOptions`. This is
+because if we forget to pass it somewhere in the code base, it will cause our
+function to be not authenticated.
+
+```ts
+// BAD
+type AuthOptions = {
+  userId?: string;
+};
+
+const func = (options: AuthOptions) => {
+  const userId = options.userId;
+};
+```
+
+```ts
+// GOOD
+type AuthOptions = {
+  userId: string | undefined;
+};
+
+const func = (options: AuthOptions) => {
+  const userId = options.userId;
+};
+```
+
+# Readonly properties
+
+Use `readonly` properties for object types by default. This will prevent
+accidental mutation at runtime.
+
+Omit `readonly` only when the property is genuinely mutable.
+
+```ts
+// BAD
+type User = {
+  id: string;
+};
+
+const user: User = {
+  id: "1",
+};
+
+user.id = "2";
+```
+
+```ts
+// GOOD
+type User = {
+  readonly id: string;
+};
+
+const user: User = {
+  id: "1",
+};
+
+user.id = "2"; // Error
+```
+
+# Return types
+
+When declaring functions on the top-level of a module, declare their return
+types. This will help future AI assistants understand the function's purpose.
+
+```ts
+const myFunc = (): string => {
+  return "hello";
+};
+```
+
+One exception to this is components which return JSX. No need to declare the
+return type of a component, as it is always JSX.
+
+```tsx
+const MyComponent = () => {
+  return <div>Hello</div>;
+};
+```
+
+# Throwing
+
+Think carefully before implementing code that throws errors.
+
+If a thrown error produces a desirable outcome in the system, go for it. For
+instance, throwing a custom error inside a backend framework's request handler.
+
+However, for code that you would need a manual try catch for, consider using a
+result type instead:
+
+```ts
+type Result<T, E extends Error> =
+  | { ok: true; value: T }
+  | { ok: false; error: E };
+```
+
+For example, when parsing JSON:
+
+```ts
+const parseJson = (input: string): Result<unknown, Error> => {
+  try {
+    return { ok: true, value: JSON.parse(input) };
+  } catch (error) {
+    return { ok: false, error: error as Error };
+  }
+};
+```
+
+This way you can handle the error in the caller:
+
+```ts
+const result = parseJson('{"name": "John"}');
+
+if (result.ok) {
+  console.log(result.value);
+} else {
+  console.error(result.error);
+}
+```
 
 ---
 > Source: [settlemint/sdk](https://github.com/settlemint/sdk) — distributed by [TomeVault](https://tomevault.io).
