@@ -1,0 +1,9 @@
+{
+  "name": "fishballapp--acme",
+  "displayName": "acme",
+  "description": "A zero-dependency, minimalist ACME client in TypeScript that simplifies certificate generation with built-in defaults and no cryptographic complexity.",
+  "version": "1.0.0",
+  "author": "fishballapp",
+  "homepage": "https://github.com/fishballapp/acme",
+  "skills": []
+}
