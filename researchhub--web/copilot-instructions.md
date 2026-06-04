@@ -1,393 +1,322 @@
-## state-management-architecture
+## testing-standards
 
-> This document outlines the architectural patterns and best practices for state management in the ResearchHub codebase.
+> This document outlines the testing standards and best practices used in the ResearchHub codebase.
 
- # ResearchHub State Management Architecture
+ # ResearchHub Testing Standards
 
-This document outlines the architectural patterns and best practices for state management in the ResearchHub codebase.
+This document outlines the testing standards and best practices used in the ResearchHub codebase.
 
-## State Management Hierarchy
+## Testing Framework
 
-1. **Tiered State Strategy**:
-   - **Local Component State**: For UI-specific, ephemeral state
-   - **Custom Hooks**: For reusable, domain-specific state logic
-   - **Context Providers**: For shared, application-wide state
-   - **URL/Router State**: For navigation and shareable state
+ResearchHub uses the following testing stack:
 
-   ```typescript
-   // Local component state
-   const [isOpen, setIsOpen] = useState(false);
-   
-   // Custom hook for domain logic
-   const { data, isLoading, error } = useDocument(documentId);
-   
-   // Global context
-   const { notificationData, unreadCount } = useNotifications();
-   
-   // Router state
-   const { params } = useParams();
+1. **Jest** - For test running and assertions
+2. **React Testing Library** - For testing React components
+3. **MSW (Mock Service Worker)** - For mocking API requests
+4. **Cypress** - For end-to-end testing
+
+## Test Types
+
+1. **Unit Tests**:
+   - Test individual functions and components in isolation
+   - Mock all external dependencies
+   - Focus on testing the logic rather than implementation details
+
+2. **Integration Tests**:
+   - Test multiple components or functions working together
+   - Test interactions between components
+   - Test API calls with mocked responses using MSW
+
+3. **End-to-End Tests**:
+   - Test entire workflows from the user's perspective
+   - Use Cypress to interact with the application
+   - Focus on critical user paths
+
+## Test File Organization
+
+1. **File Naming**:
+   - Unit and integration tests: `ComponentName.test.tsx` or `functionName.test.ts`
+   - End-to-end tests: `feature-name.spec.ts`
+
+2. **File Location**:
+   - Co-locate unit and integration tests with the code they're testing
+   - Place end-to-end tests in a dedicated `cypress/integration` directory
+
+   ```
+   components/
+   ├── Button/
+   │   ├── Button.tsx
+   │   └── Button.test.tsx
+   utils/
+   ├── formatDate.ts
+   └── formatDate.test.ts
    ```
 
-## React Context
+## Unit Testing Standards
 
-1. **When to Use Context**:
-   - Use for state that needs to be accessed by multiple components across different parts of the component tree
-   - Appropriate for authentication, theme, notifications, and user preferences
-   - Not recommended for state that changes frequently (can cause re-renders)
-   - Avoid nesting too many contexts to prevent "wrapper hell"
+1. **Component Testing**:
+   - Focus on testing behavior, not implementation details
+   - Test user interactions (clicks, input changes, etc.)
+   - Test rendering logic and conditional rendering
+   - Test accessibility features
 
-   ```typescript
-   // Good use case for context: authentication state
-   const { status, data: session } = useSession();
-   const { showAuthModal } = useAuthModalContext();
-   
-   // Good use case for context: notifications
-   const { unreadCount } = useNotifications();
-   ```
+   ```tsx
+   import { render, screen, fireEvent } from '@testing-library/react';
+   import { Button } from './Button';
 
-2. **Context Structure**:
-   - Create a dedicated file for each context (`contexts/FeatureContext.tsx`)
-   - Define a clear interface for the context value
-   - Include both state and actions that modify that state
-   - Provide meaningful default values
+   describe('Button', () => {
+     it('renders with correct text', () => {
+       render(<Button>Click me</Button>);
+       expect(screen.getByRole('button', { name: /click me/i })).toBeInTheDocument();
+     });
 
-   ```typescript
-   interface FeatureContextType {
-     data: DataType[];
-     isLoading: boolean;
-     error: Error | null;
-     actions: {
-       fetchData: () => Promise<void>;
-       updateItem: (id: string, data: Partial<DataType>) => Promise<void>;
-       deleteItem: (id: string) => Promise<void>;
-     };
-   }
-   
-   const FeatureContext = createContext<FeatureContextType>({
-     data: [],
-     isLoading: false,
-     error: null,
-     actions: {
-       fetchData: async () => {},
-       updateItem: async () => {},
-       deleteItem: async () => {},
-     },
+     it('calls onClick when clicked', () => {
+       const handleClick = jest.fn();
+       render(<Button onClick={handleClick}>Click me</Button>);
+       fireEvent.click(screen.getByRole('button'));
+       expect(handleClick).toHaveBeenCalledTimes(1);
+     });
+
+     it('is disabled when disabled prop is true', () => {
+       render(<Button disabled>Click me</Button>);
+       expect(screen.getByRole('button')).toBeDisabled();
+     });
    });
    ```
 
-## Context Providers
+2. **Utility Function Testing**:
+   - Test all edge cases
+   - Test with a variety of inputs
+   - Test error handling
 
-1. **Provider Implementation**:
-   - Use the 'use client' directive for client-side contexts
-   - Implement useState or useReducer for state management
-   - Use useCallback for functions passed to children
-   - Handle loading and error states consistently
+   ```tsx
+   import { formatCurrency } from './formatCurrency';
 
-   ```typescript
-   'use client';
-   
-   export function FeatureProvider({ children }: { children: ReactNode }) {
-     const [data, setData] = useState<DataType[]>([]);
-     const [isLoading, setIsLoading] = useState(false);
-     const [error, setError] = useState<Error | null>(null);
-     
-     const fetchData = useCallback(async () => {
-       setIsLoading(true);
-       setError(null);
-       try {
-         const result = await FeatureService.getData();
-         setData(result);
-       } catch (err) {
-         setError(err instanceof Error ? err : new Error('Failed to fetch data'));
-       } finally {
-         setIsLoading(false);
-       }
-     }, []);
-     
-     // Additional action functions using useCallback
-     
-     const value = {
-       data,
-       isLoading,
-       error,
-       actions: {
-         fetchData,
-         // Other actions
-       },
-     };
-     
-     return (
-       <FeatureContext.Provider value={value}>
-         {children}
-       </FeatureContext.Provider>
-     );
-   }
-   ```
+   describe('formatCurrency', () => {
+     it('formats positive numbers correctly', () => {
+       expect(formatCurrency(1000)).toBe('$1,000.00');
+       expect(formatCurrency(1000.5)).toBe('$1,000.50');
+     });
 
-2. **Context Consumer Hooks**:
-   - Create a custom hook for accessing each context
-   - Include type checking and error handling
-   - Use descriptive names for hooks (`useFeatureContext`)
+     it('formats negative numbers correctly', () => {
+       expect(formatCurrency(-1000)).toBe('-$1,000.00');
+     });
 
-   ```typescript
-   export function useFeatureContext() {
-     const context = useContext(FeatureContext);
-     if (!context) {
-       throw new Error('useFeatureContext must be used within a FeatureProvider');
-     }
-     return context;
-   }
-   ```
+     it('handles zero correctly', () => {
+       expect(formatCurrency(0)).toBe('$0.00');
+     });
 
-## State Modeling
-
-1. **State Object Patterns**:
-   - Group related state in a single object
-   - Include loading, error, and data states for async operations
-   - Define clear interfaces for state objects
-
-   ```typescript
-   interface FeatureState {
-     data: DataType[];
-     isLoading: boolean;
-     error: Error | null;
-     page: number;
-     hasMore: boolean;
-   }
-   
-   const [state, setState] = useState<FeatureState>({
-     data: [],
-     isLoading: false,
-     error: null,
-     page: 1,
-     hasMore: true,
+     it('throws an error for non-numeric input', () => {
+       expect(() => formatCurrency('abc' as any)).toThrow();
+     });
    });
-   
-   // Update state immutably
-   setState((prev) => ({
-     ...prev,
-     data: [...prev.data, newItem],
-   }));
    ```
 
-2. **State Updates**:
-   - Use functional updates for state that depends on previous state
-   - Maintain immutability in all state updates
-   - Group related state updates where possible
+3. **Hook Testing**:
+   - Use `renderHook` from `@testing-library/react-hooks`
+   - Test initial values, updates, and edge cases
 
-   ```typescript
-   // Prefer this functional update pattern
-   setData((prevData) => [...prevData, newItem]);
-   
-   // For multiple related state updates
-   const handleSuccess = (result) => {
-     setData(result.data);
-     setHasMore(result.hasMore);
-     setPage(result.page);
-     setError(null);
-     setIsLoading(false);
-   };
+   ```tsx
+   import { renderHook, act } from '@testing-library/react-hooks';
+   import { useCounter } from './useCounter';
+
+   describe('useCounter', () => {
+     it('initializes with default value', () => {
+       const { result } = renderHook(() => useCounter());
+       expect(result.current.count).toBe(0);
+     });
+
+     it('initializes with provided value', () => {
+       const { result } = renderHook(() => useCounter(10));
+       expect(result.current.count).toBe(10);
+     });
+
+     it('increments the counter', () => {
+       const { result } = renderHook(() => useCounter());
+       act(() => {
+         result.current.increment();
+       });
+       expect(result.current.count).toBe(1);
+     });
+   });
    ```
 
-## Server State Integration
+## Integration Testing Standards
 
-1. **Data Fetching Pattern**:
-   - Separate service layer for API calls
-   - Custom hooks for specific data fetching operations
-   - Consistent loading, error, and data state management
+1. **Component Integration**:
+   - Test groups of components working together
+   - Test state changes and their effects on the UI
+   - Use context providers when necessary
 
-   ```typescript
-   export const useDocument = (documentId: string) => {
-     const [data, setData] = useState<Document | null>(null);
-     const [isLoading, setIsLoading] = useState(true);
-     const [error, setError] = useState<Error | null>(null);
-     
-     const fetchDocument = useCallback(async () => {
-       if (!documentId) return;
-       
-       setIsLoading(true);
-       setError(null);
-       try {
-         const result = await DocumentService.getDocument(documentId);
-         setData(result);
-       } catch (err) {
-         setError(err instanceof Error ? err : new Error('Failed to fetch document'));
-       } finally {
-         setIsLoading(false);
-       }
-     }, [documentId]);
-     
-     useEffect(() => {
-       fetchDocument();
-     }, [fetchDocument]);
-     
-     return { data, isLoading, error, refetch: fetchDocument };
-   };
+   ```tsx
+   import { render, screen, fireEvent } from '@testing-library/react';
+   import { TodoList } from './TodoList';
+   import { TodoProvider } from '@/contexts/TodoContext';
+
+   describe('TodoList', () => {
+     it('adds a new todo when form is submitted', () => {
+       render(
+         <TodoProvider>
+           <TodoList />
+         </TodoProvider>
+       );
+
+       // Fill in the form
+       fireEvent.change(screen.getByLabelText(/new todo/i), {
+         target: { value: 'Test todo' },
+       });
+
+       // Submit the form
+       fireEvent.click(screen.getByRole('button', { name: /add/i }));
+
+       // Check that the todo was added
+       expect(screen.getByText('Test todo')).toBeInTheDocument();
+     });
+   });
    ```
 
-2. **Pagination and Infinite Scrolling**:
-   - Maintain page number or cursor in state
-   - Track loading state for initial load vs. loading more
-   - Append to existing data instead of replacing
+2. **API Mocking**:
+   - Use MSW to mock API requests
+   - Test success and error scenarios
+   - Test loading states
 
-   ```typescript
-   const loadMore = async () => {
-     if (!hasMore || isLoading) return;
-     
-     setIsLoadingMore(true);
-     try {
-       const nextPage = page + 1;
-       const result = await Service.getData({ page: nextPage, ...otherParams });
-       setData((prev) => [...prev, ...result.items]);
-       setHasMore(result.hasMore);
-       setPage(nextPage);
-     } catch (error) {
-       console.error('Error loading more items:', error);
-     } finally {
-       setIsLoadingMore(false);
-     }
-   };
+   ```tsx
+   import { rest } from 'msw';
+   import { setupServer } from 'msw/node';
+   import { render, screen, waitFor } from '@testing-library/react';
+   import { UserProfile } from './UserProfile';
+
+   const server = setupServer(
+     rest.get('/api/user/:id', (req, res, ctx) => {
+       return res(
+         ctx.json({
+           id: '123',
+           name: 'John Doe',
+           email: 'john@example.com',
+         })
+       );
+     })
+   );
+
+   beforeAll(() => server.listen());
+   afterEach(() => server.resetHandlers());
+   afterAll(() => server.close());
+
+   describe('UserProfile', () => {
+     it('renders user data after loading', async () => {
+       render(<UserProfile userId="123" />);
+
+       // Initially shows loading state
+       expect(screen.getByText(/loading/i)).toBeInTheDocument();
+
+       // After loading, shows user data
+       await waitFor(() => {
+         expect(screen.getByText('John Doe')).toBeInTheDocument();
+         expect(screen.getByText('john@example.com')).toBeInTheDocument();
+       });
+     });
+
+     it('handles error state', async () => {
+       server.use(
+         rest.get('/api/user/:id', (req, res, ctx) => {
+           return res(ctx.status(500));
+         })
+       );
+
+       render(<UserProfile userId="123" />);
+
+       await waitFor(() => {
+         expect(screen.getByText(/error/i)).toBeInTheDocument();
+       });
+     });
+   });
    ```
 
-## Optimizing Context Performance
+## End-to-End Testing Standards
 
-1. **Context Splitting**:
-   - Split large contexts into smaller, more focused ones
-   - Separate frequently changing state from stable state
-   - Group related state and functions together
+1. **Test Coverage**:
+   - Test critical user flows
+   - Test authentication and authorization
+   - Test form submissions and validations
 
-   ```typescript
-   // Instead of one large context
-   const AppContext = createContext({/* too many properties */});
-   
-   // Split into focused contexts
-   const UserContext = createContext({/* user-related state */});
-   const PreferencesContext = createContext({/* user preferences */});
-   const NotificationsContext = createContext({/* notifications state */});
+   ```tsx
+   describe('Authentication', () => {
+     beforeEach(() => {
+       cy.visit('/login');
+     });
+
+     it('allows users to log in', () => {
+       cy.intercept('POST', '/api/login', {
+         body: {
+           token: 'fake-token',
+           user: { id: '123', name: 'Test User' },
+         },
+       }).as('loginRequest');
+
+       cy.get('input[name="email"]').type('user@example.com');
+       cy.get('input[name="password"]').type('password123');
+       cy.get('button[type="submit"]').click();
+
+       cy.wait('@loginRequest');
+       cy.url().should('include', '/dashboard');
+       cy.contains('Welcome, Test User');
+     });
+
+     it('shows error messages for invalid login', () => {
+       cy.intercept('POST', '/api/login', {
+         statusCode: 401,
+         body: { message: 'Invalid credentials' },
+       }).as('loginRequest');
+
+       cy.get('input[name="email"]').type('user@example.com');
+       cy.get('input[name="password"]').type('wrong-password');
+       cy.get('button[type="submit"]').click();
+
+       cy.wait('@loginRequest');
+       cy.contains('Invalid credentials');
+       cy.url().should('include', '/login');
+     });
+   });
    ```
 
-2. **Memoization**:
-   - Use React.memo for context provider components when absolutely needed
-   - Memoize context values with useMemo when absolutely needed
-   - Use useCallback for functions in context value when absolutely needed
+2. **Test Isolation**:
+   - Reset state between tests
+   - Use fixtures for test data
+   - Clean up after tests
 
-   ```typescript
-   export function FeatureProvider({ children }: { children: ReactNode }) {
-     // State declarations
-     
-     // Memoize expensive functions
-     const processData = useCallback((data) => {
-       // Process data
-     }, [dependencies]);
-     
-     // Memoize the context value
-     const value = useMemo(() => ({
-       data,
-       isLoading,
-       error,
-       processData,
-     }), [data, isLoading, error, processData]);
-     
-     return (
-       <FeatureContext.Provider value={value}>
-         {children}
-       </FeatureContext.Provider>
-     );
-   }
-   ```
+## Test Coverage Requirements
 
-## State Selectors
+1. **Coverage Targets**:
+   - Unit tests: 85% code coverage
+   - Integration tests: Critical user flows
+   - End-to-end tests: Core user journeys
 
-1. **Selector Patterns**:
-   - Create custom hooks that select specific pieces of context
-   - Avoid re-renders by consuming only needed context parts
-   - Use memoization for derived state when absolutely needed
+2. **Critical Areas**:
+   - Authentication and authorization
+   - Form validation and submission
+   - Data fetching and error handling
+   - Complex business logic
 
-   ```typescript
-   // Main context hook
-   export const useFeatureContext = () => useContext(FeatureContext);
-   
-   // Selector hooks
-   export const useFeatureData = () => {
-     const { data } = useFeatureContext();
-     return data;
-   };
-   
-   export const useFeatureStatus = () => {
-     const { isLoading, error } = useFeatureContext();
-     return { isLoading, error };
-   };
-   
-   export const useFeatureActions = () => {
-     const { actions } = useFeatureContext();
-     return actions;
-   };
-   ```
+## Testing Best Practices
 
-2. **Derived State**:
-   - Use useMemo for computed values based on state  when absolutely needed
-   - Keep computations close to where the state is used
-   - Memoize selectors that perform expensive calculations
+1. **General Best Practices**:
+   - Write tests before or alongside code (TDD where appropriate)
+   - Keep tests simple and focused
+   - Don't test implementation details
+   - Test behavior, not functions
 
-   ```typescript
-   const useFilteredItems = (filter) => {
-     const { data } = useFeatureContext();
-     
-     // Memoized derived state
-     const filteredItems = useMemo(() => {
-       return data.filter(item => item.category === filter);
-     }, [data, filter]);
-     
-     return filteredItems;
-   };
-   ```
+2. **Maintainability**:
+   - Use descriptive test names
+   - Organize tests logically
+   - Extract common test setup into helper functions
+   - Keep tests independent of each other
 
-## Local vs. Global State Guidelines
+3. **Performance**:
+   - Keep unit tests fast
+   - Run slow tests (integration, e2e) in CI only
+   - Use mocks for external services
 
-1. **When to Use Local State**:
-   - UI state (modal open/closed, tabs, accordions)
-   - Form input values during editing
-   - Temporary visual states (hover, focus)
-   - Component-specific loading and error states
-
-   ```typescript
-   // Good local state examples
-   const [isOpen, setIsOpen] = useState(false);
-   const [activeTab, setActiveTab] = useState('details');
-   const [formValues, setFormValues] = useState({ name: '', email: '' });
-   ```
-
-2. **When to Use Context (Global State)**:
-   - User authentication and profile
-   - Theme and preferences
-   - Notifications
-   - Shopping cart or multi-step wizards
-   - Feature flags and configuration
-
-   ```typescript
-   // Examples using context appropriately
-   const { user, status } = useAuthContext();
-   const { theme, toggleTheme } = useThemeContext();
-   const { notifications, markAsRead } = useNotifications();
-   ```
-
-3. **When to Use URL State**:
-   - Current view or page
-   - Filters and sorting options
-   - Search queries
-   - Detail item IDs
-   - Anything that should be shareable or bookmarkable
-
-   ```typescript
-   // URL state examples
-   const router = useRouter();
-   const { tab, sort, filter } = useSearchParams();
-   
-   // Update URL state
-   router.push(`/dashboard?tab=${newTab}&sort=${sort}`);
-   ```
-
-These patterns ensure consistent, maintainable, and performant state management throughout the ResearchHub application.
+These testing standards ensure code quality, prevent regressions, and provide confidence when refactoring or adding new features to the ResearchHub application.
 
 ---
 > Source: [ResearchHub/web](https://github.com/ResearchHub/web) — distributed by [TomeVault](https://tomevault.io).
