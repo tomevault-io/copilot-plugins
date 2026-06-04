@@ -1,0 +1,9 @@
+{
+  "name": "ahonn--keygen-rs",
+  "displayName": "keygen-rs",
+  "description": "Unofficial Rust SDK for integrating with the keygen.sh licensing service. ",
+  "version": "1.0.0",
+  "author": "ahonn",
+  "homepage": "https://github.com/ahonn/keygen-rs",
+  "skills": []
+}
