@@ -1,0 +1,9 @@
+{
+  "name": "matt1as--claude-abap-skills",
+  "displayName": "claude-abap-skills",
+  "description": "Skill library for Claude Code \u2014 opinionated rules and slash commands for modern ABAP (BTP ABAP Environment, S/4HANA 2023+ ABAP Cloud development model). Assumes the official SAP ABAP MCP Server provid",
+  "version": "1.0.0",
+  "author": "matt1as",
+  "homepage": "https://github.com/matt1as/claude-abap-skills",
+  "skills": []
+}
