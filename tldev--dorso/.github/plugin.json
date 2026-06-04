@@ -1,0 +1,9 @@
+{
+  "name": "tldev--dorso",
+  "displayName": "dorso",
+  "description": "A macOS app that blurs your screen when you slouch.",
+  "version": "1.0.0",
+  "author": "tldev",
+  "homepage": "https://github.com/tldev/dorso",
+  "skills": []
+}
