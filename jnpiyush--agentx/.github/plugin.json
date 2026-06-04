@@ -1,0 +1,14 @@
+{
+  "name": "jnpiyush--agentx",
+  "displayName": "AgentX",
+  "description": "AgentX - Digital Force for Software Delivery",
+  "version": "1.0.0",
+  "author": "jnPiyush",
+  "homepage": "https://github.com/jnPiyush/AgentX",
+  "skills": [
+    {
+      "name": "ai-agent-development",
+      "description": ""
+    }
+  ]
+}
