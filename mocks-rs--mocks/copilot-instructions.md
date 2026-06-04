@@ -1,525 +1,419 @@
-## development-workflow
+## mocks-architecture
 
-> Development commands and quality checks for mocks project
+> Architecture patterns specific to mocks CLI tool
 
 
-# Development Workflow for Mocks Project
+# Mocks Architecture Patterns
 
-This rule defines essential development commands, quality checks, and workflow patterns for the mocks CLI tool.
+This rule defines architecture-specific patterns for the mocks CLI tool, focusing on dynamic routing, shared state management, and storage abstraction.
 
-## Build and Run Commands
+## Dynamic Routing Implementation
 
-### Basic Build Operations
-```bash
-# Debug build (fast compilation, includes debug info)
-cargo build
+### JSON Structure to HTTP Endpoints
+The core feature of mocks is converting JSON file structure into REST API endpoints automatically.
 
-# Release build (optimized, smaller binary)
-cargo build --release
-
-# Check compilation without building binary
-cargo check
-
-# Build documentation
-cargo doc --open
-```
-
-### Running the Application
-```bash
-# Run with default settings
-cargo run -- run storage.json
-
-# Run with custom host and port
-cargo run -- run -H 127.0.0.1 -p 8080 storage.json
-
-# Run without file modifications (read-only mode)
-cargo run -- run --no-overwrite storage.json
-
-# Initialize new storage file
-cargo run -- init storage.json
-
-# Initialize empty storage file
-cargo run -- init --empty storage.json
-
-# View help information
-cargo run -- --help
-cargo run -- run --help
-cargo run -- init --help
-```
-
-### Environment Variables
-```bash
-# Disable colored output
-NO_COLOR=1 cargo run -- run storage.json
-
-# Enable debug file overwrite tracking
-MOCKS_DEBUG_OVERWRITTEN_FILE=1 cargo run -- run storage.json
-```
-
-## Testing Commands
-
-### Unit and Integration Tests
-```bash
-# Run all tests
-cargo test
-
-# Run tests with output
-cargo test -- --nocapture
-
-# Run specific test
-cargo test test_parse_socket_addr
-
-# Run tests in specific module
-cargo test storage::tests
-
-# Run tests with specific pattern
-cargo test "test_*_operation"
-
-# Run tests in parallel (default) or single-threaded
-cargo test -- --test-threads=1
-```
-
-### End-to-End Testing
-```bash
-# Run E2E tests with runn
-cd runn-e2e
-runn run runbooks/test.yml --verbose
-
-# Run specific E2E test
-runn run runbooks/test_post.yml
-
-# Run E2E tests with debug output
-RUST_LOG=debug runn run runbooks/test.yml
-```
-
-### Coverage Generation
-```bash
-# Install coverage tool (one-time setup)
-cargo install cargo-llvm-cov --locked
-
-# Generate coverage report (HTML)
-cargo llvm-cov --html
-
-# Generate coverage report (terminal output)
-cargo llvm-cov
-
-# Coverage for specific test
-cargo llvm-cov --test integration_tests
-
-# Coverage with specific output format
-cargo llvm-cov --lcov --output-path coverage.lcov
-```
-
-## Code Quality Commands
-
-### Formatting
-```bash
-# Format all code
-cargo fmt
-
-# Check if code is formatted without making changes
-cargo fmt -- --check
-
-# Format specific file
-cargo fmt src/main.rs
-
-# Format with specific config
-cargo fmt -- --config imports_granularity=Crate
-```
-
-### Linting with Clippy
-```bash
-# Run clippy with default settings
-cargo clippy
-
-# Run clippy with strict warnings (project standard)
-cargo clippy -- -D warnings
-
-# Run clippy on all targets
-cargo clippy --all-targets -- -D warnings
-
-# Run clippy with specific lint levels
-cargo clippy -- -W clippy::pedantic -D warnings
-
-# Fix clippy suggestions automatically (where possible)
-cargo clippy --fix
-```
-
-### MSRV (Minimum Supported Rust Version) Checks
-```bash
-# Install MSRV checker (one-time setup)
-cargo install cargo-msrv --locked
-
-# Find minimum supported Rust version
-cargo msrv find
-
-# Verify current MSRV (1.78.0 for this project)
-cargo msrv verify
-
-# List Rust versions for testing
-cargo msrv list
-```
-
-## Security and Dependency Management
-
-### Security Auditing
-```bash
-# Install cargo-audit (one-time setup)
-cargo install cargo-audit --locked
-
-# Run security audit
-cargo audit
-
-# Audit with JSON output
-cargo audit --json
-
-# Fix security vulnerabilities (where possible)
-cargo audit fix
-```
-
-### Dependency Management
-```bash
-# Update dependencies
-cargo update
-
-# Add new dependency
-cargo add serde_json
-
-# Add development dependency
-cargo add --dev tempfile
-
-# Remove dependency
-cargo remove unused_crate
-
-# Check for outdated dependencies
-cargo outdated
-```
-
-## Performance and Optimization
-
-### Benchmarking
-```bash
-# Run benchmarks (if any exist)
-cargo bench
-
-# Profile with perf (Linux)
-cargo build --release
-perf record --call-graph=dwarf target/release/mocks run storage.json
-perf report
-
-# Memory profiling with valgrind
-cargo build --release
-valgrind --tool=massif target/release/mocks run storage.json
-```
-
-### Binary Size Optimization
-```bash
-# Build with size optimization
-RUSTFLAGS="-C target-cpu=native" cargo build --release
-
-# Strip binary (reduce size)
-strip target/release/mocks
-
-# Check binary size
-ls -lh target/release/mocks
-
-# Analyze binary composition
-cargo bloat --release
-```
-
-## Development Environment Setup
-
-### Required Tools
-```bash
-# Install required tools for development
-cargo install cargo-llvm-cov --locked
-cargo install cargo-msrv --locked
-cargo install cargo-audit --locked
-cargo install cargo-outdated --locked
-cargo install cargo-bloat --locked
-
-# Install runn for E2E testing
-go install github.com/k1LoW/runn/cmd/runn@latest
-# or
-brew install k1LoW/tap/runn
-```
-
-### Git Hooks Setup
-```bash
-# Create pre-commit hook for quality checks
-cat > .git/hooks/pre-commit << 'EOF'
-#!/bin/bash
-set -e
-
-echo "Running pre-commit checks..."
-
-# Format check
-cargo fmt -- --check
-
-# Lint check
-cargo clippy -- -D warnings
-
-# Test check
-cargo test
-
-echo "All checks passed!"
-EOF
-
-chmod +x .git/hooks/pre-commit
-```
-
-## Continuous Integration Workflow
-
-### Local CI Simulation
-```bash
-# Run the same checks as CI locally
-#!/bin/bash
-set -e
-
-echo "=== Running CI checks locally ==="
-
-# 1. Format check
-echo "Checking code formatting..."
-cargo fmt -- --check
-
-# 2. Lint check
-echo "Running clippy..."
-cargo clippy -- -D warnings
-
-# 3. Test suite
-echo "Running test suite..."
-cargo test
-
-# 4. MSRV compatibility
-echo "Checking MSRV compatibility..."
-cargo msrv verify
-
-# 5. Security audit
-echo "Running security audit..."
-cargo audit
-
-# 6. Coverage check
-echo "Generating coverage report..."
-cargo llvm-cov --html
-
-echo "All CI checks passed! ✅"
-```
-
-### Release Workflow Commands
-```bash
-# Version bump (using cargo-release or manual)
-# Update version in Cargo.toml
-# Update CHANGELOG.md
-
-# Pre-release checks
-cargo fmt -- --check
-cargo clippy -- -D warnings
-cargo test
-cargo msrv verify
-cargo audit
-
-# Build release binary
-cargo build --release
-
-# Test release binary
-./target/release/mocks init test.json
-./target/release/mocks run test.json &
-# Test endpoints...
-pkill mocks
-
-# Create git tag
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-## Debugging Commands
-
-### Debug Build and Execution
-```bash
-# Build with debug symbols
-cargo build
-
-# Run with debug output
-RUST_LOG=debug cargo run -- run storage.json
-
-# Run with trace output
-RUST_LOG=trace cargo run -- run storage.json
-
-# Debug specific module
-RUST_LOG=mocks::storage=debug cargo run -- run storage.json
-```
-
-### Using Debugger
-```bash
-# Run with gdb
-cargo build
-gdb target/debug/mocks
-
-# Run with lldb (macOS)
-cargo build
-lldb target/debug/mocks
-```
-
-### Memory Debugging
-```bash
-# Run with AddressSanitizer (nightly Rust)
-RUSTFLAGS=-Zsanitizer=address cargo +nightly run -- run storage.json
-
-# Run with Valgrind (Linux)
-cargo build
-valgrind --leak-check=full target/debug/mocks run storage.json
-```
-
-## Documentation Generation
-
-### Project Documentation
-```bash
-# Generate and open documentation
-cargo doc --open
-
-# Generate documentation with private items
-cargo doc --document-private-items
-
-# Generate documentation for dependencies
-cargo doc --open --document-private-items --include-dep-docs
-```
-
-### Code Documentation Guidelines
 ```rust
-// Always document public APIs
-/// Starts the mock server with the given configuration
-///
-/// # Arguments
-/// * `socket_addr` - The socket address to bind the server to
-/// * `storage` - The storage instance containing mock data
-///
-/// # Returns
-/// * `Result<(), MocksError>` - Ok if server starts successfully
-///
-/// # Examples
-/// ```
-/// let addr = "127.0.0.1:3000".parse().unwrap();
-/// let storage = Storage::new("storage.json", true)?;
-/// Server::startup(addr, storage).await?;
-/// ```
-pub async fn startup(socket_addr: SocketAddr, storage: Storage) -> Result<(), MocksError> {
-    // Implementation
+// Convert JSON keys to resource paths
+fn convert_to_resource_paths(value: &Value) -> Vec<String> {
+    let mut paths = vec![];
+    
+    if let Value::Object(obj) = value {
+        for (key, _) in obj {
+            // Handle nested paths like "api/v1/users" -> "/api/v1/{resource}"
+            if let Some(last_slash) = key.rfind('/') {
+                let (prefix, _) = key.split_at(last_slash + 1);
+                paths.push(format!("/{prefix}{{resource}}"));
+            } else {
+                paths.push("/{resource}".to_string());
+            }
+        }
+    }
+    
+    // Sort by depth (deeper paths first)
+    paths.sort_by(|a, b| {
+        let a_count = a.matches('/').count();
+        let b_count = b.matches('/').count();
+        b_count.cmp(&a_count)
+    });
+    
+    paths
 }
 ```
 
-## Project Structure Commands
+### Router Creation with Dynamic Paths
+```rust
+fn create_router(state: SharedState, value: &Value) -> Router {
+    // Base routers for health check and CRUD operations
+    let hc_router = Router::new().route("/", get(hc));
+    let storage_router = Router::new()
+        .route("/", get(get_all).post(post).put(put_one).patch(patch_one))
+        .route("/{id}", get(get_one).put(put).patch(patch).delete(delete));
 
-### File Organization
-```bash
-# View project structure
-tree -I 'target|node_modules'
+    let mut router = Router::new().nest("/_hc", hc_router);
 
-# Find files by pattern
-find . -name "*.rs" -not -path "./target/*"
+    // Add dynamic resource paths
+    let resource_paths = convert_to_resource_paths(value);
+    for path in resource_paths {
+        router = router.nest(&path, storage_router.clone().with_state(state.clone()));
+    }
 
-# Check file sizes
-du -sh src/
-du -sh target/release/
-
-# Count lines of code
-find src/ -name "*.rs" -exec wc -l {} + | tail -1
+    router
+}
 ```
 
-### Code Analysis
-```bash
-# Analyze dependencies
-cargo tree
-
-# Find unused dependencies
-cargo machete
-
-# Check for duplicate dependencies
-cargo duplicate-finder
-
-# Analyze compile times
-cargo clean
-cargo build --timings
+### Resource Discovery Pattern
+```rust
+impl Storage {
+    /// Get all available resource names from storage data
+    pub fn resources(&self) -> Vec<String> {
+        if let Value::Object(obj) = &self.data {
+            obj.keys().cloned().collect()
+        } else {
+            vec![]
+        }
+    }
+    
+    /// Check if a resource exists in storage
+    pub fn has_resource(&self, resource: &str) -> bool {
+        if let Value::Object(obj) = &self.data {
+            obj.contains_key(resource)
+        } else {
+            false
+        }
+    }
+}
 ```
 
-## Quick Reference Commands
+## Shared State Management
 
-### Daily Development
-```bash
-# Standard development cycle
-cargo check           # Quick compilation check
-cargo test            # Run tests
-cargo clippy          # Lint check
-cargo fmt             # Format code
+### AppState Design Pattern
+```rust
+// Define shared application state
+pub struct AppState {
+    pub storage: Storage,
+}
 
-# Before committing
-cargo fmt -- --check
-cargo clippy -- -D warnings
-cargo test
+pub type SharedState = Arc<Mutex<AppState>>;
+
+impl AppState {
+    pub fn new(storage: Storage) -> SharedState {
+        Arc::new(Mutex::new(AppState { storage }))
+    }
+}
 ```
 
-### Release Preparation
-```bash
-# Full quality check
-cargo fmt -- --check
-cargo clippy -- -D warnings
-cargo test
-cargo msrv verify
-cargo audit
-cargo llvm-cov --html
-cargo build --release
+### Thread-Safe State Access
+```rust
+// Pattern for accessing shared state in handlers
+pub async fn get_all(
+    State(state): State<SharedState>,
+    Path(resource): Path<String>,
+) -> Result<Json<Value>, StatusCode> {
+    let state = state.lock().await;
+    match select_all(&state.storage.data, &resource) {
+        Ok(data) => Ok(Json(data)),
+        Err(_) => Err(StatusCode::NOT_FOUND),
+    }
+}
 ```
 
-### Troubleshooting
-```bash
-# Clean and rebuild
-cargo clean
-cargo build
-
-# Update toolchain
-rustup update
-
-# Check toolchain version
-rustc --version
-cargo --version
-
-# Verbose build output
-cargo build --verbose
+### State Mutation with Atomic Operations
+```rust
+pub async fn post(
+    State(state): State<SharedState>,
+    Path(resource): Path<String>,
+    Json(input): Json<Value>,
+) -> Result<Json<Value>, StatusCode> {
+    let mut state = state.lock().await;
+    
+    // Perform atomic storage operation
+    match insert(&mut state.storage.data, &resource, input) {
+        Ok(result) => {
+            // Write back to file if overwrite is enabled
+            if state.storage.overwrite {
+                if let Err(_) = Writer::new(&state.storage.file)
+                    .write(&state.storage.data) {
+                    return Err(StatusCode::INTERNAL_SERVER_ERROR);
+                }
+            }
+            Ok(Json(result))
+        }
+        Err(_) => Err(StatusCode::BAD_REQUEST),
+    }
+}
 ```
 
-## Environment Configuration
+## Storage Abstraction Layer
 
-### Recommended .gitignore additions
-```gitignore
-# Coverage reports
-/coverage/
-*.profraw
-
-# Benchmark results
-/target/criterion/
-
-# IDE files
-.vscode/
-.idea/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Temporary files
-*.tmp
-*.temp
-*.debug.json
+### Storage Interface Pattern
+```rust
+impl Storage {
+    /// Create a new Storage instance with validation
+    pub fn new(path: &str, overwrite: bool) -> Result<Storage, MocksError> {
+        let data = Reader::new(path).read()?;
+        
+        // Validate storage structure
+        Self::validate_storage_structure(&data)?;
+        
+        Ok(Storage {
+            file: path.to_string(),
+            data,
+            overwrite,
+        })
+    }
+    
+    fn validate_storage_structure(data: &Value) -> Result<(), MocksError> {
+        match data {
+            Value::Object(_) => Ok(()),
+            _ => Err(MocksError::InvalidJson(
+                "Storage must be a JSON object".to_string()
+            )),
+        }
+    }
+}
 ```
 
-### Recommended VS Code settings
-```json
-{
-    "rust-analyzer.cargo.allFeatures": true,
-    "rust-analyzer.checkOnSave.command": "clippy",
-    "rust-analyzer.checkOnSave.allFeatures": true,
-    "editor.formatOnSave": true,
-    "[rust]": {
-        "editor.defaultFormatter": "rust-lang.rust-analyzer"
+### Reader/Writer Abstraction
+```rust
+// File reading abstraction
+pub struct Reader {
+    path: String,
+}
+
+impl Reader {
+    pub fn new(path: &str) -> Self {
+        Self {
+            path: path.to_string(),
+        }
+    }
+    
+    pub fn read(&self) -> Result<Value, MocksError> {
+        let content = fs::read_to_string(&self.path)
+            .map_err(|e| MocksError::FailedReadFile(e.to_string()))?;
+        
+        serde_json::from_str(&content)
+            .map_err(|e| MocksError::InvalidJson(e.to_string()))
+    }
+}
+
+// File writing abstraction with atomic operations
+pub struct Writer {
+    path: String,
+}
+
+impl Writer {
+    pub fn write(&self, data: &Value) -> Result<(), MocksError> {
+        let content = serde_json::to_string_pretty(data)
+            .map_err(|e| MocksError::Exception(e.to_string()))?;
+        
+        // Atomic write operation
+        self.write_atomic(&content)
+    }
+    
+    fn write_atomic(&self, content: &str) -> Result<(), MocksError> {
+        // Write to temporary file first, then rename (atomic on Unix)
+        let temp_path = format!("{}.tmp", self.path);
+        fs::write(&temp_path, content)
+            .map_err(|e| MocksError::FailedWriteFile(e.to_string()))?;
+        
+        fs::rename(&temp_path, &self.path)
+            .map_err(|e| MocksError::FailedWriteFile(e.to_string()))?;
+        
+        Ok(())
+    }
+}
+```
+
+## Resource Lifecycle Management
+
+### Resource Initialization
+```rust
+impl Storage {
+    /// Initialize storage with default or empty structure
+    pub fn init_file(file_path: &str, empty: bool) -> Result<(), MocksError> {
+        let data = if empty {
+            serde_json::json!({
+                "posts": [],
+                "profile": {}
+            })
+        } else {
+            // Default sample data
+            serde_json::json!({
+                "posts": [
+                    {"id": 1, "title": "Sample Post", "author": "john"},
+                    {"id": 2, "title": "Another Post", "author": "jane"}
+                ],
+                "profile": {
+                    "name": "typicode",
+                    "avatar": "https://example.com/avatar.jpg"
+                }
+            })
+        };
+        
+        Writer::new(file_path).write(&data)?;
+        Ok(())
+    }
+}
+```
+
+### Resource Operation Patterns
+```rust
+// Pattern for all storage operations - consistent interface
+pub mod operation {
+    pub mod select_all;
+    pub mod select_one;
+    pub mod insert;
+    pub mod update;
+    pub mod update_one;
+    pub mod replace;
+    pub mod replace_one;
+    pub mod remove;
+    pub mod select_with_filter;
+}
+
+// Example operation signature
+pub fn select_all(data: &Value, resource: &str) -> Result<Value, MocksError> {
+    if let Value::Object(obj) = data {
+        if let Some(resource_data) = obj.get(resource) {
+            Ok(resource_data.clone())
+        } else {
+            Err(MocksError::ResourceNotFound(resource.to_string()))
+        }
+    } else {
+        Err(MocksError::InvalidDataStructure)
+    }
+}
+```
+
+## Context Passing Pattern
+```rust
+// Context for passing request-specific data through handlers
+pub struct Context {
+    pub resource: String,
+    pub method: String,
+    pub user_agent: Option<String>,
+}
+
+impl Context {
+    pub fn from_request(resource: String, headers: &HeaderMap) -> Self {
+        let user_agent = headers
+            .get("user-agent")
+            .and_then(|h| h.to_str().ok())
+            .map(|s| s.to_string());
+        
+        Self {
+            resource,
+            method: "GET".to_string(), // Would be extracted from request
+            user_agent,
+        }
+    }
+}
+```
+
+## Error Handling in Architecture
+```rust
+// Architecture-specific error types
+#[derive(Debug, thiserror::Error)]
+pub enum MocksError {
+    #[error("Resource not found: {0}")]
+    ResourceNotFound(String),
+    
+    #[error("Invalid data structure")]
+    InvalidDataStructure,
+    
+    #[error("Failed to read file: {0}")]
+    FailedReadFile(String),
+    
+    #[error("Failed to write file: {0}")]
+    FailedWriteFile(String),
+    
+    #[error("Invalid JSON: {0}")]
+    InvalidJson(String),
+    
+    #[error("Invalid arguments: {0}")]
+    InvalidArgs(String),
+    
+    #[error("Operation aborted")]
+    Aborted,
+    
+    #[error("Exception: {0}")]
+    Exception(String),
+}
+```
+
+## Server Startup Pattern
+```rust
+impl Server {
+    pub async fn startup(socket_addr: SocketAddr, storage: Storage) -> Result<(), MocksError> {
+        // Create TCP listener
+        let listener = TcpListener::bind(socket_addr)
+            .await
+            .map_err(|e| MocksError::Exception(e.to_string()))?;
+
+        // Print available endpoints for user feedback
+        print_endpoints(storage.resources());
+
+        // Create shared state and router
+        let data = storage.data.clone();
+        let state = AppState::new(storage);
+        let router = create_router(state, &data);
+
+        // Start server
+        axum::serve(listener, router)
+            .await
+            .map_err(|e| MocksError::Exception(e.to_string()))
+    }
+}
+```
+
+## Performance Considerations
+
+### Efficient Resource Lookup
+```rust
+// Use HashMap for O(1) resource lookup when needed
+use std::collections::HashMap;
+
+pub struct ResourceIndex {
+    resources: HashMap<String, ResourceMetadata>,
+}
+
+impl ResourceIndex {
+    pub fn from_storage(data: &Value) -> Self {
+        let mut resources = HashMap::new();
+        
+        if let Value::Object(obj) = data {
+            for (key, value) in obj {
+                let metadata = ResourceMetadata {
+                    is_array: value.is_array(),
+                    count: if value.is_array() { 
+                        value.as_array().unwrap().len() 
+                    } else { 1 },
+                };
+                resources.insert(key.clone(), metadata);
+            }
+        }
+        
+        Self { resources }
+    }
+}
+
+pub struct ResourceMetadata {
+    pub is_array: bool,
+    pub count: usize,
+}
+```
+
+### Memory Management for Large Files
+```rust
+// Stream large files instead of loading everything into memory
+use tokio::fs::File;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+impl Reader {
+    pub async fn read_stream(&self) -> Result<impl AsyncReadExt, MocksError> {
+        File::open(&self.path)
+            .await
+            .map_err(|e| MocksError::FailedReadFile(e.to_string()))
     }
 }
 ```
