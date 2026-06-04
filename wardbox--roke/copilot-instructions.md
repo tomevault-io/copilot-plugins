@@ -1,14 +1,27 @@
-## dependencies
+## error-handling-accessibility
 
-> Dependencies & Package Management
+> Error Handling & Accessibility
 
-# Dependencies & Package Management
-## Installation
+# Error Handling & Accessibility
 
-- Do NOT add dependencies to 'main.wasp'
-- Install dependencies via 'npm install'
-- Use exact versions for critical dependencies
-- Don't manually edit [package.json](mdc:package.json), rely on npm to handle it
+## Error Handling
+
+- Implement proper error boundaries
+- Use type-safe error handling
+- Log errors appropriately
+- Provide user-friendly error messages
+- Handle operation errors appropriately:
+  - ✓ `try { await createTask(...) } catch (e) { handleError(e) }`
+
+## Accessibility
+
+- Use semantic HTML elements
+- Include proper ARIA labels
+- Ensure keyboard navigation works
+- Maintain sufficient color contrast
+- Support reduced motion preferences
+- Support screen readers
+- Implement proper ARIA attributes
 
 ---
 > Source: [wardbox/roke](https://github.com/wardbox/roke) — distributed by [TomeVault](https://tomevault.io).
