@@ -1,0 +1,9 @@
+{
+  "name": "eben60--shareadd-jl",
+  "displayName": "ShareAdd.jl",
+  "description": "This Julia package helps to reduce clutter in your main shared environment by making it easy to use multiple shared environments.",
+  "version": "1.0.0",
+  "author": "Eben60",
+  "homepage": "https://github.com/Eben60/ShareAdd.jl",
+  "skills": []
+}
