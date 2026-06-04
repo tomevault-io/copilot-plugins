@@ -1,0 +1,9 @@
+{
+  "name": "cellebrite-labs--ghidra-rpc",
+  "displayName": "ghidra-rpc",
+  "description": "A Ghidra agentic reverse engineering skill.",
+  "version": "1.0.0",
+  "author": "cellebrite-labs",
+  "homepage": "https://github.com/cellebrite-labs/ghidra-rpc",
+  "skills": []
+}
