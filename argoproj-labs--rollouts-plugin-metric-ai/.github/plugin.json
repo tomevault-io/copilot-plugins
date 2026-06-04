@@ -1,0 +1,9 @@
+{
+  "name": "argoproj-labs--rollouts-plugin-metric-ai",
+  "displayName": "rollouts-plugin-metric-ai",
+  "description": "rollouts-plugin-metric-ai",
+  "version": "1.0.0",
+  "author": "argoproj-labs",
+  "homepage": "https://github.com/argoproj-labs/rollouts-plugin-metric-ai",
+  "skills": []
+}
