@@ -1,0 +1,9 @@
+{
+  "name": "gouveags--ai-music-video-generator",
+  "displayName": "ai-music-video-generator",
+  "description": "AI Music Video Generator automates music video creation using AI for lyrics, images, music, and video. It integrates OpenAI for lyrics, DALL-E for images, Suno for music, and FFmpeg for video processi",
+  "version": "1.0.0",
+  "author": "gouveags",
+  "homepage": "https://github.com/gouveags/ai-music-video-generator",
+  "skills": []
+}
