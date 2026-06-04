@@ -1,0 +1,9 @@
+{
+  "name": "cruglobal--terraform-provider-semaphoreui",
+  "displayName": "terraform-provider-semaphoreui",
+  "description": "Terraform SemaphoreUI Provider",
+  "version": "1.0.0",
+  "author": "CruGlobal",
+  "homepage": "https://github.com/CruGlobal/terraform-provider-semaphoreui",
+  "skills": []
+}
