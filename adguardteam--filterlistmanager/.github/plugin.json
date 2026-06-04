@@ -1,0 +1,9 @@
+{
+  "name": "adguardteam--filterlistmanager",
+  "displayName": "FilterListManager",
+  "description": "Rust library that's used by AdGuard apps to manage filter lists",
+  "version": "1.0.0",
+  "author": "AdguardTeam",
+  "homepage": "https://github.com/AdguardTeam/FilterListManager",
+  "skills": []
+}
