@@ -4,7 +4,7 @@
   "repo": "markdown_lab",
   "description": "A powerful and modular web scraper that converts web content into well-structured Markdown, JSON or XML files with RAG-ready chunking capabilities.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ursisterbtw/markdown_lab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T06:46:02Z"
+  "distributed_at": "2026-06-04T06:46:35Z"
 }
