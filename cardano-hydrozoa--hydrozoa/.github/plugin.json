@@ -1,0 +1,9 @@
+{
+  "name": "cardano-hydrozoa--hydrozoa",
+  "displayName": "hydrozoa",
+  "description": "Hydrozoa: Lightweight multi-party state channels for Cardano",
+  "version": "1.0.0",
+  "author": "cardano-hydrozoa",
+  "homepage": "https://github.com/cardano-hydrozoa/hydrozoa",
+  "skills": []
+}
