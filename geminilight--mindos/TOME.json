@@ -4,7 +4,7 @@
   "repo": "MindOS",
   "description": "MindOS is a Human-AI Collaborative Mind System, where human thinks and agents act. Globally sync your mind for all agents: transparent, controllable, and evolving symbiotically.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GeminiLight/MindOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T08:31:15Z"
+  "distributed_at": "2026-06-04T08:37:27Z"
 }
