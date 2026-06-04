@@ -1,0 +1,9 @@
+{
+  "name": "scroll-tech--zkvm-prover",
+  "displayName": "zkvm-prover",
+  "description": "Guest programs and prover SDK for Scroll's zero-knowledge rollup proof generation architecture",
+  "version": "1.0.0",
+  "author": "scroll-tech",
+  "homepage": "https://github.com/scroll-tech/zkvm-prover",
+  "skills": []
+}
