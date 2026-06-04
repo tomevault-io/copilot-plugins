@@ -1,0 +1,9 @@
+{
+  "name": "open-isp--ispypsa",
+  "displayName": "ISPyPSA",
+  "description": "An open-source capacity expansion model based on the methodology and datasets used by the Australian Energy Market Operator (AEMO) in their Integrated System Plan (ISP)",
+  "version": "1.0.0",
+  "author": "Open-ISP",
+  "homepage": "https://github.com/Open-ISP/ISPyPSA",
+  "skills": []
+}
