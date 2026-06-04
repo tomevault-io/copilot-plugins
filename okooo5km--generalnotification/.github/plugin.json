@@ -1,0 +1,9 @@
+{
+  "name": "okooo5km--generalnotification",
+  "displayName": "GeneralNotification",
+  "description": "A Swift package for displaying custom notifications on macOS, based on NotchNotification.",
+  "version": "1.0.0",
+  "author": "okooo5km",
+  "homepage": "https://github.com/okooo5km/GeneralNotification",
+  "skills": []
+}
