@@ -1,0 +1,9 @@
+{
+  "name": "stripe--stripe-commercetools-connect-app",
+  "displayName": "stripe-commercetools-connect-app",
+  "description": "Stripe payments integration with commercetools Connect",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/stripe-commercetools-connect-app",
+  "skills": []
+}
