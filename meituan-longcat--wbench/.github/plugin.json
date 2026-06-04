@@ -1,0 +1,9 @@
+{
+  "name": "meituan-longcat--wbench",
+  "displayName": "WBench",
+  "description": "WBench: A Comprehensive Multi-turn Benchmark for Interactive Video World Model Evaluation",
+  "version": "1.0.0",
+  "author": "meituan-longcat",
+  "homepage": "https://github.com/meituan-longcat/WBench",
+  "skills": []
+}
