@@ -1,0 +1,9 @@
+{
+  "name": "bigspawn--anilist-mal-sync",
+  "displayName": "anilist-mal-sync",
+  "description": "Program to synchronize your AniList and MyAnimeList accounts.",
+  "version": "1.0.0",
+  "author": "bigspawn",
+  "homepage": "https://github.com/bigspawn/anilist-mal-sync",
+  "skills": []
+}
