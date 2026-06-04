@@ -1,0 +1,51 @@
+{
+  "name": "AgentX",
+  "owner": "jnPiyush",
+  "repo": "AgentX",
+  "description": "AgentX - Digital Force for Software Delivery",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-agent-development",
+      "path": ".github/skills/ai-systems/ai-agent-development",
+      "github_url": "https://github.com/jnPiyush/AgentX/tree/main/.github/skills/ai-systems/ai-agent-development",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jnPiyush/AgentX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T08:30:26Z"
+}
