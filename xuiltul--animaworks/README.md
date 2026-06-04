@@ -7,13 +7,13 @@ Organization-as-Code for autonomous AI agents. Brain-inspired memory that grows,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [xuiltul/animaworks](https://github.com/xuiltul/animaworks).
+Original source: `CLAUDE.md` in [xuiltul/animaworks](https://github.com/xuiltul/animaworks).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
