@@ -4,7 +4,7 @@
   "repo": "solidity-style-guide",
   "description": "AI-ready Solidity style guide for Solidity 0.8.30 \u2014 naming, layout, NatSpec, custom errors, ERC-7201 storage, transient storage, Foundry tests, gas & security. Ships Solhint + Prettier configs, Claude Code skill, AGENTS.md.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aboudjem/solidity-style-guide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T00:30:55Z"
+  "distributed_at": "2026-06-04T00:32:31Z"
 }
