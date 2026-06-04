@@ -1,6 +1,8 @@
 # web
 
-> Tome by [ResearchHub](https://github.com/ResearchHub/web) — distributed by [TomeVault](https://tomevault.io/claim/ResearchHub)
+> Tome by [ResearchHub](https://github.com/ResearchHub/web) — distributed by [TomeVault](https://tomevault.io)
+
+🚀 Accelerating Science - The ResearchHub web app
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [ResearchHub/web](https://github.com/R
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ResearchHub)
+From [ResearchHub/web](https://github.com/ResearchHub/web) — a repo with 11+ stars on GitHub.
 
 ---
 
