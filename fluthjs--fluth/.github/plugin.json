@@ -1,0 +1,9 @@
+{
+  "name": "fluthjs--fluth",
+  "displayName": "fluth",
+  "description": "A javascript promise stream library",
+  "version": "1.0.0",
+  "author": "fluthjs",
+  "homepage": "https://github.com/fluthjs/fluth",
+  "skills": []
+}
