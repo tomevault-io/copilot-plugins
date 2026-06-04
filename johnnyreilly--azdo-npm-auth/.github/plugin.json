@@ -1,0 +1,9 @@
+{
+  "name": "johnnyreilly--azdo-npm-auth",
+  "displayName": "azdo-npm-auth",
+  "description": "Set up local authentication to Azure DevOps npm feeds, optionally using the Azure CLI for PAT acquisition",
+  "version": "1.0.0",
+  "author": "johnnyreilly",
+  "homepage": "https://github.com/johnnyreilly/azdo-npm-auth",
+  "skills": []
+}
