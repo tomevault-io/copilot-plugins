@@ -1,0 +1,9 @@
+{
+  "name": "ultra-supara--disarmbot",
+  "displayName": "disarmBot",
+  "description": "disarmBot is a bot that uses the AG2 framework to automatically create multiple LLM Agents, discuss about disinformation, and respond to users.",
+  "version": "1.0.0",
+  "author": "ultra-supara",
+  "homepage": "https://github.com/ultra-supara/disarmBot",
+  "skills": []
+}
