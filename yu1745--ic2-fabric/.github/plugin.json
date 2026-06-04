@@ -1,0 +1,9 @@
+{
+  "name": "yu1745--ic2-fabric",
+  "displayName": "ic2-fabric",
+  "description": "Minecraft 1.20.1 Fabric Mod - IC2 EXP remake using Kotlin",
+  "version": "1.0.0",
+  "author": "yu1745",
+  "homepage": "https://github.com/yu1745/ic2-fabric",
+  "skills": []
+}
