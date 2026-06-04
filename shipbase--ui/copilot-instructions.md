@@ -1,124 +1,79 @@
-## code-standards
+## component-development
 
-> The project uses Biome as the primary code formatting and linting tool, configuration file: [biome.jsonc](mdc:biome.jsonc)
+> React components are located in [packages/react/src/components/ui/](mdc:packages/react/src/components/ui), using single-file architecture:
 
-# Code Standards Guide
+# Component Development Guide
 
-## Code Quality Tools
+## Component Architecture
 
-### Biome Configuration
-The project uses Biome as the primary code formatting and linting tool, configuration file: [biome.jsonc](mdc:biome.jsonc)
+### React Components
+React components are located in [packages/react/src/components/ui/](mdc:packages/react/src/components/ui), using single-file architecture:
+- One `.tsx` file per component
+- Uses class-variance-authority (CVA) to manage style variants
+- Built on top of Ark UI components
+- Supports forwardRef and complete TypeScript types
 
-### Main Rules
-- Use TypeScript strict mode
-- 2 space indentation
-- Use semicolons for statement endings
-- Single quote strings
-- Trailing commas (multiline)
-
-## Naming Conventions
-
-### File Naming
-- **React Components**: kebab-case (e.g. `button.tsx`, `toggle-group.tsx`)
-- **Vue Components**: PascalCase directory + PascalCase file (e.g. `button/Button.vue`)
-- **Utility Functions**: kebab-case (e.g. `utils.ts`)
-- **Type Files**: kebab-case (e.g. `types.ts`)
-
-### Variable and Function Naming
-- **Components**: PascalCase (e.g. `Button`, `ToggleGroup`)
-- **Functions**: camelCase (e.g. `buttonVariants`, `cn`)
-- **Constants**: SCREAMING_SNAKE_CASE (e.g. `DEFAULT_VARIANT`)
-- **Type Interfaces**: PascalCase with Props suffix (e.g. `ButtonProps`)
-
-## TypeScript Standards
-
-### Component Type Definitions
+Example component structure - [button.tsx](mdc:packages/react/src/components/ui/button.tsx):
 ```tsx
-// React
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-}
-
-// Vue  
-interface Props {
-  variant?: ButtonVariants["variant"]
-  size?: ButtonVariants["size"]
-  class?: HTMLAttributes["class"]
-  asChild?: boolean
-}
-```
-
-### Export Patterns
-```tsx
-// React - Export both component and variants
+const buttonVariants = cva(/* base styles and variants */)
+export interface ButtonProps extends HTMLAttributes, VariantProps {}
+const Button = React.forwardRef(/* component implementation */)
 export { Button, buttonVariants }
-
-// Vue - Export component and types
-export { default as Button } from './Button.vue'
-export type { ButtonVariants } from './types'
 ```
 
-## Style Standards
+### Vue Components  
+Vue components are located in [packages/vue/src/components/ui/](mdc:packages/vue/src/components/ui), using directory architecture:
+- One directory per component (e.g. `button/`)
+- Main component file `Button.vue`
+- Accompanying type and style files
+- Uses Composition API and TypeScript
 
-### Tailwind CSS Usage
-- Prefer Tailwind built-in classes
-- Organize complex styles through CVA
-- Use semantic design tokens
-- Support dark theme
-
-### CVA Variant Definition
-```tsx
-const buttonVariants = cva(
-  "base style classes", // Base styles
-  {
-    variants: {
-      variant: { /* style variants */ },
-      size: { /* size variants */ }
-    },
-    defaultVariants: { /* default values */ }
-  }
-)
+Example component structure - [Button.vue](mdc:packages/vue/src/components/ui/button/Button.vue):
+```vue
+<script setup lang="ts">
+interface Props { /* component prop types */ }
+const props = defineProps<Props>()
+</script>
+<template>
+  <ark.button :class="cn(buttonVariants({ variant, size }), props.class)">
+    <slot />
+  </ark.button>
+</template>
 ```
 
-## Component Development Standards
+## Development Standards
 
-### Accessibility
-- Use Ark UI components as foundation
-- Support keyboard navigation
-- Provide appropriate ARIA attributes
-- Support screen readers
+### Styling System
+- Use Tailwind CSS for styling
+- Define component variants through CVA
+- Use `cn()` utility function to merge class names
+- Support custom className overrides
 
-### Performance Considerations
-- Use React.forwardRef to forward refs
-- Avoid unnecessary re-renders
-- Handle event listeners properly
+### Component Design Principles
+1. **Accessibility First**: Built on Ark UI ensuring accessibility
+2. **Type Safety**: Complete TypeScript support
+3. **Customizable**: Support style and behavior customization
+4. **Consistency**: Maintain API consistency across frameworks
 
-### Error Handling
-- Provide meaningful error messages
-- Use TypeScript for compile-time checking
-- Handle runtime edge cases
+### Storybook Development
+- React: [packages/react/src/stories/](mdc:packages/react/src/stories)
+- Vue: [packages/vue/src/stories/](mdc:packages/vue/src/stories)
+- Each component provides complete Story examples
+- Includes demonstrations of different variants and states
 
-## Commit Standards
+### Example Code
+- React examples: [packages/react/src/examples/](mdc:packages/react/src/examples)
+- Vue examples: [packages/vue/src/examples/](mdc:packages/vue/src/examples)
 
-### Git Hooks
-Project has configured pre-commit hooks:
-- Automatically run [lint-staged](mdc:package.json) 
-- Format code and fix simple lint issues
-- Type checking
+## Testing
+- Uses Vitest for unit testing
+- Test files located in each package's `test/` directory
+- Run tests: `pnpm test`
 
-### Commit Message Format
-Follow Conventional Commits specification:
-```
-feat: add new feature
-fix: fix issue
-docs: documentation update
-style: code formatting adjustment
-refactor: refactor code
-test: add tests
-chore: build process or tool updates
-```
+## Build and Packaging
+- Uses Vite to build component packages
+- Configuration files: [packages/react/vite.config.ts](mdc:packages/react/vite.config.ts) and [packages/vue/vite.config.ts](mdc:packages/vue/vite.config.ts)
+- Output directory: `dist/`
 
 ---
 > Source: [shipbase/ui](https://github.com/shipbase/ui) — distributed by [TomeVault](https://tomevault.io).
