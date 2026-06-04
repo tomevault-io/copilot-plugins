@@ -1,0 +1,9 @@
+{
+  "name": "fayzan123--claude-workflow-composer",
+  "displayName": "claude-workflow-composer",
+  "description": "Visual desktop app for composing multi-agent coding workflows. Drag agents,   attach skills and MCPs, wire handoffs, export to .claude/",
+  "version": "1.0.0",
+  "author": "fayzan123",
+  "homepage": "https://github.com/fayzan123/claude-workflow-composer",
+  "skills": []
+}
