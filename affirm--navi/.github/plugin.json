@@ -1,0 +1,9 @@
+{
+  "name": "affirm--navi",
+  "displayName": "navi",
+  "description": "Claude Code session monitor and notifier",
+  "version": "1.0.0",
+  "author": "Affirm",
+  "homepage": "https://github.com/Affirm/navi",
+  "skills": []
+}
