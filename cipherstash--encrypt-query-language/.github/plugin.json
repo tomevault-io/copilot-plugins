@@ -1,0 +1,9 @@
+{
+  "name": "cipherstash--encrypt-query-language",
+  "displayName": "encrypt-query-language",
+  "description": "Index and search encrypted data in PostgreSQL with SQL",
+  "version": "1.0.0",
+  "author": "cipherstash",
+  "homepage": "https://github.com/cipherstash/encrypt-query-language",
+  "skills": []
+}
