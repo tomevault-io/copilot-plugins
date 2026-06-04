@@ -2,7 +2,7 @@
   "name": "web",
   "owner": "ResearchHub",
   "repo": "web",
-  "description": "",
+  "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ResearchHub",
+  "source_url": "https://github.com/ResearchHub/web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T01:45:26Z"
+  "distributed_at": "2026-06-04T04:32:05Z"
 }
