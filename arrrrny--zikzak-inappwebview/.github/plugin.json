@@ -1,0 +1,9 @@
+{
+  "name": "arrrrny--zikzak-inappwebview",
+  "displayName": "zikzak_inappwebview",
+  "description": "A Flutter plugin that allows you to add an inline webview, to use a headless webview, and to open an in-app browser window.",
+  "version": "1.0.0",
+  "author": "arrrrny",
+  "homepage": "https://github.com/arrrrny/zikzak_inappwebview",
+  "skills": []
+}
