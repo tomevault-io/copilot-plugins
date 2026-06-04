@@ -1,0 +1,9 @@
+{
+  "name": "vergewarlord--ai-rules-sync-906",
+  "displayName": "ai-rules-sync-906",
+  "description": "Keep one source of truth for your AI coding-agent rules. Convert and sync between AGENTS.md, CLAUDE.md, .cursorrules, Copilot, Windsurf, Cline, Aider & Gemini \u2014 or scaffold a fresh AGENTS.md. Zero dep",
+  "version": "1.0.0",
+  "author": "VergeWarlord",
+  "homepage": "https://github.com/VergeWarlord/ai-rules-sync-906",
+  "skills": []
+}
