@@ -7,11 +7,11 @@ A repo of code examples for building GenAI / ML projects on Databricks
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hiydavid/databricks-genai-examples](https://github.com/hiydavid/databricks-genai-examples).
+Original source: `CLAUDE.md` in [hiydavid/databricks-genai-examples](https://github.com/hiydavid/databricks-genai-examples).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
