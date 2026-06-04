@@ -4,7 +4,7 @@
   "repo": "ChromaPrint3D",
   "description": "High-performance, easy-to-use software for converting images into 3D printable models.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Neroued/ChromaPrint3D",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T02:54:46Z"
+  "distributed_at": "2026-06-04T08:56:07Z"
 }
