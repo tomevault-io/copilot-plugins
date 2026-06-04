@@ -1,0 +1,9 @@
+{
+  "name": "starcitizentools--mediawiki-extensions-thumbro",
+  "displayName": "mediawiki-extensions-Thumbro",
+  "description": "Improves and expands thumbnails in MediaWiki. Forked from Extension:VipsScaler",
+  "version": "1.0.0",
+  "author": "StarCitizenTools",
+  "homepage": "https://github.com/StarCitizenTools/mediawiki-extensions-Thumbro",
+  "skills": []
+}
