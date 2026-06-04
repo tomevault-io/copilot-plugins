@@ -7,11 +7,11 @@ A Flutter plugin that allows you to add an inline webview, to use a headless web
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [arrrrny/zikzak_inappwebview](https://github.com/arrrrny/zikzak_inappwebview).
+Original source: `CLAUDE.md` in [arrrrny/zikzak_inappwebview](https://github.com/arrrrny/zikzak_inappwebview).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
