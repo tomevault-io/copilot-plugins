@@ -4,7 +4,7 @@
   "repo": "pocketpaw",
   "description": "Your AI agent in 30 seconds. Not 30 hours. Self-hosted, open-source personal AI with desktop installer, multi-agent Command Center(Deep Work), and 7-layer security. Anthropic, OpenAI, or Ollama.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pocketpaw/pocketpaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T03:33:08Z"
+  "distributed_at": "2026-06-04T08:34:03Z"
 }
