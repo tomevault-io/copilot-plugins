@@ -1,0 +1,9 @@
+{
+  "name": "sholdee--drydock",
+  "displayName": "drydock",
+  "description": "Fast Argo CD GitOps render, diff, test, and diagnostics without a cluster or Argo CD server.",
+  "version": "1.0.0",
+  "author": "sholdee",
+  "homepage": "https://github.com/sholdee/drydock",
+  "skills": []
+}
