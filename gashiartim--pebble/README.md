@@ -7,11 +7,11 @@ Menu-bar text-polish tool that rewrites your clipboard with a local Ollama model
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gashiartim/pebble](https://github.com/gashiartim/pebble).
+Original source: `CLAUDE.md` in [gashiartim/pebble](https://github.com/gashiartim/pebble).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
