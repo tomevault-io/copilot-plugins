@@ -1,0 +1,9 @@
+{
+  "name": "hyrex-labs--hyrex-typescript",
+  "displayName": "hyrex-typescript",
+  "description": "Hyrex is the task framework that makes durable tasks simple. Just wrap your functions and schedule them. The only requirement is Postgres! ",
+  "version": "1.0.0",
+  "author": "hyrex-labs",
+  "homepage": "https://github.com/hyrex-labs/hyrex-typescript",
+  "skills": []
+}
