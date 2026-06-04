@@ -1,0 +1,44 @@
+{
+  "name": "head-over-heels-online",
+  "owner": "jimhigson",
+  "repo": "head-over-heels-online",
+  "description": "Head over Heels remake for desktop, phones, tablet, consoles - anything with a modern browser should work. Play with \u2328\ufe0f keyboard, \ud83d\udcf1 touch-screen, or \ud83c\udfae gamepad",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jimhigson/head-over-heels-online",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T14:53:25Z"
+}
