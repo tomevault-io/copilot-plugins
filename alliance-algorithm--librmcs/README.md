@@ -7,11 +7,11 @@ A portable library which implements the core functionality of RMCS.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Alliance-Algorithm/librmcs](https://github.com/Alliance-Algorithm/librmcs).
+Original source: `CLAUDE.md` in [Alliance-Algorithm/librmcs](https://github.com/Alliance-Algorithm/librmcs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
