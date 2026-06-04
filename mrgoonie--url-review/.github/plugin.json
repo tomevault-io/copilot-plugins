@@ -1,0 +1,9 @@
+{
+  "name": "mrgoonie--url-review",
+  "displayName": "url-review",
+  "description": "ReviewWeb.site is a tool that utilizes AI to helps you to scan through the websites and provide feedbacks based on the content.",
+  "version": "1.0.0",
+  "author": "mrgoonie",
+  "homepage": "https://github.com/mrgoonie/url-review",
+  "skills": []
+}
