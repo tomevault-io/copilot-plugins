@@ -1,0 +1,9 @@
+{
+  "name": "houjiazong--llm-alchemist",
+  "displayName": "llm-alchemist",
+  "description": "LLM evaluation and testing tool compatible with Open AI",
+  "version": "1.0.0",
+  "author": "houjiazong",
+  "homepage": "https://github.com/houjiazong/llm-alchemist",
+  "skills": []
+}
