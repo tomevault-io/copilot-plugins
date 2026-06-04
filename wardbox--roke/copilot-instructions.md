@@ -1,40 +1,26 @@
-## styling
+## typescript
 
-> Styling and UI/UX Design
+> **Description**: Guidelines for TypeScript usage and type safety
 
-# Styling
+# TypeScript
 
-**Description**: Guidelines for styling with Tailwind CSS and component
-organization
+**Description**: Guidelines for TypeScript usage and type safety
 
-## Icon library
+## General
 
-- Use @phosphor-icons/react for icons
+- Define proper types for all variables and functions
+- Use type inference when types are obvious
+- Use .tsx extension for React components
+- Use .ts extension for non-React files
+- Define proper types for operations:
+  - ✓ `type GetTasks = QueryFn<void, Task[]>`
+  - ✓ `type CreateTask = ActionFn<{ description: string }, Task>`
 
-## Tailwind CSS
+## Type Definitions
 
-- Use Tailwind CSS for styling
-- Follow semantic color naming (e.g., text-destructive, not text-red-500)
-- Let the theme handle colors and spacing
-- Follow mobile-first approach
-- Use good UI spacing via the tailwind gap class
-- Prefer padding over margins
-
-## Component Structure
-
-- Group related styles together
-- Use meaningful class names
-- Leverage Tailwind's responsive utilities
-
-## Formatting
-
-- Use &apos; for apostrophes in content
-- Follow project prettier rules with:
-  - No semicolons
-  - Single quotes
-  - JSX single quotes
-  - 2 space indentation
-  - No tabs The prettier file is in @file('.prettierrc')
+- Place shared types in the same file they will be used in.
+- Use interface for object types that can be extended
+- Use type for unions, intersections, and mapped types
 
 ---
 > Source: [wardbox/roke](https://github.com/wardbox/roke) — distributed by [TomeVault](https://tomevault.io).
