@@ -1,40 +1,120 @@
-## apex-scripts
+## cci-python-tasks
 
-> Apex script patterns for Revenue Cloud — bulk safety, activation ordering, deactivation-before-deletion
+> CumulusCI Python task authoring conventions — base classes, options, _run_task patterns, registration
 
 
-# Apex Script Rules
+# CCI Python Task Authoring Rules
 
 ## DO NOT
 
-- Write SOQL inside loops (query once, iterate results)
-- Use single-record DML in loops (`update record;`) — use `update records;`
-- Delete PUR/PUG/RateCardEntry without deactivating first
-- Delete rating data before deleting rates data (FK constraint)
+- Pass `access_token` to `sf` CLI commands — use `org_config.username`
+- Log access tokens or session IDs
+- Use `org_config.name` (CCI alias) as `--target-org` — use `.username`
+- Write SOQL in loops (batch-query before processing)
 
-## Bulk Safety
-- No SOQL inside loops — query once, iterate over results
-- Use `update records;` (bulk DML on list), never `update record;` inside a loop
-- Use `Database.update(records, false)` for partial success where appropriate
+## Base Class Selection
 
-## Activation Ordering
-- Rating objects (PUR, PUG) require specific platform activation ordering
-- See `activateRatingRecords.apex` for the 7-step pattern
-- Always set `Status = 'Active'` (or equivalent) — don't assume records activate automatically
+| Need | Base Class | Import |
+|------|-----------|--------|
+| Local task (no org) | `BaseTask` | `cumulusci.core.tasks` |
+| REST/Connect/Tooling API | `BaseTask` | `cumulusci.core.tasks` |
+| Calls `sf` CLI | `SFDXBaseTask` | `cumulusci.tasks.sfdx` |
+| Robot Framework wrapper | `BaseTask` | `cumulusci.core.tasks` |
 
-## Deactivation Before Deletion
-- PUR, PUG, RateCardEntry require deactivation before deletion
-- Pattern: query active records → set Status to Draft/Inactive → update → delete
-- See `deleteQbRatingData.apex` for the deactivate-then-delete pattern
+**Prefer `BaseTask`** for new tasks — simpler than `SFDXBaseTask` and gives
+access to `self.org_config.access_token` / `self.org_config.instance_url`
+without keychain boilerplate.
 
-## Delete Scripts
-- Delete in child → parent order (reverse of load order)
-- Rates must be deleted before rating data (FK constraints)
-- Use `Database.delete(records)` — `delete records;` also works in anonymous Apex
+## Import Guard
 
-## Naming Convention
-- Activation: `activate{Feature}Records.apex`
-- Deletion: `delete{Plan}Data.apex` (e.g., `deleteQbRatingData.apex`)
+Always wrap CCI imports so the module can be imported without CCI:
+
+```python
+try:
+    from cumulusci.core.tasks import BaseTask
+    from cumulusci.core.exceptions import TaskOptionsError, CommandException
+except ImportError:
+    BaseTask = object
+    TaskOptionsError = Exception
+    CommandException = Exception
+```
+
+## Option Definition
+
+Use the `task_options` class dict:
+
+```python
+class MyTask(BaseTask):
+    task_options = {
+        "operation": {
+            "description": "What to do",
+            "required": True,
+        },
+        "dry_run": {
+            "description": "Preview without changes",
+            "required": False,
+        },
+    }
+```
+
+Access via `self.options.get("key", default)`.
+
+## `_run_task()` Pattern
+
+All logic goes in `_run_task()`. For REST API tasks:
+
+```python
+def _run_task(self):
+    headers = {
+        "Authorization": f"Bearer {self.org_config.access_token}",
+        "Content-Type": "application/json",
+    }
+    url = f"{self.org_config.instance_url}/services/data/v66.0/query/"
+    resp = requests.get(url, headers=headers, params={"q": soql})
+    resp.raise_for_status()
+```
+
+## Feature Flag Access
+
+```python
+billing = self.project_config.project__custom__billing
+tso = self.project_config.project__custom__tso
+```
+
+## Org Identity — CLI vs REST
+
+- **`sf` CLI calls** (`sf data query`, `sf apex run`, `sf org open`):
+  use `self.org_config.username` as `--target-org`. Never pass `access_token`
+  to CLI commands (fails auth, leaks secrets).
+- **REST API calls** (`requests.get/post/patch`): use
+  `self.org_config.access_token` + `self.org_config.instance_url`.
+- **`self.org_config.name`** returns the CCI alias (e.g. `beta`), NOT
+  the SF CLI alias (`rlm-base__beta`). Use only for logging.
+
+## Coding Standards
+
+- **No SOQL in loops** — batch-query before processing
+- **Bulk DML** — never single-record DML in a loop
+- **Logging** — `self.logger.info()`, `.warning()`, `.error()`
+- **Errors** — `TaskOptionsError` for config, `CommandException` for runtime
+- **Non-fatal tasks** — catch + `self.logger.warning()` (see `StampGitCommit`)
+- **API version** — use `v66.0` (Spring '26) in REST URLs
+
+## Registration in cumulusci.yml
+
+```yaml
+tasks:
+  my_task:
+    group: Revenue Lifecycle Management
+    description: >
+      Specific description of affected objects/APIs.
+    class_path: tasks.my_module.MyTaskClass
+    options:
+      operation: list
+```
+
+For detailed patterns and the full module index, read
+`.cursor/skills/cci-orchestration/custom-task-authoring.md`.
 
 ---
 > Source: [bgaldino/rlm-base-dev](https://github.com/bgaldino/rlm-base-dev) — distributed by [TomeVault](https://tomevault.io).
