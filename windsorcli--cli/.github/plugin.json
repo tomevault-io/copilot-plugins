@@ -1,0 +1,9 @@
+{
+  "name": "windsorcli--cli",
+  "displayName": "cli",
+  "description": "The Windsor CLI assists your cloud native development workflow",
+  "version": "1.0.0",
+  "author": "windsorcli",
+  "homepage": "https://github.com/windsorcli/cli",
+  "skills": []
+}
