@@ -1,0 +1,9 @@
+{
+  "name": "ralsina--tartrazine",
+  "displayName": "tartrazine",
+  "description": "A Crystal reimplementation of the Pygments/Chroma syntax highlighters",
+  "version": "1.0.0",
+  "author": "ralsina",
+  "homepage": "https://github.com/ralsina/tartrazine",
+  "skills": []
+}
