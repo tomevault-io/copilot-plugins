@@ -4,7 +4,7 @@
   "repo": "Unity-TrackedKeyboard",
   "description": "A comprehensive Unity sample project for the Tracked Keyboard feature, designed to demonstrate best practice UX for text input implementation across MR and VR.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oculus-samples/Unity-TrackedKeyboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T16:33:15Z"
+  "distributed_at": "2026-06-04T16:53:02Z"
 }
