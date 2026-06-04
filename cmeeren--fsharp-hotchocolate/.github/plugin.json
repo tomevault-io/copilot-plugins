@@ -1,0 +1,9 @@
+{
+  "name": "cmeeren--fsharp-hotchocolate",
+  "displayName": "FSharp.HotChocolate",
+  "description": "Support for F# types and nullability in HotChocolate",
+  "version": "1.0.0",
+  "author": "cmeeren",
+  "homepage": "https://github.com/cmeeren/FSharp.HotChocolate",
+  "skills": []
+}
