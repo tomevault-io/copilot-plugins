@@ -1,0 +1,9 @@
+{
+  "name": "gravtice--ohmyzsh-ai-cli-plugins",
+  "displayName": "ohmyzsh-ai-cli-plugins",
+  "description": "A collection of intelligent Zsh completion plugins for popular AI CLI tools (Anthropic Claude Code CLI, OpenAI Codex CLI, and Google Gemini CLI)",
+  "version": "1.0.0",
+  "author": "gravtice",
+  "homepage": "https://github.com/gravtice/ohmyzsh-ai-cli-plugins",
+  "skills": []
+}
