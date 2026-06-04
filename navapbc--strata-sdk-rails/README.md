@@ -2,6 +2,8 @@
 
 > Sourced from [navapbc/strata-sdk-rails](https://github.com/navapbc/strata-sdk-rails) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+A SDK that empowers teams to accelerate delivery through self-service tools and training.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `CLAUDE.md` in [navapbc/strata-sdk-rails](https://github.com/na
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [navapbc/strata-sdk-rails](https://github.com/navapbc/strata-sdk-rails) — a repo with 0+ stars on GitHub.
+From [navapbc/strata-sdk-rails](https://github.com/navapbc/strata-sdk-rails) — a repo with 11+ stars on GitHub.
 
 ---
 
