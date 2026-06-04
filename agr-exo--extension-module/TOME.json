@@ -4,7 +4,7 @@
   "repo": "Extension_Module",
   "description": "angel Robotics KIT H10\uc744 \uc704\ud55c \ubd80\ubd84 \uac1c\ubc29\ud615 R&D \ud50c\ub7ab\ud3fc. XM10 \ud655\uc7a5 \ubaa8\ub4c8\uc744 \uc0ac\uc6a9\ud558\uc5ec \ub3c5\uc790\uc801\uc778 \uc81c\uc5b4 \uc54c\uace0\ub9ac\uc998\uc744 \uac1c\ubc1c\ud558\uc138\uc694.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AGR-EXO/Extension_Module",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T06:57:26Z"
+  "distributed_at": "2026-06-04T07:00:09Z"
 }
