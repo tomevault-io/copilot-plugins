@@ -4,7 +4,7 @@
   "repo": "proofkit",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/proofsh/proofkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T16:48:32Z"
+  "distributed_at": "2026-06-04T16:49:47Z"
 }
