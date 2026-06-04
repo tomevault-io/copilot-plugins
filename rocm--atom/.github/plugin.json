@@ -1,0 +1,9 @@
+{
+  "name": "rocm--atom",
+  "displayName": "ATOM",
+  "description": "AiTer Optimized Model",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/ATOM",
+  "skills": []
+}
