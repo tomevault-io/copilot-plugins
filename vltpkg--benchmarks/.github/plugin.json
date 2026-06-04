@@ -1,0 +1,9 @@
+{
+  "name": "vltpkg--benchmarks",
+  "displayName": "benchmarks",
+  "description": "Tracking the performance of JS package managers",
+  "version": "1.0.0",
+  "author": "vltpkg",
+  "homepage": "https://github.com/vltpkg/benchmarks",
+  "skills": []
+}
