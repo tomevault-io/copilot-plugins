@@ -7,11 +7,11 @@ Local macOS app testing sandbox with a CLI and MCP server for disposable Tart VM
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [robzilla1738/macbox](https://github.com/robzilla1738/macbox).
+Original source: `AGENTS.md` in [robzilla1738/macbox](https://github.com/robzilla1738/macbox).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
