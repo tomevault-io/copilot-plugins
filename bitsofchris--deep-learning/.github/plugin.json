@@ -1,0 +1,9 @@
+{
+  "name": "bitsofchris--deep-learning",
+  "displayName": "deep-learning",
+  "description": "A collection of resources, notes, and code as I learn to build deep neural networks on time series data.",
+  "version": "1.0.0",
+  "author": "bitsofchris",
+  "homepage": "https://github.com/bitsofchris/deep-learning",
+  "skills": []
+}
