@@ -49304,6 +49304,16 @@
       "description": "Async SQLAlchemy 2.0+ extension for FastAPI with SQLModel support, built-in pagination & more"
     },
     {
+      "name": "jparkerweb--ai-assist-skills",
+      "source": "./jparkerweb--ai-assist-skills",
+      "description": "\ud83e\udd16 A collection of AI agent skills that automate recurring engineering workflows that can be installed across multiple AI coding assistants."
+    },
+    {
+      "name": "jparkerweb--ai-assist-skills",
+      "source": "./jparkerweb--ai-assist-skills",
+      "description": "\ud83e\udd16 A collection of AI agent skills that automate recurring engineering workflows that can be installed across multiple AI coding assistants."
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -76809,6 +76819,11 @@
       "description": "metahuman-streams"
     },
     {
+      "name": "raphaelmansuy--iteration-of-tought",
+      "source": "./raphaelmansuy--iteration-of-tought",
+      "description": "Example implementation of Iteration of Tought - Gives a star if you like the project"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -78859,6 +78874,11 @@
       "description": "siyuan-drawio-plugin"
     },
     {
+      "name": "jezachen--pyqtinspect-open",
+      "source": "./jezachen--pyqtinspect-open",
+      "description": "An inspection tool for PyQt/PySide applications like Chrome DevTools."
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -79827,6 +79847,16 @@
       "name": "avaprotocol--ava-sdk-js",
       "source": "./avaprotocol--ava-sdk-js",
       "description": "A JavaScript/TypeScript SDK designed to simplify integration with Ava Protocol\u2019s AVS"
+    },
+    {
+      "name": "bitsofchris--deep-learning",
+      "source": "./bitsofchris--deep-learning",
+      "description": "A collection of resources, notes, and code as I learn to build deep neural networks on time series data."
+    },
+    {
+      "name": "bitsofchris--deep-learning",
+      "source": "./bitsofchris--deep-learning",
+      "description": "A collection of resources, notes, and code as I learn to build deep neural networks on time series data."
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -81084,6 +81114,11 @@
       "description": "A zero-dependency, minimalist ACME client in TypeScript that simplifies certificate generation with built-in defaults and no cryptographic complexity."
     },
     {
+      "name": "schmooky--spine-benchmark",
+      "source": "./schmooky--spine-benchmark",
+      "description": "Performance analysis and visualization tool for Spine animations"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -82307,6 +82342,16 @@
       "name": "qc-labs--orange-lab",
       "source": "./qc-labs--orange-lab",
       "description": "Private infrastructure on consumer hardware based on K3s, Tailscale, Pulumi and Longhorn"
+    },
+    {
+      "name": "antiwork--antiwork",
+      "source": "./antiwork--antiwork",
+      "description": "antiwork"
+    },
+    {
+      "name": "nordcoderd--cloud-security-plugin",
+      "source": "./nordcoderd--cloud-security-plugin",
+      "description": "Cloud (IaC) Security plugin for JetBrains IDEs (e.g., IntelliJ IDEA, PyCharm)"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -86134,6 +86179,11 @@
       "description": "Do you often find yourself caught off guard idling in Insert mode instead of escaping to Normal mode like a true Vim user? Let this help you train yourself out of the bad habit. It also boots you out "
     },
     {
+      "name": "brgkdm--dayzen-good-first-issue",
+      "source": "./brgkdm--dayzen-good-first-issue",
+      "description": "A user-friendly dashboard for beginners and advanced students that allows them to input and visualize their daily routine."
+    },
+    {
       "name": "skywind3000--gamesample",
       "source": "./skywind3000--gamesample",
       "description": "Game Samples for GameLib"
@@ -87497,6 +87547,11 @@
       "name": "bigspawn--anilist-mal-sync",
       "source": "./bigspawn--anilist-mal-sync",
       "description": "Program to synchronize your AniList and MyAnimeList accounts."
+    },
+    {
+      "name": "parischap--effect-libs",
+      "source": "./parischap--effect-libs",
+      "description": "Extends some Effect modules (`Array`, `Chunk`, `Option`, `Either`, `String`, ...). Adds extra-functionalities such as date and number parsing/formatting, sscanf/sprintf templating, number rounding, ob"
     },
     {
       "name": "inureyes--gyeol",
@@ -89007,6 +89062,16 @@
       "name": "frostr-org--igloo-desktop",
       "source": "./frostr-org--igloo-desktop",
       "description": "Frostr desktop signer and key management app."
+    },
+    {
+      "name": "kivs--lite-queen",
+      "source": "./kivs--lite-queen",
+      "description": "Lite Queen is an open-source SQLite database management software that runs on your server."
+    },
+    {
+      "name": "neondatabase--psqlsh",
+      "source": "./neondatabase--psqlsh",
+      "description": "psql.sh - browser native PostgreSQL command line client"
     },
     {
       "name": "compozy--kb",
@@ -160102,6 +160167,16 @@
       "name": "zz-plant--stims",
       "source": "./zz-plant--stims",
       "description": "Browser-native MilkDrop-inspired WebGL music visualizer with curated presets, live editing, and demo audio"
+    },
+    {
+      "name": "dezoff-max--codex-ui-board-skills",
+      "source": "./dezoff-max--codex-ui-board-skills",
+      "description": "Four shareable Codex UI board skills with dual-theme design tokens, standalone previews, Tailwind presets, and installable skill bundles."
+    },
+    {
+      "name": "bb8ad8--addroid-oss",
+      "source": "./bb8ad8--addroid-oss",
+      "description": "AdDroid OSS \u2014 self-hostable, GitOps-driven Meta ad operations console."
     },
     {
       "name": "yschimke--compose-ai-tools",
