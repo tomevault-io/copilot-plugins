@@ -1,23 +1,15 @@
-## index
+## performance
 
-> **Description**: Core guidelines for the Roke Wasp application development
+> Performance
 
-# Roke Development Guidelines
+# Performance
 
-**Description**: Core guidelines for the Roke Wasp application development
-
-## Overview
-
-This directory contains development guidelines and best practices for the Roke
-application.
-
-## Files
-
-[project-structure.mdc](mdc:.cursor/rules/project-structure.mdc) [typescript.mdc](mdc:.cursor/rules/typescript.mdc) [wasp-general.md](mdc:.cursor/rules/wasp-general.md) [wasp-operations.md](mdc:.cursor/rules/wasp-operations.md) [schema-data-models.mdc](mdc:.cursor/rules/schema-data-models.mdc) [state-management-forms.mdc](mdc:.cursor/rules/state-management-forms.mdc) [styling.mdc](mdc:.cursor/rules/styling.mdc) [performance.mdc](mdc:.cursor/rules/performance.mdc) [routing.mdc](mdc:.cursor/rules/routing.mdc) [error-handling-accessibility.mdc](mdc:.cursor/rules/error-handling-accessibility.mdc) [imports.mdc](mdc:.cursor/rules/imports.mdc) [dependencies.mdc](mdc:.cursor/rules/dependencies.mdc)
-
-## Top level rules
-
-- Don't leave comments in code unless they describe complex logic
+- Use proper key props in lists
+- Use precaching for routes where it makes sense
+- Use proper caching strategies
+- Implement proper data fetching patterns
+- Use proper React Query configurations
+- Use proper code splitting
 
 ---
 > Source: [wardbox/roke](https://github.com/wardbox/roke) — distributed by [TomeVault](https://tomevault.io).
