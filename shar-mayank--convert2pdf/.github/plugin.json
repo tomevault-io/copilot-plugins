@@ -1,0 +1,9 @@
+{
+  "name": "shar-mayank--convert2pdf",
+  "displayName": "convert2pdf",
+  "description": "Command-line tool for converting between Office formats (DOCX, PPTX, XLSX, TXT, RTF, CSV) and PDF on macOS",
+  "version": "1.0.0",
+  "author": "shar-mayank",
+  "homepage": "https://github.com/shar-mayank/convert2pdf",
+  "skills": []
+}
