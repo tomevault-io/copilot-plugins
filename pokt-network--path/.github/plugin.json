@@ -1,0 +1,9 @@
+{
+  "name": "pokt-network--path",
+  "displayName": "path",
+  "description": "An open source framework that enables developers to sovereignly access Pocket Network.",
+  "version": "1.0.0",
+  "author": "pokt-network",
+  "homepage": "https://github.com/pokt-network/path",
+  "skills": []
+}
