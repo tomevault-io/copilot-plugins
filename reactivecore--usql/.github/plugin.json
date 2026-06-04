@@ -1,0 +1,9 @@
+{
+  "name": "reactivecore--usql",
+  "displayName": "usql",
+  "description": "usql - micro JDBC toolit for Scala 3",
+  "version": "1.0.0",
+  "author": "reactivecore",
+  "homepage": "https://github.com/reactivecore/usql",
+  "skills": []
+}
