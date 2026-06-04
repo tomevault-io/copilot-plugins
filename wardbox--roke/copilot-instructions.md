@@ -1,22 +1,76 @@
-## wasp-general
+## wasp-operations
 
-> Wasp General Guidelines
+> Rules for Wasp operations (actions and queries)
 
-# Wasp General Guidelines
+# Rules for Wasp operations (actions and queries)
 
-**Description**: General Wasp configuration and setup guidelines
+**Description**: Guidelines for implementing and using Wasp operations
 
-## Configuration
+## Workflow
 
-- Roke uses the standard Wasp configuration approach with `main.wasp`
+- Always define operations in `main.wasp` **first**, then implement them in the
+  feature's `operations.ts` file
+- Expect type errors in your editor after adding operations to `main.wasp` until
+  you:
+  - Implement the operation in your operations.ts file
+  - Restart the Wasp language server (this is normal behavior)
+- To restart the Wasp language server, you can:
+  - Use the command palette: `Developer: Restart Extension Host`
+  - Or simply restart your editor
 
-## Rules
+## Organization
 
-- Wasp is on ^0.16.x
-- Don't remove existing configuration in main.wasp unless specifically requested
-- When adding new routes, pages, actions, or queries, ensure you also create the
-  corresponding implementation files
-- Follow proper import patterns for Wasp entities and functions (see imports.md)
+- Store actions and queries together in `feature/operations.ts`
+- Keep operations focused on one feature's functionality
+- Export operations with clear, descriptive names
+
+## Type Safety
+
+- Always use the satisfies keyword for proper typing:
+
+```typescript
+import { type GetEvents } from 'wasp/server/operations'
+
+export const getEvents = (async (_args, context) => {
+  return context.entities.Event.findMany({
+    include: { artist: true, venue: true },
+  })
+}) satisfies GetEvents<Event[]>
+```
+
+## Component Props Typing
+
+- Use ReturnType for typing components that receive query results:
+
+```typescript
+export interface EventsPageProps {
+  events: Awaited<ReturnType<typeof getEvents>>
+}
+```
+
+- This lets you avoid creating redundant interfaces for operation results as it
+  inherits properties automatically
+
+## Error Handling
+
+- Always include appropriate error handling in your operations
+- Check for authentication when needed
+- Validate inputs before processing
+- Use specific error messages to help with debugging
+
+```typescript
+// Example error handling pattern
+if (!context.user) {
+  throw new HttpError(401, 'You must be logged in to create events')
+}
+
+if (!name?.trim()) {
+  throw new HttpError(400, 'Event name cannot be empty')
+}
+```
+
+For more comprehensive examples of operations implementation, see
+@file('.cursor/rules/wasp-reference.md')
 
 ---
 > Source: [wardbox/roke](https://github.com/wardbox/roke) — distributed by [TomeVault](https://tomevault.io).
