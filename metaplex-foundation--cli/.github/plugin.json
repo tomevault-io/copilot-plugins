@@ -1,0 +1,9 @@
+{
+  "name": "metaplex-foundation--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "metaplex-foundation",
+  "homepage": "https://github.com/metaplex-foundation/cli",
+  "skills": []
+}
