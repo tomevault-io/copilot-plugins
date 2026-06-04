@@ -1,0 +1,9 @@
+{
+  "name": "koalabuttz--standard-reader",
+  "displayName": "standard-reader",
+  "description": "A TUI reader for standard.site (long-form on the AT Protocol).",
+  "version": "1.0.0",
+  "author": "koalabuttz",
+  "homepage": "https://github.com/koalabuttz/standard-reader",
+  "skills": []
+}
