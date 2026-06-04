@@ -1,0 +1,9 @@
+{
+  "name": "async-framework--async-framework",
+  "displayName": "async-framework",
+  "description": "Lightweight signal-based framework for reactive web apps with custom elements and async handlers.",
+  "version": "1.0.0",
+  "author": "async-framework",
+  "homepage": "https://github.com/async-framework/async-framework",
+  "skills": []
+}
