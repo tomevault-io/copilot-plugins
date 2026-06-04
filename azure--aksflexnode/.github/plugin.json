@@ -1,0 +1,9 @@
+{
+  "name": "azure--aksflexnode",
+  "displayName": "AKSFlexNode",
+  "description": "Connecting a node to AKS cluster from anywhere",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/AKSFlexNode",
+  "skills": []
+}
