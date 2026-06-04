@@ -1,0 +1,9 @@
+{
+  "name": "fred-drake--nix",
+  "displayName": "nix",
+  "description": "Nix flake for home configuration",
+  "version": "1.0.0",
+  "author": "fred-drake",
+  "homepage": "https://github.com/fred-drake/nix",
+  "skills": []
+}
