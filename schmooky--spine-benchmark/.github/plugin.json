@@ -1,0 +1,9 @@
+{
+  "name": "schmooky--spine-benchmark",
+  "displayName": "spine-benchmark",
+  "description": "Performance analysis and visualization tool for Spine animations",
+  "version": "1.0.0",
+  "author": "schmooky",
+  "homepage": "https://github.com/schmooky/spine-benchmark",
+  "skills": []
+}
