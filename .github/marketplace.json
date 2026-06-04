@@ -77969,6 +77969,11 @@
       "description": "Optimized package overrides for Socket Optimize"
     },
     {
+      "name": "raffertyuy--github-copilot-prompts",
+      "source": "./raffertyuy--github-copilot-prompts",
+      "description": "github-copilot-prompts"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -79999,6 +80004,11 @@
       "description": "A collection of resources, notes, and code as I learn to build deep neural networks on time series data."
     },
     {
+      "name": "amadejkastelic--hyprlux",
+      "source": "./amadejkastelic--hyprlux",
+      "description": "Hyprland utility that automates vibrance and night light control"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -81257,6 +81267,56 @@
       "name": "schmooky--spine-benchmark",
       "source": "./schmooky--spine-benchmark",
       "description": "Performance analysis and visualization tool for Spine animations"
+    },
+    {
+      "name": "mocks-rs--mocks",
+      "source": "./mocks-rs--mocks",
+      "description": "Mock REST APIs from JSON with zero coding within seconds."
+    },
+    {
+      "name": "mocks-rs--mocks",
+      "source": "./mocks-rs--mocks",
+      "description": "Mock REST APIs from JSON with zero coding within seconds."
+    },
+    {
+      "name": "mocks-rs--mocks",
+      "source": "./mocks-rs--mocks",
+      "description": "Mock REST APIs from JSON with zero coding within seconds."
+    },
+    {
+      "name": "newt239--ginga-ui",
+      "source": "./newt239--ginga-ui",
+      "description": "brand-new UI component library for React"
+    },
+    {
+      "name": "mocks-rs--mocks",
+      "source": "./mocks-rs--mocks",
+      "description": "Mock REST APIs from JSON with zero coding within seconds."
+    },
+    {
+      "name": "reown-com--reown-dotnet",
+      "source": "./reown-com--reown-dotnet",
+      "description": "Toolkits to build onchain UX in .NET and Unity"
+    },
+    {
+      "name": "mocks-rs--mocks",
+      "source": "./mocks-rs--mocks",
+      "description": "Mock REST APIs from JSON with zero coding within seconds."
+    },
+    {
+      "name": "newt239--ginga-ui",
+      "source": "./newt239--ginga-ui",
+      "description": "brand-new UI component library for React"
+    },
+    {
+      "name": "mocks-rs--mocks",
+      "source": "./mocks-rs--mocks",
+      "description": "Mock REST APIs from JSON with zero coding within seconds."
+    },
+    {
+      "name": "reown-com--reown-dotnet",
+      "source": "./reown-com--reown-dotnet",
+      "description": "Toolkits to build onchain UX in .NET and Unity"
     },
     {
       "name": "affitor--open-affiliate",
@@ -83867,6 +83927,11 @@
       "name": "dvcol--neo-svelte",
       "source": "./dvcol--neo-svelte",
       "description": "Neomorphic ui library for svelte 5"
+    },
+    {
+      "name": "harrisonwang--url-shortener",
+      "source": "./harrisonwang--url-shortener",
+      "description": "URL Shortener is a free tool designed to help users easily shorten long URLs. Our goal is to make URL shortening simple, fast, and efficient. Whether you're a marketer, developer, or anyone who needs "
     },
     {
       "name": "r44vc0rp--itui",
@@ -103869,6 +103934,21 @@
       "description": "YAML separator tool"
     },
     {
+      "name": "cap-go--capacitor-uploader",
+      "source": "./cap-go--capacitor-uploader",
+      "description": "Capacitor plugin to upload file in native layer"
+    },
+    {
+      "name": "aurorawebsoftware--flexyfield",
+      "source": "./aurorawebsoftware--flexyfield",
+      "description": "Laravel FlexyField is useful package for dynamic model fields."
+    },
+    {
+      "name": "aurorawebsoftware--flexyfield",
+      "source": "./aurorawebsoftware--flexyfield",
+      "description": "Laravel FlexyField is useful package for dynamic model fields."
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -106247,6 +106327,11 @@
       "name": "community-of-python--stompman",
       "source": "./community-of-python--stompman",
       "description": "Good Python STOMP client & FastStream broker"
+    },
+    {
+      "name": "riosjuan--svg-grabber",
+      "source": "./riosjuan--svg-grabber",
+      "description": "Open source chrome extension to quickly preview, download or copy inline or embedded SVG images from a website"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -109429,6 +109514,41 @@
       "description": "demo-embedded-wallet"
     },
     {
+      "name": "mborn1--pyoptex",
+      "source": "./mborn1--pyoptex",
+      "description": "Flexible and accessible design of experiments in Python. Provides industry with an easy package to create designs based with limited expert knowledge. Provides researchers with the ability to easily c"
+    },
+    {
+      "name": "mborn1--pyoptex",
+      "source": "./mborn1--pyoptex",
+      "description": "Flexible and accessible design of experiments in Python. Provides industry with an easy package to create designs based with limited expert knowledge. Provides researchers with the ability to easily c"
+    },
+    {
+      "name": "mborn1--pyoptex",
+      "source": "./mborn1--pyoptex",
+      "description": "Flexible and accessible design of experiments in Python. Provides industry with an easy package to create designs based with limited expert knowledge. Provides researchers with the ability to easily c"
+    },
+    {
+      "name": "mborn1--pyoptex",
+      "source": "./mborn1--pyoptex",
+      "description": "Flexible and accessible design of experiments in Python. Provides industry with an easy package to create designs based with limited expert knowledge. Provides researchers with the ability to easily c"
+    },
+    {
+      "name": "mborn1--pyoptex",
+      "source": "./mborn1--pyoptex",
+      "description": "Flexible and accessible design of experiments in Python. Provides industry with an easy package to create designs based with limited expert knowledge. Provides researchers with the ability to easily c"
+    },
+    {
+      "name": "mborn1--pyoptex",
+      "source": "./mborn1--pyoptex",
+      "description": "Flexible and accessible design of experiments in Python. Provides industry with an easy package to create designs based with limited expert knowledge. Provides researchers with the ability to easily c"
+    },
+    {
+      "name": "mborn1--pyoptex",
+      "source": "./mborn1--pyoptex",
+      "description": "Flexible and accessible design of experiments in Python. Provides industry with an easy package to create designs based with limited expert knowledge. Provides researchers with the ability to easily c"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -112154,6 +112274,11 @@
       "description": "open-prompt"
     },
     {
+      "name": "open-isp--ispypsa",
+      "source": "./open-isp--ispypsa",
+      "description": "An open-source capacity expansion model based on the methodology and datasets used by the Australian Energy Market Operator (AEMO) in their Integrated System Plan (ISP)"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -114862,6 +114987,16 @@
       "name": "limenyutwist--echocut-148",
       "source": "./limenyutwist--echocut-148",
       "description": "Turn raw footage into brand-ready, platform-optimized video with one command. Local-first: FFmpeg + WhisperX/MLX + Ollama."
+    },
+    {
+      "name": "schnell18--lm-quant-toolkit",
+      "source": "./schnell18--lm-quant-toolkit",
+      "description": "LLM Quantization toolkit"
+    },
+    {
+      "name": "tencentblueking--bkflow",
+      "source": "./tencentblueking--bkflow",
+      "description": "\u84dd\u9cb8\u6d41\u7a0b\u5f15\u64ce\u670d\u52a1 BKFlow \u662f\u4e00\u6b3e\u57fa\u4e8e Python \u5b9e\u73b0\u7684\u9762\u5411\u5e73\u53f0\u3001\u9ad8\u6548\u7075\u6d3b\u7684\u6d41\u7a0b\u5f15\u64ce\u5e73\u53f0\uff0c\u65e8\u5728\u52a9\u529b\u63a5\u5165\u7cfb\u7edf\u5feb\u901f\u83b7\u53d6\u6d41\u7a0b\u6267\u884c\u80fd\u529b\u3002"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -117647,6 +117782,11 @@
       "name": "mary-ext--aglais",
       "source": "./mary-ext--aglais",
       "description": "Alternative web client for Bluesky (personal use, no support given)"
+    },
+    {
+      "name": "controlplaneio-fluxcd--flux-operator-local-dev",
+      "source": "./controlplaneio-fluxcd--flux-operator-local-dev",
+      "description": "Flux Operator local dev environment with Docker and Kubernetes KIND"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -120822,6 +120962,16 @@
       "name": "mckaywrigley--takeoff-notes-app-complete",
       "source": "./mckaywrigley--takeoff-notes-app-complete",
       "description": "takeoff-notes-app-complete"
+    },
+    {
+      "name": "reactivecore--usql",
+      "source": "./reactivecore--usql",
+      "description": "usql - micro JDBC toolit for Scala 3"
+    },
+    {
+      "name": "trustless-work--dapp-trustless-work",
+      "source": "./trustless-work--dapp-trustless-work",
+      "description": "POC of a decentralized application (dApp) to enhance trust in agency-client relationships using blockchain. It enables trustless payments via smart contracts, securing funds in escrow until milestones"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -124549,6 +124699,21 @@
       "description": "rlm-base-dev"
     },
     {
+      "name": "skhomuti--csm-sentinel",
+      "source": "./skhomuti--csm-sentinel",
+      "description": "Provides your CSM Node Operator events to the telegram chats"
+    },
+    {
+      "name": "windsorcli--cli",
+      "source": "./windsorcli--cli",
+      "description": "The Windsor CLI assists your cloud native development workflow"
+    },
+    {
+      "name": "skhomuti--csm-sentinel",
+      "source": "./skhomuti--csm-sentinel",
+      "description": "Provides your CSM Node Operator events to the telegram chats"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -128197,6 +128362,16 @@
       "name": "hi-upchen--kobo-up",
       "source": "./hi-upchen--kobo-up",
       "description": "A website reads Kobo database (sqlite) and shows the book and notes."
+    },
+    {
+      "name": "freyja-love-and-magic--freyja-love-and-magic",
+      "source": "./freyja-love-and-magic--freyja-love-and-magic",
+      "description": "The overall repo for Planet Nine"
+    },
+    {
+      "name": "gouveags--ai-music-video-generator",
+      "source": "./gouveags--ai-music-video-generator",
+      "description": "AI Music Video Generator automates music video creation using AI for lyrics, images, music, and video. It integrates OpenAI for lyrics, DALL-E for images, Suno for music, and FFmpeg for video processi"
     },
     {
       "name": "vm--nila-code",
@@ -131962,6 +132137,11 @@
       "name": "dfdezdom--investdaytip",
       "source": "./dfdezdom--investdaytip",
       "description": "A multi-factor analysis tool that suggests long-term stock & ETF buy recommendations from US, European, and Asian markets, computed live from public market data."
+    },
+    {
+      "name": "gaia-react--gaia",
+      "source": "./gaia-react--gaia",
+      "description": "The Claude-native foundation you build your whole app on. React frontend handled, your backend builds on top. Strict tooling, pre-commit gates, code-review audit before every merge."
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -136137,6 +136317,11 @@
       "name": "makeplane--developer-docs",
       "source": "./makeplane--developer-docs",
       "description": "\ud83d\udcbb Official Plane Developer Documentation"
+    },
+    {
+      "name": "tomredman--add-convex-to-cursor",
+      "source": "./tomredman--add-convex-to-cursor",
+      "description": "add-convex-to-cursor"
     },
     {
       "name": "mohiwalla--memes",
@@ -141117,6 +141302,11 @@
       "name": "michix--seekret-service",
       "source": "./michix--seekret-service",
       "description": "Secure daemon for desktop use to access secrets in KeePass files"
+    },
+    {
+      "name": "ctnh-team--ctnh-core",
+      "source": "./ctnh-team--ctnh-core",
+      "description": "Core mod for the modpack Create: New Horizon"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -146572,6 +146762,31 @@
       "name": "alea-institute--folio-python",
       "source": "./alea-institute--folio-python",
       "description": "FOLIO Python client"
+    },
+    {
+      "name": "reown-com--yttrium",
+      "source": "./reown-com--yttrium",
+      "description": "A cross-platform smart account library"
+    },
+    {
+      "name": "reown-com--yttrium",
+      "source": "./reown-com--yttrium",
+      "description": "A cross-platform smart account library"
+    },
+    {
+      "name": "kabilan108--ipython-icat",
+      "source": "./kabilan108--ipython-icat",
+      "description": "IPython magic commands for displaying images in kitty terminal"
+    },
+    {
+      "name": "seifalmotaz--pocketbase-plus",
+      "source": "./seifalmotaz--pocketbase-plus",
+      "description": "Pocketbase Plus is a Dart package that automates model generation for your PocketBase projects. Quick setup, less boilerplate, more time to build awesome apps!"
+    },
+    {
+      "name": "reown-com--yttrium",
+      "source": "./reown-com--yttrium",
+      "description": "A cross-platform smart account library"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -152577,6 +152792,11 @@
       "name": "jasperfx--jasperfx",
       "source": "./jasperfx--jasperfx",
       "description": "Foundational elements of the \"Critter Stack\""
+    },
+    {
+      "name": "datocms--astro-website",
+      "source": "./datocms--astro-website",
+      "description": "astro-website"
     },
     {
       "name": "lightninglabs--lnget",
@@ -160647,6 +160867,31 @@
       "name": "caiquemitsuoka--yokai",
       "source": "./caiquemitsuoka--yokai",
       "description": "A test runner and watcher designed for fast interactive development"
+    },
+    {
+      "name": "hugocarreira--gomon",
+      "source": "./hugocarreira--gomon",
+      "description": "A nodemon-like file watcher for Go projects"
+    },
+    {
+      "name": "erikthalen--shopify-starter",
+      "source": "./erikthalen--shopify-starter",
+      "description": "Shopify skeleton theme making it easy to get started"
+    },
+    {
+      "name": "curt-park--my-self-hosting-services",
+      "source": "./curt-park--my-self-hosting-services",
+      "description": "A Docker-based homelab infrastructure for self-hosting services with centralized authentication, automated SSL certificate management, and Cloudflare integration."
+    },
+    {
+      "name": "krkn-chaos--website",
+      "source": "./krkn-chaos--website",
+      "description": "Placeholder for code related to krkn-chaos.dev"
+    },
+    {
+      "name": "reclaimprotocol--docs",
+      "source": "./reclaimprotocol--docs",
+      "description": "Documentation for Reclaim Protocol"
     },
     {
       "name": "yschimke--compose-ai-tools",
