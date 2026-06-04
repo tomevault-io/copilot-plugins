@@ -1,0 +1,9 @@
+{
+  "name": "callumalpass--tasknotes-workflows",
+  "displayName": "tasknotes-workflows",
+  "description": "Markdown-defined workflow automation for TaskNotes",
+  "version": "1.0.0",
+  "author": "callumalpass",
+  "homepage": "https://github.com/callumalpass/tasknotes-workflows",
+  "skills": []
+}
