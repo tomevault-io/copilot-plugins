@@ -1,0 +1,9 @@
+{
+  "name": "amdresearch--omniprobe",
+  "displayName": "omniprobe",
+  "description": "Simply log all kernel durations",
+  "version": "1.0.0",
+  "author": "AMDResearch",
+  "homepage": "https://github.com/AMDResearch/omniprobe",
+  "skills": []
+}
