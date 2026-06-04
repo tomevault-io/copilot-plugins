@@ -1,0 +1,9 @@
+{
+  "name": "aexol-studio--deenruv",
+  "displayName": "deenruv",
+  "description": "Open-source, AI-first headless e-commerce framework. TypeScript-first, GraphQL-native, with 32+ plugins and a modern React admin panel. Built on NestJS.",
+  "version": "1.0.0",
+  "author": "aexol-studio",
+  "homepage": "https://github.com/aexol-studio/deenruv",
+  "skills": []
+}
