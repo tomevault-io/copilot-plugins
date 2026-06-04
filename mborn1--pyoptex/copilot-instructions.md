@@ -1,12 +1,10 @@
-## environment
+## pyoptex
 
-> Known environment and dependency caveats
+> All agent instructions and conventions live in **`.cursor/rules/`**. Start with `project.mdc` for overview and `workflow.mdc` for verification and rules of engagement.
 
+# AI instructions
 
-# Environment caveats
-
-- **kaleido** (plotly static export): can emit harmless dbus errors in headless/Cloud VM; safe to ignore.
-- **numba** (~0.61): pulls in llvmlite; first import may have a short JIT compilation delay.
+All agent instructions and conventions live in **`.cursor/rules/`**. Start with `project.mdc` for overview and `workflow.mdc` for verification and rules of engagement.
 
 ---
 > Source: [mborn1/pyoptex](https://github.com/mborn1/pyoptex) — distributed by [TomeVault](https://tomevault.io).
