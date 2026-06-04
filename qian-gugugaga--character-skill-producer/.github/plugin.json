@@ -1,0 +1,9 @@
+{
+  "name": "qian-gugugaga--character-skill-producer",
+  "displayName": "Character_Skill_Producer",
+  "description": "Character Skill Producer \u2014 distill anime characters into executable agent skills",
+  "version": "1.0.0",
+  "author": "qian-gugugaga",
+  "homepage": "https://github.com/qian-gugugaga/Character_Skill_Producer",
+  "skills": []
+}
