@@ -1,0 +1,9 @@
+{
+  "name": "tonycpsu--bluesky-navigator",
+  "displayName": "bluesky-navigator",
+  "description": "Userscript for Bluesky that adds Vim-like navigation, read/unread post-tracking, and other features",
+  "version": "1.0.0",
+  "author": "tonycpsu",
+  "homepage": "https://github.com/tonycpsu/bluesky-navigator",
+  "skills": []
+}
