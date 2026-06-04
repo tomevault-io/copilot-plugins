@@ -1,0 +1,44 @@
+{
+  "name": "agent-shopping-safe-checkout",
+  "owner": "pawel-cell",
+  "repo": "agent-shopping-safe-checkout",
+  "description": "Safe-checkout pattern for AI agents (Hermes/Claude Code/Codex): isolated Chrome + Browser Harness + virtual card + human gate",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pawel-cell/agent-shopping-safe-checkout",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T09:08:32Z"
+}
