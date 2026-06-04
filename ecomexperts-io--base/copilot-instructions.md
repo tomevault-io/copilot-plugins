@@ -1,919 +1,477 @@
-## css-standards
-
-> Writing CSS, whether inside .css files or in the `{% stylesheet %}…{% endstylesheet %}` or `{% style %}…{% endstyle %}` or in <style> </style> tags
-
-
-# CSS Standards
-
-## Specificity Rules
-
-- **Never** use IDs as selectors
-- **Avoid** using elements as selectors
-- **Avoid** using `!important` at all costs - if you must use it, comment why in the code
-- Use a `0 1 0` specificity wherever possible, meaning a single `.class` selector.
-- In cases where you must use higher specificity due to a parent/child relationship, try to keep the specificity to a maximum of `0 4 0`
-  - Note that this can sometimes be impossible due to the `0 1 0` specificity of pseudo-classes like `:hover`. There may be situations where `.parent:hover .child` is the only way to achieve the desired effect.
-- **Avoid** complex selectors. A selector should be easy to understand at a glance. Don't over do it with pseudo selectors (:has, :where, :nth-child, etc).
-
-See [MDN](mdc:https:/developer.mozilla.org/en-US/docs/Web/CSS/Specificity) for more a comprehensive list of specificity rules.
-
-## CSS Variables
-
-CSS variables, a.k.a. custom properties, are a powerful tool for reducing redundancy and making it easier to update values across a component.
-
-- If you need to hardcode a value, set it to a variable and use that variable in the declaration. Example: a touch target size. `--touch-target-size: 44px;`
-- **Never** hardcode colors, always use the color schemes
-
-### Global Variables
-
-Global variables should be scoped to the `:root` selector in `snippets/theme-styles-variables.liquid`.
-
-**Example of global variables**
-
-```css
-/* in snippets/theme-styles-variables.liquid */
-:root {
-    --page-width: 1400px;
-     --font-body--family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }}; /* Referencing a theme setting */
-     --font-{{ preset_name_dash }}--family: {{ settings[preset_font] | prepend: 'var(--font-' | append: '--family)' }}; /* Using Liquid to set a variable */
-}
-```
-
-### Scoped Variables
-
-Be sure to scope your CSS variables to the component they are being used in, if they are not meant to be global. Scoped variables can reference global variables.
-
-**Example of scoped variables**
-
-```css
-/* in assets/facets.css */
-.facets {
-  --drawer-padding: var(--padding-md); /* Referencing a global variable */
-  --facets-upper-z-index: 3;
-  --facets-open-z-index: 4;
-
-  --facets-clear-shadow: 0px -4px 14px 0px rgb(var(--color-foreground-rgb) / var(--opacity-10)); /* Referencing a Color Scheme variable */
-}
-```
-
-### Namespace Your CSS Variables
-
-Namespace your variables to avoid collisions unless you explicitly want them to bleed through to other components.
-
-✅ Do this:
-
-```css
-.component {
-  --component-padding: ...;
-  --component-aspect-ratio: ...;
-}
-```
-
-❌ Don't do this:
-
-```css
-.component {
-  --padding: ...;
-  --aspect-ratio: ...;
-}
-```
-
-### Semantic Color Variables
-
-Use semantic naming for better maintainability:
-
-```css
-:root {
-  /* Base colors */
-  --color-primary: {{ settings.colors_accent_1 }};
-  --color-secondary: {{ settings.colors_accent_2 }};
-
-  /* Semantic colors */
-  --color-text-primary: rgb(var(--color-foreground));
-  --color-text-secondary: rgb(var(--color-foreground) / 0.75);
-  --color-text-disabled: rgb(var(--color-foreground) / 0.38);
-
-  /* Interactive states */
-  --color-interactive-default: rgb(var(--color-accent));
-  /* color-mix isn't supported in earlier version of iOS <16.2 so limit its usage to progressive enhancement */
-  --color-interactive-hover: color-mix(in srgb, rgb(var(--color-accent)) 90%, black);
-  --color-interactive-pressed: color-mix(in srgb, rgb(var(--color-accent)) 80%, black);
-  --color-interactive-disabled: rgb(var(--color-accent) / 0.38);
-}
-```
-
-### Design Token System
-
-Establish consistent spacing and typography scales:
-
-```css
-:root {
-  /* Spacing scale */
-  --space-3xs: 0.25rem; /* 4px */
-  --space-2xs: 0.5rem; /* 8px */
-  --space-xs: 0.75rem; /* 12px */
-  --space-sm: 1rem; /* 16px */
-  --space-md: 1.5rem; /* 24px */
-  --space-lg: 2rem; /* 32px */
-  --space-xl: 3rem; /* 48px */
-  --space-2xl: 4rem; /* 64px */
-  --space-3xl: 6rem; /* 96px */
-
-  /* Typography scale */
-  --font-size-xs: 0.75rem; /* 12px */
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-base: 1rem; /* 16px */
-  --font-size-lg: 1.125rem; /* 18px */
-  --font-size-xl: 1.25rem; /* 20px */
-  --font-size-2xl: 1.5rem; /* 24px */
-  --font-size-3xl: 1.875rem; /* 30px */
-}
-```
-
-## Scoping CSS to Instances of Sections and Blocks
-
-Reset CSS variable values inline on a `style` attribute with a section/block settings. This has a couple benefits:
-
-- Less CSS in Liquid which allows us to use the `{% stylesheet %}` tag for all CSS.
-- Reduces redundancy in CSS selectors and number of selectors in the HTML, i.e. `.selector--{{ block.id }}` pattern.
-
-✅ Do this:
-
-```html
-<section
-  style="
-    --background-color: {{ settings.background_color }};
-    --padding: {{ settings.padding }}px;
-  "
->
-  ...
-</section>
-
-<button style="--button-color: {{ settings.button_color }};">...</button>
-```
-
-❌ Don't do this:
-
-```html
-{% style %} .selector--{{ block.id }} { --button-color: {{ settings.button_color }}; } {% endstyle %}
-
-<button class="selector--{{ block.id }}">...</button>
-```
-
-### Redundancy
-
-Use variables to reduce property assignment redundancy.
-
-```css
-/* Do this */
-.button {
-  background: rgb(var(--button-color) / 0.75);
-}
-
-.button--secondary {
-  --button-color: var(--secondary-color);
-}
-
-/* Not this */
-.button {
-  background: rgb(var(--primary-color) / 0.75);
-}
-
-.button--secondary {
-  background: rgb(var(--secondary-color) / 0.75);
-}
-```
-
-## BEM Naming Convention
-
-Use the @BEM CSS convention for class names.
-
-BEM TL;DR:
-
-- **Block**: Component name (`.product-card`)
-- **Element**: Block + element (`.product-card__title`)
-- **Modifier**: Block/element + modifier (`.product-card--featured`)
-- **Use dashes** to separate words in names
-
-```css
-/* Good BEM structure */
-.product-card {
-}
-.product-card__image {
-}
-.product-card__title {
-}
-.product-card__price {
-}
-.product-card--featured {
-}
-.product-card__title--large {
-}
-```
-
-```css
-.block {
-  ...;
-}
-.block--modifier {
-  ...;
-}
-.block__element {
-  ...;
-}
-.block__multi-word-element {
-  ...;
-}
-.block__element--modifier {
-  ...;
-}
-.block__element--multi-word-modifier {
-  ...;
-}
-```
-
-Dashes are used to separate words in blocks, elements, and modifiers.
-
-Exception: We also use global @utility classes that can be applied to block and and elements without following BEM naming convention.
-
-### Naming a "Block" (component)
-
-The root "block" namespace must wrap any elements derived from it.
-
-✅ Do this:
-
-```html
-<div class="my-component">
-  <div class="my-component__wrapper"></div>
-</div>
-```
-
-❌ Not this:
-
-`.my-component__wrapper` is used as a parent to `.my-component`.
-
-```html
-<div class="my-component__wrapper my-component--page-width">
-  <div class="my-component"></div>
-</div>
-```
-
-### Naming an "Element" (child)
-
-There should only be a _single_ "element" in a classname. Only the root "block" name needs to be included in child classnames. If additional naming specificity is necessary, use a "-" to seperate words or consider starting a new BEM scope altogether when an element could make sense as a standalone entity.
-
-✅ Do this:
-
-```html
-<div class="my-component my-component--full-width">
-  <div class="my-component__wrapper">
-    <button class="my-component__button">
-      <span class="my-component__button-label">My button</span>
-    </button>
-  </div>
-</div>
-```
-
-✅ Or this:
-
-Started new scope with `.button-component`.
-
-```html
-<div class="my-component my-component--full-width">
-  <div class="my-component__wrapper">
-    <button class="button-component">
-      <span class="button-component__label">My button</span>
-    </button>
-  </div>
-</div>
-```
-
-❌ Not this:
-
-Multiple element names are used (`__wrapper__button__label`).
-
-```html
-<div class="my-component my-component--full-width">
-  <div class="my-component__wrapper">
-    <button class="my-component__wrapper__button">
-      <span class="my-component__wrapper__button__label">My button</span>
-    </button>
-  </div>
-</div>
-```
-
-### Naming a "Modifier" (variant)
-
-Any "modifier" classname should always use a "--" and should always correspond to an existing block and element namespace. Never use a modifier class on an element that doesn't also have a base classname.
-
-✅ Do this:
-
-The `.button` class is the base classname and modified by `--secondary`.
-
-```html
-<button class="button button--secondary"></button>
-```
-
-❌ Not this:
-
-The `.button` and `.button-secondary` classes are both named as _exclusive_ components and should not used together.
-
-```html
-<button class="button button-secondary"></button>
-```
-
-❌ Or this:
-
-Modifer class is used without corresponding base classname.
-
-```html
-<button class="button--secondary"></button>
-```
-
-Also consider keeping modifiers at the highest element that makes sense. This makes the component more extensible and resilient as styling needs are changed or added in the future.
-
-✅ Do this:
-
-```html
-<div class="my-component my-component--size-large my-component--page-width">
-  <div class="my-component__wrapper"></div>
-</div>
-```
-
-### Utility Classes
-
-Utility classes are intended to act as global overrides for a single styling decision, e.g. alignment, show/hide, etc. BEM conventions are not followed, there is no hierarchy in utility classes and utility classes do not assume they are used with any particular block or element.
-
-Name multi-word utility classes with hyphens `-`. Append any viewport specifications at the **end**, e.g. `hidden-mobile`.
-
-✅ This is fine:
-
-```css
-.align-left {
-  text-align: left;
-}
-```
-
-```html
-<div class="my-component align-left">
-  <p class="my-component__text"></p>
-</div>
-```
-
-## Modern CSS Features
-
-### Container Queries
-
-Use container queries for truly responsive components:
-
-```css
-.product-grid {
-  container-type: inline-size;
-}
-
-@container (min-width: 400px) {
-  .product-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+## javascript-standards
+
+> Writing JavaScript inside `.js` files, or within the `{% javascript %}` or `{% script %}` or <script> </script> tags in `.liquid` files.
+
+# JavaScript Standards
+
+## General Principles
+
+- **Zero external dependencies** - Use native browser APIs
+- **Avoid mutation** - Use `const` over `let` unless necessary  
+- **Use `for (const item of items)`** over `items.forEach()`
+- **Add new lines before blocks** with `{` and `}`
+- **Use vanilla Web Components** - Extend HTMLElement directly for custom elements
+
+## Async Operations and Request Management
+
+**Always use async/await over .then() chaining:**
+
+```javascript
+async renderSection(hasDifferentProductUrl, productUrl) {
+  this.abortController?.abort();
+  this.abortController = new AbortController();
+
+  try {
+    const response = await fetch(`${productUrl}?option_values=${this.selectedOptionValues}&section_id=${this.dataset.section}`, {
+      signal: this.abortController.signal,
+    });
+    
+    const responseText = await response.text();
+    const html = new DOMParser().parseFromString(responseText, 'text/html');
+    const variant = this.getSelectedVariant(html);
+    
+    if (hasDifferentProductUrl) {
+      const productInfo = html.querySelector('product-info');
+      this.replaceWith(productInfo);
+      productInfo.updateURL(variant?.id);
+    } else {
+      this.updateMedia(variant?.featured_media?.id);
+      this.updateURL(variant?.id);
+      this.updateVariantInputs(variant?.id);
+      this.updateSourceFromDestination(html, `price-${this.dataset.section}`);
+    }
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log('Fetch aborted by user');
+    } else {
+      console.error(error);
+    }
   }
 }
 ```
 
-### CSS Functions
+## Web Components Pattern
 
-Leverage modern CSS functions for better responsiveness:
+**Use vanilla Web Components with HTMLElement:**
 
-```css
-.component {
-  /* Fluid spacing */
-  padding: clamp(1rem, 4vw, 3rem);
+```javascript
+if (!customElements.get('product-info')) {
+  class ProductInfo extends HTMLElement {
+    // Property declarations with initialization
+    abortController = undefined;
+    swiper = null;
 
-  /* Intrinsic sizing */
-  width: min(100%, 800px);
+    constructor() {
+      super();
+      // Minimal constructor - defer setup to connectedCallback
+    }
 
-  /* Dynamic colors */
-  /* color-mix isn't supported in earlier version of iOS <16.2 so limit its usage */
-  background: color-mix(in srgb, rgb(var(--color-primary)) 90%, white);
-}
-```
+    setupEventListeners() {
+      this.variantSelector?.addEventListener('change', this.onVariantChange.bind(this));
+      this.quantitySelector.addEventListener('change', this.onQuantitySelectorEvent.bind(this));
+      this.quantitySelector.querySelector('button[name="plus"]').addEventListener('click', this.onQuantitySelectorEvent.bind(this));
+      this.quantitySelector.querySelector('button[name="minus"]').addEventListener('click', this.onQuantitySelectorEvent.bind(this));
+      document.getElementById('swiper-script').addEventListener('load', this.initSwiper.bind(this));
+      document.addEventListener('liquid-ajax-cart:request-end', this.onCartUpdate.bind(this));
+    }
 
-### Cascade Layers
+    connectedCallback() {
+      this.setupEventListeners();
+      if (typeof Swiper !== 'undefined') {
+        this.initSwiper();
+      }
+    }
 
-For better CSS organization in complex themes:
+    disconnectedCallback() {
+      this.abortController?.abort();
+      this.swiper?.destroy();
+    }
 
-```css
-@layer reset, base, components, utilities, overrides;
+    // Getter methods for DOM element access
+    get variantSelector() {
+      return this.querySelector('variant-selector');
+    }
 
-@layer components {
-  .button {
-    /* Component styles here won't conflict with utilities */
-  }
-}
-```
+    get quantitySelector() {
+      return this.querySelector('quantity-selector');
+    }
 
-### View Transitions
+    // Event handlers with descriptive names
+    onVariantChange(e) {
+      const hasDifferentProductUrl = e.target?.dataset?.productUrl ? 
+        (e.target?.dataset?.productUrl !== this.dataset.url) : false;
+      const productUrl = e.target?.dataset?.productUrl || this.dataset.url;
+      this.renderSection(hasDifferentProductUrl, productUrl);
+    }
 
-```css
-@view-transition {
-  navigation: auto;
-}
+    // Public methods for external component communication
+    updateMedia(variantFeaturedMediaId) {
+      if (!variantFeaturedMediaId) return;
+      var index = this.querySelector(`.swiper-slide[data-media-id="${variantFeaturedMediaId}"]`).dataset.mediaIndex;
+      this.swiper?.slideTo(index);
+    }
 
-.page-content {
-  view-transition-name: main-content;
-}
-```
-
-## Media Queries
-
-- Default to mobile first. e.g. `min-width` queries
-- Use `screen` for all media queries
-
-### Breakpoint System
-
-Define consistent breakpoints:
-
-```css
-/* Mobile first breakpoints */
---breakpoint-sm: 576px; /* Small devices */
---breakpoint-md: 768px; /* Medium devices */
---breakpoint-lg: 992px; /* Large devices */
---breakpoint-xl: 1200px; /* Extra large devices */
---breakpoint-2xl: 1400px; /* 2X Extra large devices */
-```
-
-### Context-Aware Queries
-
-Use feature queries alongside media queries:
-
-```css
-@supports (display: grid) {
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
-}
-
-@supports not (display: grid) {
-  .product-grid {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-```
-
-### Print Styles
-
-Always consider print stylesheets:
-
-```css
-@media print {
-  .no-print {
-    display: none !important;
+    // Arrow function for helper methods
+    updateSourceFromDestination = (html, id) => {
+      const source = html.getElementById(`${id}`);
+      const destination = this.querySelector(`#${id}`);
+      if (source && destination) {
+        destination.innerHTML = source.innerHTML;
+      }
+    };
   }
 
-  a[href^='http']:after {
-    content: ' (' attr(href) ')';
-  }
+  customElements.define('product-info', ProductInfo);
 }
 ```
 
-## CSS Nesting Rules
-
-Nesting can make styles harder to read. Be responsible with it.
-
-- **No `&` operator** in nested selectors
-- **Never nest beyond first level** (except media queries/states)
-- **Keep nesting simple** and readable
-- Only use `&` when there is a direct relationship between the two selectors
-  - State based selectors e.g. `&:hover`, `&:focus`, `&:active`
-  - Modifiers that affect each other e.g. `button--integrated { &.button--text }`
-- Never nest beyond the first level
-- See below for exceptions
-
-### Nesting Media Queries
-
-Use nesting for media queries
-
-```css
-.header {
-  width: 100%;
-
-  @media screen and (min-width: 750px) {
-    width: 100px;
-  }
-}
-```
-
-This includes when there is nothing to override, e.g.
-
-```css
-.header {
-  @media screen and (min-width: 750px) {
-    width: 100px;
-  }
-}
-```
-
-That way, if something needs to be added later, it can just be added without needing to flip the media query to the inside.
-
-### If-like Parent-Child Relationships
-
-You may use nesting to help organize parent-child relationship when the parent can have **multiple states or modifiers** that affect children. In the example below, a number of child selectors need to change when the parent is the `--full-width` variant. This saves you from needing to append `parent--full-width` to each css selector.
-
-```css
-.parent {
-  grid-columns: var(--gap) 1fr var(--gap);
-}
-
-.child {
-  grid-column: 2;
-}
-
-.grand-child {
-  ...;
-}
-
-.parent--full-screen {
-  grid-columns: 1fr;
-
-  .child {
-    grid-column: 1;
-  }
-
-  .grand-child {
-    ...;
-  }
-}
-```
-
-In cases like this, the styles that are being applied are the direct result of the parent's modifier. We can see this as a kind of if-like relationship where the logic is easier to follow if the child styles are nested inside the parent.
-
-This is not a reason to nest multiple levels. Maintain the single level rule.
-
-## Logical Properties
-
-Where appropriate, use logical properties to have baseline support for Right-to-Left (RTL) languages.
-Focusing on these properties:
-
-- padding
-- margin
-- border
-- text-align
-- top, bottom, left, right
-
-✅ Do this:
-
-```css
-.element {
-  padding-inline: 2rem;
-  padding-block: 1rem;
-  margin-inline: auto;
-  margin-block: 0;
-  border-inline-end: 1rem solid var(--color-background);
-  text-align: start;
-  inset: 0;
-}
-```
-
-❌ Not this:
-
-```css
-.element {
-  padding: 1rem 2rem;
-  margin: 0 auto;
-  border-bottom: 1rem solid var(--color-background);
-  text-align: left;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-```
-
-## Layout Patterns
-
-### CSS Grid for Layouts
-
-```css
-.section-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-lg);
-}
-```
-
-### Flexbox for Components
-
-```css
-.product-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
-```
-
-### Aspect Ratio for Media
-
-```css
-.product-card__image {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-```
-
-## Fancy Selectors
-
-### Using `:is()`
-
-When giving the same styles to multiple selectors, use a comma separated list.
-
-✅ Do this:
-
-```css
-.facets__label,
-.facets__clear-all,
-.clear-filter {
-  ...;
-}
-```
-
-❌ Not this:
-
-```css
-:is(.facets__label, .facets__clear-all, .clear-filter) {
-  ...;
-}
-```
-
-However, if you are giving the same styles to a parent-child relationship with different selectors, you may use `:is()`.
-
-✅ Do this:
-
-```css
-.parent:is(.child-1, .child-2) {
-  ...;
-}
-```
-
-❌ Not this:
-
-```css
-.parent .child-1,
-.parent .child-2 {
-  ...;
-}
-```
-
-✅ Do this:
-
-```css
-:is(.parent, .parent-2) .child {
-  ...;
-}
-```
-
-❌ Not this:
-
-```css
-.parent .child,
-.parent-2 .child {
-  ...;
-}
-```
-
-Try to keep the same specificity for all selectors within a single `:is()` to avoid increasing the overall specificity of the selector unintentionally.
-
-## Accessibility
-
-### Motion and Animation
-
-- Always respect user motion preferences
-- Provide fallbacks for users who prefer reduced motion
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-```
-
-### Focus Management
-
-- Ensure all interactive elements have visible focus indicators
-- Use `:focus-visible` for better UX
-
-```css
-.button:focus-visible {
-  outline: 2px solid rgb(var(--color-focus));
-  outline-offset: 2px;
-}
-```
-
-### Color and Contrast
-
-- Maintain WCAG AA contrast ratios (4.5:1 for normal text, 3:1 for large text)
-- Test with high contrast mode
-- Never rely solely on color to convey information
-
-```css
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark theme variables */
-  }
-}
-```
-
-## Performance Considerations
-
-### Animation Performance
-
-- Use `transform` and `opacity` for animations
-- Avoid animating layout properties (`width`, `height`, `margin`, `padding`)
-- Use `will-change` sparingly and remove after animation
-
-```css
-.product-card {
-  transition: transform 0.2s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-2px); /* Better than animating top/margin */
-}
-
-/* Only use will-change during animation */
-.product-card:hover {
-  will-change: transform;
-}
-
-.product-card:not(:hover) {
-  will-change: auto;
-}
-```
-
-### Layout Performance
-
-- Use `contain` property for better rendering performance
-- Prefer CSS Grid and Flexbox over complex positioning
-
-```css
-.product-grid {
-  contain: layout style paint;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-```
-
-## CSS Organization
-
-### CSS Property Order
-
-Maintain consistent property order within declarations:
-
-```css
-.component {
-  /* 1. Layout & Positioning */
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  /* 2. Box Model */
-  width: 100%;
-  margin: 0;
-  padding: var(--space-md);
-  border: 1px solid rgb(var(--color-border));
-
-  /* 3. Typography */
-  font-family: var(--font-body-family);
-  font-size: var(--font-size-base);
-
-  /* 4. Visual */
-  background: rgb(var(--color-surface));
-  color: rgb(var(--color-text));
-
-  /* 5. Animation & Transforms */
-  transition: transform 0.2s ease;
-}
-```
-
-## Error Prevention
-
-### Common Pitfalls
-
-- **Never** use `position: fixed` without considering mobile keyboards
-- **Always** test with zoom up to 200%
-- **Avoid** magic numbers - use variables or calc() instead
-- **Remember** that `vh` units can be problematic on mobile, use `dvh` to mitage this
-
-### Defensive CSS
-
-Write CSS that gracefully handles edge cases:
-
-```css
-.product-card {
-  /* Prevent content overflow */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-
-  /* Handle long content */
-  min-width: 0; /* Allows flex items to shrink below content size */
-
-  /* Prevent layout shift */
-  aspect-ratio: 1 / 1;
-
-  /* Fallback for missing images */
-  background: rgb(var(--color-surface-secondary));
-}
-```
-
-### Browser Support
-
-- Test in browsers used by your audience
-- Provide fallbacks for newer CSS features
-- Use progressive enhancement approach
-
-## CSS Documentation
-
-### Commenting Standards
-
-Use consistent commenting for better maintainability:
-
-```css
-/* =============================================================================
-   Component Name
-   ============================================================================= */
-
-/**
- * Brief component description
- *
- * @example
- * <div class="component component--modifier">
- *   <div class="component__element">Content</div>
- * </div>
- */
-.component {
-  /* Implementation */
-}
-
-/* Component modifiers
-   ========================================================================== */
-
-/**
- * Modifier description
- */
-.component--modifier {
-  /* Modifier styles */
-}
-
-/* Component elements
-   ========================================================================== */
-
-/**
- * Element description
- */
-.component__element {
-  /* Element styles */
-}
-```
-
-## Example Component Structure
+**HTML integration with Liquid templates:**
 
 ```liquid
-{% stylesheet %}
-  .featured-collection {
-    --section-padding: {{ section.settings.padding | default: 60 }}px;
-    --bg-color: {{ section.settings.background_color | default: '#ffffff' }};
-    --text-color: {{ section.settings.text_color | default: '#000000' }};
+<product-info
+  data-url="{{ product.url}}"
+  data-section="{{ section.id }}"
+  class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
+>
+  <!-- Component content with nested custom elements -->
+  <variant-selector id="variant-selector-{{ section.id }}" data-picker-type="{{ block.settings.picker_type }}">
+    <!-- Variant selection UI -->
+  </variant-selector>
+  
+  <quantity-selector>
+    <!-- Quantity controls -->
+  </quantity-selector>
+</product-info>
 
-    padding: var(--section-padding) 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    container-type: inline-size;
+<!-- Load component script -->
+<script src="{{ 'component-product-info.js' | asset_url }}" defer="defer"></script>
+```
+
+## Early Returns and Conditional Logic
+
+**Use early returns over nested conditionals:**
+
+```javascript
+// Good
+const processOrder = (order) => {
+  if (!order) return;
+  if (!order.items.length) return;
+  if (order.status !== 'pending') return;
+
+  // Process the order
+  updateOrderStatus(order.id, 'processing');
+  sendConfirmationEmail(order.email);
+};
+
+// Avoid
+const processOrder = (order) => {
+  if (order) {
+    if (order.items.length) {
+      if (order.status === 'pending') {
+        updateOrderStatus(order.id, 'processing');
+        sendConfirmationEmail(order.email);
+      }
+    }
   }
+};
+```
 
-  .featured-collection__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-md);
-  }
+**Optional chaining guidelines:**
 
-  @container (min-width: 768px) {
-    .featured-collection__grid {
-      grid-template-columns: repeat({{ section.settings.columns | default: 4 }}, 1fr);
+```javascript
+// Multiple chains - use early return
+const updateButton = (product) => {
+  const button = product.querySelector('[data-ref="button"]');
+  if (!button) return;
+
+  button.disabled = false;
+  button.textContent = 'Add to cart';
+};
+
+// Single chain is fine
+const updateButton = (product) => {
+  const button = product.querySelector('[data-ref="button"]');
+  button?.enable();
+};
+```
+
+## Simplification Patterns
+
+**Ternary operators for simple conditions:**
+```javascript
+const buttonText = isLoading ? 'Loading...' : 'Add to cart';
+element.textContent = buttonText;
+```
+
+**One-liner conditionals:**
+```javascript
+if (isOutOfStock) return;
+```
+
+**Return boolean comparisons directly:**
+```javascript
+const isAvailable = product.available && product.price > 0;
+return isAvailable;
+```
+
+## Event-Driven Architecture
+
+**Use custom events for component communication:**
+
+```javascript
+class ProductInfo extends HTMLElement {
+  onCartUpdate(e) {
+    // Check page context before executing
+    if (!window.location.pathname.includes('/products/')) return;
+    
+    const { requestState } = e.detail;
+    
+    // If the "add to cart" request is successful
+    if (requestState.requestType === 'add' && requestState.responseData?.ok) {
+      // Add the CSS class to the "body" tag
+      document.body.classList.add('js-show-ajax-cart');
+      
+      // Dispatch a custom event for other components
+      document.dispatchEvent(
+        new CustomEvent('item-added-to-cart', {
+          detail: requestState?.responseData?.body,
+        })
+      );
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .featured-collection * {
-      transition: none !important;
+  setupEventListeners() {
+    // Listen to third-party library events
+    document.addEventListener('liquid-ajax-cart:request-end', this.onCartUpdate.bind(this));
+    // Listen to own component events
+    this.variantSelector?.addEventListener('change', this.onVariantChange.bind(this));
+  }
+}
+```
+
+**Page context awareness:**
+
+```javascript
+class ProductInfo extends HTMLElement {
+  updateURL(variantId) {
+    // Only execute on product pages
+    if (!window.location.pathname.includes('/products/')) return;
+    window.history.replaceState({}, '', `${this.dataset.url}${variantId ? `?variant=${variantId}` : ''}`);
+  }
+
+  onCartUpdate(e) {
+    // Only execute on product pages
+    if (!window.location.pathname.includes('/products/')) return;
+    // Implementation
+  }
+}
+```
+
+## External Library Integration
+
+**Check for library availability before initialization:**
+
+```javascript
+class ProductInfo extends HTMLElement {
+  connectedCallback() {
+    this.setupEventListeners();
+    
+    // Check if external library is loaded
+    if (typeof Swiper !== 'undefined') {
+      this.initSwiper();
     }
   }
-{% endstylesheet %}
+
+  initSwiper() {
+    this.swiper = new Swiper('.swiper', {
+      autoHeight: true,
+      direction: 'horizontal',
+      pagination: {
+        el: '.swiper-pagination',
+      },
+      navigation: {
+        prevEl: '.swiper-button-prev',
+        nextEl: '.swiper-button-next',
+      },
+    });
+  }
+
+  setupEventListeners() {
+    // Listen for external script loading
+    document.getElementById('swiper-script').addEventListener('load', this.initSwiper.bind(this));
+  }
+
+  disconnectedCallback() {
+    // Clean up external library instances
+    this.swiper?.destroy();
+  }
+}
+```
+
+**Loading external scripts in Liquid templates:**
+
+```liquid
+<script src="{{ "swiper7.4.1.min.js" | asset_url }}" defer="defer" id="swiper-script"></script>
+<script src="{{ 'component-product-info.js' | asset_url }}" defer="defer"></script>
+```
+
+## Input Validation and Bounds Checking
+
+**Always validate and constrain input values:**
+
+```javascript
+class ProductInfo extends HTMLElement {
+  onQuantitySelectorEvent(e) {
+    const quantityInput = this.quantitySelector.querySelector('input[type="number"]');
+    let currentValue = parseInt(quantityInput.value);
+    const minValue = parseInt(quantityInput.getAttribute('min')) || 0;
+    const maxValue = parseInt(quantityInput.getAttribute('max')) || Infinity;
+
+    if (e.target.name === 'minus' && currentValue > minValue) {
+      quantityInput.value = currentValue - 1;
+    } else if (e.target.name === 'plus' && currentValue < maxValue) {
+      quantityInput.value = currentValue + 1;
+    } else if (e.type === 'change') {
+      if (currentValue < minValue) {
+        quantityInput.value = minValue;
+      } else if (currentValue > maxValue) {
+        quantityInput.value = maxValue;
+      }
+    }
+  }
+}
+```
+
+## Data Parsing and JSON Handling
+
+**Parse JSON data with error handling:**
+
+```javascript
+class ProductInfo extends HTMLElement {
+  getSelectedVariant(html) {
+    const selectedVariant = html.querySelector('[data-selected-variant]')?.innerHTML;
+    return !!selectedVariant ? JSON.parse(selectedVariant) : null;
+  }
+}
+```
+
+**Embed JSON data in Liquid templates:**
+
+```liquid
+<script type="application/json" data-selected-variant>
+  {{ selected_variant | json }}
+</script>
+```
+
+## DOM Manipulation Patterns
+
+**Update specific sections with helper methods:**
+
+```javascript
+class ProductInfo extends HTMLElement {
+  updateSourceFromDestination = (html, id) => {
+    const source = html.getElementById(`${id}`);
+    const destination = this.querySelector(`#${id}`);
+    if (source && destination) {
+      destination.innerHTML = source.innerHTML;
+    }
+  };
+
+  updateVariantInputs(variantId) {
+    this.querySelectorAll(`#product-form-${this.dataset.section}, #product-form-installment-${this.dataset.section}`).forEach(
+      (productForm) => {
+        const input = productForm.querySelector('input[name="id"]');
+        input.value = variantId ?? '';
+      }
+    );
+  }
+}
+```
+
+
+
+## AbortController for Request Cancellation
+
+**Use AbortController to cancel previous requests:**
+
+```javascript
+class ProductInfo extends HTMLElement {
+  abortController = undefined;
+
+  async renderSection(hasDifferentProductUrl, productUrl) {
+    // Cancel previous request
+    this.abortController?.abort();
+    this.abortController = new AbortController();
+
+    try {
+      const response = await fetch(`${productUrl}?option_values=${this.selectedOptionValues}&section_id=${this.dataset.section}`, {
+        signal: this.abortController.signal,
+      });
+      
+      const responseText = await response.text();
+      // Process response
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        console.log('Fetch aborted by user');
+      } else {
+        console.error(error);
+      }
+    }
+  }
+
+  disconnectedCallback() {
+    this.abortController?.abort();
+  }
+}
+```
+
+## Error Handling
+
+**Always handle errors gracefully:**
+
+```javascript
+const fetchData = async (url) => {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    // Return fallback data or empty state
+    return null;
+  }
+};
+```
+
+## Type Safety with JSDoc
+
+**Always annotate function parameters, return types, and complex objects:**
+
+```javascript
+/**
+ * @typedef {Object} ProductData
+ * @property {string} id - Product identifier
+ * @property {number} price - Product price
+ * @property {boolean} [available] - Availability status (optional)
+ */
+
+/**
+ * Updates product pricing display
+ * @param {ProductData} product - The product to update
+ * @param {HTMLElement} container - Target container element
+ * @returns {Promise<void>}
+ * @throws {Error} If container element is invalid
+ */
+const updateProductDisplay = async (product, container) => {
+  if (!(container instanceof HTMLElement)) {
+    throw new Error('Invalid container element');
+  }
+  // Implementation
+};
 ```
 
 ---
