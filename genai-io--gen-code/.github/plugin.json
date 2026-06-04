@@ -1,0 +1,9 @@
+{
+  "name": "genai-io--gen-code",
+  "displayName": "gen-code",
+  "description": "Open-source AI agent. Lives in your terminal.",
+  "version": "1.0.0",
+  "author": "genai-io",
+  "homepage": "https://github.com/genai-io/gen-code",
+  "skills": []
+}
