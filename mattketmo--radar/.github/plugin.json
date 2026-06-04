@@ -1,0 +1,9 @@
+{
+  "name": "mattketmo--radar",
+  "displayName": "radar",
+  "description": "Alert dashboard for Prometheus Alertmanager",
+  "version": "1.0.0",
+  "author": "MattKetmo",
+  "homepage": "https://github.com/MattKetmo/radar",
+  "skills": []
+}
