@@ -4,7 +4,7 @@
   "repo": "sisyphus-academica-727",
   "description": "Open-source research pipeline \u2014 literature review, novelty generation, citation verification, and adversarial review.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Magicdellaregain/sisyphus-academica-727",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T17:41:52Z"
+  "distributed_at": "2026-06-04T17:43:36Z"
 }
