@@ -7,11 +7,11 @@ A lightweight iOS image compression library that supports JPEG, PNG, HEIC format
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Weixi779/WICompress](https://github.com/Weixi779/WICompress).
+Original source: `CLAUDE.md` in [Weixi779/WICompress](https://github.com/Weixi779/WICompress).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
