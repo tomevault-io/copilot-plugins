@@ -1,0 +1,9 @@
+{
+  "name": "thesethrose--agent-chat",
+  "displayName": "Agent-Chat",
+  "description": "An advanced AI-powered conversational agent leveraging the Llama 3.2 model and Phidata framework. Features include reasoning, natural language interaction, and tool integration for web searches and ca",
+  "version": "1.0.0",
+  "author": "TheSethRose",
+  "homepage": "https://github.com/TheSethRose/Agent-Chat",
+  "skills": []
+}
