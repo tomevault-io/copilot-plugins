@@ -1,0 +1,9 @@
+{
+  "name": "sccn--eegprep",
+  "displayName": "eegprep",
+  "description": "EEGPrep is an automated preprocessing tool for human EEG data built on a benchmarked EEGLAB pipeline",
+  "version": "1.0.0",
+  "author": "sccn",
+  "homepage": "https://github.com/sccn/eegprep",
+  "skills": []
+}
