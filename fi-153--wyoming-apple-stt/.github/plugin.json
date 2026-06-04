@@ -1,0 +1,9 @@
+{
+  "name": "fi-153--wyoming-apple-stt",
+  "displayName": "wyoming-apple-stt",
+  "description": "STT component for Home Assistant using Apple's on-device STT models and Wyoming protocol. Great performance, full privacy, always available",
+  "version": "1.0.0",
+  "author": "FI-153",
+  "homepage": "https://github.com/FI-153/wyoming-apple-stt",
+  "skills": []
+}
