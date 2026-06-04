@@ -1,0 +1,9 @@
+{
+  "name": "ongridio--ongrid",
+  "displayName": "ongrid",
+  "description": "AI agent for understanding, diagnosing, and operating infrastructure \u2014 all from the chat apps you already use.",
+  "version": "1.0.0",
+  "author": "ongridio",
+  "homepage": "https://github.com/ongridio/ongrid",
+  "skills": []
+}
