@@ -1,0 +1,9 @@
+{
+  "name": "parischap--effect-libs",
+  "displayName": "effect-libs",
+  "description": "Extends some Effect modules (`Array`, `Chunk`, `Option`, `Either`, `String`, ...). Adds extra-functionalities such as date and number parsing/formatting, sscanf/sprintf templating, number rounding, ob",
+  "version": "1.0.0",
+  "author": "parischap",
+  "homepage": "https://github.com/parischap/effect-libs",
+  "skills": []
+}
