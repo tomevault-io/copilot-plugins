@@ -4,7 +4,7 @@
   "repo": "csm-sentinel",
   "description": "Provides your CSM Node Operator events to the telegram chats",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/skhomuti/csm-sentinel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T18:43:59Z"
+  "distributed_at": "2026-06-04T18:46:45Z"
 }
