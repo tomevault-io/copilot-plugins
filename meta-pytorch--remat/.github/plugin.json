@@ -1,0 +1,9 @@
+{
+  "name": "meta-pytorch--remat",
+  "displayName": "remat",
+  "description": "torch_remat fine-grained activation checkpointing API",
+  "version": "1.0.0",
+  "author": "meta-pytorch",
+  "homepage": "https://github.com/meta-pytorch/remat",
+  "skills": []
+}
