@@ -1,0 +1,9 @@
+{
+  "name": "ai272--speaker",
+  "displayName": "speaker",
+  "description": "Speaker is a Codex skill project for academic presentations: read real.pptx, combine text extraction, PPTX structure parsing, page-by-page rendering, OCR, and visual review to generate page-by-page sp",
+  "version": "1.0.0",
+  "author": "AI272",
+  "homepage": "https://github.com/AI272/speaker",
+  "skills": []
+}
