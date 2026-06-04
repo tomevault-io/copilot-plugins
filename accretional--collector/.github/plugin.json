@@ -1,0 +1,9 @@
+{
+  "name": "accretional--collector",
+  "displayName": "collector",
+  "description": "Collector is an ORM, CRUD server, and distributed programming project using protobufs, grpc, sqlite, and extensive use of reflection!",
+  "version": "1.0.0",
+  "author": "accretional",
+  "homepage": "https://github.com/accretional/collector",
+  "skills": []
+}
