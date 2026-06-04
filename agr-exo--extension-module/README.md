@@ -7,11 +7,11 @@ angel Robotics KIT H10을 위한 부분 개방형 R&D 플랫폼. XM10 확장 모
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AGR-EXO/Extension_Module](https://github.com/AGR-EXO/Extension_Module).
+Original source: `CLAUDE.md` in [AGR-EXO/Extension_Module](https://github.com/AGR-EXO/Extension_Module).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
