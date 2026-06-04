@@ -7,11 +7,11 @@ SAP AI Core Open AI Compatible LLM Proxy(gpt-5, claude sonnet 4.6, claude opus 4
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pjq/sap-ai-core-llm-proxy](https://github.com/pjq/sap-ai-core-llm-proxy).
+Original source: `AGENTS.md` in [pjq/sap-ai-core-llm-proxy](https://github.com/pjq/sap-ai-core-llm-proxy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
