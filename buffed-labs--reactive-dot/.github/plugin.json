@@ -1,0 +1,9 @@
+{
+  "name": "buffed-labs--reactive-dot",
+  "displayName": "reactive-dot",
+  "description": "A reactive library for building Substrate front-ends",
+  "version": "1.0.0",
+  "author": "buffed-labs",
+  "homepage": "https://github.com/buffed-labs/reactive-dot",
+  "skills": []
+}
