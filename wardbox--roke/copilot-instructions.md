@@ -1,76 +1,131 @@
-## wasp-operations
+## wasp-reference
 
-> Rules for Wasp operations (actions and queries)
+> Wasp Documentation Reference
 
-# Rules for Wasp operations (actions and queries)
+# Wasp Documentation Reference
 
-**Description**: Guidelines for implementing and using Wasp operations
+**Description**: Key documentation references for Wasp development
 
-## Workflow
+## Official Documentation Links
 
-- Always define operations in `main.wasp` **first**, then implement them in the
-  feature's `operations.ts` file
-- Expect type errors in your editor after adding operations to `main.wasp` until
-  you:
-  - Implement the operation in your operations.ts file
-  - Restart the Wasp language server (this is normal behavior)
-- To restart the Wasp language server, you can:
-  - Use the command palette: `Developer: Restart Extension Host`
-  - Or simply restart your editor
+- [Wasp Documentation](mdc:https:/wasp.sh/docs)
 
-## Organization
+## Key Concepts
 
-- Store actions and queries together in `feature/operations.ts`
-- Keep operations focused on one feature's functionality
-- Export operations with clear, descriptive names
+### Application Structure
 
-## Type Safety
+Sunderer uses a feature-based organization:
 
-- Always use the satisfies keyword for proper typing:
+- `main.wasp`: Core definition file for routes, pages, entities, queries and
+  actions
+- `src/`: Feature-based organization:
+  - `src/auth/`: Authentication related pages and operations
+  - `src/events/`: Event management feature
+  - `src/landing/`: Landing page and marketing
+  - `src/root/`: App shell, layout components
+  - `src/shared/`: Shared utilities and components
 
-```typescript
-import { type GetEvents } from 'wasp/server/operations'
+Within each feature folder:
 
-export const getEvents = (async (_args, context) => {
-  return context.entities.Event.findMany({
-    include: { artist: true, venue: true },
-  })
-}) satisfies GetEvents<Event[]>
+```
+src/feature/
+  ├── FeaturePage.tsx      # Main page component
+  ├── operations.ts        # Feature-specific queries and actions
+  └── components/          # Feature-specific components
+      └── FeatureComponent.tsx
 ```
 
-## Component Props Typing
+### Entity Declaration
 
-- Use ReturnType for typing components that receive query results:
+In Wasp, entities are defined in the `schema.prisma` file using Prisma's schema
+language:
 
-```typescript
-export interface EventsPageProps {
-  events: Awaited<ReturnType<typeof getEvents>>
+```prisma
+// schema.prisma
+model User {
+  id         String   @id @default(uuid())
+  username   String   @unique
+  email      String   @unique
+  role       UserRole @default(FAN)
+  artist     Artist?
+  venue      Venue?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
+
+model Artist {
+  id          String      @id @default(uuid())
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String      @unique
+  genre       String?
+  socialLinks SocialLink[]
+  events      Event[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+// More models...
 ```
 
-- This lets you avoid creating redundant interfaces for operation results as it
-  inherits properties automatically
+#### Working with Entities
 
-## Error Handling
-
-- Always include appropriate error handling in your operations
-- Check for authentication when needed
-- Validate inputs before processing
-- Use specific error messages to help with debugging
+1. **Define models in schema.prisma** - Create or update your models in the
+   schema.prisma file
+2. **Run migrations** - Apply changes to your database with
+   `wasp db migrate-dev`
+3. **Import entities** - Access them in your code:
 
 ```typescript
-// Example error handling pattern
-if (!context.user) {
-  throw new HttpError(401, 'You must be logged in to create events')
-}
-
-if (!name?.trim()) {
-  throw new HttpError(400, 'Event name cannot be empty')
-}
+import { User, Artist, Event } from 'wasp/entities'
 ```
 
-For more comprehensive examples of operations implementation, see
-@file('.cursor/rules/wasp-reference.md')
+4. **Use in operations** - Reference them in your actions and queries
+
+### Operations (Queries & Actions)
+
+Wasp uses a declarative approach for backend operations. These are defined in
+`main.wasp` and implemented in feature-specific `operations.ts` files.
+
+For detailed guidelines on implementing operations, see
+@file('.cursor/rules/wasp-operations.md').
+
+#### Defining Operations in main.wasp
+
+```typescript
+// In main.wasp
+app.query('getEvents', {
+  fn: { import: 'getEvents', from: '@src/events/operations' },
+  entities: ['Event', 'Artist', 'Venue'],
+})
+
+app.action('createEvent', {
+  fn: { import: 'createEvent', from: '@src/events/operations' },
+  entities: ['Event', 'Artist', 'Venue'],
+})
+```
+
+#### Client Usage
+
+```tsx
+// src/events/EventsPage.tsx
+import { getEvents, useQuery } from 'wasp/client/operations'
+
+export function EventsPage() {
+  const { data: events, isLoading, error } = useQuery(getEvents)
+
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
+
+  return (
+    <div>
+      <h1>Events</h1>
+      {events.map(event => (
+        <EventCard key={event.id} event={event} />
+      ))}
+    </div>
+  )
+}
+```
 
 ---
 > Source: [wardbox/roke](https://github.com/wardbox/roke) — distributed by [TomeVault](https://tomevault.io).
