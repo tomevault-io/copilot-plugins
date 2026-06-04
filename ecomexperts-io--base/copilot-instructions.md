@@ -1,258 +1,52 @@
-## naming-conventions
+## prompts-and-references
 
-> - **DO NOT** use `main-` prefix for new sections
+> The prompts and references directories contain documentation and guides for AI agents to follow when working on various tasks in the Horizon theme.
 
+# Prompts and References
 
-# Architecture Standards
+The prompts and references directories contain documentation and guides for AI agents to follow when working on various tasks in the Horizon theme.
 
-## Section Naming and Structure
+## Living Documents
 
-### Section File Naming
-- **DO NOT** use `main-` prefix for new sections
-- The `main-` prefix is reserved for main template sections in the `@templates` folder
-- Name sections based on their functionality:
-  - `featured-collections.liquid`
-  - `featured-products.liquid`
-  - `image-banner.liquid`
-  - `hero-banner.liquid`
-  - `testimonials.liquid`
+**Important**: All files in the `.cursor/prompts/` and `.cursor/references/` folders are living documents. This means:
 
-### Section Structure Example
-```liquid
-<product-info
-  data-url="{{ product.url}}"
-  data-section="{{ section.id }}"
-  class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
->
-  <!-- Section content here -->
-</product-info>
-```
+- They should be updated as new cases are encountered
+- When you discover a useful pattern, edge case, or solution while working on an issue, update the relevant file
+- If something in these files doesn't work as expected, fix it immediately
+- Add examples from real implementation experiences
+- Remove or update outdated information
 
-### Section JavaScript
-JavaScript for sections is optional. Inline scripts inside a section are allowed for small amounts of logic. As a guideline, keep inline scripts to roughly 100 lines or fewer. If the script exceeds ~100 lines or becomes complex, move it into `assets/section-[section-name].js`. When adding JavaScript to sections, use custom elements:
+**CRITICAL ACTION REQUIREMENT**: When you encounter any pattern, issue, or solution while working - immediately update the relevant documentation file WITHOUT being asked. This includes:
+- Code patterns to avoid (like console.log in tests)
+- Better ways to accomplish tasks
+- Edge cases or pitfalls discovered
+- Clarifications for ambiguous instructions
+- New tools or commands that work better
 
-**File naming:** `section-[section-name].js`
-- `section-featured-collections.js`
-- `section-featured-products.js`
-- `section-image-banner.js`
+Do not wait for the user to suggest documentation updates. Proactively maintaining these living documents is part of completing any task.
 
-**Custom Element Structure:**
-```javascript
-if (!customElements.get('custom-element')) {
-  customElements.define(
-    'custom-element',
-    class CustomElement extends HTMLElement {
-      constructor() {
-        super();
-      }
+## Purpose
 
-      connectedCallback() {
-        // Initialize component when added to DOM
-      }
+These documentation files serve as:
+- Step-by-step guides for common tasks
+- Documentation of best practices learned from experience
+- References for handling edge cases and pitfalls
+- Templates for consistent workflows
 
-      disconnectedCallback() {
-        // Cleanup when removed from DOM
-      }
-    }
-  );
-}
-```
+## Usage
 
-### Section CSS
-**File naming:** `section-[section-name].css`
-- `section-featured-collections.css`
-- `section-featured-products.css`
-- `section-image-banner.css`
+When an AI agent is asked to perform a task that has corresponding documentation:
+1. The agent should follow the documented steps
+2. If the steps need adjustment based on the specific situation, the agent should note what changes were needed
+3. **MANDATORY**: Update the documentation immediately with any new learnings, patterns, or pitfalls discovered during the task - do not wait to be asked
 
-## Snippet Naming and Structure
+## Examples of Living Document Updates
 
-### Snippet File Naming
-- **99% of the time** snippets are prefixed with `component-`
-- Name based on functionality:
-  - `component-product-card.liquid`
-  - `component-cart-drawer.liquid`
-  - `component-filters-sidebar.liquid`
-
-### Snippet JavaScript
-When adding JavaScript to snippets, use custom elements:
-
-**File naming:** `component-[component-name].js`
-- `component-product-card.js`
-- `component-cart-drawer.js`
-- `component-filters-sidebar.js`
-
-**Custom Element Structure:** (Same as sections)
-```javascript
-if (!customElements.get('product-card')) {
-  customElements.define(
-    'product-card',
-    class ProductCard extends HTMLElement {
-      constructor() {
-        super();
-      }
-
-      connectedCallback() {
-        // Initialize component
-      }
-
-      disconnectedCallback() {
-        // Cleanup
-      }
-    }
-  );
-}
-```
-
-### Snippet CSS
-**File naming:** `component-[component-name].css`
-- `component-product-card.css`
-- `component-cart-drawer.css`
-- `component-filters-sidebar.css`
-
-## Examples
-
-### Section Example: Featured Products
-**Files:**
-- `sections/featured-products.liquid`
-- `assets/section-featured-products.js`
-- `assets/section-featured-products.css`
-
-### Component Example: Product Card
-**Files:**
-- `snippets/component-product-card.liquid`
-- `assets/component-product-card.js`
-- `assets/component-product-card.css`
-
-## Key Rules Summary
-1. **Sections:** No `main-` prefix for new sections
-2. **JavaScript:** Use custom elements when JS is needed (JS files are optional)
-3. **Naming:** Consistent prefixes (`section-` or `component-`)
-4. **File Types:** When present, match naming across `.liquid`, `.js`, and `.css` files (JS/CSS optional)
-# Architecture Standards
-
-## Section Naming and Structure
-
-### Section File Naming
-- **DO NOT** use `main-` prefix for new sections
-- The `main-` prefix is reserved for main template sections in the `@templates` folder
-- Name sections based on their functionality:
-  - `featured-collections.liquid`
-  - `featured-products.liquid`
-  - `image-banner.liquid`
-  - `hero-banner.liquid`
-  - `testimonials.liquid`
-
-### Section Structure Example
-```liquid
-<product-info
-  data-url="{{ product.url}}"
-  data-section="{{ section.id }}"
-  class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
->
-  <!-- Section content here -->
-</product-info>
-```
-
-### Section JavaScript
-JavaScript for sections is optional. Inline scripts inside a section are allowed for small amounts of logic. As a guideline, keep inline scripts to roughly 100 lines or fewer. If the script exceeds ~100 lines or becomes complex, move it into `assets/section-[section-name].js`. When adding JavaScript to sections, use custom elements:
-
-**File naming:** `section-[section-name].js`
-- `section-featured-collections.js`
-- `section-featured-products.js`
-- `section-image-banner.js`
-
-**Custom Element Structure:**
-```javascript
-if (!customElements.get('custom-element')) {
-  customElements.define(
-    'custom-element',
-    class CustomElement extends HTMLElement {
-      constructor() {
-        super();
-      }
-
-      connectedCallback() {
-        // Initialize component when added to DOM
-      }
-
-      disconnectedCallback() {
-        // Cleanup when removed from DOM
-      }
-    }
-  );
-}
-```
-
-### Section CSS
-**File naming:** `section-[section-name].css`
-- `section-featured-collections.css`
-- `section-featured-products.css`
-- `section-image-banner.css`
-
-## Snippet Naming and Structure
-
-### Snippet File Naming
-- **99% of the time** snippets are prefixed with `component-`
-- Name based on functionality:
-  - `component-product-card.liquid`
-  - `component-cart-drawer.liquid`
-  - `component-filters-sidebar.liquid`
-
-### Snippet JavaScript
-When adding JavaScript to snippets, use custom elements:
-
-**File naming:** `component-[component-name].js`
-- `component-product-card.js`
-- `component-cart-drawer.js`
-- `component-filters-sidebar.js`
-
-**Custom Element Structure:** (Same as sections)
-```javascript
-if (!customElements.get('product-card')) {
-  customElements.define(
-    'product-card',
-    class ProductCard extends HTMLElement {
-      constructor() {
-        super();
-      }
-
-      connectedCallback() {
-        // Initialize component
-      }
-
-      disconnectedCallback() {
-        // Cleanup
-      }
-    }
-  );
-}
-```
-
-### Snippet CSS
-**File naming:** `component-[component-name].css`
-- `component-product-card.css`
-- `component-cart-drawer.css`
-- `component-filters-sidebar.css`
-
-## Examples
-
-### Section Example: Featured Products
-**Files:**
-- `sections/featured-products.liquid`
-- `assets/section-featured-products.js`
-- `assets/section-featured-products.css`
-
-### Component Example: Product Card
-**Files:**
-- `snippets/component-product-card.liquid`
-- `assets/component-product-card.js`
-- `assets/component-product-card.css`
-
-## Key Rules Summary
-1. **Sections:** No `main-` prefix for new sections
-2. **JavaScript:** Always use custom elements
-3. **Naming:** Consistent prefixes (`section-` or `component-`)
-4. **File Types:** Match naming across `.liquid`, `.js`, and `.css` files
+- Adding a new pitfall discovered during implementation
+- Clarifying a step that was ambiguous
+- Adding a reference to a newly created documentation file
+- Updating commands or scripts that have changed
+- Adding examples of good vs bad practices
 
 ---
 > Source: [EcomExperts-io/Base](https://github.com/EcomExperts-io/Base) — distributed by [TomeVault](https://tomevault.io).
