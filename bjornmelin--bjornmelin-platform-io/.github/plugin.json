@@ -1,0 +1,9 @@
+{
+  "name": "bjornmelin--bjornmelin-platform-io",
+  "displayName": "bjornmelin-platform-io",
+  "description": "Cloud-native portfolio platform powering bjornmelin.io. Demonstrates AWS solutions architecture through microservices, serverless APIs, and infrastructure as code. Built with Next.js, AWS CDK, and mod",
+  "version": "1.0.0",
+  "author": "BjornMelin",
+  "homepage": "https://github.com/BjornMelin/bjornmelin-platform-io",
+  "skills": []
+}
