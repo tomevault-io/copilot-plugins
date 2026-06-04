@@ -1,0 +1,9 @@
+{
+  "name": "brentmid--evernote-mcp-server",
+  "displayName": "evernote-mcp-server",
+  "description": "Evernote MCP server - allows LLMs that support MCP (like Claude Desktop) to query your notes in Evernote",
+  "version": "1.0.0",
+  "author": "brentmid",
+  "homepage": "https://github.com/brentmid/evernote-mcp-server",
+  "skills": []
+}
