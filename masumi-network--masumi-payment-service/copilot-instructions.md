@@ -1,77 +1,59 @@
-## frontend
+## general
 
-> Frontend React and Next.js patterns
+> Project-wide coding standards for Masumi Payment Service
 
 
-You are an expert in React, Next.js, TypeScript, and modern frontend development with TanStack Query.
+You are an expert in TypeScript, Node.js, Express, Prisma, and Cardano blockchain development.
 
 Key Principles
 
-- Write functional components using TypeScript with explicit prop interfaces.
-- Use TanStack Query (React Query) for all server state management.
-- Leverage React context for global client state; avoid prop drilling.
-- Follow component composition patterns; keep components focused and reusable.
-- Use Shadcn UI components from `components/ui/` for consistent styling.
+- Write clear, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes except for services.
+- Prioritize readability and maintainability; follow the project's established patterns.
+- Use descriptive variable and function names with auxiliary verbs (e.g., isLoading, hasError, canWithdraw).
+- Structure code in a modular way to promote reusability and separation of concerns.
 
-Generated Code
+TypeScript Conventions
 
-- Never manually edit files in `frontend/src/lib/api/generated/`; these are auto-generated from OpenAPI spec.
-- Run `cd frontend && pnpm run openapi-ts-latest` after backend API changes to regenerate types.
-- Import API types from generated files for type-safe API interactions.
-- Do not use unknown-valued map types in frontend code; prefer explicit JSON/object types and runtime property helpers for narrowing `unknown`.
+- Use TypeScript for all code; prefer interfaces over types for object shapes.
+- Use path aliases consistently: `@/*` maps to `src/*`, `@smart-contracts/*` maps to `smart-contracts/*`; never use relative imports like `../../`.
+- Prefix unused variables with underscore (e.g., `_error`, `_unused`) to satisfy ESLint.
+- Avoid `any` type when possible, but it is allowed in this project when necessary.
+- Never introduce unknown-valued map types; use domain types, explicit recursive value types, or property-reader helpers instead.
+- Use strict null checks; handle null and undefined explicitly.
 
-Component Structure
+Formatting Standards
 
-- Place components in `components/{feature}/` directories organized by feature.
-- Place reusable UI primitives in `components/ui/` following Shadcn patterns.
-- Keep component files focused; extract sub-components when they grow complex.
-- Define TypeScript interfaces for props at the top of component files.
+- Use single quotes for strings, never double quotes.
+- Use 2 spaces for indentation, never tabs.
+- Include trailing commas in all multi-line structures.
+- End all statements with semicolons.
+- Maximum line length of 100 characters.
+- Run `pnpm run lint` and `pnpm run format` before committing.
 
-Data Fetching
+Naming Conventions
 
-- Use TanStack Query hooks (useQuery, useMutation) for all API calls.
-- Define query keys consistently for proper cache invalidation.
-- Handle loading, error, and success states explicitly in components.
-- Use `queryClient.invalidateQueries()` after mutations to refresh data.
+- Use kebab-case for file names (e.g., `my-service.ts`, `payment-handler.ts`).
+- Use PascalCase for classes, interfaces, and type aliases.
+- Use camelCase for functions, variables, and object properties.
+- Use UPPER_SNAKE_CASE for constants and environment variables.
 
-Context Providers
+Commit Message Standards
 
-- Use `AppContext` for application-wide state and settings.
-- Use `DialogContext` for managing dialog/modal state globally.
-- Use `ThemeContext` for theme management.
-- Use `SidebarContext` for sidebar navigation state.
-- Wrap components at appropriate level; avoid unnecessary context nesting.
+- Follow conventional commits format strictly: `type(scope): description`.
+- Types allowed: feat, fix, docs, style, refactor, test, chore, perf, ci, revert, build.
+- Keep header under 72 characters; type must be lowercase.
+- No period at end of subject line.
+- Use present tense ("add feature" not "added feature").
 
-Styling
+Project Structure
 
-- Use Tailwind CSS for all styling; avoid inline styles and CSS modules.
-- Follow mobile-first responsive design approach.
-- Use Shadcn UI component variants for consistent styling.
-- Keep custom styles minimal; leverage existing design system.
+- Routes handle HTTP request/response only; keep them thin.
+- Services contain business logic and orchestrate operations.
+- Utilities provide reusable helper functions.
+- Generated code in `src/generated/` must never be manually edited.
 
-State Management
-
-- Prefer server state (TanStack Query) over client state when possible.
-- Use React useState for local component state.
-- Use React context for shared client state across components.
-- Avoid global state management libraries; the existing patterns are sufficient.
-
-Performance
-
-- Use React.memo for expensive components that receive stable props.
-- Implement proper loading states with skeleton components from `components/skeletons/`.
-- Use dynamic imports for code splitting on non-critical components.
-- Avoid unnecessary re-renders by proper dependency management in hooks.
-
-Dependencies
-
-- Next.js (React framework)
-- TanStack Query (server state management)
-- Tailwind CSS (styling)
-- Shadcn UI (component library)
-- React Hook Form (form handling when needed)
-
-Refer to existing components in `frontend/src/components/` for implementation patterns.
+Refer to the project's ESLint and Prettier configurations for specific formatting rules.
 
 ---
 > Source: [masumi-network/masumi-payment-service](https://github.com/masumi-network/masumi-payment-service) — distributed by [TomeVault](https://tomevault.io).
