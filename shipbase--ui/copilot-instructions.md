@@ -1,63 +1,42 @@
-## development-workflow
+## project-structure
 
-> pnpm dev           # Start all app development servers
+> This is a monorepo-based UI component library project supporting React and Vue frameworks, built with Ark UI and Tailwind CSS.
 
-# Development Workflow Guide
+# Project Structure Guide
 
-## Quick Start
+## Overview
+This is a monorepo-based UI component library project supporting React and Vue frameworks, built with Ark UI and Tailwind CSS.
 
-### Install Dependencies
-```bash
-pnpm install
-```
+## Core Files
+- [package.json](mdc:package.json) - Root level package configuration file
+- [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml) - pnpm workspace configuration and dependency catalog
+- [turbo.json](mdc:turbo.json) - Turbo build tool configuration
+- [biome.jsonc](mdc:biome.jsonc) - Code formatting and linting configuration
 
-### Development Mode
-```bash
-pnpm dev           # Start all app development servers
-pnpm dev:storybook # Start Storybook development environment
-```
+## Directory Structure
 
-## Main Commands
+### Apps Directory
+- [apps/www/](mdc:apps/www) - Main documentation website (Astro)
+  - [apps/www/astro.config.ts](mdc:apps/www/astro.config.ts) - Astro configuration
+  - [apps/www/src/](mdc:apps/www/src) - Website source code
 
-### Build Related
-- `pnpm build` - Build all packages and applications
-- `pnpm test` - Run all tests
-- `pnpm typecheck` - Type checking
+### Packages Directory  
+- [packages/react/](mdc:packages/react) - React component package
+- [packages/vue/](mdc:packages/vue) - Vue component package
+- [packages/lib/](mdc:packages/lib) - Shared libraries and utilities
+- [packages/cli/](mdc:packages/cli) - CLI tools
 
-### Code Quality
-- `pnpm lint` - Run Biome linter
-- `pnpm lint:fix` - Auto-fix lint issues  
-- `pnpm format` - Format code
-- `pnpm check:repo` - Check repository dependency consistency
-- `pnpm check:repo:fix` - Auto-fix repository dependency issues
+### Tooling Directory
+- [tooling/](mdc:tooling) - Build tools and configurations
 
-### Dependency Management
-- `pnpm bump` - Update dependency versions
-- `pnpm clean` - Clean all node_modules and build artifacts
-
-## Turbo Task Configuration
-
-Refer to [turbo.json](mdc:turbo.json) for task dependency relationships:
-
-- **dev**: Development mode task, no cache, persistent running
-- **build**: Build task, depends on other packages' builds completing
-- **typecheck**: Type checking task, depends on other packages' type checking
-- **test**: Test task
-- **storybook**: Storybook task, no cache
-
-## Pre-commit Checks
-
-Project has configured git hooks:
-- Uses [simple-git-hooks](mdc:package.json) to run lint-staged on pre-commit
-- Automatically formats and checks committed files
-
-## Version Release
-
-Uses Changesets for version management:
-```bash
-pnpm changeset      # Create change record
-pnpm version        # Update versions and format code
-```
+## Tech Stack
+- **Frameworks**: React 18/19, Vue 3
+- **Build Tools**: Turbo, Vite, Astro
+- **Styling**: Tailwind CSS
+- **Component Library**: Ark UI
+- **Package Management**: pnpm workspace
+- **Code Quality**: Biome (formatting + linting)
+- **Version Management**: Changesets
 
 ---
 > Source: [shipbase/ui](https://github.com/shipbase/ui) — distributed by [TomeVault](https://tomevault.io).
