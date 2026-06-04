@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--webmacro",
+  "displayName": "webmacro",
+  "description": "DuckDB WebMacro: Share and Load your SQL Macros via gists",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/webmacro",
+  "skills": []
+}
