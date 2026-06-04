@@ -1,0 +1,30 @@
+## keytype
+
+> KeyType core guardrails — clean-room, architecture, and workflow rules
+
+
+# KeyType — Always-On Rules
+
+> **Source of truth: [`AGENTS.md`](../../AGENTS.md).** This rule is a pointer so the guardrails
+> apply inside Cursor; keep substantive edits in `AGENTS.md` so the two can't drift.
+
+KeyType is an open-source, on-device, system-wide macOS tab-autocomplete utility — a clean-room
+alternative to the closed-source app *Cotypist*. It is **built and shipping**; work is maintenance
+and iteration. **Read `docs/00-overview.md` first.**
+
+The non-negotiables (full detail in `AGENTS.md`):
+
+- **Prefer suppression to a wrong suggestion**; predict a *short* base-model continuation that
+  ends exactly at the cursor; keep it on-device and private (clipboard/OCR/history opt-in).
+- **Extend the existing module graph; do not rewrite it.** Cross-module types go in
+  `AutocompleteCore` (no AppKit/llama deps); the app target is the only wiring layer.
+- Generation is cancellable; model decode runs off the main actor; AX + overlay code is `@MainActor`.
+- Make the smallest change behind the existing protocols; add/update tests and keep
+  `swift build` + `swift test` green for every package you touch.
+- Triage quality from `predictions.log` first; measure latency in a **release** build.
+- Log non-obvious decisions as a new ADR in `docs/05-decisions.md`.
+- **Only create git commits when the human explicitly asks.**
+
+---
+> Source: [LightningPlait/KeyType-860](https://github.com/LightningPlait/KeyType-860) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
