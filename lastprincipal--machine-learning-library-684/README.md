@@ -7,11 +7,11 @@ A hand-curated, topic-organized library of the best ML education — 923 docs (3
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [LastPrincipal/machine-learning-library-684](https://github.com/LastPrincipal/machine-learning-library-684).
+Original source: `AGENTS.md` in [LastPrincipal/machine-learning-library-684](https://github.com/LastPrincipal/machine-learning-library-684).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
