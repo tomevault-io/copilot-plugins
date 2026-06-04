@@ -1,0 +1,9 @@
+{
+  "name": "jacksonpires--rails-api-docs",
+  "displayName": "rails-api-docs",
+  "description": "Generate beautiful API documentation for your Rails app",
+  "version": "1.0.0",
+  "author": "jacksonpires",
+  "homepage": "https://github.com/jacksonpires/rails-api-docs",
+  "skills": []
+}
