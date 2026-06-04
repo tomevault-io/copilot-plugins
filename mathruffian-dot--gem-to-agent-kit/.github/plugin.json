@@ -1,0 +1,9 @@
+{
+  "name": "mathruffian-dot--gem-to-agent-kit",
+  "displayName": "gem-to-agent-kit",
+  "description": "\u8b93\u4efb\u4f55 AI agent \u5316\u8eab\u5347\u7d1a\u9867\u554f\uff0c\u628a Google Gemini \u7684 Gem \u5347\u7d1a\u6210 Agent \u5de5\u4f5c\u6d41\uff08\u4e3b\u6253 Antigravity\uff09",
+  "version": "1.0.0",
+  "author": "mathruffian-dot",
+  "homepage": "https://github.com/mathruffian-dot/gem-to-agent-kit",
+  "skills": []
+}
