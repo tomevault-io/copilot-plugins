@@ -4,7 +4,7 @@
   "repo": "actualbudget-sync",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tim-smart/actualbudget-sync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T20:50:34Z"
+  "distributed_at": "2026-06-04T20:52:47Z"
 }
