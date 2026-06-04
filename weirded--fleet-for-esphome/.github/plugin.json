@@ -1,0 +1,9 @@
+{
+  "name": "weirded--fleet-for-esphome",
+  "displayName": "fleet-for-esphome",
+  "description": "Fleet for ESPHome \u2014 Home Assistant add-on for managing fleets of ESPHome devices: distributed compile workers, version pinning, scheduled upgrades, fleet tags, and config history.",
+  "version": "1.0.0",
+  "author": "weirded",
+  "homepage": "https://github.com/weirded/fleet-for-esphome",
+  "skills": []
+}
