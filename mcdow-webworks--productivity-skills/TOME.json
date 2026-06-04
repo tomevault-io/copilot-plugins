@@ -1,0 +1,51 @@
+{
+  "name": "productivity-skills",
+  "owner": "mcdow-webworks",
+  "repo": "productivity-skills",
+  "description": "Transform Claude into your AI-powered productivity partner. Note-taking skill creates an AI-navigable second brain    with conversational capture, intelligent search, and pattern recognition across all your work. Plain markdown,   local-first, works in Claude Code and Claude Desktop.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "note-taking",
+      "path": "plugins/productivity-suite/skills/note-taking",
+      "github_url": "https://github.com/mcdow-webworks/productivity-skills/tree/main/plugins/productivity-suite/skills/note-taking",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mcdow-webworks/productivity-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T02:30:22Z"
+}
