@@ -1,43 +1,35 @@
-## sfdmu-export-json
+## rlm-base-dev
 
-> SFDMU v5 export.json editing rules — externalId format, operation selection, deleteOldData safety, object ordering
+> This repository uses `AGENTS.md` (at the repo root) as the canonical
 
+# Copilot Instructions — Revenue Cloud Base Foundations
 
-# SFDMU v5 export.json Rules
+This repository uses `AGENTS.md` (at the repo root) as the canonical
+AI agent instructions file. Read it for:
 
-## DO NOT
+- Project overview and technology stack
+- Safety-critical DO NOT rules
+- SFDMU v5 compliance rules
+- Org identity (CCI vs SF CLI aliases)
+- Common workflows and PR review checklist
+- Skill index with detailed guides for every task type
 
-- Change `Upsert` to `Insert+deleteOldData` without user approval
-- Use `$$Field1$Field2` in `externalId` (v4 syntax — use `;`)
-- Leave empty CSVs without `excluded: true`
-- Put child objects before parent objects in the `objects` array
+## Quick Start
 
-## externalId Format
-- Use `;` delimiters: `Field1;Field2` — NOT `$$Field1$Field2` (v4 syntax)
-- Relationship traversals: `Parent.Field` (1-hop), `GrandParent.Parent.Field` (2-hop)
+1. Read `AGENTS.md` at the repo root
+2. Find the relevant skill in the Skill Index section
+3. Read that skill's `SKILL.md` for detailed guidance
+4. Use **Skill Sub-Files** (listed in `AGENTS.md`) for focused topics — e.g. Robot setup UI + shadow DOM (`.cursor/skills/robot-testing/setup-ui-shadow-dom.md`), UX assembly vs retrieve (`.cursor/skills/repo-integration/ux-assembly-retrieve.md`)
+5. Before a PR: follow **Pre-merge checklists for AI agents** in `AGENTS.md` (SFDMU, `cumulusci.yml`, merge diffs)
 
-## Operation Selection
-- **Upsert**: Only when externalId uses direct fields (no relationship traversals)
-- **Insert + deleteOldData: true**: Required when externalId contains ANY relationship traversal (Bug 3)
-- **Update**: Modifying existing records only
-- **Readonly**: Reference objects loaded by another plan
-- Never change Upsert → Insert+deleteOldData without explaining which bug applies and getting user approval
+## Entry Points
 
-## v5 Bugs to Watch
-- Bug 1: All-multi-hop externalId fails validation — include at least one direct field
-- Bug 2: 2-hop traversals cause SOQL injection in Upsert — use Insert+deleteOldData
-- Bug 3: Relationship-traversal externalId never matches on Upsert — use Insert+deleteOldData
-
-## Object Ordering
-- Parent objects before child objects in the `objects` array
-- deleteOldData objects delete in reverse array order (last first)
-
-## SOQL Queries
-- ORDER BY fields must appear in SELECT
-- Relationship columns must match CSV header expectations
-
-## Empty CSVs
-- Mark `excluded: true` to prevent destructive delete-on-load
+| File | Purpose |
+|------|---------|
+| `AGENTS.md` | Canonical AI agent instructions |
+| `.cursor/skills/*/SKILL.md` | Detailed per-topic guides (plain markdown) |
+| `.cursor/rules/*.mdc` | Cursor-specific auto-injection rules |
+| `scripts/ai/` | AI utility scripts (ERD query, CCI reference generator) |
 
 ---
 > Source: [bgaldino/rlm-base-dev](https://github.com/bgaldino/rlm-base-dev) — distributed by [TomeVault](https://tomevault.io).
