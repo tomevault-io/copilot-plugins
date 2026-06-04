@@ -1,454 +1,556 @@
-## database-schema
-
-> This document provides architectural and relationship information about the ResearchHub PostgreSQL database, complementing the detailed table specifications in `database-tables.cursor-rules`.
-
-# ResearchHub Database Architecture (Cursor Rule)
-
-This document provides architectural and relationship information about the ResearchHub PostgreSQL database, complementing the detailed table specifications in `database-tables.cursor-rules`.
-
-## System Architecture Overview
-
-ResearchHub's database design implements a domain-driven approach centered around research content, with several key architectural patterns:
-
-1. **Unified Document Model**: Content (papers, posts, notes) is abstracted through a unified document system
-2. **Polymorphic Relationships**: Generic relations support flexible content relationships
-3. **Reputation Economy**: A complete transaction system for academic reputation
-4. **Hub-based Organization**: Content categorization through research fields
-5. **User Identity System**: Separates user accounts from author profiles
-6. **Nonprofit Integration**: Supports fundraising for nonprofit organizations through the Endaoment service
-
-## Entity Relationship Diagram (Conceptual)
-
-```
-[USER SYSTEM]                     [CONTENT SYSTEM]                     [ORGANIZATION SYSTEM]
-+----+                  +---+                 +----+
-| user_user   | <----> | paper_paper      | <----> | hub_hub     |
-+----+                  +---+                 +----+
-       |                                |                                   |
-       v                                v                                   v
-+----+                  +---+                 +----+
-| user_author | <----> | discussion_thread | <----> | topic_topic |
-+----+                  +---+                 +----+
-       |                                |                                   |
-       v                                v                                   |
-+----+                  +---+                      |
-| user_action | <----> | reputation_score  | <----+
-+----+                  +---+
-
-[NONPROFIT SYSTEM]
-+---------------+                 +---------------+
-| nonprofit_org | <-------------> | purchase_fundraise |
-+---------------+                 +---------------+
-       |                                |
-       v                                v
-+------------------------+
-| nonprofit_fundraise_link |
-+------------------------+
-```
-
-## Domain Models
-
-### Content Domain
-
-The content model centers around unified documents that can represent different types of content:
-
-1. **Papers** (`paper_paper`): Research papers, which can be:
-   - Imported from external sources with DOIs
-   - Uploaded directly by users
-   - Created as preprints within the system
-
-2. **Discussions** (`discussion_thread`): Conversations that can be:
-   - Attached to papers
-   - Created as standalone discussions
-   - Function as comments on other content
-
-3. **Posts** (`researchhub_document_researchhubpost`): User-generated content that can be:
-   - Research summaries
-   - Commentary
-   - Blog-style posts
-
-All content connects through the `researchhub_document_researchhubunifieddocument` table, which establishes a polymorphic pattern allowing different content types to be treated uniformly in many contexts.
-
-### User Domain
-
-The user model separates identity from academic profile:
-
-1. **User Accounts** (`user_user`): Authentication and platform identity
-2. **Author Profiles** (`user_author`): Academic identity and credentials
-3. **Verification** (`user_userverification`): Processes for validating academic credentials
-
-This separation enables:
-- One user to manage multiple author profiles
-- Author identity verification without affecting user account access
-- Academic metrics separate from platform activity metrics
-
-### Reputation Domain
-
-The reputation system implements a complete economic model:
-
-1. **Scoring** (`reputation_score`): Point values representing academic impact
-2. **Transactions** (`reputation_distribution`): Movement of reputation between users
-3. **Incentives** (`reputation_bounty`): Rewards for valuable contributions
-4. **Escrow** (`reputation_escrow`): Holding system for reputation in process
-
-### Organization Domain
-
-Content is organized through multiple taxonomies:
-
-1. **Hubs** (`hub_hub`): Primary research field categorization
-2. **Topics** (`topic_topic`): Finer-grained subject matter classification
-3. **Concepts** (`researchhub_document_unifieddocumentconcepts`): Specific concepts within content
-
-## Key Relationships
-
-### Content to Users
-
-Content links to users through multiple relationship types:
-
-1. **Authorship**: `paper_authorship` connects papers to authors
-2. **Creation**: Most content has a `created_by_id` reference to `user_user`
-3. **Interaction**: `discussion_vote`, `user_action` track user interactions with content
-
-### Content Organization
-
-Content is organized through:
-
-1. **Hub Assignment**: `researchhub_document_researchhubunifieddocument_hubs` junction table
-2. **Topic Association**: `topic_unifieddocumenttopics` relevancy-scored connections
-3. **Hierarchy**: Topics belong to subfields, which belong to fields
-
-### Polymorphic Relationships
-
-The system uses Django's ContentType framework for polymorphic relationships:
-
-1. **Content Type ID**: References the `django_content_type` table to identify model types
-2. **Object ID**: References the primary key of the specific instance
-3. Together they create a "generic foreign key" pattern used in:
-   - `user_action`
-   - `discussion_vote`
-   - `reputation_distribution` 
-   - `reputation_bounty`
-
-## Core Workflows
-
-### Nonprofit Fundraising Workflow
-
-```
-                                             ┌─── Search for Nonprofit
-                                             │
-User → Create Fundraise → Select Nonprofit → Link to Document → Process Donations
-                                             │
-                                             └─── Distribute Funds
-```
-
-Implementation path:
-1. Search for nonprofit via Endaoment API
-2. Create or select a nonprofit entry in `nonprofit_org`
-3. Create a fundraise in `purchase_fundraise`
-4. Link them through `nonprofit_fundraise_link`
-5. Process donations and distribute funds
-
-### Paper Publication Workflow
-
-```
-                                             ┌─── Assign Topics
-                                             │
-User → Upload Paper → Create Unified Doc → Assign Hubs → Link Authors → Add Metadata
-                                             │
-                                             └─── Calculate Score
-```
-
-Implementation path:
-1. Insert into `paper_paper`
-2. Create entry in `researchhub_document_researchhubunifieddocument`
-3. Link to hubs via `researchhub_document_researchhubunifieddocument_hubs`
-4. Create entries in `paper_authorship`
-5. Assign topics via `topic_unifieddocumenttopics`
-6. Update metrics (score, views, etc.)
-
-### Discussion Creation Workflow
-
-```
-                                              ┌─── Award Reputation
-                                              │
-User → Create Thread → Link to Paper/Post → Update Feeds → Update Metrics
-                                              │
-                                              └─── Notify Subscribers
-```
-
-Implementation path:
-1. Insert into `discussion_thread`
-2. Link to paper or post through `paper_id` or generic relation
-3. Create feed entries in `feed_feedentry`
-4. Award reputation through `reputation_distribution`
-5. Update content metrics (discussion_count, etc.)
-
-### Reputation Transaction Workflow
-
-```
-                                             ┌─── Update Sender Balance
-                                             │
-User → Vote/Reward → Create Distribution → Update Recipient Score → Record History
-                                             │
-                                             └─── Update Content Score
-```
-
-Implementation path:
-1. Create entry in triggering table (e.g., `discussion_vote`)
-2. Create distribution in `reputation_distribution`
-3. Update scores in `reputation_score`
-4. Record history in `reputation_scorechange`
-5. Update content metrics (score, etc.)
-
-## Query Optimization Guidelines
-
-### Nonprofit Query Patterns
-
-When performing nonprofit-related queries:
-
-1. **Search via External API**:
-   ```sql
-   -- Avoid directly querying the database for nonprofits not yet in the system
-   -- Instead, use the Endaoment API for initial searches
-   -- Then store results in nonprofit_org for future reference
-   ```
-
-2. **Fundraise Relationships**:
-   ```sql
-   -- Good: Efficient join through the link table
-   SELECT n.name, n.ein, f.goal_amount
-   FROM nonprofit_org n
-   JOIN nonprofit_fundraise_link nfl ON n.id = nfl.nonprofit_id
-   JOIN purchase_fundraise f ON nfl.fundraise_id = f.id
-   WHERE f.unified_document_id = 123
-   ```
-
-### Indexing Strategy
-
-The database employs strategic indexing to optimize performance:
-
-1. **Compound Indexes**:
-   - `(content_type_id, object_id)` for polymorphic lookups
-   - `(author_id, hub_id)` for reputation queries
-   - `(unified_document_id, is_public)` for content filtering
-
-2. **Text Search Indexes**:
-   - `paper_paper.title` and `paper_paper.abstract` for paper search
-   - `discussion_thread.plain_text` for content search
-
-3. **Foreign Key Indexes**:
-   - All foreign key columns are indexed
-   - Junction tables have indexes on both sides of relationships
-
-### Query Optimization Patterns
-
-When writing queries, follow these patterns for optimal performance:
-
-1. **Use Unified Document IDs**:
-   ```sql
-   -- Good: Query through unified document
-   SELECT * FROM paper_paper WHERE unified_document_id IN 
-     (SELECT id FROM researchhub_document_researchhubunifieddocument WHERE score > 100)
-   
-   -- Avoid: Multiple separate queries
-   SELECT * FROM paper_paper WHERE score > 100
-   UNION
-   SELECT * FROM researchhub_document_researchhubpost WHERE score > 100
-   ```
-
-2. **Filter Early in Joins**:
-   ```sql
-   -- Good: Filter before joining
-   SELECT p.* FROM paper_paper p
-   JOIN (SELECT unified_document_id FROM researchhub_document_researchhubunifieddocument_hubs 
-        WHERE hub_id = 123) h ON p.unified_document_id = h.unified_document_id
-   
-   -- Avoid: Filter after joining multiple tables
-   SELECT p.* FROM paper_paper p
-   JOIN researchhub_document_researchhubunifieddocument_hubs uh ON p.unified_document_id = uh.unified_document_id
-   JOIN hub_hub h ON uh.hub_id = h.id
-   WHERE h.id = 123
-   ```
-
-3. **Use Content Type Lookups Efficiently**:
-   ```sql
-   -- Good: Pre-resolve content type
-   SELECT * FROM discussion_vote 
-   WHERE content_type_id = (SELECT id FROM django_content_type 
-                           WHERE app_label = 'discussion' AND model = 'thread')
-   AND object_id = 123
-   
-   -- Avoid: Multiple joins for simple lookups
-   SELECT * FROM discussion_vote v
-   JOIN django_content_type ct ON v.content_type_id = ct.id
-   WHERE ct.app_label = 'discussion' AND ct.model = 'thread' 
-   AND v.object_id = 123
-   ```
-
-## Transaction Management
-
-The database requires careful transaction management in several areas:
-
-### Reputation Transactions
-
-Reputation transactions should follow ACID principles:
-
-1. **Atomicity**: Use database transactions to ensure distributions and score updates happen together
-2. **Consistency**: Verify reputation totals match distributions
-3. **Isolation**: Lock reputation records during updates to prevent race conditions
-4. **Durability**: Ensure score changes are committed before notifying users
-
-Example transaction:
-```sql
-BEGIN;
--- Create distribution
-INSERT INTO reputation_distribution (sender_id, recipient_id, amount, ...) 
-VALUES (1, 2, 10, ...);
-
--- Update recipient score
-UPDATE reputation_score 
-SET score = score + 10
-WHERE author_id = 2 AND hub_id = 3;
-
--- Record history
-INSERT INTO reputation_scorechange (score_id, score_change, ...) 
-VALUES (123, 10, ...);
-COMMIT;
-```
-
-### Content Relationship Integrity
-
-When creating or modifying content relationships:
-
-1. Create the primary content entity first
-2. Establish the unified document connection
-3. Create dependent relationships within the same transaction
-4. Update denormalized counters and metrics
-
-## Data Migration Considerations
-
-When migrating or evolving the schema:
-
-1. **Denormalized Fields**: Several tables contain denormalized count fields that must be updated when related data changes
-2. **Polymorphic Relationships**: Changes to model names require updates to `django_content_type` references
-3. **Score Recalculation**: Reputation scores may need recalculation after structural changes
-
-## Common Query Examples
-
-### Paper Lookup with Related Information
-
-Find a paper with all related metadata, including authors, hubs, and metrics:
-
-```sql
-SELECT 
-    p.id, p.title, p.doi, p.abstract,
-    p.score, p.citations, p.views, p.downloads,
-    STRING_AGG(DISTINCT a.raw_author_name, ', ') AS authors,
-    STRING_AGG(DISTINCT h.name, ', ') AS hubs,
-    COUNT(DISTINCT dt.id) AS thread_count
-FROM 
-    paper_paper p
-    LEFT JOIN paper_authorship a ON p.id = a.paper_id
-    LEFT JOIN researchhub_document_researchhubunifieddocument_hubs rdh 
-        ON p.unified_document_id = rdh.researchhubunifieddocument_id
-    LEFT JOIN hub_hub h ON rdh.hub_id = h.id
-    LEFT JOIN discussion_thread dt ON dt.paper_id = p.id
-WHERE 
-    p.doi = '10.1234/example.doi'
-    OR p.id = 12345
-GROUP BY 
-    p.id;
-```
-
-### Finding Active Contributors
-
-Identify the most active contributors in a specific research field:
-
-```sql
-SELECT 
-    u.id, u.username, 
-    ua.first_name, ua.last_name,
-    COUNT(DISTINCT p.id) AS paper_count,
-    COUNT(DISTINCT dt.id) AS discussion_count,
-    SUM(rs.score) AS total_reputation
-FROM 
-    user_user u
-    JOIN user_author ua ON u.id = ua.user_id
-    LEFT JOIN paper_authorship pa ON ua.id = pa.author_id
-    LEFT JOIN paper_paper p ON pa.paper_id = p.id
-    LEFT JOIN discussion_thread dt ON dt.created_by_id = u.id
-    LEFT JOIN reputation_score rs ON ua.id = rs.author_id
-WHERE 
-    rs.hub_id IN (
-        SELECT id FROM hub_hub WHERE name LIKE '%Neuroscience%'
-    )
-    AND dt.created_date >= NOW() - INTERVAL '6 months'
-GROUP BY 
-    u.id, ua.id
-ORDER BY 
-    total_reputation DESC
-LIMIT 20;
-```
-
-### Content Recommendation Query
-
-Find relevant papers for a user based on their interests and activity:
-
-```sql
-WITH user_hubs AS (
-    SELECT DISTINCT h.id
-    FROM hub_hub h
-    JOIN researchhub_document_researchhubunifieddocument_hubs hd ON h.id = hd.hub_id
-    JOIN paper_paper p ON p.unified_document_id = hd.researchhubunifieddocument_id
-    JOIN paper_authorship pa ON p.id = pa.paper_id
-    WHERE pa.author_id = 123
-    
-    UNION
-    
-    SELECT h.id
-    FROM hub_hub h
-    JOIN user_follow uf ON h.id = uf.object_id
-    WHERE uf.user_id = 456
-    AND uf.content_type_id = (SELECT id FROM django_content_type WHERE app_label = 'hub' AND model = 'hub')
-),
-user_topics AS (
-    SELECT DISTINCT t.id
-    FROM topic_topic t
-    JOIN topic_unifieddocumenttopics tud ON t.id = tud.topic_id
-    JOIN paper_paper p ON p.unified_document_id = tud.unified_document_id
-    JOIN discussion_thread dt ON dt.paper_id = p.id
-    WHERE dt.created_by_id = 456
-)
-SELECT 
-    p.id, p.title, p.doi,
-    p.score * 0.5 + p.citations * 0.3 + p.downloads * 0.2 AS relevance_score
-FROM 
-    paper_paper p
-    JOIN researchhub_document_researchhubunifieddocument_hubs hd 
-        ON p.unified_document_id = hd.researchhubunifieddocument_id
-    JOIN topic_unifieddocumenttopics tud ON p.unified_document_id = tud.unified_document_id
-WHERE 
-    hd.hub_id IN (SELECT id FROM user_hubs)
-    AND tud.topic_id IN (SELECT id FROM user_topics)
-    AND p.is_public = TRUE
-    AND p.is_removed = FALSE
-    AND p.created_date >= NOW() - INTERVAL '1 year'
-ORDER BY 
-    relevance_score DESC
-LIMIT 10;
-```
-
-## Schema Evolution Best Practices
-
-When modifying the ResearchHub database schema, follow these guidelines:
-
-1. **Backward Compatibility**: Keep existing relationships functional during transitions
-2. **Transaction Safety**: Ensure migrations can be rolled back cleanly
-3. **Data Validation**: Verify data integrity before and after migrations
-4. **Performance Impact**: Consider query patterns when adding or removing indexes
-5. **Polymorphic Relations**: Update content types appropriately when modifying models
-
-For detailed table information, refer to `database-tables.cursor-rules`.
+## database-tables
+
+> This document provides a comprehensive reference of table compositions in the ResearchHub database.
+
+# ResearchHub Database Tables (Cursor Rule)
+
+This document provides a comprehensive reference of table compositions in the ResearchHub database.
+
+## User Management
+
+### nonprofit_org
+
+**Description**: Nonprofit organizations that can receive donations.
+
+| Column               | Type                     | Description                        |
+| ----- | --- | ---- |
+| id                   | integer                  | Primary key                        |
+| name                 | character varying(255)   | Name of the nonprofit              |
+| ein                  | character varying(20)    | Employer Identification Number     |
+| endaoment_org_id     | character varying(100)   | Unique ID in Endaoment system      |
+| base_wallet_address  | character varying(42)    | Blockchain wallet address          |
+| created_date         | timestamp with time zone | Creation timestamp                 |
+| updated_date         | timestamp with time zone | Last update timestamp              |
+
+### nonprofit_fundraise_link
+
+**Description**: Join table connecting nonprofits and fundraising campaigns.
+
+| Column         | Type                       | Description                          |
+| ----- | ----- | --- |
+| id             | integer                    | Primary key                          |
+| nonprofit_id   | integer                    | Foreign key to nonprofit_org         |
+| fundraise_id   | integer                    | Foreign key to purchase_fundraise    |
+| note           | text                       | Notes about this specific link       |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+
+### user_user
+
+**Description**: Core user account table.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| username       | character varying          | Unique username                      |
+| email          | character varying          | User's email address                 |
+| password       | character varying          | Hashed password                      |
+| first_name     | character varying          | User's first name                    |
+| last_name      | character varying          | User's last name                     |
+| is_active      | boolean                    | Whether the account is active        |
+| date_joined    | timestamp with time zone   | When the user joined                 |
+| reputation     | integer                    | User's reputation score              |
+| is_staff       | boolean                    | Whether user has staff privileges    |
+| is_superuser   | boolean                    | Whether user has superuser privileges|
+
+### user_author
+
+**Description**: Author profile information linked to users.
+
+| Column             | Type                   | Description                         |
+| ------------------ | ---------------------- | ----------------------------------- |
+| id                 | integer                | Primary key                         |
+| first_name         | character varying      | Author's first name                 |
+| last_name          | character varying      | Author's last name                  |
+| user_id            | integer                | Foreign key to user_user            |
+| orcid              | character varying      | ORCID identifier                    |
+| scopus_author_id   | character varying      | Scopus author identifier            |
+| google_scholar_id  | character varying      | Google Scholar identifier           |
+| twitter            | character varying      | Twitter handle                      |
+| linkedin           | character varying      | LinkedIn profile URL                |
+| website            | character varying      | Personal website URL                |
+
+### user_userverification
+
+**Description**: User verification information.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| first_name     | text                       | User's first name                    |
+| last_name      | text                       | User's last name                     |
+| status         | text                       | Verification status                  |
+| verified_by    | text                       | Verification method                  |
+| external_id    | text                       | External identifier                  |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| user_id        | integer                    | Foreign key to user_user             |
+
+### user_follow
+
+**Description**: User following relationships.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| object_id      | integer                    | ID of followed object                |
+| content_type_id| integer                    | Type of followed content             |
+| user_id        | integer                    | User who follows                     |
+
+### user_action
+
+**Description**: User actions on the platform.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| object_id      | integer                    | ID of action object                  |
+| content_type_id| integer                    | Type of content                      |
+| user_id        | integer                    | User who performed action            |
+| read_date      | timestamp with time zone   | When action was read                 |
+| display        | boolean                    | Whether to display action            |
+| is_removed     | boolean                    | Whether action is removed            |
+
+## Paper Resources
+
+### paper_paper
+
+**Description**: Research paper metadata.
+
+| Column               | Type                     | Description                        |
+| -------------------- | ------------------------ | ---------------------------------- |
+| id                   | integer                  | Primary key                        |
+| title                | character varying(1024)  | Paper title                        |
+| created_date         | timestamp with time zone | Creation timestamp                 |
+| updated_date         | timestamp with time zone | Last update timestamp              |
+| paper_publish_date   | date                     | Publication date                   |
+| doi                  | character varying(255)   | Digital Object Identifier          |
+| url                  | character varying(1024)  | URL to paper                       |
+| uploaded_by_id       | integer                  | User who uploaded the paper        |
+| file                 | character varying(512)   | File path                          |
+| abstract             | text                     | Paper abstract                     |
+| is_public            | boolean                  | Whether paper is public            |
+| is_removed           | boolean                  | Whether paper has been removed     |
+| slug                 | character varying(1024)  | URL-friendly slug                  |
+| paper_type           | character varying(32)    | Type of paper                      |
+| score                | integer                  | Aggregated score                   |
+| citations            | integer                  | Citation count                     |
+| downloads            | integer                  | Download count                     |
+| views                | integer                  | View count                         |
+| unified_document_id  | integer                  | Related unified document           |
+| is_open_access       | boolean                  | Whether paper is open access       |
+
+### paper_authorship
+
+**Description**: Paper author relationships.
+
+| Column           | Type                     | Description                        |
+| ---------------- | ------------------------ | ---------------------------------- |
+| id               | integer                  | Primary key                        |
+| created_date     | timestamp with time zone | Creation timestamp                 |
+| updated_date     | timestamp with time zone | Last update timestamp              |
+| author_position  | character varying(10)    | Position in author list            |
+| is_corresponding | boolean                  | Whether author is corresponding    |
+| raw_author_name  | character varying(255)   | Raw author name from source        |
+| author_id        | integer                  | Foreign key to user_author         |
+| paper_id         | integer                  | Foreign key to paper_paper         |
+| email            | character varying(255)   | Author's email                     |
+| department       | character varying(255)   | Author's department                |
+
+## Discussion Resources
+
+### discussion_thread
+
+**Description**: Discussion threads associated with papers.
+
+| Column               | Type                     | Description                        |
+| -------------------- | ------------------------ | ---------------------------------- |
+| id                   | integer                  | Primary key                        |
+| created_date         | timestamp with time zone | Creation timestamp                 |
+| updated_date         | timestamp with time zone | Last update timestamp              |
+| is_public            | boolean                  | Whether thread is public           |
+| is_removed           | boolean                  | Whether thread has been removed    |
+| text                 | jsonb                    | Text content (rich format)         |
+| title                | character varying(255)   | Thread title                       |
+| created_by_id        | integer                  | User who created the thread        |
+| paper_id             | integer                  | Related paper                      |
+| was_edited           | boolean                  | Whether thread was edited          |
+| plain_text           | text                     | Plain text version                 |
+| source               | character varying(32)    | Source of the thread               |
+| score                | integer                  | Thread score                       |
+| discussion_post_type | character varying(16)    | Type of discussion post            |
+| is_accepted_answer   | boolean                  | Whether marked as accepted answer  |
+
+## Content Types
+
+### django_content_type
+
+**Description**: Maps content types to their IDs.
+
+| Column      | Type                  | Description                         |
+| ----------- | --------------------- | ----------------------------------- |
+| id          | integer               | Primary key                         |
+| app_label   | character varying(100)| Application label                   |
+| model       | character varying(100)| Model name                          |
+
+## Feed System
+
+### feed_feedentry
+
+**Description**: Feed entries for user activity.
+
+| Column               | Type                     | Description                        |
+| -------------------- | ------------------------ | ---------------------------------- |
+| id                   | bigint                   | Primary key                        |
+| created_date         | timestamp with time zone | Creation timestamp                 |
+| updated_date         | timestamp with time zone | Last update timestamp              |
+| object_id            | integer                  | ID of feed object                  |
+| parent_object_id     | integer                  | ID of parent object                |
+| action               | text                     | Action performed                   |
+| action_date          | timestamp with time zone | When action was performed          |
+| content_type_id      | integer                  | Type of content                    |
+| parent_content_type_id| integer                 | Type of parent content             |
+| user_id              | integer                  | User associated with feed entry    |
+
+## Notes System
+
+### note_note
+
+**Description**: Notes created by users.
+
+| Column               | Type                     | Description                        |
+| -------------------- | ------------------------ | ---------------------------------- |
+| id                   | integer                  | Primary key                        |
+| created_date         | timestamp with time zone | Creation timestamp                 |
+| updated_date         | timestamp with time zone | Last update timestamp              |
+| created_by_id        | integer                  | User who created the note          |
+| latest_version_id    | integer                  | Latest version of note content     |
+| organization_id      | integer                  | Associated organization            |
+| unified_document_id  | integer                  | Related unified document           |
+| title                | text                     | Note title                         |
+
+### note_notecontent
+
+**Description**: Content of notes.
+
+| Column      | Type                   | Description                         |
+| ----------- | ---------------------- | ----------------------------------- |
+| id          | integer                | Primary key                         |
+| created_date| timestamp with time zone| Creation timestamp                 |
+| src         | character varying(512) | Source of content                   |
+| plain_text  | text                   | Plain text version                  |
+| note_id     | integer                | Related note                        |
+| json        | jsonb                  | JSON content                        |
+
+## Purchase System
+
+### purchase_balance
+
+**Description**: User balances.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| object_id      | integer                    | Associated object ID                 |
+| amount         | character varying(255)     | Balance amount                       |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| content_type_id| integer                    | Type of content                      |
+| user_id        | integer                    | Associated user                      |
+| testnet_amount | character varying(255)     | Testnet balance amount               |
+
+### purchase_fundraise
+
+**Description**: Fundraising campaigns.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| status         | character varying(32)      | Fundraise status                     |
+| goal_amount    | numeric                    | Goal amount                          |
+| goal_currency  | character varying(16)      | Currency of goal                     |
+| start_date     | timestamp with time zone   | Start date                           |
+| end_date       | timestamp with time zone   | End date                             |
+| created_by_id  | integer                    | User who created fundraise           |
+| escrow_id      | integer                    | Associated escrow                    |
+| unified_document_id | integer               | Related unified document             |
+
+### purchase_purchase
+
+**Description**: User purchases.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| object_id      | integer                    | Associated object ID                 |
+| purchase_type  | character varying(32)      | Type of purchase                     |
+| amount         | character varying(255)     | Purchase amount                      |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| content_type_id| integer                    | Type of content                      |
+| user_id        | integer                    | User who made purchase               |
+| purchase_hash  | character varying(32)      | Purchase hash                        |
+| purchase_method| character varying(16)      | Purchase method                      |
+| transaction_hash| character varying(255)    | Blockchain transaction hash          |
+| boost_time     | double precision           | Boost time                           |
+| paid_date      | timestamp with time zone   | Payment date                         |
+| paid_status    | character varying(255)     | Payment status                       |
+| group_id       | integer                    | Group ID for batch purchases         |
+
+## Reputation System
+
+### reputation_score
+
+**Description**: User reputation scores.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| score          | integer                    | Reputation score value               |
+| author_id      | integer                    | Related author                       |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| hub_id         | integer                    | Related hub                          |
+
+### reputation_scorechange
+
+**Description**: Changes to reputation scores.
+
+| Column               | Type                     | Description                        |
+| -------------------- | ------------------------ | ---------------------------------- |
+| id                   | integer                  | Primary key                        |
+| updated_date         | timestamp with time zone | Last update timestamp              |
+| algorithm_version    | integer                  | Algorithm version                  |
+| score_after_change   | integer                  | Score after change                 |
+| score_change         | integer                  | Amount of change                   |
+| raw_value_change     | integer                  | Raw value change                   |
+| changed_object_id    | integer                  | Changed object ID                  |
+| changed_object_field | character varying(100)   | Field that changed                 |
+| variable_counts      | jsonb                    | Variable counts                    |
+| created_date         | timestamp with time zone | Creation timestamp                 |
+| algorithm_variables_id| integer                 | Algorithm variables                |
+| changed_content_type_id| integer               | Changed content type               |
+| score_id             | integer                  | Related score                      |
+
+### reputation_distribution
+
+**Description**: Reputation distribution transactions.
+
+| Column           | Type                     | Description                           |
+| ---------------- | ------------------------ | ------------------------------------- |
+| id               | integer                  | Primary key                           |
+| amount           | integer                  | Amount distributed                    |
+| created_date     | timestamp with time zone | Creation timestamp                    |
+| updated_date     | timestamp with time zone | Last update timestamp                 |
+| sender_id        | integer                  | User sending reputation               |
+| recipient_id     | integer                  | User receiving reputation             |
+| content_type_id  | integer                  | Type of content                       |
+| object_id        | integer                  | ID of related object                  |
+| distribution_type| character varying        | Type of distribution                  |
+
+### reputation_bounty
+
+**Description**: Bounties for content contributions.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| amount         | integer                    | Bounty amount                        |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| creator_id     | integer                    | User who created bounty              |
+| content_type_id| integer                    | Type of content                      |
+| object_id      | integer                    | ID of related object                 |
+| expires_date   | timestamp with time zone   | Expiration date                      |
+| status         | character varying          | Bounty status                        |
+
+### reputation_escrow
+
+**Description**: Escrow for reputation transactions.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| hold_type      | character varying(16)      | Type of hold                         |
+| amount_holding | numeric                    | Amount in escrow                     |
+| object_id      | integer                    | Associated object ID                 |
+| status         | character varying(16)      | Escrow status                        |
+| content_type_id| integer                    | Type of content                      |
+| created_by_id  | integer                    | User who created escrow              |
+| bounty_fee_id  | integer                    | Associated bounty fee                |
+| amount_paid    | numeric                    | Amount paid out                      |
+
+### reputation_escrowrecipients
+
+**Description**: Recipients of escrow payouts.
+
+| Column         | Type                       | Description                          |
+| -------------- | -------------------------- | ------------------------------------ |
+| id             | integer                    | Primary key                          |
+| created_date   | timestamp with time zone   | Creation timestamp                   |
+| updated_date   | timestamp with time zone   | Last update timestamp                |
+| amount         | numeric                    | Amount to receive                    |
+| escrow_id      | integer                    | Associated escrow                    |
+| user_id        | integer                    | User receiving payout                |
+
+### reputation_withdrawal
+
+**Description**: Withdrawal of reputation tokens.
+
+| Column           | Type                     | Description                           |
+| ---------------- | ------------------------ | ------------------------------------- |
+| id               | integer                  | Primary key                           |
+| from_address     | character varying(255)   | From address                          |
+| to_address       | character varying(255)   | To address                            |
+| created_date     | timestamp with time zone | Creation timestamp                    |
+| updated_date     | timestamp with time zone | Last update timestamp                 |
+| paid_date        | timestamp with time zone | Payment date                          |
+| transaction_hash | character varying(255)   | Transaction hash                      |
+| user_id          | integer                  | Associated user                       |
+| is_removed       | boolean                  | Whether withdrawal is removed         |
+| is_removed_date  | timestamp with time zone | When withdrawal was removed           |
+| paid_status      | character varying(255)   | Payment status                        |
+| token_address    | character varying(255)   | Token address                         |
+| amount           | character varying(255)   | Withdrawal amount                     |
+| fee              | character varying(255)   | Withdrawal fee                        |
+| is_public        | boolean                  | Whether withdrawal is public          |
+| network          | character varying(10)    | Blockchain network                    |
+
+## Document System
+
+### researchhub_document_researchhubunifieddocument
+
+**Description**: Unified document model combining different content types.
+
+| Column             | Type                     | Description                          |
+| ------------------ | ------------------------ | ------------------------------------ |
+| id                 | integer                  | Primary key                          |
+| created_date       | timestamp with time zone | Creation timestamp                   |
+| updated_date       | timestamp with time zone | Last update timestamp                |
+| document_type      | character varying(32)    | Type of document                     |
+| score              | integer                  | Document score                       |
+| is_removed         | boolean                  | Whether document is removed          |
+| published_date     | timestamp with time zone | Publication date                     |
+| is_public          | boolean                  | Whether document is public           |
+| hot_score          | integer                  | Hot score for trending               |
+| document_filter_id | integer                  | Associated document filter           |
+| is_removed_date    | timestamp with time zone | When document was removed            |
+
+### researchhub_document_researchhubpost
+
+**Description**: Posts in ResearchHub.
+
+| Column             | Type                     | Description                          |
+| ------------------ | ------------------------ | ------------------------------------ |
+| id                 | integer                  | Primary key                          |
+| version_number     | integer                  | Version number                       |
+| prev_version_id    | integer                  | Previous version ID                  |
+| unified_document_id| integer                  | Related unified document             |
+| created_date       | timestamp with time zone | Creation timestamp                   |
+| discussion_src     | character varying(512)   | Discussion source                    |
+| editor_type        | character varying(32)    | Type of editor                       |
+| eln_src            | character varying(512)   | ELN source                           |
+| renderable_text    | text                     | Renderable text content              |
+| updated_date       | timestamp with time zone | Last update timestamp                |
+| title              | text                     | Post title                           |
+| document_type      | character varying(32)    | Type of document                     |
+| created_by_id      | integer                  | User who created post                |
+| preview_img        | character varying(200)   | Preview image                        |
+| discussion_count   | integer                  | Count of discussions                 |
+| slug               | character varying(1024)  | URL-friendly slug                    |
+| note_id            | integer                  | Associated note                      |
+| doi                | character varying(255)   | Digital Object Identifier            |
+| bounty_type        | character varying(64)    | Type of bounty                       |
+| score              | integer                  | Post score                           |
+
+### researchhub_document_unifieddocumentconcepts
+
+**Description**: Concepts associated with unified documents.
+
+| Column             | Type                     | Description                          |
+| ------------------ | ------------------------ | ------------------------------------ |
+| id                 | integer                  | Primary key                          |
+| created_date       | timestamp with time zone | Creation timestamp                   |
+| updated_date       | timestamp with time zone | Last update timestamp                |
+| relevancy_score    | double precision         | Relevancy score                      |
+| level              | integer                  | Concept level                        |
+| concept_id         | integer                  | Associated concept                   |
+| unified_document_id| integer                  | Related unified document             |
+
+## Reviews
+
+### review_review
+
+**Description**: Reviews of content.
+
+| Column             | Type                     | Description                          |
+| ------------------ | ------------------------ | ------------------------------------ |
+| id                 | integer                  | Primary key                          |
+| created_date       | timestamp with time zone | Creation timestamp                   |
+| updated_date       | timestamp with time zone | Last update timestamp                |
+| score              | double precision         | Review score                         |
+| created_by_id      | integer                  | User who created review              |
+| unified_document_id| integer                  | Related unified document             |
+| is_removed         | boolean                  | Whether review is removed            |
+| is_public          | boolean                  | Whether review is public             |
+| is_removed_date    | timestamp with time zone | When review was removed              |
+| content_type_id    | integer                  | Type of content                      |
+| object_id          | integer                  | ID of reviewed object                |
+
+## Topics
+
+### topic_topic
+
+**Description**: Research topics.
+
+| Column                | Type                     | Description                          |
+| --------------------- | ------------------------ | ------------------------------------ |
+| id                    | bigint                   | Primary key                          |
+| created_date          | timestamp with time zone | Creation timestamp                   |
+| updated_date          | timestamp with time zone | Last update timestamp                |
+| openalex_id           | character varying(255)   | OpenAlex ID                          |
+| display_name          | text                     | Display name                         |
+| works_count           | integer                  | Count of works                       |
+| cited_by_count        | integer                  | Count of citations                   |
+| keywords              | ARRAY                    | Keywords array                       |
+| openalex_updated_date | timestamp with time zone | OpenAlex update timestamp            |
+| subfield_id           | bigint                   | Associated subfield                  |
+| openalex_created_date | timestamp with time zone | OpenAlex creation timestamp          |
+
+### topic_subfield
+
+**Description**: Research subfields.
+
+| Column                | Type                     | Description                          |
+| --------------------- | ------------------------ | ------------------------------------ |
+| id                    | bigint                   | Primary key                          |
+| created_date          | timestamp with time zone | Creation timestamp                   |
+| updated_date          | timestamp with time zone | Last update timestamp                |
+| openalex_id           | character varying(255)   | OpenAlex ID                          |
+| display_name          | text                     | Display name                         |
+| field_id              | bigint                   | Associated field                     |
+
+### topic_unifieddocumenttopics
+
+**Description**: Association between documents and topics.
+
+| Column             | Type                     | Description                          |
+| ------------------ | ------------------------ | ------------------------------------ |
+| id                 | bigint                   | Primary key                          |
+| created_date       | timestamp with time zone | Creation timestamp                   |
+| updated_date       | timestamp with time zone | Last update timestamp                |
+| relevancy_score    | double precision         | Relevancy score                      |
+| topic_id           | bigint                   | Associated topic                     |
+| unified_document_id| integer                  | Related unified document             |
+| is_primary         | boolean                  | Whether topic is primary             |
 
 ---
 > Source: [ResearchHub/web](https://github.com/ResearchHub/web) — distributed by [TomeVault](https://tomevault.io).
