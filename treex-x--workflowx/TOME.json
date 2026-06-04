@@ -4,7 +4,7 @@
   "repo": "WorkFlowX",
   "description": "\u57fa\u4e8e SubAgent \u7684\u591a\u667a\u80fd\u4f53\u7f16\u6392\u914d\u7f6e\u7cfb\u7edf \u2014 \u65e0\u9700\u90e8\u7f72\u670d\u52a1\uff0c\u62f7\u8d1d\u914d\u7f6e\u6587\u4ef6\u5373\u53ef\u8fd0\u884c\u3002\u901a\u8fc7\u6df7\u5408\u6587\u6863 + \u8bb0\u5fc6\u56fe\u8c31 + \u591a\u7ea7\u538b\u7f29\uff0c\u6781\u81f4\u8282\u7701\u4e0a\u4e0b\u6587 Token\uff0c\u8ba9 AI \u6301\u4e45\u9ad8\u6548\u5f00\u53d1",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TreeX-X/WorkFlowX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T02:39:37Z"
+  "distributed_at": "2026-06-04T02:43:17Z"
 }
