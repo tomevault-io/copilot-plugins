@@ -1,0 +1,9 @@
+{
+  "name": "hoopoes--faststart",
+  "displayName": "FastStart",
+  "description": "A modular and flexible starter kit for FastAPI projects, featuring branches with various extensions.",
+  "version": "1.0.0",
+  "author": "Hoopoes",
+  "homepage": "https://github.com/Hoopoes/FastStart",
+  "skills": []
+}
