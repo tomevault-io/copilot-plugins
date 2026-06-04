@@ -7,11 +7,11 @@ Deterministic guardrails for AI coding assistants. Enforce rules via Bash hooks 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [renatobardi/hapai](https://github.com/renatobardi/hapai).
+Original source: `CLAUDE.md` in [renatobardi/hapai](https://github.com/renatobardi/hapai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
