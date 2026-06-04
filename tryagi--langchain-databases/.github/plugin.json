@@ -1,0 +1,9 @@
+{
+  "name": "tryagi--langchain-databases",
+  "displayName": "LangChain.Databases",
+  "description": "Part of the LangChain.NET project. Has separate abstractions, does not contain dependencies on the main project and can be used independently",
+  "version": "1.0.0",
+  "author": "tryAGI",
+  "homepage": "https://github.com/tryAGI/LangChain.Databases",
+  "skills": []
+}
