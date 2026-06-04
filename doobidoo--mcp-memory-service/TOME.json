@@ -4,7 +4,7 @@
   "repo": "mcp-memory-service",
   "description": "Open-source persistent memory for AI agent pipelines (LangGraph, CrewAI, AutoGen) and Claude. REST API + knowledge graph + autonomous consolidation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/doobidoo/mcp-memory-service",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T02:18:09Z"
+  "distributed_at": "2026-06-04T09:29:37Z"
 }
