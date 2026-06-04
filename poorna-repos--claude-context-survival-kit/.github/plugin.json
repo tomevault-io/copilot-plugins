@@ -1,0 +1,9 @@
+{
+  "name": "poorna-repos--claude-context-survival-kit",
+  "displayName": "claude-context-survival-kit",
+  "description": "A small, portable CLAUDE.md that makes long Claude Code sessions survive context compaction: write-state-to-disk, five-section handoffs, and a manual lossless-compaction workflow.",
+  "version": "1.0.0",
+  "author": "Poorna-Repos",
+  "homepage": "https://github.com/Poorna-Repos/claude-context-survival-kit",
+  "skills": []
+}
