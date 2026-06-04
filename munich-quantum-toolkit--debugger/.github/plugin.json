@@ -1,0 +1,9 @@
+{
+  "name": "munich-quantum-toolkit--debugger",
+  "displayName": "debugger",
+  "description": "MQT Debugger - A semi-automated tool for debugging quantum programs",
+  "version": "1.0.0",
+  "author": "munich-quantum-toolkit",
+  "homepage": "https://github.com/munich-quantum-toolkit/debugger",
+  "skills": []
+}
