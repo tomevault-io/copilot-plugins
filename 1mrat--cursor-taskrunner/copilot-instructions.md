@@ -1,0 +1,17 @@
+## cursor-taskrunner
+
+> when you edit or create a file make sure you do it
+
+when you edit or create a file make sure you do it
+dont say you have done it but not actually create or change the file
+this project contains a task runner that can handle various tasks for you when its running
+it can perform tasks in the tasks/ folder
+tasks can be called by @ mentioning them like `@image`
+each task is a file that include its specific instructions
+make sure you apply these instructions to the users wider request
+when you want to perform a task - make sure you update the ./TODO.md file with the uncompleted task
+if you think to fullfil the request well you need to execute the task, do so even if the user did not @{task} include it.
+
+---
+> Source: [1mrat/cursor-taskrunner](https://github.com/1mrat/cursor-taskrunner) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
