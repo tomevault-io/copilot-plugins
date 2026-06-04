@@ -1,53 +1,103 @@
-## typescript
+## chat
 
-> Typescript and NextJS
+> This file provides guidance to coding agents like Claude Code (claude.ai/code) and OpenCode when working with code in this repository.
 
-# Instructions
+# Agent Instructions
 
-You are an expert TypeScript/Next.js developer focused on writing clean, maintainable code. Prioritize these qualities:
+This file provides guidance to coding agents like Claude Code (claude.ai/code) and OpenCode when working with code in this repository.
 
-1. **Minimal** - Absolute minimum code needed
-2. **Self-documenting** - Code explains itself through:
-   - Precise naming (verbs for functions, nouns for variables)
-   - Single-responsibility components
-   - Obvious data flow
-   - Add short comments when necessary
-3. **Type-Exact** - Strict TypeScript types with zero 'any'
-4. **Secure** - Built-in security for auth/data handling
-5. **Performant** - Follows Next.js optimization guides
+## Git Workflow
 
-Before coding, make a plan inside a <thinking> tag.
+**Always commit and push changes after completing a task.** Follow these rules:
 
-1. Identify core requirement
-2. Consider 3 implementation approaches
-3. Choose simplest that meets needs
-4. Verify with these questions:
-   - Can this be split into smaller functions?
-   - Are there unnecessary abstractions?
-   - Will this be clear to a junior dev?
+1. After making code changes, always commit with a descriptive message
+2. Push commits to the current feature branch
+3. **NEVER push directly to `main` or `test` branches** - always use feature branches and PRs
+4. Before pushing, verify the current branch is not `main` or `test`
+5. **Open PRs against the `test` branch**, not `main`
+6. After pushing, check if a PR exists for the branch. If not, create one with `gh pr create --base test`
+7. **After creating a PR, always wait for explicit user approval before merging.** Never merge PRs autonomously.
 
-For example:
-<thinking>
-Let me think through this step by step.
-...
-</thinking>
+### Starting a New Task
 
-Good vs Bad code examples:
+When starting a new task, **first sync the `test` branch with `main`**:
 
-```typescript
-// Bad
-const processData = (input: unknown) => {
-  /* ... */
-};
-
-// Good
-const formatUserDisplayName = (user: User): string => {
-  // Combines first/last names with fallback to email
-  return (
-    [user.firstName, user.lastName].filter(Boolean).join(" ") || user.email
-  );
-};
+```bash
+git checkout test && git pull origin test && git fetch origin main && git merge origin/main && git push origin test
 ```
+
+Then checkout main, pull latest, and create your feature branch from there:
+
+```bash
+git checkout main && git pull origin main && git checkout -b <branch-name>
+```
+
+The sync step is the **only** time you should push directly to `test`.
+
+## Build Commands
+
+```bash
+pnpm install        # Install dependencies
+pnpm dev            # Dev server with Turbopack
+pnpm build          # Production build (uses webpack)
+pnpm lint           # Run linter
+pnpm format         # Run prettier + lint
+pnpm update-types   # Regenerate Supabase types
+```
+
+## Architecture
+
+- **Next.js 16** with App Router, React 19
+- `app/` - Pages and API routes
+- `components/` - React UI components (shadcn/ui + Radix primitives)
+- `hooks/` - React hooks for data fetching and state
+- `lib/` - Core business logic organized by domain:
+  - `lib/ai/` - AI/LLM integrations
+  - `lib/chat/` - Chat message handling
+  - `lib/supabase/` - Database operations
+  - `lib/tools/` - AI tool definitions
+  - `lib/browser/` - Stagehand browser automation
+  - `lib/stripe/` - Payment processing
+- `providers/` - React context providers
+- `types/` - TypeScript type definitions
+
+## Key Technologies
+
+- **AI**: Vercel AI SDK (`ai` package), Anthropic, OpenAI, Google Gemini
+- **MCP**: Tools provided by recoup-api MCP server (send_email, etc.)
+- **Database**: Supabase (PostgreSQL)
+- **Auth**: Privy
+- **Payments**: Stripe
+- **Browser Automation**: Stagehand (Playwright + AI)
+- **Styling**: Tailwind CSS v4, shadcn/ui, Radix UI
+
+## Code Principles (from principles.md)
+
+- **DRY**: Extract shared logic into reusable utilities
+- **YAGNI**: You Aren't Gonna Need It - don't build for hypothetical future needs; delete unused files/code that are not imported
+- **KISS**: Keep It Simple, Stupid - prefer simple solutions over clever ones
+- **OCP**: Open/Closed Principle - open for extension, closed for modification
+- **Single Responsibility**: One function per file, clear naming
+- **No Production Logging**: Remove console.log before merging
+- **File Organization**: Domain-specific directories (e.g., `/lib/fal/` not `/lib/utils/fal.ts`)
+- **Security First**: Use battle-tested libraries (Streamdown, shadcn) over custom implementations
+- **Comments**: Explain 'why', not 'what'; prefer self-documenting code
+
+## Component Standards
+
+- Use `@radix-ui/react-*` primitives with `class-variance-authority` (CVA)
+- Use `cn()` utility for class merging
+- Always include accessibility: semantic HTML, ARIA, keyboard navigation
+
+## MCP Tools
+
+Tools like `send_email` are now provided by the recoup-api MCP server, not defined locally. Tool chains in `lib/chat/toolChains/` reference tool names that MCP provides.
+
+## Constants (`lib/consts.ts`)
+
+Shared constants including:
+- `RECOUP_FROM_EMAIL` - Default email sender address
+- Platform-specific configurations
 
 ---
 > Source: [recoupable/chat](https://github.com/recoupable/chat) — distributed by [TomeVault](https://tomevault.io).
