@@ -1,0 +1,9 @@
+{
+  "name": "jonatanjacobsson--ifcpipeline",
+  "displayName": "ifcpipeline",
+  "description": "IFC Pipeline is a FastAPI-based service for processing Industry Foundation Classes (IFC) files",
+  "version": "1.0.0",
+  "author": "jonatanjacobsson",
+  "homepage": "https://github.com/jonatanjacobsson/ifcpipeline",
+  "skills": []
+}
