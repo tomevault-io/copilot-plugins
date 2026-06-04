@@ -126954,6 +126954,11 @@
       "description": "macOS app for browsing and editing skills, MCP configs, and plugins across local AI tools"
     },
     {
+      "name": "crazymsn--academic-scholar-skills",
+      "source": "./crazymsn--academic-scholar-skills",
+      "description": "\u6df1\u5ea6\u4e91\u521b\u79d1\u6280\uff0c\u4e13\u6ce8\u5f00\u53d1 AI \u667a\u80fd\u4f53\u3001AI \u5e94\u7528\u8f85\u52a9\u79d1\u7814\u3001\u5de5\u4f5c\u3001\u5b66\u4e60\uff01"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
