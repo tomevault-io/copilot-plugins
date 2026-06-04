@@ -1,7 +1,7 @@
 {
   "name": "shipbase--ui",
   "displayName": "ui",
-  "description": "ui",
+  "description": "Beautifully designed components that you can copy and paste into your apps. Framework agnostic. Accessible. Customizable.",
   "version": "1.0.0",
   "author": "shipbase",
   "homepage": "https://github.com/shipbase/ui",
