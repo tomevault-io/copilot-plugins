@@ -84574,6 +84574,11 @@
       "description": "LSP for dbt"
     },
     {
+      "name": "hoopoes--faststart",
+      "source": "./hoopoes--faststart",
+      "description": "A modular and flexible starter kit for FastAPI projects, featuring branches with various extensions."
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -87109,6 +87114,36 @@
       "description": "Universal Text-To-Speech TypeScript SDK with Multi-Provider Support."
     },
     {
+      "name": "aboudjem--solidity-style-guide",
+      "source": "./aboudjem--solidity-style-guide",
+      "description": "AI-ready Solidity style guide for Solidity 0.8.30 \u2014 naming, layout, NatSpec, custom errors, ERC-7201 storage, transient storage, Foundry tests, gas & security. Ships Solhint + Prettier configs, Claude"
+    },
+    {
+      "name": "aboudjem--solidity-style-guide",
+      "source": "./aboudjem--solidity-style-guide",
+      "description": "AI-ready Solidity style guide for Solidity 0.8.30 \u2014 naming, layout, NatSpec, custom errors, ERC-7201 storage, transient storage, Foundry tests, gas & security. Ships Solhint + Prettier configs, Claude"
+    },
+    {
+      "name": "bnwein--cippapimodule",
+      "source": "./bnwein--cippapimodule",
+      "description": "A PowerShell Module for the CIPP API"
+    },
+    {
+      "name": "aboudjem--solidity-style-guide",
+      "source": "./aboudjem--solidity-style-guide",
+      "description": "AI-ready Solidity style guide for Solidity 0.8.30 \u2014 naming, layout, NatSpec, custom errors, ERC-7201 storage, transient storage, Foundry tests, gas & security. Ships Solhint + Prettier configs, Claude"
+    },
+    {
+      "name": "erichutchins--polars-iptools",
+      "source": "./erichutchins--polars-iptools",
+      "description": "Polars extension for IP address parsing and enrichment including geolocation"
+    },
+    {
+      "name": "coderdjing--frkb-rapid-audio-organization-tool",
+      "source": "./coderdjing--frkb-rapid-audio-organization-tool",
+      "description": "Rapid Audio Organization Tool For WIN/MAC"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -88587,6 +88622,16 @@
       "name": "orange-opensource--ouds-ios",
       "source": "./orange-opensource--ouds-ios",
       "description": "A Swift Package of SwiftUI components library for Orange developers with Orange Unified Design System. Build Sharper. Ship faster. Perform better."
+    },
+    {
+      "name": "buffed-labs--reactive-dot",
+      "source": "./buffed-labs--reactive-dot",
+      "description": "A reactive library for building Substrate front-ends"
+    },
+    {
+      "name": "open-ani--ani-website",
+      "source": "./open-ani--ani-website",
+      "description": "The website of Animeko, with Astro. \ud83d\ude80"
     },
     {
       "name": "compozy--kb",
@@ -90227,6 +90272,11 @@
       "name": "daley-mottley--portfolio",
       "source": "./daley-mottley--portfolio",
       "description": "Feel free to rate my portfolio page by giving it a \u2b50 if you like it. Thank you, I appreciate your feedback!"
+    },
+    {
+      "name": "ainoya--cloudflare-dom-distiller",
+      "source": "./ainoya--cloudflare-dom-distiller",
+      "description": "A Cloudflare Workers-based API for extracting and converting web page content to Markdown using DOM-Distiller and Turndown."
     },
     {
       "name": "navikt--cplt",
@@ -98314,6 +98364,11 @@
       "description": "\u652f\u6301\u591a\u79cdAI\u670d\u52a1\uff08Ollama/Qwen/OpenAI/Grok/Claude/Gemini\u7b49\uff09\u7684\u7ffb\u8bd1\u548c\u89e3\u91ca\u63d2\u4ef6\uff0c\u53ef\u8fdb\u884c\u5355\u8bcd\u3001\u6574\u53e5\u7ffb\u8bd1\u53ca\u767e\u79d1\u89e3\u91ca"
     },
     {
+      "name": "luisignaciocc--ytmusic-scrobbler-web",
+      "source": "./luisignaciocc--ytmusic-scrobbler-web",
+      "description": "a Last.fm scrobbler from your YouTube Music history. a monorepo with a web app and background workers"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -100597,6 +100652,11 @@
       "name": "query-farm--evalexpr-rhai",
       "source": "./query-farm--evalexpr-rhai",
       "description": "A DuckDB extension to evaluate the Rhai scripting language as part of SQL."
+    },
+    {
+      "name": "sccn--eegprep",
+      "source": "./sccn--eegprep",
+      "description": "EEGPrep is an automated preprocessing tool for human EEG data built on a benchmarked EEGLAB pipeline"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -105334,6 +105394,11 @@
       "description": "Ever\u00ae Rec\u2122 - Open Screen Capture, Screen Recording, Images & Video Sharing Platform - https://rec.so"
     },
     {
+      "name": "community-of-python--stompman",
+      "source": "./community-of-python--stompman",
+      "description": "Good Python STOMP client & FastStream broker"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -108469,6 +108534,16 @@
       "description": "Yet Another Kotlin COmpose Validation library"
     },
     {
+      "name": "limbicnation--comfyuidepthestimation",
+      "source": "./limbicnation--comfyuidepthestimation",
+      "description": "A custom depth estimation node for ComfyUI using transformer models."
+    },
+    {
+      "name": "limbicnation--comfyuidepthestimation",
+      "source": "./limbicnation--comfyuidepthestimation",
+      "description": "A custom depth estimation node for ComfyUI using transformer models."
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -111097,6 +111172,31 @@
       "name": "gropaul--dash-ui",
       "source": "./gropaul--dash-ui",
       "description": "dash-ui"
+    },
+    {
+      "name": "shipbase--ui",
+      "source": "./shipbase--ui",
+      "description": "Beautifully designed components that you can copy and paste into your apps. Framework agnostic. Accessible. Customizable."
+    },
+    {
+      "name": "shipbase--ui",
+      "source": "./shipbase--ui",
+      "description": "Beautifully designed components that you can copy and paste into your apps. Framework agnostic. Accessible. Customizable."
+    },
+    {
+      "name": "shipbase--ui",
+      "source": "./shipbase--ui",
+      "description": "Beautifully designed components that you can copy and paste into your apps. Framework agnostic. Accessible. Customizable."
+    },
+    {
+      "name": "shipbase--ui",
+      "source": "./shipbase--ui",
+      "description": "Beautifully designed components that you can copy and paste into your apps. Framework agnostic. Accessible. Customizable."
+    },
+    {
+      "name": "shipbase--ui",
+      "source": "./shipbase--ui",
+      "description": "Beautifully designed components that you can copy and paste into your apps. Framework agnostic. Accessible. Customizable."
     },
     {
       "name": "develite98--angular-best-practices",
@@ -113757,6 +113857,11 @@
       "name": "programaconnosotros--pcn-website",
       "source": "./programaconnosotros--pcn-website",
       "description": "Website de PCN, comunidad de apasionados por el software. Si te gustar\u00eda colaborar, contactanos."
+    },
+    {
+      "name": "munich-quantum-toolkit--debugger",
+      "source": "./munich-quantum-toolkit--debugger",
+      "description": "MQT Debugger - A semi-automated tool for debugging quantum programs"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -123229,6 +123334,16 @@
       "description": "WebPlayer, a framework-agnostic web component that seamlessly integrates CarCutter\u2019s immersive car showrooms into any website. This decision reflects our dedication to transparency, collaboration, and"
     },
     {
+      "name": "tnxg--tnxg-homepage",
+      "source": "./tnxg--tnxg-homepage",
+      "description": "TiaNXianG's Homepage"
+    },
+    {
+      "name": "stripe--stripe-commercetools-connect-app",
+      "source": "./stripe--stripe-commercetools-connect-app",
+      "description": "Stripe payments integration with commercetools Connect"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -130512,6 +130627,11 @@
       "name": "atraplet--clarabel4j",
       "source": "./atraplet--clarabel4j",
       "description": "Clarabel Solver for Java"
+    },
+    {
+      "name": "xiaoran007--pyhw",
+      "source": "./xiaoran007--pyhw",
+      "description": "pyhw, a neofetch-like command line tool for fetching system information but written mostly in Python."
     },
     {
       "name": "claude-php--claude-php-agent",
