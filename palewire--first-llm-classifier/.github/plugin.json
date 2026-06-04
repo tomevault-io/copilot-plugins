@@ -1,0 +1,9 @@
+{
+  "name": "palewire--first-llm-classifier",
+  "displayName": "first-llm-classifier",
+  "description": "Learn how journalists use large-language models to organize and analyze massive datasets",
+  "version": "1.0.0",
+  "author": "palewire",
+  "homepage": "https://github.com/palewire/first-llm-classifier",
+  "skills": []
+}
