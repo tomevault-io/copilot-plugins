@@ -4,7 +4,7 @@
   "repo": "sdk",
   "description": "Integrate SettleMint into your application with ease.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/settlemint/sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T22:44:32Z"
+  "distributed_at": "2026-06-04T22:45:27Z"
 }
