@@ -4,7 +4,7 @@
   "repo": "sisyphus-academica-129",
   "description": "Open-source research pipeline \u2014 literature review, novelty generation, citation verification, and adversarial review.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TigerBridge55/sisyphus-academica-129",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T17:40:40Z"
+  "distributed_at": "2026-06-04T17:42:29Z"
 }
