@@ -181049,6 +181049,61 @@
       "description": "CLI toolkit for music collectors \u2014 library trees, integrity checks, cover art, tag audits."
     },
     {
+      "name": "mcdow-webworks--productivity-skills",
+      "source": "./mcdow-webworks--productivity-skills",
+      "description": "Transform Claude into your AI-powered productivity partner. Note-taking skill creates an AI-navigable second brain    with conversational capture, intelligent search, and pattern recognition across al"
+    },
+    {
+      "name": "michaelw9999--advanced-gguf-quantizer",
+      "source": "./michaelw9999--advanced-gguf-quantizer",
+      "description": "A CUDA-accelerated GGUF quantization tool for NVFP4 and MXFP6, designed with an auto-tuner to reduce quantization error."
+    },
+    {
+      "name": "fayzan123--claude-workflow-composer",
+      "source": "./fayzan123--claude-workflow-composer",
+      "description": "Visual desktop app for composing multi-agent coding workflows. Drag agents,   attach skills and MCPs, wire handoffs, export to .claude/"
+    },
+    {
+      "name": "mathruffian-dot--claude-video-specs",
+      "source": "./mathruffian-dot--claude-video-specs",
+      "description": "\u4e09\u985e\u5f71\u7247\u88fd\u4f5c\u898f\u7bc4 + \u53ef fork \u7684\u7bc4\u4f8b\u5c08\u6848\u3002\u7d66 AI agent \u548c\u5275\u4f5c\u8005\u7528\u3002"
+    },
+    {
+      "name": "gutomec--agents-guru",
+      "source": "./gutomec--agents-guru",
+      "description": "Sistema de engenharia agentico, portavel e agnostico de framework, para qualquer agente de IA via CLI."
+    },
+    {
+      "name": "gutomec--agents-guru",
+      "source": "./gutomec--agents-guru",
+      "description": "Sistema de engenharia agentico, portavel e agnostico de framework, para qualquer agente de IA via CLI."
+    },
+    {
+      "name": "notatestuser--ds4-control",
+      "source": "./notatestuser--ds4-control",
+      "description": "macOS menu bar control for DeepSeek V4 Pro/Flash via ds4. Start/stop/monitor ds4-server with mini resource widgets"
+    },
+    {
+      "name": "aurorascharff--cronotype",
+      "source": "./aurorascharff--cronotype",
+      "description": "Type a GitHub handle. Get a commit-time archetype, a year-by-year timeline, and a shareable card."
+    },
+    {
+      "name": "tapthaker--ghostty-android",
+      "source": "./tapthaker--ghostty-android",
+      "description": "ghostty-android"
+    },
+    {
+      "name": "ark-aak--luogu-saver-next",
+      "source": "./ark-aak--luogu-saver-next",
+      "description": "luogu-saver-next"
+    },
+    {
+      "name": "mthiel74--astronomyimages",
+      "source": "./mthiel74--astronomyimages",
+      "description": "AstronomyImages"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -193614,6 +193669,91 @@
       "description": "Generative art on the Waveshare ESP32-S3-LCD-1.47B (1.47\" ST7789, 172x320) \u2014 CPU framebuffer effects via Arduino + LovyanGFX"
     },
     {
+      "name": "robzilla1738--macbox",
+      "source": "./robzilla1738--macbox",
+      "description": "Local macOS app testing sandbox with a CLI and MCP server for disposable Tart VMs."
+    },
+    {
+      "name": "brentfarris--echo",
+      "source": "./brentfarris--echo",
+      "description": "Local AI / LLM harness for real programmers"
+    },
+    {
+      "name": "treex-x--workflowx",
+      "source": "./treex-x--workflowx",
+      "description": "\u57fa\u4e8e SubAgent \u7684\u591a\u667a\u80fd\u4f53\u7f16\u6392\u914d\u7f6e\u7cfb\u7edf \u2014 \u65e0\u9700\u90e8\u7f72\u670d\u52a1\uff0c\u62f7\u8d1d\u914d\u7f6e\u6587\u4ef6\u5373\u53ef\u8fd0\u884c\u3002\u901a\u8fc7\u6df7\u5408\u6587\u6863 + \u8bb0\u5fc6\u56fe\u8c31 + \u591a\u7ea7\u538b\u7f29\uff0c\u6781\u81f4\u8282\u7701\u4e0a\u4e0b\u6587 Token\uff0c\u8ba9 AI \u6301\u4e45\u9ad8\u6548\u5f00\u53d1"
+    },
+    {
+      "name": "sycu8--cloudflare-onboarding-journey",
+      "source": "./sycu8--cloudflare-onboarding-journey",
+      "description": "cloudflare-onboarding-journey"
+    },
+    {
+      "name": "koalabuttz--standard-reader",
+      "source": "./koalabuttz--standard-reader",
+      "description": "A TUI reader for standard.site (long-form on the AT Protocol)."
+    },
+    {
+      "name": "robzilla1738--macbox",
+      "source": "./robzilla1738--macbox",
+      "description": "Local macOS app testing sandbox with a CLI and MCP server for disposable Tart VMs."
+    },
+    {
+      "name": "mr-beaver--tokencost",
+      "source": "./mr-beaver--tokencost",
+      "description": "See exactly what you spend on Claude CLI + cost optimizations functions"
+    },
+    {
+      "name": "kazeliu--hold-that-bite",
+      "source": "./kazeliu--hold-that-bite",
+      "description": "\u5b88\u4f4f\u8fd9\u53e3\uff01\u6ca1\u6709\u4efb\u4f55\u5f3a\u5236\uff0c\u6ca1\u6709\u4efb\u4f55\u70ed\u91cf\u8ba1\u7b97\uff0c\u6ca1\u6709\u51cf\u80a5\u7126\u8651\u300216+8\u51cf\u80a5\u6cd5\uff0c\u6bcf\u5929\u5b8c\u6210\u5c31\u6253\u5361\uff0c\u4f53\u91cd\u6084\u6084\u964d"
+    },
+    {
+      "name": "poorna-repos--claude-context-survival-kit",
+      "source": "./poorna-repos--claude-context-survival-kit",
+      "description": "A small, portable CLAUDE.md that makes long Claude Code sessions survive context compaction: write-state-to-disk, five-section handoffs, and a manual lossless-compaction workflow."
+    },
+    {
+      "name": "treex-x--workflowx",
+      "source": "./treex-x--workflowx",
+      "description": "\u57fa\u4e8e SubAgent \u7684\u591a\u667a\u80fd\u4f53\u7f16\u6392\u914d\u7f6e\u7cfb\u7edf \u2014 \u65e0\u9700\u90e8\u7f72\u670d\u52a1\uff0c\u62f7\u8d1d\u914d\u7f6e\u6587\u4ef6\u5373\u53ef\u8fd0\u884c\u3002\u901a\u8fc7\u6df7\u5408\u6587\u6863 + \u8bb0\u5fc6\u56fe\u8c31 + \u591a\u7ea7\u538b\u7f29\uff0c\u6781\u81f4\u8282\u7701\u4e0a\u4e0b\u6587 Token\uff0c\u8ba9 AI \u6301\u4e45\u9ad8\u6548\u5f00\u53d1"
+    },
+    {
+      "name": "matt1as--claude-abap-skills",
+      "source": "./matt1as--claude-abap-skills",
+      "description": "Skill library for Claude Code \u2014 opinionated rules and slash commands for modern ABAP (BTP ABAP Environment, S/4HANA 2023+ ABAP Cloud development model). Assumes the official SAP ABAP MCP Server provid"
+    },
+    {
+      "name": "damianb-bitflipper--dehub",
+      "source": "./damianb-bitflipper--dehub",
+      "description": "A TUI to de-GitHub yourself. Control PRs, Actions, Issues, Notifications."
+    },
+    {
+      "name": "echore--bilibili-to-obsidian",
+      "source": "./echore--bilibili-to-obsidian",
+      "description": "bilibili-to-obsidian"
+    },
+    {
+      "name": "sholdee--drydock",
+      "source": "./sholdee--drydock",
+      "description": "Fast Argo CD GitOps render, diff, test, and diagnostics without a cluster or Argo CD server."
+    },
+    {
+      "name": "pauljoda--prismedia",
+      "source": "./pauljoda--prismedia",
+      "description": "All in one self hosted, private media library"
+    },
+    {
+      "name": "pauljoda--prismedia",
+      "source": "./pauljoda--prismedia",
+      "description": "All in one self hosted, private media library"
+    },
+    {
+      "name": "stefanoginella--auto-bmad",
+      "source": "./stefanoginella--auto-bmad",
+      "description": "BMAD module that drives the full BMAD story workflow end-to-end, one story at a time, on Claude Code or Codex \u2014 delegating each step to model/effort-tuned subagents."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -196672,6 +196812,171 @@
       "name": "dark-brain07--payforapi",
       "source": "./dark-brain07--payforapi",
       "description": "PayForApi"
+    },
+    {
+      "name": "yuz9610--poe2overlay",
+      "source": "./yuz9610--poe2overlay",
+      "description": "POE2Overlay"
+    },
+    {
+      "name": "60ke--openbridge",
+      "source": "./60ke--openbridge",
+      "description": "openBridge"
+    },
+    {
+      "name": "yuz9610--poe2overlay",
+      "source": "./yuz9610--poe2overlay",
+      "description": "POE2Overlay"
+    },
+    {
+      "name": "yuz9610--poe2overlay",
+      "source": "./yuz9610--poe2overlay",
+      "description": "POE2Overlay"
+    },
+    {
+      "name": "yuz9610--poe2overlay",
+      "source": "./yuz9610--poe2overlay",
+      "description": "POE2Overlay"
+    },
+    {
+      "name": "evermind-ai--everme",
+      "source": "./evermind-ai--everme",
+      "description": "Open-source CLI and Agent plugin suite for EverMe \u2014 cross-device, cross-Agent personal memory for AI Agents."
+    },
+    {
+      "name": "qiangshuifish--note-website",
+      "source": "./qiangshuifish--note-website",
+      "description": "\u6280\u672f\u5b66\u4e60\u7b14\u8bb0 VitePress \u7f51\u7ad9"
+    },
+    {
+      "name": "meta-pytorch--remat",
+      "source": "./meta-pytorch--remat",
+      "description": "torch_remat fine-grained activation checkpointing API"
+    },
+    {
+      "name": "loveyu43--ai-agent-workflows-jp",
+      "source": "./loveyu43--ai-agent-workflows-jp",
+      "description": "Japanese workflow templates, safety checklists, and evaluation samples for AI agents and MCP-enabled business tools."
+    },
+    {
+      "name": "loveyu43--ai-agent-workflows-jp",
+      "source": "./loveyu43--ai-agent-workflows-jp",
+      "description": "Japanese workflow templates, safety checklists, and evaluation samples for AI agents and MCP-enabled business tools."
+    },
+    {
+      "name": "mathruffian-dot--claude-code-video-kit",
+      "source": "./mathruffian-dot--claude-code-video-kit",
+      "description": "claude-code-video-kit"
+    },
+    {
+      "name": "akitaonrails--prettify-manga",
+      "source": "./akitaonrails--prettify-manga",
+      "description": "Chrome extension to enable double page reading for most fansub manga websites"
+    },
+    {
+      "name": "eliets2--glyph-pdf",
+      "source": "./eliets2--glyph-pdf",
+      "description": "glyph-pdf"
+    },
+    {
+      "name": "flanliulf--aiforge",
+      "source": "./flanliulf--aiforge",
+      "description": "Sync AI coding configurations from any Git repository to Copilot, Claude Code, Cursor, and more \u2014 one command, all tools."
+    },
+    {
+      "name": "flanliulf--aiforge",
+      "source": "./flanliulf--aiforge",
+      "description": "Sync AI coding configurations from any Git repository to Copilot, Claude Code, Cursor, and more \u2014 one command, all tools."
+    },
+    {
+      "name": "njbrake--dotpi",
+      "source": "./njbrake--dotpi",
+      "description": "My ds4 + pi configuration for success"
+    },
+    {
+      "name": "vector15-05--zelos",
+      "source": "./vector15-05--zelos",
+      "description": "Zelos"
+    },
+    {
+      "name": "callumalpass--tasknotes-workflows",
+      "source": "./callumalpass--tasknotes-workflows",
+      "description": "Markdown-defined workflow automation for TaskNotes"
+    },
+    {
+      "name": "armpro24-blip--workspace-aieng",
+      "source": "./armpro24-blip--workspace-aieng",
+      "description": "workspace_aieng"
+    },
+    {
+      "name": "rayulumukku--realestateagent",
+      "source": "./rayulumukku--realestateagent",
+      "description": "Real estate platform connecting agents, builders & super builders. Manage projects, events, campaigns, leads & channel partnerships with role-based access, real-time notifications & WhatsApp integrati"
+    },
+    {
+      "name": "sir-mmd--xsms",
+      "source": "./sir-mmd--xsms",
+      "description": "Self-hosted SMS \u2194 Telegram bridge."
+    },
+    {
+      "name": "armpro24-blip--workspace-aieng",
+      "source": "./armpro24-blip--workspace-aieng",
+      "description": "workspace_aieng"
+    },
+    {
+      "name": "nornzach--tg-monitor",
+      "source": "./nornzach--tg-monitor",
+      "description": " A local Telegram group monitoring platform with AI-powered analysis. Collects messages via Telethon, stores in MySQL, and uses multi-provider AI (DeepSeek, OpenAI, Claude) to generate    \u258e summaries,"
+    },
+    {
+      "name": "cesarszv--gdg-hackathon-2026",
+      "source": "./cesarszv--gdg-hackathon-2026",
+      "description": "plataforma de simulaci\u00f3n asistida por IA que ayuda a investigar c\u00f3mo convertir residuos bioorg\u00e1nicos en electricidad"
+    },
+    {
+      "name": "autsunset--voxengine",
+      "source": "./autsunset--voxengine",
+      "description": "Android \u7cfb\u7edf\u7ea7 TTS \u8bed\u97f3\u5408\u6210\u5f15\u64ce\uff0c\u652f\u6301\u5c0f\u7c73mimotts\u591a\u5f15\u64ce\u5207\u6362\u3001\u97f3\u8272\u514b\u9686\u4e0e\u8bbe\u8ba1\u3002\u6ce8\u518c\u4e3a\u7cfb\u7edf TTS \u670d\u52a1\u540e\uff0c\u4efb\u610f\u652f\u6301\u7cfb\u7edf\u8bed\u97f3\u5408\u6210\u7684\u5e94\u7528\u5747\u53ef\u76f4\u63a5\u8c03\u7528\u3002"
+    },
+    {
+      "name": "fangtiger--ai-config-templates",
+      "source": "./fangtiger--ai-config-templates",
+      "description": "ai-config-templates"
+    },
+    {
+      "name": "fangtiger--ai-config-templates",
+      "source": "./fangtiger--ai-config-templates",
+      "description": "ai-config-templates"
+    },
+    {
+      "name": "yuz9610--poe2overlay",
+      "source": "./yuz9610--poe2overlay",
+      "description": "POE2Overlay"
+    },
+    {
+      "name": "yuz9610--poe2overlay",
+      "source": "./yuz9610--poe2overlay",
+      "description": "POE2Overlay"
+    },
+    {
+      "name": "vitoworleone--claudecode-complete",
+      "source": "./vitoworleone--claudecode-complete",
+      "description": "Long-Term Tracking and Learning for Claude Code \u2014 \u4ece\u6e90\u7801\u673a\u5236\u5230\u5b9e\u6218\u843d\u5730\u7684\u5b8c\u6574\u77e5\u8bc6\u5e93"
+    },
+    {
+      "name": "qzlabq--xegineer-syncasist",
+      "source": "./qzlabq--xegineer-syncasist",
+      "description": "XEgineer-SyncAsist"
+    },
+    {
+      "name": "misonl--a-share-selection-strategy-skill",
+      "source": "./misonl--a-share-selection-strategy-skill",
+      "description": "\u901a\u7528\u9009\u80a1\u7b56\u7565 Skill\uff0c\u9762\u5411 AI Agent \u7684\u53ef\u89e3\u91ca\u591a\u56e0\u5b50\u9009\u80a1\u5de5\u4f5c\u6d41"
+    },
+    {
+      "name": "ningzimu--awesome-ai-ppt",
+      "source": "./ningzimu--awesome-ai-ppt",
+      "description": "A curated list of AI PPT, PowerPoint automation, PPTX editing, and slide workflow tools."
     },
     {
       "name": "ldmoxeii--only-engine",
@@ -301852,6 +302157,16 @@
       "name": "javierludena--game-collection-app",
       "source": "./javierludena--game-collection-app",
       "description": "Full-stack Node.js game collection management system with eBay API price estimation"
+    },
+    {
+      "name": "rx889944-bot--docs",
+      "source": "./rx889944-bot--docs",
+      "description": "docs"
+    },
+    {
+      "name": "md-rahma--tafseer",
+      "source": "./md-rahma--tafseer",
+      "description": "This project is built by me for me"
     }
   ]
 }
