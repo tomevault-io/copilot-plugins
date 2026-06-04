@@ -1,0 +1,9 @@
+{
+  "name": "tryagi--elevenlabs",
+  "displayName": "ElevenLabs",
+  "description": "C# SDK for the ElevenLabs API -- text-to-speech and speech-to-text",
+  "version": "1.0.0",
+  "author": "tryAGI",
+  "homepage": "https://github.com/tryAGI/ElevenLabs",
+  "skills": []
+}
