@@ -1,0 +1,9 @@
+{
+  "name": "hackers365--ble-speed",
+  "displayName": "ble_speed",
+  "description": "\u57fa\u4e8e1.8\u5bf8esp32s3\u5706\u5c4f \u901a\u8fc7ble\u8fde\u63a5obd2\u9002\u914d\u5668 \u663e\u793a \u65f6\u901f/\u8f6c\u6570/\u6c34\u6e29 \u7b49\u4fe1\u606f",
+  "version": "1.0.0",
+  "author": "hackers365",
+  "homepage": "https://github.com/hackers365/ble_speed",
+  "skills": []
+}
