@@ -1,0 +1,9 @@
+{
+  "name": "fifthlang--fifthlang",
+  "displayName": "fifthlang",
+  "description": "Fifth is a .NET 10.0 systems programming language combining imperative and functional programming with first-class knowledge graph and semantic web support. It offers a modified C#-like syntax enhance",
+  "version": "1.0.0",
+  "author": "fifthlang",
+  "homepage": "https://github.com/fifthlang/fifthlang",
+  "skills": []
+}
