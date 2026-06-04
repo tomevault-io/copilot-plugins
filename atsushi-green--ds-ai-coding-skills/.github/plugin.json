@@ -1,0 +1,9 @@
+{
+  "name": "atsushi-green--ds-ai-coding-skills",
+  "displayName": "ds-ai-coding-skills",
+  "description": "A collection of AGENTS.md configurations, skills, and prompts tailored for Data Scientists to maximize productivity with AI coding assistants.",
+  "version": "1.0.0",
+  "author": "atsushi-green",
+  "homepage": "https://github.com/atsushi-green/ds-ai-coding-skills",
+  "skills": []
+}
