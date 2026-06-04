@@ -1,0 +1,9 @@
+{
+  "name": "suminhthanh--zerobin",
+  "displayName": "zerobin",
+  "description": "Zero-knowledge encrypted pastebin running entirely on Cloudflare",
+  "version": "1.0.0",
+  "author": "suminhthanh",
+  "homepage": "https://github.com/suminhthanh/zerobin",
+  "skills": []
+}
