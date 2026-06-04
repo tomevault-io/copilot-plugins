@@ -1,0 +1,9 @@
+{
+  "name": "robzilla1738--codex-workflows",
+  "displayName": "Codex-Workflows",
+  "description": "Claude-style workflow-as-code runtime for Codex",
+  "version": "1.0.0",
+  "author": "robzilla1738",
+  "homepage": "https://github.com/robzilla1738/Codex-Workflows",
+  "skills": []
+}
