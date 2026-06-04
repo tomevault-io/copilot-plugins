@@ -1,11 +1,11 @@
-## dev-principles
+## docs-style
 
-> llm-wiki-memory development principles — atomic writes, safe parsing, LLM-loop depth caps, prompt-injection hardening, single-source config. Canonical file is .agents/rules/dev-principles.md.
+> README and docs style for llm-wiki-memory — install-first structure, plain-English jargon, vertical Mermaid with quoted labels, badge rules. Canonical file is .agents/rules/docs-style.md.
 
 
 Follow the canonical rule (edit that file, never this shadow):
 
-@.agents/rules/dev-principles.md
+@.agents/rules/docs-style.md
 
 ---
 > Source: [ctxr-dev/llm-wiki-memory](https://github.com/ctxr-dev/llm-wiki-memory) — distributed by [TomeVault](https://tomevault.io).
