@@ -1,0 +1,9 @@
+{
+  "name": "notatestuser--ds4-control",
+  "displayName": "ds4-control",
+  "description": "macOS menu bar control for DeepSeek V4 Pro/Flash via ds4. Start/stop/monitor ds4-server with mini resource widgets",
+  "version": "1.0.0",
+  "author": "notatestuser",
+  "homepage": "https://github.com/notatestuser/ds4-control",
+  "skills": []
+}
