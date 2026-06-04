@@ -1,0 +1,9 @@
+{
+  "name": "guyte149--rusnel",
+  "displayName": "Rusnel",
+  "description": "Rusnel is a fast tcp/udp tunnel over QUIC",
+  "version": "1.0.0",
+  "author": "guyte149",
+  "homepage": "https://github.com/guyte149/Rusnel",
+  "skills": []
+}
