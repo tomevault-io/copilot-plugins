@@ -1,0 +1,9 @@
+{
+  "name": "weixi779--wicompress",
+  "displayName": "WICompress",
+  "description": "A lightweight iOS image compression library that supports JPEG, PNG, HEIC formats and uses the Luban algorithm for compression.",
+  "version": "1.0.0",
+  "author": "Weixi779",
+  "homepage": "https://github.com/Weixi779/WICompress",
+  "skills": []
+}
