@@ -64664,6 +64664,11 @@
       "description": "A chat alfred-workflow that integrates multiple popular large language model (LLM) services, including OpenAI, Anthropic, Gemini, etc"
     },
     {
+      "name": "s-macke--test-drive-3-maps",
+      "source": "./s-macke--test-drive-3-maps",
+      "description": "Extracted Maps of the DOS Game Test Drive 3"
+    },
+    {
       "name": "andrew-malitchuk--kite-aos",
       "source": "./andrew-malitchuk--kite-aos",
       "description": "Modern, open-source Android kiosk application designed to transform tablets into dedicated smart home dashboards."
@@ -85789,6 +85794,21 @@
       "description": "GitButler Documentation"
     },
     {
+      "name": "near--mpc",
+      "source": "./near--mpc",
+      "description": "MPC Node. Implements secure multi-party threshold signature generation as part of NEAR's chain abstraction infrastructure"
+    },
+    {
+      "name": "near--mpc",
+      "source": "./near--mpc",
+      "description": "MPC Node. Implements secure multi-party threshold signature generation as part of NEAR's chain abstraction infrastructure"
+    },
+    {
+      "name": "near--mpc",
+      "source": "./near--mpc",
+      "description": "MPC Node. Implements secure multi-party threshold signature generation as part of NEAR's chain abstraction infrastructure"
+    },
+    {
       "name": "skywind3000--gamesample",
       "source": "./skywind3000--gamesample",
       "description": "Game Samples for GameLib"
@@ -103097,6 +103117,11 @@
       "name": "oxc-project--bench-transformer",
       "source": "./oxc-project--bench-transformer",
       "description": "Bench transformer and isolated declarations"
+    },
+    {
+      "name": "garrettgarrett--starter-supabase",
+      "source": "./garrettgarrett--starter-supabase",
+      "description": "Inspired by https://github.com/mckaywrigley/mckays-app-template"
     },
     {
       "name": "iamtouchskyer--logex",
