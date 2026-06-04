@@ -1,0 +1,9 @@
+{
+  "name": "henryhchchc--lsp-fuzz",
+  "displayName": "lsp-fuzz",
+  "description": "A grey-box hybrid fuzzer that generates test cases for language servers",
+  "version": "1.0.0",
+  "author": "henryhchchc",
+  "homepage": "https://github.com/henryhchchc/lsp-fuzz",
+  "skills": []
+}
