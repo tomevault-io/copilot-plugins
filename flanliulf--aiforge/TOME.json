@@ -4,7 +4,7 @@
   "repo": "aiforge",
   "description": "Sync AI coding configurations from any Git repository to Copilot, Claude Code, Cursor, and more \u2014 one command, all tools.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flanliulf/aiforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T02:51:33Z"
+  "distributed_at": "2026-06-04T02:52:03Z"
 }
