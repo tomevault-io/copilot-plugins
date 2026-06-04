@@ -1,16 +1,58 @@
-## building
+## cython
 
-> Build commands for editable install, Cython, wheels, and docs
+> Cython conventions for .pyx extension files in pyoptex
 
 
-# Building
+# Cython Conventions
 
-- **Editable install**: `venv/bin/pip install -e ".[dev]"` (compiles Cython)
-- **Cython only**: `venv/bin/python setup.py build_ext --inplace`
-- **Wheel**: `venv/bin/python -m build --wheel`
-- **Docs**: `make -C docs html` (output in `docs/_build/html/`)
+## Overview
 
-Makefile uses `venv/` by default; no need to activate.
+Hot-path computations are implemented in `.pyx` files and compiled by `setup.py` using `cythonize()`.
+Compiled `.c` files and `.so` shared objects are gitignored.
+
+## Extension Definitions
+
+All `.pyx` files under `src/` are automatically discovered and compiled by `setup.py`:
+
+```python
+extensions = [
+    Extension(
+        module_name,
+        [pyx_path],
+        include_dirs=[np.get_include()],
+        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")],
+        language="c",
+        extra_compile_args=["-O3"],  # Linux/macOS
+    )
+]
+```
+
+## Style Rules
+
+- Use `language_level = "3"` (already set via compiler directives in `setup.py`).
+- Prefer **typed memoryviews** over `np.ndarray` for buffer access:
+  ```cython
+  def my_func(double[:, :] X):
+      ...
+  ```
+- Use `cdef` for C-only functions, `cpdef` for functions callable from both Python and C.
+- Annotate local variables for performance: `cdef int i`, `cdef double val`.
+- Use `nogil` blocks only when safe (no Python objects inside).
+- Add `# cython: boundscheck=False, wraparound=False` at the top of performance-critical files.
+
+## Build
+
+To rebuild after editing a `.pyx` file:
+
+```bash
+pip install -e ".[dev]"   # re-runs setup.py / Cython compilation
+```
+
+Or directly:
+
+```bash
+python setup.py build_ext --inplace
+```
 
 ---
 > Source: [mborn1/pyoptex](https://github.com/mborn1/pyoptex) — distributed by [TomeVault](https://tomevault.io).
