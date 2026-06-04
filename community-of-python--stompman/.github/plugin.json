@@ -1,0 +1,9 @@
+{
+  "name": "community-of-python--stompman",
+  "displayName": "stompman",
+  "description": "Good Python STOMP client & FastStream broker",
+  "version": "1.0.0",
+  "author": "community-of-python",
+  "homepage": "https://github.com/community-of-python/stompman",
+  "skills": []
+}
