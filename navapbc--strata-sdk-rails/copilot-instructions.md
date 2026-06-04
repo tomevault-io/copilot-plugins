@@ -1,97 +1,123 @@
 ## strata-sdk-rails
 
-> Guidelines for AI assistants working on this Ruby on Rails application.
+> This repository contains the Strata SDK, a Ruby on Rails engine designed to help create intuitive, accessible, and effective digital-native government services. The SDK provides components for:
 
-# Claude Development Guidelines
+# Copilot Agent Instructions for Strata SDK
 
-Guidelines for AI assistants working on this Ruby on Rails application.
+## Repository Overview
 
-## Key References
+This repository contains the Strata SDK, a Ruby on Rails engine designed to help create intuitive, accessible, and effective digital-native government services. The SDK provides components for:
 
-- **@Makefile** — all common dev commands (`make lint`, `make test`, `make db-migrate`, etc.)
-- **@schema.rb** — tables, columns, foreign keys, indexes; this app uses UUID primary keys
-- **@RubyOnRails** — Rails docs for ActiveRecord, routing, views, migrations, conventions
-- **[docs/README.md](docs/README.md)** — index of all project documentation
+- Multi-page intake application forms
+- Case management workflows
+- Business process modeling
+- Policy-as-code rules engine
+- Data modeling with standardized government data fields
 
-## Mandatory Workflow
+### Technical Stack
 
-Follow these steps in order. **Do not skip or reorder.**
+- **Primary Language**: Ruby
+- **Framework**: Rails
+- **Project Type**: Ruby Gem/Rails Engine
+- **Key Dependencies** (versions declared in `strata.gemspec`):
+  - Rails
+  - Pundit (authorization)
+  - ViewComponent
+  - validates_timeliness
 
-1. **Ask clarifying questions** — surface unclear requirements, edge cases, and business rules before doing anything
-2. **Discuss design choices** — present implementation options with trade-offs and get approval
-3. **Write RSpec tests** — comprehensive coverage including edge cases; **present to user and wait for approval before writing any implementation**. See [testing guidelines](docs/contributing/testing.md).
-4. **Implement code** — only after tests are approved; run `make test` frequently
-5. **Lint** — run `make lint` and resolve all warnings
-6. **Propose refactorings** — identify improvements (duplication, DDD patterns, complexity); **wait for approval before implementing**
+## Build and Test Instructions
 
-## Code Conventions
+### Environment Setup Prerequisites
 
-- Thin controllers — business logic belongs in domain models and service objects
-- Use Pundit policy objects for authorization — see [authorization docs](docs/authorization.md)
-- Use ActiveRecord associations and scopes; avoid raw SQL when ActiveRecord suffices
-- Use strong parameters in controllers
-- Follow Rails naming conventions throughout
-- See [implementation guidelines](docs/contributing/implementation-guidelines.md) for patterns and examples
+- Docker
+- NodeJS
+- Ruby (version specified in `.ruby-version` file)
+- Ruby version manager recommended (rbenv, mise, or frum)
 
-## Domain Driven Design
+### Initial Setup Commands
 
-Apply DDD consistently. Before marking a feature complete, verify:
-
-- [ ] Code uses ubiquitous language (domain terms, not technical jargon)
-- [ ] Business rules live in domain models, not controllers or services
-- [ ] Aggregates have clear boundaries; child entities accessed through the aggregate root
-- [ ] Services coordinate between aggregates; they don't contain business logic
-- [ ] Entities and value objects are clearly distinguished
-- [ ] State transitions and invariants are enforced at the model level
-- [ ] Tests are written in terms of business scenarios
-
-See [data modeling guidelines](docs/contributing/data-modeling-guidelines.md) for detailed DDD patterns and examples.
-
-## SDK Features
-
-When working with SDK-specific features, consult these docs:
-
-| Topic | Doc |
-|---|---|
-| Available SDK components | [strata-sdk-components.md](docs/strata-sdk-components.md) |
-| Strata attributes (Address, Array, MemorableDate, etc.) | [strata-attributes.md](docs/strata-attributes.md) |
-| Contributing new Strata attributes | [contributing-strata-attributes.md](docs/contributing/contributing-strata-attributes.md) |
-| Data modeler & migration generator | [strata-data-modeler.md](docs/strata-data-modeler.md) |
-| Multi-page form builder | [multi-page-form-builder.md](docs/multi-page-form-builder.md) |
-| Intake application forms | [intake-application-forms.md](docs/intake-application-forms.md) |
-| Rules engine | [strata-rules-engine.md](docs/strata-rules-engine.md) |
-| Business process hierarchy | [business-process-family-tree.md](docs/business-process-family-tree.md) |
-| Case management business process | [case-management-business-process.md](docs/case-management-business-process.md) |
-| Implementing task views | [implementing-tasks-views.md](docs/implementing-tasks-views.md) |
-| API authentication | [api-authentication.md](docs/api-authentication.md) |
-| Generators | [generators.md](docs/generators.md) |
-
-## Database Commands
+Always run these commands in this order when setting up:
 
 ```bash
-make db-migrate      # Run migrations
-make db-rollback     # Rollback last migration
-make db-seed         # Seed database
-make db-reset        # Reset and reseed
-make db-console      # Access database console
+make setup  # Installs dependencies, creates .env, and initializes database
 ```
 
-When generating migrations, use the Rails generator directly:
+### .env configuration
+
+After running `make setup`, you or the user will need to configure environment variables in the `.env` file located at `./spec/dummy/.env`.
+
+This file is used to set up the necessary environment for the dummy application.
+
+### Database Setup
+
+The database is automatically set up by `make setup`, but if needed separately:
+
+1. Ensure `.env` exists at `./spec/dummy/.env`
+2. Run `make init-db`
+
+### Testing Commands
+
+To run tests:
+
 ```bash
-cd spec/dummy && bundle exec rails generate migration MigrationName
+make test       # Run full test suite with coverage
+make test-watch # Watch mode for development
 ```
 
-Always use reversible migrations (`change`) or explicit `up`/`down` methods.
+### Common Issues and Solutions
 
-## Hard Rules
+- If tests fail immediately, ensure database is running: `make db-up`
+- If database errors occur, try: `make init-db`
+- If changes don't appear to take effect, ensure you've run `make setup` first
 
-- Never assume business logic — always ask
-- Never write implementation before tests are approved
-- Never implement refactorings without approval
-- Never modify `schema.rb` directly — use migrations
-- Never bypass authorization policies
-- Never mix concerns across bounded contexts
+## Project Layout
+
+### Key Directories
+
+- `/app`: Core Strata engine application code
+  - `/app/controllers/strata`: Controllers for tasks and staff
+  - `/app/models/strata`: Data models
+  - `/app/views/strata`: View templates
+  - `/app/helpers/strata`: Helper methods
+- `/config`: Strata engine configuration files
+  - `/config/routes.rb`: Route definitions
+  - `/config/initializers`: Rails initializers
+- `/lib/strata`: Core Strata engine configuration code
+- `/spec`: Test files
+  - `/spec/dummy`: Dummy Rails app used to exercise the engine in tests and locally
+  - `/spec/dummy/db/migrate`: Database migrations (the engine ships no migrations of its own; they live in the dummy app)
+  - `/spec/dummy/db/schema.rb`: Schema for the dummy app's database
+
+### Important Files
+
+- `README.md`: Project overview and documentation
+- `Makefile`: Build and development commands
+- `CONTRIBUTING.md`: Contribution guidelines
+- `Gemfile`: Ruby dependencies
+- `docs/*`: Documentation files
+
+### Architecture Notes
+
+- The project is structured as a Rails engine
+- Uses modular components (Form Builder, Data Modeler, etc.)
+- Follows Ruby on Rails conventions for code organization
+- Tests are RSpec-based and require a running database
+
+## Validation Steps
+
+1. Before submitting changes:
+
+   - Run `make lint` to check code style
+   - Run `make test` to run the test suite
+   - Ensure all migrations are reversible, if possible
+   - Test changes in the dummy app: `make start`
+
+2. Database-related changes:
+   - Always run `make db-migrate` after adding migrations
+   - Verify `make db-rollback` works for new migrations
+
+These instructions should help you work efficiently with the codebase. Only perform additional exploration if these instructions are found to be incomplete or incorrect for your specific task.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/navapbc) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [navapbc/strata-sdk-rails](https://github.com/navapbc/strata-sdk-rails) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
