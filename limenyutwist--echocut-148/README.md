@@ -7,11 +7,11 @@ Turn raw footage into brand-ready, platform-optimized video with one command. Lo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Limenyutwist/echocut-148](https://github.com/Limenyutwist/echocut-148).
+Original source: `CLAUDE.md` in [Limenyutwist/echocut-148](https://github.com/Limenyutwist/echocut-148).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
