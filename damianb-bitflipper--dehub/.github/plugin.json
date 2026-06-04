@@ -1,0 +1,9 @@
+{
+  "name": "damianb-bitflipper--dehub",
+  "displayName": "dehub",
+  "description": "A TUI to de-GitHub yourself. Control PRs, Actions, Issues, Notifications.",
+  "version": "1.0.0",
+  "author": "DamianB-BitFlipper",
+  "homepage": "https://github.com/DamianB-BitFlipper/dehub",
+  "skills": []
+}
