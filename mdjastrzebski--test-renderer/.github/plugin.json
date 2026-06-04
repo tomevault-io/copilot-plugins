@@ -1,0 +1,9 @@
+{
+  "name": "mdjastrzebski--test-renderer",
+  "displayName": "test-renderer",
+  "description": "A lightweight test renderer for React and a modern replacement for the deprecated React Test Renderer.",
+  "version": "1.0.0",
+  "author": "mdjastrzebski",
+  "homepage": "https://github.com/mdjastrzebski/test-renderer",
+  "skills": []
+}
