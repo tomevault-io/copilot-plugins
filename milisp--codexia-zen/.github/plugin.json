@@ -1,0 +1,9 @@
+{
+  "name": "milisp--codexia-zen",
+  "displayName": "codexia-zen",
+  "description": "tauri GUI for OpenAI Codex CLI, minimalist design",
+  "version": "1.0.0",
+  "author": "milisp",
+  "homepage": "https://github.com/milisp/codexia-zen",
+  "skills": []
+}
