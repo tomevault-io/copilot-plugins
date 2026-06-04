@@ -1,0 +1,9 @@
+{
+  "name": "lichtblick-suite--asam-osi-converter",
+  "displayName": "asam-osi-converter",
+  "description": "Lichtblick extension which visualizes data following the standard of the ASAM Open Simulation Interface (ASAM OSI) using the native 3D panel of Lichtblick.",
+  "version": "1.0.0",
+  "author": "lichtblick-suite",
+  "homepage": "https://github.com/lichtblick-suite/asam-osi-converter",
+  "skills": []
+}
