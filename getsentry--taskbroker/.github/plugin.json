@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--taskbroker",
+  "displayName": "taskbroker",
+  "description": "A consumer + rpc interface for asynchronous task execution",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/taskbroker",
+  "skills": []
+}
