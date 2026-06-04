@@ -1,0 +1,9 @@
+{
+  "name": "dezoff-max--codex-ui-board-skills",
+  "displayName": "codex-ui-board-skills",
+  "description": "Four shareable Codex UI board skills with dual-theme design tokens, standalone previews, Tailwind presets, and installable skill bundles.",
+  "version": "1.0.0",
+  "author": "Dezoff-max",
+  "homepage": "https://github.com/Dezoff-max/codex-ui-board-skills",
+  "skills": []
+}
