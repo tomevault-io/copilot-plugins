@@ -1,70 +1,204 @@
-## shadcn
+## solidity
 
-> The following official shadcn-ui components are available. Please check to see if they are installed under `./kit/dapp/components/ui` before installing them with `bunx shadcn@canary add <component-id>`.
+> - **Think first, code second**: Minimize the number of lines changed and consider ripple effects across the codebase.
 
-The following official shadcn-ui components are available. Please check to see if they are installed under `./kit/dapp/components/ui` before installing them with `bunx shadcn@canary add <component-id>`.
+# Solidity Development Guidelines for Asset Tokenization Kit
 
-Notice that The 'shadcn-ui' package is deprecated. Please use the 'shadcn' package instead. For example:
+## General Principles
 
-```bash
-bunx shadcn@canary add progress --cwd kit/dapp
+- **Think first, code second**: Minimize the number of lines changed and consider ripple effects across the codebase.
+- **Prefer simplicity**: Fewer moving parts → fewer bugs and lower audit overhead.
+
+## Assembly Usage
+
+| Rule | Rationale |
+|------|-----------|
+| Use assembly only when essential. | Keeps code readable and auditable. |
+| Assembly is mandatory for low-level external calls. | Gives full control over call parameters & return data, and saves gas. |
+| Precede every assembly block with: • A brief justification (1-2 lines). • Equivalent Solidity pseudocode. | Documents intent for reviewers. |
+| Mark assembly blocks memory-safe when the Solidity docs' criteria are met. | Enables compiler optimizations. |
+
+## Gas Optimization
+
+- Keep a dedicated **Gas Optimization** section in the PR description; justify any measurable gas deltas.
+- Prefer `calldata` over `memory`.
+- Limit storage (`sstore`, `sload`) operations; cache in memory wherever possible.
+- Use forge snapshot and benchmarks:
+  ```bash
+  forge snapshot                # Create gas snapshot
+  forge test --gas-report       # Gas report for tests
+  forge test --match-test bench # Run benchmarks
+  ```
+- Large regressions must be explained.
+
+## Handling "Stack Too Deep"
+
+- **Struct hack (tests only)**: Bundle local variables into a temporary struct declared above the test.
+- **Scoped blocks**: Wrap code in `{ ... }` to drop unused vars from the stack.
+- **Internal helper functions**: Encapsulate logic to shorten call frames.
+- **Refactor / delete unnecessary variables before other tricks**.
+
+## Security Checklist
+
+- Review every change with an adversarial mindset.
+- Favor the simplest design that meets requirements.
+- After coding, ask: "What new attack surface did I introduce?"
+- Reject any change that raises security risk without strong justification.
+- Follow SMART protocol security patterns for ERC-3643 compliance.
+
+## Error Handling Style
+
+Always use custom errors with the revert pattern instead of require statements:
+
+```solidity
+// ❌ Don't use require with string messages
+require(amount > 0, "Amount must be positive");
+require(to != address(0), "Cannot transfer to zero address");
+
+// ✅ Do use custom errors with if/revert pattern
+error AmountMustBePositive();
+error CannotTransferToZeroAddress();
+
+if (amount == 0) revert AmountMustBePositive();
+if (to == address(0)) revert CannotTransferToZeroAddress();
 ```
 
-YOU MUST use `bunx shadcn@canary` when installing shadcn packages.
+**Benefits of custom errors**:
+- More gas efficient than require strings
+- Better error identification in tests and debugging
+- Cleaner, more professional code
+- Consistent with modern Solidity best practices
 
-Docs for each components are available at `https://ui.shadcn.com/docs/components/<component-id>`. Fetch and read the docs before using the component so that your knowledge is up-to-date.
+## Testing Guidelines
 
-#	Component ID (slug)	Human-friendly name	What it's for (1-sentence use-case)
-1	accordion	Accordion	Stack of headings that expand/collapse to reveal hidden content.
-2	alert	Alert	Static call-out box for status or info messages.
-3	alert-dialog	Alert Dialog	Modal that interrupts the flow to confirm or warn about critical actions.
-4	aspect-ratio	Aspect Ratio	Wrapper that locks children to a fixed width-to-height ratio (great for responsive media).
-5	avatar	Avatar	Small user/asset image or initials placeholder.
-6	badge	Badge	Tiny label for counts or status (e.g. “New”, “3”).
-7	breadcrumb	Breadcrumb	Navigation trail that shows “where you are” in the app hierarchy.
-8	button	Button	Click/tap element that triggers an action.
-9	calendar	Calendar	Stand-alone calendar view, used by Date Picker or on its own.
-10	card	Card	Content container with optional header/body/footer.
-11	carousel	Carousel	Horizontal slider that cycles through a set of items or images.
-12	chart	Chart	Light wrapper for quick bar/line/pie visualizations.
-13	checkbox	Checkbox	Square control for on/off selection of independent items.
-14	collapsible	Collapsible	Utility that hides/reveals content with smooth height animation.
-15	combobox	Combobox	Autocomplete text input that filters a long list and lets users pick an item.
-16	command	Command Palette	VS Code-style keyboard overlay for fuzzy-searching actions.
-17	context-menu	Context Menu	Right-click (long-press) menu with context-specific commands.
-18	data-table	Data Table	Table with helpers for sorting, filtering and pagination.
-19	date-picker	Date Picker	Input field that pops a calendar for choosing dates or ranges.
-20	dialog	Dialog	Generic modal overlay for arbitrary interactive content.
-21	drawer	Drawer	Slide-in panel (often from edge/bottom) for secondary workflows.
-22	dropdown-menu	Dropdown Menu	Triggered list of options/actions that auto-dismisses on selection.
-23	form	Form	Helpers and styles for accessible, validated forms.
-24	hover-card	Hover Card	Lightweight popover that appears on hover/focus to show extra info.
-25	input	Input	Standard single-line text field.
-26	input-otp	Input OTP	Grouped inputs optimised for entering one-time pass-codes.
-27	label	Label	Accessible label element for any form control.
-28	menubar	Menubar	Horizontal desktop-app-style menu with dropdown sub-menus.
-29	navigation-menu	Navigation Menu	Multi-level nav bar with active indicators and hover previews.
-30	pagination	Pagination	Next/previous + numbered page controls for paginated data sets.
-31	popover	Popover	Non-modal floating panel anchored to a trigger (e.g. emoji picker).
-32	progress	Progress	Linear bar that shows completion percentage.
-33	radio-group	Radio Group	Set of mutually-exclusive selection buttons.
-34	resizable	Resizable	Wrapper that lets users drag to resize split panes.
-35	scroll-area	Scroll Area	Augments native scrolling with custom styling and shadows.
-36	select	Select	Styled single-select dropdown (native <select> replacement).
-37	separator	Separator	Horizontal or vertical rule dividing content.
-38	sheet	Sheet	Mobile-friendly slide-up bottom sheet (from tiny to full-screen).
-39	sidebar	Sidebar	Vertical navigation rail that can collapse/expand.
-40	skeleton	Skeleton	Grey placeholder shapes shown while real content loads.
-41	slider	Slider	Draggable handle on a track for numeric values or ranges.
-42	sonner	Sonner	Opinionated toast component (thin wrapper around the Sonner library).
-43	switch	Switch	Toggle switch for true/false settings.
-44	table	Table	Basic static table markup & styling.
-45	tabs	Tabs	Tab strip that swaps between associated panels.
-46	textarea	Textarea	Multi-line text input.
-47	toast	Toast	Ephemeral message that pops at screen edge and auto-dismisses.
-48	toggle	Toggle	Pressable button that stays pressed/un-pressed to indicate state.
-49	toggle-group	Toggle Group	Collection of toggles acting as single- or multi-select controls.
-50	tooltip	Tooltip	Small hover/focus label supplying helper text.
+### Core Testing Principles
+
+**Every feature or change MUST have comprehensive tests before creating a PR**. This is non-negotiable for maintaining code quality and preventing regressions.
+
+### When to Write Tests
+
+- **New Features**: Write tests that demonstrate the complete flow and all edge cases
+- **Bug Fixes**: Add tests that reproduce the bug and verify the fix
+- **Refactoring**: Ensure existing tests still pass; add new ones if behavior changes
+- **Gas Optimizations**: Include benchmark tests showing before/after comparisons
+
+### Types of Required Tests
+
+**Unit Tests**:
+- Write clear unit tests that demonstrate the general flow of your feature/change
+- Test both happy paths and failure cases
+- Include edge cases and boundary conditions
+- Test revert conditions with specific error messages
+
+**Fuzz Tests**:
+- **Fuzz tests are highly encouraged** for all new functionality
+- Use Foundry's built-in fuzzing capabilities
+- Apply random arguments to thoroughly test your implementation
+
+Example fuzz test pattern:
+```solidity
+function testFuzz_myFeature(uint256 amount, address user) public {
+    // Bound inputs to reasonable ranges
+    amount = bound(amount, 1, type(uint128).max);
+    vm.assume(user != address(0));
+    
+    // Test your feature with random inputs
+    myContract.myFeature(amount, user);
+    
+    // Assert expected outcomes
+    assertEq(myContract.balanceOf(user), amount);
+}
+```
+
+### Testing Checklist Before PR
+
+Before opening any PR, ensure:
+- [ ] All new functions have unit tests
+- [ ] Critical paths have fuzz tests with random inputs
+- [ ] Edge cases and revert scenarios are tested
+- [ ] Gas benchmarks are included for optimizations
+- [ ] All tests pass: `forge test`
+- [ ] No test coverage regression: `forge coverage`
+
+## Verification Workflow
+
+```bash
+forge build                    # compile
+forge test                     # full test suite
+forge snapshot                 # gas snapshot
+forge test --match-test bench  # run benchmarks
+forge test --gas-report        # gas usage report
+forge coverage                 # code coverage
+```
+
+## Asset Tokenization Kit Specific Guidelines
+
+### Contract Structure
+- Follow the SMART protocol patterns for all asset implementations
+- Use the established factory pattern (`ATKBondFactory`, `ATKEquityFactory`, etc.)
+- Implement proper ERC-3643 compliance for all tokenized assets
+- Utilize the extension system (`SMARTBurnable`, `SMARTCapped`, etc.) for modularity
+
+### Testing Assets
+When testing tokenized assets:
+- Test compliance features (identity registry, claim topics)
+- Test factory deployment patterns
+- Test proxy upgradeability
+- Test all extensions used by the asset
+- Include integration tests with the compliance system
+
+### Common Patterns
+- Use `AccessControl` for role-based permissions
+- Implement `Pausable` for emergency stops
+- Follow ERC-3643 for identity and compliance
+- Use proxy patterns for upgradeability
+
+### Available Tools
+
+The Asset Tokenization Kit includes:
+- Foundry for contract compilation and testing
+- OpenZeppelin contracts for base implementations
+- SMART protocol contracts for compliance
+- Hardhat for additional tooling support
+
+### Project Structure
+
+- `contracts/`: Smart contract source files
+  - `assets/`: Asset factories and implementations
+  - `smart/`: SMART protocol base contracts and extensions
+  - `system/`: Compliance and registry contracts
+  - `test/`: Test contracts and utilities
+- `test/`: Foundry tests
+- `scripts/`: Deployment and utility scripts
+
+## Critical Reminders
+
+### DO NOT
+
+- Use require() statements - always use custom errors
+- Create contracts without comprehensive tests
+- Make gas-intensive changes without benchmarks
+- Skip security considerations for any change
+- Use inline strings for errors
+
+### ALWAYS
+
+- Follow SMART protocol patterns
+- Test all compliance features
+- Measure gas impact of changes
+- Consider upgradeability implications
+- Use established factory patterns
+- Document assembly blocks
+- Run full test suite before PR
+
+## Continuous Learning
+
+- Consult SMART protocol documentation
+- Review OpenZeppelin best practices
+- Study ERC-3643 compliance requirements
+- Learn from audited tokenization projects
+
+Apply these rules rigorously when working with Solidity files in the Asset Tokenization Kit.
 
 ---
 > Source: [settlemint/sdk](https://github.com/settlemint/sdk) — distributed by [TomeVault](https://tomevault.io).
