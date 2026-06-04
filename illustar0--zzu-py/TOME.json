@@ -1,0 +1,44 @@
+{
+  "name": "ZZU.Py",
+  "owner": "Illustar0",
+  "repo": "ZZU.Py",
+  "description": "\u8c6b\u89c1\u90d1\u5927\u7684 Python API \u5c01\u88c5 / An API wrapper for Zhengzhou University Mobile Campus written in Python",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Illustar0/ZZU.Py",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T10:49:07Z"
+}
