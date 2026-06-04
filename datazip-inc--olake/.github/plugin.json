@@ -1,0 +1,9 @@
+{
+  "name": "datazip-inc--olake",
+  "displayName": "olake",
+  "description": "OLake - Fastest Databases, Kafka & S3 Replication to Apache Iceberg with Table optimization (Called OLake Fusion). \u26a1 Efficient, quick and scalable data ingestion for real-time analytics.  Supported so",
+  "version": "1.0.0",
+  "author": "datazip-inc",
+  "homepage": "https://github.com/datazip-inc/olake",
+  "skills": []
+}
