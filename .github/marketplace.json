@@ -130644,6 +130644,11 @@
       "description": "pyhw, a neofetch-like command line tool for fetching system information but written mostly in Python."
     },
     {
+      "name": "hyperbrowserai--node-sdk",
+      "source": "./hyperbrowserai--node-sdk",
+      "description": "node-sdk"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -134737,6 +134742,11 @@
       "name": "proof--proof-vc-web",
       "source": "./proof--proof-vc-web",
       "description": "Web Components for Proof Digital Credentials."
+    },
+    {
+      "name": "doctoolchain--asciidoc-linter",
+      "source": "./doctoolchain--asciidoc-linter",
+      "description": "asciidoc-linter"
     },
     {
       "name": "mohiwalla--memes",
@@ -139602,6 +139612,16 @@
       "name": "nerochain--nero-docs",
       "source": "./nerochain--nero-docs",
       "description": "Nero-docs"
+    },
+    {
+      "name": "bunkerity--bunkerweb-helm",
+      "source": "./bunkerity--bunkerweb-helm",
+      "description": "BunkerWeb Kubernetes helm charts."
+    },
+    {
+      "name": "meltedmindz--dexter",
+      "source": "./meltedmindz--dexter",
+      "description": "AI Liquidity Management Agent"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -150749,6 +150769,76 @@
       "description": "Run your company with AI agents. Open source harness for operating a full company with specialized Claude Code squads."
     },
     {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "\ud83d\ude80 Accelerating Science - The ResearchHub web app"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -158657,6 +158747,11 @@
       "name": "whoamihappyhacking--just-talk-go",
       "source": "./whoamihappyhacking--just-talk-go",
       "description": "Just Talk \u662f\u4e00\u4e2a\u9762\u5411\u684c\u9762\u73af\u5883\u7684\u8bed\u97f3\u8f93\u5165\u5de5\u5177\u3002\u5b83\u901a\u8fc7\u5168\u5c40\u5feb\u6377\u952e\u5f55\u97f3\uff0c\u628a\u8bed\u97f3\u8bc6\u522b\u7ed3\u679c\u590d\u5236\u5230\u526a\u8d34\u677f\uff0c\u6216\u76f4\u63a5\u4e0a\u5c4f\u5230\u5f53\u524d\u8f93\u5165\u6846\uff0c\u9002\u5408\u5199\u4ee3\u7801\u3001\u804a\u5929\u3001\u8bb0\u7b14\u8bb0\u548c\u5904\u7406\u957f\u6587\u672c\u8f93\u5165\u3002"
+    },
+    {
+      "name": "yuygfgg--y5gfunc",
+      "source": "./yuygfgg--y5gfunc",
+      "description": "Yuygfgg's collection for vapoursynth video filtering and encoding stuff"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -181109,6 +181204,11 @@
       "description": "AstronomyImages"
     },
     {
+      "name": "azure--aksflexnode",
+      "source": "./azure--aksflexnode",
+      "description": "Connecting a node to AKS cluster from anywhere"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -193759,6 +193859,26 @@
       "description": "BMAD module that drives the full BMAD story workflow end-to-end, one story at a time, on Claude Code or Codex \u2014 delegating each step to model/effort-tuned subagents."
     },
     {
+      "name": "leereilly--gh-commit-crawl",
+      "source": "./leereilly--gh-commit-crawl",
+      "description": "A GitHub CLI extension to generate a Build-themed GitHub contribution graph. But you'll have to work for it!"
+    },
+    {
+      "name": "atsushi-green--ds-ai-coding-skills",
+      "source": "./atsushi-green--ds-ai-coding-skills",
+      "description": "A collection of AGENTS.md configurations, skills, and prompts tailored for Data Scientists to maximize productivity with AI coding assistants."
+    },
+    {
+      "name": "ongridio--ongrid",
+      "source": "./ongridio--ongrid",
+      "description": "AI agent for understanding, diagnosing, and operating infrastructure \u2014 all from the chat apps you already use."
+    },
+    {
+      "name": "ai272--speaker",
+      "source": "./ai272--speaker",
+      "description": "Speaker is a Codex skill project for academic presentations: read real.pptx, combine text extraction, PPTX structure parsing, page-by-page rendering, OCR, and visual review to generate page-by-page sp"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -196982,6 +197102,16 @@
       "name": "ningzimu--awesome-ai-ppt",
       "source": "./ningzimu--awesome-ai-ppt",
       "description": "A curated list of AI PPT, PowerPoint automation, PPTX editing, and slide workflow tools."
+    },
+    {
+      "name": "geekjourneyx--geekx-skills",
+      "source": "./geekjourneyx--geekx-skills",
+      "description": "AI Agent skills collection by geekjourneyx  for agent-compatible coding, creator, and automation workflows"
+    },
+    {
+      "name": "jacksonpires--rails-api-docs",
+      "source": "./jacksonpires--rails-api-docs",
+      "description": "Generate beautiful API documentation for your Rails app"
     },
     {
       "name": "ldmoxeii--only-engine",
