@@ -1,52 +1,36 @@
-## prompts-and-references
+## rules-of-enagagment
 
-> The prompts and references directories contain documentation and guides for AI agents to follow when working on various tasks in the Horizon theme.
+> - **Keep `layout/theme.liquid` concise**: Aim for an average of 200–300 lines. Extract markup into well-named snippets and sections to keep `theme.liquid` readable and maintainable.
 
-# Prompts and References
+# Rules of Engagement
 
-The prompts and references directories contain documentation and guides for AI agents to follow when working on various tasks in the Horizon theme.
+## Theme Structure
 
-## Living Documents
+- **Keep `layout/theme.liquid` concise**: Aim for an average of 200–300 lines. Extract markup into well-named snippets and sections to keep `theme.liquid` readable and maintainable.
+- **Prefer snippets for composition**: Use snippets to organize, modals, and reusable UI fragments. Avoid large monolithic blocks inside `theme.liquid`.
 
-**Important**: All files in the `.cursor/prompts/` and `.cursor/references/` folders are living documents. This means:
+## JavaScript Practices
 
-- They should be updated as new cases are encountered
-- When you discover a useful pattern, edge case, or solution while working on an issue, update the relevant file
-- If something in these files doesn't work as expected, fix it immediately
-- Add examples from real implementation experiences
-- Remove or update outdated information
+- **Prefer Custom Elements over `DOMContentLoaded`**: Do not attach logic using `document.addEventListener('DOMContentLoaded', ...)`. Instead, wrap the relevant HTML in a custom element and implement a class that extends `HTMLElement` (register it with `customElements.define`).
+- **Avoid `DOMContentLoaded` entirely when possible**: Use `connectedCallback`/`disconnectedCallback` lifecycle hooks of your custom element to initialize and clean up behavior.
+- **Do not use jQuery**: Never add jQuery to the codebase. Prefer native browser APIs and/or Alpine.js (already included in `theme.liquid`) for light interactivity and state.
 
-**CRITICAL ACTION REQUIREMENT**: When you encounter any pattern, issue, or solution while working - immediately update the relevant documentation file WITHOUT being asked. This includes:
-- Code patterns to avoid (like console.log in tests)
-- Better ways to accomplish tasks
-- Edge cases or pitfalls discovered
-- Clarifications for ambiguous instructions
-- New tools or commands that work better
+## Formatting and Readability
 
-Do not wait for the user to suggest documentation updates. Proactively maintaining these living documents is part of completing any task.
+- **Indent consistently**: Poorly formatted code is hard to read and maintain. Always keep indentation and spacing consistent with the project’s existing style (do not mix tabs and spaces).
+- **Auto-format on save**: Use the project formatter configuration where available. If no formatter is configured, match the surrounding file’s style.
 
-## Purpose
+## Code Hygiene
 
-These documentation files serve as:
-- Step-by-step guides for common tasks
-- Documentation of best practices learned from experience
-- References for handling edge cases and pitfalls
-- Templates for consistent workflows
+- **Do not leave commented-out code**: Either delete unused code or re-enable it. Do not keep large commented blocks or "temporary" comments in commits.
 
-## Usage
+## Quick Checklist
 
-When an AI agent is asked to perform a task that has corresponding documentation:
-1. The agent should follow the documented steps
-2. If the steps need adjustment based on the specific situation, the agent should note what changes were needed
-3. **MANDATORY**: Update the documentation immediately with any new learnings, patterns, or pitfalls discovered during the task - do not wait to be asked
-
-## Examples of Living Document Updates
-
-- Adding a new pitfall discovered during implementation
-- Clarifying a step that was ambiguous
-- Adding a reference to a newly created documentation file
-- Updating commands or scripts that have changed
-- Adding examples of good vs bad practices
+- `theme.liquid` is <= ~300 lines and delegates to snippets/sections
+- No new uses of `DOMContentLoaded`; behavior lives in custom elements
+- Custom elements extend `HTMLElement` and are registered once
+- Code is consistently indented and formatted
+- No commented-out code left behind
 
 ---
 > Source: [EcomExperts-io/Base](https://github.com/EcomExperts-io/Base) — distributed by [TomeVault](https://tomevault.io).
