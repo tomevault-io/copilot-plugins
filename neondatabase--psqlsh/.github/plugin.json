@@ -1,0 +1,9 @@
+{
+  "name": "neondatabase--psqlsh",
+  "displayName": "psqlsh",
+  "description": "psql.sh - browser native PostgreSQL command line client",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/psqlsh",
+  "skills": []
+}
