@@ -1,11 +1,11 @@
-## releases-docs-authoring
+## testing
 
-> When and how to write a docs/releases/yyyy/mm/dd[/vN]/update-prompt.md runbook for a breaking llm-wiki-memory release. Canonical file is .agents/rules/releases-docs-authoring.md.
+> Testing rules for llm-wiki-memory — node:test harness conventions, mock-provider seams, the /tmp/lwm-* leak trap. Canonical file is .agents/rules/testing.md.
 
 
 Follow the canonical rule (edit that file, never this shadow):
 
-@.agents/rules/releases-docs-authoring.md
+@.agents/rules/testing.md
 
 ---
 > Source: [ctxr-dev/llm-wiki-memory](https://github.com/ctxr-dev/llm-wiki-memory) — distributed by [TomeVault](https://tomevault.io).
