@@ -1,0 +1,9 @@
+{
+  "name": "sogni-ai--sogni-client",
+  "displayName": "sogni-client",
+  "description": "Sogni API wrapper for browsers and Node.js",
+  "version": "1.0.0",
+  "author": "Sogni-AI",
+  "homepage": "https://github.com/Sogni-AI/sogni-client",
+  "skills": []
+}
