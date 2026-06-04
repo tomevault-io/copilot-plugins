@@ -4,7 +4,7 @@
   "repo": "echocut-256",
   "description": "Turn raw footage into brand-ready, platform-optimized video with one command. Local-first: FFmpeg + WhisperX/MLX + Ollama.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shinegrousewinch/echocut-256",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T17:37:41Z"
+  "distributed_at": "2026-06-04T17:38:50Z"
 }
