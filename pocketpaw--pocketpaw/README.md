@@ -7,11 +7,11 @@ Your AI agent in 30 seconds. Not 30 hours. Self-hosted, open-source personal AI 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pocketpaw/pocketpaw](https://github.com/pocketpaw/pocketpaw).
+Original source: `AGENTS.md` in [pocketpaw/pocketpaw](https://github.com/pocketpaw/pocketpaw).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
