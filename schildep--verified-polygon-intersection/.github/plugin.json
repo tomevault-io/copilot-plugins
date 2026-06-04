@@ -1,0 +1,9 @@
+{
+  "name": "schildep--verified-polygon-intersection",
+  "displayName": "verified-polygon-intersection",
+  "description": "Formally verified polygon intersection",
+  "version": "1.0.0",
+  "author": "schildep",
+  "homepage": "https://github.com/schildep/verified-polygon-intersection",
+  "skills": []
+}
