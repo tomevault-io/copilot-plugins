@@ -1,139 +1,85 @@
-## schemas
+## sections
 
-> Every section and block must include a `{% schema %}` tag with valid JSON structure.
+> Section coding standards and best practices guide
 
-# Schema Standards
+# Section Development Standards
 
-Every section and block must include a `{% schema %}` tag with valid JSON structure.
+## Section Requirements
 
-We write our schemas in the schemas folder and then run `npm run build:schemas` to push them to the `.liquid` files.  This allows us to take advantage of Typescript for validation and reuse parts of schemas to avoid re-writing them many times.
+Every section must include:
 
-## Schema Structure
-```json
+- `{% schema %}` tag with valid JSON
+- Proper HTML semantic structure
+- CSS scoping with section classes
+- Translation keys for all text
+
+## Section Patterns
+
+**Basic Section Structure:**
+
+```liquid
+{% liquid
+  assign section_id = section.settings.custom_id | default: section.id
+  assign section_class = 'section-' | append: section.type
+%}
+
+<section
+  id="{{ section_id }}"
+  class="{{ section_class }}"
+  style="
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="page-width">
+    {% content_for 'blocks %}
+  </div>
+</section>
+
+{% stylesheet %}
+.{{ section_class }} {
+  padding-top: var(--section-padding-top, 40px);
+  padding-bottom: var(--section-padding-bottom, 40px);
+}
+{% endstylesheet %}
+
+{% schema %}
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "required": ["name", "settings"],
-  "properties": {
-    "name": {
-      "type": "string",
-      "maxLength": 50
-    },
-    "tag": {
-      "type": "string",
-      "enum": ["div", "section", "aside", "header", "footer", "main"]
-    },
-    "class": {
-      "type": "string"
-    },
-    "settings": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["type", "id", "label"],
-        "properties": {
-          "type": {
-            "enum": ["text", "textarea", "number", "range", "color", "checkbox", "select", "radio", "collection", "product", "blog", "page", "header", "paragraph", "image_picker", "font_picker", "video", "richtext"]
-          },
-          "id": {
-            "type": "string",
-            "pattern": "^[a-z][a-z0-9_]*$"
-          },
-          "label": {
-            "type": "string",
-            "maxLength": 30
-          },
-          "visible_if": {
-            "type": "string",
-            "pattern": "\\{\\{\\s+[a-zA-Z_][a-zA-Z0-9_]*\\s+\\}\\}"
-          }
-        }
-      }
-    },
-    "blocks": {
-      "type": "array",
-      "maxItems": 20,
-      "items": {
-        "type": "object",
-        "required": ["type", "name", "settings"],
-        "properties": {
-          "type": {
-            "type": "string",
-            "pattern": "^(@theme|@app|[a-z][a-z0-9_]*)$"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 30
-          },
-          "settings": {
-            "type": "array"
-          }
-        }
-      }
-    },
-    "presets": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["name"],
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "settings": {
-            "type": "object"
-          }
-        }
-      }
+  "name": "t:names.section_name",
+  "tag": "section",
+  "class": "section-name",
+  "blocks": [
+    {"type": "@theme"},
+    {"type": "@app"}
+  ],
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:settings.padding",
+      "min": 0,
+      "max": 100,
+      "default": 40,
+      "unit": "px"
     }
-  }
+  ],
+  "presets": [
+    {
+      "name": "t:names.section_name"
+    }
+  ]
 }
+{% endschema %}
 ```
 
-## Setting Types and Usage
+## Performance Patterns
 
-### Input settings
+- Use `{% liquid %}` for multiline logic
+- Lazy load images with `loading="lazy"`
+- Scope CSS variables to section
+- Use `container-queries` for responsive behavior
 
-These are the bulk of the settings with which the merchant will interact.
-
-See [input settings documentation](mdc:https:/shopify.dev/docs/storefronts/themes/architecture/settings/input-settings)
-
-### Sidebar settings
-
-These are informative settings to guide the merchant.
-
-See [sidebar settings documentation](mdc:https:/shopify.dev/docs/storefronts/themes/architecture/settings/sidebar-settings)
-
-
-## Best practices
-
-### Label Guidelines
-
-- Keep labels concise (under 30 characters)
-- Setting type provides context - "Columns" not "Number of columns"
-- No verb-based labels for checkboxes
-- Use title case: "Show Vendor" not "show vendor"
-
-
-### Setting Organization Rules
-
-**1. Resource Pickers First**
-- Collection, product, blog, page pickers come first
-- These are required for section functionality
-
-**2. Visual Impact Order**
-- Layout settings (columns, spacing)
-- Typography settings (fonts, sizes)
-- Color settings (background, text)
-- Padding/margin last
-
-**3. Group settings using Headers**
-```json
-{
-  "type": "header",
-  "content": "Layout"
-}
-```
+[section-example.liquid](mdc:.cursor/rules/examples/section-example.liquid)
 
 ---
 > Source: [EcomExperts-io/Base](https://github.com/EcomExperts-io/Base) — distributed by [TomeVault](https://tomevault.io).
