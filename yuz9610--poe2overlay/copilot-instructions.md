@@ -1,53 +1,44 @@
-## architecture
+## docs-sync
 
-> Project architecture, IPC, and dev workflow — read before coding
+> Keep docs in sync when adding features or changing behavior
 
 
-# Architecture (PoE2 Area Overlay)
+# Documentation sync
 
-**Read [`docs/README.md`](docs/README.md#目標信息架構) for docs ownership** and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for full technical context. Summary:
+When you **add a feature**, **change behavior**, or **rename/remove** user-visible or architectural surfaces, update the matching docs in the **same change** (same PR / session). Do not leave code and docs out of sync.
 
-Workflow **canonical rules**: [`docs/PROJECT_WORKFLOW.md`](docs/PROJECT_WORKFLOW.md). Gate summary: [`.cursor/rules/workflow.mdc`](workflow.mdc). Prompts: [`docs/AI_AGENT_PROMPTS.md`](docs/AI_AGENT_PROMPTS.md). Human cheat sheet: [`docs/AI_AGENT_SETUP.md`](docs/AI_AGENT_SETUP.md).
+Canonical matrix: [`docs/ARCHITECTURE.md` § 文檔同步](docs/ARCHITECTURE.md#文檔同步).
+Docs ownership / target architecture: [`docs/README.md` § 目標信息架構](docs/README.md#目標信息架構).
 
-Workflow short commands: follow matching step in `AI_AGENT_PROMPTS.md`; **first response = proposal only** unless skip phrase in same message (see `workflow.mdc`).
+## Quick checklist
 
-Docs architecture: every `docs/**/*.md` should begin with `文檔目的` / `不負責`. Keep one source of truth per knowledge type: architecture/IPC → `ARCHITECTURE.md`; user-facing behavior → `USER_GUIDE.md`; build schema → `BUILD_JSON.md`; build generation workflow → `CREATE_BUILD.md`; workflow rules → `PROJECT_WORKFLOW.md`; prompts → `AI_AGENT_PROMPTS.md`; agent maintenance → `AI_AGENT_SETUP.md`; current state → `BRAINSTORM.md` / `SPRINTS.md` / `docs/sprints/`.
+| Change type | Update at minimum |
+|-------------|-------------------|
+| New/changed Tauri command or event | `lib.rs`, `src/api/tauri.ts`, `types.ts` if needed, **ARCHITECTURE.md IPC tables** |
+| New UI panel, shortcut, setting | **USER_GUIDE.md**, **ARCHITECTURE.md** (modules / 常見修改入口), `SettingsPanel` area in ARCHITECTURE if new setting key |
+| New/changed `data/` schema or file | **BUILD_JSON.md** or README data section, **ARCHITECTURE.md** data table, example JSON if applicable |
+| Build JSON AI workflow or prompt template | **CREATE_BUILD.md**; **BUILD_JSON.md** if schema changes |
+| New Rust module or major frontend folder | **ARCHITECTURE.md** directory / module tables |
+| Dev workflow (scripts, npm/cargo commands) | **ARCHITECTURE.md**, **README.md**, **PROJECT_WORKFLOW.md**, **AGENTS.md** if agent-facing |
+| Task / sprint / commit workflow | **先 PROJECT_WORKFLOW.md**；再 **AI_AGENT_PROMPTS.md** 開頭、**AGENTS.md**、**CLAUDE.md**、**AI_AGENT_SETUP.md**、**workflow.mdc**；**SPRINTS.md**、**sprints/README.md**（SUMMARY 模板）、task docs |
+| Encoding / tooling policy | **ENCODING.md**, `.cursor/rules/encoding.mdc` |
+| New doc file under `docs/` | **docs/README.md** index / target architecture; new file starts with `文檔目的` / `不負責` |
+| Docs information architecture / SOT ownership | **先 docs/README.md § 目標信息架構**；再 **AGENTS.md**、`.cursor/rules/architecture.mdc`、this file if agent-facing |
 
-## Stack
+## Rules
 
-Tauri 2 + Rust (`src-tauri/`) · React 19 + TS + Vite 6 (`src/`) · JSON data (`data/`). Local-only; no HTTP/shell in Rust.
+1. **Same change**: code + docs together; mention doc updates in the summary.
+2. **No orphan docs**: if removing a feature, remove or update stale sections (grep doc filenames for old command/event names).
+3. **One source of truth**: IPC lists live in **ARCHITECTURE.md**; AGENTS.md / cursor rules only summarize—update ARCHITECTURE first when IPC changes.
+4. **User vs dev**: player-facing text → USER_GUIDE; architecture/IPC → ARCHITECTURE; JSON schema → BUILD_JSON.
+5. **Workflow state**: idea/task/sprint transitions live in **PROJECT_WORKFLOW.md**; prompt templates live in **AI_AGENT_PROMPTS.md**. Follow the workflow state transition table before editing `BRAINSTORM.md`, `SPRINTS.md`, task docs, or sprint summaries.
+6. **Purpose block**: every `docs/**/*.md` should state its `文檔目的` and what it does not own near the top.
+7. **No long duplication**: if content belongs to another SOT, link to it instead of copying long rules or tables.
+8. **Skip only when**: pure internal refactor with zero behavior/API/UI/data change (state explicitly: "no doc updates needed").
 
-## Where things live
+## After editing docs
 
-- IPC: `src/api/tauri.ts` ↔ commands in `src-tauri/src/lib.rs`
-- App state: `src/app/useOverlayData.ts` (single source for settings, area, build, profiles, reminders)
-- Log pipeline: `watcher.rs` → `log_parser.rs` → emit `area-changed` / `character-changed`
-- Hints: `area_hints.rs` + `data/areas.json` (+ optional `data/build/` override)
-- Types: `src/types.ts`
-- Build JSON: `docs/BUILD_JSON.md`（schema）、`docs/CREATE_BUILD.md`（AI 生成 BD）
-- Project workflow/state: rules in `docs/PROJECT_WORKFLOW.md`; prompts in `docs/AI_AGENT_PROMPTS.md`; current state in `docs/SPRINTS.md`, `docs/BRAINSTORM.md`, `docs/sprints/`
-
-## Agent rules
-
-1. Encoding: UTF-8 no BOM, LF — see `docs/ENCODING.md` and `encoding.mdc`
-2. New IPC: update Rust command + `tauri.ts` + `types.ts` if needed
-3. Avoid duplicate `listen` on same Tauri event; pass static config via props from `useOverlayData`
-4. Background locks: use `sync_util::{mutex_lock,rw_read,rw_write}` in Rust worker threads
-5. Chinese area names in JSON must match `Client.txt` bytes exactly
-6. **Docs sync**: feature/behavior changes must update matching docs — see `docs-sync.mdc` and ARCHITECTURE § 文檔同步
-7. **Workflow sync**: task/sprint/commit flow — follow `docs/PROJECT_WORKFLOW.md` and **`.cursor/rules/workflow.mdc`** (proposal before writeback; Step 4 two phases)
-8. **Docs ownership**: do not duplicate long rules across docs; update the SOT named in `docs/README.md` and keep this rule / AGENTS as summaries only
-
-## Verify after changes
-
-```pwsh
-npm.cmd run check:encoding
-npm.cmd run build
-# if Rust changed:
-cd src-tauri; cargo clippy -- -D warnings
-```
-
-Also see [`AGENTS.md`](../../AGENTS.md) (Codex entry point).
+Run `npm.cmd run check:encoding` (LF, no BOM, final newline).
 
 ---
 > Source: [yuz9610/POE2Overlay](https://github.com/yuz9610/POE2Overlay) — distributed by [TomeVault](https://tomevault.io).
