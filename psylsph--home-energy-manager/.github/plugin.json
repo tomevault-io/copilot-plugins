@@ -1,0 +1,9 @@
+{
+  "name": "psylsph--home-energy-manager",
+  "displayName": "home-energy-manager",
+  "description": "Desktop app for monitoring and controlling GivEnergy solar inverters over your local network \u2014 no cloud account needed",
+  "version": "1.0.0",
+  "author": "psylsph",
+  "homepage": "https://github.com/psylsph/home-energy-manager",
+  "skills": []
+}
