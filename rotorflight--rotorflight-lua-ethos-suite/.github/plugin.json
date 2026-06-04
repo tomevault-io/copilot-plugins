@@ -1,0 +1,9 @@
+{
+  "name": "rotorflight--rotorflight-lua-ethos-suite",
+  "displayName": "rotorflight-lua-ethos-suite",
+  "description": "Rotorflight Lua suite for FrSky Ethos",
+  "version": "1.0.0",
+  "author": "rotorflight",
+  "homepage": "https://github.com/rotorflight/rotorflight-lua-ethos-suite",
+  "skills": []
+}
