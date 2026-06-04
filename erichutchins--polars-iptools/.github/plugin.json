@@ -1,0 +1,9 @@
+{
+  "name": "erichutchins--polars-iptools",
+  "displayName": "polars_iptools",
+  "description": "Polars extension for IP address parsing and enrichment including geolocation",
+  "version": "1.0.0",
+  "author": "erichutchins",
+  "homepage": "https://github.com/erichutchins/polars_iptools",
+  "skills": []
+}
