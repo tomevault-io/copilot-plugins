@@ -101609,6 +101609,11 @@
       "description": "doc-router"
     },
     {
+      "name": "saxenauts--persona",
+      "source": "./saxenauts--persona",
+      "description": "Personal Knowledge Graph - User Memory and Personality from Digital Footprint "
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -104019,6 +104024,11 @@
       "description": "Generate and export repeatable, friendly mock data"
     },
     {
+      "name": "sebyx07--ruby2html",
+      "source": "./sebyx07--ruby2html",
+      "description": "Rails views with ruby"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -106402,6 +106412,16 @@
       "name": "riosjuan--svg-grabber",
       "source": "./riosjuan--svg-grabber",
       "description": "Open source chrome extension to quickly preview, download or copy inline or embedded SVG images from a website"
+    },
+    {
+      "name": "leonkohli--repolingo",
+      "source": "./leonkohli--repolingo",
+      "description": "RepoLingo -Turn any GitHub Repository into LLM-ready data."
+    },
+    {
+      "name": "tryagi--langchain-providers",
+      "source": "./tryagi--langchain-providers",
+      "description": "Part of the LangChain.NET project. Has separate abstractions, does not contain dependencies on the main project and can be used independently"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -109619,6 +109639,11 @@
       "description": "Flexible and accessible design of experiments in Python. Provides industry with an easy package to create designs based with limited expert knowledge. Provides researchers with the ability to easily c"
     },
     {
+      "name": "vitest-dev--ivya",
+      "source": "./vitest-dev--ivya",
+      "description": "Fork of Playwright's locator resolution"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -112349,6 +112374,16 @@
       "description": "An open-source capacity expansion model based on the methodology and datasets used by the Australian Energy Market Operator (AEMO) in their Integrated System Plan (ISP)"
     },
     {
+      "name": "azure--terraform-azurerm-avm-res-devopsinfrastructure-pool",
+      "source": "./azure--terraform-azurerm-avm-res-devopsinfrastructure-pool",
+      "description": "Terraform Azure Verified Resource Module for DevOps Pools"
+    },
+    {
+      "name": "odense-rpa--automation-server",
+      "source": "./odense-rpa--automation-server",
+      "description": "automation-server"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -115072,6 +115107,11 @@
       "name": "posit-dev--positron-website",
       "source": "./posit-dev--positron-website",
       "description": "Positron website"
+    },
+    {
+      "name": "consensys--maru",
+      "source": "./consensys--maru",
+      "description": "Former repository for Maru, a Consensus layer client implementing QBFT protocol adhering to Eth 2.0 CL / EL separation and API"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -117862,6 +117902,11 @@
       "name": "controlplaneio-fluxcd--flux-operator-local-dev",
       "source": "./controlplaneio-fluxcd--flux-operator-local-dev",
       "description": "Flux Operator local dev environment with Docker and Kubernetes KIND"
+    },
+    {
+      "name": "ralsina--tartrazine",
+      "source": "./ralsina--tartrazine",
+      "description": "A Crystal reimplementation of the Pygments/Chroma syntax highlighters"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -121047,6 +121092,31 @@
       "name": "trustless-work--dapp-trustless-work",
       "source": "./trustless-work--dapp-trustless-work",
       "description": "POC of a decentralized application (dApp) to enhance trust in agency-client relationships using blockchain. It enables trustless payments via smart contracts, securing funds in escrow until milestones"
+    },
+    {
+      "name": "blockful--anticapture",
+      "source": "./blockful--anticapture",
+      "description": "The DAO governance security platform that provides data-driven analysis to help identify, assess, and mitigate governance capture risks."
+    },
+    {
+      "name": "blockful--anticapture",
+      "source": "./blockful--anticapture",
+      "description": "The DAO governance security platform that provides data-driven analysis to help identify, assess, and mitigate governance capture risks."
+    },
+    {
+      "name": "amdresearch--omniprobe",
+      "source": "./amdresearch--omniprobe",
+      "description": "Simply log all kernel durations"
+    },
+    {
+      "name": "amdresearch--omniprobe",
+      "source": "./amdresearch--omniprobe",
+      "description": "Simply log all kernel durations"
+    },
+    {
+      "name": "yelog--marklive-nvim",
+      "source": "./yelog--marklive-nvim",
+      "description": "A Neovim plugin for rendering markdown files in terminal"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -124794,6 +124864,16 @@
       "description": "pcs"
     },
     {
+      "name": "gestaogovbr--pgd-petrvs-publico",
+      "source": "./gestaogovbr--pgd-petrvs-publico",
+      "description": "pgd-petrvs-publico"
+    },
+    {
+      "name": "cssnr--auto-auth",
+      "source": "./cssnr--auto-auth",
+      "description": "Modern Chrome Web Extension and Firefox Browser Addon for Automatic Basic HTTP Authentication with many Options and Features."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -128462,6 +128542,16 @@
       "name": "myriad-dreamin--cosmo",
       "source": "./myriad-dreamin--cosmo",
       "description": "Cosmo is a language replacing awful C++'s compile-time magics"
+    },
+    {
+      "name": "codfisher--cod-aquarium",
+      "source": "./codfisher--cod-aquarium",
+      "description": "\u9c48\u9b5a\u7684\u90e8\u843d\u683c"
+    },
+    {
+      "name": "pagcoinbr--brln-os",
+      "source": "./pagcoinbr--brln-os",
+      "description": "Uma iniciativa BRLN para incentivo da lightning no Brasil."
     },
     {
       "name": "vm--nila-code",
@@ -132242,6 +132332,61 @@
       "name": "hoffmanengineering--slic3rpostprocessinguploader",
       "source": "./hoffmanengineering--slic3rpostprocessinguploader",
       "description": "A Slic3r/PrusaSlicer/OrcaSlicer/Bambu Studio Post-Processing script for uploading print details to https://www.3dprintlog.com"
+    },
+    {
+      "name": "settlemint--sdk",
+      "source": "./settlemint--sdk",
+      "description": "Integrate SettleMint into your application with ease."
+    },
+    {
+      "name": "settlemint--sdk",
+      "source": "./settlemint--sdk",
+      "description": "Integrate SettleMint into your application with ease."
+    },
+    {
+      "name": "settlemint--sdk",
+      "source": "./settlemint--sdk",
+      "description": "Integrate SettleMint into your application with ease."
+    },
+    {
+      "name": "settlemint--sdk",
+      "source": "./settlemint--sdk",
+      "description": "Integrate SettleMint into your application with ease."
+    },
+    {
+      "name": "settlemint--sdk",
+      "source": "./settlemint--sdk",
+      "description": "Integrate SettleMint into your application with ease."
+    },
+    {
+      "name": "settlemint--sdk",
+      "source": "./settlemint--sdk",
+      "description": "Integrate SettleMint into your application with ease."
+    },
+    {
+      "name": "settlemint--sdk",
+      "source": "./settlemint--sdk",
+      "description": "Integrate SettleMint into your application with ease."
+    },
+    {
+      "name": "settlemint--sdk",
+      "source": "./settlemint--sdk",
+      "description": "Integrate SettleMint into your application with ease."
+    },
+    {
+      "name": "arrrrny--vendure-flutter-sdk",
+      "source": "./arrrrny--vendure-flutter-sdk",
+      "description": "Flutter SDK for Vendure Open Source Headless Commerce Framework."
+    },
+    {
+      "name": "settlemint--sdk",
+      "source": "./settlemint--sdk",
+      "description": "Integrate SettleMint into your application with ease."
+    },
+    {
+      "name": "apossiblespace--parts",
+      "source": "./apossiblespace--parts",
+      "description": "\ud83c\udf00 A parts mapping tool for IFS practitioners and their clients"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -136422,6 +136567,11 @@
       "name": "tomredman--add-convex-to-cursor",
       "source": "./tomredman--add-convex-to-cursor",
       "description": "add-convex-to-cursor"
+    },
+    {
+      "name": "trocco-io--terraform-provider-trocco",
+      "source": "./trocco-io--terraform-provider-trocco",
+      "description": "terraform-provider-trocco"
     },
     {
       "name": "mohiwalla--memes",
@@ -141452,6 +141602,41 @@
       "name": "ctxr-dev--llm-wiki-memory",
       "source": "./ctxr-dev--llm-wiki-memory",
       "description": "Local, git-versioned memory for AI coding agents. No RAG, no Docker, no external service. Capture, compile, recall over a local LLM wiki with on-device embeddings and an MCP server."
+    },
+    {
+      "name": "1mrat--cursor-taskrunner",
+      "source": "./1mrat--cursor-taskrunner",
+      "description": "This is a proof of concept that shows how you can get cursor to execute tasks like creating images. It require the new composer multi file edit mode."
+    },
+    {
+      "name": "jeremiah-k--fetchtastic",
+      "source": "./jeremiah-k--fetchtastic",
+      "description": "Fetchtastic is a utility for downloading and managing the latest Meshtastic Android app and Firmware releases on your PC and/or phone (using Termux). It also provides optional notifications via NTFY."
+    },
+    {
+      "name": "houjiazong--llm-alchemist",
+      "source": "./houjiazong--llm-alchemist",
+      "description": "LLM evaluation and testing tool compatible with Open AI"
+    },
+    {
+      "name": "lancelrq--shuoshuo-player",
+      "source": "./lancelrq--shuoshuo-player",
+      "description": "B\u7ad9\u7b2c\u4e09\u65b9\u97f3\u4e50\u64ad\u653e\u5668\uff0c\u7ed9\u6c34\u6676\u87f9\u5b9a\u5236\u7684\u97f3\u4e50\u64ad\u653e\u5668\u3002"
+    },
+    {
+      "name": "lvboda--vscode-i18n-fast",
+      "source": "./lvboda--vscode-i18n-fast",
+      "description": "A hook-driven i18n plugin that supports diverse development scenarios."
+    },
+    {
+      "name": "houjiazong--llm-alchemist",
+      "source": "./houjiazong--llm-alchemist",
+      "description": "LLM evaluation and testing tool compatible with Open AI"
+    },
+    {
+      "name": "shabang-systems--cao",
+      "source": "./shabang-systems--cao",
+      "description": "tfw your scratch paper becomes your todo list"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -146967,6 +147152,16 @@
       "name": "grafana--tsqtsq",
       "source": "./grafana--tsqtsq",
       "description": "tsqtsq - A PromQL Query Library"
+    },
+    {
+      "name": "daigang666--vue3-tree-shaking",
+      "source": "./daigang666--vue3-tree-shaking",
+      "description": "vue3-tree-shaking"
+    },
+    {
+      "name": "tryagi--langchain-databases",
+      "source": "./tryagi--langchain-databases",
+      "description": "Part of the LangChain.NET project. Has separate abstractions, does not contain dependencies on the main project and can be used independently"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -152987,6 +153182,11 @@
       "name": "abhimanyupallavisudhir--costly",
       "source": "./abhimanyupallavisudhir--costly",
       "description": "Estimate costs of complex LLM workflows in advance before spending money"
+    },
+    {
+      "name": "cinetronix--fpv-video-in-v1",
+      "source": "./cinetronix--fpv-video-in-v1",
+      "description": "fpv-video-in-v1"
     },
     {
       "name": "lightninglabs--lnget",
