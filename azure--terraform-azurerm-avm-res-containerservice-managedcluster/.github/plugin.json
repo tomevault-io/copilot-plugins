@@ -1,0 +1,9 @@
+{
+  "name": "azure--terraform-azurerm-avm-res-containerservice-managedcluster",
+  "displayName": "terraform-azurerm-avm-res-containerservice-managedcluster",
+  "description": "Terraform Azure Verified Resource Module for AKS managed clusters",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-res-containerservice-managedcluster",
+  "skills": []
+}
