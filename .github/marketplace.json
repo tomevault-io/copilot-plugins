@@ -98869,6 +98869,16 @@
       "description": "Access to Spanish Statistical Office's Household Income Distribution Atlas data at municipality, district and census tract levels"
     },
     {
+      "name": "eben60--shareadd-jl",
+      "source": "./eben60--shareadd-jl",
+      "description": "This Julia package helps to reduce clutter in your main shared environment by making it easy to use multiple shared environments."
+    },
+    {
+      "name": "cipherstash--encrypt-query-language",
+      "source": "./cipherstash--encrypt-query-language",
+      "description": "Index and search encrypted data in PostgreSQL with SQL"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -101314,6 +101324,11 @@
       "description": "A developer-first Shopify theme that prioritizes clean code, maintainability, and straightforward customization. Built with the modern developer workflow in mind, this theme serves as an ideal startin"
     },
     {
+      "name": "analytiq-hub--doc-router",
+      "source": "./analytiq-hub--doc-router",
+      "description": "doc-router"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -103692,6 +103707,11 @@
       "name": "alliance-algorithm--librmcs",
       "source": "./alliance-algorithm--librmcs",
       "description": "A portable library which implements the core functionality of RMCS."
+    },
+    {
+      "name": "dvrkn--yabe",
+      "source": "./dvrkn--yabe",
+      "description": "YAML separator tool"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -109239,6 +109259,21 @@
       "description": "DEFA Power & eRange EV Charger integration for Home Assistant"
     },
     {
+      "name": "arrrrny--zikzak-inappwebview",
+      "source": "./arrrrny--zikzak-inappwebview",
+      "description": "A Flutter plugin that allows you to add an inline webview, to use a headless webview, and to open an in-app browser window."
+    },
+    {
+      "name": "arrrrny--zikzak-inappwebview",
+      "source": "./arrrrny--zikzak-inappwebview",
+      "description": "A Flutter plugin that allows you to add an inline webview, to use a headless webview, and to open an in-app browser window."
+    },
+    {
+      "name": "tkhq--demo-embedded-wallet",
+      "source": "./tkhq--demo-embedded-wallet",
+      "description": "demo-embedded-wallet"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -111954,6 +111989,11 @@
       "description": "VMs for agents to drive and be inside of: macOS and Alpine. Super fast(sub 500 ms) warm boot an alpine VM to arbitrary workspace, and drive macOS guest VM"
     },
     {
+      "name": "py-typedlogic--py-typedlogic",
+      "source": "./py-typedlogic--py-typedlogic",
+      "description": "Logic plus python types"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -114642,6 +114682,11 @@
       "name": "mcintyre94--jupalyse",
       "source": "./mcintyre94--jupalyse",
       "description": "A tool to view and download Jupiter DCA data"
+    },
+    {
+      "name": "mckaywrigley--takeoff-notes-app-starter",
+      "source": "./mckaywrigley--takeoff-notes-app-starter",
+      "description": "takeoff-notes-app-starter"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -117412,6 +117457,16 @@
       "name": "okooo5km--generalnotification",
       "source": "./okooo5km--generalnotification",
       "description": "A Swift package for displaying custom notifications on macOS, based on NotchNotification."
+    },
+    {
+      "name": "allenhutchison--podcast-rag",
+      "source": "./allenhutchison--podcast-rag",
+      "description": "Using a set of MP3 podcasts, create a RAG System to work with the model of your choice."
+    },
+    {
+      "name": "vana-com--vana-smart-contracts",
+      "source": "./vana-com--vana-smart-contracts",
+      "description": "vana-smart-contracts"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -120582,6 +120637,11 @@
       "name": "dashpay--dash-evo-tool",
       "source": "./dashpay--dash-evo-tool",
       "description": "A tool to interact with Evolution"
+    },
+    {
+      "name": "mckaywrigley--takeoff-notes-app-complete",
+      "source": "./mckaywrigley--takeoff-notes-app-complete",
+      "description": "takeoff-notes-app-complete"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -124259,6 +124319,56 @@
       "description": "ABAP-relevant JS packages"
     },
     {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
+      "name": "bgaldino--rlm-base-dev",
+      "source": "./bgaldino--rlm-base-dev",
+      "description": "rlm-base-dev"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -127897,6 +128007,16 @@
       "name": "oussamateyib--helloworld",
       "source": "./oussamateyib--helloworld",
       "description": "An Android app built entirely with C and raylib"
+    },
+    {
+      "name": "csfrancis--proxytv",
+      "source": "./csfrancis--proxytv",
+      "description": "An IPTV proxy "
+    },
+    {
+      "name": "hi-upchen--kobo-up",
+      "source": "./hi-upchen--kobo-up",
+      "description": "A website reads Kobo database (sqlite) and shows the book and notes."
     },
     {
       "name": "vm--nila-code",
@@ -131637,6 +131757,26 @@
       "name": "sushichan044--dotfiles",
       "source": "./sushichan044--dotfiles",
       "description": "my dotfiles!"
+    },
+    {
+      "name": "tk0miya--rubocop-rbs-inline",
+      "source": "./tk0miya--rubocop-rbs-inline",
+      "description": "rubocop-rbs_inline"
+    },
+    {
+      "name": "proofsh--proofkit",
+      "source": "./proofsh--proofkit",
+      "description": "proofkit"
+    },
+    {
+      "name": "proofsh--proofkit",
+      "source": "./proofsh--proofkit",
+      "description": "proofkit"
+    },
+    {
+      "name": "proofsh--proofkit",
+      "source": "./proofsh--proofkit",
+      "description": "proofkit"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -135797,6 +135937,21 @@
       "name": "tanguille--cluster",
       "source": "./tanguille--cluster",
       "description": "My home kubernetes GitOps repository."
+    },
+    {
+      "name": "fragcolor-xyz--crdt-lite",
+      "source": "./fragcolor-xyz--crdt-lite",
+      "description": "KISS C++ & Rust (and more) CRDT experiments"
+    },
+    {
+      "name": "makeplane--developer-docs",
+      "source": "./makeplane--developer-docs",
+      "description": "\ud83d\udcbb Official Plane Developer Documentation"
+    },
+    {
+      "name": "makeplane--developer-docs",
+      "source": "./makeplane--developer-docs",
+      "description": "\ud83d\udcbb Official Plane Developer Documentation"
     },
     {
       "name": "mohiwalla--memes",
@@ -140767,6 +140922,11 @@
       "name": "tryagi--elevenlabs",
       "source": "./tryagi--elevenlabs",
       "description": "C# SDK for the ElevenLabs API -- text-to-speech and speech-to-text"
+    },
+    {
+      "name": "heysamtexas--django-oauth2-capture",
+      "source": "./heysamtexas--django-oauth2-capture",
+      "description": "A Django app to capture OAuth2 tokens for non-authentication purposes, enabling your application to act on behalf of users across external platforms like GitHub, LinkedIn, and X (Twitter)"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -146192,6 +146352,11 @@
       "name": "travnikovdev--minecraft-gpt",
       "source": "./travnikovdev--minecraft-gpt",
       "description": "Bot which using Open AI to control Minecraft character"
+    },
+    {
+      "name": "lichtblick-suite--asam-osi-converter",
+      "source": "./lichtblick-suite--asam-osi-converter",
+      "description": "Lichtblick extension which visualizes data following the standard of the ASAM Open Simulation Interface (ASAM OSI) using the native 3D panel of Lichtblick."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -152147,6 +152312,56 @@
       "name": "recoupable--chat",
       "source": "./recoupable--chat",
       "description": "Web interface for building and managing your own agentic record label. "
+    },
+    {
+      "name": "oculus-samples--unity-trackedkeyboard",
+      "source": "./oculus-samples--unity-trackedkeyboard",
+      "description": "A comprehensive Unity sample project for the Tracked Keyboard feature, designed to demonstrate best practice UX for text input implementation across MR and VR."
+    },
+    {
+      "name": "cmeeren--fsharp-hotchocolate",
+      "source": "./cmeeren--fsharp-hotchocolate",
+      "description": "Support for F# types and nullability in HotChocolate"
+    },
+    {
+      "name": "haasstefan--eslint-plugin-enforce-angular-signal-call",
+      "source": "./haasstefan--eslint-plugin-enforce-angular-signal-call",
+      "description": "An eslint plugin that enforces Angular signals to be accessed via their getter"
+    },
+    {
+      "name": "yz0812--tabgo",
+      "source": "./yz0812--tabgo",
+      "description": "\u6d4f\u89c8\u5668tab\u81ea\u52a8\u5206\u7ec4"
+    },
+    {
+      "name": "atmoomen--untarnishedheart",
+      "source": "./atmoomen--untarnishedheart",
+      "description": "FF14 \u81ea\u52a8\u5766\u514b\u526f\u672c\u573a\u6570\u6210\u5c31"
+    },
+    {
+      "name": "oculus-samples--unity-trackedkeyboard",
+      "source": "./oculus-samples--unity-trackedkeyboard",
+      "description": "A comprehensive Unity sample project for the Tracked Keyboard feature, designed to demonstrate best practice UX for text input implementation across MR and VR."
+    },
+    {
+      "name": "validatedpatterns--coco-pattern",
+      "source": "./validatedpatterns--coco-pattern",
+      "description": "coco-pattern"
+    },
+    {
+      "name": "oculus-samples--unity-trackedkeyboard",
+      "source": "./oculus-samples--unity-trackedkeyboard",
+      "description": "A comprehensive Unity sample project for the Tracked Keyboard feature, designed to demonstrate best practice UX for text input implementation across MR and VR."
+    },
+    {
+      "name": "stickerdaniel--svg-reverse",
+      "source": "./stickerdaniel--svg-reverse",
+      "description": "Reverse and animate svg paths with a single click."
+    },
+    {
+      "name": "jasperfx--jasperfx",
+      "source": "./jasperfx--jasperfx",
+      "description": "Foundational elements of the \"Critter Stack\""
     },
     {
       "name": "lightninglabs--lnget",
@@ -160177,6 +160392,46 @@
       "name": "bb8ad8--addroid-oss",
       "source": "./bb8ad8--addroid-oss",
       "description": "AdDroid OSS \u2014 self-hostable, GitOps-driven Meta ad operations console."
+    },
+    {
+      "name": "contextlab--llm-course",
+      "source": "./contextlab--llm-course",
+      "description": "Dartmouth undergraduate course on large language models and chatbots"
+    },
+    {
+      "name": "beibingyangliuying--python-typst",
+      "source": "./beibingyangliuying--python-typst",
+      "description": "Python interface to generate Typst code."
+    },
+    {
+      "name": "starstone3--starstone3-github-io",
+      "source": "./starstone3--starstone3-github-io",
+      "description": "My plain website"
+    },
+    {
+      "name": "jvrck--openrouterlist",
+      "source": "./jvrck--openrouterlist",
+      "description": "OpenRouter model information"
+    },
+    {
+      "name": "contextlab--llm-course",
+      "source": "./contextlab--llm-course",
+      "description": "Dartmouth undergraduate course on large language models and chatbots"
+    },
+    {
+      "name": "annertech--annertech-ddev",
+      "source": "./annertech--annertech-ddev",
+      "description": "A set of opinionated tools and configurations for DDEV"
+    },
+    {
+      "name": "annertech--annertech-ddev",
+      "source": "./annertech--annertech-ddev",
+      "description": "A set of opinionated tools and configurations for DDEV"
+    },
+    {
+      "name": "caiquemitsuoka--yokai",
+      "source": "./caiquemitsuoka--yokai",
+      "description": "A test runner and watcher designed for fast interactive development"
     },
     {
       "name": "yschimke--compose-ai-tools",
