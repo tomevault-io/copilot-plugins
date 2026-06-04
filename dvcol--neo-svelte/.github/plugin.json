@@ -1,0 +1,9 @@
+{
+  "name": "dvcol--neo-svelte",
+  "displayName": "neo-svelte",
+  "description": "Neomorphic ui library for svelte 5",
+  "version": "1.0.0",
+  "author": "dvcol",
+  "homepage": "https://github.com/dvcol/neo-svelte",
+  "skills": []
+}
