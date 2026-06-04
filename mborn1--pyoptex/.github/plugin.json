@@ -1,0 +1,9 @@
+{
+  "name": "mborn1--pyoptex",
+  "displayName": "pyoptex",
+  "description": "Flexible and accessible design of experiments in Python. Provides industry with an easy package to create designs based with limited expert knowledge. Provides researchers with the ability to easily c",
+  "version": "1.0.0",
+  "author": "mborn1",
+  "homepage": "https://github.com/mborn1/pyoptex",
+  "skills": []
+}
