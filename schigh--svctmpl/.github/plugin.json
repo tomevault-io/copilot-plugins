@@ -1,0 +1,9 @@
+{
+  "name": "schigh--svctmpl",
+  "displayName": "svctmpl",
+  "description": "An opinionated Go microservice template",
+  "version": "1.0.0",
+  "author": "schigh",
+  "homepage": "https://github.com/schigh/svctmpl",
+  "skills": []
+}
