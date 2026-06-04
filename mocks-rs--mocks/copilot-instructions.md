@@ -1,98 +1,82 @@
-## mocks-architecture
+## rust-fundamentals
 
-> Architecture patterns specific to mocks CLI tool
+> Rust fundamental coding practices for mocks project
 
 
-# Mocks Architecture Patterns
+# Rust Fundamentals for Mocks Project
 
-This rule defines architecture-specific patterns for the mocks CLI tool, focusing on dynamic routing, shared state management, and storage abstraction.
+This rule defines fundamental Rust coding practices for the mocks CLI tool project.
 
-## Dynamic Routing Implementation
+## Error Handling Patterns
 
-### JSON Structure to HTTP Endpoints
-The core feature of mocks is converting JSON file structure into REST API endpoints automatically.
-
+### Use Result<T, E> for Recoverable Errors
 ```rust
-// Convert JSON keys to resource paths
-fn convert_to_resource_paths(value: &Value) -> Vec<String> {
-    let mut paths = vec![];
-    
-    if let Value::Object(obj) = value {
-        for (key, _) in obj {
-            // Handle nested paths like "api/v1/users" -> "/api/v1/{resource}"
-            if let Some(last_slash) = key.rfind('/') {
-                let (prefix, _) = key.split_at(last_slash + 1);
-                paths.push(format!("/{prefix}{{resource}}"));
-            } else {
-                paths.push("/{resource}".to_string());
-            }
-        }
-    }
-    
-    // Sort by depth (deeper paths first)
-    paths.sort_by(|a, b| {
-        let a_count = a.matches('/').count();
-        let b_count = b.matches('/').count();
-        b_count.cmp(&a_count)
-    });
-    
-    paths
+// Prefer explicit Result handling
+fn parse_socket_addr(host: &str, port: u16) -> Result<SocketAddr, MocksError> {
+    let ip_addr = if host == "localhost" { "127.0.0.1" } else { host };
+    ip_addr
+        .parse::<IpAddr>()
+        .map(|ip| SocketAddr::from((ip, port)))
+        .map_err(|e| MocksError::InvalidArgs(e.to_string()))
 }
 ```
 
-### Router Creation with Dynamic Paths
+### Custom Error Types with Meaningful Context
 ```rust
-fn create_router(state: SharedState, value: &Value) -> Router {
-    // Base routers for health check and CRUD operations
-    let hc_router = Router::new().route("/", get(hc));
-    let storage_router = Router::new()
-        .route("/", get(get_all).post(post).put(put_one).patch(patch_one))
-        .route("/{id}", get(get_one).put(put).patch(patch).delete(delete));
-
-    let mut router = Router::new().nest("/_hc", hc_router);
-
-    // Add dynamic resource paths
-    let resource_paths = convert_to_resource_paths(value);
-    for path in resource_paths {
-        router = router.nest(&path, storage_router.clone().with_state(state.clone()));
-    }
-
-    router
-}
-```
-
-### Resource Discovery Pattern
-```rust
-impl Storage {
-    /// Get all available resource names from storage data
-    pub fn resources(&self) -> Vec<String> {
-        if let Value::Object(obj) = &self.data {
-            obj.keys().cloned().collect()
-        } else {
-            vec![]
-        }
-    }
-    
-    /// Check if a resource exists in storage
-    pub fn has_resource(&self, resource: &str) -> bool {
-        if let Value::Object(obj) = &self.data {
-            obj.contains_key(resource)
-        } else {
-            false
-        }
+// Use custom error types that map to HTTP status codes
+match storage.operation() {
+    Ok(result) => Ok(result),
+    Err(MocksError::InvalidArgs(msg)) => {
+        eprintln!("Hint: Run with --help to see usage information");
+        Err(MocksError::InvalidArgs(msg))
     }
 }
 ```
 
-## Shared State Management
-
-### AppState Design Pattern
+### Error Propagation with ?
 ```rust
-// Define shared application state
-pub struct AppState {
-    pub storage: Storage,
+// Use ? operator for clean error propagation
+pub async fn startup(socket_addr: SocketAddr, storage: Storage) -> Result<(), MocksError> {
+    let listener = TcpListener::bind(socket_addr)
+        .await
+        .map_err(|e| MocksError::Exception(e.to_string()))?;
+    // ...
 }
+```
 
+## Async/Await Patterns
+
+### Tokio Runtime Usage
+```rust
+// Use #[tokio::main] for async main
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Async operations here
+}
+```
+
+### Async Function Signatures
+```rust
+// Prefer explicit async return types
+pub async fn startup(socket_addr: SocketAddr, storage: Storage) -> Result<(), MocksError> {
+    // Implementation
+}
+```
+
+### Awaiting Multiple Operations
+```rust
+// Use tokio::try_join! for concurrent operations when appropriate
+let (result1, result2) = tokio::try_join!(
+    operation1(),
+    operation2()
+)?;
+```
+
+## Memory Management Patterns
+
+### Shared State with Arc<Mutex<T>>
+```rust
+// Use Arc<Mutex<T>> for thread-safe shared state
 pub type SharedState = Arc<Mutex<AppState>>;
 
 impl AppState {
@@ -102,321 +86,198 @@ impl AppState {
 }
 ```
 
-### Thread-Safe State Access
+### Clone Implementation for Shared Data
 ```rust
-// Pattern for accessing shared state in handlers
-pub async fn get_all(
-    State(state): State<SharedState>,
-    Path(resource): Path<String>,
-) -> Result<Json<Value>, StatusCode> {
-    let state = state.lock().await;
-    match select_all(&state.storage.data, &resource) {
-        Ok(data) => Ok(Json(data)),
-        Err(_) => Err(StatusCode::NOT_FOUND),
+// Implement Clone for types that need to be shared
+#[derive(Clone)]
+pub struct Storage {
+    pub file: String,
+    pub data: StorageData,
+    pub overwrite: bool,
+}
+```
+
+### Avoiding Unnecessary Clones
+```rust
+// Pass references when ownership transfer isn't needed
+fn process_data(data: &Value) -> Result<Vec<String>, MocksError> {
+    // Process without taking ownership
+}
+```
+
+## Serde Serialization Patterns
+
+### Using Derive Macros
+```rust
+// Use derive macros for automatic serialization
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ResourceData {
+    pub id: Option<String>,
+    pub content: Value,
+}
+```
+
+### Working with serde_json::Value
+```rust
+// Use Value for dynamic JSON handling
+pub type StorageData = Value;
+pub type Input = Value;
+
+// Pattern match on Value types
+if let Value::Object(obj) = &data {
+    for (key, value) in obj {
+        // Process key-value pairs
     }
 }
 ```
 
-### State Mutation with Atomic Operations
+### JSON Parsing with Error Handling
 ```rust
-pub async fn post(
-    State(state): State<SharedState>,
-    Path(resource): Path<String>,
-    Json(input): Json<Value>,
-) -> Result<Json<Value>, StatusCode> {
-    let mut state = state.lock().await;
+// Always handle JSON parsing errors
+fn parse_json(content: &str) -> Result<Value, MocksError> {
+    serde_json::from_str(content)
+        .map_err(|e| MocksError::InvalidJson(format!("Failed to parse JSON: {}", e)))
+}
+```
+
+## Clap CLI Patterns
+
+### Using Derive API
+```rust
+// Use derive API for clean CLI definition
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(clap::Subcommand, Debug)]
+enum Commands {
+    Run(RunArgs),
+    Init(InitArgs),
+}
+```
+
+### Argument Validation
+```rust
+// Use clap's built-in validation features
+#[derive(clap::Args, Debug)]
+struct RunArgs {
+    #[arg(short, long, default_value_t = 3000)]
+    port: u16,
     
-    // Perform atomic storage operation
-    match insert(&mut state.storage.data, &resource, input) {
-        Ok(result) => {
-            // Write back to file if overwrite is enabled
-            if state.storage.overwrite {
-                if let Err(_) = Writer::new(&state.storage.file)
-                    .write(&state.storage.data) {
-                    return Err(StatusCode::INTERNAL_SERVER_ERROR);
-                }
-            }
-            Ok(Json(result))
-        }
-        Err(_) => Err(StatusCode::BAD_REQUEST),
-    }
+    #[arg(long, default_value_t = false)]
+    no_overwrite: bool,
 }
 ```
 
-## Storage Abstraction Layer
-
-### Storage Interface Pattern
+### Custom Styling
 ```rust
+// Implement consistent CLI styling
+fn get_styles() -> clap::builder::Styles {
+    clap::builder::Styles::styled()
+        .header(clap::builder::styling::AnsiColor::Blue.on_default().bold())
+        .error(clap::builder::styling::AnsiColor::Red.on_default().bold())
+}
+```
+
+## Module Organization
+
+### Module Declaration
+```rust
+// Declare modules at the top of main.rs
+mod error;
+mod server;
+mod storage;
+```
+
+### Public Interface Design
+```rust
+// Expose minimal public API
+pub struct Storage {
+    // Private fields
+    file: String,
+    data: StorageData,
+    overwrite: bool,
+}
+
 impl Storage {
-    /// Create a new Storage instance with validation
+    // Public constructor
     pub fn new(path: &str, overwrite: bool) -> Result<Storage, MocksError> {
-        let data = Reader::new(path).read()?;
-        
-        // Validate storage structure
-        Self::validate_storage_structure(&data)?;
-        
-        Ok(Storage {
-            file: path.to_string(),
-            data,
-            overwrite,
-        })
-    }
-    
-    fn validate_storage_structure(data: &Value) -> Result<(), MocksError> {
-        match data {
-            Value::Object(_) => Ok(()),
-            _ => Err(MocksError::InvalidJson(
-                "Storage must be a JSON object".to_string()
-            )),
-        }
+        // Implementation
     }
 }
 ```
 
-### Reader/Writer Abstraction
+## Testing Patterns
+
+### Unit Tests in Module
 ```rust
-// File reading abstraction
-pub struct Reader {
-    path: String,
-}
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-impl Reader {
-    pub fn new(path: &str) -> Self {
-        Self {
-            path: path.to_string(),
-        }
-    }
-    
-    pub fn read(&self) -> Result<Value, MocksError> {
-        let content = fs::read_to_string(&self.path)
-            .map_err(|e| MocksError::FailedReadFile(e.to_string()))?;
-        
-        serde_json::from_str(&content)
-            .map_err(|e| MocksError::InvalidJson(e.to_string()))
-    }
-}
-
-// File writing abstraction with atomic operations
-pub struct Writer {
-    path: String,
-}
-
-impl Writer {
-    pub fn write(&self, data: &Value) -> Result<(), MocksError> {
-        let content = serde_json::to_string_pretty(data)
-            .map_err(|e| MocksError::Exception(e.to_string()))?;
-        
-        // Atomic write operation
-        self.write_atomic(&content)
-    }
-    
-    fn write_atomic(&self, content: &str) -> Result<(), MocksError> {
-        // Write to temporary file first, then rename (atomic on Unix)
-        let temp_path = format!("{}.tmp", self.path);
-        fs::write(&temp_path, content)
-            .map_err(|e| MocksError::FailedWriteFile(e.to_string()))?;
-        
-        fs::rename(&temp_path, &self.path)
-            .map_err(|e| MocksError::FailedWriteFile(e.to_string()))?;
-        
-        Ok(())
+    #[test]
+    fn test_parse_socket_addr() {
+        let result = parse_socket_addr("localhost", 3000).unwrap();
+        assert_eq!(result.ip().to_string(), "127.0.0.1");
+        assert_eq!(result.port(), 3000);
     }
 }
 ```
 
-## Resource Lifecycle Management
-
-### Resource Initialization
+### Integration Test Setup
 ```rust
-impl Storage {
-    /// Initialize storage with default or empty structure
-    pub fn init_file(file_path: &str, empty: bool) -> Result<(), MocksError> {
-        let data = if empty {
-            serde_json::json!({
-                "posts": [],
-                "profile": {}
-            })
-        } else {
-            // Default sample data
-            serde_json::json!({
-                "posts": [
-                    {"id": 1, "title": "Sample Post", "author": "john"},
-                    {"id": 2, "title": "Another Post", "author": "jane"}
-                ],
-                "profile": {
-                    "name": "typicode",
-                    "avatar": "https://example.com/avatar.jpg"
-                }
-            })
-        };
-        
-        Writer::new(file_path).write(&data)?;
-        Ok(())
-    }
-}
-```
-
-### Resource Operation Patterns
-```rust
-// Pattern for all storage operations - consistent interface
-pub mod operation {
-    pub mod select_all;
-    pub mod select_one;
-    pub mod insert;
-    pub mod update;
-    pub mod update_one;
-    pub mod replace;
-    pub mod replace_one;
-    pub mod remove;
-    pub mod select_with_filter;
-}
-
-// Example operation signature
-pub fn select_all(data: &Value, resource: &str) -> Result<Value, MocksError> {
-    if let Value::Object(obj) = data {
-        if let Some(resource_data) = obj.get(resource) {
-            Ok(resource_data.clone())
-        } else {
-            Err(MocksError::ResourceNotFound(resource.to_string()))
-        }
-    } else {
-        Err(MocksError::InvalidDataStructure)
-    }
-}
-```
-
-## Context Passing Pattern
-```rust
-// Context for passing request-specific data through handlers
-pub struct Context {
-    pub resource: String,
-    pub method: String,
-    pub user_agent: Option<String>,
-}
-
-impl Context {
-    pub fn from_request(resource: String, headers: &HeaderMap) -> Self {
-        let user_agent = headers
-            .get("user-agent")
-            .and_then(|h| h.to_str().ok())
-            .map(|s| s.to_string());
-        
-        Self {
-            resource,
-            method: "GET".to_string(), // Would be extracted from request
-            user_agent,
-        }
-    }
-}
-```
-
-## Error Handling in Architecture
-```rust
-// Architecture-specific error types
-#[derive(Debug, thiserror::Error)]
-pub enum MocksError {
-    #[error("Resource not found: {0}")]
-    ResourceNotFound(String),
+// Use tempfile for isolated test environments
+#[cfg(test)]
+mod integration_tests {
+    use tempfile::{NamedTempFile, TempDir};
     
-    #[error("Invalid data structure")]
-    InvalidDataStructure,
-    
-    #[error("Failed to read file: {0}")]
-    FailedReadFile(String),
-    
-    #[error("Failed to write file: {0}")]
-    FailedWriteFile(String),
-    
-    #[error("Invalid JSON: {0}")]
-    InvalidJson(String),
-    
-    #[error("Invalid arguments: {0}")]
-    InvalidArgs(String),
-    
-    #[error("Operation aborted")]
-    Aborted,
-    
-    #[error("Exception: {0}")]
-    Exception(String),
-}
-```
-
-## Server Startup Pattern
-```rust
-impl Server {
-    pub async fn startup(socket_addr: SocketAddr, storage: Storage) -> Result<(), MocksError> {
-        // Create TCP listener
-        let listener = TcpListener::bind(socket_addr)
-            .await
-            .map_err(|e| MocksError::Exception(e.to_string()))?;
-
-        // Print available endpoints for user feedback
-        print_endpoints(storage.resources());
-
-        // Create shared state and router
-        let data = storage.data.clone();
-        let state = AppState::new(storage);
-        let router = create_router(state, &data);
-
-        // Start server
-        axum::serve(listener, router)
-            .await
-            .map_err(|e| MocksError::Exception(e.to_string()))
+    #[test]
+    fn test_storage_operations() {
+        let temp_file = NamedTempFile::new().unwrap();
+        let storage = Storage::new(temp_file.path().to_str().unwrap(), true).unwrap();
+        // Test operations
     }
 }
 ```
 
 ## Performance Considerations
 
-### Efficient Resource Lookup
+### Avoiding String Allocations
 ```rust
-// Use HashMap for O(1) resource lookup when needed
-use std::collections::HashMap;
-
-pub struct ResourceIndex {
-    resources: HashMap<String, ResourceMetadata>,
-}
-
-impl ResourceIndex {
-    pub fn from_storage(data: &Value) -> Self {
-        let mut resources = HashMap::new();
-        
-        if let Value::Object(obj) = data {
-            for (key, value) in obj {
-                let metadata = ResourceMetadata {
-                    is_array: value.is_array(),
-                    count: if value.is_array() { 
-                        value.as_array().unwrap().len() 
-                    } else { 1 },
-                };
-                resources.insert(key.clone(), metadata);
-            }
-        }
-        
-        Self { resources }
-    }
-}
-
-pub struct ResourceMetadata {
-    pub is_array: bool,
-    pub count: usize,
-}
-```
-
-### Memory Management for Large Files
-```rust
-// Stream large files instead of loading everything into memory
-use tokio::fs::File;
-use tokio::io::{AsyncReadExt, AsyncWriteExt};
-
-impl Reader {
-    pub async fn read_stream(&self) -> Result<impl AsyncReadExt, MocksError> {
-        File::open(&self.path)
-            .await
-            .map_err(|e| MocksError::FailedReadFile(e.to_string()))
+// Use &str when possible to avoid unnecessary allocations
+fn process_resource_name(name: &str) -> String {
+    if name == "localhost" {
+        "127.0.0.1".to_string()
+    } else {
+        name.to_string()
     }
 }
 ```
+
+### Efficient Collection Operations
+```rust
+// Use iterator chains for efficient processing
+let resources: Vec<String> = data
+    .as_object()
+    .unwrap()
+    .keys()
+    .filter(|k| k.starts_with("api/"))
+    .map(|k| k.to_string())
+    .collect();
+```
+
+## Code Quality Guidelines
+
+- Always handle errors explicitly - avoid `.unwrap()` in production code
+- Use meaningful variable and function names that describe intent
+- Keep functions focused on a single responsibility
+- Add documentation comments for public APIs
+- Follow Rust naming conventions (snake_case for functions, PascalCase for types)
+- Use `cargo fmt` and `cargo clippy` to maintain consistent style
+- Write tests for all public functions and error paths
 
 ---
 > Source: [mocks-rs/mocks](https://github.com/mocks-rs/mocks) — distributed by [TomeVault](https://tomevault.io).
