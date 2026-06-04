@@ -1,91 +1,127 @@
-## database
+## masumi-payment-service
 
-> Prisma ORM and PostgreSQL database patterns
+> Cardano blockchain payment escrow service with Aiken smart contracts. Enables secure peer-to-peer payments with dispute resolution for AI agent marketplace.
 
+# Masumi Payment Service
 
-You are an expert in Prisma ORM, PostgreSQL, database design, and data modeling for TypeScript applications.
+Cardano blockchain payment escrow service with Aiken smart contracts. Enables secure peer-to-peer payments with dispute resolution for AI agent marketplace.
 
-Key Principles
+## Quick Reference
 
-- Use Prisma ORM for all database interactions; avoid raw SQL queries.
-- Define schema in `prisma/schema.prisma`; generate client after changes.
-- Use migrations for all schema changes; never modify database directly.
-- Handle BigInt properly for monetary values and timestamps.
-- Use transactions for operations that require atomicity.
+| Action                 | Command                                     |
+| ---------------------- | ------------------------------------------- |
+| Start dev server       | `pnpm dev`                                  |
+| Run linting            | `pnpm run lint`                             |
+| Format code            | `pnpm run format`                           |
+| Run tests              | `pnpm run test`                             |
+| Run DB migrations      | `pnpm run prisma:migrate:dev`               |
+| Generate Prisma client | `pnpm run prisma:generate`                  |
+| Generate OpenAPI types | `cd frontend && pnpm run openapi-ts-latest` |
+| Generate Swagger JSON  | `pnpm run swagger-json`                     |
 
-Schema Management
+## Tech Stack
 
-- The Prisma schema is located at `prisma/schema.prisma`.
-- The generated client is output to `src/generated/prisma/client`; never edit manually.
-- Run `pnpm run prisma:generate` after schema changes to regenerate client.
-- Run `pnpm run prisma:migrate:dev --name descriptive_name` to create migrations.
-- Use descriptive migration names that explain the change.
+- Backend: Node.js, TypeScript, Express, express-zod-api
+- Database: PostgreSQL with Prisma ORM
+- Blockchain: Cardano via MeshSDK and Blockfrost API
+- Smart Contracts: Aiken language
+- Frontend: Next.js, React, TanStack Query, Shadcn UI
 
-Generated Code
+## Project Structure
 
-- Never manually edit files in `src/generated/prisma/`; they are auto-generated.
-- Import types from `@/generated/prisma/client` for type safety.
-- Import the Prisma client instance from `@/utils/db`.
+- `src/routes/api/` - API endpoints using express-zod-api
+- `src/services/` - Business logic services
+- `src/utils/` - Utility functions and helpers
+- `src/generated/prisma/` - Prisma client (auto-generated, do not edit)
+- `frontend/` - Next.js frontend application
+- `frontend/src/lib/api/generated/` - API types (auto-generated, do not edit)
+- `smart-contracts/payment/` - Payment escrow smart contract
+- `smart-contracts/registry/` - Registry minting contract
+- `prisma/` - Database schema and migrations
 
-BigInt Handling
+## Key Principles
 
-- Use BigInt type in Prisma schema for monetary amounts, fees, and timestamps.
-- Prisma returns BigInt values as JavaScript BigInt type.
-- Convert BigInt to string for JSON serialization in API responses.
-- Use BigInt literals (e.g., `5000000n`) or `BigInt()` constructor in code.
+- Write clear, technical TypeScript code following established patterns.
+- Use functional programming patterns; avoid classes except for services.
+- Prioritize readability and maintainability over cleverness.
+- Use descriptive variable names with auxiliary verbs (isLoading, hasError).
+- Handle errors explicitly with proper status codes and logging.
 
-Query Patterns
+## Critical Guidelines
 
-- Use `findUnique()` for fetching single records by unique identifier.
-- Use `findMany()` for fetching multiple records with filters.
-- Use `create()`, `update()`, and `delete()` for mutations.
-- Use `include` option to fetch related records in a single query.
-- Use `select` option to fetch only needed fields for performance.
+- Import Zod from `@/utils/zod-openapi`, never from 'zod' directly.
+- Use BigInt for all monetary amounts; never use Number for lovelace values.
+- Convert BigInt to string for API responses; JSON cannot serialize BigInt.
+- Use `createHttpError()` for HTTP errors, never throw plain Error.
+- Use logger from `@/utils/logger`; never use console.log.
+- Encrypt wallet secrets using `@/utils/security/encryption` utilities.
+- Never use unknown-valued map types; use domain types, Prisma JSON types, or explicit property guards.
+- Never edit files in `src/generated/` or `frontend/src/lib/api/generated/`.
+- Cursor pagination on list endpoints is intentionally inclusive. Do not add `skip: 1` to Prisma cursor queries
+  unless the API contract is deliberately changed; clients should tolerate receiving the cursor row again.
 
-Related Data Loading
+## Formatting Standards
 
-- Use `include` to eagerly load related models in queries.
-- Define complex includes with nested objects for deep relations.
-- Use Prisma's `GetPayload` type helper for typing queries with includes.
-- Avoid N+1 queries by including related data in initial query.
+- Use single quotes for strings.
+- Use 2 spaces for indentation.
+- Include trailing commas in multi-line structures.
+- End statements with semicolons.
+- Prefix unused variables with underscore.
+- Run lint and format before committing.
 
-Transactions
+## Commit Standards
 
-- Use `prisma.$transaction()` for operations requiring atomicity.
-- Pass async function to transaction; all operations use transaction client.
-- Transaction automatically rolls back on any error.
-- Use transactions for multi-step operations that must succeed together.
+- Follow conventional commits: type(scope): description
+- Types: feat, fix, docs, style, refactor, test, chore, perf, ci
+- Keep header under 72 characters
+- Use lowercase for type; no period at end
 
-Soft Deletes
+## Payment Contract States
 
-- Many models use `deletedAt` field for soft deletes.
-- Filter soft-deleted records with `where: { deletedAt: null }`.
-- Set `deletedAt: new Date()` instead of deleting records.
-- Consider soft-deleted records when querying; exclude them explicitly.
+- FundsLocked: Initial state when funds are locked in contract
+- ResultSubmitted: Seller has submitted a result hash
+- RefundRequested: Buyer has requested a refund
+- Disputed: Result submitted but refund is requested
 
-Row Locking
+## API Authentication
 
-- Use `lockAndQueryPayments()` utility for concurrent processing scenarios.
-- Row-level locking prevents race conditions in concurrent operations.
-- Always release locks by completing transactions.
+- Three permission levels: Read, ReadAndPay, Admin
+- Use readAuthenticatedEndpointFactory for read operations
+- Use payAuthenticatedEndpointFactory for payment operations
+- Use adminAuthenticatedEndpointFactory for admin operations
 
-Common Commands
+## Dependencies
 
-- `pnpm run prisma:migrate:dev` - Create and apply migration in development.
-- `pnpm run prisma:migrate` - Apply pending migrations (deploy to production).
-- `pnpm run prisma:generate` - Regenerate Prisma client.
-- `pnpm run prisma:seed` - Seed the database with initial data.
-- `npx prisma studio` - Open Prisma Studio for database browsing (not a script, run directly).
-- `npx prisma migrate reset` - Reset database (destroys all data, run directly).
+- express-zod-api for API endpoints with Zod validation
+- Prisma for database access via `@/utils/db`
+- http-errors for HTTP error handling
+- Winston for logging via `@/utils/logger`
+- @meshsdk/core for Cardano operations
+- @blockfrost/blockfrost-js for blockchain queries
+- async-mutex for concurrency control
+- advanced-retry for retry logic
+- @paralleldrive/cuid2 for ID generation
 
-Performance Considerations
+## Key Files
 
-- Add database indexes for frequently queried fields.
-- Use `select` to limit returned fields when full records aren't needed.
-- Use pagination for large result sets.
-- Monitor query performance and optimize slow queries.
+- Entry point: `src/index.ts`
+- Configuration: `src/utils/config/index.ts`
+- Database schema: `prisma/schema.prisma`
+- Zod extension: `src/utils/zod-openapi.ts`
+- Payment contract: `smart-contracts/payment/validators/vested_pay.ak`
+- State machine docs: `smart-contracts/payment/state_machine_diagram.md`
 
-Refer to `prisma/schema.prisma` for the complete data model and relationships.
+## Pre-push Hooks
+
+The following run automatically before push:
+
+- ESLint check on full project
+- Swagger JSON generation
+- Postman collection update
+- Frontend type generation
+- Protected branch check (blocks direct push to main/dev)
+
+Refer to documentation in `docs/` for detailed guides on configuration, deployment, and security.
 
 ---
 > Source: [masumi-network/masumi-payment-service](https://github.com/masumi-network/masumi-payment-service) — distributed by [TomeVault](https://tomevault.io).
