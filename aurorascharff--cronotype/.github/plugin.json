@@ -1,0 +1,9 @@
+{
+  "name": "aurorascharff--cronotype",
+  "displayName": "cronotype",
+  "description": "Type a GitHub handle. Get a commit-time archetype, a year-by-year timeline, and a shareable card.",
+  "version": "1.0.0",
+  "author": "aurorascharff",
+  "homepage": "https://github.com/aurorascharff/cronotype",
+  "skills": []
+}
