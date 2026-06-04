@@ -7,11 +7,11 @@ Japanese workflow templates, safety checklists, and evaluation samples for AI ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [loveyu43/ai-agent-workflows-jp](https://github.com/loveyu43/ai-agent-workflows-jp).
+Original source: `AGENTS.md` in [loveyu43/ai-agent-workflows-jp](https://github.com/loveyu43/ai-agent-workflows-jp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
