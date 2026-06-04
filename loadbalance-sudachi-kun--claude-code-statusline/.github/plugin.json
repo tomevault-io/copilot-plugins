@@ -1,0 +1,9 @@
+{
+  "name": "loadbalance-sudachi-kun--claude-code-statusline",
+  "displayName": "claude-code-statusline",
+  "description": "Claude Code statusline with rate limit display",
+  "version": "1.0.0",
+  "author": "loadbalance-sudachi-kun",
+  "homepage": "https://github.com/loadbalance-sudachi-kun/claude-code-statusline",
+  "skills": []
+}
