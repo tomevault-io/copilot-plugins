@@ -1,0 +1,9 @@
+{
+  "name": "razr001--align-dev",
+  "displayName": "align-dev",
+  "description": "AlignDev helps AI-assisted frontend teams generate shared coding standards and SKILL.md so Claude Code, Cursor, Copilot, and other agents write consistently.",
+  "version": "1.0.0",
+  "author": "razr001",
+  "homepage": "https://github.com/razr001/align-dev",
+  "skills": []
+}
