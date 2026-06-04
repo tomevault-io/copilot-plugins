@@ -1,67 +1,55 @@
-## commits
+## git-workflow
 
-> When creating commits or pull requests in this repository, you MUST follow the conventional commit format defined in `.github/release.yml`.
+> Git workflow and branching rules
 
-# Commit Messages and Pull Request Titles
+# Git Workflow and Branching Rules
 
-When creating commits or pull requests in this repository, you MUST follow the conventional commit format defined in `.github/release.yml`.
+## CRITICAL: Branch Management
 
-## Format
+**DO NOT create a new branch if you're already on a feature branch!**
 
-The general format is: `type(scope): description`
+### When handling PR requests or /pr command:
 
-- `type` is required and must be one of the accepted types
-- `scope` is optional and goes in parentheses
-- `:` colon and space after type/scope
-- `description` starts with lowercase
+1. **ALWAYS** check current branch first:
+   ```bash
+   git branch --show-current
+   ```
 
-## Accepted Types
+2. **Decision logic**:
+   - If on `main` or `master` → Create a new feature branch
+   - If already on a feature branch → Use the current branch
+   - NEVER create nested feature branches
 
-Check `.github/labeler.yml` for the current list, which includes:
-- `feat`: New features
-- `fix`: Bug fixes
-- `chore`: Maintenance tasks
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
-- `refactor`: Code refactoring
-- `perf`: Performance improvements
-- `test`: Test additions or modifications
-- `build`: Build system changes
-- `ci`: CI/CD configuration changes
-- `revert`: Reverting previous commits
+3. **Workflow**:
+   ```bash
+   # First, always check where you are
+   current_branch=$(git branch --show-current)
+   
+   # Only create new branch if on main/master
+   if [ "$current_branch" = "main" ] || [ "$current_branch" = "master" ]; then
+     git checkout -b feature/new-feature
+   else
+     # Already on feature branch - just commit and push here
+     echo "Already on feature branch: $current_branch"
+   fi
+   ```
 
-## Special Cases
+## PR Updates
 
-### Dependencies
-Use specific scope for dependency updates:
-- `chore(deps): update dependencies`
-- `fix(deps): fix vulnerable dependency`
-- `build(deps): update build dependencies`
+When updating an existing PR:
+- Add new commits to the same branch
+- Push to the existing remote branch
+- The PR will automatically update
 
-### Breaking Changes
-Mark breaking changes by:
-1. Adding `!` after the type/scope: `feat!: change API`
-2. Or including `BREAKING CHANGE:` in the commit body
+## Common Mistakes to Avoid
 
-## Examples
+❌ Creating a new branch when already on a feature branch
+❌ Creating multiple PRs for the same feature
+❌ Abandoning branches with uncommitted changes
 
-✅ Good:
-- `feat: add user authentication`
-- `fix(api): resolve timeout issue`
-- `chore(deps): update react to v18`
-- `feat!: redesign API endpoints`
-- `docs: update README with new examples`
-
-❌ Bad:
-- `Feature: Add user auth` (wrong format)
-- `added new feature` (missing type)
-- `Fix API` (missing colon and description)
-
-## PR Title = First Commit Message
-
-The PR title should match the format of the main commit message. The labeler will automatically apply labels based on the PR title format.
-
-**Important**: Any PR that doesn't match these patterns will be labeled as "chore" by default.
+✅ Check branch status before any git operations
+✅ Commit to the current feature branch
+✅ Keep related changes in the same PR
 
 ---
 > Source: [settlemint/sdk](https://github.com/settlemint/sdk) — distributed by [TomeVault](https://tomevault.io).
