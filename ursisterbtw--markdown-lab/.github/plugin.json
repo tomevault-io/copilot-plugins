@@ -1,0 +1,9 @@
+{
+  "name": "ursisterbtw--markdown-lab",
+  "displayName": "markdown_lab",
+  "description": "A powerful and modular web scraper that converts web content into well-structured Markdown, JSON or XML files with RAG-ready chunking capabilities.",
+  "version": "1.0.0",
+  "author": "ursisterbtw",
+  "homepage": "https://github.com/ursisterbtw/markdown_lab",
+  "skills": []
+}
