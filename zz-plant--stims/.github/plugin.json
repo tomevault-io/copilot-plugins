@@ -1,0 +1,9 @@
+{
+  "name": "zz-plant--stims",
+  "displayName": "stims",
+  "description": "Browser-native MilkDrop-inspired WebGL music visualizer with curated presets, live editing, and demo audio",
+  "version": "1.0.0",
+  "author": "zz-plant",
+  "homepage": "https://github.com/zz-plant/stims",
+  "skills": []
+}
