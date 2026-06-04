@@ -1,0 +1,9 @@
+{
+  "name": "limbicnation--comfyuidepthestimation",
+  "displayName": "ComfyUIDepthEstimation",
+  "description": "A custom depth estimation node for ComfyUI using transformer models.",
+  "version": "1.0.0",
+  "author": "Limbicnation",
+  "homepage": "https://github.com/Limbicnation/ComfyUIDepthEstimation",
+  "skills": []
+}
