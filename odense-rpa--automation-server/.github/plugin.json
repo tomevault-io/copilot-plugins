@@ -1,0 +1,9 @@
+{
+  "name": "odense-rpa--automation-server",
+  "displayName": "automation-server",
+  "description": "automation-server",
+  "version": "1.0.0",
+  "author": "odense-rpa",
+  "homepage": "https://github.com/odense-rpa/automation-server",
+  "skills": []
+}
