@@ -1,0 +1,9 @@
+{
+  "name": "infiland--gm2godot",
+  "displayName": "GM2Godot",
+  "description": "A tool that converts GameMaker projects into Godot",
+  "version": "1.0.0",
+  "author": "Infiland",
+  "homepage": "https://github.com/Infiland/GM2Godot",
+  "skills": []
+}
