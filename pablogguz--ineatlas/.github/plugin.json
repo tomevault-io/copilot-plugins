@@ -1,0 +1,9 @@
+{
+  "name": "pablogguz--ineatlas",
+  "displayName": "ineAtlas",
+  "description": "Access to Spanish Statistical Office's Household Income Distribution Atlas data at municipality, district and census tract levels",
+  "version": "1.0.0",
+  "author": "pablogguz",
+  "homepage": "https://github.com/pablogguz/ineAtlas",
+  "skills": []
+}
