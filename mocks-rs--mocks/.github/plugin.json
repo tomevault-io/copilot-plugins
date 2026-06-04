@@ -1,0 +1,9 @@
+{
+  "name": "mocks-rs--mocks",
+  "displayName": "mocks",
+  "description": "Mock REST APIs from JSON with zero coding within seconds.",
+  "version": "1.0.0",
+  "author": "mocks-rs",
+  "homepage": "https://github.com/mocks-rs/mocks",
+  "skills": []
+}
