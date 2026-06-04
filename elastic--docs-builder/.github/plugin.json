@@ -1,0 +1,9 @@
+{
+  "name": "elastic--docs-builder",
+  "displayName": "docs-builder",
+  "description": "docs-builder",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/docs-builder",
+  "skills": []
+}
