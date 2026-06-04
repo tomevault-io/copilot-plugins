@@ -4,7 +4,7 @@
   "repo": "llm-alchemist",
   "description": "LLM evaluation and testing tool compatible with Open AI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/houjiazong/llm-alchemist",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T22:48:06Z"
+  "distributed_at": "2026-06-04T22:51:12Z"
 }
