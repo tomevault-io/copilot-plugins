@@ -1,0 +1,9 @@
+{
+  "name": "schnell18--lm-quant-toolkit",
+  "displayName": "lm-quant-toolkit",
+  "description": "LLM Quantization toolkit",
+  "version": "1.0.0",
+  "author": "schnell18",
+  "homepage": "https://github.com/schnell18/lm-quant-toolkit",
+  "skills": []
+}
