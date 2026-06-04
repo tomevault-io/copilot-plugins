@@ -7,13 +7,13 @@ Web interface for building and managing your own agentic record label.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [recoupable/chat](https://github.com/recoupable/chat).
+Original source: `CLAUDE.md` in [recoupable/chat](https://github.com/recoupable/chat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
