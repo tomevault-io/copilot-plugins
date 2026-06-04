@@ -101614,6 +101614,11 @@
       "description": "Personal Knowledge Graph - User Memory and Personality from Digital Footprint "
     },
     {
+      "name": "infiland--gm2godot",
+      "source": "./infiland--gm2godot",
+      "description": "A tool that converts GameMaker projects into Godot"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -104027,6 +104032,21 @@
       "name": "sebyx07--ruby2html",
       "source": "./sebyx07--ruby2html",
       "description": "Rails views with ruby"
+    },
+    {
+      "name": "kazah4359-lgtm--magda-agent",
+      "source": "./kazah4359-lgtm--magda-agent",
+      "description": "Magda-agent"
+    },
+    {
+      "name": "ascorbic--library-template",
+      "source": "./ascorbic--library-template",
+      "description": "Template for library projects"
+    },
+    {
+      "name": "ascorbic--library-template",
+      "source": "./ascorbic--library-template",
+      "description": "Template for library projects"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -112382,6 +112402,21 @@
       "name": "odense-rpa--automation-server",
       "source": "./odense-rpa--automation-server",
       "description": "automation-server"
+    },
+    {
+      "name": "cellebrite-labs--ghidra-rpc",
+      "source": "./cellebrite-labs--ghidra-rpc",
+      "description": "A Ghidra agentic reverse engineering skill."
+    },
+    {
+      "name": "projectbluefin--documentation",
+      "source": "./projectbluefin--documentation",
+      "description": "Bluefin Documentation"
+    },
+    {
+      "name": "metaist--ds",
+      "source": "./metaist--ds",
+      "description": "polyglot task runner"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -141639,6 +141674,11 @@
       "description": "tfw your scratch paper becomes your todo list"
     },
     {
+      "name": "guyte149--rusnel",
+      "source": "./guyte149--rusnel",
+      "description": "Rusnel is a fast tcp/udp tunnel over QUIC"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -153189,6 +153229,21 @@
       "description": "fpv-video-in-v1"
     },
     {
+      "name": "ebanez8--openstep",
+      "source": "./ebanez8--openstep",
+      "description": "A modern open-source Steps Recorder for Windows. Capture desktop workflows, edit each step, and export clean guides with screenshots. Local-first, lightweight, and built for documenting apps without s"
+    },
+    {
+      "name": "nanxstats--pycsr",
+      "source": "./nanxstats--pycsr",
+      "description": "Python for Clinical Study Reports and Submission"
+    },
+    {
+      "name": "nanxstats--pycsr",
+      "source": "./nanxstats--pycsr",
+      "description": "Python for Clinical Study Reports and Submission"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -161382,6 +161437,41 @@
       "name": "bcallender--allaboard",
       "source": "./bcallender--allaboard",
       "description": "Code for the All Aboard! CS II mod! This mod forces transit vehicles to leave even if all passengers are not boarded"
+    },
+    {
+      "name": "schildep--verified-polygon-intersection",
+      "source": "./schildep--verified-polygon-intersection",
+      "description": "Formally verified polygon intersection"
+    },
+    {
+      "name": "levieyal--cibuson-app",
+      "source": "./levieyal--cibuson-app",
+      "description": "\ud83d\uded2\ud83d\udcb5 Cibus & tenbis (10bis) vouchers manager application + AI based Smart groceries list"
+    },
+    {
+      "name": "jasonnoble--codojo",
+      "source": "./jasonnoble--codojo",
+      "description": "AI-powered coding dojo for developers learning new languages \u2014 concept mapping, guided practice, and quizzing"
+    },
+    {
+      "name": "1425sd--ai-memory-project",
+      "source": "./1425sd--ai-memory-project",
+      "description": "\u4e00\u4e2a\u7ed9 AI \u7f16\u7a0b\u52a9\u624b\u4f7f\u7528\u7684\u9879\u76ee\u4e0a\u4e0b\u6587\u6a21\u677f\u3002\u628a\u8fd9\u5957\u6587\u4ef6\u653e\u8fdb\u4efb\u610f\u9879\u76ee\u540e\uff0cAI \u53ef\u4ee5\u5148\u8bfb\u53d6\u9879\u76ee\u8bb0\u5fc6\u3001\u4efb\u52a1 backlog \u548c\u6587\u6863\u9aa8\u67b6\uff0c\u518d\u6839\u636e\u4f60\u7684\u786e\u8ba4\u4e00\u6b65\u4e00\u6b65\u6539\u4ee3\u7801\u3002"
+    },
+    {
+      "name": "denisgorbachev--url-macro",
+      "source": "./denisgorbachev--url-macro",
+      "description": "A compile-time URL validation macro. Parses and checks URLs at compile-time, converting valid URLs into `url::Url` objects. Provides early error detection for malformed URLs."
+    },
+    {
+      "name": "human-solutions--fluent-typed",
+      "source": "./human-solutions--fluent-typed",
+      "description": "Your Fluent translations as typed Rust functions \u2014 wrong keys, missing translations, bad argument types and dead keys become build errors and warnings."
+    },
+    {
+      "name": "denisgorbachev--url-macro",
+      "source": "./denisgorbachev--url-macro",
+      "description": "A compile-time URL validation macro. Parses and checks URLs at compile-time, converting valid URLs into `url::Url` objects. Provides early error detection for malformed URLs."
     },
     {
       "name": "yschimke--compose-ai-tools",
