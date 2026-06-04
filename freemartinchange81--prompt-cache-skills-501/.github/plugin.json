@@ -1,0 +1,9 @@
+{
+  "name": "freemartinchange81--prompt-cache-skills-501",
+  "displayName": "prompt-cache-skills-501",
+  "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches.",
+  "version": "1.0.0",
+  "author": "freemartinchange81",
+  "homepage": "https://github.com/freemartinchange81/prompt-cache-skills-501",
+  "skills": []
+}
