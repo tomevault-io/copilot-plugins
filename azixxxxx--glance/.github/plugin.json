@@ -1,0 +1,9 @@
+{
+  "name": "azixxxxx--glance",
+  "displayName": "glance",
+  "description": "Modern macOS status bar replacement with liquid glass UI, 16 widgets, contextual profiles, and preset sharing. Native SwiftUI, no Electron.",
+  "version": "1.0.0",
+  "author": "azixxxxx",
+  "homepage": "https://github.com/azixxxxx/glance",
+  "skills": []
+}
