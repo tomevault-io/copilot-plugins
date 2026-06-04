@@ -1,0 +1,9 @@
+{
+  "name": "steelcompendium--draw-steel-elements",
+  "displayName": "draw-steel-elements",
+  "description": "Obsidian Plugin to support MCDM's Draw Steel TTRPG",
+  "version": "1.0.0",
+  "author": "SteelCompendium",
+  "homepage": "https://github.com/SteelCompendium/draw-steel-elements",
+  "skills": []
+}
