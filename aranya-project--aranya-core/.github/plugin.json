@@ -1,0 +1,9 @@
+{
+  "name": "aranya-project--aranya-core",
+  "displayName": "aranya-core",
+  "description": "Core Aranya tech including policy compiler, parser, interface generator, VM, DAG",
+  "version": "1.0.0",
+  "author": "aranya-project",
+  "homepage": "https://github.com/aranya-project/aranya-core",
+  "skills": []
+}
