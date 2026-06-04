@@ -1,0 +1,9 @@
+{
+  "name": "avaprotocol--ava-sdk-js",
+  "displayName": "ava-sdk-js",
+  "description": "A JavaScript/TypeScript SDK designed to simplify integration with Ava Protocol\u2019s AVS",
+  "version": "1.0.0",
+  "author": "AvaProtocol",
+  "homepage": "https://github.com/AvaProtocol/ava-sdk-js",
+  "skills": []
+}
