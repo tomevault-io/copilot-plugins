@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-uploader",
+  "displayName": "capacitor-uploader",
+  "description": "Capacitor plugin to upload file in native layer",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-uploader",
+  "skills": []
+}
