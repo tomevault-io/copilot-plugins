@@ -1,0 +1,9 @@
+{
+  "name": "haasstefan--eslint-plugin-enforce-angular-signal-call",
+  "displayName": "eslint-plugin-enforce-angular-signal-call",
+  "description": "An eslint plugin that enforces Angular signals to be accessed via their getter",
+  "version": "1.0.0",
+  "author": "HaasStefan",
+  "homepage": "https://github.com/HaasStefan/eslint-plugin-enforce-angular-signal-call",
+  "skills": []
+}
