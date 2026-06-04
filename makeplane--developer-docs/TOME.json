@@ -4,7 +4,7 @@
   "repo": "developer-docs",
   "description": "\ud83d\udcbb Official Plane Developer Documentation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/makeplane/developer-docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T16:54:38Z"
+  "distributed_at": "2026-06-04T16:59:36Z"
 }
