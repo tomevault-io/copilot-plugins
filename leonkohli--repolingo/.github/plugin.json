@@ -1,0 +1,9 @@
+{
+  "name": "leonkohli--repolingo",
+  "displayName": "RepoLingo",
+  "description": "RepoLingo -Turn any GitHub Repository into LLM-ready data.",
+  "version": "1.0.0",
+  "author": "LeonKohli",
+  "homepage": "https://github.com/LeonKohli/RepoLingo",
+  "skills": []
+}
