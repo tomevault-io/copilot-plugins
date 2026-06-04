@@ -1,343 +1,920 @@
-## blocks
+## css-standards
 
-> Development standards and best practices for creating/configuring/styling theme blocks, including static and nested blocks, schema configuration, CSS, and usage examples
+> Writing CSS, whether inside .css files or in the `{% stylesheet %}…{% endstylesheet %}` or `{% style %}…{% endstyle %}` or in <style> </style> tags
 
-# Theme Blocks Development Standards
 
-Follow [Shopify's theme blocks documentation](mdc:https:/shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/quick-start?framework=liquid.txt).
+# CSS Standards
 
-## Theme Block Fundamentals
+## Specificity Rules
 
-Theme blocks are reusable components defined at the theme level that can be:
-- Nested under sections and blocks
-- Configured using settings in the theme editor
-- Given presets and added by merchants
-- Used as [static blocks](mdc:https:/shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/static-blocks#statically-vs-dynamically-rendered-theme-blocks) by theme developers
+- **Never** use IDs as selectors
+- **Avoid** using elements as selectors
+- **Avoid** using `!important` at all costs - if you must use it, comment why in the code
+- Use a `0 1 0` specificity wherever possible, meaning a single `.class` selector.
+- In cases where you must use higher specificity due to a parent/child relationship, try to keep the specificity to a maximum of `0 4 0`
+  - Note that this can sometimes be impossible due to the `0 1 0` specificity of pseudo-classes like `:hover`. There may be situations where `.parent:hover .child` is the only way to achieve the desired effect.
+- **Avoid** complex selectors. A selector should be easy to understand at a glance. Don't over do it with pseudo selectors (:has, :where, :nth-child, etc).
 
-Blocks render in the editor and storefront when they are referenced in [template files](mdc:.cursor/rules/templates.mdc).
+See [MDN](mdc:https:/developer.mozilla.org/en-US/docs/Web/CSS/Specificity) for more a comprehensive list of specificity rules.
 
-### Basic Block Structure
-```liquid
-{% doc %}
-  Block description and usage examples
+## CSS Variables
 
-  @example
-  {% content_for 'block', type: 'block-name', id: 'unique-id' %}
-{% enddoc %}
+CSS variables, a.k.a. custom properties, are a powerful tool for reducing redundancy and making it easier to update values across a component.
 
-<div {{ block.shopify_attributes }} class="block-name">
-  <!-- Block content using block.settings -->
-</div>
+- If you need to hardcode a value, set it to a variable and use that variable in the declaration. Example: a touch target size. `--touch-target-size: 44px;`
+- **Never** hardcode colors, always use the color schemes
 
-{% stylesheet %}
-  /*
-    Scoped CSS for this block
+### Global Variables
 
-    Use BEM structure
-    CSS written in here should be for components that are exclusively in this block.  If the CSS will be used elsewhere, it should instead be written in [assets/base.css](mdc:@assets/base.css)
-  */
-{% endstylesheet %}
+Global variables should be scoped to the `:root` selector in `snippets/theme-styles-variables.liquid`.
 
-{% schema %}
-{
-  "name": "Block Name",
-  "settings": [],
-  "presets": []
-}
-{% endschema %}
-```
+**Example of global variables**
 
-### Static Block Usage
-
-Static blocks are theme blocks that are rendered directly in Liquid templates by developers, rather than being dynamically added through the theme editor. This allows for predetermined block placement with optional default settings.
-
-**Basic Static Block Syntax:**
-```liquid
-{% content_for 'block', type: 'text', id: 'header-announcement' %}
-```
-
-**Example: Product Template with Mixed Static and Dynamic Blocks**
-```liquid
-<!-- templates/product.liquid -->
-<div class="product-page">
-  {% comment %} Static breadcrumb block {% endcomment %}
-  {% content_for 'block', type: 'breadcrumb', id: 'product-breadcrumb' %}
-
-  <div class="product-main">
-    <div class="product-media">
-      {% comment %} Static product gallery block {% endcomment %}
-      {% content_for 'block', type: 'product-gallery', id: 'main-gallery', settings: {
-        enable_zoom: true,
-        thumbnails_position: "bottom"
-      } %}
-    </div>
-
-    <div class="product-info">
-      {% comment %} Static product info blocks {% endcomment %}
-      {% content_for 'block', type: 'product-title', id: 'product-title' %}
-      {% content_for 'block', type: 'product-price', id: 'product-price' %}
-      {% content_for 'block', type: 'product-form', id: 'product-form' %}
-
-      {% comment %} Dynamic blocks area for additional content {% endcomment %}
-      <div class="product-extra-content">
-        {% content_for 'blocks' %}
-      </div>
-    </div>
-  </div>
-
-  {% comment %} Static related products block {% endcomment %}
-  {% content_for 'block', type: 'related-products', id: 'related-products', settings: {
-    heading: "You might also like",
-    limit: 4
-  } %}
-</div>
-```
-
-**Key Points about Static Blocks:**
-- They have a fixed `id` that makes them identifiable in the theme editor
-- Settings can be overridden in the theme editor despite having defaults
-- They appear in the theme editor as locked blocks that can't be removed or reordered
-- Useful for consistent layout elements that should always be present
-- Can be mixed with dynamic block areas using `{% content_for 'blocks' %}`
-
-## Schema Configuration
-
-See [schemas.mdc](mdc:.cursor/rules/schemas.mdc) for rules on schemas
-
-### Advanced Schema Features
-
-#### Exclude wrapper
-
-```json
-{
-  "tag": null  // No wrapper - must include {{ block.shopify_attributes }} for proper editor function
+```css
+/* in snippets/theme-styles-variables.liquid */
+:root {
+    --page-width: 1400px;
+     --font-body--family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }}; /* Referencing a theme setting */
+     --font-{{ preset_name_dash }}--family: {{ settings[preset_font] | prepend: 'var(--font-' | append: '--family)' }}; /* Using Liquid to set a variable */
 }
 ```
 
-## Block Implementation Patterns
+### Scoped Variables
 
-### Accessing Block Data
+Be sure to scope your CSS variables to the component they are being used in, if they are not meant to be global. Scoped variables can reference global variables.
 
-**Block Settings:**
-```liquid
-{{ block.settings.text }}
-{{ block.settings.heading | escape }}
-{{ block.settings.image | image_url: width: 800 }}
-```
+**Example of scoped variables**
 
-**Block Properties:**
-```liquid
-{{ block.id }}           // Unique block identifier
-{{ block.type }}         // Block type name
-{{ block.shopify_attributes }}  // Required for theme editor
-```
+```css
+/* in assets/facets.css */
+.facets {
+  --drawer-padding: var(--padding-md); /* Referencing a global variable */
+  --facets-upper-z-index: 3;
+  --facets-open-z-index: 4;
 
-**Section Context:**
-```liquid
-{{ section.id }}         // Parent section ID
-{{ section.settings.heading | escape }}
-{{ section.settings.image | image_url: width: 800 }}
-```
-
-## Nested Blocks Implementation
-
-### Rendering Nested Blocks
-```liquid
-<div class="block-container" {{ block.shopify_attributes }}>
-  <h2>{{ block.settings.heading | escape }}</h2>
-
-  <div class="nested-blocks">
-    {% content_for 'blocks' %}
-  </div>
-</div>
-```
-
-### Nesting with Layout Control
-```liquid
-<div
-  class="group {{ block.settings.layout_direction }}"
-  style="--gap: {{ block.settings.gap }}px;"
-  {{ block.shopify_attributes }}
->
-  {% content_for 'blocks' %}
-</div>
-```
-
-### Presets with Nested Blocks
-```json
-{
-  "presets": [
-    {
-      "name": "t:names.two_column_layout",
-      "category": "Layout",
-      "settings": {
-        "layout_direction": "horizontal"
-      },
-      "blocks": [
-        {
-          "type": "text",
-          "settings": {
-            "text": "Column 1 content"
-          }
-        },
-        {
-          "type": "text",
-          "settings": {
-            "text": "Column 2 content"
-          }
-        }
-      ]
-    }
-  ]
+  --facets-clear-shadow: 0px -4px 14px 0px rgb(var(--color-foreground-rgb) / var(--opacity-10)); /* Referencing a Color Scheme variable */
 }
 ```
 
-## CSS and Styling
+### Namespace Your CSS Variables
 
-See [css-standards.mdc](mdc:.cursor/rules/css-standards.mdc) for rules on writing CSS
+Namespace your variables to avoid collisions unless you explicitly want them to bleed through to other components.
 
-### Scoped Styles
-```liquid
-{% stylesheet %}
-.block-name {
-  padding: var(--block-padding, 1rem);
-  background: var(--block-background, transparent);
+✅ Do this:
+
+```css
+.component {
+  --component-padding: ...;
+  --component-aspect-ratio: ...;
 }
-
-.block-name__title {
-  font-size: var(--title-size, 1.5rem);
-  color: var(--title-color, inherit);
-}
-
-.block-name--primary {
-  background-color: var(--color-primary);
-}
-
-.block-name--secondary {
-  background-color: var(--color-secondary);
-}
-{% endstylesheet %}
 ```
 
-### Dynamic CSS Variables
-```liquid
-<div
-  class="custom-block"
+❌ Don't do this:
+
+```css
+.component {
+  --padding: ...;
+  --aspect-ratio: ...;
+}
+```
+
+### Semantic Color Variables
+
+Use semantic naming for better maintainability:
+
+```css
+:root {
+  /* Base colors */
+  --color-primary: {{ settings.colors_accent_1 }};
+  --color-secondary: {{ settings.colors_accent_2 }};
+
+  /* Semantic colors */
+  --color-text-primary: rgb(var(--color-foreground));
+  --color-text-secondary: rgb(var(--color-foreground) / 0.75);
+  --color-text-disabled: rgb(var(--color-foreground) / 0.38);
+
+  /* Interactive states */
+  --color-interactive-default: rgb(var(--color-accent));
+  /* color-mix isn't supported in earlier version of iOS <16.2 so limit its usage to progressive enhancement */
+  --color-interactive-hover: color-mix(in srgb, rgb(var(--color-accent)) 90%, black);
+  --color-interactive-pressed: color-mix(in srgb, rgb(var(--color-accent)) 80%, black);
+  --color-interactive-disabled: rgb(var(--color-accent) / 0.38);
+}
+```
+
+### Design Token System
+
+Establish consistent spacing and typography scales:
+
+```css
+:root {
+  /* Spacing scale */
+  --space-3xs: 0.25rem; /* 4px */
+  --space-2xs: 0.5rem; /* 8px */
+  --space-xs: 0.75rem; /* 12px */
+  --space-sm: 1rem; /* 16px */
+  --space-md: 1.5rem; /* 24px */
+  --space-lg: 2rem; /* 32px */
+  --space-xl: 3rem; /* 48px */
+  --space-2xl: 4rem; /* 64px */
+  --space-3xl: 6rem; /* 96px */
+
+  /* Typography scale */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+}
+```
+
+## Scoping CSS to Instances of Sections and Blocks
+
+Reset CSS variable values inline on a `style` attribute with a section/block settings. This has a couple benefits:
+
+- Less CSS in Liquid which allows us to use the `{% stylesheet %}` tag for all CSS.
+- Reduces redundancy in CSS selectors and number of selectors in the HTML, i.e. `.selector--{{ block.id }}` pattern.
+
+✅ Do this:
+
+```html
+<section
   style="
-    --block-padding: {{ block.settings.padding }}px;
-    --text-align: {{ block.settings.alignment }};
-    --background: {{ block.settings.background_color }};
+    --background-color: {{ settings.background_color }};
+    --padding: {{ settings.padding }}px;
   "
-  {{ block.shopify_attributes }}
 >
+  ...
+</section>
+
+<button style="--button-color: {{ settings.button_color }};">...</button>
 ```
 
-## Block Targeting
+❌ Don't do this:
 
-### Section Schema for Theme Blocks
-```json
-{
-  "blocks": [
-    { "type": "@theme" },  // Accept all theme blocks
-    { "type": "@app" }     // Accept app blocks
-  ]
+```html
+{% style %} .selector--{{ block.id }} { --button-color: {{ settings.button_color }}; } {% endstyle %}
+
+<button class="selector--{{ block.id }}">...</button>
+```
+
+### Redundancy
+
+Use variables to reduce property assignment redundancy.
+
+```css
+/* Do this */
+.button {
+  background: rgb(var(--button-color) / 0.75);
+}
+
+.button--secondary {
+  --button-color: var(--secondary-color);
+}
+
+/* Not this */
+.button {
+  background: rgb(var(--primary-color) / 0.75);
+}
+
+.button--secondary {
+  background: rgb(var(--secondary-color) / 0.75);
 }
 ```
 
-### Restricted Block Targeting
-```json
-{
-  "blocks": [
-    {
-      "type": "text",
-      "name": "Text Content"
-    },
-    {
-      "type": "image",
-      "name": "Image Content"
-    }
-  ]
+## BEM Naming Convention
+
+Use the @BEM CSS convention for class names.
+
+BEM TL;DR:
+
+- **Block**: Component name (`.product-card`)
+- **Element**: Block + element (`.product-card__title`)
+- **Modifier**: Block/element + modifier (`.product-card--featured`)
+- **Use dashes** to separate words in names
+
+```css
+/* Good BEM structure */
+.product-card {
+}
+.product-card__image {
+}
+.product-card__title {
+}
+.product-card__price {
+}
+.product-card--featured {
+}
+.product-card__title--large {
 }
 ```
 
-## Common Block Patterns
+```css
+.block {
+  ...;
+}
+.block--modifier {
+  ...;
+}
+.block__element {
+  ...;
+}
+.block__multi-word-element {
+  ...;
+}
+.block__element--modifier {
+  ...;
+}
+.block__element--multi-word-modifier {
+  ...;
+}
+```
 
-### Content Block
-```liquid
-<div class="content-block {{ block.settings.style }}" {{ block.shopify_attributes }}>
-  {% if block.settings.heading != blank %}
-    <h3 class="content-block__heading">{{ block.settings.heading | escape }}</h3>
-  {% endif %}
+Dashes are used to separate words in blocks, elements, and modifiers.
 
-  {% if block.settings.text != blank %}
-    <div class="content-block__text">{{ block.settings.text }}</div>
-  {% endif %}
+Exception: We also use global @utility classes that can be applied to block and and elements without following BEM naming convention.
 
-  {% if block.settings.button_text != blank %}
-    <a href="{{ block.settings.button_url }}" class="content-block__button">
-      {{ block.settings.button_text | escape }}
-    </a>
-  {% endif %}
+### Naming a "Block" (component)
+
+The root "block" namespace must wrap any elements derived from it.
+
+✅ Do this:
+
+```html
+<div class="my-component">
+  <div class="my-component__wrapper"></div>
 </div>
 ```
 
-### Media Block
-```liquid
-<div class="media-block" {{ block.shopify_attributes }}>
-  {% if block.settings.image %}
-    <div class="media-block__image">
-      {{ block.settings.image | image_url: width: 800 | image_tag:
-         alt: block.settings.image.alt | default: block.settings.alt_text
-      }}
-    </div>
-  {% endif %}
+❌ Not this:
 
-  {% if block.settings.video %}
-    <div class="media-block__video">
-      {{ block.settings.video | video_tag: controls: true }}
-    </div>
-  {% endif %}
+`.my-component__wrapper` is used as a parent to `.my-component`.
+
+```html
+<div class="my-component__wrapper my-component--page-width">
+  <div class="my-component"></div>
 </div>
 ```
 
-### Layout Block (Container)
-```liquid
-<div
-  class="layout-block layout-block--{{ block.settings.layout_type }}"
-  style="
-    --columns: {{ block.settings.columns }};
-    --gap: {{ block.settings.gap }}px;
-  "
-  {{ block.shopify_attributes }}
->
-  {% content_for 'blocks' %}
-</div>
-```
+### Naming an "Element" (child)
 
-## Performance Best Practices
+There should only be a _single_ "element" in a classname. Only the root "block" name needs to be included in child classnames. If additional naming specificity is necessary, use a "-" to seperate words or consider starting a new BEM scope altogether when an element could make sense as a standalone entity.
 
+✅ Do this:
 
-### Conditional Rendering
-```liquid
-{% liquid
-  assign has_content = false
-  if block.settings.heading != blank or block.settings.text != blank
-    assign has_content = true
-  endif
-%}
-
-{% if has_content %}
-  <div class="block-content" {{ block.shopify_attributes }}>
-    <!-- Content here -->
+```html
+<div class="my-component my-component--full-width">
+  <div class="my-component__wrapper">
+    <button class="my-component__button">
+      <span class="my-component__button-label">My button</span>
+    </button>
   </div>
-{% endif %}
+</div>
 ```
 
+✅ Or this:
 
-## Examples Referenced
+Started new scope with `.button-component`.
 
-[text.liquid](mdc:.cursor/rules/examples/block-example-text.liquid) - Basic content block from existing project
-[group.liquid](mdc:.cursor/rules/examples/block-example-group.liquid) - Container with nested blocks from existing project
+```html
+<div class="my-component my-component--full-width">
+  <div class="my-component__wrapper">
+    <button class="button-component">
+      <span class="button-component__label">My button</span>
+    </button>
+  </div>
+</div>
+```
+
+❌ Not this:
+
+Multiple element names are used (`__wrapper__button__label`).
+
+```html
+<div class="my-component my-component--full-width">
+  <div class="my-component__wrapper">
+    <button class="my-component__wrapper__button">
+      <span class="my-component__wrapper__button__label">My button</span>
+    </button>
+  </div>
+</div>
+```
+
+### Naming a "Modifier" (variant)
+
+Any "modifier" classname should always use a "--" and should always correspond to an existing block and element namespace. Never use a modifier class on an element that doesn't also have a base classname.
+
+✅ Do this:
+
+The `.button` class is the base classname and modified by `--secondary`.
+
+```html
+<button class="button button--secondary"></button>
+```
+
+❌ Not this:
+
+The `.button` and `.button-secondary` classes are both named as _exclusive_ components and should not used together.
+
+```html
+<button class="button button-secondary"></button>
+```
+
+❌ Or this:
+
+Modifer class is used without corresponding base classname.
+
+```html
+<button class="button--secondary"></button>
+```
+
+Also consider keeping modifiers at the highest element that makes sense. This makes the component more extensible and resilient as styling needs are changed or added in the future.
+
+✅ Do this:
+
+```html
+<div class="my-component my-component--size-large my-component--page-width">
+  <div class="my-component__wrapper"></div>
+</div>
+```
+
+### Utility Classes
+
+Utility classes are intended to act as global overrides for a single styling decision, e.g. alignment, show/hide, etc. BEM conventions are not followed, there is no hierarchy in utility classes and utility classes do not assume they are used with any particular block or element.
+
+Name multi-word utility classes with hyphens `-`. Append any viewport specifications at the **end**, e.g. `hidden-mobile`.
+
+✅ This is fine:
+
+```css
+.align-left {
+  text-align: left;
+}
+```
+
+```html
+<div class="my-component align-left">
+  <p class="my-component__text"></p>
+</div>
+```
+
+## Modern CSS Features
+
+### Container Queries
+
+Use container queries for truly responsive components:
+
+```css
+.product-grid {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .product-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+```
+
+### CSS Functions
+
+Leverage modern CSS functions for better responsiveness:
+
+```css
+.component {
+  /* Fluid spacing */
+  padding: clamp(1rem, 4vw, 3rem);
+
+  /* Intrinsic sizing */
+  width: min(100%, 800px);
+
+  /* Dynamic colors */
+  /* color-mix isn't supported in earlier version of iOS <16.2 so limit its usage */
+  background: color-mix(in srgb, rgb(var(--color-primary)) 90%, white);
+}
+```
+
+### Cascade Layers
+
+For better CSS organization in complex themes:
+
+```css
+@layer reset, base, components, utilities, overrides;
+
+@layer components {
+  .button {
+    /* Component styles here won't conflict with utilities */
+  }
+}
+```
+
+### View Transitions
+
+```css
+@view-transition {
+  navigation: auto;
+}
+
+.page-content {
+  view-transition-name: main-content;
+}
+```
+
+## Media Queries
+
+- Default to mobile first. e.g. `min-width` queries
+- Use `screen` for all media queries
+
+### Breakpoint System
+
+Define consistent breakpoints:
+
+```css
+/* Mobile first breakpoints */
+--breakpoint-sm: 576px; /* Small devices */
+--breakpoint-md: 768px; /* Medium devices */
+--breakpoint-lg: 992px; /* Large devices */
+--breakpoint-xl: 1200px; /* Extra large devices */
+--breakpoint-2xl: 1400px; /* 2X Extra large devices */
+```
+
+### Context-Aware Queries
+
+Use feature queries alongside media queries:
+
+```css
+@supports (display: grid) {
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@supports not (display: grid) {
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+```
+
+### Print Styles
+
+Always consider print stylesheets:
+
+```css
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  a[href^='http']:after {
+    content: ' (' attr(href) ')';
+  }
+}
+```
+
+## CSS Nesting Rules
+
+Nesting can make styles harder to read. Be responsible with it.
+
+- **No `&` operator** in nested selectors
+- **Never nest beyond first level** (except media queries/states)
+- **Keep nesting simple** and readable
+- Only use `&` when there is a direct relationship between the two selectors
+  - State based selectors e.g. `&:hover`, `&:focus`, `&:active`
+  - Modifiers that affect each other e.g. `button--integrated { &.button--text }`
+- Never nest beyond the first level
+- See below for exceptions
+
+### Nesting Media Queries
+
+Use nesting for media queries
+
+```css
+.header {
+  width: 100%;
+
+  @media screen and (min-width: 750px) {
+    width: 100px;
+  }
+}
+```
+
+This includes when there is nothing to override, e.g.
+
+```css
+.header {
+  @media screen and (min-width: 750px) {
+    width: 100px;
+  }
+}
+```
+
+That way, if something needs to be added later, it can just be added without needing to flip the media query to the inside.
+
+### If-like Parent-Child Relationships
+
+You may use nesting to help organize parent-child relationship when the parent can have **multiple states or modifiers** that affect children. In the example below, a number of child selectors need to change when the parent is the `--full-width` variant. This saves you from needing to append `parent--full-width` to each css selector.
+
+```css
+.parent {
+  grid-columns: var(--gap) 1fr var(--gap);
+}
+
+.child {
+  grid-column: 2;
+}
+
+.grand-child {
+  ...;
+}
+
+.parent--full-screen {
+  grid-columns: 1fr;
+
+  .child {
+    grid-column: 1;
+  }
+
+  .grand-child {
+    ...;
+  }
+}
+```
+
+In cases like this, the styles that are being applied are the direct result of the parent's modifier. We can see this as a kind of if-like relationship where the logic is easier to follow if the child styles are nested inside the parent.
+
+This is not a reason to nest multiple levels. Maintain the single level rule.
+
+## Logical Properties
+
+Where appropriate, use logical properties to have baseline support for Right-to-Left (RTL) languages.
+Focusing on these properties:
+
+- padding
+- margin
+- border
+- text-align
+- top, bottom, left, right
+
+✅ Do this:
+
+```css
+.element {
+  padding-inline: 2rem;
+  padding-block: 1rem;
+  margin-inline: auto;
+  margin-block: 0;
+  border-inline-end: 1rem solid var(--color-background);
+  text-align: start;
+  inset: 0;
+}
+```
+
+❌ Not this:
+
+```css
+.element {
+  padding: 1rem 2rem;
+  margin: 0 auto;
+  border-bottom: 1rem solid var(--color-background);
+  text-align: left;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+```
+
+## Layout Patterns
+
+### CSS Grid for Layouts
+
+```css
+.section-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+```
+
+### Flexbox for Components
+
+```css
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+```
+
+### Aspect Ratio for Media
+
+```css
+.product-card__image {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+```
+
+## Fancy Selectors
+
+### Using `:is()`
+
+When giving the same styles to multiple selectors, use a comma separated list.
+
+✅ Do this:
+
+```css
+.facets__label,
+.facets__clear-all,
+.clear-filter {
+  ...;
+}
+```
+
+❌ Not this:
+
+```css
+:is(.facets__label, .facets__clear-all, .clear-filter) {
+  ...;
+}
+```
+
+However, if you are giving the same styles to a parent-child relationship with different selectors, you may use `:is()`.
+
+✅ Do this:
+
+```css
+.parent:is(.child-1, .child-2) {
+  ...;
+}
+```
+
+❌ Not this:
+
+```css
+.parent .child-1,
+.parent .child-2 {
+  ...;
+}
+```
+
+✅ Do this:
+
+```css
+:is(.parent, .parent-2) .child {
+  ...;
+}
+```
+
+❌ Not this:
+
+```css
+.parent .child,
+.parent-2 .child {
+  ...;
+}
+```
+
+Try to keep the same specificity for all selectors within a single `:is()` to avoid increasing the overall specificity of the selector unintentionally.
+
+## Accessibility
+
+### Motion and Animation
+
+- Always respect user motion preferences
+- Provide fallbacks for users who prefer reduced motion
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+### Focus Management
+
+- Ensure all interactive elements have visible focus indicators
+- Use `:focus-visible` for better UX
+
+```css
+.button:focus-visible {
+  outline: 2px solid rgb(var(--color-focus));
+  outline-offset: 2px;
+}
+```
+
+### Color and Contrast
+
+- Maintain WCAG AA contrast ratios (4.5:1 for normal text, 3:1 for large text)
+- Test with high contrast mode
+- Never rely solely on color to convey information
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme variables */
+  }
+}
+```
+
+## Performance Considerations
+
+### Animation Performance
+
+- Use `transform` and `opacity` for animations
+- Avoid animating layout properties (`width`, `height`, `margin`, `padding`)
+- Use `will-change` sparingly and remove after animation
+
+```css
+.product-card {
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-2px); /* Better than animating top/margin */
+}
+
+/* Only use will-change during animation */
+.product-card:hover {
+  will-change: transform;
+}
+
+.product-card:not(:hover) {
+  will-change: auto;
+}
+```
+
+### Layout Performance
+
+- Use `contain` property for better rendering performance
+- Prefer CSS Grid and Flexbox over complex positioning
+
+```css
+.product-grid {
+  contain: layout style paint;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+```
+
+## CSS Organization
+
+### CSS Property Order
+
+Maintain consistent property order within declarations:
+
+```css
+.component {
+  /* 1. Layout & Positioning */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* 2. Box Model */
+  width: 100%;
+  margin: 0;
+  padding: var(--space-md);
+  border: 1px solid rgb(var(--color-border));
+
+  /* 3. Typography */
+  font-family: var(--font-body-family);
+  font-size: var(--font-size-base);
+
+  /* 4. Visual */
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-text));
+
+  /* 5. Animation & Transforms */
+  transition: transform 0.2s ease;
+}
+```
+
+## Error Prevention
+
+### Common Pitfalls
+
+- **Never** use `position: fixed` without considering mobile keyboards
+- **Always** test with zoom up to 200%
+- **Avoid** magic numbers - use variables or calc() instead
+- **Remember** that `vh` units can be problematic on mobile, use `dvh` to mitage this
+
+### Defensive CSS
+
+Write CSS that gracefully handles edge cases:
+
+```css
+.product-card {
+  /* Prevent content overflow */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  /* Handle long content */
+  min-width: 0; /* Allows flex items to shrink below content size */
+
+  /* Prevent layout shift */
+  aspect-ratio: 1 / 1;
+
+  /* Fallback for missing images */
+  background: rgb(var(--color-surface-secondary));
+}
+```
+
+### Browser Support
+
+- Test in browsers used by your audience
+- Provide fallbacks for newer CSS features
+- Use progressive enhancement approach
+
+## CSS Documentation
+
+### Commenting Standards
+
+Use consistent commenting for better maintainability:
+
+```css
+/* =============================================================================
+   Component Name
+   ============================================================================= */
+
+/**
+ * Brief component description
+ *
+ * @example
+ * <div class="component component--modifier">
+ *   <div class="component__element">Content</div>
+ * </div>
+ */
+.component {
+  /* Implementation */
+}
+
+/* Component modifiers
+   ========================================================================== */
+
+/**
+ * Modifier description
+ */
+.component--modifier {
+  /* Modifier styles */
+}
+
+/* Component elements
+   ========================================================================== */
+
+/**
+ * Element description
+ */
+.component__element {
+  /* Element styles */
+}
+```
+
+## Example Component Structure
+
+```liquid
+{% stylesheet %}
+  .featured-collection {
+    --section-padding: {{ section.settings.padding | default: 60 }}px;
+    --bg-color: {{ section.settings.background_color | default: '#ffffff' }};
+    --text-color: {{ section.settings.text_color | default: '#000000' }};
+
+    padding: var(--section-padding) 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    container-type: inline-size;
+  }
+
+  .featured-collection__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  @container (min-width: 768px) {
+    .featured-collection__grid {
+      grid-template-columns: repeat({{ section.settings.columns | default: 4 }}, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .featured-collection * {
+      transition: none !important;
+    }
+  }
+{% endstylesheet %}
+```
 
 ---
 > Source: [EcomExperts-io/Base](https://github.com/EcomExperts-io/Base) — distributed by [TomeVault](https://tomevault.io).
