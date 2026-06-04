@@ -1,0 +1,9 @@
+{
+  "name": "pawel-cell--agent-shopping-safe-checkout",
+  "displayName": "agent-shopping-safe-checkout",
+  "description": "Safe-checkout pattern for AI agents (Hermes/Claude Code/Codex): isolated Chrome + Browser Harness + virtual card + human gate",
+  "version": "1.0.0",
+  "author": "pawel-cell",
+  "homepage": "https://github.com/pawel-cell/agent-shopping-safe-checkout",
+  "skills": []
+}
