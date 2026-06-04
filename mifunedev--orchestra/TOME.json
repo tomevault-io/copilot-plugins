@@ -4,7 +4,7 @@
   "repo": "orchestra",
   "description": "Steerable Harnesses for DeepAgents \u2014 Orchestra\ud83e\udeb6",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mifunedev/orchestra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T06:44:17Z"
+  "distributed_at": "2026-06-04T06:44:51Z"
 }
