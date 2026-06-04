@@ -4,7 +4,7 @@
   "repo": "plum-code-webui",
   "description": "Self-hosted web interface for the Claude Code, Codex, and OpenCode CLIs. Real-time streaming, tool execution tracking, multi-session management, integrated git/GitHub, file browsing, and ComfyUI image generation \u2014 all behind a single Docker container.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zwaetschge/plum-code-webui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T12:40:25Z"
+  "distributed_at": "2026-06-04T09:10:18Z"
 }
