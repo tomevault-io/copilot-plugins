@@ -1,44 +1,23 @@
-## docs-sync
+## encoding
 
-> Keep docs in sync when adding features or changing behavior
+> Text encoding, BOM, and line endings for all project files
 
 
-# Documentation sync
+# Encoding conventions
 
-When you **add a feature**, **change behavior**, or **rename/remove** user-visible or architectural surfaces, update the matching docs in the **same change** (same PR / session). Do not leave code and docs out of sync.
+Read `docs/ENCODING.md` for the full policy and tooling matrix.
 
-Canonical matrix: [`docs/ARCHITECTURE.md` § 文檔同步](docs/ARCHITECTURE.md#文檔同步).
-Docs ownership / target architecture: [`docs/README.md` § 目標信息架構](docs/README.md#目標信息架構).
+When creating or editing files in this repo:
 
-## Quick checklist
+- Use **UTF-8 without BOM** for `.rs`, `.ts`, `.tsx`, `.js`, `.mjs`, `.json`, `.html`, `.css`, `.md`, `.toml`, `.ps1`, and everything under `data/`.
+- Run PowerShell scripts only with **PowerShell 7+** (`pwsh`); do not target Windows PowerShell 5.1. New `.ps1` files should include `#Requires -Version 7.0` and dot-source `scripts/_InitializeUtf8Console.ps1` after the `param` block.
+- Do **not** save Chinese (or any) text as GBK, Big5, or system ANSI.
+- Do **not** enable encoding auto-guess; preserve existing UTF-8 bytes in `data/*.json` so area names match `Client.txt` exactly.
+- Line endings: **LF** for all files including `.ps1`; only `.bat` / `.cmd` use CRLF (per `.editorconfig`).
+- Node scripts: read/write with `"utf8"`; strip a leading BOM with `.replace(/^\uFEFF/, "")` when reading JSON if needed.
+- Rust already assumes UTF-8 for `read_to_string` and `from_utf8_lossy` on logs; do not introduce other encodings without explicit project approval.
 
-| Change type | Update at minimum |
-|-------------|-------------------|
-| New/changed Tauri command or event | `lib.rs`, `src/api/tauri.ts`, `types.ts` if needed, **ARCHITECTURE.md IPC tables** |
-| New UI panel, shortcut, setting | **USER_GUIDE.md**, **ARCHITECTURE.md** (modules / 常見修改入口), `SettingsPanel` area in ARCHITECTURE if new setting key |
-| New/changed `data/` schema or file | **BUILD_JSON.md** or README data section, **ARCHITECTURE.md** data table, example JSON if applicable |
-| Build JSON AI workflow or prompt template | **CREATE_BUILD.md**; **BUILD_JSON.md** if schema changes |
-| New Rust module or major frontend folder | **ARCHITECTURE.md** directory / module tables |
-| Dev workflow (scripts, npm/cargo commands) | **ARCHITECTURE.md**, **README.md**, **PROJECT_WORKFLOW.md**, **AGENTS.md** if agent-facing |
-| Task / sprint / commit workflow | **先 PROJECT_WORKFLOW.md**；再 **AI_AGENT_PROMPTS.md** 開頭、**AGENTS.md**、**CLAUDE.md**、**AI_AGENT_SETUP.md**、**workflow.mdc**；**SPRINTS.md**、**sprints/README.md**（SUMMARY 模板）、task docs |
-| Encoding / tooling policy | **ENCODING.md**, `.cursor/rules/encoding.mdc` |
-| New doc file under `docs/` | **docs/README.md** index / target architecture; new file starts with `文檔目的` / `不負責` |
-| Docs information architecture / SOT ownership | **先 docs/README.md § 目標信息架構**；再 **AGENTS.md**、`.cursor/rules/architecture.mdc`、this file if agent-facing |
-
-## Rules
-
-1. **Same change**: code + docs together; mention doc updates in the summary.
-2. **No orphan docs**: if removing a feature, remove or update stale sections (grep doc filenames for old command/event names).
-3. **One source of truth**: IPC lists live in **ARCHITECTURE.md**; AGENTS.md / cursor rules only summarize—update ARCHITECTURE first when IPC changes.
-4. **User vs dev**: player-facing text → USER_GUIDE; architecture/IPC → ARCHITECTURE; JSON schema → BUILD_JSON.
-5. **Workflow state**: idea/task/sprint transitions live in **PROJECT_WORKFLOW.md**; prompt templates live in **AI_AGENT_PROMPTS.md**. Follow the workflow state transition table before editing `BRAINSTORM.md`, `SPRINTS.md`, task docs, or sprint summaries.
-6. **Purpose block**: every `docs/**/*.md` should state its `文檔目的` and what it does not own near the top.
-7. **No long duplication**: if content belongs to another SOT, link to it instead of copying long rules or tables.
-8. **Skip only when**: pure internal refactor with zero behavior/API/UI/data change (state explicitly: "no doc updates needed").
-
-## After editing docs
-
-Run `npm.cmd run check:encoding` (LF, no BOM, final newline).
+If a file shows mojibake or `` replacement characters, stop and fix encoding before editing content.
 
 ---
 > Source: [yuz9610/POE2Overlay](https://github.com/yuz9610/POE2Overlay) — distributed by [TomeVault](https://tomevault.io).
