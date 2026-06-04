@@ -1,0 +1,46 @@
+## starstone3-github-io
+
+> You just need to finish the notebook instead of compiling the mkdocs code.
+
+# Repository Guidelines
+
+You just need to finish the notebook instead of compiling the mkdocs code.
+
+## Project Structure & Module Organization
+
+This repository is a MkDocs Material documentation site. Source content lives in `docs/`, with Markdown pages grouped by topic:
+
+- `docs/incourse/`: course notes and resources.
+- `docs/article/`: reading notes and outside-study articles.
+- `docs/tools/`, `docs/life/`, `docs/friends.md`: site sections and standalone pages.
+- `docs/css/` and `docs/_js/`: custom styles and scripts loaded by `mkdocs.yml`.
+- `docs/smaterials/`: downloadable PDFs, ZIPs, and other course materials.
+- `overrides/`: MkDocs Material template overrides.
+- `site/`: generated static output; avoid editing it directly unless intentionally updating built artifacts.
+
+Navigation, theme settings, plugins, Markdown extensions, CSS, and JavaScript entries are configured in `mkdocs.yml`.
+
+
+## Coding Style & Naming Conventions
+
+Use 4-space indentation for YAML, HTML, CSS, and JavaScript changes where indentation is needed. Keep Markdown filenames and nav entries stable; changing a path requires updating `mkdocs.yml`. Prefer concise Markdown headings, fenced code blocks with language tags, and standard LaTeX math syntax when needed. When writing documentation content, favor MkDocs Material blocks such as `!!! note`, `!!! tip`, and `=== "Tab"` for callouts and grouped content instead of stacking many `###` headings. Use `camelCase` for JavaScript variables/functions and keep custom CSS selectors descriptive.
+
+
+## Commit & Pull Request Guidelines
+
+Recent history uses Conventional Commit prefixes such as `feat:` and `docs:`, alongside short imperative summaries. Prefer Conventional Commits, for example:
+
+```text
+docs: add quantum lecture notes
+feat: update course navigation
+```
+
+Pull requests should include a brief description, affected directories or pages, screenshots for visible UI/style changes, and links to related issues when applicable. Note whether `mkdocs build` passed locally.
+
+## Agent-Specific Notes
+
+Keep edits focused on source files under `docs/`, `overrides/`, and `mkdocs.yml`. Do not introduce dependency managers or generated fallback code unless the project explicitly needs them.
+
+---
+> Source: [starstone3/starstone3.github.io](https://github.com/starstone3/starstone3.github.io) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
