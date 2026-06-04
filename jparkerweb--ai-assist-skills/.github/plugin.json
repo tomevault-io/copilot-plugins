@@ -1,0 +1,9 @@
+{
+  "name": "jparkerweb--ai-assist-skills",
+  "displayName": "ai-assist-skills",
+  "description": "\ud83e\udd16 A collection of AI agent skills that automate recurring engineering workflows that can be installed across multiple AI coding assistants.",
+  "version": "1.0.0",
+  "author": "jparkerweb",
+  "homepage": "https://github.com/jparkerweb/ai-assist-skills",
+  "skills": []
+}
