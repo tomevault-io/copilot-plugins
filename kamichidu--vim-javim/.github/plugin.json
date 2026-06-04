@@ -1,0 +1,9 @@
+{
+  "name": "kamichidu--vim-javim",
+  "displayName": "vim-javim",
+  "description": "Pure Vim Script Java Virtual Machine (JVM)",
+  "version": "1.0.0",
+  "author": "kamichidu",
+  "homepage": "https://github.com/kamichidu/vim-javim",
+  "skills": []
+}
