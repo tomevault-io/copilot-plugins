@@ -1,0 +1,9 @@
+{
+  "name": "nanxstats--pycsr",
+  "displayName": "pycsr",
+  "description": "Python for Clinical Study Reports and Submission",
+  "version": "1.0.0",
+  "author": "nanxstats",
+  "homepage": "https://github.com/nanxstats/pycsr",
+  "skills": []
+}
