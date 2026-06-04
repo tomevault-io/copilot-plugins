@@ -1,0 +1,9 @@
+{
+  "name": "apstndb--spanner-mycli",
+  "displayName": "spanner-mycli",
+  "description": "My personal fork of spanner-cli",
+  "version": "1.0.0",
+  "author": "apstndb",
+  "homepage": "https://github.com/apstndb/spanner-mycli",
+  "skills": []
+}
