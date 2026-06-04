@@ -1,134 +1,156 @@
-## snippets
+## templates
 
-> Every snippet must include JSDoc-style comments using LiquidDoc:
+> All JSON templates must follow this exact structure:
 
-# Snippet Development Standards
+# Templates
 
-## Snippet Documentation
+All JSON templates must follow this exact structure:
 
-Every snippet must include JSDoc-style comments using LiquidDoc:
-
-```liquid
-{% doc %}
-  Product Card Component
-
-  Renders a product card with customizable options.
-
-  @param product {Object} Product object (required)
-  @param show_vendor {Boolean} Display vendor name (default: false)
-  @param show_quick_add {Boolean} Show quick add button (default: false)
-  @param image_ratio {String} Image aspect ratio (default: 'adapt')
-  @param lazy_load {Boolean} Enable lazy loading (default: true)
-  @param card_class {String} Additional CSS classes
-
-  @example
-    {% render 'product-card',
-       product: product,
-       show_vendor: true,
-       image_ratio: 'square'
-    %}
-{% enddoc %}
+## Required Schema
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["sections"],
+  "properties": {
+    "sections": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9_-]+$"
+            },
+            "settings": {
+              "type": "object"
+            },
+            "blocks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["type"],
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "settings": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
 ```
 
-## Parameter Handling
+## Template Structure Rules
 
-Always provide defaults and validate parameters:
+- Every template must have a `sections` object
+- Section keys must be alphanumeric with dashes/underscores
+- Each section must have a `type` property
+- `settings` and `blocks` are optional
+- `order` array defines section sequence
+- Blocks must have a `type` property
 
-```liquid
-{% liquid
-  # Parameter validation and defaults
-  assign product = product | default: empty
-  assign show_vendor = show_vendor | default: false
-  assign show_quick_add = show_quick_add | default: false
-  assign image_ratio = image_ratio | default: 'adapt'
-  assign lazy_load = lazy_load | default: true
-  assign card_class = card_class | default: ''
 
-  # Early return if required parameters missing
-  unless product != empty
-    echo '<!-- Error: product parameter required for product-card snippet -->'
-    break
-  endunless
-%}
+## Template Types
+
+**Standard Templates:**
+- `index.json` - Homepage
+- `product.json` - Product pages
+- `collection.json` - Collection pages
+- `page.json` - Static pages
+- `blog.json` - Blog listing
+- `article.json` - Blog posts
+- `cart.json` - Shopping cart
+- `search.json` - Search results
+
+**Alternate Templates:**
+Alternative templates may exist for any of the standard templates, following the structure `template-name.template-suffix.template-file-type`, for example: `product.alternate.json`
+
+## Valid Template Examples
+
+**Product Template:**
+```json
+{
+  "sections": {
+    "header": {
+      "type": "header"
+    },
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_vendor": true,
+        "show_sku": false,
+        "media_size": "medium"
+      },
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_compare_at": true
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown"
+          }
+        }
+      },
+      "block_order": ["title", "price", "variant_picker"]
+    },
+    "footer": {
+      "type": "footer"
+    }
+  },
+  "order": ["header", "main", "footer"]
+}
 ```
 
-## Common Snippet Patterns
-
-**Icon Snippet:**
-```liquid
-{% comment %}
-  @param icon {String} Icon name (required)
-  @param size {String} Icon size class (default: 'icon--medium')
-  @param class {String} Additional classes
-{% endcomment %}
-
-{% liquid
-  assign icon = icon | default: ''
-  assign size = size | default: 'icon--medium'
-  assign class = class | default: ''
-
-  unless icon != blank
-    break
-  endunless
-%}
-
-<svg class="icon {{ size }} {{ class }}" aria-hidden="true" focusable="false">
-  <use href="#icon-{{ icon }}"></use>
-</svg>
+**Collection Template:**
+```json
+{
+  "sections": {
+    "header": {
+      "type": "header"
+    },
+    "collection-banner": {
+      "type": "collection-banner",
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false
+      }
+    },
+    "main": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24,
+        "columns_desktop": 4,
+        "columns_mobile": 2
+      }
+    }
+  },
+  "order": ["header", "collection-banner", "main"]
+}
 ```
-
-**Price Snippet:**
-```liquid
-{% comment %}
-  @param product {Object} Product object (required)
-  @param show_compare_at {Boolean} Show compare at price (default: true)
-  @param show_unit_price {Boolean} Show unit price (default: false)
-{% endcomment %}
-
-{% liquid
-  assign show_compare_at = show_compare_at | default: true
-  assign show_unit_price = show_unit_price | default: false
-%}
-
-<div class="price">
-  <div class="price__regular">
-    {{ product.price | money }}
-  </div>
-
-  {% if show_compare_at and product.compare_at_price > product.price %}
-    <div class="price__compare-at">
-      <s>{{ product.compare_at_price | money }}</s>
-    </div>
-  {% endif %}
-
-  {% if show_unit_price and product.selected_or_first_available_variant.unit_price_measurement %}
-    <div class="price__unit">
-      {{ product.selected_or_first_available_variant.unit_price | money }}/
-      {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
-        {{ product.selected_or_first_available_variant.unit_price_measurement.reference_value }}
-      {%- endif -%}
-      {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
-    </div>
-  {% endif %}
-</div>
-```
-
-## Testing Patterns
-
-Include testing scenarios in comments:
-
-```liquid
-{% comment %}
-  Test cases:
-  - Product with variants
-  - Product without image
-  - Product with compare_at_price
-  - Product with unit pricing
-  - Out of stock product
-{% endcomment %}
-```
-
-[snippet-example.liquid](mdc:.cursor/rules/examples/snippet-example.liquid)
 
 ---
 > Source: [EcomExperts-io/Base](https://github.com/EcomExperts-io/Base) — distributed by [TomeVault](https://tomevault.io).
