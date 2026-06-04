@@ -1,0 +1,9 @@
+{
+  "name": "doctoolchain--asciidoc-linter",
+  "displayName": "asciidoc-linter",
+  "description": "asciidoc-linter",
+  "version": "1.0.0",
+  "author": "docToolchain",
+  "homepage": "https://github.com/docToolchain/asciidoc-linter",
+  "skills": []
+}
