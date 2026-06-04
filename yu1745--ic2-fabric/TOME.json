@@ -4,7 +4,7 @@
   "repo": "ic2-fabric",
   "description": "Minecraft 1.20.1 Fabric Mod - IC2 EXP remake using Kotlin",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yu1745/ic2-fabric",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T09:06:06Z"
+  "distributed_at": "2026-06-04T09:22:22Z"
 }
