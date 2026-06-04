@@ -1,0 +1,9 @@
+{
+  "name": "ayastrebov--docker-amneziawg",
+  "displayName": "docker-amneziawg",
+  "description": "Docker AmneziaWG image",
+  "version": "1.0.0",
+  "author": "AYastrebov",
+  "homepage": "https://github.com/AYastrebov/docker-amneziawg",
+  "skills": []
+}
