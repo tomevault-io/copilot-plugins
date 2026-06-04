@@ -4,7 +4,7 @@
   "repo": "deep-learning",
   "description": "A collection of resources, notes, and code as I learn to build deep neural networks on time series data.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bitsofchris/deep-learning",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T15:33:25Z"
+  "distributed_at": "2026-06-04T15:37:30Z"
 }
