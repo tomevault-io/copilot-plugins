@@ -1,0 +1,9 @@
+{
+  "name": "human-solutions--fluent-typed",
+  "displayName": "fluent-typed",
+  "description": "Your Fluent translations as typed Rust functions \u2014 wrong keys, missing translations, bad argument types and dead keys become build errors and warnings.",
+  "version": "1.0.0",
+  "author": "human-solutions",
+  "homepage": "https://github.com/human-solutions/fluent-typed",
+  "skills": []
+}
