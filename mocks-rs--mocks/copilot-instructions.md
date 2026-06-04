@@ -1,283 +1,603 @@
-## rust-fundamentals
+## testing-strategy
 
-> Rust fundamental coding practices for mocks project
+> Testing approaches and patterns for mocks project
 
 
-# Rust Fundamentals for Mocks Project
+# Testing Strategy for Mocks Project
 
-This rule defines fundamental Rust coding practices for the mocks CLI tool project.
+This rule defines comprehensive testing patterns for the mocks CLI tool, covering unit tests, integration tests, and end-to-end testing.
 
-## Error Handling Patterns
+## Unit Testing Patterns
 
-### Use Result<T, E> for Recoverable Errors
+### Module-Level Testing
 ```rust
-// Prefer explicit Result handling
-fn parse_socket_addr(host: &str, port: u16) -> Result<SocketAddr, MocksError> {
-    let ip_addr = if host == "localhost" { "127.0.0.1" } else { host };
-    ip_addr
-        .parse::<IpAddr>()
-        .map(|ip| SocketAddr::from((ip, port)))
-        .map_err(|e| MocksError::InvalidArgs(e.to_string()))
-}
-```
-
-### Custom Error Types with Meaningful Context
-```rust
-// Use custom error types that map to HTTP status codes
-match storage.operation() {
-    Ok(result) => Ok(result),
-    Err(MocksError::InvalidArgs(msg)) => {
-        eprintln!("Hint: Run with --help to see usage information");
-        Err(MocksError::InvalidArgs(msg))
-    }
-}
-```
-
-### Error Propagation with ?
-```rust
-// Use ? operator for clean error propagation
-pub async fn startup(socket_addr: SocketAddr, storage: Storage) -> Result<(), MocksError> {
-    let listener = TcpListener::bind(socket_addr)
-        .await
-        .map_err(|e| MocksError::Exception(e.to_string()))?;
-    // ...
-}
-```
-
-## Async/Await Patterns
-
-### Tokio Runtime Usage
-```rust
-// Use #[tokio::main] for async main
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Async operations here
-}
-```
-
-### Async Function Signatures
-```rust
-// Prefer explicit async return types
-pub async fn startup(socket_addr: SocketAddr, storage: Storage) -> Result<(), MocksError> {
-    // Implementation
-}
-```
-
-### Awaiting Multiple Operations
-```rust
-// Use tokio::try_join! for concurrent operations when appropriate
-let (result1, result2) = tokio::try_join!(
-    operation1(),
-    operation2()
-)?;
-```
-
-## Memory Management Patterns
-
-### Shared State with Arc<Mutex<T>>
-```rust
-// Use Arc<Mutex<T>> for thread-safe shared state
-pub type SharedState = Arc<Mutex<AppState>>;
-
-impl AppState {
-    pub fn new(storage: Storage) -> SharedState {
-        Arc::new(Mutex::new(AppState { storage }))
-    }
-}
-```
-
-### Clone Implementation for Shared Data
-```rust
-// Implement Clone for types that need to be shared
-#[derive(Clone)]
-pub struct Storage {
-    pub file: String,
-    pub data: StorageData,
-    pub overwrite: bool,
-}
-```
-
-### Avoiding Unnecessary Clones
-```rust
-// Pass references when ownership transfer isn't needed
-fn process_data(data: &Value) -> Result<Vec<String>, MocksError> {
-    // Process without taking ownership
-}
-```
-
-## Serde Serialization Patterns
-
-### Using Derive Macros
-```rust
-// Use derive macros for automatic serialization
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct ResourceData {
-    pub id: Option<String>,
-    pub content: Value,
-}
-```
-
-### Working with serde_json::Value
-```rust
-// Use Value for dynamic JSON handling
-pub type StorageData = Value;
-pub type Input = Value;
-
-// Pattern match on Value types
-if let Value::Object(obj) = &data {
-    for (key, value) in obj {
-        // Process key-value pairs
-    }
-}
-```
-
-### JSON Parsing with Error Handling
-```rust
-// Always handle JSON parsing errors
-fn parse_json(content: &str) -> Result<Value, MocksError> {
-    serde_json::from_str(content)
-        .map_err(|e| MocksError::InvalidJson(format!("Failed to parse JSON: {}", e)))
-}
-```
-
-## Clap CLI Patterns
-
-### Using Derive API
-```rust
-// Use derive API for clean CLI definition
-#[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
-struct Cli {
-    #[command(subcommand)]
-    command: Commands,
-}
-
-#[derive(clap::Subcommand, Debug)]
-enum Commands {
-    Run(RunArgs),
-    Init(InitArgs),
-}
-```
-
-### Argument Validation
-```rust
-// Use clap's built-in validation features
-#[derive(clap::Args, Debug)]
-struct RunArgs {
-    #[arg(short, long, default_value_t = 3000)]
-    port: u16,
-    
-    #[arg(long, default_value_t = false)]
-    no_overwrite: bool,
-}
-```
-
-### Custom Styling
-```rust
-// Implement consistent CLI styling
-fn get_styles() -> clap::builder::Styles {
-    clap::builder::Styles::styled()
-        .header(clap::builder::styling::AnsiColor::Blue.on_default().bold())
-        .error(clap::builder::styling::AnsiColor::Red.on_default().bold())
-}
-```
-
-## Module Organization
-
-### Module Declaration
-```rust
-// Declare modules at the top of main.rs
-mod error;
-mod server;
-mod storage;
-```
-
-### Public Interface Design
-```rust
-// Expose minimal public API
-pub struct Storage {
-    // Private fields
-    file: String,
-    data: StorageData,
-    overwrite: bool,
-}
-
-impl Storage {
-    // Public constructor
-    pub fn new(path: &str, overwrite: bool) -> Result<Storage, MocksError> {
-        // Implementation
-    }
-}
-```
-
-## Testing Patterns
-
-### Unit Tests in Module
-```rust
+// Place unit tests within each module using #[cfg(test)]
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn test_parse_socket_addr() {
+    fn test_parse_socket_addr_localhost() {
         let result = parse_socket_addr("localhost", 3000).unwrap();
         assert_eq!(result.ip().to_string(), "127.0.0.1");
         assert_eq!(result.port(), 3000);
     }
+
+    #[test]
+    fn test_parse_socket_addr_ip() {
+        let result = parse_socket_addr("192.168.1.1", 8080).unwrap();
+        assert_eq!(result.ip().to_string(), "192.168.1.1");
+        assert_eq!(result.port(), 8080);
+    }
+
+    #[test]
+    fn test_parse_socket_addr_invalid() {
+        let result = parse_socket_addr("invalid.host", 3000);
+        assert!(result.is_err());
+        
+        if let Err(MocksError::InvalidArgs(msg)) = result {
+            assert!(msg.contains("invalid"));
+        } else {
+            panic!("Expected InvalidArgs error");
+        }
+    }
 }
 ```
 
-### Integration Test Setup
+### Testing Error Paths
 ```rust
-// Use tempfile for isolated test environments
+#[cfg(test)]
+mod error_tests {
+    use super::*;
+
+    #[test]
+    fn test_error_display() {
+        let error = MocksError::InvalidArgs("test error".to_string());
+        assert_eq!(error.to_string(), "Invalid arguments: test error");
+    }
+
+    #[test]
+    fn test_error_conversion() {
+        let status: StatusCode = MocksError::ResourceNotFound("users".to_string()).into();
+        assert_eq!(status, StatusCode::NOT_FOUND);
+    }
+
+    // Test all error variants
+    #[test]
+    fn test_all_error_types() {
+        let errors = vec![
+            MocksError::ResourceNotFound("test".to_string()),
+            MocksError::InvalidArgs("test".to_string()),
+            MocksError::InvalidJson("test".to_string()),
+            MocksError::FailedReadFile("test".to_string()),
+            MocksError::FailedWriteFile("test".to_string()),
+            MocksError::Exception("test".to_string()),
+            MocksError::Aborted,
+        ];
+
+        for error in errors {
+            // Ensure all errors implement required traits
+            let _display = error.to_string();
+            let _debug = format!("{:?}", error);
+        }
+    }
+}
+```
+
+### Testing Async Functions
+```rust
+#[cfg(test)]
+mod async_tests {
+    use super::*;
+    use tokio::test;
+
+    #[tokio::test]
+    async fn test_server_startup_invalid_address() {
+        use std::net::{IpAddr, Ipv4Addr};
+        
+        let invalid_addr = SocketAddr::new(
+            IpAddr::V4(Ipv4Addr::new(999, 999, 999, 999)), 
+            3000
+        );
+        let storage = create_test_storage().await;
+        
+        let result = Server::startup(invalid_addr, storage).await;
+        assert!(result.is_err());
+    }
+}
+```
+
+## Integration Testing Patterns
+
+### Using Temporary Files
+```rust
 #[cfg(test)]
 mod integration_tests {
+    use super::*;
     use tempfile::{NamedTempFile, TempDir};
-    
+    use std::io::Write;
+
+    fn create_test_storage_file() -> NamedTempFile {
+        let mut temp_file = NamedTempFile::new().unwrap();
+        let test_data = serde_json::json!({
+            "posts": [
+                {"id": 1, "title": "Test Post", "author": "test"}
+            ],
+            "profile": {
+                "name": "testuser"
+            }
+        });
+        
+        write!(temp_file, "{}", serde_json::to_string_pretty(&test_data).unwrap()).unwrap();
+        temp_file
+    }
+
+    #[test]
+    fn test_storage_creation() {
+        let temp_file = create_test_storage_file();
+        let path = temp_file.path().to_str().unwrap();
+        
+        let storage = Storage::new(path, true).unwrap();
+        assert_eq!(storage.file, path);
+        assert!(storage.overwrite);
+        
+        // Verify data was loaded correctly
+        let resources = storage.resources();
+        assert!(resources.contains(&"posts".to_string()));
+        assert!(resources.contains(&"profile".to_string()));
+    }
+
     #[test]
     fn test_storage_operations() {
-        let temp_file = NamedTempFile::new().unwrap();
+        let temp_file = create_test_storage_file();
+        let path = temp_file.path().to_str().unwrap();
+        
+        let mut storage = Storage::new(path, true).unwrap();
+        
+        // Test insert operation
+        let new_post = serde_json::json!({
+            "title": "New Post",
+            "author": "newuser"
+        });
+        
+        let result = insert(&mut storage.data, "posts", new_post).unwrap();
+        assert!(result.get("id").is_some());
+        
+        // Test select operation
+        let all_posts = select_all(&storage.data, "posts").unwrap();
+        assert!(all_posts.as_array().unwrap().len() >= 2);
+    }
+}
+```
+
+### Testing File I/O Operations
+```rust
+#[cfg(test)]
+mod file_io_tests {
+    use super::*;
+    use tempfile::TempDir;
+    use std::fs;
+
+    #[test]
+    fn test_writer_atomic_operation() {
+        let temp_dir = TempDir::new().unwrap();
+        let file_path = temp_dir.path().join("test.json");
+        let path_str = file_path.to_str().unwrap();
+        
+        let test_data = serde_json::json!({"test": "data"});
+        let writer = Writer::new(path_str);
+        
+        // Write data
+        writer.write(&test_data).unwrap();
+        
+        // Verify file exists and contains correct data
+        assert!(file_path.exists());
+        let content = fs::read_to_string(&file_path).unwrap();
+        let parsed: Value = serde_json::from_str(&content).unwrap();
+        assert_eq!(parsed, test_data);
+    }
+
+    #[test]
+    fn test_reader_error_handling() {
+        let reader = Reader::new("nonexistent_file.json");
+        let result = reader.read();
+        
+        assert!(result.is_err());
+        if let Err(MocksError::FailedReadFile(_)) = result {
+            // Expected error type
+        } else {
+            panic!("Expected FailedReadFile error");
+        }
+    }
+}
+```
+
+## Storage Operation Testing
+
+### Testing All CRUD Operations
+```rust
+#[cfg(test)]
+mod storage_operation_tests {
+    use super::*;
+    use crate::storage::operation::*;
+
+    fn create_test_data() -> Value {
+        serde_json::json!({
+            "users": [
+                {"id": 1, "name": "Alice", "email": "alice@example.com"},
+                {"id": 2, "name": "Bob", "email": "bob@example.com"}
+            ],
+            "profile": {
+                "name": "testuser",
+                "theme": "dark"
+            }
+        })
+    }
+
+    #[test]
+    fn test_select_all_operation() {
+        let data = create_test_data();
+        
+        let users = select_all::select_all(&data, "users").unwrap();
+        assert!(users.is_array());
+        assert_eq!(users.as_array().unwrap().len(), 2);
+        
+        let profile = select_all::select_all(&data, "profile").unwrap();
+        assert!(profile.is_object());
+    }
+
+    #[test]
+    fn test_select_one_operation() {
+        let data = create_test_data();
+        
+        let user = select_one::select_one(&data, "users", "1").unwrap();
+        assert_eq!(user["name"], "Alice");
+        
+        // Test non-existent resource
+        let result = select_one::select_one(&data, "users", "999");
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_insert_operation() {
+        let mut data = create_test_data();
+        let new_user = serde_json::json!({
+            "name": "Charlie",
+            "email": "charlie@example.com"
+        });
+        
+        let result = insert::insert(&mut data, "users", new_user).unwrap();
+        assert!(result.get("id").is_some());
+        
+        // Verify data was added
+        let users = data["users"].as_array().unwrap();
+        assert_eq!(users.len(), 3);
+    }
+
+    #[test]
+    fn test_update_operation() {
+        let mut data = create_test_data();
+        let update_data = serde_json::json!({
+            "name": "Alice Updated"
+        });
+        
+        let result = update::update(&mut data, "users", "1", update_data).unwrap();
+        assert_eq!(result["name"], "Alice Updated");
+        assert_eq!(result["email"], "alice@example.com"); // Should preserve existing fields
+    }
+
+    #[test]
+    fn test_replace_operation() {
+        let mut data = create_test_data();
+        let replace_data = serde_json::json!({
+            "name": "Alice Replaced",
+            "email": "alice.new@example.com",
+            "age": 30
+        });
+        
+        let result = replace::replace(&mut data, "users", "1", replace_data).unwrap();
+        assert_eq!(result["name"], "Alice Replaced");
+        assert_eq!(result["age"], 30);
+        assert!(result.get("email").is_some()); // New email
+    }
+
+    #[test]
+    fn test_remove_operation() {
+        let mut data = create_test_data();
+        
+        let result = remove::remove(&mut data, "users", "1");
+        assert!(result.is_ok());
+        
+        // Verify user was removed
+        let users = data["users"].as_array().unwrap();
+        assert_eq!(users.len(), 1);
+        assert_eq!(users[0]["id"], 2);
+    }
+}
+```
+
+## End-to-End Testing with Runn
+
+### Basic E2E Test Structure
+```yaml
+# runn-e2e/runbooks/test_basic_crud.yml
+desc: Basic CRUD operations test
+runners:
+  req: http://localhost:3000
+
+vars:
+  test_resource: posts
+
+steps:
+  - desc: Health check
+    req:
+      //_hc:
+        get:
+          body: null
+    test: |
+      current.res.status == 204
+
+  - desc: Get all posts (initial)
+    req:
+      /${test_resource}:
+        get:
+          body: null
+    test: |
+      current.res.status == 200
+      current.res.body is array
+
+  - desc: Create new post
+    req:
+      /${test_resource}:
+        post:
+          headers:
+            Content-Type: application/json
+          body:
+            title: "Test Post"
+            content: "This is a test post"
+            author: "testuser"
+    test: |
+      current.res.status == 201
+      current.res.body.id is not null
+      current.res.body.title == "Test Post"
+    bind:
+      new_post_id: current.res.body.id
+
+  - desc: Get specific post
+    req:
+      /${test_resource}/${new_post_id}:
+        get:
+          body: null
+    test: |
+      current.res.status == 200
+      current.res.body.title == "Test Post"
+
+  - desc: Update post
+    req:
+      /${test_resource}/${new_post_id}:
+        patch:
+          headers:
+            Content-Type: application/json
+          body:
+            title: "Updated Test Post"
+    test: |
+      current.res.status == 200
+      current.res.body.title == "Updated Test Post"
+      current.res.body.content == "This is a test post"  # Should preserve other fields
+
+  - desc: Delete post
+    req:
+      /${test_resource}/${new_post_id}:
+        delete:
+          body: null
+    test: |
+      current.res.status == 204
+
+  - desc: Verify post deleted
+    req:
+      /${test_resource}/${new_post_id}:
+        get:
+          body: null
+    test: |
+      current.res.status == 404
+```
+
+### Error Handling E2E Tests
+```yaml
+# runn-e2e/runbooks/test_error_handling.yml
+desc: Error handling tests
+runners:
+  req: http://localhost:3000
+
+steps:
+  - desc: Test 404 for non-existent resource
+    req:
+      /nonexistent:
+        get:
+          body: null
+    test: |
+      current.res.status == 404
+
+  - desc: Test 400 for invalid JSON
+    req:
+      /posts:
+        post:
+          headers:
+            Content-Type: application/json
+          body: "invalid json"
+    test: |
+      current.res.status == 400
+
+  - desc: Test 404 for non-existent item
+    req:
+      /posts/99999:
+        get:
+          body: null
+    test: |
+      current.res.status == 404
+```
+
+### Query Parameter Testing
+```yaml
+# runn-e2e/runbooks/test_query_params.yml
+desc: Query parameter functionality tests
+runners:
+  req: http://localhost:3000
+
+steps:
+  - desc: Test filtering
+    req:
+      /posts?author=testuser:
+        get:
+          body: null
+    test: |
+      current.res.status == 200
+      current.res.body is array
+
+  - desc: Test pagination
+    req:
+      /posts?page=1&limit=5:
+        get:
+          body: null
+    test: |
+      current.res.status == 200
+      current.res.body is array
+      len(current.res.body) <= 5
+```
+
+## Test Data Management
+
+### Test Data Patterns
+```rust
+// Use *.test.json pattern for test data files
+#[cfg(test)]
+mod test_data {
+    use super::*;
+
+    pub fn create_sample_storage() -> Value {
+        serde_json::json!({
+            "posts": [
+                {
+                    "id": 1,
+                    "title": "Sample Post 1",
+                    "content": "Content for post 1",
+                    "author": "user1",
+                    "created_at": "2023-01-01T00:00:00Z"
+                },
+                {
+                    "id": 2,
+                    "title": "Sample Post 2", 
+                    "content": "Content for post 2",
+                    "author": "user2",
+                    "created_at": "2023-01-02T00:00:00Z"
+                }
+            ],
+            "users": [
+                {
+                    "id": 1,
+                    "name": "User One",
+                    "email": "user1@example.com"
+                }
+            ],
+            "profile": {
+                "name": "Test Profile",
+                "theme": "dark",
+                "notifications": true
+            }
+        })
+    }
+
+    pub fn create_empty_storage() -> Value {
+        serde_json::json!({
+            "posts": [],
+            "profile": {}
+        })
+    }
+}
+```
+
+### Test Utilities
+```rust
+#[cfg(test)]
+mod test_utils {
+    use super::*;
+    use tempfile::NamedTempFile;
+    use std::io::Write;
+
+    pub fn create_temp_storage_file(data: &Value) -> NamedTempFile {
+        let mut temp_file = NamedTempFile::new().unwrap();
+        let json_str = serde_json::to_string_pretty(data).unwrap();
+        write!(temp_file, "{}", json_str).unwrap();
+        temp_file
+    }
+
+    pub fn assert_json_eq(actual: &Value, expected: &Value) {
+        assert_eq!(
+            serde_json::to_string(actual).unwrap(),
+            serde_json::to_string(expected).unwrap(),
+            "JSON values are not equal"
+        );
+    }
+
+    pub async fn setup_test_server() -> (SocketAddr, Storage) {
+        let data = test_data::create_sample_storage();
+        let temp_file = create_temp_storage_file(&data);
         let storage = Storage::new(temp_file.path().to_str().unwrap(), true).unwrap();
-        // Test operations
+        let addr = "127.0.0.1:0".parse().unwrap();
+        
+        (addr, storage)
     }
 }
 ```
 
-## Performance Considerations
+## Coverage Requirements
 
-### Avoiding String Allocations
+### Running Coverage Tests
+```bash
+# Generate coverage report
+cargo llvm-cov --html
+
+# Coverage with specific test
+cargo llvm-cov --test integration_tests
+
+# Coverage for specific module
+cargo llvm-cov --lib --tests --package mocks
+```
+
+### Coverage Targets
 ```rust
-// Use &str when possible to avoid unnecessary allocations
-fn process_resource_name(name: &str) -> String {
-    if name == "localhost" {
-        "127.0.0.1".to_string()
-    } else {
-        name.to_string()
+// Aim for high coverage on critical paths:
+// - Error handling: 100%
+// - Storage operations: 95%+
+// - API handlers: 90%+
+// - CLI parsing: 85%+
+
+#[cfg(test)]
+mod coverage_tests {
+    // Tests specifically designed to hit edge cases and improve coverage
+    
+    #[test]
+    fn test_all_error_display_formats() {
+        // Test Display trait implementation for all error types
+    }
+    
+    #[test]
+    fn test_all_cli_argument_combinations() {
+        // Test all CLI argument combinations
     }
 }
 ```
 
-### Efficient Collection Operations
-```rust
-// Use iterator chains for efficient processing
-let resources: Vec<String> = data
-    .as_object()
-    .unwrap()
-    .keys()
-    .filter(|k| k.starts_with("api/"))
-    .map(|k| k.to_string())
-    .collect();
-```
+## Test Organization Best Practices
 
-## Code Quality Guidelines
-
-- Always handle errors explicitly - avoid `.unwrap()` in production code
-- Use meaningful variable and function names that describe intent
-- Keep functions focused on a single responsibility
-- Add documentation comments for public APIs
-- Follow Rust naming conventions (snake_case for functions, PascalCase for types)
-- Use `cargo fmt` and `cargo clippy` to maintain consistent style
-- Write tests for all public functions and error paths
+1. **Module-level tests**: Place `#[cfg(test)]` modules in each source file
+2. **Integration tests**: Use `tests/` directory for cross-module testing
+3. **E2E tests**: Use runn YAML specifications in `runn-e2e/` directory
+4. **Test naming**: Use descriptive names that explain the test scenario
+5. **Test data**: Use the `*.test.json` pattern for consistent test data
+6. **Isolation**: Each test should be independent and use temporary files
+7. **Error paths**: Always test both success and failure scenarios
+8. **Async testing**: Use `#[tokio::test]` for async function testing
 
 ---
 > Source: [mocks-rs/mocks](https://github.com/mocks-rs/mocks) — distributed by [TomeVault](https://tomevault.io).
