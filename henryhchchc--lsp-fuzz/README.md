@@ -7,11 +7,11 @@ A grey-box hybrid fuzzer that generates test cases for language servers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [henryhchchc/lsp-fuzz](https://github.com/henryhchchc/lsp-fuzz).
+Original source: `AGENTS.md` in [henryhchchc/lsp-fuzz](https://github.com/henryhchchc/lsp-fuzz).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
