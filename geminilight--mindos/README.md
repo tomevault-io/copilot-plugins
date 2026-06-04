@@ -7,11 +7,11 @@ MindOS is a Human-AI Collaborative Mind System, where human thinks and agents ac
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [GeminiLight/MindOS](https://github.com/GeminiLight/MindOS).
+Original source: `CLAUDE.md` in [GeminiLight/MindOS](https://github.com/GeminiLight/MindOS).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
