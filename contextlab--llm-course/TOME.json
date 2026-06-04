@@ -4,7 +4,7 @@
   "repo": "llm-course",
   "description": "Dartmouth undergraduate course on large language models and chatbots",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ContextLab/llm-course",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T16:41:38Z"
+  "distributed_at": "2026-06-04T16:50:45Z"
 }
