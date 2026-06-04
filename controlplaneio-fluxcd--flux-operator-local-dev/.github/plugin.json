@@ -1,0 +1,9 @@
+{
+  "name": "controlplaneio-fluxcd--flux-operator-local-dev",
+  "displayName": "flux-operator-local-dev",
+  "description": "Flux Operator local dev environment with Docker and Kubernetes KIND",
+  "version": "1.0.0",
+  "author": "controlplaneio-fluxcd",
+  "homepage": "https://github.com/controlplaneio-fluxcd/flux-operator-local-dev",
+  "skills": []
+}
