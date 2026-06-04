@@ -1,0 +1,44 @@
+{
+  "name": "a-share-selection-strategy-skill",
+  "owner": "MisonL",
+  "repo": "a-share-selection-strategy-skill",
+  "description": "\u901a\u7528\u9009\u80a1\u7b56\u7565 Skill\uff0c\u9762\u5411 AI Agent \u7684\u53ef\u89e3\u91ca\u591a\u56e0\u5b50\u9009\u80a1\u5de5\u4f5c\u6d41",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MisonL/a-share-selection-strategy-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-04T03:00:54Z"
+}
