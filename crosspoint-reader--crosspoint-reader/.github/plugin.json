@@ -1,0 +1,9 @@
+{
+  "name": "crosspoint-reader--crosspoint-reader",
+  "displayName": "crosspoint-reader",
+  "description": "Firmware for the Xteink X4 e-paper display reader",
+  "version": "1.0.0",
+  "author": "crosspoint-reader",
+  "homepage": "https://github.com/crosspoint-reader/crosspoint-reader",
+  "skills": []
+}
