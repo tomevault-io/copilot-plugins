@@ -1,0 +1,9 @@
+{
+  "name": "brentfarris--echo",
+  "displayName": "echo",
+  "description": "Local AI / LLM harness for real programmers",
+  "version": "1.0.0",
+  "author": "BrentFarris",
+  "homepage": "https://github.com/BrentFarris/echo",
+  "skills": []
+}
