@@ -1,0 +1,9 @@
+{
+  "name": "heardlabs--heard",
+  "displayName": "heard",
+  "description": "A voice companion for AI coding agents. Speaks your agent's replies so you can keep working.",
+  "version": "1.0.0",
+  "author": "heardlabs",
+  "homepage": "https://github.com/heardlabs/heard",
+  "skills": []
+}
