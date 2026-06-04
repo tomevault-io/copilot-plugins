@@ -1,0 +1,9 @@
+{
+  "name": "curt-park--my-self-hosting-services",
+  "displayName": "my-self-hosting-services",
+  "description": "A Docker-based homelab infrastructure for self-hosting services with centralized authentication, automated SSL certificate management, and Cloudflare integration.",
+  "version": "1.0.0",
+  "author": "Curt-Park",
+  "homepage": "https://github.com/Curt-Park/my-self-hosting-services",
+  "skills": []
+}
