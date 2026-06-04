@@ -1,66 +1,28 @@
-## python-style
+## workflow
 
-> Python coding style conventions for pyoptex source and tests
+> Verification checklist and rules of engagement before committing
 
 
-# Python Style
+# Workflow
 
-## Formatting
+## Verification (run before committing)
 
-- Line length: **120 characters** (enforced by ruff)
-- Formatter: `ruff format` (black-compatible)
-
-## Imports
-
-Order: stdlib → third-party → first-party (`pyoptex`), each group separated by a blank line.
-
-```python
-# stdlib
-import os
-from pathlib import Path
-
-# third-party
-import numpy as np
-import pandas as pd
-
-# first-party
-from pyoptex.utils.factor import Factor
+```bash
+make lint       # ruff
+make format     # ruff format
+make typecheck  # mypy
+make test       # pytest
+make all        # lint + typecheck + test
 ```
 
-Use `ruff check --fix` to auto-sort imports.
+## Rules of engagement
 
-## Type Hints
-
-- Add type hints to new public functions and methods.
-- `ignore_missing_imports = true` is set in mypy config -- stubs are not required for numba/scipy/etc.
-- Use `np.ndarray` for numpy arrays; `pd.DataFrame` for dataframes.
-
-## Docstrings
-
-Use triple-quoted Google-style or plain multi-line docstrings consistent with existing code:
-
-```python
-def example(x: np.ndarray) -> float:
-    """
-    One-line summary.
-
-    Parameters
-    ----------
-    x : np.ndarray
-        Input array.
-
-    Returns
-    -------
-    float
-        Result value.
-    """
-```
-
-## Numpy / Scientific Conventions
-
-- Prefer vectorized numpy operations over Python loops.
-- Avoid `numba` JIT (`@numba.njit`) if possible (prefer Cython)
-- Avoid in-place mutation of function arguments unless explicitly documented.
+- Run the verification checklist after every substantive change.
+- Do not change `setup.py` extension definitions without ensuring the CI wheel build still works (`python-publish.yml`, cibuildwheel).
+- Modify `.pyx` files only if you understand Cython (see `cython.mdc`).
+- Version lives only in `src/pyoptex/__init__.py`.
+- Add tests in `tests/` for new public API; run `venv/bin/python examples/run_all.py` to validate examples.
+- Never commit `.env`, tokens, or credentials.
 
 ---
 > Source: [mborn1/pyoptex](https://github.com/mborn1/pyoptex) — distributed by [TomeVault](https://tomevault.io).
