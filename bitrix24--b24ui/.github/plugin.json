@@ -1,0 +1,9 @@
+{
+  "name": "bitrix24--b24ui",
+  "displayName": "b24ui",
+  "description": "Bitrix24 UI-Kit for REST API web-application development",
+  "version": "1.0.0",
+  "author": "bitrix24",
+  "homepage": "https://github.com/bitrix24/b24ui",
+  "skills": []
+}
