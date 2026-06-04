@@ -1,0 +1,9 @@
+{
+  "name": "seanchatmangpt--dslmodel",
+  "displayName": "dslmodel",
+  "description": "Structured outputs from DSPy and Jinja2",
+  "version": "1.0.0",
+  "author": "seanchatmangpt",
+  "homepage": "https://github.com/seanchatmangpt/dslmodel",
+  "skills": []
+}
