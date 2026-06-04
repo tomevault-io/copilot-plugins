@@ -1,0 +1,9 @@
+{
+  "name": "gutomec--agents-guru",
+  "displayName": "agents-guru",
+  "description": "Sistema de engenharia agentico, portavel e agnostico de framework, para qualquer agente de IA via CLI.",
+  "version": "1.0.0",
+  "author": "gutomec",
+  "homepage": "https://github.com/gutomec/agents-guru",
+  "skills": []
+}
