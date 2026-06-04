@@ -7,11 +7,11 @@ LLM evaluation and testing tool compatible with Open AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [houjiazong/llm-alchemist](https://github.com/houjiazong/llm-alchemist).
+Original source: `CLAUDE.md` in [houjiazong/llm-alchemist](https://github.com/houjiazong/llm-alchemist).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
