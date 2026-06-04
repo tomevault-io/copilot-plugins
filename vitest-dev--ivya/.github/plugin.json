@@ -1,0 +1,9 @@
+{
+  "name": "vitest-dev--ivya",
+  "displayName": "ivya",
+  "description": "Fork of Playwright's locator resolution",
+  "version": "1.0.0",
+  "author": "vitest-dev",
+  "homepage": "https://github.com/vitest-dev/ivya",
+  "skills": []
+}
