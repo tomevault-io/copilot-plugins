@@ -1,0 +1,9 @@
+{
+  "name": "alltuner--factoryfloor",
+  "displayName": "factoryfloor",
+  "description": "AI-powered macOS development workspace. Git worktrees, Claude Code sessions, and dev servers in a single native app.",
+  "version": "1.0.0",
+  "author": "alltuner",
+  "homepage": "https://github.com/alltuner/factoryfloor",
+  "skills": []
+}
