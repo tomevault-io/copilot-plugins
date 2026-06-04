@@ -4,7 +4,7 @@
   "repo": "ComfyUIDepthEstimation",
   "description": "A custom depth estimation node for ComfyUI using transformer models.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Limbicnation/ComfyUIDepthEstimation",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T00:32:59Z"
+  "distributed_at": "2026-06-04T00:35:56Z"
 }
