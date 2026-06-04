@@ -50699,6 +50699,106 @@
       "description": "Create native state-of-the-art desktop applications in Clojure using Eclipse's SWT graphics toolkit."
     },
     {
+      "name": "voidduckcalm--machine-learning-library-784",
+      "source": "./voidduckcalm--machine-learning-library-784",
+      "description": "A hand-curated, topic-organized library of the best ML education \u2014 923 docs (391 arXiv papers, 474 Stanford/MIT/Karpathy/fast.ai lectures, 58 explainer articles), normalized to Markdown with full prov"
+    },
+    {
+      "name": "voidduckcalm--machine-learning-library-784",
+      "source": "./voidduckcalm--machine-learning-library-784",
+      "description": "A hand-curated, topic-organized library of the best ML education \u2014 923 docs (391 arXiv papers, 474 Stanford/MIT/Karpathy/fast.ai lectures, 58 explainer articles), normalized to Markdown with full prov"
+    },
+    {
+      "name": "vergewarlord--keytype-134",
+      "source": "./vergewarlord--keytype-134",
+      "description": "An open-source Cotypist with macOS system wide AI autocomplete"
+    },
+    {
+      "name": "commissionerplug--genomi-613",
+      "source": "./commissionerplug--genomi-613",
+      "description": "An open-source agent harness that turns your AI agent into your personal DNA expert"
+    },
+    {
+      "name": "uppercobracontract--pixelrag-896",
+      "source": "./uppercobracontract--pixelrag-896",
+      "description": "The end of web parsing. The beginning of scalable pixel-native search."
+    },
+    {
+      "name": "lightningplait--keytype-860",
+      "source": "./lightningplait--keytype-860",
+      "description": "An open-source Cotypist with macOS system wide AI autocomplete"
+    },
+    {
+      "name": "vergewarlord--keytype-134",
+      "source": "./vergewarlord--keytype-134",
+      "description": "An open-source Cotypist with macOS system wide AI autocomplete"
+    },
+    {
+      "name": "chiptreevaluate--specification-website-316",
+      "source": "./chiptreevaluate--specification-website-316",
+      "description": "Website specification \u2014 HTML, accessibility, security, SEO, agent-readiness. Platform-agnostic, sourced, MIT."
+    },
+    {
+      "name": "freemartinchange81--prompt-cache-skills-501",
+      "source": "./freemartinchange81--prompt-cache-skills-501",
+      "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches."
+    },
+    {
+      "name": "shinegrousewinch--echocut-256",
+      "source": "./shinegrousewinch--echocut-256",
+      "description": "Turn raw footage into brand-ready, platform-optimized video with one command. Local-first: FFmpeg + WhisperX/MLX + Ollama."
+    },
+    {
+      "name": "shinegrousewinch--echocut-256",
+      "source": "./shinegrousewinch--echocut-256",
+      "description": "Turn raw footage into brand-ready, platform-optimized video with one command. Local-first: FFmpeg + WhisperX/MLX + Ollama."
+    },
+    {
+      "name": "lastprincipal--machine-learning-library-684",
+      "source": "./lastprincipal--machine-learning-library-684",
+      "description": "A hand-curated, topic-organized library of the best ML education \u2014 923 docs (391 arXiv papers, 474 Stanford/MIT/Karpathy/fast.ai lectures, 58 explainer articles), normalized to Markdown with full prov"
+    },
+    {
+      "name": "lastprincipal--machine-learning-library-684",
+      "source": "./lastprincipal--machine-learning-library-684",
+      "description": "A hand-curated, topic-organized library of the best ML education \u2014 923 docs (391 arXiv papers, 474 Stanford/MIT/Karpathy/fast.ai lectures, 58 explainer articles), normalized to Markdown with full prov"
+    },
+    {
+      "name": "tigerbridge55--sisyphus-academica-129",
+      "source": "./tigerbridge55--sisyphus-academica-129",
+      "description": "Open-source research pipeline \u2014 literature review, novelty generation, citation verification, and adversarial review."
+    },
+    {
+      "name": "lightningplait--keytype-860",
+      "source": "./lightningplait--keytype-860",
+      "description": "An open-source Cotypist with macOS system wide AI autocomplete"
+    },
+    {
+      "name": "magicdellaregain--sisyphus-academica-727",
+      "source": "./magicdellaregain--sisyphus-academica-727",
+      "description": "Open-source research pipeline \u2014 literature review, novelty generation, citation verification, and adversarial review."
+    },
+    {
+      "name": "tigerbridge55--sisyphus-academica-129",
+      "source": "./tigerbridge55--sisyphus-academica-129",
+      "description": "Open-source research pipeline \u2014 literature review, novelty generation, citation verification, and adversarial review."
+    },
+    {
+      "name": "vergewarlord--breathe-cli-656",
+      "source": "./vergewarlord--breathe-cli-656",
+      "description": "Paced resonance breathing in your terminal"
+    },
+    {
+      "name": "magicdellaregain--sisyphus-academica-727",
+      "source": "./magicdellaregain--sisyphus-academica-727",
+      "description": "Open-source research pipeline \u2014 literature review, novelty generation, citation verification, and adversarial review."
+    },
+    {
+      "name": "ghostvolunteer--speaker-332",
+      "source": "./ghostvolunteer--speaker-332",
+      "description": "Speaker is a Codex skill project for academic presentations: read real.pptx, combine text extraction, PPTX structure parsing, page-by-page rendering, OCR, and visual review to generate page-by-page sp"
+    },
+    {
       "name": "m1zz--higlab",
       "source": "./m1zz--higlab",
       "description": "HIGLab"
@@ -51479,6 +51579,16 @@
       "description": "Grafana plugin for time-shifted query comparison across datasources"
     },
     {
+      "name": "retrodraseparator--pixelrag-710",
+      "source": "./retrodraseparator--pixelrag-710",
+      "description": "The end of web parsing. The beginning of scalable pixel-native search."
+    },
+    {
+      "name": "waygrenadierpruner--pixelrag-116",
+      "source": "./waygrenadierpruner--pixelrag-116",
+      "description": "The end of web parsing. The beginning of scalable pixel-native search."
+    },
+    {
       "name": "pproenca--agent-tui",
       "source": "./pproenca--agent-tui",
       "description": "TUI automation for AI agents. Control any terminal app from code."
@@ -51932,6 +52042,11 @@
       "name": "turingq--deepquantum",
       "source": "./turingq--deepquantum",
       "description": "DeepQuantum for quantum computing"
+    },
+    {
+      "name": "southshuquilt--prompt-cache-skills-189",
+      "source": "./southshuquilt--prompt-cache-skills-189",
+      "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches."
     },
     {
       "name": "liangdabiao--tikhub-api-skill",
@@ -72559,6 +72674,11 @@
       "description": "Discover, analyze, and connect with Web3 developers. Powered by GitHub data and on-chain activity for ecosystem growth."
     },
     {
+      "name": "southshuquilt--loushang-768",
+      "source": "./southshuquilt--loushang-768",
+      "description": "AI-native coding orchestration platform: unified multi-model agent runtime with stateful sessions, tool governance, and traceable delivery. "
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -76824,6 +76944,11 @@
       "description": "Example implementation of Iteration of Tought - Gives a star if you like the project"
     },
     {
+      "name": "significa--foundations",
+      "source": "./significa--foundations",
+      "description": "foundations"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -77837,6 +77962,11 @@
       "name": "irys-xyz--irys",
       "source": "./irys-xyz--irys",
       "description": "Irys - A multi-ledger storage blockchain"
+    },
+    {
+      "name": "socketdev--socket-registry",
+      "source": "./socketdev--socket-registry",
+      "description": "Optimized package overrides for Socket Optimize"
     },
     {
       "name": "w3cj--ruta",
@@ -78877,6 +79007,16 @@
       "name": "jezachen--pyqtinspect-open",
       "source": "./jezachen--pyqtinspect-open",
       "description": "An inspection tool for PyQt/PySide applications like Chrome DevTools."
+    },
+    {
+      "name": "genai-io--gen-code",
+      "source": "./genai-io--gen-code",
+      "description": "Open-source AI agent. Lives in your terminal."
+    },
+    {
+      "name": "agoncal--agoncal-fascicle-langchain4j",
+      "source": "./agoncal--agoncal-fascicle-langchain4j",
+      "description": "Code of my fascicle \"Understanding LangChain4j\""
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -82352,6 +82492,11 @@
       "name": "nordcoderd--cloud-security-plugin",
       "source": "./nordcoderd--cloud-security-plugin",
       "description": "Cloud (IaC) Security plugin for JetBrains IDEs (e.g., IntelliJ IDEA, PyCharm)"
+    },
+    {
+      "name": "jonatanjacobsson--ifcpipeline",
+      "source": "./jonatanjacobsson--ifcpipeline",
+      "description": "IFC Pipeline is a FastAPI-based service for processing Industry Foundation Classes (IFC) files"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -92384,6 +92529,11 @@
       "description": "vite-plugin-storybook-nextjs"
     },
     {
+      "name": "rhineai--rhine-var",
+      "source": "./rhineai--rhine-var",
+      "description": "The world's most intuitive and reliable strongly-typed collaborative library"
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -96647,6 +96797,11 @@
       "name": "lingfish--mmng-ui",
       "source": "./lingfish--mmng-ui",
       "description": "A Textual TUI for multimon-ng \u2014 decode POCSAG and FLEX pager messages from SDR applications in your terminal or web browser."
+    },
+    {
+      "name": "morningflashconform--prompt-cache-skills-818",
+      "source": "./morningflashconform--prompt-cache-skills-818",
+      "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches."
     },
     {
       "name": "10xchengtu--mux0",
@@ -111994,6 +112149,11 @@
       "description": "Logic plus python types"
     },
     {
+      "name": "smarteasy--open-prompt",
+      "source": "./smarteasy--open-prompt",
+      "description": "open-prompt"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -114687,6 +114847,21 @@
       "name": "mckaywrigley--takeoff-notes-app-starter",
       "source": "./mckaywrigley--takeoff-notes-app-starter",
       "description": "takeoff-notes-app-starter"
+    },
+    {
+      "name": "southshuquilt--advise-project-approach-275",
+      "source": "./southshuquilt--advise-project-approach-275",
+      "description": "A Claude/Codex skill that researches the best way to build your project before you commit to the wrong stack."
+    },
+    {
+      "name": "limenyutwist--echocut-148",
+      "source": "./limenyutwist--echocut-148",
+      "description": "Turn raw footage into brand-ready, platform-optimized video with one command. Local-first: FFmpeg + WhisperX/MLX + Ollama."
+    },
+    {
+      "name": "limenyutwist--echocut-148",
+      "source": "./limenyutwist--echocut-148",
+      "description": "Turn raw footage into brand-ready, platform-optimized video with one command. Local-first: FFmpeg + WhisperX/MLX + Ollama."
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -117467,6 +117642,11 @@
       "name": "vana-com--vana-smart-contracts",
       "source": "./vana-com--vana-smart-contracts",
       "description": "vana-smart-contracts"
+    },
+    {
+      "name": "mary-ext--aglais",
+      "source": "./mary-ext--aglais",
+      "description": "Alternative web client for Bluesky (personal use, no support given)"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -131779,6 +131959,11 @@
       "description": "proofkit"
     },
     {
+      "name": "dfdezdom--investdaytip",
+      "source": "./dfdezdom--investdaytip",
+      "description": "A multi-factor analysis tool that suggests long-term stock & ETF buy recommendations from US, European, and Asian markets, computed live from public market data."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -140929,6 +141114,11 @@
       "description": "A Django app to capture OAuth2 tokens for non-authentication purposes, enabling your application to act on behalf of users across external platforms like GitHub, LinkedIn, and X (Twitter)"
     },
     {
+      "name": "michix--seekret-service",
+      "source": "./michix--seekret-service",
+      "description": "Secure daemon for desktop use to access secrets in KeePass files"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -146357,6 +146547,31 @@
       "name": "lichtblick-suite--asam-osi-converter",
       "source": "./lichtblick-suite--asam-osi-converter",
       "description": "Lichtblick extension which visualizes data following the standard of the ASAM Open Simulation Interface (ASAM OSI) using the native 3D panel of Lichtblick."
+    },
+    {
+      "name": "shaunburdick--hd-homey",
+      "source": "./shaunburdick--hd-homey",
+      "description": "A Proxy App for HD Homerun devices"
+    },
+    {
+      "name": "vanities--swiftbible",
+      "source": "./vanities--swiftbible",
+      "description": "ios and android app for the the bible"
+    },
+    {
+      "name": "tangerg--lynx",
+      "source": "./tangerg--lynx",
+      "description": "lynx"
+    },
+    {
+      "name": "vanities--swiftbible",
+      "source": "./vanities--swiftbible",
+      "description": "ios and android app for the the bible"
+    },
+    {
+      "name": "alea-institute--folio-python",
+      "source": "./alea-institute--folio-python",
+      "description": "FOLIO Python client"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
