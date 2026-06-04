@@ -1,0 +1,9 @@
+{
+  "name": "michaelw9999--advanced-gguf-quantizer",
+  "displayName": "advanced-gguf-quantizer",
+  "description": "A CUDA-accelerated GGUF quantization tool for NVFP4 and MXFP6, designed with an auto-tuner to reduce quantization error.",
+  "version": "1.0.0",
+  "author": "michaelw9999",
+  "homepage": "https://github.com/michaelw9999/advanced-gguf-quantizer",
+  "skills": []
+}
