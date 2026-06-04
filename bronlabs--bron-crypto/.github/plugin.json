@@ -1,0 +1,9 @@
+{
+  "name": "bronlabs--bron-crypto",
+  "displayName": "bron-crypto",
+  "description": "Bron's Advanced Cryptography Library",
+  "version": "1.0.0",
+  "author": "bronlabs",
+  "homepage": "https://github.com/bronlabs/bron-crypto",
+  "skills": []
+}
