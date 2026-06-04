@@ -4,7 +4,7 @@
   "repo": "WICompress",
   "description": "A lightweight iOS image compression library that supports JPEG, PNG, HEIC formats and uses the Luban algorithm for compression.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Weixi779/WICompress",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T10:36:49Z"
+  "distributed_at": "2026-06-04T11:15:34Z"
 }
