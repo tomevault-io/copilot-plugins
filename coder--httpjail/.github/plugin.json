@@ -1,0 +1,9 @@
+{
+  "name": "coder--httpjail",
+  "displayName": "httpjail",
+  "description": "HTTP(s) request filter for processes",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/httpjail",
+  "skills": []
+}
