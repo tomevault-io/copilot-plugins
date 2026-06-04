@@ -1,0 +1,9 @@
+{
+  "name": "fragcolor-xyz--crdt-lite",
+  "displayName": "crdt-lite",
+  "description": "KISS C++ & Rust (and more) CRDT experiments",
+  "version": "1.0.0",
+  "author": "fragcolor-xyz",
+  "homepage": "https://github.com/fragcolor-xyz/crdt-lite",
+  "skills": []
+}
