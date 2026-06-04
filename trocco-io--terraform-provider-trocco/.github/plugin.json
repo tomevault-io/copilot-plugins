@@ -1,0 +1,9 @@
+{
+  "name": "trocco-io--terraform-provider-trocco",
+  "displayName": "terraform-provider-trocco",
+  "description": "terraform-provider-trocco",
+  "version": "1.0.0",
+  "author": "trocco-io",
+  "homepage": "https://github.com/trocco-io/terraform-provider-trocco",
+  "skills": []
+}
