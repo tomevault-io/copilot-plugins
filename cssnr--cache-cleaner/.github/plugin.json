@@ -1,0 +1,9 @@
+{
+  "name": "cssnr--cache-cleaner",
+  "displayName": "cache-cleaner",
+  "description": "Easily clear cache for the current site and optionally auto-reload with a single key press, from the popup or with the context menu.",
+  "version": "1.0.0",
+  "author": "cssnr",
+  "homepage": "https://github.com/cssnr/cache-cleaner",
+  "skills": []
+}
