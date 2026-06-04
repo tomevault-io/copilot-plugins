@@ -1,53 +1,125 @@
-## ui
+## code-standards
 
-> This is a modern UI component library that provides beautiful, accessible, and customizable components. It supports both React and Vue frameworks, built with Ark UI and Tailwind CSS, inspired by shadcn/ui style.
+> The project uses Biome as the primary code formatting and linting tool, configuration file: [biome.jsonc](mdc:biome.jsonc)
 
-# shipbase/ui Project Overview
+# Code Standards Guide
 
-## Project Introduction
-This is a modern UI component library that provides beautiful, accessible, and customizable components. It supports both React and Vue frameworks, built with Ark UI and Tailwind CSS, inspired by shadcn/ui style.
+## Code Quality Tools
 
-## Related Rule Documentation
-- [Project Structure Guide](mdc:.cursor/rules/project-structure.mdc) - Understanding project organization and tech stack
-- [Development Workflow Guide](mdc:.cursor/rules/development-workflow.mdc) - Development environment setup and common commands  
-- [Component Development Guide](mdc:.cursor/rules/component-development.mdc) - Component architecture and development standards
-- [Code Standards Guide](mdc:.cursor/rules/code-standards.mdc) - Code quality and style standards
+### Biome Configuration
+The project uses Biome as the primary code formatting and linting tool, configuration file: [biome.jsonc](mdc:biome.jsonc)
 
-## Quick Navigation
+### Main Rules
+- Use TypeScript strict mode
+- 2 space indentation
+- Use semicolons for statement endings
+- Single quote strings
+- Trailing commas (multiline)
 
-### Key Configuration Files
-- [package.json](mdc:package.json) - Main package configuration and scripts
-- [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml) - Workspace and dependency configuration
-- [turbo.json](mdc:turbo.json) - Build task configuration
-- [biome.jsonc](mdc:biome.jsonc) - Code quality tool configuration
+## Naming Conventions
 
-### Main Package Directories
-- [apps/www/](mdc:apps/www) - Documentation website (Astro)
-- [packages/react/](mdc:packages/react) - React component package
-- [packages/vue/](mdc:packages/vue) - Vue component package
-- [packages/lib/](mdc:packages/lib) - Shared utility library
-- [packages/cli/](mdc:packages/cli) - CLI tools
+### File Naming
+- **React Components**: kebab-case (e.g. `button.tsx`, `toggle-group.tsx`)
+- **Vue Components**: PascalCase directory + PascalCase file (e.g. `button/Button.vue`)
+- **Utility Functions**: kebab-case (e.g. `utils.ts`)
+- **Type Files**: kebab-case (e.g. `types.ts`)
 
-### Component Directories
-- [packages/react/src/components/ui/](mdc:packages/react/src/components/ui) - React component implementations
-- [packages/vue/src/components/ui/](mdc:packages/vue/src/components/ui) - Vue component implementations
+### Variable and Function Naming
+- **Components**: PascalCase (e.g. `Button`, `ToggleGroup`)
+- **Functions**: camelCase (e.g. `buttonVariants`, `cn`)
+- **Constants**: SCREAMING_SNAKE_CASE (e.g. `DEFAULT_VARIANT`)
+- **Type Interfaces**: PascalCase with Props suffix (e.g. `ButtonProps`)
 
-## Core Features
-- **Framework Agnostic**: Supports both React and Vue
-- **Type Safe**: Complete TypeScript support
-- **Accessible**: Built on Ark UI ensuring accessibility
-- **Customizable**: Flexible customization with Tailwind CSS and CVA
-- **Modern**: Uses latest toolchain and best practices
+## TypeScript Standards
 
-## Development Environment
-- **Node.js**: Requires v20+ version
-- **Package Manager**: pnpm v9.15.9
-- **Build Tools**: Turbo + Vite
-- **Code Quality**: Biome
-- **Version Management**: Changesets
+### Component Type Definitions
+```tsx
+// React
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
 
-Visit http://shipbase-ui.pages.dev to view the complete documentation.
+// Vue  
+interface Props {
+  variant?: ButtonVariants["variant"]
+  size?: ButtonVariants["size"]
+  class?: HTMLAttributes["class"]
+  asChild?: boolean
+}
+```
+
+### Export Patterns
+```tsx
+// React - Export both component and variants
+export { Button, buttonVariants }
+
+// Vue - Export component and types
+export { default as Button } from './Button.vue'
+export type { ButtonVariants } from './types'
+```
+
+## Style Standards
+
+### Tailwind CSS Usage
+- Prefer Tailwind built-in classes
+- Organize complex styles through CVA
+- Use semantic design tokens
+- Support dark theme
+
+### CVA Variant Definition
+```tsx
+const buttonVariants = cva(
+  "base style classes", // Base styles
+  {
+    variants: {
+      variant: { /* style variants */ },
+      size: { /* size variants */ }
+    },
+    defaultVariants: { /* default values */ }
+  }
+)
+```
+
+## Component Development Standards
+
+### Accessibility
+- Use Ark UI components as foundation
+- Support keyboard navigation
+- Provide appropriate ARIA attributes
+- Support screen readers
+
+### Performance Considerations
+- Use React.forwardRef to forward refs
+- Avoid unnecessary re-renders
+- Handle event listeners properly
+
+### Error Handling
+- Provide meaningful error messages
+- Use TypeScript for compile-time checking
+- Handle runtime edge cases
+
+## Commit Standards
+
+### Git Hooks
+Project has configured pre-commit hooks:
+- Automatically run [lint-staged](mdc:package.json) 
+- Format code and fix simple lint issues
+- Type checking
+
+### Commit Message Format
+Follow Conventional Commits specification:
+```
+feat: add new feature
+fix: fix issue
+docs: documentation update
+style: code formatting adjustment
+refactor: refactor code
+test: add tests
+chore: build process or tool updates
+```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/shipbase) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [shipbase/ui](https://github.com/shipbase/ui) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
