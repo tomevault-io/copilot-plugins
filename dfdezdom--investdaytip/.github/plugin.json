@@ -1,0 +1,9 @@
+{
+  "name": "dfdezdom--investdaytip",
+  "displayName": "investdaytip",
+  "description": "A multi-factor analysis tool that suggests long-term stock & ETF buy recommendations from US, European, and Asian markets, computed live from public market data.",
+  "version": "1.0.0",
+  "author": "dfdezdom",
+  "homepage": "https://github.com/dfdezdom/investdaytip",
+  "skills": []
+}
