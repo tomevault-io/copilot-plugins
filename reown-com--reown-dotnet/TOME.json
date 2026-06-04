@@ -4,7 +4,7 @@
   "repo": "reown-dotnet",
   "description": "Toolkits to build onchain UX in .NET and Unity",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reown-com/reown-dotnet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T18:57:13Z"
+  "distributed_at": "2026-06-04T19:01:47Z"
 }
