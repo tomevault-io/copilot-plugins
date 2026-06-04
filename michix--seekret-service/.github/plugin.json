@@ -1,0 +1,9 @@
+{
+  "name": "michix--seekret-service",
+  "displayName": "seekret-service",
+  "description": "Secure daemon for desktop use to access secrets in KeePass files",
+  "version": "1.0.0",
+  "author": "michix",
+  "homepage": "https://github.com/michix/seekret-service",
+  "skills": []
+}
