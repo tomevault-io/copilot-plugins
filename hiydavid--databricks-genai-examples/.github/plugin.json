@@ -1,0 +1,9 @@
+{
+  "name": "hiydavid--databricks-genai-examples",
+  "displayName": "databricks-genai-examples",
+  "description": "A repo of code examples for building GenAI / ML projects on Databricks",
+  "version": "1.0.0",
+  "author": "hiydavid",
+  "homepage": "https://github.com/hiydavid/databricks-genai-examples",
+  "skills": []
+}
