@@ -1,0 +1,9 @@
+{
+  "name": "allenhutchison--podcast-rag",
+  "displayName": "podcast-rag",
+  "description": "Using a set of MP3 podcasts, create a RAG System to work with the model of your choice.",
+  "version": "1.0.0",
+  "author": "allenhutchison",
+  "homepage": "https://github.com/allenhutchison/podcast-rag",
+  "skills": []
+}
