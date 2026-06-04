@@ -1,0 +1,9 @@
+{
+  "name": "leereilly--gh-commit-crawl",
+  "displayName": "gh-commit-crawl",
+  "description": "A GitHub CLI extension to generate a Build-themed GitHub contribution graph. But you'll have to work for it!",
+  "version": "1.0.0",
+  "author": "leereilly",
+  "homepage": "https://github.com/leereilly/gh-commit-crawl",
+  "skills": []
+}
