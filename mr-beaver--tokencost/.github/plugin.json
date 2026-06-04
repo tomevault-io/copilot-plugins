@@ -1,0 +1,9 @@
+{
+  "name": "mr-beaver--tokencost",
+  "displayName": "tokencost",
+  "description": "See exactly what you spend on Claude CLI + cost optimizations functions",
+  "version": "1.0.0",
+  "author": "mr-beaver",
+  "homepage": "https://github.com/mr-beaver/tokencost",
+  "skills": []
+}
