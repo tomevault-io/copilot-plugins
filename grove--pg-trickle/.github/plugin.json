@@ -1,0 +1,9 @@
+{
+  "name": "grove--pg-trickle",
+  "displayName": "pg-trickle",
+  "description": "A PostgreSQL extension for streaming tables with incremental view maintenance, powered by differential dataflow in Rust.",
+  "version": "1.0.0",
+  "author": "grove",
+  "homepage": "https://github.com/grove/pg-trickle",
+  "skills": []
+}
