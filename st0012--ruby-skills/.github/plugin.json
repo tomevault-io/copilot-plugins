@@ -1,0 +1,9 @@
+{
+  "name": "st0012--ruby-skills",
+  "displayName": "ruby-skills",
+  "description": "Claude Code plugins for Ruby development.",
+  "version": "1.0.0",
+  "author": "st0012",
+  "homepage": "https://github.com/st0012/ruby-skills",
+  "skills": []
+}
