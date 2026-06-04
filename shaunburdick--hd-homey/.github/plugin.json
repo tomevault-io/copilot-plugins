@@ -1,0 +1,9 @@
+{
+  "name": "shaunburdick--hd-homey",
+  "displayName": "hd-homey",
+  "description": "A Proxy App for HD Homerun devices",
+  "version": "1.0.0",
+  "author": "shaunburdick",
+  "homepage": "https://github.com/shaunburdick/hd-homey",
+  "skills": []
+}
