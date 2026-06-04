@@ -1,0 +1,287 @@
+## home-energy-manager
+
+> Desktop app for monitoring and controlling GivEnergy solar inverters over local Modbus TCP.
+
+# GivEnergy Local
+
+Desktop app for monitoring and controlling GivEnergy solar inverters over local Modbus TCP.
+
+## Stack
+
+- **Frontend**: React 19 + TypeScript + Vite 8 + Tailwind CSS 4 + Zustand + Recharts + React Router 7
+- **Backend**: Tauri 2 desktop shell; embedded Axum HTTP/WS server on port **7337**
+- **Modbus**: Custom Rust TCP client to GivEnergy data adapter (port **8899**)
+- **Testing**: Rust unit tests only (no frontend tests, no integration tests)
+
+## Prerequisites
+
+- **Node.js** + npm
+- **Rust** toolchain (`rustup`)
+- **Tauri CLI**: `cargo install tauri-cli`
+
+## Commands
+
+| Command | Action |
+|---|---|
+| `npm run dev` | Vite dev server on port 5173 |
+| `npm run build` | `tsc -b && vite build` (full typecheck + bundle) |
+| `npm run lint` | `eslint .` |
+| `npm run preview` | `vite preview` |
+| `cargo test` (in `src-tauri/`) | Run all Rust unit tests (101 tests) |
+| `cargo clippy` (in `src-tauri/`) | Run Rust linter |
+| `cargo tauri dev` | Dev mode with Tauri window + Vite + hot-reload |
+| `cargo tauri build` | Production build of the desktop app |
+
+Order for full verification: `cargo clippy` → `npm run lint` → `npm run lint:md` → `npm run build` (typechecks) → `cargo test` in `src-tauri/`.
+
+## Linting rules
+
+### Rust (clippy)
+
+All clippy warnings must be fixed before committing. Known patterns that commonly trigger warnings:
+
+- `empty_line_after_doc_comments` — no blank line after `///` doc comments
+- `field_reassign_with_default` — use `Struct { field: value, ..Default::default() }` instead of mutating after default
+- `manual_flatten` — use `.flatten()` / `.into_iter().flatten()` instead of `if let Some` in a loop
+- `match_like_matches_macro` — use `matches!()` for boolean match expressions
+- `derivable_impls` — use `#[derive(Default)]` instead of manual `impl Default`
+- `new_without_default` — add `impl Default` that calls `new()`
+- `same_item_push` — use `vec![val; N]` or `resize(N, val)` instead of loop + push
+- `manual_clamp` — use `.clamp(min, max)` instead of `.min(max).max(min)`
+
+Run: `cd src-tauri && cargo clippy`
+
+### TypeScript / ESLint
+
+All ESLint errors must be fixed before committing. Notable rules:
+
+- `verbatimModuleSyntax: true` — use `import type` for type-only imports
+- `erasableSyntaxOnly: true` — no `enum`, no `namespace`, no constructor parameter properties
+- `noUnusedLocals` / `noUnusedParameters` — both on; declarations must be used
+- `react-hooks/set-state-in-effect` — do not call `setState` directly inside `useEffect`; use derived values or key-based remounting instead
+
+Run: `npm run lint`
+
+### Markdown
+
+Run `markdownlint` on .md files after significant edits. Notable rules:
+
+- MD001 — heading levels should only increment by one level at a time
+- MD012 — no multiple consecutive blank lines
+- MD022 — headings should be surrounded by blank lines
+- MD032 — lists should be surrounded by blank lines
+
+Run: `npx markdownlint '**/*.md' --ignore node_modules`
+
+## Architecture
+
+### Frontend (`src/`)
+
+React app. Entrypoint: `src/main.tsx`.
+
+- **Pages**: `StatusPage` (dashboard + energy flow), `BatteryPage` (cell-level detail), `HistoryPage` (charts), `ControlPage` (schedules, modes, limits), `SettingsPage` (connection config, connected clients, developer mode, about), `LogsPage` (developer console — only visible when developer mode is enabled)
+- **Components**: `EnergyFlowDiagram` (radial SVG power flow), `BatteryPanel` (per-module cell data), `SummaryTiles` (power stats)
+- **Hooks**: `useWebSocket` — connects to `/ws`, reconnects on drop, fetches initial snapshot via REST
+- **Lib**: `api.ts` (fetch helpers), `format.ts` (power/voltage/temp formatters), `types.ts` (InverterSnapshot etc.)
+- **State**: Zustand store (`useInverterStore`) holds `snapshot`, `connectionState`, `connectedHost`, `developerMode` (persisted to localStorage)
+- **Version**: Injected at build time via `__APP_VERSION__` (defined in `vite.config.ts`, declared in `src/env.d.ts`)
+
+Frontend talks exclusively to the local Axum server — never directly to the inverter.
+
+### Backend (`src-tauri/src/`)
+
+- **`lib.rs`** — Tauri app setup + headless CLI entry; spawns Axum server (configurable port, default 7337) + Modbus polling loop
+- **`history/`** — SQLite-backed history storage (`~/.givenergy-local/history.db`)
+  - `mod.rs` — `HistoryDb` wrapper, schema migration, `insert_reading()`, aggregated `query_history()` with time-bucket AVG (or MAX for cumulative fields)
+- **`inverter/`** — data model, register decode/encode, discovery, poll loop
+  - `model.rs` — `InverterSnapshot`, `ScheduleSlot`, `BatteryMode`, `BatteryState`
+  - `decoder.rs` — converts raw register blocks into `InverterSnapshot`; applies global `enable_charge`/`enable_discharge` flags to slot states
+  - `encoder.rs` — translates `ControlCommand` enum into `RegisterWrite` lists (whitelist-validated)
+  - `poll.rs` — main polling loop: drain pending writes → read registers → sanitize → broadcast snapshot; uses `Notify` for immediate write execution; warmup reads and grace period after connect
+  - `discovery.rs` — network scanning with GivEnergy Modbus protocol verification (sends a read request and validates the 0x5959 magic header in the response)
+- **`modbus/`** — GivEnergy Modbus TCP protocol
+  - `client.rs` — `ModbusClient`: connect, read registers, write single register (FC6), stale frame drain
+  - `framer.rs` — proprietary frame encode/decode (MBAP header + transparent sub-frame + CRC); response CRC validation is lenient (logged, not rejected)
+  - `registers.rs` — register addresses, poll block definitions, safe-write whitelist, HHMM encode/decode
+- **`server/`** — Axum HTTP layer
+  - `api.rs` — REST endpoints for control commands; queues writes to `AppState::pending_writes` and notifies poll loop
+  - `ws.rs` — WebSocket endpoint streaming `PollMessage` (snapshot or connection state)
+  - `logs.rs` — Log ring buffer (`LogRing`) + tracing capture layer + `GET /api/logs` endpoint for developer console
+  - `mod.rs` — router setup, server startup (graceful bind failure, no panic)
+- **`settings/`** — persisted JSON config (`~/.givenergy-local/settings.json`)
+
+### Shared state (`AppState`)
+
+Central `Arc<Mutex<…>>`-based state shared between poll loop, API handlers, and WebSocket:
+
+- `latest_snapshot` — most recent `InverterSnapshot`
+- `connection_state` — `Connected` / `Disconnected`
+- `pending_writes` — queue of `Vec<RegisterWrite>` batches from the API
+- `write_notify` — `Notify` that wakes the poll loop immediately when writes are queued
+- `settings` — live `PollSettings` (host, port, serial, interval)
+- `history` — `HistoryDb` for time-series storage
+- `log_ring` — `LogRing` (2000-entry ring buffer) of captured log lines for the developer console
+
+## Data sanitization (register corruption defense)
+
+The GivEnergy dongle frequently returns corrupted register values, especially
+on the first reads after TCP connect. The sanitizer in `poll.rs` defends against
+this with multiple layers:
+
+### Absolute range checks (always active)
+
+Applied on EVERY reading regardless of previous state:
+
+| Field | Range | Notes |
+|---|---|---|
+| `today_*_kwh` | 0–200 kWh | Residential daily ceiling; catches 245, 275, 879, 1010 spikes |
+| Battery power | ±10 kW | Residential battery limit |
+| Grid power | ±10 kW | UK single-phase supply limit |
+| Solar power | 0–10 kW | Residential PV limit |
+| Home power | 0–15 kW | Includes EV charging margin |
+| Grid voltage | 180–280 V | UK nominal 230V ± extended range |
+| Grid frequency | 45–55 Hz | UK nominal 50 Hz |
+| Inverter temp | -20–100 °C | Hardware damage above 100°C |
+| Battery temp | -20–80 °C | Safety limit |
+| Battery module voltage | 0–500 V | LV (~48V) to HV (~345V) |
+| SOC | 0–100 | Also rejects SOC=0 with live power, SOC=100 while fast-charging |
+
+### Delta checks (after grace period)
+
+Only active after 3 readings post-connect (grace period):
+
+- **Monotonic increase**: `today_*_kwh` must never decrease (except midnight rollover)
+- **Time-based rate limit**: `max_increase = elapsed_hours × 10 kW + 1 kWh`
+- **Midnight rollover**: decrease allowed when `raw < 5` and `prev > 5`
+- **Near-zero prev**: delta increase check skipped when `prev < 1.0` (unreliable baseline)
+
+### Connect sequence
+
+```
+Connect → 500ms delay → drain TCP → 3× warmup reads (discarded, 500ms apart)
+→ clear latest_snapshot → 3 readings with absolute check only (grace period)
+→ readings with full absolute + delta checks
+```
+
+### History aggregation
+
+The history API (`GET /api/history`) uses MAX aggregation for cumulative
+counter fields (`today_*_kwh`) instead of AVG. AVG of monotonically increasing
+counters understates the true value, causing ~1000× cost inflation when deltas
+are computed. MAX preserves the actual counter reading at each bucket boundary.
+
+### Frontend spike filtering
+
+`removeSpikes()` in `HistoryPage.tsx` applies a post-query filter: a point is
+a spike if it differs from both neighbors by more than a field-specific
+threshold while the neighbors differ by less than half the threshold.
+
+## Modbus write protocol
+
+Per the [givenergy-modbus](https://github.com/dewet22/givenergy-modbus) reference library:
+
+- **Function code 6** (Write Single Holding Register) — one register per request
+- **Device address 0x11** (inverter setup address) — NOT 0x32 (BMS/poll address)
+- **CRC/check**: `CrcModbus(function_code + register + value)` — computed per the reference library
+- **Slot clearing**: write `0` (not sentinel 60) — `00:00–00:00` is treated as disabled
+- **Retry policy**: 6 attempts with 2s delay for exception code 67 (dongle busy); fail fast and continue
+
+Known limitation: register 32 (charge slot 2 end time) consistently returns exception 67 on some inverters despite being in the reference library's safe-write list. The system handles this gracefully — `enable_charge` flag still updates correctly.
+
+## TypeScript quirks
+
+- `verbatimModuleSyntax: true` — use `import type` for type-only imports
+- `erasableSyntaxOnly: true` — no `enum`, no `namespace`, no `constructor parameter properties`
+- `noUnusedLocals` / `noUnusedParameters` — both on; declarations must be used
+- ESLint rule `react-hooks/set-state-in-effect` — do not call `setState` directly inside `useEffect`; use key-based remounting or derived values instead
+
+## Rust testing
+
+All tests are `#[cfg(test)]` unit tests inside each module. Run with:
+
+```
+cd src-tauri && cargo test
+```
+
+No integration tests or test fixtures exist. The Modbus client tests use a mock TCP server.
+
+## Build artifacts
+
+- `dist/` — Vite output (frontend)
+- `src-tauri/target/` — Rust build output
+- `node_modules/.tmp/tsconfig.*.tsbuildinfo` — TypeScript incremental build info
+
+## Headless server mode (Linux)
+
+Run without a Tauri window — just the Axum HTTP/WS server and Modbus poll loop. Ideal for Raspberry Pi or always-on servers.
+
+```bash
+# Build the frontend first
+npm run build
+
+# Build the binary
+cd src-tauri && cargo build --release
+
+# Run headless
+./target/release/givenergy-local --headless
+./target/release/givenergy-local --headless --port 8080
+./target/release/givenergy-local --headless --dist /path/to/dist
+```
+
+The `--dist` flag specifies the frontend static files directory. Search order: `--dist` arg > `./dist/` (cwd) > `<exe_dir>/dist/` > `/usr/share/givenergy-local/dist/`. If no dist is found, runs API-only (REST + WebSocket still work).
+
+## Known issues
+
+### macOS 26.5 blocks ad-hoc signed binaries
+
+**Symptom**: The app binary silently exits with no output and no port 7337 when
+the .app bundle is installed in `/Applications`. Same binary runs fine from
+Desktop, `/tmp`, or any user-level directory.
+
+**Root cause**: macOS 26.5 (Sequoia) now blocks ad-hoc signed binaries
+(`signingIdentity: "-"` in tauri.conf.json) from running inside the system
+`/Applications` directory. This is stricter than previous macOS versions —
+even running the binary directly via terminal fails, not just `open`.
+
+**Three separate issues found on macOS 26.5**:
+
+| Issue | Trigger | Status |
+|---|---|---|
+| 1. `/Applications` block | Binary launched from `/Applications` | **Fixed** (FAQ + launch.command) |
+| 2. Gatekeeper blocks `open` | `open GivEnergy-Local.app` or double-click | **Fixed** (FAQ + launch.command) |
+| 3. x86_64 binary crashes under Rosetta | macOS 26.5 + Rosetta | **Fixed** (FAQ recommends aarch64) |
+
+**CI fix implemented**:
+The `.github/workflows/build.yml` now includes a `Customize macOS DMG` step that:
+
+1. Removes the misleading `/Applications` symlink from the DMG
+2. Adds a `README.txt` with install instructions (drag to Desktop, not /Applications)
+3. Rebuilds the DMG with these changes
+
+The workflow uses manual `cargo tauri build` + `softprops/action-gh-release` instead
+of `tauri-action` so the DMG can be customized before upload.
+
+**Workaround for end users**:
+
+- Download `GivEnergy-Local_aarch64.app.tar.gz` from releases (not the DMG)
+- Or install the .app on Desktop, not in /Applications
+- Run via `./launch.command` in the project root (searches Desktop first)
+
+**Known good archs**:
+
+- The aarch64 (ARM64) app works correctly from Desktop
+- The x86_64 (Intel) app crashes silently under Rosetta on macOS 26.5+
+- The aarch64.app.tar.gz release artifact contains the correct binary
+- The aarch64.dmg release artifact has the correct binary but misleading
+  /Applications symlink
+
+## Release process
+
+1. Bump version in `package.json`, `src-tauri/Cargo.toml`, `src-tauri/tauri.conf.json`
+2. Update `CHANGELOG.md`
+3. Commit, tag (`vX.Y.Z`), push tag
+4. GitHub Actions workflow (`.github/workflows/build.yml`) builds for macOS (ARM + x64), Linux, Windows and creates a GitHub Release with binaries attached
+
+---
+> Source: [psylsph/home-energy-manager](https://github.com/psylsph/home-energy-manager) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
