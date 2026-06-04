@@ -1,0 +1,9 @@
+{
+  "name": "lakekeeper--console",
+  "displayName": "console",
+  "description": "A leightweight UI for Lakekeeper",
+  "version": "1.0.0",
+  "author": "lakekeeper",
+  "homepage": "https://github.com/lakekeeper/console",
+  "skills": []
+}
