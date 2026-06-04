@@ -1,186 +1,454 @@
-## component-patterns
+## database-schema
 
-> This document outlines the component patterns and best practices used in the ResearchHub codebase.
+> This document provides architectural and relationship information about the ResearchHub PostgreSQL database, complementing the detailed table specifications in `database-tables.cursor-rules`.
 
- # ResearchHub Component Patterns
+# ResearchHub Database Architecture (Cursor Rule)
 
-This document outlines the component patterns and best practices used in the ResearchHub codebase.
+This document provides architectural and relationship information about the ResearchHub PostgreSQL database, complementing the detailed table specifications in `database-tables.cursor-rules`.
 
-## Component Structure
+## System Architecture Overview
 
-All React components in ResearchHub should follow these guidelines:
+ResearchHub's database design implements a domain-driven approach centered around research content, with several key architectural patterns:
 
-1. **Use Functional Components**:
-   - Always use functional components with hooks, not class components
-   - Use arrow function syntax for component definitions
+1. **Unified Document Model**: Content (papers, posts, notes) is abstracted through a unified document system
+2. **Polymorphic Relationships**: Generic relations support flexible content relationships
+3. **Reputation Economy**: A complete transaction system for academic reputation
+4. **Hub-based Organization**: Content categorization through research fields
+5. **User Identity System**: Separates user accounts from author profiles
+6. **Nonprofit Integration**: Supports fundraising for nonprofit organizations through the Endaoment service
 
-   ```tsx
-   const MyComponent = () => {
-     // Component logic here
-     return <div>Component content</div>;
-   };
+## Entity Relationship Diagram (Conceptual)
+
+```
+[USER SYSTEM]                     [CONTENT SYSTEM]                     [ORGANIZATION SYSTEM]
++----+                  +---+                 +----+
+| user_user   | <----> | paper_paper      | <----> | hub_hub     |
++----+                  +---+                 +----+
+       |                                |                                   |
+       v                                v                                   v
++----+                  +---+                 +----+
+| user_author | <----> | discussion_thread | <----> | topic_topic |
++----+                  +---+                 +----+
+       |                                |                                   |
+       v                                v                                   |
++----+                  +---+                      |
+| user_action | <----> | reputation_score  | <----+
++----+                  +---+
+
+[NONPROFIT SYSTEM]
++---------------+                 +---------------+
+| nonprofit_org | <-------------> | purchase_fundraise |
++---------------+                 +---------------+
+       |                                |
+       v                                v
++------------------------+
+| nonprofit_fundraise_link |
++------------------------+
+```
+
+## Domain Models
+
+### Content Domain
+
+The content model centers around unified documents that can represent different types of content:
+
+1. **Papers** (`paper_paper`): Research papers, which can be:
+   - Imported from external sources with DOIs
+   - Uploaded directly by users
+   - Created as preprints within the system
+
+2. **Discussions** (`discussion_thread`): Conversations that can be:
+   - Attached to papers
+   - Created as standalone discussions
+   - Function as comments on other content
+
+3. **Posts** (`researchhub_document_researchhubpost`): User-generated content that can be:
+   - Research summaries
+   - Commentary
+   - Blog-style posts
+
+All content connects through the `researchhub_document_researchhubunifieddocument` table, which establishes a polymorphic pattern allowing different content types to be treated uniformly in many contexts.
+
+### User Domain
+
+The user model separates identity from academic profile:
+
+1. **User Accounts** (`user_user`): Authentication and platform identity
+2. **Author Profiles** (`user_author`): Academic identity and credentials
+3. **Verification** (`user_userverification`): Processes for validating academic credentials
+
+This separation enables:
+- One user to manage multiple author profiles
+- Author identity verification without affecting user account access
+- Academic metrics separate from platform activity metrics
+
+### Reputation Domain
+
+The reputation system implements a complete economic model:
+
+1. **Scoring** (`reputation_score`): Point values representing academic impact
+2. **Transactions** (`reputation_distribution`): Movement of reputation between users
+3. **Incentives** (`reputation_bounty`): Rewards for valuable contributions
+4. **Escrow** (`reputation_escrow`): Holding system for reputation in process
+
+### Organization Domain
+
+Content is organized through multiple taxonomies:
+
+1. **Hubs** (`hub_hub`): Primary research field categorization
+2. **Topics** (`topic_topic`): Finer-grained subject matter classification
+3. **Concepts** (`researchhub_document_unifieddocumentconcepts`): Specific concepts within content
+
+## Key Relationships
+
+### Content to Users
+
+Content links to users through multiple relationship types:
+
+1. **Authorship**: `paper_authorship` connects papers to authors
+2. **Creation**: Most content has a `created_by_id` reference to `user_user`
+3. **Interaction**: `discussion_vote`, `user_action` track user interactions with content
+
+### Content Organization
+
+Content is organized through:
+
+1. **Hub Assignment**: `researchhub_document_researchhubunifieddocument_hubs` junction table
+2. **Topic Association**: `topic_unifieddocumenttopics` relevancy-scored connections
+3. **Hierarchy**: Topics belong to subfields, which belong to fields
+
+### Polymorphic Relationships
+
+The system uses Django's ContentType framework for polymorphic relationships:
+
+1. **Content Type ID**: References the `django_content_type` table to identify model types
+2. **Object ID**: References the primary key of the specific instance
+3. Together they create a "generic foreign key" pattern used in:
+   - `user_action`
+   - `discussion_vote`
+   - `reputation_distribution` 
+   - `reputation_bounty`
+
+## Core Workflows
+
+### Nonprofit Fundraising Workflow
+
+```
+                                             ┌─── Search for Nonprofit
+                                             │
+User → Create Fundraise → Select Nonprofit → Link to Document → Process Donations
+                                             │
+                                             └─── Distribute Funds
+```
+
+Implementation path:
+1. Search for nonprofit via Endaoment API
+2. Create or select a nonprofit entry in `nonprofit_org`
+3. Create a fundraise in `purchase_fundraise`
+4. Link them through `nonprofit_fundraise_link`
+5. Process donations and distribute funds
+
+### Paper Publication Workflow
+
+```
+                                             ┌─── Assign Topics
+                                             │
+User → Upload Paper → Create Unified Doc → Assign Hubs → Link Authors → Add Metadata
+                                             │
+                                             └─── Calculate Score
+```
+
+Implementation path:
+1. Insert into `paper_paper`
+2. Create entry in `researchhub_document_researchhubunifieddocument`
+3. Link to hubs via `researchhub_document_researchhubunifieddocument_hubs`
+4. Create entries in `paper_authorship`
+5. Assign topics via `topic_unifieddocumenttopics`
+6. Update metrics (score, views, etc.)
+
+### Discussion Creation Workflow
+
+```
+                                              ┌─── Award Reputation
+                                              │
+User → Create Thread → Link to Paper/Post → Update Feeds → Update Metrics
+                                              │
+                                              └─── Notify Subscribers
+```
+
+Implementation path:
+1. Insert into `discussion_thread`
+2. Link to paper or post through `paper_id` or generic relation
+3. Create feed entries in `feed_feedentry`
+4. Award reputation through `reputation_distribution`
+5. Update content metrics (discussion_count, etc.)
+
+### Reputation Transaction Workflow
+
+```
+                                             ┌─── Update Sender Balance
+                                             │
+User → Vote/Reward → Create Distribution → Update Recipient Score → Record History
+                                             │
+                                             └─── Update Content Score
+```
+
+Implementation path:
+1. Create entry in triggering table (e.g., `discussion_vote`)
+2. Create distribution in `reputation_distribution`
+3. Update scores in `reputation_score`
+4. Record history in `reputation_scorechange`
+5. Update content metrics (score, etc.)
+
+## Query Optimization Guidelines
+
+### Nonprofit Query Patterns
+
+When performing nonprofit-related queries:
+
+1. **Search via External API**:
+   ```sql
+   -- Avoid directly querying the database for nonprofits not yet in the system
+   -- Instead, use the Endaoment API for initial searches
+   -- Then store results in nonprofit_org for future reference
    ```
 
-2. **Type Definitions**:
-   - Define prop types using TypeScript interfaces
-   - Place the interface directly above the component
-   - Use descriptive names for interfaces (e.g., `ButtonProps`, `UserProfileProps`)
-
-   ```tsx
-   interface MyComponentProps {
-     title: string;
-     isActive?: boolean;
-     onClick: () => void;
-   }
-
-   const MyComponent = ({ title, isActive = false, onClick }: MyComponentProps) => {
-     // Component logic here
-   };
+2. **Fundraise Relationships**:
+   ```sql
+   -- Good: Efficient join through the link table
+   SELECT n.name, n.ein, f.goal_amount
+   FROM nonprofit_org n
+   JOIN nonprofit_fundraise_link nfl ON n.id = nfl.nonprofit_id
+   JOIN purchase_fundraise f ON nfl.fundraise_id = f.id
+   WHERE f.unified_document_id = 123
    ```
 
-3. **Client Components**:
-   - Add the 'use client' directive at the top of client components
-   - Keep server components as the default when possible for better performance
+### Indexing Strategy
 
-   ```tsx
-   'use client';
+The database employs strategic indexing to optimize performance:
 
-   import { useState } from 'react';
+1. **Compound Indexes**:
+   - `(content_type_id, object_id)` for polymorphic lookups
+   - `(author_id, hub_id)` for reputation queries
+   - `(unified_document_id, is_public)` for content filtering
 
-   const ClientComponent = () => {
-     const [state, setState] = useState(false);
-     // Component logic here
-   };
+2. **Text Search Indexes**:
+   - `paper_paper.title` and `paper_paper.abstract` for paper search
+   - `discussion_thread.plain_text` for content search
+
+3. **Foreign Key Indexes**:
+   - All foreign key columns are indexed
+   - Junction tables have indexes on both sides of relationships
+
+### Query Optimization Patterns
+
+When writing queries, follow these patterns for optimal performance:
+
+1. **Use Unified Document IDs**:
+   ```sql
+   -- Good: Query through unified document
+   SELECT * FROM paper_paper WHERE unified_document_id IN 
+     (SELECT id FROM researchhub_document_researchhubunifieddocument WHERE score > 100)
+   
+   -- Avoid: Multiple separate queries
+   SELECT * FROM paper_paper WHERE score > 100
+   UNION
+   SELECT * FROM researchhub_document_researchhubpost WHERE score > 100
    ```
 
-## Component Organization
-
-1. **Order within components**:
-   - Imports
-   - Type definitions
-   - Helper functions/constants
-   - Main component
-   - Exports
-
-2. **Props destructuring**:
-   - Always destructure props in the function parameters
-   - Provide default values inline when appropriate
-
-   ```tsx
-   const Button = ({ 
-     variant = 'default',
-     size = 'md',
-     children,
-     ...props
-   }: ButtonProps) => {
-     // Component logic
-   };
+2. **Filter Early in Joins**:
+   ```sql
+   -- Good: Filter before joining
+   SELECT p.* FROM paper_paper p
+   JOIN (SELECT unified_document_id FROM researchhub_document_researchhubunifieddocument_hubs 
+        WHERE hub_id = 123) h ON p.unified_document_id = h.unified_document_id
+   
+   -- Avoid: Filter after joining multiple tables
+   SELECT p.* FROM paper_paper p
+   JOIN researchhub_document_researchhubunifieddocument_hubs uh ON p.unified_document_id = uh.unified_document_id
+   JOIN hub_hub h ON uh.hub_id = h.id
+   WHERE h.id = 123
    ```
 
-## Styling Approach
-
-1. **Tailwind CSS**:
-   - Use Tailwind CSS utility classes for styling
-   - For complex components, use Tailwind's composition patterns
-   - Use the `cn()` utility for conditional class names
-
-   ```tsx
-   import { cn } from '@/utils/styles';
-
-   const Button = ({ className, variant }: ButtonProps) => {
-     return (
-       <button 
-         className={cn(
-           "px-4 py-2 rounded-md",
-           variant === 'primary' ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-800',
-           className
-         )}
-       >
-         {children}
-       </button>
-     );
-   };
+3. **Use Content Type Lookups Efficiently**:
+   ```sql
+   -- Good: Pre-resolve content type
+   SELECT * FROM discussion_vote 
+   WHERE content_type_id = (SELECT id FROM django_content_type 
+                           WHERE app_label = 'discussion' AND model = 'thread')
+   AND object_id = 123
+   
+   -- Avoid: Multiple joins for simple lookups
+   SELECT * FROM discussion_vote v
+   JOIN django_content_type ct ON v.content_type_id = ct.id
+   WHERE ct.app_label = 'discussion' AND ct.model = 'thread' 
+   AND v.object_id = 123
    ```
 
-2. **Variants with class-variance-authority**:
-   - Use `class-variance-authority` (cva) for components with multiple variants
-   - Define all variants in a single `cva` call
-   - Reference the variant styles in the component
+## Transaction Management
 
-   ```tsx
-   const buttonVariants = cva(
-     'rounded-md font-medium transition-colors',
-     {
-       variants: {
-         variant: {
-           default: 'bg-primary-600 text-white hover:bg-primary-700',
-           secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
-         },
-         size: {
-           sm: 'px-2 py-1 text-sm',
-           md: 'px-4 py-2',
-           lg: 'px-6 py-3 text-lg',
-         },
-       },
-       defaultVariants: {
-         variant: 'default',
-         size: 'md',
-       },
-     }
-   );
-   ```
+The database requires careful transaction management in several areas:
 
-## State Management
+### Reputation Transactions
 
-1. **Local State**:
-   - Use `useState` for component-specific state
-   - Use `useReducer` for complex state logic
+Reputation transactions should follow ACID principles:
 
-2. **Shared State**:
-   - Use React Context for state that needs to be shared across multiple components
-   - Create dedicated context providers in the `contexts/` directory
+1. **Atomicity**: Use database transactions to ensure distributions and score updates happen together
+2. **Consistency**: Verify reputation totals match distributions
+3. **Isolation**: Lock reputation records during updates to prevent race conditions
+4. **Durability**: Ensure score changes are committed before notifying users
 
-3. **Derived State**:
-   - Use `useMemo` for expensive computations
-   - Use `useCallback` for functions that are passed as props to prevent unnecessary re-renders
+Example transaction:
+```sql
+BEGIN;
+-- Create distribution
+INSERT INTO reputation_distribution (sender_id, recipient_id, amount, ...) 
+VALUES (1, 2, 10, ...);
 
-## Component Composition
+-- Update recipient score
+UPDATE reputation_score 
+SET score = score + 10
+WHERE author_id = 2 AND hub_id = 3;
 
-1. **Component Props**:
-   - Accept a `className` prop for styling customization
-   - Use the spread operator for passing additional props
+-- Record history
+INSERT INTO reputation_scorechange (score_id, score_change, ...) 
+VALUES (123, 10, ...);
+COMMIT;
+```
 
-   ```tsx
-   const Button = ({ className, children, ...props }: ButtonProps) => {
-     return (
-       <button className={cn("default-styles", className)} {...props}>
-         {children}
-       </button>
-     );
-   };
-   ```
+### Content Relationship Integrity
 
-2. **Composition Patterns**:
-   - Use the children prop for component composition
-   - Use render props for complex rendering logic
-   - Use compound components for related UI elements
+When creating or modifying content relationships:
 
-## Performance Optimization
+1. Create the primary content entity first
+2. Establish the unified document connection
+3. Create dependent relationships within the same transaction
+4. Update denormalized counters and metrics
 
-1. **Memoization**:
-   - Use `React.memo` for pure functional components that render often
-   - Use `useMemo` for expensive calculations
-   - Use `useCallback` for event handlers that are passed to child components
+## Data Migration Considerations
 
-2. **Code Splitting**:
-   - Use dynamic imports for large components
-   - Use Next.js's built-in code splitting features
+When migrating or evolving the schema:
 
-3. **Rendering Optimization**:
-   - Avoid unnecessary re-renders by using proper dependency arrays in hooks
-   - Implement virtualization for long lists with many items
+1. **Denormalized Fields**: Several tables contain denormalized count fields that must be updated when related data changes
+2. **Polymorphic Relationships**: Changes to model names require updates to `django_content_type` references
+3. **Score Recalculation**: Reputation scores may need recalculation after structural changes
 
-These patterns ensure consistent, maintainable, and performant components throughout the ResearchHub application.
+## Common Query Examples
+
+### Paper Lookup with Related Information
+
+Find a paper with all related metadata, including authors, hubs, and metrics:
+
+```sql
+SELECT 
+    p.id, p.title, p.doi, p.abstract,
+    p.score, p.citations, p.views, p.downloads,
+    STRING_AGG(DISTINCT a.raw_author_name, ', ') AS authors,
+    STRING_AGG(DISTINCT h.name, ', ') AS hubs,
+    COUNT(DISTINCT dt.id) AS thread_count
+FROM 
+    paper_paper p
+    LEFT JOIN paper_authorship a ON p.id = a.paper_id
+    LEFT JOIN researchhub_document_researchhubunifieddocument_hubs rdh 
+        ON p.unified_document_id = rdh.researchhubunifieddocument_id
+    LEFT JOIN hub_hub h ON rdh.hub_id = h.id
+    LEFT JOIN discussion_thread dt ON dt.paper_id = p.id
+WHERE 
+    p.doi = '10.1234/example.doi'
+    OR p.id = 12345
+GROUP BY 
+    p.id;
+```
+
+### Finding Active Contributors
+
+Identify the most active contributors in a specific research field:
+
+```sql
+SELECT 
+    u.id, u.username, 
+    ua.first_name, ua.last_name,
+    COUNT(DISTINCT p.id) AS paper_count,
+    COUNT(DISTINCT dt.id) AS discussion_count,
+    SUM(rs.score) AS total_reputation
+FROM 
+    user_user u
+    JOIN user_author ua ON u.id = ua.user_id
+    LEFT JOIN paper_authorship pa ON ua.id = pa.author_id
+    LEFT JOIN paper_paper p ON pa.paper_id = p.id
+    LEFT JOIN discussion_thread dt ON dt.created_by_id = u.id
+    LEFT JOIN reputation_score rs ON ua.id = rs.author_id
+WHERE 
+    rs.hub_id IN (
+        SELECT id FROM hub_hub WHERE name LIKE '%Neuroscience%'
+    )
+    AND dt.created_date >= NOW() - INTERVAL '6 months'
+GROUP BY 
+    u.id, ua.id
+ORDER BY 
+    total_reputation DESC
+LIMIT 20;
+```
+
+### Content Recommendation Query
+
+Find relevant papers for a user based on their interests and activity:
+
+```sql
+WITH user_hubs AS (
+    SELECT DISTINCT h.id
+    FROM hub_hub h
+    JOIN researchhub_document_researchhubunifieddocument_hubs hd ON h.id = hd.hub_id
+    JOIN paper_paper p ON p.unified_document_id = hd.researchhubunifieddocument_id
+    JOIN paper_authorship pa ON p.id = pa.paper_id
+    WHERE pa.author_id = 123
+    
+    UNION
+    
+    SELECT h.id
+    FROM hub_hub h
+    JOIN user_follow uf ON h.id = uf.object_id
+    WHERE uf.user_id = 456
+    AND uf.content_type_id = (SELECT id FROM django_content_type WHERE app_label = 'hub' AND model = 'hub')
+),
+user_topics AS (
+    SELECT DISTINCT t.id
+    FROM topic_topic t
+    JOIN topic_unifieddocumenttopics tud ON t.id = tud.topic_id
+    JOIN paper_paper p ON p.unified_document_id = tud.unified_document_id
+    JOIN discussion_thread dt ON dt.paper_id = p.id
+    WHERE dt.created_by_id = 456
+)
+SELECT 
+    p.id, p.title, p.doi,
+    p.score * 0.5 + p.citations * 0.3 + p.downloads * 0.2 AS relevance_score
+FROM 
+    paper_paper p
+    JOIN researchhub_document_researchhubunifieddocument_hubs hd 
+        ON p.unified_document_id = hd.researchhubunifieddocument_id
+    JOIN topic_unifieddocumenttopics tud ON p.unified_document_id = tud.unified_document_id
+WHERE 
+    hd.hub_id IN (SELECT id FROM user_hubs)
+    AND tud.topic_id IN (SELECT id FROM user_topics)
+    AND p.is_public = TRUE
+    AND p.is_removed = FALSE
+    AND p.created_date >= NOW() - INTERVAL '1 year'
+ORDER BY 
+    relevance_score DESC
+LIMIT 10;
+```
+
+## Schema Evolution Best Practices
+
+When modifying the ResearchHub database schema, follow these guidelines:
+
+1. **Backward Compatibility**: Keep existing relationships functional during transitions
+2. **Transaction Safety**: Ensure migrations can be rolled back cleanly
+3. **Data Validation**: Verify data integrity before and after migrations
+4. **Performance Impact**: Consider query patterns when adding or removing indexes
+5. **Polymorphic Relations**: Update content types appropriately when modifying models
+
+For detailed table information, refer to `database-tables.cursor-rules`.
 
 ---
 > Source: [ResearchHub/web](https://github.com/ResearchHub/web) — distributed by [TomeVault](https://tomevault.io).
