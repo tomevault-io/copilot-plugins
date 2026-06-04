@@ -1,0 +1,9 @@
+{
+  "name": "1mrat--cursor-taskrunner",
+  "displayName": "cursor-taskrunner",
+  "description": "This is a proof of concept that shows how you can get cursor to execute tasks like creating images. It require the new composer multi file edit mode.",
+  "version": "1.0.0",
+  "author": "1mrat",
+  "homepage": "https://github.com/1mrat/cursor-taskrunner",
+  "skills": []
+}
