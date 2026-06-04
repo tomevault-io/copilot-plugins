@@ -1,90 +1,32 @@
-## cci-task-definitions
+## doc-review
 
-> CumulusCI task and flow definition conventions — naming, groups, feature flags, flow/task authoring, YAML anchors
+> Reminder to verify documentation consistency after code changes — task names, flag tables, plan READMEs, generated references
 
 
-# CCI Task/Flow Definition Rules
+# Documentation Consistency Reminder
 
-## After Editing
+After editing files that match this rule, follow the doc-consistency skill
+at `.cursor/skills/doc-consistency/SKILL.md`.
 
-Regenerate the CCI skill reference files:
+## Quick checks
 
-```bash
-python scripts/ai/generate_cci_reference.py
-```
+1. **`cumulusci.yml`** — run `python scripts/ai/generate_cci_reference.py`
+   and commit updated reference files. If you renamed a task, grep for the
+   old name in `README.md`, `AGENTS.md`, `docs/`, and `.cursor/skills/`.
 
-## DO NOT
+2. **`tasks/*.py`** — verify the task `description` in `cumulusci.yml` and
+   the `README.md` Custom Tasks table still match the class behavior.
 
-- Skip `group:` on tasks or flows
-- List excluded objects in task descriptions
-- Use `$$` syntax in `when:` conditions (use `project_config.project__custom__<flag>`)
-- Add steps to `prepare_rlm_org` before their dependencies are deployed
+3. **`export.json` / SFDMU CSVs** — update the plan's `README.md` in the
+   same commit. Run `python scripts/validate_sfdmu_v5_datasets.py`.
 
-## Task Naming
+4. **`robot/**`** — check `robot-testing/SKILL.md` task tables and
+   `README.md` troubleshooting if the suite name or behavior changed.
 
-| Pattern | Purpose |
-|---------|---------|
-| `insert_qb_{plan}_data` | Load a data plan |
-| `delete_qb_{plan}_data` | Delete plan data |
-| `extract_qb_{plan}_data` | Extract from org |
-| `test_qb_{plan}_idempotency` | Idempotency test |
-| `activate_{thing}` | Apex activation script |
-| `deploy_*` | Deploy metadata bundles |
-| `refresh_dt_*` | Refresh decision tables |
-| `manage_*` | Comprehensive management tasks |
+5. **`.cursor/skills/**`** — if adding a new skill or sub-file, register
+   it in `AGENTS.md` (Skill Index / Sub-Files) and `.cursor/skills/README.md`.
 
-## Required Fields
-
-```yaml
-tasks:
-  my_task_name:
-    group: Data Maintenance    # Required — groups tasks in cci task list
-    description: >
-      Specific description of what objects/SObjects are affected.
-    class_path: tasks.rlm_sfdmu.LoadSFDMUData
-    options:
-      pathtoexportjson: datasets/sfdmu/qb/en-US/qb-pricing
-```
-
-## Task Groups
-
-| Group | Purpose |
-|-------|---------|
-| `Revenue Lifecycle Management` | Core RLM tasks |
-| `Data Maintenance` | Delete/reset data plans |
-| `Data Management - Extract` | Extract data from org to CSV |
-| `Data Management - Idempotency` | Idempotency tests |
-| `UX Personalization` | Flexipage/layout/profile assembly |
-| `E2E Testing` | Robot Framework UI tests |
-| `Partner Relationship Management` | PRM-specific tasks |
-
-## Feature Flags
-
-- Defined under `project.custom` — boolean flags
-- `when: project_config.project__custom__billing`
-- Compound: `when: project_config.project__custom__dro and project_config.project__custom__qb`
-- Negation: `when: not project_config.project__custom__refresh`
-- Scratch org: `when: org_config.scratch and not project_config.project__custom__tso`
-
-## Flow Steps
-
-Steps are integer keys. Flows can call other flows or tasks:
-
-```yaml
-flows:
-  my_flow:
-    group: Revenue Lifecycle Management
-    description: What this flow does.
-    steps:
-      1:
-        flow: prepare_core
-      2:
-        task: deploy_full
-        when: project_config.project__custom__billing
-```
-
-For detailed YAML anchor patterns, `prepare_rlm_org` step ordering, and
-`org_config.scratch` usage, see `.cursor/skills/cci-orchestration/SKILL.md`.
+For the full change-surface map, read `.cursor/skills/doc-consistency/SKILL.md`.
 
 ---
 > Source: [bgaldino/rlm-base-dev](https://github.com/bgaldino/rlm-base-dev) — distributed by [TomeVault](https://tomevault.io).
