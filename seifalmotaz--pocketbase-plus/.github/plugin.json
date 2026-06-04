@@ -1,0 +1,9 @@
+{
+  "name": "seifalmotaz--pocketbase-plus",
+  "displayName": "pocketbase_plus",
+  "description": "Pocketbase Plus is a Dart package that automates model generation for your PocketBase projects. Quick setup, less boilerplate, more time to build awesome apps!",
+  "version": "1.0.0",
+  "author": "seifalmotaz",
+  "homepage": "https://github.com/seifalmotaz/pocketbase_plus",
+  "skills": []
+}
