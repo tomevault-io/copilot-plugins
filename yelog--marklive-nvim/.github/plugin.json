@@ -1,0 +1,9 @@
+{
+  "name": "yelog--marklive-nvim",
+  "displayName": "marklive.nvim",
+  "description": "A Neovim plugin for rendering markdown files in terminal",
+  "version": "1.0.0",
+  "author": "yelog",
+  "homepage": "https://github.com/yelog/marklive.nvim",
+  "skills": []
+}
