@@ -1,7 +1,7 @@
 {
   "name": "jezachen--pyqtinspect-open",
   "displayName": "PyQtInspect-Open",
-  "description": "PyQtInspect-Open",
+  "description": "An inspection tool for PyQt/PySide applications like Chrome DevTools.",
   "version": "1.0.0",
   "author": "JezaChen",
   "homepage": "https://github.com/JezaChen/PyQtInspect-Open",
