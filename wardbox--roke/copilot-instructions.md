@@ -1,15 +1,62 @@
-## performance
+## project-structure
 
-> Performance
+> Project Structure Guidelines
 
-# Performance
+# Project Structure Guidelines
 
-- Use proper key props in lists
-- Use precaching for routes where it makes sense
-- Use proper caching strategies
-- Implement proper data fetching patterns
-- Use proper React Query configurations
-- Use proper code splitting
+**Description**: Feature-based organization pattern for the Roke app
+
+## Feature-Based Organization
+
+- Organize code by features in the src root: `src/auth`, `src/events`,
+  `src/landing`, etc.
+- Each feature folder contains:
+  - Page components: `src/feature/FeaturePage.tsx`
+  - Operations: `src/feature/operations.ts` (for both actions and queries)
+  - Components: `src/feature/components/ComponentName.tsx`
+
+## Example Structure
+
+```
+src/
+  ├── auth/
+  │   ├── LoginPage.tsx
+  │   ├── RegisterPage.tsx
+  │   ├── operations.ts
+  │   └── components/
+  │       ├── LoginForm.tsx
+  │       └── RegisterForm.tsx
+  ├── events/
+  │   ├── EventsPage.tsx
+  │   ├── EventDetailPage.tsx
+  │   ├── operations.ts
+  │   └── components/
+  │       ├── EventCard.tsx
+  │       └── EventFilter.tsx
+  ├── landing/
+  │   ├── LandingPage.tsx
+  │   └── components/
+  │       ├── Hero.tsx
+  │       └── FeatureSection.tsx
+  ├── root/
+  │   ├── RootPage.tsx
+  │   ├── operations.ts
+  │   └── components/
+  │       ├── Navbar.tsx
+  │       └── Footer.tsx
+  └── shared/
+      ├── utils.ts
+      └── components/
+          ├── Button.tsx
+          └── Card.tsx
+```
+
+## File Naming
+
+- Use PascalCase for component files: `EventCard.tsx`
+- Use camelCase for utility files: `operations.ts`, `utils.ts`
+- Use .tsx extension for React components
+- Use .ts extension for non-React files
 
 ---
 > Source: [wardbox/roke](https://github.com/wardbox/roke) — distributed by [TomeVault](https://tomevault.io).
