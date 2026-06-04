@@ -1,0 +1,9 @@
+{
+  "name": "gashiartim--pebble",
+  "displayName": "pebble",
+  "description": "Menu-bar text-polish tool that rewrites your clipboard with a local Ollama model. One global shortcut, seven presets, no cloud.",
+  "version": "1.0.0",
+  "author": "gashiartim",
+  "homepage": "https://github.com/gashiartim/pebble",
+  "skills": []
+}
