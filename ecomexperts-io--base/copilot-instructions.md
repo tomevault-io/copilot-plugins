@@ -1,85 +1,134 @@
-## sections
+## snippets
 
-> Section coding standards and best practices guide
+> Every snippet must include JSDoc-style comments using LiquidDoc:
 
-# Section Development Standards
+# Snippet Development Standards
 
-## Section Requirements
+## Snippet Documentation
 
-Every section must include:
+Every snippet must include JSDoc-style comments using LiquidDoc:
 
-- `{% schema %}` tag with valid JSON
-- Proper HTML semantic structure
-- CSS scoping with section classes
-- Translation keys for all text
+```liquid
+{% doc %}
+  Product Card Component
 
-## Section Patterns
+  Renders a product card with customizable options.
 
-**Basic Section Structure:**
+  @param product {Object} Product object (required)
+  @param show_vendor {Boolean} Display vendor name (default: false)
+  @param show_quick_add {Boolean} Show quick add button (default: false)
+  @param image_ratio {String} Image aspect ratio (default: 'adapt')
+  @param lazy_load {Boolean} Enable lazy loading (default: true)
+  @param card_class {String} Additional CSS classes
+
+  @example
+    {% render 'product-card',
+       product: product,
+       show_vendor: true,
+       image_ratio: 'square'
+    %}
+{% enddoc %}
+```
+
+## Parameter Handling
+
+Always provide defaults and validate parameters:
 
 ```liquid
 {% liquid
-  assign section_id = section.settings.custom_id | default: section.id
-  assign section_class = 'section-' | append: section.type
+  # Parameter validation and defaults
+  assign product = product | default: empty
+  assign show_vendor = show_vendor | default: false
+  assign show_quick_add = show_quick_add | default: false
+  assign image_ratio = image_ratio | default: 'adapt'
+  assign lazy_load = lazy_load | default: true
+  assign card_class = card_class | default: ''
+
+  # Early return if required parameters missing
+  unless product != empty
+    echo '<!-- Error: product parameter required for product-card snippet -->'
+    break
+  endunless
 %}
-
-<section
-  id="{{ section_id }}"
-  class="{{ section_class }}"
-  style="
-    --section-padding-top: {{ section.settings.padding_top }}px;
-    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-  "
->
-  <div class="page-width">
-    {% content_for 'blocks %}
-  </div>
-</section>
-
-{% stylesheet %}
-.{{ section_class }} {
-  padding-top: var(--section-padding-top, 40px);
-  padding-bottom: var(--section-padding-bottom, 40px);
-}
-{% endstylesheet %}
-
-{% schema %}
-{
-  "name": "t:names.section_name",
-  "tag": "section",
-  "class": "section-name",
-  "blocks": [
-    {"type": "@theme"},
-    {"type": "@app"}
-  ],
-  "settings": [
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "t:settings.padding",
-      "min": 0,
-      "max": 100,
-      "default": 40,
-      "unit": "px"
-    }
-  ],
-  "presets": [
-    {
-      "name": "t:names.section_name"
-    }
-  ]
-}
-{% endschema %}
 ```
 
-## Performance Patterns
+## Common Snippet Patterns
 
-- Use `{% liquid %}` for multiline logic
-- Lazy load images with `loading="lazy"`
-- Scope CSS variables to section
-- Use `container-queries` for responsive behavior
+**Icon Snippet:**
+```liquid
+{% comment %}
+  @param icon {String} Icon name (required)
+  @param size {String} Icon size class (default: 'icon--medium')
+  @param class {String} Additional classes
+{% endcomment %}
 
-[section-example.liquid](mdc:.cursor/rules/examples/section-example.liquid)
+{% liquid
+  assign icon = icon | default: ''
+  assign size = size | default: 'icon--medium'
+  assign class = class | default: ''
+
+  unless icon != blank
+    break
+  endunless
+%}
+
+<svg class="icon {{ size }} {{ class }}" aria-hidden="true" focusable="false">
+  <use href="#icon-{{ icon }}"></use>
+</svg>
+```
+
+**Price Snippet:**
+```liquid
+{% comment %}
+  @param product {Object} Product object (required)
+  @param show_compare_at {Boolean} Show compare at price (default: true)
+  @param show_unit_price {Boolean} Show unit price (default: false)
+{% endcomment %}
+
+{% liquid
+  assign show_compare_at = show_compare_at | default: true
+  assign show_unit_price = show_unit_price | default: false
+%}
+
+<div class="price">
+  <div class="price__regular">
+    {{ product.price | money }}
+  </div>
+
+  {% if show_compare_at and product.compare_at_price > product.price %}
+    <div class="price__compare-at">
+      <s>{{ product.compare_at_price | money }}</s>
+    </div>
+  {% endif %}
+
+  {% if show_unit_price and product.selected_or_first_available_variant.unit_price_measurement %}
+    <div class="price__unit">
+      {{ product.selected_or_first_available_variant.unit_price | money }}/
+      {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+        {{ product.selected_or_first_available_variant.unit_price_measurement.reference_value }}
+      {%- endif -%}
+      {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+    </div>
+  {% endif %}
+</div>
+```
+
+## Testing Patterns
+
+Include testing scenarios in comments:
+
+```liquid
+{% comment %}
+  Test cases:
+  - Product with variants
+  - Product without image
+  - Product with compare_at_price
+  - Product with unit pricing
+  - Out of stock product
+{% endcomment %}
+```
+
+[snippet-example.liquid](mdc:.cursor/rules/examples/snippet-example.liquid)
 
 ---
 > Source: [EcomExperts-io/Base](https://github.com/EcomExperts-io/Base) — distributed by [TomeVault](https://tomevault.io).
