@@ -1,0 +1,9 @@
+{
+  "name": "1425sd--ai-memory-project",
+  "displayName": "AI-memory-project",
+  "description": "\u4e00\u4e2a\u7ed9 AI \u7f16\u7a0b\u52a9\u624b\u4f7f\u7528\u7684\u9879\u76ee\u4e0a\u4e0b\u6587\u6a21\u677f\u3002\u628a\u8fd9\u5957\u6587\u4ef6\u653e\u8fdb\u4efb\u610f\u9879\u76ee\u540e\uff0cAI \u53ef\u4ee5\u5148\u8bfb\u53d6\u9879\u76ee\u8bb0\u5fc6\u3001\u4efb\u52a1 backlog \u548c\u6587\u6863\u9aa8\u67b6\uff0c\u518d\u6839\u636e\u4f60\u7684\u786e\u8ba4\u4e00\u6b65\u4e00\u6b65\u6539\u4ee3\u7801\u3002",
+  "version": "1.0.0",
+  "author": "1425sd",
+  "homepage": "https://github.com/1425sd/AI-memory-project",
+  "skills": []
+}
