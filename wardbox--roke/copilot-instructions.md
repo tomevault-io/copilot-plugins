@@ -1,42 +1,23 @@
-## imports
+## index
 
-> Import rules and conventions for the project
+> **Description**: Core guidelines for the Roke Wasp application development
 
-# Import rules and conventions for the project
+# Roke Development Guidelines
 
-## Wasp Imports
+**Description**: Core guidelines for the Roke Wasp application development
 
-- Always import Wasp functions from 'wasp' package, not '@wasp' Do this:
-- `import { Event } from 'wasp/entities'`
-- `import { type GetEvents } from 'wasp/server/operations'`
-- `import { getEvents, useQuery } from 'wasp/client/operations'`
+## Overview
 
-Do not do this
+This directory contains development guidelines and best practices for the Roke
+application.
 
-- `import { ... } from '@wasp/...'`
+## Files
 
-## React Imports
+[project-structure.mdc](mdc:.cursor/rules/project-structure.mdc) [typescript.mdc](mdc:.cursor/rules/typescript.mdc) [wasp-general.md](mdc:.cursor/rules/wasp-general.md) [wasp-operations.md](mdc:.cursor/rules/wasp-operations.md) [schema-data-models.mdc](mdc:.cursor/rules/schema-data-models.mdc) [state-management-forms.mdc](mdc:.cursor/rules/state-management-forms.mdc) [styling.mdc](mdc:.cursor/rules/styling.mdc) [performance.mdc](mdc:.cursor/rules/performance.mdc) [routing.mdc](mdc:.cursor/rules/routing.mdc) [error-handling-accessibility.mdc](mdc:.cursor/rules/error-handling-accessibility.mdc) [imports.mdc](mdc:.cursor/rules/imports.mdc) [dependencies.mdc](mdc:.cursor/rules/dependencies.mdc)
 
-- Do not import React from 'react' because it's automatically imported
-- Import hooks directly from packages:
+## Top level rules
 
-Do this:
-
-- `import { useState } from 'react'`
-
-Do not do this:
-
-- `import React, { useState } from 'react'`
-
-## Motion Imports
-
-- Import from 'motion/react' instead of 'framer-motion' Do this:
-- `import { motion } from 'motion/react'` Do not do this:
-- `import { motion } from 'framer-motion'`
-
-## General Imports
-
-- Never use the @ alias in src code, use relative imports only
+- Don't leave comments in code unless they describe complex logic
 
 ---
 > Source: [wardbox/roke](https://github.com/wardbox/roke) — distributed by [TomeVault](https://tomevault.io).
