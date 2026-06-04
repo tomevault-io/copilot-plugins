@@ -4,7 +4,7 @@
   "repo": "url-macro",
   "description": "A compile-time URL validation macro. Parses and checks URLs at compile-time, converting valid URLs into `url::Url` objects. Provides early error detection for malformed URLs.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DenisGorbachev/url-macro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T23:37:19Z"
+  "distributed_at": "2026-06-04T23:39:58Z"
 }
