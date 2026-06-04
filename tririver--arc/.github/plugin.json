@@ -1,0 +1,9 @@
+{
+  "name": "tririver--arc",
+  "displayName": "arc",
+  "description": "Advanced Research Compass (ARC) is a set of skills and tools (MCP) for theoretical physics literature review, idea generation and performing calculations.",
+  "version": "1.0.0",
+  "author": "tririver",
+  "homepage": "https://github.com/tririver/arc",
+  "skills": []
+}
