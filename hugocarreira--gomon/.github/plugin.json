@@ -1,0 +1,9 @@
+{
+  "name": "hugocarreira--gomon",
+  "displayName": "gomon",
+  "description": "A nodemon-like file watcher for Go projects",
+  "version": "1.0.0",
+  "author": "hugocarreira",
+  "homepage": "https://github.com/hugocarreira/gomon",
+  "skills": []
+}
