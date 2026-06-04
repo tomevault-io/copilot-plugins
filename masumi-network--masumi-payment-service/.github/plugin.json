@@ -1,0 +1,9 @@
+{
+  "name": "masumi-network--masumi-payment-service",
+  "displayName": "masumi-payment-service",
+  "description": "masumi-payment-service",
+  "version": "1.0.0",
+  "author": "masumi-network",
+  "homepage": "https://github.com/masumi-network/masumi-payment-service",
+  "skills": []
+}
