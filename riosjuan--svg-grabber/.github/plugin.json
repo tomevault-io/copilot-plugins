@@ -1,0 +1,9 @@
+{
+  "name": "riosjuan--svg-grabber",
+  "displayName": "svg-grabber",
+  "description": "Open source chrome extension to quickly preview, download or copy inline or embedded SVG images from a website",
+  "version": "1.0.0",
+  "author": "riosjuan",
+  "homepage": "https://github.com/riosjuan/svg-grabber",
+  "skills": []
+}
