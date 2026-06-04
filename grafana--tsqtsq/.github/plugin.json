@@ -1,0 +1,9 @@
+{
+  "name": "grafana--tsqtsq",
+  "displayName": "tsqtsq",
+  "description": "tsqtsq - A PromQL Query Library",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/tsqtsq",
+  "skills": []
+}
