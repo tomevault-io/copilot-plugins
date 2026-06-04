@@ -1,0 +1,9 @@
+{
+  "name": "abapify--adt-cli",
+  "displayName": "adt-cli",
+  "description": "ABAP-relevant JS packages",
+  "version": "1.0.0",
+  "author": "abapify",
+  "homepage": "https://github.com/abapify/adt-cli",
+  "skills": []
+}
