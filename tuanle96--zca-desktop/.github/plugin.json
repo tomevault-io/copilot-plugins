@@ -1,0 +1,9 @@
+{
+  "name": "tuanle96--zca-desktop",
+  "displayName": "zca-desktop",
+  "description": "Unofficial personal-use Zalo desktop client built with Tauri, Rust, SvelteKit, and an optional encrypted cloud sync backend.",
+  "version": "1.0.0",
+  "author": "tuanle96",
+  "homepage": "https://github.com/tuanle96/zca-desktop",
+  "skills": []
+}
