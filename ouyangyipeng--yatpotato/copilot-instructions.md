@@ -1,108 +1,125 @@
-## change-tracking
+## coding-standards
 
-> 每当AI助手对代码库进行任何修改时，**必须**在项目根目录的 [README.md](mdc:README.md) 文件中记录这些变更。
+> - **变量和函数**: camelCase (例如: `getUserData`, `isVisible`)
 
-# 变更跟踪和记录规则
+# 代码规范和质量标准
 
-## 变更记录要求
+## JavaScript/React 代码风格
 
-每当AI助手对代码库进行任何修改时，**必须**在项目根目录的 [README.md](mdc:README.md) 文件中记录这些变更。
+### 命名约定
+- **变量和函数**: camelCase (例如: `getUserData`, `isVisible`)
+- **常量**: UPPER_SNAKE_CASE (例如: `API_BASE_URL`, `MAX_RETRY_COUNT`)
+- **组件**: PascalCase (例如: `DataStorageDemo`, `UserProfile`)
+- **文件名**: camelCase 或 PascalCase，保持一致性
 
-## 记录格式
+### 代码格式化
+- 使用 2 空格缩进
+- 行末不留空格
+- 文件末尾保留一个空行
+- 字符串优先使用单引号，JSX 属性使用双引号
 
-### 在README.md中添加变更日志部分
+### 函数和组件
+```javascript
+// 推荐：箭头函数用于简单组件
+const SimpleComponent = () => {
+  return <div>Hello World</div>;
+};
 
-如果README.md中没有"变更日志"或"Change Log"部分，需要添加以下格式的部分：
-
-```markdown
-## 变更日志
-
-### [日期] - AI助手变更记录
-
-#### 新增文件
-- `文件路径` - 文件描述和用途
-
-#### 修改文件
-- `文件路径` - 具体修改内容说明
-  - 添加了什么功能
-  - 修复了什么问题
-  - 重构了什么代码
-
-#### 删除文件
-- `文件路径` - 删除原因
-
----
+// 推荐：function 声明用于复杂组件
+function ComplexComponent({ prop1, prop2 }) {
+  const [state, setState] = useState(null);
+  
+  useEffect(() => {
+    // 副作用逻辑
+  }, []);
+  
+  return (
+    <div>
+      {/* JSX 内容 */}
+    </div>
+  );
+}
 ```
 
-## 记录内容要求
+## 依赖管理
 
-### 必须记录的信息
-1. **日期和时间** - 变更发生的日期
-2. **变更类型** - 新增/修改/删除
-3. **文件路径** - 完整的相对路径
-4. **变更描述** - 清晰说明做了什么改动
-5. **变更原因** - 为什么要做这个改动
+### 导入顺序
+1. React 相关导入
+2. 第三方库导入
+3. 本地组件导入
+4. 工具函数导入
+5. 样式文件导入
 
-### 变更描述示例
-```markdown
-### 2024-01-15 - AI助手变更记录
-
-#### 新增文件
-- `src/components/UserProfile.js` - 新增用户资料显示组件，支持头像和基本信息展示
-- `src/utils/validators.js` - 新增表单验证工具函数
-
-#### 修改文件
-- `src/App.js` - 
-  - 添加了用户认证状态管理
-  - 集成了新的UserProfile组件
-  - 修复了路由跳转问题
-- `package.json` - 添加了axios依赖用于API调用
-
-#### 删除文件
-- `src/deprecated/OldComponent.js` - 移除已废弃的组件，功能已被UserProfile替代
+```javascript
+import React, { useState, useEffect } from 'react';
+import { someLibrary } from 'third-party-lib';
+import MyComponent from './components/MyComponent';
+import { utilityFunction } from './utils/helpers';
+import './App.css';
 ```
 
-## 特殊情况处理
+### 包版本管理
+- 使用 `package-lock.json` 锁定依赖版本
+- 定期更新依赖，但确保测试通过
+- 避免使用 `^` 或 `~` 进行自动版本更新
 
-### 大量文件变更
-如果一次性修改了很多文件，可以按功能模块分组记录：
+## 错误处理
 
-```markdown
-#### 用户认证功能重构
-- 修改了以下文件以实现新的认证系统：
-  - `src/auth/login.js` - 重构登录逻辑
-  - `src/auth/register.js` - 添加注册验证
-  - `src/utils/auth.js` - 新增认证工具函数
+### React 组件错误处理
+```javascript
+// 使用 try-catch 处理异步操作
+const handleAsyncOperation = async () => {
+  try {
+    const result = await someAsyncFunction();
+    setState(result);
+  } catch (error) {
+    console.error('操作失败:', error);
+    // 适当的错误处理
+  }
+};
 ```
 
-### 配置文件更改
-对于配置文件的更改，要特别说明：
+### Electron 错误处理
+- 在主进程中捕获和记录错误
+- 使用适当的错误边界处理渲染进程错误
+- 提供用户友好的错误消息
 
-```markdown
-#### 配置更新
-- `.cursor/rules/new-rule.mdc` - 新增代码规范规则，要求所有函数添加JSDoc注释
-- `package.json` - 更新React版本至18.2.0，解决安全漏洞
+## 代码注释
+
+### 何时添加注释
+- 复杂的业务逻辑
+- 非显而易见的算法实现
+- 重要的配置或常量
+- 临时解决方案或已知问题
+
+### 注释风格
+```javascript
+/**
+ * 计算用户权限级别
+ * @param {Object} user - 用户对象
+ * @param {string} user.role - 用户角色
+ * @param {Array} user.permissions - 用户权限列表
+ * @returns {number} 权限级别 (1-10)
+ */
+function calculatePermissionLevel(user) {
+  // TODO: 优化权限计算算法
+  // 实现逻辑...
+}
 ```
 
-## 执行流程
+## 性能考虑
 
-1. **代码修改前** - 了解要做什么改动
-2. **执行代码修改** - 使用相应的工具进行修改
-3. **立即记录变更** - 在README.md中按格式记录本次变更
-4. **验证记录完整性** - 确保所有修改的文件都已记录
+### React 性能优化
+- 合理使用 `useMemo` 和 `useCallback`
+- 避免在渲染函数中创建新对象
+- 使用 `React.memo` 优化组件重渲染
+- 懒加载大型组件
 
-## 记录位置
-
-- **主要记录位置**: [README.md](mdc:README.md) 文件的"变更日志"部分
-- **详细技术文档**: 如果变更涉及架构调整，可以在相关的规则文件中补充说明
-
-## 注意事项
-
-- 记录要及时，不能延后
-- 描述要清晰，让其他开发者能够理解
-- 保持格式一致性
-- 重要变更要特别标注
-- 如果修复了bug，要说明原始问题和解决方案
+### Electron 性能优化
+- 避免在主进程中执行耗时操作
+- 合理使用 Worker 线程处理计算密集型任务
+- 优化预加载脚本的体积
+- 监控内存使用情况
 
 ---
 > Source: [ouyangyipeng/YatPotato](https://github.com/ouyangyipeng/YatPotato) — distributed by [TomeVault](https://tomevault.io).
