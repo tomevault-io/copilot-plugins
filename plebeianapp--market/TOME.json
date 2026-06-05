@@ -4,7 +4,7 @@
   "repo": "market",
   "description": "The circular economic community builder",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PlebeianApp/market",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T04:33:27Z"
+  "distributed_at": "2026-06-05T04:33:51Z"
 }
