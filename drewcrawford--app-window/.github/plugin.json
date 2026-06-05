@@ -1,0 +1,9 @@
+{
+  "name": "drewcrawford--app-window",
+  "displayName": "app_window",
+  "description": "Cross-platform Rust window library",
+  "version": "1.0.0",
+  "author": "drewcrawford",
+  "homepage": "https://github.com/drewcrawford/app_window",
+  "skills": []
+}
