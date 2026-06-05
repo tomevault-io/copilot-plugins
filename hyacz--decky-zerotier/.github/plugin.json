@@ -1,0 +1,9 @@
+{
+  "name": "hyacz--decky-zerotier",
+  "displayName": "decky-zerotier",
+  "description": "A Decky plugin for Zerotier",
+  "version": "1.0.0",
+  "author": "hyacz",
+  "homepage": "https://github.com/hyacz/decky-zerotier",
+  "skills": []
+}
