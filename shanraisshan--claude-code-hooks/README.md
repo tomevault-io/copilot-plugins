@@ -17,12 +17,6 @@ Original source: `CLAUDE.md` in [shanraisshan/claude-code-hooks](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (3)
-
-- [agent-browser](https://github.com/shanraisshan/claude-code-hooks/tree/main/.claude/skills/agent-browser)
-- [vibe-to-agentic-framework](https://github.com/shanraisshan/claude-code-hooks/tree/main/.claude/skills/presentation/vibe-to-agentic-framework)
-- [weather-fetcher](https://github.com/shanraisshan/claude-code-hooks/tree/main/.claude/skills/weather-fetcher)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/shanraisshan/claude-code-hooks](https://github.com/shanraisshan/claude-code-hooks)
 
 ---
