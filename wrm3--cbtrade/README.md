@@ -2,6 +2,8 @@
 
 > Sourced from [wrm3/CBTrade](https://github.com/wrm3/CBTrade) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+This project is a CoinBase python algorithmic trading bot using the new Advanced Trader API.  This project is here more for me to practice git & github.  Use it at your own risk.  See License.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
