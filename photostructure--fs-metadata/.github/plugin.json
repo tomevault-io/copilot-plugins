@@ -1,0 +1,9 @@
+{
+  "name": "photostructure--fs-metadata",
+  "displayName": "fs-metadata",
+  "description": "Cross-platform native Node.js module for fetching filesystem metadata",
+  "version": "1.0.0",
+  "author": "photostructure",
+  "homepage": "https://github.com/photostructure/fs-metadata",
+  "skills": []
+}
