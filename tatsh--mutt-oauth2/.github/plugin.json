@@ -1,0 +1,9 @@
+{
+  "name": "tatsh--mutt-oauth2",
+  "displayName": "mutt-oauth2",
+  "description": "Packaged, maintained version of contributed mutt_oauth2.py script.",
+  "version": "1.0.0",
+  "author": "Tatsh",
+  "homepage": "https://github.com/Tatsh/mutt-oauth2",
+  "skills": []
+}
