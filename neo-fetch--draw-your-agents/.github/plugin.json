@@ -1,0 +1,9 @@
+{
+  "name": "neo-fetch--draw-your-agents",
+  "displayName": "draw-your-agents",
+  "description": "Open-source visual builder that lets you design AI agent workflows by dragging and dropping nodes on a canvas, and then compiles them into runnable Python projects for Google ADK (Agent Development Ki",
+  "version": "1.0.0",
+  "author": "neo-fetch",
+  "homepage": "https://github.com/neo-fetch/draw-your-agents",
+  "skills": []
+}
