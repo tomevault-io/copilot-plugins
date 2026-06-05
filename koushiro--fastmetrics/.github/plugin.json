@@ -1,0 +1,9 @@
+{
+  "name": "koushiro--fastmetrics",
+  "displayName": "fastmetrics",
+  "description": "Fast and structured OpenMetrics / Prometheus client library for Rust",
+  "version": "1.0.0",
+  "author": "koushiro",
+  "homepage": "https://github.com/koushiro/fastmetrics",
+  "skills": []
+}
