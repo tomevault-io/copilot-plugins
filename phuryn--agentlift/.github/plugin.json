@@ -1,0 +1,9 @@
+{
+  "name": "phuryn--agentlift",
+  "displayName": "agentlift",
+  "description": "Deploy agents you already run locally to Anthropic, Google, and OpenAI. One folder, one command.",
+  "version": "1.0.0",
+  "author": "phuryn",
+  "homepage": "https://github.com/phuryn/agentlift",
+  "skills": []
+}
