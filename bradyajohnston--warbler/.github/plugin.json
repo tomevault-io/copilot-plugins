@@ -1,0 +1,9 @@
+{
+  "name": "bradyajohnston--warbler",
+  "displayName": "warbler",
+  "description": "Interactive GPU physics inside of Blender's viewport",
+  "version": "1.0.0",
+  "author": "BradyAJohnston",
+  "homepage": "https://github.com/BradyAJohnston/warbler",
+  "skills": []
+}
