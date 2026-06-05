@@ -1,0 +1,9 @@
+{
+  "name": "qckfx--assist",
+  "displayName": "assist",
+  "description": "A command-line assistant for developers inspired by commercial AI coding tools.",
+  "version": "1.0.0",
+  "author": "qckfx",
+  "homepage": "https://github.com/qckfx/assist",
+  "skills": []
+}
