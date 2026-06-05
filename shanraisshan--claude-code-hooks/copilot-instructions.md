@@ -1,10 +1,10 @@
 ## claude-code-hooks
 
-> Sound notification system for all 27 Claude Code hooks. Plays sound effects when hook events fire.
+> Sound notification system for all 30 Claude Code hooks. Plays sound effects when hook events fire.
 
 # Claude Code Hooks
 
-Sound notification system for all 27 Claude Code hooks. Plays sound effects when hook events fire.
+Sound notification system for all 30 Claude Code hooks. Plays sound effects when hook events fire.
 
 ## Project Structure
 
@@ -34,7 +34,7 @@ changelog/
 
 ## Critical: Hook Count Consistency
 
-The hook count (currently **27**) MUST match across ALL of these locations:
+The hook count (currently **30**) MUST match across ALL of these locations:
 - `.claude/settings.json` hook entries
 - `install/settings-mac.json`, `settings-linux.json`, `settings-windows.json`
 - `hooks.py` HOOK_SOUND_MAP keys + docstring count
@@ -51,7 +51,7 @@ When adding a hook, use `/workflows:workflow-add-hook` — it updates all 14 fil
 
 ## Agent Hooks
 
-Only **6 of 27** hooks fire in agent sessions: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. These are mapped in `AGENT_HOOK_SOUND_MAP` in hooks.py.
+Only **6 of 30** hooks fire in agent sessions: PreToolUse, PostToolUse, PermissionRequest, PostToolUseFailure, Stop, SubagentStop. These are mapped in `AGENT_HOOK_SOUND_MAP` in hooks.py.
 
 ## Workflows
 
@@ -86,8 +86,8 @@ This makes the git history cleaner and easier to review, revert, or cherry-pick 
 
 ## Schema Note
 
-`.claude/settings.json` is validated against Claude Code's bundled JSON schema. The schema's `propertyNames` enum may contain hidden/undocumented hooks not yet in the changelog. The workflow-changelog agent checks for these. As of v2.1.114, the schema has 27 hooks (all 27 implemented in repo).
+`.claude/settings.json` is validated against Claude Code's bundled JSON schema. The schema's `propertyNames` enum may contain hidden/undocumented hooks not yet in the changelog. The workflow-changelog agent checks for these. As of v2.1.162, the schema has 30 hooks (all 30 implemented in repo).
 
 ---
 > Source: [shanraisshan/claude-code-hooks](https://github.com/shanraisshan/claude-code-hooks) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-05 -->
