@@ -1,0 +1,44 @@
+{
+  "name": "woke_novel",
+  "owner": "keyboardgdy",
+  "repo": "woke_novel",
+  "description": "\u5168\u81ea\u52a8\u5c0f\u8bf4\u751f\u6210\u5de5\u5177\uff0c**\u8ba9 Claude \u6210\u4e3a\u4f60\u7684\u300c\u4e2d\u6587\u7f51\u6587\u81ea\u52a8\u751f\u6210\u5de5\u5177\u300d** *\u6d41\u6c34\u7ebf \u00b7 \u591a\u5e55 \u00b7 \u65ad\u70b9\u7eed\u5199 \u00b7 \u5f3a\u7ea6\u675f\u6a21\u677f\u9a71\u52a8*;Fully Automated Novel Generation Tool, Making Claude Your \"Chinese Web Novel Auto-Wenerator\";",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/keyboardgdy/woke_novel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-05T01:31:56Z"
+}
