@@ -1,0 +1,9 @@
+{
+  "name": "codandotv--popcorn-guineapig",
+  "displayName": "popcorn-guineapig",
+  "description": "A lightweight plugin designed to enforce architectural rules in your multi-module project effortlessly.",
+  "version": "1.0.0",
+  "author": "CodandoTV",
+  "homepage": "https://github.com/CodandoTV/popcorn-guineapig",
+  "skills": []
+}
