@@ -1,0 +1,9 @@
+{
+  "name": "seismicsystems--seismic-solidity",
+  "displayName": "seismic-solidity",
+  "description": "Seismic Solidity allows you to encrypt data in your smart contracts",
+  "version": "1.0.0",
+  "author": "SeismicSystems",
+  "homepage": "https://github.com/SeismicSystems/seismic-solidity",
+  "skills": []
+}
