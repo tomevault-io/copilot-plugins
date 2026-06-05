@@ -1,0 +1,44 @@
+{
+  "name": "azure-sql-hyperscale-elasticpool-autoscaler",
+  "owner": "trackabout",
+  "repo": "azure-sql-hyperscale-elasticpool-autoscaler",
+  "description": "An Azure Function that monitors and autoscales Azure SQL Hyperscale Elastic Pools. Only intended for use with Hyperscale.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/trackabout/azure-sql-hyperscale-elasticpool-autoscaler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-05T20:45:58Z"
+}
