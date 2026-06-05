@@ -1,0 +1,9 @@
+{
+  "name": "istio-ecosystem--fortsa",
+  "displayName": "fortsa",
+  "description": "Keep Istio's Sidecar Proxies Up-To-Date Automatically",
+  "version": "1.0.0",
+  "author": "istio-ecosystem",
+  "homepage": "https://github.com/istio-ecosystem/fortsa",
+  "skills": []
+}
