@@ -147389,6 +147389,21 @@
       "description": "Agent-friendly GPU profile-query CLI"
     },
     {
+      "name": "xephosbot--anilibriarefresh",
+      "source": "./xephosbot--anilibriarefresh",
+      "description": "Compose Multiplatform Anilibria Client (Android, iOS, Desktop)"
+    },
+    {
+      "name": "canmet-energy--h2k-hpxml",
+      "source": "./canmet-energy--h2k-hpxml",
+      "description": "h2k-hpxml"
+    },
+    {
+      "name": "artemijan--l2shablya",
+      "source": "./artemijan--l2shablya",
+      "description": "Lineage 2 game server emulator written in rust "
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -153472,6 +153487,16 @@
       "name": "kohii--smoothcsv-website",
       "source": "./kohii--smoothcsv-website",
       "description": "The website for SmoothCSV, the ultimate CSV editor for Mac and Windows."
+    },
+    {
+      "name": "open-osp--open-o",
+      "source": "./open-osp--open-o",
+      "description": "An open source electronic medical record system"
+    },
+    {
+      "name": "nanato12--line-works-sdk",
+      "source": "./nanato12--line-works-sdk",
+      "description": "LINE WORKS SDK for Python"
     },
     {
       "name": "lightninglabs--lnget",
@@ -161737,6 +161762,26 @@
       "name": "cap-go--capacitor-downloader",
       "source": "./cap-go--capacitor-downloader",
       "description": "Capacitor plugin to download file in background or foreground"
+    },
+    {
+      "name": "genlayerlabs--intelligent-oracle",
+      "source": "./genlayerlabs--intelligent-oracle",
+      "description": "Intelligent Oracle: describe any prediction-market question in natural language and let GenLayer's intelligent contracts resolve it from real-world sources."
+    },
+    {
+      "name": "genlayerlabs--intelligent-oracle",
+      "source": "./genlayerlabs--intelligent-oracle",
+      "description": "Intelligent Oracle: describe any prediction-market question in natural language and let GenLayer's intelligent contracts resolve it from real-world sources."
+    },
+    {
+      "name": "januarylabs--serverize",
+      "source": "./januarylabs--serverize",
+      "description": "The simplest way to deploy docker images (that runs web server)"
+    },
+    {
+      "name": "onyx-robotics--onyx-engine",
+      "source": "./onyx-robotics--onyx-engine",
+      "description": "Deploy a production-ready AI model training workflow for hardware control systems and physics simulation in minutes."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -184639,6 +184684,56 @@
       "description": "\ud83e\udd2f FSM Framework on steroids"
     },
     {
+      "name": "boundlessfi--boundless",
+      "source": "./boundlessfi--boundless",
+      "description": "boundless"
+    },
+    {
+      "name": "wizenheimer--canary",
+      "source": "./wizenheimer--canary",
+      "description": "QA harness built for Claude Code | E2E testing with screen recordings, console logs, network HARs, and Playwright traces"
+    },
+    {
+      "name": "khalidkhankakar--vision-board",
+      "source": "./khalidkhankakar--vision-board",
+      "description": "V-Board is web app which is build in Nextjs 15 RC. which allows user to create the drawing shaps and more using liveblocks."
+    },
+    {
+      "name": "bluetape4k--bluetape4k-projects",
+      "source": "./bluetape4k--bluetape4k-projects",
+      "description": "Bluetape for Backend development with Kotlin"
+    },
+    {
+      "name": "wizenheimer--canary",
+      "source": "./wizenheimer--canary",
+      "description": "QA harness built for Claude Code | E2E testing with screen recordings, console logs, network HARs, and Playwright traces"
+    },
+    {
+      "name": "tjhallum--navigate-the-way",
+      "source": "./tjhallum--navigate-the-way",
+      "description": "An AI assistant trusted by both pastors and laypeople for Bible study, doctrine, theology, sermon/lesson preparation, Christian content creation, and more. It provides biblically sound insights rooted"
+    },
+    {
+      "name": "trackabout--azure-sql-hyperscale-elasticpool-autoscaler",
+      "source": "./trackabout--azure-sql-hyperscale-elasticpool-autoscaler",
+      "description": "An Azure Function that monitors and autoscales Azure SQL Hyperscale Elastic Pools. Only intended for use with Hyperscale."
+    },
+    {
+      "name": "bluetape4k--bluetape4k-projects",
+      "source": "./bluetape4k--bluetape4k-projects",
+      "description": "Bluetape for Backend development with Kotlin"
+    },
+    {
+      "name": "golhaprogram--golhaprogram-website",
+      "source": "./golhaprogram--golhaprogram-website",
+      "description": "Source of golhaprogram.com"
+    },
+    {
+      "name": "closeio--close-mongo-ops-manager",
+      "source": "./closeio--close-mongo-ops-manager",
+      "description": "Monitor and kill MongoDB operations"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -197712,6 +197807,31 @@
       "name": "connerohnesorge--dotfiles",
       "source": "./connerohnesorge--dotfiles",
       "description": "Conner Ohnesorge's dotfiles"
+    },
+    {
+      "name": "salmanashraf--mobile-agency",
+      "source": "./salmanashraf--mobile-agency",
+      "description": "A curated collection of AI-powered skills, agents, prompts, and workflows for Android, iOS, Flutter, React Native, Unity, and Unreal developers. Build faster, debug smarter, review code, optimize perf"
+    },
+    {
+      "name": "salmanashraf--mobile-agency",
+      "source": "./salmanashraf--mobile-agency",
+      "description": "A curated collection of AI-powered skills, agents, prompts, and workflows for Android, iOS, Flutter, React Native, Unity, and Unreal developers. Build faster, debug smarter, review code, optimize perf"
+    },
+    {
+      "name": "salmanashraf--mobile-agency",
+      "source": "./salmanashraf--mobile-agency",
+      "description": "A curated collection of AI-powered skills, agents, prompts, and workflows for Android, iOS, Flutter, React Native, Unity, and Unreal developers. Build faster, debug smarter, review code, optimize perf"
+    },
+    {
+      "name": "photostructure--fs-metadata",
+      "source": "./photostructure--fs-metadata",
+      "description": "Cross-platform native Node.js module for fetching filesystem metadata"
+    },
+    {
+      "name": "photostructure--fs-metadata",
+      "source": "./photostructure--fs-metadata",
+      "description": "Cross-platform native Node.js module for fetching filesystem metadata"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -306367,6 +306487,26 @@
       "name": "bretmeraki--forest-front-end-forge",
       "source": "./bretmeraki--forest-front-end-forge",
       "description": "forest-front-end-forge"
+    },
+    {
+      "name": "chikingsley--rivena-ai-app",
+      "source": "./chikingsley--rivena-ai-app",
+      "description": "rivena-ai-app"
+    },
+    {
+      "name": "chikingsley--rivena-ai-app",
+      "source": "./chikingsley--rivena-ai-app",
+      "description": "rivena-ai-app"
+    },
+    {
+      "name": "chikingsley--rivena-ai-app",
+      "source": "./chikingsley--rivena-ai-app",
+      "description": "rivena-ai-app"
+    },
+    {
+      "name": "git-mastery--progress-dashboard",
+      "source": "./git-mastery--progress-dashboard",
+      "description": "Track your progress for Git Mastery"
     }
   ]
 }
