@@ -161624,6 +161624,11 @@
       "description": "\u5168\u81ea\u52a8\u5c0f\u8bf4\u751f\u6210\u5de5\u5177\uff0c**\u8ba9 Claude \u6210\u4e3a\u4f60\u7684\u300c\u4e2d\u6587\u7f51\u6587\u81ea\u52a8\u751f\u6210\u5de5\u5177\u300d** *\u6d41\u6c34\u7ebf \u00b7 \u591a\u5e55 \u00b7 \u65ad\u70b9\u7eed\u5199 \u00b7 \u5f3a\u7ea6\u675f\u6a21\u677f\u9a71\u52a8*;Fully Automated Novel Generation Tool, Making Claude Your \"Chinese Web Novel Auto-Wenerator\";"
     },
     {
+      "name": "snowflake-labs--sfguide-create-a-route-optimisation-and-vehicle-route-plan-simulator",
+      "source": "./snowflake-labs--sfguide-create-a-route-optimisation-and-vehicle-route-plan-simulator",
+      "description": "sfguide-create-a-route-optimisation-and-vehicle-route-plan-simulator"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -184114,6 +184119,36 @@
       "description": "Claude Code session monitor and notifier"
     },
     {
+      "name": "sboghossian--talk-to-aleph",
+      "source": "./sboghossian--talk-to-aleph",
+      "description": "Voice-first JARVIS for your Mac \ud83d\udf02 \u2014 talk to a particle brain that thinks, speaks in a cloned voice, and acts (every action gated). Clone it, bring your own keys, make it yours. Zero-dep, local, MIT."
+    },
+    {
+      "name": "mudler--rf-detr-cpp",
+      "source": "./mudler--rf-detr-cpp",
+      "description": "rt-detr implementation in C++ with ggml"
+    },
+    {
+      "name": "pixiebrix--agent-browser-shield",
+      "source": "./pixiebrix--agent-browser-shield",
+      "description": "Browser extension with 30+ rules for keeping your AI agent safe while browsing"
+    },
+    {
+      "name": "cub3y0nd--entropic",
+      "source": "./cub3y0nd--entropic",
+      "description": "A retro textmode blog theme for purists."
+    },
+    {
+      "name": "halloweedev--lutin",
+      "source": "./halloweedev--lutin",
+      "description": "lutin"
+    },
+    {
+      "name": "getlantern--lantern-box",
+      "source": "./getlantern--lantern-box",
+      "description": "lantern-box"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -196859,6 +196894,61 @@
       "description": "WBench: A Comprehensive Multi-turn Benchmark for Interactive Video World Model Evaluation"
     },
     {
+      "name": "phuryn--agentlift",
+      "source": "./phuryn--agentlift",
+      "description": "Deploy agents you already run locally to Anthropic, Google, and OpenAI. One folder, one command."
+    },
+    {
+      "name": "triasbrata--lazysheet",
+      "source": "./triasbrata--lazysheet",
+      "description": "LazySheet landing page \u2014 TanStack Start + shadcn/ui + Font Awesome, deploys to Cloudflare Workers"
+    },
+    {
+      "name": "triasbrata--lazysheet",
+      "source": "./triasbrata--lazysheet",
+      "description": "LazySheet landing page \u2014 TanStack Start + shadcn/ui + Font Awesome, deploys to Cloudflare Workers"
+    },
+    {
+      "name": "riggdai--uniqent",
+      "source": "./riggdai--uniqent",
+      "description": "Any brain, any agent. Package an AI agent's brain \u2014 persona, MCP stack, skills, memory, config \u2014 into one open, signed bundle and install it into any framework (OpenClaw, Hermes, Claude Code) in one c"
+    },
+    {
+      "name": "pancudaniel7--camael",
+      "source": "./pancudaniel7--camael",
+      "description": "Camael is an open-source terminal emulator built for engineers who work under strict security and compliance requirements. Forked from Warp, it removes all telemetry, cloud dependencies, and outbound "
+    },
+    {
+      "name": "stacks-loops--bubbles",
+      "source": "./stacks-loops--bubbles",
+      "description": "An open-source Claude Code executive assistant that learns how you self-sabotage and won't let you hide from the work that matters. Clone, say hi, get onboarded."
+    },
+    {
+      "name": "phuryn--agentlift",
+      "source": "./phuryn--agentlift",
+      "description": "Deploy agents you already run locally to Anthropic, Google, and OpenAI. One folder, one command."
+    },
+    {
+      "name": "diego-lima--rlmy",
+      "source": "./diego-lima--rlmy",
+      "description": "An interactive RLM (Recursive Language Model) agent built on DSPy."
+    },
+    {
+      "name": "marselsel--lexware-mcp",
+      "source": "./marselsel--lexware-mcp",
+      "description": "Open-source, self-hostable MCP server for the Lexware Office (lexoffice) accounting API \u2014 comprehensive coverage: contacts, articles, bookkeeping vouchers, the sales-document family (invoices/quotatio"
+    },
+    {
+      "name": "qckfx--assist",
+      "source": "./qckfx--assist",
+      "description": "A command-line assistant for developers inspired by commercial AI coding tools."
+    },
+    {
+      "name": "robch--cycod",
+      "source": "./robch--cycod",
+      "description": "cycod"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -200092,6 +200182,46 @@
       "name": "jacksonpires--rails-api-docs",
       "source": "./jacksonpires--rails-api-docs",
       "description": "Generate beautiful API documentation for your Rails app"
+    },
+    {
+      "name": "lyse-labs--lyse",
+      "source": "./lyse-labs--lyse",
+      "description": "Open-source design system audit \u2014 measure drift, find what's hardcoded, suggest safe fixes."
+    },
+    {
+      "name": "pointa-labs--basehalf",
+      "source": "./pointa-labs--basehalf",
+      "description": "BaseHalf desktop version! "
+    },
+    {
+      "name": "zingerlittlebee--next-socks5",
+      "source": "./zingerlittlebee--next-socks5",
+      "description": "Fast, lightweight SOCKS5 server in Rust \u2014 TUI dashboard, headless mode, secure by default."
+    },
+    {
+      "name": "tigrisdata--objgit",
+      "source": "./tigrisdata--objgit",
+      "description": "Git backed by object storage"
+    },
+    {
+      "name": "lordydord--codex-account-switcher",
+      "source": "./lordydord--codex-account-switcher",
+      "description": "Native macOS menu-bar app for switching Codex Desktop accounts, tracking usage, and optional auto-switching before limits bite."
+    },
+    {
+      "name": "pointa-labs--basehalf",
+      "source": "./pointa-labs--basehalf",
+      "description": "BaseHalf desktop version! "
+    },
+    {
+      "name": "wangsalin--football-ai-h5",
+      "source": "./wangsalin--football-ai-h5",
+      "description": "Mobile-first football AI match analysis and admin platform"
+    },
+    {
+      "name": "rugpullnet--solana-rug",
+      "source": "./rugpullnet--solana-rug",
+      "description": "Open source trust and safety analysis tool for Solana and Hermes."
     },
     {
       "name": "ldmoxeii--only-engine",
@@ -305332,6 +305462,11 @@
       "name": "radenrakarw3--gadangbarubah",
       "source": "./radenrakarw3--gadangbarubah",
       "description": "gadang barubah"
+    },
+    {
+      "name": "chiyo-labs--line-faq-bot-demo",
+      "source": "./chiyo-labs--line-faq-bot-demo",
+      "description": "\u7f8e\u5bb9\u5ba4\u5411\u3051 LINE FAQ Bot \u306e\u30c7\u30e2\u5b9f\u88c5\u3067\u3059\u3002"
     }
   ]
 }
