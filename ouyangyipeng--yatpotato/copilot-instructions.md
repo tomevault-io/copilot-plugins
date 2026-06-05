@@ -1,143 +1,69 @@
-## development-workflow
+## electron-development
 
-> - React 开发服务器运行在 `http://localhost:3000`
+> - [electron.js](mdc:public/electron.js) - 主进程入口文件
 
-# 开发工作流程
+# Electron 开发规则
 
-## 项目设置和启动
+## Electron 架构概述
 
-### 初始化项目
-```bash
-# 安装依赖
-npm install
+### 主进程文件
+- [electron.js](mdc:public/electron.js) - 主进程入口文件
+- 负责创建和管理应用窗口
+- 处理系统级事件和生命周期
 
-# 启动开发环境
-npm run electron-dev
-```
+### 预加载脚本
+- [preload.js](mdc:public/preload.js) - 预加载脚本
+- 在渲染进程中安全地暴露 Node.js API
+- 提供主进程和渲染进程之间的通信桥梁
+
+## 进程间通信 (IPC)
+
+### 主进程到渲染进程
+- 使用 `webContents.send()` 发送消息
+- 在渲染进程中通过 `window.electronAPI` 接收
+
+### 渲染进程到主进程
+- 使用 `ipcRenderer.invoke()` 进行异步调用
+- 使用 `ipcRenderer.send()` 发送单向消息
+
+## 安全最佳实践
+
+1. **启用上下文隔离**
+   - 在 BrowserWindow 中设置 `contextIsolation: true`
+   
+2. **禁用节点集成**
+   - 设置 `nodeIntegration: false`
+   
+3. **使用预加载脚本**
+   - 通过预加载脚本安全地暴露 API
+   - 避免直接在渲染进程中使用 Node.js
+
+## 打包和分发
+
+### 构建配置
+- 打包配置在 [package.json](mdc:package.json) 的 `build` 字段中
+- 支持 Windows (NSIS)、macOS (DMG)、Linux (AppImage)
+
+### 构建命令
+- `npm run dist` - 构建并打包应用
+- `npm run electron-pack` - 使用 electron-builder 打包
+
+## 开发调试
 
 ### 开发环境
-- React 开发服务器运行在 `http://localhost:3000`
-- Electron 会自动加载开发服务器内容
-- 支持热重载和自动刷新
+- 使用 `npm run electron-dev` 启动开发环境
+- 自动重载和热更新支持
 
-## 开发流程
+### 调试工具
+- 在开发环境中启用 Chrome DevTools
+- 使用 `electron-is-dev` 检测开发环境
 
-### 1. 功能开发
-- 在 `src/` 目录下开发 React 组件
-- 遵循 [React 开发规则](mdc:.cursor/rules/react-development.mdc)
-- 使用 [代码规范](mdc:.cursor/rules/coding-standards.mdc)
+## 文件结构约定
 
-### 2. Electron 集成
-- 在 [public/electron.js](mdc:public/electron.js) 中添加主进程逻辑
-- 在 [public/preload.js](mdc:public/preload.js) 中暴露 API
-- 遵循 [Electron 开发规则](mdc:.cursor/rules/electron-development.mdc)
-
-### 3. 变更记录 ⚠️ **重要**
-- **每次代码修改后必须记录变更**
-- 严格遵循 [变更跟踪规则](mdc:.cursor/rules/change-tracking.mdc)
-- 在 [README.md](mdc:README.md) 中及时更新变更日志
-- 记录所有新增、修改、删除的文件及其原因
-
-### 4. 测试
-```bash
-# 运行测试
-npm test
-
-# 运行测试并查看覆盖率
-npm test -- --coverage
-```
-
-## 构建和部署
-
-### 开发构建
-```bash
-# 构建 React 应用
-npm run build
-
-# 运行构建后的 Electron 应用
-npm run electron-build
-```
-
-### 生产构建
-```bash
-# 构建并打包应用
-npm run dist
-```
-
-### 构建输出
-- `build/` - React 应用构建输出
-- `dist/` - Electron 应用打包输出
-
-## AI助手工作流程
-
-### 代码修改标准流程
-1. **分析需求** - 理解要实现的功能或修复的问题
-2. **执行修改** - 使用适当的工具修改代码
-3. **立即记录** - 按照 [变更跟踪规则](mdc:.cursor/rules/change-tracking.mdc) 记录所有变更
-4. **验证完整性** - 确保所有文件变更都已记录在 [README.md](mdc:README.md) 中
-
-### 记录要求
-- ✅ 每次修改都要记录
-- ✅ 记录格式要规范
-- ✅ 描述要清晰具体
-- ✅ 包含修改原因
-- ❌ 不能遗漏任何文件变更
-
-## 调试技巧
-
-### React 调试
-- 使用 Chrome DevTools
-- 安装 React Developer Tools 扩展
-- 使用 `console.log` 进行简单调试
-
-### Electron 调试
-- 主进程调试：使用 `--inspect` 参数启动
-- 渲染进程调试：在 Electron 窗口中打开 DevTools
-- 网络调试：监控 IPC 通信
-
-## 版本控制
-
-### Git 工作流
-1. 从主分支创建功能分支
-2. 开发完成后提交更改
-3. 创建 Pull Request
-4. 代码审查通过后合并
-
-### 提交规范
-```
-feat: 添加新功能
-fix: 修复 bug
-docs: 更新文档
-style: 代码格式化
-refactor: 代码重构
-test: 添加测试
-chore: 构建或辅助工具的变动
-```
-
-## 性能监控
-
-### React 性能
-- 使用 React Profiler 分析组件性能
-- 监控渲染时间和重渲染次数
-- 优化长列表和复杂组件
-
-### Electron 性能
-- 监控内存使用情况
-- 检查主进程和渲染进程的 CPU 使用
-- 优化应用启动时间
-
-## 故障排除
-
-### 常见问题
-1. **端口冲突**: 确保 3000 端口未被占用
-2. **依赖问题**: 删除 `node_modules` 重新安装
-3. **构建失败**: 检查文件路径和依赖版本
-4. **Electron 启动失败**: 检查主进程代码语法
-
-### 日志查看
-- React 开发服务器日志在终端输出
-- Electron 主进程日志在终端输出
-- 渲染进程日志在 Chrome DevTools 控制台
+- 静态资源放在 `public/` 目录
+- Electron 相关文件放在 `public/` 目录
+- 构建输出到 `build/` 目录
+- 最终打包输出到 `dist/` 目录
 
 ---
 > Source: [ouyangyipeng/YatPotato](https://github.com/ouyangyipeng/YatPotato) — distributed by [TomeVault](https://tomevault.io).
