@@ -1,0 +1,9 @@
+{
+  "name": "harvester--harvester-ui-extension",
+  "displayName": "harvester-ui-extension",
+  "description": "Rancher UI Extension for Harvester",
+  "version": "1.0.0",
+  "author": "harvester",
+  "homepage": "https://github.com/harvester/harvester-ui-extension",
+  "skills": []
+}
