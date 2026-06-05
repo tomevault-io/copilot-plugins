@@ -7,11 +7,11 @@ Self-contained UV scripts for data & ML tasks — OCR, vision, audio & more — 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [davanstrien/uv-scripts-for-ai](https://github.com/davanstrien/uv-scripts-for-ai).
+Original source: `CLAUDE.md` in [davanstrien/uv-scripts-for-ai](https://github.com/davanstrien/uv-scripts-for-ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
