@@ -1,0 +1,9 @@
+{
+  "name": "riggdai--uniqent",
+  "displayName": "uniqent",
+  "description": "Any brain, any agent. Package an AI agent's brain \u2014 persona, MCP stack, skills, memory, config \u2014 into one open, signed bundle and install it into any framework (OpenClaw, Hermes, Claude Code) in one c",
+  "version": "1.0.0",
+  "author": "RiggdAI",
+  "homepage": "https://github.com/RiggdAI/uniqent",
+  "skills": []
+}
