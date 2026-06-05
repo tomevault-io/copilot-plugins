@@ -1,0 +1,26 @@
+# mutt-oauth2
+
+> Tome by [Tatsh](https://github.com/Tatsh/mutt-oauth2) — distributed by [TomeVault](https://tomevault.io)
+
+Packaged, maintained version of contributed mutt_oauth2.py script.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [Tatsh/mutt-oauth2](https://github.com/Tatsh/mutt-oauth2).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [Tatsh/mutt-oauth2](https://github.com/Tatsh/mutt-oauth2) — a repo with 9+ stars on GitHub.
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
