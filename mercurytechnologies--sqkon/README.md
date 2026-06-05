@@ -1,0 +1,30 @@
+# sqkon
+
+> Tome by [MercuryTechnologies](https://github.com/MercuryTechnologies/sqkon) — distributed by [TomeVault](https://tomevault.io)
+
+Sqkon - SQLite Backed Jsonb KeyValue Store - Pronounced "sc-on"
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [MercuryTechnologies/sqkon](https://github.com/MercuryTechnologies/sqkon).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/MercuryTechnologies/sqkon](https://github.com/MercuryTechnologies/sqkon)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install MercuryTechnologies/sqkon
+```
+Source: [github.com/MercuryTechnologies/sqkon](https://github.com/MercuryTechnologies/sqkon).
+
+<!-- genome:t-i-p -->
