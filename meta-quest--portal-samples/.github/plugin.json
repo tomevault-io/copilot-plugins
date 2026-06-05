@@ -1,0 +1,9 @@
+{
+  "name": "meta-quest--portal-samples",
+  "displayName": "portal-samples",
+  "description": "The Meta Portal samples are a collection of code samples that demonstrate how to build Android applications for Meta Portal.",
+  "version": "1.0.0",
+  "author": "meta-quest",
+  "homepage": "https://github.com/meta-quest/portal-samples",
+  "skills": []
+}
