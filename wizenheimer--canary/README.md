@@ -7,11 +7,11 @@ QA harness built for Claude Code | E2E testing with screen recordings, console l
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wizenheimer/canary](https://github.com/wizenheimer/canary).
+Original source: `CLAUDE.md` in [wizenheimer/canary](https://github.com/wizenheimer/canary).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
