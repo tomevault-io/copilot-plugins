@@ -1,0 +1,9 @@
+{
+  "name": "onyx-robotics--onyx-engine",
+  "displayName": "onyx-engine",
+  "description": "Deploy a production-ready AI model training workflow for hardware control systems and physics simulation in minutes.",
+  "version": "1.0.0",
+  "author": "onyx-robotics",
+  "homepage": "https://github.com/onyx-robotics/onyx-engine",
+  "skills": []
+}
