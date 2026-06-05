@@ -1,0 +1,9 @@
+{
+  "name": "neoboid--git-p4son",
+  "displayName": "git-p4son",
+  "description": "Utility tool to keep a local git repository within a perforce workspace",
+  "version": "1.0.0",
+  "author": "neoboid",
+  "homepage": "https://github.com/neoboid/git-p4son",
+  "skills": []
+}
