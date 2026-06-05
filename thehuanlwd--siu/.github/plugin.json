@@ -1,0 +1,9 @@
+{
+  "name": "thehuanlwd--siu",
+  "displayName": "siu",
+  "description": "AI-powered release gap auditor that compares your current version with the latest GitHub release and answers: Should I upgrade?",
+  "version": "1.0.0",
+  "author": "thehuanlwd",
+  "homepage": "https://github.com/thehuanlwd/siu",
+  "skills": []
+}
