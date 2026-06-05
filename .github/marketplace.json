@@ -77984,6 +77984,11 @@
       "description": "github-copilot-prompts"
     },
     {
+      "name": "gfhdhytghd--oqqwall",
+      "source": "./gfhdhytghd--oqqwall",
+      "description": "\u4e00\u4e2aqq\u6821\u56ed\u5899\u81ea\u52a8\u8fd0\u8425\u7cfb\u7edf"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -80034,6 +80039,16 @@
       "description": "KCL + Helm = kclipper"
     },
     {
+      "name": "endatix--endatix",
+      "source": "./endatix--endatix",
+      "description": "Endatix is a form management backend API for SurveyJS-based projects."
+    },
+    {
+      "name": "ksharma-xyz--krail",
+      "source": "./ksharma-xyz--krail",
+      "description": "KRAIL is a Compose Multiplatform app for trip planning on public transport in Sydney, NSW, Australia."
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -81344,6 +81359,21 @@
       "description": "Toolkits to build onchain UX in .NET and Unity"
     },
     {
+      "name": "hyperb1iss--git-iris",
+      "source": "./hyperb1iss--git-iris",
+      "description": "An intelligent agent that understands your code and crafts perfect Git artifacts"
+    },
+    {
+      "name": "jevandezande--pixi-cookiecutter",
+      "source": "./jevandezande--pixi-cookiecutter",
+      "description": "Cookiecutter for setting up python projects with pixi that just work"
+    },
+    {
+      "name": "hyperb1iss--git-iris",
+      "source": "./hyperb1iss--git-iris",
+      "description": "An intelligent agent that understands your code and crafts perfect Git artifacts"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -82582,6 +82612,11 @@
       "name": "jonatanjacobsson--ifcpipeline",
       "source": "./jonatanjacobsson--ifcpipeline",
       "description": "IFC Pipeline is a FastAPI-based service for processing Industry Foundation Classes (IFC) files"
+    },
+    {
+      "name": "finos--opengris-scaler",
+      "source": "./finos--opengris-scaler",
+      "description": "Efficient, lightweight and reliable distributed computation engine"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -101619,6 +101654,11 @@
       "description": "A tool that converts GameMaker projects into Godot"
     },
     {
+      "name": "ruvnet--agentic-robotics",
+      "source": "./ruvnet--agentic-robotics",
+      "description": "The goal of this project is to create a modular Agentic Python framework for robotics that can be used to develop specific robotic applications for various types of robots, IoT, and physical devices. "
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -109662,6 +109702,21 @@
       "name": "vitest-dev--ivya",
       "source": "./vitest-dev--ivya",
       "description": "Fork of Playwright's locator resolution"
+    },
+    {
+      "name": "atopile--cell-sim",
+      "source": "./atopile--cell-sim",
+      "description": "cell-sim"
+    },
+    {
+      "name": "atopile--cell-sim",
+      "source": "./atopile--cell-sim",
+      "description": "cell-sim"
+    },
+    {
+      "name": "atopile--cell-sim",
+      "source": "./atopile--cell-sim",
+      "description": "cell-sim"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -117944,6 +117999,11 @@
       "description": "A Crystal reimplementation of the Pygments/Chroma syntax highlighters"
     },
     {
+      "name": "ssg--eksi-yedek",
+      "source": "./ssg--eksi-yedek",
+      "description": "ek\u015fi s\u00f6zl\u00fck yedek okuyucu \u015feysi"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -121152,6 +121212,16 @@
       "name": "yelog--marklive-nvim",
       "source": "./yelog--marklive-nvim",
       "description": "A Neovim plugin for rendering markdown files in terminal"
+    },
+    {
+      "name": "vultisig--vultisig-windows",
+      "source": "./vultisig--vultisig-windows",
+      "description": "vultisig-windows"
+    },
+    {
+      "name": "thedannicraft--activity-log",
+      "source": "./thedannicraft--activity-log",
+      "description": "A GitHub Action that automatically updates your README file with the latest activity from your GitHub account. Customize the displayed events, set a limit on the number of events, and ignore specific "
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -124907,6 +124977,21 @@
       "name": "cssnr--auto-auth",
       "source": "./cssnr--auto-auth",
       "description": "Modern Chrome Web Extension and Firefox Browser Addon for Automatic Basic HTTP Authentication with many Options and Features."
+    },
+    {
+      "name": "issabelpbx--callcenter-issabel5",
+      "source": "./issabelpbx--callcenter-issabel5",
+      "description": "callcenter-issabel5"
+    },
+    {
+      "name": "issabelpbx--callcenter-issabel5",
+      "source": "./issabelpbx--callcenter-issabel5",
+      "description": "callcenter-issabel5"
+    },
+    {
+      "name": "issabelpbx--callcenter-issabel5",
+      "source": "./issabelpbx--callcenter-issabel5",
+      "description": "callcenter-issabel5"
     },
     {
       "name": "13point5--agent-canvas",
@@ -132424,6 +132509,11 @@
       "description": "\ud83c\udf00 A parts mapping tool for IFS practitioners and their clients"
     },
     {
+      "name": "pantstamp--android-template-project",
+      "source": "./pantstamp--android-template-project",
+      "description": "Template project that demonstrates how to implement a modern Android app."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -136607,6 +136697,16 @@
       "name": "trocco-io--terraform-provider-trocco",
       "source": "./trocco-io--terraform-provider-trocco",
       "description": "terraform-provider-trocco"
+    },
+    {
+      "name": "db-camp--tpcc-tester",
+      "source": "./db-camp--tpcc-tester",
+      "description": "\u672c\u9879\u76ee\u4e3a 2023-2026 \u5168\u56fd\u5927\u5b66\u751f\u8ba1\u7b97\u673a\u7cfb\u7edf\u80fd\u529b\u5927\u8d5b-\u6570\u636e\u5e93\u7ba1\u7406\u7cfb\u7edf\u8bbe\u8ba1\u8d5b\u51b3\u8d5b\u6a21\u62df\u8bc4\u6d4b\u811a\u672c\uff0c\u7531\u539f DataDance \u56e2\u961f\u5f00\u53d1\u3002"
+    },
+    {
+      "name": "db-camp--tpcc-tester",
+      "source": "./db-camp--tpcc-tester",
+      "description": "\u672c\u9879\u76ee\u4e3a 2023-2026 \u5168\u56fd\u5927\u5b66\u751f\u8ba1\u7b97\u673a\u7cfb\u7edf\u80fd\u529b\u5927\u8d5b-\u6570\u636e\u5e93\u7ba1\u7406\u7cfb\u7edf\u8bbe\u8ba1\u8d5b\u51b3\u8d5b\u6a21\u62df\u8bc4\u6d4b\u811a\u672c\uff0c\u7531\u539f DataDance \u56e2\u961f\u5f00\u53d1\u3002"
     },
     {
       "name": "mohiwalla--memes",
@@ -147204,6 +147304,21 @@
       "description": "Part of the LangChain.NET project. Has separate abstractions, does not contain dependencies on the main project and can be used independently"
     },
     {
+      "name": "promise2341--busnetpy",
+      "source": "./promise2341--busnetpy",
+      "description": "\u4e00\u6b3e\u4ece\u6570\u636e\u83b7\u53d6\u5230\u516c\u4ea4\u8bc4\u4f30\u89c4\u5212\u7684python\u5e93\u3002"
+    },
+    {
+      "name": "comphy-lab--basilisk-c",
+      "source": "./comphy-lab--basilisk-c",
+      "description": "version, updated every day"
+    },
+    {
+      "name": "hyacz--decky-zerotier",
+      "source": "./hyacz--decky-zerotier",
+      "description": "A Decky plugin for Zerotier"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -153242,6 +153357,21 @@
       "name": "nanxstats--pycsr",
       "source": "./nanxstats--pycsr",
       "description": "Python for Clinical Study Reports and Submission"
+    },
+    {
+      "name": "dzervas--dotfiles",
+      "source": "./dzervas--dotfiles",
+      "description": "My NixOS setup for my personal dekstop & work laptop"
+    },
+    {
+      "name": "dzervas--dotfiles",
+      "source": "./dzervas--dotfiles",
+      "description": "My NixOS setup for my personal dekstop & work laptop"
+    },
+    {
+      "name": "wflixu--macos-apps",
+      "source": "./wflixu--macos-apps",
+      "description": "Awesome macOS open source Apps"
     },
     {
       "name": "lightninglabs--lnget",
