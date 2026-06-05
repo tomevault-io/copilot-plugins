@@ -1,0 +1,88 @@
+## git-p4son
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+git-p4son is a Python CLI tool that bridges Perforce (P4) and Git. It maintains a local git repository within a Perforce workspace, keeping a `main` branch in sync with the Perforce depot while supporting feature branches for local development.
+
+## Development Commands
+
+```bash
+# Install in development mode
+pip install -e .
+
+# Run the tool
+git p4son [command] [options]
+python -m git_p4son [command] [options]
+```
+
+The project has zero external dependencies (standard library only). Python 3.11+ is required.
+
+Run tests with:
+```bash
+python -m pytest tests/
+```
+
+Format code with `autopep8`:
+```bash
+autopep8 -i -r git_p4son/ tests/
+```
+
+**Important:** Before committing, always run `autopep8 -i -r git_p4son/ tests/` to format all changed code. The
+project must stay PEP 8 compliant at all times.
+
+## Architecture
+
+The CLI (`cli.py`) dispatches to command modules, each exposing a `*_command(args)` entry point:
+
+- **`sync.py`** — Syncs git repo with a Perforce changelist. Validates both git and p4 workspaces are clean, performs
+  `p4 sync`, then creates a git commit. Accepts an explicit CL number or `last-synced`; omitting the argument syncs to
+  the latest changelist. Uses threaded real-time output processing (`P4SyncOutputProcessor`) to parse p4 sync progress.
+
+- **`new.py`** — Creates a new Perforce changelist, opens git-changed files for edit, and optionally creates a Swarm
+  review (with `--review` flag) or shelves (with `--shelve` flag). Alias defaults to the current branch name; use
+  `--no-alias` to skip alias creation.
+
+- **`update.py`** — Updates an existing changelist description, opens git-changed files for edit, and optionally re-shelves (with `--shelve` flag).
+
+- **`list_changes.py`** — Lists git commit subjects since a base branch in chronological order. Used for generating changelist descriptions.
+
+**`lib.py`** contains all reusable Perforce/git library functions: changelist creation/update, file status checking, opening files for edit, shelving, and Swarm review keyword management.
+
+**`changelist_store.py`** provides changelist alias utilities, storing named aliases for changelist numbers in
+`.git-p4son/changelists/<name>`.
+
+**`config.py`** manages per-repo configuration stored in `.git-p4son/config.toml`. Currently stores the depot root
+(the Perforce path to sync, e.g. `//my-workspace` or `//my-workspace/Engine/Source`).
+
+**`common.py`** provides shared utilities: workspace detection (walks up directory tree for `.git`), subprocess execution
+with timing (`run()`), and real-time output streaming via threading (`run_with_output()`).
+
+## Python Version
+
+When bumping the minimum Python version, update all of these locations:
+- `pyproject.toml` (`requires-python` and classifiers)
+- `README.md` (install requirements)
+- `CLAUDE.md` (this file, development commands section)
+- `.github/workflows/publish.yml` (CI test matrix)
+
+## Code Style
+
+- Prefer short one-line docstrings. Avoid verbose Args/Returns sections when the function signature already makes the
+  purpose and parameters obvious.
+
+## Git Conventions
+
+- Never mention "Claude" or "Co-Authored-By: Claude" in commit messages.
+- Version bump commits should use the format: `Release git-p4son vX.Y.Z`
+- Never commit plan/analysis markdown files (e.g. `release-notes.md`, `default-message.md`) together with the
+  implementation changes. These files are a communication tool between the user and Claude, not part of the codebase.
+
+---
+> Source: [neoboid/git-p4son](https://github.com/neoboid/git-p4son) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-05 -->
