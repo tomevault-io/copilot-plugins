@@ -1,0 +1,9 @@
+{
+  "name": "csessh--aoc-nvim",
+  "displayName": "aoc.nvim",
+  "description": "Neovim's Christmas Elf who fetches puzzle input",
+  "version": "1.0.0",
+  "author": "csessh",
+  "homepage": "https://github.com/csessh/aoc.nvim",
+  "skills": []
+}
