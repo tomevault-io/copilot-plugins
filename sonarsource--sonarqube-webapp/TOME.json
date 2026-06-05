@@ -4,7 +4,7 @@
   "repo": "sonarqube-webapp",
   "description": "SonarQube Community Build Web App",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SonarSource/sonarqube-webapp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T18:34:58Z"
+  "distributed_at": "2026-06-05T18:45:14Z"
 }
