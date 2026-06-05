@@ -4,7 +4,7 @@
   "repo": "canary",
   "description": "QA harness built for Claude Code | E2E testing with screen recordings, console logs, network HARs, and Playwright traces",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wizenheimer/canary",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T20:37:07Z"
+  "distributed_at": "2026-06-05T20:42:51Z"
 }
