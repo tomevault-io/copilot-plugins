@@ -1,0 +1,9 @@
+{
+  "name": "earthspecies--alp-data",
+  "displayName": "alp-data",
+  "description": "Data tools for managing data operations in ESP's AI / science projects",
+  "version": "1.0.0",
+  "author": "earthspecies",
+  "homepage": "https://github.com/earthspecies/alp-data",
+  "skills": []
+}
