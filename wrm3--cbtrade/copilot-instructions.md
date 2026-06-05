@@ -1,39 +1,22 @@
-## cbtrade
+## always
 
-> Below is the workflow diagram for the Hanx Planners system, illustrating the process of task creation, execution, and archival.
+> 0. Never Kill Python Processes without asking the user for permission first.
 
-# Hanx Planners Workflow Diagram
+0. Never Kill Python Processes without asking the user for permission first.
+  * All your MCP tools are python processes
+  * All programs that the developer has both in and out of your current project are python processes
 
-Below is the workflow diagram for the Hanx Planners system, illustrating the process of task creation, execution, and archival.
+1. include in the final line(s) on every response the the user 
+  * the current timestamp 
+  * list the tools used during the call 
 
-```mermaid
-graph TD
-    A[User Request: Create Tasks from Plan/PRD] --> B["Plan All Tasks (Identify complex tasks for expansion)"];
-    B --> B1{Expansion Needed for Any Task?};
-    B1 -- Yes --> B2["Define Sub-tasks & Update Parent Task Definitions to Parent Tasks (listing sub-tasks in parent\'s details)"];
-    B1 -- No --> C;
-    B2 --> C["Update .fstrent_tasks/TASKS.md with ALL Planned Tasks (Parent Tasks & Sub-tasks)"];
-    C --> D["For Each Task (Parent Task or Sub-task) in .fstrent_tasks/TASKS.md"];
-    D -- Loop --> E[Create/Update Individual task file in .fstrent_tasks/tasks/];
-    E --> F["Populate YAML & Markdown Body in task file (Parent task file updated to reflect parent status & list sub-tasks)"];
-    F -- End Loop --> G[All Task Files Created/Updated];
-    G --> H{User asks agent to work?};
-    H -- Yes --> I[Agent reads TASKS.md, finds first pending task];
-    I --> J{Check Dependencies for selected task};
-    J -- Met --> K[Update Task File YAML status: inprogress];
-    K --> L[Update TASKS.md entry: progress marker];
-    L --> M[Execute Task];
-    M -- Success --> N[Update YAML status: completed];
-    N --> O[Update TASKS.md entry: completed marker];
-    M -- Failure --> P["Update YAML status: failed, add error_log"];
-    P --> Q[Update TASKS.md entry: failed marker];
-    J -- Not Met --> R[Inform User: Dependencies Missing];
-    S{User asks to archive?} --> T[Agent finds completed/failed tasks in .fstrent_tasks/tasks/];
-    T --> U[Move task files to .fstrent_tasks/memory/tasks/];
-    U --> V[Append summary to .fstrent_tasks/memory/TASKS_LOG.md];
-    V --> W[Remove corresponding entries from .fstrent_tasks/TASKS.md];
-```
+2. if any particular file in the code base exceeds 800 lines of code...
+  * begin asking the user if they would like to refactor the code to keep the file sizes smaller
+  * become more insistant with every 100 lines added thereafter
+  * become very insistant on refactoring once a file has hit 1000 lines
+
+3. check your MCP tool lists, you seem to forget you have a lot of tools
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/wrm3) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [wrm3/CBTrade](https://github.com/wrm3/CBTrade) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-05 -->
