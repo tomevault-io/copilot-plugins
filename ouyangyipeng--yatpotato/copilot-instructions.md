@@ -1,69 +1,42 @@
-## electron-development
+## project-overview
 
-> - [electron.js](mdc:public/electron.js) - 主进程入口文件
+> 这是一个使用 React 和 Electron 构建的桌面应用程序项目。
 
-# Electron 开发规则
+# YatPotato 项目概览
 
-## Electron 架构概述
+这是一个使用 React 和 Electron 构建的桌面应用程序项目。
 
-### 主进程文件
-- [electron.js](mdc:public/electron.js) - 主进程入口文件
-- 负责创建和管理应用窗口
-- 处理系统级事件和生命周期
+## 项目架构
 
-### 预加载脚本
-- [preload.js](mdc:public/preload.js) - 预加载脚本
-- 在渲染进程中安全地暴露 Node.js API
-- 提供主进程和渲染进程之间的通信桥梁
+- **前端框架**: React 19.1.0
+- **桌面应用框架**: Electron 36.3.2
+- **构建工具**: React Scripts 5.0.1
+- **开发环境**: Node.js + npm
 
-## 进程间通信 (IPC)
+## 核心目录结构
 
-### 主进程到渲染进程
-- 使用 `webContents.send()` 发送消息
-- 在渲染进程中通过 `window.electronAPI` 接收
+- `src/` - React 应用源代码
+  - [App.js](mdc:src/App.js) - 主应用组件
+  - `components/` - React 组件
+  - `utils/` - 工具函数
+- `public/` - 静态资源和 Electron 配置
+  - [electron.js](mdc:public/electron.js) - Electron 主进程
+  - [preload.js](mdc:public/preload.js) - 预加载脚本
+- `build/` - 构建输出目录
+- `data/` - 数据存储目录
 
-### 渲染进程到主进程
-- 使用 `ipcRenderer.invoke()` 进行异步调用
-- 使用 `ipcRenderer.send()` 发送单向消息
+## 主要入口点
 
-## 安全最佳实践
+- React 应用入口: [src/index.js](mdc:src/index.js)
+- Electron 主进程: [public/electron.js](mdc:public/electron.js)
+- 包配置: [package.json](mdc:package.json)
 
-1. **启用上下文隔离**
-   - 在 BrowserWindow 中设置 `contextIsolation: true`
-   
-2. **禁用节点集成**
-   - 设置 `nodeIntegration: false`
-   
-3. **使用预加载脚本**
-   - 通过预加载脚本安全地暴露 API
-   - 避免直接在渲染进程中使用 Node.js
+## 开发命令
 
-## 打包和分发
-
-### 构建配置
-- 打包配置在 [package.json](mdc:package.json) 的 `build` 字段中
-- 支持 Windows (NSIS)、macOS (DMG)、Linux (AppImage)
-
-### 构建命令
-- `npm run dist` - 构建并打包应用
-- `npm run electron-pack` - 使用 electron-builder 打包
-
-## 开发调试
-
-### 开发环境
-- 使用 `npm run electron-dev` 启动开发环境
-- 自动重载和热更新支持
-
-### 调试工具
-- 在开发环境中启用 Chrome DevTools
-- 使用 `electron-is-dev` 检测开发环境
-
-## 文件结构约定
-
-- 静态资源放在 `public/` 目录
-- Electron 相关文件放在 `public/` 目录
-- 构建输出到 `build/` 目录
-- 最终打包输出到 `dist/` 目录
+- `npm start` - 启动 React 开发服务器
+- `npm run electron-dev` - 并发启动 React 和 Electron
+- `npm run build` - 构建 React 应用
+- `npm run dist` - 构建并打包 Electron 应用
 
 ---
 > Source: [ouyangyipeng/YatPotato](https://github.com/ouyangyipeng/YatPotato) — distributed by [TomeVault](https://tomevault.io).
