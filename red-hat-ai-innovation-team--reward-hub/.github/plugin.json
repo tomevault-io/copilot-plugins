@@ -1,0 +1,9 @@
+{
+  "name": "red-hat-ai-innovation-team--reward-hub",
+  "displayName": "reward_hub",
+  "description": "A repository for customizable reward annotation",
+  "version": "1.0.0",
+  "author": "Red-Hat-AI-Innovation-Team",
+  "homepage": "https://github.com/Red-Hat-AI-Innovation-Team/reward_hub",
+  "skills": []
+}
