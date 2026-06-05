@@ -10089,6 +10089,16 @@
       "description": "Hand-crafted Claude Code Skills focused on improving agent results quality. Compatible with OpenCode, Cursor, Antigravity, Gemini CLI, and others."
     },
     {
+      "name": "shanraisshan--codex-cli-best-practice",
+      "source": "./shanraisshan--codex-cli-best-practice",
+      "description": "from vibe coding to agentic engineering - practice makes codex perfect"
+    },
+    {
+      "name": "shanraisshan--codex-cli-best-practice",
+      "source": "./shanraisshan--codex-cli-best-practice",
+      "description": "from vibe coding to agentic engineering - practice makes codex perfect"
+    },
+    {
       "name": "dmitrysolana--molt-pi-maker",
       "source": "./dmitrysolana--molt-pi-maker",
       "description": "Your AI guide for Molt Pi Maker."
@@ -12022,16 +12032,6 @@
       "name": "openrouterteam--ai-sdk-provider",
       "source": "./openrouterteam--ai-sdk-provider",
       "description": "The OpenRouter provider for the Vercel AI SDK contains support for hundreds of models through the OpenRouter chat and completion APIs."
-    },
-    {
-      "name": "shanraisshan--codex-cli-best-practice",
-      "source": "./shanraisshan--codex-cli-best-practice",
-      "description": "from vibe coding to agentic engineering - practice makes codex perfect"
-    },
-    {
-      "name": "shanraisshan--codex-cli-best-practice",
-      "source": "./shanraisshan--codex-cli-best-practice",
-      "description": "from vibe coding to agentic engineering - practice makes codex perfect"
     },
     {
       "name": "nomadamas--slides-grab",
@@ -16344,6 +16344,11 @@
       "description": "Flux AI Image generator"
     },
     {
+      "name": "shanraisshan--claude-code-hooks",
+      "source": "./shanraisshan--claude-code-hooks",
+      "description": "claude code hooks - adding voice on each hook"
+    },
+    {
       "name": "hanshuaikang--nezha",
       "source": "./hanshuaikang--nezha",
       "description": " Run multiple AI coding agents across projects (Claude Code and Codex)"
@@ -20022,11 +20027,6 @@
       "name": "jihe520--mindpocket",
       "source": "./jihe520--mindpocket",
       "description": "Open-source, free, multi-platform, one-click deploy, AI Agent\u2013integrated personal bookmarking system\uff5c\u5b8c\u5168\u5f00\u6e90\u3001\u514d\u8d39\u3001\u591a\u7aef\u3001\u4e00\u952e\u90e8\u7f72\u3001AI Agent \u96c6\u6210\u7684\u4e2a\u4eba\u6536\u85cf\u5939\u7cfb\u7edf"
-    },
-    {
-      "name": "shanraisshan--claude-code-hooks",
-      "source": "./shanraisshan--claude-code-hooks",
-      "description": "claude code hooks - adding voice on each hook"
     },
     {
       "name": "nvidia-ai-iot--live-vlm-webui",
