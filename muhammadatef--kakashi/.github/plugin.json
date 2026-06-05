@@ -1,0 +1,9 @@
+{
+  "name": "muhammadatef--kakashi",
+  "displayName": "kakashi",
+  "description": "A local-first masker that lives inside Claude Code, Cursor, Codex CLI, and 20+ AI agents.  Hides API keys, passwords, secrets, and personal data \u2014 across PDF, Word, Excel, JSON, .env, and 45+ other fo",
+  "version": "1.0.0",
+  "author": "Muhammadatef",
+  "homepage": "https://github.com/Muhammadatef/kakashi",
+  "skills": []
+}
