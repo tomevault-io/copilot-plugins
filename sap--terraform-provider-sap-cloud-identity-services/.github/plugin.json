@@ -1,0 +1,9 @@
+{
+  "name": "sap--terraform-provider-sap-cloud-identity-services",
+  "displayName": "terraform-provider-sap-cloud-identity-services",
+  "description": "Terraform provider for SAP Cloud Identity Services",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/terraform-provider-sap-cloud-identity-services",
+  "skills": []
+}
