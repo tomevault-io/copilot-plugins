@@ -1,0 +1,9 @@
+{
+  "name": "drivercraft--ostool",
+  "displayName": "ostool",
+  "description": "Rust\u6784\u5efaOS\u7684\u5de5\u5177\u96c6",
+  "version": "1.0.0",
+  "author": "drivercraft",
+  "homepage": "https://github.com/drivercraft/ostool",
+  "skills": []
+}
