@@ -4,7 +4,7 @@
   "repo": "slugifiable",
   "description": "\ud83d\udc0c Ruby gem to generate SEO-optimized URL slugs for your records",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rameerez/slugifiable",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T21:33:57Z"
+  "distributed_at": "2026-06-05T21:36:28Z"
 }
