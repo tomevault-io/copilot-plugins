@@ -1,21 +1,15 @@
-## go-constants-and-http
+## go-error-handling
 
-> Go constants, literals, and HTTP status code conventions
+> Go error handling — fail fast and fix root cause
 
 
-# Go Constants and HTTP Status
+# Go Error Handling
 
-## Constants and literals
-
-- Do not use magic numbers; declare named constants.
-- If a numeric literal is unavoidable, add a brief comment explaining what it is and why that value is used.
-- If a string literal is repeated, extract it to a constant.
-- Do **not** duplicate config defaults in service code. Defaults belong in centralized config initialization; valid ranges belong on config struct fields via validation tags checked at startup. Services read validated config directly — no `if cfg.X <= 0 { fallback }` for config-backed values.
-
-## HTTP status codes
-
-- Use `net/http` named constants (`http.StatusOK`, `http.StatusBadRequest`, `http.StatusNotFound`, etc.).
-- Do not use raw status integers (e.g. `200`, `400`, `404`) in handlers, middleware, or tests.
+- **Bugfixes:** investigate and fix the **root cause**; do not patch symptoms by swallowing errors or forcing default behavior when something failed.
+- **Do not:** `_ = err`; `return nil` / empty data after a failed DB or external call; `log` then continue as if success; catch-all `recover()` without re-panic or proper fatal handling; widen `if err != nil` to ignore and use a zero value unless product spec requires it.
+- **Do:** return `error` from lower layers; handle once at the boundary (controller / job) with proper API error codes and ERROR-level logs.
+- **Fail fast** on misconfiguration and fatal wiring (`log.Fatalf` in service entry files, config validation at startup).
+- Intentional degradation only with explicit product requirement — log the failure and document the fallback.
 
 ---
 > Source: [Netcracker/qubership-apihub-backend](https://github.com/Netcracker/qubership-apihub-backend) — distributed by [TomeVault](https://tomevault.io).
