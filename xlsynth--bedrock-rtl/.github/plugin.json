@@ -1,0 +1,9 @@
+{
+  "name": "xlsynth--bedrock-rtl",
+  "displayName": "bedrock-rtl",
+  "description": "High quality and composable RTL libraries in SystemVerilog",
+  "version": "1.0.0",
+  "author": "xlsynth",
+  "homepage": "https://github.com/xlsynth/bedrock-rtl",
+  "skills": []
+}
