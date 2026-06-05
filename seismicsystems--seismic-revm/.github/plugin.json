@@ -1,0 +1,9 @@
+{
+  "name": "seismicsystems--seismic-revm",
+  "displayName": "seismic-revm",
+  "description": "Seismic REVM implements the Mercury Specification of the EVM: a shielded virtual machine that powers Seismic's blockchain",
+  "version": "1.0.0",
+  "author": "SeismicSystems",
+  "homepage": "https://github.com/SeismicSystems/seismic-revm",
+  "skills": []
+}
