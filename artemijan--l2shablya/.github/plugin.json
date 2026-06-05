@@ -1,0 +1,9 @@
+{
+  "name": "artemijan--l2shablya",
+  "displayName": "L2Shablya",
+  "description": "Lineage 2 game server emulator written in rust ",
+  "version": "1.0.0",
+  "author": "artemijan",
+  "homepage": "https://github.com/artemijan/L2Shablya",
+  "skills": []
+}
