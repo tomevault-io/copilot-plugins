@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-downloader",
+  "displayName": "capacitor-downloader",
+  "description": "Capacitor plugin to download file in background or foreground",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-downloader",
+  "skills": []
+}
