@@ -1,0 +1,26 @@
+{
+  "name": "vultisig--vultisig-windows",
+  "displayName": "vultisig-windows",
+  "description": "vultisig-windows",
+  "version": "1.0.0",
+  "author": "vultisig",
+  "homepage": "https://github.com/vultisig/vultisig-windows",
+  "skills": [
+    {
+      "name": "create-branch",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "delegate",
+      "description": ""
+    },
+    {
+      "name": "resolve-pr-comments",
+      "description": ""
+    }
+  ]
+}
