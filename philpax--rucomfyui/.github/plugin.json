@@ -1,0 +1,9 @@
+{
+  "name": "philpax--rucomfyui",
+  "displayName": "rucomfyui",
+  "description": "A Rust client for ComfyUI with an emphasis on type safety and ergonomics.",
+  "version": "1.0.0",
+  "author": "philpax",
+  "homepage": "https://github.com/philpax/rucomfyui",
+  "skills": []
+}
