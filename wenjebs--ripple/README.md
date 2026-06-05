@@ -1,6 +1,8 @@
 # ripple
 
-> Tome by [wenjebs](https://github.com/wenjebs/ripple) — distributed by [TomeVault](https://tomevault.io/claim/wenjebs)
+> Tome by [wenjebs](https://github.com/wenjebs/ripple) — distributed by [TomeVault](https://tomevault.io)
+
+easya x ripple
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [wenjebs/ripple](https://github.com/we
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/wenjebs)
+From [wenjebs/ripple](https://github.com/wenjebs/ripple) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install wenjebs/ripple
 ```
-Or browse all formats at [https://tomevault.io/claim/wenjebs](https://tomevault.io/claim/wenjebs).
+Source: [github.com/wenjebs/ripple](https://github.com/wenjebs/ripple).
 
 <!-- genome:t-i-s -->
