@@ -7,11 +7,11 @@ A curated collection of AI-powered skills, agents, prompts, and workflows for An
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [salmanashraf/mobile-agency](https://github.com/salmanashraf/mobile-agency).
+Original source: `CLAUDE.md` in [salmanashraf/mobile-agency](https://github.com/salmanashraf/mobile-agency).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
