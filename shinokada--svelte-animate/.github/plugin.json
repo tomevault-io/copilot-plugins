@@ -1,0 +1,9 @@
+{
+  "name": "shinokada--svelte-animate",
+  "displayName": "svelte-animate",
+  "description": "A lightweight, accessible Svelte component that wraps Animate.css, simplifying animation integration in Svelte applications. ",
+  "version": "1.0.0",
+  "author": "shinokada",
+  "homepage": "https://github.com/shinokada/svelte-animate",
+  "skills": []
+}
