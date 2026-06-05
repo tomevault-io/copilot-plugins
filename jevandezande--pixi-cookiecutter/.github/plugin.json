@@ -1,0 +1,9 @@
+{
+  "name": "jevandezande--pixi-cookiecutter",
+  "displayName": "pixi-cookiecutter",
+  "description": "Cookiecutter for setting up python projects with pixi that just work",
+  "version": "1.0.0",
+  "author": "jevandezande",
+  "homepage": "https://github.com/jevandezande/pixi-cookiecutter",
+  "skills": []
+}
