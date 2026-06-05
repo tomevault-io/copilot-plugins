@@ -4,7 +4,7 @@
   "repo": "red-cliff-record",
   "description": "A local-first, own-your-data approach to personal knowledge management. The spiritual successor to barnsworthburning. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aias/red-cliff-record",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T22:44:50Z"
+  "distributed_at": "2026-06-05T22:45:22Z"
 }
