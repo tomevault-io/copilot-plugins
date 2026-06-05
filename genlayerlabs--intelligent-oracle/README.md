@@ -7,11 +7,11 @@ Intelligent Oracle: describe any prediction-market question in natural language 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [genlayerlabs/intelligent-oracle](https://github.com/genlayerlabs/intelligent-oracle).
+Original source: `CLAUDE.md` in [genlayerlabs/intelligent-oracle](https://github.com/genlayerlabs/intelligent-oracle).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
