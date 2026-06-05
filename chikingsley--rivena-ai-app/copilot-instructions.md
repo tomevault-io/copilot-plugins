@@ -1,137 +1,71 @@
-## database-create-functions
+## solid-js
 
-> Guidelines for writing Supabase database functions
+> This project is a Solid.js application built with TypeScript, focusing on type safety, reactive state management, and functional components. The goal is to create a maintainable and scalable codebase with strict TypeScript checks and best practices.
 
-# Database: Create functions
+# Solid.js (TypeScript)
 
-You're a Supabase Postgres expert in writing database functions. Generate **high-quality PostgreSQL functions** that adhere to the following best practices:
+# Solid.js with TypeScript .cursorrules
 
-## General Guidelines
+## Project Background
+This project is a Solid.js application built with TypeScript, focusing on type safety, reactive state management, and functional components. The goal is to create a maintainable and scalable codebase with strict TypeScript checks and best practices.
 
-1. **Default to `SECURITY INVOKER`:**
+## Coding Standards
+- Prefer functional components over class components.
+- Use `createSignal<T>()` for typed reactive state.
+- Implement proper type definitions for components.
+- Utilize TypeScript's strict mode.
+- Use type inference where possible.
+- Implement interfaces for complex prop types.
+- Utilize utility types provided by Solid.js.
 
-   - Functions should run with the permissions of the user invoking the function, ensuring safer access control.
-   - Use `SECURITY DEFINER` only when explicitly required and explain the rationale.
+## Preferred Libraries
+- **Solid.js**: For reactive state management and component architecture.
+- **TypeScript**: For type safety and developer productivity.
+- **Solid Router**: For routing with proper typing.
+- **Type-safe Context**: Use `createContext` with proper typing.
 
-2. **Set the `search_path` Configuration Parameter:**
-
-   - Always set `search_path` to an empty string (`set search_path = '';`).
-   - This avoids unexpected behavior and security risks caused by resolving object references in untrusted or unintended schemas.
-   - Use fully qualified names (e.g., `schema_name.table_name`) for all database objects referenced within the function.
-
-3. **Adhere to SQL Standards and Validation:**
-   - Ensure all queries within the function are valid PostgreSQL SQL queries and compatible with the specified context (ie. Supabase).
-
-## Best Practices
-
-1. **Minimize Side Effects:**
-
-   - Prefer functions that return results over those that modify data unless they serve a specific purpose (e.g., triggers).
-
-2. **Use Explicit Typing:**
-
-   - Clearly specify input and output types, avoiding ambiguous or loosely typed parameters.
-
-3. **Default to Immutable or Stable Functions:**
-
-   - Where possible, declare functions as `IMMUTABLE` or `STABLE` to allow better optimization by PostgreSQL. Use `VOLATILE` only if the function modifies data or has side effects.
-
-4. **Triggers (if Applicable):**
-   - If the function is used as a trigger, include a valid `CREATE TRIGGER` statement that attaches the function to the desired table and event (e.g., `BEFORE INSERT`).
-
-## Example Templates
-
-### Simple Function with `SECURITY INVOKER`
-
-```sql
-create or replace function my_schema.hello_world()
-returns text
-language plpgsql
-security invoker
-set search_path = ''
-as $$
-begin
-  return 'hello world';
-end;
-$$;
+## File Structure
+```
+src/
+  routes/
+  components/
+  pages/
+  utils/
+  types/
+  App.tsx
+  index.tsx
+public/
+  index.html
+tsconfig.json
 ```
 
-### Function with Parameters and Fully Qualified Object Names
+## Performance Optimization
+- Use `createMemo` for derived state to avoid unnecessary re-renders.
+- Implement lazy loading for components where applicable.
+- Optimize `createEffect` dependencies to prevent unnecessary side effects.
 
-```sql
-create or replace function public.calculate_total_price(order_id bigint)
-returns numeric
-language plpgsql
-security invoker
-set search_path = ''
-as $$
-declare
-  total numeric;
-begin
-  select sum(price * quantity)
-  into total
-  from public.order_items
-  where order_id = calculate_total_price.order_id;
+## Testing Requirements
+- Write unit tests using **Jest** and **Solid Testing Library**.
+- Ensure test coverage is at least 80%.
+- Use snapshot testing for UI components.
 
-  return total;
-end;
-$$;
-```
+## Documentation
+- Write comments for functions and components in **JSDoc** format.
+- Components must include **PropTypes** validation.
+- Each main directory must contain a `README.md` file.
 
-### Function as a Trigger
+## Error Handling
+- Use `try/catch` blocks to handle asynchronous operations.
+- Implement global error boundaries for runtime errors.
 
-```sql
-create or replace function my_schema.update_updated_at()
-returns trigger
-language plpgsql
-security invoker
-set search_path = ''
-as $$
-begin
-  -- Update the "updated_at" column on row modification
-  new.updated_at := now();
-  return new;
-end;
-$$;
-
-create trigger update_updated_at_trigger
-before update on my_schema.my_table
-for each row
-execute function my_schema.update_updated_at();
-```
-
-### Function with Error Handling
-
-```sql
-create or replace function my_schema.safe_divide(numerator numeric, denominator numeric)
-returns numeric
-language plpgsql
-security invoker
-set search_path = ''
-as $$
-begin
-  if denominator = 0 then
-    raise exception 'Division by zero is not allowed';
-  end if;
-
-  return numerator / denominator;
-end;
-$$;
-```
-
-### Immutable Function for Better Optimization
-
-```sql
-create or replace function my_schema.full_name(first_name text, last_name text)
-returns text
-language sql
-security invoker
-set search_path = ''
-immutable
-as $$
-  select first_name || ' ' || last_name;
-$$;
-```
+## Additional Instructions
+1. Use `.tsx` extension for files with JSX.
+2. Implement strict TypeScript checks.
+3. Utilize Solid Router with proper typing.
+4. Use type-safe context with `createContext`.
+5. Implement proper typing for event handlers.
+6. Follow TypeScript best practices and naming conventions.
+7. Use type assertions sparingly and only when necessary.
 
 ---
 > Source: [chikingsley/rivena-ai-app](https://github.com/chikingsley/rivena-ai-app) — distributed by [TomeVault](https://tomevault.io).
