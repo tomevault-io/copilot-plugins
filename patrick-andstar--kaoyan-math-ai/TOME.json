@@ -1,0 +1,44 @@
+{
+  "name": "kaoyan-math-ai",
+  "owner": "patrick-andstar",
+  "repo": "kaoyan-math-ai",
+  "description": "kaoyan-math-ai \u662f\u4e00\u4e2a\u57fa\u4e8e Obsidian \u7684\u8003\u7814\u6570\u5b66\u4e00\u590d\u4e60\u8d44\u6599\u5e93\uff0c\u56f4\u7ed5\u9ad8\u6570\u3001\u7ebf\u4ee3\u3001\u6982\u7387\u8bba\u6574\u7406\u77e5\u8bc6\u70b9\u3001\u65b9\u6cd5\u3001\u9898\u578b\u4e0e\u601d\u7ef4\u5bfc\u56fe\u3002\u9879\u76ee\u7ed3\u5408 PDF \u6309\u7ae0\u62c6\u5206\u3001PaddleOCR\u3001AI \u8349\u7a3f\u6574\u7406\u3001Markdown \u53cc\u94fe\u548c\u7b14\u8bb0\u6a21\u677f\uff0c\u628a\u7eb8\u8d28/\u626b\u63cf\u8d44\u6599\u9010\u6b65\u8f6c\u6210\u53ef\u68c0\u7d22\u3001\u53ef\u94fe\u63a5\u3001\u53ef\u590d\u76d8\u7684\u672c\u5730\u77e5\u8bc6\u5e93\uff0c\u5e2e\u52a9\u51cf\u5c11\u91cd\u590d\u6284\u5199\uff0c\u63d0\u9ad8\u957f\u671f\u590d\u4e60\u548c\u56de\u987e\u6548\u7387\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/patrick-andstar/kaoyan-math-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-05T10:37:44Z"
+}
