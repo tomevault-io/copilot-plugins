@@ -1,0 +1,9 @@
+{
+  "name": "eagle-head--timekeeper-countdown",
+  "displayName": "timekeeper-countdown",
+  "description": "Lightweight countdown engine that powers the Timekeeper packages. Pure TypeScript.",
+  "version": "1.0.0",
+  "author": "eagle-head",
+  "homepage": "https://github.com/eagle-head/timekeeper-countdown",
+  "skills": []
+}
