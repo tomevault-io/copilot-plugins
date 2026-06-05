@@ -1,0 +1,9 @@
+{
+  "name": "sidekick0361--multi-tenant-saas-demo",
+  "displayName": "multi-tenant-saas-demo",
+  "description": "Next.js 14 technical demo for multi-tenant middleware, PostGIS geofence checks, and Socket.io real-time updates.",
+  "version": "1.0.0",
+  "author": "sidekick0361",
+  "homepage": "https://github.com/sidekick0361/multi-tenant-saas-demo",
+  "skills": []
+}
