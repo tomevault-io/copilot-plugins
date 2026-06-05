@@ -1,0 +1,9 @@
+{
+  "name": "dfradehubs--agentgram",
+  "displayName": "agentgram",
+  "description": "Unified interface for interacting with multiple AI agents (AG-UI protocol). Go API multiplexer + Next.js web.",
+  "version": "1.0.0",
+  "author": "dfradehubs",
+  "homepage": "https://github.com/dfradehubs/agentgram",
+  "skills": []
+}
