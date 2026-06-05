@@ -1,0 +1,9 @@
+{
+  "name": "xephosbot--anilibriarefresh",
+  "displayName": "AnilibriaRefresh",
+  "description": "Compose Multiplatform Anilibria Client (Android, iOS, Desktop)",
+  "version": "1.0.0",
+  "author": "xephosbot",
+  "homepage": "https://github.com/xephosbot/AnilibriaRefresh",
+  "skills": []
+}
