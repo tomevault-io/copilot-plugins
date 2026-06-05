@@ -1,274 +1,137 @@
-## powershell
+## cbtrade
 
-> - You have less problems reading the results from the terminal when they are run in the background.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# PowerShell Command Reference for Windows Development
-- You have less problems reading the results from the terminal when they are run in the background.
+# CLAUDE.md
 
-## CRITICAL: Terminal Integration Self-Diagnosis
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-### � AI Self-Check: Am I Reading PowerShell Results Correctly?
+## Project Overview
 
-**MANDATORY CHECK before any PowerShell operation:**
+CBTrade is a sophisticated cryptocurrency algorithmic trading bot built in Python that operates on the Coinbase Advanced Trader API. The system uses SQLite databases for data storage and employs multiple technical analysis strategies for automated trading decisions.
 
-#### Symptoms of Terminal Integration Failure:
-- ❌ Waiting indefinitely for command results that already appeared
-- ❌ Treating error messages as successful outputs  
-- ❌ Missing command output entirely
-- ❌ Cursor position errors in terminal
-- ❌ PSReadLine integration problems
+**Core Purpose**: Automate cryptocurrency trading on Coinbase spot markets using technical analysis strategies, with comprehensive position tracking, performance monitoring, and risk management.
 
-#### Self-Diagnostic Questions:
-1. **Did I see actual command output?** If not, terminal integration may be broken
-2. **Am I treating errors as success?** Check if output contains error keywords
-3. **Am I waiting for results that already came?** Look for completed command patterns
-4. **Is the terminal showing cursor position errors?** This indicates integration failure
+## Key Architecture Components
 
-#### Emergency Fallback Methods:
-```powershell
-# Method 1: Explicit output capture and display
-$result = python -c "print('test')" 2>&1
-Write-Host "RESULT: $result"
+### Database Architecture
+- **Primary Database**: `db/cbtrade.db` (SQLite) - Core trading data including positions, orders, balances, and performance metrics
+- **OHLCV Database**: `db/ohlcvs/` - Individual SQLite databases per trading pair for historical price data
+- **Database Layer**: Uses custom SQLiteDB base class with schema management and connection handling
+- **Key Tables**: `poss` (positions), `mkts` (markets), `buy_ords`/`sell_ords` (orders), `trade_perfs` (performance), `bals` (balances)
 
-# Method 2: Output to file for verification
-python -c "print('test')" > temp_output.txt 2>&1
-Get-Content temp_output.txt
+### Bot Architecture
+- **Main Bot Class**: `libs/bot_base.py` - Central orchestrator inheriting from multiple base classes
+- **Base Classes**: Modular architecture with `mkt_base`, `buy_base`, `sell_base`, `budget_base`, `pair_base`, etc.
+- **Strategy System**: Plugin-based trading strategies in `libs/strats/` with template-driven development
+- **Technical Analysis**: Pandas-based TA pipeline using pandas_ta library
 
-# Method 3: Use explicit error handling
-try {
-    $output = python -c "print('test')" 2>&1
-    Write-Host "SUCCESS: $output"
-} catch {
-    Write-Host "ERROR: $($_.Exception.Message)"
-}
+### Strategy Framework
+- **Location**: `libs/strats/` directory contains individual strategy files
+- **Template**: Use `strat_TEMPLATE.py` as starting point for new strategies
+- **Structure**: Each strategy implements `buy_strat_*` and `sell_strat_*` functions
+- **Settings**: Strategy configurations in `settings_*` functions with frequency-based parameters
+- **Common Functions**: Shared utilities in `_strat_common.py`
 
-# Method 4: Force UTF-8 encoding
-$OutputEncoding = [Console]::OutputEncoding = [Text.Encoding]::UTF8
-python -c "print('test')"
+### Web Interface
+- **Framework**: Flask-based web interface for monitoring and reporting
+- **Entry Point**: `run_web.py` starts web server on port 8080
+- **Templates**: HTML templates in `templates/` directory
+- **Reports**: Comprehensive trading performance and position reporting
+
+## Development Commands
+
+### Running the Bot
+```bash
+# Manual trading mode (default)
+python run_bot.py
+
+# Automated trading mode  
+python run_bot.py --auto
+
+# Web interface (runs on http://localhost:8080)
+python run_web.py
 ```
 
-### Self-Fixing Protocol:
+### Package Management
+- **Tool**: Uses `pip` for dependency management
+- **Config**: `requirements.txt` defines project dependencies
+- **Python Version**: Requires Python 3.13+
+- **Key Dependencies**: pandas, pandas-ta, coinbase-advanced-py, sqlite3, flask
 
-#### Step 1: Detect Integration Failure
-```powershell
-# Test command to verify terminal integration
-Write-Host "TERMINAL_TEST_START"
-python -c "print('TERMINAL_TEST_SUCCESS')"
-Write-Host "TERMINAL_TEST_END"
+### Database Operations
+```python
+# Database connections are handled automatically via:
+from libs.db.cbtrade import CBTRADE_DB
+from libs.db.ohlcv import OHLCV_DB
+
+# Main database instance
+cbtrade_db = CBTRADE_DB()
+
+# OHLCV data access
+ohlcv_db = OHLCV_DB()
 ```
 
-#### Step 2: Apply Immediate Workarounds
-```powershell
-# Set proper encoding
-$OutputEncoding = [Console]::OutputEncoding = [Text.Encoding]::UTF8
+## Critical Architecture Patterns
 
-# Use explicit output capture
-function Invoke-SafePythonCommand {
-    param([string]$Command)
-    try {
-        $result = python -c $Command 2>&1
-        Write-Host "PYTHON_OUTPUT: $result"
-        return $result
-    } catch {
-        Write-Host "PYTHON_ERROR: $($_.Exception.Message)"
-        return $null
-    }
-}
-```
+### Error Handling
+- **Silent Killer Prevention**: Comprehensive exception handling with detailed logging
+- **Critical Backup**: Automatic project backups on startup using `fstrent_bkitup`
+- **Database Safety**: Connection retry logic and health monitoring
 
-#### Step 3: Alternative Command Strategies
-When terminal integration fails, use these patterns:
+### Data Flow
+1. **Market Data**: Coinbase API → Market objects → Database storage
+2. **Technical Analysis**: OHLCV data → TA calculations → Strategy evaluation  
+3. **Trading Decisions**: Strategy signals → Order placement → Position tracking
+4. **Performance**: Trade results → Performance calculations → Reporting
 
-```powershell
-# Instead of direct commands, use wrapped versions:
+### Configuration Management
+- **Settings**: JSON configuration files in `settings/` directory
+- **Environment**: `.env` file for API keys and database configuration
+- **Strategy Config**: Each strategy defines its own settings structure
 
-# OLD (integration-dependent):
-python script.py
+### Testing and Safety
+- **Paper Trading**: `paper_trades_only_yn` setting prevents live trading
+- **Position Limits**: Configurable maximum open positions per strategy/pair
+- **Risk Management**: Stop-loss and take-profit mechanisms built into strategies
 
-# NEW (integration-safe):
-$result = python script.py 2>&1
-Write-Host "EXECUTION_RESULT: $result"
+## Common Development Tasks
 
-# For file operations:
-python script.py > output.log 2>&1
-Write-Host "Command completed. Output:"
-Get-Content output.log
-```
+### Adding a New Trading Strategy
+1. Copy `libs/strats/strat_TEMPLATE.py` to `libs/strats/strat_[name].py`
+2. Implement `settings_[name]()`, `buy_strat_[name]()`, and `sell_strat_[name]()` functions
+3. Add technical indicators in `ta_add_[indicator]()` functions
+4. Test strategy logic and configure position limits
 
-## Powershell on Windows 10/11
-- You are running powershell on windows 10/11, ensure that your commands and powershell usage is adjusted accordingly
-- You have issues with using curl as its interpretted as a 'Invoke-Webrequest command and you will end up hung up on a prompt waiting for uri:
-- && does not work as a command seperator well, you perform better when using ;
+### Database Schema Updates
+- Tables are auto-created via `get_required_tables()` in database classes
+- Index definitions in `get_required_indexes()` for performance
+- Use `insupd_ez()` for insert/update operations with validation
 
-## Powershell Date Time
-- when using powershell to get the time, use this command first "powershell -Command "(Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')"
+### Performance Optimization
+- **Database Indexing**: Critical indexes on `prod_id`, `pos_stat`, `ord_stat` columns
+- **Connection Management**: Thread-local SQLite connections with WAL mode
+- **Data Efficiency**: Minimize database queries in trading loops
 
+## Important File Locations
+- **Main Entry**: `run_bot.py` - Bot startup and orchestration
+- **Core Logic**: `libs/bot_base.py` - Main bot class with trading loops
+- **Database**: `libs/db/cbtrade/db_main.py` - Database operations
+- **Strategies**: `libs/strats/` - All trading strategy implementations
+- **Configuration**: `settings/market_usdc.json` - Market and trading settings
+- **Web Interface**: `run_web.py` and `libs/web.py` - Monitoring dashboard
 
-## Curl/HTTP Request Commands
+## Security Notes
+- API keys stored in `.env` file (not committed to repository)
+- Database files contain sensitive trading data
+- Paper trading mode should be enabled for development/testing
+- Backup system creates timestamped project snapshots
 
-**CRITICAL:** In PowerShell on Windows, `curl` is an alias for `Invoke-WebRequest` cmdlet, NOT the actual curl executable. This causes interactive prompts that block automation.
-
-### ❌ AVOID - Gets stuck on Uri prompt:
-```powershell
-curl -s http://localhost:5000/api/status
-# This will prompt: "Uri:" and hang
-```
-
-### ✅ USE INSTEAD:
-```powershell
-# Option 1: Use Invoke-WebRequest with proper syntax
-Invoke-WebRequest -Uri "http://localhost:5000/api/status" -UseBasicParsing
-
-# Option 2: Use shorthand 'iwr'
-iwr "http://localhost:5000/api/status" -UseBasicParsing
-
-# Option 3: Force actual curl executable
-curl.exe -s http://localhost:5000/api/status
-
-# Option 4: For JSON responses
-(Invoke-WebRequest -Uri "http://localhost:5000/api/status").Content | ConvertFrom-Json
-```
-
-## Directory Navigation
-```powershell
-# Change directory and run command in one line
-cd flask-vpn-manager; python main.py
-
-# Create multiple directories
-New-Item -ItemType Directory -Path "app\templates", "app\static" -Force
-```
-
-## Powershell Flask Servers
-- You often get hung when running a flask web server in chat... its better if you run it as a background task
-
-## Flask Development
-```powershell
-# Start Flask in background
-python main.py &
-
-# Test endpoints
-Invoke-WebRequest -Uri "http://127.0.0.1:5000/" -UseBasicParsing
-Invoke-WebRequest -Uri "http://127.0.0.1:5000/api/status" -UseBasicParsing
-```
-
-## Recognition Patterns for Failed Commands
-
-### Error Keywords to Watch For:
-- "Exception", "Error", "Failed", "Cannot", "Unable"
-- "Access denied", "Permission denied", "File not found"
-- "Traceback", "SyntaxError", "ImportError"
-- "Connection refused", "Timeout", "Network error"
-
-### Success Indicators:
-- Actual expected output content
-- Exit codes of 0
-- Expected file creation/modification
-- Proper JSON/data structure responses
-
-### Integration Failure Indicators:
-- No output when output is expected
-- Cursor remaining in "waiting" state
-- Missing error messages for obviously failing commands
-- Treating error output as successful completion
-
-## Emergency Procedures
-
-### When Terminal Integration Completely Fails:
-
-1. **Acknowledge the Problem:**
-   ```
-   "I notice I'm having trouble reading PowerShell output properly. Let me apply the terminal integration fix."
-   ```
-
-2. **Use File-Based Output:**
-   ```powershell
-   # Redirect all output to files
-   python script.py > success.log 2> error.log
-   
-   # Check results
-   if (Test-Path success.log) { 
-       Write-Host "SUCCESS OUTPUT:"
-       Get-Content success.log 
-   }
-   if (Test-Path error.log) { 
-       Write-Host "ERROR OUTPUT:"
-       Get-Content error.log 
-   }
-   ```
-
-3. **Apply Cursor Integration Fix:**
-   Reference the shellIntegration.ps1 fixes from the powershell_fix.md document
-
-## CRITICAL: Command Parsing Failures Prevention
-
-### � NEVER USE Multi-Line Python Commands in PowerShell
-**PROBLEM**: PowerShell mangles multi-line Python commands causing "q**" and similar parsing errors
-
-### ❌ NEVER DO THIS:
-```powershell
-python -c "
-from some_module import something
-# Multi-line code here
-result = something()
-print(result)
-"
-```
-
-### ✅ ALWAYS DO THIS INSTEAD:
-```powershell
-# Method 1: Single line commands only
-python -c "from some_module import something; result = something(); print(result)"
-
-# Method 2: Use actual Python files
-# Create temp file and execute it
-python script_name.py
-
-# Method 3: Use here-strings for complex commands (safer)
-$pythonCode = @"
-from some_module import something
-result = something()
-print(result)
-"@
-$pythonCode | python
-```
-
-### Character Encoding Protection
-**MANDATORY**: Set encoding before any Python execution:
-```powershell
-# ALWAYS run this first in any PowerShell session
-$OutputEncoding = [Console]::OutputEncoding = [Text.Encoding]::UTF8
-[Console]::InputEncoding = [Text.Encoding]::UTF8
-```
-
-### PSReadLine Interference Prevention
-**PROBLEM**: PSReadLine can interfere with command parsing
-
-### ✅ Safe Command Execution Pattern:
-```powershell
-# For any potentially problematic command:
-cmd /c "python script.py"  # Use cmd.exe as intermediary
-# OR
-Start-Process python -ArgumentList "script.py" -Wait -NoNewWindow
-```
-
-### Command Parsing Error Recovery
-**When you see errors like "The term 'q**' is not recognized":**
-
-1. **STOP immediately** - Don't retry the same command
-2. **Clear the command buffer**: Press Ctrl+C, then Enter
-3. **Reset encoding**: Run the UTF-8 encoding commands above
-4. **Use safe execution pattern**: cmd /c or Start-Process
-5. **Never use multi-line strings in python -c**
-
-## Common Gotchas
-- Use `-UseBasicParsing` to avoid DOM parsing issues
-- Always quote URLs with special characters
-- Use `curl.exe` if you need actual curl behavior
-- PowerShell aliases can override expected behavior
-- **CRITICAL**: Always verify you can actually see command results before proceeding
-- **CRITICAL**: If waiting more than 10 seconds for simple commands, assume integration failure
-- **CRITICAL**: NEVER use multi-line python -c commands - they ALWAYS fail
-- **CRITICAL**: Set UTF-8 encoding before ANY Python execution
+## Dependencies and Environment
+- **Python**: 3.13+ required
+- **Key Libraries**: pandas, pandas-ta, numpy, sqlite3, flask, coinbase-advanced-py
+- **Custom Packages**: fstrent-* packages for utilities (colors, charts, backup)
+- **Development**: Uses pip for dependency management
 
 ---
 > Source: [wrm3/CBTrade](https://github.com/wrm3/CBTrade) — distributed by [TomeVault](https://tomevault.io).
