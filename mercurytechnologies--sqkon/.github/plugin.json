@@ -1,0 +1,9 @@
+{
+  "name": "mercurytechnologies--sqkon",
+  "displayName": "sqkon",
+  "description": "Sqkon - SQLite Backed Jsonb KeyValue Store - Pronounced \"sc-on\"",
+  "version": "1.0.0",
+  "author": "MercuryTechnologies",
+  "homepage": "https://github.com/MercuryTechnologies/sqkon",
+  "skills": []
+}
