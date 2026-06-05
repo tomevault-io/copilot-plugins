@@ -1,121 +1,47 @@
-## coding
+## market
 
-> coding rules
+> This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
 
-You are an expert in React, TanStack ecosystem, Radix UI, Tailwind CSS, Nostr protocol, and TypeScript.
+# Agent Instructions
 
-Key Principles
-- Write concise, technical responses with accurate React examples.
-- Prefer iteration and modularization over duplication.
-- Follow functional programming patterns and declarative code style.
-- Prioritize type safety and use TypeScript extensively.
+This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
 
-Error Handling and Validation
-- Handle errors and edge cases at the beginning of functions using guard clauses.
-- Use early returns for error conditions to avoid deeply nested if statements.
-- Place the happy path last in the function for improved readability.
-- Avoid unnecessary else statements; use if-return pattern instead.
-- Always throw user-friendly errors that TanStack Query can catch and display.
-- Use Zod schemas for runtime validation and type inference.
-- Implement proper error logging with descriptive messages.
+## Quick Reference
 
-React & Components
-- Use functional components with TypeScript interfaces.
-- Use declarative JSX with proper component composition.
-- Place static content, interfaces, and schemas at file end.
-- Use content variables for static content outside render functions.
-- Wrap async components in Suspense with meaningful fallback UI.
-- Prefer composition over inheritance for component design.
+```bash
+bd ready              # Find available work
+bd show <id>          # View issue details
+bd update <id> --status in_progress  # Claim work
+bd close <id>         # Complete work
+bd sync               # Sync with git
+```
 
-State Management (TanStack Store)
-- Use TanStack Store for client-side global state.
-- Create separate stores for different domains (auth, cart, product, ndk).
-- Define clear state interfaces and initial state objects.
-- Export both store and actions from store files.
-- Use descriptive action names that indicate intent.
-- Always handle state immutability when updating store state.
+## Landing the Plane (Session Completion)
 
-Data Fetching (TanStack Query)
-- Use TanStack Query for all server/Nostr data fetching.
-- Create query key factories in `src/queries/queryKeyFactory.ts`.
-- Organize queries by domain in separate files under `src/queries/`.
-- Use `queryOptions` for reusable query configurations.
-- Implement proper error handling in query functions.
-- Use optimistic updates for better UX where appropriate.
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
 
-Forms (TanStack Form)
-- Use TanStack Form with Zod resolvers for validation.
-- Define form schemas using Zod for type safety and validation.
-- Handle form submission errors gracefully with user feedback.
-- Use field-level validation for real-time feedback.
-- Extract complex form logic into custom hooks.
+**MANDATORY WORKFLOW:**
 
-Routing (TanStack Router)
-- Use TanStack Router with type-safe route definitions.
-- Define routes in the `src/routes/` directory following file-based routing.
-- Use route loaders for data dependencies.
-- Implement proper loading and error states for routes.
-- Use search params and path params with proper TypeScript typing.
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   bd sync
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
 
-Nostr Integration
-- Use NDK (Nostr Development Kit) for all Nostr operations.
-- Initialize NDK through the store pattern in `src/lib/stores/ndk.ts`.
-- Use proper NDK event filtering and caching strategies.
-- Handle relay connections and failures gracefully.
-- Implement authentication using NDK signers (NIP-07, NIP-46, private key).
-- Use proper event validation with Zod schemas.
+**CRITICAL RULES:**
 
-UI & Styling (Radix UI + Tailwind CSS)
-- Use Radix UI components as the foundation for all interactive elements.
-- Build custom components by composing Radix primitives in `src/components/ui/`.
-- Use Tailwind CSS for all styling with the custom design system.
-- Implement responsive design using Tailwind's responsive utilities.
-- Use CSS variables defined in `styles/globals.css` for theming.
-- Utilize `class-variance-authority` for component variants.
-- Use `clsx` and `tailwind-merge` for conditional styling.
-- Follow the established color palette (primary, secondary, tertiary, focus).
-
-File Organization
-- Place components in `src/components/` with domain-specific subdirectories.
-- Keep UI primitives in `src/components/ui/`.
-- Store business logic in `src/lib/` with clear separation of concerns.
-- Use `src/queries/` for all data fetching logic.
-- Place TypeScript types and schemas in `src/lib/schemas/`.
-- Keep utility functions in `src/lib/utils/`.
-
-TypeScript Best Practices
-- Use strict TypeScript configuration with proper type inference.
-- Define interfaces for all component props and state shapes.
-- Use Zod for runtime type validation and `z.infer` for type extraction.
-- Avoid `any` types; use proper type definitions or `unknown`.
-- Use discriminated unions for complex state or action types.
-- Implement proper generic constraints where needed.
-
-Performance & Optimization
-- Use React 19's concurrent features appropriately.
-- Implement proper memoization with `useMemo` and `useCallback` when needed.
-- Use TanStack Query's caching strategies effectively.
-- Optimize bundle size by using dynamic imports for large components.
-- Implement proper error boundaries for component isolation.
-
-Authentication & Security
-- Use Nostr-based authentication with proper key management.
-- Store sensitive data (private keys) securely using encryption.
-- Implement proper session management with localStorage/sessionStorage.
-- Validate all user inputs and API responses with Zod schemas.
-- Handle authentication states properly throughout the application.
-
-Testing Considerations
-- Write testable code with clear separation of concerns.
-- Use dependency injection patterns for easier testing.
-- Mock external dependencies (Nostr relays, NDK) in tests.
-- Test error scenarios and edge cases thoroughly.
-
-Import Organization
-- Group imports: React/external libraries, internal utilities, components, types.
-- Use path aliases defined in `tsconfig.json` (@/components, @/lib, etc.).
-- Avoid circular dependencies between modules.
-- Use barrel exports for cleaner import statements. 
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
 
 ---
 > Source: [PlebeianApp/market](https://github.com/PlebeianApp/market) — distributed by [TomeVault](https://tomevault.io).
