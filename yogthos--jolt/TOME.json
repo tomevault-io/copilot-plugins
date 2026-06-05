@@ -4,7 +4,7 @@
   "repo": "jolt",
   "description": "A Clojure interpreter running on Janet",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yogthos/jolt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T18:39:14Z"
+  "distributed_at": "2026-06-05T18:39:48Z"
 }
