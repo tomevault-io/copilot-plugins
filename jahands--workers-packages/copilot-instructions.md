@@ -1,19 +1,73 @@
-## typescript
+## use-todo-list
 
-> TypeScript testing conventions
+> Use this rule when I ask you to use TODOs for a task.
 
-<typescript-testing>
+<todo-list-management-rule>
 
-<title>TypeScript Testing Conventions</title>
+<description>Maintain a TODO.md file to track all pending tasks, improvements, and known issues in the codebase</description>
 
+<file-location>
+<requirement>The file should go in the package directory we're working on. E.g. apps/some-app/TODO.md</requirement>
+</file-location>
+
+<file-format>
+<requirements>
+- Use standard markdown with `- [ ]` for incomplete tasks and `- [x]` for completed tasks
+- Organize tasks under clear section headers (e.g., ## Features, ## Bug Fixes, ## Refactoring)
+- Include brief descriptions and priority levels (High/Medium/Low) in parentheses
+</requirements>
+</file-format>
+
+<update-triggers>
 <rules>
-- Always use vitest for tests
-- Unit tests: `<file>.spec.ts` (e.g., `my-file.ts` → `my-file.spec.ts`)
-- Integration tests: `<feature>.test.ts`
-- Error variables: use `e` or `err`, never `error`
+- Add items when you identify new tasks, bugs, or improvements needed
+- Mark complete when you finish implementing a task
+- Update descriptions when task scope changes
+- Remove obsolete items that are no longer relevant
 </rules>
+</update-triggers>
 
-</typescript-testing>
+<tracking-scope>
+<items>
+- Features to implement
+- Bugs to fix
+- Code refactoring needs
+- Documentation updates
+- Performance optimizations
+- Security improvements
+- Testing requirements
+</items>
+</tracking-scope>
+
+<format-example>
+```markdown
+# TODO
+
+## High Priority
+
+- [ ] Fix authentication bug in login flow (High)
+- [ ] Add error handling for API calls (High)
+
+## Features
+
+- [ ] Implement user profile page (Medium)
+- [x] Add search functionality (Medium)
+
+## Technical Debt
+
+- [ ] Refactor database queries for better performance (Low)
+```
+</format-example>
+
+<update-requirement>
+<rule>Always show me the updated TODO.md content after making changes to code or when I ask for project status</rule>
+</update-requirement>
+
+<purpose>
+<description>This rule ensures the LLM consistently tracks work while providing you with clear visibility into project progress and outstanding tasks</description>
+</purpose>
+
+</todo-list-management-rule>
 
 ---
 > Source: [jahands/workers-packages](https://github.com/jahands/workers-packages) — distributed by [TomeVault](https://tomevault.io).
