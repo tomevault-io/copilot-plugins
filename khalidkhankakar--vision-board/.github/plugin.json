@@ -1,0 +1,9 @@
+{
+  "name": "khalidkhankakar--vision-board",
+  "displayName": "vision-board",
+  "description": "V-Board is web app which is build in Nextjs 15 RC. which allows user to create the drawing shaps and more using liveblocks.",
+  "version": "1.0.0",
+  "author": "khalidkhankakar",
+  "homepage": "https://github.com/khalidkhankakar/vision-board",
+  "skills": []
+}
