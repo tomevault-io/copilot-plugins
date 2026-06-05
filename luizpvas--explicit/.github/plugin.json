@@ -1,0 +1,9 @@
+{
+  "name": "luizpvas--explicit",
+  "displayName": "explicit",
+  "description": "Explicit is a validation and documentation library for REST APIs that enforces documented types at runtime",
+  "version": "1.0.0",
+  "author": "luizpvas",
+  "homepage": "https://github.com/luizpvas/explicit",
+  "skills": []
+}
