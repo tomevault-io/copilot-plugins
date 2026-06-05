@@ -1,24 +1,21 @@
-## go-comments
+## go-constants-and-http
 
-> Go comment policy and entity-to-view converter naming
+> Go constants, literals, and HTTP status code conventions
 
 
-# Go Comments and Converters
+# Go Constants and HTTP Status
 
-## Comments
+## Constants and literals
 
-- Comment only when it materially helps understanding non-obvious logic.
-- Do not comment obvious code.
-- Do not add comments that map structs/functions to HTTP routes (e.g. `// AiChatsListResponse is GET /chats`).
+- Do not use magic numbers; declare named constants.
+- If a numeric literal is unavoidable, add a brief comment explaining what it is and why that value is used.
+- If a string literal is repeated, extract it to a constant.
+- Do **not** duplicate config defaults in service code. Defaults belong in centralized config initialization; valid ranges belong on config struct fields via validation tags checked at startup. Services read validated config directly — no `if cfg.X <= 0 { fallback }` for config-backed values.
 
-## CI / EditorConfig in Go sources
+## HTTP status codes
 
-- Raw string literals (system prompts, embedded templates): continuation lines that look indented must use **tabs**, not spaces — see CI linter rules.
-
-## Entity → view converters
-
-- Converters with **no dependencies** belong in the `entity` package next to the entity struct.
-- Name them `Make{Name}View` (e.g. `MakePackageSearchResultView`).
+- Use `net/http` named constants (`http.StatusOK`, `http.StatusBadRequest`, `http.StatusNotFound`, etc.).
+- Do not use raw status integers (e.g. `200`, `400`, `404`) in handlers, middleware, or tests.
 
 ---
 > Source: [Netcracker/qubership-apihub-backend](https://github.com/Netcracker/qubership-apihub-backend) — distributed by [TomeVault](https://tomevault.io).
