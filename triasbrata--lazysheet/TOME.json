@@ -4,7 +4,7 @@
   "repo": "lazysheet",
   "description": "LazySheet landing page \u2014 TanStack Start + shadcn/ui + Font Awesome, deploys to Cloudflare Workers",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/triasbrata/lazysheet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T02:32:01Z"
+  "distributed_at": "2026-06-05T02:32:56Z"
 }
