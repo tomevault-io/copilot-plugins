@@ -184239,6 +184239,36 @@
       "description": "A high-performance Flutter AI chat UI kit with streaming responses, markdown, attachments, rich widgets, and full customization for cross-platform apps."
     },
     {
+      "name": "umidjon3455--blockscout",
+      "source": "./umidjon3455--blockscout",
+      "description": "Blockchain explorer for Ethereum based network and a tool for inspecting and analyzing EVM based blockchains. "
+    },
+    {
+      "name": "umidjon3455--blockscout",
+      "source": "./umidjon3455--blockscout",
+      "description": "Blockchain explorer for Ethereum based network and a tool for inspecting and analyzing EVM based blockchains. "
+    },
+    {
+      "name": "buildgreatproducts--simplebrain",
+      "source": "./buildgreatproducts--simplebrain",
+      "description": "A simple second brain that you can extend and customise"
+    },
+    {
+      "name": "buildgreatproducts--simplebrain",
+      "source": "./buildgreatproducts--simplebrain",
+      "description": "A simple second brain that you can extend and customise"
+    },
+    {
+      "name": "lxl66566--galgamemanager",
+      "source": "./lxl66566--galgamemanager",
+      "description": "Modern Galgame launcher with cloud sync, plugin system, and playtime tracking."
+    },
+    {
+      "name": "earthspecies--alp-data",
+      "source": "./earthspecies--alp-data",
+      "description": "Data tools for managing data operations in ESP's AI / science projects"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -197167,6 +197197,21 @@
       "name": "usecanary--canary",
       "source": "./usecanary--canary",
       "description": "QA harness built for Claude Code | E2E testing with screen recordings, console logs, network HARs, and Playwright traces"
+    },
+    {
+      "name": "ajayyai--expo-forge",
+      "source": "./ajayyai--expo-forge",
+      "description": "expo-forge"
+    },
+    {
+      "name": "gojiplus--layoutlens",
+      "source": "./gojiplus--layoutlens",
+      "description": "AI Assisted UI testing"
+    },
+    {
+      "name": "kyuz0--strix-halo-ds4-toolbox",
+      "source": "./kyuz0--strix-halo-ds4-toolbox",
+      "description": "strix-halo-ds4-toolbox"
     },
     {
       "name": "cheerhuan--save-your-token",
