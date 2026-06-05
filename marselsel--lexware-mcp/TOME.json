@@ -1,0 +1,44 @@
+{
+  "name": "lexware-mcp",
+  "owner": "marselsel",
+  "repo": "lexware-mcp",
+  "description": "Open-source, self-hostable MCP server for the Lexware Office (lexoffice) accounting API \u2014 comprehensive coverage: contacts, articles, bookkeeping vouchers, the sales-document family (invoices/quotations/credit-notes, draft + finalize), and file/PDF upload & download. OAuth, Cloud Run; connects to Claude & ChatGPT.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/marselsel/lexware-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-05T02:39:40Z"
+}
