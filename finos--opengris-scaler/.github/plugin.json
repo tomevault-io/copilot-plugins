@@ -1,0 +1,9 @@
+{
+  "name": "finos--opengris-scaler",
+  "displayName": "opengris-scaler",
+  "description": "Efficient, lightweight and reliable distributed computation engine",
+  "version": "1.0.0",
+  "author": "finos",
+  "homepage": "https://github.com/finos/opengris-scaler",
+  "skills": []
+}
