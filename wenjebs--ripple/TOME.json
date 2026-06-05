@@ -2,7 +2,7 @@
   "name": "ripple",
   "owner": "wenjebs",
   "repo": "ripple",
-  "description": "",
+  "description": "easya x ripple",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/wenjebs",
+  "source_url": "https://github.com/wenjebs/ripple",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T16:06:14Z"
+  "distributed_at": "2026-06-05T06:41:50Z"
 }
