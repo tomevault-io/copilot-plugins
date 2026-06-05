@@ -1,0 +1,9 @@
+{
+  "name": "verse-pbc--groups-relay",
+  "displayName": "groups_relay",
+  "description": "Nostr NIP-29 Relay",
+  "version": "1.0.0",
+  "author": "verse-pbc",
+  "homepage": "https://github.com/verse-pbc/groups_relay",
+  "skills": []
+}
