@@ -4,7 +4,7 @@
   "repo": "git-iris",
   "description": "An intelligent agent that understands your code and crafts perfect Git artifacts",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hyperb1iss/git-iris",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T00:42:44Z"
+  "distributed_at": "2026-06-05T00:45:20Z"
 }
