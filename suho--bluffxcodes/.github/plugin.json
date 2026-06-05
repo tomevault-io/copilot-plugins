@@ -1,0 +1,9 @@
+{
+  "name": "suho--bluffxcodes",
+  "displayName": "BluffXcodes",
+  "description": "A tool that helps you to run unsupported Xcode applications on the new macOS (e.g. Sequoia)",
+  "version": "1.0.0",
+  "author": "suho",
+  "homepage": "https://github.com/suho/BluffXcodes",
+  "skills": []
+}
