@@ -1,0 +1,44 @@
+{
+  "name": "xiaobot-nav-next",
+  "owner": "alanblogooo",
+  "repo": "xiaobot-nav-next",
+  "description": "AI \u7f16\u7a0b\u5f00\u53d1\u7684\u5c0f\u62a5\u7ae5\u5bfc\u822a\u7ad9",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alanblogooo/xiaobot-nav-next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-05T16:35:22Z"
+}
