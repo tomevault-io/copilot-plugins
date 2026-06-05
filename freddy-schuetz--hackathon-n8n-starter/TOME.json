@@ -4,7 +4,7 @@
   "repo": "hackathon-n8n-starter",
   "description": "Einsteiger-freundlicher Hackathon-Starter: Claude Code + n8n \u2014 Skills, n8n-MCP, KI-Agent-Lernworkflows + Frontend/Backend-Beispiele. Setup per \u201erichte mir das ein\u201c.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/freddy-schuetz/hackathon-n8n-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T22:42:45Z"
+  "distributed_at": "2026-06-05T22:43:17Z"
 }
