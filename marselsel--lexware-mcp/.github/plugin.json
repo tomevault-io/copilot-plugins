@@ -1,0 +1,9 @@
+{
+  "name": "marselsel--lexware-mcp",
+  "displayName": "lexware-mcp",
+  "description": "Open-source, self-hostable MCP server for the Lexware Office (lexoffice) accounting API \u2014 comprehensive coverage: contacts, articles, bookkeeping vouchers, the sales-document family (invoices/quotatio",
+  "version": "1.0.0",
+  "author": "marselsel",
+  "homepage": "https://github.com/marselsel/lexware-mcp",
+  "skills": []
+}
