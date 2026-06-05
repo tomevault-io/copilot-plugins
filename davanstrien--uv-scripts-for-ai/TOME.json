@@ -4,7 +4,7 @@
   "repo": "uv-scripts-for-ai",
   "description": "Self-contained UV scripts for data & ML tasks \u2014 OCR, vision, audio & more \u2014 run one in a command, locally or on Hugging Face Jobs. Built for humans and agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davanstrien/uv-scripts-for-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T21:30:24Z"
+  "distributed_at": "2026-06-05T21:32:27Z"
 }
