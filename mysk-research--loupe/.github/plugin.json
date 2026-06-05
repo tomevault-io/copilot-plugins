@@ -1,0 +1,9 @@
+{
+  "name": "mysk-research--loupe",
+  "displayName": "loupe",
+  "description": "A privacy-focused iOS app that raises awareness about what native apps can see",
+  "version": "1.0.0",
+  "author": "mysk-research",
+  "homepage": "https://github.com/mysk-research/loupe",
+  "skills": []
+}
