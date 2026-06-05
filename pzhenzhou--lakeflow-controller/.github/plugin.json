@@ -1,0 +1,9 @@
+{
+  "name": "pzhenzhou--lakeflow-controller",
+  "displayName": "lakeflow-controller",
+  "description": "k8s operator for declarative data pipeline ",
+  "version": "1.0.0",
+  "author": "pzhenzhou",
+  "homepage": "https://github.com/pzhenzhou/lakeflow-controller",
+  "skills": []
+}
