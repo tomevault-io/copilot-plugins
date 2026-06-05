@@ -7,11 +7,11 @@ Packaged, maintained version of contributed mutt_oauth2.py script.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Tatsh/mutt-oauth2](https://github.com/Tatsh/mutt-oauth2).
+Original source: `CLAUDE.md` in [Tatsh/mutt-oauth2](https://github.com/Tatsh/mutt-oauth2).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
