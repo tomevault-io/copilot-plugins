@@ -4,7 +4,7 @@
   "repo": "intelligent-oracle",
   "description": "Intelligent Oracle: describe any prediction-market question in natural language and let GenLayer's intelligent contracts resolve it from real-world sources.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/genlayerlabs/intelligent-oracle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T20:30:25Z"
+  "distributed_at": "2026-06-05T20:30:57Z"
 }
