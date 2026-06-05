@@ -1,0 +1,9 @@
+{
+  "name": "vitormarkis--saphyra",
+  "displayName": "saphyra",
+  "description": "A tool for creating declarative stores and managing state, that embraces async behavior.",
+  "version": "1.0.0",
+  "author": "vitormarkis",
+  "homepage": "https://github.com/vitormarkis/saphyra",
+  "skills": []
+}
