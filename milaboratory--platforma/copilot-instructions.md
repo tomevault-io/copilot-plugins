@@ -1,194 +1,91 @@
-## pr-workflow
+## tengo-language
 
-> PR workflow
+> - Tengo is a small, dynamic script language for Go.
 
 
-# PR Workflow
+# Tengo Language
 
-Guidelines for creating pull requests, including branch naming and changeset creation.
+- Tengo is a small, dynamic script language for Go.
+- Code example:
+<tengo>
+/* The Tengo Language */
+fmt := import("fmt")
 
-## Branch Naming
+each := func(seq, fn) {
+  for x in seq { fn(x) }
+}
 
-Create branches starting with the Notion ticket ID followed by a brief description:
+sum := func(init, seq) {
+  each(seq, func(x) { init += x })
+  return init
+}
 
-```
-MILAB-XXXX-brief-description
-```
+fmt.println(sum(0, [1, 2, 3]))   // "6"
+fmt.println(sum("", [1, 2, 3]))  // "123"
+</tengo>
+- Optional parameters are moduled as varargs, like this
+<tengo>
+formatGreeting := func(name, ...greeting) {
+  ll.assert(len(greeting) <= 1, "too many arguments") // optional assertion
+  message := "Hello"
+  if len(greeting) == 1 {
+    message = greeting[0]
+  }
+  
+  return message + ", " + name
+}
+</tengo>
+- Always find and read all the types and functions you are going to use before implementing what you were asked for
+- Errors are thrown like this: ll.panic("The error message %s, %s.", param1, param2)
+- Common way how to create objects is the following:
+<tengo>
+privateField := []
+res := undefined
+helper1 := func() {
+  // can use res to call methods
+}
+helper2 := func() {
+  // can use res to call methods
+  // can call helper1
+}
+res = {
+  method: func() {
+    // can use res to call other methods
+    // can call helper1, helper2
+  }
+}
+return res
+</tengo>
+- Minimal boilerplate for the tengo template:
+<tengo>
+self := import(":tpl")
 
-**Examples:**
-- `MILAB-5070-add-blob-caching`
-- `MILAB-4821-fix-workflow-timeout`
-- `MILAB-5102-refactor-driver-api`
+// Either define outputs (for pure templates)
+self.defineOutputs("result")
+// or define required input state conditions (for ephemeral templates)
+self.awaitState("AllInputsSet")
 
-**Rules:**
-- Use the ticket ID exactly as it appears in Notion (e.g., `MILAB-5070`)
-- Follow with a lowercase, hyphen-separated brief description
-- Keep descriptions concise (2-4 words)
-- Use verbs like `add`, `fix`, `update`, `refactor`, `remove`
-
-## Changesets
-
-**Do NOT use `pnpm changeset`** - manually create changeset files in the `.changeset/` folder.
-
-### File Naming
-
-Name changeset files descriptively based on what the change does:
-
-```
-.changeset/{descriptive-name}.md
-```
-
-**Good names (descriptive):**
-- `fix-xsv-library-parsing.md`
-- `add-blob-driver-caching.md`
-- `update-workflow-timeout-handling.md`
-
-**Avoid (random/meaningless):**
-- `angry-insects-doubt.md`
-- `salty-lamps-reply.md`
-
-### File Format
-
-Changesets use YAML frontmatter followed by a description:
-
-```markdown
----
-'@platforma-sdk/workflow-tengo': patch
----
-
-Fixes incorrect behaviour in xsv library
-```
-
-### Version Types
-
-- **patch** - Bug fixes, minor changes, no API changes
-- **minor** - New features, backward-compatible additions
-- **major** - Breaking changes
-
-### Which Packages to Include
-
-**Always include:**
-1. The actual package(s) you modified (check `package.json` in the changed directory)
-2. The corresponding SDK package if your change should be available to blocks
-
-**SDK re-export packages** (these re-export internal packages for block consumption):
-- `@platforma-sdk/ui-vue` — re-exports `@milaboratories/uikit` and UI components
-- `@platforma-sdk/model` — re-exports model types and utilities
-- `@platforma-sdk/workflow-tengo` — re-exports workflow/tengo utilities
-- `@platforma-sdk/test` — re-exports test utilities
-
-**Example: UI component fix**
-```markdown
----
-'@milaboratories/uikit': patch
-'@platforma-sdk/ui-vue': minor
----
-
-Fix PlDropdown loading spinner behavior
-```
-
-Here `@milaboratories/uikit` is the actual package changed (patch for bugfix), and `@platforma-sdk/ui-vue` gets a minor bump so blocks can update their SDK dependency to get the fix.
-
-**Example: Workflow library change**
-```markdown
----
-'@platforma-sdk/workflow-tengo': patch
----
-
-Fix xsv library parsing edge case
-```
-
-Here the SDK package is the actual package changed, so only one entry is needed.
-
-### Finding Package Names
-
-Look at the `package.json` in the directory you modified:
-- `lib/ui/uikit/` → `@milaboratories/uikit`
-- `sdk/ui-vue/` → `@platforma-sdk/ui-vue`
-- `sdk/model/` → `@platforma-sdk/model`
-- `sdk/workflow-tengo/` → `@platforma-sdk/workflow-tengo`
-
-## Linting
-
-**Linter must pass before committing.** Run from the repository root:
-
-```bash
-pnpm run lint
-```
-
-Fix any linting errors before creating commits. This is enforced by CI and will block PR merges.
-
-## Creating and Pushing PR
-
-Follow this interactive workflow with operator confirmation at each step:
-
-### Step 1: Push Branch
-
-**Ask operator for confirmation before pushing:**
-> "Ready to push branch `MILAB-XXXX-description` to origin. Proceed?"
-
-If confirmed, push with upstream tracking:
-```bash
-git push -u origin MILAB-XXXX-description
-```
-
-### Step 2: Create Pull Request
-
-**Ask operator about PR type:**
-> "Create PR as draft or ready for review?"
-
-Use `gh` CLI or GitHub MCP to create the PR:
-
-```bash
-# For draft PR
-gh pr create --draft --title "MILAB-XXXX: Brief description" --body "..."
-
-# For normal PR
-gh pr create --title "MILAB-XXXX: Brief description" --body "..."
-```
-
-Or use GitHub MCP `create_pull_request` tool with `draft: true/false`.
-
-**PR title format:** `MILAB-XXXX: Brief description of changes`
-
-### Step 3: Verify PR State
-
-After PR creation, check its status:
-```bash
-gh pr view --web
-```
-
-Or use GitHub MCP `pull_request_read` with `method: "get"` to verify:
-- PR was created successfully
-- Correct base branch (usually `main`)
-- CI checks are running
-
-### Step 4: Request Reviewers
-
-**Ask operator who should review:**
-> "PR created successfully. Who should review this PR?"
-
-Once operator provides reviewer(s), add them:
-```bash
-gh pr edit --add-reviewer username1,username2
-```
-
-Or use GitHub MCP `update_pull_request` with `reviewers` parameter.
-
-## PR Checklist
-
-Before pushing:
-- [ ] Linter passes (`pnpm run lint`)
-- [ ] Branch name starts with ticket ID (e.g., `MILAB-5070-...`)
-- [ ] Changeset file created with descriptive name
-- [ ] Changeset lists all affected packages with correct version bumps
-- [ ] Changeset description explains what changed and why
-
-Interactive steps (ask operator at each):
-- [ ] Confirm push to origin
-- [ ] Ask: draft or normal PR?
-- [ ] Create PR and verify state
-- [ ] Ask: who to add as reviewer?
+// Define the main template body
+self.body(func(inputs) {
+    message := "Hello, " + inputs.name
+    
+    return {
+        "result": message
+    }
+})
+</tengo>
+- Example of importing SDK libraries from blocks:
+<tengo>
+smart := import("@platforma-sdk/workflow-tengo:smart")
+ll := import("@platforma-sdk/workflow-tengo:ll")
+...
+</tengo>
+- Always try finding code examples for similar patterns
+- Always place imports at the top of the file
+- Prefer denser solutions if certain part of the code can be abstracted out into a function
+- Find and read additional types, functions and examples of code if you understand that you dont have enough information
+- Think really hard
+- Never use trailing comas in maps
 
 ---
 > Source: [milaboratory/platforma](https://github.com/milaboratory/platforma) — distributed by [TomeVault](https://tomevault.io).
