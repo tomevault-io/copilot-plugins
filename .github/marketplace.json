@@ -184159,6 +184159,11 @@
       "description": "lantern-box"
     },
     {
+      "name": "buildwizai--the-prompt-collections",
+      "source": "./buildwizai--the-prompt-collections",
+      "description": "The Prompt Collection is a curated repository of diverse prompts designed for various purposes, such as writing, interviews, and more. Each category and subcategory includes a set of prompts along wit"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -196959,6 +196964,21 @@
       "description": "cycod"
     },
     {
+      "name": "plebeianapp--market",
+      "source": "./plebeianapp--market",
+      "description": "The circular economic community builder"
+    },
+    {
+      "name": "plebeianapp--market",
+      "source": "./plebeianapp--market",
+      "description": "The circular economic community builder"
+    },
+    {
+      "name": "plebeianapp--market",
+      "source": "./plebeianapp--market",
+      "description": "The circular economic community builder"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -200232,6 +200252,16 @@
       "name": "rugpullnet--solana-rug",
       "source": "./rugpullnet--solana-rug",
       "description": "Open source trust and safety analysis tool for Solana and Hermes."
+    },
+    {
+      "name": "jjspscl--zen-notes",
+      "source": "./jjspscl--zen-notes",
+      "description": "zen-notes"
+    },
+    {
+      "name": "pzhenzhou--lakeflow-controller",
+      "source": "./pzhenzhou--lakeflow-controller",
+      "description": "k8s operator for declarative data pipeline "
     },
     {
       "name": "ldmoxeii--only-engine",
