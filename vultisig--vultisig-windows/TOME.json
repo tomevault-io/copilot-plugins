@@ -1,0 +1,69 @@
+{
+  "name": "vultisig-windows",
+  "owner": "vultisig",
+  "repo": "vultisig-windows",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-branch",
+      "path": ".claude/skills/create-branch",
+      "github_url": "https://github.com/vultisig/vultisig-windows/tree/main/.claude/skills/create-branch",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": ".claude/skills/create-pr",
+      "github_url": "https://github.com/vultisig/vultisig-windows/tree/main/.claude/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "delegate",
+      "path": ".claude/skills/delegate",
+      "github_url": "https://github.com/vultisig/vultisig-windows/tree/main/.claude/skills/delegate",
+      "description": ""
+    },
+    {
+      "name": "resolve-pr-comments",
+      "path": ".claude/skills/resolve-pr-comments",
+      "github_url": "https://github.com/vultisig/vultisig-windows/tree/main/.claude/skills/resolve-pr-comments",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vultisig/vultisig-windows",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-05T00:30:22Z"
+}
