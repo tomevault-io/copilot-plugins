@@ -1,0 +1,9 @@
+{
+  "name": "caoxiaoyue--tinylensgpu",
+  "displayName": "TinyLensGpu",
+  "description": "A GPU-accelerated galaxy-galaxy strong gravitational lens modeling software using JAX",
+  "version": "1.0.0",
+  "author": "caoxiaoyue",
+  "homepage": "https://github.com/caoxiaoyue/TinyLensGpu",
+  "skills": []
+}
