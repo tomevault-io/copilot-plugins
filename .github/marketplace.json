@@ -184164,6 +184164,31 @@
       "description": "The Prompt Collection is a curated repository of diverse prompts designed for various purposes, such as writing, interviews, and more. Each category and subcategory includes a set of prompts along wit"
     },
     {
+      "name": "hczs--fuckssh",
+      "source": "./hczs--fuckssh",
+      "description": "Cross-platform CLI for VPS SSH config management. Interactive wizard: IP + password \u2192 passwordless ssh in 3 min. Reads standard ~/.ssh/config. | \u8de8\u5e73\u53f0 CLI\uff1a\u4ea4\u4e92\u5f0f\u5411\u5bfc\u7ba1\u7406 VPS SSH \u914d\u7f6e\uff0cIP + \u5bc6\u7801 \u2192 3 \u5206\u949f\u514d\u5bc6\u767b\u5f55\u3002\u8bfb\u5199\u6807\u51c6 ~/.s"
+    },
+    {
+      "name": "hczs--fuckssh",
+      "source": "./hczs--fuckssh",
+      "description": "Cross-platform CLI for VPS SSH config management. Interactive wizard: IP + password \u2192 passwordless ssh in 3 min. Reads standard ~/.ssh/config. | \u8de8\u5e73\u53f0 CLI\uff1a\u4ea4\u4e92\u5f0f\u5411\u5bfc\u7ba1\u7406 VPS SSH \u914d\u7f6e\uff0cIP + \u5bc6\u7801 \u2192 3 \u5206\u949f\u514d\u5bc6\u767b\u5f55\u3002\u8bfb\u5199\u6807\u51c6 ~/.s"
+    },
+    {
+      "name": "bochner--lazyssh",
+      "source": "./bochner--lazyssh",
+      "description": "lazyssh"
+    },
+    {
+      "name": "bochner--lazyssh",
+      "source": "./bochner--lazyssh",
+      "description": "lazyssh"
+    },
+    {
+      "name": "bochner--lazyssh",
+      "source": "./bochner--lazyssh",
+      "description": "lazyssh"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -196977,6 +197002,81 @@
       "name": "plebeianapp--market",
       "source": "./plebeianapp--market",
       "description": "The circular economic community builder"
+    },
+    {
+      "name": "ouyangyipeng--yatpotato",
+      "source": "./ouyangyipeng--yatpotato",
+      "description": "A Tomato Clock with multiple interesting functions."
+    },
+    {
+      "name": "medadembha--docflow",
+      "source": "./medadembha--docflow",
+      "description": "docflow"
+    },
+    {
+      "name": "medadembha--docflow",
+      "source": "./medadembha--docflow",
+      "description": "docflow"
+    },
+    {
+      "name": "oven320--wolflens",
+      "source": "./oven320--wolflens",
+      "description": "Wolflens"
+    },
+    {
+      "name": "sandydasari--openacme",
+      "source": "./sandydasari--openacme",
+      "description": "OpenAcme \u2014 AI agent platform"
+    },
+    {
+      "name": "ouyangyipeng--yatpotato",
+      "source": "./ouyangyipeng--yatpotato",
+      "description": "A Tomato Clock with multiple interesting functions."
+    },
+    {
+      "name": "medadembha--docflow",
+      "source": "./medadembha--docflow",
+      "description": "docflow"
+    },
+    {
+      "name": "ouyangyipeng--yatpotato",
+      "source": "./ouyangyipeng--yatpotato",
+      "description": "A Tomato Clock with multiple interesting functions."
+    },
+    {
+      "name": "ahmad2x4--mcp-server-seq",
+      "source": "./ahmad2x4--mcp-server-seq",
+      "description": "mcp-server-seq"
+    },
+    {
+      "name": "ouyangyipeng--yatpotato",
+      "source": "./ouyangyipeng--yatpotato",
+      "description": "A Tomato Clock with multiple interesting functions."
+    },
+    {
+      "name": "caoxiaoyue--tinylensgpu",
+      "source": "./caoxiaoyue--tinylensgpu",
+      "description": "A GPU-accelerated galaxy-galaxy strong gravitational lens modeling software using JAX"
+    },
+    {
+      "name": "well-noted--tidweb",
+      "source": "./well-noted--tidweb",
+      "description": "A TiddlyWiki Browser"
+    },
+    {
+      "name": "ouyangyipeng--yatpotato",
+      "source": "./ouyangyipeng--yatpotato",
+      "description": "A Tomato Clock with multiple interesting functions."
+    },
+    {
+      "name": "ouyangyipeng--yatpotato",
+      "source": "./ouyangyipeng--yatpotato",
+      "description": "A Tomato Clock with multiple interesting functions."
+    },
+    {
+      "name": "ouyangyipeng--yatpotato",
+      "source": "./ouyangyipeng--yatpotato",
+      "description": "A Tomato Clock with multiple interesting functions."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -305507,6 +305607,51 @@
       "name": "chiyo-labs--line-faq-bot-demo",
       "source": "./chiyo-labs--line-faq-bot-demo",
       "description": "\u7f8e\u5bb9\u5ba4\u5411\u3051 LINE FAQ Bot \u306e\u30c7\u30e2\u5b9f\u88c5\u3067\u3059\u3002"
+    },
+    {
+      "name": "deadcoast--jetson",
+      "source": "./deadcoast--jetson",
+      "description": "JETSON"
+    },
+    {
+      "name": "roman-t-nor--larachat",
+      "source": "./roman-t-nor--larachat",
+      "description": "LaraChat"
+    },
+    {
+      "name": "wenjebs--ripple",
+      "source": "./wenjebs--ripple",
+      "description": "easya x ripple"
+    },
+    {
+      "name": "wenjebs--ripple",
+      "source": "./wenjebs--ripple",
+      "description": "easya x ripple"
+    },
+    {
+      "name": "wenjebs--ripple",
+      "source": "./wenjebs--ripple",
+      "description": "easya x ripple"
+    },
+    {
+      "name": "wenjebs--ripple",
+      "source": "./wenjebs--ripple",
+      "description": "easya x ripple"
+    },
+    {
+      "name": "wenjebs--ripple",
+      "source": "./wenjebs--ripple",
+      "description": "easya x ripple"
+    },
+    {
+      "name": "wenjebs--ripple",
+      "source": "./wenjebs--ripple",
+      "description": "easya x ripple"
+    },
+    {
+      "name": "wenjebs--ripple",
+      "source": "./wenjebs--ripple",
+      "description": "easya x ripple"
     }
   ]
 }
