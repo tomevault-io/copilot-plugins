@@ -184199,6 +184199,31 @@
       "description": "lazyssh"
     },
     {
+      "name": "vicharanashala--cs9",
+      "source": "./vicharanashala--cs9",
+      "description": "A crowdsourced FAQ solution portal developed by the VINS interns of VLED, IIT Ropar - Summer 2026."
+    },
+    {
+      "name": "jeffisgod--agri-cv-research",
+      "source": "./jeffisgod--agri-cv-research",
+      "description": "An AI-powered agricultural CV research framework automating the full pipeline from literature discovery to paper drafting, optimized for Codex, Claude Code and Cursor workflows."
+    },
+    {
+      "name": "ssxdecomp--ssx",
+      "source": "./ssxdecomp--ssx",
+      "description": "Decompilation of SSX (2000)."
+    },
+    {
+      "name": "drewcrawford--app-window",
+      "source": "./drewcrawford--app-window",
+      "description": "Cross-platform Rust window library"
+    },
+    {
+      "name": "drewcrawford--app-window",
+      "source": "./drewcrawford--app-window",
+      "description": "Cross-platform Rust window library"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -197089,6 +197114,11 @@
       "description": "A Tomato Clock with multiple interesting functions."
     },
     {
+      "name": "rootsongjc--ai-native-landscape",
+      "source": "./rootsongjc--ai-native-landscape",
+      "description": "Explore the ecosystem of open source tools, agents, runtimes, platforms, and infrastructure for the AI Native era, curated by hand and evaluated across multiple dimensions."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -200372,6 +200402,16 @@
       "name": "pzhenzhou--lakeflow-controller",
       "source": "./pzhenzhou--lakeflow-controller",
       "description": "k8s operator for declarative data pipeline "
+    },
+    {
+      "name": "tarpediem--zenvision-linux",
+      "source": "./tarpediem--zenvision-linux",
+      "description": "Linux userspace driver for the ASUS ZenVision lid OLED (Zenbook 14X OLED Space Edition, UX5401ZAS) \u2014 256x64 monochrome panel over USB"
+    },
+    {
+      "name": "juntoku9--sessory",
+      "source": "./juntoku9--sessory",
+      "description": "Shared memory for AI coding sessions."
     },
     {
       "name": "ldmoxeii--only-engine",
