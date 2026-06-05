@@ -1,0 +1,9 @@
+{
+  "name": "pixiebrix--agent-browser-shield",
+  "displayName": "agent-browser-shield",
+  "description": "Browser extension with 30+ rules for keeping your AI agent safe while browsing",
+  "version": "1.0.0",
+  "author": "pixiebrix",
+  "homepage": "https://github.com/pixiebrix/agent-browser-shield",
+  "skills": []
+}
