@@ -1,0 +1,9 @@
+{
+  "name": "tarpediem--zenvision-linux",
+  "displayName": "zenvision-linux",
+  "description": "Linux userspace driver for the ASUS ZenVision lid OLED (Zenbook 14X OLED Space Edition, UX5401ZAS) \u2014 256x64 monochrome panel over USB",
+  "version": "1.0.0",
+  "author": "tarpediem",
+  "homepage": "https://github.com/tarpediem/zenvision-linux",
+  "skills": []
+}
