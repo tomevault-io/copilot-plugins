@@ -4,7 +4,7 @@
   "repo": "dotfiles",
   "description": "My NixOS setup for my personal dekstop & work laptop",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dzervas/dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T00:38:36Z"
+  "distributed_at": "2026-06-05T00:41:11Z"
 }
