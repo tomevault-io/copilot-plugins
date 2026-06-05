@@ -1,0 +1,9 @@
+{
+  "name": "deepspacemill--framework",
+  "displayName": "framework",
+  "description": "\u73b0\u4ee3\u5316\u89c6\u89c9\u5c0f\u8bf4\u6e38\u620f\u5f00\u53d1\u6846\u67b6\uff0c\u57fa\u4e8e\u672b\u8bed\u5f15\u64ce\u6784\u5efa | A modern visual novel game development framework built on the Moyu Engine",
+  "version": "1.0.0",
+  "author": "DeepSpaceMill",
+  "homepage": "https://github.com/DeepSpaceMill/framework",
+  "skills": []
+}
