@@ -1,0 +1,9 @@
+{
+  "name": "diego-lima--rlmy",
+  "displayName": "rlmy",
+  "description": "An interactive RLM (Recursive Language Model) agent built on DSPy.",
+  "version": "1.0.0",
+  "author": "diego-lima",
+  "homepage": "https://github.com/diego-lima/rlmy",
+  "skills": []
+}
