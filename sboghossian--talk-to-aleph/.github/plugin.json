@@ -1,0 +1,9 @@
+{
+  "name": "sboghossian--talk-to-aleph",
+  "displayName": "talk-to-aleph",
+  "description": "Voice-first JARVIS for your Mac \ud83d\udf02 \u2014 talk to a particle brain that thinks, speaks in a cloned voice, and acts (every action gated). Clone it, bring your own keys, make it yours. Zero-dep, local, MIT.",
+  "version": "1.0.0",
+  "author": "sboghossian",
+  "homepage": "https://github.com/sboghossian/talk-to-aleph",
+  "skills": []
+}
