@@ -1,0 +1,9 @@
+{
+  "name": "dzervas--dotfiles",
+  "displayName": "dotfiles",
+  "description": "My NixOS setup for my personal dekstop & work laptop",
+  "version": "1.0.0",
+  "author": "dzervas",
+  "homepage": "https://github.com/dzervas/dotfiles",
+  "skills": []
+}
