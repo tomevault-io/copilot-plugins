@@ -1,33 +1,105 @@
-## python-inline-scripts
+## style
 
-> ALWAYS read this guide when running inline python scripts. This should be used when the user says "use inline python" or "run inline python
+> How to align comments in typescript files
 
-<python-inline-scripts>
+<style-guidelines>
 
-<title>Python Inline Scripts with uv</title>
+<title>Style Guidelines</title>
 
-<IMPORTANT>
-- NEVER add stdlib modules like json, os, re, etc. to dependencies OR THE SCRIPT WILL FAIL
-- ALWAYS assume Python 3.12+
-</IMPORTANT>
+<context>
+<applies-to>TypeScript, JavaScript, and other languages using // style comments</applies-to>
+</context>
 
-<example>
-uv run --no-project -q --script - < <(cat <<'EOF'
-# /// script
-# # ONLY add dependencies array if you need PyPi packages
-# dependencies = [
-#   "httpx"
-# ]
-# requires-python = ">=3.12"
-# ///
+<comment-alignment>
 
-import httpx
-print(httpx.get("https://api.github.com/zen").text)
-EOF
-)
+<overview>When auto-formatters require single space before //, align comments by adding spaces AFTER the // instead of before</overview>
+
+<rules>
+<rule>
+<name>Inline comment alignment</name>
+<requirements>
+- Find the longest line in a group
+- Add spaces after // on shorter lines to align comment text
+- Count spaces: (longest_line_length - current_line_length)
+- Apply consistently within each block
+</requirements>
+</rule>
+</rules>
+
+<examples>
+<example type="before">
+```typescript
+'STRING', // text field
+'MONTH_YEAR', // date with format YYYYMM
+```
 </example>
 
-</python-inline-scripts>
+<example type="after">
+```typescript
+'STRING', //     text field
+'MONTH_YEAR', // date with format YYYYMM
+```
+</example>
+</examples>
+
+</comment-alignment>
+
+<code-comments>
+
+<overview>Only add comments when they provide value beyond what the code itself communicates</overview>
+
+<rules>
+<rule>
+<name>When to comment</name>
+<requirements type="do">
+- Why decisions were made, not what the code does
+- Complex algorithms or non-obvious logic
+- Workarounds, edge cases, or potential gotchas
+- Business rules or domain-specific context
+- TODO items or known limitations
+- Function/class documentation (purpose, parameters, return values)
+- Regular expressions or complex conditions that aren't self-evident
+</requirements>
+<requirements type="dont">
+- Simple variable assignments
+- Obvious control flow
+- Self-documenting code
+- Type information already clear from the code
+- Restating what well-named functions do
+</requirements>
+</rule>
+</rules>
+
+<examples>
+<example type="bad">
+```python
+# Add 1 to count
+count += 1
+
+# Check if user is admin
+if user.is_admin:
+    # Grant access
+    grant_access()
+```
+</example>
+
+<example type="good">
+```python
+# Compensate for zero-indexing in the UI display
+count += 1
+
+# Admin check required by compliance policy XYZ-123
+if user.is_admin:
+    grant_access()  # Bypasses the standard approval workflow
+```
+</example>
+</examples>
+
+<key-principle>Good code with meaningful names often needs fewer comments. Strive to make your code self-documenting first, then add comments only where additional context genuinely helps future readers</key-principle>
+
+</code-comments>
+
+</style-guidelines>
 
 ---
 > Source: [jahands/workers-packages](https://github.com/jahands/workers-packages) — distributed by [TomeVault](https://tomevault.io).
