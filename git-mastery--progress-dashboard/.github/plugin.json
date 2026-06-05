@@ -1,0 +1,9 @@
+{
+  "name": "git-mastery--progress-dashboard",
+  "displayName": "progress-dashboard",
+  "description": "Track your progress for Git Mastery",
+  "version": "1.0.0",
+  "author": "git-mastery",
+  "homepage": "https://github.com/git-mastery/progress-dashboard",
+  "skills": []
+}
