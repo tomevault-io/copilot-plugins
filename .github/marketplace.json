@@ -136744,6 +136744,11 @@
       "description": "Archived educational snapshot of the Repo Prompt app"
     },
     {
+      "name": "somnusochi--vlm-autoyolo",
+      "source": "./somnusochi--vlm-autoyolo",
+      "description": "AI Auto Annotation & YOLO Training Pipeline, End-to-end object detection auto-labeling and YOLO training platform. VLM-powered annotation with NVIDIA LocateAnything-3B, manual refinement, one-click YO"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
