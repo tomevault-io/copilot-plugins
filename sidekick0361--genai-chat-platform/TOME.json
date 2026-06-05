@@ -4,7 +4,7 @@
   "repo": "genai-chat-platform",
   "description": "A high-performance Flutter AI chat UI kit with streaming responses, markdown, attachments, rich widgets, and full customization for cross-platform apps.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sidekick0361/genai-chat-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T10:31:01Z"
+  "distributed_at": "2026-06-05T10:32:40Z"
 }
