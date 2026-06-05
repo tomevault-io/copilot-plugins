@@ -1,0 +1,9 @@
+{
+  "name": "endstonemc--dwarf2cpp",
+  "displayName": "dwarf2cpp",
+  "description": "Generate C++ headers from DWARF Debugging Information Format",
+  "version": "1.0.0",
+  "author": "EndstoneMC",
+  "homepage": "https://github.com/EndstoneMC/dwarf2cpp",
+  "skills": []
+}
