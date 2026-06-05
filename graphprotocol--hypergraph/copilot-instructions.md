@@ -1,65 +1,51 @@
-## project-wide
+## root-config
 
-> Project-Wide Rules for the Hypergraph monorepo and its packages
+> Root Configuration Rules for the Hypergraph monorepo and its packages
 
 
-# Hypergraph Project-Wide Rules
+# Root Configuration Rules
 
-## Monorepo Structure
-- Use pnpm workspaces for package management
-- Follow consistent package naming conventions
-- Use workspace dependencies where appropriate
-- Maintain proper package.json structure
-- Use consistent versioning across packages
+## Package Management
+- Use pnpm for package management
+- Maintain consistent workspace configuration
+- Use proper dependency management
+- Follow semantic versioning
+- Use proper package.json structure
 
-## TypeScript Configuration
-- Use strict TypeScript configuration
-- Implement proper type definitions
-- Use consistent import/export patterns
-- Follow TypeScript best practices
-- Use proper module resolution
+## Build Configuration
+- Use TypeScript for configuration
+- Implement proper build scripts
+- Use consistent build tooling
+- Maintain proper output structure
+- Use proper source maps
 
-## Code Style
+## Linting and Formatting
 - Use Biome for linting and formatting
-- Follow consistent naming conventions
-- Use proper indentation and spacing
-- Implement proper code organization
-- Follow established file structure patterns
-
-## Testing
-- Use Vitest for testing framework
-- Write comprehensive unit tests
-- Test both success and error scenarios
-- Use proper mocking strategies
-- Maintain good test coverage
+- Maintain consistent code style
+- Use proper ignore patterns
+- Implement proper rule configuration
+- Follow established conventions
 
 ## Documentation
-- Write clear, comprehensive documentation
-- Use proper JSDoc comments
-- Maintain up-to-date README files
-- Document API interfaces
-- Use consistent documentation patterns
+- Maintain comprehensive README
+- Use proper documentation structure
+- Include setup instructions
+- Document development workflow
+- Use consistent documentation style
 
-## Git Workflow
-- Use conventional commit messages
-- Implement proper branching strategy
-- Use meaningful commit descriptions
-- Follow established PR review process
-- Maintain clean git history
-
-## Security
-- Use secure dependencies
-- Implement proper authentication
+## CI/CD
+- Use proper GitHub Actions
+- Implement proper testing workflows
+- Use proper deployment strategies
+- Maintain proper environment configuration
 - Follow security best practices
-- Use proper encryption where needed
-- Maintain secure coding practices
 
-## Performance
-- Optimize bundle sizes
-- Implement proper caching strategies
-- Use efficient algorithms
-- Monitor performance metrics
-- Follow performance best practices
+## Development Tools
+- Use proper development dependencies
+- Implement proper tooling configuration
+- Use consistent development workflow
+- Maintain proper debugging setup
+- Use proper IDE configuration
 
 ---
 > Source: [graphprotocol/hypergraph](https://github.com/graphprotocol/hypergraph) — distributed by [TomeVault](https://tomevault.io).
