@@ -1,0 +1,9 @@
+{
+  "name": "sarmatdev--artemis-sol",
+  "displayName": "artemis-sol",
+  "description": "Framework to build MEV bots in Rust on Solana",
+  "version": "1.0.0",
+  "author": "sarmatdev",
+  "homepage": "https://github.com/sarmatdev/artemis-sol",
+  "skills": []
+}
