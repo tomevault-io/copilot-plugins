@@ -1,6 +1,6 @@
 # forest-front-end-forge
 
-> Config by [BretMeraki](https://github.com/BretMeraki/forest-front-end-forge) — distributed by [TomeVault](https://tomevault.io/claim/BretMeraki)
+> Source: [BretMeraki/forest-front-end-forge](https://github.com/BretMeraki/forest-front-end-forge) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [BretMeraki/forest-front-end-forge](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/BretMeraki](https://tomevault.io/claim/BretMeraki)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/BretMeraki/forest-front-end-forge](https://github.com/BretMeraki/forest-front-end-forge)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/BretMeraki) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
