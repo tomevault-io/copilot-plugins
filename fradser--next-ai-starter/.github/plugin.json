@@ -1,0 +1,9 @@
+{
+  "name": "fradser--next-ai-starter",
+  "displayName": "next-ai-starter",
+  "description": "Next.js AI Starter integrating Vercel AI SDK v5 for AI chat functionality with shadcn/ui components. Built with Next.js 16 (App Router + Turbopack), TypeScript, and Tailwind CSS v4. Uses OpenAI via V3",
+  "version": "1.0.0",
+  "author": "FradSer",
+  "homepage": "https://github.com/FradSer/next-ai-starter",
+  "skills": []
+}
