@@ -1,0 +1,9 @@
+{
+  "name": "tigrisdata--objgit",
+  "displayName": "objgit",
+  "description": "Git backed by object storage",
+  "version": "1.0.0",
+  "author": "tigrisdata",
+  "homepage": "https://github.com/tigrisdata/objgit",
+  "skills": []
+}
