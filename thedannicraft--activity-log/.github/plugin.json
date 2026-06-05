@@ -1,0 +1,9 @@
+{
+  "name": "thedannicraft--activity-log",
+  "displayName": "activity-log",
+  "description": "A GitHub Action that automatically updates your README file with the latest activity from your GitHub account. Customize the displayed events, set a limit on the number of events, and ignore specific ",
+  "version": "1.0.0",
+  "author": "TheDanniCraft",
+  "homepage": "https://github.com/TheDanniCraft/activity-log",
+  "skills": []
+}
