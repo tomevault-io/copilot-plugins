@@ -4,7 +4,7 @@
   "repo": "mobile-agency",
   "description": "A curated collection of AI-powered skills, agents, prompts, and workflows for Android, iOS, Flutter, React Native, Unity, and Unreal developers. Build faster, debug smarter, review code, optimize performance, automate tasks, and ship high-quality apps and games with reusable AI productivity tools.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/salmanashraf/mobile-agency",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T20:39:11Z"
+  "distributed_at": "2026-06-05T20:44:24Z"
 }
