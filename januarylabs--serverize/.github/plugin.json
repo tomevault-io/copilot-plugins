@@ -1,0 +1,9 @@
+{
+  "name": "januarylabs--serverize",
+  "displayName": "serverize",
+  "description": "The simplest way to deploy docker images (that runs web server)",
+  "version": "1.0.0",
+  "author": "JanuaryLabs",
+  "homepage": "https://github.com/JanuaryLabs/serverize",
+  "skills": []
+}
