@@ -1,0 +1,9 @@
+{
+  "name": "pandosme--detectx",
+  "displayName": "DetectX",
+  "description": "Run Custom YOLO5 models in Axis camera",
+  "version": "1.0.0",
+  "author": "pandosme",
+  "homepage": "https://github.com/pandosme/DetectX",
+  "skills": []
+}
