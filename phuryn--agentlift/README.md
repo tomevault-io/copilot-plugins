@@ -7,11 +7,11 @@ Deploy agents you already run locally to Anthropic, Google, and OpenAI. One fold
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [phuryn/agentlift](https://github.com/phuryn/agentlift).
+Original source: `AGENTS.md` in [phuryn/agentlift](https://github.com/phuryn/agentlift).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
