@@ -1,0 +1,9 @@
+{
+  "name": "keyboardgdy--woke-novel",
+  "displayName": "woke_novel",
+  "description": "\u5168\u81ea\u52a8\u5c0f\u8bf4\u751f\u6210\u5de5\u5177\uff0c**\u8ba9 Claude \u6210\u4e3a\u4f60\u7684\u300c\u4e2d\u6587\u7f51\u6587\u81ea\u52a8\u751f\u6210\u5de5\u5177\u300d** *\u6d41\u6c34\u7ebf \u00b7 \u591a\u5e55 \u00b7 \u65ad\u70b9\u7eed\u5199 \u00b7 \u5f3a\u7ea6\u675f\u6a21\u677f\u9a71\u52a8*;Fully Automated Novel Generation Tool, Making Claude Your \"Chinese Web Novel Auto-Wenerator\";",
+  "version": "1.0.0",
+  "author": "keyboardgdy",
+  "homepage": "https://github.com/keyboardgdy/woke_novel",
+  "skills": []
+}
