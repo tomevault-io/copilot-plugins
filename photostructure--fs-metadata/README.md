@@ -7,11 +7,11 @@ Cross-platform native Node.js module for fetching filesystem metadata
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [photostructure/fs-metadata](https://github.com/photostructure/fs-metadata).
+Original source: `CLAUDE.md` in [photostructure/fs-metadata](https://github.com/photostructure/fs-metadata).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
