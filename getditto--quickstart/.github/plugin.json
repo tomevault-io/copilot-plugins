@@ -1,0 +1,9 @@
+{
+  "name": "getditto--quickstart",
+  "displayName": "quickstart",
+  "description": "Ditto apps to get you started quickly.",
+  "version": "1.0.0",
+  "author": "getditto",
+  "homepage": "https://github.com/getditto/quickstart",
+  "skills": []
+}
