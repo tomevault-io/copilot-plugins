@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [boundlessfi/boundless](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/boundlessfi)
+From [boundlessfi/boundless](https://github.com/boundlessfi/boundless) — a repo with 9+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install boundlessfi/boundless
 ```
-Or browse all formats at [https://tomevault.io/claim/boundlessfi](https://tomevault.io/claim/boundlessfi).
+Source: [github.com/boundlessfi/boundless](https://github.com/boundlessfi/boundless).
 
 <!-- genome:a-i-s -->
