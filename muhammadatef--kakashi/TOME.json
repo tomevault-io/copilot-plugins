@@ -4,7 +4,7 @@
   "repo": "kakashi",
   "description": "A local-first masker that lives inside Claude Code, Cursor, Codex CLI, and 20+ AI agents.  Hides API keys, passwords, secrets, and personal data \u2014 across PDF, Word, Excel, JSON, .env, and 45+ other formats \u2014 before your agent ever sees them.30 seconds to install. Nothing leaves your machine. Ever.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Muhammadatef/kakashi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T16:30:26Z"
+  "distributed_at": "2026-06-05T16:32:11Z"
 }
