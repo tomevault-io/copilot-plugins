@@ -1,0 +1,9 @@
+{
+  "name": "yogthos--jolt",
+  "displayName": "jolt",
+  "description": "A Clojure interpreter running on Janet",
+  "version": "1.0.0",
+  "author": "yogthos",
+  "homepage": "https://github.com/yogthos/jolt",
+  "skills": []
+}
