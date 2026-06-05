@@ -1,129 +1,65 @@
-## hypergraph
+## project-wide
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Project-Wide Rules for the Hypergraph monorepo and its packages
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Hypergraph Project-Wide Rules
 
-## Project Overview
+## Monorepo Structure
+- Use pnpm workspaces for package management
+- Follow consistent package naming conventions
+- Use workspace dependencies where appropriate
+- Maintain proper package.json structure
+- Use consistent versioning across packages
 
-Hypergraph is a local-first framework for building web3 consumer applications that focuses on privacy-preserving apps with interoperable data using the GRC-20 standard. The project is currently in Developer Preview status.
+## TypeScript Configuration
+- Use strict TypeScript configuration
+- Implement proper type definitions
+- Use consistent import/export patterns
+- Follow TypeScript best practices
+- Use proper module resolution
 
-## Common Development Commands
+## Code Style
+- Use Biome for linting and formatting
+- Follow consistent naming conventions
+- Use proper indentation and spacing
+- Implement proper code organization
+- Follow established file structure patterns
 
-### Development
-```bash
-# Run specific apps
-cd apps/events && pnpm dev      # Events demo app
-cd apps/privy-login-example && pnpm dev # Privy login example app
-cd apps/server && pnpm dev      # Backend sync server
-cd apps/connect && pnpm dev     # Geo Connect auth app
-```
+## Testing
+- Use Vitest for testing framework
+- Write comprehensive unit tests
+- Test both success and error scenarios
+- Use proper mocking strategies
+- Maintain good test coverage
 
-### Testing
-```bash
-pnpm test                       # Run all tests with Vitest
-vitest                          # Direct vitest usage
-vitest run path/to/test.ts      # Run specific test file
-```
+## Documentation
+- Write clear, comprehensive documentation
+- Use proper JSDoc comments
+- Maintain up-to-date README files
+- Document API interfaces
+- Use consistent documentation patterns
 
-### Linting & Type Checking
-```bash
-pnpm lint                       # Check code with Biome
-pnpm lint:fix                   # Auto-fix linting issues
-pnpm check                      # TypeScript type checking
-```
+## Git Workflow
+- Use conventional commit messages
+- Implement proper branching strategy
+- Use meaningful commit descriptions
+- Follow established PR review process
+- Maintain clean git history
 
-### Database
-```bash
-pnpm db:migrate:dev             # Run database migrations
-pnpm db:studio                  # Open Prisma Studio
-```
+## Security
+- Use secure dependencies
+- Implement proper authentication
+- Follow security best practices
+- Use proper encryption where needed
+- Maintain secure coding practices
 
-### Building
-```bash
-pnpm build                      # Build all packages and apps
-pnpm clean                      # Clean all build artifacts
-```
-
-## High-Level Architecture
-
-### Monorepo Structure
-- **packages/** - Core libraries
-  - `hypergraph/` - Main SDK with entity management, encryption, spaces, and inboxes
-  - `hypergraph-react/` - React hooks and components
-  - `create-hypergraph/` - Project scaffolding tool
-- **apps/** - Complete applications
-  - `server/` - Backend sync server (Express + Prisma + SQLite/PostgreSQL)
-  - `events/` - Demo app showcasing the framework (Vite + React)
-  - `privy-login-example/` - Privy login example app (Vite + React)
-  - `connect/` - Geo Connect authentication app
-  - `next-example/` - Next.js integration example
-- **docs/** - Docusaurus documentation site
-
-### Core Architecture Patterns
-
-1. **Local-First with CRDTs**
-   - Uses Automerge for conflict-free replicated data types
-   - Offline-capable with sync when online
-   - Data stored locally with optional server sync
-
-2. **Privacy-Preserving**
-   - Client-side encryption/decryption
-   - Uses Noble cryptographic libraries
-   - Secure key management patterns
-
-3. **Space-Based Organization**
-   - User data organized in "spaces" (private/public)
-   - Each space has its own encryption keys
-   - Spaces can be shared with other users
-
-4. **Identity Management**
-   - Ethereum-based authentication with Privy
-   - Smart account support via Permissionless
-
-5. **Knowledge Graph (GRC-20)**
-   - Structured data format for interoperability
-   - Entity-based data model
-   - Schema-driven development with TypeSync
-
-### Key Technologies
-- **TypeScript** with strict mode
-- **Effect** for functional programming patterns
-- **React** for UI applications
-- **Automerge** for CRDT implementation
-- **Viem** for Ethereum interactions
-- **Prisma** for database ORM
-- **GraphQL** for API queries
-- **Biome** for linting/formatting
-
-### Development Patterns
-
-1. **Effect Usage**
-   - Use Effect for error handling and async operations
-   - Prefer functional patterns with immutable data
-   - Use Effect testing utilities in tests
-
-2. **Module Structure**
-   - Each module exports clear public API
-   - Use barrel exports (index.ts)
-   - Separate concerns by feature
-
-3. **Testing Strategy**
-   - Tests in `./test` directories
-   - Test both success and error scenarios
-   - Mock external dependencies appropriately
-
-4. **Type Safety**
-   - Use branded types for domain identifiers
-   - Discriminated unions for state management
-   - Strict TypeScript configuration
-
-5. **Naming Conventions**
-   - snake_case for service names and API endpoints
-   - camelCase for variables and functions
-   - PascalCase for types and components
+## Performance
+- Optimize bundle sizes
+- Implement proper caching strategies
+- Use efficient algorithms
+- Monitor performance metrics
+- Follow performance best practices
 
 ---
 > Source: [graphprotocol/hypergraph](https://github.com/graphprotocol/hypergraph) — distributed by [TomeVault](https://tomevault.io).
