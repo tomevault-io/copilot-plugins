@@ -1,0 +1,9 @@
+{
+  "name": "lordydord--codex-account-switcher",
+  "displayName": "Codex-Account-Switcher",
+  "description": "Native macOS menu-bar app for switching Codex Desktop accounts, tracking usage, and optional auto-switching before limits bite.",
+  "version": "1.0.0",
+  "author": "lordydord",
+  "homepage": "https://github.com/lordydord/Codex-Account-Switcher",
+  "skills": []
+}
