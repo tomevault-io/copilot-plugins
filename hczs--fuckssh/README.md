@@ -7,11 +7,11 @@ Cross-platform CLI for VPS SSH config management. Interactive wizard: IP + passw
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hczs/fuckssh](https://github.com/hczs/fuckssh).
+Original source: `CLAUDE.md` in [hczs/fuckssh](https://github.com/hczs/fuckssh).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
