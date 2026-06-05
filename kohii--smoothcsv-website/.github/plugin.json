@@ -1,0 +1,9 @@
+{
+  "name": "kohii--smoothcsv-website",
+  "displayName": "smoothcsv-website",
+  "description": "The website for SmoothCSV, the ultimate CSV editor for Mac and Windows.",
+  "version": "1.0.0",
+  "author": "kohii",
+  "homepage": "https://github.com/kohii/smoothcsv-website",
+  "skills": []
+}
