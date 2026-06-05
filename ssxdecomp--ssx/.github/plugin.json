@@ -1,0 +1,9 @@
+{
+  "name": "ssxdecomp--ssx",
+  "displayName": "ssx",
+  "description": "Decompilation of SSX (2000).",
+  "version": "1.0.0",
+  "author": "ssxdecomp",
+  "homepage": "https://github.com/ssxdecomp/ssx",
+  "skills": []
+}
