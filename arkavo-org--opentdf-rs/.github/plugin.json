@@ -1,0 +1,9 @@
+{
+  "name": "arkavo-org--opentdf-rs",
+  "displayName": "opentdf-rs",
+  "description": "OpenTDF in Rust community-driven",
+  "version": "1.0.0",
+  "author": "arkavo-org",
+  "homepage": "https://github.com/arkavo-org/opentdf-rs",
+  "skills": []
+}
