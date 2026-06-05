@@ -1,0 +1,9 @@
+{
+  "name": "phishbacon--lyric-sync",
+  "displayName": "lyric-sync",
+  "description": "A free and open source self hosted solution for grabbing lyrics for your Plex Music Libraries.",
+  "version": "1.0.0",
+  "author": "phishbacon",
+  "homepage": "https://github.com/phishbacon/lyric-sync",
+  "skills": []
+}
