@@ -104164,6 +104164,21 @@
       "description": "Template for library projects"
     },
     {
+      "name": "openmeet-team--openmeet-api",
+      "source": "./openmeet-team--openmeet-api",
+      "description": "Provides the API for OpenMeet"
+    },
+    {
+      "name": "vitormarkis--saphyra",
+      "source": "./vitormarkis--saphyra",
+      "description": "A tool for creating declarative stores and managing state, that embraces async behavior."
+    },
+    {
+      "name": "singularitysociety--ai-geography",
+      "source": "./singularitysociety--ai-geography",
+      "description": "ai_geography"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -106597,6 +106612,11 @@
       "name": "graphprotocol--hypergraph",
       "source": "./graphprotocol--hypergraph",
       "description": "hypergraph"
+    },
+    {
+      "name": "divitmittal--tltr",
+      "source": "./divitmittal--tltr",
+      "description": "Cross-platform multi-layer keyboard layout tailored for programmers"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -115334,6 +115354,16 @@
       "description": "Former repository for Maru, a Consensus layer client implementing QBFT protocol adhering to Eth 2.0 CL / EL separation and API"
     },
     {
+      "name": "simonreif--zewwwwecon",
+      "source": "./simonreif--zewwwwecon",
+      "description": "Quarto Templates for Applied Economic Research Projects"
+    },
+    {
+      "name": "genlayerlabs--genlayer-fee-distribution-simulator",
+      "source": "./genlayerlabs--genlayer-fee-distribution-simulator",
+      "description": "genlayer-fee-distribution-simulator"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -121369,6 +121399,11 @@
       "description": "Local-first deep research agent that reads the whole web \u2014 even pages behind Cloudflare, Datadome, Turnstile & reCAPTCHA. Stealth fetch + cited reports. MCP-native, MIT."
     },
     {
+      "name": "mercurytechnologies--sqkon",
+      "source": "./mercurytechnologies--sqkon",
+      "description": "Sqkon - SQLite Backed Jsonb KeyValue Store - Pronounced \"sc-on\""
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -125139,6 +125174,16 @@
       "description": "callcenter-issabel5"
     },
     {
+      "name": "jpablo--graph-explorer",
+      "source": "./jpablo--graph-explorer",
+      "description": "Explore graphs in a visual way"
+    },
+    {
+      "name": "jpablo--graph-explorer",
+      "source": "./jpablo--graph-explorer",
+      "description": "Explore graphs in a visual way"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -128822,6 +128867,21 @@
       "name": "felixrieseberg--relic",
       "source": "./felixrieseberg--relic",
       "description": "A minimal coding agent for ancient operating systems and devices"
+    },
+    {
+      "name": "flashbots--builder-hub",
+      "source": "./flashbots--builder-hub",
+      "description": "BuilderHub service for provisioning and permissioning BuilderNet instances"
+    },
+    {
+      "name": "syi0808--pubm",
+      "source": "./syi0808--pubm",
+      "description": "Publish to npm, jsr, crates.io, and private registries in one step"
+    },
+    {
+      "name": "philpax--rucomfyui",
+      "source": "./philpax--rucomfyui",
+      "description": "A Rust client for ComfyUI with an emphasis on type safety and ergonomics."
     },
     {
       "name": "vm--nila-code",
@@ -132662,6 +132722,16 @@
       "name": "pantstamp--android-template-project",
       "source": "./pantstamp--android-template-project",
       "description": "Template project that demonstrates how to implement a modern Android app."
+    },
+    {
+      "name": "istio-ecosystem--fortsa",
+      "source": "./istio-ecosystem--fortsa",
+      "description": "Keep Istio's Sidecar Proxies Up-To-Date Automatically"
+    },
+    {
+      "name": "flox1an--nsite-cli",
+      "source": "./flox1an--nsite-cli",
+      "description": "CLI tool that uploads NOSTR kind 34128 website content events which point to content on blossom."
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -141967,6 +142037,11 @@
       "name": "seismicsystems--seismic-revm",
       "source": "./seismicsystems--seismic-revm",
       "description": "Seismic REVM implements the Mercury Specification of the EVM: a shielded virtual machine that powers Seismic's blockchain"
+    },
+    {
+      "name": "jaredwray--qified",
+      "source": "./jaredwray--qified",
+      "description": "Cloud Queues with Task and Messages and Multiple Providers"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -153639,6 +153714,11 @@
       "description": "LINE WORKS SDK for Python"
     },
     {
+      "name": "neg4n--the-golden-vim",
+      "source": "./neg4n--the-golden-vim",
+      "description": "A tribute to the era before bloat. Vim, reinterpreted. Distraction removed."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -161922,6 +162002,11 @@
       "name": "onyx-robotics--onyx-engine",
       "source": "./onyx-robotics--onyx-engine",
       "description": "Deploy a production-ready AI model training workflow for hardware control systems and physics simulation in minutes."
+    },
+    {
+      "name": "koki-develop--koto",
+      "source": "./koki-develop--koto",
+      "description": "IME for Mac."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -184874,6 +184959,31 @@
       "description": "Monitor and kill MongoDB operations"
     },
     {
+      "name": "dmitriyalergant--open-webui-cost-tracking-manifolds",
+      "source": "./dmitriyalergant--open-webui-cost-tracking-manifolds",
+      "description": "open-webui-cost-tracking-manifolds"
+    },
+    {
+      "name": "arkavo-org--opentdf-rs",
+      "source": "./arkavo-org--opentdf-rs",
+      "description": "OpenTDF in Rust community-driven"
+    },
+    {
+      "name": "deepspacemill--framework",
+      "source": "./deepspacemill--framework",
+      "description": "\u73b0\u4ee3\u5316\u89c6\u89c9\u5c0f\u8bf4\u6e38\u620f\u5f00\u53d1\u6846\u67b6\uff0c\u57fa\u4e8e\u672b\u8bed\u5f15\u64ce\u6784\u5efa | A modern visual novel game development framework built on the Moyu Engine"
+    },
+    {
+      "name": "aias--red-cliff-record",
+      "source": "./aias--red-cliff-record",
+      "description": "A local-first, own-your-data approach to personal knowledge management. The spiritual successor to barnsworthburning. "
+    },
+    {
+      "name": "aias--red-cliff-record",
+      "source": "./aias--red-cliff-record",
+      "description": "A local-first, own-your-data approach to personal knowledge management. The spiritual successor to barnsworthburning. "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -197974,6 +198084,11 @@
       "description": "Cross-platform native Node.js module for fetching filesystem metadata"
     },
     {
+      "name": "thehuanlwd--siu",
+      "source": "./thehuanlwd--siu",
+      "description": "AI-powered release gap auditor that compares your current version with the latest GitHub release and answers: Should I upgrade?"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -201292,6 +201407,16 @@
       "name": "grahamsz--rolltop",
       "source": "./grahamsz--rolltop",
       "description": "rolltop"
+    },
+    {
+      "name": "freddy-schuetz--hackathon-n8n-starter",
+      "source": "./freddy-schuetz--hackathon-n8n-starter",
+      "description": "Einsteiger-freundlicher Hackathon-Starter: Claude Code + n8n \u2014 Skills, n8n-MCP, KI-Agent-Lernworkflows + Frontend/Backend-Beispiele. Setup per \u201erichte mir das ein\u201c."
+    },
+    {
+      "name": "freddy-schuetz--hackathon-n8n-starter",
+      "source": "./freddy-schuetz--hackathon-n8n-starter",
+      "description": "Einsteiger-freundlicher Hackathon-Starter: Claude Code + n8n \u2014 Skills, n8n-MCP, KI-Agent-Lernworkflows + Frontend/Backend-Beispiele. Setup per \u201erichte mir das ein\u201c."
     },
     {
       "name": "ldmoxeii--only-engine",
