@@ -184224,6 +184224,21 @@
       "description": "Cross-platform Rust window library"
     },
     {
+      "name": "cluster1900--ai-engineering-from-scratch-zh",
+      "source": "./cluster1900--ai-engineering-from-scratch-zh",
+      "description": " \u4ece\u96f6\u6784\u5efa AI \u7684\u7cfb\u7edf\u8bfe\u7a0b\uff0c\u8986\u76d6 Python / TS / Rust / Julia\u3002\u4ece linear algebra \u5230 autonomous swarms\u3002"
+    },
+    {
+      "name": "sidekick0361--genai-chat-platform",
+      "source": "./sidekick0361--genai-chat-platform",
+      "description": "A high-performance Flutter AI chat UI kit with streaming responses, markdown, attachments, rich widgets, and full customization for cross-platform apps."
+    },
+    {
+      "name": "sidekick0361--genai-chat-platform",
+      "source": "./sidekick0361--genai-chat-platform",
+      "description": "A high-performance Flutter AI chat UI kit with streaming responses, markdown, attachments, rich widgets, and full customization for cross-platform apps."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -197119,6 +197134,41 @@
       "description": "Explore the ecosystem of open source tools, agents, runtimes, platforms, and infrastructure for the AI Native era, curated by hand and evaluated across multiple dimensions."
     },
     {
+      "name": "fubenshuo--traceclaw",
+      "source": "./fubenshuo--traceclaw",
+      "description": "\ud83d\udc7e \u4e0b\u4e00\u4ee3\u900f\u660e\u667a\u80fd\u4f53\u67b6\u6784 | Next-Gen Transparent Agent Architecture \ud83d\udd0d \u5168\u884c\u4e3a\u5ba1\u8ba1 | \ud83d\udee1\ufe0f \u4e24\u6bb5\u5f0f\u5b89\u5168\u8c03\u7528 | \ud83e\udde0 \u53cc\u6c34\u4f4d\u8bb0\u5fc6 | \u23f0 \u5fc3\u8df3\u4efb\u52a1 \ud83d\udcca P0 \u7ea7\u4e8b\u6545\u7387\u964d\u4f4e 80% | \u517c\u5bb9 OpenClaw + Claude Code \u6280\u80fd\u751f\u6001 | \ud83d\udcd5\u652f\u6301\u98de\u4e66\u8fdc\u7a0b\u901a\u4fe1"
+    },
+    {
+      "name": "sidekick0361--multi-tenant-saas-demo",
+      "source": "./sidekick0361--multi-tenant-saas-demo",
+      "description": "Next.js 14 technical demo for multi-tenant middleware, PostGIS geofence checks, and Socket.io real-time updates."
+    },
+    {
+      "name": "dest1ny-sec--desinter-scan",
+      "source": "./dest1ny-sec--desinter-scan",
+      "description": "AI\u81ea\u52a8\u5316\u4fe1\u606f\u6536\u96c6\u4e00\u628a\u68ad \u2014 22 \u4e2a Collector \u6d41\u6c34\u7ebf\u5316\u626b\u63cf + Claude AI \u667a\u80fd\u8bc4\u5206\u5f15\u64ce\uff0c\u8f93\u51fa\u6309\u653b\u51fb\u4f18\u5148\u7ea7\u6392\u5e8f\u7684\u8d44\u4ea7\u5217\u8868"
+    },
+    {
+      "name": "meta-quest--portal-samples",
+      "source": "./meta-quest--portal-samples",
+      "description": "The Meta Portal samples are a collection of code samples that demonstrate how to build Android applications for Meta Portal."
+    },
+    {
+      "name": "usecanary--canary",
+      "source": "./usecanary--canary",
+      "description": "QA harness built for Claude Code | E2E testing with screen recordings, console logs, network HARs, and Playwright traces"
+    },
+    {
+      "name": "patrick-andstar--kaoyan-math-ai",
+      "source": "./patrick-andstar--kaoyan-math-ai",
+      "description": "kaoyan-math-ai \u662f\u4e00\u4e2a\u57fa\u4e8e Obsidian \u7684\u8003\u7814\u6570\u5b66\u4e00\u590d\u4e60\u8d44\u6599\u5e93\uff0c\u56f4\u7ed5\u9ad8\u6570\u3001\u7ebf\u4ee3\u3001\u6982\u7387\u8bba\u6574\u7406\u77e5\u8bc6\u70b9\u3001\u65b9\u6cd5\u3001\u9898\u578b\u4e0e\u601d\u7ef4\u5bfc\u56fe\u3002\u9879\u76ee\u7ed3\u5408 PDF \u6309\u7ae0\u62c6\u5206\u3001PaddleOCR\u3001AI \u8349\u7a3f\u6574\u7406\u3001Markdown \u53cc\u94fe\u548c\u7b14\u8bb0\u6a21\u677f\uff0c\u628a\u7eb8\u8d28/\u626b\u63cf\u8d44\u6599\u9010\u6b65\u8f6c\u6210\u53ef\u68c0\u7d22\u3001\u53ef\u94fe\u63a5\u3001\u53ef\u590d\u76d8\u7684\u672c\u5730\u77e5\u8bc6\u5e93\uff0c\u5e2e\u52a9\u51cf\u5c11\u91cd\u590d\u6284\u5199\uff0c\u63d0\u9ad8\u957f\u671f\u590d\u4e60\u548c\u56de\u987e\u6548\u7387\u3002"
+    },
+    {
+      "name": "usecanary--canary",
+      "source": "./usecanary--canary",
+      "description": "QA harness built for Claude Code | E2E testing with screen recordings, console logs, network HARs, and Playwright traces"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -200412,6 +200462,11 @@
       "name": "juntoku9--sessory",
       "source": "./juntoku9--sessory",
       "description": "Shared memory for AI coding sessions."
+    },
+    {
+      "name": "djkcyl--uu-enhance",
+      "source": "./djkcyl--uu-enhance",
+      "description": "UU\u8fdc\u7a0b\u589e\u5f3a - GameViewer \u4e3b\u63a7\u7aef\u529f\u80fd\u589e\u5f3a\u8865\u4e01"
     },
     {
       "name": "ldmoxeii--only-engine",
@@ -305702,6 +305757,51 @@
       "name": "wenjebs--ripple",
       "source": "./wenjebs--ripple",
       "description": "easya x ripple"
+    },
+    {
+      "name": "bretmeraki--forest-front-end-forge",
+      "source": "./bretmeraki--forest-front-end-forge",
+      "description": "forest-front-end-forge"
+    },
+    {
+      "name": "bretmeraki--forest-front-end-forge",
+      "source": "./bretmeraki--forest-front-end-forge",
+      "description": "forest-front-end-forge"
+    },
+    {
+      "name": "bretmeraki--forest-front-end-forge",
+      "source": "./bretmeraki--forest-front-end-forge",
+      "description": "forest-front-end-forge"
+    },
+    {
+      "name": "bretmeraki--forest-front-end-forge",
+      "source": "./bretmeraki--forest-front-end-forge",
+      "description": "forest-front-end-forge"
+    },
+    {
+      "name": "bretmeraki--forest-front-end-forge",
+      "source": "./bretmeraki--forest-front-end-forge",
+      "description": "forest-front-end-forge"
+    },
+    {
+      "name": "yu2scalar--docusaurus-test",
+      "source": "./yu2scalar--docusaurus-test",
+      "description": "docusaurus-test"
+    },
+    {
+      "name": "bretmeraki--forest-front-end-forge",
+      "source": "./bretmeraki--forest-front-end-forge",
+      "description": "forest-front-end-forge"
+    },
+    {
+      "name": "bretmeraki--forest-front-end-forge",
+      "source": "./bretmeraki--forest-front-end-forge",
+      "description": "forest-front-end-forge"
+    },
+    {
+      "name": "bretmeraki--forest-front-end-forge",
+      "source": "./bretmeraki--forest-front-end-forge",
+      "description": "forest-front-end-forge"
     }
   ]
 }
