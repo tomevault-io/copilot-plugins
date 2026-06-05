@@ -1,0 +1,9 @@
+{
+  "name": "gvkhosla--pi-tinker",
+  "displayName": "pi-tinker",
+  "description": "Fine-tune open-source models with Tinker from inside Pi \u2014 managed improve loops, data prep, evals, smoke tests, deploy snippets, and checkpoint chat.",
+  "version": "1.0.0",
+  "author": "gvkhosla",
+  "homepage": "https://github.com/gvkhosla/pi-tinker",
+  "skills": []
+}
