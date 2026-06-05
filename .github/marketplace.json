@@ -14184,6 +14184,11 @@
       "description": "The official Redis MCP Server is a natural language interface designed for agentic applications to manage and search data in Redis efficiently"
     },
     {
+      "name": "kashif-e--kamera",
+      "source": "./kashif-e--kamera",
+      "description": "A camera library for Compose Multiplatform"
+    },
+    {
       "name": "noone-hub--jsreverser-mcp",
       "source": "./noone-hub--jsreverser-mcp",
       "description": "JSReverser-MCP \u662f\u4e00\u4e2a\u9762\u5411 JavaScript \u9006\u5411\u5206\u6790\u7684 MCP \u5de5\u5177\uff0c\u4e13\u95e8\u7528\u4e8e\u5e2e\u52a9\u5f00\u53d1\u8005\u5728\u771f\u5b9e\u6d4f\u89c8\u5668\u73af\u5883\u4e2d\u9ad8\u6548\u5b9a\u4f4d\u524d\u7aef\u6838\u5fc3\u903b\u8f91\u3002\u5b83   \u5c06\u811a\u672c\u68c0\u7d22\u3001\u65ad\u70b9\u8c03\u8bd5\u3001\u51fd\u6570 Hook\u3001\u7f51\u7edc\u8bf7\u6c42\u8ffd\u8e2a\u3001\u8c03\u7528\u94fe\u5206\u6790\u3001\u6df7\u6dc6\u8fd8\u539f\u548c\u98ce\u9669\u8bc4\u4f30\u6574\u5408\u4e3a\u7edf\u4e00\u80fd\u529b\uff0c\u53ef\u76f4\u63a5\u63a5\u5165 Claude\u3001   Codex\u3001Cursor \u7b49\u652f\u6301 MCP \u7684\u5ba2\u6237\u7aef\u3002\u4f60\u53ef\u4ee5\u8fde\u63a5\u5df2\u5f00\u542f\u7684 Chrome\uff0c\u5728\u767b\u5f55\u6001\u9875\u9762\u4e0b\u6301\u7eed\u91c7\u6837\u8bf7\u6c42\u53c2"
@@ -79049,6 +79054,11 @@
       "description": "Bitrix24 UI-Kit for REST API web-application development"
     },
     {
+      "name": "doofinder--llm-composer",
+      "source": "./doofinder--llm-composer",
+      "description": "An Elixir library for integrating large language models (LLMs) via HTTP, supporting OpenAI, Ollama, and other future backends."
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -86489,6 +86499,16 @@
       "description": "a simple tool for real-time monitoring video and summarization with LLMs"
     },
     {
+      "name": "xlsynth--bedrock-rtl",
+      "source": "./xlsynth--bedrock-rtl",
+      "description": "High quality and composable RTL libraries in SystemVerilog"
+    },
+    {
+      "name": "frap129--android-app-template",
+      "source": "./frap129--android-app-template",
+      "description": "A template repo for modern Android development"
+    },
+    {
       "name": "skywind3000--gamesample",
       "source": "./skywind3000--gamesample",
       "description": "Game Samples for GameLib"
@@ -91027,6 +91047,16 @@
       "name": "datasqrl--flink-sql-runner",
       "source": "./datasqrl--flink-sql-runner",
       "description": "Dockerized runner, utilities, and functions for FlinkSQL applications"
+    },
+    {
+      "name": "rameerez--slugifiable",
+      "source": "./rameerez--slugifiable",
+      "description": "\ud83d\udc0c Ruby gem to generate SEO-optimized URL slugs for your records"
+    },
+    {
+      "name": "rameerez--slugifiable",
+      "source": "./rameerez--slugifiable",
+      "description": "\ud83d\udc0c Ruby gem to generate SEO-optimized URL slugs for your records"
     },
     {
       "name": "navikt--cplt",
@@ -101664,6 +101694,46 @@
       "description": "The goal of this project is to create a modular Agentic Python framework for robotics that can be used to develop specific robotic applications for various types of robots, IoT, and physical devices. "
     },
     {
+      "name": "jahands--workers-packages",
+      "source": "./jahands--workers-packages",
+      "description": "My public npm packages"
+    },
+    {
+      "name": "jahands--workers-packages",
+      "source": "./jahands--workers-packages",
+      "description": "My public npm packages"
+    },
+    {
+      "name": "jahands--workers-packages",
+      "source": "./jahands--workers-packages",
+      "description": "My public npm packages"
+    },
+    {
+      "name": "jahands--workers-packages",
+      "source": "./jahands--workers-packages",
+      "description": "My public npm packages"
+    },
+    {
+      "name": "jahands--workers-packages",
+      "source": "./jahands--workers-packages",
+      "description": "My public npm packages"
+    },
+    {
+      "name": "jahands--workers-packages",
+      "source": "./jahands--workers-packages",
+      "description": "My public npm packages"
+    },
+    {
+      "name": "jahands--workers-packages",
+      "source": "./jahands--workers-packages",
+      "description": "My public npm packages"
+    },
+    {
+      "name": "jahands--workers-packages",
+      "source": "./jahands--workers-packages",
+      "description": "My public npm packages"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -106489,6 +106559,46 @@
       "description": "Part of the LangChain.NET project. Has separate abstractions, does not contain dependencies on the main project and can be used independently"
     },
     {
+      "name": "milaboratory--platforma",
+      "source": "./milaboratory--platforma",
+      "description": "Platforma SDK"
+    },
+    {
+      "name": "graphprotocol--hypergraph",
+      "source": "./graphprotocol--hypergraph",
+      "description": "hypergraph"
+    },
+    {
+      "name": "milaboratory--platforma",
+      "source": "./milaboratory--platforma",
+      "description": "Platforma SDK"
+    },
+    {
+      "name": "milaboratory--platforma",
+      "source": "./milaboratory--platforma",
+      "description": "Platforma SDK"
+    },
+    {
+      "name": "milaboratory--platforma",
+      "source": "./milaboratory--platforma",
+      "description": "Platforma SDK"
+    },
+    {
+      "name": "milaboratory--platforma",
+      "source": "./milaboratory--platforma",
+      "description": "Platforma SDK"
+    },
+    {
+      "name": "graphprotocol--hypergraph",
+      "source": "./graphprotocol--hypergraph",
+      "description": "hypergraph"
+    },
+    {
+      "name": "graphprotocol--hypergraph",
+      "source": "./graphprotocol--hypergraph",
+      "description": "hypergraph"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -109732,6 +109842,11 @@
       "name": "tuanle96--zca-desktop",
       "source": "./tuanle96--zca-desktop",
       "description": "Unofficial personal-use Zalo desktop client built with Tauri, Rust, SvelteKit, and an optional encrypted cloud sync backend."
+    },
+    {
+      "name": "codandotv--popcorn-guineapig",
+      "source": "./codandotv--popcorn-guineapig",
+      "description": "A lightweight plugin designed to enforce architectural rules in your multi-module project effortlessly."
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -118017,6 +118132,11 @@
       "name": "ssg--eksi-yedek",
       "source": "./ssg--eksi-yedek",
       "description": "ek\u015fi s\u00f6zl\u00fck yedek okuyucu \u015feysi"
+    },
+    {
+      "name": "get-convex--expo-push-notifications",
+      "source": "./get-convex--expo-push-notifications",
+      "description": "expo-push-notifications"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -136749,6 +136869,11 @@
       "description": "AI Auto Annotation & YOLO Training Pipeline, End-to-end object detection auto-labeling and YOLO training platform. VLM-powered annotation with NVIDIA LocateAnything-3B, manual refinement, one-click YO"
     },
     {
+      "name": "seismicsystems--seismic-solidity",
+      "source": "./seismicsystems--seismic-solidity",
+      "description": "Seismic Solidity allows you to encrypt data in your smart contracts"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -141837,6 +141962,11 @@
       "name": "drivercraft--ostool",
       "source": "./drivercraft--ostool",
       "description": "Rust\u6784\u5efaOS\u7684\u5de5\u5177\u96c6"
+    },
+    {
+      "name": "seismicsystems--seismic-revm",
+      "source": "./seismicsystems--seismic-revm",
+      "description": "Seismic REVM implements the Mercury Specification of the EVM: a shielded virtual machine that powers Seismic's blockchain"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -147402,6 +147532,16 @@
       "name": "artemijan--l2shablya",
       "source": "./artemijan--l2shablya",
       "description": "Lineage 2 game server emulator written in rust "
+    },
+    {
+      "name": "davanstrien--uv-scripts-for-ai",
+      "source": "./davanstrien--uv-scripts-for-ai",
+      "description": "Self-contained UV scripts for data & ML tasks \u2014 OCR, vision, audio & more \u2014 run one in a command, locally or on Hugging Face Jobs. Built for humans and agents."
+    },
+    {
+      "name": "davanstrien--uv-scripts-for-ai",
+      "source": "./davanstrien--uv-scripts-for-ai",
+      "description": "Self-contained UV scripts for data & ML tasks \u2014 OCR, vision, audio & more \u2014 run one in a command, locally or on Hugging Face Jobs. Built for humans and agents."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
