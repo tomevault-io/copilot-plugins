@@ -1,0 +1,46 @@
+## expo-push-notifications
+
+> Set up the repo with `npm i && npm run build && npx convex init`
+
+# Claude Development Notes
+
+## Initialization
+
+Set up the repo with `npm i && npm run build && npx convex init`
+
+## Codegen Command
+
+After making changes to component functions, run codegen with:
+
+```bash
+npm run build:codegen && npx convex dev --once
+```
+
+## Adding New Component Functions Pattern
+
+When adding new functions to this Convex component:
+
+1. **Client function** (`src/client/index.ts`):
+
+   - Add method to `PushNotifications` class that calls
+     `ctx.runMutation(this.component.public.functionName, { ...args, logLevel: this.config.logLevel })`
+   - Follow existing patterns for argument types and return types
+
+2. **Component function** (`src/component/public.ts`):
+
+   - Define args schema using `v.object()`
+   - Export mutation/query with proper return type
+   - Call `ensureBatchRunScheduled(ctx)` after processing to kick the batch runner
+
+3. **Batch functions**:
+
+   - Use existing handler functions (like `sendPushNotificationHandler`) in
+     loops
+   - Call `ensureBatchRunScheduled` once after all processing
+   - Return array of results matching individual function return types
+
+4. **Always run codegen** after changes to regenerate types
+
+---
+> Source: [get-convex/expo-push-notifications](https://github.com/get-convex/expo-push-notifications) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-05 -->
