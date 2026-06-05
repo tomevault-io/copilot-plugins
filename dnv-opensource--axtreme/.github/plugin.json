@@ -1,0 +1,9 @@
+{
+  "name": "dnv-opensource--axtreme",
+  "displayName": "axtreme",
+  "description": "Development repo for the RaPiD project with extensions for Ax and BoTorch.",
+  "version": "1.0.0",
+  "author": "dnv-opensource",
+  "homepage": "https://github.com/dnv-opensource/axtreme",
+  "skills": []
+}
