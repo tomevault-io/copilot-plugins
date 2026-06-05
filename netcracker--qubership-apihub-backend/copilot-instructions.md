@@ -1,15 +1,17 @@
-## backend-error-codes
+## backend-openapi-files
 
-> Backend API error code conventions in ErrorCodes.go
+> Backend OpenAPI file list and sync requirements
 
 
-# Backend API Errors
+# Backend OpenAPI Files
 
-- Error codes and messages returned in HTTP responses must be constants in `exception/ErrorCodes.go`.
-- **Legacy errors:** numeric string codes (`"9"`, `"22"`) with a paired `*Msg`; blank line between pairs.
-- **AI Chat errors:** `APIHUB-AI-*` codes with the same pairing rules.
-- **Variant messages** (same code, different text): declare only `*Msg` next to the parent code block — reuse the parent `Code` at call sites (see `InvalidParameterValue` + `InvalidLimitMsg`, or `AiChatValidationFailed` + `AiChatMessageTooLongMsg`). Do not add orphan `*Msg` constants without documenting which code they belong to.
-- Do not use inline `Message:` strings for client-facing errors in new code.
+Any REST endpoint or contract change **must** update the relevant OpenAPI files under `docs/api/`:
+
+- Public API: `docs/api/APIHUB_API.yaml`
+- Admin API: `docs/api/Admin API.yaml`
+- Internal API: `docs/api/APIHUB_API_internal.yaml` (when internal endpoints change)
+
+Do not introduce breaking public API changes without versioning and deprecation per `docs/development_guide.md`.
 
 ---
 > Source: [Netcracker/qubership-apihub-backend](https://github.com/Netcracker/qubership-apihub-backend) — distributed by [TomeVault](https://tomevault.io).
