@@ -153424,6 +153424,11 @@
       "description": "Fine-tune open-source models with Tinker from inside Pi \u2014 managed improve loops, data prep, evals, smoke tests, deploy snippets, and checkpoint chat."
     },
     {
+      "name": "paulrobello--par-gpt",
+      "source": "./paulrobello--par-gpt",
+      "description": "CLI LLM / Agent multi-tool"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -161662,6 +161667,21 @@
       "name": "snowflake-labs--sfguide-create-a-route-optimisation-and-vehicle-route-plan-simulator",
       "source": "./snowflake-labs--sfguide-create-a-route-optimisation-and-vehicle-route-plan-simulator",
       "description": "sfguide-create-a-route-optimisation-and-vehicle-route-plan-simulator"
+    },
+    {
+      "name": "nethermindeth--starkweb",
+      "source": "./nethermindeth--starkweb",
+      "description": "Complete toolkit to build on the stark side of the web"
+    },
+    {
+      "name": "sarmatdev--artemis-sol",
+      "source": "./sarmatdev--artemis-sol",
+      "description": "Framework to build MEV bots in Rust on Solana"
+    },
+    {
+      "name": "shinokada--svelte-animate",
+      "source": "./shinokada--svelte-animate",
+      "description": "A lightweight, accessible Svelte component that wraps Animate.css, simplifying animation integration in Svelte applications. "
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -184394,6 +184414,66 @@
       "description": "qubership-apihub-backend"
     },
     {
+      "name": "muhammadatef--kakashi",
+      "source": "./muhammadatef--kakashi",
+      "description": "A local-first masker that lives inside Claude Code, Cursor, Codex CLI, and 20+ AI agents.  Hides API keys, passwords, secrets, and personal data \u2014 across PDF, Word, Excel, JSON, .env, and 45+ other fo"
+    },
+    {
+      "name": "muhammadatef--kakashi",
+      "source": "./muhammadatef--kakashi",
+      "description": "A local-first masker that lives inside Claude Code, Cursor, Codex CLI, and 20+ AI agents.  Hides API keys, passwords, secrets, and personal data \u2014 across PDF, Word, Excel, JSON, .env, and 45+ other fo"
+    },
+    {
+      "name": "jbcodeforce--shift-left-utils",
+      "source": "./jbcodeforce--shift-left-utils",
+      "description": "shift_left_utils"
+    },
+    {
+      "name": "alanblogooo--xiaobot-nav-next",
+      "source": "./alanblogooo--xiaobot-nav-next",
+      "description": "AI \u7f16\u7a0b\u5f00\u53d1\u7684\u5c0f\u62a5\u7ae5\u5bfc\u822a\u7ad9"
+    },
+    {
+      "name": "suho--bluffxcodes",
+      "source": "./suho--bluffxcodes",
+      "description": "A tool that helps you to run unsupported Xcode applications on the new macOS (e.g. Sequoia)"
+    },
+    {
+      "name": "jbcodeforce--shift-left-utils",
+      "source": "./jbcodeforce--shift-left-utils",
+      "description": "shift_left_utils"
+    },
+    {
+      "name": "jbcodeforce--shift-left-utils",
+      "source": "./jbcodeforce--shift-left-utils",
+      "description": "shift_left_utils"
+    },
+    {
+      "name": "muhammadatef--kakashi",
+      "source": "./muhammadatef--kakashi",
+      "description": "A local-first masker that lives inside Claude Code, Cursor, Codex CLI, and 20+ AI agents.  Hides API keys, passwords, secrets, and personal data \u2014 across PDF, Word, Excel, JSON, .env, and 45+ other fo"
+    },
+    {
+      "name": "colinrozzi--theater",
+      "source": "./colinrozzi--theater",
+      "description": "wasm actor runtime"
+    },
+    {
+      "name": "endstonemc--dwarf2cpp",
+      "source": "./endstonemc--dwarf2cpp",
+      "description": "Generate C++ headers from DWARF Debugging Information Format"
+    },
+    {
+      "name": "aldamico--tomblauncher",
+      "source": "./aldamico--tomblauncher",
+      "description": "A Tomb Raider Custom Level management application"
+    },
+    {
+      "name": "verse-pbc--groups-relay",
+      "source": "./verse-pbc--groups-relay",
+      "description": "Nostr NIP-29 Relay"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -197369,6 +197449,56 @@
       "description": "Boilerplate starter and demo of LLM driven development in a production-ready system. Nextjs 15, Supabase, Drizzle."
     },
     {
+      "name": "hinsley--multimodalmaps-jl",
+      "source": "./hinsley--multimodalmaps-jl",
+      "description": "Symbolic scans of multimodal maps of an interval"
+    },
+    {
+      "name": "luizpvas--explicit",
+      "source": "./luizpvas--explicit",
+      "description": "Explicit is a validation and documentation library for REST APIs that enforces documented types at runtime"
+    },
+    {
+      "name": "koushiro--fastmetrics",
+      "source": "./koushiro--fastmetrics",
+      "description": "Fast and structured OpenMetrics / Prometheus client library for Rust"
+    },
+    {
+      "name": "meishiwhy--literature-mind",
+      "source": "./meishiwhy--literature-mind",
+      "description": "LitMind \u5c06\u4f60\u7684 Zotero \u6587\u732e\u5e93\u8f6c\u5316\u4e3a\u4e00\u4e2a\u80fd\u591f\u68c0\u7d22\u3001\u63a8\u7406\u548c\u8f85\u52a9\u5199\u4f5c\u7684 AI \u79d1\u7814\u77e5\u8bc6\u5e93\u3002"
+    },
+    {
+      "name": "zhting--agnesai",
+      "source": "./zhting--agnesai",
+      "description": "agnesAI\u7684API\u8c03\u7528"
+    },
+    {
+      "name": "hubugui1111-lab--maatavernbot",
+      "source": "./hubugui1111-lab--maatavernbot",
+      "description": "\u57fa\u4e8e MaaFramework \u7684\u7089\u77f3\u4f20\u8bf4\u9152\u9986\u6218\u65d7\u5168\u81ea\u52a8\u811a\u672c"
+    },
+    {
+      "name": "dfradehubs--agentgram",
+      "source": "./dfradehubs--agentgram",
+      "description": "Unified interface for interacting with multiple AI agents (AG-UI protocol). Go API multiplexer + Next.js web."
+    },
+    {
+      "name": "sap--terraform-provider-sap-cloud-identity-services",
+      "source": "./sap--terraform-provider-sap-cloud-identity-services",
+      "description": "Terraform provider for SAP Cloud Identity Services"
+    },
+    {
+      "name": "bradyajohnston--warbler",
+      "source": "./bradyajohnston--warbler",
+      "description": "Interactive GPU physics inside of Blender's viewport"
+    },
+    {
+      "name": "koushiro--fastmetrics",
+      "source": "./koushiro--fastmetrics",
+      "description": "Fast and structured OpenMetrics / Prometheus client library for Rust"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -200677,6 +200807,11 @@
       "name": "bobinson--vulture",
       "source": "./bobinson--vulture",
       "description": "vulture"
+    },
+    {
+      "name": "nemori-ai--langchain-dynamic-workflow",
+      "source": "./nemori-ai--langchain-dynamic-workflow",
+      "description": "Deterministic, scripted, resumable multi-agent orchestration for LangChain deepagents \u2014 a community port of Claude Code's Dynamic Workflows."
     },
     {
       "name": "ldmoxeii--only-engine",
