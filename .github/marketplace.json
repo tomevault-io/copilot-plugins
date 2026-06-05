@@ -30094,6 +30094,11 @@
       "description": "Astro loaders"
     },
     {
+      "name": "sublay-io--monorepo",
+      "source": "./sublay-io--monorepo",
+      "description": "Replyke: An Open-Source Framework for Social Features. Build social apps faster with powerful API and SDKs for JavaScript, React, and React Native."
+    },
+    {
       "name": "vercel-labs--next-browser",
       "source": "./vercel-labs--next-browser",
       "description": "next-browser"
@@ -121224,6 +121229,11 @@
       "description": "A GitHub Action that automatically updates your README file with the latest activity from your GitHub account. Customize the displayed events, set a limit on the number of events, and ignore specific "
     },
     {
+      "name": "utibeabasi6--mercek",
+      "source": "./utibeabasi6--mercek",
+      "description": "A local-first desktop IDE for Amazon ECS"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -153374,6 +153384,11 @@
       "description": "Awesome macOS open source Apps"
     },
     {
+      "name": "gvkhosla--pi-tinker",
+      "source": "./gvkhosla--pi-tinker",
+      "description": "Fine-tune open-source models with Tinker from inside Pi \u2014 managed improve loops, data prep, evals, smoke tests, deploy snippets, and checkpoint chat."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -161602,6 +161617,11 @@
       "name": "denisgorbachev--url-macro",
       "source": "./denisgorbachev--url-macro",
       "description": "A compile-time URL validation macro. Parses and checks URLs at compile-time, converting valid URLs into `url::Url` objects. Provides early error detection for malformed URLs."
+    },
+    {
+      "name": "keyboardgdy--woke-novel",
+      "source": "./keyboardgdy--woke-novel",
+      "description": "\u5168\u81ea\u52a8\u5c0f\u8bf4\u751f\u6210\u5de5\u5177\uff0c**\u8ba9 Claude \u6210\u4e3a\u4f60\u7684\u300c\u4e2d\u6587\u7f51\u6587\u81ea\u52a8\u751f\u6210\u5de5\u5177\u300d** *\u6d41\u6c34\u7ebf \u00b7 \u591a\u5e55 \u00b7 \u65ad\u70b9\u7eed\u5199 \u00b7 \u5f3a\u7ea6\u675f\u6a21\u677f\u9a71\u52a8*;Fully Automated Novel Generation Tool, Making Claude Your \"Chinese Web Novel Auto-Wenerator\";"
     },
     {
       "name": "yschimke--compose-ai-tools",
