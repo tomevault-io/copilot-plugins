@@ -1,0 +1,9 @@
+{
+  "name": "kaspacom--kaspacom-web-wallet",
+  "displayName": "kaspacom-web-wallet",
+  "description": "A wallet for Kaspa",
+  "version": "1.0.0",
+  "author": "KASPACOM",
+  "homepage": "https://github.com/KASPACOM/kaspacom-web-wallet",
+  "skills": []
+}
