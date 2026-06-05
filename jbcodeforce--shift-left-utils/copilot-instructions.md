@@ -1,41 +1,86 @@
-## writing
+## shift-left-utils
 
-> When writing or generating markdown content:
+> This project includes an MCP (Model Context Protocol) server that exposes all shift_left CLI commands as tools.
 
+# Shift Left Utils CLI Integration
 
-# Markdown Writing Guidelines
+## MCP Server Integration
 
-When writing or generating markdown content:
+This project includes an MCP (Model Context Protocol) server that exposes all shift_left CLI commands as tools.
 
-## Style Requirements
-- **No emojis**: Never include emoji characters in markdown files
-- **Concise sentences**: Use short, direct sentences that convey information efficiently
-- **Technical tone**: Avoid marketing language, superlatives, and promotional phrasing
+### Location
+- Source: `src/shift_left/shift_left_mcp/`
+- Documentation: `docs/mcp/`
 
-## Examples
-
-**Bad:**
-```markdown
-🚀 Our amazing platform makes it super easy to deploy your awesome applications! 
-You'll love how incredibly simple and powerful it is! ✨
+### Running the MCP Server
+```bash
+cd src/shift_left
+uv run python -m shift_left_mcp
 ```
 
-**Good:**
-```markdown
-Deploy applications using the platform CLI or API. The deployment process takes 2-5 minutes.
+### Testing
+```bash
+cd src/shift_left  
+uv run python -m shift_left_mcp.test_server
 ```
 
-## Specific Patterns to Avoid
-- Exclamation marks (except in code examples or warnings)
-- Words like: amazing, awesome, incredible, revolutionary, game-changing
-- Phrases like: "you'll love", "easily", "simply", "just"
-- Any emoji or decorative unicode characters
+## Available CLI Commands
 
-## Preferred Approach
-- State facts and features directly
-- Use technical specifications and concrete details
-- Include command examples and code snippets
-- Focus on "what" and "how" rather than "how great"
+The `shift_left` CLI is available in this project with the following main commands:
+
+### Project Management
+- `shift_left project init <project_name> <project_path> --project-type [kimball|data_product]` - Initialize new Flink project
+- `shift_left project validate-config` - Validate configuration file
+- `shift_left project list-topics <project_path>` - List Kafka topics
+- `shift_left project list-compute-pools [--environment-id <id>]` - List Flink compute pools
+- `shift_left project report-table-cross-products` - Report tables referenced in other products
+- `shift_left project list-tables-with-one-child` - List tables that have exactly one child table
+- `shift_left project list-modified-files <branch_name> [--output-file <file>] [--file-filter <ext>] [--project-path <path>]` - Track git changes for blue-green deployment
+
+### Table Management  
+- `shift_left table init <table_name> <table_path> [--product-name <name>]` - Create table structure
+- `shift_left table build-inventory <pipeline_path>` - Build table inventory
+- `shift_left table migrate <table_name> <sql_file> <target_path> [--source-type ksql|spark|dbt] [--validate] [--recursive]` - Migrate SQL with AI
+
+### Pipeline Deployment
+- `shift_left pipeline deploy <inventory_path> [--table-name <name>] [--product-name <name>] [--table-list-file-name <file>] [--compute-pool-id <id>] [--dml-only] [--parallel]` - Deploy Flink pipelines
+- `shift_left pipeline build-metadata <dml_file> <pipeline_path>` - Build pipeline metadata
+
+### Table Unit Testing
+- `shift_left table init-unit-tests <table_name>` - Create test file to unit tests the table
+- `shift_left table run-unit-tests <table_name>` - Run the test suite of the given table
+- `shift_left table delete-unit-tests <table_name>` - Remove / undeploy the unit test artifacts on Confluent Cloud 
+
+### Utility
+- `shift_left version` - Show CLI version
+- `shift_left version --config` - Show CLI version plus redacted effective configuration (same as `format_config_for_debug()`)
+
+## CLI Usage Patterns
+
+When suggesting CLI commands:
+1. Always use environment variables like $PIPELINES, $SRC_FOLDER, $STAGING when available
+2. For blue-green deployment, use list-modified-files first, then deploy with --table-list-file-name
+3. Migration commands require proper source types (ksql, spark, dbt)
+4. Pipeline deployment supports both individual tables and bulk operations
+5. Configuration validation should be run before major operations
+
+## Environment Variables
+- PIPELINES: Main pipeline directory path
+- SRC_FOLDER: Source SQL files directory  
+- STAGING: Staging area for migrations
+- CONFIG_FILE: Configuration file path
+
+## MCP Tools for Cursor
+
+All shift_left commands are exposed as MCP tools with the prefix `shift_left_`:
+- `shift_left_project_init`
+- `shift_left_project_validate_config`
+- `shift_left_table_init`
+- `shift_left_table_migrate`
+- `shift_left_pipeline_deploy`
+- etc.
+
+See `docs/mcp/README.md` for complete documentation.
 
 ---
 > Source: [jbcodeforce/shift_left_utils](https://github.com/jbcodeforce/shift_left_utils) — distributed by [TomeVault](https://tomevault.io).
