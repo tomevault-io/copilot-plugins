@@ -184274,6 +184274,116 @@
       "description": "Data tools for managing data operations in ESP's AI / science projects"
     },
     {
+      "name": "ryannnice--kernel-agent-ascend",
+      "source": "./ryannnice--kernel-agent-ascend",
+      "description": "Kernel-Agent-Ascend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "tomdeprez---cyberpentest-plugin-claude-code",
+      "source": "./tomdeprez---cyberpentest-plugin-claude-code",
+      "description": "Plugin de pentest offensif int\u00e9gr\u00e9 \u00e0 Claude Code. Lance nmap, sqlmap, nuclei, gobuster et recherche automatiquement les CVEs sur NIST/Exploit-DB d\u00e8s qu'une version est d\u00e9tect\u00e9e."
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
+      "name": "netcracker--qubership-apihub-backend",
+      "source": "./netcracker--qubership-apihub-backend",
+      "description": "qubership-apihub-backend"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -197219,6 +197329,36 @@
       "description": "strix-halo-ds4-toolbox"
     },
     {
+      "name": "neo-fetch--draw-your-agents",
+      "source": "./neo-fetch--draw-your-agents",
+      "description": "Open-source visual builder that lets you design AI agent workflows by dragging and dropping nodes on a canvas, and then compiles them into runnable Python projects for Google ADK (Agent Development Ki"
+    },
+    {
+      "name": "aidh-ms--openicu",
+      "source": "./aidh-ms--openicu",
+      "description": "OpenICU"
+    },
+    {
+      "name": "tar-ive--grants-mcp",
+      "source": "./tar-ive--grants-mcp",
+      "description": "grants-mcp"
+    },
+    {
+      "name": "goofansu--hugo-modus",
+      "source": "./goofansu--hugo-modus",
+      "description": "An opinionated Hugo theme using Modus themes colors"
+    },
+    {
+      "name": "ozaco--ozaco",
+      "source": "./ozaco--ozaco",
+      "description": "ozaco"
+    },
+    {
+      "name": "rsweetland--next-llm-supastarter",
+      "source": "./rsweetland--next-llm-supastarter",
+      "description": "Boilerplate starter and demo of LLM driven development in a production-ready system. Nextjs 15, Supabase, Drizzle."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -200517,6 +200657,16 @@
       "name": "djkcyl--uu-enhance",
       "source": "./djkcyl--uu-enhance",
       "description": "UU\u8fdc\u7a0b\u589e\u5f3a - GameViewer \u4e3b\u63a7\u7aef\u529f\u80fd\u589e\u5f3a\u8865\u4e01"
+    },
+    {
+      "name": "tuzkileonz--private-image-studio",
+      "source": "./tuzkileonz--private-image-studio",
+      "description": "Private_image_studio"
+    },
+    {
+      "name": "bobinson--vulture",
+      "source": "./bobinson--vulture",
+      "description": "vulture"
     },
     {
       "name": "ldmoxeii--only-engine",
