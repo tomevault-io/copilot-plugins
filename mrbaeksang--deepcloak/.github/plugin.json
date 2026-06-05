@@ -1,0 +1,9 @@
+{
+  "name": "mrbaeksang--deepcloak",
+  "displayName": "deepcloak",
+  "description": "Local-first deep research agent that reads the whole web \u2014 even pages behind Cloudflare, Datadome, Turnstile & reCAPTCHA. Stealth fetch + cited reports. MCP-native, MIT.",
+  "version": "1.0.0",
+  "author": "Mrbaeksang",
+  "homepage": "https://github.com/Mrbaeksang/deepcloak",
+  "skills": []
+}
