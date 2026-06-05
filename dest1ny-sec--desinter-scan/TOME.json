@@ -1,0 +1,44 @@
+{
+  "name": "Desinter_scan",
+  "owner": "Dest1ny-Sec",
+  "repo": "Desinter_scan",
+  "description": "AI\u81ea\u52a8\u5316\u4fe1\u606f\u6536\u96c6\u4e00\u628a\u68ad \u2014 22 \u4e2a Collector \u6d41\u6c34\u7ebf\u5316\u626b\u63cf + Claude AI \u667a\u80fd\u8bc4\u5206\u5f15\u64ce\uff0c\u8f93\u51fa\u6309\u653b\u51fb\u4f18\u5148\u7ea7\u6392\u5e8f\u7684\u8d44\u4ea7\u5217\u8868",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dest1ny-Sec/Desinter_scan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-05T10:34:55Z"
+}
