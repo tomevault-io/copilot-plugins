@@ -1,0 +1,9 @@
+{
+  "name": "syi0808--pubm",
+  "displayName": "pubm",
+  "description": "Publish to npm, jsr, crates.io, and private registries in one step",
+  "version": "1.0.0",
+  "author": "syi0808",
+  "homepage": "https://github.com/syi0808/pubm",
+  "skills": []
+}
