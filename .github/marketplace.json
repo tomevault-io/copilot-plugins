@@ -147339,6 +147339,16 @@
       "description": "A Decky plugin for Zerotier"
     },
     {
+      "name": "lucifer1004--veloq",
+      "source": "./lucifer1004--veloq",
+      "description": "Agent-friendly GPU profile-query CLI"
+    },
+    {
+      "name": "lucifer1004--veloq",
+      "source": "./lucifer1004--veloq",
+      "description": "Agent-friendly GPU profile-query CLI"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
