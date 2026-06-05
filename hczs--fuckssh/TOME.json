@@ -4,7 +4,7 @@
   "repo": "fuckssh",
   "description": "Cross-platform CLI for VPS SSH config management. Interactive wizard: IP + password \u2192 passwordless ssh in 3 min. Reads standard ~/.ssh/config. | \u8de8\u5e73\u53f0 CLI\uff1a\u4ea4\u4e92\u5f0f\u5411\u5bfc\u7ba1\u7406 VPS SSH \u914d\u7f6e\uff0cIP + \u5bc6\u7801 \u2192 3 \u5206\u949f\u514d\u5bc6\u767b\u5f55\u3002\u8bfb\u5199\u6807\u51c6 ~/.ssh/config\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hczs/fuckssh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T06:30:25Z"
+  "distributed_at": "2026-06-05T06:30:57Z"
 }
