@@ -1,0 +1,9 @@
+{
+  "name": "jeffisgod--agri-cv-research",
+  "displayName": "Agri-CV-Research",
+  "description": "An AI-powered agricultural CV research framework automating the full pipeline from literature discovery to paper drafting, optimized for Codex, Claude Code and Cursor workflows.",
+  "version": "1.0.0",
+  "author": "Jeffisgod",
+  "homepage": "https://github.com/Jeffisgod/Agri-CV-Research",
+  "skills": []
+}
