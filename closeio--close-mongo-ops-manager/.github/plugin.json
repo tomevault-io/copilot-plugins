@@ -1,0 +1,9 @@
+{
+  "name": "closeio--close-mongo-ops-manager",
+  "displayName": "close-mongo-ops-manager",
+  "description": "Monitor and kill MongoDB operations",
+  "version": "1.0.0",
+  "author": "closeio",
+  "homepage": "https://github.com/closeio/close-mongo-ops-manager",
+  "skills": []
+}
