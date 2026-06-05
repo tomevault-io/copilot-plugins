@@ -1,125 +1,143 @@
-## coding-standards
+## development-workflow
 
-> - **变量和函数**: camelCase (例如: `getUserData`, `isVisible`)
+> - React 开发服务器运行在 `http://localhost:3000`
 
-# 代码规范和质量标准
+# 开发工作流程
 
-## JavaScript/React 代码风格
+## 项目设置和启动
 
-### 命名约定
-- **变量和函数**: camelCase (例如: `getUserData`, `isVisible`)
-- **常量**: UPPER_SNAKE_CASE (例如: `API_BASE_URL`, `MAX_RETRY_COUNT`)
-- **组件**: PascalCase (例如: `DataStorageDemo`, `UserProfile`)
-- **文件名**: camelCase 或 PascalCase，保持一致性
+### 初始化项目
+```bash
+# 安装依赖
+npm install
 
-### 代码格式化
-- 使用 2 空格缩进
-- 行末不留空格
-- 文件末尾保留一个空行
-- 字符串优先使用单引号，JSX 属性使用双引号
-
-### 函数和组件
-```javascript
-// 推荐：箭头函数用于简单组件
-const SimpleComponent = () => {
-  return <div>Hello World</div>;
-};
-
-// 推荐：function 声明用于复杂组件
-function ComplexComponent({ prop1, prop2 }) {
-  const [state, setState] = useState(null);
-  
-  useEffect(() => {
-    // 副作用逻辑
-  }, []);
-  
-  return (
-    <div>
-      {/* JSX 内容 */}
-    </div>
-  );
-}
+# 启动开发环境
+npm run electron-dev
 ```
 
-## 依赖管理
+### 开发环境
+- React 开发服务器运行在 `http://localhost:3000`
+- Electron 会自动加载开发服务器内容
+- 支持热重载和自动刷新
 
-### 导入顺序
-1. React 相关导入
-2. 第三方库导入
-3. 本地组件导入
-4. 工具函数导入
-5. 样式文件导入
+## 开发流程
 
-```javascript
-import React, { useState, useEffect } from 'react';
-import { someLibrary } from 'third-party-lib';
-import MyComponent from './components/MyComponent';
-import { utilityFunction } from './utils/helpers';
-import './App.css';
+### 1. 功能开发
+- 在 `src/` 目录下开发 React 组件
+- 遵循 [React 开发规则](mdc:.cursor/rules/react-development.mdc)
+- 使用 [代码规范](mdc:.cursor/rules/coding-standards.mdc)
+
+### 2. Electron 集成
+- 在 [public/electron.js](mdc:public/electron.js) 中添加主进程逻辑
+- 在 [public/preload.js](mdc:public/preload.js) 中暴露 API
+- 遵循 [Electron 开发规则](mdc:.cursor/rules/electron-development.mdc)
+
+### 3. 变更记录 ⚠️ **重要**
+- **每次代码修改后必须记录变更**
+- 严格遵循 [变更跟踪规则](mdc:.cursor/rules/change-tracking.mdc)
+- 在 [README.md](mdc:README.md) 中及时更新变更日志
+- 记录所有新增、修改、删除的文件及其原因
+
+### 4. 测试
+```bash
+# 运行测试
+npm test
+
+# 运行测试并查看覆盖率
+npm test -- --coverage
 ```
 
-### 包版本管理
-- 使用 `package-lock.json` 锁定依赖版本
-- 定期更新依赖，但确保测试通过
-- 避免使用 `^` 或 `~` 进行自动版本更新
+## 构建和部署
 
-## 错误处理
+### 开发构建
+```bash
+# 构建 React 应用
+npm run build
 
-### React 组件错误处理
-```javascript
-// 使用 try-catch 处理异步操作
-const handleAsyncOperation = async () => {
-  try {
-    const result = await someAsyncFunction();
-    setState(result);
-  } catch (error) {
-    console.error('操作失败:', error);
-    // 适当的错误处理
-  }
-};
+# 运行构建后的 Electron 应用
+npm run electron-build
 ```
 
-### Electron 错误处理
-- 在主进程中捕获和记录错误
-- 使用适当的错误边界处理渲染进程错误
-- 提供用户友好的错误消息
-
-## 代码注释
-
-### 何时添加注释
-- 复杂的业务逻辑
-- 非显而易见的算法实现
-- 重要的配置或常量
-- 临时解决方案或已知问题
-
-### 注释风格
-```javascript
-/**
- * 计算用户权限级别
- * @param {Object} user - 用户对象
- * @param {string} user.role - 用户角色
- * @param {Array} user.permissions - 用户权限列表
- * @returns {number} 权限级别 (1-10)
- */
-function calculatePermissionLevel(user) {
-  // TODO: 优化权限计算算法
-  // 实现逻辑...
-}
+### 生产构建
+```bash
+# 构建并打包应用
+npm run dist
 ```
 
-## 性能考虑
+### 构建输出
+- `build/` - React 应用构建输出
+- `dist/` - Electron 应用打包输出
 
-### React 性能优化
-- 合理使用 `useMemo` 和 `useCallback`
-- 避免在渲染函数中创建新对象
-- 使用 `React.memo` 优化组件重渲染
-- 懒加载大型组件
+## AI助手工作流程
 
-### Electron 性能优化
-- 避免在主进程中执行耗时操作
-- 合理使用 Worker 线程处理计算密集型任务
-- 优化预加载脚本的体积
+### 代码修改标准流程
+1. **分析需求** - 理解要实现的功能或修复的问题
+2. **执行修改** - 使用适当的工具修改代码
+3. **立即记录** - 按照 [变更跟踪规则](mdc:.cursor/rules/change-tracking.mdc) 记录所有变更
+4. **验证完整性** - 确保所有文件变更都已记录在 [README.md](mdc:README.md) 中
+
+### 记录要求
+- ✅ 每次修改都要记录
+- ✅ 记录格式要规范
+- ✅ 描述要清晰具体
+- ✅ 包含修改原因
+- ❌ 不能遗漏任何文件变更
+
+## 调试技巧
+
+### React 调试
+- 使用 Chrome DevTools
+- 安装 React Developer Tools 扩展
+- 使用 `console.log` 进行简单调试
+
+### Electron 调试
+- 主进程调试：使用 `--inspect` 参数启动
+- 渲染进程调试：在 Electron 窗口中打开 DevTools
+- 网络调试：监控 IPC 通信
+
+## 版本控制
+
+### Git 工作流
+1. 从主分支创建功能分支
+2. 开发完成后提交更改
+3. 创建 Pull Request
+4. 代码审查通过后合并
+
+### 提交规范
+```
+feat: 添加新功能
+fix: 修复 bug
+docs: 更新文档
+style: 代码格式化
+refactor: 代码重构
+test: 添加测试
+chore: 构建或辅助工具的变动
+```
+
+## 性能监控
+
+### React 性能
+- 使用 React Profiler 分析组件性能
+- 监控渲染时间和重渲染次数
+- 优化长列表和复杂组件
+
+### Electron 性能
 - 监控内存使用情况
+- 检查主进程和渲染进程的 CPU 使用
+- 优化应用启动时间
+
+## 故障排除
+
+### 常见问题
+1. **端口冲突**: 确保 3000 端口未被占用
+2. **依赖问题**: 删除 `node_modules` 重新安装
+3. **构建失败**: 检查文件路径和依赖版本
+4. **Electron 启动失败**: 检查主进程代码语法
+
+### 日志查看
+- React 开发服务器日志在终端输出
+- Electron 主进程日志在终端输出
+- 渲染进程日志在 Chrome DevTools 控制台
 
 ---
 > Source: [ouyangyipeng/YatPotato](https://github.com/ouyangyipeng/YatPotato) — distributed by [TomeVault](https://tomevault.io).
