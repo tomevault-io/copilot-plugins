@@ -1,0 +1,9 @@
+{
+  "name": "schemacrawler--schemacrawler-ai",
+  "displayName": "SchemaCrawler-AI",
+  "description": "Free database schema discovery and comprehension tool",
+  "version": "1.0.0",
+  "author": "schemacrawler",
+  "homepage": "https://github.com/schemacrawler/SchemaCrawler-AI",
+  "skills": []
+}
