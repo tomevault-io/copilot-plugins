@@ -1,11 +1,14 @@
-## apihub-deployment-followup
+## backend-config-defaults
 
-> Remind when backend changes require Helm or Compose updates in qubership-apihub.
+> Backend config defaults and validation conventions
 
 
-When implementing or modifying backend configuration, env-backed defaults, startup
-wiring, or deployment-facing behaviour in `qubership-apihub-backend`, apply the
-`apihub-deployment-followup` skill before finishing the task.
+# Backend Configuration Defaults
+
+- **Single source of truth:** `viper.SetDefault` in `service/SystemInfoService.go` (`setDefaults`).
+- **Validation:** `validate` tags on types in `config/Config.go` (mirror `BusinessParameters` size limits: `gt=0`, `lte=8796093022207` where MB→bytes conversion applies).
+- **Startup:** invalid config fails fast in `SystemInfoService.Init()` via `utils.ValidateConfig`.
+- **Services:** use `GetAiChatConfig()` / other getters after init; do not re-declare the same default as a Go constant.
 
 ---
 > Source: [Netcracker/qubership-apihub-backend](https://github.com/Netcracker/qubership-apihub-backend) — distributed by [TomeVault](https://tomevault.io).
