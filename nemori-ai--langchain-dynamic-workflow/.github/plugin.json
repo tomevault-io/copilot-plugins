@@ -1,0 +1,9 @@
+{
+  "name": "nemori-ai--langchain-dynamic-workflow",
+  "displayName": "langchain-dynamic-workflow",
+  "description": "Deterministic, scripted, resumable multi-agent orchestration for LangChain deepagents \u2014 a community port of Claude Code's Dynamic Workflows.",
+  "version": "1.0.0",
+  "author": "nemori-ai",
+  "homepage": "https://github.com/nemori-ai/langchain-dynamic-workflow",
+  "skills": []
+}
