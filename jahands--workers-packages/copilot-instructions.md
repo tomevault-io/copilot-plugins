@@ -1,105 +1,72 @@
-## style
+## typescript-inline-scripts
 
-> How to align comments in typescript files
+> ALWAYS read this guide when running inline typescript. This should be used when the user says "use inline typescript" or "run inline typescript
 
-<style-guidelines>
+<typescript-inline-scripts>
 
-<title>Style Guidelines</title>
+<title>Typescript Inline Scripts with Bun</title>
 
-<context>
-<applies-to>TypeScript, JavaScript, and other languages using // style comments</applies-to>
-</context>
+<IMPORTANT>
+- ALWAYS assume Bun runtime with modern typescript features
+- Imported npm packages will be automatically installed by bun
+- ALWAYS prefer Bun APIs where possible.
+</IMPORTANT>
 
-<comment-alignment>
+<example>
+bun run --install=fallback - < <(cat <<'EOF'
+import { z } from 'zod'
 
-<overview>When auto-formatters require single space before //, align comments by adding spaces AFTER the // instead of before</overview>
-
-<rules>
-<rule>
-<name>Inline comment alignment</name>
-<requirements>
-- Find the longest line in a group
-- Add spaces after // on shorter lines to align comment text
-- Count spaces: (longest_line_length - current_line_length)
-- Apply consistently within each block
-</requirements>
-</rule>
-</rules>
-
-<examples>
-<example type="before">
-```typescript
-'STRING', // text field
-'MONTH_YEAR', // date with format YYYYMM
-```
+console.log(z.coerce.number().parse('5'))
+EOF
+)
 </example>
 
-<example type="after">
-```typescript
-'STRING', //     text field
-'MONTH_YEAR', // date with format YYYYMM
-```
-</example>
-</examples>
+<bun-apis>
+## Core Runtime APIs
+- Bun.spawn() - Process spawning and management
+- Bun.file() - File system operations and reading
+- Bun.write() - File writing operations
+- fetch()` - HTTP requests (Web API standard)
+- `Bun.preconnect()` - URL preconnection for performance
 
-</comment-alignment>
+## File System
+- Bun.file(path) - Create file handle for reading/writing
+- await Bun.file(path).text() - Read file as text
+- await Bun.file(path).json() - Read file as JSON
+- await Bun.file(path).arrayBuffer() - Read file as ArrayBuffer
+- await Bun.write(path, data) - Write data to file
 
-<code-comments>
+## Shell Commands
+- import { $ } from "bun" - Shell execution
+- await $`command` - Execute shell commands with template literals
+- const result = await $`ls -la` - Capture command output
 
-<overview>Only add comments when they provide value beyond what the code itself communicates</overview>
+## Compression
+- Bun.gzipSync() - Synchronous gzip compression
+- Bun.gunzipSync() - Synchronous gzip decompression
+- Bun.inflateSync() - Synchronous deflate decompression
 
-<rules>
-<rule>
-<name>When to comment</name>
-<requirements type="do">
-- Why decisions were made, not what the code does
-- Complex algorithms or non-obvious logic
-- Workarounds, edge cases, or potential gotchas
-- Business rules or domain-specific context
-- TODO items or known limitations
-- Function/class documentation (purpose, parameters, return values)
-- Regular expressions or complex conditions that aren't self-evident
-</requirements>
-<requirements type="dont">
-- Simple variable assignments
-- Obvious control flow
-- Self-documenting code
-- Type information already clear from the code
-- Restating what well-named functions do
-</requirements>
-</rule>
-</rules>
+## SQLite
+- import { Database } from "bun:sqlite"
+- Database operations and SQL execution
 
-<examples>
-<example type="bad">
-```python
-# Add 1 to count
-count += 1
+## FFI (Foreign Function Interface)
+- import { dlopen, CString } from "bun:ffi"
+- Native library interaction
 
-# Check if user is admin
-if user.is_admin:
-    # Grant access
-    grant_access()
-```
-</example>
+## Utilities
+- Bun.escapeHTML() - HTML escaping
+- Bun.hash() - Hashing functions
+- Bun.password.hash() - Password hashing
+- Bun.password.verify() - Password verification
 
-<example type="good">
-```python
-# Compensate for zero-indexing in the UI display
-count += 1
+## Node.js Compatibility
+- Full Node.js API support via node: imports
+- import { createRequire } from 'node:module'
+- All standard Node.js modules available
+</bun-apis>
 
-# Admin check required by compliance policy XYZ-123
-if user.is_admin:
-    grant_access()  # Bypasses the standard approval workflow
-```
-</example>
-</examples>
-
-<key-principle>Good code with meaningful names often needs fewer comments. Strive to make your code self-documenting first, then add comments only where additional context genuinely helps future readers</key-principle>
-
-</code-comments>
-
-</style-guidelines>
+</typescript-inline-scripts>
 
 ---
 > Source: [jahands/workers-packages](https://github.com/jahands/workers-packages) — distributed by [TomeVault](https://tomevault.io).
