@@ -1,0 +1,9 @@
+{
+  "name": "ruvnet--agentic-robotics",
+  "displayName": "agentic-robotics",
+  "description": "The goal of this project is to create a modular Agentic Python framework for robotics that can be used to develop specific robotic applications for various types of robots, IoT, and physical devices. ",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/agentic-robotics",
+  "skills": []
+}
