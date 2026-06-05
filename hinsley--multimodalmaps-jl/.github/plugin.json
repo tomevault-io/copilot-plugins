@@ -1,0 +1,9 @@
+{
+  "name": "hinsley--multimodalmaps-jl",
+  "displayName": "MultimodalMaps.jl",
+  "description": "Symbolic scans of multimodal maps of an interval",
+  "version": "1.0.0",
+  "author": "hinsley",
+  "homepage": "https://github.com/hinsley/MultimodalMaps.jl",
+  "skills": []
+}
