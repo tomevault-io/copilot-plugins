@@ -1,0 +1,44 @@
+{
+  "name": "talk-to-aleph",
+  "owner": "sboghossian",
+  "repo": "talk-to-aleph",
+  "description": "Voice-first JARVIS for your Mac \ud83d\udf02 \u2014 talk to a particle brain that thinks, speaks in a cloned voice, and acts (every action gated). Clone it, bring your own keys, make it yours. Zero-dep, local, MIT.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sboghossian/talk-to-aleph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-05T02:32:25Z"
+}
