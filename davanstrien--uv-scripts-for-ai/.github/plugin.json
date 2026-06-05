@@ -1,0 +1,9 @@
+{
+  "name": "davanstrien--uv-scripts-for-ai",
+  "displayName": "uv-scripts-for-ai",
+  "description": "Self-contained UV scripts for data & ML tasks \u2014 OCR, vision, audio & more \u2014 run one in a command, locally or on Hugging Face Jobs. Built for humans and agents.",
+  "version": "1.0.0",
+  "author": "davanstrien",
+  "homepage": "https://github.com/davanstrien/uv-scripts-for-ai",
+  "skills": []
+}
