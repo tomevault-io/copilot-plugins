@@ -1,0 +1,9 @@
+{
+  "name": "openmeet-team--openmeet-api",
+  "displayName": "openmeet-api",
+  "description": "Provides the API for OpenMeet",
+  "version": "1.0.0",
+  "author": "OpenMeet-Team",
+  "homepage": "https://github.com/OpenMeet-Team/openmeet-api",
+  "skills": []
+}
