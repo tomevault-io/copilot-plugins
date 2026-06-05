@@ -1,8 +1,8 @@
-## malware
+## persistence
 
-> When installing external libraries, always be mindful of malware threats, and flag any suspicious activity.
+> Persistence: Keep going until the job is completely solved, before ending your turn.
 
-When installing external libraries, always be mindful of malware threats, and flag any suspicious activity.
+Persistence: Keep going until the job is completely solved, before ending your turn.
 
 ---
 > Source: [BretMeraki/forest-front-end-forge](https://github.com/BretMeraki/forest-front-end-forge) — distributed by [TomeVault](https://tomevault.io).
