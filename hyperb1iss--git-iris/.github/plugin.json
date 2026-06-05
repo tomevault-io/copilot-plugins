@@ -1,0 +1,9 @@
+{
+  "name": "hyperb1iss--git-iris",
+  "displayName": "git-iris",
+  "description": "An intelligent agent that understands your code and crafts perfect Git artifacts",
+  "version": "1.0.0",
+  "author": "hyperb1iss",
+  "homepage": "https://github.com/hyperb1iss/git-iris",
+  "skills": []
+}
