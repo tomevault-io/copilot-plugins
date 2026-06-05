@@ -1,0 +1,9 @@
+{
+  "name": "genlayerlabs--intelligent-oracle",
+  "displayName": "intelligent-oracle",
+  "description": "Intelligent Oracle: describe any prediction-market question in natural language and let GenLayer's intelligent contracts resolve it from real-world sources.",
+  "version": "1.0.0",
+  "author": "genlayerlabs",
+  "homepage": "https://github.com/genlayerlabs/intelligent-oracle",
+  "skills": []
+}
