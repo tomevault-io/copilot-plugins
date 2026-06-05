@@ -1,0 +1,9 @@
+{
+  "name": "mudler--rf-detr-cpp",
+  "displayName": "rf-detr.cpp",
+  "description": "rt-detr implementation in C++ with ggml",
+  "version": "1.0.0",
+  "author": "mudler",
+  "homepage": "https://github.com/mudler/rf-detr.cpp",
+  "skills": []
+}
