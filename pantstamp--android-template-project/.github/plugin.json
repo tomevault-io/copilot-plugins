@@ -1,0 +1,9 @@
+{
+  "name": "pantstamp--android-template-project",
+  "displayName": "android-template-project",
+  "description": "Template project that demonstrates how to implement a modern Android app.",
+  "version": "1.0.0",
+  "author": "pantstamp",
+  "homepage": "https://github.com/pantstamp/android-template-project",
+  "skills": []
+}
