@@ -1,0 +1,9 @@
+{
+  "name": "alexgoller--illumio-mcp-server",
+  "displayName": "illumio-mcp-server",
+  "description": "The first MCP server for cybersecurity",
+  "version": "1.0.0",
+  "author": "alexgoller",
+  "homepage": "https://github.com/alexgoller/illumio-mcp-server",
+  "skills": []
+}
