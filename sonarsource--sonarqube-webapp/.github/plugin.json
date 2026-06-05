@@ -1,0 +1,9 @@
+{
+  "name": "sonarsource--sonarqube-webapp",
+  "displayName": "sonarqube-webapp",
+  "description": "SonarQube Community Build Web App",
+  "version": "1.0.0",
+  "author": "SonarSource",
+  "homepage": "https://github.com/SonarSource/sonarqube-webapp",
+  "skills": []
+}
