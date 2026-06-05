@@ -1,0 +1,9 @@
+{
+  "name": "lyse-labs--lyse",
+  "displayName": "lyse",
+  "description": "Open-source design system audit \u2014 measure drift, find what's hardcoded, suggest safe fixes.",
+  "version": "1.0.0",
+  "author": "lyse-labs",
+  "homepage": "https://github.com/lyse-labs/lyse",
+  "skills": []
+}
