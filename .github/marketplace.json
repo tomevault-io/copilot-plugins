@@ -136729,6 +136729,11 @@
       "description": "\u672c\u9879\u76ee\u4e3a 2023-2026 \u5168\u56fd\u5927\u5b66\u751f\u8ba1\u7b97\u673a\u7cfb\u7edf\u80fd\u529b\u5927\u8d5b-\u6570\u636e\u5e93\u7ba1\u7406\u7cfb\u7edf\u8bbe\u8ba1\u8d5b\u51b3\u8d5b\u6a21\u62df\u8bc4\u6d4b\u811a\u672c\uff0c\u7531\u539f DataDance \u56e2\u961f\u5f00\u53d1\u3002"
     },
     {
+      "name": "repoprompt--repoprompt-classic",
+      "source": "./repoprompt--repoprompt-classic",
+      "description": "Archived educational snapshot of the Repo Prompt app"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
