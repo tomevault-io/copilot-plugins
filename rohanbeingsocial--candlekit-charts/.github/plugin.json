@@ -1,0 +1,9 @@
+{
+  "name": "rohanbeingsocial--candlekit-charts",
+  "displayName": "candlekit-charts",
+  "description": "Tree-shakeable financial charting toolkit over lightweight-charts: candlestick/OHLC/line/area/volume, drawing tools, pluggable indicators, measurement, and deterministic replay. Framework-agnostic cor",
+  "version": "1.0.0",
+  "author": "rohanbeingsocial",
+  "homepage": "https://github.com/rohanbeingsocial/candlekit-charts",
+  "skills": []
+}
