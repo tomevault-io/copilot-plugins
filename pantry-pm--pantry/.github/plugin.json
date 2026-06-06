@@ -1,0 +1,9 @@
+{
+  "name": "pantry-pm--pantry",
+  "displayName": "pantry",
+  "description": "An extremely performant & universal dependency manager that just works.",
+  "version": "1.0.0",
+  "author": "pantry-pm",
+  "homepage": "https://github.com/pantry-pm/pantry",
+  "skills": []
+}
