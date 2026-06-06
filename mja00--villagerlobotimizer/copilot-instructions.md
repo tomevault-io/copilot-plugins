@@ -1,37 +1,39 @@
-## java-style
+## paper-api
 
-> Java code style and API usage guidance for this repository (Paper plugin, JDK 21)
+> Paper API best practices for this plugin
 
-## Java style and API usage
+## Paper API best practices
 
-- **Language level**: Target JDK 21. Use var sparingly; prefer explicit types in public APIs and complex locals.
-- **Naming**: Use descriptive names; avoid abbreviations. Classes are nouns, methods are verbs. Constants are `UPPER_SNAKE_CASE`.
-- **No NMS/CraftBukkit**: Do not depend on `net.minecraft.*` or `org.bukkit.craftbukkit.*` (including reflection into them). Stick to Paper/Bukkit and Adventure APIs to ease Minecraft version upgrades.
-- **Nullability**: Use JetBrains annotations (`@NotNull`, `@Nullable`) for parameters and returns when helpful.
-- **Collections**: Prefer interface types (e.g., `Set`, `Map`) for fields and parameters. Use `Collections.newSetFromMap(new ConcurrentHashMap<>())` when concurrent.
-- **Concurrency**: Paper/Bukkit is single-threaded. Only perform non-blocking, thread-safe operations off the main thread; return to main thread for entity/world interactions.
-- **Early returns**: Guard clauses for invalid/edge cases to reduce nesting.
-- **Logging**: Use `plugin.getLogger()`; gate noisy logs behind `debug` flags from config.
-- **Exceptions**: Do not swallow exceptions silently. Log warnings and continue where safe.
-- **PDC usage**: Use `NamespacedKey(plugin, key)`; read with defaults; write back after mutation.
-- **Registries**: Resolve sounds via Paper `RegistryAccess` with `NamespacedKey.MINECRAFT` for vanilla keys.
+- **No NMS/CraftBukkit**
+  - Never import or use `net.minecraft.*`, `org.bukkit.craftbukkit.*`, or Mojang-mapped NMS classes. Do not reflect into NMS.
+  - Use only Paper/Bukkit API and Adventure. If a capability is missing, prefer API-friendly alternatives or upstream API requests.
 
-### Paper/Bukkit specifics
+- **Threading**
+  - Do not touch Bukkit entities/world off the main thread. Use async only for I/O (e.g., update checks) and return results to main thread if needed.
 
-- Run network or long-running tasks asynchronously via `Bukkit.getScheduler().runTaskAsynchronously(plugin, ...)`.
-- Interact with entities, chunks, or world state only on the main thread.
-- Use Brigadier for commands; perform permission checks and helpful messages.
-- When scheduling repeating tasks, prefer `runTaskTimer(plugin, delay, period)` and store minimal state in task closures.
+- **Scheduling**
+  - Use `Bukkit.getScheduler().runTaskTimer(plugin, ...)` for periodic tasks and keep work small per tick.
+  - Reuse existing tasks in `LobotomizeStorage` for villager processing; avoid adding redundant tick loops.
 
-### Code formatting
+- **Commands (Brigadier)**
+  - Define literals/arguments in `LobotomizeCommand`; register in `LifecycleEvents.COMMANDS` from the main plugin class.
+  - Gate execution via permission checks and provide clear user feedback.
 
-- UTF-8 encoding; wrap long lines; keep imports explicit; avoid wildcard imports.
-- Place short, high-value comments above complex logic blocks; do not narrate trivial code.
+- **Persistent Data**
+  - Store villager state via PDC keys with `NamespacedKey(plugin, key)`. Keep keys stable; avoid renaming without migration.
 
-### Testing and safety
+- **Registries and sounds**
+  - Resolve sounds via Paper `RegistryAccess` and `RegistryKey.SOUND_EVENT`; accept vanilla keys without the `minecraft:` prefix.
 
-- Validate config values (e.g., non-negative intervals); provide sensible defaults via `get*` overloads.
-- For new features, gate behind config flags and add to [config.yml](mdc:src/main/resources/config.yml) with comments.
+- **Chunks and entities**
+  - Check `chunk.isLoaded()` before work; skip or defer otherwise.
+  - Use `Chunk#getEntities()` when processing per-chunk and keep iteration efficient.
+
+- **Config-driven behavior**
+  - Read toggles and intervals from [config.yml](mdc:src/main/resources/config.yml). Expose debug flags and reduce log noise unless `debug` or `chunk-debug` are enabled.
+
+- **Shutdown and cleanup**
+  - Ensure `onDisable` restores villager awareness and unregisters teams to avoid lingering side effects across reloads.
 
 ---
 > Source: [mja00/VillagerLobotimizer](https://github.com/mja00/VillagerLobotimizer) — distributed by [TomeVault](https://tomevault.io).
