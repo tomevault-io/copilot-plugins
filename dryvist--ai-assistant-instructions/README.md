@@ -7,14 +7,14 @@ A comprehensive, vendor-agnostic framework for consistent AI-assisted developmen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dryvist/ai-assistant-instructions](https://github.com/dryvist/ai-assistant-instructions).
+Original source: `GEMINI.md` in [dryvist/ai-assistant-instructions](https://github.com/dryvist/ai-assistant-instructions).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [dryvist/ai-assistant-instructions](https://github.com/dryvist/ai-assistant-instructions) — a repo with 9+ stars on GitHub.
