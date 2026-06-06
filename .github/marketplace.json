@@ -50824,6 +50824,11 @@
       "description": "Speaker is a Codex skill project for academic presentations: read real.pptx, combine text extraction, PPTX structure parsing, page-by-page rendering, OCR, and visual review to generate page-by-page sp"
     },
     {
+      "name": "griptape-ai--griptape-nodes-engine",
+      "source": "./griptape-ai--griptape-nodes-engine",
+      "description": "griptape-nodes-engine"
+    },
+    {
       "name": "m1zz--higlab",
       "source": "./m1zz--higlab",
       "description": "HIGLab"
@@ -104219,6 +104224,21 @@
       "description": "An Introduction to Unix Systems for the Cautious and Weary"
     },
     {
+      "name": "dcc-mcp--dcc-mcp-core",
+      "source": "./dcc-mcp--dcc-mcp-core",
+      "description": "Core runtime and shared tooling for DCC-MCP: safe, skill-first MCP integration across Maya, Blender, Houdini, Photoshop, and custom DCC hosts."
+    },
+    {
+      "name": "dcc-mcp--dcc-mcp-core",
+      "source": "./dcc-mcp--dcc-mcp-core",
+      "description": "Core runtime and shared tooling for DCC-MCP: safe, skill-first MCP integration across Maya, Blender, Houdini, Photoshop, and custom DCC hosts."
+    },
+    {
+      "name": "dcc-mcp--dcc-mcp-core",
+      "source": "./dcc-mcp--dcc-mcp-core",
+      "description": "Core runtime and shared tooling for DCC-MCP: safe, skill-first MCP integration across Maya, Blender, Houdini, Photoshop, and custom DCC hosts."
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -132849,6 +132869,21 @@
       "description": "Swift library for the ATProtocol and Bluesky, generated from Lexicons"
     },
     {
+      "name": "dcc-mcp--dcc-mcp-maya",
+      "source": "./dcc-mcp--dcc-mcp-maya",
+      "description": "Maya-specific implementation of Model Context Protocol (MCP) for Autodesk Maya, enabling remote control and integration with MCP ecosystem."
+    },
+    {
+      "name": "dcc-mcp--dcc-mcp-maya",
+      "source": "./dcc-mcp--dcc-mcp-maya",
+      "description": "Maya-specific implementation of Model Context Protocol (MCP) for Autodesk Maya, enabling remote control and integration with MCP ecosystem."
+    },
+    {
+      "name": "dcc-mcp--dcc-mcp-maya",
+      "source": "./dcc-mcp--dcc-mcp-maya",
+      "description": "Maya-specific implementation of Model Context Protocol (MCP) for Autodesk Maya, enabling remote control and integration with MCP ecosystem."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -147787,6 +147822,11 @@
       "name": "nomercy-entertainment--nomercy-video-player",
       "source": "./nomercy-entertainment--nomercy-video-player",
       "description": "Headless, event-driven HTML5 video player with HLS streaming, ASS/SSA + VTT subtitles, PiP, and a plugin system. No UI included. TypeScript-first."
+    },
+    {
+      "name": "oscabriel--skills",
+      "source": "./oscabriel--skills",
+      "description": "skills"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
