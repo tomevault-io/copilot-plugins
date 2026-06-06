@@ -1,0 +1,9 @@
+{
+  "name": "tomaskir--vllm-monitor",
+  "displayName": "vllm-monitor",
+  "description": "Real-time terminal UI dashboard for monitoring vLLM",
+  "version": "1.0.0",
+  "author": "tomaskir",
+  "homepage": "https://github.com/tomaskir/vllm-monitor",
+  "skills": []
+}
