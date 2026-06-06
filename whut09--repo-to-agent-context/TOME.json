@@ -1,0 +1,44 @@
+{
+  "name": "Repo-to-Agent-Context",
+  "owner": "whut09",
+  "repo": "Repo-to-Agent-Context",
+  "description": "\u4e00\u952e\u628a\u4ed3\u5e93\u53d8\u6210 AI \u53ef\u8bfb\u3001\u53ef\u66f4\u65b0\u3001\u53ef\u9a8c\u8bc1\u7684\u4e0a\u4e0b\u6587\u5305\uff0c\u89e3\u51b3 token \u6d6a\u8d39\u548c\u4e0a\u4e0b\u6587\u4e22\u5931",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/whut09/Repo-to-Agent-Context",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-06T12:30:23Z"
+}
