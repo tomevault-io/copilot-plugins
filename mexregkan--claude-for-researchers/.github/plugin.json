@@ -1,0 +1,9 @@
+{
+  "name": "mexregkan--claude-for-researchers",
+  "displayName": "claude-for-researchers",
+  "description": "A guide and toolkit for researchers using Claude Code on long technical projects",
+  "version": "1.0.0",
+  "author": "Mexregkan",
+  "homepage": "https://github.com/Mexregkan/claude-for-researchers",
+  "skills": []
+}
