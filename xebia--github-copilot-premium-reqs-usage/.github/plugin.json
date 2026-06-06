@@ -1,0 +1,9 @@
+{
+  "name": "xebia--github-copilot-premium-reqs-usage",
+  "displayName": "github-copilot-premium-reqs-usage",
+  "description": "Quickly get an overview of your CSV export of GitHub Copilot Premium Requests",
+  "version": "1.0.0",
+  "author": "xebia",
+  "homepage": "https://github.com/xebia/github-copilot-premium-reqs-usage",
+  "skills": []
+}
