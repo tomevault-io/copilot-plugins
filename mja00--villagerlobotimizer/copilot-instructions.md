@@ -1,47 +1,37 @@
-## gradle-and-run
+## java-style
 
-> Gradle build, run, and publish guidance for the Paper plugin
+> Java code style and API usage guidance for this repository (Paper plugin, JDK 21)
 
-## Build and run
+## Java style and API usage
 
-- Use the Gradle wrapper.
+- **Language level**: Target JDK 21. Use var sparingly; prefer explicit types in public APIs and complex locals.
+- **Naming**: Use descriptive names; avoid abbreviations. Classes are nouns, methods are verbs. Constants are `UPPER_SNAKE_CASE`.
+- **No NMS/CraftBukkit**: Do not depend on `net.minecraft.*` or `org.bukkit.craftbukkit.*` (including reflection into them). Stick to Paper/Bukkit and Adventure APIs to ease Minecraft version upgrades.
+- **Nullability**: Use JetBrains annotations (`@NotNull`, `@Nullable`) for parameters and returns when helpful.
+- **Collections**: Prefer interface types (e.g., `Set`, `Map`) for fields and parameters. Use `Collections.newSetFromMap(new ConcurrentHashMap<>())` when concurrent.
+- **Concurrency**: Paper/Bukkit is single-threaded. Only perform non-blocking, thread-safe operations off the main thread; return to main thread for entity/world interactions.
+- **Early returns**: Guard clauses for invalid/edge cases to reduce nesting.
+- **Logging**: Use `plugin.getLogger()`; gate noisy logs behind `debug` flags from config.
+- **Exceptions**: Do not swallow exceptions silently. Log warnings and continue where safe.
+- **PDC usage**: Use `NamespacedKey(plugin, key)`; read with defaults; write back after mutation.
+- **Registries**: Resolve sounds via Paper `RegistryAccess` with `NamespacedKey.MINECRAFT` for vanilla keys.
 
-```bash
-./gradlew build
-```
+### Paper/Bukkit specifics
 
-- Start a dev server with the plugin installed:
+- Run network or long-running tasks asynchronously via `Bukkit.getScheduler().runTaskAsynchronously(plugin, ...)`.
+- Interact with entities, chunks, or world state only on the main thread.
+- Use Brigadier for commands; perform permission checks and helpful messages.
+- When scheduling repeating tasks, prefer `runTaskTimer(plugin, delay, period)` and store minimal state in task closures.
 
-```bash
-./gradlew runServer
-```
+### Code formatting
 
-- The run task uses Paper `1.21.8` and depends on the shaded jar. Artifacts are reobfuscated for production during `build`.
+- UTF-8 encoding; wrap long lines; keep imports explicit; avoid wildcard imports.
+- Place short, high-value comments above complex logic blocks; do not narrate trivial code.
 
-### Dependencies and shading
+### Testing and safety
 
-- Dependencies are declared in [build.gradle.kts](mdc:build.gradle.kts). Shadow is configured to:
-  - minimize the jar
-  - relocate `org.bstats` to `dev.mja00.villagerLobotomizer.bstats`
-- If adding libraries that must ship in the jar, include them under `shadowJar { dependencies { include(...) } }` and relocate as needed.
-
-### Java toolchain
-
-- Target Java 21; toolchain is auto-configured. Avoid APIs above 21.
-
-### Publishing (Hangar)
-
-- Publish with:
-
-```bash
-./gradlew publishPluginPublicationToHangar
-```
-
-- Requires `HANGAR_API_KEY` env var. Tagged commits matching `version` publish as Release; otherwise Snapshot with short commit hash.
-
-### Version coordination
-
-- Keep [src/main/resources/plugin.yml](mdc:src/main/resources/plugin.yml) `version` aligned with Gradle `version`. Resource filtering is configured; prefer replacing hardcoded versions with `${version}`.
+- Validate config values (e.g., non-negative intervals); provide sensible defaults via `get*` overloads.
+- For new features, gate behind config flags and add to [config.yml](mdc:src/main/resources/config.yml) with comments.
 
 ---
 > Source: [mja00/VillagerLobotimizer](https://github.com/mja00/VillagerLobotimizer) — distributed by [TomeVault](https://tomevault.io).
