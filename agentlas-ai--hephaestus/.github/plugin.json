@@ -1,0 +1,9 @@
+{
+  "name": "agentlas-ai--hephaestus",
+  "displayName": "Hephaestus",
+  "description": "No-code AI agent builder \u2014 turn one sentence into a single agent or a multi-agent team. The engine inside Agentlas. A no-code CrewAI / LangGraph / AutoGen alternative that runs on Claude Code, Codex, ",
+  "version": "1.0.0",
+  "author": "agentlas-ai",
+  "homepage": "https://github.com/agentlas-ai/Hephaestus",
+  "skills": []
+}
