@@ -1,22 +1,34 @@
-## project-docs
+## project-git
 
-> Rules for documenting the code and the project
+> Rules for using git repository commits and release tags
 
 
-# Review
+# Git rules
 
-## Code documentation
+## Initialize repo if not yet done
 
-- Add JSDoc comments to public or exported functions
-- Do not add comments to private or inner blocks of code
-- Except for really complex code that need a explain for the 'why'
-- Use the `@param` tag to describe the parameters of the function
+- Add a `.gitignore` file for the current tech stack
 
-## Project documentation
+## Git commits
 
-- Keep an `/docs/OVERVIEW.md` file with the tech stack, folder structure, and high-level architecture diagram
-- Keep an `/docs/JOURNAL.md` file with the session chat key actions and decision
-- Keep an `/README.md` file with info about the project and the dev test workflow
+- Review the Changes:
+  - Carefully review the pending changes in the codebase.
+  - Identify the type of changes (e.g., new features, bug fixes, documentation updates, etc.).
+- Craft a Conventional Commit Message:
+ - Use the conventional commit format: <type>(<scope>): <subject>.
+ - Common types include `feat`, `fix`, `docs`, `style`, `refactor`, `test`, and, `chore`.
+ - The scope is optional and can be used to specify the area of the codebase affected.
+ - The subject should be a concise description of the change
+- Commit the Changes:
+ - Ensure the message accurately reflects the changes and follows the conventional commit guidelines 
+
+## Git release
+
+- Create or update a `CHANGELOG.md` file with messages from commits since last release
+- Update version in `package.json` using semantic versioning
+- Document the changes following [docs.mdc](mdc:.cursor/rules/docs.mdc) guidelines
+- Create a _tag_ for the release using semantic versioning
+- Do not push any change, keep your work at local repository
 
 ---
 > Source: [AI-DD-TrainingIT/3_6-implement](https://github.com/AI-DD-TrainingIT/3_6-implement) — distributed by [TomeVault](https://tomevault.io).
