@@ -1,0 +1,9 @@
+{
+  "name": "pipefy--ai-toolkit",
+  "displayName": "ai-toolkit",
+  "description": "MCP server, CLI, and agent skills for Pipefy.",
+  "version": "1.0.0",
+  "author": "pipefy",
+  "homepage": "https://github.com/pipefy/ai-toolkit",
+  "skills": []
+}
