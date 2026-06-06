@@ -4,7 +4,7 @@
   "repo": "serenity-skills",
   "description": "AI infrastructure & semiconductor supply chain analysis skill for Claude Code and Cursor, distilled from Serenity (@aleabitoreddit) on X",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zongmin-yu/serenity-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-06T16:30:26Z"
+  "distributed_at": "2026-06-06T16:31:43Z"
 }
