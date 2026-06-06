@@ -1,0 +1,9 @@
+{
+  "name": "ninehills--agentcom",
+  "displayName": "agentcom",
+  "description": "Remote 1:1 messaging between Pi sessions across machines",
+  "version": "1.0.0",
+  "author": "ninehills",
+  "homepage": "https://github.com/ninehills/agentcom",
+  "skills": []
+}
