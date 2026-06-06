@@ -1,0 +1,9 @@
+{
+  "name": "yusdyr--luci-app-trafficctl",
+  "displayName": "luci-app-trafficctl",
+  "description": "LuCI Traffic Control \u2014 per-device monitoring, rate limiting, traffic shaping, and blocking for OpenWrt",
+  "version": "1.0.0",
+  "author": "YusDyr",
+  "homepage": "https://github.com/YusDyr/luci-app-trafficctl",
+  "skills": []
+}
