@@ -1,0 +1,9 @@
+{
+  "name": "uw-cryo--coincident",
+  "displayName": "coincident",
+  "description": "3D satellite and airborne data archive search and analysis tools for NASA Surface Topography & Vegetation (STV) Precursor Coincident Datasets",
+  "version": "1.0.0",
+  "author": "uw-cryo",
+  "homepage": "https://github.com/uw-cryo/coincident",
+  "skills": []
+}
