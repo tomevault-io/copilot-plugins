@@ -1,0 +1,9 @@
+{
+  "name": "opsmill--infrahub-sdk-python",
+  "displayName": "infrahub-sdk-python",
+  "description": "Python SDK to interact with Infrahub",
+  "version": "1.0.0",
+  "author": "opsmill",
+  "homepage": "https://github.com/opsmill/infrahub-sdk-python",
+  "skills": []
+}
