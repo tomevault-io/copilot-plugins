@@ -4,7 +4,7 @@
   "repo": "candlekit-charts",
   "description": "Tree-shakeable financial charting toolkit over lightweight-charts: candlestick/OHLC/line/area/volume, drawing tools, pluggable indicators, measurement, and deterministic replay. Framework-agnostic core + React bindings.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rohanbeingsocial/candlekit-charts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-06T08:31:52Z"
+  "distributed_at": "2026-06-06T08:32:24Z"
 }
