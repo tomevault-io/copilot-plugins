@@ -1,0 +1,9 @@
+{
+  "name": "streamband--hydra-srt",
+  "displayName": "hydra-srt",
+  "description": "HydraSRT \u2013 An Open Source Alternative to Haivision SRT Gateway",
+  "version": "1.0.0",
+  "author": "streamband",
+  "homepage": "https://github.com/streamband/hydra-srt",
+  "skills": []
+}
