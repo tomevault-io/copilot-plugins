@@ -147834,6 +147834,16 @@
       "description": "skills"
     },
     {
+      "name": "story2u--x-agent",
+      "source": "./story2u--x-agent",
+      "description": "\u57fa\u4e8e pi \u7684\u672c\u5730\u4f18\u5148 AI Agent \u5ba2\u6237\u7aef\uff1a\u7528 SKILL.md \u7ba1\u7406\u80fd\u529b\uff0c\u7528\u77e5\u8bc6\u5e93\u589e\u5f3a\u4e0a\u4e0b\u6587\uff0c\u7528\u5de5\u5177\u94fe\u5b8c\u6210\u53ef\u590d\u7528\u3001\u53ef\u5ba1\u8ba1\u7684 AI \u5de5\u4f5c\u6d41\u3002"
+    },
+    {
+      "name": "story2u--x-agent",
+      "source": "./story2u--x-agent",
+      "description": "\u57fa\u4e8e pi \u7684\u672c\u5730\u4f18\u5148 AI Agent \u5ba2\u6237\u7aef\uff1a\u7528 SKILL.md \u7ba1\u7406\u80fd\u529b\uff0c\u7528\u77e5\u8bc6\u5e93\u589e\u5f3a\u4e0a\u4e0b\u6587\uff0c\u7528\u5de5\u5177\u94fe\u5b8c\u6210\u53ef\u590d\u7528\u3001\u53ef\u5ba1\u8ba1\u7684 AI \u5de5\u4f5c\u6d41\u3002"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -162312,6 +162322,16 @@
       "name": "byte-v-forge--gopay-app",
       "source": "./byte-v-forge--gopay-app",
       "description": "gopay-app"
+    },
+    {
+      "name": "nju-cli--nju-cli",
+      "source": "./nju-cli--nju-cli",
+      "description": "\u8ba9Agent\u5e2e\u4f60\u8bfb\u901a\u77e5\u3001\u770b\u6587\u4ef6\u3001\u8d70\u6d41\u7a0b\uff01"
+    },
+    {
+      "name": "nju-cli--nju-cli",
+      "source": "./nju-cli--nju-cli",
+      "description": "\u8ba9Agent\u5e2e\u4f60\u8bfb\u901a\u77e5\u3001\u770b\u6587\u4ef6\u3001\u8d70\u6d41\u7a0b\uff01"
     },
     {
       "name": "yschimke--compose-ai-tools",
