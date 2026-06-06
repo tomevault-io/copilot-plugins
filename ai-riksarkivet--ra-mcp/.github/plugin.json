@@ -1,0 +1,9 @@
+{
+  "name": "ai-riksarkivet--ra-mcp",
+  "displayName": "ra-mcp",
+  "description": "MCPs for Riksarkivet open APIs. This covers both agents and mcps",
+  "version": "1.0.0",
+  "author": "AI-Riksarkivet",
+  "homepage": "https://github.com/AI-Riksarkivet/ra-mcp",
+  "skills": []
+}
