@@ -1,90 +1,64 @@
-## schematoform
+## ts-rules
 
-> "name": "Product Manager",
+> TypeScript & React code styling
 
-{
-  "version": 1,
-  "roles": {
-    "pm": {
-      "name": "Product Manager",
-      "systemPrompt": "You are an experienced Product Manager focused on user requirements, stories, and feature specifications. Optimize for clarity, user-centered thinking, and business value. Respond with concise, actionable specifications that developers can implement. When generating documentation, use structured formats with clear acceptance criteria.",
-      "temperature": 0.2,
-      "contextPaths": ["./docs/requirements.md","./docs/req_*.md", "./docs/user_stories", "./designs"]
-    },
-    "dev": {
-      "name": "Developer",
-      "systemPrompt": "You are an expert MERN stack developer (MongoDB, Express, React, Node.js) with TypeScript expertise. Provide concise, production-ready code with minimal explanations. Use functional React components with hooks, Tailwind CSS for styling, and proper TypeScript typing. Follow modern best practices for state management, API design, and code organization. Optimize for readability and performance.",
-      "temperature": 0.1,
-      "contextPaths": ["./apps", "./packages", "./docs/architecture.md", "./docs/api_docs.md"]
-    },
-    "qa": {
-      "name": "Quality Assurance",
-      "systemPrompt": "You are a QA specialist focused on test planning, test case development, and quality verification. Prioritize test coverage, edge cases, and regression testing. Generate comprehensive test cases using Jest and React Testing Library. Be thorough in identifying potential issues and validation requirements. When reviewing code, focus on bugs, edge cases, and performance issues.",
-      "temperature": 0.1,
-      "contextPaths": ["./tests", "./docs/requirements.md", "./docs/test_plans"]
-    },
-    "ops": {
-      "name": "Operations",
-      "systemPrompt": "You are a DevOps engineer specializing in MERN stack deployment, CI/CD pipelines, and infrastructure management. Focus on deployment strategies, environment configuration, monitoring, and maintenance. Provide practical, security-focused advice on infrastructure setup. Optimize for reliability, scalability, and ease of maintenance.",
-      "temperature": 0.1,
-      "contextPaths": ["./config", "./deployment", "./docker-compose.yml", "./.github/workflows"]
-    }
-  },
-  "commands": {
-    "role": {
-      "description": "Switch to a specific role for contextual responses",
-      "usage": "/role [pm|dev|qa|ops]",
-      "action": "switchRole"
-    },
-    "requirements": {
-      "description": "Generate requirements based on project context. Plan for the simplest implementation.",
-      "usage": "/requirements [feature name]",
-      "action": "executeWithRole",
-      "role": "pm"
-    },
-    "implement": {
-      "description": "Generate implementation code to satisfy the requirement word for word. the less code the better. after any implementation provide the user with testing instructions.",
-      "usage": "/implement [requirement reference]",
-      "action": "executeWithRole",
-      "role": "dev"
-    },
-    "debug": {
-      "description": "Identify the issue and propose the simplest solution. Provide 3 reasoning paragraphs before you respond.",
-      "usage": "/debug [expected behaviour]\n[actual behaviour]\n[context]",
-      "action": "executeWithRole",
-      "role": "dev"
-    },
-    "test": {
-      "description": "Generate test cases",
-      "usage": "/test [unit|integration|e2e] [name]",
-      "action": "executeWithRole",
-      "role": "qa"
-    },
-    "deploy": {
-      "description": "Generate deployment configurations",
-      "usage": "/deploy [local|staging|production]",
-      "action": "executeWithRole",
-      "role": "ops"
-    }
-  },
-  "defaultRole": "dev",
-  "settings": {
-    "historyLength": 10,
-    "retainRoleContext": true,
-    "verboseRoleSwitching": true,
-    "includeProjectStructure": true,
-    "autoDetectFileContext": true
-  },
-  "templates": {
-    "component": "./templates/component.tsx",
-    "api": "./templates/api.ts",
-    "model": "./templates/model.ts",
-    "test": "./templates/test.tsx"
-  },
-  "documentation": {
-    "howToUseRoles": "Switch roles using the /role command before asking questions. Each role is optimized for specific tasks in the development workflow."
-  }
-}
+## TypeScript & React Style Guide
+
+### Types
+- Use `type` over `interface` for consistency
+- Avoid `any`, use `unknown` for ambiguous types
+- Use template literal types for string patterns
+- Prefer discriminated unions over optional properties
+- Use `ReadonlyArray<T>` and `Readonly<T>` for immutability
+- Generic type params should start with T: `TRequest`, `TResponse`
+
+### Functions
+- Single responsibility
+- Pure functions preferred
+- Use single object parameter for multiple args
+- Explicitly type return values
+- Avoid side effects
+
+### Variables
+- Use `as const` for constants
+- Use discriminated unions over boolean flags
+- Use `null` for explicit no value, `undefined` for non-existent
+- Prefer named exports
+
+### Naming
+- PascalCase: Types, Components
+- camelCase: variables, functions
+- UPPER_CASE: constants
+- Boolean vars: prefix with `is/has`
+- Avoid abbreviations
+- React callbacks: `on*` props, `handle*` handlers
+- React hooks: prefix with `use`
+
+### React Specifics
+- Prefer required props over optional
+- Avoid props to state (use `initial` prefix if needed)
+- Container components: suffix with `Container` or `Page`
+- UI components: pure presentation only
+- Custom hooks must return objects
+- Data fetching only in containers
+
+### File Organization
+- Group by feature
+- Collocate related code
+- Use relative imports (`./`) within features
+- Use absolute imports (`@/`) across features
+
+### Comments
+- Favor clear code over comments
+- Use TSDoc for APIs and reusable code
+- Comments explain "why" not "what"
+
+### Testing
+- Test business logic, not implementation
+- Follow AAA pattern (Arrange, Act, Assert)
+- Test descriptions: "should ... when ..."
+- Query elements by role/label/text, not test IDs
+- Avoid snapshot tests
 
 ---
 > Source: [wlgitdev/SchemaToForm](https://github.com/wlgitdev/SchemaToForm) — distributed by [TomeVault](https://tomevault.io).
