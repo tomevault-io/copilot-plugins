@@ -1,0 +1,9 @@
+{
+  "name": "strands-agents--harness-sdk",
+  "displayName": "harness-sdk",
+  "description": "A model-driven approach to building AI agents in just a few lines of code.",
+  "version": "1.0.0",
+  "author": "strands-agents",
+  "homepage": "https://github.com/strands-agents/harness-sdk",
+  "skills": []
+}
