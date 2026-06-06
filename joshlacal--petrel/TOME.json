@@ -4,7 +4,7 @@
   "repo": "Petrel",
   "description": "Swift library for the ATProtocol and Bluesky, generated from Lexicons",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joshlacal/Petrel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-06T00:44:58Z"
+  "distributed_at": "2026-06-06T00:46:28Z"
 }
