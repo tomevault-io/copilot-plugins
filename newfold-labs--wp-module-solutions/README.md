@@ -7,11 +7,11 @@ A Newfold module that handles integration of WordPress Solutions Addon packages 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [newfold-labs/wp-module-solutions](https://github.com/newfold-labs/wp-module-solutions).
+Original source: `AGENTS.md` in [newfold-labs/wp-module-solutions](https://github.com/newfold-labs/wp-module-solutions).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
