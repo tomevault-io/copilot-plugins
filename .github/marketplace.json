@@ -54349,6 +54349,11 @@
       "description": "Sample library platform with a simple, powerful interface | CLAP, VST3, AU"
     },
     {
+      "name": "streamband--hydra-srt",
+      "source": "./streamband--hydra-srt",
+      "description": "HydraSRT \u2013 An Open Source Alternative to Haivision SRT Gateway"
+    },
+    {
       "name": "aelf-hzz780--ai-bounty-skill",
       "source": "./aelf-hzz780--ai-bounty-skill",
       "description": "Public Codex skill for claiming AI bounty on aelf tDVV via RewardClaimContract, supporting EOA Claim() and Portkey CA ClaimByPortkeyToCa()."
