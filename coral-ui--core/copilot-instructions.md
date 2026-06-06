@@ -1,173 +1,386 @@
-## turborepo
+## zod
 
-> Performing operations across multiple packages in a monorepo context
+> Useful when typing schemas in json
+
+# Zod v4 Best Practices
+
+Enforce best practices for Zod v4 schema validation and type safety across the project.
+
+
+## Rules
+
+### zod-imports
+Use consistent Zod v4 imports.
+
+**Pattern:** `import.*zod`
+**Suggestion:** Use `import { z } from 'zod/v4'` for explicit v4 imports or `import { z } from 'zod'` for main import (both work with v4). Avoid `import * as z from 'zod'`.
+
+**Good Examples:**
+```typescript
+import { z } from 'zod/v4'
+import { z } from 'zod'
+import z from 'zod/v4'
+```
+
+**Bad Examples:**
+```typescript
+import * as z from 'zod'
+```
+
+### zod-schema-naming
+Use consistent naming convention for Zod schemas.
+
+**Pattern:** `const.*Schema.*=.*z\.`
+**Suggestion:** Name schemas with 'z' prefix followed by descriptive name and 'Schema' suffix. Use PascalCase for the descriptive part.
+
+**Good Examples:**
+```typescript
+const zUserSchema = z.object({...})
+const zComponentPropertiesSchema = z.object({...})
+const zCoralRootSchema = z.object({...})
+```
+
+**Bad Examples:**
+```typescript
+const userSchema = z.object({...})
+const schema = z.object({...})
+```
+
+### zod-type-inference
+Use z.infer for type extraction from schemas.
+
+**Pattern:** `type.*=.*typeof.*Schema`
+**Suggestion:** Use `z.infer<typeof schemaName>` instead of `typeof schemaName` for type extraction.
+
+**Good Examples:**
+```typescript
+type UserType = z.infer<typeof zUserSchema>
+export type CoralComponentPropertyType = z.infer<typeof zCoralComponentPropertySchema>
+```
+
+**Bad Examples:**
+```typescript
+type UserType = typeof zUserSchema
+```
+
+### zod-validation-methods
+Use appropriate validation methods for different scenarios.
+
+**Pattern:** `schema\.(parse|safeParse|parseAsync|safeParseAsync)`
+**Suggestion:** Use `safeParse` for runtime validation with error handling, `parse` for throwing errors, `parseAsync` for async validation, and `safeParseAsync` for async validation with error handling.
+
+**Good Examples:**
+```typescript
+const result = await zCoralRootSchema.safeParseAsync(data)
+const validated = zUserSchema.parse(userData)
+const result = zComponentSchema.safeParse(componentData)
+```
+
+**Bad Examples:**
+```typescript
+const result = zUserSchema.parse(userData) // without try/catch
+```
+
+### zod-descriptions
+Add descriptions to complex schemas for better documentation.
+
+**Pattern:** `z\.object\(\{[^}]*\}\)`
+**Suggestion:** Use `.describe()` method to add descriptions to schema fields, especially for complex objects and enums.
+
+**Good Examples:**
+```typescript
+name: zCoralNameSchema.describe('The name of the Coral Component')
+type: z.enum(['COMPONENT', 'INSTANCE']).describe('The type of the Coral Component')
+```
+
+### zod-union-types
+Use proper union types for multiple possible values.
+
+**Pattern:** `z\.union\(\[.*\]\)`
+**Suggestion:** Use `z.union([...])` for multiple possible types. For literal values, prefer `z.enum([...])` when possible.
+
+**Good Examples:**
+```typescript
+z.union([z.string(), z.number()])
+z.enum(['string', 'number', 'boolean'])
+z.union([zCoralTSTypesSchema, z.array(zCoralTSTypesSchema).describe('An array of types')])
+```
+
+### zod-optional-nullish
+Use appropriate optional/nullish handling.
+
+**Pattern:** `z\.(optional|nullish)\(\)`
+**Suggestion:** Use `.optional()` for truly optional fields (undefined), `.nullish()` for fields that can be null or undefined, and `.nullable()` for fields that can be null but not undefined.
+
+**Good Examples:**
+```typescript
+description: z.string().optional()
+defaultValue: z.any().nullish()
+parentRef: z.string().nullable()
+```
+
+### zod-transform-usage
+Use transforms for data conversion when needed.
+
+**Pattern:** `z\.string\(\)\.transform`
+**Suggestion:** Use `.transform()` for data conversion, especially for converting between formats (e.g., kebab-case to camelCase).
+
+**Good Examples:**
+```typescript
+z.string().transform((key) => key.replace(/-./g, (match) => match.charAt(1).toUpperCase()))
+```
+
+### zod-record-schemas
+Use proper record schemas for object validation.
+
+**Pattern:** `z\.record\(.*\)`
+**Suggestion:** Use `z.record(keySchema, valueSchema)` for validating objects with dynamic keys. Consider using `.describe()` for better documentation.
+
+**Good Examples:**
+```typescript
+z.record(zCoralNameSchema, zCoralDesignTokenSchema).describe('The design tokens of the Coral Component')
+z.record(z.string(), z.any()).nullish()
+```
+
+### zod-error-handling
+Implement proper error handling for Zod validation.
+
+**Pattern:** `safeParse.*\.success`
+**Suggestion:** Always check `.success` property when using `safeParse` methods and handle both success and error cases appropriately.
+
+**Good Examples:**
+```typescript
+const result = await zCoralRootSchema.safeParseAsync(html)
+if (!result.success) {
+  throw new Error(result.error.message)
+} else {
+  return result.data
+}
+```
+
+### zod-schema-composition
+Compose schemas using proper Zod methods.
+
+**Pattern:** `z\.object\(.*\)\.(and|merge|extend)`
+**Suggestion:** Use `.and()`, `.merge()`, or `.extend()` for schema composition. `.and()` for intersection, `.merge()` for union of objects, `.extend()` for adding fields.
+
+**Good Examples:**
+```typescript
+zCoralNodeWithChildrenSchema.and(z.object({...}))
+baseSchema.extend({ newField: z.string() })
+```
+
+### zod-literal-usage
+Use z.literal for exact value matching.
+
+**Pattern:** `z\.literal\(`
+**Suggestion:** Use `z.literal()` for exact value matching, especially in unions and enums.
+
+**Good Examples:**
+```typescript
+z.literal('COMPONENT')
+z.literal('string')
+z.union([z.literal('string'), z.literal('number')])
+```
+
+### zod-array-validation
+Use proper array validation with element schemas.
+
+**Pattern:** `z\.array\(.*\)`
+**Suggestion:** Always specify the element schema for arrays. Use `.min()`, `.max()`, `.length()` for array constraints when needed.
+
+**Good Examples:**
+```typescript
+z.array(zCoralStateSchema)
+z.array(z.string()).min(1)
+z.array(z.union([z.string(), z.number()])).nullish()
+```
+
+**Bad Examples:**
+```typescript
+z.array(z.any())
+```
+
+### zod-v4-specific-features
+Leverage Zod v4 specific features and improvements.
+
+**Pattern:** `z\.(email|uuid|url|emoji|base64|base64url|nanoid|cuid|cuid2|ulid|ipv4|ipv6|cidrv4|cidrv6|iso)`
+**Suggestion:** Use top-level Zod v4 APIs for string formats instead of method chaining.
+
+**Good Examples:**
+```typescript
+z.email()
+z.uuid()
+z.url()
+z.emoji()
+z.base64()
+z.base64url()
+z.nanoid()
+z.cuid()
+z.cuid2()
+z.ulid()
+z.ipv4()
+z.ipv6()
+z.cidrv4()
+z.cidrv6()
+z.iso.date()
+z.iso.time()
+z.iso.datetime()
+z.iso.duration()
+```
+
+**Bad Examples:**
+```typescript
+z.string().email() // deprecated in v4
+z.string().uuid() // deprecated in v4
+z.string().url() // deprecated in v4
+```
+
+### zod-error-customization
+Use the new unified error customization API in Zod v4.
+
+**Pattern:** `\.min\(.*,\s*\{.*message`
+**Suggestion:** Use the new `error` parameter instead of `message` for error customization in Zod v4.
+
+**Good Examples:**
+```typescript
+z.string().min(5, { error: "Too short." })
+z.string({
+  error: (issue) => issue.input === undefined
+    ? "This field is required"
+    : "Not a string"
+})
+```
+
+**Bad Examples:**
+```typescript
+z.string().min(5, { message: "Too short." }) // deprecated
+```
+
+### zod-record-enum-support
+Leverage improved enum support in z.record() for v4.
+
+**Pattern:** `z\.record\(z\.enum\(.*\),.*\)`
+**Suggestion:** In Zod v4, records with enum keys are now exhaustive and require all enum values to be present.
+
+**Good Examples:**
+```typescript
+const myRecord = z.record(z.enum(["a", "b", "c"]), z.number())
+// { a: number; b: number; c: number; } - all keys required in v4
+```
+
+### zod-number-constraints
+Use proper number constraints in Zod v4.
+
+**Pattern:** `z\.number\(\)\.(safe|int)`
+**Suggestion:** In Zod v4, `.safe()` behaves like `.int()` and `.int()` only accepts safe integers. Consider using `z.int()` for better semantics.
+
+**Good Examples:**
+```typescript
+z.int() // for safe integers
+z.number().int() // for safe integers only
+z.number() // for all numbers (no infinite values in v4)
+```
+
+**Bad Examples:**
+```typescript
+z.number().safe() // deprecated, use z.int() instead
+```
+
+## Settings
+
+```json
+{
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "typescript.suggest.autoImports": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  }
+}
+```
+
+## File Patterns
+
+- `**/*.ts`
+- `**/*.tsx`
+- `**/*.js`
+- `**/*.jsx`
+
+## Exclude Patterns
+
+- `**/node_modules/**`
+- `**/dist/**`
+- `**/build/**`
+- `**/*.test.ts`
+- `**/*.spec.ts`
+
+TITLE: Define Mutually Recursive Object Types - Zod v4 - JavaScript
+DESCRIPTION: Shows how to define mutually recursive Zod object types, where one schema references another and vice versa, using getters for the recursive properties. This allows for complex, interconnected data structures.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+const User = z.object({\n  email: z.email(),\n  get posts(){\n    return z.array(Post)\n  }\n});\n\nconst Post = z.object({\n  title: z.string(),\n  get author(){\n    return User\n  }\n});
+```
 
 ----------------------------------------
 
-TITLE: Installing Internal Package Dependencies
-DESCRIPTION: Demonstrates how to add an internal monorepo package as a dependency in an application's package.json file using different package manager syntaxes (pnpm, yarn, npm, bun). The `workspace:*` or `*` syntax tells the package manager to link the local package source instead of fetching from a registry.
-SOURCE: https://github.com/vercel/turborepo/blob/main/docs/site/content/docs/core-concepts/internal-packages.mdx#_snippet_0
+TITLE: Use Standard Zod Methods on Recursive Schemas - Zod v4 - JavaScript
+DESCRIPTION: Illustrates that recursive Zod schemas created with the new v4 pattern are regular `ZodObject` instances and fully support standard methods like `pick()`, `partial()`, and `extend()` for schema manipulation.
+SOURCE: https://zod.dev/v4/v4
 
-LANGUAGE: json
+LANGUAGE: JavaScript
 CODE:
 ```
-{
-  "dependencies": {
-    "@repo/ui": "workspace:*"
-  }
-}
-```
-
-LANGUAGE: json
-CODE:
-```
-{
-  "dependencies": {
-    "@repo/ui": "*"
-  }
-}
-```
-
-LANGUAGE: json
-CODE:
-```
-{
-  "dependencies": {
-    "@repo/ui": "*"
-  }
-}
-```
-
-LANGUAGE: json
-CODE:
-```
-{
-  "dependencies": {
-    "@repo/ui": "workspace:*"
-  }
-}
+Post.pick({ title: true })\nPost.partial();\nPost.extend({ publishDate: z.date() });
 ```
 
 ----------------------------------------
 
-TITLE: Configure Turborepo Tasks in turbo.json
-DESCRIPTION: This snippet shows example configurations for the `turbo.json` file, defining tasks like `build`, `check-types`, and `dev` for different frameworks (Next.js and Vite). It specifies task dependencies, outputs for caching, and persistence/caching behavior for development tasks.
-SOURCE: https://github.com/vercel/turborepo/blob/main/docs/site/content/docs/getting-started/add-to-existing-repository.mdx#_snippet_1
+TITLE: Define Recursive Object Type - Zod v4 - JavaScript
+DESCRIPTION: Demonstrates the new Zod v4 pattern for defining recursive object types using a getter for the recursive property. Shows how to infer the TypeScript type from the schema. This approach eliminates the need for type casting used in previous versions.
+SOURCE: https://zod.dev/v4/v4
 
-LANGUAGE: json
+LANGUAGE: JavaScript
 CODE:
 ```
-{
-  "$schema": "https://turborepo.com/schema.json",
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
-    },
-    "check-types": {
-      "dependsOn": ["^check-types"]
-    },
-    "dev": {
-      "persistent": true,
-      "cache": false
-    }
-  }
-}
-```
-
-LANGUAGE: json
-CODE:
-```
-{
-  "$schema": "https://turborepo.com/schema.json",
-  "tasks": {
-    "build": {
-      "outputs": ["dist/**"]
-    },
-    "check-types": {
-      "dependsOn": ["^check-types"]
-    },
-    "dev": {
-      "persistent": true,
-      "cache": false
-    }
-  }
-}
+const Category = z.object({\n  name: z.string(),\n  get subcategories(){\n    return z.array(Category)\n  }\n});\n\ntype Category = z.infer<typeof Category>;\n// { name: string; subcategories: Category[] }
 ```
 
 ----------------------------------------
 
-TITLE: Specify Task Outputs for Caching in turbo.json
-DESCRIPTION: List file glob patterns relative to the package's root directory that should be cached upon successful task completion. These cached outputs can be restored in subsequent runs, speeding up builds.
-SOURCE: https://github.com/vercel/turborepo/blob/main/docs/site/content/docs/reference/configuration.mdx#_snippet_13
+TITLE: Type Inference for z.array().nonempty() in Zod v4
+DESCRIPTION: Illustrates the change in inferred type for `z.array().nonempty()` in Zod v4, which now infers `string[]` instead of `[string, ...string[]]`, aligning it with `z.array().min(1)`.
+SOURCE: https://zod.dev/v4/v4/changelog
 
-LANGUAGE: json
+LANGUAGE: TypeScript
 CODE:
 ```
-{
-  "tasks": {
-    "build": {
-      "outputs": ["dist/**"]
-    }
-  }
-}
+const NonEmpty = z.array(z.string()).nonempty();
+
+type NonEmpty = z.infer<typeof NonEmpty>;
+// Zod 3: [string, ...string[]]
+// Zod 4: string[]
 ```
 
-----------------------------------------
+## Zod v4 Features
 
-TITLE: Standard Turborepo Build Pipeline in turbo.json
-DESCRIPTION: This `turbo.json` snippet defines a basic `build` pipeline task. The `dependsOn: ["^build"]` configuration ensures that the `build` task of any workspace's dependencies is executed before the workspace's own `build` task, establishing the correct build order in the monorepo.
-SOURCE: https://github.com/vercel/turborepo/blob/main/docs/site/content/blog/turbo-1-4-0.mdx#_snippet_1
+This rule is designed to work with Zod v4 and includes support for:
 
-LANGUAGE: jsonc
-CODE:
-```
-{
-  "pipeline": {
-    "build": {
-      "dependsOn": ["^build"]
-    }
-  }
-}
-```
-
-----------------------------------------
-
-TITLE: Specify Package Manager in Root package.json
-DESCRIPTION: Add the `packageManager` field to the root `package.json` file. This ensures consistency among developers and allows Turborepo to optimize based on the lockfile.
-SOURCE: https://github.com/vercel/turborepo/blob/main/docs/site/content/docs/guides/migrating-from-nx.mdx#_snippet_8
-
-LANGUAGE: json
-CODE:
-```
-{
-  "packageManager": "pnpm@9.0.0"
-}
-```
-
-LANGUAGE: json
-CODE:
-```
-{
-  "packageManager": "yarn@1.22.19"
-}
-```
-
-LANGUAGE: json
-CODE:
-```
-{
-  "packageManager": "npm@10.0.0"
-}
-```
-
-LANGUAGE: json
-CODE:
-```
-{
-  "packageManager": "bun@1.2.0"
-}
-```
+- **Performance Improvements:** Dramatic speed improvements across all operations
+- **Async Validation:** `parseAsync` and `safeParseAsync` methods
+- **Improved Error Messages:** Better error handling and messaging
+- **Schema Composition:** Enhanced composition methods with `.and()`, `.merge()`, `.extend()`
+- **Type Inference:** Improved TypeScript integration with `z.infer<typeof schema>`
+- **Transform Chains:** Better support for data transformation
+- **Record Validation:** Proper validation of objects with dynamic keys
+- **Union Types:** Enhanced union type support with better type inference
+- **Top-level APIs:** New top-level APIs for string formats (email, uuid, url, etc.)
+- **Error Customization:** Unified error customization API with `error` parameter
+- **Enum Record Support:** Improved enum support in `z.record()` with exhaustiveness
+- **Number Constraints:** Stricter number validation (no infinite values, safe integers only)
+- **Core Package:** New `zod/v4/core` sub-package for utility functions and types
 
 ---
 > Source: [Coral-UI/core](https://github.com/Coral-UI/core) — distributed by [TomeVault](https://tomevault.io).
