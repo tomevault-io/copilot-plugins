@@ -185424,6 +185424,16 @@
       "description": "Fleet management panel for OpenClaw AI agents \u2014 multi-instance SSH, self-improve, cost analysis, guardrails, and more"
     },
     {
+      "name": "zongmin-yu--serenity-skills",
+      "source": "./zongmin-yu--serenity-skills",
+      "description": "AI infrastructure & semiconductor supply chain analysis skill for Claude Code and Cursor, distilled from Serenity (@aleabitoreddit) on X"
+    },
+    {
+      "name": "zongmin-yu--serenity-skills",
+      "source": "./zongmin-yu--serenity-skills",
+      "description": "AI infrastructure & semiconductor supply chain analysis skill for Claude Code and Cursor, distilled from Serenity (@aleabitoreddit) on X"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -198617,6 +198627,11 @@
       "name": "haix716--feishu-agent-assistant",
       "source": "./haix716--feishu-agent-assistant",
       "description": "feishu-agent-assistant"
+    },
+    {
+      "name": "brewingelixir--council-ex",
+      "source": "./brewingelixir--council-ex",
+      "description": "Elixir framework for multi-model LLM councils. Debate, vote, tournament, synthesize. Provider-agnostic."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -307432,6 +307447,76 @@
       "name": "benignomnez--kixord-mobile",
       "source": "./benignomnez--kixord-mobile",
       "description": "sneakers online"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "cerecedaobs--alpaca-driver",
+      "source": "./cerecedaobs--alpaca-driver",
+      "description": "An ASCOM Alpaca driver implemented in Go"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
+    },
+    {
+      "name": "ai-dd-trainingit--3-6-implement",
+      "source": "./ai-dd-trainingit--3-6-implement",
+      "description": "builder implement"
     }
   ]
 }
