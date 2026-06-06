@@ -153969,6 +153969,11 @@
       "description": "auto discards idle tabs for browser "
     },
     {
+      "name": "daveebbelaar--document-copilot",
+      "source": "./daveebbelaar--document-copilot",
+      "description": "document-copilot"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
