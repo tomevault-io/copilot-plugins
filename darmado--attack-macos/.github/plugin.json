@@ -1,0 +1,9 @@
+{
+  "name": "darmado--attack-macos",
+  "displayName": "attack-macOS",
+  "description": "A library of post-exploitation MacOS scripts based on threat emulation, LOObins, CTI, and MITRE ATT&CK.",
+  "version": "1.0.0",
+  "author": "darmado",
+  "homepage": "https://github.com/darmado/attack-macOS",
+  "skills": []
+}
