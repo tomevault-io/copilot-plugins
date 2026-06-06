@@ -80094,6 +80094,16 @@
       "description": "KRAIL is a Compose Multiplatform app for trip planning on public transport in Sydney, NSW, Australia."
     },
     {
+      "name": "ferroxlabs--wayland",
+      "source": "./ferroxlabs--wayland",
+      "description": "Wayland - The AI Agent That Perceives. Reasons. Acts. Evolves."
+    },
+    {
+      "name": "ferroxlabs--wayland",
+      "source": "./ferroxlabs--wayland",
+      "description": "Wayland - The AI Agent That Perceives. Reasons. Acts. Evolves."
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
