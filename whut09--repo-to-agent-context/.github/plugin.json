@@ -1,0 +1,9 @@
+{
+  "name": "whut09--repo-to-agent-context",
+  "displayName": "Repo-to-Agent-Context",
+  "description": "\u4e00\u952e\u628a\u4ed3\u5e93\u53d8\u6210 AI \u53ef\u8bfb\u3001\u53ef\u66f4\u65b0\u3001\u53ef\u9a8c\u8bc1\u7684\u4e0a\u4e0b\u6587\u5305\uff0c\u89e3\u51b3 token \u6d6a\u8d39\u548c\u4e0a\u4e0b\u6587\u4e22\u5931",
+  "version": "1.0.0",
+  "author": "whut09",
+  "homepage": "https://github.com/whut09/Repo-to-Agent-Context",
+  "skills": []
+}
