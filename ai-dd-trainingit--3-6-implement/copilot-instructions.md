@@ -1,78 +1,82 @@
-## server-domain-entity
+## sql-commands-json
 
-> Rules to generate a server domain entity
+> Rules for generating SQL commands in JSON configuration files
 
 
-# Server Domain Entity Rules
+# SQL Commands JSON Configuration Files
 
-## Naming Conventions
-- **File naming**: Use `{entity-name}.type.ts` in `kebab-case`
-- **Type names**: Use `PascalCase` for type definitions (e.g., `Tool`)
-- **Constants**: Use `UPPER_SNAKE_CASE` for null/default objects (e.g., `NULL_TOOL`)
-- **Functions**: Use `camelCase` for validation functions (e.g., `validateTool`)
-- **Fields**: Use `snake_case` for all entity properties (e.g., `user_id`)
+These files define SQL operations for a specific database table in a structured JSON format.
 
-## Required Exports
-1. **Main Entity Type**:
-   - Define as TypeScript `type` (not interface or class)
-   - Include `id` as primary key
-   - Include audit fields: `created_at` and `updated_at`
+## File Structure
 
-2. **NULL/Default Object**:
-   - Export a constant with default values for all fields 
-   - Name as `NULL_{ENTITY_NAME}`
+- Place files in the `src/sql/` directory
+- Name files according to the table name: `tablename.sql.json`
+- Use `UPER_CASE` for SQL operation keys, as they will be used as constants in code.
 
-3. **Validation Function**:
-   - Export a function named `validate{EntityName}`
-   - Accept a partial entity as parameter
-   - Throw `AppError` with type "LOGIC" when validation fails
+## Required Keys
 
-## Imports
-- Import `AppError` from `@server/shared/app-error.class`
-- Import related types from `@server/shared/sql.type`
+- `TABLE`: String with the table name
+- `CREATE_TABLE`: Full SQL statement for table creation with all columns and constraints
+- `SELECT_ALL`: Query to fetch all records
+- `SELECT_BY_ID`: Query to fetch a record by its primary key
+- `SELECT_BY_FIELD`: Query to fetch records by a field value pair
+- `SELECT_BY_USER_ID`: Query to fetch a record by user foreing key
+- `INSERT`: Statement to insert a new record with all fields
+- `UPDATE`: Statement to update all fields for a record
+- `DELETE`: Statement to delete a record by its primary key
+- `SEED`: An array of raw entotoes needed before start the app (config, initial data...)
 
-## Extras
-- Follow [general typesscript rules]()
+## Parameter Conventions
 
-## Example Structure
-```typescript
-import { AppError } from "../shared/app-error.class";
+- Use `$paramName` syntax for query parameters
+- Common parameters:
+  - `$id`: For primary key references
+  - `$created_at` and `$updated_at`: For timestamp fields
+  - Other parameters should match column names
+  - Prefix all parameters with `$`
+  - Name them in `snake_case`
 
-/**
- * Represents an entity with its properties
- */
-export type EntityName = {
-  id: number;
-  name: string;
-  // other properties...
-  user_id: number;
-  created_at: Date;
-  updated_at: Date;
-};
+## SEED Data (Optional)
 
-/**
- * Default empty entity object
- */
-export const NULL_ENTITY_NAME: EntityName = {
-  id: 0,
-  name: "",
-  // default values...
-  user_id: 0,
-  created_at: new Date(),
-  updated_at: new Date(),
-};
+- Include a `SEED` array if the table needs initial data
+- Each seed item should be an object with the table's column values
+- Omit auto-generated fields (id, timestamps) from seed objects
 
-/**
- * Validates an entity
- * @param entity - The entity to validate
- * @throws AppError if the entity is invalid
- */
-export const validateEntityName = (entity: Partial<EntityName>): void => {
-  if (!entity.name /* other validations */) {
-    throw new AppError("Invalid entity", "LOGIC");
-  }
-};
-```
+## Example
+
+```json
+{
+	"TABLE": "tools",
+	"CREATE_TABLE": "CREATE TABLE tools (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, url TEXT, created_at DATETIME, updated_at DATETIME)",
+	"SELECT_ALL": "SELECT * FROM tools",
+	"SELECT_BY_ID": "SELECT * FROM tools WHERE id = $id",
+	"INSERT": "INSERT INTO tools (name, description, url, created_at, updated_at) VALUES ($name, $description, $url, $created_at, $updated_at)",
+	"UPDATE": "UPDATE tools SET name = $name, description = $description, url = $url, updated_at = $updated_at WHERE id = $id",
+	"DELETE": "DELETE FROM tools WHERE id = $id",
+	"SEED": [
+		{
+			"name": "Bun",
+			"description": "Bun is a fast, modern, all-in-one toolkit for JavaScript.",
+			"url": "https://bun.sh/"
+		},
+		{
+			"name": "Pico CSS",
+			"description": "Pico CSS is a minimal CSS framework for semantic HTML.",
+			"url": "https://picocss.com/"
+		},
+		{
+			"name": "Playwright",
+			"description": "Playwright is a framework for browser automation and testing.",
+			"url": "https://playwright.dev/"
+		},
+		{
+			"name": "Vite",
+			"description": "Vite is a build tool for modern web development.",
+			"url": "https://vitejs.dev/"
+		}
+	]
+}
+``` 
 
 ---
 > Source: [AI-DD-TrainingIT/3_6-implement](https://github.com/AI-DD-TrainingIT/3_6-implement) — distributed by [TomeVault](https://tomevault.io).
