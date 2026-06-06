@@ -94834,6 +94834,11 @@
       "description": "Ever\u00ae Rec\u2122 - Open Screen Capture, Screen Recording, Images & Video Sharing Platform - https://rec.so"
     },
     {
+      "name": "ericzakariasson--cursor-workshop",
+      "source": "./ericzakariasson--cursor-workshop",
+      "description": "cursor-workshop"
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -99232,6 +99237,11 @@
       "name": "cipherstash--encrypt-query-language",
       "source": "./cipherstash--encrypt-query-language",
       "description": "Index and search encrypted data in PostgreSQL with SQL"
+    },
+    {
+      "name": "adrielvelazquez--nixos-config",
+      "source": "./adrielvelazquez--nixos-config",
+      "description": "Personal Configuration for NixOS"
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -104184,6 +104194,11 @@
       "description": "ai_geography"
     },
     {
+      "name": "gvwilson--sudonomicon",
+      "source": "./gvwilson--sudonomicon",
+      "description": "An Introduction to Unix Systems for the Cautious and Weary"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -106622,6 +106637,11 @@
       "name": "divitmittal--tltr",
       "source": "./divitmittal--tltr",
       "description": "Cross-platform multi-layer keyboard layout tailored for programmers"
+    },
+    {
+      "name": "qiskit--qiskit-code-assistant-jupyterlab",
+      "source": "./qiskit--qiskit-code-assistant-jupyterlab",
+      "description": "A Jupyterlab extension to use the Qiskit Code Assistant"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -109874,6 +109894,16 @@
       "description": "A lightweight plugin designed to enforce architectural rules in your multi-module project effortlessly."
     },
     {
+      "name": "biubiubiu35--cursor101",
+      "source": "./biubiubiu35--cursor101",
+      "description": "Tutorials for cursor and AI Programming"
+    },
+    {
+      "name": "cofin--oracledb-vertexai-demo",
+      "source": "./cofin--oracledb-vertexai-demo",
+      "description": "Reference application using Google ADK and Oracle"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -112627,6 +112657,16 @@
       "name": "metaist--ds",
       "source": "./metaist--ds",
       "description": "polyglot task runner"
+    },
+    {
+      "name": "eriksen-lab--opentrustregion",
+      "source": "./eriksen-lab--opentrustregion",
+      "description": "A Reusable Library for Second-Order Trust Region Orbital Optimization"
+    },
+    {
+      "name": "dsecuredcom--dynamic-file-searcher",
+      "source": "./dsecuredcom--dynamic-file-searcher",
+      "description": "Tool to scan servers and hosts using dynamic paths."
     },
     {
       "name": "develite98--angular-best-practices",
@@ -118174,6 +118214,11 @@
       "description": "expo-push-notifications"
     },
     {
+      "name": "hanyk--bayesed3",
+      "source": "./hanyk--bayesed3",
+      "description": "A Bayesian SED synthesis and analysis tool for galaxies and AGNs, featuring an interface optimized for both humans and AI agents."
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -121417,6 +121462,16 @@
       "name": "wflixu--monet",
       "source": "./wflixu--monet",
       "description": " Mouse-first macOS image viewer. Zoom follows your cursor \u2014 no more zooming off-target."
+    },
+    {
+      "name": "opsmill--infrahub-sdk-python",
+      "source": "./opsmill--infrahub-sdk-python",
+      "description": "Python SDK to interact with Infrahub"
+    },
+    {
+      "name": "opsmill--infrahub-sdk-python",
+      "source": "./opsmill--infrahub-sdk-python",
+      "description": "Python SDK to interact with Infrahub"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -125197,6 +125252,11 @@
       "name": "jpablo--graph-explorer",
       "source": "./jpablo--graph-explorer",
       "description": "Explore graphs in a visual way"
+    },
+    {
+      "name": "githedgehog--dataplane",
+      "source": "./githedgehog--dataplane",
+      "description": "The hedgehog dataplane"
     },
     {
       "name": "13point5--agent-canvas",
@@ -132749,6 +132809,21 @@
       "description": "CLI tool that uploads NOSTR kind 34128 website content events which point to content on blossom."
     },
     {
+      "name": "neongamerbot-qk--slack-zeon",
+      "source": "./neongamerbot-qk--slack-zeon",
+      "description": "Zeon but on da hackclub slack"
+    },
+    {
+      "name": "joshlacal--petrel",
+      "source": "./joshlacal--petrel",
+      "description": "Swift library for the ATProtocol and Bluesky, generated from Lexicons"
+    },
+    {
+      "name": "joshlacal--petrel",
+      "source": "./joshlacal--petrel",
+      "description": "Swift library for the ATProtocol and Bluesky, generated from Lexicons"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -136957,6 +137032,21 @@
       "name": "seismicsystems--seismic-solidity",
       "source": "./seismicsystems--seismic-solidity",
       "description": "Seismic Solidity allows you to encrypt data in your smart contracts"
+    },
+    {
+      "name": "newfold-labs--wp-module-solutions",
+      "source": "./newfold-labs--wp-module-solutions",
+      "description": "A Newfold module that handles integration of WordPress Solutions Addon packages (content creator/ service / ecommerce) for BlueHost & HostGator customers."
+    },
+    {
+      "name": "newfold-labs--wp-module-solutions",
+      "source": "./newfold-labs--wp-module-solutions",
+      "description": "A Newfold module that handles integration of WordPress Solutions Addon packages (content creator/ service / ecommerce) for BlueHost & HostGator customers."
+    },
+    {
+      "name": "helloscoopa--run-cache",
+      "source": "./helloscoopa--run-cache",
+      "description": "RunCache is a dependency-free, lightweight runtime caching library for JavaScript and TypeScript."
     },
     {
       "name": "mohiwalla--memes",
@@ -142057,6 +142147,26 @@
       "name": "jaredwray--qified",
       "source": "./jaredwray--qified",
       "description": "Cloud Queues with Task and Messages and Multiple Providers"
+    },
+    {
+      "name": "uw-cryo--coincident",
+      "source": "./uw-cryo--coincident",
+      "description": "3D satellite and airborne data archive search and analysis tools for NASA Surface Topography & Vegetation (STV) Precursor Coincident Datasets"
+    },
+    {
+      "name": "coral-ui--core",
+      "source": "./coral-ui--core",
+      "description": "core"
+    },
+    {
+      "name": "coral-ui--core",
+      "source": "./coral-ui--core",
+      "description": "core"
+    },
+    {
+      "name": "coral-ui--core",
+      "source": "./coral-ui--core",
+      "description": "core"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -147632,6 +147742,21 @@
       "name": "davanstrien--uv-scripts-for-ai",
       "source": "./davanstrien--uv-scripts-for-ai",
       "description": "Self-contained UV scripts for data & ML tasks \u2014 OCR, vision, audio & more \u2014 run one in a command, locally or on Hugging Face Jobs. Built for humans and agents."
+    },
+    {
+      "name": "coji--video-ad-network",
+      "source": "./coji--video-ad-network",
+      "description": "video-ad-network"
+    },
+    {
+      "name": "darmado--attack-macos",
+      "source": "./darmado--attack-macos",
+      "description": "A library of post-exploitation MacOS scripts based on threat emulation, LOObins, CTI, and MITRE ATT&CK."
+    },
+    {
+      "name": "nomercy-entertainment--nomercy-video-player",
+      "source": "./nomercy-entertainment--nomercy-video-player",
+      "description": "Headless, event-driven HTML5 video player with HLS streaming, ASS/SSA + VTT subtitles, PiP, and a plugin system. No UI included. TypeScript-first."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -153732,6 +153857,21 @@
       "name": "neg4n--the-golden-vim",
       "source": "./neg4n--the-golden-vim",
       "description": "A tribute to the era before bloat. Vim, reinterpreted. Distraction removed."
+    },
+    {
+      "name": "sprice--memento-mori",
+      "source": "./sprice--memento-mori",
+      "description": "A Mac OS menu bar app to support reflection on the inevitability of death"
+    },
+    {
+      "name": "candirugame--candiru",
+      "source": "./candirugame--candiru",
+      "description": "possum game"
+    },
+    {
+      "name": "barryoo--tabcleaner",
+      "source": "./barryoo--tabcleaner",
+      "description": "auto discards idle tabs for browser "
     },
     {
       "name": "lightninglabs--lnget",
@@ -162062,6 +162202,26 @@
       "name": "wrm3--cbtrade",
       "source": "./wrm3--cbtrade",
       "description": "This project is a CoinBase python algorithmic trading bot using the new Advanced Trader API.  This project is here more for me to practice git & github.  Use it at your own risk.  See License."
+    },
+    {
+      "name": "ansh--template-3",
+      "source": "./ansh--template-3",
+      "description": "template-3"
+    },
+    {
+      "name": "extension-js--extension-js-org",
+      "source": "./extension-js--extension-js-org",
+      "description": "Documentation, guides, and API reference for Extension.js."
+    },
+    {
+      "name": "narixhine--leximory",
+      "source": "./narixhine--leximory",
+      "description": "\u8bed\u8a00\u5b66\u5730\u5b66\u8bed\u8a00"
+    },
+    {
+      "name": "omi-patel--retroui-component",
+      "source": "./omi-patel--retroui-component",
+      "description": "retroUI_Component"
     },
     {
       "name": "yschimke--compose-ai-tools",
