@@ -1,0 +1,9 @@
+{
+  "name": "cofin--oracledb-vertexai-demo",
+  "displayName": "oracledb-vertexai-demo",
+  "description": "Reference application using Google ADK and Oracle",
+  "version": "1.0.0",
+  "author": "cofin",
+  "homepage": "https://github.com/cofin/oracledb-vertexai-demo",
+  "skills": []
+}
