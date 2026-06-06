@@ -1,0 +1,9 @@
+{
+  "name": "xpenatan--jwebgpu",
+  "displayName": "jWebGPU",
+  "description": "WebGPU Java Bindings for wgpu-native and Dawn",
+  "version": "1.0.0",
+  "author": "xpenatan",
+  "homepage": "https://github.com/xpenatan/jWebGPU",
+  "skills": []
+}
