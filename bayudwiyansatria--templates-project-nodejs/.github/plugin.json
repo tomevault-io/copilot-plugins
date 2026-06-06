@@ -1,0 +1,9 @@
+{
+  "name": "bayudwiyansatria--templates-project-nodejs",
+  "displayName": "templates-project-nodejs",
+  "description": "Reusable Node.js library template with TypeScript, Rollup, Jest, and GitHub Pages-ready docs to bootstrap and ship maintainable npm packages.",
+  "version": "1.0.0",
+  "author": "bayudwiyansatria",
+  "homepage": "https://github.com/bayudwiyansatria/templates-project-nodejs",
+  "skills": []
+}
