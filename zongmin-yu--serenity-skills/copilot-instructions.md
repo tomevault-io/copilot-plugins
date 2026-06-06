@@ -1,6 +1,7 @@
-## serenity-skills
+## serenity-guidelines
 
-> AI infrastructure and semiconductor supply chain analysis, distilled from the public posts of Serenity ([@aleabitoreddit](https://x.com/aleabitoreddit)).
+> AI infrastructure and semiconductor supply chain analysis. Use when tracing hyperscaler AI capex, analyzing semiconductor/photonics/memory supply chains, mapping BOM dependencies for AI hardware, or finding bottleneck companies in AI buildout.
+
 
 # Serenity Guidelines
 
