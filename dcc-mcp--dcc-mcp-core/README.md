@@ -7,11 +7,11 @@ Core runtime and shared tooling for DCC-MCP: safe, skill-first MCP integration a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dcc-mcp/dcc-mcp-core](https://github.com/dcc-mcp/dcc-mcp-core).
+Original source: `CLAUDE.md` in [dcc-mcp/dcc-mcp-core](https://github.com/dcc-mcp/dcc-mcp-core).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
