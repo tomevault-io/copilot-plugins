@@ -7,11 +7,11 @@ Wayland - The AI Agent That Perceives. Reasons. Acts. Evolves.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FerroxLabs/wayland](https://github.com/FerroxLabs/wayland).
+Original source: `CLAUDE.md` in [FerroxLabs/wayland](https://github.com/FerroxLabs/wayland).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
