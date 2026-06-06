@@ -115474,6 +115474,11 @@
       "description": "Use Codex as an agent-powered pixel art editor."
     },
     {
+      "name": "flh-raouf--td-bdd",
+      "source": "./flh-raouf--td-bdd",
+      "description": "td-bdd"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -142257,6 +142262,16 @@
       "name": "connglli--reify",
       "source": "./connglli--reify",
       "description": "Random program generation based on semantic reification (PLDI'26)"
+    },
+    {
+      "name": "hosamzewain--ai-assisted-development-framework",
+      "source": "./hosamzewain--ai-assisted-development-framework",
+      "description": "ai-assisted-development-framework"
+    },
+    {
+      "name": "hosamzewain--ai-assisted-development-framework",
+      "source": "./hosamzewain--ai-assisted-development-framework",
+      "description": "ai-assisted-development-framework"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
