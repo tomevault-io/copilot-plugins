@@ -198714,6 +198714,16 @@
       "description": "Ultracode Codex plugin"
     },
     {
+      "name": "thisrandom--homelab-dashboard",
+      "source": "./thisrandom--homelab-dashboard",
+      "description": "HomeLab-Dashboard"
+    },
+    {
+      "name": "ai-analyst-lab--agentxp",
+      "source": "./ai-analyst-lab--agentxp",
+      "description": "Open-source system for the design and analysis of controlled experiments, intended for use inside Claude Code."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -307612,6 +307622,41 @@
       "name": "1-1is0--oex-downloader",
       "source": "./1-1is0--oex-downloader",
       "description": "over engineered proxy downloader"
+    },
+    {
+      "name": "bayudwiyansatria--templates-project-nodejs",
+      "source": "./bayudwiyansatria--templates-project-nodejs",
+      "description": "Reusable Node.js library template with TypeScript, Rollup, Jest, and GitHub Pages-ready docs to bootstrap and ship maintainable npm packages."
+    },
+    {
+      "name": "bensappforge--lt-prompter",
+      "source": "./bensappforge--lt-prompter",
+      "description": "lt-prompter"
+    },
+    {
+      "name": "wlgitdev--schematoform",
+      "source": "./wlgitdev--schematoform",
+      "description": "SchemaToForm"
+    },
+    {
+      "name": "wlgitdev--schematoform",
+      "source": "./wlgitdev--schematoform",
+      "description": "SchemaToForm"
+    },
+    {
+      "name": "bensappforge--lt-prompter",
+      "source": "./bensappforge--lt-prompter",
+      "description": "lt-prompter"
+    },
+    {
+      "name": "wooogler--choir",
+      "source": "./wooogler--choir",
+      "description": "The CHOIR App using Slack Bolt"
+    },
+    {
+      "name": "vnhk--project-mgmt-app",
+      "source": "./vnhk--project-mgmt-app",
+      "description": "project-mgmt-app"
     }
   ]
 }
