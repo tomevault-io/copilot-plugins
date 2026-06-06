@@ -1,0 +1,9 @@
+{
+  "name": "adrielvelazquez--nixos-config",
+  "displayName": "nixos-config",
+  "description": "Personal Configuration for NixOS",
+  "version": "1.0.0",
+  "author": "AdrielVelazquez",
+  "homepage": "https://github.com/AdrielVelazquez/nixos-config",
+  "skills": []
+}
