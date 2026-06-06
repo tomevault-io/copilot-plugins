@@ -1,113 +1,67 @@
-## lt-prompter-rules
+## lt-prompter
 
-> 1.	UI Language is Always German
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-General Principles
-	1.	UI Language is Always German
-	•	All UI labels, messages, and instructional texts must be in German.
-	•	Ensure consistency in terminology across the entire application.
-	•	Example: Use “Einstellungen speichern” instead of “Save settings”.
-	2.	Adopt Standalone Components
-	•	With Angular 18, components, directives, and pipes are standalone by default, eliminating the need for NgModules.  ￼
-	•	Define components with the standalone: true property:
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-@Component({
-  selector: 'app-example',
-  templateUrl: './example.component.html',
-  styleUrls: ['./example.component.scss'],
-  standalone: true,
-})
-export class ExampleComponent {}
+## Project Overview
 
+LT-Prompter is an Angular 18 PWA for language teachers to generate AI prompts for creating language learning exercises. It generates structured prompts for various exercise types across multiple target languages (English, Spanish, French, Italian) at different CEFR levels (A1-C2).
 
-	3.	Implement Zoneless Change Detection
-	•	Angular 18 introduces experimental support for zoneless change detection, reducing reliance on zone.js and potentially enhancing performance.  ￼
-	•	To enable zoneless change detection: ￼
+## Commands
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideExperimentalZonelessChangeDetection()
-  ]
-});
+```bash
+npm start          # Dev server at http://localhost:4200
+npm run build      # Production build to dist/lt-prompter
+npm test           # Unit tests via Karma
+ng generate component components/<name>  # New component
+```
 
+## Architecture
 
-	•	Remove zone.js from your polyfills in angular.json. ￼
+### Core Patterns
 
-	4.	Utilize Built-in Control Flow Syntax
-	•	Angular 18 stabilizes the new control flow syntax, allowing for more concise templates: ￼
+- **Standalone Components**: All components use `standalone: true` (Angular 18 default)
+- **Lazy Loading**: All routes use `loadComponent()` for code splitting
+- **IndexedDB Storage**: User data persisted via `ngx-indexed-db` with stores: `preferences`, `templates`, `versions`, `library`
+- **PWA**: Service worker enabled in production for offline support
 
-@if (condition) {
-  <!-- Content -->
-} @else {
-  <!-- Alternative Content -->
-}
+### Key Services
 
+- `PromptTemplateService` - Generates exercise prompts by combining language-specific templates with user configuration
+- `PreferencesService` - Manages user settings (language, CEFR level, theme)
+- `TemplatesService` - CRUD operations for custom prompt templates
+- `LibraryService` - Manages saved prompts library
 
-	•	Migrate existing templates using the provided schematics: ￼
+### Exercise Types
 
-ng g @angular/core:control-flow
+Located in `src/app/templates/`:
+- **Vocabulary** (`vocabulary-prompts.ts`) - Word list contextualization exercises
+- **Grammar** (`grammar-con-prompts.ts`) - Grammar phenomenon practice
+- **Comprehension** (`comprehension-prompts.ts`) - Reading comprehension exercises
+- **Clone** (`clone-prompts.ts`) - Exercise replication from source materials
+- **Wordfield** (`wordfield-prompts.ts`) - Semantic field vocabulary exercises
 
+### Models
 
+All models in `src/app/models/`:
+- `preferences.model.ts` - Language, CEFRLevel, ExerciseType types
+- `template.model.ts` - Template structure with exercise type, language, CEFR level
 
-⸻
+## Important Conventions
 
-Frontend Development (Angular)
-	5.	Use Angular Material for UI Components
-	•	Adhere to Material Design principles for a consistent look and feel.
-	•	Utilize Angular Material components, ensuring they are compatible with zoneless change detection. ￼
-	6.	Component Structure & Reusability
-	•	Adopt the Smart (container) and Dumb (presentational) components approach.  ￼
-	•	Extract reusable UI elements into dedicated components to promote maintainability.
-	7.	Efficient State Management
-	•	Leverage RxJS for state management, using the async pipe to handle subscriptions automatically.
-	•	Consider using Signals for local state that doesn’t leave the browser, as recommended by the community.  ￼
-	8.	IndexedDB for Local Data Storage
-	•	Store user preferences and templates in IndexedDB using Angular’s idb library.
-	•	Ensure fallback mechanisms are in place if IndexedDB is unavailable.
-	9.	Performance Optimization
-	•	Implement lazy loading for feature components to improve initial load times.
-	•	Use the @defer directive to load content conditionally, enhancing performance.  ￼
+- **UI Language**: Always German for all UI labels, messages, and instructions
+- **Angular Material**: Use Material components for UI consistency
+- **SCSS**: Default stylesheet language configured in `angular.json`
+- **Reactive Forms**: Use for all form handling
+- **Signals**: Prefer for local component state
+- **Built-in Control Flow**: Use `@if`, `@for`, `@switch` syntax (not `*ngIf`, `*ngFor`)
 
-⸻
+## Deployment
 
-Backend & Data Handling
-	10.	Data Persistence & Future Cloud Syncing
-	•	Design data structures compatible with both client-side storage and potential server-side storage, facilitating future migration to services like Supabase.
-	11.	Form Handling & Validation
-	•	Utilize Reactive Forms for scalable and robust form management.
-	•	Implement both client-side and server-side validation to ensure data integrity.
-	12.	Security Best Practices
-	•	Sanitize all user inputs to prevent XSS and injection attacks.
-	•	Implement Content Security Policy (CSP) headers to enhance security.
-	•	Apply proper rate limiting for API calls to mitigate abuse.
-
-⸻
-
-User Experience (UX) & Accessibility
-	13.	Intuitive Sidebar Navigation
-	•	Ensure the sidebar is structured with clear section labels in German, facilitating easy navigation.
-	14.	Dark Mode & Theme Management
-	•	Use Angular Material’s Theming System to support light/dark mode switching.
-	•	Allow users to set their preferred theme, storing preferences in IndexedDB.
-	15.	Offline Support with PWA Features
-	•	Configure service workers to cache essential assets for offline use.
-	•	Implement background sync to allow users to continue working offline.
-	16.	Localization & German Text Consistency
-	•	All hardcoded text should be in German, ensuring a consistent user experience.
-	•	Example: const errorMessage = "Fehler beim Laden der Daten"; instead of English error messages.
-
-⸻
-
-Deployment & Hosting
-	17.	Netlify for Hosting & CI/CD
-	•	Automate deployments via Netlify’s Git-based CI/CD pipeline.
-	•	Optimize build settings for efficient deployment processes.
-	18.	Service Workers for Performance
-	•	Configure service workers for offline mode and caching using Angular’s PWA support.
-	•	Ensure updates are automatically detected and prompted to users.
-
-⸻
+Hosted on Netlify with automatic CI/CD from Git. Build output goes to `dist/lt-prompter`.
 
 ---
 > Source: [BensAppForge/lt-prompter](https://github.com/BensAppForge/lt-prompter) — distributed by [TomeVault](https://tomevault.io).
