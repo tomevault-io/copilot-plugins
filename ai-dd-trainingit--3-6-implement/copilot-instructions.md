@@ -1,131 +1,73 @@
-## client-component
+## client-entity
 
-> Generate a client web component
+> Generate a client domain entity
 
 
-# Client Web Component Rules
+# Client Entity Rules
 
 ## Naming Conventions
-- File naming: Use `{component-name}.component.ts` in kebab-case
-- Class naming: Use PascalCase with Component suffix (e.g., `ToolListComponent`)
-- Component tag: Use kebab-case for custom element name (e.g., `tool-list`)
-- Internal properties: Use camelCase prefixed with `_` for private fields
-- Template property: Use `private template` for HTML template string
-- Event handlers: Use on{Event} naming (e.g., `onClick`, `onSubmit`)
+- File naming: Use `{entity-name}.type.ts` in kebab-case
+- Type names: Use PascalCase for type definitions (e.g., `Tool`)
+- Constants: Use UPPER_SNAKE_CASE for null/default objects (e.g., `NULL_TOOL`)
+- Functions: Use camelCase for validation functions (e.g., `validateTool`)
+- Fields: Use snake_case for all entity properties (They are the couterparts of server DTOs)
 
-## Required Structure
-1. **Component Class**:
-   - Extend HTMLElement
-   - Include a constructor that initializes the component
-   - Export the class, but don't define the custom element in the file
+## Required Exports
+1. **Main Entity Type**:
+   - Define as TypeScript `type` (not interface or class)
+   - Include `id` as primary key
+   - Include audit fields: `create_at` and `updated_at` (snake_case to match client conventions)
 
-2. **Lifecycle Methods**:
-   - Implement `connectedCallback()` for setup and event listeners
-   - Implement `disconnectedCallback()` for cleanup and event listener removal
-   - Optionally implement `attributeChangedCallback()` for handling attribute changes
+2. **NULL/Default Object**:
+   - Export a constant with default values for all fields 
+   - Name as `NULL_{ENTITY_NAME}`
 
-3. **Template Management**:
-   - Use a private `private template` property for HTML content
-   - Use the html helper tag for template literals
-   - Add the template to innerHTML in the constructor
-
-4. **Event Handling**:
-   - Use private methods for event handlers
-   - Properly bind 'this' context in event listeners
-   - Remove event listeners in disconnectedCallback
-
-5. **Web Rules**:
-   - Respect general web rules from [web.mdc](mdc:.cursor/rules/web.mdc)     
+3. **Validation Function** (optional):
+   - Export a function named `validate{EntityName}`
+   - Accept a partial entity as parameter
+   - Return boolean or throw custom error
 
 ## Imports
-- Import domain entities or other types
-- Import repository functions for data access
-- Import other components if needed (for composition)
-
-## State Management
-- Use private class fields for component state
-- Implement render method for updating the DOM based on state
-- Consider using observables pattern for complex state management
+- Import related entity types if needed
 
 ## Documentation
-- Add JSDoc comments to the component class
-- Document public methods and properties
-- Document events emitted by the component
+- Add JSDoc comments to all exported types, constants, and functions
 
 ## Example Structure
 ```typescript
-import { EntityName } from "../domain/entity-name.type";
-import { fetchAllEntities } from "../repositories/entity-name.repository";
-
-const html = String.raw;
+/**
+ * Represents a client entity with its properties
+ */
+export type EntityName = {
+  id: number;
+  name: string;
+  // other properties...
+  user_id: number; // Note snake_case convention for FK
+  created_at: Date;
+  updated_at: Date;
+};
 
 /**
- * Component for displaying and managing entities
- * Usage: <entity-list></entity-list>
+ * Default empty entity object
  */
-export class EntityListComponent extends HTMLElement {
-  private template: string;
-  private entities: EntityName[] = [];
-  private deleteButton: HTMLButtonElement | null = null;
+export const NULL_ENTITY_NAME: EntityName = {
+  id: 0,
+  name: "",
+  // default values...
+  userId: 0,
+  created_at: new Date(),
+  updated_at: new Date(),
+};
 
-  constructor() {
-    super();
-    
-    this.#template = html`
-      <section>
-        <h2>Entities</h2>
-        <ul id="entity-list"></ul>
-        <button id="refresh-button">Refresh</button>
-      </section>
-    `;
-    
-    this.innerHTML = this.#template;
-    this.loadEntities();
-  }
-  
-  private async loadEntities(): Promise<void> {
-    try {
-      this.entities = await fetchAllEntities();
-      this.render();
-    } catch (error) {
-      console.error('Failed to load entities:', error);
-    }
-  }
-  
-  private render(): void {
-    const listElement = this.querySelector('#entity-list');
-    if (!listElement) return;
-    
-    listElement.innerHTML = '';
-    
-    this.#entities.forEach(entity => {
-      const li = document.createElement('li');
-      li.textContent = entity.name;
-      listElement.appendChild(li);
-    });
-  }
-  
-  onRefreshClick = (): void => {
-    this.loadEntities();
-  };
-  
-  connectedCallback(): void {
-    const refreshButton = this.querySelector('#refresh-button');
-    if (refreshButton) {
-      refreshButton.addEventListener('click', this.#onRefreshClick);
-    }
-  }
-  
-  disconnectedCallback(): void {
-    const refreshButton = this.querySelector('#refresh-button');
-    if (refreshButton) {
-      refreshButton.removeEventListener('click', this.#onRefreshClick);
-    }
-  }
-}
-
-// Note: The component is not defined here
-// Define in parent module with: customElements.define('entity-list', EntityListComponent);
+/**
+ * Validates an entity
+ * @param entity - The entity to validate
+ * @returns true if valid, false otherwise
+ */
+export const validateEntityName = (entity: Partial<EntityName>): boolean => {
+  // Client-side validation logic
+  return Boolean(entity.name /* other validations */);
+};
 ```
 
 ---
