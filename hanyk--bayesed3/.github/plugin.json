@@ -1,0 +1,9 @@
+{
+  "name": "hanyk--bayesed3",
+  "displayName": "BayeSED3",
+  "description": "A Bayesian SED synthesis and analysis tool for galaxies and AGNs, featuring an interface optimized for both humans and AI agents.",
+  "version": "1.0.0",
+  "author": "hanyk",
+  "homepage": "https://github.com/hanyk/BayeSED3",
+  "skills": []
+}
