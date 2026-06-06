@@ -1,0 +1,9 @@
+{
+  "name": "tripplyons--pokeemerald-wasm",
+  "displayName": "pokeemerald-wasm",
+  "description": "Pokemon Emerald in WebAssembly",
+  "version": "1.0.0",
+  "author": "tripplyons",
+  "homepage": "https://github.com/tripplyons/pokeemerald-wasm",
+  "skills": []
+}
