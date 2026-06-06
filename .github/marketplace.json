@@ -162239,6 +162239,11 @@
       "description": "Simple OpenAPI Discovery Portal - Create an elegant API portal for your OpenAPI specifications with minimal configuration."
     },
     {
+      "name": "maria-rcks--mode",
+      "source": "./maria-rcks--mode",
+      "description": "Maria\u2019s Opinionated Development Environment "
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
