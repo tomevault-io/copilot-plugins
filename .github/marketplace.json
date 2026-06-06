@@ -2399,6 +2399,11 @@
       "description": "The Open Standard for Generative UI"
     },
     {
+      "name": "strands-agents--harness-sdk",
+      "source": "./strands-agents--harness-sdk",
+      "description": "A model-driven approach to building AI agents in just a few lines of code."
+    },
+    {
       "name": "hellodigua--chatlab",
       "source": "./hellodigua--chatlab",
       "description": "Rediscover your social memories with local, AI-powered analysis. \u672c\u5730\u5316\u7684\u804a\u5929\u8bb0\u5f55\u5206\u6790\u5de5\u5177\uff0c\u901a\u8fc7 AI Agent \u56de\u987e\u4f60\u7684\u793e\u4ea4\u8bb0\u5fc6\u3002"
