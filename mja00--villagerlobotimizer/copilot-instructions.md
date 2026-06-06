@@ -1,39 +1,48 @@
-## paper-api
+## project-structure
 
-> Paper API best practices for this plugin
+> - **Main plugin class**: [src/main/java/dev/mja00/villagerLobotomizer/VillagerLobotomizer.java](mdc:src/main/java/dev/mja00/villagerLobotomizer/VillagerLobotomizer.java)
 
-## Paper API best practices
+## Project structure and entry points
 
-- **No NMS/CraftBukkit**
-  - Never import or use `net.minecraft.*`, `org.bukkit.craftbukkit.*`, or Mojang-mapped NMS classes. Do not reflect into NMS.
-  - Use only Paper/Bukkit API and Adventure. If a capability is missing, prefer API-friendly alternatives or upstream API requests.
+- **Main plugin class**: [src/main/java/dev/mja00/villagerLobotomizer/VillagerLobotomizer.java](mdc:src/main/java/dev/mja00/villagerLobotomizer/VillagerLobotomizer.java)
+  - Initializes config, update check, storage, events, commands (via Paper lifecycle), metrics, and optional debug teams
+  - Cleans up storage and debug teams on disable
 
-- **Threading**
-  - Do not touch Bukkit entities/world off the main thread. Use async only for I/O (e.g., update checks) and return results to main thread if needed.
+- **Command registration (Brigadier)**: [src/main/java/dev/mja00/villagerLobotomizer/LobotomizeCommand.java](mdc:src/main/java/dev/mja00/villagerLobotomizer/LobotomizeCommand.java)
+  - Registered in lifecycle `LifecycleEvents.COMMANDS`
+  - Permission-gated by `lobotomy.command`
 
-- **Scheduling**
-  - Use `Bukkit.getScheduler().runTaskTimer(plugin, ...)` for periodic tasks and keep work small per tick.
-  - Reuse existing tasks in `LobotomizeStorage` for villager processing; avoid adding redundant tick loops.
+- **Entity and chunk events**: [src/main/java/dev/mja00/villagerLobotomizer/listeners/EntityListener.java](mdc:src/main/java/dev/mja00/villagerLobotomizer/listeners/EntityListener.java)
+  - Tracks villagers on add/remove; monitors block place/break and chunk load/unload for debug
 
-- **Commands (Brigadier)**
-  - Define literals/arguments in `LobotomizeCommand`; register in `LifecycleEvents.COMMANDS` from the main plugin class.
-  - Gate execution via permission checks and provide clear user feedback.
+- **Core state and logic**: [src/main/java/dev/mja00/villagerLobotomizer/LobotomizeStorage.java](mdc:src/main/java/dev/mja00/villagerLobotomizer/LobotomizeStorage.java)
+  - Maintains sets for "active" and "inactive" villagers
+  - Periodic tasks: deactivator, activator, and chunk-change processing (intervals from config)
+  - Lobotomy decision: name overrides, sleeping status, vehicle state, profession, roof, and path cardinality
+  - Trade refresh and level-up logic using PDC keys and Paper registries
 
-- **Persistent Data**
-  - Store villager state via PDC keys with `NamespacedKey(plugin, key)`. Keep keys stable; avoid renaming without migration.
+- **Utilities**: [src/main/java/dev/mja00/villagerLobotomizer/utils/VillagerUtils.java](mdc:src/main/java/dev/mja00/villagerLobotomizer/utils/VillagerUtils.java)
+  - Profession to workstation map and default sounds; local job-site detection
 
-- **Registries and sounds**
-  - Resolve sounds via Paper `RegistryAccess` and `RegistryKey.SOUND_EVENT`; accept vanilla keys without the `minecraft:` prefix.
+- **Update checker**: [src/main/java/dev/mja00/villagerLobotomizer/objects/Modrinth.java](mdc:src/main/java/dev/mja00/villagerLobotomizer/objects/Modrinth.java)
+  - JSON model for Modrinth API; used asynchronously in main class
 
-- **Chunks and entities**
-  - Check `chunk.isLoaded()` before work; skip or defer otherwise.
-  - Use `Chunk#getEntities()` when processing per-chunk and keep iteration efficient.
+- **Plugin descriptor**: [src/main/resources/plugin.yml](mdc:src/main/resources/plugin.yml)
+  - Declares `main`, `api-version`, metadata, and `lobotomy.command` permission
 
-- **Config-driven behavior**
-  - Read toggles and intervals from [config.yml](mdc:src/main/resources/config.yml). Expose debug flags and reduce log noise unless `debug` or `chunk-debug` are enabled.
+- **Configuration**: [src/main/resources/config.yml](mdc:src/main/resources/config.yml)
+  - Intervals, toggles, sound keys, and debug options; values are read in `VillagerLobotomizer` and `LobotomizeStorage`
 
-- **Shutdown and cleanup**
-  - Ensure `onDisable` restores villager awareness and unregisters teams to avoid lingering side effects across reloads.
+- **Build and tooling**: [build.gradle.kts](mdc:build.gradle.kts), [settings.gradle.kts](mdc:settings.gradle.kts)
+  - JDK 21 toolchain, Paperweight userdev, Run-Paper for dev server, Shadow for distribution, Hangar publish
+
+### Invariants and conventions
+
+- Do not block the main thread. All network I/O (e.g., Modrinth check) is asynchronous.
+- Always clean up: villagers in `inactive` are made aware on shutdown; scoreboard teams are unregistered on disable.
+- Add new commands via Brigadier and register inside `LifecycleEvents.COMMANDS`; update permissions in `plugin.yml` when needed.
+- Any new config-driven behavior must read from [config.yml](mdc:src/main/resources/config.yml) and avoid hardcoding constants.
+- When introducing persistent flags, prefer PDC with `NamespacedKey(plugin, key)` to avoid collisions.
 
 ---
 > Source: [mja00/VillagerLobotimizer](https://github.com/mja00/VillagerLobotimizer) — distributed by [TomeVault](https://tomevault.io).
