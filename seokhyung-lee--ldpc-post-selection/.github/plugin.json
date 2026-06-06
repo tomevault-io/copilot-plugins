@@ -1,0 +1,9 @@
+{
+  "name": "seokhyung-lee--ldpc-post-selection",
+  "displayName": "ldpc-post-selection",
+  "description": "Python package for decoding quantum LDPC codes with cluster-based post-selection",
+  "version": "1.0.0",
+  "author": "seokhyung-lee",
+  "homepage": "https://github.com/seokhyung-lee/ldpc-post-selection",
+  "skills": []
+}
