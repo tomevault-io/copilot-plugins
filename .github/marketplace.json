@@ -185239,6 +185239,21 @@
       "description": "2D Game Dev Library"
     },
     {
+      "name": "dryvist--ai-assistant-instructions",
+      "source": "./dryvist--ai-assistant-instructions",
+      "description": "A comprehensive, vendor-agnostic framework for consistent AI-assisted development workflows - standardized instructions and commands that work seamlessly across Claude, Gemini, Copilot, and local AI m"
+    },
+    {
+      "name": "dryvist--ai-assistant-instructions",
+      "source": "./dryvist--ai-assistant-instructions",
+      "description": "A comprehensive, vendor-agnostic framework for consistent AI-assisted development workflows - standardized instructions and commands that work seamlessly across Claude, Gemini, Copilot, and local AI m"
+    },
+    {
+      "name": "ai-riksarkivet--ra-mcp",
+      "source": "./ai-riksarkivet--ra-mcp",
+      "description": "MCPs for Riksarkivet open APIs. This covers both agents and mcps"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -198349,6 +198364,16 @@
       "description": "modelregression"
     },
     {
+      "name": "mexregkan--claude-for-researchers",
+      "source": "./mexregkan--claude-for-researchers",
+      "description": "A guide and toolkit for researchers using Claude Code on long technical projects"
+    },
+    {
+      "name": "codexvn--rimworldmod-rimworldai",
+      "source": "./codexvn--rimworldmod-rimworldai",
+      "description": "RimWorldMod_RimWorldAI"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -201677,6 +201702,11 @@
       "name": "freddy-schuetz--hackathon-n8n-starter",
       "source": "./freddy-schuetz--hackathon-n8n-starter",
       "description": "Einsteiger-freundlicher Hackathon-Starter: Claude Code + n8n \u2014 Skills, n8n-MCP, KI-Agent-Lernworkflows + Frontend/Backend-Beispiele. Setup per \u201erichte mir das ein\u201c."
+    },
+    {
+      "name": "satadeep3927--rune",
+      "source": "./satadeep3927--rune",
+      "description": "rune"
     },
     {
       "name": "ldmoxeii--only-engine",
