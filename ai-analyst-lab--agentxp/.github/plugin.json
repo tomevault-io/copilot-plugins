@@ -1,0 +1,9 @@
+{
+  "name": "ai-analyst-lab--agentxp",
+  "displayName": "agentxp",
+  "description": "Open-source system for the design and analysis of controlled experiments, intended for use inside Claude Code.",
+  "version": "1.0.0",
+  "author": "ai-analyst-lab",
+  "homepage": "https://github.com/ai-analyst-lab/agentxp",
+  "skills": []
+}
