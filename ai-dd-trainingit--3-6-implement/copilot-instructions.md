@@ -1,101 +1,52 @@
-## server-api-repository
+## server-api
 
-> Generate a server API repository module
+> Generate a server full API
 
 
-# Server API Repository Rules
+# Server API Rules
 
-## Naming Conventions
-- File naming: Use `{entity-name}.repository.ts` in kebab-case
-- Location: Place in `src/server/api/{entity-name}/` folder
-- Function names: Use camelCase with verb + entity name pattern (e.g., `selectAllTools`, `insertUser`)
-- SQL variable: Use camelCase with entity name + `Sql` suffix (e.g., `toolsSql`, `usersSql`)
+## Overview
+A complete API resource consists of:
+1. A controller to handle HTTP requests/responses (using [server-api-controller.mdc](mdc:.cursor/rules/server-api-controller.mdc))
+2. A repository for database operations (using [server-api-repository.mdc](mdc:.cursor/rules/server-api-repository.mdc))
+3. Domain entity type definitions if not already existing (using [server-domain-entity.mdc](mdc:.cursor/rules/server-domain-entity.mdc) )
+4. DTO types for requests and responses (defined in [server-api-controller.mdc](mdc:.cursor/rules/server-api-controller.mdc))
 
-## Required Structure
-1. **SQL Commands Loading**:
-   - Load SQL commands at the top using `readCommands("{entity-name}")`
-   - Store the result in a constant named `{entityName}Sql`
+## Implementation Process
+To create a new API resource, follow these steps:
 
-2. **Core Functions**:
-   - Export CRUD functions as needed for the entity
-   - Common patterns:
-     - `selectAll{EntityName}s` - Get all entities
-     - `select{EntityName}ById` - Get entity by ID
-     - `insert{EntityName}` - Create new entity
-     - `update{EntityName}` - Update existing entity
-     - `select{EntityName}By{Field}` - Get entity by specific field
+1. **Create Resource Directory**:
+   ```
+   src/server/api/{resource-name}/
+   ```
 
-3. **Return Types**:
-   - Be explicit with return types
-   - Return entity arrays as `EntityType[]`
-   - Return single entities as `EntityType`
-   - Return IDs as `number`
+2. **Generate Domain Entity** (if needed):
+   Create a domain entity following the [server-entity.mdc](mdc:.cursor/rules/server-entity.mdc) rules:
+   ```
+   src/server/domain/{resource-name}.type.ts
+   ```
 
-## Imports
-- Import entity types from domain folder
-- Import validation functions from entity type files
-- Import SQL utilities from shared folder
-- Import `AppError` if throwing custom errors
+3. **Create Repository**:
+   Generate a repository using [server-repository.mdc](mdc:.cursor/rules/server-repository.mdc) rule :
+   ```
+   src/server/api/{resource-name}/{resource-name}.repository.ts
+   ```
 
-## Error Handling
-- Validate input using entity validation function before insert/update
-- Use `AppError` with appropriate error type for failures
-- Handle special cases (e.g., duplicate records, not found)
+4. **Create Controller**:
+   Generate a controller following [server-controller.mdc](mdc:.cursor/rules/server-controller.mdc)  with appropriate endpoints:
+   ```
+   src/server/api/{resource-name}/{resource-name}.controller.ts
+   ```
 
-## Documentation
-- Add JSDoc comments to all exported functions
-- Document parameters with types and descriptions
-- Document return values
-- Document exceptions that may be thrown
+5. **Create DTOs**:
+   Add request/response DTOs as described in [server-controller.mdc](mdc:.cursor/rules/server-controller.mdc) 
+   ```
+   src/server/api/{resource-name}/{resource-name}-response.type.ts
+   src/server/api/{resource-name}/{resource-name}-{action}-request.type.ts
+   ```
 
-## Example Structure
-```typescript
-import type { EntityName } from "@/server/domain/entity-name.type";
-import { validateEntityName } from "@/server/domain/entity-name.type";
-import type { Raw } from "@/server/shared/sql.type";
-import { AppError } from "@/server/shared/app-error.class";
-import { 
-  insert, 
-  readCommands, 
-  selectAll, 
-  selectById 
-} from "@/server/shared/sql.utils";
-
-const entitySql = await readCommands("entity-name");
-
-/**
- * Selects all entities
- * @returns The entities array
- */
-export const selectAllEntities = (): EntityName[] => {
-  const results = selectAll<EntityName>(entitySql.SELECT_ALL);
-  return results || [];
-};
-
-/**
- * Selects an entity by id
- * @param id - The id of the entity
- * @returns The entity
- * @throws AppError if the entity is not found
- */
-export const selectEntityById = (id: number): EntityName => {
-  const result = selectById<EntityName>(entitySql.SELECT_BY_ID, id);
-  return result;
-};
-
-/**
- * Inserts an entity
- * @param entityToInsert - The entity to insert
- * @returns The entity inserted
- * @throws AppError if the entity is not valid
- */
-export const insertEntity = (entityToInsert: Raw<EntityName>): EntityName => {
-  validateEntityName(entityToInsert);
-  const entityId = insert<Raw<EntityName>>(entitySql.INSERT, entityToInsert);
-  const entity = selectById<EntityName>(entitySql.SELECT_BY_ID, entityId);
-  return entity;
-};
-```
+6. **Register in API Controller**:
+   Update `/src/server/api/api.controller.ts` to include the new resource.
 
 ---
 > Source: [AI-DD-TrainingIT/3_6-implement](https://github.com/AI-DD-TrainingIT/3_6-implement) — distributed by [TomeVault](https://tomevault.io).
