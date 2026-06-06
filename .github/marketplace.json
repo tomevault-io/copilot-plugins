@@ -185334,6 +185334,21 @@
       "description": "An extremely performant & universal dependency manager that just works."
     },
     {
+      "name": "seokhyung-lee--ldpc-post-selection",
+      "source": "./seokhyung-lee--ldpc-post-selection",
+      "description": "Python package for decoding quantum LDPC codes with cluster-based post-selection"
+    },
+    {
+      "name": "anhnbt--viettyping",
+      "source": "./anhnbt--viettyping",
+      "description": "viettyping"
+    },
+    {
+      "name": "xpenatan--jwebgpu",
+      "source": "./xpenatan--jwebgpu",
+      "description": "WebGPU Java Bindings for wgpu-native and Dawn"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -198484,6 +198499,16 @@
       "description": "CLI for creating, searching, reading transcripts, and controlling Codex app-server threads"
     },
     {
+      "name": "flyfission--nuclear-grade-context-engineering",
+      "source": "./flyfission--nuclear-grade-context-engineering",
+      "description": "AI agents now operate with authority. Authority without discipline is how complex systems fail. Nuclear\u2019s control loop, ported to AI-assisted software engineering."
+    },
+    {
+      "name": "kazusa000--ai-game-workbench",
+      "source": "./kazusa000--ai-game-workbench",
+      "description": "Local-first AI game asset workbench for 2D character workflows"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -201847,6 +201872,11 @@
       "name": "aiwardsh--aiward",
       "source": "./aiwardsh--aiward",
       "description": "aiward"
+    },
+    {
+      "name": "joeseesun--qiaomu-english-learn",
+      "source": "./joeseesun--qiaomu-english-learn",
+      "description": "Qiaomu English Learn browser extension for translation-assisted vocabulary learning"
     },
     {
       "name": "ldmoxeii--only-engine",
