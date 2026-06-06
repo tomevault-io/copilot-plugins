@@ -1,0 +1,9 @@
+{
+  "name": "sprice--memento-mori",
+  "displayName": "memento-mori",
+  "description": "A Mac OS menu bar app to support reflection on the inevitability of death",
+  "version": "1.0.0",
+  "author": "sprice",
+  "homepage": "https://github.com/sprice/memento-mori",
+  "skills": []
+}
