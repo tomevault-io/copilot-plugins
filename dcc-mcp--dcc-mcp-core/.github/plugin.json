@@ -1,0 +1,9 @@
+{
+  "name": "dcc-mcp--dcc-mcp-core",
+  "displayName": "dcc-mcp-core",
+  "description": "Core runtime and shared tooling for DCC-MCP: safe, skill-first MCP integration across Maya, Blender, Houdini, Photoshop, and custom DCC hosts.",
+  "version": "1.0.0",
+  "author": "dcc-mcp",
+  "homepage": "https://github.com/dcc-mcp/dcc-mcp-core",
+  "skills": []
+}
