@@ -1,0 +1,9 @@
+{
+  "name": "brewingelixir--council-ex",
+  "displayName": "council_ex",
+  "description": "Elixir framework for multi-model LLM councils. Debate, vote, tournament, synthesize. Provider-agnostic.",
+  "version": "1.0.0",
+  "author": "brewingelixir",
+  "homepage": "https://github.com/brewingelixir/council_ex",
+  "skills": []
+}
