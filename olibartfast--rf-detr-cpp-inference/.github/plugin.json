@@ -1,0 +1,9 @@
+{
+  "name": "olibartfast--rf-detr-cpp-inference",
+  "displayName": "rf-detr-cpp-inference",
+  "description": "RF-DETR C++ inference engine for object detection and instance segmentation with ONNX Runtime and TensorRT support",
+  "version": "1.0.0",
+  "author": "olibartfast",
+  "homepage": "https://github.com/olibartfast/rf-detr-cpp-inference",
+  "skills": []
+}
