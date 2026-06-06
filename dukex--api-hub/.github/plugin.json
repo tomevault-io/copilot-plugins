@@ -1,0 +1,9 @@
+{
+  "name": "dukex--api-hub",
+  "displayName": "api-hub",
+  "description": "Simple OpenAPI Discovery Portal - Create an elegant API portal for your OpenAPI specifications with minimal configuration.",
+  "version": "1.0.0",
+  "author": "dukex",
+  "homepage": "https://github.com/dukex/api-hub",
+  "skills": []
+}
