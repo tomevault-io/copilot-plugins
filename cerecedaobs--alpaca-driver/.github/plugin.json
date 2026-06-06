@@ -1,0 +1,9 @@
+{
+  "name": "cerecedaobs--alpaca-driver",
+  "displayName": "alpaca-driver",
+  "description": "An ASCOM Alpaca driver implemented in Go",
+  "version": "1.0.0",
+  "author": "CerecedaObs",
+  "homepage": "https://github.com/CerecedaObs/alpaca-driver",
+  "skills": []
+}
