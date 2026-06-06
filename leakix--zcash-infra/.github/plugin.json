@@ -1,0 +1,9 @@
+{
+  "name": "leakix--zcash-infra",
+  "displayName": "zcash-infra",
+  "description": "Run your own Zcash infrastructure",
+  "version": "1.0.0",
+  "author": "LeakIX",
+  "homepage": "https://github.com/LeakIX/zcash-infra",
+  "skills": []
+}
