@@ -1,0 +1,9 @@
+{
+  "name": "wooogler--choir",
+  "displayName": "choir",
+  "description": "The CHOIR App using Slack Bolt",
+  "version": "1.0.0",
+  "author": "wooogler",
+  "homepage": "https://github.com/wooogler/choir",
+  "skills": []
+}
