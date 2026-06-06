@@ -1,0 +1,9 @@
+{
+  "name": "connglli--reify",
+  "displayName": "Reify",
+  "description": "Random program generation based on semantic reification (PLDI'26)",
+  "version": "1.0.0",
+  "author": "connglli",
+  "homepage": "https://github.com/connglli/Reify",
+  "skills": []
+}
