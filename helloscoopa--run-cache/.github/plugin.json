@@ -1,0 +1,9 @@
+{
+  "name": "helloscoopa--run-cache",
+  "displayName": "run-cache",
+  "description": "RunCache is a dependency-free, lightweight runtime caching library for JavaScript and TypeScript.",
+  "version": "1.0.0",
+  "author": "helloscoopa",
+  "homepage": "https://github.com/helloscoopa/run-cache",
+  "skills": []
+}
