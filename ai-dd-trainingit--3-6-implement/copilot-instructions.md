@@ -1,156 +1,99 @@
-## server-api-controller
+## server-api-repository
 
-> Generate a server API controller module
+> Generate a server API repository module
 
 
-# Server API Controller Rules
+# Server API Repository Rules
 
 ## Naming Conventions
-- File naming: Use `{entity-name}.controller.ts` in kebab-case
+- File naming: Use `{entity-name}.repository.ts` in kebab-case
 - Location: Place in `src/server/api/{entity-name}/` folder
-- Routes object: Name as `{entityName}Routes` (camelCase)
-- Controller functions: Use camelCase with HTTP method + entity name pattern (e.g., `getTools`, `postAsset`)
-- Response types: Use PascalCase with entity name + "Response" suffix (e.g., `AssetResponse`, `UserTokenResponse`)
-- Request types: Use PascalCase with entity name + "Request" suffix (e.g., `CredentialsRequest`, `ToolPostRequest`)
+- Function names: Use camelCase with verb + entity name pattern (e.g., `selectAllTools`, `insertUser`)
+- SQL variable: Use camelCase with entity name + `Sql` suffix (e.g., `toolsSql`, `usersSql`)
 
 ## Required Structure
-1. **Routes Object**:
-   - Export a constant named `{entityName}Routes`
-   - Map HTTP methods (GET, POST, PUT, DELETE) to their handler functions
-   - Include JSDoc comment describing available routes
+1. **SQL Commands Loading**:
+   - Load SQL commands at the top using `readCommands("{entity-name}")`
+   - Store the result in a constant named `{entityName}Sql`
 
-2. **Controller Functions**:
-   - Implement private controller functions for each HTTP method
-   - Follow naming pattern: `{httpMethod}{EntityName}` (e.g., `getTools`, `postAsset`)
-   - Return Response objects using shared response utilities
+2. **Core Functions**:
+   - Export CRUD functions as needed for the entity
+   - Common patterns:
+     - `selectAll{EntityName}s` - Get all entities
+     - `select{EntityName}ById` - Get entity by ID
+     - `insert{EntityName}` - Create new entity
+     - `update{EntityName}` - Update existing entity
+     - `select{EntityName}By{Field}` - Get entity by specific field
 
-3. **Request Processing**:
-   - Use guard functions for validation (`guardGetUserId`, `guardGetBody`)
-   - Extract and validate request bodies
-   - Transform DTOs to domain objects before calling repositories
-
-4. **Response Formatting**:
-   - Use response utilities (e.g., `ok`, `badRequest`) 
-   - Map domain entities to response DTOs when needed
-   - Maintain consistent response structure
-
-## DTO Generation
-1. **Request DTOs**:
-   - File naming: Use `{entity-name}-{action}-request.type.ts` in kebab-case (e.g., `asset-post-request.type.ts`)
-   - Type naming: Use PascalCase with action + "Request" suffix (e.g., `AssetPostRequest`, `CredentialsRequest`)
-   - Include only fields needed from the client, omitting server-specific fields like `user_id`, `created_at`, etc.
-   - Example:
-     ```typescript
-     /**
-      * Request DTO for creating a new entity
-      */
-     export type EntityPostRequest = {
-       name: string;
-       description: string;
-       category_id: number;
-       // Omit user_id, created_at, updated_at, etc.
-     };
-     ```
-
-2. **Response DTOs**:
-   - File naming: Use `{entity-name}-response.type.ts` in kebab-case (e.g., `asset-response.type.ts`, `user-token-response.type.ts`)
-   - Type naming: Use PascalCase with "Response" suffix (e.g., `AssetResponse`, `CategoryResponse`)
-   - Typically mirror the domain entity, but may exclude sensitive or unnecessary fields
-   - May include additional derived or computed properties not in the domain model
-   - Example:
-     ```typescript
-     /**
-      * Response DTO for entity data
-      */
-     export type EntityResponse = {
-       id: number;
-       name: string;
-       description: string;
-       category_id: number;
-       created_at: string; // Often date fields are stringified in responses
-       // May omit internal fields like user_id
-     };
-     ```
-
-3. **DTO Transformations**:
-   - Use type casting with `as` for simple transformations
-   - For complex transformations, create mapping functions
-   - Handle date serialization (converting Date objects to strings)
-   - Example:
-     ```typescript
-     // Simple mapping
-     const response: EntityResponse = entity as EntityResponse;
-     
-     // Complex mapping with multiple entities
-     const response: EntityResponse[] = entities.map(entity => ({
-       id: entity.id,
-       name: entity.name,
-       description: entity.description,
-       category_id: entity.category_id,
-       created_at: entity.created_at.toISOString()
-     }));
-     ```
+3. **Return Types**:
+   - Be explicit with return types
+   - Return entity arrays as `EntityType[]`
+   - Return single entities as `EntityType`
+   - Return IDs as `number`
 
 ## Imports
 - Import entity types from domain folder
-- Import repository functions from the corresponding repository file
-- Import request/response utilities from shared folder
-- Import request/response type definitions
-
-## Authentication
-- Use `guardGetUserId` for secured endpoints
-- Apply user ID to created entities via the `user_id` field
-- Handle authorization checks as needed
+- Import validation functions from entity type files
+- Import SQL utilities from shared folder
+- Import `AppError` if throwing custom errors
 
 ## Error Handling
-- Use appropriate response utilities for error cases
-- Consider validation before processing
+- Validate input using entity validation function before insert/update
+- Use `AppError` with appropriate error type for failures
+- Handle special cases (e.g., duplicate records, not found)
 
 ## Documentation
-- Add JSDoc comments to the routes object
-- Document the available HTTP methods and their purpose
-- Add JSDoc comments to all DTO types
+- Add JSDoc comments to all exported functions
+- Document parameters with types and descriptions
+- Document return values
+- Document exceptions that may be thrown
 
 ## Example Structure
 ```typescript
-import type { Entity } from "@/server/domain/entity.type";
-import { guardGetBody, guardGetUserId } from "@/server/shared/request.utils";
-import { ok } from "@/server/shared/response.utils";
+import type { EntityName } from "@/server/domain/entity-name.type";
+import { validateEntityName } from "@/server/domain/entity-name.type";
 import type { Raw } from "@/server/shared/sql.type";
-import type { EntityPostRequest } from "./entity-post-request.type";
-import type { EntityResponse } from "./entity-response.type";
-import { insertEntity, selectAllEntities } from "./entity.repository";
+import { AppError } from "@/server/shared/app-error.class";
+import { 
+  insert, 
+  readCommands, 
+  selectAll, 
+  selectById 
+} from "@/server/shared/sql.utils";
+
+const entitySql = await readCommands("entity-name");
 
 /**
- * Routes controller for /api/entities
- * - GET: Get all entities
- * - POST: Create a new entity
- * @description Object that wires the request to the correct controller
+ * Selects all entities
+ * @returns The entities array
  */
-export const entityRoutes = {
-  GET: async (request: Request): Promise<Response> => await getEntities(request),
-  POST: async (request: Request): Promise<Response> => await postEntity(request),
+export const selectAllEntities = (): EntityName[] => {
+  const results = selectAll<EntityName>(entitySql.SELECT_ALL);
+  return results || [];
 };
 
-const getEntities = async (request: Request): Promise<Response> => {
-  const entities = selectAllEntities();
-  const response: EntityResponse[] = entities.map(e => e as EntityResponse);
-  return ok<EntityResponse[]>(response);
+/**
+ * Selects an entity by id
+ * @param id - The id of the entity
+ * @returns The entity
+ * @throws AppError if the entity is not found
+ */
+export const selectEntityById = (id: number): EntityName => {
+  const result = selectById<EntityName>(entitySql.SELECT_BY_ID, id);
+  return result;
 };
 
-const postEntity = async (request: Request): Promise<Response> => {
-  const userId = guardGetUserId(request);
-  const entityDto = await guardGetBody<EntityPostRequest>(request);
-  
-  const rawEntity: Raw<Entity> = {
-    ...entityDto,
-    user_id: userId,
-  };
-  
-  const entity = insertEntity(rawEntity);
-  const response: EntityResponse = entity as EntityResponse;
-  
-  return ok<EntityResponse>(response);
+/**
+ * Inserts an entity
+ * @param entityToInsert - The entity to insert
+ * @returns The entity inserted
+ * @throws AppError if the entity is not valid
+ */
+export const insertEntity = (entityToInsert: Raw<EntityName>): EntityName => {
+  validateEntityName(entityToInsert);
+  const entityId = insert<Raw<EntityName>>(entitySql.INSERT, entityToInsert);
+  const entity = selectById<EntityName>(entitySql.SELECT_BY_ID, entityId);
+  return entity;
 };
 ```
 
