@@ -1,0 +1,9 @@
+{
+  "name": "zongmin-yu--serenity-skills",
+  "displayName": "serenity-skills",
+  "description": "AI infrastructure & semiconductor supply chain analysis skill for Claude Code and Cursor, distilled from Serenity (@aleabitoreddit) on X",
+  "version": "1.0.0",
+  "author": "zongmin-yu",
+  "homepage": "https://github.com/zongmin-yu/serenity-skills",
+  "skills": []
+}
