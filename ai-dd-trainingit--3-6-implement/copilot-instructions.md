@@ -1,52 +1,78 @@
-## server-api
+## server-domain-entity
 
-> Generate a server full API
+> Rules to generate a server domain entity
 
 
-# Server API Rules
+# Server Domain Entity Rules
 
-## Overview
-A complete API resource consists of:
-1. A controller to handle HTTP requests/responses (using [server-api-controller.mdc](mdc:.cursor/rules/server-api-controller.mdc))
-2. A repository for database operations (using [server-api-repository.mdc](mdc:.cursor/rules/server-api-repository.mdc))
-3. Domain entity type definitions if not already existing (using [server-domain-entity.mdc](mdc:.cursor/rules/server-domain-entity.mdc) )
-4. DTO types for requests and responses (defined in [server-api-controller.mdc](mdc:.cursor/rules/server-api-controller.mdc))
+## Naming Conventions
+- **File naming**: Use `{entity-name}.type.ts` in `kebab-case`
+- **Type names**: Use `PascalCase` for type definitions (e.g., `Tool`)
+- **Constants**: Use `UPPER_SNAKE_CASE` for null/default objects (e.g., `NULL_TOOL`)
+- **Functions**: Use `camelCase` for validation functions (e.g., `validateTool`)
+- **Fields**: Use `snake_case` for all entity properties (e.g., `user_id`)
 
-## Implementation Process
-To create a new API resource, follow these steps:
+## Required Exports
+1. **Main Entity Type**:
+   - Define as TypeScript `type` (not interface or class)
+   - Include `id` as primary key
+   - Include audit fields: `created_at` and `updated_at`
 
-1. **Create Resource Directory**:
-   ```
-   src/server/api/{resource-name}/
-   ```
+2. **NULL/Default Object**:
+   - Export a constant with default values for all fields 
+   - Name as `NULL_{ENTITY_NAME}`
 
-2. **Generate Domain Entity** (if needed):
-   Create a domain entity following the [server-entity.mdc](mdc:.cursor/rules/server-entity.mdc) rules:
-   ```
-   src/server/domain/{resource-name}.type.ts
-   ```
+3. **Validation Function**:
+   - Export a function named `validate{EntityName}`
+   - Accept a partial entity as parameter
+   - Throw `AppError` with type "LOGIC" when validation fails
 
-3. **Create Repository**:
-   Generate a repository using [server-repository.mdc](mdc:.cursor/rules/server-repository.mdc) rule :
-   ```
-   src/server/api/{resource-name}/{resource-name}.repository.ts
-   ```
+## Imports
+- Import `AppError` from `@server/shared/app-error.class`
+- Import related types from `@server/shared/sql.type`
 
-4. **Create Controller**:
-   Generate a controller following [server-controller.mdc](mdc:.cursor/rules/server-controller.mdc)  with appropriate endpoints:
-   ```
-   src/server/api/{resource-name}/{resource-name}.controller.ts
-   ```
+## Extras
+- Follow [general typesscript rules]()
 
-5. **Create DTOs**:
-   Add request/response DTOs as described in [server-controller.mdc](mdc:.cursor/rules/server-controller.mdc) 
-   ```
-   src/server/api/{resource-name}/{resource-name}-response.type.ts
-   src/server/api/{resource-name}/{resource-name}-{action}-request.type.ts
-   ```
+## Example Structure
+```typescript
+import { AppError } from "../shared/app-error.class";
 
-6. **Register in API Controller**:
-   Update `/src/server/api/api.controller.ts` to include the new resource.
+/**
+ * Represents an entity with its properties
+ */
+export type EntityName = {
+  id: number;
+  name: string;
+  // other properties...
+  user_id: number;
+  created_at: Date;
+  updated_at: Date;
+};
+
+/**
+ * Default empty entity object
+ */
+export const NULL_ENTITY_NAME: EntityName = {
+  id: 0,
+  name: "",
+  // default values...
+  user_id: 0,
+  created_at: new Date(),
+  updated_at: new Date(),
+};
+
+/**
+ * Validates an entity
+ * @param entity - The entity to validate
+ * @throws AppError if the entity is invalid
+ */
+export const validateEntityName = (entity: Partial<EntityName>): void => {
+  if (!entity.name /* other validations */) {
+    throw new AppError("Invalid entity", "LOGIC");
+  }
+};
+```
 
 ---
 > Source: [AI-DD-TrainingIT/3_6-implement](https://github.com/AI-DD-TrainingIT/3_6-implement) — distributed by [TomeVault](https://tomevault.io).
