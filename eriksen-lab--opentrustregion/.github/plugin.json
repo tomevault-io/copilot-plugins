@@ -1,0 +1,9 @@
+{
+  "name": "eriksen-lab--opentrustregion",
+  "displayName": "opentrustregion",
+  "description": "A Reusable Library for Second-Order Trust Region Orbital Optimization",
+  "version": "1.0.0",
+  "author": "eriksen-lab",
+  "homepage": "https://github.com/eriksen-lab/opentrustregion",
+  "skills": []
+}
