@@ -1,0 +1,9 @@
+{
+  "name": "joshlacal--petrel",
+  "displayName": "Petrel",
+  "description": "Swift library for the ATProtocol and Bluesky, generated from Lexicons",
+  "version": "1.0.0",
+  "author": "joshlacal",
+  "homepage": "https://github.com/joshlacal/Petrel",
+  "skills": []
+}
