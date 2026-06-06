@@ -1,0 +1,9 @@
+{
+  "name": "go-pkgz--enum",
+  "displayName": "enum",
+  "description": "Type-safe enum package and generator ",
+  "version": "1.0.0",
+  "author": "go-pkgz",
+  "homepage": "https://github.com/go-pkgz/enum",
+  "skills": []
+}
