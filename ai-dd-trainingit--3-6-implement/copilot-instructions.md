@@ -1,113 +1,81 @@
-## client-page
+## client-repository
 
-> Generate a complete client page
+> Generate a client repository
 
 
-# Client Resource Rules
+# Client Repository Rules
 
-## Overview
-A complete client page consists of:
-1. Domain entity types (using [client-entity.mdc](mdc:.cursor/rules/client-entity.mdc))
-2. Repository for API operations (using [client-repository.mdc](mdc:.cursor/rules/client-repository.mdc))
-3. Web Components (using [client-component.mdc](mdc:.cursor/rules/client-component.mdc))
-4. Component registration in main application
+## Naming Conventions
+- File naming: Use `{entity-name}.repository.ts` in kebab-case
+- Location: Place in `src/client/repositories/` folder
+- Function names: Use camelCase with verb + entity name pattern (e.g., `getAllTools`, `createUser`)
+- API base URL: Define as a private constant named `BASE_URL`
 
-## Implementation Process
-To create a new client resource, follow these steps:
+## Required Structure
+1. **Core Functions**:
+   - Export CRUD functions as needed for the entity
+   - Common patterns with REST verbs:
+     - `getAll{EntityName}s` - Get all entities
+     - `get{EntityName}ById` - Get entity by ID
+     - `post{EntityName}` - Create new entity
+     - `put{EntityName}` - Update existing entity
+     - `delete{EntityName}` - Delete entity
+     - `get{EntityName}By{Field}` - Get entity by specific field
 
-1. **Create Domain Entity**:
-   Create a client entity following [client-entity.mdc](mdc:.cursor/rules/client-entity.mdc) rules:
-   ```
-   src/client/domain/{resource-name}.type.ts
-   ```
+2. **Return Types**:
+   - Be explicit with return types
+   - Return entity arrays as `EntityType[]`
+   - Return single entities as `EntityType`
+   - Use Promise for async operations
 
-2. **Create Repository**:
-   Generate a repository using [client-repository.mdc](mdc:.cursor/rules/client-repository.mdc) rule:
-   ```
-   src/client/repositories/{resource-name}.repository.ts
-   ```
+3. **Request Methods**:
+   - Use the fetch utilities in `/src/client/shared/fetch.utils.ts`
+   - Handle HTTP methods (GET, POST, PUT, DELETE)
+   - Transform API responses to client entity objects
 
-3. **Create Components**:
-   Generate components following [client-component.mdc](mdc:.cursor/rules/client-component.mdc):
-   
-   a. List Component:
-   ```
-   src/client/components/{resource-name}/{resource-name}-list.component.ts
-   ```
-   
-   b. Detail Component:
-   ```
-   src/client/components/{resource-name}/{resource-name}-detail.component.ts
-   ```
-   
-   c. Form Component (for create/edit):
-   ```
-   src/client/components/{resource-name}/{resource-name}-form.component.ts
-   ```
+## Cache Management (Optional)
+- Implement simple caching mechanism if needed
+- Clear cache on mutations (create, update, delete)
+- Use localStorage for persistence if appropriate
 
-4. **Register Components**:
-   Update the component registry in the main application:
-   ```
-   src/client/components/register-components.ts
-   ```
-   Add:
-   ```typescript
-   import { EntityListComponent } from "./entity-name/entity-name-list.component";
-   import { EntityDetailComponent } from "./entity-name/entity-name-detail.component";
-   import { EntityFormComponent } from "./entity-name/entity-name-form.component";
-   
-   // Register components
-   customElements.define('entity-list', EntityListComponent);
-   customElements.define('entity-detail', EntityDetailComponent);
-   customElements.define('entity-form', EntityFormComponent);
-   ```
+## Imports
+- Import entity types from domain folder
+- Import fetch utilities
+- Import validation functions if needed
 
-5. **Add to Navigation** (optional):
-   Update the navigation component to include links to the new resource.
+## Error Handling
+- Handle network errors and API errors
+- Implement retry logic if necessary
+- Transform API errors to user-friendly messages
 
-## Component Responsibilities
+## Documentation
+- Add JSDoc comments to all exported functions
+- Document parameters with types and descriptions
+- Document return values and promise resolution
+- Document error cases
 
-1. **List Component**:
-   - Display all entities in a list format
-   - Handle entity selection (navigation to detail)
-   - Include create new entity button
-   - Support filtering/searching if appropriate
+## Example Structure
+```typescript
+import { get, post } from "../shared/fetch.utils";
+import type { EntityName } from "../domain/entity-name.type";
 
-2. **Detail Component**:
-   - Display detailed view of a single entity
-   - Include edit and delete actions
-   - Navigate back to list view
-   - Refresh data as needed
+const BASE_URL = "/api/entities";
 
-3. **Form Component**:
-   - Handle both create and edit operations
-   - Validate input data client-side
-   - Submit data to repository
-   - Show validation errors
-   - Support cancel operation
+export const getAllEntities = async (): Promise<EntityName[]> => {
+  const response = await  get<EntityName[]>(BASE_URL);
+  return response || [];
+};
 
-## State Management
-- Pass entity ID via attributes for detail/edit views
-- Use custom events for communication between components
-- Consider using a shared state store for complex applications
+export const getEntityById = async (id: number): Promise<EntityName> => {
+  const response = await get<EntityName>(`${BASE_URL}/${id}`);
+  return response;
+};
 
-## Routing (Optional)
-- If using a router, update route definitions
-- Handle parameterized routes for detail views
+export const createEntity = async (entity: unknown): Promise<EntityName> => {
+  const response = await post<EntityName>(BASE_URL, entity);
+  return response;
+};
 
-## Example Usage
-```html
-<!-- List view -->
-<entity-list></entity-list>
-
-<!-- Detail view -->
-<entity-detail entity-id="123"></entity-detail>
-
-<!-- Form view for create -->
-<entity-form></entity-form>
-
-<!-- Form view for edit -->
-<entity-form entity-id="123"></entity-form>
 ```
 
 ---
