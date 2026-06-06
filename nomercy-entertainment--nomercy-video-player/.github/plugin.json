@@ -1,0 +1,9 @@
+{
+  "name": "nomercy-entertainment--nomercy-video-player",
+  "displayName": "nomercy-video-player",
+  "description": "Headless, event-driven HTML5 video player with HLS streaming, ASS/SSA + VTT subtitles, PiP, and a plugin system. No UI included. TypeScript-first.",
+  "version": "1.0.0",
+  "author": "NoMercy-Entertainment",
+  "homepage": "https://github.com/NoMercy-Entertainment/nomercy-video-player",
+  "skills": []
+}
