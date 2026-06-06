@@ -1,0 +1,9 @@
+{
+  "name": "githedgehog--dataplane",
+  "displayName": "dataplane",
+  "description": "The hedgehog dataplane",
+  "version": "1.0.0",
+  "author": "githedgehog",
+  "homepage": "https://github.com/githedgehog/dataplane",
+  "skills": []
+}
