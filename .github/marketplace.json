@@ -198694,6 +198694,11 @@
       "description": "Type-safe enum package and generator "
     },
     {
+      "name": "just-every--plugin-ultracode",
+      "source": "./just-every--plugin-ultracode",
+      "description": "Ultracode Codex plugin"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -307582,6 +307587,16 @@
       "name": "ai-dd-trainingit--3-6-implement",
       "source": "./ai-dd-trainingit--3-6-implement",
       "description": "builder implement"
+    },
+    {
+      "name": "1-1is0--oex-downloader",
+      "source": "./1-1is0--oex-downloader",
+      "description": "over engineered proxy downloader"
+    },
+    {
+      "name": "1-1is0--oex-downloader",
+      "source": "./1-1is0--oex-downloader",
+      "description": "over engineered proxy downloader"
     }
   ]
 }
