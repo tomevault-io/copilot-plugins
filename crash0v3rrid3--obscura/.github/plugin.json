@@ -1,0 +1,9 @@
+{
+  "name": "crash0v3rrid3--obscura",
+  "displayName": "obscura",
+  "description": "Rust port of javascript-obfuscator. 21 transforms, ~700\u00d7 faster, byte-deterministic, ships as crate/CLI/Node-addon/WASM.",
+  "version": "1.0.0",
+  "author": "Crash0v3rrid3",
+  "homepage": "https://github.com/Crash0v3rrid3/obscura",
+  "skills": []
+}
