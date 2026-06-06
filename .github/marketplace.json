@@ -185444,6 +185444,16 @@
       "description": "AI infrastructure & semiconductor supply chain analysis skill for Claude Code and Cursor, distilled from Serenity (@aleabitoreddit) on X"
     },
     {
+      "name": "rahmanef63--os-vps",
+      "source": "./rahmanef63--os-vps",
+      "description": "Topside \u2014 mobile-first web cockpit for a headless Linux VPS. Terminal, files, monitor, media + a real remote browser in a desktop-style UI. Single Next.js app, no database, no agent."
+    },
+    {
+      "name": "dustland--kardx",
+      "source": "./dustland--kardx",
+      "description": "A Kards-alike card game example."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -198644,6 +198654,41 @@
       "description": "Elixir framework for multi-model LLM councils. Debate, vote, tournament, synthesize. Provider-agnostic."
     },
     {
+      "name": "ergeaia--ergemd",
+      "source": "./ergeaia--ergemd",
+      "description": "\u4e00\u6b3e\u4e13\u6ce8\u4e8e Markdown \u9605\u8bfb\u7684\u684c\u9762\u5e94\u7528\uff0c\u6838\u5fc3\u7406\u5ff5\uff1a\u6781\u81f4\u7684\u6e32\u67d3\u7f8e\u611f + \u4e1d\u6ed1\u7684\u9605\u8bfb\u4f53\u9a8c+Mermaid\u56fe\u8868\u517c\u5bb9"
+    },
+    {
+      "name": "jiawei601--researchwiki",
+      "source": "./jiawei601--researchwiki",
+      "description": "ResearchWiki"
+    },
+    {
+      "name": "ergeaia--ergemd",
+      "source": "./ergeaia--ergemd",
+      "description": "\u4e00\u6b3e\u4e13\u6ce8\u4e8e Markdown \u9605\u8bfb\u7684\u684c\u9762\u5e94\u7528\uff0c\u6838\u5fc3\u7406\u5ff5\uff1a\u6781\u81f4\u7684\u6e32\u67d3\u7f8e\u611f + \u4e1d\u6ed1\u7684\u9605\u8bfb\u4f53\u9a8c+Mermaid\u56fe\u8868\u517c\u5bb9"
+    },
+    {
+      "name": "wattnpapa--sprechfunk-uebung",
+      "source": "./wattnpapa--sprechfunk-uebung",
+      "description": "sprechfunk-uebung Generator"
+    },
+    {
+      "name": "crash0v3rrid3--obscura",
+      "source": "./crash0v3rrid3--obscura",
+      "description": "Rust port of javascript-obfuscator. 21 transforms, ~700\u00d7 faster, byte-deterministic, ships as crate/CLI/Node-addon/WASM."
+    },
+    {
+      "name": "wattnpapa--sprechfunk-uebung",
+      "source": "./wattnpapa--sprechfunk-uebung",
+      "description": "sprechfunk-uebung Generator"
+    },
+    {
+      "name": "go-pkgz--enum",
+      "source": "./go-pkgz--enum",
+      "description": "Type-safe enum package and generator "
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202017,6 +202062,11 @@
       "name": "momentderek--warp-translation",
       "source": "./momentderek--warp-translation",
       "description": "project to translate Warp"
+    },
+    {
+      "name": "kapital-legal--claude-for-tr-legal",
+      "source": "./kapital-legal--claude-for-tr-legal",
+      "description": "T\u00fcrk hukukuna uyarlanm\u0131\u015f Claude Code plugin koleksiyonu \u2014 Apache 2.0"
     },
     {
       "name": "ldmoxeii--only-engine",
