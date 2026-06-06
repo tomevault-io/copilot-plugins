@@ -1,73 +1,113 @@
-## client-entity
+## client-page
 
-> Generate a client domain entity
+> Generate a complete client page
 
 
-# Client Entity Rules
+# Client Resource Rules
 
-## Naming Conventions
-- File naming: Use `{entity-name}.type.ts` in kebab-case
-- Type names: Use PascalCase for type definitions (e.g., `Tool`)
-- Constants: Use UPPER_SNAKE_CASE for null/default objects (e.g., `NULL_TOOL`)
-- Functions: Use camelCase for validation functions (e.g., `validateTool`)
-- Fields: Use snake_case for all entity properties (They are the couterparts of server DTOs)
+## Overview
+A complete client page consists of:
+1. Domain entity types (using [client-entity.mdc](mdc:.cursor/rules/client-entity.mdc))
+2. Repository for API operations (using [client-repository.mdc](mdc:.cursor/rules/client-repository.mdc))
+3. Web Components (using [client-component.mdc](mdc:.cursor/rules/client-component.mdc))
+4. Component registration in main application
 
-## Required Exports
-1. **Main Entity Type**:
-   - Define as TypeScript `type` (not interface or class)
-   - Include `id` as primary key
-   - Include audit fields: `create_at` and `updated_at` (snake_case to match client conventions)
+## Implementation Process
+To create a new client resource, follow these steps:
 
-2. **NULL/Default Object**:
-   - Export a constant with default values for all fields 
-   - Name as `NULL_{ENTITY_NAME}`
+1. **Create Domain Entity**:
+   Create a client entity following [client-entity.mdc](mdc:.cursor/rules/client-entity.mdc) rules:
+   ```
+   src/client/domain/{resource-name}.type.ts
+   ```
 
-3. **Validation Function** (optional):
-   - Export a function named `validate{EntityName}`
-   - Accept a partial entity as parameter
-   - Return boolean or throw custom error
+2. **Create Repository**:
+   Generate a repository using [client-repository.mdc](mdc:.cursor/rules/client-repository.mdc) rule:
+   ```
+   src/client/repositories/{resource-name}.repository.ts
+   ```
 
-## Imports
-- Import related entity types if needed
+3. **Create Components**:
+   Generate components following [client-component.mdc](mdc:.cursor/rules/client-component.mdc):
+   
+   a. List Component:
+   ```
+   src/client/components/{resource-name}/{resource-name}-list.component.ts
+   ```
+   
+   b. Detail Component:
+   ```
+   src/client/components/{resource-name}/{resource-name}-detail.component.ts
+   ```
+   
+   c. Form Component (for create/edit):
+   ```
+   src/client/components/{resource-name}/{resource-name}-form.component.ts
+   ```
 
-## Documentation
-- Add JSDoc comments to all exported types, constants, and functions
+4. **Register Components**:
+   Update the component registry in the main application:
+   ```
+   src/client/components/register-components.ts
+   ```
+   Add:
+   ```typescript
+   import { EntityListComponent } from "./entity-name/entity-name-list.component";
+   import { EntityDetailComponent } from "./entity-name/entity-name-detail.component";
+   import { EntityFormComponent } from "./entity-name/entity-name-form.component";
+   
+   // Register components
+   customElements.define('entity-list', EntityListComponent);
+   customElements.define('entity-detail', EntityDetailComponent);
+   customElements.define('entity-form', EntityFormComponent);
+   ```
 
-## Example Structure
-```typescript
-/**
- * Represents a client entity with its properties
- */
-export type EntityName = {
-  id: number;
-  name: string;
-  // other properties...
-  user_id: number; // Note snake_case convention for FK
-  created_at: Date;
-  updated_at: Date;
-};
+5. **Add to Navigation** (optional):
+   Update the navigation component to include links to the new resource.
 
-/**
- * Default empty entity object
- */
-export const NULL_ENTITY_NAME: EntityName = {
-  id: 0,
-  name: "",
-  // default values...
-  userId: 0,
-  created_at: new Date(),
-  updated_at: new Date(),
-};
+## Component Responsibilities
 
-/**
- * Validates an entity
- * @param entity - The entity to validate
- * @returns true if valid, false otherwise
- */
-export const validateEntityName = (entity: Partial<EntityName>): boolean => {
-  // Client-side validation logic
-  return Boolean(entity.name /* other validations */);
-};
+1. **List Component**:
+   - Display all entities in a list format
+   - Handle entity selection (navigation to detail)
+   - Include create new entity button
+   - Support filtering/searching if appropriate
+
+2. **Detail Component**:
+   - Display detailed view of a single entity
+   - Include edit and delete actions
+   - Navigate back to list view
+   - Refresh data as needed
+
+3. **Form Component**:
+   - Handle both create and edit operations
+   - Validate input data client-side
+   - Submit data to repository
+   - Show validation errors
+   - Support cancel operation
+
+## State Management
+- Pass entity ID via attributes for detail/edit views
+- Use custom events for communication between components
+- Consider using a shared state store for complex applications
+
+## Routing (Optional)
+- If using a router, update route definitions
+- Handle parameterized routes for detail views
+
+## Example Usage
+```html
+<!-- List view -->
+<entity-list></entity-list>
+
+<!-- Detail view -->
+<entity-detail entity-id="123"></entity-detail>
+
+<!-- Form view for create -->
+<entity-form></entity-form>
+
+<!-- Form view for edit -->
+<entity-form entity-id="123"></entity-form>
 ```
 
 ---
