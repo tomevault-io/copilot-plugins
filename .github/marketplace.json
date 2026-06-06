@@ -97024,6 +97024,11 @@
       "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches."
     },
     {
+      "name": "pipefy--ai-toolkit",
+      "source": "./pipefy--ai-toolkit",
+      "description": "MCP server, CLI, and agent skills for Pipefy."
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -198429,6 +198434,16 @@
       "description": "-ArcReel"
     },
     {
+      "name": "labs-barkley--barkley-reference-architecture",
+      "source": "./labs-barkley--barkley-reference-architecture",
+      "description": "Source-available research demonstrator for individual-referenced behavioral intelligence in dogs."
+    },
+    {
+      "name": "kcosr--codex-threads",
+      "source": "./kcosr--codex-threads",
+      "description": "CLI for creating, searching, reading transcripts, and controlling Codex app-server threads"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -201772,6 +201787,26 @@
       "name": "ninehills--agentcom",
       "source": "./ninehills--agentcom",
       "description": "Remote 1:1 messaging between Pi sessions across machines"
+    },
+    {
+      "name": "rohanbeingsocial--candlekit-charts",
+      "source": "./rohanbeingsocial--candlekit-charts",
+      "description": "Tree-shakeable financial charting toolkit over lightweight-charts: candlestick/OHLC/line/area/volume, drawing tools, pluggable indicators, measurement, and deterministic replay. Framework-agnostic cor"
+    },
+    {
+      "name": "rohanbeingsocial--candlekit-charts",
+      "source": "./rohanbeingsocial--candlekit-charts",
+      "description": "Tree-shakeable financial charting toolkit over lightweight-charts: candlestick/OHLC/line/area/volume, drawing tools, pluggable indicators, measurement, and deterministic replay. Framework-agnostic cor"
+    },
+    {
+      "name": "h-ali13381--historical-bayesian-html-briefing",
+      "source": "./h-ali13381--historical-bayesian-html-briefing",
+      "description": "Agent skill for historical analogies, Bayesian forecasting, and self-contained HTML briefings"
+    },
+    {
+      "name": "aiwardsh--aiward",
+      "source": "./aiwardsh--aiward",
+      "description": "aiward"
     },
     {
       "name": "ldmoxeii--only-engine",
