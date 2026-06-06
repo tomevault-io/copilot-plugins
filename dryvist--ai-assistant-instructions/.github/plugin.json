@@ -1,0 +1,9 @@
+{
+  "name": "dryvist--ai-assistant-instructions",
+  "displayName": "ai-assistant-instructions",
+  "description": "A comprehensive, vendor-agnostic framework for consistent AI-assisted development workflows - standardized instructions and commands that work seamlessly across Claude, Gemini, Copilot, and local AI m",
+  "version": "1.0.0",
+  "author": "dryvist",
+  "homepage": "https://github.com/dryvist/ai-assistant-instructions",
+  "skills": []
+}
