@@ -185354,6 +185354,46 @@
       "description": "WebGPU Java Bindings for wgpu-native and Dawn"
     },
     {
+      "name": "whut09--repo-to-agent-context",
+      "source": "./whut09--repo-to-agent-context",
+      "description": "\u4e00\u952e\u628a\u4ed3\u5e93\u53d8\u6210 AI \u53ef\u8bfb\u3001\u53ef\u66f4\u65b0\u3001\u53ef\u9a8c\u8bc1\u7684\u4e0a\u4e0b\u6587\u5305\uff0c\u89e3\u51b3 token \u6d6a\u8d39\u548c\u4e0a\u4e0b\u6587\u4e22\u5931"
+    },
+    {
+      "name": "mja00--villagerlobotimizer",
+      "source": "./mja00--villagerlobotimizer",
+      "description": "A plugin to lobotomize villagers inside of trading halls"
+    },
+    {
+      "name": "mja00--villagerlobotimizer",
+      "source": "./mja00--villagerlobotimizer",
+      "description": "A plugin to lobotomize villagers inside of trading halls"
+    },
+    {
+      "name": "olibartfast--rf-detr-cpp-inference",
+      "source": "./olibartfast--rf-detr-cpp-inference",
+      "description": "RF-DETR C++ inference engine for object detection and instance segmentation with ONNX Runtime and TensorRT support"
+    },
+    {
+      "name": "mja00--villagerlobotimizer",
+      "source": "./mja00--villagerlobotimizer",
+      "description": "A plugin to lobotomize villagers inside of trading halls"
+    },
+    {
+      "name": "leakix--zcash-infra",
+      "source": "./leakix--zcash-infra",
+      "description": "Run your own Zcash infrastructure"
+    },
+    {
+      "name": "mja00--villagerlobotimizer",
+      "source": "./mja00--villagerlobotimizer",
+      "description": "A plugin to lobotomize villagers inside of trading halls"
+    },
+    {
+      "name": "mja00--villagerlobotimizer",
+      "source": "./mja00--villagerlobotimizer",
+      "description": "A plugin to lobotomize villagers inside of trading halls"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -198512,6 +198552,31 @@
       "name": "kazusa000--ai-game-workbench",
       "source": "./kazusa000--ai-game-workbench",
       "description": "Local-first AI game asset workbench for 2D character workflows"
+    },
+    {
+      "name": "alirahmani93--claude-farsi-rtl",
+      "source": "./alirahmani93--claude-farsi-rtl",
+      "description": "claude-farsi-rtl"
+    },
+    {
+      "name": "agentlas-ai--hephaestus",
+      "source": "./agentlas-ai--hephaestus",
+      "description": "No-code AI agent builder \u2014 turn one sentence into a single agent or a multi-agent team. The engine inside Agentlas. A no-code CrewAI / LangGraph / AutoGen alternative that runs on Claude Code, Codex, "
+    },
+    {
+      "name": "agentlas-ai--hephaestus",
+      "source": "./agentlas-ai--hephaestus",
+      "description": "No-code AI agent builder \u2014 turn one sentence into a single agent or a multi-agent team. The engine inside Agentlas. A no-code CrewAI / LangGraph / AutoGen alternative that runs on Claude Code, Codex, "
+    },
+    {
+      "name": "tomaskir--vllm-monitor",
+      "source": "./tomaskir--vllm-monitor",
+      "description": "Real-time terminal UI dashboard for monitoring vLLM"
+    },
+    {
+      "name": "agentlas-ai--hephaestus",
+      "source": "./agentlas-ai--hephaestus",
+      "description": "No-code AI agent builder \u2014 turn one sentence into a single agent or a multi-agent team. The engine inside Agentlas. A no-code CrewAI / LangGraph / AutoGen alternative that runs on Claude Code, Codex, "
     },
     {
       "name": "cheerhuan--save-your-token",
