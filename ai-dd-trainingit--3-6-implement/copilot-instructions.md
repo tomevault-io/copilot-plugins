@@ -1,82 +1,46 @@
-## client-repository
+## client-web
 
-> Generate a client repository
+> Html and css code rules
 
 
-# Client Repository Rules
+# Web development rules
 
-## Naming Conventions
-- File naming: Use `{entity-name}.repository.ts` in kebab-case
-- Location: Place in `src/client/repositories/` folder
-- Function names: Use camelCase with verb + entity name pattern (e.g., `getAllTools`, `createUser`)
-- API base URL: Define as a private constant named `BASE_URL`
+## HTML rules
 
-## Required Structure
-1. **Core Functions**:
-   - Export CRUD functions as needed for the entity
-   - Common patterns with REST verbs:
-     - `getAll{EntityName}s` - Get all entities
-     - `get{EntityName}ById` - Get entity by ID
-     - `post{EntityName}` - Create new entity
-     - `put{EntityName}` - Update existing entity
-     - `delete{EntityName}` - Delete entity
-     - `get{EntityName}By{Field}` - Get entity by specific field
+- Use standard HTML semantic tags like : `article`, `section`, `nav`, `header`, `footer`, `aside`...
+- Avoid `div` or `p` for layout and use proper semantic tags
+- Add ARIA attributes for accessibility
+- Add `id` `name` or `role` attributes to facilitate node selections
 
-2. **Return Types**:
-   - Be explicit with return types
-   - Return entity arrays as `EntityType[]`
-   - Return single entities as `EntityType`
-   - Use Promise for async operations
+## CSS rules
 
-3. **Request Methods**:
-   - Use the fetch utilities in `/src/client/shared/fetch.utils.ts`
-   - Handle HTTP methods (GET, POST, PUT, DELETE)
-   - Transform API responses to client entity objects
+- We use [PicoCSS](mdc:https:/picocss.com/docs) as a reset 
+  - Do not create custom classes
+  - PicoCSS will style semantic HTML
+  - Customize variables at `/src/client/styles.css`
 
-## Cache Management (Optional)
-- Implement simple caching mechanism if needed
-- Clear cache on mutations (create, update, delete)
-- Use localStorage for persistence if appropriate
+## Images
 
-## Imports
-- Import entity types from domain folder
-- Import fetch utilities
-- Import validation functions if needed
+- Avoid svg and use emojis for icons
 
-## Error Handling
-- Handle network errors and API errors
-- Implement retry logic if necessary
-- Transform API errors to user-friendly messages
+## Web APIs
 
-## Documentation
-- Add JSDoc comments to all exported functions
-- Document parameters with types and descriptions
-- Document return values and promise resolution
-- Document error cases
+- Use fetch utils at [fetch.utils.ts](mdc:src/client/shared/fetch.utils.ts) for HTTP API requests
+- Avoid external libraries as much as possible
 
-## Example Structure
-```typescript
-import { get, post } from "../shared/fetch.utils";
-import type { EntityName } from "../domain/entity-name.type";
+## Web Components
 
-const BASE_URL = "/api/entities";
-
-export const getAllEntities = async (): Promise<EntityName[]> => {
-  const response = await  get<EntityName[]>(BASE_URL);
-  return response || [];
-};
-
-export const getEntityById = async (id: number): Promise<EntityName> => {
-  const response = await get<EntityName>(`${BASE_URL}/${id}`);
-  return response;
-};
-
-export const createEntity = async (entity: unknown): Promise<EntityName> => {
-  const response = await post<EntityName>(BASE_URL, entity);
-  return response;
-};
-
-```
+- Use derived HMLElements as Web Components (no lit nor any other lib or framework)
+- Do not use shadow DOM
+- Write the template in a private property using html helper string 
+  ```ts
+  const html = String.raw;
+  this.#template = html`<div>...</div>`;
+  ```
+- Use the constructor to add the innerHTML and call repositories
+- Use the `connectedCallback` lifecycle method to add event listeners
+- Use the `disconnectedCallback` lifecycle method to remove event listeners
+- Do not define the custom element at the component level, instead, export the class and define it at the parent level
 
 ---
 > Source: [AI-DD-TrainingIT/3_6-implement](https://github.com/AI-DD-TrainingIT/3_6-implement) — distributed by [TomeVault](https://tomevault.io).
