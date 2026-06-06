@@ -1,0 +1,9 @@
+{
+  "name": "dsecuredcom--dynamic-file-searcher",
+  "displayName": "dynamic-file-searcher",
+  "description": "Tool to scan servers and hosts using dynamic paths.",
+  "version": "1.0.0",
+  "author": "dsecuredcom",
+  "homepage": "https://github.com/dsecuredcom/dynamic-file-searcher",
+  "skills": []
+}
