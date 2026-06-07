@@ -1,0 +1,44 @@
+{
+  "name": "claude-for-financial-services-cn",
+  "owner": "jwangkun",
+  "repo": "claude-for-financial-services-cn",
+  "description": " 63 \u4e2a Claude Skills\uff0c\u4e3a A \u80a1\u91d1\u878d\u4ece\u4e1a\u8005\u800c\u751f  \u57fa\u4e8e Anthropic \u5b98\u65b9 claude-for-financial-services \u6df1\u5ea6\u9002\u914d\u56fd\u5185\u5e02\u573a\uff0c\u73b0\u5df2\u5f00\u6e90\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jwangkun/claude-for-financial-services-cn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-07T23:30:46Z"
+}
