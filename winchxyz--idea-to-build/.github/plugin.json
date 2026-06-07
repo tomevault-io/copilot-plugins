@@ -1,0 +1,9 @@
+{
+  "name": "winchxyz--idea-to-build",
+  "displayName": "idea-to-build",
+  "description": "Turn a raw idea into a plan you can build. A multi-agent brainstorming methodology \u2014 isolated critique, fact-checking, and a build handoff to Claude Code.",
+  "version": "1.0.0",
+  "author": "winchxyz",
+  "homepage": "https://github.com/winchxyz/idea-to-build",
+  "skills": []
+}
