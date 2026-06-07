@@ -1,0 +1,9 @@
+{
+  "name": "omansour--localscribe",
+  "displayName": "localscribe",
+  "description": "Fully local offline CLI for audio transcription with diarization on Apple Silicon",
+  "version": "1.0.0",
+  "author": "omansour",
+  "homepage": "https://github.com/omansour/localscribe",
+  "skills": []
+}
