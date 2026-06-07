@@ -1,0 +1,9 @@
+{
+  "name": "openmao--openmao",
+  "displayName": "OpenMAO",
+  "description": "Open, self-hostable organization-of-record for AI agents \u2014 the accountable layer above any framework. Autonomy is earned, not assumed.",
+  "version": "1.0.0",
+  "author": "OpenMAO",
+  "homepage": "https://github.com/OpenMAO/OpenMAO",
+  "skills": []
+}
