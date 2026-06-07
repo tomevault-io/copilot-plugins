@@ -1,0 +1,9 @@
+{
+  "name": "secemp9--rubrify",
+  "displayName": "rubrify",
+  "description": "Rubric compiler and judge engine for LLM evaluation",
+  "version": "1.0.0",
+  "author": "secemp9",
+  "homepage": "https://github.com/secemp9/rubrify",
+  "skills": []
+}
