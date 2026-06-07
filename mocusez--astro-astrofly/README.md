@@ -7,11 +7,11 @@ An Astro theme inspired by hexo-theme-butterfly
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mocusez/astro-astrofly](https://github.com/mocusez/astro-astrofly).
+Original source: `AGENTS.md` in [mocusez/astro-astrofly](https://github.com/mocusez/astro-astrofly).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
