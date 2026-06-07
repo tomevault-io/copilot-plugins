@@ -142274,6 +142274,11 @@
       "description": "ai-assisted-development-framework"
     },
     {
+      "name": "fastn-ai--fastn-mcp",
+      "source": "./fastn-ai--fastn-mcp",
+      "description": "Fastn MCP server \u2014 give AI agents governed, audited access to integrations and tools across your customers' systems of record."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
