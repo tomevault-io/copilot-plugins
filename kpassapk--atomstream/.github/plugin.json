@@ -1,0 +1,9 @@
+{
+  "name": "kpassapk--atomstream",
+  "displayName": "atomstream",
+  "description": "Cross-render TUIs to the Web",
+  "version": "1.0.0",
+  "author": "kpassapk",
+  "homepage": "https://github.com/kpassapk/atomstream",
+  "skills": []
+}
