@@ -198979,6 +198979,31 @@
       "description": "Human-in-the-loop tool for answering questions from AI agents."
     },
     {
+      "name": "zake-cn--codex-lead-cc",
+      "source": "./zake-cn--codex-lead-cc",
+      "description": "Let Codex act as the leader, directing Claude Code powered by DeepSeek, to save my precarious wallet and my already stretched Plus quota."
+    },
+    {
+      "name": "rafabd1--zero",
+      "source": "./rafabd1--zero",
+      "description": "Zero is a pipeline for custom vulnerability analysis and focused security campaigns across bug bounty assets."
+    },
+    {
+      "name": "rafabd1--zero",
+      "source": "./rafabd1--zero",
+      "description": "Zero is a pipeline for custom vulnerability analysis and focused security campaigns across bug bounty assets."
+    },
+    {
+      "name": "merijjeyn--drawpad",
+      "source": "./merijjeyn--drawpad",
+      "description": "Communication interface for AI Coding Agents based on excalidraw to go beyond chats. "
+    },
+    {
+      "name": "merijjeyn--drawpad",
+      "source": "./merijjeyn--drawpad",
+      "description": "Communication interface for AI Coding Agents based on excalidraw to go beyond chats. "
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202462,6 +202487,26 @@
       "name": "insik-han--han-monorepo-template",
       "source": "./insik-han--han-monorepo-template",
       "description": "han-monorepo-template"
+    },
+    {
+      "name": "aiecosvietnam--learning-ai",
+      "source": "./aiecosvietnam--learning-ai",
+      "description": "Learning AI \u2014 h\u1ecdc AI t\u1eeb s\u1ed1 0 \u0111\u1ebfn ship s\u1ea3n ph\u1ea9m th\u1eadt: Generative AI, Agentic AI, full-stack vibe coding"
+    },
+    {
+      "name": "dobrotacreator--apex-ray",
+      "source": "./dobrotacreator--apex-ray",
+      "description": "Local CLI-first AI code review for git diffs with analyzer-backed context."
+    },
+    {
+      "name": "aiecosvietnam--learning-ai",
+      "source": "./aiecosvietnam--learning-ai",
+      "description": "Learning AI \u2014 h\u1ecdc AI t\u1eeb s\u1ed1 0 \u0111\u1ebfn ship s\u1ea3n ph\u1ea9m th\u1eadt: Generative AI, Agentic AI, full-stack vibe coding"
+    },
+    {
+      "name": "cgarrot--zob-harness",
+      "source": "./cgarrot--zob-harness",
+      "description": "A governed Agent Factory for Pi: launch communicating agent teams, run tmux-backed factories, validate artifacts, and package repeatable workflows."
     },
     {
       "name": "ldmoxeii--only-engine",
