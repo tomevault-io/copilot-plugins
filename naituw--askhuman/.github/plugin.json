@@ -1,0 +1,9 @@
+{
+  "name": "naituw--askhuman",
+  "displayName": "AskHuman",
+  "description": "Human-in-the-loop tool for answering questions from AI agents.",
+  "version": "1.0.0",
+  "author": "Naituw",
+  "homepage": "https://github.com/Naituw/AskHuman",
+  "skills": []
+}
