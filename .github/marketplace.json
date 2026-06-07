@@ -202519,6 +202519,21 @@
       "description": "A governed Agent Factory for Pi: launch communicating agent teams, run tmux-backed factories, validate artifacts, and package repeatable workflows."
     },
     {
+      "name": "hev--ask",
+      "source": "./hev--ask",
+      "description": "ask"
+    },
+    {
+      "name": "hev--ask",
+      "source": "./hev--ask",
+      "description": "ask"
+    },
+    {
+      "name": "quocbahuynh--piso-maps",
+      "source": "./quocbahuynh--piso-maps",
+      "description": "PISO API \u2014 a SaaS that provides real-time autocomplete, search, and place detail data from Google Maps through a simple REST API. Free API key, integrate in 30 seconds."
+    },
+    {
       "name": "ldmoxeii--only-engine",
       "source": "./ldmoxeii--only-engine",
       "description": "only-engine"
