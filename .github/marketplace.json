@@ -185489,6 +185489,11 @@
       "description": "A Kards-alike card game example."
     },
     {
+      "name": "grisha-pochuev--finite-magma-e677-to-e255",
+      "source": "./grisha-pochuev--finite-magma-e677-to-e255",
+      "description": "The Open Mathematics Project: reproducible research on the finite magma problem E677 -> E255"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -198739,6 +198744,16 @@
       "description": "Open-source system for the design and analysis of controlled experiments, intended for use inside Claude Code."
     },
     {
+      "name": "brevitya--core-builds",
+      "source": "./brevitya--core-builds",
+      "description": "A collection of highly optimized AIOStreams templates designed for stutter-free, zero-friction playback. Features strict bitrate capping, smart deduplication, and custom visual formatting."
+    },
+    {
+      "name": "kpassapk--atomstream",
+      "source": "./kpassapk--atomstream",
+      "description": "Cross-render TUIs to the Web"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202117,6 +202132,11 @@
       "name": "kapital-legal--claude-for-tr-legal",
       "source": "./kapital-legal--claude-for-tr-legal",
       "description": "T\u00fcrk hukukuna uyarlanm\u0131\u015f Claude Code plugin koleksiyonu \u2014 Apache 2.0"
+    },
+    {
+      "name": "winchxyz--idea-to-build",
+      "source": "./winchxyz--idea-to-build",
+      "description": "Turn a raw idea into a plan you can build. A multi-agent brainstorming methodology \u2014 isolated critique, fact-checking, and a build handoff to Claude Code."
     },
     {
       "name": "ldmoxeii--only-engine",
@@ -307672,6 +307692,21 @@
       "name": "vnhk--project-mgmt-app",
       "source": "./vnhk--project-mgmt-app",
       "description": "project-mgmt-app"
+    },
+    {
+      "name": "cloudoperators--cloudctl",
+      "source": "./cloudoperators--cloudctl",
+      "description": "Unified Kubernetes cli for the cloud."
+    },
+    {
+      "name": "snatzehua--portfolio",
+      "source": "./snatzehua--portfolio",
+      "description": "My portfolio website repository"
+    },
+    {
+      "name": "studioprisoner--joshillichmann-com",
+      "source": "./studioprisoner--joshillichmann-com",
+      "description": "joshillichmann.com"
     }
   ]
 }
