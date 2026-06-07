@@ -198754,6 +198754,56 @@
       "description": "Cross-render TUIs to the Web"
     },
     {
+      "name": "griffinwork40--agent-afk",
+      "source": "./griffinwork40--agent-afk",
+      "description": "Local-first CLI for running, supervising, and resuming coding agents across terminal and chat surfaces. Apache-2.0."
+    },
+    {
+      "name": "griffinwork40--agent-afk",
+      "source": "./griffinwork40--agent-afk",
+      "description": "Local-first CLI for running, supervising, and resuming coding agents across terminal and chat surfaces. Apache-2.0."
+    },
+    {
+      "name": "papicapital--hl-sdk",
+      "source": "./papicapital--hl-sdk",
+      "description": "An unofficial client SDK for Hyperliquid"
+    },
+    {
+      "name": "noirblue--isaacclupus-mnemosyn-spec",
+      "source": "./noirblue--isaacclupus-mnemosyn-spec",
+      "description": "A unified, local-first semantic memory OS for autonomous agents. One vault. One schema. One API. No glue."
+    },
+    {
+      "name": "carlosvallejoruiz--debugduck",
+      "source": "./carlosvallejoruiz--debugduck",
+      "description": "Rubber Duck Debugging desktop widget \u2014 Tauri v2 + React + AI"
+    },
+    {
+      "name": "hollyzoe--cheatengine-mcp-tcp-bridge",
+      "source": "./hollyzoe--cheatengine-mcp-tcp-bridge",
+      "description": "TCP-enhanced fork of Cheat Engine MCP Bridge. Connect Cursor, Copilot and Claude AI directly to local or remote Cheat Engine via TCP. Automate reverse engineering, pointer scanning, and memory analysi"
+    },
+    {
+      "name": "bradautomates--content-ideas",
+      "source": "./bradautomates--content-ideas",
+      "description": "Track competitors across X, Instagram, TikTok, and YouTube,  see what they post, what performs, and get content ideas backed by real engagement data. Cross-host plugin for Claude Code & Codex."
+    },
+    {
+      "name": "openmao--openmao",
+      "source": "./openmao--openmao",
+      "description": "Open, self-hostable organization-of-record for AI agents \u2014 the accountable layer above any framework. Autonomy is earned, not assumed."
+    },
+    {
+      "name": "hollyzoe--cheatengine-mcp-tcp-bridge",
+      "source": "./hollyzoe--cheatengine-mcp-tcp-bridge",
+      "description": "TCP-enhanced fork of Cheat Engine MCP Bridge. Connect Cursor, Copilot and Claude AI directly to local or remote Cheat Engine via TCP. Automate reverse engineering, pointer scanning, and memory analysi"
+    },
+    {
+      "name": "123hi123--qwen2api-rs",
+      "source": "./123hi123--qwen2api-rs",
+      "description": "Rust \u91cd\u5beb\u7684 qwen2API \u7db2\u95dc\uff1a\u628a Qwen Web \u507d\u88dd\u6210 OpenAI / Anthropic / Gemini \u76f8\u5bb9\u4ecb\u9762\u3002axum + tokio + reqwest\uff0c\u55ae\u4e00\u975c\u614b binary\u3002Fork & rewrite of YuJunZhiXue/qwen2API."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202137,6 +202187,66 @@
       "name": "winchxyz--idea-to-build",
       "source": "./winchxyz--idea-to-build",
       "description": "Turn a raw idea into a plan you can build. A multi-agent brainstorming methodology \u2014 isolated critique, fact-checking, and a build handoff to Claude Code."
+    },
+    {
+      "name": "alexanderabramovpav--scriba",
+      "source": "./alexanderabramovpav--scriba",
+      "description": "Free, local, accurate and honest meeting transcription SKILL with speaker diarization for your AI agent or second brain \u2014 works with Claude Code, Codex, Cursor or as a plain CLI. 100% on-device (whisp"
+    },
+    {
+      "name": "millionco--react-scan-in-react",
+      "source": "./millionco--react-scan-in-react",
+      "description": "react-scan with an idiomatic-React port of the toolbar UI (packages/scan-react)"
+    },
+    {
+      "name": "bionoob7--nlr-workflow",
+      "source": "./bionoob7--nlr-workflow",
+      "description": "nlr-workflow"
+    },
+    {
+      "name": "dezxbt--agentx",
+      "source": "./dezxbt--agentx",
+      "description": "Agent-first X/Twitter client in Go \u2014 JSON envelope per command, multi-account, cookie-safe anti-detection for autonomous agents"
+    },
+    {
+      "name": "shibinsp--riptide-watergraph",
+      "source": "./shibinsp--riptide-watergraph",
+      "description": "Riptide-Watergraph is a reusable multi-agent framework for building, running, and inspecting LLM agent systems \u2014 conceptually like AutoGen, but it doesn't re-author the orchestration runtime."
+    },
+    {
+      "name": "sonnar1550zm--agent-sessions",
+      "source": "./sonnar1550zm--agent-sessions",
+      "description": "Agent-Sessions"
+    },
+    {
+      "name": "cablehead--stacks2099",
+      "source": "./cablehead--stacks2099",
+      "description": "a tool for thought: a collection of stacks of clips for managing your personal context"
+    },
+    {
+      "name": "blain3white--clean-my-agent",
+      "source": "./blain3white--clean-my-agent",
+      "description": "clean-my-agent"
+    },
+    {
+      "name": "samyama-ai--dbms-research",
+      "source": "./samyama-ai--dbms-research",
+      "description": "1000+ open & hard research problems in the DBMS space, organized by topic \u2014 each with formal statement, mathematical foundations, SOTA, upper/lower bounds, current (2026) research & future work, and r"
+    },
+    {
+      "name": "execveat--flawed",
+      "source": "./execveat--flawed",
+      "description": "Static analysis engine for Python web-applications"
+    },
+    {
+      "name": "blain3white--clean-my-agent",
+      "source": "./blain3white--clean-my-agent",
+      "description": "clean-my-agent"
+    },
+    {
+      "name": "xingyuezhiyuan--xy-canvas",
+      "source": "./xingyuezhiyuan--xy-canvas",
+      "description": "xy-\u81ea\u7531\u753b\u5e03"
     },
     {
       "name": "ldmoxeii--only-engine",
@@ -307707,6 +307817,11 @@
       "name": "studioprisoner--joshillichmann-com",
       "source": "./studioprisoner--joshillichmann-com",
       "description": "joshillichmann.com"
+    },
+    {
+      "name": "nghia2207--ai-meeting-assistant",
+      "source": "./nghia2207--ai-meeting-assistant",
+      "description": "AI-Meeting-Assistant"
     }
   ]
 }
