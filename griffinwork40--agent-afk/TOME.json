@@ -4,7 +4,7 @@
   "repo": "agent-afk",
   "description": "Local-first CLI for running, supervising, and resuming coding agents across terminal and chat surfaces. Apache-2.0.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/griffinwork40/agent-afk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-07T02:30:22Z"
+  "distributed_at": "2026-06-07T02:30:52Z"
 }
