@@ -1,0 +1,9 @@
+{
+  "name": "pewpewnor--pilot-nvim",
+  "displayName": "pilot.nvim",
+  "description": "\u2708\ufe0f Run your projects and source files with command placeholders & without reloading",
+  "version": "1.0.0",
+  "author": "pewpewnor",
+  "homepage": "https://github.com/pewpewnor/pilot.nvim",
+  "skills": []
+}
