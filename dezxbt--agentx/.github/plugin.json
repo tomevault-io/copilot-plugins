@@ -1,0 +1,9 @@
+{
+  "name": "dezxbt--agentx",
+  "displayName": "AgentX",
+  "description": "Agent-first X/Twitter client in Go \u2014 JSON envelope per command, multi-account, cookie-safe anti-detection for autonomous agents",
+  "version": "1.0.0",
+  "author": "DezXBT",
+  "homepage": "https://github.com/DezXBT/AgentX",
+  "skills": []
+}
