@@ -1,9 +1,0 @@
-{
-  "name": "jhgaylor--express-mcp-handler",
-  "displayName": "express-mcp-handler",
-  "description": "Effortlessly integrate the Model Context Protocol (MCP) into Express with lightweight stateful, stateless, and SSE middleware.",
-  "version": "1.0.0",
-  "author": "jhgaylor",
-  "homepage": "https://github.com/jhgaylor/express-mcp-handler",
-  "skills": []
-}

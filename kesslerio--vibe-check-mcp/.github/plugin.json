@@ -1,9 +1,0 @@
-{
-  "name": "kesslerio--vibe-check-mcp",
-  "displayName": "vibe-check-mcp",
-  "description": "Stop AI coding disasters before they cost you weeks. Real-time anti-pattern detection for vibe coders who love AI tools but need a safety net to avoid expensive overengineering traps.",
-  "version": "1.0.0",
-  "author": "kesslerio",
-  "homepage": "https://github.com/kesslerio/vibe-check-mcp",
-  "skills": []
-}

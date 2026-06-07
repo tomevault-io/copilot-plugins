@@ -1,9 +1,0 @@
-{
-  "name": "imbue-ai--mngr",
-  "displayName": "mngr",
-  "description": "CLI for managing coding agents",
-  "version": "1.0.0",
-  "author": "imbue-ai",
-  "homepage": "https://github.com/imbue-ai/mngr",
-  "skills": []
-}
