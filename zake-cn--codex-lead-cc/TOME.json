@@ -1,0 +1,44 @@
+{
+  "name": "codex_lead_cc",
+  "owner": "zake-cn",
+  "repo": "codex_lead_cc",
+  "description": "Let Codex act as the leader, directing Claude Code powered by DeepSeek, to save my precarious wallet and my already stretched Plus quota.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zake-cn/codex_lead_cc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-07T18:30:20Z"
+}
