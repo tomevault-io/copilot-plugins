@@ -1,0 +1,9 @@
+{
+  "name": "millionco--react-scan-in-react",
+  "displayName": "react-scan-in-react",
+  "description": "react-scan with an idiomatic-React port of the toolbar UI (packages/scan-react)",
+  "version": "1.0.0",
+  "author": "millionco",
+  "homepage": "https://github.com/millionco/react-scan-in-react",
+  "skills": []
+}
