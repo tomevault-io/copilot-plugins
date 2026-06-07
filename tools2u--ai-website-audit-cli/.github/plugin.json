@@ -1,0 +1,9 @@
+{
+  "name": "tools2u--ai-website-audit-cli",
+  "displayName": "AI-Website-Audit-CLI",
+  "description": "Open-source AI-powered website audit CLI using the OpenAI API for SEO, UX, accessibility, performance, trust, and content analysis.",
+  "version": "1.0.0",
+  "author": "Tools2U",
+  "homepage": "https://github.com/Tools2U/AI-Website-Audit-CLI",
+  "skills": []
+}
