@@ -1,0 +1,44 @@
+{
+  "name": "learning-ai",
+  "owner": "aiecosvietnam",
+  "repo": "learning-ai",
+  "description": "Learning AI \u2014 h\u1ecdc AI t\u1eeb s\u1ed1 0 \u0111\u1ebfn ship s\u1ea3n ph\u1ea9m th\u1eadt: Generative AI, Agentic AI, full-stack vibe coding",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aiecosvietnam/learning-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-07T18:32:29Z"
+}
