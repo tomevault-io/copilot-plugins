@@ -185599,6 +185599,16 @@
       "description": "\u2708\ufe0f Run your projects and source files with command placeholders & without reloading"
     },
     {
+      "name": "mocusez--astro-astrofly",
+      "source": "./mocusez--astro-astrofly",
+      "description": "An Astro theme inspired by hexo-theme-butterfly"
+    },
+    {
+      "name": "mocusez--astro-astrofly",
+      "source": "./mocusez--astro-astrofly",
+      "description": "An Astro theme inspired by hexo-theme-butterfly"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -202532,6 +202542,11 @@
       "name": "quocbahuynh--piso-maps",
       "source": "./quocbahuynh--piso-maps",
       "description": "PISO API \u2014 a SaaS that provides real-time autocomplete, search, and place detail data from Google Maps through a simple REST API. Free API key, integrate in 30 seconds."
+    },
+    {
+      "name": "secemp9--rubrify",
+      "source": "./secemp9--rubrify",
+      "description": "Rubric compiler and judge engine for LLM evaluation"
     },
     {
       "name": "ldmoxeii--only-engine",
@@ -308142,6 +308157,36 @@
       "name": "daringdolphin--bill-splitter",
       "source": "./daringdolphin--bill-splitter",
       "description": "bill-splitter"
+    },
+    {
+      "name": "sonerady--coupleshot-server",
+      "source": "./sonerady--coupleshot-server",
+      "description": "CoupleShot-server"
+    },
+    {
+      "name": "eastlondoner--swift-ai",
+      "source": "./eastlondoner--swift-ai",
+      "description": "swift-ai"
+    },
+    {
+      "name": "mugeshk97--mugeshk97-github-io",
+      "source": "./mugeshk97--mugeshk97-github-io",
+      "description": "mugeshk97.github.io"
+    },
+    {
+      "name": "omer-kirac--auction-v2",
+      "source": "./omer-kirac--auction-v2",
+      "description": "auction-v2"
+    },
+    {
+      "name": "klfd9--scraptoon",
+      "source": "./klfd9--scraptoon",
+      "description": "scraptoon"
+    },
+    {
+      "name": "jaderdias--loopback",
+      "source": "./jaderdias--loopback",
+      "description": "loopback"
     }
   ]
 }
