@@ -1,0 +1,9 @@
+{
+  "name": "brevitya--core-builds",
+  "displayName": "Core-Builds",
+  "description": "A collection of highly optimized AIOStreams templates designed for stutter-free, zero-friction playback. Features strict bitrate capping, smart deduplication, and custom visual formatting.",
+  "version": "1.0.0",
+  "author": "brevityA",
+  "homepage": "https://github.com/brevityA/Core-Builds",
+  "skills": []
+}
