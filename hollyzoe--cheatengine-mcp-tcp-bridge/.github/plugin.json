@@ -1,0 +1,9 @@
+{
+  "name": "hollyzoe--cheatengine-mcp-tcp-bridge",
+  "displayName": "cheatengine-mcp-tcp-bridge",
+  "description": "TCP-enhanced fork of Cheat Engine MCP Bridge. Connect Cursor, Copilot and Claude AI directly to local or remote Cheat Engine via TCP. Automate reverse engineering, pointer scanning, and memory analysi",
+  "version": "1.0.0",
+  "author": "HollyZoe",
+  "homepage": "https://github.com/HollyZoe/cheatengine-mcp-tcp-bridge",
+  "skills": []
+}
