@@ -1,0 +1,9 @@
+{
+  "name": "fastn-ai--fastn-mcp",
+  "displayName": "fastn-mcp",
+  "description": "Fastn MCP server \u2014 give AI agents governed, audited access to integrations and tools across your customers' systems of record.",
+  "version": "1.0.0",
+  "author": "fastn-ai",
+  "homepage": "https://github.com/fastn-ai/fastn-mcp",
+  "skills": []
+}
