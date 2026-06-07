@@ -162419,6 +162419,21 @@
       "description": "\u82f1\u4f5c\u8bc4\u6790\uff08Essay Evaluator\uff09\uff1a\u591a Rubric \u82f1\u8bed\u4f5c\u6587\u667a\u80fd\u8bc4\u5206\u4e0e\u53cd\u9988\u7cfb\u7edf"
     },
     {
+      "name": "melancholictheory--wellcake",
+      "source": "./melancholictheory--wellcake",
+      "description": "A Kubernetes operator for Valkey \u2014 Standalone / Replication / Sentinel / Cluster, operator-driven failover, proactive zero-downtime rolling restarts, Atomic Slot Migration, S3 backups, multi-region re"
+    },
+    {
+      "name": "577206--knowledge-forge",
+      "source": "./577206--knowledge-forge",
+      "description": "Local-first Obsidian knowledge ingestion workbench for PDFs, Markdown, TXT and spreadsheets."
+    },
+    {
+      "name": "577206--knowledge-forge",
+      "source": "./577206--knowledge-forge",
+      "description": "Local-first Obsidian knowledge ingestion workbench for PDFs, Markdown, TXT and spreadsheets."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
