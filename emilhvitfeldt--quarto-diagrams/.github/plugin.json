@@ -1,0 +1,9 @@
+{
+  "name": "emilhvitfeldt--quarto-diagrams",
+  "displayName": "quarto-diagrams",
+  "description": "Reveal.js diagram layouts for Quarto slides \u2014 circle-flow, pie, process, pyramid, matrix, hierarchy, venn, funnel, and cycle.",
+  "version": "1.0.0",
+  "author": "EmilHvitfeldt",
+  "homepage": "https://github.com/EmilHvitfeldt/quarto-diagrams",
+  "skills": []
+}
