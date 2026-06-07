@@ -7,11 +7,11 @@ Local-first Obsidian knowledge ingestion workbench for PDFs, Markdown, TXT and s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [577206/knowledge-forge](https://github.com/577206/knowledge-forge).
+Original source: `AGENTS.md` in [577206/knowledge-forge](https://github.com/577206/knowledge-forge).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
