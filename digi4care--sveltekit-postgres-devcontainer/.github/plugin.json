@@ -1,9 +1,0 @@
-{
-  "name": "digi4care--sveltekit-postgres-devcontainer",
-  "displayName": "sveltekit-postgres-devcontainer",
-  "description": "sveltekit-postgres-devcontainer",
-  "version": "1.0.0",
-  "author": "digi4care",
-  "homepage": "https://github.com/digi4care/sveltekit-postgres-devcontainer",
-  "skills": []
-}
