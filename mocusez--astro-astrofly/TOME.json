@@ -4,7 +4,7 @@
   "repo": "astro-astrofly",
   "description": "An Astro theme inspired by hexo-theme-butterfly",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mocusez/astro-astrofly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-07T22:30:46Z"
+  "distributed_at": "2026-06-07T22:32:27Z"
 }
