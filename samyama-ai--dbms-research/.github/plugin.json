@@ -1,0 +1,9 @@
+{
+  "name": "samyama-ai--dbms-research",
+  "displayName": "dbms_research",
+  "description": "1000+ open & hard research problems in the DBMS space, organized by topic \u2014 each with formal statement, mathematical foundations, SOTA, upper/lower bounds, current (2026) research & future work, and r",
+  "version": "1.0.0",
+  "author": "samyama-ai",
+  "homepage": "https://github.com/samyama-ai/dbms_research",
+  "skills": []
+}
