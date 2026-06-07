@@ -1,0 +1,9 @@
+{
+  "name": "cloudoperators--cloudctl",
+  "displayName": "cloudctl",
+  "description": "Unified Kubernetes cli for the cloud.",
+  "version": "1.0.0",
+  "author": "cloudoperators",
+  "homepage": "https://github.com/cloudoperators/cloudctl",
+  "skills": []
+}
