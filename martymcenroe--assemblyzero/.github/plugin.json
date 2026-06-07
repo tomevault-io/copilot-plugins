@@ -1,9 +1,0 @@
-{
-  "name": "martymcenroe--assemblyzero",
-  "displayName": "AssemblyZero",
-  "description": "Parameterized multi-agent orchestration framework for Claude Code and Gemini",
-  "version": "1.0.0",
-  "author": "martymcenroe",
-  "homepage": "https://github.com/martymcenroe/AssemblyZero",
-  "skills": []
-}
