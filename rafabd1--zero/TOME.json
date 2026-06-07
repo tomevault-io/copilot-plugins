@@ -4,7 +4,7 @@
   "repo": "ZERO",
   "description": "Zero is a pipeline for custom vulnerability analysis and focused security campaigns across bug bounty assets.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rafabd1/ZERO",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-07T18:30:45Z"
+  "distributed_at": "2026-06-07T18:31:12Z"
 }
