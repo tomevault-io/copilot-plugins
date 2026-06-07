@@ -1,9 +1,0 @@
-{
-  "name": "nohajc--anylinuxfs",
-  "displayName": "anylinuxfs",
-  "description": "macOS: mount any linux-supported filesystem read/write using NFS and a microVM",
-  "version": "1.0.0",
-  "author": "nohajc",
-  "homepage": "https://github.com/nohajc/anylinuxfs",
-  "skills": []
-}

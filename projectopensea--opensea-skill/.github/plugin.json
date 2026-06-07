@@ -1,9 +1,0 @@
-{
-  "name": "projectopensea--opensea-skill",
-  "displayName": "opensea-skill",
-  "description": "Agent skill for interacting with OpenSea",
-  "version": "1.0.0",
-  "author": "ProjectOpenSea",
-  "homepage": "https://github.com/ProjectOpenSea/opensea-skill",
-  "skills": []
-}

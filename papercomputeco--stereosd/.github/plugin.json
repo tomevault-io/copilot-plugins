@@ -1,9 +1,0 @@
-{
-  "name": "papercomputeco--stereosd",
-  "displayName": "stereosd",
-  "description": "The StereOS daemon control plane.",
-  "version": "1.0.0",
-  "author": "papercomputeco",
-  "homepage": "https://github.com/papercomputeco/stereosd",
-  "skills": []
-}

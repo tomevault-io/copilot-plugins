@@ -1,9 +1,0 @@
-{
-  "name": "pizlonator--yosh",
-  "displayName": "yosh",
-  "description": "Yo shell - a LLM enabled fork of bash",
-  "version": "1.0.0",
-  "author": "pizlonator",
-  "homepage": "https://github.com/pizlonator/yosh",
-  "skills": []
-}
