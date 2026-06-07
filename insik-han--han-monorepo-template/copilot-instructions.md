@@ -1,4 +1,4 @@
-## viteplus
+## han-monorepo-template
 
 > Read `docs/agents/index.md` first. It is the index map for repo-specific agent instructions.
 
