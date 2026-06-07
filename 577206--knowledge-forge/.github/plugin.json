@@ -1,0 +1,9 @@
+{
+  "name": "577206--knowledge-forge",
+  "displayName": "knowledge-forge",
+  "description": "Local-first Obsidian knowledge ingestion workbench for PDFs, Markdown, TXT and spreadsheets.",
+  "version": "1.0.0",
+  "author": "577206",
+  "homepage": "https://github.com/577206/knowledge-forge",
+  "skills": []
+}
