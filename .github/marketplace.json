@@ -185529,6 +185529,21 @@
       "description": "eastmoney-monthly"
     },
     {
+      "name": "zentia--zengine",
+      "source": "./zentia--zengine",
+      "description": "ZEngine"
+    },
+    {
+      "name": "yusupsupriyadi--sososo",
+      "source": "./yusupsupriyadi--sososo",
+      "description": "Real-time meeting & audio transcription for Windows (system audio + mic) \u2014 live captions via Deepgram, AI summaries via OpenAI. Tauri 2 + React."
+    },
+    {
+      "name": "zentia--zengine",
+      "source": "./zentia--zengine",
+      "description": "ZEngine"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -198839,6 +198854,21 @@
       "description": "Rust \u91cd\u5beb\u7684 qwen2API \u7db2\u95dc\uff1a\u628a Qwen Web \u507d\u88dd\u6210 OpenAI / Anthropic / Gemini \u76f8\u5bb9\u4ecb\u9762\u3002axum + tokio + reqwest\uff0c\u55ae\u4e00\u975c\u614b binary\u3002Fork & rewrite of YuJunZhiXue/qwen2API."
     },
     {
+      "name": "natelkins--hot-reload-poc",
+      "source": "./natelkins--hot-reload-poc",
+      "description": "hot_reload_poc"
+    },
+    {
+      "name": "xuanfeng233-coder--freenote",
+      "source": "./xuanfeng233-coder--freenote",
+      "description": "freenote"
+    },
+    {
+      "name": "imransdet--qa-assistant",
+      "source": "./imransdet--qa-assistant",
+      "description": "qa-assistant"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202282,6 +202312,21 @@
       "name": "xingyuezhiyuan--xy-canvas",
       "source": "./xingyuezhiyuan--xy-canvas",
       "description": "xy-\u81ea\u7531\u753b\u5e03"
+    },
+    {
+      "name": "hieubui2409--product-spec",
+      "source": "./hieubui2409--product-spec",
+      "description": ".claude folder (focus on skills) for cleanmatic's products and may be expandable to others."
+    },
+    {
+      "name": "ben-juodvalkis--ableton-web-components",
+      "source": "./ben-juodvalkis--ableton-web-components",
+      "description": "ableton-web-components"
+    },
+    {
+      "name": "omansour--localscribe",
+      "source": "./omansour--localscribe",
+      "description": "Fully local offline CLI for audio transcription with diarization on Apple Silicon"
     },
     {
       "name": "ldmoxeii--only-engine",
