@@ -1,0 +1,9 @@
+{
+  "name": "dobrotacreator--apex-ray",
+  "displayName": "apex-ray",
+  "description": "Local CLI-first AI code review for git diffs with analyzer-backed context.",
+  "version": "1.0.0",
+  "author": "dobrotacreator",
+  "homepage": "https://github.com/dobrotacreator/apex-ray",
+  "skills": []
+}
