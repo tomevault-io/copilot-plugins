@@ -1,0 +1,9 @@
+{
+  "name": "sungeer--hostess",
+  "displayName": "hostess",
+  "description": "An agentic coding tool that lives in your terminal.",
+  "version": "1.0.0",
+  "author": "sungeer",
+  "homepage": "https://github.com/sungeer/hostess",
+  "skills": []
+}
