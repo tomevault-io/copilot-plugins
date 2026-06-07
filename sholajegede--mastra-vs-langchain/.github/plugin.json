@@ -1,0 +1,9 @@
+{
+  "name": "sholajegede--mastra-vs-langchain",
+  "displayName": "mastra-vs-langchain",
+  "description": "The same AI agent pipeline built in Mastra and LangChain. Runs in parallel, measures everything.",
+  "version": "1.0.0",
+  "author": "sholajegede",
+  "homepage": "https://github.com/sholajegede/mastra-vs-langchain",
+  "skills": []
+}
