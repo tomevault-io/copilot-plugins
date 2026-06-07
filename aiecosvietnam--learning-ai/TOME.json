@@ -4,7 +4,7 @@
   "repo": "learning-ai",
   "description": "Learning AI \u2014 h\u1ecdc AI t\u1eeb s\u1ed1 0 \u0111\u1ebfn ship s\u1ea3n ph\u1ea9m th\u1eadt: Generative AI, Agentic AI, full-stack vibe coding",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aiecosvietnam/learning-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-07T18:32:29Z"
+  "distributed_at": "2026-06-07T18:33:23Z"
 }
