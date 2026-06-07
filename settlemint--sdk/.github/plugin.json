@@ -1,9 +1,0 @@
-{
-  "name": "settlemint--sdk",
-  "displayName": "sdk",
-  "description": "Integrate SettleMint into your application with ease.",
-  "version": "1.0.0",
-  "author": "settlemint",
-  "homepage": "https://github.com/settlemint/sdk",
-  "skills": []
-}

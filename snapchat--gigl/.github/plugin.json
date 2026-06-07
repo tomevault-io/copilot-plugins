@@ -1,9 +1,0 @@
-{
-  "name": "snapchat--gigl",
-  "displayName": "GiGL",
-  "description": "Gigantic Graph Learning (GiGL) Framework: Large-scale training and inference for Graph Neural Networks",
-  "version": "1.0.0",
-  "author": "Snapchat",
-  "homepage": "https://github.com/Snapchat/GiGL",
-  "skills": []
-}

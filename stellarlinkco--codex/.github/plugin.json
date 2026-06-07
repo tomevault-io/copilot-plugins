@@ -1,9 +1,0 @@
-{
-  "name": "stellarlinkco--codex",
-  "displayName": "codex",
-  "description": "The open source coding agent. openai anthropic gemini",
-  "version": "1.0.0",
-  "author": "stellarlinkco",
-  "homepage": "https://github.com/stellarlinkco/codex",
-  "skills": []
-}
