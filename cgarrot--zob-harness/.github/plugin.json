@@ -1,0 +1,9 @@
+{
+  "name": "cgarrot--zob-harness",
+  "displayName": "zob-harness",
+  "description": "A governed Agent Factory for Pi: launch communicating agent teams, run tmux-backed factories, validate artifacts, and package repeatable workflows.",
+  "version": "1.0.0",
+  "author": "cgarrot",
+  "homepage": "https://github.com/cgarrot/zob-harness",
+  "skills": []
+}
