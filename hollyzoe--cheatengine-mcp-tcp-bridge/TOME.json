@@ -4,7 +4,7 @@
   "repo": "cheatengine-mcp-tcp-bridge",
   "description": "TCP-enhanced fork of Cheat Engine MCP Bridge. Connect Cursor, Copilot and Claude AI directly to local or remote Cheat Engine via TCP. Automate reverse engineering, pointer scanning, and memory analysis using natural language.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HollyZoe/cheatengine-mcp-tcp-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-07T02:32:50Z"
+  "distributed_at": "2026-06-07T02:34:19Z"
 }
