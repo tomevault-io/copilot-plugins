@@ -1,0 +1,9 @@
+{
+  "name": "griffinwork40--agent-afk",
+  "displayName": "agent-afk",
+  "description": "Local-first CLI for running, supervising, and resuming coding agents across terminal and chat surfaces. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "griffinwork40",
+  "homepage": "https://github.com/griffinwork40/agent-afk",
+  "skills": []
+}
