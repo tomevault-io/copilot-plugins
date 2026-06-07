@@ -1,0 +1,9 @@
+{
+  "name": "melancholictheory--wellcake",
+  "displayName": "wellcake",
+  "description": "A Kubernetes operator for Valkey \u2014 Standalone / Replication / Sentinel / Cluster, operator-driven failover, proactive zero-downtime rolling restarts, Atomic Slot Migration, S3 backups, multi-region re",
+  "version": "1.0.0",
+  "author": "melancholictheory",
+  "homepage": "https://github.com/melancholictheory/wellcake",
+  "skills": []
+}
