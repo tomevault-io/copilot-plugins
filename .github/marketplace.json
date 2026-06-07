@@ -185524,6 +185524,11 @@
       "description": "The Open Mathematics Project: reproducible research on the finite magma problem E677 -> E255"
     },
     {
+      "name": "yuu-ramsey--eastmoney-monthly",
+      "source": "./yuu-ramsey--eastmoney-monthly",
+      "description": "eastmoney-monthly"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
