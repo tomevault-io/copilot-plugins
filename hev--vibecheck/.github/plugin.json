@@ -1,9 +1,0 @@
-{
-  "name": "hev--vibecheck",
-  "displayName": "vibecheck",
-  "description": "Fast and intuitive evals on any LLM",
-  "version": "1.0.0",
-  "author": "hev",
-  "homepage": "https://github.com/hev/vibecheck",
-  "skills": []
-}

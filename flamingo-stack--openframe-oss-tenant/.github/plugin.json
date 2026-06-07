@@ -1,9 +1,0 @@
-{
-  "name": "flamingo-stack--openframe-oss-tenant",
-  "displayName": "openframe-oss-tenant",
-  "description": "Code base for OSS OpenFrame single tenant version",
-  "version": "1.0.0",
-  "author": "flamingo-stack",
-  "homepage": "https://github.com/flamingo-stack/openframe-oss-tenant",
-  "skills": []
-}
