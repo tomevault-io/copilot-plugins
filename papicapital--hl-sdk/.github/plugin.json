@@ -1,0 +1,9 @@
+{
+  "name": "papicapital--hl-sdk",
+  "displayName": "hl-sdk",
+  "description": "An unofficial client SDK for Hyperliquid",
+  "version": "1.0.0",
+  "author": "papicapital",
+  "homepage": "https://github.com/papicapital/hl-sdk",
+  "skills": []
+}
