@@ -1,0 +1,44 @@
+{
+  "name": "riptide-watergraph",
+  "owner": "shibinsp",
+  "repo": "riptide-watergraph",
+  "description": "Riptide-Watergraph is a reusable multi-agent framework for building, running, and inspecting LLM agent systems \u2014 conceptually like AutoGen, but it doesn't re-author the orchestration runtime.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shibinsp/riptide-watergraph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-07T02:37:17Z"
+}
