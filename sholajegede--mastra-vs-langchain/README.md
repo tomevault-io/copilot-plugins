@@ -7,11 +7,11 @@ The same AI agent pipeline built in Mastra and LangChain. Runs in parallel, meas
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sholajegede/mastra-vs-langchain](https://github.com/sholajegede/mastra-vs-langchain).
+Original source: `CLAUDE.md` in [sholajegede/mastra-vs-langchain](https://github.com/sholajegede/mastra-vs-langchain).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
