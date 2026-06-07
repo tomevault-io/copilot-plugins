@@ -1,0 +1,44 @@
+{
+  "name": "qwen2api-rs",
+  "owner": "123hi123",
+  "repo": "qwen2api-rs",
+  "description": "Rust \u91cd\u5beb\u7684 qwen2API \u7db2\u95dc\uff1a\u628a Qwen Web \u507d\u88dd\u6210 OpenAI / Anthropic / Gemini \u76f8\u5bb9\u4ecb\u9762\u3002axum + tokio + reqwest\uff0c\u55ae\u4e00\u975c\u614b binary\u3002Fork & rewrite of YuJunZhiXue/qwen2API.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/123hi123/qwen2api-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-07T02:35:19Z"
+}
