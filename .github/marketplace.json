@@ -185544,6 +185544,21 @@
       "description": "ZEngine"
     },
     {
+      "name": "toddwyl--hl-quant",
+      "source": "./toddwyl--hl-quant",
+      "description": "heuristic learning quant"
+    },
+    {
+      "name": "toddwyl--hl-quant",
+      "source": "./toddwyl--hl-quant",
+      "description": "heuristic learning quant"
+    },
+    {
+      "name": "varalix-digitech-solutions--clone-team",
+      "source": "./varalix-digitech-solutions--clone-team",
+      "description": "\ud83e\uddec Clone any website with a team of AI agents \u2014 pixel-perfect UI clone + reverse-engineered architecture docs. A Claude Code skill built on the new dynamic Workflow engine with an unskippable test gate"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -198869,6 +198884,26 @@
       "description": "qa-assistant"
     },
     {
+      "name": "ljy2367765883--edr-dataprotector",
+      "source": "./ljy2367765883--edr-dataprotector",
+      "description": "An experimental intranet security defense EDR"
+    },
+    {
+      "name": "momori777--openclaw-based-ai-girlfriend",
+      "source": "./momori777--openclaw-based-ai-girlfriend",
+      "description": "\ud83e\ude75 \u56db\u5b63\u590f\u76ee (Shiki Natsume) \u2014 \u5b8c\u5168\u79bb\u7ebf AI \u5973\u53cb | \u672c\u5730\u5927\u6a21\u578b + GPT-SoVITS \u8bed\u97f3 + ComfyUI \u751f\u56fe + Live2D \u53ef\u89c6\u5316 | QQ & Telegram \u53cc\u901a\u9053 | 8GB \u663e\u5b58\u52a8\u6001\u8c03\u5ea6\uff0c\u65ad\u7f51\u4e5f\u80fd\u8dd1"
+    },
+    {
+      "name": "sungeer--hostess",
+      "source": "./sungeer--hostess",
+      "description": "An agentic coding tool that lives in your terminal."
+    },
+    {
+      "name": "elkimek--hermes-gbrain-honcho",
+      "source": "./elkimek--hermes-gbrain-honcho",
+      "description": "Hermes + Honcho + GBrain integration guide"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202327,6 +202362,11 @@
       "name": "omansour--localscribe",
       "source": "./omansour--localscribe",
       "description": "Fully local offline CLI for audio transcription with diarization on Apple Silicon"
+    },
+    {
+      "name": "jin-zi-xuan--kaobuddy-pwa",
+      "source": "./jin-zi-xuan--kaobuddy-pwa",
+      "description": "\u4e00\u4e2a\u5e2e\u4f60\u79d1\u5b66\u4e34\u65f6\u62b1\u4f5b\u811a\u7684\u9879\u76ee..."
     },
     {
       "name": "ldmoxeii--only-engine",
