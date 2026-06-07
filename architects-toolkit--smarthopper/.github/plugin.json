@@ -1,9 +1,0 @@
-{
-  "name": "architects-toolkit--smarthopper",
-  "displayName": "SmartHopper",
-  "description": "SmartHopper is an open-source project that implements third-party AI APIs to provide advanced features for Grasshopper3D.",
-  "version": "1.0.0",
-  "author": "architects-toolkit",
-  "homepage": "https://github.com/architects-toolkit/SmartHopper",
-  "skills": []
-}

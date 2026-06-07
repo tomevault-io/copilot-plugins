@@ -1,9 +1,0 @@
-{
-  "name": "alienplatform--alien",
-  "displayName": "alien",
-  "description": "Infrastructure for managed self-hosting",
-  "version": "1.0.0",
-  "author": "alienplatform",
-  "homepage": "https://github.com/alienplatform/alien",
-  "skills": []
-}

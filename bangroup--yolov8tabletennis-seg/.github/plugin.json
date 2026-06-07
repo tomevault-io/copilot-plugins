@@ -1,9 +1,0 @@
-{
-  "name": "bangroup--yolov8tabletennis-seg",
-  "displayName": "YOLOv8tabletennis-seg",
-  "description": "YOLOv8tabletennis-seg",
-  "version": "1.0.0",
-  "author": "BANGroup",
-  "homepage": "https://github.com/BANGroup/YOLOv8tabletennis-seg",
-  "skills": []
-}

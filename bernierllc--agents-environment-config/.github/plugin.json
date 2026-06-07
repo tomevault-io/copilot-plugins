@@ -1,9 +1,0 @@
-{
-  "name": "bernierllc--agents-environment-config",
-  "displayName": "agents-environment-config",
-  "description": "Create a common base agents config for a dev environment. ",
-  "version": "1.0.0",
-  "author": "bernierllc",
-  "homepage": "https://github.com/bernierllc/agents-environment-config",
-  "skills": []
-}
