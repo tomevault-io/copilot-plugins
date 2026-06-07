@@ -1,9 +1,0 @@
-{
-  "name": "timmoth--rackpeek",
-  "displayName": "RackPeek",
-  "description": "CLI tool to discover, manage, and document your IT infrastructure and home lab.",
-  "version": "1.0.0",
-  "author": "Timmoth",
-  "homepage": "https://github.com/Timmoth/RackPeek",
-  "skills": []
-}
