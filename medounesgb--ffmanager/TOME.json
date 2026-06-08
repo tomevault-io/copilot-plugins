@@ -1,0 +1,44 @@
+{
+  "name": "ffmanager",
+  "owner": "MedouneSGB",
+  "repo": "ffmanager",
+  "description": "Le studio tout-en-un pour FFmpeg : convertir, compresser, t\u00e9l\u00e9charger et lire vos vid\u00e9os \u2014 file d'attente, lecteur VLC int\u00e9gr\u00e9, capture de flux web et extension Chrome, dans une interface moderne.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MedouneSGB/ffmanager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-08T16:30:57Z"
+}
