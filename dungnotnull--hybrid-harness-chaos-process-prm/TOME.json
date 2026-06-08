@@ -1,0 +1,44 @@
+{
+  "name": "hybrid-harness-chaos-process-prm",
+  "owner": "dungnotnull",
+  "repo": "hybrid-harness-chaos-process-prm",
+  "description": "\ud83e\udde0 A comprehensive, end-to-end AI Agent skill framework standardizing Harness & Chaos Engineering workflows for developers in the agentic coding era.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dungnotnull/hybrid-harness-chaos-process-prm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-08T03:30:47Z"
+}
