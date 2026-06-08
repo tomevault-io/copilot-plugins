@@ -199239,6 +199239,11 @@
       "description": "Unofficial Linux port of Wispr Flow"
     },
     {
+      "name": "yiisoft--demo-summarizer",
+      "source": "./yiisoft--demo-summarizer",
+      "description": "LLM document summarizer demo"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202812,6 +202817,21 @@
       "name": "sheep1433--noesis",
       "source": "./sheep1433--noesis",
       "description": "Noesis \u2014 Core Agent Framework for building autonomous AI workflows"
+    },
+    {
+      "name": "doulor--clawd-companion",
+      "source": "./doulor--clawd-companion",
+      "description": "Claude Code \u684c\u5ba0\u4f34\u4fa3 \u2014 \u900f\u660e\u684c\u5ba0\u7a97\u53e3\u5b9e\u65f6\u663e\u793a Claude Code \u7684\u5de5\u5177\u8c03\u7528\u3001\u4f1a\u8bdd\u72b6\u6001\u548c\u5b8c\u6210\u63d0\u9192\u3002"
+    },
+    {
+      "name": "doulor--clawd-companion",
+      "source": "./doulor--clawd-companion",
+      "description": "Claude Code \u684c\u5ba0\u4f34\u4fa3 \u2014 \u900f\u660e\u684c\u5ba0\u7a97\u53e3\u5b9e\u65f6\u663e\u793a Claude Code \u7684\u5de5\u5177\u8c03\u7528\u3001\u4f1a\u8bdd\u72b6\u6001\u548c\u5b8c\u6210\u63d0\u9192\u3002"
+    },
+    {
+      "name": "semantic-craft--ios-vibebuddy",
+      "source": "./semantic-craft--ios-vibebuddy",
+      "description": "iOS-vibebuddy"
     },
     {
       "name": "ldmoxeii--only-engine",
@@ -308617,6 +308637,41 @@
       "name": "xinnbluebird--graphvizlint",
       "source": "./xinnbluebird--graphvizlint",
       "description": "Audit DOT graphs for layout & semantic issues. Powered by MiMo v2.5 Pro."
+    },
+    {
+      "name": "wilson-i--json",
+      "source": "./wilson-i--json",
+      "description": "Json"
+    },
+    {
+      "name": "renerocksai--technologylab-github-io",
+      "source": "./renerocksai--technologylab-github-io",
+      "description": "technologylab.github.io"
+    },
+    {
+      "name": "robertgreenwood1--chewy",
+      "source": "./robertgreenwood1--chewy",
+      "description": "Van Builder Application"
+    },
+    {
+      "name": "robertgreenwood1--chewy",
+      "source": "./robertgreenwood1--chewy",
+      "description": "Van Builder Application"
+    },
+    {
+      "name": "shaiss--circletube",
+      "source": "./shaiss--circletube",
+      "description": "Agapi is an advanced AI-powered social network platform that enables intelligent, context-aware interactions between users and AI-generated followers through dynamic conversation threads. The platform"
+    },
+    {
+      "name": "robertgreenwood1--chewy",
+      "source": "./robertgreenwood1--chewy",
+      "description": "Van Builder Application"
+    },
+    {
+      "name": "robertgreenwood1--chewy",
+      "source": "./robertgreenwood1--chewy",
+      "description": "Van Builder Application"
     }
   ]
 }
