@@ -1,0 +1,44 @@
+{
+  "name": "Phylax",
+  "owner": "TheUser99-spec",
+  "repo": "Phylax",
+  "description": "Phylax a security layer for AI coding agents. It enforces fine grained read, write, and delete permissions using explicit policy buckets and OS level controls, ensuring agents operate safely within defined boundaries.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TheUser99-spec/Phylax",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-08T14:30:26Z"
+}
