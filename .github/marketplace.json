@@ -154114,6 +154114,16 @@
       "description": "AI-powered support operations platform with multi-tenant isolation"
     },
     {
+      "name": "synthyra--protify",
+      "source": "./synthyra--protify",
+      "description": "Low code molecular property prediction"
+    },
+    {
+      "name": "synthyra--protify",
+      "source": "./synthyra--protify",
+      "description": "Low code molecular property prediction"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -199389,6 +199399,11 @@
       "description": "Run AI agents, commands, and OCI images locally inside a microVM \u2014 control what flows into and out of the sandbox."
     },
     {
+      "name": "aws-samples--sample-agent-assisted-sdlc",
+      "source": "./aws-samples--sample-agent-assisted-sdlc",
+      "description": "sample-agent-assisted-sdlc"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202997,6 +203012,11 @@
       "name": "feifeibear--seereel",
       "source": "./feifeibear--seereel",
       "description": "Agent-native Seedance 2.0 short-film studio: cli for AI, canvas for human"
+    },
+    {
+      "name": "luisfelipemoro--claude-devkit",
+      "source": "./luisfelipemoro--claude-devkit",
+      "description": "Claude Code devkit for agentic development"
     },
     {
       "name": "ldmoxeii--only-engine",
