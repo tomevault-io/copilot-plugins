@@ -1,0 +1,9 @@
+{
+  "name": "stellarinsure-org--stellarinsure-website",
+  "displayName": "stellarinsure-website",
+  "description": "StellarInsure marketing website \u2014 editorial minimalist, built with Next.js + shadcn/ui",
+  "version": "1.0.0",
+  "author": "StellarInsure-Org",
+  "homepage": "https://github.com/StellarInsure-Org/stellarinsure-website",
+  "skills": []
+}
