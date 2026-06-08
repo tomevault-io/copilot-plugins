@@ -1,0 +1,9 @@
+{
+  "name": "hxxdev--lazyverilog",
+  "displayName": "LazyVerilog",
+  "description": "A fast, practical SystemVerilog LSP for RTL coding.",
+  "version": "1.0.0",
+  "author": "hxxdev",
+  "homepage": "https://github.com/hxxdev/LazyVerilog",
+  "skills": []
+}
