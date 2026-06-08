@@ -137159,6 +137159,16 @@
       "description": "Infinite canvas notes in the Poincar\u00e9 disk"
     },
     {
+      "name": "hxxdev--lazyverilog",
+      "source": "./hxxdev--lazyverilog",
+      "description": "A fast, practical SystemVerilog LSP for RTL coding."
+    },
+    {
+      "name": "hxxdev--lazyverilog",
+      "source": "./hxxdev--lazyverilog",
+      "description": "A fast, practical SystemVerilog LSP for RTL coding."
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -185649,6 +185659,11 @@
       "description": "An Astro theme inspired by hexo-theme-butterfly"
     },
     {
+      "name": "yatskovskyi--cadcore",
+      "source": "./yatskovskyi--cadcore",
+      "description": "Pure-Rust CAD geometry kernel \u2014 B-Rep topology, analytic surfaces, O(N) filament sweep, STEP AP203 export. No OCCT, no C++."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199089,6 +199104,21 @@
       "description": "@cloudflare/workspace, give your agent a computer \ud83d\udcbb"
     },
     {
+      "name": "dkundel-openai--openai-agents-python",
+      "source": "./dkundel-openai--openai-agents-python",
+      "description": "A lightweight, powerful framework for multi-agent workflows"
+    },
+    {
+      "name": "yan-yanko--rainman",
+      "source": "./yan-yanko--rainman",
+      "description": "Context-aware project memory for AI coding tools. Zero LLM. Zero tokens. Runs locally."
+    },
+    {
+      "name": "trevors--dot-claude",
+      "source": "./trevors--dot-claude",
+      "description": "dot-claude"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202647,6 +202677,16 @@
       "name": "samuraigpt--social-post",
       "source": "./samuraigpt--social-post",
       "description": "Open-source AI social media post generator \u2014 production-ready Next.js SaaS with live platform mockups for LinkedIn, Twitter/X, Instagram, Facebook & Reddit, multi-tone generation, and publish intents."
+    },
+    {
+      "name": "lipearman--ai-office-os",
+      "source": "./lipearman--ai-office-os",
+      "description": "AI Office OS"
+    },
+    {
+      "name": "hhyqhh--inno-agent",
+      "source": "./hhyqhh--inno-agent",
+      "description": "inno-agent"
     },
     {
       "name": "ldmoxeii--only-engine",
