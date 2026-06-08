@@ -1,0 +1,9 @@
+{
+  "name": "colossusauhem--proton-drive-sync",
+  "displayName": "proton-drive-sync",
+  "description": "Local folders, automatically synced to Proton Drive. (Unofficial Sync Client)",
+  "version": "1.0.0",
+  "author": "Colossusauhem",
+  "homepage": "https://github.com/Colossusauhem/proton-drive-sync",
+  "skills": []
+}
