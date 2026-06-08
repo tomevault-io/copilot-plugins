@@ -142334,6 +142334,11 @@
       "description": "wasmacs"
     },
     {
+      "name": "tareq1988--prayer-times-macos",
+      "source": "./tareq1988--prayer-times-macos",
+      "description": "A macOS menubar application for prayer times notification"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
