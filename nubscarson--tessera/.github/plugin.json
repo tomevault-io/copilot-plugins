@@ -1,0 +1,9 @@
+{
+  "name": "nubscarson--tessera",
+  "displayName": "tessera",
+  "description": "Anonymous rate-limited credentials (IETF ARC) for censorship-resistant, un-blockable network access \u2014 let Tor/anonymous traffic carry a cryptographic proof of good standing instead of relying on IP re",
+  "version": "1.0.0",
+  "author": "NubsCarson",
+  "homepage": "https://github.com/NubsCarson/tessera",
+  "skills": []
+}
