@@ -1,0 +1,9 @@
+{
+  "name": "dkundel-openai--openai-agents-python",
+  "displayName": "openai-agents-python",
+  "description": "A lightweight, powerful framework for multi-agent workflows",
+  "version": "1.0.0",
+  "author": "dkundel-openai",
+  "homepage": "https://github.com/dkundel-openai/openai-agents-python",
+  "skills": []
+}
