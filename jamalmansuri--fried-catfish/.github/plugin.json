@@ -1,0 +1,9 @@
+{
+  "name": "jamalmansuri--fried-catfish",
+  "displayName": "fried-catfish",
+  "description": "AI Framework with multi-agent tournament, deterministic Bradley-Terry scorer, human-gated writes \u2014 portable across Claude Code and Codex from a single MCP core.",
+  "version": "1.0.0",
+  "author": "JamalMansuri",
+  "homepage": "https://github.com/JamalMansuri/fried-catfish",
+  "skills": []
+}
