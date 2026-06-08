@@ -1,0 +1,9 @@
+{
+  "name": "akiasprin--ripple-reader",
+  "displayName": "ripple-reader",
+  "description": "Ripple Reader: LLM-driven academic paper discovery & deep reading",
+  "version": "1.0.0",
+  "author": "akiasprin",
+  "homepage": "https://github.com/akiasprin/ripple-reader",
+  "skills": []
+}
