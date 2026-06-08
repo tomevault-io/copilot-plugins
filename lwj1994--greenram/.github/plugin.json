@@ -1,0 +1,9 @@
+{
+  "name": "lwj1994--greenram",
+  "displayName": "greenram",
+  "description": "macOS menu bar app that quits safe background apps when RAM or Swap exceeds limits",
+  "version": "1.0.0",
+  "author": "lwj1994",
+  "homepage": "https://github.com/lwj1994/greenram",
+  "skills": []
+}
