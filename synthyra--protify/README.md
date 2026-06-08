@@ -7,11 +7,11 @@ Low code molecular property prediction
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Synthyra/Protify](https://github.com/Synthyra/Protify).
+Original source: `CLAUDE.md` in [Synthyra/Protify](https://github.com/Synthyra/Protify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
