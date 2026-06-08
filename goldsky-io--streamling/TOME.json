@@ -4,7 +4,7 @@
   "repo": "streamling",
   "description": "Data streaming runtime focused on performance, consistency, and extensibility. Write plugins in Rust or WASM and process data with data guarantees. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/goldsky-io/streamling",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-08T12:32:19Z"
+  "distributed_at": "2026-06-08T12:33:23Z"
 }
