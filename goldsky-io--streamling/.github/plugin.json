@@ -1,0 +1,9 @@
+{
+  "name": "goldsky-io--streamling",
+  "displayName": "streamling",
+  "description": "Data streaming runtime focused on performance, consistency, and extensibility. Write plugins in Rust or WASM and process data with data guarantees. ",
+  "version": "1.0.0",
+  "author": "goldsky-io",
+  "homepage": "https://github.com/goldsky-io/streamling",
+  "skills": []
+}
