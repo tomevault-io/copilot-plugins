@@ -185749,6 +185749,11 @@
       "description": "Self-hosted encrypted file storage"
     },
     {
+      "name": "rg8diaoa--agentprecept",
+      "source": "./rg8diaoa--agentprecept",
+      "description": "AgentPrecept \u4e3a AI \u7f16\u7801 Agent \u5efa\u7acb\u5de5\u7a0b\u6212\u5f8b\u2014\u2014\u4e0d\u662f\u8ba9 Agent \u66f4\u5f3a\uff0c\u662f\u7ed9\u5b83\u4e00\u4efd\u65bd\u5de5\u56fe\u548c\u4e00\u9053\u5fc5\u987b\u8fc7\u7684\u95e8\u3002\u4e00\u952e agentprecept init \u63a5\u5165\uff1a6 \u9636\u6bb5\u9aa8\u67b6\u3001pre-commit \u56db\u95e8\u62e6\u622a\uff08\u5206\u652f/\u7c92\u5ea6/\u8bbe\u8ba1/\u786e\u8ba4\uff09\u3001CI gate 15 \u7ef4\u81ea\u52a8\u5316\u5ba1\u8ba1\u3001MCP design_gate \u524d\u7f6e\u68c0\u67e5\u3002project-graph \u8ba9 Agent 30 \u79d2\u8bfb\u61c2\u9879\u76ee\uff0cHANDO"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199249,6 +199254,36 @@
       "description": "LLM document summarizer demo"
     },
     {
+      "name": "engineering-os--engineering-os",
+      "source": "./engineering-os--engineering-os",
+      "description": "Your AI finally remembers your codebase"
+    },
+    {
+      "name": "goldsky-io--streamling",
+      "source": "./goldsky-io--streamling",
+      "description": "Data streaming runtime focused on performance, consistency, and extensibility. Write plugins in Rust or WASM and process data with data guarantees. "
+    },
+    {
+      "name": "goldsky-io--streamling",
+      "source": "./goldsky-io--streamling",
+      "description": "Data streaming runtime focused on performance, consistency, and extensibility. Write plugins in Rust or WASM and process data with data guarantees. "
+    },
+    {
+      "name": "zdiemer--magiceyes",
+      "source": "./zdiemer--magiceyes",
+      "description": "A cross-platform GP2X F100/F200, Wiz, and Caanoo emulator wrapped around Unicorn."
+    },
+    {
+      "name": "goldsky-io--streamling",
+      "source": "./goldsky-io--streamling",
+      "description": "Data streaming runtime focused on performance, consistency, and extensibility. Write plugins in Rust or WASM and process data with data guarantees. "
+    },
+    {
+      "name": "lwj1994--greenram",
+      "source": "./lwj1994--greenram",
+      "description": "macOS menu bar app that quits safe background apps when RAM or Swap exceeds limits"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202837,6 +202872,16 @@
       "name": "semantic-craft--ios-vibebuddy",
       "source": "./semantic-craft--ios-vibebuddy",
       "description": "iOS-vibebuddy"
+    },
+    {
+      "name": "teaql--robot-task-board",
+      "source": "./teaql--robot-task-board",
+      "description": "A sample to show how to use TeaQL in rust for embedded devices."
+    },
+    {
+      "name": "potatospudowski--gpu-snapshot-experiment",
+      "source": "./potatospudowski--gpu-snapshot-experiment",
+      "description": "GPU cold boot optimization using NVIDIA cuda-checkpoint + CRIU \u2014 snapshot and restore a live GPU process including compiled kernels and vRAM state"
     },
     {
       "name": "ldmoxeii--only-engine",
