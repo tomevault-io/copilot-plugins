@@ -1,54 +1,58 @@
-## hidden-security
+## hidden-tests
 
-> description: "Hidden — security first, self-hosted model, flag regressions in chat"
+> description: "Hidden — unit tests: unittest, mirrored layout, mocks only, no I/O"
 
 ---
-description: "Hidden — security first, self-hosted model, flag regressions in chat"
+description: "Hidden — unit tests: unittest, mirrored layout, mocks only, no I/O"
 alwaysApply: true
 ---
 
-# Hidden — Security
+# Hidden — Unit tests
 
-## 1. Priority
+## 1. Framework
 
-**Security** is a first-class goal alongside correctness and maintainability.
-Do not treat it as optional polish or a follow-up task.
+Use the **standard library `unittest`** for unit tests. Do not rely on
+pytest-only features as the default harness.
 
-## 2. Threat model
+## 2. One module per source file
 
-The app is intended for **self-hosted** use only (the operator controls the
-host, network, reverse proxy, TLS, and volumes). When assessing risk:
+For each module under **`app/`** that you test, add **exactly one** test module
+named `test_<name>.py`, where `<name>` is the **source file stem**.
 
-- Many threats typical of **public multi-tenant SaaS** are **reduced** or
-  **shifted to the operator** (API exposure, gateway hardening, backups, OS).
-- Some threats are **barely relevant** in a common trust model (e.g. mass
-  anonymous abuse **if** the API is only reachable from a trusted perimeter).
-  Still design code safely for other deployment patterns.
+Examples:
 
-Use **[`SECURITY.md`](../../SECURITY.md)** (OWASP-style self-assessment),
-**[`ADR.md`](../../ADR.md)** and `NOTE (ADR-XX)` comments in code (contract
-behavior), and **[`llms.txt`](../../llms.txt)** (context and hotspots).
+- `app/services/user_login.py` → `tests/services/test_user_login.py`
+- `app/repositories/file.py` → `tests/repositories/test_file.py`
 
-## 3. Code changes
+## 3. Mirror `app/`
 
-Before implementing or finalizing logic under **`app/`** (and when touching
-**`extensions/`**, configuration, middleware, authentication, crypto, or
-logging):
+The **`tests/`** tree must **mirror `app/`** (same subdirectories and
+`test_<stem>.py` naming). Do not put unrelated tests at the repo root unless the
+project already does so for a documented reason.
 
-- Trace **trust boundaries**, **new inputs**, **authorization paths**,
-  **secret leakage into logs**, and where relevant **transaction / audit /
-  hook ordering**.
-- By default **preserve** or **strengthen** the current security model unless
-  the user explicitly asks for a different trade-off.
+## 4. No side effects
 
-## 4. Downgrades in chat
+**No exceptions.** Unit tests must not perform or trigger real I/O or external
+behavior. **Mock and patch** anything that would touch the outside world.
 
-On **any** security weakening (including deliberate, documented trade-offs),
-e.g. new unauthenticated surface, weaker validation, broader CORS, logging
-sensitive data, bypassing checks, weaker crypto, softer isolation of trusted
-components — **state clearly in the same chat** what was weakened, why, and
-what mitigations or operator actions are needed. Do not rely only on a commit
-or code comment unless the user asked for that alone.
+Forbidden (non-exhaustive):
+
+- Real **filesystem** use (open, read, write, mkdir, temp paths on disk,
+  `tempfile` as real paths, etc.).
+- Real **network** or remote services.
+- Real **database** or SQL driver (no engine, connection, or session against a
+  real DB file or server). **Always** mock sessions, engines, and repositories
+  at the boundary.
+- **Subprocesses**, **threads** that hit real resources, or **sleep** tied to
+  real time when it affects outcomes (use mocks or fakes).
+- Leaving **mutable global state** changed: patch `os.environ` and similar only
+  in controlled scopes and **restore** in `tearDown` or equivalent.
+
+Tests must be **deterministic**: same inputs → same outcomes; no dependence on
+host paths, clocks, network, or ambient machine state.
+
+Scenarios that truly need real disk or a real DB **do not** belong under these
+unit-test rules — no carve-outs here. Put them elsewhere.
 
 ---
 > Source: [artabramov/hidden](https://github.com/artabramov/hidden) — distributed by [TomeVault](https://tomevault.io).
