@@ -4,7 +4,7 @@
   "repo": "nft-portfolio-dashboard",
   "description": "Comprehensive NFT portfolio management with floor tracking, rarity ranking, and PnL analysis across multiple marketplaces",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nasrulniroi/nft-portfolio-dashboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-08T02:38:35Z"
+  "distributed_at": "2026-06-08T02:45:06Z"
 }
