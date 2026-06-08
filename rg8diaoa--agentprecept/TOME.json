@@ -1,0 +1,44 @@
+{
+  "name": "AgentPrecept",
+  "owner": "rg8diaoa",
+  "repo": "AgentPrecept",
+  "description": "AgentPrecept \u4e3a AI \u7f16\u7801 Agent \u5efa\u7acb\u5de5\u7a0b\u6212\u5f8b\u2014\u2014\u4e0d\u662f\u8ba9 Agent \u66f4\u5f3a\uff0c\u662f\u7ed9\u5b83\u4e00\u4efd\u65bd\u5de5\u56fe\u548c\u4e00\u9053\u5fc5\u987b\u8fc7\u7684\u95e8\u3002\u4e00\u952e agentprecept init \u63a5\u5165\uff1a6 \u9636\u6bb5\u9aa8\u67b6\u3001pre-commit \u56db\u95e8\u62e6\u622a\uff08\u5206\u652f/\u7c92\u5ea6/\u8bbe\u8ba1/\u786e\u8ba4\uff09\u3001CI gate 15 \u7ef4\u81ea\u52a8\u5316\u5ba1\u8ba1\u3001MCP design_gate \u524d\u7f6e\u68c0\u67e5\u3002project-graph \u8ba9 Agent 30 \u79d2\u8bfb\u61c2\u9879\u76ee\uff0cHANDOFF \u786e\u4fdd\u6362\u73ed\u4e0d\u4e22\u8fdb\u5ea6\u3002\u96f6\u4fb5\u5165\uff0c\u5168\u5916\u6302\u3002\u9879\u76ee\u81ea\u6cbb\u2014\u2014\u81ea\u5df1\u7684\u65b9\u6cd5\u8bba\u7ba1\u81ea\u5df1\u7684\u4ee3\u7801\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rg8diaoa/AgentPrecept",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-08T12:30:23Z"
+}
