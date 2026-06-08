@@ -1,0 +1,9 @@
+{
+  "name": "chiply--svg-line",
+  "displayName": "svg-line",
+  "description": "SVG-rendered tab-bar, tab-line, header-line and mode-line for Emacs",
+  "version": "1.0.0",
+  "author": "chiply",
+  "homepage": "https://github.com/chiply/svg-line",
+  "skills": []
+}
