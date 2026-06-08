@@ -1,0 +1,44 @@
+{
+  "name": "runegoblin-foundrytemplate",
+  "owner": "rune-goblin",
+  "repo": "runegoblin-foundrytemplate",
+  "description": "Foundry VTT Pathfinder 2e module template \u2014 TypeScript + Svelte 5 + Vite, v14 APIs only. Run 'npm run init -- <id>' to spin up a new module.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rune-goblin/runegoblin-foundrytemplate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-08T18:31:20Z"
+}
