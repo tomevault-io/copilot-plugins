@@ -121549,6 +121549,11 @@
       "description": "Python SDK to interact with Infrahub"
     },
     {
+      "name": "adamallcock--codex-chatgpt-control",
+      "source": "./adamallcock--codex-chatgpt-control",
+      "description": "Unofficial SDK for Codex agents controlling visible ChatGPT web sessions"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
