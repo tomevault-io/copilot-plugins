@@ -1,43 +1,43 @@
-## hidden-llms
+## hidden-risks
 
-> description: "Hidden — read llms.txt before substantive work; update after critical app changes"
+> description: "Hidden — document known limits and risks explicitly, never gloss over"
 
 ---
-description: "Hidden — read llms.txt before substantive work; update after critical app changes"
+description: "Hidden — document known limits and risks explicitly, never gloss over"
 alwaysApply: true
 ---
 
-# Hidden — LLM context (`llms.txt`)
+# Hidden — Risks and limitations
 
-## 1. Before substantive work
+## 1. No implicit risks
 
-Read **[`llms.txt`](../../llms.txt)** at the workspace root **before**
-substantive work (features, refactors, fixes that touch behavior or
-architecture). Use it for:
+Any **known** limits, trade-offs, implementation gaps, and **risks** (security,
+edge-case correctness, performance, trust model, maintainability) must not
+stay implicit: not “obvious”, not only in the author’s head, not a single vague
+line buried in code.
 
-- ADR / `NOTE (ADR-XX)` contracts and invariants.
-- Runtime and security assumptions.
-- Layout, commands, test patterns, and hotspots.
+## 2. Where to document
 
-If `llms.txt` and the code disagree, **the code and ADR comments are the source
-of truth**; then consider updating `llms.txt` as in section 2.
+Be **clear** for the operator and the next reader (including LLM sessions):
+what is constrained, under what conditions, and what mitigations or external
+actions apply.
 
-## 2. After critical app changes
+Suitable places (non-exhaustive):
 
-After **critical** changes under **`app/`** (not tests-only, not docs-only),
-**update `llms.txt`** when a future session must know, for example:
+- **[`SECURITY.md`](../../SECURITY.md)** — threats or deliberate defense gaps
+  in the spirit of the OWASP-style sections.
+- **`NOTE (ADR-XX)`** and, when needed, **[`ADR.md`](../../ADR.md)** —
+  architectural or contractual trade-offs.
+- **`llms.txt`** — limitations a future session must know for a module.
+- API docstrings and response schemas — behavior that would surprise a client.
+- **The chat reply** — security weakening or new risk surfaces (see **Hidden —
+  Security**, section 4).
 
-- New or removed ADR-level behavior (`NOTE (ADR-XX)`), transaction or audit
-  semantics, middleware order, hooks, auth or storage flows.
-- Changed operational model (startup, mounts, watchdog, worker model, TLS).
-- New or renamed required config / env that affects deployment.
-- New high-risk modules or materially changed hotspots.
+## 3. Keep docs in sync
 
-Skip `llms.txt` updates for cosmetic edits, typos, or narrow bugfixes that **do
-not** change contracts.
-
-Keep `llms.txt` **concise**: deltas for LLM and human onboarding, not a copy of
-README or SECURITY.
+If a change **surfaces** a new risk or **increases** an existing one, update the
+explicit description. If a risk **goes away**, tighten or remove wording so
+docs stay accurate.
 
 ---
 > Source: [artabramov/hidden](https://github.com/artabramov/hidden) — distributed by [TomeVault](https://tomevault.io).
