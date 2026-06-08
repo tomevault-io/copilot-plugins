@@ -1,0 +1,9 @@
+{
+  "name": "svasek--homeassistant-neopool-modbus",
+  "displayName": "homeassistant-neopool-modbus",
+  "description": "\ud83c\udfca Sugar Valley Neopool Modbus custom integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "svasek",
+  "homepage": "https://github.com/svasek/homeassistant-neopool-modbus",
+  "skills": []
+}
