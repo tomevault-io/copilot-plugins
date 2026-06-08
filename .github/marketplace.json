@@ -132924,6 +132924,11 @@
       "description": "Maya-specific implementation of Model Context Protocol (MCP) for Autodesk Maya, enabling remote control and integration with MCP ecosystem."
     },
     {
+      "name": "hanxiao--omni-macos",
+      "source": "./hanxiao--omni-macos",
+      "description": "Native macOS semantic search over your local files - text, images, audio, video in one vector space, on-device on Apple silicon."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -147909,6 +147914,11 @@
       "description": "AIKeyVault"
     },
     {
+      "name": "dungnotnull--hybrid-harness-chaos-process-prm",
+      "source": "./dungnotnull--hybrid-harness-chaos-process-prm",
+      "description": "\ud83e\udde0 A comprehensive, end-to-end AI Agent skill framework standardizing Harness & Chaos Engineering workflows for developers in the agentic coding era."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -162462,6 +162472,16 @@
       "name": "jwangkun--claude-for-financial-services-cn",
       "source": "./jwangkun--claude-for-financial-services-cn",
       "description": " 63 \u4e2a Claude Skills\uff0c\u4e3a A \u80a1\u91d1\u878d\u4ece\u4e1a\u8005\u800c\u751f  \u57fa\u4e8e Anthropic \u5b98\u65b9 claude-for-financial-services \u6df1\u5ea6\u9002\u914d\u56fd\u5185\u5e02\u573a\uff0c\u73b0\u5df2\u5f00\u6e90\u3002"
+    },
+    {
+      "name": "zhangferry--wwdc",
+      "source": "./zhangferry--wwdc",
+      "description": "WWDC \u4e2d\u6587\u6280\u672f\u603b\u7ed3\u7ad9 \u2014 \u8986\u76d6 2020-2025\uff0c930+ \u7bc7 Session \u6df1\u5ea6\u89e3\u6790"
+    },
+    {
+      "name": "codebendkit--codeseek",
+      "source": "./codebendkit--codeseek",
+      "description": "Rust-powered code intelligence CLI for AI coding agents. Builds call graphs and hybrid semantic search indexes (Dense + Sparse + RRF + Reranker) across 7 languages. Ships as native MCP tools for Claud"
     },
     {
       "name": "yschimke--compose-ai-tools",
