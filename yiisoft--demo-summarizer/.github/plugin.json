@@ -1,0 +1,9 @@
+{
+  "name": "yiisoft--demo-summarizer",
+  "displayName": "demo-summarizer",
+  "description": "LLM document summarizer demo",
+  "version": "1.0.0",
+  "author": "yiisoft",
+  "homepage": "https://github.com/yiisoft/demo-summarizer",
+  "skills": []
+}
