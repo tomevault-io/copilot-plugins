@@ -1,0 +1,9 @@
+{
+  "name": "evedensity--mineworld",
+  "displayName": "MineWorld",
+  "description": "\u57fa\u4e8e Three.js \u76843D\u50cf\u7d20\u98ce\u683c\u65b9\u5757\u4e16\u754c\u63a2\u7d22\u6e38\u620f\u3002\u4f7f\u7528\u539f\u751f HTML + CSS + ES Module JavaScript \u6784\u5efa\uff0c\u65e0\u9700\u6784\u5efa\u6b65\u9aa4\u3002\u652f\u6301\u684c\u9762\u7aef\uff08\u952e\u9f20\uff09\u548c\u79fb\u52a8\u7aef\uff08\u89e6\u63a7\uff09\u3002",
+  "version": "1.0.0",
+  "author": "EVEDensity",
+  "homepage": "https://github.com/EVEDensity/MineWorld",
+  "skills": []
+}
