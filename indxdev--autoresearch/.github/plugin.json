@@ -1,0 +1,9 @@
+{
+  "name": "indxdev--autoresearch",
+  "displayName": "autoresearch",
+  "description": "Auto Research \u2014 automated multi-domain research pipeline (GitHub Actions + Claude Code) ",
+  "version": "1.0.0",
+  "author": "INDXDev",
+  "homepage": "https://github.com/INDXDev/autoresearch",
+  "skills": []
+}
