@@ -1,0 +1,9 @@
+{
+  "name": "teaql--robot-task-board",
+  "displayName": "robot-task-board",
+  "description": "A sample to show how to use TeaQL in rust for embedded devices.",
+  "version": "1.0.0",
+  "author": "teaql",
+  "homepage": "https://github.com/teaql/robot-task-board",
+  "skills": []
+}
