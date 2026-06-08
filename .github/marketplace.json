@@ -185764,6 +185764,41 @@
       "description": "AgentPrecept \u4e3a AI \u7f16\u7801 Agent \u5efa\u7acb\u5de5\u7a0b\u6212\u5f8b\u2014\u2014\u4e0d\u662f\u8ba9 Agent \u66f4\u5f3a\uff0c\u662f\u7ed9\u5b83\u4e00\u4efd\u65bd\u5de5\u56fe\u548c\u4e00\u9053\u5fc5\u987b\u8fc7\u7684\u95e8\u3002\u4e00\u952e agentprecept init \u63a5\u5165\uff1a6 \u9636\u6bb5\u9aa8\u67b6\u3001pre-commit \u56db\u95e8\u62e6\u622a\uff08\u5206\u652f/\u7c92\u5ea6/\u8bbe\u8ba1/\u786e\u8ba4\uff09\u3001CI gate 15 \u7ef4\u81ea\u52a8\u5316\u5ba1\u8ba1\u3001MCP design_gate \u524d\u7f6e\u68c0\u67e5\u3002project-graph \u8ba9 Agent 30 \u79d2\u8bfb\u61c2\u9879\u76ee\uff0cHANDO"
     },
     {
+      "name": "chiply--svg-line",
+      "source": "./chiply--svg-line",
+      "description": "SVG-rendered tab-bar, tab-line, header-line and mode-line for Emacs"
+    },
+    {
+      "name": "huggingface--cadgenbench",
+      "source": "./huggingface--cadgenbench",
+      "description": "A benchmark for AI-driven CAD generation and editing"
+    },
+    {
+      "name": "huggingface--cadgenbench",
+      "source": "./huggingface--cadgenbench",
+      "description": "A benchmark for AI-driven CAD generation and editing"
+    },
+    {
+      "name": "fluentlabs-xyz--docs-docusaurus",
+      "source": "./fluentlabs-xyz--docs-docusaurus",
+      "description": "Official Open Source Fluent Documentation With Docusaurus"
+    },
+    {
+      "name": "huggingface--cadgenbench",
+      "source": "./huggingface--cadgenbench",
+      "description": "A benchmark for AI-driven CAD generation and editing"
+    },
+    {
+      "name": "huggingface--cadgenbench",
+      "source": "./huggingface--cadgenbench",
+      "description": "A benchmark for AI-driven CAD generation and editing"
+    },
+    {
+      "name": "huggingface--cadgenbench",
+      "source": "./huggingface--cadgenbench",
+      "description": "A benchmark for AI-driven CAD generation and editing"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199302,6 +199337,11 @@
       "name": "medounesgb--ffmanager",
       "source": "./medounesgb--ffmanager",
       "description": "Le studio tout-en-un pour FFmpeg : convertir, compresser, t\u00e9l\u00e9charger et lire vos vid\u00e9os \u2014 file d'attente, lecteur VLC int\u00e9gr\u00e9, capture de flux web et extension Chrome, dans une interface moderne."
+    },
+    {
+      "name": "rune-goblin--runegoblin-foundrytemplate",
+      "source": "./rune-goblin--runegoblin-foundrytemplate",
+      "description": "Foundry VTT Pathfinder 2e module template \u2014 TypeScript + Svelte 5 + Vite, v14 APIs only. Run 'npm run init -- <id>' to spin up a new module."
     },
     {
       "name": "cheerhuan--save-your-token",
