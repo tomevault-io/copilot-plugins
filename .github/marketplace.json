@@ -199289,6 +199289,11 @@
       "description": "macOS menu bar app that quits safe background apps when RAM or Swap exceeds limits"
     },
     {
+      "name": "theuser99-spec--phylax",
+      "source": "./theuser99-spec--phylax",
+      "description": "Phylax a security layer for AI coding agents. It enforces fine grained read, write, and delete permissions using explicit policy buckets and OS level controls, ensuring agents operate safely within de"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
