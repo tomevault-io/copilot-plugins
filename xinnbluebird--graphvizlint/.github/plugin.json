@@ -1,0 +1,9 @@
+{
+  "name": "xinnbluebird--graphvizlint",
+  "displayName": "graphvizlint",
+  "description": "Audit DOT graphs for layout & semantic issues. Powered by MiMo v2.5 Pro.",
+  "version": "1.0.0",
+  "author": "XinnBlueBird",
+  "homepage": "https://github.com/XinnBlueBird/graphvizlint",
+  "skills": []
+}
