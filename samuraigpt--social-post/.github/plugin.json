@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--social-post",
+  "displayName": "social-post",
+  "description": "Open-source AI social media post generator \u2014 production-ready Next.js SaaS with live platform mockups for LinkedIn, Twitter/X, Instagram, Facebook & Reddit, multi-tone generation, and publish intents.",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/social-post",
+  "skills": []
+}
