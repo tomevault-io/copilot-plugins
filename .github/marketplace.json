@@ -185669,6 +185669,26 @@
       "description": "Pure-Rust CAD geometry kernel \u2014 B-Rep topology, analytic surfaces, O(N) filament sweep, STEP AP203 export. No OCCT, no C++."
     },
     {
+      "name": "stellarxlmguard--stellarguard-website",
+      "source": "./stellarxlmguard--stellarguard-website",
+      "description": "StellarGuard marketing website \u2014 trustless treasury management for teams, DAOs, and community organizations on Stellar Soroban"
+    },
+    {
+      "name": "stellarxlmguard--stellarguard-frontend",
+      "source": "./stellarxlmguard--stellarguard-frontend",
+      "description": "StellarGuard frontend dashboard"
+    },
+    {
+      "name": "orbitpay-co--orbitpay-website",
+      "source": "./orbitpay-co--orbitpay-website",
+      "description": "OrbitPay marketing website \u2014 decentralized payroll and treasury management on Stellar Soroban"
+    },
+    {
+      "name": "orbitpay-co--orbitpay-frontend",
+      "source": "./orbitpay-co--orbitpay-frontend",
+      "description": "OrbitPay frontend dashboard"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199124,6 +199144,36 @@
       "description": "dot-claude"
     },
     {
+      "name": "nubscarson--tessera",
+      "source": "./nubscarson--tessera",
+      "description": "Anonymous rate-limited credentials (IETF ARC) for censorship-resistant, un-blockable network access \u2014 let Tor/anonymous traffic carry a cryptographic proof of good standing instead of relying on IP re"
+    },
+    {
+      "name": "ymxfl--dom-pointer-mcp",
+      "source": "./ymxfl--dom-pointer-mcp",
+      "description": "DOM Pointer MCP \u5f25\u5408\u4e86\u6d4f\u89c8\u5668\u4e0e AI \u7f16\u7801\u5de5\u5177\u4e4b\u95f4\u7684\u9e3f\u6c9f\u3002\u4f60\u65e0\u9700\u518d\u624b\u52a8\u63cf\u8ff0\u60f3\u8981\u4fee\u6539\u54ea\u4e2a DOM \u5143\u7d20\uff0c\u53ea\u9700\u5728\u6d4f\u89c8\u5668\u4e2d\u70b9\u51fb\u5b83\uff0c\u5199\u4e0b\u4f60\u671f\u671b\u64cd\u4f5c\u7684\u5907\u6ce8\uff0c\u4f60\u7684 AI \u5de5\u5177\u4fbf\u4f1a\u81ea\u52a8\u63a5\u6536\u5b8c\u6574\u7684\u5143\u7d20\u4e0a\u4e0b\u6587\u2014\u2014CSS\u3001\u9009\u62e9\u5668\u3001\u7ec4\u4ef6\u4fe1\u606f\u7b49\u2014\u2014\u4ece\u800c\u6267\u884c\u4ee3\u7801\u4fee\u6539\u3002\u544a\u522b\u624b\u52a8\u590d\u5236\u7c98\u8d34\u3001\u544a\u522b\u622a\u56fe\u6807\u6ce8\u3001\u544a\u522b\u76f2\u731c\u9009\u62e9\u5668\u3002"
+    },
+    {
+      "name": "maybe4747--realtime-ai-trans",
+      "source": "./maybe4747--realtime-ai-trans",
+      "description": "\u7535\u8111\u4e0a\u64ad\u653e\u7684\u4efb\u4f55\u58f0\u97f3\uff0c\u5373\u65f6\u53d8\u6210\u6bcd\u8bed\u60ac\u6d6e\u5b57\u5e55 \u2014\u2014 \u4e0d\u6311 app\u3001\u4e0d\u6311\u7f51\u7ad9\u3002"
+    },
+    {
+      "name": "nubscarson--tessera",
+      "source": "./nubscarson--tessera",
+      "description": "Anonymous rate-limited credentials (IETF ARC) for censorship-resistant, un-blockable network access \u2014 let Tor/anonymous traffic carry a cryptographic proof of good standing instead of relying on IP re"
+    },
+    {
+      "name": "rg8diaoa--agent-compass",
+      "source": "./rg8diaoa--agent-compass",
+      "description": "agent-compass \ud83e\udded Agent \u4e0d\u4f1a\u5931\u5fc6\u7684\u65bd\u5de5\u56fe\u3002\u7ed3\u6784\u5316\u9879\u76ee\u56fe + \u8bbe\u8ba1\u4f9d\u636e\u8ffd\u6eaf + \u4f1a\u8bdd\u4ea4\u63a5 + \u8bb0\u5fc6\u81ea\u52a8\u751f\u957f\u3002MCP Server \u539f\u751f\u96c6\u6210 5 tools\uff08\u5ba1\u8ba1/\u67e5\u8be2/\u540c\u6b65/\u51b3\u7b56/\u4ea4\u63a5\uff09\uff0c\u652f\u6301 6 \u5927 Agent \u5de5\u5177\u3002\u53d1 GitHub \u94fe\u63a5\u5373\u53ef\u4e00\u952e\u5b89\u88c5\u3002\u683c\u5f0f\u56fa\u5b9a\u3001\u53ef\u5ba1\u8ba1\u3001\u4e0d\u6f02\u79fb\u3002\u4e0d\u4f1a\u4ee3\u7801\u3001\u4e0d\u61c2\u67b6\u6784\u4e5f\u80fd\u5ba1Agent\u4ea7\u51fa\u3002"
+    },
+    {
+      "name": "maybe4747--realtime-ai-trans",
+      "source": "./maybe4747--realtime-ai-trans",
+      "description": "\u7535\u8111\u4e0a\u64ad\u653e\u7684\u4efb\u4f55\u58f0\u97f3\uff0c\u5373\u65f6\u53d8\u6210\u6bcd\u8bed\u60ac\u6d6e\u5b57\u5e55 \u2014\u2014 \u4e0d\u6311 app\u3001\u4e0d\u6311\u7f51\u7ad9\u3002"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202692,6 +202742,11 @@
       "name": "hhyqhh--inno-agent",
       "source": "./hhyqhh--inno-agent",
       "description": "inno-agent"
+    },
+    {
+      "name": "sheep1433--noesis",
+      "source": "./sheep1433--noesis",
+      "description": "Noesis \u2014 Core Agent Framework for building autonomous AI workflows"
     },
     {
       "name": "ldmoxeii--only-engine",
