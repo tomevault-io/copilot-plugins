@@ -1,0 +1,9 @@
+{
+  "name": "yatskovskyi--cadcore",
+  "displayName": "cadcore",
+  "description": "Pure-Rust CAD geometry kernel \u2014 B-Rep topology, analytic surfaces, O(N) filament sweep, STEP AP203 export. No OCCT, no C++.",
+  "version": "1.0.0",
+  "author": "YATSKOVSKYI",
+  "homepage": "https://github.com/YATSKOVSKYI/cadcore",
+  "skills": []
+}
