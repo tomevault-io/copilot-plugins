@@ -1,0 +1,44 @@
+{
+  "name": "realtime-ai-trans",
+  "owner": "Maybe4747",
+  "repo": "realtime-ai-trans",
+  "description": "\u7535\u8111\u4e0a\u64ad\u653e\u7684\u4efb\u4f55\u58f0\u97f3\uff0c\u5373\u65f6\u53d8\u6210\u6bcd\u8bed\u60ac\u6d6e\u5b57\u5e55 \u2014\u2014 \u4e0d\u6311 app\u3001\u4e0d\u6311\u7f51\u7ad9\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Maybe4747/realtime-ai-trans",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-08T06:32:38Z"
+}
