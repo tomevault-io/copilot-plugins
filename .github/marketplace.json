@@ -199034,6 +199034,21 @@
       "description": "Communication interface for AI Coding Agents based on excalidraw to go beyond chats. "
     },
     {
+      "name": "yanpengqi7--ai-reliability-copilot",
+      "source": "./yanpengqi7--ai-reliability-copilot",
+      "description": "Turn a production incident into a structured 9-section LLM response (severity, root cause, mitigation, postmortem). Ships with a 5-scenario regression suite + LLM-as-judge eval pipeline."
+    },
+    {
+      "name": "yanpengqi7--ai-reliability-copilot",
+      "source": "./yanpengqi7--ai-reliability-copilot",
+      "description": "Turn a production incident into a structured 9-section LLM response (severity, root cause, mitigation, postmortem). Ships with a 5-scenario regression suite + LLM-as-judge eval pipeline."
+    },
+    {
+      "name": "weisserw--ibjjf-elo",
+      "source": "./weisserw--ibjjf-elo",
+      "description": "ibjjf-elo"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -308197,6 +308212,11 @@
       "name": "jaderdias--loopback",
       "source": "./jaderdias--loopback",
       "description": "loopback"
+    },
+    {
+      "name": "loop3d--plugin-loopstructural",
+      "source": "./loop3d--plugin-loopstructural",
+      "description": "plugin_loopstructural"
     }
   ]
 }
