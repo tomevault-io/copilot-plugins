@@ -132944,6 +132944,11 @@
       "description": "Native macOS semantic search over your local files - text, images, audio, video in one vector space, on-device on Apple silicon."
     },
     {
+      "name": "alpharealmdenote--dota2-performance-predictor",
+      "source": "./alpharealmdenote--dota2-performance-predictor",
+      "description": "Dota 2 Performance Analytics and Match Trend Predictor. Analyze Match History, Track Performance Metrics, Visualize Statistics and Discover Winning Patterns."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -162532,6 +162537,11 @@
       "name": "codebendkit--codeseek",
       "source": "./codebendkit--codeseek",
       "description": "Rust-powered code intelligence CLI for AI coding agents. Builds call graphs and hybrid semantic search indexes (Dense + Sparse + RRF + Reranker) across 7 languages. Ships as native MCP tools for Claud"
+    },
+    {
+      "name": "colossusauhem--proton-drive-sync",
+      "source": "./colossusauhem--proton-drive-sync",
+      "description": "Local folders, automatically synced to Proton Drive. (Unofficial Sync Client)"
     },
     {
       "name": "yschimke--compose-ai-tools",
