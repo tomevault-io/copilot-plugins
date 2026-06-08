@@ -92774,6 +92774,11 @@
       "description": "The world's most intuitive and reliable strongly-typed collaborative library"
     },
     {
+      "name": "svasek--homeassistant-neopool-modbus",
+      "source": "./svasek--homeassistant-neopool-modbus",
+      "description": "\ud83c\udfca Sugar Valley Neopool Modbus custom integration for Home Assistant"
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -199054,6 +199059,16 @@
       "description": "ibjjf-elo"
     },
     {
+      "name": "indxdev--autoresearch",
+      "source": "./indxdev--autoresearch",
+      "description": "Auto Research \u2014 automated multi-domain research pipeline (GitHub Actions + Claude Code) "
+    },
+    {
+      "name": "cloudflare--workspace",
+      "source": "./cloudflare--workspace",
+      "description": "@cloudflare/workspace, give your agent a computer \ud83d\udcbb"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202577,6 +202592,41 @@
       "name": "secemp9--rubrify",
       "source": "./secemp9--rubrify",
       "description": "Rubric compiler and judge engine for LLM evaluation"
+    },
+    {
+      "name": "akiasprin--ripple-reader",
+      "source": "./akiasprin--ripple-reader",
+      "description": "Ripple Reader: LLM-driven academic paper discovery & deep reading"
+    },
+    {
+      "name": "evedensity--mineworld",
+      "source": "./evedensity--mineworld",
+      "description": "\u57fa\u4e8e Three.js \u76843D\u50cf\u7d20\u98ce\u683c\u65b9\u5757\u4e16\u754c\u63a2\u7d22\u6e38\u620f\u3002\u4f7f\u7528\u539f\u751f HTML + CSS + ES Module JavaScript \u6784\u5efa\uff0c\u65e0\u9700\u6784\u5efa\u6b65\u9aa4\u3002\u652f\u6301\u684c\u9762\u7aef\uff08\u952e\u9f20\uff09\u548c\u79fb\u52a8\u7aef\uff08\u89e6\u63a7\uff09\u3002"
+    },
+    {
+      "name": "auratech-lab--r3arxiv-react3-archive",
+      "source": "./auratech-lab--r3arxiv-react3-archive",
+      "description": "r3arxiv-react3-archive"
+    },
+    {
+      "name": "vercel-labs--writing-guidelines",
+      "source": "./vercel-labs--writing-guidelines",
+      "description": "writing-guidelines"
+    },
+    {
+      "name": "auratech-lab--r3arxiv-react3-archive",
+      "source": "./auratech-lab--r3arxiv-react3-archive",
+      "description": "r3arxiv-react3-archive"
+    },
+    {
+      "name": "ghostcompiler--currency-api-dashboard",
+      "source": "./ghostcompiler--currency-api-dashboard",
+      "description": "Currency API Dashboard is a platform that fetches exchange rates hourly from Open Exchange Rates and provides a clean dashboard alongside API endpoints for accessing live currency rates, supported cur"
+    },
+    {
+      "name": "samuraigpt--social-post",
+      "source": "./samuraigpt--social-post",
+      "description": "Open-source AI social media post generator \u2014 production-ready Next.js SaaS with live platform mockups for LinkedIn, Twitter/X, Instagram, Facebook & Reddit, multi-tone generation, and publish intents."
     },
     {
       "name": "ldmoxeii--only-engine",
@@ -308222,6 +308272,166 @@
       "name": "loop3d--plugin-loopstructural",
       "source": "./loop3d--plugin-loopstructural",
       "description": "plugin_loopstructural"
+    },
+    {
+      "name": "asmodeus-oos--zendenta",
+      "source": "./asmodeus-oos--zendenta",
+      "description": "ZenDenta"
+    },
+    {
+      "name": "kjs369369--instagram-cardnews-life",
+      "source": "./kjs369369--instagram-cardnews-life",
+      "description": "\uc77c\uc0c1\uc758 \uac00\uc774\ub4dc \u2014 \ub18d\uc5c5\u00b7\uc18c\uc0c1\uacf5\uc778\u00b7\uc77c\uc0c1\uc744 \uc704\ud55c \uc778\uc2a4\ud0c0\uadf8\ub7a8 \uce74\ub4dc\ub274\uc2a4 3\uac1c \uc2dc\ub9ac\uc988 (Playwright + HTML \ud15c\ud50c\ub9bf \uc790\ub3d9 \uc0dd\uc131)"
+    },
+    {
+      "name": "testdemo222--testchinese222",
+      "source": "./testdemo222--testchinese222",
+      "description": "testchinese222"
+    },
+    {
+      "name": "eualvarobastos--am-converte",
+      "source": "./eualvarobastos--am-converte",
+      "description": "Reposit\u00f3rio da minha estrutura de comercial para fechamento de clientes da advocacia no Brasil."
+    },
+    {
+      "name": "nasrulniroi--token-unlock-scheduler",
+      "source": "./nasrulniroi--token-unlock-scheduler",
+      "description": "Token unlock calendar and impact analysis platform tracking vesting schedules, analyzing price impact, and aiding investment decisions"
+    },
+    {
+      "name": "yisetv--shows",
+      "source": "./yisetv--shows",
+      "description": "Shows"
+    },
+    {
+      "name": "nasrulniroi--nft-portfolio-dashboard",
+      "source": "./nasrulniroi--nft-portfolio-dashboard",
+      "description": "Comprehensive NFT portfolio management with floor tracking, rarity ranking, and PnL analysis across multiple marketplaces"
+    },
+    {
+      "name": "testdemo222--testchinese222",
+      "source": "./testdemo222--testchinese222",
+      "description": "testchinese222"
+    },
+    {
+      "name": "wangyufei0807--admin-boot",
+      "source": "./wangyufei0807--admin-boot",
+      "description": "spring boot + mybatisplus\u811a\u624b\u67b6"
+    },
+    {
+      "name": "mail-eth--ai-code-review",
+      "source": "./mail-eth--ai-code-review",
+      "description": "ai-code-review"
+    },
+    {
+      "name": "rybbit3--notion-api-job-posting",
+      "source": "./rybbit3--notion-api-job-posting",
+      "description": "notion-api-job-posting"
+    },
+    {
+      "name": "luisrramon--daniel-caesar-bio",
+      "source": "./luisrramon--daniel-caesar-bio",
+      "description": "daniel-caesar-bio"
+    },
+    {
+      "name": "yhson-lucia--sonsurae",
+      "source": "./yhson-lucia--sonsurae",
+      "description": "\uac1c\uc778\ud559\uc2b5\ube14\ub85c\uadf8"
+    },
+    {
+      "name": "ryangrowvisibility--san-luis-mobile-auto-repair",
+      "source": "./ryangrowvisibility--san-luis-mobile-auto-repair",
+      "description": "san-luis-mobile-auto-repair"
+    },
+    {
+      "name": "valine-dev--sublink-worker",
+      "source": "./valine-dev--sublink-worker",
+      "description": "sublink-worker"
+    },
+    {
+      "name": "ryangrowvisibility--los-reyes-tire-shop",
+      "source": "./ryangrowvisibility--los-reyes-tire-shop",
+      "description": "los-reyes-tire-shop"
+    },
+    {
+      "name": "zawiszaty--claude-sorted-linked-list",
+      "source": "./zawiszaty--claude-sorted-linked-list",
+      "description": "claude-sorted-linked-list"
+    },
+    {
+      "name": "htoomyatnyinyi--dotlink",
+      "source": "./htoomyatnyinyi--dotlink",
+      "description": "dotlink"
+    },
+    {
+      "name": "jdetras--claude-swiftbar",
+      "source": "./jdetras--claude-swiftbar",
+      "description": "claude-swiftbar"
+    },
+    {
+      "name": "nasrulniroi--token-unlock-scheduler",
+      "source": "./nasrulniroi--token-unlock-scheduler",
+      "description": "Token unlock calendar and impact analysis platform tracking vesting schedules, analyzing price impact, and aiding investment decisions"
+    },
+    {
+      "name": "kurobuchicken-cell--realestate-app",
+      "source": "./kurobuchicken-cell--realestate-app",
+      "description": "realestate-app"
+    },
+    {
+      "name": "nasrulniroi--nft-portfolio-dashboard",
+      "source": "./nasrulniroi--nft-portfolio-dashboard",
+      "description": "Comprehensive NFT portfolio management with floor tracking, rarity ranking, and PnL analysis across multiple marketplaces"
+    },
+    {
+      "name": "ku23ha--vaanihub-analytics",
+      "source": "./ku23ha--vaanihub-analytics",
+      "description": "Realtime GA4 analytics dashboard integration for Vaani Hub"
+    },
+    {
+      "name": "yhson-lucia--sonsurae",
+      "source": "./yhson-lucia--sonsurae",
+      "description": "\uac1c\uc778\ud559\uc2b5\ube14\ub85c\uadf8"
+    },
+    {
+      "name": "pedrinhotrembala--pdmo",
+      "source": "./pedrinhotrembala--pdmo",
+      "description": "PDMO"
+    },
+    {
+      "name": "valine-dev--sublink-worker",
+      "source": "./valine-dev--sublink-worker",
+      "description": "sublink-worker"
+    },
+    {
+      "name": "lopeshkgk--thomesport",
+      "source": "./lopeshkgk--thomesport",
+      "description": "thome-sport - Repository created from Bud"
+    },
+    {
+      "name": "kipkoechkevin611-cloud--ken-tank",
+      "source": "./kipkoechkevin611-cloud--ken-tank",
+      "description": "ken-tank"
+    },
+    {
+      "name": "annushakya--mini-lead-distribution-system",
+      "source": "./annushakya--mini-lead-distribution-system",
+      "description": "Mini-Lead-Distribution-System"
+    },
+    {
+      "name": "devidian--rw-plugin-oz-marketplace",
+      "source": "./devidian--rw-plugin-oz-marketplace",
+      "description": "Player Marketplace Plugin for Rising World"
+    },
+    {
+      "name": "sapatil2212--whatsapp-automation-crm",
+      "source": "./sapatil2212--whatsapp-automation-crm",
+      "description": "WhatsApp-Automation-CRM"
+    },
+    {
+      "name": "xinnbluebird--graphvizlint",
+      "source": "./xinnbluebird--graphvizlint",
+      "description": "Audit DOT graphs for layout & semantic issues. Powered by MiMo v2.5 Pro."
     }
   ]
 }
