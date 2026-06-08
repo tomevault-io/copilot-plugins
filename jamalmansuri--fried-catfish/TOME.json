@@ -4,7 +4,7 @@
   "repo": "fried-catfish",
   "description": "AI Framework with multi-agent tournament, deterministic Bradley-Terry scorer, human-gated writes \u2014 portable across Claude Code and Codex from a single MCP core.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JamalMansuri/fried-catfish",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-08T09:30:52Z"
+  "distributed_at": "2026-06-08T09:31:23Z"
 }
