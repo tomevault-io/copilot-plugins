@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [auratech-lab/r3arxiv-react3-archive](https://github.com/auratech-lab/r3arxiv-react3-archive).
+Original source: `AGENTS.md` in [auratech-lab/r3arxiv-react3-archive](https://github.com/auratech-lab/r3arxiv-react3-archive).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
