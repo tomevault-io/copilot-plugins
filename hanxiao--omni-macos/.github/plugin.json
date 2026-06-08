@@ -1,0 +1,9 @@
+{
+  "name": "hanxiao--omni-macos",
+  "displayName": "omni-macos",
+  "description": "Native macOS semantic search over your local files - text, images, audio, video in one vector space, on-device on Apple silicon.",
+  "version": "1.0.0",
+  "author": "hanxiao",
+  "homepage": "https://github.com/hanxiao/omni-macos",
+  "skills": []
+}
