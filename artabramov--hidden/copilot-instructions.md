@@ -1,43 +1,54 @@
-## hidden-risks
+## hidden-security
 
-> description: "Hidden — document known limits and risks explicitly, never gloss over"
+> description: "Hidden — security first, self-hosted model, flag regressions in chat"
 
 ---
-description: "Hidden — document known limits and risks explicitly, never gloss over"
+description: "Hidden — security first, self-hosted model, flag regressions in chat"
 alwaysApply: true
 ---
 
-# Hidden — Risks and limitations
+# Hidden — Security
 
-## 1. No implicit risks
+## 1. Priority
 
-Any **known** limits, trade-offs, implementation gaps, and **risks** (security,
-edge-case correctness, performance, trust model, maintainability) must not
-stay implicit: not “obvious”, not only in the author’s head, not a single vague
-line buried in code.
+**Security** is a first-class goal alongside correctness and maintainability.
+Do not treat it as optional polish or a follow-up task.
 
-## 2. Where to document
+## 2. Threat model
 
-Be **clear** for the operator and the next reader (including LLM sessions):
-what is constrained, under what conditions, and what mitigations or external
-actions apply.
+The app is intended for **self-hosted** use only (the operator controls the
+host, network, reverse proxy, TLS, and volumes). When assessing risk:
 
-Suitable places (non-exhaustive):
+- Many threats typical of **public multi-tenant SaaS** are **reduced** or
+  **shifted to the operator** (API exposure, gateway hardening, backups, OS).
+- Some threats are **barely relevant** in a common trust model (e.g. mass
+  anonymous abuse **if** the API is only reachable from a trusted perimeter).
+  Still design code safely for other deployment patterns.
 
-- **[`SECURITY.md`](../../SECURITY.md)** — threats or deliberate defense gaps
-  in the spirit of the OWASP-style sections.
-- **`NOTE (ADR-XX)`** and, when needed, **[`ADR.md`](../../ADR.md)** —
-  architectural or contractual trade-offs.
-- **`llms.txt`** — limitations a future session must know for a module.
-- API docstrings and response schemas — behavior that would surprise a client.
-- **The chat reply** — security weakening or new risk surfaces (see **Hidden —
-  Security**, section 4).
+Use **[`SECURITY.md`](../../SECURITY.md)** (OWASP-style self-assessment),
+**[`ADR.md`](../../ADR.md)** and `NOTE (ADR-XX)` comments in code (contract
+behavior), and **[`llms.txt`](../../llms.txt)** (context and hotspots).
 
-## 3. Keep docs in sync
+## 3. Code changes
 
-If a change **surfaces** a new risk or **increases** an existing one, update the
-explicit description. If a risk **goes away**, tighten or remove wording so
-docs stay accurate.
+Before implementing or finalizing logic under **`app/`** (and when touching
+**`extensions/`**, configuration, middleware, authentication, crypto, or
+logging):
+
+- Trace **trust boundaries**, **new inputs**, **authorization paths**,
+  **secret leakage into logs**, and where relevant **transaction / audit /
+  hook ordering**.
+- By default **preserve** or **strengthen** the current security model unless
+  the user explicitly asks for a different trade-off.
+
+## 4. Downgrades in chat
+
+On **any** security weakening (including deliberate, documented trade-offs),
+e.g. new unauthenticated surface, weaker validation, broader CORS, logging
+sensitive data, bypassing checks, weaker crypto, softer isolation of trusted
+components — **state clearly in the same chat** what was weakened, why, and
+what mitigations or operator actions are needed. Do not rely only on a commit
+or code comment unless the user asked for that alone.
 
 ---
 > Source: [artabramov/hidden](https://github.com/artabramov/hidden) — distributed by [TomeVault](https://tomevault.io).
