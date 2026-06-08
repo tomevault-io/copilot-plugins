@@ -1,0 +1,9 @@
+{
+  "name": "zdiemer--magiceyes",
+  "displayName": "magiceyes",
+  "description": "A cross-platform GP2X F100/F200, Wiz, and Caanoo emulator wrapped around Unicorn.",
+  "version": "1.0.0",
+  "author": "zdiemer",
+  "homepage": "https://github.com/zdiemer/magiceyes",
+  "skills": []
+}
