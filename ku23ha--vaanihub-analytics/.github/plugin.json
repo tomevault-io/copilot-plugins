@@ -1,0 +1,9 @@
+{
+  "name": "ku23ha--vaanihub-analytics",
+  "displayName": "vaanihub-analytics",
+  "description": "Realtime GA4 analytics dashboard integration for Vaani Hub",
+  "version": "1.0.0",
+  "author": "ku23ha",
+  "homepage": "https://github.com/ku23ha/vaanihub-analytics",
+  "skills": []
+}
