@@ -1,0 +1,9 @@
+{
+  "name": "yanpengqi7--ai-reliability-copilot",
+  "displayName": "ai-reliability-copilot",
+  "description": "Turn a production incident into a structured 9-section LLM response (severity, root cause, mitigation, postmortem). Ships with a 5-scenario regression suite + LLM-as-judge eval pipeline.",
+  "version": "1.0.0",
+  "author": "YanpengQi7",
+  "homepage": "https://github.com/YanpengQi7/ai-reliability-copilot",
+  "skills": []
+}
