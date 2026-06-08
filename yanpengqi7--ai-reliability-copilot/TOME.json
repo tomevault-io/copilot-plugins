@@ -1,0 +1,44 @@
+{
+  "name": "ai-reliability-copilot",
+  "owner": "YanpengQi7",
+  "repo": "ai-reliability-copilot",
+  "description": "Turn a production incident into a structured 9-section LLM response (severity, root cause, mitigation, postmortem). Ships with a 5-scenario regression suite + LLM-as-judge eval pipeline.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YanpengQi7/ai-reliability-copilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-08T00:30:20Z"
+}
