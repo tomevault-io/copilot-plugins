@@ -1,103 +1,79 @@
-## project-context
+## prose-audit
 
-> A benchmark for **AI-driven CAD generation and editing**: given a
+> Auditable rules for prose on public-facing surfaces (READMEs,
 
-# CADGenBench: project context
+# CADGenBench: prose audit
 
-## what this is
-A benchmark for **AI-driven CAD generation and editing**: given a
-textual or visual description of a mechanical part (or an existing
-STEP file plus an edit request), how well does a system produce a
-valid, geometrically correct 3D model? The benchmark is
-**system-agnostic** — a submission can come from an agent, a script,
-or a human in a CAD tool; the contract is just `output.step` per
-fixture. The repo contains the scoring engine + docs + a reference
-baseline (an iterative LLM agent that writes build123d Python). Eval
-itself runs on the leaderboard Space
-(`HuggingAI4Engineering/cadgenbench-leaderboard`) — the GT is private,
-so the Space is the only consumer.
+Auditable rules for prose on public-facing surfaces (READMEs,
+`docs/`, dataset cards, Space app text). Process docs under
+`space-setup/` are exempt.
 
-Fixtures live in two HF dataset repos
-([`cadgenbench-data`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data)
-public,
-[`cadgenbench-data-gt`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data-gt)
-private) — resolved at runtime by `cadgenbench.common.paths`. There is
-no `data/` directory in this repo any more. The set is still shifting
-(parts get added, removed, or replaced as authoring catches issues),
-so do not hardcode fixture names or counts anywhere; treat the inputs
-dataset as the source of truth.
+Style basics (em-dashes, AI tells, lowercase) live in
+[style.mdc](./style.mdc), not duplicated here.
 
-## scope (what to ship in v1)
-- A small set of fixtures (mating-jig parts plus derived editing-task
-  fixtures) under `data/inputs/` (public) + `data/gt/` (release TBD).
-- Four metric axes: validity (gate), shape similarity, interface
-  match, topology match. Combined as **CAD Score** = mean of
-  applicable components, hard-zeroed by validity failure.
-- One CLI entry point: `cadgenbench` (alias `cgb`) with subcommands
-  `evaluate`, `baseline run`, `baseline package`, `report single`.
-- One baseline: iterative build123d agent (no other strategies, no
-  multi-library helper agents).
+## adhere to HF benchmark conventions
+- Default to the shape established by other HF benchmark surfaces.
+  When something isn't otherwise pinned, do what they do.
+- Reference Spaces and repos:
+  - [adyen/DABstep](https://huggingface.co/spaces/adyen/DABstep)
+    (leaderboard Space text, validation guidelines)
+  - [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard)
+    (About / FAQ tone)
+  - [huggingface/lighteval](https://github.com/huggingface/lighteval),
+    [bigcode-project/bigcodebench](https://github.com/bigcode-project/bigcodebench)
+    (benchmark README + docs/ layout)
+- Short, concise, no fluff, user-friendly: document what the typical
+  visitor of each repo / dataset / Space will do, and nothing extra.
+- Order sections so the most common task scans first. Code repo:
+  install + run, then internals. Dataset card: load + columns, then
+  provenance. Space: submit + browse, then About / FAQ.
+- Cut hedging, throat-clearing, bullet lists that exist to look
+  thorough, repeated bold/italic emphasis, paragraphs that restate
+  the section heading.
 
-## critical design principles
-- **CAD geometry is always loaded from BREP**, never from a
-  pre-tessellated mesh. Measurements (volume, bbox, topology counts)
-  come from OCCT on the BREP. Triangulation is only for the renderer
-  and for mesh-pipeline sanity checks.
-- **The evaluator takes a STEP file and returns a metrics dict.** It
-  does not know which code (LLM, script, human) produced the geometry.
-  This is what makes the benchmark generator-agnostic.
-- **The LLM layer is model-agnostic.** All LLM calls go through
-  LiteLLM. No Anthropic / OpenAI / Gemini SDK imports in core modules.
-- **Keep it simple.** No abstractions until a second implementation
-  demands one. Drop dead options aggressively (we already dropped the
-  multi-strategy dispatcher, the multi-library helper agents, and the
-  metadata-side-metric path because none of them had a real consumer).
+## describe what is, not what was
+- Public surfaces describe the current contract. No change-log
+  framing, no apology framing, no "previously / we used to" prose.
+- Greppable tells (case-insensitive):
+  `previously`, `used to`, `historically`, `originally`, `formerly`,
+  `in the past`, `no longer`, `we now`, `we've moved`,
+  `migrated from`, `removed`, `dropped`, `deprecated`.
+- Release-history files (`CHANGELOG.md`, release notes) are exempt.
+  Everything else: rewrite to describe the current state.
 
-## key libraries
-| concern | library | notes |
-|---|---|---|
-| CAD geometry | build123d | Python wrapper over OCCT; pip-installable via the cadquery-ocp wheel |
-| OCCT bindings | OCP | ships with build123d |
-| Mesh / boolean ops | trimesh, manifold3d | mesh-side validity + interface IoU |
-| LLM routing | LiteLLM | unified API across providers |
-| Headless render | pyvista (VTK) | mesh-based; in-process; auto GPU OpenGL when present, software OpenGL otherwise |
-| Config / yaml | PyYAML | fixture descriptions, AgentConfig defaults |
+## don't define by absence
+- Describe what something is, not what it isn't.
+- Greppable tells (case-insensitive):
+  `no separate`, `no need to`, `there is no`, `there's no`,
+  `you don't have to`, `without having to`, `unlike`.
+- Rewrite to the positive form. "Submissions land via the form" beats
+  "no separate submission API to fill in".
 
-## repo layout (high level)
-```
-src/cadgenbench/        package source
-  cli.py                unified `cadgenbench` entry
-  common/               shared between eval and baseline
-  eval/                 metrics, alignment, reports
-  baseline/             reference LLM agent
-tests/                  pytest, mirrors src/cadgenbench/
-docs/                   metric specs + submission contract
-```
+## no false contrast
+- "X not Y" / "X rather than Y" is only legitimate when Y is a real
+  alternative a reader would genuinely consider (e.g. "the eval runs
+  on the Space, not locally"). If Y is a strawman or an internal
+  historical choice, cut the contrast and state the positive.
+- Greppable tells (manual triage, many legitimate hits):
+  ` not `, `rather than`, `instead of`, `as opposed to`.
 
-Fixtures (inputs + ground truth) and authoring/submitter sanity scripts
-live in two HF dataset repos
-([`cadgenbench-data`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data),
-[`cadgenbench-data-gt`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data-gt)),
-resolved at runtime by `cadgenbench.common.paths`. See the top-level
-README for env-var setup.
+## scope
+- In scope:
+  `cadgenbench/README.md`, `cadgenbench/docs/**/*.md`,
+  `AI4Engineering/**/*.py` user-facing strings,
+  `AI4Engineering/README.md`, dataset-card READMEs in
+  `cadgenbench-data/`, `cadgenbench-data-gt/`,
+  `cadgenbench-submissions/`.
+- Out of scope:
+  `space-setup/**` (process docs), `CHANGELOG.md`, release notes,
+  test fixtures, code comments explaining historical decisions.
 
-## what was removed (don't re-introduce)
-Earlier iterations of this codebase tried to be many things at once;
-most got cut. If you see references to any of these in old git
-history, they are intentionally gone and should not come back without
-explicit discussion:
-- Browser-based opencascade.js WASM viewer + FastAPI/WebSocket server.
-- Multi-strategy agent dispatcher (only one strategy ever existed).
-- Multi-library cheat sheets (bd_warehouse, py_gearworks,
-  gridfinity_build123d). The baseline uses build123d only.
-- Free-text `--task` invocation of the baseline (no fixture).
-- DINOv1 visual-similarity metric (a deleted `_render.py` under the
-  old validator path).
-- `gt_metadata` / `metadata_metrics` (weight-error side metric).
-- Per-fixture `ground_truth.glb` previews.
-- `gitpython` "commit per successful iteration" memory model.
-- `docs/architecture.md`, `docs/agent_v0.md`, `docs/tasks/`,
-  `docs/dataset_research/`, `docs/metrics_bundle.*`.
+## audit recipe
+- Run each greppable pattern above against the in-scope paths.
+- For each hit: rewrite to a positive present-tense statement of the
+  current contract, or confirm the contrast is genuinely useful to
+  the reader. False-contrast hits are the largest bucket; most
+  legitimate ` not ` uses survive review.
 
 ---
 > Source: [huggingface/cadgenbench](https://github.com/huggingface/cadgenbench) — distributed by [TomeVault](https://tomevault.io).
