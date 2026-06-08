@@ -1,0 +1,9 @@
+{
+  "name": "ferroxlabs--wayland-core",
+  "displayName": "wayland-core",
+  "description": "Multi-provider AI agent CLI written in Rust",
+  "version": "1.0.0",
+  "author": "FerroxLabs",
+  "homepage": "https://github.com/FerroxLabs/wayland-core",
+  "skills": []
+}
