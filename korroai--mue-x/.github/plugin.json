@@ -1,0 +1,9 @@
+{
+  "name": "korroai--mue-x",
+  "displayName": "mue-x",
+  "description": "Self-evolving AI agent that rewrites its own source code in real-time. 6 mutation strategies. 7 autonomous drives. GitHub absorption. Built by KORRO, 100% AI company.",
+  "version": "1.0.0",
+  "author": "KorroAi",
+  "homepage": "https://github.com/KorroAi/mue-x",
+  "skills": []
+}
