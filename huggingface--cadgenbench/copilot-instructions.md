@@ -1,112 +1,103 @@
-## code-audit
+## project-context
 
-> Pre-launch checklist for shipped code paths. Run before announcing
+> A benchmark for **AI-driven CAD generation and editing**: given a
 
-# CADGenBench: code audit
+# CADGenBench: project context
 
-Pre-launch checklist for shipped code paths. Run before announcing
-the leaderboard publicly.
+## what this is
+A benchmark for **AI-driven CAD generation and editing**: given a
+textual or visual description of a mechanical part (or an existing
+STEP file plus an edit request), how well does a system produce a
+valid, geometrically correct 3D model? The benchmark is
+**system-agnostic** — a submission can come from an agent, a script,
+or a human in a CAD tool; the contract is just `output.step` per
+fixture. The repo contains the scoring engine + docs + a reference
+baseline (an iterative LLM agent that writes build123d Python). Eval
+itself runs on the leaderboard Space
+(`HuggingAI4Engineering/cadgenbench-leaderboard`) — the GT is private,
+so the Space is the only consumer.
 
-Style basics (Python 3.12+, type hints, sync only, no fallbacks,
-no silent exception swallowing) live in [style.mdc](./style.mdc).
+Fixtures live in two HF dataset repos
+([`cadgenbench-data`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data)
+public,
+[`cadgenbench-data-gt`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data-gt)
+private) — resolved at runtime by `cadgenbench.common.paths`. There is
+no `data/` directory in this repo any more. The set is still shifting
+(parts get added, removed, or replaced as authoring catches issues),
+so do not hardcode fixture names or counts anywhere; treat the inputs
+dataset as the source of truth.
 
-## adhere to HF benchmark conventions
-- Default to the shape established by other HF benchmark code repos.
-  When something isn't otherwise pinned, do what they do.
-- Reference repos:
-  - [huggingface/lighteval](https://github.com/huggingface/lighteval),
-    [bigcode-project/bigcodebench](https://github.com/bigcode-project/bigcodebench)
-    (eval package layout, CLI shape)
-  - [adyen/DABstep](https://huggingface.co/spaces/adyen/DABstep/tree/main)
-    (leaderboard Space code, submit flow, dataset reader)
-  - [huggingface/datasets](https://github.com/huggingface/datasets)
-    (Apache-2.0 LICENSE + pyproject conventions)
+## scope (what to ship in v1)
+- A small set of fixtures (mating-jig parts plus derived editing-task
+  fixtures) under `data/inputs/` (public) + `data/gt/` (release TBD).
+- Four metric axes: validity (gate), shape similarity, interface
+  match, topology match. Combined as **CAD Score** = mean of
+  applicable components, hard-zeroed by validity failure.
+- One CLI entry point: `cadgenbench` (alias `cgb`) with subcommands
+  `evaluate`, `baseline run`, `baseline package`, `report single`.
+- One baseline: iterative build123d agent (no other strategies, no
+  multi-library helper agents).
 
-## no leftover code
-- No `print(` for diagnostics on shipped paths. CLI user-facing
-  output stays; ad-hoc traces go.
-- No commented-out blocks of code. Delete or extract.
-- No unreferenced functions, classes, or modules. If nothing
-  imports it and no CLI invokes it, delete it.
-- No dead imports.
-- No leftover `XXX`, `HACK`, or `DEBUG` markers. Resolve them or
-  open an issue.
-- Greppable tells:
-  - `print(`, `breakpoint(`, `pdb.set_trace`, `# XXX`, `# HACK`,
-    `# DEBUG`.
-  - `ruff check --select F401,F811,F841` for unused imports,
-    redefinitions, and locals.
-  - `vulture src/ AI4Engineering/` for unreferenced symbols (manual
-    triage; vulture is heuristic).
+## critical design principles
+- **CAD geometry is always loaded from BREP**, never from a
+  pre-tessellated mesh. Measurements (volume, bbox, topology counts)
+  come from OCCT on the BREP. Triangulation is only for the renderer
+  and for mesh-pipeline sanity checks.
+- **The evaluator takes a STEP file and returns a metrics dict.** It
+  does not know which code (LLM, script, human) produced the geometry.
+  This is what makes the benchmark generator-agnostic.
+- **The LLM layer is model-agnostic.** All LLM calls go through
+  LiteLLM. No Anthropic / OpenAI / Gemini SDK imports in core modules.
+- **Keep it simple.** No abstractions until a second implementation
+  demands one. Drop dead options aggressively (we already dropped the
+  multi-strategy dispatcher, the multi-library helper agents, and the
+  metadata-side-metric path because none of them had a real consumer).
 
-## no overengineering
-- Match the surface area of comparable HF benchmarks. Lighteval and
-  bigcodebench are the size targets; do not exceed without reason.
-- Drop abstractions that have a single consumer: factories with one
-  implementation, registries with one entry, base classes with one
-  subclass, config systems for two flags.
-- Drop dependencies that replace fewer than ~50 lines of correct
-  code (see [style.mdc](./style.mdc)).
-- Manual review: walk `src/` and ask "would lighteval do this?" for
-  each module. If the answer is "no, they'd inline it", inline it.
+## key libraries
+| concern | library | notes |
+|---|---|---|
+| CAD geometry | build123d | Python wrapper over OCCT; pip-installable via the cadquery-ocp wheel |
+| OCCT bindings | OCP | ships with build123d |
+| Mesh / boolean ops | trimesh, manifold3d | mesh-side validity + interface IoU |
+| LLM routing | LiteLLM | unified API across providers |
+| Headless render | pyvista (VTK) | mesh-based; in-process; auto GPU OpenGL when present, software OpenGL otherwise |
+| Config / yaml | PyYAML | fixture descriptions, AgentConfig defaults |
 
-## no pre-launch TODOs
-- Any `TODO` or `FIXME` referencing "before launch", "before
-  release", "before announcing", "pre-launch", or "pre-release"
-  must be actioned or downgraded to a tracked post-launch item.
-- Greppable:
-  `rg -n -i '(TODO|FIXME).*(before|pre.?launch|pre.?release|announce)'`
+## repo layout (high level)
+```
+src/cadgenbench/        package source
+  cli.py                unified `cadgenbench` entry
+  common/               shared between eval and baseline
+  eval/                 metrics, alignment, reports
+  baseline/             reference LLM agent
+tests/                  pytest, mirrors src/cadgenbench/
+docs/                   metric specs + submission contract
+```
 
-## no hardcoded org / paths / secrets
-- Org slug `HuggingAI4Engineering` comes from env (e.g.
-  `CADGENBENCH_HF_ORG`); no literal in code paths.
-- No API keys, tokens, or webhook URLs in source. Secrets via env.
-- No absolute filesystem paths (`/Users/`, `/home/`, `C:\`). Use
-  `Path(__file__)` or env-driven paths.
-- Greppable (each should return zero hits in scope):
-  - `rg -n 'HuggingAI4Engineering'`
-  - `rg -n '/Users/|/home/|C:\\\\'`
-  - `rg -n '(sk-|hf_|ghp_|xox[baprs]-)[A-Za-z0-9_-]{20,}'`
+Fixtures (inputs + ground truth) and authoring/submitter sanity scripts
+live in two HF dataset repos
+([`cadgenbench-data`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data),
+[`cadgenbench-data-gt`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data-gt)),
+resolved at runtime by `cadgenbench.common.paths`. See the top-level
+README for env-var setup.
 
-## license metadata matches LICENSE
-- `cadgenbench/pyproject.toml`: `license = "Apache-2.0"` and
-  `license-files = ["LICENSE"]` (PEP 639).
-- `cadgenbench/LICENSE` is the full Apache-2.0 text.
-- Cross-check: `rg -n '^license' cadgenbench/pyproject.toml` and
-  `rg -n 'Apache License' cadgenbench/LICENSE` both return the
-  expected lines.
-
-## license headers on source files
-- Every `.py` file under `cadgenbench/src/`, `cadgenbench/cli.py`,
-  and `AI4Engineering/` starts with the standard Apache-2.0 header
-  (`Copyright 2026 Hugging Face` plus the boilerplate). Matches
-  `huggingface/datasets`, `lighteval`, `bigcodebench`.
-- Greppable check (run from each repo root):
-  `for f in $(git ls-files '*.py'); do head -15 "$f" | rg -q 'Apache License' || echo "missing: $f"; done`
-
-## tests pass
-- `pytest -q` clean across `cadgenbench/tests/`. Run the full suite
-  yourself unsandboxed (`required_permissions: ["all"]`); the
-  renderer-dependent tests (`tests/common/test_viewer.py`, baseline
-  end-to-end) need a real GL context the sandbox lacks, so they pass
-  only unsandboxed. The non-renderer tests also run in the sandbox.
-  See style.mdc "VTK renderer".
-
-## scope
-- In scope:
-  `cadgenbench/src/**/*.py`, `cadgenbench/cli.py`,
-  `AI4Engineering/**/*.py`, sibling scripts in
-  `cadgenbench-data{,-gt}/**/*.py`,
-  `cadgenbench-submissions/**/*.py`.
-- Out of scope:
-  `cadgenbench/tests/**` (debug prints + TODOs allowed; tests
-  must still pass per the section above),
-  `space-setup/**`.
-
-## audit recipe
-- Run each greppable pattern above against the in-scope paths.
-- For each hit: fix, delete, or document why it survives (env-var
-  contract, intentional CLI output, etc.).
+## what was removed (don't re-introduce)
+Earlier iterations of this codebase tried to be many things at once;
+most got cut. If you see references to any of these in old git
+history, they are intentionally gone and should not come back without
+explicit discussion:
+- Browser-based opencascade.js WASM viewer + FastAPI/WebSocket server.
+- Multi-strategy agent dispatcher (only one strategy ever existed).
+- Multi-library cheat sheets (bd_warehouse, py_gearworks,
+  gridfinity_build123d). The baseline uses build123d only.
+- Free-text `--task` invocation of the baseline (no fixture).
+- DINOv1 visual-similarity metric (a deleted `_render.py` under the
+  old validator path).
+- `gt_metadata` / `metadata_metrics` (weight-error side metric).
+- Per-fixture `ground_truth.glb` previews.
+- `gitpython` "commit per successful iteration" memory model.
+- `docs/architecture.md`, `docs/agent_v0.md`, `docs/tasks/`,
+  `docs/dataset_research/`, `docs/metrics_bundle.*`.
 
 ---
 > Source: [huggingface/cadgenbench](https://github.com/huggingface/cadgenbench) — distributed by [TomeVault](https://tomevault.io).
