@@ -1,0 +1,9 @@
+{
+  "name": "rune-goblin--runegoblin-foundrytemplate",
+  "displayName": "runegoblin-foundrytemplate",
+  "description": "Foundry VTT Pathfinder 2e module template \u2014 TypeScript + Svelte 5 + Vite, v14 APIs only. Run 'npm run init -- <id>' to spin up a new module.",
+  "version": "1.0.0",
+  "author": "rune-goblin",
+  "homepage": "https://github.com/rune-goblin/runegoblin-foundrytemplate",
+  "skills": []
+}
