@@ -4,7 +4,7 @@
   "repo": "realtime-ai-trans",
   "description": "\u7535\u8111\u4e0a\u64ad\u653e\u7684\u4efb\u4f55\u58f0\u97f3\uff0c\u5373\u65f6\u53d8\u6210\u6bcd\u8bed\u60ac\u6d6e\u5b57\u5e55 \u2014\u2014 \u4e0d\u6311 app\u3001\u4e0d\u6311\u7f51\u7ad9\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Maybe4747/realtime-ai-trans",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-08T06:32:38Z"
+  "distributed_at": "2026-06-08T06:34:29Z"
 }
