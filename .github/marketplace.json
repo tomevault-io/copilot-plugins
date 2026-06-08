@@ -34934,6 +34934,11 @@
       "description": "An AirTest-based framework optimized for stable mobile automation."
     },
     {
+      "name": "femto--minion",
+      "source": "./femto--minion",
+      "description": "\ud83d\udc77\u200d\u2642\ufe0fHigh performance agent framework that can do everything. Minion is designed to execute any type of queries, offering a variety of features that demonstrate its flexibility and intelligence."
+    },
+    {
       "name": "wedow--harness",
       "source": "./wedow--harness",
       "description": "Minimal agent loop in bash. Pure state follower core with plugin-based tools, hooks, providers, and commands. Dependencies: bash 4+, jq, curl."
@@ -199294,6 +199299,11 @@
       "description": "Phylax a security layer for AI coding agents. It enforces fine grained read, write, and delete permissions using explicit policy buckets and OS level controls, ensuring agents operate safely within de"
     },
     {
+      "name": "medounesgb--ffmanager",
+      "source": "./medounesgb--ffmanager",
+      "description": "Le studio tout-en-un pour FFmpeg : convertir, compresser, t\u00e9l\u00e9charger et lire vos vid\u00e9os \u2014 file d'attente, lecteur VLC int\u00e9gr\u00e9, capture de flux web et extension Chrome, dans une interface moderne."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -202892,6 +202902,16 @@
       "name": "potatospudowski--gpu-snapshot-experiment",
       "source": "./potatospudowski--gpu-snapshot-experiment",
       "description": "GPU cold boot optimization using NVIDIA cuda-checkpoint + CRIU \u2014 snapshot and restore a live GPU process including compiled kernels and vRAM state"
+    },
+    {
+      "name": "feifeibear--seereel",
+      "source": "./feifeibear--seereel",
+      "description": "Agent-native Seedance 2.0 short-film studio: cli for AI, canvas for human"
+    },
+    {
+      "name": "feifeibear--seereel",
+      "source": "./feifeibear--seereel",
+      "description": "Agent-native Seedance 2.0 short-film studio: cli for AI, canvas for human"
     },
     {
       "name": "ldmoxeii--only-engine",
