@@ -1,0 +1,9 @@
+{
+  "name": "medounesgb--ffmanager",
+  "displayName": "ffmanager",
+  "description": "Le studio tout-en-un pour FFmpeg : convertir, compresser, t\u00e9l\u00e9charger et lire vos vid\u00e9os \u2014 file d'attente, lecteur VLC int\u00e9gr\u00e9, capture de flux web et extension Chrome, dans une interface moderne.",
+  "version": "1.0.0",
+  "author": "MedouneSGB",
+  "homepage": "https://github.com/MedouneSGB/ffmanager",
+  "skills": []
+}
