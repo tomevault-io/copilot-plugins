@@ -1,0 +1,9 @@
+{
+  "name": "notnull92--hera-agent-unity",
+  "displayName": "hera-agent-unity",
+  "description": "CLI tool to control Unity Editor from the command line \u2014 part of the Hera Agent ecosystem",
+  "version": "1.0.0",
+  "author": "NotNull92",
+  "homepage": "https://github.com/NotNull92/hera-agent-unity",
+  "skills": []
+}
