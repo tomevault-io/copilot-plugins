@@ -1,79 +1,145 @@
-## prose-audit
+## style
 
-> Auditable rules for prose on public-facing surfaces (READMEs,
+> - Python 3.12+. Type hints everywhere. No implicit Any.
 
-# CADGenBench: prose audit
+# CADGenBench: code style
 
-Auditable rules for prose on public-facing surfaces (READMEs,
-`docs/`, dataset cards, Space app text). Process docs under
-`space-setup/` are exempt.
+## language + runtime
+- Python 3.12+. Type hints everywhere. No implicit Any.
+- Synchronous everywhere. No async / asyncio anywhere in the agent
+  loop, eval pipeline, or CLI. The agent loop is one Python-script-
+  per-turn subprocess; the eval pipeline is straight-line.
 
-Style basics (em-dashes, AI tells, lowercase) live in
-[style.mdc](./style.mdc), not duplicated here.
+## structure
+- One concern per module. No god files.
+- Keep it simple. Don't add abstractions until a second implementation demands one.
 
-## adhere to HF benchmark conventions
-- Default to the shape established by other HF benchmark surfaces.
-  When something isn't otherwise pinned, do what they do.
-- Reference Spaces and repos:
-  - [adyen/DABstep](https://huggingface.co/spaces/adyen/DABstep)
-    (leaderboard Space text, validation guidelines)
-  - [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard)
-    (About / FAQ tone)
-  - [huggingface/lighteval](https://github.com/huggingface/lighteval),
-    [bigcode-project/bigcodebench](https://github.com/bigcode-project/bigcodebench)
-    (benchmark README + docs/ layout)
-- Short, concise, no fluff, user-friendly: document what the typical
-  visitor of each repo / dataset / Space will do, and nothing extra.
-- Order sections so the most common task scans first. Code repo:
-  install + run, then internals. Dataset card: load + columns, then
-  provenance. Space: submit + browse, then About / FAQ.
-- Cut hedging, throat-clearing, bullet lists that exist to look
-  thorough, repeated bold/italic emphasis, paragraphs that restate
-  the section heading.
+## naming
+- snake_case for everything Python. No camelCase except where a library forces it.
+- Classes: PascalCase. Constants: SCREAMING_SNAKE.
+- Files: short, one word where possible (viewer.py, validity.py,
+  agent.py, prompt.py, evaluate.py).
 
-## describe what is, not what was
-- Public surfaces describe the current contract. No change-log
-  framing, no apology framing, no "previously / we used to" prose.
-- Greppable tells (case-insensitive):
-  `previously`, `used to`, `historically`, `originally`, `formerly`,
-  `in the past`, `no longer`, `we now`, `we've moved`,
-  `migrated from`, `removed`, `dropped`, `deprecated`.
-- Release-history files (`CHANGELOG.md`, release notes) are exempt.
-  Everything else: rewrite to describe the current state.
+## dependencies
+- No Anthropic SDK in core modules. LiteLLM only for all LLM calls.
+- No LangChain, no heavy agent frameworks. The orchestrator is plain Python.
+- Add a dependency only if it replaces >50 lines of correct code.
 
-## don't define by absence
-- Describe what something is, not what it isn't.
-- Greppable tells (case-insensitive):
-  `no separate`, `no need to`, `there is no`, `there's no`,
-  `you don't have to`, `without having to`, `unlike`.
-- Rewrite to the positive form. "Submissions land via the form" beats
-  "no separate submission API to fill in".
+## configuration
+- Secrets via environment variables only (.env + python-dotenv).
+- Config will be added when needed. Don't create config files speculatively.
 
-## no false contrast
-- "X not Y" / "X rather than Y" is only legitimate when Y is a real
-  alternative a reader would genuinely consider (e.g. "the eval runs
-  on the Space, not locally"). If Y is a strawman or an internal
-  historical choice, cut the contrast and state the positive.
-- Greppable tells (manual triage, many legitimate hits):
-  ` not `, `rather than`, `instead of`, `as opposed to`.
+## error handling
+- **Never silently swallow exceptions.** If something fails, crash loudly. No bare
+  `except` that logs and continues. If the pipeline depends on a step (rendering,
+  validation, similarity), let it raise, the caller decides whether to retry.
+- CAD *execution* errors (inside the agent loop) are the one exception: catch them,
+  return structured error dicts, feed back to the agent. But infrastructure failures
+  (renderer down, LLM unreachable after retries, filesystem errors) must crash.
+- LLM errors: retry with exponential backoff, then raise clearly.
 
-## scope
-- In scope:
-  `cadgenbench/README.md`, `cadgenbench/docs/**/*.md`,
-  `AI4Engineering/**/*.py` user-facing strings,
-  `AI4Engineering/README.md`, dataset-card READMEs in
-  `cadgenbench-data/`, `cadgenbench-data-gt/`,
-  `cadgenbench-submissions/`.
-- Out of scope:
-  `space-setup/**` (process docs), `CHANGELOG.md`, release notes,
-  test fixtures, code comments explaining historical decisions.
+## no fallbacks
+- **Never introduce fallbacks.** If the user asks for model / dataset / provider /
+  version X and X is unavailable, stop and ask. Do not silently substitute a
+  "close enough" alternative, a smaller sibling, or an older version.
+- No "try A, on failure use B" logic. No default-substitution for unknown inputs.
+  The correct response to "X isn't available" is to surface that to the user,
+  not to paper over it.
+- This applies to code paths *and* to scripts, configs, and docs (don't list
+  "fallback" models in commented lines either, just list what was asked for,
+  and note separately if it's unavailable).
 
-## audit recipe
-- Run each greppable pattern above against the in-scope paths.
-- For each hit: rewrite to a positive present-tense statement of the
-  current contract, or confirm the contrast is genuinely useful to
-  the reader. False-contrast hits are the largest bucket; most
-  legitimate ` not ` uses survive review.
+## testing
+- `tests/` mirrors `src/cadgenbench/` structure
+  (`tests/common/`, `tests/eval/`, `tests/baseline/`).
+- Eval tests use fixed STEP fixtures (`tests/fixtures/`,
+  `tests/eval/fixtures/`), not live LLM calls. Agent tests mock the
+  LLM client; nothing in `tests/` makes real API calls.
+
+## comments
+- Docstrings on all public functions and classes. Google style.
+- Inline comments only for non-obvious decisions. Not for describing what the code does.
+
+## prose style
+- **No em-dashes.** Forbidden in markdown, docstrings, comments, commit
+  messages, and chat output. Applies to both the Unicode character (U+2014)
+  and the HTML entity `&mdash;` (this rule file is the only place either
+  is allowed, since it defines them). Use a comma, colon, period, or
+  parentheses instead. Reword if the sentence rhythm depends on a dash.
+- **No AI-writing tells.** Avoid the patterns that mark machine-generated
+  prose: "it's not just X, it's Y", "let's dive in", excessive use of
+  "robust" / "comprehensive" / "seamlessly" / "leverages" / "delve",
+  bullet lists that exist only to look thorough, and bold/italic peppered
+  through paragraphs for emphasis. Write the way an experienced engineer
+  reviewing a PR description would write: short, direct, lower-case,
+  no rhetorical scaffolding.
+
+## process: what requires explicit approval
+- **Never change business logic, control flow, or stopping criteria** without asking first.
+  Bug fixes are fine. Changing *when* or *why* something happens is a design decision, ask.
+- If you spot a logic issue while working on something else, flag it in your response.
+  Do not silently "fix" it.
+- **Stop after flagging.** When you raise an issue, a question, or a choice for the user
+  (numbered list, "Issue 1 / Issue 2", "Option A / Option B", "should I X or Y?"), end
+  your turn there and wait. Do not keep chaining tool calls "to make progress" while
+  the user is meant to be answering. One flag, then yield.
+
+## simplicity over backwards compatibility
+- **Default: simplify.** When a refactor, rename, or schema change makes the codebase
+  cleaner, the default is to do the clean thing once and update all call sites, not to
+  keep the old name/behaviour working alongside the new one "for safety".
+- **No silent shims, no dual-pattern parsers, no "accept either" code paths** added on
+  your own initiative. One naming rule, one schema, one entry point, that's the goal.
+- **Ask when uncertain.** If you can't tell whether a caller outside the visible tree
+  (a downstream script, a saved fixture, a script not yet rewritten) depends on the
+  old shape, **stop and ask** rather than guessing. "Should I keep both for now?" is
+  always a valid clarifying question.
+- This applies to file naming, dataclass fields, function signatures, CLI flags,
+  JSON/YAML schemas, and anything else where two ways of doing it could otherwise drift.
+
+## git: keep it boring
+- When asked to "push the changes", default to the simplest path: commit the files
+  you actually edited and push. Do **not** reach for `git stash`, partial-hunk
+  staging, interactive rebases, or cherry-picks unless the user explicitly asks.
+- If the working tree contains unrelated WIP that would get swept into your commit,
+  **stop and ask** ("your tree has other modified files, commit only mine, include
+  everything, or abort?"). Never invent a clever workaround on the user's behalf.
+- Never amend, force-push, or rewrite history without explicit instruction.
+- If a git operation fails or produces conflicts, stop and describe the state -
+  don't keep chaining recovery commands hoping it resolves.
+
+## external downloads + agent environment
+- If **network**, **DNS**, **GitHub rate limits**, **large/binary downloads**, or the
+  **Cursor sandbox** blocks a predictable `git clone` / `curl` path, **stop and ask the
+  user** to run one copy-paste command locally rather than chaining retries,
+  background jobs, ZIP fallbacks, or API gymnastics.
+- For **human-only steps** (vendor portals, SSO, CAD login, CAPTCHA), **prompt the user
+  immediately**, do not treat “keep trying variants in the sandbox” as progress.
+- If the user prefers to own fetches entirely, defer to them and document the exact URLs
+  and expected paths in chat; no staging directory in this repo.
+
+## VTK renderer: needs an OpenGL context
+- **The renderer (`cadgenbench.common.viewer.render_step` and friends)
+  needs a real OpenGL context to draw, which the Cursor sandbox does
+  not provide.** Running it inside the sandbox prints
+  `vtkCocoaRenderWindow ... GLEW could not be initialized` (macOS) or
+  segfaults (Linux). Re-running the same command with
+  `required_permissions: ["all"]` is fine: the macOS Cocoa GL backend
+  works outside the sandbox, and on Linux Docker hosts the Mesa /
+  EGL software backend kicks in.
+- Tests / commands affected: `tests/common/test_viewer.py`,
+  anything that calls `render_step` / `render_steps` / `render_overlay`
+  / `render_mesh`, `cadgenbench evaluate` over fresh fixtures, and
+  `cadgenbench baseline run` end-to-end.
+- Run these yourself unsandboxed with `required_permissions: ["all"]`.
+  This is verified: the full `pytest` suite passes that way in ~20s
+  (macOS Cocoa GL; Linux Mesa / EGL software backend). You can run
+  every test yourself, the renderer-dependent ones included, so never
+  hand test runs off to the user. The non-renderer unit tests
+  (validity / similarity / interface_match / topo_match / agent /
+  measurements / mesh) run in seconds inside the sandbox; keep those in
+  the fast sandboxed loop and escalate to an unsandboxed run for
+  anything that renders or runs a full `cadgenbench evaluate`.
 
 ---
 > Source: [huggingface/cadgenbench](https://github.com/huggingface/cadgenbench) — distributed by [TomeVault](https://tomevault.io).
