@@ -1,0 +1,44 @@
+{
+  "name": "currency-api-dashboard",
+  "owner": "ghostcompiler",
+  "repo": "currency-api-dashboard",
+  "description": "Currency API Dashboard is a platform that fetches exchange rates hourly from Open Exchange Rates and provides a clean dashboard alongside API endpoints for accessing live currency rates, supported currencies, and exchange data programmatically.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ghostcompiler/currency-api-dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-08T02:36:24Z"
+}
