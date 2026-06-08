@@ -97069,6 +97069,11 @@
       "description": "MCP server, CLI, and agent skills for Pipefy."
     },
     {
+      "name": "robdegeorge--octave",
+      "source": "./robdegeorge--octave",
+      "description": "Open-source, Cross-platform Telematics Augmented Vehicle Experience"
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
