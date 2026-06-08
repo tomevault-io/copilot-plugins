@@ -199354,6 +199354,41 @@
       "description": "Foundry VTT Pathfinder 2e module template \u2014 TypeScript + Svelte 5 + Vite, v14 APIs only. Run 'npm run init -- <id>' to spin up a new module."
     },
     {
+      "name": "ferroxlabs--wayland-core",
+      "source": "./ferroxlabs--wayland-core",
+      "description": "Multi-provider AI agent CLI written in Rust"
+    },
+    {
+      "name": "notnull92--hera-agent-unity",
+      "source": "./notnull92--hera-agent-unity",
+      "description": "CLI tool to control Unity Editor from the command line \u2014 part of the Hera Agent ecosystem"
+    },
+    {
+      "name": "ferroxlabs--wayland-core",
+      "source": "./ferroxlabs--wayland-core",
+      "description": "Multi-provider AI agent CLI written in Rust"
+    },
+    {
+      "name": "konananachan--openpoly",
+      "source": "./konananachan--openpoly",
+      "description": "openPoly by KoNananachan: open, news-driven, on-chain-verifiable live trading for Polymarket."
+    },
+    {
+      "name": "korroai--mue-x",
+      "source": "./korroai--mue-x",
+      "description": "Self-evolving AI agent that rewrites its own source code in real-time. 6 mutation strategies. 7 autonomous drives. GitHub absorption. Built by KORRO, 100% AI company."
+    },
+    {
+      "name": "lensapp--lens-sandbox",
+      "source": "./lensapp--lens-sandbox",
+      "description": "Run AI agents, commands, and OCI images locally inside a microVM \u2014 control what flows into and out of the sandbox."
+    },
+    {
+      "name": "lensapp--lens-sandbox",
+      "source": "./lensapp--lens-sandbox",
+      "description": "Run AI agents, commands, and OCI images locally inside a microVM \u2014 control what flows into and out of the sandbox."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
