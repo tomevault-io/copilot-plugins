@@ -1,0 +1,9 @@
+{
+  "name": "lensapp--lens-sandbox",
+  "displayName": "lens-sandbox",
+  "description": "Run AI agents, commands, and OCI images locally inside a microVM \u2014 control what flows into and out of the sandbox.",
+  "version": "1.0.0",
+  "author": "lensapp",
+  "homepage": "https://github.com/lensapp/lens-sandbox",
+  "skills": []
+}
