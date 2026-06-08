@@ -4,7 +4,7 @@
   "repo": "SeeReel",
   "description": "Agent-native Seedance 2.0 short-film studio: cli for AI, canvas for human",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/feifeibear/SeeReel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-08T16:30:26Z"
+  "distributed_at": "2026-06-08T16:31:26Z"
 }
