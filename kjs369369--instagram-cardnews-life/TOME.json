@@ -1,0 +1,44 @@
+{
+  "name": "instagram-cardnews-life",
+  "owner": "kjs369369",
+  "repo": "instagram-cardnews-life",
+  "description": "\uc77c\uc0c1\uc758 \uac00\uc774\ub4dc \u2014 \ub18d\uc5c5\u00b7\uc18c\uc0c1\uacf5\uc778\u00b7\uc77c\uc0c1\uc744 \uc704\ud55c \uc778\uc2a4\ud0c0\uadf8\ub7a8 \uce74\ub4dc\ub274\uc2a4 3\uac1c \uc2dc\ub9ac\uc988 (Playwright + HTML \ud15c\ud50c\ub9bf \uc790\ub3d9 \uc0dd\uc131)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kjs369369/instagram-cardnews-life",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-08T02:35:06Z"
+}
