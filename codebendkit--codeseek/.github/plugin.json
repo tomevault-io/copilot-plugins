@@ -1,0 +1,9 @@
+{
+  "name": "codebendkit--codeseek",
+  "displayName": "codeseek",
+  "description": "Rust-powered code intelligence CLI for AI coding agents. Builds call graphs and hybrid semantic search indexes (Dense + Sparse + RRF + Reranker) across 7 languages. Ships as native MCP tools for Claud",
+  "version": "1.0.0",
+  "author": "CodeBendKit",
+  "homepage": "https://github.com/CodeBendKit/codeseek",
+  "skills": []
+}
