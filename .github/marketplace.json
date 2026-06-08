@@ -185694,6 +185694,41 @@
       "description": "OrbitPay frontend dashboard"
     },
     {
+      "name": "stellarinsure-org--stellarinsure-frontend",
+      "source": "./stellarinsure-org--stellarinsure-frontend",
+      "description": "StellarInsure frontend dashboard"
+    },
+    {
+      "name": "artabramov--hidden",
+      "source": "./artabramov--hidden",
+      "description": "Self-hosted encrypted file storage"
+    },
+    {
+      "name": "lazyhuman-ai--serenity-invest-skill",
+      "source": "./lazyhuman-ai--serenity-invest-skill",
+      "description": "serenity-invest-skill"
+    },
+    {
+      "name": "artabramov--hidden",
+      "source": "./artabramov--hidden",
+      "description": "Self-hosted encrypted file storage"
+    },
+    {
+      "name": "stellarinsure-org--stellarinsure-website",
+      "source": "./stellarinsure-org--stellarinsure-website",
+      "description": "StellarInsure marketing website \u2014 editorial minimalist, built with Next.js + shadcn/ui"
+    },
+    {
+      "name": "artabramov--hidden",
+      "source": "./artabramov--hidden",
+      "description": "Self-hosted encrypted file storage"
+    },
+    {
+      "name": "artabramov--hidden",
+      "source": "./artabramov--hidden",
+      "description": "Self-hosted encrypted file storage"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199177,6 +199212,16 @@
       "name": "maybe4747--realtime-ai-trans",
       "source": "./maybe4747--realtime-ai-trans",
       "description": "\u7535\u8111\u4e0a\u64ad\u653e\u7684\u4efb\u4f55\u58f0\u97f3\uff0c\u5373\u65f6\u53d8\u6210\u6bcd\u8bed\u60ac\u6d6e\u5b57\u5e55 \u2014\u2014 \u4e0d\u6311 app\u3001\u4e0d\u6311\u7f51\u7ad9\u3002"
+    },
+    {
+      "name": "wispr-flow-linux--wispr-flow-linux",
+      "source": "./wispr-flow-linux--wispr-flow-linux",
+      "description": "Unofficial Linux port of Wispr Flow"
+    },
+    {
+      "name": "wispr-flow-linux--wispr-flow-linux",
+      "source": "./wispr-flow-linux--wispr-flow-linux",
+      "description": "Unofficial Linux port of Wispr Flow"
     },
     {
       "name": "cheerhuan--save-your-token",
