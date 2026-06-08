@@ -1,0 +1,9 @@
+{
+  "name": "potatospudowski--gpu-snapshot-experiment",
+  "displayName": "gpu-snapshot-experiment",
+  "description": "GPU cold boot optimization using NVIDIA cuda-checkpoint + CRIU \u2014 snapshot and restore a live GPU process including compiled kernels and vRAM state",
+  "version": "1.0.0",
+  "author": "PotatoSpudowski",
+  "homepage": "https://github.com/PotatoSpudowski/gpu-snapshot-experiment",
+  "skills": []
+}
