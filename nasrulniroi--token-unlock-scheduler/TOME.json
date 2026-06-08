@@ -4,7 +4,7 @@
   "repo": "token-unlock-scheduler",
   "description": "Token unlock calendar and impact analysis platform tracking vesting schedules, analyzing price impact, and aiding investment decisions",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nasrulniroi/token-unlock-scheduler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-08T02:37:42Z"
+  "distributed_at": "2026-06-08T02:44:15Z"
 }
