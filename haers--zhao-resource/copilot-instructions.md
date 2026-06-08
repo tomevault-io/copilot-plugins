@@ -60,5 +60,5 @@ pnpm docs:build
 - 提交前用 `git status --short` 确认是否混入无关改动；如果有用户自己的改动，先确认用途再决定是否一起提交。
 
 ---
-> Source: [haers/zhao_resource](https://github.com/haers/zhao_resource) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
+> Source: [haers/zhao-resource](https://github.com/haers/zhao-resource) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-08 -->
