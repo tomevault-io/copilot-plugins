@@ -1,0 +1,9 @@
+{
+  "name": "solana-rpc--superbank",
+  "displayName": "superbank",
+  "description": "superbank",
+  "version": "1.0.0",
+  "author": "solana-rpc",
+  "homepage": "https://github.com/solana-rpc/superbank",
+  "skills": []
+}
