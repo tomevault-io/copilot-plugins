@@ -1,311 +1,375 @@
-## 080-python-backend
+## 090-database
 
-> Reglas específicas para desarrollo Python/FastAPI en el backend de trading
+> Reglas de base de datos, migraciones y caché para la terminal de trading
 
 
-# 🐍 PYTHON/FASTAPI — TRADING TERMINAL BACKEND
+# 🗄️ BASE DE DATOS Y PERSISTENCIA — TRADING TERMINAL
 
-## CONFIGURACIÓN DEL PROYECTO PYTHON
+## PRINCIPIOS DE ACCESO A DATOS
 
-### Estructura de dependencias:
-```
-requirements.txt          ← Producción
-requirements-dev.txt      ← Solo desarrollo
-```
+- **Nunca** SQL raw en services o endpoints → usar SQLAlchemy ORM
+- **Siempre** async para no bloquear el event loop
+- **Decimal** para todos los valores monetarios (nunca float)
+- **UUID** como primary key (no autoincrement entero)
+- **Timestamps** en UTC siempre
 
-```txt
-# requirements.txt
-fastapi==0.111.0
-uvicorn[standard]==0.29.0
-sqlalchemy[asyncio]==2.0.29
-asyncpg==0.29.0
-alembic==1.13.1
-pydantic==2.7.1
-pydantic-settings==2.2.1
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-redis[asyncio]==5.0.4
-httpx==0.27.0
-structlog==24.1.0
-python-binance==1.0.19
-slowapi==0.1.9
+---
 
-# requirements-dev.txt
-pytest==8.1.1
-pytest-asyncio==0.23.6
-pytest-cov==5.0.0
-black==24.4.2
-ruff==0.4.2
-mypy==1.10.0
+## 🔌 CONEXIÓN Y SESIÓN
+
+```python
+# core/database.py
+
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
+from sqlalchemy.orm import DeclarativeBase
+from core.config import settings
+
+# Motor async — una sola instancia global
+engine = create_async_engine(
+    settings.DATABASE_URL,
+    echo=settings.DEBUG,          # Solo SQL logs en modo debug
+    pool_size=10,                 # Conexiones en el pool
+    max_overflow=20,              # Conexiones extra bajo demanda
+    pool_pre_ping=True,           # Verificar conexiones antes de usar
+)
+
+AsyncSessionLocal = async_sessionmaker(
+    engine,
+    class_=AsyncSession,
+    expire_on_commit=False        # Importante para async
+)
+
+class Base(DeclarativeBase):
+    """Base para todos los modelos SQLAlchemy."""
+    pass
+
+# Dependency para FastAPI
+async def get_db() -> AsyncSession:
+    async with AsyncSessionLocal() as session:
+        try:
+            yield session
+            await session.commit()
+        except Exception:
+            await session.rollback()
+            raise
+        finally:
+            await session.close()
 ```
 
 ---
 
-## ⚙️ CONFIGURACIÓN (Settings Pattern)
+## 📋 PATRÓN REPOSITORY
 
 ```python
-# core/config.py — PATRÓN OBLIGATORIO
+# repositories/base_repo.py — Repository base genérico
 
-from pydantic_settings import BaseSettings
-from pydantic import validator
-from typing import Optional
-
-class Settings(BaseSettings):
-    """
-    Todas las configuraciones vienen de variables de entorno.
-    Nunca valores hardcodeados aquí.
-    """
-    # Base de datos
-    DATABASE_URL: str
-    REDIS_URL: str = "redis://localhost:6379/0"
-    
-    # Seguridad
-    SECRET_KEY: str
-    JWT_ALGORITHM: str = "HS256"
-    JWT_EXPIRE_MINUTES: int = 60
-    
-    # APIs de Trading
-    BINANCE_API_KEY: Optional[str] = None
-    BINANCE_API_SECRET: Optional[str] = None
-    MT5_LOGIN: Optional[str] = None
-    MT5_PASSWORD: Optional[str] = None
-    MT5_SERVER: Optional[str] = None
-    
-    # App
-    ENVIRONMENT: str = "development"
-    DEBUG: bool = False
-    ALLOWED_ORIGINS: str = "http://localhost:5173"
-    
-    @validator('SECRET_KEY')
-    def secret_key_must_be_strong(cls, v):
-        if len(v) < 32:
-            raise ValueError('SECRET_KEY debe tener al menos 32 caracteres')
-        return v
-    
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
-
-settings = Settings()  # Singleton — importar este objeto
-```
-
----
-
-## 🗄️ MODELOS DE BASE DE DATOS
-
-```python
-# models/order.py — SQLAlchemy async
-
-from sqlalchemy import Column, String, Numeric, Enum, DateTime, ForeignKey
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import relationship
-from datetime import datetime
-import uuid
-import enum
-
+from typing import Generic, TypeVar, Type, Optional, List
+from uuid import UUID
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, update, delete
 from core.database import Base
 
-class OrderStatus(str, enum.Enum):
-    PENDING = "pending"
-    OPEN = "open"
-    FILLED = "filled"
-    CANCELLED = "cancelled"
-    REJECTED = "rejected"
+ModelType = TypeVar("ModelType", bound=Base)
 
-class Order(Base):
-    __tablename__ = "orders"
+class BaseRepository(Generic[ModelType]):
+    """Repository base con operaciones CRUD comunes."""
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    def __init__(self, model: Type[ModelType]):
+        self.model = model
     
-    symbol = Column(String(20), nullable=False, index=True)
-    side = Column(String(4), nullable=False)          # BUY / SELL
-    order_type = Column(String(20), nullable=False)   # MARKET / LIMIT
-    status = Column(String(20), nullable=False, default=OrderStatus.PENDING)
+    async def get_by_id(self, db: AsyncSession, id: UUID) -> Optional[ModelType]:
+        result = await db.execute(select(self.model).where(self.model.id == id))
+        return result.scalar_one_or_none()
     
-    quantity = Column(Numeric(precision=20, scale=8), nullable=False)
-    price = Column(Numeric(precision=20, scale=8), nullable=True)
-    fill_price = Column(Numeric(precision=20, scale=8), nullable=True)
+    async def get_all(
+        self, 
+        db: AsyncSession, 
+        skip: int = 0, 
+        limit: int = 100
+    ) -> List[ModelType]:
+        result = await db.execute(select(self.model).offset(skip).limit(limit))
+        return list(result.scalars().all())
     
-    created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
-    updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
-    filled_at = Column(DateTime(timezone=True), nullable=True)
+    async def create(self, db: AsyncSession, obj_data: dict) -> ModelType:
+        db_obj = self.model(**obj_data)
+        db.add(db_obj)
+        await db.flush()   # flush, no commit (lo hace el middleware)
+        await db.refresh(db_obj)
+        return db_obj
     
-    exchange_order_id = Column(String(100), nullable=True, unique=True)
+    async def update(
+        self, 
+        db: AsyncSession, 
+        id: UUID, 
+        update_data: dict
+    ) -> Optional[ModelType]:
+        await db.execute(
+            update(self.model)
+            .where(self.model.id == id)
+            .values(**update_data)
+        )
+        return await self.get_by_id(db, id)
     
-    # Relaciones
-    user = relationship("User", back_populates="orders")
+    async def delete(self, db: AsyncSession, id: UUID) -> bool:
+        result = await db.execute(
+            delete(self.model).where(self.model.id == id)
+        )
+        return result.rowcount > 0
+
+
+# repositories/order_repo.py — Específico para órdenes
+
+from sqlalchemy import select, and_, desc
+from typing import Optional, List
+from uuid import UUID
+from datetime import datetime, date
+
+from repositories.base_repo import BaseRepository
+from models.order import Order, OrderStatus
+
+class OrderRepository(BaseRepository[Order]):
     
-    def __repr__(self):
-        return f"<Order {self.id}: {self.side} {self.quantity} {self.symbol} @ {self.price}>"
+    def __init__(self):
+        super().__init__(Order)
+    
+    async def get_open_orders(
+        self, 
+        db: AsyncSession, 
+        user_id: UUID
+    ) -> List[Order]:
+        """Obtener todas las órdenes abiertas de un usuario."""
+        result = await db.execute(
+            select(Order)
+            .where(and_(
+                Order.user_id == user_id,
+                Order.status.in_([OrderStatus.PENDING, OrderStatus.OPEN])
+            ))
+            .order_by(desc(Order.created_at))
+        )
+        return list(result.scalars().all())
+    
+    async def get_by_symbol(
+        self,
+        db: AsyncSession,
+        user_id: UUID,
+        symbol: str,
+        limit: int = 50
+    ) -> List[Order]:
+        """Historial de órdenes por símbolo."""
+        result = await db.execute(
+            select(Order)
+            .where(and_(
+                Order.user_id == user_id,
+                Order.symbol == symbol
+            ))
+            .order_by(desc(Order.created_at))
+            .limit(limit)
+        )
+        return list(result.scalars().all())
+    
+    async def get_daily_volume_usd(
+        self, 
+        db: AsyncSession, 
+        user_id: UUID, 
+        date: date
+    ) -> float:
+        """
+        Calcular volumen total operado en un día.
+        Usado por RiskService para límites diarios.
+        """
+        from sqlalchemy import func, cast, Date
+        
+        result = await db.execute(
+            select(func.sum(Order.quantity * Order.fill_price))
+            .where(and_(
+                Order.user_id == user_id,
+                Order.status == OrderStatus.FILLED,
+                cast(Order.filled_at, Date) == date
+            ))
+        )
+        return float(result.scalar() or 0)
+
+order_repo = OrderRepository()  # Singleton
 ```
 
 ---
 
-## 🔗 ENDPOINTS FASTAPI
+## 🏎️ CACHÉ CON REDIS
 
 ```python
-# api/v1/orders.py — Patrón completo de endpoint
+# core/cache.py — Redis para datos de mercado en tiempo real
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
+import json
+from decimal import Decimal
+from typing import Optional, Any
+from datetime import timedelta
+import redis.asyncio as redis
 
-from api.deps import get_current_user, get_db
-from schemas.order_schema import OrderCreate, OrderResponse, OrderListResponse
-from services.order_service import OrderService
-from core.exceptions import InsufficientFundsError, RiskViolationError
+from core.config import settings
 from core.logger import logger
 
-router = APIRouter(prefix="/orders", tags=["orders"])
-order_service = OrderService()
-
-@router.post("/", response_model=OrderResponse, status_code=status.HTTP_201_CREATED)
-async def create_order(
-    order_data: OrderCreate,
-    current_user = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db)
-):
+class TradingCache:
     """
-    Crear nueva orden de trading.
+    Caché Redis para datos de mercado de alta frecuencia.
+    Principio: Leer de Redis (rápido), escribir a Postgres (persistente).
+    """
     
-    Valida riesgo, verifica fondos y envía al exchange.
-    """
-    try:
-        order = await order_service.create_order(
-            db=db,
-            order_data=order_data,
-            user_id=current_user.id
+    def __init__(self):
+        self._client: Optional[redis.Redis] = None
+    
+    async def get_client(self) -> redis.Redis:
+        if self._client is None:
+            self._client = redis.from_url(settings.REDIS_URL, decode_responses=True)
+        return self._client
+    
+    # ── Precios de mercado (TTL corto, se actualizan cada segundo) ──
+    
+    async def set_price(self, symbol: str, price: Decimal, ttl: int = 60) -> None:
+        """Guardar precio actual — expira en 60 segundos."""
+        client = await self.get_client()
+        await client.setex(f"price:{symbol}", ttl, str(price))
+    
+    async def get_price(self, symbol: str) -> Optional[Decimal]:
+        """Obtener precio del caché."""
+        client = await self.get_client()
+        value = await client.get(f"price:{symbol}")
+        return Decimal(value) if value else None
+    
+    # ── Portfolio del usuario (TTL medio, invalidar en cambios) ──
+    
+    async def set_portfolio(self, user_id: str, data: dict, ttl: int = 300) -> None:
+        """Cachear portfolio del usuario — expira en 5 minutos."""
+        client = await self.get_client()
+        await client.setex(
+            f"portfolio:{user_id}", 
+            ttl, 
+            json.dumps(data, default=str)
         )
-        logger.info("order.created", order_id=str(order.id), user_id=str(current_user.id))
-        return order
+    
+    async def get_portfolio(self, user_id: str) -> Optional[dict]:
+        client = await self.get_client()
+        value = await client.get(f"portfolio:{user_id}")
+        return json.loads(value) if value else None
+    
+    async def invalidate_portfolio(self, user_id: str) -> None:
+        """Invalidar caché del portfolio cuando cambia (orden ejecutada)."""
+        client = await self.get_client()
+        await client.delete(f"portfolio:{user_id}")
+    
+    # ── Rate limiting ──
+    
+    async def check_rate_limit(
+        self, 
+        key: str, 
+        max_calls: int, 
+        window_seconds: int
+    ) -> bool:
+        """
+        Verificar rate limit. Retorna True si se puede proceder.
+        Patrón: Sliding window counter.
+        """
+        client = await self.get_client()
+        pipe = client.pipeline()
         
-    except InsufficientFundsError as e:
-        raise HTTPException(
-            status_code=status.HTTP_402_PAYMENT_REQUIRED,
-            detail=str(e)
-        )
-    except RiskViolationError as e:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=str(e)
-        )
-    except Exception as e:
-        logger.error("order.creation.failed", error=str(e), user_id=str(current_user.id))
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error interno al procesar la orden"
-        )
+        rate_key = f"rate:{key}"
+        current = await client.incr(rate_key)
+        
+        if current == 1:
+            await client.expire(rate_key, window_seconds)
+        
+        return current <= max_calls
 
-@router.get("/", response_model=OrderListResponse)
-async def list_orders(
-    status: Optional[str] = None,
-    symbol: Optional[str] = None,
-    limit: int = 50,
-    current_user = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db)
-):
-    """Listar órdenes del usuario actual con filtros opcionales."""
-    orders = await order_service.list_orders(
-        db=db,
-        user_id=current_user.id,
-        status=status,
-        symbol=symbol,
-        limit=limit
-    )
-    return {"orders": orders, "total": len(orders)}
+cache = TradingCache()
 ```
 
 ---
 
-## 🗃️ MIGRACIONES CON ALEMBIC
-
-```bash
-# Crear nueva migración
-alembic revision --autogenerate -m "descripcion del cambio"
-
-# Aplicar migraciones
-alembic upgrade head
-
-# Ver estado
-alembic current
-
-# Rollback
-alembic downgrade -1
-```
+## 🔄 MIGRACIONES CON ALEMBIC
 
 ```python
-# alembic/env.py — Configuración para async
-from alembic import context
-from sqlalchemy.ext.asyncio import create_async_engine
-from app.core.config import settings
-from app.models import Base  # Importar todos los modelos
+# alembic/versions/001_initial_schema.py
+# Ejemplo de migración inicial
 
-target_metadata = Base.metadata
+"""Initial trading schema
+
+Revision ID: 001_initial
+"""
+from alembic import op
+import sqlalchemy as sa
+from sqlalchemy.dialects import postgresql
+
+def upgrade() -> None:
+    # Tabla de usuarios
+    op.create_table('users',
+        sa.Column('id', postgresql.UUID(as_uuid=True), nullable=False),
+        sa.Column('email', sa.String(255), nullable=False),
+        sa.Column('hashed_password', sa.String(255), nullable=False),
+        sa.Column('is_active', sa.Boolean(), nullable=False, default=True),
+        sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
+        sa.PrimaryKeyConstraint('id'),
+        sa.UniqueConstraint('email'),
+    )
+    op.create_index('ix_users_email', 'users', ['email'])
+    
+    # Tabla de órdenes
+    op.create_table('orders',
+        sa.Column('id', postgresql.UUID(as_uuid=True), nullable=False),
+        sa.Column('user_id', postgresql.UUID(as_uuid=True), nullable=False),
+        sa.Column('symbol', sa.String(20), nullable=False),
+        sa.Column('side', sa.String(4), nullable=False),
+        sa.Column('order_type', sa.String(20), nullable=False),
+        sa.Column('status', sa.String(20), nullable=False),
+        sa.Column('quantity', sa.Numeric(20, 8), nullable=False),
+        sa.Column('price', sa.Numeric(20, 8), nullable=True),
+        sa.Column('fill_price', sa.Numeric(20, 8), nullable=True),
+        sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
+        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=False),
+        sa.Column('filled_at', sa.DateTime(timezone=True), nullable=True),
+        sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
+        sa.PrimaryKeyConstraint('id'),
+    )
+    op.create_index('ix_orders_user_symbol', 'orders', ['user_id', 'symbol'])
+    op.create_index('ix_orders_status', 'orders', ['status'])
+
+def downgrade() -> None:
+    op.drop_table('orders')
+    op.drop_table('users')
 ```
 
 ---
 
-## 🐛 MANEJO DE EXCEPCIONES
+## ⚡ REGLAS DE PERFORMANCE DE DB
 
 ```python
-# core/exceptions.py — Excepciones del dominio
+# ✅ CORRECTO — Eager loading para evitar N+1 queries
+from sqlalchemy.orm import selectinload
 
-class TradingError(Exception):
-    """Base para todas las excepciones del dominio trading."""
-    pass
-
-class InsufficientFundsError(TradingError):
-    """Fondos insuficientes para la operación."""
-    pass
-
-class RiskViolationError(TradingError):
-    """La operación viola las reglas de gestión de riesgo."""
-    pass
-
-class OrderExecutionError(TradingError):
-    """Error al ejecutar la orden en el exchange."""
-    pass
-
-class ExchangeConnectionError(TradingError):
-    """Error de conexión con el exchange."""
-    pass
-
-class InvalidOrderError(TradingError):
-    """Los parámetros de la orden son inválidos."""
-    pass
-
-# En main.py — Handler global
-@app.exception_handler(TradingError)
-async def trading_error_handler(request, exc: TradingError):
-    return JSONResponse(
-        status_code=422,
-        content={"detail": str(exc), "type": type(exc).__name__}
+async def get_portfolio_with_orders(db: AsyncSession, user_id: UUID):
+    result = await db.execute(
+        select(Portfolio)
+        .options(selectinload(Portfolio.positions))  # Carga en 1 query
+        .where(Portfolio.user_id == user_id)
     )
-```
+    return result.scalar_one_or_none()
 
----
+# ❌ INCORRECTO — N+1 query problem
+async def get_portfolio_bad(db: AsyncSession, user_id: UUID):
+    portfolio = await portfolio_repo.get_by_user(db, user_id)
+    for position in portfolio.positions:  # Cada iteración = 1 query extra
+        position.current_price = await get_price(position.symbol)
 
-## ⚡ PERFORMANCE — Async Best Practices
+# ✅ CORRECTO — Bulk insert para logs de auditoría
+async def bulk_insert_ticks(db: AsyncSession, ticks: list[dict]) -> None:
+    await db.execute(sa.insert(PriceTick), ticks)  # 1 query para N registros
 
-```python
-# ✅ CORRECTO — Operaciones paralelas cuando son independientes
-import asyncio
-
-async def get_portfolio_data(user_id: str) -> dict:
-    # Ejecutar en paralelo, no en secuencia
-    balance, positions, orders = await asyncio.gather(
-        portfolio_repo.get_balance(user_id),
-        portfolio_repo.get_positions(user_id),
-        order_repo.get_open_orders(user_id)
+# ✅ CORRECTO — Seleccionar solo columnas necesarias
+async def get_symbols(db: AsyncSession, user_id: UUID) -> list[str]:
+    result = await db.execute(
+        select(Order.symbol)          # Solo el campo necesario
+        .where(Order.user_id == user_id)
+        .distinct()
     )
-    return {"balance": balance, "positions": positions, "orders": orders}
-
-# ❌ INCORRECTO — En secuencia cuando podrían ser paralelas
-async def get_portfolio_data_slow(user_id: str) -> dict:
-    balance = await portfolio_repo.get_balance(user_id)
-    positions = await portfolio_repo.get_positions(user_id)  # Espera a balance
-    orders = await order_repo.get_open_orders(user_id)       # Espera a positions
-    return {"balance": balance, "positions": positions, "orders": orders}
+    return list(result.scalars().all())
 ```
 
 ---
