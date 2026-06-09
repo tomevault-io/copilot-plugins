@@ -1,0 +1,9 @@
+{
+  "name": "grapeot--eink-diary",
+  "displayName": "eink_diary",
+  "description": "\u58a8\u8bb0 \u2014 \u5f69\u8272\u7535\u5b50\u7eb8\u89c6\u89c9\u65e5\u8bb0\uff1a\u6bcf\u4e24\u5c0f\u65f6\u628a\u4f60\u6700\u8fd1\u5728\u5e72\u4ec0\u4e48\u753b\u6210\u4e00\u5e45\u9ecf\u571f\u98ce\u7684\u753b\uff0c\u5237\u5230\u6811\u8393\u6d3e\u9a71\u52a8\u7684 E-Ink \u5c4f\u4e0a",
+  "version": "1.0.0",
+  "author": "grapeot",
+  "homepage": "https://github.com/grapeot/eink_diary",
+  "skills": []
+}
