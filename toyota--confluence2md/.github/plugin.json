@@ -1,0 +1,9 @@
+{
+  "name": "toyota--confluence2md",
+  "displayName": "confluence2md",
+  "description": "Convert Confluence pages to clean, portable Markdown with images, draw.io diagrams, and PlantUML all included.",
+  "version": "1.0.0",
+  "author": "Toyota",
+  "homepage": "https://github.com/Toyota/confluence2md",
+  "skills": []
+}
