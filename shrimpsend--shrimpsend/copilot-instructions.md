@@ -1,0 +1,20 @@
+## flutter-ui-polish
+
+> Flutter UI polish standards for app screens, including spacing, radius, contrast, and dark mode behavior
+
+
+# Flutter UI Polish
+
+- Reuse `app/lib/ui/app_ui.dart` tokens and themed components before adding local styles.
+- Prefer semantic colors from theme or `AppColorTheme`; avoid page-local gray palettes and hardcoded CTA colors.
+- Keep spacing on the shared scale `4 / 8 / 12 / 16 / 24 / 32` and reuse shared radii `12 / 16 / 20`.
+- Forms and dense content areas should use width constraints and clear surface grouping.
+- Treat dark mode as a first-class state. Re-check colors in both light and dark themes after any visual change.
+- Do not reuse page-level muted text inside colored bubbles, badges, or tinted cards without checking contrast.
+- For colored surfaces, maintain separate foreground levels: primary text, secondary/meta text, subtle timestamps, and accent/status colors.
+- If an accent color sits on a dark bubble, lift or blend it so progress labels, retry actions, and status hints remain readable.
+- Before finishing a Flutter UI change, verify loading, error, disabled, and selected states still read clearly.
+
+---
+> Source: [shrimpsend/shrimpsend](https://github.com/shrimpsend/shrimpsend) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-09 -->
