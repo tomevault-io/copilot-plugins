@@ -1,0 +1,9 @@
+{
+  "name": "webc-site--math",
+  "displayName": "math",
+  "description": "The world's smallest and fastest web Markdown formula renderer. Compiles LaTeX/TeX to native MathML with zero dependencies.",
+  "version": "1.0.0",
+  "author": "webc-site",
+  "homepage": "https://github.com/webc-site/math",
+  "skills": []
+}
