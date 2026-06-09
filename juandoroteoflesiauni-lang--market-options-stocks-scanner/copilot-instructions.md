@@ -1,242 +1,144 @@
-## 010-architecture
+## 02-data-models
 
-> Reglas de arquitectura y estructura — previene código spaghetti en la terminal de trading
+> Activo en archivos de modelos Pydantic. Gobernanza FINOS CDM: inmutabilidad, linaje, precisión financiera.
 
 
-# 🏗️ ARQUITECTURA ANTI-SPAGHETTI — TRADING TERMINAL
+# 🏛️ DATA MODELING — GOBERNANZA FINOS CDM v3.0
 
-## PRINCIPIO FUNDAMENTAL: SEPARACIÓN DE RESPONSABILIDADES
+## PRINCIPIO FUNDAMENTAL
+Todo dato que cruce una frontera de fase DEBE ser:
+1. Pydantic `BaseModel` con `model_config = ConfigDict(frozen=True)`
+2. Validado al construirse (Pydantic v2 lo hace automático)
+3. Con `data_lineage: DataLineage` obligatorio — NUNCA opcional
+4. Con `exchange_timestamp` en UTC timezone-aware
 
-Cada capa del sistema tiene UNA sola responsabilidad.
-Mezclar responsabilidades = código spaghetti = bugs en producción = pérdida de dinero.
+**Un `MarketSnapshot` sin linaje es un "dato huérfano" → rechazado por cualquier motor Fase B/C.**
 
----
+## PATRÓN BASE — MarketSnapshot
 
-## 📐 ARQUITECTURA BACKEND (Python/FastAPI)
+```python
+from pydantic import BaseModel, ConfigDict, Field, field_validator
+from decimal import Decimal
+from datetime import datetime
 
-### Estructura de capas obligatoria:
+class DataLineage(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    source: str                          # "fmp" | "massive" | "local"
+    ingestion_latency_ms: int = Field(ge=0)
+    raw_field_count: int = Field(ge=0)
 
-```
-backend/app/
-├── api/                    ← SOLO: recibir requests, validar inputs, llamar services
-│   ├── v1/
-│   │   ├── orders.py       ← Endpoints de órdenes
-│   │   ├── portfolio.py    ← Endpoints de portfolio
-│   │   ├── market.py       ← Endpoints de datos de mercado
-│   │   └── auth.py         ← Endpoints de autenticación
-│   └── deps.py             ← Dependencias compartidas (auth, db session)
-│
-├── services/               ← SOLO: lógica de negocio, reglas del dominio
-│   ├── order_service.py    ← Crear, cancelar, modificar órdenes
-│   ├── portfolio_service.py← Calcular P&L, balance, posiciones
-│   ├── market_service.py   ← Obtener precios, volumen, OHLCV
-│   └── risk_service.py     ← Validar riesgo, límites, stop-loss
-│
-├── repositories/           ← SOLO: acceso a base de datos
-│   ├── order_repo.py
-│   ├── portfolio_repo.py
-│   └── trade_repo.py
-│
-├── models/                 ← SOLO: definición de estructuras de datos
-│   ├── order.py            ← SQLAlchemy models
-│   ├── trade.py
-│   └── portfolio.py
-│
-├── schemas/                ← SOLO: validación de requests/responses (Pydantic)
-│   ├── order_schema.py
-│   └── portfolio_schema.py
-│
-├── core/                   ← SOLO: configuración y utilidades transversales
-│   ├── config.py           ← Settings desde .env
-│   ├── security.py         ← JWT, hashing, autenticación
-│   ├── database.py         ← Conexión DB
-│   ├── logger.py           ← Sistema de logging
-│   └── exceptions.py       ← Excepciones personalizadas
-│
-└── strategies/             ← SOLO: algoritmos de trading
-    ├── base_strategy.py    ← Clase abstracta base
-    ├── momentum.py
-    └── mean_reversion.py
+class MarketSnapshot(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    ticker: str
+    exchange: str
+    price: Decimal = Field(ge=Decimal("0"))  # ← Decimal, nunca float
+    volume: int = Field(ge=0)
+    exchange_timestamp: datetime             # ← debe ser UTC aware
+    data_lineage: DataLineage                # ← JAMÁS Optional
+
+    @field_validator("ticker")
+    @classmethod
+    def ticker_uppercase(cls, v: str) -> str:
+        return v.upper().strip()
+
+    @field_validator("exchange_timestamp")
+    @classmethod
+    def must_be_utc(cls, v: datetime) -> datetime:
+        if v.tzinfo is None:
+            raise ValueError("exchange_timestamp debe ser UTC aware")
+        return v
 ```
 
-### Regla de dependencias (una sola dirección):
-```
-API → Services → Repositories → Models
- ↑                                  ↑
- └── Schemas (validación I/O)       └── Core (config, logging)
-```
+## MODELOS DERIVADOS — Herencia correcta
 
-**NUNCA:**
-- `api/` importando directamente de `repositories/` (saltarse services)
-- `models/` importando de `services/` (dependencia circular)
-- Lógica de negocio en `api/` 
-- Queries SQL en `services/`
+```python
+# ✅ CORRECTO — extiende sin debilitar el contrato
+class EnrichedSnapshot(MarketSnapshot):
+    vpin_score: float
+    ofi_score: float
+    # frozen=True heredado automáticamente
 
----
+# ❌ PROHIBIDO — debilita el tipo de precio
+class BadSnapshot(MarketSnapshot):
+    price: float           # Tipo más débil → RECHAZAR
 
-## 📐 ARQUITECTURA FRONTEND (React/TypeScript)
-
-### Estructura obligatoria:
-
-```
-frontend/src/
-├── components/              ← SOLO: UI presentacional, sin lógica de negocio
-│   ├── ui/                  ← Componentes base reutilizables (Button, Input, Modal)
-│   ├── charts/              ← Componentes de gráficos
-│   │   ├── CandlestickChart.tsx
-│   │   └── DepthChart.tsx
-│   ├── orders/              ← Componentes de órdenes
-│   │   ├── OrderForm.tsx
-│   │   └── OrderBook.tsx
-│   └── portfolio/           ← Componentes de portfolio
-│       ├── PositionList.tsx
-│       └── PnLSummary.tsx
-│
-├── pages/                   ← Composición de componentes por página
-│   ├── Dashboard.tsx
-│   ├── Trading.tsx
-│   └── Portfolio.tsx
-│
-├── hooks/                   ← Lógica reutilizable con estado
-│   ├── useWebSocket.ts      ← Conexión WS para precios
-│   ├── useOrderBook.ts      ← Datos del order book
-│   └── usePortfolio.ts      ← Datos de portfolio
-│
-├── store/                   ← Estado global (Zustand)
-│   ├── tradingStore.ts      ← Posiciones, órdenes activas
-│   ├── marketStore.ts       ← Precios, ticker data
-│   └── authStore.ts         ← Usuario, sesión
-│
-├── services/                ← SOLO: llamadas a API externa
-│   ├── orderService.ts
-│   ├── marketService.ts
-│   └── authService.ts
-│
-├── types/                   ← Tipos TypeScript globales
-│   ├── trading.ts
-│   ├── market.ts
-│   └── api.ts
-│
-└── utils/                   ← Funciones puras sin efectos secundarios
-    ├── formatters.ts        ← Formatear precios, fechas, porcentajes
-    ├── calculators.ts       ← P&L, riesgo, tamaño de posición
-    └── validators.ts        ← Validar inputs del usuario
+# ❌ PROHIBIDO — hace el linaje opcional
+class IncompleteSnapshot(MarketSnapshot):
+    data_lineage: DataLineage | None = None  # RECHAZAR
 ```
 
-### Regla de componentes — NO mezclar:
-```typescript
-// ✅ CORRECTO — Componente presentacional puro
-const PriceDisplay: React.FC<{ price: number; change: number }> = ({ price, change }) => (
-  <div className={change >= 0 ? 'text-green-500' : 'text-red-500'}>
-    ${price.toFixed(2)} ({change > 0 ? '+' : ''}{change.toFixed(2)}%)
-  </div>
-);
+## OPCIONES — Composición de modelos
 
-// ❌ INCORRECTO — Lógica de negocio dentro del componente UI
-const PriceDisplay = () => {
-  const [price, setPrice] = useState(0);
-  // Llamada API directa en componente UI → MAL
-  useEffect(() => { fetch('/api/price').then(r => r.json()).then(setPrice); }, []);
-  // Cálculo de negocio en componente UI → MAL
-  const shouldBuy = price < movingAverage * 0.98;
-  return <div>{price}</div>;
-};
+```python
+from enum import StrEnum
+
+class OptionType(StrEnum):  # ← enum tipado, nunca string literal
+    CALL = "call"
+    PUT = "put"
+
+class Greeks(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    delta: Decimal = Field(ge=Decimal("-1"), le=Decimal("1"))
+    gamma: Decimal = Field(ge=Decimal("0"))
+    theta: Decimal
+    vega: Decimal = Field(ge=Decimal("0"))
+
+class OptionContract(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    underlying_ticker: str
+    strike: Decimal = Field(ge=Decimal("0"))
+    expiration: date
+    option_type: OptionType          # ← enum, no string
+    open_interest: int = Field(ge=0)
+    greeks: Greeks                   # ← composición, no lista plana
+    snapshot_at_selection: MarketSnapshot  # ← linaje completo preservado
 ```
 
----
+## RESULT MONAD — Cruce de fronteras sin excepciones crudas
 
-## 📏 LÍMITES DE TAMAÑO DE ARCHIVOS
+```python
+# El Hub NUNCA lanza excepciones a sus callers.
+# Siempre retorna Result[T]:
 
-| Tipo de archivo | Máximo líneas | Acción si supera |
-|----------------|---------------|-----------------|
-| Componente React | 150 líneas | Dividir en sub-componentes |
-| Service (Backend) | 200 líneas | Dividir en servicios especializados |
-| Hook personalizado | 100 líneas | Extraer lógica a utils |
-| Repository | 150 líneas | Dividir por entidad |
-| Página/View | 100 líneas | Todo debe ser composición |
+result: Result[MarketSnapshot] = await hub.get_snapshot("AAPL")
 
----
+if result.is_failure:
+    logger.warning("Hub falló: %s", result.reason)
+    return  # Descartar, no propagar
 
-## 🔌 GESTIÓN DE WEBSOCKETS (Crítico para trading)
-
-```typescript
-// ✅ PATRÓN CORRECTO — Hook centralizado para WS
-// hooks/useWebSocket.ts
-export const useWebSocket = (symbol: string) => {
-  const updatePrice = useMarketStore(s => s.updatePrice);
-  
-  useEffect(() => {
-    const ws = new WebSocket(`${WS_URL}/stream/${symbol}`);
-    
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      updatePrice(symbol, data.price);  // Solo actualizar store
-    };
-    
-    ws.onerror = (error) => {
-      logger.error('WebSocket error', { symbol, error });
-    };
-    
-    return () => ws.close();  // SIEMPRE cleanup
-  }, [symbol]);
-};
-
-// NUNCA crear WebSockets directamente en componentes
-// NUNCA tener múltiples conexiones al mismo stream
-// SIEMPRE cerrar la conexión en el cleanup de useEffect
+snapshot = result.unwrap()  # Solo llamar tras verificar is_success
 ```
 
----
+## TABLA DE VALIDACIONES OBLIGATORIAS
 
-## 🗃️ GESTIÓN DE ESTADO — ZUSTAND PATTERNS
+| Campo | Regla | Error si viola |
+|-------|-------|----------------|
+| `price` | `>= Decimal("0")` | "Precio negativo — fuente: {provider}" |
+| `volume` | `>= 0` | "Volumen negativo" |
+| `ticker` | Uppercase, no vacío | "Ticker inválido" |
+| `exchange_timestamp` | UTC aware | "Datetime sin timezone rechazado" |
+| `data_lineage` | Nunca None | "Dato huérfano rechazado por Fase B/C" |
+| `greeks.delta` | `-1 ≤ delta ≤ 1` | "Delta fuera de rango" |
 
-```typescript
-// store/tradingStore.ts — Patrón correcto
+## PROHIBICIONES ABSOLUTAS
 
-interface TradingState {
-  // Estado
-  openOrders: Order[];
-  positions: Position[];
-  
-  // Acciones (siempre separadas del estado)
-  addOrder: (order: Order) => void;
-  cancelOrder: (orderId: string) => void;
-  updatePosition: (positionId: string, update: Partial<Position>) => void;
-}
+```python
+# ❌ Dict genérico como objeto inter-fase
+def process(data: dict) -> dict: ...
 
-export const useTradingStore = create<TradingState>((set) => ({
-  openOrders: [],
-  positions: [],
-  
-  addOrder: (order) => set((state) => ({
-    openOrders: [...state.openOrders, order]
-  })),
-  
-  cancelOrder: (orderId) => set((state) => ({
-    openOrders: state.openOrders.filter(o => o.id !== orderId)
-  })),
-  
-  updatePosition: (positionId, update) => set((state) => ({
-    positions: state.positions.map(p => 
-      p.id === positionId ? { ...p, ...update } : p
-    )
-  })),
-}));
-```
+# ❌ Dataclass mutable
+@dataclass
+class Snapshot:
+    price: float    # mutable + sin validación
 
----
+# ❌ float para precios
+price: float = 100.055   # Pérdida de precisión financiera
 
-## ⚠️ CHECKLIST ANTES DE CREAR CUALQUIER ARCHIVO
+# ❌ String para tipos de opción
+option_type: str = "call"  # Propenso a typos, sin IDE support
 
-```
-□ ¿Ya existe algo similar en el proyecto?
-□ ¿El nombre del archivo describe claramente su propósito?
-□ ¿Está en el directorio correcto según la arquitectura?
-□ ¿Tiene una sola responsabilidad?
-□ ¿Las dependencias siguen la dirección correcta (no circular)?
-□ ¿Tiene los tipos TypeScript / type hints Python correctos?
-□ ¿Tiene manejo de errores?
-□ ¿Tiene al menos un test básico?
+# ❌ Any en cualquier campo
+data_lineage: Any = None   # RECHAZAR siempre
 ```
 
 ---
