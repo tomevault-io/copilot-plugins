@@ -1,0 +1,9 @@
+{
+  "name": "opentollgate--tollgate-module-basic-go",
+  "displayName": "tollgate-module-basic-go",
+  "description": "Basic tollgate implementation example",
+  "version": "1.0.0",
+  "author": "OpenTollGate",
+  "homepage": "https://github.com/OpenTollGate/tollgate-module-basic-go",
+  "skills": []
+}
