@@ -1,0 +1,9 @@
+{
+  "name": "mthli--ccp",
+  "displayName": "ccp",
+  "description": "Headless Claude Code automation without the headless mode \ud83d\udc40",
+  "version": "1.0.0",
+  "author": "mthli",
+  "homepage": "https://github.com/mthli/ccp",
+  "skills": []
+}
