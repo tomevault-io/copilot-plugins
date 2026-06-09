@@ -1,0 +1,9 @@
+{
+  "name": "hasferrr--mitsuko-client",
+  "displayName": "mitsuko-client",
+  "description": "AI Subtitle Translator for SRT, ASS, and VTT files and audio transcription with custom endpoints for high-quality & context-aware results. Perfect for localizing anime, films, and videos.",
+  "version": "1.0.0",
+  "author": "hasferrr",
+  "homepage": "https://github.com/hasferrr/mitsuko-client",
+  "skills": []
+}
