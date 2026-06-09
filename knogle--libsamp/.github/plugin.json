@@ -1,0 +1,9 @@
+{
+  "name": "knogle--libsamp",
+  "displayName": "libsamp",
+  "description": "Libre-SAMP is an experimental open-source drop-in replacement for the SA-MP 0.3.7-R5",
+  "version": "1.0.0",
+  "author": "Knogle",
+  "homepage": "https://github.com/Knogle/libsamp",
+  "skills": []
+}
