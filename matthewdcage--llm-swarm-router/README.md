@@ -7,11 +7,11 @@ Run the LLM Swarm Router on machines to distribute Local Ai to the Swarm - More 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [matthewdcage/llm-swarm-router](https://github.com/matthewdcage/llm-swarm-router).
+Original source: `CLAUDE.md` in [matthewdcage/llm-swarm-router](https://github.com/matthewdcage/llm-swarm-router).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
