@@ -1,55 +1,63 @@
-## cursor-rules
+## mcp-debugging
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
+> mcp-debug provides core debugging tools to test and explore the functionality implemented in the aggregated MCP server. This guide focuses on mcp-debugs internal debugging capabilities.
 
+## Debugging mcp-prometheus via mcp-debug
 
-- **Required Rule Structure:**
-  ```markdown
-  ---
-  description: Clear, one-line description of what the rule enforces
-  globs: path/to/files/*.ext, other/path/**/*
-  alwaysApply: boolean
-  ---
+mcp-debug provides core debugging tools to test and explore the functionality implemented in the aggregated MCP server. This guide focuses on mcp-debugs internal debugging capabilities.
 
-  - **Main Points in Bold**
-    - Sub-points with details
-    - Examples and explanations
-  ```
+## Core Debugging Tools
 
-- **File References:**
-  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
-  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
+mcp-debug exposes these categories of internal tools for debugging the aggregated mcp server end-to-end:
 
-- **Code Examples:**
-  - Use language-specific code blocks
-  ```typescript
-  // ✅ DO: Show good examples
-  const goodExample = true;
+list_tools: list all the tools exposed by the aggregated mcp server
+describe_tool: describe a tool exposed by the aggregated mcp server
+call_tool: execute a tool exposed by the aggregated mcp server
 
-  // ❌ DON'T: Show anti-patterns
-  const badExample = false;
-  ```
+## Debugging Workflow
 
-- **Rule Content Guidelines:**
-  - Start with high-level overview
-  - Include specific, actionable requirements
-  - Show examples of correct implementation
-  - Reference existing code when possible
-  - Keep rules DRY by referencing other rules
+### 1. Verify All Services Are Running
+Start by checking the overall health of the system:
+```
+mcp_mcp-debug_call_tool(name="core_service_list", arguments={})
+```
 
-- **Rule Maintenance:**
-  - Update rules when new patterns emerge
-  - Add examples from actual codebase
-  - Remove outdated patterns
-  - Cross-reference related rules
+### 2. Check MCP Server Registration
+Verify that all expected MCP servers are properly registered with the aggregator:
+```
+mcp_mcp-debug_call_tool(name="core_mcp_server_list", arguments={})
+```
 
-- **Best Practices:**
-  - Use bullet points for clarity
-  - Keep descriptions concise
-  - Include both DO and DON'T examples
-  - Reference actual code over theoretical examples
-  - Use consistent formatting across rules
+### 5. Troubleshoot Connection Issues
+If a service shows as unhealthy:
+1. Check its detailed status: `core_service_status`
+2. Try restarting it: `core_service_restart`
+3. Check if its MCP client is attached in the service list
+
+## Important Notes
+
+- The prefix `x_` is configurable via `EnvctlPrefix` in the aggregator config
+- Tool names from individual MCP servers get prefixed to avoid conflicts
+- The agent automatically handles tool name resolution and routing
+- Service health is continuously monitored and reflected in the status
+- Workflows provide a way to test complex multi-step operations
+
+## Common Issues and Solutions
+
+**"CallTool not implemented" errors**
+- This means the MCP client is not properly attached to the service
+- Check `core_service_list` to see if the service shows a client
+- The fix involves ensuring `GetServiceData()` returns the MCP client
+
+**Service shows as unhealthy**
+- Check logs in the mcp-prometheus TUI (if available)
+- Use `core_service_status` for detailed information
+- Try `core_service_restart` to recover
+
+**Workflow validation fails**
+- Use `core_workflow_validate` to check syntax
+- Ensure tool names exist (check with `mcp_mcp-debug_list_tools`)
+- Verify argument schemas match the tool requirements
 
 ---
 > Source: [giantswarm/mcp-prometheus](https://github.com/giantswarm/mcp-prometheus) — distributed by [TomeVault](https://tomevault.io).
