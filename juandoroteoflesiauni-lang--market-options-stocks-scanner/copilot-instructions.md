@@ -1,326 +1,162 @@
-## 030-realtime-data
+## 04-data-hub
 
-> Reglas para manejo de datos en tiempo real, WebSockets y feeds de mercado
+> Activo en archivos del MarketDataHub y normalizadores. Anti-Corruption Layer: único punto de contacto con APIs externas.
 
 
-# ⚡ DATOS EN TIEMPO REAL — TRADING TERMINAL
+# 🛡️ DATA HUB — ANTI-CORRUPTION LAYER v3.0
 
-## PRINCIPIOS DE TRADING EN TIEMPO REAL
+## MISIÓN
+`MarketDataHub` es el ÚNICO componente que toca APIs externas.
+Fases B/C son motores de cálculo **aislados de la red**.
+Si ves `import httpx` en `backend/phases/phase_b/` → **RECHAZAR inmediatamente**.
 
-Los datos de mercado llegan miles de veces por segundo.
-Un error en este módulo = datos incorrectos = decisiones de trading equivocadas = pérdidas.
-
----
-
-## 🔌 ARQUITECTURA WEBSOCKET BACKEND
+## PATRÓN DE LLAMADA — Los motores solo ven esto:
 
 ```python
-# backend/app/websockets/market_feed.py
+# Lo que el motor recibe — nada más:
+snapshot: MarketSnapshot = await hub.get_market_snapshot(ticker="AAPL")
 
-from fastapi import WebSocket, WebSocketDisconnect
-from typing import Dict, Set
-import asyncio
-import json
+# Lo que el Hub hace internamente (invisible para el motor):
+# 1. Selecciona proveedor (FMP / Massive)
+# 2. Rota API keys
+# 3. Aplica exponential backoff
+# 4. Verifica circuit breaker
+# 5. Normaliza respuesta → MarketSnapshot
+# 6. Adjunta data_lineage
+# 7. Retorna Result[MarketSnapshot]
+```
 
-class MarketFeedManager:
-    """
-    Gestiona todas las conexiones WebSocket de clientes.
-    Patrón: PubSub — un stream de exchange, N clientes.
-    """
-    
-    def __init__(self):
-        # symbol -> set de websockets conectados
-        self._subscribers: Dict[str, Set[WebSocket]] = {}
-        self._lock = asyncio.Lock()
-    
-    async def subscribe(self, websocket: WebSocket, symbol: str) -> None:
-        """Suscribir cliente a un símbolo."""
-        async with self._lock:
-            if symbol not in self._subscribers:
-                self._subscribers[symbol] = set()
-                # Iniciar feed del exchange si es el primero
-                asyncio.create_task(self._start_exchange_feed(symbol))
-            self._subscribers[symbol].add(websocket)
-    
-    async def unsubscribe(self, websocket: WebSocket, symbol: str) -> None:
-        """Desuscribir cliente — SIEMPRE llamar en disconnect."""
-        async with self._lock:
-            if symbol in self._subscribers:
-                self._subscribers[symbol].discard(websocket)
-                if not self._subscribers[symbol]:
-                    # Limpiar stream si no hay más clientes
-                    del self._subscribers[symbol]
-    
-    async def broadcast(self, symbol: str, data: dict) -> None:
-        """Enviar datos a todos los clientes suscritos."""
-        if symbol not in self._subscribers:
-            return
-        
-        dead_connections = set()
-        message = json.dumps(data)
-        
-        for websocket in self._subscribers[symbol].copy():
-            try:
-                await websocket.send_text(message)
-            except Exception:
-                dead_connections.add(websocket)
-        
-        # Limpiar conexiones muertas
-        for ws in dead_connections:
-            await self.unsubscribe(ws, symbol)
-    
-    async def _start_exchange_feed(self, symbol: str) -> None:
-        """Conectar al exchange y retransmitir datos."""
-        try:
-            async for tick in exchange.get_price_stream(symbol):
-                if symbol not in self._subscribers:
-                    break  # No hay más suscriptores
-                await self.broadcast(symbol, {
-                    "type": "tick",
-                    "symbol": symbol,
-                    "price": str(tick.price),
-                    "volume": str(tick.volume),
-                    "timestamp": tick.timestamp.isoformat()
-                })
-        except Exception as e:
-            logger.error(f"Exchange feed error for {symbol}: {e}")
+## GESTIÓN DE SECRETOS — REGLAS CRÍTICAS
 
-feed_manager = MarketFeedManager()
+```python
+# ✅ CORRECTO — pydantic-settings con SecretStr
+from pydantic import SecretStr
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# Endpoint WebSocket
-@router.websocket("/ws/market/{symbol}")
-async def market_websocket(websocket: WebSocket, symbol: str):
-    await websocket.accept()
-    await feed_manager.subscribe(websocket, symbol)
+class MarketDataSettings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+    fmp_api_key: SecretStr      # repr() muestra "**********"
+    massive_api_key: SecretStr
+
+# Acceso al valor:
+key = settings.fmp_api_key.get_secret_value()
+
+# ❌ PROHIBIDO — hardcodeado
+API_KEY = "sk-abc123"
+
+# ❌ PROHIBIDO — sin validación
+key = os.getenv("API_KEY")  # Puede ser None, vacío, o formato incorrecto
+```
+
+## RESILIENCIA — Backoff + Circuit Breaker
+
+```python
+# Exponential backoff con jitter:
+@exponential_backoff(
+    max_retries=3,
+    base_delay_seconds=1.0,
+    max_delay_seconds=30.0,
+    jitter=True,
+)
+async def _call_fmp_api(self, endpoint: str, params: dict[str, str]) -> dict:
+    ...
+
+# Circuit breaker:
+# CLOSED → OPEN (5 fallos en 60s) → HALF-OPEN (probe) → CLOSED
+# Cuando OPEN: retorna Result.failure() sin llamar la API
+```
+
+## RESULTADO — NUNCA LANZAR EXCEPCIONES A CALLERS
+
+```python
+# ✅ CORRECTO — Hub retorna Result, nunca lanza
+async def get_market_snapshot(self, ticker: str) -> Result[MarketSnapshot]:
     try:
-        while True:
-            # Mantener conexión viva con heartbeat
-            await websocket.receive_text()
-    except WebSocketDisconnect:
-        await feed_manager.unsubscribe(websocket, symbol)
+        raw = await self._call_fmp_api(f"/quote/{ticker}", {})
+        snapshot = self._fmp_normalizer.normalize(raw, time.time_ns())
+        return Result.success(snapshot)
+    except (httpx.TimeoutException, ValidationError) as exc:
+        logger.error("Hub falló para %s", ticker, exc_info=True)
+        return Result.failure(reason=str(exc))
+
+# ❌ PROHIBIDO — excepción cruda al caller
+    raise Exception("API no disponible")
 ```
 
----
-
-## 🔌 ARQUITECTURA WEBSOCKET FRONTEND
-
-```typescript
-// hooks/useMarketFeed.ts
-
-import { useEffect, useRef, useCallback } from 'react';
-import { useMarketStore } from '@/store/marketStore';
-
-interface MarketFeedOptions {
-  symbol: string;
-  onError?: (error: Event) => void;
-}
-
-export const useMarketFeed = ({ symbol, onError }: MarketFeedOptions) => {
-  const wsRef = useRef<WebSocket | null>(null);
-  const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const updateTick = useMarketStore(s => s.updateTick);
-  
-  const connect = useCallback(() => {
-    // Limpiar conexión anterior
-    if (wsRef.current?.readyState === WebSocket.OPEN) {
-      wsRef.current.close();
-    }
-    
-    const ws = new WebSocket(`${import.meta.env.VITE_WS_URL}/market/${symbol}`);
-    wsRef.current = ws;
-    
-    ws.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        if (data.type === 'tick') {
-          updateTick(data.symbol, {
-            price: parseFloat(data.price),
-            volume: parseFloat(data.volume),
-            timestamp: new Date(data.timestamp)
-          });
-        }
-      } catch (e) {
-        console.error('Error parsing market data:', e);
-      }
-    };
-    
-    ws.onerror = (error) => {
-      console.error(`WS Error for ${symbol}:`, error);
-      onError?.(error);
-    };
-    
-    ws.onclose = (event) => {
-      if (!event.wasClean) {
-        // Reconexión automática con backoff exponencial
-        reconnectTimeoutRef.current = setTimeout(connect, 3000);
-      }
-    };
-  }, [symbol, updateTick, onError]);
-  
-  useEffect(() => {
-    connect();
-    
-    // CRÍTICO: cleanup en unmount para evitar memory leaks
-    return () => {
-      clearTimeout(reconnectTimeoutRef.current);
-      wsRef.current?.close(1000, 'Component unmounted');
-      wsRef.current = null;
-    };
-  }, [connect]);
-};
-```
-
----
-
-## 🗃️ MARKET STORE — Estado de mercado en tiempo real
-
-```typescript
-// store/marketStore.ts
-
-import { create } from 'zustand';
-import { subscribeWithSelector } from 'zustand/middleware';
-
-interface TickData {
-  price: number;
-  volume: number;
-  timestamp: Date;
-  change24h?: number;
-  high24h?: number;
-  low24h?: number;
-}
-
-interface MarketState {
-  ticks: Record<string, TickData>;        // symbol → últimos datos
-  orderBooks: Record<string, OrderBook>;  // symbol → order book
-  
-  // Acciones
-  updateTick: (symbol: string, tick: TickData) => void;
-  updateOrderBook: (symbol: string, book: OrderBook) => void;
-  
-  // Selectores computados
-  getPrice: (symbol: string) => number | null;
-}
-
-export const useMarketStore = create<MarketState>()(
-  subscribeWithSelector((set, get) => ({
-    ticks: {},
-    orderBooks: {},
-    
-    updateTick: (symbol, tick) => set((state) => ({
-      ticks: { ...state.ticks, [symbol]: tick }
-    })),
-    
-    updateOrderBook: (symbol, book) => set((state) => ({
-      orderBooks: { ...state.orderBooks, [symbol]: book }
-    })),
-    
-    getPrice: (symbol) => get().ticks[symbol]?.price ?? null,
-  }))
-);
-```
-
----
-
-## 📊 NORMALIZACIÓN DE DATOS DE MERCADO
+## NORMALIZADORES — Un archivo por proveedor
 
 ```python
-# services/market_normalizer.py
+# hub/normalizers/fmp_normalizer.py
+class FmpNormalizer:
+    PROVIDER_NAME = "fmp"
 
-from decimal import Decimal
-from dataclasses import dataclass
-from datetime import datetime
-
-@dataclass
-class NormalizedTick:
-    """Formato interno estándar para ticks de precio."""
-    symbol: str
-    price: Decimal
-    bid: Decimal
-    ask: Decimal
-    volume_24h: Decimal
-    change_24h_pct: Decimal
-    timestamp: datetime
-    exchange: str
-
-class BinanceNormalizer:
-    """Convierte respuestas de Binance al formato interno."""
-    
-    @staticmethod
-    def normalize_ticker(raw: dict) -> NormalizedTick:
-        return NormalizedTick(
-            symbol=raw['symbol'],
-            price=Decimal(raw['lastPrice']),
-            bid=Decimal(raw['bidPrice']),
-            ask=Decimal(raw['askPrice']),
-            volume_24h=Decimal(raw['volume']),
-            change_24h_pct=Decimal(raw['priceChangePercent']),
-            timestamp=datetime.fromtimestamp(raw['closeTime'] / 1000),
-            exchange='binance'
+    def normalize(self, raw: dict, ingestion_start_ns: int) -> MarketSnapshot:
+        """Convierte respuesta FMP cruda a MarketSnapshot canónico.
+        
+        Args:
+            raw              : Dict crudo de FMP REST API.
+            ingestion_start_ns: Timestamp nanosegundos inicio del fetch.
+        
+        Returns:
+            MarketSnapshot validado y congelado.
+        
+        Raises:
+            KeyError       : Si falta campo requerido en respuesta FMP.
+            ValidationError: Si el tipo falla validación Pydantic.
+        """
+        latency_ms = (time.time_ns() - ingestion_start_ns) // 1_000_000
+        return MarketSnapshot(
+            ticker=raw["symbol"].upper(),
+            exchange=raw.get("exchange", "UNKNOWN"),
+            price=Decimal(str(raw["price"])),   # str() evita drift de float
+            volume=int(raw["volume"]),
+            exchange_timestamp=datetime.fromtimestamp(
+                raw["timestamp"], tz=timezone.utc
+            ),
+            data_lineage=DataLineage(
+                source=self.PROVIDER_NAME,
+                ingestion_latency_ms=latency_ms,
+                raw_field_count=len(raw),
+            ),
         )
-
-# SIEMPRE normalizar datos externos antes de usarlos internamente
-# Esto permite cambiar de exchange sin tocar el resto del código
 ```
 
----
+## ESTRATEGIA DE FAILOVER
 
-## ⚡ RENDIMIENTO EN TIEMPO REAL
+```
+Primario  : FMP REST API
+Secundario: Massive REST API
+Terciario : Degradación controlada → log + skip ticker en este ciclo
 
-### Reglas de rendimiento para trading:
-
-```typescript
-// ✅ Usar memo para evitar re-renders en componentes de precio
-const PriceCell = React.memo(({ symbol }: { symbol: string }) => {
-  // Solo re-renderiza cuando cambia el precio de ESTE símbolo
-  const price = useMarketStore(s => s.ticks[symbol]?.price);
-  return <span>${price?.toFixed(2) ?? '---'}</span>;
-});
-
-// ✅ Throttle para updates de UI muy frecuentes (>10/seg)
-// No necesitamos actualizar la UI 100 veces por segundo
-const useThrottledPrice = (symbol: string, ms: number = 100) => {
-  const price = useMarketStore(s => s.ticks[symbol]?.price);
-  return useThrottle(price, ms);
-};
-
-// ❌ NUNCA suscribirse a todo el store en un componente
-// Esto re-renderiza con CADA cambio de cualquier precio
-const BadComponent = () => {
-  const allTicks = useMarketStore(s => s); // ← RE-RENDERIZA TODO
-  ...
-};
+La lógica de failover vive ENTERAMENTE en MarketDataHub.
+Los motores reciben MarketSnapshot sin importar qué proveedor respondió.
 ```
 
----
+## SEGURIDAD DE RED
 
-## 🔄 RECONNECTION Y RESILIENCIA
+```python
+# ✅ CORRECTO — SSL validado, timeouts, no redirects
+client = httpx.AsyncClient(
+    verify=True,
+    timeout=httpx.Timeout(connect=5.0, read=30.0, write=10.0, pool=5.0),
+    follow_redirects=False,
+)
 
-```typescript
-// utils/wsReconnect.ts — Backoff exponencial
-
-export class ReconnectStrategy {
-  private attempts = 0;
-  private maxAttempts = 10;
-  private baseDelay = 1000;  // 1 segundo
-  private maxDelay = 30000;  // 30 segundos
-  
-  getDelay(): number {
-    const delay = Math.min(
-      this.baseDelay * Math.pow(2, this.attempts),
-      this.maxDelay
-    );
-    // Jitter para evitar thundering herd
-    return delay + Math.random() * 1000;
-  }
-  
-  shouldRetry(): boolean {
-    return this.attempts < this.maxAttempts;
-  }
-  
-  increment(): void { this.attempts++; }
-  reset(): void { this.attempts = 0; }
-}
+# ❌ PROHIBIDO en producción
+client = httpx.AsyncClient(verify=False)  # SSL desactivado
+client = httpx.AsyncClient()              # Sin timeouts → cuelga infinito
 ```
+
+## ANTI-PATRONES A RECHAZAR
+
+| Anti-Patrón | Síntoma | Acción |
+|-------------|---------|--------|
+| API call en motor | `import httpx` en `phase_b/` | RECHAZAR |
+| Dict como objeto inter-fase | `return {"price": 100}` | RECHAZAR |
+| Key en código fuente | `API_KEY = "abc..."` | RECHAZAR CRÍTICO |
+| Excepción cruda al caller | `raise Exception(...)` desde Hub | RECHAZAR |
+| float para precios | `price: float = 100.05` | RECHAZAR |
+| SSL desactivado | `verify=False` | RECHAZAR CRÍTICO |
 
 ---
 > Source: [juandoroteoflesiauni-lang/Market-options-stocks-Scanner](https://github.com/juandoroteoflesiauni-lang/Market-options-stocks-Scanner) — distributed by [TomeVault](https://tomevault.io).
