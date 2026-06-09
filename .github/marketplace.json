@@ -125374,6 +125374,11 @@
       "description": "The hedgehog dataplane"
     },
     {
+      "name": "anthonycaccese--240-mp",
+      "source": "./anthonycaccese--240-mp",
+      "description": "240-MP is a retro VCR style frontend to playback local media or content from a plex library on Raspberry Pi 4 or 3B+"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -142367,6 +142372,11 @@
       "name": "tareq1988--prayer-times-macos",
       "source": "./tareq1988--prayer-times-macos",
       "description": "A macOS menubar application for prayer times notification"
+    },
+    {
+      "name": "sfzxc--ai-wallet-extension",
+      "source": "./sfzxc--ai-wallet-extension",
+      "description": "Chrome extension wallet for user-owned AI API access"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
