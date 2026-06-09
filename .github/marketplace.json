@@ -185824,6 +185824,36 @@
       "description": "A library for PyTorch model compression and optimizations for deployment via Core AI on Apple silicon."
     },
     {
+      "name": "giantswarm--mcp-prometheus",
+      "source": "./giantswarm--mcp-prometheus",
+      "description": "mcp-prometheus"
+    },
+    {
+      "name": "giantswarm--mcp-prometheus",
+      "source": "./giantswarm--mcp-prometheus",
+      "description": "mcp-prometheus"
+    },
+    {
+      "name": "giantswarm--mcp-prometheus",
+      "source": "./giantswarm--mcp-prometheus",
+      "description": "mcp-prometheus"
+    },
+    {
+      "name": "giantswarm--mcp-prometheus",
+      "source": "./giantswarm--mcp-prometheus",
+      "description": "mcp-prometheus"
+    },
+    {
+      "name": "giantswarm--mcp-prometheus",
+      "source": "./giantswarm--mcp-prometheus",
+      "description": "mcp-prometheus"
+    },
+    {
+      "name": "giantswarm--mcp-prometheus",
+      "source": "./giantswarm--mcp-prometheus",
+      "description": "mcp-prometheus"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199414,6 +199444,56 @@
       "description": "oci-agent"
     },
     {
+      "name": "kumabase--agent-base",
+      "source": "./kumabase--agent-base",
+      "description": "agent-base"
+    },
+    {
+      "name": "kumabase--agent-base",
+      "source": "./kumabase--agent-base",
+      "description": "agent-base"
+    },
+    {
+      "name": "kumabase--agent-base",
+      "source": "./kumabase--agent-base",
+      "description": "agent-base"
+    },
+    {
+      "name": "kumabase--agent-base",
+      "source": "./kumabase--agent-base",
+      "description": "agent-base"
+    },
+    {
+      "name": "toyota--confluence2md",
+      "source": "./toyota--confluence2md",
+      "description": "Convert Confluence pages to clean, portable Markdown with images, draw.io diagrams, and PlantUML all included."
+    },
+    {
+      "name": "nicknisi--fleet",
+      "source": "./nicknisi--fleet",
+      "description": "A terminal dashboard for managing multiple AI agent sessions in tmux"
+    },
+    {
+      "name": "kingoooolooo--campusconnect",
+      "source": "./kingoooolooo--campusconnect",
+      "description": "campusconnect"
+    },
+    {
+      "name": "mthli--ccp",
+      "source": "./mthli--ccp",
+      "description": "Headless Claude Code automation without the headless mode \ud83d\udc40"
+    },
+    {
+      "name": "rightnow-ai--automegakernel",
+      "source": "./rightnow-ai--automegakernel",
+      "description": "An agent harness that compiles a model into one provably-correct, self-retargeting CUDA megakernel and self-tunes it past cuBLAS at batch-1 LLM decode."
+    },
+    {
+      "name": "dcramer--agents",
+      "source": "./dcramer--agents",
+      "description": "agents"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -203027,6 +203107,16 @@
       "name": "luisfelipemoro--claude-devkit",
       "source": "./luisfelipemoro--claude-devkit",
       "description": "Claude Code devkit for agentic development"
+    },
+    {
+      "name": "uticus--llm-agents-system",
+      "source": "./uticus--llm-agents-system",
+      "description": "Composable Python platform for LLM-based agent systems: model hub, RAG, planning, tools, memory, evaluation, serving"
+    },
+    {
+      "name": "01mvp--blog-starter",
+      "source": "./01mvp--blog-starter",
+      "description": "01MVP Blog Starter"
     },
     {
       "name": "ldmoxeii--only-engine",
@@ -308867,6 +308957,126 @@
       "name": "robertgreenwood1--chewy",
       "source": "./robertgreenwood1--chewy",
       "description": "Van Builder Application"
+    },
+    {
+      "name": "jamesmacfie--kord",
+      "source": "./jamesmacfie--kord",
+      "description": "Guitar chord practice generator"
+    },
+    {
+      "name": "perkelefan626--mammashemsida",
+      "source": "./perkelefan626--mammashemsida",
+      "description": "MammasHemsida"
+    },
+    {
+      "name": "eugeniobandeira--prompts",
+      "source": "./eugeniobandeira--prompts",
+      "description": "prompts"
+    },
+    {
+      "name": "chepkemboiedel-sudo--deni",
+      "source": "./chepkemboiedel-sudo--deni",
+      "description": "Deni"
+    },
+    {
+      "name": "juanmendozaca-netizen--next-shadcn-ui",
+      "source": "./juanmendozaca-netizen--next-shadcn-ui",
+      "description": "next-shadcn-ui"
+    },
+    {
+      "name": "jellyqwq--rv-139login",
+      "source": "./jellyqwq--rv-139login",
+      "description": "rv-139Login"
+    },
+    {
+      "name": "zjjues--zotero-skill",
+      "source": "./zjjues--zotero-skill",
+      "description": "zotero-skill"
+    },
+    {
+      "name": "vishnusurya11--faithfulness-failures-clinical-xai",
+      "source": "./vishnusurya11--faithfulness-failures-clinical-xai",
+      "description": "Paper 4 P1: Faithfulness failures in clinical LLM explanations on MedGemma"
+    },
+    {
+      "name": "chong-su--zyh-rl1",
+      "source": "./chong-su--zyh-rl1",
+      "description": "ZYH-RL1"
+    },
+    {
+      "name": "pravesh-dholwani--langbreaker",
+      "source": "./pravesh-dholwani--langbreaker",
+      "description": "A circuit breaker library for langchain llm models to build fallback chains in production."
+    },
+    {
+      "name": "mrchengs--tougao",
+      "source": "./mrchengs--tougao",
+      "description": "\u6295\u7a3f\u6a21\u677f\uff0c\u6536\u7a3f\u6e20\u9053\u4fe1\u606f"
+    },
+    {
+      "name": "javtechtt--ai-language-tutor",
+      "source": "./javtechtt--ai-language-tutor",
+      "description": "ai-language-tutor"
+    },
+    {
+      "name": "wilfrieddc--scanit-app",
+      "source": "./wilfrieddc--scanit-app",
+      "description": "SCANIT-app"
+    },
+    {
+      "name": "harshita-singh18--vocabulary-flashcard-app",
+      "source": "./harshita-singh18--vocabulary-flashcard-app",
+      "description": "vocabulary-flashcard-app"
+    },
+    {
+      "name": "rafaelha--documentation",
+      "source": "./rafaelha--documentation",
+      "description": "documentation"
+    },
+    {
+      "name": "fanyunfeng-bit--vispec",
+      "source": "./fanyunfeng-bit--vispec",
+      "description": "ViSpec"
+    },
+    {
+      "name": "hoohou6688-cloud--celebrity-card-game",
+      "source": "./hoohou6688-cloud--celebrity-card-game",
+      "description": "celebrity-card-game"
+    },
+    {
+      "name": "arifrhm--grapejs-demo",
+      "source": "./arifrhm--grapejs-demo",
+      "description": "grapejs-demo"
+    },
+    {
+      "name": "jaminson0374--frontend-contab-2026",
+      "source": "./jaminson0374--frontend-contab-2026",
+      "description": "frontend_contab_2026"
+    },
+    {
+      "name": "sasabrina--ch-ecommerce",
+      "source": "./sasabrina--ch-ecommerce",
+      "description": "ch-ecommerce"
+    },
+    {
+      "name": "ak-nattyb--respire",
+      "source": "./ak-nattyb--respire",
+      "description": "Respire"
+    },
+    {
+      "name": "devsouvik--contract-analysis",
+      "source": "./devsouvik--contract-analysis",
+      "description": "contract-analysis"
+    },
+    {
+      "name": "francyskmilagf-sketch--tesis-francys-garcia-revision",
+      "source": "./francyskmilagf-sketch--tesis-francys-garcia-revision",
+      "description": "TESIS-FRANCYS-GARCIA-REVISION"
+    },
+    {
+      "name": "zachauker--5e-encounter-tracker",
+      "source": "./zachauker--5e-encounter-tracker",
+      "description": "5e-encounter-tracker"
     }
   ]
 }
