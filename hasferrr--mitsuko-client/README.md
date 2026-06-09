@@ -7,11 +7,11 @@ AI Subtitle Translator for SRT, ASS, and VTT files and audio transcription with 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hasferrr/mitsuko-client](https://github.com/hasferrr/mitsuko-client).
+Original source: `CLAUDE.md` in [hasferrr/mitsuko-client](https://github.com/hasferrr/mitsuko-client).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
