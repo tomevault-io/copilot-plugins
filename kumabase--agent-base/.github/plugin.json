@@ -1,0 +1,9 @@
+{
+  "name": "kumabase--agent-base",
+  "displayName": "agent-base",
+  "description": "agent-base",
+  "version": "1.0.0",
+  "author": "KumaBase",
+  "homepage": "https://github.com/KumaBase/agent-base",
+  "skills": []
+}
