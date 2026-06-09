@@ -1,0 +1,9 @@
+{
+  "name": "rightnow-ai--automegakernel",
+  "displayName": "AutoMegaKernel",
+  "description": "An agent harness that compiles a model into one provably-correct, self-retargeting CUDA megakernel and self-tunes it past cuBLAS at batch-1 LLM decode.",
+  "version": "1.0.0",
+  "author": "RightNow-AI",
+  "homepage": "https://github.com/RightNow-AI/AutoMegaKernel",
+  "skills": []
+}
