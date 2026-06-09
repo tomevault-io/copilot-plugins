@@ -186064,6 +186064,31 @@
       "description": "AI Subtitle Translator for SRT, ASS, and VTT files and audio transcription with custom endpoints for high-quality & context-aware results. Perfect for localizing anime, films, and videos."
     },
     {
+      "name": "matthewdcage--llm-swarm-router",
+      "source": "./matthewdcage--llm-swarm-router",
+      "description": "Run the LLM Swarm Router on machines to distribute Local Ai to the Swarm - More Machines - MORE SPEED"
+    },
+    {
+      "name": "matthewdcage--llm-swarm-router",
+      "source": "./matthewdcage--llm-swarm-router",
+      "description": "Run the LLM Swarm Router on machines to distribute Local Ai to the Swarm - More Machines - MORE SPEED"
+    },
+    {
+      "name": "matthewdcage--llm-swarm-router",
+      "source": "./matthewdcage--llm-swarm-router",
+      "description": "Run the LLM Swarm Router on machines to distribute Local Ai to the Swarm - More Machines - MORE SPEED"
+    },
+    {
+      "name": "ppxd--wisp",
+      "source": "./ppxd--wisp",
+      "description": "Local, real-time, cross-platform meeting transcription \u2014 on-device, private, model-swappable."
+    },
+    {
+      "name": "binius-zk--tracing-profile",
+      "source": "./binius-zk--tracing-profile",
+      "description": "Rust tracing extension for profiling one-shot program executions"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199772,6 +199797,21 @@
       "name": "jscott3201--llm-tuning",
       "source": "./jscott3201--llm-tuning",
       "description": "Serving and fine-tuning for the Gemma 4 and Qwen3.6 model families on Modal (SGLang/vLLM) \u2014 solo and concurrent shapes, custom chat-template forks, and a research pipeline."
+    },
+    {
+      "name": "connorrmcd6--surface",
+      "source": "./connorrmcd6--surface",
+      "description": "A deterministic gate that surfaces divergence between architectural docs and the code they describe."
+    },
+    {
+      "name": "magnus919--hermes-profiles",
+      "source": "./magnus919--hermes-profiles",
+      "description": "Curated Hermes Agent profiles for specialist swarms \u2014 opinionated, Hermes-optimized, artifact-pyramid native"
+    },
+    {
+      "name": "sintef-agentlab--jutul-agent",
+      "source": "./sintef-agentlab--jutul-agent",
+      "description": "jutul-agent"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -309412,6 +309452,11 @@
       "name": "zachauker--5e-encounter-tracker",
       "source": "./zachauker--5e-encounter-tracker",
       "description": "5e-encounter-tracker"
+    },
+    {
+      "name": "mandy9943--lobby-frontend2",
+      "source": "./mandy9943--lobby-frontend2",
+      "description": "lobby-frontend2"
     }
   ]
 }
