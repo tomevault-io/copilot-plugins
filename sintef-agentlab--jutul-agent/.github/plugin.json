@@ -1,0 +1,9 @@
+{
+  "name": "sintef-agentlab--jutul-agent",
+  "displayName": "jutul-agent",
+  "description": "jutul-agent",
+  "version": "1.0.0",
+  "author": "SINTEF-agentlab",
+  "homepage": "https://github.com/SINTEF-agentlab/jutul-agent",
+  "skills": []
+}
