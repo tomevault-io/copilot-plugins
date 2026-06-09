@@ -1,0 +1,9 @@
+{
+  "name": "davidhoo--markdownreader",
+  "displayName": "MarkdownReader",
+  "description": "A native macOS Markdown reader built with SwiftUI + Textual. Three-column layout with file tree, rendered markdown, and outline navigation. 23 built-in themes, i18n, and Git integration.",
+  "version": "1.0.0",
+  "author": "davidhoo",
+  "homepage": "https://github.com/davidhoo/MarkdownReader",
+  "skills": []
+}
