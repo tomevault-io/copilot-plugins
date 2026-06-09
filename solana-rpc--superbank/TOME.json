@@ -4,7 +4,7 @@
   "repo": "superbank",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/solana-rpc/superbank",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-09T17:30:24Z"
+  "distributed_at": "2026-06-09T17:30:52Z"
 }
