@@ -1,268 +1,179 @@
-## 040-vibecoding-workflow
+## 05-async-events
 
-> Workflow de vibecoding — cómo gestionar sesiones de desarrollo con IA al 100%
+> Activo en archivos del bus de eventos, fases async, workers y WebSocket. Event-driven: ningún motor espera activamente datos.
 
 
-# 🎯 VIBECODING WORKFLOW — TERMINAL DE TRADING
+# ⚡ ASYNC EVENT ENGINE — MOTOR EVENT-DRIVEN v3.0
 
-## FILOSOFÍA: IA COMO DESARROLLADOR COMPLETO
+## PRINCIPIO CENTRAL
+Los motores (Fase B/C) **nunca esperan activamente** datos.
+Se suscriben al Event Bus y **reaccionan** cuando llegan snapshots.
+Toda espera activa (`while True: check_for_data()`) es un anti-patrón.
 
-El usuario no escribe código. La IA es el 100% del desarrollador.
-Esto requiere un proceso estructurado para evitar el caos del vibecoding.
-
----
-
-## 📋 INICIO DE CADA SESIÓN
-
-Al comenzar una nueva sesión de trabajo, la IA DEBE:
+## ARQUITECTURA DEL BUS
 
 ```
-1. Leer PROJECT_CONFIG.md (estado actual del proyecto)
-2. Preguntar: "¿En qué módulo trabajamos hoy?"
-3. Confirmar la FASE (Blueprint / Construct / Validate)
-4. Listar los archivos que se van a tocar
-5. Estimar tiempo y complejidad
+MarketDataHub (Phase A output)
+        │ publish(MarketSnapshot)
+        ▼
+┌─────────────────────────┐
+│  Standard Queue          │  asyncio.Queue(maxsize=10_000)
+│  Fase B/C consumers      │  Drop-Oldest si se llena
+└──────────┬──────────────┘
+           │
+    ┌──────┴──────┐
+    ▼             ▼
+ Phase B        Phase C
+    │             │
+    └──────┬──────┘
+           │ publish(OptionContract)
+           ▼
+┌─────────────────────────┐
+│  Priority Queue          │  asyncio.Queue(maxsize=1_000)
+│  Phase D EXCLUSIVO       │  CRITICAL log si se llena
+└──────────┬──────────────┘
+           ▼
+      Phase D Monitor → ExecutionSignal → Frontend
 ```
 
-### Template de inicio de sesión:
-```
-📊 RESUMEN DEL ESTADO ACTUAL:
-- Módulo activo: [nombre]
-- Fase: [Blueprint/Construct/Validate]
-- Archivos afectados: [lista]
-- Bloqueadores conocidos: [lista o "Ninguno"]
+## WORKER PATTERN — Aislamiento de fallos
 
-🎯 PLAN PARA ESTA SESIÓN:
-1. [Tarea 1]
-2. [Tarea 2]
-3. [Tarea 3]
+```python
+class MicrostructureEngine:
+    """Phase B: consume snapshots, calcula VPIN/OFI. ZERO imports de red."""
 
-⚠️ RIESGOS: [lista o "Sin riesgos identificados"]
+    async def run(self) -> None:
+        """Loop principal. Falla individual → log + continúa. Bus nunca para."""
+        async for snapshot in self._bus.consume():
+            try:
+                await self._process_snapshot(snapshot)
+            except Exception:
+                logger.error(
+                    "Phase B: fallo en snapshot — continuando [PD-6]",
+                    extra={"ticker": snapshot.ticker},
+                    exc_info=True,
+                )
+                # ← El bus continúa. Un fallo no mata el worker.
 
-¿Procedemos con este plan? (Sí / Modificar plan)
-```
-
----
-
-## 🔵 FASE 1: BLUEPRINT (Planificación)
-
-**CUÁNDO:** Antes de empezar cualquier módulo nuevo.
-**REGLA:** NADA de código en esta fase.
-
-### Qué producir en Blueprint:
-```markdown
-# Blueprint: [Nombre del Módulo]
-
-## Propósito
-¿Qué problema resuelve este módulo?
-
-## Interfaces (qué recibe y qué devuelve)
-- Input: ...
-- Output: ...
-- Eventos que emite: ...
-
-## Dependencias
-- Módulos que necesita: ...
-- APIs externas: ...
-- Librerías nuevas: ...
-
-## Estructura de archivos a crear/modificar
-- [ ] backend/app/services/nuevo_servicio.py
-- [ ] frontend/src/components/NuevoComponente.tsx
-- [ ] tests/test_nuevo_servicio.py
-
-## Casos borde a manejar
-- ¿Qué pasa si la API externa falla?
-- ¿Qué pasa si el usuario tiene fondos insuficientes?
-- ¿Qué pasa si hay desconexión de internet?
-
-## Estimación
-- Archivos nuevos: X
-- Archivos modificados: Y
-- Complejidad: Baja / Media / Alta
+    async def _process_snapshot(self, snapshot: MarketSnapshot) -> None:
+        """CPU-bound → ProcessPoolExecutor para no bloquear event loop."""
+        loop = asyncio.get_running_loop()
+        enriched = await loop.run_in_executor(
+            self._executor,
+            calculate_vpin_ofi_sync,  # función pura, sin async
+            snapshot,
+        )
 ```
 
----
+## BACKPRESSURE — CONFIGURACIÓN OBLIGATORIA
 
-## 🟡 FASE 2: CONSTRUCT (Construcción)
+```python
+# Cola estándar: Drop-Oldest cuando está llena
+async def publish(self, snapshot: MarketSnapshot) -> None:
+    if self._standard_queue.full():
+        dropped = self._standard_queue.get_nowait()
+        logger.warning(
+            "EventBus: BACKPRESSURE — descartando snapshot más viejo",
+            extra={"dropped_ticker": dropped.ticker},
+        )
+    await self._standard_queue.put(snapshot)
 
-**CUÁNDO:** Después de que el Blueprint fue aprobado.
-**REGLA:** Un archivo a la vez. Mostrar antes de continuar.
-
-### Orden de construcción obligatorio:
-```
-1. Tipos/Schemas (types.ts / schemas.py)
-2. Modelos de datos
-3. Servicios/lógica de negocio
-4. Repositorios (acceso a DB)
-5. API endpoints (backend) / Hooks (frontend)
-6. Componentes UI (frontend)
-7. Tests
-8. Documentación
-```
-
-### Template para cada archivo:
-```
-📁 CREANDO: [ruta/del/archivo.py]
-📌 PROPÓSITO: [qué hace en una frase]
-🔗 DEPENDE DE: [otros archivos que importa]
-📤 EXPORTA: [qué funciones/clases expone]
-
-[CÓDIGO COMPLETO AQUÍ]
-
-✅ PARA PROBAR: [comando exacto para verificar que funciona]
+# Cola priority: si se llena → CRITICAL (Phase D no puede procesar)
+if self._priority_queue.full():
+    logger.critical(
+        "PRIORITY QUEUE LLENA — Phase D tiene latencia crítica. INVESTIGAR."
+    )
 ```
 
----
+## GESTIÓN DE TAREAS — Cada worker en su propia task
 
-## 🟢 FASE 3: VALIDATE (Validación)
+```python
+async def main() -> None:
+    bus = EventBus()
+    executor = ProcessPoolExecutor(max_workers=4)
+    
+    # Cada motor en task aislada → si una falla, las demás siguen
+    tasks = [
+        asyncio.create_task(phase_b.run(), name="phase_b_worker"),
+        asyncio.create_task(phase_c.run(), name="phase_c_worker"),
+        asyncio.create_task(phase_d.run(), name="phase_d_worker"),
+    ]
+    
+    # Signal handlers para clean shutdown
+    loop = asyncio.get_running_loop()
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        loop.add_signal_handler(
+            sig, lambda s=sig: asyncio.create_task(shutdown(s, tasks, executor))
+        )
+    
+    await asyncio.gather(*tasks, return_exceptions=True)
 
-**CUÁNDO:** Después de terminar un módulo.
-
-### Checklist de validación:
-```
-□ El código se ejecuta sin errores
-□ Los tests pasan
-□ No se rompió nada existente (regression test)
-□ Los tipos TypeScript no tienen errores
-□ No hay console.log olvidados
-□ No hay TODO comments sin resolver
-□ La documentación está actualizada
-□ PROJECT_CONFIG.md refleja el estado actual
-□ Se hizo commit del código funcional
-```
-
----
-
-## 🚨 REGLAS ANTI-VIBECODING-CAOS
-
-### Síntomas del caos a evitar:
-
-**1. Scope Creep** — "Ya que estamos, también agregamos X"
-```
-❌ USUARIO: "Arregla el bug del login"
-❌ IA: *también refactoriza el auth module, agrega 2FA, y cambia el DB schema*
-
-✅ IA: "Arreglé el bug del login. ¿Quieres que también revise el auth module 
-      en una sesión separada?"
+async def shutdown(sig, tasks, executor):
+    logger.info("Shutdown: %s. Deteniendo workers...", sig.name)
+    for task in tasks:
+        task.cancel()
+    await asyncio.gather(*tasks, return_exceptions=True)
+    executor.shutdown(wait=True)
+    logger.info("Shutdown limpio completo.")
 ```
 
-**2. Cambios Fantasma** — Modificar archivos sin avisar
-```
-❌ Cambiar 5 archivos cuando el usuario preguntó por 1
-✅ "Para resolver esto necesito modificar A, B, y C. ¿Confirmas?"
-```
+## PROHIBICIONES CRÍTICAS
 
-**3. Código Incompleto** — Dejar TODOs sin resolver
-```
-❌ return await api.placeOrder(data)  // TODO: manejar error
+```python
+# ❌ PROHIBIDO — bloquea el event loop
+time.sleep(1)
+# ✅ CORRECTO
+await asyncio.sleep(1)
 
-✅ try:
-    return await api.place_order(data)
-   except APIError as e:
-    logger.error(f"Error placing order: {e}")
-    raise OrderExecutionError(str(e))
-```
+# ❌ PROHIBIDO — CPU pesado en el event loop
+async def process(snapshot):
+    result = heavy_matrix_computation(snapshot)  # bloquea el loop
+# ✅ CORRECTO
+async def process(snapshot):
+    result = await loop.run_in_executor(executor, heavy_matrix_computation, snapshot)
 
-**4. Romper Cosas Funcionando** — Refactors no solicitados
-```
-❌ "Ya que toco este archivo, lo refactorizo todo"
-✅ "Cambié solo la función X. El resto del archivo sin tocar."
-```
+# ❌ PROHIBIDO — estado mutable compartido entre tasks
+shared_list = []   # race condition sin lock
 
-**5. Dependencias Fantasma** — Importar librerías sin instalar
-```
-❌ from some_lib import SomeClass  # ← ¿Está instalada?
+# ❌ PROHIBIDO — excepción no capturada mata el bus
+async def worker():
+    snapshot = await queue.get()
+    process_unsafe(snapshot)   # Si falla → bus se detiene
+# ✅ CORRECTO — envuelve en try/except, log y continúa
 
-✅ # ANTES de usar una librería nueva:
-   # pip install some_lib==1.2.3
-   # Agregar a requirements.txt
-   # Luego importar
+# ❌ PROHIBIDO — Phase B/C importan librerías de red
+# backend/phases/phase_b/engine.py
+import httpx   # RECHAZAR — viola aislamiento de motor
 ```
 
----
+## THRESHOLDS — En config/, no aquí
 
-## 📝 GESTIÓN DE TAREAS
+```python
+# ❌ PROHIBIDO
+queue = asyncio.Queue(maxsize=10_000)   # número mágico
 
-### Formato de tarea:
-```markdown
-## TAREA-001: Implementar autenticación JWT
-
-**Estado:** 🔴 Pendiente / 🟡 En progreso / 🟢 Completada
-**Fase:** Construct
-**Prioridad:** CRÍTICA
-
-### Descripción
-Implementar sistema de login con JWT, refresh tokens y logout seguro.
-
-### Criterios de aceptación
-- [ ] POST /auth/login devuelve JWT + refresh token
-- [ ] POST /auth/refresh renueva el token
-- [ ] POST /auth/logout invalida el token
-- [ ] Tokens expiran en 60 minutos
-- [ ] Rate limiting: máx 5 intentos por minuto
-
-### Archivos a crear/modificar
-- [ ] backend/app/core/security.py (nuevo)
-- [ ] backend/app/api/v1/auth.py (nuevo)
-- [ ] backend/app/models/user.py (modificar)
-- [ ] frontend/src/services/authService.ts (nuevo)
-- [ ] frontend/src/store/authStore.ts (nuevo)
-
-### Notas técnicas
-Usar jose para JWT, bcrypt para passwords.
+# ✅ CORRECTO
+from config.phase_thresholds import PhaseThresholds
+thresholds = PhaseThresholds()
+queue = asyncio.Queue(maxsize=thresholds.event_bus_max_queue_size)
 ```
 
----
+## LOGGING DE MONITORING — OBLIGATORIO
 
-## 🔁 ITERACIÓN Y FEEDBACK
+```python
+# Loggear en cada transición de fase:
+logger.info("Transición de fase", extra={
+    "from_phase": "A",
+    "to_phase": "B",
+    "candidate_count": len(candidates),
+    "duration_ms": elapsed_ms,
+})
 
-### Ciclo de iteración:
-```
-USUARIO describe lo que quiere
-     ↓
-IA crea Blueprint
-     ↓
-USUARIO aprueba / da feedback
-     ↓
-IA construye archivo por archivo
-     ↓
-USUARIO prueba cada pieza
-     ↓
-IA valida y ajusta
-     ↓
-IA actualiza PROJECT_CONFIG.md
-```
-
-### Cuando algo falla:
-```
-USUARIO: "No funciona / veo un error"
-
-IA responde con:
-1. "¿Puedes mostrarme el error completo?"
-2. Diagnóstico de causa raíz
-3. Solución en ≤3 pasos
-4. Comando exacto para verificar que se solucionó
-5. Explicación de por qué ocurrió (para aprender)
-```
-
----
-
-## 🏁 FIN DE SESIÓN
-
-Antes de terminar, la IA debe:
-```
-📊 RESUMEN DE LA SESIÓN:
-✅ Completado: [lista]
-🟡 En progreso: [lista]
-🔴 Pendiente para próxima sesión: [lista]
-
-🐛 Bugs conocidos: [lista o "Ninguno"]
-⚠️ Deuda técnica: [lista o "Ninguna"]
-
-💾 RECORDATORIO: Hacer commit antes de cerrar el editor
-git add .
-git commit -m "feat: [descripción de lo que se hizo]"
+# Loggear estado del bus periódicamente:
+logger.info("Estado EventBus", extra={
+    "standard_queue_size": bus._standard_queue.qsize(),
+    "priority_queue_size": bus._priority_queue.qsize(),
+})
 ```
 
 ---
