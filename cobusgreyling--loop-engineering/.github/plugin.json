@@ -1,0 +1,9 @@
+{
+  "name": "cobusgreyling--loop-engineering",
+  "displayName": "loop-engineering",
+  "description": "Practical reference and patterns for loop engineering \u2014 designing systems that prompt and orchestrate AI coding agents (inspired by Addy Osmani and Boris Cherny / Anthropic)",
+  "version": "1.0.0",
+  "author": "cobusgreyling",
+  "homepage": "https://github.com/cobusgreyling/loop-engineering",
+  "skills": []
+}
