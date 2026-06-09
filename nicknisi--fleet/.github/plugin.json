@@ -1,0 +1,9 @@
+{
+  "name": "nicknisi--fleet",
+  "displayName": "fleet",
+  "description": "A terminal dashboard for managing multiple AI agent sessions in tmux",
+  "version": "1.0.0",
+  "author": "nicknisi",
+  "homepage": "https://github.com/nicknisi/fleet",
+  "skills": []
+}
