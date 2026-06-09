@@ -1,0 +1,9 @@
+{
+  "name": "giantswarm--mcp-prometheus",
+  "displayName": "mcp-prometheus",
+  "description": "mcp-prometheus",
+  "version": "1.0.0",
+  "author": "giantswarm",
+  "homepage": "https://github.com/giantswarm/mcp-prometheus",
+  "skills": []
+}
