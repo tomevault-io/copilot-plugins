@@ -185959,6 +185959,11 @@
       "description": "Market-options-stocks-Scanner"
     },
     {
+      "name": "shrimpsend--shrimpsend",
+      "source": "./shrimpsend--shrimpsend",
+      "description": "Cross-device file transfer, straight to your devices ; China Version: \u867e\u4f20(xiachuan.net) ; Overseas Version: ShrimpSend (shrimpsend.com)"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199604,6 +199609,16 @@
       "description": "\u5de5\u7a0b\u5408\u540c AI \u5ba1\u67e5\u52a9\u624b\uff1a\u6e90\u7801\u53ef\u89c1\u7684\u975e\u5546\u4e1a\u6f14\u793a\u9879\u76ee\uff0c\u5546\u4e1a\u4f7f\u7528\u9700\u6388\u6743\u3002"
     },
     {
+      "name": "scriptedalchemy--tokensave",
+      "source": "./scriptedalchemy--tokensave",
+      "description": "Code intelligence tool with local semantic graph and holographic memory"
+    },
+    {
+      "name": "qiuerjun--storyforge-ai",
+      "source": "./qiuerjun--storyforge-ai",
+      "description": "\u672c\u5730\u5316 AI \u5c0f\u8bf4\u4e0e\u8dd1\u56e2\u8f85\u52a9\u521b\u4f5c\u5e73\u53f0 - \u4e3a\u5c0f\u8bf4\u5bb6\u548c\u8dd1\u56e2\u73a9\u5bb6\u6253\u9020\u7684 AI \u8f85\u52a9\u521b\u4f5c\u73af\u5883\uff0c\u652f\u6301\u89d2\u8272\u8bbe\u5b9a\u3001\u4e16\u754c\u89c2\u6784\u5efa\u3001\u8bb0\u5fc6\u7d22\u5f15\u3001\u6d41\u5f0f\u5bf9\u8bdd\u7b49\u529f\u80fd\u3002\u517c\u5bb9 OpenAI API \u548c\u672c\u5730 Ollama \u6a21\u578b\u3002"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -203232,6 +203247,31 @@
       "name": "cxsmo-ai--deepbridge",
       "source": "./cxsmo-ai--deepbridge",
       "description": "A self-hosted Stremio addon that combines Deepbrid official streams with pre-resolved external Usenet indexer results."
+    },
+    {
+      "name": "mystenlabs--confidential-transfers",
+      "source": "./mystenlabs--confidential-transfers",
+      "description": "Confidential Transfers on Sui"
+    },
+    {
+      "name": "maquekenzhegua--multi-agent-software-team",
+      "source": "./maquekenzhegua--multi-agent-software-team",
+      "description": "5 AI agents that turn GitHub Issues into mergeable PRs \u2014 from architecture to passing tests, fully autonomous."
+    },
+    {
+      "name": "maxeaglet--commandcode-proxy",
+      "source": "./maxeaglet--commandcode-proxy",
+      "description": "Command Code API \u2192 OpenAI \u517c\u5bb9\u63a5\u53e3\u7684\u53cd\u4ee3\u4ee3\u7406"
+    },
+    {
+      "name": "loringtonian--second-brain-template",
+      "source": "./loringtonian--second-brain-template",
+      "description": "An agent-navigable Second Brain template \u2014 clone the blank, run /setup, make it yours. A context-engineering system any AI agent can navigate."
+    },
+    {
+      "name": "jay6697117--cliproxyapiplus",
+      "source": "./jay6697117--cliproxyapiplus",
+      "description": "CLIProxyAPIPlus"
     },
     {
       "name": "ldmoxeii--only-engine",
