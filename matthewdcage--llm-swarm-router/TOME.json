@@ -4,7 +4,7 @@
   "repo": "llm-swarm-router",
   "description": "Run the LLM Swarm Router on machines to distribute Local Ai to the Swarm - More Machines - MORE SPEED",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matthewdcage/llm-swarm-router",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-09T16:30:54Z"
+  "distributed_at": "2026-06-09T16:31:29Z"
 }
