@@ -1,0 +1,9 @@
+{
+  "name": "uticus--llm-agents-system",
+  "displayName": "llm_agents_system",
+  "description": "Composable Python platform for LLM-based agent systems: model hub, RAG, planning, tools, memory, evaluation, serving",
+  "version": "1.0.0",
+  "author": "uticus",
+  "homepage": "https://github.com/uticus/llm_agents_system",
+  "skills": []
+}
