@@ -1,0 +1,9 @@
+{
+  "name": "slam-mer--slam-mer",
+  "displayName": "slam-mer",
+  "description": "Source code for SLAM-MER. It includes the implementation of the localization and adjustment modules.",
+  "version": "1.0.0",
+  "author": "slam-mer",
+  "homepage": "https://github.com/slam-mer/slam-mer",
+  "skills": []
+}
