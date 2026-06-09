@@ -1,0 +1,9 @@
+{
+  "name": "argonne-lcf--ensemble-launcher",
+  "displayName": "ensemble_launcher",
+  "description": "A simple tool for launching ensembles",
+  "version": "1.0.0",
+  "author": "argonne-lcf",
+  "homepage": "https://github.com/argonne-lcf/ensemble_launcher",
+  "skills": []
+}
