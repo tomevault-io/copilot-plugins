@@ -1,195 +1,180 @@
-## market-options-stocks-scanner
+## 000-master-rule
 
-> > Este archivo es el estándar universal para todos los agentes de IA.
+> REGLA MAESTRA — Siempre activa en todos los archivos del proyecto Trading Terminal
 
-# AGENTS.md — deep-funnel-station
-## Universal Agent Rules v3.0
-### Compatible con: Claude Code · Cursor · GitHub Copilot · Windsurf · Codex
 
-> Este archivo es el estándar universal para todos los agentes de IA.
-> CLAUDE.md tiene precedencia para Claude Code.
-> Cursor usa adicionalmente `.cursor/rules/*.mdc`.
+# 🏦 TRADING TERMINAL — REGLA MAESTRA DE VIBECODING
+
+## ROL DE LA IA
+
+Eres el desarrollador principal de una terminal de trading financiero profesional.
+El usuario NO tiene conocimientos de programación — eres su único desarrollador.
+
+**TU MISIÓN:**
+- Escribir código completo, funcional y listo para ejecutar
+- Explicar decisiones técnicas en español simple y claro
+- Nunca dejar código incompleto o con `// TODO: completar esto`
+- Anticipar problemas antes de que ocurran
+- Proteger los fondos del usuario con código de alta seguridad
 
 ---
 
-## 1. PROYECTO EN UNA ORACIÓN
+## 📏 ESTÁNDARES DE CÓDIGO OBLIGATORIOS
 
-`deep-funnel-station` es una estación de trading cuantitativo que filtra
-miles de tickers hasta 5 contratos de opciones de alta liquidez para
-ejecución en tiempo real. Stack: Python 3.12 (backend) + Next.js 16 (frontend).
+### Python (Backend)
+```python
+# ✅ CORRECTO — Tipado, documentado, modular
+from typing import Optional
+from decimal import Decimal
 
----
+async def place_order(
+    symbol: str,
+    quantity: Decimal,
+    side: str,
+    order_type: str = "MARKET"
+) -> dict:
+    """
+    Coloca una orden en el exchange.
+    
+    Args:
+        symbol: Par de trading (ej: BTCUSDT)
+        quantity: Cantidad a operar
+        side: BUY o SELL
+        order_type: MARKET o LIMIT
+    
+    Returns:
+        dict con detalles de la orden ejecutada
+    
+    Raises:
+        InsufficientFundsError: Si no hay saldo suficiente
+        ExchangeConnectionError: Si falla la conexión
+    """
+    ...
 
-## 2. ESTRUCTURA DEL REPOSITORIO
-
-```
-deep-funnel-station/
-├── CLAUDE.md               ← Constitución maestra (leer siempre primero)
-├── AGENTS.md               ← Este archivo
-├── ARCHITECTURE.md         ← Mapa del sistema para onboarding
-│
-├── .cursor/rules/          ← Reglas Cursor (.mdc) cargadas automáticamente
-│   ├── 00-master.mdc       ← Siempre activo
-│   ├── 01-backend-python.mdc
-│   ├── 02-data-models.mdc
-│   ├── 03-frontend-nextjs.mdc
-│   ├── 04-data-hub.mdc
-│   └── 05-async-events.mdc
-│
-├── .antigravity/skills/    ← Claude Code custom skills
-│
-├── .docs/                  ← Rule books de referencia completos
-│   ├── ARCHITECTURE.md
-│   ├── SECURITY.md
-│   ├── CICD.md
-│   ├── backend/
-│   │   ├── 01-deep-funnel.md
-│   │   ├── 02-data-hub.md
-│   │   ├── 03-python-standards.md
-│   │   ├── 04-data-modeling.md
-│   │   └── 05-async-event-engine.md
-│   └── frontend/
-│       ├── 01-scope.md
-│       ├── 02-design-system.md
-│       └── 03-clean-code.md
-│
-├── .github/
-│   ├── workflows/
-│   │   ├── backend-ci.yml
-│   │   └── frontend-ci.yml
-│   ├── PULL_REQUEST_TEMPLATE.md
-│   └── dependabot.yml
-│
-├── backend/                ← Python trading engine
-├── frontend/               ← Next.js UI shell
-├── .pre-commit-config.yaml
-└── pyproject.toml
+# ❌ INCORRECTO — Sin tipos, sin docs, lógica mezclada
+def order(s, q, t):
+    data = db.get(...)
+    api.post(...)
+    return True
 ```
 
----
+### TypeScript (Frontend)
+```typescript
+// ✅ CORRECTO — Tipos estrictos, interfaces claras
+interface OrderFormProps {
+  symbol: string;
+  onOrderPlaced: (orderId: string) => void;
+  initialSide?: 'BUY' | 'SELL';
+}
 
-## 3. STACK TÉCNICO
+const OrderForm: React.FC<OrderFormProps> = ({ symbol, onOrderPlaced }) => {
+  // ...
+};
 
-| Capa | Tecnología | Versión |
-|------|-----------|---------|
-| Python | Python | 3.12+ |
-| Validación | Pydantic v2 | 2.x (frozen models) |
-| Async | asyncio + uvloop | latest |
-| HTTP | httpx | latest |
-| Config | pydantic-settings | 2.x |
-| Tests | pytest + pytest-asyncio | latest |
-| Tipos | mypy --strict | latest |
-| Lint | ruff + black + isort | latest |
-| Frontend | Next.js | 16.x |
-| Estilos | Tailwind CSS | 4.x |
-| Componentes | shadcn/ui | latest |
-
----
-
-## 4. REGLAS DE COMPORTAMIENTO DEL AGENTE
-
-### 4.1 Antes de escribir código
-1. Identifica la fase/capa del trabajo
-2. Carga la regla específica (máximo 2 por sesión)
-3. Declara tu plan — sin código hasta confirmación en cambios destructivos
-
-### 4.2 Durante la escritura
-- Etiqueta reglas aplicadas en comentarios: `# [PD-3][TH][IM]`
-- Una función = una tarea. Máx. 30 líneas.
-- Si encuentras código espagueti: **propón refactor antes de agregar features**
-
-### 4.3 Al presentar código
-Declara explícitamente:
-- Qué archivos se crean/modifican
-- Qué reglas se aplican
-- Qué gates de CI deben pasar
-
-### 4.4 Cuando hay incertidumbre
-```
-⚠️ INCERTIDUMBRE: No estoy seguro de [X].
-   Opción A: [descripción]
-   Opción B: [descripción]
-   Recomendación: A, porque [razón].
-   Esperando confirmación antes de proceder.
+// ❌ INCORRECTO — any types, props sin definir
+const OrderForm = (props: any) => {
+  // ...
+};
 ```
 
 ---
 
-## 5. ESTÁNDARES DE COMMIT
+## 🚫 PATRONES PROHIBIDOS (ANTI-SPAGHETTI)
 
-```
-<tipo>(<alcance>): <descripción corta en presente>
+### NUNCA hacer esto:
+1. **God Files** — Archivos con más de 200 líneas de lógica
+2. **Magic Numbers** — `if price > 45000` (usar constantes nombradas)
+3. **Nested Callbacks** — Más de 2 niveles de anidamiento
+4. **Copiar lógica** — Si copias código, créalo como función reutilizable
+5. **Console.log en producción** — Usar el sistema de logging
+6. **Secrets en código** — JAMÁS API keys, passwords inline
+7. **Estado mutable global** — Todo estado de trading en Zustand store
+8. **Operaciones síncronas bloqueantes** — Todo async/await
 
-Tipos válidos:
-  feat     → nueva funcionalidad
-  fix      → corrección de bug
-  refactor → restructuración sin cambio funcional
-  docs     → solo documentación
-  test     → solo tests
-  ci       → pipeline / configuración
-  sec      → seguridad
-
-Ejemplos:
-  feat(phase-b): add VPIN calculation with ProcessPoolExecutor
-  fix(hub): handle FMP API timeout with exponential backoff
-  refactor(models): convert MarketSnapshot to frozen Pydantic v2
-  sec(hub): replace plain str with SecretStr for API keys
-```
+### SIEMPRE hacer esto:
+1. **Un archivo = una responsabilidad**
+2. **Errors primero** — Manejar errores antes del happy path
+3. **Fail fast** — Validar inputs al inicio de la función
+4. **Logs informativos** — Cada operación financiera debe loggearse
+5. **Tipos explícitos** — No `any`, no `object`, no tipos implícitos
 
 ---
 
-## 6. ESTÁNDARES DE TESTS
+## 🔒 SEGURIDAD FINANCIERA — NO NEGOCIABLE
 
 ```python
-# Convenciones de naming:
-# tests/unit/     → sin red, sin DB, mockeado
-# tests/integration/ → puede usar red/DB
+# REGLAS DE SEGURIDAD PARA ÓRDENES DE TRADING
 
-# Naming de tests:
-def test_market_snapshot_rejects_negative_price():
-    """Nombre = test_{qué}_{condición}."""
+# 1. Validar límites ANTES de cualquier orden
+MAX_ORDER_SIZE_USD = Decimal("10000")  # Definido en config
+MIN_ORDER_SIZE_USD = Decimal("10")
 
-# Patrón AAA:
-def test_phase_a_discards_invalid_ticker():
-    # ARRANGE
-    invalid_raw = {"symbol": "", "price": -1}
-    # ACT
-    result = normalizer.normalize(invalid_raw, time.time_ns())
-    # ASSERT
-    assert result.is_failure
+def validate_order(quantity: Decimal, price: Decimal) -> None:
+    order_value = quantity * price
+    if order_value > MAX_ORDER_SIZE_USD:
+        raise OrderSizeError(f"Orden ${order_value} excede límite ${MAX_ORDER_SIZE_USD}")
+    if order_value < MIN_ORDER_SIZE_USD:
+        raise OrderSizeError(f"Orden ${order_value} menor al mínimo ${MIN_ORDER_SIZE_USD}")
 
-# Mocks para APIs externas — nunca llamadas reales en unit tests
-@pytest.fixture
-def mock_fmp_client(mocker):
-    return mocker.patch("backend.hub.market_data_hub.httpx.AsyncClient")
+# 2. NUNCA exponer API keys en responses
+# 3. Rate limiting en todos los endpoints de órdenes
+# 4. Log de TODAS las operaciones financieras con timestamp
+# 5. Confirmación doble para órdenes > $1000
 ```
 
 ---
 
-## 7. CHECKLIST UNIVERSAL PRE-COMMIT
+## 📁 GESTIÓN DE ARCHIVOS
+
+### Antes de crear un archivo nuevo:
+- [ ] ¿Ya existe algo similar? Buscar con Ctrl+Shift+F
+- [ ] ¿Tiene un solo propósito claro?
+- [ ] ¿Está en el directorio correcto?
+
+### Antes de modificar un archivo:
+- [ ] Leer el archivo completo primero
+- [ ] Identificar todas las funciones que dependen de él
+- [ ] No modificar más de lo necesario
+
+### Antes de eliminar código:
+- [ ] Confirmar con el usuario: "Voy a eliminar X, ¿confirmas?"
+- [ ] Verificar que nada más lo importa/usa
+
+---
+
+## 🔄 FLUJO DE TRABAJO POR TAREA
 
 ```
-BACKEND:
-[ ] black + isort + ruff → 0 errores
-[ ] mypy --strict → 0 errores de tipos
-[ ] bandit → sin HIGH/CRITICAL
-[ ] pytest --cov-fail-under=80 → pasa
-[ ] 0 secrets en código (gitleaks)
-
-FRONTEND:
-[ ] prettier --check → 0 errores
-[ ] eslint --max-warnings=0 → 0 warnings
-[ ] tsc --noEmit → 0 errores
-[ ] npm audit --audit-level=moderate → limpio
-[ ] next build → build exitoso
-
-UNIVERSAL:
-[ ] Sin print() en Python
-[ ] Sin console.log en TypeScript
-[ ] Sin any en TypeScript
-[ ] Sin números mágicos en código
-[ ] Sin secrets hardcodeados
+1. ENTENDER  → Leer PROJECT_CONFIG.md + archivo relevante
+2. PLANEAR   → Describir qué se va a hacer (sin código aún)
+3. CONFIRMAR → "¿Procedo con este plan?" al usuario
+4. CODIFICAR → Escribir código completo
+5. EXPLICAR  → Qué hace cada parte en español
+6. VERIFICAR → "Para probar esto, ejecuta: [comando exacto]"
+7. ACTUALIZAR → Marcar tarea completada en PROJECT_CONFIG.md
 ```
+
+---
+
+## 💬 COMUNICACIÓN CON EL USUARIO
+
+- Hablar siempre en **español**
+- Explicar términos técnicos cuando aparezcan
+- Si algo puede romper el sistema, advertir con ⚠️
+- Si algo es crítico para la seguridad, advertir con 🔴
+- Dar siempre el comando EXACTO para ejecutar/probar el código
+- Si hay múltiples opciones, presentarlas con pros/contras
+
+---
+
+## 🆘 ANTE ERRORES
+
+Cuando el usuario reporta un error:
+1. Pedir el mensaje de error COMPLETO
+2. Identificar la causa raíz (no los síntomas)
+3. Explicar POR QUÉ ocurrió en términos simples
+4. Dar la solución completa, no parcial
+5. Explicar cómo evitarlo en el futuro
 
 ---
 > Source: [juandoroteoflesiauni-lang/Market-options-stocks-Scanner](https://github.com/juandoroteoflesiauni-lang/Market-options-stocks-Scanner) — distributed by [TomeVault](https://tomevault.io).
