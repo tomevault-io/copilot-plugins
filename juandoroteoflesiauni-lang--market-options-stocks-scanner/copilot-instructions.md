@@ -1,186 +1,325 @@
-## 03-frontend-nextjs
+## 030-realtime-data
 
-> Activo en código TypeScript y React del frontend. Dark mode obligatorio, shadcn/ui, Server Components por defecto, fase 1 bloqueada.
+> Reglas para manejo de datos en tiempo real, WebSockets y feeds de mercado
 
 
-# ⚡ FRONTEND NEXT.JS 16 — ESTÁNDARES v3.0
+# ⚡ DATOS EN TIEMPO REAL — TRADING TERMINAL
 
-## FASE LOCK ACTIVO: FASE 1
+## PRINCIPIOS DE TRADING EN TIEMPO REAL
+
+Los datos de mercado llegan miles de veces por segundo.
+Un error en este módulo = datos incorrectos = decisiones de trading equivocadas = pérdidas.
+
+---
+
+## 🔌 ARQUITECTURA WEBSOCKET BACKEND
+
+```python
+# backend/app/websockets/market_feed.py
+
+from fastapi import WebSocket, WebSocketDisconnect
+from typing import Dict, Set
+import asyncio
+import json
+
+class MarketFeedManager:
+    """
+    Gestiona todas las conexiones WebSocket de clientes.
+    Patrón: PubSub — un stream de exchange, N clientes.
+    """
+    
+    def __init__(self):
+        # symbol -> set de websockets conectados
+        self._subscribers: Dict[str, Set[WebSocket]] = {}
+        self._lock = asyncio.Lock()
+    
+    async def subscribe(self, websocket: WebSocket, symbol: str) -> None:
+        """Suscribir cliente a un símbolo."""
+        async with self._lock:
+            if symbol not in self._subscribers:
+                self._subscribers[symbol] = set()
+                # Iniciar feed del exchange si es el primero
+                asyncio.create_task(self._start_exchange_feed(symbol))
+            self._subscribers[symbol].add(websocket)
+    
+    async def unsubscribe(self, websocket: WebSocket, symbol: str) -> None:
+        """Desuscribir cliente — SIEMPRE llamar en disconnect."""
+        async with self._lock:
+            if symbol in self._subscribers:
+                self._subscribers[symbol].discard(websocket)
+                if not self._subscribers[symbol]:
+                    # Limpiar stream si no hay más clientes
+                    del self._subscribers[symbol]
+    
+    async def broadcast(self, symbol: str, data: dict) -> None:
+        """Enviar datos a todos los clientes suscritos."""
+        if symbol not in self._subscribers:
+            return
+        
+        dead_connections = set()
+        message = json.dumps(data)
+        
+        for websocket in self._subscribers[symbol].copy():
+            try:
+                await websocket.send_text(message)
+            except Exception:
+                dead_connections.add(websocket)
+        
+        # Limpiar conexiones muertas
+        for ws in dead_connections:
+            await self.unsubscribe(ws, symbol)
+    
+    async def _start_exchange_feed(self, symbol: str) -> None:
+        """Conectar al exchange y retransmitir datos."""
+        try:
+            async for tick in exchange.get_price_stream(symbol):
+                if symbol not in self._subscribers:
+                    break  # No hay más suscriptores
+                await self.broadcast(symbol, {
+                    "type": "tick",
+                    "symbol": symbol,
+                    "price": str(tick.price),
+                    "volume": str(tick.volume),
+                    "timestamp": tick.timestamp.isoformat()
+                })
+        except Exception as e:
+            logger.error(f"Exchange feed error for {symbol}: {e}")
+
+feed_manager = MarketFeedManager()
+
+# Endpoint WebSocket
+@router.websocket("/ws/market/{symbol}")
+async def market_websocket(websocket: WebSocket, symbol: str):
+    await websocket.accept()
+    await feed_manager.subscribe(websocket, symbol)
+    try:
+        while True:
+            # Mantener conexión viva con heartbeat
+            await websocket.receive_text()
+    except WebSocketDisconnect:
+        await feed_manager.unsubscribe(websocket, symbol)
 ```
-✅ Permitido: layout.tsx · TopNavigationBar · lib/env.ts · hooks/useAuthToken.ts
-⛔ BLOQUEADO: dashboards · rutas secundarias · charts · WebSocket client · auth forms
+
+---
+
+## 🔌 ARQUITECTURA WEBSOCKET FRONTEND
+
+```typescript
+// hooks/useMarketFeed.ts
+
+import { useEffect, useRef, useCallback } from 'react';
+import { useMarketStore } from '@/store/marketStore';
+
+interface MarketFeedOptions {
+  symbol: string;
+  onError?: (error: Event) => void;
+}
+
+export const useMarketFeed = ({ symbol, onError }: MarketFeedOptions) => {
+  const wsRef = useRef<WebSocket | null>(null);
+  const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const updateTick = useMarketStore(s => s.updateTick);
+  
+  const connect = useCallback(() => {
+    // Limpiar conexión anterior
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.close();
+    }
+    
+    const ws = new WebSocket(`${import.meta.env.VITE_WS_URL}/market/${symbol}`);
+    wsRef.current = ws;
+    
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.type === 'tick') {
+          updateTick(data.symbol, {
+            price: parseFloat(data.price),
+            volume: parseFloat(data.volume),
+            timestamp: new Date(data.timestamp)
+          });
+        }
+      } catch (e) {
+        console.error('Error parsing market data:', e);
+      }
+    };
+    
+    ws.onerror = (error) => {
+      console.error(`WS Error for ${symbol}:`, error);
+      onError?.(error);
+    };
+    
+    ws.onclose = (event) => {
+      if (!event.wasClean) {
+        // Reconexión automática con backoff exponencial
+        reconnectTimeoutRef.current = setTimeout(connect, 3000);
+      }
+    };
+  }, [symbol, updateTick, onError]);
+  
+  useEffect(() => {
+    connect();
+    
+    // CRÍTICO: cleanup en unmount para evitar memory leaks
+    return () => {
+      clearTimeout(reconnectTimeoutRef.current);
+      wsRef.current?.close(1000, 'Component unmounted');
+      wsRef.current = null;
+    };
+  }, [connect]);
+};
 ```
 
-Si se solicita algo fuera de Fase 1 → **RECHAZAR** con mensaje:
-> "⛔ Phase Lock: Esta feature es Fase [X]. Lock actual: Fase 1."
+---
 
-## TYPESCRIPT — MODO ESTRICTO
+## 🗃️ MARKET STORE — Estado de mercado en tiempo real
 
-```json
-// tsconfig.json — obligatorio
-{
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true
+```typescript
+// store/marketStore.ts
+
+import { create } from 'zustand';
+import { subscribeWithSelector } from 'zustand/middleware';
+
+interface TickData {
+  price: number;
+  volume: number;
+  timestamp: Date;
+  change24h?: number;
+  high24h?: number;
+  low24h?: number;
+}
+
+interface MarketState {
+  ticks: Record<string, TickData>;        // symbol → últimos datos
+  orderBooks: Record<string, OrderBook>;  // symbol → order book
+  
+  // Acciones
+  updateTick: (symbol: string, tick: TickData) => void;
+  updateOrderBook: (symbol: string, book: OrderBook) => void;
+  
+  // Selectores computados
+  getPrice: (symbol: string) => number | null;
+}
+
+export const useMarketStore = create<MarketState>()(
+  subscribeWithSelector((set, get) => ({
+    ticks: {},
+    orderBooks: {},
+    
+    updateTick: (symbol, tick) => set((state) => ({
+      ticks: { ...state.ticks, [symbol]: tick }
+    })),
+    
+    updateOrderBook: (symbol, book) => set((state) => ({
+      orderBooks: { ...state.orderBooks, [symbol]: book }
+    })),
+    
+    getPrice: (symbol) => get().ticks[symbol]?.price ?? null,
+  }))
+);
+```
+
+---
+
+## 📊 NORMALIZACIÓN DE DATOS DE MERCADO
+
+```python
+# services/market_normalizer.py
+
+from decimal import Decimal
+from dataclasses import dataclass
+from datetime import datetime
+
+@dataclass
+class NormalizedTick:
+    """Formato interno estándar para ticks de precio."""
+    symbol: str
+    price: Decimal
+    bid: Decimal
+    ask: Decimal
+    volume_24h: Decimal
+    change_24h_pct: Decimal
+    timestamp: datetime
+    exchange: str
+
+class BinanceNormalizer:
+    """Convierte respuestas de Binance al formato interno."""
+    
+    @staticmethod
+    def normalize_ticker(raw: dict) -> NormalizedTick:
+        return NormalizedTick(
+            symbol=raw['symbol'],
+            price=Decimal(raw['lastPrice']),
+            bid=Decimal(raw['bidPrice']),
+            ask=Decimal(raw['askPrice']),
+            volume_24h=Decimal(raw['volume']),
+            change_24h_pct=Decimal(raw['priceChangePercent']),
+            timestamp=datetime.fromtimestamp(raw['closeTime'] / 1000),
+            exchange='binance'
+        )
+
+# SIEMPRE normalizar datos externos antes de usarlos internamente
+# Esto permite cambiar de exchange sin tocar el resto del código
+```
+
+---
+
+## ⚡ RENDIMIENTO EN TIEMPO REAL
+
+### Reglas de rendimiento para trading:
+
+```typescript
+// ✅ Usar memo para evitar re-renders en componentes de precio
+const PriceCell = React.memo(({ symbol }: { symbol: string }) => {
+  // Solo re-renderiza cuando cambia el precio de ESTE símbolo
+  const price = useMarketStore(s => s.ticks[symbol]?.price);
+  return <span>${price?.toFixed(2) ?? '---'}</span>;
+});
+
+// ✅ Throttle para updates de UI muy frecuentes (>10/seg)
+// No necesitamos actualizar la UI 100 veces por segundo
+const useThrottledPrice = (symbol: string, ms: number = 100) => {
+  const price = useMarketStore(s => s.ticks[symbol]?.price);
+  return useThrottle(price, ms);
+};
+
+// ❌ NUNCA suscribirse a todo el store en un componente
+// Esto re-renderiza con CADA cambio de cualquier precio
+const BadComponent = () => {
+  const allTicks = useMarketStore(s => s); // ← RE-RENDERIZA TODO
+  ...
+};
+```
+
+---
+
+## 🔄 RECONNECTION Y RESILIENCIA
+
+```typescript
+// utils/wsReconnect.ts — Backoff exponencial
+
+export class ReconnectStrategy {
+  private attempts = 0;
+  private maxAttempts = 10;
+  private baseDelay = 1000;  // 1 segundo
+  private maxDelay = 30000;  // 30 segundos
+  
+  getDelay(): number {
+    const delay = Math.min(
+      this.baseDelay * Math.pow(2, this.attempts),
+      this.maxDelay
+    );
+    // Jitter para evitar thundering herd
+    return delay + Math.random() * 1000;
   }
-}
-```
-
-```typescript
-// ❌ PROHIBIDO — any
-const handler = (event: any) => {}
-const response: any = await fetch(url)
-
-// ✅ CORRECTO — tipos específicos
-const handler = (event: React.MouseEvent<HTMLButtonElement>) => {}
-interface ApiResponse<T> { data: T; status: number }
-```
-
-## COMPONENTES — REGLAS PRINCIPALES
-
-```typescript
-// ✅ Server Component por defecto (sin directiva)
-export function TradingPanel() {
-  return <div>...</div>
-}
-
-// Solo agregar 'use client' si el componente usa:
-// - useState, useEffect, useCallback
-// - Eventos de browser (onClick, onChange directo)
-// - APIs de browser (localStorage, etc.)
-"use client";
-export function LivePrice() {
-  const [price, setPrice] = useState(0)
-  // ...
-}
-```
-
-```typescript
-// Máximo 100 líneas por componente.
-// Si supera → extraer subcomponentes o un hook.
-
-// ✅ Props tipadas con interface — nunca any
-interface TopNavigationBarProps {
-  items: NavigationItem[]
-}
-
-export function TopNavigationBar({ items }: TopNavigationBarProps) {
-  return (...)
-}
-```
-
-## DISEÑO — DARK MODE OBLIGATORIO
-
-```typescript
-// ❌ PROHIBIDO — referencia a light mode
-className="dark:bg-gray-900 bg-white"
-
-// ❌ PROHIBIDO — colores hardcodeados
-style={{ color: "#f0f0f5" }}
-
-// ✅ CORRECTO — CSS variables del design system
-className="bg-bg-surface text-text-primary border-border-subtle"
-
-// El Top Nav usa glassmorphism exacto:
-const navClasses = [
-  "fixed top-0 left-0 right-0 z-50 h-14",
-  "flex items-center justify-between px-6",
-  "bg-[rgba(17,17,24,0.72)] backdrop-blur-md",
-  "border-b border-border-subtle",
-].join(" ")
-```
-
-## PRECIOS Y NÚMEROS FINANCIEROS
-
-```typescript
-// ✅ CORRECTO — tabular numerals para datos financieros
-<span className="font-mono tabular-nums text-text-primary">
-  {price}
-</span>
-
-// ✅ CORRECTO — color semántico para señales
-<span className="font-mono tabular-nums text-signal-buy">+2.34%</span>
-<span className="font-mono tabular-nums text-signal-sell">-1.12%</span>
-
-// ❌ PROHIBIDO — parseFloat en componentes UI
-{parseFloat(price).toFixed(2)}  // El precio llega ya como string desde el server
-```
-
-## HOOKS — SEPARACIÓN LÓGICA/UI
-
-```typescript
-// hooks/useAuthToken.ts — TODA la lógica aquí
-"use client";
-export function useAuthToken() {
-  const [token, setToken] = useState<string | null>(null)
-  // lógica de autenticación
-  return { token, isAuthenticated: !!token }
-}
-
-// components/navigation/NavigationActions.tsx — SOLO UI
-"use client";
-import { useAuthToken } from "@/hooks/useAuthToken"
-export function NavigationActions() {
-  const { isAuthenticated } = useAuthToken()
-  return (
-    <div className="flex items-center gap-3">
-      {isAuthenticated ? <UserMenu /> : <SignInButton />}
-    </div>
-  )
-}
-```
-
-## VARIABLES DE ENTORNO — VALIDACIÓN OBLIGATORIA
-
-```typescript
-// lib/env.ts — valida al inicio, falla rápido
-const required = ["NEXT_PUBLIC_API_BASE_URL", "NEXT_PUBLIC_WS_URL"] as const
-type EnvKey = typeof required[number]
-
-function validateEnv(): Record<EnvKey, string> {
-  const missing = required.filter(k => !process.env[k])
-  if (missing.length) {
-    throw new Error(`Missing env vars: ${missing.join(", ")}`)
+  
+  shouldRetry(): boolean {
+    return this.attempts < this.maxAttempts;
   }
-  return required.reduce((acc, k) => ({ ...acc, [k]: process.env[k]! }), {} as Record<EnvKey, string>)
+  
+  increment(): void { this.attempts++; }
+  reset(): void { this.attempts = 0; }
 }
-export const env = validateEnv()
-
-// ❌ PROHIBIDO — secretos en NEXT_PUBLIC_
-NEXT_PUBLIC_FMP_API_KEY=abc123  // Expuesto al browser → CRÍTICO
-```
-
-## ORDEN DE IMPORTS
-
-```typescript
-// 1. React y Next.js
-import { useState } from "react"
-import Link from "next/link"
-
-// 2. Librerías externas
-import { ChevronDown } from "lucide-react"
-
-// 3. Internos (paths absolutos — NUNCA relativos con ../../)
-import { TopNavigationBar } from "@/components/navigation/TopNavigationBar"
-import { env } from "@/lib/env"
-
-// 4. Types
-import type { NavigationItem } from "@/components/navigation/types"
-```
-
-## CHECKLIST ANTES DE PRESENTAR CÓDIGO FRONTEND
-```
-[ ] Sin any types
-[ ] Props tipadas con interface
-[ ] Server Component por defecto (no 'use client' innecesario)
-[ ] Sin inline styles — solo Tailwind classes
-[ ] Sin colores hardcodeados — CSS variables
-[ ] Sin console.log (solo console.error en catch)
-[ ] Fase 1 scope respetado
-[ ] Cleanup en useEffect (return cleanup function)
-[ ] eslint + prettier + tsc pasarían sin errores
 ```
 
 ---
