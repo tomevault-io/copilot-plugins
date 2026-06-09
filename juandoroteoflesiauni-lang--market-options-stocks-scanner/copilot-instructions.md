@@ -1,67 +1,195 @@
-## 00-master
+## market-options-stocks-scanner
 
-> SIEMPRE ACTIVO. Constitución maestra del sistema de trading cuantitativo. Lee esto antes de cualquier tarea.
+> > Este archivo es el estándar universal para todos los agentes de IA.
 
+# AGENTS.md — deep-funnel-station
+## Universal Agent Rules v3.0
+### Compatible con: Claude Code · Cursor · GitHub Copilot · Windsurf · Codex
 
-# 🎯 QUANTSTATION — CONSTITUCIÓN MAESTRA v3.0
+> Este archivo es el estándar universal para todos los agentes de IA.
+> CLAUDE.md tiene precedencia para Claude Code.
+> Cursor usa adicionalmente `.cursor/rules/*.mdc`.
 
-## IDENTIDAD DEL SISTEMA
-`deep-funnel-station` es una estación de trading cuantitativo institucional.
-- **Backend**: Python 3.12+ — motor asíncrono de 4 fases (A→B→C→D)
-- **Frontend**: Next.js 16 / React 19 — shell de interfaz (Fase 1 activa)
-- **Estándares**: NautilusTrader · FINOS CDM · Wall Street grade
+---
 
-## PROTOCOLO DE ARRANQUE (OBLIGATORIO)
-Antes de escribir CUALQUIER línea de código:
-1. Lee `CLAUDE.md` para el contexto maestro
-2. Identifica: ¿backend Python? ¿frontend TypeScript? ¿qué fase?
-3. Carga la regla `.cursor/rules/` específica para el dominio
-4. Declara tu plan. Si es destructivo, pide confirmación.
+## 1. PROYECTO EN UNA ORACIÓN
 
-## LAS 10 REGLAS ABSOLUTAS (Nunca violables)
+`deep-funnel-station` es una estación de trading cuantitativo que filtra
+miles de tickers hasta 5 contratos de opciones de alta liquidez para
+ejecución en tiempo real. Stack: Python 3.12 (backend) + Next.js 16 (frontend).
 
-| Código | Regla | Consecuencia |
-|--------|-------|--------------|
-| `PD-1` | Una función = una tarea. Máx. 30 líneas | RECHAZAR |
-| `PD-2` | Cero secrets en código fuente | RECHAZAR |
-| `PD-3` | Fase B/C no llaman APIs externas directamente | RECHAZAR |
-| `PD-4` | Todo dato inter-fase: Pydantic `frozen=True` | RECHAZAR |
-| `PD-5` | No `print()` — solo `logging` | AUTO-CORREGIR |
-| `PD-6` | No `except: pass` — cada error se loggea | AUTO-CORREGIR |
-| `PD-7` | No `time.sleep()` en contexto async | AUTO-CORREGIR |
-| `PD-8` | Sin números mágicos — todo va en `config/` | RECHAZAR |
-| `PD-9` | Fase A NO conecta directo a Fase D | RECHAZAR |
-| `PD-10` | YAGNI — solo lo que la tarea actual necesita | ADVERTIR |
+---
 
-## MANDATOS SIEMPRE ACTIVOS
-- `[TH]` Type hints en toda firma de función
-- `[DL]` `data_lineage` en todo `MarketSnapshot`
-- `[IM]` Pydantic `frozen=True` en modelos inter-fase
-- `[GS]` Google-Style docstrings en funciones públicas
-- `[AL]` asyncio para I/O · ProcessPoolExecutor para CPU
+## 2. ESTRUCTURA DEL REPOSITORIO
 
-## FLUJO DE TRABAJO DEL AGENTE
 ```
-CLARIFICAR → PLANIFICAR → VERIFICAR → CODIFICAR → CONFIRMAR
+deep-funnel-station/
+├── CLAUDE.md               ← Constitución maestra (leer siempre primero)
+├── AGENTS.md               ← Este archivo
+├── ARCHITECTURE.md         ← Mapa del sistema para onboarding
+│
+├── .cursor/rules/          ← Reglas Cursor (.mdc) cargadas automáticamente
+│   ├── 00-master.mdc       ← Siempre activo
+│   ├── 01-backend-python.mdc
+│   ├── 02-data-models.mdc
+│   ├── 03-frontend-nextjs.mdc
+│   ├── 04-data-hub.mdc
+│   └── 05-async-events.mdc
+│
+├── .antigravity/skills/    ← Claude Code custom skills
+│
+├── .docs/                  ← Rule books de referencia completos
+│   ├── ARCHITECTURE.md
+│   ├── SECURITY.md
+│   ├── CICD.md
+│   ├── backend/
+│   │   ├── 01-deep-funnel.md
+│   │   ├── 02-data-hub.md
+│   │   ├── 03-python-standards.md
+│   │   ├── 04-data-modeling.md
+│   │   └── 05-async-event-engine.md
+│   └── frontend/
+│       ├── 01-scope.md
+│       ├── 02-design-system.md
+│       └── 03-clean-code.md
+│
+├── .github/
+│   ├── workflows/
+│   │   ├── backend-ci.yml
+│   │   └── frontend-ci.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── dependabot.yml
+│
+├── backend/                ← Python trading engine
+├── frontend/               ← Next.js UI shell
+├── .pre-commit-config.yaml
+└── pyproject.toml
 ```
-- **CLARIFICAR**: "Esta tarea es [fase/dominio]"
-- **PLANIFICAR**: Lista archivos antes de escribir código
-- **VERIFICAR**: ¿Viola PD-1..PD-10? 
-- **CODIFICAR**: Etiqueta reglas: `# [PD-3][TH][IM]`
-- **CONFIRMAR**: Lista qué gates de CI deben pasar
 
-## GESTIÓN DE TOKENS (Anti-degradación)
-- Máximo 2 reglas cargadas por sesión
-- Tras 10 exchanges → CHECKPOINT y resumen
-- Si ves código espagueti → REFACTORIZA antes de agregar features
-- Si el contexto se llena → DETENTE y pide sesión nueva con `CLAUDE.md`
+---
 
-## TABLA DE FASES
-| Fase | Stack | Estado |
-|------|-------|--------|
-| Backend A/B/C/D | Python 3.12 | ✅ Activo |
-| Frontend Fase 1 | Next.js 16 | 🔒 SOLO layout + TopNav |
-| Frontend Fase 2+ | Next.js 16 | ⛔ BLOQUEADO |
+## 3. STACK TÉCNICO
+
+| Capa | Tecnología | Versión |
+|------|-----------|---------|
+| Python | Python | 3.12+ |
+| Validación | Pydantic v2 | 2.x (frozen models) |
+| Async | asyncio + uvloop | latest |
+| HTTP | httpx | latest |
+| Config | pydantic-settings | 2.x |
+| Tests | pytest + pytest-asyncio | latest |
+| Tipos | mypy --strict | latest |
+| Lint | ruff + black + isort | latest |
+| Frontend | Next.js | 16.x |
+| Estilos | Tailwind CSS | 4.x |
+| Componentes | shadcn/ui | latest |
+
+---
+
+## 4. REGLAS DE COMPORTAMIENTO DEL AGENTE
+
+### 4.1 Antes de escribir código
+1. Identifica la fase/capa del trabajo
+2. Carga la regla específica (máximo 2 por sesión)
+3. Declara tu plan — sin código hasta confirmación en cambios destructivos
+
+### 4.2 Durante la escritura
+- Etiqueta reglas aplicadas en comentarios: `# [PD-3][TH][IM]`
+- Una función = una tarea. Máx. 30 líneas.
+- Si encuentras código espagueti: **propón refactor antes de agregar features**
+
+### 4.3 Al presentar código
+Declara explícitamente:
+- Qué archivos se crean/modifican
+- Qué reglas se aplican
+- Qué gates de CI deben pasar
+
+### 4.4 Cuando hay incertidumbre
+```
+⚠️ INCERTIDUMBRE: No estoy seguro de [X].
+   Opción A: [descripción]
+   Opción B: [descripción]
+   Recomendación: A, porque [razón].
+   Esperando confirmación antes de proceder.
+```
+
+---
+
+## 5. ESTÁNDARES DE COMMIT
+
+```
+<tipo>(<alcance>): <descripción corta en presente>
+
+Tipos válidos:
+  feat     → nueva funcionalidad
+  fix      → corrección de bug
+  refactor → restructuración sin cambio funcional
+  docs     → solo documentación
+  test     → solo tests
+  ci       → pipeline / configuración
+  sec      → seguridad
+
+Ejemplos:
+  feat(phase-b): add VPIN calculation with ProcessPoolExecutor
+  fix(hub): handle FMP API timeout with exponential backoff
+  refactor(models): convert MarketSnapshot to frozen Pydantic v2
+  sec(hub): replace plain str with SecretStr for API keys
+```
+
+---
+
+## 6. ESTÁNDARES DE TESTS
+
+```python
+# Convenciones de naming:
+# tests/unit/     → sin red, sin DB, mockeado
+# tests/integration/ → puede usar red/DB
+
+# Naming de tests:
+def test_market_snapshot_rejects_negative_price():
+    """Nombre = test_{qué}_{condición}."""
+
+# Patrón AAA:
+def test_phase_a_discards_invalid_ticker():
+    # ARRANGE
+    invalid_raw = {"symbol": "", "price": -1}
+    # ACT
+    result = normalizer.normalize(invalid_raw, time.time_ns())
+    # ASSERT
+    assert result.is_failure
+
+# Mocks para APIs externas — nunca llamadas reales en unit tests
+@pytest.fixture
+def mock_fmp_client(mocker):
+    return mocker.patch("backend.hub.market_data_hub.httpx.AsyncClient")
+```
+
+---
+
+## 7. CHECKLIST UNIVERSAL PRE-COMMIT
+
+```
+BACKEND:
+[ ] black + isort + ruff → 0 errores
+[ ] mypy --strict → 0 errores de tipos
+[ ] bandit → sin HIGH/CRITICAL
+[ ] pytest --cov-fail-under=80 → pasa
+[ ] 0 secrets en código (gitleaks)
+
+FRONTEND:
+[ ] prettier --check → 0 errores
+[ ] eslint --max-warnings=0 → 0 warnings
+[ ] tsc --noEmit → 0 errores
+[ ] npm audit --audit-level=moderate → limpio
+[ ] next build → build exitoso
+
+UNIVERSAL:
+[ ] Sin print() en Python
+[ ] Sin console.log en TypeScript
+[ ] Sin any en TypeScript
+[ ] Sin números mágicos en código
+[ ] Sin secrets hardcodeados
+```
 
 ---
 > Source: [juandoroteoflesiauni-lang/Market-options-stocks-Scanner](https://github.com/juandoroteoflesiauni-lang/Market-options-stocks-Scanner) — distributed by [TomeVault](https://tomevault.io).
