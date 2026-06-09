@@ -1,144 +1,186 @@
-## 02-data-models
+## 03-frontend-nextjs
 
-> Activo en archivos de modelos Pydantic. Gobernanza FINOS CDM: inmutabilidad, linaje, precisión financiera.
+> Activo en código TypeScript y React del frontend. Dark mode obligatorio, shadcn/ui, Server Components por defecto, fase 1 bloqueada.
 
 
-# 🏛️ DATA MODELING — GOBERNANZA FINOS CDM v3.0
+# ⚡ FRONTEND NEXT.JS 16 — ESTÁNDARES v3.0
 
-## PRINCIPIO FUNDAMENTAL
-Todo dato que cruce una frontera de fase DEBE ser:
-1. Pydantic `BaseModel` con `model_config = ConfigDict(frozen=True)`
-2. Validado al construirse (Pydantic v2 lo hace automático)
-3. Con `data_lineage: DataLineage` obligatorio — NUNCA opcional
-4. Con `exchange_timestamp` en UTC timezone-aware
-
-**Un `MarketSnapshot` sin linaje es un "dato huérfano" → rechazado por cualquier motor Fase B/C.**
-
-## PATRÓN BASE — MarketSnapshot
-
-```python
-from pydantic import BaseModel, ConfigDict, Field, field_validator
-from decimal import Decimal
-from datetime import datetime
-
-class DataLineage(BaseModel):
-    model_config = ConfigDict(frozen=True)
-    source: str                          # "fmp" | "massive" | "local"
-    ingestion_latency_ms: int = Field(ge=0)
-    raw_field_count: int = Field(ge=0)
-
-class MarketSnapshot(BaseModel):
-    model_config = ConfigDict(frozen=True)
-    ticker: str
-    exchange: str
-    price: Decimal = Field(ge=Decimal("0"))  # ← Decimal, nunca float
-    volume: int = Field(ge=0)
-    exchange_timestamp: datetime             # ← debe ser UTC aware
-    data_lineage: DataLineage                # ← JAMÁS Optional
-
-    @field_validator("ticker")
-    @classmethod
-    def ticker_uppercase(cls, v: str) -> str:
-        return v.upper().strip()
-
-    @field_validator("exchange_timestamp")
-    @classmethod
-    def must_be_utc(cls, v: datetime) -> datetime:
-        if v.tzinfo is None:
-            raise ValueError("exchange_timestamp debe ser UTC aware")
-        return v
+## FASE LOCK ACTIVO: FASE 1
+```
+✅ Permitido: layout.tsx · TopNavigationBar · lib/env.ts · hooks/useAuthToken.ts
+⛔ BLOQUEADO: dashboards · rutas secundarias · charts · WebSocket client · auth forms
 ```
 
-## MODELOS DERIVADOS — Herencia correcta
+Si se solicita algo fuera de Fase 1 → **RECHAZAR** con mensaje:
+> "⛔ Phase Lock: Esta feature es Fase [X]. Lock actual: Fase 1."
 
-```python
-# ✅ CORRECTO — extiende sin debilitar el contrato
-class EnrichedSnapshot(MarketSnapshot):
-    vpin_score: float
-    ofi_score: float
-    # frozen=True heredado automáticamente
+## TYPESCRIPT — MODO ESTRICTO
 
-# ❌ PROHIBIDO — debilita el tipo de precio
-class BadSnapshot(MarketSnapshot):
-    price: float           # Tipo más débil → RECHAZAR
-
-# ❌ PROHIBIDO — hace el linaje opcional
-class IncompleteSnapshot(MarketSnapshot):
-    data_lineage: DataLineage | None = None  # RECHAZAR
+```json
+// tsconfig.json — obligatorio
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true
+  }
+}
 ```
 
-## OPCIONES — Composición de modelos
+```typescript
+// ❌ PROHIBIDO — any
+const handler = (event: any) => {}
+const response: any = await fetch(url)
 
-```python
-from enum import StrEnum
-
-class OptionType(StrEnum):  # ← enum tipado, nunca string literal
-    CALL = "call"
-    PUT = "put"
-
-class Greeks(BaseModel):
-    model_config = ConfigDict(frozen=True)
-    delta: Decimal = Field(ge=Decimal("-1"), le=Decimal("1"))
-    gamma: Decimal = Field(ge=Decimal("0"))
-    theta: Decimal
-    vega: Decimal = Field(ge=Decimal("0"))
-
-class OptionContract(BaseModel):
-    model_config = ConfigDict(frozen=True)
-    underlying_ticker: str
-    strike: Decimal = Field(ge=Decimal("0"))
-    expiration: date
-    option_type: OptionType          # ← enum, no string
-    open_interest: int = Field(ge=0)
-    greeks: Greeks                   # ← composición, no lista plana
-    snapshot_at_selection: MarketSnapshot  # ← linaje completo preservado
+// ✅ CORRECTO — tipos específicos
+const handler = (event: React.MouseEvent<HTMLButtonElement>) => {}
+interface ApiResponse<T> { data: T; status: number }
 ```
 
-## RESULT MONAD — Cruce de fronteras sin excepciones crudas
+## COMPONENTES — REGLAS PRINCIPALES
 
-```python
-# El Hub NUNCA lanza excepciones a sus callers.
-# Siempre retorna Result[T]:
+```typescript
+// ✅ Server Component por defecto (sin directiva)
+export function TradingPanel() {
+  return <div>...</div>
+}
 
-result: Result[MarketSnapshot] = await hub.get_snapshot("AAPL")
-
-if result.is_failure:
-    logger.warning("Hub falló: %s", result.reason)
-    return  # Descartar, no propagar
-
-snapshot = result.unwrap()  # Solo llamar tras verificar is_success
+// Solo agregar 'use client' si el componente usa:
+// - useState, useEffect, useCallback
+// - Eventos de browser (onClick, onChange directo)
+// - APIs de browser (localStorage, etc.)
+"use client";
+export function LivePrice() {
+  const [price, setPrice] = useState(0)
+  // ...
+}
 ```
 
-## TABLA DE VALIDACIONES OBLIGATORIAS
+```typescript
+// Máximo 100 líneas por componente.
+// Si supera → extraer subcomponentes o un hook.
 
-| Campo | Regla | Error si viola |
-|-------|-------|----------------|
-| `price` | `>= Decimal("0")` | "Precio negativo — fuente: {provider}" |
-| `volume` | `>= 0` | "Volumen negativo" |
-| `ticker` | Uppercase, no vacío | "Ticker inválido" |
-| `exchange_timestamp` | UTC aware | "Datetime sin timezone rechazado" |
-| `data_lineage` | Nunca None | "Dato huérfano rechazado por Fase B/C" |
-| `greeks.delta` | `-1 ≤ delta ≤ 1` | "Delta fuera de rango" |
+// ✅ Props tipadas con interface — nunca any
+interface TopNavigationBarProps {
+  items: NavigationItem[]
+}
 
-## PROHIBICIONES ABSOLUTAS
+export function TopNavigationBar({ items }: TopNavigationBarProps) {
+  return (...)
+}
+```
 
-```python
-# ❌ Dict genérico como objeto inter-fase
-def process(data: dict) -> dict: ...
+## DISEÑO — DARK MODE OBLIGATORIO
 
-# ❌ Dataclass mutable
-@dataclass
-class Snapshot:
-    price: float    # mutable + sin validación
+```typescript
+// ❌ PROHIBIDO — referencia a light mode
+className="dark:bg-gray-900 bg-white"
 
-# ❌ float para precios
-price: float = 100.055   # Pérdida de precisión financiera
+// ❌ PROHIBIDO — colores hardcodeados
+style={{ color: "#f0f0f5" }}
 
-# ❌ String para tipos de opción
-option_type: str = "call"  # Propenso a typos, sin IDE support
+// ✅ CORRECTO — CSS variables del design system
+className="bg-bg-surface text-text-primary border-border-subtle"
 
-# ❌ Any en cualquier campo
-data_lineage: Any = None   # RECHAZAR siempre
+// El Top Nav usa glassmorphism exacto:
+const navClasses = [
+  "fixed top-0 left-0 right-0 z-50 h-14",
+  "flex items-center justify-between px-6",
+  "bg-[rgba(17,17,24,0.72)] backdrop-blur-md",
+  "border-b border-border-subtle",
+].join(" ")
+```
+
+## PRECIOS Y NÚMEROS FINANCIEROS
+
+```typescript
+// ✅ CORRECTO — tabular numerals para datos financieros
+<span className="font-mono tabular-nums text-text-primary">
+  {price}
+</span>
+
+// ✅ CORRECTO — color semántico para señales
+<span className="font-mono tabular-nums text-signal-buy">+2.34%</span>
+<span className="font-mono tabular-nums text-signal-sell">-1.12%</span>
+
+// ❌ PROHIBIDO — parseFloat en componentes UI
+{parseFloat(price).toFixed(2)}  // El precio llega ya como string desde el server
+```
+
+## HOOKS — SEPARACIÓN LÓGICA/UI
+
+```typescript
+// hooks/useAuthToken.ts — TODA la lógica aquí
+"use client";
+export function useAuthToken() {
+  const [token, setToken] = useState<string | null>(null)
+  // lógica de autenticación
+  return { token, isAuthenticated: !!token }
+}
+
+// components/navigation/NavigationActions.tsx — SOLO UI
+"use client";
+import { useAuthToken } from "@/hooks/useAuthToken"
+export function NavigationActions() {
+  const { isAuthenticated } = useAuthToken()
+  return (
+    <div className="flex items-center gap-3">
+      {isAuthenticated ? <UserMenu /> : <SignInButton />}
+    </div>
+  )
+}
+```
+
+## VARIABLES DE ENTORNO — VALIDACIÓN OBLIGATORIA
+
+```typescript
+// lib/env.ts — valida al inicio, falla rápido
+const required = ["NEXT_PUBLIC_API_BASE_URL", "NEXT_PUBLIC_WS_URL"] as const
+type EnvKey = typeof required[number]
+
+function validateEnv(): Record<EnvKey, string> {
+  const missing = required.filter(k => !process.env[k])
+  if (missing.length) {
+    throw new Error(`Missing env vars: ${missing.join(", ")}`)
+  }
+  return required.reduce((acc, k) => ({ ...acc, [k]: process.env[k]! }), {} as Record<EnvKey, string>)
+}
+export const env = validateEnv()
+
+// ❌ PROHIBIDO — secretos en NEXT_PUBLIC_
+NEXT_PUBLIC_FMP_API_KEY=abc123  // Expuesto al browser → CRÍTICO
+```
+
+## ORDEN DE IMPORTS
+
+```typescript
+// 1. React y Next.js
+import { useState } from "react"
+import Link from "next/link"
+
+// 2. Librerías externas
+import { ChevronDown } from "lucide-react"
+
+// 3. Internos (paths absolutos — NUNCA relativos con ../../)
+import { TopNavigationBar } from "@/components/navigation/TopNavigationBar"
+import { env } from "@/lib/env"
+
+// 4. Types
+import type { NavigationItem } from "@/components/navigation/types"
+```
+
+## CHECKLIST ANTES DE PRESENTAR CÓDIGO FRONTEND
+```
+[ ] Sin any types
+[ ] Props tipadas con interface
+[ ] Server Component por defecto (no 'use client' innecesario)
+[ ] Sin inline styles — solo Tailwind classes
+[ ] Sin colores hardcodeados — CSS variables
+[ ] Sin console.log (solo console.error en catch)
+[ ] Fase 1 scope respetado
+[ ] Cleanup en useEffect (return cleanup function)
+[ ] eslint + prettier + tsc pasarían sin errores
 ```
 
 ---
