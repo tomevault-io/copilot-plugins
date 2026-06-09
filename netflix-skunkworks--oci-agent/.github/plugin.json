@@ -1,0 +1,9 @@
+{
+  "name": "netflix-skunkworks--oci-agent",
+  "displayName": "oci-agent",
+  "description": "oci-agent",
+  "version": "1.0.0",
+  "author": "Netflix-Skunkworks",
+  "homepage": "https://github.com/Netflix-Skunkworks/oci-agent",
+  "skills": []
+}
