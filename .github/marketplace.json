@@ -185819,6 +185819,11 @@
       "description": "A benchmark for AI-driven CAD generation and editing"
     },
     {
+      "name": "apple--coreai-optimization",
+      "source": "./apple--coreai-optimization",
+      "description": "A library for PyTorch model compression and optimizations for deployment via Core AI on Apple silicon."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199402,6 +199407,11 @@
       "name": "aws-samples--sample-agent-assisted-sdlc",
       "source": "./aws-samples--sample-agent-assisted-sdlc",
       "description": "sample-agent-assisted-sdlc"
+    },
+    {
+      "name": "netflix-skunkworks--oci-agent",
+      "source": "./netflix-skunkworks--oci-agent",
+      "description": "oci-agent"
     },
     {
       "name": "cheerhuan--save-your-token",
