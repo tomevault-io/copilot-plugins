@@ -1,375 +1,333 @@
-## 090-database
+## 100-exchange-integration
 
-> Reglas de base de datos, migraciones y caché para la terminal de trading
+> Reglas para integración con exchanges — Binance, MT5 y adaptadores genéricos
 
 
-# 🗄️ BASE DE DATOS Y PERSISTENCIA — TRADING TERMINAL
+# 🔗 INTEGRACIÓN CON EXCHANGES — TRADING TERMINAL
 
-## PRINCIPIOS DE ACCESO A DATOS
+## PRINCIPIO: ADAPTADOR UNIVERSAL
 
-- **Nunca** SQL raw en services o endpoints → usar SQLAlchemy ORM
-- **Siempre** async para no bloquear el event loop
-- **Decimal** para todos los valores monetarios (nunca float)
-- **UUID** como primary key (no autoincrement entero)
-- **Timestamps** en UTC siempre
+El sistema NUNCA debe depender directamente de la API de un exchange específico.
+Todos los exchanges se acceden a través de un adaptador que implementa la misma interfaz.
+Esto permite cambiar de Binance a MT5 sin tocar el resto del código.
 
 ---
 
-## 🔌 CONEXIÓN Y SESIÓN
+## 🏗️ INTERFAZ BASE DEL EXCHANGE
 
 ```python
-# core/database.py
+# adapters/base_exchange.py
 
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
-from sqlalchemy.orm import DeclarativeBase
-from core.config import settings
-
-# Motor async — una sola instancia global
-engine = create_async_engine(
-    settings.DATABASE_URL,
-    echo=settings.DEBUG,          # Solo SQL logs en modo debug
-    pool_size=10,                 # Conexiones en el pool
-    max_overflow=20,              # Conexiones extra bajo demanda
-    pool_pre_ping=True,           # Verificar conexiones antes de usar
-)
-
-AsyncSessionLocal = async_sessionmaker(
-    engine,
-    class_=AsyncSession,
-    expire_on_commit=False        # Importante para async
-)
-
-class Base(DeclarativeBase):
-    """Base para todos los modelos SQLAlchemy."""
-    pass
-
-# Dependency para FastAPI
-async def get_db() -> AsyncSession:
-    async with AsyncSessionLocal() as session:
-        try:
-            yield session
-            await session.commit()
-        except Exception:
-            await session.rollback()
-            raise
-        finally:
-            await session.close()
-```
-
----
-
-## 📋 PATRÓN REPOSITORY
-
-```python
-# repositories/base_repo.py — Repository base genérico
-
-from typing import Generic, TypeVar, Type, Optional, List
-from uuid import UUID
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, update, delete
-from core.database import Base
-
-ModelType = TypeVar("ModelType", bound=Base)
-
-class BaseRepository(Generic[ModelType]):
-    """Repository base con operaciones CRUD comunes."""
-    
-    def __init__(self, model: Type[ModelType]):
-        self.model = model
-    
-    async def get_by_id(self, db: AsyncSession, id: UUID) -> Optional[ModelType]:
-        result = await db.execute(select(self.model).where(self.model.id == id))
-        return result.scalar_one_or_none()
-    
-    async def get_all(
-        self, 
-        db: AsyncSession, 
-        skip: int = 0, 
-        limit: int = 100
-    ) -> List[ModelType]:
-        result = await db.execute(select(self.model).offset(skip).limit(limit))
-        return list(result.scalars().all())
-    
-    async def create(self, db: AsyncSession, obj_data: dict) -> ModelType:
-        db_obj = self.model(**obj_data)
-        db.add(db_obj)
-        await db.flush()   # flush, no commit (lo hace el middleware)
-        await db.refresh(db_obj)
-        return db_obj
-    
-    async def update(
-        self, 
-        db: AsyncSession, 
-        id: UUID, 
-        update_data: dict
-    ) -> Optional[ModelType]:
-        await db.execute(
-            update(self.model)
-            .where(self.model.id == id)
-            .values(**update_data)
-        )
-        return await self.get_by_id(db, id)
-    
-    async def delete(self, db: AsyncSession, id: UUID) -> bool:
-        result = await db.execute(
-            delete(self.model).where(self.model.id == id)
-        )
-        return result.rowcount > 0
-
-
-# repositories/order_repo.py — Específico para órdenes
-
-from sqlalchemy import select, and_, desc
-from typing import Optional, List
-from uuid import UUID
-from datetime import datetime, date
-
-from repositories.base_repo import BaseRepository
-from models.order import Order, OrderStatus
-
-class OrderRepository(BaseRepository[Order]):
-    
-    def __init__(self):
-        super().__init__(Order)
-    
-    async def get_open_orders(
-        self, 
-        db: AsyncSession, 
-        user_id: UUID
-    ) -> List[Order]:
-        """Obtener todas las órdenes abiertas de un usuario."""
-        result = await db.execute(
-            select(Order)
-            .where(and_(
-                Order.user_id == user_id,
-                Order.status.in_([OrderStatus.PENDING, OrderStatus.OPEN])
-            ))
-            .order_by(desc(Order.created_at))
-        )
-        return list(result.scalars().all())
-    
-    async def get_by_symbol(
-        self,
-        db: AsyncSession,
-        user_id: UUID,
-        symbol: str,
-        limit: int = 50
-    ) -> List[Order]:
-        """Historial de órdenes por símbolo."""
-        result = await db.execute(
-            select(Order)
-            .where(and_(
-                Order.user_id == user_id,
-                Order.symbol == symbol
-            ))
-            .order_by(desc(Order.created_at))
-            .limit(limit)
-        )
-        return list(result.scalars().all())
-    
-    async def get_daily_volume_usd(
-        self, 
-        db: AsyncSession, 
-        user_id: UUID, 
-        date: date
-    ) -> float:
-        """
-        Calcular volumen total operado en un día.
-        Usado por RiskService para límites diarios.
-        """
-        from sqlalchemy import func, cast, Date
-        
-        result = await db.execute(
-            select(func.sum(Order.quantity * Order.fill_price))
-            .where(and_(
-                Order.user_id == user_id,
-                Order.status == OrderStatus.FILLED,
-                cast(Order.filled_at, Date) == date
-            ))
-        )
-        return float(result.scalar() or 0)
-
-order_repo = OrderRepository()  # Singleton
-```
-
----
-
-## 🏎️ CACHÉ CON REDIS
-
-```python
-# core/cache.py — Redis para datos de mercado en tiempo real
-
-import json
+from abc import ABC, abstractmethod
 from decimal import Decimal
-from typing import Optional, Any
-from datetime import timedelta
-import redis.asyncio as redis
+from typing import AsyncIterator
+from dataclasses import dataclass
+from datetime import datetime
 
+@dataclass
+class OrderResult:
+    order_id: str
+    symbol: str
+    side: str
+    order_type: str
+    quantity: Decimal
+    fill_price: Decimal
+    status: str
+    timestamp: datetime
+    exchange: str
+
+@dataclass
+class Ticker:
+    symbol: str
+    price: Decimal
+    bid: Decimal
+    ask: Decimal
+    volume_24h: Decimal
+    change_24h_pct: Decimal
+    timestamp: datetime
+
+@dataclass
+class Balance:
+    asset: str
+    free: Decimal
+    locked: Decimal
+    
+    @property
+    def total(self) -> Decimal:
+        return self.free + self.locked
+
+class BaseExchangeAdapter(ABC):
+    """
+    Interfaz que TODOS los exchanges deben implementar.
+    
+    Si agregas un exchange nuevo, implementa esta clase.
+    No modifiques el código que llama a esta interfaz.
+    """
+    
+    @abstractmethod
+    async def get_ticker(self, symbol: str) -> Ticker:
+        """Obtener precio actual y datos de mercado."""
+        ...
+    
+    @abstractmethod
+    async def get_balances(self) -> list[Balance]:
+        """Obtener todos los balances de la cuenta."""
+        ...
+    
+    @abstractmethod
+    async def place_order(
+        self,
+        symbol: str,
+        side: str,          # "BUY" o "SELL"
+        order_type: str,    # "MARKET" o "LIMIT"
+        quantity: Decimal,
+        price: Decimal | None = None
+    ) -> OrderResult:
+        """Enviar orden al exchange."""
+        ...
+    
+    @abstractmethod
+    async def cancel_order(self, symbol: str, order_id: str) -> bool:
+        """Cancelar orden pendiente."""
+        ...
+    
+    @abstractmethod
+    async def get_order_status(self, symbol: str, order_id: str) -> OrderResult:
+        """Consultar estado de una orden."""
+        ...
+    
+    @abstractmethod
+    async def stream_prices(self, symbol: str) -> AsyncIterator[Ticker]:
+        """Stream de precios en tiempo real."""
+        ...
+```
+
+---
+
+## 🟡 ADAPTADOR BINANCE
+
+```python
+# adapters/binance_adapter.py
+
+from binance import AsyncClient
+from binance.exceptions import BinanceAPIException
+from decimal import Decimal
+from typing import AsyncIterator
+import asyncio
+
+from adapters.base_exchange import BaseExchangeAdapter, OrderResult, Ticker, Balance
 from core.config import settings
+from core.exceptions import ExchangeConnectionError, OrderExecutionError
 from core.logger import logger
 
-class TradingCache:
-    """
-    Caché Redis para datos de mercado de alta frecuencia.
-    Principio: Leer de Redis (rápido), escribir a Postgres (persistente).
-    """
+class BinanceAdapter(BaseExchangeAdapter):
+    """Adaptador para Binance Spot Trading."""
     
     def __init__(self):
-        self._client: Optional[redis.Redis] = None
+        self._client: AsyncClient | None = None
     
-    async def get_client(self) -> redis.Redis:
+    async def _get_client(self) -> AsyncClient:
+        """Lazy initialization del cliente."""
         if self._client is None:
-            self._client = redis.from_url(settings.REDIS_URL, decode_responses=True)
+            try:
+                self._client = await AsyncClient.create(
+                    api_key=settings.BINANCE_API_KEY,
+                    api_secret=settings.BINANCE_API_SECRET,
+                    testnet=settings.ENVIRONMENT != "production"  # Testnet en dev!
+                )
+            except Exception as e:
+                raise ExchangeConnectionError(f"No se pudo conectar a Binance: {e}")
         return self._client
     
-    # ── Precios de mercado (TTL corto, se actualizan cada segundo) ──
+    async def get_ticker(self, symbol: str) -> Ticker:
+        client = await self._get_client()
+        try:
+            data = await client.get_ticker(symbol=symbol)
+            return Ticker(
+                symbol=symbol,
+                price=Decimal(data['lastPrice']),
+                bid=Decimal(data['bidPrice']),
+                ask=Decimal(data['askPrice']),
+                volume_24h=Decimal(data['volume']),
+                change_24h_pct=Decimal(data['priceChangePercent']),
+                timestamp=datetime.fromtimestamp(data['closeTime'] / 1000)
+            )
+        except BinanceAPIException as e:
+            logger.error("binance.ticker.error", symbol=symbol, error=str(e))
+            raise ExchangeConnectionError(f"Error obteniendo precio de {symbol}: {e}")
     
-    async def set_price(self, symbol: str, price: Decimal, ttl: int = 60) -> None:
-        """Guardar precio actual — expira en 60 segundos."""
-        client = await self.get_client()
-        await client.setex(f"price:{symbol}", ttl, str(price))
+    async def get_balances(self) -> list[Balance]:
+        client = await self._get_client()
+        try:
+            account = await client.get_account()
+            return [
+                Balance(
+                    asset=b['asset'],
+                    free=Decimal(b['free']),
+                    locked=Decimal(b['locked'])
+                )
+                for b in account['balances']
+                if Decimal(b['free']) > 0 or Decimal(b['locked']) > 0
+            ]
+        except BinanceAPIException as e:
+            raise ExchangeConnectionError(f"Error obteniendo balances: {e}")
     
-    async def get_price(self, symbol: str) -> Optional[Decimal]:
-        """Obtener precio del caché."""
-        client = await self.get_client()
-        value = await client.get(f"price:{symbol}")
-        return Decimal(value) if value else None
+    async def place_order(
+        self,
+        symbol: str,
+        side: str,
+        order_type: str,
+        quantity: Decimal,
+        price: Decimal | None = None
+    ) -> OrderResult:
+        client = await self._get_client()
+        try:
+            params = {
+                "symbol": symbol,
+                "side": side,
+                "type": order_type,
+                "quantity": str(quantity),
+            }
+            if order_type == "LIMIT" and price:
+                params["price"] = str(price)
+                params["timeInForce"] = "GTC"
+            
+            logger.info("binance.order.sending", **params)
+            result = await client.create_order(**params)
+            
+            return OrderResult(
+                order_id=str(result['orderId']),
+                symbol=result['symbol'],
+                side=result['side'],
+                order_type=result['type'],
+                quantity=Decimal(result['executedQty'] or result['origQty']),
+                fill_price=Decimal(result.get('price', '0') or '0'),
+                status=result['status'],
+                timestamp=datetime.fromtimestamp(result['transactTime'] / 1000),
+                exchange='binance'
+            )
+        except BinanceAPIException as e:
+            logger.error("binance.order.failed", symbol=symbol, error=str(e), code=e.code)
+            raise OrderExecutionError(f"Binance rechazó la orden: {e.message}")
     
-    # ── Portfolio del usuario (TTL medio, invalidar en cambios) ──
+    async def cancel_order(self, symbol: str, order_id: str) -> bool:
+        client = await self._get_client()
+        try:
+            await client.cancel_order(symbol=symbol, orderId=order_id)
+            return True
+        except BinanceAPIException as e:
+            if e.code == -2011:  # Order not found / already cancelled
+                return False
+            raise ExchangeConnectionError(f"Error cancelando orden: {e}")
     
-    async def set_portfolio(self, user_id: str, data: dict, ttl: int = 300) -> None:
-        """Cachear portfolio del usuario — expira en 5 minutos."""
-        client = await self.get_client()
-        await client.setex(
-            f"portfolio:{user_id}", 
-            ttl, 
-            json.dumps(data, default=str)
+    async def get_order_status(self, symbol: str, order_id: str) -> OrderResult:
+        client = await self._get_client()
+        result = await client.get_order(symbol=symbol, orderId=order_id)
+        return OrderResult(
+            order_id=str(result['orderId']),
+            symbol=result['symbol'],
+            side=result['side'],
+            order_type=result['type'],
+            quantity=Decimal(result['executedQty']),
+            fill_price=Decimal(result.get('price', '0')),
+            status=result['status'],
+            timestamp=datetime.fromtimestamp(result['time'] / 1000),
+            exchange='binance'
         )
     
-    async def get_portfolio(self, user_id: str) -> Optional[dict]:
-        client = await self.get_client()
-        value = await client.get(f"portfolio:{user_id}")
-        return json.loads(value) if value else None
-    
-    async def invalidate_portfolio(self, user_id: str) -> None:
-        """Invalidar caché del portfolio cuando cambia (orden ejecutada)."""
-        client = await self.get_client()
-        await client.delete(f"portfolio:{user_id}")
-    
-    # ── Rate limiting ──
-    
-    async def check_rate_limit(
-        self, 
-        key: str, 
-        max_calls: int, 
-        window_seconds: int
-    ) -> bool:
-        """
-        Verificar rate limit. Retorna True si se puede proceder.
-        Patrón: Sliding window counter.
-        """
-        client = await self.get_client()
-        pipe = client.pipeline()
-        
-        rate_key = f"rate:{key}"
-        current = await client.incr(rate_key)
-        
-        if current == 1:
-            await client.expire(rate_key, window_seconds)
-        
-        return current <= max_calls
-
-cache = TradingCache()
+    async def stream_prices(self, symbol: str) -> AsyncIterator[Ticker]:
+        """Stream WebSocket de precios desde Binance."""
+        client = await self._get_client()
+        bm = BinanceSocketManager(client)
+        async with bm.trade_socket(symbol) as stream:
+            async for msg in stream:
+                yield Ticker(
+                    symbol=symbol,
+                    price=Decimal(msg['p']),
+                    bid=Decimal('0'),
+                    ask=Decimal('0'),
+                    volume_24h=Decimal('0'),
+                    change_24h_pct=Decimal('0'),
+                    timestamp=datetime.fromtimestamp(msg['T'] / 1000)
+                )
 ```
 
 ---
 
-## 🔄 MIGRACIONES CON ALEMBIC
+## 🔵 FACTORY DE EXCHANGES
 
 ```python
-# alembic/versions/001_initial_schema.py
-# Ejemplo de migración inicial
+# adapters/exchange_factory.py
 
-"""Initial trading schema
+from adapters.base_exchange import BaseExchangeAdapter
+from adapters.binance_adapter import BinanceAdapter
+from core.config import settings
 
-Revision ID: 001_initial
-"""
-from alembic import op
-import sqlalchemy as sa
-from sqlalchemy.dialects import postgresql
-
-def upgrade() -> None:
-    # Tabla de usuarios
-    op.create_table('users',
-        sa.Column('id', postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column('email', sa.String(255), nullable=False),
-        sa.Column('hashed_password', sa.String(255), nullable=False),
-        sa.Column('is_active', sa.Boolean(), nullable=False, default=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
-        sa.PrimaryKeyConstraint('id'),
-        sa.UniqueConstraint('email'),
-    )
-    op.create_index('ix_users_email', 'users', ['email'])
+class ExchangeFactory:
+    """
+    Factory para obtener el adaptador correcto según configuración.
+    Agregar nuevos exchanges aquí sin tocar el resto del código.
+    """
     
-    # Tabla de órdenes
-    op.create_table('orders',
-        sa.Column('id', postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column('user_id', postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column('symbol', sa.String(20), nullable=False),
-        sa.Column('side', sa.String(4), nullable=False),
-        sa.Column('order_type', sa.String(20), nullable=False),
-        sa.Column('status', sa.String(20), nullable=False),
-        sa.Column('quantity', sa.Numeric(20, 8), nullable=False),
-        sa.Column('price', sa.Numeric(20, 8), nullable=True),
-        sa.Column('fill_price', sa.Numeric(20, 8), nullable=True),
-        sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
-        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=False),
-        sa.Column('filled_at', sa.DateTime(timezone=True), nullable=True),
-        sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
-        sa.PrimaryKeyConstraint('id'),
-    )
-    op.create_index('ix_orders_user_symbol', 'orders', ['user_id', 'symbol'])
-    op.create_index('ix_orders_status', 'orders', ['status'])
+    _instances: dict[str, BaseExchangeAdapter] = {}
+    
+    @classmethod
+    def get_adapter(cls, exchange: str = "binance") -> BaseExchangeAdapter:
+        if exchange not in cls._instances:
+            if exchange == "binance":
+                cls._instances[exchange] = BinanceAdapter()
+            elif exchange == "mt5":
+                from adapters.mt5_adapter import MT5Adapter
+                cls._instances[exchange] = MT5Adapter()
+            else:
+                raise ValueError(f"Exchange no soportado: {exchange}")
+        return cls._instances[exchange]
 
-def downgrade() -> None:
-    op.drop_table('orders')
-    op.drop_table('users')
+# Uso en services:
+# from adapters.exchange_factory import ExchangeFactory
+# exchange = ExchangeFactory.get_adapter("binance")
+# ticker = await exchange.get_ticker("BTCUSDT")
 ```
 
 ---
 
-## ⚡ REGLAS DE PERFORMANCE DE DB
+## ⚠️ REGLAS CRÍTICAS PARA EXCHANGES
 
 ```python
-# ✅ CORRECTO — Eager loading para evitar N+1 queries
-from sqlalchemy.orm import selectinload
+# REGLA 1: Siempre usar testnet en desarrollo
+# En .env: ENVIRONMENT=development → usa testnet automáticamente
+# En .env: ENVIRONMENT=production  → usa mainnet con dinero real
 
-async def get_portfolio_with_orders(db: AsyncSession, user_id: UUID):
-    result = await db.execute(
-        select(Portfolio)
-        .options(selectinload(Portfolio.positions))  # Carga en 1 query
-        .where(Portfolio.user_id == user_id)
-    )
-    return result.scalar_one_or_none()
+# REGLA 2: Retry logic para errores de red
+import asyncio
+from functools import wraps
 
-# ❌ INCORRECTO — N+1 query problem
-async def get_portfolio_bad(db: AsyncSession, user_id: UUID):
-    portfolio = await portfolio_repo.get_by_user(db, user_id)
-    for position in portfolio.positions:  # Cada iteración = 1 query extra
-        position.current_price = await get_price(position.symbol)
+def with_retry(max_attempts=3, delay=1.0):
+    def decorator(func):
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+            for attempt in range(max_attempts):
+                try:
+                    return await func(*args, **kwargs)
+                except ExchangeConnectionError as e:
+                    if attempt == max_attempts - 1:
+                        raise
+                    wait = delay * (2 ** attempt)  # Backoff exponencial
+                    logger.warning(f"Retry {attempt+1}/{max_attempts} en {wait}s: {e}")
+                    await asyncio.sleep(wait)
+        return wrapper
+    return decorator
 
-# ✅ CORRECTO — Bulk insert para logs de auditoría
-async def bulk_insert_ticks(db: AsyncSession, ticks: list[dict]) -> None:
-    await db.execute(sa.insert(PriceTick), ticks)  # 1 query para N registros
+# REGLA 3: Circuit breaker — si el exchange falla muchas veces, parar
+# Evita acumular errores cuando el exchange está caído
 
-# ✅ CORRECTO — Seleccionar solo columnas necesarias
-async def get_symbols(db: AsyncSession, user_id: UUID) -> list[str]:
-    result = await db.execute(
-        select(Order.symbol)          # Solo el campo necesario
-        .where(Order.user_id == user_id)
-        .distinct()
-    )
-    return list(result.scalars().all())
+# REGLA 4: Nunca loggear API keys o secrets en llamadas al exchange
+# Log: {"symbol": "BTCUSDT", "side": "BUY", ...}  ← OK
+# Log: {"api_key": "abc123", ...}                  ← NUNCA
+
+# REGLA 5: Verificar que la orden fue realmente ejecutada
+# No asumir que si no hay error = orden completada
+# Siempre consultar el estado final de la orden
 ```
 
 ---
