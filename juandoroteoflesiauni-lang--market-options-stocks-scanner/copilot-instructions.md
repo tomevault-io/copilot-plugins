@@ -1,180 +1,165 @@
-## 000-master-rule
+## 01-backend-python
 
-> REGLA MAESTRA — Siempre activa en todos los archivos del proyecto Trading Terminal
+> Activo en todo código Python del backend. Estándares Wall Street: tipado estricto, async-first, logging estructurado, cero prints.
 
 
-# 🏦 TRADING TERMINAL — REGLA MAESTRA DE VIBECODING
+# 🐍 BACKEND PYTHON — ESTÁNDARES DE CALIDAD v3.0
 
-## ROL DE LA IA
+## TOOLCHAIN (Gates de CI — código debe pasar todos antes de presentarlo)
+- `black` → formato (línea máx. 100 chars)
+- `isort` → orden de imports (perfil black-compatible)
+- `ruff` → lint exhaustivo
+- `mypy --strict` → tipos estrictos
+- `bandit` → SAST seguridad
+- `pip-audit` → CVEs en dependencias
 
-Eres el desarrollador principal de una terminal de trading financiero profesional.
-El usuario NO tiene conocimientos de programación — eres su único desarrollador.
+## TIPADO — OBLIGATORIO EN TODO
 
-**TU MISIÓN:**
-- Escribir código completo, funcional y listo para ejecutar
-- Explicar decisiones técnicas en español simple y claro
-- Nunca dejar código incompleto o con `// TODO: completar esto`
-- Anticipar problemas antes de que ocurran
-- Proteger los fondos del usuario con código de alta seguridad
-
----
-
-## 📏 ESTÁNDARES DE CÓDIGO OBLIGATORIOS
-
-### Python (Backend)
 ```python
-# ✅ CORRECTO — Tipado, documentado, modular
-from typing import Optional
+# ✅ CORRECTO
+async def calculate_vpin(
+    snapshot: MarketSnapshot,
+    bucket_size: int,
+) -> float: ...
+
+# ❌ PROHIBIDO — sin tipos
+def calculate_vpin(snapshot, bucket_size): ...
+
+# ❌ PROHIBIDO — Any
+from typing import Any
+def process(data: Any) -> Any: ...
+
+# ✅ CORRECTO — Decimal para precios (nunca float)
+price: Decimal = Decimal("100.05")
+# ❌ PROHIBIDO
+price: float = 100.05
+```
+
+## NOMENCLATURA
+| Tipo | Convención | Ejemplo |
+|------|-----------|---------|
+| Clases | `PascalCase` | `MarketDataHub` |
+| Funciones/vars | `snake_case` | `fetch_snapshot` |
+| Constantes | `UPPER_CASE` | `MAX_CANDIDATES = 300` |
+| Privados | `_single_underscore` | `_circuit_breaker` |
+| Variables de 1 letra | **PROHIBIDO** | Usar `ticker`, no `t` |
+| Nombres genéricos | **PROHIBIDO** | Nunca `data`, `val`, `obj` |
+
+## FUNCIONES — REGLAS DE DISEÑO
+
+```python
+# Máximo 30 líneas. Si supera → refactorizar en subfunciones.
+
+# Google-Style docstring OBLIGATORIO en funciones complejas:
+async def fetch_option_chain(
+    ticker: str,
+    expiration_date: date,
+) -> Result[list[OptionContract]]:
+    """Descarga y valida la cadena completa de opciones.
+
+    Args:
+        ticker         : Símbolo en mayúsculas (e.g., "AAPL").
+        expiration_date: Fecha de expiración a descargar.
+
+    Returns:
+        Result con lista de OptionContract, o failure si la API no responde.
+
+    Raises:
+        ValidationError: Si la respuesta falla validación de esquema.
+    """
+```
+
+## LOGGING — NO PRINT
+
+```python
+import logging
+logger = logging.getLogger(__name__)
+
+# ✅ CORRECTO
+logger.info("Fase A completa", extra={"count": len(candidates)})
+logger.error("Fallo en Hub", extra={"ticker": ticker}, exc_info=True)
+
+# ❌ PROHIBIDO
+print(f"Fase A: {len(candidates)}")
+```
+
+## MANEJO DE ERRORES
+
+```python
+# ✅ CORRECTO — específico + log
+try:
+    snapshot = await hub.fetch_snapshot(ticker)
+except httpx.TimeoutException as exc:
+    logger.error("Timeout para %s", ticker, exc_info=True)
+    return Result.failure(reason=str(exc))
+
+# ❌ PROHIBIDO — silencioso
+except:
+    pass
+
+# ❌ PROHIBIDO — genérico sin log
+except Exception:
+    return None
+```
+
+## CONCURRENCIA
+
+```python
+# ✅ I/O → asyncio
+async def fetch_all(tickers: list[str]) -> list[MarketSnapshot]:
+    tasks = [hub.fetch_snapshot(t) for t in tickers]
+    return await asyncio.gather(*tasks, return_exceptions=True)
+
+# ✅ CPU pesado → ProcessPoolExecutor (nunca bloquear el event loop)
+result = await loop.run_in_executor(executor, calcular_vpin_sync, snapshot)
+
+# ❌ PROHIBIDO — bloquea el event loop
+time.sleep(1)          # → await asyncio.sleep(1)
+requests.get(url)      # → await httpx.AsyncClient().get(url)
+```
+
+## CONFIGURACIÓN — SIN NÚMEROS MÁGICOS
+
+```python
+# ❌ PROHIBIDO
+if len(candidates) > 300: ...
+
+# ✅ CORRECTO — constante desde config/
+from config.phase_thresholds import PhaseThresholds
+thresholds = PhaseThresholds()
+if len(candidates) > thresholds.phase_a_max_candidates: ...
+```
+
+## IMPORTS — ORDEN isort (automático)
+```python
+# 1. Stdlib
+import asyncio, logging
 from decimal import Decimal
 
-async def place_order(
-    symbol: str,
-    quantity: Decimal,
-    side: str,
-    order_type: str = "MARKET"
-) -> dict:
-    """
-    Coloca una orden en el exchange.
-    
-    Args:
-        symbol: Par de trading (ej: BTCUSDT)
-        quantity: Cantidad a operar
-        side: BUY o SELL
-        order_type: MARKET o LIMIT
-    
-    Returns:
-        dict con detalles de la orden ejecutada
-    
-    Raises:
-        InsufficientFundsError: Si no hay saldo suficiente
-        ExchangeConnectionError: Si falla la conexión
-    """
-    ...
+# 2. Terceros
+import httpx
+from pydantic import ValidationError
 
-# ❌ INCORRECTO — Sin tipos, sin docs, lógica mezclada
-def order(s, q, t):
-    data = db.get(...)
-    api.post(...)
-    return True
+# 3. Internos — SOLO imports absolutos
+from backend.models.market_snapshot import MarketSnapshot
+from backend.hub.market_data_hub import MarketDataHub
+
+# ❌ PROHIBIDO
+from ..models import *      # wildcard + relativo
 ```
 
-### TypeScript (Frontend)
-```typescript
-// ✅ CORRECTO — Tipos estrictos, interfaces claras
-interface OrderFormProps {
-  symbol: string;
-  onOrderPlaced: (orderId: string) => void;
-  initialSide?: 'BUY' | 'SELL';
-}
-
-const OrderForm: React.FC<OrderFormProps> = ({ symbol, onOrderPlaced }) => {
-  // ...
-};
-
-// ❌ INCORRECTO — any types, props sin definir
-const OrderForm = (props: any) => {
-  // ...
-};
+## CHECKLIST ANTES DE PRESENTAR CÓDIGO
 ```
-
----
-
-## 🚫 PATRONES PROHIBIDOS (ANTI-SPAGHETTI)
-
-### NUNCA hacer esto:
-1. **God Files** — Archivos con más de 200 líneas de lógica
-2. **Magic Numbers** — `if price > 45000` (usar constantes nombradas)
-3. **Nested Callbacks** — Más de 2 niveles de anidamiento
-4. **Copiar lógica** — Si copias código, créalo como función reutilizable
-5. **Console.log en producción** — Usar el sistema de logging
-6. **Secrets en código** — JAMÁS API keys, passwords inline
-7. **Estado mutable global** — Todo estado de trading en Zustand store
-8. **Operaciones síncronas bloqueantes** — Todo async/await
-
-### SIEMPRE hacer esto:
-1. **Un archivo = una responsabilidad**
-2. **Errors primero** — Manejar errores antes del happy path
-3. **Fail fast** — Validar inputs al inicio de la función
-4. **Logs informativos** — Cada operación financiera debe loggearse
-5. **Tipos explícitos** — No `any`, no `object`, no tipos implícitos
-
----
-
-## 🔒 SEGURIDAD FINANCIERA — NO NEGOCIABLE
-
-```python
-# REGLAS DE SEGURIDAD PARA ÓRDENES DE TRADING
-
-# 1. Validar límites ANTES de cualquier orden
-MAX_ORDER_SIZE_USD = Decimal("10000")  # Definido en config
-MIN_ORDER_SIZE_USD = Decimal("10")
-
-def validate_order(quantity: Decimal, price: Decimal) -> None:
-    order_value = quantity * price
-    if order_value > MAX_ORDER_SIZE_USD:
-        raise OrderSizeError(f"Orden ${order_value} excede límite ${MAX_ORDER_SIZE_USD}")
-    if order_value < MIN_ORDER_SIZE_USD:
-        raise OrderSizeError(f"Orden ${order_value} menor al mínimo ${MIN_ORDER_SIZE_USD}")
-
-# 2. NUNCA exponer API keys en responses
-# 3. Rate limiting en todos los endpoints de órdenes
-# 4. Log de TODAS las operaciones financieras con timestamp
-# 5. Confirmación doble para órdenes > $1000
+[ ] Todas las funciones tienen type hints
+[ ] Ninguna función supera 30 líneas
+[ ] No hay print() — solo logging
+[ ] No hay except: pass
+[ ] No hay time.sleep() en async
+[ ] No hay números mágicos en código
+[ ] No hay imports relativos entre módulos
+[ ] Decimal para todos los campos de precio
+[ ] Google-Style docstring en funciones públicas
 ```
-
----
-
-## 📁 GESTIÓN DE ARCHIVOS
-
-### Antes de crear un archivo nuevo:
-- [ ] ¿Ya existe algo similar? Buscar con Ctrl+Shift+F
-- [ ] ¿Tiene un solo propósito claro?
-- [ ] ¿Está en el directorio correcto?
-
-### Antes de modificar un archivo:
-- [ ] Leer el archivo completo primero
-- [ ] Identificar todas las funciones que dependen de él
-- [ ] No modificar más de lo necesario
-
-### Antes de eliminar código:
-- [ ] Confirmar con el usuario: "Voy a eliminar X, ¿confirmas?"
-- [ ] Verificar que nada más lo importa/usa
-
----
-
-## 🔄 FLUJO DE TRABAJO POR TAREA
-
-```
-1. ENTENDER  → Leer PROJECT_CONFIG.md + archivo relevante
-2. PLANEAR   → Describir qué se va a hacer (sin código aún)
-3. CONFIRMAR → "¿Procedo con este plan?" al usuario
-4. CODIFICAR → Escribir código completo
-5. EXPLICAR  → Qué hace cada parte en español
-6. VERIFICAR → "Para probar esto, ejecuta: [comando exacto]"
-7. ACTUALIZAR → Marcar tarea completada en PROJECT_CONFIG.md
-```
-
----
-
-## 💬 COMUNICACIÓN CON EL USUARIO
-
-- Hablar siempre en **español**
-- Explicar términos técnicos cuando aparezcan
-- Si algo puede romper el sistema, advertir con ⚠️
-- Si algo es crítico para la seguridad, advertir con 🔴
-- Dar siempre el comando EXACTO para ejecutar/probar el código
-- Si hay múltiples opciones, presentarlas con pros/contras
-
----
-
-## 🆘 ANTE ERRORES
-
-Cuando el usuario reporta un error:
-1. Pedir el mensaje de error COMPLETO
-2. Identificar la causa raíz (no los síntomas)
-3. Explicar POR QUÉ ocurrió en términos simples
-4. Dar la solución completa, no parcial
-5. Explicar cómo evitarlo en el futuro
 
 ---
 > Source: [juandoroteoflesiauni-lang/Market-options-stocks-Scanner](https://github.com/juandoroteoflesiauni-lang/Market-options-stocks-Scanner) — distributed by [TomeVault](https://tomevault.io).
