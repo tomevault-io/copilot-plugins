@@ -115514,6 +115514,11 @@
       "description": "td-bdd"
     },
     {
+      "name": "rzna-5559--mrite-skills---ing",
+      "source": "./rzna-5559--mrite-skills---ing",
+      "description": "A Skill-1"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -154134,6 +154139,11 @@
       "description": "Low code molecular property prediction"
     },
     {
+      "name": "davidhoo--markdownreader",
+      "source": "./davidhoo--markdownreader",
+      "description": "A native macOS Markdown reader built with SwiftUI + Textual. Three-column layout with file tree, rendered markdown, and outline navigation. 23 built-in themes, i18n, and Git integration."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -162562,6 +162572,11 @@
       "name": "colossusauhem--proton-drive-sync",
       "source": "./colossusauhem--proton-drive-sync",
       "description": "Local folders, automatically synced to Proton Drive. (Unofficial Sync Client)"
+    },
+    {
+      "name": "mindset-ai--memex-ai",
+      "source": "./mindset-ai--memex-ai",
+      "description": "Memex AI full source code"
     },
     {
       "name": "yschimke--compose-ai-tools",
