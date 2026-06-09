@@ -1,0 +1,9 @@
+{
+  "name": "justinwetch--skill-rsi",
+  "displayName": "Skill-RSI",
+  "description": "Skill RSI is a recursive self-improvement loop for Agent Skills, grounded in evals. Standalone or Codex plugin.",
+  "version": "1.0.0",
+  "author": "justinwetch",
+  "homepage": "https://github.com/justinwetch/Skill-RSI",
+  "skills": []
+}
