@@ -199714,6 +199714,11 @@
       "description": "\ud83e\uddd9 Democratizing best practices across 27 domains. Your AI knows everything \u2014 Grimoire makes it practice it."
     },
     {
+      "name": "jdilla1277--agentcad",
+      "source": "./jdilla1277--agentcad",
+      "description": "CAD CLI and MCP server for AI agents"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
