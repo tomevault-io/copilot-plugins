@@ -1,0 +1,9 @@
+{
+  "name": "qwenlm--open-computer-use",
+  "displayName": "open-computer-use",
+  "description": "MCP-based Computer Use service for Qwen Code and any AI agent \u2014 controls macOS, Linux, and Windows via accessibility APIs.",
+  "version": "1.0.0",
+  "author": "QwenLM",
+  "homepage": "https://github.com/QwenLM/open-computer-use",
+  "skills": []
+}
