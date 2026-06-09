@@ -1,0 +1,9 @@
+{
+  "name": "sodam-ai--wikimate",
+  "displayName": "wikimate",
+  "description": "Claude Code plugin (Codex via an MCP adapter): an AI agent organizes scattered materials into your Obsidian vault (optional Notion index) and answers across your notes - human-approval gate, dedup, ve",
+  "version": "1.0.0",
+  "author": "sodam-ai",
+  "homepage": "https://github.com/sodam-ai/wikimate",
+  "skills": []
+}
