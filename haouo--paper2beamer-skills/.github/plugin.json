@@ -1,0 +1,9 @@
+{
+  "name": "haouo--paper2beamer-skills",
+  "displayName": "paper2beamer-skills",
+  "description": "A Claude Code skills plugin that turns academic papers into presentation-ready XeLaTeX Beamer decks and multi-paper research-gap analyses.",
+  "version": "1.0.0",
+  "author": "Haouo",
+  "homepage": "https://github.com/Haouo/paper2beamer-skills",
+  "skills": []
+}
