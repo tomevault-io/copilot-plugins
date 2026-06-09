@@ -1,0 +1,9 @@
+{
+  "name": "mt-22--roost",
+  "displayName": "roost",
+  "description": "TUI-first dotfiles manager, written in Rust",
+  "version": "1.0.0",
+  "author": "mt-22",
+  "homepage": "https://github.com/mt-22/roost",
+  "skills": []
+}
