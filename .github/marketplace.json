@@ -185854,6 +185854,111 @@
       "description": "mcp-prometheus"
     },
     {
+      "name": "sodam-ai--wikimate",
+      "source": "./sodam-ai--wikimate",
+      "description": "Claude Code plugin (Codex via an MCP adapter): an AI agent organizes scattered materials into your Obsidian vault (optional Notion index) and answers across your notes - human-approval gate, dedup, ve"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
+      "name": "juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "source": "./juandoroteoflesiauni-lang--market-options-stocks-scanner",
+      "description": "Market-options-stocks-Scanner"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199494,6 +199599,11 @@
       "description": "agents"
     },
     {
+      "name": "mengxianghe75-dev--engineering-contract-ai-review",
+      "source": "./mengxianghe75-dev--engineering-contract-ai-review",
+      "description": "\u5de5\u7a0b\u5408\u540c AI \u5ba1\u67e5\u52a9\u624b\uff1a\u6e90\u7801\u53ef\u89c1\u7684\u975e\u5546\u4e1a\u6f14\u793a\u9879\u76ee\uff0c\u5546\u4e1a\u4f7f\u7528\u9700\u6388\u6743\u3002"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -203117,6 +203227,11 @@
       "name": "01mvp--blog-starter",
       "source": "./01mvp--blog-starter",
       "description": "01MVP Blog Starter"
+    },
+    {
+      "name": "cxsmo-ai--deepbridge",
+      "source": "./cxsmo-ai--deepbridge",
+      "description": "A self-hosted Stremio addon that combines Deepbrid official streams with pre-resolved external Usenet indexer results."
     },
     {
       "name": "ldmoxeii--only-engine",
