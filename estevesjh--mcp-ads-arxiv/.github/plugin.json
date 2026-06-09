@@ -1,0 +1,9 @@
+{
+  "name": "estevesjh--mcp-ads-arxiv",
+  "displayName": "mcp-ads-arxiv",
+  "description": "Local astrophysics paper library MCP server: NASA ADS + arXiv LaTeX + PDF->markdown, never reads raw PDFs.",
+  "version": "1.0.0",
+  "author": "estevesjh",
+  "homepage": "https://github.com/estevesjh/mcp-ads-arxiv",
+  "skills": []
+}
