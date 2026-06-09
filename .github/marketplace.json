@@ -185974,6 +185974,11 @@
       "description": "Cross-device file transfer, straight to your devices ; China Version: \u867e\u4f20(xiachuan.net) ; Overseas Version: ShrimpSend (shrimpsend.com)"
     },
     {
+      "name": "odarino--haren",
+      "source": "./odarino--haren",
+      "description": "Minimal, skill-based agentic SDLC framework"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199627,6 +199632,21 @@
       "name": "qiuerjun--storyforge-ai",
       "source": "./qiuerjun--storyforge-ai",
       "description": "\u672c\u5730\u5316 AI \u5c0f\u8bf4\u4e0e\u8dd1\u56e2\u8f85\u52a9\u521b\u4f5c\u5e73\u53f0 - \u4e3a\u5c0f\u8bf4\u5bb6\u548c\u8dd1\u56e2\u73a9\u5bb6\u6253\u9020\u7684 AI \u8f85\u52a9\u521b\u4f5c\u73af\u5883\uff0c\u652f\u6301\u89d2\u8272\u8bbe\u5b9a\u3001\u4e16\u754c\u89c2\u6784\u5efa\u3001\u8bb0\u5fc6\u7d22\u5f15\u3001\u6d41\u5f0f\u5bf9\u8bdd\u7b49\u529f\u80fd\u3002\u517c\u5bb9 OpenAI API \u548c\u672c\u5730 Ollama \u6a21\u578b\u3002"
+    },
+    {
+      "name": "webc-site--math",
+      "source": "./webc-site--math",
+      "description": "The world's smallest and fastest web Markdown formula renderer. Compiles LaTeX/TeX to native MathML with zero dependencies."
+    },
+    {
+      "name": "haouo--paper2beamer-skills",
+      "source": "./haouo--paper2beamer-skills",
+      "description": "A Claude Code skills plugin that turns academic papers into presentation-ready XeLaTeX Beamer decks and multi-paper research-gap analyses."
+    },
+    {
+      "name": "umidjon3455--worldteamrepo",
+      "source": "./umidjon3455--worldteamrepo",
+      "description": "QA Test for Penpot"
     },
     {
       "name": "cheerhuan--save-your-token",
