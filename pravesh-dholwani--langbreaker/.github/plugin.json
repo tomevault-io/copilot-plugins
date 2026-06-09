@@ -1,0 +1,9 @@
+{
+  "name": "pravesh-dholwani--langbreaker",
+  "displayName": "langbreaker",
+  "description": "A circuit breaker library for langchain llm models to build fallback chains in production.",
+  "version": "1.0.0",
+  "author": "pravesh-dholwani",
+  "homepage": "https://github.com/pravesh-dholwani/langbreaker",
+  "skills": []
+}
