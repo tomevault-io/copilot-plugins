@@ -1,0 +1,9 @@
+{
+  "name": "apple--coreai-optimization",
+  "displayName": "coreai-optimization",
+  "description": "A library for PyTorch model compression and optimizations for deployment via Core AI on Apple silicon.",
+  "version": "1.0.0",
+  "author": "apple",
+  "homepage": "https://github.com/apple/coreai-optimization",
+  "skills": []
+}
