@@ -1,0 +1,9 @@
+{
+  "name": "maquekenzhegua--multi-agent-software-team",
+  "displayName": "multi-agent-software-team",
+  "description": "5 AI agents that turn GitHub Issues into mergeable PRs \u2014 from architecture to passing tests, fully autonomous.",
+  "version": "1.0.0",
+  "author": "maquekenzhegua",
+  "homepage": "https://github.com/maquekenzhegua/multi-agent-software-team",
+  "skills": []
+}
