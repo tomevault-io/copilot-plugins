@@ -1,0 +1,9 @@
+{
+  "name": "connorrmcd6--surface",
+  "displayName": "surface",
+  "description": "A deterministic gate that surfaces divergence between architectural docs and the code they describe.",
+  "version": "1.0.0",
+  "author": "Connorrmcd6",
+  "homepage": "https://github.com/Connorrmcd6/surface",
+  "skills": []
+}
