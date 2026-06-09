@@ -1,0 +1,44 @@
+{
+  "name": "engineering-contract-ai-review",
+  "owner": "mengxianghe75-dev",
+  "repo": "engineering-contract-ai-review",
+  "description": "\u5de5\u7a0b\u5408\u540c AI \u5ba1\u67e5\u52a9\u624b\uff1a\u6e90\u7801\u53ef\u89c1\u7684\u975e\u5546\u4e1a\u6f14\u793a\u9879\u76ee\uff0c\u5546\u4e1a\u4f7f\u7528\u9700\u6388\u6743\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mengxianghe75-dev/engineering-contract-ai-review",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-09T04:32:31Z"
+}
