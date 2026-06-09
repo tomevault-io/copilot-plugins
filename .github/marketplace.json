@@ -186039,6 +186039,16 @@
       "description": "Basic tollgate implementation example"
     },
     {
+      "name": "hasferrr--mitsuko-client",
+      "source": "./hasferrr--mitsuko-client",
+      "description": "AI Subtitle Translator for SRT, ASS, and VTT files and audio transcription with custom endpoints for high-quality & context-aware results. Perfect for localizing anime, films, and videos."
+    },
+    {
+      "name": "hasferrr--mitsuko-client",
+      "source": "./hasferrr--mitsuko-client",
+      "description": "AI Subtitle Translator for SRT, ASS, and VTT files and audio transcription with custom endpoints for high-quality & context-aware results. Perfect for localizing anime, films, and videos."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199744,6 +199754,11 @@
       "description": "CAD CLI and MCP server for AI agents"
     },
     {
+      "name": "jscott3201--llm-tuning",
+      "source": "./jscott3201--llm-tuning",
+      "description": "Serving and fine-tuning for the Gemma 4 and Qwen3.6 model families on Modal (SGLang/vLLM) \u2014 solo and concurrent shapes, custom chat-template forks, and a research pipeline."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -203417,6 +203432,11 @@
       "name": "constructorfabric--studio",
       "source": "./constructorfabric--studio",
       "description": "Main Constructor Studio repository"
+    },
+    {
+      "name": "thuanphanmem--khoa-ung-dung-android-tu-xa",
+      "source": "./thuanphanmem--khoa-ung-dung-android-tu-xa",
+      "description": "khoa-ung-dung-android-tu-xa"
     },
     {
       "name": "ldmoxeii--only-engine",
