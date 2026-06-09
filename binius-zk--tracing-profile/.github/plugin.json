@@ -1,0 +1,9 @@
+{
+  "name": "binius-zk--tracing-profile",
+  "displayName": "tracing-profile",
+  "description": "Rust tracing extension for profiling one-shot program executions",
+  "version": "1.0.0",
+  "author": "binius-zk",
+  "homepage": "https://github.com/binius-zk/tracing-profile",
+  "skills": []
+}
