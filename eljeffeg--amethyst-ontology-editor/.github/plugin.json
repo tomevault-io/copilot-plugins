@@ -1,0 +1,9 @@
+{
+  "name": "eljeffeg--amethyst-ontology-editor",
+  "displayName": "amethyst-ontology-editor",
+  "description": "A light-weight, collaborative, web-based OWL 2 ontology editor for non-experts.",
+  "version": "1.0.0",
+  "author": "eljeffeg",
+  "homepage": "https://github.com/eljeffeg/amethyst-ontology-editor",
+  "skills": []
+}
