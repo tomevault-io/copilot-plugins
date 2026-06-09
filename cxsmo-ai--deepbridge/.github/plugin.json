@@ -1,0 +1,9 @@
+{
+  "name": "cxsmo-ai--deepbridge",
+  "displayName": "Deepbridge",
+  "description": "A self-hosted Stremio addon that combines Deepbrid official streams with pre-resolved external Usenet indexer results.",
+  "version": "1.0.0",
+  "author": "Cxsmo-ai",
+  "homepage": "https://github.com/Cxsmo-ai/Deepbridge",
+  "skills": []
+}
