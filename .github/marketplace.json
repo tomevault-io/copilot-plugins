@@ -53989,6 +53989,16 @@
       "description": "OpenUSD Exchange SDK"
     },
     {
+      "name": "tencent-hunyuan--unirl",
+      "source": "./tencent-hunyuan--unirl",
+      "description": "UniRL is a Framework for Unified Multimodal Model Reinforcement Learning"
+    },
+    {
+      "name": "tencent-hunyuan--unirl",
+      "source": "./tencent-hunyuan--unirl",
+      "description": "UniRL is a Framework for Unified Multimodal Model Reinforcement Learning"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
