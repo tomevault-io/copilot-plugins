@@ -1,162 +1,269 @@
-## 04-data-hub
+## 040-vibecoding-workflow
 
-> Activo en archivos del MarketDataHub y normalizadores. Anti-Corruption Layer: único punto de contacto con APIs externas.
+> Workflow de vibecoding — cómo gestionar sesiones de desarrollo con IA al 100%
 
 
-# 🛡️ DATA HUB — ANTI-CORRUPTION LAYER v3.0
+# 🎯 VIBECODING WORKFLOW — TERMINAL DE TRADING
 
-## MISIÓN
-`MarketDataHub` es el ÚNICO componente que toca APIs externas.
-Fases B/C son motores de cálculo **aislados de la red**.
-Si ves `import httpx` en `backend/phases/phase_b/` → **RECHAZAR inmediatamente**.
+## FILOSOFÍA: IA COMO DESARROLLADOR COMPLETO
 
-## PATRÓN DE LLAMADA — Los motores solo ven esto:
+El usuario no escribe código. La IA es el 100% del desarrollador.
+Esto requiere un proceso estructurado para evitar el caos del vibecoding.
 
-```python
-# Lo que el motor recibe — nada más:
-snapshot: MarketSnapshot = await hub.get_market_snapshot(ticker="AAPL")
+---
 
-# Lo que el Hub hace internamente (invisible para el motor):
-# 1. Selecciona proveedor (FMP / Massive)
-# 2. Rota API keys
-# 3. Aplica exponential backoff
-# 4. Verifica circuit breaker
-# 5. Normaliza respuesta → MarketSnapshot
-# 6. Adjunta data_lineage
-# 7. Retorna Result[MarketSnapshot]
-```
+## 📋 INICIO DE CADA SESIÓN
 
-## GESTIÓN DE SECRETOS — REGLAS CRÍTICAS
-
-```python
-# ✅ CORRECTO — pydantic-settings con SecretStr
-from pydantic import SecretStr
-from pydantic_settings import BaseSettings, SettingsConfigDict
-
-class MarketDataSettings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
-    fmp_api_key: SecretStr      # repr() muestra "**********"
-    massive_api_key: SecretStr
-
-# Acceso al valor:
-key = settings.fmp_api_key.get_secret_value()
-
-# ❌ PROHIBIDO — hardcodeado
-API_KEY = "sk-abc123"
-
-# ❌ PROHIBIDO — sin validación
-key = os.getenv("API_KEY")  # Puede ser None, vacío, o formato incorrecto
-```
-
-## RESILIENCIA — Backoff + Circuit Breaker
-
-```python
-# Exponential backoff con jitter:
-@exponential_backoff(
-    max_retries=3,
-    base_delay_seconds=1.0,
-    max_delay_seconds=30.0,
-    jitter=True,
-)
-async def _call_fmp_api(self, endpoint: str, params: dict[str, str]) -> dict:
-    ...
-
-# Circuit breaker:
-# CLOSED → OPEN (5 fallos en 60s) → HALF-OPEN (probe) → CLOSED
-# Cuando OPEN: retorna Result.failure() sin llamar la API
-```
-
-## RESULTADO — NUNCA LANZAR EXCEPCIONES A CALLERS
-
-```python
-# ✅ CORRECTO — Hub retorna Result, nunca lanza
-async def get_market_snapshot(self, ticker: str) -> Result[MarketSnapshot]:
-    try:
-        raw = await self._call_fmp_api(f"/quote/{ticker}", {})
-        snapshot = self._fmp_normalizer.normalize(raw, time.time_ns())
-        return Result.success(snapshot)
-    except (httpx.TimeoutException, ValidationError) as exc:
-        logger.error("Hub falló para %s", ticker, exc_info=True)
-        return Result.failure(reason=str(exc))
-
-# ❌ PROHIBIDO — excepción cruda al caller
-    raise Exception("API no disponible")
-```
-
-## NORMALIZADORES — Un archivo por proveedor
-
-```python
-# hub/normalizers/fmp_normalizer.py
-class FmpNormalizer:
-    PROVIDER_NAME = "fmp"
-
-    def normalize(self, raw: dict, ingestion_start_ns: int) -> MarketSnapshot:
-        """Convierte respuesta FMP cruda a MarketSnapshot canónico.
-        
-        Args:
-            raw              : Dict crudo de FMP REST API.
-            ingestion_start_ns: Timestamp nanosegundos inicio del fetch.
-        
-        Returns:
-            MarketSnapshot validado y congelado.
-        
-        Raises:
-            KeyError       : Si falta campo requerido en respuesta FMP.
-            ValidationError: Si el tipo falla validación Pydantic.
-        """
-        latency_ms = (time.time_ns() - ingestion_start_ns) // 1_000_000
-        return MarketSnapshot(
-            ticker=raw["symbol"].upper(),
-            exchange=raw.get("exchange", "UNKNOWN"),
-            price=Decimal(str(raw["price"])),   # str() evita drift de float
-            volume=int(raw["volume"]),
-            exchange_timestamp=datetime.fromtimestamp(
-                raw["timestamp"], tz=timezone.utc
-            ),
-            data_lineage=DataLineage(
-                source=self.PROVIDER_NAME,
-                ingestion_latency_ms=latency_ms,
-                raw_field_count=len(raw),
-            ),
-        )
-```
-
-## ESTRATEGIA DE FAILOVER
+Al comenzar una nueva sesión de trabajo, la IA DEBE:
 
 ```
-Primario  : FMP REST API
-Secundario: Massive REST API
-Terciario : Degradación controlada → log + skip ticker en este ciclo
-
-La lógica de failover vive ENTERAMENTE en MarketDataHub.
-Los motores reciben MarketSnapshot sin importar qué proveedor respondió.
+1. Leer PROJECT_CONFIG.md (estado actual del proyecto)
+2. Preguntar: "¿En qué módulo trabajamos hoy?"
+3. Confirmar la FASE (Blueprint / Construct / Validate)
+4. Listar los archivos que se van a tocar
+5. Estimar tiempo y complejidad
 ```
 
-## SEGURIDAD DE RED
+### Template de inicio de sesión:
+```
+📊 RESUMEN DEL ESTADO ACTUAL:
+- Módulo activo: [nombre]
+- Fase: [Blueprint/Construct/Validate]
+- Archivos afectados: [lista]
+- Bloqueadores conocidos: [lista o "Ninguno"]
 
-```python
-# ✅ CORRECTO — SSL validado, timeouts, no redirects
-client = httpx.AsyncClient(
-    verify=True,
-    timeout=httpx.Timeout(connect=5.0, read=30.0, write=10.0, pool=5.0),
-    follow_redirects=False,
-)
+🎯 PLAN PARA ESTA SESIÓN:
+1. [Tarea 1]
+2. [Tarea 2]
+3. [Tarea 3]
 
-# ❌ PROHIBIDO en producción
-client = httpx.AsyncClient(verify=False)  # SSL desactivado
-client = httpx.AsyncClient()              # Sin timeouts → cuelga infinito
+⚠️ RIESGOS: [lista o "Sin riesgos identificados"]
+
+¿Procedemos con este plan? (Sí / Modificar plan)
 ```
 
-## ANTI-PATRONES A RECHAZAR
+---
 
-| Anti-Patrón | Síntoma | Acción |
-|-------------|---------|--------|
-| API call en motor | `import httpx` en `phase_b/` | RECHAZAR |
-| Dict como objeto inter-fase | `return {"price": 100}` | RECHAZAR |
-| Key en código fuente | `API_KEY = "abc..."` | RECHAZAR CRÍTICO |
-| Excepción cruda al caller | `raise Exception(...)` desde Hub | RECHAZAR |
-| float para precios | `price: float = 100.05` | RECHAZAR |
-| SSL desactivado | `verify=False` | RECHAZAR CRÍTICO |
+## 🔵 FASE 1: BLUEPRINT (Planificación)
+
+**CUÁNDO:** Antes de empezar cualquier módulo nuevo.
+**REGLA:** NADA de código en esta fase.
+
+### Qué producir en Blueprint:
+```markdown
+# Blueprint: [Nombre del Módulo]
+
+## Propósito
+¿Qué problema resuelve este módulo?
+
+## Interfaces (qué recibe y qué devuelve)
+- Input: ...
+- Output: ...
+- Eventos que emite: ...
+
+## Dependencias
+- Módulos que necesita: ...
+- APIs externas: ...
+- Librerías nuevas: ...
+
+## Estructura de archivos a crear/modificar
+- [ ] backend/app/services/nuevo_servicio.py
+- [ ] frontend/src/components/NuevoComponente.tsx
+- [ ] tests/test_nuevo_servicio.py
+
+## Casos borde a manejar
+- ¿Qué pasa si la API externa falla?
+- ¿Qué pasa si el usuario tiene fondos insuficientes?
+- ¿Qué pasa si hay desconexión de internet?
+
+## Estimación
+- Archivos nuevos: X
+- Archivos modificados: Y
+- Complejidad: Baja / Media / Alta
+```
+
+---
+
+## 🟡 FASE 2: CONSTRUCT (Construcción)
+
+**CUÁNDO:** Después de que el Blueprint fue aprobado.
+**REGLA:** Un archivo a la vez. Mostrar antes de continuar.
+
+### Orden de construcción obligatorio:
+```
+1. Tipos/Schemas (types.ts / schemas.py)
+2. Modelos de datos
+3. Servicios/lógica de negocio
+4. Repositorios (acceso a DB)
+5. API endpoints (backend) / Hooks (frontend)
+6. Componentes UI (frontend)
+7. Tests
+8. Documentación
+```
+
+### Template para cada archivo:
+```
+📁 CREANDO: [ruta/del/archivo.py]
+📌 PROPÓSITO: [qué hace en una frase]
+🔗 DEPENDE DE: [otros archivos que importa]
+📤 EXPORTA: [qué funciones/clases expone]
+
+[CÓDIGO COMPLETO AQUÍ]
+
+✅ PARA PROBAR: [comando exacto para verificar que funciona]
+```
+
+---
+
+## 🟢 FASE 3: VALIDATE (Validación)
+
+**CUÁNDO:** Después de terminar un módulo.
+
+### Checklist de validación:
+```
+□ El código se ejecuta sin errores
+□ Los tests pasan
+□ No se rompió nada existente (regression test)
+□ Los tipos TypeScript no tienen errores
+□ No hay console.log olvidados
+□ No hay TODO comments sin resolver
+□ La documentación está actualizada
+□ PROJECT_CONFIG.md refleja el estado actual
+□ Se hizo commit del código funcional
+```
+
+---
+
+## 🚨 REGLAS ANTI-VIBECODING-CAOS
+
+### Síntomas del caos a evitar:
+
+**1. Scope Creep** — "Ya que estamos, también agregamos X"
+```
+❌ USUARIO: "Arregla el bug del login"
+❌ IA: *también refactoriza el auth module, agrega 2FA, y cambia el DB schema*
+
+✅ IA: "Arreglé el bug del login. ¿Quieres que también revise el auth module 
+      en una sesión separada?"
+```
+
+**2. Cambios Fantasma** — Modificar archivos sin avisar
+```
+❌ Cambiar 5 archivos cuando el usuario preguntó por 1
+✅ "Para resolver esto necesito modificar A, B, y C. ¿Confirmas?"
+```
+
+**3. Código Incompleto** — Dejar TODOs sin resolver
+```
+❌ return await api.placeOrder(data)  // TODO: manejar error
+
+✅ try:
+    return await api.place_order(data)
+   except APIError as e:
+    logger.error(f"Error placing order: {e}")
+    raise OrderExecutionError(str(e))
+```
+
+**4. Romper Cosas Funcionando** — Refactors no solicitados
+```
+❌ "Ya que toco este archivo, lo refactorizo todo"
+✅ "Cambié solo la función X. El resto del archivo sin tocar."
+```
+
+**5. Dependencias Fantasma** — Importar librerías sin instalar
+```
+❌ from some_lib import SomeClass  # ← ¿Está instalada?
+
+✅ # ANTES de usar una librería nueva:
+   # pip install some_lib==1.2.3
+   # Agregar a requirements.txt
+   # Luego importar
+```
+
+---
+
+## 📝 GESTIÓN DE TAREAS
+
+### Formato de tarea:
+```markdown
+## TAREA-001: Implementar autenticación JWT
+
+**Estado:** 🔴 Pendiente / 🟡 En progreso / 🟢 Completada
+**Fase:** Construct
+**Prioridad:** CRÍTICA
+
+### Descripción
+Implementar sistema de login con JWT, refresh tokens y logout seguro.
+
+### Criterios de aceptación
+- [ ] POST /auth/login devuelve JWT + refresh token
+- [ ] POST /auth/refresh renueva el token
+- [ ] POST /auth/logout invalida el token
+- [ ] Tokens expiran en 60 minutos
+- [ ] Rate limiting: máx 5 intentos por minuto
+
+### Archivos a crear/modificar
+- [ ] backend/app/core/security.py (nuevo)
+- [ ] backend/app/api/v1/auth.py (nuevo)
+- [ ] backend/app/models/user.py (modificar)
+- [ ] frontend/src/services/authService.ts (nuevo)
+- [ ] frontend/src/store/authStore.ts (nuevo)
+
+### Notas técnicas
+Usar jose para JWT, bcrypt para passwords.
+```
+
+---
+
+## 🔁 ITERACIÓN Y FEEDBACK
+
+### Ciclo de iteración:
+```
+USUARIO describe lo que quiere
+     ↓
+IA crea Blueprint
+     ↓
+USUARIO aprueba / da feedback
+     ↓
+IA construye archivo por archivo
+     ↓
+USUARIO prueba cada pieza
+     ↓
+IA valida y ajusta
+     ↓
+IA actualiza PROJECT_CONFIG.md
+```
+
+### Cuando algo falla:
+```
+USUARIO: "No funciona / veo un error"
+
+IA responde con:
+1. "¿Puedes mostrarme el error completo?"
+2. Diagnóstico de causa raíz
+3. Solución en ≤3 pasos
+4. Comando exacto para verificar que se solucionó
+5. Explicación de por qué ocurrió (para aprender)
+```
+
+---
+
+## 🏁 FIN DE SESIÓN
+
+Antes de terminar, la IA debe:
+```
+📊 RESUMEN DE LA SESIÓN:
+✅ Completado: [lista]
+🟡 En progreso: [lista]
+🔴 Pendiente para próxima sesión: [lista]
+
+🐛 Bugs conocidos: [lista o "Ninguno"]
+⚠️ Deuda técnica: [lista o "Ninguna"]
+
+💾 RECORDATORIO: Hacer commit antes de cerrar el editor
+git add .
+git commit -m "feat: [descripción de lo que se hizo]"
+```
 
 ---
 > Source: [juandoroteoflesiauni-lang/Market-options-stocks-Scanner](https://github.com/juandoroteoflesiauni-lang/Market-options-stocks-Scanner) — distributed by [TomeVault](https://tomevault.io).
