@@ -1,0 +1,9 @@
+{
+  "name": "jochne--linuxdo-awesome-skills",
+  "displayName": "linuxdo-awesome-skills",
+  "description": "Linux.do \u793e\u533a\u7528\u6237\u53d1\u5e03\u7684 skills \u5bfc\u822a\u3002\u8fd9\u91cc\u6309\u201c\u80fd\u505a\u4ec0\u4e48\u3001\u524d\u7f6e\u8981\u6c42\u3001\u5206\u7c7b\u6807\u7b7e\u3001\u9879\u76ee\u5730\u5740\u3001Star \u6570\u3001\u8bba\u575b\u6765\u6e90\u201d\u6574\u7406\uff0c\u65b9\u4fbf\u5feb\u901f\u53d1\u73b0\u503c\u5f97\u5c1d\u8bd5\u7684\u6280\u80fd\u3002",
+  "version": "1.0.0",
+  "author": "jochne",
+  "homepage": "https://github.com/jochne/linuxdo-awesome-skills",
+  "skills": []
+}
