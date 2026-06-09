@@ -1,0 +1,9 @@
+{
+  "name": "cssbruno--gowdk",
+  "displayName": "GoWDK",
+  "description": "GOWDK is an experimental Go-first web application framework for shipping full-stack web apps as a single deployable binary.  It brings together backend logic, routing, reactivity, forms, APIs, static ",
+  "version": "1.0.0",
+  "author": "cssbruno",
+  "homepage": "https://github.com/cssbruno/GoWDK",
+  "skills": []
+}
