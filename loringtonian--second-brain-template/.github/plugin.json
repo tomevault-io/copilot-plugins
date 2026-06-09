@@ -1,0 +1,9 @@
+{
+  "name": "loringtonian--second-brain-template",
+  "displayName": "second-brain-template",
+  "description": "An agent-navigable Second Brain template \u2014 clone the blank, run /setup, make it yours. A context-engineering system any AI agent can navigate.",
+  "version": "1.0.0",
+  "author": "Loringtonian",
+  "homepage": "https://github.com/Loringtonian/second-brain-template",
+  "skills": []
+}
