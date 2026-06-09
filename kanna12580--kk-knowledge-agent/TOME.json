@@ -1,0 +1,44 @@
+{
+  "name": "kk-knowledge-agent",
+  "owner": "kanna12580",
+  "repo": "kk-knowledge-agent",
+  "description": "\u8f7b\u91cf\u7ea7\u77e5\u8bc6\u5e93\u7cfb\u7edf\uff0c\u652f\u6301\u77e5\u8bc6\u5e93\u7ba1\u7406\u3001\u6587\u672c/txt \u4e0a\u4f20\u3001\u8bed\u4e49\u68c0\u7d22\u3001\u6d41\u5f0f\u8fd4\u56de\uff0c\u5e76\u5c06\u68c0\u7d22\u80fd\u529b\u5c01\u88c5\u4e3a MCP Server\uff0c\u4f9b Agent \u8c03\u7528\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kanna12580/kk-knowledge-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-09T15:30:25Z"
+}
