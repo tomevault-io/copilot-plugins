@@ -1,0 +1,44 @@
+{
+  "name": "tougao",
+  "owner": "MrChengs",
+  "repo": "tougao",
+  "description": "\u6295\u7a3f\u6a21\u677f\uff0c\u6536\u7a3f\u6e20\u9053\u4fe1\u606f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MrChengs/tougao",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-09T02:43:13Z"
+}
