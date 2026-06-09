@@ -162629,6 +162629,16 @@
       "description": "\u5f85\u529e\u4efb\u52a1\u684c\u9762\u7248"
     },
     {
+      "name": "solana-rpc--superbank",
+      "source": "./solana-rpc--superbank",
+      "description": "superbank"
+    },
+    {
+      "name": "solana-rpc--superbank",
+      "source": "./solana-rpc--superbank",
+      "description": "superbank"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
