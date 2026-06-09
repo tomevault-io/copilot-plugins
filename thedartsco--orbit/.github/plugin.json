@@ -1,0 +1,9 @@
+{
+  "name": "thedartsco--orbit",
+  "displayName": "orbit",
+  "description": "A cross-platform desktop app for searching, reading, and resuming local AI coding-agent sessions across Claude Code, Codex, Cursor, Copilot, OpenCode, Warp, Qoder, and JetBrains AI",
+  "version": "1.0.0",
+  "author": "TheDartsCo",
+  "homepage": "https://github.com/TheDartsCo/orbit",
+  "skills": []
+}
