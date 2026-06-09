@@ -1,0 +1,9 @@
+{
+  "name": "matthewdcage--llm-swarm-router",
+  "displayName": "llm-swarm-router",
+  "description": "Run the LLM Swarm Router on machines to distribute Local Ai to the Swarm - More Machines - MORE SPEED",
+  "version": "1.0.0",
+  "author": "matthewdcage",
+  "homepage": "https://github.com/matthewdcage/llm-swarm-router",
+  "skills": []
+}
