@@ -1,325 +1,255 @@
-## 050-testing
+## 060-git-workflow
 
-> Reglas de testing — asegurar que el código funciona antes de operar con dinero real
+> Reglas de Git y control de versiones — punto de recuperación ante errores del vibecoding
 
 
-# 🧪 TESTING — TRADING TERMINAL
+# 🔀 GIT WORKFLOW — TRADING TERMINAL
 
-## FILOSOFÍA: CÓDIGO SIN TEST = CÓDIGO ROTO
+## GIT ES TU RED DE SEGURIDAD
 
-En una terminal de trading, un bug puede significar pérdida de dinero.
-**Cada función de lógica de negocio DEBE tener al menos un test.**
-
----
-
-## 🐍 TESTS BACKEND (Python/Pytest)
-
-### Estructura de tests:
-```
-tests/
-├── unit/                    ← Tests de funciones individuales (rápidos)
-│   ├── test_risk_service.py
-│   ├── test_order_service.py
-│   └── test_calculators.py
-├── integration/             ← Tests de flujos completos (más lentos)
-│   ├── test_order_flow.py
-│   └── test_auth_flow.py
-├── fixtures/                ← Datos de prueba compartidos
-│   └── trading_fixtures.py
-└── conftest.py              ← Configuración global de pytest
-```
-
-### Template de test unitario:
-```python
-# tests/unit/test_risk_service.py
-import pytest
-from decimal import Decimal
-from unittest.mock import AsyncMock, patch
-
-from app.services.risk_service import RiskService
-from app.schemas.order_schema import OrderCreate
-from app.core.exceptions import RiskViolationError, InsufficientFundsError
-
-class TestRiskService:
-    """Tests del servicio de gestión de riesgo."""
-    
-    @pytest.fixture
-    def risk_service(self):
-        return RiskService()
-    
-    @pytest.fixture
-    def mock_portfolio(self):
-        return {
-            "available_usd": Decimal("5000"),
-            "total_value": Decimal("10000")
-        }
-    
-    # ========== HAPPY PATH ==========
-    
-    async def test_valid_order_passes_validation(self, risk_service, mock_portfolio):
-        """Orden válida dentro de límites debe pasar."""
-        order = OrderCreate(
-            symbol="BTCUSDT",
-            side="BUY",
-            order_type="MARKET",
-            quantity=Decimal("0.01")
-        )
-        current_price = Decimal("40000")
-        
-        # No debe lanzar excepción
-        await risk_service.validate_order(order, mock_portfolio, current_price)
-    
-    # ========== CASOS BORDE ==========
-    
-    async def test_order_exceeding_max_size_raises_error(self, risk_service, mock_portfolio):
-        """Orden > $10,000 debe ser rechazada."""
-        order = OrderCreate(
-            symbol="BTCUSDT",
-            side="BUY",
-            order_type="MARKET",
-            quantity=Decimal("1.0")  # 1 BTC a $40k = $40,000
-        )
-        
-        with pytest.raises(RiskViolationError) as exc_info:
-            await risk_service.validate_order(order, mock_portfolio, Decimal("40000"))
-        
-        assert "excede límite" in str(exc_info.value)
-    
-    async def test_insufficient_funds_raises_error(self, risk_service):
-        """Orden sin fondos suficientes debe ser rechazada."""
-        poor_portfolio = {
-            "available_usd": Decimal("100"),
-            "total_value": Decimal("100")
-        }
-        order = OrderCreate(
-            symbol="BTCUSDT",
-            side="BUY",
-            order_type="MARKET",
-            quantity=Decimal("0.1")  # $4,000
-        )
-        
-        with pytest.raises(InsufficientFundsError):
-            await risk_service.validate_order(order, poor_portfolio, Decimal("40000"))
-    
-    async def test_negative_quantity_raises_error(self, risk_service, mock_portfolio):
-        """Cantidad negativa debe ser rechazada por Pydantic."""
-        with pytest.raises(ValueError):
-            OrderCreate(
-                symbol="BTCUSDT",
-                side="BUY", 
-                order_type="MARKET",
-                quantity=Decimal("-1.0")
-            )
-```
+En vibecoding, la IA puede equivocarse y romper cosas.
+Git es la única forma de volver a un estado funcional.
+**Hacer commit frecuente = poder deshacer errores de la IA.**
 
 ---
 
-## ⚡ TESTS FRONTEND (Vitest + Testing Library)
-
-### Template de test de componente:
-```typescript
-// components/orders/__tests__/OrderForm.test.tsx
-
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { vi } from 'vitest';
-import OrderForm from '../OrderForm';
-import * as orderService from '@/services/orderService';
-
-// Mock del servicio
-vi.mock('@/services/orderService');
-
-describe('OrderForm', () => {
-  const mockOnOrderPlaced = vi.fn();
-  
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-  
-  // ========== RENDER ==========
-  
-  it('renders all required fields', () => {
-    render(<OrderForm symbol="BTCUSDT" onOrderPlaced={mockOnOrderPlaced} />);
-    
-    expect(screen.getByLabelText(/cantidad/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /comprar/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /vender/i })).toBeInTheDocument();
-  });
-  
-  // ========== INTERACCIONES ==========
-  
-  it('submits buy order with correct data', async () => {
-    const user = userEvent.setup();
-    vi.mocked(orderService.placeOrder).mockResolvedValue({ orderId: '123' });
-    
-    render(<OrderForm symbol="BTCUSDT" onOrderPlaced={mockOnOrderPlaced} />);
-    
-    await user.type(screen.getByLabelText(/cantidad/i), '0.01');
-    await user.click(screen.getByRole('button', { name: /comprar/i }));
-    
-    await waitFor(() => {
-      expect(orderService.placeOrder).toHaveBeenCalledWith({
-        symbol: 'BTCUSDT',
-        side: 'BUY',
-        quantity: 0.01,
-        orderType: 'MARKET'
-      });
-    });
-  });
-  
-  // ========== VALIDACIONES UI ==========
-  
-  it('shows error for negative quantity', async () => {
-    const user = userEvent.setup();
-    render(<OrderForm symbol="BTCUSDT" onOrderPlaced={mockOnOrderPlaced} />);
-    
-    await user.type(screen.getByLabelText(/cantidad/i), '-1');
-    await user.click(screen.getByRole('button', { name: /comprar/i }));
-    
-    expect(screen.getByText(/cantidad debe ser positiva/i)).toBeInTheDocument();
-    expect(orderService.placeOrder).not.toHaveBeenCalled();
-  });
-  
-  // ========== ESTADOS DE ERROR ==========
-  
-  it('shows error message when order fails', async () => {
-    const user = userEvent.setup();
-    vi.mocked(orderService.placeOrder).mockRejectedValue(
-      new Error('Fondos insuficientes')
-    );
-    
-    render(<OrderForm symbol="BTCUSDT" onOrderPlaced={mockOnOrderPlaced} />);
-    
-    await user.type(screen.getByLabelText(/cantidad/i), '100');
-    await user.click(screen.getByRole('button', { name: /comprar/i }));
-    
-    await waitFor(() => {
-      expect(screen.getByRole('alert')).toHaveTextContent(/fondos insuficientes/i);
-    });
-  });
-});
-```
-
----
-
-## 🔢 TESTS DE CALCULADORAS FINANCIERAS (Crítico)
-
-```python
-# tests/unit/test_financial_calculators.py
-
-from decimal import Decimal
-import pytest
-from app.utils.calculators import (
-    calculate_pnl,
-    calculate_position_size,
-    calculate_risk_reward_ratio
-)
-
-class TestFinancialCalculators:
-    """
-    Tests para cálculos financieros.
-    CRÍTICO: Un error aquí puede mostrar P&L incorrecto al usuario.
-    """
-    
-    def test_pnl_long_profit(self):
-        """Posición long con ganancia."""
-        pnl = calculate_pnl(
-            entry_price=Decimal("40000"),
-            current_price=Decimal("42000"),
-            quantity=Decimal("0.1"),
-            side="LONG"
-        )
-        assert pnl == Decimal("200.00")  # (42000-40000) * 0.1
-    
-    def test_pnl_long_loss(self):
-        """Posición long con pérdida."""
-        pnl = calculate_pnl(
-            entry_price=Decimal("40000"),
-            current_price=Decimal("38000"),
-            quantity=Decimal("0.1"),
-            side="LONG"
-        )
-        assert pnl == Decimal("-200.00")
-    
-    def test_pnl_short_profit(self):
-        """Posición short con ganancia (precio bajó)."""
-        pnl = calculate_pnl(
-            entry_price=Decimal("40000"),
-            current_price=Decimal("38000"),
-            quantity=Decimal("0.1"),
-            side="SHORT"
-        )
-        assert pnl == Decimal("200.00")
-    
-    def test_position_size_calculation(self):
-        """Tamaño de posición basado en riesgo máximo."""
-        # Si tengo $10,000 y arriesgo máximo 1% ($100)
-        # Y el stop loss está a $500 de distancia
-        # Debo comprar 0.2 unidades
-        size = calculate_position_size(
-            account_size=Decimal("10000"),
-            risk_pct=Decimal("0.01"),  # 1%
-            entry_price=Decimal("40000"),
-            stop_loss_price=Decimal("37500")  # $2,500 de distancia
-        )
-        # 10000 * 0.01 = $100 de riesgo
-        # $100 / $2500 por unidad = 0.04 BTC
-        assert size == Decimal("0.04")
-    
-    @pytest.mark.parametrize("entry,sl,tp,expected_rr", [
-        (100, 95, 110, "2.00"),   # 2:1 ratio
-        (100, 90, 120, "2.00"),   # 2:1 ratio
-        (100, 98, 104, "2.00"),   # 2:1 ratio
-    ])
-    def test_risk_reward_ratio(self, entry, sl, tp, expected_rr):
-        rr = calculate_risk_reward_ratio(
-            entry_price=Decimal(str(entry)),
-            stop_loss=Decimal(str(sl)),
-            take_profit=Decimal(str(tp))
-        )
-        assert str(rr) == expected_rr
-```
-
----
-
-## 🚀 COMANDOS DE TEST
+## 📋 CONVENCIÓN DE COMMITS (Conventional Commits)
 
 ```bash
-# Backend — ejecutar todos los tests
-cd backend
-pytest tests/ -v
+# Formato: tipo(módulo): descripción corta en español
 
-# Backend — solo tests unitarios (más rápido)
-pytest tests/unit/ -v
+# Tipos:
+feat:     Nueva funcionalidad
+fix:      Corrección de bug
+refactor: Reorganización sin cambiar comportamiento
+test:     Agregar/modificar tests
+docs:     Documentación
+style:    Formato, espacios (sin cambios de lógica)
+chore:    Tareas de mantenimiento
+security: Cambios de seguridad
 
-# Backend — con cobertura
-pytest tests/ --cov=app --cov-report=html
-
-# Frontend — ejecutar tests
-cd frontend
-npm run test
-
-# Frontend — con UI
-npm run test:ui
-
-# Frontend — cobertura
-npm run test:coverage
+# Ejemplos:
+git commit -m "feat(orders): implementar creación de órdenes MARKET"
+git commit -m "fix(auth): corregir expiración de JWT en zona horaria UTC"
+git commit -m "security(api): agregar rate limiting en endpoints de órdenes"
+git commit -m "test(risk): agregar tests para validación de tamaño de posición"
 ```
 
 ---
 
-## 📊 COBERTURA MÍNIMA REQUERIDA
+## 🌿 ESTRATEGIA DE BRANCHES
 
-| Módulo | Cobertura mínima |
-|--------|-----------------|
-| `services/risk_service.py` | 95% |
-| `services/order_service.py` | 90% |
-| `utils/calculators.py` | 100% |
-| `core/security.py` | 95% |
-| Componentes de órdenes | 85% |
-| Hooks de WebSocket | 80% |
+```
+main
+├── Es el código en producción
+├── NUNCA commitear directamente
+└── Solo recibe merges de develop
 
-**Regla:** Si la cobertura baja del mínimo → no se puede mergear el código.
+develop
+├── Código integrado y testeado
+├── Base para nuevas features
+└── Merge a main cuando el módulo está completo
+
+feature/[nombre-del-módulo]
+├── Desarrollo de cada módulo
+├── Ejemplos:
+│   ├── feature/auth-jwt
+│   ├── feature/order-management
+│   ├── feature/realtime-feed
+│   └── feature/portfolio-tracker
+└── Merge a develop cuando está testeado
+```
+
+### Comandos de gestión de branches:
+```bash
+# Crear branch para nuevo módulo
+git checkout develop
+git pull
+git checkout -b feature/nombre-del-modulo
+
+# Cuando el módulo está listo
+git checkout develop
+git merge feature/nombre-del-modulo
+git push
+
+# Ver estado actual
+git status
+git log --oneline -10
+```
+
+---
+
+## ⏱️ CUÁNDO HACER COMMIT
+
+```
+✅ Hacer commit:
+- Al terminar cada archivo nuevo
+- Al hacer pasar un test
+- Antes de un refactor grande
+- Al final de cada sesión de trabajo
+- Cuando algo funciona (¡aunque sea parcial!)
+
+❌ NO hacer commit:
+- Código que no compila/tiene errores de sintaxis
+- Con secrets o API keys (verificar .gitignore)
+- Con console.log de debug masivos
+- Cuando los tests están fallando
+```
+
+---
+
+## 🆘 COMANDOS DE EMERGENCIA
+
+```bash
+# Ver qué archivos cambiaron
+git status
+git diff
+
+# DESHACER cambios en un archivo (volver al último commit)
+git checkout -- nombre-del-archivo.py
+
+# DESHACER TODOS los cambios no commiteados (¡irreversible!)
+git checkout -- .
+
+# Volver al commit anterior (sin perder los cambios - safe)
+git reset HEAD~1 --soft
+
+# Volver al commit anterior (perdiendo cambios - destructivo)
+git reset HEAD~1 --hard
+
+# Ver historial
+git log --oneline -20
+
+# Volver a un commit específico (solo para ver)
+git checkout [hash-del-commit]
+
+# Crear branch desde un commit anterior (para recuperar código)
+git checkout -b recovery/[descripcion] [hash-del-commit]
+```
+
+---
+
+## 🗂️ .GITIGNORE COMPLETO PARA TRADING TERMINAL
+
+```gitignore
+# ============================================================
+# TRADING TERMINAL — .gitignore
+# ============================================================
+
+# === SECRETOS (NUNCA COMMITEAR) ===
+.env
+.env.local
+.env.production
+.env.staging
+*.pem
+*.key
+*.p12
+secrets/
+credentials/
+
+# === PYTHON ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# === NODE / FRONTEND ===
+node_modules/
+dist/
+.next/
+.nuxt/
+*.local
+
+# === BASES DE DATOS LOCALES ===
+*.sqlite
+*.db
+*.db-journal
+
+# === IDEs ===
+.idea/
+.vscode/settings.json     # Solo settings personales, no compartir
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# === LOGS ===
+*.log
+logs/
+!logs/.gitkeep            # Mantener carpeta pero no los logs
+
+# === TRADING ESPECÍFICO ===
+backtest_results/
+trading_data/
+market_cache/
+```
+
+---
+
+## 🔄 WORKFLOW COMPLETO DE SESIÓN
+
+```bash
+# === INICIO DE SESIÓN ===
+git status                           # Ver estado actual
+git pull                             # Traer cambios remotos
+git checkout feature/modulo-actual   # Ir al branch del módulo
+
+# === DURANTE EL DESARROLLO ===
+# ... La IA escribe código ...
+git add [archivo-específico]         # Agregar archivo específico
+git commit -m "feat(módulo): ..."    # Commit descriptivo
+
+# === FIN DE SESIÓN ===
+git status                           # Verificar nada quedó sin commitear
+git add .
+git commit -m "wip(módulo): checkpoint final de sesión"
+git push                             # Subir al remoto
+
+# === CUANDO UN MÓDULO ESTÁ COMPLETO ===
+git checkout develop
+git merge feature/nombre-del-modulo
+git push
+git branch -d feature/nombre-del-modulo  # Borrar branch terminado
+```
+
+---
+
+## 📝 CHANGELOG
+
+Mantener `CHANGELOG.md` actualizado:
+
+```markdown
+# Changelog
+
+## [Unreleased]
+
+### Agregado
+- feat(auth): Sistema de autenticación JWT con refresh tokens
+- feat(orders): Endpoint para crear órdenes MARKET y LIMIT
+
+### Modificado  
+- refactor(risk): Extraer validaciones a RiskService separado
+
+### Corregido
+- fix(websocket): Memory leak en reconexión automática
+
+## [0.1.0] - 2025-06-01
+
+### Agregado
+- Estructura inicial del proyecto
+- Configuración de entorno de desarrollo
+```
 
 ---
 > Source: [juandoroteoflesiauni-lang/Market-options-stocks-Scanner](https://github.com/juandoroteoflesiauni-lang/Market-options-stocks-Scanner) — distributed by [TomeVault](https://tomevault.io).
