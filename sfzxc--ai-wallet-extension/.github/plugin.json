@@ -1,0 +1,9 @@
+{
+  "name": "sfzxc--ai-wallet-extension",
+  "displayName": "ai-wallet-extension",
+  "description": "Chrome extension wallet for user-owned AI API access",
+  "version": "1.0.0",
+  "author": "SFzxc",
+  "homepage": "https://github.com/SFzxc/ai-wallet-extension",
+  "skills": []
+}
