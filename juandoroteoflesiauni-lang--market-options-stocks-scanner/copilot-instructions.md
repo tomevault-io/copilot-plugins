@@ -1,254 +1,342 @@
-## 060-git-workflow
+## 070-ui-components
 
-> Reglas de Git y control de versiones — punto de recuperación ante errores del vibecoding
+> Reglas de componentes UI para la terminal de trading — gráficos, órdenes, portfolio
 
 
-# 🔀 GIT WORKFLOW — TRADING TERMINAL
+# 🖥️ UI COMPONENTS — TRADING TERMINAL
 
-## GIT ES TU RED DE SEGURIDAD
+## DISEÑO DE LA TERMINAL DE TRADING
 
-En vibecoding, la IA puede equivocarse y romper cosas.
-Git es la única forma de volver a un estado funcional.
-**Hacer commit frecuente = poder deshacer errores de la IA.**
-
----
-
-## 📋 CONVENCIÓN DE COMMITS (Conventional Commits)
-
-```bash
-# Formato: tipo(módulo): descripción corta en español
-
-# Tipos:
-feat:     Nueva funcionalidad
-fix:      Corrección de bug
-refactor: Reorganización sin cambiar comportamiento
-test:     Agregar/modificar tests
-docs:     Documentación
-style:    Formato, espacios (sin cambios de lógica)
-chore:    Tareas de mantenimiento
-security: Cambios de seguridad
-
-# Ejemplos:
-git commit -m "feat(orders): implementar creación de órdenes MARKET"
-git commit -m "fix(auth): corregir expiración de JWT en zona horaria UTC"
-git commit -m "security(api): agregar rate limiting en endpoints de órdenes"
-git commit -m "test(risk): agregar tests para validación de tamaño de posición"
+### Tema visual obligatorio:
+```css
+/* design-tokens.css — Variables globales */
+:root {
+  /* Colores base — Tema oscuro como Bloomberg/TradingView */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-panel: #1c2128;
+  --bg-card: #21262d;
+  
+  /* Colores de trading */
+  --color-buy: #00c851;        /* Verde — Compra */
+  --color-sell: #ff4444;       /* Rojo — Venta */
+  --color-neutral: #f0c040;    /* Amarillo — Neutro/Pendiente */
+  
+  /* Texto */
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #484f58;
+  
+  /* Bordes */
+  --border-default: #30363d;
+  --border-accent: #388bfd;
+  
+  /* Tipografía */
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace; /* Para precios */
+  --font-ui: 'Inter', system-ui, sans-serif;
+}
 ```
 
 ---
 
-## 🌿 ESTRATEGIA DE BRANCHES
+## 📊 COMPONENTES DE PRECIOS — Reglas Críticas
 
-```
-main
-├── Es el código en producción
-├── NUNCA commitear directamente
-└── Solo recibe merges de develop
+```typescript
+// ✅ CORRECTO — Precio con color dinámico y fuente monoespaciada
 
-develop
-├── Código integrado y testeado
-├── Base para nuevas features
-└── Merge a main cuando el módulo está completo
+interface PriceDisplayProps {
+  price: number;
+  previousPrice?: number;
+  decimals?: number;
+  showChange?: boolean;
+}
 
-feature/[nombre-del-módulo]
-├── Desarrollo de cada módulo
-├── Ejemplos:
-│   ├── feature/auth-jwt
-│   ├── feature/order-management
-│   ├── feature/realtime-feed
-│   └── feature/portfolio-tracker
-└── Merge a develop cuando está testeado
-```
+const PriceDisplay: React.FC<PriceDisplayProps> = ({
+  price,
+  previousPrice,
+  decimals = 2,
+  showChange = false
+}) => {
+  const isUp = previousPrice !== undefined && price > previousPrice;
+  const isDown = previousPrice !== undefined && price < previousPrice;
+  const changeColor = isUp ? 'text-[#00c851]' : isDown ? 'text-[#ff4444]' : 'text-[#e6edf3]';
+  
+  return (
+    <span 
+      className={`font-mono font-semibold tabular-nums ${changeColor}`}
+      aria-label={`Precio: ${price.toFixed(decimals)}`}
+    >
+      {price.toFixed(decimals)}
+    </span>
+  );
+};
 
-### Comandos de gestión de branches:
-```bash
-# Crear branch para nuevo módulo
-git checkout develop
-git pull
-git checkout -b feature/nombre-del-modulo
-
-# Cuando el módulo está listo
-git checkout develop
-git merge feature/nombre-del-modulo
-git push
-
-# Ver estado actual
-git status
-git log --oneline -10
-```
-
----
-
-## ⏱️ CUÁNDO HACER COMMIT
-
-```
-✅ Hacer commit:
-- Al terminar cada archivo nuevo
-- Al hacer pasar un test
-- Antes de un refactor grande
-- Al final de cada sesión de trabajo
-- Cuando algo funciona (¡aunque sea parcial!)
-
-❌ NO hacer commit:
-- Código que no compila/tiene errores de sintaxis
-- Con secrets o API keys (verificar .gitignore)
-- Con console.log de debug masivos
-- Cuando los tests están fallando
+// REGLAS DE PRECIOS EN UI:
+// 1. SIEMPRE usar font-mono para precios (alineación de dígitos)
+// 2. SIEMPRE tabular-nums para evitar saltos visuales
+// 3. Verde para subida, rojo para bajada
+// 4. Decimales fijos según el instrumento (BTC=2, FOREX=5)
 ```
 
 ---
 
-## 🆘 COMANDOS DE EMERGENCIA
+## 📋 FORMULARIO DE ÓRDENES
 
-```bash
-# Ver qué archivos cambiaron
-git status
-git diff
+```typescript
+// components/orders/OrderForm.tsx
 
-# DESHACER cambios en un archivo (volver al último commit)
-git checkout -- nombre-del-archivo.py
+interface OrderFormState {
+  side: 'BUY' | 'SELL';
+  orderType: 'MARKET' | 'LIMIT' | 'STOP_LIMIT';
+  quantity: string;
+  price: string;
+  stopPrice: string;
+}
 
-# DESHACER TODOS los cambios no commiteados (¡irreversible!)
-git checkout -- .
-
-# Volver al commit anterior (sin perder los cambios - safe)
-git reset HEAD~1 --soft
-
-# Volver al commit anterior (perdiendo cambios - destructivo)
-git reset HEAD~1 --hard
-
-# Ver historial
-git log --oneline -20
-
-# Volver a un commit específico (solo para ver)
-git checkout [hash-del-commit]
-
-# Crear branch desde un commit anterior (para recuperar código)
-git checkout -b recovery/[descripcion] [hash-del-commit]
+const OrderForm: React.FC<{ symbol: string; onOrderPlaced: (id: string) => void }> = ({
+  symbol,
+  onOrderPlaced
+}) => {
+  const [state, setState] = useState<OrderFormState>({
+    side: 'BUY',
+    orderType: 'MARKET',
+    quantity: '',
+    price: '',
+    stopPrice: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Validación del formulario
+  const validateForm = (): string | null => {
+    const qty = parseFloat(state.quantity);
+    if (isNaN(qty) || qty <= 0) return 'Cantidad debe ser un número positivo';
+    if (state.orderType === 'LIMIT' && !state.price) return 'Precio requerido para orden LIMIT';
+    return null;
+  };
+  
+  const handleSubmit = async () => {
+    setError(null);
+    const validationError = validateForm();
+    if (validationError) { setError(validationError); return; }
+    
+    setIsLoading(true);
+    try {
+      const order = await orderService.placeOrder({
+        symbol,
+        side: state.side,
+        orderType: state.orderType,
+        quantity: state.quantity,
+        price: state.price || undefined
+      });
+      onOrderPlaced(order.orderId);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al enviar orden');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  return (
+    <div className="bg-[#1c2128] border border-[#30363d] rounded-lg p-4">
+      {/* Selector BUY/SELL */}
+      <div className="grid grid-cols-2 gap-1 mb-4">
+        <button
+          onClick={() => setState(s => ({ ...s, side: 'BUY' }))}
+          className={`py-2 rounded font-semibold transition-colors ${
+            state.side === 'BUY' 
+              ? 'bg-[#00c851] text-black' 
+              : 'bg-[#21262d] text-[#8b949e] hover:bg-[#00c851]/20'
+          }`}
+        >
+          COMPRAR
+        </button>
+        <button
+          onClick={() => setState(s => ({ ...s, side: 'SELL' }))}
+          className={`py-2 rounded font-semibold transition-colors ${
+            state.side === 'SELL' 
+              ? 'bg-[#ff4444] text-white' 
+              : 'bg-[#21262d] text-[#8b949e] hover:bg-[#ff4444]/20'
+          }`}
+        >
+          VENDER
+        </button>
+      </div>
+      
+      {/* Campo Cantidad */}
+      <div className="mb-3">
+        <label className="block text-[#8b949e] text-xs mb-1">Cantidad</label>
+        <input
+          type="number"
+          value={state.quantity}
+          onChange={e => setState(s => ({ ...s, quantity: e.target.value }))}
+          placeholder="0.00"
+          min="0"
+          step="any"
+          className="w-full bg-[#21262d] border border-[#30363d] text-[#e6edf3] 
+                     font-mono rounded px-3 py-2 focus:border-[#388bfd] outline-none"
+        />
+      </div>
+      
+      {/* Error */}
+      {error && (
+        <div role="alert" className="text-[#ff4444] text-sm mb-3 p-2 bg-[#ff4444]/10 rounded">
+          ⚠️ {error}
+        </div>
+      )}
+      
+      {/* Submit */}
+      <button
+        onClick={handleSubmit}
+        disabled={isLoading}
+        className={`w-full py-3 rounded font-semibold transition-all
+          ${state.side === 'BUY' 
+            ? 'bg-[#00c851] hover:bg-[#00a843] text-black' 
+            : 'bg-[#ff4444] hover:bg-[#cc3333] text-white'
+          }
+          disabled:opacity-50 disabled:cursor-not-allowed`}
+      >
+        {isLoading ? 'Enviando...' : `${state.side === 'BUY' ? 'Comprar' : 'Vender'} ${symbol}`}
+      </button>
+    </div>
+  );
+};
 ```
 
 ---
 
-## 🗂️ .GITIGNORE COMPLETO PARA TRADING TERMINAL
+## 🏪 ORDER BOOK COMPONENT
 
-```gitignore
-# ============================================================
-# TRADING TERMINAL — .gitignore
-# ============================================================
+```typescript
+// Reglas para renderizar el order book en tiempo real:
 
-# === SECRETOS (NUNCA COMMITEAR) ===
-.env
-.env.local
-.env.production
-.env.staging
-*.pem
-*.key
-*.p12
-secrets/
-credentials/
+// 1. SIEMPRE virtualizar listas grandes (react-virtual)
+// 2. Precios con tabular-nums para alineación
+// 3. Profundidad visual proporcional al volumen
+// 4. Verde para bids, Rojo para asks
+// 5. Actualizar eficientemente (no re-renderizar toda la lista)
 
-# === PYTHON ===
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-.venv/
-venv/
-env/
-ENV/
-*.egg-info/
-dist/
-build/
-.pytest_cache/
-.coverage
-htmlcov/
-
-# === NODE / FRONTEND ===
-node_modules/
-dist/
-.next/
-.nuxt/
-*.local
-
-# === BASES DE DATOS LOCALES ===
-*.sqlite
-*.db
-*.db-journal
-
-# === IDEs ===
-.idea/
-.vscode/settings.json     # Solo settings personales, no compartir
-*.swp
-*.swo
-.DS_Store
-Thumbs.db
-
-# === LOGS ===
-*.log
-logs/
-!logs/.gitkeep            # Mantener carpeta pero no los logs
-
-# === TRADING ESPECÍFICO ===
-backtest_results/
-trading_data/
-market_cache/
+const OrderBookRow: React.FC<{
+  price: number;
+  quantity: number;
+  total: number;
+  maxTotal: number;
+  side: 'bid' | 'ask';
+}> = React.memo(({ price, quantity, total, maxTotal, side }) => {
+  const depth = (total / maxTotal) * 100;
+  const color = side === 'bid' ? '#00c851' : '#ff4444';
+  
+  return (
+    <div className="relative flex justify-between px-2 py-0.5 text-xs font-mono">
+      {/* Barra de profundidad */}
+      <div
+        className="absolute inset-y-0 right-0 opacity-15"
+        style={{
+          width: `${depth}%`,
+          backgroundColor: color
+        }}
+      />
+      <span style={{ color }}>{price.toFixed(2)}</span>
+      <span className="text-[#e6edf3]">{quantity.toFixed(4)}</span>
+      <span className="text-[#8b949e]">{total.toFixed(2)}</span>
+    </div>
+  );
+});
 ```
 
 ---
 
-## 🔄 WORKFLOW COMPLETO DE SESIÓN
+## 📈 INTEGRACIÓN TRADINGVIEW
 
-```bash
-# === INICIO DE SESIÓN ===
-git status                           # Ver estado actual
-git pull                             # Traer cambios remotos
-git checkout feature/modulo-actual   # Ir al branch del módulo
+```typescript
+// components/charts/TradingViewChart.tsx
+// Usar TradingView Lightweight Charts (libre y gratuito)
 
-# === DURANTE EL DESARROLLO ===
-# ... La IA escribe código ...
-git add [archivo-específico]         # Agregar archivo específico
-git commit -m "feat(módulo): ..."    # Commit descriptivo
+import { createChart, IChartApi, ISeriesApi } from 'lightweight-charts';
 
-# === FIN DE SESIÓN ===
-git status                           # Verificar nada quedó sin commitear
-git add .
-git commit -m "wip(módulo): checkpoint final de sesión"
-git push                             # Subir al remoto
-
-# === CUANDO UN MÓDULO ESTÁ COMPLETO ===
-git checkout develop
-git merge feature/nombre-del-modulo
-git push
-git branch -d feature/nombre-del-modulo  # Borrar branch terminado
+export const CandlestickChart: React.FC<{ symbol: string }> = ({ symbol }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const chartRef = useRef<IChartApi | null>(null);
+  const seriesRef = useRef<ISeriesApi<'Candlestick'> | null>(null);
+  
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    // Crear chart con tema oscuro
+    chartRef.current = createChart(containerRef.current, {
+      layout: {
+        background: { color: '#0d1117' },
+        textColor: '#8b949e',
+      },
+      grid: {
+        vertLines: { color: '#21262d' },
+        horzLines: { color: '#21262d' },
+      },
+      crosshair: {
+        vertLine: { color: '#388bfd', width: 1 },
+        horzLine: { color: '#388bfd', width: 1 },
+      },
+      width: containerRef.current.clientWidth,
+      height: 400,
+    });
+    
+    seriesRef.current = chartRef.current.addCandlestickSeries({
+      upColor: '#00c851',
+      downColor: '#ff4444',
+      borderVisible: false,
+      wickUpColor: '#00c851',
+      wickDownColor: '#ff4444',
+    });
+    
+    return () => chartRef.current?.remove();
+  }, []);
+  
+  return <div ref={containerRef} className="w-full" />;
+};
 ```
 
 ---
 
-## 📝 CHANGELOG
+## ♿ ACCESIBILIDAD (Mínimo requerido)
 
-Mantener `CHANGELOG.md` actualizado:
+```typescript
+// Todos los componentes de trading deben ser accesibles:
 
-```markdown
-# Changelog
+// 1. Labels descriptivos para screen readers
+<input aria-label="Cantidad de Bitcoin a comprar" />
 
-## [Unreleased]
+// 2. Roles ARIA para elementos dinámicos
+<div role="status" aria-live="polite">
+  Precio actualizado: ${price}
+</div>
 
-### Agregado
-- feat(auth): Sistema de autenticación JWT con refresh tokens
-- feat(orders): Endpoint para crear órdenes MARKET y LIMIT
+// 3. Alertas de error
+<div role="alert" aria-atomic="true">
+  Error: {errorMessage}
+</div>
 
-### Modificado  
-- refactor(risk): Extraer validaciones a RiskService separado
+// 4. Botones con estado claro
+<button 
+  aria-pressed={side === 'BUY'}
+  aria-label="Seleccionar modo compra"
+>
+  COMPRAR
+</button>
+```
 
-### Corregido
-- fix(websocket): Memory leak en reconexión automática
+---
 
-## [0.1.0] - 2025-06-01
+## 📱 DISEÑO RESPONSIVE
 
-### Agregado
-- Estructura inicial del proyecto
-- Configuración de entorno de desarrollo
+```
+Desktop (>1280px): Layout de 3 columnas — Gráfico | Order Form | Portfolio
+Tablet (768-1280): Layout de 2 columnas — Gráfico+Form | Portfolio
+Mobile (<768px):   Layout de 1 columna — Tabs para cambiar vista
+
+NUNCA:
+- Tablas de order book en mobile sin scroll horizontal
+- Precios cortados por falta de espacio
+- Botones de órdenes demasiado pequeños para dedos
 ```
 
 ---
