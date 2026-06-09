@@ -1,204 +1,22 @@
-## llm-swarm-router
+## netllm
 
-> **swarm-llm (netllm)** is a mesh router for local LLM backends. Each host runs a lightweight agent that discovers oMLX (macOS), Ollama, LM Studio, and vLLM on localhost, finds sibling agents on the LAN via mDNS, and exposes dual API surfaces: OpenAI-compatible `http://<host>:11400/v1` and Anthropic Messages API `http://<host>:11400/v1/messages` (with translation to local backends).
+> Route netllm install, editor connect, swarm, troubleshoot, PR/release, and macOS CI requests to project skills and docs
 
-# Agent & developer guide
 
-## Project overview
+When the user asks to install, set up, connect, swarm, or troubleshoot **netllm** or **swarm-llm**, load the matching skill from `.cursor/skills/`:
 
-**swarm-llm (netllm)** is a mesh router for local LLM backends. Each host runs a lightweight agent that discovers oMLX (macOS), Ollama, LM Studio, and vLLM on localhost, finds sibling agents on the LAN via mDNS, and exposes dual API surfaces: OpenAI-compatible `http://<host>:11400/v1` and Anthropic Messages API `http://<host>:11400/v1/messages` (with translation to local backends).
+For **PR checks, release, macOS menubar builds, or CI failures** on `menubar-lifecycle`: read [docs/ci-and-release.md](../../docs/ci-and-release.md) and run `scripts/verify-before-pr.sh` before claiming green. Do not bump `Package.swift` to Swift 6 without updating runners.
 
-Tech stack: Python 3.11+, [uv](https://docs.astral.sh/uv/) workspace monorepo, FastAPI agent, Typer CLI.
+| Intent | Skill path |
+|--------|------------|
+| First-time install, clone setup | `.cursor/skills/netllm-setup/SKILL.md` |
+| Wire Cursor, Claude Code, Codex, Honcho | `.cursor/skills/netllm-connect-editor/SKILL.md` |
+| LAN mesh, multi-machine, peers, gateway | `.cursor/skills/netllm-swarm/SKILL.md` |
+| Broken agent, no models, doctor | `.cursor/skills/netllm-doctor/SKILL.md` |
 
-## Architecture
+Follow the skill workflow exactly. Prefer `./netllm` from repo root. Project context: [AGENTS.md](../../AGENTS.md).
 
-| Package | Path | Role |
-|---------|------|------|
-| netllm-core | `packages/netllm-core/` | Routing, health cache, config |
-| netllm-sdk-openai | `packages/netllm-sdk-openai/` | OpenAI SDK upstream adapter |
-| netllm-sdk-anthropic | `packages/netllm-sdk-anthropic/` | Anthropic SDK upstream adapter |
-| netllm-discovery | `packages/netllm-discovery/` | Local scan, swarm registry, mDNS |
-| netllm-agent | `packages/netllm-agent/` | FastAPI: `/v1/*`, `/netllm/v1/*`, `/metrics` |
-| netllm-cli | `packages/netllm-cli/` | Typer CLI |
-
-Honcho integration: [docs/honcho-integration.md](docs/honcho-integration.md).
-
-## Repository layout
-
-| Path | Purpose |
-|------|---------|
-| `packages/` | Python source of truth (uv workspace) |
-| `apps/` | Native apps: macOS menubar today (`apps/netllm-mac/`) |
-| `packaging/` | Release builds per OS: [packaging/README.md](packaging/README.md) |
-| `docs/` | User install/troubleshoot/editor guides: [docs/README.md](docs/README.md) |
-| `tests/` | Cross-package integration tests |
-| `scripts/` | CI, skill sync, install emulation |
-| `Formula/` | Homebrew formula |
-| `.agents/skills/` | Canonical agent skills → sync via `scripts/sync-agent-skills.sh` to `.claude/`, `.cursor/`, `.github/` |
-
-Edit skills only under `.agents/`; run `scripts/sync-agent-skills.sh` after changes.
-
-## Key commands
-
-Prefer `./netllm` from the repo root, works without global PATH (`uv run` wrapper in [netllm](netllm)).
-
-| Command | Purpose |
-|---------|---------|
-| `uv sync` | Install workspace dependencies |
-| `./netllm init` | Write config, scan local providers, optional global CLI |
-| `./netllm install` | Global `netllm` via `uv tool install` + shell PATH |
-| `./netllm serve` | Start agent (foreground, default `127.0.0.1:11400`) |
-| `./netllm start` / `stop` / `restart` | Background agent (macOS app, Homebrew, Linux systemd, Windows service) |
-| `./netllm serve --host 0.0.0.0` | LAN + swarm: other machines can reach this agent |
-| `./netllm status` | Agent, backends, swarm peers |
-| `./netllm models` | Routed model catalog |
-| `./netllm models --lan` | Models on remote LAN agents |
-| `./netllm peers` | mDNS browse for swarm agents |
-| `./netllm discover` | Probe oMLX / Ollama / LM Studio / vLLM on localhost |
-| `./netllm test` | 1-token latency diagnose (OpenAI backends) |
-| `./netllm test --api anthropic` | 1-token Messages API probe via agent |
-| `./netllm gateway` | Promote agent role to gateway |
-| `./netllm doctor` | PATH, mDNS, backend misconfig checks |
-| `./netllm config-edit` | Open `config.toml` in `$EDITOR` |
-| `./scripts/ci.sh` | Lint + test (same as CI) |
-| `./scripts/ci.sh lint` | Ruff check + format --check |
-| `./scripts/ci.sh test` | Run tests |
-| `./scripts/ci.sh packaging` | Build deb/rpm (Linux) or zip (Windows) smoke artifacts |
-| `scripts/verify-before-pr.sh` | Pre-push gate: lint + test + macOS `swift build -c release` |
-| `scripts/verify-before-pr.sh --full` | Above + menubar e2e when Stage `.app` exists |
-| `scripts/agent-verify-setup.sh` | Health + models check after setup |
-| `scripts/sync-agent-skills.sh` | Sync `.agents/skills/` to other tool paths |
-
-## Environment
-
-Config: `~/.config/netllm/config.toml` (created by `./netllm init`). Example: [config.example.toml](config.example.toml).
-
-Wire any OpenAI-compatible client:
-
-```bash
-export OPENAI_BASE_URL=http://127.0.0.1:11400/v1
-export OPENAI_API_KEY=netllm-local
-```
-
-Native Anthropic Messages API (Claude Code, etc.):
-
-```bash
-export ANTHROPIC_BASE_URL=http://127.0.0.1:11400
-export ANTHROPIC_API_KEY=netllm-local
-```
-
-Use a real `ANTHROPIC_API_KEY` only for cloud failover; local mesh uses `netllm-local`.
-
-Default provider ports: oMLX `:8080`, Ollama `:11434`, LM Studio `:1234`, vLLM `:8000`.
-
-## Linux and Windows
-
-| Platform | Install | Troubleshooting | Background agent | UI |
-|----------|---------|-----------------|------------------|-----|
-| Linux | [docs/linux-install.md](docs/linux-install.md) | [docs/linux-troubleshooting.md](docs/linux-troubleshooting.md) | `systemctl --user enable --now netllm` (deb/rpm) | http://127.0.0.1:11400/ui/ |
-| Windows | [docs/windows-install.md](docs/windows-install.md) | [docs/windows-troubleshooting.md](docs/windows-troubleshooting.md) | `NetllmAgent` service via packaged zip | http://127.0.0.1:11400/ui/ |
-
-Cross-platform matrix: [docs/platform-matrix.md](docs/platform-matrix.md). Agent graph wiki: `graphify-out/wiki/index.md` (after `graphify update .`).
-
-## macOS menubar app
-
-Native app (oMLX-style): [docs/macos-install.md](docs/macos-install.md) · Troubleshooting: [docs/macos-troubleshooting.md](docs/macos-troubleshooting.md).
-
-| Channel | Install |
-|---------|---------|
-| DMG | GitHub Releases → drag `llm-swarm-router.app` to Applications |
-| Homebrew | `brew install netllm` + `brew services start netllm` |
-| Source | `./netllm serve` (unchanged dev path) |
-
-Build: `apps/netllm-mac/Scripts/build.sh release` (requires `venvstacks` + `uv sync`).
-
-**CI / release:** [docs/ci-and-release.md](docs/ci-and-release.md) — PR jobs, macOS Swift constraints, release tag workflow.
-
-macOS menubar PRs must pass `menubar-lifecycle` on GitHub (`macos-14`, Swift 5.10): keep `Package.swift` at **swift-tools 5.9**, mark menubar SwiftUI views `@MainActor`, gate Tahoe `glassEffect` behind `LIQUID_GLASS_SDK` in `build.sh`. Run `scripts/verify-before-pr.sh` before push.
-
-## SDK maintenance
-
-Vendor SDKs are isolated in `netllm-sdk-openai` and `netllm-sdk-anthropic` only, `netllm-core` never imports `openai` or `anthropic`. Tracked versions: [docs/sdk-versions.md](docs/sdk-versions.md).
-
-**Bump checklist** (one package per PR):
-
-1. Edit `anthropic>=…` or `openai>=…` in the matching `packages/netllm-sdk-*/pyproject.toml`
-2. `uv sync` and commit `uv.lock`
-3. Update [docs/sdk-versions.md](docs/sdk-versions.md) (resolved version + date)
-4. `./scripts/ci.sh sdk` then `./scripts/ci.sh`
-5. Read upstream SDK changelog; adjust adapter (`client.py`), bridge (`anthropic_bridge.py`), or agent layer per [docs/sdk-versions.md](docs/sdk-versions.md#change-layers)
-
-## Agent skills
-
-Load the matching skill when the user asks to install, connect an editor, set up a swarm, or troubleshoot netllm. In Claude Code, use slash commands (e.g. `/netllm-setup`).
-
-| Skill | Triggers | Canonical path |
-|-------|----------|------------------|
-| `netllm-setup` | install swarm-llm, set up netllm, `/netllm-setup` | `.agents/skills/netllm-setup/SKILL.md` |
-| `netllm-connect-editor` | connect Cursor, wire Claude Code, Codex local model, `/netllm-connect` | `.agents/skills/netllm-connect-editor/SKILL.md` |
-| `netllm-swarm` | LAN swarm, multi-machine, `/netllm-swarm` | `.agents/skills/netllm-swarm/SKILL.md` |
-| `netllm-doctor` | netllm broken, no models, agent unreachable, `/netllm-doctor` | `.agents/skills/netllm-doctor/SKILL.md` |
-
-Tool-specific copies: `.claude/skills/`, `.cursor/skills/`, `.github/skills/`. Keep in sync via `scripts/sync-agent-skills.sh`.
-
-Editor wiring reference: [docs/editor-integration.md](docs/editor-integration.md).
-
-## Code style
-
-- Python 3.11+, line length 88 (ruff)
-- Type checking: basedpyright, mode `standard`
-- Imports: ruff isort (`E`, `F`, `I`, `UP` rules)
-- Match existing package layout and Typer/Rich CLI patterns in `netllm-cli`
-
-## Testing
-
-- Runner: pytest (`tests/`, asyncio mode auto)
-- CI: `./scripts/ci.sh lint` (Ubuntu) then `./scripts/ci.sh test` + `./scripts/ci.sh packaging` (Ubuntu + Windows); macOS `menubar-lifecycle` on PRs that touch `apps/netllm-mac/` or packaging
-- Pre-push: `scripts/verify-before-pr.sh` (see [docs/ci-and-release.md](docs/ci-and-release.md))
-- Add tests only for real behavior; avoid trivial assertions
-
-## Git workflow
-
-Human contributors: see [CONTRIBUTING.md](CONTRIBUTING.md) for fork/PR workflow, issue templates, and review expectations.
-
-- Conventional commit messages; focus on why
-- Do not commit `.cursor/plans/`, `.cursor/outreach/`, `.cursor/hooks/`, `.cursor/mcp.json`, `.cursor/rules/graphify.mdc`, or secrets
-- Do not commit unless the user explicitly asks (agents); human contributors open PRs per CONTRIBUTING.md
-
-## Do not
-
-- Edit user `.env` files or replace keys/values unless explicitly directed
-- Delete files: move to `archived/` and log the action (project convention)
-- Commit secrets, API keys, or real credentials
-- Assume `netllm` is on PATH: prefer `./netllm` from repo root in instructions
-- Skip `./netllm doctor` before declaring setup complete
-- Auto-edit user editor `settings.json` without explicit consent
-- macOS menubar in-app install only works from `/Applications/llm-swarm-router.app` or `netllm-mac.app`; web dashboard proxies update checks via `GET /netllm/v1/update/check`
-
-## Learned User Preferences
-
-- Validate macOS updater/install fixes locally (`tests/test_bundled_install_scripts.sh`, `scripts/test-menubar-e2e.sh`) before release commits or tags
-- Run `./scripts/verify-before-pr.sh` (or `--full` with menubar e2e) before pushing macOS menubar PRs
-- macOS in-app update must stop the agent and free `:11400` as part of install — not require manual **Stop** first
-- Commit macOS update/install fixes as focused slices separate from unrelated feature work when possible
-- Run local agent smoke (`./netllm test`, menubar e2e) before PR, merge, and release
-
-## Learned Workspace Facts
-
-- Local web dashboard at http://127.0.0.1:11400/ui/ on all platforms; macOS menubar has **Open Dashboard**
-- Linux/Windows **alpha** use `/ui/` + CLI; macOS stable adds menubar app: same agent core
-- Published GitHub Releases attach DMG (macOS), `.deb`/`.rpm` (Linux), Windows zip, and `netllm.yaml` via `.github/workflows/release.yml`: see [docs/platform-matrix.md](docs/platform-matrix.md)
-- `./netllm` wrapper runs `uv run --directory $ROOT netllm`: no global install needed; `scripts/agent-verify-setup.sh` prefers global `netllm` when on PATH — use `./netllm` for repo-local smoke
-- mDNS (swarm discovery) requires zeroconf from `uv sync`; `serve` on loopback blocks LAN peers — use `--host 0.0.0.0` for swarm; set `swarm.cluster_token` on untrusted networks
-- Do not run the macOS menubar app and `./netllm serve` together; both bind `:11400`. Before quitting the app, use **Stop** so the agent subprocess exits; otherwise an orphan can hold `:11400` and block the next launch.
-- oMLX discovery probes `:8080` by default; backends on other ports need `[discovery].custom_endpoints` or `[[routing.backends]]` in `~/.config/netllm/config.toml`.
-- macOS in-app auto-update notifies only when the latest GitHub release includes a `llm-swarm-router.dmg` asset; logs under `~/Library/Application Support/netllm/logs/` (`update.log`, `install.log`, `app.log`)
-- Release tag must match root `pyproject.toml` version; bump all workspace packages + `uv lock` before `gh release create`. **v0.3.0.1** patches URLSession download staging (`CFNetworkDownload_*.tmp`); **v0.3.0.0** shipped Phase 1–2 Apple AI work (App Intents, MenuBarExtra, routing policies)
-- Repo checkout changes do **not** update `/Applications/llm-swarm-router.app` — install from GitHub DMG or `scripts/upgrade-mac-app.sh`; verify with `defaults read …/Info CFBundleShortVersionString` (don't assume `~/Downloads/llm-swarm-router.dmg` is latest)
-- Bundled `macos-app-install.sh` resolves co-located `Contents/Resources/Scripts/mount-dmg.sh` (not `Contents/packaging/…`); in-app update uses `--in-app-update` to stop agent and replace the bundle
-- Gate macOS menubar changes with `scripts/verify-before-pr.sh` and bundled install tests in `test-menubar-e2e.sh`; after editing `design-tokens.json`, run `scripts/generate-dashboard-tokens.py` (CI enforces via `--check`)
-
-Updated: 2026-06-09
+Do not commit changes or edit user `.env` / editor settings without explicit permission.
 
 ---
 > Source: [matthewdcage/llm-swarm-router](https://github.com/matthewdcage/llm-swarm-router) — distributed by [TomeVault](https://tomevault.io).
