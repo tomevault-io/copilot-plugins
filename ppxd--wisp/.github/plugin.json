@@ -1,0 +1,9 @@
+{
+  "name": "ppxd--wisp",
+  "displayName": "Wisp",
+  "description": "Local, real-time, cross-platform meeting transcription \u2014 on-device, private, model-swappable.",
+  "version": "1.0.0",
+  "author": "ppXD",
+  "homepage": "https://github.com/ppXD/Wisp",
+  "skills": []
+}
