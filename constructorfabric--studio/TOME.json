@@ -4,7 +4,7 @@
   "repo": "studio",
   "description": "Main Constructor Studio repository",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/constructorfabric/studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-09T10:33:13Z"
+  "distributed_at": "2026-06-09T10:35:09Z"
 }
