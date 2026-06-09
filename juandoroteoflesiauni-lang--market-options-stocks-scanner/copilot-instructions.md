@@ -1,164 +1,242 @@
-## 01-backend-python
+## 010-architecture
 
-> Activo en todo código Python del backend. Estándares Wall Street: tipado estricto, async-first, logging estructurado, cero prints.
+> Reglas de arquitectura y estructura — previene código spaghetti en la terminal de trading
 
 
-# 🐍 BACKEND PYTHON — ESTÁNDARES DE CALIDAD v3.0
+# 🏗️ ARQUITECTURA ANTI-SPAGHETTI — TRADING TERMINAL
 
-## TOOLCHAIN (Gates de CI — código debe pasar todos antes de presentarlo)
-- `black` → formato (línea máx. 100 chars)
-- `isort` → orden de imports (perfil black-compatible)
-- `ruff` → lint exhaustivo
-- `mypy --strict` → tipos estrictos
-- `bandit` → SAST seguridad
-- `pip-audit` → CVEs en dependencias
+## PRINCIPIO FUNDAMENTAL: SEPARACIÓN DE RESPONSABILIDADES
 
-## TIPADO — OBLIGATORIO EN TODO
+Cada capa del sistema tiene UNA sola responsabilidad.
+Mezclar responsabilidades = código spaghetti = bugs en producción = pérdida de dinero.
 
-```python
-# ✅ CORRECTO
-async def calculate_vpin(
-    snapshot: MarketSnapshot,
-    bucket_size: int,
-) -> float: ...
+---
 
-# ❌ PROHIBIDO — sin tipos
-def calculate_vpin(snapshot, bucket_size): ...
+## 📐 ARQUITECTURA BACKEND (Python/FastAPI)
 
-# ❌ PROHIBIDO — Any
-from typing import Any
-def process(data: Any) -> Any: ...
+### Estructura de capas obligatoria:
 
-# ✅ CORRECTO — Decimal para precios (nunca float)
-price: Decimal = Decimal("100.05")
-# ❌ PROHIBIDO
-price: float = 100.05
+```
+backend/app/
+├── api/                    ← SOLO: recibir requests, validar inputs, llamar services
+│   ├── v1/
+│   │   ├── orders.py       ← Endpoints de órdenes
+│   │   ├── portfolio.py    ← Endpoints de portfolio
+│   │   ├── market.py       ← Endpoints de datos de mercado
+│   │   └── auth.py         ← Endpoints de autenticación
+│   └── deps.py             ← Dependencias compartidas (auth, db session)
+│
+├── services/               ← SOLO: lógica de negocio, reglas del dominio
+│   ├── order_service.py    ← Crear, cancelar, modificar órdenes
+│   ├── portfolio_service.py← Calcular P&L, balance, posiciones
+│   ├── market_service.py   ← Obtener precios, volumen, OHLCV
+│   └── risk_service.py     ← Validar riesgo, límites, stop-loss
+│
+├── repositories/           ← SOLO: acceso a base de datos
+│   ├── order_repo.py
+│   ├── portfolio_repo.py
+│   └── trade_repo.py
+│
+├── models/                 ← SOLO: definición de estructuras de datos
+│   ├── order.py            ← SQLAlchemy models
+│   ├── trade.py
+│   └── portfolio.py
+│
+├── schemas/                ← SOLO: validación de requests/responses (Pydantic)
+│   ├── order_schema.py
+│   └── portfolio_schema.py
+│
+├── core/                   ← SOLO: configuración y utilidades transversales
+│   ├── config.py           ← Settings desde .env
+│   ├── security.py         ← JWT, hashing, autenticación
+│   ├── database.py         ← Conexión DB
+│   ├── logger.py           ← Sistema de logging
+│   └── exceptions.py       ← Excepciones personalizadas
+│
+└── strategies/             ← SOLO: algoritmos de trading
+    ├── base_strategy.py    ← Clase abstracta base
+    ├── momentum.py
+    └── mean_reversion.py
 ```
 
-## NOMENCLATURA
-| Tipo | Convención | Ejemplo |
-|------|-----------|---------|
-| Clases | `PascalCase` | `MarketDataHub` |
-| Funciones/vars | `snake_case` | `fetch_snapshot` |
-| Constantes | `UPPER_CASE` | `MAX_CANDIDATES = 300` |
-| Privados | `_single_underscore` | `_circuit_breaker` |
-| Variables de 1 letra | **PROHIBIDO** | Usar `ticker`, no `t` |
-| Nombres genéricos | **PROHIBIDO** | Nunca `data`, `val`, `obj` |
-
-## FUNCIONES — REGLAS DE DISEÑO
-
-```python
-# Máximo 30 líneas. Si supera → refactorizar en subfunciones.
-
-# Google-Style docstring OBLIGATORIO en funciones complejas:
-async def fetch_option_chain(
-    ticker: str,
-    expiration_date: date,
-) -> Result[list[OptionContract]]:
-    """Descarga y valida la cadena completa de opciones.
-
-    Args:
-        ticker         : Símbolo en mayúsculas (e.g., "AAPL").
-        expiration_date: Fecha de expiración a descargar.
-
-    Returns:
-        Result con lista de OptionContract, o failure si la API no responde.
-
-    Raises:
-        ValidationError: Si la respuesta falla validación de esquema.
-    """
+### Regla de dependencias (una sola dirección):
+```
+API → Services → Repositories → Models
+ ↑                                  ↑
+ └── Schemas (validación I/O)       └── Core (config, logging)
 ```
 
-## LOGGING — NO PRINT
+**NUNCA:**
+- `api/` importando directamente de `repositories/` (saltarse services)
+- `models/` importando de `services/` (dependencia circular)
+- Lógica de negocio en `api/` 
+- Queries SQL en `services/`
 
-```python
-import logging
-logger = logging.getLogger(__name__)
+---
 
-# ✅ CORRECTO
-logger.info("Fase A completa", extra={"count": len(candidates)})
-logger.error("Fallo en Hub", extra={"ticker": ticker}, exc_info=True)
+## 📐 ARQUITECTURA FRONTEND (React/TypeScript)
 
-# ❌ PROHIBIDO
-print(f"Fase A: {len(candidates)}")
+### Estructura obligatoria:
+
+```
+frontend/src/
+├── components/              ← SOLO: UI presentacional, sin lógica de negocio
+│   ├── ui/                  ← Componentes base reutilizables (Button, Input, Modal)
+│   ├── charts/              ← Componentes de gráficos
+│   │   ├── CandlestickChart.tsx
+│   │   └── DepthChart.tsx
+│   ├── orders/              ← Componentes de órdenes
+│   │   ├── OrderForm.tsx
+│   │   └── OrderBook.tsx
+│   └── portfolio/           ← Componentes de portfolio
+│       ├── PositionList.tsx
+│       └── PnLSummary.tsx
+│
+├── pages/                   ← Composición de componentes por página
+│   ├── Dashboard.tsx
+│   ├── Trading.tsx
+│   └── Portfolio.tsx
+│
+├── hooks/                   ← Lógica reutilizable con estado
+│   ├── useWebSocket.ts      ← Conexión WS para precios
+│   ├── useOrderBook.ts      ← Datos del order book
+│   └── usePortfolio.ts      ← Datos de portfolio
+│
+├── store/                   ← Estado global (Zustand)
+│   ├── tradingStore.ts      ← Posiciones, órdenes activas
+│   ├── marketStore.ts       ← Precios, ticker data
+│   └── authStore.ts         ← Usuario, sesión
+│
+├── services/                ← SOLO: llamadas a API externa
+│   ├── orderService.ts
+│   ├── marketService.ts
+│   └── authService.ts
+│
+├── types/                   ← Tipos TypeScript globales
+│   ├── trading.ts
+│   ├── market.ts
+│   └── api.ts
+│
+└── utils/                   ← Funciones puras sin efectos secundarios
+    ├── formatters.ts        ← Formatear precios, fechas, porcentajes
+    ├── calculators.ts       ← P&L, riesgo, tamaño de posición
+    └── validators.ts        ← Validar inputs del usuario
 ```
 
-## MANEJO DE ERRORES
+### Regla de componentes — NO mezclar:
+```typescript
+// ✅ CORRECTO — Componente presentacional puro
+const PriceDisplay: React.FC<{ price: number; change: number }> = ({ price, change }) => (
+  <div className={change >= 0 ? 'text-green-500' : 'text-red-500'}>
+    ${price.toFixed(2)} ({change > 0 ? '+' : ''}{change.toFixed(2)}%)
+  </div>
+);
 
-```python
-# ✅ CORRECTO — específico + log
-try:
-    snapshot = await hub.fetch_snapshot(ticker)
-except httpx.TimeoutException as exc:
-    logger.error("Timeout para %s", ticker, exc_info=True)
-    return Result.failure(reason=str(exc))
-
-# ❌ PROHIBIDO — silencioso
-except:
-    pass
-
-# ❌ PROHIBIDO — genérico sin log
-except Exception:
-    return None
+// ❌ INCORRECTO — Lógica de negocio dentro del componente UI
+const PriceDisplay = () => {
+  const [price, setPrice] = useState(0);
+  // Llamada API directa en componente UI → MAL
+  useEffect(() => { fetch('/api/price').then(r => r.json()).then(setPrice); }, []);
+  // Cálculo de negocio en componente UI → MAL
+  const shouldBuy = price < movingAverage * 0.98;
+  return <div>{price}</div>;
+};
 ```
 
-## CONCURRENCIA
+---
 
-```python
-# ✅ I/O → asyncio
-async def fetch_all(tickers: list[str]) -> list[MarketSnapshot]:
-    tasks = [hub.fetch_snapshot(t) for t in tickers]
-    return await asyncio.gather(*tasks, return_exceptions=True)
+## 📏 LÍMITES DE TAMAÑO DE ARCHIVOS
 
-# ✅ CPU pesado → ProcessPoolExecutor (nunca bloquear el event loop)
-result = await loop.run_in_executor(executor, calcular_vpin_sync, snapshot)
+| Tipo de archivo | Máximo líneas | Acción si supera |
+|----------------|---------------|-----------------|
+| Componente React | 150 líneas | Dividir en sub-componentes |
+| Service (Backend) | 200 líneas | Dividir en servicios especializados |
+| Hook personalizado | 100 líneas | Extraer lógica a utils |
+| Repository | 150 líneas | Dividir por entidad |
+| Página/View | 100 líneas | Todo debe ser composición |
 
-# ❌ PROHIBIDO — bloquea el event loop
-time.sleep(1)          # → await asyncio.sleep(1)
-requests.get(url)      # → await httpx.AsyncClient().get(url)
+---
+
+## 🔌 GESTIÓN DE WEBSOCKETS (Crítico para trading)
+
+```typescript
+// ✅ PATRÓN CORRECTO — Hook centralizado para WS
+// hooks/useWebSocket.ts
+export const useWebSocket = (symbol: string) => {
+  const updatePrice = useMarketStore(s => s.updatePrice);
+  
+  useEffect(() => {
+    const ws = new WebSocket(`${WS_URL}/stream/${symbol}`);
+    
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      updatePrice(symbol, data.price);  // Solo actualizar store
+    };
+    
+    ws.onerror = (error) => {
+      logger.error('WebSocket error', { symbol, error });
+    };
+    
+    return () => ws.close();  // SIEMPRE cleanup
+  }, [symbol]);
+};
+
+// NUNCA crear WebSockets directamente en componentes
+// NUNCA tener múltiples conexiones al mismo stream
+// SIEMPRE cerrar la conexión en el cleanup de useEffect
 ```
 
-## CONFIGURACIÓN — SIN NÚMEROS MÁGICOS
+---
 
-```python
-# ❌ PROHIBIDO
-if len(candidates) > 300: ...
+## 🗃️ GESTIÓN DE ESTADO — ZUSTAND PATTERNS
 
-# ✅ CORRECTO — constante desde config/
-from config.phase_thresholds import PhaseThresholds
-thresholds = PhaseThresholds()
-if len(candidates) > thresholds.phase_a_max_candidates: ...
+```typescript
+// store/tradingStore.ts — Patrón correcto
+
+interface TradingState {
+  // Estado
+  openOrders: Order[];
+  positions: Position[];
+  
+  // Acciones (siempre separadas del estado)
+  addOrder: (order: Order) => void;
+  cancelOrder: (orderId: string) => void;
+  updatePosition: (positionId: string, update: Partial<Position>) => void;
+}
+
+export const useTradingStore = create<TradingState>((set) => ({
+  openOrders: [],
+  positions: [],
+  
+  addOrder: (order) => set((state) => ({
+    openOrders: [...state.openOrders, order]
+  })),
+  
+  cancelOrder: (orderId) => set((state) => ({
+    openOrders: state.openOrders.filter(o => o.id !== orderId)
+  })),
+  
+  updatePosition: (positionId, update) => set((state) => ({
+    positions: state.positions.map(p => 
+      p.id === positionId ? { ...p, ...update } : p
+    )
+  })),
+}));
 ```
 
-## IMPORTS — ORDEN isort (automático)
-```python
-# 1. Stdlib
-import asyncio, logging
-from decimal import Decimal
+---
 
-# 2. Terceros
-import httpx
-from pydantic import ValidationError
+## ⚠️ CHECKLIST ANTES DE CREAR CUALQUIER ARCHIVO
 
-# 3. Internos — SOLO imports absolutos
-from backend.models.market_snapshot import MarketSnapshot
-from backend.hub.market_data_hub import MarketDataHub
-
-# ❌ PROHIBIDO
-from ..models import *      # wildcard + relativo
 ```
-
-## CHECKLIST ANTES DE PRESENTAR CÓDIGO
-```
-[ ] Todas las funciones tienen type hints
-[ ] Ninguna función supera 30 líneas
-[ ] No hay print() — solo logging
-[ ] No hay except: pass
-[ ] No hay time.sleep() en async
-[ ] No hay números mágicos en código
-[ ] No hay imports relativos entre módulos
-[ ] Decimal para todos los campos de precio
-[ ] Google-Style docstring en funciones públicas
+□ ¿Ya existe algo similar en el proyecto?
+□ ¿El nombre del archivo describe claramente su propósito?
+□ ¿Está en el directorio correcto según la arquitectura?
+□ ¿Tiene una sola responsabilidad?
+□ ¿Las dependencias siguen la dirección correcta (no circular)?
+□ ¿Tiene los tipos TypeScript / type hints Python correctos?
+□ ¿Tiene manejo de errores?
+□ ¿Tiene al menos un test básico?
 ```
 
 ---
