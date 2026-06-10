@@ -1,0 +1,9 @@
+{
+  "name": "xuedong-z--fig-draw",
+  "displayName": "Fig-Draw",
+  "description": "Browser-based post-processing editor for scientific figures \u2014 arrange panels, recolor from a 120-palette library, resize like figsize, and export publication-ready PNG/SVG. Runs entirely client-side.",
+  "version": "1.0.0",
+  "author": "xuedong-z",
+  "homepage": "https://github.com/xuedong-z/Fig-Draw",
+  "skills": []
+}
