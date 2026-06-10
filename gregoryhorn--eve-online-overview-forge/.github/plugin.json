@@ -1,0 +1,9 @@
+{
+  "name": "gregoryhorn--eve-online-overview-forge",
+  "displayName": "EVE-ONLINE-OVERVIEW-FORGE",
+  "description": "Local EVE Online overview editor and profile helper",
+  "version": "1.0.0",
+  "author": "gregoryhorn",
+  "homepage": "https://github.com/gregoryhorn/EVE-ONLINE-OVERVIEW-FORGE",
+  "skills": []
+}
