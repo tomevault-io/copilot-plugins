@@ -1,0 +1,9 @@
+{
+  "name": "varshith-dev--slate-language",
+  "displayName": "slate-language",
+  "description": "A next-generation visual language built in Rust that unifies documents, interfaces, workflows, and diagrams into a single human-readable syntax.",
+  "version": "1.0.0",
+  "author": "varshith-dev",
+  "homepage": "https://github.com/varshith-dev/slate-language",
+  "skills": []
+}
