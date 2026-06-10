@@ -106609,16 +106609,6 @@
       "description": "A modern, keyboard-driven RSS feed reader that brings back the magic of Google Reader with AI! \ud83d\ude80"
     },
     {
-      "name": "baekenough--oh-my-customcode",
-      "source": "./baekenough--oh-my-customcode",
-      "description": "oh-my-zsh style customization framework for Claude Code"
-    },
-    {
-      "name": "baekenough--oh-my-customcode",
-      "source": "./baekenough--oh-my-customcode",
-      "description": "oh-my-zsh style customization framework for Claude Code"
-    },
-    {
       "name": "jlevy--frontmatter-format",
       "source": "./jlevy--frontmatter-format",
       "description": "A simple convention for YAML metadata on any file"
@@ -106747,6 +106737,16 @@
       "name": "albertobarnabo--lazy-cat",
       "source": "./albertobarnabo--lazy-cat",
       "description": "Claude Code skills for developers who code like cats \u2014 never more effort than the problem requires."
+    },
+    {
+      "name": "baekenough--oh-my-customcode",
+      "source": "./baekenough--oh-my-customcode",
+      "description": "oh-my-zsh style customization framework for Claude Code"
+    },
+    {
+      "name": "baekenough--oh-my-customcode",
+      "source": "./baekenough--oh-my-customcode",
+      "description": "oh-my-zsh style customization framework for Claude Code"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -203567,6 +203567,11 @@
       "name": "vekexasia--varco",
       "source": "./vekexasia--varco",
       "description": "varco"
+    },
+    {
+      "name": "sirredbeard--azurelinux-desktop",
+      "source": "./sirredbeard--azurelinux-desktop",
+      "description": "Azure Linux. In a container. On WSL. In a .NET app. With some whimsical desktop goodness."
     },
     {
       "name": "ldmoxeii--only-engine",
