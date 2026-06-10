@@ -1,0 +1,9 @@
+{
+  "name": "danveloper--flash-pi-dsv4",
+  "displayName": "flash-pi-dsv4",
+  "description": "DeepSeek-V4-Flash on a Raspberry Pi 5 (8GB)",
+  "version": "1.0.0",
+  "author": "danveloper",
+  "homepage": "https://github.com/danveloper/flash-pi-dsv4",
+  "skills": []
+}
