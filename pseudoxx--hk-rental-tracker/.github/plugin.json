@@ -1,0 +1,9 @@
+{
+  "name": "pseudoxx--hk-rental-tracker",
+  "displayName": "hk-rental-tracker",
+  "description": "Codex skill and local toolkit for tracking Hong Kong rental listings",
+  "version": "1.0.0",
+  "author": "pseudoxx",
+  "homepage": "https://github.com/pseudoxx/hk-rental-tracker",
+  "skills": []
+}
