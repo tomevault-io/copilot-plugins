@@ -1,79 +1,103 @@
-## control-flow
+## cursor-rules
 
-> Early returns, single-line statements, and comment preservation
+> How to create and edit Cursor rules (location, naming, structure)
 
 
-# Control Flow
+# Creating Cursor Rules
 
-### Early Returns
+Use this rule when creating or editing Cursor rules. It defines where rules live, how to name them, and their structure.
 
-Prefer early returns over `else` statements to reduce nesting and improve readability.
+## 1. Location
 
-- ✅ Good:
+Always place rule files in `PROJECT_ROOT/.cursor/rules/`:
 
-  ```typescript
-  function processUser(user: User | null) {
-    if (!user) return null
-    if (!user.isActive) return null
+```
+PROJECT_ROOT/
+└── .cursor/
+    └── rules/
+        ├── your-rule-name.mdc
+        ├── another-rule.mdc
+        └── ...
+```
 
-    const upperCaseName = user.name.toUpperCase()
-    return upperCaseName
-  }
-  ```
+Never place rule files in the project root, in subdirectories outside `.cursor/rules`, or anywhere else.
 
-- ❌ Bad:
-  ```typescript
-  function processUser(user: User | null) {
-    if (user) {
-      if (user.isActive) {
-        return user.name.toUpperCase()
-      } else {
-        return null
-      }
-    } else {
-      return null
-    }
-  }
-  ```
+## 2. Naming
 
-### Single-Line Statements
+- Use **kebab-case** for filenames (e.g. `creating-cursor-rules.mdc`).
+- Use the **.mdc** extension.
+- Use names that clearly describe the rule’s purpose.
 
-Avoid curly brackets for single-line `if` statements or arrow functions.
+## 3. File structure
 
-- ✅ Good:
+Each rule file must have:
 
-  ```typescript
-  if (isValid) return true
+1. **YAML front matter** at the top, between `---` lines.
+2. **Markdown body**: title, explanation, steps, and optional code examples.
 
-  const doubled = numbers.map((n) => n * 2)
+### Front matter
 
-  const handleClick = () => setCount(count + 1)
-  ```
+```yaml
+---
+description: Short description of the rule's purpose
+globs: optional/path/pattern/**/*
+alwaysApply: false
+---
+```
 
-- ❌ Bad:
+- `description`: short summary (e.g. for the rule picker).
+- `globs`: optional; file pattern so the rule applies when matching files are in context (e.g. `**/*.ts`, `src/**/*.tsx`).
+- `alwaysApply`: `true` if the rule should apply in every conversation; `false` if it applies only when matching files are relevant.
 
-  ```typescript
-  if (isValid) {
-    return true
-  }
+### Body
 
-  const doubled = numbers.map((n) => {
-    return n * 2
-  })
+- Start with a level-1 heading: `# Rule Title`.
+- Use markdown for the main explanation.
+- Prefer:
+  1. Step-by-step instructions
+  2. Code examples (good vs bad when useful)
+  3. Clear guidelines
 
-  const handleClick = () => {
-    setCount(count + 1)
-  }
-  ```
+Example:
 
-## Comments
+```markdown
+# Rule Title
 
-- Only add comments to code when explicitly asked. Always preserve:
-  - "TODO" comments
-  - "Tech Debt" comments
-  - ESLint disable/enable rules
-  - Prettier ignore rules
-  - TypeScript `@ts-expect-error` or `@ts-ignore` directives
+Main content explaining the rule with markdown formatting.
+
+1. Step-by-step instructions
+2. Code examples
+3. Guidelines
+
+Example:
+
+\`\`\`typescript
+// Good
+function goodExample() {
+  // Implementation following guidelines
+}
+
+// Bad
+function badExample() {
+  // Implementation not following guidelines
+}
+\`\`\`
+```
+
+## 4. Best practices
+
+- One main concern per rule; split broad topics into several rules.
+- Prefer short, actionable rules (e.g. under 50 lines when possible).
+- Prefer concrete examples (good vs bad) over long prose.
+- Use `alwaysApply: true` only for rules that must apply in every chat; otherwise use `globs` and `alwaysApply: false`.
+
+## 5. Checklist when creating a rule
+
+- [ ] File is in `.cursor/rules/` with a `.mdc` extension.
+- [ ] Filename is kebab-case and descriptive.
+- [ ] YAML front matter has `description`; set `globs` and `alwaysApply` as needed.
+- [ ] Body has a `# Rule Title` and clear instructions/examples.
+- [ ] Rule is focused and reasonably short.
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
