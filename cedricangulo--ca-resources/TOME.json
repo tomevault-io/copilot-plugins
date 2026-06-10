@@ -4,7 +4,7 @@
   "repo": "ca-resources",
   "description": "Website that provides valuable resources and guides to improve productivity.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cedricangulo/ca-resources",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T20:46:59Z"
+  "distributed_at": "2026-06-10T20:48:29Z"
 }
