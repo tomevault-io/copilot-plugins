@@ -1,0 +1,9 @@
+{
+  "name": "fondoger--tailwindcss-utilities",
+  "displayName": "tailwindcss-utilities",
+  "description": "A set of CSS Utility classes generated from tailwindcss. Suitable for plain HTML with CSS.",
+  "version": "1.0.0",
+  "author": "fondoger",
+  "homepage": "https://github.com/fondoger/tailwindcss-utilities",
+  "skills": []
+}
