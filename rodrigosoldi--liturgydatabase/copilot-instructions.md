@@ -1,0 +1,39 @@
+## liturgydatabase
+
+> When the user says "build and deploy" or "bd", execute the following sequence:
+
+# LiturgyDatabase Project Rules
+
+## Build and Deploy Rule
+
+When the user says "build and deploy" or "bd", execute the following sequence:
+
+1. Execute the script `./generateDatabase.sh` to build and generate the database
+2. Check git status for changes
+3. If there are changes:
+   - Automatically update README.md with:
+     * Current liturgy date range (by scanning the Liturgies folder structure)
+     * Update any version references if needed
+     * Ensure all information is current and accurate
+   - Automatically generate and update a CHANGELOG.md, even if it's not created yet
+   - Add all changes to staging with `git add -A`
+   - Get the latest tag number and increment it by 1
+   - Create a commit with a descriptive message about the changes
+   - Create a new tag with the incremented version number
+   - Push both the commit and tag to the remote repository
+4. Provide a summary of what was completed
+
+This rule automates the complete build, database generation, README update, and deployment process.
+
+## Project Information
+
+- This is a Swift Package Manager (SPM) project for Catholic liturgy database
+- Contains liturgies from June 2024 to October 2025
+- Uses Realm database for storage
+- Has two main targets: LiturgyDatabase (library) and LiturgyMakeDatabase (executable)
+- All liturgies are in Portuguese
+- Database is generated from JSON files in the Liturgies folder 
+
+---
+> Source: [rodrigosoldi/LiturgyDatabase](https://github.com/rodrigosoldi/LiturgyDatabase) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-10 -->
