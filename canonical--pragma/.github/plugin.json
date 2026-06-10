@@ -1,0 +1,9 @@
+{
+  "name": "canonical--pragma",
+  "displayName": "pragma",
+  "description": "Pragma is Canonical's toolset for the web. It implements a design system, reusable configurations, boilerplate, styles and utilities for React and Svelte.",
+  "version": "1.0.0",
+  "author": "canonical",
+  "homepage": "https://github.com/canonical/pragma",
+  "skills": []
+}
