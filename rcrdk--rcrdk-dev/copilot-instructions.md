@@ -1,46 +1,43 @@
-## hooks
+## http-layer
 
-> use prefix, camelCase for hooks; kebab-case use- prefix for hook files
+> server-only import in http/; try-catch and Sentry reporting
 
 
-# Hook Naming Conventions
+# HTTP Layer
 
-### Hook Function Naming
+### Server-Only Import
 
-- All custom hooks must start with the `use` prefix.
-- Hook names should be in **camelCase**.
-- Use descriptive names that clearly indicate the hook's purpose.
+- All files in the `http/` directory must import `'server-only'` at the top of the file.
+- This ensures the code is not included in the client bundle.
 
 - ✅ Good:
 
   ```typescript
-  export function useDebounce<T>(value: T, delay: number): T {}
-  export function useEscapeKey(callback: () => void) {}
-  export function useMapFitBounds() {}
+  import 'server-only'
+
+  export async function callRocketAPI() {}
   ```
 
-- ❌ Bad:
-  ```typescript
-  export function debounce<T>(value: T, delay: number): T {}
-  export function use_debounce<T>(value: T, delay: number): T {}
-  export function Debounce<T>(value: T, delay: number): T {}
-  ```
+### Error Handling
 
-### Hook File Naming
-
-- Hook files should be named in **kebab-case** with `use-` prefix.
-- File names should match the hook function name (converted to kebab-case).
+- All HTTP functions should use try-catch blocks and report errors to Sentry with proper context.
 
 - ✅ Good:
-
-  - File: `use-debounce.ts` → Hook: `useDebounce`
-  - File: `use-escape-key.ts` → Hook: `useEscapeKey`
-  - File: `use-map-fit-bounds.ts` → Hook: `useMapFitBounds`
-
-- ❌ Bad:
-  - File: `debounce.ts` → Hook: `useDebounce`
-  - File: `useDebounce.ts` → Hook: `useDebounce`
-  - File: `use_escape_key.ts` → Hook: `useEscapeKey`
+  ```typescript
+  export async function getDevelopmentDocument({ id, src }: { id: string; src: string }) {
+    try {
+      // ... implementation
+      return blob
+    } catch (error) {
+      reportToSentry(error, {
+        tags: { module: 'http', method: 'getDevelopmentDocument' },
+        fingerprint: ['http-error', 'getDevelopmentDocument', id, src],
+        extra: { documentId: id, documentSrc: src },
+      })
+      throw error
+    }
+  }
+  ```
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
