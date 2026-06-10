@@ -7,14 +7,14 @@ A CLI tool to download genomic analysis files from the Varvis API. Supports auth
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [LaborBerlin/varvis-download](https://github.com/LaborBerlin/varvis-download).
+Original source: `CLAUDE.md` in [LaborBerlin/varvis-download](https://github.com/LaborBerlin/varvis-download).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [LaborBerlin/varvis-download](https://github.com/LaborBerlin/varvis-download) — a repo with 10+ stars on GitHub.
