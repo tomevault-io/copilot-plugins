@@ -1,0 +1,9 @@
+{
+  "name": "hexxt-git--anime-sdk",
+  "displayName": "anime-sdk",
+  "description": "Typescript SDK for building anime streaming apps with over 30k+ titles available",
+  "version": "1.0.0",
+  "author": "hexxt-git",
+  "homepage": "https://github.com/hexxt-git/anime-sdk",
+  "skills": []
+}
