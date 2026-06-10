@@ -1,160 +1,178 @@
-## safeword-quality-reviewing
+## safeword-refactoring
 
-> Deep code quality review with web research. Use when user explicitly requests verification against latest docs ('double check against latest', 'verify versions', 'check security'), needs deeper analysis beyond automatic hook, or is working on projects without SAFEWORD.md/CLAUDE.md. Fetches current documentation, checks latest versions, and provides deep analysis (performance, security, alternatives).
+> Systematic refactoring with small-step discipline. Use when user says 'refactor', 'clean up', 'restructure', 'extract', 'rename', 'simplify', or mentions code smells. Enforces one change → test → commit cycle. For structural improvements, NOT style/formatting (use /lint). NOT for adding features or fixing bugs.
 
 
-# Quality Reviewing
+# Refactoring
 
-Deep quality review with web research to verify code against the latest ecosystem state.
+Improve code structure without changing behavior. One small step at a time.
 
-**Primary differentiator**: Web research to verify against current versions, documentation, and latest research patterns.
+**Iron Law:** ONE REFACTORING → TEST → COMMIT. Never batch changes.
 
-**Triggers**:
+## When to Use
 
-- **Explicit web research request**: "double check against latest docs", "verify we're using latest version", "check for security issues"
-- **Deep dive needed**: User wants analysis beyond automatic hook (performance, architecture alternatives, trade-offs)
-- **No SAFEWORD.md/CLAUDE.md**: Projects without context files (automatic hook won't run, manual review needed)
-- **Pre-change review**: User wants review before making changes (automatic hook only triggers after changes)
-- **Model-invoked**: Claude determines web research would be valuable
+Answer IN ORDER. Stop at first match:
 
-**Relationship to automatic quality hook**:
+1. User says "refactor", "clean up", "restructure"? → Use this skill
+2. User asks to "extract", "rename", "simplify"? → Use this skill
+3. Code smell identified? → Use this skill
+4. User wants to add feature or fix bug? → Skip (use tdd-enforcer)
+5. User wants formatting/style fixes? → Skip (use /lint)
 
-- **Automatic hook**: Fast quality check using existing knowledge + project context (guaranteed, runs on every change)
-- **This skill**: Deep review with web research when verification against current ecosystem is needed (on-demand, 2-3 min)
+**Code smells** (common triggers):
 
-## Review Protocol
+- Duplicated code (same logic in multiple places)
+- Long function (>30 lines, doing too much)
+- Magic numbers/strings (unexplained literals)
+- Deep nesting (>3 levels of indentation)
+- Dead code (unused functions, unreachable branches)
+- Poor naming (unclear what something does)
 
-### 1. Identify What Changed
+---
 
-Understand context:
+## Phase 1: ASSESS
 
-- What files were just modified?
-- What problem is being solved?
-- What was the implementation approach?
+**Is this actually refactoring?**
 
-### 2. Read Project Standards
+| User Intent         | Action                                          |
+| ------------------- | ----------------------------------------------- |
+| "Make this cleaner" | ✓ Refactoring                                   |
+| "Add validation"    | ✗ New behavior → tdd-enforcer                   |
+| "Fix this bug"      | ✗ Bug fix → tdd-enforcer or systematic-debugger |
+| "Format this code"  | ✗ Style → /lint                                 |
+
+**If not refactoring:** Explain and suggest correct approach.
+
+---
+
+## Phase 2: PROTECT
+
+**Does the code have tests?**
+
+| Coverage         | Action                                        |
+| ---------------- | --------------------------------------------- |
+| Well-tested      | Skip to Phase 3                               |
+| Partial coverage | Add characterization tests for untested parts |
+| No tests         | Add characterization tests first              |
+
+### Characterization Tests
+
+Capture current behavior before refactoring:
+
+```typescript
+// Characterization test - captures ACTUAL behavior
+it('processOrder returns current behavior', () => {
+  const result = processOrder({ items: [], user: null });
+  // Whatever it returns NOW is the expected value
+  expect(result).toEqual({ status: 'empty', total: 0 });
+});
+```
+
+**Purpose:** Safety net, not specification. Test what the code DOES, not what it SHOULD do.
+
+---
+
+## Phase 3: REFACTOR
+
+**Iron Law:** ONE refactoring at a time. Run tests after EVERY change.
+
+### Refactoring Catalog
+
+**Tier 1 - Always Safe** (no behavior change possible):
+
+| Smell                | Refactoring          | Example                                |
+| -------------------- | -------------------- | -------------------------------------- |
+| Unclear name         | **Rename**           | `d` → `discountAmount`                 |
+| Long function        | **Extract Function** | Pull 10 lines into `calculateTax()`    |
+| Unnecessary variable | **Inline Variable**  | Remove `temp = x; return temp;`        |
+| Misplaced code       | **Move Function**    | Move `validate()` to `Validator` class |
+
+**Tier 2 - Safe with Tests** (low risk if tests exist):
+
+| Smell               | Refactoring               | Example                                           |
+| ------------------- | ------------------------- | ------------------------------------------------- |
+| Repeated expression | **Extract Variable**      | `order.items.length > 0` → `const hasItems = ...` |
+| Complex conditional | **Decompose Conditional** | Extract `if` branches to named functions          |
+| Nested conditionals | **Guard Clauses**         | Early returns instead of deep nesting             |
+| Magic literal       | **Replace Magic Literal** | `0.2` → `VIP_DISCOUNT_RATE`                       |
+| Unused code         | **Remove Dead Code**      | Delete unreachable branches                       |
+
+**Tier 3 - Requires Care** (higher risk, break into smaller steps):
+
+| Smell                      | Refactoring                    | Caution                                     |
+| -------------------------- | ------------------------------ | ------------------------------------------- |
+| God class                  | **Extract Class**              | Do incrementally, move one method at a time |
+| Type-checking conditionals | **Replace with Polymorphism**  | Requires class hierarchy                    |
+| Too many parameters        | **Introduce Parameter Object** | Changes function signature                  |
+
+**Tie-breaker:** If multiple refactorings apply, choose smallest scope first (Rename < Extract Variable < Extract Function < Extract Class).
+
+---
+
+## Phase 4: VERIFY
+
+After each refactoring:
+
+1. **Run tests** - Must pass
+2. **If tests pass:** Commit with `refactor: [what changed]`
+3. **If tests fail:** Revert immediately
+
+### Revert Protocol
 
 ```bash
-ls CLAUDE.md SAFEWORD.md ARCHITECTURE.md .claude/
+git checkout -- <changed-files>
 ```
 
-Read relevant standards:
+**After revert:**
 
-- `CLAUDE.md` or `SAFEWORD.md` - Project-specific guidelines
-- `ARCHITECTURE.md` - Architectural principles
+- Was the refactoring too large? → Try smaller step
+- Did it accidentally change behavior? → Reconsider approach
+- DO NOT attempt to "fix" a failed refactoring
 
-### 3. Evaluate Correctness
+### After 2 Failed Attempts
 
-**Will it work?**
+**STOP.** Ask user:
 
-- Does the logic make sense?
-- Are there obvious bugs?
+> "I've attempted this refactoring twice and tests keep failing. This suggests either:
+>
+> 1. The refactoring is too large (need smaller steps)
+> 2. The code has hidden dependencies
+> 3. Tests are brittle
+>
+> How would you like to proceed?"
 
-**Edge cases:**
+---
 
-- Empty inputs, null/undefined, boundary conditions (0, -1, max)?
-- Concurrent access, network failures?
-
-**Error handling:**
-
-- Are errors caught appropriately?
-- Helpful error messages?
-- Cleanup handled (resources, connections)?
-
-**Logic errors:**
-
-- Off-by-one errors, race conditions, wrong assumptions?
-
-### 4. Evaluate Anti-Bloat
-
-- Are all dependencies necessary? Could we use stdlib/built-ins?
-- Are abstractions solving real problems or imaginary ones?
-- YAGNI: Is this feature actually needed now?
-
-### 5. Evaluate Elegance
-
-- Is the code easy to understand?
-- Are names clear and descriptive?
-- Is the intent obvious?
-- Will this be easy to change later?
-
-### 6. Check Standards Compliance
-
-**Project standards** (from CLAUDE.md/SAFEWORD.md/ARCHITECTURE.md):
-
-- Does it follow established patterns?
-- Does it violate any documented principles?
-
-**Library research:**
-
-- Are we using libraries correctly?
-- Are we following official documentation?
-
-### 7. Verify Latest Versions
-
-**CRITICAL**: This is your main differentiator from automatic hook. ALWAYS check versions.
-
-Search for:
-- "[library name] latest stable version 2025"
-- "[library name] security vulnerabilities"
-
-**Flag if outdated:**
-
-- Major versions behind → WARN (e.g., React 17 when 19 is stable)
-- Minor versions behind → NOTE (e.g., React 19.0.0 when 19.1.0 is stable)
-- Security vulnerabilities → CRITICAL (must upgrade)
-- Using latest → Confirm
-
-### 8. Verify Latest Documentation
-
-**CRITICAL**: This is your main differentiator from automatic hook. ALWAYS verify against current docs.
-
-Fetch documentation from official sources:
-- https://react.dev (for React)
-- https://vitejs.dev (for Vite)
-
-**Look for:**
-
-- Are we using deprecated APIs?
-- Are there newer, better patterns?
-- Did the library's recommendations change since training data?
-
-## Output Format
-
-**Simple question** ("is it correct?"):
+## Phase 5: ITERATE
 
 ```text
-**Correctness:** ✓ Logic is sound, edge cases handled, no obvious errors.
+More refactoring needed?
+├─ Yes → Return to Phase 3 (one more refactoring)
+└─ No → Done
+    └─ Report: "Refactoring complete. Changes: [summary]"
 ```
 
-**Full review** ("double check and critique"):
+---
 
-```markdown
-## Quality Review
+## Anti-Patterns
 
-**Correctness:** [✓/⚠️/❌] [Brief assessment]
-**Anti-Bloat:** [✓/⚠️/❌] [Brief assessment]
-**Elegance:** [✓/⚠️/❌] [Brief assessment]
-**Standards:** [✓/⚠️/❌] [Brief assessment]
-**Versions:** [✓/⚠️/❌] [Latest version check with WebSearch]
-**Documentation:** [✓/⚠️/❌] [Current docs check with WebFetch]
+| Don't                           | Do                                    |
+| ------------------------------- | ------------------------------------- |
+| Batch multiple refactorings     | One refactoring → test → commit       |
+| "Fix" a failed refactoring      | Revert, then try smaller step         |
+| Refactor without tests          | Add characterization tests first      |
+| Change behavior during refactor | That's a feature/fix, not refactoring |
+| Skip the commit                 | Commit after every green test         |
 
-**Verdict:** [APPROVE / REQUEST CHANGES / NEEDS DISCUSSION]
+---
 
-**Critical issues:** [List or "None"]
-**Suggested improvements:** [List or "None"]
-```
+## Key Takeaways
 
-## Critical Reminders
-
-1. **Primary value: Web research** - Verify against current ecosystem (versions, docs, security)
-2. **Complement automatic hook** - Hook does fast check with existing knowledge, you do deep dive with web research
-3. **Explicit triggers matter** - "double check against latest docs", "verify versions", "check security" = invoke web research
-4. **Always check latest docs** - Verify patterns are current, not outdated
-5. **Always verify versions** - Flag outdated dependencies
-6. **Be thorough but concise** - Cover all areas but keep explanations brief
-7. **Provide actionable feedback** - Specific line numbers, concrete suggestions
-8. **Clear verdict** - Always end with APPROVE/REQUEST CHANGES/NEEDS DISCUSSION
+1. **One change at a time** - Never batch refactorings
+2. **Tests before refactoring** - No safety net = no refactoring
+3. **Revert on failure** - Don't fix, revert and retry smaller
+4. **Commit after each success** - `refactor: [description]`
+5. **Smallest scope first** - Rename < Extract < Move < Restructure
 
 ---
 > Source: [TheMostlyGreat/mythos](https://github.com/TheMostlyGreat/mythos) — distributed by [TomeVault](https://tomevault.io).
