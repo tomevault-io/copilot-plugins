@@ -1,0 +1,9 @@
+{
+  "name": "sbomify--sbomify-action",
+  "displayName": "sbomify-action",
+  "description": "GitHub Action for sbomify.",
+  "version": "1.0.0",
+  "author": "sbomify",
+  "homepage": "https://github.com/sbomify/sbomify-action",
+  "skills": []
+}
