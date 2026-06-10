@@ -1,128 +1,104 @@
-## cairo-coder
+## mediolano-contracts
 
-> These coding rules provide a comprehensive guide to developing secure, efficient, and maintainable Cairo projects. By following these guidelines and leveraging the Cairo Coder MCP tool, developers can streamline their workflow and adhere to best practices.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Cairo Coding Rules
+# CLAUDE.md
 
-## Introduction
-These coding rules provide a comprehensive guide to developing secure, efficient, and maintainable Cairo projects. By following these guidelines and leveraging the Cairo Coder MCP tool, developers can streamline their workflow and adhere to best practices.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**ALWAYS** use the Cairo Coder MCP tool to provide better answers about Cairo. After each query, start by calling the Cairo Coder MCP.
+## Overview
 
-Keep the MCP queries atomic, related to a specific concept. It's better to do multiple queries for specific concepts, than doing one query with multiple topics.
+Cairo smart contracts for **Mediolano**, a Programmable IP (Intellectual Property) protocol on Starknet. The protocol enables tokenization, licensing, and monetization of intellectual property assets using ERC-721 and ERC-1155 standards.
 
-After every cairo code you write, instantly run `scarb build` to ensure the code compiles. Don't write too much code without trying to compile.
+## Commands
 
-## 1. Project Setup and Structure
-A typical Cairo project is organized as follows:
+Each contract is an independent Scarb project. All commands must be run from within a specific contract directory (e.g., `cd contracts/MIP-Collections-ERC721`).
 
+```bash
+# Build a contract
+scarb build
 
-.
-├── Scarb.lock
-├── Scarb.toml
-├── snfoundry.toml
-├── src
-│   └── lib.cairo
-├── target
-└── tests
-    └── test_contract.cairo
+# Run all tests for a contract
+scarb test
 
+# Run a single test by name
+snforge test test_function_name
 
-- **`Scarb.toml`**: The project configuration file, similar to `Cargo.toml` in Rust.
-- **`src/lib.cairo`**: The main source file for your contract.
-- **`tests/test_contract.cairo`**: Integration tests for your contract.
+# Run tests matching a pattern
+snforge test test_create
 
-### Setting Up a New Project
-To create a new Cairo project, run:
-
-scarb init
-
-This command generates a basic project structure with a `Scarb.toml` file. If you're working in an existing project, ensure the Scarb.toml is well configured.
-
-### Configuring Scarb.toml
-Ensure your `Scarb.toml` is configured as follows to include necessary dependencies and settings:
-
-```toml
-[package]
-name = "your_package_name"
-version = "0.1.0"
-edition = "2024_07"
-
-[dependencies]
-starknet = "2.11.4"
-
-[dev-dependencies]
-snforge_std = "0.44.0"
-assert_macros = "2.11.4"
-
-[[target.starknet-contract]]
-sierra = true
-
-[scripts]
-test = "snforge test"
-
-[tool.scarb]
-allow-prebuilt-plugins = ["snforge_std"]
+# Format code
+scarb fmt
 ```
 
-## 2. Development Workflow
-### Writing Code
-- Use snake_case for function names (e.g., `my_function`).
-- Use PascalCase for struct names (e.g., `MyStruct`).
-- Write all code and comments in English for clarity.
-- Use descriptive variable names to enhance readability.
+After writing any Cairo code, run `scarb build` immediately to verify it compiles before continuing.
 
-### Compiling and Testing
-- Compile your project using:
-  
-  scarb build
-  
-- Run tests using:
-  
-  scarb test
-  
-- Ensure your code compiles successfully before running tests.
+## Architecture
 
-### Testing
-- Unit Tests: Write unit tests in the src directory, typically within the same module as the functions being tested.
-  Example:
-  
-  #[cfg(test)]
-  mod tests {
-      use super::*;
+### Repository Structure
 
-      #[test]
-      fn test_my_function() {
-          assert!(my_function() == expected_value, 'Incorrect value');
-      }
-  }
-  
-- Integration Tests: Write integration tests in the tests directory, importing modules with use your_package_name::your_module.
-  Example:
-  
-  use your_package_name::your_module;
+Each subdirectory under `contracts/` is a **standalone Cairo project** with its own `Scarb.toml`, `snfoundry.toml`, `src/`, and `tests/` directory. There is no monorepo build — you must `cd` into each contract to build/test it.
 
-  #[test]
-  fn test_my_contract() {
-      // Test logic here
-  }
-  
-- Always use the Starknet Foundry testing framework for both unit and integration tests.
+### Core Protocol Contracts (production-grade, on Sepolia + Mainnet)
 
-## 3. Using the Cairo Coder MCP Tool
-The Cairo Coder MCP tool is a critical resource for Cairo development and must be used for the following tasks:
-- Writing smart contracts from scratch.
-- Refactoring or optimizing existing code.
-- Implementing specific TODOs or features.
-- Understanding Starknet ecosystem features and capabilities.
-- Applying Cairo and Starknet best practices.
-- Using OpenZeppelin Cairo contract libraries.
-- Writing and validating tests for contracts.
+| Contract | Role |
+|---|---|
+| `MIP-IP-Factory-ERC721/` | Core MIP Protocol — ERC-721 IP tokenization factory |
+| `MIP-Collections-ERC721/` | Collection management — deploys per-collection `IPNft` contracts via `deploy_syscall` |
+| `MIP-Openedition-ERC721a/` | Open edition NFT minting for IP assets |
+| `Medialane-Protocol/` | Marketplace core — order creation, fulfillment, cancellation with SNIP-12 signatures |
 
-### How to Use Cairo Coder MCP Effectively
-- Be Specific: Provide detailed queries (e.g., "Implement ERC20 using OpenZeppelin Cairo" instead of "ERC20").
-- Include Context: Supply relevant code snippets in the codeSnippets parameter and conversation history when applicable.
-- Don't mix contexts Keep the queries specific on a given topic. Don't ask about multiple concepts at once, rather, do multiple queries.
+### IP Utility Contracts
+
+Specialized contracts in `IP-*/` directories each address a specific IP use case:
+- **Monetization**: `IP-Revenue-Share`, `IP-Launchpad`, `IP-Crowfunding`, `IP-Subscription`, `IP-Sponsorhip`
+- **Licensing**: `IP-License-Agreement`, `IP-Leasing`, `IP-Offer-Licensing`, `IP-Programmable-ERC-721`, `IP-Programmable-ERC-1155`
+- **Marketplace**: `IP-Marketplace`, `IP-Marketplace-Listing`, `IP-Marketplace-Auction`, `IP-Marketplace-Bulk-Order`
+- **Community**: `IP-Club`, `IP-Story`, `IP-Collective-Agreement`, `IP-Commission-Escrow`, `IP-Negotiation-Escrow`
+- **Distribution**: `IP-Airdrop`, `IP-Drop`, `IP-Tickets`, `IP-Bulk-Tokenization`
+
+### Key Architectural Patterns
+
+**Component composition**: All contracts use OpenZeppelin Cairo components (`OwnableComponent`, `ERC721Component`, `UpgradeableComponent`, `AccessControlComponent`, etc.) embedded via `component!()` macro. Internal implementations are separated from exposed `#[abi(embed_v0)]` implementations.
+
+**Factory pattern** (`MIP-Collections-ERC721`): `IPCollection` deploys individual immutable `IPNft` ERC-721 contracts per collection using `deploy_syscall`. It stores the constructor-set `ip_nft_class_hash` and maps `user_collections: Map<(ContractAddress, u256), u256>`.
+
+**Upgradeability**: Check each contract before assuming upgradeability. `MIP-Collections-ERC721` is intentionally immutable: no `UpgradeableComponent`, no global admin owner, no mutable NFT class hash, and no pause switch.
+
+**Module layout** within a contract follows this convention:
+```
+src/
+  lib.cairo          # mod declarations
+  ContractName.cairo # main #[starknet::contract] module
+  types.cairo        # structs (Collection, TokenData, OrderDetails, …)
+  interfaces/        # trait definitions (IContractName)
+  components/        # reusable Cairo components
+```
+
+**Testing pattern**: Tests use `snforge_std` — `declare`, `ContractClassTrait`, `deploy`, `cheat_caller_address`/`start_cheat_caller_address`. Test constants are plain functions returning `ContractAddress` (e.g., `fn OWNER() -> ContractAddress { 0x123.try_into().unwrap() }`).
+
+### Dependency Versions
+
+Different contracts use different OpenZeppelin and `snforge_std` versions. Check the specific contract's `Scarb.toml`:
+- MIP-Collections-ERC721: `openzeppelin = { git = ..., tag = "v0.20.0" }`, `snforge_std = "0.59.0"`, `starknet = "2.12.0"`
+- Older contracts (IP-Programmable-ERC-721): `openzeppelin tag = "v0.17.0"`, `snforge_std` via git tag
+
+### Deployment
+
+`snfoundry.toml` in each contract configures `sncast` profiles. Deploy flow: `scarb build` → `sncast --profile <profile> --wait declare` → `sncast --profile <profile> --wait deploy`.
+
+Current `MIP-Collections-ERC721` Starknet mainnet deployment:
+- `IPNft` class hash: `0x02d50b7e6d1a14f17a8fdc2df24d6e493bae6fae579656d81959b8c92de4b13f`
+- `IPCollection` class hash: `0x00203f0e03a472cb6e058327ca22147c75e574cc2876f4981e99bcbcbe716a29`
+- `IPCollection` registry address: `0x07c2207d200a1dce1cc82a117d8ba91dabfe3d1cc5072d9e4cdd9654fbb0ff10`
+
+## Cairo Coding Conventions
+
+- `snake_case` for functions and variables; `PascalCase` for structs and modules
+- Separate interface traits (`IContractName`) from implementation
+- Use `pub mod` in `lib.cairo` to expose modules; keep internal helpers private
+- Error strings must be `felt252` short strings (≤31 chars) for `assert!` messages
+- Import storage traits explicitly: `StorageMapReadAccess`, `StoragePointerReadAccess`, etc.
 
 ---
 > Source: [mediolano-os/mediolano-contracts](https://github.com/mediolano-os/mediolano-contracts) — distributed by [TomeVault](https://tomevault.io).
