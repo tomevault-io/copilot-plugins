@@ -1,0 +1,9 @@
+{
+  "name": "geertbosch--chessfun",
+  "displayName": "chessfun",
+  "description": "When computers and chess cross paths, and especially when dabbling in chess programming, one common need is printing a chess position to the screen. Make this easier and better.",
+  "version": "1.0.0",
+  "author": "GeertBosch",
+  "homepage": "https://github.com/GeertBosch/chessfun",
+  "skills": []
+}
