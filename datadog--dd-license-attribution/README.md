@@ -7,11 +7,11 @@ A tool that uses several heuristics to try to get the licenses and copyright att
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DataDog/dd-license-attribution](https://github.com/DataDog/dd-license-attribution).
+Original source: `CLAUDE.md` in [DataDog/dd-license-attribution](https://github.com/DataDog/dd-license-attribution).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
