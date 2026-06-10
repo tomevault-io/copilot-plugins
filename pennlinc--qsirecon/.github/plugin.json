@@ -1,0 +1,9 @@
+{
+  "name": "pennlinc--qsirecon",
+  "displayName": "qsirecon",
+  "description": "Reconstruction of preprocessed q-space images (dMRI)",
+  "version": "1.0.0",
+  "author": "PennLINC",
+  "homepage": "https://github.com/PennLINC/qsirecon",
+  "skills": []
+}
