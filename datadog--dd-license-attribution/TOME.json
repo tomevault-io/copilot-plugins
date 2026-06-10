@@ -1,0 +1,44 @@
+{
+  "name": "dd-license-attribution",
+  "owner": "DataDog",
+  "repo": "dd-license-attribution",
+  "description": "A tool that uses several heuristics to try to get the licenses and copyright attributions of the 3rd party dependencies of a repository",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DataDog/dd-license-attribution",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-10T18:39:11Z"
+}
