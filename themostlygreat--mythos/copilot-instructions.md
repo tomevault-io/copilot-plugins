@@ -1,9 +1,9 @@
-## safeword-elicitation
+## safeword-figure-it-out
 
-> Extract tacit knowledge through non-obvious microquestions — things only the user knows that can't be found in code, docs, or research. Use when about to guess at intent, context, or constraints, or when user says 'ask me', 'what do you need to know', 'what's missing'. Skips questions answerable by reading the codebase or searching the web.
+> Explore and debate options with fresh documentation and research before committing. Use when facing a real decision with multiple plausible approaches — library/framework choice, architecture call, API or schema design, algorithm selection. Looks up current docs and recent research, weighs options on correctness and elegance, and resists bloat.
 
 
-@.claude/skills/elicit/SKILL.md
+@.claude/skills/figure-it-out/SKILL.md
 
 ---
 > Source: [TheMostlyGreat/mythos](https://github.com/TheMostlyGreat/mythos) — distributed by [TomeVault](https://tomevault.io).
