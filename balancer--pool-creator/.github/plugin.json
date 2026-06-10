@@ -1,0 +1,9 @@
+{
+  "name": "balancer--pool-creator",
+  "displayName": "pool-creator",
+  "description": "A user friendly interface for creating and initializing pools",
+  "version": "1.0.0",
+  "author": "balancer",
+  "homepage": "https://github.com/balancer/pool-creator",
+  "skills": []
+}
