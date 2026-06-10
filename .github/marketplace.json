@@ -199964,6 +199964,21 @@
       "description": "\u58a8\u6d41 (molio): Local-first AI writing & publishing tool \u2014 notes, writing, formatting in one flow.\u672c\u5730\u4f18\u5148\u7684 AI \u5199\u4f5c\u4e0e\u53d1\u5e03\u5de5\u5177\u2014\u2014\u77e5\u8bc6\u5e93\u3001\u5199\u4f5c\u3001\u6392\u7248\uff0c\u4e00\u6761\u5de5\u4f5c\u6d41\u4e32\u8054\u3002"
     },
     {
+      "name": "livekit-examples--gemini-live-translate",
+      "source": "./livekit-examples--gemini-live-translate",
+      "description": "gemini-live-translate"
+    },
+    {
+      "name": "rustedbytes--mavsim",
+      "source": "./rustedbytes--mavsim",
+      "description": "Rust native rewrite of MAVSim with MAVLink/PX4 SITL compatibility"
+    },
+    {
+      "name": "tinfoilsh--tinfoil-go",
+      "source": "./tinfoilsh--tinfoil-go",
+      "description": "Tinfoil Go Client supporting the OpenAI API standard "
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -309762,6 +309777,26 @@
       "name": "richmiles--code-weaver",
       "source": "./richmiles--code-weaver",
       "description": "code-weaver"
+    },
+    {
+      "name": "n-grubb--draftkit",
+      "source": "./n-grubb--draftkit",
+      "description": "A fantasy baseball tool "
+    },
+    {
+      "name": "kimly888--project-x-deploy",
+      "source": "./kimly888--project-x-deploy",
+      "description": "project-x-deploy"
+    },
+    {
+      "name": "kimly888--project-x-deploy",
+      "source": "./kimly888--project-x-deploy",
+      "description": "project-x-deploy"
+    },
+    {
+      "name": "kimly888--project-x-deploy",
+      "source": "./kimly888--project-x-deploy",
+      "description": "project-x-deploy"
     }
   ]
 }
