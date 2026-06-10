@@ -1,0 +1,9 @@
+{
+  "name": "rmorlok--authproxy",
+  "displayName": "authproxy",
+  "description": "Authenticating proxy server for connecting to 3rd party APIs",
+  "version": "1.0.0",
+  "author": "rmorlok",
+  "homepage": "https://github.com/rmorlok/authproxy",
+  "skills": []
+}
