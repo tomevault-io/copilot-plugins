@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--terraform-provider-cloudfoundry",
+  "displayName": "terraform-provider-cloudfoundry",
+  "description": "Terraform provider to manage Cloud Foundry resources using v3 APIs",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/terraform-provider-cloudfoundry",
+  "skills": []
+}
