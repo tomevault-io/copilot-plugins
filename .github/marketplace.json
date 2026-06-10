@@ -92929,6 +92929,11 @@
       "description": "A RAG-powered Telegram / Mattermost bot to record beancount transactions with few words"
     },
     {
+      "name": "whanxueyu--cyberpunk-ui",
+      "source": "./whanxueyu--cyberpunk-ui",
+      "description": "\u51c6\u5907\u505a\u4e00\u4e2a\u8d5b\u535a\u670b\u514b\u98ce\u683c\u7ec4\u4ef6\u5e93\uff0c\u76ee\u524d\u5df2\u6709\u5341\u51e0\u4e2a\u70ab\u9177\u7684\u7ec4\u4ef6\uff0c\u540e\u7eed\u7ec4\u4ef6\u6b63\u5728\u5f00\u53d1\u4e2d..."
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -97232,6 +97237,51 @@
       "name": "crmne--cluster-headache-tracker",
       "source": "./crmne--cluster-headache-tracker",
       "description": "Cluster Headache Tracker is a free, open-source web application designed to help individuals suffering from cluster headaches track and manage their condition. By providing detailed logging, visual in"
+    },
+    {
+      "name": "sitecore--xmcloud-starter-js",
+      "source": "./sitecore--xmcloud-starter-js",
+      "description": "xmcloud-starter-js"
+    },
+    {
+      "name": "sitecore--xmcloud-starter-js",
+      "source": "./sitecore--xmcloud-starter-js",
+      "description": "xmcloud-starter-js"
+    },
+    {
+      "name": "sitecore--xmcloud-starter-js",
+      "source": "./sitecore--xmcloud-starter-js",
+      "description": "xmcloud-starter-js"
+    },
+    {
+      "name": "sitecore--xmcloud-starter-js",
+      "source": "./sitecore--xmcloud-starter-js",
+      "description": "xmcloud-starter-js"
+    },
+    {
+      "name": "sitecore--xmcloud-starter-js",
+      "source": "./sitecore--xmcloud-starter-js",
+      "description": "xmcloud-starter-js"
+    },
+    {
+      "name": "sitecore--xmcloud-starter-js",
+      "source": "./sitecore--xmcloud-starter-js",
+      "description": "xmcloud-starter-js"
+    },
+    {
+      "name": "sitecore--xmcloud-starter-js",
+      "source": "./sitecore--xmcloud-starter-js",
+      "description": "xmcloud-starter-js"
+    },
+    {
+      "name": "sitecore--xmcloud-starter-js",
+      "source": "./sitecore--xmcloud-starter-js",
+      "description": "xmcloud-starter-js"
+    },
+    {
+      "name": "sitecore--xmcloud-starter-js",
+      "source": "./sitecore--xmcloud-starter-js",
+      "description": "xmcloud-starter-js"
     },
     {
       "name": "10xchengtu--mux0",
@@ -121904,6 +121954,11 @@
       "description": "sentry-toolbar"
     },
     {
+      "name": "koenoe--tvseri-es",
+      "source": "./koenoe--tvseri-es",
+      "description": "tvseri.es"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -133424,6 +133479,11 @@
       "description": "Developer CLI for Kong"
     },
     {
+      "name": "curzel-it--sneakbit",
+      "source": "./curzel-it--sneakbit",
+      "description": "sneakbit"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -142889,6 +142949,11 @@
       "description": "A Neon branch for every Cloudflare Preview Deployment "
     },
     {
+      "name": "imhonglu--new-wheels",
+      "source": "./imhonglu--new-wheels",
+      "description": "A strongly-typed typescript library"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -148597,6 +148662,16 @@
       "name": "reya-labs--reya-python-sdk",
       "source": "./reya-labs--reya-python-sdk",
       "description": "Python examples of interactions with the Reya ecosystem"
+    },
+    {
+      "name": "visa--visa-vulnerability-agentic-harness",
+      "source": "./visa--visa-vulnerability-agentic-harness",
+      "description": "Visa Vulnerability Agentic Harness"
+    },
+    {
+      "name": "visa--visa-vulnerability-agentic-harness",
+      "source": "./visa--visa-vulnerability-agentic-harness",
+      "description": "Visa Vulnerability Agentic Harness"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
