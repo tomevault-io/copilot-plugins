@@ -1,0 +1,9 @@
+{
+  "name": "azutoolkit--cql",
+  "displayName": "cql",
+  "description": "CQL Toolkit is a comprehensive library designed to simplify and enhance the management and execution of SQL queries in Crystal. This toolkit provides utilities for building, validating, and executing ",
+  "version": "1.0.0",
+  "author": "azutoolkit",
+  "homepage": "https://github.com/azutoolkit/cql",
+  "skills": []
+}
