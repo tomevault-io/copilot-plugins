@@ -102004,6 +102004,21 @@
       "description": "\u4e00\u4e2a\u57fa\u4e8e plcopen \u8fd0\u52a8\u63a7\u5236\u6807\u51c6\u5b9e\u73b0\u7684 C++ \u5e93"
     },
     {
+      "name": "sbomify--sbomify-action",
+      "source": "./sbomify--sbomify-action",
+      "description": "GitHub Action for sbomify."
+    },
+    {
+      "name": "v0l--route96",
+      "source": "./v0l--route96",
+      "description": "A Blossom/NIP96 server"
+    },
+    {
+      "name": "sbomify--sbomify-action",
+      "source": "./sbomify--sbomify-action",
+      "description": "GitHub Action for sbomify."
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -106929,6 +106944,16 @@
       "description": "A comprehensive Windows developer setup automation repository with PowerShell 7+, Windows 11 optimizations, and mandatory WSL integration. Features streamlined configuration scripts, automated tool in"
     },
     {
+      "name": "kez-lab--compose-datetimepicker",
+      "source": "./kez-lab--compose-datetimepicker",
+      "description": "A Compose Multiplatform date and time picker library that provides a consistent UI across Android, iOS, Desktop, and Web platforms."
+    },
+    {
+      "name": "onetime-with-members--backend",
+      "source": "./onetime-with-members--backend",
+      "description": "\ub9c1\ud06c \uacf5\uc720 \ud55c\ubc88\uc73c\ub85c, \uc5ec\ub7ec \uc0ac\ub78c\uacfc \uc27d\uac8c \uc77c\uc815\uc744 \ub9de\ucd94\uc138\uc694 - OneTime \u23f0"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -110214,6 +110239,11 @@
       "description": "Reconstruction of preprocessed q-space images (dMRI)"
     },
     {
+      "name": "directus--docs",
+      "source": "./directus--docs",
+      "description": "Documentation website for Directus, including quick starts, guides, and tutorials."
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -112987,6 +113017,16 @@
       "name": "developerhost--my-dq-portfolio",
       "source": "./developerhost--my-dq-portfolio",
       "description": "\u30c9\u30e9\u30af\u30a8\u98a8\u30d7\u30ed\u30d5\u30a3\u30fc\u30eb\u30b5\u30a4\u30c8"
+    },
+    {
+      "name": "theogravity--bun-fastify-starter-turbo-monorepo",
+      "source": "./theogravity--bun-fastify-starter-turbo-monorepo",
+      "description": "A starter project for building an API service using Fastify v5, kysely / postgres, turbo, and bun with sample tests and OpenAPI endpoint / database generators to help you build quickly"
+    },
+    {
+      "name": "harentius--grammifyai",
+      "source": "./harentius--grammifyai",
+      "description": "Minimalist LLM Grammar Checker for macOS"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -118574,6 +118614,11 @@
       "description": "Lightweight React lightbox component"
     },
     {
+      "name": "fangyi-zhou--sii-decode-rs",
+      "source": "./fangyi-zhou--sii-decode-rs",
+      "description": "sii-decode-rs"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -121842,6 +121887,21 @@
       "name": "bitrix24--b24jssdk",
       "source": "./bitrix24--b24jssdk",
       "description": "Bitrix24 REST API JS SDK"
+    },
+    {
+      "name": "selfmail--selfmail",
+      "source": "./selfmail--selfmail",
+      "description": "All in one business email provider \u2013 self-hostable and privacy friendly"
+    },
+    {
+      "name": "usethis-python--usethis-python",
+      "source": "./usethis-python--usethis-python",
+      "description": "Automatically manage Python tooling and configuration: linters, formatters, and more. A CLI for declaratively configuring your Python projects following best practices."
+    },
+    {
+      "name": "getsentry--sentry-toolbar",
+      "source": "./getsentry--sentry-toolbar",
+      "description": "sentry-toolbar"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -125637,6 +125697,16 @@
       "name": "rvcas--mach",
       "source": "./rvcas--mach",
       "description": "Weekly TODO CLI"
+    },
+    {
+      "name": "johnlindquist--mac-windows-manager",
+      "source": "./johnlindquist--mac-windows-manager",
+      "description": "mac-windows-manager"
+    },
+    {
+      "name": "oscarhermoso--terraform-provider-binarylane",
+      "source": "./oscarhermoso--terraform-provider-binarylane",
+      "description": "This is a Terraform provider for Binary Lane, for reliable & affordable Australian VPS hosting"
     },
     {
       "name": "13point5--agent-canvas",
@@ -133344,6 +133414,16 @@
       "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
     },
     {
+      "name": "posthog--posthog-demo-3000",
+      "source": "./posthog--posthog-demo-3000",
+      "description": "posthog-demo-3000"
+    },
+    {
+      "name": "kong--kongctl",
+      "source": "./kong--kongctl",
+      "description": "Developer CLI for Kong"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -137602,6 +137682,26 @@
       "name": "objectionary--hone-maven-plugin",
       "source": "./objectionary--hone-maven-plugin",
       "description": "Maven plugin that applies a number of optimizations to your Bytecode, using EOLANG and \ud835\udf11-calculus, trying to make it work faster"
+    },
+    {
+      "name": "opsmill--infrahub-sync",
+      "source": "./opsmill--infrahub-sync",
+      "description": "Infrahub Sync: A Python package for flexible data synchronization between Infrahub and various platforms like Netbox, Nautobot with a Typer-based CLI."
+    },
+    {
+      "name": "killerink--growfancontroller",
+      "source": "./killerink--growfancontroller",
+      "description": "Esp32 based climatic condition Controller"
+    },
+    {
+      "name": "opsmill--infrahub-sync",
+      "source": "./opsmill--infrahub-sync",
+      "description": "Infrahub Sync: A Python package for flexible data synchronization between Infrahub and various platforms like Netbox, Nautobot with a Typer-based CLI."
+    },
+    {
+      "name": "opsmill--infrahub-sync",
+      "source": "./opsmill--infrahub-sync",
+      "description": "Infrahub Sync: A Python package for flexible data synchronization between Infrahub and various platforms like Netbox, Nautobot with a Typer-based CLI."
     },
     {
       "name": "mohiwalla--memes",
@@ -142772,6 +142872,21 @@
       "name": "yankovichv--authenticator-tg",
       "source": "./yankovichv--authenticator-tg",
       "description": "Authenticator is a secure app for generating One-Time Passwords (OTP) for your 2FA-protected accounts right in Telegram."
+    },
+    {
+      "name": "unfazed-eco--unfazed",
+      "source": "./unfazed-eco--unfazed",
+      "description": "a django-like async python web framework"
+    },
+    {
+      "name": "square--mobile-payments-sdk-react-native",
+      "source": "./square--mobile-payments-sdk-react-native",
+      "description": "Mobile Payments SDK React Native Plug-in"
+    },
+    {
+      "name": "neondatabase--preview-branches-with-cloudflare",
+      "source": "./neondatabase--preview-branches-with-cloudflare",
+      "description": "A Neon branch for every Cloudflare Preview Deployment "
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -148472,6 +148587,16 @@
       "name": "wflixu--nblog",
       "source": "./wflixu--nblog",
       "description": "Notion database as CMS for  blog "
+    },
+    {
+      "name": "jhondavid930--suricataman",
+      "source": "./jhondavid930--suricataman",
+      "description": "Instalaci\u00f3n Autom\u00e1tica de Suricata"
+    },
+    {
+      "name": "reya-labs--reya-python-sdk",
+      "source": "./reya-labs--reya-python-sdk",
+      "description": "Python examples of interactions with the Reya ecosystem"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -154747,6 +154872,31 @@
       "name": "sure-scale--doc-haus",
       "source": "./sure-scale--doc-haus",
       "description": "The open-source legal AI agent. Documents stay on your machine; redlines land in Word. Fork of OpenCode."
+    },
+    {
+      "name": "torstendittmann--launch-css",
+      "source": "./torstendittmann--launch-css",
+      "description": " A classless CSS framework built for speed. Style your website later\u2014build it now."
+    },
+    {
+      "name": "cedricangulo--ca-resources",
+      "source": "./cedricangulo--ca-resources",
+      "description": "Website that provides valuable resources and guides to improve productivity."
+    },
+    {
+      "name": "dangmoody--builder",
+      "source": "./dangmoody--builder",
+      "description": "A simple and powerful C++ build tool that turns C++ code into compiler arguments"
+    },
+    {
+      "name": "cedricangulo--ca-resources",
+      "source": "./cedricangulo--ca-resources",
+      "description": "Website that provides valuable resources and guides to improve productivity."
+    },
+    {
+      "name": "jlgrimes--training-court",
+      "source": "./jlgrimes--training-court",
+      "description": "training-court"
     },
     {
       "name": "lightninglabs--lnget",
@@ -163277,6 +163427,26 @@
       "name": "zamesin--next-move-theory-canon-and-skills",
       "source": "./zamesin--next-move-theory-canon-and-skills",
       "description": "Claude Code skills for product market research, value props, PRDs, and go-to-market \u2014 plus the open Next Move Theory (based on AJTBD) canon and a product advisor you can /ask-nmt"
+    },
+    {
+      "name": "pablovela5620--simplecv",
+      "source": "./pablovela5620--simplecv",
+      "description": "simplecv"
+    },
+    {
+      "name": "skyllc-ai--ultrafastfilesearch",
+      "source": "./skyllc-ai--ultrafastfilesearch",
+      "description": "Ultra-fast file search for Windows using NTFS MFT"
+    },
+    {
+      "name": "cosmos-dx--doctorg--deep-learning",
+      "source": "./cosmos-dx--doctorg--deep-learning",
+      "description": "Its a Disease Prediction Model on the basis of Given Symptoms and Weightage "
+    },
+    {
+      "name": "axect--pytorch-template",
+      "source": "./axect--pytorch-template",
+      "description": "AI-agent-friendly PyTorch research pipeline \u2014 one YAML config drives preflight, training, Optuna HPO, and real-time TUI monitoring"
     },
     {
       "name": "yschimke--compose-ai-tools",
