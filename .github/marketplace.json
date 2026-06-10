@@ -31269,6 +31269,11 @@
       "description": "\u5e83\u8074AI (\u30c7\u30b8\u30bf\u30eb\u6c11\u4e3b\u4e3b\u7fa92030\u30d6\u30ed\u30fc\u30c9\u30ea\u30b9\u30cb\u30f3\u30b0)"
     },
     {
+      "name": "stukennedy--irgo",
+      "source": "./stukennedy--irgo",
+      "description": "Native app development framework for mobile and desktop using Go and Datastar."
+    },
+    {
       "name": "qingquanyao--xilinx-skill",
       "source": "./qingquanyao--xilinx-skill",
       "description": "Xilinx/AMD FPGA & MPSoC Vivado design skill for Claude \u2014 covers block design, IP config, XDC constraints, synthesis, implementation and bitstream generation."
@@ -33552,11 +33557,6 @@
       "name": "mixpeek--amux",
       "source": "./mixpeek--amux",
       "description": "Open-source Claude Code agent multiplexer \u2014 run dozens of parallel AI coding agents unattended via tmux"
-    },
-    {
-      "name": "stukennedy--irgo",
-      "source": "./stukennedy--irgo",
-      "description": "Native app development framework for mobile and desktop using Go and Datastar."
     },
     {
       "name": "shiquda--xyz-dl",
@@ -89494,6 +89494,11 @@
       "description": "psql.sh - browser native PostgreSQL command line client"
     },
     {
+      "name": "xgo-dev--llcppg",
+      "source": "./xgo-dev--llcppg",
+      "description": "LLGo autogen tool for C/C++ libraries"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -110027,6 +110032,11 @@
       "name": "cofin--oracledb-vertexai-demo",
       "source": "./cofin--oracledb-vertexai-demo",
       "description": "Reference application using Google ADK and Oracle"
+    },
+    {
+      "name": "kumocorp--shingetsu",
+      "source": "./kumocorp--shingetsu",
+      "description": "A Rust-native reference-counted implementation of the Lua language"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -148054,6 +148064,16 @@
       "description": "MCP-based Computer Use service for Qwen Code and any AI agent \u2014 controls macOS, Linux, and Windows via accessibility APIs."
     },
     {
+      "name": "bchewy--fireclaw",
+      "source": "./bchewy--fireclaw",
+      "description": "Firecracker-based OpenClaw instance manager"
+    },
+    {
+      "name": "0rnot--god-mode-claude",
+      "source": "./0rnot--god-mode-claude",
+      "description": "Drop this CLAUDE.md into your project. Watch Claude Code mass level up. One file. Zero config."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -163047,11 +163067,6 @@
       "name": "aaronvanston--skills-presentations",
       "source": "./aaronvanston--skills-presentations",
       "description": "AI agent skills for creating bold, minimal presentations"
-    },
-    {
-      "name": "bchewy--fireclaw",
-      "source": "./bchewy--fireclaw",
-      "description": "Firecracker-based OpenClaw instance manager"
     },
     {
       "name": "agenticdataprotocol--python-sdk",
@@ -282829,11 +282844,6 @@
       "description": "Typing_System_MindMap"
     },
     {
-      "name": "franalli--debate-arena",
-      "source": "./franalli--debate-arena",
-      "description": "debate-arena"
-    },
-    {
       "name": "adeveli101--social-saas",
       "source": "./adeveli101--social-saas",
       "description": "social-saas"
@@ -309727,6 +309737,11 @@
       "name": "levinblox--exploreus",
       "source": "./levinblox--exploreus",
       "description": "exploreus"
+    },
+    {
+      "name": "franalli--debate-arena",
+      "source": "./franalli--debate-arena",
+      "description": "debate-arena"
     }
   ]
 }
