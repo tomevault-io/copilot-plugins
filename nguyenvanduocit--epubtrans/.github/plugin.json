@@ -1,0 +1,9 @@
+{
+  "name": "nguyenvanduocit--epubtrans",
+  "displayName": "epubtrans",
+  "description": "quickly translate epub books into a bilingual book using Anthropic LLMs",
+  "version": "1.0.0",
+  "author": "nguyenvanduocit",
+  "homepage": "https://github.com/nguyenvanduocit/epubtrans",
+  "skills": []
+}
