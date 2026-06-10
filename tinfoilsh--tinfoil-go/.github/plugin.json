@@ -1,0 +1,9 @@
+{
+  "name": "tinfoilsh--tinfoil-go",
+  "displayName": "tinfoil-go",
+  "description": "Tinfoil Go Client supporting the OpenAI API standard ",
+  "version": "1.0.0",
+  "author": "tinfoilsh",
+  "homepage": "https://github.com/tinfoilsh/tinfoil-go",
+  "skills": []
+}
