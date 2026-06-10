@@ -1,0 +1,9 @@
+{
+  "name": "brandhaug--zod-to-protobuf",
+  "displayName": "zod-to-protobuf",
+  "description": "Convert Zod schemas to Protocol Buffers definitions.",
+  "version": "1.0.0",
+  "author": "brandhaug",
+  "homepage": "https://github.com/brandhaug/zod-to-protobuf",
+  "skills": []
+}
