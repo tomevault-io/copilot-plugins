@@ -7,11 +7,11 @@ AI-first Go development framework. Ship production CLIs that AI agents build cor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [peiman/ckeletin-go](https://github.com/peiman/ckeletin-go).
+Original source: `CLAUDE.md` in [peiman/ckeletin-go](https://github.com/peiman/ckeletin-go).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
