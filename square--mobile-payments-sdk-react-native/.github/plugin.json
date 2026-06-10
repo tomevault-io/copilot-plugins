@@ -1,0 +1,9 @@
+{
+  "name": "square--mobile-payments-sdk-react-native",
+  "displayName": "mobile-payments-sdk-react-native",
+  "description": "Mobile Payments SDK React Native Plug-in",
+  "version": "1.0.0",
+  "author": "square",
+  "homepage": "https://github.com/square/mobile-payments-sdk-react-native",
+  "skills": []
+}
