@@ -1,0 +1,9 @@
+{
+  "name": "tavva--flow",
+  "displayName": "flow",
+  "description": "Implements key processes in David Allen's Getting Things Done (GTD) methodology",
+  "version": "1.0.0",
+  "author": "tavva",
+  "homepage": "https://github.com/tavva/flow",
+  "skills": []
+}
