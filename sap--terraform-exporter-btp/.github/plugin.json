@@ -1,0 +1,9 @@
+{
+  "name": "sap--terraform-exporter-btp",
+  "displayName": "terraform-exporter-btp",
+  "description": "The Terraform Exporter for SAP BTP is a tool that helps export resources from a SAP BTP account.  It generates Terraform scripts for the import of resources and enables the import of the Terraform sta",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/terraform-exporter-btp",
+  "skills": []
+}
