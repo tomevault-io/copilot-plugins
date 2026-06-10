@@ -1,0 +1,9 @@
+{
+  "name": "grafana--otel-checker",
+  "displayName": "otel-checker",
+  "description": "Otel Me If It's Right project",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/otel-checker",
+  "skills": []
+}
