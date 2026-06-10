@@ -54014,6 +54014,16 @@
       "description": "UniRL is a Framework for Unified Multimodal Model Reinforcement Learning"
     },
     {
+      "name": "xiaomimimo--mimo-code",
+      "source": "./xiaomimimo--mimo-code",
+      "description": "MiMo-Code"
+    },
+    {
+      "name": "xiaomimimo--mimo-code",
+      "source": "./xiaomimimo--mimo-code",
+      "description": "MiMo-Code"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -82729,6 +82739,16 @@
       "description": "Efficient, lightweight and reliable distributed computation engine"
     },
     {
+      "name": "am32-firmware--am32-unlocker",
+      "source": "./am32-firmware--am32-unlocker",
+      "description": "AM32 ESC unlocker"
+    },
+    {
+      "name": "wavoip--wavoip-api",
+      "source": "./wavoip--wavoip-api",
+      "description": "wavoip-api"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -84124,6 +84144,16 @@
       "description": "mobile bitdrift SDK"
     },
     {
+      "name": "grafana--otel-checker",
+      "source": "./grafana--otel-checker",
+      "description": "Otel Me If It's Right project"
+    },
+    {
+      "name": "jmanhype--golden-retriever",
+      "source": "./jmanhype--golden-retriever",
+      "description": "A framework for high-fidelity retrieval augmented generation in industrial knowledge bases. Integrates jargon identification, context recognition, and question augmentation to overcome challenges in s"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -85347,6 +85377,11 @@
       "name": "pjq--sap-ai-core-llm-proxy",
       "source": "./pjq--sap-ai-core-llm-proxy",
       "description": "SAP AI Core Open AI Compatible LLM Proxy(gpt-5, claude sonnet 4.6, claude opus 4.6, gemini-2.5-pro)"
+    },
+    {
+      "name": "potpie-ai--potpie-ui",
+      "source": "./potpie-ai--potpie-ui",
+      "description": "potpie-ui"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -86617,6 +86652,16 @@
       "name": "haers--zhao-resource",
       "source": "./haers--zhao-resource",
       "description": "\u4e2a\u4eba\u8d44\u6e90\u7ad9\uff0c\u5305\u62ec\u5938\u514b\uff0c\u767e\u5bb6\u8bb2\u575b\uff0ck12\u8d44\u6e90\uff0c\u6444\u5f71\u526a\u8f91\uff0c\u8003\u516c\u8003\u7814\uff0c\u82f1\u8bed\u5b66\u4e60\u89c6\u9891\uff0c\u53ef\u4ee5\u76f4\u63a5\u6d4f\u89c8\u5668\u641c\u7d22\u5373\u53ef\u627e\u5230"
+    },
+    {
+      "name": "huytdps13400--react-native-ssl-manager",
+      "source": "./huytdps13400--react-native-ssl-manager",
+      "description": "React Native SSL Pinning provides seamless SSL certificate pinning integration for enhanced network security in React Native apps. This module enables developers to easily implement and manage certifi"
+    },
+    {
+      "name": "huytdps13400--react-native-ssl-manager",
+      "source": "./huytdps13400--react-native-ssl-manager",
+      "description": "React Native SSL Pinning provides seamless SSL certificate pinning integration for enhanced network security in React Native apps. This module enables developers to easily implement and manage certifi"
     },
     {
       "name": "skywind3000--gamesample",
@@ -91199,6 +91244,11 @@
       "description": "A  fast low level transport library to support sockets and rdma with waiting or polling"
     },
     {
+      "name": "abstract-foundation--abstract-docs",
+      "source": "./abstract-foundation--abstract-docs",
+      "description": "Developer documentation for building on Abstract."
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -92872,6 +92922,11 @@
       "name": "kixelated--mp4-atom",
       "source": "./kixelated--mp4-atom",
       "description": "A Rust MP4/ISOBMFF encoder and decoder"
+    },
+    {
+      "name": "stdioa--beancount-bot",
+      "source": "./stdioa--beancount-bot",
+      "description": "A RAG-powered Telegram / Mattermost bot to record beancount transactions with few words"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -94987,6 +95042,11 @@
       "name": "codenamev--agentic",
       "source": "./codenamev--agentic",
       "description": "A simple Ruby command-line tool to build and run AI Agents in a plan-and-execute fashion."
+    },
+    {
+      "name": "lay3rlabs--wavs",
+      "source": "./lay3rlabs--wavs",
+      "description": "Build decentralized event-driven applications."
     },
     {
       "name": "khangbdd--phoenix",
@@ -97167,6 +97227,11 @@
       "name": "robdegeorge--octave",
       "source": "./robdegeorge--octave",
       "description": "Open-source, Cross-platform Telematics Augmented Vehicle Experience"
+    },
+    {
+      "name": "crmne--cluster-headache-tracker",
+      "source": "./crmne--cluster-headache-tracker",
+      "description": "Cluster Headache Tracker is a free, open-source web application designed to help individuals suffering from cluster headaches track and manage their condition. By providing detailed logging, visual in"
     },
     {
       "name": "10xchengtu--mux0",
@@ -99402,6 +99467,26 @@
       "name": "adrielvelazquez--nixos-config",
       "source": "./adrielvelazquez--nixos-config",
       "description": "Personal Configuration for NixOS"
+    },
+    {
+      "name": "phenobarbital--ai-parrot",
+      "source": "./phenobarbital--ai-parrot",
+      "description": "Parrot is a new library to work with chatbots and agents with a very simple API"
+    },
+    {
+      "name": "tobi-de--django-litestream",
+      "source": "./tobi-de--django-litestream",
+      "description": "Django integration with litestream, a standalone streaming replication tool for SQLite."
+    },
+    {
+      "name": "phenobarbital--ai-parrot",
+      "source": "./phenobarbital--ai-parrot",
+      "description": "Parrot is a new library to work with chatbots and agents with a very simple API"
+    },
+    {
+      "name": "thriving-dev--kafka-streams-topology-design",
+      "source": "./thriving-dev--kafka-streams-topology-design",
+      "description": "Kafka Streams Topology Design (KSTD) is an open standard dedicated to the clear and effective description and visualization of Kafka Stream topologies."
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -110114,6 +110199,21 @@
       "description": "A Neovim plugin that uses LLMs to improve the grammar and spelling of natural language text."
     },
     {
+      "name": "pennlinc--qsirecon",
+      "source": "./pennlinc--qsirecon",
+      "description": "Reconstruction of preprocessed q-space images (dMRI)"
+    },
+    {
+      "name": "pennlinc--qsirecon",
+      "source": "./pennlinc--qsirecon",
+      "description": "Reconstruction of preprocessed q-space images (dMRI)"
+    },
+    {
+      "name": "pennlinc--qsirecon",
+      "source": "./pennlinc--qsirecon",
+      "description": "Reconstruction of preprocessed q-space images (dMRI)"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -112884,6 +112984,11 @@
       "description": "Welcome to Cofiblocks marketplace: A Starknet web3 platform to innovate Costa Rica coffee industry. Cofiblocks connects small coffee farmers directly with coffee lovers, cutting out unnecessary interm"
     },
     {
+      "name": "developerhost--my-dq-portfolio",
+      "source": "./developerhost--my-dq-portfolio",
+      "description": "\u30c9\u30e9\u30af\u30a8\u98a8\u30d7\u30ed\u30d5\u30a3\u30fc\u30eb\u30b5\u30a4\u30c8"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -115637,6 +115742,11 @@
       "name": "rzna-5559--mrite-skills---ing",
       "source": "./rzna-5559--mrite-skills---ing",
       "description": "A Skill-1"
+    },
+    {
+      "name": "yingrjimsch--grgry",
+      "source": "./yingrjimsch--grgry",
+      "description": "grgry"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -118457,6 +118567,11 @@
       "name": "frodeborli--serializor",
       "source": "./frodeborli--serializor",
       "description": "PHP Serializor will serialize almost anything in PHP, including closures and anonymous classes."
+    },
+    {
+      "name": "igordanchenko--yet-another-react-lightbox-lite",
+      "source": "./igordanchenko--yet-another-react-lightbox-lite",
+      "description": "Lightweight React lightbox component"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -133139,6 +133254,96 @@
       "description": "Cairo Smart Contracts @ Mediolano - intellectual property provider for the integrity web. Powered on Starknet."
     },
     {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
+      "name": "themostlygreat--mythos",
+      "source": "./themostlygreat--mythos",
+      "description": "An LLM-based novel writing app. Generates concepts, develops characters, creates settings, and writes full chapters. Designed to work with OpenAI and Anthropic models. "
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -137387,6 +137592,16 @@
       "name": "jamalmansuri--fried-catfish",
       "source": "./jamalmansuri--fried-catfish",
       "description": "AI Framework with multi-agent tournament, deterministic Bradley-Terry scorer, human-gated writes \u2014 portable across Claude Code and Codex from a single MCP core."
+    },
+    {
+      "name": "geertbosch--chessfun",
+      "source": "./geertbosch--chessfun",
+      "description": "When computers and chess cross paths, and especially when dabbling in chess programming, one common need is printing a chess position to the screen. Make this easier and better."
+    },
+    {
+      "name": "objectionary--hone-maven-plugin",
+      "source": "./objectionary--hone-maven-plugin",
+      "description": "Maven plugin that applies a number of optimizations to your Bytecode, using EOLANG and \ud835\udf11-calculus, trying to make it work faster"
     },
     {
       "name": "mohiwalla--memes",
@@ -154514,6 +154729,26 @@
       "description": "A wallet wrapper/adapter for the Internet Computer"
     },
     {
+      "name": "oomol-lab--lockime",
+      "source": "./oomol-lab--lockime",
+      "description": "A native macOS menu-bar app that keeps your keyboard input source locked \u2014 global, per-app, and per-URL."
+    },
+    {
+      "name": "oomol-lab--lockime",
+      "source": "./oomol-lab--lockime",
+      "description": "A native macOS menu-bar app that keeps your keyboard input source locked \u2014 global, per-app, and per-URL."
+    },
+    {
+      "name": "sure-scale--doc-haus",
+      "source": "./sure-scale--doc-haus",
+      "description": "The open-source legal AI agent. Documents stay on your machine; redlines land in Word. Fork of OpenCode."
+    },
+    {
+      "name": "sure-scale--doc-haus",
+      "source": "./sure-scale--doc-haus",
+      "description": "The open-source legal AI agent. Documents stay on your machine; redlines land in Word. Fork of OpenCode."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -163032,6 +163267,16 @@
       "name": "mdjastrzebski--ts-markdown-builder",
       "source": "./mdjastrzebski--ts-markdown-builder",
       "description": "Elegant markdown builder with minimal bundle size."
+    },
+    {
+      "name": "zamesin--next-move-theory-canon-and-skills",
+      "source": "./zamesin--next-move-theory-canon-and-skills",
+      "description": "Claude Code skills for product market research, value props, PRDs, and go-to-market \u2014 plus the open Next Move Theory (based on AJTBD) canon and a product advisor you can /ask-nmt"
+    },
+    {
+      "name": "zamesin--next-move-theory-canon-and-skills",
+      "source": "./zamesin--next-move-theory-canon-and-skills",
+      "description": "Claude Code skills for product market research, value props, PRDs, and go-to-market \u2014 plus the open Next Move Theory (based on AJTBD) canon and a product advisor you can /ask-nmt"
     },
     {
       "name": "yschimke--compose-ai-tools",
