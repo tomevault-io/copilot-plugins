@@ -1,0 +1,9 @@
+{
+  "name": "rlaope--oh-my-hermes",
+  "displayName": "oh-my-hermes",
+  "description": "omh; A hermes-agent workflow layer for routing, planning, evidence tracking, and coding handoff preparation, loop engineering.",
+  "version": "1.0.0",
+  "author": "rlaope",
+  "homepage": "https://github.com/rlaope/oh-my-hermes",
+  "skills": []
+}
