@@ -4,7 +4,7 @@
   "repo": "infrahub-sync",
   "description": "Infrahub Sync: A Python package for flexible data synchronization between Infrahub and various platforms like Netbox, Nautobot with a Typer-based CLI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/opsmill/infrahub-sync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T20:48:55Z"
+  "distributed_at": "2026-06-10T20:50:24Z"
 }
