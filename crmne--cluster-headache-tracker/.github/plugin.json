@@ -1,0 +1,9 @@
+{
+  "name": "crmne--cluster-headache-tracker",
+  "displayName": "cluster-headache-tracker",
+  "description": "Cluster Headache Tracker is a free, open-source web application designed to help individuals suffering from cluster headaches track and manage their condition. By providing detailed logging, visual in",
+  "version": "1.0.0",
+  "author": "crmne",
+  "homepage": "https://github.com/crmne/cluster-headache-tracker",
+  "skills": []
+}
