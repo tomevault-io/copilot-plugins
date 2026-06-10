@@ -4,7 +4,7 @@
   "repo": "react-native-ssl-manager",
   "description": "React Native SSL Pinning provides seamless SSL certificate pinning integration for enhanced network security in React Native apps. This module enables developers to easily implement and manage certificate pinning, protecting applications against man-in-the-middle (MITM) attacks. With dynamic configuration options and the ability to toggle SSL ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huytdps13400/react-native-ssl-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T19:38:40Z"
+  "distributed_at": "2026-06-10T19:43:32Z"
 }
