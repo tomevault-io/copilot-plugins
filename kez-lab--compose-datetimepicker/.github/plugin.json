@@ -1,0 +1,9 @@
+{
+  "name": "kez-lab--compose-datetimepicker",
+  "displayName": "Compose-DateTimePicker",
+  "description": "A Compose Multiplatform date and time picker library that provides a consistent UI across Android, iOS, Desktop, and Web platforms.",
+  "version": "1.0.0",
+  "author": "kez-lab",
+  "homepage": "https://github.com/kez-lab/Compose-DateTimePicker",
+  "skills": []
+}
