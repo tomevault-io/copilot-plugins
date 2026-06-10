@@ -7,11 +7,11 @@ React Native SSL Pinning provides seamless SSL certificate pinning integration f
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [huytdps13400/react-native-ssl-manager](https://github.com/huytdps13400/react-native-ssl-manager).
+Original source: `CLAUDE.md` in [huytdps13400/react-native-ssl-manager](https://github.com/huytdps13400/react-native-ssl-manager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
