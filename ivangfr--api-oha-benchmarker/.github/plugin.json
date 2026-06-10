@@ -1,0 +1,9 @@
+{
+  "name": "ivangfr--api-oha-benchmarker",
+  "displayName": "api-oha-benchmarker",
+  "description": "api-oha-benchmarker is a tool to easily benchmark APIs. It uses Testcontainers to manage Docker containers. Load testing is done with OHA. To collect information such as CPU and memory usage, it uses ",
+  "version": "1.0.0",
+  "author": "ivangfr",
+  "homepage": "https://github.com/ivangfr/api-oha-benchmarker",
+  "skills": []
+}
