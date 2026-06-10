@@ -1,0 +1,9 @@
+{
+  "name": "bitrix24--b24jssdk",
+  "displayName": "b24jssdk",
+  "description": "Bitrix24 REST API JS SDK",
+  "version": "1.0.0",
+  "author": "bitrix24",
+  "homepage": "https://github.com/bitrix24/b24jssdk",
+  "skills": []
+}
