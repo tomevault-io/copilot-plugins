@@ -1,112 +1,76 @@
-## navigation
+## project-instructions
 
-> The Starknet Agent codebase is organized as a monorepo with multiple packages:
+> Project Instructions
 
-# Navigation Rules for Starknet Agent Codebase
+# Starknet Agent Project Instructions
 
-## Project Structure Overview
+## Overview
+- Starknet Agent is an AI-powered search engine specifically designed for the Starknet Ecosystem.
+- It uses Retrieval-Augmented Generation (RAG) to provide accurate, source-cited answers to questions about Starknet and Cairo.
+- The project is built with TypeScript, Node.js, Express, MongoDB Atlas (vector search), and Next.js.
+- Originally forked from Perplexica, adapted for the Starknet ecosystem.
 
-The Starknet Agent codebase is organized as a monorepo with multiple packages:
+## Architecture
+- Monorepo structure with multiple packages:
+  - `packages/agents/`: Core RAG pipeline (query processing, document retrieval, answer generation)
+  - `packages/backend/`: Express server with WebSocket support for real-time streaming
+  - `packages/ui/`: Next.js frontend application with chat interface
+  - `packages/ingester/`: Data ingestion tools for documentation sources
+  - `packages/typescript-config/`: Shared TypeScript configuration
 
-- `packages/agents`: Contains the core agent logic for RAG-based search and response generation
-- `packages/backend`: Express-based server handling WebSocket connections and API endpoints
-- `packages/ui`: Next.js frontend application
-- `packages/ingester`: Tools for ingesting and processing data for the vector database
-- `packages/typescript-config`: Shared TypeScript configuration
+## RAG Pipeline Flow
+1. **Query Processing**: Analyzes and reformulates user queries to improve retrieval
+2. **Document Retrieval**: Searches vector database for relevant documents using cosine similarity
+3. **Answer Generation**: Uses LLMs to generate comprehensive responses with source citations
+4. **Real-time Streaming**: Delivers responses to the UI as they're generated
 
-## Key Directories and Files
+## Focus Modes
+- **Starknet Ecosystem**: Searches across all indexed resources
+- **Cairo Book**: Focuses on the Cairo programming language book
+- **Starknet Docs**: Targets official Starknet documentation
+- **Starknet Foundry**: Searches Starknet Foundry documentation
+- **Cairo By Example**: Provides examples from Cairo By Example resource
+- **OpenZeppelin Docs**: Searches OpenZeppelin's Starknet documentation
 
-### Agent Logic
-- `packages/agents/src/pipeline`: Contains the RAG pipeline implementation
-- `packages/agents/src/core`: Core agent functionality
-- `packages/agents/src/config`: Configuration handling
-- `packages/agents/src/db`: Database interaction logic
-- `packages/agents/src/utils`: Utility functions
-- `packages/agents/src/lib`: Shared libraries
-- `packages/agents/src/ragAgentFactory.ts`: Factory for creating RAG agents
-- `packages/agents/src/suggestionGeneratorAgent.ts`: Agent for generating search suggestions
+## Ingestion System
+- The ingester package handles downloading, processing, and storing documentation.
+- Supported documentation sources:
+  - Cairo Book
+  - Starknet Docs
+  - Starknet Foundry
+  - Cairo By Example
+  - OpenZeppelin Docs
+- Modular architecture with a `BaseIngester` abstract class and source-specific implementations.
+- Follows the template method pattern for standardized ingestion process.
+- Run ingestion with `pnpm generate-embeddings` or `pnpm generate-embeddings:yes` from the project root.
+- Weekly automated embedding generation via GitHub Actions.
 
-### Backend
-- `packages/backend/src/websocket`: WebSocket server implementation
-- `packages/backend/src/routes`: API route definitions
-- `packages/backend/src/app.ts`: Express application setup
-- `packages/backend/src/server.ts`: Server initialization
-- `packages/backend/src/config`: Server configuration
-- `packages/backend/src/utils`: Utility functions
+## Development Workflow
+- Use `pnpm dev` or `turbo dev` to start the development server
+- MongoDB Atlas with vector search capabilities required for embeddings storage
+- Configuration is managed through TOML files (copy `sample.config.toml` to `config.toml`)
+- Docker is used for containerization and deployment
+- Add new documentation sources by extending the `BaseIngester` class and registering in `IngesterFactory`
 
-### Frontend
-- `packages/ui/app`: Next.js app directory with page components
-- `packages/ui/components`: Reusable UI components
-- `packages/ui/lib`: Frontend utilities and helpers
-- `packages/ui/public`: Static assets
+## Commands
+- **Build**: `pnpm build`, `pnpm --filter @starknet-agent/agents build`
+- **Dev**: `pnpm dev` (starts all services with auto-reload)
+- **Test**: `pnpm --filter @starknet-agent/agents test`
+- **Single test**: `pnpm --filter @starknet-agent/agents test -- -t "test name pattern"`
+- **Type check**: `pnpm --filter @starknet-agent/backend check-types`
 
-### Data Ingestion
-- `packages/ingester/scripts`: Scripts for data ingestion and embedding generation
+## Testing
+- Jest is used for all testing
+- Run tests with `pnpm test` or `turbo test`
+- Test files are located in `__tests__/` directories
+- Mock external dependencies, especially LLM and database calls
+- Test each ingester implementation separately with mocked vector stores
 
-## Navigation Patterns
-
-1. **Following the RAG Pipeline Flow**:
-   - Start at `packages/agents/src/ragAgentFactory.ts`
-   - Explore the pipeline components in `packages/agents/src/pipeline`
-   - Understand how results are sent back via `packages/backend/src/websocket`
-
-2. **Understanding API Endpoints**:
-   - Start at `packages/backend/src/app.ts`
-   - Follow through to `packages/backend/src/routes`
-   - See how they connect to agent functionality
-
-3. **Exploring the UI Flow**:
-   - Start at `packages/ui/app/page.tsx` (main entry point)
-   - Look at the chat interface components
-   - Understand how the UI connects to the backend via WebSockets
-
-4. **Configuration Flow**:
-   - Check `packages/agents/config.toml` for agent configuration
-   - See how configuration is loaded in `packages/agents/src/config.ts`
-
-## Common Navigation Tasks
-
-- **To understand the RAG process**: Follow the pipeline components in `packages/agents/src/pipeline`
-- **To see how user queries are processed**: Start at the WebSocket handlers in `packages/backend/src/websocket`
-- **To explore the UI components**: Look at the components in `packages/ui/components`
-- **To understand data ingestion**: Check the scripts in `packages/ingester/scripts`
-
-## Ingester Package
-- `packages/ingester/src/`: Source code for the ingester package
-  - `BaseIngester.ts`: Abstract base class for all ingesters
-  - `IngesterFactory.ts`: Factory for creating ingesters based on source
-  - `ingesters/`: Source-specific ingester implementations
-    - `CairoBookIngester.ts`: Ingester for Cairo Book
-    - `StarknetDocsIngester.ts`: Ingester for Starknet Docs
-    - `StarknetFoundryIngester.ts`: Ingester for Starknet Foundry
-    - `CairoByExampleIngester.ts`: Ingester for Cairo By Example
-    - `OpenZeppelinDocsIngester.ts`: Ingester for OpenZeppelin Docs
-  - `utils/`: Utility functions
-    - `fileUtils.ts`: File operations
-    - `contentUtils.ts`: Content processing
-    - `vectorStoreUtils.ts`: Vector store operations
-  - `types.ts`: Common types and interfaces
-  - `scripts/`: Scripts for running ingestion
-    - `generateEmbeddings.ts`: Main script for generating embeddings
-
-## Key Files for Common Tasks
-
-### Adding a New Documentation Source
-1. Create a new ingester in `packages/ingester/src/ingesters/`
-2. Update `IngesterFactory.ts` to include the new source
-3. Update the `DocumentSource` type in `packages/agents/src/types.ts`
-
-### Modifying the RAG Pipeline
-1. Update the relevant component in `packages/agents/src/pipeline/`
-2. Adjust the configuration in `packages/agents/config.toml` if needed
-
-### Updating the UI
-1. Modify the relevant component in `packages/ui/components/`
-2. Update styles in `packages/ui/styles/` if needed
-
-### Running Ingestion
-1. Use the script at `packages/ingester/src/scripts/generateEmbeddings.ts`
-2. Or run `pnpm run generate-embeddings` from the project root
+## Deployment
+- Docker Compose is used for deployment
+- Production configuration in `docker-compose.prod-hosted.yml`
+- Environment variables should be set according to `.env.example` files
+- Ingestion can be run as a separate process using `ingest.dockerfile`
 
 ---
 > Source: [cairo-book/starknet-agent](https://github.com/cairo-book/starknet-agent) — distributed by [TomeVault](https://tomevault.io).
