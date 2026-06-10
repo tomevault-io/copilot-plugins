@@ -7,11 +7,11 @@ Bitrix24 REST API JS SDK
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bitrix24/b24jssdk](https://github.com/bitrix24/b24jssdk).
+Original source: `CLAUDE.md` in [bitrix24/b24jssdk](https://github.com/bitrix24/b24jssdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
