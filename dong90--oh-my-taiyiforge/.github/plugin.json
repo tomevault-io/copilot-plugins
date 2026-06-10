@@ -1,0 +1,9 @@
+{
+  "name": "dong90--oh-my-taiyiforge",
+  "displayName": "oh-my-taiyiforge",
+  "description": "TaiyiForge \u2014 nine-phase AI workflow plugin for OpenCode + taiyi-* skills for Claude/Codex",
+  "version": "1.0.0",
+  "author": "Dong90",
+  "homepage": "https://github.com/Dong90/oh-my-taiyiforge",
+  "skills": []
+}
