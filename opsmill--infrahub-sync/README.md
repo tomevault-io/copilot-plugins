@@ -7,14 +7,14 @@ Infrahub Sync: A Python package for flexible data synchronization between Infrah
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [opsmill/infrahub-sync](https://github.com/opsmill/infrahub-sync).
+Original source: `CLAUDE.md` in [opsmill/infrahub-sync](https://github.com/opsmill/infrahub-sync).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [opsmill/infrahub-sync](https://github.com/opsmill/infrahub-sync) — a repo with 14+ stars on GitHub.
