@@ -1,0 +1,9 @@
+{
+  "name": "neondatabase--preview-branches-with-cloudflare",
+  "displayName": "preview-branches-with-cloudflare",
+  "description": "A Neon branch for every Cloudflare Preview Deployment ",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/preview-branches-with-cloudflare",
+  "skills": []
+}
