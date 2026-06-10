@@ -1,0 +1,9 @@
+{
+  "name": "laborberlin--varvis-download",
+  "displayName": "varvis-download",
+  "description": "A CLI tool to download genomic analysis files from the Varvis API. Supports authentication, file type selection, proxy settings, and destination directory specification.",
+  "version": "1.0.0",
+  "author": "LaborBerlin",
+  "homepage": "https://github.com/LaborBerlin/varvis-download",
+  "skills": []
+}
