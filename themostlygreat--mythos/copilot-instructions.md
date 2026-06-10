@@ -1,9 +1,9 @@
-## bdd-splitting
+## bdd-tdd
 
-> USE WHEN BDD thresholds exceeded (2+ stories, >15 scenarios, >20 tasks). Split protocol and examples.
+> USE WHEN in BDD implement phase. RED/GREEN TDD cycle; run /refactor after GREEN.
 
 
-@.claude/skills/bdd/SPLITTING.md
+@.claude/skills/bdd/TDD.md
 
 ---
 > Source: [TheMostlyGreat/mythos](https://github.com/TheMostlyGreat/mythos) — distributed by [TomeVault](https://tomevault.io).
