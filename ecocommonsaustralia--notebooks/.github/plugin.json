@@ -1,0 +1,9 @@
+{
+  "name": "ecocommonsaustralia--notebooks",
+  "displayName": "notebooks",
+  "description": "Examples and tutorials on accessing environmental data and developing and deploying ecological modelling workflows",
+  "version": "1.0.0",
+  "author": "EcoCommonsAustralia",
+  "homepage": "https://github.com/EcoCommonsAustralia/notebooks",
+  "skills": []
+}
