@@ -1,0 +1,9 @@
+{
+  "name": "kumocorp--shingetsu",
+  "displayName": "shingetsu",
+  "description": "A Rust-native reference-counted implementation of the Lua language",
+  "version": "1.0.0",
+  "author": "KumoCorp",
+  "homepage": "https://github.com/KumoCorp/shingetsu",
+  "skills": []
+}
