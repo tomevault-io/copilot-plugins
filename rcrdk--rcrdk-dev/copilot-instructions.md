@@ -1,108 +1,37 @@
-## test-organization
+## type-imports
 
-> it.each for similar tests; conditional class testing; snapshot usage
+> Use type keyword for type-only imports
 
 
-# Test Organization
+# Type Imports
 
-Use this rule when organizing test cases: when to use it.each, what to assert (conditional classes, snapshots), and how to structure snapshot tests.
+Applies to all TypeScript files. Use the `type` keyword for imports that are only used in type positions.
 
-### Using it.each for Similar Tests
+### Type-Only Imports
 
-Prefer to use `it.each` when tests are too similar or contain large combinations of variants. This reduces code duplication and makes it easier to add new test cases.
+- Use `type` keyword for type-only imports to improve bundle size and clarity.
 
 - ✅ Good:
-
-  ```tsx
-  const variants = ['primary', 'outline', 'ghost'] as const
-
-  it.each(variants)('should render with "%s" variant', (variant) => {
-    const { container } = render(<Button variant={variant}>Click me</Button>)
-    expect(container).toMatchSnapshot()
-  })
+  ```typescript
+  import { type ReactNode, type FC, useState } from 'react'
+  import type { CreateDealTaskSchema } from '@/schemas/tasks'
+  import type { ComponentPropsWithoutRef } from 'react'
   ```
 
 - ❌ Bad:
-
-  ```tsx
-  it('should render with primary variant', () => {
-    const { container } = render(<Button variant="primary">Click me</Button>)
-    expect(container).toMatchSnapshot()
-  })
-
-  it('should render with outline variant', () => {
-    const { container } = render(<Button variant="outline">Click me</Button>)
-    expect(container).toMatchSnapshot()
-  })
-
-  it('should render with ghost variant', () => {
-    const { container } = render(<Button variant="ghost">Click me</Button>)
-    expect(container).toMatchSnapshot()
-  })
+  ```typescript
+  import { ReactNode, FC, useState } from 'react'
+  import { CreateDealTaskSchema } from '@/schemas/tasks'
   ```
 
-## Class Name Testing
+### When to Use Type Imports
 
-### Only Test Conditional Classes
-
-When testing a component, only test for class names when they are conditional (based on props, state, or variants). Avoid testing static class names that are always present.
-
-- ✅ Good:
-
-  ```tsx
-  it('should apply selected styles when "selected" is true', () => {
-    render(
-      <Button variant="outline" selected>
-        Click me
-      </Button>,
-    )
-    const button = screen.getByRole('button')
-    expect(button).toHaveClass('!bg-title', '!border-title')
-  })
-  ```
-
-- ❌ Bad:
-  ```tsx
-  it('should have base button classes', () => {
-    render(<Button>Click me</Button>)
-    const button = screen.getByRole('button')
-    expect(button).toHaveClass('px-4', 'py-2', 'rounded')
-  })
-  ```
-
-## Snapshot Testing
-
-### When to Use Snapshots
-
-When testing a component, include a snapshot test. It is a priority when the component has variants, different states, or multiple prop combinations. Snapshots help catch unintended visual changes and are especially useful for components with many variants.
-
-- ✅ Good:
-
-  ```tsx
-  describe('Button component', () => {
-    const variants = ['primary', 'outline', 'ghost'] as const
-
-    it.each(variants)('should match snapshot for "%s" variant', (variant) => {
-      const { container } = render(<Button variant={variant}>Click me</Button>)
-      expect(container).toMatchSnapshot()
-    })
-
-    it('should match snapshot for loading state', () => {
-      const { container } = render(<Button loading>Click me</Button>)
-      expect(container).toMatchSnapshot()
-    })
-  })
-  ```
-
-- ❌ Bad:
-  ```tsx
-  describe('Button component', () => {
-    it('should render button', () => {
-      render(<Button>Click me</Button>)
-      // No snapshot test for component with variants
-    })
-  })
-  ```
+- Use `type` for:
+  - Type-only imports (interfaces, types, type parameters)
+  - Imports that are only used in type positions
+- Do not use `type` for:
+  - Runtime values (functions, classes, constants)
+  - Mixed imports (combine type and value imports on same line)
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
