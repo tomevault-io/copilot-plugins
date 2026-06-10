@@ -1,86 +1,79 @@
-## contexts
+## control-flow
 
-> Context/Provider naming, hook export, and ContextType naming
+> Early returns, single-line statements, and comment preservation
 
 
-# Context Naming Conventions
+# Control Flow
 
-### Context and Provider Naming
+### Early Returns
 
-- Context names should be in **PascalCase** with `Context` suffix.
-- Provider component names should be in **PascalCase** with `Provider` suffix.
-- The context and provider should share the same base name.
+Prefer early returns over `else` statements to reduce nesting and improve readability.
 
 - ✅ Good:
 
   ```typescript
-  const DataContext = createContext<DataContextType | null>(null)
-  export function DataProvider({ children }: Readonly<DataProviderProps>) {}
-  ```
+  function processUser(user: User | null) {
+    if (!user) return null
+    if (!user.isActive) return null
 
-- ❌ Bad:
-  ```typescript
-  const dataContext = createContext<DataContextType | null>(null)
-  export function DataContextProvider({ children }: Readonly<DataProviderProps>) {}
-  ```
-
-### Inner Hook Export
-
-- Contexts must export a custom hook for accessing the context.
-- Hook names should be in **camelCase** with `use` prefix, matching the context base name.
-- **Context hooks must always check if the context exists before returning it.**
-- The hook must throw an error if used outside the provider.
-
-- ✅ Good:
-
-  ```typescript
-  export function useData() {
-    const ctx = useContext(DataContext)
-    if (!ctx) throw new Error('useData must be used within DataProvider')
-    return ctx
-  }
-  ```
-
-- ❌ Bad:
-
-  ```typescript
-  // Missing hook export
-  export const DataContext = createContext<DataContextType | null>(null)
-
-  // Missing context check
-  export function useData() {
-    const ctx = useContext(DataContext)
-    return ctx // ❌ No check for null/undefined context
-  }
-
-  // Wrong naming
-  export function useDataContext() {
-    const ctx = useContext(DataContext)
-    if (!ctx) throw new Error('useDataContext must be used within DataProvider')
-    return ctx
-  }
-  ```
-
-### Context Type Naming
-
-- Context type names should be in **PascalCase** with `ContextType` suffix.
-
-- ✅ Good:
-
-  ```typescript
-  type DataContextType = {
-    dealId: string
-    dealHistory: DealHistoryResponse
+    const upperCaseName = user.name.toUpperCase()
+    return upperCaseName
   }
   ```
 
 - ❌ Bad:
   ```typescript
-  type DataContext = {
-    dealId: string
-    dealHistory: DealHistoryResponse
+  function processUser(user: User | null) {
+    if (user) {
+      if (user.isActive) {
+        return user.name.toUpperCase()
+      } else {
+        return null
+      }
+    } else {
+      return null
+    }
   }
   ```
+
+### Single-Line Statements
+
+Avoid curly brackets for single-line `if` statements or arrow functions.
+
+- ✅ Good:
+
+  ```typescript
+  if (isValid) return true
+
+  const doubled = numbers.map((n) => n * 2)
+
+  const handleClick = () => setCount(count + 1)
+  ```
+
+- ❌ Bad:
+
+  ```typescript
+  if (isValid) {
+    return true
+  }
+
+  const doubled = numbers.map((n) => {
+    return n * 2
+  })
+
+  const handleClick = () => {
+    setCount(count + 1)
+  }
+  ```
+
+## Comments
+
+- Only add comments to code when explicitly asked. Always preserve:
+  - "TODO" comments
+  - "Tech Debt" comments
+  - ESLint disable/enable rules
+  - Prettier ignore rules
+  - TypeScript `@ts-expect-error` or `@ts-ignore` directives
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
