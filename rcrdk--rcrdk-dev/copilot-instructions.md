@@ -1,31 +1,86 @@
-## constants-and-variables
+## contexts
 
-> Magic numbers as SCREAMING_SNAKE_CASE; intermediate values in camelCase
+> Context/Provider naming, hook export, and ContextType naming
 
 
-# Constants and Variables
+# Context Naming Conventions
 
-### Magic Numbers and Constants
+### Context and Provider Naming
 
-When a function or component contains magic numbers, extract them as constants above the function where they are used, using `SCREAMING_SNAKE_CASE`:
+- Context names should be in **PascalCase** with `Context` suffix.
+- Provider component names should be in **PascalCase** with `Provider` suffix.
+- The context and provider should share the same base name.
 
-- Timing values: `const DEBOUNCE_TIME = 5000`
-- Time calculations: `const ONE_HOUR = 1000 * 60 * 60`
-- Large numbers: `const ONE_MILLION = 1_000_000` (use numeric separators for readability)
-- Default values: `const MAX_IMAGES = 4`
-- Configuration values: `const DEFAULT_TIMEOUT = 3000`
+- ✅ Good:
 
-### Intermediate Values
+  ```typescript
+  const DataContext = createContext<DataContextType | null>(null)
+  export function DataProvider({ children }: Readonly<DataProviderProps>) {}
+  ```
 
-For calculations, formatting, and intermediate values within a function, create constants in `camelCase` within the function scope. This improves readability and makes the code self-documenting:
+- ❌ Bad:
+  ```typescript
+  const dataContext = createContext<DataContextType | null>(null)
+  export function DataContextProvider({ children }: Readonly<DataProviderProps>) {}
+  ```
 
-- Template strings: `const formattedValue = `${value}px``
-- Calculations: `const total = a + b`
-- Function results: `const rounded = Math.ceil(value)`
-- Boolean conditions: `const isDesktop = variant === 'desktop'`
-- Complex expressions: `const hasValidData = data && data.length > 0`
+### Inner Hook Export
 
-Prefer returning the constant (or a value derived from it) rather than inlining the expression at the return.
+- Contexts must export a custom hook for accessing the context.
+- Hook names should be in **camelCase** with `use` prefix, matching the context base name.
+- **Context hooks must always check if the context exists before returning it.**
+- The hook must throw an error if used outside the provider.
+
+- ✅ Good:
+
+  ```typescript
+  export function useData() {
+    const ctx = useContext(DataContext)
+    if (!ctx) throw new Error('useData must be used within DataProvider')
+    return ctx
+  }
+  ```
+
+- ❌ Bad:
+
+  ```typescript
+  // Missing hook export
+  export const DataContext = createContext<DataContextType | null>(null)
+
+  // Missing context check
+  export function useData() {
+    const ctx = useContext(DataContext)
+    return ctx // ❌ No check for null/undefined context
+  }
+
+  // Wrong naming
+  export function useDataContext() {
+    const ctx = useContext(DataContext)
+    if (!ctx) throw new Error('useDataContext must be used within DataProvider')
+    return ctx
+  }
+  ```
+
+### Context Type Naming
+
+- Context type names should be in **PascalCase** with `ContextType` suffix.
+
+- ✅ Good:
+
+  ```typescript
+  type DataContextType = {
+    dealId: string
+    dealHistory: DealHistoryResponse
+  }
+  ```
+
+- ❌ Bad:
+  ```typescript
+  type DataContext = {
+    dealId: string
+    dealHistory: DealHistoryResponse
+  }
+  ```
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
