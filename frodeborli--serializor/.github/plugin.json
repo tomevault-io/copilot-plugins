@@ -1,0 +1,9 @@
+{
+  "name": "frodeborli--serializor",
+  "displayName": "serializor",
+  "description": "PHP Serializor will serialize almost anything in PHP, including closures and anonymous classes.",
+  "version": "1.0.0",
+  "author": "frodeborli",
+  "homepage": "https://github.com/frodeborli/serializor",
+  "skills": []
+}
