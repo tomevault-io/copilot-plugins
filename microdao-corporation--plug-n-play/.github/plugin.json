@@ -1,0 +1,9 @@
+{
+  "name": "microdao-corporation--plug-n-play",
+  "displayName": "plug-n-play",
+  "description": "A wallet wrapper/adapter for the Internet Computer",
+  "version": "1.0.0",
+  "author": "microdao-corporation",
+  "homepage": "https://github.com/microdao-corporation/plug-n-play",
+  "skills": []
+}
