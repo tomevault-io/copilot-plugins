@@ -1,0 +1,9 @@
+{
+  "name": "oiwn--probabilistic-rs",
+  "displayName": "probabilistic-rs",
+  "description": "Probabilistic data structures in rust!",
+  "version": "1.0.0",
+  "author": "oiwn",
+  "homepage": "https://github.com/oiwn/probabilistic-rs",
+  "skills": []
+}
