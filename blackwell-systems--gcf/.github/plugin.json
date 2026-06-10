@@ -1,0 +1,9 @@
+{
+  "name": "blackwell-systems--gcf",
+  "displayName": "gcf",
+  "description": "Drop-in JSON replacement for all AI pipelines. 79% fewer tokens. JSON scores 53.6% comprehension at scale, GCF scores 90.5%. Superpowers for graph-shaped data.",
+  "version": "1.0.0",
+  "author": "blackwell-systems",
+  "homepage": "https://github.com/blackwell-systems/gcf",
+  "skills": []
+}
