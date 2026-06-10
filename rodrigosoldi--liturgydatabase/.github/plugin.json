@@ -1,0 +1,9 @@
+{
+  "name": "rodrigosoldi--liturgydatabase",
+  "displayName": "LiturgyDatabase",
+  "description": "A swift spm project to create a Database with Catholic Liturgy and consume it",
+  "version": "1.0.0",
+  "author": "rodrigosoldi",
+  "homepage": "https://github.com/rodrigosoldi/LiturgyDatabase",
+  "skills": []
+}
