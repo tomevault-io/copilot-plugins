@@ -1,58 +1,70 @@
-## array-access
+## barrel-exports
 
-> Prefer .at() over bracket notation for array element access
+> Named exports only in barrel files (index.ts), no wildcards
 
 
-# Array Access
+# Barrel Exports
 
-### Prefer .at() over Bracket Notation
+### Named Exports Only
 
-- Always use `.at()` method instead of bracket notation `[]` for array element access.
-- The `.at()` method is safer, supports negative indices, and explicitly returns `undefined` for out-of-bounds access.
+- Barrel export files (e.g., `index.ts`, `index.tsx`) must use **named exports only**.
+- Never use wildcard exports (`export * from`).
+- Explicitly list all exports to improve code clarity and tree-shaking.
 
 - ✅ Good:
 
   ```typescript
-  const firstItem = array.at(0)
-  const lastItem = array.at(-1)
-  const secondItem = array.at(1)
+  export { getScenariosDevelopmentsImages } from './get-scenarios-developments-images'
+  export { getDevelopmentsWithSingleTypology } from './get-developments-with-single-typology'
+  export { orderScenarios } from './order-scenarios'
   ```
 
 - ❌ Bad:
   ```typescript
-  const firstItem = array[0] // can be undefined with noUncheckedIndexedAccess
-  const lastItem = array[array.length - 1] // verbose and error-prone
-  const secondItem = array[1] // unsafe access
+  export * from './get-scenarios-developments-images'
+  export * from './get-developments-with-single-typology'
+  export * from './order-scenarios'
   ```
 
-### Benefits of .at()
+### Multiple Exports from Same File
 
-- **Negative indices**: Access elements from the end of the array using negative numbers
-- **Explicit undefined**: Returns `undefined` for out-of-bounds access instead of potentially throwing
-- **Type safety**: Works better with TypeScript's `noUncheckedIndexedAccess` setting
-- **Consistency**: More explicit about the possibility of undefined return values
+- When exporting multiple items from the same file, group them in a single export statement.
 
-### When to Use
+- ✅ Good:
 
-- Use `.at()` for:
-  - Accessing array elements by index
-  - Accessing elements from the end of arrays (negative indices)
-  - Any array element access where the index might be out of bounds
-  - Working with arrays from APIs or external sources
+  ```typescript
+  export { metersToLatDegrees, metersToLngDegrees } from './calc-lat-lng-meters-to-degrees'
+  export { activateStreetViewAtPosition, createMapDropHandler, createMapDragOverHandler } from './street-view-controls'
+  ```
 
-### Combining with Optional Chaining
+- ❌ Bad:
+  ```typescript
+  export { metersToLatDegrees } from './calc-lat-lng-meters-to-degrees'
+  export { metersToLngDegrees } from './calc-lat-lng-meters-to-degrees'
+  ```
 
-- When accessing array elements on potentially undefined objects, combine with optional chaining:
-  - ✅ Good:
-    ```typescript
-    const firstItem = data?.items?.at(0)
-    const lastItem = results?.at(-1)
-    ```
-  - ❌ Bad:
-    ```typescript
-    const firstItem = data?.items?.[0]
-    const lastItem = results?.[results.length - 1]
-    ```
+### File Naming
+
+- Barrel export files should be named `index.ts` or `index.tsx`.
+- Place them in the directory containing the files they re-export.
+
+- ✅ Good:
+
+  ```
+  utils/
+    scenarios/
+      index.ts
+      get-scenarios-developments-images.ts
+      order-scenarios.ts
+  ```
+
+- ❌ Bad:
+  ```
+  utils/
+    scenarios.ts
+    get-scenarios-developments-images.ts
+    order-scenarios.ts
+  ```
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
