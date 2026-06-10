@@ -1,0 +1,9 @@
+{
+  "name": "harentius--grammifyai",
+  "displayName": "GrammifyAI",
+  "description": "Minimalist LLM Grammar Checker for macOS",
+  "version": "1.0.0",
+  "author": "harentius",
+  "homepage": "https://github.com/harentius/GrammifyAI",
+  "skills": []
+}
