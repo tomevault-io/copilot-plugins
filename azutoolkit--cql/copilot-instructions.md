@@ -1,54 +1,70 @@
-## download-optimize-performance-module
+## cursor
 
-> :::module[CQL::Performance::Optimization]
+> :::module[CQL::Performance]
 
+:::module[CQL::Performance]
+name = "Performance Monitoring"
+description = "Modular performance tools for query profiling, N+1 detection, and SQL plan analysis"
+responsibility = "Provides diagnostics and metrics for SQL performance in development and production"
+design_principles = ["Single Responsibility", "Open/Closed", "Liskov Substitution", "Interface Segregation", "Dependency Inversion"]
 
-:::module[CQL::Performance::Optimization]
-name = "Performance Module Refactoring Plan"
-description = "Refactoring the performance monitoring module to address redundancy, tight coupling, over-engineering, and improve maintainability."
-problems = [
-  "Redundant code and complexity: Multiple similar methods and configurations across profilers and detectors.",
-  "Tight coupling: Direct dependencies between PerformanceMonitor and concrete component implementations.",
-  "Over-engineering: Excessive abstractions and interfaces for simple behaviors.",
-  "Configuration complexity: Too many independent configuration options leading to confusing setup.",
-  "Performance overhead: Unnecessary event system layer introduced for basic logging use cases.",
-  "Code duplication: Similar logic repeated across report generators and formatters."
-]
+:::component[PerformanceMonitor]
+description = "Coordinates all performance features. Observes schema behavior and reports statistics."
+responsibility = "Acts as the orchestrator for configured profiling, detectors, and reporters"
+design_patterns = ["Facade", "Observer"]
+depends_on = ["QueryProfiler", "NPlusOneDetector", "ReportGenerators::Factory"]
+implements = ["MonitorInterface"]
 
-:::refactoring[Consolidate Utilities]
-description = "Extract shared logic from profilers, detectors, and report generators into a common base class or utility module."
-responsibility = "Provide reusable methods for start/stop timing, report formatting, and config validation."
-design_patterns = ["Template Method", "Strategy"]
+:::component[QueryProfiler]
+description = "Profiles database queries for time and frequency"
+responsibility = "Captures and summarizes query execution stats"
+design_patterns = ["Strategy"]
+used_by = ["PerformanceMonitor"]
+implements = ["ProfilerInterface"]
 
-:::refactoring[Dependency Injection]
-description = "Introduce dependency injection for components to decouple PerformanceMonitor from concrete implementations."
-responsibility = "Accept component interfaces via constructor or setup block, defaulting to built-in implementations."
-design_patterns = ["Dependency Injection", "Inversion of Control"]
+:::component[NPlusOneDetector]
+description = "Detects potential N+1 queries based on access patterns"
+responsibility = "Identifies inefficient eager loading strategies"
+design_patterns = ["Strategy"]
+used_by = ["PerformanceMonitor"]
+implements = ["DetectorInterface"]
 
-:::refactoring[Simplify Configuration]
-description = "Merge individual boolean flags into a single scoped configuration object with grouping and defaults."
-responsibility = "Provide a clear DSL: `config.profiling.enabled = true`, `config.reporting.format = :html`."
-design_patterns = ["Builder", "Facade"]
+:::component[ReportGenerators::Factory]
+description = "Factory to construct appropriate report generator (HTML, JSON, Logger)"
+responsibility = "Creates the right report formatter based on config"
+design_patterns = ["Factory"]
+depends_on = ["HtmlReportGenerator", "JsonReportGenerator", "LoggerReportGenerator"]
+used_by = ["PerformanceMonitor"]
 
-:::refactoring[Remove Event System]
-description = "By default, bypass the event system for logging in development, using direct method calls; keep event hooks optional."
-responsibility = "Reduce runtime overhead for basic logging scenarios."
-design_patterns = ["Null Object", "Observer (optional)"]
-
-:::refactoring[Unify Report Generation]
-description = "Consolidate HTML, JSON, Logger generators under a single ReportGenerator base with pluggable format strategies."
-responsibility = "Eliminate duplicated iteration and export logic."
-design_patterns = ["Strategy", "Template Method", "Factory"]
-
-:::refactoring[Reduce Abstractions]
-description = "Remove rarely used interfaces (e.g., DetectorInterface) and merge simple detectors into a single DetectorManager."
-responsibility = "Streamline class hierarchy and lower cognitive load."
-design_patterns = ["Facade"]
-
-:::refactoring[Utility Module for SQL Formatting]
-description = "Centralize SQL formatting logic in a single SqlFormatter utility, used by monitor and reporting."
-responsibility = "Avoid multiple log formatter classes; provide extension hooks."
+:::component[SqlLogFormatter]
+description = "Formats SQL output for logging"
+responsibility = "Improves readability and structure of SQL statements in logs"
 design_patterns = ["Decorator"]
+used_by = ["PerformanceMonitor"]
+
+:::interface[MonitorInterface]
+methods = ["initialize_with_schema", "record_event", "report", "reset"]
+
+:::interface[ProfilerInterface]
+methods = ["start", "stop", "report"]
+
+:::interface[DetectorInterface]
+methods = ["observe", "detect", "report"]
+
+:::config[PerformanceConfig]
+description = "Configuration DSL for enabling performance features"
+fields = ["query_profiling : Bool", "n_plus_one_detection : Bool", "plan_analysis : Bool"]
+defaults = ["query_profiling = false", "n_plus_one_detection = false", "plan_analysis = false"]
+
+:::setup[Usage Example]
+
+```crystal
+CQL::Performance.setup(MySchema) do |config|
+  config.query_profiling = true
+  config.n_plus_one_detection = true
+  config.plan_analysis = true
+end
+```
 
 ---
 > Source: [azutoolkit/cql](https://github.com/azutoolkit/cql) — distributed by [TomeVault](https://tomevault.io).
