@@ -1,0 +1,9 @@
+{
+  "name": "dangmoody--builder",
+  "displayName": "Builder",
+  "description": "A simple and powerful C++ build tool that turns C++ code into compiler arguments",
+  "version": "1.0.0",
+  "author": "dangmoody",
+  "homepage": "https://github.com/dangmoody/Builder",
+  "skills": []
+}
