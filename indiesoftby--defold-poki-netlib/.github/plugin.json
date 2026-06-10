@@ -1,0 +1,9 @@
+{
+  "name": "indiesoftby--defold-poki-netlib",
+  "displayName": "defold-poki-netlib",
+  "description": "A peer-to-peer library for web games made with Defold.",
+  "version": "1.0.0",
+  "author": "indiesoftby",
+  "homepage": "https://github.com/indiesoftby/defold-poki-netlib",
+  "skills": []
+}
