@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nvrc",
+  "displayName": "nvrc",
+  "description": "The NVRC project provides a Rust binary that implements a simple init system for microVMs.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/nvrc",
+  "skills": []
+}
