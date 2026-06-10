@@ -1,9 +1,9 @@
-## bdd-discovery
+## bdd-done
 
-> USE WHEN in BDD intake phase OR ticket has phase:intake. Guides discovery and context gathering for features.
+> USE WHEN in BDD done phase (verify.md exists). Close the ticket — verification already happened in verify.
 
 
-@.claude/skills/bdd/DISCOVERY.md
+@.claude/skills/bdd/DONE.md
 
 ---
 > Source: [TheMostlyGreat/mythos](https://github.com/TheMostlyGreat/mythos) — distributed by [TomeVault](https://tomevault.io).
