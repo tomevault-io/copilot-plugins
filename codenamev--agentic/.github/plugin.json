@@ -1,0 +1,9 @@
+{
+  "name": "codenamev--agentic",
+  "displayName": "agentic",
+  "description": "A simple Ruby command-line tool to build and run AI Agents in a plan-and-execute fashion.",
+  "version": "1.0.0",
+  "author": "codenamev",
+  "homepage": "https://github.com/codenamev/agentic",
+  "skills": []
+}
