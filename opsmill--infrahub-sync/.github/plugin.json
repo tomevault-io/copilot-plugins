@@ -1,0 +1,9 @@
+{
+  "name": "opsmill--infrahub-sync",
+  "displayName": "infrahub-sync",
+  "description": "Infrahub Sync: A Python package for flexible data synchronization between Infrahub and various platforms like Netbox, Nautobot with a Typer-based CLI.",
+  "version": "1.0.0",
+  "author": "opsmill",
+  "homepage": "https://github.com/opsmill/infrahub-sync",
+  "skills": []
+}
