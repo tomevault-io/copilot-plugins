@@ -1,0 +1,44 @@
+{
+  "name": "cyberpunk-ui",
+  "owner": "whanxueyu",
+  "repo": "cyberpunk-ui",
+  "description": "\u51c6\u5907\u505a\u4e00\u4e2a\u8d5b\u535a\u670b\u514b\u98ce\u683c\u7ec4\u4ef6\u5e93\uff0c\u76ee\u524d\u5df2\u6709\u5341\u51e0\u4e2a\u70ab\u9177\u7684\u7ec4\u4ef6\uff0c\u540e\u7eed\u7ec4\u4ef6\u6b63\u5728\u5f00\u53d1\u4e2d...",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/whanxueyu/cyberpunk-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-10T21:33:07Z"
+}
