@@ -1,0 +1,44 @@
+{
+  "name": "Fig-Draw",
+  "owner": "xuedong-z",
+  "repo": "Fig-Draw",
+  "description": "Browser-based post-processing editor for scientific figures \u2014 arrange panels, recolor from a 120-palette library, resize like figsize, and export publication-ready PNG/SVG. Runs entirely client-side.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xuedong-z/Fig-Draw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-10T12:33:07Z"
+}
