@@ -1,42 +1,102 @@
-## optional-chaining
+## react-components
 
-> Use ?. for safe property access; combine with .at() for arrays
+> React components—interfaces, Readonly props, cva, accessibility, named exports
 
 
-# Optional Chaining
+# React Components
 
-Use this rule when accessing nested properties, methods, or array elements that might be undefined or null (e.g. API data, optional config).
+Use this rule when creating or editing React components (files that export JSX). Applies to props, structure, styling, and accessibility.
 
-### Safe Property Access
+## Type Definitions
 
-- Always use optional chaining (`?.`) when accessing properties that might be undefined or null.
-- This prevents runtime errors and makes the code more defensive.
+- Always use `interface` (not `type`) when creating component props types.
+- Only export prop types if they are needed in another file.
+- Always wrap component props with `Readonly` to prevent accidental mutations.
+  - This rule applies **only to React components**, not to utility functions or other non-component functions.
+  - Example:
+    ```tsx
+    function Example({ prop }: Readonly<ExampleProps>) {}
+    ```
+
+## Component Structure
+
+- Always use destructuring when accessing component props.
+- Do not use default exports for components. Use named exports instead.
+- For components that are not memoized, use function declarations (not arrow functions).
+  - Example:
+    ```tsx
+    export function Example() {}
+    ```
+- For memoized components, create a non-exported function with "Component" suffix, then export a `const` without the suffix wrapped in `memo`.
+  - Example:
+    ```tsx
+    function ExampleComponent() {}
+
+    export const Example = memo(ExampleComponent)
+    ```
+
+## React Types
+
+Always import React types, functions, and utilities individually from `'react'` instead of using the `React` namespace.
 
 - ✅ Good:
   ```typescript
-  const userName = data?.user?.profile?.name
-  const firstItem = array?.at(0) // prefer .at() over bracket notation
-  const result = obj?.method?.()
+  import { type ReactNode, type FC, useState, useEffect } from 'react'
+
+  interface ButtonProps {
+    children: ReactNode
+  }
+
+  export const Button: FC<ButtonProps> = ({ children }) => {
+    const [count, setCount] = useState(0)
+    return <button>{children}</button>
+  }
   ```
 
 - ❌ Bad:
   ```typescript
-  const userName = data.user.profile.name // can throw error if any part is undefined
-  const firstItem = array[0] // can be undefined with noUncheckedIndexedAccess
-  const firstItem = array?.[0] // prefer .at() method instead
+  import React from 'react'
+
+  interface ButtonProps {
+    children: React.ReactNode
+  }
+
+  export const Button: React.FC<ButtonProps> = ({ children }) => {
+    const [count, setCount] = React.useState(0)
+    return <button>{children}</button>
+  }
   ```
 
-### When to Use
+## Styling and Variants
 
-- Use optional chaining when:
-  - Accessing nested object properties that might not exist
-  - Calling methods that might be undefined
-  - Accessing array elements that might not exist (use `.at()` method, see array-access rule)
-  - Working with data from APIs or external sources
+- Use `cva` (class-variance-authority) when components have complex variants or multiple styling combinations.
 
-### Note on Array Access
+## Accessibility
 
-- For array element access, prefer using `.at()` method instead of bracket notation. See the `array-access.mdc` rule for details.
+- Always include the `aria-hidden` prop on icon elements to improve screen reader experience.
+- Button elements that contain only icons must include an accessible label using `aria-label`.
+  - Example:
+    ```tsx
+    <button aria-label="Close dialog">
+      <CloseIcon aria-hidden />
+    </button>
+    ```
+
+## Props Usage
+
+- When passing a simple truthy boolean prop, omit the explicit `true` value.
+  - Prefer:
+    ```tsx
+    <Component show />
+    ```
+  - Instead of:
+    ```tsx
+    <Component show={true} />
+    ```
+  - Use explicit `false` when needed:
+    ```tsx
+    <Component show={false} />
+    ```
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
