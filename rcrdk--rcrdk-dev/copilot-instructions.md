@@ -1,42 +1,32 @@
-## http-layer
+## imports
 
-> server-only import in http/; try-catch and Sentry reporting
+> Prefer @/mocks and @/utils; absolute imports; no wildcard imports
 
 
-# HTTP Layer
+# Imports
 
-### Server-Only Import
+Applies to all import statements in TypeScript/JavaScript files. Prefer `@/` when the relative path goes up more than one level.
 
-- All files in the `http/` directory must import `'server-only'` at the top of the file.
-- This ensures the code is not included in the client bundle.
+- When using mocks, prefer to use `@/mocks/...` import path instead of relative paths or other aliases.
+- When using utils, prefer to use `@/utils/...` import path instead of relative paths or other aliases.
+- Prefer absolute imports when the relative path goes up more than one folder level (e.g., `../../` should be converted to an absolute import like `@/...`).
+- Prefer to import from barrel export files (e.g., `index.ts` or `index.tsx`) when available, rather than importing directly from individual files within the same directory.
+
+### No Wildcard Imports
+
+- Never use wildcard imports (`import * from`).
+- Always use named imports for better tree-shaking, clarity, and IDE support.
 
 - ✅ Good:
-
   ```typescript
-  import 'server-only'
-
-  export async function callRocketAPI() {}
+  import { getScenariosDevelopmentsImages, orderScenarios } from '@/utils/scenarios'
+  import { type ReactNode, useState } from 'react'
   ```
 
-### Error Handling
-
-- All HTTP functions should use try-catch blocks and report errors to Sentry with proper context.
-
-- ✅ Good:
+- ❌ Bad:
   ```typescript
-  export async function getDevelopmentDocument({ id, src }: { id: string; src: string }) {
-    try {
-      // ... implementation
-      return blob
-    } catch (error) {
-      reportToSentry(error, {
-        tags: { module: 'http', method: 'getDevelopmentDocument' },
-        fingerprint: ['http-error', 'getDevelopmentDocument', id, src],
-        extra: { documentId: id, documentSrc: src },
-      })
-      throw error
-    }
-  }
+  import * as scenarios from '@/utils/scenarios'
+  import * as React from 'react'
   ```
 
 ---
