@@ -1,52 +1,61 @@
-## pennlinc-shared
+## qsirecon
 
-> This project is one of four PennLINC BIDS Apps (qsiprep, qsirecon, xcp_d, aslprep) sharing
+> - Package: `qsirecon` -- diffusion MRI reconstruction/postprocessing BIDS App
 
-# PennLINC BIDS App Shared Conventions
+# QSIRecon Project Rules
 
-This project is one of four PennLINC BIDS Apps (qsiprep, qsirecon, xcp_d, aslprep) sharing
-the same architecture and conventions. See [AGENTS.md](mdc:AGENTS.md) for full details.
+## Project Identity
 
-## Architecture
+- Package: `qsirecon` -- diffusion MRI reconstruction/postprocessing BIDS App
+- Default branch: `main`
+- Entry point: [qsirecon/cli/run.py](mdc:qsirecon/cli/run.py)
 
-- CLI in `qsirecon/cli/` (parser.py, run.py, workflow.py, version.py)
-- Singleton config in [config.py](mdc:qsirecon/config.py) with sections: environment, execution, workflow, nipype, seeds
-- Workflows in `qsirecon/workflows/` using Nipype's `pe.Workflow`, `pe.Node`, `pe.MapNode`
-- Interfaces in `qsirecon/interfaces/` following Nipype patterns
-- Tests in `qsirecon/tests/` with pytest; integration tests gated by markers
+## IMPORTANT: Linting & Formatting (Migration Pending)
 
-## Workflow Rules
+QSIRecon has NOT yet migrated to ruff. Current tools:
 
-- Name all workflow factory functions `init_<name>_wf`; return a Workflow object
-- Use `LiterateWorkflow` from `niworkflows.engine.workflows`
-- Define `inputnode` and `outputnode` as `niu.IdentityInterface` nodes
-- Use `workflow.connect([(src, dst, [('out', 'in')])])` syntax with `# fmt:skip` on multi-line connects
-- Read global settings from `config` module, not function parameters
+- **Formatter**: black (line-length 99, target py38, **double quotes**)
+- **Import sorter**: isort (profile "black")
+- **Linter**: flake8 (configured in `[tool.flake8]` in pyproject.toml)
+- **No pre-commit config** exists yet
+- **No tox.ini** exists yet
+- CI runs flake8 only (`.github/workflows/lint.yml`)
 
-## Interface Rules
+### What This Means for New Code
 
-- Use Nipype traits for input/output specs (`File`, `traits.Bool`, etc.)
-- Implement `_run_interface(self, runtime)`, return `runtime`
-- Set outputs via `self._results['field'] = value`
+- Use **double quotes** for strings (matching current black default)
+- Follow isort "black" profile for import ordering
+- The migration to ruff + single quotes is planned (see AGENTS.md roadmap)
+- Once migrated, switch to single quotes and ruff formatting
 
-## Code Style
+## Reconstruction Workflow Specs
 
-- Linter: `ruff check` (target; qsirecon currently uses flake8 -- see project rule)
-- Formatter: `ruff format` (target; qsirecon currently uses black -- see project rule)
-- Import sorting via ruff (isort-compatible)
-- Add `# fmt:skip` after multi-line `workflow.connect()` calls
+- YAML-based pipeline definitions in `qsirecon/data/` (44 `.yaml` files)
+- Each YAML file defines reconstruction nodes, parameters, and connections
+- When adding new pipelines, create a new `.yaml` file following existing patterns
+- Workflow builder in `qsirecon/workflows/recon/build_workflow.py`
+
+## External Tool Dependencies
+
+- pyAFQ (== 2.0): automated fiber quantification
+- dmri-amico (== 2.0.3): NODDI via AMICO
+- Ingress2QSIRecon (== 0.2.3): data ingression
+- DSI Studio, MRtrix3, TORTOISE: called via subprocess interfaces
+
+## Key Module Paths
+
+- Reconstruction workflows: `qsirecon/workflows/recon/` (amico, dipy, dsi_studio, mrtrix, pyafq, tortoise)
+- Tool interfaces: `qsirecon/interfaces/` (amico, dipy, dsi_studio, mrtrix, pyafq, tortoise)
+- Scalar mapping: `qsirecon/interfaces/scalar_mapping.py`, `qsirecon/interfaces/recon_scalars.py`
+- ODF conversion CLI: [qsirecon/cli/convertODFs.py](mdc:qsirecon/cli/convertODFs.py)
+- Config: [qsirecon/config.py](mdc:qsirecon/config.py)
 
 ## Testing
 
-- Unit tests in `test_*.py` -- no external data or network access required
-- Integration tests use `@pytest.mark.<marker>` and are excluded by default
-- Fixtures: `data_dir`, `working_dir`, `output_dir` in conftest.py
-
-## BIDS
-
-- Outputs must conform to BIDS Derivatives specification
-- Use `pybids.BIDSLayout` for input queries
-- Use `DerivativesDataSink` for writing BIDS-compliant outputs
+- Test extras: `tests` in pyproject.toml
+- No pytest-xdist (no parallel test execution)
+- Integration test markers defined in `[tool.pytest.ini_options]`
+- Environment variable `RUNNING_PYTEST=1` is set during test runs
 
 ---
 > Source: [PennLINC/qsirecon](https://github.com/PennLINC/qsirecon) — distributed by [TomeVault](https://tomevault.io).
