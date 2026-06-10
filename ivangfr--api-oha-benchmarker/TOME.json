@@ -1,0 +1,44 @@
+{
+  "name": "api-oha-benchmarker",
+  "owner": "ivangfr",
+  "repo": "api-oha-benchmarker",
+  "description": "api-oha-benchmarker is a tool to easily benchmark APIs. It uses Testcontainers to manage Docker containers. Load testing is done with OHA. To collect information such as CPU and memory usage, it uses the docker stats command. It also uses cAdvisor to visually monitor CPU and memory usage.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ivangfr/api-oha-benchmarker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-10T22:41:42Z"
+}
