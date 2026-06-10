@@ -1,70 +1,11 @@
-## barrel-exports
+## commands
 
-> Named exports only in barrel files (index.ts), no wildcards
+> Preferences for commands
 
 
-# Barrel Exports
+# Commands
 
-### Named Exports Only
-
-- Barrel export files (e.g., `index.ts`, `index.tsx`) must use **named exports only**.
-- Never use wildcard exports (`export * from`).
-- Explicitly list all exports to improve code clarity and tree-shaking.
-
-- ✅ Good:
-
-  ```typescript
-  export { getScenariosDevelopmentsImages } from './get-scenarios-developments-images'
-  export { getDevelopmentsWithSingleTypology } from './get-developments-with-single-typology'
-  export { orderScenarios } from './order-scenarios'
-  ```
-
-- ❌ Bad:
-  ```typescript
-  export * from './get-scenarios-developments-images'
-  export * from './get-developments-with-single-typology'
-  export * from './order-scenarios'
-  ```
-
-### Multiple Exports from Same File
-
-- When exporting multiple items from the same file, group them in a single export statement.
-
-- ✅ Good:
-
-  ```typescript
-  export { metersToLatDegrees, metersToLngDegrees } from './calc-lat-lng-meters-to-degrees'
-  export { activateStreetViewAtPosition, createMapDropHandler, createMapDragOverHandler } from './street-view-controls'
-  ```
-
-- ❌ Bad:
-  ```typescript
-  export { metersToLatDegrees } from './calc-lat-lng-meters-to-degrees'
-  export { metersToLngDegrees } from './calc-lat-lng-meters-to-degrees'
-  ```
-
-### File Naming
-
-- Barrel export files should be named `index.ts` or `index.tsx`.
-- Place them in the directory containing the files they re-export.
-
-- ✅ Good:
-
-  ```
-  utils/
-    scenarios/
-      index.ts
-      get-scenarios-developments-images.ts
-      order-scenarios.ts
-  ```
-
-- ❌ Bad:
-  ```
-  utils/
-    scenarios.ts
-    get-scenarios-developments-images.ts
-    order-scenarios.ts
-  ```
+- Prefer to use PNPM to run commands.
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
