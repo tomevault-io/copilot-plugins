@@ -1,0 +1,9 @@
+{
+  "name": "thriving-dev--kafka-streams-topology-design",
+  "displayName": "kafka-streams-topology-design",
+  "description": "Kafka Streams Topology Design (KSTD) is an open standard dedicated to the clear and effective description and visualization of Kafka Stream topologies.",
+  "version": "1.0.0",
+  "author": "thriving-dev",
+  "homepage": "https://github.com/thriving-dev/kafka-streams-topology-design",
+  "skills": []
+}
