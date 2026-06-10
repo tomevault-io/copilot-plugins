@@ -1,0 +1,9 @@
+{
+  "name": "cairo-book--starknet-agent",
+  "displayName": "starknet-agent",
+  "description": "The Starknet Agent front-end",
+  "version": "1.0.0",
+  "author": "cairo-book",
+  "homepage": "https://github.com/cairo-book/starknet-agent",
+  "skills": []
+}
