@@ -4,7 +4,7 @@
   "repo": "ckeletin-go",
   "description": "AI-first Go development framework. Ship production CLIs that AI agents build correctly.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peiman/ckeletin-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T22:41:21Z"
+  "distributed_at": "2026-06-10T22:45:38Z"
 }
