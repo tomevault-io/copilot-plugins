@@ -1,0 +1,9 @@
+{
+  "name": "sure-scale--doc-haus",
+  "displayName": "doc-haus",
+  "description": "The open-source legal AI agent. Documents stay on your machine; redlines land in Word. Fork of OpenCode.",
+  "version": "1.0.0",
+  "author": "sure-scale",
+  "homepage": "https://github.com/sure-scale/doc-haus",
+  "skills": []
+}
