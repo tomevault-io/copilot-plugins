@@ -1,0 +1,9 @@
+{
+  "name": "rustedbytes--mavsim",
+  "displayName": "mavsim",
+  "description": "Rust native rewrite of MAVSim with MAVLink/PX4 SITL compatibility",
+  "version": "1.0.0",
+  "author": "RustedBytes",
+  "homepage": "https://github.com/RustedBytes/mavsim",
+  "skills": []
+}
