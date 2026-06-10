@@ -1,0 +1,9 @@
+{
+  "name": "jmanhype--golden-retriever",
+  "displayName": "Golden-Retriever",
+  "description": "A framework for high-fidelity retrieval augmented generation in industrial knowledge bases. Integrates jargon identification, context recognition, and question augmentation to overcome challenges in s",
+  "version": "1.0.0",
+  "author": "jmanhype",
+  "homepage": "https://github.com/jmanhype/Golden-Retriever",
+  "skills": []
+}
