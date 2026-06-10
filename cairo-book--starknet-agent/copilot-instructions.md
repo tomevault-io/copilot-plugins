@@ -1,49 +1,67 @@
-## documentation
+## imports
 
-> Documentation
+> Cairo Imports
 
-# Documentation for Starknet Agent
+# Imports in Starknet Agent
 
-## External Resources
-- Starknet Documentation: [https://docs.starknet.io](https://docs.starknet.io)
-  - Referenced in the agent's knowledge base.
-- Cairo Book: [https://book.cairo-lang.org](https://book.cairo-lang.org)
-  - Core resource for Cairo language information.
-- MongoDB Atlas Vector Search: [https://www.mongodb.com/docs/atlas/vector-search/](https://www.mongodb.com/docs/atlas/vector-search/)
-  - Used for vector database implementation.
-- Anthropic Claude API: [https://docs.anthropic.com/claude/reference/getting-started-with-the-api](https://docs.anthropic.com/claude/reference/getting-started-with-the-api)
-  - Used for LLM integration.
+## External Libraries
 
-## Internal Documentation
-- Architecture Overview: `docs/architecture/README.md`
-  - Explains the RAG pipeline architecture.
-- API Integration Guide: `API_INTEGRATION.md`
-  - Details how to integrate with the agent's API.
-- Contributing Guidelines: `CONTRIBUTING.md`
-  - Instructions for contributing to the project.
+### Backend and Agent Libraries
+- `express`: Web server framework.
+  - Used in: `packages/backend/src/app.ts`
+  - Import: `import express from 'express';`
+- `ws`: WebSocket library for real-time communication.
+  - Used in: `packages/backend/src/websocket/`
+  - Import: `import WebSocket from 'ws';`
+- `mongodb`: MongoDB client for database operations.
+  - Used in: `packages/agents/src/db/`
+  - Import: `import { MongoClient } from 'mongodb';`
+- `anthropic`: Anthropic Claude API client.
+  - Used in: `packages/agents/src/lib/`
+  - Import: `import Anthropic from '@anthropic-ai/sdk';`
+- `openai`: OpenAI API client.
+  - Used in: `packages/agents/src/lib/`
+  - Import: `import OpenAI from 'openai';`
 
-## Code Documentation
-- JSDoc comments are used throughout the codebase, especially in:
-  - `packages/agents/src/pipeline/`: Documents the RAG pipeline components.
-  - `packages/agents/src/core/`: Documents core agent functionality.
-  - `packages/backend/src/websocket/`: Documents WebSocket communication.
+### Frontend Libraries
+- `react`: UI library.
+  - Used in: `packages/ui/components/`
+  - Import: `import React from 'react';`
+- `next`: React framework.
+  - Used in: `packages/ui/app/`
+  - Import: `import { useRouter } from 'next/router';`
+- `tailwindcss`: CSS framework.
+  - Used in: `packages/ui/components/`
+  - Applied via class names.
 
-## Configuration Documentation
-- Sample configuration: `packages/agents/sample.config.toml`
-  - Documents available configuration options.
-- Environment variables: `.env.example` files
-  - Documents required environment variables.
+## Internal Modules
 
-## Database Schema
-- MongoDB collections structure is documented in:
-  - `packages/agents/src/db/`: Database interaction code.
-  - Vector embeddings format and schema.
+### Agent Modules
+- `pipeline`: RAG pipeline components.
+  - Used in: `packages/agents/src/ragAgentFactory.ts`
+  - Import: `import { QueryProcessor, DocumentRetriever, ResponseGenerator } from './pipeline';`
+- `config`: Configuration management.
+  - Used in: `packages/agents/src/`
+  - Import: `import { config } from './config';`
+- `db`: Database interaction.
+  - Used in: `packages/agents/src/core/`
+  - Import: `import { VectorStore } from './db/vectorStore';`
 
-## Deployment Documentation
-- Docker deployment: `docker-compose.yaml` and related Dockerfiles
-  - Instructions for containerized deployment.
-- Production hosting: `docker-compose.prod-hosted.yml`
-  - Configuration for production environments.
+### Backend Modules
+- `websocket`: WebSocket server.
+  - Used in: `packages/backend/src/server.ts`
+  - Import: `import { setupWebSocketServer } from './websocket';`
+- `routes`: API routes.
+  - Used in: `packages/backend/src/app.ts`
+  - Import: `import { apiRouter } from './routes';`
+
+### UI Modules
+- `components`: Reusable UI components.
+  - Used in: `packages/ui/app/`
+  - Import: `import { ChatInterface } from '../components/ChatInterface';`
+- `lib/hooks`: Custom React hooks.
+  - Used in: `packages/ui/components/`
+  - Import: `import { useChat } from '../lib/hooks/useChat';`
 
 ---
 > Source: [cairo-book/starknet-agent](https://github.com/cairo-book/starknet-agent) — distributed by [TomeVault](https://tomevault.io).
