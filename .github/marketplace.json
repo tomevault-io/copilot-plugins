@@ -148124,6 +148124,21 @@
       "description": "AI-native task management for coding agents - Persistent, version-controlled TODO tracking that works naturally with AI agents like OpenClaw, Cursor, Claude, and Copilot"
     },
     {
+      "name": "canonical--pragma",
+      "source": "./canonical--pragma",
+      "description": "Pragma is Canonical's toolset for the web. It implements a design system, reusable configurations, boilerplate, styles and utilities for React and Svelte."
+    },
+    {
+      "name": "modern-python--lite-bootstrap",
+      "source": "./modern-python--lite-bootstrap",
+      "description": "Lite package for bootstrapping new microservices"
+    },
+    {
+      "name": "indiesoftby--defold-poki-netlib",
+      "source": "./indiesoftby--defold-poki-netlib",
+      "description": "A peer-to-peer library for web games made with Defold."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -154297,6 +154312,21 @@
       "name": "elnora-ai--elnora-ai-agent-hackathon-starter-kit",
       "source": "./elnora-ai--elnora-ai-agent-hackathon-starter-kit",
       "description": "Run one command, follow the instructions, and get your first AI agents up and running \u2014 Claude Code or Codex. Built for the Elnora AI agent hackathon."
+    },
+    {
+      "name": "thefrontside--effectionx",
+      "source": "./thefrontside--effectionx",
+      "description": "Useful collection of community contributed packages for Effection"
+    },
+    {
+      "name": "thefrontside--effectionx",
+      "source": "./thefrontside--effectionx",
+      "description": "Useful collection of community contributed packages for Effection"
+    },
+    {
+      "name": "fusion-data--fusion-data",
+      "source": "./fusion-data--fusion-data",
+      "description": "\u878d\u5408\u6570\u636e\u5e73\u53f0"
     },
     {
       "name": "lightninglabs--lnget",
@@ -162772,6 +162802,21 @@
       "name": "tombwater--github-codeowners",
       "source": "./tombwater--github-codeowners",
       "description": "github-reviewers"
+    },
+    {
+      "name": "autonomys--auto-drive",
+      "source": "./autonomys--auto-drive",
+      "description": "Auto Drive is a decentralized content-addressed storage solution built on the Autonomys Network, leveraging its underlying permanent storage layer known as the Autonomys Distributed Storage Network (D"
+    },
+    {
+      "name": "rai-explorers--pjrt-rs",
+      "source": "./rai-explorers--pjrt-rs",
+      "description": "pjrt-rs"
+    },
+    {
+      "name": "ckstudentcouncil--legislation",
+      "source": "./ckstudentcouncil--legislation",
+      "description": "\u5efa\u4e2d\u73ed\u806f\u6703\u6cd5\u5f8b\u8207\u516c\u6587\u7cfb\u7d71"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -186299,6 +186344,11 @@
       "description": "Conversational black-box reverse-engineering agent on the pi coding agent \u2014 analyzes apk/.o/.hex/exe with a self-provisioning toolchain (radare2 \u00b7 Ghidra \u00b7 angr \u00b7 jadx). Static analysis. Claude Code &"
     },
     {
+      "name": "rlaope--oh-my-hermes",
+      "source": "./rlaope--oh-my-hermes",
+      "description": "omh; A hermes-agent workflow layer for routing, planning, evidence tracking, and coding handoff preparation, loop engineering."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -200142,6 +200192,11 @@
       "name": "totoro-jam--battle-tested-patterns",
       "source": "./totoro-jam--battle-tested-patterns",
       "description": "Battle-tested programming patterns from production codebases \u2014 React, Linux, Go, Chromium, and more. Precise source links, multi-language examples, runnable exercises."
+    },
+    {
+      "name": "siliconjungle---shapeshift-labs-loom",
+      "source": "./siliconjungle---shapeshift-labs-loom",
+      "description": "-shapeshift-labs-loom"
     },
     {
       "name": "cheerhuan--save-your-token",
