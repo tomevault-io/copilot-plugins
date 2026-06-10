@@ -4,7 +4,7 @@
   "repo": "LockIME",
   "description": "A native macOS menu-bar app that keeps your keyboard input source locked \u2014 global, per-app, and per-URL.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oomol-lab/LockIME",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T19:34:23Z"
+  "distributed_at": "2026-06-10T19:34:52Z"
 }
