@@ -1,102 +1,58 @@
-## react-components
+## reducers
 
-> React components—interfaces, Readonly props, cva, accessibility, named exports
+> Reducer and file naming (camelCase + reducer, kebab-case -reducer); named exports
 
 
-# React Components
+# Reducer Naming Conventions
 
-Use this rule when creating or editing React components (files that export JSX). Applies to props, structure, styling, and accessibility.
+Use this rule when creating or editing Redux (or similar) reducer functions and their files.
 
-## Type Definitions
+### Reducer Function Naming
 
-- Always use `interface` (not `type`) when creating component props types.
-- Only export prop types if they are needed in another file.
-- Always wrap component props with `Readonly` to prevent accidental mutations.
-  - This rule applies **only to React components**, not to utility functions or other non-component functions.
-  - Example:
-    ```tsx
-    function Example({ prop }: Readonly<ExampleProps>) {}
-    ```
-
-## Component Structure
-
-- Always use destructuring when accessing component props.
-- Do not use default exports for components. Use named exports instead.
-- For components that are not memoized, use function declarations (not arrow functions).
-  - Example:
-    ```tsx
-    export function Example() {}
-    ```
-- For memoized components, create a non-exported function with "Component" suffix, then export a `const` without the suffix wrapped in `memo`.
-  - Example:
-    ```tsx
-    function ExampleComponent() {}
-
-    export const Example = memo(ExampleComponent)
-    ```
-
-## React Types
-
-Always import React types, functions, and utilities individually from `'react'` instead of using the `React` namespace.
+- Reducer function names should be in **camelCase** with `reducer` suffix.
+- Use descriptive names that clearly indicate what the reducer manages.
 
 - ✅ Good:
   ```typescript
-  import { type ReactNode, type FC, useState, useEffect } from 'react'
-
-  interface ButtonProps {
-    children: ReactNode
-  }
-
-  export const Button: FC<ButtonProps> = ({ children }) => {
-    const [count, setCount] = useState(0)
-    return <button>{children}</button>
-  }
+  function mapReducer(state: MapState, action: MapAction): MapState {}
+  function userReducer(state: UserState, action: UserAction): UserState {}
   ```
 
 - ❌ Bad:
   ```typescript
-  import React from 'react'
-
-  interface ButtonProps {
-    children: React.ReactNode
-  }
-
-  export const Button: React.FC<ButtonProps> = ({ children }) => {
-    const [count, setCount] = React.useState(0)
-    return <button>{children}</button>
-  }
+  function map(state: MapState, action: MapAction): MapState {}
+  function MapReducer(state: MapState, action: MapAction): MapState {}
+  function map_reducer(state: MapState, action: MapAction): MapState {}
   ```
 
-## Styling and Variants
+### Reducer File Naming
 
-- Use `cva` (class-variance-authority) when components have complex variants or multiple styling combinations.
+- Reducer files should be named in **kebab-case** with `-reducer` suffix.
+- File names should match the reducer function name (converted to kebab-case).
 
-## Accessibility
+- ✅ Good:
+  - File: `map-reducer.ts` → Reducer: `mapReducer`
+  - File: `user-reducer.ts` → Reducer: `userReducer`
 
-- Always include the `aria-hidden` prop on icon elements to improve screen reader experience.
-- Button elements that contain only icons must include an accessible label using `aria-label`.
-  - Example:
-    ```tsx
-    <button aria-label="Close dialog">
-      <CloseIcon aria-hidden />
-    </button>
-    ```
+- ❌ Bad:
+  - File: `map.ts` → Reducer: `mapReducer`
+  - File: `mapReducer.ts` → Reducer: `mapReducer`
+  - File: `map_reducer.ts` → Reducer: `mapReducer`
 
-## Props Usage
+### Reducer Exports
 
-- When passing a simple truthy boolean prop, omit the explicit `true` value.
-  - Prefer:
-    ```tsx
-    <Component show />
-    ```
-  - Instead of:
-    ```tsx
-    <Component show={true} />
-    ```
-  - Use explicit `false` when needed:
-    ```tsx
-    <Component show={false} />
-    ```
+- Reducers should be exported as named exports.
+- Export both the reducer function and any related constants (like initial state).
+
+- ✅ Good:
+  ```typescript
+  export { INITIAL_MAP_STATE, mapReducer }
+  ```
+
+- ❌ Bad:
+  ```typescript
+  export default mapReducer
+  ```
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
