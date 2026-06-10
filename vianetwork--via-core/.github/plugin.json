@@ -1,0 +1,9 @@
+{
+  "name": "vianetwork--via-core",
+  "displayName": "via-core",
+  "description": "Bitcoin L2 (based on ZK Stack) ",
+  "version": "1.0.0",
+  "author": "vianetwork",
+  "homepage": "https://github.com/vianetwork/via-core",
+  "skills": []
+}
