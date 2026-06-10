@@ -7,11 +7,11 @@ The open-source legal AI agent. Documents stay on your machine; redlines land in
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sure-scale/doc-haus](https://github.com/sure-scale/doc-haus).
+Original source: `CLAUDE.md` in [sure-scale/doc-haus](https://github.com/sure-scale/doc-haus).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
