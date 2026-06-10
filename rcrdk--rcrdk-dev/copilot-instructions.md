@@ -1,38 +1,42 @@
-## naming-conventions
+## optional-chaining
 
-> Avoid reserved words; use meaningful names for props and constants
+> Use ?. for safe property access; combine with .at() for arrays
 
 
-# Naming Conventions
+# Optional Chaining
 
-Use this rule when naming props, constants, and variables. Applies to all TypeScript/JavaScript code.
+Use this rule when accessing nested properties, methods, or array elements that might be undefined or null (e.g. API data, optional config).
 
-- Avoid using reserved words (JavaScript/TypeScript keywords) when declaring prop and constant names.
-- Use meaningful, descriptive names that clearly indicate purpose and intent.
+### Safe Property Access
+
+- Always use optional chaining (`?.`) when accessing properties that might be undefined or null.
+- This prevents runtime errors and makes the code more defensive.
 
 - ✅ Good:
-
   ```typescript
-  interface ButtonProps {
-    label: string
-    isDisabled: boolean
-    onPress: () => void
-  }
-  const DEFAULT_PAGE_SIZE = 10
-  const isLoading = status === 'pending'
+  const userName = data?.user?.profile?.name
+  const firstItem = array?.at(0) // prefer .at() over bracket notation
+  const result = obj?.method?.()
   ```
 
 - ❌ Bad:
-
   ```typescript
-  interface ButtonProps {
-    class: string
-    default: boolean
-    delete: () => void
-  }
-  const x = 10
-  const flag = status === 'pending'
+  const userName = data.user.profile.name // can throw error if any part is undefined
+  const firstItem = array[0] // can be undefined with noUncheckedIndexedAccess
+  const firstItem = array?.[0] // prefer .at() method instead
   ```
+
+### When to Use
+
+- Use optional chaining when:
+  - Accessing nested object properties that might not exist
+  - Calling methods that might be undefined
+  - Accessing array elements that might not exist (use `.at()` method, see array-access rule)
+  - Working with data from APIs or external sources
+
+### Note on Array Access
+
+- For array element access, prefer using `.at()` method instead of bracket notation. See the `array-access.mdc` rule for details.
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
