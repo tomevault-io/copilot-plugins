@@ -7,11 +7,11 @@ Sparse autoencoders for vision
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Imageomics/saev](https://github.com/Imageomics/saev).
+Original source: `CLAUDE.md` in [Imageomics/saev](https://github.com/Imageomics/saev).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
