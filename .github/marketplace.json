@@ -4284,6 +4284,11 @@
       "description": "An improved implementation of the Ralph Wiggum technique for autonomous AI agent orchestration"
     },
     {
+      "name": "mikeyobrien--ralph-orchestrator",
+      "source": "./mikeyobrien--ralph-orchestrator",
+      "description": "An improved implementation of the Ralph Wiggum technique for autonomous AI agent orchestration"
+    },
+    {
       "name": "getagentseal--codeburn",
       "source": "./getagentseal--codeburn",
       "description": "See where your AI coding tokens go. Interactive TUI dashboard for Claude Code, Codex, and Cursor cost observability."
@@ -186114,6 +186119,16 @@
       "description": "A simple tool for launching ensembles"
     },
     {
+      "name": "rlaope--oh-my-hermes-agent",
+      "source": "./rlaope--oh-my-hermes-agent",
+      "description": "omh; A hermes-agent workflow layer for routing, planning, evidence tracking, and coding handoff preparation, loop engineering."
+    },
+    {
+      "name": "bachovak--end-to-end-pbi-report-w-ai",
+      "source": "./bachovak--end-to-end-pbi-report-w-ai",
+      "description": "Testing the end to end Power Bi report creation"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -199877,6 +199892,11 @@
       "name": "justinwetch--skill-rsi",
       "source": "./justinwetch--skill-rsi",
       "description": "Skill RSI is a recursive self-improvement loop for Agent Skills, grounded in evals. Standalone or Codex plugin."
+    },
+    {
+      "name": "hexxt-git--anime-sdk",
+      "source": "./hexxt-git--anime-sdk",
+      "description": "Typescript SDK for building anime streaming apps with over 30k+ titles available"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -309577,6 +309597,96 @@
       "name": "nullptr-party--zenopsis",
       "source": "./nullptr-party--zenopsis",
       "description": "zenopsis"
+    },
+    {
+      "name": "yadgarovfayzullo--chesspro-frontend",
+      "source": "./yadgarovfayzullo--chesspro-frontend",
+      "description": "chesspro-frontend"
+    },
+    {
+      "name": "4uo12--pe-chart",
+      "source": "./4uo12--pe-chart",
+      "description": "PE-chart"
+    },
+    {
+      "name": "ymetdev--stamply",
+      "source": "./ymetdev--stamply",
+      "description": "stamply"
+    },
+    {
+      "name": "vip7612-maker--ingp-haemil",
+      "source": "./vip7612-maker--ingp-haemil",
+      "description": "\uc0ac\ub2e8\ubc95\uc778 \uc778\uc21c\uc774\uc640 \uc88b\uc740 \uc0ac\ub78c\ub4e4 / \ud574\ubc00\ud559\uad50 \uc0ac\uc774\ud2b8 \ub9ac\ub274\uc5bc \ub370\ubaa8 (Next.js + Tailwind)"
+    },
+    {
+      "name": "x9179996-sudo--storyanimator-cli",
+      "source": "./x9179996-sudo--storyanimator-cli",
+      "description": "StoryAnimator-CLI"
+    },
+    {
+      "name": "gregoryhorn--eve-online-overview-forge",
+      "source": "./gregoryhorn--eve-online-overview-forge",
+      "description": "Local EVE Online overview editor and profile helper"
+    },
+    {
+      "name": "zgm2003--interview-vue-fastapi",
+      "source": "./zgm2003--interview-vue-fastapi",
+      "description": "interview-vue-fastapi"
+    },
+    {
+      "name": "jegomez23--app-peliculas",
+      "source": "./jegomez23--app-peliculas",
+      "description": "app-peliculas"
+    },
+    {
+      "name": "andrey040606-dev--bolashak-engineering",
+      "source": "./andrey040606-dev--bolashak-engineering",
+      "description": "Bolashak-Engineering"
+    },
+    {
+      "name": "marcelloagst--screennavigation-mobile",
+      "source": "./marcelloagst--screennavigation-mobile",
+      "description": "screenNavigation-mobile"
+    },
+    {
+      "name": "supriyo760--sahyatri-newc",
+      "source": "./supriyo760--sahyatri-newc",
+      "description": "Sahyatri-newC"
+    },
+    {
+      "name": "dashabhijit--codex-agent-instructions",
+      "source": "./dashabhijit--codex-agent-instructions",
+      "description": "A central library of reusable, standardized AGENTS.md instructions to establish consistent, reviewed baselines for Codex and AI coding assistants across repositories."
+    },
+    {
+      "name": "nicholas-pds--docs",
+      "source": "./nicholas-pds--docs",
+      "description": "docs"
+    },
+    {
+      "name": "accntech--birtools",
+      "source": "./accntech--birtools",
+      "description": "birtools"
+    },
+    {
+      "name": "prathamdev012-sketch--heistforge",
+      "source": "./prathamdev012-sketch--heistforge",
+      "description": "HeistForge"
+    },
+    {
+      "name": "sarthakgambhir--ecommerce-app",
+      "source": "./sarthakgambhir--ecommerce-app",
+      "description": "A full stack e-commerce application built with Next.js and Tailwind CSS."
+    },
+    {
+      "name": "andrewanuga--sociallyai",
+      "source": "./andrewanuga--sociallyai",
+      "description": "sociallyai"
+    },
+    {
+      "name": "levinblox--exploreus",
+      "source": "./levinblox--exploreus",
+      "description": "exploreus"
     }
   ]
 }
