@@ -1,9 +1,9 @@
-## bdd-done
+## bdd-scenarios
 
-> USE WHEN in BDD done phase (verify.md exists). Close the ticket — verification already happened in verify.
+> USE WHEN in BDD define-behavior or scenario-gate phase. Guides Given/When/Then scenario creation and validation.
 
 
-@.claude/skills/bdd/DONE.md
+@.claude/skills/bdd/SCENARIOS.md
 
 ---
 > Source: [TheMostlyGreat/mythos](https://github.com/TheMostlyGreat/mythos) — distributed by [TomeVault](https://tomevault.io).
