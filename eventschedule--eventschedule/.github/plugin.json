@@ -1,0 +1,9 @@
+{
+  "name": "eventschedule--eventschedule",
+  "displayName": "eventschedule",
+  "description": "An open-source platform to share events, sell tickets and bring communities together",
+  "version": "1.0.0",
+  "author": "eventschedule",
+  "homepage": "https://github.com/eventschedule/eventschedule",
+  "skills": []
+}
