@@ -4,7 +4,7 @@
   "repo": "DBA",
   "description": "Free PostgreSQL/Mysql desktop tool",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/underway2014/DBA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T23:33:01Z"
+  "distributed_at": "2026-06-10T23:34:18Z"
 }
