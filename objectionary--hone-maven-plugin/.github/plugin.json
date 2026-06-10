@@ -1,0 +1,9 @@
+{
+  "name": "objectionary--hone-maven-plugin",
+  "displayName": "hone-maven-plugin",
+  "description": "Maven plugin that applies a number of optimizations to your Bytecode, using EOLANG and \ud835\udf11-calculus, trying to make it work faster",
+  "version": "1.0.0",
+  "author": "objectionary",
+  "homepage": "https://github.com/objectionary/hone-maven-plugin",
+  "skills": []
+}
