@@ -1,0 +1,9 @@
+{
+  "name": "wavezync--nestjs-pgboss",
+  "displayName": "nestjs-pgboss",
+  "description": "State of Art PG Boss integration with NestJS",
+  "version": "1.0.0",
+  "author": "wavezync",
+  "homepage": "https://github.com/wavezync/nestjs-pgboss",
+  "skills": []
+}
