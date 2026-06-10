@@ -162694,6 +162694,11 @@
       "description": "AI \u65f6\u4ee3\u5ba1\u6279 Markdown \u5df2\u7ecf\u6210\u4e3a\u65e5\u5e38\uff0c\u4f60\u9700\u8981\u652f\u6301\u6279\u6ce8\u7684 Markdown viewer "
     },
     {
+      "name": "uncmatteth--gbrain-bridgebrain",
+      "source": "./uncmatteth--gbrain-bridgebrain",
+      "description": "BridgeBrain gives GBrain a local Codex ChatGPT-login embedding bridge: no Ollama, no GPU, no extra embedding API key."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
