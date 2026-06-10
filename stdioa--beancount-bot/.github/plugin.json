@@ -1,0 +1,9 @@
+{
+  "name": "stdioa--beancount-bot",
+  "displayName": "beancount-bot",
+  "description": "A RAG-powered Telegram / Mattermost bot to record beancount transactions with few words",
+  "version": "1.0.0",
+  "author": "StdioA",
+  "homepage": "https://github.com/StdioA/beancount-bot",
+  "skills": []
+}
