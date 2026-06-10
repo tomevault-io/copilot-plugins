@@ -1,0 +1,9 @@
+{
+  "name": "peiman--ckeletin-go",
+  "displayName": "ckeletin-go",
+  "description": "AI-first Go development framework. Ship production CLIs that AI agents build correctly.",
+  "version": "1.0.0",
+  "author": "peiman",
+  "homepage": "https://github.com/peiman/ckeletin-go",
+  "skills": []
+}
