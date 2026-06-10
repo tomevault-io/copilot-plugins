@@ -1,0 +1,9 @@
+{
+  "name": "trustnxt--c2pa-ts",
+  "displayName": "c2pa-ts",
+  "description": "Pure TypeScript implementation of C2PA manifest reading, validation, and creation",
+  "version": "1.0.0",
+  "author": "TrustNXT",
+  "homepage": "https://github.com/TrustNXT/c2pa-ts",
+  "skills": []
+}
