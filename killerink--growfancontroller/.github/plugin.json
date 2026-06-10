@@ -1,0 +1,9 @@
+{
+  "name": "killerink--growfancontroller",
+  "displayName": "GrowFanController",
+  "description": "Esp32 based climatic condition Controller",
+  "version": "1.0.0",
+  "author": "KillerInk",
+  "homepage": "https://github.com/KillerInk/GrowFanController",
+  "skills": []
+}
