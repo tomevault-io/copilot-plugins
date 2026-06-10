@@ -1,0 +1,9 @@
+{
+  "name": "hovsep--fmesh",
+  "displayName": "fmesh",
+  "description": "Flow Based Programming in Go",
+  "version": "1.0.0",
+  "author": "hovsep",
+  "homepage": "https://github.com/hovsep/fmesh",
+  "skills": []
+}
