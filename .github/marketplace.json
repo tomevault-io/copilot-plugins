@@ -14384,6 +14384,16 @@
       "description": "KoalaQA \u662f\u4e00\u6b3e AI \u5927\u6a21\u578b\u9a71\u52a8\u7684\u5f00\u6e90\u552e\u540e\u670d\u52a1\u793e\u533a\uff0c\u63d0\u4f9b AI \u56de\u7b54\u3001AI \u641c\u7d22\u3001AI \u8fd0\u8425\u7b49\u80fd\u529b\uff0c\u5e2e\u52a9\u4f60\u5feb\u901f\u843d\u5730\u552e\u540e\u5ba2\u670d\u3001\u793e\u533a\u95ee\u7b54\u3001\u81ea\u52a9\u670d\u52a1\u7b49\u573a\u666f\uff0c\u5e2e\u52a9\u56e2\u961f\u663e\u8457\u964d\u4f4e\u4eba\u5de5\u8fd0\u8425\u6210\u672c\u3001\u63d0\u5347\u5ba2\u6237\u6ee1\u610f\u5ea6\u4e0e\u54cd\u5e94\u6548\u7387\uff0c\u52a9\u529b\u5b9e\u73b0 ZCR\uff08Zero Contact Resolution\uff09\u76ee\u6807\u3002"
     },
     {
+      "name": "jdx--pitchfork",
+      "source": "./jdx--pitchfork",
+      "description": "Daemons with DX"
+    },
+    {
+      "name": "jdx--pitchfork",
+      "source": "./jdx--pitchfork",
+      "description": "Daemons with DX"
+    },
+    {
       "name": "nishimoto265--claude-code-communication",
       "source": "./nishimoto265--claude-code-communication",
       "description": "Claude-Code-Communication"
@@ -58277,6 +58287,11 @@
       "name": "neonwatty--bleep-that-shit",
       "source": "./neonwatty--bleep-that-shit",
       "description": "Free in-browser audio & video censorship tool. AI-powered transcription with Whisper, 100% private client-side processing. Bleep profanity, custom words, or any phrase."
+    },
+    {
+      "name": "chenjazzyboss--superspec",
+      "source": "./chenjazzyboss--superspec",
+      "description": "AI-native spec management for Claude Code"
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -154194,6 +154209,11 @@
       "description": "A native macOS Markdown reader built with SwiftUI + Textual. Three-column layout with file tree, rendered markdown, and outline navigation. 23 built-in themes, i18n, and Git integration."
     },
     {
+      "name": "sawyerhood--glyphdown",
+      "source": "./sawyerhood--glyphdown",
+      "description": "glyphdown"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -162647,6 +162667,11 @@
       "name": "cklxx--elephant-ai",
       "source": "./cklxx--elephant-ai",
       "description": "A leader agent for attention-heavy work."
+    },
+    {
+      "name": "easychen--markmark",
+      "source": "./easychen--markmark",
+      "description": "AI \u65f6\u4ee3\u5ba1\u6279 Markdown \u5df2\u7ecf\u6210\u4e3a\u65e5\u5e38\uff0c\u4f60\u9700\u8981\u652f\u6301\u6279\u6ce8\u7684 Markdown viewer "
     },
     {
       "name": "yschimke--compose-ai-tools",
