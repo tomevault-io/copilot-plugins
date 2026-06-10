@@ -1,37 +1,35 @@
-## type-imports
+## typescript
 
-> Use type keyword for type-only imports
+> Avoid any; prefer type guards over assertions; as const when needed
 
 
-# Type Imports
+# TypeScript
 
-Applies to all TypeScript files. Use the `type` keyword for imports that are only used in type positions.
+Use this rule for all TypeScript code. Prefer type safety over shortcuts.
 
-### Type-Only Imports
-
-- Use `type` keyword for type-only imports to improve bundle size and clarity.
+- Avoid using `any` type. Use proper types, `unknown`, or generics instead.
+- Avoid type assertions (`as Type`). Prefer type guards, proper typing, or type narrowing when possible.
+- When type assertions are necessary, prefer `as const` for literal types or use type guards for runtime safety.
 
 - ✅ Good:
+
   ```typescript
-  import { type ReactNode, type FC, useState } from 'react'
-  import type { CreateDealTaskSchema } from '@/schemas/tasks'
-  import type { ComponentPropsWithoutRef } from 'react'
+  function parse(value: unknown): number {
+    if (typeof value === 'number') return value
+    if (typeof value === 'string') return Number(value)
+    throw new Error('Invalid value')
+  }
+  const config = { theme: 'dark', count: 5 } as const
   ```
 
 - ❌ Bad:
+
   ```typescript
-  import { ReactNode, FC, useState } from 'react'
-  import { CreateDealTaskSchema } from '@/schemas/tasks'
+  function parse(value: any): number {
+    return value as number
+  }
+  const config = { theme: 'dark', count: 5 } as { theme: string; count: number }
   ```
-
-### When to Use Type Imports
-
-- Use `type` for:
-  - Type-only imports (interfaces, types, type parameters)
-  - Imports that are only used in type positions
-- Do not use `type` for:
-  - Runtime values (functions, classes, constants)
-  - Mixed imports (combine type and value imports on same line)
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
