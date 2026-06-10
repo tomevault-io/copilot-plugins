@@ -4,7 +4,7 @@
   "repo": "starknet-agent",
   "description": "The Starknet Agent front-end",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cairo-book/starknet-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T18:41:44Z"
+  "distributed_at": "2026-06-10T18:45:40Z"
 }
