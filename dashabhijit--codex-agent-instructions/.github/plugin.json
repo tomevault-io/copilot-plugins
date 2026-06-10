@@ -1,0 +1,9 @@
+{
+  "name": "dashabhijit--codex-agent-instructions",
+  "displayName": "codex-agent-instructions",
+  "description": "A central library of reusable, standardized AGENTS.md instructions to establish consistent, reviewed baselines for Codex and AI coding assistants across repositories.",
+  "version": "1.0.0",
+  "author": "DashAbhijit",
+  "homepage": "https://github.com/DashAbhijit/codex-agent-instructions",
+  "skills": []
+}
