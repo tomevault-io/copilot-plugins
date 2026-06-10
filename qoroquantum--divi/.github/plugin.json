@@ -1,0 +1,9 @@
+{
+  "name": "qoroquantum--divi",
+  "displayName": "divi",
+  "description": "A Python library to automate generating, parallelizing, and executing quantum programs.",
+  "version": "1.0.0",
+  "author": "QoroQuantum",
+  "homepage": "https://github.com/QoroQuantum/divi",
+  "skills": []
+}
