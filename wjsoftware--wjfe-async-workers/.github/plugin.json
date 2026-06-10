@@ -1,0 +1,9 @@
+{
+  "name": "wjsoftware--wjfe-async-workers",
+  "displayName": "wjfe-async-workers",
+  "description": "Thread-safe, atomic synchronization objects and asynchronous worker wrappers for the browser and Node environments",
+  "version": "1.0.0",
+  "author": "WJSoftware",
+  "homepage": "https://github.com/WJSoftware/wjfe-async-workers",
+  "skills": []
+}
