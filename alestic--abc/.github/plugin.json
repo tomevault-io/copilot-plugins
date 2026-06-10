@@ -1,0 +1,9 @@
+{
+  "name": "alestic--abc",
+  "displayName": "abc",
+  "description": "AI bash Command - Generate shell command(s) from natural language description using LLM (generative AI) and place on the next shell prompt for editing and execution. *with support for bash, zsh, tcsh",
+  "version": "1.0.0",
+  "author": "alestic",
+  "homepage": "https://github.com/alestic/abc",
+  "skills": []
+}
