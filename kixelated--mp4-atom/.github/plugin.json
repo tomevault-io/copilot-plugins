@@ -1,0 +1,9 @@
+{
+  "name": "kixelated--mp4-atom",
+  "displayName": "mp4-atom",
+  "description": "A Rust MP4/ISOBMFF encoder and decoder",
+  "version": "1.0.0",
+  "author": "kixelated",
+  "homepage": "https://github.com/kixelated/mp4-atom",
+  "skills": []
+}
