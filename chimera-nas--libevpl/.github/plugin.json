@@ -1,0 +1,9 @@
+{
+  "name": "chimera-nas--libevpl",
+  "displayName": "libevpl",
+  "description": "A  fast low level transport library to support sockets and rdma with waiting or polling",
+  "version": "1.0.0",
+  "author": "chimera-nas",
+  "homepage": "https://github.com/chimera-nas/libevpl",
+  "skills": []
+}
