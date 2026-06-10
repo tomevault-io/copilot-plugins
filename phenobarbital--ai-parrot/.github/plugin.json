@@ -1,0 +1,9 @@
+{
+  "name": "phenobarbital--ai-parrot",
+  "displayName": "ai-parrot",
+  "description": "Parrot is a new library to work with chatbots and agents with a very simple API",
+  "version": "1.0.0",
+  "author": "phenobarbital",
+  "homepage": "https://github.com/phenobarbital/ai-parrot",
+  "skills": []
+}
