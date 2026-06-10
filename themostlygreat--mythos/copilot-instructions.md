@@ -1,9 +1,13 @@
-## safeword-brainstorming
+## mythos
 
-> Collaborative brainstorming and rubber-ducking — divergence-first thinking partner. Use when the user wants to explore options, weigh approaches, or think through uncertainty before committing to a direction ('brainstorm', 'rubber duck', 'help me think', 'explore options', 'what are the tradeoffs').
+> **⚠️ ALWAYS READ FIRST:** `.safeword/SAFEWORD.md`
 
+**⚠️ ALWAYS READ FIRST:** `.safeword/SAFEWORD.md`
 
-@.claude/skills/brainstorm/SKILL.md
+The SAFEWORD.md file contains core development patterns, workflows, and conventions.
+Read it BEFORE working on any task in this project.
+
+---
 
 ---
 > Source: [TheMostlyGreat/mythos](https://github.com/TheMostlyGreat/mythos) — distributed by [TomeVault](https://tomevault.io).
