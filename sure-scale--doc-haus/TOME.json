@@ -4,7 +4,7 @@
   "repo": "doc-haus",
   "description": "The open-source legal AI agent. Documents stay on your machine; redlines land in Word. Fork of OpenCode.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sure-scale/doc-haus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T19:35:49Z"
+  "distributed_at": "2026-06-10T19:36:19Z"
 }
