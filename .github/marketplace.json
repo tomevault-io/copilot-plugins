@@ -104384,6 +104384,11 @@
       "description": "Core runtime and shared tooling for DCC-MCP: safe, skill-first MCP integration across Maya, Blender, Houdini, Photoshop, and custom DCC hosts."
     },
     {
+      "name": "vectreal--vectreal-platform",
+      "source": "./vectreal--vectreal-platform",
+      "description": "Vectreal is an open platform for preparing, managing, and publishing 3D content for the web."
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -106832,6 +106837,11 @@
       "name": "baekenough--oh-my-customcode",
       "source": "./baekenough--oh-my-customcode",
       "description": "oh-my-zsh style customization framework for Claude Code"
+    },
+    {
+      "name": "notmyself--new-windows-dev-pc",
+      "source": "./notmyself--new-windows-dev-pc",
+      "description": "A comprehensive Windows developer setup automation repository with PowerShell 7+, Windows 11 optimizations, and mandatory WSL integration. Features streamlined configuration scripts, automated tool in"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -112869,6 +112879,11 @@
       "description": "Tool to scan servers and hosts using dynamic paths."
     },
     {
+      "name": "vagabonds-labs--cofiblocks",
+      "source": "./vagabonds-labs--cofiblocks",
+      "description": "Welcome to Cofiblocks marketplace: A Starknet web3 platform to innovate Costa Rica coffee industry. Cofiblocks connects small coffee farmers directly with coffee lovers, cutting out unnecessary interm"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -118434,6 +118449,16 @@
       "description": "A Bayesian SED synthesis and analysis tool for galaxies and AGNs, featuring an interface optimized for both humans and AI agents."
     },
     {
+      "name": "cloudfoundry--terraform-provider-cloudfoundry",
+      "source": "./cloudfoundry--terraform-provider-cloudfoundry",
+      "description": "Terraform provider to manage Cloud Foundry resources using v3 APIs"
+    },
+    {
+      "name": "frodeborli--serializor",
+      "source": "./frodeborli--serializor",
+      "description": "PHP Serializor will serialize almost anything in PHP, including closures and anonymous classes."
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -121692,6 +121717,16 @@
       "name": "adamallcock--codex-chatgpt-control",
       "source": "./adamallcock--codex-chatgpt-control",
       "description": "Unofficial SDK for Codex agents controlling visible ChatGPT web sessions"
+    },
+    {
+      "name": "bitrix24--b24jssdk",
+      "source": "./bitrix24--b24jssdk",
+      "description": "Bitrix24 REST API JS SDK"
+    },
+    {
+      "name": "bitrix24--b24jssdk",
+      "source": "./bitrix24--b24jssdk",
+      "description": "Bitrix24 REST API JS SDK"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -125482,6 +125517,11 @@
       "name": "anthonycaccese--240-mp",
       "source": "./anthonycaccese--240-mp",
       "description": "240-MP is a retro VCR style frontend to playback local media or content from a plex library on Raspberry Pi 4 or 3B+"
+    },
+    {
+      "name": "rvcas--mach",
+      "source": "./rvcas--mach",
+      "description": "Weekly TODO CLI"
     },
     {
       "name": "13point5--agent-canvas",
@@ -148199,6 +148239,26 @@
       "description": "A peer-to-peer library for web games made with Defold."
     },
     {
+      "name": "datadog--dd-license-attribution",
+      "source": "./datadog--dd-license-attribution",
+      "description": "A tool that uses several heuristics to try to get the licenses and copyright attributions of the 3rd party dependencies of a repository"
+    },
+    {
+      "name": "monkopedia--kodemirror",
+      "source": "./monkopedia--kodemirror",
+      "description": "Native Compose Multiplatform code editor \u2014 a Kotlin port of CodeMirror 6"
+    },
+    {
+      "name": "datadog--dd-license-attribution",
+      "source": "./datadog--dd-license-attribution",
+      "description": "A tool that uses several heuristics to try to get the licenses and copyright attributions of the 3rd party dependencies of a repository"
+    },
+    {
+      "name": "wflixu--nblog",
+      "source": "./wflixu--nblog",
+      "description": "Notion database as CMS for  blog "
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -154387,6 +154447,71 @@
       "name": "fusion-data--fusion-data",
       "source": "./fusion-data--fusion-data",
       "description": "\u878d\u5408\u6570\u636e\u5e73\u53f0"
+    },
+    {
+      "name": "judell--community-calendar",
+      "source": "./judell--community-calendar",
+      "description": "Calendar aggregation for communities"
+    },
+    {
+      "name": "agentender--cli-forge",
+      "source": "./agentender--cli-forge",
+      "description": "Powerful, Composable CLI Tools"
+    },
+    {
+      "name": "cairo-book--starknet-agent",
+      "source": "./cairo-book--starknet-agent",
+      "description": "The Starknet Agent front-end"
+    },
+    {
+      "name": "wjsoftware--wjfe-async-workers",
+      "source": "./wjsoftware--wjfe-async-workers",
+      "description": "Thread-safe, atomic synchronization objects and asynchronous worker wrappers for the browser and Node environments"
+    },
+    {
+      "name": "cairo-book--starknet-agent",
+      "source": "./cairo-book--starknet-agent",
+      "description": "The Starknet Agent front-end"
+    },
+    {
+      "name": "cairo-book--starknet-agent",
+      "source": "./cairo-book--starknet-agent",
+      "description": "The Starknet Agent front-end"
+    },
+    {
+      "name": "cairo-book--starknet-agent",
+      "source": "./cairo-book--starknet-agent",
+      "description": "The Starknet Agent front-end"
+    },
+    {
+      "name": "cairo-book--starknet-agent",
+      "source": "./cairo-book--starknet-agent",
+      "description": "The Starknet Agent front-end"
+    },
+    {
+      "name": "fondoger--tailwindcss-utilities",
+      "source": "./fondoger--tailwindcss-utilities",
+      "description": "A set of CSS Utility classes generated from tailwindcss. Suitable for plain HTML with CSS."
+    },
+    {
+      "name": "cairo-book--starknet-agent",
+      "source": "./cairo-book--starknet-agent",
+      "description": "The Starknet Agent front-end"
+    },
+    {
+      "name": "negusnati--passport-et",
+      "source": "./negusnati--passport-et",
+      "description": "A simple way to look if your passport is read to collect and which day of the week you should collect."
+    },
+    {
+      "name": "cairo-book--starknet-agent",
+      "source": "./cairo-book--starknet-agent",
+      "description": "The Starknet Agent front-end"
+    },
+    {
+      "name": "microdao-corporation--plug-n-play",
+      "source": "./microdao-corporation--plug-n-play",
+      "description": "A wallet wrapper/adapter for the Internet Computer"
     },
     {
       "name": "lightninglabs--lnget",
@@ -162877,6 +163002,36 @@
       "name": "ckstudentcouncil--legislation",
       "source": "./ckstudentcouncil--legislation",
       "description": "\u5efa\u4e2d\u73ed\u806f\u6703\u6cd5\u5f8b\u8207\u516c\u6587\u7cfb\u7d71"
+    },
+    {
+      "name": "rodrigosoldi--liturgydatabase",
+      "source": "./rodrigosoldi--liturgydatabase",
+      "description": "A swift spm project to create a Database with Catholic Liturgy and consume it"
+    },
+    {
+      "name": "oiwn--probabilistic-rs",
+      "source": "./oiwn--probabilistic-rs",
+      "description": "Probabilistic data structures in rust!"
+    },
+    {
+      "name": "mckaywrigley--cursor-project-experiment",
+      "source": "./mckaywrigley--cursor-project-experiment",
+      "description": "cursor-project-experiment"
+    },
+    {
+      "name": "martincostello--benchmarks-dashboard",
+      "source": "./martincostello--benchmarks-dashboard",
+      "description": "A dashboard for visualising benchmark results from benchmarkdotnet-results-publisher"
+    },
+    {
+      "name": "mdjastrzebski--ts-markdown-builder",
+      "source": "./mdjastrzebski--ts-markdown-builder",
+      "description": "Elegant markdown builder with minimal bundle size."
+    },
+    {
+      "name": "mdjastrzebski--ts-markdown-builder",
+      "source": "./mdjastrzebski--ts-markdown-builder",
+      "description": "Elegant markdown builder with minimal bundle size."
     },
     {
       "name": "yschimke--compose-ai-tools",
