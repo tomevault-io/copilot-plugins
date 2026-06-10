@@ -1,0 +1,9 @@
+{
+  "name": "xgo-dev--llcppg",
+  "displayName": "llcppg",
+  "description": "LLGo autogen tool for C/C++ libraries",
+  "version": "1.0.0",
+  "author": "xgo-dev",
+  "homepage": "https://github.com/xgo-dev/llcppg",
+  "skills": []
+}
