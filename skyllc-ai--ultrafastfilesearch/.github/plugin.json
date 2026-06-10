@@ -1,0 +1,9 @@
+{
+  "name": "skyllc-ai--ultrafastfilesearch",
+  "displayName": "UltraFastFileSearch",
+  "description": "Ultra-fast file search for Windows using NTFS MFT",
+  "version": "1.0.0",
+  "author": "skyllc-ai",
+  "homepage": "https://github.com/skyllc-ai/UltraFastFileSearch",
+  "skills": []
+}
