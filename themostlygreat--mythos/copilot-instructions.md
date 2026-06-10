@@ -1,9 +1,9 @@
-## bdd-scenarios
+## bdd-splitting
 
-> USE WHEN in BDD define-behavior or scenario-gate phase. Guides Given/When/Then scenario creation and validation.
+> USE WHEN BDD thresholds exceeded (2+ stories, >15 scenarios, >20 tasks). Split protocol and examples.
 
 
-@.claude/skills/bdd/SCENARIOS.md
+@.claude/skills/bdd/SPLITTING.md
 
 ---
 > Source: [TheMostlyGreat/mythos](https://github.com/TheMostlyGreat/mythos) — distributed by [TomeVault](https://tomevault.io).
