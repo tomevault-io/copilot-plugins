@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-toolbar",
+  "displayName": "sentry-toolbar",
+  "description": "sentry-toolbar",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-toolbar",
+  "skills": []
+}
