@@ -1,0 +1,9 @@
+{
+  "name": "nekoimi--oss-auto-cert",
+  "displayName": "oss-auto-cert",
+  "description": "\u963f\u91cc\u4e91OSS/CDN SSL \u8bc1\u4e66\u81ea\u52a8\u5316\u5de5\u5177",
+  "version": "1.0.0",
+  "author": "nekoimi",
+  "homepage": "https://github.com/nekoimi/oss-auto-cert",
+  "skills": []
+}
