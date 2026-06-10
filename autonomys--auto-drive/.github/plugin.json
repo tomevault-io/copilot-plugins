@@ -1,0 +1,9 @@
+{
+  "name": "autonomys--auto-drive",
+  "displayName": "auto-drive",
+  "description": "Auto Drive is a decentralized content-addressed storage solution built on the Autonomys Network, leveraging its underlying permanent storage layer known as the Autonomys Distributed Storage Network (D",
+  "version": "1.0.0",
+  "author": "autonomys",
+  "homepage": "https://github.com/autonomys/auto-drive",
+  "skills": []
+}
