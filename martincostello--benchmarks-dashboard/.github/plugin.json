@@ -1,0 +1,9 @@
+{
+  "name": "martincostello--benchmarks-dashboard",
+  "displayName": "benchmarks-dashboard",
+  "description": "A dashboard for visualising benchmark results from benchmarkdotnet-results-publisher",
+  "version": "1.0.0",
+  "author": "martincostello",
+  "homepage": "https://github.com/martincostello/benchmarks-dashboard",
+  "skills": []
+}
