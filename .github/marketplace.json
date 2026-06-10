@@ -84114,6 +84114,16 @@
       "description": "actualbudget-sync"
     },
     {
+      "name": "bitdriftlabs--capture-sdk",
+      "source": "./bitdriftlabs--capture-sdk",
+      "description": "mobile bitdrift SDK"
+    },
+    {
+      "name": "bitdriftlabs--capture-sdk",
+      "source": "./bitdriftlabs--capture-sdk",
+      "description": "mobile bitdrift SDK"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -87989,6 +87999,11 @@
       "description": "AI-driven UI development skill pipeline \u2014 test lab for Codex skills covering PRD-to-pixel workflow"
     },
     {
+      "name": "sap--terraform-exporter-btp",
+      "source": "./sap--terraform-exporter-btp",
+      "description": "The Terraform Exporter for SAP BTP is a tool that helps export resources from a SAP BTP account.  It generates Terraform scripts for the import of resources and enables the import of the Terraform sta"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -91174,6 +91189,16 @@
       "description": "\ud83d\udc0c Ruby gem to generate SEO-optimized URL slugs for your records"
     },
     {
+      "name": "polkadot-developers--polkadot-docs",
+      "source": "./polkadot-developers--polkadot-docs",
+      "description": "Polkadot Developer Documentation"
+    },
+    {
+      "name": "chimera-nas--libevpl",
+      "source": "./chimera-nas--libevpl",
+      "description": "A  fast low level transport library to support sockets and rdma with waiting or polling"
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -92842,6 +92867,11 @@
       "name": "svasek--homeassistant-neopool-modbus",
       "source": "./svasek--homeassistant-neopool-modbus",
       "description": "\ud83c\udfca Sugar Valley Neopool Modbus custom integration for Home Assistant"
+    },
+    {
+      "name": "kixelated--mp4-atom",
+      "source": "./kixelated--mp4-atom",
+      "description": "A Rust MP4/ISOBMFF encoder and decoder"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -94952,6 +94982,11 @@
       "name": "ericzakariasson--cursor-workshop",
       "source": "./ericzakariasson--cursor-workshop",
       "description": "cursor-workshop"
+    },
+    {
+      "name": "codenamev--agentic",
+      "source": "./codenamev--agentic",
+      "description": "A simple Ruby command-line tool to build and run AI Agents in a plan-and-execute fashion."
     },
     {
       "name": "khangbdd--phoenix",
@@ -101872,6 +101907,16 @@
       "name": "jahands--workers-packages",
       "source": "./jahands--workers-packages",
       "description": "My public npm packages"
+    },
+    {
+      "name": "lusipad--plcopen",
+      "source": "./lusipad--plcopen",
+      "description": "\u4e00\u4e2a\u57fa\u4e8e plcopen \u8fd0\u52a8\u63a7\u5236\u6807\u51c6\u5b9e\u73b0\u7684 C++ \u5e93"
+    },
+    {
+      "name": "lusipad--plcopen",
+      "source": "./lusipad--plcopen",
+      "description": "\u4e00\u4e2a\u57fa\u4e8e plcopen \u8fd0\u52a8\u63a7\u5236\u6807\u51c6\u5b9e\u73b0\u7684 C++ \u5e93"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -110052,6 +110097,11 @@
       "name": "kumocorp--shingetsu",
       "source": "./kumocorp--shingetsu",
       "description": "A Rust-native reference-counted implementation of the Lua language"
+    },
+    {
+      "name": "bennorichters--taal-nvim",
+      "source": "./bennorichters--taal-nvim",
+      "description": "A Neovim plugin that uses LLMs to improve the grammar and spelling of natural language text."
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -129134,6 +129184,11 @@
       "description": "A Rust client for ComfyUI with an emphasis on type safety and ergonomics."
     },
     {
+      "name": "austinm911--tanstack-monorepo",
+      "source": "./austinm911--tanstack-monorepo",
+      "description": "Monorepo Template (WIP) using Turborepo, SST, Tanstack Router, Bun, Drizzle ORM"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -142457,6 +142512,11 @@
       "name": "mad1na2010--postsapp",
       "source": "./mad1na2010--postsapp",
       "description": "postsapp"
+    },
+    {
+      "name": "yankovichv--authenticator-tg",
+      "source": "./yankovichv--authenticator-tg",
+      "description": "Authenticator is a secure app for generating One-Time Passwords (OTP) for your 2FA-protected accounts right in Telegram."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
