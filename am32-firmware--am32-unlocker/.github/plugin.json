@@ -1,0 +1,9 @@
+{
+  "name": "am32-firmware--am32-unlocker",
+  "displayName": "AM32-unlocker",
+  "description": "AM32 ESC unlocker",
+  "version": "1.0.0",
+  "author": "am32-firmware",
+  "homepage": "https://github.com/am32-firmware/AM32-unlocker",
+  "skills": []
+}
