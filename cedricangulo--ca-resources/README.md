@@ -7,11 +7,11 @@ Website that provides valuable resources and guides to improve productivity.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cedricangulo/ca-resources](https://github.com/cedricangulo/ca-resources).
+Original source: `AGENTS.md` in [cedricangulo/ca-resources](https://github.com/cedricangulo/ca-resources).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
