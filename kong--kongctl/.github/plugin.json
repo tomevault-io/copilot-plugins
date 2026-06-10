@@ -1,0 +1,9 @@
+{
+  "name": "kong--kongctl",
+  "displayName": "kongctl",
+  "description": "Developer CLI for Kong",
+  "version": "1.0.0",
+  "author": "Kong",
+  "homepage": "https://github.com/Kong/kongctl",
+  "skills": []
+}
