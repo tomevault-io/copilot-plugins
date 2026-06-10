@@ -1,51 +1,67 @@
-## test-element-selection
+## test-mocks
 
-> Prefer data-testid and semantic queries (getByRole, getByLabelText)
+> Check __mocks__ first; @/mocks/ for utils; jest.mock + require for UI
 
 
-# Element Selection
+# Mock Management
 
-Use this rule when writing or editing tests that query the DOM. Prefer semantic queries; use data-testid when role/label are not practical.
+Use this rule when writing or updating test mocks (utilities, UI components, or external modules).
 
-### Prefer data-testid over querySelector
+### Check Existing Mocks First
 
-Avoid using `querySelector` or `querySelectorAll`. Instead, implement `data-testid` attributes on component elements that need to be tested. Use `screen.getByTestId()` from React Testing Library for better test maintainability and accessibility.
+Before writing new mocks, check the base project `__mocks__` folder. If a more general mock is needed, it is possible to create new ones in this folder.
+
+### Importing General Mocks
+
+For general utility mocks, use direct imports with the `@/mocks/...` import path:
 
 - ✅ Good:
 
   ```tsx
-  // Component
-  <button data-testid="submit-button">Submit</button>
-
-  // Test
-  const submitButton = screen.getByTestId('submit-button')
-  expect(submitButton).toBeInTheDocument()
+  import { mockGoogleMaps } from '@/mocks/google-maps'
+  import { createDealHistoryScenarioDevelopment } from '@/mocks/rocket/deal-history'
   ```
 
 - ❌ Bad:
   ```tsx
-  // Test
-  const { container } = render(<Button>Submit</Button>)
-  const button = container.querySelector('button')
-  expect(button).toBeInTheDocument()
+  jest.mock('google-maps', () => ({
+    // inline mock definition
+  }))
   ```
 
-### Using Semantic Queries
+### Mocking UI Components
 
-When possible, prefer semantic queries like `getByRole`, `getByLabelText`, or `getByText` over `getByTestId` for better accessibility testing:
+For UI component mocks (drawer, tabs, tooltip, etc.), use `jest.mock()` with `require()` inside the mock function to import from `@/mocks/ui/...`:
 
 - ✅ Good:
 
   ```tsx
-  const button = screen.getByRole('button', { name: 'Submit' })
-  const input = screen.getByLabelText('Email address')
+  jest.mock('@/components/ui/drawer', () => {
+    const { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose, DrawerBody } = require('@/mocks/ui/drawer')
+    return { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose, DrawerBody }
+  })
+
+  jest.mock('@/components/ui/tabs', () => {
+    const { Tabs, TabsList, TabsTrigger } = require('@/mocks/ui/tabs')
+    return { Tabs, TabsList, TabsTrigger }
+  })
+
+  jest.mock('@/components/ui/tooltip', () => {
+    const { Tooltip, TooltipTrigger, TooltipContent } = require('@/mocks/ui/tooltip')
+    return { Tooltip, TooltipTrigger, TooltipContent }
+  })
   ```
 
-- ❌ Bad (use getByRole/getByLabelText when role or label is available):
+- ❌ Bad:
 
   ```tsx
-  const button = screen.getByTestId('submit-button')
-  const input = screen.getByTestId('email-input')
+  // Direct import won't work for component mocks
+  import { Drawer } from '@/mocks/ui/drawer'
+
+  // Inline mock definition
+  jest.mock('@/components/ui/drawer', () => ({
+    Drawer: () => <div>Mock Drawer</div>,
+  }))
   ```
 
 ---
