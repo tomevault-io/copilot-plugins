@@ -1,0 +1,9 @@
+{
+  "name": "roypadina--languard",
+  "displayName": "LanGuard",
+  "description": "macOS menu-bar app: turns Wi-Fi off on wired LAN, back on when unplugged. Wake-aware, per-interface, no admin.",
+  "version": "1.0.0",
+  "author": "roypadina",
+  "homepage": "https://github.com/roypadina/LanGuard",
+  "skills": []
+}
