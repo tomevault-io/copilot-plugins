@@ -1,0 +1,9 @@
+{
+  "name": "axect--pytorch-template",
+  "displayName": "pytorch_template",
+  "description": "AI-agent-friendly PyTorch research pipeline \u2014 one YAML config drives preflight, training, Optuna HPO, and real-time TUI monitoring",
+  "version": "1.0.0",
+  "author": "Axect",
+  "homepage": "https://github.com/Axect/pytorch_template",
+  "skills": []
+}
