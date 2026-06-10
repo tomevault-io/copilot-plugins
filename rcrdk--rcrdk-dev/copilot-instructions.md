@@ -1,35 +1,46 @@
-## file-naming
+## hooks
 
-> Kebab-case for files and folders; .spec.tsx for tests; __tests__ structure
+> use prefix, camelCase for hooks; kebab-case use- prefix for hook files
 
 
-# File Naming Convention
+# Hook Naming Conventions
 
-- Use **kebab-case** (lowercase with hyphens) for all file and folder names.
-- ✅ Good: `format-date.ts`, `use-debounce.ts`, `reservation-card.tsx`
-- ❌ Bad: `formatDate.ts`, `useDebounce.ts`, `ReservationCard.tsx`
+### Hook Function Naming
 
-### Test File Naming
+- All custom hooks must start with the `use` prefix.
+- Hook names should be in **camelCase**.
+- Use descriptive names that clearly indicate the hook's purpose.
 
-- Test files should use `.spec.tsx` or `.spec.ts` extension, or be placed in `__tests__` folders.
-- ✅ Good: `button.spec.tsx`, `use-debounce.spec.ts`
-- ❌ Bad: `button.test.tsx`, `Button.test.tsx`
-
-### Component File Structure
-
-- For components with tests, place them in a subfolder with `__tests__`.
 - ✅ Good:
+
+  ```typescript
+  export function useDebounce<T>(value: T, delay: number): T {}
+  export function useEscapeKey(callback: () => void) {}
+  export function useMapFitBounds() {}
   ```
-  button/
-    index.tsx
-    __tests__/
-      index.spec.tsx
-  ```
+
 - ❌ Bad:
+  ```typescript
+  export function debounce<T>(value: T, delay: number): T {}
+  export function use_debounce<T>(value: T, delay: number): T {}
+  export function Debounce<T>(value: T, delay: number): T {}
   ```
-  button.tsx
-  button.spec.tsx
-  ```
+
+### Hook File Naming
+
+- Hook files should be named in **kebab-case** with `use-` prefix.
+- File names should match the hook function name (converted to kebab-case).
+
+- ✅ Good:
+
+  - File: `use-debounce.ts` → Hook: `useDebounce`
+  - File: `use-escape-key.ts` → Hook: `useEscapeKey`
+  - File: `use-map-fit-bounds.ts` → Hook: `useMapFitBounds`
+
+- ❌ Bad:
+  - File: `debounce.ts` → Hook: `useDebounce`
+  - File: `useDebounce.ts` → Hook: `useDebounce`
+  - File: `use_escape_key.ts` → Hook: `useEscapeKey`
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
