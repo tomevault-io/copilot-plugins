@@ -1,0 +1,9 @@
+{
+  "name": "unfazed-eco--unfazed",
+  "displayName": "unfazed",
+  "description": "a django-like async python web framework",
+  "version": "1.0.0",
+  "author": "unfazed-eco",
+  "homepage": "https://github.com/unfazed-eco/unfazed",
+  "skills": []
+}
