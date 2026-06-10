@@ -1,0 +1,44 @@
+{
+  "name": "fate-sandbox",
+  "owner": "lolo-s-Cosmos",
+  "repo": "fate-sandbox",
+  "description": "\u5b9e\u9a8c\u6027 Agent \u6c99\u76d2\u53d9\u4e8b\u7cfb\u7edf\uff0c\u4ee5 Fate/Type-Moon \u4e16\u754c\u89c2\u4e3a\u80cc\u666f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lolo-s-Cosmos/fate-sandbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-10T12:32:33Z"
+}
