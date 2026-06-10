@@ -1,0 +1,9 @@
+{
+  "name": "usethis-python--usethis-python",
+  "displayName": "usethis-python",
+  "description": "Automatically manage Python tooling and configuration: linters, formatters, and more. A CLI for declaratively configuring your Python projects following best practices.",
+  "version": "1.0.0",
+  "author": "usethis-python",
+  "homepage": "https://github.com/usethis-python/usethis-python",
+  "skills": []
+}
