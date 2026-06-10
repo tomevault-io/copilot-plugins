@@ -186234,6 +186234,26 @@
       "description": "Testing the end to end Power Bi report creation"
     },
     {
+      "name": "zenmux--zenmux-arena",
+      "source": "./zenmux--zenmux-arena",
+      "description": "zenmux-arena"
+    },
+    {
+      "name": "jhkim0759--sceneconductor",
+      "source": "./jhkim0759--sceneconductor",
+      "description": "3D Scene Generation from Single Image with Multi-Agent Orchestration"
+    },
+    {
+      "name": "zenmux--zenmux-arena",
+      "source": "./zenmux--zenmux-arena",
+      "description": "zenmux-arena"
+    },
+    {
+      "name": "undead404--koreni",
+      "source": "./undead404--koreni",
+      "description": "Heterogenous genealogical indexes' search web app."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -200037,6 +200057,21 @@
       "name": "tinfoilsh--tinfoil-go",
       "source": "./tinfoilsh--tinfoil-go",
       "description": "Tinfoil Go Client supporting the OpenAI API standard "
+    },
+    {
+      "name": "rrriiicccooo--x5-crop",
+      "source": "./rrriiicccooo--x5-crop",
+      "description": "High-confidence TIFF film-strip cropper for Hasselblad/Imacon X5 scans."
+    },
+    {
+      "name": "cashflowyai--safe-pay-stripe",
+      "source": "./cashflowyai--safe-pay-stripe",
+      "description": "Self Pay Estimation for Stripe"
+    },
+    {
+      "name": "blackwell-systems--gcf",
+      "source": "./blackwell-systems--gcf",
+      "description": "Drop-in JSON replacement for all AI pipelines. 79% fewer tokens. JSON scores 53.6% comprehension at scale, GCF scores 90.5%. Superpowers for graph-shaped data."
     },
     {
       "name": "cheerhuan--save-your-token",
