@@ -1,0 +1,9 @@
+{
+  "name": "morpho-org--sdks",
+  "displayName": "sdks",
+  "description": "Collection of SDKs to ease interactions with the Morpho protocol and Morpho Vaults",
+  "version": "1.0.0",
+  "author": "morpho-org",
+  "homepage": "https://github.com/morpho-org/sdks",
+  "skills": []
+}
