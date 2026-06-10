@@ -1,0 +1,9 @@
+{
+  "name": "mcslteam--mcserverlauncher-future-web",
+  "displayName": "MCServerLauncher-Future-Web",
+  "description": "Future version of MCSL, a brand new server management tool. Redefined, Versatile, Easy to use. (Web & Tauri)",
+  "version": "1.0.0",
+  "author": "MCSLTeam",
+  "homepage": "https://github.com/MCSLTeam/MCServerLauncher-Future-Web",
+  "skills": []
+}
