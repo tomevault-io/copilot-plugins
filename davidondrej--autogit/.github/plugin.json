@@ -1,0 +1,9 @@
+{
+  "name": "davidondrej--autogit",
+  "displayName": "autogit",
+  "description": "Auto commit & push for AI coding agents, with a safety level you pick.",
+  "version": "1.0.0",
+  "author": "davidondrej",
+  "homepage": "https://github.com/davidondrej/autogit",
+  "skills": []
+}
