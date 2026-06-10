@@ -1,0 +1,9 @@
+{
+  "name": "bennorichters--taal-nvim",
+  "displayName": "taal.nvim",
+  "description": "A Neovim plugin that uses LLMs to improve the grammar and spelling of natural language text.",
+  "version": "1.0.0",
+  "author": "bennorichters",
+  "homepage": "https://github.com/bennorichters/taal.nvim",
+  "skills": []
+}
