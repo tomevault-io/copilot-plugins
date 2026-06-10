@@ -1,0 +1,60 @@
+## postmortem
+
+> Consider these lessons learned first before making changes to avoid mistakes
+
+
+# Swift Window Snapping (`snap-left`/`snap-right`)
+
+## Core Logic
+*   `getFrame(for:)`: Get `CGRect` (handles Y-flip).
+*   `getOtherWindowFramesOnScreen(_:excluding:)`: Find other visible, non-minimized windows on the target screen.
+*   `findNearestLeftEdge(to:in:)`: Find X of nearest left edge *right* of the active window.
+*   `findNearestRightEdge(to:in:)`: Find X of nearest right edge *left* of the active window.
+*   `performSnapLeft()`/`performSnapRight()`: Orchestrate getting frames, finding neighbors, calculating new frame, and calling `setWindowFrame`.
+
+## Integration
+*   Add new cases (`"snap-left"`, `"snap-right"`) to the main command `switch`.
+*   Update `printHelp()` with new command descriptions.
+
+## Build & Test
+*   Build: `swift build`
+*   Executable Path: `./.build/debug/mwm`
+*   Test: `./.build/debug/mwm snap-left` / `./.build/debug/mwm snap-right`
+
+## Git Tagging & CI Trigger
+*   Check latest tag: `git tag --sort=v:refname | cat`
+*   Increment version based on changes (e.g., minor for features: `v0.1.0` -> `v0.2.0`).
+*   Create local tag: `git tag v0.2.0`
+*   Push tag to trigger CI: `git push origin v0.2.0`
+
+# Nearest Screen Fallback (`getTargetScreen`)
+
+## Core Logic
+Use window center (AX coords) for detection.
+Convert center to NS coords (`mainScreenHeight - centerAX.y`).
+Check `screen.frame.contains(centerNS)` first.
+Fallback: Find min `distanceSqToRect(point: centerNS, rect: screen.frame)`.
+Return closest `NSScreen`.
+
+## Workflow
+Use feature branches (`git checkout -b feat/...`).
+Verify changes (`swift build`, manual tests).
+Commit changes (`git add`, `git commit`).
+Switch to target branch (`git checkout main`).
+Merge (`git merge --no-ff feat/... | cat`).
+PUSH (`git push origin main`).
+
+## Merge Conflict Resolution (Local Changes)
+Identify conflict: `git merge ...` fails citing local changes.
+Inspect changes: `git status | cat`, `git diff --staged | cat`.
+If staged changes are identical: Discard (`git restore --staged <file>`, `git checkout -- <file>`).
+If staged changes are needed: Commit (`git commit -m "..."`).
+Retry merge.
+
+## Git Commands
+Use `| cat` for commands potentially needing interaction (e.g., `git merge`, `git status`).
+Check current branch: `git branch --show-current | cat`.
+
+---
+> Source: [johnlindquist/mac-windows-manager](https://github.com/johnlindquist/mac-windows-manager) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-10 -->
