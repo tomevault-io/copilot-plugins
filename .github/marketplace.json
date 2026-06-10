@@ -107004,6 +107004,21 @@
       "description": "\ub9c1\ud06c \uacf5\uc720 \ud55c\ubc88\uc73c\ub85c, \uc5ec\ub7ec \uc0ac\ub78c\uacfc \uc27d\uac8c \uc77c\uc815\uc744 \ub9de\ucd94\uc138\uc694 - OneTime \u23f0"
     },
     {
+      "name": "tavva--flow",
+      "source": "./tavva--flow",
+      "description": "Implements key processes in David Allen's Getting Things Done (GTD) methodology"
+    },
+    {
+      "name": "nguyenvanduocit--epubtrans",
+      "source": "./nguyenvanduocit--epubtrans",
+      "description": "quickly translate epub books into a bilingual book using Anthropic LLMs"
+    },
+    {
+      "name": "hovsep--fmesh",
+      "source": "./hovsep--fmesh",
+      "description": "Flow Based Programming in Go"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -113079,6 +113094,16 @@
       "description": "Minimalist LLM Grammar Checker for macOS"
     },
     {
+      "name": "brandhaug--zod-to-protobuf",
+      "source": "./brandhaug--zod-to-protobuf",
+      "description": "Convert Zod schemas to Protocol Buffers definitions."
+    },
+    {
+      "name": "brandhaug--zod-to-protobuf",
+      "source": "./brandhaug--zod-to-protobuf",
+      "description": "Convert Zod schemas to Protocol Buffers definitions."
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -115837,6 +115862,11 @@
       "name": "yingrjimsch--grgry",
       "source": "./yingrjimsch--grgry",
       "description": "grgry"
+    },
+    {
+      "name": "juanjsc630--spendsage",
+      "source": "./juanjsc630--spendsage",
+      "description": "spendsage"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -118667,6 +118697,11 @@
       "name": "fangyi-zhou--sii-decode-rs",
       "source": "./fangyi-zhou--sii-decode-rs",
       "description": "sii-decode-rs"
+    },
+    {
+      "name": "ecocommonsaustralia--notebooks",
+      "source": "./ecocommonsaustralia--notebooks",
+      "description": "Examples and tutorials on accessing environmental data and developing and deploying ecological modelling workflows"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -121957,6 +121992,16 @@
       "name": "koenoe--tvseri-es",
       "source": "./koenoe--tvseri-es",
       "description": "tvseri.es"
+    },
+    {
+      "name": "gpt-language--gpt-tutor-for-chrome",
+      "source": "./gpt-language--gpt-tutor-for-chrome",
+      "description": "gpt-tutor-for-chrome"
+    },
+    {
+      "name": "kakajun--react-sketch-ruler",
+      "source": "./kakajun--react-sketch-ruler",
+      "description": "Zoom operation of page display in react"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -125764,6 +125809,11 @@
       "description": "This is a Terraform provider for Binary Lane, for reliable & affordable Australian VPS hosting"
     },
     {
+      "name": "scottgal--mostlylucidweb",
+      "source": "./scottgal--mostlylucidweb",
+      "description": "The mad scientists lab for the mostlylucid site with engineering experiements, tag helpers, markdig extensooons etc..e.tc..."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -129467,6 +129517,16 @@
       "name": "austinm911--tanstack-monorepo",
       "source": "./austinm911--tanstack-monorepo",
       "description": "Monorepo Template (WIP) using Turborepo, SST, Tanstack Router, Bun, Drizzle ORM"
+    },
+    {
+      "name": "balancer--pool-creator",
+      "source": "./balancer--pool-creator",
+      "description": "A user friendly interface for creating and initializing pools"
+    },
+    {
+      "name": "polytorus--polytorus",
+      "source": "./polytorus--polytorus",
+      "description": "polytorus"
     },
     {
       "name": "vm--nila-code",
@@ -133482,6 +133542,26 @@
       "name": "curzel-it--sneakbit",
       "source": "./curzel-it--sneakbit",
       "description": "sneakbit"
+    },
+    {
+      "name": "babylonlabs-io--staking-api-service",
+      "source": "./babylonlabs-io--staking-api-service",
+      "description": "staking-api-service"
+    },
+    {
+      "name": "rapidataai--rapidata-python-sdk",
+      "source": "./rapidataai--rapidata-python-sdk",
+      "description": "Rapidata Python SDK - a way to programmatically request humans"
+    },
+    {
+      "name": "davertmik--bunosh",
+      "source": "./davertmik--bunosh",
+      "description": "Modern CLI task runner powered by JS and Bun"
+    },
+    {
+      "name": "republicofdata-io--climate-resilience",
+      "source": "./republicofdata-io--climate-resilience",
+      "description": "Climate Resilience"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -142954,6 +143034,16 @@
       "description": "A strongly-typed typescript library"
     },
     {
+      "name": "ivangfr--api-oha-benchmarker",
+      "source": "./ivangfr--api-oha-benchmarker",
+      "description": "api-oha-benchmarker is a tool to easily benchmark APIs. It uses Testcontainers to manage Docker containers. Load testing is done with OHA. To collect information such as CPU and memory usage, it uses "
+    },
+    {
+      "name": "vianetwork--via-core",
+      "source": "./vianetwork--via-core",
+      "description": "Bitcoin L2 (based on ZK Stack) "
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -148672,6 +148762,21 @@
       "name": "visa--visa-vulnerability-agentic-harness",
       "source": "./visa--visa-vulnerability-agentic-harness",
       "description": "Visa Vulnerability Agentic Harness"
+    },
+    {
+      "name": "peiman--ckeletin-go",
+      "source": "./peiman--ckeletin-go",
+      "description": "AI-first Go development framework. Ship production CLIs that AI agents build correctly."
+    },
+    {
+      "name": "peiman--ckeletin-go",
+      "source": "./peiman--ckeletin-go",
+      "description": "AI-first Go development framework. Ship production CLIs that AI agents build correctly."
+    },
+    {
+      "name": "peiman--ckeletin-go",
+      "source": "./peiman--ckeletin-go",
+      "description": "AI-first Go development framework. Ship production CLIs that AI agents build correctly."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -154972,6 +155077,16 @@
       "name": "jlgrimes--training-court",
       "source": "./jlgrimes--training-court",
       "description": "training-court"
+    },
+    {
+      "name": "cxworld--coreripperx",
+      "source": "./cxworld--coreripperx",
+      "description": "CPU stress test using AVX operations"
+    },
+    {
+      "name": "cxworld--coreripperx",
+      "source": "./cxworld--coreripperx",
+      "description": "CPU stress test using AVX operations"
     },
     {
       "name": "lightninglabs--lnget",
@@ -163522,6 +163637,146 @@
       "name": "axect--pytorch-template",
       "source": "./axect--pytorch-template",
       "description": "AI-agent-friendly PyTorch research pipeline \u2014 one YAML config drives preflight, training, Optuna HPO, and real-time TUI monitoring"
+    },
+    {
+      "name": "naa0yama--devtool-wsl2",
+      "source": "./naa0yama--devtool-wsl2",
+      "description": "A development environment for WSL2"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "laborberlin--varvis-download",
+      "source": "./laborberlin--varvis-download",
+      "description": "A CLI tool to download genomic analysis files from the Varvis API. Supports authentication, file type selection, proxy settings, and destination directory specification."
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "joshuawootonn--42colors",
+      "source": "./joshuawootonn--42colors",
+      "description": "42 colors"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "laborberlin--varvis-download",
+      "source": "./laborberlin--varvis-download",
+      "description": "A CLI tool to download genomic analysis files from the Varvis API. Supports authentication, file type selection, proxy settings, and destination directory specification."
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "laborberlin--varvis-download",
+      "source": "./laborberlin--varvis-download",
+      "description": "A CLI tool to download genomic analysis files from the Varvis API. Supports authentication, file type selection, proxy settings, and destination directory specification."
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "rcrdk--rcrdk-dev",
+      "source": "./rcrdk--rcrdk-dev",
+      "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
     },
     {
       "name": "yschimke--compose-ai-tools",
