@@ -1,0 +1,9 @@
+{
+  "name": "modern-python--lite-bootstrap",
+  "displayName": "lite-bootstrap",
+  "description": "Lite package for bootstrapping new microservices",
+  "version": "1.0.0",
+  "author": "modern-python",
+  "homepage": "https://github.com/modern-python/lite-bootstrap",
+  "skills": []
+}
