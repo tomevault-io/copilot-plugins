@@ -1,67 +1,112 @@
-## imports
+## navigation
 
-> Cairo Imports
+> The Starknet Agent codebase is organized as a monorepo with multiple packages:
 
-# Imports in Starknet Agent
+# Navigation Rules for Starknet Agent Codebase
 
-## External Libraries
+## Project Structure Overview
 
-### Backend and Agent Libraries
-- `express`: Web server framework.
-  - Used in: `packages/backend/src/app.ts`
-  - Import: `import express from 'express';`
-- `ws`: WebSocket library for real-time communication.
-  - Used in: `packages/backend/src/websocket/`
-  - Import: `import WebSocket from 'ws';`
-- `mongodb`: MongoDB client for database operations.
-  - Used in: `packages/agents/src/db/`
-  - Import: `import { MongoClient } from 'mongodb';`
-- `anthropic`: Anthropic Claude API client.
-  - Used in: `packages/agents/src/lib/`
-  - Import: `import Anthropic from '@anthropic-ai/sdk';`
-- `openai`: OpenAI API client.
-  - Used in: `packages/agents/src/lib/`
-  - Import: `import OpenAI from 'openai';`
+The Starknet Agent codebase is organized as a monorepo with multiple packages:
 
-### Frontend Libraries
-- `react`: UI library.
-  - Used in: `packages/ui/components/`
-  - Import: `import React from 'react';`
-- `next`: React framework.
-  - Used in: `packages/ui/app/`
-  - Import: `import { useRouter } from 'next/router';`
-- `tailwindcss`: CSS framework.
-  - Used in: `packages/ui/components/`
-  - Applied via class names.
+- `packages/agents`: Contains the core agent logic for RAG-based search and response generation
+- `packages/backend`: Express-based server handling WebSocket connections and API endpoints
+- `packages/ui`: Next.js frontend application
+- `packages/ingester`: Tools for ingesting and processing data for the vector database
+- `packages/typescript-config`: Shared TypeScript configuration
 
-## Internal Modules
+## Key Directories and Files
 
-### Agent Modules
-- `pipeline`: RAG pipeline components.
-  - Used in: `packages/agents/src/ragAgentFactory.ts`
-  - Import: `import { QueryProcessor, DocumentRetriever, ResponseGenerator } from './pipeline';`
-- `config`: Configuration management.
-  - Used in: `packages/agents/src/`
-  - Import: `import { config } from './config';`
-- `db`: Database interaction.
-  - Used in: `packages/agents/src/core/`
-  - Import: `import { VectorStore } from './db/vectorStore';`
+### Agent Logic
+- `packages/agents/src/pipeline`: Contains the RAG pipeline implementation
+- `packages/agents/src/core`: Core agent functionality
+- `packages/agents/src/config`: Configuration handling
+- `packages/agents/src/db`: Database interaction logic
+- `packages/agents/src/utils`: Utility functions
+- `packages/agents/src/lib`: Shared libraries
+- `packages/agents/src/ragAgentFactory.ts`: Factory for creating RAG agents
+- `packages/agents/src/suggestionGeneratorAgent.ts`: Agent for generating search suggestions
 
-### Backend Modules
-- `websocket`: WebSocket server.
-  - Used in: `packages/backend/src/server.ts`
-  - Import: `import { setupWebSocketServer } from './websocket';`
-- `routes`: API routes.
-  - Used in: `packages/backend/src/app.ts`
-  - Import: `import { apiRouter } from './routes';`
+### Backend
+- `packages/backend/src/websocket`: WebSocket server implementation
+- `packages/backend/src/routes`: API route definitions
+- `packages/backend/src/app.ts`: Express application setup
+- `packages/backend/src/server.ts`: Server initialization
+- `packages/backend/src/config`: Server configuration
+- `packages/backend/src/utils`: Utility functions
 
-### UI Modules
-- `components`: Reusable UI components.
-  - Used in: `packages/ui/app/`
-  - Import: `import { ChatInterface } from '../components/ChatInterface';`
-- `lib/hooks`: Custom React hooks.
-  - Used in: `packages/ui/components/`
-  - Import: `import { useChat } from '../lib/hooks/useChat';`
+### Frontend
+- `packages/ui/app`: Next.js app directory with page components
+- `packages/ui/components`: Reusable UI components
+- `packages/ui/lib`: Frontend utilities and helpers
+- `packages/ui/public`: Static assets
+
+### Data Ingestion
+- `packages/ingester/scripts`: Scripts for data ingestion and embedding generation
+
+## Navigation Patterns
+
+1. **Following the RAG Pipeline Flow**:
+   - Start at `packages/agents/src/ragAgentFactory.ts`
+   - Explore the pipeline components in `packages/agents/src/pipeline`
+   - Understand how results are sent back via `packages/backend/src/websocket`
+
+2. **Understanding API Endpoints**:
+   - Start at `packages/backend/src/app.ts`
+   - Follow through to `packages/backend/src/routes`
+   - See how they connect to agent functionality
+
+3. **Exploring the UI Flow**:
+   - Start at `packages/ui/app/page.tsx` (main entry point)
+   - Look at the chat interface components
+   - Understand how the UI connects to the backend via WebSockets
+
+4. **Configuration Flow**:
+   - Check `packages/agents/config.toml` for agent configuration
+   - See how configuration is loaded in `packages/agents/src/config.ts`
+
+## Common Navigation Tasks
+
+- **To understand the RAG process**: Follow the pipeline components in `packages/agents/src/pipeline`
+- **To see how user queries are processed**: Start at the WebSocket handlers in `packages/backend/src/websocket`
+- **To explore the UI components**: Look at the components in `packages/ui/components`
+- **To understand data ingestion**: Check the scripts in `packages/ingester/scripts`
+
+## Ingester Package
+- `packages/ingester/src/`: Source code for the ingester package
+  - `BaseIngester.ts`: Abstract base class for all ingesters
+  - `IngesterFactory.ts`: Factory for creating ingesters based on source
+  - `ingesters/`: Source-specific ingester implementations
+    - `CairoBookIngester.ts`: Ingester for Cairo Book
+    - `StarknetDocsIngester.ts`: Ingester for Starknet Docs
+    - `StarknetFoundryIngester.ts`: Ingester for Starknet Foundry
+    - `CairoByExampleIngester.ts`: Ingester for Cairo By Example
+    - `OpenZeppelinDocsIngester.ts`: Ingester for OpenZeppelin Docs
+  - `utils/`: Utility functions
+    - `fileUtils.ts`: File operations
+    - `contentUtils.ts`: Content processing
+    - `vectorStoreUtils.ts`: Vector store operations
+  - `types.ts`: Common types and interfaces
+  - `scripts/`: Scripts for running ingestion
+    - `generateEmbeddings.ts`: Main script for generating embeddings
+
+## Key Files for Common Tasks
+
+### Adding a New Documentation Source
+1. Create a new ingester in `packages/ingester/src/ingesters/`
+2. Update `IngesterFactory.ts` to include the new source
+3. Update the `DocumentSource` type in `packages/agents/src/types.ts`
+
+### Modifying the RAG Pipeline
+1. Update the relevant component in `packages/agents/src/pipeline/`
+2. Adjust the configuration in `packages/agents/config.toml` if needed
+
+### Updating the UI
+1. Modify the relevant component in `packages/ui/components/`
+2. Update styles in `packages/ui/styles/` if needed
+
+### Running Ingestion
+1. Use the script at `packages/ingester/src/scripts/generateEmbeddings.ts`
+2. Or run `pnpm run generate-embeddings` from the project root
 
 ---
 > Source: [cairo-book/starknet-agent](https://github.com/cairo-book/starknet-agent) — distributed by [TomeVault](https://tomevault.io).
