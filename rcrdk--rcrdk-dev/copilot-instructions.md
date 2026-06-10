@@ -1,107 +1,106 @@
-## test-naming-and-structure
+## test-organization
 
-> Describe/it naming, quoted refs (props, components, IDs, constants), no explanation comments
+> it.each for similar tests; conditional class testing; snapshot usage
 
 
-# Test Naming and Structure
+# Test Organization
 
-## Naming Conventions
+Use this rule when organizing test cases: when to use it.each, what to assert (conditional classes, snapshots), and how to structure snapshot tests.
 
-### Describe Blocks
+### Using it.each for Similar Tests
 
-`describe` blocks should have the first letter uppercased. Use descriptive names that clearly identify the component or functionality being tested.
-
-- ✅ Good:
-
-  ```tsx
-  describe('Button component', () => {})
-  describe('User authentication flow', () => {})
-  ```
-
-- ❌ Bad:
-  ```tsx
-  describe('button component', () => {})
-  describe('user authentication flow', () => {})
-  ```
-
-### Test Cases (it blocks)
-
-Test case names should always start with the word "should" and avoid using parentheses. When using boolean values in test names, prefer explicit "true" or "false" (do not use 0 or 1). When referring to props, functions or attributes in test names, always put them in double quotes.
+Prefer to use `it.each` when tests are too similar or contain large combinations of variants. This reduces code duplication and makes it easier to add new test cases.
 
 - ✅ Good:
 
   ```tsx
-  it('should render button with text', () => {})
-  it('should call "onClick" when button is clicked', () => {})
-  it('should display error message when "isError" is true', () => {})
-  it('should hide content when "isVisible" is false', () => {})
-  it('should have a "title" provided', () => {})
-  ```
+  const variants = ['primary', 'outline', 'ghost'] as const
 
-- ❌ Bad:
-  ```tsx
-  it('renders button with text', () => {})
-  it('should call onClick when button is clicked', () => {})
-  it('should display error when isError is 1', () => {})
-  it('should hide content when isVisible is 0', () => {})
-  it('should handle click() event', () => {})
-  it('should have a title provided', () => {})
-  ```
-
-### Quoted references (in describe/it strings)
-
-When referring to technical values in `describe()` or `it()` strings, put them in **double quotes**. Common words (should, when, from, over) do not need quotes.
-
-Put in double quotes:
-
-- Prop/field names: `"email"`, `"onClick"`, `"isError"`, `"teamRegionIds"`
-- Component names: `"PercentageInput"`, `"SessionProvider"`
-- IDs or technical literal values: `"commission-field-total-percentage"`, `"regionId"`
-- Function/hook names when referenced: `"useSession"`, `"onDelete"`
-- Return values or types when they are the focus: `"false"`, `"note"`, `"task"`
-- Constant names when relevant: `"TOAST_MESSAGES.SAVE_SUCCESS"`
-
-- ✅ Good:
-
-  ```tsx
-  it('should show toast when "save" succeeds', () => {})
-  it('should set responsible to "Cliente" when "clientResponsibility" is "1"', () => {})
-  describe('When "TOAST_MESSAGES.SAVE_SUCCESS" is used', () => {})
+  it.each(variants)('should render with "%s" variant', (variant) => {
+    const { container } = render(<Button variant={variant}>Click me</Button>)
+    expect(container).toMatchSnapshot()
+  })
   ```
 
 - ❌ Bad:
 
   ```tsx
-  it('should show toast when save succeeds', () => {})
-  it('should set responsible to Cliente when clientResponsibility is 1', () => {})
+  it('should render with primary variant', () => {
+    const { container } = render(<Button variant="primary">Click me</Button>)
+    expect(container).toMatchSnapshot()
+  })
+
+  it('should render with outline variant', () => {
+    const { container } = render(<Button variant="outline">Click me</Button>)
+    expect(container).toMatchSnapshot()
+  })
+
+  it('should render with ghost variant', () => {
+    const { container } = render(<Button variant="ghost">Click me</Button>)
+    expect(container).toMatchSnapshot()
+  })
   ```
 
-### Constants in assertions and names
+## Class Name Testing
 
-When asserting toast or UI messages, use project constants (e.g. `TOAST_MESSAGES.SAVE_SUCCESS`) instead of hardcoded strings. When referring to those constants in describe/it descriptions, put the constant name in double quotes (e.g. `"TOAST_MESSAGES.SAVE_SUCCESS"`).
+### Only Test Conditional Classes
 
-## Test Structure
-
-### Comments
-
-Avoid putting explanation comments into tests unless explicitly asked for. Tests should be self-documenting through clear naming and structure.
+When testing a component, only test for class names when they are conditional (based on props, state, or variants). Avoid testing static class names that are always present.
 
 - ✅ Good:
 
   ```tsx
-  it('should disable button when loading', () => {
-    render(<Button loading>Submit</Button>)
-    expect(screen.getByRole('button')).toBeDisabled()
+  it('should apply selected styles when "selected" is true', () => {
+    render(
+      <Button variant="outline" selected>
+        Click me
+      </Button>,
+    )
+    const button = screen.getByRole('button')
+    expect(button).toHaveClass('!bg-title', '!border-title')
   })
   ```
 
 - ❌ Bad:
   ```tsx
-  it('should disable button when loading', () => {
-    // Render the button with loading state
-    render(<Button loading>Submit</Button>)
-    // Check that the button is disabled
-    expect(screen.getByRole('button')).toBeDisabled()
+  it('should have base button classes', () => {
+    render(<Button>Click me</Button>)
+    const button = screen.getByRole('button')
+    expect(button).toHaveClass('px-4', 'py-2', 'rounded')
+  })
+  ```
+
+## Snapshot Testing
+
+### When to Use Snapshots
+
+When testing a component, include a snapshot test. It is a priority when the component has variants, different states, or multiple prop combinations. Snapshots help catch unintended visual changes and are especially useful for components with many variants.
+
+- ✅ Good:
+
+  ```tsx
+  describe('Button component', () => {
+    const variants = ['primary', 'outline', 'ghost'] as const
+
+    it.each(variants)('should match snapshot for "%s" variant', (variant) => {
+      const { container } = render(<Button variant={variant}>Click me</Button>)
+      expect(container).toMatchSnapshot()
+    })
+
+    it('should match snapshot for loading state', () => {
+      const { container } = render(<Button loading>Click me</Button>)
+      expect(container).toMatchSnapshot()
+    })
+  })
+  ```
+
+- ❌ Bad:
+  ```tsx
+  describe('Button component', () => {
+    it('should render button', () => {
+      render(<Button>Click me</Button>)
+      // No snapshot test for component with variants
+    })
   })
   ```
 
