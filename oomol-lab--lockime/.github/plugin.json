@@ -1,0 +1,9 @@
+{
+  "name": "oomol-lab--lockime",
+  "displayName": "LockIME",
+  "description": "A native macOS menu-bar app that keeps your keyboard input source locked \u2014 global, per-app, and per-URL.",
+  "version": "1.0.0",
+  "author": "oomol-lab",
+  "homepage": "https://github.com/oomol-lab/LockIME",
+  "skills": []
+}
