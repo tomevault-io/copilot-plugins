@@ -1,76 +1,57 @@
-## project-instructions
+## starknet-agent
 
-> Project Instructions
+> Starknet Agent is an AI-powered search engine for the Starknet ecosystem using Retrieval-Augmented Generation (RAG) to provide accurate, source-cited answers about Starknet and Cairo.
 
-# Starknet Agent Project Instructions
+# Starknet Agent Development Guide
 
-## Overview
-- Starknet Agent is an AI-powered search engine specifically designed for the Starknet Ecosystem.
-- It uses Retrieval-Augmented Generation (RAG) to provide accurate, source-cited answers to questions about Starknet and Cairo.
-- The project is built with TypeScript, Node.js, Express, MongoDB Atlas (vector search), and Next.js.
-- Originally forked from Perplexica, adapted for the Starknet ecosystem.
+## Project Overview
 
-## Architecture
-- Monorepo structure with multiple packages:
-  - `packages/agents/`: Core RAG pipeline (query processing, document retrieval, answer generation)
-  - `packages/backend/`: Express server with WebSocket support for real-time streaming
-  - `packages/ui/`: Next.js frontend application with chat interface
-  - `packages/ingester/`: Data ingestion tools for documentation sources
-  - `packages/typescript-config/`: Shared TypeScript configuration
-
-## RAG Pipeline Flow
-1. **Query Processing**: Analyzes and reformulates user queries to improve retrieval
-2. **Document Retrieval**: Searches vector database for relevant documents using cosine similarity
-3. **Answer Generation**: Uses LLMs to generate comprehensive responses with source citations
-4. **Real-time Streaming**: Delivers responses to the UI as they're generated
-
-## Focus Modes
-- **Starknet Ecosystem**: Searches across all indexed resources
-- **Cairo Book**: Focuses on the Cairo programming language book
-- **Starknet Docs**: Targets official Starknet documentation
-- **Starknet Foundry**: Searches Starknet Foundry documentation
-- **Cairo By Example**: Provides examples from Cairo By Example resource
-- **OpenZeppelin Docs**: Searches OpenZeppelin's Starknet documentation
-
-## Ingestion System
-- The ingester package handles downloading, processing, and storing documentation.
-- Supported documentation sources:
-  - Cairo Book
-  - Starknet Docs
-  - Starknet Foundry
-  - Cairo By Example
-  - OpenZeppelin Docs
-- Modular architecture with a `BaseIngester` abstract class and source-specific implementations.
-- Follows the template method pattern for standardized ingestion process.
-- Run ingestion with `pnpm generate-embeddings` or `pnpm generate-embeddings:yes` from the project root.
-- Weekly automated embedding generation via GitHub Actions.
-
-## Development Workflow
-- Use `pnpm dev` or `turbo dev` to start the development server
-- MongoDB Atlas with vector search capabilities required for embeddings storage
-- Configuration is managed through TOML files (copy `sample.config.toml` to `config.toml`)
-- Docker is used for containerization and deployment
-- Add new documentation sources by extending the `BaseIngester` class and registering in `IngesterFactory`
+Starknet Agent is an AI-powered search engine for the Starknet ecosystem using Retrieval-Augmented Generation (RAG) to provide accurate, source-cited answers about Starknet and Cairo.
 
 ## Commands
-- **Build**: `pnpm build`, `pnpm --filter @starknet-agent/agents build`
-- **Dev**: `pnpm dev` (starts all services with auto-reload)
-- **Test**: `pnpm --filter @starknet-agent/agents test`
-- **Single test**: `pnpm --filter @starknet-agent/agents test -- -t "test name pattern"`
-- **Type check**: `pnpm --filter @starknet-agent/backend check-types`
+
+- Build: `pnpm build` (all packages), `pnpm --filter @starknet-agent/agents build` (specific package)
+- Dev: `pnpm dev` (starts backend with auto-reload)
+- Test: `pnpm --filter @starknet-agent/agents test` or `pnpm --filter @starknet-agent/backend test`
+- Single test: `pnpm --filter @starknet-agent/agents test -- -t "test name pattern"`
+- Type check: `pnpm --filter @starknet-agent/backend check-types`
+- Generate embeddings: `pnpm generate-embeddings` or `pnpm generate-embeddings:yes` (skip prompts)
+
+## Architecture
+
+- **Monorepo Structure**:
+  - `packages/agents`: Core RAG pipeline (query processing, retrieval, answer generation)
+  - `packages/backend`: Express server with WebSocket support
+  - `packages/ingester`: Documentation processing and vector embedding generation
+  - `packages/ui`: Next.js frontend with real-time chat interface
+- **RAG Pipeline Flow**:
+  1. Query Processing: Analyzes and reformulates queries
+  2. Document Retrieval: Vector search for relevant documents
+  3. Answer Generation: LLM-generated responses with source citations
+
+## Code Style
+
+- Naming: `camelCase` for variables/functions, `PascalCase` for classes (with `Ingester` suffix for ingesters), `UPPER_CASE` for constants, `I`-prefixed interfaces (e.g., `IAgentConfig`)
+- Formatting: 2 spaces indentation, 100 char line limit, Prettier for consistency
+- Imports: Group external imports first, then internal modules
+- Error handling: Use try/catch for async operations, log errors with context
+- Types: Use explicit typing for function parameters and return values, prefer interfaces over types
+- Comments: Use JSDoc for functions/classes, especially in agent pipeline and ingester components
 
 ## Testing
-- Jest is used for all testing
-- Run tests with `pnpm test` or `turbo test`
-- Test files are located in `__tests__/` directories
-- Mock external dependencies, especially LLM and database calls
-- Test each ingester implementation separately with mocked vector stores
 
-## Deployment
-- Docker Compose is used for deployment
-- Production configuration in `docker-compose.prod-hosted.yml`
-- Environment variables should be set according to `.env.example` files
-- Ingestion can be run as a separate process using `ingest.dockerfile`
+- Jest for all testing (`pnpm test`)
+- Mock external dependencies, especially LLM and database calls
+- Test pipeline components individually
+- Test each ingester implementation separately
+- Use jest-mock-extended for mocking complex dependencies
+
+## Development Workflow
+
+- MongoDB Atlas required for vector database
+- Create config.toml from sample.config.toml before starting
+- Use turbo for task orchestration
+- Follow template method pattern for adding new ingesters
 
 ---
 > Source: [cairo-book/starknet-agent](https://github.com/cairo-book/starknet-agent) — distributed by [TomeVault](https://tomevault.io).
