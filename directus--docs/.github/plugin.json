@@ -1,0 +1,9 @@
+{
+  "name": "directus--docs",
+  "displayName": "docs",
+  "description": "Documentation website for Directus, including quick starts, guides, and tutorials.",
+  "version": "1.0.0",
+  "author": "directus",
+  "homepage": "https://github.com/directus/docs",
+  "skills": []
+}
