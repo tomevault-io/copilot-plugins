@@ -1,58 +1,47 @@
-## reducers
+## schemas
 
-> Reducer and file naming (camelCase + reducer, kebab-case -reducer); named exports
+> Zod schema + inferred type; Stripped suffix for client schemas
 
 
-# Reducer Naming Conventions
+# Schemas and Validation
 
-Use this rule when creating or editing Redux (or similar) reducer functions and their files.
+Use this rule when creating or editing Zod schemas and their inferred types (validation and forms).
 
-### Reducer Function Naming
+### Zod Schema Structure
 
-- Reducer function names should be in **camelCase** with `reducer` suffix.
-- Use descriptive names that clearly indicate what the reducer manages.
-
-- ✅ Good:
-  ```typescript
-  function mapReducer(state: MapState, action: MapAction): MapState {}
-  function userReducer(state: UserState, action: UserAction): UserState {}
-  ```
-
-- ❌ Bad:
-  ```typescript
-  function map(state: MapState, action: MapAction): MapState {}
-  function MapReducer(state: MapState, action: MapAction): MapState {}
-  function map_reducer(state: MapState, action: MapAction): MapState {}
-  ```
-
-### Reducer File Naming
-
-- Reducer files should be named in **kebab-case** with `-reducer` suffix.
-- File names should match the reducer function name (converted to kebab-case).
-
-- ✅ Good:
-  - File: `map-reducer.ts` → Reducer: `mapReducer`
-  - File: `user-reducer.ts` → Reducer: `userReducer`
-
-- ❌ Bad:
-  - File: `map.ts` → Reducer: `mapReducer`
-  - File: `mapReducer.ts` → Reducer: `mapReducer`
-  - File: `map_reducer.ts` → Reducer: `mapReducer`
-
-### Reducer Exports
-
-- Reducers should be exported as named exports.
-- Export both the reducer function and any related constants (like initial state).
+- Each schema file should export both the Zod schema and the inferred TypeScript type.
+- Use the pattern: `schemaName` for the schema and `SchemaName` for the type.
 
 - ✅ Good:
   ```typescript
-  export { INITIAL_MAP_STATE, mapReducer }
+  export const createDealTaskSchema = z.object({
+    dealId: z.coerce.number(),
+    title: z.string(),
+    userId: z.coerce.number(),
+  })
+  
+  export type CreateDealTaskSchema = z.infer<typeof createDealTaskSchema>
   ```
 
-- ❌ Bad:
+### Stripped Schemas
+
+- When creating client-side schemas that omit server-side fields (like `userId`, `type`), use the `Stripped` suffix.
+- This pattern helps separate client and server validation concerns.
+
+- ✅ Good:
   ```typescript
-  export default mapReducer
+  export const createDealTaskSchemaStripped = createDealTaskSchema.omit({ userId: true, type: true })
+  export type CreateDealTaskSchemaStripped = z.infer<typeof createDealTaskSchemaStripped>
   ```
+
+### Schema Naming
+
+- Base schemas: `schemaName` (e.g., `createDealTaskSchema`)
+- Stripped schemas: `schemaNameStripped` (e.g., `createDealTaskSchemaStripped`)
+- Types: `SchemaName` (e.g., `CreateDealTaskSchema`)
+
+- ✅ Good: `createDealTaskSchema`, `CreateDealTaskSchema`, `createDealTaskSchemaStripped`
+- ❌ Bad: `CreateDealTaskSchema` for the schema (use for the type); `createDealTask` without Schema suffix
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
