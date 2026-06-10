@@ -1,0 +1,9 @@
+{
+  "name": "datadog--dd-license-attribution",
+  "displayName": "dd-license-attribution",
+  "description": "A tool that uses several heuristics to try to get the licenses and copyright attributions of the 3rd party dependencies of a repository",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/dd-license-attribution",
+  "skills": []
+}
