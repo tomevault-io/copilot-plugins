@@ -1,0 +1,9 @@
+{
+  "name": "austinm911--tanstack-monorepo",
+  "displayName": "tanstack-monorepo",
+  "description": "Monorepo Template (WIP) using Turborepo, SST, Tanstack Router, Bun, Drizzle ORM",
+  "version": "1.0.0",
+  "author": "austinm911",
+  "homepage": "https://github.com/austinm911/tanstack-monorepo",
+  "skills": []
+}
