@@ -4,7 +4,7 @@
   "repo": "blackbox-re-agent",
   "description": "Conversational black-box reverse-engineering agent on the pi coding agent \u2014 analyzes apk/.o/.hex/exe with a self-provisioning toolchain (radare2 \u00b7 Ghidra \u00b7 angr \u00b7 jadx). Static analysis. Claude Code & Codex compatible.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maosasagawa/blackbox-re-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T14:30:26Z"
+  "distributed_at": "2026-06-10T14:33:03Z"
 }
