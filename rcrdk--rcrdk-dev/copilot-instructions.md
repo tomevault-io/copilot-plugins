@@ -1,32 +1,37 @@
-## imports
+## naming-conventions
 
-> Prefer @/mocks and @/utils; absolute imports; no wildcard imports
+> Avoid reserved words; use meaningful names for props and constants
 
 
-# Imports
+# Naming Conventions
 
-Applies to all import statements in TypeScript/JavaScript files. Prefer `@/` when the relative path goes up more than one level.
+Use this rule when naming props, constants, and variables. Applies to all TypeScript/JavaScript code.
 
-- When using mocks, prefer to use `@/mocks/...` import path instead of relative paths or other aliases.
-- When using utils, prefer to use `@/utils/...` import path instead of relative paths or other aliases.
-- Prefer absolute imports when the relative path goes up more than one folder level (e.g., `../../` should be converted to an absolute import like `@/...`).
-- Prefer to import from barrel export files (e.g., `index.ts` or `index.tsx`) when available, rather than importing directly from individual files within the same directory.
-
-### No Wildcard Imports
-
-- Never use wildcard imports (`import * from`).
-- Always use named imports for better tree-shaking, clarity, and IDE support.
+- Avoid using reserved words (JavaScript/TypeScript keywords) when declaring prop and constant names.
+- Use meaningful, descriptive names that clearly indicate purpose and intent.
 
 - ✅ Good:
+
   ```typescript
-  import { getScenariosDevelopmentsImages, orderScenarios } from '@/utils/scenarios'
-  import { type ReactNode, useState } from 'react'
+  interface ButtonProps {
+    label: string
+    isDisabled: boolean
+    onPress: () => void
+  }
+  const DEFAULT_PAGE_SIZE = 10
+  const isLoading = status === 'pending'
   ```
 
 - ❌ Bad:
+
   ```typescript
-  import * as scenarios from '@/utils/scenarios'
-  import * as React from 'react'
+  interface ButtonProps {
+    class: string
+    default: boolean
+    delete: () => void
+  }
+  const x = 10
+  const flag = status === 'pending'
   ```
 
 ---
