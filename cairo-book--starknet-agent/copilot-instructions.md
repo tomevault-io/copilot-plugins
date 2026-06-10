@@ -1,72 +1,98 @@
-## coding-standards
+## common-patterns
 
-> Coding Standards
+> Common Patterns
 
-# Coding Standards for Starknet Agent
+# Common Patterns in Starknet Agent
 
-## Naming Conventions
-- Variables and functions: Use `camelCase` (e.g., `fetchData`, `generateEmbeddings`).
-- Classes and components: Use `PascalCase` (e.g., `RagAgent`, `ChatInterface`).
-- Constants: Use `UPPER_CASE` with underscores (e.g., `DEFAULT_CHAT_MODEL`).
-- Type interfaces: Use `PascalCase` with `I` prefix (e.g., `IAgentConfig`).
-- Ingester classes: Use `PascalCase` with `Ingester` suffix (e.g., `CairoBookIngester`).
-- Pipeline components: Use descriptive names ending with their role (e.g., `QueryProcessor`, `DocumentRetriever`).
+## RAG Pipeline Architecture
+- Core pattern for information retrieval and response generation.
+- Steps in the RAG pipeline:
+  1. **Query Processor**: `packages/agents/src/pipeline/queryProcessor.ts`
+     - Analyzes user queries and chat history
+     - Reformulates queries to optimize document retrieval
+  2. **Document Retriever**: `packages/agents/src/pipeline/documentRetriever.ts`
+     - Converts queries to vector embeddings
+     - Searches vector database using cosine similarity
+     - Returns relevant document chunks with metadata
+  3. **Answer Generator**: `packages/agents/src/pipeline/answerGenerator.ts`
+     - Uses LLMs to generate comprehensive responses
+     - Includes source citations in the response
+     - Handles different conversation contexts
+  4. **RAG Pipeline**: `packages/agents/src/pipeline/ragPipeline.ts`
+     - Orchestrates the entire process flow
+     - Manages error handling and logging
 
-## Indentation and Formatting
-- Use 2 spaces for indentation (no tabs).
-- Keep lines under 100 characters where possible.
-- Place opening braces on the same line as the statement (e.g., `if (condition) {`).
-- Use Prettier for consistent formatting across the codebase.
-- Run `pnpm format:write` before committing changes.
+## Factory Pattern
+- Used for creating RAG agents with different configurations.
+- Example: `packages/agents/src/ragAgentFactory.ts`
+  - Creates different agent instances based on focus mode.
+  - Configures appropriate vector stores and prompt templates.
+- Also used in the ingester package: `packages/ingester/src/IngesterFactory.ts`
+  - Creates appropriate ingester instances based on documentation source.
+  - Enables easy addition of new document sources.
 
-## Imports and Structure
-- Group external imports first, followed by internal modules.
-- Use barrel exports (index.ts files) to simplify imports.
-- Prefer destructured imports when importing multiple items from a single module.
-- Order imports alphabetically within their groups.
-- Use relative paths for imports within the same package, absolute paths for cross-package imports.
+## Template Method Pattern
+- Used in the ingester package for standardizing the ingestion process.
+- Example: `packages/ingester/src/BaseIngester.ts`
+  - Defines the skeleton of the ingestion algorithm in a method.
+  - Defers some steps to subclasses (download, extract, process).
+  - Ensures consistent process flow while allowing customization.
+  - Common workflow: Download → Extract → Process → Generate Embeddings → Store
 
-## Comments
-- Add JSDoc comments for functions and classes, especially in the agent pipeline and ingester components.
-- Use `//` for single-line comments and `/* ... */` for multi-line comments.
-- Document ingester classes with clear descriptions of the source and processing approach.
-- Include explanations for complex algorithms or non-obvious design decisions.
-- For the RAG pipeline components, document the input/output expectations clearly.
+## WebSocket Streaming Architecture
+- Used for real-time streaming of agent responses.
+- Example: `packages/backend/src/websocket/`
+  - Components:
+    - `connectionManager.ts`: Manages WebSocket connections and sessions
+    - `messageHandler.ts`: Processes incoming messages and routes to appropriate handlers
+  - Flow: Connection → Authentication → Message Handling → Response Streaming
+  - Enables real-time, chunk-by-chunk delivery of LLM responses
 
-## TypeScript Usage
-- Use explicit typing for function parameters and return values.
-- Prefer interfaces over types for object definitions.
-- Use generics where appropriate, especially in the pipeline components and ingester classes.
-- Example: `function processQuery<T extends BaseQuery>(query: T): Promise<QueryResult>`
-- Use abstract classes for base implementations (e.g., `BaseIngester`).
-- Leverage type guards for safe type narrowing.
-- Use discriminated unions for state management, especially in the UI components.
+## Repository Pattern
+- Used for database interactions.
+- Example: `packages/agents/src/db/vectorStore.ts`
+  - Abstracts MongoDB vector search operations
+  - Provides methods for similarity search and filtering
+  - Handles connection pooling and error handling
+- Used in ingester for vector store operations: `packages/ingester/src/utils/vectorStoreUtils.ts`
 
-## Error Handling
-- Wrap async operations in `try/catch` blocks.
-- Log errors with context using the logger utility (e.g., `logger.error('Failed to retrieve documents:', error)`).
-- Use custom error classes for specific error types in the agent pipeline and ingestion process.
-- Implement proper cleanup in error handlers, especially for file operations in ingesters.
-- Ensure errors are propagated appropriately and handled at the right level of abstraction.
-- Use async/await with proper error handling rather than promise chains where possible.
+## Configuration Management
+- Centralized configuration using TOML files.
+- Example: `packages/agents/src/config.ts` and `packages/agents/sample.config.toml`
+  - Loads configuration from files and environment variables.
+  - Provides typed access to configuration values.
+  - Supports multiple LLM providers (OpenAI, Anthropic, etc.)
+  - Configures multiple vector databases for different focus modes
 
-## Testing
-- Write unit tests for utility functions, pipeline components, and ingester classes.
-- Use Jest for testing framework.
-- Mock external dependencies (LLMs, vector stores, etc.) using jest-mock-extended.
-- Aim for high test coverage in core agent functionality and ingestion processes.
-- Test each ingester implementation separately.
-- Use descriptive test names that explain the behavior being tested.
-- Follow the AAA pattern (Arrange, Act, Assert) for test structure.
+## Dependency Injection
+- Used for providing services to components.
+- Example: `packages/agents/src/ragAgentFactory.ts`
+  - Injects vector stores, LLM providers, and config settings into pipeline components
+  - Makes testing easier by allowing mock implementations
+  - Enables flexible configuration of different agent types
 
-## Code Organization
-- Keep files focused on a single responsibility.
-- Group related functionality in directories.
-- Separate business logic from UI components.
-- Organize ingesters by source type in dedicated directories.
-- Follow the template method pattern for ingester implementations.
-- Use the factory pattern for creating appropriate instances based on configuration.
-- Implement dependency injection for easier testing and component replacement.
+## Focus Mode Implementation
+- Pattern for targeting specific document sources.
+- Example: `packages/agents/src/config/agentConfigs.ts`
+  - Defines different focus modes (Starknet Ecosystem, Cairo Book, etc.)
+  - Configures different vector stores for each mode
+  - Customizes prompts and retrieval parameters per mode
+  - Enables specialized knowledge domains
+
+## React Hooks for State Management
+- Custom hooks for managing UI state and WebSocket communication.
+- Example: `packages/ui/lib/hooks/`
+  - Encapsulates WebSocket connection logic.
+  - Manages chat history and UI state.
+  - Handles real-time streaming of responses.
+
+## Error Handling and Logging
+- Centralized error handling with detailed logging.
+- Example: `packages/agents/src/utils/logger.ts`
+  - Configurable log levels based on environment
+  - Context-rich error messages with timestamps and stack traces
+  - Proper error propagation through the pipeline
+- Used throughout the codebase for consistent error reporting.
 
 ---
 > Source: [cairo-book/starknet-agent](https://github.com/cairo-book/starknet-agent) — distributed by [TomeVault](https://tomevault.io).
