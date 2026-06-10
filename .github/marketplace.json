@@ -78094,6 +78094,11 @@
       "description": "\u4e00\u4e2aqq\u6821\u56ed\u5899\u81ea\u52a8\u8fd0\u8425\u7cfb\u7edf"
     },
     {
+      "name": "eventschedule--eventschedule",
+      "source": "./eventschedule--eventschedule",
+      "description": "An open-source platform to share events, sell tickets and bring communities together"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -80167,6 +80172,21 @@
       "name": "ferroxlabs--wayland",
       "source": "./ferroxlabs--wayland",
       "description": "Wayland - The AI Agent That Perceives. Reasons. Acts. Evolves."
+    },
+    {
+      "name": "underway2014--dba",
+      "source": "./underway2014--dba",
+      "description": "Free PostgreSQL/Mysql desktop tool"
+    },
+    {
+      "name": "underway2014--dba",
+      "source": "./underway2014--dba",
+      "description": "Free PostgreSQL/Mysql desktop tool"
+    },
+    {
+      "name": "nekoimi--oss-auto-cert",
+      "source": "./nekoimi--oss-auto-cert",
+      "description": "\u963f\u91cc\u4e91OSS/CDN SSL \u8bc1\u4e66\u81ea\u52a8\u5316\u5de5\u5177"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -84152,6 +84172,26 @@
       "name": "jmanhype--golden-retriever",
       "source": "./jmanhype--golden-retriever",
       "description": "A framework for high-fidelity retrieval augmented generation in industrial knowledge bases. Integrates jargon identification, context recognition, and question augmentation to overcome challenges in s"
+    },
+    {
+      "name": "morpho-org--sdks",
+      "source": "./morpho-org--sdks",
+      "description": "Collection of SDKs to ease interactions with the Morpho protocol and Morpho Vaults"
+    },
+    {
+      "name": "nvidia--nvrc",
+      "source": "./nvidia--nvrc",
+      "description": "The NVRC project provides a Rust binary that implements a simple init system for microVMs."
+    },
+    {
+      "name": "morpho-org--sdks",
+      "source": "./morpho-org--sdks",
+      "description": "Collection of SDKs to ease interactions with the Morpho protocol and Morpho Vaults"
+    },
+    {
+      "name": "nvidia--nvrc",
+      "source": "./nvidia--nvrc",
+      "description": "The NVRC project provides a Rust binary that implements a simple init system for microVMs."
     },
     {
       "name": "r44vc0rp--itui",
@@ -89574,6 +89614,16 @@
       "description": "LLGo autogen tool for C/C++ libraries"
     },
     {
+      "name": "classicminidiy--ultralog",
+      "source": "./classicminidiy--ultralog",
+      "description": "Better Log viewer for all Aftermarket ECUs"
+    },
+    {
+      "name": "mcslteam--mcserverlauncher-future-web",
+      "source": "./mcslteam--mcserverlauncher-future-web",
+      "description": "Future version of MCSL, a brand new server management tool. Redefined, Versatile, Easy to use. (Web & Tauri)"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -91247,6 +91297,11 @@
       "name": "abstract-foundation--abstract-docs",
       "source": "./abstract-foundation--abstract-docs",
       "description": "Developer documentation for building on Abstract."
+    },
+    {
+      "name": "rh-aiservices-bu--odh-tec",
+      "source": "./rh-aiservices-bu--odh-tec",
+      "description": "ODH Tools & Extensions Companion"
     },
     {
       "name": "navikt--cplt",
@@ -95052,6 +95107,21 @@
       "name": "lay3rlabs--wavs",
       "source": "./lay3rlabs--wavs",
       "description": "Build decentralized event-driven applications."
+    },
+    {
+      "name": "laszukdawid--terminal-agent",
+      "source": "./laszukdawid--terminal-agent",
+      "description": "terminal-agent"
+    },
+    {
+      "name": "laszukdawid--terminal-agent",
+      "source": "./laszukdawid--terminal-agent",
+      "description": "terminal-agent"
+    },
+    {
+      "name": "aleksiejvolkov--runtimeshaders",
+      "source": "./aleksiejvolkov--runtimeshaders",
+      "description": "This repository is dedicated to exploring various shader techniques and effects, with each experiment hosted in its own branch"
     },
     {
       "name": "khangbdd--phoenix",
@@ -102069,6 +102139,11 @@
       "description": "GitHub Action for sbomify."
     },
     {
+      "name": "baitianyu-kun--mrpc",
+      "source": "./baitianyu-kun--mrpc",
+      "description": "MRPC: A mini rpc framework in cpp"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -107017,6 +107092,21 @@
       "name": "hovsep--fmesh",
       "source": "./hovsep--fmesh",
       "description": "Flow Based Programming in Go"
+    },
+    {
+      "name": "azutoolkit--cql",
+      "source": "./azutoolkit--cql",
+      "description": "CQL Toolkit is a comprehensive library designed to simplify and enhance the management and execution of SQL queries in Crystal. This toolkit provides utilities for building, validating, and executing "
+    },
+    {
+      "name": "azutoolkit--cql",
+      "source": "./azutoolkit--cql",
+      "description": "CQL Toolkit is a comprehensive library designed to simplify and enhance the management and execution of SQL queries in Crystal. This toolkit provides utilities for building, validating, and executing "
+    },
+    {
+      "name": "azutoolkit--cql",
+      "source": "./azutoolkit--cql",
+      "description": "CQL Toolkit is a comprehensive library designed to simplify and enhance the management and execution of SQL queries in Crystal. This toolkit provides utilities for building, validating, and executing "
     },
     {
       "name": "lucianaib0318--geomind",
@@ -115869,6 +115959,11 @@
       "description": "spendsage"
     },
     {
+      "name": "j4ys0n--llm-proxy",
+      "source": "./j4ys0n--llm-proxy",
+      "description": "TLS & API keys for your LLM APIs"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -118702,6 +118797,16 @@
       "name": "ecocommonsaustralia--notebooks",
       "source": "./ecocommonsaustralia--notebooks",
       "description": "Examples and tutorials on accessing environmental data and developing and deploying ecological modelling workflows"
+    },
+    {
+      "name": "trustnxt--c2pa-ts",
+      "source": "./trustnxt--c2pa-ts",
+      "description": "Pure TypeScript implementation of C2PA manifest reading, validation, and creation"
+    },
+    {
+      "name": "qoroquantum--divi",
+      "source": "./qoroquantum--divi",
+      "description": "A Python library to automate generating, parallelizing, and executing quantum programs."
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -125814,6 +125919,11 @@
       "description": "The mad scientists lab for the mostlylucid site with engineering experiements, tag helpers, markdig extensooons etc..e.tc..."
     },
     {
+      "name": "alterxyz--ytelegraph",
+      "source": "./alterxyz--ytelegraph",
+      "description": "Python Telegraph api."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -129527,6 +129637,16 @@
       "name": "polytorus--polytorus",
       "source": "./polytorus--polytorus",
       "description": "polytorus"
+    },
+    {
+      "name": "wavezync--nestjs-pgboss",
+      "source": "./wavezync--nestjs-pgboss",
+      "description": "State of Art PG Boss integration with NestJS"
+    },
+    {
+      "name": "alestic--abc",
+      "source": "./alestic--abc",
+      "description": "AI bash Command - Generate shell command(s) from natural language description using LLM (generative AI) and place on the next shell prompt for editing and execution. *with support for bash, zsh, tcsh"
     },
     {
       "name": "vm--nila-code",
@@ -133562,6 +133682,11 @@
       "name": "republicofdata-io--climate-resilience",
       "source": "./republicofdata-io--climate-resilience",
       "description": "Climate Resilience"
+    },
+    {
+      "name": "rmorlok--authproxy",
+      "source": "./rmorlok--authproxy",
+      "description": "Authenticating proxy server for connecting to 3rd party APIs"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -137842,6 +137967,11 @@
       "name": "opsmill--infrahub-sync",
       "source": "./opsmill--infrahub-sync",
       "description": "Infrahub Sync: A Python package for flexible data synchronization between Infrahub and various platforms like Netbox, Nautobot with a Typer-based CLI."
+    },
+    {
+      "name": "davidondrej--autogit",
+      "source": "./davidondrej--autogit",
+      "description": "Auto commit & push for AI coding agents, with a safety level you pick."
     },
     {
       "name": "mohiwalla--memes",
@@ -163777,6 +163907,11 @@
       "name": "rcrdk--rcrdk-dev",
       "source": "./rcrdk--rcrdk-dev",
       "description": "This is the repo of my personal website as front-end developer. I'm presenting myself and showcasing my skills and projects. There are also some easter eggs in here, cause front-end is also abou FUN!"
+    },
+    {
+      "name": "monarchjuno--tradingcodex",
+      "source": "./monarchjuno--tradingcodex",
+      "description": "tradingcodex"
     },
     {
       "name": "yschimke--compose-ai-tools",
