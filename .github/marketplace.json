@@ -186254,6 +186254,16 @@
       "description": "Heterogenous genealogical indexes' search web app."
     },
     {
+      "name": "renmengwen--musedock",
+      "source": "./renmengwen--musedock",
+      "description": "MuseDock \u662f\u4e00\u4e2a\u672c\u5730\u4f18\u5148\u7684\u5185\u5bb9\u91c7\u96c6\u3001\u7d20\u6750\u6574\u7406\u548c AI \u521b\u4f5c\u5de5\u4f5c\u53f0\u3002\u5b83\u628a\u6296\u97f3\u5185\u5bb9\u91c7\u96c6\u3001\u8bc4\u8bba\u7f13\u5b58\u3001\u7d20\u6750\u51c6\u5907\u3001\u97f3\u9891\u8f6c\u5199\u3001AI \u62c6\u89e3\u6539\u5199\u3001TTS \u53e3\u64ad\u3001AI \u5206\u955c\u3001\u4eba\u5de5\u6821\u6b63\u548c HyperFrames MP4 \u6e32\u67d3\u4e32\u5728\u540c\u4e00\u4e2a Web GUI \u91cc\uff0c\u9002\u5408\u628a\u77ed\u89c6\u9891\u7d20\u6750\u6c89\u6dc0\u4e3a\u53ef\u590d\u7528\u7684\u672c\u5730\u521b\u4f5c\u8d44\u4ea7\u3002"
+    },
+    {
+      "name": "revisor01--abs-storytel-provider",
+      "source": "./revisor01--abs-storytel-provider",
+      "description": "abs-storytel-provider"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -200072,6 +200082,26 @@
       "name": "blackwell-systems--gcf",
       "source": "./blackwell-systems--gcf",
       "description": "Drop-in JSON replacement for all AI pipelines. 79% fewer tokens. JSON scores 53.6% comprehension at scale, GCF scores 90.5%. Superpowers for graph-shaped data."
+    },
+    {
+      "name": "varshith-dev--slate-language",
+      "source": "./varshith-dev--slate-language",
+      "description": "A next-generation visual language built in Rust that unifies documents, interfaces, workflows, and diagrams into a single human-readable syntax."
+    },
+    {
+      "name": "semantic-craft--anamra",
+      "source": "./semantic-craft--anamra",
+      "description": "anamra"
+    },
+    {
+      "name": "lolo-s-cosmos--fate-sandbox",
+      "source": "./lolo-s-cosmos--fate-sandbox",
+      "description": "\u5b9e\u9a8c\u6027 Agent \u6c99\u76d2\u53d9\u4e8b\u7cfb\u7edf\uff0c\u4ee5 Fate/Type-Moon \u4e16\u754c\u89c2\u4e3a\u80cc\u666f"
+    },
+    {
+      "name": "xuedong-z--fig-draw",
+      "source": "./xuedong-z--fig-draw",
+      "description": "Browser-based post-processing editor for scientific figures \u2014 arrange panels, recolor from a 120-palette library, resize like figsize, and export publication-ready PNG/SVG. Runs entirely client-side."
     },
     {
       "name": "cheerhuan--save-your-token",
