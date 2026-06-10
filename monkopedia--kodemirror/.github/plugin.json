@@ -1,0 +1,9 @@
+{
+  "name": "monkopedia--kodemirror",
+  "displayName": "kodemirror",
+  "description": "Native Compose Multiplatform code editor \u2014 a Kotlin port of CodeMirror 6",
+  "version": "1.0.0",
+  "author": "Monkopedia",
+  "homepage": "https://github.com/Monkopedia/kodemirror",
+  "skills": []
+}
