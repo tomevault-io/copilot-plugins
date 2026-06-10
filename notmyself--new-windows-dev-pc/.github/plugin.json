@@ -1,0 +1,9 @@
+{
+  "name": "notmyself--new-windows-dev-pc",
+  "displayName": "new-windows-dev-pc",
+  "description": "A comprehensive Windows developer setup automation repository with PowerShell 7+, Windows 11 optimizations, and mandatory WSL integration. Features streamlined configuration scripts, automated tool in",
+  "version": "1.0.0",
+  "author": "NotMyself",
+  "homepage": "https://github.com/NotMyself/new-windows-dev-pc",
+  "skills": []
+}
