@@ -1,0 +1,9 @@
+{
+  "name": "reya-labs--reya-python-sdk",
+  "displayName": "reya-python-sdk",
+  "description": "Python examples of interactions with the Reya ecosystem",
+  "version": "1.0.0",
+  "author": "Reya-Labs",
+  "homepage": "https://github.com/Reya-Labs/reya-python-sdk",
+  "skills": []
+}
