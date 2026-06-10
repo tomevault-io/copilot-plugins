@@ -1,0 +1,9 @@
+{
+  "name": "uncmatteth--gbrain-bridgebrain",
+  "displayName": "gbrain-bridgebrain",
+  "description": "BridgeBrain gives GBrain a local Codex ChatGPT-login embedding bridge: no Ollama, no GPU, no extra embedding API key.",
+  "version": "1.0.0",
+  "author": "uncmatteth",
+  "homepage": "https://github.com/uncmatteth/gbrain-bridgebrain",
+  "skills": []
+}
