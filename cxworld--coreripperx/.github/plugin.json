@@ -1,0 +1,9 @@
+{
+  "name": "cxworld--coreripperx",
+  "displayName": "CoreRipperX",
+  "description": "CPU stress test using AVX operations",
+  "version": "1.0.0",
+  "author": "CXWorld",
+  "homepage": "https://github.com/CXWorld/CoreRipperX",
+  "skills": []
+}
