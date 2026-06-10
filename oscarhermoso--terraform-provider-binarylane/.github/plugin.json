@@ -1,0 +1,9 @@
+{
+  "name": "oscarhermoso--terraform-provider-binarylane",
+  "displayName": "terraform-provider-binarylane",
+  "description": "This is a Terraform provider for Binary Lane, for reliable & affordable Australian VPS hosting",
+  "version": "1.0.0",
+  "author": "oscarhermoso",
+  "homepage": "https://github.com/oscarhermoso/terraform-provider-binarylane",
+  "skills": []
+}
