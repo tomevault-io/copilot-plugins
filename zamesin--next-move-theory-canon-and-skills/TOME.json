@@ -4,7 +4,7 @@
   "repo": "Next-Move-Theory-Canon-and-Skills",
   "description": "Claude Code skills for product market research, value props, PRDs, and go-to-market \u2014 plus the open Next Move Theory (based on AJTBD) canon and a product advisor you can /ask-nmt",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zamesin/Next-Move-Theory-Canon-and-Skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T19:32:28Z"
+  "distributed_at": "2026-06-10T19:32:57Z"
 }
