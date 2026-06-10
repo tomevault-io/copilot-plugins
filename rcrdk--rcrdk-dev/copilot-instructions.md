@@ -1,67 +1,108 @@
-## test-mocks
+## test-naming-and-structure
 
-> Check __mocks__ first; @/mocks/ for utils; jest.mock + require for UI
+> Describe/it naming, quoted refs (props, components, IDs, constants), no explanation comments
 
 
-# Mock Management
+# Test Naming and Structure
 
-Use this rule when writing or updating test mocks (utilities, UI components, or external modules).
+## Naming Conventions
 
-### Check Existing Mocks First
+### Describe Blocks
 
-Before writing new mocks, check the base project `__mocks__` folder. If a more general mock is needed, it is possible to create new ones in this folder.
-
-### Importing General Mocks
-
-For general utility mocks, use direct imports with the `@/mocks/...` import path:
+`describe` blocks should have the first letter uppercased. Use descriptive names that clearly identify the component or functionality being tested.
 
 - ✅ Good:
 
   ```tsx
-  import { mockGoogleMaps } from '@/mocks/google-maps'
-  import { createDealHistoryScenarioDevelopment } from '@/mocks/rocket/deal-history'
+  describe('Button component', () => {})
+  describe('User authentication flow', () => {})
   ```
 
 - ❌ Bad:
   ```tsx
-  jest.mock('google-maps', () => ({
-    // inline mock definition
-  }))
+  describe('button component', () => {})
+  describe('user authentication flow', () => {})
   ```
 
-### Mocking UI Components
+### Test Cases (it blocks)
 
-For UI component mocks (drawer, tabs, tooltip, etc.), use `jest.mock()` with `require()` inside the mock function to import from `@/mocks/ui/...`:
+Test case names should always start with the word "should" and avoid using parentheses. When using boolean values in test names, prefer explicit "true" or "false" (do not use 0 or 1). When referring to props, functions or attributes in test names, always put them in double quotes.
 
 - ✅ Good:
 
   ```tsx
-  jest.mock('@/components/ui/drawer', () => {
-    const { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose, DrawerBody } = require('@/mocks/ui/drawer')
-    return { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose, DrawerBody }
-  })
+  it('should render button with text', () => {})
+  it('should call "onClick" when button is clicked', () => {})
+  it('should display error message when "isError" is true', () => {})
+  it('should hide content when "isVisible" is false', () => {})
+  it('should have a "title" provided', () => {})
+  ```
 
-  jest.mock('@/components/ui/tabs', () => {
-    const { Tabs, TabsList, TabsTrigger } = require('@/mocks/ui/tabs')
-    return { Tabs, TabsList, TabsTrigger }
-  })
+- ❌ Bad:
+  ```tsx
+  it('renders button with text', () => {})
+  it('should call onClick when button is clicked', () => {})
+  it('should display error when isError is 1', () => {})
+  it('should hide content when isVisible is 0', () => {})
+  it('should handle click() event', () => {})
+  it('should have a title provided', () => {})
+  ```
 
-  jest.mock('@/components/ui/tooltip', () => {
-    const { Tooltip, TooltipTrigger, TooltipContent } = require('@/mocks/ui/tooltip')
-    return { Tooltip, TooltipTrigger, TooltipContent }
-  })
+### Quoted references (in describe/it strings)
+
+When referring to technical values in `describe()` or `it()` strings, put them in **double quotes**. Common words (should, when, from, over) do not need quotes.
+
+Put in double quotes:
+
+- Prop/field names: `"email"`, `"onClick"`, `"isError"`, `"teamRegionIds"`
+- Component names: `"PercentageInput"`, `"SessionProvider"`
+- IDs or technical literal values: `"commission-field-total-percentage"`, `"regionId"`
+- Function/hook names when referenced: `"useSession"`, `"onDelete"`
+- Return values or types when they are the focus: `"false"`, `"note"`, `"task"`
+- Constant names when relevant: `"TOAST_MESSAGES.SAVE_SUCCESS"`
+
+- ✅ Good:
+
+  ```tsx
+  it('should show toast when "save" succeeds', () => {})
+  it('should set responsible to "Cliente" when "clientResponsibility" is "1"', () => {})
+  describe('When "TOAST_MESSAGES.SAVE_SUCCESS" is used', () => {})
   ```
 
 - ❌ Bad:
 
   ```tsx
-  // Direct import won't work for component mocks
-  import { Drawer } from '@/mocks/ui/drawer'
+  it('should show toast when save succeeds', () => {})
+  it('should set responsible to Cliente when clientResponsibility is 1', () => {})
+  ```
 
-  // Inline mock definition
-  jest.mock('@/components/ui/drawer', () => ({
-    Drawer: () => <div>Mock Drawer</div>,
-  }))
+### Constants in assertions and names
+
+When asserting toast or UI messages, use project constants (e.g. `TOAST_MESSAGES.SAVE_SUCCESS`) instead of hardcoded strings. When referring to those constants in describe/it descriptions, put the constant name in double quotes (e.g. `"TOAST_MESSAGES.SAVE_SUCCESS"`).
+
+## Test Structure
+
+### Comments
+
+Avoid putting explanation comments into tests unless explicitly asked for. Tests should be self-documenting through clear naming and structure.
+
+- ✅ Good:
+
+  ```tsx
+  it('should disable button when loading', () => {
+    render(<Button loading>Submit</Button>)
+    expect(screen.getByRole('button')).toBeDisabled()
+  })
+  ```
+
+- ❌ Bad:
+  ```tsx
+  it('should disable button when loading', () => {
+    // Render the button with loading state
+    render(<Button loading>Submit</Button>)
+    // Check that the button is disabled
+    expect(screen.getByRole('button')).toBeDisabled()
+  })
   ```
 
 ---
