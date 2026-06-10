@@ -4,7 +4,7 @@
   "repo": "nvrc",
   "description": "The NVRC project provides a Rust binary that implements a simple init system for microVMs.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA/nvrc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T23:36:02Z"
+  "distributed_at": "2026-06-10T23:37:48Z"
 }
