@@ -1,0 +1,9 @@
+{
+  "name": "agentender--cli-forge",
+  "displayName": "cli-forge",
+  "description": "Powerful, Composable CLI Tools",
+  "version": "1.0.0",
+  "author": "AgentEnder",
+  "homepage": "https://github.com/AgentEnder/cli-forge",
+  "skills": []
+}
