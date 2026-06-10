@@ -1,0 +1,9 @@
+{
+  "name": "rapidataai--rapidata-python-sdk",
+  "displayName": "rapidata-python-sdk",
+  "description": "Rapidata Python SDK - a way to programmatically request humans",
+  "version": "1.0.0",
+  "author": "RapidataAI",
+  "homepage": "https://github.com/RapidataAI/rapidata-python-sdk",
+  "skills": []
+}
