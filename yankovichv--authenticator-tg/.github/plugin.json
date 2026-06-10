@@ -1,0 +1,9 @@
+{
+  "name": "yankovichv--authenticator-tg",
+  "displayName": "authenticator.tg",
+  "description": "Authenticator is a secure app for generating One-Time Passwords (OTP) for your 2FA-protected accounts right in Telegram.",
+  "version": "1.0.0",
+  "author": "yankovichv",
+  "homepage": "https://github.com/yankovichv/authenticator.tg",
+  "skills": []
+}
