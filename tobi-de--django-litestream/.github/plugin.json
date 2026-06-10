@@ -1,0 +1,9 @@
+{
+  "name": "tobi-de--django-litestream",
+  "displayName": "django-litestream",
+  "description": "Django integration with litestream, a standalone streaming replication tool for SQLite.",
+  "version": "1.0.0",
+  "author": "Tobi-De",
+  "homepage": "https://github.com/Tobi-De/django-litestream",
+  "skills": []
+}
