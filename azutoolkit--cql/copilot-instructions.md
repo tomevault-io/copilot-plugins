@@ -1,70 +1,459 @@
-## cursor
+## project
 
-> :::module[CQL::Performance]
+> - **Language**: Crystal - statically typed, compiled language with Ruby-inspired syntax
 
-:::module[CQL::Performance]
-name = "Performance Monitoring"
-description = "Modular performance tools for query profiling, N+1 detection, and SQL plan analysis"
-responsibility = "Provides diagnostics and metrics for SQL performance in development and production"
-design_principles = ["Single Responsibility", "Open/Closed", "Liskov Substitution", "Interface Segregation", "Dependency Inversion"]
+---# CQL (Crystal Query Language) - Cursor Rules
 
-:::component[PerformanceMonitor]
-description = "Coordinates all performance features. Observes schema behavior and reports statistics."
-responsibility = "Acts as the orchestrator for configured profiling, detectors, and reporters"
-design_patterns = ["Facade", "Observer"]
-depends_on = ["QueryProfiler", "NPlusOneDetector", "ReportGenerators::Factory"]
-implements = ["MonitorInterface"]
+## Language & Framework Context
 
-:::component[QueryProfiler]
-description = "Profiles database queries for time and frequency"
-responsibility = "Captures and summarizes query execution stats"
-design_patterns = ["Strategy"]
-used_by = ["PerformanceMonitor"]
-implements = ["ProfilerInterface"]
+### Crystal Programming Language
+- **Language**: Crystal - statically typed, compiled language with Ruby-inspired syntax
+- **Type System**: Leverage Crystal's compile-time type checking for type-safe database operations
+- **Macros**: Use Crystal's macro system for code generation and DSL creation
+- **Performance**: Crystal compiles to native code - optimize for performance at compile time
+- **Memory Management**: Crystal has automatic memory management - no manual memory allocation needed
 
-:::component[NPlusOneDetector]
-description = "Detects potential N+1 queries based on access patterns"
-responsibility = "Identifies inefficient eager loading strategies"
-design_patterns = ["Strategy"]
-used_by = ["PerformanceMonitor"]
-implements = ["DetectorInterface"]
+### CQL Framework Specifics
+- **ORM Type**: Object-Relational Mapping library with Active Record pattern support
+- **Database Support**: PostgreSQL, MySQL, SQLite through Crystal DB drivers
+- **Architecture**: Supports Active Record, Repository, and Data Mapper patterns
+- **Performance**: Built for high performance with compile-time optimizations
 
-:::component[ReportGenerators::Factory]
-description = "Factory to construct appropriate report generator (HTML, JSON, Logger)"
-responsibility = "Creates the right report formatter based on config"
-design_patterns = ["Factory"]
-depends_on = ["HtmlReportGenerator", "JsonReportGenerator", "LoggerReportGenerator"]
-used_by = ["PerformanceMonitor"]
+## Architecture Principles
 
-:::component[SqlLogFormatter]
-description = "Formats SQL output for logging"
-responsibility = "Improves readability and structure of SQL statements in logs"
-design_patterns = ["Decorator"]
-used_by = ["PerformanceMonitor"]
+### SOLID Principles
+- **Single Responsibility**: Each model should have one reason to change
+- **Open/Closed**: Extend functionality through composition and inheritance
+- **Liskov Substitution**: Subclasses should be substitutable for their base classes
+- **Interface Segregation**: Create focused, specific interfaces
+- **Dependency Inversion**: Depend on abstractions, not concretions
 
-:::interface[MonitorInterface]
-methods = ["initialize_with_schema", "record_event", "report", "reset"]
+### Clean Architecture
+- **Domain Layer**: Core business logic in models and domain services
+- **Application Layer**: Use cases and application-specific business rules
+- **Infrastructure Layer**: Database, cache, external service integrations
+- **Presentation Layer**: Controllers, serializers, API endpoints
 
-:::interface[ProfilerInterface]
-methods = ["start", "stop", "report"]
+## CQL-Specific Patterns
 
-:::interface[DetectorInterface]
-methods = ["observe", "detect", "report"]
-
-:::config[PerformanceConfig]
-description = "Configuration DSL for enabling performance features"
-fields = ["query_profiling : Bool", "n_plus_one_detection : Bool", "plan_analysis : Bool"]
-defaults = ["query_profiling = false", "n_plus_one_detection = false", "plan_analysis = false"]
-
-:::setup[Usage Example]
-
+### Model Definition
 ```crystal
-CQL::Performance.setup(MySchema) do |config|
-  config.query_profiling = true
-  config.n_plus_one_detection = true
-  config.plan_analysis = true
+# Use clear, descriptive model names
+class User
+  include CQL::Model(Int64)
+
 end
 ```
+
+### Schema Organization
+- **Location**: Define schemas in `src/schemas/` directory
+- **Naming**: Use descriptive schema names (e.g., `AppSchema`, `BlogSchema`)
+- **Structure**: Group related tables in logical schemas
+- **Migrations**: Keep migrations in dedicated directories with clear naming
+
+### Active Record Pattern
+- **Inheritance**: Extend `CQL::Model(PrimaryKeyType)`
+- **Validations**: Use built-in validation macros for data integrity
+- **Callbacks**: Implement lifecycle callbacks for business logic
+- **Relationships**: Define associations clearly with proper foreign keys
+
+### Repository Pattern
+- **Interface**: Define repository interfaces for testability
+- **Implementation**: Implement concrete repositories for specific databases
+- **Queries**: Encapsulate complex queries in repository methods
+- **Separation**: Keep business logic separate from data access logic
+
+## Database Best Practices
+
+### Migrations
+- **Versioning**: Use sequential numbering (001_, 002_, etc.)
+- **Reversibility**: Always provide down methods for rollbacks
+- **Data Safety**: Use transactions for data-changing migrations
+- **Testing**: Test migrations in development environment first
+
+### Query Optimization
+- **Indexing**: Add appropriate indexes for frequently queried columns
+- **N+1 Prevention**: Use eager loading for associations
+- **Caching**: Implement query and fragment caching where appropriate
+- **Monitoring**: Use performance monitoring tools to identify slow queries
+
+### Schema Design
+- **Normalization**: Follow database normalization principles
+- **Foreign Keys**: Always define proper foreign key constraints
+- **Null Handling**: Be explicit about nullable vs non-nullable fields
+- **Default Values**: Set appropriate default values for columns
+
+## Code Organization
+
+### Directory Structure
+```
+src/
+├── active_record/          # Active Record pattern implementation
+├── cache/                  # Caching mechanisms
+├── configure/              # Configuration management
+├── dialects/              # Database-specific implementations
+├── expression/            # Query expression building
+├── performance/           # Performance monitoring
+└── schemas/               # Database schema definitions
+
+spec/
+├── integration/           # Integration tests
+├── patterns/             # Pattern-specific tests
+├── operations/           # CRUD operation tests
+└── support/              # Test support files
+```
+
+### File Naming
+- **Models**: Use singular noun (e.g., `user.cr`, `post.cr`)
+- **Schemas**: End with `_schema.cr` (e.g., `app_schema.cr`)
+- **Migrations**: Use timestamp or sequential prefix
+- **Specs**: Mirror source structure with `_spec.cr` suffix
+
+## Performance Guidelines
+
+### Query Performance
+- **Eager Loading**: Use `includes` to prevent N+1 queries
+- **Selective Loading**: Only load required columns and associations
+- **Batch Operations**: Use bulk operations for multiple records
+- **Connection Pooling**: Configure appropriate connection pool sizes
+
+### Caching Strategy
+- **Query Caching**: Enable per-request query caching
+- **Fragment Caching**: Cache expensive query results
+- **Redis Integration**: Use Redis for distributed caching
+- **Cache Invalidation**: Implement proper cache invalidation strategies
+
+### Memory Management
+- **Lazy Loading**: Use lazy loading for large datasets
+- **Streaming**: Process large result sets in streams
+- **Object Pooling**: Reuse objects where appropriate
+
+## Testing Standards
+
+### Test Organization
+- **Unit Tests**: Test individual models and methods
+- **Integration Tests**: Test database interactions
+- **Feature Tests**: Test complete workflows
+- **Performance Tests**: Test query performance
+
+### Test Data
+- **Factories**: Use factory methods for test data creation
+- **Fixtures**: Use fixtures for static reference data
+- **Database Cleanup**: Clean database state between tests
+- **Transactions**: Use database transactions for test isolation
+
+### Mocking
+- **External Services**: Mock external API calls
+- **Time-dependent Logic**: Mock time-sensitive operations
+- **Database Queries**: Mock expensive queries in unit tests
+
+## Error Handling
+
+### Exception Hierarchy
+- **CQL Exceptions**: Use CQL-specific exception types
+- **Database Errors**: Handle database connection and query errors
+- **Validation Errors**: Provide clear validation error messages
+- **Custom Exceptions**: Create domain-specific exception types
+
+### Logging
+- **Query Logging**: Log slow queries for optimization
+- **Error Logging**: Log exceptions with context
+- **Performance Logging**: Log performance metrics
+- **Structured Logging**: Use structured log formats
+
+## Security Guidelines
+
+### SQL Injection Prevention
+- **Parameterized Queries**: Always use parameterized queries
+- **Input Validation**: Validate all user inputs
+- **Escape Sequences**: Properly escape special characters
+- **Query Building**: Use CQL's query builder methods
+
+### Data Protection
+- **Sensitive Data**: Mark sensitive fields appropriately
+- **Encryption**: Encrypt sensitive data at rest
+- **Access Control**: Implement proper authorization
+- **Audit Logging**: Log data access and modifications
+
+## Crystal Language Specifics
+
+### Type Safety
+- **Strict Typing**: Leverage Crystal's strict typing system
+- **Union Types**: Use union types for optional values
+- **Nilable Types**: Be explicit about nilable types
+- **Type Annotations**: Add type annotations for clarity
+
+### Macro Usage
+- **DSL Creation**: Use macros for creating domain-specific languages
+- **Code Generation**: Generate repetitive code with macros
+- **Compile-time Checks**: Implement compile-time validations
+- **Performance**: Use macros for zero-cost abstractions
+
+### Memory Safety
+- **Reference Types**: Understand reference vs value types
+- **Garbage Collection**: Work with Crystal's garbage collector
+- **Memory Leaks**: Avoid circular references
+- **Resource Management**: Properly close database connections
+
+## Configuration Management
+
+### Environment-based Config
+- **Development**: Use local database configurations
+- **Testing**: Use separate test database
+- **Production**: Use environment variables for sensitive data
+- **Staging**: Mirror production configuration
+
+### Database Configuration
+- **Connection Pooling**: Configure appropriate pool sizes
+- **Timeouts**: Set reasonable connection timeouts
+- **SSL**: Enable SSL in production environments
+- **Monitoring**: Configure database monitoring
+
+## Documentation Standards
+
+### Code Documentation
+- **Crystal Docs**: Use Crystal's documentation format
+- **Examples**: Provide usage examples in documentation
+- **API Docs**: Document public API methods
+- **README**: Maintain comprehensive README files
+
+### Schema Documentation
+- **Table Descriptions**: Document table purposes
+- **Column Descriptions**: Explain column meanings
+- **Relationship Docs**: Document model relationships
+- **Migration Notes**: Document migration purposes
+
+This cursor rules file provides comprehensive guidance for developing with CQL while following Crystal language best practices and maintaining clean, performant, and secure code.description:
+globs:
+alwaysApply: true
+---
+# CQL (Crystal Query Language) - Cursor Rules
+
+## Language & Framework Context
+
+### Crystal Programming Language
+- **Language**: Crystal - statically typed, compiled language with Ruby-inspired syntax
+- **Type System**: Leverage Crystal's compile-time type checking for type-safe database operations
+- **Macros**: Use Crystal's macro system for code generation and DSL creation
+- **Performance**: Crystal compiles to native code - optimize for performance at compile time
+- **Memory Management**: Crystal has automatic memory management - no manual memory allocation needed
+
+### CQL Framework Specifics
+- **ORM Type**: Object-Relational Mapping library with Active Record pattern support
+- **Database Support**: PostgreSQL, MySQL, SQLite through Crystal DB drivers
+- **Architecture**: Supports Active Record, Repository, and Data Mapper patterns
+- **Performance**: Built for high performance with compile-time optimizations
+
+## Architecture Principles
+
+### SOLID Principles
+- **Single Responsibility**: Each model should have one reason to change
+- **Open/Closed**: Extend functionality through composition and inheritance
+- **Liskov Substitution**: Subclasses should be substitutable for their base classes
+- **Interface Segregation**: Create focused, specific interfaces
+- **Dependency Inversion**: Depend on abstractions, not concretions
+
+### Clean Architecture
+- **Domain Layer**: Core business logic in models and domain services
+- **Application Layer**: Use cases and application-specific business rules
+- **Infrastructure Layer**: Database, cache, external service integrations
+- **Presentation Layer**: Controllers, serializers, API endpoints
+
+## CQL-Specific Patterns
+
+### Model Definition
+```crystal
+# Use clear, descriptive model names
+class User < CQL::Record(Int64)
+  db_mapping({
+    id: {primary_key: true, auto: true},
+    email: String,
+    name: String,
+    created_at: Time,
+    updated_at: Time
+  })
+end
+```
+
+### Schema Organization
+- **Location**: Define schemas in `src/schemas/` directory
+- **Naming**: Use descriptive schema names (e.g., `AppSchema`, `BlogSchema`)
+- **Structure**: Group related tables in logical schemas
+- **Migrations**: Keep migrations in dedicated directories with clear naming
+
+### Active Record Pattern
+- **Inheritance**: Extend `CQL::Record(PrimaryKeyType)`
+- **Validations**: Use built-in validation macros for data integrity
+- **Callbacks**: Implement lifecycle callbacks for business logic
+- **Relationships**: Define associations clearly with proper foreign keys
+
+### Repository Pattern
+- **Interface**: Define repository interfaces for testability
+- **Implementation**: Implement concrete repositories for specific databases
+- **Queries**: Encapsulate complex queries in repository methods
+- **Separation**: Keep business logic separate from data access logic
+
+## Database Best Practices
+
+### Migrations
+- **Versioning**: Use sequential numbering (001_, 002_, etc.)
+- **Reversibility**: Always provide down methods for rollbacks
+- **Data Safety**: Use transactions for data-changing migrations
+- **Testing**: Test migrations in development environment first
+
+### Query Optimization
+- **Indexing**: Add appropriate indexes for frequently queried columns
+- **N+1 Prevention**: Use eager loading for associations
+- **Caching**: Implement query and fragment caching where appropriate
+- **Monitoring**: Use performance monitoring tools to identify slow queries
+
+### Schema Design
+- **Normalization**: Follow database normalization principles
+- **Foreign Keys**: Always define proper foreign key constraints
+- **Null Handling**: Be explicit about nullable vs non-nullable fields
+- **Default Values**: Set appropriate default values for columns
+
+## Code Organization
+
+### Directory Structure
+```
+src/
+├── active_record/          # Active Record pattern implementation
+├── cache/                  # Caching mechanisms
+├── configure/              # Configuration management
+├── dialects/              # Database-specific implementations
+├── expression/            # Query expression building
+├── performance/           # Performance monitoring
+└── schemas/               # Database schema definitions
+
+spec/
+├── integration/           # Integration tests
+├── patterns/             # Pattern-specific tests
+├── operations/           # CRUD operation tests
+└── support/              # Test support files
+```
+
+### File Naming
+- **Models**: Use singular noun (e.g., `user.cr`, `post.cr`)
+- **Schemas**: End with `_schema.cr` (e.g., `app_schema.cr`)
+- **Migrations**: Use timestamp or sequential prefix
+- **Specs**: Mirror source structure with `_spec.cr` suffix
+
+## Performance Guidelines
+
+### Query Performance
+- **Eager Loading**: Use `includes` to prevent N+1 queries
+- **Selective Loading**: Only load required columns and associations
+- **Batch Operations**: Use bulk operations for multiple records
+- **Connection Pooling**: Configure appropriate connection pool sizes
+
+### Caching Strategy
+- **Query Caching**: Enable per-request query caching
+- **Fragment Caching**: Cache expensive query results
+- **Redis Integration**: Use Redis for distributed caching
+- **Cache Invalidation**: Implement proper cache invalidation strategies
+
+### Memory Management
+- **Lazy Loading**: Use lazy loading for large datasets
+- **Streaming**: Process large result sets in streams
+- **Object Pooling**: Reuse objects where appropriate
+
+## Testing Standards
+
+### Test Organization
+- **Unit Tests**: Test individual models and methods
+- **Integration Tests**: Test database interactions
+- **Feature Tests**: Test complete workflows
+- **Performance Tests**: Test query performance
+
+### Test Data
+- **Factories**: Use factory methods for test data creation
+- **Fixtures**: Use fixtures for static reference data
+- **Database Cleanup**: Clean database state between tests
+- **Transactions**: Use database transactions for test isolation
+
+### Mocking
+- **External Services**: Mock external API calls
+- **Time-dependent Logic**: Mock time-sensitive operations
+- **Database Queries**: Mock expensive queries in unit tests
+
+## Error Handling
+
+### Exception Hierarchy
+- **CQL Exceptions**: Use CQL-specific exception types
+- **Database Errors**: Handle database connection and query errors
+- **Validation Errors**: Provide clear validation error messages
+- **Custom Exceptions**: Create domain-specific exception types
+
+### Logging
+- **Query Logging**: Log slow queries for optimization
+- **Error Logging**: Log exceptions with context
+- **Performance Logging**: Log performance metrics
+- **Structured Logging**: Use structured log formats
+
+## Security Guidelines
+
+### SQL Injection Prevention
+- **Parameterized Queries**: Always use parameterized queries
+- **Input Validation**: Validate all user inputs
+- **Escape Sequences**: Properly escape special characters
+- **Query Building**: Use CQL's query builder methods
+
+### Data Protection
+- **Sensitive Data**: Mark sensitive fields appropriately
+- **Encryption**: Encrypt sensitive data at rest
+- **Access Control**: Implement proper authorization
+- **Audit Logging**: Log data access and modifications
+
+## Crystal Language Specifics
+
+### Type Safety
+- **Strict Typing**: Leverage Crystal's strict typing system
+- **Union Types**: Use union types for optional values
+- **Nilable Types**: Be explicit about nilable types
+- **Type Annotations**: Add type annotations for clarity
+
+### Macro Usage
+- **DSL Creation**: Use macros for creating domain-specific languages
+- **Code Generation**: Generate repetitive code with macros
+- **Compile-time Checks**: Implement compile-time validations
+- **Performance**: Use macros for zero-cost abstractions
+
+### Memory Safety
+- **Reference Types**: Understand reference vs value types
+- **Garbage Collection**: Work with Crystal's garbage collector
+- **Memory Leaks**: Avoid circular references
+- **Resource Management**: Properly close database connections
+
+## Configuration Management
+
+### Environment-based Config
+- **Development**: Use local database configurations
+- **Testing**: Use separate test database
+- **Production**: Use environment variables for sensitive data
+- **Staging**: Mirror production configuration
+
+### Database Configuration
+- **Connection Pooling**: Configure appropriate pool sizes
+- **Timeouts**: Set reasonable connection timeouts
+- **SSL**: Enable SSL in production environments
+- **Monitoring**: Configure database monitoring
+
+## Documentation Standards
+
+### Code Documentation
+- **Crystal Docs**: Use Crystal's documentation format
+- **Examples**: Provide usage examples in documentation
+- **API Docs**: Document public API methods
+- **README**: Maintain comprehensive README files
+
+### Schema Documentation
+- **Table Descriptions**: Document table purposes
+- **Column Descriptions**: Explain column meanings
+- **Relationship Docs**: Document model relationships
+- **Migration Notes**: Document migration purposes
+
+This cursor rules file provides comprehensive guidance for developing with CQL while following Crystal language best practices and maintaining clean, performant, and secure code.
 
 ---
 > Source: [azutoolkit/cql](https://github.com/azutoolkit/cql) — distributed by [TomeVault](https://tomevault.io).
