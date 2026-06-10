@@ -1,47 +1,59 @@
-## schemas
+## server-actions
 
-> Zod schema + inferred type; Stripped suffix for client schemas
+> app/_actions/, singular files, actionNameAction, 'use server', revalidateTag
 
 
-# Schemas and Validation
+# Server Actions
 
-Use this rule when creating or editing Zod schemas and their inferred types (validation and forms).
+Applies to Next.js server actions in `app/_actions/`. Use this rule when creating or editing server action files.
 
-### Zod Schema Structure
+### Location and Naming
 
-- Each schema file should export both the Zod schema and the inferred TypeScript type.
-- Use the pattern: `schemaName` for the schema and `SchemaName` for the type.
-
-- ✅ Good:
-  ```typescript
-  export const createDealTaskSchema = z.object({
-    dealId: z.coerce.number(),
-    title: z.string(),
-    userId: z.coerce.number(),
-  })
-  
-  export type CreateDealTaskSchema = z.infer<typeof createDealTaskSchema>
-  ```
-
-### Stripped Schemas
-
-- When creating client-side schemas that omit server-side fields (like `userId`, `type`), use the `Stripped` suffix.
-- This pattern helps separate client and server validation concerns.
+- Server actions must be placed in `app/_actions/` directory.
+- File names should be in **singular** form, even if they contain multiple functions.
+- Function names must follow the pattern: `actionNameAction`.
 
 - ✅ Good:
   ```typescript
-  export const createDealTaskSchemaStripped = createDealTaskSchema.omit({ userId: true, type: true })
-  export type CreateDealTaskSchemaStripped = z.infer<typeof createDealTaskSchemaStripped>
+  // app/_actions/task.ts
+  'use server'
+
+  export async function createDealTaskAction(data: CreateDealTaskSchemaStripped) {}
+  export async function updateDealTaskAction(data: UpdateDealTaskSchemaStripped) {}
   ```
 
-### Schema Naming
+- ❌ Bad:
+  ```typescript
+  // app/_actions/tasks.ts (plural)
+  export async function createDealTask(data: CreateDealTaskSchemaStripped) {} // missing Action suffix
+  ```
 
-- Base schemas: `schemaName` (e.g., `createDealTaskSchema`)
-- Stripped schemas: `schemaNameStripped` (e.g., `createDealTaskSchemaStripped`)
-- Types: `SchemaName` (e.g., `CreateDealTaskSchema`)
+### Server Directive
 
-- ✅ Good: `createDealTaskSchema`, `CreateDealTaskSchema`, `createDealTaskSchemaStripped`
-- ❌ Bad: `CreateDealTaskSchema` for the schema (use for the type); `createDealTask` without Schema suffix
+- All server action files must start with `'use server'` directive.
+
+### Revalidation
+
+- After mutations in server actions, always call `revalidateTag()` to invalidate Next.js cache.
+
+- ✅ Good:
+
+  ```typescript
+  export async function updateDealTaskAction(data: UpdateDealTaskSchemaStripped) {
+    const response = await callRocketAPI({ plMethod: 'updateDealTask', payload })
+    revalidateTag('deal-history')
+    return response
+  }
+  ```
+
+- ❌ Bad:
+
+  ```typescript
+  export async function updateDealTaskAction(data: UpdateDealTaskSchemaStripped) {
+    const response = await callRocketAPI({ plMethod: 'updateDealTask', payload })
+    return response
+  }
+  ```
 
 ---
 > Source: [rcrdk/rcrdk.dev](https://github.com/rcrdk/rcrdk.dev) — distributed by [TomeVault](https://tomevault.io).
