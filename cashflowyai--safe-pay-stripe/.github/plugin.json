@@ -1,0 +1,9 @@
+{
+  "name": "cashflowyai--safe-pay-stripe",
+  "displayName": "safe-pay-stripe",
+  "description": "Self Pay Estimation for Stripe",
+  "version": "1.0.0",
+  "author": "Cashflowyai",
+  "homepage": "https://github.com/Cashflowyai/safe-pay-stripe",
+  "skills": []
+}
