@@ -1,58 +1,51 @@
-## server-actions
+## test-element-selection
 
-> app/_actions/, singular files, actionNameAction, 'use server', revalidateTag
+> Prefer data-testid and semantic queries (getByRole, getByLabelText)
 
 
-# Server Actions
+# Element Selection
 
-Applies to Next.js server actions in `app/_actions/`. Use this rule when creating or editing server action files.
+Use this rule when writing or editing tests that query the DOM. Prefer semantic queries; use data-testid when role/label are not practical.
 
-### Location and Naming
+### Prefer data-testid over querySelector
 
-- Server actions must be placed in `app/_actions/` directory.
-- File names should be in **singular** form, even if they contain multiple functions.
-- Function names must follow the pattern: `actionNameAction`.
-
-- ✅ Good:
-  ```typescript
-  // app/_actions/task.ts
-  'use server'
-
-  export async function createDealTaskAction(data: CreateDealTaskSchemaStripped) {}
-  export async function updateDealTaskAction(data: UpdateDealTaskSchemaStripped) {}
-  ```
-
-- ❌ Bad:
-  ```typescript
-  // app/_actions/tasks.ts (plural)
-  export async function createDealTask(data: CreateDealTaskSchemaStripped) {} // missing Action suffix
-  ```
-
-### Server Directive
-
-- All server action files must start with `'use server'` directive.
-
-### Revalidation
-
-- After mutations in server actions, always call `revalidateTag()` to invalidate Next.js cache.
+Avoid using `querySelector` or `querySelectorAll`. Instead, implement `data-testid` attributes on component elements that need to be tested. Use `screen.getByTestId()` from React Testing Library for better test maintainability and accessibility.
 
 - ✅ Good:
 
-  ```typescript
-  export async function updateDealTaskAction(data: UpdateDealTaskSchemaStripped) {
-    const response = await callRocketAPI({ plMethod: 'updateDealTask', payload })
-    revalidateTag('deal-history')
-    return response
-  }
+  ```tsx
+  // Component
+  <button data-testid="submit-button">Submit</button>
+
+  // Test
+  const submitButton = screen.getByTestId('submit-button')
+  expect(submitButton).toBeInTheDocument()
   ```
 
 - ❌ Bad:
+  ```tsx
+  // Test
+  const { container } = render(<Button>Submit</Button>)
+  const button = container.querySelector('button')
+  expect(button).toBeInTheDocument()
+  ```
 
-  ```typescript
-  export async function updateDealTaskAction(data: UpdateDealTaskSchemaStripped) {
-    const response = await callRocketAPI({ plMethod: 'updateDealTask', payload })
-    return response
-  }
+### Using Semantic Queries
+
+When possible, prefer semantic queries like `getByRole`, `getByLabelText`, or `getByText` over `getByTestId` for better accessibility testing:
+
+- ✅ Good:
+
+  ```tsx
+  const button = screen.getByRole('button', { name: 'Submit' })
+  const input = screen.getByLabelText('Email address')
+  ```
+
+- ❌ Bad (use getByRole/getByLabelText when role or label is available):
+
+  ```tsx
+  const button = screen.getByTestId('submit-button')
+  const input = screen.getByTestId('email-input')
   ```
 
 ---
