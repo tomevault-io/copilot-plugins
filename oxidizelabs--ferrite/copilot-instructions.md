@@ -1,102 +1,124 @@
-## sql-execution
+## storage
 
-> SQL processing pipeline and execution engine guidelines
+> Storage layer, indexing, and page management guidelines
 
 
-# SQL Processing Pipeline Guidelines
+# Storage Layer Guidelines
 
-When working with SQL components, follow the complete pipeline: Parse → Bind → Plan → Optimize → Execute.
+When working with storage components, focus on data durability, efficient layout, and index performance.
 
-## Binder Guidelines
+## Page Layout Design
 
-### Expression Binding
-- Use visitor pattern for expression evaluation
-- Implement proper type checking and casting
-- Handle schema resolution correctly
-- Validate column references against available tables
+### Page Structure Principles
+- Page layout must be carefully designed for performance
+- Align data to word boundaries where possible
+- Use fixed-size headers for consistent access
+- Implement proper page checksum verification
+- Handle page fragmentation appropriately
 
-### Type System Integration
-- Use the `types_db` module for all type operations
-- Handle NULL values correctly throughout the pipeline
-- Implement proper type coercion rules
-- Validate compatible types for operations
+### Serialization/Deserialization
+- Implement proper serialization for persistence
+- Handle endianness consistently
+- Use zero-copy deserialization where possible
+- Validate data integrity during deserialization
+- Handle schema evolution gracefully
 
-### Bound Statement Creation
 ```rust
-// Proper binding pattern
-let bound_stmt = binder
-    .bind_statement(&ast_stmt, &schema_context)?
-    .validate_semantics()?;
-```
-
-## Planner Guidelines
-
-### Plan Node Creation
-- Keep plan nodes immutable where possible
-- Separate plan nodes from executor implementations
-- Include cost estimates in plan nodes
-- Handle subquery planning recursively
-
-### Schema Handling
-- Validate table and column existence
-- Handle qualified vs unqualified column names
-- Manage schema changes during planning
-- Cache schema information appropriately
-
-## Optimizer Guidelines
-
-### Rule-Based Optimization
-- Implement transformation rules as separate functions
-- Apply rules in proper order (logical before physical)
-- Handle plan equivalence checking
-- Consider cost-based decisions where appropriate
-
-### Expression Optimization
-- Constant folding where safe
-- Predicate pushdown optimization
-- Join reordering based on selectivity
-- Index utilization optimization
-
-## Executor Guidelines
-
-### Executor Pattern
-```rust
-impl AbstractExecutor for MyExecutor {
-    fn init(&mut self) -> Result<()> {
-        // Initialize executor state
-    }
-
-    fn next(&mut self) -> Result<Option<Tuple>> {
-        // Return next tuple or None if exhausted
+// Proper page serialization pattern
+impl Serialize for MyPage {
+    fn serialize(&self, buf: &mut [u8]) -> Result<usize> {
+        let mut offset = 0;
+        // Write header first
+        offset += self.header.serialize(&mut buf[offset..])?;
+        // Then write data
+        offset += self.data.serialize(&mut buf[offset..])?;
+        Ok(offset)
     }
 }
 ```
 
-### Resource Management
-- Initialize executors before first use
-- Clean up resources in executor drop
-- Handle partial execution properly
-- Propagate errors up the execution tree
+## B+ Tree Implementation
 
-### Expression Evaluation
-- Cache expression results when beneficial
-- Handle NULL propagation correctly
-- Use efficient evaluation for common expressions
-- Implement proper short-circuit evaluation
+### Invariant Maintenance
+- B+ tree operations must maintain all invariants
+- Leaf nodes contain actual data, internal nodes contain keys
+- All leaf nodes at same level
+- Keys in internal nodes guide search
+- Handle split and merge operations correctly
 
-## Common SQL Processing Patterns
+### Concurrent B+ Tree Operations
+- Use crab protocol for concurrent access
+- Handle structural modifications atomically
+- Implement proper lock coupling
+- Avoid deadlocks in tree traversal
 
-### Null Handling
-- SQL three-valued logic (TRUE, FALSE, NULL)
-- NULL propagation in arithmetic operations
-- Special handling for comparison operators
-- Proper NULL semantics in aggregations
+### B+ Tree Performance
+- Minimize tree height through proper fan-out
+- Cache frequently accessed internal nodes
+- Batch leaf modifications when possible
+- Use bulk loading for initial tree construction
 
-### Transaction Integration
-- Respect transaction isolation levels
-- Handle concurrent modifications properly
-- Integrate with lock manager for reading
-- Ensure proper cleanup on transaction abort
+## Hash Table Implementation
+
+### Hash Function Design
+- Use consistent, high-quality hash functions
+- Handle hash collisions gracefully
+- Implement proper hash table resizing
+- Maintain load factor within reasonable bounds
+
+### Extendable Hash Tables
+- Implement global and local depth correctly
+- Handle bucket splits and merges
+- Manage directory growth efficiently
+- Handle concurrent access to shared structures
+
+### Linear Probe Hash Tables
+- Handle probe sequences correctly
+- Implement proper deletion with tombstones
+- Manage clustering and probe distance
+- Optimize for cache performance
+
+## Table Heap Management
+
+### Record Storage
+- Implement slotted page format for variable-length records
+- Handle record insertion, deletion, and updates
+- Manage free space tracking
+- Implement record versioning for MVCC
+
+### Page Space Management
+- Track free space efficiently
+- Handle page compaction when needed
+- Implement proper space allocation policies
+- Handle large records that span pages
+
+## Disk Management
+
+### I/O Operations
+- Implement proper async I/O where beneficial
+- Handle I/O errors and retries gracefully
+- Use direct I/O for performance when appropriate
+- Batch I/O operations to reduce system calls
+
+### Data Durability
+- Ensure write ordering for consistency
+- Implement proper fsync usage
+- Handle partial writes correctly
+- Verify data integrity after writes
+
+## Index Management
+
+### Index Selection
+- Choose appropriate index type for workload
+- Consider memory vs. disk trade-offs
+- Handle index maintenance during updates
+- Implement proper index statistics collection
+
+### Index Performance
+- Minimize index overhead for writes
+- Optimize index scans for range queries
+- Handle index fragmentation
+- Consider index compression where beneficial
 
 ---
 > Source: [OxidizeLabs/ferrite](https://github.com/OxidizeLabs/ferrite) — distributed by [TomeVault](https://tomevault.io).
