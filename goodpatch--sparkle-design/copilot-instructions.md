@@ -1,29 +1,91 @@
-## sparkle-design
+## context
 
-> This is a React component library built with Next.js, TypeScript, TailwindCSS, and CVA.
+> Project context and overview
 
-# Sparkle Design - Cursor Rules (Legacy Format)
-#
-# NOTE: This is the legacy format for backward compatibility.
-# New rules should be added to .cursor/rules/*.mdc
-#
-# For detailed instructions, see: docs/ai-instructions/
+
+# AI Assistant Configuration
 
 ## Project Overview
-This is a React component library built with Next.js, TypeScript, TailwindCSS, and CVA.
+"Sparkle Design" is a React component library built with modern web technologies, providing consistent UI components for web applications.
 
-## Key Rules
-1. Follow t_wada's testing best practices
-2. Use shared test helpers (TestContainer, EventHelpers, etc.)
-3. Write comments in Japanese first, then English with `en:` prefix
-4. Use CVA for component variants
-5. Run `pnpm lint && pnpm format` before commits
+## Technology Stack
+- **Framework**: Next.js 15.5.18 + React 18 + TypeScript
+- **Styling**: TailwindCSS 4 + CVA (Class Variance Authority)
+- **Testing**: Vitest + Testing Library + jsdom
+- **Documentation**: Storybook
+- **Package Manager**: pnpm
+- **Node.js**: 22.14.0 (see `.node-version`)
 
-## References
-- docs/ai-instructions/context.md - Project context
-- docs/ai-instructions/development.md - Development patterns
-- docs/ai-instructions/testing.md - Testing guidelines
-- docs/ai-instructions/comment-style.md - Comment standards
+## Project Structure
+```
+src/
+├── app/                    # Next.js app directory
+├── components/ui/          # UI component library
+│   └── [component]/
+│       ├── index.tsx       # Component implementation
+│       └── index.test.tsx  # Component tests
+├── docs/                   # Documentation files
+├── lib/                    # Utility functions
+└── test/                   # Shared test helpers
+
+docs/ai-instructions/       # AI guidance documents (source)
+public/r/                   # Component registry JSON
+scripts/                    # Build and setup tools
+```
+
+## Development Workflow
+1. **Setup**: `pnpm install` for dependencies
+2. **Development**: `pnpm dev` for local server
+3. **Component Creation**: `./scripts/setup.sh <ComponentName>`
+4. **Documentation**: `pnpm storybook` for component stories
+5. **Quality Checks**: `pnpm lint && pnpm format`
+6. **Testing**: `pnpm test` before commits
+
+## Key Configuration Files
+- **`package.json`**: Dependencies and scripts
+- **`tsconfig.json`**: TypeScript configuration
+- **`postcss.config.mjs`**: TailwindCSS setup
+- **`vitest.config.ts`**: Testing configuration
+- **`components.json`**: Component library config
+- **`sparkle.config.json`**: Design token settings
+
+## Coding Standards
+- **Comments**: Japanese first, then English with `en:` prefix
+- **Commits**: Japanese with emoji prefix (see `.github/copilot-commit-message-instructions.md`)
+- **Components**: Follow shadcn/ui patterns with CVA variants
+- **Testing**: Comprehensive coverage following t_wada's best practices
+- **Accessibility**: ARIA labels and semantic HTML
+
+## Commit and Branch Standards
+
+### Commit Message Rules
+- **Language**: Japanese required
+- **Format**: Emoji prefix + Conventional Commit format
+- **Structure**: Title, blank line, bullet list of changes
+- **Reference**: `.github/copilot-commit-message-instructions.md`
+
+### Branch Naming Convention
+- **Allowed characters**: English letters, digits, dots, hyphens, underscores, plus a single `/` used only as a separator between a category prefix and name
+- **Pattern**: `feature/component-name`, `fix/issue-description`, `chore/update-deps`, etc.
+- **Example**: `feature/button-component`, `chore/update-deps`
+
+### Quality Checks (Required before commit)
+```bash
+pnpm lint      # ESLint checks
+pnpm format    # Prettier formatting
+pnpm test      # Component tests
+```
+
+## AI Assistance Guidelines
+- Refer to specific instruction files for detailed guidance:
+  - `docs/ai-instructions/testing.md` for testing
+  - `docs/ai-instructions/development.md` for development patterns
+  - `docs/ai-instructions/comment-style.md` for code comments
+  - `docs/ai-instructions/new-component.md` for component creation
+
+### AI Instruction File Updates
+- **Important**: After editing any file in `docs/ai-instructions/`, run `make ai-instructions` to sync changes to tool-specific locations
+- This ensures GitHub Copilot, Cursor, Claude Code, and Codex all receive the updated instructions
 
 ---
 > Source: [goodpatch/sparkle-design](https://github.com/goodpatch/sparkle-design) — distributed by [TomeVault](https://tomevault.io).
