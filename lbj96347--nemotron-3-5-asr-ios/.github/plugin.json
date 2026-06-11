@@ -1,0 +1,9 @@
+{
+  "name": "lbj96347--nemotron-3-5-asr-ios",
+  "displayName": "nemotron-3.5-asr-ios",
+  "description": "On-device, offline speech recognition for iPhone/iPad using NVIDIA's Nemotron-3.5-ASR Streaming 0.6B (multilingual) via CoreML.SwiftUI app with mic capture + audio file import, RNN-Tdecoding, and live",
+  "version": "1.0.0",
+  "author": "lbj96347",
+  "homepage": "https://github.com/lbj96347/nemotron-3.5-asr-ios",
+  "skills": []
+}
