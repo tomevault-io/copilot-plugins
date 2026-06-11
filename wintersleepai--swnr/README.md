@@ -7,14 +7,14 @@ The Stars Without Number,  Cities Without Number, and Ashes Without Number syste
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [wintersleepAI/swnr](https://github.com/wintersleepAI/swnr).
+Original source: `GEMINI.md` in [wintersleepAI/swnr](https://github.com/wintersleepAI/swnr).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/wintersleepAI/swnr](https://github.com/wintersleepAI/swnr)
