@@ -1,0 +1,9 @@
+{
+  "name": "baget--esphome-m5cardputer",
+  "displayName": "esphome-m5cardputer",
+  "description": "ESPHome Configuration Files for M5 Cardputer",
+  "version": "1.0.0",
+  "author": "baget",
+  "homepage": "https://github.com/baget/esphome-m5cardputer",
+  "skills": []
+}
