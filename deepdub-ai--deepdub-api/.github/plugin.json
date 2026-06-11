@@ -1,0 +1,9 @@
+{
+  "name": "deepdub-ai--deepdub-api",
+  "displayName": "deepdub-api",
+  "description": "Deepdub API provides functionality to convert text into speech.",
+  "version": "1.0.0",
+  "author": "deepdub-ai",
+  "homepage": "https://github.com/deepdub-ai/deepdub-api",
+  "skills": []
+}
