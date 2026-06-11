@@ -7,11 +7,11 @@ SRAT (SambaNAS REST Administration Tool) is a new system designed to provide a s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dianlight/srat](https://github.com/dianlight/srat).
+Original source: `CLAUDE.md` in [dianlight/srat](https://github.com/dianlight/srat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
