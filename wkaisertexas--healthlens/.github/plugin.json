@@ -1,0 +1,9 @@
+{
+  "name": "wkaisertexas--healthlens",
+  "displayName": "HealthLens",
+  "description": "Apple Health's missing \"Export to CSV\" button",
+  "version": "1.0.0",
+  "author": "wkaisertexas",
+  "homepage": "https://github.com/wkaisertexas/HealthLens",
+  "skills": []
+}
