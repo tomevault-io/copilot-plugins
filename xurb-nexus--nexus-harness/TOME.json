@@ -4,7 +4,7 @@
   "repo": "nexus-harness",
   "description": "A pure-skill, host-agnostic AI engineering harness: PRD \u2192 TRD \u2192 Plan \u2192 TDD \u2192 dual-agent review \u2192 archive. Works with Claude Code, Cursor & Codex. No MCP required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xurb-nexus/nexus-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T12:30:55Z"
+  "distributed_at": "2026-06-11T12:31:26Z"
 }
