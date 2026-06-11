@@ -138029,6 +138029,11 @@
       "description": "Auto commit & push for AI coding agents, with a safety level you pick."
     },
     {
+      "name": "bravodev-hub--appointme",
+      "source": "./bravodev-hub--appointme",
+      "description": "AppointMe is a modular-monolith .NET SaaS template with multitenancy, auth, billing and deployment already wired."
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -149067,6 +149072,16 @@
       "name": "wintersleepai--swnr",
       "source": "./wintersleepai--swnr",
       "description": "The Stars Without Number,  Cities Without Number, and Ashes Without Number system for Foundry VTT"
+    },
+    {
+      "name": "modem-dev--sideshow",
+      "source": "./modem-dev--sideshow",
+      "description": "A live visual surface for terminal coding agents \u2014 agents draw HTML snippets, you watch and comment back"
+    },
+    {
+      "name": "modem-dev--sideshow",
+      "source": "./modem-dev--sideshow",
+      "description": "A live visual surface for terminal coding agents \u2014 agents draw HTML snippets, you watch and comment back"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
