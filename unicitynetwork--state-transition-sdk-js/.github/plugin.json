@@ -1,0 +1,9 @@
+{
+  "name": "unicitynetwork--state-transition-sdk-js",
+  "displayName": "state-transition-sdk-js",
+  "description": "An SDK for defining and managing the lifecycle of stateful assets on the Unicity Protocol",
+  "version": "1.0.0",
+  "author": "unicitynetwork",
+  "homepage": "https://github.com/unicitynetwork/state-transition-sdk-js",
+  "skills": []
+}
