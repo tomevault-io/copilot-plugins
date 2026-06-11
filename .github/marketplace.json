@@ -95174,6 +95174,11 @@
       "description": "This repository is dedicated to exploring various shader techniques and effects, with each experiment hosted in its own branch"
     },
     {
+      "name": "telekom--k8s-breakglass",
+      "source": "./telekom--k8s-breakglass",
+      "description": "Temporary privilege elevation for Kubernetes."
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -99667,6 +99672,16 @@
       "name": "chfourie--obsidian-journal-folder",
       "source": "./chfourie--obsidian-journal-folder",
       "description": "obsidian-journal-folder"
+    },
+    {
+      "name": "baget--esphome-m5cardputer",
+      "source": "./baget--esphome-m5cardputer",
+      "description": "ESPHome Configuration Files for M5 Cardputer"
+    },
+    {
+      "name": "cxzzzz--wavekit",
+      "source": "./cxzzzz--wavekit",
+      "description": "a fundamental Python package for digital circuit waveform analysis"
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -116049,6 +116064,11 @@
       "description": "LogicCut"
     },
     {
+      "name": "idimma--rn-widgets",
+      "source": "./idimma--rn-widgets",
+      "description": "rn-widgets"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -118897,6 +118917,11 @@
       "name": "mosugi--notro",
       "source": "./mosugi--notro",
       "description": "Notro is Notion, Astro, Tailwind CSS based CMS."
+    },
+    {
+      "name": "gerrysant--multimodalhugs",
+      "source": "./gerrysant--multimodalhugs",
+      "description": "MultimodalHugs is an extension of Hugging Face that offers a generalized framework for training, evaluating, and using multimodal AI models with minimal code differences, ensuring seamless compatibili"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -122217,6 +122242,16 @@
       "name": "trustless-work--trustlesswork-backoffice",
       "source": "./trustless-work--trustlesswork-backoffice",
       "description": "POC of a decentralized application (dApp) to enhance trust in agency-client relationships using blockchain. It enables trustless payments via smart contracts, securing funds in escrow until milestones"
+    },
+    {
+      "name": "wkaisertexas--healthlens",
+      "source": "./wkaisertexas--healthlens",
+      "description": "Apple Health's missing \"Export to CSV\" button"
+    },
+    {
+      "name": "wkaisertexas--healthlens",
+      "source": "./wkaisertexas--healthlens",
+      "description": "Apple Health's missing \"Export to CSV\" button"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -129779,6 +129814,11 @@
       "description": "Maui.MicrosoftClarity"
     },
     {
+      "name": "afrl-ares--ares",
+      "source": "./afrl-ares--ares",
+      "description": "ARES OS 2.0 is a software suite to enable laboratory automation and fully closed-loop autonomous research. "
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -133817,6 +133857,21 @@
       "name": "rmorlok--authproxy",
       "source": "./rmorlok--authproxy",
       "description": "Authenticating proxy server for connecting to 3rd party APIs"
+    },
+    {
+      "name": "matejkob--swift-macro-compatibility-check",
+      "source": "./matejkob--swift-macro-compatibility-check",
+      "description": "GitHub Action that verifies compatibility of a Swift package with macros against all swift-syntax versions"
+    },
+    {
+      "name": "naugtur--meetjs-pl",
+      "source": "./naugtur--meetjs-pl",
+      "description": "Official meet.js website"
+    },
+    {
+      "name": "spartypkp--open-source-legislation",
+      "source": "./spartypkp--open-source-legislation",
+      "description": "Open-source global legislation data in an SQL knowledge-graph format ideal for use with LLMs: Download legislation data in bulk and immediately start building with our Python/Typescript SDKs. Democrat"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -138142,6 +138197,16 @@
       "name": "gnoverse--tlin",
       "source": "./gnoverse--tlin",
       "description": "Advanced Linter for Gno"
+    },
+    {
+      "name": "arcanewizards--arcanejs",
+      "source": "./arcanewizards--arcanejs",
+      "description": "Toolkit for centrally-controlled stateful Node applications"
+    },
+    {
+      "name": "byteground--ghostly",
+      "source": "./byteground--ghostly",
+      "description": "Ghostly is an open-source, modern client application for the Ghost content management system. The goal is to provide a seamless, user-friendly experience for Ghost blog creators on mobile platforms."
     },
     {
       "name": "mohiwalla--memes",
@@ -143422,6 +143487,16 @@
       "name": "zju-cssu-dev--home",
       "source": "./zju-cssu-dev--home",
       "description": "home"
+    },
+    {
+      "name": "zubzet--framework",
+      "source": "./zubzet--framework",
+      "description": "A lightweight PHP framework focused on rapid development, ease of use, and great portability."
+    },
+    {
+      "name": "codeforphilly--benefit-decision-toolkit",
+      "source": "./codeforphilly--benefit-decision-toolkit",
+      "description": "Build eligibility screening tools\u2026 *fast*"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -155537,6 +155612,16 @@
       "name": "lessup--micos-2024",
       "source": "./lessup--micos-2024",
       "description": "End-to-end Metagenomic Intelligence and Comprehensive Omics Suite (Mammoth Cup 2024 Entry) | \u7aef\u5230\u7aef\u5b8f\u57fa\u56e0\u7ec4\u7efc\u5408\u5206\u6790\u5e73\u53f0\uff08\u731b\u72b8\u676f2024\u53c2\u8d5b\u9879\u76ee\uff09"
+    },
+    {
+      "name": "collinschaafsma--startstack",
+      "source": "./collinschaafsma--startstack",
+      "description": "A professional starter kit for Next.js."
+    },
+    {
+      "name": "kossnocorp--genotype",
+      "source": "./kossnocorp--genotype",
+      "description": "Programming language that transpiles to other language types (TS, Python, etc)"
     },
     {
       "name": "lightninglabs--lnget",
