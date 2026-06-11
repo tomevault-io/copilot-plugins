@@ -163979,6 +163979,16 @@
       "description": "tradingcodex"
     },
     {
+      "name": "anamkwon--programming-as-theory-building-skill",
+      "source": "./anamkwon--programming-as-theory-building-skill",
+      "description": "Claude Code skill that applies Naur's Programming as Theory Building to coding-agent workflows."
+    },
+    {
+      "name": "jeremyiv--elastic-streets",
+      "source": "./jeremyiv--elastic-streets",
+      "description": "elastic-streets"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -187529,6 +187539,11 @@
       "description": "OpenWrt-IPThrottle"
     },
     {
+      "name": "duolahypercho--gta-vi-caliber",
+      "source": "./duolahypercho--gta-vi-caliber",
+      "description": "Community-driven open-source open-world game. AAA-trailer quality bar. Godot 4 + custom C++ engine modules."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -201417,6 +201432,31 @@
       "name": "olefredrik--bodil",
       "source": "./olefredrik--bodil",
       "description": "Regnskap for holdingselskap, drevet av Claude Code. F\u00f8lgeverkt\u00f8y til Wenche, som h\u00e5ndterer innsending og rapportering til myndighetene via Altinn"
+    },
+    {
+      "name": "cook369--proxy-collect",
+      "source": "./cook369--proxy-collect",
+      "description": "proxy collect sub"
+    },
+    {
+      "name": "teaql--teaql-forge-rs",
+      "source": "./teaql--teaql-forge-rs",
+      "description": "Tiny generation service for TeaQL, written in Rust."
+    },
+    {
+      "name": "gametheoryinlean--econcslib",
+      "source": "./gametheoryinlean--econcslib",
+      "description": "Lean 4 library and knowledge base for computational economics"
+    },
+    {
+      "name": "znlgis--my-opencode-config",
+      "source": "./znlgis--my-opencode-config",
+      "description": "My OpenCode Config"
+    },
+    {
+      "name": "cook369--proxy-collect",
+      "source": "./cook369--proxy-collect",
+      "description": "proxy collect sub"
     },
     {
       "name": "cheerhuan--save-your-token",
