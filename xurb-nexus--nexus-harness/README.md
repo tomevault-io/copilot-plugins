@@ -7,11 +7,11 @@ A pure-skill, host-agnostic AI engineering harness: PRD → TRD → Plan → TDD
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [xurb-nexus/nexus-harness](https://github.com/xurb-nexus/nexus-harness).
+Original source: `AGENTS.md` in [xurb-nexus/nexus-harness](https://github.com/xurb-nexus/nexus-harness).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
