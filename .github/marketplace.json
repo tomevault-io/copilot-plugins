@@ -115989,6 +115989,11 @@
       "description": "TLS & API keys for your LLM APIs"
     },
     {
+      "name": "insiderx-pro--logiccut",
+      "source": "./insiderx-pro--logiccut",
+      "description": "LogicCut"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -164022,6 +164027,16 @@
       "name": "teambaconn--unrealeasypackage",
       "source": "./teambaconn--unrealeasypackage",
       "description": "A lightweight build tool for Unreal Engine"
+    },
+    {
+      "name": "eghrhegpe--ysm-model-manager",
+      "source": "./eghrhegpe--ysm-model-manager",
+      "description": "\ud83c\udfae Minecraft YSM \u6a21\u578b\u7ba1\u7406\u5668 - \u652f\u6301\u786c\u94fe\u63a5/\u7b26\u53f7\u94fe\u63a5/\u590d\u5236\u4e09\u79cd\u6a21\u5f0f"
+    },
+    {
+      "name": "eghrhegpe--ysm-model-manager",
+      "source": "./eghrhegpe--ysm-model-manager",
+      "description": "\ud83c\udfae Minecraft YSM \u6a21\u578b\u7ba1\u7406\u5668 - \u652f\u6301\u786c\u94fe\u63a5/\u7b26\u53f7\u94fe\u63a5/\u590d\u5236\u4e09\u79cd\u6a21\u5f0f"
     },
     {
       "name": "yschimke--compose-ai-tools",
