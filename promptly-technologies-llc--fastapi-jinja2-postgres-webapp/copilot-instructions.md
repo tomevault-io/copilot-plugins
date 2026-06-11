@@ -1,12 +1,30 @@
-## routers-tests
+## sqlmodel
 
-> Since this is a FastAPI web application, test logic for API endpoints often involves checking status codes. Remember, when making a request to an API endpoint, you should specify the `follow_redirects` parameter. With `follow_redirects=False`, the response code will often be `303`; otherwise it will be the response code of the route we've redirected to. We mostly  use `follow_redirects=False` so as to test routes in isolation, but there may be test cases where following the redirect is more appropriate.
+> Satisfying the type checker when working with SQLModel
 
-# Setting test expectations regarding HTTP status codes
+Complex SQLModel queries sometimes cause the type checker to choke, even though the queries are valid.
 
-Since this is a FastAPI web application, test logic for API endpoints often involves checking status codes. Remember, when making a request to an API endpoint, you should specify the `follow_redirects` parameter. With `follow_redirects=False`, the response code will often be `303`; otherwise it will be the response code of the route we've redirected to. We mostly  use `follow_redirects=False` so as to test routes in isolation, but there may be test cases where following the redirect is more appropriate.
+For instance, this error sometimes arises when using `selectinload`:
 
-When checking status codes, think carefully to make sure the expected status code is the most appropriate to the situation.
+'error: Argument 1 to "selectinload" has incompatible type "SomeModel"; expected "Literal['*'] | QueryableAttribute[Any]"'
+
+The solution is to explicitly coerce the argument to the appropriate SQLModel type.
+
+E.g., we can resolve the error above by casting the eager-loaded relationship to InstrumentedAttribute:
+
+```python
+session.exec(select(SomeOtherModel).options(selectinload(cast(InstrumentedAttribute, SomeOtherModel.some_model))))
+```
+
+Similarly, sometimes we get type checker errors when using `delete` or comparison operators like `in_`:
+
+'error: Item "int" of "Optional[int]" has no attribute "in_"'
+
+These can be resolved by wrapping the column in `col` to let the type checker know these are column objects:
+
+```python
+session.exec(select(SomeModel).where(col(SomeModel.id).in_([1,2])))
+```
 
 ---
 > Source: [Promptly-Technologies-LLC/fastapi-jinja2-postgres-webapp](https://github.com/Promptly-Technologies-LLC/fastapi-jinja2-postgres-webapp) — distributed by [TomeVault](https://tomevault.io).
