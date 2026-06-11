@@ -77074,6 +77074,11 @@
       "description": "inbrain"
     },
     {
+      "name": "wangwei-cm--ksword",
+      "source": "./wangwei-cm--ksword",
+      "description": "\u81f4\u529b\u4e8e\u6253\u9020\u5168\u56fd\u6700\u597d\u7684ARK [\u9884\u8ba12026-8-31\u5b8c\u62105.0\u5f00\u53d1]"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -80207,6 +80212,16 @@
       "name": "nekoimi--oss-auto-cert",
       "source": "./nekoimi--oss-auto-cert",
       "description": "\u963f\u91cc\u4e91OSS/CDN SSL \u8bc1\u4e66\u81ea\u52a8\u5316\u5de5\u5177"
+    },
+    {
+      "name": "dynamical-org--notebooks",
+      "source": "./dynamical-org--notebooks",
+      "description": "Example use of dynamical.org weather datasets"
+    },
+    {
+      "name": "dynamical-org--notebooks",
+      "source": "./dynamical-org--notebooks",
+      "description": "Example use of dynamical.org weather datasets"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -88127,6 +88142,11 @@
       "name": "sap--terraform-exporter-btp",
       "source": "./sap--terraform-exporter-btp",
       "description": "The Terraform Exporter for SAP BTP is a tool that helps export resources from a SAP BTP account.  It generates Terraform scripts for the import of resources and enables the import of the Terraform sta"
+    },
+    {
+      "name": "ammarcodes--obsidian-quran-helper-plugin",
+      "source": "./ammarcodes--obsidian-quran-helper-plugin",
+      "description": "Obsidian plugin to find and insert any Quran Ayah (verse) in your notes"
     },
     {
       "name": "inureyes--gyeol",
@@ -104699,6 +104719,11 @@
       "description": "Wrap any command-line tool to Emacs commands easily."
     },
     {
+      "name": "thomhurst--asyncsemaphore",
+      "source": "./thomhurst--asyncsemaphore",
+      "description": "AsyncSemaphore"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -107192,6 +107217,16 @@
       "name": "azutoolkit--cql",
       "source": "./azutoolkit--cql",
       "description": "CQL Toolkit is a comprehensive library designed to simplify and enhance the management and execution of SQL queries in Crystal. This toolkit provides utilities for building, validating, and executing "
+    },
+    {
+      "name": "orestudio--orestudio",
+      "source": "./orestudio--orestudio",
+      "description": "Graphical wrapper over LSEG's Open Source Risk Engine (ORE)."
+    },
+    {
+      "name": "orestudio--orestudio",
+      "source": "./orestudio--orestudio",
+      "description": "Graphical wrapper over LSEG's Open Source Risk Engine (ORE)."
     },
     {
       "name": "lucianaib0318--geomind",
@@ -126084,6 +126119,16 @@
       "description": "Minimum shift keying top module for PLUTO FPGA"
     },
     {
+      "name": "nobbz--nobbz-vim",
+      "source": "./nobbz--nobbz-vim",
+      "description": "nobbz-vim"
+    },
+    {
+      "name": "nobbz--nobbz-vim",
+      "source": "./nobbz--nobbz-vim",
+      "description": "nobbz-vim"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -138209,6 +138254,21 @@
       "description": "Ghostly is an open-source, modern client application for the Ghost content management system. The goal is to provide a seamless, user-friendly experience for Ghost blog creators on mobile platforms."
     },
     {
+      "name": "azure--terraform-azurerm-avm-res-machinelearningservices-workspace",
+      "source": "./azure--terraform-azurerm-avm-res-machinelearningservices-workspace",
+      "description": "Terraform Azure Verified Resource Module for Machine Learning Services Workspace"
+    },
+    {
+      "name": "mfarr--obsidian-archive",
+      "source": "./mfarr--obsidian-archive",
+      "description": "An Obsidian plugin that enables you to quickly archive a single note or an entire folder of notes."
+    },
+    {
+      "name": "justinthelaw--maximize-github-runner-space",
+      "source": "./justinthelaw--maximize-github-runner-space",
+      "description": "A GitHub action to maximize the available disk space on free-tier GitHub Ubuntu runners"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -143497,6 +143557,16 @@
       "name": "codeforphilly--benefit-decision-toolkit",
       "source": "./codeforphilly--benefit-decision-toolkit",
       "description": "Build eligibility screening tools\u2026 *fast*"
+    },
+    {
+      "name": "au3c2--javsp",
+      "source": "./au3c2--javsp",
+      "description": "\u6c47\u603b\u591a\u7ad9\u70b9\u6570\u636e\u7684AV\u5143\u6570\u636e\u522e\u524a\u5668"
+    },
+    {
+      "name": "mann1x--osync",
+      "source": "./mann1x--osync",
+      "description": "Transfer a local ollama model to a remote ollama server"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -164452,6 +164522,11 @@
       "name": "carsonsgit--portfolio",
       "source": "./carsonsgit--portfolio",
       "description": "\ud83d\udc7e Personal portfolio showcasing some projects, education & experience, and a bit about me."
+    },
+    {
+      "name": "funinkina--openeffects",
+      "source": "./funinkina--openeffects",
+      "description": "A Linux Native webcam effects engine"
     },
     {
       "name": "yschimke--compose-ai-tools",
