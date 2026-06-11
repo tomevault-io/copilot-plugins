@@ -1,9 +1,9 @@
 {
   "name": "tobert--otel-cli",
   "displayName": "otel-cli",
-  "description": "otel-cli",
+  "description": "OpenTelemetry command-line tool for sending events from shell scripts & similar environments",
   "version": "1.0.0",
   "author": "tobert",
-  "homepage": "https://tomevault.io/claim/tobert",
+  "homepage": "https://github.com/tobert/otel-cli",
   "skills": []
 }
