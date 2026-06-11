@@ -1,0 +1,9 @@
+{
+  "name": "grafana--plugin-ci-workflows",
+  "displayName": "plugin-ci-workflows",
+  "description": "Re-usable GitHub Actions workflows for building, testing, releasing and deploying plugins",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/plugin-ci-workflows",
+  "skills": []
+}
