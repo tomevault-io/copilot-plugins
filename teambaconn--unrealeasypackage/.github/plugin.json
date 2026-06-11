@@ -1,0 +1,9 @@
+{
+  "name": "teambaconn--unrealeasypackage",
+  "displayName": "UnrealEasyPackage",
+  "description": "A lightweight build tool for Unreal Engine",
+  "version": "1.0.0",
+  "author": "TeamBaconn",
+  "homepage": "https://github.com/TeamBaconn/UnrealEasyPackage",
+  "skills": []
+}
