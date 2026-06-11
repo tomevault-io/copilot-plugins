@@ -1,0 +1,9 @@
+{
+  "name": "kossnocorp--genotype",
+  "displayName": "genotype",
+  "description": "Programming language that transpiles to other language types (TS, Python, etc)",
+  "version": "1.0.0",
+  "author": "kossnocorp",
+  "homepage": "https://github.com/kossnocorp/genotype",
+  "skills": []
+}
