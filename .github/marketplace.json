@@ -102144,6 +102144,11 @@
       "description": "MRPC: A mini rpc framework in cpp"
     },
     {
+      "name": "theorib--op-sqlite-turso-expo-react-native",
+      "source": "./theorib--op-sqlite-turso-expo-react-native",
+      "description": "This project is a test ground for connecting a Turso database to an Expo/React Native project using op-sqlite with libsql, leveraging Turso's embedded replicas."
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -104612,6 +104617,11 @@
       "name": "vectreal--vectreal-platform",
       "source": "./vectreal--vectreal-platform",
       "description": "Vectreal is an open platform for preparing, managing, and publishing 3D content for the web."
+    },
+    {
+      "name": "nohzafk--cli2eli",
+      "source": "./nohzafk--cli2eli",
+      "description": "Wrap any command-line tool to Emacs commands easily."
     },
     {
       "name": "iamtouchskyer--logex",
@@ -113194,6 +113204,11 @@
       "description": "Convert Zod schemas to Protocol Buffers definitions."
     },
     {
+      "name": "oborchers--pydantypes",
+      "source": "./oborchers--pydantypes",
+      "description": "Comprehensive collection of exotic pydantic types."
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -118809,6 +118824,11 @@
       "description": "A Python library to automate generating, parallelizing, and executing quantum programs."
     },
     {
+      "name": "mosugi--notro",
+      "source": "./mosugi--notro",
+      "description": "Notro is Notion, Astro, Tailwind CSS based CMS."
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -122107,6 +122127,16 @@
       "name": "kakajun--react-sketch-ruler",
       "source": "./kakajun--react-sketch-ruler",
       "description": "Zoom operation of page display in react"
+    },
+    {
+      "name": "panchi64--auto-ytdlp",
+      "source": "./panchi64--auto-ytdlp",
+      "description": "Use yt-dlp to download videos from a list of URLs. It features a user-friendly TUI, multithreading capabilities, and various quality-of-life improvements for an efficient and pleasant downloading expe"
+    },
+    {
+      "name": "tscircuit--circuit-to-svg",
+      "source": "./tscircuit--circuit-to-svg",
+      "description": "Convert Circuit JSON into an Schematic/PCB/Assembly SVGs"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -143174,6 +143204,31 @@
       "description": "Bitcoin L2 (based on ZK Stack) "
     },
     {
+      "name": "ttizze--evame",
+      "source": "./ttizze--evame",
+      "description": "evame"
+    },
+    {
+      "name": "tkestack--tke-extend-network-controller",
+      "source": "./tkestack--tke-extend-network-controller",
+      "description": "A Network Controller for TKE"
+    },
+    {
+      "name": "ttizze--evame",
+      "source": "./ttizze--evame",
+      "description": "evame"
+    },
+    {
+      "name": "tkestack--tke-extend-network-controller",
+      "source": "./tkestack--tke-extend-network-controller",
+      "description": "A Network Controller for TKE"
+    },
+    {
+      "name": "tkestack--tke-extend-network-controller",
+      "source": "./tkestack--tke-extend-network-controller",
+      "description": "A Network Controller for TKE"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -148907,6 +148962,16 @@
       "name": "peiman--ckeletin-go",
       "source": "./peiman--ckeletin-go",
       "description": "AI-first Go development framework. Ship production CLIs that AI agents build correctly."
+    },
+    {
+      "name": "ganainy--ai-mobile-ui-crawler",
+      "source": "./ganainy--ai-mobile-ui-crawler",
+      "description": "AI-powered Android app crawler using Google Gemini to intelligently explore mobile applications through visual and structural analysis, enabling efficient automated testing, coverage, and app discover"
+    },
+    {
+      "name": "taskylizard--kanikou",
+      "source": "./taskylizard--kanikou",
+      "description": "boat running on the taximachine"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
