@@ -1,0 +1,9 @@
+{
+  "name": "jianshuo--ccline",
+  "displayName": "ccline",
+  "description": "Type a thought at your zsh prompt, get an answer \u2014 and run the command it suggests",
+  "version": "1.0.0",
+  "author": "jianshuo",
+  "homepage": "https://github.com/jianshuo/ccline",
+  "skills": []
+}
