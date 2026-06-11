@@ -1,0 +1,59 @@
+## bodil
+
+> Dette repoet fører regnskap «i git» for et **passivt holdingselskap** og produserer det Wenche trenger for å sende inn til myndighetene. Du (Claude) gjør bokføringen via de tre skillene i `.claude/skills/`. Du sender **ingenting** selv, det gjør Wenche.
+
+# Bodil: driftsregler for Claude
+
+Dette repoet fører regnskap «i git» for et **passivt holdingselskap** og produserer det Wenche trenger for å sende inn til myndighetene. Du (Claude) gjør bokføringen via de tre skillene i `.claude/skills/`. Du sender **ingenting** selv, det gjør Wenche.
+
+## Scope
+
+Kun passive holdingselskaper: selskaper som eier aksjer i andre selskaper og ellers bare har bankkostnader (og eventuelt mottar utbytte). Driftsselskaper er utenfor scope. Møter du noe som ikke passer den låste modellen under, **flagg det og spør** i stedet for å gjette.
+
+## Låst bokføringsmodell
+
+| Hendelse i bankeksporten | Bokføres som |
+|---|---|
+| Penger inn fra eier | Lån fra aksjonær (gjeld) |
+| Utbytte mottatt fra datterselskap | Finansinntekt (utbytte fra datterselskap) |
+| Penger ut til eier | Utbytte (reduserer egenkapital) |
+| Alle andre utbetalinger | Driftskostnad |
+| Kjøp/salg av eierposter | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`) |
+
+Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap. Resultatet blir et lite underskudd lik driftskostnadene, med mindre det er mottatt utbytte.
+
+## Faste regler
+
+- **Stamdata leses fra `selskap.yaml`** (navn, org.nr., aksjekapital, aksjonærer med fødselsnummer, åpningsbalanse, eierposter). Finnes bare `selskap.example.yaml`, be brukeren kopiere den til `selskap.yaml` først.
+- **Fødselsnummer og nøkler skal aldri i git.** `selskap.yaml` og `<år>/config.yaml` er gitignored. Ikke skriv fødselsnummer inn i `regnskap.md` eller `protokoll.md` (de versjoneres).
+- **Flagg, ikke gjett.** Stopp på: transaksjoner som ikke passer modellen, uvanlig store poster, og utbytte uten dekning i fri egenkapital (`overkursfond + annen_egenkapital < 0` etter utdeling, jf. aksjeloven § 8-1).
+- **Balansen skal gå opp.** Sum eiendeler = sum egenkapital og gjeld. Hvis ikke, finn årsaken før du går videre.
+
+## Rekkefølge per regnskapsår (én avhengighet: utbytte må avgjøres før protokoll)
+
+1. **bokforing** → `<år>/regnskap.md` (resultat + balanse + transaksjonslogg)
+2. Avgjør utbytte (kun ved dekning i fri egenkapital) → oppdater balansen
+3. **protokoll** → `<år>/protokoll.md` (godkjenner regnskapet, vedtar utbytte)
+4. **wenche-config** → `<år>/config.yaml` + sjekkliste. Valgfri lokal validering med `wenche valider-aarsregnskap` hvis Wenche er installert (ikke påkrevd for web-brukere)
+5. Brukeren sender inn, på én av to måter: **hostet** (wenche.cloud → Tall → «Hent tall fra Bodil», last opp `config.yaml`, anbefalt) eller **self-hosted** (`cd <år> && wenche`). Fyller noter i Dokumenter-fanen og sender
+
+## Arbeidsdeling mot Wenche
+
+- Wenche eier innsending og datamodellen. Bodil produserer `config.yaml` mot Wenches feltnavn og selv-verifiserer med `wenche valider-aarsregnskap` når Wenche er installert lokalt (validering er valgfri; web-brukere på wenche.cloud trenger ikke installere Wenche).
+- Wenche genererer de fire pålagte notene selv. Bodil lager dem **ikke**. Note-input (antall ansatte = 0, lån til nærstående) fylles i Wenches Dokumenter-fane, ikke her.
+- `formuesverdi_aksjer` (RF-1088S post 209) kan ikke utledes fra bankeksporten. wenche-config flagger dette som manuelt input.
+
+## Versjonering og CHANGELOG
+
+- **Hver PR som endrer oppførsel** (skills, workflow, bokføringsmodell, feltmapping) navngir versjonen den utgir: skriv entryen under en `## [X.Y.Z]`-overskrift i `CHANGELOG.md`, ikke under en unavngitt «Ikke utgitt». Velg X.Y.Z etter SemVer-reglene øverst i CHANGELOG. Ren docs/whitespace uten oppførselsendring trenger ingen entry. Gjør dette uoppfordret når du forbereder PR-en.
+- **Er du først ute for den versjonen** (overskriften finnes ikke fra før): opprett `## [X.Y.Z]`, legg «Testet mot Wenche ≥ …»-linjen i seksjonen, legg til `[X.Y.Z]: …/compare/vFORRIGE...vX.Y.Z` i lenkeblokken nederst, og bump release-badgen i README til `vX.Y.Z` (den er statisk: `img.shields.io/badge/release-vX.Y.Z-blue`). Senere PR-er mot samme versjon føyer bare til en linje under overskriften.
+- **Wenche-versjon ett sted:** når en nyere Wenche adopteres, oppdater `WENCHE_PINNET` i `.github/workflows/wenche-kompatibilitet.yml` og «Testet mot Wenche ≥ …»-linjen i samme PR. CI feiler hvis de to ikke matcher.
+- Fordi CHANGELOG og badge navngis i PR-ene, er **`/release` bare en tag**: den verifiserer at main er ren og gaten grønn, og kjører `git tag` + GitHub Release med noten fra den navngitte seksjonen. Ingen egen versjons-bump-PR. Taggen er versjonen; ingen versjonsfil.
+
+## Ansvar
+
+Dette er et hjelpeverktøy, ikke en regnskapsfører. Genererte dokumenter må kontrolleres før innsending. Få en regnskapsfører til å se over år 1, særlig skatteberegningen, så har du en verifisert mal for resten.
+
+---
+> Source: [olefredrik/Bodil](https://github.com/olefredrik/Bodil) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-11 -->
