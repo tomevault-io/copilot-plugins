@@ -1,0 +1,9 @@
+{
+  "name": "quantalogic--qllm",
+  "displayName": "qllm",
+  "description": "QLLM: A powerful CLI for seamless interaction with multiple Large Language Models. Simplify AI workflows, streamline development, and unlock the potential of cutting-edge language models.  \u2b50 If you fi",
+  "version": "1.0.0",
+  "author": "quantalogic",
+  "homepage": "https://github.com/quantalogic/qllm",
+  "skills": []
+}
