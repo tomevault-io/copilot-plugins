@@ -1,0 +1,44 @@
+{
+  "name": "GEE-pro",
+  "owner": "xingguangYan",
+  "repo": "GEE-pro",
+  "description": "GEEPro \u2014 A comprehensive Google Earth Engine skill pack for Codex & Claude. Covers Python (ee/geemap) and JavaScript APIs with 15 reference guides, 10 runnable examples, ML workflows, time-series analysis, SAR/optical fusion, export optimization, and a bundled local knowledge base. 85 files, 33 MB, MIT license.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xingguangYan/GEE-pro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-11T12:30:26Z"
+}
