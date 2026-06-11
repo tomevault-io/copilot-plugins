@@ -7,14 +7,14 @@ CrossFrame Skill Suite：给 AI 用的中文结构诊断与成文技能组，包
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [xi-kari/crossframe-skill](https://github.com/xi-kari/crossframe-skill).
+Original source: `GEMINI.md` in [xi-kari/crossframe-skill](https://github.com/xi-kari/crossframe-skill).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [xi-kari/crossframe-skill](https://github.com/xi-kari/crossframe-skill) — a repo with 8+ stars on GitHub.
