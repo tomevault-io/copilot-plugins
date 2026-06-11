@@ -1,0 +1,9 @@
+{
+  "name": "spartypkp--open-source-legislation",
+  "displayName": "open-source-legislation",
+  "description": "Open-source global legislation data in an SQL knowledge-graph format ideal for use with LLMs: Download legislation data in bulk and immediately start building with our Python/Typescript SDKs. Democrat",
+  "version": "1.0.0",
+  "author": "spartypkp",
+  "homepage": "https://github.com/spartypkp/open-source-legislation",
+  "skills": []
+}
