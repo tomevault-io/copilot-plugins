@@ -1,0 +1,9 @@
+{
+  "name": "nubjs--nub",
+  "displayName": "nub",
+  "description": "The unified JavaScript toolkit that augments Node.js instead of trying to replace it",
+  "version": "1.0.0",
+  "author": "nubjs",
+  "homepage": "https://github.com/nubjs/nub",
+  "skills": []
+}
