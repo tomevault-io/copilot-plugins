@@ -1,0 +1,9 @@
+{
+  "name": "nohzafk--cli2eli",
+  "displayName": "cli2eli",
+  "description": "Wrap any command-line tool to Emacs commands easily.",
+  "version": "1.0.0",
+  "author": "nohzafk",
+  "homepage": "https://github.com/nohzafk/cli2eli",
+  "skills": []
+}
