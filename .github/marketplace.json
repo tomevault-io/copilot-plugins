@@ -187594,6 +187594,16 @@
       "description": " \ud83c\udfac 16-role AI film studio \u00b7 End-to-end short video pipeline \u00b7 Multi-agent \u00b7 Self-hosted"
     },
     {
+      "name": "xingguangyan--gee-pro",
+      "source": "./xingguangyan--gee-pro",
+      "description": "GEEPro \u2014 A comprehensive Google Earth Engine skill pack for Codex & Claude. Covers Python (ee/geemap) and JavaScript APIs with 15 reference guides, 10 runnable examples, ML workflows, time-series anal"
+    },
+    {
+      "name": "carlelieser--aria",
+      "source": "./carlelieser--aria",
+      "description": "A modular, cross-platform music player."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -201547,6 +201557,16 @@
       "name": "dianlight--srat",
       "source": "./dianlight--srat",
       "description": "SRAT (SambaNAS REST Administration Tool) is a new system designed to provide a simplified user interface for configuring SAMBA. It has been developed to work within Home Assistant."
+    },
+    {
+      "name": "xurb-nexus--nexus-harness",
+      "source": "./xurb-nexus--nexus-harness",
+      "description": "A pure-skill, host-agnostic AI engineering harness: PRD \u2192 TRD \u2192 Plan \u2192 TDD \u2192 dual-agent review \u2192 archive. Works with Claude Code, Cursor & Codex. No MCP required."
+    },
+    {
+      "name": "xurb-nexus--nexus-harness",
+      "source": "./xurb-nexus--nexus-harness",
+      "description": "A pure-skill, host-agnostic AI engineering harness: PRD \u2192 TRD \u2192 Plan \u2192 TDD \u2192 dual-agent review \u2192 archive. Works with Claude Code, Cursor & Codex. No MCP required."
     },
     {
       "name": "cheerhuan--save-your-token",
