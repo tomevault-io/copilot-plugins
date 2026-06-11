@@ -2,20 +2,22 @@
 
 > Sourced from [tobert/otel-cli](https://github.com/tobert/otel-cli) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+OpenTelemetry command-line tool for sending events from shell scripts & similar environments
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [tobert/otel-cli](https://github.com/tobert/otel-cli).
+Original source: `CLAUDE.md` in [tobert/otel-cli](https://github.com/tobert/otel-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/tobert)
+From [tobert/otel-cli](https://github.com/tobert/otel-cli) — a repo with 10+ stars on GitHub.
 
 ---
 
