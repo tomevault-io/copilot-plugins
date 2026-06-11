@@ -1,0 +1,9 @@
+{
+  "name": "brandhaug--add-function-return-types",
+  "displayName": "add-function-return-types",
+  "description": "A CLI tool to add explicit return types to TypeScript functions",
+  "version": "1.0.0",
+  "author": "brandhaug",
+  "homepage": "https://github.com/brandhaug/add-function-return-types",
+  "skills": []
+}
