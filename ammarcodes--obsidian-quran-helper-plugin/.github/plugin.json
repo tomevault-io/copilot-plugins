@@ -1,0 +1,9 @@
+{
+  "name": "ammarcodes--obsidian-quran-helper-plugin",
+  "displayName": "obsidian-quran-helper-plugin",
+  "description": "Obsidian plugin to find and insert any Quran Ayah (verse) in your notes",
+  "version": "1.0.0",
+  "author": "AmmarCodes",
+  "homepage": "https://github.com/AmmarCodes/obsidian-quran-helper-plugin",
+  "skills": []
+}
