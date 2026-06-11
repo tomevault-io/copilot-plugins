@@ -1,0 +1,9 @@
+{
+  "name": "davzucky--devcontainers-features-wolfi",
+  "displayName": "devcontainers-features-wolfi",
+  "description": "Devcontainer features to build on to of wolfi base",
+  "version": "1.0.0",
+  "author": "davzucky",
+  "homepage": "https://github.com/davzucky/devcontainers-features-wolfi",
+  "skills": []
+}
