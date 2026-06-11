@@ -7,11 +7,11 @@ Writing App
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [BumgeunSong/daily-writing-friends](https://github.com/BumgeunSong/daily-writing-friends).
+Original source: `CLAUDE.md` in [BumgeunSong/daily-writing-friends](https://github.com/BumgeunSong/daily-writing-friends).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
