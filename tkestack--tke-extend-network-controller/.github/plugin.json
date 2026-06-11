@@ -1,0 +1,9 @@
+{
+  "name": "tkestack--tke-extend-network-controller",
+  "displayName": "tke-extend-network-controller",
+  "description": "A Network Controller for TKE",
+  "version": "1.0.0",
+  "author": "tkestack",
+  "homepage": "https://github.com/tkestack/tke-extend-network-controller",
+  "skills": []
+}
