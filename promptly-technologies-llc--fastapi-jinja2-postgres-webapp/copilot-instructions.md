@@ -1,30 +1,14 @@
-## sqlmodel
+## tests
 
-> Satisfying the type checker when working with SQLModel
+> Building, running, and debugging tests
 
-Complex SQLModel queries sometimes cause the type checker to choke, even though the queries are valid.
+This project uses `uv` for dependency management, so tests must be run with `uv run pytest` to ensure they are run in the project's virtual environment.
 
-For instance, this error sometimes arises when using `selectinload`:
+The project uses test-driven development, so failing tests are often what we want. The goal is always to ensure that the code is high-quality and fulfills project goals in a production-like environment, *not* that the tests pass at any cost. Rigorous tests are always better than passing tests, and you will be rewarded for test quality!
 
-'error: Argument 1 to "selectinload" has incompatible type "SomeModel"; expected "Literal['*'] | QueryableAttribute[Any]"'
+Session-wide test setup is performed in `tests/conftest.py`. In that file, you will find fixtures that can and should be reused across the test suite, including fixtures for database setup and teardown. We have intentionally used PostgreSQL, not SQLite, in the test suite to keep the test environment as production-like as possible, and you should never change the database engine unless explicitly told to do so.
 
-The solution is to explicitly coerce the argument to the appropriate SQLModel type.
-
-E.g., we can resolve the error above by casting the eager-loaded relationship to InstrumentedAttribute:
-
-```python
-session.exec(select(SomeOtherModel).options(selectinload(cast(InstrumentedAttribute, SomeOtherModel.some_model))))
-```
-
-Similarly, sometimes we get type checker errors when using `delete` or comparison operators like `in_`:
-
-'error: Item "int" of "Optional[int]" has no attribute "in_"'
-
-These can be resolved by wrapping the column in `col` to let the type checker know these are column objects:
-
-```python
-session.exec(select(SomeModel).where(col(SomeModel.id).in_([1,2])))
-```
+If you find that the test database is not available, you may need to start Docker Desktop with `systemctl --user start docker-desktop` or the database with `docker compose up`. You may `grep` the `DB_PORT=` line from `.env` if you need to know what port the database is available on. (This environment variable is used for port mapping in `docker-compose.yml` as well as in the `get_connection_url` function defined in `utils/core/db.py`.) If dropping tables fails during test setup due to changes to the database schema, `docker compose down -v && docker compose up` may resolve the issue.
 
 ---
 > Source: [Promptly-Technologies-LLC/fastapi-jinja2-postgres-webapp](https://github.com/Promptly-Technologies-LLC/fastapi-jinja2-postgres-webapp) — distributed by [TomeVault](https://tomevault.io).
