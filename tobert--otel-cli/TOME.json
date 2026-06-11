@@ -2,9 +2,9 @@
   "name": "otel-cli",
   "owner": "tobert",
   "repo": "otel-cli",
-  "description": "",
+  "description": "OpenTelemetry command-line tool for sending events from shell scripts & similar environments",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/tobert",
+  "source_url": "https://github.com/tobert/otel-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T14:32:30Z"
+  "distributed_at": "2026-06-11T20:38:21Z"
 }
