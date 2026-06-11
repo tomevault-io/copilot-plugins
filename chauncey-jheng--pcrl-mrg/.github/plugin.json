@@ -1,0 +1,9 @@
+{
+  "name": "chauncey-jheng--pcrl-mrg",
+  "displayName": "PCRL-MRG",
+  "description": "This is the official code for the paper \"See Detail Say Clear: Towards Brain CT Report Generation via Pathological Clue-driven Representation Learning\" (EMNLP2024).",
+  "version": "1.0.0",
+  "author": "Chauncey-Jheng",
+  "homepage": "https://github.com/Chauncey-Jheng/PCRL-MRG",
+  "skills": []
+}
