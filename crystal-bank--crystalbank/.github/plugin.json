@@ -1,0 +1,9 @@
+{
+  "name": "crystal-bank--crystalbank",
+  "displayName": "crystalbank",
+  "description": "An open source core-banking system written in crystal",
+  "version": "1.0.0",
+  "author": "Crystal-Bank",
+  "homepage": "https://github.com/Crystal-Bank/crystalbank",
+  "skills": []
+}
