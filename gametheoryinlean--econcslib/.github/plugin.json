@@ -1,0 +1,9 @@
+{
+  "name": "gametheoryinlean--econcslib",
+  "displayName": "EconCSLib",
+  "description": "Lean 4 library and knowledge base for computational economics",
+  "version": "1.0.0",
+  "author": "gametheoryinlean",
+  "homepage": "https://github.com/gametheoryinlean/EconCSLib",
+  "skills": []
+}
