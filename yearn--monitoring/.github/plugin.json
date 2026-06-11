@@ -1,0 +1,9 @@
+{
+  "name": "yearn--monitoring",
+  "displayName": "monitoring",
+  "description": "Monitoring scripts for DeFi protocols to track key metrics and send alerts.",
+  "version": "1.0.0",
+  "author": "yearn",
+  "homepage": "https://github.com/yearn/monitoring",
+  "skills": []
+}
