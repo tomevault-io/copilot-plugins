@@ -1,0 +1,9 @@
+{
+  "name": "kcenon--thread-system",
+  "displayName": "thread_system",
+  "description": "\u26a1 Modern C++20 multithreading framework with 1.16M jobs/sec, lock-free queues, hazard pointers, and adaptive optimization",
+  "version": "1.0.0",
+  "author": "kcenon",
+  "homepage": "https://github.com/kcenon/thread_system",
+  "skills": []
+}
