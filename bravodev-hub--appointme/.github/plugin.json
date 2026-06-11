@@ -1,0 +1,9 @@
+{
+  "name": "bravodev-hub--appointme",
+  "displayName": "appointme",
+  "description": "AppointMe is a modular-monolith .NET SaaS template with multitenancy, auth, billing and deployment already wired.",
+  "version": "1.0.0",
+  "author": "bravodev-hub",
+  "homepage": "https://github.com/bravodev-hub/appointme",
+  "skills": []
+}
