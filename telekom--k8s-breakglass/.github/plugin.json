@@ -1,0 +1,9 @@
+{
+  "name": "telekom--k8s-breakglass",
+  "displayName": "k8s-breakglass",
+  "description": "Temporary privilege elevation for Kubernetes.",
+  "version": "1.0.0",
+  "author": "telekom",
+  "homepage": "https://github.com/telekom/k8s-breakglass",
+  "skills": []
+}
