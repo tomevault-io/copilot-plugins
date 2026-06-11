@@ -1,0 +1,9 @@
+{
+  "name": "darthunix--pg-fusion",
+  "displayName": "pg_fusion",
+  "description": "DataFusion executor in PostgreSQL",
+  "version": "1.0.0",
+  "author": "darthunix",
+  "homepage": "https://github.com/darthunix/pg_fusion",
+  "skills": []
+}
