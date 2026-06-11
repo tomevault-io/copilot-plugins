@@ -1,0 +1,75 @@
+## paytick
+
+> Use the release script to publish a new version:
+
+# Paytick Project Rules
+
+## Release Process
+
+### How to Release a New Version
+Use the release script to publish a new version:
+
+```bash
+release 1.0.7
+```
+
+Or run the script directly:
+```bash
+./scripts/update-version.sh 1.0.7
+```
+
+This will automatically:
+1. Update `MARKETING_VERSION` in Xcode project
+2. Commit the change
+3. Create tag `v1.0.7`
+4. Push to remote
+
+**Important:** The tag points to the commit with the correct version number, ensuring builds use the right version.
+
+### Setup Release Alias (one-time)
+Add to your `~/.zshrc`:
+```bash
+alias release='./scripts/update-version.sh'
+```
+
+## Git Commit Guidelines
+
+### Language
+- Commit messages MUST be written in English only
+- This applies to both subject line and body
+
+### Format
+Use conventional commits: `type: description`
+
+**Types:** `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `style`, `perf`
+
+**Rules:**
+- Subject line under 72 characters
+- Use imperative mood ("add feature" not "added feature")
+- No period at end of subject line
+
+### Examples
+```
+feat: add dark mode support for dashboard
+fix: resolve notification timezone offset issue
+refactor: simplify income calculation by removing lunch deduction
+perf: reduce timer frequency to prevent memory growth
+```
+
+## Code Style
+
+### Swift
+- Follow Swift API Design Guidelines
+- Use SwiftUI best practices
+- Prefer `calendar.component()` over `dateComponents(in:from:)` for timezone safety
+- All code comments in English
+
+### Architecture
+- Services handle business logic and data persistence
+- ViewModels manage UI state and coordinate services
+- Use Combine for reactive data binding
+- Timer callbacks should use `autoreleasepool` for memory efficiency
+
+---
+> Source: [miniLV/Paytick](https://github.com/miniLV/Paytick) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-11 -->
