@@ -1,0 +1,9 @@
+{
+  "name": "fluffylabs--pvm-debugger-old",
+  "displayName": "pvm-debugger-old",
+  "description": "JAM's PVM debugger and disassembler.",
+  "version": "1.0.0",
+  "author": "FluffyLabs",
+  "homepage": "https://github.com/FluffyLabs/pvm-debugger-old",
+  "skills": []
+}
