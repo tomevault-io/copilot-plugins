@@ -1,0 +1,9 @@
+{
+  "name": "anamkwon--programming-as-theory-building-skill",
+  "displayName": "programming-as-theory-building-skill",
+  "description": "Claude Code skill that applies Naur's Programming as Theory Building to coding-agent workflows.",
+  "version": "1.0.0",
+  "author": "AnamKwon",
+  "homepage": "https://github.com/AnamKwon/programming-as-theory-building-skill",
+  "skills": []
+}
