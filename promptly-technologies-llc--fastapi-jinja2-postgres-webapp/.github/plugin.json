@@ -1,0 +1,9 @@
+{
+  "name": "promptly-technologies-llc--fastapi-jinja2-postgres-webapp",
+  "displayName": "fastapi-jinja2-postgres-webapp",
+  "description": "A template webapp with a pure-Python FastAPI backend, frontend templating with Jinja2, and a Postgres database to power user auth",
+  "version": "1.0.0",
+  "author": "Promptly-Technologies-LLC",
+  "homepage": "https://github.com/Promptly-Technologies-LLC/fastapi-jinja2-postgres-webapp",
+  "skills": []
+}
