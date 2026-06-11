@@ -4,7 +4,7 @@
   "repo": "micos-2024",
   "description": "End-to-end Metagenomic Intelligence and Comprehensive Omics Suite (Mammoth Cup 2024 Entry) | \u7aef\u5230\u7aef\u5b8f\u57fa\u56e0\u7ec4\u7efc\u5408\u5206\u6790\u5e73\u53f0\uff08\u731b\u72b8\u676f2024\u53c2\u8d5b\u9879\u76ee\uff09",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LessUp/micos-2024",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T20:35:36Z"
+  "distributed_at": "2026-06-11T20:43:54Z"
 }
