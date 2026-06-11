@@ -1,0 +1,9 @@
+{
+  "name": "gerrysant--multimodalhugs",
+  "displayName": "multimodalhugs",
+  "description": "MultimodalHugs is an extension of Hugging Face that offers a generalized framework for training, evaluating, and using multimodal AI models with minimal code differences, ensuring seamless compatibili",
+  "version": "1.0.0",
+  "author": "GerrySant",
+  "homepage": "https://github.com/GerrySant/multimodalhugs",
+  "skills": []
+}
