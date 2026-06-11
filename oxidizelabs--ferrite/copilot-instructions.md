@@ -1,60 +1,63 @@
-## ferrite
+## buffer-management
 
-> Core Ferrite project guidelines and Rust best practices
+> Buffer pool management and LRU-K replacement guidelines
 
 
-# Ferrite Core Guidelines
+# Buffer Pool Management Guidelines
 
-You are an expert Rust developer working on **Ferrite**, a Database Management System (DBMS) inspired by CMU 15-445/645 course.
+When working with buffer pool components, follow these specific patterns and best practices.
 
-## Project Overview
+## Core Principles
 
-Ferrite is a full-featured DBMS written in Rust that implements core database components: buffer management, storage, SQL processing, concurrency control, recovery, and network protocols. It follows academic database architecture patterns with production-grade Rust implementation and supports both embedded and client-server modes.
+- **Always pin pages before use, unpin when done**
+- Handle page eviction carefully - check if page is dirty before eviction
+- Use proper locking hierarchy: page table → free list → individual pages
+- Implement LRU-K algorithm correctly for page replacement
 
-## Key Design Patterns
+## Buffer Pool Operations
 
-- **Layered architecture**: Clear separation between storage, execution, and network layers
-- **Trait-based polymorphism**: Extensive use of trait objects for page types, expressions, executors
-- **Shared ownership**: `Arc<RwLock<T>>` for shared mutable state, `Arc<T>` for immutable shared data
-- **Error handling**: Custom error hierarchies using `thiserror`, comprehensive error conversion chains
+### Page Management Pattern
+```rust
+// Pin page before use
+let page_guard = buffer_pool.fetch_page(page_id)?;
+// Use page
+let result = page_guard.read().process();
+// Page automatically unpinned when guard drops
+```
 
-## Core Coding Standards
+### Locking Hierarchy
+1. Acquire page table lock first
+2. Then free list lock if needed
+3. Finally individual page locks
+4. Always release in reverse order
 
-### Concurrency & Safety
-- Use `parking_lot::RwLock` for performance-critical locks (not `std::sync::RwLock`)
-- Prefer `Arc<RwLock<T>>` for shared mutable state
-- Use `AtomicU64` for counters and IDs
-- Always handle potential deadlocks in multi-lock scenarios
+### Error Handling in Buffer Operations
+- Handle `PageNotFound` errors gracefully
+- Check for buffer pool full conditions
+- Properly handle page eviction failures
+- Log page I/O errors with context
 
-### Error Handling
-- Define specific error types using `#[derive(Error, Debug)]` and `thiserror`
-- Implement comprehensive `From` conversions between error types
-- Use `Result<T, DBError>` as the primary return type
-- Log errors appropriately: `error!()` for serious issues, `warn!()` for recoverable problems
+## LRU-K Implementation
 
-### Memory Management
-- Use `PageId`, `FrameId` type aliases for clarity
-- Implement proper `Drop` traits for cleanup when needed
-- Be mindful of page pinning/unpinning in buffer pool operations
-- Use `Vec<Option<T>>` patterns for sparse collections
+- Track K most recent accesses for each page
+- Use efficient data structures for access history
+- Handle concurrent access to LRU-K data structures
+- Implement proper backward K-distance calculation
 
-### Naming Conventions
-- Use `snake_case` for functions, variables, modules
-- Use `PascalCase` for types, traits, enums
-- Use `SCREAMING_SNAKE_CASE` for constants
-- Use descriptive names: `page_id` not `pid`, `frame_id` not `fid`
+## Page Replacement Policy
 
-### Logging & Documentation
-- Use structured logging: `log::{trace, debug, info, warn, error}`
-- Include relevant context in log messages (page IDs, transaction IDs, etc.)
-- Document public APIs with `///` comments
-- Explain complex algorithms and invariants
+- Prefer pages with largest backward K-distance
+- Handle tie-breaking consistently
+- Consider page dirtiness in replacement decisions
+- Implement efficient eviction victim selection
 
-### Async/Sync Boundaries
-- Keep storage layer synchronous for simplicity
-- Use async only for network I/O and client handling
-- Convert between sync/async using `tokio::task::spawn_blocking` when needed
+## Performance Considerations
+
+- Minimize lock contention in hot paths
+- Use atomic operations for statistics
+- Batch page operations when possible
+- Avoid unnecessary page copies
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/OxidizeLabs) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [OxidizeLabs/ferrite](https://github.com/OxidizeLabs/ferrite) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-11 -->
