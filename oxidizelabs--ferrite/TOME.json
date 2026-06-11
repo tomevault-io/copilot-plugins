@@ -2,7 +2,7 @@
   "name": "ferrite",
   "owner": "OxidizeLabs",
   "repo": "ferrite",
-  "description": "",
+  "description": "The smallest, clearest, well-documented OLTP engine to demonstrate modern Rust concurrency and recovery design.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OxidizeLabs/ferrite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T16:15:52Z"
+  "distributed_at": "2026-06-11T20:31:55Z"
 }
