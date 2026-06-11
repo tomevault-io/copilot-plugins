@@ -1,0 +1,9 @@
+{
+  "name": "infinite-loop-factory--app-factory",
+  "displayName": "app-factory",
+  "description": "A platform for rapid, scalable app creation using reusable components and automation.",
+  "version": "1.0.0",
+  "author": "infinite-loop-factory",
+  "homepage": "https://github.com/infinite-loop-factory/app-factory",
+  "skills": []
+}
