@@ -1,0 +1,9 @@
+{
+  "name": "beards-lab--triseg-digital-twins",
+  "displayName": "TriSeg-Digital-Twins",
+  "description": "This repository contains the identification of digital twins for the manuscript Identification of Digital Twins to Guide Interpretable AI for Diagnosis and Prognosis in Heart Failure by Feng et al",
+  "version": "1.0.0",
+  "author": "beards-lab",
+  "homepage": "https://github.com/beards-lab/TriSeg-Digital-Twins",
+  "skills": []
+}
