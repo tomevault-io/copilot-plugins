@@ -4,7 +4,7 @@
   "repo": "scimitar",
   "description": "Verification tool for distributed protocols based on inductive proof decomposition.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/will62794/scimitar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T20:50:54Z"
+  "distributed_at": "2026-06-11T20:59:20Z"
 }
