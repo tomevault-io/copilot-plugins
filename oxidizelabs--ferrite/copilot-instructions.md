@@ -1,134 +1,162 @@
-## concurrency
+## networking
 
-> Transaction management and concurrency control guidelines
+> Network protocols, client-server communication guidelines
 
 
-# Concurrency Control Guidelines
+# Networking and Client-Server Guidelines
 
-When working with concurrency components, ensure ACID properties while maximizing performance.
+When working with networking components, focus on protocol correctness, connection management, and performance.
 
-## Transaction Management
+## Network Protocol Design
 
-### Transaction Lifecycle
-- Implement proper transaction state management
-- Handle transaction begin, commit, and abort correctly
-- Maintain transaction isolation levels
-- Integrate with recovery manager for durability
+### Packet Structure
+- Design clear, versioned packet formats
+- Use proper serialization for network messages
+- Handle endianness for cross-platform compatibility
+- Implement packet validation and checksums
+- Support protocol negotiation between versions
 
-### Transaction Context
+### Message Types
 ```rust
-// Proper transaction context usage
-let txn = transaction_manager.begin_transaction(isolation_level)?;
-let result = execute_with_transaction(&txn, || {
-    // Perform operations
-    Ok(result)
-});
-match result {
-    Ok(value) => txn.commit()?,
-    Err(e) => txn.abort()?,
+// Proper packet design pattern
+#[derive(Debug, Serialize, Deserialize)]
+pub enum DatabasePacket {
+    Connect { version: u32, database: String },
+    Query { sql: String, params: Vec<Value> },
+    Response { status: ResponseStatus, data: Vec<Tuple> },
+    Error { code: ErrorCode, message: String },
 }
 ```
 
-## Lock Manager Implementation
+## Server Implementation
 
-### Two-Phase Locking (2PL)
-- Implement proper 2PL protocol
-- Growing phase: acquire locks as needed
-- Shrinking phase: release all locks at once
-- No lock acquisition after first release
+### Connection Management
+- Handle multiple concurrent client connections
+- Implement proper connection lifecycle management
+- Use connection pooling for resource efficiency
+- Handle connection timeouts and cleanup
+- Implement graceful shutdown procedures
 
-### Lock Types and Compatibility
-- Implement shared (S) and exclusive (X) locks
-- Consider intention locks (IS, IX) for hierarchical locking
-- Maintain lock compatibility matrix
-- Handle lock upgrades and downgrades safely
-
-### Deadlock Handling
-- Implement deadlock detection algorithms
-- Use timeout-based deadlock resolution
-- Consider wound-wait or wait-die policies
-- Log deadlock occurrences for analysis
+### Async Server Pattern
+- Use `tokio` for async networking
+- Handle client connections in separate tasks
+- Implement proper error handling for network errors
+- Use efficient event loop for I/O multiplexing
 
 ```rust
-// Deadlock detection pattern
-impl LockManager {
-    fn detect_deadlock(&self, txn_id: TransactionId) -> Option<Vec<TransactionId>> {
-        // Build wait-for graph
-        // Detect cycles using DFS
-        // Return cycle if found
+// Proper async server pattern
+async fn handle_client(stream: TcpStream) -> Result<()> {
+    let mut connection = Connection::new(stream);
+    loop {
+        match connection.read_packet().await? {
+            Some(packet) => {
+                let response = process_packet(packet).await?;
+                connection.write_packet(response).await?;
+            }
+            None => break, // Client disconnected
+        }
+    }
+    Ok(())
+}
+```
+
+### Request Processing
+- Parse client requests correctly
+- Validate request parameters
+- Integrate with SQL execution engine
+- Handle query results efficiently
+- Implement proper error responses
+
+## Client Implementation
+
+### Connection Pool Management
+- Implement client connection pooling
+- Handle connection health checks
+- Implement connection retry logic
+- Manage connection lifecycle efficiently
+- Handle connection failures gracefully
+
+### Request/Response Handling
+- Implement proper request serialization
+- Handle response deserialization
+- Manage request timeouts
+- Implement request retries for transient failures
+- Handle partial responses correctly
+
+### Async Client Pattern
+```rust
+// Proper async client pattern
+impl DatabaseClient {
+    pub async fn execute_query(&self, sql: &str) -> Result<QueryResult> {
+        let mut conn = self.pool.get_connection().await?;
+        let packet = QueryPacket::new(sql);
+        conn.send_packet(packet).await?;
+        let response = conn.read_response().await?;
+        Ok(response.into_result()?)
     }
 }
 ```
 
-## Isolation Levels
+## Protocol Features
 
-### READ_UNCOMMITTED
-- Allow dirty reads
-- Minimal locking overhead
-- Suitable for read-heavy analytical workloads
+### Authentication
+- Implement secure authentication mechanisms
+- Support multiple authentication methods
+- Handle authentication state properly
+- Implement session management
+- Use secure password handling
 
-### READ_COMMITTED
-- Prevent dirty reads
-- Use short-duration read locks
-- Allow non-repeatable reads
+### Compression
+- Support optional message compression
+- Choose appropriate compression algorithms
+- Handle compression negotiation
+- Balance compression ratio vs. CPU usage
 
-### REPEATABLE_READ
-- Prevent dirty and non-repeatable reads
-- Hold read locks until transaction end
-- May allow phantom reads
+### Streaming Results
+- Support streaming large result sets
+- Implement proper backpressure handling
+- Handle partial result transmission
+- Support result set paging
+- Implement cursor-based pagination
 
-### SERIALIZABLE
-- Prevent all anomalies
-- Use predicate locking or validation
-- Highest isolation, lowest concurrency
+## Error Handling
 
-## Watermark Management
+### Network Error Management
+- Handle connection drops gracefully
+- Implement proper error propagation
+- Distinguish network vs. application errors
+- Log network errors with appropriate detail
+- Handle timeout scenarios properly
 
-### Transaction Ordering
-- Implement transaction timestamp ordering
-- Handle timestamp allocation efficiently
-- Use watermarks for garbage collection
-- Maintain transaction commit ordering
+### Protocol Error Handling
+- Validate protocol conformance
+- Handle malformed packets
+- Implement proper error codes
+- Provide meaningful error messages
+- Handle protocol version mismatches
 
-### Snapshot Isolation
-- Implement proper snapshot creation
-- Handle snapshot visibility rules
-- Manage snapshot cleanup
-- Optimize snapshot storage
-
-## Performance Optimization
-
-### Lock Granularity
-- Balance lock granularity with concurrency
-- Consider table-level vs. row-level locking
-- Implement hierarchical locking when beneficial
-- Use lock escalation to reduce overhead
-
-### Contention Reduction
-- Minimize critical section duration
-- Use lock-free data structures where possible
-- Implement proper backoff strategies
-- Consider partitioning hot resources
+## Performance Considerations
 
 ### Throughput Optimization
-- Batch lock acquisitions when possible
-- Use efficient data structures for lock tables
-- Minimize lock manager overhead
-- Profile and optimize lock contention points
+- Use efficient serialization formats
+- Minimize network round trips
+- Batch operations when possible
+- Implement connection keep-alive
+- Use appropriate buffer sizes
 
-## Recovery Integration
+### Latency Optimization
+- Minimize serialization overhead
+- Use TCP_NODELAY for low latency
+- Implement proper connection reuse
+- Avoid unnecessary memory allocations
+- Profile network bottlenecks
 
-### Write-Ahead Logging
-- WAL entries must be written before data modifications
-- Ensure proper log record ordering
-- Handle log force operations correctly
-- Integrate with checkpoint operations
-
-### Transaction Abort
-- Implement proper rollback semantics
-- Undo all transaction modifications
-- Release all acquired locks
-- Clean up transaction state properly
+### Resource Management
+- Limit concurrent connections appropriately
+- Implement proper memory management
+- Handle resource cleanup on errors
+- Monitor network resource usage
+- Implement circuit breaker patterns for reliability
 
 ---
 > Source: [OxidizeLabs/ferrite](https://github.com/OxidizeLabs/ferrite) — distributed by [TomeVault](https://tomevault.io).
