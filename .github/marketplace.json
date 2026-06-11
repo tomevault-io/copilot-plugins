@@ -143244,6 +143244,16 @@
       "description": "A Network Controller for TKE"
     },
     {
+      "name": "frenck--yamlrocks",
+      "source": "./frenck--yamlrocks",
+      "description": "Rock-solid YAML for Python, written in Rust."
+    },
+    {
+      "name": "frenck--yamlrocks",
+      "source": "./frenck--yamlrocks",
+      "description": "Rock-solid YAML for Python, written in Rust."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
