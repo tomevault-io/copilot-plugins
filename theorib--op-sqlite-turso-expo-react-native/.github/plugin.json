@@ -1,0 +1,9 @@
+{
+  "name": "theorib--op-sqlite-turso-expo-react-native",
+  "displayName": "op-sqlite-turso-expo-react-native",
+  "description": "This project is a test ground for connecting a Turso database to an Expo/React Native project using op-sqlite with libsql, leveraging Turso's embedded replicas.",
+  "version": "1.0.0",
+  "author": "theorib",
+  "homepage": "https://github.com/theorib/op-sqlite-turso-expo-react-native",
+  "skills": []
+}
