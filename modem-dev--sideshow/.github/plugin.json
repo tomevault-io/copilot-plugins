@@ -1,0 +1,9 @@
+{
+  "name": "modem-dev--sideshow",
+  "displayName": "sideshow",
+  "description": "A live visual surface for terminal coding agents \u2014 agents draw HTML snippets, you watch and comment back",
+  "version": "1.0.0",
+  "author": "modem-dev",
+  "homepage": "https://github.com/modem-dev/sideshow",
+  "skills": []
+}
