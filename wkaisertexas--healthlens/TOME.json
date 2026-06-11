@@ -4,7 +4,7 @@
   "repo": "HealthLens",
   "description": "Apple Health's missing \"Export to CSV\" button",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wkaisertexas/HealthLens",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T22:36:17Z"
+  "distributed_at": "2026-06-11T22:37:38Z"
 }
