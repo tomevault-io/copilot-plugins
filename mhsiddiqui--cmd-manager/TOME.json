@@ -1,0 +1,44 @@
+{
+  "name": "cmd-manager",
+  "owner": "mhsiddiqui",
+  "repo": "cmd-manager",
+  "description": "A package to write management commands for FastAPI, Flask and other similar frameworks using Python Click. Inspired by Django management commands",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mhsiddiqui/cmd-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-11T18:40:41Z"
+}
