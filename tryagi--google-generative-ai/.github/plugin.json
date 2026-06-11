@@ -1,0 +1,9 @@
+{
+  "name": "tryagi--google-generative-ai",
+  "displayName": "Google_Generative_AI",
+  "description": "C# SDK for the Google Gemini API -- chat completions, embeddings, and vision",
+  "version": "1.0.0",
+  "author": "tryAGI",
+  "homepage": "https://github.com/tryAGI/Google_Generative_AI",
+  "skills": []
+}
