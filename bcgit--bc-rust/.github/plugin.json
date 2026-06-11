@@ -1,0 +1,9 @@
+{
+  "name": "bcgit--bc-rust",
+  "displayName": "bc-rust",
+  "description": "Bouncy Castle Rust APIs (Mirror)",
+  "version": "1.0.0",
+  "author": "bcgit",
+  "homepage": "https://github.com/bcgit/bc-rust",
+  "skills": []
+}
