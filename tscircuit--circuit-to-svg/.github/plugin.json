@@ -1,0 +1,9 @@
+{
+  "name": "tscircuit--circuit-to-svg",
+  "displayName": "circuit-to-svg",
+  "description": "Convert Circuit JSON into an Schematic/PCB/Assembly SVGs",
+  "version": "1.0.0",
+  "author": "tscircuit",
+  "homepage": "https://github.com/tscircuit/circuit-to-svg",
+  "skills": []
+}
