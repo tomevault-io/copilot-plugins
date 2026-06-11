@@ -1,0 +1,9 @@
+{
+  "name": "johanzander--bess-manager",
+  "displayName": "bess-manager",
+  "description": "Home Assistant add-on for managing Growatt Solar Inverter & Battery System",
+  "version": "1.0.0",
+  "author": "johanzander",
+  "homepage": "https://github.com/johanzander/bess-manager",
+  "skills": []
+}
