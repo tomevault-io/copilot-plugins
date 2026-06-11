@@ -1,0 +1,9 @@
+{
+  "name": "i-shm--mlisp",
+  "displayName": "MLisp",
+  "description": "A Lisp dialect implementation in OCaml",
+  "version": "1.0.0",
+  "author": "i-shm",
+  "homepage": "https://github.com/i-shm/MLisp",
+  "skills": []
+}
