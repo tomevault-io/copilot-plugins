@@ -7,11 +7,11 @@ Seeknal is an all-in-one platform for data and AI/ML engineering
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mta-tech/seeknal](https://github.com/mta-tech/seeknal).
+Original source: `CLAUDE.md` in [mta-tech/seeknal](https://github.com/mta-tech/seeknal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
