@@ -7,11 +7,11 @@ A boxy, little multifunctional ESP32 cybersecurity/networking tool.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dkyazzentwatwa/cypherbox](https://github.com/dkyazzentwatwa/cypherbox).
+Original source: `CLAUDE.md` in [dkyazzentwatwa/cypherbox](https://github.com/dkyazzentwatwa/cypherbox).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
