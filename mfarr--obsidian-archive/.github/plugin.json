@@ -1,0 +1,9 @@
+{
+  "name": "mfarr--obsidian-archive",
+  "displayName": "obsidian-archive",
+  "description": "An Obsidian plugin that enables you to quickly archive a single note or an entire folder of notes.",
+  "version": "1.0.0",
+  "author": "mfarr",
+  "homepage": "https://github.com/mfarr/obsidian-archive",
+  "skills": []
+}
