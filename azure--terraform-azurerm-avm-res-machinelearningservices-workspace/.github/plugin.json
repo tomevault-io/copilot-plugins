@@ -1,0 +1,9 @@
+{
+  "name": "azure--terraform-azurerm-avm-res-machinelearningservices-workspace",
+  "displayName": "terraform-azurerm-avm-res-machinelearningservices-workspace",
+  "description": "Terraform Azure Verified Resource Module for Machine Learning Services Workspace",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-res-machinelearningservices-workspace",
+  "skills": []
+}
