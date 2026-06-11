@@ -1,0 +1,9 @@
+{
+  "name": "live9369--session-handoff-skill",
+  "displayName": "session-handoff-skill",
+  "description": "Save and restore agent role, task state, decisions, progress, blockers, and next steps across Cursor sessions, Claude Code sessions, or model switches.",
+  "version": "1.0.0",
+  "author": "live9369",
+  "homepage": "https://github.com/live9369/session-handoff-skill",
+  "skills": []
+}
