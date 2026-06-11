@@ -187509,6 +187509,26 @@
       "description": "omh; A hermes-agent workflow layer for routing, planning, evidence tracking, and coding handoff preparation, loop engineering."
     },
     {
+      "name": "dhairya3391--kari",
+      "source": "./dhairya3391--kari",
+      "description": "Kari (\u72e9\u308a) \u2014 hunt media from the terminal. Search, stream, and download anime, movies, TV shows & cartoons across 5+ providers with MPV/IINA/VLC/MX Player support, Trakt/AniList scrobbling, and auto-su"
+    },
+    {
+      "name": "jianshuo--ccline",
+      "source": "./jianshuo--ccline",
+      "description": "Type a thought at your zsh prompt, get an answer \u2014 and run the command it suggests"
+    },
+    {
+      "name": "ai2764--camera-lab",
+      "source": "./ai2764--camera-lab",
+      "description": "Camera-lab"
+    },
+    {
+      "name": "luowei729--openwrt-ipthrottle",
+      "source": "./luowei729--openwrt-ipthrottle",
+      "description": "OpenWrt-IPThrottle"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -201357,6 +201377,46 @@
       "name": "siliconjungle---shapeshift-labs-loom",
       "source": "./siliconjungle---shapeshift-labs-loom",
       "description": "-shapeshift-labs-loom"
+    },
+    {
+      "name": "lbj96347--nemotron-3-5-asr-ios",
+      "source": "./lbj96347--nemotron-3-5-asr-ios",
+      "description": "On-device, offline speech recognition for iPhone/iPad using NVIDIA's Nemotron-3.5-ASR Streaming 0.6B (multilingual) via CoreML.SwiftUI app with mic capture + audio file import, RNN-Tdecoding, and live"
+    },
+    {
+      "name": "piguo45--single-file-wbs",
+      "source": "./piguo45--single-file-wbs",
+      "description": "\u5358\u4e00HTML\u3067\u52d5\u304f WBS/\u30ac\u30f3\u30c8\uff0b\u30a4\u30ca\u30ba\u30de\u7dda\u30d3\u30e5\u30fc\u30a2\u3002\u30c7\u30fc\u30bf\u306fJSON1\u679a\u30fbClaude Code\u3067\u4fdd\u5b88 / Single-file WBS & Gantt viewer with inazuma (progress) line. Zero dependencies, AI-maintainable."
+    },
+    {
+      "name": "nubjs--nub",
+      "source": "./nubjs--nub",
+      "description": "The unified JavaScript toolkit that augments Node.js instead of trying to replace it"
+    },
+    {
+      "name": "topastro73-it--founder-os",
+      "source": "./topastro73-it--founder-os",
+      "description": "Agentic OS for B2B SaaS startups \u2014 run your startup like code"
+    },
+    {
+      "name": "adriancmurray--swarm",
+      "source": "./adriancmurray--swarm",
+      "description": "swarm"
+    },
+    {
+      "name": "nubjs--nub",
+      "source": "./nubjs--nub",
+      "description": "The unified JavaScript toolkit that augments Node.js instead of trying to replace it"
+    },
+    {
+      "name": "ambrosecltr--projectfinn",
+      "source": "./ambrosecltr--projectfinn",
+      "description": "A more personal intelligence, in an interface you already use every day."
+    },
+    {
+      "name": "olefredrik--bodil",
+      "source": "./olefredrik--bodil",
+      "description": "Regnskap for holdingselskap, drevet av Claude Code. F\u00f8lgeverkt\u00f8y til Wenche, som h\u00e5ndterer innsending og rapportering til myndighetene via Altinn"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -311177,6 +311237,146 @@
       "name": "kimly888--project-x-deploy",
       "source": "./kimly888--project-x-deploy",
       "description": "project-x-deploy"
+    },
+    {
+      "name": "praveenchigurupati7--backstage",
+      "source": "./praveenchigurupati7--backstage",
+      "description": "Backstage POC"
+    },
+    {
+      "name": "logus-lgpd--logus-lgpd",
+      "source": "./logus-lgpd--logus-lgpd",
+      "description": "logus-lgpd"
+    },
+    {
+      "name": "kent12t--redis-passion-v2",
+      "source": "./kent12t--redis-passion-v2",
+      "description": "redis-passion-v2"
+    },
+    {
+      "name": "b0oom--smartclass-uniapp-frontend",
+      "source": "./b0oom--smartclass-uniapp-frontend",
+      "description": "smartclass-uniapp-frontend"
+    },
+    {
+      "name": "abvstudio-net--screenplay",
+      "source": "./abvstudio-net--screenplay",
+      "description": "screenplay"
+    },
+    {
+      "name": "areimel--ccstatusline-scripts",
+      "source": "./areimel--ccstatusline-scripts",
+      "description": "ccstatusline-scripts"
+    },
+    {
+      "name": "samayaraj-2026--next-app-ats",
+      "source": "./samayaraj-2026--next-app-ats",
+      "description": "next-app-ats"
+    },
+    {
+      "name": "vespergo--ldschristian",
+      "source": "./vespergo--ldschristian",
+      "description": "LDSChristian"
+    },
+    {
+      "name": "dstang21--kccbl-org",
+      "source": "./dstang21--kccbl-org",
+      "description": "kccbl_org"
+    },
+    {
+      "name": "suhasdrona--claude-code-devops-agent",
+      "source": "./suhasdrona--claude-code-devops-agent",
+      "description": "claude-code-devops-agent"
+    },
+    {
+      "name": "iiranlin--chongqing-web",
+      "source": "./iiranlin--chongqing-web",
+      "description": "\u4f7f\u7528GSAP\u52a8\u753b\u5b9e\u73b0\u91cd\u5e86\u65c5\u6e38\u9875\u63a8\u8350"
+    },
+    {
+      "name": "sawnamc--brain-vault",
+      "source": "./sawnamc--brain-vault",
+      "description": "Brain-Vault"
+    },
+    {
+      "name": "tmmcaleer--mark",
+      "source": "./tmmcaleer--mark",
+      "description": "mark"
+    },
+    {
+      "name": "moneyperfect--youtube",
+      "source": "./moneyperfect--youtube",
+      "description": "YouTube-"
+    },
+    {
+      "name": "logus-lgpd--logus-lgpd",
+      "source": "./logus-lgpd--logus-lgpd",
+      "description": "logus-lgpd"
+    },
+    {
+      "name": "vanveekoo--social-links-profile",
+      "source": "./vanveekoo--social-links-profile",
+      "description": "A responsive social links profile card built with HTML and CSS as part of a Frontend Mentor challenge."
+    },
+    {
+      "name": "thbgit--aipulse",
+      "source": "./thbgit--aipulse",
+      "description": "aipulse"
+    },
+    {
+      "name": "thematrixofink--offloading-myself",
+      "source": "./thematrixofink--offloading-myself",
+      "description": "offloading-myself"
+    },
+    {
+      "name": "ntan0409--todolist",
+      "source": "./ntan0409--todolist",
+      "description": "TodoList"
+    },
+    {
+      "name": "sarvesh-pandey-debug--agentic-frontend",
+      "source": "./sarvesh-pandey-debug--agentic-frontend",
+      "description": "agentic-frontend"
+    },
+    {
+      "name": "mbaeevans1-maker--vip-fashion-frontend",
+      "source": "./mbaeevans1-maker--vip-fashion-frontend",
+      "description": "vip-fashion-frontend"
+    },
+    {
+      "name": "praveenchigurupati7--backstage",
+      "source": "./praveenchigurupati7--backstage",
+      "description": "Backstage POC"
+    },
+    {
+      "name": "cfyj00--matrix-synthesis",
+      "source": "./cfyj00--matrix-synthesis",
+      "description": "matrix-synthesis"
+    },
+    {
+      "name": "jjh044--reseller-research",
+      "source": "./jjh044--reseller-research",
+      "description": "Clothing brand research in seconds"
+    },
+    {
+      "name": "vanveekoo--social-links-profile",
+      "source": "./vanveekoo--social-links-profile",
+      "description": "A responsive social links profile card built with HTML and CSS as part of a Frontend Mentor challenge."
+    },
+    {
+      "name": "kartik-bhat-qp--slide-video-splitter",
+      "source": "./kartik-bhat-qp--slide-video-splitter",
+      "description": "Ability to create videos matching deck"
+    },
+    {
+      "name": "thematrixofink--offloading-myself",
+      "source": "./thematrixofink--offloading-myself",
+      "description": "offloading-myself"
+    },
+    {
+      "name": "grizzdank--lfgwebsite",
+      "source": "./grizzdank--lfgwebsite",
+      "description": "Refresh LFG Consulting website"
     }
   ]
 }
