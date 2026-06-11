@@ -1,0 +1,9 @@
+{
+  "name": "dynamical-org--notebooks",
+  "displayName": "notebooks",
+  "description": "Example use of dynamical.org weather datasets",
+  "version": "1.0.0",
+  "author": "dynamical-org",
+  "homepage": "https://github.com/dynamical-org/notebooks",
+  "skills": []
+}
