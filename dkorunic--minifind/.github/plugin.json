@@ -1,0 +1,9 @@
+{
+  "name": "dkorunic--minifind",
+  "displayName": "minifind",
+  "description": "Minimal find reimplementation with the emphasis on speed",
+  "version": "1.0.0",
+  "author": "dkorunic",
+  "homepage": "https://github.com/dkorunic/minifind",
+  "skills": []
+}
