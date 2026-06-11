@@ -1,0 +1,9 @@
+{
+  "name": "justinthelaw--maximize-github-runner-space",
+  "displayName": "maximize-github-runner-space",
+  "description": "A GitHub action to maximize the available disk space on free-tier GitHub Ubuntu runners",
+  "version": "1.0.0",
+  "author": "justinthelaw",
+  "homepage": "https://github.com/justinthelaw/maximize-github-runner-space",
+  "skills": []
+}
