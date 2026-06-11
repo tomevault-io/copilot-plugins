@@ -1,0 +1,9 @@
+{
+  "name": "nuke-on-rails--nuke-on-rails",
+  "displayName": "nuke-on-rails",
+  "description": "The Rails audit skill for AI coding agents, ranked by blast radius. \ud83d\ude82\u2622\ufe0f",
+  "version": "1.0.0",
+  "author": "nuke-on-rails",
+  "homepage": "https://github.com/nuke-on-rails/nuke-on-rails",
+  "skills": []
+}
