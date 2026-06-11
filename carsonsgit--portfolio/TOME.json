@@ -4,7 +4,7 @@
   "repo": "portfolio",
   "description": "\ud83d\udc7e Personal portfolio showcasing some projects, education & experience, and a bit about me.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/carsonSgit/portfolio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T20:37:53Z"
+  "distributed_at": "2026-06-11T20:45:46Z"
 }
