@@ -1,0 +1,9 @@
+{
+  "name": "wmitsuda--mdbx-navigator",
+  "displayName": "mdbx-navigator",
+  "description": "A simple UI for browsing libmdbx databases",
+  "version": "1.0.0",
+  "author": "wmitsuda",
+  "homepage": "https://github.com/wmitsuda/mdbx-navigator",
+  "skills": []
+}
