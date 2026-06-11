@@ -4,7 +4,7 @@
   "repo": "recally",
   "description": "Recally \u2728 - AI-powered memory assistant for organizing digital content. Capture web articles, Twitter threads, videos, and more via browser extensions or Telegram. Features AI summarization, smart tagging, semantic search, and self-hosting. Open source (AGPLv3) alternative to Pocket/Readwise with enhanced AI capabilities and privacy control.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/recally-io/recally",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T21:30:24Z"
+  "distributed_at": "2026-06-11T21:30:52Z"
 }
