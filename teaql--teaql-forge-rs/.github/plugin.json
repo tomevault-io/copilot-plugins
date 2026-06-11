@@ -1,0 +1,9 @@
+{
+  "name": "teaql--teaql-forge-rs",
+  "displayName": "teaql-forge-rs",
+  "description": "Tiny generation service for TeaQL, written in Rust.",
+  "version": "1.0.0",
+  "author": "teaql",
+  "homepage": "https://github.com/teaql/teaql-forge-rs",
+  "skills": []
+}
