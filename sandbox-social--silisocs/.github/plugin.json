@@ -1,0 +1,9 @@
+{
+  "name": "sandbox-social--silisocs",
+  "displayName": "silisocs",
+  "description": "Silicon Society Sandbox (SiliSocS) is an EASE-configured generative multi-agent simulation",
+  "version": "1.0.0",
+  "author": "sandbox-social",
+  "homepage": "https://github.com/sandbox-social/silisocs",
+  "skills": []
+}
