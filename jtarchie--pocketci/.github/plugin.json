@@ -1,0 +1,9 @@
+{
+  "name": "jtarchie--pocketci",
+  "displayName": "pocketci",
+  "description": "local-first CI/CD system",
+  "version": "1.0.0",
+  "author": "jtarchie",
+  "homepage": "https://github.com/jtarchie/pocketci",
+  "skills": []
+}
