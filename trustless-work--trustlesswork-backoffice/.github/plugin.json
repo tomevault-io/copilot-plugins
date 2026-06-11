@@ -1,0 +1,9 @@
+{
+  "name": "trustless-work--trustlesswork-backoffice",
+  "displayName": "trustlesswork-backoffice",
+  "description": "POC of a decentralized application (dApp) to enhance trust in agency-client relationships using blockchain. It enables trustless payments via smart contracts, securing funds in escrow until milestones",
+  "version": "1.0.0",
+  "author": "Trustless-Work",
+  "homepage": "https://github.com/Trustless-Work/trustlesswork-backoffice",
+  "skills": []
+}
