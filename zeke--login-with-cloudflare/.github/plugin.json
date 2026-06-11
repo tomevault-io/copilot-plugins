@@ -1,0 +1,9 @@
+{
+  "name": "zeke--login-with-cloudflare",
+  "displayName": "login-with-cloudflare",
+  "description": "Demo and reference implementation for Cloudflare self-managed OAuth clients",
+  "version": "1.0.0",
+  "author": "zeke",
+  "homepage": "https://github.com/zeke/login-with-cloudflare",
+  "skills": []
+}
