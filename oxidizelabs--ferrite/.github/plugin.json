@@ -1,7 +1,7 @@
 {
   "name": "oxidizelabs--ferrite",
   "displayName": "ferrite",
-  "description": "ferrite",
+  "description": "The smallest, clearest, well-documented OLTP engine to demonstrate modern Rust concurrency and recovery design.",
   "version": "1.0.0",
   "author": "OxidizeLabs",
   "homepage": "https://github.com/OxidizeLabs/ferrite",
