@@ -1,0 +1,9 @@
+{
+  "name": "iftahs--claude-dashboard",
+  "displayName": "claude-dashboard",
+  "description": "Beautiful local dashboard for Claude Code usage \u2014 5h blocks, weekly trends, model & tool breakdown, activity heatmap. Reads ~/.claude logs, no API key.",
+  "version": "1.0.0",
+  "author": "iftahs",
+  "homepage": "https://github.com/iftahs/claude-dashboard",
+  "skills": []
+}
