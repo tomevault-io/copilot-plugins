@@ -1,0 +1,9 @@
+{
+  "name": "nextcloud--sharereview",
+  "displayName": "sharereview",
+  "description": "Review and audit all shares",
+  "version": "1.0.0",
+  "author": "nextcloud",
+  "homepage": "https://github.com/nextcloud/sharereview",
+  "skills": []
+}
