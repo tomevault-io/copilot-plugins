@@ -1,0 +1,9 @@
+{
+  "name": "mosugi--notro",
+  "displayName": "notro",
+  "description": "Notro is Notion, Astro, Tailwind CSS based CMS.",
+  "version": "1.0.0",
+  "author": "mosugi",
+  "homepage": "https://github.com/mosugi/notro",
+  "skills": []
+}
