@@ -1,124 +1,171 @@
-## storage
+## testing
 
-> Storage layer, indexing, and page management guidelines
+> Comprehensive testing strategy for database components requiring both correctness and performance validation.
 
+# Testing Guidelines
 
-# Storage Layer Guidelines
+Comprehensive testing strategy for database components requiring both correctness and performance validation.
 
-When working with storage components, focus on data durability, efficient layout, and index performance.
+## Unit Testing
 
-## Page Layout Design
+### Component Testing
+- Write unit tests for individual components
+- Test each public function and method
+- Use dependency injection for testability
+- Mock complex dependencies with `mockall`
+- Test error conditions and edge cases
 
-### Page Structure Principles
-- Page layout must be carefully designed for performance
-- Align data to word boundaries where possible
-- Use fixed-size headers for consistent access
-- Implement proper page checksum verification
-- Handle page fragmentation appropriately
-
-### Serialization/Deserialization
-- Implement proper serialization for persistence
-- Handle endianness consistently
-- Use zero-copy deserialization where possible
-- Validate data integrity during deserialization
-- Handle schema evolution gracefully
-
+### Test Organization
 ```rust
-// Proper page serialization pattern
-impl Serialize for MyPage {
-    fn serialize(&self, buf: &mut [u8]) -> Result<usize> {
-        let mut offset = 0;
-        // Write header first
-        offset += self.header.serialize(&mut buf[offset..])?;
-        // Then write data
-        offset += self.data.serialize(&mut buf[offset..])?;
-        Ok(offset)
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mockall::predicate::*;
+
+    #[test]
+    fn test_buffer_pool_fetch_page() {
+        let mut buffer_pool = BufferPool::new(10);
+        let page_id = PageId::new(1);
+
+        // Test successful page fetch
+        let page = buffer_pool.fetch_page(page_id).unwrap();
+        assert!(page.is_pinned());
+
+        // Test page pinning behavior
+        assert_eq!(buffer_pool.get_pin_count(page_id), 1);
     }
 }
 ```
 
-## B+ Tree Implementation
+### Edge Case Testing
+- Test with empty tables and zero-length data
+- Test with full buffer pools and resource exhaustion
+- Test boundary conditions (max values, edge sizes)
+- Test malformed input and invalid states
+- Test concurrent access scenarios
 
-### Invariant Maintenance
-- B+ tree operations must maintain all invariants
-- Leaf nodes contain actual data, internal nodes contain keys
-- All leaf nodes at same level
-- Keys in internal nodes guide search
-- Handle split and merge operations correctly
+## Integration Testing
 
-### Concurrent B+ Tree Operations
-- Use crab protocol for concurrent access
-- Handle structural modifications atomically
-- Implement proper lock coupling
-- Avoid deadlocks in tree traversal
+### End-to-End Workflows
+- Test complete SQL execution pipelines
+- Test transaction commit/abort workflows
+- Test recovery scenarios after crashes
+- Test client-server communication flows
+- Test index operations with real data
 
-### B+ Tree Performance
-- Minimize tree height through proper fan-out
-- Cache frequently accessed internal nodes
-- Batch leaf modifications when possible
-- Use bulk loading for initial tree construction
+### Multi-Component Testing
+```rust
+#[tokio::test]
+async fn test_sql_execution_pipeline() {
+    let db = TestDatabase::new().await;
 
-## Hash Table Implementation
+    // Create table
+    db.execute("CREATE TABLE users (id INT, name VARCHAR(50))").await?;
 
-### Hash Function Design
-- Use consistent, high-quality hash functions
-- Handle hash collisions gracefully
-- Implement proper hash table resizing
-- Maintain load factor within reasonable bounds
+    // Insert data
+    db.execute("INSERT INTO users VALUES (1, 'Alice')").await?;
 
-### Extendable Hash Tables
-- Implement global and local depth correctly
-- Handle bucket splits and merges
-- Manage directory growth efficiently
-- Handle concurrent access to shared structures
+    // Query data
+    let result = db.query("SELECT * FROM users WHERE id = 1").await?;
+    assert_eq!(result.len(), 1);
+    assert_eq!(result[0].get_string("name"), "Alice");
+}
+```
 
-### Linear Probe Hash Tables
-- Handle probe sequences correctly
-- Implement proper deletion with tombstones
-- Manage clustering and probe distance
-- Optimize for cache performance
+## Concurrency Testing
 
-## Table Heap Management
+### Race Condition Detection
+- Test concurrent buffer pool access
+- Test concurrent transaction execution
+- Test lock manager under contention
+- Use tools like `loom` for deterministic testing
+- Test deadlock detection and resolution
 
-### Record Storage
-- Implement slotted page format for variable-length records
-- Handle record insertion, deletion, and updates
-- Manage free space tracking
-- Implement record versioning for MVCC
+### Stress Testing
+```rust
+#[tokio::test]
+async fn test_concurrent_transactions() {
+    let db = TestDatabase::new().await;
+    let handles = (0..100).map(|i| {
+        let db = db.clone();
+        tokio::spawn(async move {
+            let txn = db.begin_transaction().await?;
+            db.execute_with_txn(&txn, "INSERT INTO test VALUES (?)", &[i]).await?;
+            txn.commit().await
+        })
+    }).collect::<Vec<_>>();
 
-### Page Space Management
-- Track free space efficiently
-- Handle page compaction when needed
-- Implement proper space allocation policies
-- Handle large records that span pages
+    // All transactions should complete successfully
+    for handle in handles {
+        handle.await??;
+    }
+}
+```
 
-## Disk Management
+## Performance Testing
 
-### I/O Operations
-- Implement proper async I/O where beneficial
-- Handle I/O errors and retries gracefully
-- Use direct I/O for performance when appropriate
-- Batch I/O operations to reduce system calls
+### Benchmarking Critical Paths
+- Benchmark buffer pool operations
+- Benchmark index operations (B+ tree, hash tables)
+- Benchmark SQL query execution
+- Use `criterion` for statistical benchmarking
+- Profile memory allocations and lock contention
 
-### Data Durability
-- Ensure write ordering for consistency
-- Implement proper fsync usage
-- Handle partial writes correctly
-- Verify data integrity after writes
+### Benchmark Organization
+```rust
+use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-## Index Management
+fn benchmark_buffer_pool(c: &mut Criterion) {
+    c.bench_function("buffer_pool_fetch", |b| {
+        let buffer_pool = BufferPool::new(1000);
+        b.iter(|| {
+            let page_id = PageId::new(black_box(42));
+            buffer_pool.fetch_page(page_id)
+        });
+    });
+}
 
-### Index Selection
-- Choose appropriate index type for workload
-- Consider memory vs. disk trade-offs
-- Handle index maintenance during updates
-- Implement proper index statistics collection
+criterion_group!(benches, benchmark_buffer_pool);
+criterion_main!(benches);
+```
 
-### Index Performance
-- Minimize index overhead for writes
-- Optimize index scans for range queries
-- Handle index fragmentation
-- Consider index compression where beneficial
+## Test Data Management
+
+### Test Database Setup
+- Use isolated test databases for each test
+- Implement proper test cleanup
+- Use deterministic test data
+- Support test data fixtures
+- Handle test database migration
+
+### Mock Objects
+- Mock disk manager for unit tests
+- Mock network connections for protocol tests
+- Mock system time for deterministic tests
+- Use dependency injection for mockability
+
+## Testing Best Practices
+
+### Test Reliability
+- Use `cargo test -- --nocapture` to see log output
+- Set `RUST_LOG=debug` for detailed test logging
+- Make tests deterministic and repeatable
+- Avoid timing-dependent tests where possible
+- Use proper cleanup in test teardown
+
+### Test Coverage
+- Aim for high code coverage on critical paths
+- Test both happy path and error conditions
+- Include regression tests for bug fixes
+- Test with different configuration options
+- Test cross-platform compatibility
+
+### Debugging Test Failures
+- Use `addr2line` for stack trace debugging
+- Enable detailed logging in failing tests
+- Use `cargo test --test test_name` for isolated test runs
+- Consider using `--nocapture` flag for printf debugging
+- Profile test performance with `cargo flamegraph`
 
 ---
 > Source: [OxidizeLabs/ferrite](https://github.com/OxidizeLabs/ferrite) — distributed by [TomeVault](https://tomevault.io).
