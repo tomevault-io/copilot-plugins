@@ -1,0 +1,44 @@
+{
+  "name": "nemotron-3.5-asr-ios",
+  "owner": "lbj96347",
+  "repo": "nemotron-3.5-asr-ios",
+  "description": "On-device, offline speech recognition for iPhone/iPad using NVIDIA's Nemotron-3.5-ASR Streaming 0.6B (multilingual) via CoreML.SwiftUI app with mic capture + audio file import, RNN-Tdecoding, and live benchmark metrics (latency, RTF, memory).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lbj96347/nemotron-3.5-asr-ios",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-11T02:32:56Z"
+}
