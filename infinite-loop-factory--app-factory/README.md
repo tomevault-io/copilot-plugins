@@ -7,13 +7,13 @@ A platform for rapid, scalable app creation using reusable components and automa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [infinite-loop-factory/app-factory](https://github.com/infinite-loop-factory/app-factory).
+Original source: `.cursor/rules/*.mdc` in [infinite-loop-factory/app-factory](https://github.com/infinite-loop-factory/app-factory).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
