@@ -143309,6 +143309,11 @@
       "description": "Sparkle Design\u306eReact\u5b9f\u88c5"
     },
     {
+      "name": "zju-cssu-dev--home",
+      "source": "./zju-cssu-dev--home",
+      "description": "home"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -164137,6 +164142,36 @@
       "name": "overtrue--pinyin-rs",
       "source": "./overtrue--pinyin-rs",
       "description": "pinyin.rs"
+    },
+    {
+      "name": "josh--lazy-nvim-nix",
+      "source": "./josh--lazy-nvim-nix",
+      "description": "Lazy Neovim on Nix"
+    },
+    {
+      "name": "hcekne--risk-game",
+      "source": "./hcekne--risk-game",
+      "description": "risk-game"
+    },
+    {
+      "name": "hcekne--risk-game",
+      "source": "./hcekne--risk-game",
+      "description": "risk-game"
+    },
+    {
+      "name": "yearn--monitoring",
+      "source": "./yearn--monitoring",
+      "description": "Monitoring scripts for DeFi protocols to track key metrics and send alerts."
+    },
+    {
+      "name": "handy-sun--rcheat",
+      "source": "./handy-sun--rcheat",
+      "description": "Get/modify variable's value in another Linux running process"
+    },
+    {
+      "name": "hcekne--risk-game",
+      "source": "./hcekne--risk-game",
+      "description": "risk-game"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -187834,6 +187869,66 @@
       "description": "Writing App"
     },
     {
+      "name": "maitrungduc1410--react-native-shared-hero",
+      "source": "./maitrungduc1410--react-native-shared-hero",
+      "description": "\ud83c\udf20 High-performance native shared element (hero) transitions for React Native, router-agnostic"
+    },
+    {
+      "name": "dkorunic--minifind",
+      "source": "./dkorunic--minifind",
+      "description": "Minimal find reimplementation with the emphasis on speed"
+    },
+    {
+      "name": "superluminar-io--pinky-promise",
+      "source": "./superluminar-io--pinky-promise",
+      "description": "pinky-promise"
+    },
+    {
+      "name": "andresz74--youtube-transcript-extension",
+      "source": "./andresz74--youtube-transcript-extension",
+      "description": "YouTube Transcript Extension is a Chrome extension that allows users to easily extract the transcript of any YouTube video. "
+    },
+    {
+      "name": "dkorunic--minifind",
+      "source": "./dkorunic--minifind",
+      "description": "Minimal find reimplementation with the emphasis on speed"
+    },
+    {
+      "name": "selimanac--defold-daabbcc3d",
+      "source": "./selimanac--defold-daabbcc3d",
+      "description": "defold-daabbcc3d"
+    },
+    {
+      "name": "mhsiddiqui--cmd-manager",
+      "source": "./mhsiddiqui--cmd-manager",
+      "description": "A package to write management commands for FastAPI, Flask and other similar frameworks using Python Click. Inspired by Django management commands"
+    },
+    {
+      "name": "davzucky--devcontainers-features-wolfi",
+      "source": "./davzucky--devcontainers-features-wolfi",
+      "description": "Devcontainer features to build on to of wolfi base"
+    },
+    {
+      "name": "davzucky--devcontainers-features-wolfi",
+      "source": "./davzucky--devcontainers-features-wolfi",
+      "description": "Devcontainer features to build on to of wolfi base"
+    },
+    {
+      "name": "midori-ai-oss--stained-glass-odyssey-endless",
+      "source": "./midori-ai-oss--stained-glass-odyssey-endless",
+      "description": "Stained-Glass-Odyssey-Endless"
+    },
+    {
+      "name": "aibier--aibier",
+      "source": "./aibier--aibier",
+      "description": "Aibier"
+    },
+    {
+      "name": "0xlighthouse--signals",
+      "source": "./0xlighthouse--signals",
+      "description": "A new coordination layer for communities to surface and prioritize shared goals."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -201887,6 +201982,26 @@
       "name": "crystal-bank--crystalbank",
       "source": "./crystal-bank--crystalbank",
       "description": "An open source core-banking system written in crystal"
+    },
+    {
+      "name": "steve372a--sanaka",
+      "source": "./steve372a--sanaka",
+      "description": "Sanaka \u865a\u62df\u673a\u7ba1\u7406\u5668\u4ed3\u5e93"
+    },
+    {
+      "name": "cameronapak--kit",
+      "source": "./cameronapak--kit",
+      "description": "With kit (Keep in Touch), staying engaged with your users and promoting your product has never been easier."
+    },
+    {
+      "name": "steve372a--sanaka",
+      "source": "./steve372a--sanaka",
+      "description": "Sanaka \u865a\u62df\u673a\u7ba1\u7406\u5668\u4ed3\u5e93"
+    },
+    {
+      "name": "sonar-solutions--sonar-migration-tool",
+      "source": "./sonar-solutions--sonar-migration-tool",
+      "description": "SonarQubeServer to SonarQubeCloud Migration tool"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -311867,6 +311982,21 @@
       "name": "rmerk--seamless-korean",
       "source": "./rmerk--seamless-korean",
       "description": "Testing out EN - KOR translations using Seamless M4Tv2"
+    },
+    {
+      "name": "les84brest--vat-invoice",
+      "source": "./les84brest--vat-invoice",
+      "description": "Training application for VAT invoicing"
+    },
+    {
+      "name": "xeross99--zdrowo-aktywni",
+      "source": "./xeross99--zdrowo-aktywni",
+      "description": "A clean and responsive personal website built for my sister using Next.js and TailwindCSS. The project focuses on creating a simple and user-friendly online presence with modern web development tools."
+    },
+    {
+      "name": "les84brest--vat-invoice",
+      "source": "./les84brest--vat-invoice",
+      "description": "Training application for VAT invoicing"
     }
   ]
 }
