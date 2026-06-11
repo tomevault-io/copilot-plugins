@@ -1,0 +1,9 @@
+{
+  "name": "frenck--yamlrocks",
+  "displayName": "YAMLRocks",
+  "description": "Rock-solid YAML for Python, written in Rust.",
+  "version": "1.0.0",
+  "author": "frenck",
+  "homepage": "https://github.com/frenck/YAMLRocks",
+  "skills": []
+}
