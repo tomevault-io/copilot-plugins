@@ -1,0 +1,9 @@
+{
+  "name": "mann1x--osync",
+  "displayName": "osync",
+  "description": "Transfer a local ollama model to a remote ollama server",
+  "version": "1.0.0",
+  "author": "mann1x",
+  "homepage": "https://github.com/mann1x/osync",
+  "skills": []
+}
