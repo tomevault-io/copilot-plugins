@@ -1,0 +1,9 @@
+{
+  "name": "tpierrain--second-brain-generator",
+  "displayName": "second-brain-generator",
+  "description": "Install and configure your own second brain: a private, personal, and robust assistant inside Claude that forgets nothing, helps you connect the dots, and makes you far more effective on your day-to-d",
+  "version": "1.0.0",
+  "author": "tpierrain",
+  "homepage": "https://github.com/tpierrain/second-brain-generator",
+  "skills": []
+}
