@@ -4,7 +4,7 @@
   "repo": "proxy-collect",
   "description": "proxy collect sub",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cook369/proxy-collect",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T06:30:52Z"
+  "distributed_at": "2026-06-11T06:32:45Z"
 }
