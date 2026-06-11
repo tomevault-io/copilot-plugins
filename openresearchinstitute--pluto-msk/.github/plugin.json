@@ -1,0 +1,9 @@
+{
+  "name": "openresearchinstitute--pluto-msk",
+  "displayName": "pluto_msk",
+  "description": "Minimum shift keying top module for PLUTO FPGA",
+  "version": "1.0.0",
+  "author": "OpenResearchInstitute",
+  "homepage": "https://github.com/OpenResearchInstitute/pluto_msk",
+  "skills": []
+}
