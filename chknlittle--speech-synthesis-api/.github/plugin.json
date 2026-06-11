@@ -1,0 +1,9 @@
+{
+  "name": "chknlittle--speech-synthesis-api",
+  "displayName": "speech-synthesis-api",
+  "description": "A GPU-accelerated speech synthesis API server based on the Coqui TTS engine",
+  "version": "1.0.0",
+  "author": "chknlittle",
+  "homepage": "https://github.com/chknlittle/speech-synthesis-api",
+  "skills": []
+}
