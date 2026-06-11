@@ -1,32 +1,12 @@
-## routers
+## routers-tests
 
-> Testing FastAPI routes
+> Since this is a FastAPI web application, test logic for API endpoints often involves checking status codes. Remember, when making a request to an API endpoint, you should specify the `follow_redirects` parameter. With `follow_redirects=False`, the response code will often be `303`; otherwise it will be the response code of the route we've redirected to. We mostly  use `follow_redirects=False` so as to test routes in isolation, but there may be test cases where following the redirect is more appropriate.
 
-Here are the five most critical patterns to maintain consistency when adding a new router:
+# Setting test expectations regarding HTTP status codes
 
-1. **Authentication & Dependency Injection**
-   - Import `get_authenticated_user` from `utils.core.dependencies` and include `user: User = Depends(get_authenticated_user)` in the arguments of routes requiring authentication
-   - Similarly, use the `get_optional_user` dependency for public routes with potential auth status
+Since this is a FastAPI web application, test logic for API endpoints often involves checking status codes. Remember, when making a request to an API endpoint, you should specify the `follow_redirects` parameter. With `follow_redirects=False`, the response code will often be `303`; otherwise it will be the response code of the route we've redirected to. We mostly  use `follow_redirects=False` so as to test routes in isolation, but there may be test cases where following the redirect is more appropriate.
 
-2. **Validation Patterns**
-   - Validate requests with type hints in the route signature
-   - Use `Annotated[str, Form()]` for complex request validation cases involving form data
-   - Perform business logic validation checks in the route body, raising a custom HTTPException defined in `exceptions/http_exceptions.py`
-   - Note that all exceptions will be handled by middleware in `main.py` that renders an error template
-
-3. **Permission System**
-   - Use `user.has_permission(ValidPermissions.X, resource)` for authorization
-   - Validate organization membership through role relationships
-   - Check permissions at both route and template levels via `user_permissions`
-
-4. **Database & Transaction Patterns**
-   - Inject session via `Depends(get_session)` from `utils/core/dependencies.py`
-   - Commit after writes and refresh objects where needed
-   - Use `selectinload` for eager loading relationships
-   - Follow PRG pattern with RedirectResponse after mutations
-
-5. **Templating**
-   - Use Jinja templates from the `/templates` directory in GET routes, and always pass `request` and `user` objects as as context
+When checking status codes, think carefully to make sure the expected status code is the most appropriate to the situation.
 
 ---
 > Source: [Promptly-Technologies-LLC/fastapi-jinja2-postgres-webapp](https://github.com/Promptly-Technologies-LLC/fastapi-jinja2-postgres-webapp) — distributed by [TomeVault](https://tomevault.io).
