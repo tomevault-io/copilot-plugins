@@ -1,91 +1,162 @@
-## context
+## development
 
-> Project context and overview
+> Development patterns for Sparkle Design
 
 
-# AI Assistant Configuration
+# AI Development Guidelines for Sparkle Design
 
-## Project Overview
-"Sparkle Design" is a React component library built with modern web technologies, providing consistent UI components for web applications.
+## Component Development Patterns
 
-## Technology Stack
-- **Framework**: Next.js 15.5.18 + React 18 + TypeScript
-- **Styling**: TailwindCSS 4 + CVA (Class Variance Authority)
-- **Testing**: Vitest + Testing Library + jsdom
-- **Documentation**: Storybook
-- **Package Manager**: pnpm
-- **Node.js**: 22.14.0 (see `.node-version`)
+### CVA (Class Variance Authority) Usage
+Components use CVA for styling variants. Always define clear variant types:
 
-## Project Structure
+```tsx
+import { cva, type VariantProps } from "class-variance-authority"
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground",
+        destructive: "bg-destructive text-destructive-foreground",
+        outline: "border border-input bg-background",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
 ```
-src/
-├── app/                    # Next.js app directory
-├── components/ui/          # UI component library
-│   └── [component]/
-│       ├── index.tsx       # Component implementation
-│       └── index.test.tsx  # Component tests
-├── docs/                   # Documentation files
-├── lib/                    # Utility functions
-└── test/                   # Shared test helpers
 
-docs/ai-instructions/       # AI guidance documents (source)
-public/r/                   # Component registry JSON
-scripts/                    # Build and setup tools
+### Component Interface Patterns
+Use consistent prop interfaces with proper TypeScript support:
+
+```tsx
+export interface ComponentProps
+  extends React.ComponentPropsWithoutRef<"button">,
+    VariantProps<typeof componentVariants> {
+  /**
+   * コンポーネントの説明
+   * en: Component description
+   */
+  children?: React.ReactNode
+}
+```
+
+### Event Handling Best Practices
+- **Form elements**: Always include `type="button"` for non-submit buttons
+- **Keyboard navigation**: Support both click and keyboard events
+- **Accessibility**: Include proper ARIA attributes
+
+```tsx
+const handleKeyDown = (event: React.KeyboardEvent) => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault()
+    onClick?.(event as any)
+  }
+}
+```
+
+### State Management Patterns
+- **Controlled components**: Support both controlled and uncontrolled modes
+- **Forward refs**: Use `React.forwardRef` for proper ref forwarding
+- **Default values**: Provide sensible defaults for all props
+
+## Styling Guidelines
+
+### TailwindCSS Best Practices
+- Use design tokens from `sparkle-design.css`
+- Leverage CVA for component variants
+- Maintain consistent spacing and typography scales
+- Use semantic color names (`primary`, `destructive`, etc.)
+
+### Responsive Design
+- Mobile-first approach with responsive utilities
+- Consider touch targets (minimum 44px)
+- Test across different screen sizes
+
+## Accessibility Implementation
+
+### Required Patterns
+- **Semantic HTML**: Use appropriate elements (`button`, `input`, etc.)
+- **ARIA labels**: Provide descriptive labels for screen readers
+- **Focus management**: Ensure keyboard navigation works
+- **Color contrast**: Meet WCAG guidelines
+
+### Common Accessibility Patterns
+```tsx
+// Button with accessible label
+<button aria-label="メニューを閉じる (Close menu)">×</button>
+
+// Input with associated label
+<label htmlFor="email">Email</label>
+<input id="email" type="email" />
+
+// Hidden content for screen readers
+<span className="sr-only">ローディング中 (Loading)</span>
 ```
 
 ## Development Workflow
-1. **Setup**: `pnpm install` for dependencies
-2. **Development**: `pnpm dev` for local server
-3. **Component Creation**: `./scripts/setup.sh <ComponentName>`
-4. **Documentation**: `pnpm storybook` for component stories
-5. **Quality Checks**: `pnpm lint && pnpm format`
-6. **Testing**: `pnpm test` before commits
 
-## Key Configuration Files
-- **`package.json`**: Dependencies and scripts
-- **`tsconfig.json`**: TypeScript configuration
-- **`postcss.config.mjs`**: TailwindCSS setup
-- **`vitest.config.ts`**: Testing configuration
-- **`components.json`**: Component library config
-- **`sparkle.config.json`**: Design token settings
+### Component Creation Process
+1. Run `./scripts/setup.sh <component-name>` for scaffolding (also adds export to `src/index.ts`)
+2. Implement component with CVA variants
+3. Add comprehensive tests (refer to `docs/ai-instructions/testing.md`)
+4. Write Storybook stories for documentation
+5. Update component registry
+6. Update README component status table
 
-## Coding Standards
-- **Comments**: Japanese first, then English with `en:` prefix
-- **Commits**: Japanese with emoji prefix (see `.github/copilot-commit-message-instructions.md`)
-- **Components**: Follow shadcn/ui patterns with CVA variants
-- **Testing**: Comprehensive coverage following t_wada's best practices
-- **Accessibility**: ARIA labels and semantic HTML
+### Code Quality Standards
+- **Comments**: Japanese first, then English (`en:` prefix)
+- **Testing**: Follow t_wada's best practices (see `docs/ai-instructions/testing.md`)
+- **Linting**: Run `pnpm lint` before commits
+- **Formatting**: Use `pnpm format` for consistency
 
-## Commit and Branch Standards
+### Registry System
+This project uses a component registry for distribution:
+- **Location**: `public/r/` directory
+- **Format**: JSON files for each component
+- **Generation**: Automated via build scripts
+- **Usage**: External projects can import components via registry
 
-### Commit Message Rules
-- **Language**: Japanese required
-- **Format**: Emoji prefix + Conventional Commit format
-- **Structure**: Title, blank line, bullet list of changes
-- **Reference**: `.github/copilot-commit-message-instructions.md`
+### Build Commands
+- **Development**: `pnpm dev` - Next.js development server
+- **Testing**: `pnpm test` - Run Vitest test suite
+- **Storybook**: `pnpm storybook` - Component documentation
+- **Linting**: `pnpm lint` - ESLint checks
+- **Formatting**: `pnpm format` - Prettier formatting
 
-### Branch Naming Convention
-- **Allowed characters**: English letters, digits, dots, hyphens, underscores, plus a single `/` used only as a separator between a category prefix and name
-- **Pattern**: `feature/component-name`, `fix/issue-description`, `chore/update-deps`, etc.
-- **Example**: `feature/button-component`, `chore/update-deps`
+### Common Development Patterns
+- **Portal components**: Use appropriate libraries for overlays
+- **Form validation**: Integrate with form libraries
+- **Performance**: Lazy load heavy components
+- **Bundle size**: Monitor component size impact
 
-### Quality Checks (Required before commit)
-```bash
-pnpm lint      # ESLint checks
-pnpm format    # Prettier formatting
-pnpm test      # Component tests
-```
+## Dependencies and Tools
 
-## AI Assistance Guidelines
-- Refer to specific instruction files for detailed guidance:
-  - `docs/ai-instructions/testing.md` for testing
-  - `docs/ai-instructions/development.md` for development patterns
-  - `docs/ai-instructions/comment-style.md` for code comments
-  - `docs/ai-instructions/new-component.md` for component creation
+### Key Libraries
+- **CVA**: Component variant styling
+- **clsx**: Conditional class names
+- **lucide-react**: Icon library
+- **@radix-ui**: Unstyled component primitives
 
-### AI Instruction File Updates
-- **Important**: After editing any file in `docs/ai-instructions/`, run `make ai-instructions` to sync changes to tool-specific locations
-- This ensures GitHub Copilot, Cursor, Claude Code, and Codex all receive the updated instructions
+### Development Tools
+- **Storybook**: Component documentation
+- **Vitest**: Testing framework
+- **TypeScript**: Type safety
+- **ESLint/Prettier**: Code quality
+
+---
+
+**For detailed testing guidelines, refer to `docs/ai-instructions/testing.md`**
 
 ---
 > Source: [goodpatch/sparkle-design](https://github.com/goodpatch/sparkle-design) — distributed by [TomeVault](https://tomevault.io).
