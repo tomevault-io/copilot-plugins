@@ -1,0 +1,9 @@
+{
+  "name": "orestudio--orestudio",
+  "displayName": "OreStudio",
+  "description": "Graphical wrapper over LSEG's Open Source Risk Engine (ORE).",
+  "version": "1.0.0",
+  "author": "OreStudio",
+  "homepage": "https://github.com/OreStudio/OreStudio",
+  "skills": []
+}
