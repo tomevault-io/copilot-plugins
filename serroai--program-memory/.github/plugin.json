@@ -1,0 +1,9 @@
+{
+  "name": "serroai--program-memory",
+  "displayName": "program-memory",
+  "description": "A starter kit for building live shared program memory using Claude Code and MCP integrations",
+  "version": "1.0.0",
+  "author": "SerroAI",
+  "homepage": "https://github.com/SerroAI/program-memory",
+  "skills": []
+}
