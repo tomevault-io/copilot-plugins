@@ -2,6 +2,8 @@
 
 > Sourced from [OxidizeLabs/ferrite](https://github.com/OxidizeLabs/ferrite) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+The smallest, clearest, well-documented OLTP engine to demonstrate modern Rust concurrency and recovery design.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
