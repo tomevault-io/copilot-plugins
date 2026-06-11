@@ -1,204 +1,102 @@
-## performance
+## sql-execution
 
-> Performance optimization guidelines and profiling strategies
+> SQL processing pipeline and execution engine guidelines
 
 
-# Performance Optimization Guidelines
+# SQL Processing Pipeline Guidelines
 
-When optimizing Ferrite performance, focus on identifying bottlenecks and applying targeted optimizations.
+When working with SQL components, follow the complete pipeline: Parse → Bind → Plan → Optimize → Execute.
 
-## Performance Analysis Methodology
+## Binder Guidelines
 
-### Profiling Tools
-- Use `cargo flamegraph` for CPU profiling
-- Use `perf` for detailed system-level profiling
-- Use `valgrind` for memory analysis
-- Use custom metrics collection for database-specific insights
-- Profile with realistic workloads and data sizes
+### Expression Binding
+- Use visitor pattern for expression evaluation
+- Implement proper type checking and casting
+- Handle schema resolution correctly
+- Validate column references against available tables
 
-### Performance Metrics
+### Type System Integration
+- Use the `types_db` module for all type operations
+- Handle NULL values correctly throughout the pipeline
+- Implement proper type coercion rules
+- Validate compatible types for operations
+
+### Bound Statement Creation
 ```rust
-// Performance monitoring pattern
-#[derive(Debug)]
-pub struct PerformanceMetrics {
-    buffer_pool_hit_rate: AtomicU64,
-    query_execution_time: AtomicU64,
-    lock_contention_time: AtomicU64,
-    disk_io_operations: AtomicU64,
-}
+// Proper binding pattern
+let bound_stmt = binder
+    .bind_statement(&ast_stmt, &schema_context)?
+    .validate_semantics()?;
+```
 
-impl PerformanceMetrics {
-    pub fn record_buffer_hit(&self) {
-        self.buffer_pool_hit_rate.fetch_add(1, Ordering::Relaxed);
+## Planner Guidelines
+
+### Plan Node Creation
+- Keep plan nodes immutable where possible
+- Separate plan nodes from executor implementations
+- Include cost estimates in plan nodes
+- Handle subquery planning recursively
+
+### Schema Handling
+- Validate table and column existence
+- Handle qualified vs unqualified column names
+- Manage schema changes during planning
+- Cache schema information appropriately
+
+## Optimizer Guidelines
+
+### Rule-Based Optimization
+- Implement transformation rules as separate functions
+- Apply rules in proper order (logical before physical)
+- Handle plan equivalence checking
+- Consider cost-based decisions where appropriate
+
+### Expression Optimization
+- Constant folding where safe
+- Predicate pushdown optimization
+- Join reordering based on selectivity
+- Index utilization optimization
+
+## Executor Guidelines
+
+### Executor Pattern
+```rust
+impl AbstractExecutor for MyExecutor {
+    fn init(&mut self) -> Result<()> {
+        // Initialize executor state
+    }
+
+    fn next(&mut self) -> Result<Option<Tuple>> {
+        // Return next tuple or None if exhausted
     }
 }
 ```
 
-## Buffer Pool Optimization
+### Resource Management
+- Initialize executors before first use
+- Clean up resources in executor drop
+- Handle partial execution properly
+- Propagate errors up the execution tree
 
-### Critical Performance Areas
-- Buffer pool is often the primary performance bottleneck
-- Optimize lock contention in page table operations
-- Use efficient data structures for free list management
-- Minimize memory allocations in hot paths
-- Consider NUMA effects for large buffer pools
+### Expression Evaluation
+- Cache expression results when beneficial
+- Handle NULL propagation correctly
+- Use efficient evaluation for common expressions
+- Implement proper short-circuit evaluation
 
-### Buffer Pool Best Practices
-- Size buffer pool appropriately for workload
-- Monitor buffer pool hit rates continuously
-- Implement efficient page replacement algorithms
-- Use read/write locks appropriately
-- Consider lock-free data structures for statistics
+## Common SQL Processing Patterns
 
-```rust
-// Optimized buffer pool access pattern
-impl BufferPool {
-    pub fn fetch_page_optimized(&self, page_id: PageId) -> Result<PageGuard> {
-        // Fast path: check if page already in memory
-        if let Some(frame_id) = self.page_table.get_fast(page_id) {
-            return Ok(self.pin_page(frame_id));
-        }
+### Null Handling
+- SQL three-valued logic (TRUE, FALSE, NULL)
+- NULL propagation in arithmetic operations
+- Special handling for comparison operators
+- Proper NULL semantics in aggregations
 
-        // Slow path: load from disk
-        self.fetch_page_from_disk(page_id)
-    }
-}
-```
-
-## Query Execution Optimization
-
-### Execution Engine Performance
-- Minimize iterator overhead in query execution
-- Use vectorized execution where beneficial
-- Implement efficient join algorithms
-- Optimize expression evaluation
-- Cache frequently computed results
-
-### Index Utilization
-- Ensure query planner chooses appropriate indexes
-- Monitor index effectiveness and usage
-- Consider covering indexes for read-heavy workloads
-- Implement proper index maintenance strategies
-- Profile index operation performance
-
-## Storage Layer Optimization
-
-### Disk I/O Optimization
-- Batch disk operations when possible
-- Use appropriate I/O scheduling policies
-- Consider direct I/O for large sequential operations
-- Implement proper read-ahead strategies
-- Monitor disk utilization and queue depths
-
-### Page Layout Optimization
-- Design page layouts for cache efficiency
-- Minimize page overhead and fragmentation
-- Use compression when beneficial
-- Implement efficient serialization formats
-- Consider column-oriented storage for analytics
-
-## Concurrency Optimization
-
-### Lock Contention Reduction
-- Use appropriate lock granularity
-- Implement lock-free algorithms where possible
-- Use efficient locking primitives (`parking_lot`)
-- Monitor lock contention and wait times
-- Consider partitioning hot resources
-
-### Transaction Performance
-```rust
-// Optimized transaction pattern
-impl TransactionManager {
-    pub fn execute_batch<F>(&self, operations: Vec<F>) -> Result<Vec<R>>
-    where
-        F: FnOnce(&Transaction) -> Result<R>,
-    {
-        let txn = self.begin_transaction()?;
-        let results = operations.into_iter()
-            .map(|op| op(&txn))
-            .collect::<Result<Vec<_>>>()?;
-        txn.commit()?;
-        Ok(results)
-    }
-}
-```
-
-## Memory Management Optimization
-
-### Allocation Patterns
-- Minimize memory allocations in hot paths
-- Use object pooling for frequently allocated objects
-- Implement proper memory locality patterns
-- Use appropriate data structures for access patterns
-- Profile memory usage and fragmentation
-
-### Cache Optimization
-- Design data structures for CPU cache efficiency
-- Use cache-aware algorithms
-- Minimize pointer chasing in hot paths
-- Consider data structure padding for cache alignment
-- Profile cache miss rates
-
-## Network Performance
-
-### Protocol Optimization
-- Use efficient serialization formats (consider binary protocols)
-- Implement connection pooling and keep-alive
-- Batch network operations when possible
-- Use appropriate TCP buffer sizes
-- Consider using UNIX domain sockets for local connections
-
-### Async Performance
-- Use appropriate async runtime configuration
-- Minimize async overhead for CPU-bound operations
-- Use efficient async data structures
-- Profile async task scheduling overhead
-- Consider work-stealing vs. thread-per-core models
-
-## Benchmarking and Monitoring
-
-### Continuous Performance Monitoring
-- Implement comprehensive metrics collection
-- Set up performance regression detection
-- Monitor key performance indicators (KPIs)
-- Use statistical analysis for benchmark results
-- Implement performance budgets for new features
-
-### Performance Testing Strategy
-```rust
-// Performance regression testing
-#[cfg(test)]
-mod performance_tests {
-    use criterion::{Criterion, black_box};
-
-    fn benchmark_critical_path(c: &mut Criterion) {
-        c.bench_function("buffer_pool_contention", |b| {
-            let buffer_pool = setup_test_buffer_pool();
-            b.iter(|| {
-                // Simulate realistic workload
-                simulate_concurrent_access(black_box(&buffer_pool))
-            });
-        });
-    }
-}
-```
-
-## Optimization Guidelines
-
-### Systematic Approach
-1. **Measure first**: Always profile before optimizing
-2. **Focus on bottlenecks**: Optimize the slowest components first
-3. **Validate improvements**: Measure performance impact of changes
-4. **Consider trade-offs**: Balance performance vs. code complexity
-5. **Test under load**: Use realistic workloads for performance testing
-
-### Common Performance Pitfalls
-- Premature optimization without profiling
-- Optimizing non-critical paths
-- Ignoring cache effects and memory locality
-- Over-engineering for theoretical performance
-- Sacrificing maintainability for marginal gains
+### Transaction Integration
+- Respect transaction isolation levels
+- Handle concurrent modifications properly
+- Integrate with lock manager for reading
+- Ensure proper cleanup on transaction abort
 
 ---
 > Source: [OxidizeLabs/ferrite](https://github.com/OxidizeLabs/ferrite) — distributed by [TomeVault](https://tomevault.io).
