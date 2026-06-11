@@ -1,0 +1,9 @@
+{
+  "name": "gutenye--script-js",
+  "displayName": "script.js",
+  "description": "Write shell scripts in JavaScript with autocompletion. Ake task runner with autocompletion. A CLI framework, option parser, CLI builder, command-line library",
+  "version": "1.0.0",
+  "author": "gutenye",
+  "homepage": "https://github.com/gutenye/script.js",
+  "skills": []
+}
