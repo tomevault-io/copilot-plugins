@@ -187564,6 +187564,16 @@
       "description": "Community-driven open-source open-world game. AAA-trailer quality bar. Godot 4 + custom C++ engine modules."
     },
     {
+      "name": "pixdeo--editxr",
+      "source": "./pixdeo--editxr",
+      "description": "A Fast WYSIWYG Markdown Terminal Editor In Swift."
+    },
+    {
+      "name": "summu77--ai-latex",
+      "source": "./summu77--ai-latex",
+      "description": "Ai-LaTex is an Overleaf-like / Prism-like LaTeX editor with custom Agent integration."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -201477,6 +201487,11 @@
       "name": "cook369--proxy-collect",
       "source": "./cook369--proxy-collect",
       "description": "proxy collect sub"
+    },
+    {
+      "name": "acclerate--bottleneckhunter",
+      "source": "./acclerate--bottleneckhunter",
+      "description": "AI-powered supply chain bottleneck stock screener"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -311452,6 +311467,11 @@
       "name": "fandresh7--angular-forms",
       "source": "./fandresh7--angular-forms",
       "description": "angular-forms"
+    },
+    {
+      "name": "rmerk--seamless-korean",
+      "source": "./rmerk--seamless-korean",
+      "description": "Testing out EN - KOR translations using Seamless M4Tv2"
     }
   ]
 }
