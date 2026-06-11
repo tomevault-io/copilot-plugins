@@ -1,0 +1,9 @@
+{
+  "name": "simoneavogadro--cloudedge4tasker",
+  "displayName": "CloudEdge4Tasker",
+  "description": "Receive alarms and control CloudEdge/Meari battery cameras from Tasker",
+  "version": "1.0.0",
+  "author": "SimoneAvogadro",
+  "homepage": "https://github.com/SimoneAvogadro/CloudEdge4Tasker",
+  "skills": []
+}
