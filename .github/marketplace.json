@@ -79169,6 +79169,16 @@
       "description": "An Elixir library for integrating large language models (LLMs) via HTTP, supporting OpenAI, Ollama, and other future backends."
     },
     {
+      "name": "recally-io--recally",
+      "source": "./recally-io--recally",
+      "description": "Recally \u2728 - AI-powered memory assistant for organizing digital content. Capture web articles, Twitter threads, videos, and more via browser extensions or Telegram. Features AI summarization, smart tag"
+    },
+    {
+      "name": "recally-io--recally",
+      "source": "./recally-io--recally",
+      "description": "Recally \u2728 - AI-powered memory assistant for organizing digital content. Capture web articles, Twitter threads, videos, and more via browser extensions or Telegram. Features AI summarization, smart tag"
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -81524,6 +81534,11 @@
       "description": "An intelligent agent that understands your code and crafts perfect Git artifacts"
     },
     {
+      "name": "eliran89c--klama",
+      "source": "./eliran89c--klama",
+      "description": "AI-powered CLI assistant for troubleshooting DevOps-related issues."
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -82777,6 +82792,11 @@
       "name": "wavoip--wavoip-api",
       "source": "./wavoip--wavoip-api",
       "description": "wavoip-api"
+    },
+    {
+      "name": "pipecat-ai--docs",
+      "source": "./pipecat-ai--docs",
+      "description": "Official Pipecat docs repo"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -84202,6 +84222,11 @@
       "name": "nvidia--nvrc",
       "source": "./nvidia--nvrc",
       "description": "The NVRC project provides a Rust binary that implements a simple init system for microVMs."
+    },
+    {
+      "name": "quantalogic--qllm",
+      "source": "./quantalogic--qllm",
+      "description": "QLLM: A powerful CLI for seamless interaction with multiple Large Language Models. Simplify AI workflows, streamline development, and unlock the potential of cutting-edge language models.  \u2b50 If you fi"
     },
     {
       "name": "r44vc0rp--itui",
@@ -86712,6 +86737,11 @@
       "name": "huytdps13400--react-native-ssl-manager",
       "source": "./huytdps13400--react-native-ssl-manager",
       "description": "React Native SSL Pinning provides seamless SSL certificate pinning integration for enhanced network security in React Native apps. This module enables developers to easily implement and manage certifi"
+    },
+    {
+      "name": "itsmostafa--qi",
+      "source": "./itsmostafa--qi",
+      "description": "query search engine cli for humans and ai agents"
     },
     {
       "name": "skywind3000--gamesample",
@@ -91314,6 +91344,11 @@
       "description": "ODH Tools & Extensions Companion"
     },
     {
+      "name": "zebernst--homelab",
+      "source": "./zebernst--homelab",
+      "description": "Cat-approved \ud83d\ude38 Home Kubernetes cluster running Talos Linux | Automated via Flux, Renovate, and GitHub Actions \u2699\ufe0f"
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -92997,6 +93032,11 @@
       "name": "whanxueyu--cyberpunk-ui",
       "source": "./whanxueyu--cyberpunk-ui",
       "description": "\u51c6\u5907\u505a\u4e00\u4e2a\u8d5b\u535a\u670b\u514b\u98ce\u683c\u7ec4\u4ef6\u5e93\uff0c\u76ee\u524d\u5df2\u6709\u5341\u51e0\u4e2a\u70ab\u9177\u7684\u7ec4\u4ef6\uff0c\u540e\u7eed\u7ec4\u4ef6\u6b63\u5728\u5f00\u53d1\u4e2d..."
+    },
+    {
+      "name": "sandbox-social--silisocs",
+      "source": "./sandbox-social--silisocs",
+      "description": "Silicon Society Sandbox (SiliSocS) is an EASE-configured generative multi-agent simulation"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -99617,6 +99657,16 @@
       "name": "thriving-dev--kafka-streams-topology-design",
       "source": "./thriving-dev--kafka-streams-topology-design",
       "description": "Kafka Streams Topology Design (KSTD) is an open standard dedicated to the clear and effective description and visualization of Kafka Stream topologies."
+    },
+    {
+      "name": "forklaunch--forklaunch",
+      "source": "./forklaunch--forklaunch",
+      "description": "Launch faster with forklaunch."
+    },
+    {
+      "name": "chfourie--obsidian-journal-folder",
+      "source": "./chfourie--obsidian-journal-folder",
+      "description": "obsidian-journal-folder"
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -113217,6 +113267,11 @@
       "name": "oborchers--pydantypes",
       "source": "./oborchers--pydantypes",
       "description": "Comprehensive collection of exotic pydantic types."
+    },
+    {
+      "name": "nyaoouo--nylib2",
+      "source": "./nyaoouo--nylib2",
+      "description": "NyLib2"
     },
     {
       "name": "develite98--angular-best-practices",
