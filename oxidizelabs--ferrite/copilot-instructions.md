@@ -1,62 +1,134 @@
-## buffer-management
+## concurrency
 
-> Buffer pool management and LRU-K replacement guidelines
+> Transaction management and concurrency control guidelines
 
 
-# Buffer Pool Management Guidelines
+# Concurrency Control Guidelines
 
-When working with buffer pool components, follow these specific patterns and best practices.
+When working with concurrency components, ensure ACID properties while maximizing performance.
 
-## Core Principles
+## Transaction Management
 
-- **Always pin pages before use, unpin when done**
-- Handle page eviction carefully - check if page is dirty before eviction
-- Use proper locking hierarchy: page table → free list → individual pages
-- Implement LRU-K algorithm correctly for page replacement
+### Transaction Lifecycle
+- Implement proper transaction state management
+- Handle transaction begin, commit, and abort correctly
+- Maintain transaction isolation levels
+- Integrate with recovery manager for durability
 
-## Buffer Pool Operations
-
-### Page Management Pattern
+### Transaction Context
 ```rust
-// Pin page before use
-let page_guard = buffer_pool.fetch_page(page_id)?;
-// Use page
-let result = page_guard.read().process();
-// Page automatically unpinned when guard drops
+// Proper transaction context usage
+let txn = transaction_manager.begin_transaction(isolation_level)?;
+let result = execute_with_transaction(&txn, || {
+    // Perform operations
+    Ok(result)
+});
+match result {
+    Ok(value) => txn.commit()?,
+    Err(e) => txn.abort()?,
+}
 ```
 
-### Locking Hierarchy
-1. Acquire page table lock first
-2. Then free list lock if needed
-3. Finally individual page locks
-4. Always release in reverse order
+## Lock Manager Implementation
 
-### Error Handling in Buffer Operations
-- Handle `PageNotFound` errors gracefully
-- Check for buffer pool full conditions
-- Properly handle page eviction failures
-- Log page I/O errors with context
+### Two-Phase Locking (2PL)
+- Implement proper 2PL protocol
+- Growing phase: acquire locks as needed
+- Shrinking phase: release all locks at once
+- No lock acquisition after first release
 
-## LRU-K Implementation
+### Lock Types and Compatibility
+- Implement shared (S) and exclusive (X) locks
+- Consider intention locks (IS, IX) for hierarchical locking
+- Maintain lock compatibility matrix
+- Handle lock upgrades and downgrades safely
 
-- Track K most recent accesses for each page
-- Use efficient data structures for access history
-- Handle concurrent access to LRU-K data structures
-- Implement proper backward K-distance calculation
+### Deadlock Handling
+- Implement deadlock detection algorithms
+- Use timeout-based deadlock resolution
+- Consider wound-wait or wait-die policies
+- Log deadlock occurrences for analysis
 
-## Page Replacement Policy
+```rust
+// Deadlock detection pattern
+impl LockManager {
+    fn detect_deadlock(&self, txn_id: TransactionId) -> Option<Vec<TransactionId>> {
+        // Build wait-for graph
+        // Detect cycles using DFS
+        // Return cycle if found
+    }
+}
+```
 
-- Prefer pages with largest backward K-distance
-- Handle tie-breaking consistently
-- Consider page dirtiness in replacement decisions
-- Implement efficient eviction victim selection
+## Isolation Levels
 
-## Performance Considerations
+### READ_UNCOMMITTED
+- Allow dirty reads
+- Minimal locking overhead
+- Suitable for read-heavy analytical workloads
 
-- Minimize lock contention in hot paths
-- Use atomic operations for statistics
-- Batch page operations when possible
-- Avoid unnecessary page copies
+### READ_COMMITTED
+- Prevent dirty reads
+- Use short-duration read locks
+- Allow non-repeatable reads
+
+### REPEATABLE_READ
+- Prevent dirty and non-repeatable reads
+- Hold read locks until transaction end
+- May allow phantom reads
+
+### SERIALIZABLE
+- Prevent all anomalies
+- Use predicate locking or validation
+- Highest isolation, lowest concurrency
+
+## Watermark Management
+
+### Transaction Ordering
+- Implement transaction timestamp ordering
+- Handle timestamp allocation efficiently
+- Use watermarks for garbage collection
+- Maintain transaction commit ordering
+
+### Snapshot Isolation
+- Implement proper snapshot creation
+- Handle snapshot visibility rules
+- Manage snapshot cleanup
+- Optimize snapshot storage
+
+## Performance Optimization
+
+### Lock Granularity
+- Balance lock granularity with concurrency
+- Consider table-level vs. row-level locking
+- Implement hierarchical locking when beneficial
+- Use lock escalation to reduce overhead
+
+### Contention Reduction
+- Minimize critical section duration
+- Use lock-free data structures where possible
+- Implement proper backoff strategies
+- Consider partitioning hot resources
+
+### Throughput Optimization
+- Batch lock acquisitions when possible
+- Use efficient data structures for lock tables
+- Minimize lock manager overhead
+- Profile and optimize lock contention points
+
+## Recovery Integration
+
+### Write-Ahead Logging
+- WAL entries must be written before data modifications
+- Ensure proper log record ordering
+- Handle log force operations correctly
+- Integrate with checkpoint operations
+
+### Transaction Abort
+- Implement proper rollback semantics
+- Undo all transaction modifications
+- Release all acquired locks
+- Clean up transaction state properly
 
 ---
 > Source: [OxidizeLabs/ferrite](https://github.com/OxidizeLabs/ferrite) — distributed by [TomeVault](https://tomevault.io).
