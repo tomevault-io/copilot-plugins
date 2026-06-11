@@ -77064,6 +77064,16 @@
       "description": "\u8f7b\u91cf\u7ea7\u77e5\u8bc6\u5e93\u7cfb\u7edf\uff0c\u652f\u6301\u77e5\u8bc6\u5e93\u7ba1\u7406\u3001\u6587\u672c/txt \u4e0a\u4f20\u3001\u8bed\u4e49\u68c0\u7d22\u3001\u6d41\u5f0f\u8fd4\u56de\uff0c\u5e76\u5c06\u68c0\u7d22\u80fd\u529b\u5c01\u88c5\u4e3a MCP Server\uff0c\u4f9b Agent \u8c03\u7528\u3002"
     },
     {
+      "name": "inbrainfun--inbrain",
+      "source": "./inbrainfun--inbrain",
+      "description": "inbrain"
+    },
+    {
+      "name": "inbrainfun--inbrain",
+      "source": "./inbrainfun--inbrain",
+      "description": "inbrain"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -122139,6 +122149,11 @@
       "description": "Convert Circuit JSON into an Schematic/PCB/Assembly SVGs"
     },
     {
+      "name": "rbrown101010--rilable",
+      "source": "./rbrown101010--rilable",
+      "description": "An iPhone app that builds apps \u2014 prompt to live web + iOS apps. SwiftUI + Convex + Claude + Daytona + Chorus."
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -163987,6 +164002,11 @@
       "name": "jeremyiv--elastic-streets",
       "source": "./jeremyiv--elastic-streets",
       "description": "elastic-streets"
+    },
+    {
+      "name": "teambaconn--unrealeasypackage",
+      "source": "./teambaconn--unrealeasypackage",
+      "description": "A lightweight build tool for Unreal Engine"
     },
     {
       "name": "yschimke--compose-ai-tools",
