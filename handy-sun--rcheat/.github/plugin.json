@@ -1,0 +1,9 @@
+{
+  "name": "handy-sun--rcheat",
+  "displayName": "rcheat",
+  "description": "Get/modify variable's value in another Linux running process",
+  "version": "1.0.0",
+  "author": "handy-sun",
+  "homepage": "https://github.com/handy-sun/rcheat",
+  "skills": []
+}
