@@ -1,0 +1,9 @@
+{
+  "name": "xingguangyan--gee-pro",
+  "displayName": "GEE-pro",
+  "description": "GEEPro \u2014 A comprehensive Google Earth Engine skill pack for Codex & Claude. Covers Python (ee/geemap) and JavaScript APIs with 15 reference guides, 10 runnable examples, ML workflows, time-series anal",
+  "version": "1.0.0",
+  "author": "xingguangYan",
+  "homepage": "https://github.com/xingguangYan/GEE-pro",
+  "skills": []
+}
