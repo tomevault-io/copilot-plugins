@@ -1,0 +1,44 @@
+{
+  "name": "claude-dashboard",
+  "owner": "iftahs",
+  "repo": "claude-dashboard",
+  "description": "Beautiful local dashboard for Claude Code usage \u2014 5h blocks, weekly trends, model & tool breakdown, activity heatmap. Reads ~/.claude logs, no API key.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iftahs/claude-dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-11T14:39:30Z"
+}
