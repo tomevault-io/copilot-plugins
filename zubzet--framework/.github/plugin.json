@@ -1,0 +1,9 @@
+{
+  "name": "zubzet--framework",
+  "displayName": "framework",
+  "description": "A lightweight PHP framework focused on rapid development, ease of use, and great portability.",
+  "version": "1.0.0",
+  "author": "zubzet",
+  "homepage": "https://github.com/zubzet/framework",
+  "skills": []
+}
