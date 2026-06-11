@@ -1,0 +1,9 @@
+{
+  "name": "philphilphil--obsidian-standardform",
+  "displayName": "obsidian-standardform",
+  "description": "Obsidian plugin that transforms Standard Form logical syntax into clean tables.",
+  "version": "1.0.0",
+  "author": "philphilphil",
+  "homepage": "https://github.com/philphilphil/obsidian-standardform",
+  "skills": []
+}
