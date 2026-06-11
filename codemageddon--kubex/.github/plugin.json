@@ -1,0 +1,9 @@
+{
+  "name": "codemageddon--kubex",
+  "displayName": "kubex",
+  "description": "Python asynchronous client for Kubernetes",
+  "version": "1.0.0",
+  "author": "codemageddon",
+  "homepage": "https://github.com/codemageddon/kubex",
+  "skills": []
+}
