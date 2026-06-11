@@ -1,0 +1,9 @@
+{
+  "name": "panchi64--auto-ytdlp",
+  "displayName": "auto-ytdlp",
+  "description": "Use yt-dlp to download videos from a list of URLs. It features a user-friendly TUI, multithreading capabilities, and various quality-of-life improvements for an efficient and pleasant downloading expe",
+  "version": "1.0.0",
+  "author": "panchi64",
+  "homepage": "https://github.com/panchi64/auto-ytdlp",
+  "skills": []
+}
