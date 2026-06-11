@@ -1,0 +1,9 @@
+{
+  "name": "josh--lazy-nvim-nix",
+  "displayName": "lazy-nvim-nix",
+  "description": "Lazy Neovim on Nix",
+  "version": "1.0.0",
+  "author": "josh",
+  "homepage": "https://github.com/josh/lazy-nvim-nix",
+  "skills": []
+}
