@@ -4,7 +4,7 @@
   "repo": "YAMLRocks",
   "description": "Rock-solid YAML for Python, written in Rust.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/frenck/YAMLRocks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T11:30:24Z"
+  "distributed_at": "2026-06-11T11:30:53Z"
 }
