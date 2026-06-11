@@ -125979,6 +125979,16 @@
       "description": "Python Telegraph api."
     },
     {
+      "name": "fluffylabs--pvm-debugger-old",
+      "source": "./fluffylabs--pvm-debugger-old",
+      "description": "JAM's PVM debugger and disassembler."
+    },
+    {
+      "name": "bcgit--bc-rust",
+      "source": "./bcgit--bc-rust",
+      "description": "Bouncy Castle Rust APIs (Mirror)"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -129702,6 +129712,11 @@
       "name": "alestic--abc",
       "source": "./alestic--abc",
       "description": "AI bash Command - Generate shell command(s) from natural language description using LLM (generative AI) and place on the next shell prompt for editing and execution. *with support for bash, zsh, tcsh"
+    },
+    {
+      "name": "kebechet--maui-microsoftclarity",
+      "source": "./kebechet--maui-microsoftclarity",
+      "description": "Maui.MicrosoftClarity"
     },
     {
       "name": "vm--nila-code",
@@ -138032,6 +138047,21 @@
       "name": "bravodev-hub--appointme",
       "source": "./bravodev-hub--appointme",
       "description": "AppointMe is a modular-monolith .NET SaaS template with multitenancy, auth, billing and deployment already wired."
+    },
+    {
+      "name": "wmitsuda--mdbx-navigator",
+      "source": "./wmitsuda--mdbx-navigator",
+      "description": "A simple UI for browsing libmdbx databases"
+    },
+    {
+      "name": "wmitsuda--mdbx-navigator",
+      "source": "./wmitsuda--mdbx-navigator",
+      "description": "A simple UI for browsing libmdbx databases"
+    },
+    {
+      "name": "simoneavogadro--cloudedge4tasker",
+      "source": "./simoneavogadro--cloudedge4tasker",
+      "description": "Receive alarms and control CloudEdge/Meari battery cameras from Tasker"
     },
     {
       "name": "mohiwalla--memes",
@@ -164172,6 +164202,11 @@
       "name": "hcekne--risk-game",
       "source": "./hcekne--risk-game",
       "description": "risk-game"
+    },
+    {
+      "name": "nuke-on-rails--nuke-on-rails",
+      "source": "./nuke-on-rails--nuke-on-rails",
+      "description": "The Rails audit skill for AI coding agents, ranked by blast radius. \ud83d\ude82\u2622\ufe0f"
     },
     {
       "name": "yschimke--compose-ai-tools",
