@@ -1,0 +1,9 @@
+{
+  "name": "matejkob--swift-macro-compatibility-check",
+  "displayName": "swift-macro-compatibility-check",
+  "description": "GitHub Action that verifies compatibility of a Swift package with macros against all swift-syntax versions",
+  "version": "1.0.0",
+  "author": "Matejkob",
+  "homepage": "https://github.com/Matejkob/swift-macro-compatibility-check",
+  "skills": []
+}
