@@ -1,0 +1,9 @@
+{
+  "name": "mhsiddiqui--cmd-manager",
+  "displayName": "cmd-manager",
+  "description": "A package to write management commands for FastAPI, Flask and other similar frameworks using Python Click. Inspired by Django management commands",
+  "version": "1.0.0",
+  "author": "mhsiddiqui",
+  "homepage": "https://github.com/mhsiddiqui/cmd-manager",
+  "skills": []
+}
