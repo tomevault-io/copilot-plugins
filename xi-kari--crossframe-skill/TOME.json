@@ -4,7 +4,7 @@
   "repo": "crossframe-skill",
   "description": "CrossFrame Skill Suite\uff1a\u7ed9 AI \u7528\u7684\u4e2d\u6587\u7ed3\u6784\u8bca\u65ad\u4e0e\u6210\u6587\u6280\u80fd\u7ec4\uff0c\u5305\u542b 12 \u4e2a\u663e\u5f0f\u89e6\u53d1\u7684 CrossFrame skills\uff0c\u652f\u6301 Codex\u3001Claude Code\u3001Cursor\u3001Gemini CLI\u3001GitHub Copilot \u7b49\u8584\u9002\u914d\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xi-kari/crossframe-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T16:36:29Z"
+  "distributed_at": "2026-06-11T16:37:33Z"
 }
