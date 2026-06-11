@@ -1,39 +1,33 @@
-## crossframe-skill
+## crossframe
 
-> - 本仓库主体内容以中文为主；`CrossFrame` 只是英文传播名与 skill id。
+> Use CrossFrame for Chinese cross-scale structural diagnosis, inference, open assertions, anti-capture checks, strong judgment, low-condition actions, public institutions, long-term evolution, and concept explanation.
 
-# GitHub Copilot 仓库指令
 
-- 本仓库主体内容以中文为主；`CrossFrame` 只是英文传播名与 skill id。
-- 实际可安装的 Codex skill 位于 `skills/crossframe/`。
-- 总调度 skill 位于 `skills/crossframe-suite/`；复杂任务先用它决定连续触发顺序。
-- `crossframe-suite` 是推荐默认入口。只要从总入口进入任何 CrossFrame 内容任务，默认先完成必要专项 skill，再追加 `crossframe-essay -> crossframe-review`，输出 `full-visible-v3-longform / 3.0混合长文`：完整可见底稿 + 完整长文正文；只有用户明确说“只要/不要文章/短答/表格/清单/纯诊断/仅行动方案”时才关闭文章层。
-- 平行文章写作 skill 位于 `skills/crossframe-essay/`。
-- 其它平行专项 skill 位于 `skills/crossframe-review/`、`skills/crossframe-dialogue/`、`skills/crossframe-casebook/`、`skills/crossframe-public/`、`skills/crossframe-org/`、`skills/crossframe-teach/`、`skills/crossframe-debate/`、`skills/crossframe-notebook/`。
-- `README.md` 与 `skills/crossframe/SKILL.md` 是原始说明来源；新增适配优先薄封装，不要复制出多套漂移正文。
-- 结构诊断、推演、开放断言、反俘获审查或低条件行动任务请遵循 `AGENTS.md`。
-- 中文文章、长文、评论、思想文章、批判性洞察文章和结构洞察文章任务请遵循 `skills/crossframe-essay/SKILL.md`。
-- 评审、短答复、案例库、公共议题、组织修复、概念教学、命题辩论、研究笔记任务请遵循对应 `skills/crossframe-*/SKILL.md`。
-- 多 skill 连续任务请先遵循 `skills/crossframe-suite/SKILL.md`，例如公共评论文章走 `crossframe -> crossframe-public -> crossframe-essay -> crossframe-review`，组织复盘文章走 `crossframe -> crossframe-org -> crossframe-essay -> crossframe-review`；不要一次读取全部 skill。
-- 文章任务需要深度、概念上升、引经据典、理论参照或文学互文时，按需读取 `skills/crossframe-essay/protocols/concept-elevation-protocol.md` 与 `skills/crossframe-essay/references/reference-and-allusion-rules.md`。
-- 文章任务自动成文默认读取 `skills/crossframe-essay/protocols/editorial-comrade-voice-protocol.md` 与 `skills/crossframe-essay/references/editorial-voice-principles.md`；只有显式中性报告/备忘录/表格/纯诊断时关闭。
-- 概念解释或思想解释任务也应进入 CrossFrame，但先读 `skills/crossframe/protocols/concept-explanation-protocol.md`。
-- 强判断、高反身性、亲密关系、疗愈转移、公共制度、框架边界、生命周期、递进、势场解离、治理连续性、超大规模压力测试和长期演化任务必须按 `skills/crossframe/references/read-routing-map.md` 读取深水区模块。
-- 默认先展示简短推理提纲，再输出普通用户能读懂的判断。
-- 文章任务默认先输出完整可见 `结构洞察底稿`，再输出完整长文 `文章正文`。
-- 默认文章不得缩水成短答；正文需要标题、铺陈、概念上升、现实回落、边界段和余味结尾。
-- 直接引用必须可核验；不确定原句时只做意译或思想映射；经典/理论参照不能接管文章命题。
-- 现代编辑底色只负责前台表达：亲切但不和稀泥，果敢但不人格审判，不复古口号化。
-- 输出必须区分事实、解释、机制候选、判断档位和本次读取的概念。
-- 高风险概念如承接/回流、开放断言、尺度转移、观测反身性、权力封闭、低条件行动、爱/开放行动、责任链、证据成本、机制候选、判断档位、退出转移、修复副产品，必须先读 `skills/crossframe/references/concept-cards/` 对应卡片。
-- 输出前优先用 `skills/crossframe/references/integrity-check.md` 做一次性完整性检查，避免概念压缩、联读遗漏和源结构断裂。
-- 高责任、公共制度、亲密关系、长期演化、深度分析和文章输出，需要展开审计时，再读取 `skills/crossframe/references/continuity-bundles.md`，按需读取 `skills/crossframe/references/v3-source-spine.md`、`skills/crossframe/references/v3-section-digest-index.md` 和 `skills/crossframe/worksheets/source-continuity-check.md`，避免只读单概念卡导致 3.0 连续性失真。
-- 强判断不得绕开命题验证；高反身性不得无限递归；亲密关系不得把爱变成忍耐义务。
-- 框架边界不得把 CrossFrame 当专业替代品；生命周期不得写成命运；超大规模判断必须承认可判断边界。
-- 不要把结构诊断变成人格审判、命运预言、责任稀释或概念堆砌。
-- 修改仓库时，不要删除 `skills/crossframe/` 的可安装入口。
-- 修改仓库时，不要删除 `skills/crossframe-essay/` 的可安装入口，也不要把它的文章协议复制进薄适配层。
-- 修改仓库时，不要删除任何 `skills/crossframe-*/` 可安装入口；适配层只做分发说明，不复制专项协议。
+# CrossFrame Rule
+
+Use this rule when the user asks for CrossFrame、跨尺度结构诊断、结构诊断、推演、开放断言、反俘获审查、低条件试探行动、强判断、高反身性、亲密关系、疗愈转移、公共制度、长期演化、概念解释，或复杂关系/团队/组织/制度/公共争议分析。
+
+For complex tasks that require multiple CrossFrame sibling skills in sequence, use `skills/crossframe-suite/SKILL.md` first and follow `skills/crossframe-suite/references/workflow-routing-map.md`. Do not trigger all sibling skills at once.
+
+Use `crossframe-suite` as the default CrossFrame entry. For any CrossFrame content task through Suite, finish the needed sibling skills first, then append `crossframe-essay -> crossframe-review` and use `full-visible-v3-longform`: complete visible 3.0 dossier plus complete long-form Chinese article. Only skip the article layer when the user explicitly says only/no article/short answer/table/checklist/pure diagnosis/action plan only.
+
+For 中文文章、长文、评论、思想文章、批判性洞察文章 or structure-to-essay writing, use `skills/crossframe-essay/SKILL.md` first, then read `skills/crossframe/SKILL.md` and `skills/crossframe/references/read-routing-map.md`. Output `结构洞察底稿` before `文章正文`. If concept elevation, theory, classics, or allusion are needed, read `skills/crossframe-essay/protocols/concept-elevation-protocol.md` and keep references verifiable and tied back to reality. If the user asks for 亲切、编辑、同志口吻、报刊答复 or advice, read `skills/crossframe-essay/protocols/editorial-comrade-voice-protocol.md`; use a modern editor voice, not retro slogans or personality judgment.
+
+For review, dialogue, casebook, public issue, organization repair, concept teaching, debate, or notebook tasks, use the matching `skills/crossframe-*/SKILL.md` sibling skill before falling back to the generic CrossFrame rule.
+
+Read order:
+
+1. `skills/crossframe/SKILL.md`
+2. `skills/crossframe/references/read-routing-map.md`
+3. The routed protocol, worksheet, concept card, and template
+4. `skills/crossframe/templates/reasoning-outline-output.md`
+5. `skills/crossframe/templates/user-facing-language.md`
+
+Output a short 推理提纲 first, then a readable Chinese answer. Do not use concept names as conclusions. If a high-risk concept carries the judgment, read the matching card under `skills/crossframe/references/concept-cards/` and use `skills/crossframe/references/integrity-check.md` as the one-stop concept fidelity and source-continuity check.
+
+Never turn CrossFrame into personality judgment, fate prediction, responsibility dilution, professional replacement, or AI compliance theater.
+
+For philosophical/meaning questions such as 第一因, 生命是什么, 虚无主义, or 存在意义, first use concept explanation, scale decomposition, and a structural open assertion. Fall back to framework boundary only when no structural question can be formed.
 
 ---
 > Source: [xi-kari/crossframe-skill](https://github.com/xi-kari/crossframe-skill) — distributed by [TomeVault](https://tomevault.io).
