@@ -1,0 +1,9 @@
+{
+  "name": "ganainy--ai-mobile-ui-crawler",
+  "displayName": "ai-mobile-ui-crawler",
+  "description": "AI-powered Android app crawler using Google Gemini to intelligently explore mobile applications through visual and structural analysis, enabling efficient automated testing, coverage, and app discover",
+  "version": "1.0.0",
+  "author": "ganainy",
+  "homepage": "https://github.com/ganainy/ai-mobile-ui-crawler",
+  "skills": []
+}
