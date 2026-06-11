@@ -1,0 +1,9 @@
+{
+  "name": "zebernst--homelab",
+  "displayName": "homelab",
+  "description": "Cat-approved \ud83d\ude38 Home Kubernetes cluster running Talos Linux | Automated via Flux, Renovate, and GitHub Actions \u2699\ufe0f",
+  "version": "1.0.0",
+  "author": "zebernst",
+  "homepage": "https://github.com/zebernst/homelab",
+  "skills": []
+}
