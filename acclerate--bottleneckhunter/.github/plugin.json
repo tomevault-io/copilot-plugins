@@ -1,0 +1,9 @@
+{
+  "name": "acclerate--bottleneckhunter",
+  "displayName": "BottleneckHunter",
+  "description": "AI-powered supply chain bottleneck stock screener",
+  "version": "1.0.0",
+  "author": "Acclerate",
+  "homepage": "https://github.com/Acclerate/BottleneckHunter",
+  "skills": []
+}
