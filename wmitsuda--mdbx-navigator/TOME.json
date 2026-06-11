@@ -4,7 +4,7 @@
   "repo": "mdbx-navigator",
   "description": "A simple UI for browsing libmdbx databases",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wmitsuda/mdbx-navigator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-11T19:30:25Z"
+  "distributed_at": "2026-06-11T19:32:20Z"
 }
