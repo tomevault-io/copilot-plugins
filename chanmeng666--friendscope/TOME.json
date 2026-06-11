@@ -1,0 +1,44 @@
+{
+  "name": "friendscope",
+  "owner": "ChanMeng666",
+  "repo": "friendscope",
+  "description": "\u3010Be the reason someone's repo counter goes up today! \u2b50\ufe0f\u3011A modern web application for evaluating and strengthening friendships through scientific assessment and personalized insights. Built with Next.js and TypeScript, offering sophisticated visualizations, privacy-focused design, and evidence-based recommendations.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ChanMeng666/friendscope",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-11T16:45:24Z"
+}
