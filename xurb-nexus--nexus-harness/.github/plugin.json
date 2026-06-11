@@ -1,0 +1,9 @@
+{
+  "name": "xurb-nexus--nexus-harness",
+  "displayName": "nexus-harness",
+  "description": "A pure-skill, host-agnostic AI engineering harness: PRD \u2192 TRD \u2192 Plan \u2192 TDD \u2192 dual-agent review \u2192 archive. Works with Claude Code, Cursor & Codex. No MCP required.",
+  "version": "1.0.0",
+  "author": "xurb-nexus",
+  "homepage": "https://github.com/xurb-nexus/nexus-harness",
+  "skills": []
+}
