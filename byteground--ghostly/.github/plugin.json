@@ -1,0 +1,9 @@
+{
+  "name": "byteground--ghostly",
+  "displayName": "Ghostly",
+  "description": "Ghostly is an open-source, modern client application for the Ghost content management system. The goal is to provide a seamless, user-friendly experience for Ghost blog creators on mobile platforms.",
+  "version": "1.0.0",
+  "author": "byteground",
+  "homepage": "https://github.com/byteground/Ghostly",
+  "skills": []
+}
