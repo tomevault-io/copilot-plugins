@@ -1,0 +1,9 @@
+{
+  "name": "dcc-bs--rag-backend",
+  "displayName": "rag-backend",
+  "description": "Bebbi Bot is our own RAG bot solution. This project is in its early stages. We do not recommend you to use it.",
+  "version": "1.0.0",
+  "author": "DCC-BS",
+  "homepage": "https://github.com/DCC-BS/rag-backend",
+  "skills": []
+}
