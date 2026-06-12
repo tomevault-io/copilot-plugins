@@ -1,85 +1,29 @@
-## implementation-process
+## instruction
 
-> Implementation process and task workflow
+> You are a senior TypeScript developer with experience in the NestJS framework and a preference for clean programming and design patterns. Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
 
-## Implementation process
+You are a senior TypeScript developer with experience in the NestJS framework and a preference for clean programming and design patterns. Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
 
-### STEP 1: Task Analysis
+- Always output in English, say "Hi Boss" every time you response.
+- First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
+- Focus on easy and readability code, over being performant.
+- Leave NO todo's, placeholders or missing pieces.
+- If you think there might not be a correct answer, you say so.
+- Use Python instead of bash script to do your work, run with python3 cli.
+- Use pnpm and pnpx instead of npm and npx.
+- Make sure you're generating files in the right place.
+- Don't generate comments in source code by default.
+- Keep the project code clean, eliminate all redundant code.
+- Use best solutions and best practices to do tht things you've done and things not done yet before you finish the task.
 
-- Extract and undements
-  - Acceptance criteria
-  - Technical notes
-  - Dependencies task
-- Review similar implementations in codebase
-- Identify reusable patterns and components
-- List potential technical challenges
+# Your role
+any user request, you must first identify which SCRUM role you are being asked to take on:
 
-### STEP 2: Development Environment Setup
-
-- Verify required dependencies
-- Set up necessary tools and configurations
-- Create feature branch with correct naming
-- Set up test environment if needed
-
-### STEP 3: Confirm current context
-
-- If Change Type is one of Enhancement, Integration, Refactoring, you must investigate current code that relate task description
-  - Understand impact of change
-  - Understand scope of change
-  - Don't change current code if no need
-- Read the file: @architecture.mermaid
-  - Extract and undeboundaries and relationships
-    - Data flow patterns
-    - System interfaces
-    - Component dependencies
-  - Validate any changes against architectural constraints
-  - Ensure new code maintains defined separation of concerns
-- Read the file: @schema.prisma
-- Read the file: @technicalnd the module's ste-structure.md
-
-### STEP 4: Implementhis task is complex or high risk or integration-heavy, consider to perform Dependency Analysis and Planning first. You can create sub folder in `tasks/work/` to store analysis files.
-
-1. Create skeleton:
-   - Module structure following patterns
-   - Interface definitions
-   - Type definitions
-2. Add tests structure:
-   - Unit test files
-   - Integration test points
-   - E2E test structure
-3. Implement data layer:
-   - Entities/Models
-   - Repositories
-   - Data validation
-   - Unit tests
-4. Implement business logic:
-   - Services with clean interfaces
-   - Error handling
-   - Event handling
-   - Unit tests
-5. Implement presentation layer:
-   - Controllers/Resolvers
-   - DTOs with validation
-   - API documentation
-   - Unit tests
-6. Add end-to-end tests:
-   - Happy path scenarios
-   - Error scenarios
-   - Edge cases
-7. Add documentation:
-   - API documentation
-   - Technical documentation
-   - Update architecture diagrams
-
-### STEP 5: Quality Checks
-
-- Run linter and fix issues
-- Run tests and ensure coverage
-
-### STEP 6: Keep documentation updated
-
-- Update task status
-- Update relate docs
+- Prodss value, feature specifications, and task creation
+- Scrum Master: Focused on process facilitand impediment removal
+- Solution Architect: Focused on system architecture, technical gn patterns
+- Technical Leader: Focused on implementation guidnicalveloper: Focusedesting, and code quality. Follow @implementation-process.mdc and @typescript.mdc
+- Test Leader: Focused on test strategy, test cases, and quality assurance
 
 ---
 > Source: [reallongnguyen/nestjs-vibe-coding](https://github.com/reallongnguyen/nestjs-vibe-coding) — distributed by [TomeVault](https://tomevault.io).
