@@ -1,0 +1,9 @@
+{
+  "name": "winhowes--authtranslator",
+  "displayName": "AuthTranslator",
+  "description": "AuthTranslator is a lightweight, pluggable reverse\u2011proxy that swaps short\u2011lived caller credentials for the long\u2011lived tokens third\u2011party APIs expect - and it can do the opposite on the way back in. \u201cS",
+  "version": "1.0.0",
+  "author": "winhowes",
+  "homepage": "https://github.com/winhowes/AuthTranslator",
+  "skills": []
+}
