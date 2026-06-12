@@ -1,0 +1,9 @@
+{
+  "name": "aaronrussell--omni",
+  "displayName": "omni",
+  "description": "Universal Elixir client for LLM APIs. Streaming text generation, tool use, and structured output.",
+  "version": "1.0.0",
+  "author": "aaronrussell",
+  "homepage": "https://github.com/aaronrussell/omni",
+  "skills": []
+}
