@@ -1,0 +1,9 @@
+{
+  "name": "tunctn--express-next-turborepo-boilerplate",
+  "displayName": "express-next-turborepo-boilerplate",
+  "description": "A monorepo template with auth & i18n, using: Express.js, Next.js, shadcn/ui, Tailwind, Drizzle and Lucia. ",
+  "version": "1.0.0",
+  "author": "tunctn",
+  "homepage": "https://github.com/tunctn/express-next-turborepo-boilerplate",
+  "skills": []
+}
