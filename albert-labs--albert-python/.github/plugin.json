@@ -1,0 +1,9 @@
+{
+  "name": "albert-labs--albert-python",
+  "displayName": "albert-python",
+  "description": "The official Python SDK for the Albert Invent platform.",
+  "version": "1.0.0",
+  "author": "albert-labs",
+  "homepage": "https://github.com/albert-labs/albert-python",
+  "skills": []
+}
