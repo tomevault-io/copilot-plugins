@@ -1,0 +1,9 @@
+{
+  "name": "automattic--wp-cli-sqlite-command",
+  "displayName": "wp-cli-sqlite-command",
+  "description": "A WordPress CLI command for SQLite",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/wp-cli-sqlite-command",
+  "skills": []
+}
