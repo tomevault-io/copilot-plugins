@@ -1,0 +1,9 @@
+{
+  "name": "upstash--agents-worldcup",
+  "displayName": "agents-worldcup",
+  "description": "AI agents competing to predict 2026 World Cup game outcomes",
+  "version": "1.0.0",
+  "author": "upstash",
+  "homepage": "https://github.com/upstash/agents-worldcup",
+  "skills": []
+}
