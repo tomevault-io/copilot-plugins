@@ -188564,6 +188564,16 @@
       "description": "Musclog - Lift, Log, Repeat"
     },
     {
+      "name": "alirezarezvani--gaios",
+      "source": "./alirezarezvani--gaios",
+      "description": "Open-source AI Operating System (AIOS) blueprint for Claude Code & Codex \u2014 turn any agent into your personal second brain + Chief of Staff: skills, self-verifying workflows, a second-brain wiki, and d"
+    },
+    {
+      "name": "alirezarezvani--gaios",
+      "source": "./alirezarezvani--gaios",
+      "description": "Open-source AI Operating System (AIOS) blueprint for Claude Code & Codex \u2014 turn any agent into your personal second brain + Chief of Staff: skills, self-verifying workflows, a second-brain wiki, and d"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -202747,6 +202757,56 @@
       "name": "basisresearch--veridns",
       "source": "./basisresearch--veridns",
       "description": "A RFC Compliant Verified DNS server"
+    },
+    {
+      "name": "ontograph--ontoindex",
+      "source": "./ontograph--ontoindex",
+      "description": "ontoindex"
+    },
+    {
+      "name": "ontograph--ontoindex",
+      "source": "./ontograph--ontoindex",
+      "description": "ontoindex"
+    },
+    {
+      "name": "kuhai9801--scieqlint",
+      "source": "./kuhai9801--scieqlint",
+      "description": "Deterministic linter for scientific docs"
+    },
+    {
+      "name": "kuhai9801--scieqlint",
+      "source": "./kuhai9801--scieqlint",
+      "description": "Deterministic linter for scientific docs"
+    },
+    {
+      "name": "ontograph--ontoindex",
+      "source": "./ontograph--ontoindex",
+      "description": "ontoindex"
+    },
+    {
+      "name": "mikelval82--hero-harness",
+      "source": "./mikelval82--hero-harness",
+      "description": "HERO - Harness for Engineering and Run-time Orchestration: a runtime control system around foundation models for autonomous software-engineering missions."
+    },
+    {
+      "name": "megoxv--zeromsg",
+      "source": "./megoxv--zeromsg",
+      "description": "ZeroMsg is an open-source platform for managing WhatsApp Cloud API messaging, templates, campaigns, inbox chats, and developer API access."
+    },
+    {
+      "name": "megoxv--zeromsg",
+      "source": "./megoxv--zeromsg",
+      "description": "ZeroMsg is an open-source platform for managing WhatsApp Cloud API messaging, templates, campaigns, inbox chats, and developer API access."
+    },
+    {
+      "name": "ontograph--ontoindex",
+      "source": "./ontograph--ontoindex",
+      "description": "ontoindex"
+    },
+    {
+      "name": "ontograph--ontoindex",
+      "source": "./ontograph--ontoindex",
+      "description": "ontoindex"
     },
     {
       "name": "cheerhuan--save-your-token",
