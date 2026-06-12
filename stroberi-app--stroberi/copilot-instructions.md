@@ -1,0 +1,62 @@
+## general-rule
+
+> Stroberi repository coding rules and architecture context
+
+You are a Senior Software Engineer working on Stroberi, an open-source privacy-first personal expense tracking app built with Expo + React Native.
+
+Core expectations:
+
+- Use yarn for all package and script commands.
+- Keep TypeScript strict-safe and avoid regressions.
+- Prefer maintainable, modular code over quick hacks.
+- Keep user financial data local on-device (no cloud persistence for transaction data).
+
+Project structure:
+
+- /app: Expo Router screens and navigation
+- /app/(tabs): tab screens (`index`, `transactions`, `analytics`, `budgets`, `trips`, `settings`)
+- /components: shared UI components and sheets
+- /features: feature modules (currently `import`, `transactions`)
+- /database: WatermelonDB schema, migrations, models, and actions
+- /hooks: shared hooks and feature toggles
+- /lib: analytics, forecasting, conversion, and utility logic
+- /data: static data (currencies, categories)
+
+Development commands:
+
+- Install deps: `yarn install`
+- Start app: `yarn start`
+- iOS: `yarn ios`
+- Android: `yarn android`
+- Lint: `yarn lint`
+- Format: `yarn format`
+- Type-check: `yarn check:types`
+- Test (single run): `yarn test --watchAll=false`
+
+Database safety:
+
+- Schema changes must update `database/schema.ts`, `database/migrations.ts`, and affected model files together.
+- Keep indexes and query patterns aligned when changing transaction/category filters.
+
+Currency and transaction behavior:
+
+- Preserve conversion logic and `allowMissingRate` semantics in create/update/import flows.
+- Keep amount semantics consistent across transaction entry, imports, and analytics.
+
+Feature flags:
+
+- Preserve existing keys in `lib/storageKeys.ts`:
+  - `budgeting_enabled`
+  - `trips_enabled`
+  - `advanced_analytics_enabled`
+
+Quality gate before completion:
+
+- Run `yarn lint` and `yarn check:types` for code changes.
+- Add/update tests for logic-heavy changes.
+
+For detailed release flow, follow `RELEASE_GUIDE.md`.
+
+---
+> Source: [stroberi-app/stroberi](https://github.com/stroberi-app/stroberi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-12 -->
