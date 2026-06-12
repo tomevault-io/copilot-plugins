@@ -1,111 +1,166 @@
-## creating-new-drivers
+## project-structure
 
-> when the user is requesting to create, improve or document a new driver
+> This project follows a monorepo structure with a top-level `pyproject.toml` that manages all packages using UV workspace.
 
-# Creating New Drivers
 
-When asked to create a new driver, follow these steps:
+# Project Structure
 
-## 1. Use the Driver Creation Script
-Always use the provided script: `./__templates__/create_driver.sh`
+This project follows a monorepo structure with a top-level `pyproject.toml` that manages all packages using UV workspace.
 
-## 2. Required Information
-Before creating a driver, ask the user for:
-- **Driver Package Name**: The package name (e.g., `mydriver`, `custom-power`, `device-controller`)
-  - Should be lowercase with hyphens for multi-word names
-  - Examples from existing drivers: `network`, `iscsi`, `ridesx`, `opendal`, `shell`, `gpiod`, `http-power`, `tasmota`, `tftp`, `uboot`, `snmp`, `sdwire`, `probe-rs`, `can`, `composite`, `corellium`, `dutlink`, `energenie`, `flashers`, `http`, `power`, `pyserial`, `qemu`, `ustreamer`, `yepkit`
-- **Driver Class Name**: The main driver class in CamelCase (e.g., `MyDriver`, `CustomPower`, `DeviceController`)
-  - Should be descriptive and end with appropriate suffix based on functionality
-  - Examples: `TcpNetwork`, `ISCSI`, `RideSXDriver`, `Opendal`, `Shell`, `HttpPower`, `TasmotaPower`, `Tftp`, `UbootConsole`, `SNMPServer`, `SDWire`, `ProbeRs`, `Can`, `Composite`, `Corellium`, `Dutlink`, `EnerGenie`, `QemuFlasher`, `UStreamer`, `Ykush`
-- **Author Name**: Full name of the author
-- **Author Email**: Email address of the author
+## Top-Level Structure
 
-## 3. Command Format
-```bash
-./__templates__/create_driver.sh <driver_package> <DriverClass> "<Author Name>" "<author@email.com>"
 ```
-Always try to obtain the Author Name and Email from git, by checking the git configuration.
-## 4. Examples
-```bash
-# Network driver
-./__templates__/create_driver.sh network TcpNetwork "John Doe" "john@example.com"
-
-# Power management driver
-./__templates__/create_driver.sh custom-power CustomPowerDriver "Jane Smith" "jane@example.com"
-
-# Device control driver
-./__templates__/create_driver.sh device-controller DeviceController "Bob Wilson" "bob@example.com"
+jumpstarter/
+├── pyproject.toml          # Main workspace configuration
+├── packages/               # All Python packages
+├── examples/               # Example applications
+├── docs/                   # Documentation
+├── __templates__/          # Templates for creating new drivers
+└── .cursor/                # Cursor AI rules
 ```
 
-## 5. After Creation
-Once the driver is created:
-1. Navigate to the new driver directory: `packages/jumpstarter-driver-<driver_package>/`
-2. Review the generated files and customize as needed
-3. Implement the driver logic in `driver.py`
-4. Add tests in `driver_test.py`
-5. Update the README.md with specific documentation
-6. Test the driver: `make pkg-test-<driver_package>`
+## Workspace Configuration
 
-## 6. Driver Naming Conventions
-- **Package names**: lowercase with hyphens (e.g., `my-driver`)
-- **Class names**: CamelCase with descriptive suffixes:
-  - Power drivers: `*Power` (e.g., `TasmotaPower`, `HttpPower`)
-  - Network drivers: `*Network` (e.g., `TcpNetwork`, `UdpNetwork`)
-  - Flasher drivers: `*Flasher` (e.g., `QemuFlasher`)
-  - Console drivers: `*Console` (e.g., `UbootConsole`)
-  - Server drivers: `*Server` (e.g., `HttpServer`, `SNMPServer`)
-  - Generic drivers: descriptive name (e.g., `ISCSI`, `Shell`, `Tftp`)
+The project uses **UV workspace** for dependency management:
 
-## 7. Directory Structure
-The script creates:
+- **Top-level `pyproject.toml`**: Defines the workspace and includes all packages
+- **Workspace members**: All packages in `packages/*` and `examples/*` are included
+- **Dependency groups**: Shared development dependencies (docs, dev)
+- **Tool configuration**: Ruff, typos, coverage, pytest settings
+
+## Package Structure
+
+### Core Packages
+
+- **`jumpstarter/`**: Main library with client, config, and common functionality
+- **`jumpstarter-protocol/`**: gRPC protocol definitions (excluded from linting)
+- **`jumpstarter-kubernetes/`**: Kubernetes integration
+- **`jumpstarter-testing/`**: Testing utilities
+- **`jumpstarter-imagehash/`**: Image hashing utilities
+
+### CLI Packages
+
+- **`jumpstarter-cli/`**: Main CLI application
+- **`jumpstarter-cli-admin/`**: Administrative CLI commands
+- **`jumpstarter-cli-common/`**: Shared CLI utilities
+- **`jumpstarter-cli-driver/`**: Driver-specific CLI commands
+
+### Driver Packages
+
+All driver packages follow the pattern `jumpstarter-driver-<name>/`:
+
+- **`jumpstarter-driver-network/`**: Network interface drivers (TCP, UDP, Unix, etc.)
+- **`jumpstarter-driver-power/`**: Power management drivers
+- **`jumpstarter-driver-*`**: Various hardware-specific drivers
+
+### Utility Packages
+
+- **`jumpstarter-all/`**: Meta-package that includes all components
+- **`hatch-pin-jumpstarter/`**: Custom Hatch build hook
+
+## Package Structure
+
+Each package follows this structure:
+
 ```
-packages/jumpstarter-driver-<driver_package>/
-├── jumpstarter_driver_<driver_package>/
+packages/jumpstarter-driver-<name>/
+├── jumpstarter_driver_<name>/    # Main Python package
 │   ├── __init__.py
-│   ├── client.py
-│   ├── driver.py
-│   └── driver_test.py
-├── examples/
+│   ├── driver.py                 # Driver implementation
+│   ├── client.py                 # Client implementation
+│   └── driver_test.py           # Tests
+├── examples/                     # Example configurations
 │   └── exporter.yaml
-├── .gitignore
-├── pyproject.toml
-└── README.md
+├── pyproject.toml               # Package configuration
+├── README.md                    # Package documentation
+└── .gitignore
 ```
 
-## 8. Documentation
-The script automatically creates:
-- A README.md with basic documentation
-- A symlink in `docs/source/reference/package-apis/drivers/` pointing to the README
-- Template files for all necessary components
-- A good example of documentation is in `docs/source/reference/package-apis/drivers/gpiod.md` and also `docs/source/reference/package-apis/drivers/pyserial.md`
+## Package Configuration
 
-## Code Style and Testing
+Each package's `pyproject.toml` includes:
 
-- Follow existing code style (validate with `make lint`, fix with `make lint-fix`)
-- Perform static type checking with `make ty-pkg-${package_name}`
-- Add comprehensive tests and update documentation
-- Verify all tests pass (`make test-pkg-${package_name}` or `make test`)
+- **Project metadata**: Name, description, authors, license, please note that this repo only accepts Apache-2.0 license.
+- **Dependencies**: Runtime and development dependencies
+- **Entry points**: Driver and adapter registrations
+- **Build system**: Hatch with custom hooks
+- **Version management**: VCS-based versioning from root
 
-## Contributing Guidelines
+## Examples Structure
 
-- Focus on a single issue per driver
-- Use clear, descriptive commit messages
-- Reference issue numbers when applicable
-- Follow conventional commit format when possible
-- Ensure all tests pass before submitting PRs
+```
+examples/
+├── automotive/                  # Automotive testing example
+│   ├── jumpstarter_example_automotive/
+│   ├── pyproject.toml
+│   └── README.md
+└── soc-pytest/                 # SoC testing example
+    ├── jumpstarter_example_soc_pytest/
+    ├── pyproject.toml
+    └── README.md
+```
 
-# Driver client CLIs
+## Development Workflow
 
-Some drivers implement known classes that provide a CLI interface for the driver, but other
-clients implement their own CLI interface that will appear in the `j` command inside a `jmp shell`.
+### Creating New Packages
 
-Good examples can be found in `packages/jumpstarter-driver-shell/jumpstarter_driver_shell/client.py`, `packages/jumpstarter-driver-pyserial/jumpstarter_driver_pyserial/client.py` or `packages/jumpstarter-driver-probe-rs/jumpstarter_driver_probe_rs/client.py`.
+1. **Drivers**: Use `./__templates__/create_driver.sh` (see creating-new-drivers.mdc)
+2. **Other packages**: Create manually following existing patterns
 
-# Composite drivers
+### Package Dependencies
 
-Drives which have children drivers should be composite drivers, and the client interface should
-inherit from `CompositeClient` in jumpstarter_driver_composite.client, also the pyproject.toml should
-have a dependency on `jumpstarter-driver-composite`.
+- **Core packages**: Depend on `jumpstarter-protocol`
+- **Driver packages**: Depend on `jumpstarter` and specific hardware libraries
+- **CLI packages**: Depend on `jumpstarter` and `jumpstarter-cli-common`
+- **Examples**: Depend on relevant driver packages
+
+### Testing
+
+- **Package tests**: `make test-pkg-<package_name>`
+- **All tests**: `make test`
+- **Coverage**: Configured per package with HTML and XML reports
+
+### Linting and Formatting
+
+- **Ruff**: Code formatting and linting (excludes `jumpstarter-protocol`), `make lint` and `make lint-fix` are available.
+- **Typos**: Spell checking
+- **Pre-commit**: Automated checks
+
+## Key Conventions
+
+1. **Naming**: Package names use hyphens, module names use underscores
+2. **Entry points**: Drivers register via `jumpstarter.drivers` entry point
+3. **Versioning**: All packages share the same version from VCS
+4. **Documentation**: Each package has its own README.md, and when it's a driver we make a symlink in `docs/source/reference/package-apis/drivers/` pointing to the README.md for the driver.
+5. **Testing**: Comprehensive test coverage required, but always try to focus on starting a server and client to test it e2e. Mock sometimes when there is too much dependency on system tools/services/compatibility issues between MacOs/Linux.
+6. **Dependencies**: Minimal, focused dependencies per package
+
+## Build and Distribution
+
+- **Build system**: Hatch with custom `hatch-pin-jumpstarter` hook
+- **Version source**: VCS (Git) with root-level version management
+- **Distribution**: Individual packages published separately
+- **Workspace**: UV manages dependencies across all packages
+
+## Running tests
+
+When running tests you should use the `make pkg-test-<package_name>` command.
+
+## Running type checking
+
+When running type checking you should use the `make pkg-ty-<package_name>` command,
+never invoke pytest manually. Use this because it will be more reliable and
+install the right dependencies.
+
+## Running linting
+
+When running linting you should use the `make lint-fix`command.
+
+## Running python manually
+
+If you need to run python code manually to check if it works, you should use `uv run python3`
+to make sure you get the venv from uv, you may need to run `make sync` first to get all
+the dependencies in place.
 
 ---
 > Source: [jumpstarter-dev/jumpstarter-python](https://github.com/jumpstarter-dev/jumpstarter-python) — distributed by [TomeVault](https://tomevault.io).
