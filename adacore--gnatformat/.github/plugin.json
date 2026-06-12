@@ -1,0 +1,9 @@
+{
+  "name": "adacore--gnatformat",
+  "displayName": "gnatformat",
+  "description": "gnatformat",
+  "version": "1.0.0",
+  "author": "AdaCore",
+  "homepage": "https://github.com/AdaCore/gnatformat",
+  "skills": []
+}
