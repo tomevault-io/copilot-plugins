@@ -1,0 +1,9 @@
+{
+  "name": "aliyuncontainerservice--data-on-ack",
+  "displayName": "data-on-ack",
+  "description": "Examples of Data & AI/ML on Alibaba Cloud ACK by AI Suite",
+  "version": "1.0.0",
+  "author": "AliyunContainerService",
+  "homepage": "https://github.com/AliyunContainerService/data-on-ack",
+  "skills": []
+}
