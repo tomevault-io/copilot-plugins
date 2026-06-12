@@ -1,0 +1,9 @@
+{
+  "name": "agentsorchestrationcompany--interbase",
+  "displayName": "interbase",
+  "description": "Interbase is an open-source agent CLI for work on your computer and everywhere else",
+  "version": "1.0.0",
+  "author": "agentsorchestrationcompany",
+  "homepage": "https://github.com/agentsorchestrationcompany/interbase",
+  "skills": []
+}
