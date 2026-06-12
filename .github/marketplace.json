@@ -188634,6 +188634,86 @@
       "description": "LLM-Wiki-v3"
     },
     {
+      "name": "aliyuncontainerservice--data-on-ack",
+      "source": "./aliyuncontainerservice--data-on-ack",
+      "description": "Examples of Data & AI/ML on Alibaba Cloud ACK by AI Suite"
+    },
+    {
+      "name": "dcc-bs--rag-backend",
+      "source": "./dcc-bs--rag-backend",
+      "description": "Bebbi Bot is our own RAG bot solution. This project is in its early stages. We do not recommend you to use it."
+    },
+    {
+      "name": "win-wiz--subrise",
+      "source": "./win-wiz--subrise",
+      "description": "Subrise is a professional Reddit traffic monetization tool designed to help entrepreneurs expand their business overseas"
+    },
+    {
+      "name": "fstermann--starlib",
+      "source": "./fstermann--starlib",
+      "description": "Starlib is a DJ library management app."
+    },
+    {
+      "name": "oliverkroener--ok-exchange365-mailer",
+      "source": "./oliverkroener--ok-exchange365-mailer",
+      "description": "Extension for Typo3 to enable mails with Exchange 365 without enabling SMTP and using MS Graph API."
+    },
+    {
+      "name": "dcc-bs--rag-backend",
+      "source": "./dcc-bs--rag-backend",
+      "description": "Bebbi Bot is our own RAG bot solution. This project is in its early stages. We do not recommend you to use it."
+    },
+    {
+      "name": "voluntas--spa-template",
+      "source": "./voluntas--spa-template",
+      "description": "spa-template"
+    },
+    {
+      "name": "voluntas--spa-template",
+      "source": "./voluntas--spa-template",
+      "description": "spa-template"
+    },
+    {
+      "name": "dcc-bs--rag-backend",
+      "source": "./dcc-bs--rag-backend",
+      "description": "Bebbi Bot is our own RAG bot solution. This project is in its early stages. We do not recommend you to use it."
+    },
+    {
+      "name": "casperh2o--3dmarblemazegenerator",
+      "source": "./casperh2o--3dmarblemazegenerator",
+      "description": "Application to generate a marble dexterity puzzle 3D printable design files."
+    },
+    {
+      "name": "skytik--fastify-boilerplate",
+      "source": "./skytik--fastify-boilerplate",
+      "description": "A modern backend with Fastify framework and Nodejs"
+    },
+    {
+      "name": "12-studio--tackl",
+      "source": "./12-studio--tackl",
+      "description": "The ultimate starter kit for React, using NextJS"
+    },
+    {
+      "name": "embrace-io--embrace-docs",
+      "source": "./embrace-io--embrace-docs",
+      "description": "Embrace Documentation"
+    },
+    {
+      "name": "12-studio--tackl",
+      "source": "./12-studio--tackl",
+      "description": "The ultimate starter kit for React, using NextJS"
+    },
+    {
+      "name": "cartridge-gg--vrf",
+      "source": "./cartridge-gg--vrf",
+      "description": "vrf"
+    },
+    {
+      "name": "12-studio--tackl",
+      "source": "./12-studio--tackl",
+      "description": "The ultimate starter kit for React, using NextJS"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -202902,6 +202982,31 @@
       "name": "reskin-games--stake-engine-skills",
       "source": "./reskin-games--stake-engine-skills",
       "description": "Two Claude Code skills bundling the official Stake Engine Math SDK + Web SDK workflows \u2014 bootstrap, distilled docs, approval checklist."
+    },
+    {
+      "name": "bkerler--ida-rpc",
+      "source": "./bkerler--ida-rpc",
+      "description": "IDA Pro RPC for assisted RE-tasks"
+    },
+    {
+      "name": "vadxq--go-rest-starter",
+      "source": "./vadxq--go-rest-starter",
+      "description": "golang restful api starter with std lib net/http, go-chi, gorm, postgres, redis"
+    },
+    {
+      "name": "paleovirologylab--hi-fever",
+      "source": "./paleovirologylab--hi-fever",
+      "description": "HI-FEVER: A Nextflow pipeline for the high-throughput discovery and annotation of endogenous viral elements"
+    },
+    {
+      "name": "robblackwell--golem",
+      "source": "./robblackwell--golem",
+      "description": "Golem provides a consistent command line interface to a variety of Large Language Model APIs. Golem is primarily used for batch-mode LLM benchmarking."
+    },
+    {
+      "name": "caido--doc-developer",
+      "source": "./caido--doc-developer",
+      "description": "\ud83d\udcd9 Developer documentation for Caido"
     },
     {
       "name": "cheerhuan--save-your-token",
