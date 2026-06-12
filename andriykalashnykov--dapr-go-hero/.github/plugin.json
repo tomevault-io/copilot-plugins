@@ -1,0 +1,9 @@
+{
+  "name": "andriykalashnykov--dapr-go-hero",
+  "displayName": "dapr-go-hero",
+  "description": "Reference Go microservices on Dapr \u2014 pub/sub routing, state, secrets, service invocation; 4 client modes, KinD + cosign-signed multi-arch images",
+  "version": "1.0.0",
+  "author": "AndriyKalashnykov",
+  "homepage": "https://github.com/AndriyKalashnykov/dapr-go-hero",
+  "skills": []
+}
