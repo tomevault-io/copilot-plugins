@@ -1,0 +1,9 @@
+{
+  "name": "f321x--nostr-tracking-token-remover",
+  "displayName": "nostr-tracking-token-remover",
+  "description": "Nostr bot to remove tracking tokens from URLs and reply them to Notes",
+  "version": "1.0.0",
+  "author": "f321x",
+  "homepage": "https://github.com/f321x/nostr-tracking-token-remover",
+  "skills": []
+}
