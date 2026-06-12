@@ -1,0 +1,9 @@
+{
+  "name": "paleovirologylab--hi-fever",
+  "displayName": "hi-fever",
+  "description": "HI-FEVER: A Nextflow pipeline for the high-throughput discovery and annotation of endogenous viral elements",
+  "version": "1.0.0",
+  "author": "PaleovirologyLab",
+  "homepage": "https://github.com/PaleovirologyLab/hi-fever",
+  "skills": []
+}
