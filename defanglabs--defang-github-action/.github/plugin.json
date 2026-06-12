@@ -1,0 +1,9 @@
+{
+  "name": "defanglabs--defang-github-action",
+  "displayName": "defang-github-action",
+  "description": "A GitHub Action to deploy with Defang.",
+  "version": "1.0.0",
+  "author": "DefangLabs",
+  "homepage": "https://github.com/DefangLabs/defang-github-action",
+  "skills": []
+}
