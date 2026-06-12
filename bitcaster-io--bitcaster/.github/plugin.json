@@ -1,0 +1,9 @@
+{
+  "name": "bitcaster-io--bitcaster",
+  "displayName": "bitcaster",
+  "description": "System-to-user signal-to-message notification system.",
+  "version": "1.0.0",
+  "author": "bitcaster-io",
+  "homepage": "https://github.com/bitcaster-io/bitcaster",
+  "skills": []
+}
