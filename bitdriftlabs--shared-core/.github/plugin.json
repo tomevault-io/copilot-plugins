@@ -1,0 +1,9 @@
+{
+  "name": "bitdriftlabs--shared-core",
+  "displayName": "shared-core",
+  "description": "bitdrift code shared between the client and server",
+  "version": "1.0.0",
+  "author": "bitdriftlabs",
+  "homepage": "https://github.com/bitdriftlabs/shared-core",
+  "skills": []
+}
