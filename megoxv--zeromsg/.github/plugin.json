@@ -1,0 +1,9 @@
+{
+  "name": "megoxv--zeromsg",
+  "displayName": "zeromsg",
+  "description": "ZeroMsg is an open-source platform for managing WhatsApp Cloud API messaging, templates, campaigns, inbox chats, and developer API access.",
+  "version": "1.0.0",
+  "author": "megoxv",
+  "homepage": "https://github.com/megoxv/zeromsg",
+  "skills": []
+}
