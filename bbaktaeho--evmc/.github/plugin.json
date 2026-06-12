@@ -1,0 +1,9 @@
+{
+  "name": "bbaktaeho--evmc",
+  "displayName": "evmc",
+  "description": "evmc is an abbreviation of Ethereum Virtual Machine Client, and I wanted to express it as simply as a Go. But evmc is not simple.",
+  "version": "1.0.0",
+  "author": "bbaktaeho",
+  "homepage": "https://github.com/bbaktaeho/evmc",
+  "skills": []
+}
