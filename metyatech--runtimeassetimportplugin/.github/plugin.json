@@ -1,0 +1,9 @@
+{
+  "name": "metyatech--runtimeassetimportplugin",
+  "displayName": "RuntimeAssetImportPlugin",
+  "description": "A plugin for the Unreal Engine to easily load 3D assets (e.g. FBX) at runtime. Made with UE5.4.2.",
+  "version": "1.0.0",
+  "author": "metyatech",
+  "homepage": "https://github.com/metyatech/RuntimeAssetImportPlugin",
+  "skills": []
+}
