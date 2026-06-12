@@ -1,0 +1,9 @@
+{
+  "name": "dazuiba--handoff",
+  "displayName": "handoff",
+  "description": "Delegate tasks to DeepSeek right inside your Claude Code / Codex sessions.",
+  "version": "1.0.0",
+  "author": "dazuiba",
+  "homepage": "https://github.com/dazuiba/handoff",
+  "skills": []
+}
