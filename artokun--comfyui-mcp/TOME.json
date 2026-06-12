@@ -3,7 +3,7 @@
   "owner": "artokun",
   "repo": "comfyui-mcp",
   "description": "ComfyUI MCP server + Claude Code plugin \u2014 workflow execution, visualization, composition, model management, and skill generation",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/artokun/comfyui-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-12T05:30:21Z"
+  "distributed_at": "2026-06-12T05:31:25Z"
 }
