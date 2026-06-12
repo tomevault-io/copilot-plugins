@@ -1,24 +1,20 @@
-## spike-scripts
+## tbh-qa
 
-> Remove temporary spike/probe scripts before marking app features complete or opening a PR
+> Run tbh-qa before marking app changes complete — npm run qa and dev smoke when touching main, preload, renderer, or IPC
 
 
-# Spike and probe scripts — delete when done
+# TBH Companion — QA before done
 
-Temporary research scripts (`probe-*.ts`, `spike-*.ts`, scratch runners under `app/scripts/`) exist only to explore save formats, APIs, or data shapes during development.
+When you finish work under `app/`:
 
-**Before marking a feature complete, merging, or opening a PR:**
+1. Run `cd app; npm run qa` (typecheck + tests + build + bundle path guards).
+2. If you changed `main/`, `preload/`, `renderer/`, `shared/ipc.ts`, or window paths:
+   - Prefer `npm run dev` and confirm the main window is **not blank** (tabs visible), or
+   - Run `npm run qa:dev` when you cannot see the UI — then say visual checks were not performed.
+3. **Core-only** changes (`app/src/core/` with no IPC/UI/main edits): `npm run qa` alone is enough.
+4. Do not tell the user the task is done until required QA passes.
 
-1. **Delete** spike/probe scripts and their scratch outputs (dump JSON, `.tmp`, local-only fixtures) unless the user explicitly asked to keep them.
-2. **Promote** durable results into the real codebase:
-   - behavior → `app/src/core/` + tests
-   - bundled catalog data → `data/`
-   - research notes → `docs/findings/`
-3. **Do not commit** new spike scripts unless actively mid-investigation on the same branch; if committed, remove them in the same PR before merge.
-
-**Keep** scripts that are part of the product toolchain (`qa-gate.mjs`, `qa-dev.mjs`, documented `npm run` scripts, CI).
-
-When finishing work under `app/`, include spike cleanup in the tbh-qa completion checklist (`.cursor/skills/tbh-qa/SKILL.md`).
+Full workflow: `.cursor/skills/tbh-qa/SKILL.md`
 
 ---
 > Source: [lucasfevi/tbh-companion](https://github.com/lucasfevi/tbh-companion) — distributed by [TomeVault](https://tomevault.io).
