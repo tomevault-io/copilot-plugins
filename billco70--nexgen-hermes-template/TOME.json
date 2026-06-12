@@ -4,7 +4,7 @@
   "repo": "nexgen.hermes.template",
   "description": "NexGen Hermes Agent deployment template \u2014 one command deploy",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/billco70/nexgen.hermes.template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-12T02:33:30Z"
+  "distributed_at": "2026-06-12T02:38:05Z"
 }
