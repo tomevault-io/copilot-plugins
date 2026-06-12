@@ -1,0 +1,9 @@
+{
+  "name": "abc21086999--maple-script",
+  "displayName": "maple_script",
+  "description": "A comprehensive MapleStory automation solution leveraging Python, OpenCV, and CircuitPython-powered hardware simulation.",
+  "version": "1.0.0",
+  "author": "abc21086999",
+  "homepage": "https://github.com/abc21086999/maple_script",
+  "skills": []
+}
