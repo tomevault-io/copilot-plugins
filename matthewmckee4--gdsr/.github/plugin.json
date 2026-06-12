@@ -1,0 +1,9 @@
+{
+  "name": "matthewmckee4--gdsr",
+  "displayName": "gdsr",
+  "description": "GDSII manipulation, written in Rust.",
+  "version": "1.0.0",
+  "author": "MatthewMckee4",
+  "homepage": "https://github.com/MatthewMckee4/gdsr",
+  "skills": []
+}
