@@ -1,0 +1,9 @@
+{
+  "name": "robblackwell--golem",
+  "displayName": "golem",
+  "description": "Golem provides a consistent command line interface to a variety of Large Language Model APIs. Golem is primarily used for batch-mode LLM benchmarking.",
+  "version": "1.0.0",
+  "author": "RobBlackwell",
+  "homepage": "https://github.com/RobBlackwell/golem",
+  "skills": []
+}
