@@ -1,0 +1,9 @@
+{
+  "name": "apurv-salunke--india-stocks-api",
+  "displayName": "india-stocks-api",
+  "description": "The Indian Stock API is a Python package designed to interact with stock market data from various Indian stock exchanges. It provides a unified interface to access data from multiple brokers, simplify",
+  "version": "1.0.0",
+  "author": "Apurv-Salunke",
+  "homepage": "https://github.com/Apurv-Salunke/india-stocks-api",
+  "skills": []
+}
