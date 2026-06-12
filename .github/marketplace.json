@@ -188874,6 +188874,61 @@
       "description": "Standalone repo for sentry-kube and other related tools"
     },
     {
+      "name": "vesiumjs--vesium",
+      "source": "./vesiumjs--vesium",
+      "description": "Vue component and composition-api library for Cesium."
+    },
+    {
+      "name": "langlang03--linecodepro",
+      "source": "./langlang03--linecodepro",
+      "description": "LineCodePro"
+    },
+    {
+      "name": "strawlab--flo",
+      "source": "./strawlab--flo",
+      "description": "Fast Lock-On (FLO) tracking"
+    },
+    {
+      "name": "k3nsei--ngx-signal-store-query",
+      "source": "./k3nsei--ngx-signal-store-query",
+      "description": "Signal Store feature that bridges with Angular Query"
+    },
+    {
+      "name": "vesiumjs--vesium",
+      "source": "./vesiumjs--vesium",
+      "description": "Vue component and composition-api library for Cesium."
+    },
+    {
+      "name": "chester-lang--chester",
+      "source": "./chester-lang--chester",
+      "description": "Trying to make a practical possibly unsound dependently typed language with algebraic effects"
+    },
+    {
+      "name": "mathebydanieljung--mathefragen-de",
+      "source": "./mathebydanieljung--mathefragen-de",
+      "description": "The source code of the learning platforms"
+    },
+    {
+      "name": "rancher--dartboard",
+      "source": "./rancher--dartboard",
+      "description": "Code, instructions and results for scalability and performance tests on the Rancher product family "
+    },
+    {
+      "name": "rajjitlai--necb-sec-a-g1",
+      "source": "./rajjitlai--necb-sec-a-g1",
+      "description": "NECB-SEC-A-G1 | Team Showcase"
+    },
+    {
+      "name": "bitdriftlabs--shared-core",
+      "source": "./bitdriftlabs--shared-core",
+      "description": "bitdrift code shared between the client and server"
+    },
+    {
+      "name": "adriamontoto--criteria-pattern",
+      "source": "./adriamontoto--criteria-pattern",
+      "description": "The Criteria Pattern is a Python \ud83d\udc0d package that simplifies and standardizes criteria based filtering \ud83e\udd0f\ud83c\udffb, validation and selection."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -203212,6 +203267,51 @@
       "name": "scruffynerf--scromfyui-nodes",
       "source": "./scruffynerf--scromfyui-nodes",
       "description": "nodes for ComfyUI"
+    },
+    {
+      "name": "stroberi-app--stroberi",
+      "source": "./stroberi-app--stroberi",
+      "description": "Personal expense tracking app"
+    },
+    {
+      "name": "sestrella--iecs",
+      "source": "./sestrella--iecs",
+      "description": "An interactive CLI for ECS"
+    },
+    {
+      "name": "vybecode-ltd--stripkit",
+      "source": "./vybecode-ltd--stripkit",
+      "description": "Turn one transparent PNG into a frame-perfect animated filmstrip (sprite sheet) for audio-plugin GUIs: knobs, faders, sliders, and meters. Free and open source."
+    },
+    {
+      "name": "sestrella--iecs",
+      "source": "./sestrella--iecs",
+      "description": "An interactive CLI for ECS"
+    },
+    {
+      "name": "collect-intel--osccai",
+      "source": "./collect-intel--osccai",
+      "description": "Open-source Collective Constitutions for AI"
+    },
+    {
+      "name": "stroberi-app--stroberi",
+      "source": "./stroberi-app--stroberi",
+      "description": "Personal expense tracking app"
+    },
+    {
+      "name": "chainstacklabs--jupiter-swaps-priority-fees-python",
+      "source": "./chainstacklabs--jupiter-swaps-priority-fees-python",
+      "description": "Python swaps on Jupiter Aggregator with custom priority fees"
+    },
+    {
+      "name": "toramcalculator-team--toramcalculator",
+      "source": "./toramcalculator-team--toramcalculator",
+      "description": "ToramOnline's player configuration calculation tool"
+    },
+    {
+      "name": "stroberi-app--stroberi",
+      "source": "./stroberi-app--stroberi",
+      "description": "Personal expense tracking app"
     },
     {
       "name": "cheerhuan--save-your-token",
