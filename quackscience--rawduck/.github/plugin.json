@@ -1,0 +1,9 @@
+{
+  "name": "quackscience--rawduck",
+  "displayName": "rawduck",
+  "description": "Experimental RawMergeTree-like Extension for DuckDB",
+  "version": "1.0.0",
+  "author": "quackscience",
+  "homepage": "https://github.com/quackscience/rawduck",
+  "skills": []
+}
