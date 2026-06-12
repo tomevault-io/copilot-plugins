@@ -1,0 +1,9 @@
+{
+  "name": "obmondo--linuxaid",
+  "displayName": "LinuxAid",
+  "description": "LinuxAid.io is a Puppet/OpenVox based setup, to manage Linux servers on physical, VM and cloud instances.",
+  "version": "1.0.0",
+  "author": "Obmondo",
+  "homepage": "https://github.com/Obmondo/LinuxAid",
+  "skills": []
+}
