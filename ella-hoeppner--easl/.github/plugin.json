@@ -1,0 +1,9 @@
+{
+  "name": "ella-hoeppner--easl",
+  "displayName": "easl",
+  "description": "Enhanced Abstraction Shader Language, a functional shader language written in Rust",
+  "version": "1.0.0",
+  "author": "Ella-Hoeppner",
+  "homepage": "https://github.com/Ella-Hoeppner/easl",
+  "skills": []
+}
