@@ -1,27 +1,24 @@
-## project-skills
+## spike-scripts
 
-> Required project skills for features, refactors, and app changes — read SKILL.md files before coding
+> Remove temporary spike/probe scripts before marking app features complete or opening a PR
 
 
-# TBH Companion — required skills
+# Spike and probe scripts — delete when done
 
-Before **implementing** a feature, refactor, or behavior change under `app/`:
+Temporary research scripts (`probe-*.ts`, `spike-*.ts`, scratch runners under `app/scripts/`) exist only to explore save formats, APIs, or data shapes during development.
 
-1. **Read** (open the file; do not rely on memory):
-   - `.cursor/skills/coding-guidelines/SKILL.md` — always
-   - `.cursor/skills/tbh-qa/SKILL.md` — completion gate (`npm run qa` incl. lint/format, dev smoke)
-2. **Also read when the change touches:**
-   - `app/src/renderer/**` → `.cursor/skills/react-best-practices/SKILL.md`, `.cursor/skills/tbh-ux/SKILL.md`, and `docs/STYLING.md` (tabs, chrome, overlays, layout)
-   - `app/src/main/**`, `app/src/preload/**`, CSP, IPC, network, config → `.cursor/skills/best-practices/SKILL.md`
-   - Release, `CHANGELOG.md`, or semver / version bump → `.cursor/skills/tbh-changelog/SKILL.md`
+**Before marking a feature complete, merging, or opening a PR:**
 
-Apply the skills during the work, not only at the end. No drive-by refactors outside the task.
+1. **Delete** spike/probe scripts and their scratch outputs (dump JSON, `.tmp`, local-only fixtures) unless the user explicitly asked to keep them.
+2. **Promote** durable results into the real codebase:
+   - behavior → `app/src/core/` + tests
+   - bundled catalog data → `data/`
+   - research notes → `docs/findings/`
+3. **Do not commit** new spike scripts unless actively mid-investigation on the same branch; if committed, remove them in the same PR before merge.
 
-**Layer rules** (with skills): `AGENTS.md` architecture table + `docs/ARCHITECTURE.md`.
+**Keep** scripts that are part of the product toolchain (`qa-gate.mjs`, `qa-dev.mjs`, documented `npm run` scripts, CI).
 
-**Refactors:** follow **coding-guidelines** and layer skills; keep diffs surgical — no drive-by rewrites outside the task.
-
-**Done means:** tbh-qa passed (lint, format, typecheck, tests, build), spike/probe scripts removed when applicable, and required skills were followed — not just green tests.
+When finishing work under `app/`, include spike cleanup in the tbh-qa completion checklist (`.cursor/skills/tbh-qa/SKILL.md`).
 
 ---
 > Source: [lucasfevi/tbh-companion](https://github.com/lucasfevi/tbh-companion) — distributed by [TomeVault](https://tomevault.io).
