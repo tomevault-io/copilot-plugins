@@ -99729,6 +99729,11 @@
       "description": "a fundamental Python package for digital circuit waveform analysis"
     },
     {
+      "name": "f321x--nostr-tracking-token-remover",
+      "source": "./f321x--nostr-tracking-token-remover",
+      "description": "Nostr bot to remove tracking tokens from URLs and reply them to Notes"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -102274,6 +102279,11 @@
       "description": "AI agent for creating personalized digests of research papers"
     },
     {
+      "name": "scayle--nuxt-opentelemetry",
+      "source": "./scayle--nuxt-opentelemetry",
+      "description": "A Nuxt module for OpenTelemetry integration. "
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -104757,6 +104767,16 @@
       "name": "gekaixing--gekaixing",
       "source": "./gekaixing--gekaixing",
       "description": "Copy Twitter/X"
+    },
+    {
+      "name": "swarajbachu--gesturs-ui",
+      "source": "./swarajbachu--gesturs-ui",
+      "description": "gesturs-ui"
+    },
+    {
+      "name": "swarajbachu--gesturs-ui",
+      "source": "./swarajbachu--gesturs-ui",
+      "description": "gesturs-ui"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -113399,6 +113419,26 @@
       "description": "LinuxAid.io is a Puppet/OpenVox based setup, to manage Linux servers on physical, VM and cloud instances."
     },
     {
+      "name": "ruaan-deysel--ha-actronair-neo",
+      "source": "./ruaan-deysel--ha-actronair-neo",
+      "description": "ActronAir Neo integration for Home Assistant"
+    },
+    {
+      "name": "ruaan-deysel--ha-actronair-neo",
+      "source": "./ruaan-deysel--ha-actronair-neo",
+      "description": "ActronAir Neo integration for Home Assistant"
+    },
+    {
+      "name": "frostime--sy-bookmark-plus",
+      "source": "./frostime--sy-bookmark-plus",
+      "description": "SiYuan plugin, a more powerful bookmark "
+    },
+    {
+      "name": "ruaan-deysel--ha-actronair-neo",
+      "source": "./ruaan-deysel--ha-actronair-neo",
+      "description": "ActronAir Neo integration for Home Assistant"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -116177,6 +116217,11 @@
       "name": "idimma--rn-widgets",
       "source": "./idimma--rn-widgets",
       "description": "rn-widgets"
+    },
+    {
+      "name": "tscircuit--contribution-tracker",
+      "source": "./tscircuit--contribution-tracker",
+      "description": "Generate a contribution summary for your projects"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -119037,6 +119082,16 @@
       "name": "optima-cityu--llm4ad-next",
       "source": "./optima-cityu--llm4ad-next",
       "description": "A next-generation LLM4AD platform focused on intuitive UI interactions and seamless collaboration with AI agents, making automated algorithm design more accessible and easier to use"
+    },
+    {
+      "name": "0x-j--aptos-full-stack-template",
+      "source": "./0x-j--aptos-full-stack-template",
+      "description": "Template to build a full stack app on Aptos"
+    },
+    {
+      "name": "cordialsys--crosschain",
+      "source": "./cordialsys--crosschain",
+      "description": "Cordial Systems abstraction over blockchains"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -122367,6 +122422,11 @@
       "name": "wkaisertexas--healthlens",
       "source": "./wkaisertexas--healthlens",
       "description": "Apple Health's missing \"Export to CSV\" button"
+    },
+    {
+      "name": "johnsmith-132--poe-export-tools",
+      "source": "./johnsmith-132--poe-export-tools",
+      "description": "Download images, chats, or Creator data from your Poe account"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -126209,6 +126269,21 @@
       "description": "nobbz-vim"
     },
     {
+      "name": "molmod--stacie",
+      "source": "./molmod--stacie",
+      "description": "Stable AutoCorrelation Integral Estimator"
+    },
+    {
+      "name": "the-snesler--discord-github-readme",
+      "source": "./the-snesler--discord-github-readme",
+      "description": "Display your Discord profile in your GitHub README"
+    },
+    {
+      "name": "adacore--gnatformat",
+      "source": "./adacore--gnatformat",
+      "description": "gnatformat"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -129947,6 +130022,11 @@
       "name": "metyatech--runtimeassetimportplugin",
       "source": "./metyatech--runtimeassetimportplugin",
       "description": "A plugin for the Unreal Engine to easily load 3D assets (e.g. FBX) at runtime. Made with UE5.4.2."
+    },
+    {
+      "name": "ruziniuuuuu--awesome-shit",
+      "source": "./ruziniuuuuu--awesome-shit",
+      "description": "A collection of ShiT (\u53f2\ud83d\udca9) on GitHub."
     },
     {
       "name": "vm--nila-code",
@@ -134012,6 +134092,11 @@
       "name": "arnabbagxd--brand-building-skills",
       "source": "./arnabbagxd--brand-building-skills",
       "description": "Brand building skills for Claude Code and AI agents. strategy, naming, identity, voice, positioning, messaging, auditing, and launch"
+    },
+    {
+      "name": "remeh--meh",
+      "source": "./remeh--meh",
+      "description": "remeh's personal code editor"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -138367,6 +138452,16 @@
       "name": "sonar-solutions--sonar-golc",
       "source": "./sonar-solutions--sonar-golc",
       "description": "GoLC counts physical lines of source code in numerous programming languages supported by the Developer, Enterprise, and Data Center editions of SonarQube across your Bitbucket Cloud, Bitbucket DC (on-"
+    },
+    {
+      "name": "fstart-io--fstart",
+      "source": "./fstart-io--fstart",
+      "description": "One firmware to rule them all. One flexible format to bind all nodes to drivers."
+    },
+    {
+      "name": "gnidan--web-solc",
+      "source": "./gnidan--web-solc",
+      "description": "solc inside a browser web worker"
     },
     {
       "name": "mohiwalla--memes",
@@ -143692,6 +143787,31 @@
       "name": "win4r--mytest",
       "source": "./win4r--mytest",
       "description": "AI\u8d85\u5143\u57df\u9891\u9053_\u89c6\u9891\u9879\u76ee\u6587\u4ef6"
+    },
+    {
+      "name": "minsulander--vatiris",
+      "source": "./minsulander--vatiris",
+      "description": "VATSim (Sweden, Unofficial) Integrated Real-time Information System"
+    },
+    {
+      "name": "devxnetwork--devx-network",
+      "source": "./devxnetwork--devx-network",
+      "description": "devx.network"
+    },
+    {
+      "name": "sail-sail--nest",
+      "source": "./sail-sail--nest",
+      "description": "\u4f4e\u4ee3\u7801\u67b6\u6784"
+    },
+    {
+      "name": "ragnarok22--gsmart",
+      "source": "./ragnarok22--gsmart",
+      "description": "The smart way to write your commit messages using Conventional Commits."
+    },
+    {
+      "name": "ragnarok22--gsmart",
+      "source": "./ragnarok22--gsmart",
+      "description": "The smart way to write your commit messages using Conventional Commits."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -155849,6 +155969,11 @@
       "description": "GDSII manipulation, written in Rust."
     },
     {
+      "name": "kd-research--techies",
+      "source": "./kd-research--techies",
+      "description": "Techies: A no-code platform for orchestrating collaborative AI agents through YAML configuration."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -164717,6 +164842,46 @@
       "name": "hendrixer--harness-engineering",
       "source": "./hendrixer--harness-engineering",
       "description": "harness-engineering"
+    },
+    {
+      "name": "reallongnguyen--nestjs-vibe-coding",
+      "source": "./reallongnguyen--nestjs-vibe-coding",
+      "description": "This project is optimized for development with Cursor, an AI-powered code editor that enhances your coding experience"
+    },
+    {
+      "name": "reallongnguyen--nestjs-vibe-coding",
+      "source": "./reallongnguyen--nestjs-vibe-coding",
+      "description": "This project is optimized for development with Cursor, an AI-powered code editor that enhances your coding experience"
+    },
+    {
+      "name": "reallongnguyen--nestjs-vibe-coding",
+      "source": "./reallongnguyen--nestjs-vibe-coding",
+      "description": "This project is optimized for development with Cursor, an AI-powered code editor that enhances your coding experience"
+    },
+    {
+      "name": "reallongnguyen--nestjs-vibe-coding",
+      "source": "./reallongnguyen--nestjs-vibe-coding",
+      "description": "This project is optimized for development with Cursor, an AI-powered code editor that enhances your coding experience"
+    },
+    {
+      "name": "reallongnguyen--nestjs-vibe-coding",
+      "source": "./reallongnguyen--nestjs-vibe-coding",
+      "description": "This project is optimized for development with Cursor, an AI-powered code editor that enhances your coding experience"
+    },
+    {
+      "name": "plutus-terminal--plutus-terminal",
+      "source": "./plutus-terminal--plutus-terminal",
+      "description": "Open-source crypto news trading terminal with the focus on Perpetuals DEX."
+    },
+    {
+      "name": "cloudboss--easyto",
+      "source": "./cloudboss--easyto",
+      "description": "Convert a container image to an EC2 AMI"
+    },
+    {
+      "name": "liamgold--xperience-community-image-processing",
+      "source": "./liamgold--xperience-community-image-processing",
+      "description": "Adds SkiaSharp resize and format support for Xperience by Kentico - Content Hub & Media Library assets."
     },
     {
       "name": "yschimke--compose-ai-tools",
