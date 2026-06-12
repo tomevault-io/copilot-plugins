@@ -7,11 +7,11 @@ ZeroMsg is an open-source platform for managing WhatsApp Cloud API messaging, te
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [megoxv/zeromsg](https://github.com/megoxv/zeromsg).
+Original source: `AGENTS.md` in [megoxv/zeromsg](https://github.com/megoxv/zeromsg).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
