@@ -1,0 +1,52 @@
+## ok-exchange365-mailer
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Extension Overview
+
+TYPO3 extension (`ok_exchange365_mailer`) that enables sending emails via Microsoft Exchange 365 using the MS Graph API instead of SMTP. Uses OAuth 2.0 client credentials flow for authentication.
+
+**Compatibility:** TYPO3 12.4 LTS – 14.x | PHP 8.1 – 8.5
+
+## Architecture
+
+### Core Components
+
+- `Classes/Mail/Transport/Exchange365Transport.php` - Custom Symfony mailer transport implementing `AbstractTransport`. Handles OAuth2 authentication and sends emails via MS Graph API. Note: Excluded from autowiring in Services.yaml as TYPO3 instantiates it directly.
+
+- `Classes/Lowlevel/EventListener/ModifyBlindedConfigurationOptionsEventListener.php` - Event listener that blinds sensitive credentials (tenantId, clientId, clientSecret) in TYPO3's configuration module.
+
+### Configuration Sources (Priority Order)
+
+1. **TypoScript** (frontend context only): `plugin.tx_okexchange365mailer.settings.exchange365.*`
+2. **TYPO3 Mail Settings**: `$GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport_exchange365_*']`
+
+### Required Settings
+
+| Setting | TypoScript Key | Mail Setting Key |
+|---------|---------------|------------------|
+| Tenant ID | `tenantId` | `transport_exchange365_tenantId` |
+| Client ID | `clientId` | `transport_exchange365_clientId` |
+| Client Secret | `clientSecret` | `transport_exchange365_clientSecret` |
+| From Email | `fromEmail` | `transport_exchange365_fromEmail` |
+| Graph Sender User ID (optional) | `graphSenderUserId` | `transport_exchange365_graphSenderUserId` |
+| Save to Sent | `saveToSentItems` | `transport_exchange365_saveToSentItems` |
+
+## Important Behavior
+
+- **Sender display name**: The Graph API uses the **Display name** configured on the mailbox in Exchange Online. TYPO3's `$GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName']` and `defaultMailFromAddress` have **no effect** on the sender name shown to recipients. The display name must be configured in the Microsoft 365 Admin Center or Exchange Admin Center.
+
+- **Send As / Send On Behalf**: The optional `graphSenderUserId` decouples the Graph mailbox (path parameter of `/users/{id}/sendMail`) from the visible message `From` address. When set, that mailbox is used for the Graph call; the message `From` header (and the `fromEmail` / `defaultMailFromAddress` fallback) is unaffected. Use this when the configured mailbox has *Send As* or *Send On Behalf* permission on another mailbox in Exchange. When unset, the resolution chain is unchanged: `$graphMessage['from']` → `fromEmail` → `defaultMailFromAddress`. See <https://learn.microsoft.com/en-us/graph/outlook-send-mail-from-other-user>.
+
+## Dependencies
+
+- `microsoft/microsoft-graph` ^2 - MS Graph API SDK
+- `oliverkroener/ok-typo3-helper` ^4 - Provides `MSGraphMailApiService` for message conversion
+
+---
+> Source: [oliverkroener/ok_exchange365_mailer](https://github.com/oliverkroener/ok_exchange365_mailer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-12 -->
