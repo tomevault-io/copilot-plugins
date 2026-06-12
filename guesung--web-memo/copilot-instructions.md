@@ -1,91 +1,172 @@
-## service
+## tech-stack
 
-> Web Memo is a Chrome extension designed to solve web browsing inconveniences:
+> - Next.js 14.2.10 (for web application)
 
-# Web Memo Service Overview
 
-## 🎯 **Service Purpose**
-Web Memo is a Chrome extension designed to solve web browsing inconveniences:
-- Eliminates the hassle of manual memo creation during web surfing
-- Removes need for separate note-taking apps
-- Enables instant recording through side panel while browsing
+## Core Technologies
+- **Frontend**
+  - TypeScript
+  - React 18.3.1
+  - Next.js 14.2.10 (for web application)
+  - Vite 5.3.3 (for Chrome extension)
+  - TailwindCSS 3.4.x
 
-## 🚀 **Core Features**
+- **Backend & Database**
+  - Supabase
+    - Authentication
+    - Database
+    - Type generation
 
-### **Primary Functionality**
-- **Instant Memos**: Quick idea/information recording during web browsing
-- **Page Summaries**: ChatGPT-powered website summaries (limited sites)
-- **Memo Management**: View and organize saved memos
-- **Data Persistence**: Permanent storage with Excel export capability
-- **Keyboard Shortcuts**: Quick access (Alt+S, Cmd+S, etc.)
+## Project Structure
+- **Monorepo Structure (Turborepo)**
+  - `chrome-extension/` - Chrome extension application
+  - `pages/` - Chrome extension Pages (Side Panel, Content UI, etc)
+  - `shared/` - Shared utilities and types
+  - `packages/` - Shared packages
+  - `supabase/` - Supabase configuration and types
+  - `scripts/` - Development scripts
+  - `tests/` - Test files
 
-### **Supported Content Types**
-- Articles, blogs, news sites
-- YouTube videos and transcripts
-- General web content
-- **Note**: Summaries don't work on Chrome Web Store, settings, new tabs, PDFs
+## State Management & Data Fetching
+- TanStack Query (React Query) v5.59.0
+- React Hook Form 7.53.2
 
-## 💡 **User Experience Principles**
+## UI & Styling
+- TailwindCSS
+- Framer Motion 11.11.8
+- Lucide React 0.456.0
+- Next Themes
+- Driver.js (for tutorials/guides)
 
-### **Seamless Integration**
-- Natural connection between reading and note-taking
-- No context switching required
-- Enhanced productivity through integrated workflow
+## Development Tools
+- TypeScript 5.5.3
+- Biome 2.0.0
+- Sentry (error tracking)
 
-### **Accessibility**
-- Side panel for immediate access
-- Keyboard shortcuts for power users
-- Cross-platform compatibility
+## Testing
+- Vitest
+- Playwright 1.47.0
 
-## 🛠 **Development Guidelines**
+## Build & Development
+- Turbo 2.1.1
+- Vite 5.3.3
+- Cross-env (environment variables)
+- Rimraf (file system operations)
 
-### **When Working on Core Features**
-- Prioritize user experience over technical complexity
-- Ensure memo functionality works on ALL websites
-- Implement graceful degradation for unsupported summary features
-- Focus on performance and reliability
+## Chrome Extension Specific
+- Chrome Extension Manifest V3
+- Firefox Compatibility Support
+  - Conditional logic using `__FIREFOX__` environment variable
+- HMR (Hot Module Replacement) support
 
-### **When Adding New Features**
-- Consider the core use case: quick memo creation during browsing
-- Maintain the seamless integration principle
-- Test across different content types and websites
+## Development Workflow
+- Git-based version control
+- pnpm 9.5.0 package manager
+- Node.js >=18.12.0
+- GitHub Actions CI/CD
+- Automated version updates (`update_version.sh`)
+- Code quality checks
+- Automated testing
+- Cross-browser testing
+- Error tracking and monitoring
 
-## 📋 **Technical Constraints**
+## Utilities
+- dayjs (date handling)
+- es-hangul (Korean text processing)
+- youtube-transcript (YouTube caption handling)
+- OpenAI API integration
 
-### **Summary Feature Limitations**
-```typescript
-// These pages don't support summaries but allow memos
-const UNSUPPORTED_SUMMARY_PAGES = [
-  'chrome://*',
-  'chrome-extension://*',
-  'chrome-search://*',
-  'file://*',
-  'about:*'
-];
-```
+## Environment Configuration
+- Environment variables managed through `.env` file
+- Supabase project configuration
+- Sentry error tracking setup
+- Cross-browser build configuration
 
-### **Memo Functionality**
-- Must work on ALL websites
-- Should handle various content types gracefully
-- Require minimal user input for quick capture
+This documentation accurately reflects the current project structure and technologies in use. Each section is based on the actual `package.json` and project structure, including the specific versions currently in use.
 
-## 🔮 **Future Roadmap**
-- Category organization
-- Dark mode support
-- Calendar view
-- Memo sharing capabilities
-- Enhanced search and filtering
+The project follows modern web development practices and employs a comprehensive set of tools for development, testing, and deployment. The monorepo structure using Turborepo allows for efficient code sharing and management between the Chrome extension and web application components.
+## Core Technologies
+- **Frontend**
+  - TypeScript
+  - React 18.3.1
+  - Next.js 14.2.10 (for web application)
+  - Vite 5.3.3 (for Chrome extension)
+  - TailwindCSS 3.4.x
 
-## 📞 **Feedback Channels**
-- Email support
-- KakaoTalk open chat
-- Google Forms
-- GitHub Issues
+- **Backend & Database**
+  - Supabase
+    - Authentication
+    - Database
+    - Type generation
 
-## 📚 **Reference Documentation**
-- Keep this rule synchronized with [README.md](mdc:README.md)
-- Update feature descriptions when new capabilities are added
-- Maintain consistency with user-facing documentation
+## Project Structure
+- **Monorepo Structure (Turborepo)**
+  - `chrome-extension/` - Chrome extension application
+  - `pages/` - Chrome extension Pages (Side Panel, Content UI, etc)
+  - `shared/` - Shared utilities and types
+  - `packages/` - Shared packages
+  - `supabase/` - Supabase configuration and types
+  - `scripts/` - Development scripts
+  - `tests/` - Test files
+
+## State Management & Data Fetching
+- TanStack Query (React Query) v5.59.0
+- React Hook Form 7.53.2
+
+## UI & Styling
+- TailwindCSS
+- Framer Motion 11.11.8
+- Lucide React 0.456.0
+- Next Themes
+- Driver.js (for tutorials/guides)
+
+## Development Tools
+- TypeScript 5.5.3
+- Biome 2.0.0
+- Sentry (error tracking)
+
+## Testing
+- Vitest
+- Playwright 1.47.0
+
+## Build & Development
+- Turbo 2.1.1
+- Vite 5.3.3
+- Cross-env (environment variables)
+- Rimraf (file system operations)
+
+## Chrome Extension Specific
+- Chrome Extension Manifest V3
+- Firefox Compatibility Support
+  - Conditional logic using `__FIREFOX__` environment variable
+- HMR (Hot Module Replacement) support
+
+## Development Workflow
+- Git-based version control
+- pnpm 9.5.0 package manager
+- Node.js >=18.12.0
+- GitHub Actions CI/CD
+- Automated version updates (`update_version.sh`)
+- Code quality checks
+- Automated testing
+- Cross-browser testing
+- Error tracking and monitoring
+
+## Utilities
+- dayjs (date handling)
+- es-hangul (Korean text processing)
+- youtube-transcript (YouTube caption handling)
+- OpenAI API integration
+
+## Environment Configuration
+- Environment variables managed through `.env` file
+- Supabase project configuration
+- Sentry error tracking setup
+- Cross-browser build configuration
+
+This documentation accurately reflects the current project structure and technologies in use. Each section is based on the actual `package.json` and project structure, including the specific versions currently in use.
+
+The project follows modern web development practices and employs a comprehensive set of tools for development, testing, and deployment. The monorepo structure using Turborepo allows for efficient code sharing and management between the Chrome extension and web application components.
 
 ---
 > Source: [guesung/Web-Memo](https://github.com/guesung/Web-Memo) — distributed by [TomeVault](https://tomevault.io).
