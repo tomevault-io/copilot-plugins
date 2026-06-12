@@ -1,0 +1,9 @@
+{
+  "name": "pabpereza--quotes",
+  "displayName": "quotes",
+  "description": "Dummy backend applications to provide a laboratory on pabpereza.dev courses and videos",
+  "version": "1.0.0",
+  "author": "pabpereza",
+  "homepage": "https://github.com/pabpereza/quotes",
+  "skills": []
+}
