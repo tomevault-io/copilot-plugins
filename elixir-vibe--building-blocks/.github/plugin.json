@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--building-blocks",
+  "displayName": "building-blocks",
+  "description": "A living standard for a web stack that AI agents can verify, not just generate",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/building-blocks",
+  "skills": []
+}
