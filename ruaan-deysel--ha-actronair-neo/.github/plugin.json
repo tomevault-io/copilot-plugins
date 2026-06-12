@@ -1,0 +1,9 @@
+{
+  "name": "ruaan-deysel--ha-actronair-neo",
+  "displayName": "ha-actronair-neo",
+  "description": "ActronAir Neo integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "ruaan-deysel",
+  "homepage": "https://github.com/ruaan-deysel/ha-actronair-neo",
+  "skills": []
+}
