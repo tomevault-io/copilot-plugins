@@ -1,0 +1,9 @@
+{
+  "name": "cloudboss--easyto",
+  "displayName": "easyto",
+  "description": "Convert a container image to an EC2 AMI",
+  "version": "1.0.0",
+  "author": "cloudboss",
+  "homepage": "https://github.com/cloudboss/easyto",
+  "skills": []
+}
