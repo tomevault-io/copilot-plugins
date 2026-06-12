@@ -1,0 +1,9 @@
+{
+  "name": "reskin-games--stake-engine-skills",
+  "displayName": "stake-engine-skills",
+  "description": "Two Claude Code skills bundling the official Stake Engine Math SDK + Web SDK workflows \u2014 bootstrap, distilled docs, approval checklist.",
+  "version": "1.0.0",
+  "author": "ReSkin-Games",
+  "homepage": "https://github.com/ReSkin-Games/stake-engine-skills",
+  "skills": []
+}
