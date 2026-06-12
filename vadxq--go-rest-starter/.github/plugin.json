@@ -1,0 +1,9 @@
+{
+  "name": "vadxq--go-rest-starter",
+  "displayName": "go-rest-starter",
+  "description": "golang restful api starter with std lib net/http, go-chi, gorm, postgres, redis",
+  "version": "1.0.0",
+  "author": "vadxq",
+  "homepage": "https://github.com/vadxq/go-rest-starter",
+  "skills": []
+}
