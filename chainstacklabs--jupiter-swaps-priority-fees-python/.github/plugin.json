@@ -1,0 +1,9 @@
+{
+  "name": "chainstacklabs--jupiter-swaps-priority-fees-python",
+  "displayName": "jupiter-swaps-priority-fees-python",
+  "description": "Python swaps on Jupiter Aggregator with custom priority fees",
+  "version": "1.0.0",
+  "author": "chainstacklabs",
+  "homepage": "https://github.com/chainstacklabs/jupiter-swaps-priority-fees-python",
+  "skills": []
+}
