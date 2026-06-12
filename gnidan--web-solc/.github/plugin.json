@@ -1,0 +1,9 @@
+{
+  "name": "gnidan--web-solc",
+  "displayName": "web-solc",
+  "description": "solc inside a browser web worker",
+  "version": "1.0.0",
+  "author": "gnidan",
+  "homepage": "https://github.com/gnidan/web-solc",
+  "skills": []
+}
