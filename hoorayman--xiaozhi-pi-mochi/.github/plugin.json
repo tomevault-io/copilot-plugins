@@ -1,0 +1,9 @@
+{
+  "name": "hoorayman--xiaozhi-pi-mochi",
+  "displayName": "xiaozhi-pi-mochi",
+  "description": "Pi-agent extension for xiaozhi-esp32 chatbot with mochi animation",
+  "version": "1.0.0",
+  "author": "hoorayman",
+  "homepage": "https://github.com/hoorayman/xiaozhi-pi-mochi",
+  "skills": []
+}
