@@ -1,0 +1,9 @@
+{
+  "name": "newideas99--open-dungeon",
+  "displayName": "open-dungeon",
+  "description": "Open Dungeon \u2014 the first easy-to-use, fully local AI roleplay app. Story and inline scene images generated 100% on your machine (Gemma 4 QAT via Ollama + FLUX). No accounts, no API keys, no cloud.",
+  "version": "1.0.0",
+  "author": "newideas99",
+  "homepage": "https://github.com/newideas99/open-dungeon",
+  "skills": []
+}
