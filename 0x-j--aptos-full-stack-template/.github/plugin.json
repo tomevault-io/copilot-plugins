@@ -1,0 +1,9 @@
+{
+  "name": "0x-j--aptos-full-stack-template",
+  "displayName": "aptos-full-stack-template",
+  "description": "Template to build a full stack app on Aptos",
+  "version": "1.0.0",
+  "author": "0x-j",
+  "homepage": "https://github.com/0x-j/aptos-full-stack-template",
+  "skills": []
+}
