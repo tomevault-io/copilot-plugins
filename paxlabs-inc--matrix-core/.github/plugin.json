@@ -1,0 +1,9 @@
+{
+  "name": "paxlabs-inc--matrix-core",
+  "displayName": "matrix-core",
+  "description": "Matrix is the cognition and UX layer on top of Paxeer Network. It turns natural-language requests from non-developers into a typed, inspectable, correctable Intent IR",
+  "version": "1.0.0",
+  "author": "paxlabs-inc",
+  "homepage": "https://github.com/paxlabs-inc/matrix-core",
+  "skills": []
+}
