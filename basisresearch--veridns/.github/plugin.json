@@ -1,0 +1,9 @@
+{
+  "name": "basisresearch--veridns",
+  "displayName": "VeriDNS",
+  "description": "A RFC Compliant Verified DNS server",
+  "version": "1.0.0",
+  "author": "BasisResearch",
+  "homepage": "https://github.com/BasisResearch/VeriDNS",
+  "skills": []
+}
