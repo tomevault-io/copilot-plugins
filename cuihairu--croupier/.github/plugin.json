@@ -1,0 +1,9 @@
+{
+  "name": "cuihairu--croupier",
+  "displayName": "croupier",
+  "description": "Croupier is a universal GM (Game Master) backend system designed for game operations. It supports integration with multi-language game servers and provides a unified management interface along with po",
+  "version": "1.0.0",
+  "author": "cuihairu",
+  "homepage": "https://github.com/cuihairu/croupier",
+  "skills": []
+}
