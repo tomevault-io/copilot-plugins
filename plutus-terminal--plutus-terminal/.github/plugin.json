@@ -1,0 +1,9 @@
+{
+  "name": "plutus-terminal--plutus-terminal",
+  "displayName": "plutus-terminal",
+  "description": "Open-source crypto news trading terminal with the focus on Perpetuals DEX.",
+  "version": "1.0.0",
+  "author": "plutus-terminal",
+  "homepage": "https://github.com/plutus-terminal/plutus-terminal",
+  "skills": []
+}
