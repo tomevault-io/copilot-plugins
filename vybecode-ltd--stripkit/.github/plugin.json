@@ -1,0 +1,9 @@
+{
+  "name": "vybecode-ltd--stripkit",
+  "displayName": "stripkit",
+  "description": "Turn one transparent PNG into a frame-perfect animated filmstrip (sprite sheet) for audio-plugin GUIs: knobs, faders, sliders, and meters. Free and open source.",
+  "version": "1.0.0",
+  "author": "Vybecode-LTD",
+  "homepage": "https://github.com/Vybecode-LTD/stripkit",
+  "skills": []
+}
