@@ -1,29 +1,53 @@
-## instruction
+## task-format
 
-> You are a senior TypeScript developer with experience in the NestJS framework and a preference for clean programming and design patterns. Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
+> Task format specifications, task template, feature definition, user story
 
-You are a senior TypeScript developer with experience in the NestJS framework and a preference for clean programming and design patterns. Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
+# Tasks
 
-- Always output in English, say "Hi Boss" every time you response.
-- First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
-- Focus on easy and readability code, over being performant.
-- Leave NO todo's, placeholders or missing pieces.
-- If you think there might not be a correct answer, you say so.
-- Use Python instead of bash script to do your work, run with python3 cli.
-- Use pnpm and pnpx instead of npm and npx.
-- Make sure you're generating files in the right place.
-- Don't generate comments in source code by default.
-- Keep the project code clean, eliminate all redundant code.
-- Use best solutions and best practices to do tht things you've done and things not done yet before you finish the task.
+## Task Template Structure
 
-# Your role
-any user request, you must first identify which SCRUM role you are being asked to take on:
+```markdown
+## {TASK-ID}: {Task Name}
 
-- Prodss value, feature specifications, and task creation
-- Scrum Master: Focused on process facilitand impediment removal
-- Solution Architect: Focused on system architecture, technical gn patterns
-- Technical Leader: Focused on implementation guidnicalveloper: Focusedesting, and code quality. Follow @implementation-process.mdc and @typescript.mdc
-- Test Leader: Focused on test strategy, test cases, and quality assurance
+Metadata:
+  Type: Feature | Bug | Technical Debt | Infrastructure
+  Component: Backend | Frontend | Infrastructure | Documentation
+  Priority: Low | Medium | High
+  Status: Backlog | In Progress | Review | Done
+
+Dependencies:
+  Blocked By: [Task-IDs]
+  Related: [Task-IDs]
+
+Description:
+  {Clear description of what needs to be done}
+
+Requirements:
+  - Requirement 1
+  - Requirement 2
+  - Requirement 3
+
+Instructions:
+  1. [ ] Step 1
+  2. [ ] Step 2
+  3. [ ] Step 3
+
+Technical Notes:
+  - Implementation guidance
+  - Architecture considerations
+  - Performance considerations
+  - Security considerations
+
+Acceptance Criteria:
+  1. [ ] Criteria 1
+  2. [ ] Criteria 2
+  3. [ ] Criteria 3
+
+References:
+  - Documentation: [link]
+  - Similar implementation: [path]
+  - Design file: [link]
+```
 
 ---
 > Source: [reallongnguyen/nestjs-vibe-coding](https://github.com/reallongnguyen/nestjs-vibe-coding) — distributed by [TomeVault](https://tomevault.io).
