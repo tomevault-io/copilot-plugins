@@ -188724,6 +188724,151 @@
       "description": "The ultimate starter kit for React, using NextJS"
     },
     {
+      "name": "lucasfevi--tbh-companion",
+      "source": "./lucasfevi--tbh-companion",
+      "description": "tbh-companion"
+    },
+    {
+      "name": "lucasfevi--tbh-companion",
+      "source": "./lucasfevi--tbh-companion",
+      "description": "tbh-companion"
+    },
+    {
+      "name": "maxschulmeister--radix-custom-color",
+      "source": "./maxschulmeister--radix-custom-color",
+      "description": "A app that generates custom color palettes following the Radix UI color scheme."
+    },
+    {
+      "name": "quackscience--rawduck",
+      "source": "./quackscience--rawduck",
+      "description": "Experimental RawMergeTree-like Extension for DuckDB"
+    },
+    {
+      "name": "ella-hoeppner--easl",
+      "source": "./ella-hoeppner--easl",
+      "description": "Enhanced Abstraction Shader Language, a functional shader language written in Rust"
+    },
+    {
+      "name": "lucasfevi--tbh-companion",
+      "source": "./lucasfevi--tbh-companion",
+      "description": "tbh-companion"
+    },
+    {
+      "name": "jaytuduri--ai-code-merge",
+      "source": "./jaytuduri--ai-code-merge",
+      "description": "ai-code-merge"
+    },
+    {
+      "name": "lucasfevi--tbh-companion",
+      "source": "./lucasfevi--tbh-companion",
+      "description": "tbh-companion"
+    },
+    {
+      "name": "freyja-love-and-magic--allyabase",
+      "source": "./freyja-love-and-magic--allyabase",
+      "description": "All ya base are belong to us"
+    },
+    {
+      "name": "lucasfevi--tbh-companion",
+      "source": "./lucasfevi--tbh-companion",
+      "description": "tbh-companion"
+    },
+    {
+      "name": "guesung--web-memo",
+      "source": "./guesung--web-memo",
+      "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694."
+    },
+    {
+      "name": "pilsy--chrono-forge",
+      "source": "./pilsy--chrono-forge",
+      "description": "ChronoForge Temporal Framework"
+    },
+    {
+      "name": "szkug--munchkin-cats",
+      "source": "./szkug--munchkin-cats",
+      "description": "Compose Multiplatform toolkit with typed resources, async image loading, and graphics for Android and iOS."
+    },
+    {
+      "name": "lolpack--type-coverage-py",
+      "source": "./lolpack--type-coverage-py",
+      "description": "Calculate the type coverage of popular Python libraries"
+    },
+    {
+      "name": "guesung--web-memo",
+      "source": "./guesung--web-memo",
+      "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694."
+    },
+    {
+      "name": "jaredwray--hookified",
+      "source": "./jaredwray--hookified",
+      "description": "Event Emitting and Async Middleware Hooks \ud83e\ude9d"
+    },
+    {
+      "name": "mattgodbolt--reveal-ce",
+      "source": "./mattgodbolt--reveal-ce",
+      "description": "Reveal plugin to turn all code blocks into clickable Compiler Explorer links"
+    },
+    {
+      "name": "guesung--web-memo",
+      "source": "./guesung--web-memo",
+      "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694."
+    },
+    {
+      "name": "templar-protocol--contracts",
+      "source": "./templar-protocol--contracts",
+      "description": "Templar Protocol smart contracts"
+    },
+    {
+      "name": "daidr--demiurge",
+      "source": "./daidr--demiurge",
+      "description": "All-in-one JSON processing assistant"
+    },
+    {
+      "name": "guesung--web-memo",
+      "source": "./guesung--web-memo",
+      "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694."
+    },
+    {
+      "name": "terwerinc--siyuan-plugin-share-pro",
+      "source": "./terwerinc--siyuan-plugin-share-pro",
+      "description": "share your notes from siyuan-note with one click \u4e00\u952e\u5206\u4eab\u4f60\u7684\u601d\u6e90\u7b14\u8bb0"
+    },
+    {
+      "name": "terwerinc--siyuan-plugin-share-pro",
+      "source": "./terwerinc--siyuan-plugin-share-pro",
+      "description": "share your notes from siyuan-note with one click \u4e00\u952e\u5206\u4eab\u4f60\u7684\u601d\u6e90\u7b14\u8bb0"
+    },
+    {
+      "name": "guesung--web-memo",
+      "source": "./guesung--web-memo",
+      "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694."
+    },
+    {
+      "name": "guesung--web-memo",
+      "source": "./guesung--web-memo",
+      "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694."
+    },
+    {
+      "name": "guesung--web-memo",
+      "source": "./guesung--web-memo",
+      "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694."
+    },
+    {
+      "name": "guesung--web-memo",
+      "source": "./guesung--web-memo",
+      "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694."
+    },
+    {
+      "name": "guesung--web-memo",
+      "source": "./guesung--web-memo",
+      "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694."
+    },
+    {
+      "name": "getsentry--sentry-infra-tools",
+      "source": "./getsentry--sentry-infra-tools",
+      "description": "Standalone repo for sentry-kube and other related tools"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -203017,6 +203162,51 @@
       "name": "caido--doc-developer",
       "source": "./caido--doc-developer",
       "description": "\ud83d\udcd9 Developer documentation for Caido"
+    },
+    {
+      "name": "borhen68--skillengine",
+      "source": "./borhen68--skillengine",
+      "description": "Production-grade engineering skills for AI coding agents."
+    },
+    {
+      "name": "yu20120707--auto-aicoding-harness",
+      "source": "./yu20120707--auto-aicoding-harness",
+      "description": "\u4e3a\u672c\u5730 AI Coding \u63d0\u4f9b\u521d\u59cb\u5316\u3001\u6d41\u7a0b\u7ba1\u63a7\u3001Skills \u4e0e\u5ba1\u67e5\u9aa8\u67b6\u7684Harness\u5de5\u7a0b\u811a\u624b\u67b6\u3002"
+    },
+    {
+      "name": "newideas99--open-dungeon",
+      "source": "./newideas99--open-dungeon",
+      "description": "Open Dungeon \u2014 the first easy-to-use, fully local AI roleplay app. Story and inline scene images generated 100% on your machine (Gemma 4 QAT via Ollama + FLUX). No accounts, no API keys, no cloud."
+    },
+    {
+      "name": "borhen68--skillengine",
+      "source": "./borhen68--skillengine",
+      "description": "Production-grade engineering skills for AI coding agents."
+    },
+    {
+      "name": "pabpereza--quotes",
+      "source": "./pabpereza--quotes",
+      "description": "Dummy backend applications to provide a laboratory on pabpereza.dev courses and videos"
+    },
+    {
+      "name": "endomorphosis--hallucinate-app",
+      "source": "./endomorphosis--hallucinate-app",
+      "description": "hallucinate_app"
+    },
+    {
+      "name": "kirklin--boot-backend-go-clean",
+      "source": "./kirklin--boot-backend-go-clean",
+      "description": "Golang Clean Architecture REST API"
+    },
+    {
+      "name": "lloydrichards--base-lit-with-tailwind",
+      "source": "./lloydrichards--base-lit-with-tailwind",
+      "description": "Template for how to setup lit using vite and tailwind."
+    },
+    {
+      "name": "scruffynerf--scromfyui-nodes",
+      "source": "./scruffynerf--scromfyui-nodes",
+      "description": "nodes for ComfyUI"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -313132,6 +313322,26 @@
       "name": "xma-faez--xma-website",
       "source": "./xma-faez--xma-website",
       "description": "xma-website"
+    },
+    {
+      "name": "rmjhynes--dotfiles",
+      "source": "./rmjhynes--dotfiles",
+      "description": "A repo to store my dotfiles for both MacOS and Linux."
+    },
+    {
+      "name": "hugentobler--website",
+      "source": "./hugentobler--website",
+      "description": "website"
+    },
+    {
+      "name": "hugentobler--website",
+      "source": "./hugentobler--website",
+      "description": "website"
+    },
+    {
+      "name": "hoanhhop11--hommy-website",
+      "source": "./hoanhhop11--hommy-website",
+      "description": "\u0110\u00e2y l\u00e0 nh\u00f3m \u0111\u1ec3 code d\u1ef1 \u00e1n Website cho thu\u00ea b\u1ea5t \u0111\u1ed9ng s\u1ea3n Hommy t\u00edch h\u1ee3p nh\u1eefng t\u00ednh n\u0103ng m\u1edbi ch\u01b0a c\u00f3 tr\u00ean th\u1ecb tr\u01b0\u1eddng nh\u01b0 h\u1eb9n l\u1ecbch, \u0111\u1eb7t c\u1ecdc, ch\u1ecdn nh\u00e2n vi\u00ean m\u00f4i gi\u1edbi,..."
     }
   ]
 }
