@@ -1,0 +1,9 @@
+{
+  "name": "lloydrichards--base-lit-with-tailwind",
+  "displayName": "base_lit-with-tailwind",
+  "description": "Template for how to setup lit using vite and tailwind.",
+  "version": "1.0.0",
+  "author": "lloydrichards",
+  "homepage": "https://github.com/lloydrichards/base_lit-with-tailwind",
+  "skills": []
+}
