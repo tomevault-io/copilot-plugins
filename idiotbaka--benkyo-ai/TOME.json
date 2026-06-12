@@ -1,0 +1,44 @@
+{
+  "name": "benkyo-ai",
+  "owner": "idiotbaka",
+  "repo": "benkyo-ai",
+  "description": "\u4e00\u6b3e\u4f7f\u7528 AI \u6765\u751f\u6210\u4e13\u5c5e\u5b9a\u5236\u8bfe\u7a0b\u7684\u6e38\u620f\u5316\u5f00\u6e90\u65e5\u8bed\u5b66\u4e60 App\uff0c\u751f\u6210\u7c7b\u4f3c\u591a\u90bb\u56fd\uff08Duolingo\uff09\u7684\u4e2a\u6027\u5316\u8bfe\u7a0b\u548c\u6d4b\u9a8c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/idiotbaka/benkyo-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-12T10:30:23Z"
+}
