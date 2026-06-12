@@ -7,11 +7,11 @@ Personal expense tracking app
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [stroberi-app/stroberi](https://github.com/stroberi-app/stroberi).
+Original source: `AGENTS.md` in [stroberi-app/stroberi](https://github.com/stroberi-app/stroberi).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
