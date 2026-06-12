@@ -7,11 +7,11 @@ Production-grade engineering skills for AI coding agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [borhen68/SkillEngine](https://github.com/borhen68/SkillEngine).
+Original source: `AGENTS.md` in [borhen68/SkillEngine](https://github.com/borhen68/SkillEngine).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
