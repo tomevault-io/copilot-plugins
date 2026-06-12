@@ -1,0 +1,9 @@
+{
+  "name": "scayle--nuxt-opentelemetry",
+  "displayName": "nuxt-opentelemetry",
+  "description": "A Nuxt module for OpenTelemetry integration. ",
+  "version": "1.0.0",
+  "author": "scayle",
+  "homepage": "https://github.com/scayle/nuxt-opentelemetry",
+  "skills": []
+}
