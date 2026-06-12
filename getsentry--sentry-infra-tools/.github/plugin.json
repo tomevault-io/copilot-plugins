@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-infra-tools",
+  "displayName": "sentry-infra-tools",
+  "description": "Standalone repo for sentry-kube and other related tools",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-infra-tools",
+  "skills": []
+}
