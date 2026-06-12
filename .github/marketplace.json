@@ -164624,6 +164624,11 @@
       "description": "Perl Framework for AI - Langertha - the viking of AI"
     },
     {
+      "name": "pejmanjohn--auteur",
+      "source": "./pejmanjohn--auteur",
+      "description": "Whisper a design prompt to Claude Design and bring the result back to your coding agent \u2014 oracle, but for claude.ai/design."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
