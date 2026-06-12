@@ -1,0 +1,9 @@
+{
+  "name": "inmatrix--ai-papers-reader",
+  "displayName": "ai-papers-reader",
+  "description": "AI agent for creating personalized digests of research papers",
+  "version": "1.0.0",
+  "author": "InMatrix",
+  "homepage": "https://github.com/InMatrix/ai-papers-reader",
+  "skills": []
+}
