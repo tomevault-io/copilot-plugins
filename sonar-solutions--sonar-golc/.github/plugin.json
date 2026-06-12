@@ -1,0 +1,9 @@
+{
+  "name": "sonar-solutions--sonar-golc",
+  "displayName": "sonar-golc",
+  "description": "GoLC counts physical lines of source code in numerous programming languages supported by the Developer, Enterprise, and Data Center editions of SonarQube across your Bitbucket Cloud, Bitbucket DC (on-",
+  "version": "1.0.0",
+  "author": "sonar-solutions",
+  "homepage": "https://github.com/sonar-solutions/sonar-golc",
+  "skills": []
+}
