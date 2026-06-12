@@ -1,0 +1,9 @@
+{
+  "name": "kirklin--boot-backend-go-clean",
+  "displayName": "boot-backend-go-clean",
+  "description": "Golang Clean Architecture REST API",
+  "version": "1.0.0",
+  "author": "kirklin",
+  "homepage": "https://github.com/kirklin/boot-backend-go-clean",
+  "skills": []
+}
