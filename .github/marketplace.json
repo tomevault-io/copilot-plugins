@@ -126284,6 +126284,11 @@
       "description": "gnatformat"
     },
     {
+      "name": "m1ckc3s--nullframe",
+      "source": "./m1ckc3s--nullframe",
+      "description": "PROJECT NULLFRAME \u2014 a live telemetry dashboard in the Nothing design language"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -134097,6 +134102,11 @@
       "name": "remeh--meh",
       "source": "./remeh--meh",
       "description": "remeh's personal code editor"
+    },
+    {
+      "name": "oiwn--exoplanets-catalog",
+      "source": "./oiwn--exoplanets-catalog",
+      "description": "Modern exoplanets catalog"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -149604,6 +149614,11 @@
       "description": "PReek brings a quick peek into your relevant GitHub Pull Requests directly into your MacOS MenuBar!"
     },
     {
+      "name": "meshnotes--meshnotes",
+      "source": "./meshnotes--meshnotes",
+      "description": "Mesh Notes"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -155972,6 +155987,26 @@
       "name": "kd-research--techies",
       "source": "./kd-research--techies",
       "description": "Techies: A no-code platform for orchestrating collaborative AI agents through YAML configuration."
+    },
+    {
+      "name": "bbaktaeho--evmc",
+      "source": "./bbaktaeho--evmc",
+      "description": "evmc is an abbreviation of Ethereum Virtual Machine Client, and I wanted to express it as simply as a Go. But evmc is not simple."
+    },
+    {
+      "name": "bbaktaeho--evmc",
+      "source": "./bbaktaeho--evmc",
+      "description": "evmc is an abbreviation of Ethereum Virtual Machine Client, and I wanted to express it as simply as a Go. But evmc is not simple."
+    },
+    {
+      "name": "bbaktaeho--evmc",
+      "source": "./bbaktaeho--evmc",
+      "description": "evmc is an abbreviation of Ethereum Virtual Machine Client, and I wanted to express it as simply as a Go. But evmc is not simple."
+    },
+    {
+      "name": "bbaktaeho--evmc",
+      "source": "./bbaktaeho--evmc",
+      "description": "evmc is an abbreviation of Ethereum Virtual Machine Client, and I wanted to express it as simply as a Go. But evmc is not simple."
     },
     {
       "name": "lightninglabs--lnget",
@@ -164882,6 +164917,26 @@
       "name": "liamgold--xperience-community-image-processing",
       "source": "./liamgold--xperience-community-image-processing",
       "description": "Adds SkiaSharp resize and format support for Xperience by Kentico - Content Hub & Media Library assets."
+    },
+    {
+      "name": "scriptedalchemy--tracedecay",
+      "source": "./scriptedalchemy--tracedecay",
+      "description": "Code intelligence tool with local semantic graph and holographic memory"
+    },
+    {
+      "name": "spiritledsoftware--theaistudybible",
+      "source": "./spiritledsoftware--theaistudybible",
+      "description": "The AI Study Bible"
+    },
+    {
+      "name": "spiritledsoftware--theaistudybible",
+      "source": "./spiritledsoftware--theaistudybible",
+      "description": "The AI Study Bible"
+    },
+    {
+      "name": "utdanningsdirektoratet--designsystem",
+      "source": "./utdanningsdirektoratet--designsystem",
+      "description": "Design system for the Norwegian Directorate for Education and Training. Builds upon digdir/designsystemet."
     },
     {
       "name": "yschimke--compose-ai-tools",
