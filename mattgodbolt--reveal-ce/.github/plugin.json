@@ -1,0 +1,9 @@
+{
+  "name": "mattgodbolt--reveal-ce",
+  "displayName": "reveal-ce",
+  "description": "Reveal plugin to turn all code blocks into clickable Compiler Explorer links",
+  "version": "1.0.0",
+  "author": "mattgodbolt",
+  "homepage": "https://github.com/mattgodbolt/reveal-ce",
+  "skills": []
+}
