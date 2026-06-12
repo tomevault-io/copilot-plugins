@@ -1,0 +1,9 @@
+{
+  "name": "skytik--fastify-boilerplate",
+  "displayName": "fastify-boilerplate",
+  "description": "A modern backend with Fastify framework and Nodejs",
+  "version": "1.0.0",
+  "author": "SkyTik",
+  "homepage": "https://github.com/SkyTik/fastify-boilerplate",
+  "skills": []
+}
