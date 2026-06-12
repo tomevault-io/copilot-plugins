@@ -1,61 +1,86 @@
-## general-rule
+## stroberi
 
-> Stroberi repository coding rules and architecture context
+> - Stroberi is a privacy-first personal expense tracker built with Expo + React Native.
 
-You are a Senior Software Engineer working on Stroberi, an open-source privacy-first personal expense tracking app built with Expo + React Native.
+# Repository Guidelines
 
-Core expectations:
+## Project Snapshot
 
-- Use yarn for all package and script commands.
-- Keep TypeScript strict-safe and avoid regressions.
-- Prefer maintainable, modular code over quick hacks.
-- Keep user financial data local on-device (no cloud persistence for transaction data).
+- Stroberi is a privacy-first personal expense tracker built with Expo + React Native.
+- Financial data is local-only (SQLite/WatermelonDB). Avoid changes that introduce cloud persistence for user transaction data.
+- Main runtime stack: Expo Router, React Native 0.76, TypeScript strict mode, Tamagui.
 
-Project structure:
+## Project Structure
 
-- /app: Expo Router screens and navigation
-- /app/(tabs): tab screens (`index`, `transactions`, `analytics`, `budgets`, `trips`, `settings`)
-- /components: shared UI components and sheets
-- /features: feature modules (currently `import`, `transactions`)
-- /database: WatermelonDB schema, migrations, models, and actions
-- /hooks: shared hooks and feature toggles
-- /lib: analytics, forecasting, conversion, and utility logic
-- /data: static data (currencies, categories)
+- `app/`: Expo Router screens and navigation.
+- `app/(tabs)/`: Tab screens (`index`, `transactions`, `analytics`, `budgets`, `trips`, `settings`).
+- `components/`: Reusable UI and sheets.
+- `features/`: Feature-focused modules (`import`, `transactions`).
+- `database/`: WatermelonDB schema, migrations, models, and DB actions.
+- `hooks/`: Shared hooks for feature flags, analytics, export, recurring tasks.
+- `lib/`: Pure utilities (analytics, forecasting, budget logic, formatting, conversion helpers).
+- `data/`: Static datasets (currencies, default categories, emojis).
 
-Development commands:
+## Setup and Commands
 
-- Install deps: `yarn install`
-- Start app: `yarn start`
-- iOS: `yarn ios`
-- Android: `yarn android`
+- Install dependencies: `yarn install`
+- Start dev server: `yarn start`
+- Run iOS app: `yarn ios`
+- Run Android app: `yarn android`
 - Lint: `yarn lint`
 - Format: `yarn format`
 - Type-check: `yarn check:types`
-- Test (single run): `yarn test --watchAll=false`
+- Jest (watch mode): `yarn test`
+- Jest (single run): `yarn test --watchAll=false`
 
-Database safety:
+## Engineering Rules
 
-- Schema changes must update `database/schema.ts`, `database/migrations.ts`, and affected model files together.
-- Keep indexes and query patterns aligned when changing transaction/category filters.
+- Use `yarn` for all package and script operations.
+- Keep TypeScript strict-safe; avoid `any` unless there is no practical alternative.
+- Prefer focused feature-level changes over broad cross-cutting rewrites.
+- Keep business logic in `features/`, `database/actions/`, or `lib/`; avoid putting it directly in presentation components.
+- Reuse existing components and hooks before adding new abstractions.
+- Preserve current UX patterns (bottom sheets, tamagui primitives, existing spacing and naming conventions).
 
-Currency and transaction behavior:
+## Database and Persistence
 
-- Preserve conversion logic and `allowMissingRate` semantics in create/update/import flows.
-- Keep amount semantics consistent across transaction entry, imports, and analytics.
+- Any schema change must keep these in sync:
+  - `database/schema.ts` version and table definition
+  - `database/migrations.ts` migration path
+  - affected Watermelon model files in `database/*-model.ts`
+- Keep indexed queries aligned with `schema.ts` indexes when changing transaction/category filtering paths.
+- Do not bypass database action helpers for write operations; keep write logic centralized in `database/actions/`.
 
-Feature flags:
+## Currency and Transaction Behavior
 
-- Preserve existing keys in `lib/storageKeys.ts`:
+- Transactions support mixed currencies and base-currency normalization.
+- When changing create/update/import flows, preserve conversion handling and `allowMissingRate` behavior.
+- Expense/income amount semantics must remain consistent across:
+  - create transaction route params
+  - import parsing/validation
+  - analytics aggregation utilities
+
+## Feature Flags and Pro Features
+
+- Feature toggles use local storage keys in `lib/storageKeys.ts`.
+- Preserve backward compatibility of existing keys:
   - `budgeting_enabled`
   - `trips_enabled`
   - `advanced_analytics_enabled`
+- Gated features should degrade gracefully when disabled.
 
-Quality gate before completion:
+## Quality Gate Before Merge
 
-- Run `yarn lint` and `yarn check:types` for code changes.
-- Add/update tests for logic-heavy changes.
+- Run at least:
+  - `yarn lint`
+  - `yarn check:types`
+- For logic-heavy changes, add or update tests near the touched module (for example `lib/*.test.ts`, `features/import/*.test.ts`, `database/*.test.ts`).
+- Do not ship failing tests or type errors.
 
-For detailed release flow, follow `RELEASE_GUIDE.md`.
+## Release Notes
+
+- Release workflow details are in `RELEASE_GUIDE.md`.
+- Do not bump versions/build numbers unless the task is explicitly release-related.
 
 ---
 > Source: [stroberi-app/stroberi](https://github.com/stroberi-app/stroberi) — distributed by [TomeVault](https://tomevault.io).
