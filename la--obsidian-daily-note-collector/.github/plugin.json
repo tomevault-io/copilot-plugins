@@ -1,0 +1,9 @@
+{
+  "name": "la--obsidian-daily-note-collector",
+  "displayName": "obsidian-daily-note-collector",
+  "description": "An Obsidian plugin that adds links to new notes to your daily note.",
+  "version": "1.0.0",
+  "author": "LA",
+  "homepage": "https://github.com/LA/obsidian-daily-note-collector",
+  "skills": []
+}
