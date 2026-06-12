@@ -1,0 +1,9 @@
+{
+  "name": "fstart-io--fstart",
+  "displayName": "fstart",
+  "description": "One firmware to rule them all. One flexible format to bind all nodes to drivers.",
+  "version": "1.0.0",
+  "author": "fstart-io",
+  "homepage": "https://github.com/fstart-io/fstart",
+  "skills": []
+}
