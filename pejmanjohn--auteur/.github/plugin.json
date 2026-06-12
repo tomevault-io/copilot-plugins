@@ -1,0 +1,9 @@
+{
+  "name": "pejmanjohn--auteur",
+  "displayName": "auteur",
+  "description": "Whisper a design prompt to Claude Design and bring the result back to your coding agent \u2014 oracle, but for claude.ai/design.",
+  "version": "1.0.0",
+  "author": "pejmanjohn",
+  "homepage": "https://github.com/pejmanjohn/auteur",
+  "skills": []
+}
