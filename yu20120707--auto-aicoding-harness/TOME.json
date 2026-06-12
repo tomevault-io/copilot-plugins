@@ -1,0 +1,44 @@
+{
+  "name": "Auto_AICoding_Harness",
+  "owner": "yu20120707",
+  "repo": "Auto_AICoding_Harness",
+  "description": "\u4e3a\u672c\u5730 AI Coding \u63d0\u4f9b\u521d\u59cb\u5316\u3001\u6d41\u7a0b\u7ba1\u63a7\u3001Skills \u4e0e\u5ba1\u67e5\u9aa8\u67b6\u7684Harness\u5de5\u7a0b\u811a\u624b\u67b6\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yu20120707/Auto_AICoding_Harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-12T16:34:43Z"
+}
