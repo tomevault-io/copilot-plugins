@@ -34299,6 +34299,11 @@
       "description": "Lightweight WebAssembly-powered SQLite viewer and editor. works entirely in your browser"
     },
     {
+      "name": "artokun--comfyui-mcp",
+      "source": "./artokun--comfyui-mcp",
+      "description": "ComfyUI MCP server + Claude Code plugin \u2014 workflow execution, visualization, composition, model management, and skill generation"
+    },
+    {
       "name": "chernistry--bernstein",
       "source": "./chernistry--bernstein",
       "description": "Deterministic orchestrator for 18 CLI AI coding agents. Git worktree isolation, HMAC audit trail, MCP server mode."
@@ -40257,6 +40262,21 @@
       "name": "kaptinlin--jsonrepair",
       "source": "./kaptinlin--jsonrepair",
       "description": "High-performance Go library for repairing invalid JSON documents, tuned for LLM-generated output"
+    },
+    {
+      "name": "dietrichgebert--ponytail",
+      "source": "./dietrichgebert--ponytail",
+      "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote."
+    },
+    {
+      "name": "dietrichgebert--ponytail",
+      "source": "./dietrichgebert--ponytail",
+      "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote."
+    },
+    {
+      "name": "dietrichgebert--ponytail",
+      "source": "./dietrichgebert--ponytail",
+      "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote."
     },
     {
       "name": "atuinsh--eye-declare",
@@ -68937,11 +68957,6 @@
       "name": "tim-smart--effect-genserver",
       "source": "./tim-smart--effect-genserver",
       "description": "effect-genserver"
-    },
-    {
-      "name": "artokun--comfyui-mcp",
-      "source": "./artokun--comfyui-mcp",
-      "description": "ComfyUI MCP server + Claude Code plugin \u2014 workflow execution, visualization, composition, model management, and skill generation"
     },
     {
       "name": "niaexperience--pearlos",
