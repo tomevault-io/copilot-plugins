@@ -1,0 +1,9 @@
+{
+  "name": "maxschulmeister--radix-custom-color",
+  "displayName": "radix-custom-color",
+  "description": "A app that generates custom color palettes following the Radix UI color scheme.",
+  "version": "1.0.0",
+  "author": "maxschulmeister",
+  "homepage": "https://github.com/maxschulmeister/radix-custom-color",
+  "skills": []
+}
