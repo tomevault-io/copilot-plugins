@@ -1,0 +1,44 @@
+{
+  "name": "design-oracle",
+  "owner": "jomvick",
+  "repo": "design-oracle",
+  "description": "Analyze any website and extract its complete design system \u2014 colors, typography, spacing, components, UX patterns \u2014 export as Tailwind config, React components, design tokens, or DESIGN.md report",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jomvick/design-oracle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-12T09:30:24Z"
+}
