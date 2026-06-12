@@ -1,0 +1,9 @@
+{
+  "name": "lolpack--type-coverage-py",
+  "displayName": "type_coverage_py",
+  "description": "Calculate the type coverage of popular Python libraries",
+  "version": "1.0.0",
+  "author": "lolpack",
+  "homepage": "https://github.com/lolpack/type_coverage_py",
+  "skills": []
+}
