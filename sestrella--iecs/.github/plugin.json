@@ -1,0 +1,9 @@
+{
+  "name": "sestrella--iecs",
+  "displayName": "iecs",
+  "description": "An interactive CLI for ECS",
+  "version": "1.0.0",
+  "author": "sestrella",
+  "homepage": "https://github.com/sestrella/iecs",
+  "skills": []
+}
