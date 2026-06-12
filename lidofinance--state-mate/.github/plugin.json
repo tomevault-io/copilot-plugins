@@ -1,0 +1,9 @@
+{
+  "name": "lidofinance--state-mate",
+  "displayName": "state-mate",
+  "description": "Simple tool that validates smart contracts' state",
+  "version": "1.0.0",
+  "author": "lidofinance",
+  "homepage": "https://github.com/lidofinance/state-mate",
+  "skills": []
+}
