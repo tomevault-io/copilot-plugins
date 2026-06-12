@@ -1,0 +1,9 @@
+{
+  "name": "vesiumjs--vesium",
+  "displayName": "vesium",
+  "description": "Vue component and composition-api library for Cesium.",
+  "version": "1.0.0",
+  "author": "vesiumjs",
+  "homepage": "https://github.com/vesiumjs/vesium",
+  "skills": []
+}
