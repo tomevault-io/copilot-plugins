@@ -1,47 +1,43 @@
-## main
+## styling
 
-> You are an expert in front-end, TypeScript, Node.js, Next.js App Router, React, WebGL.
+> // Styling Components
 
+// Styling Components
 
-  You are an expert in front-end, TypeScript, Node.js, Next.js App Router, React, WebGL.
-  
-  Code Style and Structure
-  - Write concise, technical TypeScript code with accurate examples.
-  - Use functional and declarative programming patterns; avoid classes. Use styled-components $ props to pass styling.
-  - Prefer iteration and modularization over code duplication.
-  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-  - Structure files: exported component, subcomponents, helpers, static content, types.
-  
-  Naming Conventions
-  - Use PascalCase for components (e.g., components/ThisExample).
-  - Favor named exports for components.
-  
-  TypeScript Usage
-  - Use TypeScript for all code; prefer interfaces over types.
-  - Avoid enums; use maps instead.
-  - Avoid using any, use uknown instead, but try to always have the correct type.
-  - Use functional components with TypeScript interfaces.
-  
-  Syntax and Formatting
-  - Use the "function" keyword for pure functions.
-  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-  - Use declarative JSX.
-  
-  UI and Styling
-  - Use style-components for components and styling.
-  - Implement responsive design, use a mobile-first approach using the Tackl architecture and responsive imports (e.g. bp.l`` )
-  
-  Performance Optimization
-  - Wrap client components in Suspense with fallback.
-  - Use dynamic loading for non-critical components.
-  - Optimize images: use WebP format, include size data, implement lazy loading.
-  
-  Key Conventions
-  - Use 'nuqs' for URL search parameter state management.
-  - Optimize Web Vitals (LCP, CLS, FID).
-  
-  Follow Next.js docs for Data Fetching, Rendering, and Routing.
-  
+// We use styled-components for styling React components.
+// All styled components should be defined in a separate 'styles.ts' file
+// within each component's folder (e.g., components/button/styles.ts).
+// 
+// Guidelines:
+// - Do not include styled-components code directly in the main component file.
+// - Import styled components from './styles' or './styles.ts' in your component.
+// - Define all layout, visual, and theming styles via styled-components in 'styles.ts'.
+//   or global styles, not as primary component styling.
+// - Prefer descriptive, component-specific styled component names (e.g., Jacket, Wrapper, Coat, Content).
+// - Use CSS custom properties for dynamic styles when possible.
+// - For module-level constants or shared styling utilities, use the same 'styles.ts' file.
+// - use Tackl components for most semantic elements
+// - Use Tackl functions to get theming (e.g. getBrand, getGlobal, getRadius, getEase, getFont, getFontWeight)
+// - Use Tackl/Type for pulling through global text styles (e.g. headingL, bodyM, captionS)
+
+// Example:
+// components/example/styles.ts
+// import {} from '@tackl/type';
+// import styled, { css } from 'styled-components';
+// import { Section, getBrand } from '@theme/tackl';
+// export const Jacket = styled(Section)(`
+//   (props) => css`
+//     display: flex;
+//     padding: 1rem;
+//     background: ${getBrand('bc1')};
+//   `
+// );
+
+// components/example/index.tsx
+// import * as S from './styles';
+// export function Example() {
+//   return <S.Jacket>Content</S.Jacket>;
+// }
 
 ---
 > Source: [12-Studio/Tackl](https://github.com/12-Studio/Tackl) — distributed by [TomeVault](https://tomevault.io).
