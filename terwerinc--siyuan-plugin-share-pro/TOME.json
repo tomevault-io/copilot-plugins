@@ -1,0 +1,44 @@
+{
+  "name": "siyuan-plugin-share-pro",
+  "owner": "terwerinc",
+  "repo": "siyuan-plugin-share-pro",
+  "description": "share your notes from siyuan-note with one click \u4e00\u952e\u5206\u4eab\u4f60\u7684\u601d\u6e90\u7b14\u8bb0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/terwerinc/siyuan-plugin-share-pro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-12T16:45:09Z"
+}
