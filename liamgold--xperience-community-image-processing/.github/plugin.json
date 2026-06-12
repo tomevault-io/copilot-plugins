@@ -1,0 +1,9 @@
+{
+  "name": "liamgold--xperience-community-image-processing",
+  "displayName": "xperience-community-image-processing",
+  "description": "Adds SkiaSharp resize and format support for Xperience by Kentico - Content Hub & Media Library assets.",
+  "version": "1.0.0",
+  "author": "liamgold",
+  "homepage": "https://github.com/liamgold/xperience-community-image-processing",
+  "skills": []
+}
