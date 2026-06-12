@@ -1,0 +1,9 @@
+{
+  "name": "tscircuit--contribution-tracker",
+  "displayName": "contribution-tracker",
+  "description": "Generate a contribution summary for your projects",
+  "version": "1.0.0",
+  "author": "tscircuit",
+  "homepage": "https://github.com/tscircuit/contribution-tracker",
+  "skills": []
+}
