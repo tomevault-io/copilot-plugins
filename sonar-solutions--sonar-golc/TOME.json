@@ -1,0 +1,44 @@
+{
+  "name": "sonar-golc",
+  "owner": "sonar-solutions",
+  "repo": "sonar-golc",
+  "description": "GoLC counts physical lines of source code in numerous programming languages supported by the Developer, Enterprise, and Data Center editions of SonarQube across your Bitbucket Cloud, Bitbucket DC (on-premises), GitHub.com (Cloud), GitHub Enterprise Server (on-premises), GitLab.com (Cloud), GitLab Self-Managed (on-premises), and Azure DevOps (Cloud)",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sonar-solutions/sonar-golc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-12T00:36:38Z"
+}
