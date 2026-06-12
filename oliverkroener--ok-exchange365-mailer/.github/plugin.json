@@ -1,0 +1,9 @@
+{
+  "name": "oliverkroener--ok-exchange365-mailer",
+  "displayName": "ok_exchange365_mailer",
+  "description": "Extension for Typo3 to enable mails with Exchange 365 without enabling SMTP and using MS Graph API.",
+  "version": "1.0.0",
+  "author": "oliverkroener",
+  "homepage": "https://github.com/oliverkroener/ok_exchange365_mailer",
+  "skills": []
+}
