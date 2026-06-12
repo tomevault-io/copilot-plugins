@@ -58874,6 +58874,11 @@
       "description": "Just Code, No Configs. The Library Bundler That Respects Your Time"
     },
     {
+      "name": "paxlabs-inc--matrix-core",
+      "source": "./paxlabs-inc--matrix-core",
+      "description": "Matrix is the cognition and UX layer on top of Paxeer Network. It turns natural-language requests from non-developers into a typed, inspectable, correctable Intent IR"
+    },
+    {
       "name": "ursushoribilismusic--agentic-fleet-hub",
       "source": "./ursushoribilismusic--agentic-fleet-hub",
       "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy."
@@ -73837,6 +73842,11 @@
       "name": "malbeclabs--doublezero",
       "source": "./malbeclabs--doublezero",
       "description": "Networking for high-performance distributed systems."
+    },
+    {
+      "name": "rzna-5559--mrite",
+      "source": "./rzna-5559--mrite",
+      "description": "A Skill-1"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -164667,6 +164677,11 @@
       "name": "kuaoaoaoao--coolrun",
       "source": "./kuaoaoaoao--coolrun",
       "description": "\u4e00\u4e2a\u65cb\u8f6c\u7684\u91d1\u5e01\uff0c\u5b9e\u65f6\u76d1\u63a7\u91d1\u4ef7\u7684cpu\uff0c\u5185\u5bb9\u76d1\u63a7\u5c0f\u8f6f\u4ef6"
+    },
+    {
+      "name": "hoorayman--xiaozhi-pi-mochi",
+      "source": "./hoorayman--xiaozhi-pi-mochi",
+      "description": "Pi-agent extension for xiaozhi-esp32 chatbot with mochi animation"
     },
     {
       "name": "yschimke--compose-ai-tools",
