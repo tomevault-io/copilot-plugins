@@ -1,72 +1,144 @@
-## cursor-rules
+## documentation-guidelines
 
-> description: How to add or edit Cursor rules in our project
+> 1. Documentation files should be placed in `src/content/docs/components/`
 
+# Documentation Guidelines
+
+## File Structure
+
+1. Documentation files should be placed in `src/content/docs/components/`
+2. File names should match the component name in kebab-case (e.g., `date-time-picker.mdx`)
+3. Registry files should be placed in `public/r/` with the same name (e.g., `date-time-picker.json`)
+
+## Documentation Format
+
+Each component documentation should follow this structure:
+
+```mdx
 ---
-description: How to add or edit Cursor rules in our project
-globs: 
-alwaysApply: false
+title: Component Name
+description: A concise description of the component's purpose and main features
+date: YYYY-MM-DD
 ---
-# Cursor Rules Location
 
-How to add new cursor rules to the project
-1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-    ```
-    .cursor/rules/
-    ├── your-rule-name.mdc
-    ├── another-rule.mdc
-    └── ...
-    ```
+## Preview
+<ComponentPreview name="gesturs/component-name" />
 
-2. Follow the naming convention:
-    - Use kebab-case for filenames
-    - Always use .mdc extension
-    - Make names descriptive of the rule's purpose
+## Installation
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <Steps>
+      <Step>Run the following command:</Step>
+      <PackageManagerTabs>
+        <TabsList>
+          <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+          <TabsTrigger value="npm">npm</TabsTrigger>
+          <TabsTrigger value="yarn">yarn</TabsTrigger>
+          <TabsTrigger value="bun">bun</TabsTrigger>
+        </TabsList>
+        <TabsContent value="pnpm">
+          <Code>pnpm dlx shadcn@latest add "https://ui.gesturs.com/r/component-name"</Code>
+        </TabsContent>
+        <!-- Repeat for other package managers -->
+      </PackageManagerTabs>
+    </Steps>
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Install dependencies</Step>
+      <PackageManagerTabs>
+        <!-- Package manager specific installation commands -->
+      </PackageManagerTabs>
+      <Step>Copy component code</Step>
+      <ComponentSource name="gesturs-components/component-name" />
+    </Steps>
+  </TabsContent>
+</Tabs>
 
-3. Directory structure:
-    ```
-    PROJECT_ROOT/
-    ├── .cursor/
-    │   └── rules/
-    │       ├── your-rule-name.mdc
-    │       └── ...
-    └── ...
-    ```
+## Usage
+<Code>
+// TypeScript example code
+</Code>
 
-4. Never place rule files:
-    - In the project root
-    - In subdirectories outside .cursor/rules
-    - In any other location
+## Features
+List of key features with emojis
 
-5. Cursor rules have the following structure:
+## API Reference
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| prop | type | default | description |
 
-````
----
-description: Short description of the rule's purpose
-globs: optional/path/pattern/**/* 
-alwaysApply: false
----
-# Rule Title
+## Examples
+### Example Name
+<Code>
+// Example code
+</Code>
 
-Main content explaining the rule with markdown formatting.
+## Styling (if applicable)
+Styling guidelines and customization options
 
-1. Step-by-step instructions
-2. Code examples
-3. Guidelines
+## Accessibility (if applicable)
+Accessibility features and considerations
+```
 
-Example:
-```typescript
-// Good example
-function goodExample() {
-  // Implementation following guidelines
-}
+## Component Usage Guidelines
 
-// Bad example
-function badExample() {
-  // Implementation not following guidelines
+1. Always use the `<Code>` component for code blocks instead of markdown backticks
+2. Use `<PackageManagerTabs>` for package manager specific commands
+3. Use `<Tabs>` for organizing installation methods and other tabbed content
+4. Use `<ComponentPreview>` for live component demonstrations
+5. Use `<ComponentSource>` for showing component source code
+6. Use `<Steps>` for sequential instructions
+
+## Best Practices
+
+1. Always include TypeScript examples
+2. Document all props and their types
+3. Provide real-world usage examples
+4. Include accessibility considerations
+5. Keep documentation up to date with component changes
+6. Use proper markdown formatting
+7. Include installation steps with all required dependencies
+8. Use emoji icons for feature lists
+9. Ensure all code examples are properly formatted and indented
+10. Include package manager commands for pnpm, npm, yarn, and bun
+
+## Registry JSON Format
+
+Registry files should follow this structure:
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "component-name",
+  "type": "registry:ui",
+  "title": "Component Title",
+  "description": "Component description",
+  "files": [
+    {
+      "path": "components/ui/component-name.tsx",
+      "content": "// Component code",
+      "type": "registry:ui",
+      "target": "components/ui/component-name.tsx"
+    }
+  ],
+  "dependencies": [
+    // List of required npm packages
+  ]
 }
 ```
-````
+
+## Component Preview Guidelines
+
+1. Always test the component preview before committing
+2. Ensure the preview demonstrates the main features
+3. Include examples of different prop combinations
+4. Add interactive elements where applicable
+5. Show responsive behavior if relevant
 
 ---
 > Source: [swarajbachu/gesturs-ui](https://github.com/swarajbachu/gesturs-ui) — distributed by [TomeVault](https://tomevault.io).
