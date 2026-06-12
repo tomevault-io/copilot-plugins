@@ -1,0 +1,9 @@
+{
+  "name": "mariandotg--mappa",
+  "displayName": "mappa",
+  "description": "Personal MCP server exposing a knowledge graph with mastery levels to Claude Code.",
+  "version": "1.0.0",
+  "author": "mariandotg",
+  "homepage": "https://github.com/mariandotg/mappa",
+  "skills": []
+}
