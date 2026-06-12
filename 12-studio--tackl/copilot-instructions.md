@@ -1,73 +1,47 @@
-## components
+## main
 
-> // Component Authoring Guide
+> You are an expert in front-end, TypeScript, Node.js, Next.js App Router, React, WebGL.
 
-// Component Authoring Guide
 
-// COMPONENT STRUCTURE
-// -------------------
-// - Each component lives in its own folder: components/ComponentName
-// - Structure all component files as follows:
-//   - index.tsx: main exported React component (named export, PascalCase)
-//   - styles.ts: for all styled-components and style utilities
-//   - interface.d.ts for all interface / type files
-//   - subcomponents/ (optional): colocated subcomponents, helpers, types
-
-// NAMING CONVENTIONS
-// -------------------
-// - Use PascalCase for all component, subcomponent, and file names.
-// - Styled components are named specifically (e.g., Jacket, Wrapper, Content).
-
-// FUNCTION COMPONENTS
-// -------------------
-// - Use functional components; do not use class components.
-// - Type all component props with TypeScript interfaces imported from ./interface.d.ts
-// - Favor named exports for all components and subcomponents.
-// - Structure: main export at the top, followed by statics, subcomponents, helpers, and types.
-// - Example:
-//   export function Example(props: ExampleProps) { ... }
-
-// STYLING
-// -------
-// - All component styling via styled-components, never inline or in index.tsx.
-// - Use a styles.ts file adjacent to the component for all styled elements.
-// - Use Tackl primitives, utilities, and naming (e.g., import from '@tackl/type', '@theme/tackl').
-// - Mobile-first, responsive styles: use bp.l`` and CSS custom props for theming.
-// - Example styled component import/use:
-//     import * as S from './styles';
-//     return <S.Jacket>...</S.Jacket>;
-
-// - Do not use CSS modules, inline styles, or legacy SASS/LESS.
-
-// JSX & LOGIC
-// -----------
-// - Use declarative JSX, concise control flow, and avoid unnecessary curly braces.
-// - For conditional logic, prefer ternary or short-circuit evaluation.
-// - If a component has loading or error states, name flag variables clearly (e.g., isLoading, hasError).
-// - Use Suspense and fallback for async client components.
-
-/* Example component structure:
-
-// components/Example/index.tsx
-import * as S from './styles';
-export interface ExampleProps { ... }
-export function Example(props: ExampleProps) {
-  return <S.Jacket>...</S.Jacket>;
-}
-
-// components/Example/styles.ts
-import styled from 'styled-components';
-import { Section } from '@theme/tackl';
-export const Jacket = styled(Section)`...`;
-*/
-
-// ROUTING, STATE, & PERFORMANCE
-// ----------------------------
-// - Use Next.js App Router best practices.
-// - Compose with useTransitionRouter for route transitions if needed.
-// - Use 'nuqs' for URL search parameter state.
-// - Dynamically load non-critical components; wrap client-side components in Suspense with fallback.
-// - Optimize images with WebP, specify width/height, lazy loading.
+  You are an expert in front-end, TypeScript, Node.js, Next.js App Router, React, WebGL.
+  
+  Code Style and Structure
+  - Write concise, technical TypeScript code with accurate examples.
+  - Use functional and declarative programming patterns; avoid classes. Use styled-components $ props to pass styling.
+  - Prefer iteration and modularization over code duplication.
+  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+  - Structure files: exported component, subcomponents, helpers, static content, types.
+  
+  Naming Conventions
+  - Use PascalCase for components (e.g., components/ThisExample).
+  - Favor named exports for components.
+  
+  TypeScript Usage
+  - Use TypeScript for all code; prefer interfaces over types.
+  - Avoid enums; use maps instead.
+  - Avoid using any, use uknown instead, but try to always have the correct type.
+  - Use functional components with TypeScript interfaces.
+  
+  Syntax and Formatting
+  - Use the "function" keyword for pure functions.
+  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+  - Use declarative JSX.
+  
+  UI and Styling
+  - Use style-components for components and styling.
+  - Implement responsive design, use a mobile-first approach using the Tackl architecture and responsive imports (e.g. bp.l`` )
+  
+  Performance Optimization
+  - Wrap client components in Suspense with fallback.
+  - Use dynamic loading for non-critical components.
+  - Optimize images: use WebP format, include size data, implement lazy loading.
+  
+  Key Conventions
+  - Use 'nuqs' for URL search parameter state management.
+  - Optimize Web Vitals (LCP, CLS, FID).
+  
+  Follow Next.js docs for Data Fetching, Rendering, and Routing.
+  
 
 ---
 > Source: [12-Studio/Tackl](https://github.com/12-Studio/Tackl) — distributed by [TomeVault](https://tomevault.io).
