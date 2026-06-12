@@ -1,0 +1,284 @@
+## easl
+
+> Easl (Enhanced Abstraction Shader Language) is a Lisp-like shader language that compiles to WGSL. It uses S-expression syntax (parenthesized prefix notation) and provides generics, sum types (enums), higher-order functions, and expression-based control flow on top of what WGSL offers.
+
+# Easl Compiler
+
+Easl (Enhanced Abstraction Shader Language) is a Lisp-like shader language that compiles to WGSL. It uses S-expression syntax (parenthesized prefix notation) and provides generics, sum types (enums), higher-order functions, and expression-based control flow on top of what WGSL offers.
+
+## Build & Test
+
+```bash
+cargo test --features window                        # run all tests (ALWAYS use this flag)
+cargo test --features window <test_name>            # run a specific test
+cargo run                                           # runs benchmark (compiles all .easl files in data/gpu/)
+```
+
+> **IMPORTANT**: Always pass `--features window` when running tests. Without it, the interpreter, wgpu GPU execution, and windowing code are all compiled out, causing most buffer/cpu/window tests to silently produce wrong results or be skipped. The `window` feature is required for any test that involves the interpreter, GPU compute/render, or the `IOManager` trait.
+
+## Project Structure
+
+- `src/lib.rs` — public API: `compile_easl_source_to_wgsl`, `get_easl_program_info`, `format_easl_source`; also re-exports `pub mod window` when the `window` feature is enabled
+- `src/parse.rs` — S-expression parser (uses the `fsexp` crate)
+- `src/format.rs` — source formatter
+- `src/interpreter.rs` — CPU-side interpreter; also defines the `IOManager` trait, `WindowEvent`/`IOEvent` enums, `GpuBufferKind`, `EvaluationEnvironment`, and `Value::to_uniform_bytes`
+- `src/window.rs` — wgpu-based GPU renderer; `GpuCore` struct (public) manages device/surface/pipelines/buffers and is the central GPU resource type; `StdoutIO` opens a real winit window; also exports `create_headless_gpu_core` for surfaceless GPU use
+- `src/main.rs` — CLI entry point, currently just runs a compilation benchmark
+- `src/compiler/` — the compiler:
+  - `core.rs` — top-level compilation entry point
+  - `program.rs` — `Program` struct and the main compilation pipeline (`validate_raw_program`). This is the largest and most important file
+  - `expression.rs` — `TypedExp` (typed expression tree) and all expression-level transformations (monomorphization, inlining, type inference, etc.)
+  - `functions.rs` — `AbstractFunctionSignature`, `FunctionSignature`, monomorphization and higher-order argument inlining for functions
+  - `types.rs` — type system: `Type`, `AbstractType`, `TypeState`, `ExpTypeInfo`, type inference, unification, constraints
+  - `structs.rs` — `AbstractStruct`, struct monomorphization
+  - `enums.rs` — `AbstractEnum`, enum monomorphization
+  - `builtins.rs` — all built-in function/struct/macro definitions
+  - `effects.rs` — effect types (fragment-exclusive functions, print, window/spawn-window, etc.)
+  - `entry.rs` — shader entry point validation (vertex/fragment/compute)
+  - `error.rs` — `CompileErrorKind` enum and error reporting
+  - `vars.rs` — top-level variables and address spaces
+  - `wgsl.rs` — WGSL code generation (final output)
+  - `annotation.rs` — `@annotation` parsing
+  - `macros.rs` — macro expansion
+  - `info.rs` — program info extraction
+  - `util.rs` — utilities
+
+## Compilation Pipeline
+
+The main pipeline lives in `Program::validate_raw_program` (program.rs). The major phases, in order:
+
+1. **Name validation** — checks for reserved/invalid names
+2. **Mutable arg wrapping** — wraps `@var` function args
+3. **Deshadowing** — renames shadowed local bindings to unique names
+4. **Type inference** (`fully_infer_types`) — bidirectional type inference with unification
+5. **Control flow validation** — checks for expressions after `break`/`return`, validates match exhaustiveness
+6. **Associative expansion** — expands `(+ a b c)` into `(+ (+ a b) c)`
+7. **Deexpressionification** — lifts expression-position let/match/if blocks into statements
+8. **Monomorphization** — replaces generic functions/structs/enums with concrete versions
+9. **Inner function extraction** — extracts closures/lambdas as top-level functions
+10. **Overloaded function separation** — renames overloaded functions with type suffixes
+11. **Higher-order argument inlining** — specializes HoF calls by inlining the function argument
+12. **Entry point & effect validation** — checks shader stage constraints
+13. **Ownership validation** — checks reference mutability rules
+14. **Reference address space monomorphization** — final pass
+
+## Key Concepts
+
+### Naming conventions
+- Easl uses **kebab-case** for functions/variables (`make-two-of`) which compiles to **snake_case** in WGSL (`make_two_of`)
+- Type names use **PascalCase** (`TwoOf`, `Option`)
+- Monomorphized names get type suffixes: `map` with `T=f32` becomes `map_f32`
+
+### Generics & Monomorphization
+- Generic functions, structs, and enums use type parameters: `(defn (map T U) [...])`
+- Monomorphization creates concrete copies: `map_f32_TwoOf_f32`
+- The monomorphizer lives in `TypedExp::monomorphize` (expression.rs) and `AbstractFunctionSignature::generate_monomorphized` (functions.rs)
+- It handles: struct constructors, enum constructors, composite function calls, and generic function references passed as HoF arguments
+- `AbstractStruct::opaque: true` marks WGSL built-in types (`atomic`, `texture_2d`, `sampler`) that must never be emitted as struct definitions in WGSL output. The `compile_to_wgsl` filter in `program.rs` skips structs where `s.opaque == true`. Any new built-in type that is a WGSL primitive (not a user-definable struct) should have `opaque: true` set in `builtins.rs`.
+
+### Enums (Sum Types)
+- Compiled to WGSL as a struct with a `discriminant: u32` and `data: array<u32, N>` where N fits the largest variant
+- Constructors and match blocks use `bitcast` to convert to/from the u32 array representation
+- Unit variants become constants, data variants become constructor functions
+
+### Higher-Order Functions
+- All function arguments must be compile-time inlinable (no dynamic dispatch)
+- Pipeline: monomorphize -> extract inner functions -> inline HoF arguments
+- `inline_all_higher_order_arguments` creates specialized versions like `map_f32_TwoOf_f32_make_two_of_f32`
+
+### `AbstractFunctionSignature`
+- Central type representing function signatures throughout compilation
+- Has a `Default` impl — use `..Default::default()` to omit fields with default values
+- Defaults: `implementation: Builtin { empty effect }`, `associative: false`, `captured_scope: None`, `generic_args: vec![]`
+- Keep `implementation` explicit when it has a non-empty effect (e.g. `FragmentExclusiveFunction`, `Print`)
+- Keep `associative: true` when the function is associative (e.g. `+`, `*`, `&&`)
+
+### Writing Easl Code
+
+- Integer literals like `0` or `5` are ambiguous — the type checker can't tell if they're `i32` or `u32`. Use `0i` / `5i` for signed or `0u` / `5u` for unsigned to help type inference.
+- `(if cond then else)` requires both branches and they must have compatible types. For side-effect-only conditionals (e.g. `(when cond (break))`), use the `when` macro instead, which handles the unit-typed else branch automatically.
+- Float literals should include a decimal point: `5.` not `5`. An `f` suffix is also valid: `5f`.
+- When printing values, the type is included in the output: `u32` prints as `1u`, `i32` as `1i`, `f32` as `1` (no suffix). This matters for `.txt` expected-output files.
+
+### Entry point annotations
+
+Easl programs can have multiple annotated sections compiled/run separately:
+- `@cpu` — marks the CPU entry point, compiled with `CompilerTarget::CPU` and run by the interpreter
+- `@vertex`, `@fragment`, `@compute` — mark GPU shader entry points
+- `@{workgroup-size N}` — optional on `@compute` functions; sets threads per workgroup (defaults to 1 if omitted; can also be `@{workgroup-size X Y Z}`)
+- `@{builtin vertex-index}`, `@{builtin global-invocation-id}`, `@{builtin position}`, etc. — bind WGSL builtins to function arguments or return values. Note: some builtins (e.g. `global-invocation-id`) are also available as zero-argument helper functions that can be called anywhere in a shader without needing an annotated parameter.
+- `@{location N}` — binds vertex inputs / fragment outputs
+
+### GPU-bound top-level variables
+
+`(var name: type)` with an address-space annotation creates a GPU-accessible variable visible to shaders and tracked by the interpreter's `binding_vars`:
+```
+@{address uniform        group 0  binding 0}  (var frame-index: u32)
+@{address storage-read   group 0  binding 1}  (var read-only-buf: [N: vec4f])
+@{address storage-write  group 0  binding 2}  (var rw-buf: [N: vec4f])
+```
+There is also a shorthand `@[address group binding]` array annotation that specifies the three values positionally:
+```
+@[uniform        0 0]  (var frame-index: u32)
+@[storage-read   0 1]  (var read-only-buf: [N: vec4f])
+@[storage-write  0 2]  (var rw-buf: [N: vec4f])
+```
+- `uniform` — maps to `GpuBufferKind::Uniform` (read-only from shader, writable from CPU)
+- `storage-read` — maps to `GpuBufferKind::StorageReadOnly`
+- `storage-write` — maps to `GpuBufferKind::StorageReadWrite` (GPU can write; vertex shaders cannot access)
+- Unsized arrays (`[vec4f]`) are valid for storage bindings; the buffer is sized at runtime
+
+### Windowing builtins
+
+- `(spawn-window (fn [] ...))` — open a GPU window; the lambda body is the per-frame callback
+- `(dispatch-render-shaders vert-fn frag-fn vert-count)` — queue a render pass for this frame
+- `(dispatch-compute-shader compute-fn (vec3u X Y Z))` — queue a compute dispatch for this frame
+- `(into-dynamic-array arr)` — convert a fixed-size array to a dynamically-sized `[T]`
+
+Compute dispatches are always submitted before the render pass within a frame.
+
+## Interpreter & Window System
+
+The interpreter evaluates `@cpu`-annotated easl code on the CPU, driving GPU work through the `IOManager` trait.
+
+### `IOManager` trait
+Three implementations:
+- `StdoutIO` — real windowing via wgpu; opens a winit window, runs a real render loop
+- `StringIO` — test/debug, no GPU; simulates N frames (default 10), records all events to `events: Vec<IOEvent>`
+- `CaptureIO` — wraps `StdoutIO`, additionally captures `println` output to `prints: Vec<String>`; used by `run_program_capturing_output`
+
+Key methods:
+- `println` — print output
+- `record_draw(vert, frag, vert_count)` — called by `dispatch-render-shaders`
+- `record_compute(entry, workgroup_count)` — called by `dispatch-compute-shader`
+- `take_frame_draw_calls() -> Vec<WindowEvent>` — drains the current frame's GPU commands
+- `run_spawn_window(body, env)` — called by `spawn-window`; `StdoutIO` opens a real window, `StringIO` simulates N frames (default 10)
+
+### Key types in `interpreter.rs`
+- **`BufferUpload`** — payload for a single binding upload:
+  - `Data(Vec<u8>)` — upload the given bytes
+  - `Clear { byte_count: u64 }` — zero the buffer on the GPU via `encoder.clear_buffer` (no CPU allocation)
+- **`WindowEvent`** — frame-level GPU command passed from interpreter to `window.rs`:
+  - `RenderShaders { vert: String, frag: String, vert_count: u32, pre_upload: Vec<((u8,u8), BufferUpload)> }`
+  - `ComputeShader { entry: String, workgroup_count: (u32, u32, u32), pre_upload: Vec<((u8,u8), BufferUpload)> }`
+- **`IOEvent`** — unified ordered log used by `StringIO` for testing:
+  - `Print(String)`, `SpawnWindow`, `DispatchShaders { vert, frag, vert_count }`, `DispatchComputeShader { entry, workgroup_count }`
+- **`GpuBufferKind`** — `Uniform | StorageReadOnly | StorageReadWrite`; exposed from `interpreter.rs` so `window.rs` doesn't need to reach into the compiler
+- **`EvaluationEnvironment`** — holds `binding_vars: Vec<(GroupAndBinding, Arc<str>, Type, VariableAddressSpace)>` for all GPU-bound top-level variables (Uniform + StorageRead + StorageReadWrite)
+  - `binding_infos() -> Vec<((u8,u8), GpuBufferKind, u64)>` — size is 0 for unsized/dynamic arrays
+  - `binding_buffer_data() -> Vec<((u8,u8), BufferUpload)>` — returns current interpreter values as upload payloads, padded to 16 bytes
+- **`Value::ZeroedArray { length: usize, zero_element: Box<Value> }`** — lazily-materialized zeroed array created by `zeroed-array`. Avoids allocating a huge `Vec`. Converted to `BufferUpload::Clear` on upload; expanded to `Value::Array` only if a CPU write to an individual element is needed.
+- **`Value::to_uniform_bytes(&self, ty: &Type) -> Vec<u8>`** — serializes a value to GPU bytes; uses `ty` for struct field ordering (walks `s.fields` in declaration order)
+
+### Interpreter implementation notes
+
+**`Function::Scoped` — closures with captured scope:**
+`extract_inner_functions` transforms a lambda that captures outer `let` bindings into a top-level function whose first argument is a scope struct. At the call site the lambda is replaced with `Application(Name("inner_fn_scope"), captured_vars)`. The interpreter evaluates this as a `Function::Scoped { inner: Box<Function>, scope: Box<Value> }` — where `inner` is the extracted composite function (taking scope as first arg) and `scope` is the evaluated scope struct. `spawn-window` and general function calls both handle this variant.
+
+**`env.structs` is keyed by base name, not monomorphized name:**
+`env.structs` (a `HashMap<Arc<str>, AbstractStruct>`) is populated from `typedefs.structs` using `s.name.0` as the key. After monomorphization `s.name.0` is still the base name (e.g. `"Atomic"`), NOT the monomorphized name (e.g. `"Atomic_u32"`). In `Function::from_abstract_signature` for `StructConstructor`, look up `f.name` (the abstract function's base name), not the `name` parameter (the monomorphized function name).
+
+**Getting function names from dispatch-style builtins:**
+When a builtin receives a function as an argument (e.g. `dispatch-render-shaders`, `dispatch-compute-shader`), extract the original pre-monomorphization name via `abstract_ancestor`:
+```rust
+let (_, Type::Function(f)) = &args[0] else { panic!() };
+let name = f.abstract_ancestor.as_ref().unwrap().borrow().name.clone();
+```
+
+**Buffer sizing — use `data_size_in_u32s`, not serialization:**
+`ty.data_size_in_u32s(&SourceTrace::empty())` is the canonical way to compute how many u32s (×4 = bytes) a type occupies on the GPU. Do **not** use `value.to_uniform_bytes(ty).len()` for this — if the value is `Uninitialized` (common at startup for storage arrays), it returns 0 and produces the wrong buffer size.
+
+**Unsized arrays and `Value::zeroed()`:**
+`Value::zeroed()` returns `Err(CantCreateZeroedUnsizedArray)` for unsized array types. When initializing `binding_vars` for a variable that might be unsized, use `.unwrap_or(Value::Uninitialized)`.
+
+**`GpuBufferKind` ↔ `VariableAddressSpace` mapping:**
+- `VariableAddressSpace::Uniform` → `GpuBufferKind::Uniform`
+- `VariableAddressSpace::Storage(AccessMode::Read)` → `GpuBufferKind::StorageReadOnly`
+- `VariableAddressSpace::Storage(AccessMode::ReadWrite)` → `GpuBufferKind::StorageReadWrite`
+
+### ⚠️ Synchronous GPU↔CPU semantics — DO NOT BREAK
+
+**This is a hard language design requirement.** Easl programs must be able to write to a variable from the GPU (via `dispatch-compute-shader`) and then immediately read it back from the CPU (e.g. `print`) in the same frame body, without any explicit sync call, and get the updated value. Similarly, CPU writes must be visible to subsequent GPU dispatches. This is an intentional, load-bearing design constraint of the language — not an implementation detail to be optimised away.
+
+**How it works:** `check_cpu_readable` (called before any function reads a global variable) calls `io.flush_queued_compute()` if any of the variables it needs are `CPUOutOfDate`. This flushes all pending compute dispatches as a single batched encoder + submit + poll (`GpuCore::execute_compute_batch`) before the readback. Render shader events stay deferred to end-of-frame (they target the framebuffer, not CPU-readable storage).
+
+**What must NOT change:**
+- `StdoutIO::flush_queued_compute` must execute queued compute synchronously (one batched submit + blocking poll), not defer it
+- `CaptureIO::run_spawn_window` must set `windowed = true` before running frames, so that `record_compute` queues work (same as the real winit loop) rather than executing inline — this keeps test behaviour identical to production
+- `check_cpu_readable` must call `flush_queued_compute` before attempting GPU→CPU readback
+- Do NOT collapse all frame work into a single deferred submit; compute must be flushable mid-frame on demand
+
+**Performance note:** `flush_queued_compute` uses `execute_compute_batch` to run all queued dispatches in one encoder/submit/poll rather than N separate ones. If you need to improve GPU throughput, batch *within* a flush, but do not remove the flush or make it async.
+
+### `window.rs`
+- One `wgpu::ShaderModule` and one `wgpu::PipelineLayout` shared by all render and compute pipelines
+- `bind_group_layouts` stored as a field on `RenderState` (not dropped after creation) so `rebuild_bind_groups` can recreate bind groups without invalidating the pipeline layout
+- `upload_bindings`: detects when a buffer's byte size changes → recreates the buffer → calls `rebuild_bind_groups`; handles `BufferUpload::Clear` via `encoder.clear_buffer` (efficient GPU-side zero-fill, no CPU→GPU data copy)
+- `render`: pre-creates all pipelines, dispatches all `ComputeShader` calls first (each in its own compute pass), then does one render pass for all `RenderShaders` calls
+- winit `EventLoop` is stored in a thread-local and reused across multiple `spawn-window` calls via `run_app_on_demand`
+- **Known limitation**: `binding_buffer_data` / `collect_dirty_uploads` serialize and upload *all* dirty bindings every frame, including large GPU-written storage buffers the CPU never touches. A dirty-flag system is planned. `ZeroedArray` bindings are exempt — they become `BufferUpload::Clear` with no CPU allocation.
+
+**Public API (accessible via `easl::window` with the `window` feature):**
+- `GpuCore` — the central GPU resource type; holds device, queue, shader module, pipeline layout, bind groups, and per-binding buffers
+- `GpuCore::new_from_parts(device, queue, wgsl, binding_infos) -> Arc<RwLock<GpuCore>>` — creates a headless `GpuCore` from an existing `wgpu::Device` and `wgpu::Queue`; intended for embedders (e.g. easl_studio) that want to share a device with their own renderer instead of creating a second one
+- `create_headless_gpu_core(wgsl, binding_infos) -> Arc<RwLock<GpuCore>>` — creates a `GpuCore` with a freshly-created device and no surface; useful for pure compute / offscreen rendering
+- `GpuCore::execute_render_batch_to_view(calls, view: &wgpu::TextureView, format: wgpu::TextureFormat)` — runs a batch of screen-targeted render calls against an external `TextureView` instead of acquiring one from an internal surface; used by easl_studio to render into its own offscreen RT
+
+## Test Structure
+
+There are four test suites:
+
+### GPU/compiler tests (`tests/shader_tests.rs`, sources in `data/gpu/`)
+```rust
+success_test!(test_name);  // compiles data/gpu/test_name.easl, validates WGSL output with naga
+error_test!(test_name, CompileErrorKind::SomeError);  // expects specific compile errors
+```
+- `assert_compiles` validates the WGSL output through naga's parser and validator
+- `assert_errors` checks that exact error kinds match (uses `PartialEq`, not discriminant comparison)
+- Compiled WGSL is written to `out/` for inspection
+
+### CPU interpreter tests (`tests/cpu_tests.rs`, sources in `data/cpu/`)
+```rust
+cpu_test!(test_name);  // runs data/cpu/test_name.easl, compares stdout to data/cpu/test_name.txt
+```
+- Compiles with `CompilerTarget::CPU`, runs via `run_program_capturing_output`
+- Asserts that captured `(print ...)` output matches the `.txt` file exactly
+
+### Window/interpreter tests (`tests/window_tests.rs`, sources in `data/window/`)
+```rust
+window_test!(test_name);  // runs data/window/test_name.easl, compares IOEvent log to data/window/test_name.txt
+```
+- Runs the program with `StringIO` (no real GPU), which simulates 10 window frames
+- Asserts that `io.events` matches the events parsed from the `.txt` file
+- **`.txt` event format** (one event per line):
+  - `spawn-window`
+  - `print: <message>`
+  - `dispatch-render-shaders <vert_fn> <frag_fn> <vert_count>`
+  - `dispatch-compute-shader <entry_fn> (vec3u <x>u <y>u <z>u)`
+
+### Conformance tests (`tests/conformance_tests.rs`, sources in `data/conformance/`)
+```rust
+conformance_test!(test_name);          // exact CPU/GPU match
+conformance_test!(test_name, 0.001);   // match within tolerance (for irrational results)
+```
+- Each file in `data/conformance/` defines a single function `f` that returns `f32`. The test harness appends boilerplate that calls `f` on the CPU (printing the result), dispatches a compute shader that writes `f()` into a storage variable, then reads it back and prints it again.
+- Asserts the two printed values agree — proving the interpreter and GPU produce identical output for the given expression.
+- With no tolerance argument the comparison is exact string equality; with a tolerance the two values are parsed as `f64` and the test passes if `|cpu - gpu| <= tolerance`.
+- Tests cover arithmetic, rounding, trigonometry (including hyperbolic), exponentials/logarithms, sqrt/pow, min/max/clamp, mix/smoothstep/fma/ldexp, vector ops (dot, cross, length, normalize, distance), integer arithmetic, type conversions, bitcast, and bit manipulation.
+- The test runner uses `load_easl_program_from_file_with_lookup_function` to inject the boilerplate into the source string rather than requiring it in each file, so test files can stay minimal.
+
+### Shared notes
+- `#_` reader macro in `.easl` files comments out the next form — useful for disabling parts of test files
+- Target a specific suite: `cargo test --test shader_tests`, `--test cpu_tests`, `--test window_tests`, `--test conformance_tests`
+
+## Style Notes
+
+- Rust 2024 edition — uses `let` chains in `if let` expressions freely
+- The codebase uses `take_mut::take` for in-place mutation of `&mut self`
+- `Rc<RefCell<...>>` is used extensively for shared mutable state in the AST
+- `ExpTypeInfo` wraps `TypeState` and implements `Deref<Target = TypeState>`
+- `unwrap_known()` on `ExpTypeInfo` returns a cloned `Type` (panics if not `Known`)
+
+---
+> Source: [Ella-Hoeppner/easl](https://github.com/Ella-Hoeppner/easl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-12 -->
