@@ -1,141 +1,91 @@
-## self-improve
+## service
 
-> - **Rule Improvement Triggers:**
+> Web Memo is a Chrome extension designed to solve web browsing inconveniences:
 
+# Web Memo Service Overview
 
-- **Rule Improvement Triggers:**
-  - New code patterns not covered by existing rules
-  - Repeated similar implementations across files
-  - Common error patterns that could be prevented
-  - New libraries or tools being used consistently
-  - Emerging best practices in the codebase
+## 🎯 **Service Purpose**
+Web Memo is a Chrome extension designed to solve web browsing inconveniences:
+- Eliminates the hassle of manual memo creation during web surfing
+- Removes need for separate note-taking apps
+- Enables instant recording through side panel while browsing
 
-- **Analysis Process:**
-  - Compare new code with existing rules
-  - Identify patterns that should be standardized
-  - Look for references to external documentation
-  - Check for consistent error handling patterns
-  - Monitor test patterns and coverage
+## 🚀 **Core Features**
 
-- **Rule Updates:**
-  - **Add New Rules When:**
-    - A new technology/pattern is used in 3+ files
-    - Common bugs could be prevented by a rule
-    - Code reviews repeatedly mention the same feedback
-    - New security or performance patterns emerge
+### **Primary Functionality**
+- **Instant Memos**: Quick idea/information recording during web browsing
+- **Page Summaries**: ChatGPT-powered website summaries (limited sites)
+- **Memo Management**: View and organize saved memos
+- **Data Persistence**: Permanent storage with Excel export capability
+- **Keyboard Shortcuts**: Quick access (Alt+S, Cmd+S, etc.)
 
-  - **Modify Existing Rules When:**
-    - Better examples exist in the codebase
-    - Additional edge cases are discovered
-    - Related rules have been updated
-    - Implementation details have changed
+### **Supported Content Types**
+- Articles, blogs, news sites
+- YouTube videos and transcripts
+- General web content
+- **Note**: Summaries don't work on Chrome Web Store, settings, new tabs, PDFs
 
-- **Example Pattern Recognition:**
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
-  });
+## 💡 **User Experience Principles**
 
-  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
-  ```
+### **Seamless Integration**
+- Natural connection between reading and note-taking
+- No context switching required
+- Enhanced productivity through integrated workflow
 
-- **Rule Quality Checks:**
-  - Rules should be actionable and specific
-  - Examples should come from actual code
-  - References should be up to date
-  - Patterns should be consistently enforced
+### **Accessibility**
+- Side panel for immediate access
+- Keyboard shortcuts for power users
+- Cross-platform compatibility
 
-- **Continuous Improvement:**
-  - Monitor code review comments
-  - Track common development questions
-  - Update rules after major refactors
-  - Add links to relevant documentation
-  - Cross-reference related rules
+## 🛠 **Development Guidelines**
 
-- **Rule Deprecation:**
-  - Mark outdated patterns as deprecated
-  - Remove rules that no longer apply
-  - Update references to deprecated rules
-  - Document migration paths for old patterns
+### **When Working on Core Features**
+- Prioritize user experience over technical complexity
+- Ensure memo functionality works on ALL websites
+- Implement graceful degradation for unsupported summary features
+- Focus on performance and reliability
 
-- **Documentation Updates:**
-  - Keep examples synchronized with code
-  - Update references to external docs
-  - Maintain links between related rules
-  - Document breaking changes
+### **When Adding New Features**
+- Consider the core use case: quick memo creation during browsing
+- Maintain the seamless integration principle
+- Test across different content types and websites
 
-Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.- **Rule Improvement Triggers:**
-  - New code patterns not covered by existing rules
-  - Repeated similar implementations across files
-  - Common error patterns that could be prevented
-  - New libraries or tools being used consistently
-  - Emerging best practices in the codebase
+## 📋 **Technical Constraints**
 
-- **Analysis Process:**
-  - Compare new code with existing rules
-  - Identify patterns that should be standardized
-  - Look for references to external documentation
-  - Check for consistent error handling patterns
-  - Monitor test patterns and coverage
+### **Summary Feature Limitations**
+```typescript
+// These pages don't support summaries but allow memos
+const UNSUPPORTED_SUMMARY_PAGES = [
+  'chrome://*',
+  'chrome-extension://*',
+  'chrome-search://*',
+  'file://*',
+  'about:*'
+];
+```
 
-- **Rule Updates:**
-  - **Add New Rules When:**
-    - A new technology/pattern is used in 3+ files
-    - Common bugs could be prevented by a rule
-    - Code reviews repeatedly mention the same feedback
-    - New security or performance patterns emerge
+### **Memo Functionality**
+- Must work on ALL websites
+- Should handle various content types gracefully
+- Require minimal user input for quick capture
 
-  - **Modify Existing Rules When:**
-    - Better examples exist in the codebase
-    - Additional edge cases are discovered
-    - Related rules have been updated
-    - Implementation details have changed
+## 🔮 **Future Roadmap**
+- Category organization
+- Dark mode support
+- Calendar view
+- Memo sharing capabilities
+- Enhanced search and filtering
 
-- **Example Pattern Recognition:**
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
-  });
+## 📞 **Feedback Channels**
+- Email support
+- KakaoTalk open chat
+- Google Forms
+- GitHub Issues
 
-  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
-  ```
-
-- **Rule Quality Checks:**
-  - Rules should be actionable and specific
-  - Examples should come from actual code
-  - References should be up to date
-  - Patterns should be consistently enforced
-
-- **Continuous Improvement:**
-  - Monitor code review comments
-  - Track common development questions
-  - Update rules after major refactors
-  - Add links to relevant documentation
-  - Cross-reference related rules
-
-- **Rule Deprecation:**
-  - Mark outdated patterns as deprecated
-  - Remove rules that no longer apply
-  - Update references to deprecated rules
-  - Document migration paths for old patterns
-
-- **Documentation Updates:**
-  - Keep examples synchronized with code
-  - Update references to external docs
-  - Maintain links between related rules
-  - Document breaking changes
-
-Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
+## 📚 **Reference Documentation**
+- Keep this rule synchronized with [README.md](mdc:README.md)
+- Update feature descriptions when new capabilities are added
+- Maintain consistency with user-facing documentation
 
 ---
 > Source: [guesung/Web-Memo](https://github.com/guesung/Web-Memo) — distributed by [TomeVault](https://tomevault.io).
