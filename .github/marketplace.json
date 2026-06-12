@@ -164699,6 +164699,11 @@
       "description": "The source code of kennethreitz.org."
     },
     {
+      "name": "hendrixer--harness-engineering",
+      "source": "./hendrixer--harness-engineering",
+      "description": "harness-engineering"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
