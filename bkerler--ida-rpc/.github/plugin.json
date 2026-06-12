@@ -1,0 +1,9 @@
+{
+  "name": "bkerler--ida-rpc",
+  "displayName": "ida_rpc",
+  "description": "IDA Pro RPC for assisted RE-tasks",
+  "version": "1.0.0",
+  "author": "bkerler",
+  "homepage": "https://github.com/bkerler/ida_rpc",
+  "skills": []
+}
