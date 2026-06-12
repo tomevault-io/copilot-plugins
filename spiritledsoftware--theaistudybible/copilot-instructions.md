@@ -1,95 +1,17 @@
-## general
+## typescript
 
-> General Rules to Follow
+> Typescript
 
-# Naming Conventions
-- Components: PascalCase
-- Functions: camelCase with auxiliary verbs (isLoading, hasError)
-- Directories: kebab-case (auth-wizard, user-settings)
-- Types: PascalCase with descriptive names
-- Constants: SCREAMING_SNAKE_CASE
-- Favor named exports over default exports
-
-# Security Best Practices
-- Implement proper input sanitization
-- Use environment variables for sensitive data
-- Implement rate limiting for API endpoints
-- Validate user permissions at every level
-- Sanitize AI outputs before rendering
-- Implement proper CORS policies
-- Use Content Security Policy headers
-
-# AI Integration Patterns
-- Implement proper token counting and management
-- Structure system prompts for consistent outputs
-- Handle streaming responses efficiently
-- Implement proper error handling for AI calls
-- Cache AI responses when appropriate
-- Use vector embeddings for semantic search
-- Implement retry logic for API failures
-
-# Testing Strategy
-- Write unit tests for utility functions
-- Implement integration tests for API endpoints
-- Use component testing for UI elements
-- Implement E2E tests for critical paths
-- Mock external services in tests
-- Use proper test isolation
-- Implement proper error boundary testing
-
-# Documentation
-- Document complex business logic
-- Add JSDoc comments for public APIs
-- Document environment setup requirements
-- Keep README files up to date
-- Document deployment procedures
-- Add inline comments for complex algorithms
-- Document AI prompt templates
-
-# Current Feature Set
-## Core AI Features
-1. **AI Scripture Assistant**
-   - Interactive AI-powered chat assistant for biblical exploration
-   - Contextual awareness of the current passage being read
-   - Uses vector search to provide scripture-grounded responses
-   - Available in both standalone mode and while reading scripture
-   - Designed to maintain theological accuracy with pastoral care
-   - Cites sources and provides proper scripture references
-
-2. **Bible Vector Similarity Search**
-   - Advanced semantic search using vector embeddings
-   - Identifies conceptually related passages beyond keyword matching
-   - Discovers theological connections across different books and chapters
-   - Supports cross-translation semantic search
-   - Provides relevance scoring for search results
-   - Enables exploration of biblical themes and concepts
-
-3. **AI-Generated Devotionals**
-   - Daily devotional content created through AI
-   - Scripture-focused reflections with practical applications
-   - Personalized to user preferences where appropriate
-   - Publicly available to all users
-   - Includes prayer suggestions and reflection questions
-   - Updates regularly with fresh content
-
-## User Study Features
-4. **Personal Scripture Annotations**
-   - Highlighting system for marking important verses
-   - Color-coded highlighting options for different themes or topics
-   - Bookmarking system for saving entire chapters
-   - Personal notes on individual verses or whole chapters
-   - Persistent storage of user annotations across devices
-   - Easy retrieval of previously annotated content
-
-5. **Bible Reading Experience**
-   - Multiple translation support with easy switching
-   - Clean, distraction-free reading interface
-   - Chapter and verse navigation
-   - Cross-reference support
-   - Mobile-optimized responsive design
-   - Progressive Web App for offline capability
-
-DO NOT MAKE UP ANY FAKE TESTIMONIALS OR DATA EVER!
+# TypeScript Best Practices
+- Use strict TypeScript for all code
+- Prefer type aliases over interfaces
+- Avoid 'any'; use specific types or unknown
+- Replace enums with const maps/objects
+- Leverage discriminated unions where appropriate
+- Use type inference when obvious
+- Implement branded types for type-safe IDs
+- Use const assertions for literal types
+- Leverage utility types for DRY type definitions
 
 ---
 > Source: [spiritledsoftware/theaistudybible](https://github.com/spiritledsoftware/theaistudybible) — distributed by [TomeVault](https://tomevault.io).
