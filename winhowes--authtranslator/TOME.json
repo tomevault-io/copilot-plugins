@@ -1,0 +1,44 @@
+{
+  "name": "AuthTranslator",
+  "owner": "winhowes",
+  "repo": "AuthTranslator",
+  "description": "AuthTranslator is a lightweight, pluggable reverse\u2011proxy that swaps short\u2011lived caller credentials for the long\u2011lived tokens third\u2011party APIs expect - and it can do the opposite on the way back in. \u201cStop sprinkling API keys around; translate auth at the edge instead.\u201d",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/winhowes/AuthTranslator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-12T20:37:04Z"
+}
