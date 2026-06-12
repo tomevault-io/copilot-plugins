@@ -1,0 +1,9 @@
+{
+  "name": "rancher--dartboard",
+  "displayName": "dartboard",
+  "description": "Code, instructions and results for scalability and performance tests on the Rancher product family ",
+  "version": "1.0.0",
+  "author": "rancher",
+  "homepage": "https://github.com/rancher/dartboard",
+  "skills": []
+}
