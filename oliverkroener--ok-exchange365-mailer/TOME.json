@@ -1,0 +1,44 @@
+{
+  "name": "ok_exchange365_mailer",
+  "owner": "oliverkroener",
+  "repo": "ok_exchange365_mailer",
+  "description": "Extension for Typo3 to enable mails with Exchange 365 without enabling SMTP and using MS Graph API.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oliverkroener/ok_exchange365_mailer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-12T14:33:21Z"
+}
