@@ -188929,6 +188929,81 @@
       "description": "The Criteria Pattern is a Python \ud83d\udc0d package that simplifies and standardizes criteria based filtering \ud83e\udd0f\ud83c\udffb, validation and selection."
     },
     {
+      "name": "apolloautomation--docs",
+      "source": "./apolloautomation--docs",
+      "description": "docs"
+    },
+    {
+      "name": "apolloautomation--docs",
+      "source": "./apolloautomation--docs",
+      "description": "docs"
+    },
+    {
+      "name": "automattic--wp-cli-sqlite-command",
+      "source": "./automattic--wp-cli-sqlite-command",
+      "description": "A WordPress CLI command for SQLite"
+    },
+    {
+      "name": "defanglabs--defang-github-action",
+      "source": "./defanglabs--defang-github-action",
+      "description": "A GitHub Action to deploy with Defang."
+    },
+    {
+      "name": "albert-labs--albert-python",
+      "source": "./albert-labs--albert-python",
+      "description": "The official Python SDK for the Albert Invent platform."
+    },
+    {
+      "name": "shiwaku--npa-traffic-accident-data-2023-converter",
+      "source": "./shiwaku--npa-traffic-accident-data-2023-converter",
+      "description": "\u8b66\u5bdf\u5e81\u304c\u516c\u958b\u3057\u3066\u3044\u308b\u3001\u4ea4\u901a\u4e8b\u6545\u7d71\u8a08\u60c5\u5831\u306e\u30aa\u30fc\u30d7\u30f3\u30c7\u30fc\u30bf\u306e2023\u5e74\u306e\u672c\u7968\u3092\u30b3\u30fc\u30c9\u8868\u3092\u3082\u3068\u306b\u8aad\u307f\u3084\u3059\u3044\u5f62\u5f0f\uff08GIS\u30c7\u30fc\u30bf\uff09\u306b\u5909\u63db\u3059\u308b\u30d7\u30ed\u30b0\u30e9\u30e0"
+    },
+    {
+      "name": "spachava753--cpe",
+      "source": "./spachava753--cpe",
+      "description": "A LLM powered chat based programming editor"
+    },
+    {
+      "name": "cuihairu--croupier",
+      "source": "./cuihairu--croupier",
+      "description": "Croupier is a universal GM (Game Master) backend system designed for game operations. It supports integration with multi-language game servers and provides a unified management interface along with po"
+    },
+    {
+      "name": "winhowes--authtranslator",
+      "source": "./winhowes--authtranslator",
+      "description": "AuthTranslator is a lightweight, pluggable reverse\u2011proxy that swaps short\u2011lived caller credentials for the long\u2011lived tokens third\u2011party APIs expect - and it can do the opposite on the way back in. \u201cS"
+    },
+    {
+      "name": "la--obsidian-daily-note-collector",
+      "source": "./la--obsidian-daily-note-collector",
+      "description": "An Obsidian plugin that adds links to new notes to your daily note."
+    },
+    {
+      "name": "rspcunningham--fpm-py",
+      "source": "./rspcunningham--fpm-py",
+      "description": "fourier ptychography in python"
+    },
+    {
+      "name": "aws-samples--sample-code-for-a-secure-vault-using-aws-nitro-enclaves",
+      "source": "./aws-samples--sample-code-for-a-secure-vault-using-aws-nitro-enclaves",
+      "description": "AWS Nitro Enclaves Vault"
+    },
+    {
+      "name": "s3r3t0--sereto",
+      "source": "./s3r3t0--sereto",
+      "description": "Security Reporting Tool"
+    },
+    {
+      "name": "marshal-zheng--vue-grid-layout",
+      "source": "./marshal-zheng--vue-grid-layout",
+      "description": "A draggable and resizable grid layout with responsive breakpoints, for vue3."
+    },
+    {
+      "name": "apurv-salunke--india-stocks-api",
+      "source": "./apurv-salunke--india-stocks-api",
+      "description": "The Indian Stock API is a Python package designed to interact with stock market data from various Indian stock exchanges. It provides a unified interface to access data from multiple brokers, simplify"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -203312,6 +203387,46 @@
       "name": "stroberi-app--stroberi",
       "source": "./stroberi-app--stroberi",
       "description": "Personal expense tracking app"
+    },
+    {
+      "name": "juliusbrussee--skills",
+      "source": "./juliusbrussee--skills",
+      "description": "skills"
+    },
+    {
+      "name": "acogood--diffmode-free",
+      "source": "./acogood--diffmode-free",
+      "description": "\ud83d\ude80 Free Claude Code + Codex plugin that runs a real growth-strategy pipeline \u2014 competitor read, buyer JTBD map, and 7\u20139 unconventional acquisition tactics built for bootstrapped founders. ~90 min, loca"
+    },
+    {
+      "name": "abc21086999--maple-script",
+      "source": "./abc21086999--maple-script",
+      "description": "A comprehensive MapleStory automation solution leveraging Python, OpenCV, and CircuitPython-powered hardware simulation."
+    },
+    {
+      "name": "okyashgajjar--costaffective-mcp",
+      "source": "./okyashgajjar--costaffective-mcp",
+      "description": "45.9% fewer tokens \u00b7 54.3% fewer exploration loops \u00b7 42.1% fewer tool interactions \u00b7 100% Local"
+    },
+    {
+      "name": "juliusbrussee--skills",
+      "source": "./juliusbrussee--skills",
+      "description": "skills"
+    },
+    {
+      "name": "appleparan--copier-modern-ml",
+      "source": "./appleparan--copier-modern-ml",
+      "description": "Modern Python project template for machine learning made with copier"
+    },
+    {
+      "name": "giuliop--hermesvault-frontend",
+      "source": "./giuliop--hermesvault-frontend",
+      "description": "HermesVault-frontend"
+    },
+    {
+      "name": "giuliop--hermesvault-frontend",
+      "source": "./giuliop--hermesvault-frontend",
+      "description": "HermesVault-frontend"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -313447,6 +313562,16 @@
       "name": "hoanhhop11--hommy-website",
       "source": "./hoanhhop11--hommy-website",
       "description": "\u0110\u00e2y l\u00e0 nh\u00f3m \u0111\u1ec3 code d\u1ef1 \u00e1n Website cho thu\u00ea b\u1ea5t \u0111\u1ed9ng s\u1ea3n Hommy t\u00edch h\u1ee3p nh\u1eefng t\u00ednh n\u0103ng m\u1edbi ch\u01b0a c\u00f3 tr\u00ean th\u1ecb tr\u01b0\u1eddng nh\u01b0 h\u1eb9n l\u1ecbch, \u0111\u1eb7t c\u1ecdc, ch\u1ecdn nh\u00e2n vi\u00ean m\u00f4i gi\u1edbi,..."
+    },
+    {
+      "name": "andriykalashnykov--dapr-go-hero",
+      "source": "./andriykalashnykov--dapr-go-hero",
+      "description": "Reference Go microservices on Dapr \u2014 pub/sub routing, state, secrets, service invocation; 4 client modes, KinD + cosign-signed multi-arch images"
+    },
+    {
+      "name": "michal-grzelak--fedora-atomic",
+      "source": "./michal-grzelak--fedora-atomic",
+      "description": "fedora-atomic"
     }
   ]
 }
