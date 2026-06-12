@@ -1,18 +1,27 @@
-## git-remote-confirm
+## project-skills
 
-> Ask user before git push or opening a pull request — never push or create PRs without approval
+> Required project skills for features, refactors, and app changes — read SKILL.md files before coding
 
 
-# Git push and PRs — confirm first
+# TBH Companion — required skills
 
-**Never push or open a PR without explicit user approval** in the current conversation.
+Before **implementing** a feature, refactor, or behavior change under `app/`:
 
-- **`git push`** (including `-u origin …`): summarize branch and commits, then ask. Push only after the user confirms.
-- **`gh pr create`** (or equivalent): summarize title, scope, and test plan, then ask. Create the PR only after the user confirms.
+1. **Read** (open the file; do not rely on memory):
+   - `.cursor/skills/coding-guidelines/SKILL.md` — always
+   - `.cursor/skills/tbh-qa/SKILL.md` — completion gate (`npm run qa` incl. lint/format, dev smoke)
+2. **Also read when the change touches:**
+   - `app/src/renderer/**` → `.cursor/skills/react-best-practices/SKILL.md`, `.cursor/skills/tbh-ux/SKILL.md`, and `docs/STYLING.md` (tabs, chrome, overlays, layout)
+   - `app/src/main/**`, `app/src/preload/**`, CSP, IPC, network, config → `.cursor/skills/best-practices/SKILL.md`
+   - Release, `CHANGELOG.md`, or semver / version bump → `.cursor/skills/tbh-changelog/SKILL.md`
 
-Do not treat “work is done” or “branch is ready” as permission to push or open a PR.
+Apply the skills during the work, not only at the end. No drive-by refactors outside the task.
 
-Full workflow: `docs/AGENT_WORKFLOW.md` and `AGENTS.md` (Conventions).
+**Layer rules** (with skills): `AGENTS.md` architecture table + `docs/ARCHITECTURE.md`.
+
+**Refactors:** follow **coding-guidelines** and layer skills; keep diffs surgical — no drive-by rewrites outside the task.
+
+**Done means:** tbh-qa passed (lint, format, typecheck, tests, build), spike/probe scripts removed when applicable, and required skills were followed — not just green tests.
 
 ---
 > Source: [lucasfevi/tbh-companion](https://github.com/lucasfevi/tbh-companion) — distributed by [TomeVault](https://tomevault.io).
