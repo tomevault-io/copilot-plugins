@@ -188619,6 +188619,16 @@
       "description": "Bunny-Byte"
     },
     {
+      "name": "alanchenchen--suna",
+      "source": "./alanchenchen--suna",
+      "description": "Your stateful AI companion"
+    },
+    {
+      "name": "vvvvvivekkk--llm-wiki-v3",
+      "source": "./vvvvvivekkk--llm-wiki-v3",
+      "description": "LLM-Wiki-v3"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -202877,6 +202887,16 @@
       "name": "upstash--agents-worldcup",
       "source": "./upstash--agents-worldcup",
       "description": "AI agents competing to predict 2026 World Cup game outcomes"
+    },
+    {
+      "name": "haniszaim--job-application-assistant",
+      "source": "./haniszaim--job-application-assistant",
+      "description": "Job-Application-Assistant-"
+    },
+    {
+      "name": "reskin-games--stake-engine-skills",
+      "source": "./reskin-games--stake-engine-skills",
+      "description": "Two Claude Code skills bundling the official Stake Engine Math SDK + Web SDK workflows \u2014 bootstrap, distilled docs, approval checklist."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -312977,6 +312997,21 @@
       "name": "xarnthehero--personactionobject",
       "source": "./xarnthehero--personactionobject",
       "description": "Command line quizzing solution for learning my personal Person-Action-Object set for 6-digit number memorization"
+    },
+    {
+      "name": "atticuszeller--atticuszeller-github-io",
+      "source": "./atticuszeller--atticuszeller-github-io",
+      "description": "atticuszeller.github.io"
+    },
+    {
+      "name": "xma-faez--xma-website",
+      "source": "./xma-faez--xma-website",
+      "description": "xma-website"
+    },
+    {
+      "name": "xma-faez--xma-website",
+      "source": "./xma-faez--xma-website",
+      "description": "xma-website"
     }
   ]
 }
