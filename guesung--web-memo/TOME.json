@@ -4,7 +4,7 @@
   "repo": "Web-Memo",
   "description": "\uc6f9 \ud398\uc774\uc9c0\ub97c \uc77d\uc73c\uba70 \uac04\ud3b8\ud558\uac8c \uae30\ub85d\ud558\uc138\uc694.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/guesung/Web-Memo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-12T16:38:56Z"
+  "distributed_at": "2026-06-12T16:41:48Z"
 }
