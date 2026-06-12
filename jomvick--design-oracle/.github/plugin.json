@@ -1,0 +1,9 @@
+{
+  "name": "jomvick--design-oracle",
+  "displayName": "design-oracle",
+  "description": "Analyze any website and extract its complete design system \u2014 colors, typography, spacing, components, UX patterns \u2014 export as Tailwind config, React components, design tokens, or DESIGN.md report",
+  "version": "1.0.0",
+  "author": "jomvick",
+  "homepage": "https://github.com/jomvick/design-oracle",
+  "skills": []
+}
