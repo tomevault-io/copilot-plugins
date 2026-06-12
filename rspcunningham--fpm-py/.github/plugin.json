@@ -1,0 +1,9 @@
+{
+  "name": "rspcunningham--fpm-py",
+  "displayName": "fpm-py",
+  "description": "fourier ptychography in python",
+  "version": "1.0.0",
+  "author": "rspcunningham",
+  "homepage": "https://github.com/rspcunningham/fpm-py",
+  "skills": []
+}
