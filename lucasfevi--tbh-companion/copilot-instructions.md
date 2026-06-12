@@ -1,154 +1,18 @@
-## tbh-companion
+## git-remote-confirm
 
-> Brief for any agent or contributor picking this up cold. Read `docs/` before
+> Ask user before git push or opening a pull request — never push or create PRs without approval
 
-# AGENTS.md - TBH Companion
 
-Brief for any agent or contributor picking this up cold. Read `docs/` before
-touching decryption or item mapping.
+# Git push and PRs — confirm first
 
-## What this is
+**Never push or open a PR without explicit user approval** in the current conversation.
 
-A companion app for the idle game **TBH: Task Bar Hero**. It reads the game's
-local, encrypted save file (read-only) and shows live stats: XP/hour, gold/hour,
-per-hero rates, session history, and inventory valuation via the Steam
-Market. It never modifies the save and never talks to the game servers.
+- **`git push`** (including `-u origin …`): summarize branch and commits, then ask. Push only after the user confirms.
+- **`gh pr create`** (or equivalent): summarize title, scope, and test plan, then ask. Create the PR only after the user confirms.
 
-## Where things are
+Do not treat “work is done” or “branch is ready” as permission to push or open a PR.
 
-- `app/` - the companion app (Electron + React + TypeScript). This is the
-  target codebase.
-  - `app/src/main/` - Electron main process (Node): file watching, decryption,
-    tracking, IPC. Owns all file/network access.
-  - `app/src/preload/` - `contextBridge` exposing a typed `window.tbh` API.
-  - `app/src/core/` - framework-free, unit-tested logic (`es3`, `save/snapshot`,
-    `tracker`, `stages`, `heroes`, `gamedata`, `inventory/*`, `steamPrice`).
-  - `app/src/renderer/` - React UI (tabs + mini overlay). Pure UI, no Node APIs.
-    Shared IPC state via `context/TbhProvider.tsx`.
-  - `app/shared/types.ts` - types shared across processes.
-- `data/` - bundled catalogs (`gamedata.json`, `stage_boxes.json`).
-- `docs/` - the knowledge base (see below).
-
-The original Python prototype (`tbh_xp/`) has been removed now that the TS core
-reached parity; see `docs/DECISIONS.md` for the history.
-- `config.json` - user settings, reused by the app.
-
-## Build / run / test
-
-The app lives under `app/` (created during the scaffold phase):
-
-```
-cd app
-npm install
-npm run dev        # electron-vite dev (main + renderer with HMR)
-npm run build      # production bundle (out/)
-npm run typecheck  # tsc --noEmit
-npm run lint       # eslint (errors fail; warnings OK)
-npm run lint:fix   # eslint --fix
-npm run format     # prettier --write
-npm run format:check  # prettier --check
-npm test           # vitest (core logic)
-npm run qa         # typecheck + lint + format + test + build + bundle guards (run before marking done)
-npm run qa:dev     # automated dev smoke when UI is not visible (see tbh-qa skill)
-npm run pack       # electron-builder --dir -> release/win-unpacked (no installer)
-npm run dist       # electron-builder -> Windows NSIS installer
-```
-
-## Windows environment - check this FIRST
-
-This project is developed and run on **Windows + PowerShell**. When something
-behaves oddly, suspect the environment (encoding, paths, line endings, file
-locking, shell) BEFORE assuming a logic bug - several "bugs" here turned out to
-be Windows/PowerShell quirks. Known ones:
-
-- **JSON must be BOM-free.** PowerShell 5.1 `Set-Content -Encoding UTF8` writes a
-  UTF-8 **BOM** that breaks `JSON.parse` ("Unexpected token '\uFEFF'"). This
-  silently broke the bundled `data/*.json` catalogs. To write JSON use Node
-  `fs.writeFileSync`, or
-  `[System.IO.File]::WriteAllText($p,$txt,(New-Object System.Text.UTF8Encoding($false)))`.
-  Readers strip a leading BOM defensively, but don't rely on it.
-- **Shell is PowerShell, not bash.** Chain commands with `;` (not `&&`); quote
-  paths with spaces (the repo path has one); heredocs don't work - pass commit
-  messages with multiple `-m` flags.
-- **`Invoke-WebRequest` hangs/parses slowly** on large HTML in PS 5.1 (legacy DOM
-  parsing). Always pass `-UseBasicParsing`.
-- **Save file is locked / atomically rewritten** by the game while playing. Reads
-  can hit sharing violations or catch a mid-write (ciphertext length not % 16) -
-  retry briefly and treat as transient (see `readBytesShared`).
-- **Paths use `%USERPROFILE%\AppData\LocalLow\...`** and `userData` is under
-  `%APPDATA%`. Expand env vars (`expandPath`); never hard-code a home dir.
-- **Line endings:** keep files LF; avoid tools that rewrite to CRLF.
-- **Electron binary:** if `npm install` doesn't fetch it (some sandboxes block
-  the postinstall extraction), run `node node_modules/electron/install.js`, or
-  download the matching `electron-v<ver>-win32-x64.zip` and extract it into
-  `node_modules/electron/dist/` with `path.txt` containing `electron.exe`.
-- **Big numbers:** save ids like `UniqueId` exceed JS safe-integer range and
-  collide after `JSON.parse`; parse losslessly (string/bigint) if you must use
-  them. (Not Windows-specific, but a recurring "why don't these match" trap.)
-
-The app has two windows sharing one bundle: the full tabbed companion (`#main`)
-and a frameless always-on-top mini overlay (`#overlay`). Toggle from the "Mini"
-button in the tab bar; restore from the overlay's expand button.
-
-## Conventions
-
-- TypeScript everywhere in `app/`. Keep `core/` free of Electron/React imports
-  so it stays unit-testable.
-
-## Project skills (required for features & refactors)
-
-Cursor skills live in `.cursor/skills/`. **Read the relevant `SKILL.md` before
-coding** — enforced by `.cursor/rules/project-skills.mdc` (`alwaysApply: true`).
-
-| Skill | Path | When |
-|-------|------|------|
-| **coding-guidelines** | `.cursor/skills/coding-guidelines/SKILL.md` | Every feature, bugfix, refactor |
-| **tbh-qa** | `.cursor/skills/tbh-qa/SKILL.md` | Before marking any `app/` work done |
-| **react-best-practices** | `.cursor/skills/react-best-practices/SKILL.md` | Renderer / React UI changes |
-| **best-practices** | `.cursor/skills/best-practices/SKILL.md` | Main, preload, IPC, CSP, network, security |
-| **tbh-changelog** | `.cursor/skills/tbh-changelog/SKILL.md` | CHANGELOG updates, semver bump advice, release prep |
-
-Do not skip skills for “small” diffs. Match skill to layer: renderer → **react-best-practices**; main/preload/security → **best-practices**; release/changelog → **tbh-changelog**.
-- **Commits:** use Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`,
-  `refactor:`). One focused commit per logical change; split large work into
-  reviewable chunks. Commit when the user asks (or their rules allow); do not
-  commit unless requested.
-- **Push and PRs — confirm first:** never run `git push` or open a pull request
-  without explicit user approval in the current conversation. Summarize branch,
-  commits, and scope; ask; then push or create the PR only after they confirm.
-  See `docs/AGENT_WORKFLOW.md`.
-- Never force-push unless the user explicitly requests it.
-- Never commit personal save data (`*.es3`, decrypted dumps, `sample/`).
-
-## Architecture & refactor conventions
-
-Four layers — respect these when adding features (see `docs/ARCHITECTURE.md`):
-
-| Layer | Path | Rules |
-|-------|------|--------|
-| **shared** | `app/shared/` | Types + `ipc.ts` channel names. No runtime logic. |
-| **core** | `app/src/core/` | Pure domain logic. **No** `electron`, **no** `node:fs`, **no** `fetch`, **no** React. |
-| **main** | `app/src/main/` | File I/O, network, windows, IPC. Orchestrates core via `app/appState.ts` and `ipc/`. |
-| **preload** | `app/src/preload/` | Thin `contextBridge` only; import channels from `shared/ipc.ts`. |
-| **renderer** | `app/src/renderer/` | React UI via `window.tbh`. Filter/sort in `renderer/lib/` or `core/` pure helpers. |
-
-**Adding features:** read **coding-guidelines** + **tbh-qa** first; add **react-best-practices** or **best-practices** when touching renderer or main/preload. New IPC → `shared/ipc.ts` + `main/ipc/registerIpc.ts` + preload + `test/ipc/channels.test.ts`. New save fields → parse in `core/`, read bytes in `main/` only. New main services → log lifecycle/errors per `docs/DIAGNOSTIC_LOGGING.md` (`createLogger` in main only; renderer uses `reportIpcError`).
-
-**Refactor:** move without behavior change first; tests travel with code. No duplicate types (`AppConfig` lives in `shared/types.ts`). No new globals in `main/index.ts` — use `app/appState.ts` or services. Read **coding-guidelines** plus the layer skills above; keep diffs surgical (no drive-by rewrites).
-
-**Testing:** all new `core/` logic needs Vitest; new IPC/config handlers need tests in `test/main/` or `test/ipc/`. Optional local integration: `test/integration/realSave.test.ts`.
-
-**QA before done:** run the **tbh-qa** skill (`.cursor/skills/tbh-qa/SKILL.md`) — `npm run qa` (includes lint + format check), then `npm run dev` (non-blank window) or `npm run qa:dev` when the UI cannot be seen. Never mark app work complete on tests/build alone or with lint/format failures.
-
-## Docs index
-
-- `docs/AGENT_WORKFLOW.md` - git commits, push/PR confirmation, agent defaults.
-- `docs/ARCHITECTURE.md` - processes, IPC boundary, windows, data flow.
-- `docs/STYLING.md` - Tailwind + ui components vs legacy `styles.css` (renderer).
-- `docs/DIAGNOSTIC_LOGGING.md` - how to add support logs (main/renderer rules, what to log).
-- `docs/SAVE_FORMAT.md` - ES3 decryption scheme + save JSON layout.
-- `docs/DECISIONS.md` - short ADR log of why the stack is what it is.
-- `docs/findings/` - research outputs (Steam Market probe, item mapping).
+Full workflow: `docs/AGENT_WORKFLOW.md` and `AGENTS.md` (Conventions).
 
 ---
 > Source: [lucasfevi/tbh-companion](https://github.com/lucasfevi/tbh-companion) — distributed by [TomeVault](https://tomevault.io).
