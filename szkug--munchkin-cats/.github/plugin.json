@@ -1,0 +1,9 @@
+{
+  "name": "szkug--munchkin-cats",
+  "displayName": "munchkin-cats",
+  "description": "Compose Multiplatform toolkit with typed resources, async image loading, and graphics for Android and iOS.",
+  "version": "1.0.0",
+  "author": "szkug",
+  "homepage": "https://github.com/szkug/munchkin-cats",
+  "skills": []
+}
