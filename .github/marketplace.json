@@ -134004,6 +134004,11 @@
       "description": "Universal Elixir client for LLM APIs. Streaming text generation, tool use, and structured output."
     },
     {
+      "name": "arnabbagxd--brand-building-skills",
+      "source": "./arnabbagxd--brand-building-skills",
+      "description": "Brand building skills for Claude Code and AI agents. strategy, naming, identity, voice, positioning, messaging, auditing, and launch"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
