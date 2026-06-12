@@ -4,7 +4,7 @@
   "repo": "agents-worldcup",
   "description": "AI agents competing to predict 2026 World Cup game outcomes",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/upstash/agents-worldcup",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-12T10:32:17Z"
+  "distributed_at": "2026-06-12T10:32:45Z"
 }
