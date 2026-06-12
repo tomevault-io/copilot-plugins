@@ -129944,6 +129944,11 @@
       "description": "ARES OS 2.0 is a software suite to enable laboratory automation and fully closed-loop autonomous research. "
     },
     {
+      "name": "metyatech--runtimeassetimportplugin",
+      "source": "./metyatech--runtimeassetimportplugin",
+      "description": "A plugin for the Unreal Engine to easily load 3D assets (e.g. FBX) at runtime. Made with UE5.4.2."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -143684,6 +143689,11 @@
       "description": "Chrome extension wallet for user-owned AI API access"
     },
     {
+      "name": "win4r--mytest",
+      "source": "./win4r--mytest",
+      "description": "AI\u8d85\u5143\u57df\u9891\u9053_\u89c6\u9891\u9879\u76ee\u6587\u4ef6"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -155832,6 +155842,11 @@
       "name": "jomvick--design-oracle",
       "source": "./jomvick--design-oracle",
       "description": "Analyze any website and extract its complete design system \u2014 colors, typography, spacing, components, UX patterns \u2014 export as Tailwind config, React components, design tokens, or DESIGN.md report"
+    },
+    {
+      "name": "matthewmckee4--gdsr",
+      "source": "./matthewmckee4--gdsr",
+      "description": "GDSII manipulation, written in Rust."
     },
     {
       "name": "lightninglabs--lnget",
