@@ -1,0 +1,9 @@
+{
+  "name": "molmod--stacie",
+  "displayName": "stacie",
+  "description": "Stable AutoCorrelation Integral Estimator",
+  "version": "1.0.0",
+  "author": "molmod",
+  "homepage": "https://github.com/molmod/stacie",
+  "skills": []
+}
