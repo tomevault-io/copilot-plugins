@@ -188599,6 +188599,11 @@
       "description": "Open-source AI Operating System (AIOS) blueprint for Claude Code & Codex \u2014 turn any agent into your personal second brain + Chief of Staff: skills, self-verifying workflows, a second-brain wiki, and d"
     },
     {
+      "name": "lisaooo1234--bunny-byte",
+      "source": "./lisaooo1234--bunny-byte",
+      "description": "Bunny-Byte"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -202832,6 +202837,31 @@
       "name": "ontograph--ontoindex",
       "source": "./ontograph--ontoindex",
       "description": "ontoindex"
+    },
+    {
+      "name": "idiotbaka--benkyo-ai",
+      "source": "./idiotbaka--benkyo-ai",
+      "description": "\u4e00\u6b3e\u4f7f\u7528 AI \u6765\u751f\u6210\u4e13\u5c5e\u5b9a\u5236\u8bfe\u7a0b\u7684\u6e38\u620f\u5316\u5f00\u6e90\u65e5\u8bed\u5b66\u4e60 App\uff0c\u751f\u6210\u7c7b\u4f3c\u591a\u90bb\u56fd\uff08Duolingo\uff09\u7684\u4e2a\u6027\u5316\u8bfe\u7a0b\u548c\u6d4b\u9a8c\u3002"
+    },
+    {
+      "name": "alibaba--loongsuite-pilot",
+      "source": "./alibaba--loongsuite-pilot",
+      "description": "loongsuite-pilot"
+    },
+    {
+      "name": "alibaba--loongsuite-pilot",
+      "source": "./alibaba--loongsuite-pilot",
+      "description": "loongsuite-pilot"
+    },
+    {
+      "name": "upstash--agents-worldcup",
+      "source": "./upstash--agents-worldcup",
+      "description": "AI agents competing to predict 2026 World Cup game outcomes"
+    },
+    {
+      "name": "upstash--agents-worldcup",
+      "source": "./upstash--agents-worldcup",
+      "description": "AI agents competing to predict 2026 World Cup game outcomes"
     },
     {
       "name": "cheerhuan--save-your-token",
