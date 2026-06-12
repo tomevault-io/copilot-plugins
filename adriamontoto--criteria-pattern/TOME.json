@@ -1,0 +1,44 @@
+{
+  "name": "criteria-pattern",
+  "owner": "adriamontoto",
+  "repo": "criteria-pattern",
+  "description": "The Criteria Pattern is a Python \ud83d\udc0d package that simplifies and standardizes criteria based filtering \ud83e\udd0f\ud83c\udffb, validation and selection.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/adriamontoto/criteria-pattern",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-12T18:39:18Z"
+}
