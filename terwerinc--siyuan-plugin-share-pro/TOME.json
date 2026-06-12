@@ -4,7 +4,7 @@
   "repo": "siyuan-plugin-share-pro",
   "description": "share your notes from siyuan-note with one click \u4e00\u952e\u5206\u4eab\u4f60\u7684\u601d\u6e90\u7b14\u8bb0",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/terwerinc/siyuan-plugin-share-pro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-12T16:45:09Z"
+  "distributed_at": "2026-06-12T16:45:38Z"
 }
