@@ -202744,6 +202744,11 @@
       "description": "FlashRT-HF-kernels contains standalone FlashRT CUDA/CUTLASS kernels prepared for the Hugging Face kernels community, focusing on small-batch, low-latency inference paths for LLM, VLA, and physical AI "
     },
     {
+      "name": "basisresearch--veridns",
+      "source": "./basisresearch--veridns",
+      "description": "A RFC Compliant Verified DNS server"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
