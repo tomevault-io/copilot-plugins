@@ -4,7 +4,7 @@
   "repo": "gaios",
   "description": "Open-source AI Operating System (AIOS) blueprint for Claude Code & Codex \u2014 turn any agent into your personal second brain + Chief of Staff: skills, self-verifying workflows, a second-brain wiki, and deterministic tools. Fork it for any role or domain.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alirezarezvani/gaios",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-12T08:30:23Z"
+  "distributed_at": "2026-06-12T08:30:52Z"
 }
