@@ -4,7 +4,7 @@
   "repo": "evmc",
   "description": "evmc is an abbreviation of Ethereum Virtual Machine Client, and I wanted to express it as simply as a Go. But evmc is not simple.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bbaktaeho/evmc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-12T23:32:10Z"
+  "distributed_at": "2026-06-12T23:32:35Z"
 }
