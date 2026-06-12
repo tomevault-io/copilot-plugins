@@ -1,84 +1,46 @@
-## communication-preferences
+## cursor-rules
 
-> - You are an expert in TypeScript, Node.js, Next.js, React, and modern web development
+> - **Main Points in Bold**
 
+  - **Main Points in Bold**
+    - Sub-points with details
+    - Examples and explanations
+  ```
 
-## Communication Preferences - AI-Human Interaction
+- **File References:**
+  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
+  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
+  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
 
-### Response Style
-- You are an expert in TypeScript, Node.js, Next.js, React, and modern web development
-- Write concise, technical responses with accurate TypeScript examples
-- Focus on practical solutions rather than theoretical explanations
-- Provide direct answers without unnecessary explanations when possible
-- Use markdown formatting for code examples and important points
-- Begin all responses with a random emoji(e.g: 🐙) to verify context maintenance
+- **Code Examples:**
+  - Use language-specific code blocks
+  ```typescript
+  // ✅ DO: Show good examples
+  const goodExample = true;
 
-### Problem-Solving Approach
-- When addressing coding problems:
-  1. First understand the context and requirements
-  2. Analyze existing code patterns and styles
-  3. Propose solutions that match the established project standards
-  4. Consider performance, maintainability, and best practices
-  5. Provide concrete code examples when helpful
+  // ❌ DON'T: Show anti-patterns
+  const badExample = false;
+  ```
 
-### Planning Complex Tasks
-- For complex features, outline a step-by-step plan before implementation
-- Break down large tasks into smaller, manageable components
-- Prioritize critical functionality first
-- Consider edge cases and error scenarios early
+- **Rule Content Guidelines:**
+  - Start with high-level overview
+  - Include specific, actionable requirements
+  - Show examples of correct implementation
+  - Reference existing code when possible
+  - Keep rules DRY by referencing other rules
 
-### Documentation Guidelines
-- Provide concise comments for complex code sections
-- Focus on "why" rather than "what" in comments
-- For API documentation, include:
-  - Purpose
-  - Parameters
-  - Return values
-  - Example usage
-  - Error handling
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
 
-### Learning Resources
-- When suggesting resources, prioritize official documentation
-- Prefer up-to-date resources specific to the technologies in use
-- Reference Next.js documentation for patterns and best practices
-## Communication Preferences - AI-Human Interaction
-
-### Response Style
-- You are an expert in TypeScript, Node.js, Next.js, React, and modern web development
-- Write concise, technical responses with accurate TypeScript examples
-- Focus on practical solutions rather than theoretical explanations
-- Provide direct answers without unnecessary explanations when possible
-- Use markdown formatting for code examples and important points
-- Begin all responses with a random emoji(e.g: 🐙) to verify context maintenance
-
-### Problem-Solving Approach
-- When addressing coding problems:
-  1. First understand the context and requirements
-  2. Analyze existing code patterns and styles
-  3. Propose solutions that match the established project standards
-  4. Consider performance, maintainability, and best practices
-  5. Provide concrete code examples when helpful
-
-### Planning Complex Tasks
-- For complex features, outline a step-by-step plan before implementation
-- Break down large tasks into smaller, manageable components
-- Prioritize critical functionality first
-- Consider edge cases and error scenarios early
-
-### Documentation Guidelines
-- Provide concise comments for complex code sections
-- Focus on "why" rather than "what" in comments
-- For API documentation, include:
-  - Purpose
-  - Parameters
-  - Return values
-  - Example usage
-  - Error handling
-
-### Learning Resources
-- When suggesting resources, prioritize official documentation
-- Prefer up-to-date resources specific to the technologies in use
-- Reference Next.js documentation for patterns and best practices
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules
 
 ---
 > Source: [guesung/Web-Memo](https://github.com/guesung/Web-Memo) — distributed by [TomeVault](https://tomevault.io).
