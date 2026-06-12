@@ -1,0 +1,9 @@
+{
+  "name": "optima-cityu--llm4ad-next",
+  "displayName": "LLM4AD_Next",
+  "description": "A next-generation LLM4AD platform focused on intuitive UI interactions and seamless collaboration with AI agents, making automated algorithm design more accessible and easier to use",
+  "version": "1.0.0",
+  "author": "Optima-CityU",
+  "homepage": "https://github.com/Optima-CityU/LLM4AD_Next",
+  "skills": []
+}
