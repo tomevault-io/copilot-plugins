@@ -1,0 +1,9 @@
+{
+  "name": "cordialsys--crosschain",
+  "displayName": "crosschain",
+  "description": "Cordial Systems abstraction over blockchains",
+  "version": "1.0.0",
+  "author": "cordialsys",
+  "homepage": "https://github.com/cordialsys/crosschain",
+  "skills": []
+}
