@@ -1,0 +1,44 @@
+{
+  "name": "Hommy-Website",
+  "owner": "HoanhHop11",
+  "repo": "Hommy-Website",
+  "description": "\u0110\u00e2y l\u00e0 nh\u00f3m \u0111\u1ec3 code d\u1ef1 \u00e1n Website cho thu\u00ea b\u1ea5t \u0111\u1ed9ng s\u1ea3n Hommy t\u00edch h\u1ee3p nh\u1eefng t\u00ednh n\u0103ng m\u1edbi ch\u01b0a c\u00f3 tr\u00ean th\u1ecb tr\u01b0\u1eddng nh\u01b0 h\u1eb9n l\u1ecbch, \u0111\u1eb7t c\u1ecdc, ch\u1ecdn nh\u00e2n vi\u00ean m\u00f4i gi\u1edbi,...",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HoanhHop11/Hommy-Website",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-12T16:52:48Z"
+}
