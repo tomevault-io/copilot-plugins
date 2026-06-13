@@ -1,0 +1,9 @@
+{
+  "name": "thereisnotime--x11droid",
+  "displayName": "x11droid",
+  "description": "Don't like Wayland? Want to run Waydroid/Android in X11 as a container instead of a VM? This is what x11droid does.",
+  "version": "1.0.0",
+  "author": "thereisnotime",
+  "homepage": "https://github.com/thereisnotime/x11droid",
+  "skills": []
+}
