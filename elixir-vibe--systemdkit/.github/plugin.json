@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--systemdkit",
+  "displayName": "systemdkit",
+  "description": "Pure Elixir tools for systemd unit files and D-Bus manager control",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/systemdkit",
+  "skills": []
+}
