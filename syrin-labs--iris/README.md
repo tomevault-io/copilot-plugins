@@ -7,11 +7,11 @@ Your AI writes the code. Iris tells it whether the code actually works - with ev
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [syrin-labs/iris](https://github.com/syrin-labs/iris).
+Original source: `CLAUDE.md` in [syrin-labs/iris](https://github.com/syrin-labs/iris).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
