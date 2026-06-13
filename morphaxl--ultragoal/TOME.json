@@ -4,7 +4,7 @@
   "repo": "ultragoal",
   "description": "Tell Claude Code what you want once. It works until the job is verifiably done \u2014 and gets smarter every time. Self-correcting goal loops with independent verification and growing memory.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/morphaxl/ultragoal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-13T20:30:21Z"
+  "distributed_at": "2026-06-13T20:31:38Z"
 }
