@@ -189519,6 +189519,11 @@
       "description": "\u73b0\u7f16OS \u2014 \u4e00\u53f0\u4e0d\u9884\u88c5\u4efb\u4f55\u8f6f\u4ef6\u7684\u7535\u8111\uff0c\u6bcf\u4e2a\u5e94\u7528\u90fd\u662f AI \u5f53\u573a\u73b0\u7f16\u7684 macOS \u98ce\u683c\u7f51\u9875OS \u00b7 An OS where every app is improvised by AI, live"
     },
     {
+      "name": "saibodafu--e-commerce-skill",
+      "source": "./saibodafu--e-commerce-skill",
+      "description": "e-commerce-skill"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204022,6 +204027,26 @@
       "name": "hachemih--prepa-cursor",
       "source": "./hachemih--prepa-cursor",
       "description": "prepa-cursor"
+    },
+    {
+      "name": "laubsauger--wave-rider",
+      "source": "./laubsauger--wave-rider",
+      "description": "wave-rider"
+    },
+    {
+      "name": "jaisuriya97--codeturtle",
+      "source": "./jaisuriya97--codeturtle",
+      "description": "Code Turtle \ud83d\udc22;  Is the open-source AI code review platform that helps teams ship better code with intelligent pull request reviews, inline feedback, and noise-free re-reviews \ud83d\ude80"
+    },
+    {
+      "name": "agrimsingh--glyphrush",
+      "source": "./agrimsingh--glyphrush",
+      "description": "glyphrush"
+    },
+    {
+      "name": "jaisuriya97--codeturtle",
+      "source": "./jaisuriya97--codeturtle",
+      "description": "Code Turtle \ud83d\udc22;  Is the open-source AI code review platform that helps teams ship better code with intelligent pull request reviews, inline feedback, and noise-free re-reviews \ud83d\ude80"
     },
     {
       "name": "cheerhuan--save-your-token",
