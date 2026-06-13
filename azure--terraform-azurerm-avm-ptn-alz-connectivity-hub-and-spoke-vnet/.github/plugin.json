@@ -1,0 +1,9 @@
+{
+  "name": "azure--terraform-azurerm-avm-ptn-alz-connectivity-hub-and-spoke-vnet",
+  "displayName": "terraform-azurerm-avm-ptn-alz-connectivity-hub-and-spoke-vnet",
+  "description": "Terraform Azure Verified Pattern Module for ALZ Connectivity Hub and Spoke",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-ptn-alz-connectivity-hub-and-spoke-vnet",
+  "skills": []
+}
