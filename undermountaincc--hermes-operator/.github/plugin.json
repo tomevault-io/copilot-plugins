@@ -1,0 +1,9 @@
+{
+  "name": "undermountaincc--hermes-operator",
+  "displayName": "hermes-operator",
+  "description": "Kubernetes operator for the Hermes agent",
+  "version": "1.0.0",
+  "author": "UndermountainCC",
+  "homepage": "https://github.com/UndermountainCC/hermes-operator",
+  "skills": []
+}
