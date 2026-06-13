@@ -1,0 +1,51 @@
+## x11droid
+
+> Go CLI/TUI for running and managing [Waydroid](https://waydro.id) (Android) instances inside **rootful** Podman containers, displayed on an X11 session. Each instance is a privileged container running a nested Wayland compositor (weston; cage is tried first but falls back on NVIDIA) that forwards its output to the host `$DISPLAY`. Android runs natively on the host kernel via `binder` IPC — no emulation or VM.
+
+# x11droid
+
+Go CLI/TUI for running and managing [Waydroid](https://waydro.id) (Android) instances inside **rootful** Podman containers, displayed on an X11 session. Each instance is a privileged container running a nested Wayland compositor (weston; cage is tried first but falls back on NVIDIA) that forwards its output to the host `$DISPLAY`. Android runs natively on the host kernel via `binder` IPC — no emulation or VM.
+
+## Layout
+
+- `cmd/x11droid/` — entrypoint (`main.go`) + Cobra CLI (`cli.go`). Bare invocation launches the Bubble Tea TUI; subcommands (`list`, `spawn`, `start`, `stop`, `rm`, `logs`, `shell`, `setup`) are scriptable.
+- `internal/container/` — Podman lifecycle (`container.go`) and the embedded `Containerfile` + image build (`image.go`). The Containerfile is split into stable (waydroid) and fast-changing (display stack) layers so the multi-GB waydroid layer stays cached — do not reorder layers carelessly.
+- `internal/kernel/` — `binder_linux` (required) / `ashmem_linux` (optional, built-in on kernels ≥5.18) `modprobe` load/unload. `Load()` only loads modules; the binder device nodes are provisioned **inside** the container via binderfs (see `entrypoint.sh`), not on the host.
+- `internal/system/` — X11/Wayland/XWayland session detection. Display forwarding requires a local X11 session.
+- `internal/tui/` — Bubble Tea TUI (model/views/keys/styles).
+
+## Tooling — always use `just`
+
+Use the `just` recipes for all build/test/run/setup tasks. Only fall back to raw `go`/`podman` commands when no recipe covers what you need.
+
+- `just build` / `just run` / `just install` / `just clean`
+- `just check` (vet + test + lint + yamllint + actionlint), or run each individually (`just test` / `just vet` / `just lint` / `just yamllint` / `just actionlint`)
+- `just tidy` — go mod tidy
+- `just image-build` / `just image-clean`
+- `just adb <name>` / `just apk <name> <path>` / `just logcat <name>` — debug helpers (also CLI: `x11droid adb`/`install`/`logcat`)
+
+Kernel modules and image build are managed in-app (Setup screen) or via `x11droid setup load|unload|build` — not through `just`.
+
+## OpenSpec
+
+This repo uses [OpenSpec](https://github.com/Fission-AI/OpenSpec) for spec-driven development — specs live in `openspec/specs/`, change proposals in `openspec/changes/`. For non-trivial features/changes, create a change proposal first (`openspec` CLI or the `openspec-propose` skill), then implement, then archive. Run `openspec list` / `openspec view` to see current specs and changes.
+
+Go is pinned via asdf (`.tool-versions`); recipes call `asdf exec go` / `asdf exec golangci-lint`.
+
+## Git, commits & versioning
+
+- **Conventional Commits are mandatory.** Every commit message is `type(scope): summary` — types: `feat`, `fix`, `docs`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`. Add a scope when it clarifies (`fix(tui): …`, `feat(container): …`). Breaking changes use `!` (`feat!: …`) or a `BREAKING CHANGE:` footer. Keep the summary natural and human — conventional *format*, not robotic wording. Never add `Co-Authored-By` trailers.
+- **Semantic Versioning is mandatory** for tags/releases (`vMAJOR.MINOR.PATCH`): breaking → major, `feat` → minor, `fix`/`perf` → patch. The commit types above drive the bump.
+- **Always validate with `just` before pushing.** Run `just check` (vet + test + lint) and `just build`; they must pass. Never push red. Pull (rebase) before pushing to avoid conflicts.
+
+## Conventions
+
+- **Rootful podman**: waydroid loop-mounts the Android system image, which rootless podman cannot do (loop association needs real host CAP_SYS_ADMIN even with `--privileged`). x11droid itself runs as root (`sudo x11droid`), so `podmanCmd` calls `podman` directly (rootful) — no per-call `sudo`, no separate auth step. It resolves the invoking user's display/auth/home from `SUDO_USER`. Rootful storage is separate from rootless, so the image must be (re)built rootful.
+- The container provisions binder itself via **binderfs** (mount + `BINDER_CTL_ADD` ioctl) since this kernel sets `CONFIG_ANDROID_BINDER_DEVICES=""`. It also runs its own system + session D-Bus, and uses its **own** netns (not `--network=host`) so waydroid can create the `waydroid0` bridge. See `internal/container/entrypoint.sh`.
+- Display: weston (`--use-pixman`) forwards to the host X11 `:0` over the mounted `/tmp/.X11-unix` socket — cage fails on NVIDIA.
+- Binary is self-contained — Containerfile, entrypoint.sh and a fake `modprobe` are written to `~/.config/x11droid/` on demand.
+- Run lint and tests before considering a change done.
+
+---
+> Source: [thereisnotime/x11droid](https://github.com/thereisnotime/x11droid) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-13 -->
