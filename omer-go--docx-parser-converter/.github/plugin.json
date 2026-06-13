@@ -1,0 +1,9 @@
+{
+  "name": "omer-go--docx-parser-converter",
+  "displayName": "docx-parser-converter",
+  "description": "Parsers to process, store and convert docx files to html and txt formats.",
+  "version": "1.0.0",
+  "author": "omer-go",
+  "homepage": "https://github.com/omer-go/docx-parser-converter",
+  "skills": []
+}
