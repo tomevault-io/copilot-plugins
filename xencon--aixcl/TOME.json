@@ -4,7 +4,7 @@
   "repo": "aixcl",
   "description": "Agentic SDLC with local LLM's.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xencon/aixcl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-13T00:41:50Z"
+  "distributed_at": "2026-06-13T00:43:37Z"
 }
