@@ -4,7 +4,7 @@
   "repo": "customizable-agent-teams",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/discus0434/customizable-agent-teams",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-13T02:32:06Z"
+  "distributed_at": "2026-06-13T02:32:32Z"
 }
