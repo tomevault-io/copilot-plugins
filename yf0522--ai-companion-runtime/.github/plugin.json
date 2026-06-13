@@ -1,0 +1,9 @@
+{
+  "name": "yf0522--ai-companion-runtime",
+  "displayName": "ai-companion-runtime",
+  "description": "Real-time AI Companion with emotional support, tool calling, long-term memory, model hot-swap, and full-chain trace observability",
+  "version": "1.0.0",
+  "author": "yf0522",
+  "homepage": "https://github.com/yf0522/ai-companion-runtime",
+  "skills": []
+}
