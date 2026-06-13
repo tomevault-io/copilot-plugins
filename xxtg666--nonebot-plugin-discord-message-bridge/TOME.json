@@ -1,0 +1,44 @@
+{
+  "name": "nonebot-plugin-discord-message-bridge",
+  "owner": "xxtg666",
+  "repo": "nonebot-plugin-discord-message-bridge",
+  "description": "\u2728 Discord - QQ \u6d88\u606f\u8f6c\u53d1\u63d2\u4ef6 \u2728",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xxtg666/nonebot-plugin-discord-message-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-13T00:40:57Z"
+}
