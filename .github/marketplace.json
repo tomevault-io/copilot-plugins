@@ -189564,6 +189564,11 @@
       "description": "academic-paper-workflow"
     },
     {
+      "name": "sunziqin--xunpet",
+      "source": "./sunziqin--xunpet",
+      "description": "Windows-first Electron + Live2D AI desktop pet"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204112,6 +204117,16 @@
       "name": "sshahzaiib--agy-bridge",
       "source": "./sshahzaiib--agy-bridge",
       "description": "MCP bridge that lets Claude Code delegate heavy tasks to the Antigravity CLI (agy) \u2014 purpose-built tools, model routing with fallback, session continuity, and output truncation to save Claude's contex"
+    },
+    {
+      "name": "fei0810--bear-research-skills",
+      "source": "./fei0810--bear-research-skills",
+      "description": "\u6211\u5728\u5b66\u672f\u79d1\u7814\u5de5\u4f5c\u4e2d\u7684\u4e00\u4e9b\u601d\u8def\u548c\u65b9\u6cd5\uff0c\u4ee5 Agent Skill \u5f62\u5f0f\u6c89\u6dc0\u4e0b\u6765\u548c\u4f60\u5206\u4eab\u3002by \u718a\u8a00\u718a\u8bed"
+    },
+    {
+      "name": "civitai--civitai-gen-skill",
+      "source": "./civitai--civitai-gen-skill",
+      "description": "Generate images, video, audio and more via Civitai's orchestration API \u2014 a runtime-agnostic agent skill (AgentSkills format, zero deps, Node 18+)."
     },
     {
       "name": "cheerhuan--save-your-token",
