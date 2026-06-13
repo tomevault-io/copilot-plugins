@@ -1,0 +1,9 @@
+{
+  "name": "gharibyan--agent-memory",
+  "displayName": "agent-memory",
+  "description": "TypeScript SDK for building AI agents with automatic, scoped, persistent memory.  `agent-memory` wraps model calls with memory recall and learning so apps can keep useful user, thread, and operation c",
+  "version": "1.0.0",
+  "author": "gharibyan",
+  "homepage": "https://github.com/gharibyan/agent-memory",
+  "skills": []
+}
