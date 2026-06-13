@@ -1,0 +1,9 @@
+{
+  "name": "eli-labz--third-eye",
+  "displayName": "Third-Eye",
+  "description": "A production-grade OSINT platform that provides situational awareness across multiple intelligence domains.",
+  "version": "1.0.0",
+  "author": "eli-labz",
+  "homepage": "https://github.com/eli-labz/Third-Eye",
+  "skills": []
+}
