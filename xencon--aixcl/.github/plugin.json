@@ -1,0 +1,9 @@
+{
+  "name": "xencon--aixcl",
+  "displayName": "aixcl",
+  "description": "Agentic SDLC with local LLM's.",
+  "version": "1.0.0",
+  "author": "xencon",
+  "homepage": "https://github.com/xencon/aixcl",
+  "skills": []
+}
