@@ -189549,6 +189549,16 @@
       "description": "Kubernetes operator for the Hermes agent"
     },
     {
+      "name": "joshzhao-ai--josh-video-cover-skill",
+      "source": "./joshzhao-ai--josh-video-cover-skill",
+      "description": "Josh-video-cover-skill"
+    },
+    {
+      "name": "joe-rq--academic-paper-workflow",
+      "source": "./joe-rq--academic-paper-workflow",
+      "description": "academic-paper-workflow"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204082,6 +204092,21 @@
       "name": "3djupp--ha-wrapped",
       "source": "./3djupp--ha-wrapped",
       "description": "A Spotify-Wrapped-style year review for your Home Assistant. Turns a year of stats into a shareable scrolling story with rolling odometers and AI-written one-liners."
+    },
+    {
+      "name": "michaelyuancb--ftp1-policy",
+      "source": "./michaelyuancb--ftp1-policy",
+      "description": "FTP-1: A Generalist Foundation Tactile Policy Across Tactile Sensors for Contact-Rich Manipulation"
+    },
+    {
+      "name": "htlin222--acompose",
+      "source": "./htlin222--acompose",
+      "description": "Run your docker-compose.yml on Apple's container CLI \u2014 dependency-ordered startup, service-name DNS, named volumes, restart-policy supervision, and a live dashboard"
+    },
+    {
+      "name": "sshahzaiib--agy-bridge",
+      "source": "./sshahzaiib--agy-bridge",
+      "description": "MCP bridge that lets Claude Code delegate heavy tasks to the Antigravity CLI (agy) \u2014 purpose-built tools, model routing with fallback, session continuity, and output truncation to save Claude's contex"
     },
     {
       "name": "cheerhuan--save-your-token",
