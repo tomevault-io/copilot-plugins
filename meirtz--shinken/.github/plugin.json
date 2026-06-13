@@ -1,0 +1,9 @@
+{
+  "name": "meirtz--shinken",
+  "displayName": "Shinken",
+  "description": "Train computer-use agents end-to-end on real desktops, at scale: a high-performance runtime where 8K+ live environments on one laptop thread.",
+  "version": "1.0.0",
+  "author": "Meirtz",
+  "homepage": "https://github.com/Meirtz/Shinken",
+  "skills": []
+}
