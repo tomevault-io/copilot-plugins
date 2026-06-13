@@ -1,0 +1,9 @@
+{
+  "name": "3djupp--ha-wrapped",
+  "displayName": "ha-wrapped",
+  "description": "A Spotify-Wrapped-style year review for your Home Assistant. Turns a year of stats into a shareable scrolling story with rolling odometers and AI-written one-liners.",
+  "version": "1.0.0",
+  "author": "3DJupp",
+  "homepage": "https://github.com/3DJupp/ha-wrapped",
+  "skills": []
+}
