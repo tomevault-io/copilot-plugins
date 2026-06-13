@@ -1,0 +1,9 @@
+{
+  "name": "ratelworks--token-horse",
+  "displayName": "token-horse",
+  "description": "Token usage reactive horse pet for Claude Code statuslines and Codex CLI sessions",
+  "version": "1.0.0",
+  "author": "ratelworks",
+  "homepage": "https://github.com/ratelworks/token-horse",
+  "skills": []
+}
