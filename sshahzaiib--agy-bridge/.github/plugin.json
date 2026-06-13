@@ -1,0 +1,9 @@
+{
+  "name": "sshahzaiib--agy-bridge",
+  "displayName": "agy-bridge",
+  "description": "MCP bridge that lets Claude Code delegate heavy tasks to the Antigravity CLI (agy) \u2014 purpose-built tools, model routing with fallback, session continuity, and output truncation to save Claude's contex",
+  "version": "1.0.0",
+  "author": "sshahzaiib",
+  "homepage": "https://github.com/sshahzaiib/agy-bridge",
+  "skills": []
+}
