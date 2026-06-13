@@ -1,0 +1,9 @@
+{
+  "name": "mihailthebuilder--hackernewsalerts-backend",
+  "displayName": "hackernewsalerts-backend",
+  "description": "Django backend services for Hacker News email alerts application.",
+  "version": "1.0.0",
+  "author": "mihailthebuilder",
+  "homepage": "https://github.com/mihailthebuilder/hackernewsalerts-backend",
+  "skills": []
+}
