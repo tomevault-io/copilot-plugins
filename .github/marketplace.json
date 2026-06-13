@@ -104814,6 +104814,11 @@
       "description": "orgu is a tool for implementing organization-wide workflows on GitHub"
     },
     {
+      "name": "minerd--cmdmanager",
+      "source": "./minerd--cmdmanager",
+      "description": "WPF utility to manage cmd.exe windows running Claude Code: live console preview, idle detection, silent input injection, and auto-resume when usage limits reset"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
