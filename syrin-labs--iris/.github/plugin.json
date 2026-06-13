@@ -1,0 +1,9 @@
+{
+  "name": "syrin-labs--iris",
+  "displayName": "iris",
+  "description": "Your AI writes the code. Iris tells it whether the code actually works - with evidence, not screenshots.",
+  "version": "1.0.0",
+  "author": "syrin-labs",
+  "homepage": "https://github.com/syrin-labs/iris",
+  "skills": []
+}
