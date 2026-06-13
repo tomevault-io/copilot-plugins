@@ -1,0 +1,9 @@
+{
+  "name": "finatext--orgu",
+  "displayName": "orgu",
+  "description": "orgu is a tool for implementing organization-wide workflows on GitHub",
+  "version": "1.0.0",
+  "author": "Finatext",
+  "homepage": "https://github.com/Finatext/orgu",
+  "skills": []
+}
