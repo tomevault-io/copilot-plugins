@@ -1,0 +1,9 @@
+{
+  "name": "civitai--civitai-gen-skill",
+  "displayName": "civitai-gen-skill",
+  "description": "Generate images, video, audio and more via Civitai's orchestration API \u2014 a runtime-agnostic agent skill (AgentSkills format, zero deps, Node 18+).",
+  "version": "1.0.0",
+  "author": "civitai",
+  "homepage": "https://github.com/civitai/civitai-gen-skill",
+  "skills": []
+}
