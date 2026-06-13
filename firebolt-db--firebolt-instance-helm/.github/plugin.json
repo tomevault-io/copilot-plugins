@@ -1,0 +1,9 @@
+{
+  "name": "firebolt-db--firebolt-instance-helm",
+  "displayName": "firebolt-instance-helm",
+  "description": "Run and manage Firebolt on Kubernetes via Helm",
+  "version": "1.0.0",
+  "author": "firebolt-db",
+  "homepage": "https://github.com/firebolt-db/firebolt-instance-helm",
+  "skills": []
+}
