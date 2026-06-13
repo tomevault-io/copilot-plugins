@@ -122489,6 +122489,11 @@
       "description": "Austin Mesh is a community group working to build a mesh network of solar-powered MeshCore and meshtastic radios in Austin."
     },
     {
+      "name": "async--framework",
+      "source": "./async--framework",
+      "description": "Lightweight signal-based framework for reactive web apps with custom elements and async handlers."
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -189509,6 +189514,11 @@
       "description": "Soundome is a self-hosted tool that centralizes, downloads, tags, and automatically organizes your music library from multiple sources (Spotify, SoundCloud, YouTube\u2026). It handles metadata, prevents du"
     },
     {
+      "name": "fzhiyu1--improv-os",
+      "source": "./fzhiyu1--improv-os",
+      "description": "\u73b0\u7f16OS \u2014 \u4e00\u53f0\u4e0d\u9884\u88c5\u4efb\u4f55\u8f6f\u4ef6\u7684\u7535\u8111\uff0c\u6bcf\u4e2a\u5e94\u7528\u90fd\u662f AI \u5f53\u573a\u73b0\u7f16\u7684 macOS \u98ce\u683c\u7f51\u9875OS \u00b7 An OS where every app is improvised by AI, live"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -203992,6 +204002,26 @@
       "name": "dariomba--veldev-servicenow-mcp",
       "source": "./dariomba--veldev-servicenow-mcp",
       "description": "ServiceNow MCP server by Veldev. Read and write catalog items, UI policies, client scripts, business rules, and script includes from Claude, Cursor, or any MCP client."
+    },
+    {
+      "name": "myuon--orbit",
+      "source": "./myuon--orbit",
+      "description": "orbit"
+    },
+    {
+      "name": "myuon--orbit",
+      "source": "./myuon--orbit",
+      "description": "orbit"
+    },
+    {
+      "name": "myuon--orbit",
+      "source": "./myuon--orbit",
+      "description": "orbit"
+    },
+    {
+      "name": "hachemih--prepa-cursor",
+      "source": "./hachemih--prepa-cursor",
+      "description": "prepa-cursor"
     },
     {
       "name": "cheerhuan--save-your-token",
