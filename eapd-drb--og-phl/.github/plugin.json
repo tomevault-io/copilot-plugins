@@ -1,0 +1,9 @@
+{
+  "name": "eapd-drb--og-phl",
+  "displayName": "OG-PHL",
+  "description": "Overlapping-generations macroeconomic model for evaluating fiscal policy in the Philippines",
+  "version": "1.0.0",
+  "author": "EAPD-DRB",
+  "homepage": "https://github.com/EAPD-DRB/OG-PHL",
+  "skills": []
+}
