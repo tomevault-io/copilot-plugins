@@ -189404,6 +189404,36 @@
       "description": "The Indian Stock API is a Python package designed to interact with stock market data from various Indian stock exchanges. It provides a unified interface to access data from multiple brokers, simplify"
     },
     {
+      "name": "dekaprayoga--aurixagent",
+      "source": "./dekaprayoga--aurixagent",
+      "description": "\ud83e\udd16 Autonomous Multi-Agent AI Workspace in your terminal. Codes, researches, and executes real tasks with 40+ tools and 280+ skills And Some Captcha Resolver With Only Vision Mode Any Captcha And Openin"
+    },
+    {
+      "name": "firebolt-db--firebolt-kubernetes-operator",
+      "source": "./firebolt-db--firebolt-kubernetes-operator",
+      "description": "Run and manage Firebolt on Kubernetes with the Firebolt Operator"
+    },
+    {
+      "name": "jzone3--markdown-quicklook",
+      "source": "./jzone3--markdown-quicklook",
+      "description": "macOS Quick Look extension that renders Markdown files when you press spacebar in Finder"
+    },
+    {
+      "name": "marlburrow--hivekeep",
+      "source": "./marlburrow--hivekeep",
+      "description": "Hivekeep is a self-hosted platform of autonomous, persistent personal AI agents. Your AI team. At home."
+    },
+    {
+      "name": "aviatesk--obsidian-tasks-calendar",
+      "source": "./aviatesk--obsidian-tasks-calendar",
+      "description": "An Obsidian.md plugin to visualizes tasks on an interactive calendar powered by FullCalendar and Dataview."
+    },
+    {
+      "name": "aviatesk--obsidian-tasks-calendar",
+      "source": "./aviatesk--obsidian-tasks-calendar",
+      "description": "An Obsidian.md plugin to visualizes tasks on an interactive calendar powered by FullCalendar and Dataview."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -203827,6 +203857,46 @@
       "name": "giuliop--hermesvault-frontend",
       "source": "./giuliop--hermesvault-frontend",
       "description": "HermesVault-frontend"
+    },
+    {
+      "name": "discus0434--customizable-agent-teams",
+      "source": "./discus0434--customizable-agent-teams",
+      "description": "customizable-agent-teams"
+    },
+    {
+      "name": "discus0434--customizable-agent-teams",
+      "source": "./discus0434--customizable-agent-teams",
+      "description": "customizable-agent-teams"
+    },
+    {
+      "name": "firebolt-db--firebolt-instance-helm",
+      "source": "./firebolt-db--firebolt-instance-helm",
+      "description": "Run and manage Firebolt on Kubernetes via Helm"
+    },
+    {
+      "name": "byevincent--sharesift",
+      "source": "./byevincent--sharesift",
+      "description": "ML-augmented credential hunter for SMB shares. Snaffler successor. "
+    },
+    {
+      "name": "elixir-vibe--systemdkit",
+      "source": "./elixir-vibe--systemdkit",
+      "description": "Pure Elixir tools for systemd unit files and D-Bus manager control"
+    },
+    {
+      "name": "criccomini--outcrop",
+      "source": "./criccomini--outcrop",
+      "description": "Read-only web dashboard for SlateDB"
+    },
+    {
+      "name": "ivanmurzak--godot-mcp",
+      "source": "./ivanmurzak--godot-mcp",
+      "description": "Godot-MCP \u2014 Model Context Protocol (MCP) integration for the Godot Engine. AI tools for the Godot Editor in C#, with cloud connection to ai-game.dev. Apache-2.0."
+    },
+    {
+      "name": "firebolt-db--firebolt-instance-helm",
+      "source": "./firebolt-db--firebolt-instance-helm",
+      "description": "Run and manage Firebolt on Kubernetes via Helm"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -313972,6 +314042,16 @@
       "name": "michal-grzelak--fedora-atomic",
       "source": "./michal-grzelak--fedora-atomic",
       "description": "fedora-atomic"
+    },
+    {
+      "name": "himavanth97--rythu-sethu",
+      "source": "./himavanth97--rythu-sethu",
+      "description": "Rythu-Sethu"
+    },
+    {
+      "name": "jackasser--music-anyone",
+      "source": "./jackasser--music-anyone",
+      "description": "music_anyone"
     }
   ]
 }
