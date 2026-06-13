@@ -1,0 +1,9 @@
+{
+  "name": "explosion-scratch--justinstall",
+  "displayName": "justinstall",
+  "description": "Just install any CLI tool from a GitHub repo",
+  "version": "1.0.0",
+  "author": "Explosion-Scratch",
+  "homepage": "https://github.com/Explosion-Scratch/justinstall",
+  "skills": []
+}
