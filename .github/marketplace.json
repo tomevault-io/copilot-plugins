@@ -189574,6 +189574,11 @@
       "description": "Windows-first Electron + Live2D AI desktop pet"
     },
     {
+      "name": "ahmadghaisanfad2--absen-kelas",
+      "source": "./ahmadghaisanfad2--absen-kelas",
+      "description": "absen-kelas"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204132,6 +204137,26 @@
       "name": "civitai--civitai-gen-skill",
       "source": "./civitai--civitai-gen-skill",
       "description": "Generate images, video, audio and more via Civitai's orchestration API \u2014 a runtime-agnostic agent skill (AgentSkills format, zero deps, Node 18+)."
+    },
+    {
+      "name": "morphaxl--ultragoal",
+      "source": "./morphaxl--ultragoal",
+      "description": "Tell Claude Code what you want once. It works until the job is verifiably done \u2014 and gets smarter every time. Self-correcting goal loops with independent verification and growing memory."
+    },
+    {
+      "name": "gantasmo--thedaw",
+      "source": "./gantasmo--thedaw",
+      "description": "theDAW \u2014 an all-in-one studio for AI music creation, editing, mixing, DJing, and live visuals, by GANTASMO."
+    },
+    {
+      "name": "morphaxl--ultragoal",
+      "source": "./morphaxl--ultragoal",
+      "description": "Tell Claude Code what you want once. It works until the job is verifiably done \u2014 and gets smarter every time. Self-correcting goal loops with independent verification and growing memory."
+    },
+    {
+      "name": "bhobho--callcenter",
+      "source": "./bhobho--callcenter",
+      "description": "callcenter"
     },
     {
       "name": "cheerhuan--save-your-token",
