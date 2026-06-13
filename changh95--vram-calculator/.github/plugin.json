@@ -1,0 +1,9 @@
+{
+  "name": "changh95--vram-calculator",
+  "displayName": "vram-calculator",
+  "description": "The answer to 'Can hardware X run LLM model Y?' ",
+  "version": "1.0.0",
+  "author": "changh95",
+  "homepage": "https://github.com/changh95/vram-calculator",
+  "skills": []
+}
