@@ -1,0 +1,9 @@
+{
+  "name": "dariomba--veldev-servicenow-mcp",
+  "displayName": "veldev-servicenow-mcp",
+  "description": "ServiceNow MCP server by Veldev. Read and write catalog items, UI policies, client scripts, business rules, and script includes from Claude, Cursor, or any MCP client.",
+  "version": "1.0.0",
+  "author": "dariomba",
+  "homepage": "https://github.com/dariomba/veldev-servicenow-mcp",
+  "skills": []
+}
