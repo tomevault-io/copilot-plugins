@@ -189434,6 +189434,26 @@
       "description": "An Obsidian.md plugin to visualizes tasks on an interactive calendar powered by FullCalendar and Dataview."
     },
     {
+      "name": "cinicu--opencode-dotfiles",
+      "source": "./cinicu--opencode-dotfiles",
+      "description": "OpenCode dotfiles \u2014 19 AI agent skills + 8 MCP servers + persistent memory (memory-keeper). Cross-platform install, screenshot OCR, custom CLI toolchain. Research methodology, systematic reviews, crit"
+    },
+    {
+      "name": "ccjoeyclaire--composer-agentic-rag",
+      "source": "./ccjoeyclaire--composer-agentic-rag",
+      "description": "composer-agentic_rag"
+    },
+    {
+      "name": "azure--terraform-azurerm-avm-ptn-alz-connectivity-hub-and-spoke-vnet",
+      "source": "./azure--terraform-azurerm-avm-ptn-alz-connectivity-hub-and-spoke-vnet",
+      "description": "Terraform Azure Verified Pattern Module for ALZ Connectivity Hub and Spoke"
+    },
+    {
+      "name": "ccjoeyclaire--composer-agentic-rag",
+      "source": "./ccjoeyclaire--composer-agentic-rag",
+      "description": "composer-agentic_rag"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -203897,6 +203917,16 @@
       "name": "firebolt-db--firebolt-instance-helm",
       "source": "./firebolt-db--firebolt-instance-helm",
       "description": "Run and manage Firebolt on Kubernetes via Helm"
+    },
+    {
+      "name": "changh95--vram-calculator",
+      "source": "./changh95--vram-calculator",
+      "description": "The answer to 'Can hardware X run LLM model Y?' "
+    },
+    {
+      "name": "yf0522--ai-companion-runtime",
+      "source": "./yf0522--ai-companion-runtime",
+      "description": "Real-time AI Companion with emotional support, tool calling, long-term memory, model hot-swap, and full-chain trace observability"
     },
     {
       "name": "cheerhuan--save-your-token",
