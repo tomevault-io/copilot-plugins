@@ -1,0 +1,9 @@
+{
+  "name": "byevincent--sharesift",
+  "displayName": "ShareSift",
+  "description": "ML-augmented credential hunter for SMB shares. Snaffler successor. ",
+  "version": "1.0.0",
+  "author": "byevincent",
+  "homepage": "https://github.com/byevincent/ShareSift",
+  "skills": []
+}
