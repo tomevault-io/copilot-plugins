@@ -189454,6 +189454,11 @@
       "description": "composer-agentic_rag"
     },
     {
+      "name": "gharibyan--agent-memory",
+      "source": "./gharibyan--agent-memory",
+      "description": "TypeScript SDK for building AI agents with automatic, scoped, persistent memory.  `agent-memory` wraps model calls with memory recall and learning so apps can keep useful user, thread, and operation c"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -203927,6 +203932,11 @@
       "name": "yf0522--ai-companion-runtime",
       "source": "./yf0522--ai-companion-runtime",
       "description": "Real-time AI Companion with emotional support, tool calling, long-term memory, model hot-swap, and full-chain trace observability"
+    },
+    {
+      "name": "the-future-company--ag2r",
+      "source": "./the-future-company--ag2r",
+      "description": "AG2R \u2014 Antigravity 2.0 Remote. A lightweight, Android-friendly, heavily vibe-coded remote client for monitoring and interacting with Antigravity 2.0."
     },
     {
       "name": "cheerhuan--save-your-token",
