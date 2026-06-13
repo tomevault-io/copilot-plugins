@@ -138569,6 +138569,16 @@
       "description": "DiscordIntegration"
     },
     {
+      "name": "syrin-labs--iris",
+      "source": "./syrin-labs--iris",
+      "description": "Your AI writes the code. Iris tells it whether the code actually works - with evidence, not screenshots."
+    },
+    {
+      "name": "syrin-labs--iris",
+      "source": "./syrin-labs--iris",
+      "description": "Your AI writes the code. Iris tells it whether the code actually works - with evidence, not screenshots."
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
