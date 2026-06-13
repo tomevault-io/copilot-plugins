@@ -7,11 +7,11 @@ Run and manage Firebolt on Kubernetes via Helm
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [firebolt-db/firebolt-instance-helm](https://github.com/firebolt-db/firebolt-instance-helm).
+Original source: `CLAUDE.md` in [firebolt-db/firebolt-instance-helm](https://github.com/firebolt-db/firebolt-instance-helm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
