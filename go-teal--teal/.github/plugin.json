@@ -1,0 +1,9 @@
+{
+  "name": "go-teal--teal",
+  "displayName": "teal",
+  "description": "Teal is an open-source data transformation and workflow (DAG) management tool in the Go stack.",
+  "version": "1.0.0",
+  "author": "go-teal",
+  "homepage": "https://github.com/go-teal/teal",
+  "skills": []
+}
