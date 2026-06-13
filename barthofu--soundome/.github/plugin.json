@@ -1,0 +1,9 @@
+{
+  "name": "barthofu--soundome",
+  "displayName": "soundome",
+  "description": "Soundome is a self-hosted tool that centralizes, downloads, tags, and automatically organizes your music library from multiple sources (Spotify, SoundCloud, YouTube\u2026). It handles metadata, prevents du",
+  "version": "1.0.0",
+  "author": "barthofu",
+  "homepage": "https://github.com/barthofu/soundome",
+  "skills": []
+}
