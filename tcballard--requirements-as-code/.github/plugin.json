@@ -1,0 +1,9 @@
+{
+  "name": "tcballard--requirements-as-code",
+  "displayName": "requirements-as-code",
+  "description": "Give your coding agent the decisions your team already made \u2014 so it stops re-doing things you ruled out, treating product knowledge like code.",
+  "version": "1.0.0",
+  "author": "tcballard",
+  "homepage": "https://github.com/tcballard/requirements-as-code",
+  "skills": []
+}
