@@ -189589,6 +189589,11 @@
       "description": "absen-kelas"
     },
     {
+      "name": "aestheticsuraj234--chaicode-pr-reviewer",
+      "source": "./aestheticsuraj234--chaicode-pr-reviewer",
+      "description": "chaicode-pr-reviewer"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204167,6 +204172,11 @@
       "name": "bhobho--callcenter",
       "source": "./bhobho--callcenter",
       "description": "callcenter"
+    },
+    {
+      "name": "swyxio--beeweb",
+      "source": "./swyxio--beeweb",
+      "description": "BeeWeb"
     },
     {
       "name": "cheerhuan--save-your-token",
