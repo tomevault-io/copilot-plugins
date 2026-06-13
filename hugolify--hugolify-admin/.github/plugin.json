@@ -1,0 +1,9 @@
+{
+  "name": "hugolify--hugolify-admin",
+  "displayName": "hugolify-admin",
+  "description": "Admin for Hugolify allowing the build of the config file for different Headless (CloudCannon, Decap, Netlify, Pages, Static, Sveltia and Tina CMS)",
+  "version": "1.0.0",
+  "author": "Hugolify",
+  "homepage": "https://github.com/Hugolify/hugolify-admin",
+  "skills": []
+}
