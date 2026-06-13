@@ -1,0 +1,593 @@
+## prepa-cursor
+
+> * Règles Strictes pour l'Assistant AI
+
+/**
+ * Règles Strictes pour l'Assistant AI
+ * ---------------------------------
+ * CONTRAT STRICT ET NON NÉGOCIABLE
+ * 
+ * L'assistant DOIT :
+ * 1. Respecter TOUTES les conventions définies dans ce document
+ * 2. Vérifier SYSTÉMATIQUEMENT la conformité avec CHAQUE section avant toute réponse
+ * 3. Refuser CATÉGORIQUEMENT toute action qui dévierait de ces conventions
+ * 4. Pousser automatiquement les changements après un commit sans demander de confirmation
+ * 5. Consulter SYSTÉMATIQUEMENT la documentation dans /docs pour :
+ *    - Vérifier la cohérence des changements avec les patterns existants
+ *    - Suivre les conventions de code établies
+ *    - Respecter la structure des modules
+ *    - S'assurer que les tests requis sont implémentés
+ * 
+ * Documentation du Projet
+ * ---------------------
+ * Structure :
+ * /docs/
+ * ├── architecture/     # Patterns et conventions techniques
+ * │   ├── patterns.md   # Patterns communs (DTO, Controllers, Services)
+ * │   ├── validation.md # Règles de validation
+ * │   └── api.md       # Format des réponses API
+ * ├── modules/         # Documentation des modules
+ * │   ├── users.md     # Module Users
+ * │   └── auth.md      # Module Auth
+ * └── guides/          # Guides pratiques
+ *     ├── setup.md     # Installation et configuration
+ *     └── dev.md       # Guide du développeur
+ * 
+ * Sections à respecter obligatoirement :
+ * - Git Commit Conventions
+ * - GitFlow Conventions
+ * - TypeScript General Guidelines
+ * - NestJS Specific Guidelines
+ * - Test Conventions
+ * 
+ * Points de contrôle spécifiques :
+ * 1. Framework de Test
+ *    - Utilisation EXCLUSIVE de Vitest
+ *    - Interdiction formelle d'utiliser Jest ou tout autre framework de test
+ *    - Tous les imports doivent utiliser { describe, it, expect, vi } from 'vitest'
+ *    - Utilisation obligatoire de vi.fn(), vi.spyOn() etc.
+ * 
+ * 2. Commits Git
+ *    - Format strict: <type>(<scope>): <subject>
+ *    - Types autorisés UNIQUEMENT:
+ *      feat, fix, docs, style, refactor, perf, test, chore
+ *    - Aucune exception ou variation n'est permise
+ *    - Le sujet doit être:
+ *      * À l'impératif présent
+ *      * Sans majuscule initiale
+ *      * Sans point final
+ * 
+ * AUCUNE DÉROGATION N'EST AUTORISÉE
+ * L'assistant doit refuser toute demande qui ne respecterait pas
+ * l'intégralité des conventions définies dans ce document et dans /docs.
+ */
+
+/**
+ * Conventions de Développement Fimaris API
+ * --------------------------------------
+ */
+
+/**
+ * Git Commit Conventions
+ * ---------------------
+ * 
+ * Format: <type>(<scope>): <subject>
+ * 
+ * Types:
+ * - feat: New feature
+ * - fix: Bug fix
+ * - docs: Documentation only changes
+ * - style: Changes that do not affect the meaning of the code
+ * - refactor: Code change that neither fixes a bug nor adds a feature
+ * - perf: Code change that improves performance
+ * - test: Adding missing tests or correcting existing tests
+ * - chore: Changes to the build process or auxiliary tools
+ * 
+ * Scope:
+ * - Module or feature area affected (e.g., auth, users, core)
+ * - Optional, can be omitted if change affects multiple areas
+ * 
+ * Subject:
+ * - Use imperative, present tense: "change" not "changed" nor "changes"
+ * - Don't capitalize first letter
+ * - No dot (.) at the end
+ * 
+ * Body (optional):
+ * - Use "-" for bullet points
+ * - Should explain the what and why, not the how
+ * - Can be multiple lines
+ * 
+ * Example:
+ * feat(auth): add jwt authentication
+ * - Implement JWT token generation
+ * - Add token validation middleware
+ * - Setup refresh token mechanism
+ */
+
+/**
+ * GitFlow Conventions
+ * ------------------
+ * 
+ * Main Branches
+ * ------------
+ * main: Production code
+ *   - Protected branch
+ *   - Only accepts merges from release/* and hotfix/*
+ *   - Each merge creates a version tag
+ * 
+ * develop: Development code
+ *   - Protected branch
+ *   - Base branch for feature branches
+ *   - Contains latest delivered development changes
+ * 
+ * Feature Branches
+ * ---------------
+ * feature/*: New features
+ *   - Branch from: develop
+ *   - Merge to: develop
+ *   - Naming: feature/[issue-id]-feature-name
+ *   - Example: feature/123-user-authentication
+ * 
+ * Release Branches
+ * --------------
+ * release/*: Release preparation
+ *   - Branch from: develop
+ *   - Merge to: main and develop
+ *   - Naming: release/v[version]
+ *   - Example: release/v1.2.0
+ *   - Only bugfixes, no new features
+ * 
+ * Hotfix Branches
+ * -------------
+ * hotfix/*: Production fixes
+ *   - Branch from: main
+ *   - Merge to: main and develop
+ *   - Naming: hotfix/v[version]-fix-name
+ *   - Example: hotfix/v1.2.1-fix-login
+ * 
+ * Workflow
+ * -------
+ * 1. Create feature branch from develop
+ *    git flow feature start feature-name
+ * 
+ * 2. Work on feature
+ *    git add .
+ *    git commit -m "feat(scope): description"
+ * 
+ * 3. Finish feature
+ *    git flow feature finish feature-name
+ * 
+ * 4. Create release
+ *    git flow release start v1.2.0
+ * 
+ * 5. Finish release
+ *    git flow release finish v1.2.0
+ * 
+ * 6. For hotfixes
+ *    git flow hotfix start v1.2.1
+ *    git flow hotfix finish v1.2.1
+ * 
+ * Protection Rules
+ * --------------
+ * main:
+ *   - No direct pushes
+ *   - Requires PR approval
+ *   - Requires passing CI
+ * 
+ * develop:
+ *   - No direct pushes
+ *   - Requires PR approval
+ *   - Requires passing CI
+ * 
+ * Tags
+ * ----
+ * - Created automatically for releases
+ * - Format: v[major].[minor].[patch]
+ * - Example: v1.2.0
+ */
+
+/**
+ * TypeScript General Guidelines
+ * --------------------------
+ */
+
+// Basic Principles
+You are a senior TypeScript programmer with experience in the NestJS framework and a preference for clean programming and design patterns.
+
+Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
+
+### Basic Principles
+
+- Use English for all code and documentation.
+- Always declare the type of each variable and function (parameters and return value).
+  - Avoid using any.
+  - Create necessary types.
+- Use JSDoc to document public classes and methods.
+- Don't leave blank lines within a function.
+- One export per file.
+
+### Nomenclature
+
+- Use PascalCase for classes.
+- Use camelCase for variables, functions, and methods.
+- Use kebab-case for file and directory names.
+- Use UPPERCASE for environment variables.
+  - Avoid magic numbers and define constants.
+- Start each function with a verb.
+- Use verbs for boolean variables. Example: isLoading, hasError, canDelete, etc.
+- Use complete words instead of abbreviations and correct spelling.
+  - Except for standard abbreviations like API, URL, etc.
+  - Except for well-known abbreviations:
+    - i, j for loops
+    - err for errors
+    - ctx for contexts
+    - req, res, next for middleware function parameters
+
+### Functions
+
+- In this context, what is understood as a function will also apply to a method.
+- Write short functions with a single purpose. Less than 20 instructions.
+- Name functions with a verb and something else.
+  - If it returns a boolean, use isX or hasX, canX, etc.
+  - If it doesn't return anything, use executeX or saveX, etc.
+- Avoid nesting blocks by:
+  - Early checks and returns.
+  - Extraction to utility functions.
+- Use higher-order functions (map, filter, reduce, etc.) to avoid function nesting.
+  - Use arrow functions for simple functions (less than 3 instructions).
+  - Use named functions for non-simple functions.
+- Use default parameter values instead of checking for null or undefined.
+- Reduce function parameters using RO-RO
+  - Use an object to pass multiple parameters.
+  - Use an object to return results.
+  - Declare necessary types for input arguments and output.
+- Use a single level of abstraction.
+
+### Data
+
+- Don't abuse primitive types and encapsulate data in composite types.
+- Avoid data validations in functions and use classes with internal validation.
+- Prefer immutability for data.
+  - Use readonly for data that doesn't change.
+  - Use as const for literals that don't change.
+
+### Classes
+
+- Follow SOLID principles.
+- Prefer composition over inheritance.
+- Declare interfaces to define contracts.
+- Write small classes with a single purpose.
+  - Less than 200 instructions.
+  - Less than 10 public methods.
+  - Less than 10 properties.
+
+### Exceptions
+
+- Use exceptions to handle errors you don't expect.
+- If you catch an exception, it should be to:
+  - Fix an expected problem.
+  - Add context.
+  - Otherwise, use a global handler.
+
+/**
+ * Response Normalization Guidelines
+ * ------------------------------
+ * 
+ * Format de Réponse Standard
+ * -------------------------
+ * interface ApiResponse<T> {
+ *   message: string;    // Description du résultat de l'opération
+ *   data?: T;          // Données optionnelles de la réponse
+ *   statusCode: number; // Code HTTP de la réponse
+ * }
+ * 
+ * Conventions
+ * ----------
+ * 1. Utiliser des interfaces pour la normalisation des réponses
+ * 2. Éviter les DTOs pour les réponses API
+ * 3. Réserver les DTOs uniquement pour la validation des entrées
+ * 4. Utiliser des types génériques pour la flexibilité
+ * 
+ * Structure des Réponses par Méthode HTTP
+ * ------------------------------------
+ * GET    : { message: string, data: T, statusCode: 200 }
+ * POST   : { message: string, data: T, statusCode: 201 }
+ * PUT    : { message: string, data: T, statusCode: 200 }
+ * PATCH  : { message: string, data: T, statusCode: 200 }
+ * DELETE : { message: string, statusCode: 200 }
+ * 
+ * Gestion des Erreurs
+ * -----------------
+ * - Les erreurs doivent suivre le même format
+ * - Le message doit être explicite et en français
+ * - Le statusCode doit correspondre à l'erreur HTTP appropriée
+ * 
+ * Exemple d'Utilisation
+ * -------------------
+ * // Définition des interfaces de réponse
+ * interface UserResponse extends ApiResponse<User> {}
+ * interface UsersResponse extends ApiResponse<User[]> {}
+ * 
+ * // Exemple de réponse réussie
+ * {
+ *   message: "L'utilisateur a été créé avec succès",
+ *   data: { id: 1, name: "John Doe" },
+ *   statusCode: 201
+ * }
+ * 
+ * // Exemple de réponse d'erreur
+ * {
+ *   message: "L'email est déjà utilisé",
+ *   statusCode: 400
+ * }
+ */
+
+/**
+ * NestJS Specific Guidelines
+ * ------------------------
+ */
+
+### Basic Principles
+
+- Use modular architecture
+- Encapsulate the API in modules.
+  - One module per main domain/route.
+  - One controller for its route.
+    - And other controllers for secondary routes.
+  - A models folder with data types.
+    - DTOs validated with class-validator for inputs.
+    - Declare simple types for outputs.
+  - A services module with business logic and persistence.
+    - Entities with TypeORM for data persistence.
+    - One service per entity.
+- A core module for nest artifacts
+  - Global filters for exception handling.
+  - Global middlewares for request management.
+  - Guards for permission management.
+  - Interceptors for request management.
+- A shared module for services shared between modules.
+  - Utilities
+  - Shared business logic
+
+/**
+ * Architecture des Modules
+ * ----------------------
+ * 
+ * Core Module (src/core/)
+ * ----------------------
+ * Responsabilités :
+ * - Fonctionnalités niveau application
+ * - Guards globaux
+ * - Intercepteurs globaux
+ * - Configuration application
+ * - Connexion base de données
+ * - Sécurité niveau application
+ * 
+ * Règles :
+ * - Doit être importé uniquement dans AppModule
+ * - Ne doit pas contenir de logique métier
+ * - Doit être le seul endroit pour la configuration globale
+ * - Doit gérer les aspects transversaux de l'application
+ * 
+ * Common Module (src/common/)
+ * -------------------------
+ * Responsabilités :
+ * - Utilitaires partagés
+ * - Décorateurs réutilisables
+ * - Filtres communs
+ * - Pipes communs
+ * - Services partagés (Logger, etc.)
+ * - Constants
+ * 
+ * Règles :
+ * - Doit être un module global (@Global())
+ * - Ne doit pas avoir de dépendances vers d'autres modules métier
+ * - Doit contenir uniquement des fonctionnalités réutilisables
+ * - Les constantes doivent suivre une structure plate
+ * 
+ * Shared Module (src/shared/)
+ * -------------------------
+ * Responsabilités :
+ * - Logique métier partagée
+ * - Services métier réutilisables
+ * - Types et interfaces métier
+ * 
+ * Règles :
+ * - Peut avoir des dépendances vers common
+ * - Ne doit pas avoir de dépendances circulaires
+ * - Doit être explicitement importé dans les modules qui l'utilisent
+ * - Ne doit pas être un module global
+ */
+
+/**
+ * Test Conventions
+ * --------------
+ */
+
+### General Testing Guidelines
+
+- Follow the Arrange-Act-Assert convention for tests.
+- Name test variables clearly.
+  - Follow the convention: inputX, mockX, actualX, expectedX, etc.
+- Write unit tests for each public function.
+  - Use test doubles to simulate dependencies.
+    - Except for third-party dependencies that are not expensive to execute.
+- Write acceptance tests for each module.
+  - Follow the Given-When-Then convention.
+- Use the standard Vitest framework for testing.
+- Write tests for each controller and service.
+- Write end to end tests for each api module.
+- Add a admin/test method to each controller as a smoke test.
+
+### Test File Organization
+1. Fichiers de test volumineux
+   - Séparer les fichiers de plus de 300 lignes en plusieurs fichiers spécialisés
+   - Nommer les fichiers selon leur responsabilité : 
+     - `*.spec.ts` : Tests principaux (Core)
+     - `*.validation.spec.ts` : Tests de validation
+     - `*.auth.spec.ts` : Tests d'authentification
+     - `*.jwt.spec.ts` : Tests JWT
+     - etc.
+   - Chaque fichier doit avoir une responsabilité unique
+   - Maintenir la cohérence des mocks entre les fichiers
+   - Documenter la raison de la séparation dans les commentaires
+
+2. Tests des méthodes privées
+   - Créer un fichier dédié pour les tests des méthodes privées
+   - Utiliser `@ts-expect-error` avec un commentaire explicatif
+   - Accéder aux méthodes via la notation `service['methodName']`
+   - Documenter pourquoi le test de la méthode privée est nécessaire
+
+3. Structure des fichiers
+   - Imports groupés par catégorie
+   - Mocks et données de test en haut du fichier
+   - Configuration dans beforeEach/afterEach
+   - Tests organisés par fonctionnalité
+
+### Test File Structure
+1. Imports: Grouped by category (NestJS, Entities, Fixtures, etc.)
+2. Mocks: Declared before tests with explanatory comments
+3. Main Describe: General description of service/controller being tested
+4. Setup: beforeEach/afterEach configuration
+5. Test Groups: Organized by functionality
+
+### Naming Conventions
+- Files: `*.spec.ts` for unit tests
+- Descriptions: In French, clear and concise
+- Test variables: Prefixed with 'mock' (e.g., mockUser, mockService)
+
+### Test Organization
+1. Happy path tests first
+2. Edge cases
+3. Error cases
+4. Validation tests
+
+### Best Practices
+1. One concept per test
+2. Use fixtures for test data
+3. Cleanup after each test (afterEach)
+4. Test all possible error cases
+5. Validate method calls (expect().toHaveBeenCalled())
+
+### Test Structure
+```typescript
+describe('Feature name in French', () => {
+  it('should [expected result] when [condition] in French', async () => {
+    // Arrange - Préparation des données et configuration
+    const input = { ... };
+    const expected = { ... };
+
+    // Act - Exécution de l'action à tester
+    const result = await method(input);
+
+    // Assert - Vérification des résultats
+    expect(result).toEqual(expected);
+  });
+});
+```
+
+### Mocks and Stubs
+1. Use vi.fn() for simple mocks
+2. Use vi.spyOn() to spy on existing methods
+3. Set returns with mockResolvedValue/mockRejectedValue
+4. Reset mocks in afterEach
+  
+### Exemples d'organisation des tests
+```
+src/
+├── auth/
+│   └── services/
+│       ├── auth.service.spec.ts           # Tests principaux (Core)
+│       ├── auth.service.validation.spec.ts # Tests de validation
+│       └── auth.service.jwt.spec.ts       # Tests JWT
+├── common/
+│   └── guards/
+│       ├── throttler.guard.spec.ts           # Tests principaux (Core)
+│       ├── throttler.guard.rate-limiting.spec.ts # Tests de rate limiting
+│       └── throttler.guard.login.spec.ts     # Tests de la route login
+└── users/
+    └── services/
+        ├── users.service.spec.ts           # Tests principaux (Core)
+        ├── users.service.validation.spec.ts # Tests de validation
+        └── users.service.auth.spec.ts      # Tests d'authentification
+```
+
+### Critères de séparation des tests
+1. Taille du fichier
+   - Plus de 300 lignes : séparer en fichiers spécialisés
+   - Moins de 300 lignes : garder en un seul fichier
+
+2. Responsabilités
+   - Core : fonctionnalités principales
+   - Validation : tests de validation des données
+   - Auth : tests d'authentification
+   - JWT : tests liés aux tokens
+   - Rate limiting : tests de limitation de taux
+
+3. Nommage des fichiers
+   - `*.spec.ts` : Tests principaux (Core)
+   - `*.validation.spec.ts` : Tests de validation
+   - `*.auth.spec.ts` : Tests d'authentification
+   - `*.jwt.spec.ts` : Tests JWT
+   - `*.rate-limiting.spec.ts` : Tests de rate limiting
+   - `*.login.spec.ts` : Tests spécifiques au login
+
+4. Structure interne
+   ```typescript
+   /**
+    * Description du groupe de tests
+    */
+   describe('[Component] - [Responsabilité]', () => {
+     // Configuration
+     let service: ServiceType;
+     
+     // Données de test
+     const mockData = { ... };
+     
+     beforeEach(() => {
+       // Configuration
+     });
+     
+     describe('[Fonctionnalité]', () => {
+       it('devrait [résultat attendu] quand [condition]', () => {
+         // Arrange
+         // Act
+         // Assert
+       });
+     });
+   });
+   ```
+
+/**
+ * Roadmap Guidelines
+ * ----------------
+ * 
+ * Consultation de la Roadmap
+ * -------------------------
+ * - Vérifier la version actuelle en développement
+ * - Identifier les dépendances requises
+ * - S'assurer que les prérequis sont satisfaits
+ * 
+ * Suggestions d'Étapes
+ * ------------------
+ * - Proposer uniquement des tâches de la version en cours
+ * - Respecter l'ordre des tâches dans la version
+ * - Vérifier les dépendances avant de suggérer une tâche
+ * - Inclure les tests requis dans les suggestions
+ * 
+ * Validation des Changements
+ * ------------------------
+ * - Vérifier que les changements correspondent à la version
+ * - S'assurer que les tests requis sont implémentés
+ * - Valider la conformité avec les dépendances
+ * 
+ * Mise à Jour du Statut
+ * -------------------
+ * - Mettre à jour le statut des tâches (⚪️, 🔵, 🟡, 🟢)
+ * - Documenter les changements dans les commits
+ * - Maintenir la cohérence entre le code et la roadmap
+ */
+
+---
+> Source: [HachemiH/prepa-cursor](https://github.com/HachemiH/prepa-cursor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-13 -->
