@@ -1,0 +1,9 @@
+{
+  "name": "criccomini--outcrop",
+  "displayName": "outcrop",
+  "description": "Read-only web dashboard for SlateDB",
+  "version": "1.0.0",
+  "author": "criccomini",
+  "homepage": "https://github.com/criccomini/outcrop",
+  "skills": []
+}
