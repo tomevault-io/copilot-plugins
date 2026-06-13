@@ -4,7 +4,7 @@
   "repo": "iris",
   "description": "Your AI writes the code. Iris tells it whether the code actually works - with evidence, not screenshots.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/syrin-labs/iris",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-13T21:30:21Z"
+  "distributed_at": "2026-06-13T21:30:47Z"
 }
