@@ -189539,6 +189539,16 @@
       "description": "e-commerce-skill"
     },
     {
+      "name": "baldwinzc--citelocal-agent",
+      "source": "./baldwinzc--citelocal-agent",
+      "description": "100% local research agent for your papers - ask PDFs on your machine, page-accurate verified citations, cross-paper synthesis, Ollama-ready"
+    },
+    {
+      "name": "undermountaincc--hermes-operator",
+      "source": "./undermountaincc--hermes-operator",
+      "description": "Kubernetes operator for the Hermes agent"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204062,6 +204072,16 @@
       "name": "jaisuriya97--codeturtle",
       "source": "./jaisuriya97--codeturtle",
       "description": "Code Turtle \ud83d\udc22;  Is the open-source AI code review platform that helps teams ship better code with intelligent pull request reviews, inline feedback, and noise-free re-reviews \ud83d\ude80"
+    },
+    {
+      "name": "ratelworks--token-horse",
+      "source": "./ratelworks--token-horse",
+      "description": "Token usage reactive horse pet for Claude Code statuslines and Codex CLI sessions"
+    },
+    {
+      "name": "3djupp--ha-wrapped",
+      "source": "./3djupp--ha-wrapped",
+      "description": "A Spotify-Wrapped-style year review for your Home Assistant. Turns a year of stats into a shareable scrolling story with rolling odometers and AI-written one-liners."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -314217,6 +314237,16 @@
       "name": "jackasser--music-anyone",
       "source": "./jackasser--music-anyone",
       "description": "music_anyone"
+    },
+    {
+      "name": "wynemo--whisper-web",
+      "source": "./wynemo--whisper-web",
+      "description": "Web-based speech transcription and TTS service powered by OpenAI Whisper and FastAPI. Supports audio/video file transcription, text-to-speech, SRT-to-speech conversion, and real-time WebSocket communi"
+    },
+    {
+      "name": "wynemo--whisper-web",
+      "source": "./wynemo--whisper-web",
+      "description": "Web-based speech transcription and TTS service powered by OpenAI Whisper and FastAPI. Supports audio/video file transcription, text-to-speech, SRT-to-speech conversion, and real-time WebSocket communi"
     }
   ]
 }
