@@ -1,0 +1,44 @@
+{
+  "name": "bear-research-skills",
+  "owner": "fei0810",
+  "repo": "bear-research-skills",
+  "description": "\u6211\u5728\u5b66\u672f\u79d1\u7814\u5de5\u4f5c\u4e2d\u7684\u4e00\u4e9b\u601d\u8def\u548c\u65b9\u6cd5\uff0c\u4ee5 Agent Skill \u5f62\u5f0f\u6c89\u6dc0\u4e0b\u6765\u548c\u4f60\u5206\u4eab\u3002by \u718a\u8a00\u718a\u8bed",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fei0810/bear-research-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-13T18:30:45Z"
+}
