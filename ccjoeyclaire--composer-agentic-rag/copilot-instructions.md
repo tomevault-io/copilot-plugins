@@ -1,44 +1,49 @@
-## metadata-schema
+## python-conventions
 
-> Metadata dict conventions for the RAG/agent pipeline
+> Goal: the editor and type checker should "remember" names, signatures, and
 
 
-# Metadata Conventions
+# Python Conventions
 
-`metadata` dicts flow through many pipeline stages and gain fields as they go.
-They are NOT free-form. Two rules keep them from becoming a memory black hole.
+Goal: the editor and type checker should "remember" names, signatures, and
+data shapes so humans don't have to. Make intent explicit in types, not comments.
 
-## 1. Every metadata field lives in a TypedDict schema
+## Type annotations are mandatory
 
-Document all possible keys in a stage-grouped `TypedDict(total=False)`, the same
-way `agent/metadata_schema.py` (`AgentMetadata`) does. When you add a field to a
-metadata dict, add it to the schema in the SAME change.
+Every function gets full annotations: all parameters AND the return type.
+A reader (or AI) must understand inputs/outputs from the signature alone.
 
 ```python
+# BAD - what goes in? what comes out?
+async def aretrieve(self, query, top_k):
+    ...
+
+# GOOD
+async def aretrieve(self, query: str, top_k: int) -> list[Chunk]:
+    ...
+```
+
+## Never pass structured data as an untyped dict
+
+If a dict has known keys, give it a `TypedDict` (use `total=False` when keys
+accumulate across pipeline stages). This makes keys autocomplete and typos fail
+type-checking. See `agent/metadata_schema.py` and `rag/base.py` for the pattern.
+
+```python
+# BAD
+def build(meta: dict): ...        # which keys? nobody knows
+
+# GOOD
 class ChunkMeta(TypedDict, total=False):
-    # Indexing
     chunk_id: str
-    anchor_window: AnchorWindow
-    # Retrieve (small-to-big)
-    parent_id: str
-    matched_chunk_ids: list[str]
+    chunk_index: int
+def build(meta: ChunkMeta): ...
 ```
 
-## 2. Access keys via constants, never string literals
+## Docstrings explain WHY, not WHAT
 
-Keys are defined once as module constants (see `parent_builder.py`:
-`CHUNK_ID_KEY`, `ANCHOR_WINDOW_KEY`, ...). Always use them.
-
-```python
-# BAD - a typo here fails silently at runtime
-cid = meta.get("chunk_id")
-
-# GOOD - one source of truth, rename-safe
-cid = meta.get(CHUNK_ID_KEY)
-```
-
-When introducing a new metadata key: add the constant, add it to the relevant
-TypedDict, and update the schema docstring.
+Public functions get a docstring with Args/Returns and any non-obvious intent
+or trade-off. Do NOT add comments that just narrate the code (`# loop over x`).
 
 ---
 > Source: [ccJoeyClaire/composer-agentic_rag](https://github.com/ccJoeyClaire/composer-agentic_rag) — distributed by [TomeVault](https://tomevault.io).
