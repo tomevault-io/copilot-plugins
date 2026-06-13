@@ -1,0 +1,9 @@
+{
+  "name": "mangox-ai--ai-video-downloader",
+  "displayName": "ai-video-downloader",
+  "description": "Use AI agents to automatically download videos from the internet and generate natural voice-overs in minutes \u2014 turning any content into ready-to-publish videos with minimal effort.",
+  "version": "1.0.0",
+  "author": "MangoX-ai",
+  "homepage": "https://github.com/MangoX-ai/ai-video-downloader",
+  "skills": []
+}
