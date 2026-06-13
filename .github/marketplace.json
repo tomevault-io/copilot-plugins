@@ -45194,6 +45194,11 @@
       "description": "Open-source Mindful Productivity App for macOS"
     },
     {
+      "name": "ayuayue--pideck",
+      "source": "./ayuayue--pideck",
+      "description": "Desktop workbench for managing multiple pi coding-agent sessions across project folders."
+    },
+    {
       "name": "weaviate--agent-skills",
       "source": "./weaviate--agent-skills",
       "description": "Agent Skills to empower developers building AI applications with Weaviate."
