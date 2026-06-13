@@ -1,0 +1,9 @@
+{
+  "name": "bancie--tilearn",
+  "displayName": "TiLearn",
+  "description": "A Python library for machine scheduling.",
+  "version": "1.0.0",
+  "author": "Bancie",
+  "homepage": "https://github.com/Bancie/TiLearn",
+  "skills": []
+}
