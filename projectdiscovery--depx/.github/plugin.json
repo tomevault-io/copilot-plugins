@@ -1,0 +1,9 @@
+{
+  "name": "projectdiscovery--depx",
+  "displayName": "depx",
+  "description": "Malicious package & supply-chain intelligence",
+  "version": "1.0.0",
+  "author": "projectdiscovery",
+  "homepage": "https://github.com/projectdiscovery/depx",
+  "skills": []
+}
