@@ -1,0 +1,9 @@
+{
+  "name": "lmnr-ai--lmnr-ts",
+  "displayName": "lmnr-ts",
+  "description": "TypeScript SDK for Laminar AI",
+  "version": "1.0.0",
+  "author": "lmnr-ai",
+  "homepage": "https://github.com/lmnr-ai/lmnr-ts",
+  "skills": []
+}
