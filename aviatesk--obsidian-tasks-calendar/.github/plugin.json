@@ -1,0 +1,9 @@
+{
+  "name": "aviatesk--obsidian-tasks-calendar",
+  "displayName": "obsidian-tasks-calendar",
+  "description": "An Obsidian.md plugin to visualizes tasks on an interactive calendar powered by FullCalendar and Dataview.",
+  "version": "1.0.0",
+  "author": "aviatesk",
+  "homepage": "https://github.com/aviatesk/obsidian-tasks-calendar",
+  "skills": []
+}
