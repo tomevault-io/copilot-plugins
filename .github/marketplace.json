@@ -156134,6 +156134,11 @@
       "description": "Don't like Wayland? Want to run Waydroid/Android in X11 as a container instead of a VM? This is what x11droid does."
     },
     {
+      "name": "mangox-ai--ai-video-downloader",
+      "source": "./mangox-ai--ai-video-downloader",
+      "description": "Use AI agents to automatically download videos from the internet and generate natural voice-overs in minutes \u2014 turning any content into ready-to-publish videos with minimal effort."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -165102,6 +165107,11 @@
       "name": "mihailthebuilder--hackernewsalerts-backend",
       "source": "./mihailthebuilder--hackernewsalerts-backend",
       "description": "Django backend services for Hacker News email alerts application."
+    },
+    {
+      "name": "six-ddc--livecaption",
+      "source": "./six-ddc--livecaption",
+      "description": "Real-time on-device speech transcription + translation for macOS (Apple Silicon). Streaming ASR, speaker diarization, and live English\u2192Chinese translation on Apple GPU/MLX \u2014 terminal CLI, no UI, no cl"
     },
     {
       "name": "yschimke--compose-ai-tools",
