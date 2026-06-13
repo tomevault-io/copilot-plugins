@@ -1,0 +1,9 @@
+{
+  "name": "uhop--console-toolkit",
+  "displayName": "console-toolkit",
+  "description": "Toolkit to produce a fancy console output (boxes, tables, charts, colors).",
+  "version": "1.0.0",
+  "author": "uhop",
+  "homepage": "https://github.com/uhop/console-toolkit",
+  "skills": []
+}
