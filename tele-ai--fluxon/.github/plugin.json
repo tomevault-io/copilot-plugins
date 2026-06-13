@@ -1,0 +1,9 @@
+{
+  "name": "tele-ai--fluxon",
+  "displayName": "Fluxon",
+  "description": "A distributed high-performance Rust-based communication and caching substrate for world models and other AI-native training and inference systems, providing unified RPC, Key-Value, Message Queue, and ",
+  "version": "1.0.0",
+  "author": "Tele-AI",
+  "homepage": "https://github.com/Tele-AI/Fluxon",
+  "skills": []
+}
