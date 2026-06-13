@@ -107244,11 +107244,6 @@
       "description": "oh-my-zsh style customization framework for Claude Code"
     },
     {
-      "name": "baekenough--oh-my-customcode",
-      "source": "./baekenough--oh-my-customcode",
-      "description": "oh-my-zsh style customization framework for Claude Code"
-    },
-    {
       "name": "notmyself--new-windows-dev-pc",
       "source": "./notmyself--new-windows-dev-pc",
       "description": "A comprehensive Windows developer setup automation repository with PowerShell 7+, Windows 11 optimizations, and mandatory WSL integration. Features streamlined configuration scripts, automated tool in"
@@ -107337,6 +107332,11 @@
       "name": "maya-doshi--tidaler",
       "source": "./maya-doshi--tidaler",
       "description": "gui and cli to download from tidal"
+    },
+    {
+      "name": "baekenough--oh-my-customcode",
+      "source": "./baekenough--oh-my-customcode",
+      "description": "oh-my-zsh style customization framework for Claude Code"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -189469,6 +189469,36 @@
       "description": "TypeScript SDK for building AI agents with automatic, scoped, persistent memory.  `agent-memory` wraps model calls with memory recall and learning so apps can keep useful user, thread, and operation c"
     },
     {
+      "name": "cauenapier--townsquare",
+      "source": "./cauenapier--townsquare",
+      "description": "TownSquare"
+    },
+    {
+      "name": "estudely--riftor",
+      "source": "./estudely--riftor",
+      "description": "riftor"
+    },
+    {
+      "name": "tele-ai--fluxon",
+      "source": "./tele-ai--fluxon",
+      "description": "A distributed high-performance Rust-based communication and caching substrate for world models and other AI-native training and inference systems, providing unified RPC, Key-Value, Message Queue, and "
+    },
+    {
+      "name": "tcballard--requirements-as-code",
+      "source": "./tcballard--requirements-as-code",
+      "description": "Give your coding agent the decisions your team already made \u2014 so it stops re-doing things you ruled out, treating product knowledge like code."
+    },
+    {
+      "name": "projectdiscovery--depx",
+      "source": "./projectdiscovery--depx",
+      "description": "Malicious package & supply-chain intelligence"
+    },
+    {
+      "name": "barthofu--soundome",
+      "source": "./barthofu--soundome",
+      "description": "Soundome is a self-hosted tool that centralizes, downloads, tags, and automatically organizes your music library from multiple sources (Spotify, SoundCloud, YouTube\u2026). It handles metadata, prevents du"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -203947,6 +203977,11 @@
       "name": "the-future-company--ag2r",
       "source": "./the-future-company--ag2r",
       "description": "AG2R \u2014 Antigravity 2.0 Remote. A lightweight, Android-friendly, heavily vibe-coded remote client for monitoring and interacting with Antigravity 2.0."
+    },
+    {
+      "name": "dariomba--veldev-servicenow-mcp",
+      "source": "./dariomba--veldev-servicenow-mcp",
+      "description": "ServiceNow MCP server by Veldev. Read and write catalog items, UI policies, client scripts, business rules, and script includes from Claude, Cursor, or any MCP client."
     },
     {
       "name": "cheerhuan--save-your-token",
