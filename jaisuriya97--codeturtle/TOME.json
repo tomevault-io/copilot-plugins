@@ -4,7 +4,7 @@
   "repo": "CodeTurtle",
   "description": "Code Turtle \ud83d\udc22;  Is the open-source AI code review platform that helps teams ship better code with intelligent pull request reviews, inline feedback, and noise-free re-reviews \ud83d\ude80",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jaisuriya97/CodeTurtle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-13T12:31:43Z"
+  "distributed_at": "2026-06-13T12:32:31Z"
 }
