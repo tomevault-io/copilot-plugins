@@ -1,0 +1,22 @@
+## fluxon
+
+> Keep this document concise.
+
+Keep this document concise.
+- Core user, developer, and design docs are in /mnt/ceph/zyc/fluxon_for_doc/fluxon_doc
+- teststack has two steps: start testbed and testrunner
+- teststack has UI support; testrunner should own the UI, and the UI should reuse the ops interfaces underneath
+- YAML files in this project are examples by default. Do not edit them directly; create a YAML file for your specific development environment
+
+## Public API Contract
+- Public APIs must use strong contracts. Do not expose "maybe this type, maybe that type" behavior.
+- User-facing examples, quick starts, READMEs, and user docs must call the stable public contract directly.
+- Do not use duck-typing, `getattr(...)`, `callable(...)`, or implementation probing in public-facing code paths.
+- If compatibility logic is required, keep it inside a dedicated adapter layer, not in examples or docs.
+- Type signatures, docs, and runtime behavior must match. If an API says it returns `MemHolder`, it must return `MemHolder`.
+- For internal invariants, fail fast or assert. Do not silently probe and fallback as if the contract were unclear.
+- For one semantic operation, keep one primary path. Do not mix `foo_blocking()` with `foo().wait()` in the same public pattern unless that distinction is itself part of the contract.
+
+---
+> Source: [Tele-AI/Fluxon](https://github.com/Tele-AI/Fluxon) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-13 -->
