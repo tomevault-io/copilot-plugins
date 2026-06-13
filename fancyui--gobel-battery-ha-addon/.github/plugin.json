@@ -1,0 +1,9 @@
+{
+  "name": "fancyui--gobel-battery-ha-addon",
+  "displayName": "Gobel-Battery-HA-Addon",
+  "description": "Home Assistant Add-on to integrate LiFePO4 batteries via JK BMS, Pace BMS, and TDT BMS. Supports RS232, RS485, WiFi, and Ethernet for real-time monitoring of SoC, cell voltages, and diagnostics. Maste",
+  "version": "1.0.0",
+  "author": "fancyui",
+  "homepage": "https://github.com/fancyui/Gobel-Battery-HA-Addon",
+  "skills": []
+}
