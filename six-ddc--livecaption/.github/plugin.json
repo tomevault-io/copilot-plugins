@@ -1,0 +1,9 @@
+{
+  "name": "six-ddc--livecaption",
+  "displayName": "livecaption",
+  "description": "Real-time on-device speech transcription + translation for macOS (Apple Silicon). Streaming ASR, speaker diarization, and live English\u2192Chinese translation on Apple GPU/MLX \u2014 terminal CLI, no UI, no cl",
+  "version": "1.0.0",
+  "author": "six-ddc",
+  "homepage": "https://github.com/six-ddc/livecaption",
+  "skills": []
+}
