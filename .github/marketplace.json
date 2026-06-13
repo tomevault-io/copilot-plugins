@@ -99734,6 +99734,21 @@
       "description": "Nostr bot to remove tracking tokens from URLs and reply them to Notes"
     },
     {
+      "name": "observerw--obsidian-code-link",
+      "source": "./observerw--obsidian-code-link",
+      "description": "Display code in Obsidian, and only the part you're interested in!"
+    },
+    {
+      "name": "rankweis--uppercut",
+      "source": "./rankweis--uppercut",
+      "description": "FREE Karate plugin for IntelliJ with additional features"
+    },
+    {
+      "name": "fancyui--gobel-battery-ha-addon",
+      "source": "./fancyui--gobel-battery-ha-addon",
+      "description": "Home Assistant Add-on to integrate LiFePO4 batteries via JK BMS, Pace BMS, and TDT BMS. Supports RS232, RS485, WiFi, and Ethernet for real-time monitoring of SoC, cell voltages, and diagnostics. Maste"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -104779,6 +104794,11 @@
       "description": "gesturs-ui"
     },
     {
+      "name": "finatext--orgu",
+      "source": "./finatext--orgu",
+      "description": "orgu is a tool for implementing organization-wide workflows on GitHub"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -107312,6 +107332,11 @@
       "name": "hyper-light--hyperscale",
       "source": "./hyper-light--hyperscale",
       "description": "hyperscale"
+    },
+    {
+      "name": "maya-doshi--tidaler",
+      "source": "./maya-doshi--tidaler",
+      "description": "gui and cli to download from tidal"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -110607,6 +110632,26 @@
       "name": "tunctn--express-next-turborepo-boilerplate",
       "source": "./tunctn--express-next-turborepo-boilerplate",
       "description": "A monorepo template with auth & i18n, using: Express.js, Next.js, shadcn/ui, Tailwind, Drizzle and Lucia. "
+    },
+    {
+      "name": "sbrunk--duckdb-mojo",
+      "source": "./sbrunk--duckdb-mojo",
+      "description": "Mojo Bindings for DuckDB"
+    },
+    {
+      "name": "omer-go--docx-parser-converter",
+      "source": "./omer-go--docx-parser-converter",
+      "description": "Parsers to process, store and convert docx files to html and txt formats."
+    },
+    {
+      "name": "sbrunk--duckdb-mojo",
+      "source": "./sbrunk--duckdb-mojo",
+      "description": "Mojo Bindings for DuckDB"
+    },
+    {
+      "name": "fipguide--fipguide-github-io",
+      "source": "./fipguide--fipguide-github-io",
+      "description": "\ud83d\ude85\ud83c\udf0e Provide useful and comprehensive information for railway staff travel in Europe using FIP"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -119094,6 +119139,11 @@
       "description": "Cordial Systems abstraction over blockchains"
     },
     {
+      "name": "xxtg666--nonebot-plugin-discord-message-bridge",
+      "source": "./xxtg666--nonebot-plugin-discord-message-bridge",
+      "description": "\u2728 Discord - QQ \u6d88\u606f\u8f6c\u53d1\u63d2\u4ef6 \u2728"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -122427,6 +122477,11 @@
       "name": "johnsmith-132--poe-export-tools",
       "source": "./johnsmith-132--poe-export-tools",
       "description": "Download images, chats, or Creator data from your Poe account"
+    },
+    {
+      "name": "austinmesh--www",
+      "source": "./austinmesh--www",
+      "description": "Austin Mesh is a community group working to build a mesh network of solar-powered MeshCore and meshtastic radios in Austin."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -130032,6 +130087,16 @@
       "name": "ruziniuuuuu--awesome-shit",
       "source": "./ruziniuuuuu--awesome-shit",
       "description": "A collection of ShiT (\u53f2\ud83d\udca9) on GitHub."
+    },
+    {
+      "name": "xencon--aixcl",
+      "source": "./xencon--aixcl",
+      "description": "Agentic SDLC with local LLM's."
+    },
+    {
+      "name": "xencon--aixcl",
+      "source": "./xencon--aixcl",
+      "description": "Agentic SDLC with local LLM's."
     },
     {
       "name": "vm--nila-code",
@@ -138474,6 +138539,16 @@
       "description": "solc inside a browser web worker"
     },
     {
+      "name": "erdbeerbaerlp--discordintegration",
+      "source": "./erdbeerbaerlp--discordintegration",
+      "description": "DiscordIntegration"
+    },
+    {
+      "name": "erdbeerbaerlp--discordintegration",
+      "source": "./erdbeerbaerlp--discordintegration",
+      "description": "DiscordIntegration"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -143822,6 +143897,36 @@
       "name": "ragnarok22--gsmart",
       "source": "./ragnarok22--gsmart",
       "description": "The smart way to write your commit messages using Conventional Commits."
+    },
+    {
+      "name": "medizininformatik-initiative--fts-next",
+      "source": "./medizininformatik-initiative--fts-next",
+      "description": "SMITH FHIR Transfer Services"
+    },
+    {
+      "name": "bancie--tilearn",
+      "source": "./bancie--tilearn",
+      "description": "A Python library for machine scheduling."
+    },
+    {
+      "name": "explosion-scratch--justinstall",
+      "source": "./explosion-scratch--justinstall",
+      "description": "Just install any CLI tool from a GitHub repo"
+    },
+    {
+      "name": "lmnr-ai--lmnr-ts",
+      "source": "./lmnr-ai--lmnr-ts",
+      "description": "TypeScript SDK for Laminar AI"
+    },
+    {
+      "name": "hugolify--hugolify-admin",
+      "source": "./hugolify--hugolify-admin",
+      "description": "Admin for Hugolify allowing the build of the config file for different Headless (CloudCannon, Decap, Netlify, Pages, Static, Sveltia and Tina CMS)"
+    },
+    {
+      "name": "nt54hamnghi--seaq",
+      "source": "./nt54hamnghi--seaq",
+      "description": "Fetch and process web content with your favorite LLMs and prompts"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -149617,6 +149722,11 @@
       "name": "meshnotes--meshnotes",
       "source": "./meshnotes--meshnotes",
       "description": "Mesh Notes"
+    },
+    {
+      "name": "go-teal--teal",
+      "source": "./go-teal--teal",
+      "description": "Teal is an open-source data transformation and workflow (DAG) management tool in the Go stack."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -156007,6 +156117,11 @@
       "name": "bbaktaeho--evmc",
       "source": "./bbaktaeho--evmc",
       "description": "evmc is an abbreviation of Ethereum Virtual Machine Client, and I wanted to express it as simply as a Go. But evmc is not simple."
+    },
+    {
+      "name": "tristan-mcinnis--multimodal-voice-assistant",
+      "source": "./tristan-mcinnis--multimodal-voice-assistant",
+      "description": "This project is a multi-modal AI voice assistant that uses LM Studio, OpenAI API or Claude Code, audio processing with WhisperModel, speech recognition, clipboard extraction, and image processing to r"
     },
     {
       "name": "lightninglabs--lnget",
@@ -164937,6 +165052,46 @@
       "name": "utdanningsdirektoratet--designsystem",
       "source": "./utdanningsdirektoratet--designsystem",
       "description": "Design system for the Norwegian Directorate for Education and Training. Builds upon digdir/designsystemet."
+    },
+    {
+      "name": "kevinedry--runelite-quest-voiceover",
+      "source": "./kevinedry--runelite-quest-voiceover",
+      "description": "Aims to provide voice over acting to the brilliant quest writing in Old School Runescape as a Runelite plugin"
+    },
+    {
+      "name": "itxtoledo--launchpad-platform",
+      "source": "./itxtoledo--launchpad-platform",
+      "description": "DeFi platform to sell tokens"
+    },
+    {
+      "name": "eapd-drb--og-phl",
+      "source": "./eapd-drb--og-phl",
+      "description": "Overlapping-generations macroeconomic model for evaluating fiscal policy in the Philippines"
+    },
+    {
+      "name": "vadolasi--codelabs",
+      "source": "./vadolasi--codelabs",
+      "description": "IDE online voltada para professores e alunos"
+    },
+    {
+      "name": "uhop--console-toolkit",
+      "source": "./uhop--console-toolkit",
+      "description": "Toolkit to produce a fancy console output (boxes, tables, charts, colors)."
+    },
+    {
+      "name": "uhop--console-toolkit",
+      "source": "./uhop--console-toolkit",
+      "description": "Toolkit to produce a fancy console output (boxes, tables, charts, colors)."
+    },
+    {
+      "name": "cybersecai--cybersecai-github-io",
+      "source": "./cybersecai--cybersecai-github-io",
+      "description": "A guide on GenAI for CyberSecurity"
+    },
+    {
+      "name": "mihailthebuilder--hackernewsalerts-backend",
+      "source": "./mihailthebuilder--hackernewsalerts-backend",
+      "description": "Django backend services for Hacker News email alerts application."
     },
     {
       "name": "yschimke--compose-ai-tools",
