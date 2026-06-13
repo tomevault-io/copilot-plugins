@@ -1,0 +1,44 @@
+{
+  "name": "opencode-dotfiles",
+  "owner": "cinicu",
+  "repo": "opencode-dotfiles",
+  "description": "OpenCode dotfiles \u2014 19 AI agent skills + 8 MCP servers + persistent memory (memory-keeper). Cross-platform install, screenshot OCR, custom CLI toolchain. Research methodology, systematic reviews, critical analysis, skill-creator.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cinicu/opencode-dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-13T04:30:21Z"
+}
