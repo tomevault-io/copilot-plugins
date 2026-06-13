@@ -1,0 +1,9 @@
+{
+  "name": "minerd--cmdmanager",
+  "displayName": "CmdManager",
+  "description": "WPF utility to manage cmd.exe windows running Claude Code: live console preview, idle detection, silent input injection, and auto-resume when usage limits reset",
+  "version": "1.0.0",
+  "author": "minerd",
+  "homepage": "https://github.com/minerd/CmdManager",
+  "skills": []
+}
