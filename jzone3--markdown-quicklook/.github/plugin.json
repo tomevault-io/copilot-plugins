@@ -1,0 +1,9 @@
+{
+  "name": "jzone3--markdown-quicklook",
+  "displayName": "markdown-quicklook",
+  "description": "macOS Quick Look extension that renders Markdown files when you press spacebar in Finder",
+  "version": "1.0.0",
+  "author": "jzone3",
+  "homepage": "https://github.com/jzone3/markdown-quicklook",
+  "skills": []
+}
