@@ -1,0 +1,9 @@
+{
+  "name": "ivanmurzak--godot-mcp",
+  "displayName": "Godot-MCP",
+  "description": "Godot-MCP \u2014 Model Context Protocol (MCP) integration for the Godot Engine. AI tools for the Godot Editor in C#, with cloud connection to ai-game.dev. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "IvanMurzak",
+  "homepage": "https://github.com/IvanMurzak/Godot-MCP",
+  "skills": []
+}
