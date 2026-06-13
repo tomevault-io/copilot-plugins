@@ -1,0 +1,9 @@
+{
+  "name": "firebolt-db--firebolt-kubernetes-operator",
+  "displayName": "firebolt-kubernetes-operator",
+  "description": "Run and manage Firebolt on Kubernetes with the Firebolt Operator",
+  "version": "1.0.0",
+  "author": "firebolt-db",
+  "homepage": "https://github.com/firebolt-db/firebolt-kubernetes-operator",
+  "skills": []
+}
