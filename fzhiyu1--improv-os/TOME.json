@@ -1,0 +1,44 @@
+{
+  "name": "improv-os",
+  "owner": "Fzhiyu1",
+  "repo": "improv-os",
+  "description": "\u73b0\u7f16OS \u2014 \u4e00\u53f0\u4e0d\u9884\u88c5\u4efb\u4f55\u8f6f\u4ef6\u7684\u7535\u8111\uff0c\u6bcf\u4e2a\u5e94\u7528\u90fd\u662f AI \u5f53\u573a\u73b0\u7f16\u7684 macOS \u98ce\u683c\u7f51\u9875OS \u00b7 An OS where every app is improvised by AI, live",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Fzhiyu1/improv-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-13T10:30:20Z"
+}
