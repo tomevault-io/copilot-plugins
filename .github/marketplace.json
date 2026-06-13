@@ -57204,6 +57204,11 @@
       "description": "HTML\u2192Video meta-layer for coding agents"
     },
     {
+      "name": "eli-labz--third-eye",
+      "source": "./eli-labz--third-eye",
+      "description": "A production-grade OSINT platform that provides situational awareness across multiple intelligence domains."
+    },
+    {
       "name": "marciogranzotto--clawd-tank",
       "source": "./marciogranzotto--clawd-tank",
       "description": "clawd-tank"
@@ -149732,6 +149737,11 @@
       "name": "kiraa-ai--project-onyx",
       "source": "./kiraa-ai--project-onyx",
       "description": "Project Onyx "
+    },
+    {
+      "name": "meirtz--shinken",
+      "source": "./meirtz--shinken",
+      "description": "Train computer-use agents end-to-end on real desktops, at scale: a high-performance runtime where 8K+ live environments on one laptop thread."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
