@@ -1,0 +1,9 @@
+{
+  "name": "htlin222--acompose",
+  "displayName": "acompose",
+  "description": "Run your docker-compose.yml on Apple's container CLI \u2014 dependency-ordered startup, service-name DNS, named volumes, restart-policy supervision, and a live dashboard",
+  "version": "1.0.0",
+  "author": "htlin222",
+  "homepage": "https://github.com/htlin222/acompose",
+  "skills": []
+}
