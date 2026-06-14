@@ -1,0 +1,9 @@
+{
+  "name": "tt-a1i--hive",
+  "displayName": "hive",
+  "description": "Browser-native hive-mind for CLI coding agents \u2014 Claude Code, Codex, Gemini, and OpenCode collaborate as real PTY processes via a team protocol.",
+  "version": "1.0.0",
+  "author": "tt-a1i",
+  "homepage": "https://github.com/tt-a1i/hive",
+  "skills": []
+}
