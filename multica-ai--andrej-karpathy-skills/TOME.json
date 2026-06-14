@@ -4,7 +4,7 @@
   "repo": "andrej-karpathy-skills",
   "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/multica-ai/andrej-karpathy-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T23:31:04Z"
+  "distributed_at": "2026-06-14T23:32:11Z"
 }
