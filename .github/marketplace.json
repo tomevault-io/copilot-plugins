@@ -165234,6 +165234,11 @@
       "description": "Superpowers skill port to Reasonix coding harness."
     },
     {
+      "name": "haoxiangtech--axbot-docs",
+      "source": "./haoxiangtech--axbot-docs",
+      "description": "website for axbot"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -204437,6 +204442,21 @@
       "name": "foreversc--pinfix",
       "source": "./foreversc--pinfix",
       "description": "\ud83d\udccc Edit UI with Claude Code using on-page comments."
+    },
+    {
+      "name": "hereisswapnil--memwiki",
+      "source": "./hereisswapnil--memwiki",
+      "description": "A persistent memory protocol for AI coding agents that gives projects a shared, markdown based knowledge system to preserve context, decisions, patterns, and progress across sessions."
+    },
+    {
+      "name": "hereisswapnil--memwiki",
+      "source": "./hereisswapnil--memwiki",
+      "description": "A persistent memory protocol for AI coding agents that gives projects a shared, markdown based knowledge system to preserve context, decisions, patterns, and progress across sessions."
+    },
+    {
+      "name": "hereisswapnil--memwiki",
+      "source": "./hereisswapnil--memwiki",
+      "description": "A persistent memory protocol for AI coding agents that gives projects a shared, markdown based knowledge system to preserve context, decisions, patterns, and progress across sessions."
     },
     {
       "name": "cheerhuan--save-your-token",
