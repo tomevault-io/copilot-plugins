@@ -1,0 +1,9 @@
+{
+  "name": "slopsmith--slopsmith",
+  "displayName": "slopsmith",
+  "description": "Self-hosted Docker web app for browsing, playing & practicing interactive full-band music notation, with an extensive plugin system",
+  "version": "1.0.0",
+  "author": "slopsmith",
+  "homepage": "https://github.com/slopsmith/slopsmith",
+  "skills": []
+}
