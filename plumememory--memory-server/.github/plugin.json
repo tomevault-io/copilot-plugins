@@ -1,0 +1,9 @@
+{
+  "name": "plumememory--memory-server",
+  "displayName": "memory-server",
+  "description": "\u7fbd\u5fc6\u670d\u52a1\u7aef\u4ed3\u5e93",
+  "version": "1.0.0",
+  "author": "PlumeMemory",
+  "homepage": "https://github.com/PlumeMemory/memory-server",
+  "skills": []
+}
