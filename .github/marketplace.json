@@ -189659,6 +189659,36 @@
       "description": "Version your thoughts. Branch your ideas. Merge understanding. An invisible semantic knowledge WARP graph built on Git."
     },
     {
+      "name": "dsound-zz--ddia-rag",
+      "source": "./dsound-zz--ddia-rag",
+      "description": "DDIA-RAG"
+    },
+    {
+      "name": "photon817--ca2attention-from-calcium-oscillations-to-amplitude-gated-sparse-attention",
+      "source": "./photon817--ca2attention-from-calcium-oscillations-to-amplitude-gated-sparse-attention",
+      "description": "Amplitude-gated coupling in calcium oscillators naturally emerges as a lightweight attention primitive \u2014 linear attention simplified to O(Nd). This repository contains the full CORC v2 framework, from"
+    },
+    {
+      "name": "sjnexe--addonexe",
+      "source": "./sjnexe--addonexe",
+      "description": "Addon Exe for Minecraft Bedrock Edition"
+    },
+    {
+      "name": "cotal-ai--cotal",
+      "source": "./cotal-ai--cotal",
+      "description": "One protocol to connect them all"
+    },
+    {
+      "name": "makeplane--plane-node-sdk",
+      "source": "./makeplane--plane-node-sdk",
+      "description": "Typescript SDK for plane.so"
+    },
+    {
+      "name": "eyevinn--warp-player",
+      "source": "./eyevinn--warp-player",
+      "description": "Player for CMSF media over MoQ transport using MSE playback"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204277,6 +204307,11 @@
       "name": "machinaio--mxx",
       "source": "./machinaio--mxx",
       "description": "Primitive-level lattice-based cryptography"
+    },
+    {
+      "name": "orcahand--orcahand-hardware",
+      "source": "./orcahand--orcahand-hardware",
+      "description": "ORCA hand hardware: CAD source (STL) and Bambu Lab print files (3MF)"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -314527,6 +314562,36 @@
       "name": "websszoa--kcalzoa-com",
       "source": "./websszoa--kcalzoa-com",
       "description": "kcalzoa.com"
+    },
+    {
+      "name": "cursalo--gerardo-work",
+      "source": "./cursalo--gerardo-work",
+      "description": "My portfolio"
+    },
+    {
+      "name": "cursalo--gerardo-work",
+      "source": "./cursalo--gerardo-work",
+      "description": "My portfolio"
+    },
+    {
+      "name": "jamespheffernan--words-on-phone",
+      "source": "./jamespheffernan--words-on-phone",
+      "description": "words-on-phone"
+    },
+    {
+      "name": "luckyboy587--personal-portfolio",
+      "source": "./luckyboy587--personal-portfolio",
+      "description": "personal-portfolio"
+    },
+    {
+      "name": "next-standard--zenn",
+      "source": "./next-standard--zenn",
+      "description": "zenn"
+    },
+    {
+      "name": "jamespheffernan--words-on-phone",
+      "source": "./jamespheffernan--words-on-phone",
+      "description": "words-on-phone"
     }
   ]
 }
