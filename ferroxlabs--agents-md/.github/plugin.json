@@ -1,0 +1,9 @@
+{
+  "name": "ferroxlabs--agents-md",
+  "displayName": "agents-md",
+  "description": "Drop-in AGENTS.md that makes every coding agent behave like a senior engineer instead of an eager intern. Kills sycophancy, stops drive-by refactors, forces verification loops. Synthesizes Karpathy's ",
+  "version": "1.0.0",
+  "author": "FerroxLabs",
+  "homepage": "https://github.com/FerroxLabs/agents-md",
+  "skills": []
+}
