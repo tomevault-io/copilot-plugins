@@ -1,0 +1,9 @@
+{
+  "name": "mplsllc--macsurf",
+  "displayName": "macsurf",
+  "description": "A modern web browser for Classic Mac OS 9 PowerPC. Real CSS3, ES5 JavaScript, native HTTPS \u2014 built with CodeWarrior on the Carbon API.",
+  "version": "1.0.0",
+  "author": "mplsllc",
+  "homepage": "https://github.com/mplsllc/macsurf",
+  "skills": []
+}
