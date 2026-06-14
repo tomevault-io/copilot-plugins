@@ -1,0 +1,9 @@
+{
+  "name": "dancinlab--hexa-lang",
+  "displayName": "hexa-lang",
+  "description": "\ud83d\udc8e Native compiler with atlas-bound theorems \u2014 8 strict-lint stages \u00b7 citation-enforced \u00b7 no LLVM \u00b7 no C-transpile",
+  "version": "1.0.0",
+  "author": "dancinlab",
+  "homepage": "https://github.com/dancinlab/hexa-lang",
+  "skills": []
+}
