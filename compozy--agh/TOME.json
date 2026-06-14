@@ -4,7 +4,7 @@
   "repo": "agh",
   "description": "An open workplace for AI agents \u2014 local-first runtime with durable sessions and agent-to-agent networking.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/compozy/agh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T19:42:14Z"
+  "distributed_at": "2026-06-14T19:46:28Z"
 }
