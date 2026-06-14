@@ -1,0 +1,9 @@
+{
+  "name": "makeplane--plane-node-sdk",
+  "displayName": "plane-node-sdk",
+  "description": "Typescript SDK for plane.so",
+  "version": "1.0.0",
+  "author": "makeplane",
+  "homepage": "https://github.com/makeplane/plane-node-sdk",
+  "skills": []
+}
