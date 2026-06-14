@@ -1,0 +1,9 @@
+{
+  "name": "oduist--connect-addons",
+  "displayName": "connect_addons",
+  "description": "Public Oduist Connect modules",
+  "version": "1.0.0",
+  "author": "oduist",
+  "homepage": "https://github.com/oduist/connect_addons",
+  "skills": []
+}
