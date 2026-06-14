@@ -1,0 +1,9 @@
+{
+  "name": "orcahand--orcahand-hardware",
+  "displayName": "orcahand_hardware",
+  "description": "ORCA hand hardware: CAD source (STL) and Bambu Lab print files (3MF)",
+  "version": "1.0.0",
+  "author": "orcahand",
+  "homepage": "https://github.com/orcahand/orcahand_hardware",
+  "skills": []
+}
