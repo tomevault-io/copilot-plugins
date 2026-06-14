@@ -149809,6 +149809,11 @@
       "description": "The Dawarich website"
     },
     {
+      "name": "island-io--mila",
+      "source": "./island-io--mila",
+      "description": "Mila \u2014 native macOS local transcription app (whisper.cpp) with optional speaker diarization. Apache-2.0."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
