@@ -1,0 +1,9 @@
+{
+  "name": "mirror29--openfinclaw-cli",
+  "displayName": "openfinclaw-cli",
+  "description": "One-stop quant-trading AI agent \u2014 research \u00b7 strategy \u00b7 backtest \u00b7 paper trade from one prompt. Works in Claude Code, Cursor, and 20+ AI agents via MCP. 60-second install with auto Skill registration.",
+  "version": "1.0.0",
+  "author": "mirror29",
+  "homepage": "https://github.com/mirror29/openfinclaw-cli",
+  "skills": []
+}
