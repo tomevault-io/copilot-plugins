@@ -190044,6 +190044,31 @@
       "description": "\u8072\u8072\u6162 SpeakSlow\uff1a\u5c08\u70ba\u4e2d\u6587\u6253\u9020\u3001\u6700\u5feb\u7684\u672c\u5730\u8a9e\u97f3\u8f38\u5165\u3002\u514d\u8cbb\u958b\u6e90\u3001100% \u672c\u6a5f\u3001\u4e0d\u4e0a\u96f2\uff0c\u8b1b\u5b8c\u76f4\u63a5\u8cbc\u5230\u6e38\u6a19\u8655\uff0c\u7279\u5225\u9069\u5408\u7528\u8a9e\u97f3\u8ddf AI \u5c0d\u8a71"
     },
     {
+      "name": "isak102--neowright",
+      "source": "./isak102--neowright",
+      "description": "Like Playwright, but for Neovim"
+    },
+    {
+      "name": "p1ouson--deepseek-arcdesk",
+      "source": "./p1ouson--deepseek-arcdesk",
+      "description": "\u4e0d\u6b62\u804a\u5929\uff1a\u5f00\u6e90 DeepSeek \u684c\u9762 Agent\uff0c\u5185\u7f6e\u8bfb\u6587\u4ef6\u3001\u6539\u4ee3\u7801\u3001\u8dd1\u547d\u4ee4\u3001\u63a5 MCP\u2026\u2026\u5de5\u5177\u94fe\u4e00\u7ad9\u914d\u9f50\u3002"
+    },
+    {
+      "name": "p1ouson--deepseek-arcdesk",
+      "source": "./p1ouson--deepseek-arcdesk",
+      "description": "\u4e0d\u6b62\u804a\u5929\uff1a\u5f00\u6e90 DeepSeek \u684c\u9762 Agent\uff0c\u5185\u7f6e\u8bfb\u6587\u4ef6\u3001\u6539\u4ee3\u7801\u3001\u8dd1\u547d\u4ee4\u3001\u63a5 MCP\u2026\u2026\u5de5\u5177\u94fe\u4e00\u7ad9\u914d\u9f50\u3002"
+    },
+    {
+      "name": "p1ouson--deepseek-arcdesk",
+      "source": "./p1ouson--deepseek-arcdesk",
+      "description": "\u4e0d\u6b62\u804a\u5929\uff1a\u5f00\u6e90 DeepSeek \u684c\u9762 Agent\uff0c\u5185\u7f6e\u8bfb\u6587\u4ef6\u3001\u6539\u4ee3\u7801\u3001\u8dd1\u547d\u4ee4\u3001\u63a5 MCP\u2026\u2026\u5de5\u5177\u94fe\u4e00\u7ad9\u914d\u9f50\u3002"
+    },
+    {
+      "name": "p1ouson--deepseek-arcdesk",
+      "source": "./p1ouson--deepseek-arcdesk",
+      "description": "\u4e0d\u6b62\u804a\u5929\uff1a\u5f00\u6e90 DeepSeek \u684c\u9762 Agent\uff0c\u5185\u7f6e\u8bfb\u6587\u4ef6\u3001\u6539\u4ee3\u7801\u3001\u8dd1\u547d\u4ee4\u3001\u63a5 MCP\u2026\u2026\u5de5\u5177\u94fe\u4e00\u7ad9\u914d\u9f50\u3002"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204727,6 +204752,21 @@
       "name": "sanrokamlan-prog--komari-theme-glassmorphism",
       "source": "./sanrokamlan-prog--komari-theme-glassmorphism",
       "description": "\u4fee\u6539\u81eakomari-theme-emerald,\u6539\u53d8\u5361\u7247\u98ce\u683c\u4e3a\u6bdb\u73bb\u7483\u98ce\u683c,\u5e76\u4e14\u6dfb\u52a0\u4e86\u8bbf\u5ba2ip\u5c55\u793a"
+    },
+    {
+      "name": "tahmid12khan--claude-basics",
+      "source": "./tahmid12khan--claude-basics",
+      "description": "Claude Code storybook decks for engineers \u2014 live at tahmid12khan.github.io/claude-basics"
+    },
+    {
+      "name": "reverieach--ow-translate-lite",
+      "source": "./reverieach--ow-translate-lite",
+      "description": "\u4e00\u4e2a\u4e13\u95e8\u4e3aow\u5916\u670d\u8bbe\u8ba1\u7684\u5b9e\u65f6\u5bf9\u8bdd\u6846\u7ffb\u8bd1\u65b9\u6848\uff0c\u91c7\u7528\u60ac\u6d6e\u6846\u8bbe\u8ba1\uff0c\u652f\u6301\u82f1\u3001\u97e9\u3001\u65e5\u8bed\u5bf9\u4e2d\u6587\u7684\u53cc\u5411\u5b9e\u65f6\u7ffb\u8bd1\u3002"
+    },
+    {
+      "name": "amelnagdy--delegate-skills",
+      "source": "./amelnagdy--delegate-skills",
+      "description": "Drive the OpenAI Codex CLI as a background implementer, brief it, review its diff, land the commit yourself."
     },
     {
       "name": "cheerhuan--save-your-token",
