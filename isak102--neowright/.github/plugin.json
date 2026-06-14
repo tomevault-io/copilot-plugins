@@ -1,0 +1,9 @@
+{
+  "name": "isak102--neowright",
+  "displayName": "neowright",
+  "description": "Like Playwright, but for Neovim",
+  "version": "1.0.0",
+  "author": "isak102",
+  "homepage": "https://github.com/isak102/neowright",
+  "skills": []
+}
