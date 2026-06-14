@@ -1,0 +1,9 @@
+{
+  "name": "pato--mathypad",
+  "displayName": "mathypad",
+  "description": "A smart TUI calculator that understands units and makes complex calculations simple.",
+  "version": "1.0.0",
+  "author": "pato",
+  "homepage": "https://github.com/pato/mathypad",
+  "skills": []
+}
