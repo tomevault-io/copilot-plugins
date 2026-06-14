@@ -1,0 +1,9 @@
+{
+  "name": "g12789--mcp-quickstart",
+  "displayName": "mcp-quickstart",
+  "description": "Forge a working, testable, publishable MCP server in 30s. TypeScript or Python, with example tools, the Inspector and tests included.",
+  "version": "1.0.0",
+  "author": "G12789",
+  "homepage": "https://github.com/G12789/mcp-quickstart",
+  "skills": []
+}
