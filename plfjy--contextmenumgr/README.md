@@ -7,11 +7,11 @@ A Windows context menu management tool with new menu monitoring
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [PLFJY/ContextMenuMgr](https://github.com/PLFJY/ContextMenuMgr).
+Original source: `CLAUDE.md` in [PLFJY/ContextMenuMgr](https://github.com/PLFJY/ContextMenuMgr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
