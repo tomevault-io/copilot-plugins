@@ -1,0 +1,9 @@
+{
+  "name": "dawarich-app--site",
+  "displayName": "site",
+  "description": "The Dawarich website",
+  "version": "1.0.0",
+  "author": "dawarich-app",
+  "homepage": "https://github.com/dawarich-app/site",
+  "skills": []
+}
