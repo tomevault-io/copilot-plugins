@@ -1,0 +1,9 @@
+{
+  "name": "apm-studio--apm-studio",
+  "displayName": "apm-studio",
+  "description": "Local editor for importing, managing, running, and injecting APM-backed assistant packages.",
+  "version": "1.0.0",
+  "author": "apm-studio",
+  "homepage": "https://github.com/apm-studio/apm-studio",
+  "skills": []
+}
