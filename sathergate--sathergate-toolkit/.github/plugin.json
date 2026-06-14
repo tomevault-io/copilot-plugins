@@ -1,0 +1,9 @@
+{
+  "name": "sathergate--sathergate-toolkit",
+  "displayName": "sathergate-toolkit",
+  "description": "A toolkit of agent primitives ",
+  "version": "1.0.0",
+  "author": "sathergate",
+  "homepage": "https://github.com/sathergate/sathergate-toolkit",
+  "skills": []
+}
