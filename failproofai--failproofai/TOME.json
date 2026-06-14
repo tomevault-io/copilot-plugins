@@ -4,7 +4,7 @@
   "repo": "failproofai",
   "description": "Runtime failure resolution for coding agents. Hooks into Claude Code and Codex. Catches loops, dangerous actions, and secret leaks before they become incidents. Zero latency. Runs locally.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FailproofAI/failproofai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T21:51:38Z"
+  "distributed_at": "2026-06-14T21:52:04Z"
 }
