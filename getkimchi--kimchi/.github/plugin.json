@@ -1,0 +1,9 @@
+{
+  "name": "getkimchi--kimchi",
+  "displayName": "kimchi",
+  "description": "Terminal coding agent powered by Kimchi's multi-model orchestration ",
+  "version": "1.0.0",
+  "author": "getkimchi",
+  "homepage": "https://github.com/getkimchi/kimchi",
+  "skills": []
+}
