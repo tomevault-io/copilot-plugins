@@ -1,0 +1,9 @@
+{
+  "name": "mlc-ai--pith-train",
+  "displayName": "pith-train",
+  "description": "Compact and Agent-Native MoE Training System",
+  "version": "1.0.0",
+  "author": "mlc-ai",
+  "homepage": "https://github.com/mlc-ai/pith-train",
+  "skills": []
+}
