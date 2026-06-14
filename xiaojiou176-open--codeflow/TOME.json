@@ -4,7 +4,7 @@
   "repo": "codeflow",
   "description": "OpenVibeCoding is the command tower for AI engineering: plan, delegate, track, resume, and prove long-running work across Codex and Claude Code.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xiaojiou176-open/codeflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T21:42:41Z"
+  "distributed_at": "2026-06-14T21:44:53Z"
 }
