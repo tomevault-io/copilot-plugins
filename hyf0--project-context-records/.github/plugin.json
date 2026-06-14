@@ -1,0 +1,9 @@
+{
+  "name": "hyf0--project-context-records",
+  "displayName": "project-context-records",
+  "description": "A context-engineering methodology: keep a durable, repo-versioned archive of a project's meta-context so AI collaborators inherit its judgment instead of re-deriving it.",
+  "version": "1.0.0",
+  "author": "hyf0",
+  "homepage": "https://github.com/hyf0/project-context-records",
+  "skills": []
+}
