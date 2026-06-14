@@ -1,0 +1,9 @@
+{
+  "name": "yukiyokotani--office-open-xml-viewer",
+  "displayName": "office-open-xml-viewer",
+  "description": "A browser-based viewer for Office Open XML documents that renders to an HTML Canvas element.",
+  "version": "1.0.0",
+  "author": "yukiyokotani",
+  "homepage": "https://github.com/yukiyokotani/office-open-xml-viewer",
+  "skills": []
+}
