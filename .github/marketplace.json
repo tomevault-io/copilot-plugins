@@ -165174,6 +165174,11 @@
       "description": "develop-anything"
     },
     {
+      "name": "notune--velo",
+      "source": "./notune--velo",
+      "description": "A fast, friendly non-linear video editor for Linux, Windows and macOS"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
