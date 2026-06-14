@@ -1,50 +1,51 @@
-## taste-skill-desktop
+## ui-flat-containers
 
-> taste-skill 桌面端适配——编辑型极简、反模板化 UI（右栏/面板/工作台）
+> UI 容器扁平化——禁止三层及以上圆角矩形嵌套
 
 
-# taste-skill · 桌面端 UI
+# UI 容器扁平化
 
-来源：[Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)（`design-taste-frontend`）
+## 规则
 
-**本项目的 Design Read：** 现有桌面工作台的 **redesign-preserve**；语言为 **Linear / VS Code 式编辑型极简**；密度 **cockpit（4–5）**；动效 **低（2–4）**。
+同一视觉链路里，**带边框/圆角背景的容器最多嵌套 2 层**，禁止出现第 3 层「矩形套矩形」。
 
-与 [karpathy-guidelines](karpathy-guidelines.mdc)、[ui-flat-containers](ui-flat-containers.mdc)、[impeccable-always](impeccable-always.mdc) 同时生效。
+## 计数方式
 
-## 先读场景再动手
+从外到内数「有 border 或明显 card 背景 + border-radius」的容器：
 
-- 这是 **devtools 面板 UI**，不是 landing page；不套营销 Hero、三列 feature card、AI 紫渐变。
-- **改版优先保留**：沿用 `--fg` / `--accent` / `--display` / `--mono` 等现有 token，不整页换肤。
-- 动任务前先扫一眼现有同类组件（如 `dock-panel__*`），扩展现有类名，不平行再造一套 `*-panel__head`。
+- ✅ 面板 → 输入框（2 层）
+- ✅ 卡片 → 代码块（2 层）
+- ❌ 卡片 → 分组框 → 按钮框 → 输入框（3+ 层）
 
-## 排版层级（编辑型）
+## 优先手段
 
-- **标题**：`--display`，15px，负字距，一条主标题即可。
-- **元数据 / 路径 / 计数**：`--mono`，11px，muted 色。
-- **列表主文案**：12px semibold；次级 path/detail 10–10.5px faint。
-- **分区小标题**：11px uppercase + letter-spacing，不用再加一层 card 标题框。
+1. **外层用分隔线**，不用额外套壳：`border-bottom` / `gap` / `padding`，代替再包一层 card。
+2. **内层控件去边框**：按钮用 ghost / 文字按钮；同组操作用**单一外框**的分段控件，内部用分隔线而非各自圆角。
+3. **代码/输出**：在已有卡片内用 `CodeViewer flat`，内层 `pre` 不再加 border。
+4. **同级多个输入框**可以各有边框，但不要每个都再包一层 card。
 
-## 布局与容器（反 slop）
+## 示例
 
-- **分隔线列表** 优于「每行一个圆角 card」；行 hover 用背景，不用每行 border。
-- **最多 2 层**带边框/圆角容器（见 `ui-flat-containers`）；同组操作用 ghost / 文字按钮或**单一外框**分段控件。
-- **禁止**：渐变进度条、重阴影、三层矩形套娃、每控件各自 pill 边框。
+```css
+/* ❌ 三层：card → sync-btn → message 各有 border */
+.panel-card { border: 1px solid ...; }
+.sync-btn { border: 1px solid ...; }
+.message { border: 1px solid ...; }
 
-## 组件惯例（本项目）
+/* ✅ 两层：actions 区无边框，仅分段控件 + 底部分隔 */
+.actions { padding: 10px 12px; border-bottom: 1px solid var(--border-soft); }
+.sync { border: 1px solid ...; } /* 唯一外框 */
+.sync-btn { border: 0; }
+.message { border: 0; border-bottom: 1px solid ...; background: transparent; }
+```
 
-- 右栏面板根节点：`dock-panel` + 面板修饰符（`changes-panel` / `files-panel` 等）。
-- 筛选：下划线输入 + 前置小图标（`dock-panel__filter-wrap`），不用厚边框搜索框。
-- 状态：**pastel pill**（`dock-panel__pill--*`），语义色低饱和。
-- 文件树：类型图标 + indent guide 竖线（VS Code 式），不用纯文本 + padding 缩进。
-- 代码/输出：卡片内 `CodeViewer flat`，内层不再加 border。
+```tsx
+// ❌ ToolCard 内默认 CodeViewer 会再套一层 code-block 边框
+<CodeViewer value={output} />
 
-## 改版前快速自检（pre-flight）
-
-1. 有没有新增第 3 层圆角/边框容器？
-2. 有没有引入渐变、重阴影、营销式 copy？
-3. 能不能复用 `dock-panel__*` 而不是复制 git-panel 旧类名？
-4. 改动是否只覆盖任务范围（Karpathy）？
-5. `pnpm exec tsc --noEmit` 能否通过？
+// ✅ 卡片内输出用 flat，只保留 ToolCard 一层外框
+<CodeViewer value={output} flat />
+```
 
 ---
 > Source: [P1ouson/deepseek-ArcDesk](https://github.com/P1ouson/deepseek-ArcDesk) — distributed by [TomeVault](https://tomevault.io).
