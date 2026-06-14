@@ -1,0 +1,9 @@
+{
+  "name": "eyevinn--warp-player",
+  "displayName": "warp-player",
+  "description": "Player for CMSF media over MoQ transport using MSE playback",
+  "version": "1.0.0",
+  "author": "Eyevinn",
+  "homepage": "https://github.com/Eyevinn/warp-player",
+  "skills": []
+}
