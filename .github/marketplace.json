@@ -1769,6 +1769,11 @@
       "description": "Open source Granola AI Alternative"
     },
     {
+      "name": "freecodexyz--free-code",
+      "source": "./freecodexyz--free-code",
+      "description": "The free build of Claude Code. All telemetry removed, security-prompt guardrails stripped, all experimental features enabled."
+    },
+    {
       "name": "ogx-ai--ogx",
       "source": "./ogx-ai--ogx",
       "description": "Open GenAI Stack"
@@ -2492,6 +2497,11 @@
       "name": "steipete--summarize",
       "source": "./steipete--summarize",
       "description": "Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension."
+    },
+    {
+      "name": "quipnetwork--xquad",
+      "source": "./quipnetwork--xquad",
+      "description": "A rust implementation of the Quip Network's quantum virtual machine."
     },
     {
       "name": "greatfrontend--top-reactjs-interview-questions",
@@ -4274,6 +4284,16 @@
       "description": "A developer friendly PaaS for your Kubernetes"
     },
     {
+      "name": "nowork-studio--notfair",
+      "source": "./nowork-studio--notfair",
+      "description": "Open-source Claude Code skills for SEO, GEO, Google Ads, Meta Ads"
+    },
+    {
+      "name": "nowork-studio--notfair",
+      "source": "./nowork-studio--notfair",
+      "description": "Open-source Claude Code skills for SEO, GEO, Google Ads, Meta Ads"
+    },
+    {
       "name": "nextlevelbuilder--goclaw",
       "source": "./nextlevelbuilder--goclaw",
       "description": "GoClaw - GoClaw is OpenClaw rebuilt in Go \u2014 with multi-tenant isolation, 5-layer security, and native concurrency. Deploy AI agent teams at scale without compromising on safety."
@@ -4572,6 +4592,16 @@
       "name": "fuergaosi233--claude-code-proxy",
       "source": "./fuergaosi233--claude-code-proxy",
       "description": "Claude Code to OpenAI API Proxy"
+    },
+    {
+      "name": "plfjy--contextmenumgr",
+      "source": "./plfjy--contextmenumgr",
+      "description": "A Windows context menu management tool with new menu monitoring"
+    },
+    {
+      "name": "plfjy--contextmenumgr",
+      "source": "./plfjy--contextmenumgr",
+      "description": "A Windows context menu management tool with new menu monitoring"
     },
     {
       "name": "miantiao-me--hacker-podcast",
@@ -126399,6 +126429,16 @@
       "description": "PROJECT NULLFRAME \u2014 a live telemetry dashboard in the Nothing design language"
     },
     {
+      "name": "hyf0--project-context-records",
+      "source": "./hyf0--project-context-records",
+      "description": "A context-engineering methodology: keep a durable, repo-versioned archive of a project's meta-context so AI collaborators inherit its judgment instead of re-deriving it."
+    },
+    {
+      "name": "hyf0--project-context-records",
+      "source": "./hyf0--project-context-records",
+      "description": "A context-engineering methodology: keep a durable, repo-versioned archive of a project's meta-context so AI collaborators inherit its judgment instead of re-deriving it."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -138612,6 +138652,11 @@
       "name": "syrin-labs--iris",
       "source": "./syrin-labs--iris",
       "description": "Your AI writes the code. Iris tells it whether the code actually works - with evidence, not screenshots."
+    },
+    {
+      "name": "eliautobot--my-virtual-world",
+      "source": "./eliautobot--my-virtual-world",
+      "description": "A self-hosted 3D AI virtual world for Agent Harnesses like OpenClaw and Hermes."
     },
     {
       "name": "mohiwalla--memes",
