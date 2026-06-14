@@ -7,14 +7,14 @@ A modern web browser for Classic Mac OS 9 PowerPC. Real CSS3, ES5 JavaScript, na
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [mplsllc/macsurf](https://github.com/mplsllc/macsurf).
+Original source: `CLAUDE.md` in [mplsllc/macsurf](https://github.com/mplsllc/macsurf).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/mplsllc/macsurf](https://github.com/mplsllc/macsurf)
