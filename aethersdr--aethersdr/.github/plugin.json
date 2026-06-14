@@ -1,0 +1,9 @@
+{
+  "name": "aethersdr--aethersdr",
+  "displayName": "AetherSDR",
+  "description": "Linux-native SmartSDR client for FlexRadio (FLEX-6000/8600) \u2014 Qt6 + C++20",
+  "version": "1.0.0",
+  "author": "aethersdr",
+  "homepage": "https://github.com/aethersdr/AetherSDR",
+  "skills": []
+}
