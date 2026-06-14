@@ -1,35 +1,50 @@
-## karpathy-guidelines
+## taste-skill-desktop
 
-> Karpathy 行为准则——先思考、保持简单、精准改动、可验证目标
+> taste-skill 桌面端适配——编辑型极简、反模板化 UI（右栏/面板/工作台）
 
 
-# Karpathy 编码规范
+# taste-skill · 桌面端 UI
 
-来源：[andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
+来源：[Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)（`design-taste-frontend`）
 
-**权衡：** 偏谨慎而非偏速度； trivial 改动可酌情简化流程。
+**本项目的 Design Read：** 现有桌面工作台的 **redesign-preserve**；语言为 **Linear / VS Code 式编辑型极简**；密度 **cockpit（4–5）**；动效 **低（2–4）**。
 
-## 1. 先思考再写码
+与 [karpathy-guidelines](karpathy-guidelines.mdc)、[ui-flat-containers](ui-flat-containers.mdc)、[impeccable-always](impeccable-always.mdc) 同时生效。
 
-- 假设写清楚；不确定就问。
-- 多种理解并存时先说明，不要默默选一种。
-- 有更简单做法要说；该 push back 就 push back。
+## 先读场景再动手
 
-## 2. 简单优先
+- 这是 **devtools 面板 UI**，不是 landing page；不套营销 Hero、三列 feature card、AI 紫渐变。
+- **改版优先保留**：沿用 `--fg` / `--accent` / `--display` / `--mono` 等现有 token，不整页换肤。
+- 动任务前先扫一眼现有同类组件（如 `dock-panel__*`），扩展现有类名，不平行再造一套 `*-panel__head`。
 
-- 只写解决问题所需的最小代码；不加未要求的功能。
-- 不为只用一次的逻辑抽抽象。
-- 200 行能写成 50 行就重写。
+## 排版层级（编辑型）
 
-## 3. 精准改动
+- **标题**：`--display`，15px，负字距，一条主标题即可。
+- **元数据 / 路径 / 计数**：`--mono`，11px，muted 色。
+- **列表主文案**：12px semibold；次级 path/detail 10–10.5px faint。
+- **分区小标题**：11px uppercase + letter-spacing，不用再加一层 card 标题框。
 
-- 只动任务相关的代码；不顺手「改进」旁边的东西。
-- 自己改动产生的孤儿 import/变量要清掉；**已有的**死代码除非被要求否则只报告不删。
+## 布局与容器（反 slop）
 
-## 4. 目标驱动
+- **分隔线列表** 优于「每行一个圆角 card」；行 hover 用背景，不用每行 border。
+- **最多 2 层**带边框/圆角容器（见 `ui-flat-containers`）；同组操作用 ghost / 文字按钮或**单一外框**分段控件。
+- **禁止**：渐变进度条、重阴影、三层矩形套娃、每控件各自 pill 边框。
 
-- 把任务变成可验证结果（测试通过、tsc 通过、行为可复现）。
-- 多步任务先列 brief plan + 每步 verify 点。
+## 组件惯例（本项目）
+
+- 右栏面板根节点：`dock-panel` + 面板修饰符（`changes-panel` / `files-panel` 等）。
+- 筛选：下划线输入 + 前置小图标（`dock-panel__filter-wrap`），不用厚边框搜索框。
+- 状态：**pastel pill**（`dock-panel__pill--*`），语义色低饱和。
+- 文件树：类型图标 + indent guide 竖线（VS Code 式），不用纯文本 + padding 缩进。
+- 代码/输出：卡片内 `CodeViewer flat`，内层不再加 border。
+
+## 改版前快速自检（pre-flight）
+
+1. 有没有新增第 3 层圆角/边框容器？
+2. 有没有引入渐变、重阴影、营销式 copy？
+3. 能不能复用 `dock-panel__*` 而不是复制 git-panel 旧类名？
+4. 改动是否只覆盖任务范围（Karpathy）？
+5. `pnpm exec tsc --noEmit` 能否通过？
 
 ---
 > Source: [P1ouson/deepseek-ArcDesk](https://github.com/P1ouson/deepseek-ArcDesk) — distributed by [TomeVault](https://tomevault.io).
