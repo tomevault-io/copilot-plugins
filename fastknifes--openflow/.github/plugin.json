@@ -1,0 +1,9 @@
+{
+  "name": "fastknifes--openflow",
+  "displayName": "openflow",
+  "description": "This is a companion workflow plugin for opencode that combines openspec and superpowers",
+  "version": "1.0.0",
+  "author": "fastknifes",
+  "homepage": "https://github.com/fastknifes/openflow",
+  "skills": []
+}
