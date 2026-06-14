@@ -1,0 +1,9 @@
+{
+  "name": "ekkolearnai--hermes-studio",
+  "displayName": "hermes-studio",
+  "description": "Web dashboard for Hermes Agent \u2014 multi-platform AI chat, session management, scheduled jobs, usage analytics ",
+  "version": "1.0.0",
+  "author": "EKKOLearnAI",
+  "homepage": "https://github.com/EKKOLearnAI/hermes-studio",
+  "skills": []
+}
