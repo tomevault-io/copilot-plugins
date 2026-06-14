@@ -1,0 +1,9 @@
+{
+  "name": "clawlink-hq--clawlink",
+  "displayName": "clawlink",
+  "description": "OpenClaw and Hermes integrations with one-click OAuth for Gmail, GitHub, Slack, Notion, Shopify, Stripe, and 100+ apps",
+  "version": "1.0.0",
+  "author": "ClawLink-HQ",
+  "homepage": "https://github.com/ClawLink-HQ/clawlink",
+  "skills": []
+}
