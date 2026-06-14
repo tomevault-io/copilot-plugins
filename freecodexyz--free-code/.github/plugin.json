@@ -1,0 +1,9 @@
+{
+  "name": "freecodexyz--free-code",
+  "displayName": "free-code",
+  "description": "The free build of Claude Code. All telemetry removed, security-prompt guardrails stripped, all experimental features enabled.",
+  "version": "1.0.0",
+  "author": "freecodexyz",
+  "homepage": "https://github.com/freecodexyz/free-code",
+  "skills": []
+}
