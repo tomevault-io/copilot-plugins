@@ -1,0 +1,44 @@
+{
+  "name": "SpeakSlow",
+  "owner": "Jeffrey0117",
+  "repo": "SpeakSlow",
+  "description": "\u8072\u8072\u6162 SpeakSlow\uff1a\u5c08\u70ba\u4e2d\u6587\u6253\u9020\u3001\u6700\u5feb\u7684\u672c\u5730\u8a9e\u97f3\u8f38\u5165\u3002\u514d\u8cbb\u958b\u6e90\u3001100% \u672c\u6a5f\u3001\u4e0d\u4e0a\u96f2\uff0c\u8b1b\u5b8c\u76f4\u63a5\u8cbc\u5230\u6e38\u6a19\u8655\uff0c\u7279\u5225\u9069\u5408\u7528\u8a9e\u97f3\u8ddf AI \u5c0d\u8a71",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jeffrey0117/SpeakSlow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-14T18:31:14Z"
+}
