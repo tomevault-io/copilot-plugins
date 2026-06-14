@@ -1,39 +1,35 @@
-## impeccable-always
+## karpathy-guidelines
 
-> Impeccable 设计 skill——前端/UI 改动前必读，与 taste/karpathy/flat-containers 联动
+> Karpathy 行为准则——先思考、保持简单、精准改动、可验证目标
 
 
-# Impeccable · 常驻设计 skill
+# Karpathy 编码规范
 
-来源：[pbakaus/impeccable](https://github.com/pbakaus/impeccable)（`.cursor/skills/impeccable/`）
+来源：[andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
 
-**Register:** product（devtools 桌面工作台，非 landing page）
+**权衡：** 偏谨慎而非偏速度； trivial 改动可酌情简化流程。
 
-## 何时加载
+## 1. 先思考再写码
 
-凡涉及 `desktop/frontend` 的 UI/CSS/组件/layout 改动，**必须先读取并遵循** `impeccable` skill：
+- 假设写清楚；不确定就问。
+- 多种理解并存时先说明，不要默默选一种。
+- 有更简单做法要说；该 push back 就 push back。
 
-1. 会话内首次：`node .cursor/skills/impeccable/scripts/context.mjs`（读取 `PRODUCT.md` / `DESIGN.md`）
-2. 读 `reference/product.md`（product register）
-3. 有明确子任务时读对应 reference（`polish` / `audit` / `layout` 等）
+## 2. 简单优先
 
-## 与现有规则分工
+- 只写解决问题所需的最小代码；不加未要求的功能。
+- 不为只用一次的逻辑抽抽象。
+- 200 行能写成 50 行就重写。
 
-| 规则 | 职责 |
-|------|------|
-| **impeccable** | 反 slop、对比度、排版尺度、动效、组件状态、UX copy |
-| **taste-skill-desktop** | Linear/VS Code 编辑型惯例、`dock-panel__*` |
-| **ui-flat-containers** | 最多 2 层带边框/圆角容器 |
-| **karpathy-guidelines** | 编码：最小 diff、可验证 |
+## 3. 精准改动
 
-冲突时：**redesign-preserve** 优先于换肤；**flat-containers** 优先于多 card 装饰；**taste-skill** 定密度与组件类名。
+- 只动任务相关的代码；不顺手「改进」旁边的东西。
+- 自己改动产生的孤儿 import/变量要清掉；**已有的**死代码除非被要求否则只报告不删。
 
-## Pre-flight（UI 改动前）
+## 4. 目标驱动
 
-1. 沿用 `styles.css` 现有 token，不整页换肤
-2. 容器嵌套 ≤ 2 层？
-3. 对比度、嵌套 card、purple gradient 等 anti-pattern？
-4. 能复用 `dock-panel__*` / `write-studio__*` 吗？
+- 把任务变成可验证结果（测试通过、tsc 通过、行为可复现）。
+- 多步任务先列 brief plan + 每步 verify 点。
 
 ---
 > Source: [P1ouson/deepseek-ArcDesk](https://github.com/P1ouson/deepseek-ArcDesk) — distributed by [TomeVault](https://tomevault.io).
