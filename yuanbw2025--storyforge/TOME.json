@@ -4,7 +4,7 @@
   "repo": "storyforge",
   "description": "\u6545\u4e8b\u7194\u7089 StoryForge \u2014 AI \u5c0f\u8bf4\u521b\u4f5c\u5de5\u4f5c\u53f0 / AI novel writing workshop",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yuanbw2025/storyforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T21:52:30Z"
+  "distributed_at": "2026-06-14T21:53:00Z"
 }
