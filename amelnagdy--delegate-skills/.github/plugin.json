@@ -1,0 +1,9 @@
+{
+  "name": "amelnagdy--delegate-skills",
+  "displayName": "delegate-skills",
+  "description": "Drive the OpenAI Codex CLI as a background implementer, brief it, review its diff, land the commit yourself.",
+  "version": "1.0.0",
+  "author": "amElnagdy",
+  "homepage": "https://github.com/amElnagdy/delegate-skills",
+  "skills": []
+}
