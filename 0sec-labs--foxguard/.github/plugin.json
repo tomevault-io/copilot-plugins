@@ -1,0 +1,9 @@
+{
+  "name": "0sec-labs--foxguard",
+  "displayName": "foxguard",
+  "description": "A blazingly fast security scanner, written in Rust. Batteries included, TUI for triage, secrets, post-quantum audits, diff-aware scans and more \ud80c\udce5",
+  "version": "1.0.0",
+  "author": "0sec-labs",
+  "homepage": "https://github.com/0sec-labs/foxguard",
+  "skills": []
+}
