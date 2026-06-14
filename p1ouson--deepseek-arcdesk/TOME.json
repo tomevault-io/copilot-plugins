@@ -1,0 +1,44 @@
+{
+  "name": "deepseek-ArcDesk",
+  "owner": "P1ouson",
+  "repo": "deepseek-ArcDesk",
+  "description": "\u4e0d\u6b62\u804a\u5929\uff1a\u5f00\u6e90 DeepSeek \u684c\u9762 Agent\uff0c\u5185\u7f6e\u8bfb\u6587\u4ef6\u3001\u6539\u4ee3\u7801\u3001\u8dd1\u547d\u4ee4\u3001\u63a5 MCP\u2026\u2026\u5de5\u5177\u94fe\u4e00\u7ad9\u914d\u9f50\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/P1ouson/deepseek-ArcDesk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-14T20:31:20Z"
+}
