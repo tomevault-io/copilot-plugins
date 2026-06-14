@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--composer-next-node-fastify",
+  "displayName": "composer-next-node-fastify",
+  "description": "Demo of a Watt application with a Composer, a Next.js, a Fastify and Node.js services. ",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/composer-next-node-fastify",
+  "skills": []
+}
