@@ -1,0 +1,9 @@
+{
+  "name": "lynpoint--cyberverse",
+  "displayName": "CyberVerse",
+  "description": "Self hosted, real-time digital human agent platform. Build voice-first AI agents with WebRTC, persona memory, tools, RAG, and optional digital-human video.",
+  "version": "1.0.0",
+  "author": "Lynpoint",
+  "homepage": "https://github.com/Lynpoint/CyberVerse",
+  "skills": []
+}
