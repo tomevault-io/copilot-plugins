@@ -1,0 +1,9 @@
+{
+  "name": "pku-lemonade--graph-hls",
+  "displayName": "Graph.hls",
+  "description": "A domain-specific compiler framework for FPGA-based graph accelerators.",
+  "version": "1.0.0",
+  "author": "pku-lemonade",
+  "homepage": "https://github.com/pku-lemonade/Graph.hls",
+  "skills": []
+}
