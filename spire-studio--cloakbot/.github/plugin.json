@@ -1,0 +1,9 @@
+{
+  "name": "spire-studio--cloakbot",
+  "displayName": "cloakbot",
+  "description": "A privacy-first AI agent that sanitizes your prompts locally with a local LLM before forwarding to remote LLM APIs.",
+  "version": "1.0.0",
+  "author": "spire-studio",
+  "homepage": "https://github.com/spire-studio/cloakbot",
+  "skills": []
+}
