@@ -1,0 +1,9 @@
+{
+  "name": "agenticsnz--unsorry",
+  "displayName": "unsorry",
+  "description": "Autonomous agents proving theorems in Lean 4 \u2014 git is the queue, the kernel is the gate, no sorry survives.",
+  "version": "1.0.0",
+  "author": "agenticsnz",
+  "homepage": "https://github.com/agenticsnz/unsorry",
+  "skills": []
+}
