@@ -143989,6 +143989,11 @@
       "description": "Fetch and process web content with your favorite LLMs and prompts"
     },
     {
+      "name": "blazeup-ai--flyeye",
+      "source": "./blazeup-ai--flyeye",
+      "description": "FlyEye"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -156209,6 +156214,11 @@
       "description": "Use AI agents to automatically download videos from the internet and generate natural voice-overs in minutes \u2014 turning any content into ready-to-publish videos with minimal effort."
     },
     {
+      "name": "suntay44--buildable-plugin-skills",
+      "source": "./suntay44--buildable-plugin-skills",
+      "description": "Local-first AI app-builder brain for Claude Code, Codex, and Cursor: archetypes, golden templates, UI/UX playbooks, and review loops, designed to load less bundled context in evals."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -165207,6 +165217,11 @@
       "name": "rryam--musaverakit",
       "source": "./rryam--musaverakit",
       "description": "App-friendly Swift APIs for Apple's on-device Music Understanding framework."
+    },
+    {
+      "name": "christopherarter--reasonix-superpowers",
+      "source": "./christopherarter--reasonix-superpowers",
+      "description": "Superpowers skill port to Reasonix coding harness."
     },
     {
       "name": "yschimke--compose-ai-tools",
