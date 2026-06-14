@@ -1,0 +1,9 @@
+{
+  "name": "browsing-skills--browsing-skills",
+  "displayName": "browsing-skills",
+  "description": "Open-source registry of browser-automation skills for AI agents",
+  "version": "1.0.0",
+  "author": "browsing-skills",
+  "homepage": "https://github.com/browsing-skills/browsing-skills",
+  "skills": []
+}
