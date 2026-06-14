@@ -4,7 +4,7 @@
   "repo": "browsing-skills",
   "description": "Open-source registry of browser-automation skills for AI agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/browsing-skills/browsing-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T21:54:56Z"
+  "distributed_at": "2026-06-14T21:55:24Z"
 }
