@@ -1,0 +1,9 @@
+{
+  "name": "voltiusapp--voltius",
+  "displayName": "voltius",
+  "description": "A lightning-fast, modern, local-first SSH/SFTP/Serial client. Real-time E2EE sync, Team vaults, live sharing, plugins and more. Open-source Termius alternative for Windows, Linux, macOS & Android. Bui",
+  "version": "1.0.0",
+  "author": "VoltiusApp",
+  "homepage": "https://github.com/VoltiusApp/voltius",
+  "skills": []
+}
