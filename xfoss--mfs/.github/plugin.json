@@ -1,0 +1,9 @@
+{
+  "name": "xfoss--mfs",
+  "displayName": "mfs",
+  "description": "Multi-Platform Game Engine Written in Zig",
+  "version": "1.0.0",
+  "author": "XFOSS",
+  "homepage": "https://github.com/XFOSS/mfs",
+  "skills": []
+}
