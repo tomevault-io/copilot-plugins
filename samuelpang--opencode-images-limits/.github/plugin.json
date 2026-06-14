@@ -1,0 +1,9 @@
+{
+  "name": "samuelpang--opencode-images-limits",
+  "displayName": "opencode-images-limits",
+  "description": "limited images for local LLM, using /attachment",
+  "version": "1.0.0",
+  "author": "SamuelPang",
+  "homepage": "https://github.com/SamuelPang/opencode-images-limits",
+  "skills": []
+}
