@@ -1,0 +1,9 @@
+{
+  "name": "almanaccode--codealmanac",
+  "displayName": "codealmanac",
+  "description": "A codebase wiki for AI coding agents. Captures what the code can't say: decisions, flows, invariants, gotchas.",
+  "version": "1.0.0",
+  "author": "AlmanacCode",
+  "homepage": "https://github.com/AlmanacCode/codealmanac",
+  "skills": []
+}
