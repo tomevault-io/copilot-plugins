@@ -1,0 +1,9 @@
+{
+  "name": "butterbase-ai--butterbase-skills",
+  "displayName": "butterbase-skills",
+  "description": "Plugin for Butterbase.ai",
+  "version": "1.0.0",
+  "author": "butterbase-ai",
+  "homepage": "https://github.com/butterbase-ai/butterbase-skills",
+  "skills": []
+}
