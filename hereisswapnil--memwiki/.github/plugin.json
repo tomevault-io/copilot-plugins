@@ -1,0 +1,9 @@
+{
+  "name": "hereisswapnil--memwiki",
+  "displayName": "memwiki",
+  "description": "A persistent memory protocol for AI coding agents that gives projects a shared, markdown based knowledge system to preserve context, decisions, patterns, and progress across sessions.",
+  "version": "1.0.0",
+  "author": "hereisSwapnil",
+  "homepage": "https://github.com/hereisSwapnil/memwiki",
+  "skills": []
+}
