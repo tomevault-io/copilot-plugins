@@ -1,0 +1,9 @@
+{
+  "name": "machinaio--mxx",
+  "displayName": "mxx",
+  "description": "Primitive-level lattice-based cryptography",
+  "version": "1.0.0",
+  "author": "MachinaIO",
+  "homepage": "https://github.com/MachinaIO/mxx",
+  "skills": []
+}
