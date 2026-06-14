@@ -1,0 +1,9 @@
+{
+  "name": "brandtnewlabs--react-native-livechart",
+  "displayName": "react-native-livechart",
+  "description": "High-performance live line & candlestick charts for React Native, built on Skia and Reanimated.",
+  "version": "1.0.0",
+  "author": "brandtnewlabs",
+  "homepage": "https://github.com/brandtnewlabs/react-native-livechart",
+  "skills": []
+}
