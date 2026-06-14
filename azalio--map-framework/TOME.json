@@ -2,9 +2,9 @@
   "name": "map-framework",
   "owner": "azalio",
   "repo": "map-framework",
-  "description": "AI instruction skills by azalio",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/azalio/map-framework",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T05:30:20Z"
+  "distributed_at": "2026-06-14T05:30:56Z"
 }
