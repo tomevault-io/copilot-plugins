@@ -1,0 +1,44 @@
+{
+  "name": "codeflow",
+  "owner": "xiaojiou176-open",
+  "repo": "codeflow",
+  "description": "OpenVibeCoding is the command tower for AI engineering: plan, delegate, track, resume, and prove long-running work across Codex and Claude Code.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaojiou176-open/codeflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-14T21:42:41Z"
+}
