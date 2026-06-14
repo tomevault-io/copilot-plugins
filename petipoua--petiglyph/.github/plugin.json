@@ -1,0 +1,9 @@
+{
+  "name": "petipoua--petiglyph",
+  "displayName": "petiglyph",
+  "description": "petiglyph is a TUI and CLI tool for turning images and videos into custom font glyphs",
+  "version": "1.0.0",
+  "author": "petipoua",
+  "homepage": "https://github.com/petipoua/petiglyph",
+  "skills": []
+}
