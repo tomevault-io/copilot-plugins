@@ -1,0 +1,9 @@
+{
+  "name": "aegntic--aegntic-mcp",
+  "displayName": "aegntic-MCP",
+  "description": "AegnticMCP automates the creation and management of MCP servers, ensuring they are stable, adaptable, and intelligent.",
+  "version": "1.0.0",
+  "author": "aegntic",
+  "homepage": "https://github.com/aegntic/aegntic-MCP",
+  "skills": []
+}
