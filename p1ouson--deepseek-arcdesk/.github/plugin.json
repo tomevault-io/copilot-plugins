@@ -1,0 +1,9 @@
+{
+  "name": "p1ouson--deepseek-arcdesk",
+  "displayName": "deepseek-ArcDesk",
+  "description": "\u4e0d\u6b62\u804a\u5929\uff1a\u5f00\u6e90 DeepSeek \u684c\u9762 Agent\uff0c\u5185\u7f6e\u8bfb\u6587\u4ef6\u3001\u6539\u4ee3\u7801\u3001\u8dd1\u547d\u4ee4\u3001\u63a5 MCP\u2026\u2026\u5de5\u5177\u94fe\u4e00\u7ad9\u914d\u9f50\u3002",
+  "version": "1.0.0",
+  "author": "P1ouson",
+  "homepage": "https://github.com/P1ouson/deepseek-ArcDesk",
+  "skills": []
+}
