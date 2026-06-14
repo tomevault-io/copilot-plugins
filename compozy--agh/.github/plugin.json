@@ -1,0 +1,9 @@
+{
+  "name": "compozy--agh",
+  "displayName": "agh",
+  "description": "An open workplace for AI agents \u2014 local-first runtime with durable sessions and agent-to-agent networking.",
+  "version": "1.0.0",
+  "author": "compozy",
+  "homepage": "https://github.com/compozy/agh",
+  "skills": []
+}
