@@ -1,0 +1,9 @@
+{
+  "name": "rryam--musaverakit",
+  "displayName": "MusaveraKit",
+  "description": "App-friendly Swift APIs for Apple's on-device Music Understanding framework.",
+  "version": "1.0.0",
+  "author": "rryam",
+  "homepage": "https://github.com/rryam/MusaveraKit",
+  "skills": []
+}
