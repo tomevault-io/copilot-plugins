@@ -189609,6 +189609,36 @@
       "description": "chaicode-pr-reviewer"
     },
     {
+      "name": "ember-moth--aureline",
+      "source": "./ember-moth--aureline",
+      "description": "Aureline"
+    },
+    {
+      "name": "ember-moth--aureline",
+      "source": "./ember-moth--aureline",
+      "description": "Aureline"
+    },
+    {
+      "name": "flyingrobots--git-mind",
+      "source": "./flyingrobots--git-mind",
+      "description": "Version your thoughts. Branch your ideas. Merge understanding. An invisible semantic knowledge WARP graph built on Git."
+    },
+    {
+      "name": "pato--mathypad",
+      "source": "./pato--mathypad",
+      "description": "A smart TUI calculator that understands units and makes complex calculations simple."
+    },
+    {
+      "name": "le0-vv--cbonsai-saver",
+      "source": "./le0-vv--cbonsai-saver",
+      "description": "A macOS screensaver built on top of cbonsai"
+    },
+    {
+      "name": "flyingrobots--git-mind",
+      "source": "./flyingrobots--git-mind",
+      "description": "Version your thoughts. Branch your ideas. Merge understanding. An invisible semantic knowledge WARP graph built on Git."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204197,6 +204227,36 @@
       "name": "tmchow--illo-characters",
       "source": "./tmchow--illo-characters",
       "description": "Community character packs for the illo editorial-illustration agent skill"
+    },
+    {
+      "name": "stvlynn--agentic-coding",
+      "source": "./stvlynn--agentic-coding",
+      "description": "Language- and framework-agnostic template for agent-driven projects."
+    },
+    {
+      "name": "stvlynn--agentic-coding",
+      "source": "./stvlynn--agentic-coding",
+      "description": "Language- and framework-agnostic template for agent-driven projects."
+    },
+    {
+      "name": "stewartlynch--sqliteer",
+      "source": "./stewartlynch--sqliteer",
+      "description": "SQLiteER"
+    },
+    {
+      "name": "agenticsnz--unsorry",
+      "source": "./agenticsnz--unsorry",
+      "description": "Autonomous agents proving theorems in Lean 4 \u2014 git is the queue, the kernel is the gate, no sorry survives."
+    },
+    {
+      "name": "airscripts--ghitgud",
+      "source": "./airscripts--ghitgud",
+      "description": "A better GitHub CLI that extends the official gh CLI."
+    },
+    {
+      "name": "machinaio--mxx",
+      "source": "./machinaio--mxx",
+      "description": "Primitive-level lattice-based cryptography"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -314362,6 +314422,91 @@
       "name": "wynemo--whisper-web",
       "source": "./wynemo--whisper-web",
       "description": "Web-based speech transcription and TTS service powered by OpenAI Whisper and FastAPI. Supports audio/video file transcription, text-to-speech, SRT-to-speech conversion, and real-time WebSocket communi"
+    },
+    {
+      "name": "phanhug93--vibe-website",
+      "source": "./phanhug93--vibe-website",
+      "description": "vibe-website"
+    },
+    {
+      "name": "phanhug93--vibe-website",
+      "source": "./phanhug93--vibe-website",
+      "description": "vibe-website"
+    },
+    {
+      "name": "jeremyloy--minesweeper-rs",
+      "source": "./jeremyloy--minesweeper-rs",
+      "description": "minesweeper-rs"
+    },
+    {
+      "name": "jiaanliux--jiaanliux-github-io",
+      "source": "./jiaanliux--jiaanliux-github-io",
+      "description": "Personal portfolio of Jia An Liu \u2014 jiaan.me"
+    },
+    {
+      "name": "hzst003--nextjs-shadcn-template",
+      "source": "./hzst003--nextjs-shadcn-template",
+      "description": "nextjs-shadcn-template"
+    },
+    {
+      "name": "zerodimen--voice-spell",
+      "source": "./zerodimen--voice-spell",
+      "description": "\uc74c\uc131\uc73c\ub85c \ub9c8\ubc95\uc744 \uc2dc\uc804\ud558\ub294 \uba40\ud2f0 FFA \ubc30\ud2c0\ub85c\uc584 \uac8c\uc784"
+    },
+    {
+      "name": "namngthanh--elearning-app",
+      "source": "./namngthanh--elearning-app",
+      "description": "Elearning_app"
+    },
+    {
+      "name": "srscoll-lab--alphasynth-equity",
+      "source": "./srscoll-lab--alphasynth-equity",
+      "description": "alphasynth-equity"
+    },
+    {
+      "name": "samuelpang--opencode-images-limits",
+      "source": "./samuelpang--opencode-images-limits",
+      "description": "limited images for local LLM, using /attachment"
+    },
+    {
+      "name": "phanhug93--vibe-website",
+      "source": "./phanhug93--vibe-website",
+      "description": "vibe-website"
+    },
+    {
+      "name": "twocommas227--personal-os",
+      "source": "./twocommas227--personal-os",
+      "description": "personal-os"
+    },
+    {
+      "name": "haha8487000--jinstagram-cardnews-builder-multi",
+      "source": "./haha8487000--jinstagram-cardnews-builder-multi",
+      "description": "Jinstagram-cardnews-builder-multi"
+    },
+    {
+      "name": "shahzaibshafi77--management-system",
+      "source": "./shahzaibshafi77--management-system",
+      "description": "Management_System"
+    },
+    {
+      "name": "xavip1299--contractextract",
+      "source": "./xavip1299--contractextract",
+      "description": "ContractExtract"
+    },
+    {
+      "name": "phanhug93--vibe-website",
+      "source": "./phanhug93--vibe-website",
+      "description": "vibe-website"
+    },
+    {
+      "name": "tecsestran25--gcm-convocacao",
+      "source": "./tecsestran25--gcm-convocacao",
+      "description": "gcm-convocacao"
+    },
+    {
+      "name": "websszoa--kcalzoa-com",
+      "source": "./websszoa--kcalzoa-com",
+      "description": "kcalzoa.com"
     }
   ]
 }
