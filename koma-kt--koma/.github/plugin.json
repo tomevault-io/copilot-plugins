@@ -1,0 +1,9 @@
+{
+  "name": "koma-kt--koma",
+  "displayName": "koma",
+  "description": "A Kotlin Multiplatform Flux framework.",
+  "version": "1.0.0",
+  "author": "koma-kt",
+  "homepage": "https://github.com/koma-kt/koma",
+  "skills": []
+}
