@@ -189829,6 +189829,16 @@
       "description": "claude-docs-setup"
     },
     {
+      "name": "mythkiven--rednote-director-skill",
+      "source": "./mythkiven--rednote-director-skill",
+      "description": "\u9762\u5411\u5c0f\u7ea2\u4e66/RedNote \u521b\u4f5c\u8005\u7684 Agent Skill\uff1a\u56fe\u6587\u8f6e\u64ad\u89c4\u5212\u3001\u89c6\u89c9\u5bfc\u6f14\u3001\u5c01\u9762\u5185\u9875\u8bbe\u8ba1\u3001AI \u751f\u56fe\u63d0\u793a\u8bcd\u4e0e\u53d1\u5e03\u6587\u6848\u3002\u652f\u6301 Cursor\u3001Claude\u3001Codex\u3002"
+    },
+    {
+      "name": "jeffrey0117--speakslow",
+      "source": "./jeffrey0117--speakslow",
+      "description": "\u8072\u8072\u6162 SpeakSlow\uff1a\u5c08\u70ba\u4e2d\u6587\u6253\u9020\u3001\u6700\u5feb\u7684\u672c\u5730\u8a9e\u97f3\u8f38\u5165\u3002\u514d\u8cbb\u958b\u6e90\u3001100% \u672c\u6a5f\u3001\u4e0d\u4e0a\u96f2\uff0c\u8b1b\u5b8c\u76f4\u63a5\u8cbc\u5230\u6e38\u6a19\u8655\uff0c\u7279\u5225\u9069\u5408\u7528\u8a9e\u97f3\u8ddf AI \u5c0d\u8a71"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204502,6 +204512,16 @@
       "name": "hereisswapnil--memwiki",
       "source": "./hereisswapnil--memwiki",
       "description": "A persistent memory protocol for AI coding agents that gives projects a shared, markdown based knowledge system to preserve context, decisions, patterns, and progress across sessions."
+    },
+    {
+      "name": "sanrokamlan-prog--komari-theme-glassmorphism",
+      "source": "./sanrokamlan-prog--komari-theme-glassmorphism",
+      "description": "\u4fee\u6539\u81eakomari-theme-emerald,\u6539\u53d8\u5361\u7247\u98ce\u683c\u4e3a\u6bdb\u73bb\u7483\u98ce\u683c,\u5e76\u4e14\u6dfb\u52a0\u4e86\u8bbf\u5ba2ip\u5c55\u793a"
+    },
+    {
+      "name": "sanrokamlan-prog--komari-theme-glassmorphism",
+      "source": "./sanrokamlan-prog--komari-theme-glassmorphism",
+      "description": "\u4fee\u6539\u81eakomari-theme-emerald,\u6539\u53d8\u5361\u7247\u98ce\u683c\u4e3a\u6bdb\u73bb\u7483\u98ce\u683c,\u5e76\u4e14\u6dfb\u52a0\u4e86\u8bbf\u5ba2ip\u5c55\u793a"
     },
     {
       "name": "cheerhuan--save-your-token",
