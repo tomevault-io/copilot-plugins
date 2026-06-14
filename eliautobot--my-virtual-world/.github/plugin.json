@@ -1,0 +1,9 @@
+{
+  "name": "eliautobot--my-virtual-world",
+  "displayName": "my-virtual-world",
+  "description": "A self-hosted 3D AI virtual world for Agent Harnesses like OpenClaw and Hermes.",
+  "version": "1.0.0",
+  "author": "eliautobot",
+  "homepage": "https://github.com/eliautobot/my-virtual-world",
+  "skills": []
+}
