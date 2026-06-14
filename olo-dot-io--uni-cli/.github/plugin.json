@@ -1,0 +1,9 @@
+{
+  "name": "olo-dot-io--uni-cli",
+  "displayName": "Uni-CLI",
+  "description": "Operations substrate for AI agents that use real software: 311 sites/tools, logged-in browsers, desktop apps, local tools, MCP, policy, evidence, AgentEnvelope v2, and self-repair.",
+  "version": "1.0.0",
+  "author": "olo-dot-io",
+  "homepage": "https://github.com/olo-dot-io/Uni-CLI",
+  "skills": []
+}
