@@ -1,0 +1,149 @@
+## pinfix
+
+> PinFix is a dev-only browser overlay that lets developers annotate UI elements and chat with Claude Code to modify source code in real-time. It works as a build plugin (Vite/Webpack/Rspack) that injects a client overlay and spawns a WebSocket-based channel server for Claude Code communication.
+
+# PinFix — Agent Knowledge Base
+
+## What is PinFix
+
+PinFix is a dev-only browser overlay that lets developers annotate UI elements and chat with Claude Code to modify source code in real-time. It works as a build plugin (Vite/Webpack/Rspack) that injects a client overlay and spawns a WebSocket-based channel server for Claude Code communication.
+
+## Architecture
+
+```
+Browser Overlay (Shadow DOM) ←→ WebSocket (plugin-selected dev port) ←→ Channel Server ←→ Claude Agent SDK
+```
+
+The build plugin owns dev port selection. It starts from `port` (default `24816`), probes up to five retry ports in the plugin process, starts the channel-server child process on the selected port, and injects that exact WebSocket URL into the overlay. The browser client does not scan ports.
+
+Each dev workspace also gets a deterministic `workspaceId` derived from the project root. The overlay sends it as a WebSocket query parameter, and the channel server rejects mismatched clients with close code `1008` to prevent cross-project message leakage when multiple PinFix-enabled projects run at the same time.
+
+### Packages
+
+| Package | Path | Purpose |
+|---------|------|---------|
+| `@pinfix/plugin` | `packages/unplugin/` | Publishable build plugin (Vite/Webpack/Rspack) + browser client |
+| `@pinfix/channel-server` | `packages/channel-server/` | WebSocket server + Claude Code integration |
+| `@pinfix/shared` | `packages/shared/` | Shared types & constants |
+
+### Key Directories
+
+- `packages/unplugin/client/` — Browser overlay UI (plain JS, Shadow DOM, no framework)
+- `packages/unplugin/src/` — Plugin entry points, code transform, HTML injection, port selection, server spawn
+- `packages/channel-server/src/` — WS server, Claude provider, session management
+- `examples/` — Demo apps (vite-react, vite-vue, webpack-react, rspack-react)
+
+## Tech Stack
+
+- **Runtime**: Node.js, TypeScript 5.8
+- **Build**: tsup, pnpm workspaces
+- **Client**: Plain JS (imperative DOM), Shadow DOM, WebSocket API
+- **Transform**: @babel/parser + @babel/traverse (JSX/TSX), @vue/compiler-dom (Vue SFC)
+- **AI**: @anthropic-ai/claude-agent-sdk
+- **Testing**: Vitest 3.2
+
+## Conventions
+
+### Client Code (`packages/unplugin/client/`)
+
+- All UI lives inside a Shadow DOM — no external CSS, no frameworks
+- Class names prefixed with `pinfix-` to avoid collisions
+- SVG icons defined as string constants (inline, `stroke="currentColor"`)
+- Single global dialog instance, reused across all pins
+- State managed via module-level variables
+- Animations use `@keyframes` with `pinfix-` prefix
+
+### Code Transform
+
+- JSX/TSX: Babel parser injects `data-pinfix-source="file:line:col"` attributes
+- Vue SFC: @vue/compiler-dom walker, skips Vue builtins (slot, transition, keep-alive, etc.)
+- `escapeTags` option allows users to exclude specific components from transformation
+- Only runs in development mode
+
+### WebSocket Protocol
+
+Message types follow the pattern `category:action`:
+- `session:start`, `session:end` — lifecycle
+- `chat:send` — client request
+- `chat:chunk`, `chat:tool`, `chat:done`, `chat:error` — server responses
+- `workspace:reset` — clear all sessions
+- `ping`, `pong` — heartbeat (30s interval, 45s timeout)
+
+The server keeps one long-lived Claude workspace session per channel-server process. Pins share that workspace session across turns; `workspace:reset` kills and recreates it.
+
+### Build Plugin
+
+- Selects an available WebSocket port in the plugin process before spawning the channel server
+- Passes `PINFIX_PORT`, `PINFIX_CWD`, `PINFIX_WORKSPACE_ID`, and `PINFIX_MAX_PORT_RETRIES=0` to the child process
+- Spawns channel server as child process on first dev server start
+- Injects client script into HTML via middleware (Vite) or HTML plugin hooks (Webpack/Rspack)
+- Injects `window.__PINFIX_WS_URL__` and `window.__PINFIX_WORKSPACE_ID__` so the client connects to the exact server for the current workspace
+- Channel server auto-terminates when parent process exits
+
+### Commit Messages
+
+Use Conventional Commits for all hand-written commits:
+
+```
+type(scope?): subject
+```
+
+- Use lowercase types such as `fix`, `feat`, `docs`, `style`, `refactor`, `test`, `chore`, and `build`
+- Use a scope when it clarifies the affected area, for example `fix(client): ...` or `docs(agents): ...`
+- Keep the subject imperative and concise, without a trailing period
+- Use `fix:` for bug fixes that should appear in semantic-release notes
+- Use `feat:` only for user-visible new functionality
+- Use `style:` only for formatting or visual/CSS-only changes that do not affect behavior
+- Release commits generated by semantic-release may use `chore(release): ... [skip ci]`
+
+## Design Tokens (Client UI)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| primary | `#0070ea` | Pin dot, user messages, links |
+| surface | `#2d3135` | Dialog background |
+| on-surface | `#eef1f6` | Primary text |
+| outline | `rgba(113, 119, 134, 0.3)` | Borders |
+| success | `#22c55e` | Pin "done" state |
+| error | `#ef4444` | Stop/error states |
+
+## Dialog Specs
+
+- Width: 320px, max-height: 460px, border-radius: 12px
+- Font: Inter 13px base, JetBrains Mono for code
+- Pin dot: 24px circle, positioned at element top-right
+- Activation: Alt+Shift+Z hotkey (configurable) or FAB button
+
+## Commands
+
+```bash
+pnpm install          # Install dependencies
+pnpm build            # Build all packages
+pnpm test             # Run tests
+pnpm dev:vite-react   # Run Vite+React example
+pnpm dev:vite-vue     # Run Vite+Vue example
+pnpm dev:webpack      # Run Webpack+React example
+pnpm dev:rspack       # Run Rspack+React example
+pnpm --filter @pinfix/plugin pack  # Verify published package contents
+pnpm release          # Build & publish @pinfix/plugin
+```
+
+## Configuration
+
+```ts
+pinfix({
+  port: 24816,                     // Preferred WebSocket port; plugin may choose the next available dev port
+  root: process.cwd(),             // Project root
+  prompt: '...',                   // System prompt for Claude Code
+  hotkey: 'alt+shift+z',             // Activation hotkey
+  fab: true,                       // Show floating action button
+  escapeTags: ['Layout'],          // Skip these components
+  match: /\.(tsx|jsx|vue)$/,       // Only transform matching files
+  exclude: /node_modules/,         // Exclude from transform
+  debug: false,                    // Debug logging
+})
+```
+
+---
+> Source: [ForeverSc/pinfix](https://github.com/ForeverSc/pinfix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-14 -->
