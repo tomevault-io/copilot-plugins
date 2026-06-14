@@ -1,0 +1,9 @@
+{
+  "name": "suntay44--buildable-plugin-skills",
+  "displayName": "buildable-plugin-skills",
+  "description": "Local-first AI app-builder brain for Claude Code, Codex, and Cursor: archetypes, golden templates, UI/UX playbooks, and review loops, designed to load less bundled context in evals.",
+  "version": "1.0.0",
+  "author": "suntay44",
+  "homepage": "https://github.com/suntay44/buildable-plugin-skills",
+  "skills": []
+}
