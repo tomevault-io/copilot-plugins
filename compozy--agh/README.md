@@ -7,11 +7,11 @@ An open workplace for AI agents — local-first runtime with durable sessions an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [compozy/agh](https://github.com/compozy/agh).
+Original source: `AGENTS.md` in [compozy/agh](https://github.com/compozy/agh).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
