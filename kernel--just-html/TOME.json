@@ -4,7 +4,7 @@
   "repo": "just-html",
   "description": "Agent-first minimal HTML document host. Your agent self-onboards, gets an API key, and publishes HTML to a stable URL \u2014 private by default, shareable, with comments & reactions for humans and their agents.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kernel/just-html",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T12:31:20Z"
+  "distributed_at": "2026-06-14T12:31:41Z"
 }
