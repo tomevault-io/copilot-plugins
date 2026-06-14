@@ -4,7 +4,7 @@
   "repo": "memwiki",
   "description": "A persistent memory protocol for AI coding agents that gives projects a shared, markdown based knowledge system to preserve context, decisions, patterns, and progress across sessions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hereisSwapnil/memwiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T16:30:48Z"
+  "distributed_at": "2026-06-14T16:31:44Z"
 }
