@@ -1,0 +1,9 @@
+{
+  "name": "taichuy--1flowbase",
+  "displayName": "1flowbase",
+  "description": "Open-source virtual model gateway: publish multi-model workflows as OpenAI/Claude-compatible endpoints with trace, token, latency, and cost visibility.",
+  "version": "1.0.0",
+  "author": "taichuy",
+  "homepage": "https://github.com/taichuy/1flowbase",
+  "skills": []
+}
