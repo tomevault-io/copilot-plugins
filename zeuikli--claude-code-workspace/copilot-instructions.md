@@ -1,0 +1,53 @@
+## claude-code-workspace
+
+> > 繁體中文優先 · English supported · Repo: <https://github.com/zeuikli/claude-code-workspace>
+
+# CLAUDE.md
+
+> 繁體中文優先 · English supported · Repo: <https://github.com/zeuikli/claude-code-workspace>
+
+*本檔案約 430 token，每次 session 必載入。與 workspace 無關的任務考慮 `/clear` 節省 token。*
+
+## 四層載入框架
+
+```
+🔴 Real-time  — session-init.sh hook + CLAUDE.md 本體
+🟡 Auto       — 3 rules @-imported (core/subagent/context) ~1,184 tok
+🟢 On-demand  — 16 skills + 6 rules：說觸發詞才載入
+⚪ Skip       — docs/INDEX.md, reference docs：手動 Read 即可
+```
+
+> 💡 `/load-plan` 查看完整清單含 token 估算
+
+---
+
+## 核心工作流
+
+- **IMPORTANT**: 改動完成 → `git add → commit → push -u origin <branch>`（失敗重試 4 次）。
+- **IMPORTANT**: 實作前**先說出理解與假設**，不確定時說出來而非盲目推進。
+- **IMPORTANT**: 研究 / 實作 / 測試任務**優先委派 Sub Agent**，主對話僅收摘要。
+
+## 常駐規則（🟡 自動載入，約 1,184 tok）
+
+- @.claude/rules/core.md
+- @.claude/rules/subagent-strategy.md
+- @.claude/rules/context-management.md
+
+## 按需載入（🟢 說觸發詞才載入）
+
+> 💡 完整清單與 token 估算：執行 `/load-plan`
+
+- **Workspace**：`/load-plan`、冷啟接手 codebase、session 回顧、context 效率
+- **Opus 調校 / Tasks / 多 Agent**：Tasks 跨 session、Opus 4.8 subagent 平行化、工具使用引導
+- **開發**：除錯測試失敗、效能分析、大型重構、commit 前審查、需求訪談
+- **排程 / CLI**：排程 webhook routine、CLI 工具 ast-grep yq、新增 skill/agent
+- **行銷 / 研究 / PM**：行銷策略文案 SEO、市場調查競品、Sprint PM 多 agent
+
+## 進階文件（⚪ 手動 Read）
+
+- `docs/INDEX.md` — 文件總索引
+- `.claude/REFERENCES.md` — 官方文件對照表
+
+---
+> Source: [zeuikli/claude-code-workspace](https://github.com/zeuikli/claude-code-workspace) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-14 -->
