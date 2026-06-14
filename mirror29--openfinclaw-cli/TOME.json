@@ -1,0 +1,44 @@
+{
+  "name": "openfinclaw-cli",
+  "owner": "mirror29",
+  "repo": "openfinclaw-cli",
+  "description": "One-stop quant-trading AI agent \u2014 research \u00b7 strategy \u00b7 backtest \u00b7 paper trade from one prompt. Works in Claude Code, Cursor, and 20+ AI agents via MCP. 60-second install with auto Skill registration.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mirror29/openfinclaw-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-14T21:50:08Z"
+}
