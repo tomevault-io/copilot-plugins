@@ -189749,6 +189749,11 @@
       "description": "\u4e00\u6b3e\u57fa\u4e8eFlutter\u5f00\u53d1\u7684\u7761\u7720\u8bb0\u5f55\u548c\u5206\u6790\u5e94\u7528\uff0c\u5e2e\u52a9\u7528\u6237\u8ffd\u8e2a\u7761\u7720\u6a21\u5f0f\u3001\u6539\u5584\u7761\u7720\u8d28\u91cf\u3001\u63d0\u4f9b\u6570\u636e\u5206\u6790\u548c\u7edf\u8ba1\u3002"
     },
     {
+      "name": "minrussiandeveloper--max2tg",
+      "source": "./minrussiandeveloper--max2tg",
+      "description": "Max2TG"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204382,6 +204387,31 @@
       "name": "xfoss--mfs",
       "source": "./xfoss--mfs",
       "description": "Multi-Platform Game Engine Written in Zig"
+    },
+    {
+      "name": "kernel--just-html",
+      "source": "./kernel--just-html",
+      "description": "Agent-first minimal HTML document host. Your agent self-onboards, gets an API key, and publishes HTML to a stable URL \u2014 private by default, shareable, with comments & reactions for humans and their ag"
+    },
+    {
+      "name": "kernel--just-html",
+      "source": "./kernel--just-html",
+      "description": "Agent-first minimal HTML document host. Your agent self-onboards, gets an API key, and publishes HTML to a stable URL \u2014 private by default, shareable, with comments & reactions for humans and their ag"
+    },
+    {
+      "name": "kernel--just-html",
+      "source": "./kernel--just-html",
+      "description": "Agent-first minimal HTML document host. Your agent self-onboards, gets an API key, and publishes HTML to a stable URL \u2014 private by default, shareable, with comments & reactions for humans and their ag"
+    },
+    {
+      "name": "aegntic--aegntic-mcp",
+      "source": "./aegntic--aegntic-mcp",
+      "description": "AegnticMCP automates the creation and management of MCP servers, ensuring they are stable, adaptable, and intelligent."
+    },
+    {
+      "name": "foreversc--pinfix",
+      "source": "./foreversc--pinfix",
+      "description": "\ud83d\udccc Edit UI with Claude Code using on-page comments."
     },
     {
       "name": "cheerhuan--save-your-token",
