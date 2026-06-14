@@ -4,7 +4,7 @@
   "repo": "youclaw",
   "description": "\ud83e\udd9e Your AI Personal Assistant.  An intelligent assistant with memory, skills, and scheduled tasks that truly understands you . Helping you tackle everything in work and life.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OtterMind/youclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T23:30:26Z"
+  "distributed_at": "2026-06-14T23:34:25Z"
 }
