@@ -189759,6 +189759,26 @@
       "description": "Max2TG"
     },
     {
+      "name": "huiyeruzhou--codelark",
+      "source": "./huiyeruzhou--codelark",
+      "description": "\u4f60\u7684\u4e0b\u4e00\u6b21Vibe Coding\uff0c\u4f55\u5fc5\u4ece\u7ec8\u7aef\u5f00\u59cb\uff1f\u4ee5\u4e00\u6d41\u7684 UI \u754c\u9762\u548c\u667a\u80fd\u4f53\u534f\u4f5c\uff0cwork ALL in \u98de\u4e66\u3002"
+    },
+    {
+      "name": "huiyeruzhou--codelark",
+      "source": "./huiyeruzhou--codelark",
+      "description": "\u4f60\u7684\u4e0b\u4e00\u6b21Vibe Coding\uff0c\u4f55\u5fc5\u4ece\u7ec8\u7aef\u5f00\u59cb\uff1f\u4ee5\u4e00\u6d41\u7684 UI \u754c\u9762\u548c\u667a\u80fd\u4f53\u534f\u4f5c\uff0cwork ALL in \u98de\u4e66\u3002"
+    },
+    {
+      "name": "vllm-project--vllm-bench",
+      "source": "./vllm-project--vllm-bench",
+      "description": "High-performance Rust benchmark client for vLLM serving endpoints."
+    },
+    {
+      "name": "obra--claude-docs-setup",
+      "source": "./obra--claude-docs-setup",
+      "description": "claude-docs-setup"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
