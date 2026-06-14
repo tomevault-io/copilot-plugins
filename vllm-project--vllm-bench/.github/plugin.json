@@ -1,0 +1,9 @@
+{
+  "name": "vllm-project--vllm-bench",
+  "displayName": "vllm-bench",
+  "description": "High-performance Rust benchmark client for vLLM serving endpoints.",
+  "version": "1.0.0",
+  "author": "vllm-project",
+  "homepage": "https://github.com/vllm-project/vllm-bench",
+  "skills": []
+}
