@@ -4,7 +4,7 @@
   "repo": "spool",
   "description": "Your local AI session library. Browse, pin, and \u2318K-search every Claude Code, Codex, Gemini & OpenCode session \u2014 and let the built-in scanner catch leaked secrets. Local-first, nothing leaves your machine.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/paperboytm/spool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T19:33:12Z"
+  "distributed_at": "2026-06-14T19:34:30Z"
 }
