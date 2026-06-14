@@ -1,0 +1,9 @@
+{
+  "name": "tiger-ai-lab--clawbench",
+  "displayName": "ClawBench",
+  "description": "Open-source benchmark for browser AI agents on daily tasks.",
+  "version": "1.0.0",
+  "author": "TIGER-AI-Lab",
+  "homepage": "https://github.com/TIGER-AI-Lab/ClawBench",
+  "skills": []
+}
