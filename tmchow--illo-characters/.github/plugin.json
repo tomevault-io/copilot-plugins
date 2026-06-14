@@ -1,0 +1,9 @@
+{
+  "name": "tmchow--illo-characters",
+  "displayName": "illo-characters",
+  "description": "Community character packs for the illo editorial-illustration agent skill",
+  "version": "1.0.0",
+  "author": "tmchow",
+  "homepage": "https://github.com/tmchow/illo-characters",
+  "skills": []
+}
