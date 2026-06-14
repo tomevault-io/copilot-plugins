@@ -1,0 +1,44 @@
+{
+  "name": "Voice-Spell",
+  "owner": "ZeroDimen",
+  "repo": "Voice-Spell",
+  "description": "\uc74c\uc131\uc73c\ub85c \ub9c8\ubc95\uc744 \uc2dc\uc804\ud558\ub294 \uba40\ud2f0 FFA \ubc30\ud2c0\ub85c\uc584 \uac8c\uc784",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZeroDimen/Voice-Spell",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-14T02:38:56Z"
+}
