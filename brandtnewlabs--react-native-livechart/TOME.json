@@ -4,7 +4,7 @@
   "repo": "react-native-livechart",
   "description": "High-performance live line & candlestick charts for React Native, built on Skia and Reanimated.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brandtnewlabs/react-native-livechart",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T19:48:49Z"
+  "distributed_at": "2026-06-14T19:50:45Z"
 }
