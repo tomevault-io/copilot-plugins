@@ -116304,6 +116304,11 @@
       "description": "Fuse two frontier models into one Fable-tier answer: Opus 4.8 drafts, a second model (Opus 4.8 or GPT-5.5 via codex) checks, Opus fuses. A Claude Code skill."
     },
     {
+      "name": "s-hiraoku--vscode-sidebar-terminal",
+      "source": "./s-hiraoku--vscode-sidebar-terminal",
+      "description": "vscode-sidebar-terminal"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
