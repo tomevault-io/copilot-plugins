@@ -7,11 +7,11 @@ Modern, extremely fast macOS disk space analyzer.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [colinvkim/Radix](https://github.com/colinvkim/Radix).
+Original source: `AGENTS.md` in [colinvkim/Radix](https://github.com/colinvkim/Radix).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
