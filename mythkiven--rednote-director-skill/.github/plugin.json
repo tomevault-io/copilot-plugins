@@ -1,0 +1,9 @@
+{
+  "name": "mythkiven--rednote-director-skill",
+  "displayName": "rednote-director-skill",
+  "description": "\u9762\u5411\u5c0f\u7ea2\u4e66/RedNote \u521b\u4f5c\u8005\u7684 Agent Skill\uff1a\u56fe\u6587\u8f6e\u64ad\u89c4\u5212\u3001\u89c6\u89c9\u5bfc\u6f14\u3001\u5c01\u9762\u5185\u9875\u8bbe\u8ba1\u3001AI \u751f\u56fe\u63d0\u793a\u8bcd\u4e0e\u53d1\u5e03\u6587\u6848\u3002\u652f\u6301 Cursor\u3001Claude\u3001Codex\u3002",
+  "version": "1.0.0",
+  "author": "mythkiven",
+  "homepage": "https://github.com/mythkiven/rednote-director-skill",
+  "skills": []
+}
