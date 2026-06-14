@@ -7,11 +7,11 @@ Version your thoughts. Branch your ideas. Merge understanding. An invisible sema
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [flyingrobots/git-mind](https://github.com/flyingrobots/git-mind).
+Original source: `CLAUDE.md` in [flyingrobots/git-mind](https://github.com/flyingrobots/git-mind).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
