@@ -85514,6 +85514,11 @@
       "description": "potpie-ui"
     },
     {
+      "name": "koma-kt--koma",
+      "source": "./koma-kt--koma",
+      "description": "A Kotlin Multiplatform Flux framework."
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -116289,6 +116294,11 @@
       "description": "Generate a contribution summary for your projects"
     },
     {
+      "name": "duolahypercho--fusion-fable",
+      "source": "./duolahypercho--fusion-fable",
+      "description": "Fuse two frontier models into one Fable-tier answer: Opus 4.8 drafts, a second model (Opus 4.8 or GPT-5.5 via codex) checks, Opus fuses. A Claude Code skill."
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -122507,6 +122517,16 @@
       "name": "async--framework",
       "source": "./async--framework",
       "description": "Lightweight signal-based framework for reactive web apps with custom elements and async handlers."
+    },
+    {
+      "name": "knowwlf--mteam-cli",
+      "source": "./knowwlf--mteam-cli",
+      "description": "\u4e00\u4e2a\u57fa\u4e8e Python + Playwright \u7684 M-Team \u5168\u80fd\u547d\u4ee4\u884c\u5de5\u5177\u3002"
+    },
+    {
+      "name": "knowwlf--mteam-cli",
+      "source": "./knowwlf--mteam-cli",
+      "description": "\u4e00\u4e2a\u57fa\u4e8e Python + Playwright \u7684 M-Team \u5168\u80fd\u547d\u4ee4\u884c\u5de5\u5177\u3002"
     },
     {
       "name": "skenetechnologies--plg-skills",
