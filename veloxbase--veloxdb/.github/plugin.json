@@ -1,0 +1,9 @@
+{
+  "name": "veloxbase--veloxdb",
+  "displayName": "veloxdb",
+  "description": "PostgreSQL management, built for developers",
+  "version": "1.0.0",
+  "author": "veloxbase",
+  "homepage": "https://github.com/veloxbase/veloxdb",
+  "skills": []
+}
