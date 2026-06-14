@@ -1,0 +1,9 @@
+{
+  "name": "majidmanzarpour--threejs-game-skills",
+  "displayName": "threejs-game-skills",
+  "description": "Agent skills for building playable, polished Three.js browser games with gameplay, AAA-style graphics, UI, QA, and optional AI-generated 3D, image, and audio assets.",
+  "version": "1.0.0",
+  "author": "majidmanzarpour",
+  "homepage": "https://github.com/majidmanzarpour/threejs-game-skills",
+  "skills": []
+}
