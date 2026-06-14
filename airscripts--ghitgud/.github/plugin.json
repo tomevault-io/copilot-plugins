@@ -1,0 +1,9 @@
+{
+  "name": "airscripts--ghitgud",
+  "displayName": "ghitgud",
+  "description": "A better GitHub CLI that extends the official gh CLI.",
+  "version": "1.0.0",
+  "author": "airscripts",
+  "homepage": "https://github.com/airscripts/ghitgud",
+  "skills": []
+}
