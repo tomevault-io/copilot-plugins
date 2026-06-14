@@ -7,11 +7,11 @@ Language- and framework-agnostic template for agent-driven projects.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [stvlynn/agentic-coding](https://github.com/stvlynn/agentic-coding).
+Original source: `CLAUDE.md` in [stvlynn/agentic-coding](https://github.com/stvlynn/agentic-coding).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
