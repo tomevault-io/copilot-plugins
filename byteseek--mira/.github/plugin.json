@@ -1,0 +1,9 @@
+{
+  "name": "byteseek--mira",
+  "displayName": "Mira",
+  "description": "Agent-native investment research workspace for evidence-tracked, refreshable investment theses across equities, earnings, macro, and portfolio review.",
+  "version": "1.0.0",
+  "author": "byteseek",
+  "homepage": "https://github.com/byteseek/Mira",
+  "skills": []
+}
