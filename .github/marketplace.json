@@ -189724,6 +189724,11 @@
       "description": "tracing-otel-extra"
     },
     {
+      "name": "swapnil404--minesql",
+      "source": "./swapnil404--minesql",
+      "description": "A relational database using a minecraft world as storage. "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -314637,6 +314642,11 @@
       "name": "jamespheffernan--words-on-phone",
       "source": "./jamespheffernan--words-on-phone",
       "description": "words-on-phone"
+    },
+    {
+      "name": "aliajreza10--grok",
+      "source": "./aliajreza10--grok",
+      "description": "grok"
     }
   ]
 }
