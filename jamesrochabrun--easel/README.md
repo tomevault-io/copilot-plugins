@@ -7,11 +7,11 @@ Easel is a Codex-first macOS workspace for AI-assisted product design and fronte
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jamesrochabrun/Easel](https://github.com/jamesrochabrun/Easel).
+Original source: `CLAUDE.md` in [jamesrochabrun/Easel](https://github.com/jamesrochabrun/Easel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
