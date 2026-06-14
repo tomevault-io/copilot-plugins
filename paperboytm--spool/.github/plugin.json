@@ -1,0 +1,9 @@
+{
+  "name": "paperboytm--spool",
+  "displayName": "spool",
+  "description": "Your local AI session library. Browse, pin, and \u2318K-search every Claude Code, Codex, Gemini & OpenCode session \u2014 and let the built-in scanner catch leaked secrets. Local-first, nothing leaves your mach",
+  "version": "1.0.0",
+  "author": "paperboytm",
+  "homepage": "https://github.com/paperboytm/spool",
+  "skills": []
+}
