@@ -1,0 +1,9 @@
+{
+  "name": "island-io--mila",
+  "displayName": "mila",
+  "description": "Mila \u2014 native macOS local transcription app (whisper.cpp) with optional speaker diarization. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "island-io",
+  "homepage": "https://github.com/island-io/mila",
+  "skills": []
+}
