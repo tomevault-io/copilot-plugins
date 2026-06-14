@@ -149774,6 +149774,11 @@
       "description": "Train computer-use agents end-to-end on real desktops, at scale: a high-performance runtime where 8K+ live environments on one laptop thread."
     },
     {
+      "name": "dawarich-app--site",
+      "source": "./dawarich-app--site",
+      "description": "The Dawarich website"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -204182,6 +204187,11 @@
       "name": "swyxio--beeweb",
       "source": "./swyxio--beeweb",
       "description": "BeeWeb"
+    },
+    {
+      "name": "tmchow--illo-characters",
+      "source": "./tmchow--illo-characters",
+      "description": "Community character packs for the illo editorial-illustration agent skill"
     },
     {
       "name": "cheerhuan--save-your-token",
