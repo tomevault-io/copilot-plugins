@@ -7,11 +7,11 @@ Your local AI session library. Browse, pin, and ⌘K-search every Claude Code, C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [paperboytm/spool](https://github.com/paperboytm/spool).
+Original source: `AGENTS.md` in [paperboytm/spool](https://github.com/paperboytm/spool).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
