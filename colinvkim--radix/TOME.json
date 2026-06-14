@@ -4,7 +4,7 @@
   "repo": "Radix",
   "description": "Modern, extremely fast macOS disk space analyzer.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/colinvkim/Radix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T19:41:13Z"
+  "distributed_at": "2026-06-14T19:44:35Z"
 }
