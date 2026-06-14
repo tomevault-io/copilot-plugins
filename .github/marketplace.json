@@ -91414,6 +91414,16 @@
       "description": "Cat-approved \ud83d\ude38 Home Kubernetes cluster running Talos Linux | Automated via Flux, Renovate, and GitHub Actions \u2699\ufe0f"
     },
     {
+      "name": "azalio--map-framework",
+      "source": "./azalio--map-framework",
+      "description": "map-framework"
+    },
+    {
+      "name": "azalio--map-framework",
+      "source": "./azalio--map-framework",
+      "description": "map-framework"
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -95642,11 +95652,6 @@
       "name": "awfp1314--ue-toolkitai",
       "source": "./awfp1314--ue-toolkitai",
       "description": "AI-powered desktop toolbox for Unreal Engine developers with multi-model LLM, Function Calling, and real-time UE editor communication"
-    },
-    {
-      "name": "azalio--map-framework",
-      "source": "./azalio--map-framework",
-      "description": "map-framework"
     },
     {
       "name": "benjaminsehl--agent-kernel",
@@ -165197,6 +165202,11 @@
       "name": "notune--velo",
       "source": "./notune--velo",
       "description": "A fast, friendly non-linear video editor for Linux, Windows and macOS"
+    },
+    {
+      "name": "rryam--musaverakit",
+      "source": "./rryam--musaverakit",
+      "description": "App-friendly Swift APIs for Apple's on-device Music Understanding framework."
     },
     {
       "name": "yschimke--compose-ai-tools",
