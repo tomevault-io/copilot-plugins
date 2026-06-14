@@ -189699,6 +189699,16 @@
       "description": "Player for CMSF media over MoQ transport using MSE playback"
     },
     {
+      "name": "u7079256--paperjury-codex",
+      "source": "./u7079256--paperjury-codex",
+      "description": "Codex-first port of PaperJury, a pre-submission CS paper review and editing skill."
+    },
+    {
+      "name": "nivek-ph--tracing-otel-extra",
+      "source": "./nivek-ph--tracing-otel-extra",
+      "description": "tracing-otel-extra"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -204322,6 +204332,16 @@
       "name": "orcahand--orcahand-hardware",
       "source": "./orcahand--orcahand-hardware",
       "description": "ORCA hand hardware: CAD source (STL) and Bambu Lab print files (3MF)"
+    },
+    {
+      "name": "astraflowdev--45-days-llm-engineering",
+      "source": "./astraflowdev--45-days-llm-engineering",
+      "description": "Softpro School of AI \u2014 45-Day AI Development Summer Training (LLM engineering & agentic AI). Day-by-day course code."
+    },
+    {
+      "name": "xfoss--mfs",
+      "source": "./xfoss--mfs",
+      "description": "Multi-Platform Game Engine Written in Zig"
     },
     {
       "name": "cheerhuan--save-your-token",
