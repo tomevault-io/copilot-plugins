@@ -1,0 +1,9 @@
+{
+  "name": "evanbacon--chat-template",
+  "displayName": "chat-template",
+  "description": "Universal chat app template built with Expo Router",
+  "version": "1.0.0",
+  "author": "EvanBacon",
+  "homepage": "https://github.com/EvanBacon/chat-template",
+  "skills": []
+}
