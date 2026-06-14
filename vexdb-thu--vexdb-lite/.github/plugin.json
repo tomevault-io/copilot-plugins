@@ -1,0 +1,9 @@
+{
+  "name": "vexdb-thu--vexdb-lite",
+  "displayName": "VexDB-Lite",
+  "description": "A cross-platform vector database, which can be integrated into existing databases as a plugin.",
+  "version": "1.0.0",
+  "author": "VexDB-THU",
+  "homepage": "https://github.com/VexDB-THU/VexDB-Lite",
+  "skills": []
+}
