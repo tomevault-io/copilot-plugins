@@ -1,0 +1,9 @@
+{
+  "name": "jdx--aube",
+  "displayName": "aube",
+  "description": "A fast Node.js package manager",
+  "version": "1.0.0",
+  "author": "jdx",
+  "homepage": "https://github.com/jdx/aube",
+  "skills": []
+}
