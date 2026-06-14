@@ -4,7 +4,7 @@
   "repo": "ContextMenuMgr",
   "description": "A Windows context menu management tool with new menu monitoring",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PLFJY/ContextMenuMgr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T17:32:06Z"
+  "distributed_at": "2026-06-14T17:32:32Z"
 }
