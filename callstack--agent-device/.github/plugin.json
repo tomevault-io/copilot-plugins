@@ -1,0 +1,9 @@
+{
+  "name": "callstack--agent-device",
+  "displayName": "agent-device",
+  "description": "CLI to control iOS and Android devices for AI agents",
+  "version": "1.0.0",
+  "author": "callstack",
+  "homepage": "https://github.com/callstack/agent-device",
+  "skills": []
+}
