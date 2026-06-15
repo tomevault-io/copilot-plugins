@@ -1,0 +1,14 @@
+{
+  "name": "seo-skills--seo-audit-skill",
+  "displayName": "seo-audit-skill",
+  "description": "seo-audit-skill",
+  "version": "1.0.0",
+  "author": "seo-skills",
+  "homepage": "https://github.com/seo-skills/seo-audit-skill",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
