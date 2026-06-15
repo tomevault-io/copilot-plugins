@@ -7,11 +7,11 @@ Secure, Fast, and Extensible Sandbox runtime for AI agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [opensandbox-group/OpenSandbox](https://github.com/opensandbox-group/OpenSandbox).
+Original source: `CLAUDE.md` in [opensandbox-group/OpenSandbox](https://github.com/opensandbox-group/OpenSandbox).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
