@@ -1,0 +1,218 @@
+## sentio-sdk
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Important: Pull Request Workflow
+
+**ALWAYS submit changes via pull requests (PRs) - never commit directly to main.**
+
+### Git Shortcuts (defined in `.github/.gitconfig`)
+
+This repository has custom git aliases configured:
+- **`git dev <branch-name>`** - Create and switch to `dev/$user/$branch-name`, auto-synced with origin/main
+- **`git sync`** - Rebase current branch with origin/main
+- **`git pr <number>`** - Checkout a PR locally to `pr/$number`
+- **`git dev-clean`** - Clean up your dev/* branches (except current)
+- **`git pr-clean`** - Clean up all pr/* branches
+
+### Recommended Workflow
+
+1. Create a dev branch: `git dev my-feature`
+2. Make your changes and commit: `git commit -m "description"`
+3. Push: `git push` (auto-setup remote is enabled)
+4. Create a pull request on GitHub using the printed URL
+5. Wait for review and approval before merging
+
+Direct commits to main are not allowed and may be rejected by branch protection rules.
+
+## Architecture Overview
+
+Sentio SDK is a TypeScript-based blockchain data indexing and analytics platform that supports multiple blockchain ecosystems. The codebase is organized as a monorepo using pnpm workspaces with the following key components:
+
+### Core Packages
+- **`packages/sdk/`**: Main SDK with blockchain-specific processors and utilities
+- **`packages/cli/`**: Command-line interface for project management, deployment, and AI-powered processor generation
+- **`packages/runtime/`**: Runtime engine for processing blockchain data
+- **`packages/protos/`**: Protocol buffer definitions for service communication
+- **`packages/action/`**: Action processing capabilities
+
+### Blockchain Support
+The SDK supports multiple blockchain ecosystems through dedicated modules in `packages/sdk/src/`:
+- **Ethereum (`eth/`)**: EVM-compatible chains with contract interaction, ABI decoding, and event processing
+- **Aptos (`aptos/`)**: Move-based blockchain with resource and event processing
+- **Sui (`sui/`)**: Move-based blockchain with object and transaction processing
+- **IOTA (`iota/`)**: Move-based blockchain similar to Sui
+- **Solana (`solana/`)**: Solana blockchain with program and instruction processing
+- **Bitcoin (`btc/`)**: Bitcoin blockchain with transaction and UTXO processing
+- **Cosmos (`cosmos/`)**: Cosmos SDK-based chains with transaction processing
+- **Fuel (`fuel/`)**: Fuel VM blockchain with asset and transaction processing
+
+### Key Architecture Patterns
+- **Processor Pattern**: Each blockchain has dedicated processor classes that handle chain-specific data
+- **Context Pattern**: Chain-specific contexts provide access to blockchain state and utilities
+- **Plugin System**: Modular plugin architecture for extending functionality
+- **Template System**: Code generation templates for creating type-safe contract bindings
+- **Testing Framework**: Comprehensive testing utilities for all supported chains
+
+## Development Commands
+
+### Build Commands
+```bash
+# Build all packages and examples
+./scripts/build-all.sh
+
+# Build specific package
+pnpm --filter "./packages/sdk" build
+
+# Build CLI templates
+pnpm --filter "./packages/cli/templates/**" build --skip-deps
+```
+
+### Test Commands
+```bash
+# Run all tests (builds first)
+./scripts/test-all.sh
+
+# Test specific package
+pnpm --filter "./packages/sdk" test
+```
+
+### Linting and Formatting
+```bash
+# Lint all files
+pnpm lint
+
+# Format code
+pnpm format
+```
+
+### Package Management
+```bash
+# Install dependencies (pnpm required)
+pnpm install
+
+# Add dependency to specific package
+pnpm --filter "./packages/sdk" add dependency-name
+```
+
+## CLI Usage
+
+The Sentio CLI (`packages/cli/`) provides project management capabilities:
+
+### Project Management
+```bash
+# Create new project from template
+sentio create
+
+# Add contract ABI to project
+sentio add
+
+# Build project (generates ABIs and compiles)
+sentio build
+
+# Generate ABIs only
+sentio gen
+
+# Generate processor code using AI (run after sentio gen)
+sentio generate-processor --prompt "Track token transfers and calculate volume metrics"
+sentio gen-processor --prompt "Monitor staking events"  # Shorter alias
+
+# Run tests
+sentio test
+```
+
+### AI Processor Generation
+```bash
+# Generate processor code using Sentio AI service
+# Automatically uses contract info from sentio.yaml (run after sentio gen)
+sentio generate-processor --prompt "Track all token transfer events and calculate daily volume metrics"
+
+# Override specific parameters if needed
+sentio gen-processor --prompt "Monitor DEX swaps" --chain-id "1" --contract "0x123..." --project-name "dex-analytics"
+
+# The AI will:
+# - Analyze your contract ABI
+# - Generate production-ready processor code
+# - Include appropriate metrics and event logging
+# - Follow Sentio SDK best practices
+```
+
+### Deployment
+```bash
+# Login to Sentio platform
+sentio login --host=test
+
+# Upload processor to platform
+sentio upload --host=test
+
+# Upload subgraph processor
+sentio graph
+```
+
+## Project Structure
+
+### Configuration Files
+- **`sentio.yaml`**: Project configuration file defining project name, host, and contracts
+- **`package.json`**: Standard Node.js package configuration
+- **`tsconfig.json`**: TypeScript configuration
+
+### Example Projects
+The `examples/` directory contains reference implementations for each supported blockchain:
+- `examples/eth/`: Ethereum processor example
+- `examples/aptos/`: Aptos processor example  
+- `examples/sui/`: Sui processor example
+- And more for each supported chain
+
+### Code Generation
+The SDK includes powerful code generation capabilities:
+- **ABI Generation**: Automatic TypeScript binding generation from contract ABIs
+- **Type Safety**: Full type safety for contract interactions and event handling
+- **Template System**: Extensible template system for custom code generation
+
+## Testing
+
+### Test Structure
+Each package contains comprehensive tests:
+- Unit tests for core functionality
+- Integration tests for blockchain interactions
+- Template tests for code generation
+
+### Running Tests
+Tests require building the project first. Use `./scripts/test-all.sh` to build and test everything, or target specific packages with pnpm filters.
+
+## Development Notes
+
+- **Node.js**: Requires Node.js 24+ (`engines.node: ">=24"` in `package.json`; CI runs Node 24)
+- **Package Manager**: Uses pnpm exclusively, pinned via `packageManager: pnpm@11.3.0` (enforced by preinstall script)
+- **Monorepo**: Uses pnpm workspaces for dependency management
+- **`ethers` is patched**: The root `package.json` `resolutions` field redirects `ethers` to `@sentio/ethers` (a Sentio fork). Do not assume upstream `ethers` behavior — check the fork before relying on edge-case semantics.
+- **Upgrading `@typemove/*` requires aligning the paired chain SDK in BOTH `packages/sdk` and `packages/cli`**: Each `@typemove/*` package depends on a chain SDK via a tilde range (`@typemove/iota`↔`@iota/iota-sdk`, `@typemove/sui`↔`@mysten/sui`, `@typemove/aptos`↔`@aptos-labs/ts-sdk`). When bumping a `@typemove/*` dep, also bump the paired chain SDK pin to the range the new typemove requires (check with `npm view @typemove/<x>@<ver> dependencies`) in **both** `packages/sdk/package.json` and `packages/cli/package.json` — both pin these chain SDKs directly and must stay in lockstep. A mismatch in either one (e.g. cli left behind) resolves two copies of the chain SDK and fails the build with incompatible-type errors (e.g. duplicate `IotaClient` — `TS2345`).
+- **TypeScript**: Full TypeScript codebase with strict type checking
+- **ESLint**: Code quality enforcement with custom rules
+- **Git Hooks**: Automated formatting and linting on commit
+- **Protocol Buffers & RPC**: The SDK uses **protobuf-es** (`@bufbuild/protobuf`) and **connect-es** (`@connectrpc/connect`, `@connectrpc/connect-node`) for proto codegen and service communication, replacing ts-proto + nice-grpc. Generated proto code is `*_pb.ts` (e.g. `processor_pb.ts`), produced by the `es_proto` Bazel rule in sentio-core and checked in via `bazel run //sentio-sdk:write_gen`. Key API differences from ts-proto: messages are type-only with a companion `FooSchema` descriptor — construct with `create(FooSchema, init)` (not `Foo.fromPartial`); serialize with `toBinary`/`fromBinary`/`toJson`/`fromJson(FooSchema, ...)`; `oneof` fields are a discriminated union (`x.value = { case, value }`) rather than flat optional fields; `google.protobuf.Timestamp` is the WKT message (use `timestampDate`/`timestampFromDate`), not a JS `Date`; well-known types (Empty/Struct/Timestamp) come from `@bufbuild/protobuf/wkt` (re-exported from `@sentio/protos`). The runtime gRPC server uses connect-es `connectNodeAdapter` over HTTP/2 (h2c), and errors use `ConnectError`/`Code` (not `ServerError`/`Status`).
+
+## Chain-Specific Development
+
+When working with blockchain-specific code:
+
+1. **Contract ABIs**: Store in `abis/{chain}/` directories
+2. **Code Generation**: Run `sentio gen` to generate TypeScript bindings from ABIs
+3. **AI Processor Generation**: Use `sentio generate-processor --prompt "..."` to generate starter processor code with AI assistance
+4. **Processors**: Implement using chain-specific processor classes (or start with AI-generated code)
+5. **Testing**: Use chain-specific testing utilities from `packages/sdk/src/testing/`
+
+## Debugging
+
+The SDK includes comprehensive logging and debugging capabilities:
+- Set `debug: true` in `sentio.yaml` for verbose logging
+- Use testing framework for local development and debugging
+- Leverage chain-specific context utilities for data access and manipulation
+
+---
+> Source: [sentioxyz/sentio-sdk](https://github.com/sentioxyz/sentio-sdk) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
