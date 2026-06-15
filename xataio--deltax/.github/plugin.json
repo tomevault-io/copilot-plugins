@@ -1,0 +1,9 @@
+{
+  "name": "xataio--deltax",
+  "displayName": "deltax",
+  "description": "Fast time-series extension for PostgreSQL",
+  "version": "1.0.0",
+  "author": "xataio",
+  "homepage": "https://github.com/xataio/deltax",
+  "skills": []
+}
