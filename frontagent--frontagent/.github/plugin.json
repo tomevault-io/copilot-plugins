@@ -1,0 +1,9 @@
+{
+  "name": "frontagent--frontagent",
+  "displayName": "FrontAgent",
+  "description": "Frontend AI coding agent platform with CLI, VS Code extension, desktop app, MCP server, RAG planning, Skills, SDD guardrails, browser automation, and LoRA planner models | \u9762\u5411\u524d\u7aef\u5de5\u7a0b\u7684 AI Agent \u5e73\u53f0\uff0c\u652f\u6301 CLI\u3001V",
+  "version": "1.0.0",
+  "author": "FrontAgent",
+  "homepage": "https://github.com/FrontAgent/FrontAgent",
+  "skills": []
+}
