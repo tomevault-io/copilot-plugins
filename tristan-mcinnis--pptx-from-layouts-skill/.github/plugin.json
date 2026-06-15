@@ -1,0 +1,18 @@
+{
+  "name": "tristan-mcinnis--pptx-from-layouts-skill",
+  "displayName": "pptx-from-layouts-skill",
+  "description": "pptx-from-layouts-skill",
+  "version": "1.0.0",
+  "author": "tristan-mcinnis",
+  "homepage": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill",
+  "skills": [
+    {
+      "name": "powerpoint-igorwarzocha",
+      "description": ""
+    },
+    {
+      "name": "python-pptx",
+      "description": ""
+    }
+  ]
+}
