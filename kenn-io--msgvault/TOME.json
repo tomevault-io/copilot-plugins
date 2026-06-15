@@ -4,7 +4,7 @@
   "repo": "msgvault",
   "description": "Archive a lifetime of email and chat. Offline search, analytics, and AI query over your full message history. Powered by DuckDB",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kenn-io/msgvault",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T09:33:01Z"
+  "distributed_at": "2026-06-15T09:33:30Z"
 }
