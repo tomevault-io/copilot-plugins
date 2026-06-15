@@ -1,0 +1,9 @@
+{
+  "name": "synonymdev--bitkit-android",
+  "displayName": "bitkit-android",
+  "description": "Self-custodial Bitcoin and Lightning Wallet",
+  "version": "1.0.0",
+  "author": "synonymdev",
+  "homepage": "https://github.com/synonymdev/bitkit-android",
+  "skills": []
+}
