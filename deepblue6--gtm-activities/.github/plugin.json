@@ -1,0 +1,9 @@
+{
+  "name": "deepblue6--gtm-activities",
+  "displayName": "gtm-activities",
+  "description": "Self-hosted website crawler (Firecrawl alternative) + Google search API (SearXNG) \u2014 just add proxies. Built for GTM teams.",
+  "version": "1.0.0",
+  "author": "deepblue6",
+  "homepage": "https://github.com/deepblue6/gtm-activities",
+  "skills": []
+}
