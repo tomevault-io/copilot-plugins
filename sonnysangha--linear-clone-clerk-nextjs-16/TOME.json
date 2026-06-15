@@ -1,0 +1,44 @@
+{
+  "name": "linear-clone-clerk-nextjs-16",
+  "owner": "sonnysangha",
+  "repo": "linear-clone-clerk-nextjs-16",
+  "description": "Vector \u2014 a Linear-style project management app built with Next.js 16, Convex, Clerk (auth + B2B billing), and an AI agent",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sonnysangha/linear-clone-clerk-nextjs-16",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-15T16:42:46Z"
+}
