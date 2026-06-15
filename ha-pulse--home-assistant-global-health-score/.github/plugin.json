@@ -1,0 +1,9 @@
+{
+  "name": "ha-pulse--home-assistant-global-health-score",
+  "displayName": "home-assistant-global-health-score",
+  "description": "The open standard for Home Assistant instance health monitoring.",
+  "version": "1.0.0",
+  "author": "HA-Pulse",
+  "homepage": "https://github.com/HA-Pulse/home-assistant-global-health-score",
+  "skills": []
+}
