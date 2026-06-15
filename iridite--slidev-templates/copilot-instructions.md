@@ -1,0 +1,201 @@
+## slidev-templates
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Overview
+
+This is a monorepo containing high-quality Slidev presentation templates. The primary template is **neko-style**, extracted from neko-talks and KubeCon HK 2025 presentations.
+
+## Development Commands
+
+### Running the Starter Demo
+```bash
+# From repository root
+npm install
+npm run dev:neko      # Start neko-style starter at http://localhost:3030
+npm run build:neko    # Build for production
+npm run export:neko   # Export to PDF/images
+```
+
+### Working with Individual Templates
+```bash
+# Navigate to template starter
+cd neko-style/starter
+
+# Development
+npm run dev           # Start dev server with hot reload
+npm run build         # Build static site
+npm run export        # Export presentation
+```
+
+## Architecture
+
+### Monorepo Structure
+- **Root `package.json`**: Defines workspaces and top-level scripts
+- **`neko-style/theme/`**: NPM theme package with components, layouts, and styles
+- **`neko-style/starter/`**: Starter template that uses the theme
+- **`neko-style/docs/`**: Shared documentation
+- **`neko-style/SKILL.md`**: Single AI reference (rules, routing table, templates, snippets guide)
+- **`neko-style/snippets/`**: Per-page-type fillable templates (10 snippets for AI to copy+fill)
+- **`neko-style/examples/`**: Golden example (12-slide tech talk) and bad-vs-good anti-patterns
+- **`neko-style/ref/talks/packages/`**: Real-world presentation source packages (git submodule)
+
+### neko-style Template Architecture
+
+The template is organized as a **hybrid system** supporting two usage modes:
+
+1. **Theme Package** (`theme/`): Installable via npm, provides components and layouts
+2. **Starter Template** (`starter/`): Ready-to-use project template that references the theme
+
+### neko-style Theme Architecture
+
+**Core Component**: `components/GlowBackground.vue`
+- Implements dynamic polygon-based gradient backgrounds
+- Uses `seedrandom` for stable, reproducible random distributions
+- Supports 3 color presets: `blue` (default), `rust`, `cyan`
+- Reads frontmatter properties from each slide for per-page configuration
+
+**Frontmatter Configuration System**:
+Each slide in `slides.md` can configure its appearance via frontmatter:
+```yaml
+---
+glowSeed: 42              # Seed for stable random background (required for variety)
+glowPreset: blue          # Color preset: blue | rust | cyan
+theme: dark               # Theme: dark | light
+glow: center              # Distribution: full | top | bottom | left | right | center
+glowOpacity: 0.4          # Background opacity (0-1)
+glowHue: 0                # Hue shift (0-360)
+---
+```
+
+**Component System**:
+The template uses semantic, card-based components built with UnoCSS utility classes:
+- **Color semantics**: red-800 (problems), green-800 (solutions), blue-800 (info), purple-800 (advanced), yellow-800 (performance)
+- **Card structure pattern**: Border + background with header and content sections
+- **Animation system**: Unified 500ms transitions with `v-click` for progressive disclosure
+
+**Styling Architecture**:
+- `theme/styles/index.css`: Base styles and transition conventions
+- `starter/uno.config.ts`: UnoCSS configuration used by the starter template
+- Uses UnoCSS with presets: Uno, Attributify, Icons, WebFonts
+- Icon collections: `@iconify-json/carbon`, `@iconify-json/logos`
+
+## Key Files and Their Purposes
+
+- **`neko-style/theme/README.md`**: Comprehensive theme documentation (installation, all layouts, all components with props, glow system, color system, animations)
+- **`neko-style/docs/design-language-airi-2025-10.md`**: Design language reference
+- **`neko-style/theme/components/GlowBackground.vue`**: Core glow background implementation
+- **`neko-style/theme/global-bottom.vue`**: Theme-level global background entry for Slidev
+- **`neko-style/theme/styles/index.css`**: Theme base styles
+- **`neko-style/starter/uno.config.ts`**: Starter-side UnoCSS configuration
+
+## Creating New Presentations
+
+When helping users create presentations with neko-style:
+
+1. **Read SKILL.md first**: The single AI reference with routing table, templates, and rules
+2. **Copy from snippets/**: Use `neko-style/snippets/*.md` as fillable templates for each page type
+3. **Follow semantic colors**: Red for problems, green for solutions, blue for information
+4. **Vary glowSeed per page**: Use different seed values (100, 150, 200, etc.) for visual variety
+5. **Use v-click for animations**: Wrap content in `<v-click>` for progressive disclosure
+
+## Template Setup for New Projects
+
+### Option 1: Use Starter Template (Recommended for new users)
+
+```bash
+npx degit user/repo/neko-style my-presentation
+cd my-presentation/starter
+npm install
+npm run dev
+```
+
+### Option 2: Install Theme Package from Local Path (Recommended for existing projects)
+
+> `slidev-theme-neko-style` is currently not published to npm registry.
+
+```bash
+# clone template repo first
+git clone https://github.com/iridite/slidev-templates.git
+
+# install theme's own node_modules first (required when using bun — see note below)
+cd slidev-templates/neko-style/theme && npm install && cd -
+
+# install local theme package in your Slidev project
+npm install /absolute/path/to/slidev-templates/neko-style/theme
+```
+
+Then add to `slides.md`:
+```yaml
+---
+theme: neko-style
+---
+```
+
+> **Bun users**: bun installs `file:` dependencies as per-file symlinks instead of directory junctions. Vite follows these symlinks to the real path and resolves imports (e.g. `seedrandom`) from there — bypassing the consuming project's `node_modules`. Fix: run `npm install` inside `neko-style/theme/` so the theme's own `node_modules` is present. This is a one-time step per clone.
+
+## Theme Development
+
+When modifying the theme itself:
+
+- **Theme source**: All components, layouts, and styles are in `neko-style/theme/`
+- **Test with starter**: Use `neko-style/starter/` to test theme changes
+- **Single source of truth**: Never duplicate components between theme and starter
+
+## Color Preset System
+
+Three presets inspired by neko-talks presentations:
+
+- **blue** (default): #18549a → #12238b - Technical talks, product launches
+- **rust**: #ed5132 → #ed4832 - Rust topics, innovation themes
+- **cyan**: #32aeed → #32e5ed - AI/ML topics, academic presentations
+
+**Use one preset for the entire presentation.** Pick based on topic at the start; switching presets mid-deck creates visual noise. `glowSeed` provides per-page variety — the preset is the deck's identity.
+
+Presets are defined in `GlowBackground.vue` and can be extended by modifying the `colorPresets` object.
+
+## Documentation Priority
+
+When users need help, guide them to documentation in this order:
+
+1. `neko-style/SKILL.md` - **The single AI reference** (rules, routing table, templates, snippets, debugging)
+2. `neko-style/snippets/*.md` - Per-page-type fillable templates (copy+fill workflow)
+3. `neko-style/examples/` - Golden example + bad-vs-good anti-patterns
+4. `neko-style/docs/COMPONENT-CATALOG.md` - Full component props reference (lookup only)
+5. `neko-style/docs/PAGE-PATTERNS.md` - Complete slide composition recipes
+6. `neko-style/theme/README.md` - Comprehensive theme documentation (all 13 layouts, 45+ components)
+
+## Important Conventions
+
+- **Never modify core component structure**: Keep the card pattern (border + background + header + content) intact
+- **Maintain animation consistency**: All animations use `transition duration-500 ease-in-out`
+- **Use semantic colors consistently**: Don't mix color meanings (e.g., don't use red for solutions)
+- **Each page needs unique glowSeed**: Different seeds create visual variety across slides
+- **Component file naming**: `GlowBackground.vue` must be named `global-bottom.vue` in Slidev projects (this is a Slidev convention for global components)
+- **NEVER use `<Transition>` or `<TransitionGroup>` for click animations**: These cause elements to vanish without animation on backward navigation and conflict with page transitions. Always use class-toggle + CSS transition pattern: `:class="$clicks < N ? 'opacity-0 ...' : 'opacity-100 ...'"` with `transition duration-500 ease-in-out`
+- **No `transform-gpu` on GlowBackground**: Forcing GPU compositing via `transform: translateZ(0)` breaks Firefox's filter-based page transitions. The blur glow already benefits from browser-managed compositing
+
+## Dependencies
+
+Core dependencies for neko-style:
+- `@slidev/cli`: Slidev framework
+- `seedrandom`: Stable random number generation for backgrounds
+- `unocss`: Utility-first CSS framework
+- Icon collections: `@iconify-json/carbon`, `@iconify-json/logos`
+
+## Git Workflow
+
+This repository follows standard git practices:
+- Main branch: `main`
+- Recent commits show documentation reorganization and monorepo structure improvements
+- Clean working directory (no uncommitted changes)
+ges)
+ges)
+
+---
+> Source: [iridite/slidev-templates](https://github.com/iridite/slidev-templates) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
