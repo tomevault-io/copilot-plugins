@@ -1,0 +1,9 @@
+{
+  "name": "tanujrajputdev--shopify-theme-audit-skill",
+  "displayName": "shopify-theme-audit-skill",
+  "description": "Claude Code skill that audits any Shopify theme for performance, SEO, AEO, and GEO in 90 seconds. 80+ checks, scored report, paste-in Liquid fixes.",
+  "version": "1.0.0",
+  "author": "tanujrajputdev",
+  "homepage": "https://github.com/tanujrajputdev/shopify-theme-audit-skill",
+  "skills": []
+}
