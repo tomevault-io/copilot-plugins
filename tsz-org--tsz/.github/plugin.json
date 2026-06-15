@@ -1,0 +1,9 @@
+{
+  "name": "tsz-org--tsz",
+  "displayName": "tsz",
+  "description": "A performance-first TypeScript checker",
+  "version": "1.0.0",
+  "author": "tsz-org",
+  "homepage": "https://github.com/tsz-org/tsz",
+  "skills": []
+}
