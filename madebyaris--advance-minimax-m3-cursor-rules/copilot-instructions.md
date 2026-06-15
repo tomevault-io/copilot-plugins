@@ -1,124 +1,81 @@
-## mobile-cross-platform
+## model-compatibility
 
-> Cross-platform mobile: Flutter, React Native, Expo. Load when editing mobile manifests, platform folders, or shared mobile architecture — not for everyday app logic.
+> Model compatibility guide: prompt hierarchy, M3-first model selection, tool discipline, read-before-edit safety, and context control across models.
 
 
-# Cross-Platform Mobile Development
+# Transferable Agent Behavior (M3-first, model-resilient)
 
-Guidance for Flutter, React Native, and Expo projects. For general coding workflow, the always-on core **Code Discipline** and **App And Scaffold Discipline** sections are canonical — especially CLI-first scaffolding and verification.
+This repo is tuned for MiniMax M3 first. M3 is a generational shift: 1M-token MSA context, native multimodal input (text, image, video), and higher agentic and coding benchmarks.
 
-Load this rule when globs match mobile project files. Identify the stack from manifests (`pubspec.yaml`, `package.json` + native folders, `app.json`) before choosing patterns. Do not hand-create `pubspec.yaml`, Xcode/Android project trees, or `.xcodeproj` / `.pbxproj` — use the framework CLI.
+The purpose of this file is to define the transferable execution behavior the agent should copy across models: tool-first work, read-before-edit discipline, short prompts, and context-aware problem solving that also maps well to strong GPT/Codex/Composer-style coding agents.
 
----
+## Prompt Hierarchy
 
-## Before Changing Mobile Code
+Treat the current environment as the source of truth:
+- system instructions and exposed tools win
+- always-on rules should stay short, durable, and canonical
+- requestable rules should carry runtime-specific guidance
+- user instructions still define the task
 
-1. Identify stack: **Flutter**, **React Native**, **Expo**, or other.
-2. Read manifest, entry point (`main.dart`, `App.tsx`), navigation setup, and existing state-management pattern.
-3. Match platform folder conventions already in the repo — do not restructure unprompted.
-4. For new dependencies or SDK versions, verify against current official docs before recommending.
+Do not assume an older rule or prompt shape is still valid just because it appears in this repo.
+Prefer a single always-on execution spine over duplicated policy spread across multiple files.
 
----
+## Model Selection
 
-## Scaffold & Verify (CLI-first)
+| Need | Default | Why |
+|------|---------|-----|
+| Long context (multi-file refactor, transcript analysis, large retrieval pack, full-repo synthesis) | `MiniMax-M3` | 1M-token MSA context |
+| Visual-fidelity work, design parity, error UI triage, screenshot-driven dev | `MiniMax-M3` | Native multimodal input (text, image, video) |
+| Deep agentic / coding (SWE-Bench-class tasks, long-horizon planning) | `MiniMax-M3` | Higher agentic and coding benchmarks |
+| Anything where the user asks for "frontier" by name | `MiniMax-M3` | Positioned as the new frontier default |
 
-| Stack | Create | Add deps | Typical verify |
-|-------|--------|----------|----------------|
-| Flutter | `flutter create` | `flutter pub add` | `flutter analyze`, `flutter test` |
-| React Native | `npx react-native init` | `npm install` | `npx react-native doctor`, build one platform |
-| Expo | `npx create-expo-app` | `npx expo install` | `npx expo doctor`, `npx expo start` |
+When the active model is **not** M3 (for example `composer-2.5`, GPT, or Claude), the always-on core continues to apply — tool discipline, read-before-edit, scope control, solver loop, status taxonomy. The M3-specific sections (long-context discipline, multimodal input discipline) become inert, and the agent must not promise multimodal or 1M-context behavior. Confirm the model's actual capabilities from the current runtime before relying on them.
 
-After structural changes, run the stack's analyze/test/build check before claiming done.
+## Main Failure Modes
 
----
+The most common failures are:
+- writing plausible prose instead of using tools
+- guessing file contents instead of reading them
+- teaching stale tool names as if they were universal
+- overloading the prompt with duplicate process text
+- on M3, over-loading context with raw search/fetch output instead of compressing (see `minimax-m3-long-context`)
+- on M3, making visual claims without re-reading the actual attached image/frame (see `minimax-m3-multimodal-input`)
 
-## Architecture Quick Reference
+## Tool Discipline
 
-**Good cross-platform fit:** content apps, business/productivity, MVPs, teams with web background, similar UI across platforms.
+- If the prompt exposes a tool for the action, prefer that tool over shell.
+- Follow the exact tool schema shown by the environment.
+- Batch independent reads and searches when helpful.
+- Keep commentary short; spend prompt budget on execution, not narration.
 
-**Consider more native work when:** heavy AR/camera, games, deep OS integration, strict platform HIG, or performance-critical media pipelines.
+## Read-Before-Edit
 
-| Framework | Best for | Watch out for |
-|-----------|----------|---------------|
-| Flutter | Custom UI, performance | App size, Dart ecosystem |
-| React Native | JS/TS teams, code share | Native modules, bridge overhead |
-| Expo | Fast iteration, managed workflow | Native module limits (unless dev client) |
+Canonical workflow lives in the always-on core **Code Discipline** section. In short:
 
-**Share across platforms:** domain logic, models, API client, validation, most state logic.  
-**Keep platform-specific:** native permissions, push/deep links, store billing, platform UI chrome where HIG matters.
+```text
+1. Read the target file in the current session
+2. Base the change on exact contents
+3. Use the current edit primitive
+4. Verify with follow-up reads, build, tests, browser checks, shell output, or multimodal-grounded re-reads
+```
 
-Layering (presentation → domain → data) applies; see `language-agnostic-patterns` when refactoring module boundaries.
+If the environment offers a patch or search-replace edit tool, prefer it for focused edits (Composer-style agents often expose `StrReplace`; other surfaces may use `ApplyPatch` or similar).
 
----
+## Version Handling
 
-## State & Navigation
+- Never hardcode fast-moving versions in rules.
+- Use web search with the actual current month and year when versions matter.
+- Do not leave placeholders such as `[current year]` in the query.
+- Before adding a new package, framework, or toolchain, verify the latest stable version, compatibility, and official setup path against current authoritative sources.
+- Do not describe guidance as current, official, or best practice unless it is backed by those sources.
 
-- Reuse the pattern already in the repo (Provider, Riverpod, Bloc, Redux, Zustand, etc.) — do not introduce a second state library.
-- Navigation: one primary approach (go_router, React Navigation, Expo Router) per app; match existing route definitions.
-- Persist only what the product requires; handle offline/error states explicitly on mobile networks.
+## Context Management
 
----
-
-## Mobile Design Quality
-
-Web design instincts do not transfer 1:1 to mobile. The judgment calls:
-
-- **Platform type defaults are correct here.** SF Pro on iOS and Roboto on Android are the *native* choice, not slop — the web font bans in `anti-slop-design` apply to display/brand moments, not to app body text. Custom fonts earn their place on headings and brand surfaces only.
-- **Design for the thumb, not the cursor.** Primary actions in the bottom half of the screen; destructive actions away from habitual tap zones; nothing important hidden behind hover (there is none).
-- **Navigation follows platform grammar.** Bottom tabs for 3–5 top-level destinations; respect the Android back gesture and iOS swipe-back; use native share sheets, switches, and pickers instead of web-style rebuilds.
-- **Glanceability over density.** One primary piece of information per screen region; web dashboard density fails at arm's length on a 6-inch display.
-- **Loading is layout-shaped.** Skeletons that match the final layout; render cached/partial data immediately rather than blocking the screen on the full payload.
-- **Lists must be virtualized.** `FlatList` / `ListView.builder` with stable keys — never map an unbounded array into scroll children (also listed in traps; it is the #1 mobile perf bug).
-- **Motion at 60fps.** RN: `useNativeDriver` / Reanimated on the UI thread. Flutter: animate with `AnimatedBuilder`/implicit animations, not `setState` rebuilds of whole subtrees.
-
-For visual direction (palette, tone, category), still load `anti-slop-design` — adapted through the platform conventions above.
-
----
-
-## Platform Integration
-
-- Request permissions at point of use with clear rationale; handle denied/permanent-deny flows.
-- Test on **both** iOS and Android when behavior is platform-specific — simulators/emulators are minimum proof; label device-only issues `unverified`.
-- Deep links, push, and IAP: follow each store's current guidelines; verify against official docs.
-
----
-
-## Performance & Release
-
-- Images/assets: appropriate resolution; lazy-load lists (avoid building unbounded scroll children).
-- Profile before optimizing (Flutter DevTools, RN Performance monitor).
-- Release: match existing signing, flavors/schemes, and store listing workflow in the repo — do not invent a new pipeline without asking.
-
----
-
-## Common Traps
-
-- Hand-written native project files instead of CLI output
-- Hover-only or desktop-sized touch targets (min ~44px)
-- Ignoring safe areas / notches / keyboard overlap
-- Blocking the UI thread with sync I/O or heavy work on the main isolate/thread
-- Adding native modules to Expo managed workflow without checking compatibility
-- Platform-specific code without `#ifdef` / `Platform.is` / conditional imports where the repo uses them
-
----
-
-## Verification After Changes
-
-| Change | Minimum proof |
-|--------|----------------|
-| Dart/TS logic | `flutter analyze` / lint + targeted test |
-| UI/layout | Run on one platform simulator; check safe area and scroll |
-| Native config | Build succeeds for affected platform (`flutter build`, `npx react-native run-ios`, etc.) |
-| Release/signing | `unverified` until user confirms store/TestFlight path |
-
-For distinctive mobile UI polish, load `anti-slop-design` (category-aware layout, typography, motion).
-
----
-
-## When NOT to Load This File
-
-- Backend or web-only tasks — core **Code Discipline** is enough.
-- Greenfield framework choice with no repo context — inspect first, ask on real forks.
+- Read only what is needed for the task.
+- Prefer targeted searches over broad scans.
+- Keep durable lessons, not raw output, in active context.
+- For large work, push detailed procedures into requestable rules or skills instead of the always-on core.
+- On M3, with 1M tokens available, still compress after each iteration — see `minimax-m3-long-context`.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
