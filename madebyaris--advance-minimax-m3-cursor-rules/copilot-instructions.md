@@ -1,84 +1,89 @@
-## minimax-m3-self-evolution
+## minimax-m3-status-verification
 
-> MiniMax M3 self-evolution harness: iterative refinement loops, compress-before-iterate, autonomous debugging, and recursive improvement patterns.
+> MiniMax M3 status and verification contract: exact claim labels, proof matching, multimodal-grounded visual claims, and evidence-first closeouts.
 
 
-# MiniMax M3 Self-Evolution Harness
+# MiniMax M3 Status And Verification
 
-M3 has a 1M-token MSA context and high skill adherence, and supports autonomous self-improvement through iterative reinforcement learning loops. Use this rule when the task involves debugging, optimization, or recursive code improvement.
+Code is not done until it has been proved at the surface the user cares about.
 
-## Core Loop
+## Allowed Status Labels
 
-```
-Iterate until evidence shows the problem is solved or the approach is exhausted:
-  1. Run the smallest diagnostic check
-  2. Read the failure output directly
-  3. Compress prior raw evidence that you no longer need (see below)
-  4. Make ONE targeted fix based on evidence
-  5. Re-run the exact check that failed
-  6. If fixed, verify the broader surface
-  7. If not fixed, form a new hypothesis from the NEW evidence only
-```
+Use explicit status language in updates and closeouts:
 
-Do NOT repeat the same fix twice on the same hypothesis. Do NOT assume the cause without reading the evidence.
+- `changed`: you edited or produced something
+- `verified`: you proved a claim with a relevant check
+- `unverified`: the work exists but the required proof was not run
+- `blocked`: required progress or proof failed and the task cannot honestly be called done
+- `assumption`: a choice or statement depends on inference rather than direct evidence
+- `multimodal-grounded`: the claim is grounded in an attached image, video frame, screenshot, or design mock that was actually read in the current session (M3 native multimodal input). Use this for visual-fidelity claims; name the file path and the region inspected.
 
-## Compress Before Next Iteration (M3)
+Do not use `done`, `fixed`, `working`, or `resolved` without naming the proof immediately after.
 
-On M3 the failure mode shifts from "ran out of room" to "ran too many parallel hypotheses without compressing." Before each new iteration:
+## Claim And Evidence Rules
 
-- Replace raw search/fetch output from previous iterations with a 2–4 line summary.
-- Drop evidence that is no longer relevant to the current hypothesis.
-- Keep one canonical "current best hypothesis" line at the top of your scratchpad.
-- For very large work, use the `minimax-m3-long-context` skill to plan the loader.
+- Match the proof to the strongest claim you make.
+- Name the exact evidence for completion claims.
+- Separate what you observed from what you infer.
+- If intended verification failed and you fall back to a weaker check, say so explicitly.
+- If a required check was not run, say `implemented but unverified` and list the missing proof.
+- For visual claims, prefer `multimodal-grounded` (read the actual frame) over `verified` inferred from code-only reading. If you claim the UI looks right without re-reading the post-change state, that is not `verified`.
 
-## When to Use This Harness
+## Minimum Proof By Change Type
 
-| Task | Harness Approach |
-|------|------------------|
-| Debug runtime error | Read error → one fix → re-run |
-| Optimize performance | Profile → smallest change → measure |
-| Fix failing test | Read test → read code → one fix → run test |
-| Investigate unexpected behavior | Log/check → hypothesis → targeted probe |
-| Iterative code improvement | Current state → one improvement → verify |
-| Triage a visual bug from a screenshot | Read the screenshot, form hypothesis, one fix, re-read the post-change frame (`multimodal-grounded`) |
+| Change type | Minimum proof |
+|-------------|---------------|
+| Localized edit | Re-read or one targeted static check |
+| Bug fix | Red → green: the reproduction fails before the change and passes after; green → green proves nothing |
+| Backend, logic, or API change | Targeted test, command, script, or runtime request |
+| UI or interaction change | Browser or user-surface verification, plus static checks as needed |
+| Integration-sensitive change | Build or typecheck plus one focused behavior check |
+| Visual / design / styling claim | `multimodal-grounded`: read the attached screenshot/frame, name the file path, name the region inspected, and (when applicable) state "visually diffed against pre-change" or "not visually diffed" |
+| New app or scaffold | Setup/install succeeds, startup or health check succeeds, production build succeeds, one primary happy-path flow works, and any promised persistence or reload behavior is verified |
 
-## Iteration Limits
+Build, lint, and typecheck support completion claims, but they do not replace runtime or surface proof for interaction, styling, navigation, or integration promises. They also do not replace `multimodal-grounded` proof for visual-fidelity claims — the visual is the surface.
 
-- **Diagnostic phase**: 3 iterations to identify root cause
-- **Fix phase**: 2 iterations per hypothesis before switching strategy
-- **Overall**: If 5 total iterations pass without progress, summarize evidence and ask
-- **Context check**: if you have run 3+ raw search/fetch operations without compressing, compress before continuing
+## Regression And Blast Radius
 
-## Evidence Rules
+- Before closeout, if the repo has an automated test suite, smoke script, or documented CI entrypoint, state whether it was run on the changes.
+- If tests or smoke were not run, label regression risk as `unverified` and name what was skipped. Do not imply "no regressions" without that evidence.
+- For visual claims, prefer a visual diff (post-change frame vs. pre-change frame) over a prose diff. State whether the visual was diffed. If the user can attach a screenshot of the broken state, read it as part of the triage.
 
-Always prefer direct evidence over inference:
-- Runtime errors: Read the actual error message
-- Test failures: Read the test output
-- Performance: Read the actual measurement
-- Behavior: Read the actual output/log
-- Visual claims: Read the actual attached image/frame, not a memory or guessed description
+## Verification Order
 
-Never say "likely caused by" without reading the evidence first.
-
-## Self-Correction Pattern
-
-When a fix doesn't work:
-
-```
-Previous hypothesis: [what I thought was wrong]
-Evidence against it: [what actually happened]
-New hypothesis: [what the evidence suggests instead]
-Next action: [specific check to confirm new hypothesis]
+```text
+1. Smallest relevant static check
+2. Focused executable or user-surface proof
+3. Multimodal-grounded proof when the claim is visual
+4. Broader validation only when warranted
 ```
 
-## Anti-Patterns
+## Closeout Contract
 
-- Do not run the same diagnostic command twice expecting different results
-- Do not make multiple changes between diagnostic cycles
-- Do not assume a fix works without re-running the exact check
-- Do not expand scope mid-iteration (finish the loop first)
-- Do not accumulate raw search output across iterations without compressing
-- Do not make a visual-fidelity claim without re-reading the post-change frame
+Every substantive completion summary should make clear:
+
+- what changed
+- what was verified (and how)
+- what remains unverified
+- what is blocked, if anything
+
+Use this PR-style shape so humans can scan quickly:
+
+| Section | Content |
+|---------|---------|
+| **Summary** | Outcome in one short paragraph |
+| **Files touched** | Paths or areas changed |
+| **Verification evidence** | Exact commands run, manual checks, user-visible surfaces exercised, screenshots/frames read (with paths) for `multimodal-grounded` claims |
+| **Risks and unverified items** | Regressions not tested, visual claims not diffed, assumptions, recommended follow-ups |
+
+## When Verification Fails
+
+- State the failing check and the evidence.
+- Form the smallest corrective hypothesis.
+- Make the smallest corrective change.
+- Re-run the exact check that proves the fix.
+- Stop claiming completion while required proof is failing or missing.
+- After two failures on the same hypothesis, document evidence and switch strategy (smaller change, wider read, or one forked user question); do not repeat the same fix blindly.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
