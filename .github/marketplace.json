@@ -134854,6 +134854,11 @@
       "description": "Agent skills for building playable, polished Three.js browser games with gameplay, AAA-style graphics, UI, QA, and optional AI-generated 3D, image, and audio assets."
     },
     {
+      "name": "nazo6--rktk",
+      "source": "./nazo6--rktk",
+      "description": "Keyboard firmware framework built with Rust and embassy"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -139242,6 +139247,11 @@
       "name": "eliautobot--my-virtual-world",
       "source": "./eliautobot--my-virtual-world",
       "description": "A self-hosted 3D AI virtual world for Agent Harnesses like OpenClaw and Hermes."
+    },
+    {
+      "name": "fcoury--huskog",
+      "source": "./fcoury--huskog",
+      "description": ":deciduous_tree: Script Language Inspired by Rust"
     },
     {
       "name": "mohiwalla--memes",
@@ -144627,6 +144637,26 @@
       "name": "blazeup-ai--flyeye",
       "source": "./blazeup-ai--flyeye",
       "description": "FlyEye"
+    },
+    {
+      "name": "saleor--dummy-payment-app",
+      "source": "./saleor--dummy-payment-app",
+      "description": "Bare-bones app for testing Saleor's Transactions API"
+    },
+    {
+      "name": "saleor--dummy-payment-app",
+      "source": "./saleor--dummy-payment-app",
+      "description": "Bare-bones app for testing Saleor's Transactions API"
+    },
+    {
+      "name": "wmo-raf--adl",
+      "source": "./wmo-raf--adl",
+      "description": "Weather Observation Data Collection and Processing System -  For both Manual and Automated Stations"
+    },
+    {
+      "name": "lightnetdev--lightnet",
+      "source": "./lightnetdev--lightnet",
+      "description": "LightNet makes it easier to run digital media libraries for ministries"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -150452,6 +150482,31 @@
       "name": "eklavyaahuja--lootquest",
       "source": "./eklavyaahuja--lootquest",
       "description": "LootQuest - A free giveaway tracker."
+    },
+    {
+      "name": "synonymdev--bitkit-android",
+      "source": "./synonymdev--bitkit-android",
+      "description": "Self-custodial Bitcoin and Lightning Wallet"
+    },
+    {
+      "name": "synonymdev--bitkit-android",
+      "source": "./synonymdev--bitkit-android",
+      "description": "Self-custodial Bitcoin and Lightning Wallet"
+    },
+    {
+      "name": "synonymdev--bitkit-android",
+      "source": "./synonymdev--bitkit-android",
+      "description": "Self-custodial Bitcoin and Lightning Wallet"
+    },
+    {
+      "name": "synonymdev--bitkit-android",
+      "source": "./synonymdev--bitkit-android",
+      "description": "Self-custodial Bitcoin and Lightning Wallet"
+    },
+    {
+      "name": "synonymdev--bitkit-android",
+      "source": "./synonymdev--bitkit-android",
+      "description": "Self-custodial Bitcoin and Lightning Wallet"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -156862,6 +156917,21 @@
       "name": "suntay44--buildable-plugin-skills",
       "source": "./suntay44--buildable-plugin-skills",
       "description": "Local-first AI app-builder brain for Claude Code, Codex, and Cursor: archetypes, golden templates, UI/UX playbooks, and review loops, designed to load less bundled context in evals."
+    },
+    {
+      "name": "porscheofficial--porschedigital-technology-radar",
+      "source": "./porscheofficial--porschedigital-technology-radar",
+      "description": "A static Technology Radar generator by Porsche Digital \u2014 visualize, track, and share technology decisions across your organization."
+    },
+    {
+      "name": "infrahouse--terraform-aws-openvpn",
+      "source": "./infrahouse--terraform-aws-openvpn",
+      "description": "Terraform module for OpenVPN Access Server on EC2 with Google OAuth/SAML authentication, Let's Encrypt SSL, auto-scaling, and CloudWatch monitoring. "
+    },
+    {
+      "name": "tim-smart--stremio-effect",
+      "source": "./tim-smart--stremio-effect",
+      "description": "stremio-effect"
     },
     {
       "name": "lightninglabs--lnget",
@@ -165872,6 +165942,21 @@
       "name": "haoxiangtech--axbot-docs",
       "source": "./haoxiangtech--axbot-docs",
       "description": "website for axbot"
+    },
+    {
+      "name": "openshift--cluster-health-analyzer",
+      "source": "./openshift--cluster-health-analyzer",
+      "description": "Analyzer of health of OpenShift clusters"
+    },
+    {
+      "name": "kuadrant--kuadrant-console-plugin",
+      "source": "./kuadrant--kuadrant-console-plugin",
+      "description": "kuadrant-console-plugin"
+    },
+    {
+      "name": "kuadrant--kuadrant-console-plugin",
+      "source": "./kuadrant--kuadrant-console-plugin",
+      "description": "kuadrant-console-plugin"
     },
     {
       "name": "yschimke--compose-ai-tools",
