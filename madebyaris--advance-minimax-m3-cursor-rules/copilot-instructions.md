@@ -1,0 +1,159 @@
+## 3d-graphics
+
+> Three.js / React Three Fiber syntax: scene setup, R3F hooks, models, controls. Load for 3D code — taste, perf budgets, and mobile WebGL live in the 3d-web-experiences skill.
+
+
+# 3D Graphics — Syntax Reference
+
+Mechanical patterns for Three.js, React Three Fiber (R3F), and `@react-three/drei`. For aesthetic direction, performance tiers, responsive/mobile WebGL, degradation, accessibility, and verified recipes, load the **`3d-web-experiences`** skill (`reference.md` for full scenes and bug catalog).
+
+Verify package APIs against installed versions before asserting prop names.
+
+---
+
+## CRITICAL: Container Dimensions
+
+A WebGL canvas without a sized parent renders at zero height or wrong aspect.
+
+```jsx
+// WRONG
+<div><Canvas><Scene /></Canvas></div>
+
+// CORRECT — explicit height on the container
+<div style={{ height: '500px', width: '100%' }}>
+  <Canvas><Scene /></Canvas>
+</div>
+```
+
+Vanilla Three.js: size the renderer to the **container**, not always `window` — use `ResizeObserver` or container `clientWidth` / `clientHeight`.
+
+---
+
+## R3F Canvas Baseline
+
+```jsx
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Environment } from '@react-three/drei';
+
+export function Scene() {
+  return (
+    <div style={{ height: '500px', width: '100%' }}>
+      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 45 }}>
+        <Environment preset="city" />
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} castShadow />
+        <Mesh />
+        <OrbitControls enableDamping />
+      </Canvas>
+    </div>
+  );
+}
+```
+
+Set tone mapping and output color space on the renderer for PBR that is not flat — see `3d-web-experiences` → renderer baseline.
+
+---
+
+## Hooks & Imports (common bugs)
+
+```jsx
+import { useRef, useState } from 'react';
+import { useFrame } from '@react-three/fiber'; // NOT from 'react'
+import type { Mesh } from 'three';
+
+function AnimatedBox() {
+  const ref = useRef<Mesh>(null);
+  useFrame((_, delta) => {
+    if (ref.current) ref.current.rotation.y += delta;
+  });
+  return (
+    <mesh ref={ref}>
+      <boxGeometry />
+      <meshStandardMaterial />
+    </mesh>
+  );
+}
+```
+
+| Mistake | Fix |
+|---------|-----|
+| `useFrame` from `react` | Import from `@react-three/fiber` |
+| `<Detail>` from `three` | Use drei `<Detailed distances={[0, 10, 20]}>` with child meshes |
+| `InstancedMesh` from fiber | Use JSX `<instancedMesh>`; `Object3D` from `three` |
+
+---
+
+## Models & Loading
+
+```jsx
+import { Suspense } from 'react';
+import { useGLTF, Html, useProgress } from '@react-three/drei';
+
+function Model({ url }) {
+  const { scene } = useGLTF(url);
+  return <primitive object={scene} />;
+}
+useGLTF.preload('/models/asset.glb');
+
+function Loader() {
+  const { progress } = useProgress();
+  return <Html center>{progress.toFixed(0)}%</Html>;
+}
+
+// Wrap async assets:
+<Suspense fallback={<Loader />}><Model url="…" /></Suspense>
+```
+
+Prefer `.glb` with Draco/Meshopt compression for web (see skill → asset pipeline).
+
+---
+
+## LOD & Instancing (mechanics)
+
+```jsx
+import { Detailed } from '@react-three/drei';
+
+<Detailed distances={[0, 10, 25]}>
+  <HighPolyMesh />
+  <MediumPolyMesh />
+  <LowPolyMesh />
+</Detailed>
+```
+
+For many copies of the same geometry, use `<instancedMesh>` or drei `<Instances>`. Budgets, DPR clamps, and `frameloop="demand"`: **`3d-web-experiences`**.
+
+---
+
+## Camera Controls (drei)
+
+```jsx
+import { OrbitControls, MapControls } from '@react-three/drei';
+
+<OrbitControls enableDamping dampingFactor={0.05} minDistance={2} maxDistance={20} />
+```
+
+Respect `prefers-reduced-motion` — pause auto-rotate and heavy camera motion (skill → accessibility).
+
+---
+
+## Verification (3D changes)
+
+| Check | How |
+|-------|-----|
+| Renders | Browser load — not blank/black canvas |
+| Console | No WebGL / shader compile errors |
+| Resize | Container height preserved; canvas scales with parent |
+| Mobile | DPR/effects tier reduced when skill budget applies |
+
+Browser verification required; use console + visual check minimum.
+
+---
+
+## When NOT to Load This File
+
+- 2D UI only — use `design-systems` + `anti-slop-design`.
+- “Make it look good” / hero aesthetic — start with **`3d-web-experiences`** Step 1 (direction + slop catalog), then use this file for syntax.
+
+---
+> Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
