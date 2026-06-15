@@ -1,128 +1,100 @@
-## design-systems
+## devops-infrastructure
 
-> Design system mechanics: tokens, shadcn/ui, Tailwind v4, composition, theming. Load for UI implementation — aesthetics and anti-slop live in the anti-slop-design skill.
+> DevOps and infrastructure: Docker, Kubernetes, Terraform, CI/CD. Load when editing Dockerfiles, compose, k8s manifests, Terraform, or workflow YAML — not for application code.
 
 
-# Design System Mechanics
+# DevOps & Infrastructure Patterns
 
-Token structure, shadcn/ui usage, Tailwind v4 features, and component composition — not aesthetic direction.
+Mechanical reference for containerization, orchestration, IaC, and CI/CD. For general coding workflow (read-before-edit, minimal diff, verification labels), the always-on core **Code Discipline** and **App And Scaffold Discipline** sections are canonical.
 
-For palettes, font pairings, category tone, layout direction, and the slop checklist, load the **`anti-slop-design`** skill (and its `reference.md` for full pages / responsive matrices). For general coding workflow, use core **Code Discipline**.
-
-Inspect the project first: `package.json`, `tailwind.config.*`, `globals.css`, `components.json`, existing fonts and icon library. Extend what exists; do not replace the design system unprompted.
+Load this rule when touching infrastructure files matched by globs. For unfamiliar provider APIs or version-sensitive changes, verify against current official docs (or use the `deep-research` skill) — do not invent flags, resource names, or provider syntax.
 
 ---
 
-## Token Shape (semantic, not hex soup)
+## Before Changing Infrastructure
 
-Prefer **semantic names** mapped to CSS variables so themes and shadcn primitives stay aligned:
-
-```css
-/* globals.css — Tailwind v4 @theme or :root */
-@theme {
-  --color-background: …;
-  --color-foreground: …;
-  --color-primary: …;
-  --color-muted: …;
-  --color-border: …;
-  --radius-md: 8px;
-  --font-body: …;
-  --font-display: …;
-}
-```
-
-- Derive real values from the project brand or `anti-slop-design` Category Guide — placeholders above are structural only.
-- Prefer **OKLCH** for new token values (`oklch(0.65 0.15 250)`) — perceptually uniform lightness makes scales and dark-mode variants predictable. Tint neutrals toward the brand hue (chroma 0.005–0.01); never ship pure-gray scales or pure `#000`/`#FFF`.
-- Three token tiers when the system grows: **primitive** (`--blue-600`) → **semantic** (`--color-primary`) → **component** (`--button-bg`). Components consume semantic tokens; only semantic tokens reference primitives. Skip the component tier until a component actually needs an override.
-- Do not default to generic blue/indigo scales or `Inter` / `Roboto` unless the project already uses them.
-- Status colors: `--destructive`, `--success`, etc. — keep consistent with shadcn semantic tokens when present.
+1. Read existing Docker, compose, k8s, Terraform, Helm, and CI workflow files in this repo first.
+2. Note pinned base images, provider versions, and environment naming — match them unless the task requires a deliberate upgrade.
+3. Identify blast radius: prod deploy, secrets, stateful resources, and rollback path.
+4. Prefer **plan / dry-run / validate** before **apply / deploy / push**.
 
 ---
 
-## Typography Mechanics
+## Validate Before Apply
 
-- Fluid display sizes with `clamp()`: `font-size: clamp(2rem, 1.2rem + 3.5vw, 4rem)` — no breakpoint jumps on headings.
-- Pair line-height inversely with size: body `1.6–1.8`, headings `1.1–1.2`. A 56px heading at `line-height: 1.6` is broken.
-- Tighten tracking as display size grows (`letter-spacing: -0.01em` to `-0.04em` above ~32px); never negative-track body text.
-- Body measure: `max-width: 65ch` on prose containers, not pixel guesses.
-- Keep ≥1.25 ratio between adjacent type-scale steps; expose the scale as tokens, not ad-hoc `text-[17px]` values.
-- Load fonts with `font-display: swap` and preconnect; subset when the toolchain supports it.
+| Tool | Smallest useful check |
+|------|------------------------|
+| Docker | `docker build -t test:local .` |
+| Compose | `docker compose config` |
+| Kubernetes | `kubectl apply --dry-run=client -f …` or `kubectl diff -f …` |
+| Terraform | `terraform fmt -check`, `terraform validate`, `terraform plan` |
+| Helm | `helm lint`, `helm template` (render locally) |
+| GitHub Actions | YAML syntax + action pin review; run workflow on a branch when safe |
 
----
-
-## Motion Mechanics
-
-- Animate only `transform` and `opacity`; never `width`/`height`/`top`/`margin` (layout thrash).
-- Tokenize easing and duration: `--ease-out: cubic-bezier(0.22, 1, 0.36, 1)`, durations 150–250ms for micro-interactions, 400–600ms for entrances.
-- Gate all non-essential motion behind `@media (prefers-reduced-motion: no-preference)`.
-- Stagger entrances with `animation-delay` increments (60–100ms); one orchestrated page entrance beats scattered micro-animations.
+Never recommend `terraform apply`, `kubectl apply`, or production deploy without a plan/dry-run step unless the user explicitly skips it.
 
 ---
 
-## shadcn/ui
+## Decision Quick Reference
 
-```bash
-npx shadcn@latest init
-npx shadcn@latest add button card input label form dialog
-```
-
-- Compose from primitives (`Card`, `Button`, `Form`, `Dialog`) — do not fork components unless layout truly requires it.
-- Map theme overrides at **CSS variable** layer (`--primary`, `--radius`, `--background`) before editing component source.
-- Forms: use shadcn `Form` + project validation library (e.g. zod + react-hook-form) when already in the stack.
-
----
-
-## Tailwind v4 Essentials
-
-- Define tokens in `@theme` in CSS; avoid duplicating palettes in JS config when v4 CSS-first setup is used.
-- Container queries: `container-type: inline-size` on parent, `@container` for child layout.
-- Use semantic utilities (`bg-background`, `text-muted-foreground`) when shadcn tokens exist — not raw `bg-gray-200` / `text-black`.
+| Need | Prefer |
+|------|--------|
+| Local dev stack | Docker Compose when sufficient; k8s only when repo already uses it |
+| Secrets | Platform secret stores / CI secrets — never commit plaintext |
+| CI | Extend existing workflow patterns in `.github/workflows/` rather than inventing a parallel pipeline |
+| Image tags | Pin major.minor (or digest); avoid `:latest` in anything that ships |
+| Terraform state | Remote backend + locking when team/shared; do not hand-edit state |
 
 ---
 
-## Composition Rules
+## Common Traps
 
-- One primary CTA per section; secondary actions visually quieter.
-- Consistent `max-width` and horizontal padding across sections (hero → footer).
-- Extract repeated class strings into components — do not paste 20-class strings everywhere.
-- Never nest cards; separate grouped content with background shifts or whitespace instead.
-- Charts and fixed-height embeds (Chart.js, maps): parent container **must** have explicit height (same discipline as 3D canvases).
-
----
-
-## Dark Mode
-
-- Prefer `class` strategy with CSS variables when shadcn is present.
-- Pair `--background` / `--foreground` for contrast; test muted text ≥ 4.5:1 on body copy.
+- **YAML tabs** — spaces only (2-space indent is standard).
+- **Unquoted YAML scalars** — quote version strings and booleans when they must stay strings (`"1.0"`, `"true"`).
+- **Secrets in repo** — no passwords, tokens, or keys in Dockerfile `ENV`, compose, or workflow YAML; use `${{ secrets.* }}`, K8s `secretKeyRef`, or TF variables from a vault.
+- **`:latest` base images** — pin `node:20-alpine`, `python:3.12-slim`, etc.; verify current tags against official registries.
+- **Blind apply** — skipping `plan` / dry-run on shared or production infra.
+- **Drift from repo conventions** — new services that ignore existing naming, networks, labels, or backend config.
 
 ---
 
-## Responsive & Accessibility
+## CI/CD Discipline
 
-- Mobile-first breakpoints; 44px minimum touch targets on primary actions.
-- Every input has a label; errors use color + text (and icon when helpful).
-- Visible focus rings — never `outline: none` without an alternative.
-- Full responsive hide/reorder/transform guidance: `anti-slop-design` → `reference.md`.
+- Reuse job names, runner labels, cache keys, and artifact patterns already in the repo.
+- Pin third-party GitHub Actions to a commit SHA or semver tag — not `@main`.
+- Scope secrets to the minimum job that needs them.
+- For deploy workflows: require manual approval or environment gates when the repo already uses them; do not remove safety rails opportunistically.
 
 ---
 
-## Verification (UI changes)
+## Security (infra-specific)
+
+- Least-privilege IAM / service accounts; no admin credentials in CI logs.
+- Scan images when the repo already has Trivy/Snyk/similar — do not add heavy tooling unprompted.
+- Network policies / security groups: default deny between services unless the architecture requires otherwise.
+- Treat `.env`, kubeconfig, and TF state as sensitive — never paste contents into chat or commits.
+
+---
+
+## Verification After Changes
+
+Match proof to the claim (see always-on status-verification rule):
 
 | Change | Minimum proof |
 |--------|----------------|
-| Token/theme | Styles apply in browser; no unstyled flash on load |
-| New component | Renders at 375px and desktop; focus/hover work |
-| Form | Label association, error state, keyboard submit |
-| shadcn add | Component imports resolve; theme tokens applied |
+| Dockerfile / compose | `docker build` or `docker compose config` succeeds |
+| k8s manifest | dry-run or schema validation passes |
+| Terraform | `validate` + `plan` with expected diff |
+| CI workflow | YAML valid; optional dry-run on branch if user allows |
 
-Browser verification required for layout/interaction claims (see status-verification rule).
+Label deploy/runtime behavior as `unverified` until exercised in the target environment.
 
 ---
 
 ## When NOT to Load This File
 
-- Backend-only or non-UI tasks.
-- Distinctive marketing/landing aesthetic from scratch — start with **`anti-slop-design`** (Step 1: design thinking), then return here for token/shadcn mechanics.
+- Application logic, API handlers, or UI — use core **Code Discipline** instead.
+- Full cloud architecture from scratch — inspect the repo and ask on real forks (provider, region, existing VPC/cluster).
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
