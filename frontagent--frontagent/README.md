@@ -7,11 +7,11 @@ Frontend AI coding agent platform with CLI, VS Code extension, desktop app, MCP 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FrontAgent/FrontAgent](https://github.com/FrontAgent/FrontAgent).
+Original source: `CLAUDE.md` in [FrontAgent/FrontAgent](https://github.com/FrontAgent/FrontAgent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
