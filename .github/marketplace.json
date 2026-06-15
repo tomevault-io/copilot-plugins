@@ -15779,6 +15779,11 @@
       "description": "A proposal for a new streams API"
     },
     {
+      "name": "nspox-project--nspox",
+      "source": "./nspox-project--nspox",
+      "description": "nspox"
+    },
+    {
       "name": "tuannvm--codex-mcp-server",
       "source": "./tuannvm--codex-mcp-server",
       "description": "MCP server wrapper for OpenAI Codex CLI that enables Claude Code to leverage Codex's AI capabilities directly."
@@ -26854,6 +26859,11 @@
       "description": "Agent-native investment research workspace for evidence-tracked, refreshable investment theses across equities, earnings, macro, and portfolio review."
     },
     {
+      "name": "noctalia-dev--legacy-v4-plugins",
+      "source": "./noctalia-dev--legacy-v4-plugins",
+      "description": "Noctalia's official plugins"
+    },
+    {
       "name": "lichas--maxclaw",
       "source": "./lichas--maxclaw",
       "description": "OpenClaw-Style Local-First AI Agent in Go - Low-Memory, Private, UI-Ready, Out-of-the-Box"
@@ -27332,6 +27342,11 @@
       "name": "lassejlv--termy",
       "source": "./lassejlv--termy",
       "description": "Really fast terminal emulator with GPU-acceleration written Rust "
+    },
+    {
+      "name": "jonathan-vella--apex",
+      "source": "./jonathan-vella--apex",
+      "description": "APEX turns Azure platform engineering requirements into verified, deploy-ready IaC \u2014 powered by GitHub Copilot agents, real-time pricing, and built-in compliance."
     },
     {
       "name": "andreaskelm--pm-brain",
@@ -30477,6 +30492,16 @@
       "name": "temporalio--skill-temporal-developer",
       "source": "./temporalio--skill-temporal-developer",
       "description": "skill-temporal-developer"
+    },
+    {
+      "name": "serejaris--personal-corp-skills",
+      "source": "./serejaris--personal-corp-skills",
+      "description": "Public Claude Code skills for Personal Corp, product work, AI operations, and agent-assisted development"
+    },
+    {
+      "name": "serejaris--personal-corp-skills",
+      "source": "./serejaris--personal-corp-skills",
+      "description": "Public Claude Code skills for Personal Corp, product work, AI operations, and agent-assisted development"
     },
     {
       "name": "maslennikov-ig--claude-code-orchestrator-kit",
@@ -39687,6 +39712,106 @@
       "name": "theexgenesis--community-archive",
       "source": "./theexgenesis--community-archive",
       "description": "An open tweet database and API anyone can build on."
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
+    },
+    {
+      "name": "madebyaris--advance-minimax-m3-cursor-rules",
+      "source": "./madebyaris--advance-minimax-m3-cursor-rules",
+      "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
     },
     {
       "name": "interfacex-co-jp--genshijin",
@@ -166827,6 +166952,11 @@
       "name": "areevai--flowcat",
       "source": "./areevai--flowcat",
       "description": "Self-hosted native-Rust runtime for real-time voice agents. Own the stack: one binary in your own VPC or air-gapped, no hosted control plane. pipecat-compatible pipeline, in-process SIP/RTP, single-pr"
+    },
+    {
+      "name": "agjs--tsforge",
+      "source": "./agjs--tsforge",
+      "description": "A TypeScript-specialized development harness for building reliable, polished, modern web apps."
     },
     {
       "name": "yschimke--compose-ai-tools",
