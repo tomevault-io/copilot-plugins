@@ -4,7 +4,7 @@
   "repo": "FrontAgent",
   "description": "Frontend AI coding agent platform with CLI, VS Code extension, desktop app, MCP server, RAG planning, Skills, SDD guardrails, browser automation, and LoRA planner models | \u9762\u5411\u524d\u7aef\u5de5\u7a0b\u7684 AI Agent \u5e73\u53f0\uff0c\u652f\u6301 CLI\u3001VS Code \u63d2\u4ef6\u3001\u684c\u9762\u7aef\u3001MCP \u670d\u52a1\u3001RAG\u3001Skills\u3001SDD\u3001\u6d4f\u89c8\u5668\u81ea\u52a8\u5316\u4e0e LoRA \u89c4\u5212\u6a21\u578b",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FrontAgent/FrontAgent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T16:34:59Z"
+  "distributed_at": "2026-06-15T16:37:39Z"
 }
