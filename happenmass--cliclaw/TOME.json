@@ -4,7 +4,7 @@
   "repo": "Cliclaw",
   "description": "Your CLI coding agent shouldn't need a babysitter. cliclaw is a tool-agnostic meta-agent that runs Claude Code, Codex, or any TUI agent in parallel through tmux \u2014 clearing confirmations, remembering across sessions, scaling out.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Happenmass/Cliclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T05:43:08Z"
+  "distributed_at": "2026-06-15T05:45:27Z"
 }
