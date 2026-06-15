@@ -1,0 +1,9 @@
+{
+  "name": "rishabhyadavv--react-native-encryption",
+  "displayName": "react-native-encryption",
+  "description": "This is a Encryption library written in native i.e swift & kotlin for React Native, including usage examples for AES, RSA, Hashing, HMAC, Random String, and Base64 utilities.",
+  "version": "1.0.0",
+  "author": "rishabhyadavv",
+  "homepage": "https://github.com/rishabhyadavv/react-native-encryption",
+  "skills": []
+}
