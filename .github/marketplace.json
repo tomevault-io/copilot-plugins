@@ -1169,6 +1169,16 @@
       "description": "MCP Toolbox for Databases is an open source MCP server for databases."
     },
     {
+      "name": "kurikomi-labs--komi-store",
+      "source": "./kurikomi-labs--komi-store",
+      "description": "\ud83e\ude75 A free, open-source app store for developers' releases on GitHub, Codeberg & Forgejo \u2014 browse, discover, and install apps with one click. Formerly GitHub Store."
+    },
+    {
+      "name": "kurikomi-labs--komi-store",
+      "source": "./kurikomi-labs--komi-store",
+      "description": "\ud83e\ude75 A free, open-source app store for developers' releases on GitHub, Codeberg & Forgejo \u2014 browse, discover, and install apps with one click. Formerly GitHub Store."
+    },
+    {
       "name": "memvid--memvid",
       "source": "./memvid--memvid",
       "description": "Memory layer for AI Agents. Replace complex RAG pipelines with a serverless, single-file memory layer. Give your agents instant retrieval and long-term memory."
@@ -25644,6 +25654,11 @@
       "description": "A beautiful Windows desktop time tracking app built with Tauri & React."
     },
     {
+      "name": "hainguyents13--mechvibes-dx",
+      "source": "./hainguyents13--mechvibes-dx",
+      "description": "MechvibesDX is an upgraded version of Mechvibes, rewritten from scratch in Rust using Dioxus."
+    },
+    {
       "name": "rohunj--claude-build-workflow",
       "source": "./rohunj--claude-build-workflow",
       "description": "Automated workflow for building apps with Claude Code. Describe what you want, answer questions, let it build autonomously."
@@ -29862,6 +29877,11 @@
       "name": "kyryl-opens-ml--no-ocr",
       "source": "./kyryl-opens-ml--no-ocr",
       "description": "https://no-ocr.com/about"
+    },
+    {
+      "name": "jargon-io--jargon-v1",
+      "source": "./jargon-io--jargon-v1",
+      "description": "A personal research library that ingests articles, extracts insights, and surfaces unexpected connections across domains."
     },
     {
       "name": "nokodo-labs--os1",
@@ -36092,6 +36112,16 @@
       "name": "zhouyi207--weibocrawler",
       "source": "./zhouyi207--weibocrawler",
       "description": "\u5fae\u535a\u6570\u636e\u91c7\u96c6\uff0c\u540e\u7eed\u4f1a\u52a0\u4e0a\u77e5\u4e4e\uff0c\u8d34\u5427\uff0c\u5c0f\u7ea2\u4e66\uff0c\u6296\u97f3\uff0c\u5feb\u624b\u7b49\u4e3b\u6d41\u5a92\u4f53\u5185\u5bb9"
+    },
+    {
+      "name": "nishit-g--tokovo",
+      "source": "./nishit-g--tokovo",
+      "description": "AI-native studio for multi-device shows that happen inside phones."
+    },
+    {
+      "name": "nishit-g--tokovo",
+      "source": "./nishit-g--tokovo",
+      "description": "AI-native studio for multi-device shows that happen inside phones."
     },
     {
       "name": "chekdata--chek-ego-miner",
@@ -140157,6 +140187,11 @@
       "name": "fcoury--huskog",
       "source": "./fcoury--huskog",
       "description": ":deciduous_tree: Script Language Inspired by Rust"
+    },
+    {
+      "name": "idov31--etwsuite",
+      "source": "./idov31--etwsuite",
+      "description": "Windows native ETW inspection suite for browsing providers, reading metadata, consuming live events, recording ETL traces, filtering results, and inspecting ETL/JSON/CSV recordings from one desktop to"
     },
     {
       "name": "mohiwalla--memes",
