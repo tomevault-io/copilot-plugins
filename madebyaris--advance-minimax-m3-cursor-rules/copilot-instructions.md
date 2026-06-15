@@ -1,89 +1,79 @@
-## minimax-m3-status-verification
+## minimax-m3-verification
 
-> MiniMax M3 status and verification contract: exact claim labels, proof matching, multimodal-grounded visual claims, and evidence-first closeouts.
+> Extended M3 verification playbook: proof selection, multimodal-grounded checks, shell checks, browser checks, and recovery loops.
 
 
-# MiniMax M3 Status And Verification
+# M3 Verification Playbook
 
-Code is not done until it has been proved at the surface the user cares about.
+Extends the always-on `minimax-m3-status-verification` contract with check selection, shell/browser guidance, multimodal-grounded checks, and self-review. The status labels, minimum proof table, and closeout shape live in that always-on rule — do not restate them here.
 
-## Allowed Status Labels
+## Proof Selection
 
-Use explicit status language in updates and closeouts:
+- Match the proof to the claim being made.
+- Prefer the smallest proof that can honestly support the user-facing claim.
+- Strengthen the proof when the claim involves runtime behavior, interaction, styling, navigation, persistence, or integration.
+- If the deliverable promises a styling or toolchain layer (Tailwind, shadcn, routing, persistence), verify that layer directly — do not assume the scaffold wired it correctly.
+- **Visual / design / styling claim → `multimodal-grounded`**: read the attached image/frame, name the file path, name the region inspected, and check the relevant region. Do not infer from prose or from a memory of the pre-change state. See the `minimax-m3-multimodal-input` skill for the full workflow.
+- **Bug fix → red → green**: reproduce the failure with an exact check *before* fixing, then re-run that same check after. A check that was never red proves the wrong thing.
 
-- `changed`: you edited or produced something
-- `verified`: you proved a claim with a relevant check
-- `unverified`: the work exists but the required proof was not run
-- `blocked`: required progress or proof failed and the task cannot honestly be called done
-- `assumption`: a choice or statement depends on inference rather than direct evidence
-- `multimodal-grounded`: the claim is grounded in an attached image, video frame, screenshot, or design mock that was actually read in the current session (M3 native multimodal input). Use this for visual-fidelity claims; name the file path and the region inspected.
+## Test Integrity During Verification
 
-Do not use `done`, `fixed`, `working`, or `resolved` without naming the proof immediately after.
+A passing check only counts as proof if the check itself was not bent:
 
-## Claim And Evidence Rules
+- Never delete, skip, loosen, widen tolerances on, or special-case a test to reach green. If the test looks wrong, present the evidence to the user — changing the spec is their call.
+- A new test must be able to fail: confirm it fails against the pre-fix code (or would, by construction) before counting it as proof.
+- Hardcoding the expected output into production code, or branching on test-only inputs, is claim-gaming — treat the work as `blocked`, not `verified`.
 
-- Match the proof to the strongest claim you make.
-- Name the exact evidence for completion claims.
-- Separate what you observed from what you infer.
-- If intended verification failed and you fall back to a weaker check, say so explicitly.
-- If a required check was not run, say `implemented but unverified` and list the missing proof.
-- For visual claims, prefer `multimodal-grounded` (read the actual frame) over `verified` inferred from code-only reading. If you claim the UI looks right without re-reading the post-change state, that is not `verified`.
+## Shell-Based Checks
 
-## Minimum Proof By Change Type
+Use the smallest useful command first. Prefer the repo's own scripts and CI entrypoints when they exist (see core **Code Discipline**).
 
-| Change type | Minimum proof |
-|-------------|---------------|
-| Localized edit | Re-read or one targeted static check |
-| Bug fix | Red → green: the reproduction fails before the change and passes after; green → green proves nothing |
-| Backend, logic, or API change | Targeted test, command, script, or runtime request |
-| UI or interaction change | Browser or user-surface verification, plus static checks as needed |
-| Integration-sensitive change | Build or typecheck plus one focused behavior check |
-| Visual / design / styling claim | `multimodal-grounded`: read the attached screenshot/frame, name the file path, name the region inspected, and (when applicable) state "visually diffed against pre-change" or "not visually diffed" |
-| New app or scaffold | Setup/install succeeds, startup or health check succeeds, production build succeeds, one primary happy-path flow works, and any promised persistence or reload behavior is verified |
+- JavaScript/TypeScript: `lint`, `typecheck`, `build`, targeted tests, focused scripts
+- Python: `ruff`, targeted `pytest`, import or compile checks
+- Go: `go build`, `go test`, `go vet`
+- Rust: `cargo check`, `cargo test`, `cargo clippy`
+- Flutter: `flutter analyze`, `flutter test`
+- Swift: `swift build`, `swift test`, `xcodebuild` when applicable
 
-Build, lint, and typecheck support completion claims, but they do not replace runtime or surface proof for interaction, styling, navigation, or integration promises. They also do not replace `multimodal-grounded` proof for visual-fidelity claims — the visual is the surface.
+## Browser and Surface Checks
 
-## Regression And Blast Radius
+Use browser verification when the user would experience the change visually or interactively:
+- layout-sensitive UI changes
+- flow or navigation regressions
+- console or network failures
+- styling pipeline issues
+- end-to-end behavior the shell cannot prove
 
-- Before closeout, if the repo has an automated test suite, smoke script, or documented CI entrypoint, state whether it was run on the changes.
-- If tests or smoke were not run, label regression risk as `unverified` and name what was skipped. Do not imply "no regressions" without that evidence.
-- For visual claims, prefer a visual diff (post-change frame vs. pre-change frame) over a prose diff. State whether the visual was diffed. If the user can attach a screenshot of the broken state, read it as part of the triage.
+For purely visual claims (a screenshot already exists, or the user attached a mock), `multimodal-grounded` is the cheaper and more direct proof than a browser pass; use the browser pass when the surface is interactive.
 
-## Verification Order
+When browser verification is unavailable, say that clearly and downgrade the claim instead of implying full proof.
+
+## Self-Review
+
+For non-trivial work, ask:
 
 ```text
-1. Smallest relevant static check
-2. Focused executable or user-surface proof
-3. Multimodal-grounded proof when the claim is visual
-4. Broader validation only when warranted
+What would break this?
+What assumptions might be wrong?
+Is there a simpler way?
+Did I solve the actual request?
+Did I re-read the post-change visual state, or am I remembering the pre-change state?
 ```
-
-## Closeout Contract
-
-Every substantive completion summary should make clear:
-
-- what changed
-- what was verified (and how)
-- what remains unverified
-- what is blocked, if anything
-
-Use this PR-style shape so humans can scan quickly:
-
-| Section | Content |
-|---------|---------|
-| **Summary** | Outcome in one short paragraph |
-| **Files touched** | Paths or areas changed |
-| **Verification evidence** | Exact commands run, manual checks, user-visible surfaces exercised, screenshots/frames read (with paths) for `multimodal-grounded` claims |
-| **Risks and unverified items** | Regressions not tested, visual claims not diffed, assumptions, recommended follow-ups |
 
 ## When Verification Fails
 
-- State the failing check and the evidence.
-- Form the smallest corrective hypothesis.
-- Make the smallest corrective change.
-- Re-run the exact check that proves the fix.
-- Stop claiming completion while required proof is failing or missing.
-- After two failures on the same hypothesis, document evidence and switch strategy (smaller change, wider read, or one forked user question); do not repeat the same fix blindly.
+Use an evidence-first loop:
+
+```text
+What failed?
+What is the best current hypothesis?
+What is the smallest corrective change?
+What exact check will prove the fix?
+```
+
+Do not describe the task as complete while required verification is still failing or missing.
+
+After two failures on the same hypothesis, document evidence and switch strategy (smaller change, wider read, one forked user question); do not repeat the same fix blindly. After that, use current docs or web search before another attempt.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
