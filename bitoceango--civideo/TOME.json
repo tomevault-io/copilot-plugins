@@ -1,0 +1,44 @@
+{
+  "name": "civideo",
+  "owner": "bitoceango",
+  "repo": "civideo",
+  "description": "\u5bb6\u957f\u53ef\u63a7\u7684\u81ea\u5efa\u513f\u7ae5\u89c6\u9891\u6d41\u5a92\u4f53\u64ad\u653e\u5668\uff1a\u65e0\u5e7f\u544a\u3001\u65e0\u63a8\u8350\u6d41\u3001\u5c01\u95ed\u5185\u5bb9\u82b1\u56ed \u00b7 Self-hosted, ad-free kids video streaming player with parental controls \u2014 Cloudflare Workers + R2 and native SwiftUI (iOS / iPadOS / macOS)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bitoceango/civideo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-15T03:30:49Z"
+}
