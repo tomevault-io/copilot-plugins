@@ -49599,6 +49599,11 @@
       "description": "A high-level Swift framework that simplifies working with GPU Metal Compute."
     },
     {
+      "name": "wishval--wamp",
+      "source": "./wishval--wamp",
+      "description": "Winamp inspired music player for MacOs"
+    },
+    {
       "name": "qtzx06--yolodex",
       "source": "./qtzx06--yolodex",
       "description": "agent skills for autonomous data labeling, winner at openai codex hackathon 2026"
@@ -51202,11 +51207,6 @@
       "name": "rainxchzed--rikkaui",
       "source": "./rainxchzed--rikkaui",
       "description": "RikkaUI \u2014 composing elements into harmony. Shadcn/UI Inspired component library & design system for Jetpack Compose."
-    },
-    {
-      "name": "wishval--wamp",
-      "source": "./wishval--wamp",
-      "description": "Winamp inspired music player for MacOs"
     },
     {
       "name": "zouwei--termex",
@@ -191594,6 +191594,31 @@
       "description": "Ontological based research and development software engineering agent, that is math heavy."
     },
     {
+      "name": "authplane--authserver",
+      "source": "./authplane--authserver",
+      "description": "OAuth 2.1 Authorization Server for the Model Context Protocol (MCP)"
+    },
+    {
+      "name": "rayw-lab--english-immersion-reader",
+      "source": "./rayw-lab--english-immersion-reader",
+      "description": "Turn any English article or YouTube transcript into an offline deep-reading lesson page \u2014 Edge TTS, karaoke word highlight, per-lesson dictionary. For English learners who use local coding agents (Cla"
+    },
+    {
+      "name": "sublimect--tomato-clock-pyqt6",
+      "source": "./sublimect--tomato-clock-pyqt6",
+      "description": "\ud83c\udf45 \u756a\u8304\u4e13\u6ce8 - \u6c89\u6d78\u5f0f\u756a\u8304\u949f\u5e94\u7528, \u57fa\u4e8e pyqt6 \u7f16\u5199"
+    },
+    {
+      "name": "sublimect--tomato-clock-pyqt6",
+      "source": "./sublimect--tomato-clock-pyqt6",
+      "description": "\ud83c\udf45 \u756a\u8304\u4e13\u6ce8 - \u6c89\u6d78\u5f0f\u756a\u8304\u949f\u5e94\u7528, \u57fa\u4e8e pyqt6 \u7f16\u5199"
+    },
+    {
+      "name": "rosa134--daidai-live2d-pet",
+      "source": "./rosa134--daidai-live2d-pet",
+      "description": "\u5f00\u7bb1\u5373\u7528\u7684 Live2D \u684c\u9762\u5ba0\u7269\uff1aElectron \u900f\u660e\u7a97\u3001\u540e\u53f0\u7ba1\u7406\u3001\u591a\u6a21\u578b\u3001Codex/Claude \u72b6\u6001\u6c14\u6ce1\u3001\u89d2\u8272\u804a\u5929\u3001TTS \u8bed\u97f3\u3001\u53e3\u578b\u540c\u6b65\u548c\u968f\u673a\u80a2\u4f53\u52a8\u4f5c\u3002"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -206447,6 +206472,46 @@
       "name": "frankwei98--bark-serverless",
       "source": "./frankwei98--bark-serverless",
       "description": "A serverless TypeScript backend for Bark App"
+    },
+    {
+      "name": "rgiskard7--jylos",
+      "source": "./rgiskard7--jylos",
+      "description": "Local-first knowledge management with Markdown notes, wiki-links, backlinks, interactive graphs, plugins, themes and SQLite or Markdown vault storage."
+    },
+    {
+      "name": "robwolff3--nws-alert-dashboard",
+      "source": "./robwolff3--nws-alert-dashboard",
+      "description": "Self-hosted multi-source NWS weather alert monitor \u2014 NWWS-OI, NOAA Weather Radio (RTL-SDR), and the weather.gov API, deduplicated into one dashboard with offline polygon maps and push notifications. O"
+    },
+    {
+      "name": "nigh--show-me-the-story",
+      "source": "./nigh--show-me-the-story",
+      "description": "show-me-the-story"
+    },
+    {
+      "name": "dcx199302--cardtree-bookmarks-ext",
+      "source": "./dcx199302--cardtree-bookmarks-ext",
+      "description": "\u5361\u7247\u5f0f\u4e66\u7b7e\u7ba1\u7406\u5668\uff0c\u7528\u4e8e\u65b0\u6807\u7b7e\u9875\u3002\u8f7b\u677e\u7ec4\u7ec7\u3001\u641c\u7d22\u3001\u62d6\u653e\u4e66\u7b7e\u3002"
+    },
+    {
+      "name": "chenggou1--fishword",
+      "source": "./chenggou1--fishword",
+      "description": "fishword"
+    },
+    {
+      "name": "vignesh2027--vilvona-ai",
+      "source": "./vignesh2027--vilvona-ai",
+      "description": "Self-hosted AI assistant powered by Claude Fable 5. Tamil & Hindi UI, Mobile PWA, 100+ integrations. npx vilvona"
+    },
+    {
+      "name": "vignesh2027--vilvona-ai",
+      "source": "./vignesh2027--vilvona-ai",
+      "description": "Self-hosted AI assistant powered by Claude Fable 5. Tamil & Hindi UI, Mobile PWA, 100+ integrations. npx vilvona"
+    },
+    {
+      "name": "jacob-bd--opencode-starter",
+      "source": "./jacob-bd--opencode-starter",
+      "description": "Interactive launcher for AI coding tools via OpenCode backends (Zen/Go)"
     },
     {
       "name": "cheerhuan--save-your-token",
