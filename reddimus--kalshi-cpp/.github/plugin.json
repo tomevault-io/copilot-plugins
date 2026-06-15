@@ -1,0 +1,9 @@
+{
+  "name": "reddimus--kalshi-cpp",
+  "displayName": "kalshi-cpp",
+  "description": "Modern C++23 SDK for the Kalshi prediction-market API \u2014 full typed REST coverage + real-time WebSocket streaming, RSA-PSS auth, and an exception-free std::expected API. CMake / FetchContent-ready.",
+  "version": "1.0.0",
+  "author": "Reddimus",
+  "homepage": "https://github.com/Reddimus/kalshi-cpp",
+  "skills": []
+}
