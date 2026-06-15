@@ -205614,6 +205614,21 @@
       "description": "Zero Trust for AI Agents"
     },
     {
+      "name": "ivan-magda--wwdc26-notes",
+      "source": "./ivan-magda--wwdc26-notes",
+      "description": "WWDC 2026 session notes: LLM-written digests plus Apple's transcripts, metadata, and code snippets"
+    },
+    {
+      "name": "maromsv--autodesign",
+      "source": "./maromsv--autodesign",
+      "description": "Nvidia x Whale Hackathon"
+    },
+    {
+      "name": "ivan-magda--wwdc26-notes",
+      "source": "./ivan-magda--wwdc26-notes",
+      "description": "WWDC 2026 session notes: LLM-written digests plus Apple's transcripts, metadata, and code snippets"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
