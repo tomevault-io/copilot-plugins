@@ -190569,6 +190569,11 @@
       "description": "\u4e00\u7ad9\u5f0f\u6570\u636e\u91c7\u96c6/\u5206\u6790/\u76d1\u63a7\u5e73\u53f0\uff0c\u6574\u5408\u65e5\u5fd7\u76d1\u63a7/\u6307\u6807\u76d1\u63a7\u56fd\u5185\u5916\u5f00\u6e90\u65b9\u6848\uff0c\u5b9e\u73b0\u670d\u52a1\u5668/\u670d\u52a1/\u4e2d\u95f4\u4ef6\u76d1\u63a7\u3002\u65b9\u4fbf\u7ba1\u7406\u5458\u53ca\u65f6\u611f\u77e5\uff0c\u5feb\u901f\u8fd0\u7ef4\u3002"
     },
     {
+      "name": "maxwell2732--pai-econ-claude",
+      "source": "./maxwell2732--pai-econ-claude",
+      "description": "\u4e00\u4e2a\u5e2e\u52a9\u5b9e\u8bc1\u7ecf\u6d4e\u5b66\u5bb6\u8865\u9f50\u7406\u8bba\u7248\u56fe\u7684 Claude Code Skill"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -205282,6 +205287,11 @@
       "name": "oduist--connect-addons",
       "source": "./oduist--connect-addons",
       "description": "Public Oduist Connect modules"
+    },
+    {
+      "name": "tarunlnmiit--autopilot-jobhunt",
+      "source": "./tarunlnmiit--autopilot-jobhunt",
+      "description": "AI job agent: scans 130+ careers pages nightly, scores every role against your resume with an LLM (0\u2013100), alerts you on Telegram, and drafts tailored cover letters + resumes. Free & open source."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -315567,6 +315577,61 @@
       "name": "aliajreza10--grok",
       "source": "./aliajreza10--grok",
       "description": "grok"
+    },
+    {
+      "name": "edutech04-rgb--heejoo-note",
+      "source": "./edutech04-rgb--heejoo-note",
+      "description": "\uc784\ud76c\uc8fc \uc624\ub2f5\ub178\ud2b8 - \uc911\ud559\uad50 \uc624\ub2f5\ub178\ud2b8 \uc571 (\ud551\ud06c\uc0c9 \ub538\uae30 \ud14c\ub9c8)"
+    },
+    {
+      "name": "izz05142--crewai---build-your-first-flow---izz",
+      "source": "./izz05142--crewai---build-your-first-flow---izz",
+      "description": "CrewAI---Build-Your-First-Flow---Izz"
+    },
+    {
+      "name": "marketadapter--google-maps-coords-skill",
+      "source": "./marketadapter--google-maps-coords-skill",
+      "description": "google-maps-coords-skill"
+    },
+    {
+      "name": "jacktyn--resume-pipeline-v2",
+      "source": "./jacktyn--resume-pipeline-v2",
+      "description": "Multi-agent resume keyword alignment pipeline, Gatekeeper/Worker/Judge architecture"
+    },
+    {
+      "name": "severusdude--lutfi-portofolio",
+      "source": "./severusdude--lutfi-portofolio",
+      "description": "lutfi-portofolio"
+    },
+    {
+      "name": "tcast1000--foxit-pmm-agent",
+      "source": "./tcast1000--foxit-pmm-agent",
+      "description": "PMM launch-brief workflow agent on Foxit's MCP Host plus PDF API stack, with a Next.js showcase"
+    },
+    {
+      "name": "desenyon--dex",
+      "source": "./desenyon--dex",
+      "description": "A local-first developer cockpit for the terminal: network, process, API, JSON, system, regex, benchmark, files, clipboard, and terminal tools in one Go binary."
+    },
+    {
+      "name": "edutech010-bit--yuna-wrong-answer-notebook",
+      "source": "./edutech010-bit--yuna-wrong-answer-notebook",
+      "description": "yuna-wrong-answer-notebook"
+    },
+    {
+      "name": "nikkukn--cvdraw",
+      "source": "./nikkukn--cvdraw",
+      "description": "cvdraw"
+    },
+    {
+      "name": "xxultradarkwizardxx--task-manger",
+      "source": "./xxultradarkwizardxx--task-manger",
+      "description": "task-manger"
+    },
+    {
+      "name": "ersonvc--projects-demo",
+      "source": "./ersonvc--projects-demo",
+      "description": "projects-demo"
     }
   ]
 }
