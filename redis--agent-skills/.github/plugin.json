@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "redis",
   "homepage": "https://github.com/redis/agent-skills",
-  "skills": [
-    {
-      "name": "redis-development",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
