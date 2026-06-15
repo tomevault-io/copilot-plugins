@@ -1,0 +1,9 @@
+{
+  "name": "callumalpass--canvas-bases",
+  "displayName": "canvas-bases",
+  "description": "Canvas-style layouts and JSON Canvas materialization for Obsidian Bases.",
+  "version": "1.0.0",
+  "author": "callumalpass",
+  "homepage": "https://github.com/callumalpass/canvas-bases",
+  "skills": []
+}
