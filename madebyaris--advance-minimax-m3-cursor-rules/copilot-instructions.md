@@ -1,87 +1,72 @@
-## skill-authoring
+## tool-discovery
 
-> MiniMax M3 + Cursor 3.7 skill authoring: when to use skills, how to structure them, how to keep them deep without duplicating the core, and how to declare model assumptions.
+> MiniMax M3 + Cursor 3.7 tool discovery: runtime inventory, canvases, Design Mode inputs, schema-first MCP use, MCP Apps structured content, capability mapping, and safe fallbacks.
 
 
-# Skill Authoring
+# Tool Discovery (Cursor 3.7 + M3)
 
-Use this rule when creating, revising, or evaluating `.cursor/skills/*` content.
+Current through **Cursor 3.7** (Jun 2026). Use this rule when the runtime surface is unfamiliar, tool-heavy, or likely to differ across environments.
 
-## Rule vs Skill
+## Discovery Order
 
-- Put durable, universal behavior in always-on rules.
-- Use a skill for repeatable workflows, domain-specific heuristics, or tasks that need examples and reference material.
-- If the content only matters for one file type or one domain, prefer a skill or requestable rule over expanding the core.
+Inventory the current surface in this order:
 
-## Skill Shape
+1. direct tools exposed in the prompt (`Read`, `Grep`, `Task`, `Await`, etc. — names vary by surface; the live list wins)
+2. browser, canvas, and other IDE-native surfaces exposed in the prompt
+   - **Browser MCP** (`cursor-ide-browser`): snapshot-first automation; read the server's tool descriptors
+   - **Canvas** (`.canvas.tsx`): confirm the session supports canvases before promising one; load the `canvas` skill before authoring
+   - **Design Mode** (3.7): user-driven in browser or canvas — not an agent tool; when the user has selected or annotated elements, treat that as the primary input for UI edits
+3. **Cursor Marketplace** (or team marketplace) plugins already installed — same schema-first rules as other MCPs; discover tools and resources from each plugin's descriptors before calling
+4. MCP tools and resources with their current schemas (including project-configured servers under the session's MCP descriptor path)
+5. web docs only when discovery or versions still remain unclear
 
-Each skill should clearly provide:
+For delegation, read the live `Task` schema for available `subagent_type` values and whether nesting or `run_in_background` applies (Multitask Mode expects background runs).
 
-- what it is for
-- when to use it
-- what to inspect first
-- the workflow or decision sequence
-- any output or verification expectations
+## Schema-First Use
 
-## Frontmatter Contract
+- Read the current schema or descriptor before calling unfamiliar MCP tools.
+- Match the task step to the smallest tool that can honestly do it.
+- Do not infer hidden parameters or old wrapper names from memory.
+- **MCP Apps structured content**: when a tool returns structured content, prefer the structured form over reconstructing from prose. When the structured data *is* the deliverable, route it to a **canvas** rather than a markdown table in chat.
 
-Use YAML frontmatter on every `SKILL.md`.
+## Capability Mapping
 
-Minimum:
+Before acting, translate the task into:
 
-```yaml
----
-name: my-skill
-description: >
-  What this skill does and the user-language triggers for when to use it.
-license: MIT
-metadata:
-  version: "1.0.0"
-  category: workflow
-  sources:
-    - Official docs or standards
-  model_assumptions: []   # optional; see below
----
+- what must be read
+- what must be changed
+- what must be verified
+- which currently exposed tool best serves each step
+
+For visual-fidelity work, also translate into: which image/frame must be read, which **Design Mode** selections the user provided (if any), and which post-change frame must be re-read after editing.
+
+For analytical or tabular deliverables, also translate into: whether a **canvas** is the right surface (audit, metrics breakdown, MCP query results) vs. inline chat prose.
+
+## Discovery Loop
+
+```text
+1. Inventory current tools
+2. Read the schema for unfamiliar options
+3. Choose the smallest viable tool
+4. Try the narrowest valid call
+5. Verify the result
+6. Escalate or fall back only if needed
 ```
 
-Rules:
-- `name` must match the directory name exactly.
-- `description` must include concrete trigger language, not vague capability claims.
-- `license` should be explicit so skills stay portable outside this repo.
-- `metadata.version` should change when the skill meaningfully evolves.
-- `metadata.category` should describe the domain or workflow.
-- `metadata.sources` should name current authoritative sources when the skill depends on external behavior.
-- `metadata.model_assumptions` (optional) should name the model capabilities the skill depends on, e.g.:
-  - `multimodal-input: required` — the skill expects the user can attach images/video that the model can read natively
-  - `long-context: recommended` — the skill expects a 1M-class context window for the loader to be useful
-  - `cursor-3-runtime: required` — the skill expects the Cursor 3.7 / Agents Window surface
+## Safe Fallbacks
 
-## Progressive Disclosure
+- If a tool is unavailable, say so and choose the next best exposed path.
+- If discovery fails, simplify the task step and re-check the current surface.
+- Do not promise a tool-based deliverable until the path is confirmed.
 
-- Keep `SKILL.md` focused on the main workflow.
-- Move large examples, extended references, and category catalogs into companion files such as `reference.md`.
-- Load deeper material only when the task actually needs it.
+## Anti-Patterns
 
-## Skill Contracts
-
-- State concrete triggers in user-language, not vague capability claims.
-- Define inputs, outputs, stop conditions, and common failure modes.
-- Prefer one coherent workflow per skill over broad omnibus instructions.
-- If a skill depends on multimodal input, name that in the frontmatter and in the opening paragraph so the agent does not try to use it in a text-only environment.
-
-## Anti-Duplication
-
-- Do not copy the always-on solver loop, status taxonomy, or generic tool discipline into every skill.
-- Let skills deepen the task-specific method, not restate the global contract.
-- Reference existing project patterns or rule files when they already cover shared behavior.
-
-## Quality Bar
-
-- Keep the opening concise enough that the agent can quickly decide whether to load the skill.
-- Use examples only when they change behavior.
-- Re-read the skill after writing it and remove filler, stale tool names, and redundant policy text.
-- Prefer one small `SKILL.md` plus optional `reference.md` over one giant omnibus file.
-- If the skill references scripts or helper assets, document where outputs go and how success is verified.
+- assuming a tool exists because it existed in another environment
+- using shell as the first choice when a direct tool is exposed
+- calling MCP tools without reading current schemas
+- hiding tool uncertainty behind confident prose
+- ignoring MCP Apps structured content and dumping it as prose or markdown tables when a canvas is available
+- promising canvas, Design Mode, browser, or nested `Task` behavior before confirming the current session exposes it
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
