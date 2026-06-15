@@ -30999,6 +30999,11 @@
       "description": "Model Context Protocol For R"
     },
     {
+      "name": "chatman-media--timeline-studio",
+      "source": "./chatman-media--timeline-studio",
+      "description": "Timeline Studio - Video Editing with AI"
+    },
+    {
       "name": "hamza5--file-brain",
       "source": "./hamza5--file-brain",
       "description": "Smart local file search app that understands your files"
@@ -206547,6 +206552,11 @@
       "name": "jacob-bd--opencode-starter",
       "source": "./jacob-bd--opencode-starter",
       "description": "Interactive launcher for AI coding tools via OpenCode backends (Zen/Go)"
+    },
+    {
+      "name": "zeke--freeretro",
+      "source": "./zeke--freeretro",
+      "description": "A lightweight tool for running team retrospectives"
     },
     {
       "name": "cheerhuan--save-your-token",
