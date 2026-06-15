@@ -4,7 +4,7 @@
   "repo": "agentsview",
   "description": "Local-first session search, analytics, insights, and token use statistics for coding agents, supporting Claude Code, Codex, and more than 20 other agents. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kenn-io/agentsview",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T07:32:16Z"
+  "distributed_at": "2026-06-15T07:32:44Z"
 }
