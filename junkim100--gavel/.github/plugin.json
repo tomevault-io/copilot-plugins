@@ -1,0 +1,9 @@
+{
+  "name": "junkim100--gavel",
+  "displayName": "gavel",
+  "description": "Multi-model fusion for Claude Code: ask Claude + Codex + Gemini in parallel, then judge their answers into one and act on it.",
+  "version": "1.0.0",
+  "author": "junkim100",
+  "homepage": "https://github.com/junkim100/gavel",
+  "skills": []
+}
