@@ -1,0 +1,9 @@
+{
+  "name": "madeye--meow-rs",
+  "displayName": "meow-rs",
+  "description": "A high-performance Rust implementation of the mihomo (Clash Meta) proxy kernel.",
+  "version": "1.0.0",
+  "author": "madeye",
+  "homepage": "https://github.com/madeye/meow-rs",
+  "skills": []
+}
