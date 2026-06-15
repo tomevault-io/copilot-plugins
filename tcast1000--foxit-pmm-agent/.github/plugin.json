@@ -1,0 +1,9 @@
+{
+  "name": "tcast1000--foxit-pmm-agent",
+  "displayName": "foxit-pmm-agent",
+  "description": "PMM launch-brief workflow agent on Foxit's MCP Host plus PDF API stack, with a Next.js showcase",
+  "version": "1.0.0",
+  "author": "tcast1000",
+  "homepage": "https://github.com/tcast1000/foxit-pmm-agent",
+  "skills": []
+}
