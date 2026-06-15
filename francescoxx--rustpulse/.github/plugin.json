@@ -1,0 +1,9 @@
+{
+  "name": "francescoxx--rustpulse",
+  "displayName": "rustpulse",
+  "description": "RustPulse \u2014 the Rust ecosystem in one clean dashboard. Rust + Axum API, Next.js frontend, PostgreSQL.",
+  "version": "1.0.0",
+  "author": "FrancescoXX",
+  "homepage": "https://github.com/FrancescoXX/rustpulse",
+  "skills": []
+}
