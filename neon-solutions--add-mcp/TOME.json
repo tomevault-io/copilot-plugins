@@ -4,7 +4,7 @@
   "repo": "add-mcp",
   "description": "The open MCP config tool - npx add-mcp",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neon-solutions/add-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T11:36:05Z"
+  "distributed_at": "2026-06-15T11:37:35Z"
 }
