@@ -14,6 +14,16 @@
       "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. \ud83e\udd9e "
     },
     {
+      "name": "affaan-m--ecc",
+      "source": "./affaan-m--ecc",
+      "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond."
+    },
+    {
+      "name": "affaan-m--ecc",
+      "source": "./affaan-m--ecc",
+      "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond."
+    },
+    {
       "name": "ultraworkers--claw-code",
       "source": "./ultraworkers--claw-code",
       "description": "The repo is finally unlocked. enjoy the party! The fastest repo in history to surpass 100K stars \u2b50. Join Discord: https://discord.gg/5TUQKqFWd Built in Rust using oh-my-codex."
@@ -257,6 +267,16 @@
       "name": "juliusbrussee--caveman",
       "source": "./juliusbrussee--caveman",
       "description": "\ud83e\udea8 why use many token when few token do trick \u2014 Claude Code skill that cuts 65% of tokens by talking like caveman"
+    },
+    {
+      "name": "hmbown--codewhale",
+      "source": "./hmbown--codewhale",
+      "description": "Open-source, community-driven agent harness"
+    },
+    {
+      "name": "hmbown--codewhale",
+      "source": "./hmbown--codewhale",
+      "description": "Open-source, community-driven agent harness"
     },
     {
       "name": "chromedevtools--chrome-devtools-mcp",
@@ -1502,6 +1522,16 @@
       "name": "humanlayer--humanlayer",
       "source": "./humanlayer--humanlayer",
       "description": "The best way to get AI coding agents to solve hard problems in complex codebases."
+    },
+    {
+      "name": "accomplish-ai--coworker",
+      "source": "./accomplish-ai--coworker",
+      "description": "Coworker is the open source Al coworker that lives on your desktop"
+    },
+    {
+      "name": "accomplish-ai--coworker",
+      "source": "./accomplish-ai--coworker",
+      "description": "Coworker is the open source Al coworker that lives on your desktop"
     },
     {
       "name": "anomalyco--opentui",
@@ -9659,6 +9689,21 @@
       "description": "Netronome is a modern network speed testing and monitoring tool built with Go and React."
     },
     {
+      "name": "guanyang--open-agent-hub",
+      "source": "./guanyang--open-agent-hub",
+      "description": "A lightweight, zero-dependency CLI tool to manage and activate capabilities for AI coding assistants (such as Claude Code, Cursor, Trae, etc.)."
+    },
+    {
+      "name": "guanyang--open-agent-hub",
+      "source": "./guanyang--open-agent-hub",
+      "description": "A lightweight, zero-dependency CLI tool to manage and activate capabilities for AI coding assistants (such as Claude Code, Cursor, Trae, etc.)."
+    },
+    {
+      "name": "guanyang--open-agent-hub",
+      "source": "./guanyang--open-agent-hub",
+      "description": "A lightweight, zero-dependency CLI tool to manage and activate capabilities for AI coding assistants (such as Claude Code, Cursor, Trae, etc.)."
+    },
+    {
       "name": "prismer-ai--prismercloud",
       "source": "./prismer-ai--prismercloud",
       "description": "Prismer Cloud"
@@ -10342,6 +10387,11 @@
       "name": "tonl-dev--tonl",
       "source": "./tonl-dev--tonl",
       "description": "TONL (Token-Optimized Notation Language)"
+    },
+    {
+      "name": "cryptodmitry--hermes-agent-control-room",
+      "source": "./cryptodmitry--hermes-agent-control-room",
+      "description": "Control Room-first template for managing Hermes agents from one VPS agent to specialist teams and orchestrated workflows "
     },
     {
       "name": "danielmiessler--substrate",
@@ -14709,6 +14759,11 @@
       "description": "AI-powered Postgres Client"
     },
     {
+      "name": "tsz-org--tsz",
+      "source": "./tsz-org--tsz",
+      "description": "A performance-first TypeScript checker"
+    },
+    {
       "name": "elirantutia--vibeyard",
       "source": "./elirantutia--vibeyard",
       "description": "The IDE built for AI coding agents."
@@ -15962,6 +16017,11 @@
       "name": "yukiyokotani--office-open-xml-viewer",
       "source": "./yukiyokotani--office-open-xml-viewer",
       "description": "A browser-based viewer for Office Open XML documents that renders to an HTML Canvas element."
+    },
+    {
+      "name": "ha-pulse--home-assistant-global-health-score",
+      "source": "./ha-pulse--home-assistant-global-health-score",
+      "description": "The open standard for Home Assistant instance health monitoring."
     },
     {
       "name": "computerlovetech--agr",
@@ -25547,6 +25607,16 @@
       "name": "xuiltul--animaworks",
       "source": "./xuiltul--animaworks",
       "description": "Organization-as-Code for autonomous AI agents. Brain-inspired memory that grows, consolidates, and forgets. Multi-model (Claude/Codex/Gemini/Cursor/Ollama)."
+    },
+    {
+      "name": "neon-solutions--add-mcp",
+      "source": "./neon-solutions--add-mcp",
+      "description": "The open MCP config tool - npx add-mcp"
+    },
+    {
+      "name": "neon-solutions--add-mcp",
+      "source": "./neon-solutions--add-mcp",
+      "description": "The open MCP config tool - npx add-mcp"
     },
     {
       "name": "tyh-labs--unsloth-buddy",
@@ -38474,6 +38544,11 @@
       "description": "Plug-and-play document AI with zero-shot models."
     },
     {
+      "name": "impertio-studio--frappe-claude-skill-package",
+      "source": "./impertio-studio--frappe-claude-skill-package",
+      "description": "60 deterministic Claude AI skills for Frappe Framework & ERPNext v14-v16 development and operations"
+    },
+    {
       "name": "cloveric--cc-telegram-bridge",
       "source": "./cloveric--cc-telegram-bridge",
       "description": "Real Claude Code & Codex CLI on Telegram \u2014 runs their native harness directly, no reimplemented API wrappers. Sessions, memory, tools, all built-in. Multi-bot Agent Bus, resume local sessions on your "
@@ -44232,6 +44307,11 @@
       "name": "sentioxyz--sentio-sdk",
       "source": "./sentioxyz--sentio-sdk",
       "description": "sentio-sdk"
+    },
+    {
+      "name": "jamesishandsome--diff-cover-ts",
+      "source": "./jamesishandsome--diff-cover-ts",
+      "description": "TypeScript implementation of diff-cover for checking coverage and quality only on lines changed in a Git diff."
     },
     {
       "name": "mitchellh--go-libghostty",
@@ -150894,6 +150974,11 @@
       "description": "SUPERMONKEY \u5b98\u65b9 CLI"
     },
     {
+      "name": "m1n-n9--paper-lifecycle",
+      "source": "./m1n-n9--paper-lifecycle",
+      "description": "Codex skill for full academic paper lifecycle analysis and revision"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -166372,6 +166457,21 @@
       "name": "jeidoban--ironsmith",
       "source": "./jeidoban--ironsmith",
       "description": "Create personal Mac apps and tools with local and cloud LLMs"
+    },
+    {
+      "name": "areevai--flowcat",
+      "source": "./areevai--flowcat",
+      "description": "Self-hosted native-Rust runtime for real-time voice agents. Own the stack: one binary in your own VPC or air-gapped, no hosted control plane. pipecat-compatible pipeline, in-process SIP/RTP, single-pr"
+    },
+    {
+      "name": "vkrainb--ccmesh",
+      "source": "./vkrainb--ccmesh",
+      "description": "ccMesh is a lightweight forwarding layer for Claude Code. It intercepts Claude protocol traffic and routes it to either Anthropic Claude endpoints or OpenAI-compatible APIs \u2014 switch backends without t"
+    },
+    {
+      "name": "areevai--flowcat",
+      "source": "./areevai--flowcat",
+      "description": "Self-hosted native-Rust runtime for real-time voice agents. Own the stack: one binary in your own VPC or air-gapped, no hosted control plane. pipecat-compatible pipeline, in-process SIP/RTP, single-pr"
     },
     {
       "name": "yschimke--compose-ai-tools",
