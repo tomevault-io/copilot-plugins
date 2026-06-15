@@ -4,7 +4,7 @@
   "repo": "bitkit-android",
   "description": "Self-custodial Bitcoin and Lightning Wallet",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/synonymdev/bitkit-android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T00:36:28Z"
+  "distributed_at": "2026-06-15T00:36:55Z"
 }
