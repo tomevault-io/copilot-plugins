@@ -190979,6 +190979,11 @@
       "description": "Claude Code \u72b6\u6001\u680f - \u663e\u793a\u76ee\u5f55\u3001\u5206\u652f\u3001\u6a21\u578b\u3001effort\u3001\u4e0a\u4e0b\u6587\u8fdb\u5ea6\u6761\u3001PR"
     },
     {
+      "name": "openguardrails--agentfw",
+      "source": "./openguardrails--agentfw",
+      "description": "The local firewall for AI agents \u2014 keep your secrets off the model, the API relay, and the supply chain. Local credential masking, per-route model routing, and security detectors on the wire. Free & f"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -205722,6 +205727,46 @@
       "name": "ivan-magda--wwdc26-notes",
       "source": "./ivan-magda--wwdc26-notes",
       "description": "WWDC 2026 session notes: LLM-written digests plus Apple's transcripts, metadata, and code snippets"
+    },
+    {
+      "name": "deepblue6--gtm-activities",
+      "source": "./deepblue6--gtm-activities",
+      "description": "Self-hosted website crawler (Firecrawl alternative) + Google search API (SearXNG) \u2014 just add proxies. Built for GTM teams."
+    },
+    {
+      "name": "leogr--falco-expert",
+      "source": "./leogr--falco-expert",
+      "description": "Falco Knowledge Base for AI Agents"
+    },
+    {
+      "name": "tanujrajputdev--shopify-theme-audit-skill",
+      "source": "./tanujrajputdev--shopify-theme-audit-skill",
+      "description": "Claude Code skill that audits any Shopify theme for performance, SEO, AEO, and GEO in 90 seconds. 80+ checks, scored report, paste-in Liquid fixes."
+    },
+    {
+      "name": "yurifox123--ai-town-portable",
+      "source": "./yurifox123--ai-town-portable",
+      "description": "ai-town-portable"
+    },
+    {
+      "name": "francescoxx--rustpulse",
+      "source": "./francescoxx--rustpulse",
+      "description": "RustPulse \u2014 the Rust ecosystem in one clean dashboard. Rust + Axum API, Next.js frontend, PostgreSQL."
+    },
+    {
+      "name": "leogr--falco-expert",
+      "source": "./leogr--falco-expert",
+      "description": "Falco Knowledge Base for AI Agents"
+    },
+    {
+      "name": "yurifox123--ai-town-portable",
+      "source": "./yurifox123--ai-town-portable",
+      "description": "ai-town-portable"
+    },
+    {
+      "name": "zexuanw958-svg--travel-plan-viz",
+      "source": "./zexuanw958-svg--travel-plan-viz",
+      "description": "Migo \u00b7 \u65c5\u884c\u9886\u822a \u2014\u2014 \u628a\u65c5\u884c\u884c\u7a0b\u751f\u6210\u4e3a\u5355\u6587\u4ef6\u3001\u53ef\u79bb\u7ebf\u3001\u624b\u673a\u4f18\u5148\u7684 HTML\uff08\u4ea4\u4e92\u5730\u56fe+\u6bcf\u65e5\u65f6\u95f4\u8f74+\u51fa\u53d1\u524d\u63d0\u9192\uff09\u3002Claude Code / Codex \u901a\u7528 Skill\uff08travel-plan-viz\uff09\u3002"
     },
     {
       "name": "cheerhuan--save-your-token",
