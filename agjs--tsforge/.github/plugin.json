@@ -1,0 +1,9 @@
+{
+  "name": "agjs--tsforge",
+  "displayName": "tsforge",
+  "description": "A TypeScript-specialized development harness for building reliable, polished, modern web apps.",
+  "version": "1.0.0",
+  "author": "agjs",
+  "homepage": "https://github.com/agjs/tsforge",
+  "skills": []
+}
