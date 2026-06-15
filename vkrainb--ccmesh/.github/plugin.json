@@ -1,0 +1,9 @@
+{
+  "name": "vkrainb--ccmesh",
+  "displayName": "ccMesh",
+  "description": "ccMesh is a lightweight forwarding layer for Claude Code. It intercepts Claude protocol traffic and routes it to either Anthropic Claude endpoints or OpenAI-compatible APIs \u2014 switch backends without t",
+  "version": "1.0.0",
+  "author": "VkRainB",
+  "homepage": "https://github.com/VkRainB/ccMesh",
+  "skills": []
+}
