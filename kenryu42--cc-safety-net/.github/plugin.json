@@ -1,0 +1,9 @@
+{
+  "name": "kenryu42--cc-safety-net",
+  "displayName": "cc-safety-net",
+  "description": "A coding agent CLI hook that acts as a safety net, catching destructive git and filesystem commands before they execute. Supports Codex, Claude Code, OpenCode, Gemini CLI, Copilot CLI, Kimi Code and P",
+  "version": "1.0.0",
+  "author": "kenryu42",
+  "homepage": "https://github.com/kenryu42/cc-safety-net",
+  "skills": []
+}
