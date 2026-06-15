@@ -1,0 +1,9 @@
+{
+  "name": "tarunlnmiit--autopilot-jobhunt",
+  "displayName": "autopilot-jobhunt",
+  "description": "AI job agent: scans 130+ careers pages nightly, scores every role against your resume with an LLM (0\u2013100), alerts you on Telegram, and drafts tailored cover letters + resumes. Free & open source.",
+  "version": "1.0.0",
+  "author": "tarunlnmiit",
+  "homepage": "https://github.com/tarunlnmiit/autopilot-jobhunt",
+  "skills": []
+}
