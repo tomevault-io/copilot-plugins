@@ -1,61 +1,144 @@
-## clarify-first-prompting
+## cursor-agent-orchestration
 
-> Clarification guidance: inspect first, ask only on real forks, and keep questions small and consequential.
+> Cursor 3.7 orchestration guide: when to plan, when to delegate, nested subagents, multi-environment handoffs, /best-of-n, and Await for long-running branches.
 
 
-# Clarify-First Prompting
+# Cursor 3.7 Agent Orchestration
 
-Clarification is for real uncertainty, not for information the repo or runtime already contains.
+Current through **Cursor 3.7** (Jun 2026). Use this rule for deep or exhaustive tasks where coordination matters more than raw implementation speed.
 
-## Inspect Before Asking
+## Core Idea
 
-Before asking a question, first check whether the answer is available through:
-- project files
-- existing code patterns
-- tool output
-- current docs when version-sensitive behavior matters
+The main agent should own synthesis. Plans, subagents, and task tracking exist to reduce context load and make large work safer. On M3, the main agent also owns the 1M-context loader — see `minimax-m3-long-context`.
 
-Do not ask the user for information you can inspect directly.
+## Local, worktree, cloud, and SSH sessions
 
-## When to Ask
+Cursor 3.7 emphasizes moving work between execution environments inside the Agents Window. Treat this as workflow guidance, not a requirement:
 
-Ask only when the answer materially changes the implementation:
-- security or authentication model
-- destructive data or migration strategy
-- major architecture branch
-- user-facing product choice with costly reversal
+- Prefer **local** when you need fast edit–run–debug loops, full filesystem access, or machine-specific verification.
+- Prefer **/worktree** (isolated git worktree) when the task must not collide with the main tree, when you are running parallel branches, or when you want a disposable environment.
+- Consider **cloud** when a task should keep running while you are away, or when you want continuation without tying up the local machine — then **hand back to local** to validate on the real environment when claims are environment-specific.
+- Consider **SSH** when the runtime is on a remote host (e.g. an edge box, a build farm, a server) and the work needs direct access.
 
-## When to Proceed
+Handoffs should still use explicit goals, owned paths, environment, model, and what was verified (see `agent-teams.mdc`).
 
-Proceed without asking when:
-- project conventions already answer the question
-- the choice is small and reversible
-- a safe default exists
-- the user explicitly asked for a best-effort implementation
+## Parallel sessions and the sidebar
 
-## Question Rules
+Cursor 3.7 can show **many agent sessions** at once (including from other surfaces — mobile, web, Slack, GitHub, Linear). That mirrors the idea of concurrent **`Task`** / subagent delegation: only parallelize **independent** slices, merge results in one synthesis step, and avoid two sessions racing the same files. The UI makes parallelism easier; it does not remove the need for clear ownership, non-overlapping paths, and one synthesis step.
 
-- Ask at most 1-2 critical questions at a time.
-- Use structured questions only when the choice has real tradeoffs.
-- Put the recommended or safest default first when presenting options.
-- Once the user answers, proceed without re-confirming.
+## When to Plan
 
-## Good Pattern
+Plan when:
+- the task is ambiguous
+- multiple valid approaches exist
+- many files or systems will change
+- the user needs approval before implementation
+
+Do not over-plan one-file fixes or straightforward edits.
+Use the environment's active planning workflow or mode when it exists instead of assuming a specific planning tool name.
+
+## When to Use Task (subagents)
+
+In Composer-style Cursor agents the tool is usually **`Task`** (subagent-style delegation; types such as explore, debugger, verifier — see the live schema). Use it when:
+- repo exploration is broad and would pollute main context
+- independent investigations can run in parallel
+- a verifier or debugger pass would help
+- the task has a long-running research branch
+
+Avoid delegation overhead for instant or light work.
+
+When several independent branches exist, do not launch them serially by habit. Launch multiple `Task` calls together with separate scopes and merge their results in the main thread.
+
+**Nested subagents (3.7):** a subagent can spawn its own `Task` children. Treat nesting as a depth budget, not a default — prefer one delegation layer; use two only when the child slice is still too broad. The main thread still owns synthesis, edits, and final verification; do not let nested branches drift into parallel implementation on the same files.
+
+**Multitask Mode:** when the session is in Multitask Mode, background subagent runs are expected — set `run_in_background: true` on `Task` and `Await` the result instead of blocking the main thread.
+
+## /best-of-n as an Orchestration Primitive
+
+For high-stakes decisions (architecture, refactor approach, design parity), the `/best-of-n` command runs the same prompt across 2–4 models in parallel worktrees and then compares outcomes.
+
+A small workflow for using it well:
 
 ```text
-1. Inspect repo and runtime
-2. Identify the true unknown
-3. Ask only if that unknown changes the architecture or outcome
-4. Otherwise choose a safe default and continue
+1. Pick 2-4 models (mix is fine: `composer-2.5` + MiniMax-M3 + a third)
+2. Write one bounded prompt that names the question, the constraint, and the deliverable shape
+3. Run /best-of-n in isolated worktrees
+4. Read each result centrally; tag them with the model
+5. Pick the strongest, merge complementary ideas, or escalate to the user with the comparison
 ```
 
-## Anti-Patterns
+Keep prompts bounded. `/best-of-n` is wasted when the prompt is vague.
 
-Do not:
-- ask about framework, package, or file structure when the repo can answer it
-- ask about tiny implementation details
-- repeat questions the user already answered
-- use fake `<think>` or `<thinking>` blocks as clarification scaffolding
+## Await for Long-Running Branches
+
+For dev servers, watchers, build jobs, parallel subagents, or CLI tools that take seconds-to-minutes, do not poll. Use the `Await` tool to wait for a background shell/subagent or a specific output token (`Ready`, `Compiled`, `Error`).
+
+```text
+1. Start the long-running work in the background
+2. Await the result or a specific output string
+3. If it fails, Await the error message and form the next hypothesis
+```
+
+This prevents the "waste 30s polling" failure mode and keeps the main thread responsive on M3.
+
+## Delegation Pattern
+
+```text
+1. Define the slices
+2. Delegate only independent work
+3. Launch independent subagents concurrently when possible
+4. Await long-running branches
+5. Read subagent summaries
+6. Synthesize decisions in the main thread
+7. Implement and verify centrally
+```
+
+## Parallel Delegation Rules
+
+- Give each subagent a bounded scope, not a vague restatement of the whole task.
+- State exactly what the subagent should return: findings, file paths, risks, or a decision recommendation.
+- Prefer 2 to 4 concurrent subagents over a long serial chain.
+- Do not split work so finely that coordination costs more than the saved time.
+- If one branch depends on another, keep it sequential.
+- If two subagents may overlap, assign different directories, files, or questions.
+- When you can name the environment (local/worktree/cloud/SSH) and the model per subagent, do — it makes the synthesis cleaner.
+
+Parallel subagents are best for research and analysis. Centralize edits and final verification unless there is a strong reason to delegate them.
+
+## Todo and Progress Tracking
+
+Use `TodoWrite` for real multi-step execution:
+- large refactors
+- multi-file features
+- research plus implementation plus validation
+
+Keep the list current. Do not let stale in-progress items pile up.
+
+## Solver Loop for Complex Tasks
+
+For deep work:
+
+```text
+Orient
+Find the spine
+Choose the smallest proving slice
+Implement
+Verify
+Broaden carefully
+```
+
+For exhaustive work, break the task into independently verifiable milestones rather than broad abstract epics. On M3, also load `minimax-m3-long-context` once the milestones cross ~200K tokens of input. Cursor 3.7 can surface a **context usage report** canvas — use it when token pressure is the blocker, then compress or drop slices before expanding scope.
+
+## Verification During Orchestration
+
+Do not postpone all checks to the end. Verify per phase:
+- after code changes, run the smallest relevant command
+- after UI changes, use browser checks or `multimodal-grounded` re-reads of post-change frames
+- after a major feature phase, run broader validation
+
+Use the **diff / review surface** in Cursor when it helps you stage, review, and ship; keep claims aligned with the always-on status and verification rule regardless of UI.
+
+Final user-facing completion claims should follow the always-on status and verification rule rather than ad-hoc wording.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
