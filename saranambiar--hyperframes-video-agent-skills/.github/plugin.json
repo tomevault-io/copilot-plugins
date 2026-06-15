@@ -1,0 +1,9 @@
+{
+  "name": "saranambiar--hyperframes-video-agent-skills",
+  "displayName": "hyperframes-video-agent-skills",
+  "description": "Reusable skills, scripts, and production workflows for agent-led video creation with HyperFrames, FFmpeg, captions, audio sync, and render QA. Community project from real HyperFrames video work; not a",
+  "version": "1.0.0",
+  "author": "saranambiar",
+  "homepage": "https://github.com/saranambiar/hyperframes-video-agent-skills",
+  "skills": []
+}
