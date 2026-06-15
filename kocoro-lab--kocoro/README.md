@@ -7,11 +7,11 @@ A Mac-compatible AI partner with memory. — local computer access, browser cont
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Kocoro-lab/Kocoro](https://github.com/Kocoro-lab/Kocoro).
+Original source: `AGENTS.md` in [Kocoro-lab/Kocoro](https://github.com/Kocoro-lab/Kocoro).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
