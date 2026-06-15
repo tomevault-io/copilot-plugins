@@ -1,0 +1,235 @@
+## telefuser
+
+> TeleFuser is a high-performance framework for efficient multimodal generation model inference (image/video generation, video super-resolution).
+
+# TeleFuser - Agent Guidelines
+
+## Project Overview
+
+TeleFuser is a high-performance framework for efficient multimodal generation model inference (image/video generation, video super-resolution). 
+
+**Tech Stack:** Python 3.10-3.13, PyTorch 2.6+, CUDA 12.8+, FastAPI, Ray
+
+**Supported Models:** WanVideo (Wan2.1/2.2), Qwen-Image, Z-Image, FlashVSR, HunyuanVideo, Flux2 Klein, LTX Video, LiveAct, LongCat-Video
+
+## Commands
+
+```bash
+pip install -e ".[dev]"           # Development installation
+pre-commit run --all-files        # Linting checks
+pytest tests/                     # Run tests
+bash scripts/run_ci_tests.sh      # Full CI suite
+telefuser serve /path/to/pipeline.py --port 8000  # Start API server
+```
+
+## Troubleshooting
+
+When multi-GPU inference hangs, zombie processes may remain. Clean them up with:
+
+```bash
+ps aux | grep -E 'spawn_main' | grep -v grep | awk '{print $2}' | xargs kill -9
+```
+
+## Architecture
+
+```
+telefuser/
+├── core/             # Base abstractions: BasePipeline, BaseStage, configs
+├── pipelines/        # Model-specific pipelines
+│   ├── wan_video/    # Wan2.1/2.2: T2V, I2V, FL2V
+│   ├── qwen_image/   # Qwen-Image: T2I, Edit
+│   ├── z_image/      # Z-Image: T2I
+│   ├── flashvsr/     # FlashVSR: VSR
+│   ├── hunyuan_video_1_5/  # HunyuanVideo: T2V, I2V
+│   ├── flux2_klein/  # Flux2 Klein: T2I
+│   ├── ltx_video/    # LTX Video: I2V + Audio
+│   ├── liveact/      # LiveAct: S2V (speech-to-video)
+│   ├── longcat_video/ # LongCat-Video: T2V, I2V
+│   └── common/       # Shared pipeline utilities
+├── models/           # Model architectures: DiT, VAE, text encoders
+├── ops/              # Custom operations: attention, FFN, normalization
+├── kernel/           # Triton kernels: RMSNorm, rotary, quant, fused ops
+│   └── triton/       # Pure Triton implementations
+├── platforms/        # Hardware abstraction: CUDA, NPU, CPU
+├── distributed/      # FSDP, TP, PP, SP, Ring/Ulysses attention
+│   ├── ulysses_comm.py   # Ulysses All-to-All: ulysses_scatter_heads, ulysses_gather_heads
+│   ├── ring.py            # Ring P2P communication for long sequences
+│   ├── pp_comm.py         # Pipeline parallelism
+│   ├── fsdp.py            # Fully Sharded Data Parallel
+│   ├── tp_parallelize.py  # Tensor Parallelism
+│   └── parallel_shard.py  # Parallel sharding utilities
+├── schedulers/       # Diffusion schedulers
+├── feature_cache/    # Feature caching: AdaTaylorCache
+├── cache/            # General cache management
+├── offload/          # CPU offload strategies
+├── metrics/          # Metrics collection and monitoring
+├── orchestrator/     # Pipeline orchestration
+├── worker/           # Distributed worker management
+├── entrypoints/      # CLI entry points
+├── service/          # FastAPI service
+└── client/           # Python SDK
+```
+
+### Layer Architecture Principles For Models
+
+TeleFuser's model follows a strict layered architecture for operations:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      models/                                 │
+│  (DiT, VAE, text encoders - ONLY import from ops/)          │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                       ops/                                   │
+│  (Compile-aware dispatch: native for compile, kernel for    │
+│   eager mode. Base classes: CustomOp, CustomOpFunction)     │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   kernel/triton/                             │
+│  (Pure Triton kernels, custom ops. NOT directly used by     │
+│   models. May have torch.library.custom_op registration.)   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Key Rules:**
+
+1. **models/** layer MUST only import from `telefuser.ops/`
+   - ✅ `from telefuser.ops.normalization import RMSNorm, LayerNorm, modulate`
+   - ✅ `from telefuser.ops.rotary import apply_rotary_emb`
+   - ❌ `from telefuser.kernel.triton import apply_rotary_embedding`
+
+2. **ops/** layer handles compile-aware dispatch:
+   - `torch.compiler.is_compiling()` → PyTorch native implementation
+   - Eager mode + CUDA → Optimized Triton kernel
+   - Other platforms → PyTorch native fallback
+
+3. **kernel/triton/** contains pure Triton code:
+   - No `torch.compiler.is_compiling()` checks
+   - May use `torch.library.custom_op` for torch.compile compatibility
+   - Only used by ops/ layer, never directly by models/
+
+## Code Style
+
+- PEP8 with ruff (line length: 120)
+- Comments and docstrings **must be in English**
+- All public function parameters **must have type annotations** (return types optional)
+- Use Python 3.10+ syntax: `str | None`, `list[int]`
+
+## Documentation Links
+
+| Topic | English | Chinese |
+|-------|---------|---------|
+| Adding New Example | [docs/en/adding_new_example.md](docs/en/adding_new_example.md) | [docs/zh/adding_new_example.md](docs/zh/adding_new_example.md) |
+| Adding New Model | [docs/en/adding_new_model.md](docs/en/adding_new_model.md) | [docs/zh/adding_new_model.md](docs/zh/adding_new_model.md) |
+| Adding New Stage | [docs/en/adding_new_stage.md](docs/en/adding_new_stage.md) | [docs/zh/adding_new_stage.md](docs/zh/adding_new_stage.md) |
+| Attention | [docs/en/attention.md](docs/en/attention.md) | [docs/zh/attention.md](docs/zh/attention.md) |
+| Configuration | [docs/en/configuration.md](docs/en/configuration.md) | [docs/zh/configuration.md](docs/zh/configuration.md) |
+| Feature Cache | [docs/en/feature_cache.md](docs/en/feature_cache.md) | [docs/zh/feature_cache.md](docs/zh/feature_cache.md) |
+| Hash Config Management | [docs/en/hash_config_management.md](docs/en/hash_config_management.md) | [docs/zh/hash_config_management.md](docs/zh/hash_config_management.md) |
+| Logging | [docs/en/logging.md](docs/en/logging.md) | [docs/zh/logging.md](docs/zh/logging.md) |
+| Metrics | [docs/en/metrics.md](docs/en/metrics.md) | [docs/zh/metrics.md](docs/zh/metrics.md) |
+| Model Loading | [docs/en/model_loading.md](docs/en/model_loading.md) | [docs/zh/model_loading.md](docs/zh/model_loading.md) |
+| Offload | [docs/en/offload.md](docs/en/offload.md) | [docs/zh/offload.md](docs/zh/offload.md) |
+| Ops | [docs/en/ops.md](docs/en/ops.md) | [docs/zh/ops.md](docs/zh/ops.md) |
+| Parallel | [docs/en/parallel.md](docs/en/parallel.md) | [docs/zh/parallel.md](docs/zh/parallel.md) |
+| Profiler | [docs/en/profiler.md](docs/en/profiler.md) | [docs/zh/profiler.md](docs/zh/profiler.md) |
+| Service | [docs/en/service.md](docs/en/service.md) | [docs/zh/service.md](docs/zh/service.md) |
+| Service Metadata | [docs/en/service_metadata.md](docs/en/service_metadata.md) | [docs/zh/service_metadata.md](docs/zh/service_metadata.md) |
+| Stream Server | [docs/en/stream_server.md](docs/en/stream_server.md) | [docs/zh/stream_server.md](docs/zh/stream_server.md) |
+| Testing | [docs/en/testing.md](docs/en/testing.md) | [docs/zh/testing.md](docs/zh/testing.md) |
+| torch.compile Compatibility | [docs/en/torch_compile_compatibility.md](docs/en/torch_compile_compatibility.md) | [docs/zh/torch_compile_compatibility.md](docs/zh/torch_compile_compatibility.md) |
+
+## Key Configuration Classes
+
+Located in `telefuser/core/config.py`:
+- `AttnImplType`: Attention implementations (TORCH_SDPA, FLASH_ATTN_*, SAGE_ATTN_*, RADIAL_ATTN, etc.)
+- `AttentionConfig`: Attention configuration with sparse attention support
+- `ParallelConfig`: Distributed processing (device_ids, sp_ulysses_degree, sp_ring_degree)
+- `ModelRuntimeConfig`: Runtime settings (dtype, attention impl, offloading)
+- `FeatureCacheConfig`: Feature caching configuration for AdaTaylorCache
+- `CompileConfig`: torch.compile configuration
+- `QuantConfig`: Quantization settings (FP8, INT8)
+- `OffloadConfig`: CPU offload configuration
+- `LoraConfig`: LoRA weight loading configuration
+- `SparseAttentionConfig`: Sparse attention pattern configuration
+- `RayConfig`: Ray distributed inference configuration
+- `RayGPUConfig`: Ray GPU allocation configuration
+
+## Key Distributed APIs
+
+Located in `telefuser/distributed/`:
+- `ulysses_scatter_heads`: Scatter heads, gather sequence (for QKV in Ulysses SP)
+- `ulysses_gather_heads`: Gather heads, scatter sequence (for output in Ulysses SP)
+- `RingP2PComm`: P2P communication for Ring Attention on long sequences
+- `PipelineP2PComm`: Pipeline parallelism communication between stages
+
+## Key Triton Kernels
+
+Located in `telefuser/kernel/triton/`:
+- `fused_add_rms_norm`: Fused residual add + RMSNorm
+- `fused_scale_shift`: Fused scale and shift operations
+- `fused_layernorm_scale_shift_gate_select01`: LayerNorm + scale/shift + gate selection
+- `fused_residual_layernorm_scale_shift_gate_select01`: Residual add + LayerNorm + scale/shift + gate selection
+- `fused_scale_shift_gate_select`: Scale/shift + gate selection for dual-branch models
+- `apply_rotary_embedding`: Rotary Position Embedding (RoPE)
+- `fused_merge_attn_states`: Merge attention states with optional gating
+- `per_token_quant_fp8`: FP8 per-token quantization
+- `per_token_dequant_fp8`: FP8 per-token dequantization
+- `per_block_int8`: INT8 per-block quantization
+- `norm_infer`: Optimized normalization for inference
+- `triton_one_pass_rms_norm`: Single-pass RMSNorm
+
+## Test Markers
+
+```python
+@pytest.mark.gpu           # Requires GPU
+@pytest.mark.multi_gpu     # Requires multiple GPUs
+@pytest.mark.distributed   # Requires distributed setup
+@pytest.mark.slow          # Long-running tests
+```
+
+**GPU tests in CPU CI:** Wrap GPU-dependent imports in `try-except` with `pytest.skip(..., allow_module_level=True)` to skip in CPU-only environments.
+
+## Development Guidelines
+
+- Start responses with "**Developer,**" prefix
+- DO NOT use `sys.path.insert()` in test files
+- Keep this file synchronized with codebase changes
+- See `CONTRIBUTING.md` for contribution guidelines
+- Update CLAUDE.md if needed (new patterns, new modules, architecture changes)
+
+## Interaction Workflow (MANDATORY)
+
+1. **Never end the conversation silently.** When work is completed or there are questions that need clarification, you MUST call the AskUserQuestion tool to get further instructions instead of ending the conversation directly.
+
+2. **Propose before executing.** Every time the user raises a new requirement, you MUST first propose a modification plan and communicate with the user for confirmation before executing the plan.
+
+3. **Maintain a TODO document.** During communication with the user, maintain a TODO task list (using the TaskCreate/TaskUpdate tools) and keep it updated in real time as tasks are added, modified, or completed.
+
+4. **Confirm at every stage.** After each call to the AskUserQuestion tool and after the user raises a new requirement:
+   - First, formulate a plan and confirm it with the user.
+   - After executing the plan, confirm the results with the user.
+   - Continue this loop until the user explicitly agrees to exit.
+
+## Task Completion Checklist
+
+**After completing a coding task, ask the user:**
+
+> Code changes completed. Would you like to:
+> 1. Run `/simplify` for code review?
+> 2. Use GPT 5.4 for code review? (via MCP tool `review_code`)
+
+If the user chooses `/simplify`:
+1. Run `/simplify` to review and optimize the changed code for reuse, quality, and efficiency
+
+If the user chooses GPT 5.4 review:
+1. Call the MCP tool `mcp__gpt-review__review_code` to send the diff to GPT 5.4 for review
+2. Present the review results to the user
+
+---
+> Source: [Tele-AI/TeleFuser](https://github.com/Tele-AI/TeleFuser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
