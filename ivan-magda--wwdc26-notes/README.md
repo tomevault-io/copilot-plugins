@@ -7,11 +7,11 @@ WWDC 2026 session notes: LLM-written digests plus Apple's transcripts, metadata,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ivan-magda/wwdc26-notes](https://github.com/ivan-magda/wwdc26-notes).
+Original source: `CLAUDE.md` in [ivan-magda/wwdc26-notes](https://github.com/ivan-magda/wwdc26-notes).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
