@@ -1,0 +1,9 @@
+{
+  "name": "yang1ming--android-harness",
+  "displayName": "android-harness",
+  "description": "A lightweight, ADB-first Android harness for agents, exposing stable primitives for authorized device automation, screenshots, UI inspection, input events, diagnostics, and extensible interaction skil",
+  "version": "1.0.0",
+  "author": "yang1ming",
+  "homepage": "https://github.com/yang1ming/android-harness",
+  "skills": []
+}
