@@ -1,0 +1,9 @@
+{
+  "name": "marckohlbrugge--37signals-skills",
+  "displayName": "37signals-skills",
+  "description": "Unofficial agent skills + reference guide that teach AI coding assistants to write Rails the 37signals way \u2014 extracted from Fizzy, Campfire, and DHH's code reviews",
+  "version": "1.0.0",
+  "author": "marckohlbrugge",
+  "homepage": "https://github.com/marckohlbrugge/37signals-skills",
+  "skills": []
+}
