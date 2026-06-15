@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-health-analyzer",
+  "displayName": "cluster-health-analyzer",
+  "description": "Analyzer of health of OpenShift clusters",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-health-analyzer",
+  "skills": []
+}
