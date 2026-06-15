@@ -1,110 +1,479 @@
-## fable5-reasoning
+## language-agnostic-patterns
 
-> Fable 5 reasoning protocols: task interpretation, risk-first decomposition, approach selection, interleaved thinking, hypothesis ledgers, premortems, calibration, and the stuck-strategy ladder. Load for complex, ambiguous, or long-horizon tasks, for debugging strategy, or whenever progress stalls.
+> Language-agnostic programming patterns: SOLID, design patterns, clean code, and architecture. Load when refactoring, designing abstractions, or reviewing structure — not for everyday syntax.
 
 
-# Fable 5 Reasoning Protocols
+# Language-Agnostic Programming Patterns
 
-The always-on core defines the short Reasoning Protocol. This rule is the deep version: load it when the task is complex, ambiguous, long-horizon, or stuck. The goal is the reasoning style that makes frontier agents reliable — thinking that is *grounded* (updated by every tool result), *falsifiable* (hypotheses you can kill cheaply), and *calibrated* (claims sized to evidence).
+Universal principles for structure, naming, architecture, and testing — applicable across all languages.
 
-These protocols are model-agnostic. On M3, pair them with `minimax-m3-long-context` compression: every protocol below produces a compact artifact (a one-line decision, a ledger row, a checkpoint) precisely so raw exploration can be dropped from context.
+Load this rule when refactoring modules, designing abstractions, reviewing architecture, or choosing patterns. For day-to-day coding workflow (read-before-edit, CI discovery, minimal diff, verification), the always-on core **Code Discipline** section is canonical — do not duplicate it here. For the judgment layer — root-cause method, simplicity taste, test integrity — load `fable5-coding-craft` alongside this rule.
 
-## Task Interpretation: Three Readings
+---
 
-Before planning, read the request three ways:
+## Pattern Judgment (Read First)
 
-1. **Literal** — exactly what was typed.
-2. **Intent** — the problem the user is trying to solve. ("Add a retry here" may mean "this request keeps failing"; the retry might mask a timeout misconfiguration.)
-3. **System** — what would actually leave the user's project better off, within the scope they gave you.
+Everything below is vocabulary, not a checklist. Frontier-quality code applies patterns *reactively* — when the code's actual pain demands them — never proactively because a situation pattern-matches a textbook example.
 
-Work at the intent reading by default. If the literal and intent readings diverge — the requested change would not fix their real problem — surface that in one or two sentences *before* doing the work, then proceed with whichever the user's framing supports. Never silently substitute your own goal for theirs.
+- Every pattern has a cost: indirection, a new concept for readers, more files to trace through. Apply one only when the pain it removes is already present, not predicted.
+- The strongest signal for an abstraction is the **third occurrence** of real duplication with identical reasons to change. Two similar blocks that change for different reasons are not duplication — unifying them couples things that must stay free.
+- SOLID violations matter when they cause observed friction (a class you cannot test, a switch you keep re-editing). A small concrete class that "violates SRP" but has never needed to change is fine code — leave it alone.
+- The best architecture for most changes is the one the repo already has. Pattern fluency is mostly for *reading* existing designs and for naming the structure a refactor is already growing toward.
+- When reviewing, flag pattern *overuse* with the same severity as pattern absence: a Strategy with one strategy, a Factory with one product, or an interface with one implementation is indirection without payoff.
 
-Close the interpretation step by writing (for yourself) one operational sentence: *"Done means ___, proven by ___."* If you cannot fill in the second blank, you do not understand the task yet.
+---
 
-## Decomposition: Vertical And Risk-First
+## Change Discipline
 
-- Slice vertically, not horizontally. Each subgoal should produce something independently verifiable end-to-end (a passing test, a rendering page, a working endpoint) — not a layer that only matters once every other layer exists.
-- Front-load the riskiest unknown. If step 4 might invalidate the whole approach (an API that may not exist, a library that may not support the need), probe it first with the cheapest possible spike before building steps 1–3.
-- Keep the plan falsifiable: each step has an observable success signal. "Set up the service" is not a step; "service responds 200 on /health" is.
-- Re-plan when reality disagrees. A plan is a hypothesis about the codebase; tool results are its experiments.
+- Solve the requested problem with the smallest vertical slice; expand only after it works.
+- Prefer extending existing modules over creating parallel implementations.
+- When adding a dependency, confirm the repo does not already solve the same need.
+- Keep public surfaces stable unless the task explicitly requires a breaking change.
+- Leave the codebase in a compilable, testable state after each meaningful step.
 
-## Approach Selection
+---
 
-For any non-trivial design choice:
+## SOLID Principles
 
-1. Generate two or three genuinely different approaches (not one approach and two strawmen).
-2. Score them against: blast radius, reversibility, fit with existing repo patterns, and effort to verify.
-3. Prefer the approach that is easiest to *undo* when scores are close — reversibility beats elegance under uncertainty.
-4. Commit with a one-line rationale, then stop relitigating. Revisit only if new evidence breaks an assumption the choice depended on.
+### Single Responsibility Principle (SRP)
+A class/module should have only one reason to change.
 
-The output is a decision, not a survey. Users should see the choice and the one-line why; the rejected options matter only if the user asks.
+**Apply when:**
+- A function does multiple unrelated things
+- A class has too many dependencies
+- Changes in one area affect unrelated code
 
-## Interleaved Thinking Loop
-
-The core failure mode of weaker agents is *open-loop execution*: making a plan, then running it blind. Run closed-loop instead. After **every** tool result:
-
-```text
-Observe  → what did this actually return? (not what I expected it to return)
-Update   → which of my beliefs does this confirm, refute, or complicate?
-Decide   → is the next planned step still the right step?
+**Example Pattern:**
+```
+Bad:  UserService handles auth, profile, notifications, and billing
+Good: AuthService, ProfileService, NotificationService, BillingService
 ```
 
-Two hard rules:
+### Open/Closed Principle (OCP)
+Open for extension, closed for modification.
 
-- **The surprise rule.** Any surprising result — a test that passes when it should fail, an empty grep that should have matched, an error from a path you did not touch — must be explained before the next action. Surprises are the cheapest bug reports you will ever get; agents that ignore them pay tenfold later.
-- **The stale-plan rule.** Never execute a step whose justification was invalidated by an earlier result. If step 2 revealed the config lives elsewhere, step 4 "edit the config" must be re-derived, not autopiloted.
+**Apply when:**
+- Adding new features requires modifying existing code
+- Switch statements grow with each new type
+- Core logic changes for edge cases
 
-## Hypothesis Ledger (Debugging Strategy)
-
-For any non-obvious bug, run an explicit ledger instead of intuition-hopping:
-
-```text
-H1: [cause] — discriminating check: [cheapest test that gives a different answer if H1 is true vs false] — status: open/confirmed/refuted
-H2: ...
+**Example Pattern:**
+```
+Bad:  if type == "email" ... elif type == "sms" ... elif type == "push" ...
+Good: NotificationStrategy interface with EmailStrategy, SMSStrategy, PushStrategy
 ```
 
-- Order checks by discrimination-per-cost, not by which hypothesis feels likeliest. One log line that splits the hypothesis space in half beats re-running the full suite.
-- Use differential reasoning first: it worked before / it works over there — **what is different?** (version, input, environment, timing, data). Diffs shrink the search space faster than reading code does.
-- Bisect when the space is large: git history (`git bisect`), input minimization (shrink the failing case), or layer isolation (does the bug exist below the UI? below the API?).
-- A refuted hypothesis is progress — record what killed it and move on. Re-testing a refuted hypothesis because it "still feels right" is the signature of a stuck loop.
+### Liskov Substitution Principle (LSP)
+Subtypes must be substitutable for their base types.
 
-The fix-iteration loop (one fix per cycle, re-run the exact failing check, compress between iterations) is defined in `minimax-m3-self-evolution` — this ledger feeds that loop.
+**Apply when:**
+- Derived classes override behavior in unexpected ways
+- Code checks for specific types before operating
+- Inheritance creates illogical hierarchies
 
-## Premortem Before Closeout
-
-Spend thirty seconds assuming the work shipped and broke. What broke?
-
-- The caller you did not read.
-- The platform/environment you did not test (other OS, prod build, empty database, first run).
-- The concurrent or repeated invocation you did not consider.
-- The input shape the type system does not forbid but reality produces.
-- The behavior you changed that something else depended on.
-
-Check the one or two most plausible of these before claiming completion; name the rest as untested in the closeout if they are real risks. This is the difference between "it works" and "it works and I know where it would fail first."
-
-## Calibration
-
-- Tag claims internally as **observation** (I read/ran it this session), **inference** (it follows from observations), or **assumption** (I have not checked). Only observations support `verified`.
-- When uncertain, name the cheapest check that would resolve the uncertainty — one command, one file read, one doc lookup — and run it if tools allow. "I'm not sure" followed by the resolving check is frontier behavior; "I'm not sure" alone is filler, and unmarked confidence is worse.
-- Confidence should rise only when evidence arrives, never because time passed or because you repeated the claim.
-
-## The Stuck-Strategy Ladder
-
-When progress stalls (two failed attempts on one hypothesis, or five iterations without net progress), do not push harder on the same move — climb the ladder. Each rung changes the *kind* of information you are getting:
-
-```text
-1. Re-read wider     → the target file's callers, tests, and config; the bug is often one level up
-2. Shrink the repro  → smallest input/file/test that still fails; small repros expose mechanisms
-3. Change layer      → probe below or above (API instead of UI, DB instead of API, runtime instead of build)
-4. Check the world   → current docs, changelogs, known issues; your memory of the API may be the bug
-5. Ask one fork      → a single concrete question with the evidence and the options, not "any ideas?"
+**Example Pattern:**
+```
+Bad:  Square extends Rectangle but can't independently set width/height
+Good: Both Square and Rectangle implement Shape interface
 ```
 
-State the rung change explicitly ("two failures on H1; moving to a minimal repro"). Silent persistence and silent abandonment are both worse than a visible strategy switch.
+### Interface Segregation Principle (ISP)
+Clients shouldn't depend on interfaces they don't use.
 
-## Effort Matching
+**Apply when:**
+- Classes implement methods they don't need
+- Interfaces have too many methods
+- Changes affect many unrelated implementations
 
-All of the above is for non-trivial work. A one-line fix needs the read, the edit, and the check — not a ledger, a premortem, and three approach candidates. Ceremony applied to trivial tasks is its own failure mode; judgment includes knowing when not to deploy the machinery.
+**Example Pattern:**
+```
+Bad:  Animal interface with fly(), swim(), walk() - Penguin can't fly
+Good: Flyable, Swimmable, Walkable interfaces
+```
+
+### Dependency Inversion Principle (DIP)
+Depend on abstractions, not concretions.
+
+**Apply when:**
+- High-level modules import low-level modules directly
+- Changing database/service requires code changes
+- Testing requires real dependencies
+
+**Example Pattern:**
+```
+Bad:  UserService directly imports MySQLDatabase
+Good: UserService depends on DatabaseInterface, injected at runtime
+```
+
+## Common Design Patterns
+
+### Creational Patterns
+
+#### Factory Pattern
+Use when object creation logic is complex or needs to be centralized.
+
+```
+When to use:
+- Multiple similar objects with different configurations
+- Object creation depends on runtime conditions
+- Hiding complex initialization logic
+```
+
+#### Builder Pattern
+Use for constructing complex objects step by step.
+
+```
+When to use:
+- Objects with many optional parameters
+- Complex configuration requirements
+- Need for immutable objects with many fields
+```
+
+#### Singleton Pattern
+Use sparingly for truly global, single-instance resources.
+
+```
+When to use:
+- Configuration managers
+- Connection pools
+- Logger instances
+
+Avoid when:
+- It's just for convenience (use DI instead)
+- Testing would be difficult
+- Multiple instances might be needed later
+```
+
+### Structural Patterns
+
+#### Adapter Pattern
+Convert one interface to another that clients expect.
+
+```
+When to use:
+- Integrating third-party libraries
+- Working with legacy code
+- Unifying different data sources
+```
+
+#### Decorator Pattern
+Add behavior to objects dynamically.
+
+```
+When to use:
+- Adding features without subclassing
+- Composable behaviors
+- Middleware-like patterns
+```
+
+#### Facade Pattern
+Provide a simplified interface to a complex subsystem.
+
+```
+When to use:
+- Simplifying complex library usage
+- Creating API boundaries
+- Reducing coupling between layers
+```
+
+### Behavioral Patterns
+
+#### Strategy Pattern
+Define a family of interchangeable algorithms.
+
+```
+When to use:
+- Multiple algorithms for the same task
+- Runtime algorithm selection
+- Avoiding complex conditionals
+```
+
+#### Observer Pattern
+Notify dependents of state changes.
+
+```
+When to use:
+- Event-driven systems
+- Pub/sub messaging
+- Reactive data flows
+```
+
+#### Command Pattern
+Encapsulate requests as objects.
+
+```
+When to use:
+- Undo/redo functionality
+- Queueing operations
+- Macro recording
+```
+
+## Clean Code Principles
+
+### Naming Conventions
+
+#### Variables and Functions
+- Use intention-revealing names
+- Avoid abbreviations unless universally understood
+- Be consistent with terminology
+
+```
+Bad:  d, tmp, data, info, process()
+Good: elapsedTimeInDays, userProfile, activeConnections, validatePayment()
+```
+
+#### Booleans
+- Use positive names (avoid double negatives)
+- Start with is/has/can/should
+
+```
+Bad:  notDisabled, flag, status
+Good: isEnabled, hasPermission, canEdit, shouldRefresh
+```
+
+#### Functions
+- Use verbs for actions
+- Be specific about what they do
+
+```
+Bad:  handle(), process(), manage()
+Good: validateUserInput(), calculateTotalPrice(), sendConfirmationEmail()
+```
+
+### Function Design
+
+#### Keep Functions Small
+- Do one thing well
+- 5-20 lines is ideal
+- If you can't name it well, it's probably doing too much
+
+#### Limit Parameters
+- 0-3 parameters is ideal
+- Use objects for more
+- Consider builder pattern for complex initialization
+
+#### Avoid Side Effects
+- Functions should be predictable
+- Clearly document mutations
+- Prefer pure functions when possible
+
+### Comments
+
+#### When to Comment
+- Explain WHY, not WHAT
+- Document public APIs
+- Warn about non-obvious behavior
+- Link to external resources/tickets
+
+#### When NOT to Comment
+- Explaining what code does (make code clearer instead)
+- Commented-out code (delete it)
+- Redundant descriptions
+- TODOs without tickets
+
+```
+Bad:  // increment counter by 1
+      counter += 1;
+
+Good: // Retry limit based on SLA requirements (see JIRA-1234)
+      MAX_RETRIES = 3;
+```
+
+### Error Handling
+
+Match the repo's existing error style (exceptions, `Result`/`error`, error codes, etc.) before introducing a new pattern.
+
+#### Fail Fast
+- Validate inputs early
+- Throw exceptions for unexpected states
+- Don't swallow errors silently
+
+#### Error Messages
+- Include context (what was being done)
+- Include relevant values
+- Suggest remediation when possible
+
+```
+Bad:  "Error occurred"
+Good: "Failed to connect to database 'users' at localhost:5432: Connection refused. Check if PostgreSQL is running."
+```
+
+#### Error Categories
+1. **Recoverable**: Retry, fallback, or prompt user
+2. **Validation**: Return clear error to caller
+3. **Programming**: Fail fast, fix the bug
+4. **System**: Log, alert, graceful degradation
+
+## Architecture Patterns
+
+### Layered Architecture
+```
+Presentation → Business Logic → Data Access → Database
+```
+- Each layer only talks to adjacent layers
+- Dependencies flow downward
+
+### Clean Architecture
+```
+Entities → Use Cases → Controllers → Frameworks
+```
+- Business rules at the center
+- Frameworks/DB at the edges
+- Dependency rule: inward only
+
+### Hexagonal Architecture (Ports & Adapters)
+```
+[Adapters] → [Ports] → [Core Domain] ← [Ports] ← [Adapters]
+```
+- Core domain is isolated
+- Ports define interfaces
+- Adapters implement external concerns
+
+### When to Choose What
+- **Layered**: Simple CRUD apps, rapid development
+- **Clean**: Complex business logic, long-lived systems
+- **Hexagonal**: Multiple interfaces, testability focus
+
+## Testing Principles
+
+### Test Pyramid
+```
+     /\
+    /  \   E2E Tests (few)
+   /----\  Integration Tests (some)
+  /------\ Unit Tests (many)
+```
+
+### Unit Tests
+- Test one thing in isolation
+- Fast and deterministic
+- Mock external dependencies
+
+### Integration Tests
+- Test component interactions
+- Use real (or realistic) dependencies
+- Focus on boundaries
+
+### End-to-End Tests
+- Test complete user flows
+- Slowest and most brittle
+- Use for critical paths only
+
+### Test Quality
+- Tests are documentation
+- One assertion per test when possible
+- Arrange-Act-Assert pattern
+- Test behavior, not implementation
+
+## Performance Principles
+
+### Measure First
+- Don't optimize prematurely
+- Profile before changing
+- Set performance budgets
+
+### Common Optimizations
+- **Caching**: Memoization, HTTP caching, query caching
+- **Batching**: Combine multiple operations
+- **Lazy Loading**: Defer until needed
+- **Pagination**: Don't load everything at once
+
+### Database Performance
+- Index frequently queried columns
+- Avoid N+1 queries
+- Use connection pooling
+- Consider read replicas for scale
+
+## Security Best Practices
+
+### Input Validation
+- Validate all external input
+- Whitelist, don't blacklist
+- Sanitize before use
+
+### Authentication
+- Use established libraries
+- Hash passwords with strong algorithms
+- Implement rate limiting
+- Use HTTPS everywhere
+
+### Authorization
+- Check permissions on every request
+- Fail closed (deny by default)
+- Log access attempts
+
+### Data Protection
+- Encrypt sensitive data at rest
+- Use parameterized queries
+- Don't log sensitive information
+- Implement proper session management
+
+## Code Organization
+
+### Module Structure
+```
+Feature-based (preferred for larger apps):
+/features
+  /auth
+    - service
+    - controller
+    - repository
+  /products
+    - service
+    - controller
+    - repository
+
+Layer-based (simpler for smaller apps):
+/controllers
+/services
+/repositories
+```
+
+### File Naming
+- Consistent conventions across project
+- Reflect content purpose
+- Include type suffix when helpful (e.g., `.service`, `.controller`)
+
+### Import Organization
+1. Standard library
+2. Third-party packages
+3. Local modules
+4. Relative imports
+
+---
+
+## Code Review Heuristics
+
+Use when reviewing diffs, PRs, or your own work before closeout. Complements core **Code Discipline** and the always-on verification contract.
+
+### Correctness
+- Does the change solve the stated problem, or only a symptom?
+- Are edge cases handled the way this repo handles them (null/empty, auth, timeouts)?
+- Do error paths propagate or log usefully — no silent swallowing?
+- If behavior changed, are callers, tests, and docs updated?
+
+### Scope & maintainability
+- Is the diff the smallest honest fix? Any unrelated refactors or drive-by renames?
+- Does new code match naming, layering, and error style of surrounding files?
+- New abstraction justified by reuse, or premature?
+- New dependency necessary, or does the repo already cover the need?
+
+### Tests & verification
+- Is there a test or check proportional to the risk? If not, is that gap called out as `unverified`?
+- Do tests assert behavior, not implementation details?
+- Would CI scripts in this repo catch a regression from this change?
+
+### Security & data
+- User/external input validated and parameterized (SQL, shell, HTML)?
+- Secrets, tokens, or PII absent from logs, commits, and client bundles?
+- AuthZ checked on the server for every sensitive action — not only UI gating?
+
+### Performance (when relevant)
+- N+1 queries, unbounded loops, or loading entire datasets into memory?
+- Caching added only where measured or clearly hot-path?
+
+### Review output shape
+Keep feedback actionable: **issue → impact → suggested fix**. Separate blocking concerns from nits. Prefer pointing to existing repo patterns over generic style opinions.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
