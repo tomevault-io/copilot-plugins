@@ -4,7 +4,7 @@
   "repo": "wwdc26-notes",
   "description": "WWDC 2026 session notes: LLM-written digests plus Apple's transcripts, metadata, and code snippets",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ivan-magda/wwdc26-notes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T08:30:25Z"
+  "distributed_at": "2026-06-15T08:31:23Z"
 }
