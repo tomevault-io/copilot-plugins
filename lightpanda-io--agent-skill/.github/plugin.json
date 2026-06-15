@@ -1,0 +1,9 @@
+{
+  "name": "lightpanda-io--agent-skill",
+  "displayName": "agent-skill",
+  "description": "agent-skill",
+  "version": "1.0.0",
+  "author": "lightpanda-io",
+  "homepage": "https://github.com/lightpanda-io/agent-skill",
+  "skills": []
+}
