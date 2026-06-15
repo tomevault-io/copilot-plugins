@@ -1,0 +1,9 @@
+{
+  "name": "shanselman--nightscout-cgm-skill",
+  "displayName": "nightscout-cgm-skill",
+  "description": "nightscout-cgm-skill",
+  "version": "1.0.0",
+  "author": "shanselman",
+  "homepage": "https://github.com/shanselman/nightscout-cgm-skill",
+  "skills": []
+}
