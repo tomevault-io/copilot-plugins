@@ -1,0 +1,9 @@
+{
+  "name": "authplane--authserver",
+  "displayName": "authserver",
+  "description": "OAuth 2.1 Authorization Server for the Model Context Protocol (MCP)",
+  "version": "1.0.0",
+  "author": "AuthPlane",
+  "homepage": "https://github.com/AuthPlane/authserver",
+  "skills": []
+}
