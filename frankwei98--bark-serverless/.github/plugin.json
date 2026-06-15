@@ -1,0 +1,9 @@
+{
+  "name": "frankwei98--bark-serverless",
+  "displayName": "bark-serverless",
+  "description": "A serverless TypeScript backend for Bark App",
+  "version": "1.0.0",
+  "author": "frankwei98",
+  "homepage": "https://github.com/frankwei98/bark-serverless",
+  "skills": []
+}
