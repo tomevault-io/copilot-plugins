@@ -1,0 +1,9 @@
+{
+  "name": "ch060619--online-shop-platform",
+  "displayName": "online-shop-platform",
+  "description": "\u4e00\u4e2a\u524d\u540e\u7aef\u5206\u79bb\u7684\u5728\u7ebf\u5546\u57ce\u793a\u4f8b\u9879\u76ee\u3002\u540e\u7aef\u4f7f\u7528 Spring Boot\u3001MyBatis Plus \u548c SQLite/MySQL\uff0c\u524d\u7aef\u4f7f\u7528 Vue 3\u3001Vite\u3001Element Plus \u548c Axios\uff0c\u5b9e\u73b0\u5546\u54c1\u6d4f\u89c8\u3001\u5206\u9875\u7b5b\u9009\u3001\u8d2d\u7269\u8f66\u3001\u4e0b\u5355\u3001\u8ba2\u5355\u67e5\u8be2\u4e0e\u53d6\u6d88\u7b49\u6838\u5fc3\u8d2d\u7269\u6d41\u7a0b\u3002",
+  "version": "1.0.0",
+  "author": "ch060619",
+  "homepage": "https://github.com/ch060619/online-shop-platform",
+  "skills": []
+}
