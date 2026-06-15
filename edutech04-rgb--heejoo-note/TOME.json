@@ -1,0 +1,44 @@
+{
+  "name": "heejoo-note",
+  "owner": "edutech04-rgb",
+  "repo": "heejoo-note",
+  "description": "\uc784\ud76c\uc8fc \uc624\ub2f5\ub178\ud2b8 - \uc911\ud559\uad50 \uc624\ub2f5\ub178\ud2b8 \uc571 (\ud551\ud06c\uc0c9 \ub538\uae30 \ud14c\ub9c8)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/edutech04-rgb/heejoo-note",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-15T02:30:22Z"
+}
