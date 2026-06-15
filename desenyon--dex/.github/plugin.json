@@ -1,0 +1,9 @@
+{
+  "name": "desenyon--dex",
+  "displayName": "dex",
+  "description": "A local-first developer cockpit for the terminal: network, process, API, JSON, system, regex, benchmark, files, clipboard, and terminal tools in one Go binary.",
+  "version": "1.0.0",
+  "author": "desenyon",
+  "homepage": "https://github.com/desenyon/dex",
+  "skills": []
+}
