@@ -1,0 +1,9 @@
+{
+  "name": "bonginkan--fairy-tale",
+  "displayName": "fairy_tale",
+  "description": "Fable/Mythos-informed workflow augmentation for agent skills and plugins",
+  "version": "1.0.0",
+  "author": "bonginkan",
+  "homepage": "https://github.com/bonginkan/fairy_tale",
+  "skills": []
+}
