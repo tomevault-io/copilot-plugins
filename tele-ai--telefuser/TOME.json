@@ -1,0 +1,44 @@
+{
+  "name": "TeleFuser",
+  "owner": "Tele-AI",
+  "repo": "TeleFuser",
+  "description": " A high-performance runtime for world model inference and multimodal generation -- continuous streaming, stateful sessions, distributed GPU execution, and WebRTC-based interactive control loops.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Tele-AI/TeleFuser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-15T14:36:17Z"
+}
