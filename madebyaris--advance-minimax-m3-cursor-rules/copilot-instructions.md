@@ -1,81 +1,87 @@
-## model-compatibility
+## skill-authoring
 
-> Model compatibility guide: prompt hierarchy, M3-first model selection, tool discipline, read-before-edit safety, and context control across models.
+> MiniMax M3 + Cursor 3.7 skill authoring: when to use skills, how to structure them, how to keep them deep without duplicating the core, and how to declare model assumptions.
 
 
-# Transferable Agent Behavior (M3-first, model-resilient)
+# Skill Authoring
 
-This repo is tuned for MiniMax M3 first. M3 is a generational shift: 1M-token MSA context, native multimodal input (text, image, video), and higher agentic and coding benchmarks.
+Use this rule when creating, revising, or evaluating `.cursor/skills/*` content.
 
-The purpose of this file is to define the transferable execution behavior the agent should copy across models: tool-first work, read-before-edit discipline, short prompts, and context-aware problem solving that also maps well to strong GPT/Codex/Composer-style coding agents.
+## Rule vs Skill
 
-## Prompt Hierarchy
+- Put durable, universal behavior in always-on rules.
+- Use a skill for repeatable workflows, domain-specific heuristics, or tasks that need examples and reference material.
+- If the content only matters for one file type or one domain, prefer a skill or requestable rule over expanding the core.
 
-Treat the current environment as the source of truth:
-- system instructions and exposed tools win
-- always-on rules should stay short, durable, and canonical
-- requestable rules should carry runtime-specific guidance
-- user instructions still define the task
+## Skill Shape
 
-Do not assume an older rule or prompt shape is still valid just because it appears in this repo.
-Prefer a single always-on execution spine over duplicated policy spread across multiple files.
+Each skill should clearly provide:
 
-## Model Selection
+- what it is for
+- when to use it
+- what to inspect first
+- the workflow or decision sequence
+- any output or verification expectations
 
-| Need | Default | Why |
-|------|---------|-----|
-| Long context (multi-file refactor, transcript analysis, large retrieval pack, full-repo synthesis) | `MiniMax-M3` | 1M-token MSA context |
-| Visual-fidelity work, design parity, error UI triage, screenshot-driven dev | `MiniMax-M3` | Native multimodal input (text, image, video) |
-| Deep agentic / coding (SWE-Bench-class tasks, long-horizon planning) | `MiniMax-M3` | Higher agentic and coding benchmarks |
-| Anything where the user asks for "frontier" by name | `MiniMax-M3` | Positioned as the new frontier default |
+## Frontmatter Contract
 
-When the active model is **not** M3 (for example `composer-2.5`, GPT, or Claude), the always-on core continues to apply — tool discipline, read-before-edit, scope control, solver loop, status taxonomy. The M3-specific sections (long-context discipline, multimodal input discipline) become inert, and the agent must not promise multimodal or 1M-context behavior. Confirm the model's actual capabilities from the current runtime before relying on them.
+Use YAML frontmatter on every `SKILL.md`.
 
-## Main Failure Modes
+Minimum:
 
-The most common failures are:
-- writing plausible prose instead of using tools
-- guessing file contents instead of reading them
-- teaching stale tool names as if they were universal
-- overloading the prompt with duplicate process text
-- on M3, over-loading context with raw search/fetch output instead of compressing (see `minimax-m3-long-context`)
-- on M3, making visual claims without re-reading the actual attached image/frame (see `minimax-m3-multimodal-input`)
-
-## Tool Discipline
-
-- If the prompt exposes a tool for the action, prefer that tool over shell.
-- Follow the exact tool schema shown by the environment.
-- Batch independent reads and searches when helpful.
-- Keep commentary short; spend prompt budget on execution, not narration.
-
-## Read-Before-Edit
-
-Canonical workflow lives in the always-on core **Code Discipline** section. In short:
-
-```text
-1. Read the target file in the current session
-2. Base the change on exact contents
-3. Use the current edit primitive
-4. Verify with follow-up reads, build, tests, browser checks, shell output, or multimodal-grounded re-reads
+```yaml
+---
+name: my-skill
+description: >
+  What this skill does and the user-language triggers for when to use it.
+license: MIT
+metadata:
+  version: "1.0.0"
+  category: workflow
+  sources:
+    - Official docs or standards
+  model_assumptions: []   # optional; see below
+---
 ```
 
-If the environment offers a patch or search-replace edit tool, prefer it for focused edits (Composer-style agents often expose `StrReplace`; other surfaces may use `ApplyPatch` or similar).
+Rules:
+- `name` must match the directory name exactly.
+- `description` must include concrete trigger language, not vague capability claims.
+- `license` should be explicit so skills stay portable outside this repo.
+- `metadata.version` should change when the skill meaningfully evolves.
+- `metadata.category` should describe the domain or workflow.
+- `metadata.sources` should name current authoritative sources when the skill depends on external behavior.
+- `metadata.model_assumptions` (optional) should name the model capabilities the skill depends on, e.g.:
+  - `multimodal-input: required` — the skill expects the user can attach images/video that the model can read natively
+  - `long-context: recommended` — the skill expects a 1M-class context window for the loader to be useful
+  - `cursor-3-runtime: required` — the skill expects the Cursor 3.7 / Agents Window surface
 
-## Version Handling
+## Progressive Disclosure
 
-- Never hardcode fast-moving versions in rules.
-- Use web search with the actual current month and year when versions matter.
-- Do not leave placeholders such as `[current year]` in the query.
-- Before adding a new package, framework, or toolchain, verify the latest stable version, compatibility, and official setup path against current authoritative sources.
-- Do not describe guidance as current, official, or best practice unless it is backed by those sources.
+- Keep `SKILL.md` focused on the main workflow.
+- Move large examples, extended references, and category catalogs into companion files such as `reference.md`.
+- Load deeper material only when the task actually needs it.
 
-## Context Management
+## Skill Contracts
 
-- Read only what is needed for the task.
-- Prefer targeted searches over broad scans.
-- Keep durable lessons, not raw output, in active context.
-- For large work, push detailed procedures into requestable rules or skills instead of the always-on core.
-- On M3, with 1M tokens available, still compress after each iteration — see `minimax-m3-long-context`.
+- State concrete triggers in user-language, not vague capability claims.
+- Define inputs, outputs, stop conditions, and common failure modes.
+- Prefer one coherent workflow per skill over broad omnibus instructions.
+- If a skill depends on multimodal input, name that in the frontmatter and in the opening paragraph so the agent does not try to use it in a text-only environment.
+
+## Anti-Duplication
+
+- Do not copy the always-on solver loop, status taxonomy, or generic tool discipline into every skill.
+- Let skills deepen the task-specific method, not restate the global contract.
+- Reference existing project patterns or rule files when they already cover shared behavior.
+
+## Quality Bar
+
+- Keep the opening concise enough that the agent can quickly decide whether to load the skill.
+- Use examples only when they change behavior.
+- Re-read the skill after writing it and remove filler, stale tool names, and redundant policy text.
+- Prefer one small `SKILL.md` plus optional `reference.md` over one giant omnibus file.
+- If the skill references scripts or helper assets, document where outputs go and how success is verified.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
