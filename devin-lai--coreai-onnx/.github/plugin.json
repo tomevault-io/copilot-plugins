@@ -1,0 +1,9 @@
+{
+  "name": "devin-lai--coreai-onnx",
+  "displayName": "coreai-onnx",
+  "description": "Convert ONNX models directly to Apple's Core AI (.aimodel) format, the next-generation successor to Core ML.",
+  "version": "1.0.0",
+  "author": "devin-lai",
+  "homepage": "https://github.com/devin-lai/coreai-onnx",
+  "skills": []
+}
