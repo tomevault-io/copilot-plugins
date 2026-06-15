@@ -7,11 +7,11 @@ Coworker is the open source Al coworker that lives on your desktop
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [accomplish-ai/coworker](https://github.com/accomplish-ai/coworker).
+Original source: `CLAUDE.md` in [accomplish-ai/coworker](https://github.com/accomplish-ai/coworker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
