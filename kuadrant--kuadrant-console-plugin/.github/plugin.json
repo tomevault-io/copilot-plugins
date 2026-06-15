@@ -1,0 +1,9 @@
+{
+  "name": "kuadrant--kuadrant-console-plugin",
+  "displayName": "kuadrant-console-plugin",
+  "description": "kuadrant-console-plugin",
+  "version": "1.0.0",
+  "author": "Kuadrant",
+  "homepage": "https://github.com/Kuadrant/kuadrant-console-plugin",
+  "skills": []
+}
