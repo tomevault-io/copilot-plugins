@@ -1,0 +1,9 @@
+{
+  "name": "hainguyents13--mechvibes-dx",
+  "displayName": "mechvibes-dx",
+  "description": "MechvibesDX is an upgraded version of Mechvibes, rewritten from scratch in Rust using Dioxus.",
+  "version": "1.0.0",
+  "author": "hainguyents13",
+  "homepage": "https://github.com/hainguyents13/mechvibes-dx",
+  "skills": []
+}
