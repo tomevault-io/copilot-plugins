@@ -4,7 +4,7 @@
   "repo": "deltax",
   "description": "Fast time-series extension for PostgreSQL",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xataio/deltax",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T05:38:36Z"
+  "distributed_at": "2026-06-15T05:41:48Z"
 }
