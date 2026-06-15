@@ -1,0 +1,9 @@
+{
+  "name": "saleor--dummy-payment-app",
+  "displayName": "dummy-payment-app",
+  "description": "Bare-bones app for testing Saleor's Transactions API",
+  "version": "1.0.0",
+  "author": "saleor",
+  "homepage": "https://github.com/saleor/dummy-payment-app",
+  "skills": []
+}
