@@ -3,8 +3,8 @@
   "owner": "redis",
   "repo": "agent-skills",
   "description": "Redis' official collection of agent skills",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "redis-development",
-      "path": "skills/redis-development",
-      "github_url": "https://github.com/redis/agent-skills/tree/main/skills/redis-development",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/redis/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T10:32:47Z"
+  "distributed_at": "2026-06-15T14:37:23Z"
 }
