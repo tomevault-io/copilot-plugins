@@ -1,0 +1,9 @@
+{
+  "name": "openinfer-project--openinfer",
+  "displayName": "openinfer",
+  "description": "Pure Rust + CUDA LLM inference engine",
+  "version": "1.0.0",
+  "author": "openinfer-project",
+  "homepage": "https://github.com/openinfer-project/openinfer",
+  "skills": []
+}
