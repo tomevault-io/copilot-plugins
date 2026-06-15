@@ -7,11 +7,11 @@ Your autonomous engineering team in a CLI. Point Zeroshot at an issue, walk away
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [the-open-engine/zeroshot](https://github.com/the-open-engine/zeroshot).
+Original source: `CLAUDE.md` in [the-open-engine/zeroshot](https://github.com/the-open-engine/zeroshot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
