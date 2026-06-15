@@ -1,0 +1,9 @@
+{
+  "name": "neon-solutions--add-mcp",
+  "displayName": "add-mcp",
+  "description": "The open MCP config tool - npx add-mcp",
+  "version": "1.0.0",
+  "author": "neon-solutions",
+  "homepage": "https://github.com/neon-solutions/add-mcp",
+  "skills": []
+}
