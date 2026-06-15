@@ -4,7 +4,7 @@
   "repo": "Bunny-AI-Agent",
   "description": "Build a SaaS platform for coding agents using a native AI SDK and integrated user interface for a smooth developer experience.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abdu6666/Bunny-AI-Agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T16:38:16Z"
+  "distributed_at": "2026-06-15T16:38:47Z"
 }
