@@ -1,76 +1,124 @@
-## minimax-mcp-tools
+## mobile-cross-platform
 
-> MCP and web-tool guidance: current-doc retrieval, direct-tool preference, MCP Apps structured content, and version-aware external lookups.
+> Cross-platform mobile: Flutter, React Native, Expo. Load when editing mobile manifests, platform folders, or shared mobile architecture — not for everyday app logic.
 
 
-# MCP and Web Tools
+# Cross-Platform Mobile Development
 
-Use this rule when current documentation, external systems, or plugin-backed tools matter.
+Guidance for Flutter, React Native, and Expo projects. For general coding workflow, the always-on core **Code Discipline** and **App And Scaffold Discipline** sections are canonical — especially CLI-first scaffolding and verification.
 
-## Preferred Order
+Load this rule when globs match mobile project files. Identify the stack from manifests (`pubspec.yaml`, `package.json` + native folders, `app.json`) before choosing patterns. Do not hand-create `pubspec.yaml`, Xcode/Android project trees, or `.xcodeproj` / `.pbxproj` — use the framework CLI.
 
-When multiple paths exist, prefer:
+---
 
-1. direct native tools exposed in the prompt
-2. direct plugin or MCP-backed tools exposed in the prompt
-3. MCP resource functions when available
-4. MCP Apps structured content when returned by a tool
-5. `WebSearch` and `WebFetch`
+## Before Changing Mobile Code
 
-Do not assume old wrapper APIs are present just because they appear in older docs or rules.
+1. Identify stack: **Flutter**, **React Native**, **Expo**, or other.
+2. Read manifest, entry point (`main.dart`, `App.tsx`), navigation setup, and existing state-management pattern.
+3. Match platform folder conventions already in the repo — do not restructure unprompted.
+4. For new dependencies or SDK versions, verify against current official docs before recommending.
 
-## Web Search Discipline
+---
 
-Use `WebSearch` for:
-- package versions
-- breaking changes
-- compatibility questions
-- recent framework behavior
-- error messages after repeated failures
+## Scaffold & Verify (CLI-first)
 
-Use `WebFetch` for:
-- official docs pages
-- changelogs
-- reference pages that need close reading
+| Stack | Create | Add deps | Typical verify |
+|-------|--------|----------|----------------|
+| Flutter | `flutter create` | `flutter pub add` | `flutter analyze`, `flutter test` |
+| React Native | `npx react-native init` | `npm install` | `npx react-native doctor`, build one platform |
+| Expo | `npx create-expo-app` | `npx expo install` | `npx expo doctor`, `npx expo start` |
 
-Before presenting advice as `current`, `official`, `recommended`, or `best practice`, verify it against a current authoritative source such as official docs, release notes, or changelogs.
+After structural changes, run the stack's analyze/test/build check before claiming done.
 
-When versions matter:
-- use the actual current month and year
-- do not leave placeholders in the search query
-- do not rely on stale memory when a current source is available
+---
 
-## MCP Discipline
+## Architecture Quick Reference
 
-- Follow the exact schema of currently exposed tools.
-- If the environment exposes direct tools, use them directly.
-- If the environment exposes resources instead of actions, use the resource discovery and fetch path.
-- If a tool returns MCP Apps structured content, use the structured form rather than the prose form.
-- Keep assumptions about server names and tool IDs out of general rules.
+**Good cross-platform fit:** content apps, business/productivity, MVPs, teams with web background, similar UI across platforms.
 
-## Typical Chains
+**Consider more native work when:** heavy AR/camera, games, deep OS integration, strict platform HIG, or performance-critical media pipelines.
 
-```text
-Version check -> install or configure -> verify
-Docs lookup -> implement -> behavior check
-Resource discovery -> targeted fetch -> synthesize
-Visual diff -> grounded report
-```
+| Framework | Best for | Watch out for |
+|-----------|----------|---------------|
+| Flutter | Custom UI, performance | App size, Dart ecosystem |
+| React Native | JS/TS teams, code share | Native modules, bridge overhead |
+| Expo | Fast iteration, managed workflow | Native module limits (unless dev client) |
 
-For version-sensitive setup guidance, prefer:
+**Share across platforms:** domain logic, models, API client, validation, most state logic.  
+**Keep platform-specific:** native permissions, push/deep links, store billing, platform UI chrome where HIG matters.
 
-```text
-Current authoritative source -> install or configure -> executable verification
-```
+Layering (presentation → domain → data) applies; see `language-agnostic-patterns` when refactoring module boundaries.
 
-## Failure Handling
+---
 
-If an MCP or plugin call fails:
-- re-check the current schema
-- simplify the arguments
-- remove stale placeholder text
-- fall back to another available source if the integration is optional
-- if the tool returned structured content, check whether the prose view missed a useful field
+## State & Navigation
+
+- Reuse the pattern already in the repo (Provider, Riverpod, Bloc, Redux, Zustand, etc.) — do not introduce a second state library.
+- Navigation: one primary approach (go_router, React Navigation, Expo Router) per app; match existing route definitions.
+- Persist only what the product requires; handle offline/error states explicitly on mobile networks.
+
+---
+
+## Mobile Design Quality
+
+Web design instincts do not transfer 1:1 to mobile. The judgment calls:
+
+- **Platform type defaults are correct here.** SF Pro on iOS and Roboto on Android are the *native* choice, not slop — the web font bans in `anti-slop-design` apply to display/brand moments, not to app body text. Custom fonts earn their place on headings and brand surfaces only.
+- **Design for the thumb, not the cursor.** Primary actions in the bottom half of the screen; destructive actions away from habitual tap zones; nothing important hidden behind hover (there is none).
+- **Navigation follows platform grammar.** Bottom tabs for 3–5 top-level destinations; respect the Android back gesture and iOS swipe-back; use native share sheets, switches, and pickers instead of web-style rebuilds.
+- **Glanceability over density.** One primary piece of information per screen region; web dashboard density fails at arm's length on a 6-inch display.
+- **Loading is layout-shaped.** Skeletons that match the final layout; render cached/partial data immediately rather than blocking the screen on the full payload.
+- **Lists must be virtualized.** `FlatList` / `ListView.builder` with stable keys — never map an unbounded array into scroll children (also listed in traps; it is the #1 mobile perf bug).
+- **Motion at 60fps.** RN: `useNativeDriver` / Reanimated on the UI thread. Flutter: animate with `AnimatedBuilder`/implicit animations, not `setState` rebuilds of whole subtrees.
+
+For visual direction (palette, tone, category), still load `anti-slop-design` — adapted through the platform conventions above.
+
+---
+
+## Platform Integration
+
+- Request permissions at point of use with clear rationale; handle denied/permanent-deny flows.
+- Test on **both** iOS and Android when behavior is platform-specific — simulators/emulators are minimum proof; label device-only issues `unverified`.
+- Deep links, push, and IAP: follow each store's current guidelines; verify against official docs.
+
+---
+
+## Performance & Release
+
+- Images/assets: appropriate resolution; lazy-load lists (avoid building unbounded scroll children).
+- Profile before optimizing (Flutter DevTools, RN Performance monitor).
+- Release: match existing signing, flavors/schemes, and store listing workflow in the repo — do not invent a new pipeline without asking.
+
+---
+
+## Common Traps
+
+- Hand-written native project files instead of CLI output
+- Hover-only or desktop-sized touch targets (min ~44px)
+- Ignoring safe areas / notches / keyboard overlap
+- Blocking the UI thread with sync I/O or heavy work on the main isolate/thread
+- Adding native modules to Expo managed workflow without checking compatibility
+- Platform-specific code without `#ifdef` / `Platform.is` / conditional imports where the repo uses them
+
+---
+
+## Verification After Changes
+
+| Change | Minimum proof |
+|--------|----------------|
+| Dart/TS logic | `flutter analyze` / lint + targeted test |
+| UI/layout | Run on one platform simulator; check safe area and scroll |
+| Native config | Build succeeds for affected platform (`flutter build`, `npx react-native run-ios`, etc.) |
+| Release/signing | `unverified` until user confirms store/TestFlight path |
+
+For distinctive mobile UI polish, load `anti-slop-design` (category-aware layout, typography, motion).
+
+---
+
+## When NOT to Load This File
+
+- Backend or web-only tasks — core **Code Discipline** is enough.
+- Greenfield framework choice with no repo context — inspect first, ask on real forks.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
