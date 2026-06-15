@@ -2,9 +2,9 @@
   "name": "learnship",
   "owner": "FavioVazquez",
   "repo": "learnship",
-  "description": "Learn as you build. Build with intent. Ship real products. Agentic engineering done right. ",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FavioVazquez/learnship",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T20:55:54Z"
+  "distributed_at": "2026-06-15T14:56:48Z"
 }
