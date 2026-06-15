@@ -1,144 +1,128 @@
-## cursor-agent-orchestration
+## cursor-mcp-optimization
 
-> Cursor 3.7 orchestration guide: when to plan, when to delegate, nested subagents, multi-environment handoffs, /best-of-n, and Await for long-running branches.
+> Cursor 3.7 MCP optimization: browser Design Mode, canvases, Figma, Cloudflare tools, MCP Apps structured content, and direct action patterns.
 
 
-# Cursor 3.7 Agent Orchestration
+# Cursor 3.7 MCP Optimization
 
-Current through **Cursor 3.7** (Jun 2026). Use this rule for deep or exhaustive tasks where coordination matters more than raw implementation speed.
+Current through **Cursor 3.7** (Jun 2026). Direct guidance for Cursor's MCP and integrated surfaces. Use the right tool for each job.
 
-## Core Idea
+## Browser Tools (cursor-ide-browser)
 
-The main agent should own synthesis. Plans, subagents, and task tracking exist to reduce context load and make large work safer. On M3, the main agent also owns the 1M-context loader — see `minimax-m3-long-context`.
-
-## Local, worktree, cloud, and SSH sessions
-
-Cursor 3.7 emphasizes moving work between execution environments inside the Agents Window. Treat this as workflow guidance, not a requirement:
-
-- Prefer **local** when you need fast edit–run–debug loops, full filesystem access, or machine-specific verification.
-- Prefer **/worktree** (isolated git worktree) when the task must not collide with the main tree, when you are running parallel branches, or when you want a disposable environment.
-- Consider **cloud** when a task should keep running while you are away, or when you want continuation without tying up the local machine — then **hand back to local** to validate on the real environment when claims are environment-specific.
-- Consider **SSH** when the runtime is on a remote host (e.g. an edge box, a build farm, a server) and the work needs direct access.
-
-Handoffs should still use explicit goals, owned paths, environment, model, and what was verified (see `agent-teams.mdc`).
-
-## Parallel sessions and the sidebar
-
-Cursor 3.7 can show **many agent sessions** at once (including from other surfaces — mobile, web, Slack, GitHub, Linear). That mirrors the idea of concurrent **`Task`** / subagent delegation: only parallelize **independent** slices, merge results in one synthesis step, and avoid two sessions racing the same files. The UI makes parallelism easier; it does not remove the need for clear ownership, non-overlapping paths, and one synthesis step.
-
-## When to Plan
-
-Plan when:
-- the task is ambiguous
-- multiple valid approaches exist
-- many files or systems will change
-- the user needs approval before implementation
-
-Do not over-plan one-file fixes or straightforward edits.
-Use the environment's active planning workflow or mode when it exists instead of assuming a specific planning tool name.
-
-## When to Use Task (subagents)
-
-In Composer-style Cursor agents the tool is usually **`Task`** (subagent-style delegation; types such as explore, debugger, verifier — see the live schema). Use it when:
-- repo exploration is broad and would pollute main context
-- independent investigations can run in parallel
-- a verifier or debugger pass would help
-- the task has a long-running research branch
-
-Avoid delegation overhead for instant or light work.
-
-When several independent branches exist, do not launch them serially by habit. Launch multiple `Task` calls together with separate scopes and merge their results in the main thread.
-
-**Nested subagents (3.7):** a subagent can spawn its own `Task` children. Treat nesting as a depth budget, not a default — prefer one delegation layer; use two only when the child slice is still too broad. The main thread still owns synthesis, edits, and final verification; do not let nested branches drift into parallel implementation on the same files.
-
-**Multitask Mode:** when the session is in Multitask Mode, background subagent runs are expected — set `run_in_background: true` on `Task` and `Await` the result instead of blocking the main thread.
-
-## /best-of-n as an Orchestration Primitive
-
-For high-stakes decisions (architecture, refactor approach, design parity), the `/best-of-n` command runs the same prompt across 2–4 models in parallel worktrees and then compares outcomes.
-
-A small workflow for using it well:
-
-```text
-1. Pick 2-4 models (mix is fine: `composer-2.5` + MiniMax-M3 + a third)
-2. Write one bounded prompt that names the question, the constraint, and the deliverable shape
-3. Run /best-of-n in isolated worktrees
-4. Read each result centrally; tag them with the model
-5. Pick the strongest, merge complementary ideas, or escalate to the user with the comparison
+**Always do before any interaction:**
+```
+1. browser_tabs with action: "list" -> check current tabs/URLs
+2. browser_snapshot -> get current page structure and refs
 ```
 
-Keep prompts bounded. `/best-of-n` is wasted when the prompt is vague.
-
-## Await for Long-Running Branches
-
-For dev servers, watchers, build jobs, parallel subagents, or CLI tools that take seconds-to-minutes, do not poll. Use the `Await` tool to wait for a background shell/subagent or a specific output token (`Ready`, `Compiled`, `Error`).
-
-```text
-1. Start the long-running work in the background
-2. Await the result or a specific output string
-3. If it fails, Await the error message and form the next hypothesis
+**Interaction pattern:**
+```
+1. Identify the target ref from snapshot (use exact ref, not coordinates)
+2. For clicks: prefer snapshot refs over mouse_xy coordinates
+3. For forms: use browser_fill for existing content, browser_type to append
+4. After ANY action that changes page: take fresh snapshot
 ```
 
-This prevents the "waste 30s polling" failure mode and keeps the main thread responsive on M3.
+**Coordinate clicks ONLY when:**
+- A fresh screenshot confirms the exact visual target
+- No snapshot ref is available
+- The target is visually verifiable (button, link)
 
-## Delegation Pattern
+**Never do:**
+- Click without a fresh snapshot first
+- Reuse old screenshot coordinates
+- Assume page state without verification
 
-```text
-1. Define the slices
-2. Delegate only independent work
-3. Launch independent subagents concurrently when possible
-4. Await long-running branches
-5. Read subagent summaries
-6. Synthesize decisions in the main thread
-7. Implement and verify centrally
+## Browser Design Mode (Cursor 3.7)
+
+Design Mode is a **user-driven** overlay in the integrated browser — agents do not invoke it as a tool. When the user selects elements there, treat those selections as ground truth for UI edits (same discipline as `multimodal-grounded`):
+
+- **Multi-select:** two or more elements selected together carry code, layout, and visual relationships — use them for parity edits, deduplication, or batch component tweaks.
+- **Voice input:** transcribed voice instructions are user intent; honor them even if the agent is mid-run.
+- **Agent path unchanged:** still snapshot → ref-based interaction for automation; Design Mode complements, not replaces, the MCP browser flow.
+
+## Canvas (Cursor 3.7)
+
+Canvases are live React artifacts beside the chat — dashboards, reports, analyses, internal tools. Load the `canvas` skill before creating or editing `.canvas.tsx` files.
+
+**When to use a canvas:**
+- Structured MCP or tabular deliverables where the data *is* the output (prefer canvas over markdown tables)
+- Interactive reports the user may share or iterate on (context usage breakdowns, audits, timelines)
+
+**3.7 canvas features:**
+- **Design Mode in canvases** — user can select and annotate UI elements directly; treat annotations like browser Design Mode selections.
+- **Context usage report** — interactive token breakdown (prompt, tools, rules, skills); useful for compression decisions on M3 long-context work.
+- **Embedded prompt buttons** — canvases can run follow-up prompts; keep button text bounded and explicit.
+- **Full-screen share** — shared canvases open in the browser for presentation; not a substitute for app UI verification.
+
+## Figma Tools (plugin-figma-figma)
+
+**Design-to-code workflow:**
+```
+1. Call get_design_context with fileKey and nodeId
+2. Adapt output to project's existing stack/components
+3. Do NOT use raw Figma output as final code
 ```
 
-## Parallel Delegation Rules
+**URL parsing:**
+- `figma.com/design/:fileKey/:fileName?node-id=:nodeId` -> convert "-" to ":" in nodeId
+- `figma.com/board/:fileKey/:fileName` -> FigJam, use get_figjam
+- `figma.com/make/:makeFileKey/:makeFileName` -> use makeFileKey
 
-- Give each subagent a bounded scope, not a vague restatement of the whole task.
-- State exactly what the subagent should return: findings, file paths, risks, or a decision recommendation.
-- Prefer 2 to 4 concurrent subagents over a long serial chain.
-- Do not split work so finely that coordination costs more than the saved time.
-- If one branch depends on another, keep it sequential.
-- If two subagents may overlap, assign different directories, files, or questions.
-- When you can name the environment (local/worktree/cloud/SSH) and the model per subagent, do — it makes the synthesis cleaner.
+**When designer provides screenshots:**
+- Use get_screenshot for visual verification
+- Translate Figma design tokens to project's token system
+- Never copy exact Figma hex values without checking project palette
+- For M3 multimodal parity, the design screenshot is the contract — cite the file path in the report
 
-Parallel subagents are best for research and analysis. Centralize edits and final verification unless there is a strong reason to delegate them.
+## Cloudflare Tools
 
-## Todo and Progress Tracking
+**Load these skills before Cloudflare work:**
+- `cloudflare/SKILL.md` — comprehensive platform guidance
+- `wrangler/SKILL.md` — CLI usage and best practices
+- `workers-best-practices/SKILL.md` — production Worker patterns
 
-Use `TodoWrite` for real multi-step execution:
-- large refactors
-- multi-file features
-- research plus implementation plus validation
-
-Keep the list current. Do not let stale in-progress items pile up.
-
-## Solver Loop for Complex Tasks
-
-For deep work:
-
-```text
-Orient
-Find the spine
-Choose the smallest proving slice
-Implement
-Verify
-Broaden carefully
+**Before deploying:**
+```
+1. Read wrangler skill for correct syntax
+2. Verify secrets/bindings in wrangler.jsonc
+3. Run wrangler dev locally first
 ```
 
-For exhaustive work, break the task into independently verifiable milestones rather than broad abstract epics. On M3, also load `minimax-m3-long-context` once the milestones cross ~200K tokens of input. Cursor 3.7 can surface a **context usage report** canvas — use it when token pressure is the blocker, then compress or drop slices before expanding scope.
+**MCP auth:** If a Cloudflare MCP server has `mcp_auth`, call it before using tools.
 
-## Verification During Orchestration
+## MCP Apps Structured Content
 
-Do not postpone all checks to the end. Verify per phase:
-- after code changes, run the smallest relevant command
-- after UI changes, use browser checks or `multimodal-grounded` re-reads of post-change frames
-- after a major feature phase, run broader validation
+Since Cursor 3, **MCP Apps structured content** lets tools return richer structured outputs (typed objects, lists, tables) instead of prose blobs.
 
-Use the **diff / review surface** in Cursor when it helps you stage, review, and ship; keep claims aligned with the always-on status and verification rule regardless of UI.
+- When a tool returns structured content, **prefer the structured form** over reconstructing from prose.
+- Surface the structured result faithfully in the report — do not paraphrase the shape.
+- A few plugin families (Vercel, Linear, Cloudflare) already return structured outputs of this kind; check the descriptor before assuming a tool returns plain text.
+- If the runtime supports it, render tabular or nested results as a canvas or table, not as a markdown dump.
 
-Final user-facing completion claims should follow the always-on status and verification rule rather than ad-hoc wording.
+## MCP General Rules
+
+```
+1. Read the tool schema BEFORE calling unfamiliar MCP tools
+2. Use exact parameter names from the schema
+3. If tool unavailable, say so and use next best exposed path
+4. Do not infer hidden parameters or old API versions
+5. If the tool returns structured content, use the structured form rather than the prose form
+```
+
+## Marketplace plugins
+
+Plugins installed from the [Cursor Marketplace](https://cursor.com/marketplace) extend agents with MCPs, skills, and related capabilities. Treat them like any other MCP surface: **inventory** what the session exposes, **read descriptors/schemas** before first use, then call the smallest valid tool — same as in `tool-discovery.mdc`.
+
+**Rollout caveat (Cursor 3.7):** third-party plugin imports now **default to off for Enterprises** when unset, while preserving explicit Admin overrides. If you are working in an Enterprise workspace, confirm the plugin import policy with the Admin before relying on a marketplace plugin.
+
+## Capability Mapping Checklist
+
+Before acting, confirm:
+- [ ] Direct native tool exists for this action
+- [ ] MCP tool exists with current schema (and structured-content support if relevant)
+- [ ] Browser interaction confirmed via snapshot
+- [ ] Fallback path identified if primary fails
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
