@@ -1,82 +1,61 @@
-## agent-teams
+## clarify-first-prompting
 
-> MiniMax M3 + Cursor 3.7 agent teams: role boundaries, multi-environment handoffs, /best-of-n as a team pattern, escalation, and serial vs parallel team structure.
+> Clarification guidance: inspect first, ask only on real forks, and keep questions small and consequential.
 
 
-# Agent Teams (M3 + Cursor 3.7)
+# Clarify-First Prompting
 
-Use this rule when the work is best handled by multiple agents or explicitly separated roles.
+Clarification is for real uncertainty, not for information the repo or runtime already contains.
 
-## Team Shape
+## Inspect Before Asking
 
-- Define roles before delegating: planner, explorer, implementer, verifier, or another bounded role.
-- Give each role a distinct objective, owned surface, and stopping point.
-- Do not create overlapping ownership without a clear reason.
+Before asking a question, first check whether the answer is available through:
+- project files
+- existing code patterns
+- tool output
+- current docs when version-sensitive behavior matters
 
-## Multiple concurrent Cursor sessions
+Do not ask the user for information you can inspect directly.
 
-Cursor 3.7 can run **several agent sessions in parallel** (for example from the Agents Window sidebar, or kicked off from mobile, web, Slack, GitHub, Linear). The same rules apply as for parallel roles or subagent branches: use parallel sessions only for **independent** workstreams, keep **non-overlapping ownership** of files and decisions, and **serialize** anything that would race the same artifact. More sessions visible at once does not make conflicting edits safer.
+## When to Ask
 
-## Multi-Environment Teams
+Ask only when the answer materially changes the implementation:
+- security or authentication model
+- destructive data or migration strategy
+- major architecture branch
+- user-facing product choice with costly reversal
 
-When a single team spans environments (some roles local, some in `/worktree`, some in cloud, some over SSH):
+## When to Proceed
 
-- The handoff contract must name the **environment** per role — local, worktree, cloud, or SSH — and the **model** per role.
-- Choose environments to remove file-system races: if two roles may touch the same artifact, pin both to the same isolated worktree or serialize the touch.
-- Prefer `/worktree` for any role whose output will be reviewed and possibly discarded. Prefer `cloud` for any role whose value is "keep working while I am away."
-- When one role's output feeds another role in a different environment, the handoff payload should include the file paths, branch, and any required state — not just a prose summary.
+Proceed without asking when:
+- project conventions already answer the question
+- the choice is small and reversible
+- a safe default exists
+- the user explicitly asked for a best-effort implementation
 
-## Handoff Contract
+## Question Rules
 
-Every handoff should state:
+- Ask at most 1-2 critical questions at a time.
+- Use structured questions only when the choice has real tradeoffs.
+- Put the recommended or safest default first when presenting options.
+- Once the user answers, proceed without re-confirming.
 
-- current goal
-- **which repo or workspace root** when more than one is in play
-- **environment** (local / worktree / cloud / SSH) and **model** (e.g. `MiniMax-M3`, `composer-2.5`, `auto`)
-- files, dirs, or questions owned
-- findings or artifacts produced
-- open risks or assumptions
-- exact next step for the receiving role
-
-## Serial vs Parallel
-
-- Use parallel teams only for independent branches.
-- Use serial teams when one role depends on another role's findings.
-- If two agents may touch the same file or decision, centralize that step instead of racing them.
-
-## /best-of-n as a Team Pattern
-
-For decisions where a second opinion is cheap insurance (architecture choice, design parity, risky refactor, choosing between two valid approaches), treat `/best-of-n` as a team pattern:
+## Good Pattern
 
 ```text
-1. Define the question and the deliverable shape
-2. Run the same prompt across 2-4 models in parallel worktrees
-3. Read each result centrally
-4. Pick the strongest, merge complementary ideas, or escalate to the user with the comparison
+1. Inspect repo and runtime
+2. Identify the true unknown
+3. Ask only if that unknown changes the architecture or outcome
+4. Otherwise choose a safe default and continue
 ```
 
-The "team" is the synthesis step, not the model run; centralize it.
+## Anti-Patterns
 
-## Challenge And Review
-
-- At least one role should challenge assumptions, edge cases, or weak evidence on non-trivial work.
-- Reviewer or verifier roles should critique the work, not merely restate it.
-- Keep disagreement evidence-based and scoped to the task.
-- A verifier reviewing visual work should re-read the actual post-change frame, not rely on a prose description; that is `multimodal-grounded` review.
-
-## Human Escalation
-
-Escalate to the user when:
-- a branch changes architecture or product direction
-- safety, destructive actions, or irreversible changes appear
-- two valid team recommendations lead to meaningfully different outcomes
-- `/best-of-n` returns a near-tie that needs human taste
-
-## Closeout
-
-- Synthesize in the main thread before acting on team output.
-- Final user-facing claims must follow the always-on status and verification contract.
-- Include the environment, the model, and the relevant evidence (including `multimodal-grounded` for visual claims) in the closeout.
+Do not:
+- ask about framework, package, or file structure when the repo can answer it
+- ask about tiny implementation details
+- repeat questions the user already answered
+- use fake `<think>` or `<thinking>` blocks as clarification scaffolding
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
