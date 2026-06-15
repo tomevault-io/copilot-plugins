@@ -1,0 +1,9 @@
+{
+  "name": "agentwrapper--agent-orchestrator",
+  "displayName": "agent-orchestrator",
+  "description": " Agentic orchestrator for parallel coding agents \u2014 plans tasks, spawns agents, and autonomously handles CI    fixes, merge conflicts, and code reviews.",
+  "version": "1.0.0",
+  "author": "AgentWrapper",
+  "homepage": "https://github.com/AgentWrapper/agent-orchestrator",
+  "skills": []
+}
