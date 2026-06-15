@@ -1,82 +1,84 @@
-## rules-main
+## bitkit-android
 
-> - you're a senior kotlin android developer with very good knowledge of react native and swift, and you're also an expert in bitcoin and lightning network developer, especially with ldk and ldk-node.
+> When performing a code review, respond in English.
 
-## Setup rules:
-- you're a senior kotlin android developer with very good knowledge of react native and swift, and you're also an expert in bitcoin and lightning network developer, especially with ldk and ldk-node.
-- do not add code comments, except for math, complex logic, docs
-- do not remove existing code comments
-- when working with libraries, always check `.cursor/notes/libs.md` for documentation links and usage patterns
+# GitHub Copilot Code Review Instructions
 
-## Rules for communication:
-- don't be overly enthusiastic in your words, be terse, plain and factual
-- do not reply with arguments why the changes are better
+When performing a code review, respond in English.
 
----
+## Architecture & Patterns
 
-## Rules for Android code:
-- use official kotlin code guide
-- always use trailing commas in parameters list, except after modifiers parameter
-- when invoking any composable function, always pass the modifier argument last in the call, sse named parameters if needed to ensure this order, and omit trailing commas after it.
-- never modify `strings.xml`
-- always keep compose preview at end of file
-- split screen composables into stateful wrapper parent and stateless child which can be rendered in the previews.
-- wrap previews in `AppThemeSurface` composable, and name them simple, like `Preview`, `Preview2`.
-- In every ViewModel file, declare the UiState data class immediately AFTER the ViewModel class (never above it)
-- prefer to use `_uiState.update {}` for updating ui state flow value
-- prefer to add business logic to UI via viewmodels, which can delegate to repositories/service classes
-- avoid creating intermediate tuples/triples variables in UI, instead inline logic to the components properties
-- do not wire navigation through viewmodel
-- do not add logs to viewmodels
-- never add any viewmodel as dependency to another viewmodel
-- name composable callback parameters with prefix `onClick`, like `onClickSomething` not `onSomethingClick`
-- when possible, pass entire `uiState` to the inner Content composable, not individual parameters for each uiState param
-- use existing components from `to.bitkit.ui.components` package
-- prefer `Dp` unit for new composable parameters
-- prefer notation `5000u` and `5000uL` for unsigned integers and long, avoid using `5000U` and `5000UL`
-- logging should happen at repository level, viewmodel methods should not re-log if repository already logs the same thing
-- prefer list condition check using `in`, i.e. use `myElement in myList` instead of `myList.contains(myElement)`
-- for localization use `getString(resId).replace("{param}", hostParam)`
-- always trim user input strings, apply the `userInput.trim()` in the viewmodel
-- prefer `runCatching` over try/catch
-- in compose callbacks, instead of calling `stringResource()` declare `val context = LocalContext.current` and use `context.getString()`
-- prefer using `ULong` wherever possible and write ULong values as `1000u` instead of `1000UL`
-- prefer to expression body for potential one-line methods
+When performing a code review, ensure ViewModels are never injected as dependencies into services or repositories. Only Android activities and composable functions should use ViewModels.
 
-### Rules for Compose Navigation:
-- we use strongly typed navigation in compose, most routes are in `ContentView.kt` file, package `to.bitkit.ui.Routes`
-- you should use navigation like: `navController.navigate(Routes.ExternalConnection)`
+When performing a code review, verify that all async operations use `viewModelScope.launch` instead of `GlobalScope.launch` in ViewModels.
 
-## Rules to map RN (react native) to Compose:
-- use `docs/screens-map.md` for mapping screens
-- map `color = "secondary"` to `color = Colors.White64`
-- map colors to `Colors.kt`
-- map `Pressable` or `TouchableOpacity` to `Modifier.clickableAlpha { onClick() } `
-- map text components to compose components from `ui/components/Text.kt`
-- map settings components to compose components from from `ui/components/settings/*.kt`
-- use spacer components from `ui/components/Spacers.kt`
-- map `EChannelStatus.open` from react native to `channelDetails.isChannelReady` in kotlin
-- map `EChannelStatus.pending` from react native to `!channelDetails.isChannelReady` in kotlin
-- map border to `HorizontalDivider()`, without color or thickness params, default color is already White10.
+When performing a code review, ensure Repository pattern is followed
 
----
+When performing a code review, verify StateFlow is used for reactive state management in ViewModels with proper `_uiState` and `uiState` pattern.
 
-## Changelog rules:
-- never edit `CHANGELOG.md` in normal feature/fix PRs; release automation collects changelog fragments into it
-- add exactly one changelog fragment for user-facing `feat:` and `fix:` PRs; skip for `chore:`, `ci:`, `refactor:`, `test:`, `docs:` unless the change is user-facing
-- put normal release fragments in `changelog.d/next/` and hotfix fragments in `changelog.d/hotfix/`
-- name fragments `<issue-or-pr>.<category>.md`, where category is one of `added`, `changed`, `deprecated`, `removed`, `fixed`, or `security`
-- write the fragment as one polished user-facing sentence without a leading bullet and without a PR number
-- never add multiple changelog fragments for the same PR — summarize all changes in one concise fragment
-- release commits consume fragments with `scripts/collect-changelog.sh --target next|hotfix`, update `CHANGELOG.md`, and delete consumed fragment files
-- never modify released version sections manually
+## Error Handling & Safety
 
----
+When performing a code review, flag any use of the not-null assertion operator (`!!`) and suggest safe calls (`?.`) with proper null handling.
 
-## Rules for Android Unit tests and Instrumentation tests:
-- run unit tests for specific files like this: `just test file "to.bitkit.repositories.LightningRepoTest"`
-- write unit tests in the same style and using same libraries as: `CurrencyRepoTest`, `LightningRepoTest`, `WalletRepoTest`
-- in unit tests, use asserts from `kotlin.test` and mockito-kotlin for mocks
+When performing a code review, ensure all coroutine operations use proper error handling with `runCatching`
+
+## UI & Compose Best Practices
+
+When performing a code review, ensure all user-facing strings use `stringResource(R.string.*)` instead of hardcoded strings.
+
+When performing a code review, verify that expensive Compose computations are wrapped in `remember` blocks.
+
+When performing a code review, check that Material3 design guidelines are followed for UI components.
+
+When performing a code review, ensure proper state management patterns with `MutableStateFlow` and `StateFlow`.
+
+When performing a code review, check if modifiers, if present, are in last place in args list
+
+## Code Quality & Readability
+
+When performing a code review, focus on readability and avoid nested if-else, replacing with early return wherever possible.
+
+When performing a code review, ensure unused code is removed after refactoring.
+
+When performing a code review, verify that existing extensions and utilities are used rather than creating duplicate functionality.
+
+## Dependency Injection & Services
+
+When performing a code review, verify proper Hilt dependency injection patterns are followed.
+
+When performing a code review, ensure services contain business logic and don't directly depend on ViewModels.
+
+## Build & Testing
+
+When performing a code review, suggest Unit Test for composable components and business logic covering the most important cases
+
+## Lightning & Bitcoin Specific
+
+When performing a code review, verify that Bitcoin/Lightning operations are properly handled in the service layer.
+
+When performing a code review, verify that propper Bitcoin and Lightning technical terms are used when naming code components
+
+## Performance & Memory
+
+When performing a code review, check for potential memory leaks in coroutines and ensure proper scope usage.
+
+When performing a code review, verify that database operations use Room patterns correctly.
+
+When performing a code review, ensure network operations use Ktor patterns and proper error handling.
+
+## Documentation & Maintenance
+
+When performing a code review, ensure code follows the established patterns from the existing codebase.
+
+When performing a code review, verify that complex business logic is properly documented.
+
+When performing a code review, check that new features integrate well with the existing MVVM architecture.
+
+## Business Logic
+
+When performing a code review on balance management logic, get context from `/docs/balance.md` file.
+
+When performing a code review on transfer logic, get context from `/docs/transfer.md` file.
 
 ---
 > Source: [synonymdev/bitkit-android](https://github.com/synonymdev/bitkit-android) — distributed by [TomeVault](https://tomevault.io).
