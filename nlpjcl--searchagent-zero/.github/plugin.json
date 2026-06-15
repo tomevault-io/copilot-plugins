@@ -1,0 +1,9 @@
+{
+  "name": "nlpjcl--searchagent-zero",
+  "displayName": "SearchAgent-Zero",
+  "description": "SearchAgent-Zero: A Scalable Multi-Turn Search Agent RL Framework",
+  "version": "1.0.0",
+  "author": "NLPJCL",
+  "homepage": "https://github.com/NLPJCL/SearchAgent-Zero",
+  "skills": []
+}
