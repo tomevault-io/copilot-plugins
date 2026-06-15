@@ -4,7 +4,7 @@
   "repo": "ai-engineer-guide",
   "description": "A clean, fast Hugo-powered blog covering AI engineering trends, tools, and insights at AIEngineerGuide.com",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AshikNesin/ai-engineer-guide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T22:31:56Z"
+  "distributed_at": "2026-06-15T22:34:48Z"
 }
