@@ -7,11 +7,11 @@ Build a SaaS platform for coding agents using a native AI SDK and integrated use
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [abdu6666/Bunny-AI-Agent](https://github.com/abdu6666/Bunny-AI-Agent).
+Original source: `CLAUDE.md` in [abdu6666/Bunny-AI-Agent](https://github.com/abdu6666/Bunny-AI-Agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
