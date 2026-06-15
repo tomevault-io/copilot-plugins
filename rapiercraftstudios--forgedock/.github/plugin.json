@@ -1,0 +1,9 @@
+{
+  "name": "rapiercraftstudios--forgedock",
+  "displayName": "ForgeDock",
+  "description": "GitHub as a knowledge graph for AI agents. Autonomous dev pipeline for Claude Code - investigate, build, review, merge. Issue in, PR out.",
+  "version": "1.0.0",
+  "author": "RapierCraftStudios",
+  "homepage": "https://github.com/RapierCraftStudios/ForgeDock",
+  "skills": []
+}
