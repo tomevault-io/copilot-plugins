@@ -1,0 +1,44 @@
+{
+  "name": "odyssey-skill",
+  "owner": "yaosiyuuu6",
+  "repo": "odyssey-skill",
+  "description": "\u771f\u5b9e\u4eba\u751f\u51b3\u7b56\u7b5b\u9009\u5668\uff0c\u5f53\u4f60\u9762\u5bf9\u4eba\u751f\u91cd\u5927\u51b3\u7b56\u65f6\uff0c\u5e2e\u4f60\u627e\u5230\u6700\u7b26\u5408\u4f60\u5f53\u4e0b\u60c5\u51b5\u7684\u64ad\u5ba2/B\u7ad9\u89c6\u9891",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yaosiyuuu6/odyssey-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-15T09:39:31Z"
+}
