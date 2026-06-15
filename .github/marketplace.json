@@ -1964,6 +1964,16 @@
       "description": "\ud83c\udfcb Modern open-source fitness coaching platform. Create workout plans, track progress, and access a comprehensive exercise database."
     },
     {
+      "name": "agentwrapper--agent-orchestrator",
+      "source": "./agentwrapper--agent-orchestrator",
+      "description": " Agentic orchestrator for parallel coding agents \u2014 plans tasks, spawns agents, and autonomously handles CI    fixes, merge conflicts, and code reviews."
+    },
+    {
+      "name": "agentwrapper--agent-orchestrator",
+      "source": "./agentwrapper--agent-orchestrator",
+      "description": " Agentic orchestrator for parallel coding agents \u2014 plans tasks, spawns agents, and autonomously handles CI    fixes, merge conflicts, and code reviews."
+    },
+    {
       "name": "0xplaygrounds--rig",
       "source": "./0xplaygrounds--rig",
       "description": "\u2699\ufe0f\ud83e\udd80 Build modular and scalable LLM Applications in Rust"
@@ -4537,6 +4547,16 @@
       "name": "tanstack--ai",
       "source": "./tanstack--ai",
       "description": "\ud83e\udd16 SDK that enhances your applications with AI capabilities"
+    },
+    {
+      "name": "kenn-io--agentsview",
+      "source": "./kenn-io--agentsview",
+      "description": "Local-first session search, analytics, insights, and token use statistics for coding agents, supporting Claude Code, Codex, and more than 20 other agents. "
+    },
+    {
+      "name": "kenn-io--agentsview",
+      "source": "./kenn-io--agentsview",
+      "description": "Local-first session search, analytics, insights, and token use statistics for coding agents, supporting Claude Code, Codex, and more than 20 other agents. "
     },
     {
       "name": "white0dew--xiaohongshuskills",
@@ -12259,6 +12279,11 @@
       "description": "A  multi-agent framework written in Rust that enables you to build, deploy, and coordinate multiple intelligent agents"
     },
     {
+      "name": "friuns2--codex-mobile",
+      "source": "./friuns2--codex-mobile",
+      "description": "\ud83d\ude80 Run Codex Mobile Anywhere: Linux, Windows, or Termux on Android \ud83d\ude80"
+    },
+    {
       "name": "xvirobotics--metabot",
       "source": "./xvirobotics--metabot",
       "description": "\u6784\u5efa\u53d7\u76d1\u7763\u7684\u3001\u81ea\u6211\u8fdb\u5316\u7684 Agent \u7ec4\u7ec7\u7684\u57fa\u7840\u8bbe\u65bd | Infrastructure for supervised, self-improving agent organization. \u4ece\u98de\u4e66/Telegram \u8fd0\u884c Claude Code\uff0c\u5171\u4eab\u8bb0\u5fc6\u3001Agent \u5de5\u5382\u3001\u5b9a\u65f6\u4efb\u52a1\u3001\u901a\u4fe1\u603b\u7ebf\u3002"
@@ -16599,6 +16624,16 @@
       "description": "BPMN-Process automation for everyone "
     },
     {
+      "name": "openinfer-project--openinfer",
+      "source": "./openinfer-project--openinfer",
+      "description": "Pure Rust + CUDA LLM inference engine"
+    },
+    {
+      "name": "openinfer-project--openinfer",
+      "source": "./openinfer-project--openinfer",
+      "description": "Pure Rust + CUDA LLM inference engine"
+    },
+    {
       "name": "epiral--agent-clip",
       "source": "./epiral--agent-clip",
       "description": "AI Agent as a Pinix Clip \u2014 agentic loop with memory, tools, and vision"
@@ -18102,6 +18137,16 @@
       "name": "johnlindquist--claude-hooks",
       "source": "./johnlindquist--claude-hooks",
       "description": "claude-hooks"
+    },
+    {
+      "name": "kocoro-lab--kocoro",
+      "source": "./kocoro-lab--kocoro",
+      "description": "A Mac-compatible AI partner with memory. \u2014 local computer access, browser control, IM channels, MCP-native. Built on Shannon."
+    },
+    {
+      "name": "kocoro-lab--kocoro",
+      "source": "./kocoro-lab--kocoro",
+      "description": "A Mac-compatible AI partner with memory. \u2014 local computer access, browser control, IM channels, MCP-native. Built on Shannon."
     },
     {
       "name": "nwave-ai--nwave",
@@ -21739,6 +21784,16 @@
       "description": "DECeption with Evaluative Integrated Validation Engine (DECEIVE): Let an LLM do all the hard honeypot work!"
     },
     {
+      "name": "evrendom--rudel",
+      "source": "./evrendom--rudel",
+      "description": "Claude Code & Codex Session Analytics"
+    },
+    {
+      "name": "evrendom--rudel",
+      "source": "./evrendom--rudel",
+      "description": "Claude Code & Codex Session Analytics"
+    },
+    {
       "name": "uburuntu--meridian",
       "source": "./uburuntu--meridian",
       "description": "One command deploys a censorship-resistant VLESS+Reality proxy server. Perfectly configured out-of-the-box. Relay nodes supported."
@@ -21942,6 +21997,16 @@
       "name": "2mawi2--schaltwerk",
       "source": "./2mawi2--schaltwerk",
       "description": "The IDE without editor"
+    },
+    {
+      "name": "madeye--meow-rs",
+      "source": "./madeye--meow-rs",
+      "description": "A high-performance Rust implementation of the mihomo (Clash Meta) proxy kernel."
+    },
+    {
+      "name": "madeye--meow-rs",
+      "source": "./madeye--meow-rs",
+      "description": "A high-performance Rust implementation of the mihomo (Clash Meta) proxy kernel."
     },
     {
       "name": "microsoft--skills-for-fabric",
@@ -27019,6 +27084,11 @@
       "description": "The contracts that power the Delegation Framework"
     },
     {
+      "name": "lassejlv--termy",
+      "source": "./lassejlv--termy",
+      "description": "Really fast terminal emulator with GPU-acceleration written Rust "
+    },
+    {
       "name": "andreaskelm--pm-brain",
       "source": "./andreaskelm--pm-brain",
       "description": "AI-powered product management thinking & operating system. Playbooks, guides, templates, and frameworks that bridge PM theory to daily execution."
@@ -28439,6 +28509,11 @@
       "description": "Your efficient agentic AI coding CLI assistant"
     },
     {
+      "name": "joonghyun-lee-frieren--oh-my-antigravity",
+      "source": "./joonghyun-lee-frieren--oh-my-antigravity",
+      "description": "Context-engineering-powered multi-agent team workflow pack for Antigravity CLI."
+    },
+    {
       "name": "themattberman--meta-ads-kit",
       "source": "./themattberman--meta-ads-kit",
       "description": "Open source AI ad manager. Replace 20 min of Ads Manager with a 2-min briefing. Built with OpenClaw + social-cli."
@@ -28889,6 +28964,11 @@
       "description": "Vibe Coding Full-stack App Starter Template"
     },
     {
+      "name": "karanjot786--termui",
+      "source": "./karanjot786--termui",
+      "description": "TermUI is a TypeScript/JavaScript framework for building terminal apps. Flexbox layout, JSX, hooks, global state, theming, animations, routing, and hot reload. No native dependencies. "
+    },
+    {
       "name": "crisng95--flowkit",
       "source": "./crisng95--flowkit",
       "description": "AI agent can create video content better than you. No reason why you do it manually in google flow!"
@@ -29322,6 +29402,11 @@
       "name": "cyfrin--moccasin",
       "source": "./cyfrin--moccasin",
       "description": "Titanoboa-based vyper smart contract development framework"
+    },
+    {
+      "name": "a7t-ai--poirot",
+      "source": "./a7t-ai--poirot",
+      "description": "A native macOS companion for Claude Code that lets you browse sessions, explore diffs, and re-run commands."
     },
     {
       "name": "peiiii--nextclaw",
@@ -31832,6 +31917,11 @@
       "name": "danielrosehill--awesome-obsidian-ai-tools",
       "source": "./danielrosehill--awesome-obsidian-ai-tools",
       "description": "Obsidian plugins focused on leveraging AI & LLMs inside of (and beyond) vaults"
+    },
+    {
+      "name": "erp-mafia--accounted",
+      "source": "./erp-mafia--accounted",
+      "description": "The Open Source Swedish ERP System (previously Gnubok)"
     },
     {
       "name": "jduncan-rva--skill-porter",
@@ -37154,6 +37244,16 @@
       "description": "\ud83d\udd73\ufe0f VOID \u2014 Terminal emulator written in hexa-lang."
     },
     {
+      "name": "nteract--nteract",
+      "source": "./nteract--nteract",
+      "description": "We're back! Now firing notebooks out of a t-shirt gun."
+    },
+    {
+      "name": "nteract--nteract",
+      "source": "./nteract--nteract",
+      "description": "We're back! Now firing notebooks out of a t-shirt gun."
+    },
+    {
       "name": "lakr233--cookey",
       "source": "./lakr233--cookey",
       "description": "Cookey"
@@ -38527,6 +38627,11 @@
       "name": "zoedsoupe--peri",
       "source": "./zoedsoupe--peri",
       "description": "Elixir library for declarative data description and validation"
+    },
+    {
+      "name": "comfy-org--comfy-desktop",
+      "source": "./comfy-org--comfy-desktop",
+      "description": "Comfy-Desktop"
     },
     {
       "name": "anthaathi--pico",
@@ -44037,6 +44142,16 @@
       "name": "jingbanz--evolving",
       "source": "./jingbanz--evolving",
       "description": "An autonomous CLI that iterates on a codebase toward a user-defined goal \u2014 one small, safe, measurable change at a time."
+    },
+    {
+      "name": "sentioxyz--sentio-sdk",
+      "source": "./sentioxyz--sentio-sdk",
+      "description": "sentio-sdk"
+    },
+    {
+      "name": "sentioxyz--sentio-sdk",
+      "source": "./sentioxyz--sentio-sdk",
+      "description": "sentio-sdk"
     },
     {
       "name": "mitchellh--go-libghostty",
@@ -123299,6 +123414,11 @@
       "description": "Superpowers skill port to Reasonix coding harness."
     },
     {
+      "name": "dososo--blcaptain-style-skill",
+      "source": "./dososo--blcaptain-style-skill",
+      "description": "\u4e2d\u6587\u56fe\u6587\u5361\u7247\u751f\u6210 Skill\uff1a\u4e00\u6bb5\u5185\u5bb9 \u2192 \u6d77\u62a5\u7ea7\u56fe\u6587\u7ec4\u56fe\uff08\u5c0f\u7ea2\u4e66 3:4 / \u516c\u4f17\u53f7\u5c01\u9762\uff09\u30021 \u5f15\u64ce + 3 \u89c6\u89c9\u8bed\u8a00\uff08\u9759\u7eb8 Still Paper / \u5b9e\u8bc1 Signal Proof / \u56fe\u6865 Bridge Canvas\uff09\uff0c\u667a\u80fd\u9a71\u52a8 + \u72ec\u5bb6\u5f71\u50cf\u914d\u65b9\u3002"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -150672,6 +150792,11 @@
       "name": "terraform-redhat--terraform-rhcs-rosa-classic",
       "source": "./terraform-redhat--terraform-rhcs-rosa-classic",
       "description": "terraform-rhcs-rosa-classic"
+    },
+    {
+      "name": "iamsupermonkey--sm-c-cli",
+      "source": "./iamsupermonkey--sm-c-cli",
+      "description": "SUPERMONKEY \u5b98\u65b9 CLI"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
