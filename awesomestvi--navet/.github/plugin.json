@@ -1,0 +1,9 @@
+{
+  "name": "awesomestvi--navet",
+  "displayName": "navet",
+  "description": "Navet is a provider-neutral smart home dashboard with intuitive editing, a polished touch-first UI, and support for Home Assistant, Homey, and openHAB.",
+  "version": "1.0.0",
+  "author": "awesomestvi",
+  "homepage": "https://github.com/awesomestvi/navet",
+  "skills": []
+}
