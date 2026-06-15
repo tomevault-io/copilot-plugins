@@ -1,0 +1,9 @@
+{
+  "name": "tokinx--komari-theme-emerald",
+  "displayName": "komari-theme-emerald",
+  "description": "Komari Theme based on Vue 3 + Vite + Shadcn/UI + TailwindCSS-V4",
+  "version": "1.0.0",
+  "author": "Tokinx",
+  "homepage": "https://github.com/Tokinx/komari-theme-emerald",
+  "skills": []
+}
