@@ -1,0 +1,9 @@
+{
+  "name": "jonradoff--markupmarkdown",
+  "displayName": "markupmarkdown",
+  "description": "Google-Docs-style commenting on markdown files, with built-in editing and GitHub integration. Integrates with GitHub. Self-hosted, lightweight, BYOK AI revision.",
+  "version": "1.0.0",
+  "author": "jonradoff",
+  "homepage": "https://github.com/jonradoff/markupmarkdown",
+  "skills": []
+}
