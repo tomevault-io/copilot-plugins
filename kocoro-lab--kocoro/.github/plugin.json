@@ -1,0 +1,9 @@
+{
+  "name": "kocoro-lab--kocoro",
+  "displayName": "Kocoro",
+  "description": "A Mac-compatible AI partner with memory. \u2014 local computer access, browser control, IM channels, MCP-native. Built on Shannon.",
+  "version": "1.0.0",
+  "author": "Kocoro-lab",
+  "homepage": "https://github.com/Kocoro-lab/Kocoro",
+  "skills": []
+}
