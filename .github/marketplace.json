@@ -51839,6 +51839,11 @@
       "description": "A Lazy Clause Generation Constraint Programming solver written in Rust."
     },
     {
+      "name": "duolahypercho--gt-caliber",
+      "source": "./duolahypercho--gt-caliber",
+      "description": "Community-driven open-source open-world game. AAA-trailer quality bar. Godot 4 + custom C++ engine modules."
+    },
+    {
       "name": "edisonwong520--wanny",
       "source": "./edisonwong520--wanny",
       "description": "A real Jarvis, connecting your appliances, AI controls everything in realworld. Wanny = nanny in Wechat"
@@ -105437,6 +105442,11 @@
       "name": "minerd--cmdmanager",
       "source": "./minerd--cmdmanager",
       "description": "WPF utility to manage cmd.exe windows running Claude Code: live console preview, idle detection, silent input injection, and auto-resume when usage limits reset"
+    },
+    {
+      "name": "bitoceango--civideo",
+      "source": "./bitoceango--civideo",
+      "description": "\u5bb6\u957f\u53ef\u63a7\u7684\u81ea\u5efa\u513f\u7ae5\u89c6\u9891\u6d41\u5a92\u4f53\u64ad\u653e\u5668\uff1a\u65e0\u5e7f\u544a\u3001\u65e0\u63a8\u8350\u6d41\u3001\u5c01\u95ed\u5185\u5bb9\u82b1\u56ed \u00b7 Self-hosted, ad-free kids video streaming player with parental controls \u2014 Cloudflare Workers + R2 and native SwiftUI (iOS / iPadOS / macOS)"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -165977,6 +165987,11 @@
       "name": "allanschramm--local-model-autotuning",
       "source": "./allanschramm--local-model-autotuning",
       "description": "local-model-autotuning"
+    },
+    {
+      "name": "akitaonrails--frank-type",
+      "source": "./akitaonrails--frank-type",
+      "description": "Ruby on Rails-based MonkeyType.com simpler clone"
     },
     {
       "name": "yschimke--compose-ai-tools",
