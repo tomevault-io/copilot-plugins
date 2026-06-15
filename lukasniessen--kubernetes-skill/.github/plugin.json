@@ -1,0 +1,9 @@
+{
+  "name": "lukasniessen--kubernetes-skill",
+  "displayName": "kubernetes-skill",
+  "description": "kubernetes-skill",
+  "version": "1.0.0",
+  "author": "LukasNiessen",
+  "homepage": "https://github.com/LukasNiessen/kubernetes-skill",
+  "skills": []
+}
