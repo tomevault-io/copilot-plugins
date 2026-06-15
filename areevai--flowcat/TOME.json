@@ -4,7 +4,7 @@
   "repo": "flowcat",
   "description": "Self-hosted native-Rust runtime for real-time voice agents. Own the stack: one binary in your own VPC or air-gapped, no hosted control plane. pipecat-compatible pipeline, in-process SIP/RTP, single-process call density. Apache-2.0.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AreevAI/flowcat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T11:38:04Z"
+  "distributed_at": "2026-06-15T11:39:57Z"
 }
