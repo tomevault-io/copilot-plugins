@@ -1,0 +1,9 @@
+{
+  "name": "ashiknesin--ai-engineer-guide",
+  "displayName": "ai-engineer-guide",
+  "description": "A clean, fast Hugo-powered blog covering AI engineering trends, tools, and insights at AIEngineerGuide.com",
+  "version": "1.0.0",
+  "author": "AshikNesin",
+  "homepage": "https://github.com/AshikNesin/ai-engineer-guide",
+  "skills": []
+}
