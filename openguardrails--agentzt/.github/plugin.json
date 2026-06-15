@@ -1,0 +1,9 @@
+{
+  "name": "openguardrails--agentzt",
+  "displayName": "agentzt",
+  "description": "Zero Trust for AI Agents",
+  "version": "1.0.0",
+  "author": "openguardrails",
+  "homepage": "https://github.com/openguardrails/agentzt",
+  "skills": []
+}
