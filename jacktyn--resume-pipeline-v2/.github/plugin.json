@@ -1,0 +1,9 @@
+{
+  "name": "jacktyn--resume-pipeline-v2",
+  "displayName": "resume-pipeline-v2",
+  "description": "Multi-agent resume keyword alignment pipeline, Gatekeeper/Worker/Judge architecture",
+  "version": "1.0.0",
+  "author": "jacktyn",
+  "homepage": "https://github.com/jacktyn/resume-pipeline-v2",
+  "skills": []
+}
