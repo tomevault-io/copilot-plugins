@@ -1,33 +1,44 @@
-## git-workflow
+## issue-pr-workflow
 
-> Git workflow — prefer main, avoid extra feature branches
+> Issue-first workflow — open issue before PR, link with Closes
 
 
-# Git workflow (Evotown)
+# Issue → PR workflow (Evotown)
 
-## Default
+## Default (follow-up work after the first merge)
 
-- **Base branch is always `main`.** Pull latest before starting work.
-- **Do not create new feature branches** (`feat/…`, `fix/…`) unless the user explicitly asks for a branch or parallel experiments.
-- **Do not stack PRs** on other feature branches (e.g. PR base = `feat/…`). Every PR targets **`main`** only.
+For **non-trivial** changes (features, security, dispatch/connector, infra, multi-file refactors):
 
-## How to ship changes
+1. **Open a GitHub Issue first** (`gh issue create` or UI) with acceptance criteria.
+2. **Implement** on `main` or a short-lived branch the user named.
+3. **Open one PR → `main`** whose body includes **`Closes #<issue>`** (auto-closes on merge).
+4. **One Issue ↔ one PR** scope; split large work into multiple issues/PRs instead of stacking.
 
-1. `git checkout main && git pull origin main`
-2. **Open a GitHub Issue** (see `issue-pr-workflow.mdc`) unless hotfix / user says skip.
-3. Implement on **`main`** (or a same-day branch the user named).
-4. Commit with a clear message when the user asks to commit.
-5. Push and open **one PR → `main`** with **`Closes #<issue>`** in the body, or push to `main` directly if the user says to skip PR.
+## Issue content (minimum)
 
-## Avoid
+- **Problem / context** (why now)
+- **Proposed change** (what)
+- **Acceptance criteria** (checkboxes, testable)
+- **Labels** when useful: `security`, `dispatch`, `docs`, `P0` / `P1`
 
-- Opening PR #N on branch A, then PR #N+1 on branch B that depends on A not yet in `main`.
-- Leaving work only on long-lived feature branches after a stacked merge.
-- Force-pushing shared branches without the user asking.
+## PR content (minimum)
 
-## If a branch already exists
+- First line or section: `Closes #123` (or `Fixes #123`)
+- **Summary** (1–3 bullets)
+- **Test plan** (checkboxes)
+- Link related docs paths if applicable
 
-Rebase onto `origin/main` and retarget the PR to **`main`** before merge — do not merge feature stacks into other feature branches.
+Use **`Refs #123`** only when the PR does **not** fully close the issue.
+
+## Exceptions
+
+- **Hotfix / same-session tiny fix**: PR first is OK; open a tracking issue immediately and add `Refs #N` before merge.
+- **User explicitly says “skip issue”**: proceed without issue; note that in the PR.
+
+## Agent behavior
+
+- When the user asks to **commit, push, or open a PR** for substantive work: **offer or create the issue first**, then use its number in the PR body.
+- Do not open a second PR for work that belongs to an already-open issue without checking existing issues/PRs.
 
 ---
 > Source: [EXboys/evotown](https://github.com/EXboys/evotown) — distributed by [TomeVault](https://tomevault.io).
