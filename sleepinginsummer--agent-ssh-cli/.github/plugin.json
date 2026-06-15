@@ -1,0 +1,9 @@
+{
+  "name": "sleepinginsummer--agent-ssh-cli",
+  "displayName": "agent-ssh-cli",
+  "description": "agent-ssh-cli",
+  "version": "1.0.0",
+  "author": "sleepinginsummer",
+  "homepage": "https://github.com/sleepinginsummer/agent-ssh-cli",
+  "skills": []
+}
