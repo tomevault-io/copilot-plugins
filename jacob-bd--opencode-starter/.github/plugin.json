@@ -1,0 +1,9 @@
+{
+  "name": "jacob-bd--opencode-starter",
+  "displayName": "opencode-starter",
+  "description": "Interactive launcher for AI coding tools via OpenCode backends (Zen/Go)",
+  "version": "1.0.0",
+  "author": "jacob-bd",
+  "homepage": "https://github.com/jacob-bd/opencode-starter",
+  "skills": []
+}
