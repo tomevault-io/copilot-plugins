@@ -1,0 +1,9 @@
+{
+  "name": "losfair--zeroserve",
+  "displayName": "zeroserve",
+  "description": "Zero-config, fast `io_uring`-based HTTPS server.",
+  "version": "1.0.0",
+  "author": "losfair",
+  "homepage": "https://github.com/losfair/zeroserve",
+  "skills": []
+}
