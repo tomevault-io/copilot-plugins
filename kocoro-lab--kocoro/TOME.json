@@ -4,7 +4,7 @@
   "repo": "Kocoro",
   "description": "A Mac-compatible AI partner with memory. \u2014 local computer access, browser control, IM channels, MCP-native. Built on Shannon.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kocoro-lab/Kocoro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T07:35:04Z"
+  "distributed_at": "2026-06-15T07:35:34Z"
 }
