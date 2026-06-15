@@ -4,7 +4,7 @@
   "repo": "personal-corp-skills",
   "description": "Public Claude Code skills for Personal Corp, product work, AI operations, and agent-assisted development",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/serejaris/personal-corp-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T17:30:55Z"
+  "distributed_at": "2026-06-15T17:34:22Z"
 }
