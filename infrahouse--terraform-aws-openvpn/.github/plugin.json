@@ -1,0 +1,9 @@
+{
+  "name": "infrahouse--terraform-aws-openvpn",
+  "displayName": "terraform-aws-openvpn",
+  "description": "Terraform module for OpenVPN Access Server on EC2 with Google OAuth/SAML authentication, Let's Encrypt SSL, auto-scaling, and CloudWatch monitoring. ",
+  "version": "1.0.0",
+  "author": "infrahouse",
+  "homepage": "https://github.com/infrahouse/terraform-aws-openvpn",
+  "skills": []
+}
