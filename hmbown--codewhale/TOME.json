@@ -4,7 +4,7 @@
   "repo": "CodeWhale",
   "description": "Open-source, community-driven agent harness",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hmbown/CodeWhale",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T11:31:57Z"
+  "distributed_at": "2026-06-15T11:32:27Z"
 }
