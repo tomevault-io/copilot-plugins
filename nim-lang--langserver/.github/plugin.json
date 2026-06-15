@@ -1,0 +1,9 @@
+{
+  "name": "nim-lang--langserver",
+  "displayName": "langserver",
+  "description": "langserver",
+  "version": "1.0.0",
+  "author": "nim-lang",
+  "homepage": "https://github.com/nim-lang/langserver",
+  "skills": []
+}
