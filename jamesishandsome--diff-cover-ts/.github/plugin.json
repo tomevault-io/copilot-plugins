@@ -1,0 +1,9 @@
+{
+  "name": "jamesishandsome--diff-cover-ts",
+  "displayName": "diff_cover_ts",
+  "description": "TypeScript implementation of diff-cover for checking coverage and quality only on lines changed in a Git diff.",
+  "version": "1.0.0",
+  "author": "jamesishandsome",
+  "homepage": "https://github.com/jamesishandsome/diff_cover_ts",
+  "skills": []
+}
