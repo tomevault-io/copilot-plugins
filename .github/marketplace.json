@@ -191664,6 +191664,26 @@
       "description": "\u5f00\u7bb1\u5373\u7528\u7684 Live2D \u684c\u9762\u5ba0\u7269\uff1aElectron \u900f\u660e\u7a97\u3001\u540e\u53f0\u7ba1\u7406\u3001\u591a\u6a21\u578b\u3001Codex/Claude \u72b6\u6001\u6c14\u6ce1\u3001\u89d2\u8272\u804a\u5929\u3001TTS \u8bed\u97f3\u3001\u53e3\u578b\u540c\u6b65\u548c\u968f\u673a\u80a2\u4f53\u52a8\u4f5c\u3002"
     },
     {
+      "name": "kcosr--herdr-web",
+      "source": "./kcosr--herdr-web",
+      "description": "Web-based client for https://herdr.dev/ terminal session manager"
+    },
+    {
+      "name": "junkim100--gavel",
+      "source": "./junkim100--gavel",
+      "description": "Multi-model fusion for Claude Code: ask Claude + Codex + Gemini in parallel, then judge their answers into one and act on it."
+    },
+    {
+      "name": "chahatsagarmain--distributed-web-crawler",
+      "source": "./chahatsagarmain--distributed-web-crawler",
+      "description": "a distributed web crawler "
+    },
+    {
+      "name": "wizardengineer--psprecomp",
+      "source": "./wizardengineer--psprecomp",
+      "description": "PSP static recompiler: Rust analyze/decode/emit pipeline producing C++17, with an SDL2 + OpenGL runtime"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -206562,6 +206582,36 @@
       "name": "zeke--freeretro",
       "source": "./zeke--freeretro",
       "description": "A lightweight tool for running team retrospectives"
+    },
+    {
+      "name": "ashiknesin--ai-engineer-guide",
+      "source": "./ashiknesin--ai-engineer-guide",
+      "description": "A clean, fast Hugo-powered blog covering AI engineering trends, tools, and insights at AIEngineerGuide.com"
+    },
+    {
+      "name": "flinedev--sitekit",
+      "source": "./flinedev--sitekit",
+      "description": "AI-first static site generator written in Swift"
+    },
+    {
+      "name": "jonradoff--markupmarkdown",
+      "source": "./jonradoff--markupmarkdown",
+      "description": "Google-Docs-style commenting on markdown files, with built-in editing and GitHub integration. Integrates with GitHub. Self-hosted, lightweight, BYOK AI revision."
+    },
+    {
+      "name": "import-ai--omnibox-web",
+      "source": "./import-ai--omnibox-web",
+      "description": "omnibox-web"
+    },
+    {
+      "name": "ashiknesin--ai-engineer-guide",
+      "source": "./ashiknesin--ai-engineer-guide",
+      "description": "A clean, fast Hugo-powered blog covering AI engineering trends, tools, and insights at AIEngineerGuide.com"
+    },
+    {
+      "name": "rishabhyadavv--react-native-encryption",
+      "source": "./rishabhyadavv--react-native-encryption",
+      "description": "This is a Encryption library written in native i.e swift & kotlin for React Native, including usage examples for AES, RSA, Hashing, HMAC, Random String, and Base64 utilities."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -316897,6 +316947,11 @@
       "name": "ethiclab--easy-proxy",
       "source": "./ethiclab--easy-proxy",
       "description": "easy-proxy"
+    },
+    {
+      "name": "easynextjs--webpage",
+      "source": "./easynextjs--webpage",
+      "description": "webpage"
     }
   ]
 }
