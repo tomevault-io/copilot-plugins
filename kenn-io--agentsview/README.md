@@ -7,11 +7,11 @@ Local-first session search, analytics, insights, and token use statistics for co
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kenn-io/agentsview](https://github.com/kenn-io/agentsview).
+Original source: `CLAUDE.md` in [kenn-io/agentsview](https://github.com/kenn-io/agentsview).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
