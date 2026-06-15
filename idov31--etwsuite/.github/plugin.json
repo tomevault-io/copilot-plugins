@@ -1,0 +1,9 @@
+{
+  "name": "idov31--etwsuite",
+  "displayName": "EtwSuite",
+  "description": "Windows native ETW inspection suite for browsing providers, reading metadata, consuming live events, recording ETL traces, filtering results, and inspecting ETL/JSON/CSV recordings from one desktop to",
+  "version": "1.0.0",
+  "author": "Idov31",
+  "homepage": "https://github.com/Idov31/EtwSuite",
+  "skills": []
+}
