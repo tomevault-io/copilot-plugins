@@ -1,175 +1,128 @@
-## cursor-tools-mastery
+## design-systems
 
-> Cursor 3.7 runtime guide: choose the right tool, canvases, Design Mode, /worktree, /best-of-n, Await, and parallel execution where safe.
+> Design system mechanics: tokens, shadcn/ui, Tailwind v4, composition, theming. Load for UI implementation — aesthetics and anti-slop live in the anti-slop-design skill.
 
 
-# Cursor 3.7 Tools Mastery
+# Design System Mechanics
 
-Keep durable behavior in the core rule. Use this file for current Cursor **3.7** tool-selection patterns and the Agents Window surface.
+Token structure, shadcn/ui usage, Tailwind v4 features, and component composition — not aesthetic direction.
 
-## Cursor 3.7 workspace
+For palettes, font pairings, category tone, layout direction, and the slop checklist, load the **`anti-slop-design`** skill (and its `reference.md` for full pages / responsive matrices). For general coding workflow, use core **Code Discipline**.
 
-In Cursor 3.7, agent work is centered in the **Agents Window**. Open it from the command palette: `Cmd+Shift+P -> Agents Window` on macOS (per the [Cursor 3 announcement](https://cursor.com/blog/cursor-3); 3.7 changelog at [cursor.com/changelog](https://cursor.com/changelog)). The classic three-pane editor is still available; switch between them at any time.
+Inspect the project first: `package.json`, `tailwind.config.*`, `globals.css`, `components.json`, existing fonts and icon library. Extend what exists; do not replace the design system unprompted.
 
-- **Multi-workspace / multi-repo:** the Agents Window can surface several workspaces at once. Name the repo or root path when handing off work, opening files, or running commands so edits land in the intended tree.
-- **Per-session execution environment:** each agent tab picks its own environment — local working tree, isolated worktree (`/worktree`), cloud sandbox, or remote SSH. State the environment in the handoff contract; it is the unit of isolation.
-- **Per-session model picker:** the model picker lives in the agent tab header (e.g. `composer-2.5`, `MiniMax-M3`, `auto`). Name the model in the handoff contract.
-- **Integrated browser:** prefer the IDE's built-in browser for local UI verification when it is exposed in your session; it matches the "snapshot-first" flow in Browser Guidance below. Cursor 3.7 adds **Design Mode** (multi-select elements, voice input) — user selections there are ground truth for UI edits.
-- **Canvases:** live React artifacts beside the chat for dashboards, reports, and structured analyses; load the `canvas` skill before `.canvas.tsx` work.
+---
 
-## Golden Rule
+## Token Shape (semantic, not hex soup)
 
-For significant actions:
+Prefer **semantic names** mapped to CSS variables so themes and shadcn primitives stay aligned:
 
-```text
-Check what exists
-Choose the smallest correct tool
-Act
-Validate with the lightest useful verification
+```css
+/* globals.css — Tailwind v4 @theme or :root */
+@theme {
+  --color-background: …;
+  --color-foreground: …;
+  --color-primary: …;
+  --color-muted: …;
+  --color-border: …;
+  --radius-md: 8px;
+  --font-body: …;
+  --font-display: …;
+}
 ```
 
-## Default Tool Map
+- Derive real values from the project brand or `anti-slop-design` Category Guide — placeholders above are structural only.
+- Prefer **OKLCH** for new token values (`oklch(0.65 0.15 250)`) — perceptually uniform lightness makes scales and dark-mode variants predictable. Tint neutrals toward the brand hue (chroma 0.005–0.01); never ship pure-gray scales or pure `#000`/`#FFF`.
+- Three token tiers when the system grows: **primitive** (`--blue-600`) → **semantic** (`--color-primary`) → **component** (`--button-bg`). Components consume semantic tokens; only semantic tokens reference primitives. Skip the component tier until a component actually needs an override.
+- Do not default to generic blue/indigo scales or `Inter` / `Roboto` unless the project already uses them.
+- Status colors: `--destructive`, `--success`, etc. — keep consistent with shadcn semantic tokens when present.
 
-**Cursor 3.7 / Composer-style agents (typical names in current desktop agents)** — the session usually exposes something close to:
+---
 
-| Step | Tool / command | Notes |
-|------|----------------|-------|
-| Read a path | `Read` | Prefer over shell `cat`/`sed` |
-| Search by pattern | `Grep` | Ripgrep-backed; use for exact symbols and strings |
-| Search by meaning | `SemanticSearch` | "Where does X happen?" not exact text |
-| List paths | `Glob` | File discovery by pattern |
-| Edit in place | `StrReplace` | Surgical edits; read the file first |
-| Create or replace whole file | `Write` | Use when there is no stable old_string to patch |
-| Remove file | `Delete` | |
-| Terminal | `Shell` | Builds, tests, git, installs |
-| Web | `WebSearch`, `WebFetch` | |
-| Ask user | `AskQuestion` | |
-| Track steps | `TodoWrite` | |
-| Delegate branch work | `Task` | Subagent-style runs (types such as explore, debugger, verifier — see schema) |
-| Wait for background work | `Await` | Wait for a background shell, subagent, or a specific output token (e.g. `Ready`, `Error`) |
-| Isolated worktree | `/worktree` | Run a session in its own git worktree so concurrent edits do not collide |
-| Parallel model compare | `/best-of-n` | Run the same task across N models in parallel worktrees, then compare |
-| MCP servers | `call_mcp_tool` (+ resource helpers if present) | Read MCP tool descriptors before calling |
-| Plan mode | `SwitchMode` | When the product exposes a planning mode |
-| Images | `GenerateImage` | Only when the user asks for generated images |
-| Notebooks | `EditNotebook` | `.ipynb` cell edits |
-| Lint diagnostics | `ReadLints` | After substantive edits when available |
-| Multimodal inputs | `Read` against attached image/video paths | M3 native multimodal — treat as first-class inputs |
-| Interactive artifact | Canvas (`.canvas.tsx`) | Dashboards, reports, MCP tabular output — load `canvas` skill first |
-| Context diagnostics | Context usage report canvas | 3.7 — token breakdown across prompt, tools, rules, skills |
+## Typography Mechanics
 
-**Browser:** often MCP tools (for example `cursor-ide-browser`) with names like `browser_snapshot`, `browser_navigate` — follow the server's schema. **Design Mode** (3.7) is user-driven; honor multi-select and voice instructions as visual ground truth.
+- Fluid display sizes with `clamp()`: `font-size: clamp(2rem, 1.2rem + 3.5vw, 4rem)` — no breakpoint jumps on headings.
+- Pair line-height inversely with size: body `1.6–1.8`, headings `1.1–1.2`. A 56px heading at `line-height: 1.6` is broken.
+- Tighten tracking as display size grows (`letter-spacing: -0.01em` to `-0.04em` above ~32px); never negative-track body text.
+- Body measure: `max-width: 65ch` on prose containers, not pixel guesses.
+- Keep ≥1.25 ratio between adjacent type-scale steps; expose the scale as tokens, not ad-hoc `text-[17px]` values.
+- Load fonts with `font-display: swap` and preconnect; subset when the toolchain supports it.
 
-**Parallel batching:** issue **multiple independent tool calls in one assistant turn** when the runtime allows it.
+---
 
-**Other Cursor surfaces** (CLI, older builds, API): names may differ (`ReadFile`, `ApplyPatch`, `Subagent`, etc.). The **exact tool list in the current session always wins** — same principle as `model-compatibility.mdc`.
+## Motion Mechanics
 
-## Pick The Right Surface (Cursor 3.7)
+- Animate only `transform` and `opacity`; never `width`/`height`/`top`/`margin` (layout thrash).
+- Tokenize easing and duration: `--ease-out: cubic-bezier(0.22, 1, 0.36, 1)`, durations 150–250ms for micro-interactions, 400–600ms for entrances.
+- Gate all non-essential motion behind `@media (prefers-reduced-motion: no-preference)`.
+- Stagger entrances with `animation-delay` increments (60–100ms); one orchestrated page entrance beats scattered micro-animations.
 
-| Need | Best fit |
-|------|----------|
-| Trivial localized edit | IDE inline edit |
-| Multi-file feature in one repo | Single agent session in the Agents Window |
-| Risky exploration, parallel branches, anything that must not collide with the main tree | `/worktree` (isolated git worktree) |
-| High-stakes decision (design, architecture, refactor) where you want a second opinion | `/best-of-n` (run across 2–4 models, then pick or merge) |
-| Long-running shell, subagent, or CLI that takes seconds-to-minutes | `Await` on the background job, or a specific output token |
-| Work that should keep running while you walk away | Cloud session, then hand back to local when environment-specific proof is needed |
-| Standalone analytical deliverable (audit, metrics table, MCP data dump) | Canvas — not a markdown table in chat |
-| Context pressure on a long M3 run | Context usage report canvas (3.7), then compress per `minimax-m3-long-context` |
+---
 
-## Read and Search Guidance
+## shadcn/ui
 
-- Prefer direct read/search tools over shell equivalents.
-- Batch independent reads and searches in one turn when the session allows parallel calls.
-- Use `SemanticSearch` for "how/where/what handles this?" questions, not exact symbol lookups.
-- For long files or large repos, prefer targeted `Grep` or slice-sized `Read` over full re-ingest; see `minimax-m3-long-context` for the M3 1M-context version of this.
-
-## Editing Guidance
-
-- Read the file first (`Read`).
-- Use `StrReplace` for focused in-file edits; use `Write` for new files or full rewrites when patch context is awkward.
-- Keep edits coherent; avoid thrashing the same file with many tiny changes.
-- Re-read or verify after editing.
-- For UI changes, re-read the post-change screenshot/frame when one is available and cite the path in the report.
-
-## Shell Guidance
-
-Use `Shell` for:
-- builds, tests, typechecks, and linting
-- package-manager or framework CLI commands
-- git inspection
-- long-running verification commands when no dedicated tool exists
-
-Before starting dev servers or watchers:
-- check the terminals folder for an existing one
-- when one is started, `Await` its output token (`Ready`, `Compiled`, etc.) instead of polling
-
-## Browser Guidance
-
-When browser tools exist (including Cursor's integrated browser in supported builds):
-
-```text
-1. Check tabs
-2. Navigate
-3. Snapshot before interaction
-4. Interact using snapshot refs
-5. Re-snapshot and inspect console/network when behavior is unclear
+```bash
+npx shadcn@latest init
+npx shadcn@latest add button card input label form dialog
 ```
 
-Use browser checks for layout-sensitive UI work, interaction bugs, and issues shell commands cannot prove.
-When the user selects elements in **Design Mode**, treat those selections like attached screenshots — cite what was selected and what you changed.
-Do not promise a browser-only or canvas deliverable until you have confirmed that path in the current runtime.
+- Compose from primitives (`Card`, `Button`, `Form`, `Dialog`) — do not fork components unless layout truly requires it.
+- Map theme overrides at **CSS variable** layer (`--primary`, `--radius`, `--background`) before editing component source.
+- Forms: use shadcn `Form` + project validation library (e.g. zod + react-hook-form) when already in the stack.
 
-## MCP and Plugin Guidance
+---
 
-- Prefer direct tools exposed in the prompt over wrapper APIs.
-- If an MCP server exposes resources instead of action tools, use the resource functions the environment provides.
-- **MCP Apps structured content**: when a tool returns structured content, prefer the structured form over prose dumping; render rich tabular output in a **canvas** when the data is the deliverable.
-- Keep repo guidance generic enough to survive tool and server renames.
+## Tailwind v4 Essentials
 
-## Task and subagent guidance
+- Define tokens in `@theme` in CSS; avoid duplicating palettes in JS config when v4 CSS-first setup is used.
+- Container queries: `container-type: inline-size` on parent, `@container` for child layout.
+- Use semantic utilities (`bg-background`, `text-muted-foreground`) when shadcn tokens exist — not raw `bg-gray-200` / `text-black`.
 
-In Composer-style agents the delegation tool is usually **`Task`**, with a `subagent_type` and prompt (see the live schema). Use it for isolated research, broad exploration, debugger or verifier passes, or branches that would otherwise pollute the main context.
+---
 
-When multiple delegations are truly independent:
-- launch them concurrently in the same assistant turn when the schema allows
-- give each run a distinct scope, expected output, and stopping point
-- keep one synthesis step in the main thread after they return
-- avoid overlap that makes two agents inspect the same surface without a reason
+## Composition Rules
 
-For long-running delegations, `Await` the subagent result instead of polling. In **Multitask Mode**, run `Task` in the background (`run_in_background: true`) and `Await` completion. Subagents can nest further `Task` calls (3.7) — keep depth shallow; the main thread still owns synthesis and edits.
+- One primary CTA per section; secondary actions visually quieter.
+- Consistent `max-width` and horizontal padding across sections (hero → footer).
+- Extract repeated class strings into components — do not paste 20-class strings everywhere.
+- Never nest cards; separate grouped content with background shifts or whitespace instead.
+- Charts and fixed-height embeds (Chart.js, maps): parent container **must** have explicit height (same discipline as 3D canvases).
 
-Good parallel split examples:
-- frontend investigation vs backend investigation
-- version research vs codebase pattern search
-- debugger pass vs verifier pass
-- `/best-of-n` style: same prompt to 2–3 models in isolated worktrees
+---
 
-Bad parallel split examples:
-- two agents editing the same file
-- agent B depends on findings from agent A
-- multiple agents exploring the whole repo with no separation
+## Dark Mode
 
-If the task is narrow, prefer direct tools over spawning subagents.
+- Prefer `class` strategy with CSS variables when shadcn is present.
+- Pair `--background` / `--foreground` for contrast; test muted text ≥ 4.5:1 on body copy.
 
-## Parallelism
+---
 
-Parallelize only when calls are independent:
-- multiple reads
-- unrelated searches
-- independent research tracks
-- separate `Task` / subagent investigations with different scopes
+## Responsive & Accessibility
 
-For `Task` specifically:
+- Mobile-first breakpoints; 44px minimum touch targets on primary actions.
+- Every input has a label; errors use color + text (and icon when helpful).
+- Visible focus rings — never `outline: none` without an alternative.
+- Full responsive hide/reorder/transform guidance: `anti-slop-design` → `reference.md`.
 
-```text
-1. Split the work into independent slices
-2. Launch multiple Task calls in one message when they do not depend on each other
-3. Wait for all results (use Await for long-running ones)
-4. Synthesize centrally before acting
-```
+---
 
-Do not parallelize dependent edits or steps that require previous outputs, and do not default to serial Task launches when a parallel batch is possible.
+## Verification (UI changes)
+
+| Change | Minimum proof |
+|--------|----------------|
+| Token/theme | Styles apply in browser; no unstyled flash on load |
+| New component | Renders at 375px and desktop; focus/hover work |
+| Form | Label association, error state, keyboard submit |
+| shadcn add | Component imports resolve; theme tokens applied |
+
+Browser verification required for layout/interaction claims (see status-verification rule).
+
+---
+
+## When NOT to Load This File
+
+- Backend-only or non-UI tasks.
+- Distinctive marketing/landing aesthetic from scratch — start with **`anti-slop-design`** (Step 1: design thinking), then return here for token/shadcn mechanics.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
