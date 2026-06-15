@@ -1,0 +1,9 @@
+{
+  "name": "block--buzz",
+  "displayName": "buzz",
+  "description": "A hive mind communication platform",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/buzz",
+  "skills": []
+}
