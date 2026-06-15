@@ -1,0 +1,9 @@
+{
+  "name": "thirdshiftlab--modeltell",
+  "displayName": "modeltell",
+  "description": "Measuring the lexical and syntactic fingerprints of large language models. Open data, methodology, and a bilingual content linter.",
+  "version": "1.0.0",
+  "author": "thirdshiftlab",
+  "homepage": "https://github.com/thirdshiftlab/modeltell",
+  "skills": []
+}
