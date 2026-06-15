@@ -1,0 +1,9 @@
+{
+  "name": "tele-ai--telefuser",
+  "displayName": "TeleFuser",
+  "description": " A high-performance runtime for world model inference and multimodal generation -- continuous streaming, stateful sessions, distributed GPU execution, and WebRTC-based interactive control loops.",
+  "version": "1.0.0",
+  "author": "Tele-AI",
+  "homepage": "https://github.com/Tele-AI/TeleFuser",
+  "skills": []
+}
