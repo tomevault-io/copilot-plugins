@@ -1,0 +1,9 @@
+{
+  "name": "rayw-lab--english-immersion-reader",
+  "displayName": "english-immersion-reader",
+  "description": "Turn any English article or YouTube transcript into an offline deep-reading lesson page \u2014 Edge TTS, karaoke word highlight, per-lesson dictionary. For English learners who use local coding agents (Cla",
+  "version": "1.0.0",
+  "author": "rayw-lab",
+  "homepage": "https://github.com/rayw-lab/english-immersion-reader",
+  "skills": []
+}
