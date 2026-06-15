@@ -1,0 +1,9 @@
+{
+  "name": "flinedev--sitekit",
+  "displayName": "SiteKit",
+  "description": "AI-first static site generator written in Swift",
+  "version": "1.0.0",
+  "author": "FlineDev",
+  "homepage": "https://github.com/FlineDev/SiteKit",
+  "skills": []
+}
