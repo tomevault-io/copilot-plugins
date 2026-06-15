@@ -1,0 +1,9 @@
+{
+  "name": "marketadapter--google-maps-coords-skill",
+  "displayName": "google-maps-coords-skill",
+  "description": "google-maps-coords-skill",
+  "version": "1.0.0",
+  "author": "marketadapter",
+  "homepage": "https://github.com/marketadapter/google-maps-coords-skill",
+  "skills": []
+}
