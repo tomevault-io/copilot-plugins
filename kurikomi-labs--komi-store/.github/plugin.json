@@ -1,0 +1,9 @@
+{
+  "name": "kurikomi-labs--komi-store",
+  "displayName": "komi-store",
+  "description": "\ud83e\ude75 A free, open-source app store for developers' releases on GitHub, Codeberg & Forgejo \u2014 browse, discover, and install apps with one click. Formerly GitHub Store.",
+  "version": "1.0.0",
+  "author": "kurikomi-labs",
+  "homepage": "https://github.com/kurikomi-labs/komi-store",
+  "skills": []
+}
