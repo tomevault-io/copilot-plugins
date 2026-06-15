@@ -1,0 +1,9 @@
+{
+  "name": "aerovato--container",
+  "displayName": "container",
+  "description": "Safely run OpenCode, Codex, Claude Code with full permissions.",
+  "version": "1.0.0",
+  "author": "aerovato",
+  "homepage": "https://github.com/aerovato/container",
+  "skills": []
+}
