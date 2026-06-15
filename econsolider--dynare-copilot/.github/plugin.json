@@ -1,0 +1,9 @@
+{
+  "name": "econsolider--dynare-copilot",
+  "displayName": "dynare-copilot",
+  "description": "Turn macro intuition into validated Dynare .mod files \u2014 a coding agent skill for DSGE modeling.",
+  "version": "1.0.0",
+  "author": "EconSolider",
+  "homepage": "https://github.com/EconSolider/dynare-copilot",
+  "skills": []
+}
