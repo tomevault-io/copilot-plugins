@@ -1,128 +1,175 @@
-## cursor-mcp-optimization
+## cursor-tools-mastery
 
-> Cursor 3.7 MCP optimization: browser Design Mode, canvases, Figma, Cloudflare tools, MCP Apps structured content, and direct action patterns.
+> Cursor 3.7 runtime guide: choose the right tool, canvases, Design Mode, /worktree, /best-of-n, Await, and parallel execution where safe.
 
 
-# Cursor 3.7 MCP Optimization
+# Cursor 3.7 Tools Mastery
 
-Current through **Cursor 3.7** (Jun 2026). Direct guidance for Cursor's MCP and integrated surfaces. Use the right tool for each job.
+Keep durable behavior in the core rule. Use this file for current Cursor **3.7** tool-selection patterns and the Agents Window surface.
 
-## Browser Tools (cursor-ide-browser)
+## Cursor 3.7 workspace
 
-**Always do before any interaction:**
-```
-1. browser_tabs with action: "list" -> check current tabs/URLs
-2. browser_snapshot -> get current page structure and refs
-```
+In Cursor 3.7, agent work is centered in the **Agents Window**. Open it from the command palette: `Cmd+Shift+P -> Agents Window` on macOS (per the [Cursor 3 announcement](https://cursor.com/blog/cursor-3); 3.7 changelog at [cursor.com/changelog](https://cursor.com/changelog)). The classic three-pane editor is still available; switch between them at any time.
 
-**Interaction pattern:**
-```
-1. Identify the target ref from snapshot (use exact ref, not coordinates)
-2. For clicks: prefer snapshot refs over mouse_xy coordinates
-3. For forms: use browser_fill for existing content, browser_type to append
-4. After ANY action that changes page: take fresh snapshot
-```
+- **Multi-workspace / multi-repo:** the Agents Window can surface several workspaces at once. Name the repo or root path when handing off work, opening files, or running commands so edits land in the intended tree.
+- **Per-session execution environment:** each agent tab picks its own environment — local working tree, isolated worktree (`/worktree`), cloud sandbox, or remote SSH. State the environment in the handoff contract; it is the unit of isolation.
+- **Per-session model picker:** the model picker lives in the agent tab header (e.g. `composer-2.5`, `MiniMax-M3`, `auto`). Name the model in the handoff contract.
+- **Integrated browser:** prefer the IDE's built-in browser for local UI verification when it is exposed in your session; it matches the "snapshot-first" flow in Browser Guidance below. Cursor 3.7 adds **Design Mode** (multi-select elements, voice input) — user selections there are ground truth for UI edits.
+- **Canvases:** live React artifacts beside the chat for dashboards, reports, and structured analyses; load the `canvas` skill before `.canvas.tsx` work.
 
-**Coordinate clicks ONLY when:**
-- A fresh screenshot confirms the exact visual target
-- No snapshot ref is available
-- The target is visually verifiable (button, link)
+## Golden Rule
 
-**Never do:**
-- Click without a fresh snapshot first
-- Reuse old screenshot coordinates
-- Assume page state without verification
+For significant actions:
 
-## Browser Design Mode (Cursor 3.7)
-
-Design Mode is a **user-driven** overlay in the integrated browser — agents do not invoke it as a tool. When the user selects elements there, treat those selections as ground truth for UI edits (same discipline as `multimodal-grounded`):
-
-- **Multi-select:** two or more elements selected together carry code, layout, and visual relationships — use them for parity edits, deduplication, or batch component tweaks.
-- **Voice input:** transcribed voice instructions are user intent; honor them even if the agent is mid-run.
-- **Agent path unchanged:** still snapshot → ref-based interaction for automation; Design Mode complements, not replaces, the MCP browser flow.
-
-## Canvas (Cursor 3.7)
-
-Canvases are live React artifacts beside the chat — dashboards, reports, analyses, internal tools. Load the `canvas` skill before creating or editing `.canvas.tsx` files.
-
-**When to use a canvas:**
-- Structured MCP or tabular deliverables where the data *is* the output (prefer canvas over markdown tables)
-- Interactive reports the user may share or iterate on (context usage breakdowns, audits, timelines)
-
-**3.7 canvas features:**
-- **Design Mode in canvases** — user can select and annotate UI elements directly; treat annotations like browser Design Mode selections.
-- **Context usage report** — interactive token breakdown (prompt, tools, rules, skills); useful for compression decisions on M3 long-context work.
-- **Embedded prompt buttons** — canvases can run follow-up prompts; keep button text bounded and explicit.
-- **Full-screen share** — shared canvases open in the browser for presentation; not a substitute for app UI verification.
-
-## Figma Tools (plugin-figma-figma)
-
-**Design-to-code workflow:**
-```
-1. Call get_design_context with fileKey and nodeId
-2. Adapt output to project's existing stack/components
-3. Do NOT use raw Figma output as final code
+```text
+Check what exists
+Choose the smallest correct tool
+Act
+Validate with the lightest useful verification
 ```
 
-**URL parsing:**
-- `figma.com/design/:fileKey/:fileName?node-id=:nodeId` -> convert "-" to ":" in nodeId
-- `figma.com/board/:fileKey/:fileName` -> FigJam, use get_figjam
-- `figma.com/make/:makeFileKey/:makeFileName` -> use makeFileKey
+## Default Tool Map
 
-**When designer provides screenshots:**
-- Use get_screenshot for visual verification
-- Translate Figma design tokens to project's token system
-- Never copy exact Figma hex values without checking project palette
-- For M3 multimodal parity, the design screenshot is the contract — cite the file path in the report
+**Cursor 3.7 / Composer-style agents (typical names in current desktop agents)** — the session usually exposes something close to:
 
-## Cloudflare Tools
+| Step | Tool / command | Notes |
+|------|----------------|-------|
+| Read a path | `Read` | Prefer over shell `cat`/`sed` |
+| Search by pattern | `Grep` | Ripgrep-backed; use for exact symbols and strings |
+| Search by meaning | `SemanticSearch` | "Where does X happen?" not exact text |
+| List paths | `Glob` | File discovery by pattern |
+| Edit in place | `StrReplace` | Surgical edits; read the file first |
+| Create or replace whole file | `Write` | Use when there is no stable old_string to patch |
+| Remove file | `Delete` | |
+| Terminal | `Shell` | Builds, tests, git, installs |
+| Web | `WebSearch`, `WebFetch` | |
+| Ask user | `AskQuestion` | |
+| Track steps | `TodoWrite` | |
+| Delegate branch work | `Task` | Subagent-style runs (types such as explore, debugger, verifier — see schema) |
+| Wait for background work | `Await` | Wait for a background shell, subagent, or a specific output token (e.g. `Ready`, `Error`) |
+| Isolated worktree | `/worktree` | Run a session in its own git worktree so concurrent edits do not collide |
+| Parallel model compare | `/best-of-n` | Run the same task across N models in parallel worktrees, then compare |
+| MCP servers | `call_mcp_tool` (+ resource helpers if present) | Read MCP tool descriptors before calling |
+| Plan mode | `SwitchMode` | When the product exposes a planning mode |
+| Images | `GenerateImage` | Only when the user asks for generated images |
+| Notebooks | `EditNotebook` | `.ipynb` cell edits |
+| Lint diagnostics | `ReadLints` | After substantive edits when available |
+| Multimodal inputs | `Read` against attached image/video paths | M3 native multimodal — treat as first-class inputs |
+| Interactive artifact | Canvas (`.canvas.tsx`) | Dashboards, reports, MCP tabular output — load `canvas` skill first |
+| Context diagnostics | Context usage report canvas | 3.7 — token breakdown across prompt, tools, rules, skills |
 
-**Load these skills before Cloudflare work:**
-- `cloudflare/SKILL.md` — comprehensive platform guidance
-- `wrangler/SKILL.md` — CLI usage and best practices
-- `workers-best-practices/SKILL.md` — production Worker patterns
+**Browser:** often MCP tools (for example `cursor-ide-browser`) with names like `browser_snapshot`, `browser_navigate` — follow the server's schema. **Design Mode** (3.7) is user-driven; honor multi-select and voice instructions as visual ground truth.
 
-**Before deploying:**
+**Parallel batching:** issue **multiple independent tool calls in one assistant turn** when the runtime allows it.
+
+**Other Cursor surfaces** (CLI, older builds, API): names may differ (`ReadFile`, `ApplyPatch`, `Subagent`, etc.). The **exact tool list in the current session always wins** — same principle as `model-compatibility.mdc`.
+
+## Pick The Right Surface (Cursor 3.7)
+
+| Need | Best fit |
+|------|----------|
+| Trivial localized edit | IDE inline edit |
+| Multi-file feature in one repo | Single agent session in the Agents Window |
+| Risky exploration, parallel branches, anything that must not collide with the main tree | `/worktree` (isolated git worktree) |
+| High-stakes decision (design, architecture, refactor) where you want a second opinion | `/best-of-n` (run across 2–4 models, then pick or merge) |
+| Long-running shell, subagent, or CLI that takes seconds-to-minutes | `Await` on the background job, or a specific output token |
+| Work that should keep running while you walk away | Cloud session, then hand back to local when environment-specific proof is needed |
+| Standalone analytical deliverable (audit, metrics table, MCP data dump) | Canvas — not a markdown table in chat |
+| Context pressure on a long M3 run | Context usage report canvas (3.7), then compress per `minimax-m3-long-context` |
+
+## Read and Search Guidance
+
+- Prefer direct read/search tools over shell equivalents.
+- Batch independent reads and searches in one turn when the session allows parallel calls.
+- Use `SemanticSearch` for "how/where/what handles this?" questions, not exact symbol lookups.
+- For long files or large repos, prefer targeted `Grep` or slice-sized `Read` over full re-ingest; see `minimax-m3-long-context` for the M3 1M-context version of this.
+
+## Editing Guidance
+
+- Read the file first (`Read`).
+- Use `StrReplace` for focused in-file edits; use `Write` for new files or full rewrites when patch context is awkward.
+- Keep edits coherent; avoid thrashing the same file with many tiny changes.
+- Re-read or verify after editing.
+- For UI changes, re-read the post-change screenshot/frame when one is available and cite the path in the report.
+
+## Shell Guidance
+
+Use `Shell` for:
+- builds, tests, typechecks, and linting
+- package-manager or framework CLI commands
+- git inspection
+- long-running verification commands when no dedicated tool exists
+
+Before starting dev servers or watchers:
+- check the terminals folder for an existing one
+- when one is started, `Await` its output token (`Ready`, `Compiled`, etc.) instead of polling
+
+## Browser Guidance
+
+When browser tools exist (including Cursor's integrated browser in supported builds):
+
+```text
+1. Check tabs
+2. Navigate
+3. Snapshot before interaction
+4. Interact using snapshot refs
+5. Re-snapshot and inspect console/network when behavior is unclear
 ```
-1. Read wrangler skill for correct syntax
-2. Verify secrets/bindings in wrangler.jsonc
-3. Run wrangler dev locally first
+
+Use browser checks for layout-sensitive UI work, interaction bugs, and issues shell commands cannot prove.
+When the user selects elements in **Design Mode**, treat those selections like attached screenshots — cite what was selected and what you changed.
+Do not promise a browser-only or canvas deliverable until you have confirmed that path in the current runtime.
+
+## MCP and Plugin Guidance
+
+- Prefer direct tools exposed in the prompt over wrapper APIs.
+- If an MCP server exposes resources instead of action tools, use the resource functions the environment provides.
+- **MCP Apps structured content**: when a tool returns structured content, prefer the structured form over prose dumping; render rich tabular output in a **canvas** when the data is the deliverable.
+- Keep repo guidance generic enough to survive tool and server renames.
+
+## Task and subagent guidance
+
+In Composer-style agents the delegation tool is usually **`Task`**, with a `subagent_type` and prompt (see the live schema). Use it for isolated research, broad exploration, debugger or verifier passes, or branches that would otherwise pollute the main context.
+
+When multiple delegations are truly independent:
+- launch them concurrently in the same assistant turn when the schema allows
+- give each run a distinct scope, expected output, and stopping point
+- keep one synthesis step in the main thread after they return
+- avoid overlap that makes two agents inspect the same surface without a reason
+
+For long-running delegations, `Await` the subagent result instead of polling. In **Multitask Mode**, run `Task` in the background (`run_in_background: true`) and `Await` completion. Subagents can nest further `Task` calls (3.7) — keep depth shallow; the main thread still owns synthesis and edits.
+
+Good parallel split examples:
+- frontend investigation vs backend investigation
+- version research vs codebase pattern search
+- debugger pass vs verifier pass
+- `/best-of-n` style: same prompt to 2–3 models in isolated worktrees
+
+Bad parallel split examples:
+- two agents editing the same file
+- agent B depends on findings from agent A
+- multiple agents exploring the whole repo with no separation
+
+If the task is narrow, prefer direct tools over spawning subagents.
+
+## Parallelism
+
+Parallelize only when calls are independent:
+- multiple reads
+- unrelated searches
+- independent research tracks
+- separate `Task` / subagent investigations with different scopes
+
+For `Task` specifically:
+
+```text
+1. Split the work into independent slices
+2. Launch multiple Task calls in one message when they do not depend on each other
+3. Wait for all results (use Await for long-running ones)
+4. Synthesize centrally before acting
 ```
 
-**MCP auth:** If a Cloudflare MCP server has `mcp_auth`, call it before using tools.
-
-## MCP Apps Structured Content
-
-Since Cursor 3, **MCP Apps structured content** lets tools return richer structured outputs (typed objects, lists, tables) instead of prose blobs.
-
-- When a tool returns structured content, **prefer the structured form** over reconstructing from prose.
-- Surface the structured result faithfully in the report — do not paraphrase the shape.
-- A few plugin families (Vercel, Linear, Cloudflare) already return structured outputs of this kind; check the descriptor before assuming a tool returns plain text.
-- If the runtime supports it, render tabular or nested results as a canvas or table, not as a markdown dump.
-
-## MCP General Rules
-
-```
-1. Read the tool schema BEFORE calling unfamiliar MCP tools
-2. Use exact parameter names from the schema
-3. If tool unavailable, say so and use next best exposed path
-4. Do not infer hidden parameters or old API versions
-5. If the tool returns structured content, use the structured form rather than the prose form
-```
-
-## Marketplace plugins
-
-Plugins installed from the [Cursor Marketplace](https://cursor.com/marketplace) extend agents with MCPs, skills, and related capabilities. Treat them like any other MCP surface: **inventory** what the session exposes, **read descriptors/schemas** before first use, then call the smallest valid tool — same as in `tool-discovery.mdc`.
-
-**Rollout caveat (Cursor 3.7):** third-party plugin imports now **default to off for Enterprises** when unset, while preserving explicit Admin overrides. If you are working in an Enterprise workspace, confirm the plugin import policy with the Admin before relying on a marketplace plugin.
-
-## Capability Mapping Checklist
-
-Before acting, confirm:
-- [ ] Direct native tool exists for this action
-- [ ] MCP tool exists with current schema (and structured-content support if relevant)
-- [ ] Browser interaction confirmed via snapshot
-- [ ] Fallback path identified if primary fails
+Do not parallelize dependent edits or steps that require previous outputs, and do not default to serial Task launches when a parallel batch is possible.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
