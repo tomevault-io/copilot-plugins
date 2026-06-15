@@ -1,0 +1,9 @@
+{
+  "name": "helpfreedom--kadr",
+  "displayName": "kadr",
+  "description": "AI-native GPU-accelerated video editor with Claude Code built into the timeline",
+  "version": "1.0.0",
+  "author": "HelpFreedom",
+  "homepage": "https://github.com/HelpFreedom/kadr",
+  "skills": []
+}
