@@ -7,11 +7,11 @@ Archive a lifetime of email and chat. Offline search, analytics, and AI query ov
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kenn-io/msgvault](https://github.com/kenn-io/msgvault).
+Original source: `CLAUDE.md` in [kenn-io/msgvault](https://github.com/kenn-io/msgvault).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
