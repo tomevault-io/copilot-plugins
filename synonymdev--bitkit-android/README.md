@@ -7,14 +7,14 @@ Self-custodial Bitcoin and Lightning Wallet
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [synonymdev/bitkit-android](https://github.com/synonymdev/bitkit-android).
+Original source: `GEMINI.md` in [synonymdev/bitkit-android](https://github.com/synonymdev/bitkit-android).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/synonymdev/bitkit-android](https://github.com/synonymdev/bitkit-android)
