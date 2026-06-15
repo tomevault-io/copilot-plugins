@@ -1,0 +1,9 @@
+{
+  "name": "temporalio--skill-temporal-developer",
+  "displayName": "skill-temporal-developer",
+  "description": "skill-temporal-developer",
+  "version": "1.0.0",
+  "author": "temporalio",
+  "homepage": "https://github.com/temporalio/skill-temporal-developer",
+  "skills": []
+}
