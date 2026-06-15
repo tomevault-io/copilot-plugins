@@ -1,0 +1,44 @@
+{
+  "name": "claude-statusline",
+  "owner": "fightingPig",
+  "repo": "claude-statusline",
+  "description": "Claude Code \u72b6\u6001\u680f - \u663e\u793a\u76ee\u5f55\u3001\u5206\u652f\u3001\u6a21\u578b\u3001effort\u3001\u4e0a\u4e0b\u6587\u8fdb\u5ea6\u6761\u3001PR",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fightingPig/claude-statusline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-15T06:30:20Z"
+}
