@@ -1,0 +1,9 @@
+{
+  "name": "lassejlv--termy",
+  "displayName": "termy",
+  "description": "Really fast terminal emulator with GPU-acceleration written Rust ",
+  "version": "1.0.0",
+  "author": "lassejlv",
+  "homepage": "https://github.com/lassejlv/termy",
+  "skills": []
+}
