@@ -1,0 +1,9 @@
+{
+  "name": "wmo-raf--adl",
+  "displayName": "adl",
+  "description": "Weather Observation Data Collection and Processing System -  For both Manual and Automated Stations",
+  "version": "1.0.0",
+  "author": "wmo-raf",
+  "homepage": "https://github.com/wmo-raf/adl",
+  "skills": []
+}
