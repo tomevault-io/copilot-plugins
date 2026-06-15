@@ -1,0 +1,9 @@
+{
+  "name": "paperclipinc--openclaw-operator",
+  "displayName": "openclaw-operator",
+  "description": "Kubernetes operator for deploying and managing OpenClaw AI agent instances with production-grade security, observability, and lifecycle management.",
+  "version": "1.0.0",
+  "author": "paperclipinc",
+  "homepage": "https://github.com/paperclipinc/openclaw-operator",
+  "skills": []
+}
