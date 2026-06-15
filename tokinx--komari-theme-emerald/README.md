@@ -7,11 +7,11 @@ Komari Theme based on Vue 3 + Vite + Shadcn/UI + TailwindCSS-V4
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Tokinx/komari-theme-emerald](https://github.com/Tokinx/komari-theme-emerald).
+Original source: `AGENTS.md` in [Tokinx/komari-theme-emerald](https://github.com/Tokinx/komari-theme-emerald).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
