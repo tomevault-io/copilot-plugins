@@ -7,11 +7,11 @@ Self-hosted AI assistant powered by Claude Fable 5. Tamil & Hindi UI, Mobile PWA
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vignesh2027/Vilvona-AI](https://github.com/vignesh2027/Vilvona-AI).
+Original source: `AGENTS.md` in [vignesh2027/Vilvona-AI](https://github.com/vignesh2027/Vilvona-AI).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
