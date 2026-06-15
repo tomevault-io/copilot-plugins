@@ -4,7 +4,7 @@
   "repo": "tomato-clock-pyqt6",
   "description": "\ud83c\udf45 \u756a\u8304\u4e13\u6ce8 - \u6c89\u6d78\u5f0f\u756a\u8304\u949f\u5e94\u7528, \u57fa\u4e8e pyqt6 \u7f16\u5199",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SublimeCT/tomato-clock-pyqt6",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T18:32:00Z"
+  "distributed_at": "2026-06-15T18:32:32Z"
 }
