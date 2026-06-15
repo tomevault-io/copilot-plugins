@@ -4,7 +4,7 @@
   "repo": "only_player",
   "description": "\u589e\u5f3a\u7684 Android \u89c6\u9891\u64ad\u653e\u5668",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kindness-Kismet/only_player",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T05:36:47Z"
+  "distributed_at": "2026-06-15T05:39:04Z"
 }
