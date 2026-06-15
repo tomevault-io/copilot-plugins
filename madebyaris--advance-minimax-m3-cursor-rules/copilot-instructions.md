@@ -1,79 +1,76 @@
-## minimax-m3-verification
+## minimax-mcp-tools
 
-> Extended M3 verification playbook: proof selection, multimodal-grounded checks, shell checks, browser checks, and recovery loops.
+> MCP and web-tool guidance: current-doc retrieval, direct-tool preference, MCP Apps structured content, and version-aware external lookups.
 
 
-# M3 Verification Playbook
+# MCP and Web Tools
 
-Extends the always-on `minimax-m3-status-verification` contract with check selection, shell/browser guidance, multimodal-grounded checks, and self-review. The status labels, minimum proof table, and closeout shape live in that always-on rule — do not restate them here.
+Use this rule when current documentation, external systems, or plugin-backed tools matter.
 
-## Proof Selection
+## Preferred Order
 
-- Match the proof to the claim being made.
-- Prefer the smallest proof that can honestly support the user-facing claim.
-- Strengthen the proof when the claim involves runtime behavior, interaction, styling, navigation, persistence, or integration.
-- If the deliverable promises a styling or toolchain layer (Tailwind, shadcn, routing, persistence), verify that layer directly — do not assume the scaffold wired it correctly.
-- **Visual / design / styling claim → `multimodal-grounded`**: read the attached image/frame, name the file path, name the region inspected, and check the relevant region. Do not infer from prose or from a memory of the pre-change state. See the `minimax-m3-multimodal-input` skill for the full workflow.
-- **Bug fix → red → green**: reproduce the failure with an exact check *before* fixing, then re-run that same check after. A check that was never red proves the wrong thing.
+When multiple paths exist, prefer:
 
-## Test Integrity During Verification
+1. direct native tools exposed in the prompt
+2. direct plugin or MCP-backed tools exposed in the prompt
+3. MCP resource functions when available
+4. MCP Apps structured content when returned by a tool
+5. `WebSearch` and `WebFetch`
 
-A passing check only counts as proof if the check itself was not bent:
+Do not assume old wrapper APIs are present just because they appear in older docs or rules.
 
-- Never delete, skip, loosen, widen tolerances on, or special-case a test to reach green. If the test looks wrong, present the evidence to the user — changing the spec is their call.
-- A new test must be able to fail: confirm it fails against the pre-fix code (or would, by construction) before counting it as proof.
-- Hardcoding the expected output into production code, or branching on test-only inputs, is claim-gaming — treat the work as `blocked`, not `verified`.
+## Web Search Discipline
 
-## Shell-Based Checks
+Use `WebSearch` for:
+- package versions
+- breaking changes
+- compatibility questions
+- recent framework behavior
+- error messages after repeated failures
 
-Use the smallest useful command first. Prefer the repo's own scripts and CI entrypoints when they exist (see core **Code Discipline**).
+Use `WebFetch` for:
+- official docs pages
+- changelogs
+- reference pages that need close reading
 
-- JavaScript/TypeScript: `lint`, `typecheck`, `build`, targeted tests, focused scripts
-- Python: `ruff`, targeted `pytest`, import or compile checks
-- Go: `go build`, `go test`, `go vet`
-- Rust: `cargo check`, `cargo test`, `cargo clippy`
-- Flutter: `flutter analyze`, `flutter test`
-- Swift: `swift build`, `swift test`, `xcodebuild` when applicable
+Before presenting advice as `current`, `official`, `recommended`, or `best practice`, verify it against a current authoritative source such as official docs, release notes, or changelogs.
 
-## Browser and Surface Checks
+When versions matter:
+- use the actual current month and year
+- do not leave placeholders in the search query
+- do not rely on stale memory when a current source is available
 
-Use browser verification when the user would experience the change visually or interactively:
-- layout-sensitive UI changes
-- flow or navigation regressions
-- console or network failures
-- styling pipeline issues
-- end-to-end behavior the shell cannot prove
+## MCP Discipline
 
-For purely visual claims (a screenshot already exists, or the user attached a mock), `multimodal-grounded` is the cheaper and more direct proof than a browser pass; use the browser pass when the surface is interactive.
+- Follow the exact schema of currently exposed tools.
+- If the environment exposes direct tools, use them directly.
+- If the environment exposes resources instead of actions, use the resource discovery and fetch path.
+- If a tool returns MCP Apps structured content, use the structured form rather than the prose form.
+- Keep assumptions about server names and tool IDs out of general rules.
 
-When browser verification is unavailable, say that clearly and downgrade the claim instead of implying full proof.
-
-## Self-Review
-
-For non-trivial work, ask:
+## Typical Chains
 
 ```text
-What would break this?
-What assumptions might be wrong?
-Is there a simpler way?
-Did I solve the actual request?
-Did I re-read the post-change visual state, or am I remembering the pre-change state?
+Version check -> install or configure -> verify
+Docs lookup -> implement -> behavior check
+Resource discovery -> targeted fetch -> synthesize
+Visual diff -> grounded report
 ```
 
-## When Verification Fails
-
-Use an evidence-first loop:
+For version-sensitive setup guidance, prefer:
 
 ```text
-What failed?
-What is the best current hypothesis?
-What is the smallest corrective change?
-What exact check will prove the fix?
+Current authoritative source -> install or configure -> executable verification
 ```
 
-Do not describe the task as complete while required verification is still failing or missing.
+## Failure Handling
 
-After two failures on the same hypothesis, document evidence and switch strategy (smaller change, wider read, one forked user question); do not repeat the same fix blindly. After that, use current docs or web search before another attempt.
+If an MCP or plugin call fails:
+- re-check the current schema
+- simplify the arguments
+- remove stale placeholder text
+- fall back to another available source if the integration is optional
+- if the tool returned structured content, check whether the prose view missed a useful field
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
