@@ -1,0 +1,9 @@
+{
+  "name": "l0cut15--hermes-voice-assistant",
+  "displayName": "hermes-voice-assistant",
+  "description": "Push-to-talk voice assistant on M5Stack CoreS3 \u2014 whisper.cpp STT \u2192 Hermes agent \u2192 Kokoro TTS",
+  "version": "1.0.0",
+  "author": "l0cut15",
+  "homepage": "https://github.com/l0cut15/hermes-voice-assistant",
+  "skills": []
+}
