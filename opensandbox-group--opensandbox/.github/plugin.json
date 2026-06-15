@@ -1,0 +1,9 @@
+{
+  "name": "opensandbox-group--opensandbox",
+  "displayName": "OpenSandbox",
+  "description": "Secure, Fast, and Extensible Sandbox runtime for AI agents.",
+  "version": "1.0.0",
+  "author": "opensandbox-group",
+  "homepage": "https://github.com/opensandbox-group/OpenSandbox",
+  "skills": []
+}
