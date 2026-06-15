@@ -4,7 +4,7 @@
   "repo": "agent-orchestrator",
   "description": " Agentic orchestrator for parallel coding agents \u2014 plans tasks, spawns agents, and autonomously handles CI    fixes, merge conflicts, and code reviews.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgentWrapper/agent-orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T07:30:22Z"
+  "distributed_at": "2026-06-15T07:30:51Z"
 }
