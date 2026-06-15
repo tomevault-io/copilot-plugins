@@ -7,11 +7,11 @@ Fable/Mythos-informed workflow augmentation for agent skills and plugins
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bonginkan/fairy_tale](https://github.com/bonginkan/fairy_tale).
+Original source: `CLAUDE.md` in [bonginkan/fairy_tale](https://github.com/bonginkan/fairy_tale).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
