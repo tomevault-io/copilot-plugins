@@ -150509,6 +150509,11 @@
       "description": "Self-custodial Bitcoin and Lightning Wallet"
     },
     {
+      "name": "saranambiar--hyperframes-video-agent-skills",
+      "source": "./saranambiar--hyperframes-video-agent-skills",
+      "description": "Reusable skills, scripts, and production workflows for agent-led video creation with HyperFrames, FFmpeg, captions, audio sync, and render QA. Community project from real HyperFrames video work; not a"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -156932,6 +156937,11 @@
       "name": "tim-smart--stremio-effect",
       "source": "./tim-smart--stremio-effect",
       "description": "stremio-effect"
+    },
+    {
+      "name": "justinbaduaa--alt-tab-macos-free",
+      "source": "./justinbaduaa--alt-tab-macos-free",
+      "description": "alt-tab-macos-free"
     },
     {
       "name": "lightninglabs--lnget",
@@ -165957,6 +165967,16 @@
       "name": "kuadrant--kuadrant-console-plugin",
       "source": "./kuadrant--kuadrant-console-plugin",
       "description": "kuadrant-console-plugin"
+    },
+    {
+      "name": "allanschramm--local-model-autotuning",
+      "source": "./allanschramm--local-model-autotuning",
+      "description": "local-model-autotuning"
+    },
+    {
+      "name": "allanschramm--local-model-autotuning",
+      "source": "./allanschramm--local-model-autotuning",
+      "description": "local-model-autotuning"
     },
     {
       "name": "yschimke--compose-ai-tools",
