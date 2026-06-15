@@ -1,0 +1,9 @@
+{
+  "name": "wizardengineer--psprecomp",
+  "displayName": "psprecomp",
+  "description": "PSP static recompiler: Rust analyze/decode/emit pipeline producing C++17, with an SDL2 + OpenGL runtime",
+  "version": "1.0.0",
+  "author": "wizardengineer",
+  "homepage": "https://github.com/wizardengineer/psprecomp",
+  "skills": []
+}
