@@ -1,0 +1,9 @@
+{
+  "name": "jargon-io--jargon-v1",
+  "displayName": "jargon-v1",
+  "description": "A personal research library that ingests articles, extracts insights, and surfaces unexpected connections across domains.",
+  "version": "1.0.0",
+  "author": "jargon-io",
+  "homepage": "https://github.com/jargon-io/jargon-v1",
+  "skills": []
+}
