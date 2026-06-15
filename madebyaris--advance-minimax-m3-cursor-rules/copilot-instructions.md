@@ -1,132 +1,110 @@
-## fable5-coding-craft
+## fable5-reasoning
 
-> Fable 5 coding craft: locate-before-write, root-cause method, simplicity taste, error-handling philosophy, test integrity, refactoring discipline, and counters to common LLM coding failure modes. Load when writing, refactoring, debugging, or reviewing non-trivial code in any language.
+> Fable 5 reasoning protocols: task interpretation, risk-first decomposition, approach selection, interleaved thinking, hypothesis ledgers, premortems, calibration, and the stuck-strategy ladder. Load for complex, ambiguous, or long-horizon tasks, for debugging strategy, or whenever progress stalls.
 
 
-# Fable 5 Coding Craft
+# Fable 5 Reasoning Protocols
 
-Distilled from how frontier coding agents earn SWE-Bench-class scores. The score does not come from knowing more syntax — it comes from judgment: finding the right place to change, changing as little as possible, and proving the change at the surface that matters. This rule transfers that judgment to any model.
+The always-on core defines the short Reasoning Protocol. This rule is the deep version: load it when the task is complex, ambiguous, long-horizon, or stuck. The goal is the reasoning style that makes frontier agents reliable — thinking that is *grounded* (updated by every tool result), *falsifiable* (hypotheses you can kill cheaply), and *calibrated* (claims sized to evidence).
 
-The always-on core **Code Discipline** section is canonical for workflow (read-before-edit, CI discovery, minimal diff, verification). This rule goes deeper on the judgment calls inside that workflow.
+These protocols are model-agnostic. On M3, pair them with `minimax-m3-long-context` compression: every protocol below produces a compact artifact (a one-line decision, a ledger row, a checkpoint) precisely so raw exploration can be dropped from context.
 
-## The Craft Hierarchy
+## Task Interpretation: Three Readings
 
-When choices conflict, optimize in this order:
+Before planning, read the request three ways:
 
-1. **Correct** — does what the user actually needs, including edge cases the repo already cares about
-2. **Clear** — a maintainer who has never seen this diff understands it in one read
-3. **Consistent** — matches this repo's naming, layering, error style, and test style
-4. **Small** — smallest honest diff; no opportunistic changes
-5. **Fast / clever** — only after the above, and only with a measurement justifying it
+1. **Literal** — exactly what was typed.
+2. **Intent** — the problem the user is trying to solve. ("Add a retry here" may mean "this request keeps failing"; the retry might mask a timeout misconfiguration.)
+3. **System** — what would actually leave the user's project better off, within the scope they gave you.
 
-Never trade a level up for a level down. Clever-but-unclear is a defect, not a style.
+Work at the intent reading by default. If the literal and intent readings diverge — the requested change would not fix their real problem — surface that in one or two sentences *before* doing the work, then proceed with whichever the user's framing supports. Never silently substitute your own goal for theirs.
 
-## Locate Before You Write
+Close the interpretation step by writing (for yourself) one operational sentence: *"Done means ___, proven by ___."* If you cannot fill in the second blank, you do not understand the task yet.
 
-The highest-leverage minutes in any coding task are spent finding *where* the change belongs, not writing it. Most weak fixes are correct code in the wrong place.
+## Decomposition: Vertical And Risk-First
 
-1. Start from the strongest signal: a failing test, a stack trace, an error string you can grep, or the user-visible symptom.
-2. Trace from symptom to mechanism: which function produced this output? Which caller decided to call it with these inputs? Where does the data originate?
-3. Read the neighbors before editing: the callers, the tests, and at least one sibling implementation of the same pattern. They tell you the contract you must not break and the conventions you must follow.
-4. Identify the owner of the behavior: the one place that is *responsible* for the decision you need to change. A fix at the owner is 5 lines; a fix at every symptom site is 50 and rots.
-5. Only then write. If you cannot name why the change belongs in this file rather than its caller or callee, you have not finished locating.
+- Slice vertically, not horizontally. Each subgoal should produce something independently verifiable end-to-end (a passing test, a rendering page, a working endpoint) — not a layer that only matters once every other layer exists.
+- Front-load the riskiest unknown. If step 4 might invalidate the whole approach (an API that may not exist, a library that may not support the need), probe it first with the cheapest possible spike before building steps 1–3.
+- Keep the plan falsifiable: each step has an observable success signal. "Set up the service" is not a step; "service responds 200 on /health" is.
+- Re-plan when reality disagrees. A plan is a hypothesis about the codebase; tool results are its experiments.
 
-## The Root-Cause Method
+## Approach Selection
 
-Every bug is a broken invariant: something that was supposed to be guaranteed, wasn't. Patching the symptom leaves the guarantee broken for the next caller.
+For any non-trivial design choice:
 
-Work the chain:
+1. Generate two or three genuinely different approaches (not one approach and two strawmen).
+2. Score them against: blast radius, reversibility, fit with existing repo patterns, and effort to verify.
+3. Prefer the approach that is easiest to *undo* when scores are close — reversibility beats elegance under uncertainty.
+4. Commit with a one-line rationale, then stop relitigating. Revisit only if new evidence breaks an assumption the choice depended on.
 
-```text
-Symptom      → what the user / test observed
-Mechanism    → the exact code path that produced the symptom
-Invariant    → what guarantee was supposed to make this impossible
-Breach       → where and why that guarantee failed
-Fix          → restore the guarantee at the point it is owned
-```
+The output is a decision, not a survey. Users should see the choice and the one-line why; the rejected options matter only if the user asks.
 
-Ask: "What was supposed to make this state unreachable, and why didn't it?" If the answer is "nothing ever guaranteed it," the fix is to *create* the guarantee at the boundary that owns the data — not to add a defensive check at every consumer.
+## Interleaved Thinking Loop
 
-Acceptable reasons to fix a symptom instead: an emergency mitigation, or the root cause is out of scope. In both cases, say so explicitly and name the real cause.
-
-## Simplicity Taste
-
-The most common quality failure in model-written code is not incorrectness — it is unrequested complexity. Counters:
-
-| Impulse | Replace with |
-|---|---|
-| Defensive null/undefined checks on internal calls | Validate once at the boundary that owns the data; trust internal invariants |
-| try/catch around code that cannot throw meaningfully | Let programmer errors fail loudly; catch only where you have a recovery strategy |
-| Config options, parameters, or flags "for flexibility" | Hardcode the single current behavior; add the option when a second caller needs it |
-| Abstraction on first duplication | Wait for the third occurrence; duplication is cheaper than the wrong abstraction |
-| Wrapper/helper/manager class for one call site | Inline it; a function used once is usually a sentence, not a chapter |
-| Fallback values masking failed operations (`or defaultValue` on an error path) | Propagate the failure; a silent wrong answer is worse than a loud error |
-| Backwards-compatibility shims for code you can just change | Change the code and its callers in the same diff |
-| Rewriting a module to fix one function | Fix the function |
-
-Deleting code is a contribution. If the correct fix removes lines, remove them — do not preserve dead branches "just in case."
-
-## Error-Handling Philosophy
-
-- Errors are part of the data flow, not an afterthought. Decide for each failure: propagate, recover with a real strategy, or crash loudly. "Log and continue" is a decision too — it means the operation is genuinely optional. Be honest about which one applies.
-- Programmer errors (violated invariants, impossible states) should fail fast and loud. User and environment errors (bad input, network down, file missing) get handled paths with actionable messages.
-- An error message must let the reader act: what was being attempted, with what key values, and what to check first.
-- Never introduce a new swallowed error (`catch {}`, `_, _ =`, ignored promise, unchecked return) — and do not copy an existing swallow into new code just because the repo has one.
-
-## Naming And Structure
-
-- A name is compression: it should let the reader skip reading the body. If you cannot name a function honestly in 2–4 words, it is doing more than one thing — split it before naming it dishonestly (`processData`, `handleStuff`, `doWork`).
-- Booleans read as predicates (`isExpired`, `hasAccess`, `shouldRetry`). Functions read as verb phrases that state their full effect — `saveAndNotify`, not `save` that secretly notifies.
-- Structure code in the order a reader needs it: the happy path prominent, guard clauses early, helpers below their callers.
-- Match the repo's vocabulary. If the codebase says `fetch`/`repository`/`handler`, do not introduce `get`/`store`/`controller` for the same concepts.
-
-## Test Integrity
-
-Tests are the executable spec. Treat them with the same honesty rules as user data:
-
-- **Bug fix → reproduce first.** Write or run a check that fails for the reported reason *before* fixing. Red → green is the proof that you fixed the right thing; green → green proves nothing.
-- **Never game a test.** No deleting, skipping, loosening assertions, widening tolerances, hardcoding expected outputs, or special-casing the test's inputs in production code. If the test appears wrong, make the case to the user with evidence — changing the spec is their call.
-- **Test behavior, not implementation.** Assert on outputs and observable effects, so refactors do not shatter the suite.
-- **A new test must be able to fail.** A test that passes against the broken code is decoration. When practical, confirm the failure mode (mentally or by reverting the fix).
-- Match the repo's test style — fixtures, naming, assertion library — rather than importing a foreign idiom.
-
-## Refactoring Discipline
-
-- Behavior-preserving means provably so: green checks before, one mechanical transform at a time, green checks after each.
-- Never mix a refactor with a behavior change in one step; the diff becomes unreviewable and the bisect trail dies.
-- Refactor toward an actual need in this task, not toward an imagined future architecture.
-- For module splits, parameter cleanups, and incremental type migrations, plan seams first: find the narrow waist where the code naturally separates.
-
-## LLM Failure Modes And Counters
-
-Know your own failure distribution and counter it deliberately:
-
-| Failure mode | Counter |
-|---|---|
-| Hallucinated API, flag, or config key | Read the installed source, type definitions, or current docs before using any symbol you have not seen in this session |
-| Plausible code in the wrong file | Finish the Locate step; name why this file owns the change |
-| Stub-and-claim (mock data, TODO, hardcoded return presented as done) | Declare every stub in the closeout; status is `unverified` until real behavior is proven |
-| Narrating comments (`// increment counter`) | Comment only why, never what; most diffs need zero new comments |
-| Scope-creep refactor while fixing a bug | One concern per change set; note the cleanup idea in the closeout instead |
-| Weakening a test to get to green | Forbidden — see Test Integrity |
-| Re-implementing an existing helper | Search for the verb you are about to write (`format`, `parse`, `retry`, `validate`) before writing it |
-| Confidently editing from memory of a file | Re-read the file in the current session before every edit |
-| Apologizing-and-rewriting an entire file after a small failure | Diagnose the actual failure; the smallest corrective edit, not a rewrite |
-| Inventing package versions | Resolve versions from the lockfile, registry, or current docs — never from memory |
-
-## Pre-Closeout Self-Review
-
-Before claiming completion, one pass:
+The core failure mode of weaker agents is *open-loop execution*: making a plan, then running it blind. Run closed-loop instead. After **every** tool result:
 
 ```text
-Did I solve the request the user meant, not just the words?
-Would this diff survive review by the repo's pickiest maintainer?
-What is the most likely way this change breaks something — did I check it?
-Is anything stubbed, assumed, or unverified that the closeout must declare?
-Could this diff be smaller without losing the fix?
+Observe  → what did this actually return? (not what I expected it to return)
+Update   → which of my beliefs does this confirm, refute, or complicate?
+Decide   → is the next planned step still the right step?
 ```
 
-Status language and proof requirements live in the always-on `minimax-m3-status-verification` contract; follow it in the closeout.
+Two hard rules:
+
+- **The surprise rule.** Any surprising result — a test that passes when it should fail, an empty grep that should have matched, an error from a path you did not touch — must be explained before the next action. Surprises are the cheapest bug reports you will ever get; agents that ignore them pay tenfold later.
+- **The stale-plan rule.** Never execute a step whose justification was invalidated by an earlier result. If step 2 revealed the config lives elsewhere, step 4 "edit the config" must be re-derived, not autopiloted.
+
+## Hypothesis Ledger (Debugging Strategy)
+
+For any non-obvious bug, run an explicit ledger instead of intuition-hopping:
+
+```text
+H1: [cause] — discriminating check: [cheapest test that gives a different answer if H1 is true vs false] — status: open/confirmed/refuted
+H2: ...
+```
+
+- Order checks by discrimination-per-cost, not by which hypothesis feels likeliest. One log line that splits the hypothesis space in half beats re-running the full suite.
+- Use differential reasoning first: it worked before / it works over there — **what is different?** (version, input, environment, timing, data). Diffs shrink the search space faster than reading code does.
+- Bisect when the space is large: git history (`git bisect`), input minimization (shrink the failing case), or layer isolation (does the bug exist below the UI? below the API?).
+- A refuted hypothesis is progress — record what killed it and move on. Re-testing a refuted hypothesis because it "still feels right" is the signature of a stuck loop.
+
+The fix-iteration loop (one fix per cycle, re-run the exact failing check, compress between iterations) is defined in `minimax-m3-self-evolution` — this ledger feeds that loop.
+
+## Premortem Before Closeout
+
+Spend thirty seconds assuming the work shipped and broke. What broke?
+
+- The caller you did not read.
+- The platform/environment you did not test (other OS, prod build, empty database, first run).
+- The concurrent or repeated invocation you did not consider.
+- The input shape the type system does not forbid but reality produces.
+- The behavior you changed that something else depended on.
+
+Check the one or two most plausible of these before claiming completion; name the rest as untested in the closeout if they are real risks. This is the difference between "it works" and "it works and I know where it would fail first."
+
+## Calibration
+
+- Tag claims internally as **observation** (I read/ran it this session), **inference** (it follows from observations), or **assumption** (I have not checked). Only observations support `verified`.
+- When uncertain, name the cheapest check that would resolve the uncertainty — one command, one file read, one doc lookup — and run it if tools allow. "I'm not sure" followed by the resolving check is frontier behavior; "I'm not sure" alone is filler, and unmarked confidence is worse.
+- Confidence should rise only when evidence arrives, never because time passed or because you repeated the claim.
+
+## The Stuck-Strategy Ladder
+
+When progress stalls (two failed attempts on one hypothesis, or five iterations without net progress), do not push harder on the same move — climb the ladder. Each rung changes the *kind* of information you are getting:
+
+```text
+1. Re-read wider     → the target file's callers, tests, and config; the bug is often one level up
+2. Shrink the repro  → smallest input/file/test that still fails; small repros expose mechanisms
+3. Change layer      → probe below or above (API instead of UI, DB instead of API, runtime instead of build)
+4. Check the world   → current docs, changelogs, known issues; your memory of the API may be the bug
+5. Ask one fork      → a single concrete question with the evidence and the options, not "any ideas?"
+```
+
+State the rung change explicitly ("two failures on H1; moving to a minimal repro"). Silent persistence and silent abandonment are both worse than a visible strategy switch.
+
+## Effort Matching
+
+All of the above is for non-trivial work. A one-line fix needs the read, the edit, and the check — not a ledger, a premortem, and three approach candidates. Ceremony applied to trivial tasks is its own failure mode; judgment includes knowing when not to deploy the machinery.
 
 ---
 > Source: [madebyaris/advance-minimax-m3-cursor-rules](https://github.com/madebyaris/advance-minimax-m3-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
