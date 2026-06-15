@@ -191084,6 +191084,11 @@
       "description": "The local firewall for AI agents \u2014 keep your secrets off the model, the API relay, and the supply chain. Local credential masking, per-route model routing, and security detectors on the wire. Free & f"
     },
     {
+      "name": "econsolider--dynare-copilot",
+      "source": "./econsolider--dynare-copilot",
+      "description": "Turn macro intuition into validated Dynare .mod files \u2014 a coding agent skill for DSGE modeling."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -205867,6 +205872,46 @@
       "name": "zexuanw958-svg--travel-plan-viz",
       "source": "./zexuanw958-svg--travel-plan-viz",
       "description": "Migo \u00b7 \u65c5\u884c\u9886\u822a \u2014\u2014 \u628a\u65c5\u884c\u884c\u7a0b\u751f\u6210\u4e3a\u5355\u6587\u4ef6\u3001\u53ef\u79bb\u7ebf\u3001\u624b\u673a\u4f18\u5148\u7684 HTML\uff08\u4ea4\u4e92\u5730\u56fe+\u6bcf\u65e5\u65f6\u95f4\u8f74+\u51fa\u53d1\u524d\u63d0\u9192\uff09\u3002Claude Code / Codex \u901a\u7528 Skill\uff08travel-plan-viz\uff09\u3002"
+    },
+    {
+      "name": "thirdshiftlab--modeltell",
+      "source": "./thirdshiftlab--modeltell",
+      "description": "Measuring the lexical and syntactic fingerprints of large language models. Open data, methodology, and a bilingual content linter."
+    },
+    {
+      "name": "itsperini--viscribe",
+      "source": "./itsperini--viscribe",
+      "description": "Image intelligence layer for AI agents"
+    },
+    {
+      "name": "adityadasika21--northstar",
+      "source": "./adityadasika21--northstar",
+      "description": "NorthStar"
+    },
+    {
+      "name": "bonginkan--fairy-tale",
+      "source": "./bonginkan--fairy-tale",
+      "description": "Fable/Mythos-informed workflow augmentation for agent skills and plugins"
+    },
+    {
+      "name": "bonginkan--fairy-tale",
+      "source": "./bonginkan--fairy-tale",
+      "description": "Fable/Mythos-informed workflow augmentation for agent skills and plugins"
+    },
+    {
+      "name": "danielcherubini--pi-archimedes",
+      "source": "./danielcherubini--pi-archimedes",
+      "description": "Visual polish and useful context for the Pi coding agent TUI"
+    },
+    {
+      "name": "barrydeen--dark-wisp-android",
+      "source": "./barrydeen--dark-wisp-android",
+      "description": "Dark Wisp \u2014 Android Nostr client forked from Wisp v1.0.5"
+    },
+    {
+      "name": "jonathanhawkins--glassbox",
+      "source": "./jonathanhawkins--glassbox",
+      "description": "Glassbox: a glass cockpit over a self-improving agent swarm that writes real, graded code. WeaveHacks 4."
     },
     {
       "name": "cheerhuan--save-your-token",
