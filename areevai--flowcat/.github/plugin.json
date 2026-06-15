@@ -1,0 +1,9 @@
+{
+  "name": "areevai--flowcat",
+  "displayName": "flowcat",
+  "description": "Self-hosted native-Rust runtime for real-time voice agents. Own the stack: one binary in your own VPC or air-gapped, no hosted control plane. pipecat-compatible pipeline, in-process SIP/RTP, single-pr",
+  "version": "1.0.0",
+  "author": "AreevAI",
+  "homepage": "https://github.com/AreevAI/flowcat",
+  "skills": []
+}
