@@ -4,7 +4,7 @@
   "repo": "vigolium",
   "description": "Vigolium - High-fidelity vulnerability scanner fusing agentic AI with native speed, modularity, and precision",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vigolium/vigolium",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T05:33:35Z"
+  "distributed_at": "2026-06-15T05:36:20Z"
 }
