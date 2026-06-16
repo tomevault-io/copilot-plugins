@@ -1,0 +1,44 @@
+{
+  "name": "awaithumans-human-in-the-loop-ai-agents",
+  "owner": "awaithumans",
+  "repo": "awaithumans-human-in-the-loop-ai-agents",
+  "description": "Pause your AI agent. Ask a human. Resume with their answer. Open source human-in-the-loop (HITL) library for production LLM agents: Slack, email, and web dashboard. Typed Pydantic and Zod responses. Durable Temporal and LangGraph adapters. AI verifier. Audit trail. Self-hosted, Apache 2.0. Python and TypeScript.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/awaithumans/awaithumans-human-in-the-loop-ai-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T06:49:54Z"
+}
