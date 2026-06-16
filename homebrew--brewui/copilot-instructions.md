@@ -1,14 +1,20 @@
-## previews-centralized
+## swift-implementation
 
-> Enforce centralized preview support and colocated preview blocks.
+> Swift and SwiftUI implementation expectations for app code.
 
 
-# Centralized Previews
+# Swift Implementation
 
-- Use `Brew/PreviewSupport/AppPreviewSupport.swift` for shared preview sample data and lightweight preview fakes/mocks.
-- Do not create one-off inline preview mock repositories/services in individual view files.
-- When preview data/mocks need updates, add/update them in `AppPreviewSupport.swift` so previews share one source of truth.
-- Keep `#Preview` blocks at the bottom of the same file as their view type; do not use standalone `+Previews.swift` files.
+- Follow `CONVENTIONS.md` for naming, architecture boundaries, error handling, and **design system** (`Brew/Theme/` — see `design-system.mdc` when editing `Brew/**/*.swift`).
+- Do not share object instances unless shared state is required and concurrency-safe; see `instance-lifecycle.mdc` (`JSONDecoder`, formatters, etc.).
+- Keep `Codable` transport models behind boundaries; do not expose `*JSON`/DTO wire types from service or repository APIs (see `codable-boundary.mdc`).
+- Include required imports and provide compilable code updates.
+- Use `@MainActor` where UI state is mutated.
+- Avoid force unwraps/`try!`; use safe handling patterns and test helpers (`#require`, `XCTUnwrap`) in tests.
+- Keep SwiftUI views passive: do not combine multiple ViewModel flags inline to drive one UI presentation decision. Add a single derived ViewModel property (or item) and bind the view to that.
+- When a ViewModel grows with presentation mappings that mostly change together, extract them into feature-layer `*Item` types and expose those items from the ViewModel. Keep independently changing async state streams on the top-level ViewModel (for example, independent operation busy flags).
+- Follow folder placement boundaries from `CONVENTIONS.md` and `.cursor/rules/folder-boundaries.mdc` (`Features/<Feature>/Views`, `Features/<Feature>/ViewModels`, command transport under `Services/BrewCommand/`, and domain-only `Models/`).
+- Follow centralized preview guidance from `.cursor/rules/previews-centralized.mdc` and keep preview blocks colocated with their view files.
 
 ---
 > Source: [Homebrew/BrewUI](https://github.com/Homebrew/BrewUI) — distributed by [TomeVault](https://tomevault.io).
