@@ -4,7 +4,7 @@
   "repo": "engram",
   "description": "Geometric agent memory for Grok Build: 8-tool lean contract, harness injection at wake, session handoff. 66 MCP tools. Not a vector DB. Rust + MCP.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/staticroostermedia-arch/engram",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T04:42:54Z"
+  "distributed_at": "2026-06-16T06:55:43Z"
 }
