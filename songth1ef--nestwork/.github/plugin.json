@@ -1,0 +1,9 @@
+{
+  "name": "songth1ef--nestwork",
+  "displayName": "nestwork",
+  "description": "Sync memory across multiple AI agents via git. Claude/Codex/Gemini/Hermes on different   machines share one evolving brain\u2014rules, memory, context. No plugins, no servers. |   \u7528git\u540c\u6b65\u591a\u4e2aAI agent\u7684\u8bb0\u5fc6\uff1aClaud",
+  "version": "1.0.0",
+  "author": "songth1ef",
+  "homepage": "https://github.com/songth1ef/nestwork",
+  "skills": []
+}
