@@ -1,0 +1,9 @@
+{
+  "name": "facebookexperimental--coresmith",
+  "displayName": "coresmith",
+  "description": "CoreSmith is a Prompt to GDS Agentic Flow",
+  "version": "1.0.0",
+  "author": "facebookexperimental",
+  "homepage": "https://github.com/facebookexperimental/coresmith",
+  "skills": []
+}
