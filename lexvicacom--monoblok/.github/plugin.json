@@ -1,0 +1,9 @@
+{
+  "name": "lexvicacom--monoblok",
+  "displayName": "monoblok",
+  "description": "Signal conditioning, transformation, and routing in a NATS-native message processor",
+  "version": "1.0.0",
+  "author": "lexvicacom",
+  "homepage": "https://github.com/lexvicacom/monoblok",
+  "skills": []
+}
