@@ -1,0 +1,9 @@
+{
+  "name": "vite-hub--vitehub",
+  "displayName": "vitehub",
+  "description": "Server primitives for Vite",
+  "version": "1.0.0",
+  "author": "vite-hub",
+  "homepage": "https://github.com/vite-hub/vitehub",
+  "skills": []
+}
