@@ -1,39 +1,49 @@
-## lovelace-card
+## narwal-protocol
 
-> Lovelace custom card development patterns
+> Narwal MQTT protocol quirks and patterns
 
 
-# Lovelace Card Patterns
+# Narwal Protocol Notes
 
-## Visual Editor
+## Deep Sleep Behavior
 
-Use `ha-form` with a schema array for card editors — this is how HA's
-built-in editors work and handles entity pickers reliably.
+The vacuum maintains its MQTT broker connection during deep sleep but does
+NOT process incoming commands. Publishes succeed (`rc=0`) but no response
+arrives. This is NOT a token/connection issue — the device is simply not
+listening. No amount of reconnecting will help; wait for it to wake.
 
-```javascript
-// ❌ BAD — ha-entity-picker in shadow DOM won't render
-const picker = document.createElement("ha-entity-picker");
-picker.hass = this._hass;  // often fails to trigger render
+## Token Expiry
 
-// ✅ GOOD — ha-form handles everything
-const SCHEMA = [
-  { name: "entity", required: true, selector: { entity: { domain: "vacuum" } } },
-  { name: "camera_entity", selector: { entity: { domain: "camera" } } },
-];
-this._form = document.createElement("ha-form");
-this._form.schema = SCHEMA;
-this._form.hass = this._hass;
-this._form.data = this._config;
-```
+The JWT access token (used as MQTT password) expires. The broker may silently
+stop routing responses before the calculated expiry time. Track consecutive
+command failures and force token refresh + reconnect after 3 failures.
 
-The editor element must NOT use shadow DOM — append directly to `this`
-(not `this.shadowRoot`) so HA's styling works.
+## Two Status Paths
 
-## Entity Resolution
+- `status/robot_base_status` — contains WorkingStatus enum, battery, boolean
+  flags (is_cleaning, is_paused, is_returning, is_docked). Sent as push
+  broadcast AND as command response to `status/get_device_base_status`.
+- `status/working_status` — contains ONLY elapsed_time (field 3) and
+  cleaned_area (field 13). Does NOT contain WorkingStatus enum. Sent only
+  during active cleaning.
 
-Support explicit config AND auto-detection fallback for all entities
-(camera, battery sensor, mode select). Search `hass.states` for
-`*narwal*` patterns as fallback.
+## Explicit Subscriptions Only
+
+Narwal's Aliyun IoT broker accepts wildcard subscriptions (e.g. `base_topic/#`)
+but does NOT route messages through them — only EXPLICIT topic subscriptions
+get messages delivered.
+
+- `_on_connect` subscribes to each broadcast topic individually
+  (`status/robot_base_status`, `status/working_status`).
+- `_send_command_locked` subscribes to the specific `{topic}/response`
+  before each publish and waits briefly for SUBACK. Do not remove these
+  per-command subscribes — without them responses won't arrive.
+
+## Map Data
+
+Map grid is zlib-compressed protobuf containing packed repeated varints.
+Each pixel: `room_id = val >> 8`, `pixel_type = val & 0xFF`.
+Map Y-axis is flipped (mathematical coords → image coords).
 
 ---
 > Source: [nadavbau/narwal-integration](https://github.com/nadavbau/narwal-integration) — distributed by [TomeVault](https://tomevault.io).
