@@ -1,0 +1,9 @@
+{
+  "name": "jklenk--thread",
+  "displayName": "thread",
+  "description": "Read-only forensics and analytics layer for Beads \u2014 fidelity scores, rework cost, and a self-contained HTML report for your agentic workflows.",
+  "version": "1.0.0",
+  "author": "jklenk",
+  "homepage": "https://github.com/jklenk/thread",
+  "skills": []
+}
