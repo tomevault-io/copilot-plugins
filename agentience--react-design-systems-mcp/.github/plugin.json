@@ -1,0 +1,9 @@
+{
+  "name": "agentience--react-design-systems-mcp",
+  "displayName": "react-design-systems-mcp",
+  "description": "A Model Context Protocol (MCP) server that provides comprehensive information about React design systems, along with code generation capabilities for common UI patterns. Currently supports AWS Cloudsc",
+  "version": "1.0.0",
+  "author": "agentience",
+  "homepage": "https://github.com/agentience/react-design-systems-mcp",
+  "skills": []
+}
