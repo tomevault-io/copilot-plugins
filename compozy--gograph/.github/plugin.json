@@ -1,9 +1,9 @@
 {
   "name": "compozy--gograph",
   "displayName": "gograph",
-  "description": "gograph",
+  "description": "Go Codebase Graph Analyzer",
   "version": "1.0.0",
   "author": "compozy",
-  "homepage": "https://tomevault.io/claim/compozy",
+  "homepage": "https://github.com/compozy/gograph",
   "skills": []
 }
