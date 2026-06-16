@@ -1,0 +1,9 @@
+{
+  "name": "wat-hiroaki--claude-code-studio",
+  "displayName": "claude-code-studio",
+  "description": "AI Agent Workspace Studio \u2014 Multi-workspace management for Claude Code CLI sessions with SSH, task chains, and config visualization",
+  "version": "1.0.0",
+  "author": "wat-hiroaki",
+  "homepage": "https://github.com/wat-hiroaki/claude-code-studio",
+  "skills": []
+}
