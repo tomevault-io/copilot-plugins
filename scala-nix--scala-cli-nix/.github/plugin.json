@@ -1,0 +1,9 @@
+{
+  "name": "scala-nix--scala-cli-nix",
+  "displayName": "scala-cli-nix",
+  "description": "scala-cli-nix",
+  "version": "1.0.0",
+  "author": "scala-nix",
+  "homepage": "https://github.com/scala-nix/scala-cli-nix",
+  "skills": []
+}
