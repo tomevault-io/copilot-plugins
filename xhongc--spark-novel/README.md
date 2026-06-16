@@ -7,11 +7,11 @@ AI 小说，短篇小说，Agent 写作，通勤间隙，写完一篇精彩短�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xhongc/spark-novel](https://github.com/xhongc/spark-novel).
+Original source: `CLAUDE.md` in [xhongc/spark-novel](https://github.com/xhongc/spark-novel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
