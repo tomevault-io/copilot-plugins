@@ -1,0 +1,9 @@
+{
+  "name": "droidsaw--droidsaw",
+  "displayName": "droidsaw",
+  "description": "Pure-Rust Android decompiler and security-audit suite. DEX \u2192 Java, Hermes \u2192 JavaScript. Cross-layer taint across the React Native bridge. CycloneDX SBOM + OpenVEX. CLI and MCP. Bytecode is not a secur",
+  "version": "1.0.0",
+  "author": "droidsaw",
+  "homepage": "https://github.com/droidsaw/droidsaw",
+  "skills": []
+}
