@@ -1,0 +1,92 @@
+## skill-harness
+
+> This repository provides the umbrella install and setup layer for the 45ck stack.
+
+# Skill Harness
+
+This repository provides the umbrella install and setup layer for the 45ck stack.
+
+Audience note:
+- This file is maintainer and agent operating guidance. Public contributors should start with `CONTRIBUTING.md`, `SUPPORT.md`, and `SECURITY.md`.
+- Direct push and Beads closeout rules apply to trusted maintainer/agent sessions on repository branches. Fork-based contributors should use pull requests and do not need Beads locally.
+
+Guidelines:
+- Use the narrowest agent that can own the task end to end.
+- Escalate to another specialist when the work crosses a real boundary, not just for vocabulary changes.
+- Prefer the curated skills listed in each agent before reaching for unrelated skills.
+- Treat packs as the capability library and agents as the workflow loadout.
+- Treat this repo as the suite entrypoint and project setup repo, including embedded packs under `packs/`.
+- Treat `frontier-agent-playbook` as the shared doctrine companion when a task needs frontier-capability priors, agentic thinking, or anti-fallback framing.
+
+UML-first artifacts:
+- Auto-detect model impact for every engineering change. If code, API, workflow, dependency, deployment, UI structure, or agent behavior changes, update the relevant canonical model source or record why no model change is required.
+- Use the modeling system by default for fresh developer-artifact setups. `--modeling-mode auto` preserves legacy repos, defaults fresh repos to `uml-first`, and can be overridden with `--modeling-mode off|baseline|uml-first` or `--skip-modeling`.
+- Keep canonical UML/UWE/C4/evidence model sources in repo-relative text files, preferring `docs/artifacts/source/models/` when no domain-specific docs path is better.
+- Keep `docs/artifacts/source/models/model-inventory.md` and `docs/artifacts/artifacts.manifest.json` aligned with model ids, owners, methods, source paths, evidence, and generated review surfaces.
+- Human review artifacts for models must be static HTML under `generated/review/models/`, generated from source with `node scripts/generate-model-review.mjs`, and validated with the model and HTML policy checks.
+- Human-facing discovery, research, product, business, data, UX, and planning artifacts that are meant for review must use the same source-plus-HTML path: canonical source under `docs/artifacts/source/<family>/`, generated infographic HTML under `generated/review/<family>/`, manifest entry with `reviewRequired: true`, and `node scripts/generate-artifact-review.mjs`.
+- Do not hand off Markdown-only for human artifacts unless the active profile is CLI/TUI or the task is explicitly source-only. In Codex app or desktop review contexts, surface the generated HTML path or open it with the best available browser surface.
+- Open generated HTML in the best human review surface for the current environment. In Codex app, use the Browser plugin for local HTML when available; in Claude desktop, use the built-in browser/preview when available; in CLI-only contexts, use `node scripts/open-artifact-review.mjs` to open the system default browser or print the file URL in headless/CI contexts.
+- Use `node scripts/open-artifact-review.mjs --json --print` when an agent or host app needs to auto-detect the artifact target and choose between Codex Browser, Claude preview, system browser, or a local HTTP preview fallback.
+- Treat HTML, SVG, PNG, screenshots, and generated comparison pages as review surfaces only. Source files and model diffs remain canonical.
+
+Visual source-first artifacts:
+- Use the same source-first split for product, business, data, research, UX, and mockup work: canonical agent-readable source first, generated visual human review surface second.
+- Prefer `docs/artifacts/source/product/`, `business/`, `data/`, `research/`, and `ux/` for canonical sources when no domain-specific docs path is better; place generated human surfaces under matching `generated/review/` subfolders.
+- High-fidelity HTML/prototype review is the default for UI, product, customer-facing workflow, and mockup artifacts. Low-fidelity sketches are scratch only unless captured as explicit research evidence.
+- Infographic-style HTML is the default human surface for non-model artifacts: include scan-friendly summary metrics, inline SVG/CSS charts or diagrams, evidence/freshness panels, source links, and CSS-only interaction by default.
+- Use the open-source infographic toolkit as source/spec renderers, not browser runtimes: Mermaid for authored diagrams, Vega-Lite as the default chart grammar, Observable Plot for compact exploratory charts, D3 for bespoke static layouts, Graphviz for node-edge maps, ECharts only as generation-time/static output, RAWGraphs for exported design-led SVGs, and Chart.js only as server-rendered/static output or equivalent.
+- For generic artifact pages, prefer `artifact-infographic` JSON fences or manifest `infographics` entries so charts and graphs regenerate with `node scripts/generate-artifact-review.mjs`.
+- Record generated visual artifacts in `docs/artifacts/artifacts.manifest.json` with source, review surface, owner, evidence links, status, and freshness. Label synthetic user or agent-simulation evidence separately from real user/customer evidence.
+- Use a team of agents when ownership crosses boundaries: requirements for product intent, delivery for business constraints, backend for data shape, research for evidence, UX for high-fidelity review, system-modeler for structural impact, and quality-reviewer for readiness gates.
+
+<!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
+## Beads Issue Tracker
+
+This project uses **bd (beads)** for issue tracking. Run `bd prime` to see full workflow context and commands.
+
+### Quick Reference
+
+```bash
+bd ready              # Find available work
+bd show <id>          # View issue details
+bd update <id> --claim  # Claim work
+bd close <id>         # Complete work
+```
+
+### Rules
+
+- Use `bd` for ALL task tracking — do NOT use TodoWrite, TaskCreate, or markdown TODO lists
+- Run `bd prime` for detailed command reference and session close protocol
+- Use `bd remember` for persistent knowledge — do NOT use MEMORY.md files
+
+## Session Completion
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   bd dolt push
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
+<!-- END BEADS INTEGRATION -->
+
+---
+> Source: [45ck/skill-harness](https://github.com/45ck/skill-harness) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
