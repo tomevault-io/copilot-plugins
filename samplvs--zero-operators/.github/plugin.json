@@ -1,0 +1,9 @@
+{
+  "name": "samplvs--zero-operators",
+  "displayName": "zero-operators",
+  "description": "Autonomous AI research team: write a plan.md, spawn agents, train, verify, and deliver a clean ML repo.",
+  "version": "1.0.0",
+  "author": "SamPlvs",
+  "homepage": "https://github.com/SamPlvs/zero-operators",
+  "skills": []
+}
