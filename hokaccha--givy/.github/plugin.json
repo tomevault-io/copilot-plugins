@@ -1,0 +1,9 @@
+{
+  "name": "hokaccha--givy",
+  "displayName": "givy",
+  "description": "A local GitHub-like git viewer with a web UI.",
+  "version": "1.0.0",
+  "author": "hokaccha",
+  "homepage": "https://github.com/hokaccha/givy",
+  "skills": []
+}
