@@ -1,0 +1,9 @@
+{
+  "name": "awaithumans--awaithumans-human-in-the-loop-ai-agents",
+  "displayName": "awaithumans-human-in-the-loop-ai-agents",
+  "description": "Pause your AI agent. Ask a human. Resume with their answer. Open source human-in-the-loop (HITL) library for production LLM agents: Slack, email, and web dashboard. Typed Pydantic and Zod responses. D",
+  "version": "1.0.0",
+  "author": "awaithumans",
+  "homepage": "https://github.com/awaithumans/awaithumans-human-in-the-loop-ai-agents",
+  "skills": []
+}
