@@ -1,0 +1,9 @@
+{
+  "name": "hyqzz--solar-wanderer",
+  "displayName": "Solar-Wanderer",
+  "description": "Solar Wanderer / \u9068\u6e38\u592a\u9633\u7cfb - 1:1 Real-Time Solar System Explorer in the Browser. NASA JPL ephemeris, WebGL2, Three.js. From solar surface to 100,000 AU Oort Cloud.",
+  "version": "1.0.0",
+  "author": "hyqzz",
+  "homepage": "https://github.com/hyqzz/Solar-Wanderer",
+  "skills": []
+}
