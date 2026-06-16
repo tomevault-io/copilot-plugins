@@ -1,0 +1,9 @@
+{
+  "name": "a2coffee--mobbin-viewer",
+  "displayName": "Mobbin-Viewer",
+  "description": "Mobbin Viewer Chrome extension for unblurring, fullscreen preview, and batch download on mobbin.com",
+  "version": "1.0.0",
+  "author": "A2coffee",
+  "homepage": "https://github.com/A2coffee/Mobbin-Viewer",
+  "skills": []
+}
