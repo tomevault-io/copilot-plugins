@@ -1,0 +1,9 @@
+{
+  "name": "amd989--unifi-gateway",
+  "displayName": "unifi-gateway",
+  "description": "UniFi Gateway emulator for third-party routers",
+  "version": "1.0.0",
+  "author": "amd989",
+  "homepage": "https://github.com/amd989/unifi-gateway",
+  "skills": []
+}
