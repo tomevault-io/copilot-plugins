@@ -1,0 +1,9 @@
+{
+  "name": "crosery--runai",
+  "displayName": "runai",
+  "description": "AI CLI skill/MCP resource manager with TUI and MCP server \u2014 manage skills, MCPs, groups across Claude/Codex/Gemini/OpenCode",
+  "version": "1.0.0",
+  "author": "Crosery",
+  "homepage": "https://github.com/Crosery/runai",
+  "skills": []
+}
