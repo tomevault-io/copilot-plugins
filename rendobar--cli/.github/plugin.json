@@ -1,0 +1,9 @@
+{
+  "name": "rendobar--cli",
+  "displayName": "cli",
+  "description": "Rendobar CLI: serverless media processing from your terminal. Run FFmpeg jobs in the cloud from your terminal.",
+  "version": "1.0.0",
+  "author": "rendobar",
+  "homepage": "https://github.com/rendobar/cli",
+  "skills": []
+}
