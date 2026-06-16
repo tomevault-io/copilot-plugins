@@ -7,11 +7,11 @@ Memory plugin for OpenClaw. Agent's memories strengthen through use, fade when u
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jarimustonen/formative-memory](https://github.com/jarimustonen/formative-memory).
+Original source: `CLAUDE.md` in [jarimustonen/formative-memory](https://github.com/jarimustonen/formative-memory).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
