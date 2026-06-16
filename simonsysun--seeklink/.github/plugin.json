@@ -1,0 +1,9 @@
+{
+  "name": "simonsysun--seeklink",
+  "displayName": "seeklink",
+  "description": "SeekLink \u2014 hybrid semantic search for markdown vaults. Four-channel RRF fusion, MLX reranker, native CJK support. Fully local.",
+  "version": "1.0.0",
+  "author": "simonsysun",
+  "homepage": "https://github.com/simonsysun/seeklink",
+  "skills": []
+}
