@@ -1,0 +1,9 @@
+{
+  "name": "dleerdefi--claude-code-construction",
+  "displayName": "claude-code-construction",
+  "description": "Claude Code skills for construction professionals. ",
+  "version": "1.0.0",
+  "author": "dleerdefi",
+  "homepage": "https://github.com/dleerdefi/claude-code-construction",
+  "skills": []
+}
