@@ -1,0 +1,9 @@
+{
+  "name": "kimlage--wiki-viva-kit",
+  "displayName": "wiki-viva-kit",
+  "description": "Living operational wiki kit: Markdown/Git-first, deterministic Python core, honesty gates in CI, LLM deep-reading delegated to the agent that runs the repo. MIT.",
+  "version": "1.0.0",
+  "author": "kimlage",
+  "homepage": "https://github.com/kimlage/wiki-viva-kit",
+  "skills": []
+}
