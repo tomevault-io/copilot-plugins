@@ -1,0 +1,9 @@
+{
+  "name": "bluebear-io--baloo-bear",
+  "displayName": "baloo-bear",
+  "description": "AI-powered code review agent for GitHub pull requests. Self-hosted GitHub App using PI.",
+  "version": "1.0.0",
+  "author": "bluebear-io",
+  "homepage": "https://github.com/bluebear-io/baloo-bear",
+  "skills": []
+}
