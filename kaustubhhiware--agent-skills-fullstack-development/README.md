@@ -7,11 +7,11 @@ How to use agent skills for fullstack development: design, planning, development
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kaustubhhiware/agent-skills-fullstack-development](https://github.com/kaustubhhiware/agent-skills-fullstack-development).
+Original source: `CLAUDE.md` in [kaustubhhiware/agent-skills-fullstack-development](https://github.com/kaustubhhiware/agent-skills-fullstack-development).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
