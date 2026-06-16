@@ -1,0 +1,9 @@
+{
+  "name": "gangtao--agentpitch",
+  "displayName": "AgentPitch",
+  "description": "An LLM-powered soccer simulation where every player on the field is an AI agent. ",
+  "version": "1.0.0",
+  "author": "gangtao",
+  "homepage": "https://github.com/gangtao/AgentPitch",
+  "skills": []
+}
