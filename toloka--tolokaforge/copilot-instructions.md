@@ -1,22 +1,18 @@
-## cursor
+## tolokaforge
 
-> Cursor settings — all project rules are in AGENTS.md
+> Read `AGENTS.md` for all project instructions — it is the single source of truth.
 
-# Cursor Configuration
+# CLAUDE.md
 
-All project rules, conventions, and commands are defined in `AGENTS.md` at the repository root.
-Read it first — it is the single source of truth for all AI agents.
+Read `AGENTS.md` for all project instructions — it is the single source of truth.
 
-## Session Startup
+## Claude-Specific Notes
 
-1. Read `README.md` and `.vscode/tasks.json` before writing any code
-2. Do not ask permission — these are essential context
-
-## Cursor-Specific
-
-- Use Context7 MCP (if available) to look up library/framework documentation before guessing at APIs
-- Available VSCode tasks are in `.vscode/tasks.json`
-- Plans and scratch files go in `plans/` directory — it is gitignored
+- Claude Code reads this file automatically on session start
+- All rules, commands, architecture, and conventions are in `AGENTS.md`
+- Prefer available specialized MCP servers like `dev`, `context7`, `github`, `perplexity` over generic bash calling
+- This repo uses a Claude Code GitHub Action for PR hygiene reviews (`.github/workflows/claude-code-review.yml`)
+- The hygiene review checks: root cleanliness, no temp artifacts, script locations, tool registration, no project-specific content on main
 
 ---
 > Source: [Toloka/tolokaforge](https://github.com/Toloka/tolokaforge) — distributed by [TomeVault](https://tomevault.io).
