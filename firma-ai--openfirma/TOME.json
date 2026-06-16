@@ -4,7 +4,7 @@
   "repo": "openfirma",
   "description": "Runtime enforcement boundary for AI agents: a local sidecar that gates every outbound call against Cedar policies you own. Deterministic, call-level, no model on the hot path",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Firma-AI/openfirma",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T21:15:28Z"
+  "distributed_at": "2026-06-16T22:52:20Z"
 }
