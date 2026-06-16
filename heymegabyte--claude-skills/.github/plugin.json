@@ -1,0 +1,9 @@
+{
+  "name": "heymegabyte--claude-skills",
+  "displayName": "claude-skills",
+  "description": "14-category autonomous product-building OS for 32+ AI coding tools. One-line prompts \u2192 deployed products.",
+  "version": "1.0.0",
+  "author": "heymegabyte",
+  "homepage": "https://github.com/heymegabyte/claude-skills",
+  "skills": []
+}
