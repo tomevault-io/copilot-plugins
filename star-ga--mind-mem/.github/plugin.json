@@ -1,0 +1,14 @@
+{
+  "name": "star-ga--mind-mem",
+  "displayName": "mind-mem",
+  "description": "Persistent AI memory for Claude Code, OpenClaw, and any MCP-compatible agent. BM25F + vector hybrid, governance-aware, local-first, zero-infrastructure.",
+  "version": "1.0.0",
+  "author": "star-ga",
+  "homepage": "https://github.com/star-ga/mind-mem",
+  "skills": [
+    {
+      "name": "mind-mem-development",
+      "description": ""
+    }
+  ]
+}
