@@ -1,0 +1,9 @@
+{
+  "name": "goberomsu--obsidian-eagle-plugin",
+  "displayName": "obsidian-eagle-plugin",
+  "description": "Obsidian plugin that uploads images to Eagle instead of storing them in your vault. Local cache, wikilink embeds, offline rendering.",
+  "version": "1.0.0",
+  "author": "GoBeromsu",
+  "homepage": "https://github.com/GoBeromsu/obsidian-eagle-plugin",
+  "skills": []
+}
