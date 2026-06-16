@@ -7,11 +7,11 @@ Zero-dependency, single-file Python implementations of popular libraries — ben
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Oaklight/zerodep](https://github.com/Oaklight/zerodep).
+Original source: `CLAUDE.md` in [Oaklight/zerodep](https://github.com/Oaklight/zerodep).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
