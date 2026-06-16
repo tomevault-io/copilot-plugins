@@ -1,0 +1,9 @@
+{
+  "name": "cloudgeni-ai--opengeni",
+  "displayName": "opengeni",
+  "description": "OpenGeni is a self-hostable managed agent service for long-running infrastructure work.",
+  "version": "1.0.0",
+  "author": "Cloudgeni-ai",
+  "homepage": "https://github.com/Cloudgeni-ai/opengeni",
+  "skills": []
+}
