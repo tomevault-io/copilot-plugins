@@ -1,0 +1,9 @@
+{
+  "name": "mblode--diffhub",
+  "displayName": "diffhub",
+  "description": "Local git diff viewer",
+  "version": "1.0.0",
+  "author": "mblode",
+  "homepage": "https://github.com/mblode/diffhub",
+  "skills": []
+}
