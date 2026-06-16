@@ -1,0 +1,9 @@
+{
+  "name": "demencia89--noctalia-shell-androidconnect-plugin",
+  "displayName": "noctalia-shell-androidconnect-plugin",
+  "description": "AndroidConnect Noctalia plugin built on top of the original KDE Connect plugin with embedded scrcpy support",
+  "version": "1.0.0",
+  "author": "demencia89",
+  "homepage": "https://github.com/demencia89/noctalia-shell-androidconnect-plugin",
+  "skills": []
+}
