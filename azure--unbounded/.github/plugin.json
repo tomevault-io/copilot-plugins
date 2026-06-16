@@ -1,0 +1,9 @@
+{
+  "name": "azure--unbounded",
+  "displayName": "unbounded",
+  "description": "Kubernetes Without Boundaries",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/unbounded",
+  "skills": []
+}
