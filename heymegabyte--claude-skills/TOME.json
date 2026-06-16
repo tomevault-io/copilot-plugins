@@ -4,7 +4,7 @@
   "repo": "claude-skills",
   "description": "14-category autonomous product-building OS for 32+ AI coding tools. One-line prompts \u2192 deployed products.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/heymegabyte/claude-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T05:15:38Z"
+  "distributed_at": "2026-06-16T07:23:34Z"
 }
