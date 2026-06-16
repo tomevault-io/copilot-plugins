@@ -1,0 +1,9 @@
+{
+  "name": "madeye--bangumi-downloader",
+  "displayName": "bangumi-downloader",
+  "description": "Next.js web app aggregating bangumi.moe and DHT torrent search results",
+  "version": "1.0.0",
+  "author": "madeye",
+  "homepage": "https://github.com/madeye/bangumi-downloader",
+  "skills": []
+}
