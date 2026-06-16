@@ -1,0 +1,9 @@
+{
+  "name": "andeya--token-free-gateway",
+  "displayName": "token-free-gateway",
+  "description": "A lightweight AI gateway that exposes an OpenAI-compatible interface with full Tools support, using web AI sessions instead of API tokens.",
+  "version": "1.0.0",
+  "author": "andeya",
+  "homepage": "https://github.com/andeya/token-free-gateway",
+  "skills": []
+}
