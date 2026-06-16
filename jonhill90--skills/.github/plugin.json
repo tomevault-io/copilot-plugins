@@ -1,0 +1,9 @@
+{
+  "name": "jonhill90--skills",
+  "displayName": "skills",
+  "description": "This repository is a portable, multi-harness workflow layer: skills form the common core, while agents, hooks, instructions, MCP configuration, and package profiles can extend that core without being ",
+  "version": "1.0.0",
+  "author": "jonhill90",
+  "homepage": "https://github.com/jonhill90/skills",
+  "skills": []
+}
