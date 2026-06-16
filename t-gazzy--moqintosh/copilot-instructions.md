@@ -1,0 +1,99 @@
+## moqintosh
+
+> - Respond concisely and politely in the language used by the user.
+
+# AGENTS.md
+
+## Language
+- Respond concisely and politely in the language used by the user.
+
+## Project Context
+- Before making architectural or protocol-level changes, read `README.md`.
+- Use `README.md` as the source of truth for project goals, supported MOQT scope, and out-of-scope areas.
+- This project implements a MOQT client on Apple platforms using `Network.framework`.
+- Relay behavior and WebTransport are out of scope unless explicitly requested.
+
+## Code Style
+1. All comments must be written in English.
+2. Write concise code and avoid redundancy.
+3. Follow the conventions of existing code to maintain consistency.
+4. **Naming**: File names, directory names, and class names must always be written in UpperCamelCase. Use terminology that follows the relevant specification, and choose names that accurately reflect the actual behavior or role.
+5. **Strict SwiftLint Compliance**: Follow rules in `.swiftlint.yml`. No warnings/errors allowed.
+6. **Explicit Type Annotations**:
+   - Always provide explicit type annotations for public/internal properties and constants.
+   - For local variables, use type annotations if the assigned value's type is not immediately obvious.
+   - *Example*: `let count: Int = 10` or `let user: User = User()`.
+7. **Initialization**:
+   - Do not use shorthand `.init(...)` for type initialization.
+   - Use explicit type names such as `TypeName(...)` for readability, especially in property initialization, tests, and dependency wiring.
+   - Perform all property initializations within the `init` method to support Dependency Injection. Avoid inline default values for complex types.
+8. **Safety & Modernity**:
+   - Use `async/await` for asynchronous code.
+   - Force unwrapping (`!`) is allowed only when a `nil` value is a programming error (i.e., it should never happen at runtime). In all other cases, use `guard let` or `if let`.
+   - To enforce API call ordering (e.g., `initialize()` must be called before `doSomething()`), use `precondition` or `preconditionFailure` with a descriptive message instead of `!`.
+   - Do not use manual `lock()` / `unlock()` pairs. Use scoped synchronization such as `defer`, `withLock`, actor isolation, or other APIs that cannot forget unlock.
+   - Prefer actor isolation for shared mutable state when the performance impact is acceptable.
+   - `@unchecked Sendable` is prohibited. Resolve Sendable requirements with actor isolation, ownership changes, `@MainActor`, explicit task lifecycle management, or other safe designs.
+   - On hot paths, if actor isolation would add unnecessary overhead, use the simplest safe primitive and document the reason briefly in code.
+9. **Annotations**:
+   - Apply necessary attributes like `@escaping`, `@discardableResult`, `@MainActor`, and `@Observable` appropriately.
+   - `@unchecked Sendable` is prohibited.
+   - Satisfy Sendable constraints through safe language features such as actor isolation, `@MainActor`, ownership changes, explicit task lifecycle management, or by redesigning the type boundaries.
+10. **Separation of Responsibilities**:
+   - Keep each type focused on a single responsibility. Split state management, protocol serialization, transport handling, and domain behavior when they start to mix.
+
+## Access Control
+Apply the narrowest modifier that satisfies the requirement.
+
+| Modifier | Scope |
+|---|---|
+| `open` | Subclassable/overridable from another module |
+| `public` | Accessible from another module |
+| `internal` | Accessible within the same module (default) |
+| `fileprivate` | Accessible within the same file |
+| `private` | Accessible within the same scope |
+
+## Error Handling
+- `throws` — default when an error carries meaningful information.
+- `Optional` — use to express absence (i.e., `nil` is a valid, normal result).
+- `Result` — **prohibited**.
+
+## Work Strategy
+- Start by estimating whether the task is small, medium, or large.
+- Prefer the smallest viable unit of work that can be validated independently.
+- For broad changes, split the work by directory, responsibility, or target instead of changing the whole project at once.
+- After each small step, validate with build, diagnostics, or tests before continuing.
+- When the workspace or IDE becomes slow or unstable, reduce scope and continue in smaller batches.
+
+## Performance
+- This project implements a low-latency communication protocol. Prefer lightweight, low-overhead implementations.
+- Avoid unnecessary allocations, copies, buffering, locking, task creation, and thread or queue hops.
+- Prefer simpler synchronization primitives when they are sufficient for correctness.
+- Do not trade correctness for speed, but when multiple correct designs are possible, choose the one with lower runtime overhead and lower latency.
+- Be especially careful on hot paths such as message parsing, frame reading, stream I/O, and state updates performed for each packet or object.
+
+## Constraints
+- Do not write code for future extensibility.
+- Never add code "just in case" — only implement what is explicitly required.
+- One class or struct per file, and one test struct per file (matching the type under test).
+- When the presence of one field depends on the value or presence of another field, represent that relationship with an enum so invalid states cannot be expressed.
+- After writing unit tests, always run them and confirm they pass before finishing.
+- If a test run does not finish within 1 minute, abort the test execution itself and investigate and fix the cause before retrying.
+- After implementing any change, build the project and confirm there are no errors before finishing.
+- For specifications, refer to the PDFs placed in the `RFC` directory. Only follow sections describing Client behavior — Relay is out of scope.
+
+## Logging
+- Always use `OSLogger` in `Source/Util/OSLogger.swift` for log output.
+- Follow the log level guidelines below.
+
+| Level | Role | Example Events |
+| :--- | :--- | :--- |
+| **TRACE** | Raw network data. Disabled in normal operation. | · Raw bytes sent/received on a stream<br>· QUIC frame-level events |
+| **DEBUG** | Detailed state changes for debugging. | · MOQT message contents (parsed fields)<br>· Stream open/close events<br>· Session state transitions |
+| **INFO** | Key milestones to monitor in production. | · Connection established/closed<br>· Subscribe/Publish started or completed<br>· Session start and teardown |
+| **WARN** | Recoverable issues that require attention. | · Retrying after a transient connection error<br>· Received an unexpected but non-fatal message type<br>· Stream closed by peer earlier than expected |
+| **ERROR** | Fatal failures requiring intervention. | · Connection failed after maximum retries<br>· Received a malformed or unrecognized MOQT message<br>· Authentication or TLS handshake failure |
+
+---
+> Source: [t-gazzy/Moqintosh](https://github.com/t-gazzy/Moqintosh) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
