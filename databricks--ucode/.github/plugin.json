@@ -1,0 +1,9 @@
+{
+  "name": "databricks--ucode",
+  "displayName": "ucode",
+  "description": "ucode",
+  "version": "1.0.0",
+  "author": "databricks",
+  "homepage": "https://github.com/databricks/ucode",
+  "skills": []
+}
