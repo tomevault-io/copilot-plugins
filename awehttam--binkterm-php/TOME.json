@@ -4,7 +4,7 @@
   "repo": "binkterm-php",
   "description": "A modern HTML5, Telnet and SSH BBS and point system that speaks FidoNet. Echomail, netmail, Web, Native and DOS Doors, file areas, local and MRC chat, and Gemini.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awehttam/binkterm-php",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T14:35:22Z"
+  "distributed_at": "2026-06-16T14:39:18Z"
 }
