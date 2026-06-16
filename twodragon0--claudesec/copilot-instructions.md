@@ -1,35 +1,21 @@
-## markdown-quality
+## no-sensitive-paths
 
-> Markdown docs — frontmatter, code blocks, links, markdownlint
+> Do not commit company folder paths, local paths, or personal/identifying information
 
 
-# Markdown Quality (ClaudeSec)
+# No Sensitive Paths or PII in Repo
 
-## Frontmatter
+## Never Commit
 
-Every Markdown doc must have YAML frontmatter with:
+- **Company or project-specific folder paths** (e.g. `~/Desktop/kubekube/`, `~/company/`, internal drive paths).
+- **Real kubeconfig paths** that reveal machine layout or org structure — use placeholders like `~/.kube/config` or `/path/to/your/kubeconfig` in examples.
+- **Personal data**: real names, emails, internal hostnames, IPs, account IDs in examples or configs.
+- **`.claudesec.yml`** in the repo — it is gitignored; users copy from `templates/*.example.yml` and fill in local paths locally only.
 
-- `title` — short document title
-- `description` — one-line summary
-- `tags` — list of tags (e.g. `["devsecops", "github"]`)
+## In Code and Docs
 
-```yaml
----
-title: GitHub Actions Security
-description: Secure CI/CD with GitHub Actions
-tags: [github, ci-cd, security]
----
-```
-
-## Code Blocks
-
-- Always set the **language** (e.g. ` ```bash `, ` ```yaml `).
-- Code examples must be **tested and runnable**; avoid pseudocode unless explicitly noted.
-
-## Links & Lint
-
-- Links must be **valid** (no broken references).
-- All Markdown must pass **markdownlint** before commit.
+- Use generic placeholders: `~/.kube/config`, `$HOME/.kube/config`, `/path/to/kubeconfig`, `<your-profile>`.
+- Example configs and README snippets must not contain real company names, real paths, or identifying strings.
 
 ---
 > Source: [Twodragon0/claudesec](https://github.com/Twodragon0/claudesec) — distributed by [TomeVault](https://tomevault.io).
