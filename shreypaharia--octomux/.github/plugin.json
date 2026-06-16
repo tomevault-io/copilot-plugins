@@ -1,0 +1,14 @@
+{
+  "name": "shreypaharia--octomux",
+  "displayName": "octomux",
+  "description": "Web dashboard for orchestrating autonomous Claude Code agents. Create tasks, watch agents work in live terminals, get PRs. React 19 + Express + tmux + git worktrees.",
+  "version": "1.0.0",
+  "author": "ShreyPaharia",
+  "homepage": "https://github.com/ShreyPaharia/octomux",
+  "skills": [
+    {
+      "name": "add-agent",
+      "description": ""
+    }
+  ]
+}
