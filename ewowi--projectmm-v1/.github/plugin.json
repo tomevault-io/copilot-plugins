@@ -1,0 +1,9 @@
+{
+  "name": "ewowi--projectmm-v1",
+  "displayName": "projectMM-v1",
+  "description": "Cross-platform, modules based process flow engine for PC, Raspberry Pi, and ESP32",
+  "version": "1.0.0",
+  "author": "ewowi",
+  "homepage": "https://github.com/ewowi/projectMM-v1",
+  "skills": []
+}
