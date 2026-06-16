@@ -1,0 +1,9 @@
+{
+  "name": "datadog--pup",
+  "displayName": "pup",
+  "description": "pup",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/pup",
+  "skills": []
+}
