@@ -7,11 +7,11 @@ AI-powered code review agent for GitHub pull requests. Self-hosted GitHub App us
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bluebear-io/baloo-bear](https://github.com/bluebear-io/baloo-bear).
+Original source: `CLAUDE.md` in [bluebear-io/baloo-bear](https://github.com/bluebear-io/baloo-bear).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
