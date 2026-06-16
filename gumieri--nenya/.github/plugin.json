@@ -1,0 +1,9 @@
+{
+  "name": "gumieri--nenya",
+  "displayName": "nenya",
+  "description": "A lightweight, highly secure AI API Gateway/Proxy written in Go. Acts as transparent middleware between local AI coding clients (OpenCode/Pi/Cursor) and upstream LLM providers (Gemini, DeepSeek, Zhipu",
+  "version": "1.0.0",
+  "author": "gumieri",
+  "homepage": "https://github.com/gumieri/nenya",
+  "skills": []
+}
