@@ -1,14 +1,19 @@
-## module-entrypoints
+## test-file-placement
 
-> Prefer named module entry files over index files
+> Keep unit tests colocated in predictable test folders
 
 
-# Module Entrypoints
+# Test File Placement
 
-- Avoid creating new `index.ts` or `index.js` files for module entrypoints.
-- Prefer a named entry file that matches the module or folder name, such as `llm.ts`, `cacheManager.ts`, or `componentName.js`.
-- When adding or refactoring shared modules, keep exports in the named entry file instead of introducing an `index.*` barrel.
-- If an existing area already uses a named entry file convention, extend that convention rather than adding an `index.*` alongside it.
+- Do not create unit tests in ad hoc locations next to random source files.
+- For new unit tests, create a colocated `__test__` folder near the code under test.
+- Prefer `feature/__test__/feature.test.ts` or `feature/__test__/feature.test.js` over `feature/feature.test.ts`.
+- If a feature area already has a local `__tests__` folder, extend that existing folder instead of introducing a second test-folder convention in the same area unless the user explicitly asks to migrate it.
+- When moving or creating tests, update relative imports so the test still targets the same implementation module.
+
+Examples:
+`packages/shared/modules/utils/vscodeBootstrap.ts` -> `packages/shared/modules/utils/__test__/vscodeBootstrap.test.ts`
+`packages/lwc/app/component/skeleton/directView/directView.ts` -> `packages/lwc/app/component/skeleton/directView/__test__/directView.test.ts`
 
 ---
 > Source: [grebmann1/workbench](https://github.com/grebmann1/workbench) — distributed by [TomeVault](https://tomevault.io).
