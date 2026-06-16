@@ -4,7 +4,7 @@
   "repo": "mojocarrot-on-desk",
   "description": "\u7206\u6539rullerzhou-afk/clawd-on-desk\u9879\u76ee\uff0c\u7ed9WMLS\u4eec\u642d\u5efa\u7684mojocarrot\u684c\u5ba0\uff01  A desktop pet that reacts to your Claude Code sessions in real-time \u2014 thinking, typing,  juggling, sleeping, and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lukelei2025/mojocarrot-on-desk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T02:37:40Z"
+  "distributed_at": "2026-06-16T02:42:41Z"
 }
