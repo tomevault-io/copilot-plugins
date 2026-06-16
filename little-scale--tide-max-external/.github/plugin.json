@@ -1,0 +1,9 @@
+{
+  "name": "little-scale--tide-max-external",
+  "displayName": "tide-max-external",
+  "description": "A Max/MSP external inspired by the core waveshaping algorithms from Mutable Instruments Tides 2, reimplemented as a single LFO output with unique asymmetric ramps, shape controls, and smoothness proce",
+  "version": "1.0.0",
+  "author": "little-scale",
+  "homepage": "https://github.com/little-scale/tide-max-external",
+  "skills": []
+}
