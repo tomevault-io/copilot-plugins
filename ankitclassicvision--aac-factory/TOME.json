@@ -4,7 +4,7 @@
   "repo": "aac-factory",
   "description": "Turn a one-sentence idea into a certified AI Agent Workflow blueprint: interview \u2192 ATLAS \u2192 concept map \u2192 AAC cards \u2192 blind QA \u2192 self-healing \u2192 model improvement loops. Human over the loop. Your workflows stay private.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AnkitClassicVision/aac-factory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T12:30:24Z"
+  "distributed_at": "2026-06-16T12:31:52Z"
 }
