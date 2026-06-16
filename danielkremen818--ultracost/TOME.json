@@ -4,7 +4,7 @@
   "repo": "ultracost",
   "description": "Cut Claude Code dynamic-workflow costs: pin the right model + effort on every subagent stage, estimate spend before launch, and block scripts that would silently run every stage on Opus.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danielkremen818/ultracost",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T10:33:47Z"
+  "distributed_at": "2026-06-16T10:34:17Z"
 }
