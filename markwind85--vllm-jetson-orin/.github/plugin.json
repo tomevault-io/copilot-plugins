@@ -1,0 +1,9 @@
+{
+  "name": "markwind85--vllm-jetson-orin",
+  "displayName": "vllm-jetson-orin",
+  "description": "vllm-jetson-orin",
+  "version": "1.0.0",
+  "author": "MarkWind85",
+  "homepage": "https://github.com/MarkWind85/vllm-jetson-orin",
+  "skills": []
+}
