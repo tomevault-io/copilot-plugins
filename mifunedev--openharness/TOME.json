@@ -4,7 +4,7 @@
   "repo": "openharness",
   "description": "\ud83c\udfd7\ufe0f We provide the Sandbox. You choose the Harness.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mifunedev/openharness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T17:04:34Z"
+  "distributed_at": "2026-06-16T17:07:18Z"
 }
