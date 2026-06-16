@@ -1,0 +1,9 @@
+{
+  "name": "chocks--agentctl",
+  "displayName": "agentctl",
+  "description": "agentctl is a focused v1 control layer for coding agents. It gates a small set of high-risk actions, records structured traces for every decision, and replays prior sessions against a different policy",
+  "version": "1.0.0",
+  "author": "chocks",
+  "homepage": "https://github.com/chocks/agentctl",
+  "skills": []
+}
