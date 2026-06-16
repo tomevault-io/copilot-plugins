@@ -1,0 +1,9 @@
+{
+  "name": "infracost--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "infracost",
+  "homepage": "https://github.com/infracost/agent-skills",
+  "skills": []
+}
