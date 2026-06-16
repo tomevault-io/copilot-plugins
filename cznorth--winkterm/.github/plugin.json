@@ -1,0 +1,9 @@
+{
+  "name": "cznorth--winkterm",
+  "displayName": "winkterm",
+  "description": "AI that shares your terminal session. Open-source AI terminal where the AI types commands directly into your shell, not just suggests them. SSH, Docker, BYO LLM.",
+  "version": "1.0.0",
+  "author": "Cznorth",
+  "homepage": "https://github.com/Cznorth/winkterm",
+  "skills": []
+}
