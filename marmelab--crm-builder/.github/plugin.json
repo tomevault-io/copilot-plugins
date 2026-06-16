@@ -1,0 +1,9 @@
+{
+  "name": "marmelab--crm-builder",
+  "displayName": "crm-builder",
+  "description": "A coding harness for building custom CRMs",
+  "version": "1.0.0",
+  "author": "marmelab",
+  "homepage": "https://github.com/marmelab/crm-builder",
+  "skills": []
+}
