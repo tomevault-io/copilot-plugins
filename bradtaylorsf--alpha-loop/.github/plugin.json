@@ -1,0 +1,9 @@
+{
+  "name": "bradtaylorsf--alpha-loop",
+  "displayName": "alpha-loop",
+  "description": "Agent-agnostic automated development loop: Plan -> Build -> Test -> Review -> Ship",
+  "version": "1.0.0",
+  "author": "bradtaylorsf",
+  "homepage": "https://github.com/bradtaylorsf/alpha-loop",
+  "skills": []
+}
