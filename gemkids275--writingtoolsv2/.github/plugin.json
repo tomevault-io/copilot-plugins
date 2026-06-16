@@ -1,0 +1,9 @@
+{
+  "name": "gemkids275--writingtoolsv2",
+  "displayName": "WritingToolsV2",
+  "description": "A customized fork of WritingTools \u2014 a system-wide AI writing assistant for macOS, Windows & Linux. Extended with Claude, Mistral, OpenRouter support, image attachments, native Swift UI improvements, a",
+  "version": "1.0.0",
+  "author": "gemkids275",
+  "homepage": "https://github.com/gemkids275/WritingToolsV2",
+  "skills": []
+}
