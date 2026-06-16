@@ -1,0 +1,9 @@
+{
+  "name": "discod73--nous-core",
+  "displayName": "nous-core",
+  "description": "Local-first, privacy-preserving multi-agent AI system for families. Runs on Raspberry Pi 5 + Jetson Orin NX. No cloud. No subscriptions. Your data stays home.",
+  "version": "1.0.0",
+  "author": "Discod73",
+  "homepage": "https://github.com/Discod73/nous-core",
+  "skills": []
+}
