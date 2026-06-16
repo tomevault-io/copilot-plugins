@@ -1,0 +1,9 @@
+{
+  "name": "subzeroid--instagram-downloader-tgbot",
+  "displayName": "instagram-downloader-tgbot",
+  "description": "\ud83d\udce5 Telegram bot for downloading Instagram posts, stories, reels and highlights. Powered by HikerAPI.",
+  "version": "1.0.0",
+  "author": "subzeroid",
+  "homepage": "https://github.com/subzeroid/instagram-downloader-tgbot",
+  "skills": []
+}
