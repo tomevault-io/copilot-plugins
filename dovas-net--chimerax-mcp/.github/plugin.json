@@ -1,0 +1,9 @@
+{
+  "name": "dovas-net--chimerax-mcp",
+  "displayName": "chimeraX-mcp",
+  "description": "MCP server connecting AI assistants to UCSF ChimeraX for molecular visualization and structural biology",
+  "version": "1.0.0",
+  "author": "dovas-net",
+  "homepage": "https://github.com/dovas-net/chimeraX-mcp",
+  "skills": []
+}
