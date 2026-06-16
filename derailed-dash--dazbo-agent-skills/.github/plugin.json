@@ -1,0 +1,9 @@
+{
+  "name": "derailed-dash--dazbo-agent-skills",
+  "displayName": "dazbo-agent-skills",
+  "description": "A collection of agentic skills developed for AI agents and assistants. These skills extend the capabilities of AI agents by providing specialised instructions, workflows, and templates for various tas",
+  "version": "1.0.0",
+  "author": "derailed-dash",
+  "homepage": "https://github.com/derailed-dash/dazbo-agent-skills",
+  "skills": []
+}
