@@ -1,0 +1,9 @@
+{
+  "name": "cmaughan--draxul",
+  "displayName": "Draxul",
+  "description": "\ud83e\ude78 A Dark Factory agentic project. A Universal console shell, city-as-code metaphor.  Cross platform Vulkan and Metal, PC & Mac.  Powershell, Neovim GUI RPC, Bash, Zsh; any shell you like, it will host",
+  "version": "1.0.0",
+  "author": "cmaughan",
+  "homepage": "https://github.com/cmaughan/Draxul",
+  "skills": []
+}
