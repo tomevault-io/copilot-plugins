@@ -1,0 +1,9 @@
+{
+  "name": "gravitykit--block-mcp",
+  "displayName": "block-mcp",
+  "description": "WordPress block-level CRUD MCP server \u2014 path-based mutations, safety guards, preference scoring",
+  "version": "1.0.0",
+  "author": "GravityKit",
+  "homepage": "https://github.com/GravityKit/block-mcp",
+  "skills": []
+}
