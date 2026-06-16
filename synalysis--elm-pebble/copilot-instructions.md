@@ -1,50 +1,47 @@
-## elmc-generic-fusion
+## fix-toolchain-not-apps
 
-> elmc fusion must be generic IR patterns, not app-specific algorithms
+> Fix compiler/toolchain when Elm is correct; no app workarounds
 
 
-# Generic Fusion Only (elmc C Codegen)
+# Correct Elm → Fix the Toolchain
 
-Compiler fusion in **elmc** must detect **reusable Elm IR patterns** and emit **generic C** that implements that pattern. It must not replace a function body with one app's algorithm.
+When application Elm is **semantically correct** (valid Elm, matches intended behavior, uses declared APIs), failures belong in the **toolchain**, not in app code.
 
-Matching IR shape is **not** enough. The emitted C must be correct for **every** app that could match the pattern.
+Fix at the root in: parser, tokenizer, IR/lowering, **elmc**, **elmx**, **elm_ex**, runtime, debugger, IDE, emulator glue — wherever the bug actually lives.
 
-## Allowed
+## Do Not
 
-- Pattern detection from IR structure (calls, `List.map`/`foldl`/`all`, bounds checks, grid indexing, case-on-tuple keys).
-- Generated C that is a direct, generic lowering of that pattern (for example `y * cols + x` list access, bounds-checked cell update, static table from `case (k, r)` branches).
-- Using names from the function being compiled (`name` parameter) for C symbol prefixes — not hardcoded app function names as fusion triggers.
-- Reachability metadata derived from IR (`runtime_callees`), not hardcoded callee lists.
+- Rewrite app/template Elm to dodge codegen, runtime, or IDE bugs (for example replacing `case activePiece model of … piece ->` with manual field reads from `model`).
+- Add “works around elmc” patterns in `Main.elm`, templates, or samples when the Elm you wrote is what a normal Elm compiler would accept.
+- Ship one-app shims in the compiler to make a single template pass (see also **Generic Code Rules**).
+- Ask apps to rename `Msg` constructors so platform shims recognize them (`CurrentDateTime`, `HourChanged`, etc.) — tags must come from the call site in the cmd/sub, not name-guess lists (see **Msg and Cmd wiring** in Generic Code Rules).
 
-## Forbidden
+## Do
 
-- Emitting magic numbers, layout constants, or control flow copied from one template (for example fixed `top = 30`, wall-kick sequences, spawn position formulas) unless they are **literal values in the matched IR**.
-- Fusion gated on a specific function name (`name == "boardLayout"`, `name == "dropStep"`) instead of IR pattern.
-- Fusion that would produce **wrong results** for another app with the same structural pattern but different semantics.
-- Whole-function rewrites of update/spawn/render logic that belong in app Elm, not the compiler.
+- Treat correct Elm as the specification; make the toolchain match Elm semantics and project contracts.
+- Add or extend **toolchain tests** (elmc/elmx/elm_ex/ide) that reproduce the bug from minimal IR or Elm, then fix the implementation.
+- Prefer fixes that apply to **all** apps with the same language construct (patterns, types, subscriptions), not one project slug.
+- Change app Elm only when the Elm was wrong, incomplete, or intentionally adopting a new contract.
 
-## Litmus Test
+## Safety Goal
 
-Before adding or keeping a fusion, ask:
-
-1. Could this IR pattern appear in **multiple unrelated apps**?
-2. Does the emitted C implement the **pattern**, or does it implement **one app's function**?
-3. If two apps share the pattern but differ in constants or branches, would both stay correct?
-
-If (1) is yes but (2) or (3) is no → **do not fuse**. Let normal codegen emit the Elm semantics.
+On-device/watch behavior should not fault on well-typed, memory-safe Elm logic — same spirit as Elm on the web. The only acceptable hard crash from normal app logic is **out-of-memory** (or equivalent platform resource exhaustion), not bad codegen or wrong runtime representation.
 
 ## Examples
 
-- **Bad:** `BoardLayoutLoop` — matches `displayShapeIsRound` + layout record, but emits elmtris layout math (`gap = 1`, `top = 30`, `diameter * 2/3`). game-2048 uses different gaps, margins, and sizing with the same rough shape.
-- **Bad:** `PieceMotionLoop` / `SpawnPieceLoop` — reimplement tetris update/spawn as native C instead of lowering Elm.
-- **Good:** `Tuple2CaseTable` — `case (k, r) of …` → static lookup table derived from branch literals in IR.
-- **Good:** `CellAtLoop` — `y < 0` guard + `withDefault 0 (listAt board (y * cols + x))` → `elmc_list_nth_int_default(board, y * cols + x, 0)`.
+- **Bad:** `dropStep` uses `if hasPiece model` and `model.pieceY` because `case activePiece` codegen passes the `Maybe` wrapper to `elmc_record_get`.
+- **Good:** fix `Elmc.Backend.CCodegen.Patterns` so `Nothing` + bare-var `case` binds the Just payload (like elmx already does).
 
-## When Adding Fusion
+- **Bad:** special-case `game-elmtris` in `elmc` or the IDE.
+- **Good:** a codegen test for `case maybe of Nothing -> …; x -> …` and a generic `bind_pattern` fix.
 
-- Add a **minimal fixture** with the same IR pattern and **different function/field names** to prove genericity.
-- Add a **second template or app** when the pattern is domain-shaped (grids, tables) to catch semantic drift.
-- If an optimization only helps one sample and cannot be generalized, **remove it** — do not rename it.
+- **Bad:** `getCurrentDateTime` emits only command kind; runtime uses `pick_tag(..., ["CurrentDateTime", "GotCurrentDateTime"])`.
+- **Good:** encode `constructor_tag_expr(to_msg)` in the cmd tuple (like `storageReadInt`); runtime dispatches the tag from the queued cmd.
+
+## When Changing the Toolchain
+
+- Prove the fix with a focused test in the package you changed, plus a second fixture/template when the path is shared.
+- Do not “fix” the emulator or debugger by patching runtime model in ways that hide compiler bugs unless that layer is genuinely the owner of the contract.
 
 ---
 > Source: [synalysis/elm-pebble](https://github.com/synalysis/elm-pebble) — distributed by [TomeVault](https://tomevault.io).
