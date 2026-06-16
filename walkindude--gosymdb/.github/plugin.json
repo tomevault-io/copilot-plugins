@@ -1,0 +1,9 @@
+{
+  "name": "walkindude--gosymdb",
+  "displayName": "gosymdb",
+  "description": "A Go symbol and call-graph database backed by SQLite. Query symbols, callers, callees, blast radius, dead code, and interface implementors as structured JSON \u2014 typed code navigation for AI agents (MCP",
+  "version": "1.0.0",
+  "author": "walkindude",
+  "homepage": "https://github.com/walkindude/gosymdb",
+  "skills": []
+}
