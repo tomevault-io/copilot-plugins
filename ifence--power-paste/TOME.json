@@ -1,0 +1,44 @@
+{
+  "name": "power-paste",
+  "owner": "iFence",
+  "repo": "power-paste",
+  "description": "Power Paste is a desktop clipboard history manager built with Tauri 2, Vue 3, and Rust.It is designed around a native-feeling workflow: monitor clipboard changes in the background, open a compact history panel with a global shortcut, then quickly search, preview, copy, edit, or paste previous items back into the last target application.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iFence/power-paste",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T18:55:16Z"
+}
