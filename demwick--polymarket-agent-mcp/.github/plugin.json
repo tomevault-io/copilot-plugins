@@ -1,0 +1,9 @@
+{
+  "name": "demwick--polymarket-agent-mcp",
+  "displayName": "polymarket-agent-mcp",
+  "description": "The most comprehensive MCP server for Polymarket \u2014 48 tools spanning direct trading, market discovery, smart money tracking, copy trading, backtesting, risk management, and portfolio optimization. Wor",
+  "version": "1.0.0",
+  "author": "demwick",
+  "homepage": "https://github.com/demwick/polymarket-agent-mcp",
+  "skills": []
+}
