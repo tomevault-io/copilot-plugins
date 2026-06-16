@@ -1,0 +1,14 @@
+{
+  "name": "github--copilot-billing-preview",
+  "displayName": "copilot-billing-preview",
+  "description": "An application for previewing and comparing your future GitHub Copilot bills as you transition to the new usage-based billing model.",
+  "version": "1.0.0",
+  "author": "github",
+  "homepage": "https://github.com/github/copilot-billing-preview",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
