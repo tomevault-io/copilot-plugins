@@ -7,11 +7,11 @@ Agent and LLM API performance monitoring via network packet probe. Measures perf
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Netis/heron](https://github.com/Netis/heron).
+Original source: `AGENTS.md` in [Netis/heron](https://github.com/Netis/heron).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
