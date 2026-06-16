@@ -1,18 +1,37 @@
-## temper-skill-source-driven
+## temper-temper-core
 
-> Version-aware, source-driven development — fetch official docs before writing framework code
+> Temper core: stack detection, quality gates, blast radius, learning
 
 
-# Source-Driven Development
+# Temper Core
 
-Write framework-specific code against current official documentation, not stale training data.
+Stack detection → Quality gates (SUGGEST/WARN/BLOCK) → Confidence scoring (0.0-1.0) → Review memory → Metrics.
 
-For the full source-driven process, apply the `.claude/skills/source-driven-development/SKILL.md` definitions:
-- Detect version -> Fetch current docs -> Cite sources -> Surface conflicts
-- Authority hierarchy: official docs > type definitions > source code > community > training data
-- Use Context7 MCP when available; fall back to web search (label as HEURISTIC)
+## Stack Detection
+1. `.claude/temper.config` → `stack` field
+2. `.claude/presets/*.yaml` → `stack` section
+3. Auto-detect: pom.xml→Spring Boot, package.json→Node, pyproject.toml→Python, go.mod→Go, Cargo.toml→Rust
+4. Load `.claude/packs/stacks/{stack}.md`
 
-Apply before writing framework-specific code. Skip for plain logic or known patterns.
+## Pack Resolution (v4.3.0)
+Three-tier: project-local > global > built-in. Cached in `.temper/pack-manifest.json`.
+- `.claude/packs/{name}/rules.md` (project)
+- `~/.claude/packs/{name}/rules.md` (global)
+- `$CLAUDE_PLUGIN_ROOT/.claude/packs/{name}/rules.md` (built-in)
+Packs support `link: plugin://name | skill://name` and `phases: [build, review, ...]`.
+
+## Quality Gates
+- **SUGGEST**: Non-blocking
+- **WARN**: Highlighted, developer decides
+- **BLOCK**: Must fix (security/architecture only)
+
+## Confidence & Memory
+- Threshold: 0.7 (configurable)
+- Review memory: `.temper/review-memory.json` — auto-suppress after 5 dismissals
+- Metrics: `.temper/metrics.json`
+
+## Full Docs
+`$CLAUDE_PLUGIN_ROOT/.claude-plugin/reference/{command}.md`
 
 ---
 > Source: [galando/temper](https://github.com/galando/temper) — distributed by [TomeVault](https://tomevault.io).
