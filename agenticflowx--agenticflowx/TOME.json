@@ -4,7 +4,7 @@
   "repo": "agenticflowx",
   "description": "AgenticFlowX is a VS Code workflow layer for AI coding. It gives you chat-first coding, Code / Explore / Spec modes, actionable markdown previews, an experimental project canvas, and repo-owned project memory for requirements, designs, tasks, journals, ADRs, notes, and traceability.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgenticFlowX/agenticflowx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T20:51:32Z"
+  "distributed_at": "2026-06-16T21:11:30Z"
 }
