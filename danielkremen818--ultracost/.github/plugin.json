@@ -1,0 +1,9 @@
+{
+  "name": "danielkremen818--ultracost",
+  "displayName": "ultracost",
+  "description": "Cut Claude Code dynamic-workflow costs: pin the right model + effort on every subagent stage, estimate spend before launch, and block scripts that would silently run every stage on Opus.",
+  "version": "1.0.0",
+  "author": "danielkremen818",
+  "homepage": "https://github.com/danielkremen818/ultracost",
+  "skills": []
+}
