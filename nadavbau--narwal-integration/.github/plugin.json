@@ -1,0 +1,9 @@
+{
+  "name": "nadavbau--narwal-integration",
+  "displayName": "narwal-integration",
+  "description": "Home Assistant Narwal Robovac Integration",
+  "version": "1.0.0",
+  "author": "nadavbau",
+  "homepage": "https://github.com/nadavbau/narwal-integration",
+  "skills": []
+}
