@@ -1,0 +1,23 @@
+## deveco-code
+
+> **A single task may match multiple rows — always read all matching documents before proceeding.**
+
+# AGENTS.md
+
+## Quick Reference
+
+**A single task may match multiple rows — always read all matching documents before proceeding.**
+
+| When you need to... | Read this |
+|---------------------|-----------|
+| Understand the project layout or find where a package lives | [ARCHITECTURE.md](./ARCHITECTURE.md) |
+| Look up feature specs, or keep feature docs in sync with code changes | [specs/FEATURES-INDEX.md](./specs/FEATURES-INDEX.md) |
+| Write or review code (style, patterns, testing rules — **code style only**; branch/process conventions follow other docs in this table) | [OPENCODE-AGENTS.md](./OPENCODE-AGENTS.md) |
+| Development workflow, branch strategy, commit conventions, and PR process | [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) |
+| Release workflow, versioning, and hotfix procedures | [RELEASE-WORKFLOW.md](./RELEASE-WORKFLOW.md) |
+| Sync changes from the upstream OpenCode repo | [.agents/skills/upstream-sync/SKILL.md](./.agents/skills/upstream-sync/SKILL.md) |
+| Check the upstream OpenCode baseline tag version | [.agents/upstream-sync/BASELINE.md](./.agents/upstream-sync/BASELINE.md) |
+
+---
+> Source: [CarSmallGuo/deveco-code](https://github.com/CarSmallGuo/deveco-code) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
