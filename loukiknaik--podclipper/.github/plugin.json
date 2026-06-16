@@ -1,0 +1,9 @@
+{
+  "name": "loukiknaik--podclipper",
+  "displayName": "PodClipper",
+  "description": "Local-first pipeline that turns long-form videos into vertical 9:16 reels: Whisper transcription, Claude-driven clip selection, YOLO speaker tracking, OpenCV smart crop, karaoke subtitles",
+  "version": "1.0.0",
+  "author": "LoukikNaik",
+  "homepage": "https://github.com/LoukikNaik/PodClipper",
+  "skills": []
+}
