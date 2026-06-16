@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--sample-agentic-ai-data-operations",
+  "displayName": "sample-Agentic-Ai-Data-Operations",
+  "description": "Agentic Data Onboarding Platform(ADOP) \u2014 an AI-driven system that automates Silver\u2192Bronze\u2192Gold data pipeline lifecycle (ETL scripts, quality checks, Airflow DAGs,        semantic layer) from a natural",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-Agentic-Ai-Data-Operations",
+  "skills": []
+}
