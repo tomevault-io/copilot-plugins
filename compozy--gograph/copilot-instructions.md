@@ -1,56 +1,29 @@
-## review-checklist
+## section-comments
 
-> Code review guidelines and checklist for Compozy development
+> <comment_formatting_rule>
 
-# Code Review Checklist
+<comment_formatting_rule>
+- Use section comments with dashes for visual separation:
+  ```go
+  // -----------------------------------------------------------------------------
+  // Section Name
+  // -----------------------------------------------------------------------------
+  ```
+</comment_formatting_rule>
 
-## Pre-Review Requirements
+<example type="bad_practice">
+## Bad
+// -----
+// Section Name
+// -----
+</example>
 
-<pre_review_requirements>
-Before submitting code for review, ensure:
-- All tests pass and follow the established testing patterns
-- Code has been formatted with `go fmt`
-- All linter warnings have been addressed
-- Error handling follows project patterns
-- Security considerations have been addressed
-</pre_review_requirements>
-
-## Review Checklist
-
-<checklist type="code_review">
-1. Does the code follow the established project structure and patterns?
-2. Are errors handled appropriately and with context?
-3. Is the code well-tested with both unit and integration tests?
-4. Are interfaces used appropriately to define behavior?
-5. Does the code pass all linter checks?
-6. Is the code secure and performant?
-7. Are dependencies injected properly?
-8. Is context propagated correctly?
-9. Is the code simple, readable, and maintainable?
-</checklist>
-
-## Common Issues to Watch For
-
-<common_issues type="code_quality">
-- Missing error handling or inappropriate error propagation
-- Tests that don't follow the `t.Run("Should...")` pattern
-- Hardcoded values that should be configurable
-- Missing context propagation in functions that make external calls
-- Security vulnerabilities like exposed secrets or unvalidated inputs
-- Performance issues like unnecessary allocations or inefficient algorithms
-- Code that doesn't follow established project patterns
-- Missing or inadequate test coverage
-</common_issues>
-
-## Review Process
-
-<review_process>
-- Focus on correctness, maintainability, and adherence to standards
-- Check for proper error handling and testing patterns
-- Verify security considerations have been addressed
-- Ensure code follows established project patterns and conventions
-- Look for opportunities to improve code clarity and efficiency
-</review_process>
+<example type="good_practice">
+## Good
+// -----------------------------------------------------------------------------
+// Section Name
+// -----------------------------------------------------------------------------
+</example>
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
