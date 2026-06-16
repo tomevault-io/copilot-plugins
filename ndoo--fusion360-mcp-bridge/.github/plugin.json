@@ -1,0 +1,9 @@
+{
+  "name": "ndoo--fusion360-mcp-bridge",
+  "displayName": "fusion360-mcp-bridge",
+  "description": "Connect Claude Code to Fusion 360 via MCP \u2014 read/create/update/delete CAD geometry through natural language",
+  "version": "1.0.0",
+  "author": "ndoo",
+  "homepage": "https://github.com/ndoo/fusion360-mcp-bridge",
+  "skills": []
+}
