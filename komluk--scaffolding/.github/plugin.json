@@ -1,0 +1,14 @@
+{
+  "name": "komluk--scaffolding",
+  "displayName": "scaffolding",
+  "description": "11 agents, 31 skills, 15 commands, 8 hooks \u2014 spec-driven multi-agent orchestration for Claude Code.",
+  "version": "1.0.0",
+  "author": "komluk",
+  "homepage": "https://github.com/komluk/scaffolding",
+  "skills": [
+    {
+      "name": "pattern-recognition",
+      "description": ""
+    }
+  ]
+}
