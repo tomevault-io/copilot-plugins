@@ -1,95 +1,266 @@
-## compozy-shared-patterns
+## compozy-task-patterns
 
-> Shared patterns for MCP integrations, references, and templates in Compozy
+> Task type patterns and execution strategies for Compozy workflows
 
-# Compozy Shared Patterns
+# Compozy Task Patterns
 
-<configuration_overview type="shared_patterns">
-Shared patterns include MCP integrations, reference syntax, and template expressions used across all Compozy configuration files.
+<configuration_overview type="task_patterns">
+Task patterns define different types of task execution strategies including basic, composite, parallel, collection, router, signal, and aggregate tasks.
 </configuration_overview>
 
-## MCP Integration Patterns
+## Basic Task Pattern
 
-<mcp_patterns type="filesystem_mcp">
+<task_patterns type="basic_task">
 ```yaml
-mcps:
-  - id: file_server
-    transport: stdio
-    command: npx
-    args:
-      - -y
-      - "@modelcontextprotocol/server-filesystem"
-      - "./"
-    proto: "2025-03-26"
-    start_timeout: 15s
+# Basic task with tool execution
+- id: weather
+  type: basic
+  $use: tool(local::tools.#(id=="weather_tool"))
+  with:
+    city: "{{ .workflow.input.city }}"
+  outputs:
+    temperature: "{{ .output.temperature }}"
+    city: "{{ .workflow.input.city }}"
+  on_success:
+    next: next_task
 ```
-</mcp_patterns>
+</task_patterns>
 
-<mcp_patterns type="http_mcp">
+## Composite Task Pattern
+
+<task_patterns type="composite_task">
 ```yaml
-mcps:
-  - id: search-mcp
-    url: http://localhost:3000
-    transport: sse
-    env:
-      API_KEY: "{{ .env.SEARCH_API_KEY }}"
+# Composite task containing multiple sub-tasks
+- id: root_composite
+  type: composite
+  strategy: fail_fast
+  tasks:
+    - id: subtask_1
+      type: basic
+      $use: tool(local::tools.#(id=="echo_tool"))
+      with:
+        message: "First subtask"
+    - id: subtask_2
+      type: basic
+      $use: tool(local::tools.#(id=="echo_tool"))
+      with:
+        message: "Second subtask"
 ```
-</mcp_patterns>
+</task_patterns>
 
-## Reference Patterns
+## Parallel Task Pattern
 
-<reference_patterns type="local_references">
+<task_patterns type="parallel_task">
 ```yaml
-# Local references within the same file
-$ref: local::schemas.#(id=="city_input")
-$ref: local::tools.#(id=="weather_tool")
-$ref: local::agents.#(id=="tourist_guide")
-$ref: local::tasks.#(id=="save_results")
-
-# Global references to project-level resources
-$ref: global::models.#(provider=="groq")
-
-# Resource references to external files
-$ref: resource::agent::#(id=='file_reader')
+# Parallel task execution
+- id: parallel_section
+  type: parallel
+  strategy: wait_all  # or race
+  tasks:
+    - id: task_a
+      type: basic
+      $use: tool(local::tools.#(id=="echo_tool"))
+      with:
+        message: "Parallel Task A"
+    - id: task_b
+      type: basic
+      $use: tool(local::tools.#(id=="echo_tool"))
+      with:
+        message: "Parallel Task B"
 ```
-</reference_patterns>
+</task_patterns>
 
-<reference_patterns type="use_patterns">
+## Collection Task Pattern
+
+<task_patterns type="collection_task">
 ```yaml
-# Using tools
-$use: tool(local::tools.#(id=="weather_tool"))
-
-# Using agents
-$use: agent(local::agents.#(id=="tourist_guide"))
-$use: agent(resource::agent::#(id=='file_reader'))
+# Collection task for processing arrays
+- id: collection_section
+  type: collection
+  mode: parallel  # or sequential
+  strategy: best_effort  # or fail_fast
+  items: "{{ .workflow.input.test_data }}"
+  task:
+    id: "process-{{ .index }}"
+    type: basic
+    $use: tool(local::tools.#(id=="echo_tool"))
+    with:
+      message: "Processing item: {{ .item }} at index {{ .index }}"
 ```
-</reference_patterns>
+</task_patterns>
 
-## Template Expression Patterns
+## Router Task Pattern
 
-<template_patterns type="common_expressions">
+<task_patterns type="router_task">
 ```yaml
-# Workflow input access
-"{{ .workflow.input.city }}"
-
-# Task output access
-"{{ .tasks.weather.output.temperature }}"
-"{{ .tasks.activities.output | toJson }}"
-
-# Collection item access
-"{{ .item }}"
-"{{ .index }}"
-
-# Conditional expressions
-'{{ .tasks.clothing.output.clothing | empty | ternary "no_clothes" "has_clothes" }}'
-
-# Current timestamp
-"{{ now }}"
-
-# Array length
-"{{ len .output }}"
+# Router task for conditional branching
+- id: clothing_check
+  type: router
+  condition: '{{ .tasks.clothing.output.clothing | empty | ternary "no_clothes" "has_clothes" }}'
+  routes:
+    has_clothes:
+      $ref: local::tasks.#(id="save_results")
+    no_clothes:
+      $ref: local::tasks.#(id="no_results")
 ```
-</template_patterns>
+</task_patterns>
+
+## Signal Task Pattern
+
+<task_patterns type="signal_task">
+```yaml
+# Signal task for workflow communication
+- id: send-signal
+  type: signal
+  signal:
+    id: workflow-ready
+    payload:
+      message: "Hello from sender!"
+```
+</task_patterns>
+
+## Aggregate Task Pattern
+
+<task_patterns type="aggregate_task">
+```yaml
+# Aggregate task for combining outputs
+- id: aggr
+  type: aggregate
+  outputs:
+    city: "{{ .workflow.input.city }}"
+    weather: "{{ .tasks.weather.output }}"
+    activities: "{{ .tasks.activities.output }}"
+    analysis: "{{ .tasks.activity_analysis.output }}"
+```
+</task_patterns>
+
+## Workflow Configuration Structure
+
+<workflow_config_pattern type="basic_structure">
+```yaml
+id: workflow-name
+version: 0.1.0
+description: Workflow description
+
+config:
+  input:
+    type: object
+    properties:
+      city:
+        type: string
+        description: The city name
+    required:
+      - city
+
+schemas:
+  - id: city_input
+    type: object
+    properties:
+      city:
+        type: string
+        description: The city to get weather information for
+    required:
+      - city
+
+tools:
+  - id: tool_name
+    description: Tool description
+    execute: ./tool_file.ts
+    input:
+      $ref: local::schemas.#(id=="city_input")
+
+tasks:
+  - id: task_name
+    type: basic
+    $use: tool(local::tools.#(id=="tool_name"))
+    with:
+      city: "{{ .workflow.input.city }}"
+```
+</workflow_config_pattern>
+
+## Strategy Patterns
+
+<strategy_patterns type="execution_strategies">
+```yaml
+# Composite task strategies
+strategy: fail_fast    # Stop on first failure
+strategy: best_effort  # Continue despite failures
+
+# Parallel task strategies
+strategy: wait_all      # Wait for all tasks to complete
+strategy: race          # First task to complete wins
+
+# Collection task strategies
+strategy: fail_fast     # Stop on first failure
+strategy: best_effort   # Process all items regardless of failures
+```
+</strategy_patterns>
+
+## Trigger Patterns
+
+<trigger_patterns type="signal_trigger">
+```yaml
+# Signal-based workflow trigger
+triggers:
+  - type: signal
+    name: workflow-ready
+```
+</trigger_patterns>
+
+## Tool Configuration
+
+<tool_config_pattern type="typescript_tool">
+```yaml
+tools:
+  - id: weather_tool
+    description: Get the current weather for a specific location
+    execute: ./weather_tool.ts
+    input:
+      type: object
+      properties:
+        city:
+          type: string
+          description: The city to get weather for
+      required:
+        - city
+
+  - id: save_data
+    description: Save data to a file
+    execute: ./save_tool.ts
+    input:
+      type: object
+      properties:
+        payload:
+          type: object
+        format:
+          type: string
+          enum: ["json", "txt"]
+      required:
+        - payload
+        - format
+```
+</tool_config_pattern>
+
+## Deno Configuration
+
+<deno_config_pattern type="tool_imports">
+```json
+{
+  "imports": {
+    "weather_tool": "./weather_tool.ts",
+    "save_data": "./save_tool.ts",
+    "echo_tool": "./echo_tool.ts",
+    "counter_tool": "./counter_tool.ts"
+  },
+  "fmt": {
+    "indentWidth": 4,
+    "useTabs": false,
+    "lineWidth": 100,
+    "singleQuote": false
+  }
+}
+```
+</deno_config_pattern>
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
