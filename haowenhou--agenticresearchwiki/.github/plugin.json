@@ -1,0 +1,9 @@
+{
+  "name": "haowenhou--agenticresearchwiki",
+  "displayName": "AgenticResearchWiki",
+  "description": "An Agent-native Obsidian wiki + CLAUDE.md skeleton that lets Agent know your project as well as you do.",
+  "version": "1.0.0",
+  "author": "HaowenHou",
+  "homepage": "https://github.com/HaowenHou/AgenticResearchWiki",
+  "skills": []
+}
