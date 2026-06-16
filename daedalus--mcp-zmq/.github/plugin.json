@@ -1,0 +1,9 @@
+{
+  "name": "daedalus--mcp-zmq",
+  "displayName": "mcp-zmq",
+  "description": "mcp-zmq",
+  "version": "1.0.0",
+  "author": "daedalus",
+  "homepage": "https://github.com/daedalus/mcp-zmq",
+  "skills": []
+}
