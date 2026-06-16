@@ -7,11 +7,11 @@ Signal conditioning, transformation, and routing in a NATS-native message proces
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lexvicacom/monoblok](https://github.com/lexvicacom/monoblok).
+Original source: `CLAUDE.md` in [lexvicacom/monoblok](https://github.com/lexvicacom/monoblok).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
