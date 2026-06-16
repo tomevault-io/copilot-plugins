@@ -1,38 +1,56 @@
-## quality-security
+## review-checklist
 
-> Security, performance, and code quality standards for Compozy development including linter rules, security requirements, and performance guidelines
+> Code review guidelines and checklist for Compozy development
 
-# Quality and Security Standards
+# Code Review Checklist
 
-## Security
+## Pre-Review Requirements
 
-<security_requirements type="critical">
-- **NEVER commit API keys or secrets** - use environment variables
-- **NEVER expose secrets in logs** - use structured logging without sensitive data
-- **Handle redaction markers:** `[REDACTED:amp-token]` indicates removed secrets - do not overwrite with markers
-- Use the gosec linter to identify security issues
-- Validate all inputs, especially those from external sources
-- Follow secure coding practices for authentication and authorization
-</security_requirements>
+<pre_review_requirements>
+Before submitting code for review, ensure:
+- All tests pass and follow the established testing patterns
+- Code has been formatted with `go fmt`
+- All linter warnings have been addressed
+- Error handling follows project patterns
+- Security considerations have been addressed
+</pre_review_requirements>
 
-## Performance
+## Review Checklist
 
-<performance_guidelines>
-- Minimize allocations in hot paths
-- Consider resource usage and efficiency
-</performance_guidelines>
+<checklist type="code_review">
+1. Does the code follow the established project structure and patterns?
+2. Are errors handled appropriately and with context?
+3. Is the code well-tested with both unit and integration tests?
+4. Are interfaces used appropriately to define behavior?
+5. Does the code pass all linter checks?
+6. Is the code secure and performant?
+7. Are dependencies injected properly?
+8. Is context propagated correctly?
+9. Is the code simple, readable, and maintainable?
+</checklist>
 
-## Specific Linter Rules to Follow
+## Common Issues to Watch For
 
-<linter_rules type="mandatory">
-- **bodyclose**: Always close HTTP response bodies
-- **errcheck**: Check error returns from all function calls
-- **goconst**: Extract repeated string literals into constants
-- **gocritic**: Follow idiomatic Go practices
-- **staticcheck**: Address all static analysis warnings
-- **unused**: Remove unused code
-- **whitespace**: Maintain consistent whitespace
-</linter_rules>
+<common_issues type="code_quality">
+- Missing error handling or inappropriate error propagation
+- Tests that don't follow the `t.Run("Should...")` pattern
+- Hardcoded values that should be configurable
+- Missing context propagation in functions that make external calls
+- Security vulnerabilities like exposed secrets or unvalidated inputs
+- Performance issues like unnecessary allocations or inefficient algorithms
+- Code that doesn't follow established project patterns
+- Missing or inadequate test coverage
+</common_issues>
+
+## Review Process
+
+<review_process>
+- Focus on correctness, maintainability, and adherence to standards
+- Check for proper error handling and testing patterns
+- Verify security considerations have been addressed
+- Ensure code follows established project patterns and conventions
+- Look for opportunities to improve code clarity and efficiency
+</review_process>
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
