@@ -1,0 +1,9 @@
+{
+  "name": "homebrew--brewui",
+  "displayName": "BrewUI",
+  "description": "\ud83d\udcfa Homebrew's official macOS GUI",
+  "version": "1.0.0",
+  "author": "Homebrew",
+  "homepage": "https://github.com/Homebrew/BrewUI",
+  "skills": []
+}
