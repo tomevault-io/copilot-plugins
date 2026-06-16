@@ -1,0 +1,9 @@
+{
+  "name": "ysf-ad--semantic-auto-linker",
+  "displayName": "semantic-auto-linker",
+  "description": "Safe, reviewable auto-linking for Obsidian with local semantic vault-wide analysis and PCA visualization.",
+  "version": "1.0.0",
+  "author": "ysf-ad",
+  "homepage": "https://github.com/ysf-ad/semantic-auto-linker",
+  "skills": []
+}
