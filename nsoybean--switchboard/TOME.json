@@ -4,7 +4,7 @@
   "repo": "switchboard",
   "description": "Parallel coding agent workspace with native terminals and git worktrees.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nsoybean/switchboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T16:58:04Z"
+  "distributed_at": "2026-06-16T16:58:35Z"
 }
