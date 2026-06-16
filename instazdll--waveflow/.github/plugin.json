@@ -1,0 +1,9 @@
+{
+  "name": "instazdll--waveflow",
+  "displayName": "WaveFlow",
+  "description": "\ud83c\udf0a WaveFlow \u2014 Spotify-style desktop music player for your local library. Lock-free Rust audio (FLAC/MP3/DSD up to DSD1024), 6-band EQ, ReplayGain, gapless, crossfade, synced lyrics (LRCLIB), Last.fm sc",
+  "version": "1.0.0",
+  "author": "InstaZDLL",
+  "homepage": "https://github.com/InstaZDLL/WaveFlow",
+  "skills": []
+}
