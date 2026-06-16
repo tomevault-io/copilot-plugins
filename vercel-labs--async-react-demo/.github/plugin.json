@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--async-react-demo",
+  "displayName": "async-react-demo",
+  "description": "Next.js task board showcasing Async React patterns: useOptimistic, Suspense boundaries, action props, form actions, and more.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/async-react-demo",
+  "skills": []
+}
