@@ -1,0 +1,9 @@
+{
+  "name": "nsoybean--switchboard",
+  "displayName": "switchboard",
+  "description": "Parallel coding agent workspace with native terminals and git worktrees.",
+  "version": "1.0.0",
+  "author": "nsoybean",
+  "homepage": "https://github.com/nsoybean/switchboard",
+  "skills": []
+}
