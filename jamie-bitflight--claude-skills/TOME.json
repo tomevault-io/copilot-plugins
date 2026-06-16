@@ -4,7 +4,7 @@
   "repo": "claude_skills",
   "description": "Plugins for Anthropic's Claude Code, Codex, Cursor and more",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jamie-BitFlight/claude_skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T14:33:09Z"
+  "distributed_at": "2026-06-16T14:34:18Z"
 }
