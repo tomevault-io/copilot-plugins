@@ -4,7 +4,7 @@
   "repo": "wings",
   "description": "WINGS is an open-source, simple golang-based platform for front-end web application development.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/luisfurquim/wings",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T18:37:15Z"
+  "distributed_at": "2026-06-16T21:35:14Z"
 }
