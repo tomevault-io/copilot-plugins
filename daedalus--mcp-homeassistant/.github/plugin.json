@@ -1,0 +1,9 @@
+{
+  "name": "daedalus--mcp-homeassistant",
+  "displayName": "mcp-homeassistant",
+  "description": "mcp-homeassistant",
+  "version": "1.0.0",
+  "author": "daedalus",
+  "homepage": "https://github.com/daedalus/mcp-homeassistant",
+  "skills": []
+}
