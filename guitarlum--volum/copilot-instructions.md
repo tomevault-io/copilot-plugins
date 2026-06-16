@@ -1,59 +1,39 @@
-## volum-release-packaging
+## volum-state-params
 
-> VoLum CI, artifacts, installers, release workflow, and version metadata
+> VoLum parameter order, preset migration, and state persistence rules
 
 
-# VoLum Release And Packaging
+# VoLum State And Params
 
-Branch/workflow facts:
+Parameter rules:
 
-- `CI` uploads `VoLum-win` and `VoLum-mac`; automatic push/PR runs target `dev` and `main`.
-- Manual `CI` runs build the selected ref unless checkout is overridden.
-- `Release Native` is main-only: it checks out `main`, bumps metadata, tags, then builds from that tag.
-- Regular CI now runs Windows/macOS doctests, macOS sanitizer doctests, NAMCore regression tests, Windows installer smoke verification, package layout checks, and VST3 validation through pluginval plus the Steinberg validator when available.
+- `EParams` order is serialization-sensitive.
+- New params need stable `GetName()` strings.
+- Do not reorder params or rename stable names without updating migration code.
+- Keep `test_eparam_order.cpp` and `test_keyboard_steps.cpp` in sync with param changes.
+- PRE NAM capture params (`PreNam1Capture`, `PreNam2Capture`) use `0` as EMPTY and are bounded by the PRE capture list / param range; update `test_volum_pre_pedal_captures.cpp` and `test_volum_chunk_codec.cpp` when that behavior changes.
 
-Branch policy (use this whenever starting new work):
+Preset/session migration:
 
-- Long-lived branches: `main` is the released branch; `dev` is the integration branch.
-- Right after any release lands on `main`, merge `main` into `dev` (`git checkout dev && git merge origin/main`) and push, so `dev` carries the released commits + version metadata.
-- Feature work always branches off the latest `dev`, e.g. `feature/<short-topic>`.
-- When a feature is verified, merge it back into `dev` (PR or fast-forward). Do not merge feature branches directly into `main`.
-- Promote `dev` to `main` only as part of a release (use `release-manager` skill for the PR; see `Release Native` workflow above).
-- Keep unrelated local dirt (especially `iPlug2` ASIO patch dirt) out of any of these merges.
-- Packaging CI fixes should run on a fix branch first. Merge to `dev` only after branch CI is green, unless the user explicitly asks to iterate directly on `dev`.
+- Add a new version/chunk branch in `Unserialization.cpp`; never rewrite old readers.
+- VoLum `0.1.x` intentionally routes through the NAM `0.7.15` reader.
+- VoLum `0.6.0` adds `ReverbPreDelay` and `ReverbShimmer`; preserve those migration paths.
+- If serialization behavior changes, add/update `test_volum_chunk_version.cpp` and `test_volum_chunk_codec.cpp`.
 
-Packaging layout:
+Settings persistence:
 
-- Dev rigs live in `rigs/`; shipped artifacts rename/copy them as `VoLumRigs/`.
-- Windows installer writes `HKLM\Software\VoLum\NeuralAmpModeler\VoLumRigsRoot`.
-- Legacy installs may expose `AmpeteRigsPath`; code treats that as a fallback.
-- Portable packages keep `VoLum.vst3` and sibling `VoLumRigs/` together.
-- macOS standalone embeds `VoLumRigs` in `VoLum.app/Contents/Resources`.
-- macOS VST3 zip keeps `VoLumRigs` beside `VoLum.vst3`.
-- macOS installer app packages must use `pkgbuild --analyze` metadata with
-  `BundleIsRelocatable=false` for `VoLum.app`; otherwise `installer` may update
-  a build-staged app instead of writing `/Applications/VoLum.app`.
-- macOS installer smoke tests should run through
-  `NeuralAmpModeler/scripts/smoke-installer-mac.sh` so local and CI behavior stay
-  identical.
-- PRE NAM captures live in `rigs/PrePedals/` during development and ship as `VoLumRigs/PrePedals/`; package verification must check any `.nam` files in that folder, not only the directory.
-- Never apply Finder custom icons to signed VST3 bundles. Finder icons create root `Icon?` metadata files that break strict code-signature verification after zip/unzip.
-- Before signing or zipping macOS bundles, scrub `Icon?`, `._*`, `.DS_Store`, and extended attributes; verify the staged VST3 before creating the portable zip.
-- When macOS packaging CI fails with `resource fork, Finder information, or similar detritus not allowed` or `unsealed contents present in the bundle root`, inspect root files and xattrs with `NeuralAmpModeler/scripts/debug-mac-vst3-signature.sh`.
+- Per-amp settings write to user profile, not rigs:
+  - Windows: `%LOCALAPPDATA%\VoLum\volum-settings.json`
+  - macOS: `~/Library/Application Support/VoLum/volum-settings.json`
+- `<rigsRoot>/volum-settings.json` remains a legacy read fallback.
 
-Version metadata:
+Verification:
 
-- Use `python3 bump_version.py patch|minor|major` for manual bumps.
-- Release workflow uses `prepare_release.py`, then `update_version-mac.py` and `update_installer-win.py`.
-- Keep `config.h`, `installer/VoLum.iss`, and `resources/*.plist` versions consistent.
-- macOS plist filenames keep `NeuralAmpModeler-*` even though product name is `VoLum`.
-
-Release notes:
-
-- Inspect actual assets with `gh release view` before writing notes.
-- Describe only user-facing changes since the previous published release. Do not include manual test plans, internal RC-only bugs, or fixes for behavior that never shipped publicly.
-- Mention concrete asset names and install path choices when they affect what users download or install.
-- Do not remove README screenshots or CI badges unless explicitly asked.
+- Run `pwsh NeuralAmpModeler/scripts/run-tests-win.ps1`.
+- Add focused doctests for new DSP/state behavior before calling work done.
+- Register new test files in both `NeuralAmpModeler/projects/NeuralAmpModeler-Tests.vcxproj` and `NeuralAmpModeler/tests/CMakeLists.txt`.
+- Params/keyboard/state tests: `test_eparam_order.cpp`, `test_keyboard_steps.cpp`, `test_volum_chunk_version.cpp`, `test_volum_chunk_codec.cpp`.
+- User settings JSON: `test_volum_user_settings_io.cpp`.
 
 ---
 > Source: [guitarlum/VoLum](https://github.com/guitarlum/VoLum) — distributed by [TomeVault](https://tomevault.io).
