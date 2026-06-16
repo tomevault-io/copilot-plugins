@@ -1,0 +1,9 @@
+{
+  "name": "superduck-ai--superduck",
+  "displayName": "superduck",
+  "description": "Open-source AI browser assistant \u2014 any model, anywhere. Browser automation, workflow recording, MCP runtime & CLI.",
+  "version": "1.0.0",
+  "author": "superduck-ai",
+  "homepage": "https://github.com/superduck-ai/superduck",
+  "skills": []
+}
