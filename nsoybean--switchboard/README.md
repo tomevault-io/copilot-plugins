@@ -7,11 +7,11 @@ Parallel coding agent workspace with native terminals and git worktrees.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nsoybean/switchboard](https://github.com/nsoybean/switchboard).
+Original source: `CLAUDE.md` in [nsoybean/switchboard](https://github.com/nsoybean/switchboard).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
