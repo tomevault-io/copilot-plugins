@@ -1,0 +1,9 @@
+{
+  "name": "matheusht--redthread",
+  "displayName": "redthread",
+  "description": "An autonomous red-teaming engine for LLMs. RedThread manages the full security lifecycle: generating adversarial attacks, executing precision evaluations, and synthesizing validated guardrails for saf",
+  "version": "1.0.0",
+  "author": "matheusht",
+  "homepage": "https://github.com/matheusht/redthread",
+  "skills": []
+}
