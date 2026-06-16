@@ -1,0 +1,9 @@
+{
+  "name": "ucsb-ai--length-value-model",
+  "displayName": "Length-Value-Model",
+  "description": "Official implementation of the paper \"Length Value Model: Pretraining Value Model for Scalable Length Prediction and Control\"",
+  "version": "1.0.0",
+  "author": "UCSB-AI",
+  "homepage": "https://github.com/UCSB-AI/Length-Value-Model",
+  "skills": []
+}
