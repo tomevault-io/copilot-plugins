@@ -1,0 +1,9 @@
+{
+  "name": "mrclrchtr--supi",
+  "displayName": "supi",
+  "description": "SuPi (Super Pi) is my curated extension stack for PI, I use in every project, shared in case they help you too. Bundling LSP, TreeSitter, Ask-User-Tool, context monitoring, and practical small extras.",
+  "version": "1.0.0",
+  "author": "mrclrchtr",
+  "homepage": "https://github.com/mrclrchtr/supi",
+  "skills": []
+}
