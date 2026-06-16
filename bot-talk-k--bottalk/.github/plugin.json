@@ -1,0 +1,9 @@
+{
+  "name": "bot-talk-k--bottalk",
+  "displayName": "BotTalk",
+  "description": "\ud83e\udd16 BotTalk \u2014 HTTP \u4e00\u884c\u63a8\u9001\u5230\u5fae\u4fe1 / \u98de\u4e66 \u00b7 \u514d\u8d39\u5f00\u6e90 \u00b7 Server\u9171\u66ff\u4ee3\u54c1 \u00b7 \u626b\u7801\u7ed1\u5b9a \u00b7 \u652f\u6301 Python/Node.js/Go \u00b7 Docker \u81ea\u90e8\u7f72.",
+  "version": "1.0.0",
+  "author": "bot-talk-k",
+  "homepage": "https://github.com/bot-talk-k/BotTalk",
+  "skills": []
+}
