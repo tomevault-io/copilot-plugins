@@ -1,0 +1,9 @@
+{
+  "name": "edulazaro--laraclaude",
+  "displayName": "laraclaude",
+  "description": "The ultimate Laravel toolkit for Claude Code. A collection of specialized skills that help you analyze, debug, scaffold, and optimize Laravel applications",
+  "version": "1.0.0",
+  "author": "edulazaro",
+  "homepage": "https://github.com/edulazaro/laraclaude",
+  "skills": []
+}
