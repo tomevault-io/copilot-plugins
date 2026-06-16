@@ -1,0 +1,9 @@
+{
+  "name": "zmerlynn--manifold-csg",
+  "displayName": "manifold-csg",
+  "description": "Safe Rust bindings to the manifold3d geometry kernel for constructive solid geometry (CSG).",
+  "version": "1.0.0",
+  "author": "zmerlynn",
+  "homepage": "https://github.com/zmerlynn/manifold-csg",
+  "skills": []
+}
