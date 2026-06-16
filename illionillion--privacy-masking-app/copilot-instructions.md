@@ -1,107 +1,115 @@
-## frontend
+## privacy-masking-app
 
-> Frontend（TypeScript/React/Canvas/WebWorker）固有ルール — privacy-masking-app
+> このドキュメントは、privacy-masking-app（プライバシーマスキングツール）でGitHub Copilotがコード生成・レビューを行う際に参照するカスタムインストラクションです。
 
+# GitHub Copilot カスタムインストラクション
 
-# Frontend 固有ルール
+このドキュメントは、privacy-masking-app（プライバシーマスキングツール）でGitHub Copilotがコード生成・レビューを行う際に参照するカスタムインストラクションです。
 
-このルールを適用する作業では、回答冒頭に「frontend.mdc のルールを参照しました！」と表示してください。
+## 共通基本ルール
 
-## コード品質の基本
+1. **応答言語**: 質問への回答は常に日本語で行ってください。
 
-- ファイル冒頭のimport文セクションに機能修正のコードを混在させない
-- 配列などの `{}` の開始終了を明確にする
-- ソースコードが壊れないように注意する
-- `any` 禁止、型安全に実装する
+2. **確認メッセージ**: ルールを参照したことを示すため、回答の冒頭に「ルールを参照しました！」と表示してください。
 
-## コメント記述規則
+3. **領域別ルールの必須参照**: 作業開始前に、対象領域のルールファイルを**必ず**参照する。
+   - Frontend作業 → `instructions/frontend.instructions.md`
+   - レビュー → `instructions/review.instructions.md`
+   - Git/GitHub操作 → `skills/github-ops/SKILL.md`
+   - 脆弱性対応 → `skills/vuln-fix/SKILL.md`
 
-- **TypeScript/JavaScript**: 関数と定数にコメントを書く場合は必ずJSDoc形式 `/**...*/` を使用する。詳細な説明・例・制約を記載する
-- **例外**: JSX内のコメントは `{/* ... */}` 形式を許可する。可能であればコンポーネント外に通常のコメント `//` で記述することを推奨する
+   参照したファイル名を確認メッセージに明記する（例: "frontend.instructions.md のルールを参照しました！"）
 
-## Frontend変更時のチェック手順
+4. **推論・想像の禁止**: 推論や想像で作業しない。事実に基づいて作業する。不明な点は確認を求める。
 
-1. `pnpm lint` で Lint チェック
-2. `pnpm type-check` で型チェック
-3. `pnpm format:check` でフォーマット確認
+5. **テスト実行の効率化と検証**: 変更したファイルがある場合、まずテスト内容が修正内容を正しく検証できるかを確認してから、全体実行ではなく単体で実行して時間を省略する。必要に応じてテストケースを追加してから実行する。
 
-## コンポーネント作成
+6. **ルール管理**: 重要なベストプラクティスを発見した際は、基本ルールへの昇格も検討し、動的ルールセクションまたは基本ルールへの追加を提案する。
 
-### clsx の使い方
+7. **設定ファイルの動作確認**: Linter設定、ビルド設定、CI設定等の設定ファイルを作成・変更した場合、必ず実行して動作確認してからコミットする。動作しない設定をコミットしてはならない。
 
-- クラスが2つ以上: `className={clsx(["text-sm", "font-bold"])}`
-- クラスが1つ: `className="p-4"`（clsx不要）
+8. **セキュリティ優先**: このアプリはブラウザ完結型（サーバーに画像を送信しない）。画像データをサーバー送信するコードは絶対に追加しない。
 
-## bulletproof-react アーキテクチャ
+## ルールファイルのマップ
 
-- 機能分割の徹底: 各featureは独立したコンポーネント・hooks・types・testsを持つ
-- 共通コンポーネント: `/components` は本当に再利用される汎用的なもののみ
-- feature間の依存: 他のfeatureを直接importしない。共通の場合は `/components` や `/lib` に移動
+### `.github/instructions/`（ファイル編集時に自動ロード）
+
+- `frontend.instructions.md`: Frontend固有ルール（TypeScript、コンポーネント設計、Canvas/WebWorker等） — `**` に自動適用
+- `review.instructions.md`: PR/レビュー関連ルール（バッジ、レビュー方針など） — `**` に自動適用
+
+### `.github/skills/`（ユーザーが明示的に指示した時のみ実行）
+
+- `github-ops/`: Issue作成・PR作成・コミット・ghコマンド操作の手順
+- `vuln-fix/`: pnpm audit 脆弱性対応・バージョンアップ・overrides設定・PR作成の手順
+
+## プロダクト概要
+
+**Privacy Masking Tool** — 画像内の顔・個人情報（テキスト）を検出し、公開前にマスキングできるブラウザ完結型ツール。
+
+### 主要技術スタック
+
+- **フレームワーク**: Next.js（App Router）
+- **言語**: TypeScript
+- **スタイリング**: Tailwind CSS
+- **顔検出**: face-api.js
+- **OCR**: Tesseract.js
+- **描画**: Canvas API
+- **パッケージマネージャー**: pnpm
+
+### 設計原則
+
+- **完全クライアントサイド**: 画像データはサーバーに送信しない
+- **プライバシーファースト**: ローカル処理のみ
+- **パフォーマンス**: 重い処理はWeb Workerで非同期化
 
 ## ディレクトリ構造
 
-- `/app` - Next.js App Routerのルーティング
-- `/components` - 再利用可能なUIコンポーネント
-- `/features` - 機能ごとのディレクトリ（components・hooks・types・testsを含む）
-  - `/face-detection` - 顔検出機能
-  - `/ocr` - OCR機能
-  - `/masking` - マスキング処理
-  - `/editor` - 編集UI
-- `/lib` - ユーティリティ関数、hooks
-- `/types` - 共通型定義
-- `/public` - 静的ファイル（face-api.js モデル等）
-
-## Canvas / WebWorker 規則
-
-- Canvas操作は必ず型ガードを行う（`getContext('2d')` の null チェック）
-- 重い処理（顔検出・OCR・モザイク計算）は Web Worker で非同期化する
-- `ImageData` / `Blob` / `URL.createObjectURL` で生成したURLは使用後に必ず解放する（`URL.revokeObjectURL`）
-- `toBlob` / `toDataURL` はメインスレッドを占有するため、可能な限り Worker 側で処理する
-
-## セキュリティ規則
-
-- **画像データのサーバー送信禁止**: 画像・Blobデータを外部サーバーやAPIに送信するコードを追加しない
-- `fetch` / `XMLHttpRequest` で画像データを送信するコードは MUST でレビュー指摘対象
-- ユーザーがアップロードしたファイルは必ずファイル形式・サイズのバリデーションを行う
-- ファイル形式: `image/jpeg`, `image/png`, `image/webp`, `image/gif` のみ許可
-- ファイルサイズ: 上限を設ける（デフォルト: 20MB）
-
-## テスト作成ルール
-
-### テストファイル配置
-
-- コンポーネントと同じディレクトリに配置する
-- ファイル名: `ComponentName.test.tsx` または `functionName.test.ts`
-
-### テスト実行
-
-```bash
-pnpm test:run path/to/test.tsx   # 特定ファイル
-pnpm test:watch                  # ウォッチモード（開発中推奨）
-pnpm test:coverage               # カバレッジ確認
+```
+/app            - Next.js App Routerのルーティング
+/components     - 再利用可能なUIコンポーネント
+/features       - 機能ごとのディレクトリ（components・hooks・types・testsを含む）
+  /face-detection  - 顔検出機能
+  /ocr             - OCR機能
+  /masking         - マスキング処理
+  /editor          - 編集UI
+/lib            - ユーティリティ関数、hooks
+/types          - 共通型定義
+/public         - 静的ファイル（face-api.jsモデル等）
 ```
 
-### テストパターン
+## 開発フロー
 
-- **正常系**: 基本的な動作確認（レンダリング、プロパティ表示）
-- **異常系**: エラーハンドリング、不正な入力値
-- **境界値**: 空ファイル、null、極大ファイルサイズ
-- **アクセシビリティ**: aria-label、role、キーボード操作（Enter/Space）
+1. 該当Issueに「着手開始」コメントを記載（Issue作成時は適切なラベルを必ず紐づける）
+2. `main`ブランチから新しいブランチを作成、変更内容が分かる命名（`ラベル/issue番号-内容`）にする
+3. 開発作業を実施
+   - 基本ルールに従ってコード品質と型安全性を保つ
+   - フロントエンド設計原則に従う
+4. 動作確認・セルフレビューの実施
+   - テストを実行し、すべてのテストが通ることを確認する
+   - lefthookのpre-commitでlint/formatが自動実行される
+5. Pull Requestの作成
+   - タイトル: 変更内容を簡潔に表現（プレフィックス不要）
+   - 説明文: `.github/pull_request_template.md` に従う
+   - Commit Message: Conventional Commits形式（日本語）
+   - `Closes #issue番号`を書く
+   - ラベル: 該当するラベルを必ず紐づける
+6. レビューを受ける
+7. 修正が必要な場合は対応する
+8. 1つ以上のApproveを得たらマージ
+9. IssueをCloseする
 
-### カバレッジ目標
+## 型安全性・コード品質
 
-- コンポーネント: カバレッジ数値目標を設けない（MVPフェーズは機能完成を優先）
-- ビジネスロジック（マスキング処理・顔検出・OCR・個人情報検出）: カバレッジ率よりも**境界値テストを厳密に実施**することを優先する
-  - 正常値・最小値・最大値・空入力・null・不正な型 を必ずテストする
-  - 全行カバレッジは必須としないが、分岐条件（`if`/`switch`/三項）はすべてテストする
+- `any` 禁止、型安全に実装する
+- ファイル冒頭のimport文セクションに機能修正のコードを混在させない
+- 配列などの `{}` の開始終了を明確にする
+- TypeScript/JavaScript: 関数と定数にコメントを書く場合は必ずJSDoc形式 `/**...*/` を使用する
 
-### テストのベストプラクティス
+## 自動ルール管理
 
-- テストは読みやすく、保守しやすく書く
-- 1つのテストケースで1つの動作のみを検証する
-- テストの意図が明確なテスト名を付ける
-- モックは必要最小限にする
-- `beforeEach` で `vi.clearAllMocks()` を実行する
+<!-- AUTO_RULES_START -->
+<!-- 今後、重要なルールやベストプラクティスが自動で追加されます -->
+<!-- AUTO_RULES_END -->
 
 ---
 > Source: [illionillion/privacy-masking-app](https://github.com/illionillion/privacy-masking-app) — distributed by [TomeVault](https://tomevault.io).
