@@ -1,0 +1,9 @@
+{
+  "name": "getgaal--gaal",
+  "displayName": "gaal",
+  "description": "A single CLI to keep your local repositories, AI agent skills, and MCP server configurations in sync.",
+  "version": "1.0.0",
+  "author": "getgaal",
+  "homepage": "https://github.com/getgaal/gaal",
+  "skills": []
+}
