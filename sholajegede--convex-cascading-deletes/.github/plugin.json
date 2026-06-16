@@ -1,0 +1,9 @@
+{
+  "name": "sholajegede--convex-cascading-deletes",
+  "displayName": "convex-cascading-deletes",
+  "description": "A Convex component for cascading deletes \u2014 delete a record and all its dependents automatically, in the correct order.",
+  "version": "1.0.0",
+  "author": "sholajegede",
+  "homepage": "https://github.com/sholajegede/convex-cascading-deletes",
+  "skills": []
+}
