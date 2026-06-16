@@ -1,0 +1,9 @@
+{
+  "name": "umage-ai--codeshellmanager",
+  "displayName": "CodeShellManager",
+  "description": "Workspace manager for AI coding shells and agents.",
+  "version": "1.0.0",
+  "author": "umage-ai",
+  "homepage": "https://github.com/umage-ai/CodeShellManager",
+  "skills": []
+}
