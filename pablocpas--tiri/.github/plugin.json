@@ -1,0 +1,9 @@
+{
+  "name": "pablocpas--tiri",
+  "displayName": "tiri",
+  "description": "An i3/sway-like tiling Wayland compositor built from niri",
+  "version": "1.0.0",
+  "author": "pablocpas",
+  "homepage": "https://github.com/pablocpas/tiri",
+  "skills": []
+}
