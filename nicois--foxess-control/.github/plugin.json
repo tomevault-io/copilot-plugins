@@ -1,0 +1,9 @@
+{
+  "name": "nicois--foxess-control",
+  "displayName": "foxess-control",
+  "description": "Allow Home Assistant to modify FoxESS inverter charge/discharge modes",
+  "version": "1.0.0",
+  "author": "nicois",
+  "homepage": "https://github.com/nicois/foxess-control",
+  "skills": []
+}
