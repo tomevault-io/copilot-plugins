@@ -1,0 +1,9 @@
+{
+  "name": "summerengine--summer-engine-agent",
+  "displayName": "summer-engine-agent",
+  "description": "The game engine for AI agents. Give your AI superpowers for game dev + A skills framework that just works + easy install and setup \u2600\ufe0f",
+  "version": "1.0.0",
+  "author": "SummerEngine",
+  "homepage": "https://github.com/SummerEngine/summer-engine-agent",
+  "skills": []
+}
