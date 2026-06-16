@@ -1,0 +1,9 @@
+{
+  "name": "tcg-engine--tcgengine",
+  "displayName": "TCGEngine",
+  "description": "Generic card game simulator engine",
+  "version": "1.0.0",
+  "author": "TCG-Engine",
+  "homepage": "https://github.com/TCG-Engine/TCGEngine",
+  "skills": []
+}
