@@ -1,0 +1,9 @@
+{
+  "name": "danduma--omniharness",
+  "displayName": "omniharness",
+  "description": "Remote control Codex, Claude, OpenCode and Gemini with a single UI. Give your agents a week of work, be notified when it's done ",
+  "version": "1.0.0",
+  "author": "danduma",
+  "homepage": "https://github.com/danduma/omniharness",
+  "skills": []
+}
