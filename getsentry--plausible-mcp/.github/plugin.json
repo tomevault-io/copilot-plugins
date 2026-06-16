@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--plausible-mcp",
+  "displayName": "plausible-mcp",
+  "description": "MCP server for Plausible Analytics \u2014 query traffic, conversions, and compare periods from any AI tool",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/plausible-mcp",
+  "skills": []
+}
