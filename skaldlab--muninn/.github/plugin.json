@@ -1,0 +1,9 @@
+{
+  "name": "skaldlab--muninn",
+  "displayName": "muninn",
+  "description": "\ud83d\udc26\u200d\u2b1b Security scanner for GitHub Actions pipelines",
+  "version": "1.0.0",
+  "author": "skaldlab",
+  "homepage": "https://github.com/skaldlab/muninn",
+  "skills": []
+}
