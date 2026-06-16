@@ -1,106 +1,77 @@
-## tray-api-ai-plugin
+## tray-api
 
-> Documentação ativa da API da Tray para integração com GitHub Copilot.
+> >
 
-# Tray API Plugin
 
-Documentação ativa da API da Tray para integração com GitHub Copilot.
-Este repositório contém a documentação completa de 150+ endpoints organizados
-em 35 skills, agentes especializados e fluxos de integração.
+# Tray API — Regras do projeto
 
-Documentação oficial: https://developers.tray.com.br
+## Convenções obrigatórias
 
----
+- `access_token` como query parameter em toda chamada: `?access_token={token}`.
+- URL base: `https://{api_address}/` (retornada no callback OAuth, varia por loja).
+- `access_token` expira em 3 h; `refresh_token` expira em 30 dias.
+- Payload JSON envolto na chave do recurso: `{"Product": {...}}`, `{"Order": {...}}`.
+- Rate limit: 180 req/min e 10.000 req/dia — tratar HTTP 429 com retry exponencial.
+- Paginação máxima: 50 itens por requisição.
+- Nunca escrever `access_token`, `consumer_key` ou `consumer_secret` como literais.
 
-## Regras obrigatórias para toda integração Tray
+## Skill de entrada (carregar antes da skill do recurso)
 
-### Autenticação OAuth 2.0
-
-- Fluxo de 3 etapas com redirect para `https://{dominio_loja}/auth.php`.
-- `access_token` passado como query parameter: `?access_token={token}`.
-- `access_token` expira em **3 horas**; renovar com `refresh_token` (válido 30 dias).
-- **Nunca** escrever `access_token`, `consumer_key` ou `consumer_secret` como literais — usar variáveis de ambiente.
-
-### Formato de requisições
-
-- URL base: `https://{api_address}/` — `api_address` retornado no callback OAuth.
-- Payload JSON sempre envolto na chave do recurso: `{"Product": {...}}`, `{"Order": {...}}`.
-- Paginação máxima: **50 itens** por requisição.
-- Datas: `YYYY-MM-DD`; timestamps: `YYYY-MM-DD HH:MM:SS`.
-
-### Rate limit
-
-- **180 req/min** e **10.000 req/dia** (50.000 para contas corporate).
-- Tratar `HTTP 429` com retry exponencial.
-- Em lotes: 150 itens por batch com pausa de 60 s.
-
-### Validações brasileiras
-
-- CPF (11 dígitos) e CNPJ (14 dígitos) — validar antes de enviar.
-- CEP: 8 dígitos numéricos.
-
----
+| Recurso | Arquivo para @-mencionar |
+|---------|--------------------------|
+| Visão geral da API Tray | `skills/visao-geral/SKILL.md` |
 
 ## Documentação por recurso
 
-Antes de gerar código para um recurso da Tray, consulte o skill correspondente
-neste repositório:
+Para obter a documentação detalhada de um recurso, @-mencione o SKILL.md
+correspondente no chat:
 
-### Entrada (carregar primeiro)
-- Visão geral da API Tray: `skills/visao-geral/SKILL.md`
-
-### Autenticação e infraestrutura
-- OAuth 2.0, tokens: `skills/autorizacao/SKILL.md`
-- Webhooks / notificações: `skills/webhooks/SKILL.md`
-- Dados da loja: `skills/informacoes-loja/SKILL.md`
-- Scripts na vitrine: `skills/scripts-externos/SKILL.md`
-- Usuários admin: `skills/usuarios/SKILL.md`
-
-### Catálogo
-- Produtos: `skills/produtos/SKILL.md`
-- Variações / SKUs: `skills/variacoes/SKILL.md`
-- Imagens: `skills/imagens-produtos/SKILL.md`
-- Categorias: `skills/categorias/SKILL.md`
-- Marcas: `skills/marcas/SKILL.md`
-- Kits / combos: `skills/kits/SKILL.md`
-- Características: `skills/caracteristicas/SKILL.md`
-- Campos extras: `skills/informacoes-adicionais/SKILL.md`
-
-### Pedidos e logística
-- Pedidos: `skills/pedidos/SKILL.md`
-- Status: `skills/status-pedido/SKILL.md`
-- Notas fiscais: `skills/notas-fiscais/SKILL.md`
-- Frete (cálculo): `skills/frete/SKILL.md`
-- Frete (configuração): `skills/configuracao-frete/SKILL.md`
-- Etiquetas HUB: `skills/etiquetas-hub/SKILL.md`
-- Etiquetas ML: `skills/etiquetas-mercado-livre/SKILL.md`
-- Emissores de etiqueta: `skills/emissores-etiqueta/SKILL.md`
-- Multi-CD: `skills/multicd/SKILL.md`
-- Carrinho: `skills/carrinho-compras/SKILL.md`
-
-### Clientes e pagamentos
-- Clientes: `skills/clientes/SKILL.md`
-- Endereços: `skills/enderecos-cliente/SKILL.md`
-- Perfis: `skills/perfis-cliente/SKILL.md`
-- Pagamentos: `skills/pagamentos/SKILL.md`
-- Cupons: `skills/cupons/SKILL.md`
-- Preços B2B: `skills/listas-preco-b2b/SKILL.md`
-
-### Analytics e outros
-- Vendas: `skills/produtos-vendidos/SKILL.md`
-- SEO: `skills/palavras-chave/SKILL.md`
-- Parceiros: `skills/parceiros/SKILL.md`
-- Newsletter: `skills/newsletter/SKILL.md`
-
----
+| Recurso | Arquivo para @-mencionar |
+|---------|--------------------------|
+| OAuth / access_token | `skills/autorizacao/SKILL.md` |
+| Webhooks | `skills/webhooks/SKILL.md` |
+| Produtos | `skills/produtos/SKILL.md` |
+| Variações / SKUs | `skills/variacoes/SKILL.md` |
+| Imagens de produtos | `skills/imagens-produtos/SKILL.md` |
+| Categorias | `skills/categorias/SKILL.md` |
+| Marcas | `skills/marcas/SKILL.md` |
+| Kits / combos | `skills/kits/SKILL.md` |
+| Características | `skills/caracteristicas/SKILL.md` |
+| Informações adicionais | `skills/informacoes-adicionais/SKILL.md` |
+| Pedidos | `skills/pedidos/SKILL.md` |
+| Status de pedido | `skills/status-pedido/SKILL.md` |
+| Notas fiscais | `skills/notas-fiscais/SKILL.md` |
+| Frete (cálculo) | `skills/frete/SKILL.md` |
+| Frete (configuração) | `skills/configuracao-frete/SKILL.md` |
+| Etiquetas HUB | `skills/etiquetas-hub/SKILL.md` |
+| Etiquetas Mercado Livre | `skills/etiquetas-mercado-livre/SKILL.md` |
+| Emissores de etiqueta | `skills/emissores-etiqueta/SKILL.md` |
+| Carrinho de compras | `skills/carrinho-compras/SKILL.md` |
+| Listagem de carrinhos | `skills/listagem-carrinho/SKILL.md` |
+| Clientes | `skills/clientes/SKILL.md` |
+| Endereços de cliente | `skills/enderecos-cliente/SKILL.md` |
+| Perfis de cliente | `skills/perfis-cliente/SKILL.md` |
+| Pagamentos | `skills/pagamentos/SKILL.md` |
+| Cupons | `skills/cupons/SKILL.md` |
+| Listas de preço B2B | `skills/listas-preco-b2b/SKILL.md` |
+| Informações da loja | `skills/informacoes-loja/SKILL.md` |
+| Scripts externos | `skills/scripts-externos/SKILL.md` |
+| Multi-CD | `skills/multicd/SKILL.md` |
+| Parceiros | `skills/parceiros/SKILL.md` |
+| Usuários | `skills/usuarios/SKILL.md` |
+| Produtos vendidos | `skills/produtos-vendidos/SKILL.md` |
+| Palavras-chave | `skills/palavras-chave/SKILL.md` |
+| Newsletter | `skills/newsletter/SKILL.md` |
 
 ## Agentes para fluxos complexos
 
-- Setup e OAuth: `agents/configuracao-aplicativo.md`
-- Gestão de catálogo: `agents/gestor-catalogo.md`
-- Gestão de pedidos: `agents/gestor-pedidos.md`
-- Debug de integração: `agents/debug-integracao.md`
-- Migração de plataforma: `agents/assistente-migracao.md`
+| Tarefa | Arquivo para @-mencionar |
+|--------|--------------------------|
+| Setup OAuth e configuração inicial | `agents/configuracao-aplicativo.md` |
+| Gestão em massa de catálogo | `agents/gestor-catalogo.md` |
+| Ciclo de pedidos, NF-e, etiquetas | `agents/gestor-pedidos.md` |
+| Diagnóstico de erros e debugging | `agents/debug-integracao.md` |
+| Migração de Shopify/WooCommerce/etc. | `agents/assistente-migracao.md` |
 
 ---
 > Source: [tray-tecnologia/tray-api-ai-plugin](https://github.com/tray-tecnologia/tray-api-ai-plugin) — distributed by [TomeVault](https://tomevault.io).
