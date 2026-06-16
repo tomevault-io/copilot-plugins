@@ -1,0 +1,44 @@
+{
+  "name": "common-project-development-framework",
+  "owner": "Challiwei",
+  "repo": "common-project-development-framework",
+  "description": "\u4e00\u4e2a\u901a\u7528\u7684\u6846\u67b6\uff0c\u5c0f\u767d\u53ef\u4ee5\u5728\u8fd9\u4e2a\u6846\u67b6\u7684\u57fa\u7840\u4e0a\u4f7f\u7528 AI \u5b8c\u6210\u4e00\u4e2a\u9879\u76ee\u7684\u4ece 0 \u5230 1\uff1b\u4e5f\u53ef\u4ee5\u5728\u8fd9\u4e2a\u6846\u67b6\u4e2d\u6dfb\u52a0\u7279\u5b9a\u9886\u57df\u77e5\u8bc6\uff0c\u8ba9\u4ed6\u6210\u4e3a\u7279\u5b9a\u9886\u57df\u7684\u901a\u7528\u8f6f\u4ef6\u7814\u53d1\u5de5\u5177\uff1b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Challiwei/common-project-development-framework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T07:16:48Z"
+}
