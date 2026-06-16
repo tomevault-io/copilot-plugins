@@ -1,0 +1,9 @@
+{
+  "name": "xnet-ngo--aiope",
+  "displayName": "aiope",
+  "description": "AIOPE \u2014 46-tool AI agent for Android. Linux terminal, browser automation, SSH, dynamic UI, MCP, any model. Built by one developer + AI in 30 days.",
+  "version": "1.0.0",
+  "author": "XNet-NGO",
+  "homepage": "https://github.com/XNet-NGO/aiope",
+  "skills": []
+}
