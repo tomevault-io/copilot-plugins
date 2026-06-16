@@ -1,0 +1,9 @@
+{
+  "name": "novapizza--claude-token-monitor",
+  "displayName": "claude-token-monitor",
+  "description": "claude-token-monitor",
+  "version": "1.0.0",
+  "author": "novapizza",
+  "homepage": "https://github.com/novapizza/claude-token-monitor",
+  "skills": []
+}
