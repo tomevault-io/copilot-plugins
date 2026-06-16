@@ -4,7 +4,7 @@
   "repo": "nodeshub-seo-skills",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Senuto/nodeshub-seo-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T03:02:46Z"
+  "distributed_at": "2026-06-16T04:35:23Z"
 }
