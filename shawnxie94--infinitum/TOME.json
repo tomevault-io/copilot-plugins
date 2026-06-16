@@ -4,7 +4,7 @@
   "repo": "infinitum",
   "description": "\u57fa\u4e8eRSS\u7684\u8d44\u8baf\u805a\u5408\u5de5\u4f5c\u53f0",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shawnxie94/infinitum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T06:41:46Z"
+  "distributed_at": "2026-06-16T06:44:10Z"
 }
