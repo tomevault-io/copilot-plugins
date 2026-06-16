@@ -1,0 +1,9 @@
+{
+  "name": "swenyang--talk-refine",
+  "displayName": "talk-refine",
+  "description": "\u5229\u7528\u672c\u5730\u8bed\u97f3\u6a21\u578b\u8f6c\u6362\u548c LLM \u6a21\u578b\u6da6\u8272\uff0c\u628a\u53e3\u8bed\u8f6c\u6362\u4e3a\u9002\u5408 LLM \u7684\u7ed3\u6784\u5316\u8868\u8fbe",
+  "version": "1.0.0",
+  "author": "swenyang",
+  "homepage": "https://github.com/swenyang/talk-refine",
+  "skills": []
+}
