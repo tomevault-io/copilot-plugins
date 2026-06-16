@@ -1,0 +1,14 @@
+{
+  "name": "petrkindlmann--qa-skills",
+  "displayName": "qa-skills",
+  "description": "50 QA and test-automation skills for Claude Code, Codex, Cursor, and any Agent Skills Standard runtime.",
+  "version": "1.0.0",
+  "author": "petrkindlmann",
+  "homepage": "https://github.com/petrkindlmann/qa-skills",
+  "skills": [
+    {
+      "name": "ci-cd-integration",
+      "description": ""
+    }
+  ]
+}
