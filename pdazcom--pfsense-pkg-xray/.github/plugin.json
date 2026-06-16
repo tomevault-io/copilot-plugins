@@ -1,0 +1,9 @@
+{
+  "name": "pdazcom--pfsense-pkg-xray",
+  "displayName": "pfSense-pkg-xray",
+  "description": "Xray-core VPN package for pfSense CE \u2014 native GUI for VLESS+Reality tunnels with selective routing via pfSense Aliases and Firewall Rules.",
+  "version": "1.0.0",
+  "author": "pdazcom",
+  "homepage": "https://github.com/pdazcom/pfSense-pkg-xray",
+  "skills": []
+}
