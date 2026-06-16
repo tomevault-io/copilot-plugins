@@ -1,0 +1,9 @@
+{
+  "name": "hcompai--late-interaction-kernels",
+  "displayName": "late-interaction-kernels",
+  "description": "Fused Triton kernels for late-interaction (MaxSim) scoring",
+  "version": "1.0.0",
+  "author": "hcompai",
+  "homepage": "https://github.com/hcompai/late-interaction-kernels",
+  "skills": []
+}
