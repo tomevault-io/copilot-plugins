@@ -1,0 +1,9 @@
+{
+  "name": "breferrari--shardmind",
+  "displayName": "shardmind",
+  "description": "Package manager for Obsidian vault templates",
+  "version": "1.0.0",
+  "author": "breferrari",
+  "homepage": "https://github.com/breferrari/shardmind",
+  "skills": []
+}
