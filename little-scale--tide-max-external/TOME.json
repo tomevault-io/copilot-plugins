@@ -1,0 +1,44 @@
+{
+  "name": "tide-max-external",
+  "owner": "little-scale",
+  "repo": "tide-max-external",
+  "description": "A Max/MSP external inspired by the core waveshaping algorithms from Mutable Instruments Tides 2, reimplemented as a single LFO output with unique asymmetric ramps, shape controls, and smoothness processing.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/little-scale/tide-max-external",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T08:41:49Z"
+}
