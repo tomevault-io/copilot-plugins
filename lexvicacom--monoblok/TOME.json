@@ -4,7 +4,7 @@
   "repo": "monoblok",
   "description": "Signal conditioning, transformation, and routing in a NATS-native message processor",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lexvicacom/monoblok",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T06:46:34Z"
+  "distributed_at": "2026-06-16T07:32:19Z"
 }
