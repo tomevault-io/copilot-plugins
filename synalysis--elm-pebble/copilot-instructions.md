@@ -1,41 +1,50 @@
-## clear-unsupported-feedback
+## elmc-generic-fusion
 
-> Surface unsupported or degraded behavior clearly — never hide toolchain limits
+> elmc fusion must be generic IR patterns, not app-specific algorithms
 
 
-# Clear Feedback for Unsupported or Degraded Behavior
+# Generic Fusion Only (elmc C Codegen)
 
-When the toolchain cannot fully support an Elm construct, optimize a path, or preserve intended semantics, **tell the user explicitly**. Silent fallbacks make bugs hard to find and waste time in the emulator, on device, and in the IDE.
+Compiler fusion in **elmc** must detect **reusable Elm IR patterns** and emit **generic C** that implements that pattern. It must not replace a function body with one app's algorithm.
 
-## Do Not
+Matching IR shape is **not** enough. The emitted C must be correct for **every** app that could match the pattern.
 
-- Return `nil`, zero, `Sub.none`, empty values, or generic stubs to “make compile succeed” when semantics are wrong or degraded.
-- Swallow partial-analysis failures (for example static subscription batching) without a diagnostic.
-- Rely on kernel stubs (`Elm.Kernel.PebbleWatch.batch`, etc.) when codegen should lower the real contract.
-- Hide limitations behind comments only; users and IDE surfaces must see them.
+## Allowed
 
-## Do
+- Pattern detection from IR structure (calls, `List.map`/`foldl`/`all`, bounds checks, grid indexing, case-on-tuple keys).
+- Generated C that is a direct, generic lowering of that pattern (for example `y * cols + x` list access, bounds-checked cell update, static table from `case (k, r)` branches).
+- Using names from the function being compiled (`name` parameter) for C symbol prefixes — not hardcoded app function names as fusion triggers.
+- Reachability metadata derived from IR (`runtime_callees`), not hardcoded callee lists.
 
-- Emit a **structured diagnostic** (warning or error) with: **what** failed, **why**, and **what to change or expect**.
-- Use stable `source` / `code` fields (for example `elmc/subscriptions`, `dynamic_subscription_layout`) so IDE, CLI, and tests can surface them.
-- Prefer **compile-time** feedback when the issue is knowable from IR; use **runtime logs or explicit unsupported markers** only when behavior truly depends on dynamic values.
-- When degrading gracefully is intentional, say so in the diagnostic — including any performance or correctness trade-off (for example non-compact worker slot maps).
-- Add tests that assert the diagnostic is emitted, not only that codegen “does something”.
+## Forbidden
+
+- Emitting magic numbers, layout constants, or control flow copied from one template (for example fixed `top = 30`, wall-kick sequences, spawn position formulas) unless they are **literal values in the matched IR**.
+- Fusion gated on a specific function name (`name == "boardLayout"`, `name == "dropStep"`) instead of IR pattern.
+- Fusion that would produce **wrong results** for another app with the same structural pattern but different semantics.
+- Whole-function rewrites of update/spawn/render logic that belong in app Elm, not the compiler.
 
 ## Litmus Test
 
-If a developer would ask “why doesn’t this work?” and the answer is “because we quietly fell back,” the implementation is wrong. Fix the lowering **or** report the limitation clearly.
+Before adding or keeping a fusion, ask:
+
+1. Could this IR pattern appear in **multiple unrelated apps**?
+2. Does the emitted C implement the **pattern**, or does it implement **one app's function**?
+3. If two apps share the pattern but differ in constants or branches, would both stay correct?
+
+If (1) is yes but (2) or (3) is no → **do not fuse**. Let normal codegen emit the Elm semantics.
 
 ## Examples
 
-- **Bad:** `subscription_batch_expr` returns `nil` on a dynamic batch item → codegen calls kernel `batch` → all subs become `Sub.none`; buttons stop working with no message.
-- **Good:** lower mixed batches to a real subscription list; emit `dynamic_subscription_layout` when the worker cannot use a compact static slot map.
+- **Bad:** `BoardLayoutLoop` — matches `displayShapeIsRound` + layout record, but emits elmtris layout math (`gap = 1`, `top = 30`, `diameter * 2/3`). game-2048 uses different gaps, margins, and sizing with the same rough shape.
+- **Bad:** `PieceMotionLoop` / `SpawnPieceLoop` — reimplement tetris update/spawn as native C instead of lowering Elm.
+- **Good:** `Tuple2CaseTable` — `case (k, r) of …` → static lookup table derived from branch literals in IR.
+- **Good:** `CellAtLoop` — `y < 0` guard + `withDefault 0 (listAt board (y * cols + x))` → `elmc_list_nth_int_default(board, y * cols + x, 0)`.
 
-- **Bad:** codegen emits `elmc_int_zero()` for an unsupported `Cmd` and the app silently does nothing.
-- **Good:** diagnostic `unsupported_cmd` naming the target and arity; or an explicit runtime “unmapped” path documented in the contract.
+## When Adding Fusion
 
-- **Bad:** IDE build succeeds while emulator behavior is wrong because a shim returned a no-op.
-- **Good:** compile panel / manifest shows the warning; user knows to fix Elm or wait for toolchain support before debugging app logic.
+- Add a **minimal fixture** with the same IR pattern and **different function/field names** to prove genericity.
+- Add a **second template or app** when the pattern is domain-shaped (grids, tables) to catch semantic drift.
+- If an optimization only helps one sample and cannot be generalized, **remove it** — do not rename it.
 
 ---
 > Source: [synalysis/elm-pebble](https://github.com/synalysis/elm-pebble) — distributed by [TomeVault](https://tomevault.io).
