@@ -1,0 +1,9 @@
+{
+  "name": "sini--hm-wrapper-modules",
+  "displayName": "hm-wrapper-modules",
+  "description": "Home-manager module adapter for nix-wrapper-modules",
+  "version": "1.0.0",
+  "author": "sini",
+  "homepage": "https://github.com/sini/hm-wrapper-modules",
+  "skills": []
+}
