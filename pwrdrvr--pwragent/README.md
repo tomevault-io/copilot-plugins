@@ -7,11 +7,11 @@ Desktop coding agent driven from Telegram, Discord, Slack, Mattermost, Feishu / 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pwrdrvr/PwrAgent](https://github.com/pwrdrvr/PwrAgent).
+Original source: `CLAUDE.md` in [pwrdrvr/PwrAgent](https://github.com/pwrdrvr/PwrAgent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
