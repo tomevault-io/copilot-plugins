@@ -1,0 +1,9 @@
+{
+  "name": "openclaw--crabline",
+  "displayName": "crabline",
+  "description": "A cli that uses Vercel's Chat SDK to allow testing message channels against OpenClaw",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/crabline",
+  "skills": []
+}
