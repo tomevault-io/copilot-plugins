@@ -1,0 +1,44 @@
+{
+  "name": "dextra-app",
+  "owner": "soladdev",
+  "repo": "dextra-app",
+  "description": "Dextra targets **DeFi, NFT, and general Solana workflows** by pairing large language models with **function calling** and **Solana Agent Kit**\u2013style tooling. Authentication and embedded wallets are handled via **Privy**; chain reads and enhanced RPC flows use **Helius** where configured.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/soladdev/dextra-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T18:34:08Z"
+}
