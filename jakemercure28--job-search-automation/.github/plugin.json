@@ -1,0 +1,9 @@
+{
+  "name": "jakemercure28--job-search-automation",
+  "displayName": "job-search-automation",
+  "description": "A private, local, AI-powered job search engine. Scrapes 11+ ATS platforms, scores listings with Gemini against your resume, runs 100% locally via Docker.",
+  "version": "1.0.0",
+  "author": "jakemercure28",
+  "homepage": "https://github.com/jakemercure28/job-search-automation",
+  "skills": []
+}
