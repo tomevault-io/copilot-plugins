@@ -1,0 +1,44 @@
+{
+  "name": "crune",
+  "owner": "chigichan24",
+  "repo": "crune",
+  "description": "Decipher the traces etched in past sessions and resurrect them as reusable skills. crune is a static web dashboard that analyzes Claude Code session logs, providing session playback, analytics, a semantic knowledge graph, and skill synthesis.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chigichan24/crune",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T23:07:58Z"
+}
