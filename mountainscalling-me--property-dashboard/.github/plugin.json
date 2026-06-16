@@ -1,0 +1,9 @@
+{
+  "name": "mountainscalling-me--property-dashboard",
+  "displayName": "property-dashboard",
+  "description": "Automated property search and CRM dashboard built with Claude Code. Cloudflare Workers + Pages + D1, React + Vite, RealtyAPI (Zillow).",
+  "version": "1.0.0",
+  "author": "MountainsCalling-me",
+  "homepage": "https://github.com/MountainsCalling-me/property-dashboard",
+  "skills": []
+}
