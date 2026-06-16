@@ -1,0 +1,9 @@
+{
+  "name": "daedalus--mcp-python-bitcoinlib",
+  "displayName": "mcp-python-bitcoinlib",
+  "description": "mcp-python-bitcoinlib",
+  "version": "1.0.0",
+  "author": "daedalus",
+  "homepage": "https://github.com/daedalus/mcp-python-bitcoinlib",
+  "skills": []
+}
