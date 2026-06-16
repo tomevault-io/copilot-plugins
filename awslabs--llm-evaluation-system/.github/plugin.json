@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--llm-evaluation-system",
+  "displayName": "llm-evaluation-system",
+  "description": "Agentic AI-guided evaluation system for comparing LLMs with multi-judge jury scoring",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/llm-evaluation-system",
+  "skills": []
+}
