@@ -1,0 +1,9 @@
+{
+  "name": "sahadev--gitmemo",
+  "displayName": "GitMemo",
+  "description": "Auto-sync your AI conversations and notes to Git",
+  "version": "1.0.0",
+  "author": "sahadev",
+  "homepage": "https://github.com/sahadev/GitMemo",
+  "skills": []
+}
