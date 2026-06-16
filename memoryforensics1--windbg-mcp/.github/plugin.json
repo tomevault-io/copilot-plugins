@@ -1,0 +1,9 @@
+{
+  "name": "memoryforensics1--windbg-mcp",
+  "displayName": "windbg-mcp",
+  "description": "C# MCP server for kernel & user-mode Windows debugging \u2014 DbgEng COM, KDNET, Frida, dbgsrv, TTD, and integrated VM control. 29 tools for LLM agents.",
+  "version": "1.0.0",
+  "author": "memoryforensics1",
+  "homepage": "https://github.com/memoryforensics1/windbg-mcp",
+  "skills": []
+}
