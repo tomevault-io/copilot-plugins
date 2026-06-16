@@ -1,0 +1,44 @@
+{
+  "name": "ephpm",
+  "owner": "ephpm",
+  "repo": "ephpm",
+  "description": "[WIP] Rust alternative to nginx + PHP-FPM, FrankenPHP, RoadRunner etc. Embeds Zend PHP directly via FFI in a single static binary. 100% PHP compatibility and drop-in replacement for any PHP project with clustering and built-in shared KV store and SQL connection pooling.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ephpm/ephpm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T19:33:14Z"
+}
