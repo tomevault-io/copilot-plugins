@@ -1,0 +1,9 @@
+{
+  "name": "evanwillistech--llm-agent-platform",
+  "displayName": "llm-agent-platform",
+  "description": "Distributed systems reliability patterns applied to LLM agent workflows. NestJS, PostgreSQL, BullMQ, LangGraph, Python/FastAPI.",
+  "version": "1.0.0",
+  "author": "evanwillistech",
+  "homepage": "https://github.com/evanwillistech/llm-agent-platform",
+  "skills": []
+}
