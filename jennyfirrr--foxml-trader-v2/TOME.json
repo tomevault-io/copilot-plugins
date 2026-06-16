@@ -1,0 +1,44 @@
+{
+  "name": "FoxML_Trader_v2",
+  "owner": "Jennyfirrr",
+  "repo": "FoxML_Trader_v2",
+  "description": "Per-core sharded crypto trading engine \u2014 AGPL-3.0",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jennyfirrr/FoxML_Trader_v2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T03:11:49Z"
+}
