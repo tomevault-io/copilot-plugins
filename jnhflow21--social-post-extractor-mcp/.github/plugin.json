@@ -1,0 +1,9 @@
+{
+  "name": "jnhflow21--social-post-extractor-mcp",
+  "displayName": "social-post-extractor-mcp",
+  "description": "MCP server for extracting scripts and metadata from Douyin and Xiaohongshu links with Bailian ASR, OCR, and script.md/info.json outputs",
+  "version": "1.0.0",
+  "author": "JNHFlow21",
+  "homepage": "https://github.com/JNHFlow21/social-post-extractor-mcp",
+  "skills": []
+}
