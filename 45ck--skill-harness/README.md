@@ -7,11 +7,11 @@ Umbrella installer and agent harness for the skill-pack suite across Claude and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [45ck/skill-harness](https://github.com/45ck/skill-harness).
+Original source: `CLAUDE.md` in [45ck/skill-harness](https://github.com/45ck/skill-harness).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
