@@ -28604,6 +28604,11 @@
       "description": "A collection of useful widgets for building terminal user interfaces using Ratatui"
     },
     {
+      "name": "tukuaiai--fatecat",
+      "source": "./tukuaiai--fatecat",
+      "description": "fatecat"
+    },
+    {
       "name": "marcus--td",
       "source": "./marcus--td",
       "description": "A minimalist CLI for tracking tasks across AI coding sessions."
@@ -29584,6 +29589,11 @@
       "description": "SEOBuild Onpage - The first AI agent that writes pages Google ranks AND LLMs cite. One command in, ranking page out. Built on DeerFlow, powered by 2026 SEO + GEO strategies tested / working. Forensic "
     },
     {
+      "name": "therealseandonahoe--ijfw",
+      "source": "./therealseandonahoe--ijfw",
+      "description": "One install. Shared memory, smart routing, disciplined workflow, multi-AI audits -- across every AI coding agent. No BS."
+    },
+    {
       "name": "ai--multiocular",
       "source": "./ai--multiocular",
       "description": "\ua66e Review dependencies changes to prevent supply chain attack"
@@ -30322,11 +30332,6 @@
       "name": "jy00295005--decision-grade-memory",
       "source": "./jy00295005--decision-grade-memory",
       "description": "decision-grade-memory"
-    },
-    {
-      "name": "tukuaiai--fatecat",
-      "source": "./tukuaiai--fatecat",
-      "description": "fatecat"
     },
     {
       "name": "nexxeln--opencode-config",
@@ -43754,6 +43759,11 @@
       "description": "research-paper-pipeline"
     },
     {
+      "name": "sukinshetty--nemp-memory",
+      "source": "./sukinshetty--nemp-memory",
+      "description": "Nemp-memory"
+    },
+    {
       "name": "odradekai--bundles-forge",
       "source": "./odradekai--bundles-forge",
       "description": "An agentic skills framework & bundle-plugin engineering toolkit that works."
@@ -51829,6 +51839,11 @@
       "description": "A PostgreSQL extension for streaming tables with incremental view maintenance, powered by differential dataflow in Rust."
     },
     {
+      "name": "pymc-labs--decision-hub",
+      "source": "./pymc-labs--decision-hub",
+      "description": "decision-hub"
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
@@ -57637,6 +57652,11 @@
       "name": "rocm--atom",
       "source": "./rocm--atom",
       "description": "AiTer Optimized Model"
+    },
+    {
+      "name": "loayabdalslam--neuroos",
+      "source": "./loayabdalslam--neuroos",
+      "description": "Just A new Free AI OS From Mena Region  | The Code Base Built By Gemini Pro 3.1"
     },
     {
       "name": "olorehq--olore",
@@ -66324,6 +66344,16 @@
       "description": "Toolkit to assess and determine model provenance"
     },
     {
+      "name": "jamie-bitflight--claude-skills",
+      "source": "./jamie-bitflight--claude-skills",
+      "description": "Plugins for Anthropic's Claude Code, Codex, Cursor and more"
+    },
+    {
+      "name": "jamie-bitflight--claude-skills",
+      "source": "./jamie-bitflight--claude-skills",
+      "description": "Plugins for Anthropic's Claude Code, Codex, Cursor and more"
+    },
+    {
       "name": "bobbylkchao--ai-phone-agent",
       "source": "./bobbylkchao--ai-phone-agent",
       "description": "AI Phone Agent: A starter kit to build AI agents that answer real phone calls and talk to customers in real time (OpenAI Realtime). Node.js backend for Twilio & Amazon Connect - ship phone-first voice"
@@ -67727,11 +67757,6 @@
       "name": "starry-sky-world--e3car",
       "source": "./starry-sky-world--e3car",
       "description": "E3 Sub Car, Base GraphAPI"
-    },
-    {
-      "name": "loayabdalslam--neuroos",
-      "source": "./loayabdalslam--neuroos",
-      "description": "Just A new Free AI OS From Mena Region  | The Code Base Built By Gemini Pro 3.1"
     },
     {
       "name": "fulopkovacs--trytanstackdb-com",
@@ -77989,16 +78014,6 @@
       "description": "Listen. Remember. Evolve."
     },
     {
-      "name": "jamie-bitflight--claude-skills",
-      "source": "./jamie-bitflight--claude-skills",
-      "description": "Plugins for Anthropic's Claude Code, Codex, Cursor and more"
-    },
-    {
-      "name": "jamie-bitflight--claude-skills",
-      "source": "./jamie-bitflight--claude-skills",
-      "description": "Plugins for Anthropic's Claude Code, Codex, Cursor and more"
-    },
-    {
       "name": "cyberfabric--frontx",
       "source": "./cyberfabric--frontx",
       "description": "FrontX - UI development kit for modern SaaS applications"
@@ -86097,11 +86112,6 @@
       "name": "grandcamel--jira-assistant-skills",
       "source": "./grandcamel--jira-assistant-skills",
       "description": "Claude Code Skills for JIRA automation - modular skills for issue management, workflows, search, and collaboration"
-    },
-    {
-      "name": "therealseandonahoe--ijfw",
-      "source": "./therealseandonahoe--ijfw",
-      "description": "One install. Shared memory, smart routing, disciplined workflow, multi-AI audits -- across every AI coding agent. No BS."
     },
     {
       "name": "powroom--flins",
@@ -118359,6 +118369,11 @@
       "description": "A collection of pi extensions I made"
     },
     {
+      "name": "arjunrajlaboratory--mycelium",
+      "source": "./arjunrajlaboratory--mycelium",
+      "description": "mycelium"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -121267,6 +121282,11 @@
       "name": "umage-ai--codeshellmanager",
       "source": "./umage-ai--codeshellmanager",
       "description": "Workspace manager for AI coding shells and agents."
+    },
+    {
+      "name": "everyinc--product-launch-video",
+      "source": "./everyinc--product-launch-video",
+      "description": "product-launch-video"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -128577,6 +128597,11 @@
       "name": "agricidaniel--claude-music",
       "source": "./agricidaniel--claude-music",
       "description": "AI music production skill for Claude Code \u2014 powered by ACE-Step 1.5. Generate songs, covers, remixes, and more from your terminal."
+    },
+    {
+      "name": "purplenoodlesoop--pure",
+      "source": "./purplenoodlesoop--pure",
+      "description": "pure"
     },
     {
       "name": "13point5--agent-canvas",
@@ -152757,6 +152782,11 @@
       "name": "heymegabyte--claude-skills",
       "source": "./heymegabyte--claude-skills",
       "description": "14-category autonomous product-building OS for 32+ AI coding tools. One-line prompts \u2192 deployed products."
+    },
+    {
+      "name": "youarespecialtome--agentfeed-skill",
+      "source": "./youarespecialtome--agentfeed-skill",
+      "description": "agentfeed-skill"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -212564,6 +212594,46 @@
       "description": "Azure Linux. In a container. On WSL. In a .NET app. With some whimsical desktop goodness."
     },
     {
+      "name": "microsoft--amplifier-app-openclaw",
+      "source": "./microsoft--amplifier-app-openclaw",
+      "description": "amplifier-app-openclaw"
+    },
+    {
+      "name": "adityak74--embenx",
+      "source": "./adityak74--embenx",
+      "description": "embenx"
+    },
+    {
+      "name": "amterp--council",
+      "source": "./amterp--council",
+      "description": "council"
+    },
+    {
+      "name": "php-workx--skill-sonarqube",
+      "source": "./php-workx--skill-sonarqube",
+      "description": "skill-sonarqube"
+    },
+    {
+      "name": "penspanic--webgpu-metal-debug-kit",
+      "source": "./penspanic--webgpu-metal-debug-kit",
+      "description": "webgpu-metal-debug-kit"
+    },
+    {
+      "name": "mkatogui--universal-design-system",
+      "source": "./mkatogui--universal-design-system",
+      "description": "universal-design-system"
+    },
+    {
+      "name": "cloverhound--cucm-cli",
+      "source": "./cloverhound--cucm-cli",
+      "description": "cucm-cli"
+    },
+    {
+      "name": "constructorfabric--cargo-gears",
+      "source": "./constructorfabric--cargo-gears",
+      "description": "cargo-gears"
+    },
+    {
       "name": "redrock453--vika-ok",
       "source": "./redrock453--vika-ok",
       "description": "vika_ok"
@@ -212577,6 +212647,16 @@
       "name": "viruxe--scavengesurvive-v",
       "source": "./viruxe--scavengesurvive-v",
       "description": "scavengesurvive-v"
+    },
+    {
+      "name": "hosungyou--scholarag-helper",
+      "source": "./hosungyou--scholarag-helper",
+      "description": "ScholaRAG-helper"
+    },
+    {
+      "name": "vladmontana--exilliumlogs",
+      "source": "./vladmontana--exilliumlogs",
+      "description": "ExilliumLogs"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -212677,6 +212757,21 @@
       "name": "damacus--med-tracker",
       "source": "./damacus--med-tracker",
       "description": "med-tracker"
+    },
+    {
+      "name": "aimergentix--llm-rag-wiki",
+      "source": "./aimergentix--llm-rag-wiki",
+      "description": "llm-rag-wiki"
+    },
+    {
+      "name": "yoprotocol--yo-protocol-skills",
+      "source": "./yoprotocol--yo-protocol-skills",
+      "description": "yo-protocol-skills"
+    },
+    {
+      "name": "94090397--clawpet",
+      "source": "./94090397--clawpet",
+      "description": "clawpet"
     },
     {
       "name": "constellos--claude-code",
@@ -319227,6 +319322,91 @@
       "name": "na2co333--elec-online",
       "source": "./na2co333--elec-online",
       "description": "elec-online"
+    },
+    {
+      "name": "snapverse--ui-kit",
+      "source": "./snapverse--ui-kit",
+      "description": "ui-kit"
+    },
+    {
+      "name": "fr0ziii--memoria",
+      "source": "./fr0ziii--memoria",
+      "description": "memoria"
+    },
+    {
+      "name": "ikredhat--spike-executor",
+      "source": "./ikredhat--spike-executor",
+      "description": "SPIKE-executor"
+    },
+    {
+      "name": "lxgicstudios--ai-langchain",
+      "source": "./lxgicstudios--ai-langchain",
+      "description": "ai-langchain"
+    },
+    {
+      "name": "mmmprod-org--skeuomorphic-forge",
+      "source": "./mmmprod-org--skeuomorphic-forge",
+      "description": "skeuomorphic-forge"
+    },
+    {
+      "name": "lxgicstudios--ai-prompt-test",
+      "source": "./lxgicstudios--ai-prompt-test",
+      "description": "ai-prompt-test"
+    },
+    {
+      "name": "lxgicstudios--ai-fine-tune",
+      "source": "./lxgicstudios--ai-fine-tune",
+      "description": "ai-fine-tune"
+    },
+    {
+      "name": "lxgicstudios--ai-chatbot",
+      "source": "./lxgicstudios--ai-chatbot",
+      "description": "ai-chatbot"
+    },
+    {
+      "name": "lxgicstudios--ai-vercel-ai",
+      "source": "./lxgicstudios--ai-vercel-ai",
+      "description": "ai-vercel-ai"
+    },
+    {
+      "name": "lxgicstudios--ai-huggingface",
+      "source": "./lxgicstudios--ai-huggingface",
+      "description": "ai-huggingface"
+    },
+    {
+      "name": "lxgicstudios--ai-llm-eval",
+      "source": "./lxgicstudios--ai-llm-eval",
+      "description": "ai-llm-eval"
+    },
+    {
+      "name": "celeryhq--simplified-social-media-skills",
+      "source": "./celeryhq--simplified-social-media-skills",
+      "description": "simplified-social-media-skills"
+    },
+    {
+      "name": "andrew-tomago--weighted-intelligence-nodes",
+      "source": "./andrew-tomago--weighted-intelligence-nodes",
+      "description": "weighted-intelligence-nodes"
+    },
+    {
+      "name": "lxgicstudios--ai-model-deploy",
+      "source": "./lxgicstudios--ai-model-deploy",
+      "description": "ai-model-deploy"
+    },
+    {
+      "name": "pcx-analytics--pcxa-skill",
+      "source": "./pcx-analytics--pcxa-skill",
+      "description": "pcxa-skill"
+    },
+    {
+      "name": "lxgicstudios--ai-ollama",
+      "source": "./lxgicstudios--ai-ollama",
+      "description": "ai-ollama"
+    },
+    {
+      "name": "ayushiraizada15072004-lang--skills-introduction-to-github",
+      "source": "./ayushiraizada15072004-lang--skills-introduction-to-github",
+      "description": "skills-introduction-to-github"
     }
   ]
 }
