@@ -1,0 +1,9 @@
+{
+  "name": "lsagetlethias--fine-grained-proxy",
+  "displayName": "fine-grained-proxy",
+  "description": "Stateless HTTP proxy that adds fine-grained token scoping to any API. Zero storage \u2014 encrypted URL, double key, body filters.",
+  "version": "1.0.0",
+  "author": "lsagetlethias",
+  "homepage": "https://github.com/lsagetlethias/fine-grained-proxy",
+  "skills": []
+}
