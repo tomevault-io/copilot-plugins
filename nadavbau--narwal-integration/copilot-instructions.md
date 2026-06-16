@@ -1,49 +1,42 @@
-## narwal-protocol
+## project-conventions
 
-> Narwal MQTT protocol quirks and patterns
+> Project conventions for the Narwal Home Assistant integration
 
 
-# Narwal Protocol Notes
+# Narwal HA Integration Conventions
 
-## Deep Sleep Behavior
+## Git Commit Messages
 
-The vacuum maintains its MQTT broker connection during deep sleep but does
-NOT process incoming commands. Publishes succeed (`rc=0`) but no response
-arrives. This is NOT a token/connection issue — the device is simply not
-listening. No amount of reconnecting will help; wait for it to wake.
+Use [Conventional Commits](https://www.conventionalcommits.org/) format:
 
-## Token Expiry
+- `feat:` new features or entities
+- `fix:` bug fixes
+- `refactor:` code restructuring without behavior change
+- `docs:` documentation changes
+- `chore:` build, CI, dependencies
 
-The JWT access token (used as MQTT password) expires. The broker may silently
-stop routing responses before the calculated expiry time. Track consecutive
-command failures and force token refresh + reconnect after 3 failures.
+Examples:
+- `feat: add locate button entity`
+- `fix: battery sensor showing 0% on startup`
+- `refactor: extract protobuf parsing into utility module`
 
-## Two Status Paths
+## Project Structure
 
-- `status/robot_base_status` — contains WorkingStatus enum, battery, boolean
-  flags (is_cleaning, is_paused, is_returning, is_docked). Sent as push
-  broadcast AND as command response to `status/get_device_base_status`.
-- `status/working_status` — contains ONLY elapsed_time (field 3) and
-  cleaned_area (field 13). Does NOT contain WorkingStatus enum. Sent only
-  during active cleaning.
+- `custom_components/narwal/` — Home Assistant integration
+- `custom_components/narwal/narwal_client/` — MQTT client library (protocol layer)
+- Keep HA-specific code (entities, config flow) separate from the MQTT client library
 
-## Explicit Subscriptions Only
+## Code Style
 
-Narwal's Aliyun IoT broker accepts wildcard subscriptions (e.g. `base_topic/#`)
-but does NOT route messages through them — only EXPLICIT topic subscriptions
-get messages delivered.
+- Python 3.12+, type hints on all public functions
+- Use `from __future__ import annotations` in all modules
+- Follow Home Assistant coding standards for entity classes
 
-- `_on_connect` subscribes to each broadcast topic individually
-  (`status/robot_base_status`, `status/working_status`).
-- `_send_command_locked` subscribes to the specific `{topic}/response`
-  before each publish and waits briefly for SUBACK. Do not remove these
-  per-command subscribes — without them responses won't arrive.
+## Security
 
-## Map Data
-
-Map grid is zlib-compressed protobuf containing packed repeated varints.
-Each pixel: `room_id = val >> 8`, `pixel_type = val & 0xFF`.
-Map Y-axis is flipped (mathematical coords → image coords).
+- NEVER commit personal identifiers, credentials, API keys, tokens, passwords, device IDs, or email addresses
+- Use placeholder values in example/template files (e.g. `your_email@example.com`, `your_device_id`)
+- Credentials in test scripts must be read from environment variables, never hardcoded
 
 ---
 > Source: [nadavbau/narwal-integration](https://github.com/nadavbau/narwal-integration) — distributed by [TomeVault](https://tomevault.io).
