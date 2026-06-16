@@ -1,0 +1,44 @@
+{
+  "name": "binkterm-php",
+  "owner": "awehttam",
+  "repo": "binkterm-php",
+  "description": "A modern HTML5, Telnet and SSH BBS and point system that speaks FidoNet. Echomail, netmail, Web, Native and DOS Doors, file areas, local and MRC chat, and Gemini.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/awehttam/binkterm-php",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T14:35:22Z"
+}
