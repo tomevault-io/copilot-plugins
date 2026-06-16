@@ -1,8 +1,10 @@
-## testing-standards
+## gograph
 
-> Comprehensive testing standards and patterns for Compozy Go development - enforces mandatory t.Run patterns, testify usage, and mock standards
+> This file provides comprehensive guidance for working with the Compozy codebase, including development commands, standards, and workflow patterns.
 
-# Testing Standards for Compozy Go Development
+# Development Guide
+
+This file provides comprehensive guidance for working with the Compozy codebase, including development commands, standards, and workflow patterns.
 
 <critical>
 **MANDATORY REQUIREMENTS:**
@@ -20,188 +22,114 @@
 **Enforcement:** Violating these standards results in immediate task rejection.
 </critical>
 
-## Core Testing Requirements
+## Project Overview
 
-<requirements type="mandatory">
-**MANDATORY testing patterns for all Go code:**
-- Use `t.Run("Should describe expected behavior")` pattern for all tests
-- Use `stretchr/testify` for assertions and mocks
-- Follow table-driven test patterns when appropriate
-- Achieve >85% coverage for business logic packages
-</requirements>
+Compozy is a **workflow orchestration engine for AI agents** that enables building AI-powered applications through declarative YAML configuration and a robust Go backend. It integrates with various LLM providers and supports the Model Context Protocol (MCP) for extending AI capabilities.
 
-## Testing Requirements
+## Development Commands
 
-<requirements type="mandatory">
-- **ALL tests MUST use `t.Run("Should...")` pattern** - no direct test implementation without t.Run wrapper
-- Test function names: `func TestModuleName_MethodName(t *testing.T)`
-- Each test case within t.Run with descriptive "Should..." names
-- MUST use `stretchr/testify` for assertions and mocks
-- **STANDARDIZE ON TESTIFY MOCK:** Replace existing custom mocks with `testify/mock` implementations
-</requirements>
+### Essential Commands
 
-## Anti-Patterns to Avoid
+```bash
+# Quick setup
+make deps && make start-docker && make migrate-up
 
-<anti_patterns type="prohibited_patterns">
-**NEVER USE TESTIFY SUITE PATTERNS:**
-- ❌ **PROHIBITED:** `suite.Suite` embedding or any suite-based test structures
-- ❌ **PROHIBITED:** Suite methods like `s.Equal()`, `s.NoError()`, `s.True()`, `s.False()`, `s.T()`
-- ❌ **PROHIBITED:** `testsuite.WorkflowTestSuite` or similar suite embeddings
-- ❌ **PROHIBITED:** Suite lifecycle methods like `SetupTest()`, `TearDownTest()`, `AfterTest()`
+# Start development server with hot reload
+make dev
 
-**USE DIRECT ASSERTIONS INSTEAD:**
-- ✅ **REQUIRED:** `assert.Equal(t, expected, actual)`
-- ✅ **REQUIRED:** `require.NoError(t, err)`
-- ✅ **REQUIRED:** `assert.True(t, condition)`
-- ✅ **REQUIRED:** Individual test functions with `*testing.T` parameter
-</anti_patterns>
+# Run tests (excludes E2E/slow tests)
+make test
 
-<anti_patterns type="bad_examples">
-```go
-// ❌ NEVER DO THIS - Suite pattern is prohibited
-type MyTestSuite struct {
-    suite.Suite
-    // other fields
-}
+# Run all tests including E2E
+make test
 
-func (s *MyTestSuite) TestSomething() {
-    s.Equal("expected", "actual")  // ❌ WRONG
-    s.NoError(err)                 // ❌ WRONG
-    s.T().Run("test", func(t *testing.T) { ... }) // ❌ WRONG
-}
+# Format and lint code (ALWAYS run before committing)
+make fmt && make lint
 
-// ✅ DO THIS INSTEAD - Direct test functions
-func TestSomething_Method(t *testing.T) {
-    t.Run("Should behave correctly", func(t *testing.T) {
-        assert.Equal(t, "expected", "actual")  // ✅ CORRECT
-        require.NoError(t, err)                // ✅ CORRECT
-    })
-}
+# Run specific test
+go test -v ./engine/task -run TestExecutor_Execute
 ```
-</anti_patterns>
 
-## Table-Driven Tests
+### Database Commands
 
-<guidelines type="table_tests">
-- AVOID table-driven tests for 2-3 cases
-- ONLY use when 5+ similar variations exist
-- Each table test case must still use "Should..." naming
-</guidelines>
-
-## Test Organization
-
-<organization_rules>
-- Place `*_test.go` files alongside implementation files
-- Each test MUST be independent and repeatable
-- Mock external dependencies **only when necessary** using `testify/mock`
-- Use project test helpers: `utils.SetupTest()`, `utils.SetupFixture()`
-- Test both success and error paths
-- Ensure test coverage for all exported functions
-</organization_rules>
-
-## Mock Standards
-
-<when_to_mock>
-**WHEN TO USE MOCKS:**
-- External services (HTTP clients, databases, file systems)
-- Dependencies that are slow, unreliable, or have side effects
-- Complex interfaces that would make tests brittle or slow
-- **NOT REQUIRED** for simple functions, pure logic, or internal utilities
-</when_to_mock>
-
-<pattern type="mock_implementation">
-```go
-// Define mock interface
-type MockService struct {
-    mock.Mock
-}
-
-func (m *MockService) DoSomething(ctx context.Context, param string) error {
-    args := m.Called(ctx, param)
-    return args.Error(0)
-}
-
-// Usage in tests
-func TestComponent_Method(t *testing.T) {
-    t.Run("Should use mocked service", func(t *testing.T) {
-        mockService := new(MockService)
-        mockService.On("DoSomething", mock.Anything, "test").Return(nil)
-
-        component := NewComponent(mockService)
-        err := component.Method("test")
-
-        assert.NoError(t, err)
-        mockService.AssertExpectations(t)
-    })
-}
+```bash
+make migrate-up     # Apply migrations
+make migrate-down   # Rollback last migration
+make migrate-status # Check migration status
+make reset-db       # Reset database completely
 ```
-</pattern>
 
-<refactoring_priorities>
-- Replace custom mocks with testify/mock implementations
-- Migrate interface-based mocks to use `mock.Mock` embedding
-- Standardize mock setup and assertion patterns across the codebase
-</refactoring_priorities>
+## Architecture & Project Structure
 
-<example type="test_structure">
-```go
-func TestService_Method(t *testing.T) {
-    t.Run("Should succeed with valid input", func(t *testing.T) {
-        // arrange, act, assert
-    })
+**📁 Complete project structure, technology stack, and architectural patterns:** See [project-structure.mdc](mdc:.cursor/rules/project-structure.mdc)
 
-    t.Run("Should handle error cases", func(t *testing.T) {
-        // test implementation
-    })
-}
+## 🚨 CRITICAL: Follow All Development Standards
+
+**📋 MANDATORY: Review and follow ALL established coding standards:**
+
+- **Code Formatting & Line Spacing**: [no_linebreaks.mdc](mdc:.cursor/rules/no_linebreaks.mdc) - NEVER add blank lines inside function bodies
+- **Go Coding Standards**: [go-coding-standards.mdc](mdc:.cursor/rules/go-coding-standards.mdc) - Function limits, error handling, documentation policy
+- **Testing Standards**: [testing-standards.mdc](mdc:.cursor/rules/testing-standards.mdc) - MANDATORY `t.Run("Should...")` pattern, testify usage
+- **Go Implementation Patterns**: [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc) - Canonical implementations of architecture principles
+- **Architecture Principles**: [architecture.mdc](mdc:.cursor/rules/architecture.mdc) - SOLID principles, Clean Architecture, DRY
+- **Code Quality & Security**: [quality-security.mdc](mdc:.cursor/rules/quality-security.mdc) - Linting rules, security requirements
+- **Required Libraries**: [core-libraries.mdc](mdc:.cursor/rules/core-libraries.mdc) - Mandatory library choices and usage patterns
+- **API Development**: [api-standards.mdc](mdc:.cursor/rules/api-standards.mdc) - RESTful design, versioning, documentation
+- **Code Review Process**: [review-checklist.mdc](mdc:.cursor/rules/review-checklist.mdc) - Pre-review requirements and checklist
+
+## Development Workflow
+
+### Pre-Commit Requirements
+
+**ALWAYS run before committing:**
+
+```bash
+make fmt && make lint && make test
 ```
-</example>
 
-## Test Patterns
+### Development Process
 
-<patterns type="testing_best_practices">
-- **Arrange-Act-Assert:** Structure all tests with clear setup, execution, and verification phases
-- **Independent Tests:** Each test should be able to run in isolation
-- **Descriptive Names:** Use "Should..." pattern to describe expected behavior
-- **Mock When Necessary:** Use testify/mock only for external dependencies or complex interfaces
-- **Context Propagation:** Pass context to functions that require it, even in tests
-- **Mock Assertions:** When using mocks, always call `mockService.AssertExpectations(t)` to verify all expected calls were made
-- **Mock Cleanup:** Use `mock.AnythingOfType()` and `mock.Anything` for flexible parameter matching
-</patterns>
+1. **API changes:** Update Swagger annotations (`swag` comments)
+2. **Schema changes:** Create migrations with `make migrate-create name=<name>`
+3. **New features:** Include comprehensive tests following [testing-standards.mdc](mdc:.cursor/rules/testing-standards.mdc)
+4. **Task completion:** Follow [task-review.mdc](mdc:.cursor/rules/task-review.mdc) for mandatory code review workflow via Zen MCP tools
+5. **Backwards Compatibility:** See [backwards-compatibility.mdc](mdc:.cursor/rules/backwards-compatibility.mdc) - NOT REQUIRED during development phase
 
-## Test Coverage Requirements
+### Key Development Notes
 
-<coverage_requirements type="unified">
-**Unified Coverage Standard:**
-- **Business Logic Packages**: All code in `engine/{agent,task,tool,workflow}/` must achieve ≥80% test coverage
-- **Exported Functions**: All exported functions across the codebase must have meaningful tests (not just presence tests)
-- **Coverage Focus**: Prioritize testing business logic paths over trivial getters/setters
-- **Quality Gate**: Use coverage reports to identify gaps in business logic, not just check for test existence
-</coverage_requirements>
+- **Logging:** Use [core-libraries.mdc](mdc:.cursor/rules/core-libraries.mdc) for structured logging patterns
+- **Core types:** Use `core.ID` for UUIDs, `core.Ref` for polymorphic references
+- **Dependencies:** Mock external dependencies in tests when necessary (see [testing-standards.mdc](mdc:.cursor/rules/testing-standards.mdc))
 
-## Architectural Testing
+## Task Management
 
-<architectural_testing type="mandatory">
-**MANDATORY: Architecture Constraint Validation**
-- **Dependency Direction**: Test that dependencies flow inward toward domain
-- **Layer Violations**: Prevent direct dependencies between Infrastructure and Domain layers
-- **Circular Dependencies**: Automated detection of package cycles
-- **Interface Compliance**: Verify adapters properly implement port interfaces
+For task-based development workflows, see these rule files:
 
-**Implementation Pattern:**
-```go
-func TestArchitecturalConstraints(t *testing.T) {
-    t.Run("Should enforce dependency direction", func(t *testing.T) {
-        // Test that engine/infra doesn't import engine/core directly
-        // Test that engine/core doesn't import any other engine packages
-    })
+- [prd-create.mdc](mdc:.cursor/rules/prd-create.mdc) - PRD Creation
+- [prd-tech-spec.mdc](mdc:.cursor/rules/prd-tech-spec.mdc) - Technical Specifications
+- [task-generate-list.mdc](mdc:.cursor/rules/task-generate-list.mdc) - Task List Generation
+- [task-developing.mdc](mdc:.cursor/rules/task-developing.mdc) - Task Development
+- [task-review.mdc](mdc:.cursor/rules/task-review.mdc) - Task Completion with Zen MCP code review
 
-    t.Run("Should prevent circular dependencies", func(t *testing.T) {
-        // Use go list or similar to detect cycles
-    })
-}
-```
-</architectural_testing>
+## Rule Management
+
+The development rules are actively maintained and improved:
+
+- **Rule Management**: [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) - Comprehensive guidelines for creating, maintaining, and improving rules
+
+## Compozy Configuration Examples
+
+For YAML configuration patterns and examples:
+
+- **Project Configuration**: [compozy-project-config.mdc](mdc:.cursor/rules/compozy-project-config.mdc) - Project setup patterns
+- **Task Patterns**: [compozy-task-patterns.mdc](mdc:.cursor/rules/compozy-task-patterns.mdc) - Workflow task configurations
+- **Agent Configuration**: [compozy-agent-config.mdc](mdc:.cursor/rules/compozy-agent-config.mdc) - AI agent setup patterns
+- **Shared Patterns**: [compozy-shared-patterns.mdc](mdc:.cursor/rules/compozy-shared-patterns.mdc) - MCP, templates, and references
+- **Configuration Index**: [compozy-examples.mdc](mdc:.cursor/rules/compozy-examples.mdc) - Overview and cross-references
+
+**All rule files are located in `.cursor/rules/` and use semantic XML tags for better context and AI understanding.**
+
+The project uses Go 1.24+ features and requires external dependencies to be mocked in tests when necessary.
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
