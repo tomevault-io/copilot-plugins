@@ -1,0 +1,9 @@
+{
+  "name": "stephenshorton--ww-multiplayer",
+  "displayName": "ww-multiplayer",
+  "description": "Real-time visual multiplayer for Wind Waker on Dolphin. Go TUI + TCP networking + PowerPC code injection.",
+  "version": "1.0.0",
+  "author": "StephenSHorton",
+  "homepage": "https://github.com/StephenSHorton/ww-multiplayer",
+  "skills": []
+}
