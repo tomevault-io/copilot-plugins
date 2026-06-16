@@ -4,7 +4,7 @@
   "repo": "gosymdb",
   "description": "A Go symbol and call-graph database backed by SQLite. Query symbols, callers, callees, blast radius, dead code, and interface implementors as structured JSON \u2014 typed code navigation for AI agents (MCP) and humans.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/walkindude/gosymdb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T17:17:16Z"
+  "distributed_at": "2026-06-16T17:35:06Z"
 }
