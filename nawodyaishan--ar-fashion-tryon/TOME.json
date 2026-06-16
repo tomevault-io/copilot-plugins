@@ -1,0 +1,44 @@
+{
+  "name": "ar-fashion-tryon",
+  "owner": "nawodyaishan",
+  "repo": "ar-fashion-tryon",
+  "description": "Full-stack augmented reality and AI-powered virtual garment try-on system for e-commerce. Combines real-time AR preview with ML-powered photo-realistic virtual try-on using state-of-the-art deep learning models.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nawodyaishan/ar-fashion-tryon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T08:35:59Z"
+}
