@@ -1,786 +1,958 @@
-## temper-ref-pack
+## temper-ref-plan
 
-> Temper reference: pack
+> Temper reference: plan
 
 
 
-# Pack: Quality Pack Manager
+# Plan: Feature Planning with Impact Analysis
 
-**Goal:** Display all defined quality packs with their enable/disable status, link targets, phase scoping, and connection health. Allow users to toggle packs, create new packs, quick-create launcher packs, and configure links and phases.
+**Goal:** Transform feature request into implementation plan with blast radius analysis and risk assessment.
 
----
+## Active Skills
 
-## Pack Resolution: Three-Tier System (v4.3.0)
+- **Context Engineering** — load hierarchical context at stage start (rules → arch → source → errors, under 2K lines/task)
+- **Temper Core** — stack detection, pack resolution, quality gates
 
-Quality packs resolve from three tiers in priority order. Higher tiers shadow lower ones.
-
-```
-Priority 1 (highest) → .claude/packs/{name}/rules.md           (project-local)
-Priority 2           → ~/.claude/packs/{name}/rules.md          (global / user-wide)
-Priority 3 (lowest)  → $CLAUDE_PLUGIN_ROOT/.claude/packs/{name}/rules.md  (built-in)
-```
-
-**Why:** Teams ship project-specific packs in the repo. Users create global packs across all projects. Built-in packs provide defaults.
-
-**Resolution:** When the same pack name exists in multiple tiers, only the highest-priority version is loaded. Project-local always wins over global, which always wins over built-in.
-
-### Pack Discovery Algorithm
-
-Scan all three tiers, deduplicate by name (highest priority wins):
+## Usage
 
 ```
-Step 1: Scan built-in packs
-  For each directory in $CLAUDE_PLUGIN_ROOT/.claude/packs/ (excluding stacks/):
-    - If {name}/rules.md exists → add to manifest with scope: "built-in"
-
-Step 2: Scan global packs
-  For each directory in ~/.claude/packs/ (excluding stacks/):
-    - If {name}/rules.md exists → add to manifest with scope: "global"
-    - If name already in manifest → replace (global shadows built-in)
-
-Step 3: Scan project-local packs
-  For each directory in .claude/packs/ (excluding stacks/):
-    - If {name}/rules.md exists → add to manifest with scope: "project"
-    - If name already in manifest → replace (project shadows all)
+/temper:plan "feature description"
+/temper:plan "JIRA-123"
+/temper:plan "#123"
+/temper:plan --full "feature"    # Force full spec-kit even for simple tasks
+/temper:plan --quick "feature"   # Force lightweight plan
+/temper:plan --reindex "feature" # Force full semantic index rebuild
 ```
 
----
+## Feature: $ARGUMENTS
 
-## Cached Pack Manifest (v4.4.0)
+## Execution
 
-Pack discovery results are cached to `.temper/pack-manifest.json` for instant subsequent loads.
+### Context Loading
 
-### Cache Behavior
+This stage may run in two modes:
+- **Standalone** (`/temper:plan`) — runs in current context, handles its own gate
+- **Agent subprocess** (from `/temper`) — runs in clean context, returns summary to orchestrator
 
-- **First run:** Full filesystem scan of all three tiers → write manifest
-- **Subsequent runs:** Load from cache (near-instant)
-- **Cache is rebuilt when:**
-  1. `temper.config` file modified (project or global) — check mtime
-  2. Pack directories added or removed in any tier — check directory listing
-  3. Manifest `version` field doesn't match expected schema version
-  4. Any pack's `rules.md` file modified — check mtime of each rules_path
+**Subprocess mode override:** When running as an Agent subprocess, do NOT show AskUserQuestion gates or clear context. Return the plan summary to the orchestrator. The orchestrator handles all gate decisions and context transitions.
 
-### Manifest Structure
+In both modes, the planning methodology is identical.
+
+**Context loading strategy:** Apply the context-engineering skill for hierarchical loading (rules -> arch -> source -> errors, under 2K lines/task). The file list below specifies WHAT to load; the skill specifies HOW and WHEN.
+
+### Phase 0: Detect Input Type
+
+Determine what the user provided:
+
+- Starts with a project prefix + numbers (e.g., `BKNG-1234`, `PROJ-567`) → fetch from Jira API using `gh` or `curl`
+- Starts with `#` + numbers (e.g., `#1234`) → fetch from GitHub Issues using `gh issue view`
+- URL containing `github.com` → fetch from GitHub using `gh`
+- URL containing `atlassian.net` or `jira` → fetch from Jira API
+- Everything else → use as direct feature description
+
+**If issue tracker fetch fails:** Fall back to using the raw text as description. Never block on API failures.
+
+### Phase 0.5: Initial File Count Estimate
+
+Before launching the Explore subagent, make a rough estimate to guide planning depth:
+
+```
+ESTIMATION HEURISTIC:
+
+| Feature Type | Typical Files | Complexity |
+|-------------|---------------|------------|
+| Single endpoint/page/handler | 3-5 | Simple |
+| New domain/module | 7-12 | Medium-Complex |
+| Cross-cutting (auth, middleware) | 10-25 | Complex |
+| External service integration | 5-8 | Medium |
+```
+
+Pre-estimate only. Explore subagent refines with actual codebase knowledge.
+
+### Phase 1: Auto-Prime (via Explore subagent)
+
+Launch an Explore subagent with this prompt:
+
+```
+Scan this project to build a reference map for planning a new feature.
+
+0. CODE REVIEW GRAPH MCP (PRIMARY exploration method)
+   If code-review-graph MCP tools are available:
+   a. Call build_or_update_graph_tool to ensure the graph is up-to-date
+   b. Call get_architecture_overview_tool for high-level codebase structure
+   c. Call list_communities_tool to understand code grouping
+   d. Call list_flows_tool (limit 20) to identify key execution paths
+   e. Call semantic_search_nodes_tool with keywords from the feature description
+   f. Call get_minimal_context_tool with the feature description for a quick overview
+   → Use these results as the PRIMARY source for dependency maps, patterns, and similar code
+   → Still verify with direct file reads where needed
+   If MCP is unavailable, proceed with grep/read steps below as fallback.
+
+1. DETECT STACK
+   - Look for: package.json, pom.xml, build.gradle, pyproject.toml, go.mod, Cargo.toml
+   - Read the detected manifest to understand dependencies
+   - Check for temper.config (stack override)
+
+2. SCAN PROJECT STRUCTURE
+   - List top-level directories
+   - Identify source roots (src/, app/, lib/, etc.)
+   - Count files by type to understand project scale
+
+3. MAP PATTERNS
+   For each layer found, note 1-2 example files:
+   - Controllers/routes (API layer)
+   - Services (business logic)
+   - Repositories/DAOs (data access)
+   - Models/entities
+   - DTOs/schemas
+   - Tests (unit + integration)
+   - Configuration files
+
+4. FIND SIMILAR IMPLEMENTATIONS
+   Search for existing code similar to the planned feature.
+   First try semantic_search_nodes_tool with feature keywords (if MCP available).
+   Then grep for keywords from the feature description.
+
+5. CHECK FOR COMPANY PRESET
+   - Read .claude/temper.config if exists
+   - Read .claude/presets/*.yaml if exists
+   - Read enabled pack rules from .claude/packs/
+
+6. READ SEMANTIC INDEX (if exists)
+   - Read .temper/index/modules.json for dependency graph
+   - Read .temper/index/api-surface.json for API map
+   - If index doesn't exist or is stale, build it:
+     - Map all imports/requires across the project
+     - List all API endpoints with their handler functions
+     - List all test files and what they test
+
+Return a reference map in this format (max 60 lines):
+
+STACK: {detected stack}
+PRESET: {preset name or "none"}
+PACKS: {enabled packs}
+
+PROJECT STRUCTURE:
+  {directory tree, 2 levels deep}
+
+PATTERNS:
+  Controllers: {pattern + example file}
+  Services: {pattern + example file}
+  Repositories: {pattern + example file}
+  Tests: {pattern + example file}
+
+SIMILAR CODE:
+  {1-3 similar implementations found, with file paths}
+
+DEPENDENCY MAP (relevant to this feature):
+  {which modules would be affected}
+
+TEST COVERAGE:
+  {files related to this feature and whether they have tests}
+```
+
+### Phase 1.5: Validate Subagent Results
+
+```
+Missing sections:
+  - No controllers → look for entry points, exported functions, main files
+  - No tests → TDD creates from scratch; lower coverage expectations; flag in risk
+  - No similar code → new capability, higher risk, more questions in Phase 5
+  - Stack detection failed → ask user, or check Makefile/Dockerfile/CI config
+
+Reference map too large (>60 lines) → keep only sections relevant to feature
+Subagent timeout/failure → fall back to manual exploration, flag lower confidence
+```
+
+### Phase 1.6: Semantic Index (Optional Enhancement)
+
+The semantic index accelerates blast radius analysis by pre-computing dependency graphs. It's optional — if missing, the Explore subagent builds equivalent knowledge ad-hoc.
+
+**Index files:**
+
+```
+.temper/index/
+├── modules.json      # Import/dependency graph
+└── api-surface.json  # API endpoints and handlers
+```
+
+**modules.json schema:**
 
 ```json
 {
   "version": 1,
-  "last_built": "2026-04-20T10:00:00Z",
-  "config_mtime": "2026-04-20T09:30:00Z",
-  "packs": [
+  "last_built": "2026-03-15T10:00:00Z",
+  "modules": {
+    "src/services/AuthService.ts": {
+      "imports": ["src/models/User.ts", "src/utils/jwt.ts"],
+      "imported_by": ["src/controllers/AuthController.ts", "src/middleware/auth.ts"],
+      "exports": ["AuthService", "verifyToken"]
+    }
+  }
+}
+```
+
+**api-surface.json schema:**
+
+```json
+{
+  "version": 1,
+  "last_built": "2026-03-15T10:00:00Z",
+  "endpoints": [
     {
-      "name": "quality",
-      "enabled": true,
-      "scope": "built-in",
-      "phases": "all",
-      "link": null,
-      "connected": null,
-      "rules_path": "$CLAUDE_PLUGIN_ROOT/.claude/packs/quality/rules.md",
-      "rule_summary": "Code quality: method length, DRY, naming"
-    },
-    {
-      "name": "tdd",
-      "enabled": true,
-      "scope": "built-in",
-      "phases": ["build"],
-      "link": null,
-      "connected": null,
-      "rules_path": "$CLAUDE_PLUGIN_ROOT/.claude/packs/tdd/rules.md",
-      "rule_summary": "TDD: RED-GREEN-REFACTOR enforcement"
+      "method": "POST",
+      "path": "/api/auth/login",
+      "handler": "src/controllers/AuthController.ts:login",
+      "middleware": ["src/middleware/rateLimit.ts"]
     }
   ]
 }
 ```
 
-### Manifest Operations
+**Index staleness detection:**
 
-**Read manifest:**
-1. Check `.temper/pack-manifest.json` exists
-2. If not: run full discovery, write manifest, return
-3. If exists: load, check staleness conditions
-4. If stale: run full discovery, overwrite manifest, return
-5. If fresh: return cached manifest
+- Compare `last_built` timestamp to git's last commit timestamp
+- If `last_built` < last commit → rebuild (or use `--reindex` flag)
 
-**Invalidate manifest:**
-- After toggling packs (enabled status changed)
-- After creating a new pack
-- After modifying pack link or phases config
-
----
-
-## Pack Configuration Schema (v4.3.0)
-
-### Extended Config Format
-
-The `packs:` field in `.claude/temper.config` now supports objects with `name`, `link`, and `phases`:
-
-```yaml
-packs:
-  - name: quality                        # Simple format (no link, all phases)
-  - name: tdd
-    phases: [build]                      # Only during build phase
-  - name: security
-    phases: [review, check]              # Only during review and check
-  - name: api-standards
-    link: plugin://my-api-linter         # Links to an installed plugin
-  - name: sec-review
-    link: skill://security-review        # Links to a skill
-  - name: git                            # Simple format
-```
-
-### Backward Compatibility
-
-Simple string format still works:
-```yaml
-packs:
-  - quality
-  - tdd
-```
-This is equivalent to:
-```yaml
-packs:
-  - name: quality
-  - name: tdd
-```
-
-### Parsing Note
-
-When reading `packs:`, each entry can be either a **string scalar** (simple format) or a **mapping** with `name` key (extended format). Parser must check type:
-- If string → treat as `{name: <value>, phases: "all", link: null}`
-- If mapping → read `name` (required), `phases` (default: "all"), `link` (default: null)
-
----
-
-## Phase Scoping (v4.3.0)
-
-Packs can be restricted to specific Temper phases. Only packs scoped to the current phase are loaded.
-
-### Available Phases
-
-`plan`, `design`, `build`, `review`, `check`, `fix`
-
-### Default Behavior
-
-If `phases` is omitted or set to `all`, the pack activates during every phase.
-
-### Phase Filtering
-
-When a stage starts:
-1. Read current phase from the command being executed (e.g., `/temper:build` → phase = "build")
-2. Filter manifest packs: only include packs where `phases` is "all" or contains the current phase
-3. Load filtered packs' rules + any linked context
-
----
-
-## Pack-Plugin/Skill Linking (v4.3.0)
-
-Packs can link to external plugins or skills. When a pack loads during a Temper phase, the linked resource's instructions are **included in the AI prompt context** alongside the pack's own rules.
-
-### Link Format
-
-- `plugin://{name}` — Links to an installed Claude Code plugin
-- `skill://{name}` — Links to a skill (SKILL.md or command-based)
-
-### What Linking Does
-
-This is **context injection, not code execution.** When a linked pack loads:
-1. The pack's own `rules.md` is read
-2. The linked resource's content is located and read
-3. Both are included in the AI's prompt context for that phase
-
-### Connection Health Validation
-
-When a pack has a link, validate the target exists:
-
-**Plugin links (`plugin://`):**
-1. Read `~/.claude/plugins/installed_plugins.json`
-2. Find the plugin by name
-3. Verify the install path exists on disk
-4. If found → `connected: true`; if not → `connected: false`
-
-**Skill links (`skill://`):**
-1. Search resolution chain (see "Command-Based Skill Linking" below)
-2. If any source found → `connected: true`; if none → `connected: false`
-
-**Health states:**
-| Status | Meaning | Display |
-|--------|---------|---------|
-| `connected: true` | Link target found | `connected` |
-| `connected: false` | Link target missing | `not found` |
-| `null` | No link configured | `—` |
-
-**Graceful degradation:** If a link target is missing, the pack's own rules still load. Show a warning but do not block work. This prevents a removed plugin from blocking all Temper usage.
-
----
-
-## Plugin/Skill Filesystem Discovery (v4.4.0)
-
-Automatic discovery of all linkable targets from the filesystem. Used by quick-create launcher packs and pack linking.
-
-### Discovery Scan (Execute These Steps at Runtime)
-
-**Step 1: Discover installed plugins**
-
-Use Bash to read the plugin registry:
-```bash
-python3 -c "
-import json, os
-path = os.path.expanduser('~/.claude/plugins/installed_plugins.json')
-if os.path.exists(path):
-    with open(path) as f:
-        data = json.load(f)
-    plugins = data.get('plugins', data)
-    for key, entries in (plugins.items() if isinstance(plugins, dict) else []):
-        name = key.split('@')[0]  # 'safety-net@cc-marketplace' -> 'safety-net'
-        latest = entries[-1] if entries else {}
-        install_path = latest.get('installPath', '')
-        print(f'plugin://{name}  {install_path}')
-"
-```
-
-**Step 2: Discover plugin skills and commands**
-
-For each plugin found in Step 1, check its `installPath` for skills and commands:
-```bash
-# Replace {install_path} with the actual path from Step 1
-find {install_path}/skills -name "SKILL.md" 2>/dev/null
-find {install_path}/commands -name "*.md" 2>/dev/null
-```
-
-Each `SKILL.md` found becomes `skill://{directory_name}`. Each command `.md` becomes `skill://{stem}` (fallback only).
-
-**Step 3: Discover project-local skills**
-
-```bash
-find .claude/skills -name "SKILL.md" 2>/dev/null
-```
-
-Each becomes `skill://{parent_directory_name}`.
-
-**Step 4: Discover global skills**
-
-```bash
-find ~/.claude/skills -name "SKILL.md" 2>/dev/null
-```
-
-Each becomes `skill://{parent_directory_name}`.
-
-**Step 5: Discover command-based skills (fallback)**
-
-```bash
-ls .claude/commands/*.md 2>/dev/null
-ls ~/.claude/commands/*.md 2>/dev/null
-```
-
-Each `.md` file becomes `skill://{stem}` — BUT only if the name wasn't already found in Steps 2-4 (deduplication).
-
-### Deduplication
-
-If a skill name is found via `SKILL.md` in any source, the command-based fallback is skipped for that name.
-
-### Discovery Sources Summary
-
-| Source | What's Found | Link Format |
-|--------|-------------|-------------|
-| `~/.claude/plugins/installed_plugins.json` | Installed plugins | `plugin://{name}` |
-| `{plugin installPath}/skills/*/SKILL.md` | Plugin skills | `skill://{name}` |
-| `.claude/skills/*/SKILL.md` | Project-local skills | `skill://{name}` |
-| `~/.claude/skills/*/SKILL.md` | Global skills | `skill://{name}` |
-| `.claude/commands/*.md` (fallback) | Command-based skills | `skill://{command-name}` |
-| `~/.claude/commands/*.md` (fallback) | Global command-based skills | `skill://{command-name}` |
-| `{plugin installPath}/commands/*.md` (fallback) | Plugin commands | `skill://{command-name}` |
-
----
-
-## Command-Based Skill Linking (v4.4.0)
-
-Skills defined as markdown command files (`.claude/commands/*.md`) are valid link targets alongside traditional `SKILL.md` files.
-
-### Resolution Order for `skill://{name}`
-
-1. `.claude/skills/{name}/SKILL.md` — standard skill file
-2. `~/.claude/skills/{name}/SKILL.md` — global skill file
-3. `{plugin_path}/skills/{name}/SKILL.md` — plugin skill file
-4. `.claude/commands/{name}.md` — **command-based fallback**
-5. `{plugin_path}/commands/{name}.md` — plugin command fallback
-
-Return the content from the first source that exists.
-
----
-
-## Execution
-
-### Step 1: Discover Packs (Three-Tier + Cache)
-
-Read or build the pack manifest:
-
-1. Check `.temper/pack-manifest.json` — load if fresh, rebuild if stale
-2. If rebuilding: scan all three tiers, resolve links, check connection health
-3. Read `.claude/temper.config` for enabled status and extended config (links, phases)
-4. Merge manifest with config: apply enabled/disabled, links, phases
-
-### Step 2: Display Pack Status
-
-Show the pack list with all columns:
+**Index building (if needed):**
 
 ```
-┌──────────────────────────────────────────────────────────────────────────┐
-│ PACK — Quality Pack Manager                                      v4.4.0 │
-├──────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
-│  NAME            STATUS  PHASES     LINK                CONNECTED        │
-│  ────────────── ─────── ────────── ─────────────────── ──────────────── │
-│  quality          ON     all        —                   —                │
-│  tdd              ON     build      —                   —                │
-│  security         ON     review,check —                 —                │
-│  git              ON     all        —                   —                │
-│  api-standards    OFF    all        plugin://api-linter  connected       │
-│  sec-review       OFF    all        skill://sec-review  not found       │
-│                                                                          │
-│  6 packs total (4 enabled, 2 disabled)                                   │
-│  Manifest cached: 2026-04-20T10:00:00Z                                   │
-│                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
+1. Find all source files (exclude node_modules, vendor, dist)
+2. For each file:
+   a. Parse imports/requires
+   b. Parse exports
+   c. Build reverse dependency map
+3. For API routes:
+   a. Detect framework (Express, Fastify, Spring, etc.)
+   b. Parse route definitions
+   c. Map to handler functions
+4. Write to .temper/index/
 ```
 
-### Step 3: User Action (AskUserQuestion-Driven UX)
+**Skip index if:**
 
-Use AskUserQuestion with structured options:
+- Project < 50 files (ad-hoc analysis is fast enough)
+- No .temper/ directory exists yet
+- User passed `--quick` flag
 
-```
-AskUserQuestion:
-  question: "What would you like to do?"
-  options:
-    - label: "Toggle packs on/off"
-      description: "Select packs to enable or disable."
-    - label: "Quick-create launcher pack"
-      description: "Wrap a plugin or skill as a BLOCK-level pack. Fast path — no codebase scan."
-    - label: "Configure pack (link, phases)"
-      description: "Set link target or phase scoping for an existing pack."
-    - label: "Done"
-      description: "Exit pack manager. Use 'Other' to request a full interactive pack builder."
-  multiSelect: false
-```
+### Phase 2: Research (via Research subagent, if needed)
 
-If the user wants the full interactive pack builder (codebase scan + interview), they select "Other" and type "add new pack" or "create pack from scratch".
-
-### Step 4: Toggle Packs
-
-If the user selects "Toggle packs on/off":
-
-1. Show a multi-select AskUserQuestion listing all packs with their current status:
+Only launch if the feature involves external libraries or APIs not already in the project:
 
 ```
-AskUserQuestion:
-  question: "Select packs to enable (deselect to disable):"
-  options:
-    - label: "quality (ON)"
-      description: "Code quality: method length, DRY, naming"
-    - label: "tdd (ON)"
-      description: "TDD: RED-GREEN-REFACTOR"
-    - label: "security (ON)"
-      description: "Security: OWASP Top 10"
-    - label: "git (ON)"
-      description: "Git: conventional commits, branching"
-  multiSelect: true
+Research the following for implementation guidance:
+- {library/API name} documentation
+- Known issues and gotchas
+- Code examples for {specific use case}
+
+Return only the relevant snippets (max 30 lines).
 ```
 
-2. Update `.claude/temper.config`:
-   - Preserve all config fields unchanged
-   - Update `packs:` list to exactly the packs the user selected (keeping link/phases config if present)
-3. Invalidate manifest cache
-4. Show updated status
-5. Return to Step 3
+### Phase 3: Assess Complexity + Risk
 
-### Step 5: Quick-Create Launcher Pack
+Based on the reference map, determine:
 
-If the user selects "Quick-create launcher pack":
+**File count estimate:**
 
-**5a: Discover linkable targets**
+- How many files need to be created?
+- How many files need to be modified?
+- Total = created + modified
 
-You MUST execute these scans using the Bash tool before showing any options. Collect results into a list, then filter out targets already linked to existing packs.
+**Complexity level:**
 
-Run these commands and collect all output:
+| Files | Level |
+|-------|-------|
+| <3 | Trivial → skip planning, just implement |
+| 3-5 | Simple → inline plan in conversation |
+| 5-10 | Medium → tasks.md + quickstart.md |
+| 10+ | Complex → full spec/plan/tasks/quickstart |
 
-```bash
-# 1. Installed plugins (parse name@source -> name, get installPath)
-python3 -c "
-import json, os
-path = os.path.expanduser('~/.claude/plugins/installed_plugins.json')
-if os.path.exists(path):
-    with open(path) as f:
-        data = json.load(f)
-    plugins = data.get('plugins', data)
-    for key, entries in (plugins.items() if isinstance(plugins, dict) else []):
-        name = key.split('@')[0]
-        latest = entries[-1] if entries else {}
-        ipath = latest.get('installPath', '')
-        print(f'PLUGIN|{name}|{ipath}')
-"
+**Risk multipliers** (each adds +1 to complexity level):
 
-# 2. Plugin skills (for each plugin installPath found above)
-find {each_plugin_installPath}/skills -name "SKILL.md" 2>/dev/null
+- Touches payment, auth, or security code
+- Modifies shared library consumed by 5+ other modules
+- Changes database schema
+- Module has historically high defect rate (check .temper/metrics.json if exists)
+- Security hot path detected (Phase 4.1 sensitivity CRITICAL or HIGH)
 
-# 3. Project skills
-find .claude/skills -name "SKILL.md" 2>/dev/null
+**Override:** If user passed `--full`, use Complex. If `--quick`, use Simple.
 
-# 4. Global skills
-find ~/.claude/skills -name "SKILL.md" 2>/dev/null
+### Phase 4: Blast Radius Analysis
 
-# 5. Project commands (fallback, skip names already found as skills)
-ls .claude/commands/*.md 2>/dev/null
+Using the reference map and semantic index:
 
-# 6. Global commands (fallback)
-ls ~/.claude/commands/*.md 2>/dev/null
+MCP BLAST RADIUS (before grep-based steps):
+  If code-review-graph MCP server is available and tools.mode is not heuristic-only:
+  1. Call get_impact_radius_tool with the planned file list
+  2. Returns [PROVEN]:
+     - Direct consumers (files importing planned files)
+     - Transitive impact (files depending on consumers)
+     - Risk scores per file
+     - Fan-in / fan-out metrics
+  3. If MCP available: SKIP grep-based steps 2-3 below (MCP provides superior results)
+     Always run steps 4-5 (contract changes, architectural drift) — MCP doesn't detect these
+  4. Evidence label: [PROVEN] on all MCP-sourced findings
+  If MCP unavailable:
+     Proceed with grep-based steps 1-5 as [HEURISTIC]
 
-# 7. Plugin commands (for each plugin installPath)
-find {each_plugin_installPath}/commands -name "*.md" 2>/dev/null
+1. List files that will likely be changed (preliminary — refined after scenarios in Phase 4.5)
+2. For each changed file, find all importers/consumers
+3. For each consumer, check if it has test coverage for the affected code path
+4. Flag any contract changes (API response shapes, event payloads, DB schemas)
+5. Flag any architectural drift (new code bypassing established patterns)
+
+**Output format (included in plan and review):**
+
+```
+BLAST RADIUS — {feature-name}
+
+  Direct impact:
+    {File} ({action}) → used by {N} consumers
+    {File} ({action}) → no existing consumers yet
+
+  Transitive impact:
+    {Module} → calls {changed-function}()
+    {Module} → subscribes to {event}()
+
+  Risk areas:
+    {Module} has {X}% test coverage for {path}
+    {Module} handler not updated for new payload shape
+
+  Architectural compliance:
+    ✅ {pattern} followed
+    ✅ {pattern} followed
+    ⚠️ {concern}
 ```
 
-After collecting all results:
-1. Build a deduplicated list of `{type}://{name}` targets
-2. Remove any targets already linked to a pack in `temper.config` (check each pack's `link:` field)
-3. The remaining targets are available for quick-create
+### Phase 4.1: Security Hot Path Detection
 
-**5b: User selects target**
-Show ALL discovered targets (after filtering). Paginate in groups of 4 since AskUserQuestion supports max 4 options:
+During blast radius analysis, classify changed files by security sensitivity and trace call chains to entry points. This proactively identifies security risks before code is written.
 
-If <= 4 targets found, show all in one AskUserQuestion:
+**Security sensitivity classification:**
+
+| Level | Keywords/Patterns | Examples |
+|-------|-------------------|----------|
+| CRITICAL | auth, crypto, payment, secret, password, token, encrypt, decrypt, PII | AuthService, PaymentService, TokenService |
+| HIGH | session, permission, role, rate-limit, validate, sanitize, admin | SessionManager, PermissionGuard, RateLimiter |
+| MEDIUM | logging, error-handling, api-route, handler, middleware | ErrorHandler, RequestLogger, ApiMiddleware |
+| LOW | config, constants, types, helpers, utils, DTOs | AppConfig, Constants, Types |
+
+**Detection steps:**
+
 ```
-AskUserQuestion:
-  question: "Select the target to wrap as a launcher pack (1/1):"
-  options:
-    - label: "plugin://my-api-linter"
-      description: "Installed plugin — {description}"
-    - label: "skill://security-review"
-      description: "Project skill — {path}"
-    - label: "skill://production-review"
-      description: "Command-based skill — .claude/commands/production-review.md"
-    - label: "skill://temper-core"
-      description: "Project skill — .claude/skills/temper-core/SKILL.md"
-  multiSelect: false
-```
+1. CLASSIFY each file in the blast radius by sensitivity:
+   - Match file path + function names against the classification table
+   - File inherits the HIGHEST sensitivity of any function it contains
+   - Default: LOW (unknown files)
 
-If > 4 targets found, show in pages of 4. First 3 slots are targets, 4th slot is "More..." if additional pages remain:
-```
-AskUserQuestion:
-  question: "Select the target to wrap as a launcher pack (page {N}/{total}):"
-  options:
-    - label: "plugin://my-api-linter"
-      description: "Installed plugin — {description}"
-    - label: "plugin://safety-net"
-      description: "Installed plugin — {description}"
-    - label: "skill://security-review"
-      description: "Project skill — {path}"
-    - label: "More targets..."
-      description: "Show next {remaining} targets"
-  multiSelect: false
-```
+2. For CRITICAL and HIGH files, trace call chains to entry points:
+   a. Find all IMPORTERS of the changed file:
+      grep "from.*{file}" OR "require.*{file}" OR import("{file}")
+   b. For each importer, determine if it's an ENTRY POINT:
+      - HTTP handler/controller/route → Web entry point
+      - CLI command/main function → CLI entry point
+      - Worker/job processor → Background entry point
+      - WebSocket handler → Real-time entry point
+      - Event subscriber → Async entry point
+   c. Build call chain: Entry Point → Intermediate → Changed Code
 
-On "More targets..." → show next page. Continue until user selects a target.
-On the last page, all 4 slots are targets (no "More..." option).
+3. ASSESS security exposure per call chain:
+   - Reachable from UNAUTHENTICATED endpoint → exposure: PUBLIC
+   - Reachable from AUTHENTICATED endpoint → exposure: AUTHENTICATED
+   - Reachable from ADMIN-only endpoint → exposure: ADMIN
+   - Not reachable from any entry point → exposure: INTERNAL
 
-**5c: User provides pack name**
-Ask via "Other" free-text: "Enter a name for the launcher pack (lowercase, hyphens only, e.g., api-enforcer):"
-
-Pack name constraints: lowercase alphanumeric with hyphens, matching directory name requirements. If free-text input is not available, generate a default from the link target (e.g., `plugin://my-api-linter` becomes `my-api-linter`).
-
-**5d: Generate launcher template**
-Create `.claude/packs/{pack-name}/rules.md`:
-
-```markdown
-# {Pack Name}
-> Launcher pack — enforces {link_type}://{link_name}
-
-## Mandatory Rules (BLOCK if violated)
-- MUST use {link_type}://{link_name} for all work
-- MUST follow all instructions defined by the linked resource
-- MUST NOT bypass or ignore the linked resource's rules
+4. FLAG security risks:
+   - CRITICAL file reachable from PUBLIC endpoint → CRITICAL risk
+   - CRITICAL file reachable from AUTHENTICATED endpoint → HIGH risk
+   - HIGH file without test coverage → HIGH risk
+   - Any sensitive file with no entry point trace → MEDIUM risk (dead code or missing integration)
 ```
 
-**5e: Update config**
-Add to `.claude/temper.config` packs list:
-```yaml
-  - name: {pack-name}
-    link: {link_type}://{link_name}
+**Output — add to blast radius section:**
+
+```
+SECURITY IMPACT:
+  {File} ({function}) → {CRITICAL/HIGH/MEDIUM}
+    Reachable from: {entry point} ({exposure level})
+    Risk: {specific risk description}
+    Recommendation: {actionable suggestion}
 ```
 
-**5f: Invalidate manifest and report**
+**Example output:**
+
+```
+SECURITY IMPACT:
+  src/services/PaymentService.ts (processRefund) → CRITICAL
+    Reachable from: POST /api/refunds (AUTHENTICATED)
+    Risk: User could refund any payment if authorization check missing
+    Recommendation: Add scenario "User can only refund own payments"
+
+  src/middleware/auth.ts (verifyToken) → HIGH
+    Reachable from: 47 endpoints (PUBLIC + AUTHENTICATED)
+    Risk: Token validation bug affects all authenticated endpoints
+    Recommendation: Add integration test for expired/invalid tokens
+
+  src/utils/logger.ts (formatLogEntry) → LOW
+    Reachable from: Internal only
+    Risk: No security impact
+```
+
+**Integration with risk assessment:**
+- Security hot path findings add to the Phase 3 risk multipliers
+- Each CRITICAL finding → +1 complexity level
+- Each HIGH finding → consider adding security-focused scenario in Phase 4.5
+- Security findings persist to `.temper/security-map.json` for use in review and check phases
+
+**State:** Creates `.temper/security-map.json`:
+
+```json
+{
+  "version": 1,
+  "last_updated": "{ISO timestamp}",
+  "hot_paths": [
+    {
+      "file": "src/services/PaymentService.ts",
+      "function": "processRefund",
+      "sensitivity": "CRITICAL",
+      "entry_points": [
+        {
+          "route": "POST /api/refunds",
+          "exposure": "AUTHENTICATED",
+          "has_auth_middleware": true,
+          "has_authorization_check": false
+        }
+      ],
+      "last_reviewed": "{ISO timestamp}"
+    }
+  ]
+}
+```
+
+### Phase 4.5: Derive Scenarios (BDD — before architecture)
+
+**Why before architecture:** Scenarios define the behaviors the system must support. Architecture decisions should be driven by these behaviors, not the other way around. This prevents over-engineering (planning files no scenario needs) and scope gaps (missing behaviors that blast radius revealed).
+
+**Skip for Trivial/Simple** — no intent.md generated for these levels.
+
+For Medium and Complex, generate Gherkin scenarios from:
+
+```
+SOURCE                              BECOMES
+------                              -------
+User's feature description    →     Happy path scenarios
+Acceptance criteria (issue)   →     Happy path + validation scenarios
+Blast radius: risk areas      →     Edge case / error scenarios
+Blast radius: affected consumers →  Regression guard scenarios ("existing X still works")
+```
+
+**Scenario derivation rules:**
+
+```
+Every blast radius risk area → at least one scenario
+Every acceptance criterion → at least one scenario
+Every affected consumer → a regression guard scenario
+Scenarios must be concrete: specific inputs, specific expected outputs
+Each scenario must be testable (no "system works correctly")
+```
+
+**Scenario count:**
+
+- Medium: 3-8 scenarios (happy path, error path, edge case)
+- Complex: 5-15 scenarios (happy path, error paths, edge cases, regression guards)
+
+**Assign testing approach (Note field) per scenario:**
+
+| Behavior Type | Note | When to Use |
+|--------------|------|-------------|
+| `unit` | Default | Pure logic, no external dependencies |
+| `mock` | External dependency | Calls API, sends email, writes to queue |
+| `integration` | Cross-boundary | Database queries, multi-service flow |
+| `manual` | Non-automatable | UI/UX verification, visual output, email delivery confirmation |
+
+**Output:** A draft list of scenarios that will be written into intent.md in Phase 6. These scenarios now inform Phase 5 (questions) and Phase 6 (architecture/file planning).
+
+**Reconcile with Phase 4 file list:**
+After deriving scenarios, check if new files are needed that weren't in the Phase 4 preliminary list — add them. Also check if any Phase 4 files have no scenario or infrastructure justification — flag for removal or justify as infrastructure.
+
+### Phase 5: Ask Clarifying Questions (if ambiguous)
+
+Only ask when genuinely ambiguous — don't ask for the sake of asking. Use AskUserQuestion with concrete options:
+
+Good: "Should this integrate with existing PaymentService or create a new one?"
+Bad: "What should the architecture be?"
+
+Scenarios from Phase 4.5 may reveal ambiguities that weren't visible from the feature description alone. Maximum 2-3 questions. If requirements are clear, skip this phase entirely.
+
+### Phase 6: Generate Plan Artifacts
+
+**ENFORCEMENT OVERRIDE (when running from `/temper` unified command):** Always generate the full artifact set regardless of complexity level. Always create: intent.md, tasks.md, plan.md with mermaid diagram, blast radius analysis. Present the full 4-option approval gate with walkthrough. This overrides the complexity-tiered rules below.
+
+**Complexity-tiered rules (for standalone `/temper:plan` only):**
+
+**For Trivial:** No artifacts. Tell user: "Small change. I'll implement directly."
+
+**For Simple:** Inline plan in conversation. No files created:
+
+```
+Plan: {feature name}
+Files to create: {list}
+Files to modify: {list}
+Tasks:
+1. {task} → validate: {command}
+2. {task} → validate: {command}
+```
+
+**For Medium:** Create `.temper/specs/{feature-slug}/`:
+
+- `intent.md` — WHY + WHAT: Intent section (problem, success criteria, constraints) + Gherkin scenarios
+- `tasks.md` — ordered implementation steps
+- `quickstart.md` — 10-line summary
+
+**For Complex:** Create `.temper/specs/{feature-slug}/`:
+
+- `spec.md` — WHAT: requirements, acceptance criteria, edge cases
+- `intent.md` — WHY + WHAT: Intent section (problem, success criteria, constraints) + Gherkin scenarios
+- `plan.md` — HOW: architecture, file changes, patterns, blast radius
+- `tasks.md` — DO: ordered steps with validation command per task
+- `quickstart.md` — TLDR: 10-line summary
+
+**For Trivial/Simple:** No intent.md
+
+#### intent.md Generation
+
+The intent.md file combines IDD (Intent-Driven Development) and BDD (Behavior-Driven Development) in one artifact:
+
+**Intent Section (IDD):**
+
+- Problem: derived from user's feature description + linked issue
+- Success criteria: measurable outcomes from acceptance criteria, each with a `Validate:` field
+- Constraints: technical/business limitations from blast radius + pack rules
+- Target users: who benefits from this feature
+
+**For Complex features (spec.md + intent.md both exist):**
+
+- `spec.md` = WHAT (requirements from stakeholder perspective, acceptance criteria)
+- `intent.md` = WHY + HOW TO VERIFY (success criteria, scenarios for validation)
+- Derive intent.md success criteria FROM spec.md acceptance criteria
+- Each spec.md acceptance criterion → at least one intent.md scenario
+- spec.md edge cases → intent.md edge case scenarios
+
+**Success criteria validation types:**
+
+| Type | When to Use | Example |
+|------|------------|---------|
+| `scenario` | Criterion maps to a Gherkin scenario | `Validate: scenario — covered by "User resets password"` |
+| `code` | Criterion verifiable by checking code exists | `Validate: code — endpoint exists at POST /api/reset` |
+| `metric` | Criterion requires post-deploy measurement | `Validate: metric — measure support ticket volume post-deploy` |
+| `manual` | Criterion requires human judgment | `Validate: manual — UX review needed` |
+
+Prefer `scenario` and `code` — these are mechanically verifiable. Use `metric` and `manual` only when mechanical validation is impossible.
+
+**Scenarios Section (BDD):**
+Scenarios are derived in Phase 4.5 (before architecture). Write them into intent.md here.
+
+Use templates from `$CLAUDE_PLUGIN_ROOT/templates/` (spec.md, plan.md, tasks.md, quickstart.md) as the base structure. Fill in from reference map and blast radius analysis.
+
+#### Diagram Generation (Mermaid + ASCII)
+
+For Medium and Complex features, generate a mermaid diagram in the plan.md `## Diagram` section. Choose the diagram type based on what best communicates the feature:
+
+| Situation | Diagram Type | When to Use |
+|-----------|-------------|-------------|
+| Component interactions | `flowchart` | Multiple modules/services communicating |
+| Data flow | `flowchart` with subgraphs | Data moves through layers or boundaries |
+| State machines | `stateDiagram-v2` | Entities with lifecycle states |
+| Cross-boundary sequences | `sequenceDiagram` | API calls, service-to-service, user journeys |
+| Type hierarchies | `classDiagram` | New types with inheritance or composition |
+
+**When running from `/temper` (unified command):** Always generate a diagram. Even for Simple features, a minimal diagram showing the files and their relationships adds value.
+
+**When running standalone `/temper:plan`:** Skip diagram for single-file changes or config-only changes only.
+
+**Guidelines:**
+- Keep diagrams under 30 nodes — split into multiple diagrams if needed
+- Use descriptive node names (not abbreviations)
+- Color-code with mermaid `classDef` when distinguishing new vs existing components:
+  ```
+  classDef new fill:#e1f5fe,stroke:#0288d1
+  classDef existing fill:#f5f5f5,stroke:#9e9e9e
+  classDef modified fill:#fff3e0,stroke:#f57c00
+  ```
+- Include a legend note above the diagram when using colors
+
+**Example flowchart:**
+```
+flowchart TD
+    A[Client Request] --> B[API Controller]
+    B --> C[Service Layer]
+    C --> D[(Database)]
+    C --> E[Cache]
+
+    class A,B,C new
+    class D,E existing
+```
+
+**Example sequenceDiagram:**
+```
+sequenceDiagram
+    participant U as User
+    participant API as AuthController
+    participant S as AuthService
+    participant DB as Database
+
+    U->>API: POST /login
+    API->>S: authenticate(credentials)
+    S->>DB: findUser(email)
+    DB-->>S: user record
+    S-->>API: token or error
+    API-->>U: 200 or 401
+```
+
+#### ASCII Art Generation (alongside mermaid)
+
+For every mermaid diagram generated, also produce an ASCII art equivalent and write it to plan.md **below** the mermaid block, inside a ` ```text ` fence.
+
+**Why:** The terminal cannot render mermaid markdown. ASCII art is readable without any tooling.
+
+**ASCII art rules by diagram type:**
+
+| Diagram Type | ASCII Style |
+|-------------|-------------|
+| `flowchart` | `+---+` boxes connected with `-->` arrows, vertical flow |
+| `sequenceDiagram` | Vertical participant lanes (`|`), horizontal `-->` messages |
+| `stateDiagram-v2` | `+---+` state boxes, `-->` transitions with labels |
+| `classDiagram` | `+---+` class boxes with `|---|` attribute dividers |
+
+**General rules:**
+- Box corners: `+`, walls: `|` (vertical), `-` (horizontal)
+- Forward arrow: `-->`, backward: `<--`, bidirectional: `<-->`
+- Labels on edges: place above or beside the arrow line
+- Max width: 80 columns; abbreviate node labels if needed
+- Subgraphs: indent contained nodes by 2 spaces
+- Use blank lines to separate groups
+
+**Example flowchart ASCII:**
+```text
++----------+       +----------+       +----------+
+| NodeA    | --->  | NodeB    | --->  | NodeC    |
++----------+       +----------+       +----------+
+```
+
+**Example sequenceDiagram ASCII:**
+```text
+  User          API          Database
+   |             |              |
+   |-- request ->|              |
+   |             |-- query ---> |
+   |             |<-- result ---|
+   |<-- response-|              |
+```
+
+**Output in plan.md `## Diagram` section:**
+```
+\`\`\`mermaid
+{mermaid diagram content}
+\`\`\`
+
+\`\`\`text
+{ASCII art equivalent}
+\`\`\`
+```
+
+**Populate `Traced to:` in tasks.md:**
+When generating tasks.md, fill the `Traced to:` field for each task:
+
+- If the task creates/modifies a file needed by a scenario → `Traced to: Scenario: "scenario name"`
+- If a task covers multiple scenarios → list all: `Traced to: Scenario: "name1", "name2"`
+- If the task is infrastructure (config, migration, build setup) → `Traced to: Infrastructure: required by {module/file}`
+- If a task cannot be traced → question whether it's needed (see File-to-Scenario Traceability)
+
+#### File-to-Scenario Traceability
+
+Every file in the plan must justify its existence. Files fall into two categories:
+
+```
+Scenario-traced files (must link to at least one scenario):
+  src/services/PasswordResetService.ts  → Scenario: "User resets password"
+  src/middleware/RateLimiter.ts          → Scenario: "Rate limiting enforced"
+
+Infrastructure files (no scenario required, but must state dependency):
+  db/migrations/001_add_reset_tokens.sql → Required by PasswordResetService
+  config/email.ts                        → Required by PasswordResetService
+```
+
+If a planned file cannot be traced to any scenario AND is not infrastructure:
+
+- Question whether it's needed
+- If it is needed, a scenario is missing — add one in Phase 4.5
+
+This prevents over-engineering: no file exists without a behavioral or infrastructural reason.
+
+#### Task Ordering in tasks.md
+
+Order tasks by layer (dependencies first):
+
+```
+1. Infrastructure (config, DB migrations, build setup)
+2. Core (models, services, business logic)
+3. Integration (controllers, routes, API endpoints)
+4. Tests (integration tests, E2E)
+```
+
+#### Parallel Task Detection
+
+Analyze task pairs for file independence. Mark independent tasks with `[PARALLEL: with Task X]`:
+
+```
+ANALYSIS RULES:
+
+Two tasks CAN run in parallel if:
+- They modify different files (no overlap)
+- Neither depends on the other's output
+- No shared mutable state
+
+Two tasks MUST be sequential if:
+- Task B imports from Task A's file
+- Task B tests Task A's code
+- Task B depends on Task A's config changes
+
+MARKING FORMAT:
+- Sequential: `## Task 1 — {title} [SEQUENTIAL]`
+- Sequential after another: `## Task 2 — {title} [SEQUENTIAL: after Task 1]`
+- Parallel with another: `## Task 3 — {title} [PARALLEL: with Task 4]`
+
+GUARD: When in doubt, keep sequential. Parallel marking is an optimization, not a requirement.
+```
+
+### Phase 7: Present for Approval
+
+Show a summary box, then offer two ways to proceed: the quick summary (current behavior) or an interactive step-by-step walkthrough.
+
+**For Medium/Complex features:**
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ LAUNCHER PACK CREATED — {Pack Name}                         │
+│ 📋 PLAN — {Feature Name}                                   │
 ├─────────────────────────────────────────────────────────────┤
-│ Location: .claude/packs/{pack-name}/rules.md                │
-│ Link:     {link_type}://{link_name}                         │
-│ Severity: BLOCK (guarantees linked resource is always used) │
-│ Status:   ENABLED (added to temper.config)                  │
+│ 🎯 INTENT (Why)                                             │
+│    Problem: {derived from feature description}              │
+│    Success: {key success criteria, max 2}                   │
+│                                                             │
+│ 📝 PLAN (What & How)                                        │
+│    Scenarios: {N} ({unit} unit, {mock} mock, {int} integ)   │
+│    1. {scenario name}                                      │
+│    2. {scenario name}...                                   │
+│                                                             │
+│ 📁 ARCHITECTURE                                             │
+│    Create: {N} — {key files}                               │
+│    Modify: {N} — {key files}                               │
+│                                                             │
+│ ⚡ RISK: {Low/Medium/High} — {reason}                       │
+│                                                             │
+│ 🔒 SECURITY (if hot paths found)                            │
+│    {N} CRITICAL, {N} HIGH hot paths                         │
+│    {top finding}                                            │
+└─────────────────────────────────────────────────────────────┘
+
+Diagram (rendered below summary box):
+
+{ASCII art diagram (from plan.md ASCII block), or "N/A" if running standalone /temper:plan for single-file/config-only changes}
+
+NOTE: Always render the ASCII art version in the terminal summary — NOT the raw mermaid markdown block.
+The mermaid block is stored in plan.md for GitHub/tool rendering; the ASCII art is shown to the user in the terminal.
+```
+
+**For Simple features:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 📋 PLAN — {Feature Name}                                   │
+├─────────────────────────────────────────────────────────────┤
+│ Files: {N} create, {N} modify                               │
+│ Risk: {Low/Medium}                                          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-Return to Step 3.
+**For Trivial features:**
 
-### Step 6: Configure Pack (Link, Phases)
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 📋 Small change — implementing directly                     │
+│ {1-line description of what will be done}                   │
+└─────────────────────────────────────────────────────────────┘
+```
 
-If the user selects "Configure pack (link, phases)":
+#### Approval Gate
 
-**6a: Select pack**
-Show all packs as options:
+Use AskUserQuestion with these options:
 
 ```
 AskUserQuestion:
-  question: "Which pack would you like to configure?"
+  question: "What would you like to do with this plan?"
   options:
-    - label: "quality"
-      description: "Link: none | Phases: all"
-    - label: "tdd"
-      description: "Link: none | Phases: build"
-    ...
+    - label: "Continue to Build (Recommended)"
+      description: "Proceed to build. Context will be cleared, loading tasks.md + intent.md."
+    - label: "Walk through plan step by step"
+      description: "Interactive walkthrough: each step explained in detail with Q&A at each point."
+    - label: "Save for later"
+      description: "Save state to .temper/build-state.json and stop."
   multiSelect: false
 ```
 
-**6b: Choose what to configure**
+| Response | Action |
+|----------|--------|
+| **Continue** (first option) | Proceed to build. Signal context clear, load tasks.md + intent.md |
+| **Walk through** (second option) | Enter interactive step-by-step mode (see below) |
+| **Save** (third option) | Save state to .temper/build-state.json, stop here |
+| **Other** (built-in free-text) | Type a change request. Edits are made, gate re-appears. See "On Change" section below. |
+
+#### Step-by-Step Walkthrough Mode
+
+When the user selects "Walk through plan step by step", present the plan as an interactive flow:
+
+**Structure the walkthrough as these sections (one at a time):**
+
+1. **Intent Deep Dive** — Full problem statement, success criteria with validation methods, constraints
+2. **Diagram Walkthrough** — Show the diagram and explain each node/edge, what's new vs existing vs modified
+3. **Scenario Review** — For each BDD scenario: show the Gherkin, explain why it exists (which blast radius risk or acceptance criterion it addresses)
+4. **Architecture Details** — For each file to create/modify: what it does, which patterns it follows, which scenarios it traces to
+5. **Blast Radius Review** — Each impacted consumer, whether tests exist for that path, what regression guards are in place
+6. **Task Walkthrough** — For each task in tasks.md: what it does, validation command, dependencies on prior tasks, parallel opportunities
+
+**Interactive flow per section:**
+
 ```
+After presenting each section, use AskUserQuestion:
+
 AskUserQuestion:
-  question: "What would you like to configure for {pack-name}?"
+  question: "What would you like to do?"
   options:
-    - label: "Set link target"
-      description: "Link this pack to a plugin or skill for context injection."
-    - label: "Set phase scoping"
-      description: "Restrict this pack to specific phases."
-    - label: "Both"
-      description: "Configure link and phases together."
+    - label: "Next step"
+      description: "Continue to {next section name}."
+    - label: "Ask a question"
+      description: "Type your question about this section."
   multiSelect: false
 ```
 
-**6c: Set link** — Execute the same discovery scans as Step 5a (plugins, skills, commands). Show ALL discovered targets with same pagination as Step 5b. Include both `plugin://` and `skill://` targets from all discovery sources.
-**6d: Set phases** — Show phase options:
-```
-AskUserQuestion:
-  question: "Which phases should {pack-name} be active in?"
-  options:
-    - label: "All phases"
-      description: "Active during every Temper phase."
-    - label: "build only"
-      description: "Only during /temper:build."
-    - label: "review and check"
-      description: "Only during /temper:review and /temper:check."
-  multiSelect: false
-```
+**Handling user interactions during walkthrough:**
 
-For arbitrary phase combinations not covered by presets, the user can type them via "Other" (e.g., "plan, build, fix"). Available phases: `plan`, `design`, `build`, `review`, `check`, `fix`.
+- **"Ask a question"**: Answer the question, then re-show the same section's AskUserQuestion
+- **"Next step"**: Advance to the next section. After the last section (Task Walkthrough), transition to the final gate:
 
-**6e: Update config and invalidate manifest**
-Return to Step 3.
-
-### Step 7: Add New Pack (Full Builder)
-
-If the user selects "Add new pack", run the interactive pack builder methodology from v3.0.0:
-
-#### 7a: Scan Codebase (via Explore subagent)
-
-Launch an Explore subagent:
-
-```
-Scan this codebase to discover existing patterns and conventions.
-
-For each area, report:
-1. What pattern is used (with example file:line)
-2. How consistently it's used (X/Y files)
-3. Any inconsistencies (alternative patterns found)
-
-AREAS TO SCAN:
-
-1. API DESIGN
-   - Response format (envelope? flat? mixed?)
-   - Error handling (custom codes? generic exceptions?)
-   - Pagination style (cursor? offset?)
-   - URL patterns (REST conventions?)
-
-2. DATA ACCESS
-   - ORM/query pattern (repository? direct queries? ORM?)
-   - Transaction handling
-   - Connection management
-
-3. ERROR HANDLING
-   - Custom error types/codes?
-   - Logging patterns (structured? unstructured?)
-   - Error propagation strategy
-
-4. TESTING
-   - Test framework and patterns
-   - Coverage level (estimate from test file count vs source count)
-   - Test naming conventions
-   - Mock/stub patterns
-
-5. CODE STYLE
-   - Average method length
-   - Class/module size
-   - Dependency injection pattern
-   - Naming conventions
-
-6. SECURITY
-   - Input validation patterns
-   - Authentication/authorization approach
-   - Secret management
-
-7. GIT/WORKFLOW
-   - Branch naming patterns (from git log)
-   - Commit message style (from git log)
-
-RETURN FORMAT:
-
-For each area, return:
-AREA: {name}
-  Pattern: {what most code does}
-  Consistency: {X/Y files}
-  Alternative: {if any inconsistency found}
-  Example: {file:line}
-```
-
-#### 7b: Interactive Interview
-
-Present findings to the user and ask about each area. Use AskUserQuestion for structured choices. Keep to 5-10 questions total.
-
-#### 7c: Conflict Resolution
-
-When competing patterns detected with similar prevalence (within 20%):
+**Final walkthrough gate (after all sections):**
 
 ```
 AskUserQuestion:
-  question: "CONFLICT: {Pattern A} ({X}%) vs {Pattern B} ({Y}%). Which should be the standard?"
+  question: "Walkthrough complete. What next?"
   options:
-    - label: "Pattern A"
-      description: "{description} — {X/Y} files"
-    - label: "Pattern B"
-      description: "{description} — {Z/Y} files"
-    - label: "Allow both"
-      description: "Document when to use each."
-    - label: "Defer"
-      description: "Skip this rule for now."
+    - label: "Continue to Build (Recommended)"
+      description: "Proceed to build. Context will be cleared, loading tasks.md + intent.md."
+    - label: "Save for later"
+      description: "Save state to .temper/build-state.json and stop."
   multiSelect: false
 ```
 
-#### 7d: Generate Pack
+**ENFORCEMENT OVERRIDE (when running from `/temper` unified command):** Always use the full 6-section walkthrough and the full 4-option approval gate. No complexity-based shortcuts. This overrides the rules below.
 
-Ask for pack name. Create `.claude/packs/{pack-name}/rules.md`:
+**Complexity-tiered rules (for standalone `/temper:plan` only):**
 
-```markdown
-# {Pack Name} Engineering Standards
+**For Trivial features:** No walkthrough — these show a "Small change — implementing directly" box with no gate. Trivial features skip the AskUserQuestion entirely.
 
-Generated by Temper on {date}
-Based on scan of {project name}
+**For Simple features:** Walkthrough has only 2 sections: Architecture Details (files to create/modify) + Blast Radius Review (risk level and justification).
 
-## Mandatory Rules (BLOCK if violated)
-{rules from interview marked as blocking}
-
-## Quality Rules (WARN if violated)
-{rules from interview marked as warning}
-
-## Conventions (SUGGEST improvements)
-{rules from interview marked as suggestions}
-
-## Architectural Constraints (BLOCK if violated)
-{architectural patterns from interview}
-```
-
-#### 7e: Enable and Validate
-
-1. Update `.claude/temper.config` to add the new pack
-2. Invalidate manifest cache
-3. Report creation summary
-
-### Step 8: Done
-
-When the user selects "Done":
-1. Show final configuration
-2. Invalidate manifest if any changes were made
-3. Exit
+**On Continue (first option):**
 
 ```
-Current pack configuration (.claude/temper.config):
-  quality     ON    phases: all
-  tdd         ON    phases: build
-  security    ON    phases: review, check
-  git         ON    phases: all
+1. Write to .temper/build-state.json:
+   {
+     "stage": "plan_complete",
+     "spec": "{feature-slug}",
+     "spec_path": ".temper/specs/{feature-slug}",
+     "original_args": "{user's original feature description}",
+     "next_stage": "build",
+     "artifacts": ["intent.md", "tasks.md"],
+     "updated": "{ISO timestamp}"
+   }
 
-Run /temper:review or /temper:check to use these packs.
+2. If running standalone (/temper:plan):
+   Signal context transition:
+   "✅ Continuing to BUILD...
+    📂 Loading: tasks.md + intent.md only"
+
+   Note: In standalone mode, context is shared. Load ONLY what's needed for build:
+   - .temper/specs/{feature}/tasks.md
+   - .temper/specs/{feature}/intent.md (if exists)
+   Focus on these files and minimize references to prior planning context.
+
+3. If running as Agent subprocess (from /temper):
+   The orchestrator handles context — return summary and stop.
+
+4. Proceed to /temper:build (or continue if using unified /temper)
 ```
 
----
-
-## Config File Format
-
-### Simple Format (backward compatible)
-
-```yaml
-packs:
-  - quality
-  - tdd
-  - security
-  - git
-```
-
-### Extended Format (v4.3.0+)
-
-```yaml
-packs:
-  - name: quality
-  - name: tdd
-    phases: [build]
-  - name: security
-    phases: [review, check]
-  - name: api-standards
-    link: plugin://my-api-linter
-  - name: git
-```
-
----
-
-## Pack Rules Format
-
-Each pack's `rules.md` follows this structure:
-
-```markdown
-# {Pack Name}
-
-## Mandatory Rules (BLOCK if violated)
-- Rule that stops the build if broken
-
-## Quality Rules (WARN if violated)
-- Rule that flags but doesn't block
-
-## Conventions (SUGGEST improvements)
-- Nice-to-have patterns
-```
-
----
-
-## Built-in Packs
-
-| Pack | Purpose | Default Gate Levels |
-|------|---------|---------------------|
-| `quality` | Code quality: method length, DRY, naming | WARN / SUGGEST |
-| `tdd` | RED-GREEN-REFACTOR enforcement, scenario coverage | BLOCK / WARN |
-| `security` | OWASP Top 10, secrets management | BLOCK / WARN |
-| `git` | Conventional commits, branch naming | WARN / SUGGEST |
-
----
-
-## Pack Loading During Phases
-
-When any Temper phase starts, packs are loaded as follows:
+**On Change (via "Other" free-text input):**
 
 ```
-1. Read or build pack manifest (cached in .temper/pack-manifest.json)
-2. Filter by enabled status (from temper.config)
-3. Filter by current phase (from phases field)
-4. For each active pack:
-   a. Read rules.md from highest-priority tier
-   b. If link exists, resolve and read linked resource
-   c. Check connection health for linked packs
-   d. Include all content in AI prompt context
-5. Report loaded packs (names + any warnings) at phase start
+1. User types their change request in the "Other" field
+2. Make the change
+3. ⚠️ MANDATORY: Re-show AskUserQuestion with same options
+
+GATE ENFORCEMENT: The user's change input is NOT approval to proceed.
+Do NOT skip to the next stage after making changes. The user MUST
+explicitly select "Continue to Build" from the gate to proceed.
+```
+
+**On Save for later (third option):**
+
+```
+1. Save state to .temper/build-state.json:
+   ```json
+   {
+     "stage": "plan_complete",
+     "spec": "{feature-slug}",
+     "spec_path": ".temper/specs/{feature-slug}",
+     "original_args": "{user's original feature description}",
+     "next_stage": "build",
+     "artifacts": ["intent.md", "tasks.md"],
+     "updated": "{ISO timestamp}"
+   }
+   ```
+2. Report: "✅ Saved. Run /temper when ready to continue."
+```
+
+### Context Accumulation
+
+The planning stage produces the foundational artifacts (intent.md, tasks.md, plan.md) that all downstream stages consume. These artifacts serve as the plan context for the context accumulation system (v4.0.0).
+
+No additional context file is needed from the Plan stage — intent.md, tasks.md, and plan.md ARE the plan context. Downstream stages read these directly.
+
+See orchestrator-patterns.md → "Context Accumulation Patterns" for the full context schema and loading rules.
+
+### Edge Cases
+
+```
+Vague feature description ("improve performance"):
+  → Ask with AskUserQuestion: "Which part? API response times, page load, DB queries, background jobs?"
+  → Narrow scope before exploring
+
+No tests in project:
+  → Flag in risk assessment, lower coverage expectations
+  → Add Task 0 to plan: "Set up test infrastructure"
+  → Focus on testing NEW code only
+
+Monorepo (multiple manifests found):
+  → Ask user which package/module to plan for
+  → Still check blast radius across packages (shared libraries)
+
+Database migration needed:
+  → Add migration as Task 1 (before code depending on schema)
+  → +1 risk multiplier for schema changes
+  → Note rollback migration in plan
+
+Feature already partially exists:
+  → Reference map shows similar code → build on it, don't duplicate
+  → Flag in plan: "Extending existing {module}, not creating from scratch"
 ```
 
 ---
