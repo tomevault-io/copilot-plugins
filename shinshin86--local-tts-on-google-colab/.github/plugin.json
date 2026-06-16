@@ -1,0 +1,9 @@
+{
+  "name": "shinshin86--local-tts-on-google-colab",
+  "displayName": "local-tts-on-google-colab",
+  "description": "Run local TTS engines on Google Colab as an OpenAI-compatible /v1/audio/speech endpoint for quick evaluation.",
+  "version": "1.0.0",
+  "author": "shinshin86",
+  "homepage": "https://github.com/shinshin86/local-tts-on-google-colab",
+  "skills": []
+}
