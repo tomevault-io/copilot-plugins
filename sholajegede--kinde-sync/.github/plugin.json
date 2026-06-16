@@ -1,0 +1,9 @@
+{
+  "name": "sholajegede--kinde-sync",
+  "displayName": "kinde-sync",
+  "description": "Sync Kinde auth events into Convex in real time via webhooks. No polling, no boilerplate JWT verification.",
+  "version": "1.0.0",
+  "author": "sholajegede",
+  "homepage": "https://github.com/sholajegede/kinde-sync",
+  "skills": []
+}
