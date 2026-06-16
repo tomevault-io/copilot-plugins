@@ -2,9 +2,9 @@
   "name": "ChartNagari",
   "owner": "Ju571nK",
   "repo": "ChartNagari",
-  "description": "Open-source ICT/Wyckoff signal detector \u2014 30+ rules, multi-timeframe, self-hosted. Go + React.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ju571nK/ChartNagari",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T04:47:46Z"
+  "distributed_at": "2026-06-16T14:48:41Z"
 }
