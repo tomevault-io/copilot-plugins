@@ -1,0 +1,9 @@
+{
+  "name": "cclank--lanshu-wiki-web",
+  "displayName": "lanshu-wiki-web",
+  "description": "Transform any GitHub wiki repository into a beautiful, visual reading experience",
+  "version": "1.0.0",
+  "author": "cclank",
+  "homepage": "https://github.com/cclank/lanshu-wiki-web",
+  "skills": []
+}
