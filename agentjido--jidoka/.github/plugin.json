@@ -1,0 +1,9 @@
+{
+  "name": "agentjido--jidoka",
+  "displayName": "jidoka",
+  "description": "Developer-friendly LLM agent harness built on Jido and Jido AI",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jidoka",
+  "skills": []
+}
