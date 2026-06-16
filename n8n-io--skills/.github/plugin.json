@@ -1,0 +1,9 @@
+{
+  "name": "n8n-io--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "n8n-io",
+  "homepage": "https://github.com/n8n-io/skills",
+  "skills": []
+}
