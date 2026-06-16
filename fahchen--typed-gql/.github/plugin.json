@@ -1,0 +1,9 @@
+{
+  "name": "fahchen--typed-gql",
+  "displayName": "typed_gql",
+  "description": "Compile-time GraphQL client for Elixir \u2014 typed responses, validated queries, zero runtime parsing.",
+  "version": "1.0.0",
+  "author": "fahchen",
+  "homepage": "https://github.com/fahchen/typed_gql",
+  "skills": []
+}
