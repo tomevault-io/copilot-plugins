@@ -1,0 +1,9 @@
+{
+  "name": "nickmonrad--kernel-ai-assistant",
+  "displayName": "kernel-ai-assistant",
+  "description": "Jandal AI \u2014 Local-first Android AI assistant with on-device LLM inference, semantic memory, and extensible skill framework",
+  "version": "1.0.0",
+  "author": "NickMonrad",
+  "homepage": "https://github.com/NickMonrad/kernel-ai-assistant",
+  "skills": []
+}
