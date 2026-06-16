@@ -4,7 +4,7 @@
   "repo": "cc-session",
   "description": "Browse, search, resume and manage your AI coding sessions in one desktop app. (Claude Code, Codex,  Gemini,OpenCode, Cursor, kimi)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tyql688/cc-session",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T17:39:44Z"
+  "distributed_at": "2026-06-16T18:48:37Z"
 }
