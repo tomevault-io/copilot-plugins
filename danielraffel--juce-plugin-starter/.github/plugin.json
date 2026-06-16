@@ -1,0 +1,9 @@
+{
+  "name": "danielraffel--juce-plugin-starter",
+  "displayName": "JUCE-Plugin-Starter",
+  "description": "Start Developing Audio Plugins on macOS!",
+  "version": "1.0.0",
+  "author": "danielraffel",
+  "homepage": "https://github.com/danielraffel/JUCE-Plugin-Starter",
+  "skills": []
+}
