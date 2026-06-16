@@ -1,0 +1,9 @@
+{
+  "name": "sholajegede--convex-kinde-billing",
+  "displayName": "convex-kinde-billing",
+  "description": "Add Kinde billing to your Convex app. Reactive subscriptions, checkout, self-serve portal, and feature gating.",
+  "version": "1.0.0",
+  "author": "sholajegede",
+  "homepage": "https://github.com/sholajegede/convex-kinde-billing",
+  "skills": []
+}
