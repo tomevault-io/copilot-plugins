@@ -7,11 +7,11 @@ Programmatically drive your real Compose UI on the desktop.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rock3r/spectre](https://github.com/rock3r/spectre).
+Original source: `AGENTS.md` in [rock3r/spectre](https://github.com/rock3r/spectre).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
