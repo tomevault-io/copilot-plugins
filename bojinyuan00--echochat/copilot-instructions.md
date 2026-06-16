@@ -1,0 +1,195 @@
+## project-context
+
+> EchoChat 项目上下文与开发记忆 - 每次新对话自动加载
+
+
+# EchoChat 项目上下文
+
+## 快速恢复上下文
+
+**新对话开始时，必须先读取以下文件恢复项目记忆：**
+
+1. `docs/progress/CURRENT_STATUS.md` — 项目开发进度、已完成 Task、关键技术决策、下一步工作
+2. 当前阶段的实施计划文档（位于 `docs/plans/` 目录下）
+
+## 当前进度
+
+- **Phase 1（基础设施与用户认证）**：✅ 全部完成（11 个 Task）
+- **Phase 2a（WebSocket 实时通讯与联系人管理）**：✅ 全部完成（13 个 Task + 后期 Bug 修复 3 项）
+- **Phase 2b（即时通讯消息系统）**：✅ 全部完成（10 个 Task + 代码审查修复 7 项 + 用户测试修复 8 项），设计文档 `docs/plans/2026-03-03-phase2b-design.md`
+- 分支：`feature/phase2b-instant-messaging`
+- **Phase 2c（群聊与已读回执）**：✅ 全部完成（14 个 Task + 代码审查修复 14 项 + 浏览器测试修复 21 项），设计文档 `docs/plans/2026-03-04-phase2c-design.md`
+- 分支：`feature/phase2c-group-read-receipt`
+- **Phase 2d（消息类型扩展）**：✅ 全部完成（14 个 Task + 代码审查修复 2 项 + 富媒体 Bug 修复 4 项 + UX 优化 1 项），设计文档 `docs/plans/2026-03-04-phase2d-design.md`
+- **⚠️ 分支说明**：Phase 2d 的实际开发工作误用了 `feature/phase2c-group-read-receipt` 分支，`feature/phase2d-message-types` 分支未承载 2d 代码。此次偏差不做回溯修复；**Phase 2e 起必须为每个阶段新建独立分支**（`feature/phase2e-xxx`）。
+- **Phase 2e（会议与通知系统）**：🚧 规划完成，拆分为三子阶段，设计文档 `docs/plans/2026-04-20-phase2e-design.md`
+  - 2e-1 通知系统（3-4 天）✅ **已完成**：统一通知中心 + 11 种类型 + Pusher 接口注入 + 30 天清理 + 管理员广播 + 前端 5 分类 Tab
+    * 单端 WS 连接架构（沿用），不做多端已读同步（设计文档 §3.1/§3.5/§九 已修订，多端改造推迟到 Phase 2f/二期）
+    * 专用设计：`docs/plans/2026-04-20-phase2e-1-design.md`；实施计划：`docs/plans/2026-04-20-phase2e-1-implementation.plan.md`；验证报告：`test-report-phase2e-1-notification.md`
+    * API 文档：`docs/api/frontend/notify.md`
+  - 2e-2 会议 MVP（10-14 天）📋 待开发：mediasoup Node.js 独立服务 + 即时会议（≤8 人）+ 音视频控制
+  - 2e-3 会议增强（7-10 天）📋 待开发：预约会议 + 定时提醒 + 会议邀请（复用 2e-1）
+  - 分支：`feature/phase2e-meeting-notification`（基于 `origin/feature/phase2c-group-read-receipt`）
+  - **关键技术锁定**：维持 mediasoup SFU 架构（非 Mesh），前端用 mediasoup-client，信令复用现有 WS Hub
+  - **显式推迟清单**（必须留档，见设计文档 §九）：
+    * → Phase 2f：WS Hub 多端连接改造、会议管理后台、通知广播发布 UI、管理端仪表板、操作日志页、系统配置管理、通知分类开关
+    * → 第二期：屏幕共享、会议录制、虚拟背景、微信登录、互动直播、视频消息、表情包、消息转发/引用
+    * → 第三期：微服务拆分、K8s、跨服 Worker 集群、AI 语音转文字
+- **开发者运维脚本（2026-04-20）**：新增 `scripts/{start,stop,status}.sh` 三件套，`scripts/dev-setup.sh` 补齐 MinIO 健康检查；遵循 setup/start 职责分离（Rails/Django 社区模式）
+- **聊天页 UX 优化（2026-04-20）**：单聊/群聊引入「新消息悬浮提示 + 按需已读」机制（贴底自动滚+已读，远离底部显示"N 条新消息"悬浮按钮），消除"视图未见但对方已读"的 UX 错位；**后续修复**：watch 误将"加载更多历史消息"计入 newMsgCount → 改为对比「末尾消息标识（tail id/client_msg_id）」而非 `messages.length`，真实双账号（duanlingyun ↔ bojinyuan）端到端验证通过
+- **语音消息 H5 兼容（2026-04-20）**：修复 PC Chrome 无法按住"按住说话"的问题，链路涉及 4 层（事件 + 录音 API + 上传 + 后端校验）：VoiceRecorder 并行监听 touch/mouse 事件；新增 `H5Recorder` 类（基于 `MediaRecorder + getUserMedia`）作为 uni 录音接口在 H5 端的回退；`uploadVoice` 增加 blob 分支走 `fetch+FormData` 精确控制 filename；后端 `allowedVoiceExts` 扩展 `.webm/.ogg`。Playwright 端到端验证：录音计时正常（3s→5s 跳动）、Blob 上传成功、数据库 `im_messages` type=3 记录写入
+- **语音未听红点（2026-04-20，仿微信）**：语音需"听"才算真消费，仅通用已读不能准确反映 → 为「对方发来的」语音叠加独立状态。`chat store` 新增 `voicePlayedMap` + 4 API（`markVoicePlayed/isVoicePlayed/loadVoicePlayedState/resetVoicePlayedState`），localStorage 按 userId 隔离（`echo:voice-played:{userId}`），不同步后端（私人视图态）；`MsgVoice.vue` 自主消费 store（单聊/群聊同构），模板加 `.unplayed-dot`（10rpx 红圆），`onTogglePlay` 点击即标记清除；`user.logout()` 补 `resetVoicePlayedState()` 防串用户。Playwright 验证：duanlingyun(13) ↔ bojinyuan(7) 会话 6，初始 5 个红点（对方 5 条语音） → 点击 2 条 → 红点减至 3 → 页面刷新仍为 3（持久化生效）
+- **已读状态刷新持久化（2026-04-20）**：修复"刷新后所有已读标签变未读 / 群聊 N人已读消失"的体验倒退 bug，根因是前端 `readStatusMap`/`groupReadCountMap` 仅由 WS 事件填充、刷新后无 API 补回。扩展 `HistoryMessageResponse` 新增 `peer_last_read_msg_id`（单聊）+ `read_count_map`（群聊仅含自己发送消息）；`GetHistoryMessages` 按会话类型分支填充（`GetPeerUserID`+`GetMember` 或 `readRecorder.GetReadCountBatch`）；前端 `loadHistoryMessages` 仅在首次加载时回填（避免加载更多时覆盖 WS 增量）。Playwright 双端验证：单聊会话 6（peer_last_read=202）首屏 20 已读+1 未读、群聊 8 刷新后 13 条自己消息全部显示"N人已读"（11×1人 + 2×2人）；不新增 API，不增加请求次数，向前兼容
+- 范围：图片/语音/文件消息完整流程 + 管理端消息管理（列表+统计+撤回+删除）+ ECharts 仪表板
+- **跨模块通信模式**：接口注入标准（ws.FriendIDsGetter / im.FriendChecker / im.UserInfoGetter / notify.UserInfoResolver → contact.FriendshipDAO，im.OfflineMessagePusher → ws.Handler，contact.OnlineChecker → ws.OnlineService，im.GroupInfoGetter → group.GroupDAO，im.MessageReadRecorder → group.MessageReadDAO，group.UserInfoProvider → auth.UserDAO，group.MessageWriter → im.MessageDAO，admin.MessageManageService → im.ConversationDAO + ws.PubSub，**contact.NotifyPusher / group.NotifyPusher → notify.NotifyService**，**ws.NotifyConnectHook → notify.NotifyService**）
+
+## 项目概述
+
+EchoChat 是一个实时音视频通讯平台，包含三个子项目：
+- `backend/go-service/` — Go 后端（Gin + GORM + Wire + Redis + gorilla/websocket）
+- `frontend/` — 前台用户端（uni-app + Vue 3.4 + Pinia 2.x）
+- `admin/` — 后台管理端（Vue 3.5+ + Element Plus + Pinia 3.x）
+
+已实现模块：auth（认证）、contact（联系人）、ws（WebSocket）、im（即时通讯）、group（群聊）、file（文件上传）、admin（管理端含消息管理）、im（即时通讯 + 已读回执）、group（群聊管理）、file（文件上传/MinIO）
+前端常量：`frontend/src/constants/group.js`（GROUP_ROLE / GROUP_STATUS / JOIN_REQUEST_STATUS，与后端 constants/group.go 对齐）
+
+## 核心开发规则
+
+1. **前端设计**：必须使用 openskills 安装的 `ui-ux-pro-max` 技能包，脚本绝对路径为 `/Users/bojinyuan/.agent/skills/ui-ux-pro-max/scripts/search.py`。**严禁使用** `.cursor/skills/ui-ux-pro-max.bak/` 目录下的任何文件，该目录已废弃。禁止手动设计系统
+2. **工作流**：使用 superpowers 流程控制开发节奏
+3. **两端差异**：`frontend/` 和 `admin/` 是完全独立的项目，技术栈不需要统一
+4. **模块系统**：前端统一使用 ESM（`export`/`import`），禁止 CommonJS
+5. **Go 常量命名**：camelCase（`UserStatusActive`），非大写下划线
+6. **API 响应**：统一 `{ "code": 0, "message": "success", "data": ... }`
+7. **JWT 策略**：有状态 JWT，Token 存 Redis（按 clientType 隔离：`echo:auth:token:{frontend|admin}:{user_id}`），前后台互不影响
+8. **角色等级体系**：`auth_roles.level` 字段（值越小权限越高：1=超管, 10=管理员, 100=普通用户），所有管理操作强制执行层级权限校验
+9. **代码注释**：所有公开函数、组件、Store 必须有详细注释
+10. **后端架构规范**：详见 `docs/conventions/backend-module-architecture.md`（模块分层/接口注入/日志/错误处理/批量查询/系统消息/Store 封装等）
+11. **代码风格全局一致（最高优先级）**：新编写的任何模块代码，必须严格参照已有模块的实际代码实现和风格，禁止自创新封装、新 API、新模式。详见下方「代码风格全局一致规则」
+12. **文档自动同步（强制）**：每个 Task 或功能开发完成后，必须自动执行文档同步，详见下方「文档自动同步规则」
+13. **验证方式**：使用 Playwright MCP 进行页面自动化验证
+14. **代码审查**：每个 Task 完成后，使用 `code-reviewer` 子代理进行结构化审查，确保代码质量和计划一致性
+15. **完成验证**：使用 `verification-before-completion` 技能，在声称完成前运行验证命令并确认输出
+16. **本地启停脚本（强制）**：启动/停止三端服务统一使用 `scripts/` 下的脚本，**禁止在聊天中直接指导用户敲 `cd backend && go run ...` 等原始命令**：
+    - 首次初始化：`./scripts/dev-setup.sh`（检查 Docker、拉起 Postgres/Redis/MinIO 并健康等待）
+    - 日常启动：`./scripts/start.sh`（端口占用自动跳过，支持 `backend|frontend|admin|docker|--no-docker` 单项启动）
+    - 日常停止：`./scripts/stop.sh`（默认保留 Docker 容器，`--all` 全关）
+    - 状态查看：`./scripts/status.sh`
+    - 后台进程的 PID 与日志位于 `.run/`（已 gitignore），排障优先查看 `.run/logs/*.log`
+
+## 代码风格全局一致规则（最高优先级，强制执行）
+
+> **核心原则：编写任何新模块/新文件的代码前，必须先阅读同层级现有模块的实际代码，严格复制其风格，禁止引入不存在的 API、封装或模式。**
+
+### 执行流程（强制）
+
+1. **写代码前**：先用 Read/Grep 工具读取同类型现有文件（如写新 Controller 前先读 `im_controller.go` 和 `contact_controller.go`）
+2. **写代码时**：逐行对照现有代码的导入、结构体定义、方法签名、日志调用、错误处理模式
+3. **写代码后**：与参照文件做差异比对，确认风格完全一致
+
+### Go 后端各层代码风格（以实际代码为准）
+
+详细的风格规范和代码模板见 `docs/conventions/backend-module-architecture.md`。以下是关键约定摘要：
+
+| 层级 | 接收器 | 日志 | funcName | 错误处理 |
+|------|--------|------|----------|---------|
+| Controller（前台业务） | `ctl` | 不记日志 | 无 | 方法级 `handleError` |
+| Controller（auth/admin） | `ctrl`/`ctl` | 有日志 | 有 | `handleAuthError` 包级函数 / 内联 |
+| Service | `s` | `logs.Info/Debug/Error` | `"service.{file}.{Method}"` | 包顶部 `var ErrXxx` |
+| DAO | `d` | `logs.Info/Debug/Error` | `"dao.{file}.{Method}"` | `logs.Error` + 返回 err |
+
+### 日志 API（以实际代码为准）
+
+项目中 logs 包只有 `logs.Info/Debug/Warn/Error/Fatal` 五个方法，签名为 `logs.Xxx(ctx, funcName, message, ...zap.Field)`。
+**不存在** `logs.LogFunctionEntry` / `logs.LogFunctionExit` / `logs.LogSuccess` 等方法，**严禁使用不存在的 API**。
+
+### 依赖管理
+
+- **禁止随意拉取最新版本的依赖包**，必须选择与当前 Go 版本（go.mod 中的 `go` 指令）兼容的版本
+- **禁止触发 Go 工具链自动升级**，如果某依赖要求更高版本的 Go，必须选择兼容版本而非升级 Go
+- 添加依赖前先检查 go.mod 中的 Go 版本和已有依赖，优先复用已有依赖
+
+### 前端代码风格
+
+- 前端新页面/组件/Store 的编写，同样必须先阅读现有同类文件，严格遵循已有的代码结构、命名规范、状态管理模式
+- 禁止引入项目中未使用的新 UI 框架、状态管理库或工具函数库
+
+## 文档自动同步规则（强制执行）
+
+**触发时机**：每个 Task 或功能模块开发完成后，代码提交前，必须自动检查并更新以下文档，无需用户提醒。
+
+### 必须检查的文档清单
+
+| 文档 | 路径 | 更新条件 |
+|------|------|---------|
+| 项目进度 | `docs/progress/CURRENT_STATUS.md` | 每个 Task 完成后更新 Task 状态表、新增功能描述 |
+| 架构设计 | `docs/architecture/system-architecture.md` | 新增模块、路由、中间件、数据流变化时更新 |
+| 当前阶段设计文档 | `docs/plans/20xx-xx-xx-phaseXx-design.md` | 设计变更、状态变更时更新 |
+| 总体系统设计 | `docs/plans/2026-02-27-echochat-system-design.md` | API 列表、页面结构、数据库表、分期规划变更时更新 |
+| API 文档导航 | `docs/api/README.md` | 新增 API 文档文件时更新导航表和目录结构 |
+| 模块 API 文档 | `docs/api/{frontend,admin}/*.md` | 新增/修改 API 接口时更新对应模块文档 |
+| 开发规范 | `docs/conventions/frontend-backend-integration.md` | 新增通用规范（错误处理、协议、联动模式）时更新 |
+| 项目规则 | `.cursor/rules/project-context.mdc` | 进度变更、新规则、新模块时更新 |
+
+### 文档质量要求
+
+1. **单文件 ≤ 500 行**：超过时拆分为独立文件，在导航中添加链接
+2. **状态标记实时**：Task 完成后立即将状态标记从 🔜/📋 改为 ✅
+3. **结构一致**：新增内容遵循现有文档的格式和层级结构
+4. **交叉引用**：相关文档之间保持引用链接一致（如设计文档引用 API 文档路径）
+5. **日期更新**：文档头部的「最后更新」日期保持最新
+
+### 每阶段（Phase）开始前的文档准备
+
+- 创建阶段设计文档 `docs/plans/YYYY-MM-DD-phaseXx-design.md`
+- 创建阶段实施计划 `docs/plans/YYYY-MM-DD-phaseXx-implementation.plan.md`
+- 更新 `CURRENT_STATUS.md` 的下一阶段规划（含 Task 清单）
+- 更新 `project-context.mdc` 的当前进度和待实现模块
+- 更新 `system-architecture.md` 新增模块的状态标记（🔜）
+- 更新 `echochat-system-design.md` 的分期规划 + 新增 API 列表
+- 更新 `api/README.md` 新增模块的文档导航
+- 创建新的功能分支
+
+### 每个 Task 完成后的文档同步
+
+- 更新 Task 状态标记（📋 → ✅）
+- 更新 `CURRENT_STATUS.md` 功能描述和技术细节
+- 如有新增 API → 更新/创建对应的 `docs/api/{frontend,admin}/*.md`
+- 如有新增 WS 事件 → 更新 `docs/api/websocket.md`
+- 如有架构变更 → 更新 `system-architecture.md`
+- 代码提交前确认所有文档已同步
+
+### 每阶段（Phase）结束时的额外检查
+
+- 当前阶段设计文档状态标记为「✅ 已完成」
+- 总体设计文档的开发分期部分更新完成标记
+- project-context.mdc 的当前进度更新
+- CURRENT_STATUS.md 的下一阶段规划更新
+- 前后端集成规范 `docs/conventions/frontend-backend-integration.md` 的最后更新时间
+
+## 前后端联动规范（必须遵守）
+
+> 详细规范见 `docs/conventions/frontend-backend-integration.md`
+
+1. **前后台路由严格分离（最高优先级）**：
+   - 前台用户端 API：`/api/v1/auth/*`、`/api/v1/im/*`、`/api/v1/meeting/*` 等
+   - 后台管理端 API：`/api/v1/admin/auth/*`、`/api/v1/admin/users/*` 等
+   - **禁止任何混用**：admin 前端不得调用 `/api/v1/auth/*`，frontend 不得调用 `/api/v1/admin/*`
+   - 新增功能时必须先确认归属哪端，使用对应的路由前缀
+2. **Token Redis 存储隔离**：按 `clientType` 隔离：`echo:auth:token:{frontend|admin}:{user_id}`，JWT Claims 包含 `client_type` 字段
+3. **错误提示统一**：前端所有 HTTP 错误提示必须优先使用后端 `data.message`，禁止硬编码覆盖后端信息
+4. **安全防护**：后端登录接口对"用户不存在"与"密码错误"统一返回 401 + "账号或密码错误"
+5. **401 场景区分**：前端拦截器区分「登录请求的 401」（仅提示错误）和「已认证请求的 401」（清 Token + 跳转登录页）
+6. **响应格式一致**：后端所有响应必须使用 `utils.Response*` 系列函数
+7. **业务错误映射**：后端 Controller 的 `handleError` 函数必须覆盖所有已知业务错误，不能忽略 error（`_`）
+
+## 设计系统
+
+持久化在 `design-system/echochat/` 目录：
+- `MASTER.md` — 全局设计规范
+- `pages/*.md` — 页面级覆盖规则
+- 色板：Primary `#2563EB` / BG `#F8FAFC` / Text `#1E293B`
+
+---
+> Source: [bojinyuan00/EchoChat](https://github.com/bojinyuan00/EchoChat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
