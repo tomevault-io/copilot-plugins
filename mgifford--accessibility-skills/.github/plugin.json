@@ -1,0 +1,9 @@
+{
+  "name": "mgifford--accessibility-skills",
+  "displayName": "accessibility-skills",
+  "description": "A collection of Claude Skill to mirror https://mgifford.github.io/ACCESSIBILITY.md",
+  "version": "1.0.0",
+  "author": "mgifford",
+  "homepage": "https://github.com/mgifford/accessibility-skills",
+  "skills": []
+}
