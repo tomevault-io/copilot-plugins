@@ -1,0 +1,44 @@
+{
+  "name": "youtube-minsim-with-harness",
+  "owner": "dingcodingco",
+  "repo": "youtube-minsim-with-harness",
+  "description": "YooBe Pulse \u2014 \uc720\ud29c\ube0c \ubbfc\uc2ec \ubd84\uc11d\uae30. AI\ub85c \ub313\uae00\uc744 \ubd84\uc11d\ud574 \uc2dc\uccad\uc790\uac00 \uc9c4\uc9dc \uc6d0\ud558\ub294 \ucf58\ud150\uce20\ub97c \ub300\uc2dc\ubcf4\ub4dc\ub85c \ubcf4\uc5ec\uc90d\ub2c8\ub2e4.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dingcodingco/youtube-minsim-with-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T06:52:48Z"
+}
