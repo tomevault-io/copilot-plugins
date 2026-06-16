@@ -1,115 +1,114 @@
-## temper-pack-adaptive-learning
+## temper-pack-architecture-depth
 
-> Adaptive learning pack: pattern detection, rule suggestions, noise reduction — auto-populated from learning patterns
+> Temper quality pack: architecture depth — module-depth analysis with seams, adapters, locality, leverage, deletion test
 
 
-# Adaptive Learning Pack
+# Architecture Depth Pack
 
-Post-review intelligence layer that detects recurring patterns, suggests pack rules, and suppresses noise.
+Module-depth analysis inspired by Matt Pocock's "Deep Modules" philosophy.
+Evaluates whether modules earn their complexity through leverage and locality.
 
-Runs as a **passive intelligence layer** inside `/temper:review` (Step 8.5) and `/temper:status` (dashboard section). All learning state lives in `.temper/learning.json`.
+## Glossary
 
-## Pattern Detection Algorithm
+| Term | Definition |
+|------|-----------|
+| **Module** | Anything with an interface and an implementation (function, class, package, slice) |
+| **Interface** | Everything a caller must know to use the module |
+| **Depth** | Leverage at the interface: lots of behavior behind a small interface |
+| **Seam** | Where an interface lives; a place behavior can be altered without editing in place |
+| **Adapter** | A concrete thing satisfying an interface at a seam |
+| **Leverage** | What callers get from depth |
+| **Locality** | What maintainers get from depth: change, bugs, knowledge concentrated in one place |
+
+## Dimensions
+
+### ARCH-DEPTH-1: Seams — Can modules be replaced without touching others?
+
+**Severity:** WARN
+**Category:** architecture
+**Detection:** Import graph analysis or grep for import/require statements
+
+Check whether modules define clear interfaces that allow replacement:
+- Does the module have a well-defined interface (types, exports)?
+- Can consumers use the module without knowing its internals?
+- Are there adapters wrapping external dependencies?
+- One adapter = hypothetical seam. Two adapters = real seam.
+
+### ARCH-DEPTH-2: Adapters — Are external dependencies behind adapter layers?
+
+**Severity:** WARN
+**Category:** architecture
+**Detection:** Wrapper/facade patterns around APIs, databases, file systems, third-party libs
+
+External dependencies should be behind adapter layers:
+- Database calls behind a repository/interface
+- HTTP calls behind a client abstraction
+- File system access behind a service
+- Third-party library usage wrapped in a facade
+- Check: if you swapped the external dep, how many files change?
+
+### ARCH-DEPTH-3: Locality — Is related code co-located?
+
+**Severity:** WARN
+**Category:** architecture
+**Detection:** Directory structure + import distance analysis
+
+Related code should live together:
+- Functions that change together should be in the same module
+- A bug fix should ideally touch one file
+- If understanding one concept requires bouncing between many small modules → shallow
+- Apply the deletion test: if deleting the module concentrates complexity, it was pass-through
+
+### ARCH-DEPTH-4: Leverage — Do small changes propagate value broadly?
+
+**Severity:** WARN
+**Category:** architecture
+**Detection:** Fan-out analysis via dependency graph or grep
+
+Modules should provide leverage — small interface, rich behavior:
+- Does the module hide complexity behind a simple interface?
+- Do callers get significant value from a small surface area?
+- Interface nearly as complex as implementation → shallow module
+- Changes to the module should benefit all consumers
+
+### ARCH-DEPTH-5: Deletion Test — Can a module be removed without cascading?
+
+**Severity:** WARN
+**Category:** architecture
+**Detection:** Reverse dependency count + import scan
+
+Apply the deletion test to any module suspected of being shallow:
+- Imagine deleting the module
+- If complexity vanishes → it was a pass-through (shallow)
+- If complexity reappears across N callers → it was earning its keep (deep)
+- Count reverse dependencies: high fan-in = deep module
+- Zero reverse deps + trivial interface = candidate for removal
+
+## Context Sources
+
+- **CONTEXT.md** (if exists at project root): Domain glossary — use glossary terms when naming modules
+- **docs/adr/** (if exists): Architecture Decision Records — check module compliance
+
+## Severity Escalation
+
+| Condition | Severity |
+|-----------|----------|
+| ADR violation | BLOCK |
+| Shallow module with 5+ consumers | WARN |
+| Missing adapter for external dep | WARN |
+| Low locality (bouncing required) | WARN |
+| Deletion test shows pass-through | SUGGEST |
+
+## Report Format
+
+All findings use `[ARCH-DEPTH]` prefix:
 
 ```
-1. CLUSTER findings by (category, file_path_pattern, description_keywords)
-2. MATCH each cluster against learning.json detected_patterns:
-   - If pattern exists: increment total_shown, update counts
-   - If new AND count >= 2: create new detected pattern entry
-3. EVALUATE per-pattern statistics:
-   - acceptance_rate = accepted / total_shown
-   - dismissal_rate = dismissed / total_shown
-```
-
-## Promotion Criteria
-
-When a detected pattern meets these thresholds, generate a rule template:
-
-| Criterion | Threshold | Suggested Severity |
-|-----------|-----------|-------------------|
-| Accepted >= 3 AND acceptance_rate >= 70% | Met | WARN |
-| Accepted >= 5 AND acceptance_rate >= 80% | Met | BLOCK (security/architecture only) |
-
-On promotion:
-1. Rule template written to `.temper/learning/suggestions/{pattern_id}.md`
-2. Entry added to `suggestion_queue[]` in learning.json
-3. Status dashboard shows the pending suggestion
-
-## Suppression Criteria (Noise Reduction)
-
-| Criterion | Threshold | Action |
-|-----------|-----------|--------|
-| Dismissed >= 3 AND acceptance_rate < 30% | Met | Downgrade severity by 1 level |
-| Dismissed >= 5 AND acceptance_rate < 10% | Met | Auto-suppress entirely |
-
-Suppressed patterns move to `suppressed_patterns[]` in learning.json. Future reviews skip suppressed patterns entirely.
-
-## Context-Specific Handling
-
-Context-specific dismissals are tracked independently per pattern. A pattern suppressed in one context continues to fire in others.
-
-| Context | Detection | Behavior |
-|---------|-----------|----------|
-| config-loader | Path contains `config/` | Independent suppression |
-| test-fixtures | Path contains `test/`, `spec/` | Independent suppression |
-| data-transfer | Class has `DTO`, `Request`, `Response` | Independent suppression |
-| legacy-module | Listed in `.temper/legacy-modules.json` | Independent suppression |
-| generated-code | Header has `@generated` | Independent suppression |
-
-## Learning Curve Calculation
-
-```
-1. Read issues_per_review from metrics history
-2. Compute trend:
-   - Last 5 reviews: compute linear regression slope
-   - Slope < -0.5 → "improving"
-   - Slope between -0.5 and 0.5 → "stable"
-   - Slope > 0.5 → "degrading"
-   - Fewer than 3 reviews → "insufficient_data"
-3. improvement_pct:
-   (first_review_issues - last_review_issues) / first_review_issues * 100
-```
-
-## Integration Points
-
-| System | Direction | Purpose |
-|--------|-----------|---------|
-| `/temper:review` (Step 8.5) | Inbound | Post-review pattern detection trigger |
-| `/temper:status` | Inbound | Dashboard rendering |
-| `review-memory.json` | Inbound | Pattern history for clustering |
-| Pack system | Outbound | Promoted rule templates |
-| review Step 4 | Outbound | Noise filter lookup |
-
-## Graceful Degradation
-
-When `learning.json` does not exist:
-1. Review skips Step 8.5 entirely — no errors, no warnings
-2. Status shows "Adaptive learning: not yet initialized"
-3. All existing commands work exactly as before
-4. `learning.json` created automatically on first review run
-
-## Rule Template Format
-
-Promoted patterns generate rule templates in `.temper/learning/suggestions/{pattern_id}.md`:
-
-```markdown
-## {Rule Name}
-
-**Severity:** {BLOCK|WARN|SUGGEST}
-**Category:** {category}
-**Detection:** {file glob} + description keywords: {keywords}
-**Auto-generated from learning pattern:** {pattern_id}
-
-### Description
-{What the rule catches}
-
-### Detection Pattern
-- File pattern: `{file_pattern}`
-- Keywords: {description_keywords}
-- Acceptance rate: {acceptance_rate} ({accepted}/{total_shown})
-
-### Suggested Action
-{Description of what to do when this pattern is found}
+[ARCH-DEPTH] {dimension}: {file} — {finding}
+  Problem: {why current architecture causes friction}
+  Solution: {what would change}
+  Benefits: {locality/leverage improvement}
+  Severity: {WARN|BLOCK}
 ```
 
 ---
