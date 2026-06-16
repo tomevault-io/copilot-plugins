@@ -4,7 +4,7 @@
   "repo": "tokenplay",
   "description": "tokenplay- \u73a9\u8f6cToken\uff0cToken\u7167\u5996\u955c\uff0c\u7eaf\u5ea6\u68c0\u6d4b\u5668\uff01",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JarvisPMS/tokenplay",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T21:20:03Z"
+  "distributed_at": "2026-06-16T23:00:04Z"
 }
