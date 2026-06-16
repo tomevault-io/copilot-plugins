@@ -1,0 +1,44 @@
+{
+  "name": "OpticStudioMCPServer",
+  "owner": "zym1998year",
+  "repo": "OpticStudioMCPServer",
+  "description": "\u4fee\u590d\u4e86mcp\u8fde\u63a5zemax3\u79d2\u8d85\u65f6\u81ea\u52a8\u5d29\u6e83\u7684\u95ee\u9898\uff0czemax\u51b7\u542f\u52a8\u8d85\u8fc73\u79d2\u5bfc\u81f4mcp\u65e0\u6cd5\u6b63\u5e38\u8fde\u63a5\u5df2\u4fee\u590d\uff0c\u5e76\u4e14\u6dfb\u52a0\u4e86\u5b9e\u73b0\u5149\u5b66\u7cfb\u7edf\u7684\u8bbe\u8ba1\u3001\u5206\u6790\u4e0e\u4f18\u5316\u3002\u672c\u6b21\u65b0\u589e\u56db\u4e2a\u5de5\u5177\uff1aExportAnalysisTool \u652f\u6301 17 \u79cd\u5206\u6790\u7c7b\u578b\u7684 BMP \u56fe\u50cf\u53ca   TXT \u6570\u636e\u5bfc\u51fa\uff0c\u542b\u4e8c\u7ef4\u6570\u636e\u7f51\u683c\u7684\u5206\u6790\uff08PSF\u3001\u6ce2\u524d\u56fe\u7b49\uff09\u81ea\u52a8\u6e32\u67d3\u4e3a\u70ed\u529b\u56fe\uff1bGeometricImageAnalysisTool \u63d0\u4f9b   25+ \u53c2\u6570\u7684\u51e0\u4f55\u50cf\u5206\u6790\uff0c\u652f\u6301\u8f90\u7167\u5ea6\u6570\u636e\u8fd4\u56de\u4e0e\u8bbe\u7f6e\u6301\u4e45\u5316\uff1bSetSurfaceParameterTool   \u652f\u6301\u9762\u578b\u53c2\u6570\u7684\u5355\u4e2a/\u6279\u91cf/\u5168\u91cf\u8bfb\u5199\uff0c\u517c\u5bb9 Double \u4e0e Integer \u7c7b\u578b\uff1bSetSurfaceTypeTool  \u5b9e\u73b0\u9762\u578b\u5207\u6362\uff0c\u5927\u5c0f\u5199\u4e0d\u654f\u611f\uff0c\u652f\u6301\u6240\u6709 ZOSAPI \u9762\u578b\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zym1998year/OpticStudioMCPServer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T07:06:44Z"
+}
