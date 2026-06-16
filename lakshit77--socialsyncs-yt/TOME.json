@@ -4,7 +4,7 @@
   "repo": "socialsyncs-yt",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lakshit77/socialsyncs-yt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T03:16:07Z"
+  "distributed_at": "2026-06-16T05:05:47Z"
 }
