@@ -1,32 +1,45 @@
-## volum-submodules
+## volum-ui
 
-> VoLum submodule and vendored dependency boundaries
+> VoLum UI file map, layout ownership, and token-saving read order
 
 
-# VoLum Submodules
+# VoLum UI
 
-Boundaries:
+Read the smallest owner first:
 
-- Treat `iPlug2/`, `NeuralAmpModelerCore/`, and `eigen/` as vendored unless the task explicitly targets them.
-- `AudioDSPTools/` is also a submodule, but VoLum may require DSP changes there.
-- Expected local dirt: `iPlug2` can be dirty from the Windows ASIO patch. Do not reset or commit it unless asked.
+- `VoLumControls.h`: umbrella only. Do not edit unless adding/removing includes.
+- `VoLumTriptych.h`: `VoLumTriptychControl` (PRE/AMP/POST strip) and `VoLumChainConnectorControl`; umbrella for triptych pieces.
+- `VoLumTriptychMotifs.h`: COMP / PRE-NAM / DELAY / REVERB fractal motifs used by pedal cards and Quiet slots.
+- `VoLumTriptychMenus.h`: PRE capture and support-amp menus.
+- `VoLumPedalCardControl.h`: focused pedal cards with cached art layer and preset-name footer.
+- `VoLumCoreControls.h`: sidebar, speaker row, knob row, meters, dividers/footers, channel stepper, keyboard hints, exact entry, param-value display, settings overlay frame.
+- `VoLumHero.h`: procedural hero, AMP title strip, Dual Amp chip, lane PAN dots, support polarity control.
+- `VoLumKeyboardModel.h`: shared keyboard target rings and per-parameter step sizes.
+- `VoLumTunerMetronomeOverlay.h`: tuner and metronome controls.
+- `VoLumTriptychState.h`: tiny shared enums.
+- `VoLumColorHelpers.h`: shared colors and small drawing helpers.
+- `VoLumFractalArt.h`: large procedural art. Read only when changing fractals or hero/sidebar art.
 
-When changing submodules:
+Architecture:
 
-- Verify the desired commit exists on the remote branch/fork CI can fetch.
-- Commit the superproject pointer update separately or call it out clearly.
-- For DSP changes in `AudioDSPTools/dsp/`, add/update VoLum tests in `NeuralAmpModeler/tests/`.
-- For `iPlug2` fork fixes, use this order:
-  1. Commit inside `iPlug2/` first.
-  2. Push the fork branch that the submodule tracks (usually `guitarlum/volum/asio-channel-routing`; use explicit HTTPS on this machine).
-  3. Fetch the pushed fork branch so the local tracking ref is current.
-  4. Commit the parent repo's `iPlug2` submodule pointer update with the VoLum-side tests/docs/changelog.
+- Layout attaches in `_AttachVoLumGraphics` in `NeuralAmpModeler.cpp`.
+- `APP_API` means standalone; VST3-only behavior stays under `#ifndef APP_API`.
+- Triptych has one expanded section at a time: PRE, AMP, or POST.
+- Bottom knob row uses replace mode: section/pedal selection hides previous focused controls and shows new controls.
+- PRE strip background is diagonal crosshatch; collapsed AMP strip is circuit-board grid.
+- `NeuralAmpModeler.cpp` is the compiled translation unit; `VoLumLoader.inc.cpp`, `VoLumSettings.inc.cpp`, and `Unserialization.cpp` are tail-included or path-preserved siblings, not independent build targets.
+- Source-string regression locks in `test_volum_ui_regressions.cpp` use `ReadPluginSource()` over `NeuralAmpModeler.cpp` plus the tail-included `.inc.cpp` siblings. Moving a function between those files does not break a lock unless the string itself changes.
+- Promoting `.inc.cpp` siblings to real separate translation units is a 1.1 hygiene follow-up that needs macOS verification.
 
-Before commits:
+Verification:
 
-- Run `git status --short --branch`.
-- Do not include unrelated submodule dirt.
-- Prefer explicit path staging over `git add .`.
+- UI/layout change: run `pwsh NeuralAmpModeler/scripts/run-app-win.ps1` and inspect the app.
+- If params/keyboard behavior changed too, also run Windows tests.
+- Prefer pure helper tests for layout/state before source-string locks:
+  - Triptych geometry belongs in `VoLumTriptychLayout.h` / `test_volum_ui_regressions.cpp`.
+  - PRE capture discovery belongs in `VoLumPrePedalCaptures.h` / `test_volum_pre_pedal_captures.cpp`.
+  - Signal-chain visibility/enablement decisions belong in `VoLumProcessingPlan.h` / `test_volum_processing_plan.cpp`.
+- Keep `docs/user-guide.en.md` and `docs/user-guide.de.md` in sync for user-facing UI changes, and refresh stable `docs/user-guide-*.png` screenshots when the visible UI changes.
 
 ---
 > Source: [guitarlum/VoLum](https://github.com/guitarlum/VoLum) — distributed by [TomeVault](https://tomevault.io).
