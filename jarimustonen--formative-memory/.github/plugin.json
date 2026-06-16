@@ -1,0 +1,9 @@
+{
+  "name": "jarimustonen--formative-memory",
+  "displayName": "formative-memory",
+  "description": "Memory plugin for OpenClaw. Agent's memories strengthen through use, fade when unused, and consolidate overnight.",
+  "version": "1.0.0",
+  "author": "jarimustonen",
+  "homepage": "https://github.com/jarimustonen/formative-memory",
+  "skills": []
+}
