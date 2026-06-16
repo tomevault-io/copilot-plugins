@@ -1,15 +1,15 @@
-## agent-types-and-safety
+## agent-validation-discipline
 
-> Preserve strong types and distinguish real type checks from weaker signals
+> Validate changes with the smallest relevant repo command and report coverage honestly
 
 
-# Agent Types And Safety
+# Agent Validation Discipline
 
-- Prefer existing types, validated data shapes, and shared helpers over ad hoc inline types or duplicated type logic.
-- Avoid introducing `any`, wide casts, or weaker return types unless the local codebase pattern truly requires it.
-- When you touch typed code, use the closest real typecheck or TypeScript build command for that package when one exists.
-- Do not claim full TypeScript verification from a green lint pass or successful bundle alone.
-- In areas with weak or partial typing coverage, call out the remaining risk instead of overstating confidence.
+- Read nearby scripts, config, and existing workflows before claiming validation coverage.
+- Run the smallest relevant verification for the files you changed instead of defaulting to `npm run validate`.
+- Use repo-real commands when they match the touched area, such as `npm run lint`, `npm run build:shared`, `npm run build:server`, `npm --prefix apps/ui run typecheck`, and `npm --prefix apps/docs run typecheck`.
+- Treat bundling, linting, and typechecking as different signals; do not describe one as if it proved the others.
+- If a touched area has limited or non-strict type coverage, explicitly say what you ran and what remains unverified.
 
 ---
 > Source: [grebmann1/workbench](https://github.com/grebmann1/workbench) — distributed by [TomeVault](https://tomevault.io).
