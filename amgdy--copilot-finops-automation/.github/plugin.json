@@ -1,0 +1,9 @@
+{
+  "name": "amgdy--copilot-finops-automation",
+  "displayName": "copilot-finops-automation",
+  "description": "Automation for managing GitHub Copilot budget controls, cost center membership, and enterprise billing governance using GitHub Actions and GitHub APIs.",
+  "version": "1.0.0",
+  "author": "amgdy",
+  "homepage": "https://github.com/amgdy/copilot-finops-automation",
+  "skills": []
+}
