@@ -1,0 +1,44 @@
+{
+  "name": "Draxul",
+  "owner": "cmaughan",
+  "repo": "Draxul",
+  "description": "\ud83e\ude78 A Dark Factory agentic project. A Universal console shell, city-as-code metaphor.  Cross platform Vulkan and Metal, PC & Mac.  Powershell, Neovim GUI RPC, Bash, Zsh; any shell you like, it will host it.  The City is an HDR graphics pipeline.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cmaughan/Draxul",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T18:35:08Z"
+}
