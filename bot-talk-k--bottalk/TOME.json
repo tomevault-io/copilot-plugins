@@ -1,0 +1,44 @@
+{
+  "name": "BotTalk",
+  "owner": "bot-talk-k",
+  "repo": "BotTalk",
+  "description": "\ud83e\udd16 BotTalk \u2014 HTTP \u4e00\u884c\u63a8\u9001\u5230\u5fae\u4fe1 / \u98de\u4e66 \u00b7 \u514d\u8d39\u5f00\u6e90 \u00b7 Server\u9171\u66ff\u4ee3\u54c1 \u00b7 \u626b\u7801\u7ed1\u5b9a \u00b7 \u652f\u6301 Python/Node.js/Go \u00b7 Docker \u81ea\u90e8\u7f72.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bot-talk-k/BotTalk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T02:33:31Z"
+}
