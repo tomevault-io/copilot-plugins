@@ -1,0 +1,67 @@
+## accountycat
+
+> This file is the agent entrypoint: read it first, then load the canonical docs it points to.
+
+# AccountyCat — Agent Guide
+
+This file is the agent entrypoint: read it first, then load the canonical docs it points to.
+
+## Start Here
+
+AccountyCat ("AC") is a native macOS focus companion for Apple Silicon. It lives in the menu bar and as a floating orb, watches frontmost-app context plus screenshots when needed, and uses LLMs to decide whether to stay quiet, nudge, or escalate.
+
+Read this file first. Then load more context selectively.
+
+Always read:
+
+- `docs/core/north-star.md` — source of truth for product principles, engineering principles, taste, and the current quality bar
+
+Read on most non-trivial tasks:
+
+- `docs/README.md` — docs map and read-routing
+- `docs/core/codebase-map.md` — architecture map, ownership seams, and where behavior lives
+
+Load on demand:
+
+- `docs/reference/monitoring-pipeline.md` — monitoring pipeline work
+- `docs/reference/runtime-providers-and-setup.md` — runtime / model / provider / onboarding setup work
+- `docs/reference/state-persistence-and-testing.md` — state / persistence / tests / migrations
+- `docs/reference/telemetry-inspector-and-debugging.md` — telemetry / Inspector / debug bundles
+- `docs/reference/eval-suite.md` — offline judgment eval suite: synthetic cases, seeder, run workflow, what evals measure, results, known limitations
+- `dev/agents/accountycat-debugger/SKILL.md` — live/runtime debugging from telemetry, logs, Inspector output, or an exported debug bundle
+- `dev/agents/accountycat-eval/SKILL.md` — seeding/listing/running local eval cases (synthetic suite + Inspector-captured)
+- `dev/agents/accountycat-release/SKILL.md` — public macOS release packaging: Developer ID signing, notarization, DMG creation, GitHub release upload, and website download update
+
+Do not load the whole `docs/` tree into every session. `core/` is the default context; `reference/` and `experiments/` are on-demand.
+
+If this file and a canonical doc disagree, the canonical doc wins. `north-star.md` is the source of truth for principles, `codebase-map.md` for architecture, and `reference/*` for area-specific implementation details.
+
+## Non-Negotiables
+
+- Never reference or modify `_Legacy/`. It is intentionally out of the active build.
+- All prompts live in `ACShared/ACPromptSets.swift`. That file is the single source of truth.
+- Never use `AppController.shared` in tests.
+- Never use `StorageService()` in tests. It writes to the real state file at `~/Library/Application Support/AC/state.json`. Use `AppController.makeForTesting(storageService: .temporary())` or `StorageService.temporary()` for isolated state in tests.
+- Verbose telemetry is effectively Debug-build only. Do not assume release builds have the same artifacts available.
+- Avoid to scan the whole filesystem so that MacOS permission popups appear en mass. Similarly avoid to do anything that requires permission or keychain popups (especially relevant in tests).
+- Never call `CGRequestScreenCaptureAccess()` or `SCShareableContent` to "register" the app. These trigger the system permission dialog. Use `CGPreflightScreenCaptureAccess()` (read-only check) instead, and gate all capture calls behind it.
+
+## Build & Test
+
+```bash
+# Run unit tests (no code signing needed — tests mock capture and runtime)
+xcodebuild test -project AC.xcodeproj -scheme AC -destination 'platform=macOS' -only-testing:ACTests CODE_SIGNING_ALLOWED=NO
+
+# Build the inspector companion
+xcodebuild build -project AC.xcodeproj -scheme ACInspector CODE_SIGNING_ALLOWED=NO
+```
+
+No formatter/linter/CI is configured. Before finishing meaningful code changes, run `ACTests` and build `ACInspector`. Do not start overlapping `xcodebuild test` runs that share the same build/test paths; if you need parallel runs, use isolated paths (see `scripts/test-isolated.sh` and `docs/reference/state-persistence-and-testing.md`). If a run is interrupted or appears stuck during finalization, check for stale `xcodebuild`, `debugserver`, or `AC.app` test-host processes before rerunning. For architecture, use `docs/core/codebase-map.md`. For testing/storage details, use `docs/reference/state-persistence-and-testing.md`.
+
+## Live Release Workflow
+
+Do not commit product changes directly to `main`. While live, create or use the branch for the next release version with the `release/vX.YY` scheme, e.g. `release/v1.04`, and commit feature/fix work there with concise, meaningful messages. Keep commits as the release changelog source; when the release branch is stable and no more features are planned for that version, summarize the commits into release notes, merge to `main`, tag/build the release, and start the next release branch.
+
+---
+> Source: [strjonas/AccountyCat](https://github.com/strjonas/AccountyCat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
