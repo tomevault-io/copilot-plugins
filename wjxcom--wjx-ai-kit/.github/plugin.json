@@ -1,0 +1,9 @@
+{
+  "name": "wjxcom--wjx-ai-kit",
+  "displayName": "wjx-ai-kit",
+  "description": "\u95ee\u5377\u661f OpenAPI \u5168\u6808\u5de5\u5177\u5305\uff1aTypeScript SDK + MCP Server + CLI",
+  "version": "1.0.0",
+  "author": "wjxcom",
+  "homepage": "https://github.com/wjxcom/wjx-ai-kit",
+  "skills": []
+}
