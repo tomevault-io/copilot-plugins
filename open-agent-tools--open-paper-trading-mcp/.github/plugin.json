@@ -1,0 +1,9 @@
+{
+  "name": "open-agent-tools--open-paper-trading-mcp",
+  "displayName": "open-paper-trading-mcp",
+  "description": "Open Paper Trading MCP - A dual-interface paper trading simulation platform with FastAPI REST API and MCP server",
+  "version": "1.0.0",
+  "author": "Open-Agent-Tools",
+  "homepage": "https://github.com/Open-Agent-Tools/open-paper-trading-mcp",
+  "skills": []
+}
