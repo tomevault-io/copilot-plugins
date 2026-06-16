@@ -1,0 +1,9 @@
+{
+  "name": "heyhank-app--heyhank",
+  "displayName": "heyhank",
+  "description": "Self-hosted web UI for running Claude Code agents (with optional Codex support). Multi-session chat, voice, skills, social media, telephony.",
+  "version": "1.0.0",
+  "author": "heyhank-app",
+  "homepage": "https://github.com/heyhank-app/heyhank",
+  "skills": []
+}
