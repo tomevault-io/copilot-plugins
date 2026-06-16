@@ -1,39 +1,32 @@
-## volum-state-params
+## volum-submodules
 
-> VoLum parameter order, preset migration, and state persistence rules
+> VoLum submodule and vendored dependency boundaries
 
 
-# VoLum State And Params
+# VoLum Submodules
 
-Parameter rules:
+Boundaries:
 
-- `EParams` order is serialization-sensitive.
-- New params need stable `GetName()` strings.
-- Do not reorder params or rename stable names without updating migration code.
-- Keep `test_eparam_order.cpp` and `test_keyboard_steps.cpp` in sync with param changes.
-- PRE NAM capture params (`PreNam1Capture`, `PreNam2Capture`) use `0` as EMPTY and are bounded by the PRE capture list / param range; update `test_volum_pre_pedal_captures.cpp` and `test_volum_chunk_codec.cpp` when that behavior changes.
+- Treat `iPlug2/`, `NeuralAmpModelerCore/`, and `eigen/` as vendored unless the task explicitly targets them.
+- `AudioDSPTools/` is also a submodule, but VoLum may require DSP changes there.
+- Expected local dirt: `iPlug2` can be dirty from the Windows ASIO patch. Do not reset or commit it unless asked.
 
-Preset/session migration:
+When changing submodules:
 
-- Add a new version/chunk branch in `Unserialization.cpp`; never rewrite old readers.
-- VoLum `0.1.x` intentionally routes through the NAM `0.7.15` reader.
-- VoLum `0.6.0` adds `ReverbPreDelay` and `ReverbShimmer`; preserve those migration paths.
-- If serialization behavior changes, add/update `test_volum_chunk_version.cpp` and `test_volum_chunk_codec.cpp`.
+- Verify the desired commit exists on the remote branch/fork CI can fetch.
+- Commit the superproject pointer update separately or call it out clearly.
+- For DSP changes in `AudioDSPTools/dsp/`, add/update VoLum tests in `NeuralAmpModeler/tests/`.
+- For `iPlug2` fork fixes, use this order:
+  1. Commit inside `iPlug2/` first.
+  2. Push the fork branch that the submodule tracks (usually `guitarlum/volum/asio-channel-routing`; use explicit HTTPS on this machine).
+  3. Fetch the pushed fork branch so the local tracking ref is current.
+  4. Commit the parent repo's `iPlug2` submodule pointer update with the VoLum-side tests/docs/changelog.
 
-Settings persistence:
+Before commits:
 
-- Per-amp settings write to user profile, not rigs:
-  - Windows: `%LOCALAPPDATA%\VoLum\volum-settings.json`
-  - macOS: `~/Library/Application Support/VoLum/volum-settings.json`
-- `<rigsRoot>/volum-settings.json` remains a legacy read fallback.
-
-Verification:
-
-- Run `pwsh NeuralAmpModeler/scripts/run-tests-win.ps1`.
-- Add focused doctests for new DSP/state behavior before calling work done.
-- Register new test files in both `NeuralAmpModeler/projects/NeuralAmpModeler-Tests.vcxproj` and `NeuralAmpModeler/tests/CMakeLists.txt`.
-- Params/keyboard/state tests: `test_eparam_order.cpp`, `test_keyboard_steps.cpp`, `test_volum_chunk_version.cpp`, `test_volum_chunk_codec.cpp`.
-- User settings JSON: `test_volum_user_settings_io.cpp`.
+- Run `git status --short --branch`.
+- Do not include unrelated submodule dirt.
+- Prefer explicit path staging over `git add .`.
 
 ---
 > Source: [guitarlum/VoLum](https://github.com/guitarlum/VoLum) — distributed by [TomeVault](https://tomevault.io).
