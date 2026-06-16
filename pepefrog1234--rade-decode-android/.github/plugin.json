@@ -1,0 +1,9 @@
+{
+  "name": "pepefrog1234--rade-decode-android",
+  "displayName": "RADE_decode_Android",
+  "description": "Android RADE digital voice transceiver \u2014 FreeDV RADE OFDM modem with FARGAN vocoder, hamlib CAT control",
+  "version": "1.0.0",
+  "author": "pepefrog1234",
+  "homepage": "https://github.com/pepefrog1234/RADE_decode_Android",
+  "skills": []
+}
