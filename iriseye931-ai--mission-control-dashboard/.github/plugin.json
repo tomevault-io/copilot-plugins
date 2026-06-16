@@ -1,0 +1,9 @@
+{
+  "name": "iriseye931-ai--mission-control-dashboard",
+  "displayName": "mission-control-dashboard",
+  "description": "Mesh-first real-time dashboard for Claude Code, Hermes, OpenClaw, MLX, and local memory/routing systems.",
+  "version": "1.0.0",
+  "author": "iriseye931-ai",
+  "homepage": "https://github.com/iriseye931-ai/mission-control-dashboard",
+  "skills": []
+}
