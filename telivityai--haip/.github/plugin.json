@@ -1,0 +1,9 @@
+{
+  "name": "telivityai--haip",
+  "displayName": "haip",
+  "description": "HAIP (Hotel AI Platform) \u2014 Open-source, API-first hotel PMS. TypeScript/Node.js/NestJS.",
+  "version": "1.0.0",
+  "author": "TelivityAI",
+  "homepage": "https://github.com/TelivityAI/haip",
+  "skills": []
+}
