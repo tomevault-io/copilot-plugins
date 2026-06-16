@@ -1,0 +1,44 @@
+{
+  "name": "as-folio",
+  "owner": "dadangnh",
+  "repo": "as-folio",
+  "description": "A full-featured academic portfolio theme built with Astro 6, Tailwind CSS v4, and TypeScript. Ships with publications (BibTeX), blog, CV, projects, books shelf, and full-text search. Everything a researcher needs, zero config.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dadangnh/as-folio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T17:10:47Z"
+}
