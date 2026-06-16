@@ -1,0 +1,9 @@
+{
+  "name": "joeseesun--qiaomu-ai-radar",
+  "displayName": "qiaomu-ai-radar",
+  "description": "\u6bcf\u65e5\u9009\u9898\u52a9\u624b - \u76d1\u63a7Import AI\u3001Hacker News\u3001James Clear\u3001Wait But Why\u3001Product Hunt\u7b49\u9ad8\u8d28\u91cf\u5185\u5bb9\u6e90\uff0c\u81ea\u52a8\u91c7\u96c6\u6700\u65b0\u6587\u7ae0\u5e76\u63a8\u8350\u503c\u5f97\u521b\u4f5c\u7684\u8bdd\u9898\u3002Use when user requests to check updates, fetch latest",
+  "version": "1.0.0",
+  "author": "joeseesun",
+  "homepage": "https://github.com/joeseesun/qiaomu-ai-radar",
+  "skills": []
+}
