@@ -1,0 +1,9 @@
+{
+  "name": "reason-healthcare--rh-skills",
+  "displayName": "rh-skills",
+  "description": "An agentic workflow toolset providing superpowers for healthcare informaticists",
+  "version": "1.0.0",
+  "author": "reason-healthcare",
+  "homepage": "https://github.com/reason-healthcare/rh-skills",
+  "skills": []
+}
