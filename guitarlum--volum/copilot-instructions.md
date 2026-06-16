@@ -1,39 +1,67 @@
-## neural-amp-modeler-native
+## vo-lum-workflow
 
-> NeuralAmpModeler (iPlug2 / NAM) C++ conventions for VoLum
+> VoLum iteration loop, vibe coding, verification, and rollback hygiene
 
 
-# NeuralAmpModeler C++ (VoLum)
+# VoLum workflow (vibe coding + safety nets)
 
-## VoLum upstream fence
+## Mindset
 
-- VoLum-only code added to upstream-equivalent files should stay visually separable with a `// VoLum:` comment or extraction into a `VoLum*.inc.cpp` tail-include.
-- IR file browser behavior is still VST3-only unless you intentionally change that block.
+- Ship **small vertical slices**: one behavior, one bugfix, or one refactor path per pass—**working build + tests** before the next idea.
+- Spikes are fine; **delete or fold** dead spike code before you call the iteration done.
+- Match **existing** naming, patterns, and file layout. No drive-by cleanups outside the task.
 
-## DSP / RT invariants
+## Every meaningful iteration (before you stop or hand off)
 
-- POST effects (`mDelay`, `mReverb`) are `Reset()` on every active -> inactive edge so re-engaging never replays a stale tail. Tracking state: `mPostDelayWasActive` / `mPostReverbWasActive` in `NeuralAmpModeler.h`.
-- `Reverb::SetParams` calls `Reset()` whenever `mode` or (for Oktaverb) `subMode` changes, matching `Delay::SetParams`.
-- Reverb Mix is one-pole smoothed (~10 Hz) to kill zipper noise during automation; `mMixSmoothed` snaps to target on sample-rate change and on Reset.
-- NAM model output is scrubbed via `volum::ScrubNonFiniteInPlace` after every `mModel->process` / `mSupportModel->process`; on non-finite, both POST effects are also `Reset()` so no NaN can lodge in their state.
-- `volum::SoftSafetyClip` maps NaN / +/-Inf to 0. Final-bus contract.
-- Legacy `_StageModel` / `_StageIR` writes are serialized against the audio-thread move in `_ApplyDSPStaging` via `mStagingMutex`. VoLum worker-queue drain still runs lock-free on the audio thread.
-- Dual-amp scratch buffers (`mDualMainLaneBuffer`, `mDualSupportLaneBuffer`, `mDualMainAlignedBuffer`, `mDualSupportAlignedBuffer`) are pre-reserved in `OnReset` so `ProcessBlock` never allocates on the audio thread.
+1. **Run tests** when C++/NAM/plugin logic changed:
+   - `NeuralAmpModeler/scripts/run-tests-win.ps1` (Release x64), or the equivalent CI command you are using.
+   - macOS parity: `NeuralAmpModeler/scripts/run-tests-mac.sh`; sanitizer parity: `NeuralAmpModeler/scripts/run-tests-mac.sh --sanitize`.
+2. **Build and launch the standalone app** when VoLum **UI** changed (layout, controls, styling) so you can judge the result:
+   - `NeuralAmpModeler/scripts/run-app-win.ps1` (Release x64). Close a running VoLum if postbuild cannot copy the exe.
+3. **Append a changelog line** so you can bisect and remember intent:
+   - Prefer `NeuralAmpModeler/installer/changelog.txt` (keep project style: date + short note).
+   - One line per user-visible or behavior change; include breaking preset/state format bumps.
+4. **Update user docs** when behavior is user-facing:
+   - Keep `docs/user-guide.en.md` and `docs/user-guide.de.md` in sync.
+   - Refresh stable `docs/user-guide-*.png` screenshots when the visible UI changes.
+5. **Commit** in a **single coherent chunk** when possible (easy `git revert`). If the user prefers WIP commits, say so in chat.
 
-## Dependencies
+## Tests are mandatory, not optional
 
-- Prefer existing iPlug / repo **include paths**. If vendoring headers (e.g. JSON), call out duplication risk in changelog and align with upstream when merging.
+- **Write tests for every confirmed-working feature or bugfix.** Do not wait for the user to ask.
+- New DSP behavior → doctest in `NeuralAmpModeler/tests/`. Cover: no NaN, passthrough at zero mix, bounded output, all modes.
+- Main signal-chain behavior → `VoLumProcessingPlan.h` plus `test_volum_processing_plan.cpp` when it can be expressed as routing/enablement decisions.
+- New parameter → pin its index and step size in `test_eparam_order.cpp` / `test_keyboard_steps.cpp`.
+- New serialization path → version-branch test in `test_volum_chunk_version.cpp` and chunk round-trip/bounds coverage in `test_volum_chunk_codec.cpp`.
+- New main amp `.nam` under `rigs/` → keep `test_nam_rigs.cpp` loading it.
+- New PRE capture `.nam` under `rigs/PrePedals/` → update/keep `test_volum_pre_pedal_captures.cpp`, the PRE capture load-smoke in `test_nam_rigs.cpp`, and packaging verification.
+- If a bug was caused by a missing test, add the test that would have caught it.
 
-## Verification
+## Code hygiene is part of the task
 
-- After DSP/UI/state changes: **`run-tests-win.ps1`** and a **targeted MSBuild** of the configuration you touched (e.g. `NeuralAmpModeler-app` or `NeuralAmpModeler-vst3`).
-- Cross-platform test additions must be registered in both `NeuralAmpModeler/projects/NeuralAmpModeler-Tests.vcxproj` and `NeuralAmpModeler/tests/CMakeLists.txt`.
-- DSP helpers/effects: doctests in `NeuralAmpModeler/tests/` (`test_process_io.cpp`, `test_delay_reverb_dsp.cpp`, `test_volum_pre_effects.cpp`, `test_tone_stack.cpp`, tuner/metronome tests).
-- Main signal-chain decisions: `VoLumProcessingPlan.h` plus `test_volum_processing_plan.cpp`.
-- Main amp rigs: `test_nam_rigs.cpp`; new `.nam` files under `rigs/` must load and survive one `process()` block there (finite + bounded output).
-- PRE NAM captures: `VoLumPrePedalCaptures.h`, `test_volum_pre_pedal_captures.cpp`, and the PRE section of `test_nam_rigs.cpp`; new files under `rigs/PrePedals/` must discover, load, and package.
-- Master safety / NaN containment: `test_volum_master_safety.cpp` and `test_volum_nan_guard.cpp`.
-- Bypass identity: `test_volum_bypass_identity.cpp`.
+- **Refactor proactively** when a file crosses ~500 lines or a class accumulates unrelated responsibilities. Don't wait to be asked.
+- Follow the existing file split pattern (see AGENTS.md "UI File Map"). New controls go in the correct file, not dumped into a monolith.
+- Keep fractal/art code in `VoLumFractalArt.h`, triptych/POST controls in `VoLumTriptych.h`, core controls in `VoLumCoreControls.h`.
+- If you add a new file, update the file map table in `AGENTS.md`.
+
+## Execution
+
+- **You run** builds/tests in this environment; do not only tell the user what to run.
+- After failures: diagnose, fix, retry—do not stop after one error.
+- Kill stale `VoLum.exe` processes before rebuilding if the linker reports a locked file.
+- Shell is **Windows PowerShell 5.x**: chain commands with `;` plus `if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }`. Do not use `&&` / `||` — PowerShell 5.x rejects them as invalid statement separators.
+- Multi-line `git commit` messages use a PowerShell **here-string**, not a bash heredoc (`<<'EOF'` fails here): `$m = @'` … `'@` on its own line, then `git commit -m $m`.
+
+## Scope discipline
+
+- Touch only files needed for the request. Do not add docs/README/ADRs unless asked.
+
+## Branching
+
+- `main` is the released branch, `dev` is the integration branch.
+- After every release lands on `main`, merge `main` into `dev` and push.
+- New feature work branches off the latest `dev` as `feature/<short-topic>`; merge feature back into `dev` once verified.
+- Only promote `dev` to `main` as part of a release (see `release-manager` skill / `volum-release-packaging` rule).
 
 ---
 > Source: [guitarlum/VoLum](https://github.com/guitarlum/VoLum) — distributed by [TomeVault](https://tomevault.io).
