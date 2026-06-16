@@ -1,0 +1,9 @@
+{
+  "name": "nytodev--inertia-bundle",
+  "displayName": "inertia-bundle",
+  "description": "Symfony Bundle implementing the Inertia.js",
+  "version": "1.0.0",
+  "author": "nytodev",
+  "homepage": "https://github.com/nytodev/inertia-bundle",
+  "skills": []
+}
