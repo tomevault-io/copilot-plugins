@@ -1,0 +1,9 @@
+{
+  "name": "jamie-bitflight--claude-skills",
+  "displayName": "claude_skills",
+  "description": "Plugins for Anthropic's Claude Code, Codex, Cursor and more",
+  "version": "1.0.0",
+  "author": "Jamie-BitFlight",
+  "homepage": "https://github.com/Jamie-BitFlight/claude_skills",
+  "skills": []
+}
