@@ -1,0 +1,9 @@
+{
+  "name": "spotify--ads-agentic-tools",
+  "displayName": "ads-agentic-tools",
+  "description": "A Claude Code plugin that lets you manage Spotify advertising campaigns through natural language. Create campaigns, target audiences, launch ads, and pull performance reports \u2014 all by describing what ",
+  "version": "1.0.0",
+  "author": "spotify",
+  "homepage": "https://github.com/spotify/ads-agentic-tools",
+  "skills": []
+}
