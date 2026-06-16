@@ -1,0 +1,9 @@
+{
+  "name": "mohu-org--mohu",
+  "displayName": "mohu",
+  "description": "NumPy reimagined in Rust. Parallel by default, Arrow-native, zero-copy Python bindings. The array library Python deserves.",
+  "version": "1.0.0",
+  "author": "mohu-org",
+  "homepage": "https://github.com/mohu-org/mohu",
+  "skills": []
+}
