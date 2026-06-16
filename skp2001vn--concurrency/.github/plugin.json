@@ -1,0 +1,9 @@
+{
+  "name": "skp2001vn--concurrency",
+  "displayName": "concurrency",
+  "description": "Concurrency examples such as thread pools, rate limiters, caches, connection pools, virtual threads, bounded buffers, job queues, task schedulers.",
+  "version": "1.0.0",
+  "author": "skp2001vn",
+  "homepage": "https://github.com/skp2001vn/concurrency",
+  "skills": []
+}
