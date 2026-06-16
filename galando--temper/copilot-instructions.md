@@ -1,89 +1,18 @@
-## temper-skill-grill-me
+## temper-skill-source-driven
 
-> Socratic challenge mode — stress-test plans and designs with adversarial questions, one at a time
+> Version-aware, source-driven development — fetch official docs before writing framework code
 
 
-# Grill Me
+# Source-Driven Development
 
-Interview the user relentlessly about a plan or design until reaching shared understanding. Walk down each branch of the decision tree, resolving dependencies between decisions one-by-one.
+Write framework-specific code against current official documentation, not stale training data.
 
-**This is NOT the walkthrough.** The walkthrough *explains* the plan. Grill Me *challenges* it.
+For the full source-driven process, apply the `.claude/skills/source-driven-development/SKILL.md` definitions:
+- Detect version -> Fetch current docs -> Cite sources -> Surface conflicts
+- Authority hierarchy: official docs > type definitions > source code > community > training data
+- Use Context7 MCP when available; fall back to web search (label as HEURISTIC)
 
-| Property | Walkthrough | Grill Me |
-|----------|-------------|----------|
-| Purpose | Explain the plan to the user | Challenge the plan's assumptions |
-| Direction | Temper → User (teaching) | Temper ↔ User (adversarial) |
-| Questions | "Does this make sense?" | "What happens if X fails?" |
-| Outcome | User understands plan | User discovers weaknesses |
-
-## Algorithm
-
-### 1. Extract Claims
-
-Read the plan/design document. Extract:
-
-- **Claims** — explicit assertions ("This handles all error cases", "This is backward-compatible")
-- **Assumptions** — unstated beliefs ("Users will have X", "External service is fast")
-- **Dependencies** — things that must be true for the plan to work
-- **Decisions** — architectural choices made (and alternatives rejected)
-- **Gaps** — things not mentioned that should be
-
-### 2. Generate Challenge Questions
-
-For each extracted item, generate challenge questions targeting:
-
-| Target | Question Pattern |
-|--------|-----------------|
-| Unstated assumptions | "What happens if {assumption} is false?" |
-| Missing error paths | "What does {component} do when {dependency} fails?" |
-| Alternatives not considered | "Why {this approach} instead of {alternative}?" |
-| Scalability limits | "What happens at 10x/100x current {metric}?" |
-| Dependency risks | "If {dependency} changes/breaks, what's the impact?" |
-| Edge cases | "What about {edge case}?" |
-| Hidden complexity | "What's the hardest part of implementing {this}?" |
-| Success criteria gaps | "How would you verify {claim} actually works?" |
-| Cross-cutting concerns | "How does this interact with {existing system}?" |
-| Rollback | "If this fails in production, how do you roll back?" |
-
-### 3. Present ONE Question at a Time
-
-**CRITICAL:** Never ask multiple questions. One question, wait for response.
-
-Present the question and wait for the user's answer. After each answer:
-
-1. **If the answer reveals a weakness:** Note it as a finding. Offer to update the plan.
-2. **If the answer is solid:** Acknowledge it, move to next question.
-3. **If the answer raises new questions:** Ask a follow-up (still one at a time).
-4. **If the user wants to update the plan:** Apply the change to the plan/design file, then continue grilling.
-
-### 4. Loop Until Done
-
-Continue until:
-- User says they're done
-- Maximum 10 questions reached
-- 3 consecutive answers that reveal no weaknesses (the plan is solid)
-
-### 5. Summary
-
-After the loop ends, present:
-
-```
-GRILL ME — Summary
-  Questions asked: {N}
-  Weaknesses found: {N}
-  Plan updates made: {N}
-
-  Weaknesses:
-    1. {description} — {how it was addressed}
-    2. {description} — {still open}
-
-  Plan updated: Yes/No
-  Returning to {stage} gate...
-```
-
-## Integration with Temper
-
-This skill is invoked from the Plan and Design stage gates. After the grill session ends, the user returns to the original stage gate. If the plan was updated during grilling, the gate shows the updated summary.
+Apply before writing framework-specific code. Skip for plain logic or known patterns.
 
 ---
 > Source: [galando/temper](https://github.com/galando/temper) — distributed by [TomeVault](https://tomevault.io).
