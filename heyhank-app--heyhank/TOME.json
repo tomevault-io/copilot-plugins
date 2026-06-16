@@ -4,7 +4,7 @@
   "repo": "heyhank",
   "description": "Self-hosted web UI for running Claude Code agents (with optional Codex support). Multi-session chat, voice, skills, social media, telephony.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/heyhank-app/heyhank",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T00:54:26Z"
+  "distributed_at": "2026-06-16T01:05:06Z"
 }
