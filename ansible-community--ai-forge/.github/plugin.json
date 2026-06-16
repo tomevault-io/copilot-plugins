@@ -1,0 +1,9 @@
+{
+  "name": "ansible-community--ai-forge",
+  "displayName": "ai-forge",
+  "description": "Ansible Community AI skills and commands",
+  "version": "1.0.0",
+  "author": "ansible-community",
+  "homepage": "https://github.com/ansible-community/ai-forge",
+  "skills": []
+}
