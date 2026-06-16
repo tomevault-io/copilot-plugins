@@ -1,0 +1,44 @@
+{
+  "name": "qiaomu-ai-radar",
+  "owner": "joeseesun",
+  "repo": "qiaomu-ai-radar",
+  "description": "\u6bcf\u65e5\u9009\u9898\u52a9\u624b - \u76d1\u63a7Import AI\u3001Hacker News\u3001James Clear\u3001Wait But Why\u3001Product Hunt\u7b49\u9ad8\u8d28\u91cf\u5185\u5bb9\u6e90\uff0c\u81ea\u52a8\u91c7\u96c6\u6700\u65b0\u6587\u7ae0\u5e76\u63a8\u8350\u503c\u5f97\u521b\u4f5c\u7684\u8bdd\u9898\u3002Use when user requests to check updates, fetch latest",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/joeseesun/qiaomu-ai-radar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T02:47:21Z"
+}
