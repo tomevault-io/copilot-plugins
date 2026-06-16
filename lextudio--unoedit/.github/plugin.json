@@ -1,0 +1,9 @@
+{
+  "name": "lextudio--unoedit",
+  "displayName": "UnoEdit",
+  "description": "UnoEdit, cross platform code editor for Uno Platform. Derived from AvalonEdit.",
+  "version": "1.0.0",
+  "author": "lextudio",
+  "homepage": "https://github.com/lextudio/UnoEdit",
+  "skills": []
+}
