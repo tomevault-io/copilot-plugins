@@ -1,24 +1,28 @@
-## temper-pack-git
+## temper-pack-quality
 
-> Temper quality pack: git
+> Temper quality pack: quality
 
 
-# Git Pack
+# Quality Pack
 
 **Version:** 1.0.0
 **Last Updated:** 2025-03-09
 
 ## Quality Rules (WARN if violated)
-- Commit messages must follow Conventional Commits format
-- Commits should be atomic (one logical change per commit)
-- Never commit directly to main/master branch
-- Branch names should be descriptive: feature/{ticket}-{description}
+- Functions should have a single responsibility
+- Methods should not exceed 30 lines (excluding blank lines and comments)
+- Classes/modules should not exceed 300 lines
+- Avoid deeply nested code (max 3 levels of nesting)
+- No duplicated logic — extract shared code into reusable functions
+- Variable and function names should be descriptive and self-documenting
+- Avoid magic numbers — use named constants
+- Return early from functions to reduce nesting
 
 ## Conventions (SUGGEST improvements)
-- Include ticket/issue reference in commit message body
-- Keep commits small and focused
-- Write commit body explaining WHY, not WHAT
-- Delete branches after merging
+- Prefer composition over inheritance
+- Prefer immutable data structures where possible
+- Group related functions/methods together
+- Keep public API surface minimal
 
 ---
 > Source: [galando/temper](https://github.com/galando/temper) — distributed by [TomeVault](https://tomevault.io).
