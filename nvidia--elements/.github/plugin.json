@@ -1,0 +1,14 @@
+{
+  "name": "nvidia--elements",
+  "displayName": "elements",
+  "description": "The Design System and UI Agent Harness for AI/ML Factories, Robotics, and Autonomous Vehicles",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/elements",
+  "skills": [
+    {
+      "name": "documentation",
+      "description": ""
+    }
+  ]
+}
