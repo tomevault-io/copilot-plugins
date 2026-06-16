@@ -1,0 +1,9 @@
+{
+  "name": "pixelatewizard--liftoff",
+  "displayName": "LiftOff",
+  "description": "One launcher for all your games. LiftOff unifies Steam, Xbox Game Pass, and UWP apps into a clean, gamepad-first interface built for handheld PCs. Free, open source, no login required.",
+  "version": "1.0.0",
+  "author": "PixelateWizard",
+  "homepage": "https://github.com/PixelateWizard/LiftOff",
+  "skills": []
+}
