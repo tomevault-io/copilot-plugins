@@ -1,0 +1,44 @@
+{
+  "name": "awesome-backseat-driver",
+  "owner": "BetterThanTomorrow",
+  "repo": "awesome-backseat-driver",
+  "description": "Plugin marketplace for Clojure AI context in GitHub Copilot: agents, skills, and workflows for REPL-first interactive programming with Calva Backseat Driver",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BetterThanTomorrow/awesome-backseat-driver",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T19:34:51Z"
+}
