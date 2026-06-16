@@ -1,42 +1,31 @@
-## claude-agents-and-practices
+## claudesec-project
 
-> Lead agent roles, handoff format, and best practices for Claude/Cursor work in ClaudeSec
+> ClaudeSec project overview, layout, and core conventions
 
 
-# Claude Lead Agents and Practices
+# ClaudeSec Project
 
-When doing Claude-related or multi-step work in ClaudeSec, follow these roles and practices.
+ClaudeSec is a **DevSecOps toolkit** for AI-assisted secure development. Documentation is Markdown-only; no build system.
 
-## Lead Agent Roles
+## Directory Layout
 
-- **Lead Orchestrator (1)**: Decomposes tasks, assigns ownership, sets priorities, accepts completion. Resolves priority and design conflicts.
-- **Researcher (1..N)**: Gathers code evidence and external refs (OWASP, NIST, CIS). Evidence before edits.
-- **Implementer (1..N)**: Applies changes, runs verification (tests, scanner, markdownlint). One owner per task.
-- **Reviewer (1)**: Checks correctness, security risk, regression. Proposes options on design; Lead finalizes.
+- `docs/devsecops/` — DevSecOps pipeline and practices
+- `docs/github/` — GitHub security features
+- `docs/ai/` — AI and LLM security
+- `docs/guides/` — Step-by-step tutorials
+- `docs/compliance/` — NIST, ISO, ISMS-P compliance guides
+- `docs/architecture/` — Draw.io architecture/flow/security-domains diagrams (generated from scan data)
+- `assets/` — Logo and branding assets
+- `templates/` — Reusable config templates
+- `scanner/` — Security scanner CLI
+- `scripts/` — Automation scripts
+- `hooks/` — Claude Code security hooks
+- `examples/` — Example projects and configs
 
-## Handoff Format
+## Conventions
 
-Use for inter-agent or context switches:
-
-```txt
-[Task] Goal: / Scope: / Constraints:
-[Done] Files Changed: / Key Changes: / Validation:
-[Open] Risks: / Next Actions:
-```
-
-## Best Practices
-
-1. **Security-first**: Cite OWASP/NIST/CIS for security advice. No company paths, PII, IPs, account IDs, or secrets in repo. Least privilege for agent/tool access.
-2. **Small increments**: One clear goal per task; verifiable (tests, scanner, lint). Prefer small commits.
-3. **Traceability**: Document handoffs and key decisions in repo (CONTRIBUTING, ADR, or comments).
-4. **Single owner per task**: Only one agent accountable for completion. Split file ownership by module to avoid conflicts.
-5. **Definition of done**: Behavior implemented; no unresolved diagnostics; tests/checks pass; Reviewer sign-off.
-6. **Conflict**: Priority → Lead decides. Design → Reviewer options, Lead finalizes. Deadlock → escalate with two options and tradeoffs.
-
-## Alignment
-
-- Follow **claudesec-project.mdc** (layout, conventions), **security-citations.mdc**, **no-sensitive-paths.mdc**, **markdown-quality.mdc**.
-- Full guide: `docs/guides/claude-lead-agents-and-best-practices.md`.
+- **File names**: kebab-case (e.g. `github-actions-security.md`).
+- **New content**: Place files in the appropriate directory above; do not add ad-hoc top-level folders.
 
 ---
 > Source: [Twodragon0/claudesec](https://github.com/Twodragon0/claudesec) — distributed by [TomeVault](https://tomevault.io).
