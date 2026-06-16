@@ -1,0 +1,9 @@
+{
+  "name": "thecolab-ai---skills",
+  "displayName": ".skills",
+  "description": "Community-contributed AI skills for New Zealand public data \u2014 LINZ, Stats NZ, Auckland Transport, weather, and more.",
+  "version": "1.0.0",
+  "author": "thecolab-ai",
+  "homepage": "https://github.com/thecolab-ai/.skills",
+  "skills": []
+}
