@@ -1,0 +1,9 @@
+{
+  "name": "ausagentsmith-org--nzbdav-rs",
+  "displayName": "nzbdav-rs",
+  "description": "Usenet virtual filesystem with WebDAV serving \u2014 stream files directly from Usenet without downloading",
+  "version": "1.0.0",
+  "author": "AusAgentSmith-org",
+  "homepage": "https://github.com/AusAgentSmith-org/nzbdav-rs",
+  "skills": []
+}
