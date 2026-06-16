@@ -7,11 +7,11 @@ RTSP proxy for Philips Avent / Tuya cameras — Home Assistant add-on
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thekoma/aventproxy](https://github.com/thekoma/aventproxy).
+Original source: `CLAUDE.md` in [thekoma/aventproxy](https://github.com/thekoma/aventproxy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
