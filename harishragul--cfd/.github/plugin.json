@@ -1,0 +1,9 @@
+{
+  "name": "harishragul--cfd",
+  "displayName": "cfd",
+  "description": "CFD from scratch in Python \u2014 finite differences to turbulence, Navier-Stokes to k-\u03c9 SST, validated against Ghia et al.",
+  "version": "1.0.0",
+  "author": "harishragul",
+  "homepage": "https://github.com/harishragul/cfd",
+  "skills": []
+}
