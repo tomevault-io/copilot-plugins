@@ -1,0 +1,9 @@
+{
+  "name": "prompt-templates---legacy-ai-session-governance",
+  "displayName": "-Legacy-ai-session-governance",
+  "description": "[Legacy] Harness engineering for AI session continuity \u2014 cross-tool handoff governance for Codex, Claude Code, and Gemini CLI. PLAN\u2192READ\u2192CHANGE\u2192QC\u2192PERSIST workflow with anti-drift guardrails.",
+  "version": "1.0.0",
+  "author": "prompt-templates",
+  "homepage": "https://github.com/prompt-templates/-Legacy-ai-session-governance",
+  "skills": []
+}
