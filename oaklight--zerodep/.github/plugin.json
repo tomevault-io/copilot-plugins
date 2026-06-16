@@ -1,0 +1,9 @@
+{
+  "name": "oaklight--zerodep",
+  "displayName": "zerodep",
+  "description": "Zero-dependency, single-file Python implementations of popular libraries \u2014 benchmarked for performance parity | \u96f6\u4f9d\u8d56\u5355\u6587\u4ef6 Python \u5e38\u7528\u5e93\u5b9e\u73b0\uff0c\u6027\u80fd\u5bf9\u6807\u4e3b\u6d41\u5e93",
+  "version": "1.0.0",
+  "author": "Oaklight",
+  "homepage": "https://github.com/Oaklight/zerodep",
+  "skills": []
+}
