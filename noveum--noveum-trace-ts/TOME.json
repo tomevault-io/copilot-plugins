@@ -4,7 +4,7 @@
   "repo": "noveum-trace-ts",
   "description": "The official TypeScript SDK for [Noveum.ai](https://noveum.ai) - a powerful tracing and observability platform for LLM applications, RAG systems, and AI agents.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Noveum/noveum-trace-ts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T02:32:43Z"
+  "distributed_at": "2026-06-16T08:34:58Z"
 }
