@@ -1,0 +1,9 @@
+{
+  "name": "prtamil--asciicreativecoding",
+  "displayName": "AsciiCreativeCoding",
+  "description": "Creative Coding using only Terminal graphics using NCurses in pure C in Linux",
+  "version": "1.0.0",
+  "author": "prtamil",
+  "homepage": "https://github.com/prtamil/AsciiCreativeCoding",
+  "skills": []
+}
