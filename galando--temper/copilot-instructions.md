@@ -1,441 +1,369 @@
-## temper-ref-fix
+## temper-ref-orchestrator-patterns
 
-> Temper reference: fix
+> Temper reference: orchestrator-patterns
 
 
 
-# Fix: Root Cause Analysis + Structured Fix
+# Orchestrator Shared Patterns
 
-**Goal:** Investigate root cause, write a regression test that proves the bug, implement the minimal fix, review the fix, validate. Never guess — investigate first.
+**Used by:** `.claude/commands/temper.md`, `.claude/commands/fix.md`
 
-## Active Skills
+This file contains shared orchestration patterns. Both `/temper` and `/temper:fix` delegate to these patterns instead of duplicating them.
 
-- **Context Engineering** — load hierarchical context at stage start (rules → arch → source → errors, under 2K lines/task)
-- **Temper Core** — stack detection, pack resolution, quality gates
-- **Source-Driven Development** — before writing framework-specific code: detect installed version → fetch current docs → cite sources → surface API conflicts
+---
 
-## Usage
+## $CLAUDE_PLUGIN_ROOT Resolution
 
-```
-/temper:fix "users get 500 error on checkout"
-/temper:fix "JIRA-123"
-/temper:fix "#456"
-```
+All references use `$CLAUDE_PLUGIN_ROOT` to locate plugin files. Resolve it as follows:
 
-## Bug: $ARGUMENTS
+1. If `$CLAUDE_PLUGIN_ROOT` is set and points to an existing directory → use it
+2. If unset → walk up from the command file location looking for `.claude-plugin/manifest.json`
+3. If still not found → fall back to `~/.claude/plugins/temper` (default install location)
+4. If fallback doesn't exist → warn user: "Cannot locate Temper plugin. Set CLAUDE_PLUGIN_ROOT or reinstall."
 
-## Execution
+The resolved path is used as `$CLAUDE_PLUGIN_ROOT` throughout the command.
 
-### Context Loading
+---
 
-This stage may run in two modes:
-- **Standalone** (`/temper:fix`) — the command file (`.claude/commands/fix.md`) acts as the orchestrator, running this methodology across 4 Agent subprocess stages (RCA -> Fix -> Review -> Check)
-- **Agent subprocess** (from `/temper`) — starts with CLEAN context, only loads what's listed below
+## Gate Options Pattern
 
-**This reference file describes the methodology** for each stage. The **command file** handles the orchestrator routing, stage gates, and state management. When running as a subprocess, only the steps relevant to the current stage are executed.
-
-**Subprocess mode override:** When running as an Agent subprocess, do NOT show AskUserQuestion gates or clear context. Return the summary to the orchestrator. The orchestrator handles all gate decisions and context transitions.
-
-In both modes, the fix methodology is identical.
-
-**Context loading strategy:** Apply the context-engineering skill for hierarchical loading (rules -> arch -> source -> errors, under 2K lines/task). The file list below specifies WHAT to load; the skill specifies HOW and WHEN.
-
-### Step 1: Detect Input Type
-
-Same as /temper:plan Phase 0 — detect Jira, GitHub, or direct description.
-
-**Extract from ticket/description:**
-
-- Symptom (error message, wrong behavior, crash)
-- Trigger (which user action, endpoint, data)
-- Reproducibility (always, intermittent, specific conditions)
-- When it started (recent deploy, specific date, always existed)
-
-### Step 1.5: Load Enabled Packs
-
-Read `.claude/temper.config` to get the list of enabled packs. For each enabled pack, load `.claude/packs/{pack}/rules.md`.
-
-If stack detected, also load `.claude/packs/stacks/{detected-stack}.md` for stack-specific patterns.
-
-These rules are applied during:
-- **RCA** — check if the bug violates any pack rules (e.g., security pack: was input validation skipped?)
-- **Fix approach validation** — validate the proposed fix doesn't introduce new pack violations (Step 3.5)
-- **Fix implementation** — ensure the fix doesn't introduce new pack violations
-- **Validation** — `/temper:check` validates against all enabled pack rules
-
-```
-Loading enabled packs: quality, tdd, security, git
-Loading stack-specific rules: {detected-stack}
-  quality: {N} BLOCK, {N} WARN rules
-  tdd: {N} BLOCK, {N} WARN rules
-  security: {N} BLOCK, {N} WARN rules
-  git: {N} WARN, {N} SUGGEST rules
-  {stack}: {N} patterns to follow
-```
-
-### Step 2: Root Cause Analysis (via Explore subagent)
-
-Launch an Explore subagent:
-
-```
-Investigate a bug and find the root cause. Understand WHY it happens, not just WHERE.
-
-BUG DESCRIPTION:
-{ticket content or user description}
-
-MULTI-HYPOTHESIS INVESTIGATION:
-
-1. LIST ALL PLAUSIBLE CAUSES (max 5):
-   Based on symptom, generate hypotheses with confidence + evidence:
-
-   | # | Hypothesis | Confidence | Evidence |
-   |---|------------|------------|----------|
-   | 1 | {cause}    | HIGH/MED/LOW | {why you think this} |
-   | 2 | {cause}    | HIGH/MED/LOW | {why you think this} |
-...
-
-SKIP CONDITION: If only ONE plausible cause exists OR you have an exact stack trace pointing to a specific line, proceed directly to Step 2 investigation. Otherwise, continue with multi-hypothesis approach.
-
-2. INVESTIGATE TOP HYPOTHESIS:
-   - Start with highest confidence hypothesis
-   - SEARCH for related code (error messages, stack traces, domain keywords)
-   - TRACE the execution path (entry point → ... → failure point)
-   - Write a quick regression test to CONFIRM/DENY the hypothesis
-
-   MCP CALL CHAIN (during execution path tracing):
-   If code-review-graph MCP server is available and tools.mode is not heuristic-only:
-   1. Call query_graph_tool with the suspected function name:
-      - Request both callers (who calls this function) and callees (what this function calls)
-      - Returns full call chain: entry point → intermediates → failing function
-   2. Call get_affected_flows_tool for user-facing flows through the suspected function:
-      - Returns which API endpoints / user actions reach the failing code
-      - Identifies blast radius in terms of user-facing behavior
-   3. Evidence: [PROVEN] call chain (AST-level, mechanically verified)
-   If MCP unavailable:
-      Use grep-based call chain tracing → [HEURISTIC]
-
-3. IF HYPOTHESIS DENIED:
-   - Fall back to next highest confidence hypothesis
-   - Repeat investigation
-   - Max 3 hypothesis attempts before asking user for more context
-
-4. CHECK common root causes:
-   Off-by-one, null/undefined, wrong operator (= vs ==, && vs ||),
-   race condition, type coercion, incorrect ordering, missing switch case,
-   stale cache, config mismatch, dependency version conflict
-
-5. CHECK git history:
-   - git log --oneline -20 -- {affected files}
-   - Look for recent refactors, dependency updates, merge conflicts
-   - If suspicious commit: git show {hash}
-
-6. CHECK for same vulnerability in related code (becomes blast radius)
-
-7. IDENTIFY root cause: specific line, trigger data/state, when introduced
-
-RETURN FORMAT (max 30 lines):
-
-ROOT CAUSE ANALYSIS
-
-Bug:          {one-line description}
-Symptom:      {what user/system experiences}
-Root cause:   {specific: which line, which condition, why}
-Location:     {file:line}
-Call chain:   {entry → ... → failing function}
-Introduced:   {commit hash + date, or "unknown"}
-Trigger:      {specific data/state causing failure}
-Impact:       {scope: all users / specific flow / edge case}
-Blast radius: {other code with same vulnerability}
-Confidence:   {HIGH / MEDIUM / LOW}
-Hypotheses tested: {N}/{M} (only if multi-hypothesis used)
-
-Suggested fix: {1-2 sentence minimal fix}
-Fix location:  {file:line}
-Test scenario: {scenario the regression test should exercise}
-Related files: {files to read before fixing}
-```
-
-### Step 2.5: Multiple Root Causes
-
-```
-If 2+ possible causes:
-- HIGH confidence → proceed with that one
-- Multiple HIGH → fix the deepest cause (cascading: A→B→C, fix A)
-- Ambiguous → present both to user, recommend highest confidence first
-- NEVER fix multiple causes simultaneously (can't verify which worked)
-```
-
-### Step 3: Write Regression Test (RED)
-
-```
-1. Find test file (existing for affected code, or create following project conventions)
-2. Write test reproducing the EXACT failing scenario:
-   - Set up specific trigger data/state
-   - Assert EXPECTED (correct) behavior, not current broken behavior
-3. Name descriptively: "shouldHandleExpiredTokenGracefully" not "testBugFix"
-4. Run → MUST FAIL (confirms bug). If passes: wrong path? wrong data? already fixed?
-5. Must fail with assertion error related to the bug, not NPE or compilation error
-```
-
-### Step 3.5: Validate Fix Approach Against Pack Rules
-
-Before implementing the fix, validate that the proposed approach doesn't violate pack rules:
-
-```
-1. SECURITY PACK: Check if the fix approach would:
-   - Introduce SQL concatenation → must use parameterized queries
-   - Expose secrets → must use environment variables
-   - Log sensitive data → must redact or skip
-   - Bypass authentication → must add auth checks
-
-2. TDD PACK: Verify:
-   - Regression test exists (Step 3) ✅
-   - Test follows Given-When-Then structure
-   - Test is independent (no shared state)
-
-3. QUALITY PACK: Check if the fix will:
-   - Exceed 30 lines → consider refactoring
-   - Add nesting > 3 levels → use early return
-   - Duplicate logic → extract shared function
-
-4. STACK-SPECIFIC patterns:
-   - Spring Boot: Optional<T>? Constructor injection? DTOs?
-   - React: Hooks correctly? No direct DOM manipulation?
-   - Node: Error handling patterns? Async/await usage?
-
-5. Report:
-   PACK RULE VALIDATION
-   Security: ✅ No BLOCK rules violated
-   TDD: ✅ Test follows RED-GREEN-REFACTOR
-   Quality: ⚠️ Fix adds 2 nesting levels (currently 2 → will be 4)
-     Suggestion: Extract helper function to reduce nesting
-   Stack ({detected}): ✅ Follows patterns
-
-6. On BLOCK violation:
-   - Do NOT implement the fix as proposed
-   - Reconsider approach to satisfy pack rules
-   - If no alternative exists → ask user for guidance
-
-7. On WARN violation:
-   - Note in report
-   - Implement fix (non-blocking)
-   - Consider refactoring after fix passes
-```
-
-### Step 4: Implement Fix (GREEN)
-
-```
-1. Read full file identified in RCA (not just the affected line)
-2. Understand: what does the function do? what do callers expect?
-3. Implement MINIMAL fix:
-   - Fewest lines possible
-   - Do NOT refactor surrounding code
-   - Do NOT add features or improve unrelated error handling
-   - Diff should be small and obviously correct
-4. Verify fix handles:
-   - The specific trigger data from the bug
-   - Related edge cases (if off-by-one → check empty, one, many, max)
-   - Non-buggy inputs (don't break the happy path)
-5. Run regression test → MUST PASS (GREEN)
-6. Run ALL existing tests → MUST STILL PASS
-```
-
-### Step 4.5: Blast Radius Check
-
-```
-1. Find all consumers of changed code:
-   - Grep for imports of affected module
-   - Grep for calls to changed function
-   - Check .temper/index/ if exists
-
-2. For each consumer verify:
-   - Signature changed? → check all callers
-   - Return type changed? → check downstream handlers
-   - New required parameters? → update all callers
-   - Error handling changed? → verify error handlers
-
-3. Check for SAME bug in related code (from RCA blast radius):
-   - Same fix applies? → fix and add test cases
-   - Unclear? → flag to user: "Same pattern in {file:line}, may need fix"
-
-4. Run consumer tests → ensure no breakage
-
-5. Report:
-   BLAST RADIUS CHECK — {bug-name}
-   Fix location: {file:line}
-   Consumers: {count} | Tests: {passed}/{total}
-   Same-pattern: {count fixed}/{count found}
-   Pack violations: {BLOCK}/{WARN}/{SUGGEST} across affected files
-   ✅ No breaking changes / ⚠️ {count} consumers need updates
-```
-
-If breaking changes: ask user before proceeding, list all required changes.
-
-### Step 4.75: Intent Cross-Reference
-
-```
-If an active intent.md exists in .temper/specs/:
-  1. Check if the bug relates to an existing scenario:
-     - Grep scenario names for keywords from the bug description
-     - If match found: note "Related to scenario: {name}" in report
-  2. Check if the fix affects a success criterion with a Validate: type:
-     - If fix touches code referenced by a `Validate: code` criterion → verify it still passes
-     - If fix changes behavior covered by a `Validate: scenario` criterion → verify linked test still passes
-  3. Check if the fix reveals a missing scenario:
-     - The regression test covers a behavior not in any scenario
-     - If so: suggest adding a scenario to intent.md
-       "Bug fix reveals missing scenario. Consider adding:
-        Scenario: {derived from regression test}
-          Given {trigger condition}
-          When {action}
-          Then {expected behavior}"
-  4. If no active intent.md: skip (most fixes are standalone)
-```
-
-### Step 4.8: Simplify (if code-simplifier agent is available)
-
-After implementing the fix, if the `code-simplifier:code-simplifier` agent is available:
-- Run it on files you created or modified during this fix
-- Focus on clarity, consistency, and maintainability
-- Preserve all functionality — simplification must not change behavior
-- If the agent is not available in this installation: skip this step
-
-### Step 5: Validate (via /temper:check)
-
-```
-1. Run /temper:check (compile → test → lint → coverage)
-2. If failure related to your fix → fix it
-3. If pre-existing failure → note in report (verify with git stash → test → git stash pop)
-4. After check passes, run semantic test validation:
-   - READ the regression test body (not just the name)
-   - Verify assertions match expected behavior
-   - Classify: STRONG (proves fix) / WEAK (incomplete) / TRIVIAL (always passes)
-
-REGRESSION TEST VERIFICATION:
-  Run the specific regression test individually (not as part of the full suite):
-  - Jest/Vitest: npx jest --testPathPattern="{test}" --testNamePattern="{test_method}" --no-coverage
-  - pytest: pytest {test}::test_{method} -v
-  - Maven: ./mvnw test -Dtest="{TestClass#testMethod}"
-  - Gradle: ./gradlew test --tests "{TestClass.testMethod}"
-  - Go: go test -run Test{Method} -v
-  - Rust: cargo test test_{method} -- --nocapture
-  Show: test name, PASS/FAIL, assertion output, execution time
-  Label: [PROVEN] — actual test runner output
-
-5. Report:
-   VALIDATION RESULTS
-   Check: ✅ All levels passed
-   Test quality: ✅ Semantic validation passed (STRONG)
-   Regression test: ✅ {test_name} PASS ({time}s) [PROVEN]
-```
-
-### Step 6: Report + Commit
-
-Show a report and ask what to do next:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 🔧 FIX — {Bug Title}                                        │
-├─────────────────────────────────────────────────────────────┤
-│ ✅ ROOT CAUSE                                                │
-│    {1-line root cause}                                      │
-│                                                             │
-│ 🔨 FIX APPLIED                                              │
-│    Fix:         {1-line description}                        │
-│    Confidence:  {HIGH/MEDIUM}                               │
-│    Test:        {test class}#{method}                       │
-│    Files:       {list}                                      │
-│                                                             │
-│ 📋 PACK VALIDATION                                          │
-│    Rules checked: {N} (security, tdd, quality, {stack})    │
-│    Violations: {none / listed}                              │
-│                                                             │
-│ What next?                                                  │
-│   ▸ Commit (Recommended)                                   │
-│     Save for later                                         │
-└─────────────────────────────────────────────────────────────┘
-```
-
-#### Stage Gate
-
-Use AskUserQuestion with these options:
+Every stage gate uses exactly 2 explicit options plus the built-in "Other" free-text input:
 
 ```
 AskUserQuestion:
-  question: "What next?"
+  question: "What would you like to do with this {stage}?"
   options:
-    - label: "Commit (Recommended)"
-      description: "Commit with conventional message, regression test included."
+    - label: "{continue_label} (Recommended)"
+      description: "{continue_description}"
     - label: "Save for later"
-      description: "Keep changes uncommitted, save state."
+      description: "Save state and stop. Run {command} later to continue."
   multiSelect: false
 ```
 
-**On Commit (first option):**
+**Users type change requests directly via the "Other" option.** AskUserQuestion always provides an "Other" free-text input. When a user selects "Other" and types a change request:
+1. Make the requested change
+2. **STOP** — re-show the AskUserQuestion gate with the same options
+3. Do NOT interpret the change input as approval to proceed
+
+---
+
+## Gate Enforcement Rules
+
+After handling a change request (via "Other" free-text input), you **MUST** re-show the AskUserQuestion gate before proceeding:
+
+1. User selects "Other" and types their change request
+2. You make the requested change
+3. **STOP HERE** — re-show the AskUserQuestion gate with the same 2 options
+4. Do NOT interpret the user's change input as approval to proceed to the next stage
+
+The user must **explicitly select the "Continue" option** from the gate to proceed.
+
+---
+
+## Resume Validation
+
+Before showing the saved state, validate `.temper/build-state.json`:
+
+1. **Parseable JSON** — if malformed, show error and ask user
+2. **Valid stage** — must be one of the stages defined by the command
+3. **Spec directory exists** — `.temper/specs/{spec}/` must exist on disk
+4. **Artifacts exist** — all files listed in `artifacts` array must exist
+5. **Timestamp** — if `updated` > 30 days ago, warn user about staleness
+
+If any check fails:
+- Show what's wrong: "Saved state is invalid: {reason}"
+- Ask user: "Start over / Delete saved state / Cancel?"
+
+---
+
+## Nested Invocation Protection
+
+When `{command} "{new item}"` is called while `.temper/build-state.json` already exists for a different item:
 
 ```
-Commit: fix({scope}): {description}
-  Root cause: {explanation}
-  Regression test: {test name}
-  {Closes JIRA-123 / Fixes #456}
-  Co-Authored-By: Claude <noreply@anthropic.com>
+┌─────────────────────────────────────────────────────────────┐
+│ SAVED STATE FOUND                                           │
+├─────────────────────────────────────────────────────────────┤
+│ {Item type}: {name}                                         │
+│    Stopped: After {stage}                                   │
+│    Files: {N} changed                                       │
+│                                                             │
+│ Starting '{new item}' will overwrite this session.          │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-**On Change (via "Other" free-text input):**
-1. User types their change request in the "Other" field
-2. Make the change
-3. ⚠️ MANDATORY: Re-show AskUserQuestion with same options
-
-GATE ENFORCEMENT: The user's change input is NOT approval to commit.
-Do NOT commit after making changes. The user MUST explicitly select
-"Commit" from the gate to proceed.
-
-**On Save for later (second option):**
-1. Save state to .temper/build-state.json:
-   ```json
-   {
-     "stage": "fix_complete",
-     "spec": "{bug-slug}",
-     "spec_path": ".temper/specs/{bug-slug}",
-     "original_args": "{from prior state}",
-     "next_stage": "review",
-     "artifacts": ["rca.md"],
-     "updated": "{ISO timestamp}"
-   }
-   ```
-2. Report: "✅ Saved. Run /temper:fix when ready to continue."
-
-### Step 7: Rollback Protocol
-
+Use AskUserQuestion:
 ```
-Tests fail after fix:
-  → git checkout -- {file} → re-run tests → re-investigate
-
-Review finds issues:
-  → Apply better approach → regression test must still pass
-
-Multiple fix attempts fail (3+):
-  → Preserve regression test (proves bug exists)
-  → Show user RCA + what you tried → ask for context
-
-Bug is actually a design flaw:
-  → Tell user: "This needs /temper:plan for a redesign, not a patch"
-  → Offer temporary workaround with TODO if possible
+AskUserQuestion:
+  question: "A saved session exists for '{existing}'. What would you like to do?"
+  options:
+    - label: "Resume existing session (Recommended)"
+      description: "Continue from {next_stage} stage."
+    - label: "Overwrite and start new"
+      description: "Delete existing session, start from scratch."
+  multiSelect: false
 ```
 
-### Step 8: Update Metrics
+---
+
+## Agent Failure Handling
+
+If an agent subprocess returns a failure or blocker:
+1. Show the failure details to the user
+2. Ask: "Retry / Save for later?" (user can type changes via "Other")
+3. Do NOT silently proceed to the next stage
+
+---
+
+## Context Efficiency Table
+
+Each subprocess starts genuinely clean. No theater.
+
+| Transition | Method | Context Loaded | Size |
+|-----------|--------|----------------|------|
+| Stage 1 → 2 | New Agent subprocess | spec artifacts + related files | ~5-15KB |
+| Stage 2 → 3 | New Agent subprocess | changed files (git diff) | ~20-50KB |
+| Stage 3 → 4 | New Agent subprocess | methodology + spec context | ~5KB |
+| Stage 4 → Commit | Direct (no subprocess) | Nothing | 0KB |
+
+---
+
+## MCP Tool-First Pattern
+
+When MCP (Model Context Protocol) servers are available, Temper uses their tools to produce **proven** findings instead of heuristic grep-based analysis. This is progressive enhancement: everything works exactly as before when no MCP servers are installed.
+
+### tools.mode Behavior
+
+Configured in `.claude/temper.config` under `tools.mode`:
+
+| Mode | Behavior |
+|------|----------|
+| `auto` (default) | Try MCP tool first. If unavailable, fall back to grep-based heuristic analysis. |
+| `heuristic-only` | Never call MCP tools. Always use grep-based analysis. Forces `[HEURISTIC]` labels. |
+| `require` | Fail if MCP tools are unavailable. Do NOT proceed with heuristic fallback. |
+
+### Evidence Labels
+
+Every finding in review, check, plan, and fix carries one of:
+
+| Label | Meaning | When Applied |
+|-------|---------|--------------|
+| `[PROVEN]` | Output from a tool (MCP, test runner, semgrep). Mechanically verified. | MCP tool returned results, test was executed, SAST scan found issue. |
+| `[HEURISTIC]` | Claude's analysis via grep/reading code. Best-effort, not mechanically verified. | MCP unavailable, grep-based detection, pattern-matching analysis. |
+| `[SEMANTIC]` | Claude's interpretation or judgment. Inherently subjective. | Asserting "this assertion covers the Then clause", problem-solution alignment check. |
+
+Labels are shown when `tools.label-findings: true` in temper.config (default: true).
+
+### MCP Tool Registry
+
+| MCP Tool | Server | Replaces |
+|----------|--------|----------|
+| `get_impact_radius_tool` | code-review-graph | grep-based blast radius (plan.md Phase 4 steps 2-3) |
+| `query_graph_tool` | code-review-graph | grep-based call chain tracing (fix.md Step 2) and scenario-to-test matching (check.md Level 4.5) |
+| `get_affected_flows_tool` | code-review-graph | grep-based consumer detection |
+| `security_check` | semgrep | OWASP pattern-matching (review.md Step 2, check.md Level 7) |
+| `semgrep_scan_with_custom_rule` | semgrep | Manual security pack rule enforcement |
+
+### Recommended MCP Servers
+
+| Server | Install | Purpose |
+|--------|---------|---------|
+| code-review-graph | `pip install code-review-graph` + configure MCP | AST-level dependency graphs, call chains, blast radius |
+| semgrep | `brew install semgrep` + `claude mcp add semgrep -- semgrep --mcp` | Static analysis security scanning (SAST) |
+
+Availability of these servers is optional. When present, findings are labeled `[PROVEN]`. When absent, the same analysis runs via grep and is labeled `[HEURISTIC]`.
+
+---
+
+## Context Accumulation Patterns
+
+Each stage produces structured artifacts that accumulate in `.temper/specs/{feature}/`. Downstream stages read upstream context to make better decisions.
+
+### Context File Schemas
+
+**build-context.json** (written by Build stage):
 
 ```json
 {
-  "fixes": {
-    "total": "+1",
-    "rca_used": "+1",
-    "rca_confidence": "{HIGH/MEDIUM/LOW}",
-    "blast_radius_fixes": "+{count}",
-    "regression_test_added": true
+  "version": 1,
+  "stage": "build",
+  "timestamp": "{ISO timestamp}",
+  "files_created": ["path/to/file"],
+  "files_modified": ["path/to/file"],
+  "test_results": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0
+  },
+  "deviations": {
+    "unplanned_files": [],
+    "skipped_tasks": [],
+    "approach_changes": []
+  },
+  "scenarios_covered": ["scenario name"],
+  "tasks_completed": 5,
+  "tasks_total": 5
+}
+```
+
+**review-context.json** (written by Review stage):
+
+```json
+{
+  "version": 1,
+  "stage": "review",
+  "timestamp": "{ISO timestamp}",
+  "findings_summary": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "auto_fixed": 0
+  },
+  "intent_verdict": "satisfied | partial | not_met",
+  "security_hot_paths": [],
+  "contract_changes": [],
+  "scenario_coverage": {
+    "total": 5,
+    "strong": 3,
+    "weak": 1,
+    "trivial": 0,
+    "uncovered": 1
   }
 }
 ```
+
+**check-context.json** (written by Check stage):
+
+```json
+{
+  "version": 1,
+  "stage": "check",
+  "timestamp": "{ISO timestamp}",
+  "validation_results": {
+    "compile": "pass",
+    "tests": "pass",
+    "coverage_pct": 85,
+    "lint": "pass",
+    "security": "pass"
+  },
+  "scenario_verification": {
+    "total": 5,
+    "passed": 4,
+    "failed": 0,
+    "missing": 1
+  },
+  "test_failures": [
+    {
+      "test_name": "string",
+      "error_message": "string",
+      "file": "string",
+      "line": 0,
+      "scenario": "string"
+    }
+  ]
+}
+```
+
+### Context Loading Rules
+
+| Stage | Reads | Writes |
+|-------|-------|--------|
+| Plan | Nothing (first stage) | intent.md, tasks.md, plan.md |
+| Design | intent.md, plan.md | design.md |
+| Build | tasks.md, intent.md, review-context.json (on feedback re-entry) | build-context.json |
+| Review | intent.md, changed files (git diff), build-context.json | review-context.json |
+| Check | intent.md, review-context.json | check-context.json |
+
+### Context Versioning
+
+- Each context file has a `version` field (integer)
+- Downstream stages must handle older versions gracefully (ignore unknown fields)
+- Version is only bumped on schema-breaking changes
+
+### Context Cleanup
+
+On commit (after Check passes):
+- Delete `*-context.json` files from spec directory
+- Keep: intent.md, tasks.md, plan.md (permanent record)
+- Keep: design.md (if created, permanent record)
+
+---
+
+## Feedback Loop Patterns
+
+Feedback loops allow stages to send work back to upstream stages with failure context. This transforms the pipeline from linear to cyclic.
+
+### Feedback Registry
+
+File: `.temper/feedback-loops.json`
+
+```json
+{
+  "version": 1,
+  "active_loops": [
+    {
+      "id": "loop-1",
+      "from_stage": "review",
+      "to_stage": "build",
+      "reason": "auto-fixable issues found",
+      "iteration": 1,
+      "max_iterations": 2,
+      "failure_context": {
+        "issues": ["file:line — description"],
+        "auto_fixable_count": 2
+      },
+      "started": "{ISO timestamp}"
+    }
+  ],
+  "history": []
+}
+```
+
+### Loop Types
+
+**Review → Build (auto-fix loop):**
+- Trigger: Review finds auto-fixable HIGH/CRITICAL issues
+- User selects "Fix all & continue to Check"
+- Fixes applied, re-review runs (1 more pass)
+- Circuit breaker: max 2 loops total
+- After max loops: pause for human decision
+
+**Check → Build (test failure loop):**
+- Trigger: Check finds test failures in newly written code
+- Creates targeted fix task with:
+  - Test name, error message, file:line
+  - Original intent.md scenario that failed
+- User selects "Loop back to Build"
+- Build agent receives fix task + review-context.json
+- Circuit breaker: max 2 loops total
+
+**Build → Plan (revise plan loop):**
+- Trigger: Build discovers plan is infeasible
+- User selects "Revise plan" at build gate
+- Plan agent receives revision context (what was infeasible, why)
+- Plan is revised, user approves new plan
+- No circuit breaker — human-driven, not automated
+
+### Circuit Breaker Rules
+
+1. Max 2 automated loops per feedback type per pipeline run
+2. After max loops reached: show remaining issues, offer "Save for later" or "Manual fix"
+3. Same issue found in 2 consecutive loops → stop immediately (fix isn't working)
+4. Loop counter is stored in feedback-loops.json
+5. Counter resets when pipeline starts fresh (new /temper invocation)
+
+### Loop Context Transfer
+
+When looping back, the downstream stage passes structured context to the upstream stage:
+
+| Loop | Context Passed |
+|------|---------------|
+| Review → Build | review-context.json with fix list |
+| Check → Build | check-context.json with test failures |
+| Build → Plan | build-context.json with infeasibility reasons |
+
+The receiving stage reads this context at startup (Step 1 of its methodology).
 
 ---
 > Source: [galando/temper](https://github.com/galando/temper) — distributed by [TomeVault](https://tomevault.io).
