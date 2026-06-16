@@ -1,69 +1,113 @@
-## compozy-examples
+## compozy-project-config
 
-> Lightweight index for Compozy configuration examples and patterns - references focused files for specific configuration types
+> Project configuration patterns and examples for compozy.yaml files
 
-# Compozy Configuration Examples Index
+# Compozy Project Configuration Examples
 
-<configuration_overview type="yaml_patterns">
-Compozy uses YAML configuration files to define projects, workflows, agents, tools, and runtime settings. This index references focused documentation for each configuration type.
+<configuration_overview type="project_config">
+Project configuration defines the top-level settings for Compozy projects including models, workflows, autoload settings, and runtime permissions.
 </configuration_overview>
 
-## Configuration File Types
+## Basic Project Configuration
 
-### Project Configuration (`compozy.yaml`)
-See [compozy-project-config.mdc](mdc:.cursor/rules/compozy-project-config.mdc) for:
-- Basic project configuration
-- Model configuration patterns
-- AutoLoad configuration
-- Runtime permissions
-- Environment variable patterns
-
-### Workflow and Task Configuration
-See [compozy-task-patterns.mdc](mdc:.cursor/rules/compozy-task-patterns.mdc) for:
-- All task type patterns (basic, composite, parallel, collection, router, signal, aggregate)
-- Workflow configuration structure
-- Tool configuration
-- Execution strategies
-- Trigger patterns
-- Deno configuration
-
-### Agent Configuration
-See [compozy-agent-config.mdc](mdc:.cursor/rules/compozy-agent-config.mdc) for:
-- Basic agent configuration
-- Agent instructions and actions
-- Agent with MCP integration
-- Tool integration patterns
-
-### Shared Patterns
-See [compozy-shared-patterns.mdc](mdc:.cursor/rules/compozy-shared-patterns.mdc) for:
-- MCP integration patterns (filesystem, HTTP)
-- Reference patterns (local, global, resource)
-- Template expression patterns
-- Use patterns for tools and agents
-
-## Quick Reference
-
+<project_config_pattern type="basic">
 ```yaml
-# Basic project structure
 name: project-name
 version: 0.1.0
+description: Project description
+
 workflows:
   - source: ./workflow.yaml
 
-# Basic task structure
-- id: task_name
-  type: basic
-  $use: tool(local::tools.#(id=="tool_name"))
-  with:
-    param: "{{ .workflow.input.value }}"
-
-# Basic agent structure
-resource: agent
-id: agent_name
-config:
-  provider: groq
-  model: llama-3.3-70b-versatile
+runtime:
+  permissions:
+    - --allow-read
+    - --allow-net
+    - --allow-env
 ```
+</project_config_pattern>
+
+## Project with Model Configuration
+
+<project_config_pattern type="with_models">
+```yaml
+name: weather-agent
+version: "0.1.0"
+description: A multi-agent weather advisory system
+
+author:
+  name: Pedro Nauck
+  url: https://github.com/compozy
+
+workflows:
+  - source: ./workflow.yaml
+
+models:
+  - provider: groq
+    model: llama-3.3-70b-versatile
+    api_key: "{{ .env.GROQ_API_KEY }}"
+  - provider: ollama
+    model: llama4:16x17b
+    api_url: "http://localhost:11434"
+
+runtime:
+  permissions:
+    - --allow-read
+    - --allow-net
+    - --allow-env
+    - --allow-sys
+    - --allow-write
+```
+</project_config_pattern>
+
+## Project with AutoLoad Configuration
+
+<project_config_pattern type="with_autoload">
+```yaml
+name: project-name
+version: 0.1.0
+
+workflows:
+  - source: ./workflow.yaml
+
+# AutoLoad configuration for discovering agents and tools
+autoload:
+  enabled: true
+  strict: true
+  include:
+    - "agents/*.yaml"
+    - "tools/*.yaml"
+  exclude:
+    - "**/*~"
+    - "**/*.bak"
+    - "**/*.tmp"
+
+runtime:
+  permissions:
+    - --allow-read
+    - --allow-net
+    - --allow-env
+```
+</project_config_pattern>
+
+## Environment Variable Patterns
+
+<environment_patterns type="api_keys">
+```yaml
+# Environment variable references
+api_key: "{{ .env.GROQ_API_KEY }}"
+api_key: "{{ .env.OPENAI_API_KEY }}"
+database_url: "{{ .env.DATABASE_URL }}"
+
+# MCP environment variables
+mcps:
+  - id: external_service
+    url: "{{ .env.MCP_SERVICE_URL }}"
+    env:
+      API_KEY: "{{ .env.EXTERNAL_API_KEY }}"
+      TIMEOUT: "{{ .env.REQUEST_TIMEOUT | default \"30s\" }}"
+```
+</environment_patterns>
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
