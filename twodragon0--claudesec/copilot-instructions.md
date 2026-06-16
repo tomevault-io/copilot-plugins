@@ -1,21 +1,25 @@
-## no-sensitive-paths
+## security-citations
 
-> Do not commit company folder paths, local paths, or personal/identifying information
+> Security advice must cite OWASP, NIST, CIS; claims need sources
 
 
-# No Sensitive Paths or PII in Repo
+# Security Citations (ClaudeSec)
 
-## Never Commit
+## Authoritative Sources
 
-- **Company or project-specific folder paths** (e.g. `~/Desktop/kubekube/`, `~/company/`, internal drive paths).
-- **Real kubeconfig paths** that reveal machine layout or org structure — use placeholders like `~/.kube/config` or `/path/to/your/kubeconfig` in examples.
-- **Personal data**: real names, emails, internal hostnames, IPs, account IDs in examples or configs.
-- **`.claudesec.yml`** in the repo — it is gitignored; users copy from `templates/*.example.yml` and fill in local paths locally only.
+Security advice and controls must reference at least one of:
 
-## In Code and Docs
+- **OWASP** (e.g. OWASP Top 10, Cheat Sheet Series)
+- **NIST** (e.g. NIST SP 800-53, NIST CSF)
+- **CIS** (e.g. CIS Benchmarks, CIS Controls)
 
-- Use generic placeholders: `~/.kube/config`, `$HOME/.kube/config`, `/path/to/kubeconfig`, `<your-profile>`.
-- Example configs and README snippets must not contain real company names, real paths, or identifying strings.
+## Rules
+
+- **Security claims** (e.g. “use parameterized queries”, “enable MFA”) must **cite a source** (document name or URL).
+- **Code examples** for security (scanner, hooks, templates) must be **tested and runnable**.
+- Prefer official docs over blog posts when citing.
+
+Example: “Use parameterized queries to prevent SQL injection (OWASP SQL Injection Prevention Cheat Sheet).”
 
 ---
 > Source: [Twodragon0/claudesec](https://github.com/Twodragon0/claudesec) — distributed by [TomeVault](https://tomevault.io).
