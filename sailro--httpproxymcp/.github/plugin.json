@@ -1,0 +1,9 @@
+{
+  "name": "sailro--httpproxymcp",
+  "displayName": "HttpProxyMcp",
+  "description": "An HTTP/HTTPS MITM proxy with full traffic capture, exposed as an MCP server so LLMs can inspect, filter, and analyze network traffic through natural language.",
+  "version": "1.0.0",
+  "author": "sailro",
+  "homepage": "https://github.com/sailro/HttpProxyMcp",
+  "skills": []
+}
