@@ -1,0 +1,9 @@
+{
+  "name": "lv-262--cmmc-advisor",
+  "displayName": "cmmc-advisor",
+  "description": "CMMC 2.0 compliance advisor as a Claude Code skill. All 3 levels, 14 domains, 110 practices; CUI scoping, SSP + POA&M; modern IT mapping for cloud, productivity, AI services, endpoints; contractor pro",
+  "version": "1.0.0",
+  "author": "LV-262",
+  "homepage": "https://github.com/LV-262/cmmc-advisor",
+  "skills": []
+}
