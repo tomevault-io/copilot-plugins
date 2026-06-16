@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--daqiri",
+  "displayName": "daqiri",
+  "description": "DAQIRI connects high bandwidth streaming sensor data to the NVIDIA software ecosystem",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/daqiri",
+  "skills": []
+}
