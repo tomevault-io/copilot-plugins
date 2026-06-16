@@ -1,0 +1,9 @@
+{
+  "name": "chigichan24--crune",
+  "displayName": "crune",
+  "description": "Decipher the traces etched in past sessions and resurrect them as reusable skills. crune is a static web dashboard that analyzes Claude Code session logs, providing session playback, analytics, a sema",
+  "version": "1.0.0",
+  "author": "chigichan24",
+  "homepage": "https://github.com/chigichan24/crune",
+  "skills": []
+}
