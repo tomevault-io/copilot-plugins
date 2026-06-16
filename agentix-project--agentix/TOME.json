@@ -4,7 +4,7 @@
   "repo": "Agentix",
   "description": "The universal bridge between agents and environments \u2014 evaluate, RL-train, and trace any agent, in any sandbox, on any model.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Agentix-Project/Agentix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T00:38:44Z"
+  "distributed_at": "2026-06-16T00:40:37Z"
 }
