@@ -1,6 +1,8 @@
-# gograph — distributed by TomeVault
+# gograph
 
-> Originally from [compozy/gograph](https://github.com/compozy/gograph). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io)
+
+Go Codebase Graph Analyzer
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [compozy/gograph](https://github.com/c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/compozy)
+From [compozy/gograph](https://github.com/compozy/gograph) — a repo with 9+ stars on GitHub.
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install compozy/gograph
 ```
-Or browse all formats at [https://tomevault.io/claim/compozy](https://tomevault.io/claim/compozy).
+Source: [github.com/compozy/gograph](https://github.com/compozy/gograph).
 
 <!-- genome:d-i-s -->
