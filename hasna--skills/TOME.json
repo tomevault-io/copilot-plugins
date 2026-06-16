@@ -1,0 +1,99 @@
+{
+  "name": "skills",
+  "owner": "hasna",
+  "repo": "skills",
+  "description": "Skills library and runtime",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-audio",
+      "path": "skills/skill-audio",
+      "github_url": "https://github.com/hasna/skills/tree/main/skills/skill-audio",
+      "description": ""
+    },
+    {
+      "name": "skill-emoji",
+      "path": "skills/skill-emoji",
+      "github_url": "https://github.com/hasna/skills/tree/main/skills/skill-emoji",
+      "description": ""
+    },
+    {
+      "name": "skill-generate-docx",
+      "path": "skills/skill-generate-docx",
+      "github_url": "https://github.com/hasna/skills/tree/main/skills/skill-generate-docx",
+      "description": ""
+    },
+    {
+      "name": "skill-image",
+      "path": "skills/skill-image",
+      "github_url": "https://github.com/hasna/skills/tree/main/skills/skill-image",
+      "description": ""
+    },
+    {
+      "name": "skill-deepresearch",
+      "path": "skills/skill-deepresearch",
+      "github_url": "https://github.com/hasna/skills/tree/main/skills/skill-deepresearch",
+      "description": ""
+    },
+    {
+      "name": "skill-e2bswarm",
+      "path": "skills/skill-e2bswarm",
+      "github_url": "https://github.com/hasna/skills/tree/main/skills/skill-e2bswarm",
+      "description": ""
+    },
+    {
+      "name": "skill-implementation",
+      "path": "skills/skill-implementation",
+      "github_url": "https://github.com/hasna/skills/tree/main/skills/skill-implementation",
+      "description": ""
+    },
+    {
+      "name": "skill-npmpublish",
+      "path": "skills/skill-npmpublish",
+      "github_url": "https://github.com/hasna/skills/tree/main/skills/skill-npmpublish",
+      "description": ""
+    },
+    {
+      "name": "skill-video",
+      "path": "skills/skill-video",
+      "github_url": "https://github.com/hasna/skills/tree/main/skills/skill-video",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hasna/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T22:30:22Z"
+}
