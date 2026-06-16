@@ -1,95 +1,66 @@
 ## ratatui-themes
 
-> This file provides context for AI coding agents working with the `ratatui-themes` crate.
+> A Rust library providing pre-defined color themes for terminal UI applications built with `ratatui`. Includes 15+ popular themes like Dracula, Nord, Catppuccin, Tokyo Night, and more.
 
-# AGENTS.md — AI Agent Context
+# SKILL.md — AI Skill Definition
 
-This file provides context for AI coding agents working with the `ratatui-themes` crate.
+## Skill: ratatui-themes
 
-## Project Overview
+### Description
+A Rust library providing pre-defined color themes for terminal UI applications built with `ratatui`. Includes 15+ popular themes like Dracula, Nord, Catppuccin, Tokyo Night, and more.
 
-**ratatui-themes** is a Rust library providing reusable color themes for terminal UI applications built with [ratatui](https://ratatui.rs).
+### Use Cases
 
-### Purpose
-- Eliminate theme duplication across ratatui-based projects
-- Provide consistent, semantic color palettes (accent, error, warning, success, etc.)
-- Support easy theme switching in TUI applications
+1. **Theming TUI Applications**
+   - Apply consistent color schemes to ratatui widgets
+   - Use semantic colors (error, warning, success) for status indicators
 
-### Architecture
+2. **Theme Switching**
+   - Implement theme cycling with `ThemeName::next()` and `prev()`
+   - Save user theme preferences with serde support
 
+3. **Cross-Project Consistency**
+   - Share themes between multiple ratatui-based projects
+   - Ensure uniform look and feel across applications
+
+### Quick Integration
+
+```rust
+// Add to Cargo.toml:
+// ratatui-themes = "0.1"
+
+use ratatui_themes::{Theme, ThemeName};
+use ratatui::style::Style;
+
+let theme = Theme::new(ThemeName::Dracula);
+let palette = theme.palette();
+
+// Use in widgets
+let style = Style::default()
+    .fg(palette.fg)
+    .bg(palette.bg);
 ```
-src/
-├── lib.rs        # Public API exports and crate-level documentation
-├── palette.rs    # ThemePalette struct with all color definitions
-└── theme.rs      # ThemeName enum and Theme wrapper
-```
 
-## Key Types
+### Available Themes
 
-| Type | Description |
-|------|-------------|
-| `ThemeName` | Enum of all available themes (Dracula, Nord, etc.) |
-| `Theme` | Wrapper providing palette access and metadata |
-| `ThemePalette` | Struct containing all theme colors |
+Dark themes: Dracula, OneDarkPro, Nord, CatppuccinMocha, GruvboxDark, TokyoNight, SolarizedDark, MonokaiPro, RosePine, Kanagawa, Everforest, Cyberpunk
 
-## Common Tasks
+Light themes: CatppuccinLatte, GruvboxLight, SolarizedLight
 
-### Adding a New Theme
+### Palette Colors
 
-1. Add variant to `ThemeName` enum in `src/theme.rs`
-2. Add serde rename attribute: `#[serde(rename = "theme-name")]`
-3. Implement colors in `ThemePalette::from_name()` match arm
-4. Add to `ThemeName::all()` array
-5. Update `next()`/`prev()` cycling logic
-6. Add to README.md theme table
-
-### Theme Color Structure
-
-Each theme must define these colors:
-- `accent` — Primary highlight color
-- `secondary` — Secondary accent
-- `bg` — Background
-- `fg` — Foreground text
-- `muted` — Dimmed/comment text
+Each theme provides:
+- `accent`, `secondary` — Highlight colors
+- `bg`, `fg`, `muted` — Base colors
 - `selection` — Selection background
-- `error` — Red/error state
-- `warning` — Yellow/warning state  
-- `success` — Green/success state
-- `info` — Blue/info state
+- `error`, `warning`, `success`, `info` — Semantic status colors
 
-### Testing
+### Links
 
-```bash
-cargo test              # Run all tests
-cargo test --features serde  # Test with serde
-cargo doc --open        # Generate and view docs
-```
-
-## Dependencies
-
-- `ratatui` — Core TUI framework (Color type)
-- `serde` — Optional, for config serialization
-
-## Release Process
-
-1. Update version in `Cargo.toml`
-2. Commit: `git commit -m "chore: bump version to X.Y.Z"`
-3. Tag: `git tag vX.Y.Z`
-4. Push: `git push origin main --tags`
-5. GitHub Actions publishes to crates.io automatically
-
-## Code Style
-
-- Use `rustfmt` for formatting
-- Document all public items
-- Keep themes alphabetically ordered where practical
-- Prefer semantic color names over raw hex values in documentation
-
-## Related Projects
-
-- [Feedo](https://github.com/ricardodantas/feedo) — RSS reader using this crate
-- [Hazelnut](https://github.com/ricardodantas/hazelnut) — File organizer using this crate
+- **Crate**: https://crates.io/crates/ratatui-themes
+- **Docs**: https://docs.rs/ratatui-themes
+- **Source**: https://github.com/ricardodantas/ratatui-themes
 
 ---
 > Source: [ricardodantas/ratatui-themes](https://github.com/ricardodantas/ratatui-themes) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
