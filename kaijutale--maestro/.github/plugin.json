@@ -1,0 +1,9 @@
+{
+  "name": "kaijutale--maestro",
+  "displayName": "maestro",
+  "description": "A CLI tool that conducts Git worktrees like an orchestra and accelerates parallel development with Claude Code.",
+  "version": "1.0.0",
+  "author": "kaijutale",
+  "homepage": "https://github.com/kaijutale/maestro",
+  "skills": []
+}
