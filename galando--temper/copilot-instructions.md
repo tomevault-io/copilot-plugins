@@ -1,894 +1,805 @@
-## temper-ref-plan
+## temper-ref-review
 
-> Temper reference: plan
+> Temper reference: review
 
 
 
-# Plan: Feature Planning with Impact Analysis
+# Review: Confidence-Scored Code Review
 
-**Goal:** Transform feature request into implementation plan with blast radius analysis and risk assessment.
+**Goal:** Review recent changes with high signal-to-noise ratio. Parallel subagent review, confidence scoring, review memory, and intent validation.
 
 ## Active Skills
 
 - **Context Engineering** — load hierarchical context at stage start (rules → arch → source → errors, under 2K lines/task)
 - **Temper Core** — stack detection, pack resolution, quality gates
 
-## Usage
+## Prerequisites
 
-```
-/temper:plan "feature description"
-/temper:plan "JIRA-123"
-/temper:plan "#123"
-/temper:plan --full "feature"    # Force full spec-kit even for simple tasks
-/temper:plan --quick "feature"   # Force lightweight plan
-/temper:plan --reindex "feature" # Force full semantic index rebuild
-```
+**DO NOT RUN if:**
 
-## Feature: $ARGUMENTS
+- Code does not compile
+- Tests are failing
+- Build is broken
+
+**RUN ONLY AFTER:**
+
+- Build succeeds
+- All tests pass
+- Or: auto-chained from /temper:build (which already validated)
+
+For confidence scoring and review memory, apply the temper-core skill.
 
 ## Execution
 
 ### Context Loading
 
 This stage may run in two modes:
-- **Standalone** (`/temper:plan`) — runs in current context, handles its own gate
-- **Agent subprocess** (from `/temper`) — runs in clean context, returns summary to orchestrator
+- **Standalone** (`/temper:review`) — runs in current context, handles its own gate
+- **Agent subprocess** (from `/temper`) — starts with CLEAN context, only loads what's listed below
 
-**Subprocess mode override:** When running as an Agent subprocess, do NOT show AskUserQuestion gates or clear context. Return the plan summary to the orchestrator. The orchestrator handles all gate decisions and context transitions.
+**Subprocess mode override:** When running as an Agent subprocess, do NOT show AskUserQuestion gates or clear context. Return the review summary to the orchestrator. The orchestrator handles all gate decisions and context transitions.
 
-In both modes, the planning methodology is identical.
+In both modes, the review methodology is identical.
 
-**Context loading strategy:** Apply the context-engineering skill for hierarchical loading (rules -> arch -> source -> errors, under 2K lines/task). The file list below specifies WHAT to load; the skill specifies HOW and WHEN.
+Files to load at start:
+1. Run `git diff --name-only` to identify changed files
+2. `$CLAUDE_PLUGIN_ROOT/.claude-plugin/reference/review.md` (this file)
+3. `.temper/specs/{feature}/intent.md` (for intent validation, if exists)
+4. `.temper/specs/{feature}/build-context.json` (if exists — build deviations and test results)
 
-### Phase 0: Detect Input Type
+### Step 1: Gather Context
 
-Determine what the user provided:
+```bash
+# 1. Get changed files
+git diff --name-only HEAD~1..HEAD  # if committed
+git diff --name-only               # if uncommitted
 
-- Starts with a project prefix + numbers (e.g., `BKNG-1234`, `PROJ-567`) → fetch from Jira API using `gh` or `curl`
-- Starts with `#` + numbers (e.g., `#1234`) → fetch from GitHub Issues using `gh issue view`
-- URL containing `github.com` → fetch from GitHub using `gh`
-- URL containing `atlassian.net` or `jira` → fetch from Jira API
-- Everything else → use as direct feature description
+# 2. Get diff statistics
+git diff --stat HEAD
 
-**If issue tracker fetch fails:** Fall back to using the raw text as description. Never block on API failures.
+# 3. Read temper.config for review settings
+# - block-on: which severities block
+# - confidence-threshold: minimum confidence to show
+# - auto-fix: whether to auto-fix
 
-### Phase 0.5: Initial File Count Estimate
+# 4. Read active pack rules
+# - Load enabled packs from .claude/packs/
+# - Load stack-specific rules from .claude/packs/stacks/{detected-stack}.md
 
-Before launching the Explore subagent, make a rough estimate to guide planning depth:
+# 5. Read review memory
+# - Load .temper/review-memory.json if exists
+# - Contains: dismissed patterns, accepted patterns, auto-rules
 
-```
-ESTIMATION HEURISTIC:
-
-| Feature Type | Typical Files | Complexity |
-|-------------|---------------|------------|
-| Single endpoint/page/handler | 3-5 | Simple |
-| New domain/module | 7-12 | Medium-Complex |
-| Cross-cutting (auth, middleware) | 10-25 | Complex |
-| External service integration | 5-8 | Medium |
-```
-
-Pre-estimate only. Explore subagent refines with actual codebase knowledge.
-
-### Phase 1: Auto-Prime (via Explore subagent)
-
-Launch an Explore subagent with this prompt:
-
-```
-Scan this project to build a reference map for planning a new feature.
-
-0. CODE REVIEW GRAPH MCP (PRIMARY exploration method)
-   If code-review-graph MCP tools are available:
-   a. Call build_or_update_graph_tool to ensure the graph is up-to-date
-   b. Call get_architecture_overview_tool for high-level codebase structure
-   c. Call list_communities_tool to understand code grouping
-   d. Call list_flows_tool (limit 20) to identify key execution paths
-   e. Call semantic_search_nodes_tool with keywords from the feature description
-   f. Call get_minimal_context_tool with the feature description for a quick overview
-   → Use these results as the PRIMARY source for dependency maps, patterns, and similar code
-   → Still verify with direct file reads where needed
-   If MCP is unavailable, proceed with grep/read steps below as fallback.
-
-1. DETECT STACK
-   - Look for: package.json, pom.xml, build.gradle, pyproject.toml, go.mod, Cargo.toml
-   - Read the detected manifest to understand dependencies
-   - Check for temper.config (stack override)
-
-2. SCAN PROJECT STRUCTURE
-   - List top-level directories
-   - Identify source roots (src/, app/, lib/, etc.)
-   - Count files by type to understand project scale
-
-3. MAP PATTERNS
-   For each layer found, note 1-2 example files:
-   - Controllers/routes (API layer)
-   - Services (business logic)
-   - Repositories/DAOs (data access)
-   - Models/entities
-   - DTOs/schemas
-   - Tests (unit + integration)
-   - Configuration files
-
-4. FIND SIMILAR IMPLEMENTATIONS
-   Search for existing code similar to the planned feature.
-   First try semantic_search_nodes_tool with feature keywords (if MCP available).
-   Then grep for keywords from the feature description.
-
-5. CHECK FOR COMPANY PRESET
-   - Read .claude/temper.config if exists
-   - Read .claude/presets/*.yaml if exists
-   - Read enabled pack rules from .claude/packs/
-
-6. READ SEMANTIC INDEX (if exists)
-   - Read .temper/index/modules.json for dependency graph
-   - Read .temper/index/api-surface.json for API map
-   - If index doesn't exist or is stale, build it:
-     - Map all imports/requires across the project
-     - List all API endpoints with their handler functions
-     - List all test files and what they test
-
-Return a reference map in this format (max 60 lines):
-
-STACK: {detected stack}
-PRESET: {preset name or "none"}
-PACKS: {enabled packs}
-
-PROJECT STRUCTURE:
-  {directory tree, 2 levels deep}
-
-PATTERNS:
-  Controllers: {pattern + example file}
-  Services: {pattern + example file}
-  Repositories: {pattern + example file}
-  Tests: {pattern + example file}
-
-SIMILAR CODE:
-  {1-3 similar implementations found, with file paths}
-
-DEPENDENCY MAP (relevant to this feature):
-  {which modules would be affected}
-
-TEST COVERAGE:
-  {files related to this feature and whether they have tests}
+# 6. Find active intent.md
+# - If chained from /temper:build: use the same spec (build context contains: spec name, feature path)
+# - If single spec in .temper/specs/: use that intent.md
+# - If multiple specs: check git branch name for match, or ask user which spec to review
+# - If no specs: skip intent validation (existing behavior)
 ```
 
-### Phase 1.5: Validate Subagent Results
+### Step 1.5: Diff-Aware Fingerprinting
+
+Before launching subagents, build a diff fingerprint that classifies each changed region by risk level. This focuses review energy where it matters most.
 
 ```
-Missing sections:
-  - No controllers → look for entry points, exported functions, main files
-  - No tests → TDD creates from scratch; lower coverage expectations; flag in risk
-  - No similar code → new capability, higher risk, more questions in Phase 5
-  - Stack detection failed → ask user, or check Makefile/Dockerfile/CI config
+1. Extract unified diff with context:
+   git diff -U5 HEAD~1..HEAD  # if committed
+   git diff -U5               # if uncommitted
 
-Reference map too large (>60 lines) → keep only sections relevant to feature
-Subagent timeout/failure → fall back to manual exploration, flag lower confidence
+2. For each changed file, classify the change:
+   a. Change type:
+      - ADDITION: New file (git status shows "??")
+      - MODIFICATION: Existing file with hunks
+      - DELETION: File removed
+      - RENAME: File moved (git status shows "RNN")
+
+   b. For MODIFICATION files, parse each hunk:
+      - Identify the function/method containing the change
+        (parse upward from hunk for def, function, class, const, etc.)
+      - Classify the change:
+        LOGIC — business logic, conditionals, calculations
+        STRUCTURE — new class, new method, refactored signature
+        CONFIG — settings, environment, feature flags
+        TEST — test files, test helpers, fixtures
+        IMPORT — import/require changes only
+
+   c. Detect risk signals per hunk:
+      - SECURITY: password, token, jwt, encrypt, decrypt, hash, auth,
+        secret, credential, api-key, session
+      - DATA_MUTATION: insert, update, delete, create, drop, alter,
+        save, persist, remove
+      - ERROR_HANDLING: throw, catch, error, exception, reject, fail
+      - CONCURRENCY: async, await, promise, spawn, thread, goroutine,
+        channel, mutex, lock
+      - EXTERNAL_API: fetch, http, request, client, axios, curl, grpc
+
+3. Build the fingerprint (ephemeral — not persisted):
+
+   DIFF FINGERPRINT:
+     Files: {N} changed ({A} additions, {M} modifications, {D} deletions)
+     Hunks: {N} total ({L} logic, {S} structure, {C} config, {T} test, {I} import)
+     High-risk regions: {N}
+       - {file}:{hunk} — {risk signals}
+       - {file}:{hunk} — {risk signals}
+     Security sensitivity: {N} CRITICAL, {N} HIGH, {N} MEDIUM, {N} LOW
 ```
 
-### Phase 1.6: Semantic Index (Optional Enhancement)
+Pass this fingerprint to all subagents in Step 2. Subagents must:
+- Focus 80% of attention on hunks with risk signals
+- Review remaining changed lines at standard depth
+- Include fingerprint summary in their findings
 
-The semantic index accelerates blast radius analysis by pre-computing dependency graphs. It's optional — if missing, the Explore subagent builds equivalent knowledge ad-hoc.
+### Step 2: Launch Parallel Review Subagents
 
-**Index files:**
+**If changed files span multiple domains (e.g., backend + frontend), launch parallel subagents.**
+
+Each subagent receives:
 
 ```
-.temper/index/
-├── modules.json      # Import/dependency graph
-└── api-surface.json  # API endpoints and handlers
+Review the following files for issues. For each issue found, provide:
+1. Severity: CRITICAL / HIGH / MEDIUM / LOW
+2. Confidence: 0.0-1.0 (how certain you are this is a real issue)
+3. Category: logic / security / performance / quality / standards / architecture / test-gap
+4. Location: file:line
+5. Description: what the issue is
+6. Suggestion: how to fix it
+
+Rules to enforce:
+{content of active pack rules}
+
+Stack-specific patterns:
+{content of detected stack file}
+
+Review these files:
+{list of files in this subagent's domain}
+
+For each file, read the ENTIRE file (not just the diff) to understand full context.
+
+IMPORTANT:
+- Only flag issues you are confident about (>0.5 confidence; Step 4 applies user-configured threshold, default 0.7)
+- Do not flag style preferences unless they violate pack rules
+- Do not flag patterns that are consistent with the rest of the codebase
+- Focus on: logic errors, security, performance, missing tests, architectural drift
+
+DIFF-AWARE REVIEW:
+For each issue, classify as:
+- REGRESSION: Code that was working before, now broken by these changes (highest priority)
+- NEW ISSUE: Problem introduced by this change
+- PRE-EXISTING: Issue existed before this change (lower priority, optional to fix)
+Weight your focus: 80% on changed lines, 20% on context verification.
+
+PERFORMANCE PATTERNS to check:
+- N+1 queries: Loops making database/API calls
+- Unbounded results: Queries without LIMIT, recursive calls without depth check
+- Sync I/O in hot path: Blocking operations in request handlers, event loops
+- Large objects in memory: Loading full datasets, unprocessed batch operations
+- Missing pagination: Endpoints returning unbounded lists
+- Inefficient data structures: Array.includes/find in loops (should be Set/Map)
+
+PERFORMANCE ANTI-PATTERN DETECTION (for each changed file):
+
+1. N+1 QUERY DETECTION:
+   - Find loops (for/forEach/while) containing database/API calls
+   - Pattern: loop body has db.query, Model.find, fetch, axios, http.request
+   - FLAG as HIGH if: loop count is unbounded (user-provided data), no batching
+   - Suggestion: "Move query outside loop or use batch/join"
+
+2. MISSING PAGINATION:
+   - Find endpoints returning lists: return [], map(), filter(), findAll()
+   - Check for pagination parameters: limit, offset, page, cursor, take, skip
+   - FLAG as HIGH if: dataset could grow + no max result size enforced
+   - Suggestion: "Add limit/offset parameters and LIMIT clause"
+
+3. UNBOUNDED OPERATIONS:
+   - Recursion without depth limit
+   - Operations on unbounded user input (loops over user arrays, regex without timeout)
+   - FLAG as MEDIUM if: no max size enforced or no timeout/deadline
+
+4. SYNC I/O IN HOT PATH:
+   - fs.readFileSync, sync.* methods in HTTP handlers/event-loop contexts
+   - FLAG as HIGH if: in request handler with no async alternative
+
+5. INEFFICIENT DATA STRUCTURES:
+   - Array.includes() or Array.find() inside loops (O(n²))
+   - FLAG as MEDIUM if: loop over >10 items or called multiple times per request
+   - Suggestion: "Convert to Set/Map for O(1) lookups"
+
+Report format:
+  [HIGH] N+1 query — {file}:{line}: forEach loop with {Model.find()}
+    Impact: N database queries for N items
+    Suggestion: Use batch query with $in/IN clause
+
+MCP SECURITY SCAN (before SECURITY HOT PATH REVIEW):
+  If semgrep MCP server is available and tools.mode is not heuristic-only:
+  1. Call semgrep security_check on all changed files
+  2. Map severity:
+     - semgrep error → CRITICAL
+     - semgrep warning → HIGH
+     - semgrep info → MEDIUM
+  3. SAST findings bypass confidence filtering — always shown regardless of threshold
+  4. Evidence label: [PROVEN] (tool output)
+  5. Add findings to the issues list before Step 4 filtering
+  If semgrep MCP unavailable:
+     Fall back to OWASP pattern-matching in SECURITY HOT PATH REVIEW → [HEURISTIC]
+
+SECURITY HOT PATH REVIEW (for files flagged CRITICAL/HIGH in diff fingerprint):
+
+For any file with security sensitivity CRITICAL or HIGH:
+
+1. TRACE all call chains:
+   a. Read the changed function/method
+   b. Grep for all usages of the function across the codebase
+   c. For each usage, determine if it's an entry point:
+      - HTTP handler → check if auth middleware applied
+      - Background job → check if inputs validated
+      - Library function → check if caller sanitizes inputs
+
+2. CHECK security boundaries:
+   - UNAUTHENTICATED code → must have rate limiting
+   - AUTHENTICATED code → must verify user owns resource (authorization)
+   - ADMIN code → must verify admin role
+   - INPUT handling → must validate/sanitize
+   - OUTPUT handling → must escape/redact sensitive data
+
+3. VERIFY tests cover security boundaries:
+   - Find test files for each entry point
+   - Check for tests covering: unauthorized access, boundary violations,
+     input validation, error handling (no stack traces leaked)
+
+4. FLAG severity:
+   CRITICAL: Security bug reachable from unauthenticated input
+             Missing authorization check on privileged operation
+             Sensitive data leaked in error messages/logs
+   HIGH:     Security boundary untested
+             Input validation missing
+             Error handling exposes system details
+
+IMPORTANT: Security findings ALWAYS bypass confidence filtering.
+Report them regardless of confidence threshold.
+
+AI-CODE DETECTION (apply to all files):
+- Hallucinated APIs: verify function calls exist in dependencies
+- Plausible but wrong: compare against project's existing usage of same library
+- Over-engineering: abstractions used only once, premature generalization
+- Copy-paste drift: similar blocks with subtle inconsistencies
+- Missing integration: new code not wired into routing/DI/config
+- Stale patterns: using deprecated APIs when project has migrated
+- Incomplete error paths: generic catch blocks without specific handling
 ```
 
-**modules.json schema:**
+**Subagent split strategy:**
+
+- If all files are same domain: single review subagent
+- If backend + frontend: 2 parallel subagents
+- If >20 changed files: split into groups of ~10 per subagent (max 3 parallel)
+
+### Step 3: Intent Validation (IDD + BDD)
+
+> **Method disclaimer:** Intent validation has two layers — **mechanical** (provable by tools) and **semantic** (Claude's judgment). The review clearly labels which is which. Mechanical checks (test exists, test passes, code grep) are reliable. Semantic checks (assertion quality, problem-solution alignment) are Claude's best-effort analysis — they catch obvious problems but cannot guarantee correctness. No amount of reading code replaces running it.
+
+If `.temper/specs/{feature}/intent.md` exists, validate at TWO levels:
+
+**BDD Level (mechanical):**
+
+- Each scenario in intent.md → has a corresponding test → test passes
+- Report as checklist in review
+
+**IDD Level (structured validation):**
+
+- Read the Intent section (problem, success criteria, constraints)
+- Each success criterion has a `Validate:` field specifying how to check it:
+
+| Validate Type | How to Check | Result |
+|---------------|-------------|--------|
+| `scenario` | Linked scenario's test passes | Mechanical — ✅/❌ |
+| `code` | Grep for specified code/endpoint/config | Mechanical — ✅/❌ |
+| `metric` | Cannot verify pre-deploy | Deferred — 📊 "Post-deploy monitoring required" |
+| `manual` | Requires human judgment | Flagged — 🔍 "Manual check needed" |
+
+- For each success criterion, execute its validation method:
+  - ✅ Met: validation method confirms (scenario passes, code exists)
+  - ❌ Not met: validation method fails (scenario fails, code missing)
+  - 📊 Deferred: metric-based criterion, requires post-deploy measurement
+  - 🔍 Manual: qualitative criterion, flagged for human review
+- For each constraint: was it respected?
+- Overall: "Intent satisfied" / "Intent partially satisfied — gaps: X, Y" / "Intent not satisfied"
+- Count: "{N} mechanical, {N} deferred, {N} manual" — higher mechanical ratio = higher confidence
+
+If no intent.md: fall back to checking linked issue (Jira/GitHub) as before.
+
+### Step 3a: Semantic Test Validation (if intent.md exists)
+
+> **Method disclaimer:** Reading test code and judging assertion quality is Claude's semantic analysis, not mechanical proof. A STRONG label means Claude believes the assertions cover the Then clause — but Claude cannot execute the test with a mutated implementation to prove it would fail. Use STRONG/WEAK/TRIVIAL as directional guidance, not guarantees.
+
+After the mechanical BDD/IDD check in Step 3, validate that tests actually prove what they claim.
+
+**Part 1: MECHANICAL checks (provable via tools):**
+
+```
+For each scenario with a passing test, run these checks that DON'T require judgment:
+
+0. LOCATE the test file for each scenario:
+   a. Check intent.md's Scenario Coverage Checklist for test name mapping
+   b. Grep test files for the scenario name or Gherkin annotations (e.g., @scenario-name)
+   c. If not found → flag as "test not locatable" and skip to next scenario
+
+1. ASSERTION COUNT CHECK:
+   a. Read the test function body
+   b. Count assertion statements (assert*, expect*, should*, assertEquals, etc.)
+   c. If ZERO assertions → TRIVIAL (mechanically proven — no judgment needed)
+   d. If assertions exist → proceed to Part 2
+
+2. ASSERTION TARGET CHECK (mechanical):
+   a. Extract the variable/value being asserted from each assertion
+   b. Extract the Then clause expected values from Gherkin
+   c. Check: does ANY asserted variable name appear in the Then clause?
+      - Then says "response.status equals 400" → grep test for "status" and "400"
+      - Then says "error message contains 'invalid'" → grep test for "error" or "invalid"
+   d. If NO assertion variable matches any Then clause keyword → WEAK (mechanical mismatch)
+   e. If at least one assertion targets a Then clause keyword → proceed to Part 2
+```
+
+**Part 2: SEMANTIC checks (Claude's best-effort judgment):**
+
+```
+For scenarios that passed Part 1 mechanical checks:
+
+3. Verify structural alignment with Gherkin:
+   - Given → test sets up preconditions (fixtures, mocks, data)
+   - When → test invokes the action under test
+   - Then → test asserts the expected outcomes
+4. Check assertion depth (judgment-based):
+   - Flag incomplete assertions: Then says "response contains token" but test only asserts status code
+   - Flag catch-all assertions: assert response != null without checking specific fields
+   - Accept indirect assertions (helper methods, custom matchers) if they semantically cover the Then clause
+   - If unsure whether an assertion covers a Then clause, do NOT flag
+5. Report per-scenario:
+   ✅ Scenario: "User logs in" — structurally aligned (Given/When/Then mapped)
+   ⚠️ Scenario: "Rate limiting" — trivial assertion detected (assertTrue(true))
+   ⚠️ Scenario: "Token returned" — incomplete: Then expects "token field" but test only asserts status 200
+```
+
+**Assertion quality labels:**
+- STRONG — test sets up Given, invokes When, asserts Then with meaningful, specific assertions
+- WEAK — test has incomplete assertions (Then expects "token" but only asserts status code); flagged as MEDIUM issue. Accept indirect assertions (helper methods, custom matchers) if they semantically cover the Then clause. If unsure whether an assertion covers a Then clause, do NOT flag.
+- TRIVIAL — test has assertions that always pass (assertTrue(true), no assertions); flagged as LOW issue
+
+These labels feed into the INTENT VERDICT evidence count: STRONG scenarios count toward the numerator, TRIVIAL scenarios do not, WEAK count as half.
+
+**This step is additive** — existing mechanical checks still run first. Only runs when intent.md exists (backward compatible). Test body reading happens in the main review context, which already has access to changed files.
+
+### Step 3b: Problem Statement Traceback (if intent.md exists)
+
+> **Method disclaimer:** This step is entirely semantic — Claude compares the Problem statement against implementation code and judges whether they match. This catches obvious mismatches (building "password change" when the problem says "password reset") but cannot detect subtle functional gaps. No substitute for acceptance testing.
+
+After validating individual scenarios, step back and assess the BIG picture:
+
+```
+1. Re-read the Problem: field from intent.md
+2. Read the implementation code (changed files)
+3. Ask: "Does this implementation actually solve the stated problem?"
+4. Check for implementation drift:
+   - Problem says "password reset" but code implements "password change" → drift detected
+   - Problem says "caching" but code implements "prefetching" → partial match (different strategies)
+   - Problem says "multi-user" but code handles single user → gap detected
+
+5. Report:
+   ✅ Intent satisfied — implementation addresses: {list of problem aspects covered}
+   ⚠️ Intent partially satisfied — gaps: {list of uncovered aspects}
+   ❌ Intent not satisfied — implementation doesn't address the stated problem
+
+6. This produces the SEMANTIC intent verdict (distinct from Step 3's mechanical verdict)
+```
+
+**Verdict reconciliation:** When both Step 3 (mechanical) and Step 3b (semantic) produce verdicts, use the most conservative:
+- If only one verdict is available, use that verdict directly
+- If both are available: any "Not satisfied" → final verdict is "Not satisfied"; all "Satisfied" → "Satisfied"; otherwise → "Partially satisfied"
+The INTENT VERDICT in the summary always reflects this reconciled verdict.
+
+**This is the "semantic bridge"** — it requires understanding the relationship between problem and solution. When the review runs as a subagent, it has access to changed files, so it can read them.
+
+### Step 3c: Decision Point Coverage (if intent.md exists)
+
+Check whether the code's decision points have corresponding scenarios:
+
+```
+1. Scan changed files for decision points:
+   - if/else branches (especially in business logic)
+   - try/catch blocks with different error types
+   - switch/case statements
+   - Early returns with different outcomes
+   - Error response variations
+
+   EXCLUDE (do not flag):
+   - Input validation guards (null/undefined checks)
+   - Logging branches (if (logger.isDebugEnabled()))
+   - Single-line early returns with no business logic
+   - Standard framework patterns (auth middleware redirects, etc.)
+
+   FOCUS ON:
+   - Business logic conditionals (different user types, states, outcomes)
+   - Multi-branch error handling (different error types → different responses)
+   - Branches that produce different user-visible outcomes
+
+2. For each decision point:
+   - Does a scenario in intent.md cover this branch?
+   - If no scenario → flag as potential gap
+
+3. Report:
+   ✅ All decision points covered by scenarios
+   ⚠️ Uncovered decision points:
+     - auth.ts:42 — branch for "email not verified" → no matching scenario
+     - payment.ts:89 — catch StripeCardError → no matching scenario
+
+4. Severity: LOW (informational) — the developer decides whether to add scenarios
+```
+
+This catches missing scenarios that the plan phase didn't anticipate. Only scans changed files (not entire codebase) to keep scope reasonable. Low severity by default — it's a suggestion, not a blocker.
+
+### Step 3d: Live Mutation Spot-Check (if tests exist)
+
+> **This is the ONLY step that actually PROVES tests catch bugs.** All other validation steps read code and form opinions. This step modifies code, runs tests, and checks the result. It's limited to 2-3 spot-checks (not full mutation testing) to keep review fast.
+
+**Purpose:** Prove that at least some tests actually fail when the implementation breaks.
+
+**When to run:** Only if Level 2 (unit tests) passed. Skip if no tests exist.
+
+**How (concrete, executable steps):**
+
+```
+For each CRITICAL or HIGH security-sensitivity file that has tests (max 3 files):
+
+1. PICK one assertion in the test file to spot-check:
+   - Prefer: assertions on business logic (not framework plumbing)
+   - Prefer: assertions that the STRONG/WEAK analysis flagged as uncertain
+
+2. RUN the test once to confirm it passes (baseline):
+   {test command for this specific test file}
+   → Must PASS. If fails, there's already a bug — report it and stop.
+
+3. MUTATE the implementation (one line only):
+   Pick the simplest mutation that should break the tested behavior:
+   - Change a return value: return true → return false
+   - Change a comparison: if (amount > 0) → if (amount > 100)
+   - Remove a required side effect: delete the database insert line
+   - Change an error code: throw new Error("not found") → throw new Error("server error")
+   Write the mutation to disk.
+
+4. RUN the test again:
+   {same test command}
+   → If test FAILS → ✅ MUTATION CAUGHT — restore implementation, mark test as PROVEN
+   → If test PASSES → ❌ MUTATION MISSED — restore implementation, flag test as UNVERIFIED
+
+5. RESTORE the original implementation immediately (no matter what):
+   git checkout -- {mutated file}
+   Or: manually revert the single changed line
+
+6. REPORT:
+   ✅ PasswordResetTest.test_successful_reset — PROVEN
+      Mutation: changed reset token expiry from 15min to 0min
+      Test failed as expected — assertion catches this mutation
+   ❌ RefundTest.test_process_refund — UNVERIFIED
+      Mutation: changed authorization check from userId === owner to userId !== owner
+      Test still passed — test does not verify authorization boundary
+   ⏭️  Skipped (no test file found for AuthService.generateToken)
+```
+
+**Gate behavior:**
+- UNVERIFIED on a security-critical function → CRITICAL issue
+- UNVERIFIED on a regular function → HIGH issue (suggestion to strengthen test)
+- Max 3 spot-checks per review (keeps review under 2 minutes extra)
+
+**Important constraints:**
+- ALWAYS restore the original code after mutation — never leave broken code on disk
+- Only mutate CHANGED files (not entire codebase)
+- If the test command isn't runnable (missing deps, env) → SKIP with note
+- This is a SAMPLE, not exhaustive — it proves specific assertions work, not all of them
+```
+
+### Step 3.5: Cross-File Pattern Consistency Check
+
+Detect when a changed file introduces a pattern that contradicts established patterns in similar files. This prevents "pattern drift" where codebases slowly accumulate inconsistent approaches.
+
+**Pattern extraction (from changed files):**
+
+```
+For each changed file, extract key patterns:
+
+1. ERROR HANDLING PATTERNS:
+   - How are errors caught? (try/catch, if err, .catch, Result<> types)
+   - How are errors raised? (throw, return error, reject, Error())
+   - How are errors logged? (logger.error, console.error, log.error)
+
+2. API RESPONSE PATTERNS:
+   - Response structure (e.g., { data, error, meta })
+   - Status code usage (200 vs 201, 400 vs 422)
+   - Error response format (e.g., { code, message, details })
+
+3. VALIDATION PATTERNS:
+   - Input validation approach (schema library, manual checks, class validators)
+   - Validation error format
+
+4. ASYNC PATTERNS:
+   - Promise handling (async/await, .then(), callbacks)
+   - Error propagation in async contexts
+```
+
+**Consistency check:**
+
+```
+For each extracted pattern:
+  1. Grep for the same pattern in OTHER files of the same type:
+     - Changed file is a service? → grep src/services/
+     - Changed file is a controller? → grep src/controllers/
+     - Changed file is a test? → grep tests/
+     - No same-type files? → skip (no comparison baseline)
+
+  2. Compare the pattern:
+     - Is the new pattern CONSISTENT with existing files?
+     - Or does it introduce a NEW pattern that differs?
+
+  3. If NEW pattern detected:
+     a. Check intent.md and tasks.md — is this an intentional improvement?
+     b. Or is this INCONSISTENT drift? (same concept, different approach)
+
+  4. Flag inconsistencies:
+     - Severity: MEDIUM (not blocking, but should be intentional)
+     - Confidence: 0.6 (lower threshold — pattern matching is heuristic)
+     - Description: "Pattern drift: {changed_file} uses {new_pattern}
+       but {other_files} use {established_pattern}"
+     - Suggestion: "Align with established pattern OR document why new
+       pattern is better in intent.md"
+```
+
+**Example detection:**
+
+```
+Changed file: src/services/PaymentService.ts
+  - Uses try/catch for error handling
+  - Returns { success, data, error } objects
+
+Existing: src/services/UserService.ts, src/services/OrderService.ts
+  - Use Result<Ok, Err> type for error handling
+  - Never use try/catch at service layer
+
+FINDING: [MEDIUM] PaymentService introduces try/catch error handling
+         but other services use Result<> types.
+         Suggestion: Consider aligning for consistency.
+```
+
+**State update:** Extends `.temper/review-memory.json` with a `patterns` section:
 
 ```json
 {
-  "version": 1,
-  "last_built": "2026-03-15T10:00:00Z",
-  "modules": {
-    "src/services/AuthService.ts": {
-      "imports": ["src/models/User.ts", "src/utils/jwt.ts"],
-      "imported_by": ["src/controllers/AuthController.ts", "src/middleware/auth.ts"],
-      "exports": ["AuthService", "verifyToken"]
+  "patterns": {
+    "error_handling": {
+      "dominant_pattern": "Result<Ok, Err>",
+      "dominant_count": 8,
+      "exceptions": [
+        {
+          "file": "src/services/PaymentService.ts",
+          "pattern": "try/catch",
+          "first_seen": "{date}",
+          "intentional": false
+        }
+      ]
     }
   }
 }
 ```
 
-**api-surface.json schema:**
+After 3+ dismissals of same pattern type → auto-suppress consistency warnings for that pattern.
 
-```json
-{
-  "version": 1,
-  "last_built": "2026-03-15T10:00:00Z",
-  "endpoints": [
-    {
-      "method": "POST",
-      "path": "/api/auth/login",
-      "handler": "src/controllers/AuthController.ts:login",
-      "middleware": ["src/middleware/rateLimit.ts"]
-    }
-  ]
-}
-```
+### Step 3.6: API Contract Validation
 
-**Index staleness detection:**
+Detect API contract changes and verify consumers are updated. Catches breaking changes before they reach staging/production.
 
-- Compare `last_built` timestamp to git's last commit timestamp
-- If `last_built` < last commit → rebuild (or use `--reindex` flag)
-
-**Index building (if needed):**
+**Only runs when changed files include API boundary files:**
 
 ```
-1. Find all source files (exclude node_modules, vendor, dist)
-2. For each file:
-   a. Parse imports/requires
-   b. Parse exports
-   c. Build reverse dependency map
-3. For API routes:
-   a. Detect framework (Express, Fastify, Spring, etc.)
-   b. Parse route definitions
-   c. Map to handler functions
-4. Write to .temper/index/
+Trigger detection — run Step 3.6 if ANY changed file matches:
+- src/controllers/**, src/routes/**, api/**
+- Files ending in: *Controller.*, *Routes.*, *Dto.*, *Request.*, *Response.*
+- Files in types/ or interfaces/ that export shared types
+- OpenAPI/Swagger spec files
+- GraphQL schema files (.graphql, .gql)
 ```
 
-**Skip index if:**
-
-- Project < 50 files (ad-hoc analysis is fast enough)
-- No .temper/ directory exists yet
-- User passed `--quick` flag
-
-### Phase 2: Research (via Research subagent, if needed)
-
-Only launch if the feature involves external libraries or APIs not already in the project:
+**Contract change analysis:**
 
 ```
-Research the following for implementation guidance:
-- {library/API name} documentation
-- Known issues and gotchas
-- Code examples for {specific use case}
+1. EXTRACT the old contract (from git diff — removals):
+   - Old endpoint path and HTTP method
+   - Old request structure (fields, types, required/optional)
+   - Old response structure (fields, types)
+   - Old error codes
 
-Return only the relevant snippets (max 30 lines).
+2. EXTRACT the new contract (from current code):
+   - New endpoint path and HTTP method
+   - New request structure
+   - New response structure
+   - New error codes
+
+3. CLASSIFY change type:
+   - ADDITIVE: New field, new endpoint, new optional parameter → LOW risk
+   - MODIFIED: Field type changed, required → optional → HIGH risk
+   - BREAKING: Required field removed, endpoint renamed,
+     type changed incompatibly → CRITICAL
+
+4. FIND consumers:
+   a. Grep test files: grep -r "{endpoint_path}" tests/ --include="*.ts|*.js|*.py|*.java"
+   b. Grep frontend code (if monorepo): grep -r "fetch.*{endpoint}" frontend/
+   c. Grep for DTO/type imports: grep -r "import.*{TypeName}" --include="*.ts|*.js"
+   d. Check for webhook/event subscribers: grep -r "{event_name}" src/
+
+5. VERIFY consumers are updated:
+   - For BREAKING changes: ALL consumers must be updated → BLOCK if any aren't
+   - For MODIFIED changes: consumers handling old format must be updated → WARN
+   - For ADDITIVE changes: consumers should be backward compatible → INFO
 ```
 
-### Phase 3: Assess Complexity + Risk
-
-Based on the reference map, determine:
-
-**File count estimate:**
-
-- How many files need to be created?
-- How many files need to be modified?
-- Total = created + modified
-
-**Complexity level:**
-
-| Files | Level |
-|-------|-------|
-| <3 | Trivial → skip planning, just implement |
-| 3-5 | Simple → inline plan in conversation |
-| 5-10 | Medium → tasks.md + quickstart.md |
-| 10+ | Complex → full spec/plan/tasks/quickstart |
-
-**Risk multipliers** (each adds +1 to complexity level):
-
-- Touches payment, auth, or security code
-- Modifies shared library consumed by 5+ other modules
-- Changes database schema
-- Module has historically high defect rate (check .temper/metrics.json if exists)
-- Security hot path detected (Phase 4.1 sensitivity CRITICAL or HIGH)
-
-**Override:** If user passed `--full`, use Complex. If `--quick`, use Simple.
-
-### Phase 4: Blast Radius Analysis
-
-Using the reference map and semantic index:
-
-MCP BLAST RADIUS (before grep-based steps):
-  If code-review-graph MCP server is available and tools.mode is not heuristic-only:
-  1. Call get_impact_radius_tool with the planned file list
-  2. Returns [PROVEN]:
-     - Direct consumers (files importing planned files)
-     - Transitive impact (files depending on consumers)
-     - Risk scores per file
-     - Fan-in / fan-out metrics
-  3. If MCP available: SKIP grep-based steps 2-3 below (MCP provides superior results)
-     Always run steps 4-5 (contract changes, architectural drift) — MCP doesn't detect these
-  4. Evidence label: [PROVEN] on all MCP-sourced findings
-  If MCP unavailable:
-     Proceed with grep-based steps 1-5 as [HEURISTIC]
-
-1. List files that will likely be changed (preliminary — refined after scenarios in Phase 4.5)
-2. For each changed file, find all importers/consumers
-3. For each consumer, check if it has test coverage for the affected code path
-4. Flag any contract changes (API response shapes, event payloads, DB schemas)
-5. Flag any architectural drift (new code bypassing established patterns)
-
-**Output format (included in plan and review):**
+**Report format:**
 
 ```
-BLAST RADIUS — {feature-name}
+CONTRACT CHANGES:
+  ✅ GET /api/users — ADDITIVE (new field: emailVerified)
+    Consumers: 3 test files, 1 frontend component
+    All consumers backward compatible ✅
 
-  Direct impact:
-    {File} ({action}) → used by {N} consumers
-    {File} ({action}) → no existing consumers yet
+  ❌ POST /api/auth/login — BREAKING (response.token removed,
+                                    response.access_token added)
+    Consumers: 2 test files, 1 frontend component
+    Tests updated ✅, Frontend NOT updated ❌
+    BLOCKING: Frontend will break on deploy
 
-  Transitive impact:
-    {Module} → calls {changed-function}()
-    {Module} → subscribes to {event}()
+  ⚠️ PaymentRequest.amount type changed (number → string)
+    BREAKING type change but stringified in handler
+    Risk: Runtime error if non-numeric string passed
+    Suggestion: Keep as number or add runtime validation
 
-  Risk areas:
-    {Module} has {X}% test coverage for {path}
-    {Module} handler not updated for new payload shape
-
-  Architectural compliance:
-    ✅ {pattern} followed
-    ✅ {pattern} followed
-    ⚠️ {concern}
+CONTRACT VERDICT:
+  {N} contract changes detected
+  {N} breaking with unverified consumers → BLOCK
+  {N} high-risk type changes → WARN
 ```
 
-### Phase 4.1: Security Hot Path Detection
+**Integration with review findings:**
+- CRITICAL contract findings → added to CRITICAL issues count, bypass confidence filter
+- HIGH contract findings → added to HIGH issues count
+- All findings include: file, line, change type, affected consumers, suggested fix
 
-During blast radius analysis, classify changed files by security sensitivity and trace call chains to entry points. This proactively identifies security risks before code is written.
-
-**Security sensitivity classification:**
-
-| Level | Keywords/Patterns | Examples |
-|-------|-------------------|----------|
-| CRITICAL | auth, crypto, payment, secret, password, token, encrypt, decrypt, PII | AuthService, PaymentService, TokenService |
-| HIGH | session, permission, role, rate-limit, validate, sanitize, admin | SessionManager, PermissionGuard, RateLimiter |
-| MEDIUM | logging, error-handling, api-route, handler, middleware | ErrorHandler, RequestLogger, ApiMiddleware |
-| LOW | config, constants, types, helpers, utils, DTOs | AppConfig, Constants, Types |
-
-**Detection steps:**
+**If a Jira ticket or GitHub issue was linked (legacy mode):**
 
 ```
-1. CLASSIFY each file in the blast radius by sensitivity:
-   - Match file path + function names against the classification table
-   - File inherits the HIGHEST sensitivity of any function it contains
-   - Default: LOW (unknown files)
-
-2. For CRITICAL and HIGH files, trace call chains to entry points:
-   a. Find all IMPORTERS of the changed file:
-      grep "from.*{file}" OR "require.*{file}" OR import("{file}")
-   b. For each importer, determine if it's an ENTRY POINT:
-      - HTTP handler/controller/route → Web entry point
-      - CLI command/main function → CLI entry point
-      - Worker/job processor → Background entry point
-      - WebSocket handler → Real-time entry point
-      - Event subscriber → Async entry point
-   c. Build call chain: Entry Point → Intermediate → Changed Code
-
-3. ASSESS security exposure per call chain:
-   - Reachable from UNAUTHENTICATED endpoint → exposure: PUBLIC
-   - Reachable from AUTHENTICATED endpoint → exposure: AUTHENTICATED
-   - Reachable from ADMIN-only endpoint → exposure: ADMIN
-   - Not reachable from any entry point → exposure: INTERNAL
-
-4. FLAG security risks:
-   - CRITICAL file reachable from PUBLIC endpoint → CRITICAL risk
-   - CRITICAL file reachable from AUTHENTICATED endpoint → HIGH risk
-   - HIGH file without test coverage → HIGH risk
-   - Any sensitive file with no entry point trace → MEDIUM risk (dead code or missing integration)
+1. Re-read the original issue/ticket requirements
+2. For each requirement, check if the implementation addresses it:
+   - ✅ Requirement met
+   - ⚠️ Partially met (explain what's missing)
+   - ❌ Not addressed
+3. Check edge cases mentioned in the issue/ticket comments
+4. Flag any requirements that were not implemented
 ```
 
-**Output — add to blast radius section:**
+### Step 4: Apply Confidence Filtering
+
+Combine results from all subagents. For each finding:
 
 ```
-SECURITY IMPACT:
-  {File} ({function}) → {CRITICAL/HIGH/MEDIUM}
-    Reachable from: {entry point} ({exposure level})
-    Risk: {specific risk description}
-    Recommendation: {actionable suggestion}
+ORDERING: Pack rules (step 3) override confidence filtering (step 1). A BLOCK pack rule
+finding is ALWAYS shown, even if confidence is below threshold.
+
+1. Check confidence score against threshold (default 0.7)
+   - Below threshold → DISCARD entirely (not shown, not counted in metrics, not stored in memory)
+   - Above threshold → include in report
+
+2. Check review memory (.temper/review-memory.json)
+   - Finding pattern dismissed 5+ times → SUPPRESS
+   - Finding pattern dismissed 3-4 times → downgrade severity by 1 level
+   - Finding pattern consistently accepted → keep as-is
+
+3. Apply severity classification from pack rules
+   - BLOCK rules → always CRITICAL regardless of confidence
+   - WARN rules → HIGH or MEDIUM
+   - SUGGEST rules → LOW
 ```
 
-**Example output:**
+### Step 5: Nice Summary + Stage Gate
 
-```
-SECURITY IMPACT:
-  src/services/PaymentService.ts (processRefund) → CRITICAL
-    Reachable from: POST /api/refunds (AUTHENTICATED)
-    Risk: User could refund any payment if authorization check missing
-    Recommendation: Add scenario "User can only refund own payments"
+**If running as Agent subprocess:** Skip the AskUserQuestion gate. Return the review summary to the orchestrator. The orchestrator handles all gate decisions.
 
-  src/middleware/auth.ts (verifyToken) → HIGH
-    Reachable from: 47 endpoints (PUBLIC + AUTHENTICATED)
-    Risk: Token validation bug affects all authenticated endpoints
-    Recommendation: Add integration test for expired/invalid tokens
+**If running standalone:** Show the summary and gate below.
 
-  src/utils/logger.ts (formatLogEntry) → LOW
-    Reachable from: Internal only
-    Risk: No security impact
-```
-
-**Integration with risk assessment:**
-- Security hot path findings add to the Phase 3 risk multipliers
-- Each CRITICAL finding → +1 complexity level
-- Each HIGH finding → consider adding security-focused scenario in Phase 4.5
-- Security findings persist to `.temper/security-map.json` for use in review and check phases
-
-**State:** Creates `.temper/security-map.json`:
-
-```json
-{
-  "version": 1,
-  "last_updated": "{ISO timestamp}",
-  "hot_paths": [
-    {
-      "file": "src/services/PaymentService.ts",
-      "function": "processRefund",
-      "sensitivity": "CRITICAL",
-      "entry_points": [
-        {
-          "route": "POST /api/refunds",
-          "exposure": "AUTHENTICATED",
-          "has_auth_middleware": true,
-          "has_authorization_check": false
-        }
-      ],
-      "last_reviewed": "{ISO timestamp}"
-    }
-  ]
-}
-```
-
-### Phase 4.5: Derive Scenarios (BDD — before architecture)
-
-**Why before architecture:** Scenarios define the behaviors the system must support. Architecture decisions should be driven by these behaviors, not the other way around. This prevents over-engineering (planning files no scenario needs) and scope gaps (missing behaviors that blast radius revealed).
-
-**Skip for Trivial/Simple** — no intent.md generated for these levels.
-
-For Medium and Complex, generate Gherkin scenarios from:
-
-```
-SOURCE                              BECOMES
-------                              -------
-User's feature description    →     Happy path scenarios
-Acceptance criteria (issue)   →     Happy path + validation scenarios
-Blast radius: risk areas      →     Edge case / error scenarios
-Blast radius: affected consumers →  Regression guard scenarios ("existing X still works")
-```
-
-**Scenario derivation rules:**
-
-```
-Every blast radius risk area → at least one scenario
-Every acceptance criterion → at least one scenario
-Every affected consumer → a regression guard scenario
-Scenarios must be concrete: specific inputs, specific expected outputs
-Each scenario must be testable (no "system works correctly")
-```
-
-**Scenario count:**
-
-- Medium: 3-8 scenarios (happy path, error path, edge case)
-- Complex: 5-15 scenarios (happy path, error paths, edge cases, regression guards)
-
-**Assign testing approach (Note field) per scenario:**
-
-| Behavior Type | Note | When to Use |
-|--------------|------|-------------|
-| `unit` | Default | Pure logic, no external dependencies |
-| `mock` | External dependency | Calls API, sends email, writes to queue |
-| `integration` | Cross-boundary | Database queries, multi-service flow |
-| `manual` | Non-automatable | UI/UX verification, visual output, email delivery confirmation |
-
-**Output:** A draft list of scenarios that will be written into intent.md in Phase 6. These scenarios now inform Phase 5 (questions) and Phase 6 (architecture/file planning).
-
-**Reconcile with Phase 4 file list:**
-After deriving scenarios, check if new files are needed that weren't in the Phase 4 preliminary list — add them. Also check if any Phase 4 files have no scenario or infrastructure justification — flag for removal or justify as infrastructure.
-
-### Phase 5: Ask Clarifying Questions (if ambiguous)
-
-Only ask when genuinely ambiguous — don't ask for the sake of asking. Use AskUserQuestion with concrete options:
-
-Good: "Should this integrate with existing PaymentService or create a new one?"
-Bad: "What should the architecture be?"
-
-Scenarios from Phase 4.5 may reveal ambiguities that weren't visible from the feature description alone. Maximum 2-3 questions. If requirements are clear, skip this phase entirely.
-
-### Phase 6: Generate Plan Artifacts
-
-**ENFORCEMENT OVERRIDE (when running from `/temper` unified command):** Always generate the full artifact set regardless of complexity level. Always create: intent.md, tasks.md, plan.md with mermaid diagram, blast radius analysis. Present the full 4-option approval gate with walkthrough. This overrides the complexity-tiered rules below.
-
-**Complexity-tiered rules (for standalone `/temper:plan` only):**
-
-**For Trivial:** No artifacts. Tell user: "Small change. I'll implement directly."
-
-**For Simple:** Inline plan in conversation. No files created:
-
-```
-Plan: {feature name}
-Files to create: {list}
-Files to modify: {list}
-Tasks:
-1. {task} → validate: {command}
-2. {task} → validate: {command}
-```
-
-**For Medium:** Create `.temper/specs/{feature-slug}/`:
-
-- `intent.md` — WHY + WHAT: Intent section (problem, success criteria, constraints) + Gherkin scenarios
-- `tasks.md` — ordered implementation steps
-- `quickstart.md` — 10-line summary
-
-**For Complex:** Create `.temper/specs/{feature-slug}/`:
-
-- `spec.md` — WHAT: requirements, acceptance criteria, edge cases
-- `intent.md` — WHY + WHAT: Intent section (problem, success criteria, constraints) + Gherkin scenarios
-- `plan.md` — HOW: architecture, file changes, patterns, blast radius
-- `tasks.md` — DO: ordered steps with validation command per task
-- `quickstart.md` — TLDR: 10-line summary
-
-**For Trivial/Simple:** No intent.md
-
-#### intent.md Generation
-
-The intent.md file combines IDD (Intent-Driven Development) and BDD (Behavior-Driven Development) in one artifact:
-
-**Intent Section (IDD):**
-
-- Problem: derived from user's feature description + linked issue
-- Success criteria: measurable outcomes from acceptance criteria, each with a `Validate:` field
-- Constraints: technical/business limitations from blast radius + pack rules
-- Target users: who benefits from this feature
-
-**For Complex features (spec.md + intent.md both exist):**
-
-- `spec.md` = WHAT (requirements from stakeholder perspective, acceptance criteria)
-- `intent.md` = WHY + HOW TO VERIFY (success criteria, scenarios for validation)
-- Derive intent.md success criteria FROM spec.md acceptance criteria
-- Each spec.md acceptance criterion → at least one intent.md scenario
-- spec.md edge cases → intent.md edge case scenarios
-
-**Success criteria validation types:**
-
-| Type | When to Use | Example |
-|------|------------|---------|
-| `scenario` | Criterion maps to a Gherkin scenario | `Validate: scenario — covered by "User resets password"` |
-| `code` | Criterion verifiable by checking code exists | `Validate: code — endpoint exists at POST /api/reset` |
-| `metric` | Criterion requires post-deploy measurement | `Validate: metric — measure support ticket volume post-deploy` |
-| `manual` | Criterion requires human judgment | `Validate: manual — UX review needed` |
-
-Prefer `scenario` and `code` — these are mechanically verifiable. Use `metric` and `manual` only when mechanical validation is impossible.
-
-**Scenarios Section (BDD):**
-Scenarios are derived in Phase 4.5 (before architecture). Write them into intent.md here.
-
-Use templates from `$CLAUDE_PLUGIN_ROOT/templates/` (spec.md, plan.md, tasks.md, quickstart.md) as the base structure. Fill in from reference map and blast radius analysis.
-
-#### Diagram Generation (Mermaid + ASCII)
-
-For Medium and Complex features, generate a mermaid diagram in the plan.md `## Diagram` section. Choose the diagram type based on what best communicates the feature:
-
-| Situation | Diagram Type | When to Use |
-|-----------|-------------|-------------|
-| Component interactions | `flowchart` | Multiple modules/services communicating |
-| Data flow | `flowchart` with subgraphs | Data moves through layers or boundaries |
-| State machines | `stateDiagram-v2` | Entities with lifecycle states |
-| Cross-boundary sequences | `sequenceDiagram` | API calls, service-to-service, user journeys |
-| Type hierarchies | `classDiagram` | New types with inheritance or composition |
-
-**When running from `/temper` (unified command):** Always generate a diagram. Even for Simple features, a minimal diagram showing the files and their relationships adds value.
-
-**When running standalone `/temper:plan`:** Skip diagram for single-file changes or config-only changes only.
-
-**Guidelines:**
-- Keep diagrams under 30 nodes — split into multiple diagrams if needed
-- Use descriptive node names (not abbreviations)
-- Color-code with mermaid `classDef` when distinguishing new vs existing components:
-  ```
-  classDef new fill:#e1f5fe,stroke:#0288d1
-  classDef existing fill:#f5f5f5,stroke:#9e9e9e
-  classDef modified fill:#fff3e0,stroke:#f57c00
-  ```
-- Include a legend note above the diagram when using colors
-
-**Example flowchart:**
-```
-flowchart TD
-    A[Client Request] --> B[API Controller]
-    B --> C[Service Layer]
-    C --> D[(Database)]
-    C --> E[Cache]
-
-    class A,B,C new
-    class D,E existing
-```
-
-**Example sequenceDiagram:**
-```
-sequenceDiagram
-    participant U as User
-    participant API as AuthController
-    participant S as AuthService
-    participant DB as Database
-
-    U->>API: POST /login
-    API->>S: authenticate(credentials)
-    S->>DB: findUser(email)
-    DB-->>S: user record
-    S-->>API: token or error
-    API-->>U: 200 or 401
-```
-
-#### ASCII Art Generation (alongside mermaid)
-
-For every mermaid diagram generated, also produce an ASCII art equivalent and write it to plan.md **below** the mermaid block, inside a ` ```text ` fence.
-
-**Why:** The terminal cannot render mermaid markdown. ASCII art is readable without any tooling.
-
-**ASCII art rules by diagram type:**
-
-| Diagram Type | ASCII Style |
-|-------------|-------------|
-| `flowchart` | `+---+` boxes connected with `-->` arrows, vertical flow |
-| `sequenceDiagram` | Vertical participant lanes (`|`), horizontal `-->` messages |
-| `stateDiagram-v2` | `+---+` state boxes, `-->` transitions with labels |
-| `classDiagram` | `+---+` class boxes with `|---|` attribute dividers |
-
-**General rules:**
-- Box corners: `+`, walls: `|` (vertical), `-` (horizontal)
-- Forward arrow: `-->`, backward: `<--`, bidirectional: `<-->`
-- Labels on edges: place above or beside the arrow line
-- Max width: 80 columns; abbreviate node labels if needed
-- Subgraphs: indent contained nodes by 2 spaces
-- Use blank lines to separate groups
-
-**Example flowchart ASCII:**
-```text
-+----------+       +----------+       +----------+
-| NodeA    | --->  | NodeB    | --->  | NodeC    |
-+----------+       +----------+       +----------+
-```
-
-**Example sequenceDiagram ASCII:**
-```text
-  User          API          Database
-   |             |              |
-   |-- request ->|              |
-   |             |-- query ---> |
-   |             |<-- result ---|
-   |<-- response-|              |
-```
-
-**Output in plan.md `## Diagram` section:**
-```
-\`\`\`mermaid
-{mermaid diagram content}
-\`\`\`
-
-\`\`\`text
-{ASCII art equivalent}
-\`\`\`
-```
-
-**Populate `Traced to:` in tasks.md:**
-When generating tasks.md, fill the `Traced to:` field for each task:
-
-- If the task creates/modifies a file needed by a scenario → `Traced to: Scenario: "scenario name"`
-- If a task covers multiple scenarios → list all: `Traced to: Scenario: "name1", "name2"`
-- If the task is infrastructure (config, migration, build setup) → `Traced to: Infrastructure: required by {module/file}`
-- If a task cannot be traced → question whether it's needed (see File-to-Scenario Traceability)
-
-#### File-to-Scenario Traceability
-
-Every file in the plan must justify its existence. Files fall into two categories:
-
-```
-Scenario-traced files (must link to at least one scenario):
-  src/services/PasswordResetService.ts  → Scenario: "User resets password"
-  src/middleware/RateLimiter.ts          → Scenario: "Rate limiting enforced"
-
-Infrastructure files (no scenario required, but must state dependency):
-  db/migrations/001_add_reset_tokens.sql → Required by PasswordResetService
-  config/email.ts                        → Required by PasswordResetService
-```
-
-If a planned file cannot be traced to any scenario AND is not infrastructure:
-
-- Question whether it's needed
-- If it is needed, a scenario is missing — add one in Phase 4.5
-
-This prevents over-engineering: no file exists without a behavioral or infrastructural reason.
-
-#### Task Ordering in tasks.md
-
-Order tasks by layer (dependencies first):
-
-```
-1. Infrastructure (config, DB migrations, build setup)
-2. Core (models, services, business logic)
-3. Integration (controllers, routes, API endpoints)
-4. Tests (integration tests, E2E)
-```
-
-#### Parallel Task Detection
-
-Analyze task pairs for file independence. Mark independent tasks with `[PARALLEL: with Task X]`:
-
-```
-ANALYSIS RULES:
-
-Two tasks CAN run in parallel if:
-- They modify different files (no overlap)
-- Neither depends on the other's output
-- No shared mutable state
-
-Two tasks MUST be sequential if:
-- Task B imports from Task A's file
-- Task B tests Task A's code
-- Task B depends on Task A's config changes
-
-MARKING FORMAT:
-- Sequential: `## Task 1 — {title} [SEQUENTIAL]`
-- Sequential after another: `## Task 2 — {title} [SEQUENTIAL: after Task 1]`
-- Parallel with another: `## Task 3 — {title} [PARALLEL: with Task 4]`
-
-GUARD: When in doubt, keep sequential. Parallel marking is an optimization, not a requirement.
-```
-
-### Phase 7: Present for Approval
-
-Show a summary box, then offer two ways to proceed: the quick summary (current behavior) or an interactive step-by-step walkthrough.
-
-**For Medium/Complex features:**
+After review completes, show a nice summary:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ 📋 PLAN — {Feature Name}                                   │
+│ REVIEW — {Feature Name}                                     │
 ├─────────────────────────────────────────────────────────────┤
-│ 🎯 INTENT (Why)                                             │
-│    Problem: {derived from feature description}              │
-│    Success: {key success criteria, max 2}                   │
+│ DIFF FINGERPRINT                                            │
+│    Files: {N} changed ({A} additions, {M} modifications)    │
+│    Hunks: {N} ({L} logic, {S} structure, {T} test)          │
+│    Security: {N} CRITICAL, {N} HIGH                         │
 │                                                             │
-│ 📝 PLAN (What & How)                                        │
-│    Scenarios: {N} ({unit} unit, {mock} mock, {int} integ)   │
-│    1. {scenario name}                                      │
-│    2. {scenario name}...                                   │
+│ ISSUES FOUND                                                │
+│    Critical: {N} | High: {N} | Medium: {N} | Low: {N}      │
+│    Auto-fixable: {N}                                        │
 │                                                             │
-│ 📁 ARCHITECTURE                                             │
-│    Create: {N} — {key files}                               │
-│    Modify: {N} — {key files}                               │
+│ SECURITY HOT PATHS                                          │
+│    ⚠️  {File}.{function} — CRITICAL                        │
+│       Reachable from {entry_point} ({exposure})             │
+│    ✅ {File}.{function} — tests cover boundaries            │
 │                                                             │
-│ ⚡ RISK: {Low/Medium/High} — {reason}                       │
+│ CROSS-FILE CONSISTENCY                                      │
+│    ⚠️  {file} uses {new_pattern}, others use {old_pattern} │
+│    ✅ All patterns consistent                               │
 │                                                             │
-│ 🔒 SECURITY (if hot paths found)                            │
-│    {N} CRITICAL, {N} HIGH hot paths                         │
-│    {top finding}                                            │
+│ PERFORMANCE PATTERNS                                        │
+│    [HIGH] N+1 query — {file}:{line}                        │
+│    [MEDIUM] Missing pagination — {endpoint}                │
+│                                                             │
+│ CONTRACT CHANGES (if API files changed)                     │
+│    ❌ BREAKING: {endpoint} — {description}                  │
+│    ✅ ADDITIVE: {endpoint} — backward compatible            │
+│                                                             │
+│ SCENARIO COVERAGE (from intent.md)                          │
+│    Covered: {X}/{Y} ({Z} automated, {W} manual)            │
+│    (X = STRONG + ½ WEAK per Step 3a labels)                │
+│    ❌ {uncovered scenario name}                              │
+│                                                             │
+│ TOP ISSUES                                                  │
+│    1. [{severity}] {file}:{line} — {one-line description}  │
+│    2. [{severity}] {file}:{line} — {one-line description} │
+│                                                             │
+│ INTENT VERDICT (if intent.md exists)                        │
+│    Problem: {one-line problem statement}                    │
+│    Verdict: ✅ Intent satisfied / ⚠️ Partial / ❌ Not met    │
+│    Evidence: {X}/{Y} scenarios substantively validated      │
+│      (Y = total scenarios in intent.md, X = STRONG + ½ WEAK) │
+│    Mutation spot-check: {N} PROVEN, {N} UNVERIFIED          │
+│    Gaps:                                                    │
+│      [assertion] {trivial/incomplete assertion gaps}        │
+│      [mutation] {tests that didn't catch real mutations}    │
+│      [drift] {implementation vs problem drift}              │
+│      [coverage] {uncovered decision points}                 │
+│                                                             │
+│ What next?                                                  │
+│   ▸ Fix all & continue to Check (Recommended)               │
+│     Save for later                                          │
 └─────────────────────────────────────────────────────────────┘
-
-Diagram (rendered below summary box):
-
-{ASCII art diagram (from plan.md ASCII block), or "N/A" if running standalone /temper:plan for single-file/config-only changes}
-
-NOTE: Always render the ASCII art version in the terminal summary — NOT the raw mermaid markdown block.
-The mermaid block is stored in plan.md for GitHub/tool rendering; the ASCII art is shown to the user in the terminal.
 ```
-
-**For Simple features:**
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 📋 PLAN — {Feature Name}                                   │
-├─────────────────────────────────────────────────────────────┤
-│ Files: {N} create, {N} modify                               │
-│ Risk: {Low/Medium}                                          │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**For Trivial features:**
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 📋 Small change — implementing directly                     │
-│ {1-line description of what will be done}                   │
-└─────────────────────────────────────────────────────────────┘
-```
-
-#### Approval Gate
 
 Use AskUserQuestion with these options:
 
 ```
 AskUserQuestion:
-  question: "What would you like to do with this plan?"
+  question: "What next?"
   options:
-    - label: "Continue to Build (Recommended)"
-      description: "Proceed to build. Context will be cleared, loading tasks.md + intent.md."
-    - label: "Walk through plan step by step"
-      description: "Interactive walkthrough: each step explained in detail with Q&A at each point."
+    - label: "Fix all & continue to Check (Recommended)"
+      description: "Apply ALL fixes (including low severity), clear context, proceed to check."
     - label: "Save for later"
-      description: "Save state to .temper/build-state.json and stop."
+      description: "Skip review fixes and save state."
   multiSelect: false
 ```
 
 | Response | Action |
 |----------|--------|
-| **Continue** (first option) | Proceed to build. Signal context clear, load tasks.md + intent.md |
-| **Walk through** (second option) | Enter interactive step-by-step mode (see below) |
-| **Save** (third option) | Save state to .temper/build-state.json, stop here |
-| **Other** (built-in free-text) | Type a change request. Edits are made, gate re-appears. See "On Change" section below. |
+| **Fix all & continue to Check** (first option) | Apply ALL fixes (including low severity), clear context, proceed to check |
+| **Save for later** (second option) | Skip fixes, save state |
 
-#### Step-by-Step Walkthrough Mode
-
-When the user selects "Walk through plan step by step", present the plan as an interactive flow:
-
-**Structure the walkthrough as these sections (one at a time):**
-
-1. **Intent Deep Dive** — Full problem statement, success criteria with validation methods, constraints
-2. **Diagram Walkthrough** — Show the diagram and explain each node/edge, what's new vs existing vs modified
-3. **Scenario Review** — For each BDD scenario: show the Gherkin, explain why it exists (which blast radius risk or acceptance criterion it addresses)
-4. **Architecture Details** — For each file to create/modify: what it does, which patterns it follows, which scenarios it traces to
-5. **Blast Radius Review** — Each impacted consumer, whether tests exist for that path, what regression guards are in place
-6. **Task Walkthrough** — For each task in tasks.md: what it does, validation command, dependencies on prior tasks, parallel opportunities
-
-**Interactive flow per section:**
+**On Fix all & continue to Check (first option):**
 
 ```
-After presenting each section, use AskUserQuestion:
-
-AskUserQuestion:
-  question: "What would you like to do?"
-  options:
-    - label: "Next step"
-      description: "Continue to {next section name}."
-    - label: "Ask a question"
-      description: "Type your question about this section."
-  multiSelect: false
-```
-
-**Handling user interactions during walkthrough:**
-
-- **"Ask a question"**: Answer the question, then re-show the same section's AskUserQuestion
-- **"Next step"**: Advance to the next section. After the last section (Task Walkthrough), transition to the final gate:
-
-**Final walkthrough gate (after all sections):**
-
-```
-AskUserQuestion:
-  question: "Walkthrough complete. What next?"
-  options:
-    - label: "Continue to Build (Recommended)"
-      description: "Proceed to build. Context will be cleared, loading tasks.md + intent.md."
-    - label: "Save for later"
-      description: "Save state to .temper/build-state.json and stop."
-  multiSelect: false
-```
-
-**ENFORCEMENT OVERRIDE (when running from `/temper` unified command):** Always use the full 6-section walkthrough and the full 4-option approval gate. No complexity-based shortcuts. This overrides the rules below.
-
-**Complexity-tiered rules (for standalone `/temper:plan` only):**
-
-**For Trivial features:** No walkthrough — these show a "Small change — implementing directly" box with no gate. Trivial features skip the AskUserQuestion entirely.
-
-**For Simple features:** Walkthrough has only 2 sections: Architecture Details (files to create/modify) + Blast Radius Review (risk level and justification).
-
-**On Continue (first option):**
-
-```
-1. Write to .temper/build-state.json:
-   {
-     "stage": "plan_complete",
-     "spec": "{feature-slug}",
-     "spec_path": ".temper/specs/{feature-slug}",
-     "original_args": "{user's original feature description}",
-     "next_stage": "build",
-     "artifacts": ["intent.md", "tasks.md"],
-     "updated": "{ISO timestamp}"
-   }
-
-2. If running standalone (/temper:plan):
-   Signal context transition:
-   "✅ Continuing to BUILD...
-    📂 Loading: tasks.md + intent.md only"
-
-   Note: In standalone mode, context is shared. Load ONLY what's needed for build:
-   - .temper/specs/{feature}/tasks.md
-   - .temper/specs/{feature}/intent.md (if exists)
-   Focus on these files and minimize references to prior planning context.
-
-3. If running as Agent subprocess (from /temper):
-   The orchestrator handles context — return summary and stop.
-
-4. Proceed to /temper:build (or continue if using unified /temper)
+1. If auto-fixable issues exist: apply fixes (see Step 6 for auto-fix loop details)
+2. Save state to .temper/build-state.json
+3. If running standalone:
+   Signal:
+   "✅ Continuing to CHECK...
+    📂 Check needs no additional context — running validation pipeline."
+   If running as Agent subprocess: The orchestrator handles context — return summary and stop.
+4. If fixes applied: Re-run review (single pass, no subagents) — max 1 additional loop
+   - If new issues found: show updated summary, ask again (this is the final loop)
+   - If clean: proceed to /temper:check
+5. If no fixes needed: proceed directly to /temper:check
 ```
 
 **On Change (via "Other" free-text input):**
@@ -899,61 +810,211 @@ AskUserQuestion:
 3. ⚠️ MANDATORY: Re-show AskUserQuestion with same options
 
 GATE ENFORCEMENT: The user's change input is NOT approval to proceed.
-Do NOT skip to the next stage after making changes. The user MUST
-explicitly select "Continue to Build" from the gate to proceed.
+Do NOT skip to check after making changes. The user MUST explicitly
+select "Fix all & continue to Check" from the gate to proceed.
 ```
 
-**On Save for later (third option):**
+**On Save for later (second option):**
 
 ```
-1. Save state to .temper/build-state.json:
-   ```json
+1. Skip review fixes
+2. Save state to .temper/build-state.json:
    {
-     "stage": "plan_complete",
+     "stage": "review_complete",
      "spec": "{feature-slug}",
      "spec_path": ".temper/specs/{feature-slug}",
-     "original_args": "{user's original feature description}",
-     "next_stage": "build",
+     "original_args": "{from prior state}",
+     "next_stage": "check",
      "artifacts": ["intent.md", "tasks.md"],
      "updated": "{ISO timestamp}"
    }
-   ```
-2. Report: "✅ Saved. Run /temper when ready to continue."
+3. Report: "✅ Saved. Run /temper when ready to continue."
 ```
 
-### Context Accumulation
+### Step 6: Auto-Fix (if enabled)
 
-The planning stage produces the foundational artifacts (intent.md, tasks.md, plan.md) that all downstream stages consume. These artifacts serve as the plan context for the context accumulation system (v4.0.0).
-
-No additional context file is needed from the Plan stage — intent.md, tasks.md, and plan.md ARE the plan context. Downstream stages read these directly.
-
-See orchestrator-patterns.md → "Context Accumulation Patterns" for the full context schema and loading rules.
-
-### Edge Cases
+This step runs ONLY when invoked from Step 5's "Fix all" flow or when running standalone with auto-fix enabled. Do NOT run auto-fix independently.
 
 ```
-Vague feature description ("improve performance"):
-  → Ask with AskUserQuestion: "Which part? API response times, page load, DB queries, background jobs?"
-  → Narrow scope before exploring
+1. For each HIGH+ issue marked as auto-fixable:
+   - Apply the suggested fix
+   - Run relevant tests to verify fix doesn't break anything
 
-No tests in project:
-  → Flag in risk assessment, lower coverage expectations
-  → Add Task 0 to plan: "Set up test infrastructure"
-  → Focus on testing NEW code only
+2. After all auto-fixes applied:
+   - Re-run review (single pass, no subagents) to verify fixes
+   - Total auto-fix loops across Step 5 + Step 6: max 2
+   - If issues persist after max loops → show to user
 
-Monorepo (multiple manifests found):
-  → Ask user which package/module to plan for
-  → Still check blast radius across packages (shared libraries)
-
-Database migration needed:
-  → Add migration as Task 1 (before code depending on schema)
-  → +1 risk multiplier for schema changes
-  → Note rollback migration in plan
-
-Feature already partially exists:
-  → Reference map shows similar code → build on it, don't duplicate
-  → Flag in plan: "Extending existing {module}, not creating from scratch"
+3. Update review report with fix status
 ```
+
+### Step 7.5: Context Output
+
+After review completes and before updating metrics, write `review-context.json` to the spec directory:
+
+```json
+{
+  "version": 1,
+  "stage": "review",
+  "timestamp": "{ISO timestamp}",
+  "findings_summary": {
+    "critical": {N},
+    "high": {N},
+    "medium": {N},
+    "low": {N},
+    "auto_fixed": {N}
+  },
+  "intent_verdict": "{satisfied|partial|not_met}",
+  "security_hot_paths": ["list of flagged paths"],
+  "contract_changes": ["list of contract changes"],
+  "scenario_coverage": {
+    "total": {N},
+    "strong": {N},
+    "weak": {N},
+    "trivial": {N},
+    "uncovered": {N}
+  }
+}
+```
+
+### Feedback Loop to Build
+
+When `feedback.enabled: true` in temper.config and auto-fixable issues are found:
+
+1. After applying fixes (Step 6), check if issues persist
+2. If issues persist AND iteration < max-loops (default 2):
+   - Write review-context.json with remaining issues
+   - Signal orchestrator to loop back to Build
+3. If issues persist AND iteration >= max-loops:
+   - Stop and show remaining issues to user
+   - Offer "Save for later" or "Manual fix"
+4. Circuit breaker: same issue found in 2 consecutive loops → stop immediately
+
+The feedback loop counter is tracked in `.temper/feedback-loops.json`.
+
+### Step 7: Update Metrics
+
+Append to `.temper/metrics.json`:
+
+```json
+{
+  "reviews": {
+    "total": "+1",
+    "issues_found": "+{count}",
+    "by_severity": { "critical": "+X", "high": "+Y", ... },
+    "by_category": { "security": "+X", "performance": "+Y", ... },
+    "auto_fixed": "+{count}",
+    "confidence_avg": "{avg score of all findings}"
+  }
+}
+```
+
+### Step 8: Update Review Memory
+
+```json
+// .temper/review-memory.json
+// For each finding that was shown to user, track their response in next session
+{
+  "patterns": {
+    "{pattern-key}": {
+      "total_shown": 14,
+      "accepted": 12,
+      "dismissed": 2,
+      "last_seen": "2026-03-09",
+      "auto_rule": false,
+      "context_variants": {}
+    }
+  }
+}
+```
+
+When a pattern reaches 3+ accepted: suggest auto-rule in `/temper:status`.
+When a pattern reaches 5+ dismissed: auto-suppress.
+
+### Context-Dependent Dismissals
+
+Findings can be valid in general but invalid in specific contexts. Track per-context in review-memory.json `context_variants`.
+
+**Context detection:**
+
+| Context | Detection | Why Dismissed |
+|---------|-----------|---------------|
+| Config loader | Path contains `config/` or class has `Config` | Validated at startup |
+| Test fixtures | Path contains `test/`, `spec/`, `__tests__/` | Controlled data |
+| DTOs | Class has `DTO`, `Request`, `Response` | Framework-validated |
+| Legacy | Listed in `.temper/legacy-modules.json` | Known exception |
+| Generated | Header contains `@generated` | Not editable |
+
+**Suppression rules:**
+
+```
+- Context-specific dismissal >= 3 times → SUPPRESS in that context only
+- Context dismissals are ISOLATED: dismissed in auth ≠ dismissed in payments
+- On dismissal: ask "Dismiss for this file only, or all {context} files?"
+```
+
+### Multi-Agent Severity Consensus
+
+```
+1. Same severity from all agents → use that severity
+2. Mixed severities → use highest (conservative)
+3. One agent finds CRITICAL and ALL other agents find NO issues on the same code → downgrade to HIGH (single-agent CRITICAL is unreliable)
+4. Disagreement on category → use "quality" as default
+```
+
+### AI-Code Detection Checklist (reference for standalone review)
+
+(Expanded version of the inline checklist in Step 2 — subagents use the inline version; this section is reference for standalone review runs.)
+
+When reviewing code, actively check for these AI-specific failure patterns:
+
+```
+1. HALLUCINATED APIS:
+   - For each method/function call, verify the function EXISTS in the project's dependencies
+   - Check: Does the imported module actually export this function?
+   - Red flag: function name looks plausible but isn't in the library's API docs
+   - How to detect: grep for the function definition. If not found in project or node_modules/vendor → flag as HIGH
+
+2. PLAUSIBLE BUT WRONG:
+   - Code uses the correct library but wrong parameters, wrong order, or wrong context
+   - Red flag: async function called without await, callback passed to promise-based API
+   - How to detect: compare against library's actual API signature in node_modules/vendor
+   - Fallback (subagent context without dependency access): compare against the project's existing usage patterns of the same library. If the new call differs from established patterns, flag as MEDIUM.
+
+3. OVER-ENGINEERING:
+   - Unnecessary abstractions (interface for single implementation, factory for single product)
+   - Helper utilities used only once
+   - Premature generalization (type parameters never varied, strategy pattern with one strategy)
+   - How to detect: count usages. If abstraction used once → flag as LOW
+
+4. COPY-PASTE DRIFT:
+   - Similar code blocks with subtle inconsistencies
+   - Red flag: two blocks that look identical except one variable name, but the logic differs
+   - How to detect: look for duplicated patterns in changed files, compare variable names and logic
+
+5. MISSING INTEGRATION:
+   - New code exists but isn't wired into routing, DI container, event handlers, or config
+   - Red flag: new service class never registered, new route never mounted
+   - How to detect: grep for imports/usage of the new module in existing wiring files
+
+6. STALE PATTERNS:
+   - Using deprecated APIs when the project has already migrated to newer ones
+   - Red flag: new code uses patterns that old code used before a migration
+   - How to detect: compare new code patterns against recent code in same directory
+
+7. INCOMPLETE ERROR PATHS:
+   - Happy path works, error handling is placeholder or generic
+   - Red flag: catch blocks that just log or rethrow without meaningful handling
+   - How to detect: for each try/catch, check if the catch block does something specific to the error type
+```
+
+These checks integrate into the existing parallel review subagents (Step 2). Each subagent runs the checklist on the files in its domain. The checklist doesn't create new subagents — it enhances the prompts for existing ones. All flags follow existing severity rules: hallucinated APIs = HIGH, over-engineering = LOW, etc.
+
+### Automatic Next Step
+
+- If CRITICAL or HIGH issues remain after auto-fix → show report, ask user
+- If all clean → auto-chain to `/temper:check`
+- If called manually (not from /temper:build) → show report, ask user for next action
 
 ---
 > Source: [galando/temper](https://github.com/galando/temper) — distributed by [TomeVault](https://tomevault.io).
