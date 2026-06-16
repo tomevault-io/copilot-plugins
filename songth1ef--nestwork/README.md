@@ -7,11 +7,11 @@ Sync memory across multiple AI agents via git. Claude/Codex/Gemini/Hermes on dif
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [songth1ef/nestwork](https://github.com/songth1ef/nestwork).
+Original source: `CLAUDE.md` in [songth1ef/nestwork](https://github.com/songth1ef/nestwork).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
