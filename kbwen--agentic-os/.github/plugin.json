@@ -1,0 +1,9 @@
+{
+  "name": "kbwen--agentic-os",
+  "displayName": "agentic-os",
+  "description": "Governance framework for AI coding agents. It runs them through a five-step workflow (plan, build, review, test, ship) where no step counts as done without evidence. Drop-in rules and guardrails for C",
+  "version": "1.0.0",
+  "author": "KbWen",
+  "homepage": "https://github.com/KbWen/agentic-os",
+  "skills": []
+}
