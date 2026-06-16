@@ -124679,6 +124679,11 @@
       "description": "CFD from scratch in Python \u2014 finite differences to turbulence, Navier-Stokes to k-\u03c9 SST, validated against Ghia et al."
     },
     {
+      "name": "illusionaireal--oh-my-patent",
+      "source": "./illusionaireal--oh-my-patent",
+      "description": "oh-my-patent"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
