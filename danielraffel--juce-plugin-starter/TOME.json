@@ -4,7 +4,7 @@
   "repo": "JUCE-Plugin-Starter",
   "description": "Start Developing Audio Plugins on macOS!",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danielraffel/JUCE-Plugin-Starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T10:31:56Z"
+  "distributed_at": "2026-06-16T10:34:45Z"
 }
