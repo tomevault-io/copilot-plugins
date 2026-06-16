@@ -1,0 +1,51 @@
+{
+  "name": "AIOS",
+  "owner": "realuckyang",
+  "repo": "AIOS",
+  "description": "\u4eba\u5de5\u667a\u80fd\u65f6\u4ee3\u7684\u64cd\u4f5c\u7cfb\u7edf",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": "language/en/skills/frontend-design",
+      "github_url": "https://github.com/realuckyang/AIOS/tree/main/language/en/skills/frontend-design",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/realuckyang/AIOS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T20:30:26Z"
+}
