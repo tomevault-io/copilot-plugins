@@ -1,0 +1,9 @@
+{
+  "name": "with-logic--crew",
+  "displayName": "crew",
+  "description": "A package manager for agent skills.",
+  "version": "1.0.0",
+  "author": "with-logic",
+  "homepage": "https://github.com/with-logic/crew",
+  "skills": []
+}
