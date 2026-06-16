@@ -1,0 +1,9 @@
+{
+  "name": "eunsanmountain--atlassian-skills",
+  "displayName": "atlassian-skills",
+  "description": "Token-efficient CLI for Atlassian Server/DC (Jira, Confluence, Bitbucket) \u2014 drop-in alternative to mcp-atlassian for LLM agents. Compact output, lossless XHTML<->Markdown round-trip, Claude Code + Cod",
+  "version": "1.0.0",
+  "author": "eunsanMountain",
+  "homepage": "https://github.com/eunsanMountain/atlassian-skills",
+  "skills": []
+}
