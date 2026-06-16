@@ -4,7 +4,7 @@
   "repo": "gitguardex",
   "description": "Run many Codex & Claude agents in parallel without them overwriting each other. Isolated worktrees, file locks, PR-only merges. Auto-wires Oh My Codex, Oh My Claude, OpenSpec, and Caveman in every worktree.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/opencue/gitguardex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T00:56:16Z"
+  "distributed_at": "2026-06-16T01:07:00Z"
 }
