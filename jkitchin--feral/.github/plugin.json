@@ -1,0 +1,9 @@
+{
+  "name": "jkitchin--feral",
+  "displayName": "feral",
+  "description": "Feral is a pure-Rust sparse symmetric indefinite linear solver with certified inertia counts for use in interior-point optimization algorithms.",
+  "version": "1.0.0",
+  "author": "jkitchin",
+  "homepage": "https://github.com/jkitchin/feral",
+  "skills": []
+}
