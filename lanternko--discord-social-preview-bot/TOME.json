@@ -4,7 +4,7 @@
   "repo": "discord-social-preview-bot",
   "description": "\u9810\u89bd\u793e\u7fa4\u7684\u8cbc\u6587\uff01\u652f\u63f4 threads\u3001IG\u3001X \u7b49\u5404\u5927\u7db2\u7ad9",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lanternko/discord-social-preview-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T01:20:33Z"
+  "distributed_at": "2026-06-16T02:35:23Z"
 }
