@@ -1,0 +1,9 @@
+{
+  "name": "gadzan--xacpx",
+  "displayName": "xacpx",
+  "description": "Remote agent control from chat Drive acpx agent sessions \u2014 Codex, Claude Code, Gemini \u2014 from WeChat, Feishu, Yuanbao, and other message channels. No terminal required.",
+  "version": "1.0.0",
+  "author": "gadzan",
+  "homepage": "https://github.com/gadzan/xacpx",
+  "skills": []
+}
