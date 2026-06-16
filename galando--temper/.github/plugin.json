@@ -1,0 +1,9 @@
+{
+  "name": "galando--temper",
+  "displayName": "temper",
+  "description": "Temper is a plugin for Claude Code & Cursor that closes the quality gap in AI-generated code",
+  "version": "1.0.0",
+  "author": "galando",
+  "homepage": "https://github.com/galando/temper",
+  "skills": []
+}
