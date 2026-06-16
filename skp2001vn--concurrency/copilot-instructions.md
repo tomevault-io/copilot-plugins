@@ -1,0 +1,116 @@
+## concurrency
+
+> This repository contains small, focused Java concurrency examples used for practice, learning, and interview preparation.
+
+# AGENTS.md
+
+## Purpose
+
+This repository contains small, focused Java concurrency examples used for practice, learning, and interview preparation.
+
+Each example should remain:
+- self-contained
+- easy to read
+- correct under concurrent access
+- backed by automated tests
+
+## Tech Stack
+
+- Java 21
+- Maven
+- JUnit 5
+- Lombok
+
+## Project Structure
+
+- `src/main/java/org/example/<example>/`
+  - production code for each concurrency example
+- `src/test/java/org/example/<example>/`
+  - tests for the matching example
+- `README.md`
+  - high-level project overview and example list
+
+## Implementation Guidelines
+
+- Keep each example package focused on one problem or concurrency pattern.
+- Prefer clear, standard Java concurrency primitives such as:
+  - `ReentrantLock`
+  - `Condition`
+  - `Semaphore`
+  - `Atomic*`
+  - `ConcurrentHashMap`
+  - `BlockingQueue`
+  - `ExecutorService`
+- Favor correctness and readability over cleverness.
+- Avoid unnecessary abstractions for small examples.
+- Keep APIs minimal and aligned with the problem being solved.
+- Use descriptive class and method names. Prefer simple names like `WebCrawler` over overly specific or verbose names unless needed.
+- Use Lombok selectively for simple boilerplate such as getters or constructors on data-holder classes.
+- Do not use Lombok where it obscures concurrency behavior or makes synchronization logic harder to read.
+
+## Javadoc Expectations
+
+- Add class-level Javadoc for each example class.
+- Add method-level Javadoc for public methods.
+- Add concise Javadoc for each `@Test` method so future readers can quickly see the behavior or guarantee being verified.
+- Class-level Javadoc for example classes should follow the current repository pattern:
+  - start with `Business logic:` and describe the real-world/use-case behavior the example models
+  - follow with `Technique:` and describe the concurrency primitive, pattern, or coordination strategy used, why it fits the problem, and the benefit it provides
+- Javadoc should also explain:
+  - important behavioral guarantees or constraints
+- Keep Javadoc concise and practical. Avoid repeating obvious implementation details line by line.
+- When Lombok generates simple constructors or getters, document the class and any non-generated public methods instead of recreating boilerplate manually.
+
+## Testing Guidelines
+
+- Every new example should include dedicated JUnit 5 tests.
+- Tests should validate:
+  - normal behavior
+  - edge cases
+  - concurrency coordination behavior
+  - regressions around ordering, blocking, deduplication, or termination when relevant
+- Add short, behavior-focused Javadoc above each test case rather than relying only on method names.
+- Prefer deterministic tests over timing-sensitive tests.
+- Use helper fakes/stubs where appropriate instead of external dependencies.
+- After changes, run:
+
+```bash
+mvn test
+```
+
+## Code Style
+
+- Follow the existing project style and keep formatting consistent.
+- Prefer simple package layouts: one package per example.
+- Keep comments minimal and high signal.
+- Use ASCII unless the file already requires something else.
+- Do not add unused code, unused imports, or speculative utilities.
+
+## README Maintenance
+
+- Update `README.md` when adding a new example.
+- Keep the Implemented Examples section as a two-column table: `Example` and `What it demonstrates`.
+- Link each example name to `src/main/java/org/example/<example>/`.
+- In `What it demonstrates`, use one concise sentence that describes the business/use-case situation first, then the main technique with wording like `..., using <technical terms>`.
+- Keep README technique wording short and concrete; prefer names like `Phaser`, `ReentrantLock`, `ConcurrentHashMap`, `Semaphore`, or `ExecutorService` over explanatory phrases.
+- Do not split README entries into separate `Business logic` and `Technique` columns, and do not use `Business logic:` / `Technique:` labels in the README table.
+- Keep the example list and test-count statement in sync with the current repository state.
+
+## When Adding A New Example
+
+1. Add production code under `src/main/java/org/example/<example>/`
+2. Add tests under `src/test/java/org/example/<example>/`
+3. Add Javadoc to public classes and methods, including the `Business logic:` and `Technique:` class-level pattern for example classes
+4. Add concise Javadoc for each test case
+5. Update `README.md` with the linked example name and a one-sentence business/use-case plus technique description
+6. Run `mvn test`
+
+## Non-Goals
+
+- Do not turn this repository into a framework or reusable library unless explicitly requested.
+- Do not introduce unnecessary dependencies for simple examples.
+- Do not sacrifice clarity just to mimic highly optimized production code.
+
+---
+> Source: [skp2001vn/concurrency](https://github.com/skp2001vn/concurrency) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
