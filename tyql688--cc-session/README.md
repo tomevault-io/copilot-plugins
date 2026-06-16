@@ -7,11 +7,11 @@ Browse, search, resume and manage your AI coding sessions in one desktop app. (C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tyql688/cc-session](https://github.com/tyql688/cc-session).
+Original source: `CLAUDE.md` in [tyql688/cc-session](https://github.com/tyql688/cc-session).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
