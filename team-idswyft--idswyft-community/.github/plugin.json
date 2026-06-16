@@ -1,0 +1,9 @@
+{
+  "name": "team-idswyft--idswyft-community",
+  "displayName": "idswyft-community",
+  "description": "Open-source identity verification platform. Self-host with Docker Compose.",
+  "version": "1.0.0",
+  "author": "team-idswyft",
+  "homepage": "https://github.com/team-idswyft/idswyft-community",
+  "skills": []
+}
