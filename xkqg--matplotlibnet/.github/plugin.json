@@ -1,0 +1,9 @@
+{
+  "name": "xkqg--matplotlibnet",
+  "displayName": "MatPlotLibNet",
+  "description": "A .NET 10 / .NET 8 charting library inspired by matplotlib. Fluent API, dependency injection, parallel SVG rendering, polymorphic export (SVG/PNG/PDF), and multi-platform output to Blazor, MAUI, ASP.N",
+  "version": "1.0.0",
+  "author": "xkqg",
+  "homepage": "https://github.com/xkqg/MatPlotLibNet",
+  "skills": []
+}
