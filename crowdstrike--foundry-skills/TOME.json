@@ -4,7 +4,7 @@
   "repo": "foundry-skills",
   "description": "AI coding assistant skills for building CrowdStrike Falcon Foundry apps: scaffolding, deployment, and best practices for API integrations, collections, functions, UI extensions, UI pages, and workflows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CrowdStrike/foundry-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T01:15:19Z"
+  "distributed_at": "2026-06-16T01:17:12Z"
 }
