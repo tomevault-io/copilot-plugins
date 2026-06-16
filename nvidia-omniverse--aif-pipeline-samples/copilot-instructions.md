@@ -1,267 +1,225 @@
-## scene-optimizer-presets
+## usd-aif-profile
 
-> How to compose Scene Optimizer preset JSON files. Covers operation catalog, ordering, Python processors, and parameter guidance.
+> AIF (AI Factory) digital twin profile for USD assets. Covers AIF-specific metadata, connection points, equipment templates, payload structure, and optimization strategy.
 
 
-# Scene Optimizer Preset Composition
+# AIF Digital Twin Profile
 
-Scene Optimizer presets are JSON arrays of operation objects that define a processing pipeline for USD assets. This guide covers how to compose them.
+This profile defines AIF-specific conventions that go beyond SimReady core requirements. It builds on the quality rules in `.cursor/rules/usd-universal.mdc` (which cover core quality and SimReady compliance).
+
+**What's here vs universal rules:**
+- Universal rules cover geometry quality, material quality, and SimReady compliance (Z-up, meters, single root, origin, etc.)
+- This file covers AIF-only concerns: metadata (`aif:core:*`, `aif:spec:*`), connection points, equipment templates, payload structure, and AIF optimization strategy
 
 ## Agent Behavior
 
-When a user asks to create or modify a preset:
+### Metadata Requests
 
-1. **Start from the canonical template** - read `so/generic/generic_preset.json` as a baseline rather than building from scratch.
-2. **Ask what problems they are solving** - map their issues to operations using the catalog below.
-3. **Follow operation ordering strictly** - the ordering rules in this file prevent data corruption (e.g., running `deduplicateGeometry` before splitting GeomSubsets produces wrong results silently).
-4. **Check vendor presets first** - for vendor equipment, look in `so/vertiv/`, `so/spt/`, `so/trane/` for existing presets before creating a new one.
-5. **Prefer external scripts** - when adding `pythonScript` operations, use the library pattern (loading from `so/generic/lib/`) over base64-embedded scripts for maintainability.
+When a user asks about AIF metadata or equipment properties:
 
-When a user asks to fix a specific validation failure with a preset:
+1. **Determine equipment type** by asking what equipment they are working with:
+   - CDU (Coolant Distribution Unit) - 81 properties
+   - CRAH (Computer Room Air Handler) - 51 properties
+   - UPS (Uninterruptible Power Supply) - 51 properties
+   - GB300 Rack - 28 properties (pre-filled with NVIDIA values)
+2. **Guide through the workflow:** create template, edit JSON, apply to USD, compose as sublayer, validate.
+   - CLI commands are in `.cursor/rules/aif-pipeline-cli.mdc` under Metadata.
+3. **After applying metadata,** validate with: `uv run --directory oav validate --rule AIFMetadataChecker <asset>`
 
-1. Look up the fix operation in `.cursor/rules/usd-universal.mdc` (Quick Rule-to-Operation Lookup table).
-2. Create a minimal preset with just the needed operations, respecting the ordering rules below.
-3. If only one or two operations are needed, a targeted preset is better than running the full generic preset.
+### Connection Point Requests
 
-## Preset Structure
+When a user asks about connection points:
 
-A preset is a JSON array where each element is an operation:
+1. Confirm optimization is complete first - connection points should be authored against final geometry.
+2. Walk through the connection point workflow in the section below.
+3. Key naming conventions must match: `<vendor>_<type>_<subtype>_<N>` (e.g., `vertiv_liq_supply_1`).
+4. Connection point prims must have `Purpose = guide` and be saved as `<AssetName>_ConnectionPoints.usd`.
 
-```json
-[
-    { "operation": "editStageMetrics", "metersPerUnit": 1.0, "upAxis": 2 },
-    { "operation": "meshCleanup", "paths": [], "mergeVertices": true },
-    { "operation": "generateNormals", "paths": [], "sharpnessAngle": 60.0 }
-]
-```
+### AIF Validation Failures
 
-Each operation object must have an `"operation"` key. Additional keys are operation-specific parameters. The full parameter reference is in `so_operations.json` (97KB).
+When `AIFMetadataChecker` or other AIF-specific rules fail:
 
-## Operation Catalog
+- **"No properties sublayer found"** - Create and compose a `*_Properties.usda` sublayer using the metadata workflow above.
+- **"Missing required attributes"** - Check which `aif:core:*` attributes are missing from the required list below, update the metadata JSON, and re-apply.
+- **"Equipment-specific validation failed"** - The `aif:core:assetClass` value does not match the `aif:spec:*` properties present. Ensure the spec properties match the template for the declared asset class.
+- **`AIFHierarchyHasRootChecker` failed** - Multiple root prims exist; restructure so there is a single root (excluding `/Render`).
+- **`AIFRootIsXformableChecker` failed** - Default prim is not an Xform type; change it to `UsdGeom.Xform`.
+- **`AIFAssetAtOriginChecker` failed** - Root prim has a non-identity transform; zero out translation/rotation/scale.
 
-### Stage Operations
+## AIF Hierarchy Structure
 
-| Operation | Purpose | Key Parameters |
-|-----------|---------|----------------|
-| `editStageMetrics` | Set units, up-axis, collapse xforms | `metersPerUnit`, `upAxis` (2=Z), `collapseXforms`, `ignoreKitCameras` |
-
-### Geometry Cleanup
-
-| Operation | Purpose | Key Parameters |
-|-----------|---------|----------------|
-| `meshCleanup` | Fix topology issues | `mergeVertices`, `tolerance`, `removeDegenerateFaces`, `removeDuplicateFaces`, `removeIsolatedVertices`, `makeManifold`, `contractDegenerateEdges`, `mergeBoundaries`, `mergeNeighbors` |
-| `generateNormals` | Generate surface normals | `sharpnessAngle` (degrees), `replaceExisting`, `binding` (0=vertex), `weightmode`, `gpuThreshold` |
-| `computeExtents` | Compute bounding extents | `paths` |
-| `removeSmallGeometry` | Remove tiny geometry | `removeMethod`, `detectionMethod`, `threshold` |
-| `manifoldMeshes` | Make meshes watertight | `paths` |
-
-### Geometry Optimization
-
-| Operation | Purpose | Key Parameters |
-|-----------|---------|----------------|
-| `decimateMeshes` | Reduce polygon count | `reductionFactor`, `maxMeanError`, `pinBoundaries`, `allowCutAndGlue`, `cpuVertexCountThreshold`, `gpuVertexCountThreshold`, `guideDecimation` |
-| `deduplicateGeometry` | Instance identical meshes | `tolerance`, `duplicateMethod` (2=hierarchy), `fuzzy`, `allowScaling`, `considerDeepTransforms`, `useGpu`, `ignoreAttributes` |
-| `merge` | Merge meshes into one | `paths` |
-| `remeshMeshes` | Remesh geometry | `paths` |
-| `triangulateMeshes` | Convert to triangles | `paths` |
-| `subdivideMeshes` | Subdivide surfaces | `paths` |
-| `diceMeshes` | Subdivide/dice geometry | `paths` |
-| `splitMeshes` | Split meshes by criteria | `paths` |
-| `boxClip` | Clip meshes by box | `paths` |
-
-### Hierarchy Operations
-
-| Operation | Purpose | Key Parameters |
-|-----------|---------|----------------|
-| `pruneLeaves` | Remove empty leaf nodes | `pruneMode` (1=empty), `filterInactive` |
-| `flattenHierarchy` | Flatten prim hierarchy | `paths` |
-| `findFlatHierarchies` | Detect flat hierarchies | `paths` |
-| `pivot` | Adjust pivot points | `paths` |
-
-### Material Operations
-
-| Operation | Purpose | Key Parameters |
-|-----------|---------|----------------|
-| `optimizeMaterials` | Deduplicate/consolidate materials | `optimizeMaterialsMode` (0=consolidate, 2=deduplicate), `materialsPath`, `analysisCheckPrimvars` |
-| `optimizePrimvars` | Clean up primvar data | `mode`, `simplify`, `removeIfBound`, `primvars`, `primvarPaths` |
-
-### Analysis Operations (non-destructive)
-
-| Operation | Purpose |
-|-----------|---------|
-| `findCoincidingMeshes` | Identify overlapping meshes |
-| `findHiddenMeshes` | Locate hidden geometry |
-| `fitPrimitives` | Fit primitive shapes to meshes |
-
-### Other Operations
-
-| Operation | Purpose |
-|-----------|---------|
-| `pythonScript` | Run custom Python code |
-| `removeAttributes` | Remove prim attributes |
-| `generateAtlasUVs` | Generate texture atlas UVs |
-| `generateProjectionUVs` | Generate projected UVs |
-| `organizePrototypes` | Organize instanced prototypes |
-| `optimizeSkelRoots` | Optimize skeleton roots |
-| `optimizeTimeSamples` | Reduce time samples |
-| `primitivesToMeshes` | Convert primitives to meshes |
-| `utilityFunction` | Execute utility functions |
-
-## Recommended Operation Ordering
-
-Based on the canonical `so/generic/generic_preset.json`:
+A complete AIF asset composes these layers:
 
 ```
-1. editStageMetrics                    ← Always first: normalize units/orientation
-2. pythonScript (split GeomSubsets)    ← Split before dedup (dedup doesn't support GeomSubsets)
-3. pythonScript (hierarchy dedup)      ← Dedup branches before mesh-level ops
-4. meshCleanup                         ← Fix topology before decimation
-5. decimateMeshes                      ← Reduce poly count
-6. generateNormals                     ← Regenerate after geometry changes
-7. optimizeMaterials (mode 2)          ← Deduplicate materials
-8. deduplicateGeometry                 ← Instance identical meshes
-9. pruneLeaves                         ← Clean up empty nodes from dedup
-10. optimizePrimvars                   ← Remove unnecessary data
-11. optimizeMaterials (mode 0)         ← Final material consolidation
-12. pythonScript (fix MaterialBinding) ← Fix dangling bindings and missing API schema
-13. removeSmallGeometry                ← Remove degenerate geometry
-14. pruneLeaves                        ← Second pass cleanup
-15. computeExtents                     ← Always last: recompute after all changes
+/<DefaultPrim>              (Xform, equipment root)
+├── <Geometry>              (Xform or Mesh prims - CAD-converted geometry)
+├── ConnectionPoints/       (Scope - thermal, electrical, airflow interfaces)
+│   ├── <vendor>_liq_supply_*     (Plane/Disk, Purpose=guide)
+│   ├── <vendor>_liq_return_*     (Plane/Disk, Purpose=guide)
+│   ├── <vendor>_electrical_*     (Plane/Disk, Purpose=guide)
+│   ├── <vendor>_airvent_intake_* (Plane/Disk, Purpose=guide)
+│   └── <vendor>_airvent_outflow_*(Plane/Disk, Purpose=guide)
+└── [sublayers]
+    ├── <Model>_Properties.usda   (AIF metadata layer)
+    └── <Model>_ConnectionPoints.usd (connection point layer)
 ```
 
-**Key ordering rules:**
-- Stage metrics MUST be first
-- GeomSubset split MUST precede dedup (dedup doesn't support GeomSubsets yet)
-- Cleanup MUST precede decimation
-- Normals MUST follow decimation (geometry changed)
-- Extents MUST be last (depends on final geometry)
-- Prune after dedup and after small geometry removal (two passes)
-- Material dedup before geometry dedup
-- MaterialBindingAPI fix after all material operations
+## Metadata Properties
 
-## Python Script Processors
+AIF metadata uses two namespaces applied as a separate USDA property layer.
 
-### Embedded Script (base64-encoded)
+### `aif:core:` — Common Properties (all equipment)
 
-```json
-{
-    "operation": "pythonScript",
-    "python": "<base64-encoded Python code>"
-}
-```
+Applied to the equipment root prim. Key properties:
 
-The `python` value is base64-encoded. To encode:
-```python
-import base64
-code = open("my_script.py").read()
-encoded = base64.b64encode(code.encode()).decode()
-```
+| Property | Type | Description |
+|---|---|---|
+| `aif:core:manufacturer` | string | Equipment manufacturer name |
+| `aif:core:modelNumber` | string | Equipment model number |
+| `aif:core:overallGeometryDimensions` | float3 | Overall geometry W x D x H (mm) |
+| `aif:core:weight` | float | Weight in kilograms |
+| `aif:core:height` / `width` / `depth` | float | Individual dimensions in mm |
+| `aif:core:assetClass` | string | Class of AI Factory equipment |
+| `aif:core:assetVersion` | string | Design revision of digital twin asset |
+| `aif:core:assetCreationDate` | string | ISO 8601 date (YYYY-MM-DD) |
+| `aif:core:assetDescription` | string | Human-readable description |
+| `aif:core:sceneOptimizerVersion` | string | SO version (tool-managed, excluded from validation) |
+| `aif:core:assetValidatorVersion` | string | Validator version (tool-managed, excluded from validation) |
 
-### External Script Pattern (recommended for development)
+All numeric values use SI units (meters, kilograms, Kelvin, watts) unless noted.
 
-Store scripts in a library folder and load at runtime:
+### `aif:spec:` — Equipment-Specific Properties
 
-```python
-import os
-
-lib_path = os.path.join(os.environ["AIF_PIPELINE_SAMPLES_ROOT"], "so", "generic", "lib")
-script_file = os.path.join(lib_path, "my_script.py")
-
-exec(compile(open(script_file).read(), script_file, 'exec'))
-my_function()
-```
-
-This reads fresh from disk (no Kit restart needed) and provides proper error tracebacks.
-
-**Warning:** `if __name__ == "__main__":` does NOT protect against auto-execution in `exec()` context. Either remove the block or pass a custom name.
-
-### Available Library Scripts (`so/generic/lib/`)
-
-| Script | Entry Point | Purpose | When to Use |
-|--------|------------|---------|-------------|
-| `add_layers.py` | `add_layers_from_folder()` | Auto-discovers `./layers/` subfolder, composes as sublayers, updates version metadata | Final step: compose metadata and connection point layers |
-| `deduplicate_hierarchies_by_display_name.py` | `process_duplicate_hierarchies(use_payloads=False, merge_prototype_hierarchies=False)` | Groups prims by display name, converts duplicates to instanceable refs or payloads | Early: before mesh-level dedup. Two-phase approach for large assemblies |
-| `group.py` | `group_prims(group_name, paths)` | Reparents prims under new Xform preserving world-space transforms (uses `Sdf.BatchNamespaceEdit`) | Hierarchy reorganization |
-| `material_replacement.py` | `replace_materials()` | Replaces CAD materials with UsdPreviewSurface. 7 built-in materials (slate_gray, plastic, shiny_plastic, logo_white, glass, steel, screen). Configure via `MATERIAL_REPLACEMENT_TEMPLATES`, `FALLBACK_MATERIAL`, `PRIM_PATH_MATERIAL_OVERRIDES` | After CAD import; standardize materials |
-| `remove_coinciding_meshes.py` | `remove_coinciding_meshes(debug=False)` | Uses SO `findCoincidingMeshes` then removes duplicates (tolerance=0.001) | When meshes overlap at same location (z-fighting) |
-| `set_forward.py` | `set_x_forward()` | Applies 90° Y-rotation, decomposes matrix into T-R-S ops | CAD assets facing wrong direction |
-| `split_non_composed_by_geom_subsets.py` | `split_all_meshes()` | Splits non-composed meshes by GeomSubsets, skips refs/payloads | **Must run before dedup** (dedup doesn't support GeomSubsets) |
-| `transform_stage.py` | `transform_stage(translate, rotate, scale, up_axis)` | Unified transform interface. Convenience: `set_z_up()`, `rotate_x/y/z(degrees)`, `identity_transform()` | Reposition, rotate, scale assets |
-| `validate_fix_material_binding_api.py` | `validate_and_fix_material_binding_apis()` | Removes dangling bindings (checks `material:binding`, `:collection`, `:preview`, `:full`), applies missing MaterialBindingAPI schema | After material operations; cleanup pass |
-
-### Script Environment
-
-Inside a pythonScript processor, you have access to:
-- `omni.usd.get_context().get_stage()` — the current USD stage
-- `from pxr import Usd, Sdf, UsdGeom, Gf` — OpenUSD Python bindings
-- `from omni.scene.optimizer.core import ExecutionContext` — SO execution context
-- `stage.GetRootLayer().customLayerData` — store data for cross-operation coordination
-- `Sdf.BatchNamespaceEdit()` — atomic prim reparenting
-
-## Parameter Guidance by Scenario
-
-### Aggressive Optimization (AIF real-time factory scenes)
-
-```json
-{
-    "operation": "decimateMeshes",
-    "paths": [],
-    "reductionFactor": 0.0,
-    "maxMeanError": 0.0001,
-    "pinBoundaries": true,
-    "gpuVertexCountThreshold": 500000
-}
-```
-
-- Use error-based decimation (`maxMeanError`) rather than fixed ratio
-- Pin boundaries to preserve connection surfaces
-- Enable GPU acceleration for large meshes
-
-### Conservative Optimization (visual quality preservation)
-
-```json
-{
-    "operation": "decimateMeshes",
-    "paths": [],
-    "reductionFactor": 0.0,
-    "maxMeanError": 0.00005,
-    "pinBoundaries": true,
-    "allowCutAndGlue": false
-}
-```
-
-### Paths Parameter
-
-- `"paths": []` — apply to all meshes in the stage
-- `"paths": ["/World/Equipment/Panel"]` — apply only to specific prims
-- Use targeted paths when different parts need different treatment
-
-### Material Modes
-
-- `"optimizeMaterialsMode": 0` — consolidate (merge compatible materials)
-- `"optimizeMaterialsMode": 2` — deduplicate (remove exact duplicates)
-- Run dedup (2) first, consolidate (0) after geometry operations
-
-## Running Presets
+Vary by equipment type. Create templates with:
 
 ```bash
-# Via CLI (recommended)
-aif-pipeline optimize input/ output/ --preset path/to/preset.json
-
-# Via direct script
-python scripts/optimize.py input/ output/ --preset path/to/preset.json --kit_path "D:/kit/kit.exe"
-
-# In USD Composer GUI
-# Window > Utilities > Scene Optimizer > Load Preset > Execute All
+aif-pipeline metadata create --type <type> --output <file>.json
 ```
+
+| Type | Description | Total Properties |
+|------|-------------|-----------------|
+| `cdu` | Coolant Distribution Unit | 81 (20 common + 61 specific) |
+| `crah` | Computer Room Air Handler | 51 (20 common + 31 specific) |
+| `ups` | Uninterruptible Power Supply | 51 (20 common + 31 specific) |
+| `gb300_rack` | NVIDIA DGX GB300 Rack | 28 (20 common + 8 specific, pre-filled) |
+
+Templates are defined in `metadata/templates/` with source CSVs in `metadata/templates/source/`.
+
+### AIFMetadataChecker Validation Details
+
+The OAV `AIFMetadataChecker` rule validates:
+
+1. **Sublayer check:** Looks for any `.usda` sublayer with "properties" in filename
+2. **DefaultPrim check:** Properties layer must have a defaultPrim
+3. **Attribute presence:** Prim must have attributes with `aif:` prefix
+4. **Required common attributes** (warning if missing):
+   - `aif:core:assetClass`, `aif:core:assetDescription`, `aif:core:assetVersion`
+   - `aif:core:depth`, `aif:core:height`, `aif:core:width`, `aif:core:weight`
+5. **Tool-managed attributes** (excluded from validation): `aif:core:sceneOptimizerVersion`, `aif:core:assetValidatorVersion`
+6. **Equipment-specific check:** If `aif:core:assetClass` is set, validates `aif:spec:*` properties against templates
+
+### Metadata Workflow
+
+1. Create template: `aif-pipeline metadata create --type cdu --output cdu.json`
+2. Edit JSON to fill in values
+3. Generate USDA layer: `aif-pipeline metadata apply cdu.json --output <Model>_Properties.usda --prim <DefaultPrim>`
+4. Add as sublayer to main asset (drag into Layers panel or use `add_layers.py` processor)
+5. Update when templates change: `aif-pipeline metadata update <Model>_Properties.usda`
+
+Naming convention: `<ModelName>_Properties.usda`
+
+## Connection Points
+
+Geometry prims (planes or disks) positioned at equipment openings for simulation runtime connectivity.
+
+### Naming Conventions
+
+| Type | Naming Pattern | Example |
+|------|---------------|---------|
+| Liquid supply pipe | `<vendor>_liq_supply_*` | `vertiv_liq_supply_primary_01` |
+| Liquid return pipe | `<vendor>_liq_return_*` | `trane_liq_return_secondary` |
+| FWS supply pipe | `<vendor>_fws_supply_piping_connection_*` | `vertiv_fws_supply_piping_connection_main` |
+| FWS return pipe | `<vendor>_fws_return_piping_connection_*` | `vertiv_fws_return_piping_connection_main` |
+| TCS supply pipe | `<vendor>_tcs_supply_piping_connection_*` | `vertiv_tcs_supply_piping_connection_main` |
+| TCS return pipe | `<vendor>_tcs_return_piping_connection_*` | `vertiv_tcs_return_piping_connection_main` |
+| Electrical socket | `<vendor>_electrical_nominal_voltage_*` | `trane_electrical_nominal_voltage_main` |
+| Airflow intake | `<vendor>_airvent_intake_*` | `trane_airvent_intake_frontplate` |
+| Airflow outflow | `<vendor>_airvent_outflow_*` | `trane_airvent_outflow_cabinet_top` |
+
+### Connection Point Requirements
+
+- Placed inside a `ConnectionPoints` scope under the default prim
+- Geometry matches size and location of actual equipment openings
+- Purpose set to `guide` (not rendered visually, no materials needed)
+- Saved as separate file: `<AssetName>_ConnectionPoints.usd`
+- Composed as sublayer into the main asset
+
+### Connection Point Workflow
+
+1. Open main geometry in USD Composer, note the defaultPrim name
+2. Create new empty scene (Z-up, meters)
+3. Reference main geometry as payload
+4. Create `ConnectionPoints` scope, add Plane/Disk prims at openings
+5. Name per conventions, set Purpose to `guide`
+6. Delete payload reference, keep only ConnectionPoints
+7. Rename defaultPrim to match original
+8. Save as `<AssetName>_ConnectionPoints.usd`
+9. Sublayer into main asset
+
+## AIF Optimization Strategy
+
+For AIF digital twin assets, optimize aggressively for real-time factory scene performance:
+
+### Instancing
+
+Use heavy instancing for repeated equipment (racks, CDUs on factory floor):
+- `deduplicateGeometry` with `fuzzy: true, duplicateMethod: 2`
+- `deduplicate_hierarchies_by_display_name.py` for hierarchy-level dedup
+- Consider payloads for large assets (`use_payloads=True`)
+
+### Decimation
+
+Aggressive decimation acceptable — visual fidelity matters less than runtime performance:
+- `decimateMeshes` with error-based tolerance (`maxMeanError: 0.0001`)
+- Pin boundaries to preserve connection surfaces (`pinBoundaries: true`)
+- GPU acceleration for large meshes (`gpuVertexCountThreshold: 500000`)
+
+### Materials
+
+- Deduplicate and consolidate (`optimizeMaterials` mode 2 then mode 0)
+- Move all materials under `/World/Looks`
+- Remove unnecessary primvars after material optimization
+- For CAD materials, use `material_replacement.py` to standardize to UsdPreviewSurface
+
+### Payload Structure
+
+Vendor presets in `so/vertiv/` demonstrate internal/external payload splitting:
+- Main preset (`<model>.json`) — geometry optimization
+- Payloads preset (`payloads.json`) — splits into internal/external layers
+- Reference these as patterns for new equipment
 
 ## Reference Presets
 
-Study these for patterns:
-- `so/generic/generic_preset.json` — canonical multi-step pipeline
-- `so/spt/gb300/gb300.json` — GB300 rack with custom Python processors
-- `so/trane/220LL.json` — vendor-specific with stage preparation and material replacement
-- `so/vertiv/<model>/<model>.json` — payload assembly patterns
+| Folder | Equipment | Pattern |
+|--------|-----------|---------|
+| `so/generic/` | Any CAD asset | Universal optimization template |
+| `so/spt/gb300/` | GB300 rack | Hierarchy dedup, instancing, alternate strategies |
+| `so/trane/` | Trane 220LL chiller | Material replacement, stage prep |
+| `so/vertiv/<model>/` | Vertiv equipment | Payload assembly, occluder creation |
+
+## Validation
+
+After processing, validate with AIF rules:
+
+```bash
+# Standalone OAV (no Kit required)
+uv run --directory oav validate --category AIF /path/to/asset.usd
+
+# Kit-based validation
+aif-pipeline validate output/ validation/ --stage post
+```
+
+AIF-specific check: `AIFMetadataChecker` (metadata presence, required attributes, equipment-specific properties). All other OAV rules under the AIF category are SimReady core requirements documented in `.cursor/rules/usd-universal.mdc`.
 
 ---
 > Source: [NVIDIA-Omniverse/aif-pipeline-samples](https://github.com/NVIDIA-Omniverse/aif-pipeline-samples) — distributed by [TomeVault](https://tomevault.io).
