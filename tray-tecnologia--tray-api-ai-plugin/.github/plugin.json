@@ -1,0 +1,9 @@
+{
+  "name": "tray-tecnologia--tray-api-ai-plugin",
+  "displayName": "tray-api-ai-plugin",
+  "description": "Plugin para agentes de IA(Claude Code, Codex, etc) com integra\u00e7\u00e3o completa \u00e0s APIs da Tray. Skills, Agentes e comandos cobrindo 150+ endpoints",
+  "version": "1.0.0",
+  "author": "tray-tecnologia",
+  "homepage": "https://github.com/tray-tecnologia/tray-api-ai-plugin",
+  "skills": []
+}
