@@ -1,0 +1,9 @@
+{
+  "name": "ryadios--torrent-tui",
+  "displayName": "torrent-tui",
+  "description": "\u26a1A lightweight tui based bit torrent client",
+  "version": "1.0.0",
+  "author": "ryadios",
+  "homepage": "https://github.com/ryadios/torrent-tui",
+  "skills": []
+}
