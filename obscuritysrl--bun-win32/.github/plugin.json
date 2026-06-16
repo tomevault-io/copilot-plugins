@@ -1,0 +1,9 @@
+{
+  "name": "obscuritysrl--bun-win32",
+  "displayName": "bun-win32",
+  "description": "Zero-dependency, zero-overhead Win32 FFI bindings for Bun on Windows.",
+  "version": "1.0.0",
+  "author": "ObscuritySRL",
+  "homepage": "https://github.com/ObscuritySRL/bun-win32",
+  "skills": []
+}
