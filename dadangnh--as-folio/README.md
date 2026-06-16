@@ -7,11 +7,11 @@ A full-featured academic portfolio theme built with Astro 6, Tailwind CSS v4, an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dadangnh/as-folio](https://github.com/dadangnh/as-folio).
+Original source: `AGENTS.md` in [dadangnh/as-folio](https://github.com/dadangnh/as-folio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
