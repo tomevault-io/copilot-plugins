@@ -1,0 +1,9 @@
+{
+  "name": "ain3sh--droid-session-explorer",
+  "displayName": "droid-session-explorer",
+  "description": "dsx: fast CLI + TUI to search and analyze your Factory Droid sessions (SQLite+FTS5 index, usage analytics, session lineage, OpenTUI)",
+  "version": "1.0.0",
+  "author": "ain3sh",
+  "homepage": "https://github.com/ain3sh/droid-session-explorer",
+  "skills": []
+}
