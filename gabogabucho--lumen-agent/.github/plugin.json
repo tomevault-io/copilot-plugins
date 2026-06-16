@@ -1,0 +1,9 @@
+{
+  "name": "gabogabucho--lumen-agent",
+  "displayName": "lumen-agent",
+  "description": "Lumen is a downloadable AI agent framework that works from minute zero. Install it, run it, and you have a working assistant. From there, shape it however you want: pick a personality, install modules",
+  "version": "1.0.0",
+  "author": "gabogabucho",
+  "homepage": "https://github.com/gabogabucho/lumen-agent",
+  "skills": []
+}
