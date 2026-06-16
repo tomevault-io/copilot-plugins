@@ -1,0 +1,9 @@
+{
+  "name": "php-workx--skill-sonarqube",
+  "displayName": "skill-sonarqube",
+  "description": "skill-sonarqube",
+  "version": "1.0.0",
+  "author": "php-workx",
+  "homepage": "https://github.com/php-workx/skill-sonarqube",
+  "skills": []
+}
