@@ -1,0 +1,9 @@
+{
+  "name": "swih--mistral-mcp",
+  "displayName": "mistral-mcp",
+  "description": "Full Mistral AI MCP server \u2014 OCR, Voxtral audio, Codestral FIM, durable workflows, document extraction \u2014 for Claude Code, Cursor, Windsurf, Zed, Mistral Connectors",
+  "version": "1.0.0",
+  "author": "Swih",
+  "homepage": "https://github.com/Swih/mistral-mcp",
+  "skills": []
+}
