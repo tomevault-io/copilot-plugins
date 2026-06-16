@@ -1,0 +1,9 @@
+{
+  "name": "greg-asher--codex-obsidian",
+  "displayName": "codex-obsidian",
+  "description": "Codex plugin for local Obsidian workflows through the official desktop CLI.",
+  "version": "1.0.0",
+  "author": "greg-asher",
+  "homepage": "https://github.com/greg-asher/codex-obsidian",
+  "skills": []
+}
