@@ -1,0 +1,9 @@
+{
+  "name": "cosformula--douban-sync-skill",
+  "displayName": "douban-sync-skill",
+  "description": "douban-sync-skill",
+  "version": "1.0.0",
+  "author": "cosformula",
+  "homepage": "https://github.com/cosformula/douban-sync-skill",
+  "skills": []
+}
