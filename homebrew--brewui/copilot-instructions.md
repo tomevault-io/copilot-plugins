@@ -1,14 +1,26 @@
-## codable-boundary
+## brewui
 
-> Keep Codable transport models behind service/repository boundaries.
+> - Read `.ai/memory.md` and `.ai/progress.md` before beginning any task.
 
+# .cursorrules
+# Cursor-specific extensions to AGENTS.md. Read AGENTS.md first.
 
-# Codable Boundary
+## On Session Start
+- Read `.ai/memory.md` and `.ai/progress.md` before beginning any task.
+- Consult `ARCHITECTURE.md` and `.ai/memory.md` before touching structural code.
 
-- Do not return `Codable` transport payload types (`*JSON`, DTOs, wire models) from service or repository APIs.
-- Decode transport payloads at the boundary, then map to app-facing contracts before returning.
-- Service and repository protocols should expose domain models (`Models/`) or explicit feature-layer data contracts only.
-- Keep transport model placement under infrastructure boundaries (for example `Services/API/`), not `Models/`.
+## On Session End
+- Update `.ai/progress.md` with what was completed and what remains.
+- If you learned something durable about the project, add it to `.ai/memory.md`.
+
+## Editing Behaviour
+- Follow all conventions in `CONVENTIONS.md`.
+- Prefer targeted edits over rewrites. Do not refactor code outside the scope of the current task.
+- When introducing a new pattern not covered by `CONVENTIONS.md`, add it there.
+
+## Autocomplete & Suggestions
+- Do not suggest changes that contradict `ARCHITECTURE.md` or durable decisions in `.ai/memory.md` without flagging the conflict explicitly.
+- When uncertain about intent, surface the uncertainty as a comment rather than guessing silently.
 
 ---
 > Source: [Homebrew/BrewUI](https://github.com/Homebrew/BrewUI) — distributed by [TomeVault](https://tomevault.io).
