@@ -1,0 +1,9 @@
+{
+  "name": "xesco--dosctl",
+  "displayName": "dosctl",
+  "description": "A command-line tool to manage and play DOS games via DOSBox",
+  "version": "1.0.0",
+  "author": "xesco",
+  "homepage": "https://github.com/xesco/dosctl",
+  "skills": []
+}
