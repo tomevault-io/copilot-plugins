@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--claude-music",
+  "displayName": "claude-music",
+  "description": "AI music production skill for Claude Code \u2014 powered by ACE-Step 1.5. Generate songs, covers, remixes, and more from your terminal.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/claude-music",
+  "skills": []
+}
