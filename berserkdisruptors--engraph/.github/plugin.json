@@ -1,0 +1,9 @@
+{
+  "name": "berserkdisruptors--engraph",
+  "displayName": "engraph",
+  "description": "The context graph for your coding agent",
+  "version": "1.0.0",
+  "author": "berserkdisruptors",
+  "homepage": "https://github.com/berserkdisruptors/engraph",
+  "skills": []
+}
