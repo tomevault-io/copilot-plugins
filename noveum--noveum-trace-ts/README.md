@@ -7,13 +7,13 @@ The official TypeScript SDK for [Noveum.ai](https://noveum.ai) - a powerful trac
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Noveum/noveum-trace-ts](https://github.com/Noveum/noveum-trace-ts).
+Original source: `CLAUDE.md` in [Noveum/noveum-trace-ts](https://github.com/Noveum/noveum-trace-ts).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
