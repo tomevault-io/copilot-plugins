@@ -1,0 +1,9 @@
+{
+  "name": "kamwoh--yume",
+  "displayName": "yume",
+  "description": "A programmable, explicit world model on Godot \u2014 worlds are pure JSON run by a fixed primitives + interpreter engine. Built by Claude, for Claude.",
+  "version": "1.0.0",
+  "author": "kamwoh",
+  "homepage": "https://github.com/kamwoh/yume",
+  "skills": []
+}
