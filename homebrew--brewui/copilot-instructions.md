@@ -1,41 +1,18 @@
-## test-visibility
+## workflow-ci
 
-> Never widen symbol visibility just to enable test access.
+> Testing and verification workflow expectations.
 
 
-# Do Not Expose Symbols for Test Access
+# Workflow and CI
 
-Never widen the visibility of a method, property, computed var, or type beyond what production code requires just to make it reachable from a test target.
+- Prefer small, focused stories and commits.
+- Run relevant checks for modified scope before concluding work.
+- Treat repository git hooks and CI workflows in `.github/workflows/` as the mandatory enforcement layer.
+- Keep local progress tracking out of PR diffs; use local `.ai/progress.md` only when needed.
 
-**Why:** Leaking implementation details as `internal` (or wider) under test pressure pollutes the API surface and makes future refactoring harder. Tests should exercise behaviour through the same entry points callers actually use.
+## Swift quality (parity with `swift_quality.yml`)
 
-**Rule:**
-
-- If a symbol would naturally be `private` but a test wants to call it, **do not make it `internal`**. Instead, update the test to go through the public/internal method that composes it (the same surface production callers use).
-- If no such composed entry point exists yet, **create one** (following the temporal cohesion rule where applicable), then test through that.
-- The one permitted exception is **`init`**: initialisers may be given wider visibility than strictly needed so tests can construct types in isolation. This is standard practice and does not leak behaviour.
-
-**Example (wrong):**
-
-```swift
-// Made internal only so tests can call it — wrong
-func refreshDependencies() async { … }
-func refreshDependents() async { … }
-```
-
-**Example (correct):**
-
-```swift
-// Private implementation details
-private func refreshDependencies() async { … }
-private func refreshDependents() async { … }
-
-// Tests call the composed public entry point instead
-func refreshRelationships() async {
-    await refreshDependencies()
-    await refreshDependents()
-}
-```
+Canonical instructions: **`AGENTS.md` → Workflow → Swift quality (local parity with CI)**. Same commands as `.github/workflows/swift_quality.yml`; this rule is a Cursor-scoped reminder when `**/*.swift` is in context.
 
 ---
 > Source: [Homebrew/BrewUI](https://github.com/Homebrew/BrewUI) — distributed by [TomeVault](https://tomevault.io).
