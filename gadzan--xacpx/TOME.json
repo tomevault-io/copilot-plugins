@@ -4,7 +4,7 @@
   "repo": "xacpx",
   "description": "Remote agent control from chat Drive acpx agent sessions \u2014 Codex, Claude Code, Gemini \u2014 from WeChat, Feishu, Yuanbao, and other message channels. No terminal required.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gadzan/xacpx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T17:36:17Z"
+  "distributed_at": "2026-06-16T18:36:08Z"
 }
