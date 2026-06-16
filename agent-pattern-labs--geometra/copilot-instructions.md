@@ -1,26 +1,12 @@
-## framework-north-star
+## geometra
 
-> Geometra framework north-star coding focus
+> - For demos and starters, Geometra should own the entire page. Do not wrap demo UIs in extra DOM marketing shells, telemetry rails, or decorative HTML chrome around the canvas.
 
+# Repo Guidance
 
-# Geometra North Star
-
-Keep this priority order front-and-center when writing code:
-
-1. Protect the core pipeline: `Tree -> Yoga WASM -> Geometry -> Pixels`.
-2. Maintain one declarative model across Canvas, Terminal, and server/client protocol.
-3. Prioritize correctness in pointer/keyboard/focus/selection/text input/IME flows.
-4. Preserve Bun-first, reliable CI behavior.
-5. Improve performance in hot paths without sacrificing correctness.
-6. Keep docs and exports aligned with real behavior.
-
-# Merge Readiness Checklist
-
-- Changes respect DOM-free invariants.
-- Protocol behavior is version-safe and explicit.
-- Interaction/input changes include targeted tests where practical.
-- No avoidable performance regressions in hit-test, text measurement, or repaint loops.
-- README/API documentation remains accurate for user-facing features.
+- For demos and starters, Geometra should own the entire page. Do not wrap demo UIs in extra DOM marketing shells, telemetry rails, or decorative HTML chrome around the canvas.
+- Browser demo HTML should stay minimal: a bare full-viewport canvas, required bootstrapping styles, and the script entrypoint.
+- If a demo needs diagnostics, onboarding, or supporting UI, render that UI in Geometra itself instead of adjacent DOM panels.
 
 ---
 > Source: [Agent-Pattern-Labs/geometra](https://github.com/Agent-Pattern-Labs/geometra) — distributed by [TomeVault](https://tomevault.io).
