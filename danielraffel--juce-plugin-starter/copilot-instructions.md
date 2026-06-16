@@ -1,154 +1,251 @@
-## plugin-starter
+## juce-plugin-starter
 
-> This file provides guidelines for AI tools (like Cursor, Claude, etc.) when working with the JUCE Plugin Starter project.
+> <!--  Start new build plans-->
 
-# JUCE Plugin Starter - AI Assistant Guidelines
+# Project Configuration
 
-This file provides guidelines for AI tools (like Cursor, Claude, etc.) when working with the JUCE Plugin Starter project.
+<!--  Start new build plans-->
 
-## 📁 Project Structure Guidelines
+### ⚡ Faster Build (Skip Regeneration)
 
-### Script Organization
-- **All scripts** should be placed in `/scripts/` directory for consistency
-- **Test scripts** should be placed in `/scripts/tests/` directory (if created)
-- **Build scripts** (post_build.sh, build.sh, bump_version.py) belong in `/scripts/`
-- **Main project scripts** (generate_and_open_xcode.sh, init_plugin_project.sh, dependencies.sh) belong in `/scripts/`
-- **Documentation** should be placed in `/scripts/about/` directory
+If `CMakeLists.txt`, `.env`, or build-related config **has not changed**, Claude should **skip regeneration** to save time:
 
-### File Naming Conventions
-- Use **snake_case** for script files (e.g., `setup_uv_environment.sh`)
-- Use **descriptive names** that clearly indicate the script's purpose
-- Add `.example` suffix for template files (e.g., `postinstall.example`)
-- Test files should follow pattern: `test_phase{N}.sh`
+```bash
+# Skip both CMake regeneration AND version bump
+SKIP_CMAKE_REGEN=1 SKIP_VERSION_BUMP=1 ./scripts/generate_and_open_xcode.sh
+```
 
-## 🔧 Code Structure Guidelines
+This will:
 
-### Environment Variable Handling
-- Always load `.env` file at the beginning of scripts
-- Use `set -o allexport; source .env; set +o allexport` pattern
-- Validate required environment variables before proceeding
-- Provide clear error messages for missing variables
-- **Required variables**: PROJECT_NAME, PROJECT_BUNDLE_ID (minimum for build system)
-- **Version variables**: VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VERSION_BUILD
-- **Apple signing**: APPLE_ID, APP_CERT, INSTALLER_CERT, TEAM_ID, APP_PASSWORD
+* Reuse the existing `build/` directory
+* Avoid re-running CMake
+* Avoid version bumping (which invalidates CMake cache)
+* Reduce overall build time
 
-### Script Best Practices
-- Start scripts with `#!/bin/bash` or `#!/usr/bin/env bash`
-- Use `set -e` to exit on errors
-- Include descriptive echo statements for user feedback
-- Use emoji prefixes for better UX (🚀, ✅, ❌, ⚠️, 📁, etc.)
+#### Claude's Responsibility:
 
-### Error Handling
-- Always check if required files/directories exist before operations
-- Provide helpful error messages with suggested solutions
-- Use appropriate exit codes (0 for success, 1+ for errors)
+Before each build, Claude must ask:
 
-## 🔨 Build System Guidelines
+> Did I change `CMakeLists.txt`, `.env`, or add/remove source files that CMake configures?
 
-### Unified Build System (`scripts/build.sh`)
-- **Primary build tool**: Use `scripts/build.sh` for all build operations
-- **Supports targets**: `all`, `au`, `vst3`, `standalone`
-- **Supports actions**: `local`, `test`, `sign`, `notarize`, `publish`
-- **Requires .env**: Always validate environment configuration before building
-- **Example usage**: `./scripts/build.sh vst3 test` or `./scripts/build.sh all publish`
+* ✅ **If yes**, run full:
 
-### Version Management (`scripts/bump_version.py`)
-- **Semantic versioning**: Uses MAJOR.MINOR.PATCH.BUILD format
-- **Auto-increment**: Build numbers increment automatically
-- **Manual control**: Use `--major`, `--minor`, `--patch` for manual version bumps
-- **Integration**: Works with CMake and Xcode project generation
-- **Environment**: Reads/writes version info to .env file
+  ```bash
+  ./scripts/generate_and_open_xcode.sh
+  ```
+* ✅ **If no**, run faster:
 
-### Legacy Build Support
-- **scripts/generate_and_open_xcode.sh**: Available for direct Xcode project generation
-- **Version integration**: Now includes automatic version management
-- **Skip options**: Use `SKIP_VERSION_BUMP=1` and `SKIP_CMAKE_REGEN=1` for faster iterations
+  ```bash
+  SKIP_CMAKE_REGEN=1 SKIP_VERSION_BUMP=1 ./scripts/generate_and_open_xcode.sh
+  ```
 
-### Additional Tools
-- **validate_plugin.sh**: Comprehensive plugin validation and testing
-- **diagnose_plugin.sh**: Plugin diagnostic and troubleshooting tool
-- **generate_release_notes.py**: AI-powered release notes from git history
-- **Documentation**: Complete build system docs in `scripts/about/build_system.md`
+If Claude skips regeneration but the build fails due to stale configuration, try again without `SKIP_CMAKE_REGEN`.
 
-## 📋 Testing Guidelines
+### 🧠 When to Regenerate the Build Directory
 
-### Test Script Structure
-- Each phase should have its own test file: `test_phase{N}.sh`
-- Tests should be self-contained and not depend on external state
-- Use temporary directories for testing to avoid affecting the main project
-- Clean up test artifacts after completion
+Claude must run the **full**:
 
-### Test Validation Patterns
-- Check file existence before testing content
-- Validate script executability with `[[ -x "script.sh" ]]`
-- Test environment variable loading and validation
-- Verify script output and behavior
+```bash
+./scripts/generate_and_open_xcode.sh
+```
 
-## 📄 Third-Party License Management
+If any of the following are true:
 
-### License Acknowledgement Requirements
-- **Always** update `installer/THIRD_PARTY_LICENSES.md` when adding or removing third-party tools
-- **Include** proper attribution with tool name, version, license type, and copyright notice
-- **Maintain** alphabetical ordering of acknowledgements for easy reference
-- **Verify** license compatibility before adding new dependencies
-- **Document** the specific use case for each third-party tool
+* `CMakeLists.txt` or `.cmake` files changed
+* `.env` feature flags changed
+* Source/header files were **added or removed**
+* External dependencies (JUCE, Visage) were updated
+* Build errors may be related to stale configuration
 
-### License File Maintenance
-- Use the standardized markdown format in `installer/THIRD_PARTY_LICENSES.md`
-- Include direct links to original license texts when available
-- Update the "Last Updated" timestamp when making changes
-- Ensure all tools referenced in scripts are properly acknowledged
+Otherwise, Claude may run the **faster**:
 
-## 🎯 AI Assistant Behavior
+```bash
+SKIP_CMAKE_REGEN=1 SKIP_VERSION_BUMP=1 ./scripts/generate_and_open_xcode.sh
+```
 
-### When Suggesting Changes
-- **Always** place new test scripts in `scripts/tests/` (if created)
-- **Always** place new utility scripts in `scripts/`
-- **Always** place main project scripts (init, generate, dependencies) in `scripts/`
-- **Place** documentation in `scripts/about/`
-- **Prefer** modifying existing scripts over creating new ones
-- **Validate** that suggested file paths exist in the project
-- **Update** third-party license acknowledgements when adding/removing tools
+### 📱 After Generating Xcode Project
 
-### Code Generation Guidelines
-- Follow existing code style and patterns in the project
-- Use consistent error handling patterns
-- Include appropriate comments for complex logic
-- Maintain backward compatibility when possible
+**IMPORTANT**: After running either generate command, Claude should then:
 
-### File Path References
-- Use **relative paths** from project root in documentation
-- Use **absolute paths** in scripts when necessary
-- Update **all references** when moving files
-- Check for **hidden references** in comments and documentation
+```bash
+./scripts/build.sh standalone
+```
 
-## 🔄 Workflow Guidelines
+This will:
+- Build the standalone app
+- Automatically launch it so user can see the changes
+- Handle version bumping appropriately (only when needed)
 
-### Script Refactoring
-1. **Identify** all references to scripts being moved
-2. **Move** the scripts to appropriate directories
-3. **Update** all references in code, documentation, and tests
-4. **Test** functionality after moves
-5. **Validate** with comprehensive test suite
+<!--  END new build plans-->
 
-### Adding New Features
-1. **Plan** the feature implementation
-2. **Create** or modify necessary scripts
-3. **Update** environment variable examples if needed
-4. **Add** comprehensive tests
-5. **Update** documentation
-6. **Update** third-party license acknowledgements if applicable
+### Primary Build Commands
 
-## 🚨 Important Notes
+How to use `scripts/build.sh` for builds:
 
-- **Never** break existing functionality when refactoring
-- **Always** test changes thoroughly
-- **Maintain** consistent coding style throughout the project
-- **Document** any new environment variables in `.env.example`
-- **Consider** backward compatibility for existing users
-- **Ensure** proper license compliance for all third-party tools
+```bash
+# Quick build (all formats)
+./scripts/build.sh
 
-These guidelines help ensure consistent, maintainable, and user-friendly code across the JUCE Plugin Starter project.
+# Build specific format
+./scripts/build.sh au          # Audio Unit only
+./scripts/build.sh vst3        # VST3 only
+./scripts/build.sh standalone  # Standalone app only
+
+# Build with testing
+./scripts/build.sh all test    # Build and run PluginVal tests
+
+# Production builds
+./scripts/build.sh all sign     # Build and codesign
+./scripts/build.sh all notarize # Build, sign, and notarize
+./scripts/build.sh all publish  # Full release with installer
+```
+
+### Version Management
+
+Every build automatically increments the version:
+- Patch version increases: 0.0.1 → 0.0.2 → 0.0.3
+- Build number always increments
+- Versions stored in `.env` file
+
+Manual version control:
+```bash
+python3 scripts/bump_version.py minor  # 0.0.3 → 0.1.0
+python3 scripts/bump_version.py major  # 0.0.3 → 1.0.0
+```
+
+### Testing Workflow
+
+When running tests with `./scripts/build.sh [target] test`:
+1. Builds the plugin
+2. Runs PluginVal validation
+3. For standalone builds, automatically:
+   - Checks if app is already running
+   - Kills existing instance if found
+   - Launches the newly built app
+
+### Why Use scripts/build.sh?
+
+The `scripts/build.sh` script provides:
+- Automatic version bumping
+- Project-agnostic configuration (reads from .env)
+- Multi-format support (AU, VST3, Standalone)
+- **Multi-plugin support** (automatically discovers and builds all plugins in project)
+- Integrated testing with PluginVal
+- Code signing and notarization
+- Installer creation for distribution
+
+> **Note**: The build system automatically handles both single-plugin and multi-plugin projects. If your project has multiple plugins (e.g., PluginFX_AU and PluginKS_AU), all will be discovered and built automatically—no configuration needed.
+
+## Project Structure
+
+- **Build system**: CMake with custom Xcode generation
+- **IDE**: Xcode (auto-opened by build script)
+- **Build directory**: `./build/`
+- **JUCE directory**: `../JUCE/`
+
+## Common Mistakes to Avoid
+
+❌ Never use these commands directly:
+- `cmake --build build --config Release`
+- `cmake -B build`
+- `xcodebuild -project ...`
+
+✅ Always use:
+- `./scripts/generate_and_open_xcode.sh` only when CMake regeneration is needed otherise use `SKIP_CMAKE_REGEN=1 ./scripts/generate_and_open_xcode.sh` only when `CMakeLists.txt`, `.env`, or build-related config **has not changed**, Claude can **skip regeneration** to save time:
+- `./scripts/build.sh standalone` for building and then open the app once it's built
+
+## Generating Release Notes
+
+When the user runs `./scripts/build.sh publish` with `RELEASE_NOTES_METHOD=claude` in their `.env`, Claude Code should automatically generate user-friendly release notes.
+
+### How Release Notes Work
+
+The build system checks `RELEASE_NOTES_METHOD` in `.env`:
+- `claude` = Claude Code generates notes interactively
+- `openrouter` = OpenRouter API (requires key)
+- `openai` = OpenAI API (requires key)
+- `auto` = Try APIs if keys exist, else Python
+- `none` = Python categorization only
+
+### When `RELEASE_NOTES_METHOD=claude`
+
+**What happens during publish:**
+
+1. The build script displays recent commits
+2. Shows a prompt asking Claude to generate release notes
+3. **Claude Code (you) should respond** with the notes in the correct format
+4. The script captures your response and uses it for the release
+
+**How Claude should respond:**
+
+When you see the release notes prompt during `./scripts/build.sh publish`, immediately generate notes in this exact format:
+
+```markdown
+## Version X.X.X
+
+### ✨ New Features
+- [User-friendly description of new features]
+
+### 🔧 Improvements
+- [User-friendly description of improvements]
+
+### 🐛 Bug Fixes
+- [User-friendly description of bug fixes]
+```
+
+### Guidelines for Claude
+
+- Focus on what users (musicians, producers, audio engineers) will notice
+- Write in plain language (avoid technical jargon like "refactor", "CMake", etc.)
+- Keep it concise (1 sentence per bullet point)
+- Skip empty sections
+
+### Example Format
+
+```markdown
+## Version 1.2.0
+
+### ✨ New Features
+- Added MIDI learn functionality for easy controller mapping
+- New preset browser with search and favorites
+
+### 🔧 Improvements
+- Reduced CPU usage by 30% for better performance
+- Improved audio quality at high sample rates
+
+### 🐛 Bug Fixes
+- Fixed crash when loading AU presets in Logic Pro
+- Resolved audio glitches during buffer size changes
+```
+
+### Bad vs Good Examples
+
+❌ **Bad** (too technical):
+- Refactor PluginProcessor to use shared_ptr
+- Update CMakeLists.txt build configuration
+- Fix memory leak in DSP engine
+
+✅ **Good** (user-focused):
+- Improved plugin stability and memory usage
+- Fixed rare crash when changing plugin settings
+- Better audio quality with reduced distortion
+
+## Tracking Remaining Work
+
+When completing a large feature on JUCE-Plugin-Starter or juce-dev where some work items are intentionally deferred, offer to create GitHub issues on **this repo** (danielraffel/JUCE-Plugin-Starter). Issues for juce-dev plugin work also go here since the two projects are tightly coupled and most implementation lives in this repo.
+
+**Issue conventions:**
+- **Naming**: Prefix with the feature area in brackets, e.g. `[Auto-Updates] Phase B — Private distribution mode`. Be specific enough that the title alone tells you what the work is.
+- **Labels**: Create a label for the feature area (e.g. `auto-updates`) and apply it to all related issues so they can be filtered together.
+- **Series linking**: Add a "Series" section at the bottom of every related issue showing the full ordered list with dependency notes and a "YOU ARE HERE" marker. This makes it obvious which issues to do first and what blocks what.
+- **Cross-repo references**: When work spans both JUCE-Plugin-Starter and generous-corp-marketplace (juce-dev plugin), note both repos in a "Repos impacted" section in each issue.
+
+**Never include** API keys, tokens, passwords, private URLs, or any credentials in issue descriptions — these are public issues on public repos.
+
+This prevents losing track of deferred work that lives in proposal docs or progress files that get stale.
+
+## Additional Project Info
+See @README.md for general project information.
 
 ---
 > Source: [danielraffel/JUCE-Plugin-Starter](https://github.com/danielraffel/JUCE-Plugin-Starter) — distributed by [TomeVault](https://tomevault.io).
