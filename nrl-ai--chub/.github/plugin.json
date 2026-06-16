@@ -1,0 +1,9 @@
+{
+  "name": "nrl-ai--chub",
+  "displayName": "chub",
+  "description": "Agent-agnostic context, tracking, and cost analytics for AI-assisted development. Curated docs \u00b7 Session tracking \u00b7 Cost analytics \u00b7 Team knowledge \u2014 all git-native",
+  "version": "1.0.0",
+  "author": "nrl-ai",
+  "homepage": "https://github.com/nrl-ai/chub",
+  "skills": []
+}
