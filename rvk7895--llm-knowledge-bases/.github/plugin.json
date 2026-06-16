@@ -1,0 +1,9 @@
+{
+  "name": "rvk7895--llm-knowledge-bases",
+  "displayName": "llm-knowledge-bases",
+  "description": "Claude Code plugin for building LLM-maintained Obsidian wikis from raw research \u2014 compile, query, lint, and evolve your personal knowledge base. Inspired by Karpathy's knowledge base workflow.",
+  "version": "1.0.0",
+  "author": "rvk7895",
+  "homepage": "https://github.com/rvk7895/llm-knowledge-bases",
+  "skills": []
+}
