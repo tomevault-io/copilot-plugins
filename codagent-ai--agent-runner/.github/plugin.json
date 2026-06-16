@@ -1,0 +1,9 @@
+{
+  "name": "codagent-ai--agent-runner",
+  "displayName": "agent-runner",
+  "description": "Stop giving the agent a workflow. Put the agent inside the workflow.",
+  "version": "1.0.0",
+  "author": "Codagent-AI",
+  "homepage": "https://github.com/Codagent-AI/agent-runner",
+  "skills": []
+}
