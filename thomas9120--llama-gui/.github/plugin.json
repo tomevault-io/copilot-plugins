@@ -1,0 +1,9 @@
+{
+  "name": "thomas9120--llama-gui",
+  "displayName": "LLama-GUI",
+  "description": "User friendly GUI for Llama.cpp for easy configuration and launching.",
+  "version": "1.0.0",
+  "author": "thomas9120",
+  "homepage": "https://github.com/thomas9120/LLama-GUI",
+  "skills": []
+}
