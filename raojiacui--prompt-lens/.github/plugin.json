@@ -1,0 +1,9 @@
+{
+  "name": "raojiacui--prompt-lens",
+  "displayName": "prompt-lens",
+  "description": "\u53cd\u63a8\u51faAI\u89c6\u9891\u7684\u63d0\u793a\u8bcd\uff0c\u5e76\u914d\u6709\u97f3\u9891\u5206\u6790\u529f\u80fd\uff0c\u53ef\u63d0\u53d6\u89c6\u9891\u4e2d\u7684\u53f0\u8bcd\u6587\u6848\uff0c\u5e76\u4e14\u4e00\u53e5\u8bdd\u5c31\u53ef\u526a\u8f91\u51fa\u4f60\u8981\u7684\u89c6\u9891",
+  "version": "1.0.0",
+  "author": "raojiacui",
+  "homepage": "https://github.com/raojiacui/prompt-lens",
+  "skills": []
+}
