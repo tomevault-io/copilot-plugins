@@ -1,20 +1,49 @@
-## swift-implementation
+## temporal-cohesion
 
-> Swift and SwiftUI implementation expectations for app code.
+> Wrap temporally cohesive calls — things that always need to happen together — into a single named function.
 
 
-# Swift Implementation
+# Temporal Cohesion: Wrap Co-Occurring Calls
 
-- Follow `CONVENTIONS.md` for naming, architecture boundaries, error handling, and **design system** (`Brew/Theme/` — see `design-system.mdc` when editing `Brew/**/*.swift`).
-- Do not share object instances unless shared state is required and concurrency-safe; see `instance-lifecycle.mdc` (`JSONDecoder`, formatters, etc.).
-- Keep `Codable` transport models behind boundaries; do not expose `*JSON`/DTO wire types from service or repository APIs (see `codable-boundary.mdc`).
-- Include required imports and provide compilable code updates.
-- Use `@MainActor` where UI state is mutated.
-- Avoid force unwraps/`try!`; use safe handling patterns and test helpers (`#require`, `XCTUnwrap`) in tests.
-- Keep SwiftUI views passive: do not combine multiple ViewModel flags inline to drive one UI presentation decision. Add a single derived ViewModel property (or item) and bind the view to that.
-- When a ViewModel grows with presentation mappings that mostly change together, extract them into feature-layer `*Item` types and expose those items from the ViewModel. Keep independently changing async state streams on the top-level ViewModel (for example, independent operation busy flags).
-- Follow folder placement boundaries from `CONVENTIONS.md` and `.cursor/rules/folder-boundaries.mdc` (`Features/<Feature>/Views`, `Features/<Feature>/ViewModels`, command transport under `Services/BrewCommand/`, and domain-only `Models/`).
-- Follow centralized preview guidance from `.cursor/rules/previews-centralized.mdc` and keep preview blocks colocated with their view files.
+When two or more calls always appear together at every call site, extract them into a single named function. This applies everywhere: ViewModels, actors, services, repositories, test helpers — sync or async, same type or across types.
+
+**Why:** Repeated call sequences are brittle. Any new call site can silently omit one half. The composed name also communicates intent ("refresh relationships") rather than mechanism ("refresh dependencies, then dependents").
+
+**Rule:**
+
+- If `foo()` + `bar()` appear together at two or more call sites with no intervening logic that varies between sites, extract a function that calls both and replace every call site with it.
+- Name the function after the **shared intent**, not after the individual operations (e.g. `refreshRelationships()`, not `refreshDependenciesAndDependents()`).
+- Make the individual functions `private` where they have no independent callers — they become implementation details of the composed function. See `test-visibility.mdc` for the testing corollary.
+- Do **not** collapse calls whose co-occurrence is coincidental or that carry genuinely distinct purposes at each call site. Only group when the pair represents a single coherent operation from the caller's point of view.
+
+**Examples:**
+
+```swift
+// Before — async ViewModel
+await viewModel.refreshDependencies()
+await viewModel.refreshDependents()
+
+// After
+await viewModel.refreshRelationships()
+```
+
+```swift
+// Before — sync setup
+cache.invalidate()
+cache.preload()
+
+// After
+cache.reset()
+```
+
+```swift
+// Before — actor coordination
+await center.submit(id: id, command: command)
+await logger.record(id: id)
+
+// After — composed on the coordinating type
+await coordinator.submitAndRecord(id: id, command: command)
+```
 
 ---
 > Source: [Homebrew/BrewUI](https://github.com/Homebrew/BrewUI) — distributed by [TomeVault](https://tomevault.io).
