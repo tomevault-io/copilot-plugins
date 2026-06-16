@@ -1,0 +1,9 @@
+{
+  "name": "nebulavenus--forge-gpu",
+  "displayName": "forge-gpu",
+  "description": "Learn real-time graphics programming and build games with SDL's GPU API. Tutorials, code examples, and Claude Code skills",
+  "version": "1.0.0",
+  "author": "Nebulavenus",
+  "homepage": "https://github.com/Nebulavenus/forge-gpu",
+  "skills": []
+}
