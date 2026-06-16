@@ -1,0 +1,9 @@
+{
+  "name": "cuteshaun--lineage2-api",
+  "displayName": "lineage2-api",
+  "description": "Lineage 2 public API with items, NPCs, mobs, and drop data. Currently supports Interlude.",
+  "version": "1.0.0",
+  "author": "cuteshaun",
+  "homepage": "https://github.com/cuteshaun/lineage2-api",
+  "skills": []
+}
