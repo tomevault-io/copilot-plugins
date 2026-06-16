@@ -1,0 +1,9 @@
+{
+  "name": "16wells--divi-docs",
+  "displayName": "divi-docs",
+  "description": "Attempting to get better organized documentation for Divi 5 theme in a way that is more highly/instantly usable by LLMs and search engines.",
+  "version": "1.0.0",
+  "author": "16wells",
+  "homepage": "https://github.com/16wells/divi-docs",
+  "skills": []
+}
