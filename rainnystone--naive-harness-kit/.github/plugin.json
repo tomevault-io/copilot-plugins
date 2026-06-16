@@ -1,0 +1,9 @@
+{
+  "name": "rainnystone--naive-harness-kit",
+  "displayName": "naive-harness-kit",
+  "description": "Prompt-first starter kit for Codex and Claude Code workspaces, with bootstrap, upkeep, and archive workflows.",
+  "version": "1.0.0",
+  "author": "Rainnystone",
+  "homepage": "https://github.com/Rainnystone/naive-harness-kit",
+  "skills": []
+}
