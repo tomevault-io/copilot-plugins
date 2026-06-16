@@ -7,11 +7,11 @@ A local GitHub-like git viewer with a web UI.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hokaccha/givy](https://github.com/hokaccha/givy).
+Original source: `CLAUDE.md` in [hokaccha/givy](https://github.com/hokaccha/givy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
