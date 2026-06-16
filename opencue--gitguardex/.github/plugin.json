@@ -1,0 +1,9 @@
+{
+  "name": "opencue--gitguardex",
+  "displayName": "gitguardex",
+  "description": "Run many Codex & Claude agents in parallel without them overwriting each other. Isolated worktrees, file locks, PR-only merges. Auto-wires Oh My Codex, Oh My Claude, OpenSpec, and Caveman in every wor",
+  "version": "1.0.0",
+  "author": "opencue",
+  "homepage": "https://github.com/opencue/gitguardex",
+  "skills": []
+}
