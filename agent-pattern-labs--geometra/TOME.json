@@ -4,7 +4,7 @@
   "repo": "geometra",
   "description": "The Browser for the Singularity! No browser. Just computed geometry going straight to pixels. MCP replacement for Playwright too!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Agent-Pattern-Labs/geometra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T18:45:24Z"
+  "distributed_at": "2026-06-16T19:15:20Z"
 }
