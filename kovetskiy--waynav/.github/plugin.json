@@ -1,0 +1,9 @@
+{
+  "name": "kovetskiy--waynav",
+  "displayName": "waynav",
+  "description": "Wayland-native keynav replacement for wlroots compositors (niri, hyprland)",
+  "version": "1.0.0",
+  "author": "kovetskiy",
+  "homepage": "https://github.com/kovetskiy/waynav",
+  "skills": []
+}
