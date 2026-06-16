@@ -1,0 +1,9 @@
+{
+  "name": "andymai--occt-wasm",
+  "displayName": "occt-wasm",
+  "description": "OpenCascade (OCCT) compiled to WebAssembly \u2014 clean TypeScript API, ~4MB brotli, arena-based memory, structured errors, Web Worker support",
+  "version": "1.0.0",
+  "author": "andymai",
+  "homepage": "https://github.com/andymai/occt-wasm",
+  "skills": []
+}
