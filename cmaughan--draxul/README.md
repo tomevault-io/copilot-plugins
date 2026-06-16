@@ -7,14 +7,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [cmaughan/Draxul](https://github.com/cmaughan/Draxul).
+Original source: `AGENTS.md` in [cmaughan/Draxul](https://github.com/cmaughan/Draxul).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [cmaughan/Draxul](https://github.com/cmaughan/Draxul) — a repo with 10+ stars on GitHub.
