@@ -1,0 +1,9 @@
+{
+  "name": "wxkingstar--transecho",
+  "displayName": "TransEcho",
+  "description": "Real-time simultaneous interpretation for macOS & Windows \u2014 capture system audio, translate live with subtitles + voice. \u5b9e\u65f6\u540c\u58f0\u4f20\u8bd1\uff0c\u7cfb\u7edf\u97f3\u9891\u6355\u83b7\uff0c\u5b57\u5e55+\u8bed\u97f3\u540c\u4f20",
+  "version": "1.0.0",
+  "author": "wxkingstar",
+  "homepage": "https://github.com/wxkingstar/TransEcho",
+  "skills": []
+}
