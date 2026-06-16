@@ -2,9 +2,9 @@
   "name": "ai-shifu",
   "owner": "ai-shifu",
   "repo": "ai-shifu",
-  "description": "Get AI to teach and answer questions for you - just by typing!",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai-shifu/ai-shifu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T18:24:43Z"
+  "distributed_at": "2026-06-16T22:45:18Z"
 }
