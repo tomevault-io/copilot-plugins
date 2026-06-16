@@ -1,0 +1,9 @@
+{
+  "name": "granit-fx--granit-dotnet",
+  "displayName": "granit-dotnet",
+  "description": "A modular .NET 10 framework \u2014 orchestrate auth, persistence, CQRS, messaging, and 350+ more modules effortlessly. No boilerplate, no rewrites, no limits.",
+  "version": "1.0.0",
+  "author": "granit-fx",
+  "homepage": "https://github.com/granit-fx/granit-dotnet",
+  "skills": []
+}
