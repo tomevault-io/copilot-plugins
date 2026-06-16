@@ -1,0 +1,44 @@
+{
+  "name": "mempalace_rust",
+  "owner": "quangdang46",
+  "repo": "mempalace_rust",
+  "description": "The highest-scoring AI memory system ever benchmarked. Now in Rust with rich features \u2014 single-binary port from @milla-jovovich/mempalace. Free and local.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/quangdang46/mempalace_rust",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T01:19:36Z"
+}
