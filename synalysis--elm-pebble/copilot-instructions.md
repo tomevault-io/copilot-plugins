@@ -1,47 +1,79 @@
-## fix-toolchain-not-apps
+## runtime-genericity
 
-> Fix compiler/toolchain when Elm is correct; no app workarounds
+> Enforce generic contract-driven code (no hacks)
 
 
-# Correct Elm → Fix the Toolchain
+# Generic Code Rules (No Hacks)
 
-When application Elm is **semantically correct** (valid Elm, matches intended behavior, uses declared APIs), failures belong in the **toolchain**, not in app code.
+These rules apply to all code changes in this repository.
 
-Fix at the root in: parser, tokenizer, IR/lowering, **elmc**, **elmx**, **elm_ex**, runtime, debugger, IDE, emulator glue — wherever the bug actually lives.
+- No one-off hacks, compatibility shims, or "special case for this sample/template" logic.
+- No behavior based on specific project names, template names, file paths, or app-specific constructor names.
+- **No assumptions about user-chosen names in app Elm** — see [Msg and Cmd wiring](#msg-and-cmd-wiring-no-name-guessing) below.
+- No field-name guessing heuristics tied to domain words (for example: hour/minute/watchface/weather/logo).
+- No regex/string parsing of debug labels to recover semantic arguments (for example parsing coordinates/text out of a label string).
+- No operation inference from free-form message text fragments; operations must come from declared constructors/contracts.
+- Prefer contract-driven behavior: typed payloads, declared interfaces, constructors, and explicit metadata.
+- If runtime data is missing, extend the contract and propagate it through adapters instead of inferring from names.
+- Fallback logic must be generic and capability-based (shape/type/contract), never app-specific.
+- If data cannot be resolved from the contract, surface it as unmapped/unsupported instead of guessing.
+- Keep implementation names generic when logic is generic; use domain-specific names only for domain-specific behavior.
 
-## Do Not
+## Msg and Cmd wiring (no name guessing)
 
-- Rewrite app/template Elm to dodge codegen, runtime, or IDE bugs (for example replacing `case activePiece model of … piece ->` with manual field reads from `model`).
-- Add “works around elmc” patterns in `Main.elm`, templates, or samples when the Elm you wrote is what a normal Elm compiler would accept.
-- Ship one-app shims in the compiler to make a single template pass (see also **Generic Code Rules**).
-- Ask apps to rename `Msg` constructors so platform shims recognize them (`CurrentDateTime`, `HourChanged`, etc.) — tags must come from the call site in the cmd/sub, not name-guess lists (see **Msg and Cmd wiring** in Generic Code Rules).
+The toolchain must **never** infer runtime behavior from guessed `Msg` / `Sub` constructor names in app Elm.
 
-## Do
+**Forbidden**
 
-- Treat correct Elm as the specification; make the toolchain match Elm semantics and project contracts.
-- Add or extend **toolchain tests** (elmc/elmx/elm_ex/ide) that reproduce the bug from minimal IR or Elm, then fix the implementation.
-- Prefer fixes that apply to **all** apps with the same language construct (patterns, types, subscriptions), not one project slug.
-- Change app Elm only when the Elm was wrong, incomplete, or intentionally adopting a new contract.
+- Hardcoded constructor-name lists (for example `pick_tag(msg_constructors, ["CurrentDateTime", "GotCurrentDateTime"])`).
+- Shim macros like `ELMC_PEBBLE_MSG_*_TARGET` derived from “convention” names instead of the call site.
+- Ignoring the `toMsg` / callback argument on `Pebble.Cmd.*`, kernel stubs, or subscriptions when lowering to C.
+- Scanning `Msg` union names to pick a “likely” target when the app passed a different constructor at the call site.
+- Requiring apps to rename constructors (`CurrentDateTime`, `GotBatteryLevel`, `HourChanged`, etc.) so platform glue recognizes them.
 
-## Safety Goal
+**Required**
 
-On-device/watch behavior should not fault on well-typed, memory-safe Elm logic — same spirit as Elm on the web. The only acceptable hard crash from normal app logic is **out-of-memory** (or equivalent platform resource exhaustion), not bad codegen or wrong runtime representation.
+- **Encode the `Msg` constructor tag in the `Cmd` (or `Sub`) value** at the call site — same pattern as `storageReadInt`, `Random.generate`, and `constructor_tag_expr(to_msg)` in encoded cmds.
+- If indirection is needed, use an **explicit mapping table** keyed by declared contract metadata (command kind + payload shape), never by free-form constructor-name heuristics.
+- Platform/runtime dispatch reads the tag (and payload layout) from the queued value; it does not consult parallel name-guess tables.
+- When codegen cannot resolve the callback from IR, emit **unsupported/unmapped** — do not fall back to a name list.
 
-## Examples
+**Examples**
 
-- **Bad:** `dropStep` uses `if hasPiece model` and `model.pieceY` because `case activePiece` codegen passes the `Maybe` wrapper to `elmc_record_get`.
-- **Good:** fix `Elmc.Backend.CCodegen.Patterns` so `Nothing` + bare-var `case` binds the Just payload (like elmx already does).
+- Bad: `getCurrentDateTime` lowers to command kind only; `ELMC_PEBBLE_MSG_CURRENT_DATE_TIME_TARGET` baked from `["CurrentDateTime", "GotCurrentDateTime"]`.
+- Bad: hour/minute events wired only if the app named variants `HourChanged` / `MinuteChanged`.
+- Good: `PebbleCmd.getCurrentDateTime TimeUpdate` encodes `TimeUpdate`’s constructor tag in the cmd tuple; runtime dispatches that tag with the `CurrentDateTime` record payload.
+- Good: subscription batch entries carry the tag chosen in `PebbleEvents.onHourChange Tick` from IR, not from a template naming cheat sheet.
 
-- **Bad:** special-case `game-elmtris` in `elmc` or the IDE.
-- **Good:** a codegen test for `case maybe of Nothing -> …; x -> …` and a generic `bind_pattern` fix.
+Legacy name-list shims are **bugs to remove**, not patterns to extend. New Pebble/cmd/subscription paths must encode tags at the call site.
 
-- **Bad:** `getCurrentDateTime` emits only command kind; runtime uses `pick_tag(..., ["CurrentDateTime", "GotCurrentDateTime"])`.
-- **Good:** encode `constructor_tag_expr(to_msg)` in the cmd tuple (like `storageReadInt`); runtime dispatches the tag from the queued cmd.
+## Import Aliases and Name Resolution
 
-## When Changing the Toolchain
+Import aliases (`import Pebble.Platform as Platform`, `PebblePlatform`, etc.) are **app-specific**. Generic compiler, IR, dead-code, and codegen code must not encode them.
 
-- Prove the fix with a focused test in the package you changed, plus a second fixture/template when the path is shared.
-- Do not “fix” the emulator or debugger by patching runtime model in ways that hide compiler bugs unless that layer is genuinely the owner of the contract.
+- Resolve aliases and unqualified imports **once** during lowering (`ElmEx.IR.ImportResolution` / lowerer), not in dead-code, reachability, codegen, or runtime adapters.
+- After lowering, IR and all downstream passes must use **fully qualified** `Module.name` targets (for example `Pebble.Platform.displayShapeIsRound`, not `Platform.displayShapeIsRound`).
+- Do not add alias maps, alias candidate lists, or “try these module prefixes” logic in generic modules.
+- Do not branch on short module names (`Platform`, `Ui`, `Cmd`) unless they are the canonical module identity from the contract, not a user-chosen alias.
+- Kernel/platform modules keep their real names (for example `Platform.worker` from `import Platform` is not `Pebble.Platform.worker`).
+
+## Required When Changing Runtime Paths
+
+- Add or update tests that prove behavior works across at least two different templates/fixtures.
+- Avoid fixes that only make one sample/template pass.
+- If a temporary workaround is unavoidable, document why and create a follow-up removal task.
+
+## Quick Examples
+
+- Bad: `if project_slug == "wf-analog" do ... end`
+- Bad: `if key contains "hour" then ...`
+- Bad: `@pebble_qualified_aliases %{"Platform" => "Pebble.Platform", ...}` in `DeadCode`, codegen `Util`, or reachability.
+- Bad: `special_value_from_target("Platform.displayShapeIsRound", ...)` delegating to a Pebble-qualified name.
+- Bad: `IRAnalysis.pick_tag(msg_constructors, ["CurrentDateTime", "GotCurrentDateTime"])` for `getCurrentDateTime` dispatch.
+- Good: add `CurrentDateTime` payload type and map by declared fields.
+- Good: `encoded_cmd_expr(..., [constructor_tag_expr(to_msg)], ...)` so any `Msg` name the app uses is preserved in the cmd.
+- Good: dispatch by constructor/contract metadata, not by template identity.
+- Good: normalize call targets in the lowerer; dead-code and codegen match `Pebble.Platform.*` as stored in IR.
 
 ---
 > Source: [synalysis/elm-pebble](https://github.com/synalysis/elm-pebble) — distributed by [TomeVault](https://tomevault.io).
