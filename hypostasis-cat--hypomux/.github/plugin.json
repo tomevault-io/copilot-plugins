@@ -1,0 +1,9 @@
+{
+  "name": "hypostasis-cat--hypomux",
+  "displayName": "HypoMux",
+  "description": "CN Windows \u591a\u7f51\u5361\u5e26\u5bbd\u53e0\u52a0\u5de5\u5177\u3002\u65e0\u9700\u590d\u6742\u914d\u7f6e\uff0c\u4e00\u952e\u805a\u5408\u591a\u7f51\u5361\uff08\u6709\u7ebf\u3001Wi-Fi\u7f51\u5361\u3001\u624b\u673a\u70ed\u70b9\u7b49\uff09\uff0c\u5b9e\u73b0\u7269\u7406\u7ea7\u591a\u7ebf\u4e0b\u8f7d\u4e0e\u53e0\u52a0\u7f51\u901f\u3002 EN Windows multi-NIC bandwidth aggregator. Zero complex setup. One-click to combine multiple networks (Ethernet, Wi-Fi, mobile hot",
+  "version": "1.0.0",
+  "author": "Hypostasis-Cat",
+  "homepage": "https://github.com/Hypostasis-Cat/HypoMux",
+  "skills": []
+}
