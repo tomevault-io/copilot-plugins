@@ -1,42 +1,35 @@
-## project-conventions
+## version-and-release
 
-> Project conventions for the Narwal Home Assistant integration
+> Version bumping and release workflow
 
 
-# Narwal HA Integration Conventions
+# Version & Release
 
-## Git Commit Messages
+## Always Bump Version
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) format:
+When making functional changes (not just docs), bump the patch version in
+`custom_components/narwal/manifest.json`. HACS detects updates by comparing
+the manifest version against the GitHub release tag.
 
-- `feat:` new features or entities
-- `fix:` bug fixes
-- `refactor:` code restructuring without behavior change
-- `docs:` documentation changes
-- `chore:` build, CI, dependencies
+## Push Command
 
-Examples:
-- `feat: add locate button entity`
-- `fix: battery sensor showing 0% on startup`
-- `refactor: extract protobuf parsing into utility module`
+The `GH_TOKEN` env var may be set to a different GitHub account.
+Always push with it unset:
 
-## Project Structure
+```bash
+GH_TOKEN="" GITHUB_TOKEN="" git push origin main
+```
 
-- `custom_components/narwal/` — Home Assistant integration
-- `custom_components/narwal/narwal_client/` — MQTT client library (protocol layer)
-- Keep HA-specific code (entities, config flow) separate from the MQTT client library
+## Do NOT Create Tags or Releases
 
-## Code Style
+A GitHub Actions workflow automatically creates the git tag and GitHub
+release when changes are pushed to `main`. Never manually run `git tag`
+or `gh release create` — it will conflict with the automated workflow.
 
-- Python 3.12+, type hints on all public functions
-- Use `from __future__ import annotations` in all modules
-- Follow Home Assistant coding standards for entity classes
+## No Personal Data
 
-## Security
-
-- NEVER commit personal identifiers, credentials, API keys, tokens, passwords, device IDs, or email addresses
-- Use placeholder values in example/template files (e.g. `your_email@example.com`, `your_device_id`)
-- Credentials in test scripts must be read from environment variables, never hardcoded
+Never commit device IDs, user UUIDs, access tokens, or email addresses.
+Use placeholders like `abcdef1234567890abcdef1234567890` in docs/README.
 
 ---
 > Source: [nadavbau/narwal-integration](https://github.com/nadavbau/narwal-integration) — distributed by [TomeVault](https://tomevault.io).
