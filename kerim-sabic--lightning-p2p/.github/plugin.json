@@ -1,0 +1,9 @@
+{
+  "name": "kerim-sabic--lightning-p2p",
+  "displayName": "lightning-p2p",
+  "description": "Free open-source P2P file transfer for Windows and Android. No cloud upload, no account, no artificial file-size cap. Rust/Tauri/iroh/QUIC/BLAKE3.",
+  "version": "1.0.0",
+  "author": "Kerim-Sabic",
+  "homepage": "https://github.com/Kerim-Sabic/lightning-p2p",
+  "skills": []
+}
