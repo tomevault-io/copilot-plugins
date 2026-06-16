@@ -1,0 +1,9 @@
+{
+  "name": "lloydrichards--stack-effect",
+  "displayName": "stack-effect",
+  "description": "Scaffolding CLI for full-stack TypeScript apps built on Effect.  Quickly setup an Effect-first monorepo with best practices and a curated set of modules for common features like API servers, clients, ",
+  "version": "1.0.0",
+  "author": "lloydrichards",
+  "homepage": "https://github.com/lloydrichards/stack-effect",
+  "skills": []
+}
