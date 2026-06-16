@@ -1,135 +1,349 @@
-## gograph
+## architecture
 
-> This file provides comprehensive guidance for working with the Compozy codebase, including development commands, standards, and workflow patterns.
+> Comprehensive architectural standards and design principles following SOLID principles, Clean Architecture, and DRY practices for building maintainable, scalable software
 
-# Development Guide
+# Architecture & Design Principles
+# Architecture & Design Principles
 
-This file provides comprehensive guidance for working with the Compozy codebase, including development commands, standards, and workflow patterns.
+<goal>
+Establish comprehensive architectural standards and design principles for building maintainable, scalable, and robust software following industry best practices adapted to the project's domain-driven structure.
+</goal>
 
-<critical>
-**MANDATORY REQUIREMENTS:**
-- **ALWAYS** check dependent files APIs before write tests to avoid write wrong code
-- **ALWAYS** verify against PRD and tech specs - NEVER make assumptions
-- **NEVER** use workarounds, especially in tests - implement proper solutions
-- **MUST** follow all established project standards:
-    - Architecture patterns: `.cursor/rules/architecture.mdc`
-    - Go coding standards: `.cursor/rules/go-coding-standards.mdc`
-    - Testing requirements: `.cursor/rules/testing-standards.mdc`
-    - API standards: `.cursor/rules/api-standards.mdc`
-    - Security & quality: `.cursor/rules/quality-security.mdc`
-- **MUST** run `make lint` and `make test` before completing ANY subtask
-- **MUST** follow `.cursor/rules/task-review.mdc` workflow for parent tasks
-**Enforcement:** Violating these standards results in immediate task rejection.
-</critical>
+## Core Architectural Principles
 
-## Project Overview
+### SOLID Principles
 
-Compozy is a **workflow orchestration engine for AI agents** that enables building AI-powered applications through declarative YAML configuration and a robust Go backend. It integrates with various LLM providers and supports the Model Context Protocol (MCP) for extending AI capabilities.
+<principle type="solid_srp">
+**Single Responsibility Principle (SRP):**
+- Each module, class, or function should have only one reason to change
+- Separate business logic, data access, and presentation concerns
+- Use domain-specific packages: `engine/{agent,task,tool,workflow,runtime,infra}/`
+- *Implementation examples: see [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc)*
+</principle>
 
-## Development Commands
+<principle type="solid_ocp">
+**Open/Closed Principle (OCP):**
+- Open for extension, closed for modification
+- Use interfaces and composition over inheritance
+- Leverage factory patterns for extensible behavior
+- *Factory pattern implementation: see [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc)*
+</principle>
 
-### Essential Commands
+<principle type="solid_lsp">
+**Liskov Substitution Principle (LSP):**
+- Subtypes must be substitutable for their base types
+- Interface implementations must honor contracts
+- Ensure interface methods behave consistently
+- *Interface design patterns: see [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc)*
+</principle>
 
-```bash
-# Quick setup
-make deps && make start-docker && make migrate-up
+<principle type="solid_isp">
+**Interface Segregation Principle (ISP):**
+- Clients should not depend on interfaces they don't use
+- Create small, focused interfaces
+- Use interface composition for complex behavior
+- *Interface composition examples: see [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc)*
+</principle>
 
-# Start development server with hot reload
-make dev
+<principle type="solid_dip">
+**Dependency Inversion Principle (DIP):**
+- Depend on abstractions, not concretions
+- Use dependency injection through constructors
+- High-level modules should not depend on low-level modules
+- *Constructor patterns: see [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc)*
+</principle>
 
-# Run tests (excludes E2E/slow tests)
-make test
+### DRY Principle (Don't Repeat Yourself)
 
-# Run all tests including E2E
-make test
+<dry_strategies type="code_reuse">
+**Code Reuse Strategies:**
+- Extract common functionality into shared packages
+- Use generic functions for similar operations
+- Create utility packages for cross-cutting concerns
 
-# Format and lint code (ALWAYS run before committing)
-make fmt && make lint
+```go
+// ✅ Good: Reusable validation utility
+func ValidateRequired(value string, fieldName string) error {
+    if strings.TrimSpace(value) == "" {
+        return fmt.Errorf("%s is required", fieldName)
+    }
+    return nil
+}
 
-# Run specific test
-go test -v ./engine/task -run TestExecutor_Execute
+// Usage across multiple validators
+func (v *UserValidator) ValidateName(name string) error {
+    return ValidateRequired(name, "name")
+}
+
+func (v *TaskValidator) ValidateTitle(title string) error {
+    return ValidateRequired(title, "title")
+}
+```
+</dry_strategies>
+
+<dry_strategies type="configuration_patterns">
+**Configuration Patterns:**
+- Centralize configuration with defaults
+- Use template engine for dynamic configurations
+- Avoid duplicating configuration logic
+- *Configuration implementation: see [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc)*
+</dry_strategies>
+
+### Clean Architecture
+
+<architecture_structure type="domain_driven">
+**Domain-Driven Design Structure:**
+```
+engine/
+├── agent/     # Agent domain logic
+├── task/      # Task execution domain
+├── tool/      # Tool management domain
+├── workflow/  # Workflow orchestration domain
+├── runtime/   # Runtime execution environment
+├── infra/     # Infrastructure concerns
+└── core/      # Shared domain primitives
+```
+</architecture_structure>
+
+<layer_separation>
+**Layer Separation:**
+- **Domain Layer** (`engine/core/`): Shared business entities, value objects, and cross-domain primitives
+- **Application Layer** (`engine/{agent,task,tool,workflow}/`): Domain-specific business logic, use cases, and port interfaces (repositories, external services)
+- **Infrastructure Layer** (`engine/infra/`): External concerns (DB, HTTP, etc.) and adapter implementations
+- **Runtime Layer** (`engine/runtime/`): Execution environment and system orchestration
+
+**Interface Ownership Clarification:**
+- **Port Interfaces** (e.g., Repository, ExternalService): Defined in Application Layer packages where they're used
+- **Domain Entities**: Defined in Domain Layer (`engine/core/`) for cross-domain sharing
+- **Adapter Implementations**: Defined in Infrastructure Layer, implementing Application Layer interfaces
+</layer_separation>
+
+<dependency_flow>
+```go
+// ✅ Good: Dependencies flow inward
+package task
+
+import (
+    "context"
+    "github.com/project/engine/core" // Domain entities
+)
+
+type Service struct {
+    repo Repository // Interface defined in domain
+}
+
+type Repository interface { // Domain-defined interface
+    Save(ctx context.Context, task *core.Task) error
+    Find(ctx context.Context, id core.ID) (*core.Task, error)
+}
+
+// Implementation in infrastructure layer
+package infra
+
+import (
+    "github.com/project/engine/task" // Application layer
+)
+
+type PostgreSQLTaskRepository struct {
+    db *sql.DB
+}
+
+func (r *PostgreSQLTaskRepository) Save(ctx context.Context, task *core.Task) error {
+    // Implementation details
+}
+```
+</dependency_flow>
+
+### Clean Code Practices
+
+**Naming Conventions:**
+- Use intention-revealing names
+- Avoid mental mapping and abbreviations
+- Use searchable names for important concepts
+
+<example type="naming_conventions">
+```go
+// ✅ Good: Clear, intention-revealing names
+type WorkflowExecutionResult struct {
+    TaskResults    []TaskResult  `json:"task_results"`
+    ExecutionTime  time.Duration `json:"execution_time"`
+    Status         ExecutionStatus `json:"status"`
+}
+
+func (w *WorkflowService) ExecuteWorkflowWithRetry(
+    ctx context.Context,
+    workflowID core.ID,
+    maxRetries int,
+) (*WorkflowExecutionResult, error) {
+    // Implementation
+}
+
+// ❌ Bad: Unclear, abbreviated names
+type WfExecRes struct {
+    TskRes []TskRes `json:"tr"`
+    ExecT  int64    `json:"et"`
+    Stat   int      `json:"s"`
+}
+
+func (w *WfSvc) ExecWf(ctx context.Context, id string, mr int) (*WfExecRes, error) {
+    // Implementation
+}
+```
+</example>
+
+<function_design>
+**Function Design:**
+- Follow function length limits defined in go-coding-standards.mdc
+- Single level of abstraction per function
+- Minimize function parameters (max 3-4)
+</function_design>
+
+<example type="function_design">
+```go
+// ✅ Good: Small, focused function
+func (s *TaskService) ValidateTaskInput(task *core.Task) error {
+    if err := s.validateRequiredFields(task); err != nil {
+        return fmt.Errorf("validation failed: %w", err)
+    }
+    if err := s.validateBusinessRules(task); err != nil {
+        return fmt.Errorf("business rule validation failed: %w", err)
+    }
+    return nil
+}
+
+func (s *TaskService) validateRequiredFields(task *core.Task) error {
+    if task.Title == "" {
+        return errors.New("title is required")
+    }
+    if task.Type == "" {
+        return errors.New("type is required")
+    }
+    return nil
+}
+```
+</example>
+
+<error_handling_architecture>
+**Error Handling Architecture:**
+Follow unified error handling strategy from [go-coding-standards.mdc](mdc:.cursor/rules/go-coding-standards.mdc)
+</error_handling_architecture>
+
+<example type="error_handling">
+```go
+// ✅ Good: Structured error handling
+func (s *WorkflowService) ExecuteWorkflow(ctx context.Context, id core.ID) error {
+    workflow, err := s.repo.FindWorkflow(ctx, id)
+    if err != nil {
+        return fmt.Errorf("failed to load workflow %s: %w", id, err)
+    }
+
+    if err := s.validateWorkflow(workflow); err != nil {
+        return core.NewError(err, "WORKFLOW_VALIDATION_FAILED", map[string]any{
+            "workflow_id": id,
+            "workflow_type": workflow.Type,
+        })
+    }
+
+    return s.executeWorkflowTasks(ctx, workflow)
+}
+```
+</example>
+
+## Project-Specific Patterns
+
+### Domain Organization
+
+<package_structure>
+**Package Structure:**
+- Each domain in `engine/` has clear boundaries
+- Shared types in `engine/core/`
+- Infrastructure concerns in `engine/infra/`
+</package_structure>
+
+### Service Construction
+
+<constructor_pattern type="mandatory">
+**MANDATORY constructor pattern for all services**
+- Use dependency injection through constructors
+- Always provide nil-safe configuration handling
+- *Implementation examples: see [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc)*
+</constructor_pattern>
+
+### Context Propagation
+
+<context_requirements type="mandatory">
+**Context as first parameter in all functions**
+- Always handle context cancellation
+- Propagate context through call chains
+- *Context handling patterns: see [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc)*
+</context_requirements>
+
+### Resource Management
+
+<cleanup_patterns>
+**Resource cleanup requirements:**
+- Use defer for cleanup operations
+- Handle cleanup errors appropriately
+- Implement timeout handling for long-running operations
+- *Resource management patterns: see [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc)*
+</cleanup_patterns>
+
+## Anti-Patterns to Avoid
+
+### God Objects
+```go
+// ❌ Avoid: Too many responsibilities
+type MegaService struct {
+    // Too many dependencies and responsibilities
+}
 ```
 
-### Database Commands
-
-```bash
-make migrate-up     # Apply migrations
-make migrate-down   # Rollback last migration
-make migrate-status # Check migration status
-make reset-db       # Reset database completely
+### Tight Coupling
+```go
+// ❌ Avoid: Direct dependency on concrete types
+type Service struct {
+    db *sql.DB // Should be an interface
+}
 ```
 
-## Architecture & Project Structure
-
-**📁 Complete project structure, technology stack, and architectural patterns:** See [project-structure.mdc](mdc:.cursor/rules/project-structure.mdc)
-
-## 🚨 CRITICAL: Follow All Development Standards
-
-**📋 MANDATORY: Review and follow ALL established coding standards:**
-
-- **Code Formatting & Line Spacing**: [no_linebreaks.mdc](mdc:.cursor/rules/no_linebreaks.mdc) - NEVER add blank lines inside function bodies
-- **Go Coding Standards**: [go-coding-standards.mdc](mdc:.cursor/rules/go-coding-standards.mdc) - Function limits, error handling, documentation policy
-- **Testing Standards**: [testing-standards.mdc](mdc:.cursor/rules/testing-standards.mdc) - MANDATORY `t.Run("Should...")` pattern, testify usage
-- **Go Implementation Patterns**: [go-patterns.mdc](mdc:.cursor/rules/go-patterns.mdc) - Canonical implementations of architecture principles
-- **Architecture Principles**: [architecture.mdc](mdc:.cursor/rules/architecture.mdc) - SOLID principles, Clean Architecture, DRY
-- **Code Quality & Security**: [quality-security.mdc](mdc:.cursor/rules/quality-security.mdc) - Linting rules, security requirements
-- **Required Libraries**: [core-libraries.mdc](mdc:.cursor/rules/core-libraries.mdc) - Mandatory library choices and usage patterns
-- **API Development**: [api-standards.mdc](mdc:.cursor/rules/api-standards.mdc) - RESTful design, versioning, documentation
-- **Code Review Process**: [review-checklist.mdc](mdc:.cursor/rules/review-checklist.mdc) - Pre-review requirements and checklist
-
-## Development Workflow
-
-### Pre-Commit Requirements
-
-**ALWAYS run before committing:**
-
-```bash
-make fmt && make lint && make test
+### Circular Dependencies
+```go
+// ❌ Avoid: Package A imports B, B imports A
 ```
 
-### Development Process
+### Magic Numbers/Strings
+```go
+// ❌ Avoid: Magic values
+if status == 1 { /* what does 1 mean? */ }
 
-1. **API changes:** Update Swagger annotations (`swag` comments)
-2. **Schema changes:** Create migrations with `make migrate-create name=<name>`
-3. **New features:** Include comprehensive tests following [testing-standards.mdc](mdc:.cursor/rules/testing-standards.mdc)
-4. **Task completion:** Follow [task-review.mdc](mdc:.cursor/rules/task-review.mdc) for mandatory code review workflow via Zen MCP tools
-5. **Backwards Compatibility:** See [backwards-compatibility.mdc](mdc:.cursor/rules/backwards-compatibility.mdc) - NOT REQUIRED during development phase
+// ✅ Use: Named constants
+const StatusActive = 1
+if status == StatusActive { /* clear meaning */ }
+```
 
-### Key Development Notes
+## Quality Metrics
 
-- **Logging:** Use [core-libraries.mdc](mdc:.cursor/rules/core-libraries.mdc) for structured logging patterns
-- **Core types:** Use `core.ID` for UUIDs, `core.Ref` for polymorphic references
-- **Dependencies:** Mock external dependencies in tests when necessary (see [testing-standards.mdc](mdc:.cursor/rules/testing-standards.mdc))
+### Code Quality Indicators
+- **Function complexity and length:** Follow limits defined in go-coding-standards.mdc
+- **Package Coupling:** Minimize cross-package dependencies
+- **Test Coverage:** Aim for 80%+ on business logic
 
-## Task Management
+### Architecture Health
+- **Dependency Direction:** Always inward toward domain
+- **Interface Usage:** High ratio of interfaces to concrete types
+- **Package Cohesion:** Related functionality grouped together
+- **Separation of Concerns:** Clear boundaries between layers
 
-For task-based development workflows, see these rule files:
+## Final Guidelines
 
-- [prd-create.mdc](mdc:.cursor/rules/prd-create.mdc) - PRD Creation
-- [prd-tech-spec.mdc](mdc:.cursor/rules/prd-tech-spec.mdc) - Technical Specifications
-- [task-generate-list.mdc](mdc:.cursor/rules/task-generate-list.mdc) - Task List Generation
-- [task-developing.mdc](mdc:.cursor/rules/task-developing.mdc) - Task Development
-- [task-review.mdc](mdc:.cursor/rules/task-review.mdc) - Task Completion with Zen MCP code review
-
-## Rule Management
-
-The development rules are actively maintained and improved:
-
-- **Rule Management**: [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) - Comprehensive guidelines for creating, maintaining, and improving rules
-
-## Compozy Configuration Examples
-
-For YAML configuration patterns and examples:
-
-- **Project Configuration**: [compozy-project-config.mdc](mdc:.cursor/rules/compozy-project-config.mdc) - Project setup patterns
-- **Task Patterns**: [compozy-task-patterns.mdc](mdc:.cursor/rules/compozy-task-patterns.mdc) - Workflow task configurations
-- **Agent Configuration**: [compozy-agent-config.mdc](mdc:.cursor/rules/compozy-agent-config.mdc) - AI agent setup patterns
-- **Shared Patterns**: [compozy-shared-patterns.mdc](mdc:.cursor/rules/compozy-shared-patterns.mdc) - MCP, templates, and references
-- **Configuration Index**: [compozy-examples.mdc](mdc:.cursor/rules/compozy-examples.mdc) - Overview and cross-references
-
-**All rule files are located in `.cursor/rules/` and use semantic XML tags for better context and AI understanding.**
-
-The project uses Go 1.24+ features and requires external dependencies to be mocked in tests when necessary.
+1. **Design for Change:** Assume requirements will evolve
+2. **Favor Composition:** Over inheritance and complex hierarchies
+3. **Explicit Dependencies:** Make all dependencies visible
+4. **Fail Fast:** Validate inputs early and fail explicitly
+5. **Document Decisions:** Capture architectural decisions and trade-offs
+6. **Measure and Monitor:** Track architecture health metrics
+7. **Refactor Continuously:** Improve design as understanding grows
+8. **Test Architecture:** Verify architectural constraints in tests
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
