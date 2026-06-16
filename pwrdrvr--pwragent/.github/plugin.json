@@ -1,0 +1,9 @@
+{
+  "name": "pwrdrvr--pwragent",
+  "displayName": "PwrAgent",
+  "description": "Desktop coding agent driven from Telegram, Discord, Slack, Mattermost, Feishu / Lark, or LINE. Codex-compatible \u2014 runs on your laptop, lives in your phone.",
+  "version": "1.0.0",
+  "author": "pwrdrvr",
+  "homepage": "https://github.com/pwrdrvr/PwrAgent",
+  "skills": []
+}
