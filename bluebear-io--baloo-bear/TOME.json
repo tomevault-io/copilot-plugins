@@ -4,7 +4,7 @@
   "repo": "baloo-bear",
   "description": "AI-powered code review agent for GitHub pull requests. Self-hosted GitHub App using PI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bluebear-io/baloo-bear",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T03:20:47Z"
+  "distributed_at": "2026-06-16T05:11:24Z"
 }
