@@ -1,0 +1,9 @@
+{
+  "name": "saginova-stack--claude-email-triage",
+  "displayName": "claude-email-triage",
+  "description": "Autonomous email triage agent for Claude Code \u2014 runs on a schedule, classifies Gmail, drafts/auto-sends replies, kills spam",
+  "version": "1.0.0",
+  "author": "saginova-stack",
+  "homepage": "https://github.com/saginova-stack/claude-email-triage",
+  "skills": []
+}
