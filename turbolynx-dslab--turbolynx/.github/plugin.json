@@ -1,0 +1,9 @@
+{
+  "name": "turbolynx-dslab--turbolynx",
+  "displayName": "TurboLynx",
+  "description": "Fast, scalable, and embeddable OLAP graph database in C++.",
+  "version": "1.0.0",
+  "author": "turbolynx-dslab",
+  "homepage": "https://github.com/turbolynx-dslab/TurboLynx",
+  "skills": []
+}
