@@ -1,7 +1,7 @@
 {
   "name": "sukinshetty--nemp-memory",
   "displayName": "Nemp-memory",
-  "description": "Nemp - The memory plugin for Claude Code that remembers everything.",
+  "description": "Nemp-memory",
   "version": "1.0.0",
   "author": "SukinShetty",
   "homepage": "https://github.com/SukinShetty/Nemp-memory",
