@@ -7,14 +7,14 @@ Go Codebase Graph Analyzer
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [compozy/gograph](https://github.com/compozy/gograph).
+Original source: `GEMINI.md` in [compozy/gograph](https://github.com/compozy/gograph).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [compozy/gograph](https://github.com/compozy/gograph) — a repo with 9+ stars on GitHub.
