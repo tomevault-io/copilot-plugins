@@ -1,130 +1,122 @@
-## cursor-rules
+## go-coding-standards
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
+> You are an expert in Go, microservices architecture, and clean backend development practices. Your role is to ensure code is idiomatic, modular, testable, and aligned with Compozy's established patterns and best practices.
 
+# Go Coding Standards
 
-<rule_structure_requirements>
+<role>
+You are an expert in Go, microservices architecture, and clean backend development practices. Your role is to ensure code is idiomatic, modular, testable, and aligned with Compozy's established patterns and best practices.
+</role>
 
-- **Required Rule Structure:**
+## Project Structure and Organization
 
-  ```markdown
-  ---
-  description: Clear, one-line description of what the rule enforces
-  globs: path/to/files/*.ext, other/path/**/*
-  alwaysApply: boolean
-  ---
+- Group code by feature/domain when appropriate (agent, task, tool, workflow)
+- Keep package names simple and descriptive
+- Follow the established pattern of separating interfaces from implementations
 
-  - **Main Points in Bold**
-    - Sub-points with details
-    - Examples and explanations
-  ```
+## Code Style and Standards
 
-  </rule_structure_requirements>
+<limits type="mandatory">
+- Adhere to Go's official style guide and the project's `.golangci.yml` configuration
+- Function length should not exceed 30 lines for business logic
+- Line length should not exceed 120 characters
+- Cyclomatic complexity should be kept below 10
+</limits>
 
-<file_reference_guidelines>
+<documentation_policy>
+- **DON'T ADD** comments to explain code changes - explanation belongs in text responses
+- Only add code comments when user explicitly requests them or code is complex and requires context for future developers
+</documentation_policy>
 
-- **File References:**
-  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
-  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
-    </file_reference_guidelines>
+## Error Handling
 
-<code_example_guidelines>
+<unified_strategy type="mandatory">
+**UNIFIED ERROR HANDLING STRATEGY - SINGLE SOURCE OF TRUTH**
 
-- **Code Examples:**
+1. **Internal Error Propagation (within domains):**
+   - Use `fmt.Errorf()` for all internal error propagation within a domain
+   - Always wrap errors with context: `fmt.Errorf("failed to load user: %w", err)`
+   - This keeps internal code simple and avoids unnecessary abstraction
 
-  - Use language-specific code blocks
+2. **Domain Boundaries (public service methods):**
+   - Use `core.NewError()` ONLY when returning errors from public service methods
+   - These are the methods exposed to other domains or external consumers
+   - Provides structured error information for cross-domain communication
 
-  ```typescript
-  // ✅ DO: Show good examples
-  const goodExample = true;
+3. **Always Required:**
+   - Check and handle errors explicitly - never ignore errors
+   - Return early on errors to avoid deep nesting
+   - Avoid naked returns in longer functions (as enforced by nakedret linter)
+</unified_strategy>
 
-  // ❌ DON'T: Show anti-patterns
-  const badExample = false;
-  ```
+<examples type="implementation">
+```go
+// ✅ INTERNAL: Use fmt.Errorf within domain
+func (s *userService) validateUser(ctx context.Context, user *User) error {
+    if user.Email == "" {
+        return fmt.Errorf("email is required")
+    }
+    if err := s.repo.CheckEmailExists(ctx, user.Email); err != nil {
+        return fmt.Errorf("failed to check email existence: %w", err)
+    }
+    return nil
+}
 
-  </code_example_guidelines>
+// ✅ DOMAIN BOUNDARY: Use core.NewError for public methods
+func (s *userService) CreateUser(ctx context.Context, req CreateUserRequest) (*User, error) {
+    user := &User{Email: req.Email, Name: req.Name}
+    if err := s.validateUser(ctx, user); err != nil {
+        return nil, core.NewError(err, "USER_VALIDATION_FAILED", map[string]any{
+            "email": req.Email,
+        })
+    }
+    // ... rest of implementation using fmt.Errorf internally
+}
+```
+</examples>
 
-<content_guidelines>
+<pattern type="transaction">
+```go
+defer func() {
+    if err != nil { tx.Rollback(ctx) } else { tx.Commit(ctx) }
+}()
+```
+</pattern>
 
-- **Rule Content Guidelines:**
-  - Start with high-level overview
-  - Include specific, actionable requirements
-  - Show examples of correct implementation
-  - Reference existing code when possible
-  - Keep rules DRY by referencing other rules
-    </content_guidelines>
+## Dependencies and Interfaces
 
-<rule_update_criteria>
+- Prefer explicit dependency injection through constructor functions
+- Use interfaces to define behavior and enable testing
 
-- **Rule Updates:**
+<pattern type="interface_implementation">
+```go
+// Define interface
+type Service interface {
+  DoSomething(ctx context.Context, param string) error
+}
 
-  - **Add New Rules When:**
+// Implement interface
+type ServiceImpl struct {
+  dependency Dependency
+}
 
-    - A new technology/pattern is used in 3+ files
-    - Common bugs could be prevented by a rule
-    - Code reviews repeatedly mention the same feedback
-    - New security or performance patterns emerge
+// Constructor function
+func NewService(dependency Dependency) Service {
+  return &serviceImpl{
+    dependency: dependency,
+  }
+}
+```
+</pattern>
 
-  - **Modify Existing Rules When:**
+## Context and Concurrency
 
-    - Better examples exist in the codebase
-    - Additional edge cases are discovered
-    - Related rules have been updated
-    - Implementation details have changed
-
-  - **Rule Deprecation:**
-    - Mark outdated patterns as deprecated
-    - Remove rules that no longer apply
-    - Update references to deprecated rules
-    - Document migration paths for old patterns
-</rule_update_criteria>
-
-<quality_checks>
-
-- **Rule Quality Checks:**
-  - Rules should be actionable and specific
-  - Examples should come from actual code
-  - References should be up to date
-  - Patterns should be consistently enforced
-  - Use bullet points for clarity
-  - Keep descriptions concise
-  - Include both DO and DON'T examples
-  - Reference actual code over theoretical examples
-  - Use consistent formatting across rules
-    </quality_checks>
-
-<continuous_improvement>
-
-- **Continuous Improvement:**
-
-  - **Improvement Triggers:**
-
-    - New code patterns not covered by existing rules
-    - Repeated similar implementations across files
-    - Common error patterns that could be prevented
-    - New libraries or tools being used consistently
-    - Emerging best practices in the codebase
-
-  - **Analysis Process:**
-
-    - Compare new code with existing rules
-    - Identify patterns that should be standardized
-    - Look for references to external documentation
-    - Check for consistent error handling patterns
-    - Monitor test patterns and coverage
-
-  - **Documentation Updates:**
-    - Keep examples synchronized with code
-    - Update references to external docs
-    - Maintain links between related rules
-    - Document breaking changes
-    - Monitor code review comments
-    - Track common development questions
-    - Update rules after major refactors
-    - Add links to relevant documentation
-    - Cross-reference related rules
-</continuous_improvement>
+<requirements type="context">
+- Use `context.Context` for request-scoped values, deadlines, and cancellations
+- Pass context as the first parameter to functions that make external calls
+- Use the noctx linter to enforce context propagation
+- Ensure goroutines are properly managed and cleaned up
+</requirements>
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
