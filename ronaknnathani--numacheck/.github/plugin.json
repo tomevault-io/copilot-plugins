@@ -1,0 +1,9 @@
+{
+  "name": "ronaknnathani--numacheck",
+  "displayName": "numacheck",
+  "description": "A CLI that analyzes NUMA topology for a process \u2014 shows CPU affinity, core/socket mapping, NUMA node distribution, and GPU locality. Built for diagnosing container CPU/GPU placement on Kubernetes node",
+  "version": "1.0.0",
+  "author": "ronaknnathani",
+  "homepage": "https://github.com/ronaknnathani/numacheck",
+  "skills": []
+}
