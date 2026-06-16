@@ -1,0 +1,9 @@
+{
+  "name": "daedalus--mcp-zabbix",
+  "displayName": "mcp-zabbix",
+  "description": "mcp-zabbix",
+  "version": "1.0.0",
+  "author": "daedalus",
+  "homepage": "https://github.com/daedalus/mcp-zabbix",
+  "skills": []
+}
