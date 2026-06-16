@@ -4,7 +4,7 @@
   "repo": "harness9",
   "description": "Local-First \u00b7 \u8f7b\u91cf\u7ea7 \u00b7 \u529f\u80fd\u5b8c\u5907 \u00b7 \u751f\u4ea7\u53ef\u7528\u7684\u901a\u7528 Agent \u6846\u67b6",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZhangShenao/harness9",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T00:32:22Z"
+  "distributed_at": "2026-06-16T00:36:01Z"
 }
