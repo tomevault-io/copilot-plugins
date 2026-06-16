@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "This repository is a portable, multi-harness workflow layer: skills form the common core, while agents, hooks, instructions, MCP configuration, and package profiles can extend that core without being required for every installation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jonhill90/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T10:35:15Z"
+  "distributed_at": "2026-06-16T10:35:43Z"
 }
