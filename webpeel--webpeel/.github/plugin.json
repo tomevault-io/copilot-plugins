@@ -1,0 +1,9 @@
+{
+  "name": "webpeel--webpeel",
+  "displayName": "webpeel",
+  "description": "The web data layer for AI agents \u2014 fetch, search, crawl, extract, screenshot, and monitor the web with 50+ domain extractors and MCP.",
+  "version": "1.0.0",
+  "author": "webpeel",
+  "homepage": "https://github.com/webpeel/webpeel",
+  "skills": []
+}
