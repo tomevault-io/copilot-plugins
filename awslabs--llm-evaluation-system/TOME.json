@@ -4,7 +4,7 @@
   "repo": "llm-evaluation-system",
   "description": "Agentic AI-guided evaluation system for comparing LLMs with multi-judge jury scoring",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awslabs/llm-evaluation-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T18:57:17Z"
+  "distributed_at": "2026-06-16T19:32:13Z"
 }
