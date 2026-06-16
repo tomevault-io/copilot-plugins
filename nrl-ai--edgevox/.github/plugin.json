@@ -1,0 +1,9 @@
+{
+  "name": "nrl-ai--edgevox",
+  "displayName": "edgevox",
+  "description": "Offline voice agent framework for robots \u2014 agents, skills, workflows, sub-second voice pipeline, 2D/3D simulation (IR-SIM + MuJoCo), 16 languages, 56 voices, ROS2-native. Runs on CPU/CUDA/Metal, no cl",
+  "version": "1.0.0",
+  "author": "nrl-ai",
+  "homepage": "https://github.com/nrl-ai/edgevox",
+  "skills": []
+}
