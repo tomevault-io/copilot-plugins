@@ -1,0 +1,9 @@
+{
+  "name": "syntropize-ai--rounds",
+  "displayName": "rounds",
+  "description": "Rounds is an Self-hosted AI SRE \u2014 investigate incidents, build dashboards, manage alerts, and approve remediations from natural language.",
+  "version": "1.0.0",
+  "author": "syntropize-ai",
+  "homepage": "https://github.com/syntropize-ai/rounds",
+  "skills": []
+}
