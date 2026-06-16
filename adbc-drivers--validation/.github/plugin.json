@@ -1,0 +1,9 @@
+{
+  "name": "adbc-drivers--validation",
+  "displayName": "validation",
+  "description": "A framework for validation testing of ADBC drivers.",
+  "version": "1.0.0",
+  "author": "adbc-drivers",
+  "homepage": "https://github.com/adbc-drivers/validation",
+  "skills": []
+}
