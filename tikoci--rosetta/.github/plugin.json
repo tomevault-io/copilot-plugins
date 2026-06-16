@@ -1,0 +1,9 @@
+{
+  "name": "tikoci--rosetta",
+  "displayName": "rosetta",
+  "description": "MCP Server with RouterOS docs + commands + products + changelogs, using SQLite-as-RAG, sourced from MikroTik",
+  "version": "1.0.0",
+  "author": "tikoci",
+  "homepage": "https://github.com/tikoci/rosetta",
+  "skills": []
+}
