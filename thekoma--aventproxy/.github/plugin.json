@@ -1,0 +1,9 @@
+{
+  "name": "thekoma--aventproxy",
+  "displayName": "aventproxy",
+  "description": "RTSP proxy for Philips Avent / Tuya cameras \u2014 Home Assistant add-on",
+  "version": "1.0.0",
+  "author": "thekoma",
+  "homepage": "https://github.com/thekoma/aventproxy",
+  "skills": []
+}
