@@ -141139,6 +141139,26 @@
       "description": "New Workbench replacing our old solutions like Workbench, Benchpress"
     },
     {
+      "name": "nik1t7n--context-firewall",
+      "source": "./nik1t7n--context-firewall",
+      "description": "Local-first context firewall for coding agents"
+    },
+    {
+      "name": "nik1t7n--context-firewall",
+      "source": "./nik1t7n--context-firewall",
+      "description": "Local-first context firewall for coding agents"
+    },
+    {
+      "name": "nik1t7n--context-firewall",
+      "source": "./nik1t7n--context-firewall",
+      "description": "Local-first context firewall for coding agents"
+    },
+    {
+      "name": "nik1t7n--context-firewall",
+      "source": "./nik1t7n--context-firewall",
+      "description": "Local-first context firewall for coding agents"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -168807,6 +168827,16 @@
       "name": "unredacted--packetframe",
       "source": "./unredacted--packetframe",
       "description": "PacketFrame is a modular eBPF-based packet-processing framework written in pure Rust"
+    },
+    {
+      "name": "xhongc--spark-novel",
+      "source": "./xhongc--spark-novel",
+      "description": "AI \u5c0f\u8bf4\uff0c\u77ed\u7bc7\u5c0f\u8bf4\uff0cAgent \u5199\u4f5c\uff0c\u901a\u52e4\u95f4\u9699\uff0c\u5199\u5b8c\u4e00\u7bc7\u7cbe\u5f69\u77ed\u5c0f\u8bf4\u3002"
+    },
+    {
+      "name": "xhongc--spark-novel",
+      "source": "./xhongc--spark-novel",
+      "description": "AI \u5c0f\u8bf4\uff0c\u77ed\u7bc7\u5c0f\u8bf4\uff0cAgent \u5199\u4f5c\uff0c\u901a\u52e4\u95f4\u9699\uff0c\u5199\u5b8c\u4e00\u7bc7\u7cbe\u5f69\u77ed\u5c0f\u8bf4\u3002"
     },
     {
       "name": "yschimke--compose-ai-tools",
