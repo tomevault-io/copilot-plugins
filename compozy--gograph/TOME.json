@@ -4,7 +4,7 @@
   "repo": "gograph",
   "description": "Go Codebase Graph Analyzer",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/compozy/gograph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T05:04:01Z"
+  "distributed_at": "2026-06-16T08:38:26Z"
 }
