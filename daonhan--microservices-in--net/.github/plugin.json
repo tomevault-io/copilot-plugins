@@ -1,0 +1,9 @@
+{
+  "name": "daonhan--microservices-in--net",
+  "displayName": "Microservices-in-.NET",
+  "description": "E-Commerce Microservices Platform. A production-ready e-commerce system built with .NET 10, ASP.NET Core Minimal APIs, and C# 12+ \u2014 demonstrating microservice architecture patterns from domain decompo",
+  "version": "1.0.0",
+  "author": "daonhan",
+  "homepage": "https://github.com/daonhan/Microservices-in-.NET",
+  "skills": []
+}
