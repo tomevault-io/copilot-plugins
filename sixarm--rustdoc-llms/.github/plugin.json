@@ -1,0 +1,9 @@
+{
+  "name": "sixarm--rustdoc-llms",
+  "displayName": "rustdoc-llms",
+  "description": "Rust documentation helper to generate file `llms.txt` for large language models (LLMs)",
+  "version": "1.0.0",
+  "author": "SixArm",
+  "homepage": "https://github.com/SixArm/rustdoc-llms",
+  "skills": []
+}
