@@ -7,11 +7,11 @@ AI for Practical Longevity (AI4L) - Enabling anyone to use AI to generate high-q
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [forever-healthy/AI4L](https://github.com/forever-healthy/AI4L).
+Original source: `CLAUDE.md` in [forever-healthy/AI4L](https://github.com/forever-healthy/AI4L).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
