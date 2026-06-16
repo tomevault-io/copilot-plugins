@@ -1,0 +1,9 @@
+{
+  "name": "stefanmaron--msdyn365bc-on-linux",
+  "displayName": "MsDyn365Bc.On.Linux",
+  "description": "Run Business Central on Linux with Docker Compose",
+  "version": "1.0.0",
+  "author": "StefanMaron",
+  "homepage": "https://github.com/StefanMaron/MsDyn365Bc.On.Linux",
+  "skills": []
+}
