@@ -1,7 +1,7 @@
 {
   "name": "ricardodantas--ratatui-themes",
   "displayName": "ratatui-themes",
-  "description": "A collection of popular color themes for ratatui terminal UI applications",
+  "description": "ratatui-themes",
   "version": "1.0.0",
   "author": "ricardodantas",
   "homepage": "https://github.com/ricardodantas/ratatui-themes",
