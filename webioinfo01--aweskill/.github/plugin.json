@@ -1,0 +1,9 @@
+{
+  "name": "webioinfo01--aweskill",
+  "displayName": "aweskill",
+  "description": "A CLI-first skill package manager that AI agents can operate themselves.",
+  "version": "1.0.0",
+  "author": "Webioinfo01",
+  "homepage": "https://github.com/Webioinfo01/aweskill",
+  "skills": []
+}
