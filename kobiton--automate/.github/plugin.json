@@ -1,0 +1,9 @@
+{
+  "name": "kobiton--automate",
+  "displayName": "automate",
+  "description": "AI coding assistant plugin for the Kobiton mobile testing platform. Works with Claude Code, Copilot CLI, Gemini CLI, Cursor CLI and Codex CLI to manage devices, upload apps, run mobile automation, and",
+  "version": "1.0.0",
+  "author": "kobiton",
+  "homepage": "https://github.com/kobiton/automate",
+  "skills": []
+}
