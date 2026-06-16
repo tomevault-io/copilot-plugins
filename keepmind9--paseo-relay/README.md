@@ -7,11 +7,11 @@ A standalone Go relay server for Paseo, fully compatible with the original Paseo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [keepmind9/paseo-relay](https://github.com/keepmind9/paseo-relay).
+Original source: `CLAUDE.md` in [keepmind9/paseo-relay](https://github.com/keepmind9/paseo-relay).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
