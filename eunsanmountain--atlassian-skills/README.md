@@ -7,11 +7,11 @@ Token-efficient CLI for Atlassian Server/DC (Jira, Confluence, Bitbucket) — dr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [eunsanMountain/atlassian-skills](https://github.com/eunsanMountain/atlassian-skills).
+Original source: `CLAUDE.md` in [eunsanMountain/atlassian-skills](https://github.com/eunsanMountain/atlassian-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
