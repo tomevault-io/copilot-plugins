@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--plugins",
+  "displayName": "plugins",
+  "description": "Plugin catalog for the Flux CLI",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/plugins",
+  "skills": []
+}
