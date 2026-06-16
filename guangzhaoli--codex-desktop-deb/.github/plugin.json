@@ -1,0 +1,9 @@
+{
+  "name": "guangzhaoli--codex-desktop-deb",
+  "displayName": "codex-desktop-deb",
+  "description": "Automated CI/CD pipeline to build Codex Desktop .deb packages for Linux",
+  "version": "1.0.0",
+  "author": "guangzhaoli",
+  "homepage": "https://github.com/guangzhaoli/codex-desktop-deb",
+  "skills": []
+}
