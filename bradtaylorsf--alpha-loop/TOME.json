@@ -4,7 +4,7 @@
   "repo": "alpha-loop",
   "description": "Agent-agnostic automated development loop: Plan -> Build -> Test -> Review -> Ship",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bradtaylorsf/alpha-loop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T19:12:13Z"
+  "distributed_at": "2026-06-16T19:39:29Z"
 }
