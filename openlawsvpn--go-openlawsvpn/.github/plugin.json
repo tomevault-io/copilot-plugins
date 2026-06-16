@@ -1,0 +1,9 @@
+{
+  "name": "openlawsvpn--go-openlawsvpn",
+  "displayName": "go-openlawsvpn",
+  "description": "Pure Go implementation of the OpenVPN3 protocol",
+  "version": "1.0.0",
+  "author": "openlawsvpn",
+  "homepage": "https://github.com/openlawsvpn/go-openlawsvpn",
+  "skills": []
+}
