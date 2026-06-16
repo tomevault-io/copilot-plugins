@@ -7,11 +7,11 @@ Run many Codex & Claude agents in parallel without them overwriting each other. 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [opencue/gitguardex](https://github.com/opencue/gitguardex).
+Original source: `AGENTS.md` in [opencue/gitguardex](https://github.com/opencue/gitguardex).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
