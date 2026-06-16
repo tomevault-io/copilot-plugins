@@ -1,0 +1,9 @@
+{
+  "name": "goccy--googlesqlite",
+  "displayName": "googlesqlite",
+  "description": "Run GoogleSQL using SQLite3 as the backend",
+  "version": "1.0.0",
+  "author": "goccy",
+  "homepage": "https://github.com/goccy/googlesqlite",
+  "skills": []
+}
