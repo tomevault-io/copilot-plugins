@@ -1,0 +1,9 @@
+{
+  "name": "dospamu--rpcs3toartemispatches",
+  "displayName": "RPCS3toArtemisPatches",
+  "description": "PS3 FPS unlock patches for real hardware (CFW + Artemis). Converted from RPCS3 patch.yml \u2014 2,500+ .ncl files, +100 games confirmed working.",
+  "version": "1.0.0",
+  "author": "DoSpamu",
+  "homepage": "https://github.com/DoSpamu/RPCS3toArtemisPatches",
+  "skills": []
+}
