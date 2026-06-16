@@ -2,9 +2,9 @@
   "name": "tensorlake-skills",
   "owner": "tensorlakeai",
   "repo": "tensorlake-skills",
-  "description": "Build production agent systems with orchestration and sandboxed execution environments using the Tensorlake SDK",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tensorlakeai/tensorlake-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:11:24Z"
+  "distributed_at": "2026-06-16T23:01:06Z"
 }
