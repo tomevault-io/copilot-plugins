@@ -1,84 +1,116 @@
-## temper-capability-plan-review
+## temper-pack-adaptive-learning
 
-> Interactive HTML plan review — browser-based review with inline comments and auto-detect
+> Adaptive learning pack: pattern detection, rule suggestions, noise reduction — auto-populated from learning patterns
 
 
-# HTML Plan Review
+# Adaptive Learning Pack
 
-**Goal:** Generate a self-contained HTML file from plan.md + tasks.md that supports interactive browser-based review with inline comments (Google Doc-style).
+Post-review intelligence layer that detects recurring patterns, suggests pack rules, and suppresses noise.
 
-## Template
+Runs as a **passive intelligence layer** inside `/temper:review` (Step 8.5) and `/temper:status` (dashboard section). All learning state lives in `.temper/learning.json`.
 
-The HTML template is at `templates/plan-review.html`. It contains:
-- All CSS inline (dark theme, responsive)
-- All JS inline (comment system, export, markdown rendering)
-- No external dependencies (no CDN, no build tools)
-- XSS-safe: all user input is escaped before rendering
+## Pattern Detection Algorithm
 
-## HTML Generation
-
-Generate the HTML file by:
-
-1. Read `templates/plan-review.html`
-2. Read `.temper/specs/{feature}/plan.md` — split into sections by `##` headers
-3. Read `.temper/specs/{feature}/tasks.md` — split into sections by `## Task` headers
-4. Replace template placeholders:
-   - `{{FEATURE_NAME}}` → human-readable feature name
-   - `{{FEATURE_SLUG}}` → slug from build-state.json
-   - `{{REVIEW_SPECS_DIR}}` → absolute path to `.temper/specs/{feature}/`
-   - `{{SECTIONS_JSON}}` → JSON array of `{ title, source, content }` objects
-5. Write to `.temper/specs/{feature}/review.html`
-
-## Comment Schema
-
-Comments are serialized to `review-comments.json`:
-
-```json
-{
-  "version": 1,
-  "feature": "{feature-slug}",
-  "comments": [
-    {
-      "id": "c1709000000000",
-      "target": "Architecture",
-      "type": "task-change|scenario-change|plan-change|general-note",
-      "text": "User's comment text",
-      "timestamp": "{ISO}",
-      "resolved": false
-    }
-  ],
-  "review_completed": true,
-  "completed_at": "{ISO}"
-}
+```
+1. CLUSTER findings by (category, file_path_pattern, description_keywords)
+2. MATCH each cluster against learning.json detected_patterns:
+   - If pattern exists: increment total_shown, update counts
+   - If new AND count >= 2: create new detected pattern entry
+3. EVALUATE per-pattern statistics:
+   - acceptance_rate = accepted / total_shown
+   - dismissal_rate = dismissed / total_shown
 ```
 
-## Orchestrator Integration
+## Promotion Criteria
 
-The orchestrator uses **file watching** to auto-detect when the user finishes reviewing:
+When a detected pattern meets these thresholds, generate a rule template:
 
-1. Before opening HTML, remove any stale `review-comments.json`
-2. Generate HTML with absolute specs path
-3. Open in browser — user adds comments and clicks "Done Reviewing"
-4. HTML page saves `review-comments.json` via File System Access API (Chrome/Edge) or download (fallback)
-5. Poll for the file every 3 seconds
-6. When file appears, auto-process comments:
-   - `task-change` → update tasks.md section matching `target`
-   - `scenario-change` → update intent.md scenario matching `target`
-   - `plan-change` → update plan.md section matching `target`
-   - `general-note` → add as context note to build-state.json
-7. Show summary of changes, return to Plan gate
+| Criterion | Threshold | Suggested Severity |
+|-----------|-----------|-------------------|
+| Accepted >= 3 AND acceptance_rate >= 70% | Met | WARN |
+| Accepted >= 5 AND acceptance_rate >= 80% | Met | BLOCK (security/architecture only) |
 
-## Browser Compatibility
+On promotion:
+1. Rule template written to `.temper/learning/suggestions/{pattern_id}.md`
+2. Entry added to `suggestion_queue[]` in learning.json
+3. Status dashboard shows the pending suggestion
 
-- Chrome/Edge 86+ — direct file write via File System Access API
-- Firefox 90+, Safari 15+ — download fallback with auto-detect
-- No polyfills needed, no server-side component
+## Suppression Criteria (Noise Reduction)
 
-## Security
+| Criterion | Threshold | Action |
+|-----------|-----------|--------|
+| Dismissed >= 3 AND acceptance_rate < 30% | Met | Downgrade severity by 1 level |
+| Dismissed >= 5 AND acceptance_rate < 10% | Met | Auto-suppress entirely |
 
-- All user input (comments) escaped via `textContent` (never `innerHTML` with user data)
-- Markdown rendering only applies to plan content (injected by orchestrator, trusted)
-- No external resources loaded (fully self-contained)
+Suppressed patterns move to `suppressed_patterns[]` in learning.json. Future reviews skip suppressed patterns entirely.
+
+## Context-Specific Handling
+
+Context-specific dismissals are tracked independently per pattern. A pattern suppressed in one context continues to fire in others.
+
+| Context | Detection | Behavior |
+|---------|-----------|----------|
+| config-loader | Path contains `config/` | Independent suppression |
+| test-fixtures | Path contains `test/`, `spec/` | Independent suppression |
+| data-transfer | Class has `DTO`, `Request`, `Response` | Independent suppression |
+| legacy-module | Listed in `.temper/legacy-modules.json` | Independent suppression |
+| generated-code | Header has `@generated` | Independent suppression |
+
+## Learning Curve Calculation
+
+```
+1. Read issues_per_review from metrics history
+2. Compute trend:
+   - Last 5 reviews: compute linear regression slope
+   - Slope < -0.5 → "improving"
+   - Slope between -0.5 and 0.5 → "stable"
+   - Slope > 0.5 → "degrading"
+   - Fewer than 3 reviews → "insufficient_data"
+3. improvement_pct:
+   (first_review_issues - last_review_issues) / first_review_issues * 100
+```
+
+## Integration Points
+
+| System | Direction | Purpose |
+|--------|-----------|---------|
+| `/temper:review` (Step 8.5) | Inbound | Post-review pattern detection trigger |
+| `/temper:status` | Inbound | Dashboard rendering |
+| `review-memory.json` | Inbound | Pattern history for clustering |
+| Pack system | Outbound | Promoted rule templates |
+| review Step 4 | Outbound | Noise filter lookup |
+
+## Graceful Degradation
+
+When `learning.json` does not exist:
+1. Review skips Step 8.5 entirely — no errors, no warnings
+2. Status shows "Adaptive learning: not yet initialized"
+3. All existing commands work exactly as before
+4. `learning.json` created automatically on first review run
+
+## Rule Template Format
+
+Promoted patterns generate rule templates in `.temper/learning/suggestions/{pattern_id}.md`:
+
+```markdown
+## {Rule Name}
+
+**Severity:** {BLOCK|WARN|SUGGEST}
+**Category:** {category}
+**Detection:** {file glob} + description keywords: {keywords}
+**Auto-generated from learning pattern:** {pattern_id}
+
+### Description
+{What the rule catches}
+
+### Detection Pattern
+- File pattern: `{file_pattern}`
+- Keywords: {description_keywords}
+- Acceptance rate: {acceptance_rate} ({accepted}/{total_shown})
+
+### Suggested Action
+{Description of what to do when this pattern is found}
+```
 
 ---
 > Source: [galando/temper](https://github.com/galando/temper) — distributed by [TomeVault](https://tomevault.io).
