@@ -1,0 +1,9 @@
+{
+  "name": "ludicdynamics--worldlines",
+  "displayName": "WorldLines",
+  "description": "Agents for Role Play. Agents for Game. Agents as a Game. An orchestrator-agents engine for living worlds \u2014 file-backed, event-sourced.",
+  "version": "1.0.0",
+  "author": "LudicDynamics",
+  "homepage": "https://github.com/LudicDynamics/WorldLines",
+  "skills": []
+}
