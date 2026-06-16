@@ -1,0 +1,9 @@
+{
+  "name": "smelukov--weightroom",
+  "displayName": "WeightRoom",
+  "description": "Estimate RAM, storage and token throughput for running LLMs locally or in the cloud. Supports all major architectures (Standard GQA, Sliding Window, MLA, Linear+Full), HuggingFace import, compare mode",
+  "version": "1.0.0",
+  "author": "smelukov",
+  "homepage": "https://github.com/smelukov/WeightRoom",
+  "skills": []
+}
