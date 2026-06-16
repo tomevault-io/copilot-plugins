@@ -1,48 +1,40 @@
-## temporal-cohesion
+## test-visibility
 
-> Wrap temporally cohesive calls — things that always need to happen together — into a single named function.
+> Never widen symbol visibility just to enable test access.
 
 
-# Temporal Cohesion: Wrap Co-Occurring Calls
+# Do Not Expose Symbols for Test Access
 
-When two or more calls always appear together at every call site, extract them into a single named function. This applies everywhere: ViewModels, actors, services, repositories, test helpers — sync or async, same type or across types.
+Never widen the visibility of a method, property, computed var, or type beyond what production code requires just to make it reachable from a test target.
 
-**Why:** Repeated call sequences are brittle. Any new call site can silently omit one half. The composed name also communicates intent ("refresh relationships") rather than mechanism ("refresh dependencies, then dependents").
+**Why:** Leaking implementation details as `internal` (or wider) under test pressure pollutes the API surface and makes future refactoring harder. Tests should exercise behaviour through the same entry points callers actually use.
 
 **Rule:**
 
-- If `foo()` + `bar()` appear together at two or more call sites with no intervening logic that varies between sites, extract a function that calls both and replace every call site with it.
-- Name the function after the **shared intent**, not after the individual operations (e.g. `refreshRelationships()`, not `refreshDependenciesAndDependents()`).
-- Make the individual functions `private` where they have no independent callers — they become implementation details of the composed function. See `test-visibility.mdc` for the testing corollary.
-- Do **not** collapse calls whose co-occurrence is coincidental or that carry genuinely distinct purposes at each call site. Only group when the pair represents a single coherent operation from the caller's point of view.
+- If a symbol would naturally be `private` but a test wants to call it, **do not make it `internal`**. Instead, update the test to go through the public/internal method that composes it (the same surface production callers use).
+- If no such composed entry point exists yet, **create one** (following the temporal cohesion rule where applicable), then test through that.
+- The one permitted exception is **`init`**: initialisers may be given wider visibility than strictly needed so tests can construct types in isolation. This is standard practice and does not leak behaviour.
 
-**Examples:**
+**Example (wrong):**
 
 ```swift
-// Before — async ViewModel
-await viewModel.refreshDependencies()
-await viewModel.refreshDependents()
-
-// After
-await viewModel.refreshRelationships()
+// Made internal only so tests can call it — wrong
+func refreshDependencies() async { … }
+func refreshDependents() async { … }
 ```
 
-```swift
-// Before — sync setup
-cache.invalidate()
-cache.preload()
-
-// After
-cache.reset()
-```
+**Example (correct):**
 
 ```swift
-// Before — actor coordination
-await center.submit(id: id, command: command)
-await logger.record(id: id)
+// Private implementation details
+private func refreshDependencies() async { … }
+private func refreshDependents() async { … }
 
-// After — composed on the coordinating type
-await coordinator.submitAndRecord(id: id, command: command)
+// Tests call the composed public entry point instead
+func refreshRelationships() async {
+    await refreshDependencies()
+    await refreshDependents()
+}
 ```
 
 ---
