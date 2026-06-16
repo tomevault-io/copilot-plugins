@@ -1,0 +1,9 @@
+{
+  "name": "45ck--skill-harness",
+  "displayName": "skill-harness",
+  "description": "Umbrella installer and agent harness for the skill-pack suite across Claude and Codex.",
+  "version": "1.0.0",
+  "author": "45ck",
+  "homepage": "https://github.com/45ck/skill-harness",
+  "skills": []
+}
