@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-token-saver",
+  "owner": "ww-w-ai",
+  "repo": "claude-code-token-saver",
+  "description": "45% cost reduction measured. The only Claude Code plugin built from CC source analysis \u2014 cache expiry prevention, SubTask auto-delegation, zero-cost context restoration, real-time dashboard. Max Plan + API pay-per-use.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ww-w-ai/claude-code-token-saver",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T00:58:06Z"
+}
