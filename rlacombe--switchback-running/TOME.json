@@ -2,9 +2,9 @@
   "name": "switchback-running",
   "owner": "rlacombe",
   "repo": "switchback-running",
-  "description": "",
+  "description": "Ultrarunning training companion agent powered by Intervals.icu.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rlacombe/switchback-running",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T05:51:28Z"
+  "distributed_at": "2026-06-16T18:47:38Z"
 }
