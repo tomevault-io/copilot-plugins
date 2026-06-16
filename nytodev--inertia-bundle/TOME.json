@@ -4,7 +4,7 @@
   "repo": "inertia-bundle",
   "description": "Symfony Bundle implementing the Inertia.js",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nytodev/inertia-bundle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T17:40:47Z"
+  "distributed_at": "2026-06-16T18:51:14Z"
 }
