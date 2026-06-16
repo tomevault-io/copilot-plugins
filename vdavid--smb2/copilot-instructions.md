@@ -1,0 +1,382 @@
+## smb2
+
+> Pure-Rust SMB2/3 client library with pipelined I/O. No C dependencies, no FFI. Single crate, async, runtime-agnostic.
+
+# smb2
+
+Pure-Rust SMB2/3 client library with pipelined I/O. No C dependencies, no FFI. Single crate, async, runtime-agnostic.
+
+## Quick commands
+
+- `just`: Fast checks: format, lint, test, doc (~2s)
+- `just check-live`: Fast checks + integration tests on real servers (~6s)
+- `just fix`: Auto-fix formatting and clippy warnings
+- `just check-all`: Include MSRV check, security audit, and license check
+- `just test-consumer`: Consumer integration tests (needs Docker, ~30s)
+- `cargo test`: Run unit tests (mock transport, no server needed)
+- `just fuzz <target> [duration]`: Fuzz a single parse entry point (nightly, cargo-fuzz)
+- `just fuzz-seeds`: Regenerate the committed `fuzz/corpus/` seeds
+
+## Project structure
+
+```
+src/
+  lib.rs                  # Public API exports
+  error.rs                # Error types, NTSTATUS mapping
+
+  pack/                   # Binary serialization (cursor-based)
+    mod.rs                # ReadCursor, WriteCursor, primitives
+    guid.rs               # GUID pack/unpack (mixed-endian)
+    filetime.rs           # Windows FILETIME <-> SystemTime
+
+  types/                  # Newtypes and common data structures
+    mod.rs                # SessionId, TreeId, FileId, MessageId, CreditCharge
+    flags.rs              # Bitflag types (Capabilities, SecurityMode, etc.)
+    status.rs             # NtStatus enum (from MS-ERREF)
+
+  msg/                    # Wire format message structs
+    mod.rs                # Command enum, Header, ErrorResponse
+    header.rs             # SMB2 packet header (sync + async variants)
+    negotiate.rs          # NegotiateRequest/Response, negotiate contexts
+    session_setup.rs      # SessionSetupRequest/Response
+    logoff.rs             # LogoffRequest/Response
+    tree_connect.rs       # TreeConnectRequest/Response
+    tree_disconnect.rs    # TreeDisconnectRequest/Response
+    create.rs             # CreateRequest/Response, create contexts
+    close.rs              # CloseRequest/Response
+    flush.rs              # FlushRequest/Response
+    read.rs               # ReadRequest/Response
+    write.rs              # WriteRequest/Response
+    lock.rs               # LockRequest/Response
+    ioctl.rs              # IoctlRequest/Response
+    query_directory.rs    # QueryDirectoryRequest/Response
+    change_notify.rs      # ChangeNotifyRequest/Response
+    query_info.rs         # QueryInfoRequest/Response
+    set_info.rs           # SetInfoRequest/Response
+    echo.rs               # EchoRequest/Response
+    cancel.rs             # CancelRequest
+    oplock_break.rs       # OplockBreakNotification/Acknowledgment
+    transform.rs          # TransformHeader (encryption), CompressionTransformHeader
+    dfs.rs                # DFS referral request/response wire format
+
+  transport/              # Transport abstraction
+    mod.rs                # Transport trait (split send/receive)
+    tcp.rs                # Direct TCP (port 445)
+    mock.rs               # Mock transport for testing
+
+  crypto/                 # Signing, encryption, key derivation
+    mod.rs
+    signing.rs            # HMAC-SHA256, AES-CMAC, AES-GMAC
+    encryption.rs         # AES-128/256-CCM, AES-128/256-GCM
+    kdf.rs                # SP800-108 key derivation
+
+  auth/                   # Authentication
+    mod.rs                # Auth trait
+    ntlm.rs              # NTLM authentication (from MS-NLMP)
+
+  rpc/                    # Named pipe RPC (MS-RPCE / NDR)
+    mod.rs                # RPC PDU types, NDR encoding/decoding
+    srvsvc.rs             # NetShareEnumAll (list shares on a server)
+
+  testing/                # Consumer test harness (feature-gated: `testing`)
+    mod.rs                # TestServers API, embedded Docker infrastructure
+    fixtures/consumer/    # Consumer Docker fixtures, embedded via include_str! (shipped in the crate)
+    CLAUDE.md
+
+  fuzzing.rs              # Parse entry points exposed under the `fuzzing` feature (used by `fuzz/`)
+
+  client/                 # High-level client API
+    mod.rs                # SmbClient (entry point)
+    connection.rs         # Connection state, credit management, response demux
+    session.rs            # Session (authenticated context)
+    tree.rs               # TreeConnect (share access)
+    file.rs               # Single-file convenience methods
+    pipeline.rs           # Unified operation pipeline
+    directory.rs          # Directory listing helpers
+    shares.rs             # Share enumeration (IPC$ + srvsvc RPC)
+    dfs.rs                # DFS referral IOCTL, DfsResolver with TTL cache
+
+tests/
+  pack_roundtrip.rs       # Property-based tests for pack/unpack
+  msg_wire_format.rs      # Test messages against known byte sequences
+  protocol_flow.rs        # Negotiate -> session -> tree -> file flows (mock)
+  integration.rs          # Tests against real NAS/Pi (#[ignore])
+  docker_integration.rs   # Tests against Docker Samba containers (#[ignore])
+  consumer_integration.rs # Tests against consumer Docker containers (#[ignore])
+  docker/                 # Docker infrastructure for smb2's own integration tests
+    internal/             # Internal-suite containers (consumer fixtures live in src/testing/fixtures/)
+
+examples/
+  list_shares.rs          # Connect and enumerate shares
+  list_directory.rs       # List files in a directory
+  read_file.rs            # Read a file from a share
+  write_file.rs           # Write a file to a share
+
+fuzz/
+  Cargo.toml              # Separate crate (nightly + libfuzzer-sys)
+  fuzz_targets/*.rs       # One fuzz target per parse entry point
+  corpus/<target>/seed_*.bin  # Committed seeds, generated by `tests/fuzz_seeds.rs`
+```
+
+## Kerberos status
+
+Tested end-to-end against Windows Server 2022 with AD DS (2026-04-09). Full flow works: AS exchange, TGS exchange,
+AP-REQ in SPNEGO, SMB SESSION_SETUP, file read/write. See `tests/CLAUDE.md` for AWS access details and
+`src/auth/CLAUDE.md` for design decisions discovered during testing.
+
+## Quality bar
+
+Each change must be solid AND elegant. Safe for family photos and company docs. No races, no code smells, no missing
+docs. Agents must update CLAUDE.md files when modifying modules.
+
+## Architecture
+
+```
+client:: (SmbClient, Tree, Pipeline)   <-- What users interact with
+  |
+msg:: (wire format pack/unpack)        <-- Protocol messages
+  |
+transport:: (Transport trait)
+  |
+tcp::TcpTransport  or  mock::MockTransport
+```
+
+**Entry points:** `SmbClient::connect()` for high-level use (handles negotiate + session setup + reconnection), or
+`Connection::connect()` + `Session::setup()` for low-level control
+
+**Key types:** `SessionId(u64)`, `TreeId(u32)`, `FileId { persistent: u64, volatile: u64 }`, `MessageId(u64)`,
+`CreditCharge(u16)`
+
+**Layers:**
+
+1. **Client API** (`client/`): High-level operations (connect, read file, list directory). Wraps the pipeline.
+2. **Protocol logic** (`client/connection.rs`, `client/pipeline.rs`): Credit management, message sequencing, response
+   demux, compounding. The pipeline is the core feature.
+3. **Wire format** (`msg/`, `pack/`): Serialize/deserialize SMB2 messages. Hand-rolled, no proc macros.
+4. **Transport** (`transport/`): Send/receive raw bytes over TCP. Split into send/receive halves to avoid deadlocks in
+   the pipeline's `select!` loop.
+
+## Pipeline design
+
+The pipeline is the reason this library exists. Without pipelining, SMB downloads are ~10x slower than native OS
+implementations.
+
+**How it works:**
+
+- Caller pushes `Op` requests into a channel (`tx`)
+- A driver task expands ops into SMB2 messages, sends as many as credits allow
+- Responses arrive asynchronously, get matched by `MessageId`, results stream back via `rx`
+- Large files get chunked at `MaxReadSize`/`MaxWriteSize` and reassembled
+- Credits flow back from responses, sliding the window forward
+
+**Key constraint:** Only ONE task reads from the transport. Every `Connection` spawns a single receiver task on
+construction that owns the read half, demultiplexes each incoming frame to the matching request's
+`oneshot::Sender<Frame>` (keyed by `MessageId`), and handles decrypt/decompress/sign-verify/credits/PENDING-loop/
+oplock-break/session-expiry centrally. Dropping a caller's future drops its `oneshot::Receiver`; the receiver task
+discards the late-arriving response silently. See `docs/specs/connection-actor.md` for the full design and
+`src/client/CLAUDE.md` § "Connection internals: receiver task + `oneshot` routing" for the architectural sketch.
+
+## Key design decisions
+
+| Decision             | Choice                                     | Why                                                                  |
+|----------------------|--------------------------------------------|----------------------------------------------------------------------|
+| Binary serialization | Hand-rolled `ReadCursor`/`WriteCursor`     | Full control, debuggable, no proc-macro dep                          |
+| Async strategy       | `dyn Transport` + `async_trait`            | Simpler public API than generics                                     |
+| ID types             | Newtypes (`SessionId(u64)`, etc.)          | Zero-cost compile-time safety                                        |
+| Error handling       | Rich context + `is_retryable()` + NTSTATUS | mtp-rs style                                                         |
+| Transport trait      | Split send/receive                         | Avoids deadlock in pipeline's `select!` loop                         |
+| Single crate         | No workspace                               | Like mtp-rs, keeps things simple                                     |
+| I/O performance      | Pipelined reads/writes as core feature     | Not an optimization, the reason the lib exists                       |
+| Batch operations     | Send-all-then-receive-all for multi-file ops | No new infra needed -- N `send_compound` + N `receive_compound`    |
+| Testing              | TDD with mock transport                    | Spec-driven tests first                                              |
+| Primary reference    | MS-SMB2 spec (~80%)                        | smb-rs as sanity check (~15%), mtp-rs as architecture template (~5%) |
+
+## Protocol pitfalls (all handled)
+
+Cross-module protocol concerns that span multiple files. Each is handled, but documented here so you understand
+non-obvious code patterns. Module-specific gotchas go in the relevant `CLAUDE.md`; cross-cutting ones go here. If you
+discover a new pitfall that involves 2+ modules, add it to this list.
+
+1. **Preauth hash excludes success response** ✅ -- The final SESSION_SETUP response (STATUS_SUCCESS) is NOT included in
+   the preauth hash. Including it produces wrong keys. See `session.rs`.
+2. **Compound partial failure** ✅ -- Standalone CLOSE issued when CREATE succeeds but a later op fails. See `tree.rs`
+   compound methods.
+3. **Consecutive MessageIds** ✅ -- `send_request_with_credits()` advances MessageId by CreditCharge. See
+   `connection.rs`.
+4. **Signing/encryption mutual exclusion** ✅ -- When encrypting, Signature is zeroed, AEAD provides auth. See
+   `connection.rs` send/receive paths.
+5. **TCP framing is big-endian** ✅ -- 0x00 + 3-byte BE length. Only big-endian thing in SMB. See `transport/tcp.rs`.
+6. **STATUS_PENDING loop** ✅ -- `receive_response()` loops past interim responses, extracting credits. See
+   `connection.rs`.
+7. **CANCEL two modes** ✅ -- `send_cancel()` handles sync (MessageId) and async (AsyncId + flag). See `connection.rs`.
+8. **Session expiry** ✅ -- `receive_response()` detects STATUS_NETWORK_SESSION_EXPIRED, returns `Error::SessionExpired`.
+   Caller reconnects. See `connection.rs`.
+9. **Compound encryption wraps entire chain** ✅ -- One TRANSFORM_HEADER for concatenated compound. See `connection.rs`
+   `send_compound()`.
+10. **STATUS_BUFFER_OVERFLOW** ✅ -- Accepted as partial success in QueryInfo responses via `is_success_or_partial()`.
+    See `tree.rs`.
+11. **Oplock break notifications** ✅ -- Detected by MessageId 0xFFFF..., logged, skipped. See `connection.rs` receive
+    loop.
+12. **NTLM MIC** ✅ -- Computed when MsvAvTimestamp present, using retained raw bytes. See `auth/ntlm.rs`.
+13. **Server may split compound responses** ✅ -- MS-SMB2 3.3.4.1.3: the server SHOULD compound responses but MAY send them as separate frames (Samba/QNAP do this in some cases). Compound-using methods call `Connection::receive_compound_expected(n)`, which gathers additional frames transparently. See `connection.rs` + `tree.rs`.
+14. **Share-enum responses split two ways** ✅ -- A srvsvc `NetShareEnum` reply can arrive as multiple DCE/RPC fragments (MS-RPCE 2.2.2.6, `PFC_LAST_FRAG` only on the last) and/or as `STATUS_BUFFER_OVERFLOW` pipe reads (MS-SMB2 3.3.5.10) when it exceeds one read buffer. `client::shares::read_pipe_message` follows the overflow chain; `rpc_bind_and_request` loops `rpc::parse_response_fragment` until the last fragment, then NDR-decodes the joined stub. Treating either as a hard error (the old behavior) truncated or failed listings on servers that chunk large replies. Spans `rpc/` + `client/shares.rs`.
+
+## Testing
+
+See `tests/CLAUDE.md` for the full testing guide. Quick reference:
+
+- `cargo test` — unit tests (~555), no server needed
+- `just check` — fmt + clippy + tests + doc
+- `cargo test --test integration -- --ignored` — real NAS/Pi tests (needs `.env`)
+- `just test-docker` — Docker container tests (needs Docker, ~28s locally)
+- `just test-consumer` — Consumer integration tests (needs Docker, ~30s locally)
+
+### Docker test containers
+
+14 Samba containers in `tests/docker/internal/`, exercising the full protocol stack:
+
+| Container             | Port  | What it tests                                 |
+|-----------------------|-------|-----------------------------------------------|
+| smb-guest             | 10445 | Guest access, basic operations                |
+| smb-auth              | 10446 | NTLM authentication                           |
+| smb-signing           | 10447 | Mandatory signing (server rejects unsigned)   |
+| smb-readonly          | 10448 | Write/delete return clean NTSTATUS errors     |
+| smb-ancient           | 10449 | SMB1 only, clean protocol rejection           |
+| smb-flaky             | 10450 | 5s up / 5s down, reconnect behavior           |
+| smb-slow              | 10451 | 200ms latency, pipelining under delay         |
+| smb-encryption        | 10452 | Mandatory encryption (AES-128-GCM, SMB 3.1.1) |
+| smb-50shares          | 10453 | 50 shares, RPC enumeration at scale           |
+| smb-manyshares        | 10458 | 200 long-comment shares, multi-fragment srvsvc reassembly |
+| smb-maxreadsize       | 10454 | 64 KB max read/write, chunking edge cases     |
+| smb-encryption-aes128 | 10455 | Mandatory encryption (AES-128-CCM, SMB 3.0.2) |
+| smb-dfs-root          | 10456 | DFS namespace root with msdfs link            |
+| smb-dfs-target        | 10457 | DFS target server with actual files            |
+
+### Consumer test containers
+
+14 Samba containers embedded in the crate under `src/testing/fixtures/consumer/`, used by apps that depend on smb2 to test their SMB integration. Exposed via the `smb2::testing` module (requires `testing` feature flag). They live in `src/` (not `tests/`) because the published crate embeds them via `include_str!`.
+
+| Container              | Port  | What it tests                                 |
+|------------------------|-------|-----------------------------------------------|
+| smb-consumer-guest     | 10480 | Guest access, basic operations                |
+| smb-consumer-auth      | 10481 | Login flow                                    |
+| smb-consumer-both      | 10482 | Mixed auth: guest + authenticated shares      |
+| smb-consumer-50shares  | 10483 | Share list UI, scrolling, search              |
+| smb-consumer-unicode   | 10484 | CJK, emoji, accented chars                    |
+| smb-consumer-longnames | 10485 | 200+ char filenames                           |
+| smb-consumer-deepnest  | 10486 | 50-level deep tree                            |
+| smb-consumer-manyfiles | 10487 | 10k+ files in one dir                         |
+| smb-consumer-readonly  | 10488 | Read-only share, write errors                 |
+| smb-consumer-windows   | 10489 | Windows-like server string                    |
+| smb-consumer-synology  | 10490 | Synology-like server string + TimeMachine     |
+| smb-consumer-linux     | 10491 | Default Linux Samba server                    |
+| smb-consumer-flaky     | 10492 | Error recovery UI, reconnect handling         |
+| smb-consumer-slow      | 10493 | Loading spinners, progress bars, timeouts     |
+| smb-consumer-maxreadsize | 10494 | Streaming-fallback chunking (64 KB max read/write) |
+
+### Tested hardware
+
+Integration tests (`tests/integration.rs`) run against real hardware:
+
+- QNAP TS-464 NAS (SMB 3.1.1, NTLM auth, AES-GMAC signing)
+- Raspberry Pi 4 Model B (SMB 3.1.1, guest access)
+
+## Module docs (CLAUDE.md files)
+
+Each module has a colocated `CLAUDE.md` with architecture, decisions, and gotchas. These are auto-discovered by Claude
+Code.
+
+**Before modifying a module:** Read its CLAUDE.md.
+**After modifying a module:** Update its CLAUDE.md if you changed architecture, added decisions, or discovered new
+gotchas. Keep them current.
+
+```
+src/testing/CLAUDE.md   # Consumer test harness, TestServers API, embedded Docker infra
+src/client/CLAUDE.md    # SmbClient, Connection, compound, pipelining
+src/crypto/CLAUDE.md    # Signing, encryption, KDF, preauth hash
+src/msg/CLAUDE.md       # Wire format, Pack/Unpack, offsets, compounds
+src/transport/CLAUDE.md # Split send/receive, TCP framing, MockTransport
+src/auth/CLAUDE.md      # NTLM, MIC, session key derivation
+src/rpc/CLAUDE.md       # RPC-over-pipes, NDR, share enumeration
+src/pack/CLAUDE.md      # Cursors, GUID, FileTime, MAX_UNPACK_BUFFER
+src/types/CLAUDE.md     # Newtypes, enums, bitflags, NtStatus
+tests/CLAUDE.md         # Test categories, how to run, writing new tests, AWS access for Kerberos testing
+```
+
+## Code style
+
+Run `just check` before committing. This runs `cargo fmt --check`, `cargo clippy -- -D warnings`, `cargo test`, and
+`cargo doc --no-deps`.
+
+- `#![forbid(unsafe_code)]`: no unsafe
+- `#![warn(missing_docs)]`: doc comments for public APIs
+- Hand-rolled pack/unpack, no proc macros for wire format
+- Newtypes for all protocol IDs
+- `thiserror` for error types
+
+## Diagnostics
+
+`SmbClient::diagnostics()` and `Connection::diagnostics()` return an in-process snapshot of the client's state plus 17
+`AtomicU64` counters per connection (`requests_sent`, `wire_bytes_*`, the disjoint routing partition `responses_*`,
+`status_pending_loops`, `signature_failures`, etc.) and three client-level counters (`reconnects`,
+`dfs_referrals_resolved`, `dfs_cache_hits`). Eventually consistent, survives connection teardown, per-connection
+counters reset on reconnect. `Display` impl for terminal output; optional `serde` feature for JSON.
+
+Spec: [`docs/specs/diagnostics-plan.md`](docs/specs/diagnostics-plan.md). Quick smoke test:
+
+```sh
+SMB2_PASS=secret cargo run --example diagnostics
+SMB2_PASS=secret cargo run --example diagnostics --features serde -- --json
+```
+
+## Logging
+
+The crate uses `log` (a facade) for structured logging. The application picks the backend (for example, `env_logger`,
+`tracing`).
+
+**Log levels:**
+
+| Level   | Use for                                   | Examples                                                                                                                    |
+|---------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| `info`  | Major lifecycle events users care about   | Connected, negotiated dialect, session established, tree connected/disconnected                                             |
+| `debug` | Protocol details useful for debugging     | Negotiate params, session setup rounds, signing activation, credit changes, each request/response                           |
+| `trace` | Very verbose, byte-level                  | Raw message sizes, signature bytes (first 4), nonce values, preauth hash updates, TCP framing, individual directory entries |
+| `warn`  | Unexpected but recoverable                | Signature verification skipped, credit starvation, retryable errors                                                         |
+| `error` | Should not happen during normal operation | Protocol violations, decryption/signature failures, connection drops                                                        |
+
+**How to enable:**
+
+```sh
+RUST_LOG=smb2=debug cargo test --test integration -- --ignored
+```
+
+**Security rule:** Never log passwords, session keys, signing keys, or full signatures. At most log key lengths and the
+first four bytes of signatures for correlation.
+
+**Backend note:** `log` is a facade. This crate does NOT depend on any specific backend. Applications using smb2 pick
+their own (for example, `env_logger`). The `env_logger` dev-dependency is only used in integration tests.
+
+## Spec files
+
+Agents MUST read the actual spec files, not work from memory. Protocol specs are dense and full of edge cases that are
+easy to get wrong.
+
+- Implementation plan: `docs/specs/implementation-plan.md`
+- MS-SMB2 spec: `related-repos/openspecs/skills/windows-protocols/MS-SMB2/MS-SMB2.md`
+- MS-ERREF (NTSTATUS codes): `related-repos/openspecs/skills/windows-protocols/MS-ERREF/MS-ERREF.md`
+- MS-DTYP (data types): `related-repos/openspecs/skills/windows-protocols/MS-DTYP/MS-DTYP.md`
+- MS-FSCC (file system codes): `related-repos/openspecs/skills/windows-protocols/MS-FSCC/MS-FSCC.md`
+- MS-NLMP (NTLM auth): `related-repos/openspecs/skills/windows-protocols/MS-NLMP/MS-NLMP.md`
+- smb-rs reference impl: `related-repos/smb-rs/`
+- mtp-rs architecture template: `../mtp-rs/`
+
+## References
+
+- [MS-SMB2 spec](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-smb2/): primary reference
+- [mtp-rs](https://github.com/vdavid/mtp-rs): architecture template
+- [smb-rs](https://github.com/oll3/smb-rs): reference implementation, sanity check only
+- [docs/releasing.md](docs/releasing.md) — how to publish a new version to crates.io
+
+---
+> Source: [vdavid/smb2](https://github.com/vdavid/smb2) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
