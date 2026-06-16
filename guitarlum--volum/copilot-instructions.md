@@ -1,58 +1,39 @@
-## measure-twice-cut-once
+## neural-amp-modeler-native
 
-> Measure twice, cut once - plan-lifecycle guidance: how to create a plan and how to hand it off cleanly to implementation.
+> NeuralAmpModeler (iPlug2 / NAM) C++ conventions for VoLum
 
 
-# Measure Twice, Cut Once
+# NeuralAmpModeler C++ (VoLum)
 
-Plan deliberately before implementation, then hand off the work with the right
-model, skills, and first step.
+## VoLum upstream fence
 
-## Measure Twice: Plan Before Drafting
+- VoLum-only code added to upstream-equivalent files should stay visually separable with a `// VoLum:` comment or extraction into a `VoLum*.inc.cpp` tail-include.
+- IR file browser behavior is still VST3-only unless you intentionally change that block.
 
-For non-trivial plans or ambiguous work, prefer `/grill-me` if that skill is
-installed. If it is not installed, use the same interaction pattern directly:
-ask one question at a time, include your recommended answer, and inspect the
-codebase instead of asking when the answer is discoverable.
+## DSP / RT invariants
 
-Skip grilling for obvious single-step changes.
+- POST effects (`mDelay`, `mReverb`) are `Reset()` on every active -> inactive edge so re-engaging never replays a stale tail. Tracking state: `mPostDelayWasActive` / `mPostReverbWasActive` in `NeuralAmpModeler.h`.
+- `Reverb::SetParams` calls `Reset()` whenever `mode` or (for Oktaverb) `subMode` changes, matching `Delay::SetParams`.
+- Reverb Mix is one-pole smoothed (~10 Hz) to kill zipper noise during automation; `mMixSmoothed` snaps to target on sample-rate change and on Reset.
+- NAM model output is scrubbed via `volum::ScrubNonFiniteInPlace` after every `mModel->process` / `mSupportModel->process`; on non-finite, both POST effects are also `Reset()` so no NaN can lodge in their state.
+- `volum::SoftSafetyClip` maps NaN / +/-Inf to 0. Final-bus contract.
+- Legacy `_StageModel` / `_StageIR` writes are serialized against the audio-thread move in `_ApplyDSPStaging` via `mStagingMutex`. VoLum worker-queue drain still runs lock-free on the audio thread.
+- Dual-amp scratch buffers (`mDualMainLaneBuffer`, `mDualSupportLaneBuffer`, `mDualMainAlignedBuffer`, `mDualSupportAlignedBuffer`) are pre-reserved in `OnReset` so `ProcessBlock` never allocates on the audio thread.
 
-## Cut Once: Implementation Handoff
+## Dependencies
 
-When creating or updating an implementation plan, end the plan with a short
-`Implementation Recommendation` section.
+- Prefer existing iPlug / repo **include paths**. If vendoring headers (e.g. JSON), call out duplication risk in changelog and align with upstream when merging.
 
-Include:
+## Verification
 
-- **Model:** Recommend a specific model that fits this task. Pick by task
-  shape, not by habit:
-  - Small, well-scoped wording/docs/script/config edits: name a fast
-    implementation-tier model currently available in this environment.
-  - Complex debugging, architecture-heavy work, refactors with unclear
-    trade-offs, or anything safety-critical: name a strong reasoning model
-    currently available in this environment.
-  - If the task does not clearly favor a tier, say so explicitly and let the
-    user choose.
-  - Never hardcode a single model as a universal default. Never invent a model
-    name that is not currently available; if available models are unknown,
-    describe the desired tier instead.
-- **Skills:** Recommend any relevant installed skills to attach for the
-  implementation phase. If none fit, say so explicitly. Split these into:
-  - **Attach/load before coding:** skills that should shape implementation.
-  - **Run after only if requested:** opt-in retro/review skills the user may
-    invoke on demand.
-- **Why:** Give a one-sentence reason tied to the task shape, such as docs,
-  UI, debugging, refactor, migration, packaging, or code review.
-
-Keep this section concise. It should help the user start the next chat with the
-right context, not reopen the design discussion.
-
-If a plan recommends any **Attach/load before coding** skills, make the first
-implementation todo: `Load recommended implementation skills/rules and confirm
-scope`. Do not add opt-in retro skills to startup todos.
-
-After implementation, the user may opt in to a retro on demand. Do not run a
-retro automatically.
+- After DSP/UI/state changes: **`run-tests-win.ps1`** and a **targeted MSBuild** of the configuration you touched (e.g. `NeuralAmpModeler-app` or `NeuralAmpModeler-vst3`).
+- Cross-platform test additions must be registered in both `NeuralAmpModeler/projects/NeuralAmpModeler-Tests.vcxproj` and `NeuralAmpModeler/tests/CMakeLists.txt`.
+- DSP helpers/effects: doctests in `NeuralAmpModeler/tests/` (`test_process_io.cpp`, `test_delay_reverb_dsp.cpp`, `test_volum_pre_effects.cpp`, `test_tone_stack.cpp`, tuner/metronome tests).
+- Main signal-chain decisions: `VoLumProcessingPlan.h` plus `test_volum_processing_plan.cpp`.
+- Main amp rigs: `test_nam_rigs.cpp`; new `.nam` files under `rigs/` must load and survive one `process()` block there (finite + bounded output).
+- PRE NAM captures: `VoLumPrePedalCaptures.h`, `test_volum_pre_pedal_captures.cpp`, and the PRE section of `test_nam_rigs.cpp`; new files under `rigs/PrePedals/` must discover, load, and package.
+- Master safety / NaN containment: `test_volum_master_safety.cpp` and `test_volum_nan_guard.cpp`.
+- Bypass identity: `test_volum_bypass_identity.cpp`.
 
 ---
 > Source: [guitarlum/VoLum](https://github.com/guitarlum/VoLum) — distributed by [TomeVault](https://tomevault.io).
