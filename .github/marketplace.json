@@ -54729,6 +54729,11 @@
       "description": "\ud83d\udc0b \ud83d\udce6 Half-Life Dedicated Server powered by Docker, supporting all the classic GoldSrc Half-Life games and mods-including Counter-Strike 1.6, Team Fortress Classic, Day of Defeat and more. Easily extend"
     },
     {
+      "name": "cobra91--better-ccusage",
+      "source": "./cobra91--better-ccusage",
+      "description": "Analyze your Claude Code/Droid/OpenCode and all providers that use Claude Code or Droid token usage and costs from local JSONL files with multi-provider support \u2014 incredibly fast and informative!"
+    },
+    {
       "name": "tmdgusya--engineering-discipline",
       "source": "./tmdgusya--engineering-discipline",
       "description": "SKILL for engineering-discipline"
@@ -168784,6 +168789,26 @@
       "description": "Signal conditioning, transformation, and routing in a NATS-native message processor"
     },
     {
+      "name": "nomadamas--katok",
+      "source": "./nomadamas--katok",
+      "description": "\uc5d0\uc774\uc804\ud2b8\ub3c4 \uce74\uce74\uc624\ud1a1\uc744 \ubcf4\uace0 \uac80\uc0c9\ud560 \uad8c\ub9ac\uac00 \uc788\ub2e4 - BM25 + Vector Search\uae4c\uc9c0"
+    },
+    {
+      "name": "prompt-security--homegrown-ai-app-demo",
+      "source": "./prompt-security--homegrown-ai-app-demo",
+      "description": "homegrown-ai-app-demo"
+    },
+    {
+      "name": "goccy--googlesqlite",
+      "source": "./goccy--googlesqlite",
+      "description": "Run GoogleSQL using SQLite3 as the backend"
+    },
+    {
+      "name": "unredacted--packetframe",
+      "source": "./unredacted--packetframe",
+      "description": "PacketFrame is a modular eBPF-based packet-processing framework written in pure Rust"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -193669,6 +193694,71 @@
       "description": "wuxianhuabu"
     },
     {
+      "name": "carsmallguo--deveco-code",
+      "source": "./carsmallguo--deveco-code",
+      "description": "deveco-code"
+    },
+    {
+      "name": "noveum--noveum-trace-ts",
+      "source": "./noveum--noveum-trace-ts",
+      "description": "The official TypeScript SDK for [Noveum.ai](https://noveum.ai) - a powerful tracing and observability platform for LLM applications, RAG systems, and AI agents."
+    },
+    {
+      "name": "caidaoli--jetbrainsai2api",
+      "source": "./caidaoli--jetbrainsai2api",
+      "description": "jetbrainsai2api"
+    },
+    {
+      "name": "firish--claude-code-vs",
+      "source": "./firish--claude-code-vs",
+      "description": "claude_code_vs"
+    },
+    {
+      "name": "yujxzjcn--teaching-skills",
+      "source": "./yujxzjcn--teaching-skills",
+      "description": "Teaching Skills for Claude Code \u2014 teaching lifecycle suite for university professors"
+    },
+    {
+      "name": "cmriat--etha",
+      "source": "./cmriat--etha",
+      "description": "Etha"
+    },
+    {
+      "name": "kaijutale--maestro",
+      "source": "./kaijutale--maestro",
+      "description": "A CLI tool that conducts Git worktrees like an orchestra and accelerates parallel development with Claude Code."
+    },
+    {
+      "name": "compozy--gograph",
+      "source": "./compozy--gograph",
+      "description": "Go Codebase Graph Analyzer"
+    },
+    {
+      "name": "open-agent-tools--open-paper-trading-mcp",
+      "source": "./open-agent-tools--open-paper-trading-mcp",
+      "description": "Open Paper Trading MCP - A dual-interface paper trading simulation platform with FastAPI REST API and MCP server"
+    },
+    {
+      "name": "vesselsense--signalk-mcp-server",
+      "source": "./vesselsense--signalk-mcp-server",
+      "description": "Signalk MCP Server"
+    },
+    {
+      "name": "adbc-drivers--validation",
+      "source": "./adbc-drivers--validation",
+      "description": "A framework for validation testing of ADBC drivers."
+    },
+    {
+      "name": "little-scale--cycle-fold-max-external",
+      "source": "./little-scale--cycle-fold-max-external",
+      "description": "An advanced wave folding oscillator with phase warping capabilities, featuring progressive threshold wave folding, click-free parameter transitions, and comprehensive anti-aliasing protection."
+    },
+    {
+      "name": "mountainscalling-me--property-dashboard",
+      "source": "./mountainscalling-me--property-dashboard",
+      "description": "Automated property search and CRM dashboard built with Claude Code. Cloudflare Workers + Pages + D1, React + Vite, RealtyAPI (Zillow)."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -208632,6 +208722,51 @@
       "name": "sixarm--rustdoc-llms",
       "source": "./sixarm--rustdoc-llms",
       "description": "Rust documentation helper to generate file `llms.txt` for large language models (LLMs)"
+    },
+    {
+      "name": "ain3sh--droid-session-explorer",
+      "source": "./ain3sh--droid-session-explorer",
+      "description": "dsx: fast CLI + TUI to search and analyze your Factory Droid sessions (SQLite+FTS5 index, usage analytics, session lineage, OpenTUI)"
+    },
+    {
+      "name": "ccwbb78--mimo-code-multimodal-integration",
+      "source": "./ccwbb78--mimo-code-multimodal-integration",
+      "description": "\u5728 MiMoCode \u7684 Agent \u73af\u5883\u4e0b\uff0c\u7eaf\u6587\u672c\u6a21\u578b MiMo-V2.5-Pro \u901a\u8fc7\u667a\u80fd\u4f53\u7f16\u6392\u83b7\u5f97\u591a\u6a21\u6001\u80fd\u529b\uff1aMiMoCode \u6309\u9700\u8c03\u7528\u5177\u5907\u539f\u751f\u89c6\u89c9\u80fd\u529b\u7684 MiMo-V2.5 \u5904\u7406\u56fe\u50cf\u8f93\u5165\uff0c\u96c6\u6210 MiMo-V2.5-ASR \u5b9e\u73b0\u8bed\u97f3\u6307\u4ee4\u8f6c\u8bd1\uff0c\u5e76\u5c06\u591a\u6a21\u6001\u4e0a\u4e0b\u6587\u7ed3\u6784\u5316\u5b58\u50a8\u4e8e\u4e09\u91cd\u8bb0\u5fc6\u7cfb\u7edf\u4e2d\u3002\u7eaf\u6587\u672c\"\u5927\u8111\"\u8d1f\u8d23\u6df1\u5ea6\u63a8\u7406\uff0c\u591a\u6a21\u6001\u6a21\u5757\u8d1f\u8d23\u611f\u77e5\u8f93\u5165\uff0c\u534f\u540c\u5b8c\u6210\u4ece\u8bed\u97f3/\u56fe\u50cf\u5230\u4ee3\u7801\u7684\u5168\u6d41\u7a0b\u95ed\u73af\u3002"
+    },
+    {
+      "name": "whileman133--heaviside",
+      "source": "./whileman133--heaviside",
+      "description": "A graphical editor for producing publication-quality circuit diagrams with CircuiTikZ LaTeX."
+    },
+    {
+      "name": "nawodyaishan--ar-fashion-tryon",
+      "source": "./nawodyaishan--ar-fashion-tryon",
+      "description": "Full-stack augmented reality and AI-powered virtual garment try-on system for e-commerce. Combines real-time AR preview with ML-powered photo-realistic virtual try-on using state-of-the-art deep learn"
+    },
+    {
+      "name": "corporatepiyush--mcp-pg-rust",
+      "source": "./corporatepiyush--mcp-pg-rust",
+      "description": "Postgresql MCP server written in Rust"
+    },
+    {
+      "name": "discod73--nous-core",
+      "source": "./discod73--nous-core",
+      "description": "Local-first, privacy-preserving multi-agent AI system for families. Runs on Raspberry Pi 5 + Jetson Orin NX. No cloud. No subscriptions. Your data stays home."
+    },
+    {
+      "name": "little-scale--tide-max-external",
+      "source": "./little-scale--tide-max-external",
+      "description": "A Max/MSP external inspired by the core waveshaping algorithms from Mutable Instruments Tides 2, reimplemented as a single LFO output with unique asymmetric ramps, shape controls, and smoothness proce"
+    },
+    {
+      "name": "pengdows--pengdows-crud",
+      "source": "./pengdows--pengdows-crud",
+      "description": "pengdows.crud"
+    },
+    {
+      "name": "nowasm--fapp",
+      "source": "./nowasm--fapp",
+      "description": "build app with figma by ai."
     },
     {
       "name": "cheerhuan--save-your-token",
