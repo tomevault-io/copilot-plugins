@@ -4,7 +4,7 @@
   "repo": "FylloCode",
   "description": "Coding Agent \u7684\u56e2\u961f\u6cbb\u7406\u5c42\uff1a\u8ba9\u5168\u961f\u7684 Agent \u9075\u5b88\u540c\u4e00\u5957\u6301\u7eed\u8fdb\u5316\u7684\u89c4\u5219\uff0c\u5168\u7a0b\u53ef\u8ffd\u6eaf",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Fioooooooo/FylloCode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T05:05:20Z"
+  "distributed_at": "2026-06-16T07:17:47Z"
 }
