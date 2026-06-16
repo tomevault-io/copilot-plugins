@@ -1,0 +1,9 @@
+{
+  "name": "sidkandan--universal-remote-control",
+  "displayName": "universal-remote-control",
+  "description": "Control Codex and Gemini from the Claude app on your phone. Cross-CLI agent communication via MCP.",
+  "version": "1.0.0",
+  "author": "sidkandan",
+  "homepage": "https://github.com/sidkandan/universal-remote-control",
+  "skills": []
+}
