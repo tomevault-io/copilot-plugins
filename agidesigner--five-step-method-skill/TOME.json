@@ -1,0 +1,44 @@
+{
+  "name": "five-step-method-skill",
+  "owner": "agidesigner",
+  "repo": "five-step-method-skill",
+  "description": "AI agent skill that teaches \"question \u2192 delete \u2192 simplify \u2192 accelerate \u2192 automate\" before acting. Works with Claude Code, OpenClaw, Codex,          Cursor, and more. ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/agidesigner/five-step-method-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T21:07:57Z"
+}
