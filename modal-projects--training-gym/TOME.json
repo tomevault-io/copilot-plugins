@@ -4,7 +4,7 @@
   "repo": "training-gym",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/modal-projects/training-gym",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T04:38:54Z"
+  "distributed_at": "2026-06-16T06:48:57Z"
 }
