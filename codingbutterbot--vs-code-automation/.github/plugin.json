@@ -1,0 +1,9 @@
+{
+  "name": "codingbutterbot--vs-code-automation",
+  "displayName": "vs-code-automation",
+  "description": "VS Code extension for automating editor actions via WebSocket (MCP)",
+  "version": "1.0.0",
+  "author": "CodingButterBot",
+  "homepage": "https://github.com/CodingButterBot/vs-code-automation",
+  "skills": []
+}
