@@ -2,7 +2,7 @@
   "name": "gograph",
   "owner": "compozy",
   "repo": "gograph",
-  "description": "",
+  "description": "Go Codebase Graph Analyzer",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/compozy",
+  "source_url": "https://github.com/compozy/gograph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T05:54:47Z"
+  "distributed_at": "2026-06-16T04:31:50Z"
 }
