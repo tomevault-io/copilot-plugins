@@ -1,0 +1,9 @@
+{
+  "name": "roc-lang--www-roc-lang-org",
+  "displayName": "www.roc-lang.org",
+  "description": "The Roc website: www.roc-lang.org",
+  "version": "1.0.0",
+  "author": "roc-lang",
+  "homepage": "https://github.com/roc-lang/www.roc-lang.org",
+  "skills": []
+}
