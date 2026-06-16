@@ -1,0 +1,14 @@
+{
+  "name": "listener-he--java-harness-agent",
+  "displayName": "java-harness-agent",
+  "description": "Claude Code harness for disciplined Java backend dev \u2014 risk-classified routing, 6-phase lifecycle (Explorer \u2192 Propose \u2192 Review \u2192 Implement \u2192 QA \u2192 Archive), 13   specialist agents, gate-enforced contra",
+  "version": "1.0.0",
+  "author": "listener-He",
+  "homepage": "https://github.com/listener-He/java-harness-agent",
+  "skills": [
+    {
+      "name": "code-review-checklist",
+      "description": ""
+    }
+  ]
+}
