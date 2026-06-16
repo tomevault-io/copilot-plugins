@@ -1,0 +1,9 @@
+{
+  "name": "bothari--athenaeum",
+  "displayName": "Athenaeum",
+  "description": "Self-hosted book management app integrating AudiobookShelf, Hardcover, Prowlarr, and qBittorrent/SABnzbd",
+  "version": "1.0.0",
+  "author": "Bothari",
+  "homepage": "https://github.com/Bothari/Athenaeum",
+  "skills": []
+}
