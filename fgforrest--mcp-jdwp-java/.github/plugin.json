@@ -1,0 +1,9 @@
+{
+  "name": "fgforrest--mcp-jdwp-java",
+  "displayName": "mcp-jdwp-java",
+  "description": "MCP server giving AI agents full debugger control over running Java applications \u2014 inspect state, set breakpoints, evaluate expressions, and mutate values at runtime via JDWP/JDI",
+  "version": "1.0.0",
+  "author": "FgForrest",
+  "homepage": "https://github.com/FgForrest/mcp-jdwp-java",
+  "skills": []
+}
