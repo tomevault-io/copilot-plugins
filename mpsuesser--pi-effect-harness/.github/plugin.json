@@ -1,0 +1,14 @@
+{
+  "name": "mpsuesser--pi-effect-harness",
+  "displayName": "pi-effect-harness",
+  "description": "Plug and play",
+  "version": "1.0.0",
+  "author": "mpsuesser",
+  "homepage": "https://github.com/mpsuesser/pi-effect-harness",
+  "skills": [
+    {
+      "name": "effect-sql",
+      "description": ""
+    }
+  ]
+}
