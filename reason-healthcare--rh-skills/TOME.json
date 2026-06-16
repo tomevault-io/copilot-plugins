@@ -4,7 +4,7 @@
   "repo": "rh-skills",
   "description": "An agentic workflow toolset providing superpowers for healthcare informaticists",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reason-healthcare/rh-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T04:57:31Z"
+  "distributed_at": "2026-06-16T07:08:52Z"
 }
