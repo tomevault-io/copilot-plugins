@@ -1,0 +1,9 @@
+{
+  "name": "synalysis--elm-pebble",
+  "displayName": "elm-pebble",
+  "description": "IDE for developing Pebble apps and watch faces in Elm",
+  "version": "1.0.0",
+  "author": "synalysis",
+  "homepage": "https://github.com/synalysis/elm-pebble",
+  "skills": []
+}
