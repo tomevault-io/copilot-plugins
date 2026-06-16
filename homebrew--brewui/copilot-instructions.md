@@ -1,16 +1,13 @@
-## folder-boundaries
+## package-domain-reference
 
-> Enforce folder boundaries for feature/viewmodel/services/model placement.
+> Package domain model lookup identity.
 
 
-# Folder Boundaries
+# Package Domain Reference
 
-- Use `Features/<Feature>/Views/` for feature views and root wrappers.
-- Use `Features/<Feature>/ViewModels/` for feature view models, feature `*Item` types, and feature-scoped presentation helpers.
-- Keep `Models/` domain-only. Do not place UI/presentation helpers, command/API JSON payloads, or infrastructure cache snapshots in `Models/`.
-- Keep brew command transport/state and brew command JSON payload types under `Services/BrewCommand/`.
-- Keep API networking transport types with the API client under one services networking boundary (for example `Services/API/`).
-- Keep DB-related types grouped with DB access layer types under one DB boundary (for example `Services/Database/` or `Repositories/Database/`).
+- Any domain model that represents a Homebrew package must expose `id` typed as `HomebrewPackageID` for lookup identity.
+- Use `.formula(name:)` for formula-backed models and `.cask(token:)` for cask-backed models.
+- Prefer deriving `name`/display fields from `HomebrewPackageID.name` where practical to avoid duplicate identity sources.
 
 ---
 > Source: [Homebrew/BrewUI](https://github.com/Homebrew/BrewUI) — distributed by [TomeVault](https://tomevault.io).
