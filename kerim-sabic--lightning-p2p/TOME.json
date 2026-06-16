@@ -1,0 +1,44 @@
+{
+  "name": "lightning-p2p",
+  "owner": "Kerim-Sabic",
+  "repo": "lightning-p2p",
+  "description": "Free open-source P2P file transfer for Windows and Android. No cloud upload, no account, no artificial file-size cap. Rust/Tauri/iroh/QUIC/BLAKE3.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Kerim-Sabic/lightning-p2p",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T00:47:06Z"
+}
