@@ -1,67 +1,59 @@
-## vo-lum-workflow
+## volum-release-packaging
 
-> VoLum iteration loop, vibe coding, verification, and rollback hygiene
+> VoLum CI, artifacts, installers, release workflow, and version metadata
 
 
-# VoLum workflow (vibe coding + safety nets)
+# VoLum Release And Packaging
 
-## Mindset
+Branch/workflow facts:
 
-- Ship **small vertical slices**: one behavior, one bugfix, or one refactor path per pass—**working build + tests** before the next idea.
-- Spikes are fine; **delete or fold** dead spike code before you call the iteration done.
-- Match **existing** naming, patterns, and file layout. No drive-by cleanups outside the task.
+- `CI` uploads `VoLum-win` and `VoLum-mac`; automatic push/PR runs target `dev` and `main`.
+- Manual `CI` runs build the selected ref unless checkout is overridden.
+- `Release Native` is main-only: it checks out `main`, bumps metadata, tags, then builds from that tag.
+- Regular CI now runs Windows/macOS doctests, macOS sanitizer doctests, NAMCore regression tests, Windows installer smoke verification, package layout checks, and VST3 validation through pluginval plus the Steinberg validator when available.
 
-## Every meaningful iteration (before you stop or hand off)
+Branch policy (use this whenever starting new work):
 
-1. **Run tests** when C++/NAM/plugin logic changed:
-   - `NeuralAmpModeler/scripts/run-tests-win.ps1` (Release x64), or the equivalent CI command you are using.
-   - macOS parity: `NeuralAmpModeler/scripts/run-tests-mac.sh`; sanitizer parity: `NeuralAmpModeler/scripts/run-tests-mac.sh --sanitize`.
-2. **Build and launch the standalone app** when VoLum **UI** changed (layout, controls, styling) so you can judge the result:
-   - `NeuralAmpModeler/scripts/run-app-win.ps1` (Release x64). Close a running VoLum if postbuild cannot copy the exe.
-3. **Append a changelog line** so you can bisect and remember intent:
-   - Prefer `NeuralAmpModeler/installer/changelog.txt` (keep project style: date + short note).
-   - One line per user-visible or behavior change; include breaking preset/state format bumps.
-4. **Update user docs** when behavior is user-facing:
-   - Keep `docs/user-guide.en.md` and `docs/user-guide.de.md` in sync.
-   - Refresh stable `docs/user-guide-*.png` screenshots when the visible UI changes.
-5. **Commit** in a **single coherent chunk** when possible (easy `git revert`). If the user prefers WIP commits, say so in chat.
+- Long-lived branches: `main` is the released branch; `dev` is the integration branch.
+- Right after any release lands on `main`, merge `main` into `dev` (`git checkout dev && git merge origin/main`) and push, so `dev` carries the released commits + version metadata.
+- Feature work always branches off the latest `dev`, e.g. `feature/<short-topic>`.
+- When a feature is verified, merge it back into `dev` (PR or fast-forward). Do not merge feature branches directly into `main`.
+- Promote `dev` to `main` only as part of a release (use `release-manager` skill for the PR; see `Release Native` workflow above).
+- Keep unrelated local dirt (especially `iPlug2` ASIO patch dirt) out of any of these merges.
+- Packaging CI fixes should run on a fix branch first. Merge to `dev` only after branch CI is green, unless the user explicitly asks to iterate directly on `dev`.
 
-## Tests are mandatory, not optional
+Packaging layout:
 
-- **Write tests for every confirmed-working feature or bugfix.** Do not wait for the user to ask.
-- New DSP behavior → doctest in `NeuralAmpModeler/tests/`. Cover: no NaN, passthrough at zero mix, bounded output, all modes.
-- Main signal-chain behavior → `VoLumProcessingPlan.h` plus `test_volum_processing_plan.cpp` when it can be expressed as routing/enablement decisions.
-- New parameter → pin its index and step size in `test_eparam_order.cpp` / `test_keyboard_steps.cpp`.
-- New serialization path → version-branch test in `test_volum_chunk_version.cpp` and chunk round-trip/bounds coverage in `test_volum_chunk_codec.cpp`.
-- New main amp `.nam` under `rigs/` → keep `test_nam_rigs.cpp` loading it.
-- New PRE capture `.nam` under `rigs/PrePedals/` → update/keep `test_volum_pre_pedal_captures.cpp`, the PRE capture load-smoke in `test_nam_rigs.cpp`, and packaging verification.
-- If a bug was caused by a missing test, add the test that would have caught it.
+- Dev rigs live in `rigs/`; shipped artifacts rename/copy them as `VoLumRigs/`.
+- Windows installer writes `HKLM\Software\VoLum\NeuralAmpModeler\VoLumRigsRoot`.
+- Legacy installs may expose `AmpeteRigsPath`; code treats that as a fallback.
+- Portable packages keep `VoLum.vst3` and sibling `VoLumRigs/` together.
+- macOS standalone embeds `VoLumRigs` in `VoLum.app/Contents/Resources`.
+- macOS VST3 zip keeps `VoLumRigs` beside `VoLum.vst3`.
+- macOS installer app packages must use `pkgbuild --analyze` metadata with
+  `BundleIsRelocatable=false` for `VoLum.app`; otherwise `installer` may update
+  a build-staged app instead of writing `/Applications/VoLum.app`.
+- macOS installer smoke tests should run through
+  `NeuralAmpModeler/scripts/smoke-installer-mac.sh` so local and CI behavior stay
+  identical.
+- PRE NAM captures live in `rigs/PrePedals/` during development and ship as `VoLumRigs/PrePedals/`; package verification must check any `.nam` files in that folder, not only the directory.
+- Never apply Finder custom icons to signed VST3 bundles. Finder icons create root `Icon?` metadata files that break strict code-signature verification after zip/unzip.
+- Before signing or zipping macOS bundles, scrub `Icon?`, `._*`, `.DS_Store`, and extended attributes; verify the staged VST3 before creating the portable zip.
+- When macOS packaging CI fails with `resource fork, Finder information, or similar detritus not allowed` or `unsealed contents present in the bundle root`, inspect root files and xattrs with `NeuralAmpModeler/scripts/debug-mac-vst3-signature.sh`.
 
-## Code hygiene is part of the task
+Version metadata:
 
-- **Refactor proactively** when a file crosses ~500 lines or a class accumulates unrelated responsibilities. Don't wait to be asked.
-- Follow the existing file split pattern (see AGENTS.md "UI File Map"). New controls go in the correct file, not dumped into a monolith.
-- Keep fractal/art code in `VoLumFractalArt.h`, triptych/POST controls in `VoLumTriptych.h`, core controls in `VoLumCoreControls.h`.
-- If you add a new file, update the file map table in `AGENTS.md`.
+- Use `python3 bump_version.py patch|minor|major` for manual bumps.
+- Release workflow uses `prepare_release.py`, then `update_version-mac.py` and `update_installer-win.py`.
+- Keep `config.h`, `installer/VoLum.iss`, and `resources/*.plist` versions consistent.
+- macOS plist filenames keep `NeuralAmpModeler-*` even though product name is `VoLum`.
 
-## Execution
+Release notes:
 
-- **You run** builds/tests in this environment; do not only tell the user what to run.
-- After failures: diagnose, fix, retry—do not stop after one error.
-- Kill stale `VoLum.exe` processes before rebuilding if the linker reports a locked file.
-- Shell is **Windows PowerShell 5.x**: chain commands with `;` plus `if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }`. Do not use `&&` / `||` — PowerShell 5.x rejects them as invalid statement separators.
-- Multi-line `git commit` messages use a PowerShell **here-string**, not a bash heredoc (`<<'EOF'` fails here): `$m = @'` … `'@` on its own line, then `git commit -m $m`.
-
-## Scope discipline
-
-- Touch only files needed for the request. Do not add docs/README/ADRs unless asked.
-
-## Branching
-
-- `main` is the released branch, `dev` is the integration branch.
-- After every release lands on `main`, merge `main` into `dev` and push.
-- New feature work branches off the latest `dev` as `feature/<short-topic>`; merge feature back into `dev` once verified.
-- Only promote `dev` to `main` as part of a release (see `release-manager` skill / `volum-release-packaging` rule).
+- Inspect actual assets with `gh release view` before writing notes.
+- Describe only user-facing changes since the previous published release. Do not include manual test plans, internal RC-only bugs, or fixes for behavior that never shipped publicly.
+- Mention concrete asset names and install path choices when they affect what users download or install.
+- Do not remove README screenshots or CI badges unless explicitly asked.
 
 ---
 > Source: [guitarlum/VoLum](https://github.com/guitarlum/VoLum) — distributed by [TomeVault](https://tomevault.io).
