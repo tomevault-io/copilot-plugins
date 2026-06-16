@@ -1,0 +1,9 @@
+{
+  "name": "numstoredb--numstore",
+  "displayName": "Numstore",
+  "description": "A Database Engine for arrays",
+  "version": "1.0.0",
+  "author": "NumstoreDB",
+  "homepage": "https://github.com/NumstoreDB/Numstore",
+  "skills": []
+}
