@@ -1,0 +1,9 @@
+{
+  "name": "kiaquila--unicorn-hub",
+  "displayName": "unicorn-hub",
+  "description": "Portable multi-agent development blueprint for spec-driven, PR-gated software delivery.",
+  "version": "1.0.0",
+  "author": "kiaquila",
+  "homepage": "https://github.com/kiaquila/unicorn-hub",
+  "skills": []
+}
