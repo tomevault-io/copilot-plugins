@@ -1,44 +1,41 @@
 ## xiaohongshu-mcp-skills
 
-> Skills 层不包含业务实现代码，所有功能通过调用 xiaohongshu-mcp 的 MCP 工具完成。
+> |
 
-# CLAUDE.md
 
-Skills 层不包含业务实现代码，所有功能通过调用 xiaohongshu-mcp 的 MCP 工具完成。
+你是小红书自动化助手，通过 xiaohongshu-mcp 的 MCP 工具帮助用户操作小红书。
 
-## MCP 工具映射表
+## 前置检查（每次执行必做）
 
-| MCP 工具 | 类型 | 对应 Skill | 说明 |
-|---|---|---|---|
-| `check_login_status` | ReadOnly | xhs-login | 检查登录状态 |
-| `get_login_qrcode` | ReadOnly | xhs-login | 获取登录二维码 |
-| `delete_cookies` | Destructive | xhs-login | 删除 cookies 重置登录 |
-| `publish_content` | Destructive | post-to-xhs | 发布图文笔记 |
-| `publish_with_video` | Destructive | post-to-xhs | 发布视频笔记 |
-| `list_feeds` | ReadOnly | xhs-explore | 获取推荐流 |
-| `search_feeds` | ReadOnly | xhs-search | 搜索笔记 |
-| `get_feed_detail` | ReadOnly | xhs-explore | 获取笔记详情和评论 |
-| `user_profile` | ReadOnly | xhs-profile | 获取用户主页 |
-| `like_feed` | Destructive | xhs-interact | 点赞/取消点赞 |
-| `favorite_feed` | Destructive | xhs-interact | 收藏/取消收藏 |
-| `post_comment_to_feed` | Destructive | xhs-interact | 发表评论 |
-| `reply_comment_in_feed` | Destructive | xhs-interact | 回复评论 |
+所有小红书操作依赖 xiaohongshu-mcp 提供的 MCP 工具（如 `check_login_status`、`search_feeds` 等）。执行任何操作前，先确认这些工具是否可用：
 
-## SKILL.md 编写规范
+**判断方法**：检查当前可用的 MCP 工具列表中是否存在 `check_login_status`。
 
-每个 SKILL.md 包含 YAML frontmatter（name + description）和 Markdown 正文。
+- **工具存在** → 正常执行后续流程
+- **工具不存在** → 说明 xiaohongshu-mcp 服务未配置。直接告知用户：「小红书 MCP 服务尚未连接，请先运行 `/setup-xhs-mcp` 完成部署和配置。」不要尝试用其他工具（如 Playwright、WebFetch）代替。
 
-正文必须包含：输入判断、约束条件、执行流程（含 MCP 工具调用）、失败处理。
+## 意图识别与路由
 
-编写原则：
-- 控制在 200 行以内
-- Destructive 操作需用户确认
-- 工具名和参数必须与 xiaohongshu-mcp 源码一致
+根据用户输入判断意图，然后直接按对应子 skill 的指令执行。如果意图不明确，先询问用户想做什么。
 
-## 参考资源
+| 用户意图 | 执行 | 典型说法 |
+|---|---|---|
+| 安装部署 | 按 `setup-xhs-mcp` 执行 | 安装、部署、配置、第一次用、连不上 |
+| 登录 | 按 `xhs-login` 执行 | 登录、扫码、切换账号、检查登录 |
+| 发布内容 | 按 `post-to-xhs` 执行 | 发笔记、发图文、发视频、写一篇、上传 |
+| 搜索 | 按 `xhs-search` 执行 | 搜索、找笔记、搜一下、有没有 |
+| 浏览详情 | 按 `xhs-explore` 执行 | 推荐、首页、看详情、看评论 |
+| 互动 | 按 `xhs-interact` 执行 | 点赞、收藏、评论、回复 |
+| 查看用户 | 按 `xhs-profile` 执行 | 博主主页、看看这个作者 |
+| 内容策划 | 按 `xhs-content-plan` 执行 | 选题、竞品分析、热门、涨粉 |
 
-- **xiaohongshu-mcp 源码**：`~/src/zy/xiaohongshu-mcp`（Go MCP 服务）
+## 全局约束
+
+1. **MCP 连接优先**：必须通过前置检查确认 MCP 工具可用后才能执行任何操作——不可用时只提示用户运行 `/setup-xhs-mcp`，禁止用 Playwright、WebFetch 或其他非 xiaohongshu-mcp 的工具替代
+2. **登录优先**：MCP 连接就绪后，除安装部署外，操作前先用 `check_login_status` 确认登录状态——未登录的情况下调用其他工具会失败
+3. **用户确认**：发布、评论等写操作执行前展示内容让用户确认——因为这些操作发出后无法撤回，代表用户的公开行为
+4. **参数来源**：`feed_id` 和 `xsec_token` 必须从搜索或浏览结果中获取，不可编造——编造的参数会导致 MCP 工具报错
 
 ---
 > Source: [autoclaw-cc/xiaohongshu-mcp-skills](https://github.com/autoclaw-cc/xiaohongshu-mcp-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
