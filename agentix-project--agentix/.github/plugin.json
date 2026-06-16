@@ -1,0 +1,9 @@
+{
+  "name": "agentix-project--agentix",
+  "displayName": "Agentix",
+  "description": "The universal bridge between agents and environments \u2014 evaluate, RL-train, and trace any agent, in any sandbox, on any model.",
+  "version": "1.0.0",
+  "author": "Agentix-Project",
+  "homepage": "https://github.com/Agentix-Project/Agentix",
+  "skills": []
+}
