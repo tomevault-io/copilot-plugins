@@ -1,0 +1,9 @@
+{
+  "name": "gacn--dice-roller-skill",
+  "displayName": "dice-roller-skill",
+  "description": "dice-roller-skill",
+  "version": "1.0.0",
+  "author": "GACN",
+  "homepage": "https://github.com/GACN/dice-roller-skill",
+  "skills": []
+}
