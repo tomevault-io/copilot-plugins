@@ -1,47 +1,119 @@
-## project-mangement
+## unit-testing
 
-> Project Rules
+> - **Scope**: Test one unit in isolation (pure functions, small utilities, or a single module's public API). Avoid integration concerns.
 
+# Unit Testing Rules
 
-# Rules File: Progress Tracking System
+## Core Principles
 
-## Core Rules
+- **Scope**: Test one unit in isolation (pure functions, small utilities, or a single module's public API). Avoid integration concerns.
+- **Location & naming**: Place files under `/tests/unit` mirroring the `src` path; name them `*.test.ts` or `*.test.tsx`.
+- **Dependencies**: Never mock internal code; only mock external dependencies (APIs, DB, file system). Use MSW for HTTP.
+- **Determinism**: Eliminate flakiness. Control time, randomness, and async with fake timers (`vi.useFakeTimers`, `vi.setSystemTime`) and stubs for `Math.random`.
+- **Structure**: Use Arrange–Act–Assert; name tests by behavior ("should … when …").
+- **Assertions**: Prefer explicit assertions over snapshots; only use small, stable snapshots when necessary.
+- **Coverage**: Cover happy path, key error states, and edge cases; don't chase line coverage for its own sake.
+- **Isolation**: Reset state and mocks between tests (`vi.restoreAllMocks`, `vi.resetModules`). No cross-test data coupling.
+- **Quality gates**: Tests must pass TypeScript strict checks and ESLint; no `any` or untyped helpers.
 
-1. **Always read feature.md first**
-   - Read and understand the complete feature requirements
-   - Identify all tasks and deliverables outlined in feature.md
-   - Use this as the source of truth for what needs to be accomplished
+## Test Structure
 
-2. **Always read progress.md before starting work**
-   - Check current status of all tasks
-   - Identify what has been completed
-   - Identify what remains to be done
-   - Avoid duplicating completed work
+```typescript
+describe("Feature", () => {
+  describe("when condition", () => {
+    it("should expected behavior", async () => {
+      // Arrange
+      const input = { /* test data */ };
 
-3. **Update progress.md after completing any task**
-   - Mark completed tasks with status and timestamp
-   - Add detailed notes about what was accomplished
-   - Update percentage completion if applicable
-   - Note any blockers or issues encountered
+      // Act
+      const result = await functionUnderTest(input);
 
-4. **Progress.md Structure Requirements**
-   - Maintain clear task breakdown from feature.md
-   - Use consistent status indicators (TODO, IN_PROGRESS, COMPLETED)
-   - Include timestamps for all status changes
-   - Provide brief descriptions of work completed
-   - Track overall feature completion percentage
+      // Assert
+      expect(result).toEqual(expectedOutput);
+    });
+  });
+});
+```
 
-5. **Task Completion Workflow**
-   - Read feature.md → Read progress.md → Complete task → Update progress.md
-   - Never skip the progress update step
-   - Be specific about what was accomplished in each update
-   - Reference specific files, functions, or components modified
+## Mocking Guidelines
 
-6. **Quality Standards**
-   - Ensure progress updates are accurate and detailed
-   - Maintain chronological order of updates
-   - Keep progress.md synchronized with actual work completed
-   - Use clear, professional language in all updates
+- **External APIs**: Mock with MSW or `vi.mock()` for HTTP clients
+- **Database**: Mock repository functions, not the ORM itself
+- **Time**: Use `vi.useFakeTimers()` and `vi.setSystemTime()`
+- **Randomness**: Stub `Math.random()` with `vi.spyOn(Math, 'random').mockReturnValue(0.5)`
+- **Environment**: Mock `process.env` values as needed
+
+## Common Patterns
+
+### Testing Pure Functions
+```typescript
+describe("formatUserData", () => {
+  it("should format user name correctly", () => {
+    const user = { firstName: "John", lastName: "Doe" };
+    const result = formatUserData(user);
+    expect(result.name).toBe("John Doe");
+  });
+});
+```
+
+### Testing Async Functions
+```typescript
+describe("fetchUserData", () => {
+  it("should return user data when API call succeeds", async () => {
+    const mockUser = { id: "1", name: "John" };
+    vi.mocked(apiClient.get).mockResolvedValue(mockUser);
+
+    const result = await fetchUserData("1");
+
+    expect(result).toEqual(mockUser);
+    expect(apiClient.get).toHaveBeenCalledWith("/users/1");
+  });
+});
+```
+
+### Testing Error Cases
+```typescript
+describe("validateEmail", () => {
+  it("should throw error for invalid email", () => {
+    expect(() => validateEmail("invalid-email")).toThrow("Invalid email format");
+  });
+});
+```
+
+## File Organization
+
+```
+tests/
+└── unit/
+    ├── lib/
+    │   ├── utils.test.ts
+    │   └── schemas.test.ts
+    ├── server/
+    │   ├── services/
+    │   │   └── user.test.ts
+    │   └── clients/
+    │       └── api.test.ts
+    └── components/
+        └── ui/
+            └── button.test.tsx
+```
+
+## Quality Checklist
+
+- [ ] Test covers happy path
+- [ ] Test covers error cases
+- [ ] Test covers edge cases
+- [ ] No internal code mocked
+- [ ] External dependencies properly mocked
+- [ ] Tests are deterministic (no flakiness)
+- [ ] Proper cleanup in `afterEach`/`afterAll`
+- [ ] TypeScript strict mode passes
+- [ ] ESLint passes
+- [ ] Test names describe behavior, not implementation
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [ryanrawlingswang/cursor-rules](https://github.com/ryanrawlingswang/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
