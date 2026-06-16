@@ -1,0 +1,9 @@
+{
+  "name": "poldrack--ai-peer-review",
+  "displayName": "ai-peer-review",
+  "description": "A tool for AI-assisted meta-review of scientific papers",
+  "version": "1.0.0",
+  "author": "poldrack",
+  "homepage": "https://github.com/poldrack/ai-peer-review",
+  "skills": []
+}
