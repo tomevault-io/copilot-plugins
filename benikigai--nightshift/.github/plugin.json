@@ -1,0 +1,9 @@
+{
+  "name": "benikigai--nightshift",
+  "displayName": "nightshift",
+  "description": "Lights-out software factory for GitHub tasks: scoped builds, evaluator backpressure, guardrails, metrics, and git-backed audit trails.",
+  "version": "1.0.0",
+  "author": "benikigai",
+  "homepage": "https://github.com/benikigai/nightshift",
+  "skills": []
+}
