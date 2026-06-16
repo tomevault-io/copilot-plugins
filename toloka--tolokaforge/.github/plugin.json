@@ -1,0 +1,9 @@
+{
+  "name": "toloka--tolokaforge",
+  "displayName": "tolokaforge",
+  "description": "Universal LLM benchmarking harness for tool use, browser, mobile, coding, and long-horizon evals",
+  "version": "1.0.0",
+  "author": "Toloka",
+  "homepage": "https://github.com/Toloka/tolokaforge",
+  "skills": []
+}
