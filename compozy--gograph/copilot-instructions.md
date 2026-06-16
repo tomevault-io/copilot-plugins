@@ -1,37 +1,96 @@
-## backwards-compatibility
+## compozy-agent-config
 
-> Development phase backwards compatibility policy - no compatibility requirements during active development
+> Agent configuration patterns and examples for Compozy agents
 
-# Cursor Development Rules for Compozy
+# Compozy Agent Configuration Examples
 
-## Backwards Compatibility
+<configuration_overview type="agent_config">
+Agent configuration defines AI agents with instructions, tools, actions, and MCP integrations for workflow execution.
+</configuration_overview>
 
-<compatibility_policy type="development_phase">
-**NO BACKWARDS COMPATIBILITY REQUIRED** - Compozy is currently in active development/alpha phase.
-</compatibility_policy>
+## Basic Agent Configuration
 
-<development_guidelines>
-When developing, refactoring, or fixing features:
+<agent_config_pattern type="basic_agent">
+```yaml
+resource: agent
+id: tourist_guide
+description: A helpful tourist guide assistant
+version: 0.1.0
 
-- Feel free to make breaking changes to APIs, configs, and data structures
-- Don't worry about maintaining old interfaces or migration paths
-- Focus on building the best architecture and design patterns
-- Prioritize code quality and maintainability over compatibility
-</development_guidelines>
+config:
+  provider: groq
+  model: llama-3.3-70b-versatile
+  api_key: "{{ .env.GROQ_API_KEY }}"
 
-<scope_of_changes>
-This policy applies to:
+instructions: |
+  You are a helpful tourist guide assistant specialized in {{ .workflow.input.city }}
+  Your capabilities:
+  - Provide thoughtful recommendations for activities
+  - Suggest appropriate clothing based on weather
+  Always respond in valid JSON format when json_mode is enabled.
 
-- Database schema changes
-- API endpoint modifications
-- Configuration file structure
-- Internal interfaces and contracts
-- Tool and workflow definitions
-</scope_of_changes>
+tools:
+  - $ref: local::tools.#(id=="weather_tool")
 
-<future_policy>
-Once we reach beta/stable release, we'll implement proper versioning and compatibility policies.
-</future_policy>
+actions:
+  - id: get_weather
+    prompt: |
+      What is the current weather in {{ .workflow.input.city }}?
+
+  - id: suggest_activities
+    json_mode: true
+    prompt: |
+      Given the current conditions: {{ .tasks.weather.output | toJson }}
+      Suggest appropriate activities for these weather conditions
+    output:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            type: string
+      required:
+        - activities
+```
+</agent_config_pattern>
+
+## Agent with MCP Integration
+
+<agent_config_pattern type="agent_with_mcp">
+```yaml
+resource: agent
+id: file_reader
+description: An agent that uses MCP tools to read and list files
+version: 0.1.0
+
+config:
+  provider: groq
+  model: llama-3.3-70b-versatile
+  api_key: "{{ .env.GROQ_API_KEY }}"
+
+instructions: |
+  You are a file management assistant that uses MCP tools.
+  Use MCP tools to check what files exist and read contents when needed.
+
+mcps:
+  - id: file_server
+    transport: stdio
+    command: npx
+    args:
+      - -y
+      - "@modelcontextprotocol/server-filesystem"
+      - "./"
+    proto: "2025-03-26"
+    start_timeout: 15s
+
+actions:
+  - id: list_saved_files
+    prompt: |
+      Use MCP tools to list files in the current directory.
+      Look for results.json and results.txt files.
+      Use the read_directory MCP tool to list contents.
+```
+</agent_config_pattern>
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
