@@ -1,0 +1,9 @@
+{
+  "name": "wuruxu--wgx",
+  "displayName": "wgx",
+  "description": "A high-performance WireGuard client in C",
+  "version": "1.0.0",
+  "author": "wuruxu",
+  "homepage": "https://github.com/wuruxu/wgx",
+  "skills": []
+}
