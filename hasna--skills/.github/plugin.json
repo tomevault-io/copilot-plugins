@@ -1,0 +1,46 @@
+{
+  "name": "hasna--skills",
+  "displayName": "skills",
+  "description": "Skills library and runtime",
+  "version": "1.0.0",
+  "author": "hasna",
+  "homepage": "https://github.com/hasna/skills",
+  "skills": [
+    {
+      "name": "skill-audio",
+      "description": ""
+    },
+    {
+      "name": "skill-emoji",
+      "description": ""
+    },
+    {
+      "name": "skill-generate-docx",
+      "description": ""
+    },
+    {
+      "name": "skill-image",
+      "description": ""
+    },
+    {
+      "name": "skill-deepresearch",
+      "description": ""
+    },
+    {
+      "name": "skill-e2bswarm",
+      "description": ""
+    },
+    {
+      "name": "skill-implementation",
+      "description": ""
+    },
+    {
+      "name": "skill-npmpublish",
+      "description": ""
+    },
+    {
+      "name": "skill-video",
+      "description": ""
+    }
+  ]
+}
