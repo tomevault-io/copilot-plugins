@@ -1,0 +1,9 @@
+{
+  "name": "alissonlinneker--shield-claude-skill",
+  "displayName": "shield-claude-skill",
+  "description": "Security orchestration for code editor CLIs. Autonomous pentests. Static analysis. Secrets scanning. Dependency audits. One command.",
+  "version": "1.0.0",
+  "author": "alissonlinneker",
+  "homepage": "https://github.com/alissonlinneker/shield-claude-skill",
+  "skills": []
+}
