@@ -1,0 +1,9 @@
+{
+  "name": "twogiants--pi-anthropic-vertex",
+  "displayName": "pi-anthropic-vertex",
+  "description": "Anthropic Claude models on Google Cloud Vertex AI for pi coding agent.",
+  "version": "1.0.0",
+  "author": "twoGiants",
+  "homepage": "https://github.com/twoGiants/pi-anthropic-vertex",
+  "skills": []
+}
