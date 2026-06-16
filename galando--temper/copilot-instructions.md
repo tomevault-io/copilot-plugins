@@ -1,447 +1,643 @@
-## temper-ref-build
+## temper-ref-check
 
-> Temper reference: build
+> Temper reference: check
 
 
 
-# Build: Execute Plan with Quality Gates
+# Check: Stack-Aware Validation Pipeline
 
-**Goal:** Implement the approved plan, task by task, with TDD and graduated quality gates.
+**Goal:** Run the project's full validation pipeline. Auto-detects stack and runs the right commands.
 
 ## Active Skills
 
 - **Context Engineering** — load hierarchical context at stage start (rules → arch → source → errors, under 2K lines/task)
 - **Temper Core** — stack detection, pack resolution, quality gates
-- **Source-Driven Development** — before writing framework-specific code: detect installed version → fetch current docs → cite sources → surface API conflicts. Skip for plain logic or known patterns
-
-## Prerequisites
-
-- Approved plan exists (from `/temper:plan`)
-- OR: user provides inline instructions for trivial tasks
 
 ## Execution
 
 ### Context Loading
 
 This stage may run in two modes:
-- **Standalone** (`/temper:build`) — runs in current context, handles its own gate
-- **Agent subprocess** (from `/temper`) — starts with CLEAN context, only loads what's listed below
+- **Standalone** (`/temper:check`) — runs in current context, handles its own gate
+- **Agent subprocess** (from `/temper`) — starts with CLEAN context, no prior files needed
 
-**Subprocess mode override:** When running as an Agent subprocess, do NOT show AskUserQuestion gates or clear context. Return the build summary to the orchestrator. The orchestrator handles all gate decisions and context transitions.
+**Subprocess mode override:** When running as an Agent subprocess, do NOT show AskUserQuestion gates or clear context. Return the check summary to the orchestrator. The orchestrator handles all gate decisions and context transitions.
 
-In both modes, the build methodology is identical.
+In both modes, the check methodology is identical.
 
 Files to load at start:
-1. `.temper/specs/{feature}/tasks.md`
-2. `.temper/specs/{feature}/intent.md` (if exists)
-3. `$CLAUDE_PLUGIN_ROOT/.claude-plugin/reference/build.md` (this file)
-4. `.temper/specs/{feature}/review-context.json` (if exists — loaded when re-entering from feedback loop)
-5. `.temper/specs/{feature}/check-context.json` (if exists — loaded when re-entering from Check failure)
+1. `$CLAUDE_PLUGIN_ROOT/.claude-plugin/reference/check.md` (this file)
+2. `.temper/specs/{feature}/review-context.json` (if exists — review findings for context)
 
-### Step 1: Load Plan
+### Step 1: Detect Stack
 
-```
-1. Check for .temper/build-state.json
-   - If found: Validate it before offering resume:
-     a. Parseable JSON — if malformed, warn and offer "Start over / Delete / Cancel"
-     b. Valid stage — must be "plan_complete" or "build_complete" (with last_task_completed)
-     c. Spec directory exists — .temper/specs/{spec}/ must exist on disk
-     d. Artifacts exist — tasks.md and intent.md (if listed) must exist
-     e. Timestamp — if updated > 30 days ago, warn about staleness
-   - If valid: Ask user "Resume from Task {last_task_completed + 1}? [Y/n]" (skip in subprocess mode — use build-state.json directly)
-   - If invalid: Show what's wrong, offer "Start over / Delete saved state / Cancel"
-2. Check for active plan in .temper/specs/*/tasks.md
-3. If multiple specs exist, ask user which to execute (skip in subprocess mode — use spec from build-state.json or orchestrator args)
-4. Load tasks.md + quickstart.md (quickstart.md may not exist for Simple features — skip if absent)
-5. Read plan.md for architecture decisions and blast radius (skip if no plan.md — Simple/Medium features)
-6. Read all files listed in plan's "Prerequisites" or "Must Read" sections (skip if no plan.md)
-7. Read active pack rules from .claude/packs/ (enabled packs only, skip if directory doesn't exist)
-8. Read stack file from .claude/packs/stacks/{detected-stack}.md (skip if file doesn't exist)
-9. Load .temper/specs/{feature}/intent.md if it exists
-   - Parse scenario names and Given/When/Then blocks
-   - If no intent.md: proceed with current behavior (unchanged)
-```
+For stack detection order, apply the temper-core skill. Detection produces a stack identifier that determines which validation commands to run.
 
-**Build State Schema:**
+Stack-specific validation commands:
 
-```json
-{
-  "stage": "build_complete",
-  "spec": "{feature-name}",
-  "spec_path": ".temper/specs/{feature-name}",
-  "original_args": "{user's original feature description}",
-  "next_stage": "review",
-  "artifacts": ["intent.md", "tasks.md"],
-  "started": "2026-03-10T10:00:00Z",
-  "last_task_completed": 3,
-  "tasks": [
-    { "id": 1, "status": "completed", "timestamp": "..." },
-    { "id": 2, "status": "completed", "timestamp": "..." },
-    { "id": 3, "status": "in_progress", "timestamp": "..." }
-  ],
-  "deviations": {
-    "unplanned_files": [],
-    "skipped_tasks": [],
-    "approach_changes": []
-  },
-  "updated": "{ISO timestamp}"
-}
-```
+   pom.xml OR build.gradle → Java/Spring Boot
+     compile: ./mvnw compile OR ./gradlew compileJava
+     test:    ./mvnw test OR ./gradlew test
+     build:   ./mvnw package OR ./gradlew build
 
-**If no plan exists (trivial task):**
+   package.json → Node.js (check scripts section for commands)
+     Read package.json scripts:
+     test:  npm test (or whatever "test" script runs)
+     build: npm run build (or whatever "build" script runs)
+     lint:  npm run lint (if exists)
+     type:  npx tsc --noEmit (if tsconfig.json exists)
+
+   pyproject.toml OR setup.py → Python
+     test:  pytest
+     lint:  ruff check . (or flake8, pylint)
+     type:  mypy . (if configured)
+     build: python -m build
+
+   go.mod → Go
+     test:  go test ./...
+     lint:  golangci-lint run
+     build: go build ./...
+
+   Cargo.toml → Rust
+     test:  cargo test
+     lint:  cargo clippy
+     build: cargo build
+
+Company preset OVERRIDES auto-detected commands.
+
+### Step 2: Run Validation Levels (in order, stop on BLOCK-level failure)
+
+NOTE: "Stop on failure" means halt the pipeline at the current level. Levels marked WARN continue to the next level. Only STOP/IMMEDIATELY/BLOCK results halt the pipeline.
 
 ```
-1. User gave direct instructions → treat as single-task build
-2. Detect stack (same as /temper:check Step 1)
-3. Read active pack rules
-4. Read related existing code before implementing
-5. Skip Step 2 (branch) — user decides if feature branch needed
+Level 0: ENVIRONMENT
+  Purpose: Verify not hitting production
+  How: Check all .env* files (.env, .env.local, .env.production, etc.) for production indicators
+       Verify DATABASE_URL and similar connection strings don't contain "production"
+  If no .env files found: SKIP (not all projects use .env)
+  If production detected: STOP IMMEDIATELY
+
+Level 1: COMPILE/BUILD
+  Purpose: Code compiles without errors
+  Command: {detected compile command}
+  On failure: STOP, show error output, suggest fix
+
+Level 2: UNIT TESTS
+  Purpose: All unit tests pass
+  Command: {detected test command}
+  On failure: STOP, show failing test names, suggest fix
+  Report: tests run, passed, failed, duration
+
+Level 3: INTEGRATION TESTS (if available)
+  Purpose: Integration tests pass
+  Command: {detected integration test command, if separate from unit}
+  On failure: STOP, show failing tests
+  If no integration tests configured: SKIP
+
+Level 4: COVERAGE (if available)
+  Purpose: Meets threshold
+  Command: {detected coverage command}
+  Threshold: from temper.config (default 80%) or company preset
+  On failure: WARN (not block by default), show coverage %
+  If no coverage tool configured: SKIP
+
+Level 4.5: SCENARIO VERIFICATION (Live Execution)
+  Purpose: Execute each Gherkin scenario's matching test individually, showing real pass/fail
+  Confidence: [PROVEN] — mechanical test runner output
+  Prerequisite: intent.md exists at .temper/specs/{spec}/intent.md
+    If running standalone: resolve {spec} by listing .temper/specs/ directories and
+    using the most recently modified one. If build-state.json exists, read spec from there.
+    If no specs found → SKIP Level 4.5 entirely.
+  Config: check.live-scenarios in temper.config (default: prompt)
+    Valid values: prompt | always | never
+    prompt → ask user whether to run live verification
+    always → always run live verification
+    never  → skip live verification, use heuristic analysis only (v3.0.0 behavior)
+    Any other value → treated as "prompt" (safe default)
+  How:
+    STEP 1 — Extract scenarios:
+      Read intent.md → extract all Gherkin scenarios (name + Given/When/Then)
+
+    STEP 2 — Match scenarios to tests:
+      For each scenario, find the matching test file:
+      a. If MCP code-review-graph available: call query_graph_tool to find test
+         by scenario name annotation → [PROVEN] match
+      b. Fallback: grep test files for scenario name (snake_case or camelCase)
+         → [HEURISTIC] match
+      c. If no match found → UNMATCHED
+
+    STEP 3 — Gate (prompt mode only):
+      Show matched/unmatched counts. Ask user:
+      "Run live verification for {N} matched scenarios? [Y/n]"
+      If user declines → skip to heuristic-only analysis (v3.0.0 behavior)
+
+    STEP 4 — Execute each matched test individually:
+      For each matched scenario + test, run the test individually:
+      - Jest/Vitest: npx jest --testPathPattern="{test}" --testNamePattern="{scenario}" --no-coverage
+      - pytest: pytest {test}::test_{scenario_snake} -v
+      - Maven: ./mvnw test -Dtest="{TestClass#testMethod}"
+      - Gradle: ./gradlew test --tests "{TestClass.testMethod}"
+      - Go: go test -run Test{Scenario} -v
+      - Rust: cargo test test_{scenario_snake} -- --nocapture
+
+      Capture: test name, PASS/FAIL, assertion output, execution time
+      Label: [PROVEN] — actual test runner output
+
+    STEP 5 — Report with formatted table:
+      SCENARIO VERIFICATION RESULTS
+      ┌──────────────────────────────────────────────────────────────┐
+      │ Scenario           │ Test              │ Result │ Time      │
+      ├────────────────────┼───────────────────┼────────┼───────────┤
+      │ User resets pw     │ test_reset        │ ✅ PASS │ 0.12s    │
+      │ Invalid email      │ test_invalid      │ ✅ PASS │ 0.05s    │
+      │ Rate limiting      │ test_rate_limit   │ ❌ FAIL │ 0.08s    │
+      │ Token refresh      │ —                 │ ⚠️ MISSING │ —      │
+      └──────────────────────────────────────────────────────────────┘
+
+    STEP 6 — Gate rules:
+      FAIL → BLOCK (cannot commit with failing scenario)
+      MISSING → WARN (scenario has no matching test)
+      PASS → proceed
+
+    STEP 7 — Optional mutation spot-check (security-critical scenarios):
+      If all scenarios pass and security-critical scenarios exist:
+      1. Ask: "Run mutation spot-check on security-critical scenarios? [Y/n]"
+      2. For 1-2 critical functions:
+         a. Mutate one line (e.g., change auth check userId === owner to !==)
+         b. Re-run the matching test
+         c. If test FAILS → ✅ MUTATION CAUGHT (test proves security boundary)
+         d. If test PASSES → ❌ MUTATION MISSED (test doesn't catch this)
+         e. ALWAYS restore original code
+      3. Report mutation results alongside scenario results
+  Evidence: All results labeled [PROVEN] (tool output)
+  If check.live-scenarios: never → use heuristic-only v3.0.0 behavior
+  If no intent.md: SKIP (no BDD contract to enforce)
+
+Level 4.75: HEURISTIC TEST GAP ANALYSIS
+  Purpose: Find functions where tests are missing, trivial, or miss obvious edge cases
+  Method: Static analysis — reads code + tests, identifies gaps via pattern inspection
+  NOTE: This is NOT real mutation testing (which modifies code and runs tests).
+  This is heuristic analysis — Claude reads implementation and test code, then identifies
+  edge cases the tests likely miss. It catches common gaps (no null test, no boundary test)
+  but cannot guarantee all mutations would be caught.
+  Prerequisite: Level 2 (tests pass) AND Level 4.5 (scenarios covered) both passed
+    If either failed → SKIP (fix those first)
+  How:
+    For each changed file that has corresponding tests:
+
+    1. IDENTIFY testable logic:
+       - Focus on business logic functions (not config, types, I/O wrappers)
+       - Prioritize functions with: conditionals, calculations, transformations, state changes
+
+    2. FOR each testable function, check for common test gaps:
+
+       GAP PATTERNS TO CHECK:
+       ┌─────────────────────────┬──────────────────────────────────────────────────┐
+       │ Gap Pattern             │ What to look for                                 │
+       ├─────────────────────────┼──────────────────────────────────────────────────┤
+       │ Missing boundary test   │ Code has (x > 5) but no test at x=5, x=6         │
+       │ Missing null/undefined  │ Function takes params but no test passes null     │
+       │ Missing negative case   │ Function handles positive but no test for negative │
+       │ Missing empty input     │ Function processes collection but no test for []   │
+       │ Trivial assertion       │ Test only asserts status code, not response body  │
+       │ Missing error path      │ Code has catch/throw but no test triggers error   │
+       │ Untested branch         │ if/else exists but tests only cover one branch    │
+       └─────────────────────────┴──────────────────────────────────────────────────┘
+
+    3. FOR each function:
+       a. Read the implementation code — identify branches, boundaries, error paths
+       b. Read the test code — identify which paths are actually tested
+       c. Compare: which implementation paths have no corresponding test?
+       d. If gaps found → FLAG with specific missing cases
+
+    4. CLASSIFY per function:
+       STRONG — all branches and edge cases have tests
+       WEAK   — some paths tested but obvious gaps (e.g., happy path only)
+       NO TEST — no test exists for this function
+
+    5. REPORT per function:
+       ✅ UserService.validateEmail — STRONG (all branches covered)
+       ⚠️  PaymentService.calculateRefund — WEAK (happy path only)
+          Gaps: no test for amount=0, negative amount, null input
+          Suggestion: "Add test cases for edge cases"
+       ❌ AuthService.generateToken — NO TEST (security-critical)
+
+    6. GATE behavior:
+       CRITICAL (no test for security-critical code) → BLOCK
+       HIGH (zero test coverage for any function) → WARN
+       MEDIUM/LOW (some gaps) → INFO (show in summary, no gate impact)
+
+    7. Write results to .temper/test-gap-report.json:
+       {
+         "version": 1,
+         "run_date": "{ISO date}",
+         "files_analyzed": {N},
+         "functions_analyzed": {N},
+         "edge_cases_checked": {N},
+         "gaps_found": {N},
+         "test_gap_score": {0.0-1.0},
+         "weak_functions": [
+           {
+             "file": "{path}",
+             "function": "{name}",
+             "gaps_found": {N},
+             "edge_cases_total": {N},
+             "gaps": ["boundary", "null", "negative"]
+           }
+         ]
+       }
+
+Level 4.85: API DIFF REVIEW (Heuristic Contract Check)
+  Purpose: Detect API contract changes and check if consumers are likely affected
+  Method: Static analysis — reads git diff for API boundary files, greps for consumers
+  NOTE: This is NOT real contract testing (which runs consumer tests against provider).
+  This reads the diff, identifies API shape changes, and greps for consumer code.
+  It catches obvious breaking changes (renamed fields, removed endpoints) but cannot
+  verify runtime compatibility.
+  Prerequisite: Changed files include API boundary files (controllers, routes, DTOs,
+    shared types). If no API boundary files changed → SKIP.
+  How:
+
+    1. DETECT contract changes:
+       a. For each changed API boundary file, extract the contract:
+          - Endpoint path and HTTP method
+          - Request structure (fields, types, required/optional)
+          - Response structure (fields, types)
+          - Error codes and error response format
+       b. Compare old (git diff removals) vs new (current code):
+          - ADDITIVE: new field, new endpoint, new optional param → LOW risk
+          - MODIFIED: field type changed, required ↔ optional → HIGH risk
+          - BREAKING: required field removed, endpoint renamed/removed,
+            incompatible type change → CRITICAL
+
+    2. FIND consumers for each changed contract:
+       a. Grep test files: grep -r "{endpoint}" tests/ --include="*.ts|*.js|*.py|*.java"
+       b. Grep frontend (if monorepo): grep -r "fetch.*{endpoint}" frontend/
+       c. Grep for DTO/type imports: grep -r "import.*{TypeName}" src/
+       d. Check webhook/event subscribers if applicable
+
+    3. VERIFY consumers handle new contract:
+       For each consumer found:
+       a. Read the consumer code
+       b. Check if it handles: new required fields, changed types, removed fields
+       c. If consumer test exists: check if it passes with new contract
+
+    4. CLASSIFY and gate:
+       CRITICAL: Breaking change + consumer NOT updated → BLOCK
+       HIGH: Modified contract + no consumer tests exist → WARN
+       MEDIUM: Additive change + consumers not updated → INFO
+       LOW: Internal contract (no external consumers) → INFO
+
+    5. REPORT:
+       CONTRACT CHANGES:
+         ✅ GET /api/users — ADDITIVE (new field: emailVerified)
+           Consumers: 3 tests, 1 frontend — all backward compatible
+         ❌ POST /api/auth/login — BREAKING (response.token → response.access_token)
+           Consumers: 2 tests ✅, 1 frontend ❌ NOT UPDATED
+           BLOCKING: Frontend will break on deploy
+         ⚠️ PaymentRequestDto.amount: number → string
+           Breaking type change — runtime risk if non-numeric value
+
+    6. Write results to .temper/contract-map.json:
+       {
+         "version": 1,
+         "last_updated": "{ISO timestamp}",
+         "contracts": [
+           {
+             "endpoint": "POST /api/auth/login",
+             "change_type": "BREAKING",
+             "consumers": [
+               {
+                 "type": "test",
+                 "path": "tests/integration/auth.test.ts",
+                 "verified": true
+               },
+               {
+                 "type": "frontend",
+                 "path": "frontend/src/services/AuthService.ts",
+                 "verified": false
+               }
+             ]
+           }
+         ]
+       }
+
+Level 4.9: PERFORMANCE REGRESSION GUARD
+  Purpose: Catch performance regressions before deploy
+  Method: Runs project benchmarks and compares against baseline
+  Prerequisite: Benchmarks must exist in the project AND must be runnable:
+    - Check for: benchmarks/, perf/, .github/workflows/bench.yml
+    - OR: package.json has "benchmark" script, pyproject.toml has pytest-benchmark
+    - If no benchmarks configured → SKIP
+    - If benchmarks exist but can't run (missing deps, env) → SKIP with note
+  How:
+
+    1. LOAD baseline from .temper/performance-baseline.json (if exists)
+    2. RUN benchmarks:
+       npm run benchmark OR pytest benchmarks/ OR cargo bench OR go test -bench=.
+    3. CAPTURE metrics from benchmark output
+    4. COMPARE each metric against baseline:
+
+       THRESHOLDS:
+       ┌──────────────────┬───────────────┬─────────────────────────────────────┐
+       │ Slowdown         │ Classification│ Gate Action                         │
+       ├──────────────────┼───────────────┼─────────────────────────────────────┤
+       │ < 5%             │ NO REGRESSION │ Pass, update baseline               │
+       │ 5-10%            │ WARNING       │ Show in summary, non-blocking       │
+       │ > 10%            │ REGRESSION    │ BLOCK, suggest investigation        │
+       │ > 20%            │ CRITICAL      │ BLOCK, require explicit approval    │
+       └──────────────────┴───────────────┴─────────────────────────────────────┘
+
+       EXEMPTIONS:
+       - Benchmark variance > 20% (historically flaky) → downgrade by 1 level
+       - Benchmark marked non-critical in config → WARN only (never BLOCK)
+
+    5. REPORT:
+       PERFORMANCE BASELINE COMPARISON:
+         ✅ bcrypt.hash — 1.2% faster (acceptable)
+         ⚠️  PDF.generate — 7.3% slower (WARNING: exceeds 5% threshold)
+         ❌ UserSearch.query — 15.4% slower (REGRESSION: exceeds 10%)
+            Expected: 45ms, Actual: 52ms
+            Possible cause: N+1 query in UserSearchService (see review)
+            Suggestion: Add LIMIT or batch the query
+
+    6. UPDATE baseline (if no regressions):
+       Write new metrics to .temper/performance-baseline.json:
+       {
+         "version": 1,
+         "last_updated": "{ISO timestamp}",
+         "benchmarks": [
+           {
+             "name": "UserSearch.query",
+             "mean_ms": 45.2,
+             "variance": 1.1,
+             "history": [44.8, 45.1, 44.9, 45.2]
+           }
+         ]
+       }
+
+Level 5: LINT/FORMAT
+  Purpose: Code style checks pass
+  Command: {detected lint command}
+  On failure: WARN, show violations count
+  If no linter configured: SKIP
+
+Level 6: TYPE CHECK (if applicable)
+  Purpose: Type checking passes
+  Command: {detected type check command}
+  Only for: TypeScript (tsc), Python (mypy), etc.
+  On failure: WARN, show error count
+  If not applicable: SKIP
+
+Level 7: SECURITY (if available)
+  Purpose: No known vulnerabilities in dependencies + SAST scan
+  Command: {detected security scan command}
+  Examples: npm audit, ./gradlew dependencyCheckAnalyze, pip-audit
+  On failure: WARN for medium, BLOCK for critical CVEs
+  If no security scanner configured: SKIP
+
+  MCP SAST SCAN (after dependency scan):
+    If semgrep MCP server is available and tools.mode is not heuristic-only:
+    1. Call semgrep security_check on all source files (changed files, or entire
+       project if no changed files detected)
+    2. Call semgrep_scan_with_custom_rule for security pack rules
+       (load rules from .claude/packs/security/rules.md if pack is enabled)
+    3. Map severity:
+       - semgrep error → CRITICAL (BLOCK)
+       - semgrep warning → HIGH (WARN)
+       - semgrep info → MEDIUM (WARN)
+    4. SAST findings bypass confidence filtering — always shown
+    5. Evidence label: [PROVEN] (tool output)
+    If semgrep MCP unavailable:
+       Fall back to OWASP pattern-matching in review.md Step 2 → [HEURISTIC]
 ```
 
-### Step 2: Verify Branch
+### Step 3: Track Technical Debt (if enabled)
 
-> Note: When running as an Agent subprocess from `/temper`, the orchestrator may have already created the branch at the plan gate. `git branch --show-current` will confirm.
-
-```
-1. Run: git branch --show-current
-2. If on main/master:
-   - Check if git pack is enabled in .claude/temper.config
-   - If git pack enabled: auto-create feature/{spec-slug} branch
-   - If no git pack: ask user to create feature branch
-   - Suggest name: feature/{ticket}-{description}
-3. If already on feature branch: proceed
-```
-
-### Step 3: Execute Tasks (in order)
-
-For each task in tasks.md:
-
-**a. Read context** - Read existing files, understand patterns, check adjacent code
-**b. Write test first (priority order — first match wins)**
-
-   1. **intent.md exists** → scenario-driven testing (regardless of TDD pack)
-      - Each test maps to a Gherkin scenario by name
-      - Given block → test setup
-      - When block → action under test
-      - Then block → assertions
-      - One test per scenario minimum (some scenarios may need multiple tests)
-      - When both intent.md AND TDD pack exist: intent.md drives WHAT to test, TDD pack enforces HOW (RED-GREEN-REFACTOR discipline, test conventions)
-   2. **TDD pack enabled, no intent.md** → RED-GREEN-REFACTOR from pack rules
-   3. **Neither** → implement without enforced test-first
-**c. Implement** - Write minimal code to pass the test or fulfill spec
-**d. Validate** - Run test → GREEN, run task validation command
-**e. Checkpoint + deviation tracking** - Write to `.temper/build-state.json`:
-
-   ```json
-   {
-     "stage": "build_complete",
-     "spec": "{feature-name}",
-     "spec_path": ".temper/specs/{feature-name}",
-     "original_args": "{from prior state}",
-     "next_stage": "review",
-     "artifacts": ["intent.md", "tasks.md"],
-     "last_task_completed": {task_number},
-     "tasks": [...],
-     "deviations": {
-       "unplanned_files": ["path/to/file — reason"],
-       "skipped_tasks": [{ "id": 3, "name": "...", "reason": "..." }],
-       "approach_changes": [{ "id": 2, "planned": "...", "actual": "...", "reason": "..." }]
-     },
-     "started": "{from prior state or current timestamp on first checkpoint}",
-     "updated": "{timestamp}"
-   }
-   ```
-
-   **Deviation tracking rules:**
-   - Files created/modified that are NOT listed in tasks.md → add to "unplanned_files" with one-line reason
-   - Tasks skipped or failed → add to "skipped_tasks" with reason
-   - Tasks where approach materially differs from plan (e.g., different library, different pattern) → add to "approach_changes"
-   - Only track if tasks.md exists (trivial builds have no plan to deviate from)
-   - Step 3.75 (Traceability Check) will reconcile these deviations against tasks.md "Traced to:" fields
-
-**f. Simplify** - After each task, if the `code-simplifier:code-simplifier` agent is available, run it on changed files:
-   - This agent is optional — not all installations have it
-   - If available: run on files you created or modified during this task
-   - Focus on clarity, consistency, and maintainability
-   - Preserve all functionality — simplification must not change behavior
-   - Only simplify files you touched in the current task, not the entire codebase
-   - If not available: skip this step, continue to checkpoint
-
-### Step 3.5: Scenario Coverage Gate (BDD Enforcement)
-
-After all tasks complete, before Step 4:
+If `debt-tracking: true` in temper.config:
 
 ```
-If intent.md exists:
-  1. Read all scenarios from intent.md
-  2. For each scenario:
-     a. Find test(s) by name/description match
-     b. If no test found → write test + implement if needed
-     c. Run the test → must PASS
-  3. If any scenario has no passing test → build cannot proceed
-  4. Report:
-     "Scenario Coverage: X/Y scenarios covered
-      ✅ Scenario: User resets password → PasswordResetTest.test_successful_reset
-      ✅ Scenario: Expired token → PasswordResetTest.test_expired_token
-      ❌ Scenario: Rate limiting → MISSING — writing test..."
+After validation, update debt metrics in .temper/metrics.json:
 
-If no intent.md:
-  Skip gate, proceed to Step 4 as before
+1. Coverage trend: append current coverage % to coverage_history array
+2. Test count trend: append current test count
+3. Lint violation count: append if available
+
+Note: Full debt analysis (dead code, duplication) runs only on /temper:status
+to avoid slowing down the validation pipeline.
 ```
 
-### Step 3.6: Success Criteria Validation (IDD Enforcement)
+### Step 3.5: Context Output
 
-After scenario coverage gate, validate code-based success criteria:
-
-```
-If intent.md exists and has success criteria with Validate: code:
-  1. For each success criterion with Validate: code — {pattern}:
-     a. Grep for the specified pattern/endpoint/config
-     b. If found → ✅ Success criterion met
-     c. If not found → ❌ WARN: "Success criterion not met: {criterion}"
-  2. Report:
-     "Success Criteria Validation: X/Y code criteria met
-      ✅ POST /api/reset exists → found in src/routes/auth.ts:45
-      ❌ Rate limit middleware applied → NOT found"
-  3. Non-blocking — WARN only, does not block build
-
-For Validate: scenario → already covered by Step 3.5
-For Validate: metric/manual → deferred to /temper:review
-```
-
-**Populate Scenario Coverage Checklist in intent.md:**
-After reporting coverage, write the results back to intent.md's "## Scenario Coverage Checklist" section:
-
-```
-1. Find the "## Scenario Coverage Checklist" section in intent.md
-2. Replace placeholder lines with actual scenario-to-test mappings:
-   - [x] {Scenario Name} → {TestClassName.test_method_name} (for passing tests)
-   - [ ] {Scenario Name} → NO TEST (for missing tests - should never occur if gate passed; indicates gate logic bug)
-3. Keep the section header and any existing content, only update the checklist items
-```
-
-This makes intent.md a complete record of what was planned AND what was delivered.
-
-**Scenario-to-test mapping rules:**
-
-- Test name should contain scenario name (snake_case or camelCase)
-- Test description/docstring should reference the Gherkin scenario
-- Multiple tests can map to one scenario (e.g., happy path + variant)
-- One test cannot satisfy multiple scenarios
-
-**Scenario Note handling:**
-Each scenario in intent.md may have a `Note:` field specifying the testing approach:
-
-- `Note: unit` → standard unit test (default if no Note specified)
-- `Note: mock` → test with mocked external dependency, verify interaction
-- `Note: integration` → write integration test if test infra exists, otherwise mock
-- `Note: manual` → skip from automated coverage gate, log as "requires manual verification"
-
-Scenarios marked `manual` count as covered in the gate but are flagged in the report:
-
-```
-Scenario Coverage: 5/5 (4 automated, 1 manual verification needed)
-  ✅ Scenario: User submits form → FormTest.test_submission (automated)
-  ⚠️  Scenario: Email delivered → MANUAL VERIFICATION NEEDED
-```
-
-### Step 3.7: Context Output
-
-After all tasks complete and scenario coverage gate passes, write `build-context.json` to the spec directory:
+After all validation levels complete, write `check-context.json` to the spec directory:
 
 ```json
 {
   "version": 1,
-  "stage": "build",
+  "stage": "check",
   "timestamp": "{ISO timestamp}",
-  "files_created": ["list of files created"],
-  "files_modified": ["list of files modified"],
-  "test_results": {
+  "validation_results": {
+    "compile": "{pass|fail|skip}",
+    "tests": "{pass|fail|skip}",
+    "coverage_pct": {N},
+    "lint": "{pass|fail|skip}",
+    "security": "{pass|fail|skip}"
+  },
+  "scenario_verification": {
     "total": {N},
     "passed": {N},
-    "failed": {N}
+    "failed": {N},
+    "missing": {N}
   },
-  "deviations": {
-    "unplanned_files": ["list"],
-    "skipped_tasks": ["list"],
-    "approach_changes": ["list"]
-  },
-  "scenarios_covered": ["list of covered scenario names"],
-  "tasks_completed": {N},
-  "tasks_total": {N}
+  "test_failures": [
+    {
+      "test_name": "string",
+      "error_message": "string",
+      "file": "string",
+      "line": {N},
+      "scenario": "string (from intent.md)"
+    }
+  ]
 }
 ```
 
-### Feedback Re-entry (when entering from Review or Check loop)
+### Feedback Loop to Build
 
-If `review-context.json` exists in the spec directory:
-1. Read it to understand what issues were found
-2. Focus fixes on the specific files/issues listed
-3. After fixing, delete review-context.json (stale)
+When `feedback.enabled: true` in temper.config and test failures are found:
 
-If `check-context.json` exists in the spec directory:
-1. Read it to understand what test failures occurred
-2. For each test failure in `test_failures` array:
-   - Read the failing test file
-   - Read the implementation file referenced
-   - Fix the issue (test or implementation, as appropriate)
-3. After fixing, delete check-context.json (stale)
+1. For each test failure in newly written code:
+   - Create a targeted fix task with: test name, error message, file:line
+   - Include the intent.md scenario that the test maps to
+2. If failures found AND iteration < max-loops (default 2):
+   - Offer "Loop back to Build" option in the stage gate
+   - Write check-context.json with failure details
+   - Signal orchestrator to loop back to Build
+3. If failures found AND iteration >= max-loops:
+   - Stop and show remaining failures to user
+   - Offer "Save for later" or "Manual fix"
+4. Circuit breaker: same test failing in 2 consecutive loops → stop immediately
 
-### "Revise Plan" Option
+The feedback loop counter is tracked in `.temper/feedback-loops.json`.
 
-At the build gate (Step 4), add a third option when feedback is enabled:
+### Step 4: Nice Summary + Stage Gate
 
-If the build encounters an infeasible plan (e.g., API doesn't exist, architecture incompatible):
-- Add "Revise plan" to the gate options
-- Write build-context.json with infeasibility reasons
-- The orchestrator handles routing back to Plan stage
-
-### Step 3.75: Traceability Check
-
-After scenario coverage gate passes, verify file-to-scenario traceability:
-
-```
-If tasks.md has "Traced to:" fields:
-  1. Read deviations from build-state.json (populated during Step 3e checkpoints)
-     - If "deviations" key missing or empty → skip deviation reconciliation, report "Traceability: no deviations to reconcile"
-  2. For each unplanned file:
-     → Check if it has a "Traced to:" justification. If not:
-     → WARN: "Unplanned file {path} created. Trace to scenario or mark as infrastructure."
-  3. For each planned file not changed:
-     → WARN: "Planned file {path} was not modified. Is the task complete?"
-  4. Report: "Traceability: {N}/{M} files match plan ({D} deviations tracked)"
-
-If no "Traced to:" fields: skip (backward compatible)
-```
-
-Non-blocking — warnings only. The scenario coverage gate is the hard gate.
-
-### Step 4: Post-Implementation
-
-**If running as Agent subprocess:** Skip the AskUserQuestion gate. Return the build summary to the orchestrator. The orchestrator handles all gate decisions.
-
-**If running standalone:** Show the summary and gate below.
-
-After all tasks complete:
-
-1. Run full test suite → all must pass
-2. Show build summary:
+After all levels complete, show a nice summary:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ 🔨 BUILD — {Feature Name}                                  │
+│ CHECK — {Project Name}                                      │
 ├─────────────────────────────────────────────────────────────┤
-│ ✅ WHAT WAS BUILT                                            │
-│    Tasks: {N}/{N} completed                                 │
-│    Tests: {N} added, all passing                            │
-│    Files: {N} created, {N} modified                         │
+│ WHAT WAS VALIDATED                                           │
+│    Compile:    {status} {time}                               │
+│    Tests:      {status} {time} — {N} passed                  │
+│    Coverage:   {status} {X}% (threshold: {Y}%)               │
+│    Live Scen:   {status} {X}/{Y} ({N}P/{N}F/{N}M)             │
+│    Test Gaps:  {status} {X}% ({N}/{N} functions analyzed)      │
+│    API Diff:   {status} {N} changes ({N} consumers checked)    │
+│    Perf:       {status} {N} regressions (baseline updated)   │
+│    Lint:       {status} {time}                               │
+│    Security:   {status} {time}                               │
 │                                                             │
-│ 📊 QUALITY                                                   │
-│    Coverage: {X}% (threshold: {Y}%)                         │
-│      (If no coverage tooling available, omit this line)      │
-│    All tests: PASS                                           │
+│ Skipped: Integration (no tool configured)                   │
+│ Total: {time}                                               │
 │                                                             │
-│ 📁 KEY CHANGES                                               │
-│    + {file} — {one-line description}                         │
-│    + {file} — {one-line description}                         │
-│    ~ {file} — {one-line description}                         │
+│ TEST GAPS (if any WEAK/NO TEST found)                     │
+│    ⚠️  {Function} — {N} edge cases untested (WEAK)         │
+│    ❌ {Function} — NO TEST (security-critical)                │
 │                                                             │
-│ DEVIATIONS (if tasks.md exists)                              │
-│    If no deviations: "None — build matched plan exactly"     │
-│    Otherwise:                                                │
-│    Unplanned files: {N}                                      │
-│      • {file} — {reason}                                     │
-│    Skipped tasks: {N}                                        │
-│      • Task {N}: {name} — {reason}                           │
-│    Approach changes: {N}                                     │
-│      • Task {N}: planned as {approach}, built as {approach}  │
+│ API DIFF (if Level 4.85 ran)                                │
+│    ❌ BREAKING: {endpoint} — {description}                    │
+│    ✅ ADDITIVE: {endpoint} — backward compatible              │
 │                                                             │
-│ What next?                                                  │
-│   ▸ Continue to Review (Recommended)                        │
-│     Save for later                                          │
+│ PERFORMANCE (if Level 4.9 ran)                               │
+│    ❌ {benchmark} — {X}% slower (REGRESSION)                  │
+│    ⚠️  {benchmark} — {X}% slower (WARNING)                   │
+│    ✅ All benchmarks within baseline                          │
+│                                                             │
+│ SCENARIO VERDICT (if intent.md exists AND Level 4.5 ran)    │
+│    (Omit this entire section if pipeline stopped before 4.5) │
+│    Scenarios: {X}/{Y} behaviorally verified                 │
+│      Y = total scenarios in intent.md, X = those with       │
+│      STRONG assertions (not TRIVIAL). WEAK count as half.   │
+│      Note: This count is assertion-quality-weighted and     │
+│      intentionally differs from build's binary pass/fail.   │
+│    Build deviations: {N} unplanned, {N} skipped             │
+│      (if build-state.json available; otherwise omit this line)│
+│                                                             │
+│ What next?                                                 │
+│   ▸ Commit (Recommended)                                   │
+│     Save for later                                         │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-3. Use AskUserQuestion with these options:
+#### Stage Gate
+
+Use AskUserQuestion with these options:
 
 ```
 AskUserQuestion:
   question: "What next?"
   options:
-    - label: "Continue to Review (Recommended)"
-      description: "Proceed to review. Context will be cleared, loading changed files."
+    - label: "Commit (Recommended)"
+      description: "Commit with conventional message, clear build-state.json."
     - label: "Save for later"
-      description: "Save state to .temper/build-state.json and stop."
+      description: "Keep changes uncommitted, save state."
   multiSelect: false
-  Note: When feedback.enabled is true in temper.config, an additional "Revise plan" option
-  may be offered if build encountered infeasible design. This is at the orchestrator's discretion.
+  Note: When feedback.enabled is true AND test failures exist in new code,
+  an additional "Loop back to Build" option is offered by the orchestrator.
+  The orchestrator handles feedback loop routing.
 ```
 
-4. On Continue to Review (first option):
-   - Signal:
-     "✅ Continuing to REVIEW...
-      📂 Loading: changed files only"
-   - If running standalone: Load ONLY changed files (git diff --name-only).
-     Focus on these files and minimize references to prior build context.
-   - If running as Agent subprocess: The orchestrator handles context — return summary and stop.
-   - Proceed to /temper:review
+| Response | Action |
+|----------|--------|
+| **Commit** (first option) | Commit with conventional message, clear build-state.json |
+| **Save for later** (second option) | Stop here, keep changes uncommitted |
 
-5. On Change (via "Other" free-text input):
-   - User types their change request in the "Other" field
-   - Make the change
-   - ⚠️ MANDATORY: Re-show AskUserQuestion with same options
+**On Commit (first option):**
 
-   GATE ENFORCEMENT: The user's change input is NOT approval to proceed.
-   Do NOT skip to review after making changes. The user MUST explicitly
-   select "Continue to Review" from the gate to proceed.
-
-6. On Save for later (second option):
-   - Save state to .temper/build-state.json (preserving existing deviations/started/tasks fields):
-     ```json
-     {
-       "stage": "build_complete",
-       "spec": "{feature-slug}",
-       "spec_path": ".temper/specs/{feature-slug}",
-       "original_args": "{from prior state}",
-       "next_stage": "review",
-       "artifacts": ["intent.md", "tasks.md"],
-       "deviations": "{from current state}",
-       "last_task_completed": "{from current state}",
-       "tasks": "{from current state}",
-       "started": "{from current state}",
-       "updated": "{ISO timestamp}"
-     }
-     ```
-   - Report: "✅ Saved. Run /temper when ready to continue."
-
-7. (Cleanup is handled by check.md after commit — do NOT delete build-state.json here)
-8. Mark spec as completed:
+```
+1. ⚠️ MANDATORY: Delete .temper/build-state.json (clean up checkpoint)
+2. Mark spec as completed:
    - If intent.md exists: add `**Status:** completed` and `**Completed:** {date}` to header
+3. Commit with conventional message:
+   {type}({scope}): {description}
 
-## Quality Gates
+   {Closes #{issue} or Implements #{feature}}
+   - {X} files changed, {Y} tests added
 
-For quality gate definitions, apply the temper-core skill.
+   Co-Authored-By: Claude <noreply@anthropic.com>
+4. Report:
+   "✅ Committed: {hash}
+    Branch: {branch}
+    Ready to push?"
+```
 
-**Pattern-to-rule mapping:**
-
-| Code Pattern | Pack Rule | Level |
-|--------------|-----------|-------|
-| SQL string concatenation | security: no SQL concat | BLOCK |
-| Hardcoded API keys/passwords | security: no secrets | BLOCK |
-| DB access from controller | architecture: use service layer | BLOCK |
-| Public method without test | tdd: test all public methods | WARN |
-| Method > 30 lines | quality: method length | WARN |
-| Magic numbers | quality: named constants | SUGGEST |
-| 4+ nesting levels | quality: max 3 nesting | WARN |
-| Empty catch block | quality: no swallowed exceptions | WARN |
-
-## Error Recovery
+**On Change (via "Other" free-text input):**
 
 ```
-COMPILATION ERROR: Read full error → identify type → fix → retry (max 3)
-TEST FAILURE (new test): Test may be wrong OR implementation wrong → investigate
-TEST FAILURE (existing test): REGRESSION → your code broke something → fix your code
-STUCK: Re-read plan → re-read similar code → break down task → ask user if needed
+1. User types their change request in the "Other" field
+2. Make the change
+3. Re-run validation from the first failed level (inclusive) — no need to re-run levels that already passed
+4. ⚠️ MANDATORY: Re-show AskUserQuestion with same options
+
+GATE ENFORCEMENT: The user's change input is NOT approval to commit.
+Do NOT commit after making changes. The user MUST explicitly select
+"Commit" from the gate to proceed.
+```
+
+**On Save for later (second option):**
+
+```
+1. Save state to .temper/build-state.json:
+   {
+     "stage": "check_complete",
+     "spec": "{feature-slug}",
+     "spec_path": ".temper/specs/{feature-slug}",
+     "original_args": "{from prior state}",
+     "next_stage": "commit",
+     "artifacts": ["intent.md", "tasks.md"],
+     "updated": "{ISO timestamp}"
+   }
+2. Report:
+   "✅ Saved. Run /temper when ready to continue."
+```
+
+If levels were skipped (no tool configured), show them as `⏭️ Skipped`.
+
+### Error Interpretation
+
+When a validation level fails, help the user understand and fix it:
+
+```
+COMPILE FAILURE:
+  - Read the FULL error output (not just the first error — cascade errors are noise)
+  - Identify: missing import, type error, syntax error, dependency issue
+  - Suggest: specific file:line and what to change
+
+TEST FAILURE:
+  - Show failing test names and assertion messages
+  - Distinguish: new test failing (implementation incomplete) vs existing test failing (regression)
+  - For regression: identify which recent change likely caused it
+
+COVERAGE BELOW THRESHOLD:
+  - Show which files/functions lack coverage
+  - Prioritize: uncovered public methods in recently changed files
+  - Do NOT suggest adding trivial tests just to hit the number
+
+LINT/TYPE ERRORS:
+  - Group by type (unused imports, type mismatches, style violations)
+  - If auto-fixable (e.g., eslint --fix, ruff format): offer to run auto-fix
+  - Show count, not every individual violation
+
+SECURITY (critical CVE found):
+  - Show CVE ID, affected dependency, severity
+  - Check if upgrade is available: suggest version bump
+  - If no fix available: note as accepted risk, suggest workaround if exists
+
+COMMAND NOT FOUND / TOOL MISSING:
+  - Stack file specifies a tool that isn't installed
+  - SKIP the level, note: "{tool} not found — install with {command} to enable"
+  - Never fail the entire pipeline because an optional tool is missing
 ```
 
 ---
