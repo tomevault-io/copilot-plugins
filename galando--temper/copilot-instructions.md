@@ -1,15 +1,24 @@
-## temper-pack-code-simplifier
+## temper-pack-git
 
-> Temper quality pack: code-simplifier
+> Temper quality pack: git
 
 
-# Code Simplifier
-> Launcher pack — enforces plugin://code-simplifier
+# Git Pack
 
-## Mandatory Rules (BLOCK if violated)
-- MUST use plugin://code-simplifier for all code simplification work
-- MUST follow all instructions defined by the linked resource
-- MUST NOT bypass or ignore the linked resource's rules
+**Version:** 1.0.0
+**Last Updated:** 2025-03-09
+
+## Quality Rules (WARN if violated)
+- Commit messages must follow Conventional Commits format
+- Commits should be atomic (one logical change per commit)
+- Never commit directly to main/master branch
+- Branch names should be descriptive: feature/{ticket}-{description}
+
+## Conventions (SUGGEST improvements)
+- Include ticket/issue reference in commit message body
+- Keep commits small and focused
+- Write commit body explaining WHY, not WHAT
+- Delete branches after merging
 
 ---
 > Source: [galando/temper](https://github.com/galando/temper) — distributed by [TomeVault](https://tomevault.io).
