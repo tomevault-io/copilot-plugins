@@ -1,0 +1,44 @@
+{
+  "name": "datalineage-doctor",
+  "owner": "Mahboob-A",
+  "repo": "datalineage-doctor",
+  "description": "LLM-powered RCA engine for data quality incidents. Analyzes lineage, blast radius,  and ownership to pinpoint root causes and recommend fixes for OpenMetadata. https://youtu.be/p9yGq0KsWhw?si=Ug9iFMhJZG3_BSIT",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mahboob-A/datalineage-doctor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T05:04:23Z"
+}
