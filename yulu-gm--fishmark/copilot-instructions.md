@@ -1,0 +1,65 @@
+## fishmark
+
+> 构建一个面向 macOS 和 Windows 的本地优先 Markdown 桌面编辑器，提供类似 Typora 的单栏编辑体验。
+
+﻿# AGENTS.md
+
+## 项目使命
+构建一个面向 macOS 和 Windows 的本地优先 Markdown 桌面编辑器，提供类似 Typora 的单栏编辑体验。
+
+## 产品原则
+- Markdown 文本是唯一事实来源。
+- 默认本地优先。
+- UX 稳定性优先于功能数量。
+- 跨平台一致性很重要。
+- 编辑体验要自然，顺滑，符合直觉
+- 阅读体验要足够简洁，直观
+
+## MVP 固定技术栈
+- Electron
+- React
+- TypeScript
+- CodeMirror 6
+- micromark
+- Vite
+- Vitest
+- Playwright
+
+未经明确批准，不要替换核心技术栈。
+
+## 架构规则
+- 严格分离 main、preload、renderer。
+- 不要向 renderer 暴露不受限制的 Node API。
+- 把块级渲染视为视图层能力，而不是数据真相。
+- 保持 Markdown 可往返还原安全。
+- 保存时避免自动重排整个文档。
+
+## 任务规则
+- 一次只做一个任务。
+- 保持 diff 聚焦且可回退。
+- 不要改动无关文件。
+- 优先小模块和显式接口。
+- 行为变化要补测试或更新测试。
+- 改动架构或用户可见行为时要同步更新文档。
+
+## 完成定义
+一个任务只有在满足以下条件时才算完成：
+- build 通过
+- lint 通过
+- typecheck 通过
+- 相关测试通过
+- 满足验收标准
+- 写出简短任务总结
+
+## 通用代码规范
+
+1. 禁止重复造轮子
+2. 保持代码结构简单易懂
+3. 这是一个初创项目，可以接受大规模重构
+4. 任何修改都不要产生临时代码，所有修改都保持生产级水平
+5. 根据新需求添加的代码都要符合现有的项目架构
+6. 如果不是用户要求所有代码默认推送到main
+
+---
+> Source: [yulu-gm/FishMark](https://github.com/yulu-gm/FishMark) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
