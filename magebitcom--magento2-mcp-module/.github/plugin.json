@@ -1,0 +1,9 @@
+{
+  "name": "magebitcom--magento2-mcp-module",
+  "displayName": "magento2-mcp-module",
+  "description": "Extensible MCP module for Magento2 - Interact with your store through any MCP-compatible AI agent",
+  "version": "1.0.0",
+  "author": "magebitcom",
+  "homepage": "https://github.com/magebitcom/magento2-mcp-module",
+  "skills": []
+}
