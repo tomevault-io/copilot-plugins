@@ -1,0 +1,9 @@
+{
+  "name": "sholajegede--convex-bright-data",
+  "displayName": "convex-bright-data",
+  "description": "Cache Bright Data SERP and Web Unlocker results in Convex with configurable TTLs and reactive queries.",
+  "version": "1.0.0",
+  "author": "sholajegede",
+  "homepage": "https://github.com/sholajegede/convex-bright-data",
+  "skills": []
+}
