@@ -1,0 +1,9 @@
+{
+  "name": "kube-foundry--kube-foundry",
+  "displayName": "kube-foundry",
+  "description": "kube-foundry",
+  "version": "1.0.0",
+  "author": "kube-foundry",
+  "homepage": "https://github.com/kube-foundry/kube-foundry",
+  "skills": []
+}
