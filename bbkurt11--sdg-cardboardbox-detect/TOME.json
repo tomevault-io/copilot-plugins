@@ -1,0 +1,44 @@
+{
+  "name": "SDG_CardboardBox_detect",
+  "owner": "bbKurt11",
+  "repo": "SDG_CardboardBox_detect",
+  "description": "Real-time cardboard box defect detection using Blender synthetic data + YOLOv8 (Sim-to-Real, 93% hit / 0% FP)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bbKurt11/SDG_CardboardBox_detect",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T06:56:41Z"
+}
