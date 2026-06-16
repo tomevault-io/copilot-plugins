@@ -1,0 +1,44 @@
+{
+  "name": "PoppinIt",
+  "owner": "credkellar-boop",
+  "repo": "PoppinIt",
+  "description": "\ud83c\udf88 PoppinitThe High-Precision AI Information EnginePoppinit is a sophisticated, AI-driven tool engineered to provide hyper-accurate information across 3+ distinct software frameworks. By leveraging a high-performance Rust core and a flexible Python AI backend, Poppinit delivers real-time intelligence with zero latency.\ud83d\ude80 Key Features\ud83e\udde0 Multi-Framew",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/credkellar-boop/PoppinIt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T07:14:50Z"
+}
