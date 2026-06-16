@@ -1,0 +1,9 @@
+{
+  "name": "agentera--agently-skills",
+  "displayName": "Agently-Skills",
+  "description": "Agently AI application development framework's official collection of agent skills",
+  "version": "1.0.0",
+  "author": "AgentEra",
+  "homepage": "https://github.com/AgentEra/Agently-Skills",
+  "skills": []
+}
