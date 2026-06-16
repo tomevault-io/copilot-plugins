@@ -1,0 +1,9 @@
+{
+  "name": "elan8--spec42",
+  "displayName": "spec42",
+  "description": "SysML v2 Language Server and VS Code extension",
+  "version": "1.0.0",
+  "author": "elan8",
+  "homepage": "https://github.com/elan8/spec42",
+  "skills": []
+}
