@@ -1,0 +1,9 @@
+{
+  "name": "xinhaoc--ferret",
+  "displayName": "ferret",
+  "description": "Autonomous CUDA kernel optimization agent with structured task specs and per-config scoring",
+  "version": "1.0.0",
+  "author": "xinhaoc",
+  "homepage": "https://github.com/xinhaoc/ferret",
+  "skills": []
+}
