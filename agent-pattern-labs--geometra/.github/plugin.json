@@ -1,0 +1,9 @@
+{
+  "name": "agent-pattern-labs--geometra",
+  "displayName": "geometra",
+  "description": "The Browser for the Singularity! No browser. Just computed geometry going straight to pixels. MCP replacement for Playwright too!",
+  "version": "1.0.0",
+  "author": "Agent-Pattern-Labs",
+  "homepage": "https://github.com/Agent-Pattern-Labs/geometra",
+  "skills": []
+}
