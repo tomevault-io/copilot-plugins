@@ -1,0 +1,9 @@
+{
+  "name": "co-l--openfox",
+  "displayName": "openfox",
+  "description": "Local-LLM-first agentic coding assistant, with everything you need out of the box.",
+  "version": "1.0.0",
+  "author": "co-l",
+  "homepage": "https://github.com/co-l/openfox",
+  "skills": []
+}
