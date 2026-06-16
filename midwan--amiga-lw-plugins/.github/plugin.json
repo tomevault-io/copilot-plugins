@@ -1,0 +1,9 @@
+{
+  "name": "midwan--amiga-lw-plugins",
+  "displayName": "amiga-lw-plugins",
+  "description": "LightWave 3D 5.x plugins for AmigaOS, cross-compiled with GCC",
+  "version": "1.0.0",
+  "author": "midwan",
+  "homepage": "https://github.com/midwan/amiga-lw-plugins",
+  "skills": []
+}
