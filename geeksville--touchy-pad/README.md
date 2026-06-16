@@ -7,11 +7,11 @@ An open-source graphical touchpad/macropad project
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [geeksville/touchy-pad](https://github.com/geeksville/touchy-pad).
+Original source: `AGENTS.md` in [geeksville/touchy-pad](https://github.com/geeksville/touchy-pad).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
