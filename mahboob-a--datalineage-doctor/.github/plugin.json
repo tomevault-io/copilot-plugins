@@ -1,0 +1,9 @@
+{
+  "name": "mahboob-a--datalineage-doctor",
+  "displayName": "datalineage-doctor",
+  "description": "LLM-powered RCA engine for data quality incidents. Analyzes lineage, blast radius,  and ownership to pinpoint root causes and recommend fixes for OpenMetadata. https://youtu.be/p9yGq0KsWhw?si=Ug9iFMhJ",
+  "version": "1.0.0",
+  "author": "Mahboob-A",
+  "homepage": "https://github.com/Mahboob-A/datalineage-doctor",
+  "skills": []
+}
