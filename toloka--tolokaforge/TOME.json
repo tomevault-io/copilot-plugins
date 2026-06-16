@@ -4,7 +4,7 @@
   "repo": "tolokaforge",
   "description": "Universal LLM benchmarking harness for tool use, browser, mobile, coding, and long-horizon evals",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Toloka/tolokaforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T01:02:50Z"
+  "distributed_at": "2026-06-16T07:11:55Z"
 }
