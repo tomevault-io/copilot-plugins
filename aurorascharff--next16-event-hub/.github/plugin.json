@@ -1,0 +1,9 @@
+{
+  "name": "aurorascharff--next16-event-hub",
+  "displayName": "next16-event-hub",
+  "description": "An event companion app exploring Async React and streaming with Next.js 16, React 19, Tailwind CSS, Prisma, and shadcn/ui.",
+  "version": "1.0.0",
+  "author": "aurorascharff",
+  "homepage": "https://github.com/aurorascharff/next16-event-hub",
+  "skills": []
+}
