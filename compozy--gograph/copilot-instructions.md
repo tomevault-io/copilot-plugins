@@ -1,122 +1,367 @@
-## go-coding-standards
+## go-patterns
 
-> You are an expert in Go, microservices architecture, and clean backend development practices. Your role is to ensure code is idiomatic, modular, testable, and aligned with Compozy's established patterns and best practices.
+> Core Go patterns and conventions required for Compozy development
 
-# Go Coding Standards
+# Core Go Patterns & Conventions
 
-<role>
-You are an expert in Go, microservices architecture, and clean backend development practices. Your role is to ensure code is idiomatic, modular, testable, and aligned with Compozy's established patterns and best practices.
-</role>
+## Concurrency Patterns
 
-## Project Structure and Organization
-
-- Group code by feature/domain when appropriate (agent, task, tool, workflow)
-- Keep package names simple and descriptive
-- Follow the established pattern of separating interfaces from implementations
-
-## Code Style and Standards
-
-<limits type="mandatory">
-- Adhere to Go's official style guide and the project's `.golangci.yml` configuration
-- Function length should not exceed 30 lines for business logic
-- Line length should not exceed 120 characters
-- Cyclomatic complexity should be kept below 10
-</limits>
-
-<documentation_policy>
-- **DON'T ADD** comments to explain code changes - explanation belongs in text responses
-- Only add code comments when user explicitly requests them or code is complex and requires context for future developers
-</documentation_policy>
-
-## Error Handling
-
-<unified_strategy type="mandatory">
-**UNIFIED ERROR HANDLING STRATEGY - SINGLE SOURCE OF TRUTH**
-
-1. **Internal Error Propagation (within domains):**
-   - Use `fmt.Errorf()` for all internal error propagation within a domain
-   - Always wrap errors with context: `fmt.Errorf("failed to load user: %w", err)`
-   - This keeps internal code simple and avoids unnecessary abstraction
-
-2. **Domain Boundaries (public service methods):**
-   - Use `core.NewError()` ONLY when returning errors from public service methods
-   - These are the methods exposed to other domains or external consumers
-   - Provides structured error information for cross-domain communication
-
-3. **Always Required:**
-   - Check and handle errors explicitly - never ignore errors
-   - Return early on errors to avoid deep nesting
-   - Avoid naked returns in longer functions (as enforced by nakedret linter)
-</unified_strategy>
-
-<examples type="implementation">
+<pattern type="thread_safe_structures">
 ```go
-// ✅ INTERNAL: Use fmt.Errorf within domain
-func (s *userService) validateUser(ctx context.Context, user *User) error {
-    if user.Email == "" {
-        return fmt.Errorf("email is required")
-    }
-    if err := s.repo.CheckEmailExists(ctx, user.Email); err != nil {
-        return fmt.Errorf("failed to check email existence: %w", err)
-    }
-    return nil
-}
-
-// ✅ DOMAIN BOUNDARY: Use core.NewError for public methods
-func (s *userService) CreateUser(ctx context.Context, req CreateUserRequest) (*User, error) {
-    user := &User{Email: req.Email, Name: req.Name}
-    if err := s.validateUser(ctx, user); err != nil {
-        return nil, core.NewError(err, "USER_VALIDATION_FAILED", map[string]any{
-            "email": req.Email,
-        })
-    }
-    // ... rest of implementation using fmt.Errorf internally
+// Thread-safe structs with embedded mutex
+type Status struct {
+    Name   string
+    mu     sync.RWMutex // Protects all fields
 }
 ```
-</examples>
+</pattern>
 
-<pattern type="transaction">
+<pattern type="concurrent_operations">
 ```go
+// Concurrent operations with errgroup
+g, ctx := errgroup.WithContext(ctx)
+for _, item := range items {
+    item := item // capture loop variable
+    g.Go(func() error { return process(ctx, item) })
+}
+return g.Wait()
+```
+</pattern>
+
+## Factory Pattern (OCP Implementation)
+
+<requirement type="mandatory">
+**MANDATORY for service creation:**
+</requirement>
+
+<pattern type="factory_implementation">
+```go
+// ✅ Good: Extensible through interfaces
+type Storage interface {
+    Save(ctx context.Context, data []byte) error
+}
+
+type StorageFactory struct{}
+func (f *StorageFactory) CreateStorage(storageType string) (Storage, error) {
+    switch storageType {
+    case "redis": return NewRedisStorage(), nil
+    case "memory": return NewMemoryStorage(), nil
+    default: return nil, fmt.Errorf("unsupported storage type: %s", storageType)
+    }
+}
+
+// Usage in constructors
+func NewStorage(config *StorageConfig) (Storage, error) {
+    factory := &StorageFactory{}
+    return factory.CreateStorage(config.Type)
+}
+```
+</pattern>
+
+## Configuration with Defaults
+
+<requirement type="always">
+**Always provide defaults:**
+</requirement>
+
+<pattern type="configuration_defaults">
+```go
+func NewService(config *Config) *Service {
+    if config == nil {
+        config = DefaultConfig() // Always provide defaults
+    }
+    return &Service{config: config}
+}
+```
+</pattern>
+
+<pattern type="configuration_implementation">
+```go
+// ✅ Good: Centralized configuration with defaults
+type ServiceConfig struct {
+    Port        int           `yaml:"port"`
+    Timeout     time.Duration `yaml:"timeout"`
+    MaxRetries  int           `yaml:"max_retries"`
+}
+
+func DefaultServiceConfig() *ServiceConfig {
+    return &ServiceConfig{
+        Port:       8080,
+        Timeout:    30 * time.Second,
+        MaxRetries: 3,
+    }
+}
+
+func NewServiceFromConfig(cfg *ServiceConfig) *Service {
+    if cfg == nil {
+        cfg = DefaultServiceConfig()
+    }
+    return &Service{config: cfg}
+}
+```
+</pattern>
+
+## Graceful Shutdown
+
+<requirement type="long_running_services">
+**REQUIRED for long-running services:**
+</requirement>
+
+<pattern type="graceful_shutdown">
+```go
+quit := make(chan os.Signal, 1)
+signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+select {
+case <-ctx.Done():
+    return shutdown(ctx)
+case <-quit:
+    return shutdown(ctx)
+}
+```
+</pattern>
+
+## Middleware Pattern
+
+<context type="http_handlers">
+**For HTTP handlers:**
+</context>
+
+<pattern type="middleware_implementation">
+```go
+func authMiddleware() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        if !isValidToken(c.GetHeader("Authorization")) {
+            c.JSON(401, gin.H{"error": "unauthorized"})
+            c.Abort()
+            return
+        }
+        c.Next()
+    }
+}
+```
+</pattern>
+
+## Resource Management
+
+<context type="connection_handling">
+**Connection limits and cleanup:**
+</context>
+
+<pattern type="resource_management">
+```go
+// Connection limits
+if len(m.clients) >= m.config.MaxConnections {
+    return fmt.Errorf("max connections reached")
+}
+
+// Cleanup with defer
 defer func() {
-    if err != nil { tx.Rollback(ctx) } else { tx.Commit(ctx) }
+    m.cancel()
+    m.wg.Wait()
+    if closeErr := m.conn.Close(); closeErr != nil {
+        log.Error("failed to close connection", "error", closeErr)
+    }
 }()
 ```
 </pattern>
 
-## Dependencies and Interfaces
+## Interface Design (ISP Implementation)
 
-- Prefer explicit dependency injection through constructor functions
-- Use interfaces to define behavior and enable testing
+<guideline type="interface_size">
+**Small, focused interfaces (ISP):**
+</guideline>
 
-<pattern type="interface_implementation">
+<pattern type="interface_segregation">
 ```go
-// Define interface
-type Service interface {
-  DoSomething(ctx context.Context, param string) error
+// ✅ Good: Small, focused interfaces
+type Reader interface {
+    Read(ctx context.Context, id core.ID) (*Data, error)
 }
 
-// Implement interface
-type ServiceImpl struct {
-  dependency Dependency
+type Writer interface {
+    Write(ctx context.Context, data *Data) error
 }
 
-// Constructor function
-func NewService(dependency Dependency) Service {
-  return &serviceImpl{
-    dependency: dependency,
-  }
+type Deleter interface {
+    Delete(ctx context.Context, id core.ID) error
+}
+
+// Compose when needed
+type Repository interface {
+    Reader
+    Writer
+    Deleter
+}
+
+// ❌ Bad: Monolithic interface
+type DataManager interface {
+    Read(ctx context.Context, id core.ID) (*Data, error)
+    Write(ctx context.Context, data *Data) error
+    Delete(ctx context.Context, id core.ID) error
+    Backup(ctx context.Context) error
+    Restore(ctx context.Context) error
+    Migrate(ctx context.Context) error
 }
 ```
 </pattern>
 
-## Context and Concurrency
+<pattern type="interface_definition">
+```go
+// Small, focused interfaces for specific domains
+type Storage interface {
+    SaveMCP(ctx context.Context, def *MCPDefinition) error
+    LoadMCP(ctx context.Context, name string) (*MCPDefinition, error)
+    Close() error
+}
+```
+</pattern>
 
-<requirements type="context">
-- Use `context.Context` for request-scoped values, deadlines, and cancellations
-- Pass context as the first parameter to functions that make external calls
-- Use the noctx linter to enforce context propagation
-- Ensure goroutines are properly managed and cleaned up
-</requirements>
+<best_practices type="interface_organization">
+**Interface best practices:**
+- Define interfaces in separate files when used across packages
+- Keep interfaces small and focused on specific behavior
+- Use interface composition for complex behavior
+- Honor contracts consistently (LSP)
+</best_practices>
+
+## Constructor Patterns (DIP Implementation)
+
+<requirement type="mandatory">
+**MANDATORY for all services:**
+</requirement>
+
+<pattern type="dependency_injection">
+```go
+// ✅ Good: Depends on abstraction (DIP)
+type WorkflowService struct {
+    taskRepo TaskRepository // interface
+    executor TaskExecutor  // interface
+}
+
+func NewWorkflowService(taskRepo TaskRepository, executor TaskExecutor) *WorkflowService {
+    return &WorkflowService{
+        taskRepo: taskRepo,
+        executor: executor,
+    }
+}
+
+// ❌ Bad: Depends on concrete implementation
+type WorkflowService struct {
+    taskRepo *PostgreSQLTaskRepository // concrete
+    executor *DockerExecutor          // concrete
+}
+```
+</pattern>
+
+<pattern type="service_constructor">
+```go
+// ✅ Required pattern for all services
+type AgentService struct {
+    repo   AgentRepository
+    config *AgentConfig
+}
+
+func NewAgentService(
+    repo AgentRepository,
+    config *AgentConfig,
+) *AgentService {
+    if config == nil {
+        config = DefaultAgentConfig()
+    }
+    return &AgentService{
+        repo:   repo,
+        config: config,
+    }
+}
+```
+</pattern>
+
+## Single Responsibility Examples (SRP Implementation)
+
+<pattern type="srp_separation">
+```go
+// ✅ Good: Single responsibility
+type UserValidator struct{}
+func (v *UserValidator) ValidateEmail(email string) error { /* validation logic */ }
+
+type UserRepository struct{}
+func (r *UserRepository) SaveUser(ctx context.Context, user *User) error { /* persistence logic */ }
+
+// ❌ Bad: Multiple responsibilities
+type UserService struct{}
+func (s *UserService) ValidateAndSaveUser(ctx context.Context, email string) error {
+    // validation + persistence mixed
+}
+```
+</pattern>
+
+## Context Handling Patterns
+
+<requirement type="mandatory">
+**Context as first parameter:**
+</requirement>
+
+<pattern type="context_propagation">
+```go
+// ✅ Context as first parameter
+func (s *TaskService) ExecuteTask(ctx context.Context, task *core.Task) (*core.TaskResult, error) {
+    select {
+    case <-ctx.Done():
+        return nil, ctx.Err()
+    default:
+        return s.doExecuteTask(ctx, task)
+    }
+}
+```
+</pattern>
+
+## Resource Management Patterns
+
+<pattern type="resource_cleanup">
+```go
+// ✅ Proper resource cleanup
+func (s *Service) ProcessWithResources(ctx context.Context) error {
+    conn, err := s.acquireConnection()
+    if err != nil {
+        return fmt.Errorf("failed to acquire connection: %w", err)
+    }
+    defer func() {
+        if closeErr := conn.Close(); closeErr != nil {
+            log.Error("failed to close connection", "error", closeErr)
+        }
+    }()
+    return s.processWithConnection(ctx, conn)
+}
+
+// ✅ Timeout handling with cleanup
+func (s *Service) ProcessWithTimeout(ctx context.Context, timeout time.Duration) error {
+    ctx, cancel := context.WithTimeout(ctx, timeout)
+    defer cancel() // Always cancel to free resources
+    done := make(chan error, 1)
+    go func() {
+        done <- s.heavyProcessing(ctx)
+    }()
+    select {
+    case err := <-done:
+        return err
+    case <-ctx.Done():
+        return fmt.Errorf("operation timed out: %w", ctx.Err())
+    }
+}
+
+// ✅ Multiple resource cleanup
+func (s *Service) ProcessMultipleResources(ctx context.Context) error {
+    file, err := os.Open("data.txt")
+    if err != nil {
+        return fmt.Errorf("failed to open file: %w", err)
+    }
+    defer file.Close()
+    lock := s.mutex.Lock()
+    defer s.mutex.Unlock()
+    return s.processFileWithLock(ctx, file)
+}
+```
+</pattern>
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
