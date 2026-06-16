@@ -1,0 +1,44 @@
+{
+  "name": "wff-release",
+  "owner": "rv198-star",
+  "repo": "wff-release",
+  "description": "WFF \u662f\u7ed9 AI Agent \u7528\u7684\u8f6f\u4ef6\u751f\u547d\u5468\u671f\u6846\u67b6\u3002\u901a\u8fc7\u4e00\u4e1d\u4e0d\u82df\u7684\u6267\u884c\u8f6f\u4ef6\u5de5\u7a0b\u8fc7\u7a0b\uff0c\u751f\u6210\u4e00\u73af\u6263\u4e00\u73af\u7684\u4ea7\u54c1\u9700\u6c42\u6587\u6863\uff0c\u67b6\u6784\u8bbe\u8ba1\uff0c\u4ee5\u53ca\u4ee3\u7801\uff0c\u907f\u514dVibe Coding\u7684\u4e0d\u53ef\u63a7\u548c\u96be\u4ee5\u7ef4\u62a4\u95ee\u9898\uff0c\u4ea4\u4ed8\u771f\u6b63\u5de5\u7a0b\u7ea7\u7684\u8f6f\u4ef6\u9879\u76ee\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rv198-star/wff-release",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T10:32:19Z"
+}
