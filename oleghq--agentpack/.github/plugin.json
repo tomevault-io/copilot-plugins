@@ -1,0 +1,9 @@
+{
+  "name": "oleghq--agentpack",
+  "displayName": "agentpack",
+  "description": "\ud83e\udd16 The package manager for AI coding agents \u2014 pin, resolve, and sync skills & plugins across Claude Code, Cursor, OpenCode, Codex, Grok, and Antigravity",
+  "version": "1.0.0",
+  "author": "OlegHQ",
+  "homepage": "https://github.com/OlegHQ/agentpack",
+  "skills": []
+}
