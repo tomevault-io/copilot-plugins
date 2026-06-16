@@ -7,11 +7,11 @@ Prompt-first starter kit for Codex and Claude Code workspaces, with bootstrap, u
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Rainnystone/naive-harness-kit](https://github.com/Rainnystone/naive-harness-kit).
+Original source: `CLAUDE.md` in [Rainnystone/naive-harness-kit](https://github.com/Rainnystone/naive-harness-kit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
