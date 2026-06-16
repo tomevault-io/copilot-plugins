@@ -1,0 +1,9 @@
+{
+  "name": "ww-w-ai--claude-code-token-saver",
+  "displayName": "claude-code-token-saver",
+  "description": "45% cost reduction measured. The only Claude Code plugin built from CC source analysis \u2014 cache expiry prevention, SubTask auto-delegation, zero-cost context restoration, real-time dashboard. Max Plan ",
+  "version": "1.0.0",
+  "author": "ww-w-ai",
+  "homepage": "https://github.com/ww-w-ai/claude-code-token-saver",
+  "skills": []
+}
