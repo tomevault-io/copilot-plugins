@@ -1,0 +1,9 @@
+{
+  "name": "corporatepiyush--mcp-pg-rust",
+  "displayName": "mcp-pg-rust",
+  "description": "Postgresql MCP server written in Rust",
+  "version": "1.0.0",
+  "author": "corporatepiyush",
+  "homepage": "https://github.com/corporatepiyush/mcp-pg-rust",
+  "skills": []
+}
