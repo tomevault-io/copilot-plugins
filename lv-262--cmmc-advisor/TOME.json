@@ -1,0 +1,44 @@
+{
+  "name": "cmmc-advisor",
+  "owner": "LV-262",
+  "repo": "cmmc-advisor",
+  "description": "CMMC 2.0 compliance advisor as a Claude Code skill. All 3 levels, 14 domains, 110 practices; CUI scoping, SSP + POA&M; modern IT mapping for cloud, productivity, AI services, endpoints; contractor profiles and anti-patterns. Built from public DoD and NIST sources.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LV-262/cmmc-advisor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T05:00:41Z"
+}
