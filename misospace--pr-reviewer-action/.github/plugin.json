@@ -1,0 +1,9 @@
+{
+  "name": "misospace--pr-reviewer-action",
+  "displayName": "pr-reviewer-action",
+  "description": "Reusable GitHub Action for AI-assisted pull request review with self-hosted and cloud OpenAI-compatible models",
+  "version": "1.0.0",
+  "author": "misospace",
+  "homepage": "https://github.com/misospace/pr-reviewer-action",
+  "skills": []
+}
