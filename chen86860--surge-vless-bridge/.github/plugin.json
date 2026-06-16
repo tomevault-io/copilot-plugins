@@ -1,0 +1,9 @@
+{
+  "name": "chen86860--surge-vless-bridge",
+  "displayName": "surge-vless-bridge",
+  "description": "A Node.js CLI that converts a VLESS subscription into Surge Mac external proxy entries backed by local sing-box configs.",
+  "version": "1.0.0",
+  "author": "chen86860",
+  "homepage": "https://github.com/chen86860/surge-vless-bridge",
+  "skills": []
+}
