@@ -1,0 +1,9 @@
+{
+  "name": "dadangnh--as-folio",
+  "displayName": "as-folio",
+  "description": "A full-featured academic portfolio theme built with Astro 6, Tailwind CSS v4, and TypeScript. Ships with publications (BibTeX), blog, CV, projects, books shelf, and full-text search. Everything a rese",
+  "version": "1.0.0",
+  "author": "dadangnh",
+  "homepage": "https://github.com/dadangnh/as-folio",
+  "skills": []
+}
