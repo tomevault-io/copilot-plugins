@@ -1,0 +1,9 @@
+{
+  "name": "little-scale--cycle-fold-max-external",
+  "displayName": "cycle-fold-max-external",
+  "description": "An advanced wave folding oscillator with phase warping capabilities, featuring progressive threshold wave folding, click-free parameter transitions, and comprehensive anti-aliasing protection.",
+  "version": "1.0.0",
+  "author": "little-scale",
+  "homepage": "https://github.com/little-scale/cycle-fold-max-external",
+  "skills": []
+}
