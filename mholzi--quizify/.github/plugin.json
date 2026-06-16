@@ -1,0 +1,9 @@
+{
+  "name": "mholzi--quizify",
+  "displayName": "quizify",
+  "description": "Multiplayer Useless Knowledge Quiz Game for Home Assistant",
+  "version": "1.0.0",
+  "author": "mholzi",
+  "homepage": "https://github.com/mholzi/quizify",
+  "skills": []
+}
