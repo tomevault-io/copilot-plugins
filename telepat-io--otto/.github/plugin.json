@@ -1,0 +1,9 @@
+{
+  "name": "telepat-io--otto",
+  "displayName": "otto",
+  "description": "Automate web workflows on real browser tabs without hosting a browser farm.",
+  "version": "1.0.0",
+  "author": "telepat-io",
+  "homepage": "https://github.com/telepat-io/otto",
+  "skills": []
+}
