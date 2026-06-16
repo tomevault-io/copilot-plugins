@@ -1,0 +1,44 @@
+{
+  "name": "EchoChat",
+  "owner": "bojinyuan00",
+  "repo": "EchoChat",
+  "description": "\u5927\u578b\u97f3\u89c6\u9891\u4f1a\u8bae\u76f4\u64ad\u7cfb\u7edf",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bojinyuan00/EchoChat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T20:58:35Z"
+}
