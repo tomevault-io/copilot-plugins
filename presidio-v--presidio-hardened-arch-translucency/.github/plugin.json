@@ -1,0 +1,9 @@
+{
+  "name": "presidio-v--presidio-hardened-arch-translucency",
+  "displayName": "presidio-hardened-arch-translucency",
+  "description": "Presidio implementation of architectural translucency for optimal replication decisions in Docker and Kubernetes deployments",
+  "version": "1.0.0",
+  "author": "presidio-v",
+  "homepage": "https://github.com/presidio-v/presidio-hardened-arch-translucency",
+  "skills": []
+}
