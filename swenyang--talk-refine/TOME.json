@@ -1,0 +1,44 @@
+{
+  "name": "talk-refine",
+  "owner": "swenyang",
+  "repo": "talk-refine",
+  "description": "\u5229\u7528\u672c\u5730\u8bed\u97f3\u6a21\u578b\u8f6c\u6362\u548c LLM \u6a21\u578b\u6da6\u8272\uff0c\u628a\u53e3\u8bed\u8f6c\u6362\u4e3a\u9002\u5408 LLM \u7684\u7ed3\u6784\u5316\u8868\u8fbe",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/swenyang/talk-refine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T03:12:19Z"
+}
