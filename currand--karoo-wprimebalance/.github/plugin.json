@@ -1,0 +1,9 @@
+{
+  "name": "currand--karoo-wprimebalance",
+  "displayName": "karoo-wprimebalance",
+  "description": "Show W' balance as a data field on a Hammerhead Karoo",
+  "version": "1.0.0",
+  "author": "currand",
+  "homepage": "https://github.com/currand/karoo-wprimebalance",
+  "skills": []
+}
