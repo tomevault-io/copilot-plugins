@@ -1,0 +1,9 @@
+{
+  "name": "dospamu--free-games-claimer",
+  "displayName": "free-games-claimer",
+  "description": "Automatically claim free games on Epic Games, Prime Gaming, GOG, Steam & AliExpress \u2014 Discord notifications, Docker deploy, no cron needed",
+  "version": "1.0.0",
+  "author": "DoSpamu",
+  "homepage": "https://github.com/DoSpamu/free-games-claimer",
+  "skills": []
+}
