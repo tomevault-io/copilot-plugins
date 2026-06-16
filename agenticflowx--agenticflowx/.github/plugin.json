@@ -1,0 +1,9 @@
+{
+  "name": "agenticflowx--agenticflowx",
+  "displayName": "agenticflowx",
+  "description": "AgenticFlowX is a VS Code workflow layer for AI coding. It gives you chat-first coding, Code / Explore / Spec modes, actionable markdown previews, an experimental project canvas, and repo-owned projec",
+  "version": "1.0.0",
+  "author": "AgenticFlowX",
+  "homepage": "https://github.com/AgenticFlowX/agenticflowx",
+  "skills": []
+}
