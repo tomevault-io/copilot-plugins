@@ -4,7 +4,7 @@
   "repo": "thread",
   "description": "Read-only forensics and analytics layer for Beads \u2014 fidelity scores, rework cost, and a self-contained HTML report for your agentic workflows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jklenk/thread",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T03:01:48Z"
+  "distributed_at": "2026-06-16T04:33:09Z"
 }
