@@ -1,0 +1,9 @@
+{
+  "name": "cloverhound--cucm-cli",
+  "displayName": "cucm-cli",
+  "description": "cucm-cli",
+  "version": "1.0.0",
+  "author": "Cloverhound",
+  "homepage": "https://github.com/Cloverhound/cucm-cli",
+  "skills": []
+}
