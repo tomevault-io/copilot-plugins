@@ -1,116 +1,95 @@
 ## tg-ws-proxy-android
 
-> Android Kotlin port of [tg-ws-proxy](https://github.com/Flowseal/tg-ws-proxy).
+> Build the Android APK (debug or release) for the `tg-ws-proxy-android` project.
 
-# AGENTS.md — tg-ws-proxy-android
+# Skill: Android Gradle Build (tg-ws-proxy-android)
 
-## Project Overview
+## When to Use
 
-Android Kotlin port of [tg-ws-proxy](https://github.com/Flowseal/tg-ws-proxy).
-A Telegram MTProto WebSocket Bridge Proxy with DPI bypass (DoH, CF fallback, parallel connect, auto Fake TLS).
+Build the Android APK (debug or release) for the `tg-ws-proxy-android` project.
 
-## Prerequisites
+## Requirements
 
-- **JAVA_HOME**: `C:\Program Files\Android\Android Studio\jbr`
-- **Build tool**: Gradle wrapper (`gradlew.bat`)
-- **Platform**: Windows (PowerShell)
+- Working directory: project root (`tg-ws-proxy-android/`)
+- JDK at: `C:\Program Files\Android\Android Studio\jbr`
+- Gradle pre-installed (wrapper available)
 
-## Critical Rules
+## WARNING — PowerShell Hang
 
-### 1. NEVER Hang on Gradle Build (Daemon Prompt)
+PowerShell execution of Gradle can **block forever** if the Gradle daemon asks for interactive confirmation.
 
-**PROBLEM:** Gradle daemon may prompt interactively for JVM options. OpenCode's PowerShell shell hangs on such prompts and never returns.
+**ALWAYS USE `--no-daemon`.**
 
-**REQUIRED:** Every `gradlew.bat` call MUST include `--no-daemon`.
+## Debug Build
 
-**CORRECT:**
+### Command (PowerShell)
 ```powershell
 $env:JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr'; .\gradlew.bat --no-daemon assembleDebug
 ```
 
-**WRONG (DO NOT USE):**
-```powershell
-$env:JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr'; .\gradlew.bat assembleDebug       # ← hangs!
-```
-
-**ALTERNATIVE (use cmd if PowerShell fails):**
+### Command (via cmd, guaranteed non-blocking)
 ```powershell
 cmd /c "set JAVA_HOME=C:\Program Files\Android\Android Studio\jbr && gradlew.bat --no-daemon assembleDebug"
 ```
 
-### 2. Build via Gradle (not .bat scripts)
+### Output file
+```
+app\build\outputs\apk\debug\app-debug.apk
+```
 
-Agents MUST NOT rely on `.bat` build scripts — use Gradle wrapper directly:
-- **Debug**: `$env:JAVA_HOME = '...'; .\gradlew.bat --no-daemon assembleDebug`
-- **Release**: `$env:JAVA_HOME = '...'; .\gradlew.bat --no-daemon assembleRelease`
+### On success
+Look for: `BUILD SUCCESSFUL`
 
-### 3. Avoid Interactive Shell Commands
+## Release Build
 
-- NEVER use `call gradlew.bat` inside another .bat — can block on daemon fork
-- NEVER use `pause` in scripts for agent execution
-- NEVER use `start /wait` with interactive programs
-- If a command may prompt, add `echo y |` prefix or use `--no-daemon` / `--batch-mode`
-
-### 4. Build Workflow
-
-**Release APK:**
+### Command (PowerShell)
 ```powershell
-cd W:\MyProjects\tg-proxy\tg-ws-proxy-android
 $env:JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr'; .\gradlew.bat --no-daemon assembleRelease
-# Gradle output: app\build\outputs\apk\release\app-release.apk
-# MUST rename/copy to:
-Copy-Item app\build\outputs\apk\release\app-release.apk app\build\outputs\apk\release\tg-ws-proxy-android.apk
 ```
 
-**Debug APK:**
+### Command (via cmd)
 ```powershell
-cd W:\MyProjects\tg-proxy\tg-ws-proxy-android
-$env:JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr'; .\gradlew.bat --no-daemon assembleDebug
-# Gradle output: app\build\outputs\apk\debug\app-debug.apk
-# MUST rename/copy to:
-Copy-Item app\build\outputs\apk\debug\app-debug.apk app\build\outputs\apk\debug\tg-ws-proxy-android-debug.apk
+cmd /c "set JAVA_HOME=C:\Program Files\Android\Android Studio\jbr && gradlew.bat --no-daemon assembleRelease"
 ```
 
-### APK Naming Convention (enforced)
+### Output file
+```
+app\build\outputs\apk\release\app-release.apk
+```
 
-| Variant | Gradle default | Final required name |
-|---|---|---|
-| Release | `app-release.apk` | `tg-ws-proxy-android.apk` |
-| Debug   | `app-debug.apk`   | `tg-ws-proxy-android-debug.apk` |
+### On success
+Look for: `BUILD SUCCESSFUL`
 
-Agents **must** copy the default Gradle artifact to the required filename immediately after `BUILD SUCCESSFUL`.
+## If Build Hangs / Times Out
 
-### 5. Files to Never Commit
+1. Try with `--no-daemon` explicitly
+2. If still hangs, use the `.bat` helper: `.\build_debug.bat` or `.\build_release.bat`
+3. If still hangs, use the agent-safe wrapper: `.\agent_build_debug.bat`
+4. As last resort, use `cmd /c` directly (the shell inside Windows `cmd` is non-interactive)
 
-Already in `.gitignore`, but remember:
-- `release.keystore` (secrets)
-- `*.bat` build scripts (local tooling)
-- `.gradle/`, `build/`, `app/build/`
+## Copy APK to Release Name
 
-## Key Files Map
+After build, rename the APK for distribution:
+```powershell
+Copy-Item "app\build\outputs\apk\release\app-release.apk" "app\build\outputs\apk\release\tg-ws-proxy-android-v$(Get-Date -Format 'yyyy.MM.dd').apk"
+```
 
-| File | Purpose |
+## Verify Build Output
+
+```powershell
+ls app\build\outputs\apk\release\
+# Should show: app-release.apk (and optionally renamed copy)
+```
+
+## Troubleshooting
+
+| Error | Fix |
 |---|---|
-| `app/src/main/java/com/github/tgwsproxy/TgWsProxy.kt` | Main proxy server |
-| `app/src/main/java/com/github/tgwsproxy/RawWebSocket.kt` | WS client with DoH/parallel connect, **separate TLS handshake executor** |
-| `app/src/main/java/com/github/tgwsproxy/ProxyService.kt` | Foreground service |
-| `app/src/main/java/com/github/tgwsproxy/ProxyConfig.kt` | DPI bypass settings (DoH, padding, CF fallback) |
-| `app/src/main/java/com/github/tgwsproxy/DoHResolver.kt` | DoH resolver with endpoint rotation |
-| `app/src/main/java/com/github/tgwsproxy/MainActivity.kt` | UI (tabs, settings, logs) |
-| `app/src/main/java/com/github/tgwsproxy/AppLogger.kt` | File + memory logging with rotation |
-| `app/src/main/res/layout/activity_main.xml` | Main layout |
-| `app/build.gradle.kts` | Build config |
-| `gradle.properties` | `org.gradle.daemon=false` (critical) |
-
-## Testing After Build
-
-After `BUILD SUCCESSFUL`, verify APK exists:
-```powershell
-ls app\build\outputs\apk\release\tg-ws-proxy-android.apk
-# or
-ls app\build\outputs\apk\debug\tg-ws-proxy-android-debug.apk
-```
+| `JAVA_HOME is not set` | Run with `$env:JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr'` |
+| `Gradle daemon issues` | Add `--no-daemon` to any gradlew call |
+| `PowerShell hangs` | Use `cmd /c "..."` instead of direct command |
+| `OutOfMemory` | Increase `org.gradle.jvmargs=-Xmx4096m` in `gradle.properties` |
 
 ---
 > Source: [ComradeSwarog/tg-ws-proxy-android](https://github.com/ComradeSwarog/tg-ws-proxy-android) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
