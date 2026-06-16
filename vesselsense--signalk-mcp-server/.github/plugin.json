@@ -1,0 +1,9 @@
+{
+  "name": "vesselsense--signalk-mcp-server",
+  "displayName": "signalk-mcp-server",
+  "description": "Signalk MCP Server",
+  "version": "1.0.0",
+  "author": "VesselSense",
+  "homepage": "https://github.com/VesselSense/signalk-mcp-server",
+  "skills": []
+}
