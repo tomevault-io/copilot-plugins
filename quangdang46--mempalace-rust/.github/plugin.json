@@ -1,0 +1,9 @@
+{
+  "name": "quangdang46--mempalace-rust",
+  "displayName": "mempalace_rust",
+  "description": "The highest-scoring AI memory system ever benchmarked. Now in Rust with rich features \u2014 single-binary port from @milla-jovovich/mempalace. Free and local.",
+  "version": "1.0.0",
+  "author": "quangdang46",
+  "homepage": "https://github.com/quangdang46/mempalace_rust",
+  "skills": []
+}
