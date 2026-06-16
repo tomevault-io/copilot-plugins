@@ -1,0 +1,9 @@
+{
+  "name": "churnish--obsidian-css-snippets",
+  "displayName": "obsidian-css-snippets",
+  "description": "This is simply a mirror of my .obsidian/snippets folder.",
+  "version": "1.0.0",
+  "author": "churnish",
+  "homepage": "https://github.com/churnish/obsidian-css-snippets",
+  "skills": []
+}
