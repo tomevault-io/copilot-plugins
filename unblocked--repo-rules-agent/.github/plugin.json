@@ -1,0 +1,9 @@
+{
+  "name": "unblocked--repo-rules-agent",
+  "displayName": "repo-rules-agent",
+  "description": "Extract and index AI coding instructions from rules files",
+  "version": "1.0.0",
+  "author": "unblocked",
+  "homepage": "https://github.com/unblocked/repo-rules-agent",
+  "skills": []
+}
