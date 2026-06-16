@@ -1,0 +1,9 @@
+{
+  "name": "chriswritescode-dev--opencode-forge",
+  "displayName": "opencode-forge",
+  "description": "OpenCode plugin for autonomous dev loops, planning, and worktree sandbox environments.",
+  "version": "1.0.0",
+  "author": "chriswritescode-dev",
+  "homepage": "https://github.com/chriswritescode-dev/opencode-forge",
+  "skills": []
+}
