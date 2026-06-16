@@ -1,0 +1,9 @@
+{
+  "name": "wiseriaai--pie-ai-agent",
+  "displayName": "pie-ai-agent",
+  "description": "Browser-automation agent for Chrome \u2014 natural-language tasks executed through native tool calling, scoped Skills, CDP keyboard control, and a confirm-before-act security model. BYOK across 8 LLM provi",
+  "version": "1.0.0",
+  "author": "WiseriaAI",
+  "homepage": "https://github.com/WiseriaAI/pie-ai-agent",
+  "skills": []
+}
