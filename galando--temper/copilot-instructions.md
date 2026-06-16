@@ -1,80 +1,84 @@
-## temper-capability-config-suggestions
+## temper-capability-plan-review
 
-> Post-check config suggestions — analyze what was built and suggest CLAUDE.md/AGENTS.md updates
+> Interactive HTML plan review — browser-based review with inline comments and auto-detect
 
 
-# Config Suggestions
+# HTML Plan Review
 
-**Goal:** After Check passes, analyze what was built and suggest updates to CLAUDE.md or AGENTS.md. Captures new patterns, learned conventions, and architectural decisions as config suggestions.
+**Goal:** Generate a self-contained HTML file from plan.md + tasks.md that supports interactive browser-based review with inline comments (Google Doc-style).
 
-## When to Trigger
+## Template
 
-After all validation levels in `/temper:check` pass (no failures), before the Commit gate:
+The HTML template is at `templates/plan-review.html`. It contains:
+- All CSS inline (dark theme, responsive)
+- All JS inline (comment system, export, markdown rendering)
+- No external dependencies (no CDN, no build tools)
+- XSS-safe: all user input is escaped before rendering
 
-1. `config-suggestions` capability is enabled (default: enabled)
-2. Check validation passed (compile, tests, coverage, lint, security all green)
-3. At least one file was changed (`git diff --name-only` returns results)
+## HTML Generation
 
-## Analysis Inputs
+Generate the HTML file by:
 
-```
-1. git diff --stat (files changed, lines added/removed)
-2. .temper/specs/{feature}/intent.md (what was planned)
-3. .temper/specs/{feature}/tasks.md (tasks completed)
-4. Existing CLAUDE.md content (project root or .claude/CLAUDE.md)
-5. Existing AGENTS.md content (project root or .claude/AGENTS.md, if exists)
-```
+1. Read `templates/plan-review.html`
+2. Read `.temper/specs/{feature}/plan.md` — split into sections by `##` headers
+3. Read `.temper/specs/{feature}/tasks.md` — split into sections by `## Task` headers
+4. Replace template placeholders:
+   - `{{FEATURE_NAME}}` → human-readable feature name
+   - `{{FEATURE_SLUG}}` → slug from build-state.json
+   - `{{REVIEW_SPECS_DIR}}` → absolute path to `.temper/specs/{feature}/`
+   - `{{SECTIONS_JSON}}` → JSON array of `{ title, source, content }` objects
+5. Write to `.temper/specs/{feature}/review.html`
 
-## Suggestion Categories
+## Comment Schema
 
-| Category | Detection | Example |
-|----------|-----------|---------|
-| New pattern | Code introduces a reusable pattern not in existing docs | "Services use Result<> for error handling" |
-| Learned convention | Naming/structure convention observed consistently in new code | "Test files follow *.test.ts naming" |
-| Architectural decision | Structural choice that affects future code | "All API routes use /api/v2/ prefix" |
-| Tooling config | New tool or config discovered | "Add ESLint rule for async/await" |
+Comments are serialized to `review-comments.json`:
 
-## Generation Algorithm
-
-```
-1. ANALYZE changed files for patterns:
-   a. Error handling patterns (try/catch, Result<>, throw, .catch)
-   b. Naming conventions (file naming, class naming, function naming)
-   c. Directory structure patterns (where new files were placed)
-   d. Import/export patterns (barrel exports, named exports)
-   e. Testing patterns (describe/it, Given/When/Then, test helpers)
-   f. Configuration patterns (env vars, config files, feature flags)
-   g. API patterns (route structure, middleware, validation)
-   h. Data patterns (DTOs, mappers, serializers)
-
-2. COMPARE against existing CLAUDE.md/AGENTS.md:
-   - Is this pattern ALREADY documented? → Skip
-   - Is this pattern NEW or DIFFERENT from documented? → Generate suggestion
-   - Does this CONTRADICT documented patterns? → Flag as inconsistency
-
-3. GENERATE suggestions:
-   For each new/changed pattern:
-   - type: new_pattern | learned_convention | architectural_decision | tooling_config
-   - description: plain English explanation
-   - suggested_text: the actual text to add to CLAUDE.md/AGENTS.md
-   - confidence: 0.0-1.0
-   - target: CLAUDE.md | AGENTS.md
-
-4. FILTER:
-   - Skip suggestions with confidence < 0.6
-   - Skip patterns that only appear once (likely one-off)
-   - Skip patterns already in existing docs
-   - Max 5 suggestions per check (prevent overwhelm)
+```json
+{
+  "version": 1,
+  "feature": "{feature-slug}",
+  "comments": [
+    {
+      "id": "c1709000000000",
+      "target": "Architecture",
+      "type": "task-change|scenario-change|plan-change|general-note",
+      "text": "User's comment text",
+      "timestamp": "{ISO}",
+      "resolved": false
+    }
+  ],
+  "review_completed": true,
+  "completed_at": "{ISO}"
+}
 ```
 
-## Graceful Degradation
+## Orchestrator Integration
 
-- If CLAUDE.md doesn't exist: still generate suggestions, target file creation
-- If AGENTS.md doesn't exist: skip AGENTS.md suggestions
-- If no patterns detected (trivial change): show "No config suggestions for this change"
-- If `learning.json` doesn't exist: create it with the suggestion entries
+The orchestrator uses **file watching** to auto-detect when the user finishes reviewing:
 
-**This capability does NOT modify files without user consent.** All suggestions require explicit Accept at the Check gate.
+1. Before opening HTML, remove any stale `review-comments.json`
+2. Generate HTML with absolute specs path
+3. Open in browser — user adds comments and clicks "Done Reviewing"
+4. HTML page saves `review-comments.json` via File System Access API (Chrome/Edge) or download (fallback)
+5. Poll for the file every 3 seconds
+6. When file appears, auto-process comments:
+   - `task-change` → update tasks.md section matching `target`
+   - `scenario-change` → update intent.md scenario matching `target`
+   - `plan-change` → update plan.md section matching `target`
+   - `general-note` → add as context note to build-state.json
+7. Show summary of changes, return to Plan gate
+
+## Browser Compatibility
+
+- Chrome/Edge 86+ — direct file write via File System Access API
+- Firefox 90+, Safari 15+ — download fallback with auto-detect
+- No polyfills needed, no server-side component
+
+## Security
+
+- All user input (comments) escaped via `textContent` (never `innerHTML` with user data)
+- Markdown rendering only applies to plan content (injected by orchestrator, trusted)
+- No external resources loaded (fully self-contained)
 
 ---
 > Source: [galando/temper](https://github.com/galando/temper) — distributed by [TomeVault](https://tomevault.io).
