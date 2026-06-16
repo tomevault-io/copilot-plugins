@@ -1,0 +1,9 @@
+{
+  "name": "robustmq--mq9",
+  "displayName": "mq9",
+  "description": "Agent registration, discovery, and reliable async messaging \u2014 in one broker.",
+  "version": "1.0.0",
+  "author": "robustmq",
+  "homepage": "https://github.com/robustmq/mq9",
+  "skills": []
+}
