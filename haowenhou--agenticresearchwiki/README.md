@@ -7,11 +7,11 @@ An Agent-native Obsidian wiki + CLAUDE.md skeleton that lets Agent know your pro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HaowenHou/AgenticResearchWiki](https://github.com/HaowenHou/AgenticResearchWiki).
+Original source: `CLAUDE.md` in [HaowenHou/AgenticResearchWiki](https://github.com/HaowenHou/AgenticResearchWiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
