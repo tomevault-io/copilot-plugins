@@ -1,0 +1,9 @@
+{
+  "name": "avalonreset--legends-github",
+  "displayName": "legends-github",
+  "description": "GitHub repository optimization skills for Claude Code, Codex, and Gemini CLI. Audit repos, improve READMEs, tune metadata, releases, legal files, SEO, and community health.",
+  "version": "1.0.0",
+  "author": "avalonreset",
+  "homepage": "https://github.com/avalonreset/legends-github",
+  "skills": []
+}
