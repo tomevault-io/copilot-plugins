@@ -1,0 +1,9 @@
+{
+  "name": "madeye--subtitle-anywhere",
+  "displayName": "subtitle_anywhere",
+  "description": "Batch-generate bilingual external subtitles for local media files using MLX Whisper on Apple Silicon",
+  "version": "1.0.0",
+  "author": "madeye",
+  "homepage": "https://github.com/madeye/subtitle_anywhere",
+  "skills": []
+}
