@@ -1,0 +1,9 @@
+{
+  "name": "daedalus--mcp-llm-gateway",
+  "displayName": "mcp-llm-gateway",
+  "description": "mcp-llm-gateway",
+  "version": "1.0.0",
+  "author": "daedalus",
+  "homepage": "https://github.com/daedalus/mcp-llm-gateway",
+  "skills": []
+}
