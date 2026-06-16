@@ -1,0 +1,9 @@
+{
+  "name": "phvhoang--likhadb",
+  "displayName": "likhadb",
+  "description": "vector database for lakehouse",
+  "version": "1.0.0",
+  "author": "PhVHoang",
+  "homepage": "https://github.com/PhVHoang/likhadb",
+  "skills": []
+}
