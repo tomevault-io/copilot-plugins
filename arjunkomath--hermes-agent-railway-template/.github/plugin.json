@@ -1,0 +1,9 @@
+{
+  "name": "arjunkomath--hermes-agent-railway-template",
+  "displayName": "hermes-agent-railway-template",
+  "description": "1 click deploy Railway template for Hermes agent",
+  "version": "1.0.0",
+  "author": "arjunkomath",
+  "homepage": "https://github.com/arjunkomath/hermes-agent-railway-template",
+  "skills": []
+}
