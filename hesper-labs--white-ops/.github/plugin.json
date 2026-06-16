@@ -1,0 +1,9 @@
+{
+  "name": "hesper-labs--white-ops",
+  "displayName": "white-ops",
+  "description": "Open-source AI workforce platform. 55 tools, 21-page admin panel, multi-LLM (Claude/GPT/Gemini/Ollama), multi-PC deployment. Automates office tasks: Excel, email, CRM, invoicing, web research, and mor",
+  "version": "1.0.0",
+  "author": "Hesper-Labs",
+  "homepage": "https://github.com/Hesper-Labs/white-ops",
+  "skills": []
+}
