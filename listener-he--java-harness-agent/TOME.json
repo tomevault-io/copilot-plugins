@@ -1,0 +1,51 @@
+{
+  "name": "java-harness-agent",
+  "owner": "listener-He",
+  "repo": "java-harness-agent",
+  "description": "Claude Code harness for disciplined Java backend dev \u2014 risk-classified routing, 6-phase lifecycle (Explorer \u2192 Propose \u2192 Review \u2192 Implement \u2192 QA \u2192 Archive), 13   specialist agents, gate-enforced contracts. Prevents LLM slop via spec-first briefs, TDD, and WAL.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review-checklist",
+      "path": ".claude/skills/code-review-checklist",
+      "github_url": "https://github.com/listener-He/java-harness-agent/tree/main/.claude/skills/code-review-checklist",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/listener-He/java-harness-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-16T00:31:42Z"
+}
