@@ -1,0 +1,9 @@
+{
+  "name": "traitome--oxo-flow",
+  "displayName": "oxo-flow",
+  "description": "(Experimental) Yet Another bioinformatics workflow engine https://traitome.github.io/oxo-flow/documentation/",
+  "version": "1.0.0",
+  "author": "Traitome",
+  "homepage": "https://github.com/Traitome/oxo-flow",
+  "skills": []
+}
