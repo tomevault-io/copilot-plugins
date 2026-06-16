@@ -1,0 +1,9 @@
+{
+  "name": "amgdy--github-copilot-insights-dashboard",
+  "displayName": "github-copilot-insights-dashboard",
+  "description": "A centralized analytics dashboard for enterprise GitHub Copilot adoption. Visualize usage metrics, license allocation, premium request consumption, and AI model activity \u2014 all sourced from the GitHub ",
+  "version": "1.0.0",
+  "author": "amgdy",
+  "homepage": "https://github.com/amgdy/github-copilot-insights-dashboard",
+  "skills": []
+}
