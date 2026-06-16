@@ -1,0 +1,9 @@
+{
+  "name": "sholajegede--convex-bright-data-datasets",
+  "displayName": "convex-bright-data-datasets",
+  "description": "Convex component that wraps Bright Data's Datasets API. Trigger async collections, receive results via webhook, and subscribe to structured records in real time via useQuery.",
+  "version": "1.0.0",
+  "author": "sholajegede",
+  "homepage": "https://github.com/sholajegede/convex-bright-data-datasets",
+  "skills": []
+}
