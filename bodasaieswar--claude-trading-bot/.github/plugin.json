@@ -1,0 +1,9 @@
+{
+  "name": "bodasaieswar--claude-trading-bot",
+  "displayName": "claude-trading-bot",
+  "description": "Automated GOLD trading bot: Claude Code + TradingView (LuxAlgo) + MetaTrader 5 + Telegram alerts",
+  "version": "1.0.0",
+  "author": "Bodasaieswar",
+  "homepage": "https://github.com/Bodasaieswar/claude-trading-bot",
+  "skills": []
+}
