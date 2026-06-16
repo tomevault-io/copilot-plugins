@@ -1,0 +1,9 @@
+{
+  "name": "zambav--comfyui-agent-toolkit",
+  "displayName": "ComfyUI-Agent-Toolkit",
+  "description": "ComfyUI-Agent-Toolkit",
+  "version": "1.0.0",
+  "author": "Zambav",
+  "homepage": "https://github.com/Zambav/ComfyUI-Agent-Toolkit",
+  "skills": []
+}
