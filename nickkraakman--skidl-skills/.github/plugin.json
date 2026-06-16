@@ -1,0 +1,9 @@
+{
+  "name": "nickkraakman--skidl-skills",
+  "displayName": "skidl-skills",
+  "description": "Agentic KiCad PCB design workflow for SKiDL \u2014 architect, source, code, and verify circuits with AI agents.",
+  "version": "1.0.0",
+  "author": "nickkraakman",
+  "homepage": "https://github.com/nickkraakman/skidl-skills",
+  "skills": []
+}
