@@ -4,7 +4,7 @@
   "repo": "crew",
   "description": "A package manager for agent skills.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/with-logic/crew",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T03:14:12Z"
+  "distributed_at": "2026-06-16T05:03:27Z"
 }
