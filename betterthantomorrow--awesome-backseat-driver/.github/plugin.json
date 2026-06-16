@@ -1,0 +1,9 @@
+{
+  "name": "betterthantomorrow--awesome-backseat-driver",
+  "displayName": "awesome-backseat-driver",
+  "description": "Plugin marketplace for Clojure AI context in GitHub Copilot: agents, skills, and workflows for REPL-first interactive programming with Calva Backseat Driver",
+  "version": "1.0.0",
+  "author": "BetterThanTomorrow",
+  "homepage": "https://github.com/BetterThanTomorrow/awesome-backseat-driver",
+  "skills": []
+}
