@@ -1,43 +1,58 @@
-## git-remote-https
+## measure-twice-cut-once
 
-> Prefer HTTPS URLs for GitHub remote operations on this machine (SSH port 22 times out)
+> Measure twice, cut once - plan-lifecycle guidance: how to create a plan and how to hand it off cleanly to implementation.
 
 
-# Git Remote: Prefer HTTPS On This Machine
+# Measure Twice, Cut Once
 
-On this machine, GitHub SSH (`git@github.com`, port 22) is unreachable and
-`git fetch` / `git pull` / `git push` against `origin` time out after ~20s
-before HTTPS retry is needed.
+Plan deliberately before implementation, then hand off the work with the right
+model, skills, and first step.
 
-## Rule
+## Measure Twice: Plan Before Drafting
 
-For `guitarlum/VoLum`, run remote operations against the explicit HTTPS URL:
+For non-trivial plans or ambiguous work, prefer `/grill-me` if that skill is
+installed. If it is not installed, use the same interaction pattern directly:
+ask one question at a time, include your recommended answer, and inspect the
+codebase instead of asking when the answer is discoverable.
 
-```powershell
-git fetch https://github.com/guitarlum/VoLum.git <ref>
-git push  https://github.com/guitarlum/VoLum.git <branch>
-```
+Skip grilling for obvious single-step changes.
 
-After pushing, refresh the local tracking ref so `git status` shows
-`up to date`:
+## Cut Once: Implementation Handoff
 
-```powershell
-git fetch https://github.com/guitarlum/VoLum.git <branch>:refs/remotes/origin/<branch>
-```
+When creating or updating an implementation plan, end the plan with a short
+`Implementation Recommendation` section.
 
-## Why not just change `origin`?
+Include:
 
-The `vo-lum-workflow.mdc` safety rules (and the global git safety protocol)
-say **never modify git config from the agent**. The user can run
-`git remote set-url origin https://github.com/guitarlum/VoLum.git` once on
-this machine to make HTTPS permanent; until then, use the explicit URL in
-every remote command.
+- **Model:** Recommend a specific model that fits this task. Pick by task
+  shape, not by habit:
+  - Small, well-scoped wording/docs/script/config edits: name a fast
+    implementation-tier model currently available in this environment.
+  - Complex debugging, architecture-heavy work, refactors with unclear
+    trade-offs, or anything safety-critical: name a strong reasoning model
+    currently available in this environment.
+  - If the task does not clearly favor a tier, say so explicitly and let the
+    user choose.
+  - Never hardcode a single model as a universal default. Never invent a model
+    name that is not currently available; if available models are unknown,
+    describe the desired tier instead.
+- **Skills:** Recommend any relevant installed skills to attach for the
+  implementation phase. If none fit, say so explicitly. Split these into:
+  - **Attach/load before coding:** skills that should shape implementation.
+  - **Run after only if requested:** opt-in retro/review skills the user may
+    invoke on demand.
+- **Why:** Give a one-sentence reason tied to the task shape, such as docs,
+  UI, debugging, refactor, migration, packaging, or code review.
 
-## When to skip this rule
+Keep this section concise. It should help the user start the next chat with the
+right context, not reopen the design discussion.
 
-- On a different machine where SSH to GitHub works (don't assume).
-- For repos other than `guitarlum/VoLum` (check with `git remote -v` first).
-- If the user explicitly asks to use SSH.
+If a plan recommends any **Attach/load before coding** skills, make the first
+implementation todo: `Load recommended implementation skills/rules and confirm
+scope`. Do not add opt-in retro skills to startup todos.
+
+After implementation, the user may opt in to a retro on demand. Do not run a
+retro automatically.
 
 ---
 > Source: [guitarlum/VoLum](https://github.com/guitarlum/VoLum) — distributed by [TomeVault](https://tomevault.io).
