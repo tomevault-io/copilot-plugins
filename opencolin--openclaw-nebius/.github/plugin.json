@@ -1,0 +1,9 @@
+{
+  "name": "opencolin--openclaw-nebius",
+  "displayName": "openclaw-nebius",
+  "description": "OpenClaw + Nebius: provider plugin, deployment UI, and Claude Code skill",
+  "version": "1.0.0",
+  "author": "opencolin",
+  "homepage": "https://github.com/opencolin/openclaw-nebius",
+  "skills": []
+}
