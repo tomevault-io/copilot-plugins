@@ -1,0 +1,9 @@
+{
+  "name": "fernandomenuk--wmux",
+  "displayName": "wmux",
+  "description": "tmux for Windows \u2014 split panes, tabbed workspaces, and a JSON-RPC socket API for AI agents",
+  "version": "1.0.0",
+  "author": "fernandomenuk",
+  "homepage": "https://github.com/fernandomenuk/wmux",
+  "skills": []
+}
