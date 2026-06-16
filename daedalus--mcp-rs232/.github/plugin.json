@@ -1,0 +1,9 @@
+{
+  "name": "daedalus--mcp-rs232",
+  "displayName": "mcp-rs232",
+  "description": "mcp-rs232",
+  "version": "1.0.0",
+  "author": "daedalus",
+  "homepage": "https://github.com/daedalus/mcp-rs232",
+  "skills": []
+}
