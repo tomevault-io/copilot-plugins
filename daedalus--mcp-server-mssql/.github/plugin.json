@@ -1,0 +1,9 @@
+{
+  "name": "daedalus--mcp-server-mssql",
+  "displayName": "mcp-server-mssql",
+  "description": "mcp-server-mssql",
+  "version": "1.0.0",
+  "author": "daedalus",
+  "homepage": "https://github.com/daedalus/mcp-server-mssql",
+  "skills": []
+}
