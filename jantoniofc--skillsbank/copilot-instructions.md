@@ -1,0 +1,22 @@
+## skillsbank
+
+> A brief description of what this skill does
+
+
+# antigravity-awesome-skills
+
+Instructions for the agent to follow when this skill is activated.
+
+## When to use
+
+Describe when this skill should be used.
+
+## Instructions
+
+1. First step
+2. Second step
+3. Additional steps as needed
+
+---
+> Source: [JantonioFC/skillsbank](https://github.com/JantonioFC/skillsbank) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
