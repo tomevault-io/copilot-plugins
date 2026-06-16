@@ -1,0 +1,26 @@
+# ads-agentic-tools
+
+> Tome by [spotify](https://github.com/spotify/ads-agentic-tools) — distributed by [TomeVault](https://tomevault.io)
+
+A Claude Code plugin that lets you manage Spotify advertising campaigns through natural language. Create campaigns, target audiences, launch ads, and pull performance reports — all by describing what you want in plain English.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [spotify/ads-agentic-tools](https://github.com/spotify/ads-agentic-tools).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+From [spotify/ads-agentic-tools](https://github.com/spotify/ads-agentic-tools) — a repo with 11+ stars on GitHub.
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-s -->
