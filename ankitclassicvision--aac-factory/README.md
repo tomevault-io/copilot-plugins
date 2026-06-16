@@ -7,11 +7,11 @@ Turn a one-sentence idea into a certified AI Agent Workflow blueprint: interview
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AnkitClassicVision/aac-factory](https://github.com/AnkitClassicVision/aac-factory).
+Original source: `CLAUDE.md` in [AnkitClassicVision/aac-factory](https://github.com/AnkitClassicVision/aac-factory).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
