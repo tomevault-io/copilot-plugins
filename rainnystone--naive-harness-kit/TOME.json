@@ -4,7 +4,7 @@
   "repo": "naive-harness-kit",
   "description": "Prompt-first starter kit for Codex and Claude Code workspaces, with bootstrap, upkeep, and archive workflows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Rainnystone/naive-harness-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T04:41:34Z"
+  "distributed_at": "2026-06-16T06:50:54Z"
 }
