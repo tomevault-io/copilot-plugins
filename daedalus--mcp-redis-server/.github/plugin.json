@@ -1,0 +1,9 @@
+{
+  "name": "daedalus--mcp-redis-server",
+  "displayName": "mcp-redis-server",
+  "description": "mcp-redis-server",
+  "version": "1.0.0",
+  "author": "daedalus",
+  "homepage": "https://github.com/daedalus/mcp-redis-server",
+  "skills": []
+}
