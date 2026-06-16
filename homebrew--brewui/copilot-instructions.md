@@ -1,26 +1,15 @@
-## brewui
+## core-governance
 
-> - Read `.ai/memory.md` and `.ai/progress.md` before beginning any task.
+> Core governance and portability guardrails.
 
-# .cursorrules
-# Cursor-specific extensions to AGENTS.md. Read AGENTS.md first.
 
-## On Session Start
-- Read `.ai/memory.md` and `.ai/progress.md` before beginning any task.
-- Consult `ARCHITECTURE.md` and `.ai/memory.md` before touching structural code.
+# Core Governance
 
-## On Session End
-- Update `.ai/progress.md` with what was completed and what remains.
-- If you learned something durable about the project, add it to `.ai/memory.md`.
-
-## Editing Behaviour
-- Follow all conventions in `CONVENTIONS.md`.
-- Prefer targeted edits over rewrites. Do not refactor code outside the scope of the current task.
-- When introducing a new pattern not covered by `CONVENTIONS.md`, add it there.
-
-## Autocomplete & Suggestions
-- Do not suggest changes that contradict `ARCHITECTURE.md` or durable decisions in `.ai/memory.md` without flagging the conflict explicitly.
-- When uncertain about intent, surface the uncertainty as a comment rather than guessing silently.
+- Read `AGENTS.md` first; treat it as the canonical cross-agent instruction source.
+- Do not suggest changes that contradict `ARCHITECTURE.md` or durable decisions recorded in `.ai/memory.md` unless you explicitly flag the conflict.
+- If intent is ambiguous, surface uncertainty explicitly rather than guessing silently.
+- Keep changes scoped and focused; prefer updating enforcement through CI/hooks over adding verbose prompt-only rules.
+- After changing Swift sources or Swift lint/format tooling (`.swiftlint.yml`, `.swiftformat`, `Mintfile`, `Brewfile`, `scripts/pre-commit`, `scripts/bootstrap`), run the same checks as `.github/workflows/swift_quality.yml` locally — see **`AGENTS.md` → Workflow → Swift quality (local parity with CI)**.
 
 ---
 > Source: [Homebrew/BrewUI](https://github.com/Homebrew/BrewUI) — distributed by [TomeVault](https://tomevault.io).
