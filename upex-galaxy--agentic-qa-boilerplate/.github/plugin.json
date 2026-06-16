@@ -1,0 +1,9 @@
+{
+  "name": "upex-galaxy--agentic-qa-boilerplate",
+  "displayName": "agentic-qa-boilerplate",
+  "description": "Agentic QA boilerplate built on Playwright + KATA + TypeScript. Multi-agent skills following the agentskills.io spec, orchestrating the full QA lifecycle: shift-left planning, in-sprint testing, TMS d",
+  "version": "1.0.0",
+  "author": "upex-galaxy",
+  "homepage": "https://github.com/upex-galaxy/agentic-qa-boilerplate",
+  "skills": []
+}
