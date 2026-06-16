@@ -1,0 +1,9 @@
+{
+  "name": "guanchzhou--threemf",
+  "displayName": "threemf",
+  "description": "Quick Look plugin for macOS that previews .3mf files (Bambu Lab, PrusaSlicer, etc.) directly in Finder. Press Space to see your 3D print thumbnails without opening a slicer.",
+  "version": "1.0.0",
+  "author": "guanchzhou",
+  "homepage": "https://github.com/guanchzhou/threemf",
+  "skills": []
+}
