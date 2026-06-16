@@ -1,0 +1,9 @@
+{
+  "name": "m13v--claude-meter",
+  "displayName": "claude-meter",
+  "description": "Live Claude plan usage and extra-usage balance, from the terminal",
+  "version": "1.0.0",
+  "author": "m13v",
+  "homepage": "https://github.com/m13v/claude-meter",
+  "skills": []
+}
