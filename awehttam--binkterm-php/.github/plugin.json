@@ -1,0 +1,9 @@
+{
+  "name": "awehttam--binkterm-php",
+  "displayName": "binkterm-php",
+  "description": "A modern HTML5, Telnet and SSH BBS and point system that speaks FidoNet. Echomail, netmail, Web, Native and DOS Doors, file areas, local and MRC chat, and Gemini.",
+  "version": "1.0.0",
+  "author": "awehttam",
+  "homepage": "https://github.com/awehttam/binkterm-php",
+  "skills": []
+}
