@@ -1,42 +1,39 @@
-## ha-integration-resilience
+## lovelace-card
 
-> Home Assistant integration resilience patterns for the Narwal vacuum
+> Lovelace custom card development patterns
 
 
-# HA Integration Resilience
+# Lovelace Card Patterns
 
-## Setup Must Tolerate Offline Devices
+## Visual Editor
 
-The vacuum enters deep sleep when idle. `async_setup` must never fail due to
-command timeouts — catch `NarwalCommandError` and start with empty state.
+Use `ha-form` with a schema array for card editors — this is how HA's
+built-in editors work and handles entity pickers reliably.
 
-```python
-# ❌ BAD — crashes setup when vacuum is asleep
-await self.client.request_status_update()
+```javascript
+// ❌ BAD — ha-entity-picker in shadow DOM won't render
+const picker = document.createElement("ha-entity-picker");
+picker.hass = this._hass;  // often fails to trigger render
 
-# ✅ GOOD — setup succeeds, state populates when vacuum wakes
-try:
-    await self.client.request_status_update()
-except NarwalCommandError:
-    _LOGGER.warning("Vacuum may be asleep — will retry on next poll")
+// ✅ GOOD — ha-form handles everything
+const SCHEMA = [
+  { name: "entity", required: true, selector: { entity: { domain: "vacuum" } } },
+  { name: "camera_entity", selector: { entity: { domain: "camera" } } },
+];
+this._form = document.createElement("ha-form");
+this._form.schema = SCHEMA;
+this._form.hass = this._hass;
+this._form.data = this._config;
 ```
 
-## Never Block the Event Loop
+The editor element must NOT use shadow DOM — append directly to `this`
+(not `this.shadowRoot`) so HA's styling works.
 
-All MQTT and SSL operations must run in executors. HA detects blocking calls
-(`ssl.create_default_context`, `threading.Event.wait`) and logs errors.
+## Entity Resolution
 
-## Re-raise vs Swallow Errors
-
-- **Setup path**: catch and log command errors (integration must load)
-- **Poll path (`_async_update_data`)**: catch errors, track failure count for reconnect
-- **User-triggered actions** (locate, start, stop): let errors propagate to show in UI
-
-## Broadcast Registration
-
-The vacuum only sends push broadcasts after receiving `active_robot_publish`.
-Re-send this every poll cycle — the vacuum may have woken from deep sleep
-since the last send and doesn't know about us.
+Support explicit config AND auto-detection fallback for all entities
+(camera, battery sensor, mode select). Search `hass.states` for
+`*narwal*` patterns as fallback.
 
 ---
 > Source: [nadavbau/narwal-integration](https://github.com/nadavbau/narwal-integration) — distributed by [TomeVault](https://tomevault.io).
