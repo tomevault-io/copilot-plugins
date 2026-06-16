@@ -1,266 +1,83 @@
-## compozy-task-patterns
+## core-libraries
 
-> Task type patterns and execution strategies for Compozy workflows
+> Required libraries and project utilities for Compozy development
 
-# Compozy Task Patterns
+# Core Libraries & Project Utilities
 
-<configuration_overview type="task_patterns">
-Task patterns define different types of task execution strategies including basic, composite, parallel, collection, router, signal, and aggregate tasks.
-</configuration_overview>
+## Required Libraries
 
-## Basic Task Pattern
+<library_requirements type="web_framework">
+**Web Framework:**
+- **MUST use:** `gin-gonic/gin` for HTTP APIs
+</library_requirements>
 
-<task_patterns type="basic_task">
-```yaml
-# Basic task with tool execution
-- id: weather
-  type: basic
-  $use: tool(local::tools.#(id=="weather_tool"))
-  with:
-    city: "{{ .workflow.input.city }}"
-  outputs:
-    temperature: "{{ .output.temperature }}"
-    city: "{{ .workflow.input.city }}"
-  on_success:
-    next: next_task
+<library_requirements type="database">
+**Database:**
+- **PostgreSQL:** `jackc/pgx/v5`
+- **Redis:** `redis/go-redis/v9`
+- Always use connection pooling and proper cleanup
+</library_requirements>
+
+<library_requirements type="testing">
+**Testing:**
+- **MUST use:** `stretchr/testify` for assertions and mocks
+- Import as: `github.com/stretchr/testify/assert`, `github.com/stretchr/testify/mock`
+- **STANDARDIZE:** Replace all custom mocks with `testify/mock` implementations
+</library_requirements>
+
+<library_requirements type="validation">
+**Validation:**
+- **MUST use:** `go-playground/validator/v10` for input validation
+</library_requirements>
+
+<library_requirements type="logging">
+**Logging:**
+- **MUST use:** `charmbracelet/log`
+- **NEVER use:** `fmt.Printf` or `log.Printf` for application logging
+</library_requirements>
+
+<library_requirements type="cli">
+**CLI:**
+- **MUST use:** `spf13/cobra` for commands
+</library_requirements>
+
+<library_requirements type="documentation">
+**Documentation:**
+- **MUST use:** `swaggo/swag` for API documentation
+</library_requirements>
+
+## Project Utilities
+
+<utility_pattern type="core_types">
+```go
+// Use project core types
+var taskID core.ID  // UUIDs
+var reference core.Ref  // Polymorphic references
 ```
-</task_patterns>
+</utility_pattern>
 
-## Composite Task Pattern
+<utility_pattern type="test_helpers">
+```go
+// Use project test utilities
+func TestService(t *testing.T) {
+    t.Run("Should setup test environment", func(t *testing.T) {
+        db := utils.SetupTest()
+        defer db.Close()
 
-<task_patterns type="composite_task">
-```yaml
-# Composite task containing multiple sub-tasks
-- id: root_composite
-  type: composite
-  strategy: fail_fast
-  tasks:
-    - id: subtask_1
-      type: basic
-      $use: tool(local::tools.#(id=="echo_tool"))
-      with:
-        message: "First subtask"
-    - id: subtask_2
-      type: basic
-      $use: tool(local::tools.#(id=="echo_tool"))
-      with:
-        message: "Second subtask"
-```
-</task_patterns>
-
-## Parallel Task Pattern
-
-<task_patterns type="parallel_task">
-```yaml
-# Parallel task execution
-- id: parallel_section
-  type: parallel
-  strategy: wait_all  # or race
-  tasks:
-    - id: task_a
-      type: basic
-      $use: tool(local::tools.#(id=="echo_tool"))
-      with:
-        message: "Parallel Task A"
-    - id: task_b
-      type: basic
-      $use: tool(local::tools.#(id=="echo_tool"))
-      with:
-        message: "Parallel Task B"
-```
-</task_patterns>
-
-## Collection Task Pattern
-
-<task_patterns type="collection_task">
-```yaml
-# Collection task for processing arrays
-- id: collection_section
-  type: collection
-  mode: parallel  # or sequential
-  strategy: best_effort  # or fail_fast
-  items: "{{ .workflow.input.test_data }}"
-  task:
-    id: "process-{{ .index }}"
-    type: basic
-    $use: tool(local::tools.#(id=="echo_tool"))
-    with:
-      message: "Processing item: {{ .item }} at index {{ .index }}"
-```
-</task_patterns>
-
-## Router Task Pattern
-
-<task_patterns type="router_task">
-```yaml
-# Router task for conditional branching
-- id: clothing_check
-  type: router
-  condition: '{{ .tasks.clothing.output.clothing | empty | ternary "no_clothes" "has_clothes" }}'
-  routes:
-    has_clothes:
-      $ref: local::tasks.#(id="save_results")
-    no_clothes:
-      $ref: local::tasks.#(id="no_results")
-```
-</task_patterns>
-
-## Signal Task Pattern
-
-<task_patterns type="signal_task">
-```yaml
-# Signal task for workflow communication
-- id: send-signal
-  type: signal
-  signal:
-    id: workflow-ready
-    payload:
-      message: "Hello from sender!"
-```
-</task_patterns>
-
-## Aggregate Task Pattern
-
-<task_patterns type="aggregate_task">
-```yaml
-# Aggregate task for combining outputs
-- id: aggr
-  type: aggregate
-  outputs:
-    city: "{{ .workflow.input.city }}"
-    weather: "{{ .tasks.weather.output }}"
-    activities: "{{ .tasks.activities.output }}"
-    analysis: "{{ .tasks.activity_analysis.output }}"
-```
-</task_patterns>
-
-## Workflow Configuration Structure
-
-<workflow_config_pattern type="basic_structure">
-```yaml
-id: workflow-name
-version: 0.1.0
-description: Workflow description
-
-config:
-  input:
-    type: object
-    properties:
-      city:
-        type: string
-        description: The city name
-    required:
-      - city
-
-schemas:
-  - id: city_input
-    type: object
-    properties:
-      city:
-        type: string
-        description: The city to get weather information for
-    required:
-      - city
-
-tools:
-  - id: tool_name
-    description: Tool description
-    execute: ./tool_file.ts
-    input:
-      $ref: local::schemas.#(id=="city_input")
-
-tasks:
-  - id: task_name
-    type: basic
-    $use: tool(local::tools.#(id=="tool_name"))
-    with:
-      city: "{{ .workflow.input.city }}"
-```
-</workflow_config_pattern>
-
-## Strategy Patterns
-
-<strategy_patterns type="execution_strategies">
-```yaml
-# Composite task strategies
-strategy: fail_fast    # Stop on first failure
-strategy: best_effort  # Continue despite failures
-
-# Parallel task strategies
-strategy: wait_all      # Wait for all tasks to complete
-strategy: race          # First task to complete wins
-
-# Collection task strategies
-strategy: fail_fast     # Stop on first failure
-strategy: best_effort   # Process all items regardless of failures
-```
-</strategy_patterns>
-
-## Trigger Patterns
-
-<trigger_patterns type="signal_trigger">
-```yaml
-# Signal-based workflow trigger
-triggers:
-  - type: signal
-    name: workflow-ready
-```
-</trigger_patterns>
-
-## Tool Configuration
-
-<tool_config_pattern type="typescript_tool">
-```yaml
-tools:
-  - id: weather_tool
-    description: Get the current weather for a specific location
-    execute: ./weather_tool.ts
-    input:
-      type: object
-      properties:
-        city:
-          type: string
-          description: The city to get weather for
-      required:
-        - city
-
-  - id: save_data
-    description: Save data to a file
-    execute: ./save_tool.ts
-    input:
-      type: object
-      properties:
-        payload:
-          type: object
-        format:
-          type: string
-          enum: ["json", "txt"]
-      required:
-        - payload
-        - format
-```
-</tool_config_pattern>
-
-## Deno Configuration
-
-<deno_config_pattern type="tool_imports">
-```json
-{
-  "imports": {
-    "weather_tool": "./weather_tool.ts",
-    "save_data": "./save_tool.ts",
-    "echo_tool": "./echo_tool.ts",
-    "counter_tool": "./counter_tool.ts"
-  },
-  "fmt": {
-    "indentWidth": 4,
-    "useTabs": false,
-    "lineWidth": 100,
-    "singleQuote": false
-  }
+        fixture := utils.SetupFixture("user_data.json")
+        // test implementation
+    })
 }
 ```
-</deno_config_pattern>
+</utility_pattern>
+
+<utility_pattern type="template_engine">
+```go
+// Use pkg/tplengine for dynamic configurations
+engine := tplengine.New()
+result, err := engine.Process(template, variables)
+```
+</utility_pattern>
 
 ---
 > Source: [compozy/gograph](https://github.com/compozy/gograph) — distributed by [TomeVault](https://tomevault.io).
