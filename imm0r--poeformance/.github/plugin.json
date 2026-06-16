@@ -1,0 +1,9 @@
+{
+  "name": "imm0r--poeformance",
+  "displayName": "PoEformance",
+  "description": "AHK v2 Port of the Path of Exile 2 Memory-Reading Engine with Radar/Maphack Overlay, Zone Navigation, AutoFlask and WebView UI",
+  "version": "1.0.0",
+  "author": "imm0r",
+  "homepage": "https://github.com/imm0r/PoEformance",
+  "skills": []
+}
