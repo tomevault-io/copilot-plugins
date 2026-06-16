@@ -4,7 +4,7 @@
   "repo": "paseo-relay",
   "description": "A standalone Go relay server for Paseo, fully compatible with the original Paseo relay protocol (v1 and v2).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/keepmind9/paseo-relay",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T03:11:22Z"
+  "distributed_at": "2026-06-16T04:57:57Z"
 }
