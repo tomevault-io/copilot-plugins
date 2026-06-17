@@ -1,0 +1,44 @@
+{
+  "name": "mimo-code-proxy",
+  "owner": "TuTouPower",
+  "repo": "mimo-code-proxy",
+  "description": "MiMo free channel \u2192 OpenAI/Anthropic compatible API with round-robin load balancing across multiple proxy backends. Each backend has its own fingerprint and JWT. Python stdlib only.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TuTouPower/mimo-code-proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T11:20:09Z"
+}
