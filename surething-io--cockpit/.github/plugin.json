@@ -1,0 +1,9 @@
+{
+  "name": "surething-io--cockpit",
+  "displayName": "cockpit",
+  "description": "Claude Code GUI for parallel AI coding \u2014 multi-project sessions, terminal, browser & DB bubbles, code review, slash modes. Built on the official Claude Agent SDK. Local-first, MIT.",
+  "version": "1.0.0",
+  "author": "Surething-io",
+  "homepage": "https://github.com/Surething-io/cockpit",
+  "skills": []
+}
