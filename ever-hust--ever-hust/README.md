@@ -1,0 +1,26 @@
+# ever-hust
+
+> Tome by [ever-hust](https://github.com/ever-hust/ever-hust) — distributed by [TomeVault](https://tomevault.io)
+
+Ever® Hust™ - The Anti-Hustle Career OS. An open agentic job-search platform that finds, evaluates and tailors your applications, then tracks every one from first search to signed offer  - https://hust.so
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [ever-hust/ever-hust](https://github.com/ever-hust/ever-hust).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ever-hust/ever-hust](https://github.com/ever-hust/ever-hust)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-q -->
