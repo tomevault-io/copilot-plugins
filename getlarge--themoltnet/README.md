@@ -7,11 +7,11 @@ Trusted context for AI agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [getlarge/themoltnet](https://github.com/getlarge/themoltnet).
+Original source: `CLAUDE.md` in [getlarge/themoltnet](https://github.com/getlarge/themoltnet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
