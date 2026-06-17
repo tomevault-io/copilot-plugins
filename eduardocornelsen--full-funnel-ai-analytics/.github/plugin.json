@@ -1,0 +1,9 @@
+{
+  "name": "eduardocornelsen--full-funnel-ai-analytics",
+  "displayName": "full-funnel-ai-analytics",
+  "description": "Full-Funnel AI Marketing Analytics. A modern data stack powered by dbt MetricFlow and MCP. Natural language insights across Google/Meta Ads, CRM, and 5 data warehouses. Includes XGBoost lead scoring a",
+  "version": "1.0.0",
+  "author": "eduardocornelsen",
+  "homepage": "https://github.com/eduardocornelsen/full-funnel-ai-analytics",
+  "skills": []
+}
