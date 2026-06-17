@@ -1,0 +1,26 @@
+# lightcone-cli
+
+> Source: [LightconeResearch/lightcone-cli](https://github.com/LightconeResearch/lightcone-cli) — distributed by [TomeVault](https://tomevault.io)
+
+Agentic layer for ASTRA — dedicated skills, workflow execution, and HPC/container management for reproducible research
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [LightconeResearch/lightcone-cli](https://github.com/LightconeResearch/lightcone-cli).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/LightconeResearch/lightcone-cli](https://github.com/LightconeResearch/lightcone-cli)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-p -->
