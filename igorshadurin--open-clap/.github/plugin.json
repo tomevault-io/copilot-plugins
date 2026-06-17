@@ -1,0 +1,9 @@
+{
+  "name": "igorshadurin--open-clap",
+  "displayName": "open-clap",
+  "description": "Local-first TypeScript system for orchestrating Codex tasks across projects and subprojects with a Next.js UI, shared contracts, server-driven state changes, SQLite-backed persistence, daemon-based ex",
+  "version": "1.0.0",
+  "author": "IgorShadurin",
+  "homepage": "https://github.com/IgorShadurin/open-clap",
+  "skills": []
+}
