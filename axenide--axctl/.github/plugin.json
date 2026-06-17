@@ -1,0 +1,9 @@
+{
+  "name": "axenide--axctl",
+  "displayName": "axctl",
+  "description": "A Wayland multi-compositor IPC.",
+  "version": "1.0.0",
+  "author": "Axenide",
+  "homepage": "https://github.com/Axenide/axctl",
+  "skills": []
+}
