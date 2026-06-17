@@ -1,0 +1,9 @@
+{
+  "name": "ondata--opensdmx",
+  "displayName": "opensdmx",
+  "description": "Python CLI and library for any SDMX 2.1 REST API \u2014 Eurostat, ISTAT, OECD, ECB, World Bank and more. AI-ready.",
+  "version": "1.0.0",
+  "author": "ondata",
+  "homepage": "https://github.com/ondata/opensdmx",
+  "skills": []
+}
