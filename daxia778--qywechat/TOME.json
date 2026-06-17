@@ -1,0 +1,44 @@
+{
+  "name": "qywechat",
+  "owner": "daxia778",
+  "repo": "qywechat",
+  "description": "\u4f01\u5fae\u5bf9\u63a5\u6d3e\u5355\u7ba1\u7406\u7cfb\u7edf \u2014 \u56db\u89d2\u8272\u4f53\u7cfb + AI OCR + \u56db\u65b9\u5206\u6da6 + \u79c1\u57df\u81ea\u52a8\u5316",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daxia778/qywechat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T01:17:37Z"
+}
