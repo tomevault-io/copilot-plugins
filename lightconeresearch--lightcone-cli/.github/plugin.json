@@ -1,0 +1,9 @@
+{
+  "name": "lightconeresearch--lightcone-cli",
+  "displayName": "lightcone-cli",
+  "description": "Agentic layer for ASTRA \u2014 dedicated skills, workflow execution, and HPC/container management for reproducible research",
+  "version": "1.0.0",
+  "author": "LightconeResearch",
+  "homepage": "https://github.com/LightconeResearch/lightcone-cli",
+  "skills": []
+}
