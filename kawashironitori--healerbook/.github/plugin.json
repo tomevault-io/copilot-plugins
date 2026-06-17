@@ -1,0 +1,9 @@
+{
+  "name": "kawashironitori--healerbook",
+  "displayName": "healerbook",
+  "description": "\u57fa\u4e8e FFLogs \u7684 FF14 \u6cbb\u7597\u804c\u4e1a\u51cf\u4f24\u89c4\u5212\u5de5\u5177 - FF14 Mitigation Planning Tool for Healers based on FFLogs",
+  "version": "1.0.0",
+  "author": "KawashiroNitori",
+  "homepage": "https://github.com/KawashiroNitori/healerbook",
+  "skills": []
+}
