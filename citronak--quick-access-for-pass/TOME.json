@@ -4,7 +4,7 @@
   "repo": "Quick-Access-for-Pass",
   "description": "Quick Access for Pass",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CiTroNaK/Quick-Access-for-Pass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T13:03:50Z"
+  "distributed_at": "2026-06-17T19:34:03Z"
 }
