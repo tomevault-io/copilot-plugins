@@ -1,0 +1,9 @@
+{
+  "name": "gmilano--fast-grep-rust",
+  "displayName": "fast-grep-rust",
+  "description": "Fast regex search with sparse n-gram index, Roaring Bitmaps, mmap persistence, and Rayon parallel verify. Beats ripgrep 5-14x on filtered patterns.",
+  "version": "1.0.0",
+  "author": "gmilano",
+  "homepage": "https://github.com/gmilano/fast-grep-rust",
+  "skills": []
+}
