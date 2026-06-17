@@ -1,0 +1,9 @@
+{
+  "name": "murinsel--amigaai",
+  "displayName": "AmigaAI",
+  "description": "Native Claude AI agent for AmigaOS 3.x (68020+)",
+  "version": "1.0.0",
+  "author": "murinsel",
+  "homepage": "https://github.com/murinsel/AmigaAI",
+  "skills": []
+}
