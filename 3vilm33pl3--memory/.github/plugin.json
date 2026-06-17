@@ -1,0 +1,9 @@
+{
+  "name": "3vilm33pl3--memory",
+  "displayName": "memory",
+  "description": "Local knowledge base for coding agents with a Rust CLI/TUI, PostgreSQL storage, and optional background capture.",
+  "version": "1.0.0",
+  "author": "3vilM33pl3",
+  "homepage": "https://github.com/3vilM33pl3/memory",
+  "skills": []
+}
