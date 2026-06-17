@@ -1,0 +1,62 @@
+{
+  "name": "platxa--platxa-skill-generator",
+  "displayName": "platxa-skill-generator",
+  "description": "platxa-skill-generator",
+  "version": "1.0.0",
+  "author": "platxa",
+  "homepage": "https://github.com/platxa/platxa-skill-generator",
+  "skills": [
+    {
+      "name": "code-documenter",
+      "description": ""
+    },
+    {
+      "name": "commit-message",
+      "description": ""
+    },
+    {
+      "name": "platxa-error-handling",
+      "description": ""
+    },
+    {
+      "name": "platxa-frontend-builder",
+      "description": ""
+    },
+    {
+      "name": "platxa-jwt-auth",
+      "description": ""
+    },
+    {
+      "name": "platxa-k8s-ops",
+      "description": ""
+    },
+    {
+      "name": "platxa-monaco-config",
+      "description": ""
+    },
+    {
+      "name": "platxa-monitoring",
+      "description": ""
+    },
+    {
+      "name": "platxa-sidecar-builder",
+      "description": ""
+    },
+    {
+      "name": "platxa-testing",
+      "description": ""
+    },
+    {
+      "name": "platxa-yjs-server",
+      "description": ""
+    },
+    {
+      "name": "pr-description",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "description": ""
+    }
+  ]
+}
