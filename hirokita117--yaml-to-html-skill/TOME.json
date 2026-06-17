@@ -1,0 +1,44 @@
+{
+  "name": "yaml-to-html-skill",
+  "owner": "hirokita117",
+  "repo": "yaml-to-html-skill",
+  "description": "Claude skill that turns documents, PRs, and specs into a single self-contained, interactive HTML explainer",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hirokita117/yaml-to-html-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T04:58:20Z"
+}
