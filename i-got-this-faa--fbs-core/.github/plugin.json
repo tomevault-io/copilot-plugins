@@ -1,0 +1,9 @@
+{
+  "name": "i-got-this-faa--fbs-core",
+  "displayName": "fbs-core",
+  "description": "Fast Blob Storage (FBS) is a s3 compatible blob storage and CDN solution primarly for self hosting",
+  "version": "1.0.0",
+  "author": "i-got-this-faa",
+  "homepage": "https://github.com/i-got-this-faa/fbs-core",
+  "skills": []
+}
