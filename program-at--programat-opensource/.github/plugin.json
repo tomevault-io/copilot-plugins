@@ -1,0 +1,9 @@
+{
+  "name": "program-at--programat-opensource",
+  "displayName": "ProgramAT-opensource",
+  "description": "ProgramAT is a mobile app that enables users to create, run, and iteratively refine bespoke camera-based assistive technologies using natural-language input. It connects to an agentic coding backend a",
+  "version": "1.0.0",
+  "author": "program-at",
+  "homepage": "https://github.com/program-at/ProgramAT-opensource",
+  "skills": []
+}
