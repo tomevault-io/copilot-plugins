@@ -4,7 +4,7 @@
   "repo": "chrome-enterprise-premium-mcp",
   "description": "Reference implementation for a Chrome Enterprise Premium MCP server",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/google/chrome-enterprise-premium-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T10:34:22Z"
+  "distributed_at": "2026-06-17T20:55:42Z"
 }
