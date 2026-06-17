@@ -1,0 +1,9 @@
+{
+  "name": "tsondo--stemforge",
+  "displayName": "StemForge",
+  "description": "Music -- separate into stems, modify, convert to midi, add synth sounds, remix. ",
+  "version": "1.0.0",
+  "author": "tsondo",
+  "homepage": "https://github.com/tsondo/StemForge",
+  "skills": []
+}
