@@ -1,0 +1,18 @@
+{
+  "name": "jiten-singh-shahi--salesforce-claude-code",
+  "displayName": "salesforce-claude-code",
+  "description": "Salesforce Claude Code Framework: \ud83d\ude80 17 specialized subagents, 55 domain skills, and 29 hooks for Salesforce development \u2014 Apex, LWC, SOQL, Flows, Visualforce, Aura, Agentforce, DevOps, and Security. W",
+  "version": "1.0.0",
+  "author": "jiten-singh-shahi",
+  "homepage": "https://github.com/jiten-singh-shahi/salesforce-claude-code",
+  "skills": [
+    {
+      "name": "sf-lwc-testing",
+      "description": ""
+    },
+    {
+      "name": "sf-lwc-testing",
+      "description": ""
+    }
+  ]
+}
