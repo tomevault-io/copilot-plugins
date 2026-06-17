@@ -4,7 +4,7 @@
   "repo": "narwal-integration",
   "description": "Home Assistant Narwal Robovac Integration",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nadavbau/narwal-integration",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T19:05:14Z"
+  "distributed_at": "2026-06-17T00:57:28Z"
 }
