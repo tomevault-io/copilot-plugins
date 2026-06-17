@@ -1,0 +1,57 @@
+{
+  "name": "salesforce-claude-code",
+  "owner": "jiten-singh-shahi",
+  "repo": "salesforce-claude-code",
+  "description": "Salesforce Claude Code Framework: \ud83d\ude80 17 specialized subagents, 55 domain skills, and 29 hooks for Salesforce development \u2014 Apex, LWC, SOQL, Flows, Visualforce, Aura, Agentforce, DevOps, and Security. Work across Claude Code and Cursor.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sf-lwc-testing",
+      "path": ".cursor/skills/sf-lwc-testing",
+      "github_url": "https://github.com/jiten-singh-shahi/salesforce-claude-code/tree/main/.cursor/skills/sf-lwc-testing",
+      "description": ""
+    },
+    {
+      "name": "sf-lwc-testing",
+      "path": "skills/sf-lwc-testing",
+      "github_url": "https://github.com/jiten-singh-shahi/salesforce-claude-code/tree/main/skills/sf-lwc-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jiten-singh-shahi/salesforce-claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T12:33:19Z"
+}
