@@ -1,0 +1,9 @@
+{
+  "name": "bloo-berries--blindness-visualizer",
+  "displayName": "blindness-visualizer",
+  "description": "An actually-hopefully comprehensive tool interpreting multiple visual impairments as a visual overlay. (Always Improving!)",
+  "version": "1.0.0",
+  "author": "bloo-berries",
+  "homepage": "https://github.com/bloo-berries/blindness-visualizer",
+  "skills": []
+}
