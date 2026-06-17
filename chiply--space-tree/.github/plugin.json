@@ -1,0 +1,9 @@
+{
+  "name": "chiply--space-tree",
+  "displayName": "space-tree",
+  "description": "Tree-based workspace management for Emacs",
+  "version": "1.0.0",
+  "author": "chiply",
+  "homepage": "https://github.com/chiply/space-tree",
+  "skills": []
+}
