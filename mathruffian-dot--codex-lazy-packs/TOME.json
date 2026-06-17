@@ -2,9 +2,9 @@
   "name": "codex-lazy-packs",
   "owner": "mathruffian-dot",
   "repo": "codex-lazy-packs",
-  "description": "OpenAI Codex CLI \u61f6\u4eba\u5305\uff1a\u5c0d\u61c9 Claude Code \u61f6\u4eba\u5305\u7684\u5e73\u884c\u7248\u672c",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mathruffian-dot/codex-lazy-packs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T19:13:56Z"
+  "distributed_at": "2026-06-17T10:55:49Z"
 }
