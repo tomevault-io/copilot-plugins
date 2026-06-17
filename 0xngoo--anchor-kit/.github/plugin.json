@@ -1,0 +1,9 @@
+{
+  "name": "0xngoo--anchor-kit",
+  "displayName": "anchor-kit",
+  "description": "A developer-friendly SDK for implementing Stellar anchor services",
+  "version": "1.0.0",
+  "author": "0xNgoo",
+  "homepage": "https://github.com/0xNgoo/anchor-kit",
+  "skills": []
+}
