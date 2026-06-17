@@ -7,11 +7,11 @@ Self-hosted tunneling and node management platform / 开箱即用的内网穿透
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zsio/netsgo](https://github.com/zsio/netsgo).
+Original source: `CLAUDE.md` in [zsio/netsgo](https://github.com/zsio/netsgo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
