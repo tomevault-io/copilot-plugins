@@ -1,0 +1,9 @@
+{
+  "name": "trivialloop--scorehub",
+  "displayName": "scorehub",
+  "description": "ScoreHub - Application to store games scores",
+  "version": "1.0.0",
+  "author": "trivialloop",
+  "homepage": "https://github.com/trivialloop/scorehub",
+  "skills": []
+}
