@@ -1,0 +1,14 @@
+{
+  "name": "0xcadams--ssr-themes",
+  "displayName": "ssr-themes",
+  "description": "SSR-safe dark mode and theming for Next.js, TanStack Start, React Router, and many more",
+  "version": "1.0.0",
+  "author": "0xcadams",
+  "homepage": "https://github.com/0xcadams/ssr-themes",
+  "skills": [
+    {
+      "name": "migrate-next-themes",
+      "description": ""
+    }
+  ]
+}
