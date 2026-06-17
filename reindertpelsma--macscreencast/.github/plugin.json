@@ -1,0 +1,9 @@
+{
+  "name": "reindertpelsma--macscreencast",
+  "displayName": "macscreencast",
+  "description": "Adaptive H.264/H.265 macOS remote desktop streamer in your browser over SSH",
+  "version": "1.0.0",
+  "author": "reindertpelsma",
+  "homepage": "https://github.com/reindertpelsma/macscreencast",
+  "skills": []
+}
