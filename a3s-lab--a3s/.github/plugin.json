@@ -1,0 +1,14 @@
+{
+  "name": "a3s-lab--a3s",
+  "displayName": "a3s",
+  "description": "Agent as a Service",
+  "version": "1.0.0",
+  "author": "A3S-Lab",
+  "homepage": "https://github.com/A3S-Lab/a3s",
+  "skills": [
+    {
+      "name": "rust-sdk-ci",
+      "description": ""
+    }
+  ]
+}
