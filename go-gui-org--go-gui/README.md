@@ -7,13 +7,13 @@ Cross-platform GUI framework for Go — no virtual DOM, no diffing, just fast, c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [go-gui-org/go-gui](https://github.com/go-gui-org/go-gui).
+Original source: `CLAUDE.md` in [go-gui-org/go-gui](https://github.com/go-gui-org/go-gui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
