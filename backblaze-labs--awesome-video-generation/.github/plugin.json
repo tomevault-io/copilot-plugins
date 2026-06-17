@@ -1,0 +1,9 @@
+{
+  "name": "backblaze-labs--awesome-video-generation",
+  "displayName": "awesome-video-generation",
+  "description": "A curated list of AI video generation APIs, SDKs, and tools including text-to-video, video editing, multimodal generation, diffusion models, and generative AI platforms. Covers commercial services, op",
+  "version": "1.0.0",
+  "author": "backblaze-labs",
+  "homepage": "https://github.com/backblaze-labs/awesome-video-generation",
+  "skills": []
+}
