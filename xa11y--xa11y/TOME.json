@@ -4,7 +4,7 @@
   "repo": "xa11y",
   "description": "Cross platform desktop accessibility library",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xa11y/xa11y",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T23:15:22Z"
+  "distributed_at": "2026-06-17T01:07:01Z"
 }
