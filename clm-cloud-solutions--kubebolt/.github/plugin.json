@@ -1,0 +1,9 @@
+{
+  "name": "clm-cloud-solutions--kubebolt",
+  "displayName": "kubebolt",
+  "description": "Instant Kubernetes monitoring platform \u2014 full cluster visibility in under 2 minutes. Go backend + React frontend. Multi-cluster, Gateway API, insights engine, topology map.",
+  "version": "1.0.0",
+  "author": "clm-cloud-solutions",
+  "homepage": "https://github.com/clm-cloud-solutions/kubebolt",
+  "skills": []
+}
