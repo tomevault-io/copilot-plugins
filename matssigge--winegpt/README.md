@@ -1,0 +1,30 @@
+# winegpt
+
+> Tome by [matssigge](https://github.com/matssigge/winegpt) — distributed by [TomeVault](https://tomevault.io)
+
+Wine logger with vibes
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [matssigge/winegpt](https://github.com/matssigge/winegpt).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/matssigge/winegpt](https://github.com/matssigge/winegpt)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install matssigge/winegpt
+```
+Source: [github.com/matssigge/winegpt](https://github.com/matssigge/winegpt).
+
+<!-- genome:t-i-q -->
