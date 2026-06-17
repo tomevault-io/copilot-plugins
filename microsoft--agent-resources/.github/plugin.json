@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--agent-resources",
+  "displayName": "agent-resources",
+  "description": "Resources to help enterprises turn into frontier firms through agentic transformation",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/agent-resources",
+  "skills": []
+}
