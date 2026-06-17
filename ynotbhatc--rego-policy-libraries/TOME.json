@@ -1,0 +1,44 @@
+{
+  "name": "rego_policy_libraries",
+  "owner": "ynotbhatc",
+  "repo": "rego_policy_libraries",
+  "description": "461 production-ready OPA Rego policies for CIS, DISA STIGs, NIST, NERC-CIP, IEC 62443, ISO 27001, SOC 2, PCI-DSS, EU AI Act, GEISA, and more \u2014 Apache 2.0, Rego v1, ready to load.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ynotbhatc/rego_policy_libraries",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T19:20:50Z"
+}
