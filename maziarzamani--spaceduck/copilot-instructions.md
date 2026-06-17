@@ -1,23 +1,26 @@
-## brand-colors
+## bun-runtime
 
-> Brand color palette and theming rules for @spaceduck/brand
+> Always use Bun runtime — never npm, npx, or node
 
 
-# Brand Colors
+# Bun Runtime
 
-All shared color tokens live in `@spaceduck/brand` (`packages/brand/src/tokens.css`).
-Consumers import `@spaceduck/brand/tokens.css` and map `--sd-*` vars to their own theme layer.
+This project uses **Bun** as the JavaScript/TypeScript runtime, package manager, and test runner.
 
-## Rules
+## Commands
 
-- **Primary is indigo `#6366f1`** (HSL 239 84% 67%). Never use purple primaries.
-- **Dark surfaces are `#0f0f1a`** (background) and **`#1a1a2e`** (card). Do not darken further.
-- All theme color edits MUST go through `packages/brand/src/tokens.css`.
-  Do NOT add one-off color vars in `packages/ui/src/styles.css` or `apps/spaceduck-website/src/styles/global.css`.
-- `--sd-*` vars store bare `H S L` triplets (no `hsl()` wrapper, no alpha).
-  Apply alpha at the call-site: `hsl(var(--sd-border) / 0.1)`.
-- The canonical logo is `@spaceduck/brand/logo.png`. Import via `@spaceduck/brand` (`logoUrl` export).
-- Chart palette comes from `--sd-chart-1` through `--sd-chart-5` or the `chartPalette` TS array in `@spaceduck/brand`.
+- `bun install` (not `npm install`)
+- `bun add <pkg>` (not `npm install <pkg>`)
+- `bun run <script>` (not `npm run <script>`)
+- `bunx <pkg>` (not `npx <pkg>`)
+- `bun test` (not `jest`, `vitest`, or `npm test`)
+- `bun <file.ts>` to run TypeScript directly (not `node`, not `ts-node`)
+
+## Never use
+
+- `npm`, `npx`, `yarn`, `pnpm`
+- `node` to execute scripts (use `bun` instead — it runs TypeScript natively)
+- `ts-node`, `tsx`
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
