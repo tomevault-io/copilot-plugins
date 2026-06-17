@@ -1,18 +1,26 @@
-## workflow-ci
+## brewui
 
-> Testing and verification workflow expectations.
+> - Read `.ai/memory.md` and `.ai/progress.md` before beginning any task.
 
+# .cursorrules
+# Cursor-specific extensions to AGENTS.md. Read AGENTS.md first.
 
-# Workflow and CI
+## On Session Start
+- Read `.ai/memory.md` and `.ai/progress.md` before beginning any task.
+- Consult `ARCHITECTURE.md` and `.ai/memory.md` before touching structural code.
 
-- Prefer small, focused stories and commits.
-- Run relevant checks for modified scope before concluding work.
-- Treat repository git hooks and CI workflows in `.github/workflows/` as the mandatory enforcement layer.
-- Keep local progress tracking out of PR diffs; use local `.ai/progress.md` only when needed.
+## On Session End
+- Update `.ai/progress.md` with what was completed and what remains.
+- If you learned something durable about the project, add it to `.ai/memory.md`.
 
-## Swift quality (parity with `swift_quality.yml`)
+## Editing Behaviour
+- Follow all conventions in `CONVENTIONS.md`.
+- Prefer targeted edits over rewrites. Do not refactor code outside the scope of the current task.
+- When introducing a new pattern not covered by `CONVENTIONS.md`, add it there.
 
-Canonical instructions: **`AGENTS.md` → Workflow → Swift quality (local parity with CI)**. Same commands as `.github/workflows/swift_quality.yml`; this rule is a Cursor-scoped reminder when `**/*.swift` is in context.
+## Autocomplete & Suggestions
+- Do not suggest changes that contradict `ARCHITECTURE.md` or durable decisions in `.ai/memory.md` without flagging the conflict explicitly.
+- When uncertain about intent, surface the uncertainty as a comment rather than guessing silently.
 
 ---
 > Source: [Homebrew/BrewUI](https://github.com/Homebrew/BrewUI) — distributed by [TomeVault](https://tomevault.io).
