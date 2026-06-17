@@ -1,48 +1,35 @@
-## frontend-screen-composition
+## git-commit-branch
 
-> TUNEのフロントエンド画面構成ルール（ブランド準拠）
+> コミットメッセージ形式とブランチ名の慣習。PR は gh で作成する。
 
 
-# Frontend Screen Composition (TUNE)
+# Git コミット・ブランチルール
 
-`docs/brand-guidelines.md` を唯一の基準として、画面は「静かで育つ知性」を伝える構成にする。
+## コミット
 
-## 1) 情報設計
-- 1画面で主目的は1つに絞る（依頼・評価・蓄積のどれか）。
-- ページ先頭に「この画面で何が育つか」を1文で示す。
-- 主操作（送信/保存/次へ）は1視線で見つかる位置に置く。
+- **1 変更 1 コミット** — 論理的にまとまる単位でコミットする
+- **メッセージ形式**: `種別(スコープ): 説明`
+  - 種別: feat / fix / docs / refactor / test / chore
+  - スコープ: domain, application, infrastructure, ui 等（任意）
+  - 説明は日本語可
 
-## 2) 構造
-- `AppNav` の直下は `main id="main-content"` を使う。
-- セクションは意味単位で `section` を使い、カードは補助表現として使う。
-- 空状態には必ず次の一歩（リンク or ボタン）を置く。
+例: `feat(domain): User と UserId を追加`, `fix(auth): セッション期限切れ時のリダイレクト`
 
-## 3) 文言ルール
-- ユーザー向け語彙は「引き出し」「育つ」「効く」を優先する。
-- Persona/Policy などの内部用語はUI文言に出さない。
-- 成功メッセージは「完了」だけで終わらせず、次に起こることを示す。
+## ブランチ
 
-## 4) 視覚ルール
-- 色・余白・タイポは `globals.css` のトークンを使い、直書き乱立を避ける。
-- 派手さより可読性を優先し、装飾は文脈説明に寄与する場合のみ追加する。
-- 主要状態（通常/hover/focus/error/success）を必ず区別可能にする。
+- **命名**: `feature/短い識別子` または `fix/短い識別子`
+- 例: `feature/task-1-2-user-entity`, `fix/login-session`
+- 1 機能 or 1 タスク（development-tasks の 1 項目）ごとに 1 ブランチを目安にする
 
-## 5) 実装時チェック
-- 新規/改修画面で次を満たすこと:
-  - 依頼→評価→蓄積のどこに位置する画面か説明できる
-  - 主操作が明確で、操作後の遷移が予測できる
-  - 専門用語なしで非エンジニアが理解できる
+## PR の作成・確認
 
-## Example
-```tsx
-<div className="page-container">
-  <AppNav />
-  <main id="main-content" className="content-area">
-    <section className="card">{/* 画面の主目的 */}</section>
-    <section className="card">{/* 次アクション */}</section>
-  </main>
-</div>
-```
+- **GitHub CLI (`gh`) を使う**
+- **マージ先は既定で `main`**: `gh pr create --base main`（`--fill` / `--title` / `--body` と併用）
+- 一覧: `gh pr list`
+- 確認: `gh pr view`
+- ベース付け替え: `gh pr edit <番号> --base main`（コンフリクト時はブランチに `origin/main` を merge）
+
+詳細は `git-workflow` と `pr-creation` スキルを参照。
 
 ---
 > Source: [mism-mism/tune](https://github.com/mism-mism/tune) — distributed by [TomeVault](https://tomevault.io).
