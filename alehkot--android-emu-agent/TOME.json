@@ -4,7 +4,7 @@
   "repo": "android-emu-agent",
   "description": "A CLI + daemon system for LLM-driven Android UI control on emulators and rooted devices.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alehkot/android-emu-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T00:36:47Z"
+  "distributed_at": "2026-06-17T10:58:52Z"
 }
