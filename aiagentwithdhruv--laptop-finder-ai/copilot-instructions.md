@@ -1,30 +1,34 @@
-## 40-cache-redis
+## 45-environment-config
 
-> Redis caching and queue rules
+> Environment configuration and secrets management rules
 
 
-Redis usage:
-- Use Redis for caching, rate limiting, session-like ephemeral state, queues, and short-lived coordination.
-- Choose TTLs intentionally.
-- Cache only what has a clear performance benefit.
-- Make cache invalidation explicit.
+Configuration rules:
+- All environment-specific values must come from environment variables or config files.
+- Use a single config module/service that validates all required env vars at startup.
+- Fail fast on missing or invalid configuration — do not silently use defaults for critical values.
+- Maintain .env.example with every required variable documented (no real values).
 
-Rules:
-- Wrap Redis access in dedicated utilities/services.
-- Use stable key naming conventions.
-- Document key patterns if introducing new families of keys.
-- Prefer idempotent worker/job behavior.
-- Use retries carefully and avoid infinite retry loops.
+Environment parity:
+- dev, staging, and production must use the same config structure.
+- Environment-specific behavior must be controlled by explicit flags, not implicit detection.
+- Database URLs, API keys, model endpoints, and feature flags must all be configurable per environment.
 
-Caching expectations:
-- Cache expensive reads and repeated metadata lookups where appropriate.
-- Do not cache highly sensitive data unless encrypted and justified.
-- Do not rely on cache as the only source of truth for critical persistent state.
+Secrets management:
+- Never commit .env, credentials.json, token.json, or any file with real secrets.
+- Use .gitignore to block secret files.
+- In production, prefer secret managers (AWS Secrets Manager, Vercel env vars, VPS env files) over baked-in values.
+- Rotate secrets on a schedule or after any exposure.
+
+Validation expectations:
+- Validate config at application startup, not at first use.
+- Type-check config values (ports as int, URLs as valid URLs, booleans as bool).
+- Log which config keys are loaded (never log values) for debugging.
 
 Do not:
-- Scatter raw Redis calls across the codebase.
-- Store large unbounded payloads without TTL or cleanup strategy.
-- Mix queue semantics and cache semantics without clarity.
+- Hardcode API keys, tokens, passwords, or URLs anywhere in source code.
+- Use different config loading patterns across services in the same project.
+- Commit .env files or any file listed in .gitignore.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
