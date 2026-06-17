@@ -1,0 +1,9 @@
+{
+  "name": "learningmatter-mit--atomisticskills",
+  "displayName": "AtomisticSkills",
+  "description": "Intergrating Atomistic Skills into Agentic IDEs (Cursor, Claude Code, Google Antigravity, OpenClaw, etc)",
+  "version": "1.0.0",
+  "author": "learningmatter-mit",
+  "homepage": "https://github.com/learningmatter-mit/AtomisticSkills",
+  "skills": []
+}
