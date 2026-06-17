@@ -1,36 +1,35 @@
-## 30-database-postgres
+## 35-api-contracts
 
-> PostgreSQL and persistence rules
+> API versioning, contracts, and schema evolution rules
 
 
-Database rules:
-- PostgreSQL is the source of truth for structured application data.
-- Use migrations for all schema changes.
-- Design tables with clear ownership, timestamps, and constraints.
-- Add indexes for common filters and joins.
-- Use foreign keys where appropriate.
-- Prefer soft-delete only when there is a real product need.
+API contract rules:
+- Version APIs explicitly, e.g. /api/v1/, /api/v2/.
+- Never introduce breaking changes to an existing version without deprecation.
+- Document breaking vs non-breaking changes clearly.
+- Use OpenAPI/Swagger specs when the project supports it.
 
-Schema design expectations:
-- Every core entity should have:
-  - id
-  - created_at
-  - updated_at
-- For SaaS systems, include tenant/organization isolation where relevant.
-- Use enums or constrained fields for finite states where appropriate.
-- Keep schemas normalized unless denormalization is justified by performance needs.
+Schema evolution:
+- Add new fields as optional — never remove or rename existing fields in-place.
+- Use explicit migration paths when changing response shapes.
+- Dataset schema changes (JSONL, JSON) must be versioned alongside code.
+- When training data format changes, document the version and conversion script.
 
-Repository rules:
-- All DB access must go through repositories/data access layer.
-- Keep query code out of routes and services unless trivial and already patterned.
-- Parameterize queries.
-- Avoid N+1 query patterns.
-- Use transactions when multiple writes must succeed together.
+Contract expectations:
+- Request and response schemas must be typed (Pydantic, TypeScript interfaces).
+- Error responses must follow a consistent structure across all endpoints.
+- Pagination, filtering, and sorting must use consistent query parameter conventions.
+- All public endpoints must have example request/response in docs or tests.
+
+Deprecation process:
+- Mark deprecated endpoints with headers or response metadata.
+- Set a removal timeline and communicate it.
+- Log usage of deprecated endpoints to track migration.
 
 Do not:
-- Write raw SQL inside controllers/routes.
-- Make schema changes without migration files.
-- Assume single-tenant if the product is multi-tenant.
+- Ship breaking API changes without versioning.
+- Return different response shapes from the same endpoint based on hidden logic.
+- Leave undocumented endpoints in production.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
