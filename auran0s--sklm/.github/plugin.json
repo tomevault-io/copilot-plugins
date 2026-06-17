@@ -1,0 +1,9 @@
+{
+  "name": "auran0s--sklm",
+  "displayName": "Sklm",
+  "description": "Sklm is a CLI tool that centralizes management of skills (SKILL.md files) for your AI agents. It solves the tension between wanting skills globally available vs. per-project scoped, without polluting ",
+  "version": "1.0.0",
+  "author": "Auran0s",
+  "homepage": "https://github.com/Auran0s/Sklm",
+  "skills": []
+}
