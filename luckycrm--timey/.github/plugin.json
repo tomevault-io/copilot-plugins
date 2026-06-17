@@ -1,0 +1,9 @@
+{
+  "name": "luckycrm--timey",
+  "displayName": "Timey",
+  "description": "Timey is a real-time team chat application built with TanStack Start, React, and SpacetimeDB. Features include direct messages, group channels, message reactions, and presence tracking.",
+  "version": "1.0.0",
+  "author": "luckycrm",
+  "homepage": "https://github.com/luckycrm/Timey",
+  "skills": []
+}
