@@ -2,22 +2,21 @@
 
 > Source: [mathruffian-dot/codex-lazy-packs](https://github.com/mathruffian-dot/codex-lazy-packs) — distributed by [TomeVault](https://tomevault.io)
 
-OpenAI Codex CLI 懶人包：對應 Claude Code 懶人包的平行版本
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mathruffian-dot/codex-lazy-packs](https://github.com/mathruffian-dot/codex-lazy-packs).
+Original source: `` in [mathruffian-dot/codex-lazy-packs](https://github.com/mathruffian-dot/codex-lazy-packs).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mathruffian-dot/codex-lazy-packs](https://github.com/mathruffian-dot/codex-lazy-packs) — a repo with 8+ stars on GitHub.
+From [mathruffian-dot/codex-lazy-packs](https://github.com/mathruffian-dot/codex-lazy-packs) — a repo with 55+ stars on GitHub.
 
 ---
 
