@@ -7,11 +7,11 @@ A macOS desktop app for managing Claude Code configurations — Skills, MCP Serv
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [O0000-code/CC-Workshop](https://github.com/O0000-code/CC-Workshop).
+Original source: `CLAUDE.md` in [O0000-code/CC-Workshop](https://github.com/O0000-code/CC-Workshop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
