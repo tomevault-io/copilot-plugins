@@ -1,0 +1,9 @@
+{
+  "name": "thetom--elm327-obd-for-mac",
+  "displayName": "elm327_obd_for_mac",
+  "description": "I'm crazy and trying to make a ForScan OBD reader work on my mac.",
+  "version": "1.0.0",
+  "author": "TheTom",
+  "homepage": "https://github.com/TheTom/elm327_obd_for_mac",
+  "skills": []
+}
