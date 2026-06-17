@@ -1,0 +1,9 @@
+{
+  "name": "lrhodin--corten-matrix",
+  "displayName": "corten-matrix",
+  "description": "Corten - a Rust-based iMessage-Matrix bridge. Like the steel: the rust is what makes it last.",
+  "version": "1.0.0",
+  "author": "lrhodin",
+  "homepage": "https://github.com/lrhodin/corten-matrix",
+  "skills": []
+}
