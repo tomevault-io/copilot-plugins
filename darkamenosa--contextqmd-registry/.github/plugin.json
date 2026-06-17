@@ -1,0 +1,9 @@
+{
+  "name": "darkamenosa--contextqmd-registry",
+  "displayName": "contextqmd-registry",
+  "description": "Documentation package registry for ContextQMD \u2014 Rails API + crawl pipeline",
+  "version": "1.0.0",
+  "author": "darkamenosa",
+  "homepage": "https://github.com/darkamenosa/contextqmd-registry",
+  "skills": []
+}
