@@ -7,11 +7,11 @@ CLI and MCP server for the SAP ADT REST API — search, read/write ABAP source, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DataZooDE/erpl-adt](https://github.com/DataZooDE/erpl-adt).
+Original source: `CLAUDE.md` in [DataZooDE/erpl-adt](https://github.com/DataZooDE/erpl-adt).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
