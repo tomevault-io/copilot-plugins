@@ -1,0 +1,9 @@
+{
+  "name": "thru-echoes--trace",
+  "displayName": "TRACE",
+  "description": "TRACE protocol for auditing decision-provenance in AI-assisted scientific workflows ",
+  "version": "1.0.0",
+  "author": "Thru-Echoes",
+  "homepage": "https://github.com/Thru-Echoes/TRACE",
+  "skills": []
+}
