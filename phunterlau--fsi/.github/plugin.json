@@ -1,0 +1,9 @@
+{
+  "name": "phunterlau--fsi",
+  "displayName": "fsi",
+  "description": "FSI-style foreign language pattern drills inside your coding agent. Substitution, transformation, spaced repetition \u2014 5 minutes while your build runs.",
+  "version": "1.0.0",
+  "author": "phunterlau",
+  "homepage": "https://github.com/phunterlau/fsi",
+  "skills": []
+}
