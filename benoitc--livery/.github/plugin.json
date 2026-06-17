@@ -1,0 +1,9 @@
+{
+  "name": "benoitc--livery",
+  "displayName": "livery",
+  "description": "High-performance HTTP/1.1, HTTP/2, HTTP/3 server for Erlang/OTP 27+",
+  "version": "1.0.0",
+  "author": "benoitc",
+  "homepage": "https://github.com/benoitc/livery",
+  "skills": []
+}
