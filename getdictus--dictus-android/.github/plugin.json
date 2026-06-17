@@ -1,0 +1,9 @@
+{
+  "name": "getdictus--dictus-android",
+  "displayName": "dictus-android",
+  "description": "Dictus is a privacy-first Android keyboard for offline voice dictation. All speech recognition runs on-device \u2014 no cloud, no data collection.",
+  "version": "1.0.0",
+  "author": "getdictus",
+  "homepage": "https://github.com/getdictus/dictus-android",
+  "skills": []
+}
