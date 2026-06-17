@@ -1,15 +1,15 @@
-## htmx-and-go-best-practices
+## htmx-with-go-additional-instructions
 
-> Go coding conventions for the EasyLab server — handler patterns, error handling, and Pulumi integration.
+> HTML template conventions for EasyLab — HTMX patterns, template structure, and frontend guidelines.
 
-- Use html/template with the base/child template pattern (web/base.html + page-specific templates)
-- Implement http.HandlerFunc for handlers — register on http.ServeMux, do NOT add external routers
-- Wrap errors with context: fmt.Errorf("failed to X: %w", err)
-- Use encoding/json for JSON API responses, handler.renderHTMLError() for HTMX error responses
-- Log at handler level with log.Printf, not deep in business logic
-- Use context for request cancellation and timeouts (especially in Pulumi execution)
-- Protect concurrent state with sync.RWMutex (see Job.mu pattern in job.go)
-- Do NOT modify existing files unless explicitly asked by the user
+- Use semantic HTML5 elements with HTMX attributes (hx-get, hx-post, hx-target, hx-swap)
+- Follow the base template pattern: extend web/base.html, define {{block "title"}}, {{block "content"}}, {{block "scripts"}}
+- Prefer HTMX interactions over custom JavaScript — JS is only for logic HTMX can't handle
+- Use hx-trigger="load, every 10s" for polling job status updates
+- Keep page-specific JS in web/static/{page-name}.js
+- Style with the existing web/static/style.css — use existing CSS classes (btn, error-message, success-message, etc.)
+- Escape dynamic content with template.HTMLEscapeString to prevent XSS
+- Do NOT modify existing templates unless explicitly asked by the user
 
 ---
 > Source: [yodamad/easylab](https://github.com/yodamad/easylab) — distributed by [TomeVault](https://tomevault.io).
