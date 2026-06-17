@@ -2,15 +2,14 @@
 
 > Sourced from [fabio-rovai/brain-in-the-fish](https://github.com/fabio-rovai/brain-in-the-fish) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-Score any document. Prove every claim. 
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [fabio-rovai/brain-in-the-fish](https://github.com/fabio-rovai/brain-in-the-fish).
+Original source: `` in [fabio-rovai/brain-in-the-fish](https://github.com/fabio-rovai/brain-in-the-fish).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
