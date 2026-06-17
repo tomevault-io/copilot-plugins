@@ -1,0 +1,9 @@
+{
+  "name": "shreyas-s-rao--claude-code-narrator",
+  "displayName": "claude-code-narrator",
+  "description": "A text-to-speech plugin for Claude Code.",
+  "version": "1.0.0",
+  "author": "shreyas-s-rao",
+  "homepage": "https://github.com/shreyas-s-rao/claude-code-narrator",
+  "skills": []
+}
