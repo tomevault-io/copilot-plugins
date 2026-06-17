@@ -4,7 +4,7 @@
   "repo": "slipway",
   "description": "Spec-driven development with full lifecycle accountability for Claude, Codex, Cursor & Gemini",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/signalridge/slipway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T05:10:43Z"
+  "distributed_at": "2026-06-17T09:01:47Z"
 }
