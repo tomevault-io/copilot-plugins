@@ -4,7 +4,7 @@
   "repo": "summer-engine-agent",
   "description": "The game engine for AI agents. Give your AI superpowers for game dev + A skills framework that just works + easy install and setup \u2600\ufe0f",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SummerEngine/summer-engine-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T20:38:10Z"
+  "distributed_at": "2026-06-17T03:18:07Z"
 }
