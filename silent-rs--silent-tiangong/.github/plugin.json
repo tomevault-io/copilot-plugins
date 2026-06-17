@@ -1,0 +1,9 @@
+{
+  "name": "silent-rs--silent-tiangong",
+  "displayName": "silent-Tiangong",
+  "description": "\u684c\u9762\u7ea7 AI \u81ea\u52a8\u5316\u4e2d\u67a2\uff1a\u652f\u6301 GUI\u3001CLI\u3001Server\u3001\u5d4c\u5165\u5f0f\u6d4f\u89c8\u5668\u3001\u591a\u667a\u80fd\u4f53\u534f\u4f5c\u3001MCP/Skill\u3001\u957f\u671f\u8bb0\u5fc6\u548c\u591a\u5a92\u4f53\u751f\u6210\u3002",
+  "version": "1.0.0",
+  "author": "silent-rs",
+  "homepage": "https://github.com/silent-rs/silent-Tiangong",
+  "skills": []
+}
