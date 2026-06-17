@@ -1,0 +1,9 @@
+{
+  "name": "whyujjwal--claude-marketing",
+  "displayName": "claude-marketing",
+  "description": "A plug-and-play marketing co-founder for Claude Code. 29 skills, 51 CLI tools, 7 slash commands.",
+  "version": "1.0.0",
+  "author": "whyujjwal",
+  "homepage": "https://github.com/whyujjwal/claude-marketing",
+  "skills": []
+}
