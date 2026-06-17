@@ -1,0 +1,9 @@
+{
+  "name": "sesori-ai--sesori-relay-server",
+  "displayName": "sesori_relay_server",
+  "description": "Remote relay server for connection",
+  "version": "1.0.0",
+  "author": "sesori-ai",
+  "homepage": "https://github.com/sesori-ai/sesori_relay_server",
+  "skills": []
+}
