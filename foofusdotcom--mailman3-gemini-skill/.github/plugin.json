@@ -1,0 +1,9 @@
+{
+  "name": "foofusdotcom--mailman3-gemini-skill",
+  "displayName": "mailman3-gemini-skill",
+  "description": "mailman3-gemini-skill",
+  "version": "1.0.0",
+  "author": "foofusdotcom",
+  "homepage": "https://github.com/foofusdotcom/mailman3-gemini-skill",
+  "skills": []
+}
