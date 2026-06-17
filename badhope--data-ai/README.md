@@ -7,11 +7,11 @@ Self-hosted AI agent for enterprise data — financial, internal knowledge, the 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [badhope/DATA-AI](https://github.com/badhope/DATA-AI).
+Original source: `CLAUDE.md` in [badhope/DATA-AI](https://github.com/badhope/DATA-AI).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
