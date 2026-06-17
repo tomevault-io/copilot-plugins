@@ -1,0 +1,44 @@
+{
+  "name": "Badminton-registration-mini-program",
+  "owner": "ljyjlzs",
+  "repo": "Badminton-registration-mini-program",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u7fbd\u6bdb\u7403\u62a5\u540d\u6bd4\u8d5b\u7684\u5c0f\u7a0b\u5e8f\uff0c\u79ef\u6781\u5438\u53d6\u5927\u5bb6\u7684\u610f\u89c1",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ljyjlzs/Badminton-registration-mini-program",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T17:11:00Z"
+}
