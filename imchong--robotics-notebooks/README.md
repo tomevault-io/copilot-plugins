@@ -1,0 +1,26 @@
+# AI instruction files for Robotics_Notebooks
+
+> Sourced from [ImChong/Robotics_Notebooks](https://github.com/ImChong/Robotics_Notebooks) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+机器人技术栈资料汇总
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [ImChong/Robotics_Notebooks](https://github.com/ImChong/Robotics_Notebooks).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ImChong/Robotics_Notebooks](https://github.com/ImChong/Robotics_Notebooks)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-q -->
