@@ -1,0 +1,44 @@
+{
+  "name": "Lumeo",
+  "owner": "Brain2k-0005",
+  "repo": "Lumeo",
+  "description": "A modern, accessible Blazor component library with 130+ components. Tailwind CSS v4, 8 themes, dark mode, AI chat primitives, full DataGrid, Scheduler, charts, RTL + 14 locales. MIT, .NET 10, 868 KB. Inspired by shadcn/ui.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Brain2k-0005/Lumeo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T06:56:58Z"
+}
