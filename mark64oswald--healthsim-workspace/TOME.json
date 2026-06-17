@@ -1,0 +1,81 @@
+{
+  "name": "healthsim-workspace",
+  "owner": "mark64oswald",
+  "repo": "healthsim-workspace",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "membersim",
+      "path": "skills/membersim",
+      "github_url": "https://github.com/mark64oswald/healthsim-workspace/tree/main/skills/membersim",
+      "description": ""
+    },
+    {
+      "name": "networksim",
+      "path": "skills/networksim",
+      "github_url": "https://github.com/mark64oswald/healthsim-workspace/tree/main/skills/networksim",
+      "description": ""
+    },
+    {
+      "name": "patientsim",
+      "path": "skills/patientsim",
+      "github_url": "https://github.com/mark64oswald/healthsim-workspace/tree/main/skills/patientsim",
+      "description": ""
+    },
+    {
+      "name": "populationsim",
+      "path": "skills/populationsim",
+      "github_url": "https://github.com/mark64oswald/healthsim-workspace/tree/main/skills/populationsim",
+      "description": ""
+    },
+    {
+      "name": "rxmembersim",
+      "path": "skills/rxmembersim",
+      "github_url": "https://github.com/mark64oswald/healthsim-workspace/tree/main/skills/rxmembersim",
+      "description": ""
+    },
+    {
+      "name": "trialsim",
+      "path": "skills/trialsim",
+      "github_url": "https://github.com/mark64oswald/healthsim-workspace/tree/main/skills/trialsim",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mark64oswald/healthsim-workspace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T06:30:29Z"
+}
