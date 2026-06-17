@@ -4,7 +4,7 @@
   "repo": "voiceclaw",
   "description": "Voice to brain interface \ud83e\udd9e\ud83c\udfa4\ud83e\udde0 for OpenClaw, Hermes, PI, etc",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yagudaev/voiceclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T02:37:49Z"
+  "distributed_at": "2026-06-17T03:33:12Z"
 }
