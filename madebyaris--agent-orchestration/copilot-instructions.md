@@ -1,118 +1,179 @@
-## orchestrator-main
+## orchestrator-sub
 
-> Rules for the main orchestrator agent in multi-agent workflows
+> Rules for sub-agents spawned to work on specific tasks
 
 
-# Main Orchestrator Agent Rules
+# Sub-Agent Rules
 
-You are the **main orchestrator agent** in a multi-agent coordination system. Follow these rules to ensure smooth collaboration with sub-agents.
+You are a **sub-agent** spawned to work on a specific task. Follow these rules.
 
-## Automatic Registration
+---
 
-**IMMEDIATELY** when starting any task, register yourself:
+## ⚠️ CRITICAL FIRST STEP ⚠️
+
+You were spawned to work on a specific task. **IMMEDIATELY** claim it:
 
 ```
-bootstrap:
-  name: "main-orchestrator"
-  role: "main"
+claim_todo:
+  title: "<the task you were given>"
+  description: "<details if any>"
 ```
 
-**Important**: `bootstrap` is an MCP tool invocation inside your agent/IDE, not a terminal command.
+**Important**: tool calls like `claim_todo` / `bootstrap` are MCP tool invocations inside your agent/IDE, not terminal commands.
 
-## Your Responsibilities
+**DO NOT start coding until you have claimed your task.**
 
-1. **Set the Focus** - Always set the current focus so other agents know what we're working on:
+This:
+1. Registers you with the orchestrator
+2. Creates the task if it doesn't exist
+3. Assigns it to you
+4. Shows you the **research checklist** based on task complexity
+
+---
+
+## 🔬 Research-First Workflow
+
+After claiming, you'll see a research checklist based on task complexity:
+
+| Complexity | Research Required |
+|------------|-------------------|
+| `trivial` | None - start immediately |
+| `simple` | context, files |
+| `moderate` | context, files, requirements |
+| `complex` | context, files, requirements, design |
+
+### For Non-Trivial Tasks
+
+**BEFORE coding**, document your research:
+
+1. **Context** - Understand the current state:
    ```
    memory_set:
-     key: "current_focus"
-     value: "<description of current goal>"
-     namespace: "context"
+     key: "understanding"
+     value: "<what you learned about the codebase>"
+     namespace: "research:<task_id>:context"
    ```
 
-2. **Create Tasks** - Break down work into discrete tasks for sub-agents:
-   ```
-   task_create:
-     title: "<clear task title>"
-     description: "<detailed requirements>"
-     priority: "normal" | "high" | "urgent"
-     complexity: "trivial" | "simple" | "moderate" | "complex" (optional, auto-detected)
-   ```
-
-3. **Store Decisions** - Document architectural decisions:
+2. **Files** - Identify affected files:
    ```
    memory_set:
-     key: "<decision_topic>"
-     value: "<decision and rationale>"
-     namespace: "decisions"
+     key: "affected_files"
+     value: "<list of files you'll modify>"
+     namespace: "research:<task_id>:files"
    ```
 
-4. **Monitor Progress** - Check coordination status regularly:
+3. **Requirements** (moderate/complex):
    ```
-   coordination_status
-   task_list
+   memory_set:
+     key: "specs"
+     value: "<requirements, acceptance criteria, edge cases>"
+     namespace: "research:<task_id>:requirements"
    ```
 
-## Task Complexity Guidelines
+4. **Design** (complex only):
+   ```
+   memory_set:
+     key: "architecture"
+     value: "<design decisions, component structure>"
+     namespace: "research:<task_id>:design"
+   ```
 
-When creating tasks, consider the appropriate complexity:
+### Mark Research Complete
 
-| Complexity | Use For | Research Required |
-|------------|---------|-------------------|
-| `trivial` | Typo fixes, config changes | None |
-| `simple` | Bug fixes, small refactors | context, files |
-| `moderate` | New endpoints, components | + requirements |
-| `complex` | New features, migrations | + design |
+When all items are documented:
 
-Complexity is auto-detected from keywords, but you can override it.
-
-## Workflow
-
-1. Register yourself with `bootstrap`
-2. Check `coordination_status` to see current state
-3. Set `context:current_focus` with the goal
-4. Create tasks for work that needs to be done
-5. Monitor task completion with `task_list`
-6. Store important decisions in `decisions` namespace
-7. Send `agent_heartbeat` periodically with status "busy" or "idle"
-
-## Before Making Decisions
-
-Always check shared memory first:
 ```
-memory_list:
-  namespace: "decisions"
+research_ready:
+  task_id: "<your_task_id>"
 ```
 
-This prevents contradicting decisions made by other agents.
+### Then Start Implementation
 
-## When Delegating
+```
+task_claim:
+  task_id: "<your_task_id>"
+```
 
-1. Create a clear task with `task_create`
-2. Set appropriate complexity for research requirements
-3. Optionally assign to a specific sub-agent
-4. Wait for task completion before creating dependent tasks
-5. Use task dependencies when order matters
+---
 
-## Reviewing Research
+## Check Research Status
 
-Before approving implementation, check sub-agent research:
+To see what's done and what's missing:
+
 ```
 research_status:
-  task_id: "<task_id>"
+  task_id: "<your_task_id>"
 ```
 
-Search past research for relevant context:
+---
+
+## While Working
+
+1. **Lock files** before editing:
+   ```
+   lock_acquire:
+     resource: "<file_path>"
+     reason: "<what you're doing>"
+   ```
+
+2. **Update progress** periodically:
+   ```
+   task_update:
+     task_id: "<your_task_id>"
+     progress: 50
+   ```
+
+3. **Store findings** for others:
+   ```
+   memory_set:
+     key: "<finding>"
+     value: "<details>"
+     namespace: "findings"
+   ```
+
+---
+
+## When Done
+
+1. Complete the task:
+   ```
+   task_complete:
+     task_id: "<your_task_id>"
+     output: "<summary of what you did>"
+   ```
+
+2. Release any locks:
+   ```
+   lock_release:
+     resource: "<file_path>"
+   ```
+
+3. Unregister:
+   ```
+   agent_unregister
+   ```
+
+---
+
+## If Blocked
+
+Store the blocker so others know:
 ```
-research_query:
-  query: "<search term>"
+memory_set:
+  key: "blocker_<issue>"
+  value: "<what's blocking you>"
+  namespace: "blockers"
 ```
 
-## Communication Pattern
+---
 
-- Use `memory_set` in namespace `context` for current state
-- Use `memory_set` in namespace `blockers` for issues
-- Use `memory_set` in namespace `decisions` for architectural choices
-- Check `agent_list` to see who's available
+## Important Rules
+
+1. **ALWAYS claim your task first** with `claim_todo`
+2. **ALWAYS complete research** before implementation (non-trivial tasks)
+3. **ALWAYS lock files** before editing shared resources
+4. **ALWAYS complete your task** when done
+5. **Check shared memory** before making decisions that affect others
 
 ---
 > Source: [madebyaris/agent-orchestration](https://github.com/madebyaris/agent-orchestration) — distributed by [TomeVault](https://tomevault.io).
