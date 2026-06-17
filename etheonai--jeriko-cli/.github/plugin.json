@@ -1,0 +1,9 @@
+{
+  "name": "etheonai--jeriko-cli",
+  "displayName": "jeriko-cli",
+  "description": "Jeriko \u2014 Unix-first CLI toolkit for AI agents",
+  "version": "1.0.0",
+  "author": "EtheonAI",
+  "homepage": "https://github.com/EtheonAI/jeriko-cli",
+  "skills": []
+}
