@@ -1,0 +1,18 @@
+{
+  "name": "mikeleppane--tursotui",
+  "displayName": "tursotui",
+  "description": "A keyboard-driven terminal UI for browsing, querying, and administering Turso and SQLite databases \u2014 built with Rust, ratatui, and vim-inspired navigation.",
+  "version": "1.0.0",
+  "author": "mikeleppane",
+  "homepage": "https://github.com/mikeleppane/tursotui",
+  "skills": [
+    {
+      "name": "rust-standards",
+      "description": ""
+    },
+    {
+      "name": "rust-testing",
+      "description": ""
+    }
+  ]
+}
