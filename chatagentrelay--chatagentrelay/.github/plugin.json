@@ -1,0 +1,9 @@
+{
+  "name": "chatagentrelay--chatagentrelay",
+  "displayName": "ChatAgentRelay",
+  "description": "A standard relay layer between chat platforms and agents, with governance, routing, delivery reliability, and auditability on the message path.",
+  "version": "1.0.0",
+  "author": "ChatAgentRelay",
+  "homepage": "https://github.com/ChatAgentRelay/ChatAgentRelay",
+  "skills": []
+}
