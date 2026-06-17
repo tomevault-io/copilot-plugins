@@ -1,0 +1,9 @@
+{
+  "name": "airlock-dev--airlock",
+  "displayName": "airlock",
+  "description": "Permissions-aware MCP gateway with human-in-the-loop approval for AI agents.",
+  "version": "1.0.0",
+  "author": "airlock-dev",
+  "homepage": "https://github.com/airlock-dev/airlock",
+  "skills": []
+}
