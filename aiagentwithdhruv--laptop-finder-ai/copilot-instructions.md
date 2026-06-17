@@ -1,31 +1,39 @@
-## 80-testing-quality
+## 85-error-observability
 
-> Testing and code quality rules
+> Error handling, logging, and observability rules
 
 
-Testing philosophy:
-- Write production-quality code with tests for critical behavior.
-- Prefer deterministic unit tests for business logic.
-- Add integration tests for APIs, repositories, pipelines, and workflows crossing boundaries.
-- Mock external services, cloud dependencies, and model providers where appropriate.
+Error handling:
+- Use structured error responses with consistent shape: {error, code, message, details}.
+- Define application-specific error codes for common failure modes.
+- Catch errors at service boundaries — do not let raw exceptions leak to clients.
+- Distinguish client errors (4xx) from server errors (5xx) explicitly.
+- Handle timeout, rate-limit, and upstream failure cases gracefully.
+- For AI/ML: handle model loading failures, inference timeouts, and malformed outputs.
 
-Testing expectations:
-- Add tests for non-trivial service methods.
-- Add tests for auth and permission-sensitive flows.
-- Add tests for RAG/agent logic at the orchestration level where feasible.
-- Cover validation, failure, and edge cases.
-- Keep tests readable and isolated.
+Logging:
+- Use structured logging (JSON format) in production.
+- Include request_id / trace_id in every log entry for request tracing.
+- Log at appropriate levels: DEBUG for dev, INFO for flow, WARN for recoverable, ERROR for failures.
+- Log what happened and why, not just that something failed.
+- Never log secrets, tokens, passwords, PII, or full request/response bodies with sensitive data.
 
-Code quality:
-- Use linting and formatting.
-- Use types wherever the stack supports them.
-- Keep functions focused.
-- Refactor repeated logic into shared utilities when justified.
+Observability:
+- Add request tracing across services (OpenTelemetry or equivalent).
+- Track key metrics: request latency, error rate, queue depth, model inference time.
+- Set up alerts for error rate spikes and latency degradation.
+- For training: log loss curves, GPU utilization, and checkpoint save events.
+
+Health checks:
+- Every service must expose a health endpoint.
+- Health checks should verify critical dependencies (DB, Redis, model loaded).
+- Use liveness and readiness probes in containerized deployments.
 
 Do not:
-- Add major logic without at least basic tests.
-- Create brittle tests tied to unstable implementation details.
-- Depend on live external APIs in normal test flows.
+- Swallow exceptions silently.
+- Return generic "Internal Server Error" without logging the actual cause.
+- Log at ERROR level for expected/handled conditions.
+- Rely solely on print statements for production debugging.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
