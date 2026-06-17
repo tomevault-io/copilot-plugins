@@ -1,0 +1,9 @@
+{
+  "name": "ypares--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Various skills for AI coding assistants",
+  "version": "1.0.0",
+  "author": "YPares",
+  "homepage": "https://github.com/YPares/agent-skills",
+  "skills": []
+}
