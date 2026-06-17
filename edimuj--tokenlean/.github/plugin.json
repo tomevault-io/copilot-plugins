@@ -1,0 +1,18 @@
+{
+  "name": "edimuj--tokenlean",
+  "displayName": "tokenlean",
+  "description": "Lean CLI tools for AI agents and developers - reduce context, save tokens",
+  "version": "1.0.0",
+  "author": "edimuj",
+  "homepage": "https://github.com/edimuj/tokenlean",
+  "skills": [
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    }
+  ]
+}
