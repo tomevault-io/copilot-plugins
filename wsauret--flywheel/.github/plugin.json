@@ -1,0 +1,14 @@
+{
+  "name": "wsauret--flywheel",
+  "displayName": "flywheel",
+  "description": "A plugin for ClaudeCode and OpenCode that facilitates successful development processes",
+  "version": "1.0.0",
+  "author": "wsauret",
+  "homepage": "https://github.com/wsauret/flywheel",
+  "skills": [
+    {
+      "name": "language-standards",
+      "description": ""
+    }
+  ]
+}
