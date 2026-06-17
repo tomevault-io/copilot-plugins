@@ -1,0 +1,9 @@
+{
+  "name": "attentiondotnet--ruview",
+  "displayName": "Ruview",
+  "description": "Perceive the world through signals. No cameras. No wearables. No Internet. Just physics.  \u03c0 RuView is an edge AI perception system that learns directly from the environment around it.",
+  "version": "1.0.0",
+  "author": "attentiondotnet",
+  "homepage": "https://github.com/attentiondotnet/Ruview",
+  "skills": []
+}
