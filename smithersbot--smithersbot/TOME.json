@@ -4,7 +4,7 @@
   "repo": "smithersbot",
   "description": "Leave agents running without giving up control.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/smithersbot/smithersbot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T12:50:23Z"
+  "distributed_at": "2026-06-17T19:17:33Z"
 }
