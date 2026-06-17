@@ -1,0 +1,44 @@
+{
+  "name": "bantzv2",
+  "owner": "miclaldogan",
+  "repo": "bantzv2",
+  "description": "Bantz won't be a helper; he will be your Host. Your computer will become his studio, and your tasks will give the \"entertainment.\" He won't just execute code; he will \"pull strings\" behind the scenes with a smile that you can hear through the text. ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/miclaldogan/bantzv2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T15:22:41Z"
+}
