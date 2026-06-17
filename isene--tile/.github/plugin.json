@@ -1,0 +1,9 @@
+{
+  "name": "isene--tile",
+  "displayName": "tile",
+  "description": "Pure-asm tiling window manager (CHasm suite). x86_64 Linux, no libc, X11 wire protocol, single static binary.",
+  "version": "1.0.0",
+  "author": "isene",
+  "homepage": "https://github.com/isene/tile",
+  "skills": []
+}
