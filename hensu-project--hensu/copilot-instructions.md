@@ -1,36 +1,26 @@
-## 10-java-standards
+## 20-native-safety
 
-> Coding standards for Java 25 and Kotlin DSL, focusing on ScopedValues and type-safety.
+> GraalVM and Quarkus-native compatibility rules. Prevents runtime reflection and dynamic proxies.
 
 
-Generic SOLID/KISS/YAGNI/DRY apply silently. Only project-specific rules below.
+# GraalVM Native Image — Always-On Invariants
 
-## Module boundaries
+The `hensu-server` binary is a GraalVM native image built via Quarkus. These invariants apply to **every** code change in a server-reachable module. Violating them silently breaks the native build.
 
-- `hensu-core` has **zero third-party deps** beyond JDK 25. No vendor SDKs, no vendor `if/else`.
-- All `Agent` impls are interchangeable (Liskov). Capability differences go through narrow interfaces like `ToolCapable`, `Streamable` — never a God interface, never vendor-sniffing in the orchestration loop.
-- Shared constants/schema live in `hensu-core` so CLI and Server speak the same language.
-- Logic duplicated between `hensu-core` and `hensu-server` → extract to a shared util/base provider.
+## Invariants
 
-## Concurrency
+1. **No reflection** — `Class.forName`, `Method.invoke`, `Constructor.newInstance` are forbidden outside explicitly registered entries in `reflect-config.json`.
+2. **No classpath scanning, no dynamic proxies, no runtime bytecode generation.**
+3. **No `ThreadLocal`** — use `ScopedValue` (see `10-java-standards.md` §Security).
+4. **No reflection-based JSON binding in `hensu-core`** — tree-model only (`ObjectMapper.readTree` / `writeValueAsString`).
+5. **No dynamic class loading inside `@Produces`** — producers must instantiate concrete types.
+6. **Do not override versions managed by the Quarkus BOM** — mismatches cause subtle native failures.
 
-- See `20-native-safety.md` §3 for the `ThreadLocal` ban and `ScopedValue` pattern.
-- Verify no data bleeds between parallel workflow nodes during fan-out/fan-in.
+Safe within Quarkus-managed code (build-time processed, no action needed): `@Inject`, `@Produces`, `@ConfigProperty`, JAX-RS annotations, Jackson `@JsonProperty` on DTOs, Mutiny `Uni`/`Multi`, `ServiceLoader` via `META-INF/services`.
 
-## Domain model
+## Procedural guidance — loaded on demand
 
-- Domain results → `sealed interface` (e.g. `ExecutionResult`, `TransitionStatus`), consumed via `switch` pattern matching.
-- All domain models immutable; construct via `hensu-serialization` builder mixins.
-
-## Kotlin DSL
-
-- `@WorkflowDsl` (meta `@DslMarker`) on `WorkflowBuilder`, `GraphBuilder`, `NodeBuilder` — prevents scope leakage (an `agent { }` block must not see parent `node { }`).
-
-## Tests
-
-- Unit: pure JVM, `StubAgentProvider` only — no network, no API cost.
-- Integration: `@QuarkusTest`.
-- Assertions: AssertJ.
+When adding a dependency, writing a new CDI producer, authoring `reflect-config.json`, or verifying a native build, invoke the **`native-image-check`** skill. It carries the decision ladder, commands, examples, and background reading — no need to keep them in session context.
 
 ---
 > Source: [hensu-project/hensu](https://github.com/hensu-project/hensu) — distributed by [TomeVault](https://tomevault.io).
