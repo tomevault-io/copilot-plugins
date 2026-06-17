@@ -1,0 +1,14 @@
+{
+  "name": "ilfordarber15--skills",
+  "displayName": "Skills",
+  "description": "Skills",
+  "version": "1.0.0",
+  "author": "ilfordarber15",
+  "homepage": "https://github.com/ilfordarber15/Skills",
+  "skills": [
+    {
+      "name": "lqf-machine-learning-expert-guide",
+      "description": ""
+    }
+  ]
+}
