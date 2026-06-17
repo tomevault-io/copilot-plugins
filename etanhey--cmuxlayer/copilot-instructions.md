@@ -1,0 +1,72 @@
+## cmuxlayer
+
+> > MCP server for multi-agent workspace orchestration via [cmux](https://github.com/manaflow-ai/cmux).
+
+# cmuxlayer — Terminal Multiplexer MCP
+
+> MCP server for multi-agent workspace orchestration via [cmux](https://github.com/manaflow-ai/cmux).
+
+## Stack
+- TypeScript + Zod, built with `tsc`, runs on Node 20+
+- MCP SDK (`@modelcontextprotocol/sdk`)
+- Persistent Unix socket connection to cmux (1,423x faster than CLI subprocess fallback)
+- Vitest for testing (335 tests across 20 test files)
+
+## Development
+```bash
+bun install
+bun run dev          # Run with tsx (hot reload)
+bun run build        # Compile TypeScript to dist/
+bun run test         # 335 tests via vitest
+bun run typecheck    # Type checking only
+```
+
+## Architecture
+
+### MCP Tools (33 total)
+- **33 registered tools**: terminal control, browser surface control, workspace state, agent lifecycle orchestration, and the metacommlayer write channel (dispatch_to_agent, inbox_check).
+
+### Key Source Files
+| File | Role |
+|------|------|
+| `server.ts` | MCP tool registration and handlers (all 33 tools) |
+| `harness-session.ts` | metacommlayer READ channel — real agent state (tokens/context/model) from harness transcript JSONL (see docs/harness-jsonl-field-map.md) |
+| `inbox.ts` | metacommlayer WRITE channel — per-agent inbox file dispatch + replay/ack/heartbeat (Monitor-driven, send_input fallback) |
+| `cmux-socket-client.ts` | Persistent Unix socket to cmux |
+| `cmux-client.ts` | CLI wrapper fallback |
+| `agent-engine.ts` | Agent lifecycle — spawn, monitor, quality tracking |
+| `agent-registry.ts` | Registry of active agents across surfaces |
+| `screen-parser.ts` | Parse terminal output for agent type, model, tokens, context % |
+| `mode-policy.ts` | Mode enforcement (autonomous vs manual) |
+| `state-manager.ts` | Sidebar state synchronization |
+| `naming.ts` | Surface naming rules (launcher prefix preservation) |
+| `event-log.ts` | Audit trail for agent actions |
+| `pattern-registry.ts` | Reusable workflow patterns |
+
+### Connection Model
+Socket client connects to cmux via Unix socket at the path provided by `cmux socket-path`.
+Auto-reconnects on disconnect. Falls back to CLI subprocess if socket unavailable.
+
+### Mode Policy
+Two axes per surface:
+- **control**: `autonomous` (full access) or `manual` (read-only for mutating tools)
+- **intent**: `chat` or `audit`
+
+### Claude Channels (Preview)
+Set `CMUXLAYER_ENABLE_CLAUDE_CHANNELS=1` to enable one-way lifecycle notifications via `notifications/claude/channel`.
+
+## Testing Conventions
+- Test files mirror source: `src/foo.ts` -> `tests/foo.test.ts`
+- Agent engine tests use 1-second timeouts for state change detection
+- Server tests mock the cmux client via `createServer({ exec, skipAgentLifecycle })` pattern
+- No integration tests requiring a running cmux instance — all mocked
+
+## Key Patterns
+- `ok(data)` / `err(error)` helpers for consistent MCP tool responses
+- All tool handlers return `{ content: TextContent[], structuredContent?, isError? }`
+- Screen parser recognizes Claude, Codex, Gemini, and Cursor agent output formats
+- Agent lifecycle tools are registered conditionally (skipped when `skipAgentLifecycle: true`)
+
+---
+> Source: [EtanHey/cmuxlayer](https://github.com/EtanHey/cmuxlayer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
