@@ -1,0 +1,9 @@
+{
+  "name": "leogallego--claude-ansible-skills",
+  "displayName": "claude-ansible-skills",
+  "description": "A collection of Claude Code skills for Ansible automation development following Red Hat Communities of Practice (CoP) good practices.",
+  "version": "1.0.0",
+  "author": "leogallego",
+  "homepage": "https://github.com/leogallego/claude-ansible-skills",
+  "skills": []
+}
