@@ -1,0 +1,81 @@
+{
+  "name": "claude-code-orchestrator",
+  "owner": "gaebalai",
+  "repo": "claude-code-orchestrator",
+  "description": "Multi-Agent AI Development Environment",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "checkpointing",
+      "path": ".claude/skills/checkpointing",
+      "github_url": "https://github.com/gaebalai/claude-code-orchestrator/tree/main/.claude/skills/checkpointing",
+      "description": ""
+    },
+    {
+      "name": "codex-system",
+      "path": ".claude/skills/codex-system",
+      "github_url": "https://github.com/gaebalai/claude-code-orchestrator/tree/main/.claude/skills/codex-system",
+      "description": ""
+    },
+    {
+      "name": "context-loader",
+      "path": ".codex/skills/context-loader",
+      "github_url": "https://github.com/gaebalai/claude-code-orchestrator/tree/main/.codex/skills/context-loader",
+      "description": ""
+    },
+    {
+      "name": "context-loader",
+      "path": ".gemini/skills/context-loader",
+      "github_url": "https://github.com/gaebalai/claude-code-orchestrator/tree/main/.gemini/skills/context-loader",
+      "description": ""
+    },
+    {
+      "name": "startproject",
+      "path": ".claude/skills/startproject",
+      "github_url": "https://github.com/gaebalai/claude-code-orchestrator/tree/main/.claude/skills/startproject",
+      "description": ""
+    },
+    {
+      "name": "update-design",
+      "path": ".claude/skills/update-design",
+      "github_url": "https://github.com/gaebalai/claude-code-orchestrator/tree/main/.claude/skills/update-design",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gaebalai/claude-code-orchestrator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T00:31:28Z"
+}
