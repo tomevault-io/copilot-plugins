@@ -1,0 +1,9 @@
+{
+  "name": "oomol-lab--oo-cli",
+  "displayName": "oo-cli",
+  "description": "oo is OOMOL's CLI toolkit. Everything can be done in the CLI.",
+  "version": "1.0.0",
+  "author": "oomol-lab",
+  "homepage": "https://github.com/oomol-lab/oo-cli",
+  "skills": []
+}
