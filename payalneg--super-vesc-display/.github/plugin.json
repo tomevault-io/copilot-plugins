@@ -1,0 +1,9 @@
+{
+  "name": "payalneg--super-vesc-display",
+  "displayName": "Super_VESC_DIsplay",
+  "description": "A LCD Display for VESC controllers",
+  "version": "1.0.0",
+  "author": "payalneg",
+  "homepage": "https://github.com/payalneg/Super_VESC_DIsplay",
+  "skills": []
+}
