@@ -1,0 +1,14 @@
+{
+  "name": "edsonesf--atu-csd-pokedex",
+  "displayName": "ATU-CSD-POKEDEX",
+  "description": "ATU-CSD-POKEDEX",
+  "version": "1.0.0",
+  "author": "edsonesf",
+  "homepage": "https://github.com/edsonesf/ATU-CSD-POKEDEX",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
