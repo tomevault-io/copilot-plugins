@@ -1,0 +1,9 @@
+{
+  "name": "dv-hart--boxbot",
+  "displayName": "boxBot",
+  "description": "An LLM agent in a box. BoxBot is a smart speaker that is actually smart and open source. ",
+  "version": "1.0.0",
+  "author": "dv-hart",
+  "homepage": "https://github.com/dv-hart/boxBot",
+  "skills": []
+}
