@@ -1,0 +1,9 @@
+{
+  "name": "tongsh6--opencode-token-tracker",
+  "displayName": "opencode-token-tracker",
+  "description": "Real-time token usage and cost tracking plugin for OpenCode",
+  "version": "1.0.0",
+  "author": "tongsh6",
+  "homepage": "https://github.com/tongsh6/opencode-token-tracker",
+  "skills": []
+}
