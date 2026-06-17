@@ -1,0 +1,9 @@
+{
+  "name": "sbhavani--speckit-agents",
+  "displayName": "speckit-agents",
+  "description": "Multi-agent orchestration powered by speckit and Claude Code CLI",
+  "version": "1.0.0",
+  "author": "sbhavani",
+  "homepage": "https://github.com/sbhavani/speckit-agents",
+  "skills": []
+}
