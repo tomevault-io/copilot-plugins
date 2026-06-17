@@ -1,0 +1,9 @@
+{
+  "name": "guimatheus92--mcp-video-analyzer",
+  "displayName": "mcp-video-analyzer",
+  "description": "MCP server for video analysis \u2014 extracts transcripts, key frames, OCR text, and metadata from video URLs. Supports Loom and direct video files.",
+  "version": "1.0.0",
+  "author": "guimatheus92",
+  "homepage": "https://github.com/guimatheus92/mcp-video-analyzer",
+  "skills": []
+}
