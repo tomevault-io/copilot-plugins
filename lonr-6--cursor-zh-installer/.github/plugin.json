@@ -1,0 +1,9 @@
+{
+  "name": "lonr-6--cursor-zh-installer",
+  "displayName": "cursor-zh-installer",
+  "description": "Third-party Windows Cursor Chinese enhancement toolkit with agent-friendly installation and verification flows.",
+  "version": "1.0.0",
+  "author": "lonr-6",
+  "homepage": "https://github.com/lonr-6/cursor-zh-installer",
+  "skills": []
+}
