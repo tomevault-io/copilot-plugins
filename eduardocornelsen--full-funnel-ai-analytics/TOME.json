@@ -1,0 +1,44 @@
+{
+  "name": "full-funnel-ai-analytics",
+  "owner": "eduardocornelsen",
+  "repo": "full-funnel-ai-analytics",
+  "description": "Full-Funnel AI Marketing Analytics. A modern data stack powered by dbt MetricFlow and MCP. Natural language insights across Google/Meta Ads, CRM, and 5 data warehouses. Includes XGBoost lead scoring and a $0/mo architecture.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eduardocornelsen/full-funnel-ai-analytics",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T01:19:08Z"
+}
