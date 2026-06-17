@@ -1,0 +1,51 @@
+{
+  "name": "restoran",
+  "owner": "keremtoker468-dotcom",
+  "repo": "restoran",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "next-best-practices",
+      "path": ".claude/skills/next-best-practices",
+      "github_url": "https://github.com/keremtoker468-dotcom/restoran/tree/main/.claude/skills/next-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/keremtoker468-dotcom/restoran",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T02:30:28Z"
+}
