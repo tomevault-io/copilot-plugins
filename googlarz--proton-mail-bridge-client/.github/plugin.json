@@ -1,0 +1,9 @@
+{
+  "name": "googlarz--proton-mail-bridge-client",
+  "displayName": "proton-mail-bridge-client",
+  "description": "\ud83c\udf09 Local-first Proton Mail MCP and CLI through Proton Bridge. Search, read, draft, send, sync, and act on mail from Claude Desktop or Terminal.",
+  "version": "1.0.0",
+  "author": "googlarz",
+  "homepage": "https://github.com/googlarz/proton-mail-bridge-client",
+  "skills": []
+}
