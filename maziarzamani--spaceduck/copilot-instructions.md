@@ -1,80 +1,48 @@
-## mintlify-docs
+## packages
 
-> Mintlify technical writing standards and component reference for documentation pages
+> Package structure and dependency rules for spaceduck monorepo
 
 
-# Mintlify Technical Writing
+# Package conventions
 
-## Writing principles
+## Dependency rules (strict)
 
-- Use second person ("you") for instructions, active voice, present tense
-- Lead with the most important information; basic concepts before advanced
-- Break procedures into numbered steps with prerequisites and expected outcomes
-- Keep sentences concise; define jargon on first use; maintain consistent terminology
-- Use parallel structure in lists and headings
+- `@spaceduck/core` has ZERO external dependencies. It defines interfaces only.
+- All other packages depend on `@spaceduck/core` via `workspace:*`.
+- No package may depend on another non-core package (except gateway).
+- `@spaceduck/gateway` is the ONLY package that depends on implementation packages.
+- Gateway is the composition root — it creates and wires all implementations.
 
-## Page structure
+## Package structure
 
-Every `.mdx` page starts with YAML frontmatter:
+Each package follows this layout:
 
-```yaml
----
-title: "Clear, keyword-rich title"
-description: "Concise description of page purpose and value"
----
+```
+packages/<category>/<name>/
+  package.json
+  src/
+    index.ts              # barrel export — the public API
+    <implementation>.ts   # one file per concern
+    __tests__/            # co-located tests
+      <implementation>.test.ts
+    __fixtures__/         # test helpers (core only)
 ```
 
-Heading hierarchy starts at H2 (`##`). Use descriptive, scannable headings.
+## Adding a new package
 
-## Component selection
+1. Create the directory under the appropriate category (`channels/`, `providers/`, `memory/`)
+2. Add `package.json` with `@spaceduck/<name>`, depend on `@spaceduck/core` via `workspace:*`
+3. Export the public API from `src/index.ts`
+4. Wire it in `@spaceduck/gateway` via constructor injection
+5. Existing workspace globs auto-discover new packages — no root config change needed
 
-| Need | Component |
-|------|-----------|
-| Sequential instructions | `<Steps>` with `<Step title="...">` |
-| Platform-specific alternatives | `<Tabs>` with `<Tab title="...">` |
-| Same concept in multiple languages | `<CodeGroup>` |
-| Progressive disclosure / FAQ | `<AccordionGroup>` + `<Accordion>` |
-| API endpoint request/response | `<RequestExample>` / `<ResponseExample>` |
-| API parameters | `<ParamField path\|body\|query\|header>` |
-| API response shape | `<ResponseField>` with `<Expandable>` for nesting |
-| Supplementary info | `<Note>`, `<Tip>`, `<Warning>`, `<Info>`, `<Check>` |
-| Navigation cards | `<Card>` / `<CardGroup cols={2}>` |
-| Images | Always wrap in `<Frame>` (optional `caption`) |
-| Inline definitions | `<Tooltip tip="...">` |
+## Naming
 
-## Callout usage
-
-- `<Note>` — helpful context that supports the main content
-- `<Tip>` — best practices, shortcuts, pro tips
-- `<Warning>` — potential issues, breaking changes, destructive actions
-- `<Info>` — neutral background or announcements
-- `<Check>` — success confirmations
-
-## Code examples
-
-- Always complete and runnable; use realistic data, never real secrets
-- Specify language and filename: `` ```javascript config.js ``
-- Add comments only for non-obvious logic
-- Show error handling and expected output
-- Use `<CodeGroup>` for multi-language variants
-
-## API documentation
-
-- Document all parameters (required and optional) with `<ParamField>`
-- Show success and error responses with `<ResponseExample>`
-- Include auth examples, rate limits, and all HTTP status codes
-- Use `<Expandable>` for nested object properties
-
-## Navigation config
-
-Refer to [docs.json schema](https://mintlify.com/docs.json) when building `docs.json` and site navigation.
-
-## Accessibility
-
-- Descriptive alt text on all images
-- Specific link text (never "click here")
-- Proper heading hierarchy
-- Sufficient color contrast in examples
+- Package names: `@spaceduck/<name>` (lowercase, hyphenated)
+- Interfaces: PascalCase (`Provider`, `ConversationStore`, `EventBus`)
+- Implementations: PascalCase with prefix (`BedrockProvider`, `SqliteConversationStore`)
+- Files: kebab-case (`context-builder.ts`, `long-term.ts`)
+- Test files: same name with `.test.ts` suffix
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
