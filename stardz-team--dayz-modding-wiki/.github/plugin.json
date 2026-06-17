@@ -1,0 +1,9 @@
+{
+  "name": "stardz-team--dayz-modding-wiki",
+  "displayName": "DayZ-Modding-Wiki",
+  "description": "Open-source DayZ modding wiki: Enforce Script language (13 chapters), GUI/.layout system (10 chapters), Engine API reference (23 chapters), asset pipeline, server configuration,    and 13 tutorials. B",
+  "version": "1.0.0",
+  "author": "StarDZ-Team",
+  "homepage": "https://github.com/StarDZ-Team/DayZ-Modding-Wiki",
+  "skills": []
+}
