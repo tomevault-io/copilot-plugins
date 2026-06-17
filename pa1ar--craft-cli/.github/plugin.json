@@ -1,0 +1,9 @@
+{
+  "name": "pa1ar--craft-cli",
+  "displayName": "craft-cli",
+  "description": "hybrid CLI for Craft Docs optimized for speed and reducing API calls",
+  "version": "1.0.0",
+  "author": "pa1ar",
+  "homepage": "https://github.com/pa1ar/craft-cli",
+  "skills": []
+}
