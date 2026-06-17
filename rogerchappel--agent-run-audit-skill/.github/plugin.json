@@ -1,0 +1,9 @@
+{
+  "name": "rogerchappel--agent-run-audit-skill",
+  "displayName": "agent-run-audit-skill",
+  "description": "agent-run-audit-skill",
+  "version": "1.0.0",
+  "author": "rogerchappel",
+  "homepage": "https://github.com/rogerchappel/agent-run-audit-skill",
+  "skills": []
+}
