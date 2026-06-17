@@ -1,52 +1,36 @@
-## coding-conventions
+## docs-when-changing-features
 
-> EasyLab coding conventions — architecture patterns, error handling, testing, and security practices.
+> Keep docs in docs/ in sync when creating or modifying features.
 
-# Coding Conventions
 
-## Architecture
+# Update Docs When Changing Features
 
-- HTML templates use a base/child pattern: web/base.html defines layout, page
-  templates define blocks (title, content, scripts). Serve via handler.serveTemplate().
-- HTTP handlers live in internal/server/ — use net/http.HandlerFunc and http.ServeMux.
-  Do NOT introduce external routers (no gorilla/mux, no chi).
-- HTMX drives all dynamic UI — prefer hx-get, hx-post, hx-target, hx-swap over
-  writing custom JavaScript. JS files in web/static/ are only for page-specific logic
-  that HTMX cannot handle (e.g. encryption, cookie management).
-- Pulumi programs are pure Go — infrastructure changes go in ovh/, k8s/, or coder/.
-  The templates/ directory is a self-contained Pulumi project copied into job workspaces.
+When you **create** or **modify** a user-facing or operator-facing feature, you **must** update the relevant documentation in `docs/`.
 
-## Error handling
+## Where to document
 
-- Always wrap errors with context: fmt.Errorf("failed to X: %w", err)
-- Return errors up the call stack; let the HTTP handler decide the response format
-- For HTML responses (HTMX), use handler.renderHTMLError() for consistent styling
-- For JSON API responses, use writeJSONError() or json.NewEncoder(w).Encode()
-- Log errors with log.Printf at the handler level, not deep in business logic
+| Area | Doc file |
+|------|----------|
+| Admin UI, lab creation, credentials, lab/workspace management | `docs/admin.md` |
+| Student portal, login, workspace access | `docs/student.md` |
+| OVHcloud setup, regions, flavors, infra | `docs/ovhcloud.md` |
+| Docker / docker-compose usage | `docs/docker.md` |
+| Helm / Kubernetes deployment | `docs/helm.md` |
+| Product overview, getting started | `docs/index.md` |
 
-## Testing
+## What to do
 
-- Go unit tests go next to the code they test (*_test.go in the same package)
-- Playwright E2E tests go in tests/*.spec.ts
-- Chaos tests go in tests/chaos/
-- Use "make test-backend" for Go tests, "make test-frontend" for Playwright
-- Use "make test-race" before committing concurrent code changes
-- Coverage threshold is 50% — check with "make coverage-check"
+- **New feature**: Add a short section or bullet describing the feature and how to use it (or link to the right step in the wizard).
+- **Changed behavior**: Update the existing text, steps, or checklists so they match the current behavior.
+- **UI changes**: If buttons, screens, or flows change, update the described steps and consider adding or replacing a screenshot in `docs/screens/` (e.g. `docs/screens/admin.png`).
+- **New or removed options**: Update any lists (e.g. infrastructure choices, template selection) and screenshots that show those options.
 
-## Security
+## Format
 
-- Provider credentials (OVH keys, etc.) are stored in-memory only via CredentialsManager
-- Admin auth uses bcrypt-hashed passwords with cookie-based sessions
-- Student passwords are generated server-side with crypto/rand
-- Always sanitize user input in templates with template.HTMLEscapeString()
-- Prevent directory traversal in static file serving (strings.Contains(path, ".."))
+- Docs are MkDocs (Markdown). Use existing headings and list style; keep tone consistent with the rest of the file.
+- Reference screenshots as `![Alt](screens/filename.png)`.
 
-## Conventions
-
-- Keep backward compatibility for OVH-specific API routes alongside generic provider routes
-- Job/lab state transitions: pending -> running -> completed/failed; failed -> retry; completed -> destroyed -> recreated
-- Use the existing LabConfig struct for all lab configuration — extend it, don't replace it
-- Run "make dev" for hot-reload development (requires air)
+If the user explicitly asks not to touch docs, skip documentation updates for that change.
 
 ---
 > Source: [yodamad/easylab](https://github.com/yodamad/easylab) — distributed by [TomeVault](https://tomevault.io).
