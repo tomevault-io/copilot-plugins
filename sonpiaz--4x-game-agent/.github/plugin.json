@@ -1,0 +1,9 @@
+{
+  "name": "sonpiaz--4x-game-agent",
+  "displayName": "4x-game-agent",
+  "description": "LLM-powered AI agent framework for 4X mobile strategy games (Rise of Kingdoms, Evony, Lords Mobile, etc.). 5-layer hybrid architecture: OCR \u2192 FSM \u2192 World Model \u2192 Workflows \u2192 LLM Vision. 99% cheaper th",
+  "version": "1.0.0",
+  "author": "sonpiaz",
+  "homepage": "https://github.com/sonpiaz/4x-game-agent",
+  "skills": []
+}
