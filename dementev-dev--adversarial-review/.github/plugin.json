@@ -1,0 +1,9 @@
+{
+  "name": "dementev-dev--adversarial-review",
+  "displayName": "adversarial-review",
+  "description": "Claude Code skill for adversarial AI code & plan review. One AI writes, another tears it apart. Iterative fix loop until approved.",
+  "version": "1.0.0",
+  "author": "dementev-dev",
+  "homepage": "https://github.com/dementev-dev/adversarial-review",
+  "skills": []
+}
