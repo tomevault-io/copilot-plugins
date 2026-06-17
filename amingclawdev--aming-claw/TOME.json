@@ -4,7 +4,7 @@
   "repo": "aming-claw",
   "description": "Shared workspace for AI agents and human developers. See, audit, and review every change AI makes to your codebase. Multi-language graph (Python/TypeScript), MCP-native, local-first.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amingclawdev/aming-claw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T04:54:55Z"
+  "distributed_at": "2026-06-17T08:35:21Z"
 }
