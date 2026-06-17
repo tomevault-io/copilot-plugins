@@ -1,0 +1,9 @@
+{
+  "name": "strands-agents--shell",
+  "displayName": "shell",
+  "description": "Give your agent a shell without giving it the keys to your machine.",
+  "version": "1.0.0",
+  "author": "strands-agents",
+  "homepage": "https://github.com/strands-agents/shell",
+  "skills": []
+}
