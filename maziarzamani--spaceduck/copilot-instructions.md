@@ -1,26 +1,40 @@
-## bun-runtime
+## bun-typescript
 
-> Always use Bun runtime — never npm, npx, or node
+> Bun + TypeScript coding conventions for spaceduck
 
 
-# Bun Runtime
+# Bun + TypeScript conventions
 
-This project uses **Bun** as the JavaScript/TypeScript runtime, package manager, and test runner.
+## TypeScript
 
-## Commands
+- Strict mode always. No `any`, no `as` casts unless absolutely necessary.
+- Prefer `interface` over `type` for object shapes (better error messages, extensibility).
+- Use `readonly` on properties that should not change after construction.
+- Explicit return types on all exported functions and methods.
+- Use barrel exports (`index.ts`) per package — one public API surface.
 
-- `bun install` (not `npm install`)
-- `bun add <pkg>` (not `npm install <pkg>`)
-- `bun run <script>` (not `npm run <script>`)
-- `bunx <pkg>` (not `npx <pkg>`)
-- `bun test` (not `jest`, `vitest`, or `npm test`)
-- `bun <file.ts>` to run TypeScript directly (not `node`, not `ts-node`)
+## Bun specifics
 
-## Never use
+- Use `Bun.env` instead of `process.env` for environment variables.
+- Use `Bun.file()` for file reading instead of `fs`.
+- Use `Bun.serve()` for HTTP/WebSocket servers.
+- Use `Bun.SQL` tagged templates for database queries (not raw `bun:sqlite`).
+- Use `bun:test` for all tests (`describe`, `it`, `expect`, `beforeEach`, `afterEach`).
+- Use `bun --watch` for dev mode auto-restart.
 
-- `npm`, `npx`, `yarn`, `pnpm`
-- `node` to execute scripts (use `bun` instead — it runs TypeScript natively)
-- `ts-node`, `tsx`
+## Error handling
+
+- Use `Result<T, E>` from `@spaceduck/core` for operations that can fail in expected ways.
+- Use `ok(value)` and `err(error)` helper functions to construct results.
+- Never throw for expected failures (network errors, validation, missing data).
+- Throw only for bugs (programming errors, invariant violations).
+- Always include `cause` in error constructors for error chain tracing.
+
+## Imports
+
+- Use workspace imports: `import { X } from "@spaceduck/core"`.
+- Relative imports only within the same package.
+- No circular imports between packages.
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
