@@ -1,22 +1,18 @@
-## project-node-for-cli
+## start-app-docker-check
 
-> Before Node-related CLI commands, use the version from .nvmrc (via repo scripts or nvm).
+> When starting the Wasp app or dev server, verify Docker and Postgres are up first.
 
 
-# Node: read `.nvmrc` before running commands
+# Start app / Wasp dev server
 
-This repo pins Node in **`.nvmrc`** (and **`.node-version`**; keep them in sync). Automated shells often use a **different** global default, which breaks Wasp and other tooling.
+When the user asks to **start the app**, **start Wasp**, **run the dev server**, or similar:
 
-**Before running any terminal command in this project that uses Node** — including `node`, `npm`, `npx`, `wasp`, `prisma`, `vite`, `tsc`, or project `package.json` scripts that invoke those — do this:
+1. **Check Docker** — Run `docker ps` (or `docker info`). If the daemon is unreachable, tell them to start **Docker Desktop** and wait until it is ready. On macOS you may run `open -a Docker`, then re-check after a short wait.
+2. **Start Postgres** — From the project root, if the stack is not up: `docker compose up -d` (see `docker-compose.yml`; DB listens on **5433**).
+3. **Env** — Ensure `.env.server` exists and `DATABASE_URL` matches the compose credentials (see `.env.server.example`).
+4. **Wasp CLI** — Use the repo-pinned Node (see `.node-version`). From automated shells, run Wasp via **`npm run wasp -- start`** or **`bash scripts/with-project-node.sh wasp start`** so `PATH` picks up Node 22 (global `@wasp.sh/wasp-cli`).
 
-1. **Read** `.nvmrc` from the **project root** so you know the required major/minor/patch version.
-2. **Run the command with that Node on `PATH`**, in this order of preference:
-   - **`npm run …`** scripts in `package.json` that already wrap with **`bash scripts/with-project-node.sh`** (e.g. `npm run wasp -- …`, `npm run db:migrate:deploy`), or  
-   - **`bash scripts/with-project-node.sh <command> [args...]`** for anything else (the script reads `.node-version` / repo root and fixes `PATH`).
-
-**Fallback** if a one-off cannot go through the wrapper: from the repo root, after `source "$HOME/.nvm/nvm.sh"`, run **`nvm use`** (no version argument — nvm reads `.nvmrc`), then run the command.
-
-Do **not** assume an interactive shell has already switched Node; verify with `node -v` if something still fails.
+Only after Docker responds and the DB container is running should you start Wasp (or tell the user it is safe to do so).
 
 ---
 > Source: [cvetelinandreev/reShkolo](https://github.com/cvetelinandreev/reShkolo) — distributed by [TomeVault](https://tomevault.io).
