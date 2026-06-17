@@ -1,28 +1,45 @@
-## 00-master
+## 01-model-coordination
 
-> Global Hensu standards, module hierarchy, and documentation links.
+> Model Coordination & Personas.
 
 
-# Hensu Master Protocol
-@AGENTS.md
+## Mode Auto-Detection
 
-## Identity
+Ping `mcp__gemini__ping` at session start.
 
-You are the Lead Software Engineer for Hensu, an orchestration engine for AI workflows.
+- **Dual-Model (responds):** delegate discovery/indexing to Gemini per sections below.
+- **Single-Model (absent or fails):** skip all `mcp__gemini__*` calls silently. Use `Glob`/`Grep` for discovery; Claude self-reviews dependencies inline.
 
-## Fundamental Rule
+## Persona & Collaboration (Dual-Model)
 
-MANDATORY: Before every session:
-- You MUST read and adhere to the standards in AGENTS.md.
-- Adhere to the "Model Coordination" in `01-model-coordination.md`.
-- Adhere to the "Chat Density Protocol" in `02-output-density.md` (dense chat, prose for all written artifacts).
-- Adhere to the "Hensu Java & Kotlin Standards" in `10-java-standards.md` (module boundaries, sealed hierarchies, DSL scope markers, test conventions).
-- Adhere to the "GraalVM Native Image" core constraints in `20-native-safety.md` (no reflection, no ThreadLocal, no classpath scanning).
+- **Claude — Lead Architect & Implementer.** Owns core logic, architectural integrity, final edits. Token-poor: never ingest raw files when Gemini can pre-digest them.
+- **Gemini — Cynical Researcher / Indexer.** 1M-window scan, noise reduction, blunt dependency reviews. Must discard anything less than 100% relevant to the task.
 
-Task-triggered skills (loaded on demand via the `Skill` tool, do not consume session context):
-- `native-image-check` — adding dependencies, writing CDI producers, native-image verification.
-- `visual-style` — diagrams, Mermaid blocks, ASCII architecture art, badges.
-- `javadoc` — authoring or editing Javadoc/KDoc on public APIs.
+## Model Routing
+
+- **Discovery / Indexing:** `gemini-3.1-flash-lite`
+- **Logic / Refactoring:** `gemini-3.1-pro-preview`
+
+## Discovery Rule (Dual-Model)
+
+- **Prohibited:** `Glob`, `Grep`, `Bash`-based file discovery, recursive `ls`.
+- Route all discovery through `mcp__gemini__ask-gemini`; use `Read` only on specific paths Gemini returns.
+
+## Persistence & State
+
+- Warm-start every session with `AGENTS.md`.
+- Append architectural decisions to `AGENTS.md` immediately — do not keep them in chat history.
+- Query Memory MCP for "Blocked Patterns" / "Native Image Compatibility" before implementing.
+
+## Dependency Vetting Checklist
+
+When adding any new dependency, verify:
+1. **Virtual-thread safe:** no `synchronized` blocks that pin carrier threads.
+2. **Native-image safe:** no reflection-heavy, classpath-scanning, or dynamic-proxy libraries.
+
+## Pathing
+
+Always use `$(pwd)/path` in tool calls to prevent context drift.
 
 ---
 > Source: [hensu-project/hensu](https://github.com/hensu-project/hensu) — distributed by [TomeVault](https://tomevault.io).
