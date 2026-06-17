@@ -1,35 +1,36 @@
-## git-commit-branch
+## knowledge-management
 
-> コミットメッセージ形式とブランチ名の慣習。PR は gh で作成する。
+> ドキュメント鮮度・知識管理ルール。リポジトリが唯一の記録システム。
 
 
-# Git コミット・ブランチルール
+# 知識管理ルール
 
-## コミット
+リポジトリ内でバージョン管理されたアーティファクトだけがエージェントの認識対象になる。
+Slack や口頭で決めた設計判断もリポジトリに残す。
 
-- **1 変更 1 コミット** — 論理的にまとまる単位でコミットする
-- **メッセージ形式**: `種別(スコープ): 説明`
-  - 種別: feat / fix / docs / refactor / test / chore
-  - スコープ: domain, application, infrastructure, ui 等（任意）
-  - 説明は日本語可
+## 原則
 
-例: `feat(domain): User と UserId を追加`, `fix(auth): セッション期限切れ時のリダイレクト`
+1. **リポジトリが記録システム** — 設計判断・方針変更は `docs/` にコミットする
+2. **AGENTS.md は地図** — 100行以内を維持し、詳細は参照先に委ねる
+3. **CLAUDE.md は信頼できるソース** — ドメインモデル・設計方針の単一情報源
 
-## ブランチ
+## ドキュメント更新が必要な場面
 
-- **命名**: `feature/短い識別子` または `fix/短い識別子`
-- 例: `feature/task-1-2-user-entity`, `fix/login-session`
-- 1 機能 or 1 タスク（development-tasks の 1 項目）ごとに 1 ブランチを目安にする
+| 変更の種類 | 更新対象 |
+|---|---|
+| 新しいドメインモデル/エンティティの追加 | `CLAUDE.md` のドメインモデルセクション |
+| レイヤー構造・パッケージの変更 | `docs/ARCHITECTURE.md` |
+| 新しいルール/スキル/エージェントの追加 | `AGENTS.md` の一覧テーブル |
+| UI 文言・ラベルの変更 | `docs/ux-copy-and-labels.md` |
+| デザイン仕様の俯瞰・トークン／画面ルールの統合更新 | `docs/design-specification.md` |
+| 設計判断・トレードオフの記録 | `docs/design-overview.md` |
+| タスクの完了・追加 | `docs/development-tasks.md` |
 
-## PR の作成・確認
+## 禁止事項
 
-- **GitHub CLI (`gh`) を使う**
-- **マージ先は既定で `main`**: `gh pr create --base main`（`--fill` / `--title` / `--body` と併用）
-- 一覧: `gh pr list`
-- 確認: `gh pr view`
-- ベース付け替え: `gh pr edit <番号> --base main`（コンフリクト時はブランチに `origin/main` を merge）
-
-詳細は `git-workflow` と `pr-creation` スキルを参照。
+- ドキュメントを更新せずにドメインモデルを変更しない
+- `AGENTS.md` に存在しないファイルへの参照を残さない
+- `CLAUDE.md` と矛盾する実装を放置しない（コードかドキュメントのどちらかを修正する）
 
 ---
 > Source: [mism-mism/tune](https://github.com/mism-mism/tune) — distributed by [TomeVault](https://tomevault.io).
