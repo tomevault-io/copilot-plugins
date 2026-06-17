@@ -1,73 +1,37 @@
 ## mint
 
-> Disciplined agentic development framework for Claude Code.
+> Structured development workflow that auto-routes coding tasks to the right execution mode — quick fixes, multi-step plans, research, shipping, or verification. Enforces quality gates (lint, types, tests), multi-stage code review, and atomic commits. Use when starting a feature, fixing a bug, refactoring code, planning implementation, shipping a release, or running quality checks.
+
 
 # mint
 
-Disciplined agentic development framework for Claude Code.
+Disciplined agentic development — fresh context per task, zero slop. Routes every coding task to the right execution mode, enforces quality gates, and manages multi-stage review pipelines.
 
-<!-- mint:start v2 -->
-## MANDATORY: Use mint for ALL Code Changes
+## Quick Start
 
-**For ANY task that modifies files in this repo, invoke the `mint` skill FIRST.**
+Invoke `mint` via the Skill tool with a task description. mint auto-detects the right mode:
 
-This is not optional. Before writing, editing, or deleting any code:
-1. Invoke `mint` with the task description
-2. mint auto-routes to the right mode (quick/plan/ship/research/verify)
-3. Follow mint's execution flow with gates and reviews
+| Mode | When | What it does |
+|------|------|-------------|
+| quick | Task touches ≤3 files, scope obvious | Direct implementation with quality gates |
+| plan | Multi-file changes, ambiguous scope | Decomposes into specs, implements in phases |
+| ship | Multiple features, "build all" | Parallel spec execution with coordinated review |
+| research | "How to", "compare", investigation | Structured research with documented findings |
+| verify | "Check gates", "audit" | Runs lint, types, tests and reports status |
 
-The only exceptions:
-- Pure conversation / answering questions
-- Reading files to understand context (no modifications)
+## Routing Logic
 
-**NEVER use Claude Code's built-in plan mode (EnterPlanMode/ExitPlanMode).** mint has its own planning flow.
-<!-- mint:end -->
+The full orchestrator at `skills/mint/SKILL.md` evaluates signals in order — first match wins. Override with "just quick-fix it" or "plan this out" to force a mode.
 
-## Commands
+## What mint Enforces
 
-- Test: `bun test`
-- Lint/Types: checked by mint gates via `.mint/config.json`
-- Version bump: `./scripts/bump.sh [major|minor|patch]` — updates all version locations, does not commit
+- **Quality gates** — lint + types + tests before every commit
+- **Multi-stage review** — spec review, then parallel audit (quality, security, conventions, tests)
+- **Atomic commits** — one commit per logical change, never push (human reviews and pushes)
+- **Context protection** — heavy work delegated to subagents, main context stays clean
 
-## Code Style
-
-- No AI attribution — never add `Co-Authored-By` or mention AI tools in commits
-- Commits: `type(scope): description` — see `docs/conventions.md:66-72` for types
-- Branches: `feat/<name>` or `fix/<name>` off main. Squash merge via PR
-- Never push from agents — commit only, human reviews and pushes
-
-## Architecture
-
-- `skills/mint/SKILL.md` — thin router (~125 lines), loads mode/phase files on demand
-- `skills/mint/modes/` — one file per execution mode (quick, plan, ship, etc.)
-- `skills/mint/phases/` — one file per pipeline step (implement, review, docs, etc.)
-- `skills/mint/reference/` — detailed docs loaded only when needed
-- `.mint/skills/` — auto-generated project-specific skills from adaptive automation
-- `agents/*.md` — one agent per job, max 200 lines each
-- CLI uses bun + @clack/prompts. See `cli/` and `cli/lib/`
-- Reviewers use three severities: BLOCKING, WARNING, INFO
-- See `standards/agent-prompts.md` for how to write agent prompts
-- See `standards/claude-md.md` for how to write CLAUDE.md files
-
-## Key Docs
-
-- `docs/architecture.md` — system design, philosophy, isolation rules
-- `docs/conventions.md` — file formats, naming, config schema, git strategy
-- `templates/spec.xml` — XML spec schema every task gets
-- `.mint/config.json` — project config (gates, reviewers, browser, design, plugins)
-- `.mint/hard-blocks.md` — immutable constraints agents can never violate
-- `.mint/research/adaptive-automation.md` — adaptive automation design
-
-## Gotchas
-
-- Design plans go in `docs/plans/` (gitignored) — don't commit them
-- `.mint/sessions/` files are gitignored — per-session state, not shared
-- All learning logs (issues, wins, instincts) are JSONL with confidence scoring — use `upsertInstinct()`, never raw append
-- The old 1900-line SKILL.md is gone — router + modes + phases + references
-- `.mint/skills/` is gitignored — generated skills are personal, promote to `.claude/skills/` to share
-- When user mentions automating a workflow, check `.mint/skills/` for generated skills and `.mint/workflow-candidates.jsonl` for detected patterns
-- No superpowers plugin — mint is the orchestration framework, don't layer another on top
+For the auto-trigger rule (invoke mint before any file modification), see `skills/using-mint/SKILL.md`.
 
 ---
 > Source: [3li7alaki/mint](https://github.com/3li7alaki/mint) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
