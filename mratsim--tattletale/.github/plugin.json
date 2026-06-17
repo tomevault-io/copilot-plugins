@@ -1,0 +1,9 @@
+{
+  "name": "mratsim--tattletale",
+  "displayName": "tattletale",
+  "description": "Stealth LLM inference engine",
+  "version": "1.0.0",
+  "author": "mratsim",
+  "homepage": "https://github.com/mratsim/tattletale",
+  "skills": []
+}
