@@ -1,0 +1,9 @@
+{
+  "name": "esphome--device-builder-frontend",
+  "displayName": "device-builder-frontend",
+  "description": "Frontend for the ESPHome Device Builder",
+  "version": "1.0.0",
+  "author": "esphome",
+  "homepage": "https://github.com/esphome/device-builder-frontend",
+  "skills": []
+}
