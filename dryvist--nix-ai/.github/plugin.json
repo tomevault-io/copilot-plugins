@@ -1,0 +1,9 @@
+{
+  "name": "dryvist--nix-ai",
+  "displayName": "nix-ai",
+  "description": "Your AI coding toolkit, declared in Nix \u2014 Claude, Gemini, Copilot, 15+ MCP servers, one flake",
+  "version": "1.0.0",
+  "author": "dryvist",
+  "homepage": "https://github.com/dryvist/nix-ai",
+  "skills": []
+}
