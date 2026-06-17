@@ -1,0 +1,9 @@
+{
+  "name": "restarter--lets-workflow",
+  "displayName": "lets-workflow",
+  "description": "A Claude Code plugin for a structured dev workflow \u2014 14 expert agents, code review, planning, and task tracking, all from the terminal.",
+  "version": "1.0.0",
+  "author": "restarter",
+  "homepage": "https://github.com/restarter/lets-workflow",
+  "skills": []
+}
