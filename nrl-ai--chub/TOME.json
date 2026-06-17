@@ -4,7 +4,7 @@
   "repo": "chub",
   "description": "Agent-agnostic context, tracking, and cost analytics for AI-assisted development. Curated docs \u00b7 Session tracking \u00b7 Cost analytics \u00b7 Team knowledge \u2014 all git-native",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nrl-ai/chub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T18:37:44Z"
+  "distributed_at": "2026-06-17T02:53:10Z"
 }
