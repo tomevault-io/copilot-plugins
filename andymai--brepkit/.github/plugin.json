@@ -1,0 +1,9 @@
+{
+  "name": "andymai--brepkit",
+  "displayName": "brepkit",
+  "description": "B-Rep modeling engine for brepjs \u2014 pure Rust, compiled to WebAssembly",
+  "version": "1.0.0",
+  "author": "andymai",
+  "homepage": "https://github.com/andymai/brepkit",
+  "skills": []
+}
