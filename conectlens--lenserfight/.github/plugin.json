@@ -1,0 +1,14 @@
+{
+  "name": "conectlens--lenserfight",
+  "displayName": "lenserfight",
+  "description": "Prompts with Parameters, Workflows, AI Agents, Forum and Battles",
+  "version": "1.0.0",
+  "author": "conectlens",
+  "homepage": "https://github.com/conectlens/lenserfight",
+  "skills": [
+    {
+      "name": "react-native-performance-reviewer",
+      "description": ""
+    }
+  ]
+}
