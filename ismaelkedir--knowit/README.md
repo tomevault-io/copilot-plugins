@@ -7,11 +7,11 @@ One memory layer across ai tasks, conversations, and agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ismaelkedir/knowit](https://github.com/ismaelkedir/knowit).
+Original source: `CLAUDE.md` in [ismaelkedir/knowit](https://github.com/ismaelkedir/knowit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
