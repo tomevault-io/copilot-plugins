@@ -1,0 +1,34 @@
+{
+  "name": "gaebalai--claude-code-orchestrator",
+  "displayName": "claude-code-orchestrator",
+  "description": "Multi-Agent AI Development Environment",
+  "version": "1.0.0",
+  "author": "gaebalai",
+  "homepage": "https://github.com/gaebalai/claude-code-orchestrator",
+  "skills": [
+    {
+      "name": "checkpointing",
+      "description": ""
+    },
+    {
+      "name": "codex-system",
+      "description": ""
+    },
+    {
+      "name": "context-loader",
+      "description": ""
+    },
+    {
+      "name": "context-loader",
+      "description": ""
+    },
+    {
+      "name": "startproject",
+      "description": ""
+    },
+    {
+      "name": "update-design",
+      "description": ""
+    }
+  ]
+}
