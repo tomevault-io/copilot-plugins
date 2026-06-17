@@ -1,0 +1,9 @@
+{
+  "name": "eyevinn--hi264",
+  "displayName": "hi264",
+  "description": "Pure Go H.264/AVC decoder and bitstream generator",
+  "version": "1.0.0",
+  "author": "Eyevinn",
+  "homepage": "https://github.com/Eyevinn/hi264",
+  "skills": []
+}
