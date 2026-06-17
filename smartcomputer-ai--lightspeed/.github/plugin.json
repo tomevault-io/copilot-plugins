@@ -1,0 +1,9 @@
+{
+  "name": "smartcomputer-ai--lightspeed",
+  "displayName": "lightspeed",
+  "description": "Deterministic agent harness for Temporal (in Rust)",
+  "version": "1.0.0",
+  "author": "smartcomputer-ai",
+  "homepage": "https://github.com/smartcomputer-ai/lightspeed",
+  "skills": []
+}
