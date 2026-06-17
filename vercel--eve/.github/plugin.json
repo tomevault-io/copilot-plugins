@@ -1,0 +1,9 @@
+{
+  "name": "vercel--eve",
+  "displayName": "eve",
+  "description": "The Framework for Building Agents",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/eve",
+  "skills": []
+}
