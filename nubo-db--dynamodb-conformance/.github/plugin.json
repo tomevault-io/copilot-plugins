@@ -1,0 +1,9 @@
+{
+  "name": "nubo-db--dynamodb-conformance",
+  "displayName": "dynamodb-conformance",
+  "description": "Independent conformance suite for DynamoDB-compatible endpoints. 699 tests validated against real DynamoDB.",
+  "version": "1.0.0",
+  "author": "nubo-db",
+  "homepage": "https://github.com/nubo-db/dynamodb-conformance",
+  "skills": []
+}
