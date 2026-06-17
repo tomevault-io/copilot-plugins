@@ -1,0 +1,9 @@
+{
+  "name": "microsoft-foundry--forgebook",
+  "displayName": "forgebook",
+  "description": "Recipes for AI alchemists forging with Microsoft Foundry",
+  "version": "1.0.0",
+  "author": "microsoft-foundry",
+  "homepage": "https://github.com/microsoft-foundry/forgebook",
+  "skills": []
+}
