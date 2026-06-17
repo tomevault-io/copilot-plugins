@@ -1,0 +1,9 @@
+{
+  "name": "gregbarbosa--fm-proxy",
+  "displayName": "fm-proxy",
+  "description": "OpenAI-compatible API proxy for Apple Foundation Models (fm CLI) on macOS 27",
+  "version": "1.0.0",
+  "author": "gregbarbosa",
+  "homepage": "https://github.com/gregbarbosa/fm-proxy",
+  "skills": []
+}
