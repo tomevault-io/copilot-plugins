@@ -1,0 +1,9 @@
+{
+  "name": "amingclawdev--aming-claw",
+  "displayName": "aming-claw",
+  "description": "Shared workspace for AI agents and human developers. See, audit, and review every change AI makes to your codebase. Multi-language graph (Python/TypeScript), MCP-native, local-first.",
+  "version": "1.0.0",
+  "author": "amingclawdev",
+  "homepage": "https://github.com/amingclawdev/aming-claw",
+  "skills": []
+}
