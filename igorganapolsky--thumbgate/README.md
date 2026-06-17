@@ -2,15 +2,14 @@
 
 > Sourced from [IgorGanapolsky/ThumbGate](https://github.com/IgorGanapolsky/ThumbGate) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-Agent governance for ThumbGate: 👍/👎 become Pre-Action Checks that block repeat mistakes before code, money, or customer systems change.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [IgorGanapolsky/ThumbGate](https://github.com/IgorGanapolsky/ThumbGate).
+Original source: `` in [IgorGanapolsky/ThumbGate](https://github.com/IgorGanapolsky/ThumbGate).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
