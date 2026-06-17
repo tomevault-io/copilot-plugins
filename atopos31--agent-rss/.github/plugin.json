@@ -1,0 +1,9 @@
+{
+  "name": "atopos31--agent-rss",
+  "displayName": "agent-rss",
+  "description": "CLI RSS tool for AI agents. Subscribe to feeds, fetch RSS/Atom content, and filter by time or keywords.",
+  "version": "1.0.0",
+  "author": "atopos31",
+  "homepage": "https://github.com/atopos31/agent-rss",
+  "skills": []
+}
