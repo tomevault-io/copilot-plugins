@@ -2,9 +2,9 @@
   "name": "acp-adapter",
   "owner": "beyond5959",
   "repo": "acp-adapter",
-  "description": "",
+  "description": "Bridging Codex , Claude Code and Pi to Agent Client Protocol (ACP) with Go.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/beyond5959/acp-adapter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:46:27Z"
+  "distributed_at": "2026-06-17T04:35:12Z"
 }
