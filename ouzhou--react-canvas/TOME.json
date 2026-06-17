@@ -4,7 +4,7 @@
   "repo": "react-canvas",
   "description": "Render React components directly to a <canvas>.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ouzhou/react-canvas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T10:55:22Z"
+  "distributed_at": "2026-06-17T20:57:46Z"
 }
