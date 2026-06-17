@@ -1,0 +1,51 @@
+## llm-cli-gateway
+
+> You are working on the llm-cli-gateway MCP server.
+
+You are working on the llm-cli-gateway MCP server.
+
+CRITICAL: Before making ANY changes to this codebase:
+1. Read docs/guides/BEST_PRACTICES.md
+2. Follow ALL conventions outlined in docs/guides/BEST_PRACTICES.md
+
+Key Rules:
+- Tool names MUST use snake_case (e.g., claude_request, not claudeRequest)
+- Error messages MUST be actionable, not just "not found"
+- Logging MUST go to stderr, never stdout (MCP protocol uses stdout)
+- All exported functions MUST have TypeScript return types
+- Session state MUST be minimal - only IDs and metadata
+- Circuit breaker state MUST be respected in retry logic
+- Tests MUST be added for any new functionality
+- DRY principle - no duplicate constants or logic
+
+When adding new tools:
+1. Use Zod for input validation
+2. Provide clear descriptions (20+ chars with action words)
+3. Return structured error responses via createErrorResponse()
+4. Add unit AND integration tests
+5. Update docs/guides/BEST_PRACTICES.md if introducing new patterns
+
+When adding retry/resilience logic:
+1. Always add jitter to exponential backoff
+2. Ensure operations are idempotent
+3. Use appropriate circuit breaker
+4. Log retry attempts with context
+
+Test Requirements:
+- Minimum 80% coverage
+- Both unit tests (isolation) and integration tests (real calls)
+- Follow AAA pattern (Arrange, Act, Assert)
+
+Self-Check Before Finalizing Changes:
+□ All tool names use snake_case
+□ Error messages are actionable and context-aware
+□ No console.log (use logger.info/error/debug)
+□ All exported functions have return type annotations
+□ Tests added for new functionality
+□ TypeScript compiles: npm run build
+□ All tests pass: npm test
+□ No duplicate code or constants
+
+---
+> Source: [verivus-oss/llm-cli-gateway](https://github.com/verivus-oss/llm-cli-gateway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
