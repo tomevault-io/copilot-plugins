@@ -4,7 +4,7 @@
   "repo": "-Legacy-ai-session-governance",
   "description": "[Legacy] Harness engineering for AI session continuity \u2014 cross-tool handoff governance for Codex, Claude Code, and Gemini CLI. PLAN\u2192READ\u2192CHANGE\u2192QC\u2192PERSIST workflow with anti-drift guardrails.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prompt-templates/-Legacy-ai-session-governance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T20:35:11Z"
+  "distributed_at": "2026-06-17T03:10:34Z"
 }
