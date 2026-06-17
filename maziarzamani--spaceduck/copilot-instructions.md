@@ -1,87 +1,113 @@
-## git-workflow
+## spaceduck
 
-> Git workflow and commit conventions for spaceduck
+> This file tells AI coding agents (Cursor, Claude, Codex, Copilot, etc.) how to work in this codebase. Read it before making changes.
 
+# Agent Instructions
 
-# Git Conventions
+This file tells AI coding agents (Cursor, Claude, Codex, Copilot, etc.) how to work in this codebase. Read it before making changes.
 
-## Commit Messages
+## Runtime
 
-Use conventional commits. Format: `type(scope): description`
+- **Bun** is the only supported runtime. Do not use Node.js APIs that Bun does not support.
+- TypeScript everywhere. No plain `.js` files in `packages/`.
+- `bun:sqlite` for all SQLite access. Do not use `better-sqlite3` or `node:sqlite`.
 
-Types:
-- `feat` — new feature or capability
-- `fix` — bug fix
-- `refactor` — code restructuring without behavior change
-- `test` — adding or updating tests
-- `docs` — documentation only
-- `chore` — tooling, deps, CI, config changes
-- `perf` — performance improvement
+## Essential commands
 
-Scope is the package name without `@spaceduck/` prefix: `core`, `gateway`, `memory-sqlite`, `provider-gemini`, `channel-web`.
+```bash
+bun install                    # install all workspace deps
+bun run dev                    # start gateway with hot reload
+bun run build                  # production build → dist/index.js
+bun run typecheck              # tsc --noEmit (must be clean)
+bun test --recursive           # all tests
+bun test packages/core/        # unit tests only
+bun test packages/memory/      # memory + vector tests
+bun test packages/scheduler/   # scheduler + budget tests
+bun test packages/tools/       # tool tests
+```
 
-Examples:
-- `feat(gateway): add WebSocket support with WsEnvelope protocol`
-- `fix(memory-sqlite): handle foreign key constraint on facts table`
-- `test(core): boost coverage for fact-extractor and error classes`
-- `chore: rename project from moonbot to spaceduck`
+Always run `bun run typecheck` and `bun test --recursive` after making changes. Both must pass before committing.
 
-## Author
+## Workspace layout
 
-Commits in this repo use `hi@spaceduck.ai` as the author email (set via local git config).
+```
+packages/
+├── core/          # Zero-dep contracts: types, AgentLoop, ContextBuilder, EventBus, FactExtractor
+├── config/        # Zod-based config schema, hot-apply, model pricing
+├── scheduler/     # Task scheduler, persistent queue, budget guards, task runner
+├── skills/        # Skill runtime: SKILL.md parser, security scanner, registry
+├── gateway/       # Composition root: HTTP/WS server, wires all dependencies
+├── channels/
+│   ├── web/       # React web UI + WebSocket channel
+│   └── whatsapp/  # Baileys (WhatsApp Web protocol)
+├── providers/
+│   ├── gemini/    # Google AI (chat + embeddings)
+│   ├── lmstudio/  # Local models via OpenAI-compatible API
+│   ├── openrouter/# Multi-model cloud gateway
+│   └── bedrock/   # AWS Bedrock (Claude + others)
+├── memory/
+│   └── sqlite/    # SQLite + FTS5 + sqlite-vec vector storage
+└── tools/
+    ├── browser/   # Playwright headless browser
+    └── web-fetch/ # HTTP fetch + HTML-to-text
+```
 
-## Commit Practices
+## Core contracts (do not break without a major version bump)
 
-- **Typecheck before committing.** Run `bunx tsc --noEmit` and fix all errors before staging.
-- **Run tests before committing.** All tests must pass. Run `bun test --recursive`.
-- **Small, focused commits.** Each commit should do one logical thing.
-- **Never commit secrets.** The `.env` file is gitignored. Only `.env.example` is tracked.
-- **Never commit binaries or build artifacts.** `dist/`, `node_modules/`, `*.db` are gitignored.
-- **Don't skip hooks.** Never use `--no-verify`.
+These interfaces are the public API. Implementations plug in via the gateway:
 
-## Pre-Push Checklist
+- `Provider` — chat streaming (`packages/core/src/types/provider.ts`)
+- `EmbeddingProvider` — vector embeddings (`packages/core/src/types/provider.ts`)
+- `Channel` — message in/out (`packages/core/src/types/channel.ts`)
+- `ConversationStore` — message history (`packages/core/src/types/memory.ts`)
+- `LongTermMemory` — fact storage + recall (`packages/core/src/types/memory.ts`)
+- `Result<T, E>` — error monad, used everywhere library code can fail (`packages/core/src/types/errors.ts`)
 
-Before pushing any branch or creating a PR, **always** run these in order:
+## Coding conventions
 
-1. `bunx tsc --noEmit` — must exit 0 (no type errors)
-2. `bun test --recursive` — must exit 0 (all tests pass)
+- **No `any` unless unavoidable.** When a third-party type is incomplete, use a narrowly-scoped cast, not a blanket `any`.
+- **No `@ts-ignore` or `@ts-nocheck`.** Fix the underlying type issue.
+- **Result monad for fallible operations.** Return `Result<T, E>` from library functions; do not throw from library code.
+- **No framework magic at the core.** `packages/core` has zero runtime dependencies. Keep it that way.
+- **File size.** Keep files under ~400 lines. If a file grows beyond that, split it.
+- **Tests colocated.** Test files live next to the code they test in `src/__tests__/`.
+- **Conventional commits.** All commit messages must follow `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`, `perf:` prefixes. This powers automated releases.
 
-Do NOT push code that fails either check. Fix the issues first.
+## Adding a new provider
 
-## Branch Strategy (GitHub Flow)
+1. Create `packages/providers/<name>/` with a `package.json` and `src/provider.ts`
+2. Implement the `Provider` interface (and optionally `EmbeddingProvider`)
+3. Add the package to `packages/gateway/src/gateway.ts` provider selection
+4. Add config validation in `packages/core/src/config.ts` if new env vars are needed
+5. See `packages/providers/gemini/` as a reference
 
-- `main` — stable, protected. All PRs target `main`. Never push directly.
-- Feature branches: `feat/<short-description>` (e.g., `feat/web-ui`)
-- Fix branches: `fix/<short-description>`
-- Chore branches: `chore/<short-description>`
-- Keep branches short-lived. Merge via PR.
+## Adding a new channel
 
-### Starting a task
+1. Create `packages/channels/<name>/` with a `package.json` and `src/<name>-channel.ts`
+2. Implement the `Channel` interface from `@spaceduck/core`
+3. Register it in `packages/gateway/src/gateway.ts`
+4. Add any new env vars to `.env.example` and `packages/core/src/config.ts`
+5. See `packages/channels/whatsapp/` as a reference
 
-**Always create a feature branch before making changes.** When the user asks you to implement something:
+## Adding a new tool
 
-1. `git checkout main && git pull origin main`
-2. `git checkout -b <type>/<short-description>` (e.g., `feat/config-system`, `fix/memory-leak`, `chore/update-deps`)
-3. Do the work, commit incrementally
-4. Push and tell the user to create a PR on GitHub
+1. Create `packages/tools/<name>/` with a `package.json` and `src/index.ts`
+2. Implement the tool class (see `packages/tools/browser/` for the pattern)
+3. Register it in `packages/gateway/src/tool-registrations.ts`
 
-Never commit directly to `main`. If you find yourself on `main`, create and switch to a branch first.
+## sqlite-vec on macOS
 
-## When to Commit
+On macOS, `ensureCustomSQLite()` in `packages/memory/sqlite/src/schema.ts` must be called once before any `new Database()`. This loads Homebrew's SQLite (which supports extensions) instead of Apple's system SQLite (which does not). On Linux, this is a no-op.
 
-Commit after completing a logical unit of work:
-- A milestone (M0, M1, M2, ...) or sub-milestone
-- A new feature, test suite, or bug fix
-- A rename, refactor, or config change
+The function looks for `libsqlite3.dylib` at Homebrew paths (`/opt/homebrew/opt/sqlite/lib/` for Apple Silicon, `/usr/local/opt/sqlite3/lib/` for Intel).
 
-Do NOT commit half-finished work to `main`. Use a feature branch.
+## What not to touch
 
-## Pull Requests
-
-- Title follows conventional commit format
-- Body has a `## Summary` section with 1-3 bullet points
-- Body has a `## Test plan` section
-- Reference related issues if any
+- `dist/` — generated by `bun run build`, never edit
+- `node_modules/` — managed by Bun
+- `data/whatsapp-auth/` — WhatsApp session credentials, gitignored
+- `spaceduck.db` — local database, gitignored
+- Migration files in `packages/memory/sqlite/src/migrations/` — only add new numbered migrations, never edit existing ones
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
