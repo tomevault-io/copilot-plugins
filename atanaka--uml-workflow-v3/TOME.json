@@ -1,0 +1,51 @@
+{
+  "name": "uml-workflow-v3",
+  "owner": "atanaka",
+  "repo": "uml-workflow-v3",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "security-design-v1",
+      "path": "skills/security-design-v1",
+      "github_url": "https://github.com/atanaka/uml-workflow-v3/tree/main/skills/security-design-v1",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/atanaka/uml-workflow-v3",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T08:30:30Z"
+}
