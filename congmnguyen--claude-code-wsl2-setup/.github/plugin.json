@@ -1,0 +1,9 @@
+{
+  "name": "congmnguyen--claude-code-wsl2-setup",
+  "displayName": "claude-code-wsl2-setup",
+  "description": "Fixes and config for Claude Code on WSL2 + Windows Terminal \u2014 image paste, notifications, Shift+Enter, browser, LSP, voice, and MCP setup.",
+  "version": "1.0.0",
+  "author": "congmnguyen",
+  "homepage": "https://github.com/congmnguyen/claude-code-wsl2-setup",
+  "skills": []
+}
