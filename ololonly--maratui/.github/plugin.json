@@ -1,0 +1,14 @@
+{
+  "name": "ololonly--maratui",
+  "displayName": "maratui",
+  "description": "Rust TUI for the Lelit Mara espresso machine \u2014 runs on ESP32, streams telemetry to MQTT, built with Ratatui",
+  "version": "1.0.0",
+  "author": "ololonly",
+  "homepage": "https://github.com/ololonly/maratui",
+  "skills": [
+    {
+      "name": "rust-best-practices",
+      "description": ""
+    }
+  ]
+}
