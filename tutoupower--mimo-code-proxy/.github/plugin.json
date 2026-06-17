@@ -1,0 +1,9 @@
+{
+  "name": "tutoupower--mimo-code-proxy",
+  "displayName": "mimo-code-proxy",
+  "description": "MiMo free channel \u2192 OpenAI/Anthropic compatible API with round-robin load balancing across multiple proxy backends. Each backend has its own fingerprint and JWT. Python stdlib only.",
+  "version": "1.0.0",
+  "author": "TuTouPower",
+  "homepage": "https://github.com/TuTouPower/mimo-code-proxy",
+  "skills": []
+}
