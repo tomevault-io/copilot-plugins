@@ -1,46 +1,50 @@
-## project-overview
+## project-structure
 
-> spaceduck project overview and architecture
+> Spaceduck monorepo package structure and coding conventions
 
 
-# spaceduck
+# Project Structure
 
-A modular, open-source AI chat assistant built with Bun. Monorepo with workspace packages.
+Spaceduck is a Bun monorepo with workspace packages under `packages/`.
 
-Always spell spaceduck with lowercase.
+## Package Layout
 
-Never add "Made with Cursor" anywhere.
+Every package follows the same structure:
 
-## Architecture
+```
+packages/<category>/<name>/
+  package.json
+  src/
+    index.ts          -- barrel re-export (public API)
+    <name>.ts         -- main implementation
+    types.ts          -- type definitions (if needed)
+    __tests__/
+      <name>.test.ts  -- bun:test suite
+```
 
-- `@spaceduck/core` — zero-dependency contract package (types, interfaces, agent loop, context builder, events, middleware)
-- `@spaceduck/gateway` — composition root that wires everything together, lifecycle orchestration
-- `@spaceduck/config` — Zod-based config schema, hot-apply, model pricing
-- `@spaceduck/scheduler` — task scheduler, persistent queue, budget guards (per-task + global), task runner
-- `@spaceduck/skills` — skill runtime: SKILL.md parser, security scanner, registry with cascading memory purge
-- `@spaceduck/ui` — shared React components, hooks, and styles (used by web + desktop)
-- `@spaceduck/web` — web deployment entry point (served by gateway via Bun HTML import)
-- `@spaceduck/desktop` — Tauri v2 desktop app (embeds UI + Bun gateway sidecar)
-- `@spaceduck/provider-gemini` — Google AI Studio (Gemini) streaming adapter (primary)
-- `@spaceduck/provider-bedrock` — AWS Bedrock Converse API streaming adapter (secondary)
-- `@spaceduck/memory-sqlite` — SQLite storage via Bun.SQL (ConversationStore + LongTermMemory)
+## Workspace Categories
 
-## Key principles
+| Path pattern            | Purpose                      | Naming                     |
+|-------------------------|------------------------------|----------------------------|
+| `packages/core`         | Zero-dep contracts + logic   | `@spaceduck/core`          |
+| `packages/config`       | Zod config schema, hot-apply | `@spaceduck/config`        |
+| `packages/scheduler`    | Task scheduler + budget      | `@spaceduck/scheduler`     |
+| `packages/skills`       | Skill runtime + scanner      | `@spaceduck/skills`        |
+| `packages/providers/*`  | LLM provider adapters        | `@spaceduck/provider-*`    |
+| `packages/memory/*`     | Storage backends             | `@spaceduck/memory-*`      |
+| `packages/channels/*`   | Messaging channels           | `@spaceduck/channel-*`     |
+| `packages/tools/*`      | Agent tools                  | `@spaceduck/tool-*`        |
+| `packages/gateway`      | HTTP/WS server (composition) | `@spaceduck/gateway`       |
 
-- Core has ZERO external dependencies. All other packages depend only on core.
-- Gateway is the composition root — it creates instances and wires dependencies.
-- Dependency inversion everywhere: code against interfaces, not implementations.
-- Use `Result<T, E>` for expected failures, exceptions for bugs.
-- Every resource-owning component implements `Lifecycle` (start/stop, idempotent).
-- Structured logging via `Logger` interface — no `console.log` in library code.
-- EventBus for cross-cutting concerns (fact extraction, analytics, logging).
-- Middleware pipeline for pre/post-processing (rate limiting, filtering, audit).
+Root `package.json` uses glob patterns: `"packages/tools/*"`, `"packages/providers/*"`, etc.
 
 ## Conventions
 
-- Use Bun-native APIs wherever possible (Bun.serve, Bun.SQL, bun:test, Bun.env).
-- TypeScript strict mode. No `any`. Explicit return types on public APIs.
-- Exports from each package go through `src/index.ts`.
+- **Barrel exports**: every package has `src/index.ts` re-exporting its public API
+- **Error handling**: use `Result<T>` from `@spaceduck/core` -- no throwing in library code
+- **Tests**: colocated in `src/__tests__/` using `bun:test` (`describe`/`it`/`expect`)
+- **Types**: prefer `interface` over `type` for object shapes; export types from dedicated `types.ts`
+- **Imports**: use workspace references (`@spaceduck/core`) not relative paths across packages
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
