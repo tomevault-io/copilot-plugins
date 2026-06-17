@@ -1,0 +1,9 @@
+{
+  "name": "joelee--homebrew-oss",
+  "displayName": "homebrew-oss",
+  "description": "Homebrew tap repo for my projects",
+  "version": "1.0.0",
+  "author": "joelee",
+  "homepage": "https://github.com/joelee/homebrew-oss",
+  "skills": []
+}
