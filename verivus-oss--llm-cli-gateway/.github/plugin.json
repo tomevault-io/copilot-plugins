@@ -1,0 +1,9 @@
+{
+  "name": "verivus-oss--llm-cli-gateway",
+  "displayName": "llm-cli-gateway",
+  "description": "MCP server providing unified access to Claude Code, Codex, Gemini, Grok and Mistral CLIs with session management, retry logic, and async job orchestration.",
+  "version": "1.0.0",
+  "author": "verivus-oss",
+  "homepage": "https://github.com/verivus-oss/llm-cli-gateway",
+  "skills": []
+}
