@@ -1,0 +1,9 @@
+{
+  "name": "iblai--os",
+  "displayName": "os",
+  "description": "Enables organizations to create and deploy customizable AI agents with support for multiple LLM providers, real-time chat, voice, document training, analytics, user management, SSO authentication, and",
+  "version": "1.0.0",
+  "author": "iblai",
+  "homepage": "https://github.com/iblai/os",
+  "skills": []
+}
