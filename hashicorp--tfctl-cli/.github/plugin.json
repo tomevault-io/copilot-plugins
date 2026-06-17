@@ -1,0 +1,9 @@
+{
+  "name": "hashicorp--tfctl-cli",
+  "displayName": "tfctl-cli",
+  "description": "Manage HCP Terraform and Terraform Enterprise from the command line.",
+  "version": "1.0.0",
+  "author": "hashicorp",
+  "homepage": "https://github.com/hashicorp/tfctl-cli",
+  "skills": []
+}
