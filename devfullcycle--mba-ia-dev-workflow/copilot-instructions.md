@@ -1,50 +1,54 @@
-## testing
+## typeorm
 
-> Use when writing or reviewing tests. Covers test structure (AAA pattern), unit/integration/e2e placement, database cleanup, and test data setup.
+> Use when writing TypeORM entities, database configuration, or data source setup. Covers entity patterns with dual identifiers, soft delete, and Data Mapper.
 
 
-## General
+# TypeORM Pattern
 
-- Run only related tests during development; run the full suite before finishing
-- All test commands run inside the container: `docker compose exec api npm run test:watch` or `docker compose exec api npx vitest run src/path/to/file.test.ts`
+## Rules
 
-## Test Data
+1. **Dual identifier**: every entity has an auto-incremented `id` (integer, primary key, internal only) and a `uuid` (v4, unique, exposed to the external world). Never expose `id` in API responses — always use `uuid`
+2. **Table naming**: lowercase, plural, snake_case (e.g., `users`, `course_prerequisites`, `quiz_attempts`)
+3. **Synchronize**: `synchronize: true` in development, `synchronize: false` in production
+4. **Soft delete only**: use `deletedAt` column with TypeORM's `@DeleteDateColumn()` — never hard delete (RN-022)
+5. **Data Mapper pattern**: entities are plain data holders, repositories handle persistence — no Active Record
 
-- Use factories or builders to create test data objects
-- Avoid hardcoding values in tests; use variables or helper functions to generate test data
-- Use realistic data that reflects actual use cases to catch edge cases and ensure test reliability
-- Clean up test data after each test to maintain isolation and prevent side effects
+## Entity example
 
-## Test Structure
+```typescript
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 
-- Follow the Arrange-Act-Assert (AAA) pattern in test cases:
-  - **Arrange:** Set up the necessary preconditions and inputs
-  - **Act:** Execute the code being tested
-  - **Assert:** Verify that the outcome is as expected
-- Use descriptive test names that clearly indicate the expected behavior being tested
-- Group related tests together using `describe()` blocks for better organization and readability
-- Avoid testing multiple behaviors in a single test case; each test should focus on one specific aspect
-- Use `beforeAll` and `afterAll` for setup and teardown that applies to all tests in a suite, and `beforeEach` and `afterEach` for setup and teardown that applies to individual tests
+@Entity('users')
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-## Unit Tests (`*.test.ts`, `*.spec.ts`)
+  @PrimaryGeneratedColumn('uuid')
+  uuid: string;
 
-- Place next to the source file in `<module>/__tests__/unit/`
-- Mock repository port interfaces with `vi.fn()` — never mock configured libs (JWT, argon2)
-- `describe('ClassName')` with descriptive `it('should ...')` blocks
+  @Column({ length: 100 })
+  name: string;
 
-## Integration Tests (`*.integration.test.ts`)
+  @Column({ unique: true })
+  email: string;
 
-- Place in `<module>/__tests__/integration/`
-- Use real PostgreSQL — connect to the Docker `db` service with a test database
-- Clean tables with `dataSource.query('TRUNCATE TABLE ... RESTART IDENTITY CASCADE')` in `afterEach`
-- Always `await dataSource.destroy()` in `afterAll` to close connections
+  @CreateDateColumn()
+  createdAt: Date;
 
-## E2E Tests (`*.e2e.test.ts`)
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-- Place in `<module>/__tests__/e2e/`
-- Use `supertest` against the Express `app` instance (not the listening server)
-- Test complete request/response cycles: status codes, response shape, error cases
-- Test authentication and authorization flows (valid token, invalid token, missing token, wrong role)
+  @DeleteDateColumn()
+  deletedAt: Date | null;
+}
+```
 
 ---
 > Source: [devfullcycle/mba-ia-dev-workflow](https://github.com/devfullcycle/mba-ia-dev-workflow) — distributed by [TomeVault](https://tomevault.io).
