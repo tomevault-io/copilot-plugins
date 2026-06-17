@@ -1,0 +1,9 @@
+{
+  "name": "ethanplusai--harvey",
+  "displayName": "harvey",
+  "description": "Autonomous AI sales agent powered by Claude Code. Finds prospects, writes cold emails, sends campaigns, handles replies, books meetings. No API keys needed \u2014 runs on your Claude Max subscription.",
+  "version": "1.0.0",
+  "author": "ethanplusai",
+  "homepage": "https://github.com/ethanplusai/harvey",
+  "skills": []
+}
