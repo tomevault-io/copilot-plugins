@@ -7,11 +7,11 @@ iOS reader app for EPUB, PDF, TXT, and Markdown — with AI assistant, annotatio
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lllyys/vreader](https://github.com/lllyys/vreader).
+Original source: `CLAUDE.md` in [lllyys/vreader](https://github.com/lllyys/vreader).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
