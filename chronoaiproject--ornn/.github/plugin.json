@@ -1,0 +1,9 @@
+{
+  "name": "chronoaiproject--ornn",
+  "displayName": "Ornn",
+  "description": "Your all-in-one skills-as-a-service platform to manage your skills, auto-generate skills and use agent skills as simple as calling an API.",
+  "version": "1.0.0",
+  "author": "ChronoAIProject",
+  "homepage": "https://github.com/ChronoAIProject/Ornn",
+  "skills": []
+}
