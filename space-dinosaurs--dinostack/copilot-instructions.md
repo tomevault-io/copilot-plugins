@@ -1,202 +1,108 @@
-## conventions
+## module-manifest
 
-> Writing style, project structure conventions, session context and memory handling, and git workflow including protected branches and worktree-per-feature.
+> Module manifest conventions: how to declare, register, and document modules so the codebase stays navigable and agents can discover interfaces without reading full implementations.
 
 
-## Writing Style
+# Module Manifests
 
-Never use em dashes (--). Use a regular hyphen (-) instead in all generated text, copy, comments, documentation, and commit messages.
+## What it is
 
-## Project Structure Convention
+A module manifest is a short header block at the top of a non-trivial source file. It lives in the code itself so that comprehension travels with the code — not in Architect plans that get discarded after merge, not in wikis that drift, not in PR descriptions nobody reads six months later. This is the self-describing layer of the system: a reader should be able to open a file and immediately understand what it does, what it depends on, and what breaks if it misbehaves.
 
-`AGENTS.md` is the canonical project-instructions file across Claude Code, Codex, Cursor, and other tools. Claude Code reads it via a one-line `CLAUDE.md` containing `@AGENTS.md`. Always structure projects with a lean root `AGENTS.md` and deeper context in subdirectory `AGENTS.md` files co-located with the code they describe.
+## When required
 
-- **Root `AGENTS.md`** - one-paragraph summary, resolved architecture decisions, cross-cutting conventions, repo structure map. Keep it under ~40 lines. This limit applies to project root AGENTS.md files. The global `~/.claude/CLAUDE.md` is exempt.
-- **Subdirectory `AGENTS.md`** (e.g. `backend/AGENTS.md`, `contracts/AGENTS.md`) - loaded only when working in that directory. Can be as detailed as needed without polluting other contexts.
-- **`.claude/settings.json`** - project-scoped MCP servers and shared config (safe to commit).
-- **`.claude/settings.local.json`** - secrets and local env values (always gitignored).
+**Required** for any source file that meets one or more of these criteria:
 
-When starting a new project, run `/init-project` to scaffold this structure automatically.
+- Exports a public symbol (function, class, type, constant) consumed by another module
+- Over ~50 lines of non-trivial logic
+- Implements a side-effecting operation: network call, disk I/O, database access, external service interaction, or any operation that cannot be safely retried without thought
 
-## Session Context and Memory
+**Exempt:**
 
-**Session startup:** Read `.agentic/context.md` as the first action of every session - standalone, never in parallel with other tool calls.
+- Test files and test fixtures
+- Generated files (migration outputs, protobuf outputs, GraphQL codegen, etc.)
+- One-off scripts not imported by anything else
+- Trivial pure utility files (thin wrappers, simple formatters, constants-only files)
 
-**Meta-divergence sweep at session start.** After reading `.agentic/context.md`, the conductor sweeps `.agentic/events.jsonl` for `meta_review_complete` events whose `original_task_id` is not present in `.agentic/.meta-divergence-surfaced`. For each such event with non-empty `data.divergence.critical_missed` or `data.divergence.major_missed`, emit at the next user-facing turn boundary:
+**Modified files:** a manifest must be updated when changes meaningfully alter purpose, public API, upstream dependencies, or failure/retry semantics. A manifest that no longer reflects the file is worse than no manifest — it is active misinformation.
 
-```
-META-DIVERGENCE: meta-Skeptic identified [Critical|Major] '<finding-title>' that original Skeptic missed on <task_id>. Original sign-off stands; review recommended before merging.
-[phase: meta-divergence-critical]
-```
+## Required fields
 
-Then append `original_task_id` to the tracker file. The sweep is a standalone scan - not parallel with other startup tool calls. Tracker file format is one `original_task_id` per line, append-only, gitignored under the `.agentic/` umbrella. File-absent equals empty set. This catches divergences whose meta-Skeptic completed asynchronously after the originating session ended.
+Every manifest must cover these six fields. Omit a field only if it genuinely does not apply (e.g., "Performance: standard" is acceptable shorthand; leaving a failure modes field blank is not):
 
-**Pagination (vicious loop defense):** The sweep MUST NOT read the full `.agentic/events.jsonl` on every boot. It reads only events with `ts` strictly greater than the timestamp stored in `.agentic/.meta-divergence-last-sweep` (ISO8601 UTC, single line, file-absent = first run). On first run (no tracker file), the scan is capped to the most recent 100 lines of the events file. After the sweep completes, the conductor writes the current ISO8601 UTC timestamp to the tracker file (atomic: tmp + `mv`). This prevents the vicious loop where growing telemetry consumes ever more context on every session start. See `content/references/skeptic-protocol.md` Section 14 "Session-start sweep pagination" for the full procedure.
+| Field | What to say |
+|---|---|
+| **Purpose** | One sentence. What this module does and why it exists. |
+| **Public API** | The exports or entry points a caller should use. Not an exhaustive type dump — the canonical surface. |
+| **Upstream dependencies** | What this module imports, calls, or consumes that it does not own. External libraries, internal modules, environment variables, config values. |
+| **Downstream consumers** | Who uses this module. Best-effort: list known callers. "Unknown at creation" is acceptable for new modules; update it when consumers are identified. |
+| **Failure modes** | How this module fails, and what the caller needs to know about retrying or recovering. Idempotency guarantees or lack thereof. |
+| **Performance** | Expected latency, throughput, or memory profile if non-obvious. Omit or write "standard" if there is nothing a caller needs to know. |
 
-**Session context** is auto-written by the Stop hook to `.agentic/context.md` after every agent turn. (Legacy fallback: `~/.claude/projects/[hash]/context.md` - used only when `.agentic/context.md` does not exist.) `/wrap` is available for richer on-demand summarization. Update `MEMORY.md` (root `<cwd>/MEMORY.md`) at the end of any session where stable facts were learned. Close the session cleanly so the Stop hook can finish writing `context.md`: in the terminal CLI, use `/exit` rather than ctrl+c; in the desktop or web app, just close the window or tab normally rather than force-quitting.
+## Format
 
-**Knowledge-file routing (three distinct stores):**
-- `<cwd>/MEMORY.md` - canonical durable facts; committed; auto-injected by Claude Code; written by `/wrap`, wrap-ticket, `/memory-update`.
-- `.agentic/memory.md` - `/wrap`-internal rolling scratch only; gitignored; NOT auto-injected; NOT the same as root `MEMORY.md`.
-- `.agentic/learnings.md` - structured fix-pattern learnings; committed; written by `learning-extractor` (mechanically) and `learnings-agent` (discretionary).
+Use the idiomatic comment or docstring syntax for the language. Do not invent a schema or force a rigid structure — the fields are required, the exact syntax is per-language.
 
-**Per-developer session log:** `.agentic/session-log/<developer_id>.jsonl` - per-developer session rollup written by the Stop hook. Committed to git via the `.agentic/session-log/` carve-out in `.gitignore` when `commit_telemetry: true` (default) and identity is confirmed; the commit happens at `/implement-ticket` Phase 8 as a SEPARATE commit on the PR branch. Teammates receive it on pull after squash merge. See `content/references/events-log.md` "Per-developer session log". Aggregated via `agentic-cost team`.
+**TypeScript / JavaScript:**
 
-**Identity setup - auto-derive + confirm-once.** Run `agentic-identity auto` once to derive a provisional handle from your GitHub login (`gh api user`). The identity is written to `~/.agentic/identity.yml` with `provisional: true`. Manual setup remains available via `agentic-identity init <handle>`. To use a per-repo handle, pass `--scope project`: this writes `<cwd>/.agentic/identity.yml` (gitignored, covered by the existing `.agentic/*` umbrella). A confirmed project identity takes precedence over the global file for sessions in that repo. A provisional project file does NOT suppress a confirmed global - see "Scope / effective identity resolution" in the `agentic-identity` command doc.
-
-**Conductor first-user-turn provisional-confirm.** When the preflight resolves a `provisional: true` effective identity (Step 1 in `content/sections/01-activation-preflight.md` - project file checked first, then global), the conductor surfaces the following notice at its first user-facing turn - non-blocking, analogous to the meta-divergence notice:
-
-```
-IDENTITY: tracking handle '<handle>' auto-derived (provisional) - confirm or correct.
-Telemetry is buffered (not lost) until confirmed.
-  Confirm: agentic-identity confirm
-  Correct: agentic-identity init <handle> --force
-```
-
-The notice re-surfaces next session if ignored. CI/headless sessions never reach a user turn - telemetry stays buffered until a TTY session confirms. `agentic-identity confirm` strips the `provisional` flag and flushes the pending buffer into both the global and per-project session logs.
-
-**Telemetry is BUFFERED, not lost.** While identity is unconfirmed (provisional or absent), the Stop hook writes session telemetry to a pending buffer (`~/.agentic/session-log/.pending/<uuid>.json`) rather than directly to the session log. Pending sessions are flushed and attributed when `agentic-identity confirm` (or `init --force`) runs. No session is silently dropped.
-
-**TEAM dimension.** `agentic-cost team` aggregates all `.agentic/session-log/*.jsonl` files found locally. Session-logs are committed to git via the Phase 8 telemetry commit (when `commit_telemetry: true` and identity is confirmed), so `team` reflects sessions from any developer whose telemetry has landed on the current branch via pull after merge.
-
-**MEMORY.md** is auto-injected at startup by Claude Code. It stores stable facts learned about the project - architecture, key file paths, user preferences, recurring solutions. Include rationale with each entry ("chose X because Y"). Rules:
-- Before adding an entry, check if it supersedes an existing one and update it in place (adjust the date)
-- Remove entries that are no longer true
-- Do not duplicate what is already in `AGENTS.md`
-- Session-specific state (current task, next steps) belongs in `context.md`, not here
-- Entry format: `- **YYYY-MM-DD:** [what and why, in one sentence]`
-
-## The Intent Layer
-
-A project's intent is encoded across a small set of artifacts. Treat them as a coherent layer, not as unrelated files:
-
-- `docs/overview/vision.md` - product vision and purpose; operator-owned, agents read but never write
-- `docs/overview/requirements.md` - scoped functional and non-functional requirements; operator-owned, agents read but never write
-- `AGENTS.md` - project-level decisions and conventions (tool-agnostic).
-- `MEMORY.md` - stable facts learned about the project, with rationale. Canonical durable-facts store; auto-injected by Claude Code at startup. Written by `/wrap`, wrap-ticket, and `/memory-update`. Root `<cwd>/MEMORY.md` only - NOT `.agentic/memory.md` (that is `/wrap`-internal rolling scratch, gitignored).
-- `.agentic/learnings.md` - structured fix-pattern learnings from resolved Skeptic cycles; committed (not gitignored). Written by `learning-extractor` at `/implement-ticket` Phase 6 clean exit (mechanically wired) and by `learnings-agent` (conductor-discretionary).
-- `decisions.md` - the project's decision log, where used.
-- `.agentic/findings.md` - curated Skeptic-finding patterns; committed. Written by `findings-curator` at Phase 6 loop exit.
-- `.agentic/qa-regressions.md` - curated QA regression patterns; committed. Written by `qa-regressions-curator` at Phase 6b QA FAIL.
-- `qa.md` - QA triggers and project-specific quirks the QA engineer needs to know.
-- Module manifests - file-level intent embedded in the source itself (see `module-manifest.md`).
-- `glossary.md` - the project's Ubiquitous Language (see below).
-
-Together these form the project's **intent layer**. Drift in any of them is **intent debt** - the system stops reflecting what we meant to build, and downstream agents and humans drift along with the artifacts. Keep them current. A stale entry is worse than a missing one because readers trust it.
-
-### Project Overview Layer
-
-`docs/overview/vision.md` and `docs/overview/requirements.md` are operator-authored documents that capture durable product intent above the task level. When present, Architect and Investigator read them before producing output; the design or investigation must not contradict them.
-
-**What each file contains:**
-- `vision.md` - why the product exists, who it serves, what outcome it delivers (one screen, narrative form)
-- `requirements.md` - scoped functional and non-functional requirements, as bulleted statements
-
-**Rules:**
-- Operator-owned: agents read, never write or propose edits to these files
-- Optional and graceful: if `docs/overview/` does not exist or these files are absent, nothing breaks
-- Not a replacement for per-task Briefs: the Brief's "Problem" and "Constraints" fields should be consistent with these docs when present, but overview docs do not replace task-scoped planning artifacts
-
-### Project Config (`.agentic/config.json`)
-
-`.agentic/config.json` holds project-level methodology toggles the conductor reads to adjust orchestration behavior. It is **committed, not gitignored** - like `qa.md` and `deploy.md`, it is portable project intent that travels with the repo (the `.agentic/` umbrella ignore must carve it out; see `.gitignore`). It is seeded with defaults by `/init-project`. Eleven toggles:
-
-- `debugger_on_failure` - boolean, default `false`. When `true`, the Elevated-path quality gate in `/implement-ticket` Phase 7 interposes a Debugger diagnosis step before each engineer fix pass. Opt-in; the default preserves existing behavior. A Trivial-path ticket never invokes the Debugger regardless of this toggle.
-- `qa_default_skip` - reserved; documented for schema completeness; does not currently alter QA-gate behavior. **Canonical definition lives in `content/references/planning-artifacts.md` §`qa_default_skip` (canonical definition)** - this entry is a cross-reference only and does not restate the semantics.
-- `model_profile` - enum (`default` | `budget`); unrecognized values fall back to `default`. `budget` routes eligible spawns to Tier 1 to reduce cost. **Carve-out:** `budget` NEVER applies to `security-auditor` or any agent whose spec mandates Tier 3 - those require explicit `Tier: 3` regardless of the project `model_profile`.
-- `auto_merge_on_ci_green` - boolean, default `false`. When `true`, `/implement-ticket` Phase 12 squash-merges the PR after all CI checks pass, the PR is marked ready, and no reviewer has requested changes. The default `false` preserves typical team git workflow (draft -> CI -> ready -> reviewers -> human merges).
-- `capability_preflight_mode` - enum (`advisory` | `blocking`), default `blocking`. Controls what happens when the conductor finds a missing required dependency during capability preflight. `advisory` emits a warning with the install command and proceeds with the spawn. `blocking` refuses the spawn when any required dependency remains missing after auto-install. Default flipped to `blocking` at P2 now that all agent manifests are populated. See `content/references/capability-preflight.md` for the full preflight protocol.
-- `perceptual_diff_enabled` - boolean, default `false`. When `true`, qa-engineer runs Playwright `toHaveScreenshot` against committed baselines in `tests/visual-baselines/` and raises auto-Major on drift exceeding per-scenario `tolerance`. Opt-in; baseline maintenance overhead justifies the default of `false`.
-- `theme_aware` - boolean, default `false`. Opt-in for the `theme` field on `visual_conformance` and `accessibility` scenarios; when `true`, qa-engineer toggles light/dark themes and runs per-(scenario x viewport x theme) tuples. Default toggle covers CSS class (`document.documentElement.classList.toggle('dark')`) and data-attribute (`setAttribute('data-theme', 'dark')`) patterns; other patterns require a `theme` knowledge tag in `qa.md`.
-- `storybook_enabled` - boolean, default `false`. Opt-in for `story_id` field on `visual_conformance` and `accessibility` scenarios; when `true`, qa-engineer navigates to the Storybook iframe URL (`/iframe.html?id=<story_id>`) instead of the live app. Requires Storybook 7+; init-project detects the installed version and configures the related `storybook_url` key when SB7+ is present.
-- `motion_aware` - boolean, default `false`. Opt-in for the `motion` scenario method auto-Major Skeptic rule. When `true`, qa-engineer runs CDP-emulated reduced-motion checks per scenario. Absent motion scenarios on UI-visible Elevated units with `qa_skip == null` trigger a Skeptic-on-Brief Major finding. Matches `theme_aware` / `perceptual_diff_enabled` opt-in precedent.
-- `storybook_version` - enum (`6 | 7`), default `7`. Selects Storybook URL format for `story_id` scenarios. When `6`, qa-engineer converts story IDs to the `?selectedKind=&selectedStory=` URL format. When `7` or absent, uses the current `?id=` format. Set automatically by init-project based on detected framework adapter version.
-- `commit_telemetry` - boolean, default `true`. When `true`, `/implement-ticket` Phase 8 commits `.agentic/session-log/<developer_id>.jsonl` as a SEPARATE commit on the PR branch, gated on confirmed (non-provisional) identity. The commit makes per-session telemetry team-visible after squash merge. Set to `false` to opt out. No effect when identity is absent or provisional.
-
-**Related config key (not a toggle):** `storybook_url` - optional string, default `http://localhost:6006` when present. Set automatically by init-project Storybook version detection when a SB6 or SB7+ framework adapter is found. Override per-run via the `story-url` knowledge tag in `qa.md`.
-
-The file is operator-tunable but optional and graceful: if absent, every toggle takes its default and nothing breaks.
-
-### Ubiquitous Language (`glossary.md`)
-
-A `glossary.md` at the project root (or referenced from the root `AGENTS.md`) holds the project's domain terms - the **Ubiquitous Language** that humans, code, and LLM agents all use to describe the system. When a glossary is present:
-
-- Agents prefer existing terms over inventing synonyms. If the glossary calls it "shipment", do not introduce "delivery", "consignment", or "package" in code, comments, prompts, or docs without first updating the glossary.
-- The Skeptic flags a synonym-of-an-existing-term as a **Minor** finding (style + intent drift).
-- The glossary is part of the intent layer above - keep it current as the domain vocabulary evolves.
-
-A glossary is optional; not every project needs one. But once introduced, it is binding on the project.
-
-## Git Workflow
-
-**Conductor never edits shippable artifacts directly - including Trivial one-line changes.** Every shippable change is delegated to a worktree-isolated `engineer` branched from `origin/main`. The conductor edits only exempt artifacts in its own checkout. Worktrees are exclusively for subagents.
-
-**Shippable/exempt classifier (4-rule precedence, first match wins):**
-1. `.agentic/**` -> EXEMPT (conductor sole-writer).
-2. begins `docs/planning/` -> EXEMPT (Briefs/Plans/ADRs/planning subdirs). ALL other docs SHIPPABLE, by name: `docs/research/`, `docs/_archive/`, `docs/overview/`, `docs/technical/`, `docs/images/`, `docs/slides/`, file `docs/index.html` (Vercel `outputDirectory: docs`).
-3. conductor-direct PRINT/DECISION/RESOLVER-EXECUTION -> EXEMPT.
-4. any other tracked-file write -> SHIPPABLE -> delegate to worktree-isolated engineer (Trivial: no Skeptic/no brief; Elevated: full Worker+Skeptic).
-
-**Base branch resolution** - always use `main` (fall back to `master` if `main` does not exist). Never use `develop` or `development`.
-
-**Conductor preflight** - run this checklist ONCE at session start. Do not skip it when the user issues a direct command; commands are goals, not overrides for workflow hygiene. Cache the resolved base branch in-context for the session; do not re-run the full preflight before every subagent spawn. Re-run only if the user explicitly switches branches or after 30+ minutes of idle time.
-1. What branch is the working tree on? (`git branch --show-current`)
-2. Does this branch already contain unrelated commits? If yes, start fresh from the base branch before proceeding.
-3. Are there uncommitted changes? If so, do they belong to the current task? Stash or commit unrelated work before proceeding.
-4. When was `origin` last fetched? Run `git fetch origin` if it has been more than a few minutes.
-5. Resolve the base branch (see **Base branch resolution** below) and cache it as `BASE_BRANCH` for the session.
-6. Run worktree prune (see `content/sections/10-worktree-lifecycle.md`) and delete stale `worktree-agent-*` branches.
-
-**Subagent worktrees:** Each parallel subagent gets its own worktree, branched from the conductor's current branch. Worktrees are created at `.agentic/worktrees/<branch-name>` under the project root (already gitignored via the `.agentic/` umbrella). The conductor merges each subagent branch back after sign-off and removes the worktree.
-
-```bash
-# Create a subagent worktree:
-git worktree add .agentic/worktrees/<branch-name> -b <branch-name> HEAD
-
-# Remove after merge:
-git worktree remove .agentic/worktrees/<branch-name>
-git branch -d <branch-name>
+```typescript
+/**
+ * Purpose: Validates and normalizes incoming webhook payloads before they
+ *          enter the processing pipeline.
+ *
+ * Public API: validateWebhook(raw: unknown): WebhookPayload
+ *
+ * Upstream deps: zod (schema validation), ./types (WebhookPayload type)
+ *
+ * Downstream consumers: src/handlers/webhook.ts, src/workers/ingest.ts
+ *
+ * Failure modes: throws WebhookValidationError on malformed input — callers
+ *                must catch and return 400, not 500. No side effects; safe to
+ *                retry or call multiple times on the same input.
+ *
+ * Performance: ~0.2 ms per call; zod parse is synchronous, no I/O.
+ */
 ```
 
-**Branch naming:** `feature/<name>`, `fix/<name>`, `chore/<name>`.
+**Python:**
 
-**Merging:** After Skeptic sign-off, subagent branches merge back into the conductor's current branch. The conductor's branch (not the individual subagent branch) then opens a PR into `main`. PRs are required regardless of whether other sessions are active - they make in-flight work visible and force explicit conflict resolution.
+```python
+"""
+Purpose: Resolves feature flag values for a given user context, with local
+         cache to avoid repeated network calls within a request lifecycle.
 
-**Cleanup:** Remove worktrees after the subagent branch is merged or the task is explicitly closed. Do not leave stale worktrees. Between tasks there should be no active subagent worktrees.
+Public API: get_flag(flag_name: str, context: UserContext) -> bool
 
-**Commit each fix immediately during testing.** Never accumulate uncommitted changes during live testing sessions. After each validated fix: commit, PR, merge, pull - then start the next fix. Do not batch multiple unrelated fixes.
+Upstream deps: flagsmith SDK, app.cache (RequestScopeCache), config.FLAGSMITH_URL
 
-**DCO sign-off when the repo enforces it.** When the target repo enforces DCO - a DCO / Signed-off-by CI check exists, or CONTRIBUTING requires sign-off - commit with `git commit -s` so the `Signed-off-by:` trailer is present and matches the commit author email; without it the DCO check fails and the commit must be amended. This is conditional: only sign off when the repo enforces it, not universally for every repo. The agentic-engineering repo itself enforces a DCO check, so commits to it require `-s`.
+Downstream consumers: app.views.experiment, app.middleware.ab_test
 
-**Multi-session support:** Multiple Claude Code sessions can work on different features simultaneously. Each session operates on its own branch. No worktree coordination is needed between sessions at the conductor level.
+Failure modes: falls back to flag default on SDK timeout or network error —
+               never raises; callers can rely on always receiving a bool.
+               Cache is request-scoped; not safe to share across threads.
 
-## Context Economy
+Performance: first call per flag per request hits network (~50 ms);
+             subsequent calls within the same request hit local cache (<1 ms).
+"""
+```
 
-Agents must be mindful of context-window consumption. Large outputs increase latency, burn tokens, and can push the session toward truncation. Follow these rules:
+## Why
 
-- **Do not duplicate file contents in prose.** Reference files by path. The reader can use ReadFile if they need the full text.
-- **Keep diffs minimal.** Use standard unified diff format with 3 lines of context per hunk. Do not paste entire files when only a few lines changed.
-- **Do not paste tool output verbatim** unless specifically asked or unless the output is short (<20 lines). Summarize command results: "`pytest` passes (42 tests, 0 failures)" rather than dumping the full test log.
-- **Structured blocks over prose.** Prefer the JSON structured block for machine-readable data (file lists, gate results) and keep prose for human-readable narrative only.
+Comprehension should live in the code. An Architect plan describes what was decided; it does not travel with the file when the file is moved, refactored, or read by an engineer three months later who was not in that session. A module manifest embeds the essential context — the "why does this exist and what breaks if I change it" — directly in the artifact that persists. This is the self-describing layer of the dark code framework: systems that communicate their own structure rather than requiring external documentation to make sense of them.
 
-Multi-developer coordination guidance lives in `content/references/multi-developer-coordination.md`.
+A missing or stale manifest is **intent debt**: the artifact stops reflecting what the code is actually for. Technical debt lives in the code, cognitive debt lives in the people who hold the context in their heads, and intent debt lives in the artifacts that are supposed to encode that intent for everyone else. Intent debt is the most insidious of the three, because downstream agents (and humans) read the stale manifest, trust it, and drift further from what the code actually does. Keeping the manifest current is how this file pays down its share of that debt.
 
-## External Comment Discipline
+## Enforcement
 
-Agents author artifacts that humans read outside the session - PR titles and bodies, PR review comments, Linear comments, Jira comments, commit messages that summarise work, deploy and release notes. These surfaces have a different cost profile from in-session output: humans read them under time pressure, often on a phone, often days after the work landed. Verbosity is not free here - it is a tax on every future reader.
+Skeptic applies tiered enforcement:
 
-Apply these rules to every external-facing comment:
+- **Missing manifest** on a non-trivial module: **Minor finding** (does not block sign-off). Comprehension hygiene; flagged for awareness.
+- **Stale manifest** (no longer reflects current purpose, public API, upstream dependencies, downstream consumers, failure modes, or performance characteristics): **Major finding** (blocks sign-off absent a compelling documented reason to defer). A stale manifest is active misinformation - worse than no manifest.
+- **Stale manifest whose inaccuracy could cause a caller to mishandle a correctness or security path** (e.g., a documented "no side effects" claim that is no longer true, an idempotency guarantee that no longer holds, a failure-mode contract that has silently changed): **Critical finding**. The manifest is actively misleading callers on a load-bearing path.
 
-- **Lead with the result and the link.** The first line should answer "what changed and where do I look?" - not restate the ticket, not narrate the journey.
-- **Bullets over prose.** Each bullet earns its place by adding something the diff, screenshot, or linked artifact does not already show. If a bullet just describes what the diff shows, delete it.
-- **Cut what the reader can see for themselves.** Do not restate the ticket. Do not narrate the agent's own process ("I reviewed", "we investigated", "after analysis"). Do not summarise a diff that is one click away.
-- **Evidence beats description.** A screenshot, a test URL, a log excerpt, or a link to the failing line is worth more than a paragraph of explanation. Link, do not transcribe.
-- **No marketing voice, no emojis, no agent attribution footers.** The writing-style rules elsewhere in this methodology (plain verbs, no rule-of-three triads, no AI vocabulary, no em dashes) apply with extra force on external surfaces because humans read them quickly and judgmentally.
-- **Length is not the metric; signal-per-line is.** A long comment is fine when every line is load-bearing. A three-line comment that restates the ticket is too long.
-- **Skeptic findings posted as PR review comments** are one finding per comment in the form `[Severity] path:line - issue. Fix: <one-line action>.` No preamble, no sign-off banner, no "Active search" line on per-finding comments - that line belongs to the conductor-internal sign-off, not the PR surface.
-- **Self-check before posting.** Re-read this section. For each sentence ask: is this load-bearing for a human deciding "do I need to act on this?" If not, delete it.
+Minor findings are addressed via the Minor-fix workflow (see `content/references/skeptic-protocol.md` Section 2 step 4 and Section 6). Major and Critical findings must be resolved before sign-off.
 
-This rule layers conciseness expectations on top of the structural templates in `content/commands/implement-ticket.md` (PR body, tracker comment). The templates still apply; this rule governs the substance that fills them.
+See `content/references/skeptic-protocol.md` for findings classification definitions.
 
 ---
 > Source: [Space-Dinosaurs/DinoStack](https://github.com/Space-Dinosaurs/DinoStack) — distributed by [TomeVault](https://tomevault.io).
