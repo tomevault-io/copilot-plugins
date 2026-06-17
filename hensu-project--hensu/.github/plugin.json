@@ -1,0 +1,9 @@
+{
+  "name": "hensu-project--hensu",
+  "displayName": "hensu",
+  "description": "Infrastructure-as-code for AI agent workflows",
+  "version": "1.0.0",
+  "author": "hensu-project",
+  "homepage": "https://github.com/hensu-project/hensu",
+  "skills": []
+}
