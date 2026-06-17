@@ -1,0 +1,9 @@
+{
+  "name": "brain2k-0005--lumeo",
+  "displayName": "Lumeo",
+  "description": "A modern, accessible Blazor component library with 130+ components. Tailwind CSS v4, 8 themes, dark mode, AI chat primitives, full DataGrid, Scheduler, charts, RTL + 14 locales. MIT, .NET 10, 868 KB. ",
+  "version": "1.0.0",
+  "author": "Brain2k-0005",
+  "homepage": "https://github.com/Brain2k-0005/Lumeo",
+  "skills": []
+}
