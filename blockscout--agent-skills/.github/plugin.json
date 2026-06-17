@@ -1,0 +1,9 @@
+{
+  "name": "blockscout--agent-skills",
+  "displayName": "agent-skills",
+  "description": "A collection of AI agent skills for working with the Blockscout ecosystem \u2014 blockchain explorers, APIs, and supporting services.",
+  "version": "1.0.0",
+  "author": "blockscout",
+  "homepage": "https://github.com/blockscout/agent-skills",
+  "skills": []
+}
