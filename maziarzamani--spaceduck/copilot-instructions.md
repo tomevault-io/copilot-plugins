@@ -1,113 +1,80 @@
-## spaceduck
+## mintlify-docs
 
-> This file tells AI coding agents (Cursor, Claude, Codex, Copilot, etc.) how to work in this codebase. Read it before making changes.
+> Mintlify technical writing standards and component reference for documentation pages
 
-# Agent Instructions
 
-This file tells AI coding agents (Cursor, Claude, Codex, Copilot, etc.) how to work in this codebase. Read it before making changes.
+# Mintlify Technical Writing
 
-## Runtime
+## Writing principles
 
-- **Bun** is the only supported runtime. Do not use Node.js APIs that Bun does not support.
-- TypeScript everywhere. No plain `.js` files in `packages/`.
-- `bun:sqlite` for all SQLite access. Do not use `better-sqlite3` or `node:sqlite`.
+- Use second person ("you") for instructions, active voice, present tense
+- Lead with the most important information; basic concepts before advanced
+- Break procedures into numbered steps with prerequisites and expected outcomes
+- Keep sentences concise; define jargon on first use; maintain consistent terminology
+- Use parallel structure in lists and headings
 
-## Essential commands
+## Page structure
 
-```bash
-bun install                    # install all workspace deps
-bun run dev                    # start gateway with hot reload
-bun run build                  # production build → dist/index.js
-bun run typecheck              # tsc --noEmit (must be clean)
-bun test --recursive           # all tests
-bun test packages/core/        # unit tests only
-bun test packages/memory/      # memory + vector tests
-bun test packages/scheduler/   # scheduler + budget tests
-bun test packages/tools/       # tool tests
+Every `.mdx` page starts with YAML frontmatter:
+
+```yaml
+---
+title: "Clear, keyword-rich title"
+description: "Concise description of page purpose and value"
+---
 ```
 
-Always run `bun run typecheck` and `bun test --recursive` after making changes. Both must pass before committing.
+Heading hierarchy starts at H2 (`##`). Use descriptive, scannable headings.
 
-## Workspace layout
+## Component selection
 
-```
-packages/
-├── core/          # Zero-dep contracts: types, AgentLoop, ContextBuilder, EventBus, FactExtractor
-├── config/        # Zod-based config schema, hot-apply, model pricing
-├── scheduler/     # Task scheduler, persistent queue, budget guards, task runner
-├── skills/        # Skill runtime: SKILL.md parser, security scanner, registry
-├── gateway/       # Composition root: HTTP/WS server, wires all dependencies
-├── channels/
-│   ├── web/       # React web UI + WebSocket channel
-│   └── whatsapp/  # Baileys (WhatsApp Web protocol)
-├── providers/
-│   ├── gemini/    # Google AI (chat + embeddings)
-│   ├── lmstudio/  # Local models via OpenAI-compatible API
-│   ├── openrouter/# Multi-model cloud gateway
-│   └── bedrock/   # AWS Bedrock (Claude + others)
-├── memory/
-│   └── sqlite/    # SQLite + FTS5 + sqlite-vec vector storage
-└── tools/
-    ├── browser/   # Playwright headless browser
-    └── web-fetch/ # HTTP fetch + HTML-to-text
-```
+| Need | Component |
+|------|-----------|
+| Sequential instructions | `<Steps>` with `<Step title="...">` |
+| Platform-specific alternatives | `<Tabs>` with `<Tab title="...">` |
+| Same concept in multiple languages | `<CodeGroup>` |
+| Progressive disclosure / FAQ | `<AccordionGroup>` + `<Accordion>` |
+| API endpoint request/response | `<RequestExample>` / `<ResponseExample>` |
+| API parameters | `<ParamField path\|body\|query\|header>` |
+| API response shape | `<ResponseField>` with `<Expandable>` for nesting |
+| Supplementary info | `<Note>`, `<Tip>`, `<Warning>`, `<Info>`, `<Check>` |
+| Navigation cards | `<Card>` / `<CardGroup cols={2}>` |
+| Images | Always wrap in `<Frame>` (optional `caption`) |
+| Inline definitions | `<Tooltip tip="...">` |
 
-## Core contracts (do not break without a major version bump)
+## Callout usage
 
-These interfaces are the public API. Implementations plug in via the gateway:
+- `<Note>` — helpful context that supports the main content
+- `<Tip>` — best practices, shortcuts, pro tips
+- `<Warning>` — potential issues, breaking changes, destructive actions
+- `<Info>` — neutral background or announcements
+- `<Check>` — success confirmations
 
-- `Provider` — chat streaming (`packages/core/src/types/provider.ts`)
-- `EmbeddingProvider` — vector embeddings (`packages/core/src/types/provider.ts`)
-- `Channel` — message in/out (`packages/core/src/types/channel.ts`)
-- `ConversationStore` — message history (`packages/core/src/types/memory.ts`)
-- `LongTermMemory` — fact storage + recall (`packages/core/src/types/memory.ts`)
-- `Result<T, E>` — error monad, used everywhere library code can fail (`packages/core/src/types/errors.ts`)
+## Code examples
 
-## Coding conventions
+- Always complete and runnable; use realistic data, never real secrets
+- Specify language and filename: `` ```javascript config.js ``
+- Add comments only for non-obvious logic
+- Show error handling and expected output
+- Use `<CodeGroup>` for multi-language variants
 
-- **No `any` unless unavoidable.** When a third-party type is incomplete, use a narrowly-scoped cast, not a blanket `any`.
-- **No `@ts-ignore` or `@ts-nocheck`.** Fix the underlying type issue.
-- **Result monad for fallible operations.** Return `Result<T, E>` from library functions; do not throw from library code.
-- **No framework magic at the core.** `packages/core` has zero runtime dependencies. Keep it that way.
-- **File size.** Keep files under ~400 lines. If a file grows beyond that, split it.
-- **Tests colocated.** Test files live next to the code they test in `src/__tests__/`.
-- **Conventional commits.** All commit messages must follow `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`, `perf:` prefixes. This powers automated releases.
+## API documentation
 
-## Adding a new provider
+- Document all parameters (required and optional) with `<ParamField>`
+- Show success and error responses with `<ResponseExample>`
+- Include auth examples, rate limits, and all HTTP status codes
+- Use `<Expandable>` for nested object properties
 
-1. Create `packages/providers/<name>/` with a `package.json` and `src/provider.ts`
-2. Implement the `Provider` interface (and optionally `EmbeddingProvider`)
-3. Add the package to `packages/gateway/src/gateway.ts` provider selection
-4. Add config validation in `packages/core/src/config.ts` if new env vars are needed
-5. See `packages/providers/gemini/` as a reference
+## Navigation config
 
-## Adding a new channel
+Refer to [docs.json schema](https://mintlify.com/docs.json) when building `docs.json` and site navigation.
 
-1. Create `packages/channels/<name>/` with a `package.json` and `src/<name>-channel.ts`
-2. Implement the `Channel` interface from `@spaceduck/core`
-3. Register it in `packages/gateway/src/gateway.ts`
-4. Add any new env vars to `.env.example` and `packages/core/src/config.ts`
-5. See `packages/channels/whatsapp/` as a reference
+## Accessibility
 
-## Adding a new tool
-
-1. Create `packages/tools/<name>/` with a `package.json` and `src/index.ts`
-2. Implement the tool class (see `packages/tools/browser/` for the pattern)
-3. Register it in `packages/gateway/src/tool-registrations.ts`
-
-## sqlite-vec on macOS
-
-On macOS, `ensureCustomSQLite()` in `packages/memory/sqlite/src/schema.ts` must be called once before any `new Database()`. This loads Homebrew's SQLite (which supports extensions) instead of Apple's system SQLite (which does not). On Linux, this is a no-op.
-
-The function looks for `libsqlite3.dylib` at Homebrew paths (`/opt/homebrew/opt/sqlite/lib/` for Apple Silicon, `/usr/local/opt/sqlite3/lib/` for Intel).
-
-## What not to touch
-
-- `dist/` — generated by `bun run build`, never edit
-- `node_modules/` — managed by Bun
-- `data/whatsapp-auth/` — WhatsApp session credentials, gitignored
-- `spaceduck.db` — local database, gitignored
-- Migration files in `packages/memory/sqlite/src/migrations/` — only add new numbered migrations, never edit existing ones
+- Descriptive alt text on all images
+- Specific link text (never "click here")
+- Proper heading hierarchy
+- Sufficient color contrast in examples
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
