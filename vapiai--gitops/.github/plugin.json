@@ -1,0 +1,9 @@
+{
+  "name": "vapiai--gitops",
+  "displayName": "gitops",
+  "description": "Vapi's best practices guide on how to support git tracking for teams owning and updating resources on their Vapi Org",
+  "version": "1.0.0",
+  "author": "VapiAI",
+  "homepage": "https://github.com/VapiAI/gitops",
+  "skills": []
+}
