@@ -1,0 +1,12 @@
+## fastmissioncontrol
+
+> - Use the make file commands for cleaning, building and testing, etc.
+
+- Use the make file commands for cleaning, building and testing, etc.
+- No need to test unless requested by the user.
+- Make sure changes and responses are proper length and not overly verbose.
+- Never install packages or tools locally on the host for this repo. Use Docker only. If Docker fails, stop and ask the user instead of falling back to any local installer.
+
+---
+> Source: [tomeraviv/FastMissionControl](https://github.com/tomeraviv/FastMissionControl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
