@@ -1,0 +1,9 @@
+{
+  "name": "freema--codeforge",
+  "displayName": "codeforge",
+  "description": "AI-powered code session orchestrator \u2014 clones repos, runs Claude/Codex, streams progress, creates PRs. Ships as a GitHub Action and GitLab CI component.",
+  "version": "1.0.0",
+  "author": "freema",
+  "homepage": "https://github.com/freema/codeforge",
+  "skills": []
+}
