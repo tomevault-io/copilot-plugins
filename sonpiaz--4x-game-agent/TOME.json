@@ -1,0 +1,44 @@
+{
+  "name": "4x-game-agent",
+  "owner": "sonpiaz",
+  "repo": "4x-game-agent",
+  "description": "LLM-powered AI agent framework for 4X mobile strategy games (Rise of Kingdoms, Evony, Lords Mobile, etc.). 5-layer hybrid architecture: OCR \u2192 FSM \u2192 World Model \u2192 Workflows \u2192 LLM Vision. 99% cheaper than pure LLM approach.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sonpiaz/4x-game-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T01:16:07Z"
+}
