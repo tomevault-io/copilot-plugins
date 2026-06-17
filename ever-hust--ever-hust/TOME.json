@@ -4,7 +4,7 @@
   "repo": "ever-hust",
   "description": "Ever\u00ae Hust\u2122 - The Anti-Hustle Career OS. An open agentic job-search platform that finds, evaluates and tailors your applications, then tracks every one from first search to signed offer  - https://hust.so",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ever-hust/ever-hust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T08:54:47Z"
+  "distributed_at": "2026-06-17T13:27:32Z"
 }
