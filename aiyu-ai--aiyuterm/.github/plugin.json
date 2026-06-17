@@ -1,0 +1,9 @@
+{
+  "name": "aiyu-ai--aiyuterm",
+  "displayName": "AiyuTerm",
+  "description": "Native macOS terminal workspace \u2014 multi-repo sidebar, persistent split layouts, SSH, tmux, and real-time AI agent status. Powered by Ghostty.",
+  "version": "1.0.0",
+  "author": "aiyu-ai",
+  "homepage": "https://github.com/aiyu-ai/AiyuTerm",
+  "skills": []
+}
