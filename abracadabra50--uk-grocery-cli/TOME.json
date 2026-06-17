@@ -2,9 +2,9 @@
   "name": "uk-grocery-cli",
   "owner": "abracadabra50",
   "repo": "uk-grocery-cli",
-  "description": "Multi-supermarket grocery automation for UK. Search products, manage baskets, book delivery, checkout across Sainsbury's, Ocado, Tesco and more. Built for AI agents.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abracadabra50/uk-grocery-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T06:22:50Z"
+  "distributed_at": "2026-06-17T22:57:37Z"
 }
