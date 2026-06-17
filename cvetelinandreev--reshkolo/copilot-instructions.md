@@ -1,18 +1,20 @@
-## start-app-docker-check
+## wasp-restart-after-changes
 
-> When starting the Wasp app or dev server, verify Docker and Postgres are up first.
+> Restart Wasp server after changes for immediate testing
 
 
-# Start app / Wasp dev server
+# Wasp Restart Policy
 
-When the user asks to **start the app**, **start Wasp**, **run the dev server**, or similar:
-
-1. **Check Docker** — Run `docker ps` (or `docker info`). If the daemon is unreachable, tell them to start **Docker Desktop** and wait until it is ready. On macOS you may run `open -a Docker`, then re-check after a short wait.
-2. **Start Postgres** — From the project root, if the stack is not up: `docker compose up -d` (see `docker-compose.yml`; DB listens on **5433**).
-3. **Env** — Ensure `.env.server` exists and `DATABASE_URL` matches the compose credentials (see `.env.server.example`).
-4. **Wasp CLI** — Use the repo-pinned Node (see `.node-version`). From automated shells, run Wasp via **`npm run wasp -- start`** or **`bash scripts/with-project-node.sh wasp start`** so `PATH` picks up Node 22 (global `@wasp.sh/wasp-cli`).
-
-Only after Docker responds and the DB container is running should you start Wasp (or tell the user it is safe to do so).
+- Do **not** restart on every edit.
+- Restart only when needed for accurate testing, such as:
+  - runtime-impacting server/client changes that are not reflected by current process state,
+  - env var changes (`.env.client`, `.env.server`),
+  - Wasp config/routing/build pipeline changes (`main.wasp`, generated output issues),
+  - crashed/unhealthy dev server.
+- Default recovery flow: `wasp start`.
+- If Wasp reports generated output issues (for example missing `.wasp/out` artifacts, stale generated files, or migration-path errors under `.wasp/out`), run `wasp clean` and then `wasp start`.
+- If ports are occupied, stop conflicting processes and then restart Wasp.
+- After a needed restart, confirm both client and server are up and share reachable network URL(s) for phone testing.
 
 ---
 > Source: [cvetelinandreev/reShkolo](https://github.com/cvetelinandreev/reShkolo) — distributed by [TomeVault](https://tomevault.io).
