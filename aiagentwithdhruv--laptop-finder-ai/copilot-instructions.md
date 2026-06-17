@@ -1,35 +1,30 @@
-## 35-api-contracts
+## 40-cache-redis
 
-> API versioning, contracts, and schema evolution rules
+> Redis caching and queue rules
 
 
-API contract rules:
-- Version APIs explicitly, e.g. /api/v1/, /api/v2/.
-- Never introduce breaking changes to an existing version without deprecation.
-- Document breaking vs non-breaking changes clearly.
-- Use OpenAPI/Swagger specs when the project supports it.
+Redis usage:
+- Use Redis for caching, rate limiting, session-like ephemeral state, queues, and short-lived coordination.
+- Choose TTLs intentionally.
+- Cache only what has a clear performance benefit.
+- Make cache invalidation explicit.
 
-Schema evolution:
-- Add new fields as optional — never remove or rename existing fields in-place.
-- Use explicit migration paths when changing response shapes.
-- Dataset schema changes (JSONL, JSON) must be versioned alongside code.
-- When training data format changes, document the version and conversion script.
+Rules:
+- Wrap Redis access in dedicated utilities/services.
+- Use stable key naming conventions.
+- Document key patterns if introducing new families of keys.
+- Prefer idempotent worker/job behavior.
+- Use retries carefully and avoid infinite retry loops.
 
-Contract expectations:
-- Request and response schemas must be typed (Pydantic, TypeScript interfaces).
-- Error responses must follow a consistent structure across all endpoints.
-- Pagination, filtering, and sorting must use consistent query parameter conventions.
-- All public endpoints must have example request/response in docs or tests.
-
-Deprecation process:
-- Mark deprecated endpoints with headers or response metadata.
-- Set a removal timeline and communicate it.
-- Log usage of deprecated endpoints to track migration.
+Caching expectations:
+- Cache expensive reads and repeated metadata lookups where appropriate.
+- Do not cache highly sensitive data unless encrypted and justified.
+- Do not rely on cache as the only source of truth for critical persistent state.
 
 Do not:
-- Ship breaking API changes without versioning.
-- Return different response shapes from the same endpoint based on hidden logic.
-- Leave undocumented endpoints in production.
+- Scatter raw Redis calls across the codebase.
+- Store large unbounded payloads without TTL or cleanup strategy.
+- Mix queue semantics and cache semantics without clarity.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
