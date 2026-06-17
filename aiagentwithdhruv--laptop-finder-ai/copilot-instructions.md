@@ -1,48 +1,36 @@
-## 20-frontend-nextjs
+## 30-database-postgres
 
-> Next.js frontend rules
+> PostgreSQL and persistence rules
 
 
-Frontend stack:
-- Next.js
-- TypeScript
-- Component-driven UI
-- API integration with backend services
+Database rules:
+- PostgreSQL is the source of truth for structured application data.
+- Use migrations for all schema changes.
+- Design tables with clear ownership, timestamps, and constraints.
+- Add indexes for common filters and joins.
+- Use foreign keys where appropriate.
+- Prefer soft-delete only when there is a real product need.
 
-Frontend rules:
-- Prefer TypeScript for all frontend logic.
-- Keep components small, reusable, and focused.
-- Keep presentation separate from business/data-fetching logic.
-- Use hooks, services, or server actions appropriately based on project style.
-- Handle loading, error, and empty states explicitly.
-- Preserve design consistency and naming consistency.
+Schema design expectations:
+- Every core entity should have:
+  - id
+  - created_at
+  - updated_at
+- For SaaS systems, include tenant/organization isolation where relevant.
+- Use enums or constrained fields for finite states where appropriate.
+- Keep schemas normalized unless denormalization is justified by performance needs.
 
-Preferred frontend structure:
-- frontend/app/
-- frontend/components/
-- frontend/features/
-- frontend/hooks/
-- frontend/lib/
-- frontend/services/
-- frontend/types/
-- frontend/tests/
-
-UI/UX rules:
-- Use accessible markup and semantic HTML.
-- Prefer reusable design system components.
-- Avoid oversized page components.
-- Avoid embedding complex API logic directly inside visual components unless already established in the repo.
-
-State/data rules:
-- Keep API clients centralized.
-- Normalize repeated API access patterns.
-- Handle auth state carefully.
-- Validate critical inputs on both client and server.
+Repository rules:
+- All DB access must go through repositories/data access layer.
+- Keep query code out of routes and services unless trivial and already patterned.
+- Parameterize queries.
+- Avoid N+1 query patterns.
+- Use transactions when multiple writes must succeed together.
 
 Do not:
-- Mix many responsibilities into one component.
-- Hardcode API URLs in components.
-- Duplicate UI patterns that should be shared.
+- Write raw SQL inside controllers/routes.
+- Make schema changes without migration files.
+- Assume single-tenant if the product is multi-tenant.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
