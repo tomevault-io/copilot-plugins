@@ -2,9 +2,9 @@
   "name": "Academic-Research-Agent-Skill",
   "owner": "ngtiendong",
   "repo": "Academic-Research-Agent-Skill",
-  "description": "Human-guided Research Agent Skill for Master and PhD students in CS, AI, math, and engineering: literature grounding, novelty gates, math formalization, experiment planning, reviewer simulation, and claim verification.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ngtiendong/Academic-Research-Agent-Skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T07:31:03Z"
+  "distributed_at": "2026-06-17T10:48:17Z"
 }
