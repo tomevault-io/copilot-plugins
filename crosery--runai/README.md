@@ -7,11 +7,11 @@ AI CLI skill/MCP resource manager with TUI and MCP server — manage skills, MCP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Crosery/runai](https://github.com/Crosery/runai).
+Original source: `CLAUDE.md` in [Crosery/runai](https://github.com/Crosery/runai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
