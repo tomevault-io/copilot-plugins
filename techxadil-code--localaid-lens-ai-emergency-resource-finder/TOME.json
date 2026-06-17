@@ -1,0 +1,44 @@
+{
+  "name": "LocalAid-Lens-AI-Emergency-Resource-Finder",
+  "owner": "techxadil-code",
+  "repo": "LocalAid-Lens-AI-Emergency-Resource-Finder",
+  "description": "Moving from \"scattered social media noise\" to \"structured actionable data\" is exactly where AI provides the most value in civic tech.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/techxadil-code/LocalAid-Lens-AI-Emergency-Resource-Finder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T15:24:25Z"
+}
