@@ -1,0 +1,9 @@
+{
+  "name": "hirokita117--yaml-to-html-skill",
+  "displayName": "yaml-to-html-skill",
+  "description": "Claude skill that turns documents, PRs, and specs into a single self-contained, interactive HTML explainer",
+  "version": "1.0.0",
+  "author": "hirokita117",
+  "homepage": "https://github.com/hirokita117/yaml-to-html-skill",
+  "skills": []
+}
