@@ -1,0 +1,60 @@
+## ci-enforcement
+
+> Enforce running CI checks after code changes
+
+
+# CI Enforcement Rule
+
+**Always run `mise run ci` after making code changes and ensure it passes before completing any task.**
+
+## Required Workflow
+
+1. **After any code changes**, run:
+   ```bash
+   mise run ci
+   ```
+
+2. **If CI fails**, fix all issues before proceeding:
+   - **Linting errors**: Fix code quality issues reported by ESLint
+   - **Formatting issues**: Let Prettier auto-fix formatting
+   - **Test failures**: Ensure all tests pass
+   - **Type errors**: Resolve TypeScript compilation issues
+
+3. **Only complete the task when CI passes completely**
+
+## Common Issues to Fix
+
+### ESLint Errors
+- **Unused variables**: Remove or prefix with underscore
+  ```typescript
+  // ❌ DON'T: Unused variable
+  const unused = getValue();
+
+  // ✅ DO: Remove or prefix with underscore
+  const _unused = getValue();
+  ```
+
+- **Formatting**: Let Prettier auto-fix with `pnpm format:fix`
+- **Type errors**: Resolve TypeScript compilation issues
+
+### Test Issues
+- Ensure all mocks are properly configured
+- Verify test expectations match actual behavior
+- Check that setup/teardown is correct
+
+## Commands Reference
+
+- `mise run ci` - Run full CI pipeline
+- `pnpm check:fix` - Run Prettier and ESLint auto-fix
+- `pnpm format:fix` - Run Prettier auto-fix
+- `pnpm lint:fix` - Run ESLint auto-fix
+- `pnpm test` - Run tests only
+- `pnpm build` - Build the project
+
+## Non-Negotiable Rule
+
+**Never mark a task as complete if `mise run ci` fails.** Always fix the issues first.
+
+---
+> Source: [Real1tyy/BasesImprovements](https://github.com/Real1tyy/BasesImprovements) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
