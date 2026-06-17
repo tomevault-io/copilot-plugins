@@ -4,7 +4,7 @@
   "repo": "gut-feeling-parameter",
   "description": "Gut Feeling Parameter (GFP) \u2014 Emergent precursor sensitivity in curiosity-driven RL agents | Necessity Labs Research",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TrialBlazer23/gut-feeling-parameter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T18:48:34Z"
+  "distributed_at": "2026-06-17T23:08:29Z"
 }
