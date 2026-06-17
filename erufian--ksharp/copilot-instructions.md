@@ -1,14 +1,9 @@
-## dot-operations
+## prevent-looping
 
-> There is a systen function `_dot` that performs dot multiplication (for vectors and matrices)
+> Keep track of your 10 most recent messages showing your thinking and line-of-thought. Before whowing the next message showing your thinking and line-of-thought, evaluate if the new message is the same as one of the last 10 and you are entering a loop. If you identify that you have entered a loop, try a different way to reach the goal
 
 
-There is a systen function `_dot` that performs dot multiplication (for vectors and matrices)
-
-There is a native operator that uses the glyph dot `.`. This operator has polymorphic meanings depending on number of arguments and depending on type of arguments: Make, unmake, dot apply, dot index, error trap triadic amend, tetradic amend. 
-
-Never use the unqualified name "dot" when searching or updating code
-Always use additional criteria for identifying target code, e.g., distinguish between "dot multiplication", "dot apply", "dot index", "dot amend", "dot execute", "dot make", "dot unmake"
+Keep track of your 10 most recent messages showing your thinking and line-of-thought. Before whowing the next message showing your thinking and line-of-thought, evaluate if the new message is the same as one of the last 10 and you are entering a loop. If you identify that you have entered a loop, try a different way to reach the goal
 
 ---
 > Source: [ERufian/ksharp](https://github.com/ERufian/ksharp) — distributed by [TomeVault](https://tomevault.io).
