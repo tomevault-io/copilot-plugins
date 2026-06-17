@@ -1,0 +1,51 @@
+{
+  "name": "Skills",
+  "owner": "ilfordarber15",
+  "repo": "Skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lqf-machine-learning-expert-guide",
+      "path": "bundled/skills/LQF_Machine_Learning_Expert_Guide",
+      "github_url": "https://github.com/ilfordarber15/Skills/tree/main/bundled/skills/LQF_Machine_Learning_Expert_Guide",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ilfordarber15/Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T02:31:13Z"
+}
