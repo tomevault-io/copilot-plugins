@@ -1,0 +1,9 @@
+{
+  "name": "nomadamas--minsync",
+  "displayName": "MinSync",
+  "description": "Vector DB version control, 100% Rust, Mac, Linux, Windows compatible",
+  "version": "1.0.0",
+  "author": "NomaDamas",
+  "homepage": "https://github.com/NomaDamas/MinSync",
+  "skills": []
+}
