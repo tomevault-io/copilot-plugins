@@ -1,0 +1,9 @@
+{
+  "name": "strausmann--mcp-dockhand",
+  "displayName": "mcp-dockhand",
+  "description": "MCP Server for Dockhand Docker Management - exposes 130+ API endpoints as MCP tools",
+  "version": "1.0.0",
+  "author": "strausmann",
+  "homepage": "https://github.com/strausmann/mcp-dockhand",
+  "skills": []
+}
