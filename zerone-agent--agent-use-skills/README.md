@@ -7,11 +7,11 @@ AgentUse: The Bridge to Agent-First Software
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zerone-agent/agent-use-skills](https://github.com/zerone-agent/agent-use-skills).
+Original source: `CLAUDE.md` in [zerone-agent/agent-use-skills](https://github.com/zerone-agent/agent-use-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
