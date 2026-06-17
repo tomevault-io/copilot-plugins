@@ -7,11 +7,11 @@ AI Native时代全岗位工作新范式脚手架
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chenguangwei/ai-native-collaboration](https://github.com/chenguangwei/ai-native-collaboration).
+Original source: `CLAUDE.md` in [chenguangwei/ai-native-collaboration](https://github.com/chenguangwei/ai-native-collaboration).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
