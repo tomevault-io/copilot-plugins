@@ -1,0 +1,9 @@
+{
+  "name": "yudongusa--llvm-in-rust",
+  "displayName": "LLVM-in-Rust",
+  "description": "Rust support of LLVM",
+  "version": "1.0.0",
+  "author": "yudongusa",
+  "homepage": "https://github.com/yudongusa/LLVM-in-Rust",
+  "skills": []
+}
