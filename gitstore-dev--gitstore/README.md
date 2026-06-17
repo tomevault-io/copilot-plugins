@@ -7,11 +7,11 @@ Agent-safe headless e-commerce engine
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gitstore-dev/GitStore](https://github.com/gitstore-dev/GitStore).
+Original source: `CLAUDE.md` in [gitstore-dev/GitStore](https://github.com/gitstore-dev/GitStore).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
