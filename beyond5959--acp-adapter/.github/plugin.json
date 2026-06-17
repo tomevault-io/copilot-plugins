@@ -1,7 +1,7 @@
 {
   "name": "beyond5959--acp-adapter",
   "displayName": "acp-adapter",
-  "description": "acp-adapter",
+  "description": "Bridging Codex , Claude Code and Pi to Agent Client Protocol (ACP) with Go.",
   "version": "1.0.0",
   "author": "beyond5959",
   "homepage": "https://github.com/beyond5959/acp-adapter",
