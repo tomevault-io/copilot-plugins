@@ -1,0 +1,9 @@
+{
+  "name": "manasight--manasight-parser",
+  "displayName": "manasight-parser",
+  "description": "MTG Arena log file parser \u2014 Rust library crate",
+  "version": "1.0.0",
+  "author": "manasight",
+  "homepage": "https://github.com/manasight/manasight-parser",
+  "skills": []
+}
