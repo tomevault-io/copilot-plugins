@@ -1,0 +1,9 @@
+{
+  "name": "iblai--claws",
+  "displayName": "claws",
+  "description": "Ready-to go claws (NVIDIA NemoClaw + OpenClaw) across multiple sectors. Run on your ibl.ai instance or anywhere else.",
+  "version": "1.0.0",
+  "author": "iblai",
+  "homepage": "https://github.com/iblai/claws",
+  "skills": []
+}
