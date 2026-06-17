@@ -1,0 +1,9 @@
+{
+  "name": "madebyaris--agent-orchestration",
+  "displayName": "agent-orchestration",
+  "description": "Agent Orchestration: MCP server enabling multi-agent collaboration with shared memory, task queue, resource locks, Cursor rules, and AGENTS.md workflows.",
+  "version": "1.0.0",
+  "author": "madebyaris",
+  "homepage": "https://github.com/madebyaris/agent-orchestration",
+  "skills": []
+}
