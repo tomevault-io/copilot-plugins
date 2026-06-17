@@ -1,0 +1,9 @@
+{
+  "name": "vithun06-stack--studysync",
+  "displayName": "StudySync",
+  "description": "StudySync is a full stack web app that helps students find compatible study partners using course overlap, availability, and shared academic goals. Built with Next.js, React, Tailwind CSS, and Supabas",
+  "version": "1.0.0",
+  "author": "Vithun06-stack",
+  "homepage": "https://github.com/Vithun06-stack/StudySync",
+  "skills": []
+}
