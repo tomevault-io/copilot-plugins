@@ -1,0 +1,9 @@
+{
+  "name": "onlineeric--speedy-git-ext",
+  "displayName": "speedy-git-ext",
+  "description": "A performance-first Git graph, Git history viewer, and history-editing tool for VS Code and Cursor, built for developers who want speed, clarity, and real Git workflow power \u2014 without the bloat",
+  "version": "1.0.0",
+  "author": "onlineeric",
+  "homepage": "https://github.com/onlineeric/speedy-git-ext",
+  "skills": []
+}
