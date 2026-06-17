@@ -1,0 +1,9 @@
+{
+  "name": "alejadxr--aegis",
+  "displayName": "AEGIS",
+  "description": "Open-source autonomous cybersecurity platform \u2014 11/11 detection score, sub-300ms pipeline, honeypot deception, breadcrumb traps, AI-powered triage, and Rust endpoint agent. Built to replace Wazuh.",
+  "version": "1.0.0",
+  "author": "alejadxr",
+  "homepage": "https://github.com/alejadxr/AEGIS",
+  "skills": []
+}
