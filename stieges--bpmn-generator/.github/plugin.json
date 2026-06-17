@@ -1,0 +1,9 @@
+{
+  "name": "stieges--bpmn-generator",
+  "displayName": "bpmn-generator",
+  "description": "Enterprise BPMN 2.0 Generator \u2014 JSON Logic-Core \u2192 ElkJS Layout \u2192 OMG-compliant XML + SVG",
+  "version": "1.0.0",
+  "author": "Stieges",
+  "homepage": "https://github.com/Stieges/bpmn-generator",
+  "skills": []
+}
