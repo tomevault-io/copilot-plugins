@@ -1,0 +1,26 @@
+{
+  "name": "descope--skills",
+  "displayName": "skills",
+  "description": "Official collection of Descope authentication skills for AI coding agents",
+  "version": "1.0.0",
+  "author": "descope",
+  "homepage": "https://github.com/descope/skills",
+  "skills": [
+    {
+      "name": "descope-auth",
+      "description": ""
+    },
+    {
+      "name": "descope-terraform",
+      "description": ""
+    },
+    {
+      "name": "auth0-to-descope",
+      "description": ""
+    },
+    {
+      "name": "okta-cis-to-descope",
+      "description": ""
+    }
+  ]
+}
