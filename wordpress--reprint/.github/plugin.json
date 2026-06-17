@@ -1,0 +1,9 @@
+{
+  "name": "wordpress--reprint",
+  "displayName": "reprint",
+  "description": "Reprint \u2014 resumable, streaming WordPress site migration over HTTP",
+  "version": "1.0.0",
+  "author": "WordPress",
+  "homepage": "https://github.com/WordPress/reprint",
+  "skills": []
+}
