@@ -4,7 +4,7 @@
   "repo": "megingiard",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stormpanda/megingiard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T18:38:47Z"
+  "distributed_at": "2026-06-17T01:01:45Z"
 }
