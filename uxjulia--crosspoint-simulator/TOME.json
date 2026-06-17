@@ -4,7 +4,7 @@
   "repo": "crosspoint-simulator",
   "description": "Simulate Crosspoint firmware without flashing onto your device",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uxjulia/crosspoint-simulator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T14:44:25Z"
+  "distributed_at": "2026-06-17T14:48:56Z"
 }
