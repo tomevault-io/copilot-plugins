@@ -1,0 +1,9 @@
+{
+  "name": "uxzylon--ha-cloudplus-meari",
+  "displayName": "Ha-CloudPlus-Meari",
+  "description": "Home Assistant integration for CloudEdge / CloudPlus / Meari devices ",
+  "version": "1.0.0",
+  "author": "Uxzylon",
+  "homepage": "https://github.com/Uxzylon/Ha-CloudPlus-Meari",
+  "skills": []
+}
