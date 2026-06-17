@@ -1,0 +1,34 @@
+{
+  "name": "mark64oswald--healthsim-workspace",
+  "displayName": "healthsim-workspace",
+  "description": "healthsim-workspace",
+  "version": "1.0.0",
+  "author": "mark64oswald",
+  "homepage": "https://github.com/mark64oswald/healthsim-workspace",
+  "skills": [
+    {
+      "name": "membersim",
+      "description": ""
+    },
+    {
+      "name": "networksim",
+      "description": ""
+    },
+    {
+      "name": "patientsim",
+      "description": ""
+    },
+    {
+      "name": "populationsim",
+      "description": ""
+    },
+    {
+      "name": "rxmembersim",
+      "description": ""
+    },
+    {
+      "name": "trialsim",
+      "description": ""
+    }
+  ]
+}
