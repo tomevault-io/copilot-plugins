@@ -1,0 +1,14 @@
+{
+  "name": "checkra1neth--xbird-skill",
+  "displayName": "xbird-skill",
+  "description": "xbird-skill",
+  "version": "1.0.0",
+  "author": "checkra1neth",
+  "homepage": "https://github.com/checkra1neth/xbird-skill",
+  "skills": [
+    {
+      "name": "xbird-rest-api",
+      "description": ""
+    }
+  ]
+}
