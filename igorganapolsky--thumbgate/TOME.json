@@ -2,9 +2,9 @@
   "name": "ThumbGate",
   "owner": "IgorGanapolsky",
   "repo": "ThumbGate",
-  "description": "Agent governance for ThumbGate: \ud83d\udc4d/\ud83d\udc4e become Pre-Action Checks that block repeat mistakes before code, money, or customer systems change.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IgorGanapolsky/ThumbGate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T15:12:31Z"
+  "distributed_at": "2026-06-17T00:46:45Z"
 }
