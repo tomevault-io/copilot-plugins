@@ -1,0 +1,9 @@
+{
+  "name": "askdba--mysql-mcp-server",
+  "displayName": "mysql-mcp-server",
+  "description": "MySQL Server implementation for Model Context Protocol (MCP) written in Go.",
+  "version": "1.0.0",
+  "author": "askdba",
+  "homepage": "https://github.com/askdba/mysql-mcp-server",
+  "skills": []
+}
