@@ -1,0 +1,9 @@
+{
+  "name": "tylerwagler--solidedge-mcp",
+  "displayName": "SolidEdge-MCP",
+  "description": "Solid Edge MCP server for AI-assisted CAD design - create, analyze, modify, and export models",
+  "version": "1.0.0",
+  "author": "tylerwagler",
+  "homepage": "https://github.com/tylerwagler/SolidEdge-MCP",
+  "skills": []
+}
