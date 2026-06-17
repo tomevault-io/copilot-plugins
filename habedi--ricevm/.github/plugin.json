@@ -1,0 +1,9 @@
+{
+  "name": "habedi--ricevm",
+  "displayName": "ricevm",
+  "description": "A Dis virtual machine and Limbo compiler in Rust \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "habedi",
+  "homepage": "https://github.com/habedi/ricevm",
+  "skills": []
+}
