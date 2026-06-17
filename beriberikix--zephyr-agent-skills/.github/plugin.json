@@ -1,0 +1,78 @@
+{
+  "name": "beriberikix--zephyr-agent-skills",
+  "displayName": "zephyr-agent-skills",
+  "description": "zephyr-agent-skills",
+  "version": "1.0.0",
+  "author": "beriberikix",
+  "homepage": "https://github.com/beriberikix/zephyr-agent-skills",
+  "skills": [
+    {
+      "name": "connectivity-ble",
+      "description": ""
+    },
+    {
+      "name": "connectivity-ip",
+      "description": ""
+    },
+    {
+      "name": "connectivity-usb-can",
+      "description": ""
+    },
+    {
+      "name": "devicetree",
+      "description": ""
+    },
+    {
+      "name": "hardware-io",
+      "description": ""
+    },
+    {
+      "name": "iot-protocols",
+      "description": ""
+    },
+    {
+      "name": "kernel-basics",
+      "description": ""
+    },
+    {
+      "name": "kernel-services",
+      "description": ""
+    },
+    {
+      "name": "multicore",
+      "description": ""
+    },
+    {
+      "name": "native-sim",
+      "description": ""
+    },
+    {
+      "name": "power-performance",
+      "description": ""
+    },
+    {
+      "name": "specialized",
+      "description": ""
+    },
+    {
+      "name": "storage",
+      "description": ""
+    },
+    {
+      "name": "testing-debugging",
+      "description": ""
+    },
+    {
+      "name": "zephyr-foundations",
+      "description": ""
+    },
+    {
+      "name": "zephyr-index",
+      "description": ""
+    },
+    {
+      "name": "zephyr-module",
+      "description": ""
+    }
+  ]
+}
