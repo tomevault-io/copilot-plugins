@@ -1,0 +1,9 @@
+{
+  "name": "home-assistant-libs--infrared-protocols",
+  "displayName": "infrared-protocols",
+  "description": "infrared-protocols",
+  "version": "1.0.0",
+  "author": "home-assistant-libs",
+  "homepage": "https://github.com/home-assistant-libs/infrared-protocols",
+  "skills": []
+}
