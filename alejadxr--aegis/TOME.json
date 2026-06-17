@@ -1,0 +1,44 @@
+{
+  "name": "AEGIS",
+  "owner": "alejadxr",
+  "repo": "AEGIS",
+  "description": "Open-source autonomous cybersecurity platform \u2014 11/11 detection score, sub-300ms pipeline, honeypot deception, breadcrumb traps, AI-powered triage, and Rust endpoint agent. Built to replace Wazuh.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alejadxr/AEGIS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T03:09:32Z"
+}
