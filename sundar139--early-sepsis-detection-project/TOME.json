@@ -1,0 +1,44 @@
+{
+  "name": "Early-Sepsis-Detection-Project",
+  "owner": "sundar139",
+  "repo": "Early-Sepsis-Detection-Project",
+  "description": "Production-ready ML repo for early sepsis risk prediction from ICU time-series. Covers GRU/LSTM/PatchTST sequence modeling, deterministic preprocessing, calibration analysis, manifest-backed threshold modes, FastAPI serving, and a deployment-safe public Streamlit demo. Research use only.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sundar139/Early-Sepsis-Detection-Project",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T17:34:44Z"
+}
