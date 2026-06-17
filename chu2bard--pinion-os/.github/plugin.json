@@ -1,0 +1,26 @@
+{
+  "name": "chu2bard--pinion-os",
+  "displayName": "pinion-os",
+  "description": "pinion-os",
+  "version": "1.0.0",
+  "author": "chu2bard",
+  "homepage": "https://github.com/chu2bard/pinion-os",
+  "skills": [
+    {
+      "name": "chat",
+      "description": ""
+    },
+    {
+      "name": "send",
+      "description": ""
+    },
+    {
+      "name": "trade",
+      "description": ""
+    },
+    {
+      "name": "wallet",
+      "description": ""
+    }
+  ]
+}
