@@ -4,7 +4,7 @@
   "repo": "granit-dotnet",
   "description": "A modular .NET 10 framework \u2014 orchestrate auth, persistence, CQRS, messaging, and 350+ more modules effortlessly. No boilerplate, no rewrites, no limits.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/granit-fx/granit-dotnet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T22:59:36Z"
+  "distributed_at": "2026-06-17T00:54:30Z"
 }
