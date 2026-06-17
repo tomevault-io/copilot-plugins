@@ -1,0 +1,9 @@
+{
+  "name": "sandsower--memento-vault",
+  "displayName": "memento-vault",
+  "description": "Persistent knowledge capture for coding agents. Auto-triages sessions into searchable Zettelkasten notes with epistemic metadata. Works with Claude Code, Codex, Cursor, Windsurf via hooks or MCP. Loca",
+  "version": "1.0.0",
+  "author": "sandsower",
+  "homepage": "https://github.com/sandsower/memento-vault",
+  "skills": []
+}
