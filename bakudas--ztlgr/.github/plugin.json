@@ -1,0 +1,9 @@
+{
+  "name": "bakudas--ztlgr",
+  "displayName": "ztlgr",
+  "description": "A simple, fast and future proof terminal-based note-taking application with Zettelkasten methodology, built with Rust.",
+  "version": "1.0.0",
+  "author": "bakudas",
+  "homepage": "https://github.com/bakudas/ztlgr",
+  "skills": []
+}
