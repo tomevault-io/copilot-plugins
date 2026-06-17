@@ -1,0 +1,9 @@
+{
+  "name": "yodamad--easylab",
+  "displayName": "easylab",
+  "description": "Make labs setup easy with Pulumi & Coder",
+  "version": "1.0.0",
+  "author": "yodamad",
+  "homepage": "https://github.com/yodamad/easylab",
+  "skills": []
+}
