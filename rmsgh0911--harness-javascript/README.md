@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rmsgh0911/Harness_Javascript](https://github.com/rmsgh0911/Harness_Javascript).
+Original source: `CLAUDE.md` in [rmsgh0911/Harness_Javascript](https://github.com/rmsgh0911/Harness_Javascript).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
