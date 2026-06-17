@@ -1,0 +1,44 @@
+{
+  "name": "talon",
+  "owner": "ivo-toby",
+  "repo": "talon",
+  "description": "Talon is a secure, flexible, self-hosted autonomous agent daemon. Connect it to Telegram, Slack, WhatsApp, Discord, or email. Configure personas with their own system prompts and tool policies. Let it run. ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ivo-toby/talon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T03:34:14Z"
+}
