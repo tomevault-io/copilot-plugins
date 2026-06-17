@@ -1,0 +1,9 @@
+{
+  "name": "caiaffa--claude-code-ultimate-engineering-system",
+  "displayName": "claude-code-ultimate-engineering-system",
+  "description": "A complete engineering toolkit for Claude Code: premium skills, agent workflows, ADR/PRD templates, incident learning, and production-grade governance.",
+  "version": "1.0.0",
+  "author": "caiaffa",
+  "homepage": "https://github.com/caiaffa/claude-code-ultimate-engineering-system",
+  "skills": []
+}
