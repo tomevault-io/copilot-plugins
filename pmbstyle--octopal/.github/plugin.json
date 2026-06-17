@@ -1,9 +1,9 @@
 {
   "name": "pmbstyle--octopal",
   "displayName": "Octopal",
-  "description": "Octopal",
+  "description": "A local AI agent platform for people who want broad, real-world automation with a design that makes powerful actions safer and easier to predict",
   "version": "1.0.0",
   "author": "pmbstyle",
-  "homepage": "https://tomevault.io/claim/pmbstyle",
+  "homepage": "https://github.com/pmbstyle/Octopal",
   "skills": []
 }
