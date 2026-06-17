@@ -1,0 +1,9 @@
+{
+  "name": "automattic--simplenote-mcp",
+  "displayName": "simplenote-mcp",
+  "description": "A basic MCP server for the Simplenote desktop app.",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/simplenote-mcp",
+  "skills": []
+}
