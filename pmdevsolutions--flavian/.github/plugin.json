@@ -1,0 +1,14 @@
+{
+  "name": "pmdevsolutions--flavian",
+  "displayName": "Flavian",
+  "description": "Flavian is a Claude Code-integrated WordPress development framework with FSE block theme tools, automated security auditing, and Figma-to-WordPress pipelines",
+  "version": "1.0.0",
+  "author": "PMDevSolutions",
+  "homepage": "https://github.com/PMDevSolutions/Flavian",
+  "skills": [
+    {
+      "name": "wordpress-hook-integration",
+      "description": ""
+    }
+  ]
+}
