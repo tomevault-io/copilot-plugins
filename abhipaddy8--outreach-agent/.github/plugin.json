@@ -1,0 +1,9 @@
+{
+  "name": "abhipaddy8--outreach-agent",
+  "displayName": "outreach-agent",
+  "description": "Autonomous cold email agent powered by Claude Code + NPC Guide. Tell it what you want \u2014 it finds leads, enriches, verifies, writes copy, sends, and tracks.",
+  "version": "1.0.0",
+  "author": "Abhipaddy8",
+  "homepage": "https://github.com/Abhipaddy8/outreach-agent",
+  "skills": []
+}
