@@ -1,78 +1,88 @@
-## general
+## mcp-usage
 
-> 适用于所有代码文件的通用编码规范
+> 如何使用 MCP Context Server 获取项目上下文，在 Cursor 中编写代码时必须先查询项目状态
 
 
-# 通用编码规范
+# MCP Context Server 使用指南
 
-## 技术栈背景
-- 前端：Vue 3 + Composition API + TypeScript + Vite + Tailwind CSS v4
-- 后端：Koa.js + Node.js + TypeScript
-- 存储：Markdown 文件（work.md / personal.md）
+## 什么是 MCP Context Server
 
-## 强制规范
+这是一个给 Cursor AI 用的"项目说明书 API"。它让 AI 在写代码之前先了解项目实际状态，避免 API 路径猜错、组件名写错等常见幻觉问题。
 
-### TypeScript
-- **禁止使用 `any`**，用 `unknown` 替代或定义具体类型
-- 所有函数参数必须有类型注解
-- 接口用 `interface` 而非 `type`（更推荐）
-- 禁止 `var`，只允许 `const` 和 `let`
+## 连接状态
 
-```typescript
-// ✅ 正确
-interface NoteItem {
-  id: string
-  content: string
-  category: 'work' | 'personal'
-}
+MCP Server 已配置在 `.cursor/mcp.json`，Cursor 启动时自动连接。
 
-// ❌ 错误
-const note: any = {}
-function foo(a) { return a }
+## 如何使用
+
+### 在 Chat 中查询项目状态
+
+在 Cursor Chat 对话框中，使用 `@second-brain-context` 召唤 MCP 工具：
+
+1. 打开 Cursor Chat (Cmd+L)
+2. 输入 `@second-brain-context` 或直接输入工具名
+3. 选择需要的工具获取上下文
+
+### 可用的工具
+
+| 工具名 | 返回内容 |
+|--------|----------|
+| `list_components` | 前端所有 Vue 组件及 props/emits 定义 |
+| `list_views` | 前端所有页面视图 |
+| `list_api_files` | 前端 API 封装文件及导出函数 |
+| `list_composables` | 前端 composables/hooks |
+| `list_backend_routes` | 后端所有 API 路由和端点 |
+| `get_data_model` | Note、Tag 等数据接口定义 |
+| `get_tag_colors` | 标签预设颜色池 |
+| `get_project_summary` | 完整项目摘要（推荐先用这个） |
+
+## 推荐工作流
+
+### 写新功能之前
+
+**不要**直接让 AI 写代码。先获取上下文：
+
+```
+在 Cursor Chat 中：
+@second-brain-context 调用 get_project_summary
+→ AI 了解了项目实际状态
+→ 再让 AI 生成代码
 ```
 
-### Git Commit 规范
+### 示例：添加标签筛选功能
+
+**错误做法**（容易出错）：
 ```
-feat: 新功能
-fix: 修复 bug
-docs: 文档更新
-style: 代码格式（不影响功能）
-refactor: 重构
-test: 测试相关
-chore: 构建/工具变更
+帮我加一个标签筛选功能
+→ AI 猜测 API 路径，可能写错
 ```
 
-### 代码风格
-- 使用 ESLint + Prettier 自动格式化，不要手动调整
-- 使用 `async/await` 而非 `.then().catch()`
-- 优先使用 `const`，只有变量会变时用 `let`
-- 禁止 `console.log`（调试完成后删除）
+**正确做法**：
+```
+@second-brain-context 调用 get_project_summary
+@second-brain-context 调用 list_backend_routes
+→ 看到 GET /api/notes 支持 tag 参数
+→ 再让 AI 生成代码
+```
 
-### 安全红线
-- **禁止硬编码 token/secret/password**：所有敏感信息必须通过环境变量（`import.meta.env.VITE_*`）获取
-- **禁止 `eval()`、`new Function()`**：安全审计零容忍
-- **`v-html` / `dangerouslySetInnerHTML` 审查**：使用前必须确认内容来源可信，或经过 DOMPurify 等库消毒
-- **禁止内联事件处理器**：如 `onclick="..."`，必须用 Vue 事件绑定
-- 用户输入必须校验/过滤，防止 XSS/注入
-- API key、JWT 等不得出现在前端代码或 commit 中
+## MCP Server 调试
 
-### 性能规范
-- **列表渲染必须用 `:key`**：优先使用唯一 ID，避免用 index
-- **大组件懒加载**：超过 300 行的组件或路由级组件必须 `defineAsyncComponent` 或路由懒加载
-- **避免不必要 watcher**：能用 computed 解决的不用 watch，watch 必须指定 `{ immediate: false }` 除非确实需要
-- **避免深层响应式**：大列表数据用 `shallowRef` 代替 `ref`
-- **图片懒加载**：使用 `loading="lazy"` 属性
-- **避免模板中的复杂计算**：移入 computed 或方法中
+```bash
+# 本地测试 MCP Server
+node scripts/mcp-context-server.js
 
-### 禁止模式清单
-- ❌ `any` 类型（用 `unknown` 或具体类型替代）
-- ❌ `var` 声明（用 `const`/`let`）
-- ❌ `console.log`（调试完成后必须删除，用 `console.error` 记录错误）
-- ❌ `debugger` 语句
-- ❌ 直接操作 DOM（`document.querySelector` / `innerHTML` 等），用 Vue ref
-- ❌ `// @ts-ignore`（用 `@ts-expect-error` 并说明原因）
-- ❌ 魔法数字（未命名的硬编码数字，如 `if (len > 120)`，应提取为常量）
-- ❌ 未处理的 Promise（async 函数必须有 try-catch）
+# HTTP 模式（curl 测试）
+MCP_HTTP=true node scripts/mcp-context-server.js
+curl -X POST http://localhost:3456 -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_project_summary","arguments":{}}}'
+```
+
+## 常见问题
+
+Q: Cursor 连接 MCP 失败？
+A: 确认 `.cursor/mcp.json` 在项目根目录，Cursor 版本 >= 0.42
+
+Q: MCP 返回的数据太旧？
+A: 项目结构变化后需要重启 Cursor，MCP Server 会重新扫描
 
 ---
 > Source: [yxc-gdut/second-brain-](https://github.com/yxc-gdut/second-brain-) — distributed by [TomeVault](https://tomevault.io).
