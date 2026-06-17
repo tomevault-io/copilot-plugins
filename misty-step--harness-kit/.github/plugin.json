@@ -1,0 +1,9 @@
+{
+  "name": "misty-step--harness-kit",
+  "displayName": "harness-kit",
+  "description": "Portable skill library for AI coding agents: debugging, PR workflows, design systems, incident response, and domain playbooks.",
+  "version": "1.0.0",
+  "author": "misty-step",
+  "homepage": "https://github.com/misty-step/harness-kit",
+  "skills": []
+}
