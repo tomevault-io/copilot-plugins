@@ -1,0 +1,44 @@
+{
+  "name": "healerbook",
+  "owner": "KawashiroNitori",
+  "repo": "healerbook",
+  "description": "\u57fa\u4e8e FFLogs \u7684 FF14 \u6cbb\u7597\u804c\u4e1a\u51cf\u4f24\u89c4\u5212\u5de5\u5177 - FF14 Mitigation Planning Tool for Healers based on FFLogs",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KawashiroNitori/healerbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T15:33:33Z"
+}
