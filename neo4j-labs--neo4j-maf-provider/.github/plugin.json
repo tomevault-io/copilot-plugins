@@ -1,0 +1,9 @@
+{
+  "name": "neo4j-labs--neo4j-maf-provider",
+  "displayName": "neo4j-maf-provider",
+  "description": "Neo4j Context Provider for Microsoft Agent Framework",
+  "version": "1.0.0",
+  "author": "neo4j-labs",
+  "homepage": "https://github.com/neo4j-labs/neo4j-maf-provider",
+  "skills": []
+}
