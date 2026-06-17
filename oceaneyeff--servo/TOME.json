@@ -4,7 +4,7 @@
   "repo": "servo",
   "description": "\u5de5\u7a0b\u63a7\u5236\u8bba\u5f71\u54cd\u4e0b\u7684AIGC\u6d41\u7a0b\u7ba1\u7406Skills\u96c6\u5408\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OceanEyeFF/servo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T05:05:50Z"
+  "distributed_at": "2026-06-17T08:53:40Z"
 }
