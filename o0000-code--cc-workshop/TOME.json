@@ -4,7 +4,7 @@
   "repo": "CC-Workshop",
   "description": "A macOS desktop app for managing Claude Code configurations \u2014 Skills, MCP Servers, and CLAUDE.md files",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/O0000-code/CC-Workshop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T09:30:53Z"
+  "distributed_at": "2026-06-17T16:49:50Z"
 }
