@@ -1,0 +1,9 @@
+{
+  "name": "joshsymonds--savecraft-gg",
+  "displayName": "savecraft.gg",
+  "description": "Parse video game save files, serve structured game state to AI assistants via MCP",
+  "version": "1.0.0",
+  "author": "joshsymonds",
+  "homepage": "https://github.com/joshsymonds/savecraft.gg",
+  "skills": []
+}
