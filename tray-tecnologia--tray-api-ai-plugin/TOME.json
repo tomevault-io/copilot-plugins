@@ -4,7 +4,7 @@
   "repo": "tray-api-ai-plugin",
   "description": "Plugin para agentes de IA(Claude Code, Codex, etc) com integra\u00e7\u00e3o completa \u00e0s APIs da Tray. Skills, Agentes e comandos cobrindo 150+ endpoints",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tray-tecnologia/tray-api-ai-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T19:11:48Z"
+  "distributed_at": "2026-06-17T01:09:34Z"
 }
