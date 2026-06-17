@@ -1,0 +1,9 @@
+{
+  "name": "aliceljy--recallnest",
+  "displayName": "recallnest",
+  "description": "One memory, three terminals. Shared memory layer for Claude Code, Codex, and Gemini CLI \u2014 hybrid retrieval (vector + BM25 + KG), session continuity, 41 MCP tools. Local-first, LanceDB-backed.",
+  "version": "1.0.0",
+  "author": "AliceLJY",
+  "homepage": "https://github.com/AliceLJY/recallnest",
+  "skills": []
+}
