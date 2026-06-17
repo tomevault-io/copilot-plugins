@@ -1,0 +1,9 @@
+{
+  "name": "yangsonhung--awesome-agent-skills",
+  "displayName": "awesome-agent-skills",
+  "description": "A collection of AI Agent Skills that provide professional domain capabilities for intelligent assistants like Claude Code.",
+  "version": "1.0.0",
+  "author": "YangsonHung",
+  "homepage": "https://github.com/YangsonHung/awesome-agent-skills",
+  "skills": []
+}
