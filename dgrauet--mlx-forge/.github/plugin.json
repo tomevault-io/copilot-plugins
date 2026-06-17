@@ -1,0 +1,9 @@
+{
+  "name": "dgrauet--mlx-forge",
+  "displayName": "mlx-forge",
+  "description": "Convert, quantize, split, and validate ML models for Apple MLX on Apple Silicon",
+  "version": "1.0.0",
+  "author": "dgrauet",
+  "homepage": "https://github.com/dgrauet/mlx-forge",
+  "skills": []
+}
