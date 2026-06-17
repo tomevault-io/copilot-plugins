@@ -1,0 +1,9 @@
+{
+  "name": "cfoust--vtdn-dev",
+  "displayName": "vtdn.dev",
+  "description": "Like MDN or caniuse.com, but for terminal emulators",
+  "version": "1.0.0",
+  "author": "cfoust",
+  "homepage": "https://github.com/cfoust/vtdn.dev",
+  "skills": []
+}
