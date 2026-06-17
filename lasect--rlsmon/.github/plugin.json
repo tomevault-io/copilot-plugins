@@ -1,0 +1,9 @@
+{
+  "name": "lasect--rlsmon",
+  "displayName": "rlsmon",
+  "description": "postgres rls debugger & simulator",
+  "version": "1.0.0",
+  "author": "lasect",
+  "homepage": "https://github.com/lasect/rlsmon",
+  "skills": []
+}
