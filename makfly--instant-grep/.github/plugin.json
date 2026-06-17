@@ -1,0 +1,9 @@
+{
+  "name": "makfly--instant-grep",
+  "displayName": "instant-grep",
+  "description": "Trigram-indexed regex search CLI \u2014 sub-ms code search for AI agents. 93.5% token savings.",
+  "version": "1.0.0",
+  "author": "MakFly",
+  "homepage": "https://github.com/MakFly/instant-grep",
+  "skills": []
+}
