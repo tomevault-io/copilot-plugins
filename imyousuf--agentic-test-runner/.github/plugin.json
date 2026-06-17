@@ -1,0 +1,22 @@
+{
+  "name": "imyousuf--agentic-test-runner",
+  "displayName": "agentic-test-runner",
+  "description": "A test runner which will run a test and debug the test failure with a MCP server, allowing coding context to remain clean",
+  "version": "1.0.0",
+  "author": "imyousuf",
+  "homepage": "https://github.com/imyousuf/agentic-test-runner",
+  "skills": [
+    {
+      "name": "atr-analyze",
+      "description": ""
+    },
+    {
+      "name": "atr-behavior",
+      "description": ""
+    },
+    {
+      "name": "atr-browser",
+      "description": ""
+    }
+  ]
+}
