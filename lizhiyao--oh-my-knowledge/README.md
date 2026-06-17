@@ -7,11 +7,11 @@ Evaluation framework for LLM knowledge inputs — prompts, RAG corpora, skills, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lizhiyao/oh-my-knowledge](https://github.com/lizhiyao/oh-my-knowledge).
+Original source: `CLAUDE.md` in [lizhiyao/oh-my-knowledge](https://github.com/lizhiyao/oh-my-knowledge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
