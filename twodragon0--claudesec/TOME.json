@@ -4,7 +4,7 @@
   "repo": "claudesec",
   "description": "SecaaS toolkit for AI-assisted secure development with Claude Code",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Twodragon0/claudesec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T21:15:01Z"
+  "distributed_at": "2026-06-17T06:47:10Z"
 }
