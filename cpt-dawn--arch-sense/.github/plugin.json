@@ -1,0 +1,9 @@
+{
+  "name": "cpt-dawn--arch-sense",
+  "displayName": "Arch-Sense",
+  "description": "Acer Predator PH16-71 control center for Arch Linux \u2014 thermal profiles, fan control, per-key RGB lighting, and battery management via a Rust TUI. Replaces PredatorSense entirely.",
+  "version": "1.0.0",
+  "author": "CPT-Dawn",
+  "homepage": "https://github.com/CPT-Dawn/Arch-Sense",
+  "skills": []
+}
