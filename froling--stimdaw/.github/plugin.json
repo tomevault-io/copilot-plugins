@@ -1,0 +1,9 @@
+{
+  "name": "froling--stimdaw",
+  "displayName": "StimDAW",
+  "description": "A DAW-like client for the NeoDK open-source e-stim platform.",
+  "version": "1.0.0",
+  "author": "froling",
+  "homepage": "https://github.com/froling/StimDAW",
+  "skills": []
+}
