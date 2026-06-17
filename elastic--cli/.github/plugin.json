@@ -1,0 +1,9 @@
+{
+  "name": "elastic--cli",
+  "displayName": "cli",
+  "description": "Interact with Elasticsearch, Elastic Serverless and Elastic Cloud APIs from the command line",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/cli",
+  "skills": []
+}
