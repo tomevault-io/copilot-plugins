@@ -1,0 +1,97 @@
+## mdone
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+mDone is a native iOS/macOS task management app that connects to a self-hosted **Vikunja** server via its REST API (v2.1.0). Pure Swift with SwiftUI — no external dependencies.
+
+## Build & Development
+
+The project uses **XcodeGen** to generate the Xcode project from `project.yml`.
+
+```bash
+# Regenerate Xcode project after changing targets/settings
+xcodegen generate
+
+# Build iOS app
+xcodebuild -project mDone.xcodeproj -scheme mDone -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16' build
+
+# Build macOS app
+xcodebuild -project mDone.xcodeproj -scheme mDone-macOS build
+
+# Run unit tests
+xcodebuild -project mDone.xcodeproj -scheme mDone -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16' test
+
+# Run a single test
+xcodebuild -project mDone.xcodeproj -scheme mDone -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16' -only-testing:mDoneTests/TaskServiceTests test
+
+# Lint
+swiftlint lint --quiet
+
+# Format
+swiftformat .
+```
+
+**Deployment targets:** iOS 18.0+, macOS 15.0+. Swift 5.9.
+
+## Architecture
+
+### Data Flow
+```
+View → AppState (method call) → Service (TaskService/ProjectService)
+→ APIClient (singleton actor) → Vikunja REST API → decode response → update AppState → SwiftUI re-renders
+```
+
+### Key Patterns
+- **AppState** (`App/AppState.swift`): Single `@Observable` class holding all app state — tasks, projects, labels, notifications, auth status, filters. All mutating async methods are `@MainActor`.
+- **Services are actors**: `APIClient`, `TaskService`, `ProjectService`, `AuthService`, `NotificationService`, `SyncService` — all actors for thread safety.
+- **APIClient** (`Services/APIClient.swift`): Singleton actor. Uses `convertFromSnakeCase`/`convertToSnakeCase` key strategies. Custom date decoding handles ISO8601 with/without fractional seconds, plus Vikunja's zero-date (`0001-01-01T00:00:00Z` → `Date.distantPast`).
+- **Endpoint** (`Services/Endpoint.swift`): Static factory methods returning `Endpoint` structs with path, HTTP method, and query items. Vikunja API base path: `/api/v1/`.
+- **Platform split**: iOS uses `MainTabView` (tab bar), macOS uses `MacContentView` (NavigationSplitView sidebar). Conditional compilation via `#if os(iOS)` / `#if os(macOS)`.
+- **Auth**: Token stored in Keychain (`AuthService`), server URL in UserDefaults. Login validates by fetching projects.
+- **Offline support**: SwiftData models in `CacheService.swift` (CachedTask, CachedProject, CachedLabel, PendingOperation) synced via `SyncService`.
+
+### Vikunja API Notes
+- Task creation uses `PUT /api/v1/projects/{id}/tasks` (not POST)
+- Task update uses `POST /api/v1/tasks/{id}` (not PUT)
+- Filtering uses Vikunja DSL syntax, e.g. `"priority = 3 && due_date > now && done = false"`
+- All IDs are `Int64`
+
+## Changelog
+
+Update `CHANGELOG.md` whenever making user-facing changes (features, fixes, UI changes). Add entries under the `[Unreleased]` section using Keep a Changelog categories: Added, Changed, Fixed, Removed. Keep entries concise and written from the user's perspective.
+
+## Test Coverage
+
+Code coverage is gathered by default — `gatherCoverageData: true` is set on both schemes in `project.yml`. Read coverage from any test run with `xcrun xccov view --report <path-to-.xcresult>`.
+
+Apply tiered coverage targets by layer rather than chasing a single overall percentage:
+
+| Layer | Target |
+|---|---|
+| Services (`mDone/Services/`) | 85%+ (never drop a service below 70% without a reason) |
+| Models with logic (e.g. `VTask`) | 90%+ |
+| `AppState` | 75%+ |
+| Widgets (`mDoneShared/`, `mDoneWidgets/`) | 70%+ |
+| SwiftUI views | no line-coverage target — use snapshot tests |
+
+Rules of practice:
+- New code in services, models, or `AppState` ships with tests in the same PR. Coverage-of-the-diff matters more than overall %.
+- Verify a test file actually exercises its target with `xccov` — a file's existence isn't proof of coverage. `SyncServiceTests` once had 12 tests but only hit 3.78% of `SyncService` because it mocked the wrong layer.
+- Don't pad the overall % with shallow view tests. SwiftUI view files at 0% line coverage are normal.
+- If a service in a diff is below 70%, flag it as a good moment to add tests.
+
+## Linting & Formatting
+
+SwiftLint runs as a post-build script (configured in `project.yml`). Config in `.swiftlint.yml` — notably disables `line_length`, `trailing_whitespace`, `type_body_length`, `file_length`, `function_body_length`, and `cyclomatic_complexity`.
+
+SwiftFormat config in `.swiftformat`: 4-space indent, 120 max width, semicolons never.
+
+---
+> Source: [marco308/mdone](https://github.com/marco308/mdone) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
