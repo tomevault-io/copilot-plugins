@@ -1,0 +1,44 @@
+{
+  "name": "adamas-lang",
+  "owner": "skuznetsov",
+  "repo": "adamas-lang",
+  "description": "Adamas Lang compiler + LSP server with ground-built Crystal Lang compatible parser/type inferrer/compiler, that is LSP friendly and allows to reload individual files without whole tree reparsing.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/skuznetsov/adamas-lang",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T20:32:42Z"
+}
