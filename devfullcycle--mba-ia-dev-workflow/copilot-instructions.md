@@ -1,29 +1,45 @@
-## coding
+## controllers
 
-> Use when writing TypeScript code. Covers naming conventions, file organization, and TypeScript best practices.
+> Use when writing or modifying Express.js controllers and route handlers. Covers procedural handler pattern, REST status codes, and error propagation.
 
 
-# Coding Conventions
+# Controller Pattern
 
-## Naming
+Controllers are individually exported **procedural functions** — never classes. Each function is a route handler that follows the flow: **extract data from request → call use case → return response**.
 
-- **camelCase**: variables, functions, parameters, object properties
-- **PascalCase**: classes, interfaces, type aliases, enums
-- **UPPER_SNAKE_CASE**: constants and enum values
-- **kebab-case**: file names and directory names (e.g., `create-user.usecase.ts`, `typeorm-user.repository.ts`)
+## Rules
 
-## Files
+1. **One function per action**: each handler is an exported named function (`export async function createUser`)
+2. **No business logic**: controllers never validate rules, compute values, or access repositories directly — delegate everything to the use case
+3. **Standard signature**: `(req: Request, res: Response, next: NextFunction) => Promise<void>`
+4. **No silent errors**: every error must be propagated — never use empty catch blocks, never swallow exceptions with `console.log` without re-throwing, never return a generic response ignoring the error. The catch block always delegates to the error middleware via `next(error)`
+5. **Correct REST status codes**:
+   - `200` — successful read or update
+   - `201` — resource created (POST that creates)
+   - `204` — no response body (e.g., logout, delete)
+   - Never return error status codes manually (4xx/5xx) — the error middleware determines those from use case exceptions
+6. **Explicit data extraction**: destructure `req.body`, `req.params`, and `req.query` at the top of the handler, before calling the use case
+7. **Direct response**: `res.status(xxx).json(result)` — no helpers or extra abstractions
 
-- One main export per file — name the file after what it exports
-- Suffix files by their role: `.usecase.ts`, `.repository.ts`, `.controller.ts`, `.entity.ts`
-- Use `.js` extensions in imports (ESM requirement)
+## Handler structure
 
-## TypeScript
+```typescript
+import { Router } from "express";
 
-- Always use explicit return types on exported functions
-- Prefer `interface` over `type` for object shapes
-- Prefer `unknown` over `any` — never use `any` unless absolutely necessary
-- Use `readonly` for properties that should not be reassigned
+const router = Router();
+
+router.post("/<path>", async (req, res, next) => {
+  try {
+    const { name, email } = req.body;
+    const user = await createUserUseCase.execute({ name, email });
+    res.status(201).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+export default router;
+```
 
 ---
 > Source: [devfullcycle/mba-ia-dev-workflow](https://github.com/devfullcycle/mba-ia-dev-workflow) — distributed by [TomeVault](https://tomevault.io).
