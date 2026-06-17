@@ -7,11 +7,11 @@ Voice to brain interface 🦞🎤🧠 for OpenClaw, Hermes, PI, etc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yagudaev/voiceclaw](https://github.com/yagudaev/voiceclaw).
+Original source: `CLAUDE.md` in [yagudaev/voiceclaw](https://github.com/yagudaev/voiceclaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
