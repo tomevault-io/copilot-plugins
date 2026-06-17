@@ -1,0 +1,9 @@
+{
+  "name": "nkhitrov--typemut",
+  "displayName": "typemut",
+  "description": "Mutation testing for type annotation in python projects",
+  "version": "1.0.0",
+  "author": "nkhitrov",
+  "homepage": "https://github.com/nkhitrov/typemut",
+  "skills": []
+}
