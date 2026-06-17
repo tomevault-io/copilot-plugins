@@ -1,0 +1,9 @@
+{
+  "name": "dexoron--dcr",
+  "displayName": "dcr",
+  "description": "DCR is a utility for managing C/C++ projects in a Cargo-like style.",
+  "version": "1.0.0",
+  "author": "dexoron",
+  "homepage": "https://github.com/dexoron/dcr",
+  "skills": []
+}
