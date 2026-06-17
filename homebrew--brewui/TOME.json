@@ -4,7 +4,7 @@
   "repo": "BrewUI",
   "description": "\ud83d\udcfa Homebrew's official macOS GUI",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Homebrew/BrewUI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T20:57:07Z"
+  "distributed_at": "2026-06-17T03:07:34Z"
 }
