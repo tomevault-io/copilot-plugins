@@ -4,7 +4,7 @@
   "repo": "ads-agentic-tools",
   "description": "A Claude Code plugin that lets you manage Spotify advertising campaigns through natural language. Create campaigns, target audiences, launch ads, and pull performance reports \u2014 all by describing what you want in plain English.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spotify/ads-agentic-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T02:46:46Z"
+  "distributed_at": "2026-06-17T04:50:57Z"
 }
