@@ -1,0 +1,9 @@
+{
+  "name": "ankushthakur2007--miyami-websearch-tool",
+  "displayName": "miyami_websearch_tool",
+  "description": "A production-ready FastAPI wrapper for SearXNG that provides LLM-friendly search and web content extraction capabilities.",
+  "version": "1.0.0",
+  "author": "ankushthakur2007",
+  "homepage": "https://github.com/ankushthakur2007/miyami_websearch_tool",
+  "skills": []
+}
