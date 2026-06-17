@@ -1,0 +1,9 @@
+{
+  "name": "cognitic-labs--geoskills",
+  "displayName": "geoskills",
+  "description": "Open-source Agent Skills for GEO \u2014 6 skills to diagnose, fix, and monitor AI visibility for your website. Works with Claude Code, OpenCode, OpenClaw, Codex, Cursor.",
+  "version": "1.0.0",
+  "author": "Cognitic-Labs",
+  "homepage": "https://github.com/Cognitic-Labs/geoskills",
+  "skills": []
+}
