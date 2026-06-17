@@ -1,0 +1,9 @@
+{
+  "name": "transformable-app--rssnotify",
+  "displayName": "rssnotify",
+  "description": "RSS feed monitor that evaluates feed items with OpenAI-compatible APIs, creates notifications when content matches your natural language rules, and delivers them via email and/or ntfy.",
+  "version": "1.0.0",
+  "author": "transformable-app",
+  "homepage": "https://github.com/transformable-app/rssnotify",
+  "skills": []
+}
