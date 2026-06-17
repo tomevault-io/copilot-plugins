@@ -1,0 +1,9 @@
+{
+  "name": "kennyg--mise-zerobrew",
+  "displayName": "mise-zerobrew",
+  "description": "A mise backend plugin that installs Homebrew formulae via zerobrew (5-20x faster)",
+  "version": "1.0.0",
+  "author": "kennyg",
+  "homepage": "https://github.com/kennyg/mise-zerobrew",
+  "skills": []
+}
