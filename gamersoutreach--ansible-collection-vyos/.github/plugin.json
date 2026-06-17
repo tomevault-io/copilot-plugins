@@ -1,0 +1,9 @@
+{
+  "name": "gamersoutreach--ansible-collection-vyos",
+  "displayName": "ansible-collection-vyos",
+  "description": "Reusable Ansible roles and plugins for managing VyOS devices",
+  "version": "1.0.0",
+  "author": "gamersoutreach",
+  "homepage": "https://github.com/gamersoutreach/ansible-collection-vyos",
+  "skills": []
+}
