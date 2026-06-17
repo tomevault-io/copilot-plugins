@@ -1,0 +1,9 @@
+{
+  "name": "nikships--droidproxy",
+  "displayName": "droidproxy",
+  "description": "A native macOS menu bar app that proxies Claude/Codex/Gemini subscriptions for use with Factory Droid CLI. Always updated with new model releases!",
+  "version": "1.0.0",
+  "author": "nikships",
+  "homepage": "https://github.com/nikships/droidproxy",
+  "skills": []
+}
