@@ -1,0 +1,9 @@
+{
+  "name": "pizanao--lake-house-lab",
+  "displayName": "lake-house-lab",
+  "description": "Local data lakehouse lab with Django, dbt, DuckDB and React",
+  "version": "1.0.0",
+  "author": "pizanao",
+  "homepage": "https://github.com/pizanao/lake-house-lab",
+  "skills": []
+}
