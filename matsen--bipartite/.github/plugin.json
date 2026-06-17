@@ -1,0 +1,22 @@
+{
+  "name": "matsen--bipartite",
+  "displayName": "bipartite",
+  "description": "Connecting research programs and the outside world",
+  "version": "1.0.0",
+  "author": "matsen",
+  "homepage": "https://github.com/matsen/bipartite",
+  "skills": [
+    {
+      "name": "bip",
+      "description": ""
+    },
+    {
+      "name": "bip.narrative",
+      "description": ""
+    },
+    {
+      "name": "issue-file",
+      "description": ""
+    }
+  ]
+}
