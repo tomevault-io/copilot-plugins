@@ -4,7 +4,7 @@
   "repo": "Clinical-Insight-Engine",
   "description": "Clinical Insight Engine is a full-stack clinical decision support system designed to surface early diabetes risk signals from routine patient data. It combines a Python-based interpretable machine learning model with a modern React frontend, presenting results differently for clinicians and patients.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gopaljilab/Clinical-Insight-Engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T21:07:33Z"
+  "distributed_at": "2026-06-17T07:35:11Z"
 }
