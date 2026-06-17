@@ -1,0 +1,9 @@
+{
+  "name": "agentskit-io--agentskit",
+  "displayName": "agentskit",
+  "description": "The complete toolkit for building AI agents in JavaScript. Lightweight core, React & Terminal UIs, autonomous runtime, tools, skills, memory, RAG and observability. Plug-and-play from chat UI to full ",
+  "version": "1.0.0",
+  "author": "AgentsKit-io",
+  "homepage": "https://github.com/AgentsKit-io/agentskit",
+  "skills": []
+}
