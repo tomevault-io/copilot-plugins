@@ -1,0 +1,9 @@
+{
+  "name": "canopenterm--canvenient",
+  "displayName": "CANvenient",
+  "description": "CANvenient is an abstraction layer for multiple CAN APIs on Windows an Linux.",
+  "version": "1.0.0",
+  "author": "CANopenTerm",
+  "homepage": "https://github.com/CANopenTerm/CANvenient",
+  "skills": []
+}
