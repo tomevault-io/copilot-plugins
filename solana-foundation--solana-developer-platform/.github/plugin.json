@@ -1,0 +1,9 @@
+{
+  "name": "solana-foundation--solana-developer-platform",
+  "displayName": "solana-developer-platform",
+  "description": "Solana Developer Platform API and Dashboard",
+  "version": "1.0.0",
+  "author": "solana-foundation",
+  "homepage": "https://github.com/solana-foundation/solana-developer-platform",
+  "skills": []
+}
