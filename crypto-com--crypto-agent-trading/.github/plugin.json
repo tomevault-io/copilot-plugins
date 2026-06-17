@@ -1,0 +1,9 @@
+{
+  "name": "crypto-com--crypto-agent-trading",
+  "displayName": "crypto-agent-trading",
+  "description": "Agent skill for trading crypto via the Crypto.com API. Buy, sell, swap, and query balances",
+  "version": "1.0.0",
+  "author": "crypto-com",
+  "homepage": "https://github.com/crypto-com/crypto-agent-trading",
+  "skills": []
+}
