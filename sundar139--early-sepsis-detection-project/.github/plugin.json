@@ -1,0 +1,9 @@
+{
+  "name": "sundar139--early-sepsis-detection-project",
+  "displayName": "Early-Sepsis-Detection-Project",
+  "description": "Production-ready ML repo for early sepsis risk prediction from ICU time-series. Covers GRU/LSTM/PatchTST sequence modeling, deterministic preprocessing, calibration analysis, manifest-backed threshold",
+  "version": "1.0.0",
+  "author": "sundar139",
+  "homepage": "https://github.com/sundar139/Early-Sepsis-Detection-Project",
+  "skills": []
+}
