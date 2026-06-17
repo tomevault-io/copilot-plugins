@@ -1,0 +1,14 @@
+{
+  "name": "gquthier--clawg",
+  "displayName": "CLAWG",
+  "description": "SMART-CLAWG \u2014 Open-source personal agent framework with a native shared Obsidian Second Brain. One context, every agent.",
+  "version": "1.0.0",
+  "author": "gquthier",
+  "homepage": "https://github.com/gquthier/CLAWG",
+  "skills": [
+    {
+      "name": "fastmcp",
+      "description": ""
+    }
+  ]
+}
