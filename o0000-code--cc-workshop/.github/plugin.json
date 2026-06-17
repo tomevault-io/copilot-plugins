@@ -1,0 +1,9 @@
+{
+  "name": "o0000-code--cc-workshop",
+  "displayName": "CC-Workshop",
+  "description": "A macOS desktop app for managing Claude Code configurations \u2014 Skills, MCP Servers, and CLAUDE.md files",
+  "version": "1.0.0",
+  "author": "O0000-code",
+  "homepage": "https://github.com/O0000-code/CC-Workshop",
+  "skills": []
+}
