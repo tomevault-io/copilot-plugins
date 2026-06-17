@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--arcade-skills",
+  "displayName": "arcade-skills",
+  "description": "Reuseable AI skills, plugins, agents for use in the dotnet product repos, such as dotnet/runtime",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/arcade-skills",
+  "skills": []
+}
