@@ -1,0 +1,9 @@
+{
+  "name": "hamr0--baremobile",
+  "displayName": "baremobile",
+  "description": "Gives agents Android + iOS devices. Screen in, pruned snapshot out. Replaces Appium, Espresso, XCUITest. Zero deps, zero wasted tokens.",
+  "version": "1.0.0",
+  "author": "hamr0",
+  "homepage": "https://github.com/hamr0/baremobile",
+  "skills": []
+}
