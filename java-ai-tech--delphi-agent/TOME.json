@@ -4,7 +4,7 @@
   "repo": "delphi-agent",
   "description": "An Agent Framework For Platform Use Implemented Based On PI-Agent",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/java-ai-tech/delphi-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T01:24:45Z"
+  "distributed_at": "2026-06-17T03:18:34Z"
 }
