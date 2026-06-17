@@ -1,0 +1,9 @@
+{
+  "name": "tue-studyos--tue-api-wrapper",
+  "displayName": "tue-api-wrapper",
+  "description": "SDKs, native clients, and apps for University of T\u00fcbingen study systems: Alma, ILIAS, Moodle, TIMMS, campus data, and student workflows.",
+  "version": "1.0.0",
+  "author": "Tue-StudyOS",
+  "homepage": "https://github.com/Tue-StudyOS/tue-api-wrapper",
+  "skills": []
+}
