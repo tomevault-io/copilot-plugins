@@ -1,0 +1,44 @@
+{
+  "name": "gut-feeling-parameter",
+  "owner": "TrialBlazer23",
+  "repo": "gut-feeling-parameter",
+  "description": "Gut Feeling Parameter (GFP) \u2014 Emergent precursor sensitivity in curiosity-driven RL agents | Necessity Labs Research",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TrialBlazer23/gut-feeling-parameter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T18:48:34Z"
+}
