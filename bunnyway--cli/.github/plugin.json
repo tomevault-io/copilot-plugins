@@ -1,0 +1,9 @@
+{
+  "name": "bunnyway--cli",
+  "displayName": "cli",
+  "description": "bunny.net CLI",
+  "version": "1.0.0",
+  "author": "BunnyWay",
+  "homepage": "https://github.com/BunnyWay/cli",
+  "skills": []
+}
