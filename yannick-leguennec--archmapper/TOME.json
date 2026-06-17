@@ -1,0 +1,44 @@
+{
+  "name": "archmapper",
+  "owner": "yannick-leguennec",
+  "repo": "archmapper",
+  "description": "ArchMapper \u2014 A powerful, resumeable, bottom-up reverse engineering framework for large codebases. Automatically scans folder/file structure, builds a complete hierarchical architecture.json with ideal metadata, connections, and improvement suggestions. Designed for clean-room analysis and any complex repo.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yannick-leguennec/archmapper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T23:23:44Z"
+}
