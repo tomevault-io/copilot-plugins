@@ -1,0 +1,52 @@
+## privamatic
+
+> Typography: MaterialTheme.typography ONLY (displayLarge, headlineMedium, titleLarge, bodyMedium)
+
+# Privamatic - Essential Rules (Optimized for Token Efficiency)
+
+## Material Design 3 - STRICT
+Typography: MaterialTheme.typography ONLY (displayLarge, headlineMedium, titleLarge, bodyMedium)
+Colors: MaterialTheme.colorScheme - Primary: British Racing Green (#0B4619)
+Spacing: 4/8/12/16/24/32dp scale ONLY
+Icons: Material Icons (Icons.Default.*), NO emoji
+Components: Material 3 only, NO custom clickables
+
+## Compose - REQUIRED
+Modifier: Last parameter, always `= Modifier` default
+State: Stateless composables, hoist up
+remember: Include dependencies - `remember(key) { }`
+NO business logic in @Composable
+
+## Kotlin Style
+val over var | when over if-else | Immutable data classes
+Extension functions for type-specific logic
+PascalCase classes | camelCase functions | UPPER_SNAKE_CASE constants
+
+## Architecture
+UI: ui/screens, ui/components (stateless)
+Logic: data/scanner (PrivacyScoreCalculator, QuickWinsDetector as objects)
+Models: data/model (immutable)
+
+## Strings & Localisation - STRICT
+ALL user-facing strings in strings.xml — NO hardcoded English in Kotlin or XML layouts
+Composables: `stringResource()` / `pluralStringResource()` — never raw literals
+Non-Composable: pass `Context`, use `context.getString()` / `getQuantityString()`
+Naming: `label_<screen>_<element>` | `copy_<screen>_<element>` | `fmt_<element>` | `plural_<element>`
+Exceptions: package names, log tags, DataStore keys, OS brand names, strings.xml placeholders
+
+## Anti-Patterns - REJECT
+❌ Arbitrary fontSize/spacing/colors
+❌ var in data classes
+❌ Business logic in Composables
+❌ Duplicated detection logic (extract to extension function)
+❌ Magic numbers (use named constants)
+❌ Modifier without default
+
+## Privamatic Specific
+Minimal permissions | No tracking | F-Droid compatible
+All points in PrivacyCheck enum | Use PrivacyScoreCalculator
+British Racing Green | Cards: 12dp corners, 2dp elevation
+
+---
+> Source: [techtrest/privamatic](https://github.com/techtrest/privamatic) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
