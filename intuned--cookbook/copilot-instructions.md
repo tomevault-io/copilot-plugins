@@ -1,0 +1,46 @@
+## cookbook
+
+> - Two tables: "TypeScript Examples" and "Python Examples"
+
+# Intuned Cookbook Rules (concise)
+
+## Main README Structure
+- Two tables: "TypeScript Examples" and "Python Examples"
+- Each table: Example | Description
+- Links point to `typescript-examples/{example}/` and `python-examples/{example}/`
+
+## Examples Structure
+- Examples organized by language: `typescript-examples/` and `python-examples/`
+- Each language folder has README with table listing all examples
+- Examples: `quick-recipes`, `rpa-example`, `rpa-auth-example`
+
+## Quick Recipes
+- Each recipe is an API file in `api/` folder: `{recipe-name}.ts` or `{recipe-name}.py`
+- Recipes: download-file, pagination, upload-to-s3, capture-screenshots
+- Quick recipes README lists all APIs in a table with descriptions
+
+## RPA Examples
+- Complete Intuned projects with full project structure
+- `rpa-example`: Basic automation without authentication
+- `rpa-auth-example`: Authenticated automation with Auth Sessions
+
+## Doc Links
+- AuthSessions: https://docs.intunedhq.com/docs/02-features/auth-sessions
+- Browser SDK: https://docs.intunedhq.com/automation-sdks/overview
+- Intuned in depth: https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth
+- Introduction / Quickstarts: https://docs.intunedhq.com/docs/00-getting-started/introduction
+- Recipe docs: download-file, pagination, upload-files, capture-screenshots under https://docs.intunedhq.com/docs/01-learn/recipes/
+- SDK method patterns:
+  - TS: https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/{functionName}
+  - PY: https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/{function_name}
+  - Common: downloadFile/download_file, uploadFileToS3/upload_file_to_s3, saveFileToS3/save_file_to_s3
+
+## Keep READMEs in Sync
+- Add/remove example: update main README (both TS and Python tables) + language-specific examples README
+- Modify example code: update example README if description/features change
+- Rename files/folders: update all README links and names
+- Quick check: main README tables up to date; examples READMEs accurate; links match; descriptions reflect code
+
+---
+> Source: [Intuned/cookbook](https://github.com/Intuned/cookbook) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
