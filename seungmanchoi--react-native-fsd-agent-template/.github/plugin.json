@@ -1,0 +1,9 @@
+{
+  "name": "seungmanchoi--react-native-fsd-agent-template",
+  "displayName": "react-native-fsd-agent-template",
+  "description": "React Native + Expo template with Feature-Sliced Design (FSD) architecture and AI Agent Harness for Claude Code",
+  "version": "1.0.0",
+  "author": "seungmanchoi",
+  "homepage": "https://github.com/seungmanchoi/react-native-fsd-agent-template",
+  "skills": []
+}
