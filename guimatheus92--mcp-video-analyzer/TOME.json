@@ -1,0 +1,44 @@
+{
+  "name": "mcp-video-analyzer",
+  "owner": "guimatheus92",
+  "repo": "mcp-video-analyzer",
+  "description": "MCP server for video analysis \u2014 extracts transcripts, key frames, OCR text, and metadata from video URLs. Supports Loom and direct video files.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/guimatheus92/mcp-video-analyzer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T10:51:50Z"
+}
