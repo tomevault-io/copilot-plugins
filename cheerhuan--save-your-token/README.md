@@ -5,10 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Cheerhuan/save-your-token](https://github.com/Cheerhuan/save-your-token).
+Original source: `` in [Cheerhuan/save-your-token](https://github.com/Cheerhuan/save-your-token).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
