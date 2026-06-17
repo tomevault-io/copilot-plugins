@@ -1,0 +1,9 @@
+{
+  "name": "google--chrome-enterprise-premium-mcp",
+  "displayName": "chrome-enterprise-premium-mcp",
+  "description": "Reference implementation for a Chrome Enterprise Premium MCP server",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/chrome-enterprise-premium-mcp",
+  "skills": []
+}
