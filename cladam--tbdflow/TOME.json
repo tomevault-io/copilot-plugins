@@ -1,0 +1,63 @@
+{
+  "name": "tbdflow",
+  "owner": "cladam",
+  "repo": "tbdflow",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-analyzer",
+      "path": ".github/skills/code-analyzer",
+      "github_url": "https://github.com/cladam/tbdflow/tree/main/.github/skills/code-analyzer",
+      "description": ""
+    },
+    {
+      "name": "rust-developer",
+      "path": ".github/skills/rust-developer",
+      "github_url": "https://github.com/cladam/tbdflow/tree/main/.github/skills/rust-developer",
+      "description": ""
+    },
+    {
+      "name": "tbdflow",
+      "path": ".github/skills/tbdflow",
+      "github_url": "https://github.com/cladam/tbdflow/tree/main/.github/skills/tbdflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cladam/tbdflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T04:31:16Z"
+}
