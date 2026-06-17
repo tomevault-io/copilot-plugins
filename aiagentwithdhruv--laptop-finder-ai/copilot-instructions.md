@@ -1,37 +1,39 @@
-## 55-data-model-versioning
+## 60-agents
 
-> Dataset versioning, model checkpoint management, and training reproducibility rules
+> AI agents and tool orchestration rules
 
 
-Dataset versioning:
-- Every dataset must have a version identifier (filename suffix, metadata field, or manifest).
-- When dataset format changes, provide a migration script from previous version.
-- Keep a CHANGELOG or manifest documenting what changed between dataset versions.
-- Never silently modify a dataset that is already used in production or published training runs.
+Agent system architecture:
+- Separate planner, executor, tools, memory, state, and evaluation logic.
+- Agents must be modular and role-specific where possible.
+- Tool calls should be explicit, validated, and logged.
 
-Model checkpoint management:
-- Save checkpoints with metadata: base model, dataset version, hyperparameters, timestamp, commit hash.
-- Use consistent naming: {model}_{technique}_{dataset_version}_{step/epoch}.
-- Store checkpoint metadata alongside weights (JSON sidecar or W&B artifact).
-- Never overwrite a checkpoint — always create new versioned saves.
+Agent rules:
+- Agents must not directly access databases or external APIs unless explicitly designed through a tool layer.
+- Prompts must be templated and stored separately from orchestration logic.
+- Keep critical business workflows deterministic where possible.
+- Add output validation and fallback behavior.
+- Use structured schemas for agent outputs in production paths.
+- Prefer supervisor/policy logic for multi-agent coordination.
 
-Training reproducibility:
-- Pin all dependencies (requirements.txt with exact versions or lock file).
-- Log full training config (LoRA rank, alpha, dropout, lr, batch size, epochs, seed).
-- Set random seeds for reproducible runs.
-- Record hardware info (GPU type, VRAM, CUDA version) in run metadata.
-- Store the exact dataset hash or version used for each training run.
+Tooling rules:
+- Every tool should have:
+  - a clear purpose
+  - input schema
+  - output schema
+  - failure behavior
+- Tools should be side-effect aware.
+- Sensitive tools must enforce auth and authorization checks.
 
-Evaluation tracking:
-- Track eval metrics per checkpoint (loss, perplexity, task-specific scores).
-- Compare against baseline before declaring improvement.
-- Keep eval datasets versioned and separate from training data.
+Memory/state rules:
+- Separate short-term conversational state from long-term memory.
+- Store long-term memory only when product requirements justify it.
+- Track provenance for stored memories if relevant.
 
 Do not:
-- Train on modified data without updating the version.
-- Delete or overwrite checkpoints from successful runs.
-- Ship a model without documenting which dataset and config produced it.
-- Mix training and evaluation data.
+- Let agents perform unrestricted actions.
+- Hide tool errors.
+- Mix prompt text deeply into service/business code.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
