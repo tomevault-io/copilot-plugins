@@ -1,0 +1,9 @@
+{
+  "name": "letitbk--claude-academic-setup",
+  "displayName": "claude-academic-setup",
+  "description": "Claude Code + Cursor setup for academic social science researchers (R, Stata, Python). 22 skills, 13 plugins, 5 commands, 14 IDE extensions.",
+  "version": "1.0.0",
+  "author": "letitbk",
+  "homepage": "https://github.com/letitbk/claude-academic-setup",
+  "skills": []
+}
