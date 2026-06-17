@@ -4,7 +4,7 @@
   "repo": "coolrl",
   "description": "\uc624\ubaa9, \ud3ec\ucee4, \ub85c\uc2a4\ud2b8\uc2dc\ud2f0 \ubcf4\ub4dc\uac8c\uc784 AI\ub85c \ub9c8\uc2a4\ud130\ub9c1\ud558\uae30",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sebastianrcnt/coolrl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T16:51:26Z"
+  "distributed_at": "2026-06-17T22:39:37Z"
 }
