@@ -4,7 +4,7 @@
   "repo": "dejankify",
   "description": "An AI-based website optimization app in Next",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FHU/dejankify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T16:40:48Z"
+  "distributed_at": "2026-06-17T21:22:01Z"
 }
