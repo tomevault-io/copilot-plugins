@@ -1,55 +1,132 @@
-## cursor-rules
+## documentation-updates
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
+> Guidelines for updating documentation when implementing new features
 
 
-- **Required Rule Structure:**
-  ```markdown
-  ---
-  description: Clear, one-line description of what the rule enforces
-  globs: path/to/files/*.ext, other/path/**/*
-  alwaysApply: boolean
-  ---
+# Documentation Update Requirements
 
-  - **Main Points in Bold**
-    - Sub-points with details
-    - Examples and explanations
-  ```
+**CRITICAL: When implementing ANY new feature, you MUST update the documentation. No feature is complete without documentation.**
 
-- **File References:**
-  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
-  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
+## Required Documentation Updates
 
-- **Code Examples:**
-  - Use language-specific code blocks
-  ```typescript
-  // ✅ DO: Show good examples
-  const goodExample = true;
-  
-  // ❌ DON'T: Show anti-patterns
-  const badExample = false;
-  ```
+### 1. Changelog ([changelog.md](mdc:docs-site/docs/changelog.md))
+- Add feature to the current version section
+- Include clear description with user-facing benefits
+- Organize by category (New Features, Bug Fixes, etc.)
+- Use bullet points with bold headings for major features
+- Include examples where helpful
 
-- **Rule Content Guidelines:**
-  - Start with high-level overview
-  - Include specific, actionable requirements
-  - Show examples of correct implementation
-  - Reference existing code when possible
-  - Keep rules DRY by referencing other rules
+### 2. Feature Documentation Page
+- Create new page in `docs-site/docs/features/` if feature is substantial
+- Update existing feature page if enhancing existing functionality
+- **Required Sections**:
+  - Overview (what the feature does)
+  - Basic Setup (how to enable/configure)
+  - Usage Examples (with code blocks)
+  - Configuration Reference (settings table)
+  - Best Practices
+  - Troubleshooting
+  - Related Features (cross-links)
 
-- **Rule Maintenance:**
-  - Update rules when new patterns emerge
-  - Add examples from actual codebase
-  - Remove outdated patterns
-  - Cross-reference related rules
+### 3. Features Overview ([features/overview.md](mdc:docs-site/docs/features/overview.md))
+- Add feature to relevant category section
+- Update "Getting Started" links if new page created
+- Keep consistent formatting with existing entries
 
-- **Best Practices:**
-  - Use bullet points for clarity
-  - Keep descriptions concise
-  - Include both DO and DON'T examples
-  - Reference actual code over theoretical examples
-  - Use consistent formatting across rules 
+### 4. Sidebar Navigation ([sidebars.ts](mdc:docs-site/sidebars.ts))
+- Add new feature page to `items` array under Features category
+- Place in logical order relative to other features
+
+### 5. Update Cross-References
+- Link to new feature from related documentation pages
+- Update configuration docs if new settings added
+- Update FAQ if feature addresses common questions
+
+## Documentation Standards
+
+### Writing Style
+- **Clear and concise**: No unnecessary jargon
+- **User-focused**: Explain benefits, not just mechanics
+- **Example-driven**: Show real YAML frontmatter and configurations
+- **Complete**: Cover all configuration options and edge cases
+
+### Code Examples
+```yaml
+---
+Title: Example Event
+Start Date: 2025-02-15T14:00
+Minutes Before: 15  # Clear inline comments
+---
+```
+
+### Formatting
+- Use **bold** for UI elements and important terms
+- Use `code` for property names, values, and commands
+- Use bullet points for lists
+- Use numbered lists for sequential steps
+- Include emoji sparingly in section headers (📋 🎯 ✨)
+
+## Documentation Checklist
+
+Before marking a feature as complete, verify:
+
+- [ ] Changelog updated with feature description
+- [ ] Feature documentation page created or updated
+- [ ] Features overview updated
+- [ ] Sidebar navigation updated (if new page)
+- [ ] Cross-references added to related docs
+- [ ] All configuration options documented
+- [ ] Usage examples provided
+- [ ] Troubleshooting section included
+- [ ] Best practices documented
+- [ ] Related features cross-linked
+
+## Examples of Good Documentation Updates
+
+### Version 1.4.0 Notifications Feature
+✅ **Complete Documentation**:
+- Changelog entry with all sub-features
+- Full notifications.md page (400+ lines)
+- Updated features/overview.md with new section
+- Added to sidebar navigation
+- Updated filtering.md with cross-references
+- Included configuration table
+- Provided troubleshooting guide
+- Added use cases and best practices
+
+### What NOT to Do
+❌ **Incomplete Documentation**:
+- Only changelog entry, no feature page
+- No usage examples
+- Missing configuration options
+- No troubleshooting section
+- Not added to navigation
+- No cross-links to related features
+
+## Documentation File Paths
+
+- Changelog: `docs-site/docs/changelog.md`
+- Features: `docs-site/docs/features/*.md`
+- Configuration: `docs-site/docs/configuration.md`
+- FAQ: `docs-site/docs/faq.md`
+- Troubleshooting: `docs-site/docs/troubleshooting.md`
+- Sidebar: `docs-site/sidebars.ts`
+
+## When to Create New Feature Page
+
+Create a new feature documentation page when:
+- Feature has multiple configuration options
+- Feature requires explanation of how it works
+- Feature has use cases and best practices
+- Feature needs troubleshooting guide
+- Feature is substantial enough for 100+ lines of docs
+
+Update existing page when:
+- Enhancing existing feature
+- Adding small related functionality
+- Feature is minor (< 50 lines of docs)
+
+**Remember**: Documentation is not optional. Features without documentation are incomplete features.
 
 ---
 > Source: [Real1tyy/BasesImprovements](https://github.com/Real1tyy/BasesImprovements) — distributed by [TomeVault](https://tomevault.io).
