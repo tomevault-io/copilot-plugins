@@ -1,7 +1,7 @@
 {
   "name": "igorganapolsky--thumbgate",
   "displayName": "ThumbGate",
-  "description": "Agent governance for ThumbGate: \ud83d\udc4d/\ud83d\udc4e become Pre-Action Checks that block repeat mistakes before code, money, or customer systems change.",
+  "description": "ThumbGate",
   "version": "1.0.0",
   "author": "IgorGanapolsky",
   "homepage": "https://github.com/IgorGanapolsky/ThumbGate",
