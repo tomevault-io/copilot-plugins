@@ -1,0 +1,44 @@
+{
+  "name": "fast-grep-rust",
+  "owner": "gmilano",
+  "repo": "fast-grep-rust",
+  "description": "Fast regex search with sparse n-gram index, Roaring Bitmaps, mmap persistence, and Rayon parallel verify. Beats ripgrep 5-14x on filtered patterns.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gmilano/fast-grep-rust",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T02:52:43Z"
+}
