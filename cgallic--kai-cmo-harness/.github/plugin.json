@@ -1,0 +1,9 @@
+{
+  "name": "cgallic--kai-cmo-harness",
+  "displayName": "kai-cmo-harness",
+  "description": "Open-source AI CMO for Claude Code: marketing agent skills for SEO, content, email, ads, launches, CRO, AEO/GEO, and AI-search visibility.",
+  "version": "1.0.0",
+  "author": "cgallic",
+  "homepage": "https://github.com/cgallic/kai-cmo-harness",
+  "skills": []
+}
