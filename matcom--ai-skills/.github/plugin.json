@@ -1,0 +1,9 @@
+{
+  "name": "matcom--ai-skills",
+  "displayName": "ai-skills",
+  "description": "Anthropic-format AI skills for academic research and writing: pull sources, ingest into a wiki, distill atomic notes, build state-of-the-art reviews, and audit final documents. For MatCom-UH students ",
+  "version": "1.0.0",
+  "author": "matcom",
+  "homepage": "https://github.com/matcom/ai-skills",
+  "skills": []
+}
