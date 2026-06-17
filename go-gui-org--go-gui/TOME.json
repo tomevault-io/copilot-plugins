@@ -4,7 +4,7 @@
   "repo": "go-gui",
   "description": "Cross-platform GUI framework for Go \u2014 no virtual DOM, no diffing, just fast, composable UI.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/go-gui-org/go-gui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T20:37:40Z"
+  "distributed_at": "2026-06-17T07:27:23Z"
 }
