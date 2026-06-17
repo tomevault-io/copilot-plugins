@@ -1,0 +1,9 @@
+{
+  "name": "seandavi--biomedical-agent-kg",
+  "displayName": "biomedical-agent-kg",
+  "description": "Generated knowledge graph of biomedical LLM agent systems",
+  "version": "1.0.0",
+  "author": "seandavi",
+  "homepage": "https://github.com/seandavi/biomedical-agent-kg",
+  "skills": []
+}
