@@ -1,0 +1,9 @@
+{
+  "name": "yzua--nixos-config",
+  "displayName": "nixos-config",
+  "description": "My personal NixOS configuration",
+  "version": "1.0.0",
+  "author": "yzua",
+  "homepage": "https://github.com/yzua/nixos-config",
+  "skills": []
+}
