@@ -1,0 +1,9 @@
+{
+  "name": "vagkaratzas--nf-core-module-dev",
+  "displayName": "nf-core-module-dev",
+  "description": "Agents and skills for creating/updating, testing, and documenting nf-core Nextflow modules",
+  "version": "1.0.0",
+  "author": "vagkaratzas",
+  "homepage": "https://github.com/vagkaratzas/nf-core-module-dev",
+  "skills": []
+}
