@@ -1,0 +1,9 @@
+{
+  "name": "beck-source--inventory-management",
+  "displayName": "inventory-management",
+  "description": "Factory Inventory Management System \u2014 Claude Code workshop baseline app",
+  "version": "1.0.0",
+  "author": "beck-source",
+  "homepage": "https://github.com/beck-source/inventory-management",
+  "skills": []
+}
