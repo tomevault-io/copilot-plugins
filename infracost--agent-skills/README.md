@@ -2,10 +2,12 @@
 
 > Source: [infracost/agent-skills](https://github.com/infracost/agent-skills) — distributed by [TomeVault](https://tomevault.io)
 
+Infracost AI Agent Skills
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [infracost/agent-skills](https://github.com/infracost/agent-skills).
+Original source: `GEMINI.md` in [infracost/agent-skills](https://github.com/infracost/agent-skills).
 
 ## Also available for
 
@@ -13,7 +15,6 @@ Original source: `` in [infracost/agent-skills](https://github.com/infracost/age
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/infracost/agent-skills](https://github.com/infracost/agent-skills)
