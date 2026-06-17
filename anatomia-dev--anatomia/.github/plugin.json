@@ -1,0 +1,22 @@
+{
+  "name": "anatomia-dev--anatomia",
+  "displayName": "anatomia",
+  "description": "Spec-driven agent harness for Claude Code and Codex \u2014 five-agent pipeline (scope, plan, build, verify, learn) with an auditable proof chain.",
+  "version": "1.0.0",
+  "author": "anatomia-dev",
+  "homepage": "https://github.com/anatomia-dev/anatomia",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
