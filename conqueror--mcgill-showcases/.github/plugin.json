@@ -1,0 +1,9 @@
+{
+  "name": "conqueror--mcgill-showcases",
+  "displayName": "mcgill-showcases",
+  "description": "Student-friendly ML showcase projects for McGill courses",
+  "version": "1.0.0",
+  "author": "conqueror",
+  "homepage": "https://github.com/conqueror/mcgill-showcases",
+  "skills": []
+}
