@@ -1,0 +1,81 @@
+## mcp-video-analyzer
+
+> MCP server for video analysis — extracts transcripts, key frames, metadata, OCR text, and annotated timelines from video URLs (Loom, direct .mp4/.webm).
+
+# CLAUDE.md — Project Instructions for Claude Code
+
+## Project
+
+MCP server for video analysis — extracts transcripts, key frames, metadata, OCR text, and annotated timelines from video URLs (Loom, direct .mp4/.webm).
+
+## Commands
+
+- `npm run check` — run ALL checks (format, lint, typecheck, knip, tests). Always run before committing.
+- `npm run build` — compile TypeScript to dist/
+- `npm run test` — run unit tests (vitest)
+- `npm run test:watch` — run tests in watch mode
+- `npm run test:smoke` — build + verify MCP server starts and responds to initialize
+- `npm run verify-package` — build + pack tarball + install in temp dir + verify startup (pre-publish)
+- `npm run lint:fix` — auto-fix lint issues
+- `npm run format` — auto-format with Prettier
+- `npm run inspect` — open FastMCP inspector for manual testing
+- `npx tsx examples/generate.ts` — regenerate example outputs (run after changing tool output format, processors, or adapters)
+
+## Architecture
+
+- **Adapters** (`src/adapters/`) — platform-specific logic (Loom GraphQL, direct URL download). Each implements `IVideoAdapter`.
+- **Processors** (`src/processors/`) — shared processing: frame extraction (ffmpeg + browser fallback), image optimization (sharp), frame dedup (dHash), OCR (tesseract.js), annotated timeline.
+- **Tools** (`src/tools/`) — MCP tool definitions registered on the FastMCP server.
+- **Utils** (`src/utils/`) — URL detection, VTT parsing, temp file management.
+
+## Conventions
+
+- TypeScript strict mode. No `any` unless explicitly necessary (use `// eslint-disable-next-line`).
+- All exports must be used — knip enforces zero unused exports.
+- Unit tests live next to source files: `foo.ts` → `foo.test.ts`.
+- Shared test infrastructure lives in `test/`: helpers (`test/helpers/`), fixtures (`test/fixtures/`), smoke tests (`test/smoke/`), e2e tests (`test/e2e/`).
+- Use `createTestImage()` from `test/helpers/images.ts` and `FIXTURES_DIR` from `test/helpers/fixtures.ts` — don't redefine in each test file.
+- Use `vitest` with `pool: 'forks'` (required on Windows).
+- Graceful degradation: never throw when partial results are available. Use `warnings[]` array.
+- Three-strategy video download: yt-dlp (primary) → direct HTTP via Loom CDN API (fallback) → headless Chrome screenshots (last resort).
+- Frame extraction uses bundled `ffmpeg-static` — no system ffmpeg needed.
+- Black frame detection filters out DRM-protected/blank frames automatically.
+- Scene detection threshold default: 0.1 (optimized for screencasts/demos).
+
+## Publishing
+
+### Release Process
+
+1. **Bump version** in both `package.json` AND `src/server.ts` (must match).
+2. **Run checks**: `npm run check` (format, lint, typecheck, knip, tests).
+3. **Run smoke test**: `npm run test:smoke` (verifies MCP server starts and responds).
+4. **Run package verification**: `npm run verify-package` (packs tarball, installs in temp dir, verifies startup).
+5. **Commit & push**: commit version bump to main.
+6. **Publish to npm**: `npm publish`.
+7. **Create GitHub release**: `gh release create vX.Y.Z --title "vX.Y.Z" --generate-notes`.
+8. **Update .mcp.json**: pin new version in local MCP config.
+9. **Verify on npm**: `npm view mcp-video-analyzer version`.
+
+### Notes
+
+- Source maps are disabled in tsconfig to reduce package size.
+- `npm publish` runs `prepublishOnly` which executes `npm run check && npm run build` automatically.
+- Never publish without testing as consumer — `npm run check` passing does NOT mean the package works for end users. Always run `npm run verify-package`.
+
+## Dependencies
+
+- `fastmcp` — MCP server framework
+- `sharp` — image processing (resize, compress, dHash computation)
+- `ffmpeg-static` — bundled ffmpeg binary for frame extraction
+- `puppeteer-core` — browser-based frame extraction fallback (no bundled browser)
+- `tesseract.js` — OCR text extraction from frames
+- `cheerio` — HTML parsing for adapter scraping
+
+<!-- skilld -->
+Before modifying code, evaluate each installed skill against the current task.
+For each skill, determine YES/NO relevance and invoke all YES skills before proceeding.
+<!-- /skilld -->
+
+---
+> Source: [guimatheus92/mcp-video-analyzer](https://github.com/guimatheus92/mcp-video-analyzer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
