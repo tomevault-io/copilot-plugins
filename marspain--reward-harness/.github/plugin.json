@@ -1,0 +1,9 @@
+{
+  "name": "marspain--reward-harness",
+  "displayName": "reward_harness",
+  "description": "Reward model engineering harness for evolutionary rubric search, deployable RM artifacts, online scoring, and RL   experiment lineage.",
+  "version": "1.0.0",
+  "author": "MarsPain",
+  "homepage": "https://github.com/MarsPain/reward_harness",
+  "skills": []
+}
