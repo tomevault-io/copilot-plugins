@@ -1,0 +1,9 @@
+{
+  "name": "lizhiyao--oh-my-knowledge",
+  "displayName": "oh-my-knowledge",
+  "description": "Evaluation framework for LLM knowledge inputs \u2014 prompts, RAG corpora, skills, agent workflows. Fix the model, vary the artifact. Built-in statistical rigor: bootstrap CI, Krippendorff \u03b1, length-debias",
+  "version": "1.0.0",
+  "author": "lizhiyao",
+  "homepage": "https://github.com/lizhiyao/oh-my-knowledge",
+  "skills": []
+}
