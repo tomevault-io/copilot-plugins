@@ -7,11 +7,11 @@ A CLI + daemon system for LLM-driven Android UI control on emulators and rooted 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [alehkot/android-emu-agent](https://github.com/alehkot/android-emu-agent).
+Original source: `CLAUDE.md` in [alehkot/android-emu-agent](https://github.com/alehkot/android-emu-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
