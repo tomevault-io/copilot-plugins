@@ -1,0 +1,9 @@
+{
+  "name": "cognitohazard--ltspice-mcp",
+  "displayName": "ltspice-mcp",
+  "description": "MCP server giving LLMs the ability to design, simulate, and analyze SPICE circuits via LTSpice and NGspice",
+  "version": "1.0.0",
+  "author": "Cognitohazard",
+  "homepage": "https://github.com/Cognitohazard/ltspice-mcp",
+  "skills": []
+}
