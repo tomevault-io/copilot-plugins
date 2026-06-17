@@ -4,7 +4,7 @@
   "repo": "expo-uniwind-starter",
   "description": "A polished Expo + Uniwind starter \u2014 everything wired up so you can skip the setup and jump straight into building.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AdiRishi/expo-uniwind-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T20:34:43Z"
+  "distributed_at": "2026-06-17T20:38:55Z"
 }
