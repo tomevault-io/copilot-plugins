@@ -1,0 +1,9 @@
+{
+  "name": "lapastillaroja--replay-control",
+  "displayName": "replay-control",
+  "description": "Companion web app for RePlayOS \u2014 manage ROMs, favorites, and settings from any device",
+  "version": "1.0.0",
+  "author": "lapastillaroja",
+  "homepage": "https://github.com/lapastillaroja/replay-control",
+  "skills": []
+}
