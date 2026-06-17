@@ -1,0 +1,9 @@
+{
+  "name": "zavora-ai--computer-use-mcp",
+  "displayName": "computer-use-mcp",
+  "description": "High Performance MCP server + client for Windows and macOS computer control built in Rust. Screenshot, mouse, keyboard, clipboard, and app management \u2014 all in-process via Rust NAPI. ",
+  "version": "1.0.0",
+  "author": "zavora-ai",
+  "homepage": "https://github.com/zavora-ai/computer-use-mcp",
+  "skills": []
+}
