@@ -1,0 +1,9 @@
+{
+  "name": "swm8023--wheelmaker",
+  "displayName": "WheelMaker",
+  "description": "WheelMaker \u2013 A Go library that turns your phone into a remote AI coding assistant. Stop reinventing the wheel, start making your own. \ud83d\udede",
+  "version": "1.0.0",
+  "author": "swm8023",
+  "homepage": "https://github.com/swm8023/WheelMaker",
+  "skills": []
+}
