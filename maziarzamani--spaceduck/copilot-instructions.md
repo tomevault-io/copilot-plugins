@@ -1,40 +1,87 @@
-## bun-typescript
+## git-workflow
 
-> Bun + TypeScript coding conventions for spaceduck
+> Git workflow and commit conventions for spaceduck
 
 
-# Bun + TypeScript conventions
+# Git Conventions
 
-## TypeScript
+## Commit Messages
 
-- Strict mode always. No `any`, no `as` casts unless absolutely necessary.
-- Prefer `interface` over `type` for object shapes (better error messages, extensibility).
-- Use `readonly` on properties that should not change after construction.
-- Explicit return types on all exported functions and methods.
-- Use barrel exports (`index.ts`) per package — one public API surface.
+Use conventional commits. Format: `type(scope): description`
 
-## Bun specifics
+Types:
+- `feat` — new feature or capability
+- `fix` — bug fix
+- `refactor` — code restructuring without behavior change
+- `test` — adding or updating tests
+- `docs` — documentation only
+- `chore` — tooling, deps, CI, config changes
+- `perf` — performance improvement
 
-- Use `Bun.env` instead of `process.env` for environment variables.
-- Use `Bun.file()` for file reading instead of `fs`.
-- Use `Bun.serve()` for HTTP/WebSocket servers.
-- Use `Bun.SQL` tagged templates for database queries (not raw `bun:sqlite`).
-- Use `bun:test` for all tests (`describe`, `it`, `expect`, `beforeEach`, `afterEach`).
-- Use `bun --watch` for dev mode auto-restart.
+Scope is the package name without `@spaceduck/` prefix: `core`, `gateway`, `memory-sqlite`, `provider-gemini`, `channel-web`.
 
-## Error handling
+Examples:
+- `feat(gateway): add WebSocket support with WsEnvelope protocol`
+- `fix(memory-sqlite): handle foreign key constraint on facts table`
+- `test(core): boost coverage for fact-extractor and error classes`
+- `chore: rename project from moonbot to spaceduck`
 
-- Use `Result<T, E>` from `@spaceduck/core` for operations that can fail in expected ways.
-- Use `ok(value)` and `err(error)` helper functions to construct results.
-- Never throw for expected failures (network errors, validation, missing data).
-- Throw only for bugs (programming errors, invariant violations).
-- Always include `cause` in error constructors for error chain tracing.
+## Author
 
-## Imports
+Commits in this repo use `hi@spaceduck.ai` as the author email (set via local git config).
 
-- Use workspace imports: `import { X } from "@spaceduck/core"`.
-- Relative imports only within the same package.
-- No circular imports between packages.
+## Commit Practices
+
+- **Typecheck before committing.** Run `bunx tsc --noEmit` and fix all errors before staging.
+- **Run tests before committing.** All tests must pass. Run `bun test --recursive`.
+- **Small, focused commits.** Each commit should do one logical thing.
+- **Never commit secrets.** The `.env` file is gitignored. Only `.env.example` is tracked.
+- **Never commit binaries or build artifacts.** `dist/`, `node_modules/`, `*.db` are gitignored.
+- **Don't skip hooks.** Never use `--no-verify`.
+
+## Pre-Push Checklist
+
+Before pushing any branch or creating a PR, **always** run these in order:
+
+1. `bunx tsc --noEmit` — must exit 0 (no type errors)
+2. `bun test --recursive` — must exit 0 (all tests pass)
+
+Do NOT push code that fails either check. Fix the issues first.
+
+## Branch Strategy (GitHub Flow)
+
+- `main` — stable, protected. All PRs target `main`. Never push directly.
+- Feature branches: `feat/<short-description>` (e.g., `feat/web-ui`)
+- Fix branches: `fix/<short-description>`
+- Chore branches: `chore/<short-description>`
+- Keep branches short-lived. Merge via PR.
+
+### Starting a task
+
+**Always create a feature branch before making changes.** When the user asks you to implement something:
+
+1. `git checkout main && git pull origin main`
+2. `git checkout -b <type>/<short-description>` (e.g., `feat/config-system`, `fix/memory-leak`, `chore/update-deps`)
+3. Do the work, commit incrementally
+4. Push and tell the user to create a PR on GitHub
+
+Never commit directly to `main`. If you find yourself on `main`, create and switch to a branch first.
+
+## When to Commit
+
+Commit after completing a logical unit of work:
+- A milestone (M0, M1, M2, ...) or sub-milestone
+- A new feature, test suite, or bug fix
+- A rename, refactor, or config change
+
+Do NOT commit half-finished work to `main`. Use a feature branch.
+
+## Pull Requests
+
+- Title follows conventional commit format
+- Body has a `## Summary` section with 1-3 bullet points
+- Body has a `## Test plan` section
+- Reference related issues if any
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
