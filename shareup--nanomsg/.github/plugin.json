@@ -1,0 +1,9 @@
+{
+  "name": "shareup--nanomsg",
+  "displayName": "nanomsg",
+  "description": "nanomsg",
+  "version": "1.0.0",
+  "author": "shareup",
+  "homepage": "https://github.com/shareup/nanomsg",
+  "skills": []
+}
