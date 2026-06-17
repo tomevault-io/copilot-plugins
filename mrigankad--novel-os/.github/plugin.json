@@ -1,0 +1,9 @@
+{
+  "name": "mrigankad--novel-os",
+  "displayName": "Novel-OS",
+  "description": "Multi-agent AI framework that writes full-length novels with persistent story state, a deterministic continuity engine, and a five-role editorial pipeline.",
+  "version": "1.0.0",
+  "author": "mrigankad",
+  "homepage": "https://github.com/mrigankad/Novel-OS",
+  "skills": []
+}
