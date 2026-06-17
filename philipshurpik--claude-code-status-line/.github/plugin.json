@@ -1,0 +1,9 @@
+{
+  "name": "philipshurpik--claude-code-status-line",
+  "displayName": "claude-code-status-line",
+  "description": "Color-coded status line for Claude Code",
+  "version": "1.0.0",
+  "author": "philipshurpik",
+  "homepage": "https://github.com/philipshurpik/claude-code-status-line",
+  "skills": []
+}
