@@ -1,0 +1,44 @@
+{
+  "name": "cn-ads-skills",
+  "owner": "linxumoney",
+  "repo": "cn-ads-skills",
+  "description": "\ud83c\udde8\ud83c\uddf3 \u4e2d\u56fd\u5e02\u573a\u5e7f\u544a\u6295\u653e\u6280\u80fd\u5e93 for AI Agents | \u5de8\u91cf/\u817e\u8baf\u5e7f\u544a/\u5c0f\u7ea2\u4e66/\u79c1\u57df\u6f0f\u6597 | \u672c\u571f\u5316\u6539\u7f16\u81ea advertising-skills",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/linxumoney/cn-ads-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T21:21:32Z"
+}
