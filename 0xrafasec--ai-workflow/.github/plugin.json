@@ -1,0 +1,14 @@
+{
+  "name": "0xrafasec--ai-workflow",
+  "displayName": "ai-workflow",
+  "description": "AI-assisted development workflow toolkit for Claude Code, Cursor, and Codex \u2014 skills, agents, and conventions for the full SDLC",
+  "version": "1.0.0",
+  "author": "0xrafasec",
+  "homepage": "https://github.com/0xrafasec/ai-workflow",
+  "skills": [
+    {
+      "name": "new-project",
+      "description": ""
+    }
+  ]
+}
