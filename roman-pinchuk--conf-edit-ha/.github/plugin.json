@@ -1,0 +1,9 @@
+{
+  "name": "roman-pinchuk--conf-edit-ha",
+  "displayName": "conf-edit-ha",
+  "description": "Lightweight YAML configuration editor for Home Assistant",
+  "version": "1.0.0",
+  "author": "roman-pinchuk",
+  "homepage": "https://github.com/roman-pinchuk/conf-edit-ha",
+  "skills": []
+}
