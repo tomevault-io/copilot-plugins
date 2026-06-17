@@ -1,0 +1,44 @@
+{
+  "name": "nazar-studio",
+  "owner": "alexradunet",
+  "repo": "nazar-studio",
+  "description": "Local-first personal AI environment built as a Pi-native TypeScript extension product with Markdown memory, local models, tools, and terminal UI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alexradunet/nazar-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T09:19:29Z"
+}
