@@ -1,0 +1,9 @@
+{
+  "name": "ouzhou--react-canvas",
+  "displayName": "react-canvas",
+  "description": "Render React components directly to a <canvas>.",
+  "version": "1.0.0",
+  "author": "ouzhou",
+  "homepage": "https://github.com/ouzhou/react-canvas",
+  "skills": []
+}
