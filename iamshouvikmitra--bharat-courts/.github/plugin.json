@@ -1,0 +1,9 @@
+{
+  "name": "iamshouvikmitra--bharat-courts",
+  "displayName": "bharat-courts",
+  "description": "Programmatically access Indian court data from eCourts. Search cases, download orders, and get cause lists across 700+ District Courts, 25 High Courts and the Supreme Court. Robust web scraper with bu",
+  "version": "1.0.0",
+  "author": "iamshouvikmitra",
+  "homepage": "https://github.com/iamshouvikmitra/bharat-courts",
+  "skills": []
+}
