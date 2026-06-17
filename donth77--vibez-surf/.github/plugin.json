@@ -1,0 +1,9 @@
+{
+  "name": "donth77--vibez-surf",
+  "displayName": "vibez.surf",
+  "description": "Browser-based in TypeScript + Three.js. Drop any audio file, paste a URL, or prompt Suno AI and ride a procedurally generated 3D track.",
+  "version": "1.0.0",
+  "author": "donth77",
+  "homepage": "https://github.com/donth77/vibez.surf",
+  "skills": []
+}
