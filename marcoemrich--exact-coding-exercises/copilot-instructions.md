@@ -1,89 +1,67 @@
-## human-in-the-loop
+## tdd-with-ts-and-vitest
 
-> Human-in-the-loop checkpoints during TDD phases
+> TypeScript and Vitest test conventions for TDD
 
 
-# Human-in-the-Loop TDD Rules
+# TDD with TypeScript and Vitest
 
-Ensure the human stays engaged and can provide guidance at critical decision points during Test-Driven Development. Pause and explicitly ask for user feedback in these specific situations.
+## Test File Creation
+1. **Create specification file** with `.spec.ts` extension
+2. **Import with explicit extensions** for local modules
+3. **Use Vitest testing functions** (`describe`, `it`, `expect`)
+4. **Follow TDD red-green-refactor** cycle
+5. **Leverage TypeScript's type checking** during development
 
-## Rule 1: End-of-Phase Confirmation
+## Running Tests - CRITICAL REQUIREMENTS
 
-### When to Apply
-At the **end of every TDD phase** (Red, Green, or Refactor), before proceeding to the next phase or test.
+**ALWAYS use pnpm with npm scripts defined in `app/package.json`**
 
-### What to Do
-1. **Stop after completing the current phase**
-2. **Summarize what was just completed**:
-
-   **After Red Phase**: Which test was activated, prediction made and whether correct, type of failure achieved
-
-   **After Green Phase**: Implementation approach taken, confirmation that test passes, trade-offs or decisions made
-
-   **After Refactor Phase**: Refactorings attempted/completed (naming, mass calculations, structural improvements, rejected opportunities and why)
-
-3. **Explicitly ask for permission to continue**:
-   - **After Red**: "Red phase complete. Should I proceed to Green phase?"
-   - **After Green**: "Green phase complete. Should I proceed to Refactor phase?"
-   - **After Refactor**: "Refactor phase complete. Should I proceed to the next test?"
-
-### Examples
-```
-Red Phase Complete:
-Test Activated: "should return sum for two numbers"
-Prediction: Runtime assertion error (Expected: 3, Received: 1) - Correct
-Result: Test fails as expected with assertion error
-
-Red phase complete. Should I proceed to Green phase?
+### CORRECT - Use pnpm with npm scripts:
+```bash
+pnpm test                  # Run all tests (unit + storybook)
+pnpm test:unit            # Run all unit tests (basic + msw)
+pnpm test:unit:basic      # Run basic unit tests only
+pnpm test:unit:msw        # Run MSW unit tests only
+pnpm test:watch           # Run tests in watch mode
+pnpm run build            # Build the project
 ```
 
-```
-Green Phase Complete:
-Implementation: Added split/map/reduce logic for comma-separated numbers
-Result: All tests now pass
-Approach: Minimal implementation using built-in array methods
-
-Green phase complete. Should I proceed to Refactor phase?
-```
-
-```
-Refactor Phase Complete:
-Refactoring:
-- Evaluated naming: kept `sumCommaSeparatedNumbers` (already clear)
-- Mass calculation: remains at 38 (no improvements found)
-- Considered helper functions but would increase complexity
-
-Refactor phase complete. Should I proceed to the next test?
+### WRONG - DO NOT use these:
+```bash
+npm test                          # Wrong package manager
+npx vitest                        # Don't call vitest directly
+vitest --run SomeFile.spec.tsx    # Don't call vitest directly
+npx vitest SomeFile.spec.tsx      # Don't use npx
+npm run test                      # Wrong package manager
 ```
 
-## Rule 2: Failed Prediction Recovery
+### Why This Matters
+- **npm scripts orchestrate multiple steps** (e.g., `test:unit` runs TypeScript compilation first)
+- **Configuration is managed centrally** in package.json
+- **Consistency across development and CI** environments
+- **pnpm is the project's package manager** - using npm or npx causes inconsistencies
 
-### When to Apply
-When the **"Guessing Game" prediction fails** - the actual test result differs significantly from what was predicted.
+### Test Script Overview (from app/package.json)
+- `test` - Runs full test suite (unit tests + Storybook tests)
+- `test:unit` - Runs TypeScript compilation, then basic and MSW unit tests
+- `test:unit:basic` - Runs Vitest with `vitest.config.unit.ts`
+- `test:unit:msw` - Runs Vitest with `vitest.config.msw.ts`
+- `test:watch` - Runs Vitest in watch mode with `vitest.config.watch.ts`
 
-### What to Do
-1. **Stop the TDD cycle immediately**
-2. **Explain**: What was predicted, what actually happened, why the prediction was wrong
-3. **Assess**: Does this indicate a misunderstanding? Are there issues with the test or implementation?
-4. **Explicitly ask**: "My prediction was incorrect. Should I continue with the TDD process, or would you like me to investigate this discrepancy further?"
+**IMPORTANT**: When TDD agents run tests, they MUST use `pnpm run test` or the specific `pnpm test:*` commands, never call test files directly.
 
-## Core Principle: Never Proceed Without Permission
+## Example Test Template
+```typescript
+// calculator.spec.ts
+import { describe, it, expect } from "vitest";
+import { calculate } from "./calculator.js";
 
-- **Stop after every single phase** (Red, Green, Refactor)
-- **Implement only what the current phase requires**
-- **No lookahead or anticipatory coding**
-- **No additional features without explicit human approval**
-- **Each phase must be approved before continuing to next phase**
-
-### When to ALWAYS Stop
-- After every TDD phase (Red, Green, Refactor) - MANDATORY
-- Before proceeding to next phase - Human must approve
-- Before writing any additional code
-
-### When to IMMEDIATELY Stop
-- Significant prediction failures
-- Unexpected test results
-- Unanticipated compilation errors
+describe("Calculator", () => {
+  it.todo("should handle basic operations");
+  it.todo("should validate input types");
+  it.todo("should handle edge cases");
+});
+```
 
 ---
 > Source: [marcoemrich/EXACT-Coding-Exercises](https://github.com/marcoemrich/EXACT-Coding-Exercises) — distributed by [TomeVault](https://tomevault.io).
