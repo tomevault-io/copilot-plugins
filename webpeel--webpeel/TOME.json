@@ -4,7 +4,7 @@
   "repo": "webpeel",
   "description": "The web data layer for AI agents \u2014 fetch, search, crawl, extract, screenshot, and monitor the web with 50+ domain extractors and MCP.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/webpeel/webpeel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T22:33:49Z"
+  "distributed_at": "2026-06-17T07:33:07Z"
 }
