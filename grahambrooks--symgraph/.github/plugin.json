@@ -1,0 +1,9 @@
+{
+  "name": "grahambrooks--symgraph",
+  "displayName": "symgraph",
+  "description": "Semantic code intelligence MCP server - build knowledge graphs of codebases to enhance AI-assisted code exploration.",
+  "version": "1.0.0",
+  "author": "grahambrooks",
+  "homepage": "https://github.com/grahambrooks/symgraph",
+  "skills": []
+}
