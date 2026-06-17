@@ -1,36 +1,31 @@
-## 70-security
+## 80-testing-quality
 
-> Security rules for the entire repository
+> Testing and code quality rules
 
 
-Security rules:
-- Never hardcode secrets, API keys, tokens, credentials, or private URLs.
-- Never log passwords, tokens, raw secrets, or sensitive user content.
-- Validate and sanitize all user inputs.
-- Treat uploads, URLs, prompts, and external content as untrusted.
-- Enforce authentication and authorization checks on protected resources.
-- Use least-privilege access patterns.
-- Add rate limiting to sensitive or expensive endpoints.
-- Use secure defaults.
+Testing philosophy:
+- Write production-quality code with tests for critical behavior.
+- Prefer deterministic unit tests for business logic.
+- Add integration tests for APIs, repositories, pipelines, and workflows crossing boundaries.
+- Mock external services, cloud dependencies, and model providers where appropriate.
 
-AI-specific security:
-- Add prompt injection resistance where relevant.
-- Validate tool inputs and outputs.
-- Restrict tool access by policy.
-- Protect system instructions and internal configuration.
-- Handle unsafe model output before returning it to the user.
+Testing expectations:
+- Add tests for non-trivial service methods.
+- Add tests for auth and permission-sensitive flows.
+- Add tests for RAG/agent logic at the orchestration level where feasible.
+- Cover validation, failure, and edge cases.
+- Keep tests readable and isolated.
 
-Infra/security hygiene:
-- Prefer environment variables and secret managers.
-- Avoid broad wildcard permissions in cloud configs.
-- Do not expose internal services publicly unless required.
+Code quality:
+- Use linting and formatting.
+- Use types wherever the stack supports them.
+- Keep functions focused.
+- Refactor repeated logic into shared utilities when justified.
 
 Do not:
-- Assume client-side validation is enough.
-- Return internal error details to end users in production.
-- Store plaintext passwords or tokens in databases.
-- Use default credentials or weak secrets in any environment.
-- Disable HTTPS or certificate validation.
+- Add major logic without at least basic tests.
+- Create brittle tests tied to unstable implementation details.
+- Depend on live external APIs in normal test flows.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
