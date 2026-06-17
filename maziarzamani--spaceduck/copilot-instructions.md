@@ -1,110 +1,16 @@
-## testing
+## tool-development
 
-> Testing conventions for spaceduck
+> Agent tool package conventions
 
 
-# Testing conventions
+# Tool Conventions
 
-## Runner
-
-- Use `bun:test` — `describe`, `it`, `expect`, `beforeEach`, `afterEach`
-- Use `spyOn` for mocking methods, `mock` for module mocking
-- Test files live in `src/__tests__/` adjacent to source code
-- Each test file: one `describe` block per function/class
-
-## Typecheck before pushing
-
-Bun runs tests without type-checking. CI runs `tsc --noEmit` as a separate
-step and will fail on type errors that tests happily pass at runtime.
-Always run `bun run typecheck` locally before pushing test changes.
-
-## Pattern
-
-Follow Arrange-Act-Assert:
-
-```typescript
-it("should do the thing", () => {
-  // Arrange
-  const input = createMessage({ content: "hello" });
-
-  // Act
-  const result = processMessage(input);
-
-  // Assert
-  expect(result.ok).toBe(true);
-});
-```
-
-## Fixtures
-
-- Import shared fixtures directly from `@spaceduck/core/src/__fixtures__/`
-- `MockProvider` — configurable canned responses implementing `Provider`
-- `MockMemory` — in-memory Map-backed `ConversationStore` and `LongTermMemory`
-- `createMessage()`, `createConversation()` — factory functions with sensible defaults
-
-### Message factory
-
-`Message` requires `id` and `timestamp`. Never construct bare
-`{ role, content }` literals — use `createMessage()`:
-
-```typescript
-import { createMessage } from "@spaceduck/core/src/__fixtures__/messages";
-
-// Single message
-provider.chat([createMessage({ role: "user", content: "hi" })]);
-
-// System + user
-provider.chat([
-  createMessage({ role: "system", content: "Be helpful" }),
-  createMessage({ role: "user", content: "hello" }),
-]);
-
-// Tool round-trip
-provider.chat([
-  createMessage({ role: "user", content: "search for cats" }),
-  createMessage({
-    role: "assistant",
-    content: "",
-    toolCalls: [{ id: "tc1", name: "web_search", args: { query: "cats" } }],
-  }),
-  createMessage({ role: "tool", content: "10 results", toolCallId: "tc1", toolName: "web_search" }),
-]);
-```
-
-### Mocking `globalThis.fetch`
-
-Bun's `mock()` return type is missing the `preconnect` property that
-`typeof fetch` requires. Always cast with `as any`:
-
-```typescript
-const originalFetch = globalThis.fetch;
-
-afterEach(() => {
-  globalThis.fetch = originalFetch;
-});
-
-// Correct — cast to any
-globalThis.fetch = mock(() =>
-  Promise.resolve(new Response(JSON.stringify({ ok: true }), { status: 200 })),
-) as any;
-
-// Also correct for capturing request details
-globalThis.fetch = mock((_url: string, init: RequestInit) => {
-  capturedBody = JSON.parse(init.body as string);
-  return Promise.resolve(new Response("{}"));
-}) as any;
-```
-
-`as any` on fetch mocks is the one accepted exception to the "no `any`" rule.
-
-## Rules
-
-- NEVER test against real LLM providers — always use MockProvider
-- SQLite tests use `":memory:"` — new database per test via `beforeEach`
-- WebSocket tests pick a random available port
-- No `any` in tests — use proper typing (`as any` on fetch mocks is the sole exception)
-- Test behavior, not implementation — assert on outputs and side effects
-- Aim for 80% coverage, 100% on error paths
+- Each tool is its own workspace package: `packages/tools/<name>/` with `@spaceduck/tool-<name>`
+- Tool methods return `Promise<string>` -- results are always text for the LLM
+- Return errors as strings, never throw -- the LLM needs to read failures
+- Truncate large outputs at `maxChars` (default 50,000) with `[truncated]` marker
+- Include context headers in results (`URL:`, `Title:`, `File:`)
+- Tests live in `src/__tests__/` and import from `..` (the barrel)
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
