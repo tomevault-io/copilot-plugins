@@ -7,11 +7,11 @@ A polished Expo + Uniwind starter — everything wired up so you can skip the se
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AdiRishi/expo-uniwind-starter](https://github.com/AdiRishi/expo-uniwind-starter).
+Original source: `CLAUDE.md` in [AdiRishi/expo-uniwind-starter](https://github.com/AdiRishi/expo-uniwind-starter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
