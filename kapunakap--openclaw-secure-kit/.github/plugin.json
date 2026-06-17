@@ -1,0 +1,9 @@
+{
+  "name": "kapunakap--openclaw-secure-kit",
+  "displayName": "openclaw-secure-kit",
+  "description": "Secure-by-default OpenClaw on Ubuntu, with a verifiable security report",
+  "version": "1.0.0",
+  "author": "kapunakap",
+  "homepage": "https://github.com/kapunakap/openclaw-secure-kit",
+  "skills": []
+}
