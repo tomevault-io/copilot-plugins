@@ -1,0 +1,14 @@
+{
+  "name": "zisisnotzis--ygoskill",
+  "displayName": "ygoskill",
+  "description": "ygoskill",
+  "version": "1.0.0",
+  "author": "ZisIsNotZis",
+  "homepage": "https://github.com/ZisIsNotZis/ygoskill",
+  "skills": [
+    {
+      "name": "deck-llm",
+      "description": ""
+    }
+  ]
+}
