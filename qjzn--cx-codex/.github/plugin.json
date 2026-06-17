@@ -1,0 +1,9 @@
+{
+  "name": "qjzn--cx-codex",
+  "displayName": "CX-Codex",
+  "description": "Self-hosted OpenAI Codex Web UI and Android client bridge",
+  "version": "1.0.0",
+  "author": "Qjzn",
+  "homepage": "https://github.com/Qjzn/CX-Codex",
+  "skills": []
+}
