@@ -1,0 +1,9 @@
+{
+  "name": "labring--brain",
+  "displayName": "brain",
+  "description": "Sealos AI agent",
+  "version": "1.0.0",
+  "author": "labring",
+  "homepage": "https://github.com/labring/brain",
+  "skills": []
+}
