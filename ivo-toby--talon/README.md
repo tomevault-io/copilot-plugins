@@ -7,11 +7,11 @@ Talon is a secure, flexible, self-hosted autonomous agent daemon. Connect it to 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ivo-toby/talon](https://github.com/ivo-toby/talon).
+Original source: `CLAUDE.md` in [ivo-toby/talon](https://github.com/ivo-toby/talon).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
