@@ -1,0 +1,9 @@
+{
+  "name": "azure--bicep-ptn-aiml-landing-zone",
+  "displayName": "bicep-ptn-aiml-landing-zone",
+  "description": "AI Landing Zone Bicep templates for deploying a secure, modular baseline for AI applications and agents on Azure.",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/bicep-ptn-aiml-landing-zone",
+  "skills": []
+}
