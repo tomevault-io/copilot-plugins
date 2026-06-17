@@ -7,11 +7,11 @@ A performance-first Git graph, Git history viewer, and history-editing tool for 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [onlineeric/speedy-git-ext](https://github.com/onlineeric/speedy-git-ext).
+Original source: `CLAUDE.md` in [onlineeric/speedy-git-ext](https://github.com/onlineeric/speedy-git-ext).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
