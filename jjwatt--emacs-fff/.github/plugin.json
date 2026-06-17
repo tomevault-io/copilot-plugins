@@ -1,0 +1,9 @@
+{
+  "name": "jjwatt--emacs-fff",
+  "displayName": "emacs-fff",
+  "description": "fff file finder integration with emacs using emacs-ffi",
+  "version": "1.0.0",
+  "author": "jjwatt",
+  "homepage": "https://github.com/jjwatt/emacs-fff",
+  "skills": []
+}
