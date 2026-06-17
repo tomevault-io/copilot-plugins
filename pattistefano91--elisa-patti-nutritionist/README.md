@@ -7,11 +7,11 @@ Website for Dr. Elisa Patti - Biologa Nutrizionista
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pattistefano91/elisa-patti-nutritionist](https://github.com/pattistefano91/elisa-patti-nutritionist).
+Original source: `CLAUDE.md` in [pattistefano91/elisa-patti-nutritionist](https://github.com/pattistefano91/elisa-patti-nutritionist).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
