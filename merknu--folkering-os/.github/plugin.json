@@ -1,0 +1,9 @@
+{
+  "name": "merknu--folkering-os",
+  "displayName": "folkering-os",
+  "description": "AI-native bare-metal OS in Rust \u2014 on-device LLM (Qwen3), WASM JIT code gen (Gemini/OpenAI/Claude), interactive 60fps apps, VirtIO GPU, no libc",
+  "version": "1.0.0",
+  "author": "merknu",
+  "homepage": "https://github.com/merknu/folkering-os",
+  "skills": []
+}
