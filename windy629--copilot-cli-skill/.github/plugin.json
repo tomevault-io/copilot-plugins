@@ -1,0 +1,9 @@
+{
+  "name": "windy629--copilot-cli-skill",
+  "displayName": "copilot-cli-skill",
+  "description": "copilot-cli-skill",
+  "version": "1.0.0",
+  "author": "windy629",
+  "homepage": "https://github.com/windy629/copilot-cli-skill",
+  "skills": []
+}
