@@ -1,0 +1,9 @@
+{
+  "name": "vespaai-playground--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "vespaai-playground",
+  "homepage": "https://github.com/vespaai-playground/skills",
+  "skills": []
+}
