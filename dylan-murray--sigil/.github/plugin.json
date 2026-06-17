@@ -1,0 +1,9 @@
+{
+  "name": "dylan-murray--sigil",
+  "displayName": "sigil",
+  "description": "An autonomous AI coding agent that codes while you don't.",
+  "version": "1.0.0",
+  "author": "dylan-murray",
+  "homepage": "https://github.com/dylan-murray/sigil",
+  "skills": []
+}
