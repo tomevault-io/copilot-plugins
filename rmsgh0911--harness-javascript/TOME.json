@@ -4,7 +4,7 @@
   "repo": "Harness_Javascript",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rmsgh0911/Harness_Javascript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T15:35:21Z"
+  "distributed_at": "2026-06-17T21:17:51Z"
 }
