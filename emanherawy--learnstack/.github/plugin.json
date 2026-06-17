@@ -1,0 +1,9 @@
+{
+  "name": "emanherawy--learnstack",
+  "displayName": "learnStack",
+  "description": "Turns Claude Code into a personalized learning mentor that remembers everything",
+  "version": "1.0.0",
+  "author": "EmanHerawy",
+  "homepage": "https://github.com/EmanHerawy/learnStack",
+  "skills": []
+}
