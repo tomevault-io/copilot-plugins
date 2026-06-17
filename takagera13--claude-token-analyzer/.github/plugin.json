@@ -1,0 +1,14 @@
+{
+  "name": "takagera13--claude-token-analyzer",
+  "displayName": "claude-token-analyzer",
+  "description": "claude-token-analyzer",
+  "version": "1.0.0",
+  "author": "Takagera13",
+  "homepage": "https://github.com/Takagera13/claude-token-analyzer",
+  "skills": [
+    {
+      "name": "django-helper",
+      "description": ""
+    }
+  ]
+}
