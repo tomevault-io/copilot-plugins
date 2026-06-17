@@ -1,0 +1,9 @@
+{
+  "name": "remotesensingtools--atmostransport-jl",
+  "displayName": "AtmosTransport.jl",
+  "description": "Atmospheric Transport Model in pure Julia - GPU-CPU capable, ERA or GEOS met sources, LatLon, Reduced Gaussian and CubeSphere Topologies",
+  "version": "1.0.0",
+  "author": "RemoteSensingTools",
+  "homepage": "https://github.com/RemoteSensingTools/AtmosTransport.jl",
+  "skills": []
+}
