@@ -1,0 +1,44 @@
+{
+  "name": "claude-academic-setup",
+  "owner": "letitbk",
+  "repo": "claude-academic-setup",
+  "description": "Claude Code + Cursor setup for academic social science researchers (R, Stata, Python). 22 skills, 13 plugins, 5 commands, 14 IDE extensions.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/letitbk/claude-academic-setup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T06:53:51Z"
+}
