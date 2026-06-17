@@ -4,7 +4,7 @@
   "repo": "WheelMaker",
   "description": "WheelMaker \u2013 A Go library that turns your phone into a remote AI coding assistant. Stop reinventing the wheel, start making your own. \ud83d\udede",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/swm8023/WheelMaker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T00:37:46Z"
+  "distributed_at": "2026-06-17T01:25:12Z"
 }
