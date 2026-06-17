@@ -1,34 +1,15 @@
-## guardrails
+## htmx-and-go-best-practices
 
-> Agent guardrails — strict rules to prevent unintended modifications to the EasyLab codebase.
+> Go coding conventions for the EasyLab server — handler patterns, error handling, and Pulumi integration.
 
-# Agent Guardrails
-
-CRITICAL: Do NOT modify, refactor, rename, or restructure existing files unless
-the user EXPLICITLY asks for it. This applies to all code, tests, configs, and
-documentation. When in doubt, ASK before changing.
-
-## Agents MUST NOT
-
-- Modify files that are not directly related to the user's request
-- Refactor or "improve" existing working code on their own initiative
-- Rename functions, variables, types, packages, or files without being asked
-- Change API routes, request/response contracts, or HTTP status codes
-- Alter Pulumi infrastructure code (main.go, ovh/, k8s/, coder/, templates/)
-- Edit CI/CD pipelines (.gitlab-ci.yml, .github/), Dockerfile, or docker-compose.yml
-- Add, remove, or upgrade Go or npm dependencies without explicit approval
-- Change authentication or security logic (internal/server/auth.go)
-- Modify the Makefile targets or build configuration
-- Move files between directories or reorganize the project structure
-- Remove backward-compatibility routes or aliases
-
-## Agents SHOULD
-
-- Limit changes to the minimum scope needed to fulfill the request
-- Explain what they intend to change BEFORE making edits to multiple files
-- Preserve existing code style, naming conventions, and patterns
-- Add new code in the appropriate existing package rather than creating new ones
-- Run "make test" or "make lint" after changes when relevant
+- Use html/template with the base/child template pattern (web/base.html + page-specific templates)
+- Implement http.HandlerFunc for handlers — register on http.ServeMux, do NOT add external routers
+- Wrap errors with context: fmt.Errorf("failed to X: %w", err)
+- Use encoding/json for JSON API responses, handler.renderHTMLError() for HTMX error responses
+- Log at handler level with log.Printf, not deep in business logic
+- Use context for request cancellation and timeouts (especially in Pulumi execution)
+- Protect concurrent state with sync.RWMutex (see Job.mu pattern in job.go)
+- Do NOT modify existing files unless explicitly asked by the user
 
 ---
 > Source: [yodamad/easylab](https://github.com/yodamad/easylab) — distributed by [TomeVault](https://tomevault.io).
