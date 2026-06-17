@@ -1,0 +1,9 @@
+{
+  "name": "tykisgod--quick-question",
+  "displayName": "quick-question",
+  "description": "The control plane for game-dev agents \u2014 close the loop with verified compile, test, and cross-model review across Unity, Godot, Unreal, and S&box. Lifecycle-aware /qq:go routing, 26 /qq:* slash comman",
+  "version": "1.0.0",
+  "author": "tykisgod",
+  "homepage": "https://github.com/tykisgod/quick-question",
+  "skills": []
+}
