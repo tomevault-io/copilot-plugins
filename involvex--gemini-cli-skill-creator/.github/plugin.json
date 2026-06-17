@@ -1,0 +1,9 @@
+{
+  "name": "involvex--gemini-cli-skill-creator",
+  "displayName": "gemini-cli-skill-creator",
+  "description": "A comprehensive extension for Gemini CLI that enables project-specific skill development via a slash command interface.",
+  "version": "1.0.0",
+  "author": "involvex",
+  "homepage": "https://github.com/involvex/gemini-cli-skill-creator",
+  "skills": []
+}
