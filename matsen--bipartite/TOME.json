@@ -1,0 +1,63 @@
+{
+  "name": "bipartite",
+  "owner": "matsen",
+  "repo": "bipartite",
+  "description": "Connecting research programs and the outside world",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bip",
+      "path": "skills/bip",
+      "github_url": "https://github.com/matsen/bipartite/tree/main/skills/bip",
+      "description": ""
+    },
+    {
+      "name": "bip.narrative",
+      "path": "skills/bip.narrative",
+      "github_url": "https://github.com/matsen/bipartite/tree/main/skills/bip.narrative",
+      "description": ""
+    },
+    {
+      "name": "issue-file",
+      "path": "skills/issue-file",
+      "github_url": "https://github.com/matsen/bipartite/tree/main/skills/issue-file",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/matsen/bipartite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T22:31:07Z"
+}
