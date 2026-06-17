@@ -1,0 +1,9 @@
+{
+  "name": "plateaukao--whisperasr",
+  "displayName": "whisperASR",
+  "description": "macOS SwiftUI app for audio transcription using Breeze-ASR-25 via whisper.cpp with Metal GPU acceleration",
+  "version": "1.0.0",
+  "author": "plateaukao",
+  "homepage": "https://github.com/plateaukao/whisperASR",
+  "skills": []
+}
