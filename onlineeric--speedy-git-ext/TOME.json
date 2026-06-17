@@ -1,0 +1,44 @@
+{
+  "name": "speedy-git-ext",
+  "owner": "onlineeric",
+  "repo": "speedy-git-ext",
+  "description": "A performance-first Git graph, Git history viewer, and history-editing tool for VS Code and Cursor, built for developers who want speed, clarity, and real Git workflow power \u2014 without the bloat",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/onlineeric/speedy-git-ext",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T11:09:10Z"
+}
