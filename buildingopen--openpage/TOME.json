@@ -1,0 +1,44 @@
+{
+  "name": "openpage",
+  "owner": "buildingopen",
+  "repo": "openpage",
+  "description": "Open-source website builder with visual drag-and-drop editor, AI site generation, and JSON-first architecture. Self-hosted alternative to Framer, Lovable, v0. React 19 + TypeScript + Tailwind CSS.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/buildingopen/openpage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T07:01:40Z"
+}
