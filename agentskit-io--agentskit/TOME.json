@@ -4,7 +4,7 @@
   "repo": "agentskit",
   "description": "The complete toolkit for building AI agents in JavaScript. Lightweight core, React & Terminal UIs, autonomous runtime, tools, skills, memory, RAG and observability. Plug-and-play from chat UI to full agents.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgentsKit-io/agentskit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T11:03:03Z"
+  "distributed_at": "2026-06-17T21:35:32Z"
 }
