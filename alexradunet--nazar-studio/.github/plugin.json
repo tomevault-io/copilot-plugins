@@ -1,0 +1,9 @@
+{
+  "name": "alexradunet--nazar-studio",
+  "displayName": "nazar-studio",
+  "description": "Local-first personal AI environment built as a Pi-native TypeScript extension product with Markdown memory, local models, tools, and terminal UI.",
+  "version": "1.0.0",
+  "author": "alexradunet",
+  "homepage": "https://github.com/alexradunet/nazar-studio",
+  "skills": []
+}
