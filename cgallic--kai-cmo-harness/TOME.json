@@ -4,7 +4,7 @@
   "repo": "kai-cmo-harness",
   "description": "Open-source AI CMO for Claude Code: marketing agent skills for SEO, content, email, ads, launches, CRO, AEO/GEO, and AI-search visibility.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cgallic/kai-cmo-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T01:00:03Z"
+  "distributed_at": "2026-06-17T02:50:12Z"
 }
