@@ -1,0 +1,9 @@
+{
+  "name": "freetakteam--reticulum-mobile-emergency-management",
+  "displayName": "reticulum_mobile_emergency_management",
+  "description": "Situational Awareness Android app for Reticulum mesh networks, with  mission/event replication, action messages, telemetry, and mobile native bridge support.",
+  "version": "1.0.0",
+  "author": "FreeTAKTeam",
+  "homepage": "https://github.com/FreeTAKTeam/reticulum_mobile_emergency_management",
+  "skills": []
+}
