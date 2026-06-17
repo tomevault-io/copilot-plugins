@@ -1,0 +1,44 @@
+{
+  "name": "crypto-agent-trading",
+  "owner": "crypto-com",
+  "repo": "crypto-agent-trading",
+  "description": "Agent skill for trading crypto via the Crypto.com API. Buy, sell, swap, and query balances",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/crypto-com/crypto-agent-trading",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T04:44:37Z"
+}
