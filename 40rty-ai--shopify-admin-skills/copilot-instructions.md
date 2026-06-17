@@ -1,105 +1,30 @@
 ## shopify-admin-skills
 
-> Run this from the repo root in a terminal **before** starting Claude Code:
+> Master skill collection for Shopify store operators. Provides access to all merchandising, marketing, support, and operations capabilities.
 
-# Shopify Admin Skills — Claude Session Guide
 
-## Cold Start Checklist
+# shopify-admin-skills
 
-Run this from the repo root in a terminal **before** starting Claude Code:
+You are equipped with a comprehensive suite of Shopify admin skills. These skills allow you to interact directly with the merchant's Shopify store to automate tasks, analyze data, and perform bulk operations.
 
-```bash
-chmod +x scripts/dev-session.sh
-./scripts/dev-session.sh [store-domain]
-# Default store: 91pqhx-iy.myshopify.com
-```
+## When to use
 
-This script: authenticates with the store → verifies the connection → launches `claude --plugin-dir .`
+Use this master capability when a merchant asks you to manage their store. You have sub-skills available for:
+- Merchandising (Inventory, Pricing, Products, Metafields, Variant Performance)
+- Customer Support (Refunds, Reorders, Order Intel)
+- Marketing (Loyalty, Abandoned Carts, Segments)
+- Operations (Fulfillment, Routing, Dead Stock)
+- Finance & Returns (Analysis, Cost accounting)
+- Conversion Optimization (Traffic by Page, Discount Analysis, Top Products)
+- Order Intelligence (Product Affinity & Cross-Sell, Repeat Purchase, Risk)
 
----
+## Instructions
 
-## Manual Cold Start (step by step)
-
-### 1. Authenticate with the store (terminal — interactive)
-```bash
-shopify store auth --store 91pqhx-iy.myshopify.com \
-  --scopes read_orders,read_customers,read_products,write_products,read_checkouts,read_discounts,read_inventory
-```
-
-### 2. Verify the connection
-```bash
-shopify store execute --store 91pqhx-iy.myshopify.com --query 'query { shop { name id } }'
-# Expected: { "shop": { "name": "...", "id": "gid://shopify/Shop/..." } }
-```
-
-### 3. Launch Claude Code with the local plugin
-```bash
-claude --plugin-dir /Users/tamired/ws/shopify-admin-skills
-```
-
-> The **Shopify AI Toolkit** plugin (`shopify-plugin:*`) is permanently installed and loads automatically.  
-> The **shopify-admin-skills** plugin (`shopify-admin-skills:*`) is loaded via `--plugin-dir`.
-
----
-
-## Validating Plugins Are Loaded
-
-At the start of a session, Claude should confirm both plugins are active.
-
-**Shopify AI Toolkit** — skills that should be available:
-- `shopify-plugin:shopify-admin` (GraphQL doc search + validation)
-- `shopify-plugin:shopify-admin-execution` (store execution workflow)
-
-**shopify-admin-skills** — skills that should be available:
-- `shopify-admin-skills:abandoned-cart-recovery`
-- `shopify-admin-skills:bulk-price-adjustment`
-- `shopify-admin-skills:low-inventory-restock`
-- `shopify-admin-skills:collection-reorganization`
-- `shopify-admin-skills:order-lookup-and-summary`
-- `shopify-admin-skills:refund-and-reorder`
-- `shopify-admin-skills:address-correction`
-- `shopify-admin-skills:discount-ab-analysis`
-- `shopify-admin-skills:checkout-abandonment-report`
-- `shopify-admin-skills:top-product-performance`
-- `shopify-admin-skills:customer-win-back`
-- `shopify-admin-skills:loyalty-segment-export`
-
----
-
-## Store Details
-
-| Field | Value |
-|-------|-------|
-| Store domain | `91pqhx-iy.myshopify.com` |
-| Shop GID | `gid://shopify/Shop/81491230913` |
-| Auth account | `tamired@gmail.com` |
-| API version | `2025-01` |
-
----
-
-## Running a Skill
-
-Every skill in `skills/<role>/<name>/SKILL.md` follows this pattern:
-
-1. Use `shopify-plugin:shopify-admin` to validate the GraphQL operation
-2. Use `shopify-plugin:shopify-admin-execution` to execute against the store
-3. Always pass `dry_run: true` on first run for any mutation skill
-
-Example — look up recent orders:
-```bash
-shopify store execute --store 91pqhx-iy.myshopify.com \
-  --query 'query { orders(first: 5, sortKey: CREATED_AT, reverse: true) { edges { node { id name displayFinancialStatus } } } }'
-```
-
----
-
-## Validation Script
-
-```bash
-pnpm validate:index
-# Expected: ✅ GraphQL Operations Index valid — 12 skill(s), 15 operation(s) checked.
-```
+1. Identify the user's intent.
+2. Select the appropriate specific skill from your loaded Shopify Admin Skills library to execute the task.
+3. Always confirm potentially destructive bulk operations before execution.
+4. Provide summaries of data rather than raw JSON dumps.
 
 ---
 > Source: [40RTY-ai/shopify-admin-skills](https://github.com/40RTY-ai/shopify-admin-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
