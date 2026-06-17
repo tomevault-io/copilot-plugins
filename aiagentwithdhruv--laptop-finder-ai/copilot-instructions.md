@@ -1,57 +1,48 @@
-## 10-backend-fastapi
+## 20-frontend-nextjs
 
-> FastAPI backend rules
+> Next.js frontend rules
 
 
-Backend stack:
-- FastAPI
-- Pydantic
-- SQLAlchemy or SQLModel
-- PostgreSQL
-- Redis for cache/queue support
+Frontend stack:
+- Next.js
+- TypeScript
+- Component-driven UI
+- API integration with backend services
 
-Backend rules:
-- Use clean architecture.
-- Routes/controllers should only handle HTTP concerns.
-- Business logic must live in services.
-- Database access must live in repositories.
-- Validation must be done using schemas/models.
-- Use dependency injection patterns where appropriate.
-- Use async I/O where supported and beneficial.
-- Use pagination for list endpoints.
-- Use consistent response models.
-- Use centralized exception handling.
+Frontend rules:
+- Prefer TypeScript for all frontend logic.
+- Keep components small, reusable, and focused.
+- Keep presentation separate from business/data-fetching logic.
+- Use hooks, services, or server actions appropriately based on project style.
+- Handle loading, error, and empty states explicitly.
+- Preserve design consistency and naming consistency.
 
-API conventions:
-- Follow RESTful naming.
-- Version APIs when needed, e.g. /api/v1/.
-- Use proper status codes.
-- Return predictable response structure.
-- Do not leak internal stack traces or raw database errors.
+Preferred frontend structure:
+- frontend/app/
+- frontend/components/
+- frontend/features/
+- frontend/hooks/
+- frontend/lib/
+- frontend/services/
+- frontend/types/
+- frontend/tests/
 
-Preferred backend structure:
-- backend/api/routes/
-- backend/api/dependencies/
-- backend/services/
-- backend/repositories/
-- backend/models/
-- backend/schemas/
-- backend/core/
-- backend/utils/
-- backend/tests/
+UI/UX rules:
+- Use accessible markup and semantic HTML.
+- Prefer reusable design system components.
+- Avoid oversized page components.
+- Avoid embedding complex API logic directly inside visual components unless already established in the repo.
 
-Coding expectations:
-- Add type hints to functions.
-- Add docstrings for non-trivial service methods.
-- Keep routes thin and declarative.
-- Keep service methods focused and testable.
-- Reuse existing utilities before creating new ones.
+State/data rules:
+- Keep API clients centralized.
+- Normalize repeated API access patterns.
+- Handle auth state carefully.
+- Validate critical inputs on both client and server.
 
 Do not:
-- Put SQL or ORM-heavy logic inside route files.
-- Put business logic inside Pydantic schemas.
-- Put environment variables directly across many files; centralize in config.
-- Mix unrelated domains in the same service file.
+- Mix many responsibilities into one component.
+- Hardcode API URLs in components.
+- Duplicate UI patterns that should be shared.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
