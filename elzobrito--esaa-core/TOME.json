@@ -1,0 +1,44 @@
+{
+  "name": "ESAA-Core",
+  "owner": "elzobrito",
+  "repo": "ESAA-Core",
+  "description": "ESAA combina Event Sourcing, proje\u00e7\u00e3o determin\u00edstica e pol\u00edticas fail-closed para transformar automa\u00e7\u00e3o multiagente em um sistema audit\u00e1vel e previs\u00edvel.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/elzobrito/ESAA-Core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T07:11:00Z"
+}
