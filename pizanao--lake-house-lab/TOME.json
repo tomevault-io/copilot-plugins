@@ -4,7 +4,7 @@
   "repo": "lake-house-lab",
   "description": "Local data lakehouse lab with Django, dbt, DuckDB and React",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pizanao/lake-house-lab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T15:02:36Z"
+  "distributed_at": "2026-06-17T20:58:15Z"
 }
