@@ -1,0 +1,9 @@
+{
+  "name": "kustomzone--claw-forge",
+  "displayName": "claw-forge",
+  "description": "Multi-provider coding harness for parallel agents",
+  "version": "1.0.0",
+  "author": "kustomzone",
+  "homepage": "https://github.com/kustomzone/claw-forge",
+  "skills": []
+}
