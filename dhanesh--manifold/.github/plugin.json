@@ -1,0 +1,38 @@
+{
+  "name": "dhanesh--manifold",
+  "displayName": "manifold",
+  "description": "Stop discovering requirements during implementation. Manifold makes constraints visible BEFORE you write code\u2014business, technical, UX, security, operational\u2014so problems surface   in planning, not prod",
+  "version": "1.0.0",
+  "author": "dhanesh",
+  "homepage": "https://github.com/dhanesh/manifold",
+  "skills": [
+    {
+      "name": "manifold",
+      "description": ""
+    },
+    {
+      "name": "manifold",
+      "description": ""
+    },
+    {
+      "name": "manifold-context",
+      "description": ""
+    },
+    {
+      "name": "manifold-m-status",
+      "description": ""
+    },
+    {
+      "name": "manifold-m1-constrain",
+      "description": ""
+    },
+    {
+      "name": "manifold-m4-generate",
+      "description": ""
+    },
+    {
+      "name": "manifold-parallel",
+      "description": ""
+    }
+  ]
+}
