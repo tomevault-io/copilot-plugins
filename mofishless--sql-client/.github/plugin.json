@@ -1,0 +1,9 @@
+{
+  "name": "mofishless--sql-client",
+  "displayName": "sql-client",
+  "description": "  A lightweight interactive SQL terminal client for Chinese enterprise databases (Oracle, DM, KingbaseES). Features: multi-connection management, command history, auto-formatted table output. Single f",
+  "version": "1.0.0",
+  "author": "mofishless",
+  "homepage": "https://github.com/mofishless/sql-client",
+  "skills": []
+}
