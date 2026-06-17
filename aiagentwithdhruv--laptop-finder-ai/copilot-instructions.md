@@ -1,39 +1,36 @@
-## 60-agents
+## 70-security
 
-> AI agents and tool orchestration rules
+> Security rules for the entire repository
 
 
-Agent system architecture:
-- Separate planner, executor, tools, memory, state, and evaluation logic.
-- Agents must be modular and role-specific where possible.
-- Tool calls should be explicit, validated, and logged.
+Security rules:
+- Never hardcode secrets, API keys, tokens, credentials, or private URLs.
+- Never log passwords, tokens, raw secrets, or sensitive user content.
+- Validate and sanitize all user inputs.
+- Treat uploads, URLs, prompts, and external content as untrusted.
+- Enforce authentication and authorization checks on protected resources.
+- Use least-privilege access patterns.
+- Add rate limiting to sensitive or expensive endpoints.
+- Use secure defaults.
 
-Agent rules:
-- Agents must not directly access databases or external APIs unless explicitly designed through a tool layer.
-- Prompts must be templated and stored separately from orchestration logic.
-- Keep critical business workflows deterministic where possible.
-- Add output validation and fallback behavior.
-- Use structured schemas for agent outputs in production paths.
-- Prefer supervisor/policy logic for multi-agent coordination.
+AI-specific security:
+- Add prompt injection resistance where relevant.
+- Validate tool inputs and outputs.
+- Restrict tool access by policy.
+- Protect system instructions and internal configuration.
+- Handle unsafe model output before returning it to the user.
 
-Tooling rules:
-- Every tool should have:
-  - a clear purpose
-  - input schema
-  - output schema
-  - failure behavior
-- Tools should be side-effect aware.
-- Sensitive tools must enforce auth and authorization checks.
-
-Memory/state rules:
-- Separate short-term conversational state from long-term memory.
-- Store long-term memory only when product requirements justify it.
-- Track provenance for stored memories if relevant.
+Infra/security hygiene:
+- Prefer environment variables and secret managers.
+- Avoid broad wildcard permissions in cloud configs.
+- Do not expose internal services publicly unless required.
 
 Do not:
-- Let agents perform unrestricted actions.
-- Hide tool errors.
-- Mix prompt text deeply into service/business code.
+- Assume client-side validation is enough.
+- Return internal error details to end users in production.
+- Store plaintext passwords or tokens in databases.
+- Use default credentials or weak secrets in any environment.
+- Disable HTTPS or certificate validation.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
