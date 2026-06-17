@@ -4,7 +4,7 @@
   "repo": "claude-skill-registry-data",
   "description": "Raw skills archive data for the Claude skill registry",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/majiayu000/claude-skill-registry-data",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T12:42:28Z"
+  "distributed_at": "2026-06-17T19:15:53Z"
 }
