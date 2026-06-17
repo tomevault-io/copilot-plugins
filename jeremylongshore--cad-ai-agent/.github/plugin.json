@@ -1,0 +1,9 @@
+{
+  "name": "jeremylongshore--cad-ai-agent",
+  "displayName": "cad-ai-agent",
+  "description": "Drawing Intelligence Platform for AEC professionals. Upload a DXF, PDF, or DWG \u2014 describe what you need in plain English, and get structured edits, compliance reports, quantity takeoffs, health assess",
+  "version": "1.0.0",
+  "author": "jeremylongshore",
+  "homepage": "https://github.com/jeremylongshore/cad-ai-agent",
+  "skills": []
+}
