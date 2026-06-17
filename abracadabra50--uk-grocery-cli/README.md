@@ -2,16 +2,15 @@
 
 > Tome by [abracadabra50](https://github.com/abracadabra50/uk-grocery-cli) — distributed by [TomeVault](https://tomevault.io)
 
-Multi-supermarket grocery automation for UK. Search products, manage baskets, book delivery, checkout across Sainsbury's, Ocado, Tesco and more. Built for AI agents.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [abracadabra50/uk-grocery-cli](https://github.com/abracadabra50/uk-grocery-cli).
+Original source: `` in [abracadabra50/uk-grocery-cli](https://github.com/abracadabra50/uk-grocery-cli).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
