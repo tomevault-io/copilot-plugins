@@ -1,16 +1,40 @@
-## tool-development
+## web-frontend
 
-> Agent tool package conventions
+> React + Tailwind + shadcn/ui conventions for the spaceduck web frontend
 
 
-# Tool Conventions
+# Web frontend conventions
 
-- Each tool is its own workspace package: `packages/tools/<name>/` with `@spaceduck/tool-<name>`
-- Tool methods return `Promise<string>` -- results are always text for the LLM
-- Return errors as strings, never throw -- the LLM needs to read failures
-- Truncate large outputs at `maxChars` (default 50,000) with `[truncated]` marker
-- Include context headers in results (`URL:`, `Title:`, `File:`)
-- Tests live in `src/__tests__/` and import from `..` (the barrel)
+## Stack
+
+- React 19 functional components only, no class components
+- Tailwind CSS v4 via `bun-plugin-tailwind` — zero config
+- shadcn/ui components copied into `components/ui/` — not installed as a dependency
+- Bun fullstack dev server — no Vite, no Webpack, no separate build step
+
+## Styling
+
+- Tailwind utility classes for all styling — no inline styles, no CSS modules
+- Dark mode via Tailwind `dark:` variant with CSS custom properties
+- Use `cn()` from `lib/utils.ts` for conditional class merging (clsx + tailwind-merge)
+
+## Components
+
+- One component per file, named export matching file name
+- Small and focused — if a component exceeds 100 lines, split it
+- Use shadcn/ui primitives from `components/ui/` for consistency
+
+## State & communication
+
+- All WebSocket logic in custom hooks (`hooks/use-websocket.ts`, `hooks/use-chat.ts`)
+- Use `WsEnvelope` types from `@spaceduck/core` for type-safe WebSocket messages
+- No global state management library — React context + hooks are sufficient for v1
+
+## Accessibility & layout
+
+- All interactive elements have proper ARIA attributes
+- Mobile-first responsive layout
+- Markdown rendering via `react-markdown` for assistant responses
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
