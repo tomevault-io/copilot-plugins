@@ -1,0 +1,9 @@
+{
+  "name": "adamzhang1987--kingdee-k3cloud-skill",
+  "displayName": "kingdee-k3cloud-skill",
+  "description": "\u91d1\u8776\u4e91\u661f\u7a7a ERP \u7cfb\u7edf\u7684 Claude Code Skill\uff0c\u4e3a Claude Code \u6ce8\u5165\u8868\u5355\u5b57\u6bb5\u3001\u67e5\u8be2\u6a21\u5f0f\u548c\u5de5\u4f5c\u6d41\u77e5\u8bc6\uff0c\u5927\u5e45\u51cf\u5c11\u8bd5\u9519\u6b21\u6570\u3002",
+  "version": "1.0.0",
+  "author": "adamzhang1987",
+  "homepage": "https://github.com/adamzhang1987/kingdee-k3cloud-skill",
+  "skills": []
+}
