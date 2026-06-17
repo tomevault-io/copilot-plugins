@@ -1,0 +1,63 @@
+{
+  "name": "anatomia",
+  "owner": "anatomia-dev",
+  "repo": "anatomia",
+  "description": "Spec-driven agent harness for Claude Code and Codex \u2014 five-agent pipeline (scope, plan, build, verify, learn) with an auditable proof chain.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-workflow",
+      "path": ".claude/skills/git-workflow",
+      "github_url": "https://github.com/anatomia-dev/anatomia/tree/main/.claude/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": ".ana/skills/git-workflow",
+      "github_url": "https://github.com/anatomia-dev/anatomia/tree/main/.ana/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "packages/cli/templates/.claude/skills/git-workflow",
+      "github_url": "https://github.com/anatomia-dev/anatomia/tree/main/packages/cli/templates/.claude/skills/git-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/anatomia-dev/anatomia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T12:30:24Z"
+}
