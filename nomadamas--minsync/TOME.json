@@ -4,7 +4,7 @@
   "repo": "MinSync",
   "description": "Vector DB version control, 100% Rust, Mac, Linux, Windows compatible",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NomaDamas/MinSync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T09:11:15Z"
+  "distributed_at": "2026-06-17T15:13:07Z"
 }
