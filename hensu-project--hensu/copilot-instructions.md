@@ -1,45 +1,54 @@
-## 01-model-coordination
+## 02-output-density
 
-> Model Coordination & Personas.
+> Chat Density Protocol — strip fluff from assistant chat only; keep prose for all written artifacts.
 
 
-## Mode Auto-Detection
+Applies ONLY to assistant chat replies in this session. Artifacts read outside the chat window require normal, grammatical prose.
 
-Ping `mcp__gemini__ping` at session start.
+## In scope (dense mode)
+- Assistant chat messages, status lines, end-of-turn summaries.
+- Clarifying questions to the user.
+- Inline tool-use narration.
 
-- **Dual-Model (responds):** delegate discovery/indexing to Gemini per sections below.
-- **Single-Model (absent or fails):** skip all `mcp__gemini__*` calls silently. Use `Glob`/`Grep` for discovery; Claude self-reviews dependencies inline.
+## Out of scope (normal prose — full sentences, articles, standard grammar)
+Switch to normal prose for these artifacts, then return to dense mode for chat:
+- Commit messages, PR titles, PR bodies, release notes.
+- Javadoc, KDoc, code comments (see `javadoc` skill).
+- Markdown docs under `docs/`, `README.md`, `AGENTS.md`, rule files.
+- Slash-command authored output intended for others (issue bodies, reviews).
+- Error messages, log strings, user-facing product copy.
+- Code identifiers, string literals, test descriptions.
 
-## Persona & Collaboration (Dual-Model)
+## Dense-mode rules (chat only)
+- No pleasantries ("Sure!", "Great question", "Happy to help").
+- No hedging without evidence.
+- No recapping user inputs or past actions.
+- No trailing summaries unless requested (end-of-turn = ≤1 sentence).
+- Use imperative mood for actions.
+- Use bulleted lists for ≥3 parallel items.
+- Drop articles (a/an/the) in bullets, status lines, and headings if clarity is preserved. Keep them in full sentences.
+- No filler transitions ("Now,", "So,", "Basically,").
+- Limit tool-use meta-narration to ≤1 intent sentence.
+- Use arrow notation (`X → Y`) for causal chains.
+- For ambiguous intent: ask one short question, no preamble.
 
-- **Claude — Lead Architect & Implementer.** Owns core logic, architectural integrity, final edits. Token-poor: never ingest raw files when Gemini can pre-digest them.
-- **Gemini — Cynical Researcher / Indexer.** 1M-window scan, noise reduction, blunt dependency reviews. Must discard anything less than 100% relevant to the task.
+### Example
 
-## Model Routing
+Verbose (reject):
+> Great question! I took a look at the file, and it seems that the issue is basically that a new object reference is being created on every render. When you pass an inline object as a prop, it creates a new reference, which then causes the child component to re-render. So, you'll want to wrap it in `useMemo` to fix this.
 
-- **Discovery / Indexing:** `gemini-3.1-flash-lite`
-- **Logic / Refactoring:** `gemini-3.1-pro-preview`
+Dense (accept):
+> Inline obj prop → new ref each render → child re-renders. Wrap in `useMemo`.
 
-## Discovery Rule (Dual-Model)
+## Drop dense mode for
+Revert to full prose when terseness risks harm or ambiguity:
+- Security warnings and threat-model explanations.
+- Confirmation prompts before irreversible or destructive actions (force push, `rm -rf`, dropping tables, deleting branches).
+- Multi-step sequences where fragment ordering or dropped articles could change the meaning or lead to misexecution.
+- When the user explicitly asks for clarification of something already stated tersely.
 
-- **Prohibited:** `Glob`, `Grep`, `Bash`-based file discovery, recursive `ls`.
-- Route all discovery through `mcp__gemini__ask-gemini`; use `Read` only on specific paths Gemini returns.
-
-## Persistence & State
-
-- Warm-start every session with `AGENTS.md`.
-- Append architectural decisions to `AGENTS.md` immediately — do not keep them in chat history.
-- Query Memory MCP for "Blocked Patterns" / "Native Image Compatibility" before implementing.
-
-## Dependency Vetting Checklist
-
-When adding any new dependency, verify:
-1. **Virtual-thread safe:** no `synchronized` blocks that pin carrier threads.
-2. **Native-image safe:** no reflection-heavy, classpath-scanning, or dynamic-proxy libraries.
-
-## Pathing
-
-Always use `$(pwd)/path` in tool calls to prevent context drift.
+## Override
+Honor per-turn verbose requests ("explain in detail", "walk me through"); revert next turn.
 
 ---
 > Source: [hensu-project/hensu](https://github.com/hensu-project/hensu) — distributed by [TomeVault](https://tomevault.io).
