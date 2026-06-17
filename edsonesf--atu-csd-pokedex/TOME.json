@@ -1,0 +1,51 @@
+{
+  "name": "ATU-CSD-POKEDEX",
+  "owner": "edsonesf",
+  "repo": "ATU-CSD-POKEDEX",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-workflow",
+      "path": ".agents/skills/git-workflow",
+      "github_url": "https://github.com/edsonesf/ATU-CSD-POKEDEX/tree/main/.agents/skills/git-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/edsonesf/ATU-CSD-POKEDEX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T00:32:19Z"
+}
