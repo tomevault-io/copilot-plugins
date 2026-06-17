@@ -1,0 +1,14 @@
+{
+  "name": "geq1fan--prompt-optimizer-skill",
+  "displayName": "prompt-optimizer-skill",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e Project Context \u8fdb\u884c Prompt\u4f18\u5316 \u7684 Claude Code SKILL\uff0c\u5e76\u914d\u7f6e\u6709\u754c\u9762\u8fdb\u884c\u8fed\u4ee3\u4f18\u5316\uff1bAdvanced Claude Code skill for systematic prompt engineering. Optimizes prompts using project context, adversarial testing, and iterat",
+  "version": "1.0.0",
+  "author": "geq1fan",
+  "homepage": "https://github.com/geq1fan/prompt-optimizer-skill",
+  "skills": [
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
