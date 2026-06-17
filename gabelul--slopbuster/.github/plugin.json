@@ -1,0 +1,9 @@
+{
+  "name": "gabelul--slopbuster",
+  "displayName": "slopbuster",
+  "description": "AI text humanizer for prose, code & academic writing. 100+ patterns, two-pass audit, three-tier scoring, voice injection. Claude Code skill. No API calls \u2014 pure local pattern matching. The humanizer t",
+  "version": "1.0.0",
+  "author": "gabelul",
+  "homepage": "https://github.com/gabelul/slopbuster",
+  "skills": []
+}
