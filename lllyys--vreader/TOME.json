@@ -4,7 +4,7 @@
   "repo": "vreader",
   "description": "iOS reader app for EPUB, PDF, TXT, and Markdown \u2014 with AI assistant, annotations, and full-text search. Built with Swift 6, SwiftUI, and SwiftData.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lllyys/vreader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T05:07:31Z"
+  "distributed_at": "2026-06-17T08:55:16Z"
 }
