@@ -1,0 +1,9 @@
+{
+  "name": "sanohiro--casty",
+  "displayName": "casty",
+  "description": "Run a real Chrome browser inside your terminal. Uses CDP screencast + Kitty graphics protocol.",
+  "version": "1.0.0",
+  "author": "sanohiro",
+  "homepage": "https://github.com/sanohiro/casty",
+  "skills": []
+}
