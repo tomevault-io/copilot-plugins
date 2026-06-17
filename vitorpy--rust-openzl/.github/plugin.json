@@ -1,0 +1,9 @@
+{
+  "name": "vitorpy--rust-openzl",
+  "displayName": "rust-openzl",
+  "description": "Safe Rust bindings for OpenZL - a graph-based typed compression library",
+  "version": "1.0.0",
+  "author": "vitorpy",
+  "homepage": "https://github.com/vitorpy/rust-openzl",
+  "skills": []
+}
