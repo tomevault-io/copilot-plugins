@@ -1,0 +1,9 @@
+{
+  "name": "signalridge--slipway",
+  "displayName": "slipway",
+  "description": "Spec-driven development with full lifecycle accountability for Claude, Codex, Cursor & Gemini",
+  "version": "1.0.0",
+  "author": "signalridge",
+  "homepage": "https://github.com/signalridge/slipway",
+  "skills": []
+}
