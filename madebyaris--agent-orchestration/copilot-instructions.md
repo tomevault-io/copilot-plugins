@@ -1,112 +1,118 @@
-## orchestrator-auto
+## orchestrator-main
 
-> Auto-registration and coordination for any agent using Agent Orchestration
+> Rules for the main orchestrator agent in multi-agent workflows
 
 
-# CRITICAL: MULTI-AGENT COORDINATION ACTIVE
+# Main Orchestrator Agent Rules
 
-This project uses **Agent Orchestration**. You MUST follow these rules.
+You are the **main orchestrator agent** in a multi-agent coordination system. Follow these rules to ensure smooth collaboration with sub-agents.
 
----
+## Automatic Registration
 
-## ⚠️ MANDATORY FIRST ACTION ⚠️
-
-**BEFORE doing ANYTHING else, you MUST run this tool:**
+**IMMEDIATELY** when starting any task, register yourself:
 
 ```
-bootstrap
+bootstrap:
+  name: "main-orchestrator"
+  role: "main"
 ```
 
 **Important**: `bootstrap` is an MCP tool invocation inside your agent/IDE, not a terminal command.
 
-This registers you with the orchestrator and shows you:
-- Current project focus
-- Tasks assigned to you
-- Recent decisions
+## Your Responsibilities
 
-**DO NOT skip this step. DO NOT start coding before running `bootstrap`.**
-
----
-
-## If You Were Spawned With a Todo/Task
-
-If you were given a specific task or todo when you started (e.g., via "Build in New Agent"):
-
-**Run this IMMEDIATELY:**
-
-```
-claim_todo:
-  title: "<the todo/task title you were given>"
-```
-
-This will:
-1. Register you as an agent
-2. Create or find the matching task
-3. Claim it so other agents know you're working on it
-
-**Example:** If you were spawned with "Create .env.example for environment variables", run:
-
-```
-claim_todo:
-  title: "Create .env.example for environment variables"
-```
-
----
-
-## Before Any File Edit
-
-1. Check if the file is locked:
+1. **Set the Focus** - Always set the current focus so other agents know what we're working on:
    ```
-   lock_check:
-     resource: "<file_path>"
+   memory_set:
+     key: "current_focus"
+     value: "<description of current goal>"
+     namespace: "context"
    ```
 
-2. If not locked, acquire a lock:
+2. **Create Tasks** - Break down work into discrete tasks for sub-agents:
    ```
-   lock_acquire:
-     resource: "<file_path>"
-     reason: "<what you're doing>"
+   task_create:
+     title: "<clear task title>"
+     description: "<detailed requirements>"
+     priority: "normal" | "high" | "urgent"
+     complexity: "trivial" | "simple" | "moderate" | "complex" (optional, auto-detected)
    ```
 
-3. Release when done.
+3. **Store Decisions** - Document architectural decisions:
+   ```
+   memory_set:
+     key: "<decision_topic>"
+     value: "<decision and rationale>"
+     namespace: "decisions"
+   ```
 
----
+4. **Monitor Progress** - Check coordination status regularly:
+   ```
+   coordination_status
+   task_list
+   ```
 
-## Check Before Major Work
+## Task Complexity Guidelines
 
+When creating tasks, consider the appropriate complexity:
+
+| Complexity | Use For | Research Required |
+|------------|---------|-------------------|
+| `trivial` | Typo fixes, config changes | None |
+| `simple` | Bug fixes, small refactors | context, files |
+| `moderate` | New endpoints, components | + requirements |
+| `complex` | New features, migrations | + design |
+
+Complexity is auto-detected from keywords, but you can override it.
+
+## Workflow
+
+1. Register yourself with `bootstrap`
+2. Check `coordination_status` to see current state
+3. Set `context:current_focus` with the goal
+4. Create tasks for work that needs to be done
+5. Monitor task completion with `task_list`
+6. Store important decisions in `decisions` namespace
+7. Send `agent_heartbeat` periodically with status "busy" or "idle"
+
+## Before Making Decisions
+
+Always check shared memory first:
 ```
-is_my_turn
+memory_list:
+  namespace: "decisions"
 ```
 
-If "No" - wait or check what tasks are available:
+This prevents contradicting decisions made by other agents.
+
+## When Delegating
+
+1. Create a clear task with `task_create`
+2. Set appropriate complexity for research requirements
+3. Optionally assign to a specific sub-agent
+4. Wait for task completion before creating dependent tasks
+5. Use task dependencies when order matters
+
+## Reviewing Research
+
+Before approving implementation, check sub-agent research:
 ```
-task_list:
-  status: "pending"
-```
-
----
-
-## Reference activeContext.md
-
-Check `activeContext.md` for current project state - it's auto-updated.
-
----
-
-## When Done With Your Task
-
-```
-task_complete:
-  task_id: "<your_task_id>"
-  output: "<summary of what you did>"
+research_status:
+  task_id: "<task_id>"
 ```
 
----
-
-## On Session End
-
+Search past research for relevant context:
 ```
-agent_unregister
+research_query:
+  query: "<search term>"
 ```
+
+## Communication Pattern
+
+- Use `memory_set` in namespace `context` for current state
+- Use `memory_set` in namespace `blockers` for issues
+- Use `memory_set` in namespace `decisions` for architectural choices
+- Check `agent_list` to see who's available
 
 ---
 > Source: [madebyaris/agent-orchestration](https://github.com/madebyaris/agent-orchestration) — distributed by [TomeVault](https://tomevault.io).
