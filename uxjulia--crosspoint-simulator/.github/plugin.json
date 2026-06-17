@@ -1,0 +1,9 @@
+{
+  "name": "uxjulia--crosspoint-simulator",
+  "displayName": "crosspoint-simulator",
+  "description": "Simulate Crosspoint firmware without flashing onto your device",
+  "version": "1.0.0",
+  "author": "uxjulia",
+  "homepage": "https://github.com/uxjulia/crosspoint-simulator",
+  "skills": []
+}
