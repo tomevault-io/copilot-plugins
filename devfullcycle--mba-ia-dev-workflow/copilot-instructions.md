@@ -1,45 +1,28 @@
-## controllers
+## error-handler
 
-> Use when writing or modifying Express.js controllers and route handlers. Covers procedural handler pattern, REST status codes, and error propagation.
+> Use when writing or modifying the global Express error handling middleware. Covers error-to-HTTP mapping pattern and consistent response shape.
 
 
-# Controller Pattern
+# Error Handler Pattern
 
-Controllers are individually exported **procedural functions** — never classes. Each function is a route handler that follows the flow: **extract data from request → call use case → return response**.
+The `errorHandler.ts` is the single global Express error middleware. It catches all errors forwarded via `next(error)` from controllers and converts them into consistent JSON responses.
 
 ## Rules
 
-1. **One function per action**: each handler is an exported named function (`export async function createUser`)
-2. **No business logic**: controllers never validate rules, compute values, or access repositories directly — delegate everything to the use case
-3. **Standard signature**: `(req: Request, res: Response, next: NextFunction) => Promise<void>`
-4. **No silent errors**: every error must be propagated — never use empty catch blocks, never swallow exceptions with `console.log` without re-throwing, never return a generic response ignoring the error. The catch block always delegates to the error middleware via `next(error)`
-5. **Correct REST status codes**:
-   - `200` — successful read or update
-   - `201` — resource created (POST that creates)
-   - `204` — no response body (e.g., logout, delete)
-   - Never return error status codes manually (4xx/5xx) — the error middleware determines those from use case exceptions
-6. **Explicit data extraction**: destructure `req.body`, `req.params`, and `req.query` at the top of the handler, before calling the use case
-7. **Direct response**: `res.status(xxx).json(result)` — no helpers or extra abstractions
-
-## Handler structure
-
-```typescript
-import { Router } from "express";
-
-const router = Router();
-
-router.post("/<path>", async (req, res, next) => {
-  try {
-    const { name, email } = req.body;
-    const user = await createUserUseCase.execute({ name, email });
-    res.status(201).json(user);
-  } catch (error) {
-    next(error);
-  }
-});
-
-export default router;
-```
+1. **Standard Express error middleware signature**: `(error, req, res, next)` — all four parameters are required
+2. **Map custom error classes to HTTP status codes**: each custom error (e.g., `NotFoundError`, `ConflictError`, `ValidationError`) maps to a specific status code (404, 409, 422, etc.)
+3. **Unknown errors return 500**: if the error is not a known custom type, return `500 Internal Server Error` with a generic message — never expose internal details (stack traces, DB errors) to the client
+4. **Consistent response shape**: every error response follows the same JSON structure:
+   ```json
+   {
+     "error": {
+       "code": "ERROR_CODE",
+       "message": "Human-readable message"
+     }
+   }
+   ```
+5. **Log before responding**: log the full error (including stack trace) for observability before sending the response — the client gets a safe message, the logs get the full detail
+6. **No business logic**: the error handler only maps errors to responses — it never retries, recovers, or makes decisions
 
 ---
 > Source: [devfullcycle/mba-ia-dev-workflow](https://github.com/devfullcycle/mba-ia-dev-workflow) — distributed by [TomeVault](https://tomevault.io).
