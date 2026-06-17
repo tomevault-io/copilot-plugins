@@ -1,0 +1,9 @@
+{
+  "name": "danield2g--clawbuddy",
+  "displayName": "ClawBuddy",
+  "description": "Self-hosted, privacy-first AI agent platform with sandboxed tool execution, document RAG, browser automation, and Google Workspace integration.",
+  "version": "1.0.0",
+  "author": "DanielD2G",
+  "homepage": "https://github.com/DanielD2G/ClawBuddy",
+  "skills": []
+}
