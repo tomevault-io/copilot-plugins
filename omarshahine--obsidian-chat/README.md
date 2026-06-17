@@ -7,11 +7,11 @@ Agentic AI chat plugin for Obsidian. Two providers, best models, no bloat.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [omarshahine/obsidian-chat](https://github.com/omarshahine/obsidian-chat).
+Original source: `CLAUDE.md` in [omarshahine/obsidian-chat](https://github.com/omarshahine/obsidian-chat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
