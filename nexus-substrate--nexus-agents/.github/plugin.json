@@ -1,0 +1,9 @@
+{
+  "name": "nexus-substrate--nexus-agents",
+  "displayName": "nexus-agents",
+  "description": "Governance substrate for your AI coding agents \u2014 adversarial review, drift-detected rules, immutable audit, closed-loop telemetry",
+  "version": "1.0.0",
+  "author": "nexus-substrate",
+  "homepage": "https://github.com/nexus-substrate/nexus-agents",
+  "skills": []
+}
