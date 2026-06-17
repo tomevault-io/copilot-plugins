@@ -1,0 +1,9 @@
+{
+  "name": "yannick-leguennec--archmapper",
+  "displayName": "archmapper",
+  "description": "ArchMapper \u2014 A powerful, resumeable, bottom-up reverse engineering framework for large codebases. Automatically scans folder/file structure, builds a complete hierarchical architecture.json with ideal",
+  "version": "1.0.0",
+  "author": "yannick-leguennec",
+  "homepage": "https://github.com/yannick-leguennec/archmapper",
+  "skills": []
+}
