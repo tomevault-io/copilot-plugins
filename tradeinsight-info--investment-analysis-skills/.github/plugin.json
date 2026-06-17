@@ -1,0 +1,9 @@
+{
+  "name": "tradeinsight-info--investment-analysis-skills",
+  "displayName": "investment-analysis-skills",
+  "description": "tradeinsight-marketplace for investment-analysis-skills, A collection of agents and skills for investment analysis \u2014 fundamental, technical, and sentiment analysis of publicly traded companies.",
+  "version": "1.0.0",
+  "author": "TradeInsight-Info",
+  "homepage": "https://github.com/TradeInsight-Info/investment-analysis-skills",
+  "skills": []
+}
