@@ -1,0 +1,9 @@
+{
+  "name": "stevekstevek--arqfastrestore",
+  "displayName": "arqfastrestore",
+  "description": "Fast parallel restore tool for Arq5 and Arq7 backups",
+  "version": "1.0.0",
+  "author": "stevekstevek",
+  "homepage": "https://github.com/stevekstevek/arqfastrestore",
+  "skills": []
+}
