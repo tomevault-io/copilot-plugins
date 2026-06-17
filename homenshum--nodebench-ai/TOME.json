@@ -4,7 +4,7 @@
   "repo": "nodebench-ai",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HomenShum/nodebench-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T06:41:17Z"
+  "distributed_at": "2026-06-17T06:34:22Z"
 }
