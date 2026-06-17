@@ -1,0 +1,9 @@
+{
+  "name": "cavall-org--heimdall",
+  "displayName": "Heimdall",
+  "description": "A set of skills for molecular image to SMILES ",
+  "version": "1.0.0",
+  "author": "CAVALL-ORG",
+  "homepage": "https://github.com/CAVALL-ORG/Heimdall",
+  "skills": []
+}
