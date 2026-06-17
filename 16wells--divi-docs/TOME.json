@@ -4,7 +4,7 @@
   "repo": "divi-docs",
   "description": "Attempting to get better organized documentation for Divi 5 theme in a way that is more highly/instantly usable by LLMs and search engines.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/16wells/divi-docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T18:54:52Z"
+  "distributed_at": "2026-06-17T00:42:58Z"
 }
