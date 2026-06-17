@@ -1,0 +1,9 @@
+{
+  "name": "edholofy--dojo-md",
+  "displayName": "dojo.md",
+  "description": "University for AI agents. 92 courses, 4400+ scenarios, any model via OpenRouter. Auto-training loops generate per-model SKILL.md documents. Works with Claude Code, OpenClaw, Cursor, Windsurf. No fine-",
+  "version": "1.0.0",
+  "author": "edholofy",
+  "homepage": "https://github.com/edholofy/dojo.md",
+  "skills": []
+}
