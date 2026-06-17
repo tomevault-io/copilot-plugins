@@ -1,0 +1,9 @@
+{
+  "name": "samaritan0--dfir-agentic-suite",
+  "displayName": "dfir-agentic-suite",
+  "description": "An autonomous Digital Forensics & Incident Response toolkit built on Claude's skill and MCP ecosystem",
+  "version": "1.0.0",
+  "author": "samaritan0",
+  "homepage": "https://github.com/samaritan0/dfir-agentic-suite",
+  "skills": []
+}
