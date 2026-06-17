@@ -1,0 +1,9 @@
+{
+  "name": "divitmittal--ghorg-terraform",
+  "displayName": "ghOrg-terraform",
+  "description": "Terraform project that declaratively manages the DivitMittal GitHub organization's repositories and branch protections via the GitHub provider",
+  "version": "1.0.0",
+  "author": "DivitMittal",
+  "homepage": "https://github.com/DivitMittal/ghOrg-terraform",
+  "skills": []
+}
