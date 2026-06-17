@@ -1,0 +1,44 @@
+{
+  "name": "fbs-core",
+  "owner": "i-got-this-faa",
+  "repo": "fbs-core",
+  "description": "Fast Blob Storage (FBS) is a s3 compatible blob storage and CDN solution primarly for self hosting",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/i-got-this-faa/fbs-core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T03:06:04Z"
+}
