@@ -1,0 +1,9 @@
+{
+  "name": "diraigent--diraigent",
+  "displayName": "diraigent",
+  "description": "A self-hosted software factory \u2014 define goals, agents decompose and execute them through enforced pipelines, with humans in the loop where it matters.",
+  "version": "1.0.0",
+  "author": "diraigent",
+  "homepage": "https://github.com/diraigent/diraigent",
+  "skills": []
+}
