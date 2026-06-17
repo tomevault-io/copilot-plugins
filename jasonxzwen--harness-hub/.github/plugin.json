@@ -1,0 +1,9 @@
+{
+  "name": "jasonxzwen--harness-hub",
+  "displayName": "harness-hub",
+  "description": "Release-oriented agent skill hub and CLI for analyzing repos, installing high-signal Codex/Claude Code/OpenCode skill profiles, and safely tracking managed files.",
+  "version": "1.0.0",
+  "author": "JasonxzWen",
+  "homepage": "https://github.com/JasonxzWen/harness-hub",
+  "skills": []
+}
