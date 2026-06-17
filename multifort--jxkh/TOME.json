@@ -4,7 +4,7 @@
   "repo": "jxkh",
   "description": "\u7ee9\u6548\u8003\u6838\u7cfb\u7edf",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/multifort/jxkh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T08:33:20Z"
+  "distributed_at": "2026-06-17T22:49:00Z"
 }
