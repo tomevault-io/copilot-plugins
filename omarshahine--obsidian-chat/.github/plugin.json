@@ -1,0 +1,9 @@
+{
+  "name": "omarshahine--obsidian-chat",
+  "displayName": "obsidian-chat",
+  "description": "Agentic AI chat plugin for Obsidian. Two providers, best models, no bloat.",
+  "version": "1.0.0",
+  "author": "omarshahine",
+  "homepage": "https://github.com/omarshahine/obsidian-chat",
+  "skills": []
+}
