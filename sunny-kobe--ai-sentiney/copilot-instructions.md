@@ -1,103 +1,113 @@
 ## ai-sentiney
 
-> This file provides context and instructions for AI agents (specifically Gemini) working on the **Project Sentinel** codebase.
+> A股智能投顾哨兵 - AI驱动的市场分析、追问与趋势研判。Use when the user asks about A-share market analysis, Chinese stock/ETF trading signals, portfolio review, or market trends.
 
-# Gemini Context for AI Sentinel
 
-This file provides context and instructions for AI agents (specifically Gemini) working on the **Project Sentinel** codebase.
+# Project Sentinel
 
-## 1. Project Overview
+A股智能投顾系统，通过 AkShare 采集实时行情，Gemini AI 分析，输出交易建议。
 
-**Project Sentinel** is a local, AI-powered investment advisor for the Chinese A-share market.
-It serves as an "Intelligence & Risk Officer" by automating the data collection, analysis, and reporting pipeline:
-1.  **Collects** real-time market data (AkShare) and news.
-2.  **Analyzes** data using Google Gemini Pro to generate trading insights.
-3.  **Reports** actionable advice (Safe/Danger/Watch) via Feishu (Lark) webhooks.
+## 使用方式
 
-**Key Philosophy:**
-- **Newsroom Model:** Reporter (Python) -> Editor-in-Chief (Gemini) -> Courier (Feishu).
-- **Automation:** Runs twice daily via GitHub Actions or Cron (Midday & Close).
+**重要**: 必须先 `cd` 到项目目录，并激活虚拟环境。
 
-## 2. Technical Stack
+### 生成分析报告
 
-- **Language:** Python 3.9+
-- **Data Source:** `akshare` (Async parallel fetching)
-- **AI Engine:** `google-generativeai` (Gemini Pro)
-- **Notification:** Feishu/Lark Webhook (Interactive Cards)
-- **Persistence:** SQLite (`data/sentinel.db`)
-- **Key Libraries:** `pandas`, `tenacity`, `colorlog`, `pytest`
-
-## 3. Operational Commands
-
-### Setup
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env  # Requires GEMINI_API_KEY and FEISHU_WEBHOOK
+# 午盘分析（默认），输出到终端
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --mode midday
+
+# 收盘复盘
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --mode close
+
+# 早报
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --mode morning
+
+# 生成并推送到 Telegram
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --mode midday --publish --publish-target telegram
+
+# 同时推送到飞书和 Telegram
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --mode midday --publish --publish-target feishu telegram
+
+# JSON 格式输出（供程序消费）
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --mode midday --output json
 ```
 
-### Execution Modes
-The system has two primary run modes corresponding to market hours:
+### 追问分析
 
-**1. Midday Check (11:40 CST)**
-- Focus: Intraday risk control, afternoon session strategy.
 ```bash
-python -m src.main --mode midday
+# 追问最近一次分析
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --ask "黄金ETF今天怎么样"
+
+# 追问指定日期
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --ask "半导体板块情况如何" --date 2026-02-07
+
+# 追问收盘分析
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --ask "明天怎么操作" --mode close
 ```
 
-**2. Close Review (15:10 CST)**
-- Focus: Daily summary, support/resistance levels for next day.
+### 趋势分析
+
 ```bash
-python -m src.main --mode close
+# 一周趋势（自动检测趋势关键词）
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --ask "最近一周市场趋势如何"
+
+# 一个月趋势
+cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --ask "这个月持仓表现怎么样"
 ```
 
-### Debugging & Development
-- **Dry Run:** No API calls, no messages sent. Safe for logic testing.
-  ```bash
-  python -m src.main --mode midday --dry-run
-  ```
-- **Replay Mode:** Re-analyzes the last saved data context without re-fetching. Ideal for prompt tuning.
-  ```bash
-  python -m src.main --mode midday --replay
-  ```
+## 使用场景
 
-### Testing
-```bash
-pytest
-```
+**⚠️ 核心路由规则（必须严格遵守）**:
+- 只有用户**明确要求"跑分析/生成报告/推送"**时，才执行 `--mode` 命令
+- **所有其他问题**（包括追问、评价、询问准确率、闲聊等）一律使用 `--ask "用户的原始问题"` 转发给 Sentinel CLI
+- **禁止**自行编造回答来代替 CLI 输出。必须执行命令并将 stdout 原样返回给用户
+- 当不确定该用哪个命令时，默认使用 `--ask`
 
-## 4. Architecture & Data Flow
+### 生成报告（仅当用户明确要求生成/跑/推送时）
 
-### Directory Structure
-- `src/collector`: Fetches data from AkShare (Prices, Northbound funds, News).
-- `src/processor`: Calculates indicators (MA20, Bias). **Key Algo: Real-time MA20 Stitching**.
-- `src/analyst`: Interfaces with Gemini API using prompts from `config.yaml`.
-- `src/reporter`: Formats and sends Feishu cards.
-- `src/storage`: Manages SQLite database and context saving.
+当用户说：
+- "跑一下午盘分析"
+- "生成收盘复盘"
+- "早报分析一下"
 
-### The Pipeline
-1.  **Collector**: Parallel async fetch of market breadth, indices, and portfolio data.
-2.  **Processor**: Stitches historical data (past 19 days) with real-time price to compute a valid intraday MA20.
-3.  **Analyst**: Sends structured data to Gemini. Gemini returns JSON analysis.
-4.  **Reporter**: Renders the analysis into a color-coded Feishu card (Red=Up/Bullish, Green=Down/Bearish).
+执行：`cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --mode midday`
 
-## 5. Development Conventions
+### 推送 Telegram
 
-- **Timezone**: All operations assume **Asia/Shanghai**.
-- **Market Colors**: Follows A-share convention: **Red is Up**, **Green is Down**.
-- **Configuration**: Managed in `config.yaml`. Do not hardcode logic that belongs in config.
-- **Error Handling**: Use `tenacity` for network retries.
-- **Secrets**: Never commit `.env` or API keys.
+当用户说：
+- "把分析推到 Telegram"
+- "推送到 Telegram"
+- "发一下午盘报告"
 
-## 6. CI/CD (GitHub Actions)
+执行：`cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --mode midday --publish --publish-target telegram`
 
-- **Workflow**: `.github/workflows/daily_sentinel.yml`
-- **Schedule**:
-  - Midday: `40 3 * * 1-5` (03:40 UTC = 11:40 CST)
-  - Close: `10 7 * * 1-5` (07:10 UTC = 15:10 CST)
-- **Note**: The workflow automatically commits the updated SQLite database back to the repo to maintain context between runs.
+### 同时推送飞书和 Telegram
+
+当用户说：
+- "推送到所有渠道"
+- "飞书和 Telegram 都发"
+
+执行：`cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --mode midday --publish --publish-target feishu telegram`
+
+### 所有其他问题（追问、准确率、评价、闲聊等）
+
+当用户说任何非"生成报告"的话，包括但不限于：
+- 追问标的："黄金ETF今天怎么样"、"紫金矿业能买吗"
+- 准确率相关："准不准"、"准确率"、"命中率"、"靠谱吗"、"可信吗"、"胜率"
+- 趋势相关："最近一周市场走势"、"这个月持仓趋势"
+- 其他任何问题
+
+**一律**执行：`cd /Users/lan/Desktop/code/ai_sentiney && source .venv/bin/activate && python -m src.main --ask "用户的原始问题"`
+
+将 stdout 输出原样返回给用户，**不要自行加工或编造内容**。
+
+## 数据缓存
+
+- SQLite 数据库: `data/sentinel.db`
+- JSON 快照: `data/latest_context.json`
+- 支持历史回放: `--replay` 参数
 
 ---
 > Source: [sunny-kobe/ai_sentiney](https://github.com/sunny-kobe/ai_sentiney) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
