@@ -1,0 +1,9 @@
+{
+  "name": "kleverhq--wavepeek",
+  "displayName": "wavepeek",
+  "description": "\ud83c\udf0a Tool for RTL waveform (VCD/FST) inspection via CLI",
+  "version": "1.0.0",
+  "author": "kleverhq",
+  "homepage": "https://github.com/kleverhq/wavepeek",
+  "skills": []
+}
