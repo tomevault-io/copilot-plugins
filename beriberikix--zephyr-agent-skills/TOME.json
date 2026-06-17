@@ -1,0 +1,147 @@
+{
+  "name": "zephyr-agent-skills",
+  "owner": "beriberikix",
+  "repo": "zephyr-agent-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "connectivity-ble",
+      "path": "skills/connectivity-ble",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/connectivity-ble",
+      "description": ""
+    },
+    {
+      "name": "connectivity-ip",
+      "path": "skills/connectivity-ip",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/connectivity-ip",
+      "description": ""
+    },
+    {
+      "name": "connectivity-usb-can",
+      "path": "skills/connectivity-usb-can",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/connectivity-usb-can",
+      "description": ""
+    },
+    {
+      "name": "devicetree",
+      "path": "skills/devicetree",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/devicetree",
+      "description": ""
+    },
+    {
+      "name": "hardware-io",
+      "path": "skills/hardware-io",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/hardware-io",
+      "description": ""
+    },
+    {
+      "name": "iot-protocols",
+      "path": "skills/iot-protocols",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/iot-protocols",
+      "description": ""
+    },
+    {
+      "name": "kernel-basics",
+      "path": "skills/kernel-basics",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/kernel-basics",
+      "description": ""
+    },
+    {
+      "name": "kernel-services",
+      "path": "skills/kernel-services",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/kernel-services",
+      "description": ""
+    },
+    {
+      "name": "multicore",
+      "path": "skills/multicore",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/multicore",
+      "description": ""
+    },
+    {
+      "name": "native-sim",
+      "path": "skills/native-sim",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/native-sim",
+      "description": ""
+    },
+    {
+      "name": "power-performance",
+      "path": "skills/power-performance",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/power-performance",
+      "description": ""
+    },
+    {
+      "name": "specialized",
+      "path": "skills/specialized",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/specialized",
+      "description": ""
+    },
+    {
+      "name": "storage",
+      "path": "skills/storage",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/storage",
+      "description": ""
+    },
+    {
+      "name": "testing-debugging",
+      "path": "skills/testing-debugging",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/testing-debugging",
+      "description": ""
+    },
+    {
+      "name": "zephyr-foundations",
+      "path": "skills/zephyr-foundations",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/zephyr-foundations",
+      "description": ""
+    },
+    {
+      "name": "zephyr-index",
+      "path": "skills/zephyr-index",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/zephyr-index",
+      "description": ""
+    },
+    {
+      "name": "zephyr-module",
+      "path": "skills/zephyr-module",
+      "github_url": "https://github.com/beriberikix/zephyr-agent-skills/tree/main/skills/zephyr-module",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/beriberikix/zephyr-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T00:30:30Z"
+}
