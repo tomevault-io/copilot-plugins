@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--ai-cloud-validation",
+  "displayName": "ai-cloud-validation",
+  "description": "Validation and management tools for NVIDIA AI Cloud environments.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/ai-cloud-validation",
+  "skills": []
+}
