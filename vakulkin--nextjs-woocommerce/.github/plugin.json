@@ -1,0 +1,9 @@
+{
+  "name": "vakulkin--nextjs-woocommerce",
+  "displayName": "nextjs-woocommerce",
+  "description": "Try the live demo: a fast, headless WooCommerce storefront (Next.js + WooCommerce) featuring product browsing, add-to-cart, and checkout.",
+  "version": "1.0.0",
+  "author": "vakulkin",
+  "homepage": "https://github.com/vakulkin/nextjs-woocommerce",
+  "skills": []
+}
