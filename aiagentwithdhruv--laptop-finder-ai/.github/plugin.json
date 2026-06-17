@@ -1,0 +1,9 @@
+{
+  "name": "aiagentwithdhruv--laptop-finder-ai",
+  "displayName": "laptop-finder-ai",
+  "description": "AI-powered laptop recommendation system with RAG chat, side-by-side comparison, and smart filtering. Built with Next.js 15, FastAPI, PostgreSQL + pgvector, and GPT-4o.",
+  "version": "1.0.0",
+  "author": "aiagentwithdhruv",
+  "homepage": "https://github.com/aiagentwithdhruv/laptop-finder-ai",
+  "skills": []
+}
