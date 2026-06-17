@@ -1,0 +1,51 @@
+{
+  "name": "prompt-optimizer-skill",
+  "owner": "geq1fan",
+  "repo": "prompt-optimizer-skill",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e Project Context \u8fdb\u884c Prompt\u4f18\u5316 \u7684 Claude Code SKILL\uff0c\u5e76\u914d\u7f6e\u6709\u754c\u9762\u8fdb\u884c\u8fed\u4ee3\u4f18\u5316\uff1bAdvanced Claude Code skill for systematic prompt engineering. Optimizes prompts using project context, adversarial testing, and iterative evaluation. Built with Wails & Go.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "skills",
+      "github_url": "https://github.com/geq1fan/prompt-optimizer-skill/tree/main/skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/geq1fan/prompt-optimizer-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T14:30:24Z"
+}
