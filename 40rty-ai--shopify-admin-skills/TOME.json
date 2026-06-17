@@ -2,9 +2,9 @@
   "name": "shopify-admin-skills",
   "owner": "40RTY-ai",
   "repo": "shopify-admin-skills",
-  "description": "Community-maintained AI agent skills for operating Shopify stores \u2014 workflows, optimization, reports and more",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/40RTY-ai/shopify-admin-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T03:34:05Z"
+  "distributed_at": "2026-06-17T00:39:41Z"
 }
