@@ -4,7 +4,7 @@
   "repo": "unduh-unduh",
   "description": "Minimalist bulk downloader for public Instagram Reels and TikTok videos",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adrioui/unduh-unduh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T17:38:42Z"
+  "distributed_at": "2026-06-17T23:02:30Z"
 }
