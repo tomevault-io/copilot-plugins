@@ -1,0 +1,9 @@
+{
+  "name": "smithersbot--smithersbot",
+  "displayName": "smithersbot",
+  "description": "Leave agents running without giving up control.",
+  "version": "1.0.0",
+  "author": "smithersbot",
+  "homepage": "https://github.com/smithersbot/smithersbot",
+  "skills": []
+}
