@@ -1,0 +1,9 @@
+{
+  "name": "elnatand--cmp-moviedb",
+  "displayName": "cmp-moviedb",
+  "description": "Kotlin Multiplatform movie database app built with Compose Multiplatform and Navigation 3. Browse movies, discover new releases, and explore detailed information powered by The Movie Database (TMDB) A",
+  "version": "1.0.0",
+  "author": "elnatand",
+  "homepage": "https://github.com/elnatand/cmp-moviedb",
+  "skills": []
+}
