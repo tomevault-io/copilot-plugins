@@ -1,0 +1,9 @@
+{
+  "name": "seaual--meta-knowledge-graph",
+  "displayName": "meta-knowledge-graph",
+  "description": "LLM-powered Academic Knowledge Graph Engine - Extract hierarchical concepts from PDF papers with interactive visualization",
+  "version": "1.0.0",
+  "author": "Seaual",
+  "homepage": "https://github.com/Seaual/meta-knowledge-graph",
+  "skills": []
+}
