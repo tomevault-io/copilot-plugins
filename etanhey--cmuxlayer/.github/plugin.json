@@ -1,0 +1,9 @@
+{
+  "name": "etanhey--cmuxlayer",
+  "displayName": "cmuxlayer",
+  "description": "cmux MCP server \u2014 25 tools for terminal agent lifecycle management. Spawn, monitor, and orchestrate Claude, Codex, Cursor, Gemini, Kiro agents. Thinking-state detection, chunked input, layout manageme",
+  "version": "1.0.0",
+  "author": "EtanHey",
+  "homepage": "https://github.com/EtanHey/cmuxlayer",
+  "skills": []
+}
