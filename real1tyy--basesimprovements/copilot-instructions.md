@@ -1,132 +1,86 @@
-## documentation-updates
+## jsdoc-quality
 
-> Guidelines for updating documentation when implementing new features
+> Enforce meaningful JSDoc comments and avoid redundant documentation
 
 
-# Documentation Update Requirements
+# JSDoc Quality Standards
 
-**CRITICAL: When implementing ANY new feature, you MUST update the documentation. No feature is complete without documentation.**
+**Eliminate useless JSDoc comments that just repeat the function/variable name.**
 
-## Required Documentation Updates
+## ❌ **DON'T: Write redundant JSDoc**
 
-### 1. Changelog ([changelog.md](mdc:docs-site/docs/changelog.md))
-- Add feature to the current version section
-- Include clear description with user-facing benefits
-- Organize by category (New Features, Bug Fixes, etc.)
-- Use bullet points with bold headings for major features
-- Include examples where helpful
+```typescript
+/**
+ * Get settings
+ */
+get settings() { ... }
 
-### 2. Feature Documentation Page
-- Create new page in `docs-site/docs/features/` if feature is substantial
-- Update existing feature page if enhancing existing functionality
-- **Required Sections**:
-  - Overview (what the feature does)
-  - Basic Setup (how to enable/configure)
-  - Usage Examples (with code blocks)
-  - Configuration Reference (settings table)
-  - Best Practices
-  - Troubleshooting
-  - Related Features (cross-links)
+/**
+ * Load settings
+ */
+async loadSettings() { ... }
 
-### 3. Features Overview ([features/overview.md](mdc:docs-site/docs/features/overview.md))
-- Add feature to relevant category section
-- Update "Getting Started" links if new page created
-- Keep consistent formatting with existing entries
+/**
+ * Save settings
+ */
+async saveSettings() { ... }
 
-### 4. Sidebar Navigation ([sidebars.ts](mdc:docs-site/sidebars.ts))
-- Add new feature page to `items` array under Features category
-- Place in logical order relative to other features
-
-### 5. Update Cross-References
-- Link to new feature from related documentation pages
-- Update configuration docs if new settings added
-- Update FAQ if feature addresses common questions
-
-## Documentation Standards
-
-### Writing Style
-- **Clear and concise**: No unnecessary jargon
-- **User-focused**: Explain benefits, not just mechanics
-- **Example-driven**: Show real YAML frontmatter and configurations
-- **Complete**: Cover all configuration options and edge cases
-
-### Code Examples
-```yaml
----
-Title: Example Event
-Start Date: 2025-02-15T14:00
-Minutes Before: 15  # Clear inline comments
----
+/**
+ * Update profile
+ */
+async updateProfile(profile: CalendarProfile) { ... }
 ```
 
-### Formatting
-- Use **bold** for UI elements and important terms
-- Use `code` for property names, values, and commands
-- Use bullet points for lists
-- Use numbered lists for sequential steps
-- Include emoji sparingly in section headers (📋 🎯 ✨)
+## ✅ **DO: Write meaningful documentation or none at all**
 
-## Documentation Checklist
+```typescript
+// No JSDoc needed - method name is self-explanatory
+get settings() { ... }
 
-Before marking a feature as complete, verify:
+// No JSDoc needed - clear from name and parameters
+async loadSettings() { ... }
 
-- [ ] Changelog updated with feature description
-- [ ] Feature documentation page created or updated
-- [ ] Features overview updated
-- [ ] Sidebar navigation updated (if new page)
-- [ ] Cross-references added to related docs
-- [ ] All configuration options documented
-- [ ] Usage examples provided
-- [ ] Troubleshooting section included
-- [ ] Best practices documented
-- [ ] Related features cross-linked
+// Add JSDoc only when it provides real value
+/**
+ * Migrates settings from older versions and validates structure.
+ * Throws error if migration fails or settings are invalid.
+ */
+private migrateSettings(data: any): CustomCalendarSettings { ... }
 
-## Examples of Good Documentation Updates
+/**
+ * Updates profile and automatically saves to disk.
+ * Creates new profile if ID doesn't exist, updates existing otherwise.
+ *
+ * @throws {Error} When max profile limit is reached for new profiles
+ */
+async updateProfile(profile: CalendarProfile): Promise<void> { ... }
+```
 
-### Version 1.4.0 Notifications Feature
-✅ **Complete Documentation**:
-- Changelog entry with all sub-features
-- Full notifications.md page (400+ lines)
-- Updated features/overview.md with new section
-- Added to sidebar navigation
-- Updated filtering.md with cross-references
-- Included configuration table
-- Provided troubleshooting guide
-- Added use cases and best practices
+## **When JSDoc adds value:**
 
-### What NOT to Do
-❌ **Incomplete Documentation**:
-- Only changelog entry, no feature page
-- No usage examples
-- Missing configuration options
-- No troubleshooting section
-- Not added to navigation
-- No cross-links to related features
+- **Complex logic**: Explain non-obvious behavior or algorithms
+- **Error conditions**: Document what exceptions are thrown and when
+- **Side effects**: Mention automatic saves, notifications, state changes
+- **Business rules**: Explain validation rules or constraints
+- **API contracts**: Document expected input/output for public methods
+- **Performance notes**: Mention caching, async behavior, or expensive operations
 
-## Documentation File Paths
+## **When to skip JSDoc:**
 
-- Changelog: `docs-site/docs/changelog.md`
-- Features: `docs-site/docs/features/*.md`
-- Configuration: `docs-site/docs/configuration.md`
-- FAQ: `docs-site/docs/faq.md`
-- Troubleshooting: `docs-site/docs/troubleshooting.md`
-- Sidebar: `docs-site/sidebars.ts`
+- **Self-explanatory names**: `getName()`, `setActive()`, `isValid()`
+- **Simple getters/setters**: Basic property access
+- **Obvious parameters**: `updateProfile(profile)`, `removeById(id)`
+- **Standard patterns**: Basic CRUD operations, event handlers
+- **Private utilities**: Internal helper methods with clear names
 
-## When to Create New Feature Page
+## **Focus on code clarity first:**
 
-Create a new feature documentation page when:
-- Feature has multiple configuration options
-- Feature requires explanation of how it works
-- Feature has use cases and best practices
-- Feature needs troubleshooting guide
-- Feature is substantial enough for 100+ lines of docs
+- Use descriptive method and variable names
+- Keep functions small and focused
+- Use TypeScript types for parameter documentation
+- Let the code tell the story, use JSDoc for context
 
-Update existing page when:
-- Enhancing existing feature
-- Adding small related functionality
-- Feature is minor (< 50 lines of docs)
-
-**Remember**: Documentation is not optional. Features without documentation are incomplete features.
+**Remember**: Good code needs less documentation. Write code so clear that JSDoc becomes unnecessary, then add JSDoc only where it genuinely helps.
 
 ---
 > Source: [Real1tyy/BasesImprovements](https://github.com/Real1tyy/BasesImprovements) — distributed by [TomeVault](https://tomevault.io).
