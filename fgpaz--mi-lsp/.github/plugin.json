@@ -1,0 +1,9 @@
+{
+  "name": "fgpaz--mi-lsp",
+  "displayName": "mi-lsp",
+  "description": "Semantic CLI for .NET/C# and TypeScript workspaces",
+  "version": "1.0.0",
+  "author": "fgpaz",
+  "homepage": "https://github.com/fgpaz/mi-lsp",
+  "skills": []
+}
