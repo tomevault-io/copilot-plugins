@@ -1,0 +1,9 @@
+{
+  "name": "shloimy-wiesel--ai-sdk-stream-python",
+  "displayName": "ai-sdk-stream-python",
+  "description": "Vercel AI SDK v6 UIMessageStream backends for Python - typed events, auto-managed lifecycle.",
+  "version": "1.0.0",
+  "author": "shloimy-wiesel",
+  "homepage": "https://github.com/shloimy-wiesel/ai-sdk-stream-python",
+  "skills": []
+}
