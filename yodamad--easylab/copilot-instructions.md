@@ -1,36 +1,34 @@
-## docs-when-changing-features
+## guardrails
 
-> Keep docs in docs/ in sync when creating or modifying features.
+> Agent guardrails — strict rules to prevent unintended modifications to the EasyLab codebase.
 
+# Agent Guardrails
 
-# Update Docs When Changing Features
+CRITICAL: Do NOT modify, refactor, rename, or restructure existing files unless
+the user EXPLICITLY asks for it. This applies to all code, tests, configs, and
+documentation. When in doubt, ASK before changing.
 
-When you **create** or **modify** a user-facing or operator-facing feature, you **must** update the relevant documentation in `docs/`.
+## Agents MUST NOT
 
-## Where to document
+- Modify files that are not directly related to the user's request
+- Refactor or "improve" existing working code on their own initiative
+- Rename functions, variables, types, packages, or files without being asked
+- Change API routes, request/response contracts, or HTTP status codes
+- Alter Pulumi infrastructure code (main.go, ovh/, k8s/, coder/, templates/)
+- Edit CI/CD pipelines (.gitlab-ci.yml, .github/), Dockerfile, or docker-compose.yml
+- Add, remove, or upgrade Go or npm dependencies without explicit approval
+- Change authentication or security logic (internal/server/auth.go)
+- Modify the Makefile targets or build configuration
+- Move files between directories or reorganize the project structure
+- Remove backward-compatibility routes or aliases
 
-| Area | Doc file |
-|------|----------|
-| Admin UI, lab creation, credentials, lab/workspace management | `docs/admin.md` |
-| Student portal, login, workspace access | `docs/student.md` |
-| OVHcloud setup, regions, flavors, infra | `docs/ovhcloud.md` |
-| Docker / docker-compose usage | `docs/docker.md` |
-| Helm / Kubernetes deployment | `docs/helm.md` |
-| Product overview, getting started | `docs/index.md` |
+## Agents SHOULD
 
-## What to do
-
-- **New feature**: Add a short section or bullet describing the feature and how to use it (or link to the right step in the wizard).
-- **Changed behavior**: Update the existing text, steps, or checklists so they match the current behavior.
-- **UI changes**: If buttons, screens, or flows change, update the described steps and consider adding or replacing a screenshot in `docs/screens/` (e.g. `docs/screens/admin.png`).
-- **New or removed options**: Update any lists (e.g. infrastructure choices, template selection) and screenshots that show those options.
-
-## Format
-
-- Docs are MkDocs (Markdown). Use existing headings and list style; keep tone consistent with the rest of the file.
-- Reference screenshots as `![Alt](screens/filename.png)`.
-
-If the user explicitly asks not to touch docs, skip documentation updates for that change.
+- Limit changes to the minimum scope needed to fulfill the request
+- Explain what they intend to change BEFORE making edits to multiple files
+- Preserve existing code style, naming conventions, and patterns
+- Add new code in the appropriate existing package rather than creating new ones
+- Run "make test" or "make lint" after changes when relevant
 
 ---
 > Source: [yodamad/easylab](https://github.com/yodamad/easylab) — distributed by [TomeVault](https://tomevault.io).
