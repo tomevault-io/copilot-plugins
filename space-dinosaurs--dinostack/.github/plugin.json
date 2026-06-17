@@ -1,0 +1,9 @@
+{
+  "name": "space-dinosaurs--dinostack",
+  "displayName": "DinoStack",
+  "description": "Self-triggering, skill-based agentic methodology: agents, skills, commands, hooks and protocols",
+  "version": "1.0.0",
+  "author": "Space-Dinosaurs",
+  "homepage": "https://github.com/Space-Dinosaurs/DinoStack",
+  "skills": []
+}
