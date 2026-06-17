@@ -1,0 +1,44 @@
+{
+  "name": "neoapi-skill",
+  "owner": "phenomenoner",
+  "repo": "neoapi-skill",
+  "description": "\u5bcc\u90a6\u65b0\u4e00\u4ee3\uff08Fubon Neo\uff09Python \u6280\u80fd\u5305\uff1a\u4ea4\u6613\u8207\u884c\u60c5\u5de5\u4f5c\u6d41\u3001\u6e2c\u8a66\u74b0\u5883\u6574\u5408\u6e2c\u8a66\u3001\u591a\u4ee3\u7406\uff08Codex/Claude/Gemini\uff09\u9069\u914d\u3002",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/phenomenoner/neoapi-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T12:48:49Z"
+}
