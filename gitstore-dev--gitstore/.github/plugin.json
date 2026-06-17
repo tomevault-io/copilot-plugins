@@ -1,0 +1,9 @@
+{
+  "name": "gitstore-dev--gitstore",
+  "displayName": "GitStore",
+  "description": "Agent-safe headless e-commerce engine",
+  "version": "1.0.0",
+  "author": "gitstore-dev",
+  "homepage": "https://github.com/gitstore-dev/GitStore",
+  "skills": []
+}
