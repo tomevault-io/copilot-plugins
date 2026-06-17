@@ -1,0 +1,9 @@
+{
+  "name": "aloncarmel--supermeskill",
+  "displayName": "supermeskill",
+  "description": "Superme is a claude skill that lets you order food from shufersal online (supported now more later)",
+  "version": "1.0.0",
+  "author": "aloncarmel",
+  "homepage": "https://github.com/aloncarmel/supermeskill",
+  "skills": []
+}
