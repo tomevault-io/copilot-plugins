@@ -1,0 +1,9 @@
+{
+  "name": "smallnest--hello-world-skill",
+  "displayName": "hello-world-skill",
+  "description": "hello-world-skill",
+  "version": "1.0.0",
+  "author": "smallnest",
+  "homepage": "https://github.com/smallnest/hello-world-skill",
+  "skills": []
+}
