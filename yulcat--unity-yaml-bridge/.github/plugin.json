@@ -1,0 +1,9 @@
+{
+  "name": "yulcat--unity-yaml-bridge",
+  "displayName": "unity-yaml-bridge",
+  "description": "Bidirectional parser between Unity YAML and AI-friendly .ubridge format. 92-96% token reduction, lossless round-trip.",
+  "version": "1.0.0",
+  "author": "yulcat",
+  "homepage": "https://github.com/yulcat/unity-yaml-bridge",
+  "skills": []
+}
