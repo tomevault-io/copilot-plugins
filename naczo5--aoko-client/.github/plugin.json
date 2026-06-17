@@ -1,0 +1,9 @@
+{
+  "name": "naczo5--aoko-client",
+  "displayName": "aoko-client",
+  "description": "Free Lunar injectable minecraft utility client with an autoclicker, aim assist and basic rendering features. Works on 1.21, 1.8.9 and 26.1",
+  "version": "1.0.0",
+  "author": "naczo5",
+  "homepage": "https://github.com/naczo5/aoko-client",
+  "skills": []
+}
