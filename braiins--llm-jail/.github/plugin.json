@@ -1,0 +1,9 @@
+{
+  "name": "braiins--llm-jail",
+  "displayName": "llm-jail",
+  "description": "A Nix script for running CLI coding tools in an isolated MicroVM environment",
+  "version": "1.0.0",
+  "author": "braiins",
+  "homepage": "https://github.com/braiins/llm-jail",
+  "skills": []
+}
