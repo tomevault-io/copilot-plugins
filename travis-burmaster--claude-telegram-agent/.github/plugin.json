@@ -1,0 +1,9 @@
+{
+  "name": "travis-burmaster--claude-telegram-agent",
+  "displayName": "claude-telegram-agent",
+  "description": "claude-telegram-agent",
+  "version": "1.0.0",
+  "author": "travis-burmaster",
+  "homepage": "https://github.com/travis-burmaster/claude-telegram-agent",
+  "skills": []
+}
