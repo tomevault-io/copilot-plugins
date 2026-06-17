@@ -1,0 +1,9 @@
+{
+  "name": "bombshell-dev--clayterm",
+  "displayName": "clayterm",
+  "description": "Platform independent 2D layout engine for terminal applications based on Clay",
+  "version": "1.0.0",
+  "author": "bombshell-dev",
+  "homepage": "https://github.com/bombshell-dev/clayterm",
+  "skills": []
+}
