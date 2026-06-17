@@ -1,0 +1,44 @@
+{
+  "name": "aoko-client",
+  "owner": "naczo5",
+  "repo": "aoko-client",
+  "description": "Free Lunar injectable minecraft utility client with an autoclicker, aim assist and basic rendering features. Works on 1.21, 1.8.9 and 26.1",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/naczo5/aoko-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T16:39:44Z"
+}
