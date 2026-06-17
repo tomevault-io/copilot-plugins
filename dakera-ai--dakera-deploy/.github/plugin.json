@@ -1,0 +1,9 @@
+{
+  "name": "dakera-ai--dakera-deploy",
+  "displayName": "dakera-deploy",
+  "description": "Self-hosted Dakera AI memory server \u2014 Docker Compose, Kubernetes, Helm, HA cluster setup, and monitoring.",
+  "version": "1.0.0",
+  "author": "Dakera-AI",
+  "homepage": "https://github.com/Dakera-AI/dakera-deploy",
+  "skills": []
+}
