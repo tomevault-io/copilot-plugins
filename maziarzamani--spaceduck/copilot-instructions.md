@@ -1,23 +1,46 @@
-## post-implementation
+## project-overview
 
-> Checklist for completing feature work — ensures docs and config stay in sync
+> spaceduck project overview and architecture
 
 
-# Post-Implementation Checklist
+# spaceduck
 
-After completing a feature or significant change, verify these before marking the task done:
+A modular, open-source AI chat assistant built with Bun. Monorepo with workspace packages.
 
-1. **Typecheck** — Run `bunx tsc --noEmit`. Zero errors. This is non-negotiable.
+Always spell spaceduck with lowercase.
 
-2. **Tests** — Run `bun test --recursive`. All tests must pass.
+Never add "Made with Cursor" anywhere.
 
-3. **`.env.example`** — If you added, renamed, or removed any `Bun.env` / `process.env` variables, update `.env.example` with the new entries (commented out, with defaults and a brief description). Group them under the appropriate section or add a new section.
+## Architecture
 
-4. **`README.md`** — If the feature is user-visible (new endpoint, new UI capability, new CLI dependency, new config knob), add or update the relevant section in the project README. Keep it concise — one paragraph or a bullet list is enough.
+- `@spaceduck/core` — zero-dependency contract package (types, interfaces, agent loop, context builder, events, middleware)
+- `@spaceduck/gateway` — composition root that wires everything together, lifecycle orchestration
+- `@spaceduck/config` — Zod-based config schema, hot-apply, model pricing
+- `@spaceduck/scheduler` — task scheduler, persistent queue, budget guards (per-task + global), task runner
+- `@spaceduck/skills` — skill runtime: SKILL.md parser, security scanner, registry with cascading memory purge
+- `@spaceduck/ui` — shared React components, hooks, and styles (used by web + desktop)
+- `@spaceduck/web` — web deployment entry point (served by gateway via Bun HTML import)
+- `@spaceduck/desktop` — Tauri v2 desktop app (embeds UI + Bun gateway sidecar)
+- `@spaceduck/provider-gemini` — Google AI Studio (Gemini) streaming adapter (primary)
+- `@spaceduck/provider-bedrock` — AWS Bedrock Converse API streaming adapter (secondary)
+- `@spaceduck/memory-sqlite` — SQLite storage via Bun.SQL (ConversationStore + LongTermMemory)
 
-5. **`package.json` workspaces** — If you created a new package directory (e.g. `packages/stt/*`), make sure the glob is listed in the root `package.json` `"workspaces"` array.
+## Key principles
 
-Do NOT skip these just because the code works. Pushing type errors to CI is wasted time for everyone.
+- Core has ZERO external dependencies. All other packages depend only on core.
+- Gateway is the composition root — it creates instances and wires dependencies.
+- Dependency inversion everywhere: code against interfaces, not implementations.
+- Use `Result<T, E>` for expected failures, exceptions for bugs.
+- Every resource-owning component implements `Lifecycle` (start/stop, idempotent).
+- Structured logging via `Logger` interface — no `console.log` in library code.
+- EventBus for cross-cutting concerns (fact extraction, analytics, logging).
+- Middleware pipeline for pre/post-processing (rate limiting, filtering, audit).
+
+## Conventions
+
+- Use Bun-native APIs wherever possible (Bun.serve, Bun.SQL, bun:test, Bun.env).
+- TypeScript strict mode. No `any`. Explicit return types on public APIs.
+- Exports from each package go through `src/index.ts`.
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
