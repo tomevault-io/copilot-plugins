@@ -1,0 +1,9 @@
+{
+  "name": "alehkot--android-emu-agent",
+  "displayName": "android-emu-agent",
+  "description": "A CLI + daemon system for LLM-driven Android UI control on emulators and rooted devices.",
+  "version": "1.0.0",
+  "author": "alehkot",
+  "homepage": "https://github.com/alehkot/android-emu-agent",
+  "skills": []
+}
