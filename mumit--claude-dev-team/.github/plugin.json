@@ -1,0 +1,9 @@
+{
+  "name": "mumit--claude-dev-team",
+  "displayName": "claude-dev-team",
+  "description": "Virtual Dev Team for Claude (and by Claude)",
+  "version": "1.0.0",
+  "author": "mumit",
+  "homepage": "https://github.com/mumit/claude-dev-team",
+  "skills": []
+}
