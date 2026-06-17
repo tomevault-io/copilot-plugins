@@ -4,7 +4,7 @@
   "repo": "knowit",
   "description": "One memory layer across ai tasks, conversations, and agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ismaelkedir/knowit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T00:51:04Z"
+  "distributed_at": "2026-06-17T02:42:46Z"
 }
