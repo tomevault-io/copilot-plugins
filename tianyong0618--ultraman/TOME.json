@@ -4,7 +4,7 @@
   "repo": "Ultraman",
   "description": "Ultraman Magic Book Project",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tianyong0618/Ultraman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T19:01:30Z"
+  "distributed_at": "2026-06-17T23:33:25Z"
 }
