@@ -1,0 +1,9 @@
+{
+  "name": "waniwani-ai--sdk",
+  "displayName": "sdk",
+  "description": "Build distribution MCPs: multi-step conversational funnels (lead gen, booking, quotes) that run as a single MCP tool in ChatGPT, Claude, and Cursor. A typed state graph compiles to one MCP tool.",
+  "version": "1.0.0",
+  "author": "WaniWani-AI",
+  "homepage": "https://github.com/WaniWani-AI/sdk",
+  "skills": []
+}
