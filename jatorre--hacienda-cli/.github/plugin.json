@@ -1,0 +1,9 @@
+{
+  "name": "jatorre--hacienda-cli",
+  "displayName": "hacienda-cli",
+  "description": "CLI para interactuar con la sede electr\u00f3nica de la AEAT. Sube/descarga declaraciones IRPF en formato XML oficial.",
+  "version": "1.0.0",
+  "author": "jatorre",
+  "homepage": "https://github.com/jatorre/hacienda-cli",
+  "skills": []
+}
