@@ -1,0 +1,87 @@
+{
+  "name": "manifold",
+  "owner": "dhanesh",
+  "repo": "manifold",
+  "description": "Stop discovering requirements during implementation. Manifold makes constraints visible BEFORE you write code\u2014business, technical, UX, security, operational\u2014so problems surface   in planning, not production.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "manifold",
+      "path": "plugin/skills/manifold",
+      "github_url": "https://github.com/dhanesh/manifold/tree/main/plugin/skills/manifold",
+      "description": ""
+    },
+    {
+      "name": "manifold",
+      "path": "install/manifold",
+      "github_url": "https://github.com/dhanesh/manifold/tree/main/install/manifold",
+      "description": ""
+    },
+    {
+      "name": "manifold-context",
+      "path": "install/agents/codex/skills/manifold-context",
+      "github_url": "https://github.com/dhanesh/manifold/tree/main/install/agents/codex/skills/manifold-context",
+      "description": ""
+    },
+    {
+      "name": "manifold-m-status",
+      "path": "install/agents/codex/skills/manifold-m-status",
+      "github_url": "https://github.com/dhanesh/manifold/tree/main/install/agents/codex/skills/manifold-m-status",
+      "description": ""
+    },
+    {
+      "name": "manifold-m1-constrain",
+      "path": "install/agents/codex/skills/manifold-m1-constrain",
+      "github_url": "https://github.com/dhanesh/manifold/tree/main/install/agents/codex/skills/manifold-m1-constrain",
+      "description": ""
+    },
+    {
+      "name": "manifold-m4-generate",
+      "path": "install/agents/codex/skills/manifold-m4-generate",
+      "github_url": "https://github.com/dhanesh/manifold/tree/main/install/agents/codex/skills/manifold-m4-generate",
+      "description": ""
+    },
+    {
+      "name": "manifold-parallel",
+      "path": "install/agents/codex/skills/manifold-parallel",
+      "github_url": "https://github.com/dhanesh/manifold/tree/main/install/agents/codex/skills/manifold-parallel",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dhanesh/manifold",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T22:32:35Z"
+}
