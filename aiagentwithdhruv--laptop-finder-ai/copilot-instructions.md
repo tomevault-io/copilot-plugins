@@ -1,34 +1,36 @@
-## 45-environment-config
+## 50-rag-system
 
-> Environment configuration and secrets management rules
+> Retrieval-augmented generation rules
 
 
-Configuration rules:
-- All environment-specific values must come from environment variables or config files.
-- Use a single config module/service that validates all required env vars at startup.
-- Fail fast on missing or invalid configuration — do not silently use defaults for critical values.
-- Maintain .env.example with every required variable documented (no real values).
+RAG architecture:
+- Separate ingestion, parsing, chunking, embedding, indexing, retrieval, reranking, context assembly, and answer generation.
+- Keep retrieval logic independent from answer generation logic.
+- Preserve source metadata for traceability.
 
-Environment parity:
-- dev, staging, and production must use the same config structure.
-- Environment-specific behavior must be controlled by explicit flags, not implicit detection.
-- Database URLs, API keys, model endpoints, and feature flags must all be configurable per environment.
+RAG rules:
+- Never dump raw full documents into prompts when chunking is expected.
+- Use deterministic chunking strategies unless explicitly experimenting.
+- Maintain chunk metadata such as source, page, section, title, tenant, and timestamps where relevant.
+- Prefer source attribution/citations in outputs when the product requires trust and traceability.
+- Add configurable retrieval parameters such as top_k, filters, score thresholds, and reranking options.
 
-Secrets management:
-- Never commit .env, credentials.json, token.json, or any file with real secrets.
-- Use .gitignore to block secret files.
-- In production, prefer secret managers (AWS Secrets Manager, Vercel env vars, VPS env files) over baked-in values.
-- Rotate secrets on a schedule or after any exposure.
+Ingestion expectations:
+- Support clean document ingestion pipelines.
+- Normalize and sanitize extracted text.
+- Preserve source identity and version if relevant.
+- Re-embed only when necessary.
 
-Validation expectations:
-- Validate config at application startup, not at first use.
-- Type-check config values (ports as int, URLs as valid URLs, booleans as bool).
-- Log which config keys are loaded (never log values) for debugging.
+Answering expectations:
+- Ground answers in retrieved context.
+- Handle no-context and low-confidence cases gracefully.
+- Avoid hallucinating unavailable facts.
+- Return structured outputs where the product requires it.
 
 Do not:
-- Hardcode API keys, tokens, passwords, or URLs anywhere in source code.
-- Use different config loading patterns across services in the same project.
-- Commit .env files or any file listed in .gitignore.
+- Mix ingestion code with runtime answer generation in the same module.
+- Make retrieval behavior impossible to inspect or tune.
+- Hide retrieval failures silently.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
