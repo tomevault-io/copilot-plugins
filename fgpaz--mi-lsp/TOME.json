@@ -4,7 +4,7 @@
   "repo": "mi-lsp",
   "description": "Semantic CLI for .NET/C# and TypeScript workspaces",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fgpaz/mi-lsp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T01:32:41Z"
+  "distributed_at": "2026-06-17T03:23:02Z"
 }
