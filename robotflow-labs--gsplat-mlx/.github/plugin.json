@@ -1,0 +1,9 @@
+{
+  "name": "robotflow-labs--gsplat-mlx",
+  "displayName": "gsplat-mlx",
+  "description": "3D Gaussian Splatting on Apple Silicon \u2014 Native MLX port of gsplat. Differentiable rasterizer, SH evaluation, 2DGS, full training pipeline. 405 tests. GPU-accelerated via Metal.",
+  "version": "1.0.0",
+  "author": "RobotFlow-Labs",
+  "homepage": "https://github.com/RobotFlow-Labs/gsplat-mlx",
+  "skills": []
+}
