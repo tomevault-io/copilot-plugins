@@ -1,36 +1,37 @@
-## 50-rag-system
+## 55-data-model-versioning
 
-> Retrieval-augmented generation rules
+> Dataset versioning, model checkpoint management, and training reproducibility rules
 
 
-RAG architecture:
-- Separate ingestion, parsing, chunking, embedding, indexing, retrieval, reranking, context assembly, and answer generation.
-- Keep retrieval logic independent from answer generation logic.
-- Preserve source metadata for traceability.
+Dataset versioning:
+- Every dataset must have a version identifier (filename suffix, metadata field, or manifest).
+- When dataset format changes, provide a migration script from previous version.
+- Keep a CHANGELOG or manifest documenting what changed between dataset versions.
+- Never silently modify a dataset that is already used in production or published training runs.
 
-RAG rules:
-- Never dump raw full documents into prompts when chunking is expected.
-- Use deterministic chunking strategies unless explicitly experimenting.
-- Maintain chunk metadata such as source, page, section, title, tenant, and timestamps where relevant.
-- Prefer source attribution/citations in outputs when the product requires trust and traceability.
-- Add configurable retrieval parameters such as top_k, filters, score thresholds, and reranking options.
+Model checkpoint management:
+- Save checkpoints with metadata: base model, dataset version, hyperparameters, timestamp, commit hash.
+- Use consistent naming: {model}_{technique}_{dataset_version}_{step/epoch}.
+- Store checkpoint metadata alongside weights (JSON sidecar or W&B artifact).
+- Never overwrite a checkpoint — always create new versioned saves.
 
-Ingestion expectations:
-- Support clean document ingestion pipelines.
-- Normalize and sanitize extracted text.
-- Preserve source identity and version if relevant.
-- Re-embed only when necessary.
+Training reproducibility:
+- Pin all dependencies (requirements.txt with exact versions or lock file).
+- Log full training config (LoRA rank, alpha, dropout, lr, batch size, epochs, seed).
+- Set random seeds for reproducible runs.
+- Record hardware info (GPU type, VRAM, CUDA version) in run metadata.
+- Store the exact dataset hash or version used for each training run.
 
-Answering expectations:
-- Ground answers in retrieved context.
-- Handle no-context and low-confidence cases gracefully.
-- Avoid hallucinating unavailable facts.
-- Return structured outputs where the product requires it.
+Evaluation tracking:
+- Track eval metrics per checkpoint (loss, perplexity, task-specific scores).
+- Compare against baseline before declaring improvement.
+- Keep eval datasets versioned and separate from training data.
 
 Do not:
-- Mix ingestion code with runtime answer generation in the same module.
-- Make retrieval behavior impossible to inspect or tune.
-- Hide retrieval failures silently.
+- Train on modified data without updating the version.
+- Delete or overwrite checkpoints from successful runs.
+- Ship a model without documenting which dataset and config produced it.
+- Mix training and evaluation data.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
