@@ -2,9 +2,9 @@
   "name": "Octopal",
   "owner": "pmbstyle",
   "repo": "Octopal",
-  "description": "",
+  "description": "A local AI agent platform for people who want broad, real-world automation with a design that makes powerful actions safer and easier to predict",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/pmbstyle",
+  "source_url": "https://github.com/pmbstyle/Octopal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T01:02:46Z"
+  "distributed_at": "2026-06-17T11:06:39Z"
 }
