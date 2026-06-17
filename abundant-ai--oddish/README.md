@@ -7,11 +7,11 @@ Run Harbor tasks in the cloud
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [abundant-ai/oddish](https://github.com/abundant-ai/oddish).
+Original source: `CLAUDE.md` in [abundant-ai/oddish](https://github.com/abundant-ai/oddish).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
