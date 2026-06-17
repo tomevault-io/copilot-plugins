@@ -4,7 +4,7 @@
   "repo": "os",
   "description": "Enables organizations to create and deploy customizable AI agents with support for multiple LLM providers, real-time chat, voice, document training, analytics, user management, SSO authentication, and embeddable widgets. Built with React 19, Redux Toolkit, Radix UI, and Tailwind CSS.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iblai/os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T05:24:22Z"
+  "distributed_at": "2026-06-17T09:18:20Z"
 }
