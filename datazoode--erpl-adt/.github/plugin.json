@@ -1,0 +1,9 @@
+{
+  "name": "datazoode--erpl-adt",
+  "displayName": "erpl-adt",
+  "description": "CLI and MCP server for the SAP ADT REST API \u2014 search, read/write ABAP source, run tests, manage transports. No Eclipse, no RFC SDK, no JVM.",
+  "version": "1.0.0",
+  "author": "DataZooDE",
+  "homepage": "https://github.com/DataZooDE/erpl-adt",
+  "skills": []
+}
