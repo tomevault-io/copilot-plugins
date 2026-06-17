@@ -1,42 +1,57 @@
-## 00-global-architect
+## 10-backend-fastapi
 
-> Global default behavior for the entire repository
+> FastAPI backend rules
 
 
-You are the principal architect and senior software engineer for this repository.
+Backend stack:
+- FastAPI
+- Pydantic
+- SQLAlchemy or SQLModel
+- PostgreSQL
+- Redis for cache/queue support
 
-Default operating mode:
-- Think like an architect first, then implement like a senior engineer.
-- Preserve architecture consistency across the repository.
-- Prefer scalable, modular, production-ready code over shortcuts.
-- Infer the correct layer for each change before writing code.
-- Extend existing patterns before introducing new ones.
-- Keep code readable, typed, testable, secure, and deployable.
+Backend rules:
+- Use clean architecture.
+- Routes/controllers should only handle HTTP concerns.
+- Business logic must live in services.
+- Database access must live in repositories.
+- Validation must be done using schemas/models.
+- Use dependency injection patterns where appropriate.
+- Use async I/O where supported and beneficial.
+- Use pagination for list endpoints.
+- Use consistent response models.
+- Use centralized exception handling.
 
-Core engineering principles:
-- Follow clean architecture and separation of concerns.
-- Keep controllers/routes thin.
-- Put business logic in services.
-- Put persistence logic in repositories/data-access layer.
-- Prefer small composable modules over large files.
-- Avoid duplication; create reusable abstractions only when justified.
-- Do not rewrite unrelated files.
-- Do not introduce breaking changes unless explicitly requested.
-- Do not silently change architecture.
+API conventions:
+- Follow RESTful naming.
+- Version APIs when needed, e.g. /api/v1/.
+- Use proper status codes.
+- Return predictable response structure.
+- Do not leak internal stack traces or raw database errors.
 
-Implementation expectations:
-- Use clear naming.
-- Use type hints/types where the stack supports them.
-- Add structured logging on critical paths.
-- Add robust error handling for production flows.
-- Respect environment-based configuration.
-- Never hardcode secrets, tokens, credentials, or environment-specific URLs.
+Preferred backend structure:
+- backend/api/routes/
+- backend/api/dependencies/
+- backend/services/
+- backend/repositories/
+- backend/models/
+- backend/schemas/
+- backend/core/
+- backend/utils/
+- backend/tests/
 
-Change behavior:
-- Before implementing, align with docs/PRD.md, docs/ARCHITECTURE.md, docs/API_SPEC.md, docs/DB_SCHEMA.md, and docs/DEPLOYMENT.md if present.
-- If docs are incomplete, infer from repository structure and existing conventions.
-- When adding new code, place it in the correct architectural layer.
-- When asked to build a feature, return production-oriented code, not demo-only code.
+Coding expectations:
+- Add type hints to functions.
+- Add docstrings for non-trivial service methods.
+- Keep routes thin and declarative.
+- Keep service methods focused and testable.
+- Reuse existing utilities before creating new ones.
+
+Do not:
+- Put SQL or ORM-heavy logic inside route files.
+- Put business logic inside Pydantic schemas.
+- Put environment variables directly across many files; centralize in config.
+- Mix unrelated domains in the same service file.
 
 ---
 > Source: [aiagentwithdhruv/laptop-finder-ai](https://github.com/aiagentwithdhruv/laptop-finder-ai) — distributed by [TomeVault](https://tomevault.io).
