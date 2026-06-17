@@ -4,7 +4,7 @@
   "repo": "skillsync-mcp",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/adityasugandhi",
+  "source_url": "https://github.com/adityasugandhi/skillsync-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T13:51:48Z"
+  "distributed_at": "2026-06-17T11:00:57Z"
 }
