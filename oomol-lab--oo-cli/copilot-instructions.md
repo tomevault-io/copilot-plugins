@@ -1,0 +1,423 @@
+## oo-cli
+
+> - Runtime: Bun (version pinned in `.bun-version`)
+
+## Project Overview
+
+- Runtime: Bun (version pinned in `.bun-version`)
+- Language: TypeScript (strict mode, ESM)
+- Key deps: zod (validation), pino (logging)
+- Setup: `bun install`
+
+### Bun Runtime
+
+- Documentation index: <https://bun.com/llm.txt>
+- When you need to look up any Bun API, feature, or usage pattern, fetch the above URL to find the relevant doc page, then read the specific page for details.
+
+## Development Standards
+
+- After each code modification, you must execute: `bun run lint:fix` `bun run ts-check`
+- For any change that affects commands or CLI behavior, you must check whether documentation under `docs/` needs to be updated and update it when necessary
+- Documentation under `docs/commands*.md` should describe the user-facing CLI contract only: command purpose, arguments, options, stable output shapes, and externally observable behavior. Do not document internal implementation details such as validator order, AJV usage, schema patching, or other internal lint mechanics unless the user explicitly asks for that level of detail.
+- Comments must be in English
+- When generating UUIDs, you must use v7 and must use bun's `randomUUIDv7` function
+- Avoid using regular expressions when possible
+
+### Bundled Skill Markdown
+
+- When editing bundled `SKILL.md` files or related Markdown under `contrib/skills/shared`, use `agentic-markdown` directives for agent-specific content instead of creating separate agent copies.
+- Prefer capability-based conditions over long agent-name lists. If a behavior depends on a feature or tool availability, expose that as a render variable and check the variable instead of writing conditions such as `agent=claude|hermes|codebuddy|qoderwork|workbuddy`.
+- Use presence checks for optional capability variables. With `agentic-markdown` 0.0.4+, a missing variable in `agentic:if` is treated as absent instead of throwing:
+
+```md
+<!-- agentic:if skillSelectionPromptTool -->
+Use <!-- agentic:var skillSelectionPromptTool --> for short multiple-choice prompts.
+<!-- agentic:endif -->
+```
+
+- Use agent-name conditions only when the content truly belongs to specific agents rather than a shared capability:
+
+```md
+<!-- agentic:if agent=claude|gemini -->
+Claude and Gemini content.
+<!-- agentic:endif -->
+```
+
+- Use variables for agent-specific values:
+
+```md
+oo skills preflight --agent <!-- agentic:var agent -->
+```
+
+### Command Telemetry
+
+- Every new or changed user-facing CLI command must make an explicit telemetry decision during implementation and review.
+- The generic `executeCli` path already emits the command event, so do not add manual command-level emit calls.
+- For useful command-specific dimensions, call `context.telemetry?.recordProperties(...)` from the command handler with only low-cardinality, privacy-safe enums, booleans, counts, or buckets. Prefer helpers in `src/application/telemetry/buckets.ts`; for skill-related command properties, use `src/application/commands/skills/telemetry.ts`.
+- Never record raw user input, paths, cwd, filenames, URL hosts, account IDs/names/emails, usernames, hostnames, error messages, stack traces, tokens, secrets, or free-form option values. Record bucketed values or stable enums instead.
+- Commands that must not be reported, such as `oo telemetry *` and the internal telemetry flush command, must set `excludeFromTelemetry: true` or call `context.telemetry?.suppressCurrentInvocation()`; do not rely on handler branching alone.
+- Every registered command path must have an explicit entry in `src/application/commands/telemetry-decisions.test.ts`; add or update that manifest whenever adding, renaming, removing, or changing telemetry behavior for a command. This architecture test is the hard guard that makes forgotten telemetry decisions fail in `bun run test`.
+- The same architecture test rejects forbidden/private property names, common sensitive suffixes, and base telemetry property names declared in the command telemetry decision manifest; extend that guard before allowing any new sensitive key pattern.
+- Do not pass base telemetry property names such as `command_full`, `distinct_id`, `schema_version`, or privacy control properties through `recordProperties(...)`; both the architecture test and the payload builder reject command-specific properties that attempt to override base telemetry fields.
+- When adding command-specific telemetry properties, add or update tests that assert the expected safe property shape and absence of raw/private values. For command behavior changes, still update `docs/commands*.md` only for the user-facing CLI contract, not internal telemetry details.
+
+## Code Quality Rules
+
+These rules are extracted from past refactoring sessions to prevent recurring code smells.
+
+### No Trivial Wrappers
+
+Never create single-line functions that merely delegate to another function without adding logic, validation, or semantic value.
+
+```typescript
+// BAD - wrapper adds nothing
+function createAuthColors(context: CliExecutionContext): TerminalColors {
+    return createWriterColors(context.stdout);
+}
+function serializeCacheValue<Value>(value: Value): string {
+    return JSON.stringify(value);
+}
+
+// GOOD - use the real function directly
+const colors = createWriterColors(context.stdout);
+const serialized = JSON.stringify(value);
+```
+
+The same applies to constant aliases (`const OO_BRAND_NAME = APP_NAME`) and identity type-check functions (`function define<T>(d: T): T { return d; }` — use `satisfies` instead).
+
+### DRY — Extract Shared Utilities
+
+When identical logic appears in 2+ files, extract it to a shared module. Common candidates:
+
+- Auth account checking → `shared/auth-utils.ts`
+- Output helpers → `shared/output.ts`
+- Database open/close → `sqlite-utils.ts`
+- File error checks → `file-store-utils.ts`
+
+Parameterize the varying parts (error message keys, config values) rather than duplicating the whole function.
+
+```typescript
+// BAD - same pattern in 4 files with different error keys
+async function requireCurrentPackageInfoAccount(ctx) { /* ... */ }
+async function requireCurrentSkillsSearchAccount(ctx) { /* ... */ }
+
+// GOOD - one shared function, parameterized
+export async function requireCurrentAccount(
+    context: CliExecutionContext,
+    authRequiredKey: string,
+    accountMissingKey: string,
+): Promise<AuthAccount> { /* ... */ }
+```
+
+### Trust the Type System
+
+Do not re-parse or re-validate data whose type is already guaranteed by the function signature. Internal functions should trust their callers.
+
+```typescript
+// BAD - authFile is already typed as AuthFile
+function renderAuthFile(authFile: AuthFile): string {
+    const parsed = authFileSchema.parse(authFile); // redundant
+}
+
+// GOOD
+function renderAuthFile(authFile: AuthFile): string {
+    const lines = [renderTomlLine("id", authFile.id)]; // direct use
+}
+```
+
+### Use Modern, Idiomatic APIs
+
+- `str.replaceAll(a, b)` instead of `str.split(a).join(b)`
+- `for (const char of str)` for Unicode-aware iteration instead of manual index + surrogate pair handling
+- `Bun.sleep(ms)` instead of `new Promise(r => setTimeout(r, ms))` in Bun environment
+- `satisfies` for type-checking object literals instead of identity wrapper functions
+
+### Cross-Platform Paths
+
+This CLI is cross-platform. Never assume POSIX path separators in code, tests, snapshots, or assertions.
+
+- Use `node:path` helpers such as `join()`, `resolve()`, and `relative()` for path construction instead of manual string concatenation.
+- Do not assert raw paths with hardcoded `"/"` or `"\\"` separators.
+- Prefer comparing paths by composing the expected value with `join()` or by comparing path relationships via `relative()`, instead of inventing ad-hoc normalization helpers in tests.
+
+```typescript
+// BAD - fails on Windows
+expect(filePath.includes("/contrib/skills/codex/oo/")).toBeTrue();
+
+// GOOD - compose the expected path with node:path
+expect(filePath.includes(join("contrib", "skills", "codex", "oo"))).toBeTrue();
+```
+
+### Guard Clauses — Fail First
+
+Check error conditions at the top; let the success path be the default flow. Don't wrap success logic inside `if (valid)`.
+
+```typescript
+// BAD
+function validate(id: string): void {
+    if (id !== "") { return; }
+    throw new TypeError("id required");
+}
+
+// GOOD
+function validate(id: string): void {
+    if (id === "") { throw new TypeError("id required"); }
+}
+```
+
+### No Fake Async
+
+Never mark a function `async` if it contains no `await`. Remove `async` when all code paths are synchronous.
+
+```typescript
+// BAD
+async function listGitTags(): Promise<string[]> {
+    return Bun.spawnSync(/* ... */); // synchronous
+}
+
+// GOOD
+function listGitTags(): string[] {
+    return Bun.spawnSync(/* ... */);
+}
+```
+
+### Minimize Export Surface
+
+Only `export` symbols that are used by other modules. Internal helpers, types, and constants should remain module-private. Smaller public API = more refactoring freedom.
+
+### filter+map over flatMap-as-Filter
+
+Use `filter()` for filtering and `map()` for transformation. Do not abuse `flatMap()` with empty arrays as a filtering mechanism — it obscures intent.
+
+```typescript
+// BAD
+entries.flatMap(e => e.isFile() ? [e.name] : []);
+
+// GOOD
+entries.filter(e => e.isFile()).map(e => e.name);
+```
+
+### No Redundant Intermediate Variables
+
+Don't create variables that pass through a value unchanged. If no transformation occurs, use the original directly.
+
+```typescript
+// BAD
+const selectedNames = request.names.flatMap((n) => { validate(n); return n; });
+doWork(selectedNames);
+
+// GOOD
+for (const n of request.names) { validate(n); }
+doWork(request.names);
+```
+
+### Eliminate Dead Code
+
+- Remove unused functions, parameters, type fields, and unreachable branches
+- Remove `if (error instanceof X) { throw error; }` inside catch — restructure control flow instead
+- Remove `JSON.stringify() === undefined` checks — `JSON.stringify` never returns `undefined`
+
+### Parallel Async Operations
+
+Use `Promise.all()` for independent async operations instead of sequential `await`.
+
+```typescript
+// BAD
+await removePath(pathA);
+await removePath(pathB);
+
+// GOOD
+await Promise.all([removePath(pathA), removePath(pathB)]);
+```
+
+### EAFP over LBYL for File Operations
+
+Attempt the operation and catch the error, rather than pre-checking existence then reading. Reduces filesystem calls and avoids TOCTOU races.
+
+```typescript
+// BAD - 3 filesystem calls
+if (!(await directoryExists(p)))
+    return undefined;
+if (!(await fileExists(metaPath)))
+    return undefined;
+return await readMetadata(p);
+
+// GOOD - 1 filesystem call
+try { return await readFile(metaPath, "utf8"); }
+catch (e) {
+    if (isNodeNotFoundError(e))
+        return undefined; throw e;
+}
+```
+
+### Data-Driven over Parallel Mappings
+
+When multiple switch/map structures share the same keys, consolidate into a single configuration object.
+
+```typescript
+// BAD - two separate mappings
+const translations: Record<Status, string> = { valid: "...", invalid: "..." };
+function readTone(s: Status) { switch(s) { case "valid": return "success"; ... } }
+
+// GOOD - single config
+const statusConfig = {
+    valid: { tone: "success", key: "auth.status.valid" },
+    invalid: { tone: "danger", key: "auth.status.invalid" },
+} as const;
+```
+
+### Precise Type Checks
+
+Use `!== undefined` instead of truthy checks when empty string `""` or `0` are valid values.
+
+```typescript
+// BAD - filters out valid empty strings
+if (value) { output(value); }
+
+// GOOD
+if (value !== undefined) { output(value); }
+```
+
+### No Duplicate Computations
+
+Compute an expression once, store in a variable, reuse. Especially inside `switch` statements and loops.
+
+```typescript
+// BAD
+switch (str.trim().toLowerCase()) {
+    case "a": return str.trim().toLowerCase(); // computed twice
+}
+
+// GOOD
+const normalized = str.trim().toLowerCase();
+switch (normalized) {
+    case "a": return normalized;
+}
+```
+
+### Single Source of Truth for Constants
+
+Never duplicate constant values across files. Define once, import or re-export with aliases elsewhere.
+
+### Parameterize Common Patterns with Factories
+
+When multiple definitions share the same shape with only one or two varying fields, use a factory function.
+
+```typescript
+// BAD - 3 identical method bodies with different error keys
+lang: { createError(v) { return new Err("errors.config.invalidLang", 2, { value: String(v ?? "") }); } },
+dir:  { createError(v) { return new Err("errors.config.invalidDir",  2, { value: String(v ?? "") }); } },
+
+// GOOD
+function createValueErrorFactory(key: string) {
+    return (v: unknown) => new Err(key, 2, { value: String(v ?? "") });
+}
+lang: { createError: createValueErrorFactory("errors.config.invalidLang") },
+dir:  { createError: createValueErrorFactory("errors.config.invalidDir") },
+```
+
+### Keep Function Parameters Narrow
+
+Pass only what the function needs, not entire context objects. This improves testability and reduces coupling.
+
+```typescript
+// BAD
+function writeLine(context: CliExecutionContext, msg: string) {
+    context.stdout.write(`${msg}\n`);
+}
+
+// GOOD
+function writeLine(stream: Writer, msg: string) {
+    stream.write(`${msg}\n`);
+}
+```
+
+### DRY in Tests — Extract Repeated Setup
+
+When the same mock, stub, or setup object appears in multiple tests within the same file, extract it into a local factory function at the bottom of the file. Copy-pasted test setup is still copy-paste.
+
+```typescript
+// BAD - identical 15-line mock in every test
+test("case A", () => {
+    const translator = { t: (key) => { switch (key) { case "x": return "X"; /* 10 more */ } } };
+    // ...
+});
+test("case B", () => {
+    const translator = { t: (key) => { switch (key) { case "x": return "X"; /* same 10 */ } } };
+    // ...
+});
+
+// GOOD - one factory, all tests share it
+test("case A", () => {
+    const translator = createTranslatorStub();
+    // ...
+});
+test("case B", () => {
+    const translator = createTranslatorStub();
+    // ...
+});
+
+function createTranslatorStub() {
+    return { t: (key: string) => { switch (key) { case "x": return "X"; /* ... */ default: return key; } } };
+}
+```
+
+## Complete the Extraction — Propagate to Tests
+
+When extracting a shared utility from production code, also replace any test helpers or inline expressions that duplicate the same logic. An extraction is incomplete if test files still contain local functions or raw inline code doing the same thing under a different name.
+
+```typescript
+// BAD - shared utility extracted, but tests still duplicate it
+// skill-metadata.ts (shared module)
+export function renderSkillMetadataJson(metadata: object): string {
+    return `${JSON.stringify(metadata, null, 2)}\n`;
+}
+
+// index.test.ts (local helper duplicates the shared utility)
+function formatBundledSkillMetadataContent(version: string): string {
+    return `${JSON.stringify({ version }, null, 2)}\n`;
+}
+
+// update.test.ts (inline expression duplicates the shared utility)
+await Bun.write(path, `${JSON.stringify({ version: "1.0.0" }, null, 2)}\n`);
+
+// GOOD - tests import the shared utility directly
+import { renderSkillMetadataJson } from "./skill-metadata.ts";
+await Bun.write(path, renderSkillMetadataJson({ version: "1.0.0" }));
+```
+
+### `try/finally` over `try/catch/rethrow` for Cleanup
+
+When the only purpose of a `catch` block is to clean up and rethrow, use `finally` instead. It eliminates the duplicate cleanup call and removes dead code in the success path.
+
+```typescript
+// BAD - cleanup duplicated, catch block only rethrows
+try {
+    doWork();
+} catch (error) {
+    cleanup();
+    throw error;
+}
+cleanup();
+
+// GOOD
+try {
+    doWork();
+} finally {
+    cleanup();
+}
+```
+
+## Testing
+
+- Any modification must include sufficient tests
+- Do not write tests for Markdown files
+- Tests can only be run using `bun run test`
+- Test titles must be in English
+- The testing framework is bun's built-in framework
+- Test files should be placed in the same directory as the source files
+- If a helper function might be called by other test files, it must be placed in the `__tests__/helpers.ts` file. Otherwise, the function should be placed in the test file (at the end of that file).
+
+---
+> Source: [oomol-lab/oo-cli](https://github.com/oomol-lab/oo-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
