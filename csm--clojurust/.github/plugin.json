@@ -1,0 +1,9 @@
+{
+  "name": "csm--clojurust",
+  "displayName": "clojurust",
+  "description": "Clojure and Rust",
+  "version": "1.0.0",
+  "author": "csm",
+  "homepage": "https://github.com/csm/clojurust",
+  "skills": []
+}
