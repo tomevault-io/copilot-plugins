@@ -1,0 +1,9 @@
+{
+  "name": "7ffd--easun-inverter",
+  "displayName": "easun_inverter",
+  "description": "Supports local connection to EASUN 4.2k, 6.2k and 11k inverters. Can be extended to support other models by adding appropriate register maps.",
+  "version": "1.0.0",
+  "author": "7FFD",
+  "homepage": "https://github.com/7FFD/easun_inverter",
+  "skills": []
+}
