@@ -1,0 +1,9 @@
+{
+  "name": "revylai--figma-design-checker",
+  "displayName": "figma-design-checker",
+  "description": "Verify your app matches the Figma design. Pull frames from Figma API, screenshot the real app on a cloud device via Revyl CLI, pixel-diff them.",
+  "version": "1.0.0",
+  "author": "RevylAI",
+  "homepage": "https://github.com/RevylAI/figma-design-checker",
+  "skills": []
+}
