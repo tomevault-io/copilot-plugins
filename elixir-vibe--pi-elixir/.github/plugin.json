@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--pi-elixir",
+  "displayName": "pi-elixir",
+  "description": "BEAM runtime tools for pi \u2014 connects to the running Elixir app via Tidewave",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/pi-elixir",
+  "skills": []
+}
