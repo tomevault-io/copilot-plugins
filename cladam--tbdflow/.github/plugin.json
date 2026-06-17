@@ -1,0 +1,22 @@
+{
+  "name": "cladam--tbdflow",
+  "displayName": "tbdflow",
+  "description": "tbdflow",
+  "version": "1.0.0",
+  "author": "cladam",
+  "homepage": "https://github.com/cladam/tbdflow",
+  "skills": [
+    {
+      "name": "code-analyzer",
+      "description": ""
+    },
+    {
+      "name": "rust-developer",
+      "description": ""
+    },
+    {
+      "name": "tbdflow",
+      "description": ""
+    }
+  ]
+}
