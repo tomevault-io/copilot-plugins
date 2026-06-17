@@ -1,0 +1,9 @@
+{
+  "name": "shan8851--hermes-console",
+  "displayName": "hermes-console",
+  "description": "Local-first web dashboard for Hermes Agent \u2014 runtime health, sessions, cron, skills, memory, files, and usage at a glance",
+  "version": "1.0.0",
+  "author": "shan8851",
+  "homepage": "https://github.com/shan8851/hermes-console",
+  "skills": []
+}
