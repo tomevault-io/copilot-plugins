@@ -1,0 +1,51 @@
+{
+  "name": "CLAWG",
+  "owner": "gquthier",
+  "repo": "CLAWG",
+  "description": "SMART-CLAWG \u2014 Open-source personal agent framework with a native shared Obsidian Second Brain. One context, every agent.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fastmcp",
+      "path": "optional-skills/mcp/fastmcp",
+      "github_url": "https://github.com/gquthier/CLAWG/tree/main/optional-skills/mcp/fastmcp",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gquthier/CLAWG",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T10:31:07Z"
+}
