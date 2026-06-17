@@ -1,0 +1,9 @@
+{
+  "name": "askable-ui--askable",
+  "displayName": "askable",
+  "description": "Two lines of code to give your LLM eyes. One attribute.",
+  "version": "1.0.0",
+  "author": "askable-ui",
+  "homepage": "https://github.com/askable-ui/askable",
+  "skills": []
+}
