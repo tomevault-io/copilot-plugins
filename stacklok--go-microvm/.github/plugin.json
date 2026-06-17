@@ -1,0 +1,9 @@
+{
+  "name": "stacklok--go-microvm",
+  "displayName": "go-microvm",
+  "description": "Go framework for running OCI images as microVMs with libkrun",
+  "version": "1.0.0",
+  "author": "stacklok",
+  "homepage": "https://github.com/stacklok/go-microvm",
+  "skills": []
+}
