@@ -1,7 +1,7 @@
 {
   "name": "infracost--agent-skills",
   "displayName": "agent-skills",
-  "description": "agent-skills",
+  "description": "Infracost AI Agent Skills",
   "version": "1.0.0",
   "author": "infracost",
   "homepage": "https://github.com/infracost/agent-skills",
