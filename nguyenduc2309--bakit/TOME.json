@@ -4,7 +4,7 @@
   "repo": "bakit",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NguyenDuc2309/bakit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T13:23:37Z"
+  "distributed_at": "2026-06-17T20:46:44Z"
 }
