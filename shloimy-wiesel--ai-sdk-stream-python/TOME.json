@@ -4,7 +4,7 @@
   "repo": "ai-sdk-stream-python",
   "description": "Vercel AI SDK v6 UIMessageStream backends for Python - typed events, auto-managed lifecycle.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shloimy-wiesel/ai-sdk-stream-python",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T07:02:48Z"
+  "distributed_at": "2026-06-17T11:09:40Z"
 }
