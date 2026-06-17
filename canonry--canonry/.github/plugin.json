@@ -1,0 +1,9 @@
+{
+  "name": "canonry--canonry",
+  "displayName": "canonry",
+  "description": "An agent first AEO monitoring and operating platform",
+  "version": "1.0.0",
+  "author": "Canonry",
+  "homepage": "https://github.com/Canonry/canonry",
+  "skills": []
+}
