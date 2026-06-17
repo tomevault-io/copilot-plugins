@@ -1,48 +1,23 @@
-## packages
+## post-implementation
 
-> Package structure and dependency rules for spaceduck monorepo
+> Checklist for completing feature work — ensures docs and config stay in sync
 
 
-# Package conventions
+# Post-Implementation Checklist
 
-## Dependency rules (strict)
+After completing a feature or significant change, verify these before marking the task done:
 
-- `@spaceduck/core` has ZERO external dependencies. It defines interfaces only.
-- All other packages depend on `@spaceduck/core` via `workspace:*`.
-- No package may depend on another non-core package (except gateway).
-- `@spaceduck/gateway` is the ONLY package that depends on implementation packages.
-- Gateway is the composition root — it creates and wires all implementations.
+1. **Typecheck** — Run `bunx tsc --noEmit`. Zero errors. This is non-negotiable.
 
-## Package structure
+2. **Tests** — Run `bun test --recursive`. All tests must pass.
 
-Each package follows this layout:
+3. **`.env.example`** — If you added, renamed, or removed any `Bun.env` / `process.env` variables, update `.env.example` with the new entries (commented out, with defaults and a brief description). Group them under the appropriate section or add a new section.
 
-```
-packages/<category>/<name>/
-  package.json
-  src/
-    index.ts              # barrel export — the public API
-    <implementation>.ts   # one file per concern
-    __tests__/            # co-located tests
-      <implementation>.test.ts
-    __fixtures__/         # test helpers (core only)
-```
+4. **`README.md`** — If the feature is user-visible (new endpoint, new UI capability, new CLI dependency, new config knob), add or update the relevant section in the project README. Keep it concise — one paragraph or a bullet list is enough.
 
-## Adding a new package
+5. **`package.json` workspaces** — If you created a new package directory (e.g. `packages/stt/*`), make sure the glob is listed in the root `package.json` `"workspaces"` array.
 
-1. Create the directory under the appropriate category (`channels/`, `providers/`, `memory/`)
-2. Add `package.json` with `@spaceduck/<name>`, depend on `@spaceduck/core` via `workspace:*`
-3. Export the public API from `src/index.ts`
-4. Wire it in `@spaceduck/gateway` via constructor injection
-5. Existing workspace globs auto-discover new packages — no root config change needed
-
-## Naming
-
-- Package names: `@spaceduck/<name>` (lowercase, hyphenated)
-- Interfaces: PascalCase (`Provider`, `ConversationStore`, `EventBus`)
-- Implementations: PascalCase with prefix (`BedrockProvider`, `SqliteConversationStore`)
-- Files: kebab-case (`context-builder.ts`, `long-term.ts`)
-- Test files: same name with `.test.ts` suffix
+Do NOT skip these just because the code works. Pushing type errors to CI is wasted time for everyone.
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
