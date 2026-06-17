@@ -1,0 +1,9 @@
+{
+  "name": "okotoki--aggregated-orderbooks",
+  "displayName": "aggregated-orderbooks",
+  "description": "Real-time aggregated orderbooks from multiple exchanges. Vibe-coded in an afternoon.",
+  "version": "1.0.0",
+  "author": "okotoki",
+  "homepage": "https://github.com/okotoki/aggregated-orderbooks",
+  "skills": []
+}
