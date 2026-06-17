@@ -4,7 +4,7 @@
   "repo": "spaceduck",
   "description": "spaceduck is a personal AI that works while you don't. ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maziarzamani/spaceduck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T14:46:40Z"
+  "distributed_at": "2026-06-17T14:48:22Z"
 }
