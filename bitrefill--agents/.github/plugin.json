@@ -1,0 +1,9 @@
+{
+  "name": "bitrefill--agents",
+  "displayName": "agents",
+  "description": "Agent skills for Bitrefill: browse, buy, and manage gift cards, mobile top-ups, and eSIMs from AI coding agents. Agent Skills spec compliant. Works with Claude Code, Cursor, npx skills.",
+  "version": "1.0.0",
+  "author": "bitrefill",
+  "homepage": "https://github.com/bitrefill/agents",
+  "skills": []
+}
