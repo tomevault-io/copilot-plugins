@@ -1,0 +1,9 @@
+{
+  "name": "astrobleem--snes-supermonkeyisland",
+  "displayName": "SNES-SuperMonkeyIsland",
+  "description": "A native SCUMM v5 interpreter for The Secret of Monkey Island on the Super Nintendo, using MSU-1 for asset streaming.",
+  "version": "1.0.0",
+  "author": "astrobleem",
+  "homepage": "https://github.com/astrobleem/SNES-SuperMonkeyIsland",
+  "skills": []
+}
