@@ -1,0 +1,9 @@
+{
+  "name": "hadro--directory-pipeline",
+  "displayName": "directory-pipeline",
+  "description": "A pipeline for turning digital collections into structured data -- an LLM assisted, IIIF-native tool to jump into working with sources like digitized print directories.",
+  "version": "1.0.0",
+  "author": "hadro",
+  "homepage": "https://github.com/hadro/directory-pipeline",
+  "skills": []
+}
