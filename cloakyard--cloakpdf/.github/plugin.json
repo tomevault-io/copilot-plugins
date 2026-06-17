@@ -1,0 +1,9 @@
+{
+  "name": "cloakyard--cloakpdf",
+  "displayName": "cloakpdf",
+  "description": "A fast, modern, and privacy-focused PDF toolkit that runs entirely in your browser. No uploads, no servers, no tracking \u2014 your files never leave your device.",
+  "version": "1.0.0",
+  "author": "cloakyard",
+  "homepage": "https://github.com/cloakyard/cloakpdf",
+  "skills": []
+}
