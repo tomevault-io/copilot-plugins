@@ -1,0 +1,9 @@
+{
+  "name": "yusong652--yade-mcp",
+  "displayName": "yade-mcp",
+  "description": "MCP server connecting AI agents to YADE \u2014 run DEM simulations through natural conversation",
+  "version": "1.0.0",
+  "author": "yusong652",
+  "homepage": "https://github.com/yusong652/yade-mcp",
+  "skills": []
+}
