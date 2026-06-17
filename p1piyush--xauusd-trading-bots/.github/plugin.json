@@ -1,0 +1,9 @@
+{
+  "name": "p1piyush--xauusd-trading-bots",
+  "displayName": "XAUUSD-Trading-Bots",
+  "description": "Institutional XAUUSD Gold trading system with ICT/SMC strategies, HFT scalping, and ML AI inference on MetaTrader 5",
+  "version": "1.0.0",
+  "author": "P1Piyush",
+  "homepage": "https://github.com/P1Piyush/XAUUSD-Trading-Bots",
+  "skills": []
+}
