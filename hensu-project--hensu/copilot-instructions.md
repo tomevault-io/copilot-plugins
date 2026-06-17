@@ -1,54 +1,36 @@
-## 02-output-density
+## 10-java-standards
 
-> Chat Density Protocol — strip fluff from assistant chat only; keep prose for all written artifacts.
+> Coding standards for Java 25 and Kotlin DSL, focusing on ScopedValues and type-safety.
 
 
-Applies ONLY to assistant chat replies in this session. Artifacts read outside the chat window require normal, grammatical prose.
+Generic SOLID/KISS/YAGNI/DRY apply silently. Only project-specific rules below.
 
-## In scope (dense mode)
-- Assistant chat messages, status lines, end-of-turn summaries.
-- Clarifying questions to the user.
-- Inline tool-use narration.
+## Module boundaries
 
-## Out of scope (normal prose — full sentences, articles, standard grammar)
-Switch to normal prose for these artifacts, then return to dense mode for chat:
-- Commit messages, PR titles, PR bodies, release notes.
-- Javadoc, KDoc, code comments (see `javadoc` skill).
-- Markdown docs under `docs/`, `README.md`, `AGENTS.md`, rule files.
-- Slash-command authored output intended for others (issue bodies, reviews).
-- Error messages, log strings, user-facing product copy.
-- Code identifiers, string literals, test descriptions.
+- `hensu-core` has **zero third-party deps** beyond JDK 25. No vendor SDKs, no vendor `if/else`.
+- All `Agent` impls are interchangeable (Liskov). Capability differences go through narrow interfaces like `ToolCapable`, `Streamable` — never a God interface, never vendor-sniffing in the orchestration loop.
+- Shared constants/schema live in `hensu-core` so CLI and Server speak the same language.
+- Logic duplicated between `hensu-core` and `hensu-server` → extract to a shared util/base provider.
 
-## Dense-mode rules (chat only)
-- No pleasantries ("Sure!", "Great question", "Happy to help").
-- No hedging without evidence.
-- No recapping user inputs or past actions.
-- No trailing summaries unless requested (end-of-turn = ≤1 sentence).
-- Use imperative mood for actions.
-- Use bulleted lists for ≥3 parallel items.
-- Drop articles (a/an/the) in bullets, status lines, and headings if clarity is preserved. Keep them in full sentences.
-- No filler transitions ("Now,", "So,", "Basically,").
-- Limit tool-use meta-narration to ≤1 intent sentence.
-- Use arrow notation (`X → Y`) for causal chains.
-- For ambiguous intent: ask one short question, no preamble.
+## Concurrency
 
-### Example
+- See `20-native-safety.md` §3 for the `ThreadLocal` ban and `ScopedValue` pattern.
+- Verify no data bleeds between parallel workflow nodes during fan-out/fan-in.
 
-Verbose (reject):
-> Great question! I took a look at the file, and it seems that the issue is basically that a new object reference is being created on every render. When you pass an inline object as a prop, it creates a new reference, which then causes the child component to re-render. So, you'll want to wrap it in `useMemo` to fix this.
+## Domain model
 
-Dense (accept):
-> Inline obj prop → new ref each render → child re-renders. Wrap in `useMemo`.
+- Domain results → `sealed interface` (e.g. `ExecutionResult`, `TransitionStatus`), consumed via `switch` pattern matching.
+- All domain models immutable; construct via `hensu-serialization` builder mixins.
 
-## Drop dense mode for
-Revert to full prose when terseness risks harm or ambiguity:
-- Security warnings and threat-model explanations.
-- Confirmation prompts before irreversible or destructive actions (force push, `rm -rf`, dropping tables, deleting branches).
-- Multi-step sequences where fragment ordering or dropped articles could change the meaning or lead to misexecution.
-- When the user explicitly asks for clarification of something already stated tersely.
+## Kotlin DSL
 
-## Override
-Honor per-turn verbose requests ("explain in detail", "walk me through"); revert next turn.
+- `@WorkflowDsl` (meta `@DslMarker`) on `WorkflowBuilder`, `GraphBuilder`, `NodeBuilder` — prevents scope leakage (an `agent { }` block must not see parent `node { }`).
+
+## Tests
+
+- Unit: pure JVM, `StubAgentProvider` only — no network, no API cost.
+- Integration: `@QuarkusTest`.
+- Assertions: AssertJ.
 
 ---
 > Source: [hensu-project/hensu](https://github.com/hensu-project/hensu) — distributed by [TomeVault](https://tomevault.io).
