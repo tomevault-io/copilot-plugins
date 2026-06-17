@@ -1,0 +1,111 @@
+## manasight-parser
+
+> > Project-level context (overview, policies, workflow) is in the parent `../CLAUDE.md`.
+
+# Manasight Parser — Repo Instructions
+
+> Project-level context (overview, policies, workflow) is in the parent `../CLAUDE.md`.
+
+## 1. Purpose
+
+Open-source Rust library crate for parsing MTG Arena's `Player.log` into typed game events. Consumed by `manasight-desktop` as a git dependency. No Tauri dependency, no runtime initialization — runs on the caller's async runtime.
+
+---
+
+## 2. Quick Reference
+
+**Common Commands:**
+```bash
+# Fast compile check (use this for iteration, NOT cargo build)
+cargo check
+
+# Run all tests
+cargo test --all-features
+
+# Lint (REQUIRED before commit)
+cargo clippy --all-targets --all-features -- -D warnings
+
+# Format (REQUIRED before commit)
+cargo fmt --all              # Auto-format
+cargo fmt --all -- --check   # Check only
+
+# Coverage
+cargo tarpaulin --all-features --ignore-tests
+
+# Build
+cargo build
+```
+
+**Key Files:**
+- `src/lib.rs` — Public API surface, module declarations
+- `src/events.rs` — Public event type enums and structs
+- `src/event_bus.rs` — Async broadcast channel
+- `src/router.rs` — Raw entry to parser dispatch
+- `src/util.rs` — Shared `pub(crate)` helper functions
+- `src/log/` — Log file discovery, tailing, entry parsing, timestamps
+- `src/parsers/` — One parser per event category
+- `tests/fixtures/` — Sanitized Player.log snippets for integration tests
+
+---
+
+## 3. Pre-Commit Checklist (CRITICAL)
+
+- [ ] Pre-commit checks pass: `make precommit`
+- [ ] No `.unwrap()` in production code
+- [ ] No `dbg!()`, `todo!()`, or `println!()` in production code
+- [ ] **New/updated tests** for every code change
+- [ ] All files staged: `git add :/ && git status`
+
+Helpers (not gates):
+- `make fmt` auto-formats Rust code
+- `make precommit-trivial` runs the formatting floor only (used by /sequential-issues trivial-iteration skip)
+- `make coverage` runs `cargo tarpaulin` for coverage reporting
+
+---
+
+## 4. Coding Conventions
+
+**Rust conventions**: See `CONVENTIONS.md` for full details.
+
+Critical build-breaker reminders (enforced by clippy deny lints):
+- **No** `.unwrap()`, `.expect()`, `panic!()`, `todo!()`, `dbg!()`, `println!()` in production code
+- **No** `#[allow(clippy::...)]` lint suppressions — fix the code instead
+
+### Logging
+- Follow the Rust logging policy in `CONVENTIONS.md`
+- **Library crate rule**: Must NOT initialize a logger — use `log` facade only
+- Internal code must use `::log` (e.g., `::log::info!()`) because `pub mod log` shadows the crate
+
+### Shared Helpers
+- Place `pub(crate)` utility functions in `src/util.rs` — do not duplicate helpers across modules
+
+### Library Crate Rules
+- Must NOT depend on Tauri or any desktop-specific crates
+- Must NOT start a Tokio runtime — runs on the caller's runtime
+- All public items need `///` doc comments
+- Each module needs `//!` module-level doc comment
+
+---
+
+## 5. Testing Policy
+
+### Running Tests
+```bash
+cargo test --all-features        # All tests
+cargo test test_name              # Single test
+cargo test module::               # All tests in module
+```
+
+### Test Organization
+- **Unit tests**: In-module `#[cfg(test)] mod tests` blocks in each source file
+- **Integration tests**: `tests/` directory for cross-module tests
+- **Test fixtures**: `tests/fixtures/` for sanitized Player.log snippets
+- **Test naming**: `test_<function>_<scenario>_<expected>`
+
+### Coverage
+- `cargo tarpaulin --all-features --ignore-tests` — **80% minimum**
+- Test behavior, not implementation
+
+---
+> Source: [manasight/manasight-parser](https://github.com/manasight/manasight-parser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
