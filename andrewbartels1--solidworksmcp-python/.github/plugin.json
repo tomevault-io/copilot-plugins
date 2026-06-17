@@ -1,0 +1,9 @@
+{
+  "name": "andrewbartels1--solidworksmcp-python",
+  "displayName": "SolidworksMCP-python",
+  "description": "A comprehensive Model Context Protocol (MCP) server for SolidWorks automation (in python)",
+  "version": "1.0.0",
+  "author": "andrewbartels1",
+  "homepage": "https://github.com/andrewbartels1/SolidworksMCP-python",
+  "skills": []
+}
