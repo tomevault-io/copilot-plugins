@@ -7,11 +7,11 @@ Open-source DayZ modding wiki: Enforce Script language (13 chapters), GUI/.layou
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [StarDZ-Team/DayZ-Modding-Wiki](https://github.com/StarDZ-Team/DayZ-Modding-Wiki).
+Original source: `CLAUDE.md` in [StarDZ-Team/DayZ-Modding-Wiki](https://github.com/StarDZ-Team/DayZ-Modding-Wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
