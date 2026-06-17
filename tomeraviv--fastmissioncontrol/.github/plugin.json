@@ -1,0 +1,9 @@
+{
+  "name": "tomeraviv--fastmissioncontrol",
+  "displayName": "FastMissionControl",
+  "description": "Open-source fix for laggy Mission Control on macOS",
+  "version": "1.0.0",
+  "author": "tomeraviv",
+  "homepage": "https://github.com/tomeraviv/FastMissionControl",
+  "skills": []
+}
