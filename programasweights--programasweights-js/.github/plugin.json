@@ -1,0 +1,9 @@
+{
+  "name": "programasweights--programasweights-js",
+  "displayName": "programasweights-js",
+  "description": "Browser SDK for ProgramAsWeights \u2014 run neural programs in the browser via WebAssembly",
+  "version": "1.0.0",
+  "author": "programasweights",
+  "homepage": "https://github.com/programasweights/programasweights-js",
+  "skills": []
+}
