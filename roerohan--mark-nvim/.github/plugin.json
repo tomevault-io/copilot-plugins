@@ -1,0 +1,9 @@
+{
+  "name": "roerohan--mark-nvim",
+  "displayName": "mark.nvim",
+  "description": "A beautiful terminal-based markdown preview for Neovim with live rendering, syntax highlighting, etc.",
+  "version": "1.0.0",
+  "author": "roerohan",
+  "homepage": "https://github.com/roerohan/mark.nvim",
+  "skills": []
+}
