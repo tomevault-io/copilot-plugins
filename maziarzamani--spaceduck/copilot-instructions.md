@@ -1,50 +1,110 @@
-## project-structure
+## testing
 
-> Spaceduck monorepo package structure and coding conventions
+> Testing conventions for spaceduck
 
 
-# Project Structure
+# Testing conventions
 
-Spaceduck is a Bun monorepo with workspace packages under `packages/`.
+## Runner
 
-## Package Layout
+- Use `bun:test` — `describe`, `it`, `expect`, `beforeEach`, `afterEach`
+- Use `spyOn` for mocking methods, `mock` for module mocking
+- Test files live in `src/__tests__/` adjacent to source code
+- Each test file: one `describe` block per function/class
 
-Every package follows the same structure:
+## Typecheck before pushing
 
+Bun runs tests without type-checking. CI runs `tsc --noEmit` as a separate
+step and will fail on type errors that tests happily pass at runtime.
+Always run `bun run typecheck` locally before pushing test changes.
+
+## Pattern
+
+Follow Arrange-Act-Assert:
+
+```typescript
+it("should do the thing", () => {
+  // Arrange
+  const input = createMessage({ content: "hello" });
+
+  // Act
+  const result = processMessage(input);
+
+  // Assert
+  expect(result.ok).toBe(true);
+});
 ```
-packages/<category>/<name>/
-  package.json
-  src/
-    index.ts          -- barrel re-export (public API)
-    <name>.ts         -- main implementation
-    types.ts          -- type definitions (if needed)
-    __tests__/
-      <name>.test.ts  -- bun:test suite
+
+## Fixtures
+
+- Import shared fixtures directly from `@spaceduck/core/src/__fixtures__/`
+- `MockProvider` — configurable canned responses implementing `Provider`
+- `MockMemory` — in-memory Map-backed `ConversationStore` and `LongTermMemory`
+- `createMessage()`, `createConversation()` — factory functions with sensible defaults
+
+### Message factory
+
+`Message` requires `id` and `timestamp`. Never construct bare
+`{ role, content }` literals — use `createMessage()`:
+
+```typescript
+import { createMessage } from "@spaceduck/core/src/__fixtures__/messages";
+
+// Single message
+provider.chat([createMessage({ role: "user", content: "hi" })]);
+
+// System + user
+provider.chat([
+  createMessage({ role: "system", content: "Be helpful" }),
+  createMessage({ role: "user", content: "hello" }),
+]);
+
+// Tool round-trip
+provider.chat([
+  createMessage({ role: "user", content: "search for cats" }),
+  createMessage({
+    role: "assistant",
+    content: "",
+    toolCalls: [{ id: "tc1", name: "web_search", args: { query: "cats" } }],
+  }),
+  createMessage({ role: "tool", content: "10 results", toolCallId: "tc1", toolName: "web_search" }),
+]);
 ```
 
-## Workspace Categories
+### Mocking `globalThis.fetch`
 
-| Path pattern            | Purpose                      | Naming                     |
-|-------------------------|------------------------------|----------------------------|
-| `packages/core`         | Zero-dep contracts + logic   | `@spaceduck/core`          |
-| `packages/config`       | Zod config schema, hot-apply | `@spaceduck/config`        |
-| `packages/scheduler`    | Task scheduler + budget      | `@spaceduck/scheduler`     |
-| `packages/skills`       | Skill runtime + scanner      | `@spaceduck/skills`        |
-| `packages/providers/*`  | LLM provider adapters        | `@spaceduck/provider-*`    |
-| `packages/memory/*`     | Storage backends             | `@spaceduck/memory-*`      |
-| `packages/channels/*`   | Messaging channels           | `@spaceduck/channel-*`     |
-| `packages/tools/*`      | Agent tools                  | `@spaceduck/tool-*`        |
-| `packages/gateway`      | HTTP/WS server (composition) | `@spaceduck/gateway`       |
+Bun's `mock()` return type is missing the `preconnect` property that
+`typeof fetch` requires. Always cast with `as any`:
 
-Root `package.json` uses glob patterns: `"packages/tools/*"`, `"packages/providers/*"`, etc.
+```typescript
+const originalFetch = globalThis.fetch;
 
-## Conventions
+afterEach(() => {
+  globalThis.fetch = originalFetch;
+});
 
-- **Barrel exports**: every package has `src/index.ts` re-exporting its public API
-- **Error handling**: use `Result<T>` from `@spaceduck/core` -- no throwing in library code
-- **Tests**: colocated in `src/__tests__/` using `bun:test` (`describe`/`it`/`expect`)
-- **Types**: prefer `interface` over `type` for object shapes; export types from dedicated `types.ts`
-- **Imports**: use workspace references (`@spaceduck/core`) not relative paths across packages
+// Correct — cast to any
+globalThis.fetch = mock(() =>
+  Promise.resolve(new Response(JSON.stringify({ ok: true }), { status: 200 })),
+) as any;
+
+// Also correct for capturing request details
+globalThis.fetch = mock((_url: string, init: RequestInit) => {
+  capturedBody = JSON.parse(init.body as string);
+  return Promise.resolve(new Response("{}"));
+}) as any;
+```
+
+`as any` on fetch mocks is the one accepted exception to the "no `any`" rule.
+
+## Rules
+
+- NEVER test against real LLM providers — always use MockProvider
+- SQLite tests use `":memory:"` — new database per test via `beforeEach`
+- WebSocket tests pick a random available port
+- No `any` in tests — use proper typing (`as any` on fetch mocks is the sole exception)
+- Test behavior, not implementation — assert on outputs and side effects
+- Aim for 80% coverage, 100% on error paths
 
 ---
 > Source: [maziarzamani/spaceduck](https://github.com/maziarzamani/spaceduck) — distributed by [TomeVault](https://tomevault.io).
