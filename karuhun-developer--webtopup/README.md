@@ -7,14 +7,14 @@ Web top up untuk berbagai game, voucher, dan PPOB.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [karuhun-developer/webtopup](https://github.com/karuhun-developer/webtopup).
+Original source: `GEMINI.md` in [karuhun-developer/webtopup](https://github.com/karuhun-developer/webtopup).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [karuhun-developer/webtopup](https://github.com/karuhun-developer/webtopup) — a repo with 20+ stars on GitHub.
