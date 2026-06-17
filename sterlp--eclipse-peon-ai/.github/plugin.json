@@ -1,0 +1,9 @@
+{
+  "name": "sterlp--eclipse-peon-ai",
+  "displayName": "eclipse-peon-ai",
+  "description": "AI harness for and with Eclipse IDE with the focus on offline LLM with llama.cpp. Build with LangChain4J. Supports Ollama, LM Studio, llama.cpp or cloud providers like with OpenA API, Anthropic Claude",
+  "version": "1.0.0",
+  "author": "sterlp",
+  "homepage": "https://github.com/sterlp/eclipse-peon-ai",
+  "skills": []
+}
