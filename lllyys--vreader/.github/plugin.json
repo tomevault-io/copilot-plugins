@@ -1,0 +1,9 @@
+{
+  "name": "lllyys--vreader",
+  "displayName": "vreader",
+  "description": "iOS reader app for EPUB, PDF, TXT, and Markdown \u2014 with AI assistant, annotations, and full-text search. Built with Swift 6, SwiftUI, and SwiftData.",
+  "version": "1.0.0",
+  "author": "lllyys",
+  "homepage": "https://github.com/lllyys/vreader",
+  "skills": []
+}
