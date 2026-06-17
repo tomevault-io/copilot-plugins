@@ -1,0 +1,9 @@
+{
+  "name": "tale-project--tale",
+  "displayName": "tale",
+  "description": "The Orchestrator for AI Agents \u2014 Connect OpenClaw, Hermes Agent, Claude Code, Codex, Cursor, Gemini CLI, OpenCode, and Pi. Pool their knowledge, delegate tasks, and build your swarm of agents.",
+  "version": "1.0.0",
+  "author": "tale-project",
+  "homepage": "https://github.com/tale-project/tale",
+  "skills": []
+}
