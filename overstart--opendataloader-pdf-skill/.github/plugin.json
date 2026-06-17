@@ -1,0 +1,9 @@
+{
+  "name": "overstart--opendataloader-pdf-skill",
+  "displayName": "opendataloader-pdf-skill",
+  "description": "opendataloader-pdf-skill",
+  "version": "1.0.0",
+  "author": "overstart",
+  "homepage": "https://github.com/overstart/opendataloader-pdf-skill",
+  "skills": []
+}
