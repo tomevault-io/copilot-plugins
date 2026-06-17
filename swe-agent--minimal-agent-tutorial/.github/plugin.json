@@ -1,0 +1,9 @@
+{
+  "name": "swe-agent--minimal-agent-tutorial",
+  "displayName": "minimal-agent-tutorial",
+  "description": "Tutorial on how to build a minimal software engineering agent that still scores high on SWE-bench verified",
+  "version": "1.0.0",
+  "author": "SWE-agent",
+  "homepage": "https://github.com/SWE-agent/minimal-agent-tutorial",
+  "skills": []
+}
