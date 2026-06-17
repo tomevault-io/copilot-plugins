@@ -1,0 +1,9 @@
+{
+  "name": "agenmod--distill-protocol-skill",
+  "displayName": "distill-protocol-skill",
+  "description": "distill-protocol-skill",
+  "version": "1.0.0",
+  "author": "agenmod",
+  "homepage": "https://github.com/agenmod/distill-protocol-skill",
+  "skills": []
+}
