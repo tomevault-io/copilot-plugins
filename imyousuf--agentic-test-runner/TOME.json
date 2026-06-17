@@ -1,0 +1,63 @@
+{
+  "name": "agentic-test-runner",
+  "owner": "imyousuf",
+  "repo": "agentic-test-runner",
+  "description": "A test runner which will run a test and debug the test failure with a MCP server, allowing coding context to remain clean",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atr-analyze",
+      "path": "skills/atr-analyze",
+      "github_url": "https://github.com/imyousuf/agentic-test-runner/tree/main/skills/atr-analyze",
+      "description": ""
+    },
+    {
+      "name": "atr-behavior",
+      "path": "skills/atr-behavior",
+      "github_url": "https://github.com/imyousuf/agentic-test-runner/tree/main/skills/atr-behavior",
+      "description": ""
+    },
+    {
+      "name": "atr-browser",
+      "path": "skills/atr-browser",
+      "github_url": "https://github.com/imyousuf/agentic-test-runner/tree/main/skills/atr-browser",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/imyousuf/agentic-test-runner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T22:30:25Z"
+}
