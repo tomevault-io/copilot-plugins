@@ -4,7 +4,7 @@
   "repo": "save-your-token",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Cheerhuan/save-your-token",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T01:16:45Z"
+  "distributed_at": "2026-06-17T01:09:06Z"
 }
