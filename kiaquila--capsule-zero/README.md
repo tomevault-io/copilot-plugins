@@ -7,11 +7,11 @@ An app to build and manage a capsule wardrobe
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kiaquila/capsule-zero](https://github.com/kiaquila/capsule-zero).
+Original source: `CLAUDE.md` in [kiaquila/capsule-zero](https://github.com/kiaquila/capsule-zero).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
