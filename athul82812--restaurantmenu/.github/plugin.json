@@ -1,0 +1,9 @@
+{
+  "name": "athul82812--restaurantmenu",
+  "displayName": "RestaurantMenu",
+  "description": "RestaurantMenu is a React Native (Expo) mobile app for managing restaurant menus and orders. It allows adding, editing, and viewing menu items with a clean UI and local database support, helping resta",
+  "version": "1.0.0",
+  "author": "Athul82812",
+  "homepage": "https://github.com/Athul82812/RestaurantMenu",
+  "skills": []
+}
