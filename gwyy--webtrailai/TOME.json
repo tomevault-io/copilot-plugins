@@ -1,0 +1,44 @@
+{
+  "name": "WebTrailAI",
+  "owner": "gwyy",
+  "repo": "WebTrailAI",
+  "description": "WebTrail AI\uff0c\u5e2e\u52a9\u60a8\u8f7b\u677e\u8ffd\u8e2a\u6bcf\u65e5\u6d4f\u89c8\u8fc7\u7684\u7f51\u7ad9\uff0c\u5e76\u901a\u8fc7AI\u5206\u6790\u751f\u6210\u60a8\u7684\u4e0a\u7f51\u52a8\u5411\u62a5\u544a\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gwyy/WebTrailAI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T10:53:52Z"
+}
