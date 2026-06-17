@@ -1,0 +1,171 @@
+## soulmask-codex
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+Soulmask Codex — a full-stack game-data reference site for the Soulmask survival game. Three layers:
+
+1. **Pipeline** (Python 3, no deps) — reverse-engineers UE4 modkit `.uasset` files into `Game/Parsed/*.json`
+2. **Backend** (Go + chi) — serves a JSON API from a SQLite DB at `backend/internal/api/`
+3. **Frontend** (React + Vite + TypeScript) — SPA in `web/`, embedded into the Go binary for prod
+
+Deployed as a single binary on Fly.io (`soulmask-codex`, region `ams`). Live at **soulmask-codex.com**.
+
+Docs: `docs/DATA.md` (data shapes, fill rates, cross-ref maps), `docs/DESIGN.md` (game-concept glossary).
+
+## Key paths
+
+| What              | Path                         | Notes                                    |
+| ----------------- | ---------------------------- | ---------------------------------------- |
+| SQLite DB         | `data/app.db`                | **the only DB file — do not create others** |
+| Translations      | `data/translations/*.json`   | manual Chinese→English overrides         |
+| Parsed JSON       | `Game/Parsed/*.json`         | committed pipeline output                |
+| Exported tables   | `Game/Exports/*.json`        | committed UE4 DataTable exports          |
+| Raw BP exports    | `uasset_export/`             | gitignored (~800 MB)                     |
+| Backend source    | `backend/`                   | Go module `github.com/rubensayshi/soulmask-codex` |
+| Frontend source   | `web/`                       | React + Vite, pnpm                       |
+| DB schema         | `backend/internal/db/schema.sql` | single source of truth for tables    |
+| Generated DB code | `backend/internal/db/gen/`   | sqlc output, do not edit                 |
+
+**Do not create `.db` files anywhere else** (e.g. `data/soulmask.db`, `soulmask.db`). The backend flag defaults to `--db ../data/app.db`; `build_db.py` writes to `data/app.db`. Nothing else.
+
+## Pipeline (two-stage, two-platform)
+
+```
+Modkit .uasset files  ──►  [Windows-only export]  ──►  uasset_export/  &  Game/Exports/
+                                                       │
+                                                       ▼
+                                               [any platform parsing]
+                                                       │
+                                                       ▼
+                                               Game/Parsed/*.json  ──►  data/app.db
+```
+
+**Stage 1 (Windows only, requires modkit at `C:\Program Files\Epic Games\SoulMaskModkit`):**
+- `pipeline/run_export.bat` → runs `pipeline/export_tables.py` inside `UE4Editor-Cmd.exe` to export 11 DataTables to `Game/Exports/*.json`.
+- UAssetGUI (manual, GUI tool) → exports BP_PeiFang / BP_DaoJu / BP_KJS `.uasset` files to `uasset_export/**/*.json.gz` (gitignored, ~800MB).
+
+**Stage 2 (host Python 3, no deps):**
+```bash
+python3 pipeline/parse_exports.py     # drops.json     (from Game/Exports/)
+python3 pipeline/parse_recipes.py     # recipes.json   (from uasset_export/Blueprints/PeiFang/)
+python3 pipeline/parse_items.py       # items.json     (from uasset_export/Blueprints/DaoJu/)
+python3 pipeline/parse_tech_tree.py   # tech_tree.json (from uasset_export/Blueprints/KeJiShu/)
+```
+
+Parsers are independent — run any one in isolation. Outputs are committed to git (`Game/Parsed/`).
+
+**Stage 3: `pipeline/build_db.py`** — reads `Game/Parsed/*.json` + `data/translations/*.json`, writes `data/app.db` using `schema.sql` as the DDL source. Idempotent (drops and recreates).
+
+**After running any individual parser, always run `make db`** to ensure downstream enrichment steps (classification, food buffs) and the SQLite rebuild are not lost. Running `parse_items.py` alone strips the `buffs` field that `parse_food_buffs.py` adds.
+
+## Two distinct parsing strategies
+
+The code uses **two different approaches** depending on whether the data was exported via UE4Editor or UAssetGUI — don't mix them up:
+
+1. **DataTable rows (`parse_exports.py`)** — regex over UE4 property-export **text** (strings like `((SelectedRandomProbability=30, BaoNeiDaoJuInfos=((DaoJuClass=...)))`). See `split_top_level_parens` / `parse_daoju_bag_content`. Item refs get resolved via `parse_localization.load_names()` (PO-file lookup, keyed on normalized asset paths).
+
+2. **Blueprint assets (`parse_recipes.py`, `parse_items.py`, `parse_tech_tree.py`)** — walk UAssetAPI's tagged-property **JSON tree**. Item references are negative ints into the `Imports` table; resolve with the shared helper:
+
+```python
+def resolve_import_path(imports, ref):
+    # negative ref → index into Imports; OuterIndex chains to the Package import
+    # that holds the /Game/... path
+```
+
+This helper (and `find_props` / `get_prop` / `text_zh`) is copy-pasted into each BP parser — they're ~identical but not factored out. Don't refactor casually; the duplication is intentional to keep each parser independently runnable.
+
+## Non-obvious things
+
+- **UE4.27 Python API is crippled.** `FieldIterator`, `EditorAssetLibrary.export_asset`, `AssetExportTask` with csv/json — all broken. `export_tables.py` works around this by reading the `.uasset` binary directly to scrape property names from the FName table, then probing each with `DataTableFunctionLibrary.get_data_table_column_as_string`. See README "Technical notes" — don't try to "clean this up" using the obvious-looking API calls, they don't work.
+
+- **Chinese-only text.** `name_zh` / `description_zh` / `brief_zh` fields are populated; English resolution via PO localization is done only for `drops.json` (via `parse_localization.py`). Items/recipes/tech_tree still need an English-name join — gap #1 in `docs/DATA.md`. The PO files live in the Windows modkit; access to that machine is the blocker, not the code.
+
+- **Path normalization** (`parse_localization.normalize_path`): strips `/Game/` prefix, CDO suffix (`.Default__X_C`), field suffix, lowercases. Any new PO-joined lookup must use the same normalization.
+
+- **Description typo in source data:** main tech-tree nodes use `Desciption` (sic), subnodes use `Description`. `parse_tech_tree.py` checks both.
+
+- **No shared module** between parsers. `resolve_import_path` / `find_props` / `get_prop` are duplicated across `parse_recipes.py`, `parse_items.py`, `parse_tech_tree.py`. If you need to fix a resolver bug, fix it in all three.
+
+- `PROFICIENCY_MAP` and `STATION_MAP` in `parse_recipes.py` are hand-maintained Chinese→English lookups. When recipes appear with a raw Pinyin proficiency/station, add an entry here.
+
+## Output invariants
+
+- IDs are Blueprint filenames, no extension (`BP_PeiFang_WQ_ChangGong_1`, `Daoju_Item_Wood`).
+- Cross-references (`recipe.output.item_id` → `items[].id`, `tech_node.unlocks_recipes[]` → `recipes[].id`, etc.) are documented with current coverage in `docs/DATA.md`. Changes that drop coverage are regressions even though there are no tests.
+- `Game/Parsed/*.json` is committed; `Game/Exports/*.json` is committed; `uasset_export/` is gitignored (too big).
+
+## Features overview
+
+The app has five pages plus a persistent sidebar. Detailed feature inventory in `docs/FEATURES.md`.
+
+| Page                | Route              | What it does                                                     |
+| ------------------- | ------------------ | ---------------------------------------------------------------- |
+| Home                | `/`                | Hero, stats strip, featured crafting chains, changelog           |
+| Item detail         | `/item/:id`        | Crafting flow tree, stats, quality tiers, drops, spawns, seeds   |
+| Tech tree           | `/tech-tree`       | Tiered node viewer with dependency lines, 3 modes, search        |
+| Awareness XP        | `/awareness-xp`    | Recipes ranked by XP/min, filterable by tier/skill/role          |
+| Food almanac        | `/food-almanac`    | Tabbed comparison table of food/drink/potion buffs               |
+
+Global: sidebar search (debounced API call) + recent visits history. Tweaks panel (bottom-right gear) controls raw-materials display. SEO: per-page meta, JSON-LD on items, XML sitemap.
+
+## Changelog
+
+The home page (`web/src/pages/Home.tsx`) has a `CHANGELOG` array shown to visitors. Update it when a change is user-visible (new data, new UI feature, meaningful fix). Skip internal refactors, parser tweaks, or pipeline changes.
+
+Write entries as a player would understand them — what they can now *do*, not how it was built. Short, plain language, no jargon. Examples:
+- Good: "Preview how quality tiers affect weapon damage and durability"
+- Bad: "Extract and display base weapon/equipment stats from PropPack tables"
+
+## Build and deploy
+
+```bash
+make build    # pnpm build → copy dist into backend/internal/spa/ → go build
+make deploy   # icons-sync + fly deploy
+```
+
+The prod binary embeds the SPA via `backend/internal/spa/` and serves both API and static files on port 9060.
+
+## Dev server
+
+Managed via pm2 (`ecosystem.config.js`). Two processes: `souldb-be` (Go backend on :9060) and `souldb-fe` (Vite on :5173).
+
+```bash
+make dev         # pm2 start + status
+make dev-stop    # stop both
+make dev-status  # check what's running
+make dev-logs    # tail logs
+```
+
+Backend auto-restarts on `.go` file changes (pm2 watch). Frontend uses Vite HMR. Before starting, run `pm2 status` to avoid port conflicts from an already-running instance.
+
+## Makefile quick reference
+
+| Target         | What it does                                                    |
+| -------------- | --------------------------------------------------------------- |
+| `make db`      | parse + parse-spawns + rebuild `data/app.db` — the main command |
+| `make parse`   | run all Stage 2 parsers (items, recipes, tech, drops, classify, food buffs) |
+| `make sqlc`    | regenerate `backend/internal/db/gen/` from `queries.sql`        |
+| `make build`   | SPA build + Go binary at `backend/bin/server`                   |
+| `make deploy`  | icons-sync + `fly deploy`                                       |
+| `make test`    | Go + web + Python test suites                                   |
+
+## Frontend type-checking
+
+After any frontend change, run `pnpm --dir web typecheck` to catch TypeScript errors before building. This is faster than a full `make build` and catches issues like unused variables, type mismatches, etc.
+
+## Conventions
+
+- Python 3.x, no external dependencies, no virtualenv needed for stage 2. `.venv/` exists in the repo but isn't required.
+- Parsers print a summary (counts, by-category breakdowns, sample rows) to stdout — use this to sanity-check changes.
+- Error files (`*_errors.json`) are written next to outputs and gitignored.
+- DB queries: add SQL to `backend/internal/db/queries.sql`, run `make sqlc` to regenerate Go code. Do not edit `gen/` by hand.
+
+---
+> Source: [rubensayshi/soulmask-codex](https://github.com/rubensayshi/soulmask-codex) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
