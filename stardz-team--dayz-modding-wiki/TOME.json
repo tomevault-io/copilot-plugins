@@ -4,7 +4,7 @@
   "repo": "DayZ-Modding-Wiki",
   "description": "Open-source DayZ modding wiki: Enforce Script language (13 chapters), GUI/.layout system (10 chapters), Engine API reference (23 chapters), asset pipeline, server configuration,    and 13 tutorials. Built by reverse-engineering 10+ professional mods. Available in 12 languages.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/StarDZ-Team/DayZ-Modding-Wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T01:03:13Z"
+  "distributed_at": "2026-06-17T02:57:35Z"
 }
