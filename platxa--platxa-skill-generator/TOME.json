@@ -1,0 +1,123 @@
+{
+  "name": "platxa-skill-generator",
+  "owner": "platxa",
+  "repo": "platxa-skill-generator",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-documenter",
+      "path": "catalog/code-documenter",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/code-documenter",
+      "description": ""
+    },
+    {
+      "name": "commit-message",
+      "path": "catalog/commit-message",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/commit-message",
+      "description": ""
+    },
+    {
+      "name": "platxa-error-handling",
+      "path": "catalog/platxa-error-handling",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/platxa-error-handling",
+      "description": ""
+    },
+    {
+      "name": "platxa-frontend-builder",
+      "path": "catalog/platxa-frontend-builder",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/platxa-frontend-builder",
+      "description": ""
+    },
+    {
+      "name": "platxa-jwt-auth",
+      "path": "catalog/platxa-jwt-auth",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/platxa-jwt-auth",
+      "description": ""
+    },
+    {
+      "name": "platxa-k8s-ops",
+      "path": "catalog/platxa-k8s-ops",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/platxa-k8s-ops",
+      "description": ""
+    },
+    {
+      "name": "platxa-monaco-config",
+      "path": "catalog/platxa-monaco-config",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/platxa-monaco-config",
+      "description": ""
+    },
+    {
+      "name": "platxa-monitoring",
+      "path": "catalog/platxa-monitoring",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/platxa-monitoring",
+      "description": ""
+    },
+    {
+      "name": "platxa-sidecar-builder",
+      "path": "catalog/platxa-sidecar-builder",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/platxa-sidecar-builder",
+      "description": ""
+    },
+    {
+      "name": "platxa-testing",
+      "path": "catalog/platxa-testing",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/platxa-testing",
+      "description": ""
+    },
+    {
+      "name": "platxa-yjs-server",
+      "path": "catalog/platxa-yjs-server",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/platxa-yjs-server",
+      "description": ""
+    },
+    {
+      "name": "pr-description",
+      "path": "catalog/pr-description",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/pr-description",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "path": "catalog/test-generator",
+      "github_url": "https://github.com/platxa/platxa-skill-generator/tree/main/catalog/test-generator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/platxa/platxa-skill-generator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T04:32:03Z"
+}
