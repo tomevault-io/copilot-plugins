@@ -1,0 +1,44 @@
+{
+  "name": "sdk",
+  "owner": "WaniWani-AI",
+  "repo": "sdk",
+  "description": "Build distribution MCPs: multi-step conversational funnels (lead gen, booking, quotes) that run as a single MCP tool in ChatGPT, Claude, and Cursor. A typed state graph compiles to one MCP tool.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WaniWani-AI/sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T18:53:45Z"
+}
