@@ -7,11 +7,11 @@ Intentional agentic developement: a structurally enforced SDLC pipeline for auto
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jwbron/egg](https://github.com/jwbron/egg).
+Original source: `CLAUDE.md` in [jwbron/egg](https://github.com/jwbron/egg).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
