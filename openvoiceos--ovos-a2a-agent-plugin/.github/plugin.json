@@ -1,0 +1,9 @@
+{
+  "name": "openvoiceos--ovos-a2a-agent-plugin",
+  "displayName": "ovos-a2a-agent-plugin",
+  "description": "ovos-a2a-agent-plugin",
+  "version": "1.0.0",
+  "author": "OpenVoiceOS",
+  "homepage": "https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin",
+  "skills": []
+}
