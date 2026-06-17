@@ -1,0 +1,9 @@
+{
+  "name": "soda-inria--strable",
+  "displayName": "strable",
+  "description": "STRABLE: a benchmarking corpus of 108 tables with strings and numbers.",
+  "version": "1.0.0",
+  "author": "soda-inria",
+  "homepage": "https://github.com/soda-inria/strable",
+  "skills": []
+}
