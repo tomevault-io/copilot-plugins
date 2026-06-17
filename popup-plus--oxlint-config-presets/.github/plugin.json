@@ -1,0 +1,9 @@
+{
+  "name": "popup-plus--oxlint-config-presets",
+  "displayName": "oxlint-config-presets",
+  "description": "Oxlint configurations ported from popular ESLint styleguides",
+  "version": "1.0.0",
+  "author": "popup-plus",
+  "homepage": "https://github.com/popup-plus/oxlint-config-presets",
+  "skills": []
+}
