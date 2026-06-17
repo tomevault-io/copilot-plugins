@@ -1,0 +1,9 @@
+{
+  "name": "openanalystinc--10x-content-expert",
+  "displayName": "10x-Content-Expert",
+  "description": "A comprehensive Claude Code skills plugin for AI-powered content creation. Creates emails, social media content, presentations, blogs, and more - aligned with your brand voice.",
+  "version": "1.0.0",
+  "author": "OpenAnalystInc",
+  "homepage": "https://github.com/OpenAnalystInc/10x-Content-Expert",
+  "skills": []
+}
