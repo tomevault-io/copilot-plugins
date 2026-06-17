@@ -1,0 +1,44 @@
+{
+  "name": "open-clap",
+  "owner": "IgorShadurin",
+  "repo": "open-clap",
+  "description": "Local-first TypeScript system for orchestrating Codex tasks across projects and subprojects with a Next.js UI, shared contracts, server-driven state changes, SQLite-backed persistence, daemon-based execution, atomic task claiming, reusable list fan-out workflows, and traceable lifecycle controls for unattended high-volume AI work reliably at scale.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/IgorShadurin/open-clap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-17T15:37:34Z"
+}
