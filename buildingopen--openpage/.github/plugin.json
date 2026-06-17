@@ -1,0 +1,9 @@
+{
+  "name": "buildingopen--openpage",
+  "displayName": "openpage",
+  "description": "Open-source website builder with visual drag-and-drop editor, AI site generation, and JSON-first architecture. Self-hosted alternative to Framer, Lovable, v0. React 19 + TypeScript + Tailwind CSS.",
+  "version": "1.0.0",
+  "author": "buildingopen",
+  "homepage": "https://github.com/buildingopen/openpage",
+  "skills": []
+}
