@@ -1,0 +1,9 @@
+{
+  "name": "hugobatista--kuma-scout",
+  "displayName": "kuma-scout",
+  "description": "Uptime Kuma agent scout. Deploy to servers, run checks, report system health back.",
+  "version": "1.0.0",
+  "author": "hugobatista",
+  "homepage": "https://github.com/hugobatista/kuma-scout",
+  "skills": []
+}
