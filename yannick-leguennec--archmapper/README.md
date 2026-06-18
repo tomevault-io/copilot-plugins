@@ -7,11 +7,11 @@ ArchMapper — A powerful, resumeable, bottom-up reverse engineering framework f
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yannick-leguennec/archmapper](https://github.com/yannick-leguennec/archmapper).
+Original source: `CLAUDE.md` in [yannick-leguennec/archmapper](https://github.com/yannick-leguennec/archmapper).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
