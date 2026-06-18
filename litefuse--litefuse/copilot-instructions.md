@@ -1,9 +1,35 @@
-## entitlements
+## frontend-features
 
-> How to enforce entitlements across full-stack features
+> How we build new full-stack features including frontend APIs, file structure, and components
 
+## Framework
 
-Check [README.md](mdc:web/src/features/entitlements/README.md) to learn more about entitlements
+- Next.js
+- Pages router
+
+## File Structure
+
+- We generally put all code related to a net-new feature into a folder within web/src/features.
+- Check out other features to learn about the common structure.
+
+## API for frontend features
+
+- We use TRPC.io to power full-stack features of the Litefuse Frontend
+  - Entry point for all trpc routes: [root.ts](mdc:web/src/server/api/root.ts)
+- Authentication, see [authorization-and-rbac.mdc](mdc:.cursor/rules/authorization-and-rbac.mdc)
+- Entitlements, see [entitlements.mdc](mdc:.cursor/rules/entitlements.mdc)
+
+## Components
+
+- We use Shadcn/ui
+  - Components in `@/src/components/ui`
+  - If a component is not installed yet, ask the user to install it for you
+- When creating new custom components that generalize, we add them with a generalizable naming to `@/src/components`
+
+## Styling
+
+- We use Tailwind CSS
+- We use a standard color palette which automatically handles light/dark mode, see [globals.css](mdc:web/src/styles/globals.css)
 
 ---
 > Source: [litefuse/litefuse](https://github.com/litefuse/litefuse) — distributed by [TomeVault](https://tomevault.io).
