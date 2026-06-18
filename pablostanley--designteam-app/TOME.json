@@ -4,7 +4,7 @@
   "repo": "designteam-app",
   "description": "Design Team \u2014 assemble AI agent teams with customizable personalities",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pablostanley/designteam-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T22:46:13Z"
+  "distributed_at": "2026-06-18T04:36:33Z"
 }
