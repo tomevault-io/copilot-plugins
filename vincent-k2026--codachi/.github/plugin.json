@@ -1,0 +1,9 @@
+{
+  "name": "vincent-k2026--codachi",
+  "displayName": "codachi",
+  "description": "A tamagotchi-style virtual pet that lives in your Claude Code statusline",
+  "version": "1.0.0",
+  "author": "vincent-k2026",
+  "homepage": "https://github.com/vincent-k2026/codachi",
+  "skills": []
+}
