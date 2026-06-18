@@ -1,0 +1,9 @@
+{
+  "name": "orange-guo--aur-packages",
+  "displayName": "aur-packages",
+  "description": "My collection of maintained AUR packages, automatically updated via GitHub Actions.",
+  "version": "1.0.0",
+  "author": "orange-guo",
+  "homepage": "https://github.com/orange-guo/aur-packages",
+  "skills": []
+}
