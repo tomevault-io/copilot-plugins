@@ -1,0 +1,9 @@
+{
+  "name": "fezvrasta--cafe-hass",
+  "displayName": "cafe-hass",
+  "description": "The \"Third Way\" for Home Assistant Automations.",
+  "version": "1.0.0",
+  "author": "FezVrasta",
+  "homepage": "https://github.com/FezVrasta/cafe-hass",
+  "skills": []
+}
