@@ -4,7 +4,7 @@
   "repo": "ksharp",
   "description": "k version 3 Language Interpreter in C#",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ERufian/ksharp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T12:57:17Z"
+  "distributed_at": "2026-06-18T04:38:00Z"
 }
