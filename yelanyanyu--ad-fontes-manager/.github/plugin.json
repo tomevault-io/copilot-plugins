@@ -1,0 +1,9 @@
+{
+  "name": "yelanyanyu--ad-fontes-manager",
+  "displayName": "ad-fontes-manager",
+  "description": "Ad Fontes \u82f1\u8bed/\u5fb7\u8bed\u8bcd\u6c47\u5b66\u4e60\u4f53\u7cfb\u7684\u8bcd\u6761\u7ba1\u7406\u5de5\u5177\u3002\u652f\u6301 YAML \u7f16\u8f91\u3001Anki \u5bfc\u51fa\uff0c\u63d0\u4f9b Windows/Mac \u684c\u9762\u7a0b\u5e8f\u3002AGPL-3.0 \u6388\u6743\u3002\u9879\u76ee\u4ea4\u6d41\u7fa4\uff08QQ\uff09\uff1a1105715764",
+  "version": "1.0.0",
+  "author": "yelanyanyu",
+  "homepage": "https://github.com/yelanyanyu/ad-fontes-manager",
+  "skills": []
+}
