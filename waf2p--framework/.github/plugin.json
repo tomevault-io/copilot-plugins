@@ -1,0 +1,9 @@
+{
+  "name": "waf2p--framework",
+  "displayName": "framework",
+  "description": "This is the actual Framework of WAF++ - linked in as /docs/ into the website",
+  "version": "1.0.0",
+  "author": "WAF2p",
+  "homepage": "https://github.com/WAF2p/framework",
+  "skills": []
+}
