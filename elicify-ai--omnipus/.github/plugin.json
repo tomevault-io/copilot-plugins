@@ -1,0 +1,9 @@
+{
+  "name": "elicify-ai--omnipus",
+  "displayName": "omnipus",
+  "description": "A team of named AI agents you actually own. Single Go binary, kernel sandbox, embedded SPA, no telemetry.",
+  "version": "1.0.0",
+  "author": "elicify-ai",
+  "homepage": "https://github.com/elicify-ai/omnipus",
+  "skills": []
+}
