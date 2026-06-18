@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--xr-ai",
+  "displayName": "xr-ai",
+  "description": "XR AI",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/xr-ai",
+  "skills": []
+}
