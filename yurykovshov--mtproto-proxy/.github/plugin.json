@@ -1,0 +1,9 @@
+{
+  "name": "yurykovshov--mtproto-proxy",
+  "displayName": "mtproto-proxy",
+  "description": "Self-hosted MTProto proxy for Telegram",
+  "version": "1.0.0",
+  "author": "yurykovshov",
+  "homepage": "https://github.com/yurykovshov/mtproto-proxy",
+  "skills": []
+}
