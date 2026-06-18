@@ -1,0 +1,9 @@
+{
+  "name": "wellwelwel--blue-spec",
+  "displayName": "blue-spec",
+  "description": "\ud83c\udf0a Blue Spec is a toolkit for Security-Driven Hardening (SDH), a defensive workflow to help AI agents detect what a system does and harden the defenses that matter.",
+  "version": "1.0.0",
+  "author": "wellwelwel",
+  "homepage": "https://github.com/wellwelwel/blue-spec",
+  "skills": []
+}
