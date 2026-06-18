@@ -1,0 +1,9 @@
+{
+  "name": "lgrammel--llama-cpp-provider",
+  "displayName": "llama-cpp-provider",
+  "description": "AI SDK Provider for llama.cpp",
+  "version": "1.0.0",
+  "author": "lgrammel",
+  "homepage": "https://github.com/lgrammel/llama-cpp-provider",
+  "skills": []
+}
