@@ -1,0 +1,9 @@
+{
+  "name": "asenawritescode--kora",
+  "displayName": "kora",
+  "description": "Config-driven application engine in Go. Define your data model in YAML and get a database, REST API, role-based permissions, workflows, and a modern admin UI automatically.",
+  "version": "1.0.0",
+  "author": "asenawritescode",
+  "homepage": "https://github.com/asenawritescode/kora",
+  "skills": []
+}
