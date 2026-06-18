@@ -1,0 +1,9 @@
+{
+  "name": "exasol-labs--exasol-agent-skills",
+  "displayName": "exasol-agent-skills",
+  "description": "Exasol skills for AI agents. Optimized for Claude Code and OpenAI Codex \ud83e\udd16",
+  "version": "1.0.0",
+  "author": "exasol-labs",
+  "homepage": "https://github.com/exasol-labs/exasol-agent-skills",
+  "skills": []
+}
