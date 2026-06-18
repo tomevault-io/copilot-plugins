@@ -1,0 +1,9 @@
+{
+  "name": "tfcace--hash",
+  "displayName": "hash",
+  "description": "A POSIX shell with AI in the grammar: type ?? to drive Claude Code, Gemini CLI, or Ollama over ACP. Local-first, no login, no telemetry.",
+  "version": "1.0.0",
+  "author": "tfcace",
+  "homepage": "https://github.com/tfcace/hash",
+  "skills": []
+}
