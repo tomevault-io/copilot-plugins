@@ -4,7 +4,7 @@
   "repo": "learning-agent",
   "description": "A learning agent that teaches through questions, problems, and active recall. Supports opencode and Claude Code.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/luqs1/learning-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T21:12:46Z"
+  "distributed_at": "2026-06-18T03:00:47Z"
 }
