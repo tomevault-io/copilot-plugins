@@ -1,18 +1,13 @@
-## project-structure
+## prompts
 
-> - 运行入口（LangGraph 开发服务器）：`yarn start` 调用 `@langchain/langgraph-cli`，配置来源于 [langgraph.json](mdc:langgraph.json)。
+> Prompt 文件与变量注入
 
-# 项目结构指南
+# Prompt 约定
 
-- 运行入口（LangGraph 开发服务器）：`yarn start` 调用 `@langchain/langgraph-cli`，配置来源于 [langgraph.json](mdc:langgraph.json)。
-- Graph 注册点：`deep_research` 对应入口 `[src/workflow.ts](mdc:src/workflow.ts):graph`。
-- 图构建：见 [src/graph/builder.ts](mdc:src/graph/builder.ts)。
-- 节点实现：见 [src/graph/nodes.ts](mdc:src/graph/nodes.ts)。
-- 状态定义：见 [src/graph/state.ts](mdc:src/graph/state.ts)。
-- Prompt 模板：见 [src/prompts/*.md](mdc:src/prompts) 与填充逻辑 [src/prompts/template.ts](mdc:src/prompts/template.ts)。
-- Agent/工具：见 [src/agents/agent.ts](mdc:src/agents/agent.ts)、[src/tools](mdc:src/tools)。
-
-注意：TypeScript 源码位于 `src/`，构建产物输出到 `dist/`（已在 `.gitignore` 中忽略）。
+- 所有模板放在 [src/prompts/*.md](mdc:src/prompts)。
+- 使用 `{{ VAR }}` 作为占位符；在处理时会自动转换为 LangChain 模板 `{VAR}`。
+- 可用变量示例：`CURRENT_TIME`、以及 `GraphAnnotation.State` 中的字段。
+- 变量注入由 [src/prompts/template.ts](mdc:src/prompts/template.ts) 负责，输出系统消息 + 现有 `state.messages`。
 
 ---
 > Source: [iamouyang21/DeepResearch-Langgraph](https://github.com/iamouyang21/DeepResearch-Langgraph) — distributed by [TomeVault](https://tomevault.io).
