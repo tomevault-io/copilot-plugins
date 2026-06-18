@@ -1,0 +1,9 @@
+{
+  "name": "oasaistudio--clawpiggy",
+  "displayName": "ClawPiggy",
+  "description": " P2P token recycling network for AI Agents. Put unused tokens into a piggy bank, then cashing them out as help when you need it. \ud83d\udcb8",
+  "version": "1.0.0",
+  "author": "OasAIStudio",
+  "homepage": "https://github.com/OasAIStudio/ClawPiggy",
+  "skills": []
+}
