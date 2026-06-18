@@ -7,11 +7,11 @@ Full-stack AI itinerary planner for date and trip routes with natural-language p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jaylenyu/ai-planner](https://github.com/jaylenyu/ai-planner).
+Original source: `CLAUDE.md` in [jaylenyu/ai-planner](https://github.com/jaylenyu/ai-planner).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
