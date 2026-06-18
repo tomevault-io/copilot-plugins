@@ -4,7 +4,7 @@
   "repo": "sui-stack-messaging",
   "description": "End-to-end encrypted Messaging tooling on Sui, powered by Seal threshold encryption and Walrus decentralized storage.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MystenLabs/sui-stack-messaging",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T16:56:06Z"
+  "distributed_at": "2026-06-18T22:53:31Z"
 }
