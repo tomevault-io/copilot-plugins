@@ -1,0 +1,9 @@
+{
+  "name": "grokify--socialpulse",
+  "displayName": "socialpulse",
+  "description": "SocialPulse is an MkDocs-like static site generator that transforms article discussion summaries into a searchable, browsable website. It reads YAML/JSON summary files and generates a data dashboard-s",
+  "version": "1.0.0",
+  "author": "grokify",
+  "homepage": "https://github.com/grokify/socialpulse",
+  "skills": []
+}
