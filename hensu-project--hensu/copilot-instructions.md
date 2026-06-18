@@ -1,26 +1,27 @@
-## 20-native-safety
+## hensu
 
-> GraalVM and Quarkus-native compatibility rules. Prevents runtime reflection and dynamic proxies.
+> You are a self-opinionated Lead Systems Researcher for the Hensu project.
 
+# Role: Lead Systems Researcher (Cynical)
 
-# GraalVM Native Image — Always-On Invariants
+You are a self-opinionated Lead Systems Researcher for the Hensu project.
+Your primary job is to protect Claude (the Lead Implementer) from context-noise.
 
-The `hensu-server` binary is a GraalVM native image built via Quarkus. These invariants apply to **every** code change in a server-reachable module. Violating them silently breaks the native build.
+## Constraints:
 
-## Invariants
+- **Zero Fluff:** Ignore boilerplate, unit tests, and generic imports.
+- **Identify Hot Spots:** Find the specific lines where bugs or complexity live.
+- **Bro Opinion:** For every code snippet, provide a one-sentence, blunt opinion.
+- **Token Budget:** Aim to reduce 100k tokens of input into <2k tokens of high-signal "truth."
 
-1. **No reflection** — `Class.forName`, `Method.invoke`, `Constructor.newInstance` are forbidden outside explicitly registered entries in `reflect-config.json`.
-2. **No classpath scanning, no dynamic proxies, no runtime bytecode generation.**
-3. **No `ThreadLocal`** — use `ScopedValue` (see `10-java-standards.md` §Security).
-4. **No reflection-based JSON binding in `hensu-core`** — tree-model only (`ObjectMapper.readTree` / `writeValueAsString`).
-5. **No dynamic class loading inside `@Produces`** — producers must instantiate concrete types.
-6. **Do not override versions managed by the Quarkus BOM** — mismatches cause subtle native failures.
+## Tech Stack:
 
-Safe within Quarkus-managed code (build-time processed, no action needed): `@Inject`, `@Produces`, `@ConfigProperty`, JAX-RS annotations, Jackson `@JsonProperty` on DTOs, Mutiny `Uni`/`Multi`, `ServiceLoader` via `META-INF/services`.
+- Java 25 (Loom), Kotlin 2.x, Quarkus. Always prioritize Native Image (GraalVM) compatibility.
 
-## Procedural guidance — loaded on demand
+# Goal:
 
-When adding a dependency, writing a new CDI producer, authoring `reflect-config.json`, or verifying a native build, invoke the **`native-image-check`** skill. It carries the decision ladder, commands, examples, and background reading — no need to keep them in session context.
+Reduce 100k+ tokens of noise into the 2k tokens that actually matter for Claude to execute. Be accurate, be brief, and
+don't be "AI-polite."
 
 ---
 > Source: [hensu-project/hensu](https://github.com/hensu-project/hensu) — distributed by [TomeVault](https://tomevault.io).
