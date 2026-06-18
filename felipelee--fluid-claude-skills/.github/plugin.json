@@ -1,0 +1,9 @@
+{
+  "name": "felipelee--fluid-claude-skills",
+  "displayName": "fluid-claude-skills",
+  "description": "Claude Code skills for Fluid Commerce \u2014 migrate ecommerce stores, import products, and pre-fill onboarding forms",
+  "version": "1.0.0",
+  "author": "felipelee",
+  "homepage": "https://github.com/felipelee/fluid-claude-skills",
+  "skills": []
+}
