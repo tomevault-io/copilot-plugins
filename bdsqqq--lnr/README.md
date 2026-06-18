@@ -2,15 +2,16 @@
 
 > Source: [bdsqqq/lnr](https://github.com/bdsqqq/lnr) — distributed by [TomeVault](https://tomevault.io)
 
+command-line interface for Linear. ships as a single binary via bun.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [bdsqqq/lnr](https://github.com/bdsqqq/lnr).
+Original source: `AGENTS.md` in [bdsqqq/lnr](https://github.com/bdsqqq/lnr).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
