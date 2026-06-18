@@ -1,0 +1,9 @@
+{
+  "name": "multiplex55--goahk",
+  "displayName": "goahk",
+  "description": "ahk but with go, base library used for other projects",
+  "version": "1.0.0",
+  "author": "multiplex55",
+  "homepage": "https://github.com/multiplex55/goahk",
+  "skills": []
+}
