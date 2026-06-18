@@ -1,0 +1,9 @@
+{
+  "name": "off-on-dev--open-source-challenges",
+  "displayName": "open-source-challenges",
+  "description": "Hands-on, recurring prompts designed to help you practice Cloud Native, OpenTelemetry, AI/ML, and other open source skills.",
+  "version": "1.0.0",
+  "author": "off-on-dev",
+  "homepage": "https://github.com/off-on-dev/open-source-challenges",
+  "skills": []
+}
