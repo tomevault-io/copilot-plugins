@@ -1,0 +1,9 @@
+{
+  "name": "eisber--lox-cli",
+  "displayName": "lox-cli",
+  "description": "AI agent tooling for Loxone Miniserver \u2014 natural language \u2192 config-as-code \u2192 deploy",
+  "version": "1.0.0",
+  "author": "eisber",
+  "homepage": "https://github.com/eisber/lox-cli",
+  "skills": []
+}
