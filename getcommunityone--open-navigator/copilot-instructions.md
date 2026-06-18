@@ -1,0 +1,16 @@
+## calendar-year-json-strings
+
+> Calendar years in JSON must be strings (manifests, APIs), not int.
+
+
+# Calendar years as strings (project-wide)
+
+- In **JSON** (scraped meetings `_manifest.json` `pdfs[].year`, API bodies, seed JSON), use a **four-digit string** (`"2026"`), not a JSON number (`2026`).
+- **Python**: `json.dumps` will still emit strings if you build dicts with `str(year)` at the boundary. Folder paths may use `Path(..., str(y))` with `y` as `int` internally.
+- **TypeScript**: Treat imported JSON years as `string` so literals are not widened to `number`.
+- **Postgres / Neon**: use `VARCHAR(4)` (or `TEXT`) for calendar, tax, filing, and shapefile `vintage_year` labels in bronze and public search tables; keep true counts (`org_year_count`, headcounts) as `INTEGER`.
+- **Do not** store bare calendar years as `INTEGER` in new warehouse columns unless the column is part of a date type or analytics that truly needs arithmetic; prefer `TEXT` / `VARCHAR(4)` for `calendar_year` labels.
+
+---
+> Source: [getcommunityone/open-navigator](https://github.com/getcommunityone/open-navigator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
