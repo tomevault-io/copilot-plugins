@@ -1,0 +1,9 @@
+{
+  "name": "quovibe-web--quovibe",
+  "displayName": "quovibe",
+  "description": "Self-hosted portfolio tracker: Stocks, ETFs, Bonds. TTWROR, IRR, Sharpe ratio, volatility, FIFO/Moving Average cost basis, asset allocation, dividend tracking, multi-currency (ECB).    15 transaction ",
+  "version": "1.0.0",
+  "author": "quovibe-web",
+  "homepage": "https://github.com/quovibe-web/quovibe",
+  "skills": []
+}
