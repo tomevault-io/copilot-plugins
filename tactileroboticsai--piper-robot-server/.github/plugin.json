@@ -1,0 +1,9 @@
+{
+  "name": "tactileroboticsai--piper-robot-server",
+  "displayName": "piper-robot-server",
+  "description": "VR teleoperation of robot arms",
+  "version": "1.0.0",
+  "author": "TactileRoboticsAI",
+  "homepage": "https://github.com/TactileRoboticsAI/piper-robot-server",
+  "skills": []
+}
