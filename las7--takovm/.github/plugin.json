@@ -1,0 +1,9 @@
+{
+  "name": "las7--takovm",
+  "displayName": "TakoVM",
+  "description": "Isolated AI workload execution with job execution built in",
+  "version": "1.0.0",
+  "author": "las7",
+  "homepage": "https://github.com/las7/TakoVM",
+  "skills": []
+}
