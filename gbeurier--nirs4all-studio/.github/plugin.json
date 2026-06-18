@@ -1,0 +1,9 @@
+{
+  "name": "gbeurier--nirs4all-studio",
+  "displayName": "nirs4all-studio",
+  "description": "A webapp (and standalone version) for the nirs4all python library.",
+  "version": "1.0.0",
+  "author": "GBeurier",
+  "homepage": "https://github.com/GBeurier/nirs4all-studio",
+  "skills": []
+}
