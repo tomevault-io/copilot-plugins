@@ -1,0 +1,44 @@
+{
+  "name": "mnemos",
+  "owner": "ncz-os",
+  "repo": "mnemos",
+  "description": "Production-grade memory operating system for agentic AI. Interoperates with every major framework via MCP, OpenAI-compatible gateway, and native /v1/* REST \u2014 Claude Code, OpenClaw, ZeroClaw, Hermes, MemPalace, LangChain, LlamaIndex, CrewAI, AutoGen, Mem0, Letta, Zep. In production use since December 2025. Apache 2.0.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ncz-os/mnemos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T22:46:52Z"
+}
