@@ -7,11 +7,11 @@ Governance substrate for your AI coding agents — adversarial review, drift-det
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nexus-substrate/nexus-agents](https://github.com/nexus-substrate/nexus-agents).
+Original source: `CLAUDE.md` in [nexus-substrate/nexus-agents](https://github.com/nexus-substrate/nexus-agents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
