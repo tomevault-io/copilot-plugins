@@ -1,0 +1,44 @@
+{
+  "name": "openprd",
+  "owner": "mileson",
+  "repo": "openprd",
+  "description": "\u9762\u5411 Vibe Coding \u7684\u80fd\u529b\u589e\u5f3a\u578b\u534f\u4f5c\u6846\u67b6\uff08Harness\uff09\uff0c\u8ba9 Vibe Coding \u770b\u5f97\u89c1\uff0c\u53ef\u5ba1\u67e5\u3001\u53ef\u5b66\u4e60\u3001\u53ef\u8fdb\u5316\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mileson/openprd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T22:34:21Z"
+}
