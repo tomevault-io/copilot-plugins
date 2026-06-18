@@ -4,7 +4,7 @@
   "repo": "primeservefms",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sumitmishraa/primeservefms",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T09:07:32Z"
+  "distributed_at": "2026-06-18T15:10:29Z"
 }
