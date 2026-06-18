@@ -1,0 +1,9 @@
+{
+  "name": "funfr--ha-indygo-pool",
+  "displayName": "ha-indygo-pool",
+  "description": "A Home Assistant Integration for Indygo connected pool solution",
+  "version": "1.0.0",
+  "author": "FunFR",
+  "homepage": "https://github.com/FunFR/ha-indygo-pool",
+  "skills": []
+}
