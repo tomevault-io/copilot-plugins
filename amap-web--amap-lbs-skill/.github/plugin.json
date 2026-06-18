@@ -1,0 +1,9 @@
+{
+  "name": "amap-web--amap-lbs-skill",
+  "displayName": "amap-lbs-skill",
+  "description": "amap-lbs-skill",
+  "version": "1.0.0",
+  "author": "AMap-Web",
+  "homepage": "https://github.com/AMap-Web/amap-lbs-skill",
+  "skills": []
+}
