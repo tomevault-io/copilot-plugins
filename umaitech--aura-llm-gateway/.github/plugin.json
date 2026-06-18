@@ -1,0 +1,9 @@
+{
+  "name": "umaitech--aura-llm-gateway",
+  "displayName": "aura-llm-gateway",
+  "description": "High-performance Rust LLM gateway implementing the Open Responses API. Unified access to OpenAI, Anthropic, Google, Mistral, Ollama, HuggingFace, and AWS Bedrock with cost tracking, prompt compression",
+  "version": "1.0.0",
+  "author": "UmaiTech",
+  "homepage": "https://github.com/UmaiTech/aura-llm-gateway",
+  "skills": []
+}
