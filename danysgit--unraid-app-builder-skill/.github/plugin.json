@@ -1,0 +1,9 @@
+{
+  "name": "danysgit--unraid-app-builder-skill",
+  "displayName": "unraid-app-builder-skill",
+  "description": "unraid-app-builder-skill",
+  "version": "1.0.0",
+  "author": "danysgit",
+  "homepage": "https://github.com/danysgit/unraid-app-builder-skill",
+  "skills": []
+}
