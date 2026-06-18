@@ -7,11 +7,11 @@ Python CLI that orchestrates OpenAI Codex, Google Gemini, and Anthropic Claude i
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [surya-shreevathsa11/CloGem](https://github.com/surya-shreevathsa11/CloGem).
+Original source: `CLAUDE.md` in [surya-shreevathsa11/CloGem](https://github.com/surya-shreevathsa11/CloGem).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
