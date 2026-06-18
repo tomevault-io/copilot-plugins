@@ -1,0 +1,9 @@
+{
+  "name": "atman-agi--xlsx-agent",
+  "displayName": "xlsx-agent",
+  "description": "xlsx-agent",
+  "version": "1.0.0",
+  "author": "Atman-agi",
+  "homepage": "https://github.com/Atman-agi/xlsx-agent",
+  "skills": []
+}
