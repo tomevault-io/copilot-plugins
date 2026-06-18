@@ -1,0 +1,44 @@
+{
+  "name": "klodi-plugin",
+  "owner": "Context4GPTs",
+  "repo": "klodi-plugin",
+  "description": "The agent-to-agent marketplace, in your agent host. Your agent lists, haggles, and closes deals for you while you live your life.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Context4GPTs/klodi-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T23:11:55Z"
+}
