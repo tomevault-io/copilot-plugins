@@ -4,7 +4,7 @@
   "repo": "Syntopica",
   "description": "\u7528AI\u628a\u4f60\u7684RSS\u8ba2\u9605\u8fdb\u884c\u8bed\u4e49\u5f52\u7c7b\uff0c\u6bcf\u5929\u53ea\u9700\u8981\u5173\u6ce8\u4f60\u611f\u5174\u8da3\u7684\u677f\u5757\u2014\u2014Where feeds become topics",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZanebonoAlter/Syntopica",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T11:14:13Z"
+  "distributed_at": "2026-06-18T17:08:34Z"
 }
