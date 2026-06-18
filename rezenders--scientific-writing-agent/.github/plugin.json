@@ -1,0 +1,9 @@
+{
+  "name": "rezenders--scientific-writing-agent",
+  "displayName": "scientific_writing_agent",
+  "description": "Template repo with agent's configuration for working in scientific papers",
+  "version": "1.0.0",
+  "author": "Rezenders",
+  "homepage": "https://github.com/Rezenders/scientific_writing_agent",
+  "skills": []
+}
