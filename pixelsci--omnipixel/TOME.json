@@ -4,7 +4,7 @@
   "repo": "OmniPixel",
   "description": "OmniPixel is an all-in-one AI assistant",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PixelSci/OmniPixel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T21:37:31Z"
+  "distributed_at": "2026-06-18T03:20:07Z"
 }
