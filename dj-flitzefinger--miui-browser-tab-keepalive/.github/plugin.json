@@ -1,0 +1,9 @@
+{
+  "name": "dj-flitzefinger--miui-browser-tab-keepalive",
+  "displayName": "miui-browser-tab-keepalive",
+  "description": "Tampermonkey userscript that prevents MIUI/HyperOS from killing mobile browser tabs. Works with Firefox, Edge, Yandex, Kiwi, and other browsers. No root required.",
+  "version": "1.0.0",
+  "author": "DJ-Flitzefinger",
+  "homepage": "https://github.com/DJ-Flitzefinger/miui-browser-tab-keepalive",
+  "skills": []
+}
