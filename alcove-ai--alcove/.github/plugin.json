@@ -1,0 +1,9 @@
+{
+  "name": "alcove-ai--alcove",
+  "displayName": "alcove",
+  "description": "Sandboxed AI coding agents on OpenShift/Kubernetes",
+  "version": "1.0.0",
+  "author": "alcove-ai",
+  "homepage": "https://github.com/alcove-ai/alcove",
+  "skills": []
+}
