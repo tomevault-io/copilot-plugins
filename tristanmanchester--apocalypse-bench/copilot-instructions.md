@@ -1,0 +1,39 @@
+## apocalypse-bench
+
+> When you need to call tools from the shell, use this rubric:
+
+# AGENTS.md — Tool Selection
+
+When you need to call tools from the shell, use this rubric:
+
+## File Operations
+- Find files by file name: `fd`
+- Find files with path name: `fd -p <file-path>`
+- List files in a directory: `fd . <directory>`
+- Find files with extension and pattern: `fd -e <extension> <pattern>`
+
+## Structured Code Search
+- Find code structure: `ast-grep --lang <language> -p '<pattern>'`
+- List matching files: `ast-grep -l --lang <language> -p '<pattern>' | head -n 10`
+- Prefer `ast-grep` over `rg`/`grep` when you need syntax-aware matching
+
+## Data Processing
+- JSON: `jq`
+- YAML/XML: `yq`
+
+## Selection
+- Select from multiple results deterministically (non-interactive filtering)
+- Fuzzy finder: `fzf --filter 'term' | head -n 1`
+
+## Guidelines
+- Prefer deterministic, non-interactive commands (`head`, `--filter`, `--json` + `jq`) so runs are reproducible
+
+## Dataset editing
+- The source of truth is JSON: `data/question_bank/*.jsonl` (one question object per line). Edit it directly; the runtime loads it as-is.
+- See `data/question_bank/info.md` for the per-line schema and the V2 authoring rules.
+- `pnpm -s test -- test/dataset-validate.test.ts` enforces the contract (ids, canonical categories, 10-item rubrics, refusal+technical auto-fails).
+- `pnpm -s dataset:export` regenerates the read-only `docs/question-bank.md`; commit it alongside JSONL changes.
+
+---
+> Source: [tristanmanchester/apocalypse-bench](https://github.com/tristanmanchester/apocalypse-bench) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
