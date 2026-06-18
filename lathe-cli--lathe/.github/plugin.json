@@ -1,0 +1,9 @@
+{
+  "name": "lathe-cli--lathe",
+  "displayName": "lathe",
+  "description": "Agentic-friendly CLI generator for APIs: turn Swagger, OpenAPI, and google.api.http protos into single-binary Cobra CLIs with catalogs and generated Skills.",
+  "version": "1.0.0",
+  "author": "lathe-cli",
+  "homepage": "https://github.com/lathe-cli/lathe",
+  "skills": []
+}
