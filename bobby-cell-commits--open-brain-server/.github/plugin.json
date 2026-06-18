@@ -1,0 +1,9 @@
+{
+  "name": "bobby-cell-commits--open-brain-server",
+  "displayName": "open-brain-server",
+  "description": "Self-hostable MCP memory server for AI assistants \u2014 16 tools, hybrid search, knowledge graph, auto-dedup, staleness pruning, automated ingestion pipelines. Built on Supabase + pgvector.",
+  "version": "1.0.0",
+  "author": "Bobby-cell-commits",
+  "homepage": "https://github.com/Bobby-cell-commits/open-brain-server",
+  "skills": []
+}
