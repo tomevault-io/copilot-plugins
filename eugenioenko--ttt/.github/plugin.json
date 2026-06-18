@@ -1,0 +1,9 @@
+{
+  "name": "eugenioenko--ttt",
+  "displayName": "ttt",
+  "description": "A terminal text editor IDE. A real alternative to VS Code, Zed, and Sublime that runs in your terminal. Single binary, zero config.",
+  "version": "1.0.0",
+  "author": "eugenioenko",
+  "homepage": "https://github.com/eugenioenko/ttt",
+  "skills": []
+}
