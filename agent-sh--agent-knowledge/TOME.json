@@ -4,7 +4,7 @@
   "repo": "agent-knowledge",
   "description": "Research guides and RAG indexes for AI agent development",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agent-sh/agent-knowledge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T14:57:15Z"
+  "distributed_at": "2026-06-18T20:57:37Z"
 }
