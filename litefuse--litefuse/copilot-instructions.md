@@ -1,35 +1,11 @@
-## frontend-features
+## general-info
 
-> How we build new full-stack features including frontend APIs, file structure, and components
+> - Linting in this repo only works if the development server is running
 
-## Framework
+# General rules
 
-- Next.js
-- Pages router
-
-## File Structure
-
-- We generally put all code related to a net-new feature into a folder within web/src/features.
-- Check out other features to learn about the common structure.
-
-## API for frontend features
-
-- We use TRPC.io to power full-stack features of the Litefuse Frontend
-  - Entry point for all trpc routes: [root.ts](mdc:web/src/server/api/root.ts)
-- Authentication, see [authorization-and-rbac.mdc](mdc:.cursor/rules/authorization-and-rbac.mdc)
-- Entitlements, see [entitlements.mdc](mdc:.cursor/rules/entitlements.mdc)
-
-## Components
-
-- We use Shadcn/ui
-  - Components in `@/src/components/ui`
-  - If a component is not installed yet, ask the user to install it for you
-- When creating new custom components that generalize, we add them with a generalizable naming to `@/src/components`
-
-## Styling
-
-- We use Tailwind CSS
-- We use a standard color palette which automatically handles light/dark mode, see [globals.css](mdc:web/src/styles/globals.css)
+- Linting in this repo only works if the development server is running
+- Always run the full mono-repo via `pnpm run dx` (use `pnpm dx-f` when you run this in a background agent). Thereby the database will also be seeded.
 
 ---
 > Source: [litefuse/litefuse](https://github.com/litefuse/litefuse) — distributed by [TomeVault](https://tomevault.io).
