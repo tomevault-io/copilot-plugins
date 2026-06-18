@@ -1,0 +1,9 @@
+{
+  "name": "gpu-eda--jacquard",
+  "displayName": "Jacquard",
+  "description": "Open-source RTL logic simulator with GPU acceleration (Metal, CUDA, HIP/AMD)",
+  "version": "1.0.0",
+  "author": "gpu-eda",
+  "homepage": "https://github.com/gpu-eda/Jacquard",
+  "skills": []
+}
