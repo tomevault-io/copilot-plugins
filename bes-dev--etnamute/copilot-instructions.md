@@ -1,0 +1,317 @@
+## etnamute
+
+> Detect the user's language from their first message. All communication — interview questions, summaries, confirmations, error messages — MUST be in that language. Pipeline files and code comments stay in English.
+
+# Etnamute
+
+**Version**: 1.0.0
+
+---
+
+## LANGUAGE
+
+Detect the user's language from their first message. All communication — interview questions, summaries, confirmations, error messages — MUST be in that language. Pipeline files and code comments stay in English.
+
+---
+
+## PURPOSE
+
+Etnamute transforms **raw app ideas** into **publishable mobile products**. Not demos. Not toys. Not half-products.
+
+| In Scope                           | Out of Scope        |
+| ---------------------------------- | ------------------- |
+| iOS + Android mobile apps          | Websites            |
+| Expo React Native                  | Backend APIs        |
+| RevenueCat monetization (optional) | User authentication |
+| Offline-first / local storage      | Cloud databases     |
+
+Monetization is **user's choice** — decided during the discovery interview. Free apps get zero monetization code.
+
+---
+
+## USER FLOW
+
+```
+USER: describes app idea
+  ↓
+PHASE 0: Discovery (INTERACTIVE)                                → /spec-app
+  0a: Adaptive interview (5-8 questions via AskUserQuestion)
+  0b: Web research (competitors, pricing, market)
+  0c: PRD generation → user approves
+  ↓
+PHASE 1: Plan (AUTONOMOUS)                                       → /build-app
+  9-section implementation plan (template: pipeline/plan.md)
+  ↓
+PHASE 2: Build (AUTONOMOUS, milestone-driven)                    → /build-app
+  M1: Scaffold → M2: Screens → M3: Features
+  M4: Monetization (skip if free) → M5: Polish
+  QA after each milestone (pipeline/qa.md)
+  ↓
+PHASE 3: Finalization
+  Final QA → FINAL_VERDICT.md
+  ↓
+BUILD COMPLETE
+  ↓ (user iterates with /improve-app until satisfied)
+  ↓
+/market-app → ASO + research + marketing materials
+  ↓
+/release-app → build + screenshots + submit to stores
+```
+
+**Improve Mode**: user requests changes to an existing app → `/improve-app`
+**Headless Mode**: build from a pre-written PRD without interview → `/headless`
+
+---
+
+## DIRECTORY STRUCTURE
+
+```
+etnamute/
+├── CLAUDE.md
+├── .claude/
+│   ├── skills/                      # Slash commands + code quality skills
+│   ├── rules/                       # Auto-discovered build standards
+│   └── hooks/                       # Post-edit checks
+├── pipeline/                        # Shared references (skills are the primary source of truth)
+│   ├── qa.md                        # QA procedure (shared by multiple skills)
+│   ├── plan.md                      # Plan template (shared by /build-app and /headless)
+│   └── prd-schema.md                # PRD format specification
+├── scripts/
+│   ├── generate-assets.mjs
+│   ├── greenlight.sh
+│   └── clean.sh
+├── .mcp.json                        # mcpdoc (Expo + RevenueCat docs)
+└── apps/                            # One directory per app
+    └── <app-slug>/
+        ├── spec/                    # PRD, research, plan, design
+        │   ├── prd.md
+        │   ├── research.md
+        │   ├── plan.md
+        │   └── DESIGN.md           # From Stitch (optional)
+        ├── ralph/FINAL_VERDICT.md
+        ├── package.json
+        ├── app/, src/, assets/
+        ├── research/, aso/, marketing/
+        └── fastlane/, .maestro/     # Phase 4 (release)
+```
+
+### Output Contract
+
+Every app in `apps/<slug>/` MUST have:
+- `package.json`, `app.config.js`, `tsconfig.json`
+- `app/` with `_layout.tsx`, `index.tsx`, `home.tsx`, `settings.tsx`
+- `app/paywall.tsx` + `src/services/purchases.ts` — only if monetization enabled
+- `assets/icon.png` (1024x1024), `assets/splash.png`
+- `aso/`, `research/`, `marketing/` — generated via `/market-app` after code is finalized
+- `README.md`, `RUNBOOK.md`, `TESTING.md`, `LAUNCH_CHECKLIST.md`, `privacy_policy.md`
+
+---
+
+## MODES
+
+| Mode | Trigger | Behavior |
+|------|---------|----------|
+| **Discovery** | User describes an app | Interactive interview → research → PRD approval |
+| **Build** | User approves PRD | Autonomous: plan → milestones → QA. No stops, no questions. |
+| **QA (Ralph)** | After each milestone | Adversarial review from PRD. Fix until ≥97%. Max 3 iterations. |
+| **Improve** | User requests change to existing app | Read PRD + code → clarify → apply → verify |
+| **Headless** | User provides a PRD file path | Validate PRD → plan → build → QA. No interview. |
+| **Release** | User asks to deploy | Fastlane config → Maestro screenshots → build → submit |
+
+```
+Discovery ──[PRD approved]──▶ Build ──[milestone]──▶ QA ──[≥97%]──▶ Build (next)
+Headless  ──[PRD validated]──▶ Build (same as above)
+Build ──[all milestones + final QA]──▶ Complete ──[user request]──▶ Release
+Improve ──[changes + verify]──▶ Done ──[more changes]──▶ Improve (loop)
+```
+
+---
+
+## PHASE DETAILS
+
+### Phase 0: Discovery → `/spec-app`
+
+Interview → research → PRD generation → user approval.
+
+### Phase 1-2: Plan + Build → `/build-app`
+
+Plan (9 sections via `pipeline/plan.md`) → 5 milestones → QA after each (`pipeline/qa.md`).
+
+| Milestone | Deliverables | Tests |
+|-----------|-------------|-------|
+| M1: Scaffold | versions, package.json, NativeWind, jest setup | — |
+| M2: Screens | navigation, core UI | screen render tests |
+| M3: Features | core functionality, data | store + util + persistence tests |
+| M4: Monetization | RevenueCat, paywall — **skip if free** | paywall mock tests |
+| M5: Polish | onboarding, assets, docs | onboarding + settings tests |
+
+### Phase 3: Finalization
+
+Final QA → `apps/<slug>/ralph/FINAL_VERDICT.md` → BUILD COMPLETE.
+
+### Phase 4: Release → `/release-app`
+
+Pre-flight → fastlane config → screenshots → build → submit.
+
+---
+
+## GUARDRAILS
+
+Claude MUST:
+- Run discovery interview before building
+- Perform web research before generating PRD
+- Get explicit user approval on PRD before Phase 1
+- Resolve dependency versions from `npx create-expo-app@latest` during M1 (never hardcode)
+- Fetch API docs via mcpdoc before using ANY Expo module, NativeWind, Reanimated, or RevenueCat
+- Run Ralph QA after every milestone (≥97%)
+- Respect user's monetization choice
+
+Claude MUST NOT:
+- Skip the interview or web research
+- Start building without PRD approval
+- Stop or ask questions during build (Phase 1+)
+- Add monetization to a free app
+- Hallucinate market data without web search
+- Use `--legacy-peer-deps`, `--force`, or `--ignore-engines`
+- Write outside `apps/`
+
+---
+
+## TECHNOLOGY STACK
+
+Core choices (do NOT change):
+- **Expo** (latest stable SDK) with **Expo Router**
+- **NativeWind** for styling
+- **React Native Reanimated** for animations
+- **RevenueCat** for monetization (if enabled)
+- **expo-sqlite** + **AsyncStorage** for data
+- **Zustand** for state management
+- **TypeScript**
+
+**CRITICAL: Do NOT hardcode SDK versions.** During M1 (Scaffold), run:
+```bash
+npx create-expo-app@latest --template blank-typescript /tmp/expo-version-check
+```
+Extract exact compatible versions from its `package.json`, then delete it. Use those versions as the baseline for the app. This ensures all dependencies are compatible with the current Expo SDK.
+
+**NativeWind setup requires** (fetch docs via mcpdoc for current instructions):
+- `metro.config.js` with `withNativeWind` wrapper
+- `babel.config.js` with `nativewind/babel` preset
+- `global.css` imported in root layout
+
+**Expo Go compatibility**: apps MUST work in Expo Go (`npx expo start`). Do NOT use packages that require native builds, TurboModules, or New Architecture. Only Expo SDK packages (`expo-*`) and pure JS packages. Install via `npx expo install`, not `npm install`. See `.claude/rules/app-patterns.md` for the full rule and known incompatible packages.
+
+**Peer dependency conflicts**: use `"overrides"` in package.json to pin conflicting transitive deps. This is preferred over `--legacy-peer-deps` (which is forbidden).
+
+---
+
+## API DOCUMENTATION
+
+**MANDATORY**: Before writing ANY code that uses an Expo module or RevenueCat, fetch its documentation via `mcpdoc`. APIs change between SDK versions — your training data is likely outdated.
+
+Fetch docs for:
+- Every Expo SDK module before first use (expo-sqlite, expo-file-system, expo-notifications, etc.)
+- Expo Router before setting up navigation
+- NativeWind before configuring styling
+- RevenueCat before implementing monetization
+- React Native Reanimated before writing animations
+
+Available via mcpdoc (`.mcp.json`):
+- **Expo** (docs.expo.dev)
+- **RevenueCat** (revenuecat.com/docs)
+
+**Do NOT rely on memory for API signatures, config patterns, or import paths.** They change between versions. Always fetch.
+
+---
+
+## DEFAULTS
+
+| Aspect         | Default                                  |
+| -------------- | ---------------------------------------- |
+| Platform       | iOS + Android (Expo)                     |
+| Monetization   | Ask user (no default forced)             |
+| Data storage   | Local-only, offline-first (SQLite)       |
+| Backend        | None                                     |
+| Authentication | Guest-first (no login)                   |
+
+---
+
+## BUILD VERIFICATION
+
+Follow `pipeline/qa.md`. Three mandatory levels after EVERY milestone:
+
+1. **Build**: `npm install` + `npx tsc --noEmit` + `npx expo export` (bundle check)
+2. **Tests**: write and run Jest tests for stores, utils, screen renders
+3. **Runtime**: Maestro smoke test (if available) or Metro start verification
+
+ALL three must pass before proceeding.
+
+**CRITICAL**: `npx expo export` catches bundle errors but NOT runtime errors. APIs that bundle correctly can still crash at runtime (e.g., changed SDK APIs). Level 3 (actually running the app on simulator and checking logs for errors) is MANDATORY, not optional. Do NOT declare BUILD COMPLETE until the app runs on simulator without runtime errors.
+
+---
+
+## COMPLETION
+
+When build is complete, write to `apps/<slug>/ralph/FINAL_VERDICT.md`:
+
+```
+PIPELINE: etnamute v1.0.0
+OUTPUT: apps/<slug>/
+RALPH_VERDICT: PASS (≥97%)
+TIMESTAMP: <ISO-8601>
+
+VERIFIED:
+- [ ] Discovery interview conducted
+- [ ] Web research performed
+- [ ] PRD approved by user
+- [ ] All milestones complete
+- [ ] Ralph PASS achieved
+- [ ] npm install succeeds
+- [ ] npx expo start works
+- [ ] RevenueCat integrated (if monetization enabled)
+- [ ] All code deliverables present (research/ASO/marketing generated separately via /market-app)
+```
+
+Then output:
+```
+BUILD COMPLETE
+
+App: <app-name>
+Location: apps/<slug>/
+
+To run:
+  cd apps/<slug>
+  npm install
+  npx expo start
+```
+
+---
+
+## ERROR RECOVERY
+
+| Error | Recovery |
+|-------|----------|
+| WebSearch unavailable | Mark PRD sections `[UNVALIDATED]`, inform user |
+| Ralph fails after 3 iterations | Document blockers, inform user |
+| npm install / expo start fails | Fix root cause, retry |
+| User abandons interview | Resume from last answered question |
+
+### Drift Detection
+
+Halt and reassess if:
+- About to write outside `apps/`
+- About to add monetization to a free app
+- About to skip interview or research
+- Quality stays below 97% after 3 Ralph iterations
+
+---
+
+## APPLE APP STORE COMPLIANCE
+
+Run `scripts/greenlight.sh apps/<slug>/` after build verification.
+
+CRITICAL and HIGH findings must be fixed before shipping.
+
+---
+> Source: [bes-dev/etnamute](https://github.com/bes-dev/etnamute) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
