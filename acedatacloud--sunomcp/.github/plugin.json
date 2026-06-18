@@ -1,0 +1,9 @@
+{
+  "name": "acedatacloud--sunomcp",
+  "displayName": "SunoMCP",
+  "description": "MCP server for Suno AI music generation, lyrics, and cover workflows via Ace Data Cloud.",
+  "version": "1.0.0",
+  "author": "AceDataCloud",
+  "homepage": "https://github.com/AceDataCloud/SunoMCP",
+  "skills": []
+}
