@@ -1,0 +1,9 @@
+{
+  "name": "neilsonnn--image-blaster",
+  "displayName": "image-blaster",
+  "description": "An image-to-world skillset for Claude.",
+  "version": "1.0.0",
+  "author": "neilsonnn",
+  "homepage": "https://github.com/neilsonnn/image-blaster",
+  "skills": []
+}
