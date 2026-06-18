@@ -4,7 +4,7 @@
   "repo": "agent-belay",
   "description": "Let your AI move fast without breaking things.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikepenz/agent-belay",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T20:59:49Z"
+  "distributed_at": "2026-06-18T02:50:07Z"
 }
