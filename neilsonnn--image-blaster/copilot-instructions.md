@@ -1,21 +1,35 @@
-## image-blast-composition
+## image-blaster-development
 
-> Keep Image Blast state composable, colocated, and derived from generated files
+> Cursor-only development guidance for the IMAGE-BLASTER repository
 
 
-# Image Blast Composition
+# IMAGE-BLASTER Development
 
-- Follow `.claude/rules/project.md` as the canonical Image Blast file convention for the end user (Claude Code users). Keep this Cursor rule as reinforcement only.
-- Simplification is the top priority. Prefer deleting state, helpers, manifests, and orchestration layers when the directory layout and small JSON files already explain what happened.
-- Use one generic convention for generated things: visible indexed artifacts plus colocated hidden request JSON. Do not create object-specific, SFX-specific, plate-specific, or asset-type-specific state systems.
-- Agents should inspect generated state with `ls -a <directory>` first. A directory listing should be enough to understand high-level progress; read visible artifacts or hidden request JSON only when more detail is needed.
-- Keep durable JSON tiny. Store identity, user-authored intent, provenance, and API inputs that cannot be inferred from files. Do not duplicate generated file lists, counts, stages, completion status, or request lifecycle in central JSON or `object.json`.
-- Avoid helper creep. Do not add directory-specific snapshot helpers or wrappers for simple operations an agent can infer from `ls -a`, indexed filenames, and small JSON files. Keep helpers generic, rare, and clearly worth their complexity.
-- For paid or long-running requests, persist request IDs before polling in colocated hidden request JSON. Request metadata should be compact, sanitized, and named with the indexed convention `.N-slug-request.json`.
-- Invoke generation through matching background agents, not parallel Skill calls: `Agent(image-blast-world)`, `Agent(image-blast-3d)`, `Agent(image-blast-sfx)`, `Agent(image-blast-plate)`, or `Agent(image-blast-image-edit)`.
-- Align generated artifacts with request indexes so related files are easy to inspect together, such as `0-object.png`, `0-object.glb`, `.0-object__image-request.json`, and `.0-object__model-request.json`.
-- Read request semantics like `kind`, `role`, provider, and status from JSON contents, not from filename suffixes.
-- Do not preserve compatibility with unshipped branch state. If a JSON shape is wrong or bloated, replace it outright instead of layering legacy shims.
+- This Cursor rule is for repository development in Cursor only. Do not mirror this into root `CLAUDE.md`; Claude Code end users should consume `.claude/rules/project.md` and `.claude/skills/*/SKILL.md`.
+- IMAGE-BLASTER has two main parts:
+  - Claude Skills in `.claude/skills/`, backed by scripts in `.claude/scripts/`.
+  - The React viewer in `app/`, built with TypeScript, Vite, React Three Fibre, SparkJS, Leva, Wouter, and Tailwind CSS.
+- The shared working area is `worlds/`, and staged user input starts in `input/`. Both are gitignored.
+- The canonical Image Blast file convention lives in `.claude/rules/project.md`. Keep generated state simple: `ls -a` first, visible indexed artifacts for outputs, hidden request JSON for request/resume details.
+- Environment keys:
+  - `WORLD_LABS_API_KEY` for `/image-blast-world`.
+  - `FAL_KEY` for `/image-blast-3d`, `/image-blast-sfx`, and FAL-backed image editing.
+- The repository root is the Bun workspace root. Run package-manager commands from the root; do not create ad hoc root dependencies outside the workspace.
+  - `bun install`
+  - `bun run dev`
+  - `bun run build`
+  - `bun run test`
+  - `bun run typecheck`
+- The React viewer package lives in `app/`. If you need to target it directly, use root commands with `--cwd=app`:
+  - `bun --cwd=app run dev`
+  - `bun --cwd=app run build`
+  - `bun --cwd=app run test`
+  - `bun --cwd=app run typecheck`
+- `worlds/<slug>/scene/project.json` is the shared Three.js editor scene contract. It uses the Three.js editor App format and is loaded by the React app through `THREE.ObjectLoader`.
+- Keep the React viewer modular. Character controller, audio, post-processing, loading transitions, scene objects, and splat rendering should remain independent modules composed at the scene level.
+- Use `wouter` for routing. The active world is driven by `/<world-name>`, and `/` loads the first available world.
+- Mobile support matters. Character controls should support touch input alongside keyboard/mouse.
+- FAL and World Labs API calls belong in implementation scripts, not standalone direct-use skills. Skills should stay thin workflow wrappers.
 
 ---
 > Source: [neilsonnn/image-blaster](https://github.com/neilsonnn/image-blaster) — distributed by [TomeVault](https://tomevault.io).
