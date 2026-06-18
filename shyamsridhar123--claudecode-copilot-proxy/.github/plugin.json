@@ -1,0 +1,9 @@
+{
+  "name": "shyamsridhar123--claudecode-copilot-proxy",
+  "displayName": "ClaudeCode-Copilot-Proxy",
+  "description": "Proxy server enabling Claude Code to work seamlessly with GitHub Copilot. Bridges AI coding assistants for enhanced developer experience.",
+  "version": "1.0.0",
+  "author": "shyamsridhar123",
+  "homepage": "https://github.com/shyamsridhar123/ClaudeCode-Copilot-Proxy",
+  "skills": []
+}
