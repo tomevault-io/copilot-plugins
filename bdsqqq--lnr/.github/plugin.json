@@ -1,7 +1,7 @@
 {
   "name": "bdsqqq--lnr",
   "displayName": "lnr",
-  "description": "lnr",
+  "description": "command-line interface for Linear. ships as a single binary via bun.",
   "version": "1.0.0",
   "author": "bdsqqq",
   "homepage": "https://github.com/bdsqqq/lnr",
