@@ -7,11 +7,11 @@ Conversational literature research workflow for agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yrc-better/RTI](https://github.com/yrc-better/RTI).
+Original source: `CLAUDE.md` in [yrc-better/RTI](https://github.com/yrc-better/RTI).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
