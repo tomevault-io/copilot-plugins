@@ -1,0 +1,9 @@
+{
+  "name": "tuxevil--pi-antigravity-rotator",
+  "displayName": "pi-antigravity-rotator",
+  "description": "Intelligent multi-account rotation proxy for Google Antigravity with per-model routing, real-time quota tracking, automatic token management, and infringement detection.",
+  "version": "1.0.0",
+  "author": "tuxevil",
+  "homepage": "https://github.com/tuxevil/pi-antigravity-rotator",
+  "skills": []
+}
