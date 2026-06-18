@@ -1,0 +1,9 @@
+{
+  "name": "siddik-web--create-wp-plugin",
+  "displayName": "create-wp-plugin",
+  "description": "\u26a1 A modern WordPress plugin boilerplate generator to quickly scaffold clean, scalable, and maintainable plugins.",
+  "version": "1.0.0",
+  "author": "siddik-web",
+  "homepage": "https://github.com/siddik-web/create-wp-plugin",
+  "skills": []
+}
