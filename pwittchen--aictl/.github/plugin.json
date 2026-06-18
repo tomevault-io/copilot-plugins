@@ -1,0 +1,9 @@
+{
+  "name": "pwittchen--aictl",
+  "displayName": "aictl",
+  "description": "    \ud83e\udd16 Native AI agent for your terminal and macOS desktop. Run cloud and local models through one secure runtime.",
+  "version": "1.0.0",
+  "author": "pwittchen",
+  "homepage": "https://github.com/pwittchen/aictl",
+  "skills": []
+}
