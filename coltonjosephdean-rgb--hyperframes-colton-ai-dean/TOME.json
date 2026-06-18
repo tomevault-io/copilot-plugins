@@ -4,7 +4,7 @@
   "repo": "Hyperframes-colton.ai.dean",
   "description": "Clone-and-go AI short-form video editing workspace for Claude Code. Paste the repo link, say 'clone this repo and help me get set up', and it learns your style from your favorite reels. Built on Hyperframes.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/coltonjosephdean-rgb/Hyperframes-colton.ai.dean",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T11:25:30Z"
+  "distributed_at": "2026-06-18T17:17:06Z"
 }
