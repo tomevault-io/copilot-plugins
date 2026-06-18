@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--build26-brk223-from-rows-to-reasoning-designing-databases-for-ai-apps-and-agents",
+  "displayName": "Build26-BRK223-from-rows-to-reasoning-designing-databases-for-ai-apps-and-agents",
+  "description": "Demo-rich session resources covering SQL Database, Azure Cosmos DB, and Azure HorizonDB innovations for building AI apps that reason over operational data. From Microsoft Build 2026.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/Build26-BRK223-from-rows-to-reasoning-designing-databases-for-ai-apps-and-agents",
+  "skills": []
+}
