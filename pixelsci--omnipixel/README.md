@@ -7,11 +7,11 @@ OmniPixel is an all-in-one AI assistant
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [PixelSci/OmniPixel](https://github.com/PixelSci/OmniPixel).
+Original source: `CLAUDE.md` in [PixelSci/OmniPixel](https://github.com/PixelSci/OmniPixel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
