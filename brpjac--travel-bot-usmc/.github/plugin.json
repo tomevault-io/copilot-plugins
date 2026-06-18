@@ -1,0 +1,9 @@
+{
+  "name": "brpjac--travel-bot-usmc",
+  "displayName": "travel-bot-usmc",
+  "description": "RAG chatbot for USMC reserve Marines to query travel regulations (JTR, MCRAMM, MARADMINs)",
+  "version": "1.0.0",
+  "author": "brpjac",
+  "homepage": "https://github.com/brpjac/travel-bot-usmc",
+  "skills": []
+}
