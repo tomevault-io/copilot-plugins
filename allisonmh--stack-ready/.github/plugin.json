@@ -1,0 +1,9 @@
+{
+  "name": "allisonmh--stack-ready",
+  "displayName": "stack-ready",
+  "description": "A RAG interview prep agent",
+  "version": "1.0.0",
+  "author": "AllisonMH",
+  "homepage": "https://github.com/AllisonMH/stack-ready",
+  "skills": []
+}
