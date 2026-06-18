@@ -1,0 +1,9 @@
+{
+  "name": "arniesaha--nixclaw",
+  "displayName": "NixClaw",
+  "description": "Multi-mode AI assistant for Meta Ray-Ban smart glasses, iPhone camera, or just voice. Built on Gemini Live + OpenClaw.",
+  "version": "1.0.0",
+  "author": "arniesaha",
+  "homepage": "https://github.com/arniesaha/NixClaw",
+  "skills": []
+}
