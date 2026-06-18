@@ -4,7 +4,7 @@
   "repo": "iam-git-with-intent",
   "description": "AI-powered git workflow automation. Smart commit messages, changelogs, PR descriptions, and release notes using LLM analysis of diffs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeremylongshore/iam-git-with-intent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T16:54:29Z"
+  "distributed_at": "2026-06-18T22:51:58Z"
 }
