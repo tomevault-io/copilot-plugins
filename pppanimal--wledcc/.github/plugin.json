@@ -1,0 +1,9 @@
+{
+  "name": "pppanimal--wledcc",
+  "displayName": "WLEDCC",
+  "description": "WLED Command Center.  Discovers and Controls all WLED, MAGICHOME and LEDFX devices from one screen.  Handles Updates to devices and installs LEDFX.  Record and play scenes/presets saved in WLED and LE",
+  "version": "1.0.0",
+  "author": "PPPAnimal",
+  "homepage": "https://github.com/PPPAnimal/WLEDCC",
+  "skills": []
+}
