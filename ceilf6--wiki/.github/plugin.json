@@ -1,0 +1,9 @@
+{
+  "name": "ceilf6--wiki",
+  "displayName": "Wiki",
+  "description": "\u4e0e LLM \u4e00\u8d77\u7ef4\u62a4\u7684\u77e5\u8bc6\u5e93\uff0c\u4f9b FrontAgent \u589e\u5f3a\u68c0\u7d22\u751f\u6210 | Knowledge base for FrontAgent RAG",
+  "version": "1.0.0",
+  "author": "ceilf6",
+  "homepage": "https://github.com/ceilf6/Wiki",
+  "skills": []
+}
