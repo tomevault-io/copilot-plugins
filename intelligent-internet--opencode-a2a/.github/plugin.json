@@ -1,0 +1,9 @@
+{
+  "name": "intelligent-internet--opencode-a2a",
+  "displayName": "opencode-a2a",
+  "description": "Expose OpenCode through A2A with an inbound server surface and embedded outbound client.",
+  "version": "1.0.0",
+  "author": "Intelligent-Internet",
+  "homepage": "https://github.com/Intelligent-Internet/opencode-a2a",
+  "skills": []
+}
