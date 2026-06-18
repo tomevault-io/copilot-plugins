@@ -1,0 +1,9 @@
+{
+  "name": "ethiquema--ryu-ldn-nx",
+  "displayName": "ryu_ldn_nx",
+  "description": "Atmosphere sysmodule that bridges Nintendo Switch LDN multiplayer to Ryujinx LDN protocol (RyuLDN) \u2014 replaces ldn_mitm + lan-play with a single zero-config sysmodule. Native to the console, Out Of The",
+  "version": "1.0.0",
+  "author": "Ethiquema",
+  "homepage": "https://github.com/Ethiquema/ryu_ldn_nx",
+  "skills": []
+}
