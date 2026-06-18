@@ -1,0 +1,9 @@
+{
+  "name": "kexuejin--crabshell",
+  "displayName": "crabshell",
+  "description": "Android APK/AAB hardening toolkit with Rust packer, encrypted DEX/native payload, and shell runtime bootstrap.",
+  "version": "1.0.0",
+  "author": "kexuejin",
+  "homepage": "https://github.com/kexuejin/crabshell",
+  "skills": []
+}
