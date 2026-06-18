@@ -1,0 +1,44 @@
+{
+  "name": "T2DECODE",
+  "owner": "TUTODECODE-FR",
+  "repo": "T2DECODE",
+  "description": "T2DECODE \u2014 plateforme locale d\u2019apprentissage technique et cybers\u00e9curit\u00e9, offline-first, sans cloud, avec outils int\u00e9gr\u00e9s et IA locale optionnelle.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TUTODECODE-FR/T2DECODE",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T22:59:12Z"
+}
