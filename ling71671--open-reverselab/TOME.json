@@ -4,7 +4,7 @@
   "repo": "open-reverselab",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LING71671/open-reverselab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T15:30:29Z"
+  "distributed_at": "2026-06-18T22:32:51Z"
 }
