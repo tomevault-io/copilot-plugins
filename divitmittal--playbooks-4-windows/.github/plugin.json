@@ -1,0 +1,9 @@
+{
+  "name": "divitmittal--playbooks-4-windows",
+  "displayName": "playbooks-4-windows",
+  "description": "Ansible playbooks for Windows configuration management",
+  "version": "1.0.0",
+  "author": "DivitMittal",
+  "homepage": "https://github.com/DivitMittal/playbooks-4-windows",
+  "skills": []
+}
