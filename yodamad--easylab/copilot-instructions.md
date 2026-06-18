@@ -1,15 +1,28 @@
-## htmx-with-go-additional-instructions
+## no-inline-styles
 
-> HTML template conventions for EasyLab — HTMX patterns, template structure, and frontend guidelines.
+> Enforce CSS classes over inline styles in HTML templates — all visual styling must live in web/static/style.css.
 
-- Use semantic HTML5 elements with HTMX attributes (hx-get, hx-post, hx-target, hx-swap)
-- Follow the base template pattern: extend web/base.html, define {{block "title"}}, {{block "content"}}, {{block "scripts"}}
-- Prefer HTMX interactions over custom JavaScript — JS is only for logic HTMX can't handle
-- Use hx-trigger="load, every 10s" for polling job status updates
-- Keep page-specific JS in web/static/{page-name}.js
-- Style with the existing web/static/style.css — use existing CSS classes (btn, error-message, success-message, etc.)
-- Escape dynamic content with template.HTMLEscapeString to prevent XSS
-- Do NOT modify existing templates unless explicitly asked by the user
+
+# No Inline Styles
+
+NEVER use inline `style="..."` attributes in HTML templates. All styling must be defined as CSS classes in `web/static/style.css`.
+
+```html
+<!-- BAD -->
+<textarea style="width: 100%; font-family: monospace; font-size: 0.85rem;"></textarea>
+<div style="display: none; text-align: center;">...</div>
+
+<!-- GOOD -->
+<textarea class="monospace"></textarea>
+<div class="hidden text-center">...</div>
+```
+
+When you need new visual styles:
+1. Add a CSS class in `web/static/style.css`
+2. Reuse existing classes when possible (check the file first)
+3. Apply the class in HTML via the `class` attribute
+
+The only acceptable inline style is `style="display: none;"` for elements whose visibility is toggled by JavaScript at runtime.
 
 ---
 > Source: [yodamad/easylab](https://github.com/yodamad/easylab) — distributed by [TomeVault](https://tomevault.io).
