@@ -4,7 +4,7 @@
   "repo": "laptop-finder-ai",
   "description": "AI-powered laptop recommendation system with RAG chat, side-by-side comparison, and smart filtering. Built with Next.js 15, FastAPI, PostgreSQL + pgvector, and GPT-4o.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aiagentwithdhruv/laptop-finder-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T17:03:21Z"
+  "distributed_at": "2026-06-18T18:57:52Z"
 }
