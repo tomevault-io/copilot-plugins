@@ -7,11 +7,11 @@ Orchestrate sandboxed agents that run in the cloud while you work. Fully open so
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vvedantb/eva](https://github.com/vvedantb/eva).
+Original source: `CLAUDE.md` in [vvedantb/eva](https://github.com/vvedantb/eva).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
