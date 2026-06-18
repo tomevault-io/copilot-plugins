@@ -1,0 +1,9 @@
+{
+  "name": "auditmos--saas-on-cf",
+  "displayName": "saas-on-cf",
+  "description": "Multi-app SaaS monorepo \u2014 TanStack Start frontend + Hono API on Cloudflare Workers, Better Auth, Neon Postgres + Drizzle, shadcn/ui, service bindings.",
+  "version": "1.0.0",
+  "author": "auditmos",
+  "homepage": "https://github.com/auditmos/saas-on-cf",
+  "skills": []
+}
