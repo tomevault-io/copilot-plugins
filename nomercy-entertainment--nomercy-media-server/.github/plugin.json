@@ -1,0 +1,9 @@
+{
+  "name": "nomercy-entertainment--nomercy-media-server",
+  "displayName": "nomercy-media-server",
+  "description": "NoMercy MediaServer, the backend that handles encoding, metadata, and streaming",
+  "version": "1.0.0",
+  "author": "NoMercy-Entertainment",
+  "homepage": "https://github.com/NoMercy-Entertainment/nomercy-media-server",
+  "skills": []
+}
