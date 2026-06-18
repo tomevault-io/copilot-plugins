@@ -1,0 +1,9 @@
+{
+  "name": "kriscard--skills",
+  "displayName": "Skills",
+  "description": "A opinionated collection of agent skills organized by domain: dev, writing, productivity, and knowledge management ",
+  "version": "1.0.0",
+  "author": "kriscard",
+  "homepage": "https://github.com/kriscard/Skills",
+  "skills": []
+}
