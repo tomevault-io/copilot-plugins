@@ -1,0 +1,30 @@
+## claude-code-config
+
+> This file provides guidance to Claude Code (claude.ai/code) across all sessions for this user. It is loaded as user-level memory regardless of working directory.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) across all sessions for this user. It is loaded as user-level memory regardless of working directory.
+
+## About me
+
+- Independent developer working on solo projects under the philoserf umbrella.
+- Primary languages: Go and TypeScript.
+
+## Response style
+
+- Terse. No preamble, no trailing summaries unless asked.
+
+## Tool defaults
+
+- Obsidian CLI: default to `vault=notes` unless another vault is named.
+
+## Environment
+
+- macOS with zsh as the shell. Write shell scripts for zsh, not bash — no bash-only syntax like associative arrays (`declare -A`, `${!arr[@]}`).
+- BSD userland, not GNU: `sed -i ''` needs the empty backup arg; `date`/`grep`/`find` lack some GNU flags. GNU versions are brew-installed as `gsed`/`gdate`/etc.
+- zsh ties lowercase `path`, `cdpath`, `fpath`, `manpath` to their uppercase `PATH`-style env vars. Never use them as variable names — e.g. `while read -r f path` silently overwrites `$PATH`, after which every external command fails with "command not found". Use `p`, `fname`, etc. instead.
+
+---
+> Source: [philoserf/claude-code-config](https://github.com/philoserf/claude-code-config) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
