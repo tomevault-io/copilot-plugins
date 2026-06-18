@@ -1,0 +1,9 @@
+{
+  "name": "coherentforge--cambios",
+  "displayName": "CambiOS",
+  "description": "Zero-trust, capability-based Rust microkernel targeting formal verification. Tri-arch (x86_64 / AArch64 / RISC-V). Sovereign and generative: no telemetry, user owns keys and data. Early-stage \u2014 see ST",
+  "version": "1.0.0",
+  "author": "coherentforge",
+  "homepage": "https://github.com/coherentforge/CambiOS",
+  "skills": []
+}
