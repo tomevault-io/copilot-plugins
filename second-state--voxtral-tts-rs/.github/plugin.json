@@ -1,0 +1,9 @@
+{
+  "name": "second-state--voxtral-tts-rs",
+  "displayName": "voxtral_tts_rs",
+  "description": "Rust CLI and API server for Voxtral TTS from Mistral",
+  "version": "1.0.0",
+  "author": "second-state",
+  "homepage": "https://github.com/second-state/voxtral_tts_rs",
+  "skills": []
+}
