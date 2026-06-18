@@ -5,10 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [op7418/Claude-to-IM-skill](https://github.com/op7418/Claude-to-IM-skill).
+Original source: `` in [op7418/Claude-to-IM-skill](https://github.com/op7418/Claude-to-IM-skill).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
