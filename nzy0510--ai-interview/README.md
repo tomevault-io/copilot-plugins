@@ -7,11 +7,11 @@ InterWise 是一个可自部署的、面向技术面试训练的 AI 模拟面试
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nzy0510/AI-Interview](https://github.com/nzy0510/AI-Interview).
+Original source: `CLAUDE.md` in [nzy0510/AI-Interview](https://github.com/nzy0510/AI-Interview).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
