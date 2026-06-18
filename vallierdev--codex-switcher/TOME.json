@@ -1,0 +1,44 @@
+{
+  "name": "codex-switcher",
+  "owner": "VallierDev",
+  "repo": "codex-switcher",
+  "description": "Codex CLI / Codex App \u591a\u8d26\u53f7\u684c\u9762\u5de5\u5177\uff1a\u8d26\u53f7\u7ba1\u7406\u3001\u914d\u989d\u89c2\u5bdf\u3001\u672c\u5730\u4ee3\u7406\u3001\u65e0\u635f\u81ea\u52a8\u5207\u53f7\u3001\u4e2d\u8f6c\u7ad9\u3001Coding Plan \u63a5\u5165\uff1b\u9650\u989d\u65f6\u81ea\u52a8\u6362\u53f7/\u5207\u4e2d\u8f6c/\u63a5 GLM \u6216 MiMo \u5e76\u91cd\u53d1\u3002 Desktop switcher for Codex CLI/App accounts, relay endpoints, GLM/MiMo Coding Plan, and lossless proxy retries.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/VallierDev/codex-switcher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T03:07:48Z"
+}
