@@ -1,0 +1,9 @@
+{
+  "name": "alexhegit--reachyminichat",
+  "displayName": "ReachyMiniChat",
+  "description": "A private conversation robot bases on Huggingface Reachy Mini",
+  "version": "1.0.0",
+  "author": "alexhegit",
+  "homepage": "https://github.com/alexhegit/ReachyMiniChat",
+  "skills": []
+}
