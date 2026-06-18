@@ -1,0 +1,9 @@
+{
+  "name": "asaptf--swift-os",
+  "displayName": "swift-os",
+  "description": "OS written in Embedded Swift",
+  "version": "1.0.0",
+  "author": "asaptf",
+  "homepage": "https://github.com/asaptf/swift-os",
+  "skills": []
+}
