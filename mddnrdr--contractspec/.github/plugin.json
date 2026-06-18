@@ -1,0 +1,9 @@
+{
+  "name": "mddnrdr--contractspec",
+  "displayName": "contractspec",
+  "description": "The deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.",
+  "version": "1.0.0",
+  "author": "mddnrdr",
+  "homepage": "https://github.com/mddnrdr/contractspec",
+  "skills": []
+}
