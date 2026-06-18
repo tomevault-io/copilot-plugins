@@ -7,11 +7,11 @@ A learning agent that teaches through questions, problems, and active recall. Su
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [luqs1/learning-agent](https://github.com/luqs1/learning-agent).
+Original source: `CLAUDE.md` in [luqs1/learning-agent](https://github.com/luqs1/learning-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
