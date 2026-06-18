@@ -1,0 +1,9 @@
+{
+  "name": "kissgyorgy--coding-agents",
+  "displayName": "coding-agents",
+  "description": "Nix packages, skills, extensions for coding-agents (Claude Code, Gemini CLI, Pi Coding Agent, Codex)",
+  "version": "1.0.0",
+  "author": "kissgyorgy",
+  "homepage": "https://github.com/kissgyorgy/coding-agents",
+  "skills": []
+}
