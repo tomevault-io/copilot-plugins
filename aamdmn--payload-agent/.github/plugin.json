@@ -1,0 +1,9 @@
+{
+  "name": "aamdmn--payload-agent",
+  "displayName": "payload-agent",
+  "description": "control PayloadCMS with AI agent from Slack, Telegram, Whatsapp and more",
+  "version": "1.0.0",
+  "author": "aamdmn",
+  "homepage": "https://github.com/aamdmn/payload-agent",
+  "skills": []
+}
