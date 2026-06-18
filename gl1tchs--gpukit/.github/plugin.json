@@ -1,0 +1,9 @@
+{
+  "name": "gl1tchs--gpukit",
+  "displayName": "gpukit",
+  "description": "High-performance rendering interface and compute framework over Vulkan API ",
+  "version": "1.0.0",
+  "author": "Gl1tchs",
+  "homepage": "https://github.com/Gl1tchs/gpukit",
+  "skills": []
+}
