@@ -1,0 +1,9 @@
+{
+  "name": "veildb--veildb",
+  "displayName": "veildb",
+  "description": "Easily anonymize and mask sensitive data in databases. Effortless database dump sharing",
+  "version": "1.0.0",
+  "author": "veildb",
+  "homepage": "https://github.com/veildb/veildb",
+  "skills": []
+}
