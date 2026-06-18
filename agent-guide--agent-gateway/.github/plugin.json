@@ -1,0 +1,9 @@
+{
+  "name": "agent-guide--agent-gateway",
+  "displayName": "agent-gateway",
+  "description": "An AI gateway for LLM and agent workloads",
+  "version": "1.0.0",
+  "author": "agent-guide",
+  "homepage": "https://github.com/agent-guide/agent-gateway",
+  "skills": []
+}
