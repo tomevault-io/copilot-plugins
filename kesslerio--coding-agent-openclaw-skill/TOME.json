@@ -4,7 +4,7 @@
   "repo": "coding-agent-openclaw-skill",
   "description": "Coding agent skill for Moltbot - orchestrates Codex, Claude Code, Gemini, Pi, and OpenCode CLIs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kesslerio/coding-agent-openclaw-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T17:01:08Z"
+  "distributed_at": "2026-06-18T23:01:25Z"
 }
