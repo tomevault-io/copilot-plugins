@@ -1,0 +1,9 @@
+{
+  "name": "kesslerio--calendly-cli-openclaw-skill",
+  "displayName": "calendly-cli-openclaw-skill",
+  "description": "calendly-cli-openclaw-skill",
+  "version": "1.0.0",
+  "author": "kesslerio",
+  "homepage": "https://github.com/kesslerio/calendly-cli-openclaw-skill",
+  "skills": []
+}
