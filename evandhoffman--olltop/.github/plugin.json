@@ -1,0 +1,9 @@
+{
+  "name": "evandhoffman--olltop",
+  "displayName": "olltop",
+  "description": "Real-time tok/s monitor for Ollama using eBPF (Linux) and pcap (macOS)",
+  "version": "1.0.0",
+  "author": "evandhoffman",
+  "homepage": "https://github.com/evandhoffman/olltop",
+  "skills": []
+}
