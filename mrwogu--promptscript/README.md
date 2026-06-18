@@ -7,11 +7,11 @@ Prompt-as-Code for Enterprise AI. Standardize, audit, and deploy instructions ac
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mrwogu/promptscript](https://github.com/mrwogu/promptscript).
+Original source: `CLAUDE.md` in [mrwogu/promptscript](https://github.com/mrwogu/promptscript).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
