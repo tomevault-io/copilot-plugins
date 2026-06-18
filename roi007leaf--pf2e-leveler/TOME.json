@@ -4,7 +4,7 @@
   "repo": "pf2e-leveler",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/roi007leaf/pf2e-leveler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T21:08:31Z"
+  "distributed_at": "2026-06-18T02:53:10Z"
 }
