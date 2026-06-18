@@ -1,0 +1,9 @@
+{
+  "name": "deytahq--khora",
+  "displayName": "khora",
+  "description": "Library for creating knowledge repositories from multi-source data and expose a single query substrate",
+  "version": "1.0.0",
+  "author": "DeytaHQ",
+  "homepage": "https://github.com/DeytaHQ/khora",
+  "skills": []
+}
