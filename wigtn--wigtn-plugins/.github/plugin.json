@@ -1,0 +1,9 @@
+{
+  "name": "wigtn--wigtn-plugins",
+  "displayName": "wigtn-plugins",
+  "description": "Claude Code Plugins for AI Native-based Engineer",
+  "version": "1.0.0",
+  "author": "wigtn",
+  "homepage": "https://github.com/wigtn/wigtn-plugins",
+  "skills": []
+}
