@@ -1,0 +1,482 @@
+## flashinfer-competition-codebase
+
+> - **Never use em dashes** (the "—" character). Use parentheses, commas, colons, semicolons, or split into separate sentences instead.
+
+# FlashInfer AI Kernel Generation Contest - GDN Track
+
+## Writing Style
+- **Never use em dashes** (the "—" character). Use parentheses, commas, colons, semicolons, or split into separate sentences instead.
+
+## Code Style
+- **Don't duplicate logic across local and Modal scripts.** Extract shared logic into a function in the local script, then have the Modal script import and call it (see `bench_nvbench.py` / `bench_nvbench_modal.py` pattern).
+
+## Team
+- Team name: **lmu-css**
+- Track: **gated_delta_net** (Gated Delta Net)
+
+## Project Structure
+- `config.toml` — Solution metadata and build config. `definition` must match the exact definition name (e.g. `gdn_decode_qk4_v8_d128_k_last`), not the track name.
+- `solution/triton/kernel.py` — Triton/Python kernel implementation. Entry point is a regular Python function (not necessarily `@triton.jit`).
+- `solution/cuda/kernel.cu` — CUDA C++ kernel with TVM FFI export (`TVM_FFI_DLL_EXPORT_TYPED_FUNC`).
+- `solution/cuda/binding.py` — Local Python binding via `tvm_ffi.cpp.build()` + `@register_global_func`.
+- `scripts/` — Python package (has `__init__.py`). All scripts run as modules: `python -m scripts.X`.
+  - `shared.py` — Shared constants: `ALGO_ENTRY_POINTS`, `ALGO_LANGUAGES`, `PROJECT_ROOT`, `parse_args()`.
+  - `pack_solution.py` — Packs solution into `solution.json`.
+  - `run_local.py` — Local benchmark runner.
+  - `run_modal.py` — Cloud benchmark (B200 GPUs via Modal).
+  - `modal_config.py` — Shared Modal infrastructure (image, volume, `TRACE_SET_PATH`).
+  - `profile_proton.py` — Proton intra-kernel profiling. Also exports `load_workload_tensors()`.
+  - `profile_ncu.py` — NCU profiling (launched by `ncu`, not run directly).
+  - `bench_nvbench.py` — NVBench timing validation.
+  - `bench_nvbench_modal.py` — NVBench on Modal B200.
+  - `bench_fi_timing.py` — FlashInfer `bench_gpu_time` with CUPTI (pure GPU kernel time). Also used by Modal script.
+  - `bench_fi_timing_modal.py` — FlashInfer CUPTI timing on Modal B200.
+  - `log_speedups.py` — Parse bench logs into `findings/speedups.csv`.
+
+### Import conventions
+- `scripts/` and `solution/` are both Python packages (have `__init__.py`).
+- All scripts are invoked as modules: `python -m scripts.run_local`, `modal run -m scripts.run_modal`.
+- Within `scripts/`, use **relative imports**: `from .shared import ALGO_ENTRY_POINTS`.
+- For kernel imports: `from solution.triton.kernel import ...` (works because `-m` adds CWD to sys.path).
+- No `sys.path` manipulation, except inside Modal remote functions (container mounts at `/root/`).
+- To add a new algo: add one entry to `ALGO_ENTRY_POINTS` in `shared.py`, add one wrapper function in `kernel.py`. For non-Triton algos, also add an entry to `ALGO_LANGUAGES`.
+
+## Environment
+- Venv: `.venv/` in project root
+- Packages: `flashinfer-bench`, `modal`, `torch`, `triton`
+- Dataset: `~/code/mlsys26-contest` (env var `FIB_DATASET_PATH`, set in `~/.bashrc`)
+
+## Config Notes
+- `entry_point` format: `kernel.py::kernel_fla_recurrent` (Triton) or `kernel.cu::kernel_cuda` (CUDA TVM FFI)
+- `definition` must be the exact definition name from the dataset (e.g. `gdn_decode_qk4_v8_d128_k_last`), not the track name (`gated_delta_net`)
+- DPS (Destination Passing Style) is default: kernel receives pre-allocated output tensors as extra args
+- `language="triton"` uses PythonBuilder (imports .py, calls function). `language="cuda"` uses TVMFFIBuilder (compiles .cu, exports via TVM FFI). The `ALGO_LANGUAGES` dict in `shared.py` overrides the default from config.toml.
+
+## What is GDN?
+
+GDN (Gated Delta Net) is an **alternative to softmax attention** for LLMs. It replaces the O(n) per-token attention decode with an O(1) recurrent state update. Used in production: Qwen3-Next-80B (75% GDN layers), Kimi Linear-48B.
+
+### GDN vs Attention at decode time
+|                      | Compute per token                         | Memory                             |
+| -------------------- | ----------------------------------------- | ---------------------------------- |
+| **Causal Attention** | O(n) — dot product with all n cached keys | O(n) — KV cache grows with context |
+| **GDN**              | O(1) — fixed 128x128 state matrix ops     | O(1) — constant state size         |
+
+### Where GDN sits in the transformer
+```
+x = x + gdn_layer(norm(x))    # replaces attention sublayer
+x = x + mlp(norm(x))          # FFN sublayer unchanged
+```
+
+### Full GDN layer (our kernel is the middle part)
+```python
+# --- Input projections (outside our kernel) ---
+q = x @ W_q                    # [B, 1, num_q_heads, K]
+k = l2_normalize(x @ W_k)     # [B, 1, num_k_heads, K]  (L2-normalized!)
+v = x @ W_v                    # [B, 1, num_v_heads, V]
+a = x @ W_a                    # [B, 1, num_v_heads]
+b = x @ W_b                    # [B, 1, num_v_heads]
+
+# --- Our kernel (the competition part) ---
+g     = exp(-exp(A_log) * softplus(a + dt_bias))   # global decay ∈ (0,1)
+beta  = sigmoid(b)                                  # update gate ∈ (0,1)
+S_new = g * S - k^T @ (k @ S) + k^T @ (beta * v + (1-beta) * (k @ S))
+out   = scale * q @ S_new
+
+# --- Output projection (outside our kernel) ---
+out = reshape(out) @ W_o       # back to hidden dim
+```
+
+### Decode kernel hot loop — per head operations
+All ops are on 128-dim vectors and a 128x128 state matrix:
+```
+g_val                          # scalar         — global decay
+beta_val                       # scalar         — update gate
+h_state                        # [K=128, V=128] — state (transposed from [V,K] storage)
+
+old_state = g_val * h_state    # [K, V]         — scale: decayed state
+old_v = k @ old_state          # [K]@[K,V]->[V] — matvec: current value at key k
+new_v = beta*v + (1-beta)*old_v # [V]           — blend: new/old value
+state_remove = k^T @ old_v     # [K,1]@[1,V]->[K,V] — outer product: erase old
+state_update = k^T @ new_v     # [K,1]@[1,V]->[K,V] — outer product: write new
+h_state = old_state - state_remove + state_update  # [K,V] — updated state
+output = scale * (q @ h_state) # [K]@[K,V]->[V] — matvec: read from state
+```
+Summary: **2 matvecs** (k@S, q@S), **2 outer products** (k^T@old_v, k^T@new_v), plus elementwise ops.
+
+### Gate computation: why so complex?
+```
+g = exp(-exp(A_log) * softplus(a + dt_bias))
+```
+- Inherited from SSM literature (S4 → Mamba → GDN). This is the **exact discretization** of continuous-time decay `dS/dt = -A*S`.
+- `A_log` (log-space) lets the model learn decay rates spanning orders of magnitude.
+- `softplus(a + dt_bias)` is a learned "timestep" — positive, smooth, input-dependent.
+- `exp(-positive * positive)` guarantees g ∈ (0,1) by construction.
+- Each of the 8 heads learns its own decay rate (A_log has shape [8]).
+
+### GVA (Grouped Value Attention)
+From Qwen3-Next-80B with TP=4:
+- Full model: 16 q/k heads, 32 v heads → after TP=4: **4 q/k heads, 8 v heads**
+- Each q/k head is **repeat-interleaved** to serve 2 v heads:
+  ```
+  v_head 0,1 ← q/k head 0
+  v_head 2,3 ← q/k head 1
+  v_head 4,5 ← q/k head 2
+  v_head 6,7 ← q/k head 3
+  ```
+- Analogous to GQA in standard transformers, but inverted (GQA: more q than kv; GVA: more v than qk)
+- The loop runs over num_v_heads=8 because q/k are expanded before the loop
+
+### State layout: "k-last"
+- Storage: `[B, H=8, V=128, K=128]` — "k-last" means K dimension is last
+- Kernel works directly in k-last layout — no transposes needed
+- Pointer math for element (k, v): `offset = v * K + k` (K is contiguous/inner dim)
+
+## GDN Track: Two Kernels
+Each kernel is a separate definition, needs a separate `config.toml` definition entry:
+
+### 1. Decode: `gdn_decode_qk4_v8_d128_k_last`
+- Single-token generation (seq_len=1)
+- Shapes: `q/k: [B, 1, 4, 128]` bf16, `v: [B, 1, 8, 128]` bf16, `state: [B, 8, 128, 128]` f32
+- Scalar inputs: `A_log: [8]` f32, `dt_bias: [8]` f32, `a: [B, 1, 8]` bf16, `b: [B, 1, 8]` bf16, `scale: f32`
+- Outputs (DPS): `output [B, 1, 8, 128]` bf16, `new_state [B, 8, 128, 128]` f32
+- 54 workloads (updated March 25, 2026, commit 666da9c in mlsys26-contest)
+- Batch sizes: 1×10, 4×8, 8×7, 16×7, 32×7, 48×7, 64×8 (previously all 20 were B=1)
+- Memory-bound regime
+
+### 2. Prefill: `gdn_prefill_qk4_v8_d128_k_last`
+- Variable-length batched sequences (uses `cu_seqlens`)
+- Shapes: `q/k: [total_seq_len, 4, 128]`, `v: [total_seq_len, 8, 128]`, `state: [num_seqs, 8, 128, 128]`
+- Inputs: q, k, v, state, A_log, a, dt_bias, b, cu_seqlens, scale
+- Outputs (DPS): `output [total_seq_len, 8, 128]` bf16, `new_state [num_seqs, 8, 128, 128]` f32
+- 100 workloads
+- Compute-bound regime (chunkwise parallelism, WY factorization)
+
+## Benchmark Methodology
+- `run_local.py` uses: warmup_runs=3, iterations=100, num_trials=5
+- Default BenchmarkConfig: warmup=10, iterations=50, num_trials=3
+- **L2 cache flushed** before every iteration (256 MB zero buffer)
+- **Tensor args cloned** each iteration (clone time excluded from measurement)
+- Timing via `torch.cuda.Event(enable_timing=True)` with proper synchronization
+- Reported latency = mean across iterations, speedup = ref_latency / sol_latency
+- Correctness: atol=1e-2, rtol=1e-2
+- 54 decode workloads (B=1..64), 100 prefill workloads
+
+## Baseline Performance (local GPU, PyTorch reference)
+- Decode: ~1.4ms, 0.93-0.99x vs FlashInfer baseline (reference is slightly slower)
+
+## Reference Implementations
+- Located in definition JSON files as the `"reference"` field
+- `~/code/mlsys26-contest/definitions/gdn/gdn_decode_qk4_v8_d128_k_last.json`
+- `~/code/mlsys26-contest/definitions/gdn/gdn_prefill_qk4_v8_d128_k_last.json`
+- Pure PyTorch with nested for-loops (per-batch, per-head, per-timestep)
+
+## Existing Optimized Implementations (for reference)
+- **fla-org/flash-linear-attention**: Primary Triton kernel library (`fla/ops/gated_delta_rule`)
+- **NVlabs/GatedDeltaNet**: Official ICLR 2025 implementation (wraps FLA kernels)
+- Research-grade Triton, not tuned for Blackwell — optimization headroom exists
+- Full list with links and papers: `findings/research.md` under "Existing Implementations"
+
+## Multi-Algo Benchmarking
+
+### Entry point dispatch via `--algo` flag
+```bash
+python -m scripts.run_local --algo=fla-recurrent    # default
+python -m scripts.run_local --algo=pt-reference      # compiled PyTorch reference
+```
+- Each algo maps to a separate DPS entry point function in `kernel.py` (e.g. `kernel_fla_recurrent`, `kernel_pt_reference`)
+- `run_local.py` passes the entry point string to `pack_solution(entry_point=...)`, overriding config.toml
+- `pack_solution()` also accepts `name=` to set the solution name per algo
+
+### torch.compile
+- `kernel_pt_reference` uses `@torch.compile(fullgraph=True)` — compiler unrolls Python loops (B=1, num_heads=8)
+- `kernel_fla_recurrent` does NOT use torch.compile — gate math is fused into the Triton kernel and state transposes are eliminated, so there's nothing left to compile
+
+### Trace file structure
+- Trace output path: `{FIB_DATASET_PATH}/traces/{op_type}/{definition_name}.jsonl`
+- Path is keyed by **definition name** only — all solutions for the same definition append to the same JSONL file
+- Each JSON line has a `"solution"` field to distinguish between algos
+- To separate algos in the trace file, use different solution names via `pack_solution(name=...)`
+
+### Performance (RTX 3090, after benchmark timing fix)
+| Algo                    | Latency  | Speedup vs reference |
+| ----------------------- | -------- | -------------------- |
+| pt-reference (eager)    | ~1.4 ms  | ~1.0x                |
+| pt-reference (compiled) | ~0.73 ms | ~1.8x                |
+| fla-recurrent           | ~4.3 µs  | ~280x                |
+| cuda-v1                 | ~4.7 µs  | ~255x                |
+| fi-baseline             | ~4.8 µs  | ~250x                |
+| fla-tma                 | ~7.5 µs  | ~161x                |
+
+### Performance (B200 via Modal, old 20 workloads, all B=1)
+| Algo          | CUPTI    | NVBench  | FI-bench  | Speedup vs reference |
+| ------------- | -------- | -------- | --------- | -------------------- |
+| fla-recurrent | 2.56 µs  | 6.6 µs   | ~0.037 ms | ~32x                 |
+| cuda-v4       | 2.62 µs  | 6.6 µs   | ~0.012 ms | ~99x                 |
+| cuda-v1       | 3.04 µs  | 7.8 µs   | ~0.012 ms | ~99x                 |
+| fi-baseline   | 3.36 µs  | 8.3 µs   | ~0.017 ms | ~46.5x               |
+| fla-tma       | 12.70 µs | 12.6 µs  | ~0.041 ms | ~31x                 |
+
+- NVBench uses CUDA events (not CUPTI). Three timing tiers: CUPTI < NVBench/CUDA events < FI-bench
+- NVBench confirms the kernel is latency-bound on B200: <2% of 7.7 TB/s bandwidth utilized
+- CUPTI source: `final-nums/fi-timing-modal/all.txt`, NVBench source: `final-nums/nvbench-modal/all.txt`
+- See `findings/research.md` "NVBench on B200"
+
+### Competition Evaluation Results (Third eval, March 27, 2026)
+- **Decode**: 0.96x vs FlashInfer baseline, rank #10, 54/54 passed
+- **Prefill**: COMPILE_ERROR (missing `fla` package on eval server)
+- Competition baseline `flashinfer_wrapper_9b7f1e` calls the same `gated_delta_rule_decode_pretranspose` as our `fi-baseline` algo (functionally identical kernel)
+- Eval uses `flashinfer-bench` with `--use-isolated-runner --timeout=300`, GPU clocks locked (`nvidia-smi -ac 3996,1965`)
+- Docker image: `flashinfer/flashinfer-ci-cu132:latest`, includes `cupti-python`
+- Full eval details: `EVALUATION.md`
+
+### fla-recurrent vs fi-baseline by batch size (CUPTI, B200)
+| Batch size | fla (old, 8 warps) | fla (new, adaptive warps) | fi-baseline | New ratio |
+| ---------- | ------------------ | ------------------------- | ----------- | --------- |
+| B=1        | 2.59 µs            | 2.46 µs                   | 3.36 µs     | 0.73      |
+| B=4        | 3.07 µs            | 3.10 µs                   | 3.65 µs     | 0.85      |
+| B=8        | 4.10 µs            | 4.10 µs                   | 4.22 µs     | 0.97      |
+| B=16       | 6.11 µs            | 5.47 µs                   | 5.31 µs     | 1.03      |
+| B=32       | 10.30 µs           | 8.80 µs                   | 7.71 µs     | 1.14      |
+| B=48       | 14.11 µs           | 12.35 µs                  | 10.50 µs    | 1.18      |
+| B=64       | 18.18 µs           | 15.01 µs                  | 12.74 µs    | 1.18      |
+
+- Crossover at B=8: fla-recurrent wins below, fi-baseline wins above
+- FLA kernel latency scales ~linearly with B (2.6 us per batch item at B=64)
+- FI CuTe-DSL kernel scales sub-linearly (amortizes overhead better)
+- The 0.96x competition average is explained by 44/54 workloads having B>=4
+- Full per-workload data: `findings/fi-timing-by-workload-b200.csv`
+
+### NCU comparison at B=64 (B200)
+| Metric | fla-recurrent | fi-baseline |
+| ------ | ------------- | ----------- |
+| Duration | 19.33 µs | 12.54 µs |
+| Grid | 8192 blocks x 256 threads | 4096 blocks x 128 threads |
+| Waves/SM | 6.92 | 1.73 |
+| Compute throughput | 61.25% | 41.35% |
+| Memory throughput | 40.19% | 51.49% |
+| L2 hit rate | 2.58% | 48.83% |
+| IPC active | 3.08 | 2.48 |
+| Executed instructions | 13.4M | 6.0M |
+| Achieved occupancy | 86.7% | 82.6% |
+
+- fla-recurrent at B=64 is compute-bound (ALU 46%), unlike B=1 which is latency-bound
+- **Root cause**: fla executes 2.2x more instructions than fi-baseline for the same work
+- fla's BV=8 creates 16 V-tiles per head; each block redundantly loads q, k, and gate scalars
+- fi-baseline uses shared memory (9 KB/block) to stage data, achieving 49% L2 hit rate vs fla's 3%
+- fi-baseline's main weakness: tail effect (1.73 waves, 50% estimated speedup from NCU)
+- **Adaptive warps helped**: switching to 4 warps at B>=8 improved B=64 from 18.18 to 15.01 µs (17%)
+- **BV=128 tested at B=64**: 18.18 µs, worse than BV=8 (15.01 µs). Root cause not isolated (could be register pressure, reduced parallelism, or both).
+- **fla-tma tested at B=64**: 34.88 µs, much worse. Root cause not isolated.
+- **Remaining gap** (15.01 vs 12.74 µs, 1.18x): NCU shows fla executes 2.2x more instructions and has 2.6% vs 49% L2 hit rate, but these are correlations, not confirmed causes. Potential directions: SMEM for q/k sharing (hurt at B=1 but B=64 is a different regime), or a different thread-to-data mapping.
+- NCU logs: `logs/ncu-decode-modal-{fla-recurrent,fi-baseline}-widx53.log`
+
+## Modal Deployment Notes
+- The Modal image must install ALL Python packages that `kernel.py` imports at the top level
+- `flash-linear-attention` (the `fla` package) is NOT a dependency of `flashinfer-bench` — must be explicitly added to the Modal image
+- If a top-level import fails on Modal, the benchmark reports `COMPILE_ERROR` for every workload (the module can't even be loaded)
+- The benchmark framework's `COMPILE_ERROR` status is opaque — it covers import errors, torch.compile failures, and any other pre-execution errors, with no error message surfaced in the output
+- To debug Modal errors: check that all imports in `kernel.py` are available in the Modal image (`run_modal.py` `.pip_install(...)`)
+- **CUDA kernels need nvcc**: `debian_slim` lacks the CUDA toolkit. Use `Image.from_registry("nvidia/cuda:12.8.1-devel-ubuntu22.04", add_python="3.12")` as the base image so `tvm_ffi.cpp.build()` can compile `.cu` files. The `-devel` suffix is required (runtime-only images lack nvcc and headers).
+- **Triton autotune cache**: `TRITON_CACHE_DIR` is set to `/data/cache/triton` on the persistent Modal volume (`flashinfer-trace`) so compiled kernels and autotune configs survive container restarts. Without this, every Modal run re-autotuned from scratch. Configured in `modal_config.py:set_triton_cache()`.
+- **SOLUTION env var**: `run_modal.py` accepts `SOLUTION=name` to load a pre-existing solution JSON from the dataset (e.g. `flashinfer_wrapper_123ca6`) instead of packing from source. Used by `make modal-official-prefill-baseline`.
+
+## FlashInfer Prefill Baseline (prefill-fi-baseline algo)
+- Wraps `flashinfer.gdn_prefill.chunk_gated_delta_rule` (CuTe-DSL Blackwell kernel, SM90+ only)
+- Requires `unsqueeze(0)` on q/k/v (Blackwell kernel expects 4D `[B, T, H, D]`)
+- Only usable on Modal B200, not local RTX 3090
+- FlashInfer baseline solution in dataset: `flashinfer_wrapper_123ca6` (bundles its own `gdn_blackwell/` module)
+- Compare via: `make prefill-fi-timing-modal` (runs both `prefill-fla-chunk` and `prefill-fi-baseline`)
+
+## Proton Intra-Kernel Profiling
+- Triton 3.5.1 includes **Proton**, an intra-kernel profiler: `import triton.profiler as proton`
+- DSL: `import triton.profiler.language as pl` — insert `pl.scope()` / `pl.enter_scope()` / `pl.exit_scope()` into `@triton.jit` kernels to annotate regions
+- Gluon kernels (`@gluon.jit`) also support the same `pl.scope()` annotations
+- Must call `pl.enable_semantic("triton")` before launching profiled Triton kernels
+- Two profiling modes:
+  - **Timeline trace**: `proton.start("name", data="trace", backend="instrumentation", mode=mode)` → outputs `.chrome_trace` file (view in Perfetto or `chrome://tracing`)
+  - **Op measurement**: `proton.start("name", backend="instrumentation", mode=mode)` → outputs `.hatchet` file (view with `proton-viewer -m normalized_cycles`)
+- Warp sampling: `proton.mode.Default(sampling_strategy="selective", sampling_options="0,2")` to profile only specific warps
+- Example: `timeline/example_dsl.py` (vector add + Gluon matmul; matmul requires Hopper GPU)
+- **Gluon** (`triton.experimental.gluon`) is also available in triton 3.5.1 — low-level Triton extension for TMA, warpgroup MMA, mbarrier, etc. (Hopper-only features)
+
+### Profiling the GDN decode kernel
+- Script: `scripts/profile_proton.py` — run via `make proton-fla`
+- Output: `profiles/gdn_decode.chrome_trace` and `profiles/gdn_decode.hatchet`
+- **torch.compile incompatibility**: torch.compile serializes Triton kernel source into a new scope, losing the `pl` import → `NameError`. Fix: `torch._dynamo.config.disable = True` for profiling.
+- **Scope toggling**: `PROTON_PROFILE` env var read at call time in the wrapper, passed as `PROFILE: tl.constexpr` to the kernel. When `False`, Triton eliminates dead branches at AST level → no `pl` references → torch.compile works. When `True` (profiling), dynamo is disabled → `pl` resolves normally.
+- Kernel scopes: `load_initial_state`, `load_qkv`, `state_update`, `store_output`, `store_final_state`
+
+## NCU (NVIDIA Nsight Compute) Profiling
+- Script: `scripts/profile_ncu.py` — run via `make ncu-fla` (requires sudo)
+- Output: `profiles/ncu/gdn-decode-fla.ncu-rep` (binary, open in Nsight Compute GUI or `ncu --import`)
+- Text export: `make ncu-export-fla` → `profiles/ncu-txt/gdn-decode-fla.txt`
+- Uses `--set full` for all metrics (speed-of-light, memory, occupancy, warp stalls, scheduler, roofline)
+- Key findings documented in `findings/research.md` under "NCU Detailed Metrics"
+
+### Key profiling results (RTX 3090, fla-recurrent)
+- **NCU kernel time**: 3.84 µs (benchmarks agree at ~4.3-5.1 µs after timing fix)
+- **Bottleneck**: Latency-bound (0.26 waves, 24.8% occupancy, 15.6% DRAM BW)
+- **Proton scope breakdown** (normalized cycles): `load_qkv` 779 (29%), `compute_decay` 223 (8%), `state_update` 220 (8%), `compute_output` 208 (8%), `load_decay` 205 (8%), `store_output` 157 (6%), `load_initial_state` 86 (3%), `store_final_state` 76 (3%), unattributed ~694 (26%)
+- **TTGIR scope accuracy**: Verified via TTGIR dump. Scopes correctly wrap intended ops. Unattributed 26% comes from `q*scale`, `sigmoid(b)`, and `ht` pointer math falling between scope boundaries.
+- **`ttg.convert_layout` barrier**: The output store generates 1 `bar.sync` because the reduce distributes across 8 warps but the store pointer packs into 1 warp. Unavoidable in Triton; costs ~1-2% of kernel time. CUDA v4 avoids this natively.
+- **BV=1 doesn't help**: 1024 blocks but worse latency (4.6 us at best vs 4.3 us baseline). With multiple warps, K-reductions become cross-warp, adding more `bar.sync` than the V-dimension approach.
+- Full analysis: `findings/research.md` under "TTGIR scope analysis", "The convert_layout barrier", "BV=1 experiment"
+
+### Prefill nsys profiling (RTX 3090)
+- One forward pass (workload 0, seq_len=6): 51 kernel launches, ~115 us GPU compute, ~1650 us wall time (6.6% GPU utilization)
+- **93% of wall time is GPU idle**, waiting for CPU to launch the next kernel
+- 6 Triton sub-kernels (~27 us total): cumsum, kkt, solve_tril, recompute_w_u, state_update_h, output_o
+- ~30 PyTorch elementwise kernels (~50 us total): `prepare_chunk_indices` (called ~5x with same args), gate math, reshapes
+- Biggest gaps are before Triton kernel launches: 82-150 us each (Python -> Triton runtime -> CUDA dispatch)
+- `prepare_chunk_indices` generates a repeating 4-kernel pattern between every pair of Triton kernels
+- Gate math fused into `fused_gate_cumsum_kernel`: 1742 -> 1201 us (31% faster, RTX 3090)
+- Remaining opportunities: cache `prepare_chunk_indices` (~15%), CUDA graphs (would eliminate ~1100 us of launch overhead)
+- Full analysis: `findings/research.md` under "Prefill kernel nsys analysis"
+
+### Prefill performance (B200 via Modal, CUPTI, workload 0)
+| Algo | CUPTI median (us) |
+|------|---:|
+| prefill-fi-baseline | 185 |
+| prefill-fla-chunk | 1536 |
+- **8.3x slower than FlashInfer baseline** on B200. The gap is almost entirely CPU launch overhead (not kernel compute).
+- FlashInfer's Blackwell kernel is a single fused CuTe-DSL kernel; our FLA code launches 6 Triton sub-kernels + ~30 PyTorch elementwise kernels per forward pass.
+
+## Triton Autotuning
+- Competition eval uses CUPTI (`bench_gpu_time_with_cupti`), which measures pure GPU kernel time. Python-side `@triton.autotune` dispatch overhead is NOT included in the measurement.
+- `@triton.autotune` is incompatible with `torch.compile` (compile bypasses autotuner entirely), but we don't use torch.compile for fla-recurrent.
+- BV=8 always wins across all batch sizes on B200. The key lever is **warp count**:
+  - B<=4: `num_warps=8` (more warps hide latency when few blocks)
+  - B>=8: `num_warps=4` (fewer warps reduce contention at high occupancy)
+- Hardcoded: `BV=8, num_warps = 8 if B <= 4 else 4, num_stages=2`
+- This improved B>=8 by 10-17% (e.g. B=64: 18.18 -> 15.01 µs, B=48: 14.11 -> 12.35 µs)
+- Detailed investigation: `findings/research.md` under "Triton Autotuning Investigation"
+
+## Benchmark Timing Fix (torch.cuda.synchronize removal)
+- Removed `torch.cuda.synchronize()` from flashinfer-bench's `do_bench()` hot loop to eliminate GPU idle bubble
+- **Before**: ~51 µs (fla), ~43 µs (fi). **After**: ~4.3 µs (fla), ~4.7 µs (fi). Matches NCU within ~1 µs.
+- Validated with NVBench (`cuda-bench`): ~5.1 µs (fla), ~5.4 µs (fi)
+- NVBench solves the same problem with a "blocking kernel" ([talk](http://www.youtube.com/watch?v=CtrqBmYtSEk&t=838))
+- Script: `scripts/bench_nvbench.py`, targets: `make nvbench-fla`, `make nvbench-fi`
+- **CUPTI timing** (`bench_gpu_time(enable_cupti=True)`) gives pure GPU kernel time, matching NCU. This is what FlashInfer uses in their own benchmarks. Three tiers: CUPTI (~2.6 us) < CUDA events/NVBench (~7 us) < sync-in-loop/fi-bench (~38 us). The ~4 us gap between CUPTI and CUDA events is CPU launch overhead.
+- Script: `scripts/bench_fi_timing.py`, targets: `make fi-timing`, `make fi-timing-modal`
+- Full analysis (problem, fix, NVBench comparison, three timing tiers): `findings/research.md` under "Benchmark Timing Fix"
+
+## Misc Kernel Notes
+- `tensor.set_()` can alias DPS output to input storage (zero-copy) since benchmark clones args each iter
+- `torch.compile` cannot trace CuTe-DSL internals (`from_dlpack`, `cute.compile`, `cuda.CUstream`, TVM FFI)
+
+## FlashInfer Baseline (fi-baseline algo)
+- Uses `flashinfer.gdn_decode.gated_delta_rule_decode_pretranspose` (CuTe-DSL kernel)
+- K-last state layout `[B, HV, V, K]` f32 — matches competition exactly
+- FI updates state in-place; use `new_state.set_()` to alias storage (zero-copy DPS)
+- NCU kernel name regex: `kernel_cutlass_gdn_decode`
+- pip package name: `flashinfer-python` (NOT `flashinfer`)
+- Detailed analysis: `findings/fi-gdn-decode-kernel.md`
+
+## CUDA Kernel (cuda-v1 algo)
+- Hand-written CUDA C++ port of the FLA Triton kernel, templated on BV
+- Grid: `(V/BV, B*HV)` = `(16, 8)` = 128 blocks, 1 warp (32 threads) per block
+- Per-thread: KVEC=4 K-elements, `h[BV][4]` state in registers (BV=8: 32 regs)
+- State loads/stores: `float4` for coalesced 128-bit access
+- Reductions: warp `__shfl_xor_sync` butterfly all-reduce (5 steps, no shared memory)
+- TVM FFI integration: `TVM_FFI_DLL_EXPORT_TYPED_FUNC(kernel_cuda, ...)` in kernel.cu
+- Local binding: `binding.py` uses `tvm_ffi.cpp.build()` + `tvm_ffi.load_module()` for bench/profile scripts
+- NCU kernel name: `gdn_decode_kernel`
+- Only variant: `cuda-v1` (BV=8, 128 blocks)
+
+### CUDA V4 kernel (cuda-v4 algo)
+Root cause of v1 being slower than Triton: same 128-block grid, but Triton uses 8 warps/block (256 threads) vs v1's 1 warp (32 threads). v4 fixes this: 1 V-row per warp, 8 warps per block, no shared memory, no cross-warp communication. NCU kernel name: `gdn_decode_v4_kernel`.
+- 8 warps, 128 blocks, 28 regs/thread, 25.4% occupancy, 1.16 IPC
+- Matches Triton FLA within noise on both RTX 3090 and B200
+- Details: `findings/research.md` under "V4 kernel: multi-warp latency hiding"
+
+| Variant      | Warps | Blocks | RTX 3090 | B200    |
+| ------------ | ----- | ------ | -------- | ------- |
+| FLA (Triton) | 8     | 128    | 5.25 us  | 7.1 us  |
+| cuda-v4      | 8     | 128    | 5.33 us  | 7.07 us |
+| cuda-v1      | 1     | 128    | 5.65 us  | 7.12 us |
+
+### Key lessons from CUDA experiments
+Tested 10+ variants (v1 BV sweep, v2 shared-memory k/q, v3 shared-memory state, v4 multi-warp, v5 cache hints, v6 cp.async). Only v1 and v4 kept in codebase; others removed. Full history: `findings/research.md`.
+- At B=1, **block count dominates**: designs that consolidate work into fewer blocks all lose
+- **Warp count per block** is the second lever: more warps hide memory latency (v4 vs v1)
+- **Vectorized bf16 loads** (`uint2`/`uint4`) fixed coalescing, gave v4 ~5% NCU speedup. Details: `findings/research.md` "Vectorized bf16 loads"
+- Micro-optimizations (`fmaf()`, `__stcs()`) had no measurable effect at <2% BW utilization
+- **Cache hints hurt on B200**: inline PTX `L1::no_allocate` / `L1::evict_last` made v5 3% slower than v4 (7.302 vs 7.091 us). Hardware's default policy is better for our tiny working set.
+- **SMEM staging always loses**: cp.async to SMEM (v6), shared-memory k/q on v1 (v2), shared-memory state (v3), SMEM q/k sharing on v4 all add latency. The v4 SMEM q/k experiment (warp 0 loads q/k into SMEM for all 8 warps) was 8.5% slower: `__syncthreads()` killed IPC and L1 was already serving the "redundant" loads efficiently (35.65% hit rate)
+- **Competition GEMM patterns don't transfer**: warp specialization, TMA, cache eviction policies, mbarrier pipelines all target bandwidth/compute-bound kernels, not latency-bound ones. See `findings/research.md` "Competition pattern analysis".
+- **TLX (Triton Low-Level Extensions) not applicable**: warp specialization, TMA pipelining, async Tensor Core ops target large compute-bound kernels. Our kernel runs at ~2% peak FP32. TLX also cannot eliminate the `convert_layout` barrier (no per-warp store primitive).
+
+### TVM FFI Builder (language="cuda")
+- The framework's TVMFFIBuilder compiles `.cu` files via `tvm_ffi.cpp.build()` (nvcc)
+- Host function receives `tvm::ffi::TensorView` (zero-copy from torch via DLPack)
+- Stream via `TVMFFIEnvGetStream(dev.device_type, dev.device_id)`
+- Export: `TVM_FFI_DLL_EXPORT_TYPED_FUNC(symbol_name, cpp_function)`
+- Entry point format: `kernel.cu::symbol_name`
+- Supported arg types: `TensorView`, `int32_t`, `int64_t`, `float`, `double`, `bool`, `std::string`
+- Headers: `<tvm/ffi/container/tensor.h>`, `<tvm/ffi/function.h>`, `<tvm/ffi/extra/c_env_api.h>`
+- `tvm` package is NOT installed; use `tvm_ffi` (`from tvm_ffi import register_global_func`)
+- `@register_global_func` as a decorator wraps the function as a TVM PackedFunc, which breaks `**kwargs` calls. Use non-decorator form instead: `register_global_func("name", func)`
+- `pack_solution_from_files` rejects empty files (SourceFile content >= 1 char); `__init__.py` needs a comment
+
+## Makefile — Primary Interface
+The Makefile is the main way to run things. Always prefer `make` targets over raw commands, and improve them when adding new workflows. Pipe long outputs to log files.
+```
+make bench-fla              # local benchmark (fla-recurrent)
+make bench-fi               # local benchmark (fi-baseline)
+make bench-cuda             # local benchmark (cuda-v1)
+make bench-cuda-v4          # local benchmark (cuda-v4, 8 warps)
+make bench-pt               # local benchmark (pt-reference)
+make modal-fla              # Modal B200 benchmark (fla-recurrent)
+make modal-fi               # Modal B200 benchmark (fi-baseline)
+make modal-pt               # Modal B200 benchmark (pt-reference)
+make bench-fla-all          # local + modal, logs to logs/bench-fla-{local,modal}.log
+make bench-tma-all          # local + modal, logs to logs/bench-tma-{local,modal}.log
+make document-speedups      # parse bench logs → findings/speedups.csv
+make modal-logs             # download Modal benchmark logs to logs/fib-bench-modal/
+make proton-fla             # profile kernel with Proton
+make ncu-fla                # NCU full profile → profiles/ncu/gdn-decode-fla.ncu-rep
+make ncu-fi                 # NCU full profile → profiles/ncu/gdn-decode-fi.ncu-rep
+make ncu-cuda               # NCU full profile → profiles/ncu/gdn-decode-cuda.ncu-rep
+make ncu-cuda-v4            # NCU full profile → profiles/ncu/gdn-decode-cuda-v4.ncu-rep
+make ncu-export-fla         # NCU text export → profiles/ncu-txt/gdn-decode-fla.txt
+make ncu-export-fi          # NCU text export → profiles/ncu-txt/gdn-decode-fi.txt
+make ncu-export-cuda        # NCU text export → profiles/ncu-txt/gdn-decode-cuda.txt
+make ncu-export-cuda-v4     # NCU text export → profiles/ncu-txt/gdn-decode-cuda-v4.txt
+ALGO=cuda-v4 make nvbench   # NVBench single algo (local)
+ALGO=cuda-v1,cuda-v4 make nvbench  # NVBench multi-algo in one table
+ALGO=cuda-v4 make nvbench-modal    # NVBench on Modal B200
+make nvbench-all            # NVBench all algos (local)
+make fi-timing              # FlashInfer CUPTI timing (default algo)
+make fi-timing-modal        # FlashInfer CUPTI timing on Modal B200
+make prefill-fi-timing-modal # Prefill CUPTI: our fla-chunk vs fi-baseline on B200
+make modal-official-prefill  # Official eval of our prefill on B200
+make modal-official-prefill-baseline  # Official eval of FI baseline prefill on B200
+ALGO=all make fi-timing     # CUPTI timing all algos
+make clean-triton-cache     # clear ~/.triton/cache
+make submit-decode          # rebase submit-decode on main, tag, force-push
+make submit-prefill         # rebase submit-prefill on main, tag, force-push
+```
+- Env var overrides: `NUM_WORKLOADS=3 make modal-fla` (limit workloads), `ALGO=... make modal-fla`
+- `ALGO` accepts comma-separated values for multi-algo NVBench: `ALGO=cuda-v1,cuda-v4 make nvbench`
+- `-n 3` flag on local scripts: `python -m scripts.run_local --algo=fla-recurrent -n 3`
+- Local GPU: RTX 3090 (Ampere SM86) — cannot run Hopper-only features (TMA, warpgroup MMA, Gluon matmul examples)
+
+### Log file naming convention
+- `bench-*-all` targets write logs named `logs/bench-{short}-{local,modal}.log`
+- Algo → log prefix mapping: `fla-recurrent` → `bench-fla`, `fla-tma` → `bench-tma`, `pt-reference` → `bench-pt`
+- `document-speedups` reads `ALGO` env var (default `fla-recurrent`) to find the right log files
+- Usage: `ALGO=fla-tma make document-speedups COMMENT="tma v1"`
+
+## flashinfer-bench Internals
+- Source: `.venv/lib/python3.11/site-packages/flashinfer_bench/` (or find via `.venv/bin/python -c "import flashinfer_bench; print(flashinfer_bench.__path__)"`)
+- Builder loads solution, imports as Python module, gets entry_point via `getattr()`
+- `Runnable` wraps the callable, handles DPS vs value-returning dispatch
+- `PersistentRunner` spawns subprocess workers per GPU device
+- Evaluator: `DefaultEvaluator` — checks correctness then profiles performance
+- Timing: `do_bench()` in `bench/timing.py` (derived from Triton's benchmark utility)
+
+---
+> Source: [tomasruizt/flashinfer-competition-codebase](https://github.com/tomasruizt/flashinfer-competition-codebase) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
