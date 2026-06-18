@@ -1,0 +1,44 @@
+{
+  "name": "tourneyradar",
+  "owner": "AnayDhawan",
+  "repo": "tourneyradar",
+  "description": "An open-source interactive map of over-the-board chess tournaments worldwide. Filter by country, time control, and FIDE rating status, no account needed. Data scraped weekly from Chess-Results.com across 80+ countries.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AnayDhawan/tourneyradar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T20:33:00Z"
+}
