@@ -7,11 +7,11 @@ CJK-adapted firmware for the Xteink X4 e-paper display reader. Xteink X4 电子�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aBER0724/crosspoint-reader-cjk](https://github.com/aBER0724/crosspoint-reader-cjk).
+Original source: `CLAUDE.md` in [aBER0724/crosspoint-reader-cjk](https://github.com/aBER0724/crosspoint-reader-cjk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
