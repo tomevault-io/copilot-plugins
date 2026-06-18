@@ -1,0 +1,44 @@
+{
+  "name": "ShieldX",
+  "owner": "renefichtmueller",
+  "repo": "ShieldX",
+  "description": "Self-Evolving LLM Prompt Injection Defense \u2014 547+ rules, 50+ languages, 10-layer pipeline, MITRE ATLAS mapping, bio-immune evolution, MCP guard. 91.9% TPR, 2.4% FPR. Local-first, zero cloud.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/renefichtmueller/ShieldX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T05:00:40Z"
+}
