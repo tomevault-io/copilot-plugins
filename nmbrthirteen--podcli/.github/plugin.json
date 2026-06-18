@@ -1,0 +1,9 @@
+{
+  "name": "nmbrthirteen--podcli",
+  "displayName": "podcli",
+  "description": "Open-source AI podcast clipper. Generate vertical clips with face tracking and burned-in captions. CLI, MCP server, web app.",
+  "version": "1.0.0",
+  "author": "nmbrthirteen",
+  "homepage": "https://github.com/nmbrthirteen/podcli",
+  "skills": []
+}
