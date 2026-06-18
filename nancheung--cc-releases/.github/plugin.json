@@ -1,0 +1,9 @@
+{
+  "name": "nancheung--cc-releases",
+  "displayName": "cc-releases",
+  "description": "Automated mirror of Claude Code offline installers\u2014tracks new releases, verifies SHA256, and publishes them as GitHub Releases.Claude Code \u79bb\u7ebf\u5b89\u88c5\u7a0b\u5e8f\u7684\u81ea\u52a8\u955c\u50cf\u2014\u2014\u8ddf\u8e2a\u65b0\u7248\u672c\uff0c\u9a8c\u8bc1 SHA256\uff0c\u5e76\u5c06\u5176\u53d1\u5e03\u4e3a GitHub Releases\u3002",
+  "version": "1.0.0",
+  "author": "nancheung",
+  "homepage": "https://github.com/nancheung/cc-releases",
+  "skills": []
+}
