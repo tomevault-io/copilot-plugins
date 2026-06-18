@@ -1,0 +1,30 @@
+# AI instruction files for vxlros2
+
+> Sourced from [asvoxel/vxlros2](https://github.com/asvoxel/vxlros2) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+vxlsense sdk intergrated to ros2
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [asvoxel/vxlros2](https://github.com/asvoxel/vxlros2).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/asvoxel/vxlros2](https://github.com/asvoxel/vxlros2)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install asvoxel/vxlros2
+```
+Source: [github.com/asvoxel/vxlros2](https://github.com/asvoxel/vxlros2).
+
+<!-- genome:a-i-q -->
