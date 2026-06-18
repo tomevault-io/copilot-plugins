@@ -4,7 +4,7 @@
   "repo": "Animatek-NME",
   "description": "Modern JUCE/C++ reimplementation of the Nomad editor for the Clavia Nord Modular G1 synthesizer",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/animatek/Animatek-NME",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T15:08:04Z"
+  "distributed_at": "2026-06-18T21:04:10Z"
 }
