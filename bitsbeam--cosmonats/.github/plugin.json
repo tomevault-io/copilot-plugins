@@ -1,0 +1,9 @@
+{
+  "name": "bitsbeam--cosmonats",
+  "displayName": "cosmonats",
+  "description": "Background and stream processing for Ruby",
+  "version": "1.0.0",
+  "author": "bitsbeam",
+  "homepage": "https://github.com/bitsbeam/cosmonats",
+  "skills": []
+}
