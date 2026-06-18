@@ -1,0 +1,9 @@
+{
+  "name": "frak-id--atelier",
+  "displayName": "atelier",
+  "description": "Self-hosted kata container sandboxes \u2014 instant dev environments with opencode, VS Code, AI agents, and browser, accessible from anywhere.",
+  "version": "1.0.0",
+  "author": "frak-id",
+  "homepage": "https://github.com/frak-id/atelier",
+  "skills": []
+}
