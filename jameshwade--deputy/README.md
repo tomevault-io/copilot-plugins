@@ -1,0 +1,26 @@
+# deputy
+
+> Tome by [JamesHWade](https://github.com/JamesHWade/deputy) — distributed by [TomeVault](https://tomevault.io)
+
+Agentic AI Workflows for R
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [JamesHWade/deputy](https://github.com/JamesHWade/deputy).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/JamesHWade/deputy](https://github.com/JamesHWade/deputy)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
