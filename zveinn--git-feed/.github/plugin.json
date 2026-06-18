@@ -1,0 +1,9 @@
+{
+  "name": "zveinn--git-feed",
+  "displayName": "git-feed",
+  "description": "This tool fetches PRs and Issues from github, then parses comment history to create loose relationships for an easy overview",
+  "version": "1.0.0",
+  "author": "zveinn",
+  "homepage": "https://github.com/zveinn/git-feed",
+  "skills": []
+}
