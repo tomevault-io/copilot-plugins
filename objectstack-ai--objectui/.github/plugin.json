@@ -1,0 +1,9 @@
+{
+  "name": "objectstack-ai--objectui",
+  "displayName": "objectui",
+  "description": "ObjectUI is a universal Server-Driven UI (SDUI) engine built on React + Tailwind + Shadcn.",
+  "version": "1.0.0",
+  "author": "objectstack-ai",
+  "homepage": "https://github.com/objectstack-ai/objectui",
+  "skills": []
+}
