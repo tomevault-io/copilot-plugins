@@ -1,0 +1,9 @@
+{
+  "name": "zabuqasem--daily-security-feed",
+  "displayName": "daily-security-feed",
+  "description": "Monitors 300+ security RSS feeds daily, classifies articles with AI, and posts a prioritized feed to Discord and Slack.",
+  "version": "1.0.0",
+  "author": "zAbuQasem",
+  "homepage": "https://github.com/zAbuQasem/daily-security-feed",
+  "skills": []
+}
