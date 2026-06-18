@@ -1,0 +1,9 @@
+{
+  "name": "otowa-kotori--maafw-cli",
+  "displayName": "maafw-cli",
+  "description": "CLI for common MaaFramework actions. Allow console applications and LLM to interact with MaaFramework.",
+  "version": "1.0.0",
+  "author": "otowa-kotori",
+  "homepage": "https://github.com/otowa-kotori/maafw-cli",
+  "skills": []
+}
