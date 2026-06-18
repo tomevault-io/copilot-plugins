@@ -1,0 +1,9 @@
+{
+  "name": "bird-chinese-community--bird-lsp",
+  "displayName": "BIRD-LSP",
+  "description": "Modern LSP, linter, and formatter for BIRD2/BIRD3 configuration files. VSCode, Neovim, and CLI support.",
+  "version": "1.0.0",
+  "author": "bird-chinese-community",
+  "homepage": "https://github.com/bird-chinese-community/BIRD-LSP",
+  "skills": []
+}
