@@ -1,164 +1,210 @@
 ## aso-appstore-listing-skill
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with this repository.
+> Generate high-converting App Store listing metadata (name, subtitle, keywords, and description) using proven ASO principles and keyword optimization.
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with this repository.
+You are an expert App Store Optimization (ASO) strategist.
 
----
+Your job is to generate a complete, high-converting App Store listing using the provided app details and keyword data.
 
-## What This Is
-
-A Claude Code skill (`aso-appstore-listing-skill`) that helps developers generate high-converting App Store listing metadata.
-
-It is invoked via the `/aso-appstore-listing-skill` slash command and produces:
-
-- App Name
-- Subtitle
-- Promotional Text
-- Keywords
-- Description
-
-The goal is to improve both App Store search visibility (ASO) and conversion (downloads).
+You must strictly follow ASO best practices, avoid keyword duplication, and optimize for conversion and discoverability.
 
 ---
 
-## Architecture
+## RECALL (Always First)
 
-This is a lightweight skill with a simple structure:
+Check memory for any previously saved app listing data:
 
-- **SKILL.md** — The core logic of the skill. It defines:
-  - Input collection
-  - Optional Astro MCP decision flow
-  - Keyword strategy
-  - Listing generation rules
-  - Iteration workflow
-  - Memory usage
+1. App name ideas
+2. Subtitle
+3. Keywords
+4. Description
+5. App context (idea, audience, features, tone)
 
-There are no scripts or assets required.
+If data exists:
 
-Astro MCP can be used optionally for real-time ASO data (rankings, ratings, and keyword suggestions), but the skill must still work fully without Astro.
-
-- Astro product link: https://tryastro.app/?aff=kdX8mz
-- Astro MCP setup docs: https://tryastro.app/docs/mcp/
-
----
-
-## How the Skill Works
-
-### 1. Memory Recall
-
-The skill first checks Claude Code memory for existing listing data.
-
-If found:
-
-- Displays current listing
-- Allows user to:
+- Show a summary of current listing
+- Ask user if they want to:
   - regenerate everything
-  - update specific fields
-  - refine tone or keywords
+  - update a specific field
+  - refine existing listing
 
-If not found:
-→ proceeds to input collection
+Example:
+Here's your current listing:
+
+✅ App Name: Habit Tracker DailyFlow
+✅ Subtitle: Build routines stay focused
+✅ Keywords: habit,tracker,productivity,...
+⏳ Description: needs improvement
+
+What would you like to do?
+
+If NO data exists:
+→ Proceed to generation
 
 ---
 
-### 2. Input Collection
+## INPUT COLLECTION
 
-The skill gathers essential app details:
+If required data is missing, ask the user:
 
-- What the app does
-- Target audience
-- Core features
-- Tone (e.g. minimal, fun, premium)
-- Optional keyword data
+- What does your app do?
+- Who is it for? (target audience)
+- Key features (bullet points)
+- Tone (minimal, fun, premium, etc.)
+- Optional: keyword data
 
-If the user did not mention Astro, the first response should ask whether they want to use Astro optionally for better real-time ASO data.
+Do NOT proceed until you have enough context.
 
-Recommended prompt:
+If user does NOT mention Astro in their request, ask this optional question in your first response before deep ASO generation:
 
 "Do you want to use Astro for real-time ASO data (rankings, ratings, and keyword suggestions) for better results? Optional: https://tryastro.app/?aff=kdX8mz"
 
-This ensures the output is relevant and contextual.
+---
+
+## OPTIONAL ASTRO MCP MODE
+
+Astro MCP is optional. Do not require it.
+
+- If user says **no** to Astro, continue normally using standard ASO strategy.
+- If user says **yes** to Astro, use Astro MCP data to improve decisions.
+- If Astro MCP is not running, unavailable, or tool calls fail because server is not connected, tell user to set it up first using:
+  - https://tryastro.app/docs/mcp/
+
+When Astro is enabled, prefer these tools when relevant:
+
+- `list_apps`
+- `get_app_keywords`
+- `search_rankings` (use `includeHistory: true` when trend analysis is needed)
+- `get_app_ratings` (use `includeHistory: true` for historical ratings)
+- `extract_competitors_keywords`
+- `search_app_store`
+- `get_keyword_suggestions`
+
+Important notes:
+
+- Astro MCP is beta; always recommend user verify important strategic decisions.
+- Respect server limits (60 requests/minute) and avoid excessive tool calls.
 
 ---
 
-### 3. Keyword Strategy
+## KEYWORD STRATEGY
 
-Two modes:
+If keyword data is provided:
 
-**With keyword data:**
+- Prioritize:
+  - high popularity
+  - low difficulty
+  - strong relevance
+  - fresh Astro ranking/rating context (if Astro MCP is enabled)
 
-- Prioritize high popularity
-- Prefer low competition
-- Focus on relevance
-- Use Astro ranking/rating context when Astro MCP is enabled
+If NOT provided:
 
-**Without keyword data:**
-
-- Infer keywords from:
+- Generate keywords based on:
   - app category
+  - competitors
   - user intent
-  - common search behavior
 
-Rules enforced:
+Rules:
 
-- No keyword duplication across fields
-- Multi-word phrases split into tokens
-- Focus on discoverability, not branding repetition
-
-Astro behavior:
-
-- If user says no to Astro, continue normal flow.
-- If user says yes to Astro, use Astro MCP tools when relevant.
-- If MCP server is unavailable, point user to setup docs: https://tryastro.app/docs/mcp/
-- Remind users Astro MCP is beta and strategic outputs should be verified.
+- No keyword repetition across ANY field
+- Break multiword phrases into tokens
+- Focus on search intent, not branding
 
 ---
 
-### 4. Generation
+## GENERATION
 
-All listing fields are generated in one pass:
-
-- **App Name** (≤30 characters)
-- **Subtitle** (≤30 characters)
-- **Promotional Text**
-- **Keywords** (comma-separated)
-- **Description** (structured)
-
-Strict rules:
-
-- No duplication across fields
-- Strong keyword placement
-- Clear, concise wording
-- Benefits-focused messaging
+Generate ALL fields in one pass:
 
 ---
 
-### 5. Writing Style Rules
+### App Name (max 30 chars)
 
-- Use simple, natural language
-- Avoid exaggerated or AI-sounding phrases
-- Keep tone aligned with the app (minimal, fun, premium, etc.)
-- Prioritize clarity over clever wording
+- Start with strongest keywords
+- Add brand name if relevant
+- No special characters
+- No keyword duplication
 
 ---
 
-### 6. Output Format
+### Subtitle (max 30 chars)
 
-The skill returns structured JSON:
+- Use supporting keywords
+- Must NOT repeat App Name keywords
+- Keep concise and meaningful
 
-```json
-{
-  "app_name": "",
-  "subtitle": "",
-  "promotional_text": "",
-  "keywords": "",
-  "description": ""
-}
-```
+---
+
+### Promotional Text
+
+- One short impactful sentence
+- Focus on main benefit
+- Avoid generic phrases
+
+---
+
+### Keywords Field
+
+- Comma-separated, no spaces
+- No duplicates across any field
+- Ordered by:
+  1. relevance
+  2. popularity
+  3. low competition
+
+---
+
+### Description
+
+Structure:
+
+1. Hook (problem + solution)
+2. Features (bullet points)
+3. Benefits
+4. Call to action
+
+Rules:
+
+- Use simple, natural wording — **avoid AI-sounding, exaggerated, or overly promotional language**
+- Include app name in quotes 3–5 times
+- Avoid keyword stuffing
+- Keep natural readability
+
+---
+
+## ITERATION & FEEDBACK
+
+After generating the listing:
+
+- Ask user for feedback
+- Allow:
+  - rewriting specific fields
+  - tone adjustments
+  - keyword refinement
+
+Examples:
+
+"Make it more premium"  
+"Target beginners"  
+"Focus more on productivity"
+
+---
+
+## SAVE TO MEMORY
+
+Save final approved listing to memory:
+
+Include:
+
+- app idea
+- audience
+- features
+- tone
+- full listing output
+
+This allows reuse and iteration later.
 
 ---
 > Source: [Mehrozsheikh/aso-appstore-listing-skill](https://github.com/Mehrozsheikh/aso-appstore-listing-skill) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
