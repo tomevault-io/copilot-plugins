@@ -4,7 +4,7 @@
   "repo": "cad-ai-agent",
   "description": "Drawing Intelligence Platform for AEC professionals. Upload a DXF, PDF, or DWG \u2014 describe what you need in plain English, and get structured edits, compliance reports, quantity takeoffs, health assessments, RFIs, and drawing summaries \u2014 all without the AI ever touching your original file.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeremylongshore/cad-ai-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T16:36:27Z"
+  "distributed_at": "2026-06-18T14:52:06Z"
 }
