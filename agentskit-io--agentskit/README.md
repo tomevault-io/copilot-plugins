@@ -7,11 +7,11 @@ The complete toolkit for building AI agents in JavaScript. Lightweight core, Rea
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AgentsKit-io/agentskit](https://github.com/AgentsKit-io/agentskit).
+Original source: `CLAUDE.md` in [AgentsKit-io/agentskit](https://github.com/AgentsKit-io/agentskit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
