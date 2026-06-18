@@ -1,0 +1,9 @@
+{
+  "name": "kpkym--vscode-project-manager",
+  "displayName": "vscode-project-manager",
+  "description": "A lightweight VS Code extension for managing and quickly switching between projects from the sidebar",
+  "version": "1.0.0",
+  "author": "kpkym",
+  "homepage": "https://github.com/kpkym/vscode-project-manager",
+  "skills": []
+}
