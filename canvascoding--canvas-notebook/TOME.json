@@ -1,0 +1,44 @@
+{
+  "name": "canvas-notebook",
+  "owner": "canvascoding",
+  "repo": "canvas-notebook",
+  "description": "Canvas Notebook \u2014 Your AI workspace with file management, agent support, and bring-your-own-model flexibility.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/canvascoding/canvas-notebook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T11:17:33Z"
+}
