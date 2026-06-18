@@ -1,0 +1,44 @@
+{
+  "name": "WLEDCC",
+  "owner": "PPPAnimal",
+  "repo": "WLEDCC",
+  "description": "WLED Command Center.  Discovers and Controls all WLED, MAGICHOME and LEDFX devices from one screen.  Handles Updates to devices and installs LEDFX.  Record and play scenes/presets saved in WLED and LEDFX.  Add cards to even open your favorite web pages (spotify) or programs (winamp).  Truely a All-in-One Control Center.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PPPAnimal/WLEDCC",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T03:15:42Z"
+}
