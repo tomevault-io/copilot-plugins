@@ -1,0 +1,9 @@
+{
+  "name": "gonoff--claude-todos-skill",
+  "displayName": "claude-todos-skill",
+  "description": "claude-todos-skill",
+  "version": "1.0.0",
+  "author": "gonoff",
+  "homepage": "https://github.com/gonoff/claude-todos-skill",
+  "skills": []
+}
