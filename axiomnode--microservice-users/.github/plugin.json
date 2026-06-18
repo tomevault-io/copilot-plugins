@@ -1,0 +1,9 @@
+{
+  "name": "axiomnode--microservice-users",
+  "displayName": "microservice-users",
+  "description": "Microservices Users",
+  "version": "1.0.0",
+  "author": "AxiomNode",
+  "homepage": "https://github.com/AxiomNode/microservice-users",
+  "skills": []
+}
