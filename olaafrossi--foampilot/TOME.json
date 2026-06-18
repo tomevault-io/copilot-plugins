@@ -4,7 +4,7 @@
   "repo": "FoamPilot",
   "description": "Open Foam Docker Control/UI from Mac or PC",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/olaafrossi/FoamPilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T05:24:28Z"
+  "distributed_at": "2026-06-18T12:33:57Z"
 }
