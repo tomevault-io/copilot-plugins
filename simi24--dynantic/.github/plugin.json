@@ -1,0 +1,9 @@
+{
+  "name": "simi24--dynantic",
+  "displayName": "dynantic",
+  "description": "Dynantic is a synchronous-first Python ORM for Amazon DynamoDB based on Pydantic",
+  "version": "1.0.0",
+  "author": "Simi24",
+  "homepage": "https://github.com/Simi24/dynantic",
+  "skills": []
+}
