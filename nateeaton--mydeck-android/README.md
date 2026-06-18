@@ -7,11 +7,11 @@ A Readeck client based on jensomato/ReadeckApp, refactored for a Pocket-like exp
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NateEaton/mydeck-android](https://github.com/NateEaton/mydeck-android).
+Original source: `CLAUDE.md` in [NateEaton/mydeck-android](https://github.com/NateEaton/mydeck-android).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
