@@ -1,0 +1,9 @@
+{
+  "name": "turadg--git-where",
+  "displayName": "git-where",
+  "description": "Git extension for navigating repos and worktrees \u2014 find files, directories, and branches across projects with frecency-ranked fuzzy",
+  "version": "1.0.0",
+  "author": "turadg",
+  "homepage": "https://github.com/turadg/git-where",
+  "skills": []
+}
