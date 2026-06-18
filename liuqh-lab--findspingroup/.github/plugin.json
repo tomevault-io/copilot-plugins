@@ -1,0 +1,9 @@
+{
+  "name": "liuqh-lab--findspingroup",
+  "displayName": "FindSpinGroup",
+  "description": "Spin space group (SSG) symmetry analysis toolkit for magnetic materials. Automatically identifies and classifies SSGs, generating symmetry operations, spin Wyckoff positions, and spin Brillouin zones.",
+  "version": "1.0.0",
+  "author": "LiuQH-lab",
+  "homepage": "https://github.com/LiuQH-lab/FindSpinGroup",
+  "skills": []
+}
