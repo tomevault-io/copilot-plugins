@@ -1,0 +1,9 @@
+{
+  "name": "rollacode--playnite-bridge",
+  "displayName": "playnite-bridge",
+  "description": "Playnite plugin \u2014 REST API for AI agents, game library sync across PCs, artwork sync, Xbox/handheld FSE integration",
+  "version": "1.0.0",
+  "author": "rollacode",
+  "homepage": "https://github.com/rollacode/playnite-bridge",
+  "skills": []
+}
