@@ -1,0 +1,9 @@
+{
+  "name": "tsanva--cc-discord-presence",
+  "displayName": "cc-discord-presence",
+  "description": "Discord Rich Presence for Claude Code - Show your session on Discord",
+  "version": "1.0.0",
+  "author": "tsanva",
+  "homepage": "https://github.com/tsanva/cc-discord-presence",
+  "skills": []
+}
