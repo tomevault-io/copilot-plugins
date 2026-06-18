@@ -1,0 +1,9 @@
+{
+  "name": "pku-typst--citeproc-typst",
+  "displayName": "citeproc-typst",
+  "description": "CSL (Citation Style Language) processor implemented in pure Typst.",
+  "version": "1.0.0",
+  "author": "pku-typst",
+  "homepage": "https://github.com/pku-typst/citeproc-typst",
+  "skills": []
+}
