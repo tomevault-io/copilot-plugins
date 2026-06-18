@@ -1,0 +1,9 @@
+{
+  "name": "jackwener--exam-system",
+  "displayName": "exam-system",
+  "description": "AI Coding Workshop \u5728\u7ebf\u8003\u8bd5\u7cfb\u7edf \u2014 Next.js 16 + Redis + GLM/Claude \u81ea\u52a8\u8bc4\u5206",
+  "version": "1.0.0",
+  "author": "jackwener",
+  "homepage": "https://github.com/jackwener/exam-system",
+  "skills": []
+}
