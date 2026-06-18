@@ -4,7 +4,7 @@
   "repo": "POE2-unofficial-launcher",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NERDHEAD-lab/POE2-unofficial-launcher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T12:40:54Z"
+  "distributed_at": "2026-06-18T03:16:43Z"
 }
