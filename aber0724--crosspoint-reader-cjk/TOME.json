@@ -4,7 +4,7 @@
   "repo": "crosspoint-reader-cjk",
   "description": "CJK-adapted firmware for the Xteink X4 e-paper display reader. Xteink X4 \u7535\u5b50\u58a8\u6c34\u5c4f\u9605\u8bfb\u5668\u4e2d\u65e5\u6587\u9002\u914d\u56fa\u4ef6\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aBER0724/crosspoint-reader-cjk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T03:06:18Z"
+  "distributed_at": "2026-06-18T08:59:28Z"
 }
