@@ -1,0 +1,14 @@
+{
+  "name": "browser-use--video-use",
+  "displayName": "video-use",
+  "description": "video-use",
+  "version": "1.0.0",
+  "author": "browser-use",
+  "homepage": "https://github.com/browser-use/video-use",
+  "skills": [
+    {
+      "name": "video-use",
+      "description": ""
+    }
+  ]
+}
