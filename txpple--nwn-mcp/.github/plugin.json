@@ -1,0 +1,9 @@
+{
+  "name": "txpple--nwn-mcp",
+  "displayName": "nwn-mcp",
+  "description": "MCP server for Neverwinter Nights Enhanced Edition module files",
+  "version": "1.0.0",
+  "author": "Txpple",
+  "homepage": "https://github.com/Txpple/nwn-mcp",
+  "skills": []
+}
