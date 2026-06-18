@@ -1,0 +1,9 @@
+{
+  "name": "visionforge-ou--foreman",
+  "displayName": "foreman",
+  "description": "A Boris-style agentic orchestrator TUI that supervises headless Claude Code agents through a gated software-delivery pipeline \u2014 pointed at any repository.",
+  "version": "1.0.0",
+  "author": "VisionForge-OU",
+  "homepage": "https://github.com/VisionForge-OU/foreman",
+  "skills": []
+}
