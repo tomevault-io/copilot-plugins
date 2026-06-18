@@ -1,0 +1,9 @@
+{
+  "name": "turleing--rubrics-to-tokens",
+  "displayName": "Rubrics-To-Tokens",
+  "description": "Official codebase of paper \"Rubrics to Tokens: Bridging Response-level Rubrics and Token-level Rewards in Instruction Following Tasks\"",
+  "version": "1.0.0",
+  "author": "TURLEing",
+  "homepage": "https://github.com/TURLEing/Rubrics-To-Tokens",
+  "skills": []
+}
