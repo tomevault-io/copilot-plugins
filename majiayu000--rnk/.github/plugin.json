@@ -1,0 +1,9 @@
+{
+  "name": "majiayu000--rnk",
+  "displayName": "rnk",
+  "description": "Declarative TUI framework for Rust with React-like hooks, flexbox layout, and 45+ components",
+  "version": "1.0.0",
+  "author": "majiayu000",
+  "homepage": "https://github.com/majiayu000/rnk",
+  "skills": []
+}
