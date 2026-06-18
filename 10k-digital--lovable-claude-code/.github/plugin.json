@@ -1,0 +1,9 @@
+{
+  "name": "10k-digital--lovable-claude-code",
+  "displayName": "lovable-claude-code",
+  "description": "Ever wanted to use Claude Code to edit projects in Lovable? Wait no further. This repo has a plug-in with Claude Code that lets it edit projects on Lovable via Github sync and browser automation.",
+  "version": "1.0.0",
+  "author": "10K-Digital",
+  "homepage": "https://github.com/10K-Digital/lovable-claude-code",
+  "skills": []
+}
