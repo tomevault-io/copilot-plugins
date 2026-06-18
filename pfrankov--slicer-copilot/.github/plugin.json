@@ -1,0 +1,9 @@
+{
+  "name": "pfrankov--slicer-copilot",
+  "displayName": "slicer-copilot",
+  "description": "AI-powered optimization for your Bambu Studio 3D printing projects.",
+  "version": "1.0.0",
+  "author": "pfrankov",
+  "homepage": "https://github.com/pfrankov/slicer-copilot",
+  "skills": []
+}
