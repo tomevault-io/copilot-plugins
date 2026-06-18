@@ -4,7 +4,7 @@
   "repo": "EXACT-Coding-Exercises",
   "description": "Exercise repo for the EXACT Coding workshop -- Example-guided, AI-Collaborative  & Test-driven Development",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marcoemrich/EXACT-Coding-Exercises",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T17:35:57Z"
+  "distributed_at": "2026-06-18T15:13:27Z"
 }
