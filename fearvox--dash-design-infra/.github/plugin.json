@@ -1,0 +1,9 @@
+{
+  "name": "fearvox--dash-design-infra",
+  "displayName": "dash-design-infra",
+  "description": "Fixed-canvas editorial design infrastructure on Bun: tokens, type scale, baseline metrics, layout, and print.",
+  "version": "1.0.0",
+  "author": "Fearvox",
+  "homepage": "https://github.com/Fearvox/dash-design-infra",
+  "skills": []
+}
