@@ -1,0 +1,9 @@
+{
+  "name": "ma-pony--cryptotrader-ai",
+  "displayName": "cryptotrader-ai",
+  "description": "\u52a0\u5bc6\u8d27\u5e01 AI \u81ea\u52a8\u4ea4\u6613\u4e0e\u56de\u6d4b\u7cfb\u7edf \u00b7 LangGraph \u591a\u4ee3\u7406\u8fa9\u8bba + \u786c\u6027\u98ce\u63a7 + \u51b3\u7b56\u65e5\u5fd7 | AI-powered crypto trading & backtest with LangGraph multi-agent debate, hard risk controls, and Decision Journal",
+  "version": "1.0.0",
+  "author": "ma-pony",
+  "homepage": "https://github.com/ma-pony/cryptotrader-ai",
+  "skills": []
+}
