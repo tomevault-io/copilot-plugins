@@ -1,0 +1,9 @@
+{
+  "name": "bharat--homeassistant-lockly",
+  "displayName": "homeassistant-lockly",
+  "description": "HomeAssistant custom integration for managing Zigbee2MQTT locks",
+  "version": "1.0.0",
+  "author": "bharat",
+  "homepage": "https://github.com/bharat/homeassistant-lockly",
+  "skills": []
+}
