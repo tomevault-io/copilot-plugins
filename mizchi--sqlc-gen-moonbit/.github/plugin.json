@@ -1,0 +1,9 @@
+{
+  "name": "mizchi--sqlc-gen-moonbit",
+  "displayName": "sqlc_gen_moonbit",
+  "description": "sqlc plugin for generating type-safe MoonBit code from SQL",
+  "version": "1.0.0",
+  "author": "mizchi",
+  "homepage": "https://github.com/mizchi/sqlc_gen_moonbit",
+  "skills": []
+}
