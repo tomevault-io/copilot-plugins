@@ -4,7 +4,7 @@
   "repo": "nirs4all-studio",
   "description": "A webapp (and standalone version) for the nirs4all python library.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GBeurier/nirs4all-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T10:50:00Z"
+  "distributed_at": "2026-06-18T16:36:53Z"
 }
