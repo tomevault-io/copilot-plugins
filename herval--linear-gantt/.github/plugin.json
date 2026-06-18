@@ -1,0 +1,9 @@
+{
+  "name": "herval--linear-gantt",
+  "displayName": "linear-gantt",
+  "description": "A vibecoded Gantt visualizer for Linear projects",
+  "version": "1.0.0",
+  "author": "herval",
+  "homepage": "https://github.com/herval/linear-gantt",
+  "skills": []
+}
