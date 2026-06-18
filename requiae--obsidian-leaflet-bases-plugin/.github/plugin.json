@@ -1,0 +1,9 @@
+{
+  "name": "requiae--obsidian-leaflet-bases-plugin",
+  "displayName": "obsidian-leaflet-bases-plugin",
+  "description": "Interactive map view inside your Obsidian bases.",
+  "version": "1.0.0",
+  "author": "Requiae",
+  "homepage": "https://github.com/Requiae/obsidian-leaflet-bases-plugin",
+  "skills": []
+}
