@@ -1,0 +1,9 @@
+{
+  "name": "denniskribl--tauri-plugin-hotswap",
+  "displayName": "tauri-plugin-hotswap",
+  "description": "Open-source Tauri v2 plugin for OTA frontend updates. Self-hosted, signed bundles, auto-rollback, channels. No cloud required.",
+  "version": "1.0.0",
+  "author": "denniskribl",
+  "homepage": "https://github.com/denniskribl/tauri-plugin-hotswap",
+  "skills": []
+}
