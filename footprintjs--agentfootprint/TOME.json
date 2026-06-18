@@ -4,7 +4,7 @@
   "repo": "agentfootprint",
   "description": "Context engineering, abstracted. Build AI agents whose every LLM call traces back to what was injected, who triggered it, when, and how it cached. Built on footprintjs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/footprintjs/agentfootprint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T05:07:49Z"
+  "distributed_at": "2026-06-18T11:06:33Z"
 }
