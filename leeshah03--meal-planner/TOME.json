@@ -4,7 +4,7 @@
   "repo": "Meal-Planner",
   "description": "Meal Planner app built with Claude Code as part of the Build Together WDAI community. It helps users plan weekly meals, manage pantry inventory, generate shopping lists, and store recipes in one place.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Leeshah03/Meal-Planner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T00:56:52Z"
+  "distributed_at": "2026-06-18T05:21:57Z"
 }
