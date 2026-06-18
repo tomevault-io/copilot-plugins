@@ -1,0 +1,9 @@
+{
+  "name": "decentraland--sdk-skills",
+  "displayName": "sdk-skills",
+  "description": "sdk-skills",
+  "version": "1.0.0",
+  "author": "decentraland",
+  "homepage": "https://github.com/decentraland/sdk-skills",
+  "skills": []
+}
