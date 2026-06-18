@@ -1,0 +1,50 @@
+## cinder-ui
+
+> `cinder_ui` is a Phoenix + LiveView component library with a demo app and static docs export.
+
+# Repository Guide
+
+`cinder_ui` is a Phoenix + LiveView component library with a demo app and static docs export.
+
+## Key Paths
+
+- `lib/cinder_ui/`: library components, icons, hooks, classes
+- `priv/templates/cinder_ui/`: source of truth for Cinder UI hook JavaScript
+- `priv/templates/cinder_ui.css`: source of truth for Cinder UI CSS
+- `dev/`: static docs/site code
+- `demo/`: local integration app and browser tests
+
+## Working Rules
+
+- Edit `priv/templates/cinder_ui/**` and `priv/templates/cinder_ui.css`; do not edit `priv/templates/cinder_ui.js`, `demo/assets/js/cinder_ui.js`, or `demo/assets/css/cinder_ui.css` because they are generated copies.
+- Use `mise` for repo-managed tooling. On a fresh clone or whenever `.mise.toml` changes, run `mise trust` before `mise install` so the configured tasks and tool versions are allowed. Inside the repository working directory, plain `mix`, `elixir`, `erl`, and `node` commands will use the `mise` toolchain automatically.
+- Keep APIs Phoenix-first: HEEx function components, predictable assigns, typed `attr` and `slot`.
+- Prefer composing with existing components in docs and examples; use raw HTML only when necessary.
+- Keep demo and static docs behavior aligned, including snippets, theme controls, and interactions.
+- Update tests when component behavior, docs generation, or JS hooks change.
+- Update `README.md`, `CONTRIBUTING.md`, and in-module docs/examples when public behavior changes.
+- Use repository-relative paths in docs.
+- RTL support is out of scope unless a maintainer explicitly asks for it.
+
+## Commands
+
+Run from the repository root unless noted.
+
+- Initial setup: `mise trust && mise install`
+- `mix quality`
+- `env MIX_ENV=test mix coveralls.cobertura --raise`
+- `mix cinder_ui.docs.build`
+- `cd demo && mix format --check-formatted && mix test`
+- `cd demo && npm ci && mix assets.build && npx playwright test`
+- `./bin/update-snapshots` — Update Playwright visual regression test snapshots after intentional visual changes
+
+## Release
+
+1. Bump the version in `mix.exs` and update `CHANGELOG.md`.
+2. Run the required quality, coverage, docs, and demo checks.
+3. Publish to Hex manually.
+4. Publish the GitHub release to trigger Pages deploy.
+
+---
+> Source: [levibuzolic/cinder_ui](https://github.com/levibuzolic/cinder_ui) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
