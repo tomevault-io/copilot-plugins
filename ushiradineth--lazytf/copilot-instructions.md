@@ -1,0 +1,141 @@
+## lazytf
+
+> Repository-specific execution guide for coding agents working in `lazytf`.
+
+# AGENTS.md
+
+Repository-specific execution guide for coding agents working in `lazytf`.
+
+Precedence
+- Nearest `AGENTS.md` wins. This repo currently has one Go project and no nested agent guides.
+
+## Commands
+confidence: high
+
+Authoritative CI commands (`.github/workflows/ci.yml`):
+- `go mod verify`
+- `go vet ./...`
+- `go test ./...`
+- `golangci-lint run --timeout=5m`
+- `go build ./...`
+
+Preferred local commands (`Justfile`):
+- `just deps` (download modules)
+- `just run` (run app)
+- `just dev` (hot reload via `gow`)
+- `just build` (build `bin/lazytf`)
+- `just fmt` (gofumpt + goimports-reviser + golangci-lint fmt)
+- `just vet`
+- `just lint` (defaults to `mode=normal`; supports `mode=fix|all`)
+- `just test` (defaults to `mode=default`; supports `mode=coverage|summary`)
+- `just integration` (tagged integration tests)
+- `just e2e` (tagged end-to-end tests)
+- `just security` (`govulncheck ./...`)
+- `just generate` (run code generation)
+- `just generate-check` (verify generated artifacts are fresh)
+- `just verify` (CI-equivalent verify checks)
+- `just check` (single verification gate)
+
+## Testing
+confidence: high
+
+- Fast default for broad validation: `go test ./...` (matches CI)
+- Local verification gate: `just check`
+- Fast local test run: `just test`
+- Integration (tagged): `go test -tags=integration ./test/integration`
+- E2E (tagged): `go test -tags=e2e ./test/e2e`
+- E2E with race detector: `go test -race -tags=e2e ./test/e2e`
+- Notes: integration and e2e tests may require a working `terraform` binary; some e2e flows may require network/provider download.
+
+## Project structure
+confidence: high
+
+- `cmd/lazytf/`: CLI entrypoint and wiring
+- `internal/ui/`: Bubble Tea model, views, and UI orchestration
+- `internal/terraform/`: terraform execution and plan parsing
+- `internal/config/`: config models, locking, schema
+- `internal/environment/`: folder/workspace detection
+- `internal/history/`: SQLite-backed operation history
+- `internal/diff/`: diff engine and models
+- `internal/integration/`: non-tagged integration-style tests using fake terraform
+- `test/integration/`: tagged integration tests against real terraform fixtures
+- `test/e2e/`: tagged end-to-end tests
+- `testdata/`: fixtures (plans and terraform fixtures)
+- `.agents/docs/`: planning notes and migrated legacy docs
+
+Write boundaries
+- Prefer edits in `internal/**` and `cmd/lazytf/**` for behavior changes.
+- Keep fixtures under `testdata/**` when adding test scenarios.
+- Do not treat `bin/`, `coverage.out`, or `coverage.html` as source of truth.
+
+## Code style
+confidence: high
+
+- Use `just fmt` before finalizing changes.
+- Lint standard is strict, configured in `.golangci.yml`.
+- Follow existing Go patterns: small focused functions, explicit error checks, early returns.
+- Keep exported identifiers documented when required by lint rules.
+
+Style example:
+```go
+plan, err := parser.Parse(r)
+if err != nil {
+	return nil, fmt.Errorf("parse terraform plan: %w", err)
+}
+return plan, nil
+```
+
+## Git workflow
+confidence: medium
+
+- Work on a feature branch.
+- Before applying an approved plan, start from a feature branch or a separate git worktree/workspace.
+- If the user did not specify branch or workspace preference for planned implementation, ask once before making code changes.
+- Keep diffs scoped to the requested change.
+- Before every PR push, run `just check` locally and fix failures before pushing.
+- If touching CI-sensitive paths, also run CI-equivalent commands (`go mod verify`, `go vet ./...`, `go test ./...`, `golangci-lint run --timeout=5m`, `go build ./...`).
+
+## Releases
+confidence: high
+
+- Releases are automated via `.github/workflows/release.yml`.
+- Start a release by running the `Release` workflow manually on `main` with `version_bump` set to `patch`, `minor`, or `major`.
+- The workflow opens a release PR that bumps `VERSION` on branch `release/vX.Y.Z` with commit title `chore(release): bump version to X.Y.Z`.
+- After the release PR merges to `main`, the same workflow detects the `VERSION` change, creates tag `vX.Y.Z`, validates GoReleaser config, and publishes artifacts.
+- Verify published release URL using `gh release view vX.Y.Z --json url --jq .url`.
+- Prefer `just release-check` for local release config validation before touching release-related files.
+- Do not manually create release tags or run ad hoc `goreleaser release` for official releases unless explicitly requested.
+
+## Boundaries
+confidence: high
+
+Always
+- Use commands and flags that exist in CI/`Justfile`; do not invent alternatives when verified commands exist.
+- Prefer minimal, surgical edits over broad refactors.
+- Add or update tests when behavior changes.
+- Report what you ran and what could not be run.
+
+Ask first
+- Adding/removing dependencies (`go.mod`/`go.sum`) beyond the requested scope.
+- Deleting or rewriting large fixture sets under `testdata/`.
+- Changes to CI workflows, release logic, or security-sensitive configuration.
+- Destructive git operations.
+
+Never
+- Commit secrets or credentials.
+- Bypass hooks with `--no-verify`.
+- Use force-push on protected branches.
+- Modify generated artifacts (`bin/*`, coverage files) as a substitute for source fixes.
+
+## Verification checklist
+
+- Confirm changed scope is limited to requested files/areas.
+- Run `just check` before creating or updating a PR branch.
+- Run relevant tests first, then broader checks as needed.
+- For core-path changes, run at least CI-equivalent validation.
+- Ensure formatting and lint pass (`just fmt`, `just lint`).
+- Document any skipped checks and why.
+
+---
+> Source: [ushiradineth/lazytf](https://github.com/ushiradineth/lazytf) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
