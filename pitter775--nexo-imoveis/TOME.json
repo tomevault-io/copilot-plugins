@@ -1,0 +1,44 @@
+{
+  "name": "nexo-imoveis",
+  "owner": "pitter775",
+  "repo": "nexo-imoveis",
+  "description": "Na Nexo Leil\u00f5es, democratizamos o acesso aos leil\u00f5es de im\u00f3veis, transformando essa oportunidade antes exclusiva em um caminho seguro, transparente e acess\u00edvel para todos. ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pitter775/nexo-imoveis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T08:57:16Z"
+}
