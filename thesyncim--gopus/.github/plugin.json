@@ -1,0 +1,9 @@
+{
+  "name": "thesyncim--gopus",
+  "displayName": "gopus",
+  "description": "Pure Go implementation of the Opus audio codec",
+  "version": "1.0.0",
+  "author": "thesyncim",
+  "homepage": "https://github.com/thesyncim/gopus",
+  "skills": []
+}
