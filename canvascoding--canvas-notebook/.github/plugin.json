@@ -1,0 +1,9 @@
+{
+  "name": "canvascoding--canvas-notebook",
+  "displayName": "canvas-notebook",
+  "description": "Canvas Notebook \u2014 Your AI workspace with file management, agent support, and bring-your-own-model flexibility.",
+  "version": "1.0.0",
+  "author": "canvascoding",
+  "homepage": "https://github.com/canvascoding/canvas-notebook",
+  "skills": []
+}
