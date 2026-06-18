@@ -1,0 +1,9 @@
+{
+  "name": "helpertubot--teams-united-league-service",
+  "displayName": "teams-united-league-service",
+  "description": "Multi-platform league standings collection service for Teams United",
+  "version": "1.0.0",
+  "author": "helpertubot",
+  "homepage": "https://github.com/helpertubot/teams-united-league-service",
+  "skills": []
+}
