@@ -1,0 +1,9 @@
+{
+  "name": "jmagly--carbonyl-agent",
+  "displayName": "carbonyl-agent",
+  "description": "Python SDK for the Carbonyl terminal browser. Persistent named sessions, daemon mode, realistic browser fingerprinting, screen-text inspection, and host-browser cookie import. Lightweight Selenium/Pla",
+  "version": "1.0.0",
+  "author": "jmagly",
+  "homepage": "https://github.com/jmagly/carbonyl-agent",
+  "skills": []
+}
