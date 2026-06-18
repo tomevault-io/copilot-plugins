@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "petekp",
   "homepage": "https://github.com/petekp/claude-code-setup",
-  "skills": [
-    {
-      "name": "deep-research",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
