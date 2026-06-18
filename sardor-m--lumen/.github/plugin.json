@@ -1,0 +1,9 @@
+{
+  "name": "sardor-m--lumen",
+  "displayName": "lumen",
+  "description": "Local-first persistent brain for AI coding agents - SQLite knowledge graph + replayable trajectories, queryable over MCP.",
+  "version": "1.0.0",
+  "author": "Sardor-M",
+  "homepage": "https://github.com/Sardor-M/lumen",
+  "skills": []
+}
