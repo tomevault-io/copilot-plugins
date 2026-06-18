@@ -4,7 +4,7 @@
   "repo": "GenshinTools",
   "description": "Genshin Impact Tools: Artifact Management, Damage Optimizer, and more!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Anyrainel/GenshinTools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T16:41:20Z"
+  "distributed_at": "2026-06-18T22:44:13Z"
 }
