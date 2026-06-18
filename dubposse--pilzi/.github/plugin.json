@@ -1,0 +1,9 @@
+{
+  "name": "dubposse--pilzi",
+  "displayName": "pilzi",
+  "description": "Pilzi ist eine kleine, SEO-optimierte Next.js Web-App mit statischen Daten zu saisonalen Lebensmitteln, Haltbarkeit und Auswahlmerkmalen.",
+  "version": "1.0.0",
+  "author": "dubposse",
+  "homepage": "https://github.com/dubposse/pilzi",
+  "skills": []
+}
