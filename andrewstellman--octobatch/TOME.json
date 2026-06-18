@@ -4,7 +4,7 @@
   "repo": "octobatch",
   "description": "Batch orchestration tool for large-scale LLM processing. Treats batch processing as a data pipeline with TUI monitoring, Monte Carlo simulation support, and AI-assisted pipeline development.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andrewstellman/octobatch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T14:53:50Z"
+  "distributed_at": "2026-06-18T20:56:02Z"
 }
