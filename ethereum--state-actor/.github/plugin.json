@@ -1,0 +1,9 @@
+{
+  "name": "ethereum--state-actor",
+  "displayName": "state-actor",
+  "description": "state-actor",
+  "version": "1.0.0",
+  "author": "ethereum",
+  "homepage": "https://github.com/ethereum/state-actor",
+  "skills": []
+}
