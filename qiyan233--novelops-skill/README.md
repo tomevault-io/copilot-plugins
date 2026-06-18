@@ -2,16 +2,15 @@
 
 > Tome by [qiyan233](https://github.com/qiyan233/novelops-skill) — distributed by [TomeVault](https://tomevault.io)
 
-面向 OpenClaw 的长篇小说工作流技能骨架，支持状态管理、连续性审计与下一章上下文构建
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [qiyan233/novelops-skill](https://github.com/qiyan233/novelops-skill).
+Original source: `` in [qiyan233/novelops-skill](https://github.com/qiyan233/novelops-skill).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
