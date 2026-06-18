@@ -1,0 +1,9 @@
+{
+  "name": "guancecloud--openclaw-otel-plugin",
+  "displayName": "openclaw-otel-plugin",
+  "description": "openclaw-otel-plugin",
+  "version": "1.0.0",
+  "author": "GuanceCloud",
+  "homepage": "https://github.com/GuanceCloud/openclaw-otel-plugin",
+  "skills": []
+}
