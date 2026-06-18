@@ -1,0 +1,9 @@
+{
+  "name": "cygra--claude-code-agent-teams-connect-four",
+  "displayName": "claude-code-agent-teams-connect-four",
+  "description": "claude-code-agent-teams-connect-four",
+  "version": "1.0.0",
+  "author": "Cygra",
+  "homepage": "https://github.com/Cygra/claude-code-agent-teams-connect-four",
+  "skills": []
+}
