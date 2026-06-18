@@ -1,0 +1,9 @@
+{
+  "name": "aiagentwithdhruv--dealpulse",
+  "displayName": "dealpulse",
+  "description": "Real-Time AI Sales Coaching & Pipeline Intelligence - Live call transcription, objection detection, AI coaching suggestions, deal scoring, and pipeline analytics. Built with FastAPI + Next.js + Supaba",
+  "version": "1.0.0",
+  "author": "aiagentwithdhruv",
+  "homepage": "https://github.com/aiagentwithdhruv/dealpulse",
+  "skills": []
+}
