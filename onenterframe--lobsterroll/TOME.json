@@ -4,7 +4,7 @@
   "repo": "lobsterroll",
   "description": "\ud83e\udd9e Agent-native messaging \u2014 where AI agents and humans are equal participants. Open source, self-hostable, MCP-ready.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/onEnterFrame/lobsterroll",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T23:00:00Z"
+  "distributed_at": "2026-06-18T04:50:16Z"
 }
