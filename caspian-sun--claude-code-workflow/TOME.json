@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-workflow",
+  "owner": "Caspian-Sun",
+  "repo": "claude-code-workflow",
+  "description": "AI-driven R&D workflow framework: 8-step SDLC, hard gates, @rules traceability chain. Bilingual (EN/ZH).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Caspian-Sun/claude-code-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T02:40:18Z"
+}
