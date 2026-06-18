@@ -1,0 +1,301 @@
+## calendly-cli-openclaw-skill
+
+> Calendly scheduling integration. List events, check availability, manage meetings via Calendly API.
+
+
+# Calendly Skill
+
+Interact with Calendly scheduling via MCP-generated CLI.
+
+> **Note:** This CLI includes `schedule-event` and `reschedule-event` with strict input validation and MCP-first execution. If MCP scheduling is unavailable, each command falls back to Calendly REST.
+
+## Quick Start
+
+```bash
+# Make the launcher available on PATH
+bun run install:path
+export PATH="$HOME/.local/bin:$PATH"
+command -v calendly
+
+# Get your Calendly profile (returns user URI)
+calendly get-current-user
+
+# List RECENT events (always use --min-start-time for recent queries!)
+calendly list-events \
+  --user-uri "<YOUR_USER_URI>" \
+  --min-start-time "2026-01-20T00:00:00Z" \
+  --max-start-time "2026-01-27T23:59:59Z"
+
+# Get event details
+calendly get-event --event-uuid <UUID>
+
+# Cancel an event
+calendly cancel-event --event-uuid <UUID> --reason "Rescheduling needed"
+```
+
+Default install target: `~/.local/bin/calendly`.
+Override it with `bun run install:path -- --bin-dir /your/bin/dir`.
+
+## Available Commands
+
+### User Info
+- `get-current-user` - Get authenticated user details
+
+### Events
+- `list-events` - List scheduled events (requires --user-uri); add `--include-invitees` for expand + bounded fallback invitee hydration
+- `list-events-with-invitees` - Compatibility alias for include-invitees path
+- `get-event` - Get event details (requires --event-uuid)
+- `list-event-types` - List schedulable event types (requires `--user-uri` or `--organization-uri`; optional `--count`)
+- `get-event-type` - Get event type details (requires `--event-type-uri`)
+- `update-event-type` - Update mutable event type metadata (`--event-type-uri` primary, `--event-type-uuid` alias, supports `--dry-run`)
+- `get-event-type-availability` - Get available slots for an event type (`--event-type-uri`, `--start-time`, `--end-time`; optional `--timezone`)
+- `schedule-event` - Schedule a meeting by booking an invitee into an event type
+- `reschedule-event` - Reschedule an existing meeting to a new start time using event/invitee identifiers
+- `cancel-event` - Cancel an event (requires --event-uuid, optional --reason)
+
+### Invitees
+- `list-event-invitees` - List invitees for an event (requires --event-uuid)
+- `batch-event-invitees` - Batch lookup invitees for multiple events (repeat `--event-uri`)
+- `search-invitees` - Search events by invitee email across paginated results
+
+### Team Events
+- `list-team-events` - List scheduled events for a team by scanning organization memberships and member calendars
+
+### Organization
+- `list-organization-memberships` - List organization memberships
+
+### Webhooks
+- `list-webhook-subscriptions` - List webhook subscriptions
+- `get-webhook-subscription` - Get webhook subscription details
+- `create-webhook-subscription` - Create webhook subscription
+- `delete-webhook-subscription` - Delete webhook subscription
+
+## Configuration
+
+API key can be stored in your environment or `.env` file:
+```bash
+export CALENDLY_API_KEY="<your-pat-token>"
+# Or in legacy ~/.moltbot/.env / ~/.clawdbot/.env
+```
+
+Get your Personal Access Token from: https://calendly.com/integrations/api_webhooks
+
+## Usage in OpenClaw
+
+When user asks about:
+- "What meetings do I have?" → `list-events` with `--min-start-time` (use recent date!)
+- "Show me all demos this week with who booked them" → `list-events --include-invitees` (expand first; fallback hydrate only when needed)
+- "Cancel my 2pm meeting" → Find with `list-events` (time-filtered), then `cancel-event`
+- "Who's attending X meeting?" → `list-events --include-invitees` (with fallback) or `list-event-invitees`
+
+**Note:** First time, run `calendly get-current-user` to obtain your User URI.
+
+## Getting Your User URI
+
+Run `calendly get-current-user` to get your user URI. Example:
+```json
+{
+  "resource": {
+    "uri": "https://api.calendly.com/users/<YOUR_USER_UUID>",
+    "scheduling_url": "https://calendly.com/<your-username>"
+  }
+}
+```
+
+## Examples
+
+```bash
+# List next 10 events
+calendly list-events \
+  --user-uri "<YOUR_USER_URI>" \
+  -o json | jq .
+
+# List events with invitees (expand first; bounded fallback)
+calendly list-events \
+  --user-uri "<YOUR_USER_URI>" \
+  --include-invitees \
+  --max-invitee-fetches 25 \
+  --status active
+
+# List team events for a shared calendar/org scope
+calendly list-team-events \
+  --organization-uri "<YOUR_ORG_URI>" \
+  --min-start-time "2026-01-20T00:00:00Z" \
+  --max-start-time "2026-01-27T23:59:59Z" \
+  --include-invitees
+
+# Get event details
+calendly get-event \
+  --event-uuid "<EVENT_UUID>" \
+  -o json
+
+# Get event type details
+calendly get-event-type \
+  --event-type-uri "https://api.calendly.com/event_types/<EVENT_TYPE_UUID>" \
+  -o json
+
+# Update event type metadata
+calendly update-event-type \
+  --event-type-uri "https://api.calendly.com/event_types/<EVENT_TYPE_UUID>" \
+  --duration 30 \
+  --active true \
+  -o json
+
+# Dry-run without applying
+calendly update-event-type \
+  --event-type-uuid "<EVENT_TYPE_UUID>" \
+  --description "Updated invitee-facing description" \
+  --dry-run \
+  -o json
+
+# Get event type availability
+calendly get-event-type-availability \
+  --event-type-uri "https://api.calendly.com/event_types/<EVENT_TYPE_UUID>" \
+  --start-time "2026-03-01T00:00:00Z" \
+  --end-time "2026-03-02T00:00:00Z" \
+  --timezone "America/New_York" \
+  -o json
+
+# Schedule an event (requires paid plan)
+calendly schedule-event \
+  --event-type "https://api.calendly.com/event_types/<EVENT_TYPE_UUID>" \
+  --start-time "2099-03-01T15:00:00Z" \
+  --invitee-email "invitee@example.com" \
+  --invitee-name "Invitee Name" \
+  --invitee-timezone "America/New_York" \
+  --questions '{"Company":"Acme"}' \
+  -o json
+
+# Reschedule an event (requires paid plan)
+calendly reschedule-event \
+  --event-uuid "<EVENT_UUID>" \
+  --new-start-time "2099-03-02T16:00:00Z" \
+  --reason "Conflict with another meeting" \
+  -o json
+
+# List event types
+calendly list-event-types \
+  --organization-uri "https://api.calendly.com/organizations/<ORG_UUID>" \
+  --count 20 \
+  -o json
+
+# Batch invitee lookup for multiple events
+calendly batch-event-invitees \
+  --event-uri "https://api.calendly.com/scheduled_events/<EVENT_UUID_1>" \
+  --event-uri "https://api.calendly.com/scheduled_events/<EVENT_UUID_2>" \
+  --max-invitee-fetches 25 \
+  -o json
+
+# Cancel with reason
+calendly cancel-event \
+  --event-uuid "<EVENT_UUID>" \
+  --reason "Rescheduling due to conflict"
+
+# Create webhook subscription (with signing key)
+calendly create-webhook-subscription \
+  --url "https://example.com/calendly/webhooks" \
+  --events "invitee.created,invitee.canceled" \
+  --organization-uri "https://api.calendly.com/organizations/<ORG_UUID>" \
+  --scope organization \
+  --signing-key "$CALENDLY_WEBHOOK_SIGNING_KEY"
+
+# List webhook subscriptions
+calendly list-webhook-subscriptions \
+  --organization-uri "https://api.calendly.com/organizations/<ORG_UUID>"
+
+# Get webhook subscription details
+calendly get-webhook-subscription \
+  --webhook-subscription-uri "https://api.calendly.com/webhook_subscriptions/<SUBSCRIPTION_UUID>"
+
+# Delete webhook subscription
+calendly delete-webhook-subscription \
+  --webhook-subscription-uri "https://api.calendly.com/webhook_subscriptions/<SUBSCRIPTION_UUID>"
+```
+
+Webhook signing secret guidance:
+- Keep `CALENDLY_WEBHOOK_SIGNING_KEY` in secure runtime config (env/secret manager), never committed.
+- Use a long random value and rotate it if exposed.
+- Verify Calendly webhook signatures in your receiver with the same secret used at subscription creation.
+- If using `--scope user`, include `--user-uri "https://api.calendly.com/users/<USER_UUID>"`.
+
+## Scheduling Requirements
+
+`schedule-event` uses the upstream `calendly-mcp-server` scheduling signature:
+- Required: `event_type`, `start_time`, `invitee_email`, `invitee_timezone`
+- Optional: `invitee_name`, `invitee_first_name`, `invitee_last_name`, `invitee_phone`, `location_kind`, `location_details`, `event_guests`, `questions_and_answers`, `utm_source`, `utm_campaign`, `utm_medium`
+
+Validation behavior:
+- `start_time` must be ISO-8601 and in the future
+- `event_type` must be a Calendly event type URI
+- invitee and guest emails must be valid
+- timezone must be valid IANA timezone
+- custom questions must be valid JSON object/array
+
+`reschedule-event` accepts flexible identifiers and normalizes them before execution:
+- Identifier source (at least one required): `--event-uuid`/`--event-uri` or `--invitee-uuid`/`--invitee-uri` or `--reschedule-url`
+- Required: `--new-start-time` (ISO-8601, future)
+- Optional: `--new-end-time` (must be after new start), `--event-type` (event type URI), `--reason`
+- When `--new-end-time` or `--event-type` is omitted, CLI derives values from the current scheduled event during REST fallback
+- REST fallback payload maps to Calendly rescheduling fields: `event_type`, `event_start_time`, `event_end_time`, and optional `reason`
+
+`update-event-type` updates only explicitly provided mutable fields:
+- Identifier: `--event-type-uri` or `--event-type-uuid`
+- Mutable fields: `--name`, `--description`, `--duration`, `--active`, `--secret`
+- Validation: `duration` must be an integer between 15 and 480; boolean fields require explicit `true` or `false`
+- Safety: `--dry-run` returns the normalized patch payload without sending MCP or REST requests
+
+Plan and availability notes:
+- Paid Calendly plan (Standard or higher) is required; free plans return `403`.
+- To reduce booking conflicts, call `get-event-type-availability` first and pass one returned slot `start_time`.
+- For live smoke tests of `update-event-type`, use a disposable event type and restore the original field value after confirming the update succeeded.
+
+## Important: Time Filtering
+
+**Always use `--min-start-time` when querying recent events!**
+
+Date bounds are validated:
+- `--min-start-time` and `--max-start-time` must be ISO-8601 timestamps (for example `2026-01-20T00:00:00Z`)
+- when both are provided, `min-start-time` must be less than or equal to `max-start-time`
+- validation is the same for normal flags and `--raw` input
+
+The API returns events oldest-first by default and doesn't support pagination via CLI. Without a time filter, you'll get events from years ago.
+
+For invitees with events, use `list-events --include-invitees`. It uses `expand=invitees` first and only falls back per event when `invitees_counter.active > 0` but embedded invitees are missing.
+Control fallback cost with:
+- `--hydrate-invitees <true|false>` (default `true` for include-invitees path)
+- `--max-invitee-fetches <number>` (default `25`)
+
+When capped, output metadata includes `meta.invitee_hydration.truncated` and `truncation_reason`.
+
+```bash
+# Last 7 days
+calendly list-events --user-uri "<URI>" --min-start-time "$(date -u -d '7 days ago' +%Y-%m-%dT00:00:00Z)"
+
+# This week with invitees (expand first; bounded fallback)
+calendly list-events \
+  --user-uri "<URI>" \
+  --include-invitees \
+  --max-invitee-fetches 25 \
+  --min-start-time "2026-01-20T00:00:00Z" \
+  --max-start-time "2026-01-27T23:59:59Z"
+
+# Future events only
+calendly list-events --user-uri "<URI>" --min-start-time "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+```
+
+## Notes
+
+- All times in API responses are UTC (convert to Pacific for display)
+- Event UUIDs are found in `list-events` output
+- OAuth tools available but not needed with Personal Access Token
+- No pagination support in CLI - use time filters instead
+
+---
+
+**Generated:** 2026-01-20  
+**Updated:** 2026-02-23 (Added reschedule-event command with identifier extraction + MCP-first REST fallback)
+**Source:** meAmitPatil/calendly-mcp-server via mcporter
+
+---
+> Source: [kesslerio/calendly-cli-openclaw-skill](https://github.com/kesslerio/calendly-cli-openclaw-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
