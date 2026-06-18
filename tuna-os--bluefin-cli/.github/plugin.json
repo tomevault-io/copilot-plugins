@@ -1,0 +1,9 @@
+{
+  "name": "tuna-os--bluefin-cli",
+  "displayName": "bluefin-cli",
+  "description": "bluefin-cli",
+  "version": "1.0.0",
+  "author": "tuna-os",
+  "homepage": "https://github.com/tuna-os/bluefin-cli",
+  "skills": []
+}
