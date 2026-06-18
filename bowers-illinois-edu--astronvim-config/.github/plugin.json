@@ -1,0 +1,9 @@
+{
+  "name": "bowers-illinois-edu--astronvim-config",
+  "displayName": "astronvim-config",
+  "description": "AstroNvim v5 user configuration for R development",
+  "version": "1.0.0",
+  "author": "bowers-illinois-edu",
+  "homepage": "https://github.com/bowers-illinois-edu/astronvim-config",
+  "skills": []
+}
