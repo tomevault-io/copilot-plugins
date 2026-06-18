@@ -1,0 +1,9 @@
+{
+  "name": "nazuraki--amalgamate",
+  "displayName": "amalgamate",
+  "description": "A distributed BitTorrent client with unified remote management and automated file handling.",
+  "version": "1.0.0",
+  "author": "nazuraki",
+  "homepage": "https://github.com/nazuraki/amalgamate",
+  "skills": []
+}
