@@ -1,123 +1,77 @@
-## testing-strategy
+## ksharp
 
-> - Use Test Driven Development
+> Expert software developer, Interpreters and compilers, C#, K, APL and Q languages
 
-## Testing Strategy
 
-- Use Test Driven Development
-- Write tests before implementing functionality
-- Determine expected results by running the comparison tool for the specific test and getting the k.exe result.
-- Do not run the test suite from the base folder.
-- The comparison tool must be run from its own folder
+# K3CSharp
 
-#### **Test Naming Conventions**
-- **Descriptive names**: `format_symbol_string_mixed_vector.k`
-- **Consistent prefixes**: `format_`, `form_`, `variable_scoping_`
-- **Clear purpose**: Name should indicate what is being tested
+- Always read the main Spec at [text](../vibe-docs/ksharp/speck#.txt) 
+- Always be aware of the overloaded meanings of glyphs as in the K Language [text](../vibe-docs/ksharp/Glyphs.md) 
+- Always read secondary sources of information for the K language:
+[text](../vibe-docs/ksharp/kref/01-Introduction.md) 
+[text](../vibe-docs/ksharp/kref/02-Syntax.md) 
+[text](../vibe-docs/ksharp/kref/03-Terminology.md) 
+[text](../vibe-docs/ksharp/kref/04-Verbs.md) 
+[text](../vibe-docs/ksharp/kref/05-Adverbs.md) 
+[text](../vibe-docs/ksharp/kref/06-Amend_Index_Apply_Assign.md) 
+[text](../vibe-docs/ksharp/kref/07-Functions.md) 
 
-#### **Test File Structure**
-- **Ideal format**: One line of code whenever possible. If the purpose is clear in the name there is no need to add comments.
-- **Inline comments**: If comments are appropriate, they should be added at the end of the line.
-- **Avoid unnecessary comments**: If the purpose is clear in the file name there is no need to add comments.
+## Code style
 
-#### **Test Script Design Principles**
+### General
+- Simpler is better. 
+    * Avoid special cases whenever possible. General is preferable to focused. Use focused only when really justified \(e.g., general causes regressions\). 
+    * Always target a general case that is based on principles and can handle all the cases. 
+    * Whenever the general case is updated, check if there are any special cases that can be eliminated. Eliminating code is good. 
+- Functional is preferable to procedural. 
+- Re-using capabilities is good. 
+    * Always evaluate the choice of entirely new C# implementation vs composition of existing K functionality already implemented in C#. 
+    * Use new C# if there is some optimization that cannot be implemented by composition, otherwise prefer composition. 
 
-##### **One Test Per File**
-- **Single focus**: Each test script should test exactly one aspect of functionality
-- **One output**: Each test script should expect only one output value
+### **Single Responsibility**
+- Each class should have one clear, well-defined purpose
+- Methods should be focused on a single task
+- Avoid God classes or overly complex methods
 
-#### **Setting Test Expectations**
-1. **If the test is related to FFI and uses the 2: verb, or the test uses the _eval verb, or the test uses the _parse verb then set expectation based on the spec/speclet or on User's comments and skip the remaining steps**
-2. **Call the k MCP Server using execute_k_script and the full script path**: 
-3. **If the test result in a dictionary, nested vectors or vectors of symbols then add a known difference in T:\_src\github.com\ERufian\ksharp\known_differences.txt with the test name, a regex:^\s+|\s+$|\s*\n\s*:\; and a note of Compact Representation**
-4. **Call the ApplyTweaks MCP Server using tweakstring with the test name (without folder nor extension) as the id parameter and the result from the k MCP Server as the string parameter**
+### **Robust Error Handling**
+- Handle errors explicitly. Check the kref documentation for exceptions typically thrown.
+- Avoid swallowing exceptions
 
-##### **Test Structure Guidelines**
-```k
-// ✅ GOOD: Single line test
-in_basic.k:
-4 _in 1 7 2 4 6 3
+### **Naming Conventions**
+- **Classes**: PascalCase (e.g., `VectorValue`, `ComparisonRunner`)
+- **Methods**: PascalCase with descriptive names (e.g., `PerformTypeConversion`)
+- **Variables**: camelCase with meaningful names (e.g., `rightVector`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `DEFAULT_TOLERANCE`)
+- **Traditional Names**: Names should use K traditional naming described in spec. Avoid naming conventions from other languages. Examples:
+    * Prefer "over" to "reduce"
+    * Prefer "monadic" to "unary"
+    * Prefer "dyadic" to "binary"
+    * Prefer "character vector" (possibly abbreviated to "charvec") to string (which should be reserved exclusively for string literals)
 
-// ✅ GOOD: Multiple lines only when necessary
-in_with_variables.k:
-x: 1 2 3 4 5
-4 _in x
+## Tools
 
-// ❌ AVOID: Multiple tests in one file
-in_comprehensive.k:
-4 _in 1 7 2 4 6 3  // Test 1
-3 _in 1 7 2 4 6 3  // Test 2  
-10 _in 1 7 2 4 6 3 // Test 3
-```
-
-##### **Naming Convention for Focused Tests**
-- Use descriptive names without redundant prefixes:
-  - `in_basic.k` - basic functionality
-  - `in_notfound.k` - edge case (not found)
-  - `in_scalar.k` - scalar arguments
-  - `in_symbols.k` - symbol vector testing
-  - `in_strings.k` - string vector testing
-
-#### **Keeping Tests Current**
-- Run the test suite to update T:\_src\github.com\ERufian\ksharp\K3CSharp.Tests\results_table.txt after each step of development is completed
-
-#### **Test Data Management**
-- Use meaningful test data that covers real scenarios
-
-## **🧪 Test Expectation Modification **
-
-**Before modifying any test expectations in `SimpleTestRunner.cs` or test files, you must get the expected result from the k MCP Server and process them through the ApplyTweaks MCP Server. If the modified expectation differs from k.exe's actual output, you must ask for explicit confirmation before proceeding.**
-
-### **Required Verification Process:**
-1. **Call the k MCP Server using execute_k_script and the full script path**: 
-2. **Call the ApplyTweaks MCP Server using tweakstring with the test name (without folder nor extension) as the id parameter and the result from the k MCP Server as the string parameter**
-3. **Compare results**: Check if K3Sharp output matches k.exe output
-4. **If different**: Ask for user confirmation before changing test expectations
-5. **Document**: If difference is expected, add entry to `known_differences.txt`
-
-This ensures test expectations remain aligned with the reference k.exe implementation.
-
-#### **Solving discrepancies in test counts**
-The test suite has a verification to ensure thare aren't test cases in the file system that are missing from the test suite. If errors are reported then the test cases missing from the test runner need to be added to the test runner or removed:
-- [ ] Check if the test cases are duplicates and if they are then remove them from the file system. 
-- [ ] If the test cases are not duplicates then use the individual test functionality in the comparison tool to determine the results from using k.exe. 
-- [ ] If k.exe succeeds (meaning that either the comparison passed, the comparison failed or the comparison resulted in an error only in K3Sharp) then add the test case to the test runner and use the results from k.exe as the expectation
-- [ ] If the comparison tool reports that it was skipped (because of k.exe 32-bit limitation) then add it to the test suite.
-- [ ] If the comparison tool reports an error and k.exe failed and timed out, then remove the test from the file system. 
-
----
-
-#### **Difference Management**
-```csharp
-// Format: TestName :: Tweak1&Tweak2&Tweak3 :: Notes
-format_symbol_string_mixed_vector :: regex:\s+: :: Compact representation
-symbol_vector_compact :: regex:\s+: :: Compact representation
-```
-
-#### **Known Differences**
-- Document all expected differences in `known_differences.txt`
-- Categorize differences by purpose (e.g., compact representation, smart integer conversion), not by operation performed (removing spaces, removing nulls, etc.)
-- Review differences regularly for potential fixes
-
-#### **Continuous Validation**
-- Automated comparison runs on major changes
-- Execute the full test suite regularly, including on minor changes
-- Monitor performance regressions
-
-## Test file management
-- *.k Test scripts are located in `T:\_src\github.com\ERufian\ksharp\K3CSharp.Tests\test_files`
-- Never create test files in the base folder
-- Always clean up temporary/debug tests when the associated troubleshooting is complete.
-- If older temporery/debug tests are found (e.g., from a previous troubleshooting task that was interrupted) then remove them as well.
-- When removing tests, remove them both from the test runner and the file system
-- Always run the test suite from its own folder T:\_src\github.com\ERufian\ksharp\K3CSharp.Tests
-- Always run the comparison tool from its own folder T:\_src\github.com\ERufian\ksharp\K3CSharp.Comparison
-- The canonical reference for test results is T:\_src\github.com\ERufian\ksharp\K3CSharp.Tests\test_results.txt.
-- Never delete T:\_src\github.com\ERufian\ksharp\K3CSharp.Tests\test_results.txt when cleaning up
-- Other files may be used temporarily for outputting test results but they must be cleaned up when the associated troubleshooting is complete.
-- The canonical reference for comparison results is T:\_src\github.com\ERufian\ksharp\K3CSharp.Comparison\comparison_table.txt
-- Never delete T:\_src\github.com\ERufian\ksharp\K3CSharp.Comparison\comparison_table.txt when cleaning up
-- Other files may be used temporarily for outputting comparison results but they must be cleaned up when the associated troubleshooting is complete.
+- Run test suite
+    * Always run from the K3CSharp.Tests folder: 
+        - cd [text](K3CSharp.Tests) 
+    * dotnet run
+    * If [text](K3CSharp.Tests/results_table.txt) is not updated, check for errors in dotnet run
+- Obtaining the results for a single test: Run the test suite and read/grep [text](K3CSharp.Tests/results_table.txt)
+- Always do after reverting with git. If you do this you will completely prevent problems with cached binaries. 
+    * cd [text](K3CSharp) 
+    * dotnet clean 
+    * dotnet restore 
+    * dotnet build 
+- Always use [text](K3CSharp.Tests) for testing. Other projects \(e.g., [text](K3CSharp.Tests) have different purposes, they are not for testing.\)
+- If [text](K3CSharp.Tests) build is failing then fixing it has top priority. 
+- Use the k.exe MCP to determine reference behavior. 
+- Prefer scripts to commands when using k.exe MCP because commands often need additional excaping.
+- Use K language primitives and the k.exe MCP to assist in your analysis, e.g. valence \(`_val`\) type \(`4:`\) shape \(`^`\). 
+- Prefer reviewing "@working changes (ksharp)" instead of using git stash
+- Use codemaps and fast context to search for functionality
+- Use debugger for debugging
+- Use Postmortems to learn from previous mistakes [text](../vibe-docs/ksharp/Postmortems/*.md)
+- Always check the result from commands. If reading status or results from the terminal fails, redirect terminal and error output to a file and read the file. Ask for help if necessary
+- Clean up temporary files when they have been read and are no longer needed
 
 ---
 > Source: [ERufian/ksharp](https://github.com/ERufian/ksharp) — distributed by [TomeVault](https://tomevault.io).
