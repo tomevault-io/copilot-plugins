@@ -1,0 +1,9 @@
+{
+  "name": "martin-ger--esp32-locator",
+  "displayName": "ESP32_Locator",
+  "description": "WiFi reconnaissance & geolocation system",
+  "version": "1.0.0",
+  "author": "martin-ger",
+  "homepage": "https://github.com/martin-ger/ESP32_Locator",
+  "skills": []
+}
