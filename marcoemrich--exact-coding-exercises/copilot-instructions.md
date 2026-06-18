@@ -1,241 +1,246 @@
-## tdd
+## exact-coding-exercises
 
-> Core TDD workflow rules - Red-Green-Refactor cycle with specialized agents
+> TypeScript TDD exercises using Vitest. This project follows strict Test-Driven Development practices with human-in-the-loop checkpoints.
 
+# Exact Coding Exercises - Codex Instructions
 
-# Test-Driven Development (TDD) Rules
+## Project Overview
 
-## CRITICAL: Agent Usage is MANDATORY
+TypeScript TDD exercises using Vitest. This project follows strict Test-Driven Development practices with human-in-the-loop checkpoints.
 
-**YOU MUST USE THE SPECIALIZED TDD AGENTS FOR EVERY TDD TASK.**
+## Tech Stack
 
-Do NOT perform TDD phases manually. The agents enforce discipline and prevent common mistakes.
-
-### Before Starting Any TDD Work - Complete This Checklist:
-
-- [ ] Have I been asked to implement something using TDD?
-- [ ] Am I about to write tests or implementation code?
-- [ ] **STOP** - Use the Task tool to launch the appropriate TDD agent
-- [ ] NEVER write tests or code directly - ALWAYS use agents
-
-### Which Agent to Use:
-
-| Phase | Agent Name | Use Task Tool With |
-|-------|-----------|-------------------|
-| Test List | `test-list` | `subagent_type: "test-list"` |
-| Red Phase | `red` | `subagent_type: "red"` |
-| Green Phase | `green` | `subagent_type: "green"` |
-| Refactor Phase | `refactor` | `subagent_type: "refactor"` |
-
-**If you find yourself writing test code or implementation code without launching an agent first, you are doing it WRONG.**
-
-## TDD Workflow
-
-**MANDATORY: Use the specialized TDD agents for each phase of the cycle:**
-
-### 1. Test List Phase
-**LAUNCH AGENT**: Use `Task` tool with `subagent_type: "test-list"`
-
-**Required prompt context:**
-- Feature/function to implement
-- Target file paths (test file + implementation file)
-- Any constraints or requirements from the user
-
-**Example Task call:**
-```
-Task({
-  subagent_type: "test-list",
-  prompt: `
-    Feature: String Calculator
-    Test file: src/calculator.spec.ts
-    Implementation file: src/calculator.ts
-    Requirements: Parse comma-separated numbers and return sum
-  `
-})
-```
-
-The agent will create a comprehensive test list using `it.todo()` for BASE FUNCTIONALITY ONLY:
-- Focus on core behavior, not advanced features
-- Order tests from simple to complex
-- No implementation yet
-
-**DO NOT** write the test list yourself - let the agent do it.
-
-### 2. Red Phase
-**LAUNCH AGENT**: Use `Task` tool with `subagent_type: "red"`
-
-**Required prompt context:**
-- Test file path
-- Which `it.todo()` to activate (name or line number)
-- Current state (number of passing tests)
-- Implementation file path
-
-**Example Task call:**
-```
-Task({
-  subagent_type: "red",
-  prompt: `
-    Test file: src/calculator.spec.ts
-    Activate test: "should return sum for two numbers" (line 12)
-    Current state: 2 tests passing
-    Implementation file: src/calculator.ts
-  `
-})
-```
-
-The agent will activate exactly ONE test and make it fail:
-- Convert one `it.todo()` to executable test
-- Make explicit predictions (Guessing Game)
-- Verify compilation error, then runtime error
-- **Stop and wait for approval** before Green phase
-
-**DO NOT** write test code yourself - let the agent do it.
-
-### 3. Green Phase
-**LAUNCH AGENT**: Use `Task` tool with `subagent_type: "green"`
-
-**Required prompt context:**
-- Test file path
-- Failing test name and expected behavior
-- Current error message
-- Implementation file path
-
-**Example Task call:**
-```
-Task({
-  subagent_type: "green",
-  prompt: `
-    Test file: src/calculator.spec.ts
-    Failing test: "should return sum for two numbers"
-    Expected: add("1,2") returns 3
-    Current error: Expected 3, Received undefined
-    Implementation file: src/calculator.ts
-  `
-})
-```
-
-The agent will implement minimal code to make the test pass:
-- Use the simplest possible solution
-- Hardcoded returns are acceptable early on
-- No features for future tests
-- **Stop and wait for approval** before Refactor phase
-
-**DO NOT** write implementation code yourself - let the agent do it.
-
-### 4. Refactor Phase
-**LAUNCH AGENT**: Use `Task` tool with `subagent_type: "refactor"`
-
-**CRITICAL: Refactor MUST be a separate agent call.** The orchestrating agent must NEVER combine Green and Refactor into one Task. After Green phase completes, launch a NEW Task with `subagent_type: "refactor"` — do NOT ask the Green agent to refactor. Each phase = one dedicated agent invocation.
-
-**Required prompt context:**
-- Test file path
-- Implementation file path
-- Current number of passing tests
-- Recent changes made in Green phase
-
-**Example Task call:**
-```
-Task({
-  subagent_type: "refactor",
-  prompt: `
-    Test file: src/calculator.spec.ts
-    Implementation file: src/calculator.ts
-    Passing tests: 3
-    Recent Green phase: Added split/map/reduce for comma parsing
-
-    Refactor the implementation while keeping all tests green.
-  `
-})
-```
-
-The agent will improve code while keeping tests green:
-- **MUST attempt at least one refactoring**
-- Evaluate naming FIRST
-- Apply Four Rules of Simple Design (priority order)
-- Calculate APP (Absolute Priority Premise) mass
-- Document improvements or why none were possible
-- **Stop and wait for approval** before next test
-
-**DO NOT** refactor code yourself - let the agent do it.
-
-### 5. Repeat
-Return to step 2 (Red phase) for the next test in the list.
-
-**Launch the `red` agent again - DO NOT proceed manually.**
-
-## Core TDD Principles
-
-### TDD Mindset
-TDD practices will feel counterintuitive:
-- **Hardcoded returns feel "too simple"** - This is correct!
-- **The urge to implement ahead is strong** - Resist this
-- **Minimal steps feel inefficient** - They actually accelerate development
-- **Predictions feel unnecessary** - They build crucial understanding
-- **Push through discomfort** - These feelings indicate you're following the discipline correctly
-
-### Common TDD Failure Modes
-Watch for these violations:
-- **NOT USING TDD AGENTS** - The most critical failure mode!
-- **COMBINING PHASES** - Never run Green+Refactor in one agent call. Refactor phase requires its own Task with `subagent_type: "refactor"`.
-- Planning beyond base functionality
-- Multiple active tests at once
-- Implementing beyond what tests demand
-- Skipping predictions
-- Avoiding refactoring
-- Premature abstraction
-- Ignoring the uncomfortable
-- Writing code directly instead of launching agents
-
-### Why This Discipline Works
-- **Baby steps reveal simpler solutions** - Implementing only what tests demand often uncovers simpler approaches
-- **One-test-at-a-time prevents complexity** - Not thinking ahead eliminates unnecessary features
-- **Predictions build confidence** - Explicit expectations create deeper understanding
-- **Refactoring becomes natural** - Mandatory improvement attempts prevent technical debt
-- **The process fights harmful instincts** - Programming instincts often lead to premature optimization
+- **Language**: TypeScript
+- **Test Framework**: Vitest
+- **Build**: tsc
+- **Package Manager**: npm
 
 ## Running Tests - CRITICAL
 
-**TDD agents MUST use pnpm with npm scripts from `app/package.json`**
+Always use npm scripts, never call vitest directly:
 
-### Correct Test Execution:
-- ✅ `pnpm test` - Run all tests
-- ✅ `pnpm test:unit` - Run unit tests
-- ✅ `pnpm test:unit:basic` - Run basic unit tests
-- ✅ `pnpm run build` - Build project
+- `npm test` - Run all tests (vitest run)
+- `npm run test:watch` - Run tests in watch mode
 
-### NEVER use:
-- ❌ `npm test` - Wrong package manager
-- ❌ `npx vitest` - Don't call vitest directly
-- ❌ `vitest --run SomeFile.spec.tsx` - Don't call test files directly
-- ❌ Individual test file execution - Always use npm scripts
+NEVER use `npx vitest`, `vitest --run`, or direct vitest calls.
 
-**Why**: npm scripts orchestrate TypeScript compilation, configuration, and test execution. Direct tool calls skip critical setup steps.
+## TDD Workflow
 
-## Remember
+This project follows strict Red-Green-Refactor TDD. Every feature must go through:
 
-- **ALWAYS USE TDD AGENTS** - Never write tests or code directly during TDD
-- **Discomfort is a signal you're doing it right** - TDD should feel constraining at first
-- **Trust the process** - Simple steps compound into elegant solutions
-- **Discipline over instinct** - Follow the rules even when they feel wrong
-- **Agents enforce TDD discipline** - They prevent you from making common mistakes
+1. **Test List** - Create test cases with `it.todo()` for base functionality only
+2. **Red Phase** - Activate ONE test, make predictions, verify it fails
+3. **Green Phase** - Implement minimal code to make the test pass
+4. **Refactor Phase** - Improve code using Simple Design Rules and APP
+5. **Repeat** from step 2 for the next test
 
-## Self-Check Before Proceeding
+### TDD Principles
 
-Ask yourself before writing ANY code:
+- One test at a time - never have more than one failing test
+- Baby steps - smallest possible changes
+- Hardcoded returns are acceptable early on
+- No future features - only implement what tests demand
+- Predictions are mandatory before running tests
+- Refactoring is NEVER optional - must attempt at least one improvement per cycle
 
-1. ❓ **Am I doing TDD right now?**
-   - If YES → Have I launched the appropriate agent?
-   - If NO agent launched → **STOP and launch the agent first**
+## Human-in-the-Loop Rules
 
-2. ❓ **Am I about to write a test or implementation?**
-   - If YES → Which phase am I in? Have I launched that agent?
-   - If NO agent launched → **STOP and launch the agent first**
+### End-of-Phase Confirmation (MANDATORY)
 
-3. ❓ **Did the user ask me to use TDD or am I implementing a feature?**
-   - If YES → **Launch test-list agent to start**
-   - If unsure → Ask the user
+Stop after EVERY TDD phase and wait for explicit approval:
 
-**When in doubt, use the agents. They are there to help you follow the discipline correctly.**
+- **After Red**: Summarize test activated, prediction made, failure type. Ask: "Red phase complete. Should I proceed to Green phase?"
+- **After Green**: Summarize implementation approach, confirm tests pass. Ask: "Green phase complete. Should I proceed to Refactor phase?"
+- **After Refactor**: Summarize refactorings attempted/completed, mass calculations. Ask: "Refactor phase complete. Should I proceed to the next test?"
+
+### Failed Prediction Recovery
+
+If prediction fails (actual result differs from expected):
+1. Stop immediately
+2. Explain what was predicted vs. what happened
+3. Assess implications
+4. Ask user how to proceed
+
+### Core Principle
+
+Never proceed without permission. No autonomous multi-phase execution. Each phase must be individually approved.
+
+## Test List Phase
+
+When creating a test list:
+- Focus on BASE FUNCTIONALITY ONLY - no advanced features or edge cases
+- Use `it.todo("description")` for all tests
+- Order tests from simplest to most complex (empty -> single -> two -> multiple)
+- One behavior per test
+- Clear, specific descriptions
+- No implementation thinking
+
+Example:
+```typescript
+import { describe, it, expect } from "vitest";
+import { functionName } from "./module.js";
+
+describe("Feature Name", () => {
+  it.todo("should return 0 for empty input");
+  it.todo("should return value for single input");
+  it.todo("should return sum for two inputs");
+  it.todo("should handle multiple inputs");
+  // NOT: edge cases, advanced features, error handling
+});
+```
+
+## Red Phase
+
+When activating a test:
+
+### Step 1: Activate ONE test
+- Convert one `it.todo()` to executable test code
+- Leave all others as `it.todo()`
+
+### Step 2: Predict Compilation Error
+Before running, state:
+- Which test will fail
+- Expected error type: Compilation error
+- Expected error message
+
+### Step 3: Verify Compilation Error
+Run `npm test`, verify prediction was correct.
+
+### Step 4: Create Empty Function
+- Function signature only, returning undefined/wrong value
+- NO actual logic
+
+### Step 5: Predict Runtime Error
+Before running, state:
+- Expected assertion error
+- Expected vs. actual values
+
+### Step 6: Verify Runtime Error
+Run `npm test`, verify prediction was correct.
+
+### Step 7: Stop and Report
+```
+Red Phase Complete:
+Test Activated: "test name"
+Prediction: [error type] - Correct/Incorrect
+Result: Test fails as expected
+
+Red phase complete. Should I proceed to Green phase?
+```
+
+## Green Phase
+
+When implementing to make a test pass:
+
+- Write MINIMAL code - just enough to pass the current test
+- Hardcoded returns are perfectly fine
+- No features for future tests
+- No optimization or refactoring
+- Verify ALL tests pass (current + previous)
+
+Progression example:
+```typescript
+// Test 1: return 0 for empty -> return 0;
+// Test 2: return value for single -> if (empty) return 0; return input[0];
+// Test 3: sum two -> if/else chain
+// Test 4: sum multiple -> NOW generalize
+```
+
+Stop and report:
+```
+Green Phase Complete:
+Implementation: [what was added]
+Result: All tests pass (X passing)
+Approach: [why this is minimal]
+
+Green phase complete. Should I proceed to Refactor phase?
+```
+
+## Refactor Phase
+
+When refactoring after Green:
+
+### Step 1: Naming Evaluation (FIRST PRIORITY)
+- Does the function name clearly describe what it does based on ALL current tests?
+- Rename if purpose has become clearer
+
+### Step 2: Calculate APP Mass (Before)
+```
+Mass = (constants x 1) + (bindings x 1) + (invocations x 2) +
+       (conditionals x 4) + (loops x 5) + (assignments x 6)
+```
+
+### Step 3: Apply Simple Design Rules (priority order)
+1. **Tests Pass** - never break working code
+2. **Reveals Intent** - clarity trumps everything (including APP)
+3. **No Duplication** - extract common functionality
+4. **Fewest Elements** - remove unnecessary abstractions
+
+### Step 4: Implement ONE improvement at a time, run tests after each
+
+### Step 5: Calculate APP Mass (After)
+
+### Step 6: Document decision
+- What was improved and why, OR
+- Why no improvement was possible (with detailed explanation)
+
+Stop and report:
+```
+Refactor Phase Complete:
+Refactoring: [improvements made or "none possible" with reasoning]
+Mass Change: [before -> after]
+Tests: All passing
+
+Refactor phase complete. Should I proceed to the next test?
+```
+
+## Example Mapping (Pre-TDD)
+
+Before starting TDD, optionally conduct an Example Mapping session:
+- Discover business rules, concrete examples, and open questions
+- You are a FACILITATOR - NEVER invent rules or examples
+- Every rule and example must come FROM the user
+- When unclear, ASK - never silently fill gaps
+- Present summary for confirmation before writing output
+
+Categories:
+- **Story** (yellow): Feature being explored
+- **Rules** (blue): Business rules discovered
+- **Examples** (green): Concrete input -> output examples
+- **Questions** (red): Open questions needing clarification
+
+## Code Review Process
+
+Three-stage serial review:
+1. **Code Review**: Analyze for quality, patterns, best practices
+2. **Evaluation**: Assess recommendations against project goals
+3. **Conclusion**: Synthesize findings with final recommendation (Approve / Approve with changes / Request modifications / Reject)
+
+## Code Style
+
+- Import with explicit `.js` extensions for local modules
+- Use Vitest testing functions (`describe`, `it`, `expect`)
+- TypeScript strict mode
+- Prefer self-documenting code over comments
+
+## TDD Mindset Reminders
+
+- Hardcoded returns feel "too simple" - this is correct
+- The urge to implement ahead is strong - resist it
+- Minimal steps feel inefficient - they actually accelerate development
+- Predictions feel unnecessary - they build crucial understanding
+- Discomfort indicates you're following the discipline correctly
+- Trust the process - simple steps compound into elegant solutions
+
+## Common Failure Modes to Avoid
+
+- Skipping Refactor phase (NEVER skip it)
+- Implementing beyond what tests demand
+- Multiple active tests at once
+- Skipping predictions
+- Planning beyond base functionality
+- Premature abstraction
+- Not using npm scripts for tests
 
 ---
 > Source: [marcoemrich/EXACT-Coding-Exercises](https://github.com/marcoemrich/EXACT-Coding-Exercises) — distributed by [TomeVault](https://tomevault.io).
