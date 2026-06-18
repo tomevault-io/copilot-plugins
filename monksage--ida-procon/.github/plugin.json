@@ -1,0 +1,9 @@
+{
+  "name": "monksage--ida-procon",
+  "displayName": "ida-procon",
+  "description": "Autonomous reverse engineering at scale with parallel LLM agents",
+  "version": "1.0.0",
+  "author": "monksage",
+  "homepage": "https://github.com/monksage/ida-procon",
+  "skills": []
+}
