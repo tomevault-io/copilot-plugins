@@ -1,0 +1,9 @@
+{
+  "name": "asvoxel--vxlros2",
+  "displayName": "vxlros2",
+  "description": "vxlsense sdk intergrated to ros2",
+  "version": "1.0.0",
+  "author": "asvoxel",
+  "homepage": "https://github.com/asvoxel/vxlros2",
+  "skills": []
+}
