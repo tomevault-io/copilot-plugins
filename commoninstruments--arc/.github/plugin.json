@@ -1,0 +1,9 @@
+{
+  "name": "commoninstruments--arc",
+  "displayName": "arc",
+  "description": "Agent workflow plugin for Claude Code and Codex that takes projects from idea to reviewed, tested implementation.",
+  "version": "1.0.0",
+  "author": "commoninstruments",
+  "homepage": "https://github.com/commoninstruments/arc",
+  "skills": []
+}
