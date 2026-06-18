@@ -4,7 +4,7 @@
   "repo": "mydeck-android",
   "description": "A Readeck client based on jensomato/ReadeckApp, refactored for a Pocket-like experience. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NateEaton/mydeck-android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T05:00:09Z"
+  "distributed_at": "2026-06-18T10:56:52Z"
 }
