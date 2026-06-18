@@ -1,0 +1,9 @@
+{
+  "name": "mage-os-lab--module-blog",
+  "displayName": "module-blog",
+  "description": "Blog module for Mage-OS / Magento 2 with posts, categories, tags, authors, scheduled publishing, SEO, RSS, sitemap, 6 widgets, and a full GraphQL API. Luma + Hyv\u00e4.",
+  "version": "1.0.0",
+  "author": "mage-os-lab",
+  "homepage": "https://github.com/mage-os-lab/module-blog",
+  "skills": []
+}
