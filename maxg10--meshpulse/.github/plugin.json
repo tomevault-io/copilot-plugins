@@ -1,0 +1,9 @@
+{
+  "name": "maxg10--meshpulse",
+  "displayName": "meshpulse",
+  "description": "Real-time Meshtastic mesh network visualization",
+  "version": "1.0.0",
+  "author": "maxg10",
+  "homepage": "https://github.com/maxg10/meshpulse",
+  "skills": []
+}
