@@ -1,0 +1,9 @@
+{
+  "name": "footprintjs--agentfootprint",
+  "displayName": "agentfootprint",
+  "description": "Context engineering, abstracted. Build AI agents whose every LLM call traces back to what was injected, who triggered it, when, and how it cached. Built on footprintjs",
+  "version": "1.0.0",
+  "author": "footprintjs",
+  "homepage": "https://github.com/footprintjs/agentfootprint",
+  "skills": []
+}
