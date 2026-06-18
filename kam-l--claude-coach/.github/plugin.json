@@ -1,0 +1,9 @@
+{
+  "name": "kam-l--claude-coach",
+  "displayName": "claude-coach",
+  "description": "Session-aware coaching for Claude Code \u2014 curated tips and live contextual advice",
+  "version": "1.0.0",
+  "author": "kam-l",
+  "homepage": "https://github.com/kam-l/claude-coach",
+  "skills": []
+}
