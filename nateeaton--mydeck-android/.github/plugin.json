@@ -1,0 +1,9 @@
+{
+  "name": "nateeaton--mydeck-android",
+  "displayName": "mydeck-android",
+  "description": "A Readeck client based on jensomato/ReadeckApp, refactored for a Pocket-like experience. ",
+  "version": "1.0.0",
+  "author": "NateEaton",
+  "homepage": "https://github.com/NateEaton/mydeck-android",
+  "skills": []
+}
