@@ -1,113 +1,281 @@
 ## mission-control
 
-> Open-source dashboard for AI agent orchestration. Manage agent fleets, track tasks, monitor costs, and orchestrate workflows.
+> Interact with Mission Control — AI agent orchestration dashboard. Use when registering agents, managing tasks, syncing skills, or querying agent/task status via MC APIs.
 
-# Mission Control
 
-Open-source dashboard for AI agent orchestration. Manage agent fleets, track tasks, monitor costs, and orchestrate workflows.
+# Mission Control Agent Skill
 
-**Stack**: Next.js 16, React 19, TypeScript 5, SQLite (better-sqlite3), Tailwind CSS 3, Zustand, pnpm
+Mission Control (MC) is an AI agent orchestration dashboard with real-time SSE/WebSocket, a skill registry, framework adapters, and RBAC. This skill teaches agents how to interact with MC APIs programmatically.
 
-## Prerequisites
+## Quick Start
 
-- Node.js >= 22 (LTS recommended; 24.x also supported)
-- pnpm (`corepack enable` to auto-install)
+**Base URL:** `http://localhost:3000` (default Next.js dev) or your deployed host.
 
-## Setup
+**Auth header:** `x-api-key: <your-api-key>`
 
-```bash
-pnpm install
-pnpm build
-```
-
-Secrets (AUTH_SECRET, API_KEY) auto-generate on first run if not set.
-Visit `http://localhost:3000/setup` to create an admin account, or set `AUTH_USER`/`AUTH_PASS` in `.env` for headless/CI seeding.
-
-## Run
+**Register + heartbeat in two calls:**
 
 ```bash
-pnpm dev              # development (localhost:3000)
-pnpm start            # production
-node .next/standalone/server.js   # standalone mode (after build)
+# 1. Register
+curl -X POST http://localhost:3000/api/adapters \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: $MC_API_KEY" \
+  -d '{
+    "framework": "generic",
+    "action": "register",
+    "payload": { "agentId": "my-agent-01", "name": "My Agent" }
+  }'
+
+# 2. Heartbeat (repeat every 5 minutes)
+curl -X POST http://localhost:3000/api/adapters \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: $MC_API_KEY" \
+  -d '{
+    "framework": "generic",
+    "action": "heartbeat",
+    "payload": { "agentId": "my-agent-01", "status": "online" }
+  }'
 ```
 
-## Docker
+## Authentication
 
-```bash
-docker compose up                 # zero-config
-bash install.sh --docker          # full guided setup
+MC supports two auth methods:
+
+| Method | Header | Use Case |
+|--------|--------|----------|
+| API Key | `x-api-key: <key>` or `Authorization: Bearer <key>` | Agents, scripts, CI/CD |
+| Session cookie | `Cookie: __Host-mc-session=<token>` (HTTPS) or `mc-session=<token>` (HTTP) | Browser UI |
+
+**Roles (hierarchical):** `viewer` < `operator` < `admin`
+
+- **viewer** — Read-only access (GET endpoints)
+- **operator** — Create/update agents, tasks, skills, use adapters
+- **admin** — Full access including user management
+
+API key auth grants `admin` role by default. The key is set via `API_KEY` env var or the `security.api_key` DB setting.
+
+Agents can identify themselves with the optional `X-Agent-Name` header for attribution in audit logs.
+
+## Agent Lifecycle
+
+```
+register → heartbeat (5m interval) → fetch assignments → report task status → disconnect
 ```
 
-Production hardening: `docker compose -f docker-compose.yml -f docker-compose.hardened.yml up -d`
+All lifecycle actions go through the adapter protocol (`POST /api/adapters`).
 
-## Tests
+### 1. Register
 
-```bash
-pnpm test             # unit tests (vitest)
-pnpm test:e2e         # end-to-end (playwright)
-pnpm typecheck        # tsc --noEmit
-pnpm lint             # eslint
-pnpm test:all         # lint + typecheck + test + build + e2e
+```json
+{
+  "framework": "generic",
+  "action": "register",
+  "payload": {
+    "agentId": "my-agent-01",
+    "name": "My Agent",
+    "metadata": { "version": "1.0", "capabilities": ["code", "review"] }
+  }
+}
 ```
 
-## Key Directories
+### 2. Heartbeat
 
-```
-src/app/          Next.js pages + API routes (App Router)
-src/components/   UI panels and shared components
-src/lib/          Core logic, database, utilities
-.data/            SQLite database + runtime state (gitignored)
-scripts/          Install, deploy, diagnostics scripts
-docs/             Documentation and guides
-```
+Send every ~5 minutes to stay marked as online.
 
-Path alias: `@/*` maps to `./src/*`
-
-## Data Directory
-
-Set `MISSION_CONTROL_DATA_DIR` env var to change the data location (defaults to `.data/`).
-Database path: defaults to `<MISSION_CONTROL_DATA_DIR>/mission-control.db`.
-
-## Conventions
-
-- **Commits**: Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`)
-- **No AI attribution**: Never add `Co-Authored-By` or similar trailers to commits
-- **Package manager**: pnpm only (no npm/yarn)
-- **Icons**: No icon libraries -- use raw text/emoji in components
-- **Standalone output**: `next.config.js` sets `output: 'standalone'`
-
-## Agent Control Interfaces
-
-Mission Control provides three interfaces for autonomous agents:
-
-### MCP Server (recommended for agents)
-```bash
-# Add to any Claude Code agent:
-claude mcp add mission-control -- node /path/to/mission-control/scripts/mc-mcp-server.cjs
-
-# Environment config:
-MC_URL=http://127.0.0.1:3000 MC_API_KEY=<key>
-```
-35 tools: agents, tasks, sessions, memory, soul, comments, tokens, skills, cron, status.
-See `docs/cli-agent-control.md` for full tool list.
-
-### CLI
-```bash
-pnpm mc agents list --json
-pnpm mc tasks queue --agent Aegis --max-capacity 2 --json
-pnpm mc events watch --types agent,task
+```json
+{
+  "framework": "generic",
+  "action": "heartbeat",
+  "payload": {
+    "agentId": "my-agent-01",
+    "status": "online",
+    "metrics": { "tasks_completed": 5, "uptime_seconds": 3600 }
+  }
+}
 ```
 
-### REST API
-OpenAPI spec: `openapi.json`. Interactive docs at `/docs` when running.
+### 3. Fetch Assignments
 
-## Common Pitfalls
+Returns up to 5 pending tasks sorted by priority (critical → low), then due date.
 
-- **Standalone mode**: Use `node .next/standalone/server.js`, not `pnpm start` (which requires full `node_modules`)
-- **better-sqlite3**: Native addon -- needs rebuild when switching Node versions (`pnpm rebuild better-sqlite3`)
-- **AUTH_PASS with `#`**: Quote it (`AUTH_PASS="my#pass"`) or use `AUTH_PASS_B64` (base64-encoded)
-- **Gateway optional**: Set `NEXT_PUBLIC_GATEWAY_OPTIONAL=true` for standalone deployments without gateway connectivity
+```json
+{
+  "framework": "generic",
+  "action": "assignments",
+  "payload": { "agentId": "my-agent-01" }
+}
+```
+
+**Response:**
+
+```json
+{
+  "assignments": [
+    { "taskId": "42", "description": "Fix login bug\nUsers cannot log in with SSO", "priority": 1 }
+  ],
+  "framework": "generic"
+}
+```
+
+### 4. Report Task Progress
+
+```json
+{
+  "framework": "generic",
+  "action": "report",
+  "payload": {
+    "taskId": "42",
+    "agentId": "my-agent-01",
+    "progress": 75,
+    "status": "in_progress",
+    "output": "Fixed SSO handler, running tests..."
+  }
+}
+```
+
+`status` values: `in_progress`, `done`, `failed`, `blocked`
+
+### 5. Disconnect
+
+```json
+{
+  "framework": "generic",
+  "action": "disconnect",
+  "payload": { "agentId": "my-agent-01" }
+}
+```
+
+## Core API Reference
+
+### Agents — `/api/agents`
+
+| Method | Min Role | Description |
+|--------|----------|-------------|
+| GET | viewer | List agents. Query: `?status=online&role=dev&limit=50&offset=0` |
+| POST | operator | Create agent. Body: `{ name, role, status?, config?, template?, session_key?, soul_content? }` |
+| PUT | operator | Update agent. Body: `{ name, status?, role?, config?, session_key?, soul_content?, last_activity? }` |
+
+**GET response shape:**
+
+```json
+{
+  "agents": [{
+    "id": 1, "name": "scout", "role": "researcher", "status": "online",
+    "config": {}, "taskStats": { "total": 10, "assigned": 2, "in_progress": 1, "completed": 7 }
+  }],
+  "total": 1, "page": 1, "limit": 50
+}
+```
+
+### Tasks — `/api/tasks`
+
+| Method | Min Role | Description |
+|--------|----------|-------------|
+| GET | viewer | List tasks. Query: `?status=in_progress&assigned_to=scout&priority=high&project_id=1&limit=50&offset=0` |
+| POST | operator | Create task. Body: `{ title, description?, status?, priority?, assigned_to?, project_id?, tags?, metadata?, due_date?, estimated_hours? }` |
+| PUT | operator | Bulk status update. Body: `{ tasks: [{ id, status }] }` |
+
+**Priority values:** `critical`, `high`, `medium`, `low`
+
+**Status values:** `inbox`, `assigned`, `in_progress`, `review`, `done`, `failed`, `blocked`, `cancelled`
+
+Note: Moving a task to `done` via PUT requires an Aegis quality review approval.
+
+**POST response:**
+
+```json
+{
+  "task": {
+    "id": 42, "title": "Fix login bug", "status": "assigned",
+    "priority": "high", "assigned_to": "scout", "ticket_ref": "GEN-001",
+    "tags": ["bug"], "metadata": {}
+  }
+}
+```
+
+### Skills — `/api/skills`
+
+| Method | Min Role | Description |
+|--------|----------|-------------|
+| GET | viewer | List all skills across roots |
+| GET `?mode=content&source=...&name=...` | viewer | Read a skill's SKILL.md content |
+| GET `?mode=check&source=...&name=...` | viewer | Run security check on a skill |
+| POST | operator | Create/upsert skill. Body: `{ source, name, content }` |
+| PUT | operator | Update skill content. Body: `{ source, name, content }` |
+| DELETE `?source=...&name=...` | operator | Delete a skill |
+
+**Skill sources:** `user-agents`, `user-codex`, `project-agents`, `project-codex`, `openclaw`
+
+### Status — `/api/status`
+
+| Action | Min Role | Description |
+|--------|----------|-------------|
+| GET `?action=overview` | viewer | System status (uptime, memory, disk, sessions) |
+| GET `?action=dashboard` | viewer | Aggregated dashboard data with DB stats |
+| GET `?action=gateway` | viewer | Gateway process status and port check |
+| GET `?action=models` | viewer | Available AI models (catalog + local Ollama) |
+| GET `?action=health` | viewer | Health checks (gateway, disk, memory) |
+| GET `?action=capabilities` | viewer | Feature flags: gateway reachable, Claude home, subscriptions |
+
+### Adapters — `/api/adapters`
+
+| Method | Min Role | Description |
+|--------|----------|-------------|
+| GET | viewer | List available framework adapter names |
+| POST | operator | Execute adapter action (see Agent Lifecycle above) |
+
+## Framework Adapter Protocol
+
+All agent lifecycle operations use a single endpoint:
+
+```
+POST /api/adapters
+Content-Type: application/json
+x-api-key: <key>
+
+{
+  "framework": "<adapter-name>",
+  "action": "<action>",
+  "payload": { ... }
+}
+```
+
+**Available frameworks:** `generic`, `openclaw`, `crewai`, `langgraph`, `autogen`, `claude-sdk`
+
+**Available actions:** `register`, `heartbeat`, `report`, `assignments`, `disconnect`
+
+All adapters implement the same `FrameworkAdapter` interface — choose the one matching your agent framework, or use `generic` as a universal fallback.
+
+**Payload shapes by action:**
+
+| Action | Required Fields | Optional Fields |
+|--------|----------------|-----------------|
+| `register` | `agentId`, `name` | `metadata` |
+| `heartbeat` | `agentId` | `status`, `metrics` |
+| `report` | `taskId`, `agentId` | `progress`, `status`, `output` |
+| `assignments` | `agentId` | — |
+| `disconnect` | `agentId` | — |
+
+## Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `API_KEY` | — | API key for agent/script authentication |
+| `OPENCLAW_GATEWAY_HOST` | `127.0.0.1` | Gateway host address |
+| `OPENCLAW_GATEWAY_PORT` | `18789` | Gateway port |
+| `OPENCLAW_STATE_DIR` | `~/.openclaw` | OpenClaw state directory |
+| `OPENCLAW_CONFIG_PATH` | `<state-dir>/openclaw.json` | Gateway config file path |
+| `MC_CLAUDE_HOME` | `~/.claude` | Claude home directory |
+
+## Real-Time Events
+
+MC broadcasts events via SSE (`/api/events`) and WebSocket. Key event types:
+
+- `agent.created`, `agent.updated`, `agent.status_changed`
+- `task.created`, `task.updated`, `task.status_changed`
+
+Subscribe to SSE for live dashboard updates when building integrations.
 
 ---
 > Source: [builderz-labs/mission-control](https://github.com/builderz-labs/mission-control) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
