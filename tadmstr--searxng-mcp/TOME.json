@@ -1,0 +1,44 @@
+{
+  "name": "searxng-mcp",
+  "owner": "TadMSTR",
+  "repo": "searxng-mcp",
+  "description": "Private web search MCP: SearXNG metasearch \u2192 ML reranking \u2192 4-tier fetch cascade (Firecrawl / Crawl4AI / raw / Wayback) with per-domain learning, Ollama query expansion and synthesis. No cloud APIs.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TadMSTR/searxng-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T05:22:59Z"
+}
