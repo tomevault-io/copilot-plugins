@@ -1,0 +1,9 @@
+{
+  "name": "darrylmorley--ollmlx",
+  "displayName": "ollmlx",
+  "description": "Run local LLMs on Apple Silicon via [mlx-lm](https://github.com/ml-explore/mlx-examples/tree/main/llms/mlx_lm). Menubar app + CLI with an OpenAI-compatible API on `localhost:11434`.",
+  "version": "1.0.0",
+  "author": "darrylmorley",
+  "homepage": "https://github.com/darrylmorley/ollmlx",
+  "skills": []
+}
