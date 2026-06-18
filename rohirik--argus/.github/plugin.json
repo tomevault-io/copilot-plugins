@@ -1,0 +1,9 @@
+{
+  "name": "rohirik--argus",
+  "displayName": "argus",
+  "description": "Argus \u2014 the all-seeing eye for Microsoft 365. Self-hosted, Dockerized notification & reporting for IT admins and security teams.",
+  "version": "1.0.0",
+  "author": "RohiRIK",
+  "homepage": "https://github.com/RohiRIK/argus",
+  "skills": []
+}
