@@ -1,0 +1,9 @@
+{
+  "name": "adamf83--my-rail-commute",
+  "displayName": "my-rail-commute",
+  "description": "A Home Assistant integration for tracking UK rail commutes using National Rail real-time data from the Darwin API",
+  "version": "1.0.0",
+  "author": "adamf83",
+  "homepage": "https://github.com/adamf83/my-rail-commute",
+  "skills": []
+}
