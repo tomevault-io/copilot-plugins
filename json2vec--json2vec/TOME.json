@@ -1,0 +1,44 @@
+{
+  "name": "json2vec",
+  "owner": "json2vec",
+  "repo": "json2vec",
+  "description": "json2vec turns nested, ragged data into neural representations. It lets users define typed schemas: numbers, categories, sets, dates, entities, text, etc., then trains models for prediction and embeddings. The library supports MLM-based pretraining workflows, mutations, and serving. It is built for data that does not fit cleanly into flat tables.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/json2vec/json2vec",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T23:18:04Z"
+}
