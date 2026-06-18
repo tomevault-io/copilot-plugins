@@ -1,0 +1,9 @@
+{
+  "name": "awaku7--agentcli",
+  "displayName": "agentcli",
+  "description": "LLM agent running on your local PC, Compatible with various LLM models. Can do anything.",
+  "version": "1.0.0",
+  "author": "awaku7",
+  "homepage": "https://github.com/awaku7/agentcli",
+  "skills": []
+}
