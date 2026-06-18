@@ -1,0 +1,9 @@
+{
+  "name": "wrsmith108--docker-claude-skill",
+  "displayName": "docker-claude-skill",
+  "description": "docker-claude-skill",
+  "version": "1.0.0",
+  "author": "wrsmith108",
+  "homepage": "https://github.com/wrsmith108/docker-claude-skill",
+  "skills": []
+}
