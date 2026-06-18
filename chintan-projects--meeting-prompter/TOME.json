@@ -1,0 +1,44 @@
+{
+  "name": "meeting-prompter",
+  "owner": "chintan-projects",
+  "repo": "meeting-prompter",
+  "description": "Liquid-Meeting-Intelligence is an open-source reference architecture for building \"Privacy-First\" AI agents using Liquid Foundation Models (LFMs). Unlike traditional AI assistants that rely on high-latency cloud APIs, this project runs a unified multimodal \"backbone\" entirely on local hardware (8GB+ RAM).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chintan-projects/meeting-prompter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T19:26:16Z"
+}
