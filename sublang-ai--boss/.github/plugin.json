@@ -1,0 +1,9 @@
+{
+  "name": "sublang-ai--boss",
+  "displayName": "boss",
+  "description": "Delegate dev loops to Claude Code, Codex CLI, or any AI coder. Runs autonomously for hours. No costly API keys.",
+  "version": "1.0.0",
+  "author": "sublang-ai",
+  "homepage": "https://github.com/sublang-ai/boss",
+  "skills": []
+}
