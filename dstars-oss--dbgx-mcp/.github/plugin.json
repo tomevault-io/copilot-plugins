@@ -1,0 +1,9 @@
+{
+  "name": "dstars-oss--dbgx-mcp",
+  "displayName": "dbgx-mcp",
+  "description": "WinDbg extension DLL written in C++ that exposes an MCP-compatible HTTP endpoint.",
+  "version": "1.0.0",
+  "author": "dstars-oss",
+  "homepage": "https://github.com/dstars-oss/dbgx-mcp",
+  "skills": []
+}
