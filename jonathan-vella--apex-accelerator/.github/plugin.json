@@ -1,0 +1,9 @@
+{
+  "name": "jonathan-vella--apex-accelerator",
+  "displayName": "apex-accelerator",
+  "description": "Starter template for APEX. Contains custom Copilot agents, Azure Pricing MCP server, and an orchestrated multi-step workflow. Auto-syncs from the main repository.",
+  "version": "1.0.0",
+  "author": "jonathan-vella",
+  "homepage": "https://github.com/jonathan-vella/apex-accelerator",
+  "skills": []
+}
