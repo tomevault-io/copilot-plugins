@@ -4,7 +4,7 @@
   "repo": "opthash-rs",
   "description": "Optimal open-addressing hash maps (Elastic Hashing & Funnel Hashing) in Rust, with Python bindings.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aaron-ang/opthash-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T15:00:42Z"
+  "distributed_at": "2026-06-18T21:00:53Z"
 }
