@@ -1,0 +1,9 @@
+{
+  "name": "allendyu--torch-skill-suite",
+  "displayName": "torch-skill-suite",
+  "description": "\u4e00\u4e2atorch\u6846\u67b6\u4e0b\u81ea\u52a8\u5316\u7684skill",
+  "version": "1.0.0",
+  "author": "allendyu",
+  "homepage": "https://github.com/allendyu/torch-skill-suite",
+  "skills": []
+}
