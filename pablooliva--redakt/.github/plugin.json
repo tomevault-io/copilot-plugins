@@ -1,0 +1,9 @@
+{
+  "name": "pablooliva--redakt",
+  "displayName": "redakt",
+  "description": "Redakt \u2014 Open-source PII detection and anonymization wrapper around Microsoft Presidio. Web UI + REST API      for GDPR-compliant redaction before pasting content into LLMs. Designed for enterprise in",
+  "version": "1.0.0",
+  "author": "pablooliva",
+  "homepage": "https://github.com/pablooliva/redakt",
+  "skills": []
+}
