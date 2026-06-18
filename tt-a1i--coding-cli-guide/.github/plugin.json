@@ -1,0 +1,9 @@
+{
+  "name": "tt-a1i--coding-cli-guide",
+  "displayName": "coding-cli-guide",
+  "description": "Interactive deep-dive into Gemini CLI internals \u2014 150+ illustrated pages, 50+ step-by-step animations, Mermaid diagrams, and source-level walkthroughs. Built with React 19 + TypeScript + Tailwind CSS ",
+  "version": "1.0.0",
+  "author": "tt-a1i",
+  "homepage": "https://github.com/tt-a1i/coding-cli-guide",
+  "skills": []
+}
