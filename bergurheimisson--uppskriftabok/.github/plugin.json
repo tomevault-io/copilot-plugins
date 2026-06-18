@@ -1,0 +1,9 @@
+{
+  "name": "bergurheimisson--uppskriftabok",
+  "displayName": "uppskriftabok",
+  "description": "Personal recipe book \u2014 mobile-friendly static PWA with Icelandic recipes",
+  "version": "1.0.0",
+  "author": "BergurHeimisson",
+  "homepage": "https://github.com/BergurHeimisson/uppskriftabok",
+  "skills": []
+}
