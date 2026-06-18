@@ -1,0 +1,9 @@
+{
+  "name": "ishtarservices--thewired",
+  "displayName": "TheWired",
+  "description": "A decentralized, media-first social platform built on Nostr where communities (\u201cSpaces\u201d) revolve around streaming video, music, and live conversation \u2014 combining Discord-style structure with YouTube d",
+  "version": "1.0.0",
+  "author": "ishtarservices",
+  "homepage": "https://github.com/ishtarservices/TheWired",
+  "skills": []
+}
