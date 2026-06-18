@@ -4,7 +4,7 @@
   "repo": "Clouisle",
   "description": "Clouisle is an enterprise-grade knowledge base and intelligent AI Agent platform built on a distributed architecture. It transforms disparate data systems into actionable insights, while empowering intelligent agents to drive business decision-making and automation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clouisle/Clouisle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T13:11:15Z"
+  "distributed_at": "2026-06-18T19:27:53Z"
 }
