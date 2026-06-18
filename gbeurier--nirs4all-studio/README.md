@@ -7,11 +7,11 @@ A webapp (and standalone version) for the nirs4all python library.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [GBeurier/nirs4all-studio](https://github.com/GBeurier/nirs4all-studio).
+Original source: `CLAUDE.md` in [GBeurier/nirs4all-studio](https://github.com/GBeurier/nirs4all-studio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
