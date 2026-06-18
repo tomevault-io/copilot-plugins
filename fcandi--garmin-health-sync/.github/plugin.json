@@ -1,0 +1,9 @@
+{
+  "name": "fcandi--garmin-health-sync",
+  "displayName": "Garmin-Health-Sync",
+  "description": "Obsidian plugin to sync health data from smartwatches into Daily Notes",
+  "version": "1.0.0",
+  "author": "fcandi",
+  "homepage": "https://github.com/fcandi/Garmin-Health-Sync",
+  "skills": []
+}
