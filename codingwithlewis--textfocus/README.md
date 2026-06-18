@@ -2,15 +2,14 @@
 
 > Sourced from [CodingWithLewis/TextFocus](https://github.com/CodingWithLewis/TextFocus) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-Align large amount of images based on words. Great for the "trending" effect.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [CodingWithLewis/TextFocus](https://github.com/CodingWithLewis/TextFocus).
+Original source: `` in [CodingWithLewis/TextFocus](https://github.com/CodingWithLewis/TextFocus).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
