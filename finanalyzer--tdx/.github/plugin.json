@@ -1,0 +1,9 @@
+{
+  "name": "finanalyzer--tdx",
+  "displayName": "tdx",
+  "description": "OpenBB extension for TdxQuant",
+  "version": "1.0.0",
+  "author": "finanalyzer",
+  "homepage": "https://github.com/finanalyzer/tdx",
+  "skills": []
+}
