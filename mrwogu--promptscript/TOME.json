@@ -4,7 +4,7 @@
   "repo": "promptscript",
   "description": "Prompt-as-Code for Enterprise AI. Standardize, audit, and deploy instructions across any AI coding assistant.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrwogu/promptscript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T04:32:17Z"
+  "distributed_at": "2026-06-18T09:22:44Z"
 }
