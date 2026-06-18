@@ -1,0 +1,9 @@
+{
+  "name": "stagware--nocodb-cli",
+  "displayName": "nocodb-cli",
+  "description": "Open-source CLI and TypeScript SDK for NocoDB",
+  "version": "1.0.0",
+  "author": "stagware",
+  "homepage": "https://github.com/stagware/nocodb-cli",
+  "skills": []
+}
