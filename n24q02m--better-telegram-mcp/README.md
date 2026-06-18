@@ -7,11 +7,11 @@ Telegram for AI agents -- messages, chats, media, and contacts across both bot a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [n24q02m/better-telegram-mcp](https://github.com/n24q02m/better-telegram-mcp).
+Original source: `CLAUDE.md` in [n24q02m/better-telegram-mcp](https://github.com/n24q02m/better-telegram-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
