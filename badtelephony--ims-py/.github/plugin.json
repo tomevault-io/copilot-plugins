@@ -1,0 +1,9 @@
+{
+  "name": "badtelephony--ims-py",
+  "displayName": "ims-py",
+  "description": "Tools to interact with IMS servers in Python",
+  "version": "1.0.0",
+  "author": "badtelephony",
+  "homepage": "https://github.com/badtelephony/ims-py",
+  "skills": []
+}
