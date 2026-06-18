@@ -1,0 +1,9 @@
+{
+  "name": "agent-sh--agent-knowledge",
+  "displayName": "agent-knowledge",
+  "description": "Research guides and RAG indexes for AI agent development",
+  "version": "1.0.0",
+  "author": "agent-sh",
+  "homepage": "https://github.com/agent-sh/agent-knowledge",
+  "skills": []
+}
