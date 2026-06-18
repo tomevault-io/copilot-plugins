@@ -4,7 +4,7 @@
   "repo": "ship-studio",
   "description": "The professional studio for modern development \u2014 build it, ship it, host it without leaving the app. Free, local-first, works with Claude Code / Codex / OpenCode.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ship-studio/ship-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T03:10:49Z"
+  "distributed_at": "2026-06-18T09:06:25Z"
 }
