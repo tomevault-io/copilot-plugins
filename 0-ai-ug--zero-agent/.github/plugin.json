@@ -1,0 +1,9 @@
+{
+  "name": "0-ai-ug--zero-agent",
+  "displayName": "zero-agent",
+  "description": "General purpose AI agent",
+  "version": "1.0.0",
+  "author": "0-AI-UG",
+  "homepage": "https://github.com/0-AI-UG/zero-agent",
+  "skills": []
+}
