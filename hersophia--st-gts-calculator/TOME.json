@@ -4,7 +4,7 @@
   "repo": "ST-GTS-Calculator",
   "description": "\u8f85\u52a9SillyTavern\u7684\u5de8\u5927\u5a18\u8ba1\u7b97\u5668\u811a\u672c",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HerSophia/ST-GTS-Calculator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T18:56:33Z"
+  "distributed_at": "2026-06-18T17:11:25Z"
 }
