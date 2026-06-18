@@ -1,0 +1,212 @@
+## notion-river
+
+> Notion/Ion3-style static tiling window manager for the River Wayland compositor (0.4.x+).
+
+# notion-river
+
+Notion/Ion3-style static tiling window manager for the River Wayland compositor (0.4.x+).
+
+## Project Overview
+
+A window manager process for River 0.4.x that implements "static tiling" from the Notion WM: the screen layout is a persistent wireframe of frames that exist independently of windows. Windows are placed into frames as tabs. Opening/closing windows never changes the layout — only explicit user actions (split/unsplit) do.
+
+## Build / Test / Run
+
+```sh
+cargo build            # debug build
+cargo build --release  # release build
+cargo test             # run unit tests (layout + focus tests)
+cp target/release/notion-river ~/.local/bin/
+```
+
+After installing, press `Super+Shift+R` inside River to restart the WM with the new binary. Windows survive restarts.
+
+### Native (from TTY / login manager)
+
+River is built from source at `~/repos/river` with XWayland support:
+
+```sh
+cd ~/repos/river && zig build -Doptimize=ReleaseSafe -Dxwayland=true
+cp zig-out/bin/river ~/.local/bin/
+```
+
+lightdm is configured with a "Notion River" session (`/usr/share/wayland-sessions/river-custom.desktop`) pointing to `~/.local/bin/start-river`.
+
+The `start-river` script sets XKB layout (de/neo), Wayland env vars, and execs River.
+
+The init script (`~/.config/river/init`) starts waybar, nm-applet, keepassxc, and runs notion-river in a restart loop (always restarts, not just on exit 0). notion-river itself owns monitor configuration (mode/scale/position/transform) via `wlr-output-management-unstable-v1`; no kanshi or external tool is involved. wp_viewporter protocol handles fractional scaling.
+
+### Nested testing (inside X11)
+
+```sh
+weston --backend=x11-backend.so --width=1920 --height=1080 --shell=kiosk-shell.so &
+WAYLAND_DISPLAY=wayland-1 XKB_DEFAULT_LAYOUT=de XKB_DEFAULT_VARIANT=neo \
+  river -c ~/Projects/notion-river/target/release/notion-river -no-xwayland &
+WAYLAND_DISPLAY=wayland-2 foot &
+```
+
+## Architecture
+
+- `src/main.rs` — entry point, Wayland connection, event loop, signal handler, log file setup
+- `src/protocol.rs` — wayland-scanner generated bindings (river-window-management-v1, river-xkb-bindings-v1, river-layer-shell-v1)
+- `src/dispatch.rs` — Wayland `Dispatch` impls for all protocol interfaces (WM, output, seat, window, pointer, layer-shell, decorations)
+- `src/wm.rs` — core WM state, manage/render cycle, focus logic integration
+- `src/window_actions.rs` — action execution: perform_action, perform_split, perform_unsplit, cross-monitor moves, command spawning
+- `src/rendering.rs` — layout application: window dimensions, focus, visibility, position/border/decoration drawing
+- `src/pointer_ops.rs` — pointer operation handling: move-drop, seat ops (resize), resize axis detection, cursor warping
+- `src/layout.rs` — static split tree (binary tree of frames), geometry calculation, neighbor finding, ratio adjustment
+- `src/decorations.rs` — tab bar rendering (per-window decoration surfaces via Cairo+Pango) + empty frame indicators (shell surfaces)
+- `src/control.rs` — IPC control socket server: accepts commands on `$XDG_RUNTIME_DIR/notion-river.sock`
+- `src/bin/notion-ctl.rs` — CLI client for the control socket
+- `src/workspace.rs` — workspace manager, deterministic 3-tier output assignment (monitor memory → preferred_output → fallback), multi-monitor
+- `src/bindings.rs` — keybinding parsing, built-in profiles (i3_neo, notion), media keys, modifier constants
+- `src/actions.rs` — action enum and config string parsing
+- `src/config.rs` — TOML config loading and defaults
+- `src/focus.rs` — focus-follows-mouse logic, extracted for testability with 12 unit tests
+- `src/state.rs` — state persistence: save/restore layout tree, window placement, active tabs, visible workspaces to `~/.config/notion-river/`
+- `src/app_bindings.rs` — app-to-frame bindings: bind/unbind apps to frames, wildcard app_id matching, fixed dimensions, persistence to `~/.config/notion-river/bindings.json`, enforce_app_bindings auto-move
+- `src/monitor_memory.rs` — per-monitor "last workspace shown here" memory, keyed by EDID description (with connector/geometry fallbacks), persisted to `~/.config/notion-river/monitor-memory.json`
+- `src/monitors.rs` — monitor (output) layout via `wlr-output-management-unstable-v1`: bind manager, observe heads/modes, apply saved profiles on topology change, persist user edits to `~/.config/notion-river/monitors.json` (keyed by sorted EDID set)
+- `src/ipc.rs` — waybar workspace status: writes JSON to `$XDG_RUNTIME_DIR/notion-river-workspaces`, streams updates to IPC subscribers
+- `protocol/` — River protocol XML files (vendored)
+
+## Key Concepts
+
+- **SplitNode**: Binary tree. Leaves are `Frame`s, interior nodes are `Split`s with orientation + ratio.
+- **Frame**: A cell that holds 0+ windows as tabs. Empty frames are valid and render as bordered outlines.
+- **Workspace**: Owns a SplitNode tree, assigned to an Output by preferred output name.
+- **Physical keys**: `set_layout_override(0)` on xkb bindings for layout-independent keybindings.
+- **Two-phase commit**: River's manage/render sequence. manage_start → WM decisions → manage_finish → render_start → positioning → render_finish.
+- **manage_dirty**: Called from wl_pointer events on shell surfaces to trigger manage cycles for focus-follows-mouse on empty frames.
+- **Focus-follows-mouse**: uses PointerEnter for windows, pointer_position coordinates for empty frames. Extracted to `focus.rs` with unit tests.
+- **Cursor-follows-focus**: pointer_warp on keyboard-triggered focus changes only.
+- **Pointer ops**: left-drag moves windows between frames (drop on release); right-drag resizes splits with dual-axis corner detection.
+- **Layer-shell**: river-layer-shell-v1 for waybar/rofi/notifications. non_exclusive_area adjusts tiling area.
+- **State persistence**: layout tree + window-to-frame mapping + active tabs + visible workspaces saved to JSON in `~/.config/notion-river/` on restart/signal (survives reboots). Windows matched by River's stable identifier only (no app_id fallback). Active tab correctly preserved via `add_window_quiet`.
+- **Title sync**: WindowRef titles updated from ManagedWindow every manage cycle for live tab bar updates.
+- **Tab focus history**: Each `Frame` keeps an MRU stack (`focus_history: Vec<u64>`) of window ids it has focused. On close, the next active tab is the most-recently-focused remaining window in that frame, not the next vec index. So opening B from A and closing B returns focus to A, not to whatever follows B. History walks: closing the new top falls back through the stack. Not serialized; rebuilt at runtime. All external `active_tab` writes go through `Frame::set_active_tab` to keep history in sync.
+- **Control IPC**: `$XDG_RUNTIME_DIR/notion-river.sock` accepts `list-windows`, `list-workspaces`, `subscribe-workspaces`, `subscribe-workspace <name>`, `focus-window <id>`, `switch-workspace <name>`, `bind <app_id> <workspace> <frame_path>`, `unbind <app_id>`, `set-fixed-dimensions <app_id> <w>x<h>` for `notion-ctl` and rofi integration. `focus-window` switches to hidden workspaces if the target window is on one.
+- **IPC subscriptions**: `subscribe-workspaces` and `subscribe-workspace <name>` keep the connection open and stream waybar JSON lines on every workspace state change. Used by waybar for event-driven (zero-polling) workspace modules. Subscribers are `Arc<Mutex<Vec<Subscriber>>>` shared between the IPC writer (main thread) and control socket (listener thread). Per-subscriber dedup avoids redundant writes.
+- **App bindings**: Apps can be bound to specific frames via `Super+f` (toggle) / `Super+Shift+f` (exclusive). Bindings persist in `~/.config/notion-river/bindings.json`. `enforce_app_bindings` auto-moves bound windows into the first visible bound frame during manage cycles and immediately after rebinding, so existing windows retab into the target cell. The `⊙` marker is per-tab, not just per-frame: it appears on tabs whose `app_id` is actually bound to that frame.
+- **Wildcard app_id matching**: Binding patterns like `steam_app_*` match all Steam games, useful for binding categories of apps.
+- **Fixed dimensions**: Per-binding fixed window dimensions (e.g. 1920x1080 for Steam streaming) — bound windows are forced to these dimensions regardless of frame size.
+- **Floating windows**: Windows can float above the tiled layout. River requires `propose_dimensions()` on every manage cycle for floating windows to render. Floating windows are positioned on the focused output's usable area — dialogs centered, notifications top-right. `focused_floating` tracks keyboard focus for floating windows, but notification-style floaters do not auto-focus or warp the pointer when they appear.
+- **Auto-float popups**: Windows with DimensionsHint or a parent are auto-floated as dialogs. Untitled windows from apps that already have a tiled window are auto-floated as notifications (top-right, no focus steal). Secondary windows from bound apps (where `find_target` returns `AlreadyPlaced`) are auto-floated as dialogs (centered).
+- **FindTargetResult**: Three-way enum for app binding placement: `Target(ws, frame)` = place here, `AlreadyPlaced` = app already in bound frame so float as secondary, `NoBinding` = no binding or frame missing.
+- **Floating move**: Super+LMB on floating windows updates `float_x`/`float_y` live (no frame drop). Drop zone preview suppressed for floating drags.
+- **Floating focus**: `focused_floating` in WindowManager tracks the active floating window. Takes priority over tiled focus for keyboard input and actions (Close, etc.). Cleared when clicking a tiled window or when the floating window closes/disappears.
+- **Fullscreen toggle**: `Super+Return` toggles fullscreen for the focused window.
+- **Resize mode**: `Super+R` enters/exits resize mode with absolute direction semantics (Up always moves the boundary up, regardless of which side).
+- **Tab drag specificity**: Dragging a tab in the tab bar drags that specific clicked tab, not the active window.
+- **wp_viewporter**: Wayland protocol for fractional scaling support with HiDPI.
+- **Monitor memory**: Per-physical-monitor map of "last workspace shown here", keyed by EDID description (stripped of the `(connector)` suffix wlroots appends, so replugging into a different port keeps identity). Stored in `~/.config/notion-river/monitor-memory.json`. Replaces the old whole-setup `output-profiles.json` and the per-output `visible_workspaces` field in saved state — those layered, geometry-fingerprinted stores were non-deterministic and have been deleted.
+- **Output assignment algorithm**: Single deterministic pass in `WorkspaceManager::reassign_outputs`, three tiers per output (sorted by id for stability): (1) monitor memory match, (2) workspace whose `preferred_output` chain has the lowest-rank match for this output (config order tiebreak), (3) any remaining unplaced workspace. Workspaces not placed stay invisible (`active_output = None`) — they are still switch-to-able, just not on screen. Memory is persisted whenever placement actually changes, never on every manage cycle. The reassign call is gated by `maybe_reassign_outputs` which compares the set of stable monitor keys against the snapshot from the previous run.
+- **Monitor disconnect**: Workspace on the disconnected monitor becomes invisible (its `active_output` clears). Other monitors keep their assignments untouched. Focus moves to a still-visible workspace. No window migration, no layout tearing.
+- **Monitor reconnect**: Monitor's EDID-keyed memory is consulted, restoring whatever was last on it. If memory is empty (first time seeing this monitor), falls through to the `preferred_output` chain.
+- **Monitor layout (mode/scale/position/transform)**: Owned by `monitors.rs` via `wlr-output-management-unstable-v1`. State machine on every `Done` event: (1) build a snapshot keyed by sorted EDID set; (2) if pending self-apply for this set → ack and persist actual post-apply state; (3) if topology changed → apply saved profile if present, else save current as initial profile; (4) if topology unchanged → save snapshot if it differs from saved (catches `wdisplays` edits with no time gate). Refresh rate is intentionally not part of profile equality (only used when picking a `wl_output` mode: exact w+h+refresh first, fall back to w+h). Suspend/resume preserves layout because the EDID set doesn't change → no apply path triggered. Manual edits via wdisplays/etc. are saved instantly.
+- **Runtime keyboard layout switching**: `Ctrl+F12` toggles between `de/neo` and `de` layouts at runtime.
+
+## Built-in Keybinding Profiles
+
+- `i3_neo`: Neo layout directions (i/a/l/e), Super+Space terminal, Super+o launcher, Super+Shift+o window switcher, Super+b/v split, Super+n/p tabs
+- `notion`: Vim-style (h/j/k/l), Super+Return terminal, Super+p launcher, Super+Shift+p window switcher, Super+s/v split, Super+Tab tabs
+- Both: media keys (XF86Audio*, XF86MonBrightness*), Super+Shift+R restart, Super+t toggle split, Super+f bind app to frame, Super+Shift+f exclusive bind, Super+Return fullscreen toggle, Super+R resize mode, Ctrl+F12 keyboard layout toggle
+
+## Config Files
+
+- `~/.config/notion-river/config.toml` — WM config (profile, workspaces, commands, appearance)
+- `~/.config/notion-river/bindings.json` — persisted app-to-frame bindings (auto-managed, survives reboots)
+- `~/.config/notion-river/state.json` — persisted layout/window state (auto-managed, survives reboots)
+- `~/.config/notion-river/monitor-memory.json` — per-physical-monitor "last workspace shown here" memory, keyed by EDID description (auto-managed)
+- `~/.config/notion-river/monitors.json` — saved monitor layouts per EDID-set (auto-managed): mode, position, scale, transform, enabled
+- `~/.config/river/init` — River init script (env vars, waybar, notion-river restart loop)
+- `~/.local/bin/start-river` — Session launcher (XKB layout, env vars, exec river)
+- `~/.config/waybar/config.jsonc` — Waybar modules (per-workspace event-driven modules via `notion-ctl subscribe-workspace <name>`, CPU, MEM, DSK, VOL, NET, tray)
+- `~/.config/waybar/style.css` — Waybar styling (Catppuccin Mocha, per-monitor colors, floating pill modules, rounded corners)
+- `~/.config/rofi/config.rasi` — Rofi config (Catppuccin Mocha Mauve theme); example shipped at `config-examples/rofi/config.rasi`, installed to `/usr/share/notion-river/examples/rofi/`
+- `~/.config/rofi/catppuccin-mocha.rasi` — Rofi theme file (example shipped alongside `config.rasi`)
+- `notion-rofi-launch` — packaged unified launcher (`config-examples/notion-rofi-launch`, installed to `/usr/bin`). **The primary rofi entry point**: one box that switches to an open window or launches an app, via rofi's native `combi` (`window,drun`) on the focused output. Requires a rofi build with `ext-foreign-toplevel-list-v1` support in the window modi plus the `window-activate-command` option (see pitfall below); focus is delegated to `notion-ctl focus-window-by-identifier {identifier}` via `~/.config/rofi/config.rasi`. Set as `commands.launcher = ["notion-rofi-launch"]` (bound to `Super+o`).
+- `notion-rofi-window-switch` — packaged window switcher wrapper (`config-examples/notion-rofi-window-switch`, installed to `/usr/bin`). Fallback for stock rofi builds without the foreign-toplevel patch: runs `rofi -show window-switch -m <output>` using the `notion-rofi-window-mode` script-modi. Set as `commands.window_switcher = ["notion-rofi-window-switch"]` (bound to `Super+Shift+o` / `Super+Shift+p`). The `SpawnWindowSwitcher` action (`spawn_window_switcher` / `window_switcher`) runs `commands.window_switcher`.
+- `notion-rofi-window-mode` — packaged rofi script-modi (`config-examples/notion-rofi-window-mode`, installed to `/usr/bin`). Backs the fallback switcher: lists open windows and launchable `.desktop` apps in one list; rows carry a hidden `win:<id>`/`app:<desktop-id>` action in rofi's info field — windows focused via `notion-ctl focus-window`, apps launched via `gtk-launch`. Has an `XDG_RUNTIME_DIR` fallback for rofi's sanitized env.
+- `/usr/share/wayland-sessions/river-custom.desktop` — lightdm session entry
+- `completions/notion-ctl.fish` — fish shell completions for `notion-ctl` (dynamic workspace/window/app_id completion via the control socket; jq optional for richer descriptions). Installed to `/usr/share/fish/vendor_completions.d/` by the packages; copy to `~/.config/fish/completions/` for local installs.
+
+## Common Pitfalls
+
+- TOML top-level keys must come before any `[section]` headers.
+- River reads XKB env vars at startup, not from the init script. Set them in `start-river` before `exec river`.
+- `kill -9` on River leaves stale logind sessions that block GPU access. Use `loginctl terminate-session` to clean up.
+- Electron apps need `ELECTRON_OZONE_PLATFORM_HINT=wayland` env var (set in init script).
+- `env_logger` output goes to `/tmp/notion-river.log` via LineFlush wrapper.
+- Stale wayland socket locks after crashes: `rm -f /run/user/$(id -u)/wayland-*`
+- The init restart loop always restarts notion-river (not conditional on exit code). This means crashes also trigger a restart.
+- Contour terminal works under Wayland — no special flags needed.
+- Fractional scale 1.5x is the best fractional scale — it's a clean fraction wlroots handles well. 1.75x causes blur due to wlroots rounding bug (#953). Stick to 1.5x or integer scales (1x, 2x).
+- XWayland support requires rebuilding River with `-Dxwayland=true`. Some apps (Steam) need it.
+- Monitor configuration is **fully owned by notion-river**. Do **not** install kanshi or any external `wlr-output-management` client. Two clients fighting over the same protocol = the layout-loss-on-replug bug we spent over a month chasing. Use `wdisplays` for one-shot interactive edits — notion-river observes the result and saves it.
+- **rofi on the wrong monitor**: notion-river advertises every output at position `0,0` to layer-shell clients, so rofi-wayland cannot place itself by coordinates and always opens on the same output. Target the focused output **by name** with `-m <output>` (rofi-wayland accepts output names). `notion-rofi-launch` resolves it from `notion-ctl list-workspaces`. Negative `-m` indices (`-1` focused-monitor etc.) do not reliably follow notion-river focus.
+- **rofi window switching needs a patched rofi**: the desired UX is **one box** that switches to an open window or launches an app (`notion-rofi-launch`, native `combi` over `window,drun`). Stock rofi-wayland cannot do this: its built-in `window` modi needs `zwlr_foreign_toplevel_manager_v1`, which River does not serve — River serves `ext-foreign-toplevel-list-v1`, which is **list-only** (no activation). The local rofi build (`rofi -version` → `9b0363c-dirty`) is patched to (a) enumerate windows via `ext-foreign-toplevel-list-v1` and (b) add a `window-activate-command` option that substitutes `{identifier}`/`{app-id}`/`{title}` and shells out for focus — set in `~/.config/rofi/config.rasi` to `notion-ctl focus-window-by-identifier {identifier}`. **The patch exists only in the installed `/usr/bin/rofi` binary**: the build tree is deleted and the patch is neither committed nor upstreamed — do not let the rofi package overwrite it (currently rpm `rofi-2.0.0-1.4` claims the path) without re-creating the patch. On stock rofi, fall back to separate keybinds: `notion-rofi-window-switch` (the `notion-rofi-window-mode` script-modi). Do **not** put a script-modi inside `combi` — rofi-wayland's combi swallows the script-modi selection callback, so the pick never fires. Upstream River activation support is tracked in river#1281 (xdg-activation → WM event, accepted but unscheduled) — it covers *activation requests*, not window *enumeration*, so it alone will not enable stock `rofi -show window`.
+- **`commands.launcher` is read once at startup** (`window_actions.rs` clones `self.config.commands.launcher`), not hot-reloaded. After editing the launcher line, restart notion-river (`Super+Shift+R`) for it to take effect.
+- **`cargo test` deletes the live control socket**: control-server tests use the real `$XDG_RUNTIME_DIR/notion-river.sock` and unlink it, breaking `notion-ctl` (and waybar subscriptions) for the running session. Restart notion-river (`Super+Shift+R` or kill the process — the init loop restarts it) to recreate the socket. Tests should be isolated to a temp dir eventually.
+
+## HiDPI / Scaling Deep Dive
+
+This was a hard-fought battle. Documenting for posterity.
+
+### The problem
+Tab bar text appeared blurry compared to waybar text rendered by GTK/Pango.
+
+### Root cause (discovered after many iterations)
+`wl_output.scale` and `wl_output.mode` events arrive AFTER the first manage/render cycle. On the first frame:
+- `Output.physical_width = 0`, `Output.scale = 1` (defaults)
+- `fractional_scale()` returns 1.0
+- Tab bar renders at 1x into a `buffer_scale=1` surface
+- Compositor displays this 1x surface on a 2x display → bilinear upscale = **blur**
+
+The `wl_output.scale=2` event arrives moments later, but:
+- The tab bar hash doesn't change (same frame content)
+- No re-render is triggered
+- The 1x buffer persists for the lifetime of the decoration
+
+### What didn't work
+- **fontdue** — poor kerning, no hinting, wrong spacing
+- **FreeType directly** — better but still soft compared to GTK
+- **Cairo+Pango with intermediate surface + pixel copy** — the copy step introduced alpha blending artifacts (premultiplied alpha was applied twice: `r * alpha / alpha * alpha`)
+- **Zero-copy cairo (create_for_data_unsafe)** — eliminated the copy but didn't fix the scale timing issue
+- **wp_viewporter** — River doesn't expose this protocol, so we can't render at exact fractional resolution
+- **Fractional scale 1.75x** — wlroots has a known rounding bug (#953) that causes blur at non-integer scales. Integer 2x is the only reliable option.
+- **Subpixel rendering (TARGET_LCD)** — actually makes text worse at integer 2x because RGB subpixels don't align with the 2x pixel grid
+- **Various font options (Slight/Full hinting, Subpixel/Gray antialias)** — minimal difference; the real issue was the 1x vs 2x buffer, not the font rendering settings
+
+### What worked
+1. **Integer output scale** — `scale 2` not `1.75`. Fractional scaling + wlroots = blur.
+2. **Force minimum 2x scale in decoration rendering** — `let scale = if fractional_scale > 1.0 { fractional_scale } else { 2.0 }`. This bypasses the timing issue where scale detection arrives too late.
+3. **Cairo+Pango rendering** — same stack as waybar/GTK. `set_absolute_size` for pixel-perfect font sizing. Default fontconfig options (don't override antialias/hinting).
+4. **Track `last_scale` per decoration** — force redraw when scale changes (via `manage_dirty` on `wl_output.scale` and `wl_output.mode` events).
+
+### Key architectural insight
+River's WM protocol (river-window-management-v1) operates in two phases:
+- **Manage phase**: WM sets focus, dimensions, bindings
+- **Render phase**: WM sets positions, borders, draws decorations
+
+`wl_output` events (scale, mode) arrive asynchronously between cycles. Calling `manage_dirty()` from these handlers triggers a new cycle, but the first render has already committed a 1x buffer. The `last_scale` tracking detects this and forces a re-render — but only if the scale actually changes from the default.
+
+### The 2.0 fallback
+The current fix (`else { 2.0 }`) assumes HiDPI. For 1x displays, `fractional_scale` will correctly return 1.0 from the computed `physical/logical` ratio once `wl_output.mode` arrives. The fallback only applies to the first render before scale is known. On a 1x display, this means the first render is at 2x (wastes memory but looks fine — compositor downscales). On the next cycle the correct 1.0 scale takes over. Not perfect but acceptable.
+
+## Dependencies
+
+- `wayland-client` / `wayland-scanner` / `wayland-backend` — Wayland protocol handling
+- `xkbcommon` — keysym resolution
+- `serde` / `toml` / `serde_json` — config and state serialization
+- `bitflags` — modifier bitmasks
+- `log` / `env_logger` — logging (to file)
+- `dirs` — XDG config directory lookup
+- `libc` — memfd_create, mmap for shared memory buffers (decoration rendering)
+- `cairo-rs` (with freetype feature) — 2D rendering for tab bars and decoration surfaces
+- `pangocairo` — Cairo integration for Pango text layout
+- `pango` — font rendering and text shaping for tab bar labels
+
+---
+> Source: [Marenz/notion-river](https://github.com/Marenz/notion-river) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
