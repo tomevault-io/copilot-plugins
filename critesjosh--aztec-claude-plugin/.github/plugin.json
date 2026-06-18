@@ -1,0 +1,9 @@
+{
+  "name": "critesjosh--aztec-claude-plugin",
+  "displayName": "aztec-claude-plugin",
+  "description": "Claude Code plugin for Aztec smart contract development",
+  "version": "1.0.0",
+  "author": "critesjosh",
+  "homepage": "https://github.com/critesjosh/aztec-claude-plugin",
+  "skills": []
+}
