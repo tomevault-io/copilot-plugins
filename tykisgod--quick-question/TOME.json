@@ -4,7 +4,7 @@
   "repo": "quick-question",
   "description": "The control plane for game-dev agents \u2014 close the loop with verified compile, test, and cross-model review across Unity, Godot, Unreal, and S&box. Lifecycle-aware /qq:go routing, 26 /qq:* slash commands. Claude Code-first, agent-agnostic via HTTP and MCP.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tykisgod/quick-question",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T21:10:38Z"
+  "distributed_at": "2026-06-18T02:54:40Z"
 }
