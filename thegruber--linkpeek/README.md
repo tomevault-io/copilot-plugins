@@ -7,11 +7,11 @@ Secure TypeScript link preview and URL metadata extractor for Open Graph, Twitte
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thegruber/linkpeek](https://github.com/thegruber/linkpeek).
+Original source: `CLAUDE.md` in [thegruber/linkpeek](https://github.com/thegruber/linkpeek).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
