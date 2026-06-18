@@ -1,0 +1,44 @@
+{
+  "name": "cryptotrader-ai",
+  "owner": "ma-pony",
+  "repo": "cryptotrader-ai",
+  "description": "\u52a0\u5bc6\u8d27\u5e01 AI \u81ea\u52a8\u4ea4\u6613\u4e0e\u56de\u6d4b\u7cfb\u7edf \u00b7 LangGraph \u591a\u4ee3\u7406\u8fa9\u8bba + \u786c\u6027\u98ce\u63a7 + \u51b3\u7b56\u65e5\u5fd7 | AI-powered crypto trading & backtest with LangGraph multi-agent debate, hard risk controls, and Decision Journal",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ma-pony/cryptotrader-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T22:30:52Z"
+}
