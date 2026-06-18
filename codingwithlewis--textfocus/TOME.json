@@ -2,9 +2,9 @@
   "name": "TextFocus",
   "owner": "CodingWithLewis",
   "repo": "TextFocus",
-  "description": "Align large amount of images based on words. Great for the \"trending\" effect.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CodingWithLewis/TextFocus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:14:32Z"
+  "distributed_at": "2026-06-18T19:21:58Z"
 }
