@@ -1,0 +1,132 @@
+## skills
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Overview
+
+This repository is a plugin marketplace (`genlayerlabs`) for [Claude Code](https://claude.ai/code) and [Codex](https://github.com/openai/codex). It provides installable plugins that guide AI assistants through complex operational procedures.
+
+### Installation
+
+```bash
+# Claude Code
+/plugin marketplace add genlayerlabs/skills
+/plugin install genlayer-dev@genlayerlabs
+/plugin install genlayernode@genlayerlabs
+
+# Codex
+codex plugin marketplace add genlayerlabs/skills
+# Then enable plugins from Codex's plugin menu
+```
+
+## Marketplace Structure
+
+```
+.claude-plugin/
+  marketplace.json              # Claude Code marketplace manifest
+.agents/
+  plugins/
+    marketplace.json            # Codex marketplace manifest
+plugins/
+  <plugin-name>/
+    .claude-plugin/
+      plugin.json               # Claude Code plugin manifest
+    .codex-plugin/
+      plugin.json               # Codex plugin manifest
+    .mcp.json                   # MCP server config (optional)
+    skills/
+      <skill-name>/
+        SKILL.md                # Skill entry point with frontmatter
+        skill.yaml              # Machine-readable procedure definition
+        validations.yaml        # Automated checks (pre/post)
+        sharp-edges.yaml        # Known edge cases and gotchas
+        collaboration.yaml      # Dependencies and composition
+        agents/
+          openai.yaml           # Codex agent interface (optional)
+```
+
+## Skill Architecture
+
+Each skill is defined by multiple YAML/Markdown files:
+
+- **SKILL.md** - Human-readable documentation with full procedure details, step-by-step instructions, and usage examples
+- **skill.yaml** - Machine-readable procedure definition including inputs, patterns, anti-patterns, config wizard structure, and the main procedure flow
+- **validations.yaml** - Automated checks (prerequisites, post-installation verification) with commands, expected results, and error messages
+- **sharp-edges.yaml** - Known edge cases and gotchas with detection commands, impact descriptions, and fixes. These must be **proactively checked** during execution, not just used for reactive diagnosis
+- **collaboration.yaml** - Dependencies on external tools and skill composition sequences
+
+## Key Concepts
+
+### Skill Structure
+Skills follow a decision-tree pattern with:
+- **Decision points** - Questions that branch the procedure
+- **Patterns** - Reusable command sequences for common operations
+- **Anti-patterns** - Things to avoid with explanations of why they're bad
+- **Defaults** - Sensible default values
+
+### Sharp Edges Philosophy
+Edge cases in `sharp-edges.yaml` must be checked **before** each major phase, not after failures occur. Each edge includes:
+- `detect` - How to identify the issue
+- `impact` - What goes wrong if not addressed
+- `fix` - How to resolve it
+- `severity` - critical/high/medium
+
+### Validation Timing
+- `on_stop` validations - Must pass before procedure proceeds
+- `on_warn` validations - Warnings that don't block but should be addressed
+
+## Working with Skills
+
+When modifying skills:
+1. Keep SKILL.md and skill.yaml in sync - they describe the same procedure
+2. Add new edge cases to sharp-edges.yaml when discovering failure modes
+3. Add validation commands to validations.yaml for automated checking
+4. Update collaboration.yaml when adding new dependencies or composition sequences
+
+When a skill is invoked:
+1. Display process overview at start
+2. Check prerequisites from validations.yaml
+3. Follow procedure from skill.yaml, checking sharp-edges.yaml proactively at each phase
+4. Use config_wizard structure for interactive configuration
+5. Run post-installation validations
+
+## Website
+
+The file `index.html` is the public-facing website for this marketplace. It displays all **plugin skills** (from `plugins/`) organized into Build and Operate sections. It does NOT include internal development skills (from `.claude/skills/`).
+
+When you add, remove, or modify a plugin skill's description, name, or content, you **must** update `index.html` to reflect the change. The skill data lives in the `skills` JavaScript object inside the `<script>` tag, organized by section (`build` and `operate`).
+
+## Security Constraints
+
+Skills that handle secrets must follow strict masking requirements:
+- Never display full API keys, passwords, or tokens
+- Never execute remote commands that would expose secrets in output
+- Use placeholders in generated configs, instruct users to set values manually
+
+## Available Plugins
+
+| Plugin | Skill | When to Use |
+|--------|-------|-------------|
+| `genlayernode` | `genlayernode` | Interactive wizard to set up a GenLayer validator node on Linux. |
+
+## Development Skills
+
+<!-- SKILLS_TABLE_START -->
+| Skill | When to Use |
+|-------|-------------|
+| `commit` | Execute git commit with conventional commit message analysis |
+| `create-skill` | Scaffold a new Claude Code skill using the multi-YAML patter |
+| `docs-refresh` | Refresh documentation with deterministic generation from sou |
+| `linear` | Create and manage Linear issues using templates for the GenL |
+| `pr-create` | Creates GitHub pull requests with conventional commit-style  |
+| `pr-merge` | Merge GitHub pull requests with strict CI validation. Never  |
+| `validator-manage` | Manage GenLayer validators across testnets using the genlaye |
+<!-- SKILLS_TABLE_END -->
+
+---
+> Source: [genlayerlabs/skills](https://github.com/genlayerlabs/skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
