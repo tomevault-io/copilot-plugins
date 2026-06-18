@@ -1,0 +1,9 @@
+{
+  "name": "sannidhyaroy--soduto-android",
+  "displayName": "soduto-android",
+  "description": "Soduto is a KDE Connect compatible client. It allows better integration between your phones, desktops and tablets. This repository is the downstream of KDE Connect Android.",
+  "version": "1.0.0",
+  "author": "sannidhyaroy",
+  "homepage": "https://github.com/sannidhyaroy/soduto-android",
+  "skills": []
+}
