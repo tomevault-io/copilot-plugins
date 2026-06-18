@@ -1,0 +1,9 @@
+{
+  "name": "scnet-sugon--train-ticket-ocr",
+  "displayName": "train_ticket_ocr",
+  "description": "train_ticket_ocr",
+  "version": "1.0.0",
+  "author": "SCNet-sugon",
+  "homepage": "https://github.com/SCNet-sugon/train_ticket_ocr",
+  "skills": []
+}
