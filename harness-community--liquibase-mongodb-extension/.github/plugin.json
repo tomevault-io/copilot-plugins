@@ -1,0 +1,9 @@
+{
+  "name": "harness-community--liquibase-mongodb-extension",
+  "displayName": "liquibase-mongodb-extension",
+  "description": "liquibase-mongodb-extension",
+  "version": "1.0.0",
+  "author": "harness-community",
+  "homepage": "https://github.com/harness-community/liquibase-mongodb-extension",
+  "skills": []
+}
