@@ -1,0 +1,9 @@
+{
+  "name": "zonlabs--mcp-ts",
+  "displayName": "mcp-ts",
+  "description": "An MCP client library for building conversational AI applications with dynamic tool discovery for context-efficient agents.",
+  "version": "1.0.0",
+  "author": "zonlabs",
+  "homepage": "https://github.com/zonlabs/mcp-ts",
+  "skills": []
+}
