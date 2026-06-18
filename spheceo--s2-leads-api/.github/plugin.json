@@ -1,0 +1,9 @@
+{
+  "name": "spheceo--s2-leads-api",
+  "displayName": "s2-leads-api",
+  "description": "Google Maps lead scraper built in Go.",
+  "version": "1.0.0",
+  "author": "spheceo",
+  "homepage": "https://github.com/spheceo/s2-leads-api",
+  "skills": []
+}
