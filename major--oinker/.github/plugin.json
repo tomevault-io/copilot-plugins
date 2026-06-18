@@ -1,0 +1,9 @@
+{
+  "name": "major--oinker",
+  "displayName": "oinker",
+  "description": "\ud83d\udc3d Async Python client for the Porkbun API - oink your way to DNS management",
+  "version": "1.0.0",
+  "author": "major",
+  "homepage": "https://github.com/major/oinker",
+  "skills": []
+}
