@@ -1,0 +1,9 @@
+{
+  "name": "arniesaha--agentweave",
+  "displayName": "agentweave",
+  "description": "Agent runtime observability and provenance layer for multi-agent AI. Trace decisions, costs, and delegation chains over OpenTelemetry.",
+  "version": "1.0.0",
+  "author": "arniesaha",
+  "homepage": "https://github.com/arniesaha/agentweave",
+  "skills": []
+}
