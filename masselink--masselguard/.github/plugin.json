@@ -1,0 +1,9 @@
+{
+  "name": "masselink--masselguard",
+  "displayName": "MasselGUARD",
+  "description": "MasselGUARD wireguard client",
+  "version": "1.0.0",
+  "author": "masselink",
+  "homepage": "https://github.com/masselink/MasselGUARD",
+  "skills": []
+}
