@@ -1,0 +1,9 @@
+{
+  "name": "aiconnai--agentshield",
+  "displayName": "agentshield",
+  "description": "MCP security scanner for Claude, Cursor, OpenAI Agents, LangGraph and CrewAI - offline Rust SAST with SARIF for GitHub Code Scanning",
+  "version": "1.0.0",
+  "author": "aiconnai",
+  "homepage": "https://github.com/aiconnai/agentshield",
+  "skills": []
+}
