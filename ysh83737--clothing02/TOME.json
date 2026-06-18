@@ -4,7 +4,7 @@
   "repo": "clothing02",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ysh83737/clothing02",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T01:18:38Z"
+  "distributed_at": "2026-06-18T07:21:48Z"
 }
