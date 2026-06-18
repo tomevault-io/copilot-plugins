@@ -4,7 +4,7 @@
   "repo": "tale",
   "description": "The Orchestrator for AI Agents \u2014 Connect OpenClaw, Hermes Agent, Claude Code, Codex, Cursor, Gemini CLI, OpenCode, and Pi. Pool their knowledge, delegate tasks, and build your swarm of agents.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tale-project/tale",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T23:09:02Z"
+  "distributed_at": "2026-06-18T19:05:40Z"
 }
