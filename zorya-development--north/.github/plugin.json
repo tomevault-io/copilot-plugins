@@ -1,0 +1,9 @@
+{
+  "name": "zorya-development--north",
+  "displayName": "north",
+  "description": "A self-hosted, GTD-inspired task management system built entirely in Rust.",
+  "version": "1.0.0",
+  "author": "zorya-development",
+  "homepage": "https://github.com/zorya-development/north",
+  "skills": []
+}
