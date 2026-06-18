@@ -1,0 +1,9 @@
+{
+  "name": "surya-shreevathsa11--clogem",
+  "displayName": "CloGem",
+  "description": "Python CLI that orchestrates OpenAI Codex, Google Gemini, and Anthropic Claude into a structured coding workflow with automated review and validation.",
+  "version": "1.0.0",
+  "author": "surya-shreevathsa11",
+  "homepage": "https://github.com/surya-shreevathsa11/CloGem",
+  "skills": []
+}
