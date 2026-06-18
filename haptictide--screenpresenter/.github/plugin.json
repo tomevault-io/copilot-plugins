@@ -1,0 +1,9 @@
+{
+  "name": "haptictide--screenpresenter",
+  "displayName": "ScreenPresenter",
+  "description": "A screen-presenting tool that lets product teams clearly display iOS and Android apps on macOS, built for smooth demos, reliable connections, and distraction-free presentations.",
+  "version": "1.0.0",
+  "author": "HapticTide",
+  "homepage": "https://github.com/HapticTide/ScreenPresenter",
+  "skills": []
+}
