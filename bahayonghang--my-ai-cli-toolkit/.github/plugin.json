@@ -1,0 +1,9 @@
+{
+  "name": "bahayonghang--my-ai-cli-toolkit",
+  "displayName": "my-ai-cli-toolkit",
+  "description": "\u6211\u7684Claude Code\u914d\u7f6e\uff0c\u5305\u62eccommands\uff0cskills\u7b49",
+  "version": "1.0.0",
+  "author": "bahayonghang",
+  "homepage": "https://github.com/bahayonghang/my-ai-cli-toolkit",
+  "skills": []
+}
