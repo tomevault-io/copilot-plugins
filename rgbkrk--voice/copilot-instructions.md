@@ -1,137 +1,142 @@
 ## voice
 
-> A Rust TTS and STT toolkit for Apple Silicon, implementing [Kokoro](https://huggingface.co/prince-canuma/Kokoro-82M) 82M-parameter TTS and Whisper STT using [candle](https://github.com/huggingface/candle) with Metal GPU acceleration. Includes a misaki-compatible G2P pipeline for English text input.
+> `voice` speaks text aloud using Kokoro TTS and transcribes speech using Moonshine STT on Apple Silicon. Use it to talk to your user, listen for their response, or run a full voice conversation loop.
 
-# Agent context for voice
+# voice — TTS & STT tool for AI agents
 
-## What this project is
+`voice` speaks text aloud using Kokoro TTS and transcribes speech using Moonshine STT on Apple Silicon. Use it to talk to your user, listen for their response, or run a full voice conversation loop.
 
-A Rust TTS and STT toolkit for Apple Silicon, implementing [Kokoro](https://huggingface.co/prince-canuma/Kokoro-82M) 82M-parameter TTS and Whisper STT using [candle](https://github.com/huggingface/candle) with Metal GPU acceleration. Includes a misaki-compatible G2P pipeline for English text input.
+## Quick reference
 
-## Current state
-
-Production-quality TTS audio output. STT via distil-whisper (distil-large-v3 default). G2P handles dictionary lookup, embedded perceptron POS tagger, number handling, stress assignment, and espeak-ng fallback. 7 voices embedded in the binary for zero-network startup; 50+ downloadable from HuggingFace.
-
-## Workspace layout
-
-| Crate | Purpose |
-|-------|---------|
-| `crates/voice-kokoro/` | Kokoro-82M model — ALBERT encoder, prosody predictor, text encoder, iSTFT decoder |
-| `crates/voice-tts/` | High-level TTS API — model loading, voice embedding, builtin voices, catalog |
-| `crates/voice-stt/` | High-level STT API — Whisper model loading, transcription, resampling |
-| `crates/voice-whisper/` | Whisper model backend — greedy decoding, GPU mel spectrogram |
-| `crates/voice-g2p/` | Grapheme-to-phoneme — misaki dictionary + espeak-ng fallback |
-| `crates/voice-cli/` | CLI binary (installs as `voice`) |
-
-## Key files
-
-| File | What it does |
-|------|-------------|
-| `voice-kokoro/src/model.rs` | `KModel::forward()` — full Kokoro inference pass |
-| `voice-kokoro/src/albert.rs` | Custom ALBERT transformer encoder |
-| `voice-kokoro/src/bilstm.rs` | Bidirectional LSTM modules |
-| `voice-kokoro/src/modules.rs` | ProsodyPredictor, TextEncoder, conv/activation blocks |
-| `voice-kokoro/src/istftnet.rs` | iSTFT decoder — GPU synthesis via conv_transpose1d, phase unwrapping |
-| `voice-kokoro/src/config.rs` | ModelConfig (loaded from JSON) |
-| `voice-tts/src/lib.rs` | `load_model()`, `load_voice()`, `generate()`, `save_wav()` |
-| `voice-tts/src/builtin.rs` | 7 embedded voices + config for zero-network startup |
-| `voice-tts/src/catalog.rs` | Metadata for all 50+ Kokoro voices |
-| `voice-stt/src/lib.rs` | `load_model()`, `transcribe()` — Whisper STT API |
-| `voice-stt/src/builtin.rs` | Embedded configs/tokenizers for distil-whisper models |
-| `voice-whisper/src/decoder.rs` | Greedy decode loop with KV-caching, GPU mel preprocessing |
-| `voice-g2p/src/lib.rs` | G2P pipeline — `english_to_phonemes()`, `text_to_phoneme_chunks()` |
-| `voice-g2p/src/lexicon.rs` | Misaki dictionary lookup with morphology |
-| `voice-g2p/src/tagger.rs` | Embedded perceptron POS tagger |
-| `voice-g2p/src/espeak.rs` | Per-word espeak-ng fallback with E2M mapping |
-| `voice-cli/src/main.rs` | CLI entry point, text resolution, markdown stripping, substitutions |
-| `voice-cli/src/listen.rs` | Microphone recording, VAD, continuous transcription |
-| `voice-cli/src/mcp.rs` | MCP server for AI agent integration |
-
-## Critical implementation details
-
-### Candle + Metal
-
-- All inference runs on Metal GPU via candle's `Device::new_metal(0)`
-- Weight loading uses `VarBuilder::from_mmaped_safetensors` for zero-copy
-- iSTFT uses GPU-native `conv_transpose1d` with stride for overlap-add synthesis
-- GPU linear interpolation for up/downsampling (no CPU fallback)
-- Phase unwrap via atan2 is CPU-side (candle lacks atan2) — small data, negligible cost
-
-### Voice embeddings
-
-`(510, 1, 256)` lookup table indexed by `phoneme_count - 1`. First 128 dims = speaker style, last 128 = prosody style.
-
-### G2P pipeline (voice-g2p)
-
-Ported from [misaki](https://github.com/hexgrad/misaki)'s `en.py`:
-1. Tokenize with embedded perceptron POS tagger
-2. `fold_left` — merge non-head tokens
-3. `retokenize` — subtokenize, handle punctuation/currency
-4. Right-to-left lexicon lookup with `TokenContext` (future_vowel, future_to)
-5. Morphological decomposition: `-s`, `-ed`, `-ing` suffix rules
-6. espeak-ng per-word fallback with E2M mapping table
-7. Legacy conversion: `ɾ→T`, `ʔ→t`
-8. Long text chunked at 500-char phoneme limit, respects sentence boundaries
-
-### STT (voice-stt / voice-whisper)
-
-- Default model: `distil-whisper/distil-large-v3` (multilingual)
-- Fallback: `distil-whisper/distil-medium.en` (English-only, faster)
-- Configs and tokenizers embedded in binary for known models
-- GPU mel spectrogram preprocessing on Metal
-- Greedy decoding with KV-caching
-
-## Build and test
+### Speak (TTS)
 
 ```bash
-# Build
-cargo build --release -p voice
+# Speak text (backward compatible — no subcommand needed)
+voice Hello, I finished the task.
 
-# Run TTS
-voice "Hello world"
-voice say -v am_adam "How are you today?"
+# Explicit say subcommand with options
+voice say -v am_michael "Switching to a male voice."
 
-# Speak then listen
-voice converse "Please repeat after me"
+# Speak from a pipe
+echo "Build complete." | voice say
 
-# Listen (single-shot or continuous)
-voice listen
-voice listen --continuous
+# Read a file aloud (strip markdown first)
+voice say --markdown -f README.md
 
-# Transcribe a file
-voice transcribe recording.wav
+# Save to WAV instead of playing
+voice say -o result.wav "Here is your audio."
 
-# Run G2P tests
-cargo test -p voice-g2p
-
-# Run all tests
-cargo test --workspace
+# Precise pronunciation via IPA phonemes
+voice say --phonemes "həlˈO wˈɜɹld"
 ```
 
-## Python reference codebases
+### Converse (speak + listen)
 
-| Reference | Workspace path |
-|-----------|---------------|
-| mlx-audio (Kokoro) | `colombo-v2` — `mlx_audio/tts/models/kokoro/` |
-| misaki (G2P) | `abuja-v4` — `misaki/en.py` |
-| kokoro (PyTorch) | `montevideo` — `kokoro/` |
+```bash
+# Speak text, then immediately listen for a response
+voice converse "How are you today?"
 
-## Dependencies
+# With voice and speed options
+voice converse -v am_michael -s 1.2 "What do you think about that?"
+```
 
-- `candle-core 0.9` — Metal GPU inference, tensor ops
-- `candle-nn 0.9` — Neural network layers
-- `candle-transformers 0.9` — Whisper model implementation
-- `candle-metal-kernels 0.9` — Metal compute kernels
-- `safetensors 0.6` — Weight loading
-- `hf-hub 0.5` — HuggingFace model downloads + caching
-- `hound 3` — WAV file I/O
-- `serde` / `serde_json` — config + dictionary parsing
-- `rodio 0.22` — audio playback
-- `clap 4` — CLI args
-- `tokenizers 0.21` — HuggingFace fast tokenizers (Whisper)
-- `rubato 1.0` — Audio resampling (STT)
-- `pulldown-cmark 0.13` — Markdown stripping
+### Listen (STT)
+
+```bash
+# Record from mic, transcribe on Enter/Ctrl+C
+voice listen
+
+# Continuous mode — transcribe segments as you speak, split on silence
+voice listen --continuous
+
+# Transcribe a WAV file
+voice transcribe recording.wav
+```
+
+### JSON-RPC server
+
+```bash
+# Start the server (for programmatic control)
+voice serve -v am_michael
+```
+
+```jsonl
+# Speak
+→ {"jsonrpc":"2.0","method":"speak","params":{"text":"Hello"},"id":1}
+← {"jsonrpc":"2.0","result":{"duration_ms":1800,"chunks":1},"id":1}
+
+# Listen (ding plays, records, auto-stops on silence)
+→ {"jsonrpc":"2.0","method":"listen","id":2}
+← {"jsonrpc":"2.0","result":{"text":"I heard you","tokens":4,"duration_ms":3200},"id":2}
+
+# Cancel current playback or recording
+→ {"jsonrpc":"2.0","method":"cancel","id":3}
+
+# Other methods: set_voice, set_speed, list_voices, ping
+```
+
+## When to use
+
+- **Get attention**: Speak when a long task finishes, a build fails, or you need input
+- **Read content**: Pipe text through `voice say` to read back docs, errors, or summaries
+- **Confirm actions**: "Deploying to production" before doing something irreversible
+- **Listen for input**: Use `voice listen` to capture a spoken response from the user
+- **Voice conversation**: Use `voice converse` to speak then listen in one shot, or `voice serve` for programmatic control
+- **Transcribe recordings**: Use `voice transcribe` to convert audio files to text
+
+## Tips
+
+### TTS tips
+
+- Use `-q` for quiet mode — suppresses phonemes and progress, only errors print
+- For long text, `voice` automatically chunks at ~510 phonemes and streams playback
+- Stderr shows phoneme output — useful for debugging pronunciation
+- Use `--sub word=replacement` to fix names: `voice say --sub kubectl=cube-cuddle "Restarting kubectl"`
+- A `.voice-subs` file in the project root is auto-discovered for persistent fixes
+- Wrap substitution values in `/slashes/` for raw phoneme overrides: `Kokoro=/kˈOkəɹO/`
+
+### STT tips
+
+- A ding sound plays when the mic is ready — wait for it before speaking
+- Bluetooth mics (AirPods) have ~0.5s latency; the ding helps you time it
+- Noise floor is calibrated automatically — works with MacBook mic or AirPods
+- Use `STT_MODEL=UsefulSensors/moonshine-tiny` for faster (but less accurate) transcription
+- Default model is `moonshine-base` (61M params, ~50× real-time on Apple Silicon)
+
+### JSON-RPC tips
+
+- `voice serve` loads the TTS model at startup; STT model loads lazily on first `listen`
+- `cancel` interrupts the current speak or listen mid-operation
+- `speak` supports per-request `voice` and `speed` overrides without changing defaults
+- `listen` params are tunable: `noise_multiplier`, `calibration_ms`, `silence_timeout_ms`
+- Notifications (requests without `id`) are fire-and-forget — no response returned
+
+## Subcommands
+
+| Command | What it does |
+|---------|-------------|
+| `voice <text>` | Speak text (implicit `say`, backward compatible) |
+| `voice say` | Speak text with full TTS options |
+| `voice converse` | Speak text, then listen for a response |
+| `voice listen` | Record from mic, transcribe once |
+| `voice listen --continuous` | Record and transcribe segments continuously |
+| `voice transcribe <file>` | Transcribe a WAV file |
+| `voice serve` | Start JSON-RPC server on stdin/stdout |
+
+## Builtin voices (no network)
+
+`af_heart` (default), `af_bella`, `af_sarah`, `af_sky`, `am_michael`, `am_adam`, `bf_emma`
+
+## Install
+
+```bash
+git clone https://github.com/rgbkrk/voice.git
+cd voice
+cargo install --path crates/voice-cli
+```
+
+Requires macOS with Apple Silicon, Git LFS, and Rust 1.85+. TTS model weights download on first `voice say` (~312MB, cached). STT model weights download on first `voice listen` (~246MB, cached).
 
 ---
 > Source: [rgbkrk/voice](https://github.com/rgbkrk/voice) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
