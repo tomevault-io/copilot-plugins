@@ -1,0 +1,9 @@
+{
+  "name": "eigenwise--tesseron",
+  "displayName": "tesseron",
+  "description": "Expose typed web-app actions to MCP-compatible AI agents over WebSocket. TypeScript SDK + matching MCP gateway.",
+  "version": "1.0.0",
+  "author": "Eigenwise",
+  "homepage": "https://github.com/Eigenwise/tesseron",
+  "skills": []
+}
