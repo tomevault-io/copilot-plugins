@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-transitions",
+  "displayName": "capacitor-transitions",
+  "description": "Framework-agnostic page transitions for Capacitor apps. iOS-style navigation without opinions.",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-transitions",
+  "skills": []
+}
