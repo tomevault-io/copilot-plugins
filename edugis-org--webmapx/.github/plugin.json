@@ -1,0 +1,9 @@
+{
+  "name": "edugis-org--webmapx",
+  "displayName": "webmapx",
+  "description": "A web component\u2013based library that provides ready-to-use, extensible, and customizable UI tools for web maps, plus a plugin system for building your own map tools (MapLibre, OpenLayers, Leaflet, Cesiu",
+  "version": "1.0.0",
+  "author": "edugis-org",
+  "homepage": "https://github.com/edugis-org/webmapx",
+  "skills": []
+}
