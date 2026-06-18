@@ -1,0 +1,9 @@
+{
+  "name": "mixpanel--mixpanel-headless",
+  "displayName": "mixpanel-headless",
+  "description": "Complete programmable interface to Mixpanel analytics. Python library and CLI for discovery, querying, and data extraction. Designed with coding agent use in mind.",
+  "version": "1.0.0",
+  "author": "mixpanel",
+  "homepage": "https://github.com/mixpanel/mixpanel-headless",
+  "skills": []
+}
