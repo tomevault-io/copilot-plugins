@@ -1,0 +1,9 @@
+{
+  "name": "openfig-org--openfig-cli",
+  "displayName": "openfig-cli",
+  "description": "Open tools for Figma files \u2014 parse, inspect, and render .deck and .fig files without the Figma app.",
+  "version": "1.0.0",
+  "author": "OpenFig-org",
+  "homepage": "https://github.com/OpenFig-org/openfig-cli",
+  "skills": []
+}
