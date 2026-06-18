@@ -1,0 +1,9 @@
+{
+  "name": "jtama--project-graph-generator",
+  "displayName": "project-graph-generator",
+  "description": "Java project graph generator",
+  "version": "1.0.0",
+  "author": "jtama",
+  "homepage": "https://github.com/jtama/project-graph-generator",
+  "skills": []
+}
