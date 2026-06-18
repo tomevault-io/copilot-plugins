@@ -7,11 +7,11 @@ Ralph Loop with Spec Kit command and control layer
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [T-0-co/t-0-spec-kit-ralph](https://github.com/T-0-co/t-0-spec-kit-ralph).
+Original source: `CLAUDE.md` in [T-0-co/t-0-spec-kit-ralph](https://github.com/T-0-co/t-0-spec-kit-ralph).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
