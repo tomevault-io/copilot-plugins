@@ -2,15 +2,14 @@
 
 > Tome by [nuke-on-rails](https://github.com/nuke-on-rails/nuke-on-rails) — distributed by [TomeVault](https://tomevault.io)
 
-The Rails audit skill for AI coding agents, ranked by blast radius. 🚂☢️
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nuke-on-rails/nuke-on-rails](https://github.com/nuke-on-rails/nuke-on-rails).
+Original source: `` in [nuke-on-rails/nuke-on-rails](https://github.com/nuke-on-rails/nuke-on-rails).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
