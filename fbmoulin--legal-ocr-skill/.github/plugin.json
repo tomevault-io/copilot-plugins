@@ -1,0 +1,9 @@
+{
+  "name": "fbmoulin--legal-ocr-skill",
+  "displayName": "legal-ocr-skill",
+  "description": "legal-ocr-skill",
+  "version": "1.0.0",
+  "author": "fbmoulin",
+  "homepage": "https://github.com/fbmoulin/legal-ocr-skill",
+  "skills": []
+}
