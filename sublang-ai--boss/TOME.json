@@ -4,7 +4,7 @@
   "repo": "boss",
   "description": "Delegate dev loops to Claude Code, Codex CLI, or any AI coder. Runs autonomously for hours. No costly API keys.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sublang-ai/boss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T09:28:40Z"
+  "distributed_at": "2026-06-18T15:25:54Z"
 }
