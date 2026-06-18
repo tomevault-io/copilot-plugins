@@ -1,0 +1,9 @@
+{
+  "name": "zychenzy--remote-codex",
+  "displayName": "remote-codex",
+  "description": "IM-first remote control daemon for Codex, backed by codex app-server.",
+  "version": "1.0.0",
+  "author": "zychenzy",
+  "homepage": "https://github.com/zychenzy/remote-codex",
+  "skills": []
+}
