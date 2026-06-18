@@ -1,0 +1,9 @@
+{
+  "name": "n-r-w--yandex-mcp",
+  "displayName": "yandex-mcp",
+  "description": "MCP (Model Context Protocol) server for Yandex Tracker & Wiki",
+  "version": "1.0.0",
+  "author": "n-r-w",
+  "homepage": "https://github.com/n-r-w/yandex-mcp",
+  "skills": []
+}
