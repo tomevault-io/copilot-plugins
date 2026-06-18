@@ -4,7 +4,7 @@
   "repo": "friendorfoe",
   "description": "Real-time aircraft & drone identification using AR, ADS-B, Remote ID, and WiFi detection. Vibe coded with Claude. By GAMECHANGERSai.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lnxgod/friendorfoe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T06:58:52Z"
+  "distributed_at": "2026-06-18T12:53:25Z"
 }
