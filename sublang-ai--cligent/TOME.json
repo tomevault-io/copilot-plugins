@@ -4,7 +4,7 @@
   "repo": "cligent",
   "description": "Unified TypeScript SDK for AI coding agent CLIs (Claude Code, Codex CLI, Gemini CLI, OpenCode, and more)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sublang-ai/cligent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T09:23:49Z"
+  "distributed_at": "2026-06-18T15:22:33Z"
 }
