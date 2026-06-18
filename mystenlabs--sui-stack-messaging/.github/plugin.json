@@ -1,0 +1,9 @@
+{
+  "name": "mystenlabs--sui-stack-messaging",
+  "displayName": "sui-stack-messaging",
+  "description": "End-to-end encrypted Messaging tooling on Sui, powered by Seal threshold encryption and Walrus decentralized storage.",
+  "version": "1.0.0",
+  "author": "MystenLabs",
+  "homepage": "https://github.com/MystenLabs/sui-stack-messaging",
+  "skills": []
+}
