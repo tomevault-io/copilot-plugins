@@ -1,0 +1,9 @@
+{
+  "name": "tinkerer--propanes",
+  "displayName": "propanes",
+  "description": "Embeddable feedback overlay + agent session bridge for webapps",
+  "version": "1.0.0",
+  "author": "tinkerer",
+  "homepage": "https://github.com/tinkerer/propanes",
+  "skills": []
+}
