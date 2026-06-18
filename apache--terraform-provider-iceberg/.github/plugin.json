@@ -1,0 +1,9 @@
+{
+  "name": "apache--terraform-provider-iceberg",
+  "displayName": "terraform-provider-iceberg",
+  "description": "Iceberg Terraform Provider",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/terraform-provider-iceberg",
+  "skills": []
+}
