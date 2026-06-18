@@ -1,0 +1,9 @@
+{
+  "name": "ceilaolabs--obsidian-s3-sync-and-backup",
+  "displayName": "obsidian-s3-sync-and-backup",
+  "description": "Vault synchronization and scheduled backups across devices using S3-compatible storage (AWS S3, Cloudflare R2, RustFS, etc.) with optional end-to-end encryption.",
+  "version": "1.0.0",
+  "author": "ceilaolabs",
+  "homepage": "https://github.com/ceilaolabs/obsidian-s3-sync-and-backup",
+  "skills": []
+}
