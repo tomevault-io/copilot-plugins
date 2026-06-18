@@ -1,0 +1,9 @@
+{
+  "name": "gyc567--autoharness",
+  "displayName": "AutoHarness",
+  "description": "Automatically synthesize code harnesses for LLM agents  AutoHarness is a Rust library that automatically generates and optimizing code harnesses for LLM agents, following the approach described in the",
+  "version": "1.0.0",
+  "author": "gyc567",
+  "homepage": "https://github.com/gyc567/AutoHarness",
+  "skills": []
+}
