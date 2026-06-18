@@ -1,0 +1,9 @@
+{
+  "name": "sendspin--sendspin-cpp",
+  "displayName": "sendspin-cpp",
+  "description": "Sendspin client library built with C++. Suitable for host machines and embedded hardware.",
+  "version": "1.0.0",
+  "author": "Sendspin",
+  "homepage": "https://github.com/Sendspin/sendspin-cpp",
+  "skills": []
+}
