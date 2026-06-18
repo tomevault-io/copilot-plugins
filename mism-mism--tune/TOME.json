@@ -4,7 +4,7 @@
   "repo": "tune",
   "description": "\u4f7f\u3046\u307b\u3069\u80b2\u3064AI\u30a2\u30b7\u30b9\u30bf\u30f3\u30c8",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mism-mism/tune",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T12:48:11Z"
+  "distributed_at": "2026-06-18T19:04:31Z"
 }
