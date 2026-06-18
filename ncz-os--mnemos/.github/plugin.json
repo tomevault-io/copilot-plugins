@@ -1,0 +1,9 @@
+{
+  "name": "ncz-os--mnemos",
+  "displayName": "mnemos",
+  "description": "Production-grade memory operating system for agentic AI. Interoperates with every major framework via MCP, OpenAI-compatible gateway, and native /v1/* REST \u2014 Claude Code, OpenClaw, ZeroClaw, Hermes, M",
+  "version": "1.0.0",
+  "author": "ncz-os",
+  "homepage": "https://github.com/ncz-os/mnemos",
+  "skills": []
+}
