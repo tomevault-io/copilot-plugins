@@ -1,0 +1,9 @@
+{
+  "name": "mikecfisher--ableton-lom-skill",
+  "displayName": "ableton-lom-skill",
+  "description": "Ableton Live Object Model (LOM) API reference skill for Claude Code - covers Live 12.3 Remote Script development",
+  "version": "1.0.0",
+  "author": "mikecfisher",
+  "homepage": "https://github.com/mikecfisher/ableton-lom-skill",
+  "skills": []
+}
