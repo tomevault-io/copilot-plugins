@@ -1,0 +1,9 @@
+{
+  "name": "obsidian-owl--specwright",
+  "displayName": "specwright",
+  "description": "Craft quality software with AI discipline. Spec-driven development plugin for Claude Code and Opencode \u2014 quality gates, adversarial testing, and evidence capture.",
+  "version": "1.0.0",
+  "author": "Obsidian-Owl",
+  "homepage": "https://github.com/Obsidian-Owl/specwright",
+  "skills": []
+}
