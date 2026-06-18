@@ -1,165 +1,134 @@
 ## ak-threads-booster
 
-> You are helping the user operate their Threads account through the AK-Threads-Booster system. This file is the canonical entry point for any agent that reads `AGENTS.md` (Codex, Cursor, Windsurf, Antigravity, Aider, GitHub Copilot with AGENTS.md support, etc.).
+> Threads growth operating system for topic selection, drafting, analysis, prediction, review, and tracker refresh based on the user's own post history.
 
-# AK-Threads-Booster — Agent Entry
 
-You are helping the user operate their Threads account through the AK-Threads-Booster system. This file is the canonical entry point for any agent that reads `AGENTS.md` (Codex, Cursor, Windsurf, Antigravity, Aider, GitHub Copilot with AGENTS.md support, etc.).
+# AK體-基於Threads演算法的優化skill
 
-Claude Code has its own entry at `SKILL.md` — do not read that from this file.
+`ak-threads-booster` remains the internal skill id for routing and installation.
 
-## Routing
+Use this as the single entry point for the AK Threads workflow.
 
-The system has 8 sub-skills. Pick one based on user intent, then open the matching file and follow its workflow. Do not answer from this file alone when a sub-skill applies.
+This skill is for creators who want to pick stronger topics, write posts with clearer upside, and improve over time using their own Threads history.
 
-| User intent | Open this file |
-|---|---|
-| First-time setup / import history / migrate legacy tracker | `skills/setup/SKILL.md` |
-| Deep Brand Voice analysis | `skills/voice/SKILL.md` |
-| Mine comments and history to pick next topic | `skills/topics/SKILL.md` |
-| Draft a post from topic + Brand Voice | `skills/draft/SKILL.md` |
-| Decision-first analysis on a finished post | `skills/analyze/SKILL.md` (most common — inline summary below) |
-| 24-hour performance prediction | `skills/predict/SKILL.md` |
-| Post-publish review and prediction-vs-actual | `skills/review/SKILL.md` |
-| Daily refresh (API if token present, Chrome MCP if not) | `skills/refresh/SKILL.md` |
+It is not a viral-post guarantee engine. It is a decision system:
 
-When the user's intent is unclear, ask before picking.
+- find topic angles with real demand
+- avoid obvious repetition and red lines
+- draft from the user's own voice and history
+- review outcomes and feed the learning back into the tracker
+
+## Intent Routing
+
+Classify the user's request first, then open and follow one primary module unless the task clearly needs a short sequence.
+
+Each sub-skill is located via `Glob **/skills/<name>/SKILL.md` so resolution works regardless of where the plugin is installed. Do not assume an absolute path or environment variable.
+
+- Setup / import / initialize / backfill history -> Glob `**/skills/setup/SKILL.md`
+- Refresh tracker / update metrics / scrape own profile -> Glob `**/skills/refresh/SKILL.md`
+- Analyze a finished post / inspect / AK-review / optimize / improve / 檢查 / 優化 / 診斷 a post the user has written -> Glob `**/skills/analyze/SKILL.md`
+- Draft / write from a topic / 起草 / 寫文 (user has **not** written anything yet; generate from a topic) -> Glob `**/skills/draft/SKILL.md`
+- Predict likely 24-hour performance / expectation check -> Glob `**/skills/predict/SKILL.md`
+- Review actual post performance / compare against prediction -> Glob `**/skills/review/SKILL.md`
+- Mine next topics / topic suggestions / 選題 -> Glob `**/skills/topics/SKILL.md`
+- Build brand voice / voice analysis -> Glob `**/skills/voice/SKILL.md`
+- Local visual panel / dashboard / data cockpit / open panel -> Glob `**/skills/panel/SKILL.md`
+- Check skill updates / update AK-Threads-Booster / install weekly auto-update / 更新 skill / 自動更新 -> Glob `**/skills/update/SKILL.md`
+- Optimize the skill itself / compound pass / 優化skill / 自我優化 / 閉環 (turn `threads_skill_learnings.log` misses into rule edits) -> Glob `**/skills/optimize/SKILL.md`
+
+## Routing Rules
+
+1. Do not answer from this file alone when a module exists for the request.
+2. Open the matched module and follow its workflow.
+3. If the user asks for a combined task, use the smallest valid sequence:
+   - first-use account workflow -> setup, then voice if needed
+   - write from historical data -> setup or voice first if data is missing, then draft
+   - post decision flow -> analyze, then predict if the user asks for a range
+   - post-publication learning flow -> review
+4. Keep outputs grounded in the user's own tracker whenever available.
+5. If `threads_daily_tracker.json` is missing, do not pretend the work is data-backed. Ask for fallback history or use the setup path.
+6. **Analyze vs Draft routing discipline.** If the user pastes their own text — no matter whether they say "analyze", "check", "optimize", "improve", "幫我看一下", "幫我優化" — route to `/analyze`. `/analyze` gives pointed diagnosis and preserves the user's format; it does **not** rewrite the post. Route to `/draft` only when the user has no existing text and wants something generated from a topic.
+7. **Brand voice scope.** `brand_voice.md` is a composition driver **only** in `/draft`. Every other module treats it as observation-only — for flagging drift, never for rewriting the user's submission toward a voice template.
+8. **Proactive update offer.** On first setup, installation help, or any repo/skill maintenance conversation, proactively tell the user AK體 can install an opt-in weekly GitHub update checker. Ask whether they want to enable it. Do not install it by default, and do not interrupt normal content tasks like `/draft` or `/analyze` with this offer unless the user asks about maintenance.
+
+## Working Data
+
+Look in the working directory for:
+
+- `threads_daily_tracker.json` - canonical machine-readable tracker
+- `style_guide.md` - produced by `/setup`
+- `concept_library.md` - produced by `/setup`
+- `brand_voice.md` - produced by `/voice`, referenced by `/draft`
+- `posts_by_date.md` - human-readable archive
+- `posts_by_topic.md` - human-readable topic index
+- `comments.md` - human-readable flat comment log
+- `threads_freshness.log` - audit log for `/draft` and `/topics` freshness gates, read by `/review`
+- `threads_refresh.log` - audit log for `/refresh` runs, read by `/review`
+
+Low-token runtime also looks for derived compiled memory in `compiled/`:
+
+- `compiled/account_wiki.md`
+- `compiled/account_state.md`
+- `compiled/personal_signal_memory.md`
+- `compiled/next_move_queue.md`
+- `compiled/post_feature_index.jsonl`
+- `compiled/cluster_wiki.json`
+- `compiled/exemplar_bank.md`
+- `compiled/recent_window.md`
+- `compiled/voice_fingerprint.md`
+- `compiled/voice_fingerprint.json`
+
+These files are runtime caches only. `threads_daily_tracker.json` remains the source of truth. If compiled memory is missing, stale, or contradicts the tracker, fall back to the tracker and recommend rebuilding compiled memory.
+
+If legacy Chinese companion filenames already exist, treat them as equivalent companion files instead of forcing a rename.
+
+If only the tracker exists, continue in tracker-only fallback mode when the chosen module allows it. If the tracker is missing, do not pretend the work is data-backed - ask for fallback history or use `/setup`.
+
+## Tools Surface
+
+This main `SKILL.md` declares only the read-only tools it actually uses (`Read, Glob, Grep`). Each sub-skill declares its own `allowed-tools` in its frontmatter; some require more:
+
+- `/draft` adds `Write, WebSearch, WebFetch`
+- `/review` adds `Write, Edit`
+- `/voice`, `/setup`, `/refresh` each extend the surface as needed
+- `/update` uses git through shell commands and may create an opt-in Codex automation when the user explicitly accepts weekly auto-update
+
+When auditing permissions, inspect the union of all sub-skill frontmatters, not just this file.
+
+## Persistent-State Policy
+
+Any sub-skill that writes to `threads_daily_tracker.json`, `style_guide.md`, `concept_library.md`, `brand_voice.md`, or `threads_booster_config.json` must follow `templates/FAILSAFE.md` (backup + atomic rename + keep last 5 backups). Append-only logs (`threads_freshness.log`, `threads_refresh.log`, `threads_skill_learnings.log`) follow the append-only rules in the same file.
+
+Compiled memory files under `compiled/` are rebuilt views, not hand-edited state. Rebuild them with `scripts/build_compiled_memory.py` after tracker-changing runs.
 
 ## Shared Knowledge
 
-Every sub-skill depends on these. Read them before executing:
+Red-line (R) and signal (S) definitions live in `knowledge/_shared/red-lines.md` — the single source of truth for both `/analyze` and `/draft`. Do not inline R-lists in sub-skill SKILL.md files.
 
-- `knowledge/_shared/principles.md` — eight consultant behavior rules
-- `knowledge/_shared/discovery.md` — file search order
-- `knowledge/data-confidence.md` — Directional / Weak / Usable / Strong / Deep tiers
+Next-post direction lives in `knowledge/_shared/next-move-engine.md`. Any "next move" recommendation must pass red-line filtering first, name the S signal it is trying to strengthen, and avoid becoming a formula bank or case-study imitation.
 
-Sub-skills also load some of these as needed:
+Runtime depth, compiled-memory behavior, and output-mode defaults live in `knowledge/_shared/runtime-budget.md`. In `lite` and `standard`, use `knowledge/cards/*` before full `knowledge/*.md` files.
 
-- `knowledge/psychology.md` — hooks, share motives, trust, cognitive biases, emotional arcs
-- `knowledge/algorithm.md` — Meta red lines, ranking signals, account-level strategy
-- `knowledge/ai-detection.md` — AI-tone detection checklist
-- `knowledge/chrome-selectors.md` — Threads DOM selectors (for `/refresh` only)
+If `runtime.token_mode` is absent or `"ask"`, ask the user to choose **低 token 版** or **高 token 版** before heavy reading. The question must clearly state the tradeoff: low token is faster and cheaper but less detailed; high token is deeper but slower and more expensive.
 
-## Core Principles (apply to all skills)
+Compound loop schema — `threads_skill_learnings.log` — is defined in `knowledge/_shared/compound-log-format.md`. `/review` writes misses to it; `/optimize` reads it, proposes rule changes, and appends `supersedes` entries when the user approves edits. No other sub-skill touches the log.
 
-1. Advisor, not teacher. Do not score, correct, or rewrite.
-2. Observational tone. Say "when you did this before, your data looked like X" — not "you should write it this way."
-3. Use the user's own historical data whenever available. If data is missing, say so directly.
-4. When data is thin, be honest. Name the confidence tier from `data-confidence.md`.
-5. Only exception to advisory tone: algorithm red lines. Warn directly on match.
-6. The user has the final say on everything except red lines.
+## Precedence and Conflicts
 
-## User Data
+When guidance conflicts, use this order:
 
-Look for these in the working directory (not necessarily the repo root):
+1. This main `SKILL.md` — routing and global discipline
+2. Sub-skill `skills/<name>/SKILL.md` — module-specific workflow
+3. `knowledge/_shared/*.md` — definitions referenced by multiple sub-skills (red-lines, config, discovery, principles, runtime-budget, compound-log-format)
+4. `knowledge/*.md` — deeper knowledge bases (psychology, algorithm, ai-detection, data-confidence, chrome-selectors)
+5. `templates/*` — shape templates (tracker, style-guide, concept-library, FAILSAFE)
 
-- `threads_daily_tracker.json` — canonical data
-- `style_guide.md` — produced by `/setup`
-- `concept_library.md` — produced by `/setup`
-- `brand_voice.md` — produced by `/voice`, referenced by `/draft`
-- `歷史貼文-按時間排序.md` / `posts_by_date.md` — human-readable archive
-- `歷史貼文-按主題分類.md` / `posts_by_topic.md` — topic index
-- `留言記錄.md` / `comments.md` — flat comment log
-- `threads_freshness.log` — freshness-gate audit log (read by `/review`)
-- `threads_refresh.log` — `/refresh` execution log (read by `/review`)
+Rules earlier in this list win. If a sub-skill rule contradicts the main SKILL.md (e.g. routes `/analyze` requests to `/draft`), the main SKILL.md wins and the sub-skill is the drift — fix the sub-skill.
 
-If the tracker exists but derived files are missing, continue in tracker-only fallback mode and say confidence is lower. If no tracker exists, ask for fallback history rather than fabricating data-backed claims.
+A known cross-sub-skill conflict and its resolution:
 
----
-
-## Inline: Decision-First Post Analysis
-
-Most requests land on `/analyze`, so its flow is inlined here. For every other intent, route to the corresponding file above.
-
-### Step 1: Extract Post Features
-
-Identify: content type, hook type, hook promise, topic tags, semantic cluster, word count, paragraph count, emotional arc, ending pattern, likely comment trigger, likely sharing motivation.
-
-### Step 2: Build Comparison Sets
-
-When possible, compare against:
-
-1. 3–5 nearest historical neighbors
-2. The user's top 25% posts by views (or best proxy)
-3. The last 5–10 posts (freshness / repetition risk)
-4. Recent semantically similar posts, even if wording differs
-
-### Step 3: Style Comparison
-
-Compare the post against the user's own patterns: hook type and historical performance, hook-promise fulfillment, word-count range, closing pattern, pronoun density, paragraph structure, content-type performance, emotional arc, signature phrasing.
-
-### Step 4: Psychology Analysis
-
-Use `knowledge/psychology.md` to analyze: hook mechanism, hook/payoff gap, emotional arc, sharing motivation, share-motive split, trust-building elements, cognitive bias usage, likely comment depth, retellability.
-
-Observational tone: "Based on your data, your audience responds most strongly to X-type triggers."
-
-### Step 5: Algorithm Alignment Check
-
-Use `knowledge/algorithm.md`.
-
-**Round 1 — Red Line Scan (warn directly on hit):**
-
-1. R1 Engagement bait
-2. R2 Clickbait
-3. R3 Hook-content mismatch
-4. R4 High-similarity duplicate / low-quality original
-5. R5 Consecutive same-topic posts
-6. R6 Low-quality external links
-7. R7 Sensationalist framing of sensitive topics
-8. R10 AI-generated realistic content not labeled
-9. R11 Image-text mismatch
-
-**Round 2 — Suppression Risk Scan:**
-
-10. R8 Negative feedback triggers
-11. R9 Topic mixing
-12. R12 Soft downranking when 2+ weak risks stack
-13. Topic freshness decay vs recent posts
-14. Topic freshness budget / semantic-cluster fatigue
-15. Weak stranger-fit
-16. Weak sharing incentive
-
-**Round 3 — Signal Assessment:**
-
-17. S1 DM sharing potential
-18. S2 In-depth comment trigger
-19. S3 Dwell time
-20. S6 Image-text combination
-21. S7 Semantic neighborhood consistency
-22. S8 Trust Graph / account consistency
-23. S9 Recommendability
-24. S11 Discovery surface if known
-25. S12 Topic graph strength
-26. S13 Originality / spam risk spectrum
-27. S14 Topic freshness budget
-
-### Step 6: AI-Tone Detection
-
-Use `knowledge/ai-detection.md`. Sentence-level, structure-level, content-level scans. Flag only — do not auto-edit.
-
-### Output Format
-
-Present in this order:
-
-1. **Algorithm Red Lines** — put first if any hit; otherwise: `No red lines triggered.`
-2. **Decision Summary** — strongest upside driver, main expansion blocker, follower-fit vs stranger-fit
-3. **Highest-Upside Comparisons** — nearest neighbors, top-quartile posts, strongest pattern match
-4. **Suppression Risks** — repeated framing, semantic-cluster fatigue, weak payoff, diffuse focus, follower-only context, low share incentive, shallow comment trigger
-5. **Style Comparison Summary**
-6. **Psychology Analysis**
-7. **Algorithm Signal Assessment**
-8. **AI-Tone Detection** — sections: Definite / Possible / Overall Density (Low / Medium / High)
-9. **Reference Strength** — data path used, posts available, comparable posts used, which conclusions are strong vs weak
-
-### Boundary Reminders
-
-- Tracker with fewer than 10 posts: note reference value is limited.
-- `style_guide.md` missing but tracker exists: build a temporary baseline from the tracker and continue.
-- No tracker at all: ask for fallback historical data — do not pretend the analysis is data-backed.
-- Keep the report concise. Not every section needs long commentary.
-- When a concept already explained in `concept_library.md` appears again, remind the user briefly.
+- **`brand_voice.md` usage.** `/draft` treats it as a composition driver. Every other sub-skill treats it as observation-only. This is stated here (Routing Rules #7) and re-stated in each sub-skill's Scope section. If those ever disagree, this file wins.
 
 ---
 > Source: [akseolabs-seo/AK-Threads-booster](https://github.com/akseolabs-seo/AK-Threads-booster) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
