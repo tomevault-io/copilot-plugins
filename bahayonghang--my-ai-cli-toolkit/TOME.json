@@ -4,7 +4,7 @@
   "repo": "my-ai-cli-toolkit",
   "description": "\u6211\u7684Claude Code\u914d\u7f6e\uff0c\u5305\u62eccommands\uff0cskills\u7b49",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bahayonghang/my-ai-cli-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T09:19:03Z"
+  "distributed_at": "2026-06-18T15:17:27Z"
 }
