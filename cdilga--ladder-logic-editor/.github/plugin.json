@@ -1,0 +1,9 @@
+{
+  "name": "cdilga--ladder-logic-editor",
+  "displayName": "ladder-logic-editor",
+  "description": "Web-based IEC 61131-3 Structured Text to Ladder Diagram editor with live PLC simulation",
+  "version": "1.0.0",
+  "author": "cdilga",
+  "homepage": "https://github.com/cdilga/ladder-logic-editor",
+  "skills": []
+}
