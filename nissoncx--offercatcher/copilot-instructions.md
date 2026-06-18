@@ -1,98 +1,137 @@
 ## offercatcher
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Use when the user wants recruiting emails turned into native Apple Reminders on macOS/iPhone. OpenClaw should scan and parse the mail, then hand reminder writes to the local native bridge instead of relying on node directly controlling Reminders.app.
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# OfferCatcher
 
-## 项目概述
+## What It Does
 
-OfferCatcher 是一个招聘邮件提醒同步工具，配合 OpenClaw 使用。通过 Apple Mail 扫描邮件，OpenClaw LLM 解析内容，Apple Reminders 创建提醒。
+Scans Apple Mail for recruiting emails, extracts important events (interviews, assessments, deadlines) with LLM, and syncs them to native Apple Reminders on iPhone/Mac.
 
-## 架构
+## Execution Boundary
+
+- OpenClaw is responsible for orchestration: scan mail, ask the LLM to parse events, and decide whether anything should be written.
+- `scripts/apple_reminders_bridge.py` is the only reminder write path.
+- The bridge prefers `remindctl` (Swift + EventKit) and only falls back to AppleScript if `remindctl` is unavailable.
+- Do not rely on `node -> Reminders.app` Automation as the primary path. On macOS this permission is often less stable than a native Reminders bridge.
+
+## How To Use
+
+### Trigger Phrases
+
+- "Check my recruiting emails"
+- "Any interviews coming up?"
+- "Sync interview emails to reminders"
+- "Don't let me miss my coding test"
+
+### Workflow
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│  scan-only  │ --> │ OpenClaw    │ --> │ apply-events│
-│  获取邮件   │     │ LLM 解析    │     │ 创建提醒    │
-└─────────────┘     └─────────────┘     └─────────────┘
+1. Scan:
+   - OpenClaw heartbeat path: direct top-level `osascript -e ...` command
+   - Manual/local CLI path: `python3 scripts/recruiting_sync.py --scan-only`
+2. Parse: OpenClaw LLM extracts structured recruiting events
+3. Apply: `--apply-events` → sends validated events to the native reminders bridge
 ```
 
-**不使用正则匹配**：邮件解析由 OpenClaw LLM 完成，能适应各种格式的邮件。
+### Step 1: Scan Emails
 
-## 常用命令
+```bash
+osascript \
+  -e 'tell application "Mail"' \
+  -e 'set acc to account "谷歌"' \
+  -e 'set mbx to mailbox "INBOX" of acc' \
+  -e 'set output to ""' \
+  -e 'set processedCount to 0' \
+  -e 'repeat with m in messages of mbx' \
+  -e 'if processedCount is greater than or equal to 300 then exit repeat' \
+  -e 'set msgDate to date received of m' \
+  -e 'if msgDate > ((current date) - (2 * days)) then' \
+  -e 'set msgId to (id of m) as string' \
+  -e 'set subj to subject of m as string' \
+  -e 'set sndr to sender of m as string' \
+  -e 'set ts to (date received of m) as string' \
+  -e 'set c to content of m as string' \
+  -e 'if (length of c) > 2000 then set c to text 1 thru 2000 of c' \
+  -e 'set lineText to "谷歌" & (character id 31) & "INBOX" & (character id 31) & msgId & (character id 31) & subj & (character id 31) & sndr & (character id 31) & ts & (character id 31) & c' \
+  -e 'set output to output & lineText & (character id 30)' \
+  -e 'set processedCount to processedCount + 1' \
+  -e 'end if' \
+  -e 'end repeat' \
+  -e 'return output' \
+  -e 'end tell'
+```
 
-### 扫描邮件
+or for local debugging:
+
 ```bash
 python3 scripts/recruiting_sync.py --scan-only
 ```
-返回原始邮件 JSON，供 OpenClaw LLM 解析。
 
-### 应用 LLM 解析结果
+The heartbeat path returns raw mail records separated by `character id 30` and
+`character id 31`. The local debugging path returns JSON.
+
+### Step 2: LLM Parses
+
+For each email, extract:
+- `company`: Company name
+- `event_type`: interview / ai_interview / written_exam / assessment / authorization / deadline
+- `timing`: `{"start": "YYYY-MM-DD HH:MM", "end": "..."}` or `{"deadline": "..."}`
+- `role`: Job title
+- `link`: Event URL
+
+### Step 3: Apply Events
+
 ```bash
-python3 scripts/recruiting_sync.py --apply-events /tmp/events.json --dry-run
 python3 scripts/recruiting_sync.py --apply-events /tmp/events.json
 ```
 
-### 手工记录事件
-```bash
-python3 scripts/manual_event.py --title "重要事件" --due "2026-04-01 10:00" --notes "入口：https://example.com"
+This does not write Reminders directly from OpenClaw itself. It always routes through `scripts/apple_reminders_bridge.py`.
+
+For Mail reads, prefer the top-level `osascript -e ...` entry when OpenClaw is
+the caller. This keeps Mail automation attached to the host process instead of a
+Python child process.
+
+## LLM Parsing Prompt
+
+```
+Extract recruiting event information from this email. Return JSON.
+
+Email:
+{body}
+
+Extract:
+- company: Company name
+- event_type: interview / ai_interview / written_exam / assessment / authorization / deadline
+- timing: {"start": "YYYY-MM-DD HH:MM", "end": "..."} or {"deadline": "..."}
+- role: Job title
+- link: Event URL
+- notes: Additional info
 ```
 
-### 运行测试
-```bash
-python3 -m unittest discover tests/ -v
-```
+## Output Rules
 
-## 事件 JSON 格式
+- Reminder title: Company + Event type (e.g., "Google Interview", "Meta Coding Test")
+- Include: Time, role, link in notes
+- Prefer native bridge writes through `remindctl`; if remindctl is unavailable, let the bridge use its AppleScript fallback
+- If no new events: respond `HEARTBEAT_OK`
 
-`apply-events` 接受的 JSON 格式：
+## Configuration
 
-```json
-{
-  "events": [
-    {
-      "id": "唯一标识",
-      "company": "公司名称",
-      "event_type": "interview | written_exam | assessment | authorization | deadline",
-      "title": "提醒标题",
-      "timing": {"start": "YYYY-MM-DD HH:MM", "end": "..."} 或 {"deadline": "..."},
-      "role": "岗位名称",
-      "link": "入口链接",
-      "message_id": "原始邮件ID",
-      "subject": "邮件主题",
-      "sender": "发件人"
-    }
-  ]
-}
-```
-
-## 核心文件
-
-| 文件 | 作用 |
-|------|------|
-| `scripts/recruiting_sync.py` | 主脚本：scan-only / apply-events |
-| `scripts/apple_reminders_bridge.py` | Apple Reminders 桥接 |
-| `scripts/manual_event.py` | 手工记录事件 |
-| `scripts/list_mail_sources.py` | 列出 Apple Mail 账户 |
-
-## 配置文件
-
-`~/.openclaw/offercatcher.yaml`：
+`~/.openclaw/offercatcher.yaml`:
 
 ```yaml
-mail_account: 谷歌    # Apple Mail 账号名
-days: 2               # 扫描天数
-max_results: 60       # 最大邮件数
+mail_account: "Gmail"    # Apple Mail account name
+mailbox: INBOX           # Folder to scan
+days: 2                  # Scan last N days
+max_results: 60          # Max emails
 ```
 
-## 编码规范
+## Supported Languages
 
-- Python 3.11+，dataclass 定义数据结构
-- 中文注释和输出
-- 遵循 PEP 8
+The LLM parser works with any language—Chinese, English, Japanese, German, etc. No regex, no language-specific rules.
 
 ---
 > Source: [NissonCX/offercatcher](https://github.com/NissonCX/offercatcher) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
