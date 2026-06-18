@@ -1,0 +1,9 @@
+{
+  "name": "freema--cursor-plugin-cc",
+  "displayName": "cursor-plugin-cc",
+  "description": "Use Cursor CLI from Claude Code to delegate coding tasks to Composer 2.5+ and other Cursor models.",
+  "version": "1.0.0",
+  "author": "freema",
+  "homepage": "https://github.com/freema/cursor-plugin-cc",
+  "skills": []
+}
