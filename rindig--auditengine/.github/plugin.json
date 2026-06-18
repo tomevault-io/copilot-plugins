@@ -1,0 +1,9 @@
+{
+  "name": "rindig--auditengine",
+  "displayName": "AuditEngine",
+  "description": " web application for psychometric assessment of Large Language Models. Ethics Engine applies validated psychological instruments (authoritarianism scales, moral foundations questionnaires, personality",
+  "version": "1.0.0",
+  "author": "RinDig",
+  "homepage": "https://github.com/RinDig/AuditEngine",
+  "skills": []
+}
