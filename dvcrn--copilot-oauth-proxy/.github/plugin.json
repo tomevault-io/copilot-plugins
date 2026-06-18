@@ -1,0 +1,9 @@
+{
+  "name": "dvcrn--copilot-oauth-proxy",
+  "displayName": "copilot-oauth-proxy",
+  "description": "Proxy server to translate /v1/chat/completions request to Copilot API",
+  "version": "1.0.0",
+  "author": "dvcrn",
+  "homepage": "https://github.com/dvcrn/copilot-oauth-proxy",
+  "skills": []
+}
