@@ -1,0 +1,9 @@
+{
+  "name": "caseyro--ha-bosch",
+  "displayName": "ha_bosch",
+  "description": "Extended Bosch CT200 thermostat integration for Home Assistant (cloud / POINTT API).",
+  "version": "1.0.0",
+  "author": "CaseyRo",
+  "homepage": "https://github.com/CaseyRo/ha_bosch",
+  "skills": []
+}
