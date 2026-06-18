@@ -1,0 +1,26 @@
+# olltop
+
+> Tome by [evandhoffman](https://github.com/evandhoffman/olltop) — distributed by [TomeVault](https://tomevault.io)
+
+Real-time tok/s monitor for Ollama using eBPF (Linux) and pcap (macOS)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [evandhoffman/olltop](https://github.com/evandhoffman/olltop).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/evandhoffman/olltop](https://github.com/evandhoffman/olltop)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
