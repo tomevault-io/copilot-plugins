@@ -1,0 +1,9 @@
+{
+  "name": "centrolabs--objex",
+  "displayName": "ObjeX",
+  "description": "Self-hosted, S3-compatible blob storage built with .NET 10 and Blazor. Drop-in replacement for S3 in homelabs and dev environments with a built-in web UI.",
+  "version": "1.0.0",
+  "author": "centrolabs",
+  "homepage": "https://github.com/centrolabs/ObjeX",
+  "skills": []
+}
