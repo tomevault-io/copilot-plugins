@@ -4,7 +4,7 @@
   "repo": "by-framework-python",
   "description": "By-Framework is a distributed Agent scheduling framework built on Redis Streams. It provides worker orchestration, session-scoped runtime state, and plugin-based agent capability registration for AI agent systems.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/beyonai/by-framework-python",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T05:19:57Z"
+  "distributed_at": "2026-06-18T11:18:02Z"
 }
