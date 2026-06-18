@@ -4,7 +4,7 @@
   "repo": "Timey",
   "description": "Timey is a real-time team chat application built with TanStack Start, React, and SpacetimeDB. Features include direct messages, group channels, message reactions, and presence tracking.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/luckycrm/Timey",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T15:13:43Z"
+  "distributed_at": "2026-06-18T11:27:06Z"
 }
