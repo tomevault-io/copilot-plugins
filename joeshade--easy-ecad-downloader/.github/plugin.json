@@ -1,0 +1,9 @@
+{
+  "name": "joeshade--easy-ecad-downloader",
+  "displayName": "Easy-ECAD-Downloader",
+  "description": "Chrome extension to download EasyEDA part data (symbols, footprints, 3D models) from JLCPCB & LCSC and export for KiCad ",
+  "version": "1.0.0",
+  "author": "JoeShade",
+  "homepage": "https://github.com/JoeShade/Easy-ECAD-Downloader",
+  "skills": []
+}
