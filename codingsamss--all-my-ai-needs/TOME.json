@@ -4,7 +4,7 @@
   "repo": "all-my-ai-needs",
   "description": "Claude Code + Codex \u53cc\u5e73\u53f0 AI dotfiles\uff1a\u7edf\u4e00\u7ba1\u7406 skills/agents/hooks\uff0c\u5e76\u4e00\u952e\u540c\u6b65\u5230 ~/.claude \u4e0e ~/.codex\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/codingSamss/all-my-ai-needs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T04:43:53Z"
+  "distributed_at": "2026-06-18T09:30:47Z"
 }
