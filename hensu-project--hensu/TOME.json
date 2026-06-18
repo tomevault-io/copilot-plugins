@@ -4,7 +4,7 @@
   "repo": "hensu",
   "description": "Infrastructure-as-code for AI agent workflows",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hensu-project/hensu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T15:07:41Z"
+  "distributed_at": "2026-06-18T10:48:28Z"
 }
