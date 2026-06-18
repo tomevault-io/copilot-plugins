@@ -1,0 +1,9 @@
+{
+  "name": "yoowatney--claudive",
+  "displayName": "claudive",
+  "description": "Interactive TUI dashboard for Claude Code sessions",
+  "version": "1.0.0",
+  "author": "Yoowatney",
+  "homepage": "https://github.com/Yoowatney/claudive",
+  "skills": []
+}
