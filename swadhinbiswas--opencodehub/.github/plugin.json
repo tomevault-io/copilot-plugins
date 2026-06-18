@@ -1,0 +1,9 @@
+{
+  "name": "swadhinbiswas--opencodehub",
+  "displayName": "OpencodeHub",
+  "description": "A fully self-hosted Git platform built for speed. Features SSH, Actions-compatible pipelines, and AI code reviews in a beautiful interface",
+  "version": "1.0.0",
+  "author": "swadhinbiswas",
+  "homepage": "https://github.com/swadhinbiswas/OpencodeHub",
+  "skills": []
+}
