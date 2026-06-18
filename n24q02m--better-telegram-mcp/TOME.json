@@ -1,0 +1,44 @@
+{
+  "name": "better-telegram-mcp",
+  "owner": "n24q02m",
+  "repo": "better-telegram-mcp",
+  "description": "Telegram for AI agents -- messages, chats, media, and contacts across both bot and full user-account modes.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/n24q02m/better-telegram-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T07:18:06Z"
+}
