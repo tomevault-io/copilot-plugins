@@ -1,0 +1,9 @@
+{
+  "name": "codyard--winbridgeagent",
+  "displayName": "WinBridgeAgent",
+  "description": "A secure Windows tray agent that bridges AI assistants and local system capabilities via MCP.",
+  "version": "1.0.0",
+  "author": "codyard",
+  "homepage": "https://github.com/codyard/WinBridgeAgent",
+  "skills": []
+}
