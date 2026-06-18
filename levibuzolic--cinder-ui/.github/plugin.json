@@ -1,0 +1,9 @@
+{
+  "name": "levibuzolic--cinder-ui",
+  "displayName": "cinder_ui",
+  "description": "LiveView component library for Elixir/Phoenix based on shadcn UI",
+  "version": "1.0.0",
+  "author": "levibuzolic",
+  "homepage": "https://github.com/levibuzolic/cinder_ui",
+  "skills": []
+}
