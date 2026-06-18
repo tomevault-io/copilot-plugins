@@ -1,0 +1,9 @@
+{
+  "name": "guglielmo-io--agent-primer",
+  "displayName": "agent-primer",
+  "description": "Local-first GUI that prepares repositories for AI coding agents with AGENTS.md, repo maps, context scoring, and repair prompts.",
+  "version": "1.0.0",
+  "author": "guglielmo-io",
+  "homepage": "https://github.com/guglielmo-io/agent-primer",
+  "skills": []
+}
