@@ -1,0 +1,9 @@
+{
+  "name": "allenai--olmo-eval",
+  "displayName": "olmo-eval",
+  "description": "olmo-eval",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/olmo-eval",
+  "skills": []
+}
