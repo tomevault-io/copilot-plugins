@@ -7,11 +7,11 @@ The professional studio for modern development — build it, ship it, host it wi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ship-studio/ship-studio](https://github.com/ship-studio/ship-studio).
+Original source: `CLAUDE.md` in [ship-studio/ship-studio](https://github.com/ship-studio/ship-studio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
