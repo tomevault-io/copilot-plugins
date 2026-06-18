@@ -1,0 +1,9 @@
+{
+  "name": "nik-kale--sre-skills",
+  "displayName": "sre-skills",
+  "description": "A collection of Site Reliability Engineering (SRE) and Platform Engineering skills for AI coding agents. ",
+  "version": "1.0.0",
+  "author": "nik-kale",
+  "homepage": "https://github.com/nik-kale/sre-skills",
+  "skills": []
+}
