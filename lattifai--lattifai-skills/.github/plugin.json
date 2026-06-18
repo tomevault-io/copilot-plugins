@@ -1,0 +1,9 @@
+{
+  "name": "lattifai--lattifai-skills",
+  "displayName": "lattifai-skills",
+  "description": "LattifAI skills",
+  "version": "1.0.0",
+  "author": "lattifai",
+  "homepage": "https://github.com/lattifai/lattifai-skills",
+  "skills": []
+}
