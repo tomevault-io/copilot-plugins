@@ -1,0 +1,9 @@
+{
+  "name": "alikarami--mikromcp",
+  "displayName": "MikroMCP",
+  "description": "Production-grade MCP server for MikroTik RouterOS with secure AI-native network automation.",
+  "version": "1.0.0",
+  "author": "AliKarami",
+  "homepage": "https://github.com/AliKarami/MikroMCP",
+  "skills": []
+}
