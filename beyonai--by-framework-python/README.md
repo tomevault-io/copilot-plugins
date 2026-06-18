@@ -7,11 +7,11 @@ By-Framework is a distributed Agent scheduling framework built on Redis Streams.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [beyonai/by-framework-python](https://github.com/beyonai/by-framework-python).
+Original source: `CLAUDE.md` in [beyonai/by-framework-python](https://github.com/beyonai/by-framework-python).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
