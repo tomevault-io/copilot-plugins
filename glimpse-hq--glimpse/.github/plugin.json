@@ -1,0 +1,9 @@
+{
+  "name": "glimpse-hq--glimpse",
+  "displayName": "Glimpse",
+  "description": "Voice dictation that stays on your device. Open-source, local-first, and built for people who actually care about privacy.",
+  "version": "1.0.0",
+  "author": "glimpse-hq",
+  "homepage": "https://github.com/glimpse-hq/Glimpse",
+  "skills": []
+}
