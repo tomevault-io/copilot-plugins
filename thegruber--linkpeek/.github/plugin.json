@@ -1,0 +1,9 @@
+{
+  "name": "thegruber--linkpeek",
+  "displayName": "linkpeek",
+  "description": "Secure TypeScript link preview and URL metadata extractor for Open Graph, Twitter Cards, JSON-LD, Node/Bun/Deno/edge.",
+  "version": "1.0.0",
+  "author": "thegruber",
+  "homepage": "https://github.com/thegruber/linkpeek",
+  "skills": []
+}
