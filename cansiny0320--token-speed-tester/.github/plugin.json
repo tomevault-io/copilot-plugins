@@ -1,0 +1,9 @@
+{
+  "name": "cansiny0320--token-speed-tester",
+  "displayName": "token-speed-tester",
+  "description": "\u7528\u4e8e\u6d4b\u8bd5 LLM API token \u8f93\u51fa\u901f\u5ea6\u7684 CLI \u5de5\u5177 / A CLI tool to test LLM API token output speed",
+  "version": "1.0.0",
+  "author": "Cansiny0320",
+  "homepage": "https://github.com/Cansiny0320/token-speed-tester",
+  "skills": []
+}
