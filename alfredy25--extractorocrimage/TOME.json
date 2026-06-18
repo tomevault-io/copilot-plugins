@@ -1,0 +1,44 @@
+{
+  "name": "ExtractorOCRImage",
+  "owner": "Alfredy25",
+  "repo": "ExtractorOCRImage",
+  "description": "Aplicaci\u00f3n de escritorio multitratamiento para extracci\u00f3n de destinatarios en sobres (M\u00e9xico)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Alfredy25/ExtractorOCRImage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T12:52:56Z"
+}
