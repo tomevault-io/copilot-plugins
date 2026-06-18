@@ -1,0 +1,9 @@
+{
+  "name": "ibazylchuk--paparats-mcp",
+  "displayName": "paparats-mcp",
+  "description": "Local\u2011first MCP server for multi\u2011repository semantic code search with Qdrant and Ollama. Turns your entire workspace into private context for AI coding assistants like Claude Code, Codex, Cursor, Copi",
+  "version": "1.0.0",
+  "author": "IBazylchuk",
+  "homepage": "https://github.com/IBazylchuk/paparats-mcp",
+  "skills": []
+}
