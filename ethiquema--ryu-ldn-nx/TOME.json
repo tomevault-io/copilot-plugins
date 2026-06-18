@@ -4,7 +4,7 @@
   "repo": "ryu_ldn_nx",
   "description": "Atmosphere sysmodule that bridges Nintendo Switch LDN multiplayer to Ryujinx LDN protocol (RyuLDN) \u2014 replaces ldn_mitm + lan-play with a single zero-config sysmodule. Native to the console, Out Of The Box.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ethiquema/ryu_ldn_nx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T11:22:19Z"
+  "distributed_at": "2026-06-18T17:15:23Z"
 }
