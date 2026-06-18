@@ -1,0 +1,9 @@
+{
+  "name": "automattic--kandelo",
+  "displayName": "kandelo",
+  "description": "RESEARCH: Exploring making a complete POSIX-compliant kernel for running Wasm programs. The idea is to default to completeness and allow developers to explicitly choose which parts of compliance are r",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/kandelo",
+  "skills": []
+}
