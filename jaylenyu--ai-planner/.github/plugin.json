@@ -1,0 +1,9 @@
+{
+  "name": "jaylenyu--ai-planner",
+  "displayName": "ai-planner",
+  "description": "Full-stack AI itinerary planner for date and trip routes with natural-language planning, Naver/Kakao place search, subscriptions, and admin ops.",
+  "version": "1.0.0",
+  "author": "jaylenyu",
+  "homepage": "https://github.com/jaylenyu/ai-planner",
+  "skills": []
+}
