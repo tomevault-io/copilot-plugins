@@ -2,9 +2,9 @@
   "name": "lnr",
   "owner": "bdsqqq",
   "repo": "lnr",
-  "description": "",
+  "description": "command-line interface for Linear. ships as a single binary via bun.",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bdsqqq/lnr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T07:13:41Z"
+  "distributed_at": "2026-06-18T13:09:35Z"
 }
