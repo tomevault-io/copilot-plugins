@@ -1,0 +1,9 @@
+{
+  "name": "tambo-labs--demo-infocom-chat",
+  "displayName": "demo-infocom-chat",
+  "description": "Play Infocom text adventures using natural language",
+  "version": "1.0.0",
+  "author": "tambo-labs",
+  "homepage": "https://github.com/tambo-labs/demo-infocom-chat",
+  "skills": []
+}
