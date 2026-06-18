@@ -1,0 +1,9 @@
+{
+  "name": "cpatocybersecurity--ai-risk-assessment-tool",
+  "displayName": "ai_risk_assessment_tool",
+  "description": "Open-source AI agent for structured risk assessments of AI/agentic systems using NIST SP 800-30, NIST Cyber AI Profile, and OWASP guidance",
+  "version": "1.0.0",
+  "author": "CPAtoCybersecurity",
+  "homepage": "https://github.com/CPAtoCybersecurity/ai_risk_assessment_tool",
+  "skills": []
+}
