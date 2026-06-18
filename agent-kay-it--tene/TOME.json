@@ -4,7 +4,7 @@
   "repo": "tene",
   "description": "AI-safe secret manager CLI for Claude Code, Cursor, and other AI agents. Local-first, encrypted, no cloud.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agent-kay-it/tene",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T22:58:05Z"
+  "distributed_at": "2026-06-18T04:48:46Z"
 }
