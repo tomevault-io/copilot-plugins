@@ -1,0 +1,9 @@
+{
+  "name": "iblai--api",
+  "displayName": "api",
+  "description": "Agent skills + a chat MCP server to operate the ibl.ai platform via its REST API. Install: npx skills add iblai/api",
+  "version": "1.0.0",
+  "author": "iblai",
+  "homepage": "https://github.com/iblai/api",
+  "skills": []
+}
