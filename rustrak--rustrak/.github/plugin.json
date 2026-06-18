@@ -1,0 +1,9 @@
+{
+  "name": "rustrak--rustrak",
+  "displayName": "rustrak",
+  "description": "Ultra-lightweight error tracking server compatible with Sentry SDKs",
+  "version": "1.0.0",
+  "author": "rustrak",
+  "homepage": "https://github.com/rustrak/rustrak",
+  "skills": []
+}
