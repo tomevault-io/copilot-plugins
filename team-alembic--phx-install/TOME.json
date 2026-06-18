@@ -4,7 +4,7 @@
   "repo": "phx_install",
   "description": "Composable Igniter installers for Phoenix",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/team-alembic/phx_install",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T17:18:16Z"
+  "distributed_at": "2026-06-18T23:21:36Z"
 }
