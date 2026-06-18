@@ -1,0 +1,9 @@
+{
+  "name": "drafthq--draft",
+  "displayName": "draft",
+  "description": "Context-Driven Development plugin for Claude Code, Cursor, GitHub Copilot, Gemini",
+  "version": "1.0.0",
+  "author": "drafthq",
+  "homepage": "https://github.com/drafthq/draft",
+  "skills": []
+}
