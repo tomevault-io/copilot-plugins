@@ -1,0 +1,9 @@
+{
+  "name": "alpacahq--alpaca-skills",
+  "displayName": "alpaca-skills",
+  "description": "Agent skills for Alpaca's Trading API and Broker API: drop-in SKILL.md files for AI coding assistants",
+  "version": "1.0.0",
+  "author": "alpacahq",
+  "homepage": "https://github.com/alpacahq/alpaca-skills",
+  "skills": []
+}
