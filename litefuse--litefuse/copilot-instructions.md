@@ -1,11 +1,30 @@
-## general-info
+## global
 
-> - Linting in this repo only works if the development server is running
+> - This project is a Turborepo monorepo
 
-# General rules
 
-- Linting in this repo only works if the development server is running
-- Always run the full mono-repo via `pnpm run dx` (use `pnpm dx-f` when you run this in a background agent). Thereby the database will also be seeded.
+## Project setup
+
+- This project is a Turborepo monorepo
+- We build two containers, web (./web) and worker (./worker)
+- We have shared code between these two in the shared package (./packages/shared). For that package, we have different entry points [package.json](mdc:packages/shared/package.json).
+
+## Domain layer
+
+The most important domain objects are in [observations.ts](mdc:packages/shared/src/domain/observations.ts), [traces.ts](mdc:packages/shared/src/domain/traces.ts), [scores.ts](mdc:packages/shared/src/domain/scores.ts).
+
+## Database schema
+
+We use Postgres and Clickhouse.
+
+- The postgres schema is in [schema.prisma](mdc:packages/shared/prisma/schema.prisma)
+- The clickhouse schema is in [0001_traces.up.sql](mdc:packages/shared/clickhouse/migrations/clustered/0001_traces.up.sql), [0002_observations.up.sql](mdc:packages/shared/clickhouse/migrations/clustered/0002_observations.up.sql), [0003_scores.up.sql](mdc:packages/shared/clickhouse/migrations/clustered/0003_scores.up.sql)
+
+## Cursor Background/Cloud Agent
+
+When running in a background/cloud agent, please adhere to the following rules:
+
+- Before finishing a task, please run prettier via `pnpm format` to format the code of the repository. Otherwise, the CI check will fail on the change.
 
 ---
 > Source: [litefuse/litefuse](https://github.com/litefuse/litefuse) — distributed by [TomeVault](https://tomevault.io).
