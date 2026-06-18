@@ -1,0 +1,9 @@
+{
+  "name": "macfall7--m87-spine-lite",
+  "displayName": "M87-Spine-lite",
+  "description": "Stop Claude Code from doing irreversible damage. Policy-gated execution + receipts so you can ship agents without sweating production.",
+  "version": "1.0.0",
+  "author": "MacFall7",
+  "homepage": "https://github.com/MacFall7/M87-Spine-lite",
+  "skills": []
+}
