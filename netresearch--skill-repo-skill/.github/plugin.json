@@ -1,0 +1,9 @@
+{
+  "name": "netresearch--skill-repo-skill",
+  "displayName": "skill-repo-skill",
+  "description": "Agent Skill guide for structuring skill repositories - multi-channel distribution | Claude Code compatible",
+  "version": "1.0.0",
+  "author": "netresearch",
+  "homepage": "https://github.com/netresearch/skill-repo-skill",
+  "skills": []
+}
