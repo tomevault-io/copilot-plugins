@@ -1,0 +1,9 @@
+{
+  "name": "eddmann--garmin-connect-cli",
+  "displayName": "garmin-connect-cli",
+  "description": "Garmin Connect from your terminal. Pipe it, script it, automate it.",
+  "version": "1.0.0",
+  "author": "eddmann",
+  "homepage": "https://github.com/eddmann/garmin-connect-cli",
+  "skills": []
+}
