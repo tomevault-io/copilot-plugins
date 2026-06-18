@@ -1,0 +1,44 @@
+{
+  "name": "cc-releases",
+  "owner": "nancheung",
+  "repo": "cc-releases",
+  "description": "Automated mirror of Claude Code offline installers\u2014tracks new releases, verifies SHA256, and publishes them as GitHub Releases.Claude Code \u79bb\u7ebf\u5b89\u88c5\u7a0b\u5e8f\u7684\u81ea\u52a8\u955c\u50cf\u2014\u2014\u8ddf\u8e2a\u65b0\u7248\u672c\uff0c\u9a8c\u8bc1 SHA256\uff0c\u5e76\u5c06\u5176\u53d1\u5e03\u4e3a GitHub Releases\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nancheung/cc-releases",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T16:58:16Z"
+}
