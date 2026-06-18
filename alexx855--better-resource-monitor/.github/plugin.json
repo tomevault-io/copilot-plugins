@@ -1,0 +1,9 @@
+{
+  "name": "alexx855--better-resource-monitor",
+  "displayName": "better-resource-monitor",
+  "description": "Lightweight open-source macOS menu bar monitor for CPU, memory, storage, GPU, and network usage, built with Rust and Tauri.",
+  "version": "1.0.0",
+  "author": "alexx855",
+  "homepage": "https://github.com/alexx855/better-resource-monitor",
+  "skills": []
+}
