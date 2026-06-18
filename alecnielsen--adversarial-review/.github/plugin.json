@@ -1,0 +1,9 @@
+{
+  "name": "alecnielsen--adversarial-review",
+  "displayName": "adversarial-review",
+  "description": "Multi-agent code review with Claude + GPT Codex in an adversarial debate loop",
+  "version": "1.0.0",
+  "author": "alecnielsen",
+  "homepage": "https://github.com/alecnielsen/adversarial-review",
+  "skills": []
+}
