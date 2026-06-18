@@ -1,0 +1,9 @@
+{
+  "name": "mshr-h--obsidian-vault-backup",
+  "displayName": "obsidian-vault-backup",
+  "description": "Create local ZIP backups of your Obsidian vault with automatic retention management",
+  "version": "1.0.0",
+  "author": "mshr-h",
+  "homepage": "https://github.com/mshr-h/obsidian-vault-backup",
+  "skills": []
+}
