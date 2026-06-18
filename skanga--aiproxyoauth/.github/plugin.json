@@ -1,0 +1,9 @@
+{
+  "name": "skanga--aiproxyoauth",
+  "displayName": "AIProxyOauth",
+  "description": "A lightweight Java proxy that turns your ChatGPT OAuth key session into a local OpenAI-compatible API with no need for a valid OPENAI_API_KEY so it allows any OpenAI client to access Codex models, wit",
+  "version": "1.0.0",
+  "author": "skanga",
+  "homepage": "https://github.com/skanga/AIProxyOauth",
+  "skills": []
+}
