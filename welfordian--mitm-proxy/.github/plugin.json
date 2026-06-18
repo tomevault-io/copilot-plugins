@@ -1,0 +1,9 @@
+{
+  "name": "welfordian--mitm-proxy",
+  "displayName": "mitm-proxy",
+  "description": " Go-based MITM HTTP/HTTPS proxy with HTTP/2 and HTTP/1.1 interception, local CA/per-host cert generation, CONNECT/WebSocket tunneling, disk caching, admin dashboard, traffic capture, block policies, a",
+  "version": "1.0.0",
+  "author": "Welfordian",
+  "homepage": "https://github.com/Welfordian/mitm-proxy",
+  "skills": []
+}
