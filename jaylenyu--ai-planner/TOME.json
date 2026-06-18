@@ -4,7 +4,7 @@
   "repo": "ai-planner",
   "description": "Full-stack AI itinerary planner for date and trip routes with natural-language planning, Naver/Kakao place search, subscriptions, and admin ops.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jaylenyu/ai-planner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T01:03:01Z"
+  "distributed_at": "2026-06-18T07:07:26Z"
 }
