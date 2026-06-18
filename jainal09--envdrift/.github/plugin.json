@@ -1,0 +1,9 @@
+{
+  "name": "jainal09--envdrift",
+  "displayName": "envdrift",
+  "description": "Prevent environment variable drift with Pydantic schema validation, pre-commit hooks, and dotenvx encryption",
+  "version": "1.0.0",
+  "author": "jainal09",
+  "homepage": "https://github.com/jainal09/envdrift",
+  "skills": []
+}
