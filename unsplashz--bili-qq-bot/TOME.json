@@ -1,0 +1,44 @@
+{
+  "name": "bili-qq-bot",
+  "owner": "UnsplashZ",
+  "repo": "bili-qq-bot",
+  "description": "\u57fa\u4e8e NapCat \u6846\u67b6\u5f00\u53d1\u7684Bilibili\u94fe\u63a5\u89e3\u6790\u673a\u5668\u4eba\u3002\u5b83\u80fd\u667a\u80fd\u8bc6\u522b\u5e76\u89e3\u6790B\u7ad9\u5404\u79cd\u7c7b\u578b\u7684\u94fe\u63a5\uff0c\u5e76\u4e3a\u8fd9\u4e9b\u5185\u5bb9\u751f\u6210\u9ad8\u6e05\u9884\u89c8\u5361\u7247\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/UnsplashZ/bili-qq-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T10:46:29Z"
+}
