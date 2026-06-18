@@ -1,0 +1,9 @@
+{
+  "name": "leeshah03--meal-planner",
+  "displayName": "Meal-Planner",
+  "description": "Meal Planner app built with Claude Code as part of the Build Together WDAI community. It helps users plan weekly meals, manage pantry inventory, generate shopping lists, and store recipes in one place",
+  "version": "1.0.0",
+  "author": "Leeshah03",
+  "homepage": "https://github.com/Leeshah03/Meal-Planner",
+  "skills": []
+}
