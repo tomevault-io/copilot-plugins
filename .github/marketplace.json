@@ -3049,6 +3049,21 @@
       "description": "AG2 (formerly AutoGen): The Open-Source AgentOS.Join us at: https://discord.gg/sNGSwQME3x"
     },
     {
+      "name": "neilsonnn--image-blaster",
+      "source": "./neilsonnn--image-blaster",
+      "description": "An image-to-world skillset for Claude."
+    },
+    {
+      "name": "neilsonnn--image-blaster",
+      "source": "./neilsonnn--image-blaster",
+      "description": "An image-to-world skillset for Claude."
+    },
+    {
+      "name": "neilsonnn--image-blaster",
+      "source": "./neilsonnn--image-blaster",
+      "description": "An image-to-world skillset for Claude."
+    },
+    {
       "name": "u14app--deep-research",
       "source": "./u14app--deep-research",
       "description": "Use any LLMs (Large Language Models) for Deep Research. Support SSE API and MCP server."
@@ -5822,6 +5837,11 @@
       "name": "dicklesworthstone--mcp-agent-mail",
       "source": "./dicklesworthstone--mcp-agent-mail",
       "description": "Asynchronous coordination layer for AI coding agents: identities, inboxes, searchable threads, and advisory file leases over FastMCP + Git + SQLite"
+    },
+    {
+      "name": "jinchenma94--bazi-skill",
+      "source": "./jinchenma94--bazi-skill",
+      "description": "bazi-skill"
     },
     {
       "name": "chongdashu--unreal-mcp",
@@ -31812,6 +31832,11 @@
       "name": "josefbacik--systing",
       "source": "./josefbacik--systing",
       "description": "A libbpf based tracer to help figure out what an application is doing."
+    },
+    {
+      "name": "zhulinsen--alphasift",
+      "source": "./zhulinsen--alphasift",
+      "description": "alphasift"
     },
     {
       "name": "azure-samples--python-mcp-demos",
@@ -64129,6 +64154,11 @@
       "description": "\u300a\u4eba\u59bb\u7ea6\u4f1a\u6307\u5357\u300b\u7535\u5b50\u4e66\u53ca\u6e90\u4ee3\u7801"
     },
     {
+      "name": "sinyalee--han-man-elegy",
+      "source": "./sinyalee--han-man-elegy",
+      "description": "\u300a\u4eba\u59bb\u7ea6\u4f1a\u6307\u5357\u300b\u7535\u5b50\u4e66\u53ca\u6e90\u4ee3\u7801"
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -85364,6 +85394,11 @@
       "description": "A CLI + daemon system for LLM-driven Android UI control on emulators and rooted devices."
     },
     {
+      "name": "sdlll--claude-for-safari",
+      "source": "./sdlll--claude-for-safari",
+      "description": "claude-for-safari"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -89424,6 +89459,11 @@
       "description": "SQLab"
     },
     {
+      "name": "kingjing1--podcast-transcript-txt-skill",
+      "source": "./kingjing1--podcast-transcript-txt-skill",
+      "description": "podcast-transcript-txt-skill"
+    },
+    {
       "name": "skywind3000--gamesample",
       "source": "./skywind3000--gamesample",
       "description": "Game Samples for GameLib"
@@ -90852,6 +90892,11 @@
       "name": "ai-driven-dev--framework",
       "source": "./ai-driven-dev--framework",
       "description": "Marketplace Framework AI-Driven Dev : Context Engineering, Plugins, Agents, Skills, Hooks, Templates, SDLC"
+    },
+    {
+      "name": "zjinhu--swiftmesh",
+      "source": "./zjinhu--swiftmesh",
+      "description": "SwiftMesh"
     },
     {
       "name": "inureyes--gyeol",
@@ -95912,6 +95957,11 @@
       "name": "intuned--cookbook",
       "source": "./intuned--cookbook",
       "description": "cookbook"
+    },
+    {
+      "name": "joeseesun--qiaomu-skill-publisher",
+      "source": "./joeseesun--qiaomu-skill-publisher",
+      "description": "qiaomu-skill-publisher"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -114094,6 +114144,16 @@
       "description": "Fixes and config for Claude Code on WSL2 + Windows Terminal \u2014 image paste, notifications, Shift+Enter, browser, LSP, voice, and MCP setup."
     },
     {
+      "name": "10legs--freelance-developer-harness",
+      "source": "./10legs--freelance-developer-harness",
+      "description": "A Claude Code operating system for running a structured agency team. 25 specialized roles across four councils (Creative, Technical, Hardware, Delivery), enforced quality gates, PM-driven workflow, mu"
+    },
+    {
+      "name": "ziguishian--premium-ui-builder-skill",
+      "source": "./ziguishian--premium-ui-builder-skill",
+      "description": "premium-ui-builder-skill"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -126462,6 +126522,11 @@
       "name": "o0000-code--cc-workshop",
       "source": "./o0000-code--cc-workshop",
       "description": "A macOS desktop app for managing Claude Code configurations \u2014 Skills, MCP Servers, and CLAUDE.md files"
+    },
+    {
+      "name": "peixl--ifq-design-skills",
+      "source": "./peixl--ifq-design-skills",
+      "description": "ifq-design-skills"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -138964,6 +139029,16 @@
       "description": "STRABLE: a benchmarking corpus of 108 tables with strings and numbers."
     },
     {
+      "name": "rizukirr--vibekit",
+      "source": "./rizukirr--vibekit",
+      "description": "Vibe-coding pipeline with halt-on-defect guardrails. RTCO-compressed briefs, evidence-based verification, bounded autonomous re-runs. CC / Pi / Codex / OpenCode / Gemini CLI."
+    },
+    {
+      "name": "timoncool--civitai-mcp-ultimate",
+      "source": "./timoncool--civitai-mcp-ultimate",
+      "description": "civitai-mcp-ultimate"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -149754,6 +149829,36 @@
       "description": "Tutorial on how to build a minimal software engineering agent that still scores high on SWE-bench verified"
     },
     {
+      "name": "litefuse--litefuse",
+      "source": "./litefuse--litefuse",
+      "description": "Litefuse - Agent Observability and Evaluation Platform"
+    },
+    {
+      "name": "litefuse--litefuse",
+      "source": "./litefuse--litefuse",
+      "description": "Litefuse - Agent Observability and Evaluation Platform"
+    },
+    {
+      "name": "litefuse--litefuse",
+      "source": "./litefuse--litefuse",
+      "description": "Litefuse - Agent Observability and Evaluation Platform"
+    },
+    {
+      "name": "litefuse--litefuse",
+      "source": "./litefuse--litefuse",
+      "description": "Litefuse - Agent Observability and Evaluation Platform"
+    },
+    {
+      "name": "litefuse--litefuse",
+      "source": "./litefuse--litefuse",
+      "description": "Litefuse - Agent Observability and Evaluation Platform"
+    },
+    {
+      "name": "litefuse--litefuse",
+      "source": "./litefuse--litefuse",
+      "description": "Litefuse - Agent Observability and Evaluation Platform"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -156157,6 +156262,16 @@
       "name": "jwbron--egg",
       "source": "./jwbron--egg",
       "description": "Intentional agentic developement: a structurally enforced SDLC pipeline for autonomous agents"
+    },
+    {
+      "name": "felipebossolani--vps-lab",
+      "source": "./felipebossolani--vps-lab",
+      "description": "vps-lab"
+    },
+    {
+      "name": "handsomestwei--zhihu-fetch-skill",
+      "source": "./handsomestwei--zhihu-fetch-skill",
+      "description": "zhihu-fetch-skill"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -163487,6 +163602,31 @@
       "name": "nancheng-l--meowmic",
       "source": "./nancheng-l--meowmic",
       "description": "\u55b5\u54aa\u9ea6\u514b\uff08MeowMic\uff09 \u5b9e\u65f6\u9ea6\u514b\u98ce\u964d\u566a\u684c\u9762\u5e94\u7528\uff0c\u652f\u6301 RNNoise \u964d\u566a\u3001BGM \u6df7\u97f3\u3001\u5168\u5c40\u5feb\u6377\u952e\uff0c\u4e3a\u76f4\u64ad\u548c\u6e38\u620f\u573a\u666f\u6253\u9020"
+    },
+    {
+      "name": "htmujahid--undocx-archived",
+      "source": "./htmujahid--undocx-archived",
+      "description": "A Google Docs-like 'realtime collaborative rich text editor' built with Next.js, Lexical.dev, Supabase, and shadcn UI."
+    },
+    {
+      "name": "htmujahid--undocx-archived",
+      "source": "./htmujahid--undocx-archived",
+      "description": "A Google Docs-like 'realtime collaborative rich text editor' built with Next.js, Lexical.dev, Supabase, and shadcn UI."
+    },
+    {
+      "name": "htmujahid--undocx-archived",
+      "source": "./htmujahid--undocx-archived",
+      "description": "A Google Docs-like 'realtime collaborative rich text editor' built with Next.js, Lexical.dev, Supabase, and shadcn UI."
+    },
+    {
+      "name": "htmujahid--undocx-archived",
+      "source": "./htmujahid--undocx-archived",
+      "description": "A Google Docs-like 'realtime collaborative rich text editor' built with Next.js, Lexical.dev, Supabase, and shadcn UI."
+    },
+    {
+      "name": "htmujahid--undocx-archived",
+      "source": "./htmujahid--undocx-archived",
+      "description": "A Google Docs-like 'realtime collaborative rich text editor' built with Next.js, Lexical.dev, Supabase, and shadcn UI."
     },
     {
       "name": "lightninglabs--lnget",
@@ -199824,6 +199964,151 @@
       "description": "Make labs setup easy with Pulumi & Coder"
     },
     {
+      "name": "yodamad--easylab",
+      "source": "./yodamad--easylab",
+      "description": "Make labs setup easy with Pulumi & Coder"
+    },
+    {
+      "name": "kadiresen--context-bank",
+      "source": "./kadiresen--context-bank",
+      "description": "The 'git init' for AI context. Bootstrap your project's AI memory and rules in seconds."
+    },
+    {
+      "name": "yodamad--easylab",
+      "source": "./yodamad--easylab",
+      "description": "Make labs setup easy with Pulumi & Coder"
+    },
+    {
+      "name": "tt-a1i--coding-cli-guide",
+      "source": "./tt-a1i--coding-cli-guide",
+      "description": "Interactive deep-dive into Gemini CLI internals \u2014 150+ illustrated pages, 50+ step-by-step animations, Mermaid diagrams, and source-level walkthroughs. Built with React 19 + TypeScript + Tailwind CSS "
+    },
+    {
+      "name": "zhangxiang0316--flutter-wallet",
+      "source": "./zhangxiang0316--flutter-wallet",
+      "description": "\u57fa\u4e8e Flutter \u548c GetX \u6784\u5efa\u7684\u591a\u94fe\u52a0\u5bc6\u94b1\u5305\u5e94\u7528\u3002\u9879\u76ee\u5f53\u524d\u5b9a\u4f4d\u4e3a\u672c\u5730\u70ed\u94b1\u5305 Demo/\u6d4b\u8bd5\u5e94\u7528\uff0c\u5df2\u8986\u76d6\u94b1\u5305\u521b\u5efa\u3001\u5bfc\u5165\u3001\u591a\u94b1\u5305\u5207\u6362\u3001\u591a\u94fe\u4f59\u989d\u67e5\u8be2\u3001USD \u4f30\u503c\u3001\u8f6c\u8d26\u3001\u6536\u6b3e\u3001\u4ea4\u6613\u8bb0\u5f55\u3001\u5185\u5d4c\u533a\u5757\u6d4f\u89c8\u5668\u3001\u8d44\u4ea7\u663e\u793a\u7ba1\u7406\u3001\u81ea\u5b9a\u4e49\u4ee3\u5e01\u3001\u7f51\u7edc\u7ba1\u7406\u3001\u8bed\u8a00\u5207\u6362\u548c\u4e3b\u9898\u5207\u6362\u7b49\u6838\u5fc3\u6d41\u7a0b"
+    },
+    {
+      "name": "yassinebk--caidonextjsactionsanalyzer",
+      "source": "./yassinebk--caidonextjsactionsanalyzer",
+      "description": "Caido Plugin for detecting NextJS Server Actions"
+    },
+    {
+      "name": "sendspin--sendspin-cpp",
+      "source": "./sendspin--sendspin-cpp",
+      "description": "Sendspin client library built with C++. Suitable for host machines and embedded hardware."
+    },
+    {
+      "name": "yassinebk--caidonextjsactionsanalyzer",
+      "source": "./yassinebk--caidonextjsactionsanalyzer",
+      "description": "Caido Plugin for detecting NextJS Server Actions"
+    },
+    {
+      "name": "paulieb89--property-shared",
+      "source": "./paulieb89--property-shared",
+      "description": "UK property data MCP server \u2014 Land Registry comps, EPC, Rightmove, rental yields, stamp duty, Companies House. 13 tools."
+    },
+    {
+      "name": "yassinebk--caidonextjsactionsanalyzer",
+      "source": "./yassinebk--caidonextjsactionsanalyzer",
+      "description": "Caido Plugin for detecting NextJS Server Actions"
+    },
+    {
+      "name": "techfreakworm--ltx2-3-imageaudiotovideo",
+      "source": "./techfreakworm--ltx2-3-imageaudiotovideo",
+      "description": "LTX2.3 pipeline for Image+Audio to Video with Lip Sync"
+    },
+    {
+      "name": "yassinebk--caidonextjsactionsanalyzer",
+      "source": "./yassinebk--caidonextjsactionsanalyzer",
+      "description": "Caido Plugin for detecting NextJS Server Actions"
+    },
+    {
+      "name": "kenyonxu--clef",
+      "source": "./kenyonxu--clef",
+      "description": "clef"
+    },
+    {
+      "name": "yassinebk--caidonextjsactionsanalyzer",
+      "source": "./yassinebk--caidonextjsactionsanalyzer",
+      "description": "Caido Plugin for detecting NextJS Server Actions"
+    },
+    {
+      "name": "txpple--nwn-mcp",
+      "source": "./txpple--nwn-mcp",
+      "description": "MCP server for Neverwinter Nights Enhanced Edition module files"
+    },
+    {
+      "name": "yassinebk--caidonextjsactionsanalyzer",
+      "source": "./yassinebk--caidonextjsactionsanalyzer",
+      "description": "Caido Plugin for detecting NextJS Server Actions"
+    },
+    {
+      "name": "loganhc-09--task-tinder",
+      "source": "./loganhc-09--task-tinder",
+      "description": "Metacognition-forcing task triage. Swipe through tasks, sprint through what you accept, capture HOW you completed them. Built with Claude Code."
+    },
+    {
+      "name": "yassinebk--caidonextjsactionsanalyzer",
+      "source": "./yassinebk--caidonextjsactionsanalyzer",
+      "description": "Caido Plugin for detecting NextJS Server Actions"
+    },
+    {
+      "name": "second-state--voxtral-tts-rs",
+      "source": "./second-state--voxtral-tts-rs",
+      "description": "Rust CLI and API server for Voxtral TTS from Mistral"
+    },
+    {
+      "name": "yassinebk--caidonextjsactionsanalyzer",
+      "source": "./yassinebk--caidonextjsactionsanalyzer",
+      "description": "Caido Plugin for detecting NextJS Server Actions"
+    },
+    {
+      "name": "myuu-151--affinity",
+      "source": "./myuu-151--affinity",
+      "description": "NDS/PSV Engine with desktop editor and one-click ROM packaging"
+    },
+    {
+      "name": "devfullcycle--mba-ia-dev-workflow",
+      "source": "./devfullcycle--mba-ia-dev-workflow",
+      "description": "mba-ia-dev-workflow"
+    },
+    {
+      "name": "elicify-ai--omnipus",
+      "source": "./elicify-ai--omnipus",
+      "description": "A team of named AI agents you actually own. Single Go binary, kernel sandbox, embedded SPA, no telemetry."
+    },
+    {
+      "name": "mikegazzaruso--nestbrain",
+      "source": "./mikegazzaruso--nestbrain",
+      "description": "NestBrain"
+    },
+    {
+      "name": "denniskribl--tauri-plugin-hotswap",
+      "source": "./denniskribl--tauri-plugin-hotswap",
+      "description": "Open-source Tauri v2 plugin for OTA frontend updates. Self-hosted, signed bundles, auto-rollback, channels. No cloud required."
+    },
+    {
+      "name": "mumit--claude-dev-team",
+      "source": "./mumit--claude-dev-team",
+      "description": "Virtual Dev Team for Claude (and by Claude)"
+    },
+    {
+      "name": "dylan-murray--sigil",
+      "source": "./dylan-murray--sigil",
+      "description": "An autonomous AI coding agent that codes while you don't."
+    },
+    {
+      "name": "made-by-adem--paperclipai-docker",
+      "source": "./made-by-adem--paperclipai-docker",
+      "description": "Self-hosted Docker setup for Paperclip \u2014 the open-source AI company orchestration platform. Built from source, reverse-proxy ready."
+    },
+    {
+      "name": "coherentforge--cambios",
+      "source": "./coherentforge--cambios",
+      "description": "Zero-trust, capability-based Rust microkernel targeting formal verification. Tri-arch (x86_64 / AArch64 / RISC-V). Sovereign and generative: no telemetry, user owns keys and data. Early-stage \u2014 see ST"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -214949,6 +215234,16 @@
       "description": "FSI-style foreign language pattern drills inside your coding agent. Substitution, transformation, spaced repetition \u2014 5 minutes while your build runs."
     },
     {
+      "name": "asenawritescode--kora",
+      "source": "./asenawritescode--kora",
+      "description": "Config-driven application engine in Go. Define your data model in YAML and get a database, REST API, role-based permissions, workflows, and a modern admin UI automatically."
+    },
+    {
+      "name": "blackjack200--talos-2026",
+      "source": "./blackjack200--talos-2026",
+      "description": "RoboMaster aiming vision"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -218684,6 +218979,16 @@
       "description": "clash-verge-skill"
     },
     {
+      "name": "eriktaveras--client-payment-skill",
+      "source": "./eriktaveras--client-payment-skill",
+      "description": "Client-Payment-Skill"
+    },
+    {
+      "name": "ipeirotis--cloud-bootstrap",
+      "source": "./ipeirotis--cloud-bootstrap",
+      "description": "cloud-bootstrap"
+    },
+    {
       "name": "adityak74--embenx",
       "source": "./adityak74--embenx",
       "description": "embenx"
@@ -218727,6 +219032,16 @@
       "name": "austinatneuko--gboy-character-openclaw",
       "source": "./austinatneuko--gboy-character-openclaw",
       "description": "gboy-character-openclaw"
+    },
+    {
+      "name": "clifton--twag",
+      "source": "./clifton--twag",
+      "description": "twag"
+    },
+    {
+      "name": "forjd--better-writing",
+      "source": "./forjd--better-writing",
+      "description": "better-writing"
     },
     {
       "name": "amterp--council",
@@ -218782,6 +219097,26 @@
       "name": "clementrog--claude-relais",
       "source": "./clementrog--claude-relais",
       "description": "claude-relais"
+    },
+    {
+      "name": "orhoncan--zotero-notebooklm-skill",
+      "source": "./orhoncan--zotero-notebooklm-skill",
+      "description": "zotero-notebooklm-skill"
+    },
+    {
+      "name": "zh4men9--academic-deai-zh",
+      "source": "./zh4men9--academic-deai-zh",
+      "description": "academic-deai-zh"
+    },
+    {
+      "name": "adinvadim--2captcha-cli",
+      "source": "./adinvadim--2captcha-cli",
+      "description": "2captcha-cli"
+    },
+    {
+      "name": "supermanadam007--countly-cz-ai-skill",
+      "source": "./supermanadam007--countly-cz-ai-skill",
+      "description": "countly-cz-ai-skill"
     },
     {
       "name": "mkatogui--universal-design-system",
@@ -219057,6 +219392,21 @@
       "name": "tellang--notion-cli",
       "source": "./tellang--notion-cli",
       "description": "notion-cli"
+    },
+    {
+      "name": "d-wwei--bayesian-reasoning",
+      "source": "./d-wwei--bayesian-reasoning",
+      "description": "bayesian-reasoning"
+    },
+    {
+      "name": "day8--re-frame-pair-improver",
+      "source": "./day8--re-frame-pair-improver",
+      "description": "re-frame-pair-improver"
+    },
+    {
+      "name": "trkzi-omar--prune-skills",
+      "source": "./trkzi-omar--prune-skills",
+      "description": "prune-skills"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -328212,6 +328562,161 @@
       "name": "pattistefano91--elisa-patti-nutritionist",
       "source": "./pattistefano91--elisa-patti-nutritionist",
       "description": "Website for Dr. Elisa Patti - Biologa Nutrizionista"
+    },
+    {
+      "name": "megumikisara--develpoer-portfolio",
+      "source": "./megumikisara--develpoer-portfolio",
+      "description": "\u4e2a\u4eba\u5b9e\u9a8c"
+    },
+    {
+      "name": "rubbenix--web-tool-codecompare",
+      "source": "./rubbenix--web-tool-codecompare",
+      "description": "web-tool-codecompare"
+    },
+    {
+      "name": "nguyenhuy1903--medvita-demo",
+      "source": "./nguyenhuy1903--medvita-demo",
+      "description": "medvita-demo"
+    },
+    {
+      "name": "aarif-hussain-a-nassar--mass-developers",
+      "source": "./aarif-hussain-a-nassar--mass-developers",
+      "description": "Mass-developers"
+    },
+    {
+      "name": "allendyu--torch-skill-suite",
+      "source": "./allendyu--torch-skill-suite",
+      "description": "\u4e00\u4e2atorch\u6846\u67b6\u4e0b\u81ea\u52a8\u5316\u7684skill"
+    },
+    {
+      "name": "yuymf--xiaohongshu-skills",
+      "source": "./yuymf--xiaohongshu-skills",
+      "description": "xiaohongshu-skills"
+    },
+    {
+      "name": "muhammedriyaskt--animation-web",
+      "source": "./muhammedriyaskt--animation-web",
+      "description": "Animation-web"
+    },
+    {
+      "name": "latimer-woods-tech--kairoscouncil",
+      "source": "./latimer-woods-tech--kairoscouncil",
+      "description": "Factory App: kairoscouncil \u2014 built on @latimer-woods-tech/* shared packages."
+    },
+    {
+      "name": "bagasadi05--videoclipper",
+      "source": "./bagasadi05--videoclipper",
+      "description": "VideoClipper"
+    },
+    {
+      "name": "jwj83--longdoc-r1",
+      "source": "./jwj83--longdoc-r1",
+      "description": "long document understanding agent."
+    },
+    {
+      "name": "cavadasa--alphasift-us",
+      "source": "./cavadasa--alphasift-us",
+      "description": "alphasift-us"
+    },
+    {
+      "name": "dubposse--pilzi",
+      "source": "./dubposse--pilzi",
+      "description": "Pilzi ist eine kleine, SEO-optimierte Next.js Web-App mit statischen Daten zu saisonalen Lebensmitteln, Haltbarkeit und Auswahlmerkmalen."
+    },
+    {
+      "name": "franmt-s--ai-agents-guide",
+      "source": "./franmt-s--ai-agents-guide",
+      "description": "Personal documentation about agents ai concepts"
+    },
+    {
+      "name": "banane653--adefi",
+      "source": "./banane653--adefi",
+      "description": "Adefi"
+    },
+    {
+      "name": "menandroa450-cloud--da-integrated-regulatory-portal",
+      "source": "./menandroa450-cloud--da-integrated-regulatory-portal",
+      "description": "Exported from Caffeine project: DA Integrated Regulatory Portal"
+    },
+    {
+      "name": "hidrusweb--front-contas",
+      "source": "./hidrusweb--front-contas",
+      "description": "front-contas"
+    },
+    {
+      "name": "huyhoangg2111--crm-dashboard",
+      "source": "./huyhoangg2111--crm-dashboard",
+      "description": "crm-dashboard"
+    },
+    {
+      "name": "leeshah03--meal-planner",
+      "source": "./leeshah03--meal-planner",
+      "description": "Meal Planner app built with Claude Code as part of the Build Together WDAI community. It helps users plan weekly meals, manage pantry inventory, generate shopping lists, and store recipes in one place"
+    },
+    {
+      "name": "stanleylkhn--unweave",
+      "source": "./stanleylkhn--unweave",
+      "description": "Unweave"
+    },
+    {
+      "name": "jengerred--bakery-business-suite",
+      "source": "./jengerred--bakery-business-suite",
+      "description": "A modular full\u2011stack bakery management system including POS, Manager Dashboard, Inventory, Employee System, and more."
+    },
+    {
+      "name": "jaylenyu--ai-planner",
+      "source": "./jaylenyu--ai-planner",
+      "description": "Full-stack AI itinerary planner for date and trip routes with natural-language planning, Naver/Kakao place search, subscriptions, and admin ops."
+    },
+    {
+      "name": "ckdfs--biascontrol-h523",
+      "source": "./ckdfs--biascontrol-h523",
+      "description": "biascontrol_h523"
+    },
+    {
+      "name": "rappykyun--farmstock",
+      "source": "./rappykyun--farmstock",
+      "description": "farmstock"
+    },
+    {
+      "name": "5eanxlee--document-dashboard",
+      "source": "./5eanxlee--document-dashboard",
+      "description": "Local-first document dashboard with global Codex and MCP integration"
+    },
+    {
+      "name": "nomadbarefoot--strip-mcp",
+      "source": "./nomadbarefoot--strip-mcp",
+      "description": "strip-mcp"
+    },
+    {
+      "name": "johnshawes--command-centre",
+      "source": "./johnshawes--command-centre",
+      "description": "command-centre"
+    },
+    {
+      "name": "dkrawciw--pde-constrained-optimization",
+      "source": "./dkrawciw--pde-constrained-optimization",
+      "description": "The final project for my Numerical Optimization class at Colorado School of Mines."
+    },
+    {
+      "name": "bmuller02--gtm-simulator-claude",
+      "source": "./bmuller02--gtm-simulator-claude",
+      "description": "A web application that gamifies the learning process of Google Tag Manager for ad ops employees "
+    },
+    {
+      "name": "ysh83737--clothing02",
+      "source": "./ysh83737--clothing02",
+      "description": "clothing02"
+    },
+    {
+      "name": "rechedev9--nextrespawn",
+      "source": "./rechedev9--nextrespawn",
+      "description": "Next.js 16 SaaS boilerplate \u2014 auth, payments, email, blog, ready to clone and ship"
+    },
+    {
+      "name": "fyus0118--tensaku-ai",
+      "source": "./fyus0118--tensaku-ai",
+      "description": "tensaku-ai"
     }
   ]
 }
