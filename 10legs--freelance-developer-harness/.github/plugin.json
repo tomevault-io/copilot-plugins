@@ -1,0 +1,9 @@
+{
+  "name": "10legs--freelance-developer-harness",
+  "displayName": "freelance-developer-harness",
+  "description": "A Claude Code operating system for running a structured agency team. 25 specialized roles across four councils (Creative, Technical, Hardware, Delivery), enforced quality gates, PM-driven workflow, mu",
+  "version": "1.0.0",
+  "author": "10Legs",
+  "homepage": "https://github.com/10Legs/freelance-developer-harness",
+  "skills": []
+}
