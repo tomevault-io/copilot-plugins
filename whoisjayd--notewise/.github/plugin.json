@@ -1,0 +1,9 @@
+{
+  "name": "whoisjayd--notewise",
+  "displayName": "notewise",
+  "description": "CLI tool to generate deep study notes from YouTube. Features chapter detection, smart chunking for long videos, and multi-language support.",
+  "version": "1.0.0",
+  "author": "whoisjayd",
+  "homepage": "https://github.com/whoisjayd/notewise",
+  "skills": []
+}
