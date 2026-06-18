@@ -4,7 +4,7 @@
   "repo": "dhee-core",
   "description": "An Agentic Video Generation platform for the masses.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dheeai/dhee-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T16:39:39Z"
+  "distributed_at": "2026-06-18T22:41:01Z"
 }
