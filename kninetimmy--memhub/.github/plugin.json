@@ -1,0 +1,9 @@
+{
+  "name": "kninetimmy--memhub",
+  "displayName": "memhub",
+  "description": "Local-first shared project memory for Codex and Claude Code",
+  "version": "1.0.0",
+  "author": "kninetimmy",
+  "homepage": "https://github.com/kninetimmy/memhub",
+  "skills": []
+}
