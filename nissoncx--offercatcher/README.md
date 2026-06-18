@@ -2,15 +2,14 @@
 
 > Source: [NissonCX/offercatcher](https://github.com/NissonCX/offercatcher) — distributed by [TomeVault](https://tomevault.io)
 
-🎯 AI 驱动的招聘邮件提醒工具，自动提取面试、测评、笔试等事件并同步到 Apple Reminders。Never miss an interview again.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [NissonCX/offercatcher](https://github.com/NissonCX/offercatcher).
+Original source: `` in [NissonCX/offercatcher](https://github.com/NissonCX/offercatcher).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
