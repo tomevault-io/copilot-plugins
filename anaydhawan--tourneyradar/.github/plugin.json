@@ -1,0 +1,9 @@
+{
+  "name": "anaydhawan--tourneyradar",
+  "displayName": "tourneyradar",
+  "description": "An open-source interactive map of over-the-board chess tournaments worldwide. Filter by country, time control, and FIDE rating status, no account needed. Data scraped weekly from Chess-Results.com acr",
+  "version": "1.0.0",
+  "author": "AnayDhawan",
+  "homepage": "https://github.com/AnayDhawan/tourneyradar",
+  "skills": []
+}
