@@ -1,0 +1,9 @@
+{
+  "name": "bigbill1418--droneopscommand",
+  "displayName": "DroneOpsCommand",
+  "description": "Self-hosted mission management platform for commercial drone operators. AI report generation (Ollama/Mistral), invoicing, flight log import, PDF export, CRM, weather/airspace intel. Docker Compose ful",
+  "version": "1.0.0",
+  "author": "BigBill1418",
+  "homepage": "https://github.com/BigBill1418/DroneOpsCommand",
+  "skills": []
+}
