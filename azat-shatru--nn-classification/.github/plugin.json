@@ -1,0 +1,9 @@
+{
+  "name": "azat-shatru--nn-classification",
+  "displayName": "NN_classification",
+  "description": "End-to-end PyTorch multiclass classification pipeline with a Streamlit UI \u2014 covers data audit,   missing values, outlier treatment, encoding, scaling, feature selection (correlation, RF, factor   anal",
+  "version": "1.0.0",
+  "author": "azat-shatru",
+  "homepage": "https://github.com/azat-shatru/NN_classification",
+  "skills": []
+}
