@@ -1,0 +1,9 @@
+{
+  "name": "made-by-adem--paperclipai-docker",
+  "displayName": "paperclipai-docker",
+  "description": "Self-hosted Docker setup for Paperclip \u2014 the open-source AI company orchestration platform. Built from source, reverse-proxy ready.",
+  "version": "1.0.0",
+  "author": "Made-By-Adem",
+  "homepage": "https://github.com/Made-By-Adem/paperclipai-docker",
+  "skills": []
+}
