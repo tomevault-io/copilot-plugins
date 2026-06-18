@@ -4,7 +4,7 @@
   "repo": "mantra_API_frontend",
   "description": "\u7d00\u9304\u53e3\u982d\u79aa\u7684APP",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeby-228/mantra_API_frontend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T17:21:10Z"
+  "distributed_at": "2026-06-18T12:51:21Z"
 }
