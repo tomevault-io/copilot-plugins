@@ -1,0 +1,9 @@
+{
+  "name": "argeento--haos-claude",
+  "displayName": "haos-claude",
+  "description": "Operational context for Claude AI to administer Home Assistant OS",
+  "version": "1.0.0",
+  "author": "Argeento",
+  "homepage": "https://github.com/Argeento/haos-claude",
+  "skills": []
+}
