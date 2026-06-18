@@ -1,0 +1,9 @@
+{
+  "name": "renefichtmueller--shieldx",
+  "displayName": "ShieldX",
+  "description": "Self-Evolving LLM Prompt Injection Defense \u2014 547+ rules, 50+ languages, 10-layer pipeline, MITRE ATLAS mapping, bio-immune evolution, MCP guard. 91.9% TPR, 2.4% FPR. Local-first, zero cloud.",
+  "version": "1.0.0",
+  "author": "renefichtmueller",
+  "homepage": "https://github.com/renefichtmueller/ShieldX",
+  "skills": []
+}
