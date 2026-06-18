@@ -1,0 +1,9 @@
+{
+  "name": "synaptent--aragora",
+  "displayName": "aragora",
+  "description": "Omnivorous Multi Agent Decision Making Engine - Ingest from any source, query from any channel, get multi-agent consensus",
+  "version": "1.0.0",
+  "author": "synaptent",
+  "homepage": "https://github.com/synaptent/aragora",
+  "skills": []
+}
