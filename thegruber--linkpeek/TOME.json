@@ -4,7 +4,7 @@
   "repo": "linkpeek",
   "description": "Secure TypeScript link preview and URL metadata extractor for Open Graph, Twitter Cards, JSON-LD, Node/Bun/Deno/edge.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thegruber/linkpeek",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T07:06:57Z"
+  "distributed_at": "2026-06-18T12:56:42Z"
 }
