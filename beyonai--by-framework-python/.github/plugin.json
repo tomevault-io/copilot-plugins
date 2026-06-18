@@ -1,0 +1,9 @@
+{
+  "name": "beyonai--by-framework-python",
+  "displayName": "by-framework-python",
+  "description": "By-Framework is a distributed Agent scheduling framework built on Redis Streams. It provides worker orchestration, session-scoped runtime state, and plugin-based agent capability registration for AI a",
+  "version": "1.0.0",
+  "author": "beyonai",
+  "homepage": "https://github.com/beyonai/by-framework-python",
+  "skills": []
+}
