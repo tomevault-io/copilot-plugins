@@ -1,0 +1,9 @@
+{
+  "name": "dlip--chordgen",
+  "displayName": "chordgen",
+  "description": "Chord Generator and Trainer",
+  "version": "1.0.0",
+  "author": "dlip",
+  "homepage": "https://github.com/dlip/chordgen",
+  "skills": []
+}
