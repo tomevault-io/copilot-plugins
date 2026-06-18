@@ -2,9 +2,9 @@
   "name": "ifq-design-skills",
   "owner": "peixl",
   "repo": "ifq-design-skills",
-  "description": "Agent-native design skill: ordinary prompts -> verified HTML-first prototypes, decks, dashboards, motion demos, and export-ready visuals.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peixl/ifq-design-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T14:34:19Z"
+  "distributed_at": "2026-06-18T00:54:29Z"
 }
