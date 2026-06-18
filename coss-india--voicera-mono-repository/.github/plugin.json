@@ -1,0 +1,9 @@
+{
+  "name": "coss-india--voicera-mono-repository",
+  "displayName": "voicera_mono_repository",
+  "description": "A complete voice AI building block with telephony integration, featuring real-time speech-to-text, text-to-speech, and LLM-powered conversational agents.",
+  "version": "1.0.0",
+  "author": "COSS-India",
+  "homepage": "https://github.com/COSS-India/voicera_mono_repository",
+  "skills": []
+}
