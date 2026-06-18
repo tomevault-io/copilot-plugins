@@ -1,0 +1,9 @@
+{
+  "name": "techfreakworm--ltx2-3-imageaudiotovideo",
+  "displayName": "LTX2.3-ImageAudioToVideo",
+  "description": "LTX2.3 pipeline for Image+Audio to Video with Lip Sync",
+  "version": "1.0.0",
+  "author": "techfreakworm",
+  "homepage": "https://github.com/techfreakworm/LTX2.3-ImageAudioToVideo",
+  "skills": []
+}
