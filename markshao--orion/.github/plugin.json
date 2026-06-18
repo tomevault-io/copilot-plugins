@@ -1,0 +1,9 @@
+{
+  "name": "markshao--orion",
+  "displayName": "orion",
+  "description": " Enable AI Coding workflows: spin up concurrent nodes per Git branch, each with independent worktrees and tmux sessions.",
+  "version": "1.0.0",
+  "author": "markshao",
+  "homepage": "https://github.com/markshao/orion",
+  "skills": []
+}
