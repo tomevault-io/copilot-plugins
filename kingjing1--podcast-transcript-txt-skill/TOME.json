@@ -2,9 +2,9 @@
   "name": "podcast-transcript-txt-skill",
   "owner": "KingJing1",
   "repo": "podcast-transcript-txt-skill",
-  "description": "Turn any podcast URL into a clean TXT transcript \u2014 YouTube, Xiaoyuzhou, Apple Podcasts, X.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KingJing1/podcast-transcript-txt-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T17:09:36Z"
+  "distributed_at": "2026-06-18T00:52:35Z"
 }
