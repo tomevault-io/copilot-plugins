@@ -1,0 +1,9 @@
+{
+  "name": "arcadeai-labs--agent-library",
+  "displayName": "agent-library",
+  "description": "Agent Library personal knowledge base with a search and retrieval system MCP Server and CLI. Preconfigured local models and support for Text, images, OCR/vision, and code embeddings. Use over MCP with",
+  "version": "1.0.0",
+  "author": "arcadeai-labs",
+  "homepage": "https://github.com/arcadeai-labs/agent-library",
+  "skills": []
+}
