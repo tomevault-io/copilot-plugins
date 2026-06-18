@@ -1,0 +1,9 @@
+{
+  "name": "llm-d--llm-d-batch-gateway",
+  "displayName": "llm-d-batch-gateway",
+  "description": "The batch gateway is an llm-d implementation of the OpenAI batch inference API",
+  "version": "1.0.0",
+  "author": "llm-d",
+  "homepage": "https://github.com/llm-d/llm-d-batch-gateway",
+  "skills": []
+}
