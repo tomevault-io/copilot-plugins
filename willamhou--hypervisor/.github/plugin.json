@@ -1,0 +1,9 @@
+{
+  "name": "willamhou--hypervisor",
+  "displayName": "hypervisor",
+  "description": "ARM64 Type-1 bare-metal hypervisor in Rust (no_std) \u2014 boots Linux at EL1, FF-A v1.1 SPMC at S-EL2, pKVM integration",
+  "version": "1.0.0",
+  "author": "willamhou",
+  "homepage": "https://github.com/willamhou/hypervisor",
+  "skills": []
+}
