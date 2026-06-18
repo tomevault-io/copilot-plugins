@@ -4,7 +4,7 @@
   "repo": "rime",
   "description": "\u672c\u914d\u7f6e\u4ec5\u4f7f\u7528\u4ee5\u4e0b\u4e24\u4e2a\u8f93\u5165\u6cd5\u65b9\u6848\uff1a  \u4e3b\u8981\u8f93\u5165\u6cd5  \u58f0\u7b14\u81ea\u7136 (sbzr)\uff1a\u57fa\u4e8e\u58f0\u7b14\u7f16\u7801\u7684\u4e2d\u6587\u8f93\u5165\u6cd5 \u65e5\u8bed\u7f57\u9a6c\u97f3 (jaroomaji)\uff1aMS-IME\u98ce\u683c\u7684\u65e5\u8bed\u8f93\u5165\u6cd5",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iamcheyan/rime",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T16:33:18Z"
+  "distributed_at": "2026-06-18T13:21:32Z"
 }
