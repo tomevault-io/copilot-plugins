@@ -1,0 +1,9 @@
+{
+  "name": "json2vec--json2vec",
+  "displayName": "json2vec",
+  "description": "json2vec turns nested, ragged data into neural representations. It lets users define typed schemas: numbers, categories, sets, dates, entities, text, etc., then trains models for prediction and embedd",
+  "version": "1.0.0",
+  "author": "json2vec",
+  "homepage": "https://github.com/json2vec/json2vec",
+  "skills": []
+}
