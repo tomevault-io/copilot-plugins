@@ -1,0 +1,44 @@
+{
+  "name": "miui-browser-tab-keepalive",
+  "owner": "DJ-Flitzefinger",
+  "repo": "miui-browser-tab-keepalive",
+  "description": "Tampermonkey userscript that prevents MIUI/HyperOS from killing mobile browser tabs. Works with Firefox, Edge, Yandex, Kiwi, and other browsers. No root required.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DJ-Flitzefinger/miui-browser-tab-keepalive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T20:36:39Z"
+}
