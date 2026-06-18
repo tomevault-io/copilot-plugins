@@ -4,7 +4,7 @@
   "repo": "DinoStack",
   "description": "Self-triggering, skill-based agentic methodology: agents, skills, commands, hooks and protocols",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Space-Dinosaurs/DinoStack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T22:48:34Z"
+  "distributed_at": "2026-06-18T04:41:25Z"
 }
