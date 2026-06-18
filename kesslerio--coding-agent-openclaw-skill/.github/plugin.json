@@ -1,0 +1,9 @@
+{
+  "name": "kesslerio--coding-agent-openclaw-skill",
+  "displayName": "coding-agent-openclaw-skill",
+  "description": "Coding agent skill for Moltbot - orchestrates Codex, Claude Code, Gemini, Pi, and OpenCode CLIs",
+  "version": "1.0.0",
+  "author": "kesslerio",
+  "homepage": "https://github.com/kesslerio/coding-agent-openclaw-skill",
+  "skills": []
+}
