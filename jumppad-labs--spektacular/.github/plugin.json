@@ -1,0 +1,9 @@
+{
+  "name": "jumppad-labs--spektacular",
+  "displayName": "spektacular",
+  "description": "Spektacular is a coding agent agnostic tool for spec driven development, use it as a cli, with github issues, or as an openclaw plugin",
+  "version": "1.0.0",
+  "author": "jumppad-labs",
+  "homepage": "https://github.com/jumppad-labs/spektacular",
+  "skills": []
+}
