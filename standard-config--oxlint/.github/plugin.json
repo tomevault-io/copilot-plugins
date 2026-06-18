@@ -1,0 +1,9 @@
+{
+  "name": "standard-config--oxlint",
+  "displayName": "oxlint",
+  "description": "Curated Oxlint config with sensible defaults",
+  "version": "1.0.0",
+  "author": "standard-config",
+  "homepage": "https://github.com/standard-config/oxlint",
+  "skills": []
+}
