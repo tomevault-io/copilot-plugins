@@ -1,23 +1,21 @@
-## claude-skill-docs
+## image-blast-composition
 
-> Keep Claude Code skills thin and local tools generic
+> Keep Image Blast state composable, colocated, and derived from generated files
 
 
-# Claude Code Skills
+# Image Blast Composition
 
-Follow the official Claude Code skills docs when editing `SKILL.md` files: https://code.claude.com/docs/en/skills
-
-- Skills are thin task surfaces: frontmatter plus concise instructions. Do not turn them into long orchestration manuals.
-- `context: fork` means the skill runs in a forked subagent. The rendered `SKILL.md` is the subagent prompt and does not have access to parent conversation history.
-- `agent` selects which subagent type executes the forked skill. If omitted, Claude Code uses `general-purpose`.
-- `allowed-tools` pre-approves listed tools for the active skill. It does not restrict all other tools; permissions still apply.
-- `description` and `when_to_use` should front-load trigger phrases. Keep them clearer than the body.
-- Use `disable-model-invocation: true` for side-effecting skills that only the user should trigger.
-- Invoked skill content persists for the rest of the session, so keep standing guidance short and unambiguous.
-- Keep project rules high-level: shared conventions, routing, and ordering. Put skill-specific operational details in the relevant `.claude/skills/*/SKILL.md`.
-- Skills and project rules should teach agents which files matter for a workflow. Do not move that workflow knowledge into `.mjs` scripts unless the script owns a provider contract or a truly generic filesystem invariant.
-- Project `.mjs` tools should be dumb, explicit, and argument-driven: compute paths, download a given URL to a given path, delete a given path, or apply generic no-clobber/path-safety checks. Avoid encoding asset-specific knowledge like "world panoramas are important" when the Skill can read JSON and pass explicit args.
-- Prefer agent intelligence plus clear Skill instructions over hidden orchestration in scripts. If a script starts deciding which workflow artifacts are important, pause and move that decision back into the Skill/rule layer.
+- Follow `.claude/rules/project.md` as the canonical Image Blast file convention for the end user (Claude Code users). Keep this Cursor rule as reinforcement only.
+- Simplification is the top priority. Prefer deleting state, helpers, manifests, and orchestration layers when the directory layout and small JSON files already explain what happened.
+- Use one generic convention for generated things: visible indexed artifacts plus colocated hidden request JSON. Do not create object-specific, SFX-specific, plate-specific, or asset-type-specific state systems.
+- Agents should inspect generated state with `ls -a <directory>` first. A directory listing should be enough to understand high-level progress; read visible artifacts or hidden request JSON only when more detail is needed.
+- Keep durable JSON tiny. Store identity, user-authored intent, provenance, and API inputs that cannot be inferred from files. Do not duplicate generated file lists, counts, stages, completion status, or request lifecycle in central JSON or `object.json`.
+- Avoid helper creep. Do not add directory-specific snapshot helpers or wrappers for simple operations an agent can infer from `ls -a`, indexed filenames, and small JSON files. Keep helpers generic, rare, and clearly worth their complexity.
+- For paid or long-running requests, persist request IDs before polling in colocated hidden request JSON. Request metadata should be compact, sanitized, and named with the indexed convention `.N-slug-request.json`.
+- Invoke generation through matching background agents, not parallel Skill calls: `Agent(image-blast-world)`, `Agent(image-blast-3d)`, `Agent(image-blast-sfx)`, `Agent(image-blast-plate)`, or `Agent(image-blast-image-edit)`.
+- Align generated artifacts with request indexes so related files are easy to inspect together, such as `0-object.png`, `0-object.glb`, `.0-object__image-request.json`, and `.0-object__model-request.json`.
+- Read request semantics like `kind`, `role`, provider, and status from JSON contents, not from filename suffixes.
+- Do not preserve compatibility with unshipped branch state. If a JSON shape is wrong or bloated, replace it outright instead of layering legacy shims.
 
 ---
 > Source: [neilsonnn/image-blaster](https://github.com/neilsonnn/image-blaster) — distributed by [TomeVault](https://tomevault.io).
