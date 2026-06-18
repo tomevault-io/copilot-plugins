@@ -4,7 +4,7 @@
   "repo": "aura-back",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cloud-tech-develop/aura-back",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T12:44:59Z"
+  "distributed_at": "2026-06-18T19:01:08Z"
 }
