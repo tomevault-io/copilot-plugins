@@ -1,0 +1,9 @@
+{
+  "name": "daniel-gui--quartzo",
+  "displayName": "quartzo",
+  "description": "A library for SvelteKit focused on SEO and GEO.",
+  "version": "1.0.0",
+  "author": "Daniel-Gui",
+  "homepage": "https://github.com/Daniel-Gui/quartzo",
+  "skills": []
+}
