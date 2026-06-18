@@ -1,0 +1,9 @@
+{
+  "name": "entityprocess--allagents",
+  "displayName": "allagents",
+  "description": "CLI tool for managing multi-repo AI agent workspaces with plugin synchronization across multiple AI clients.",
+  "version": "1.0.0",
+  "author": "EntityProcess",
+  "homepage": "https://github.com/EntityProcess/allagents",
+  "skills": []
+}
