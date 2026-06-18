@@ -4,7 +4,7 @@
   "repo": "vscode-arkts",
   "description": "ArkTS Language Support for Visual Studio Code",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FadingLight9291117/vscode-arkts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T03:09:19Z"
+  "distributed_at": "2026-06-18T09:04:45Z"
 }
