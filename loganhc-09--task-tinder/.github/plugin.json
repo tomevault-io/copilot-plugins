@@ -1,0 +1,9 @@
+{
+  "name": "loganhc-09--task-tinder",
+  "displayName": "task-tinder",
+  "description": "Metacognition-forcing task triage. Swipe through tasks, sprint through what you accept, capture HOW you completed them. Built with Claude Code.",
+  "version": "1.0.0",
+  "author": "loganhc-09",
+  "homepage": "https://github.com/loganhc-09/task-tinder",
+  "skills": []
+}
