@@ -2,9 +2,9 @@
   "name": "mission-control",
   "owner": "builderz-labs",
   "repo": "mission-control",
-  "description": "Self-hosted AI agent orchestration platform: dispatch tasks, run multi-agent workflows, monitor spend, and govern operations from one mission control dashboard.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/builderz-labs/mission-control",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T15:50:59Z"
+  "distributed_at": "2026-06-18T09:06:59Z"
 }
