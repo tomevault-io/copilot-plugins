@@ -1,0 +1,9 @@
+{
+  "name": "megooneh--dl-over-bale",
+  "displayName": "dl-over-bale",
+  "description": "File transfer over Bale with generic yt-dlp support",
+  "version": "1.0.0",
+  "author": "MEgooneh",
+  "homepage": "https://github.com/MEgooneh/dl-over-bale",
+  "skills": []
+}
