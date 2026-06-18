@@ -1,0 +1,9 @@
+{
+  "name": "zish-rob-crur--nucleus-apple-mcp",
+  "displayName": "nucleus-apple-mcp",
+  "description": "A macOS Model Context Protocol (MCP) server that acts as the central nervous system for your AI agent. Bridges Calendar, Reminders, Notes, and Health data using a hybrid Python + Swift architecture.",
+  "version": "1.0.0",
+  "author": "zish-rob-crur",
+  "homepage": "https://github.com/zish-rob-crur/nucleus-apple-mcp",
+  "skills": []
+}
