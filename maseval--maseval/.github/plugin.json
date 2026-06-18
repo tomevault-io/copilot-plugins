@@ -1,0 +1,9 @@
+{
+  "name": "maseval--maseval",
+  "displayName": "MASEval",
+  "description": "Multi-Agent LLM Evaluation Docs: https://maseval.readthedocs.io/",
+  "version": "1.0.0",
+  "author": "maseval",
+  "homepage": "https://github.com/maseval/MASEval",
+  "skills": []
+}
