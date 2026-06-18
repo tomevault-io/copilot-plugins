@@ -1,0 +1,9 @@
+{
+  "name": "bilustek--secretdrop",
+  "displayName": "secretdrop",
+  "description": "Secure, one-time secret sharing API for developers.",
+  "version": "1.0.0",
+  "author": "bilustek",
+  "homepage": "https://github.com/bilustek/secretdrop",
+  "skills": []
+}
