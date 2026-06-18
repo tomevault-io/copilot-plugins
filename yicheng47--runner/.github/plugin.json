@@ -1,0 +1,9 @@
+{
+  "name": "yicheng47--runner",
+  "displayName": "runner",
+  "description": "An editor for teams of local coding agents (Claude Code, Codex, and friends)",
+  "version": "1.0.0",
+  "author": "yicheng47",
+  "homepage": "https://github.com/yicheng47/runner",
+  "skills": []
+}
