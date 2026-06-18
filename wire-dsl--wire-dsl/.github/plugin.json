@@ -1,0 +1,9 @@
+{
+  "name": "wire-dsl--wire-dsl",
+  "displayName": "wire-dsl",
+  "description": "WireDSL - Wireframes as Code. Declarative wireframing with AI-powered generation.",
+  "version": "1.0.0",
+  "author": "Wire-DSL",
+  "homepage": "https://github.com/Wire-DSL/wire-dsl",
+  "skills": []
+}
