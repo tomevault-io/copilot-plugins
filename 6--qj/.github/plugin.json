@@ -1,0 +1,9 @@
+{
+  "name": "6--qj",
+  "displayName": "qj",
+  "description": "A fast jq-compatible JSON processor built on simdjson. 25\u2013190x faster than jq on NDJSON/JSONL files.",
+  "version": "1.0.0",
+  "author": "6",
+  "homepage": "https://github.com/6/qj",
+  "skills": []
+}
