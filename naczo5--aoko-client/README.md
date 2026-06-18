@@ -7,14 +7,14 @@ Free Lunar injectable minecraft utility client with an autoclicker, aim assist a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [naczo5/aoko-client](https://github.com/naczo5/aoko-client).
+Original source: `AGENTS.md` in [naczo5/aoko-client](https://github.com/naczo5/aoko-client).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [naczo5/aoko-client](https://github.com/naczo5/aoko-client) — a repo with 9+ stars on GitHub.
