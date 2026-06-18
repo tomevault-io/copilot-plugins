@@ -1,79 +1,102 @@
 ## textfocus
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Align and center a specific word across multiple images using OCR (Tesseract) to produce documentary-style "word focus" cuts. Use when the user wants to center/lock a keyword across screenshots or video frames, create news-ticker style alignment, produce same-word cuts for After Effects / Premiere, or batch-crop frames so a chosen word stays perfectly centered and same-size. Invoked via the installed `quick-cuts` CLI.
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# TextFocus (Quick Cuts) Skill
 
-## Project Overview
+A Python-based OCR alignment tool that finds a target word in each input image and produces an output image where that word is centered and scaled to a consistent size. Designed for creating documentary / news-style video cuts where the same word stays locked in place across different footage.
 
-Quick Cuts is a Python tool that automatically aligns and centers specific words in images using OCR (Optical Character Recognition). It's designed for creating documentary-style video effects where words need to be consistently positioned across multiple frames.
+## When to use this skill
 
-## Key Commands
+Activate when the user asks to:
+- "Center the word X across these images/frames"
+- "Align all these screenshots on the word Y"
+- "Make a Warp-style / documentary cut where a word stays fixed"
+- Batch-process video frames so a keyword is locked to the center
+- Normalize word size and position across many images
 
-### Running the Tool
+If the user only wants generic image cropping (no OCR / no target word), this skill is not the right fit.
+
+## Prerequisites
+
+Before running anything, verify the environment:
+
+1. **Tesseract OCR must be installed on the system** (Python-only install is not enough):
+   - macOS: `brew install tesseract`
+   - Linux: `sudo apt-get install tesseract-ocr`
+   - Windows: installer from https://github.com/UB-Mannheim/tesseract/wiki
+   - Check with: `tesseract --version`
+2. **Python 3.8+**
+3. **The `quick-cuts` CLI itself** — install from this repo with uv:
+   ```bash
+   uv tool install .
+   quick-cuts --help
+   ```
+   If `quick-cuts` is not on PATH after install, run `uv tool update-shell` once and reopen the shell.
+
+If Tesseract is missing, tell the user to install it — do not try to work around it.
+
+## Primary tool: `quick-cuts`
+
 ```bash
-# Basic usage - align word in images
-quick-cuts images/*.png -w "word"
-
-# Process entire directory with partial matching
-quick-cuts images/ -w "word" --partial
-
-# Custom output size and word height
-quick-cuts images/ -w "word" -s 1920x1080 --word-height 100
+quick-cuts <images> -w "<target_word>" [options]
 ```
 
-### Installation
+`<images>` can be a glob (`images/*.png`), a directory (`images/`), or individual files.
+
+### Common options
+
+| Flag | Purpose | Default |
+|---|---|---|
+| `-w, --word` | Target word to center (required) | — |
+| `-o, --output` | Output directory | `./aligned_<word>` |
+| `-s, --size` | Output canvas `WxH` | `1920x1080` |
+| `--word-height` | Target word height in px | `100` |
+| `--background` | `white` \| `black` \| `transparent` \| `dominant` | `dominant` |
+| `--partial` | Match words starting with the target (e.g. `warp` → `warpdotdev`) | off |
+| `--workers` | Parallel worker count | CPU count |
+
+### Typical invocations
+
 ```bash
-# Requires Python 3.8+ and Tesseract OCR installed system-wide.
+# Basic — center "breaking" across PNGs
+quick-cuts images/*.png -w "breaking"
 
-# Install the CLI (recommended):
-uv tool install .
-quick-cuts --help
+# Partial match — useful when the target is a prefix of a longer word
+quick-cuts images/ -w "warp" --partial
 
-# Or install deps for development:
-pip install -r requirements.txt
+# 4K output with larger word
+quick-cuts images/ -w "alert" -s 3840x2160 --word-height 200
+
+# Vertical / social-media format, transparent background
+quick-cuts frames/ -w "viral" -s 1080x1920 --background transparent
 ```
 
-## Architecture
+Transparent background forces `.png` output regardless of input format.
 
-The codebase consists of a single main module `quick_cuts.py` with the following structure:
+## Working guidance for Claude
 
-- **ImageWordAligner class**: Core processing logic
-  - `find_word_in_image()`: Uses Tesseract OCR to locate target words with bounding boxes
-  - `create_aligned_image()`: Centers detected words and scales them to consistent size
-  - `get_dominant_color()`: Extracts dominant color using K-means clustering for background
-  - `process_images()`: Parallel processing coordinator using multiprocessing Pool
 
-- **Processing Pipeline**:
-  1. OCR detection with preprocessing (bilateral filter, OTSU thresholding)
-  2. Word matching (exact or partial via `--partial` flag)
-  3. Image transformation (scaling and centering)
-  4. Background handling (white, black, transparent, or dominant color)
-  5. Parallel batch processing for performance
+When the user asks for a word-alignment task:
 
-## Important Technical Details
+1. **Confirm the target word and the input path** before running — mistakes here waste a batch.
+2. **Check image formats** — supported: `.jpg`, `.jpeg`, `.png`, `.bmp`, `.tiff`.
+3. **Run once on a small sample first** (1–3 images) to verify OCR actually finds the word, before processing a full folder.
+4. **If OCR misses**, suggest in order: `--partial`, higher-resolution source images, better contrast. Do not silently change the target word.
+5. **Output files** are named `aligned_<original>` in the output dir. Tell the user where they landed (`output_dir.absolute()` is logged).
+6. **Progress / failures** are printed to stdout. Surface the "Failed to find word in:" list back to the user so they know which frames need manual attention.
+7. **If `quick-cuts` is not found**, the user hasn't installed it yet — point them at `uv tool install .` from this repo, not `python quick_cuts.py`.
 
-- **OCR Configuration**: Uses pytesseract with confidence threshold of 30
-- **Image Formats**: Supports jpg, jpeg, png, bmp, tiff
-- **Unicode Handling**: Special handling for Unicode filenames using `cv2.imdecode()` and `numpy.fromfile()`
-- **Parallel Processing**: Uses multiprocessing.Pool with configurable worker count
-- **Background Options**: dominant (K-means), white, black, or transparent (outputs as PNG)
-- **Partial Matching**: When enabled, matches beginning of words and estimates target word width proportionally
+## Files in this skill
 
-## Dependencies
-
-- opencv-python >= 4.8.0 (image processing)
-- pytesseract >= 0.3.10 (OCR interface)
-- numpy >= 1.26.0 (array operations)
-- Pillow >= 10.0.0 (image handling)
-- scikit-learn >= 1.3.0 (K-means clustering for dominant color)
-
-## External Requirements
-
-Tesseract OCR must be installed separately on the system before using this tool.
+- `pyproject.toml` — defines the `quick-cuts` entry point
+- `quick_cuts.py` — source of the CLI (invoked via the installed `quick-cuts` command, not directly)
+- `requirements.txt` — dev-install dependency list (the CLI install uses `pyproject.toml` instead)
+- `README.md` — full user-facing docs
+- `examples.md` — worked examples
+- `docs/example.gif` — visual reference of the effect
 
 ---
 > Source: [CodingWithLewis/TextFocus](https://github.com/CodingWithLewis/TextFocus) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
