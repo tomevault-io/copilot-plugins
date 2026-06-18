@@ -4,7 +4,7 @@
   "repo": "bhcis-laravel",
   "description": "My Capstone System Project for BHCIS using Laravel as main framework",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Charlz-code/bhcis-laravel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T02:54:13Z"
+  "distributed_at": "2026-06-18T08:42:58Z"
 }
