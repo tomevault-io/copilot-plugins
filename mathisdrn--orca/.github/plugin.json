@@ -1,0 +1,9 @@
+{
+  "name": "mathisdrn--orca",
+  "displayName": "orca",
+  "description": "Orca is a template and a set of patterns helping data teams efficiently build a production-ready and agentic-ready data warehouse.",
+  "version": "1.0.0",
+  "author": "mathisdrn",
+  "homepage": "https://github.com/mathisdrn/orca",
+  "skills": []
+}
