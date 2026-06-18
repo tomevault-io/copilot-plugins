@@ -1,0 +1,9 @@
+{
+  "name": "zingbretsen--zmux",
+  "displayName": "zmux",
+  "description": "A terminal multiplexer for code assistant-based workflows",
+  "version": "1.0.0",
+  "author": "zingbretsen",
+  "homepage": "https://github.com/zingbretsen/zmux",
+  "skills": []
+}
