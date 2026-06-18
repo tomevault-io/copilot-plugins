@@ -1,0 +1,26 @@
+# SwiftTUI
+
+> Tome by [bpisano](https://github.com/bpisano/SwiftTUI) — distributed by [TomeVault](https://tomevault.io)
+
+A SwiftUI engine that renders to the terminal.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [bpisano/SwiftTUI](https://github.com/bpisano/SwiftTUI).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/bpisano/SwiftTUI](https://github.com/bpisano/SwiftTUI)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-p -->
