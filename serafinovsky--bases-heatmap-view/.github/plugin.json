@@ -1,0 +1,9 @@
+{
+  "name": "serafinovsky--bases-heatmap-view",
+  "displayName": "bases-heatmap-view",
+  "description": "Github-style heatmap visualization for any date-based property in your Bases tables. Track activity, habits, progress, or any numeric/date-related data with color-coded squares.",
+  "version": "1.0.0",
+  "author": "serafinovsky",
+  "homepage": "https://github.com/serafinovsky/bases-heatmap-view",
+  "skills": []
+}
