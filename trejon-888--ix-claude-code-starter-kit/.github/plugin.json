@@ -1,0 +1,9 @@
+{
+  "name": "trejon-888--ix-claude-code-starter-kit",
+  "displayName": "ix-claude-code-starter-kit",
+  "description": "Give Claude Code a memory, a workflow, and the ability to improve itself. 20 commands, 3 skills, 5 hooks, and a document structure for persistent AI coding sessions.",
+  "version": "1.0.0",
+  "author": "Trejon-888",
+  "homepage": "https://github.com/Trejon-888/ix-claude-code-starter-kit",
+  "skills": []
+}
