@@ -1,13 +1,13 @@
-## runtime
+## tools
 
-> 运行与调试
+> 工具（Tools）约定与配置
 
-# 运行与调试
+# Tools 约定
 
-- 开发：`yarn start`（LangGraph CLI，端口 2025，配置 [langgraph.json](mdc:langgraph.json)）。
-- TypeScript 直跑（如需要）：`nodemon --exec "node --loader ts-node/esm --experimental-specifier-resolution=node" src/bin/www.ts`。
-- 生产：`npm run build` → `node dist/...`。
-- 无扩展名导入：通过 `tsconfig.json` 的 `moduleResolution: bundler` + Node `--experimental-specifier-resolution=node` 支持。
+- 常用工具在 [src/tools/common.ts](mdc:src/tools/common.ts)。
+- `handoffToPlannerTool`：用于在协调节点将请求移交给 planner。
+- `getWebSearchTool(maxResults)`：构造 Tavily 搜索工具，域名白/黑名单来自配置 [src/config/loader.ts](mdc:src/config/loader.ts)。
+- 如需新增工具，优先在 `common.ts` 中集中管理导出，便于节点按需组合。
 
 ---
 > Source: [iamouyang21/DeepResearch-Langgraph](https://github.com/iamouyang21/DeepResearch-Langgraph) — distributed by [TomeVault](https://tomevault.io).
