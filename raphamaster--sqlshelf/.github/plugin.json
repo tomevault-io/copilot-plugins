@@ -1,0 +1,9 @@
+{
+  "name": "raphamaster--sqlshelf",
+  "displayName": "SQLShelf",
+  "description": "Gerenciador desktop open-source de consultas SQL: organize, descreva, categorize e encontre suas queries por conte\u00fado, tabela ou campo e sem perder a propriedade dos arquivos.",
+  "version": "1.0.0",
+  "author": "raphamaster",
+  "homepage": "https://github.com/raphamaster/SQLShelf",
+  "skills": []
+}
