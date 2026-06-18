@@ -4,7 +4,7 @@
   "repo": "Robotics_Notebooks",
   "description": "\u673a\u5668\u4eba\u6280\u672f\u6808\u8d44\u6599\u6c47\u603b",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ImChong/Robotics_Notebooks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T05:03:14Z"
+  "distributed_at": "2026-06-18T11:01:42Z"
 }
