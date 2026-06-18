@@ -1,0 +1,9 @@
+{
+  "name": "rizukirr--vibekit",
+  "displayName": "vibekit",
+  "description": "Vibe-coding pipeline with halt-on-defect guardrails. RTCO-compressed briefs, evidence-based verification, bounded autonomous re-runs. CC / Pi / Codex / OpenCode / Gemini CLI.",
+  "version": "1.0.0",
+  "author": "rizukirr",
+  "homepage": "https://github.com/rizukirr/vibekit",
+  "skills": []
+}
