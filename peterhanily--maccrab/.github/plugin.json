@@ -1,0 +1,9 @@
+{
+  "name": "peterhanily--maccrab",
+  "displayName": "maccrab",
+  "description": "\ud83e\udd80 MacCrab \u2014 Exoskeleton for your Mac. Local-first macOS threat detection engine that monitors AI coding tools, detects malware, and protects your system.",
+  "version": "1.0.0",
+  "author": "peterhanily",
+  "homepage": "https://github.com/peterhanily/maccrab",
+  "skills": []
+}
