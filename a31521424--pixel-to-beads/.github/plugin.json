@@ -1,0 +1,9 @@
+{
+  "name": "a31521424--pixel-to-beads",
+  "displayName": "pixel-to-beads",
+  "description": "Convert images into fuse bead (Perler/Hama) patterns with color quantization, dithering algorithms, and automatic material counting.",
+  "version": "1.0.0",
+  "author": "a31521424",
+  "homepage": "https://github.com/a31521424/pixel-to-beads",
+  "skills": []
+}
