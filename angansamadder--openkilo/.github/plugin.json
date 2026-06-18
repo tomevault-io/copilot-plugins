@@ -1,0 +1,9 @@
+{
+  "name": "angansamadder--openkilo",
+  "displayName": "openkilo",
+  "description": "Access 40+ free AI models through Kilo Gateway. Zero-config OpenCode plugin.",
+  "version": "1.0.0",
+  "author": "AnganSamadder",
+  "homepage": "https://github.com/AnganSamadder/openkilo",
+  "skills": []
+}
