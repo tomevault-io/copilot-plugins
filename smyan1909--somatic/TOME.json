@@ -2,9 +2,9 @@
   "name": "SoMatic",
   "owner": "Smyan1909",
   "repo": "SoMatic",
-  "description": "Agent-first CLI for native UI automation with Set-of-Marks screenshots. MCP server + headless Xvfb support included.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Smyan1909/SoMatic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T01:37:56Z"
+  "distributed_at": "2026-06-18T19:30:05Z"
 }
