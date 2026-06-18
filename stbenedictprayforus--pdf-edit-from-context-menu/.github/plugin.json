@@ -1,0 +1,9 @@
+{
+  "name": "stbenedictprayforus--pdf-edit-from-context-menu",
+  "displayName": "PDF-Edit-From-Context-Menu",
+  "description": "A local Windows-only PDF creation/manipulation utility focused on handling files from the context menu in file explorer.",
+  "version": "1.0.0",
+  "author": "StBenedictPrayForUs",
+  "homepage": "https://github.com/StBenedictPrayForUs/PDF-Edit-From-Context-Menu",
+  "skills": []
+}
