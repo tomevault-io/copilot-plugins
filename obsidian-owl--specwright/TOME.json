@@ -4,7 +4,7 @@
   "repo": "specwright",
   "description": "Craft quality software with AI discipline. Spec-driven development plugin for Claude Code and Opencode \u2014 quality gates, adversarial testing, and evidence capture.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Obsidian-Owl/specwright",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T17:02:53Z"
+  "distributed_at": "2026-06-18T23:02:57Z"
 }
