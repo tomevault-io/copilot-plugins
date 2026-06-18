@@ -1,0 +1,9 @@
+{
+  "name": "bpisano--swifttui",
+  "displayName": "SwiftTUI",
+  "description": "A SwiftUI engine that renders to the terminal.",
+  "version": "1.0.0",
+  "author": "bpisano",
+  "homepage": "https://github.com/bpisano/SwiftTUI",
+  "skills": []
+}
