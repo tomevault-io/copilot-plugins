@@ -1,0 +1,9 @@
+{
+  "name": "8pig--llm-ops",
+  "displayName": "llm-ops",
+  "description": "\u5b66\u4e60\u5927\u6a21\u578b\u76f8\u5173\u6280\u672f\u539f\u7406\u4ee5\u53ca\u5b9e\u6218\u7ecf\u9a8c\uff08\u5927\u6a21\u578b\u5de5\u7a0b\u5316\u3001\u5927\u6a21\u578b\u5e94\u7528\u843d\u5730\uff09  \u4e10\u7248dify. \u7acb\u5373\u4e0a\u7ebf\u4f60\u7684agent \u5e94\u7528.",
+  "version": "1.0.0",
+  "author": "8pig",
+  "homepage": "https://github.com/8pig/llm-ops",
+  "skills": []
+}
