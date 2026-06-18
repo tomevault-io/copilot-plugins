@@ -1,0 +1,9 @@
+{
+  "name": "fliperama86--cvlod-recomp",
+  "displayName": "cvlod_recomp",
+  "description": "Recompile Castlevania: Legacy of Darkness (N64) into a native executable using N64Recomp",
+  "version": "1.0.0",
+  "author": "fliperama86",
+  "homepage": "https://github.com/fliperama86/cvlod_recomp",
+  "skills": []
+}
