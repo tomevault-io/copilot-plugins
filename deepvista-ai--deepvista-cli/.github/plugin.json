@@ -1,0 +1,9 @@
+{
+  "name": "deepvista-ai--deepvista-cli",
+  "displayName": "deepvista-cli",
+  "description": "CLI for DeepVista \u2014 chat, notes, recipes, and memory from your terminal. \ud83c\udf1f Star if you like it!",
+  "version": "1.0.0",
+  "author": "DeepVista-AI",
+  "homepage": "https://github.com/DeepVista-AI/deepvista-cli",
+  "skills": []
+}
