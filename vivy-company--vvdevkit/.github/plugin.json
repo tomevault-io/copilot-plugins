@@ -1,0 +1,9 @@
+{
+  "name": "vivy-company--vvdevkit",
+  "displayName": "VVDevKit",
+  "description": "VVDevKit is a Metal-based rendering framework for macOS/iOS with batteries included: VVCode, VVMarkdown, VVMetalPrimitives, VVChatTimeline, highlighting, Git, and LSP. Built for Aizen.win.",
+  "version": "1.0.0",
+  "author": "vivy-company",
+  "homepage": "https://github.com/vivy-company/VVDevKit",
+  "skills": []
+}
