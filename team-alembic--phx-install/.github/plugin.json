@@ -1,0 +1,9 @@
+{
+  "name": "team-alembic--phx-install",
+  "displayName": "phx_install",
+  "description": "Composable Igniter installers for Phoenix",
+  "version": "1.0.0",
+  "author": "team-alembic",
+  "homepage": "https://github.com/team-alembic/phx_install",
+  "skills": []
+}
