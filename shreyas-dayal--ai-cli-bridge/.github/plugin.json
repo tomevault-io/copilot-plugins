@@ -1,0 +1,9 @@
+{
+  "name": "shreyas-dayal--ai-cli-bridge",
+  "displayName": "ai-cli-bridge",
+  "description": "Use your Claude Max / ChatGPT Pro subscription as an API. Self-hosted Express + Bun HTTP bridge that wraps the Claude Code CLI and OpenAI Codex CLI into an authenticated REST API with SSE streaming, h",
+  "version": "1.0.0",
+  "author": "Shreyas-Dayal",
+  "homepage": "https://github.com/Shreyas-Dayal/ai-cli-bridge",
+  "skills": []
+}
