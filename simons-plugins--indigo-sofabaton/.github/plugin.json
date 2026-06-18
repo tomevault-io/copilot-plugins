@@ -1,0 +1,9 @@
+{
+  "name": "simons-plugins--indigo-sofabaton",
+  "displayName": "indigo-sofabaton",
+  "description": "Indigo plugin for Sofabaton X2 universal remote hub via MQTT",
+  "version": "1.0.0",
+  "author": "simons-plugins",
+  "homepage": "https://github.com/simons-plugins/indigo-sofabaton",
+  "skills": []
+}
