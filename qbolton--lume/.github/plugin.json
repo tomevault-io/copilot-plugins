@@ -1,0 +1,9 @@
+{
+  "name": "qbolton--lume",
+  "displayName": "lume",
+  "description": "Modular content evaluation and curation engine \u2014 config-driven pipeline for scoring, categorizing, and filtering content against niche definitions",
+  "version": "1.0.0",
+  "author": "qbolton",
+  "homepage": "https://github.com/qbolton/lume",
+  "skills": []
+}
