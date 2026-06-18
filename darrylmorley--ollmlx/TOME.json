@@ -1,0 +1,44 @@
+{
+  "name": "ollmlx",
+  "owner": "darrylmorley",
+  "repo": "ollmlx",
+  "description": "Run local LLMs on Apple Silicon via [mlx-lm](https://github.com/ml-explore/mlx-examples/tree/main/llms/mlx_lm). Menubar app + CLI with an OpenAI-compatible API on `localhost:11434`.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/darrylmorley/ollmlx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T04:47:18Z"
+}
