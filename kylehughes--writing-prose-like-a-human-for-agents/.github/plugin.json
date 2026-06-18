@@ -1,0 +1,9 @@
+{
+  "name": "kylehughes--writing-prose-like-a-human-for-agents",
+  "displayName": "writing-prose-like-a-human-for-agents",
+  "description": "A skill and subagent that help AI agents write and edit prose that doesn't read like AI.",
+  "version": "1.0.0",
+  "author": "kylehughes",
+  "homepage": "https://github.com/kylehughes/writing-prose-like-a-human-for-agents",
+  "skills": []
+}
