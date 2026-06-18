@@ -1,0 +1,9 @@
+{
+  "name": "getpeek--peek",
+  "displayName": "peek",
+  "description": "The peek application",
+  "version": "1.0.0",
+  "author": "getpeek",
+  "homepage": "https://github.com/getpeek/peek",
+  "skills": []
+}
