@@ -1,0 +1,9 @@
+{
+  "name": "tumma72--mlx-manager",
+  "displayName": "mlx-manager",
+  "description": "An optimized MLX (Apple Silicon Metal) Server for running local LLMs with higher performance inference using KV cache, batching, and parallel processing. Easy to configure UI and support for both Open",
+  "version": "1.0.0",
+  "author": "tumma72",
+  "homepage": "https://github.com/tumma72/mlx-manager",
+  "skills": []
+}
