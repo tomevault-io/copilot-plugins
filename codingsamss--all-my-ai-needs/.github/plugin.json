@@ -1,0 +1,9 @@
+{
+  "name": "codingsamss--all-my-ai-needs",
+  "displayName": "all-my-ai-needs",
+  "description": "Claude Code + Codex \u53cc\u5e73\u53f0 AI dotfiles\uff1a\u7edf\u4e00\u7ba1\u7406 skills/agents/hooks\uff0c\u5e76\u4e00\u952e\u540c\u6b65\u5230 ~/.claude \u4e0e ~/.codex\u3002",
+  "version": "1.0.0",
+  "author": "codingSamss",
+  "homepage": "https://github.com/codingSamss/all-my-ai-needs",
+  "skills": []
+}
