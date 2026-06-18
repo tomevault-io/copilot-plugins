@@ -1,0 +1,9 @@
+{
+  "name": "sso-ss--vibe-ship-it",
+  "displayName": "vibe-ship-it",
+  "description": "AI skills and agents that help designers vibe-code their ideas to life. 14 skills, 4 agents, 3 platforms. Works with VS Code Copilot, Claude Code, and OpenAI Codex. Includes a DESIGN.md generator that",
+  "version": "1.0.0",
+  "author": "sso-ss",
+  "homepage": "https://github.com/sso-ss/vibe-ship-it",
+  "skills": []
+}
