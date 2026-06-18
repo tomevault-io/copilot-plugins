@@ -1,0 +1,44 @@
+{
+  "name": "ableton-lom-skill",
+  "owner": "mikecfisher",
+  "repo": "ableton-lom-skill",
+  "description": "Ableton Live Object Model (LOM) API reference skill for Claude Code - covers Live 12.3 Remote Script development",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mikecfisher/ableton-lom-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T05:06:15Z"
+}
