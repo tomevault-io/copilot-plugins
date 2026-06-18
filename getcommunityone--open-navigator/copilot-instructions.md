@@ -1,15 +1,42 @@
-## calendar-year-json-strings
+## dbt-isolated-venv
 
-> Calendar years in JSON must be strings (manifests, APIs), not int.
+> dbt uses a separate virtualenv (.venv-dbt), not the main .venv
 
 
-# Calendar years as strings (project-wide)
+# dbt isolated environment (this repo)
 
-- In **JSON** (scraped meetings `_manifest.json` `pdfs[].year`, API bodies, seed JSON), use a **four-digit string** (`"2026"`), not a JSON number (`2026`).
-- **Python**: `json.dumps` will still emit strings if you build dicts with `str(year)` at the boundary. Folder paths may use `Path(..., str(y))` with `y` as `int` internally.
-- **TypeScript**: Treat imported JSON years as `string` so literals are not widened to `number`.
-- **Postgres / Neon**: use `VARCHAR(4)` (or `TEXT`) for calendar, tax, filing, and shapefile `vintage_year` labels in bronze and public search tables; keep true counts (`org_year_count`, headcounts) as `INTEGER`.
-- **Do not** store bare calendar years as `INTEGER` in new warehouse columns unless the column is part of a date type or analytics that truly needs arithmetic; prefer `TEXT` / `VARCHAR(4)` for `calendar_year` labels.
+- **Do not** assume `dbt` is on `PATH` or installed in the main **`.venv`**. It usually is not.
+- dbt is kept in a **dedicated venv** at **`.venv-dbt/`** because `dbt-postgres` conflicts with protobuf/pathspec used elsewhere (`requirements-dbt.txt` explains this). **Do not** `pip install` dbt into `.venv` alongside the main app requirements.
+
+**First-time setup (repo root):**
+
+```bash
+./scripts/datasources/openstates/setup_dbt_venv.sh
+```
+
+**Run dbt (repo root):**
+
+The real project lives under **`dbt_project/`**. Prefer **`./scripts/dbt.sh`** (runs inside `dbt_project/` and sets **`DBT_PROFILES_DIR`** so `dbt_project/profiles.yml` is used, not `~/.dbt`).
+
+If you run **`.venv-dbt/bin/dbt` from the repo root** (root `dbt_project.yml` for Cursor), you **must** point profiles at the same place or dbt will use **`~/.dbt/profiles.yml`** and load seeds / build models on the **wrong database** (overrides never show up in Neon):
+
+```bash
+export DBT_PROFILES_DIR="$(pwd)/dbt_project"
+.venv-dbt/bin/dbt seed --select jurisdiction_website_url_overrides
+.venv-dbt/bin/dbt run --select int_jurisdiction_websites
+```
+
+Or use **`./scripts/dbt-root.sh`** (same as above, from repo root). For the nested project only:
+
+```bash
+.venv-dbt/bin/dbt run --project-dir dbt_project --select <model>
+```
+
+Use **`.venv-dbt/bin/dbt`** (or `python` from that venv) for `dbt run`, `dbt compile`, `dbt test`, etc. Add `--profiles-dir` if the project’s `profiles.yml` is not next to `dbt_project`.
+
+When changing **`models` / `seeds` / `snapshots` / `vars`** in `dbt_project/dbt_project.yml`, mirror the same blocks in the root **`dbt_project.yml`** wrapper (or only edit the nested file and copy those sections over).
+
+When suggesting commands to the user, **prefer the full path** `.venv-dbt/bin/dbt` so copy-paste works without activating a venv.
 
 ---
 > Source: [getcommunityone/open-navigator](https://github.com/getcommunityone/open-navigator) — distributed by [TomeVault](https://tomevault.io).
