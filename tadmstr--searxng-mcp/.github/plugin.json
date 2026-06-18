@@ -1,0 +1,9 @@
+{
+  "name": "tadmstr--searxng-mcp",
+  "displayName": "searxng-mcp",
+  "description": "Private web search MCP: SearXNG metasearch \u2192 ML reranking \u2192 4-tier fetch cascade (Firecrawl / Crawl4AI / raw / Wayback) with per-domain learning, Ollama query expansion and synthesis. No cloud APIs.",
+  "version": "1.0.0",
+  "author": "TadMSTR",
+  "homepage": "https://github.com/TadMSTR/searxng-mcp",
+  "skills": []
+}
