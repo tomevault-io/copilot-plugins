@@ -1,0 +1,44 @@
+{
+  "name": "mlx-manager",
+  "owner": "tumma72",
+  "repo": "mlx-manager",
+  "description": "An optimized MLX (Apple Silicon Metal) Server for running local LLMs with higher performance inference using KV cache, batching, and parallel processing. Easy to configure UI and support for both OpenAI and Anthropic protocols",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tumma72/mlx-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T16:41:50Z"
+}
