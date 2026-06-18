@@ -1,0 +1,9 @@
+{
+  "name": "divitmittal--tidalcycles-nix",
+  "displayName": "tidalcycles-nix",
+  "description": "Comprehensive standalone Nix flake providing a home-manager module for TidalCycles live coding environment",
+  "version": "1.0.0",
+  "author": "DivitMittal",
+  "homepage": "https://github.com/DivitMittal/tidalcycles-nix",
+  "skills": []
+}
