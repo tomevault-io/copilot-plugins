@@ -1,0 +1,9 @@
+{
+  "name": "sirredbeard--garmin-data-export",
+  "displayName": "garmin-data-export",
+  "description": "Extract all available data from Garmin Connect into LLM-readable data",
+  "version": "1.0.0",
+  "author": "sirredbeard",
+  "homepage": "https://github.com/sirredbeard/garmin-data-export",
+  "skills": []
+}
