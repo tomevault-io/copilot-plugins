@@ -1,0 +1,9 @@
+{
+  "name": "jqnatividad--csv-nose",
+  "displayName": "csv-nose",
+  "description": "Detecting CSV file dialects by Table Uniformity Measurement and Data Type Inference",
+  "version": "1.0.0",
+  "author": "jqnatividad",
+  "homepage": "https://github.com/jqnatividad/csv-nose",
+  "skills": []
+}
