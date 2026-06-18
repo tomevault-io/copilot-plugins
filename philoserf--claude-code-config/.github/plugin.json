@@ -1,0 +1,9 @@
+{
+  "name": "philoserf--claude-code-config",
+  "displayName": "claude-code-config",
+  "description": "Comprehensive Claude Code configuration with agents, skills, hooks, and automation",
+  "version": "1.0.0",
+  "author": "philoserf",
+  "homepage": "https://github.com/philoserf/claude-code-config",
+  "skills": []
+}
