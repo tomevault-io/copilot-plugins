@@ -1,0 +1,9 @@
+{
+  "name": "simons-plugins--heatmiser",
+  "displayName": "heatmiser",
+  "description": "Indigo plugin for Heatmiser Neo thermostats and smart plugs",
+  "version": "1.0.0",
+  "author": "simons-plugins",
+  "homepage": "https://github.com/simons-plugins/heatmiser",
+  "skills": []
+}
