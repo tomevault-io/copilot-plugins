@@ -1,0 +1,9 @@
+{
+  "name": "paladini--mcp-me",
+  "displayName": "mcp-me",
+  "description": "Your AI assistants don't know who you are. mcp-me fixes that: a local MCP server that gives any AI a full picture of who you are",
+  "version": "1.0.0",
+  "author": "paladini",
+  "homepage": "https://github.com/paladini/mcp-me",
+  "skills": []
+}
