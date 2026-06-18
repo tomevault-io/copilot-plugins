@@ -1,0 +1,9 @@
+{
+  "name": "rollecode--speed-reader",
+  "displayName": "speed-reader",
+  "description": "Open source speed reading tool that helps you read faster by displaying one word at a time at your eye's natural fixation point.",
+  "version": "1.0.0",
+  "author": "rollecode",
+  "homepage": "https://github.com/rollecode/speed-reader",
+  "skills": []
+}
