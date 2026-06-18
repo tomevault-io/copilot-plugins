@@ -1,0 +1,9 @@
+{
+  "name": "vlsida--cocotbext-ams",
+  "displayName": "cocotbext-ams",
+  "description": "An analog simulator bridge for cocotb \u2014 open-source mixed-signal co-simulation",
+  "version": "1.0.0",
+  "author": "VLSIDA",
+  "homepage": "https://github.com/VLSIDA/cocotbext-ams",
+  "skills": []
+}
