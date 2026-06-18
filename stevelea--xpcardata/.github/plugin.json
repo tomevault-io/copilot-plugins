@@ -1,0 +1,9 @@
+{
+  "name": "stevelea--xpcardata",
+  "displayName": "xpcardata",
+  "description": "Car Data Collection and foward to MQTT and ABRP",
+  "version": "1.0.0",
+  "author": "stevelea",
+  "homepage": "https://github.com/stevelea/xpcardata",
+  "skills": []
+}
