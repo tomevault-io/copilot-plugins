@@ -4,7 +4,7 @@
   "repo": "claude-dev-team",
   "description": "Virtual Dev Team for Claude (and by Claude)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mumit/claude-dev-team",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T19:40:24Z"
+  "distributed_at": "2026-06-18T01:17:08Z"
 }
