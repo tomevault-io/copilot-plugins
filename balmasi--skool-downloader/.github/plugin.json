@@ -1,0 +1,9 @@
+{
+  "name": "balmasi--skool-downloader",
+  "displayName": "skool-downloader",
+  "description": "Download and backup entire skool courses.",
+  "version": "1.0.0",
+  "author": "balmasi",
+  "homepage": "https://github.com/balmasi/skool-downloader",
+  "skills": []
+}
