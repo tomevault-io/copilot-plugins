@@ -1,0 +1,44 @@
+{
+  "name": "agent-library",
+  "owner": "arcadeai-labs",
+  "repo": "agent-library",
+  "description": "Agent Library personal knowledge base with a search and retrieval system MCP Server and CLI. Preconfigured local models and support for Text, images, OCR/vision, and code embeddings. Use over MCP with (Claude, Cursor, Codex, ChatGPT, etc) ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/arcadeai-labs/agent-library",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T09:21:08Z"
+}
