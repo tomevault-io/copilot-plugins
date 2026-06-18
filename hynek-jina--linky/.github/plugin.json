@@ -1,0 +1,9 @@
+{
+  "name": "hynek-jina--linky",
+  "displayName": "linky",
+  "description": "PWA for managing Lightning and Nostr contacts",
+  "version": "1.0.0",
+  "author": "hynek-jina",
+  "homepage": "https://github.com/hynek-jina/linky",
+  "skills": []
+}
