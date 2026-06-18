@@ -1,0 +1,9 @@
+{
+  "name": "saabi--colorlab",
+  "displayName": "colorlab",
+  "description": "A browser-based color science instrument for exploring RGB gamuts as interactive 3D solids, inspecting the full stimulus-to-display pipeline, and building perceptual theme ramps.",
+  "version": "1.0.0",
+  "author": "saabi",
+  "homepage": "https://github.com/saabi/colorlab",
+  "skills": []
+}
