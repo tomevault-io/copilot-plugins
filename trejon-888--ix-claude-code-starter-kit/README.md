@@ -1,0 +1,26 @@
+# ix-claude-code-starter-kit
+
+> Tome by [Trejon-888](https://github.com/Trejon-888/ix-claude-code-starter-kit) — distributed by [TomeVault](https://tomevault.io)
+
+Give Claude Code a memory, a workflow, and the ability to improve itself. 20 commands, 3 skills, 5 hooks, and a document structure for persistent AI coding sessions.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [Trejon-888/ix-claude-code-starter-kit](https://github.com/Trejon-888/ix-claude-code-starter-kit).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Trejon-888/ix-claude-code-starter-kit](https://github.com/Trejon-888/ix-claude-code-starter-kit)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
