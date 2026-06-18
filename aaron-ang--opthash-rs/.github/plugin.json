@@ -1,0 +1,9 @@
+{
+  "name": "aaron-ang--opthash-rs",
+  "displayName": "opthash-rs",
+  "description": "Optimal open-addressing hash maps (Elastic Hashing & Funnel Hashing) in Rust, with Python bindings.",
+  "version": "1.0.0",
+  "author": "aaron-ang",
+  "homepage": "https://github.com/aaron-ang/opthash-rs",
+  "skills": []
+}
