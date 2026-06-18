@@ -1,0 +1,9 @@
+{
+  "name": "dageno-agents--geo-content-writer",
+  "displayName": "geo-content-writer",
+  "description": "geo-content-writer",
+  "version": "1.0.0",
+  "author": "dageno-agents",
+  "homepage": "https://github.com/dageno-agents/geo-content-writer",
+  "skills": []
+}
