@@ -1,0 +1,9 @@
+{
+  "name": "joenhune--notebooklm-agent-skill",
+  "displayName": "notebooklm-agent-skill",
+  "description": "notebooklm-agent-skill",
+  "version": "1.0.0",
+  "author": "JoenHune",
+  "homepage": "https://github.com/JoenHune/notebooklm-agent-skill",
+  "skills": []
+}
