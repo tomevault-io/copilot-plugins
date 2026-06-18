@@ -1,0 +1,44 @@
+{
+  "name": "VVDevKit",
+  "owner": "vivy-company",
+  "repo": "VVDevKit",
+  "description": "VVDevKit is a Metal-based rendering framework for macOS/iOS with batteries included: VVCode, VVMarkdown, VVMetalPrimitives, VVChatTimeline, highlighting, Git, and LSP. Built for Aizen.win.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vivy-company/VVDevKit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T14:35:04Z"
+}
