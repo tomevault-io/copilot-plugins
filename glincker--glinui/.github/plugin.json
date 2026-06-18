@@ -1,0 +1,9 @@
+{
+  "name": "glincker--glinui",
+  "displayName": "glinui",
+  "description": "Liquid Glass UI components for React. 50+ production-ready primitives with frosted glass aesthetics, built on Radix UI + Tailwind CSS.",
+  "version": "1.0.0",
+  "author": "glincker",
+  "homepage": "https://github.com/glincker/glinui",
+  "skills": []
+}
