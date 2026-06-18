@@ -1,0 +1,9 @@
+{
+  "name": "claude-code-expert--todo-app",
+  "displayName": "todo-app",
+  "description": "Ticket+Kanban Style TODO App",
+  "version": "1.0.0",
+  "author": "claude-code-expert",
+  "homepage": "https://github.com/claude-code-expert/todo-app",
+  "skills": []
+}
