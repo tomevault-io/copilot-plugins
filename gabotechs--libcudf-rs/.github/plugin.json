@@ -1,0 +1,9 @@
+{
+  "name": "gabotechs--libcudf-rs",
+  "displayName": "libcudf-rs",
+  "description": "Rust bindings for libcudf",
+  "version": "1.0.0",
+  "author": "gabotechs",
+  "homepage": "https://github.com/gabotechs/libcudf-rs",
+  "skills": []
+}
