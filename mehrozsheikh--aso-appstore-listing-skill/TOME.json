@@ -2,9 +2,9 @@
   "name": "aso-appstore-listing-skill",
   "owner": "Mehrozsheikh",
   "repo": "aso-appstore-listing-skill",
-  "description": "Generate high-converting App Store listings (name, subtitle, keywords, and description) using AI-powered ASO best practices in one command.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mehrozsheikh/aso-appstore-listing-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T13:51:35Z"
+  "distributed_at": "2026-06-18T20:42:26Z"
 }
