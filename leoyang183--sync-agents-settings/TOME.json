@@ -4,7 +4,7 @@
   "repo": "sync-agents-settings",
   "description": "Sync MCP server configs from Claude Code to Gemini CLI, Codex CLI, OpenCode, Kiro, and Cursor \u2014 one command, all agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Leoyang183/sync-agents-settings",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T07:02:04Z"
+  "distributed_at": "2026-06-18T12:55:00Z"
 }
