@@ -1,0 +1,9 @@
+{
+  "name": "usedetail--cli",
+  "displayName": "cli",
+  "description": "Detail's official command line tool",
+  "version": "1.0.0",
+  "author": "usedetail",
+  "homepage": "https://github.com/usedetail/cli",
+  "skills": []
+}
