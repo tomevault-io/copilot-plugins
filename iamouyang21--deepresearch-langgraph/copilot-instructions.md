@@ -1,13 +1,13 @@
-## prompts
+## runtime
 
-> Prompt 文件与变量注入
+> 运行与调试
 
-# Prompt 约定
+# 运行与调试
 
-- 所有模板放在 [src/prompts/*.md](mdc:src/prompts)。
-- 使用 `{{ VAR }}` 作为占位符；在处理时会自动转换为 LangChain 模板 `{VAR}`。
-- 可用变量示例：`CURRENT_TIME`、以及 `GraphAnnotation.State` 中的字段。
-- 变量注入由 [src/prompts/template.ts](mdc:src/prompts/template.ts) 负责，输出系统消息 + 现有 `state.messages`。
+- 开发：`yarn start`（LangGraph CLI，端口 2025，配置 [langgraph.json](mdc:langgraph.json)）。
+- TypeScript 直跑（如需要）：`nodemon --exec "node --loader ts-node/esm --experimental-specifier-resolution=node" src/bin/www.ts`。
+- 生产：`npm run build` → `node dist/...`。
+- 无扩展名导入：通过 `tsconfig.json` 的 `moduleResolution: bundler` + Node `--experimental-specifier-resolution=node` 支持。
 
 ---
 > Source: [iamouyang21/DeepResearch-Langgraph](https://github.com/iamouyang21/DeepResearch-Langgraph) — distributed by [TomeVault](https://tomevault.io).
