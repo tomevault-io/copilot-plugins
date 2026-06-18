@@ -1,0 +1,9 @@
+{
+  "name": "caspian-sun--claude-code-workflow",
+  "displayName": "claude-code-workflow",
+  "description": "AI-driven R&D workflow framework: 8-step SDLC, hard gates, @rules traceability chain. Bilingual (EN/ZH).",
+  "version": "1.0.0",
+  "author": "Caspian-Sun",
+  "homepage": "https://github.com/Caspian-Sun/claude-code-workflow",
+  "skills": []
+}
