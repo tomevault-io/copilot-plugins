@@ -1,0 +1,44 @@
+{
+  "name": "redakt",
+  "owner": "pablooliva",
+  "repo": "redakt",
+  "description": "Redakt \u2014 Open-source PII detection and anonymization wrapper around Microsoft Presidio. Web UI + REST API      for GDPR-compliant redaction before pasting content into LLMs. Designed for enterprise internal deployment.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pablooliva/redakt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-18T05:03:41Z"
+}
