@@ -1,0 +1,9 @@
+{
+  "name": "dogacel--agent-blog",
+  "displayName": "agent-blog",
+  "description": "Claude code plugin for your agents to write and publish blogs automatically from your coding sessions",
+  "version": "1.0.0",
+  "author": "Dogacel",
+  "homepage": "https://github.com/Dogacel/agent-blog",
+  "skills": []
+}
