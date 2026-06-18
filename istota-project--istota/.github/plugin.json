@@ -1,0 +1,9 @@
+{
+  "name": "istota-project--istota",
+  "displayName": "istota",
+  "description": "A server-native, multi-user AI agent that learns, grows, and remembers.",
+  "version": "1.0.0",
+  "author": "istota-project",
+  "homepage": "https://github.com/istota-project/istota",
+  "skills": []
+}
