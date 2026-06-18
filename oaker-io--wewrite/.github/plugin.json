@@ -1,0 +1,14 @@
+{
+  "name": "oaker-io--wewrite",
+  "displayName": "wewrite",
+  "description": "wewrite",
+  "version": "1.0.0",
+  "author": "oaker-io",
+  "homepage": "https://github.com/oaker-io/wewrite",
+  "skills": [
+    {
+      "name": "wewrite",
+      "description": ""
+    }
+  ]
+}
