@@ -1,0 +1,9 @@
+{
+  "name": "nandi-services--proxmox-cicd-deploy-skill",
+  "displayName": "proxmox-cicd-deploy-skill",
+  "description": "proxmox-cicd-deploy-skill",
+  "version": "1.0.0",
+  "author": "NANDI-Services",
+  "homepage": "https://github.com/NANDI-Services/proxmox-cicd-deploy-skill",
+  "skills": []
+}
