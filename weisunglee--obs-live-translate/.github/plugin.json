@@ -1,0 +1,9 @@
+{
+  "name": "weisunglee--obs-live-translate",
+  "displayName": "obs-live-translate",
+  "description": "Real-time speech-to-speech translation for OBS Studio (Windows/macOS/Linux) using the Google Gemini Live API",
+  "version": "1.0.0",
+  "author": "weisunglee",
+  "homepage": "https://github.com/weisunglee/obs-live-translate",
+  "skills": []
+}
