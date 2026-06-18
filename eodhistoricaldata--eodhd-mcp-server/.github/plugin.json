@@ -1,0 +1,9 @@
+{
+  "name": "eodhistoricaldata--eodhd-mcp-server",
+  "displayName": "EODHD-MCP-Server",
+  "description": "EODHD MCP Server for AI assistants",
+  "version": "1.0.0",
+  "author": "EodHistoricalData",
+  "homepage": "https://github.com/EodHistoricalData/EODHD-MCP-Server",
+  "skills": []
+}
