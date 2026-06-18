@@ -1,0 +1,9 @@
+{
+  "name": "kiyoshithedevil--kiyoshi-music",
+  "displayName": "kiyoshi-music",
+  "description": "A YouTube Music desktop client built with Tauri 2 + React",
+  "version": "1.0.0",
+  "author": "KiyoshiTheDevil",
+  "homepage": "https://github.com/KiyoshiTheDevil/kiyoshi-music",
+  "skills": []
+}
