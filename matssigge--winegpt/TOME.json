@@ -4,7 +4,7 @@
   "repo": "winegpt",
   "description": "Wine logger with vibes",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matssigge/winegpt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T12:59:50Z"
+  "distributed_at": "2026-06-18T08:58:59Z"
 }
