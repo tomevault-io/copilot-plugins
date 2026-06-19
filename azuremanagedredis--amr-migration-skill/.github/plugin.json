@@ -1,0 +1,9 @@
+{
+  "name": "azuremanagedredis--amr-migration-skill",
+  "displayName": "amr-migration-skill",
+  "description": "amr-migration-skill",
+  "version": "1.0.0",
+  "author": "AzureManagedRedis",
+  "homepage": "https://github.com/AzureManagedRedis/amr-migration-skill",
+  "skills": []
+}
