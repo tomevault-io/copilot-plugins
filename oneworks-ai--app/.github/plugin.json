@@ -1,0 +1,9 @@
+{
+  "name": "oneworks-ai--app",
+  "displayName": "app",
+  "description": "One Works application monorepo for AI agents, plugins, desktop, web, CLI, and Relay.",
+  "version": "1.0.0",
+  "author": "oneworks-ai",
+  "homepage": "https://github.com/oneworks-ai/app",
+  "skills": []
+}
