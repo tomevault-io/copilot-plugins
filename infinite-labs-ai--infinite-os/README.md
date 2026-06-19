@@ -7,11 +7,11 @@ Self-hosted, local-first growth analytics. Connect GA4, PostHog, Stripe, Meta, S
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Infinite-Labs-AI/infinite-os](https://github.com/Infinite-Labs-AI/infinite-os).
+Original source: `CLAUDE.md` in [Infinite-Labs-AI/infinite-os](https://github.com/Infinite-Labs-AI/infinite-os).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
