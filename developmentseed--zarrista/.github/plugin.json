@@ -1,0 +1,9 @@
+{
+  "name": "developmentseed--zarrista",
+  "displayName": "zarrista",
+  "description": "A small, prototypical zarrita-like Python Zarr implementation on top of Zarrs",
+  "version": "1.0.0",
+  "author": "developmentseed",
+  "homepage": "https://github.com/developmentseed/zarrista",
+  "skills": []
+}
