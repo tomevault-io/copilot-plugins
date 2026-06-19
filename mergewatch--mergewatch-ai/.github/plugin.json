@@ -1,0 +1,9 @@
+{
+  "name": "mergewatch--mergewatch-ai",
+  "displayName": "mergewatch.ai",
+  "description": "AI-powered PR reviews running in your Cloud. Your models, your cloud, your rules. No code stored.",
+  "version": "1.0.0",
+  "author": "mergewatch",
+  "homepage": "https://github.com/mergewatch/mergewatch.ai",
+  "skills": []
+}
