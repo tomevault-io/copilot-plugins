@@ -7,11 +7,11 @@ Catch your AI agents when they lie about what they shipped — verifies claims a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [anthony-chaudhary/dos-kernel](https://github.com/anthony-chaudhary/dos-kernel).
+Original source: `AGENTS.md` in [anthony-chaudhary/dos-kernel](https://github.com/anthony-chaudhary/dos-kernel).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
