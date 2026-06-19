@@ -4,7 +4,7 @@
   "repo": "mobile",
   "description": "The Swiss Army Knife of Offline AI. Chat, Speak, and Generate Images - Privacy First, Zero Internet. Download an LLM and use it on your mobile device. No data ever leaves your phone. Supports text-to-text, vision, text-to-image",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/off-grid-ai/mobile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T20:30:23Z"
+  "distributed_at": "2026-06-19T20:30:52Z"
 }
