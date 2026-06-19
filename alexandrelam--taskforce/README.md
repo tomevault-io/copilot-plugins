@@ -7,11 +7,11 @@ Taskforce: Parallel branches. Parallel AI. Ship 10x faster.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [alexandrelam/taskforce](https://github.com/alexandrelam/taskforce).
+Original source: `CLAUDE.md` in [alexandrelam/taskforce](https://github.com/alexandrelam/taskforce).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
