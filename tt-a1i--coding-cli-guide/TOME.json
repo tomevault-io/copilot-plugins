@@ -4,7 +4,7 @@
   "repo": "coding-cli-guide",
   "description": "Interactive deep-dive into Gemini CLI internals \u2014 150+ illustrated pages, 50+ step-by-step animations, Mermaid diagrams, and source-level walkthroughs. Built with React 19 + TypeScript + Tailwind CSS 4.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tt-a1i/coding-cli-guide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T00:45:03Z"
+  "distributed_at": "2026-06-19T07:25:40Z"
 }
