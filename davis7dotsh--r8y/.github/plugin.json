@@ -1,0 +1,9 @@
+{
+  "name": "davis7dotsh--r8y",
+  "displayName": "r8y",
+  "description": "a mono repo with a background worker to parse videos and a sveltekit fe",
+  "version": "1.0.0",
+  "author": "davis7dotsh",
+  "homepage": "https://github.com/davis7dotsh/r8y",
+  "skills": []
+}
