@@ -1,0 +1,9 @@
+{
+  "name": "jimmc414--claude-docs-monitor",
+  "displayName": "claude_docs_monitor",
+  "description": "Monitors Claude Code documentation for changes. Fetches all pages, stores snapshots in SQLite, produces unified diffs, AI-powered change digests, and config audits.",
+  "version": "1.0.0",
+  "author": "jimmc414",
+  "homepage": "https://github.com/jimmc414/claude_docs_monitor",
+  "skills": []
+}
