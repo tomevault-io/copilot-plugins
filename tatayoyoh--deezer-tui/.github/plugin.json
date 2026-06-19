@@ -1,0 +1,9 @@
+{
+  "name": "tatayoyoh--deezer-tui",
+  "displayName": "deezer-tui",
+  "description": "Deezer musics from your terminal, powered by Rust \ud83e\udd80\ud83c\udfb6",
+  "version": "1.0.0",
+  "author": "Tatayoyoh",
+  "homepage": "https://github.com/Tatayoyoh/deezer-tui",
+  "skills": []
+}
