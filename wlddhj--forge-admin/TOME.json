@@ -1,0 +1,44 @@
+{
+  "name": "forge-admin",
+  "owner": "wlddhj",
+  "repo": "forge-admin",
+  "description": "forge-admin \u662f\u4e00\u6b3e\u73b0\u4ee3\u5316\u7684\u4f01\u4e1a\u7ea7\u540e\u53f0\u7ba1\u7406\u89e3\u51b3\u65b9\u6848\uff0c\u91c7\u7528\u524d\u540e\u7aef\u5206\u79bb\u67b6\u6784\u8bbe\u8ba1\u3002\u540e\u7aef\u57fa\u4e8e Spring Boot 3.2 \u6784\u5efa\uff0c\u4f7f\u7528 MyBatis Plus \u7b80\u5316\u6570 \u636e\u64cd\u4f5c\uff0cJWT \u5b9e\u73b0\u65e0\u72b6\u6001\u8ba4\u8bc1\uff1b\u524d\u7aef\u91c7\u7528 Vue 3 + TypeScript + Element Plus \u6280\u672f\u6808\uff0c\u63d0\u4f9b\u6d41\u7545\u7684\u7528\u6237\u4f53\u9a8c\u548c\u5b8c\u5584\u7684\u7c7b\u578b\u652f\u6301\u3002  \u7cfb\u7edf\u5185\u7f6e\u5b8c\u6574\u7684\u6743\u9650\u7ba1\u7406\u6a21\u5757\uff0c\u652f\u6301\u7528\u6237\u3001\u89d2\u8272\u3001\u83dc\u5355\u3001\u90e8\u95e8\u7684\u5c42\u7ea7\u7ba1\u7406\uff0c\u5e76\u5b9e\u73b0\u7ec6\u7c92\u5ea6\u7684\u6570\u636e\u6743\u9650\u63a7\u5236\uff08\u5168\u90e8/\u672c\u90e8\u95e8/\u672c\u90e8\u95e8\u53ca\u4ee5\u4e0b/\u4ec5\u672c\u4eba\uff09\u3002 \u96c6\u6210 Quartz \u5b9a\u65f6\u4efb\u52a1\u8c03\u5ea6\u3001\u5728\u7ebf API \u6587\u6863\uff08Knife4j\uff09\u3001\u64cd\u4f5c\u65e5\u5fd7\u5ba1\u8ba1\u3001\u767b\u5f55\u65e5\u5fd7\u7b49\u4f01\u4e1a\u7ea7\u529f\u80fd\u3002\u652f\u6301 Docker \u5bb9\u5668\u5316\u90e8\u7f72\uff0c\u63d0\u4f9b\u9879\u76ee\u6a21\u677f\u5316\u5de5\u5177\uff0c\u53ef\u5feb\u901f\u57fa\u4e8e\u6b64\u9879\u76ee\u521b\u5efa\u65b0\u7684\u7ba1\u7406\u7cfb\u7edf\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wlddhj/forge-admin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T23:24:49Z"
+}
