@@ -1,0 +1,9 @@
+{
+  "name": "alxsuv--pino",
+  "displayName": "pino",
+  "description": "Anthropic API reverse proxy with prompt-cache injection and request body transforms",
+  "version": "1.0.0",
+  "author": "alxsuv",
+  "homepage": "https://github.com/alxsuv/pino",
+  "skills": []
+}
