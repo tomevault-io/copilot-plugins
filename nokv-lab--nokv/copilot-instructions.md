@@ -1,0 +1,44 @@
+## nokv
+
+> Copyright 2024-2026 The NoKV Authors.
+
+<!--
+Copyright 2024-2026 The NoKV Authors.
+SPDX-License-Identifier: Apache-2.0
+-->
+
+# Agent Review Instructions
+
+This repository uses `docs/development/code_contract.md` as the source of truth
+for Rust package boundaries, naming, errors, metrics, tests, DCO, and storage
+safety review.
+
+Before reviewing or editing a PR:
+
+1. Read `docs/development/code_contract.md`.
+2. Use `docs/development/pr_review_checklist.md`.
+3. Inspect the real changed files before relying on README or design docs.
+4. Report findings first, ordered by severity.
+
+Check for:
+
+- Scope drift across `nokv-types`, `nokv-meta`, `nokv-object`,
+  `nokv-client`, `nokv-fuse`, docs, and example files.
+- Missing DCO `Signed-off-by` trailers.
+- Package-boundary violations.
+- New helpers that reimplement standard library or existing repository helpers.
+- Misuse of `utils/` for domain-specific or single-use code.
+- Misplaced errors, metrics, stats, validation, recovery, or encoding code.
+- Vague file names, type names, interface names, or function names.
+- Redundant forwarding wrappers or compatibility shims.
+- Metadata durability, object-reference lifetime, watch/snapshot retention, or
+  GC ambiguity.
+- Missing regression, integration, recovery, or benchmark evidence.
+
+Do not suggest compatibility shims by default. NoKV accepts breaking changes
+when they remove ambiguity or reduce long-term maintenance cost. If a
+compatibility path is necessary, require a removal condition.
+
+---
+> Source: [NoKV-Lab/NoKV](https://github.com/NoKV-Lab/NoKV) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-19 -->
