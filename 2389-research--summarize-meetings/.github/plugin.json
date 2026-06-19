@@ -1,0 +1,9 @@
+{
+  "name": "2389-research--summarize-meetings",
+  "displayName": "summarize-meetings",
+  "description": "Batch-process meeting transcripts from Obsidian vault into structured summaries with knowledge graph updates, people notes, and concept extraction",
+  "version": "1.0.0",
+  "author": "2389-research",
+  "homepage": "https://github.com/2389-research/summarize-meetings",
+  "skills": []
+}
