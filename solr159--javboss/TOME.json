@@ -1,0 +1,44 @@
+{
+  "name": "JavBoss",
+  "owner": "Solr159",
+  "repo": "JavBoss",
+  "description": "Local video & JAV movie manager | \u5f00\u7bb1\u5373\u7528\u7684\u672c\u5730 JAV/\u89c6\u9891 \u522e\u524a\u3001\u7ba1\u7406\u3001\u64ad\u653e\u5de5\u5177\uff0c\u53ea\u9700\u7b80\u5355\u6dfb\u52a0\u76ee\u5f55\uff0c\u4ece\u6b64\u544a\u522b\u6742\u4e71\u7684\u672c\u5730\u6587\u4ef6\u5939\uff0c\u6253\u9020\u4f60\u7684\u79c1\u4eba JAV/\u89c6\u9891 \u5a92\u4f53\u5e93\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Solr159/JavBoss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T14:54:33Z"
+}
