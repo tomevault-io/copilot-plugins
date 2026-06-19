@@ -4,7 +4,7 @@
   "repo": "Wiki",
   "description": "\u4e0e LLM \u4e00\u8d77\u7ef4\u62a4\u7684\u77e5\u8bc6\u5e93\uff0c\u4f9b FrontAgent \u589e\u5f3a\u68c0\u7d22\u751f\u6210 | Knowledge base for FrontAgent RAG",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ceilf6/Wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T19:04:02Z"
+  "distributed_at": "2026-06-19T01:11:37Z"
 }
