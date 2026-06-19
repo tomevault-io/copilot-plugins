@@ -2,16 +2,15 @@
 
 > Sourced from [airscripts/agentskill](https://github.com/airscripts/agentskill) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-Let any agent produce code indistinguishable from the existing codebase.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [airscripts/agentskill](https://github.com/airscripts/agentskill).
+Original source: `` in [airscripts/agentskill](https://github.com/airscripts/agentskill).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
