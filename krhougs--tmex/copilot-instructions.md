@@ -1,0 +1,77 @@
+## tmex
+
+> - 本项目使用Bun.js作为js运行时，代码不兼容Node.js，如果你在调试过程中没有找到`bun`，请先尝试读取`.zshrc`中的PATH。
+
+# AGENTS.md
+
+- 本项目使用Bun.js作为js运行时，代码不兼容Node.js，如果你在调试过程中没有找到`bun`，请先尝试读取`.zshrc`中的PATH。
+-
+- 本项目的开发人员均使用简体中文（中国大陆）交流，请使用简体中文（中国大陆）回答。变量命名原则上应使用标准英语，涉及到中国大陆特有的业务场景时，可以适当使用拼音。
+- 代码中除非对应业务逻辑或算法过于复杂，否则请避免出现不必要的注释。
+- LLM思考过程应尽量用中文展示。
+- **严禁触碰本机生产环境的 tmex**：即用户系统安装的常驻服务（launchd 守护，监听 9883）及其安装目录 `~/Library/Application Support/tmex/`（含 `resources/`、`data/tmex.db`、`app.env`、runtime 产物）。禁止写入/覆盖/删除其中任何文件、禁止 kill 或重启服务进程。验证代码改动一律在仓库内起临时实例（显式覆盖 `TMEX_FE_DIST_DIR`、`GATEWAY_PORT`、`TMEX_BIND_HOST` 等被 shell 继承的 app.env 变量）；生产更新只走正式发版 + `npx tmex-cli@version upgrade`（终端执行，`version` 替换为目标版本号或 `latest`），由用户自行执行。
+- **三套环境（`NODE_ENV` = development / test / production）**：开发服务器走 `development`（仓库根 `development.env`），所有测试走 `test`（仓库根 `test.env`），`production` 仅限打包安装的常驻服务（变量来自安装版 `app.env` + `run.sh`，绝不读仓库 env 文件）。配置由共享加载器 `packages/shared/src/env/load-env.ts` 的 `loadEnv()` 在应用启动时统一加载；它是 Node-only，**不要从 `@tmex/shared` 浏览器侧主入口导出**（否则进前端 bundle 报 `node:fs externalized`），Node 侧一律相对 import。前端（vite）只读 `TMEX_GATEWAY_URL`/`FE_PORT` 两个非密钥接线值，**不加载后端 env**。个人临时覆盖写 `*.env.local`（已 gitignore）。详见 `docs/env/2026061301-three-tier-env.md`。
+- **实测（live integration）**：打真实 endpoint 的测试（LLM / 搜索）用 `*.integration.ts` 命名，默认 `bun test` 不发现，只由 `test:live:*` 脚本显式跑；凭证只放 `test.env.local`，缺失时守卫 `requireLiveEnv`/`requireAnyLiveEnv` 报错退出（exit 1），不退化成测试 fail。详见 `docs/testing/2026061302-live-integration-tests.md`。
+- **永远不要对生成文件跑 lint / format / fix**：包括但不限于 `packages/shared/src/i18n/resources.ts`、`packages/shared/src/i18n/types.ts`、任何 `resources/fe-dist/*`、`dist/*`、`node_modules/*`、`.wasm` 产物。生成文件由对应脚本重建（如 `bun run build:i18n`），人为 lint/format 只会和下一次生成结果打架。如果看到这些文件在 `git status` 里变化，要么是脚本刚跑过，要么是上游源文件被改了——先判断是否属于当前任务范围，不属于就 revert。
+- 必要的skills:
+  - using-superpowers
+  - brainstorming
+- 使用Plan Mode生成计划，或尝试实现计划时：
+  - plan中需要介绍背景和注意事项（如参考特定旧分支），方便没有上下文的情况重新开启任务
+  - 在 `prompt-archives` 文件夹按照现有规则创建文件夹，文件夹名称应该用英文清晰、简短地概括文档内容，同时使用日期+数字编号，如`2026020900-migration-continue`，并创建对应的plan-prompt.md文件，并将prompt存档到该文件中（包括后续对话的prompt）
+  - 生成的plan也应该存档到到上述文件夹中，如`plan-00.md`
+  - plan实现完成后需要将执行结果的总结存档到到上述文件夹中，如`plan-00-result.md`
+  - 永远记住：**先存档，再干活**
+- 写文档：
+  - 在 `docs` 文件夹中按照模块创建文件夹来管理文档，文档文件名应该用英文清晰、简短地概括文档内容，同时使用日期+数字编号，如`2026020900-migration-continue`
+  - 文档内容应该同时使用简体中文（中国大陆）编写，使用markdown格式，并使用中文标点符号
+  - 文档的预期受众为技术人员，应使用简洁、专业的语言，尽量使用专业术语，避免使用过于复杂的句式和词汇
+  - 原则上文档应包含背景、目标、设计思路、任务清单、验收标准、风险评估、迁移计划、注意事项等内容，但内容应由实际情况决定，不要生搬硬套。
+  - 文档的阅读门槛保持在初级工程师水平，只写专业、必要的文档，不要写无用、重复、冗余的文档（和不要在代码中加入不必要的注释一个道理）。
+
+## 执行原则（重要）
+
+## **始终参考代码和文档，禁止猜测**
+
+- 每次使用各种库的 API 前，必须查阅源码 docs.rs 或 Context7 文档
+- 不确定的 API 行为、参数、返回类型必须先验证
+- 遇到文档不明确的情况，优先查看源码或示例
+- **查找依赖代码的优先顺序**：
+  1. 本地包管理器的缓存
+  2. 网络搜索（注意版本匹配）
+
+## Skills 管理（重要）
+
+- 本项目的 skills 统一使用 `npx skills` 管理，禁止再使用/提及 `skill-installer`。
+- 常用命令（按需选择项目级或全局）：
+  - 列表：`npx --yes skills list`（全局：`npx --yes skills list -g`）
+  - 搜索：`npx --yes skills find <keyword>`
+  - 安装：`npx --yes skills add <owner/repo@skill> -y`（全局：加 `-g`）
+  - 移除：`npx --yes skills remove <skillName> -y`
+  - 检查更新：`npx --yes skills check`
+  - 更新：`npx --yes skills update`
+- 注意：安装第三方 skills 前先审阅来源与内容，避免引入不受控的执行逻辑。
+
+## 遇到以下情况请**全局分析代码并结合上下文结构性思考解决方案**，并在不影响进度的前提下将解决方案和风险及时输出
+
+- 发现 API 与预期不符或文档有歧义
+- 遇到无法自动解决的编译错误
+- 业务逻辑迁移存在多种实现方式且影响较大
+- 数据模型映射存在不确定性（如枚举值、JSON 结构）
+- 缺少必要的数据结构、枚举、关系定义等
+- 性能敏感的查询需要确认优化方案
+
+## **透明沟通**
+
+- 明确说明当前进度和遇到的问题
+- 提供足够的上下文信息供决策
+- 不隐藏不确定性，不做假设性推进
+
+## 保持专业、高效执行
+
+- 尽量一次性完成任务，不要老扯什么工作量大，如果觉得工作量大就自己开subagent拆解任务，停下来就是浪费所有人的时间。
+- **严禁有任何偷懒行为，包括但不限于不想做、留todo、先写简单版本、因为暂时解决不了编译问题乱改代码结构等等**
+
+---
+> Source: [krhougs/tmex](https://github.com/krhougs/tmex) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-18 -->
