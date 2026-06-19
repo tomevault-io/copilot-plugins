@@ -1,0 +1,9 @@
+{
+  "name": "ecmwf--tensogram",
+  "displayName": "tensogram",
+  "description": "A library for encoding and decoding binary scientific data with embedded semantic metadata in a network-transmissible binary message format.",
+  "version": "1.0.0",
+  "author": "ecmwf",
+  "homepage": "https://github.com/ecmwf/tensogram",
+  "skills": []
+}
