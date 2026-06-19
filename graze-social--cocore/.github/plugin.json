@@ -1,0 +1,9 @@
+{
+  "name": "graze-social--cocore",
+  "displayName": "cocore",
+  "description": "co/core is a place where people share the compute they already own to run AI for each other, instead of renting from a handful of giant providers",
+  "version": "1.0.0",
+  "author": "graze-social",
+  "homepage": "https://github.com/graze-social/cocore",
+  "skills": []
+}
