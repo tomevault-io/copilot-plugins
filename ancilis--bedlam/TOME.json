@@ -4,7 +4,7 @@
   "repo": "bedlam",
   "description": "Open-source agent orchestration platform with stigmergic coordination, AOA heartbeats, dynamic model routing, and custom agent personas. Fork of Paperclip, used to build Ancilis.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ancilis/bedlam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T22:44:36Z"
+  "distributed_at": "2026-06-19T22:45:41Z"
 }
