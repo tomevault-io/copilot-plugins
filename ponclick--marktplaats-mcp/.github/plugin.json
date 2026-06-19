@@ -1,0 +1,9 @@
+{
+  "name": "ponclick--marktplaats-mcp",
+  "displayName": "marktplaats-mcp",
+  "description": "MCP server for searching Marktplaats.nl via AI assistants",
+  "version": "1.0.0",
+  "author": "PonClick",
+  "homepage": "https://github.com/PonClick/marktplaats-mcp",
+  "skills": []
+}
