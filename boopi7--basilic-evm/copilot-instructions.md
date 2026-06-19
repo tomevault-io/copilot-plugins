@@ -1,129 +1,150 @@
-## nextjs
+## ponder
 
-> Next.js development standards and patterns
+> Ponder indexing standards and Rules
 
-# Next.js Rules
+# Ponder Rules
 
-## **Core Principles**
-- **Default to Server Components** for better performance.
-- **Minimize `'use client'` directives** to leverage SSR benefits.
-- Follow **App Router patterns and conventions**.
-- **Handle errors properly** using `error.tsx` and **error boundaries**.
-- Use **Next.js 15 built-in components** (`Image`, `Link`, `Script`, `Head`, etc.).
-- Optimize **Web Vitals** (`LCP`, `CLS`, `FID`).
+- **Use the latest Ponder package** (no `@ponder/core`).
+- **Define clear indexing strategies** tailored to your use case.
+- **Optimize queries** by using proper indexing and query functions.
+- **Leverage Ponder’s API** for efficient event processing and querying.
+- **Structure event handlers efficiently** to minimize processing time.
 
-### **Key Conventions**
-- Use **`nuqs`** for URL search parameter state management.
-- **Limit `'use client'`**:
-  - Favor **Server Components** and **Next.js SSR**.
-  - Use only for **Web API access in small components**.
-  - Avoid for **data fetching or state management**.
+## Ponder Configuration (`ponder.config.ts`)
 
----
+- **Define networks and transports** using `http()` from `viem`.
+- **Specify contracts** with `abi`, `network`, `address`, and `startBlock`.
 
-## **Component Architecture**
-```tsx
-// Prefer Server Components by default
-export function ServerComponent() {
-  return (
-    <section className="space-y-4">
-      <h1>Server Rendered</h1>
-      <ClientComponent />
-    </section>
-  )
-}
+```ts
+import { createConfig } from "ponder";
+import { http } from "viem";
 
-// Use 'use client' only when necessary
-'use client'
-function ClientComponent() {
-  const [state, setState] = useState(false)
-  return <button onClick={() => setState(!state)}>Toggle</button>
-}
+import { UniswapV3FactoryAbi } from "./abis/UniswapV3Factory";
+
+export default createConfig({
+  networks: {
+    mainnet: {
+      chainId: 1,
+      transport: http(process.env.MAINNET_RPC_URL!),
+    },
+    polygon: {
+      chainId: 137,
+      transport: http(process.env.POLYGON_RPC_URL!),
+    },
+  },
+  contracts: {
+    UniswapV3Factory: {
+      abi: UniswapV3FactoryAbi,
+      network: "mainnet",
+      address: "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+      startBlock: 12369621,
+    },
+  },
+});
 ```
 
----
+## Schema Design (`ponder.schema.ts`)
 
-## **Data Fetching**
-- **Use Server Components** for data fetching.
-- **Implement proper caching strategies**.
-- **Handle loading and error states**.
-- **Use revalidation patterns** to optimize freshness.
+- **Define tables with `onchainTable()`** and use meaningful primary keys.
+- **Use indexed fields** for efficient lookups.
 
----
+```ts
+import { onchainTable, primaryKey, index } from "ponder";
 
-## **Server Actions**
-```tsx
-'use server'
-import { type ActionResult, success, failure } from '@repo/next'
-import { createSafeActionClient } from 'next-safe-action'
-
-export const saveAction = createSafeActionClient()
-  .schema(actionSchema)
-  .action(async ({ parsedInput }): Promise<ActionResult<T>> => {
-    try {
-      // Happy path
-      return success(result)
-    } catch (error) {
-      return failure({
-        code: 'UNEXPECTED_ERROR',
-        error,
-        label: 'saveAction'
-      })
-    }
+export const allowances = onchainTable(
+  "allowances",
+  (t) => ({
+    owner: t.hex(),
+    spender: t.hex(),
+    amount: t.bigint(),
+  }),
+  (table) => ({
+    pk: primaryKey({ columns: [table.owner, table.spender] }),
+    ownerIdx: index().on(table.owner),
   })
+);
 ```
 
----
+## Event Handling
 
-## **Performance Patterns**
-```tsx
-// Use Image component with proper sizing
-import { Image } from 'next/image'
+- **Use `ponder.on()` to register event handlers.**
+- **Destructure event and context parameters** for better readability.
+- **Handle errors gracefully** using `try/catch`.
 
-export function OptimizedImage() {
-  return (
-    <Image
-      src="/hero.webp"
-      alt="Hero"
-      width={1200}
-      height={630}
-      priority={true}
-      className="w-full"
-    />
-  )
-}
+```ts
+import { ponder } from "ponder:registry";
 
-// Use Suspense for loading states
-export function LazyComponent() {
-  return (
-    <Suspense fallback={<LoadingSkeleton />}>
-      <ExpensiveComponent />
-    </Suspense>
-  )
-}
+ponder.on("UniswapV3Factory:PoolCreated", async ({ event, context }) => {
+  const { args, log } = event;
+  const { db, client, contracts } = context;
+
+  try {
+    const poolAddress = args.pool;
+    const token0 = await client.readContract({
+      abi: contracts.UniswapV3Factory.abi,
+      address: poolAddress,
+      functionName: "token0",
+    });
+
+    await db.insert(pools).values({
+      id: poolAddress,
+      token0,
+    });
+  } catch (error) {
+    console.error(`Error processing PoolCreated event: ${error}`);
+  }
+});
 ```
 
----
+## Database Operations
 
-## **Next.js Optimizations**
-- **Use App Router** with `nuqs` for efficient navigation and state management.
-- **Implement streaming** with `Suspense` for progressive loading.
-- **Follow proper caching strategies**:
-  - Use `fetch` cache options appropriately.
-  - Implement **revalidation when needed**.
-- **Minimize `'use client'`**, `'useEffect'`, and `'setState'` in favor of **React Server Components (RSC)**.
-- **Wrap client components** in `Suspense` with a fallback.
-- **Use dynamic loading** for non-critical components.
-- **Optimize images**:
-  - Use **WebP format**.
-  - Include **size data**.
-  - Implement **lazy loading**.
+- **Read data** using `db.select()` or `db.query()` for complex queries.
+- **Write data** using `db.insert()` or `db.update()`.
+- **Always handle null cases** to avoid runtime errors.
 
----
+```ts
+const asset = await db.select().from(assets).where(eq(assets.id, id)).limit(1);
+if (!asset) {
+  // Handle missing asset case
+}
 
-## **UI & Styling**
-- **Use Shadcn UI, Radix, and Tailwind** for components and styling.
-- **Implement responsive design** with **Tailwind CSS** using a **mobile-first approach**.
+await db.insert(assets).values({
+  id,
+  name,
+  symbol,
+  decimals,
+  chainId,
+  address: tokenAddress,
+});
+```
+
+## Performance Optimization
+
+- **Cache frequently accessed data** to avoid redundant queries.
+- **Batch database operations** to reduce execution time.
+- **Index fields appropriately** to speed up queries.
+
+```ts
+// Check cache before querying the database
+const cachedAsset = await cache.get(assetId);
+if (cachedAsset) return cachedAsset;
+
+// Batch insert operations
+await db.insert(assets).values([
+  { id: '1', name: 'Asset1' },
+  { id: '2', name: 'Asset2' },
+]);
+```
+
+## Logging
+
+- **Log important events and errors** for debugging.
+- **Use structured logging** for better tracking.
+
+```ts
+console.log(`[Event] PoolCreated: ${poolAddress}`);
+console.error(`Error: ${error.message}`, { stack: error.stack });
+```
 
 ---
 > Source: [Boopi7/basilic-evm](https://github.com/Boopi7/basilic-evm) — distributed by [TomeVault](https://tomevault.io).
