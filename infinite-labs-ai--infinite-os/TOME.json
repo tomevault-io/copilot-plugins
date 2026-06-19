@@ -4,7 +4,7 @@
   "repo": "infinite-os",
   "description": "Self-hosted, local-first growth analytics. Connect GA4, PostHog, Stripe, Meta, Shopify & X \u2014 then ask your data anything in plain English.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Infinite-Labs-AI/infinite-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T15:02:08Z"
+  "distributed_at": "2026-06-19T15:02:38Z"
 }
