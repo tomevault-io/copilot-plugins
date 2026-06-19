@@ -4,7 +4,7 @@
   "repo": "agency-agents-app",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/msitarzewski/agency-agents-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T04:41:27Z"
+  "distributed_at": "2026-06-19T11:03:45Z"
 }
