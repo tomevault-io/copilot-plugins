@@ -1,0 +1,9 @@
+{
+  "name": "helgeklein--sambee",
+  "displayName": "sambee",
+  "description": "Browser-based file viewer and manager for SMB shares and local drives, with fast previews and Markdown editing on desktop and mobile.",
+  "version": "1.0.0",
+  "author": "helgeklein",
+  "homepage": "https://github.com/helgeklein/sambee",
+  "skills": []
+}
