@@ -1,0 +1,9 @@
+{
+  "name": "zeke--faster-chrome-devtools-skill",
+  "displayName": "faster-chrome-devtools-skill",
+  "description": "Agent skill that makes Chrome DevTools MCP faster",
+  "version": "1.0.0",
+  "author": "zeke",
+  "homepage": "https://github.com/zeke/faster-chrome-devtools-skill",
+  "skills": []
+}
