@@ -4,7 +4,7 @@
   "repo": "lathe",
   "description": "Agentic-friendly CLI generator for APIs: turn Swagger, OpenAPI, and google.api.http protos into single-binary Cobra CLIs with catalogs and generated Skills.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lathe-cli/lathe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T23:15:01Z"
+  "distributed_at": "2026-06-19T05:18:46Z"
 }
