@@ -1,0 +1,9 @@
+{
+  "name": "kevinrivm--whatsapp-crm-panel",
+  "displayName": "whatsapp-crm-panel",
+  "description": "Panel de mensajeria con CRM multicanal single-tenant (WhatsApp + IA), autoalojable en Coolify",
+  "version": "1.0.0",
+  "author": "kevinrivm",
+  "homepage": "https://github.com/kevinrivm/whatsapp-crm-panel",
+  "skills": []
+}
