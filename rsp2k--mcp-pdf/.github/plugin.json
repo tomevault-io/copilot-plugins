@@ -1,0 +1,9 @@
+{
+  "name": "rsp2k--mcp-pdf",
+  "displayName": "mcp-pdf",
+  "description": "\ud83d\udd12 Secure FastMCP server for comprehensive PDF processing - text extraction, OCR, table extraction, forms, annotations, and more",
+  "version": "1.0.0",
+  "author": "rsp2k",
+  "homepage": "https://github.com/rsp2k/mcp-pdf",
+  "skills": []
+}
