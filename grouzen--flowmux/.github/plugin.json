@@ -1,0 +1,9 @@
+{
+  "name": "grouzen--flowmux",
+  "displayName": "flowmux",
+  "description": "A terminal-native AI agent multiplexer to multiply your productivity",
+  "version": "1.0.0",
+  "author": "grouzen",
+  "homepage": "https://github.com/grouzen/flowmux",
+  "skills": []
+}
