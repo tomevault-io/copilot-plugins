@@ -1,0 +1,9 @@
+{
+  "name": "cxlinux-ai--cx-distro",
+  "displayName": "cx-distro",
+  "description": "CX Linux ISO Builder \u2014 AI-native Linux distribution. Ubuntu/Debian base with embedded LLM. Download the AI Linux OS.",
+  "version": "1.0.0",
+  "author": "cxlinux-ai",
+  "homepage": "https://github.com/cxlinux-ai/cx-distro",
+  "skills": []
+}
