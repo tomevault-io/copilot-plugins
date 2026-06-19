@@ -1,0 +1,9 @@
+{
+  "name": "plagueho--agent-voice",
+  "displayName": "agent-voice",
+  "description": "Agent Voice is a Visual Studio Code extension that uses Azure OpenAI GPT-Realtime to enable full-duplex voice control of GitHub Copilot Agents. It orchestrates real-time audio streaming, authenticatio",
+  "version": "1.0.0",
+  "author": "PlagueHO",
+  "homepage": "https://github.com/PlagueHO/agent-voice",
+  "skills": []
+}
