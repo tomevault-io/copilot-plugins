@@ -7,11 +7,11 @@ A lightweight local AI proxy that lets any AI CLI tool use third-party LLM APIs 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [keepmind9/ai-switch](https://github.com/keepmind9/ai-switch).
+Original source: `CLAUDE.md` in [keepmind9/ai-switch](https://github.com/keepmind9/ai-switch).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
