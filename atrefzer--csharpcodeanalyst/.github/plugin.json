@@ -1,0 +1,9 @@
+{
+  "name": "atrefzer--csharpcodeanalyst",
+  "displayName": "CSharpCodeAnalyst",
+  "description": "C# dependency analyzer",
+  "version": "1.0.0",
+  "author": "ATrefzer",
+  "homepage": "https://github.com/ATrefzer/CSharpCodeAnalyst",
+  "skills": []
+}
