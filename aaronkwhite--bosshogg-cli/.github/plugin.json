@@ -1,0 +1,9 @@
+{
+  "name": "aaronkwhite--bosshogg-cli",
+  "displayName": "bosshogg-cli",
+  "description": "The agent-first PostHog CLI. Query events with HogQL, manage feature flags, inspect persons and cohorts, and debug insights - from your terminal, or from Claude Code, Cursor, and other coding agents.",
+  "version": "1.0.0",
+  "author": "aaronkwhite",
+  "homepage": "https://github.com/aaronkwhite/bosshogg-cli",
+  "skills": []
+}
