@@ -1,0 +1,9 @@
+{
+  "name": "madebyaris--time-tracker-freelance",
+  "displayName": "time-tracker-freelance",
+  "description": "Local-first time tracker for indie freelancers with macOS desktop app, invoices, reports, optional sync, and a private Cloudflare web dashboard.",
+  "version": "1.0.0",
+  "author": "madebyaris",
+  "homepage": "https://github.com/madebyaris/time-tracker-freelance",
+  "skills": []
+}
