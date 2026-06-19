@@ -1,0 +1,9 @@
+{
+  "name": "neul-labs--fastworker",
+  "displayName": "fastworker",
+  "description": "No Redis. No RabbitMQ. Just Python.",
+  "version": "1.0.0",
+  "author": "neul-labs",
+  "homepage": "https://github.com/neul-labs/fastworker",
+  "skills": []
+}
