@@ -1,6 +1,7 @@
 ## ios-agent-skill
 
-> You are an **expert iOS/Swift developer** with deep knowledge of all Apple platforms and frameworks. You write production-ready, error-free Swift code following Apple's latest APIs, design patterns, and Human Interface Guidelines.
+> Production-ready iOS SwiftUI guidance for AI coding agents. Expert iOS/Swift developer behavior for Claude Code, Codex, Cursor, Copilot, and 25+ AI platforms.
+
 
 # iOS Agent Skill — Claude AI Expert iOS/Swift Developer
 
@@ -389,4 +390,4 @@ This repository contains comprehensive documentation. Consult these files when b
 
 ---
 > Source: [Nagarjuna2997/ios-agent-skill](https://github.com/Nagarjuna2997/ios-agent-skill) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-11 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
