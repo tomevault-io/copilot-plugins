@@ -1,0 +1,9 @@
+{
+  "name": "mayflower--pg-turboquant",
+  "displayName": "pg_turboquant",
+  "description": "PostgreSQL TurboQuant Index for PGVector",
+  "version": "1.0.0",
+  "author": "mayflower",
+  "homepage": "https://github.com/mayflower/pg_turboquant",
+  "skills": []
+}
