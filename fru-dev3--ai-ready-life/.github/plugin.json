@@ -1,0 +1,9 @@
+{
+  "name": "fru-dev3--ai-ready-life",
+  "displayName": "AI-Ready-Life",
+  "description": "AI Ready Life \u2014 domain plugins for personal life management (health, wealth, tax, career). Claude + Paperclip compatible.",
+  "version": "1.0.0",
+  "author": "fru-dev3",
+  "homepage": "https://github.com/fru-dev3/AI-Ready-Life",
+  "skills": []
+}
