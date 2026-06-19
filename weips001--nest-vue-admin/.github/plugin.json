@@ -1,0 +1,9 @@
+{
+  "name": "weips001--nest-vue-admin",
+  "displayName": "nest-vue-admin",
+  "description": "\ud83d\ude80 \u57fa\u4e8e NestJS + Vue 3 + Prisma + TypeScript \u7684\u5168\u6808\u540e\u53f0\u7ba1\u7406\u7cfb\u7edf\u811a\u624b\u67b6,\u53ef\u4e00\u952e\u751f\u6210\u524d\u540e\u7aef\u4ee3\u7801\u3002",
+  "version": "1.0.0",
+  "author": "weips001",
+  "homepage": "https://github.com/weips001/nest-vue-admin",
+  "skills": []
+}
