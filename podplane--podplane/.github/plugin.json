@@ -1,0 +1,9 @@
+{
+  "name": "podplane--podplane",
+  "displayName": "podplane",
+  "description": "Podplane is a Kubernetes distribution & PaaS you can deploy in a few minutes to your AWS, Google Cloud, or Proxmox VE environment",
+  "version": "1.0.0",
+  "author": "podplane",
+  "homepage": "https://github.com/podplane/podplane",
+  "skills": []
+}
