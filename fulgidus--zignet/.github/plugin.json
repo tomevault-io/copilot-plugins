@@ -1,0 +1,9 @@
+{
+  "name": "fulgidus--zignet",
+  "displayName": "zignet",
+  "description": "MCP server for Zig \u2014 AI-powered code generation, debugging, and documentation",
+  "version": "1.0.0",
+  "author": "fulgidus",
+  "homepage": "https://github.com/fulgidus/zignet",
+  "skills": []
+}
