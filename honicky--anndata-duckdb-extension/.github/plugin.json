@@ -1,0 +1,9 @@
+{
+  "name": "honicky--anndata-duckdb-extension",
+  "displayName": "anndata-duckdb-extension",
+  "description": "Attach and AnnData file in duckdb and query it with SQL.  Perform SQL over groups of AnnData files",
+  "version": "1.0.0",
+  "author": "honicky",
+  "homepage": "https://github.com/honicky/anndata-duckdb-extension",
+  "skills": []
+}
