@@ -1,0 +1,9 @@
+{
+  "name": "yeet-src--httpinspect",
+  "displayName": "httpinspect",
+  "description": "top, but for the HTTP endpoints on your host \u2014 a live dashboard of the most active plaintext HTTP endpoints, right in the terminal.",
+  "version": "1.0.0",
+  "author": "yeet-src",
+  "homepage": "https://github.com/yeet-src/httpinspect",
+  "skills": []
+}
