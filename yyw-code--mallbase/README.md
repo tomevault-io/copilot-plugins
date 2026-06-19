@@ -7,11 +7,11 @@ MallBase 是一个基于 PHP 的商城型业务基础框架，围绕 用户、�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yyw-code/MallBase](https://github.com/yyw-code/MallBase).
+Original source: `CLAUDE.md` in [yyw-code/MallBase](https://github.com/yyw-code/MallBase).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
