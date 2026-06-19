@@ -1,0 +1,9 @@
+{
+  "name": "mathruffian-dot--voxcpm2-voice-cloner",
+  "displayName": "voxcpm2-voice-cloner",
+  "description": "VoxCPM2 voice cloner with auto GPU detection (CUDA/XPU/CPU) and Ultimate Cloning support",
+  "version": "1.0.0",
+  "author": "mathruffian-dot",
+  "homepage": "https://github.com/mathruffian-dot/voxcpm2-voice-cloner",
+  "skills": []
+}
