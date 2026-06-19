@@ -1,0 +1,9 @@
+{
+  "name": "haoceyang--ifc-object-annotation",
+  "displayName": "IFC-Object-Annotation",
+  "description": "A web-based 3D viewer for reviewing and correcting IFC element type labels in BIM models",
+  "version": "1.0.0",
+  "author": "HaoceYang",
+  "homepage": "https://github.com/HaoceYang/IFC-Object-Annotation",
+  "skills": []
+}
