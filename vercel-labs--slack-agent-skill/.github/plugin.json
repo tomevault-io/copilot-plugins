@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--slack-agent-skill",
+  "displayName": "slack-agent-skill",
+  "description": "slack-agent-skill",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/slack-agent-skill",
+  "skills": []
+}
