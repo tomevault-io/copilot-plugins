@@ -7,11 +7,11 @@ Manga, web, and book reader for Japanese language study
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [classicsc/MaruReader](https://github.com/classicsc/MaruReader).
+Original source: `CLAUDE.md` in [classicsc/MaruReader](https://github.com/classicsc/MaruReader).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
