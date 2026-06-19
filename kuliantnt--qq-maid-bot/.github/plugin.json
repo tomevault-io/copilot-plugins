@@ -1,0 +1,9 @@
+{
+  "name": "kuliantnt--qq-maid-bot",
+  "displayName": "qq-maid-bot",
+  "description": "QQ \u5b98\u65b9\u673a\u5668\u4eba\u672c\u5730\u7248 Rust \u670d\u52a1",
+  "version": "1.0.0",
+  "author": "kuliantnt",
+  "homepage": "https://github.com/kuliantnt/qq-maid-bot",
+  "skills": []
+}
