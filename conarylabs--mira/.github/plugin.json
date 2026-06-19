@@ -1,0 +1,9 @@
+{
+  "name": "conarylabs--mira",
+  "displayName": "Mira",
+  "description": "A local MCP server that gives Claude Code persistent context and code intelligence. Sessions, code search, goal tracking, and background analysis \u2014 all in two SQLite files.",
+  "version": "1.0.0",
+  "author": "ConaryLabs",
+  "homepage": "https://github.com/ConaryLabs/Mira",
+  "skills": []
+}
