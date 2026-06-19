@@ -1,0 +1,9 @@
+{
+  "name": "veildb--agent",
+  "displayName": "agent",
+  "description": "agent",
+  "version": "1.0.0",
+  "author": "veildb",
+  "homepage": "https://github.com/veildb/agent",
+  "skills": []
+}
