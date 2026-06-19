@@ -4,7 +4,7 @@
   "repo": "pulp",
   "description": "Cross-platform audio plugin and application framework (in alpha). MIT licensed.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danielraffel/pulp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T12:39:56Z"
+  "distributed_at": "2026-06-19T12:58:23Z"
 }
