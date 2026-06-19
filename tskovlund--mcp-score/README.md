@@ -7,11 +7,11 @@ MCP server for AI-driven music score generation and manipulation. Natural langua
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tskovlund/mcp-score](https://github.com/tskovlund/mcp-score).
+Original source: `CLAUDE.md` in [tskovlund/mcp-score](https://github.com/tskovlund/mcp-score).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
