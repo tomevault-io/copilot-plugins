@@ -4,7 +4,7 @@
   "repo": "filler-de",
   "description": "Obsidian plugin to automatically fill in the gaps of your Deutsch",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clockblocker/filler-de",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T10:34:58Z"
+  "distributed_at": "2026-06-19T12:52:59Z"
 }
