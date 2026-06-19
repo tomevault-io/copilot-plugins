@@ -2,9 +2,9 @@
   "name": "AgentRecall-MCP",
   "owner": "Goldentrii",
   "repo": "AgentRecall-MCP",
-  "description": "AI Session Memory with Think-Execute-Reflect Quality Loops \u2014 give your agent a brain that survives every session. Built on the Intelligent Distance principle.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Goldentrii/AgentRecall-MCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T16:07:45Z"
+  "distributed_at": "2026-06-19T21:04:31Z"
 }
