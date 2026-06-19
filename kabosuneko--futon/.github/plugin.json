@@ -1,0 +1,9 @@
+{
+  "name": "kabosuneko--futon",
+  "displayName": "Futon",
+  "description": "A blazingly fast, minimalist TUI manga reader written in Go",
+  "version": "1.0.0",
+  "author": "KabosuNeko",
+  "homepage": "https://github.com/KabosuNeko/Futon",
+  "skills": []
+}
