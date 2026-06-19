@@ -1,0 +1,9 @@
+{
+  "name": "iksena--generate-cfn",
+  "displayName": "generate_cfn",
+  "description": "generate_cfn",
+  "version": "1.0.0",
+  "author": "iksena",
+  "homepage": "https://github.com/iksena/generate_cfn",
+  "skills": []
+}
