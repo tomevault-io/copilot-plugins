@@ -1,0 +1,9 @@
+{
+  "name": "abhik189--interview-prep-template",
+  "displayName": "interview-prep-template",
+  "description": "A compounding, AI-agent-maintained interview-prep wiki. Three-layer context-engineering template: drop in raw material, the agent synthesizes reusable answers, frameworks, and scored debriefs.",
+  "version": "1.0.0",
+  "author": "AbhiK189",
+  "homepage": "https://github.com/AbhiK189/interview-prep-template",
+  "skills": []
+}
