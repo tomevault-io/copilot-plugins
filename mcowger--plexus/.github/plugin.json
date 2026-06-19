@@ -1,0 +1,9 @@
+{
+  "name": "mcowger--plexus",
+  "displayName": "plexus",
+  "description": "Unified API gateway for multiple AI providers (OpenAI, Anthropic, Gemini, etc.). Switch models and providers without changing client code. Features OAuth authentication, quota tracking, embeddings, tr",
+  "version": "1.0.0",
+  "author": "mcowger",
+  "homepage": "https://github.com/mcowger/plexus",
+  "skills": []
+}
