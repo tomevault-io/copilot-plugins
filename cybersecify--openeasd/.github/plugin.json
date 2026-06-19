@@ -1,0 +1,9 @@
+{
+  "name": "cybersecify--openeasd",
+  "displayName": "OpenEASD",
+  "description": "Self-hosted external attack surface scanner. Subdomain enumeration + takeover detection, ports, CVEs, TLS, SSH, web vulns. 18 tools, 12 attack vectors, one `docker run`. MIT-licensed.",
+  "version": "1.0.0",
+  "author": "cybersecify",
+  "homepage": "https://github.com/cybersecify/OpenEASD",
+  "skills": []
+}
