@@ -1,0 +1,9 @@
+{
+  "name": "imazen--rav1d-safe",
+  "displayName": "rav1d-safe",
+  "description": "Safe SIMD fork of rav1d - Rust AV1 decoder with safe intrinsics replacing 160k lines of assembly",
+  "version": "1.0.0",
+  "author": "imazen",
+  "homepage": "https://github.com/imazen/rav1d-safe",
+  "skills": []
+}
