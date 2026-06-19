@@ -4,7 +4,7 @@
   "repo": "freelance-developer-harness",
   "description": "A Claude Code operating system for running a structured agency team. 25 specialized roles across four councils (Creative, Technical, Hardware, Delivery), enforced quality gates, PM-driven workflow, multi-client workspace governance, and per-project sprint tracking.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/10Legs/freelance-developer-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T22:51:30Z"
+  "distributed_at": "2026-06-19T04:58:43Z"
 }
