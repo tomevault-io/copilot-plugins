@@ -1,0 +1,9 @@
+{
+  "name": "openit-app--openit-app",
+  "displayName": "openit-app",
+  "description": "OpenIT \u2014 an open-source IT helpdesk powered by Claude Code. Answer once, automate forever.",
+  "version": "1.0.0",
+  "author": "openit-app",
+  "homepage": "https://github.com/openit-app/openit-app",
+  "skills": []
+}
