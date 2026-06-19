@@ -1,0 +1,9 @@
+{
+  "name": "breath103--serverless-agent",
+  "displayName": "serverless-agent",
+  "description": "demo for AWS Summit Seoul",
+  "version": "1.0.0",
+  "author": "breath103",
+  "homepage": "https://github.com/breath103/serverless-agent",
+  "skills": []
+}
