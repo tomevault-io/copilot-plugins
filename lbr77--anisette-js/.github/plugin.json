@@ -1,0 +1,9 @@
+{
+  "name": "lbr77--anisette-js",
+  "displayName": "anisette-js",
+  "description": "browser run local anisette support with js and wasm",
+  "version": "1.0.0",
+  "author": "lbr77",
+  "homepage": "https://github.com/lbr77/anisette-js",
+  "skills": []
+}
