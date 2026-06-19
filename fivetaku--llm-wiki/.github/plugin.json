@@ -1,0 +1,9 @@
+{
+  "name": "fivetaku--llm-wiki",
+  "displayName": "llm-wiki",
+  "description": "raw \uc18c\uc2a4\ub97c Claude Code\uac00 \uc704\ud0a4\ub85c \ud569\uc131\u00b7\uc720\uc9c0\ud558\ub294 \uc601\uad6c \ub9c8\ud06c\ub2e4\uc6b4 \uc9c0\uc2dd\ubca0\uc774\uc2a4 \ud15c\ud50c\ub9bf (LLM Wiki, Karpathy \ud328\ud134)",
+  "version": "1.0.0",
+  "author": "fivetaku",
+  "homepage": "https://github.com/fivetaku/llm-wiki",
+  "skills": []
+}
