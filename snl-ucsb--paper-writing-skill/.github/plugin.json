@@ -1,7 +1,7 @@
 {
   "name": "snl-ucsb--paper-writing-skill",
   "displayName": "paper-writing-skill",
-  "description": "A Claude Code skill that encodes battle-tested editorial principles, section-specific rhetorical moves, and a structured writing pipeline for research papers. Brainstorm \u2192 Draft 0 \u2192 Evaluate \u2192 Write \u2192",
+  "description": "paper-writing-skill",
   "version": "1.0.0",
   "author": "SNL-UCSB",
   "homepage": "https://github.com/SNL-UCSB/paper-writing-skill",
