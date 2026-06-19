@@ -7,11 +7,11 @@ VoxCPM2 voice cloner with auto GPU detection (CUDA/XPU/CPU) and Ultimate Cloning
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mathruffian-dot/voxcpm2-voice-cloner](https://github.com/mathruffian-dot/voxcpm2-voice-cloner).
+Original source: `AGENTS.md` in [mathruffian-dot/voxcpm2-voice-cloner](https://github.com/mathruffian-dot/voxcpm2-voice-cloner).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
