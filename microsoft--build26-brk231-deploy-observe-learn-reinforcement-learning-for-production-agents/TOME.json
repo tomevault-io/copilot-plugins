@@ -1,0 +1,44 @@
+{
+  "name": "Build26-BRK231-deploy-observe-learn-reinforcement-learning-for-production-agents",
+  "owner": "microsoft",
+  "repo": "Build26-BRK231-deploy-observe-learn-reinforcement-learning-for-production-agents",
+  "description": "Sample code for improving multi-tool AI agents using SFT distillation and reinforcement fine-tuning \u2014 Qwen3-32B RFT achieving 86.9% quality on a retail customer service agent. From Microsoft Build 2026.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/microsoft/Build26-BRK231-deploy-observe-learn-reinforcement-learning-for-production-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T12:41:32Z"
+}
