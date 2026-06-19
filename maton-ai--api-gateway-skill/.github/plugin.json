@@ -1,0 +1,9 @@
+{
+  "name": "maton-ai--api-gateway-skill",
+  "displayName": "api-gateway-skill",
+  "description": "api-gateway-skill",
+  "version": "1.0.0",
+  "author": "maton-ai",
+  "homepage": "https://github.com/maton-ai/api-gateway-skill",
+  "skills": []
+}
