@@ -1,0 +1,9 @@
+{
+  "name": "timescale--pg-textsearch",
+  "displayName": "pg_textsearch",
+  "description": "PostgreSQL extension for BM25 relevance-ranked full-text search. Postgres OSS licensed.",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/pg_textsearch",
+  "skills": []
+}
