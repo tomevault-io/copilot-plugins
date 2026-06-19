@@ -1,0 +1,9 @@
+{
+  "name": "buffed-labs--dot-console",
+  "displayName": "dot-console",
+  "description": "Substrate development console",
+  "version": "1.0.0",
+  "author": "buffed-labs",
+  "homepage": "https://github.com/buffed-labs/dot-console",
+  "skills": []
+}
