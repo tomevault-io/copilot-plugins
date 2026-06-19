@@ -1,0 +1,9 @@
+{
+  "name": "suraj-davariya--ai-job-search",
+  "displayName": "ai-job-search",
+  "description": "CareerForge \u2014 AI job-search assistant inside Claude Code. /search ranks postings from your portals; /apply tailors a CV + cover letter (posting's language), gets a second-AI review, and compiles print",
+  "version": "1.0.0",
+  "author": "suraj-davariya",
+  "homepage": "https://github.com/suraj-davariya/ai-job-search",
+  "skills": []
+}
