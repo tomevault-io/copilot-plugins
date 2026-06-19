@@ -1,0 +1,9 @@
+{
+  "name": "hackylabs--deep-redact",
+  "displayName": "deep-redact",
+  "description": "Redact sensitive information from strings, arrays and objects.",
+  "version": "1.0.0",
+  "author": "hackylabs",
+  "homepage": "https://github.com/hackylabs/deep-redact",
+  "skills": []
+}
