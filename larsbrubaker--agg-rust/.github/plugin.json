@@ -1,0 +1,9 @@
+{
+  "name": "larsbrubaker--agg-rust",
+  "displayName": "agg-rust",
+  "description": "Pure Rust port of Anti-Grain Geometry (AGG) 2.6 - high quality 2D vector graphics rendering",
+  "version": "1.0.0",
+  "author": "larsbrubaker",
+  "homepage": "https://github.com/larsbrubaker/agg-rust",
+  "skills": []
+}
