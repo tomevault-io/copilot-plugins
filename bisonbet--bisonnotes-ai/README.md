@@ -7,11 +7,11 @@ BisonNotes AI is an app that will record audio, create transcripts of the audio 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bisonbet/BisonNotes-AI](https://github.com/bisonbet/BisonNotes-AI).
+Original source: `CLAUDE.md` in [bisonbet/BisonNotes-AI](https://github.com/bisonbet/BisonNotes-AI).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
