@@ -4,7 +4,7 @@
   "repo": "video-production-buddy",
   "description": "Video Production Buddy - AI Video Production Studio",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/video-production-buddy/video-production-buddy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T23:05:36Z"
+  "distributed_at": "2026-06-19T05:11:07Z"
 }
