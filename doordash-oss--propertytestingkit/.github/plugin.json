@@ -1,0 +1,9 @@
+{
+  "name": "doordash-oss--propertytestingkit",
+  "displayName": "PropertyTestingKit",
+  "description": "Coverage-guided fuzz testing for Swift.",
+  "version": "1.0.0",
+  "author": "doordash-oss",
+  "homepage": "https://github.com/doordash-oss/PropertyTestingKit",
+  "skills": []
+}
