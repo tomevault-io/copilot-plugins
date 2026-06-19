@@ -1,0 +1,9 @@
+{
+  "name": "ancilis--bedlam",
+  "displayName": "bedlam",
+  "description": "Open-source agent orchestration platform with stigmergic coordination, AOA heartbeats, dynamic model routing, and custom agent personas. Fork of Paperclip, used to build Ancilis.",
+  "version": "1.0.0",
+  "author": "ancilis",
+  "homepage": "https://github.com/ancilis/bedlam",
+  "skills": []
+}
