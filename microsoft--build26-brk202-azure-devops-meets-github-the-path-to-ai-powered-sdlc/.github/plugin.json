@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--build26-brk202-azure-devops-meets-github-the-path-to-ai-powered-sdlc",
+  "displayName": "Build26-BRK202-azure-devops-meets-github-the-path-to-ai-powered-sdlc",
+  "description": "Demo videos and resources for integrating Azure DevOps with GitHub to enable Agentic DevOps \u2014 AI-powered capabilities across Azure Boards, Azure Pipelines, and GitHub. From Microsoft Build 2026.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/Build26-BRK202-azure-devops-meets-github-the-path-to-ai-powered-sdlc",
+  "skills": []
+}
