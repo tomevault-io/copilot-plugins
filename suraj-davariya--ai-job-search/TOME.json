@@ -1,0 +1,44 @@
+{
+  "name": "ai-job-search",
+  "owner": "suraj-davariya",
+  "repo": "ai-job-search",
+  "description": "CareerForge \u2014 AI job-search assistant inside Claude Code. /search ranks postings from your portals; /apply tailors a CV + cover letter (posting's language), gets a second-AI review, and compiles print-ready LaTeX PDFs; a local dashboard tracks every application. Local-first, country-agnostic \u2014 prepares applications, never submits them",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/suraj-davariya/ai-job-search",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T07:22:29Z"
+}
