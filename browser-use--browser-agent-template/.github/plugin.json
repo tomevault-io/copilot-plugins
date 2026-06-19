@@ -1,0 +1,9 @@
+{
+  "name": "browser-use--browser-agent-template",
+  "displayName": "browser-agent-template",
+  "description": "Fork-and-deploy Vercel eve agent that browses the web with a Browser Use cloud browser.",
+  "version": "1.0.0",
+  "author": "browser-use",
+  "homepage": "https://github.com/browser-use/browser-agent-template",
+  "skills": []
+}
