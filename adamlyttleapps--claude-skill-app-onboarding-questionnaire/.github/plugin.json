@@ -1,7 +1,7 @@
 {
   "name": "adamlyttleapps--claude-skill-app-onboarding-questionnaire",
   "displayName": "claude-skill-app-onboarding-questionnaire",
-  "description": " A Claude Code skill that designs and builds high-converting questionnaire-style app onboarding flows \u2014 modelled    on proven conversion patterns from top subscription apps like Mob, Headspace and Noo",
+  "description": "claude-skill-app-onboarding-questionnaire",
   "version": "1.0.0",
   "author": "adamlyttleapps",
   "homepage": "https://github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire",
