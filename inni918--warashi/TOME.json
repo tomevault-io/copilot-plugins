@@ -4,7 +4,7 @@
   "repo": "warashi",
   "description": "Warashi \u2014 a free, open-source desktop AI companion with a Live2D avatar, voice chat, long-term memory, and proactive conversation.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/inni918/warashi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T00:31:51Z"
+  "distributed_at": "2026-06-19T11:23:04Z"
 }
