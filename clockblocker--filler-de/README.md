@@ -7,11 +7,11 @@ Obsidian plugin to automatically fill in the gaps of your Deutsch
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [clockblocker/filler-de](https://github.com/clockblocker/filler-de).
+Original source: `CLAUDE.md` in [clockblocker/filler-de](https://github.com/clockblocker/filler-de).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
