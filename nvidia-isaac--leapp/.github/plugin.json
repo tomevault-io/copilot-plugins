@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-isaac--leapp",
+  "displayName": "leapp",
+  "description": "library to quickly export and deploy entire processing pipelines",
+  "version": "1.0.0",
+  "author": "nvidia-isaac",
+  "homepage": "https://github.com/nvidia-isaac/leapp",
+  "skills": []
+}
