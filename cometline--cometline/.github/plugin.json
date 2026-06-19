@@ -1,0 +1,9 @@
+{
+  "name": "cometline--cometline",
+  "displayName": "cometline",
+  "description": "AI companion for your workspace, with per\u2011project memory, coding agents, and a native desktop chat UI",
+  "version": "1.0.0",
+  "author": "Cometline",
+  "homepage": "https://github.com/Cometline/cometline",
+  "skills": []
+}
