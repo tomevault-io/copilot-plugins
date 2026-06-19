@@ -1,0 +1,9 @@
+{
+  "name": "oaswrap--spec-ui",
+  "displayName": "spec-ui",
+  "description": "\ud83d\ude80 Go library providing multiple OpenAPI documentation UIs - Swagger UI, Stoplight Elements, ReDoc, Scalar & RapiDoc with simple HTTP handler integration",
+  "version": "1.0.0",
+  "author": "oaswrap",
+  "homepage": "https://github.com/oaswrap/spec-ui",
+  "skills": []
+}
