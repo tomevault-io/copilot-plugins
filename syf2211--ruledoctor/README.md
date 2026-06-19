@@ -7,11 +7,11 @@ Agent Skill: read CLAUDE.md & project rules before coding. Optional CLI audit + 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [syf2211/ruledoctor](https://github.com/syf2211/ruledoctor).
+Original source: `CLAUDE.md` in [syf2211/ruledoctor](https://github.com/syf2211/ruledoctor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
