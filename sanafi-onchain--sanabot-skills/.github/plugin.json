@@ -1,0 +1,9 @@
+{
+  "name": "sanafi-onchain--sanabot-skills",
+  "displayName": "sanabot-skills",
+  "description": "sanabot-skills",
+  "version": "1.0.0",
+  "author": "sanafi-onchain",
+  "homepage": "https://github.com/sanafi-onchain/sanabot-skills",
+  "skills": []
+}
