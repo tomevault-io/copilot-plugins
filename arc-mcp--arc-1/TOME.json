@@ -4,7 +4,7 @@
   "repo": "arc-1",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arc-mcp/arc-1",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T02:41:25Z"
+  "distributed_at": "2026-06-19T09:03:15Z"
 }
