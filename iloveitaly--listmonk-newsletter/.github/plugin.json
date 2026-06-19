@@ -1,0 +1,9 @@
+{
+  "name": "iloveitaly--listmonk-newsletter",
+  "displayName": "listmonk-newsletter",
+  "description": "Generate a newsletter digest from an rss feed and send it to a listmonk instance",
+  "version": "1.0.0",
+  "author": "iloveitaly",
+  "homepage": "https://github.com/iloveitaly/listmonk-newsletter",
+  "skills": []
+}
