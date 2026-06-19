@@ -2,16 +2,15 @@
 
 > Tome by [dannote](https://github.com/dannote/figma-use) — distributed by [TomeVault](https://tomevault.io)
 
-Control Figma from the command line. Full read/write access for AI agents — create shapes, text, components, set styles, export images. 100+ commands.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dannote/figma-use](https://github.com/dannote/figma-use).
+Original source: `` in [dannote/figma-use](https://github.com/dannote/figma-use).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
