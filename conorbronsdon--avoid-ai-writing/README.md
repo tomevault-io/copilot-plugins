@@ -2,15 +2,14 @@
 
 > Sourced from [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-Skill that audits and rewrites content to remove AI writing patterns. Use it with your favorite agents including Claude Code, OpenClaw, and Hermes.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing).
+Original source: `` in [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
