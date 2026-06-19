@@ -1,0 +1,9 @@
+{
+  "name": "assafkip--kipi-system",
+  "displayName": "kipi-system",
+  "description": "A portable founder operating system for Claude Code. Interactive setup wizard, morning briefings, conversation debriefs, social engagement, relationship tracking, content pipeline, lead sourcing, and ",
+  "version": "1.0.0",
+  "author": "assafkip",
+  "homepage": "https://github.com/assafkip/kipi-system",
+  "skills": []
+}
