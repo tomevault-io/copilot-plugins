@@ -1,0 +1,9 @@
+{
+  "name": "bullitt186--ha-omada-open-api",
+  "displayName": "ha-omada-open-api",
+  "description": "TP-Link Omada SDN integration for Home Assistant \u2014 monitor APs, switches, gateways, and clients with sensors, device trackers, PoE control, firmware updates, and more via the Omada Open API.",
+  "version": "1.0.0",
+  "author": "bullitt186",
+  "homepage": "https://github.com/bullitt186/ha-omada-open-api",
+  "skills": []
+}
