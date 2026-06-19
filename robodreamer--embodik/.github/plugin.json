@@ -1,0 +1,9 @@
+{
+  "name": "robodreamer--embodik",
+  "displayName": "embodik",
+  "description": "EmbodiK is a high-performance inverse kinematics library built with C++ and Python bindings via Nanobind. It provides both single-task and multi-task velocity IK solvers with singularity-robust invers",
+  "version": "1.0.0",
+  "author": "robodreamer",
+  "homepage": "https://github.com/robodreamer/embodik",
+  "skills": []
+}
