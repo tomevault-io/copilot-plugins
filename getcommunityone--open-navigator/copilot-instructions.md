@@ -1,42 +1,781 @@
-## dbt-isolated-venv
+## open-navigator
 
-> dbt uses a separate virtualenv (.venv-dbt), not the main .venv
+> **MANDATORY RULE:** When creating ANY documentation, guides, or markdown files:
 
+# GitHub Copilot Instructions for Open Navigator
 
-# dbt isolated environment (this repo)
+## 🚨 CRITICAL: Documentation Standards
 
-- **Do not** assume `dbt` is on `PATH` or installed in the main **`.venv`**. It usually is not.
-- dbt is kept in a **dedicated venv** at **`.venv-dbt/`** because `dbt-postgres` conflicts with protobuf/pathspec used elsewhere (`requirements-dbt.txt` explains this). **Do not** `pip install` dbt into `.venv` alongside the main app requirements.
+### ⚠️ ALWAYS Use Docusaurus Format - NO EXCEPTIONS
 
-**First-time setup (repo root):**
+**MANDATORY RULE:** When creating ANY documentation, guides, or markdown files:
 
+**✅ DO THIS:**
+- Create ALL documentation in `website/docs/` subdirectories
+- Add YAML frontmatter to every documentation file
+- Use kebab-case filenames
+- Place in appropriate subdirectory
+
+**❌ NEVER DO THIS:**
+- ❌ Create `.md` files in project root (except README.md, LICENSE, CONTRIBUTING.md)
+- ❌ Create files like `VARIABLE_MIGRATION.md`, `DOCKER_BUILD_TROUBLESHOOTING.md` in root
+- ❌ Create `UPPERCASE_FILE.md` files anywhere
+- ❌ Skip frontmatter in documentation files
+
+### Documentation File Location Rules
+
+When creating or editing documentation:
+
+1. **Location**: ALWAYS place documentation in `website/docs/` with appropriate subdirectories
+   - Deployment guides → `website/docs/deployment/`
+   - How-to guides → `website/docs/guides/`
+   - Data sources → `website/docs/data-sources/`
+   - Case studies → `website/docs/case-studies/`
+   - Integration docs → `website/docs/integrations/`
+   - Development guides → `website/docs/development/`
+
+2. **Frontmatter**: ALWAYS include YAML frontmatter at the top:
+   ```markdown
+   ---
+   sidebar_position: 1
+   ---
+   
+   # Document Title
+   ```
+
+3. **File naming**: ALWAYS use kebab-case (lowercase with hyphens)
+   - ✅ `huggingface-spaces.md`
+   - ✅ `variable-migration.md`
+   - ✅ `docker-troubleshooting.md`
+   - ❌ `HUGGINGFACE_DEPLOYMENT.md`
+   - ❌ `HuggingFaceSpaces.md`
+   - ❌ `VARIABLE_MIGRATION.md`
+
+4. **Root directory**: Keep root directory clean
+   - ✅ Only keep these in root: README.md, LICENSE, CONTRIBUTING.md
+   - ✅ Move ALL other docs to `website/docs/`
+   - ❌ Don't create new `.md` files in project root
+
+### Examples
+
+**When asked to create troubleshooting documentation:**
 ```bash
-./scripts/datasources/openstates/setup_dbt_venv.sh
+# ❌ WRONG
+/home/developer/projects/open-navigator/DOCKER_BUILD_TROUBLESHOOTING.md
+
+# ✅ CORRECT
+/home/developer/projects/open-navigator/website/docs/deployment/docker-troubleshooting.md
 ```
 
-**Run dbt (repo root):**
-
-The real project lives under **`dbt_project/`**. Prefer **`./scripts/dbt.sh`** (runs inside `dbt_project/` and sets **`DBT_PROFILES_DIR`** so `dbt_project/profiles.yml` is used, not `~/.dbt`).
-
-If you run **`.venv-dbt/bin/dbt` from the repo root** (root `dbt_project.yml` for Cursor), you **must** point profiles at the same place or dbt will use **`~/.dbt/profiles.yml`** and load seeds / build models on the **wrong database** (overrides never show up in Neon):
-
+**When asked to create a migration guide:**
 ```bash
-export DBT_PROFILES_DIR="$(pwd)/dbt_project"
-.venv-dbt/bin/dbt seed --select jurisdiction_website_url_overrides
-.venv-dbt/bin/dbt run --select int_jurisdiction_websites
+# ❌ WRONG
+/home/developer/projects/open-navigator/VARIABLE_MIGRATION.md
+
+# ✅ CORRECT
+/home/developer/projects/open-navigator/website/docs/deployment/variable-migration.md
 ```
 
-Or use **`./scripts/dbt-root.sh`** (same as above, from repo root). For the nested project only:
-
+**When asked to document a new feature:**
 ```bash
-.venv-dbt/bin/dbt run --project-dir dbt_project --select <model>
+# ❌ WRONG
+/home/developer/projects/open-navigator/NEW_FEATURE.md
+
+# ✅ CORRECT
+/home/developer/projects/open-navigator/website/docs/guides/new-feature.md
 ```
 
-Use **`.venv-dbt/bin/dbt`** (or `python` from that venv) for `dbt run`, `dbt compile`, `dbt test`, etc. Add `--profiles-dir` if the project’s `profiles.yml` is not next to `dbt_project`.
+### Sidebar Organization
 
-When changing **`models` / `seeds` / `snapshots` / `vars`** in `dbt_project/dbt_project.yml`, mirror the same blocks in the root **`dbt_project.yml`** wrapper (or only edit the nested file and copy those sections over).
+The documentation uses audience-based navigation in `website/sidebars.ts`:
 
-When suggesting commands to the user, **prefer the full path** `.venv-dbt/bin/dbt` so copy-paste works without activating a venv.
+- **🚀 Getting Started**: Landing pages (intro, dashboard)
+- **📊 For Policy Makers & Advocates**: Non-technical content
+- **🛠️ For Developers & Technical Users**: Technical content including:
+  - Setup & Installation
+  - Data Sources (Technical)
+  - How-To Guides
+  - Integrations
+  - Deployment (uses `autogenerated` for `deployment/` directory)
+  - Development
+
+When creating docs in a directory with `autogenerated`, they'll automatically appear in sidebar.
+
+## 🚨 CRITICAL: Data Pipeline Architecture
+
+### ⚠️ ALWAYS Prefer dbt for Data Transformations
+
+**MANDATORY RULE:** When working with data transformations, migrations, or table creation:
+
+**✅ DO THIS - Use dbt:**
+- ✅ Create dbt models for ALL data transformations
+- ✅ Use dbt sources to reference raw tables
+- ✅ Use dbt incremental models for ongoing data processing
+- ✅ Define table schemas in dbt .sql files
+- ✅ Use dbt macros for reusable logic
+- ✅ Document transformations in dbt .yml files
+- ✅ Use dbt for cross-database syncing (local → Neon)
+- ✅ Leverage dbt's built-in testing and documentation
+
+**❌ NEVER DO THIS - Avoid Python for Transformations:**
+- ❌ Write Python scripts to transform data (use dbt models instead)
+- ❌ Use Python for JSONB extraction (use dbt incremental models)
+- ❌ Create tables manually with psql (define in dbt models)
+- ❌ Write custom SQL in Python strings (use dbt .sql files)
+- ❌ Build ETL pipelines in Python (use dbt + Airflow/Dagster)
+
+**When Python IS Appropriate:**
+- ✅ API calls and data ingestion (loading from external sources)
+- ✅ Web scraping and file downloads
+- ✅ Complex business logic that can't be expressed in SQL
+- ✅ Orchestration and scheduling (Airflow, Dagster)
+- ✅ Machine learning and AI processing (Gemini, embeddings)
+
+**Architecture:**
+```
+External Data → Python (Ingest) → Bronze Tables → dbt (Transform) → Marts
+```
+
+**Example - Wrong vs Right:**
+
+❌ **WRONG - Python for transformation:**
+```python
+# scripts/transform_youtube_data.py
+import psycopg2
+conn = psycopg2.connect(...)
+cursor.execute("""
+    INSERT INTO event
+    SELECT * FROM bronze.bronze_event_youtube
+    WHERE event_date >= '2026-01-01'
+""")
+```
+
+✅ **CORRECT - dbt for transformation:**
+```sql
+-- dbt_project/models/marts/event.sql
+{{ config(materialized='incremental') }}
+
+SELECT *
+FROM {{ source('bronze', 'bronze_event_youtube') }}
+WHERE event_date >= '2026-01-01'
+{% if is_incremental() %}
+    AND loaded_at > (SELECT MAX(loaded_at) FROM {{ this }})
+{% endif %}
+```
+
+**Why dbt is Better:**
+- 🔄 Automatic dependency management
+- 📊 Built-in data quality tests
+- 📝 Self-documenting (YAML + SQL)
+- 🚀 Incremental processing (only new data)
+- 🔍 Easy to debug and version control
+- 🎯 Separation of concerns (SQL = transformations)
+- 📈 Lineage tracking (dbt docs generate)
+
+## Scripts Organization
+
+### ⚠️ ALWAYS Organize Scripts into Logical Folders
+
+**MANDATORY RULE:** When creating ANY scripts in the `scripts/` directory:
+
+**✅ DO THIS:**
+- Organize scripts into logical subdirectories by function
+- Use clear, descriptive folder names
+- Keep the root `scripts/` directory clean
+- Add README.md to each subdirectory explaining its purpose
+
+**❌ NEVER DO THIS:**
+- ❌ Create scripts directly in `scripts/` root (except core workflow scripts)
+- ❌ Mix unrelated scripts together
+- ❌ Recreate scripts that already exist - search first!
+
+### Scripts Directory Structure
+
+```
+scripts/
+├── data/                    # Data processing and migration
+│   ├── aggregate_bills_from_postgres.py
+│   ├── create_all_gold_tables.py
+│   ├── migrate_to_events_naming.py
+│   └── README.md
+├── deployment/              # Deployment and setup
+│   ├── deploy-databricks-app.sh
+│   ├── setup-local.sh
+│   ├── setup_openstates_db.sh
+│   └── README.md
+├── enrichment/              # Data enrichment (990s, nonprofits)
+│   ├── enrich_nonprofits_async.py
+│   ├── batch_download_990s.py
+│   ├── extract_990_zips.sh
+│   └── README.md
+├── huggingface/             # HuggingFace dataset management
+│   ├── upload_to_huggingface.py
+│   ├── reorganize_for_huggingface.py
+│   ├── finalize_huggingface_structure.py
+│   └── README.md
+├── maintenance/             # Cleanup and maintenance
+│   ├── cleanup_disk_space.sh
+│   ├── cleanup_frontend_junk.sh
+│   └── README.md
+└── README.md               # Overview of all script categories
+```
+
+### Before Creating a New Script
+
+1. **Search first**: Use `grep` or `file_search` to find existing scripts
+2. **Check for duplicates**: Scripts like `aggregate_bills_from_postgres.py` already exist
+3. **Use existing**: Prefer modifying existing scripts over creating new ones
+4. **Organize**: If creating new, place in appropriate subdirectory
+
+### ⚠️ MANDATORY: Data Source Script Naming Convention
+
+**CRITICAL RULE:** ALL data loading scripts in `scripts/datasources/` MUST start with `load_`
+
+**✅ DO THIS:**
+- `load_youtube_events_to_postgres.py` - Loading YouTube data
+- `load_census.py` - Loading census data
+- `load_irs_bmf.py` - Loading IRS data
+- `load_openstates_bulk.py` - Bulk loading OpenStates data
+- `load_fec_bulk.py` - Bulk loading FEC data
+- `load_localview.py` - Loading LocalView data
+- `load_acs_data.py` - Loading ACS data
+
+**❌ NEVER DO THIS:**
+- ❌ `download_youtube_videos.py` (use `load_youtube_videos.py`)
+- ❌ `bulk_download_fec.py` (use `load_fec_bulk.py`)
+- ❌ `import_census.py` (use `load_census.py`)
+- ❌ `ingest_irs_data.py` (use `load_irs_data.py`)
+- ❌ `fetch_openstates.py` (use `load_openstates.py`)
+
+**Rationale:**
+- Consistent `load_` prefix makes data loading scripts instantly recognizable
+- Easy to search: `ls scripts/datasources/*/load_*.py` shows all load scripts
+- Clear distinction from analysis, export, or utility scripts
+- Follows Python convention of verb-first naming for action scripts
+
+**Non-loading scripts can use other prefixes:**
+- `analyze_` - Analysis scripts (e.g., `analyze_meeting_transcripts.py`)
+- `export_` - Export scripts (e.g., `export_legislators_to_gold.py`)
+- `scrape_` - Web scraping scripts (e.g., `scrape_gov_websites.py`)
+- `create_` - Creation/generation scripts (e.g., `create_jurisdiction_master.py`)
+- `fix_` - Data cleanup scripts (e.g., `fix_fips_codes.py`)
+- `enrich_` - Data enrichment scripts (e.g., `enrich_from_localview.py`)
+- `validate_` - Validation scripts (e.g., `validate_channels_wikidata.py`)
+
+**Migration scripts:**
+- Place one-time migration/backfill scripts in `migrations/` subfolder
+- These can use `migrate_` or `backfill_` prefixes
+- Example: `scripts/datasources/gemini/migrations/migrate_multimodel_support.py`
+
+## 📝 Git Commit Standards (MANDATORY)
+
+### ⚠️ ALWAYS Use Conventional Commits — NO EXCEPTIONS
+
+**MANDATORY RULE:** ALL git commit messages MUST follow the [Conventional Commits](https://www.conventionalcommits.org/) specification.
+
+**Format:** `<type>(<optional scope>): <short description>`
+
+**Types:**
+| Type | When to use |
+|------|-------------|
+| `feat` | A new feature or capability |
+| `fix` | A bug fix |
+| `chore` | Maintenance, dependency updates, config |
+| `docs` | Documentation-only changes |
+| `refactor` | Code restructuring with no behavior change |
+| `test` | Adding or updating tests |
+| `perf` | Performance improvements |
+| `ci` | CI/CD pipeline changes |
+| `build` | Build system or tooling changes |
+| `revert` | Reverting a previous commit |
+
+**✅ DO THIS:**
+```
+feat(api): add jurisdiction search endpoint with state_code filter
+fix(bronze): handle missing state_code in census gazetteer loader
+chore(deps): upgrade loguru to 0.7.3
+docs(website): add FastAPI OpenTelemetry instrumentation guide
+refactor(dbt): consolidate bronze staging models into single source
+test(api): add integration tests for contact endpoint
+perf(frontend): lazy-load jurisdiction map tiles
+ci(github-actions): add dbt test step to bronze pipeline workflow
+```
+
+**❌ NEVER DO THIS:**
+```
+Updated files
+Fixed bug
+WIP
+misc changes
+Added stuff
+```
+
+**Breaking changes:** Add `!` after the type or a `BREAKING CHANGE:` footer:
+```
+feat(api)!: rename state field to state_code across all endpoints
+```
+
+---
+
+## 🪵 Logging Standards (MANDATORY)
+
+### ⚠️ Use the Correct Logger for Each Context
+
+---
+
+### Simple Python Scripts & Packages → Loguru
+
+**MANDATORY RULE:** ALL standalone scripts and simple Python packages MUST use `loguru`.
+
+**✅ DO THIS:**
+```python
+from loguru import logger
+
+logger.info("Loading data from {source}", source=source_name)
+logger.success("Loaded {:,} rows into {}", count, table)
+logger.warning("Missing field '{}' — skipping row", field)
+logger.error("DB connection failed: {}", err)
+logger.debug("Raw response: {}", response)
+```
+
+**❌ NEVER DO THIS in scripts:**
+```python
+import logging                        # Use loguru instead
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
+log.info("Loading data")
+```
+
+**Rules:**
+- Import only `from loguru import logger` — no handler setup required for scripts
+- Use `logger.success()` to signal a completed pipeline step
+- For scripts writing log files, follow `scripts/load_bronze.py`:
+  - Sink to `logs/<run_type>/<run_id>/<step>.log`
+  - Call `scripts/utils/log_sync.py:sync_logs()` to upload to Google Drive after the run
+
+---
+
+### FastAPI Services → OpenTelemetry
+
+**MANDATORY RULE:** ALL FastAPI services MUST use OpenTelemetry for observability.
+
+**✅ DO THIS — App startup (`main.py` or `app.py`):**
+```python
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
+
+# Initialize provider
+provider = TracerProvider()
+provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter()))
+trace.set_tracer_provider(provider)
+
+# Auto-instrument FastAPI routes and SQLAlchemy queries
+FastAPIInstrumentor.instrument_app(app)
+SQLAlchemyInstrumentor().instrument()
+```
+
+**✅ DO THIS — Manual spans for key operations:**
+```python
+tracer = trace.get_tracer(__name__)
+
+async def search_jurisdictions(query: str, state_code: str):
+    with tracer.start_as_current_span("search-jurisdictions") as span:
+        span.set_attribute("query", query)
+        span.set_attribute("state_code", state_code)
+        results = await db.execute(...)
+        span.set_attribute("result_count", len(results))
+        return results
+```
+
+**Rules:**
+- `FastAPIInstrumentor` auto-instruments all routes — don't add manual spans to every endpoint
+- Add manual spans only for non-trivial operations: DB queries, external API calls, AI enrichment
+- Use `OTLP_ENDPOINT` env var for the collector URL; default to console exporter in development
+- Log structured events with `span.add_event("cache-miss", {"key": cache_key})`
+
+---
+
+### React Frontend → OpenTelemetry
+
+**MANDATORY RULE:** The React app MUST use OpenTelemetry Web SDK for frontend observability.
+
+**✅ DO THIS — One-time setup in `src/instrumentation.ts`:**
+```typescript
+import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { ZoneContextManager } from '@opentelemetry/context-zone';
+import { registerInstrumentations } from '@opentelemetry/instrumentation';
+import { FetchInstrumentation } from '@opentelemetry/instrumentation-fetch';
+import { DocumentLoadInstrumentation } from '@opentelemetry/instrumentation-document-load';
+
+const provider = new WebTracerProvider();
+provider.addSpanProcessor(
+  new BatchSpanProcessor(new OTLPTraceExporter({ url: import.meta.env.VITE_OTLP_ENDPOINT }))
+);
+provider.register({ contextManager: new ZoneContextManager() });
+
+registerInstrumentations({
+  instrumentations: [new FetchInstrumentation(), new DocumentLoadInstrumentation()],
+});
+```
+
+**Import in `src/main.tsx` (first line):**
+```typescript
+import './instrumentation';
+```
+
+**✅ DO THIS — Manual spans for key user interactions:**
+```typescript
+import { trace } from '@opentelemetry/api';
+
+const tracer = trace.getTracer('open-navigator-frontend');
+
+async function fetchJurisdictions(stateCode: string) {
+  const span = tracer.startSpan('fetch-jurisdictions');
+  span.setAttribute('state_code', stateCode);
+  try {
+    const data = await api.get(`/jurisdictions?state_code=${stateCode}`);
+    span.setAttribute('result_count', data.length);
+    return data;
+  } finally {
+    span.end();
+  }
+}
+```
+
+**Rules:**
+- Initialize once in `src/instrumentation.ts`, imported at the top of `src/main.tsx`
+- `FetchInstrumentation` auto-instruments all `fetch` calls — no manual spans needed per API call
+- Add manual spans for: search submissions, filter changes, map interactions, data exports
+- Use `VITE_OTLP_ENDPOINT` env var; omit the exporter in development to use the console exporter
+
+---
+
+## Code Style Preferences
+
+### Python
+- Use type hints for function parameters and return values
+- Follow PEP 8 naming conventions
+- Add docstrings to all public functions and classes
+- Prefer pathlib over os.path for file operations
+
+### TypeScript/React
+- Use functional components with hooks
+- Prefer named exports over default exports
+- Use TypeScript interfaces for props
+- Follow the existing Tailwind CSS patterns
+
+### Documentation
+- Use emoji headers sparingly and consistently (🚀, 📊, 🛠️, etc.)
+- Include code examples with syntax highlighting
+- Add "Prerequisites" section for setup guides
+- Include "Next Steps" at the end of tutorials
+
+## Copilot Response Formatting
+
+### ⚠️ ALWAYS Include Copy-Paste Commands for Script Responses
+
+**MANDATORY RULE:** When providing any script, CLI, terminal, or shell response, ALWAYS include a copy-paste-ready command block.
+
+**✅ DO THIS:**
+- Include at least one fenced `bash` code block with full runnable commands.
+- Prefer complete commands from repo root (or include `cd /path/to/repo` first).
+- Provide exact flags and arguments, not placeholders, when known.
+- When there are common variants (dry-run, state filter, etc.), include separate copy-paste blocks.
+
+**❌ NEVER DO THIS:**
+- ❌ Provide command guidance only as prose without a copy-paste block.
+- ❌ Split one required command across multiple fragments that are hard to copy.
+- ❌ Omit required env vars when they are needed for the command to work.
+
+## Project Context
+
+This is **Open Navigator** - a civic engagement platform that:
+- Tracks 90,000+ jurisdictions (cities, counties, states)
+- Monitors 1.8M nonprofit organizations
+- Analyzes meeting minutes and public records
+- Provides oral health policy tracking
+
+### Three Services Architecture
+
+Always mention all three services when documenting deployment:
+1. **Documentation** (Docusaurus) - Port 3000
+2. **Main Application** (React + Vite) - Port 5173 (MAIN APP)
+3. **API Backend** (FastAPI) - Port 8001
+
+### Common Patterns
+
+When suggesting deployment or setup:
+- Use `start-all.sh` to launch all services
+- Reference environment variables from `.env.example`
+- Mention that secrets go in `.env` (gitignored)
+- Include verification steps to test deployment
+
+### Database Configuration
+
+**CRITICAL - PostgreSQL is ALREADY RUNNING:**
+
+**❌ NEVER DO THIS:**
+- ❌ Try to start new PostgreSQL Docker containers
+- ❌ Suggest `docker run postgres` or `docker-compose up postgres`
+- ❌ Connect to localhost:5432 for OpenStates data
+- ❌ Ask to "spin up" a PostgreSQL instance
+
+### Data Standards & Naming Conventions
+
+**⚠️ MANDATORY: State Field Naming**
+
+**ALL database tables, parquet files, and code MUST follow these standards:**
+
+✅ **DO THIS:**
+- Use `state_code` for 2-letter state abbreviations (e.g., 'AL', 'MA', 'WI')
+- Use `state` for full state names (e.g., 'Alabama', 'Massachusetts', 'Wisconsin')
+- Always include BOTH columns when state information is needed
+
+❌ **NEVER DO THIS:**
+- ❌ Use `state` for 2-letter codes
+- ❌ Use `state_abbr` or `state_abbreviation`
+- ❌ Use `state_name` (use `state` instead)
+- ❌ Mix conventions across tables/files
+
+**Examples:**
+
+```python
+# ✅ CORRECT - Parquet columns
+df = pd.DataFrame({
+    'jurisdiction_name': ['Mobile', 'Boston'],
+    'state_code': ['AL', 'MA'],
+    'state': ['Alabama', 'Massachusetts']
+})
+
+# ✅ CORRECT - SQL schema
+CREATE TABLE jurisdictions (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(200),
+    state_code VARCHAR(2) NOT NULL,  -- Two-letter code
+    state VARCHAR(50) NOT NULL        -- Full state name
+);
+
+# ❌ WRONG - Don't use these
+state VARCHAR(2)           -- Ambiguous: code or name?
+state_abbr VARCHAR(2)      -- Use state_code instead
+state_name VARCHAR(50)     -- Use state instead
+```
+
+**Migration Status:**
+
+⚠️ **Legacy tables/files may still use old conventions. When updating code:**
+1. Check if table uses `state` for 2-letter codes (legacy)
+2. If yes, migrate to `state_code` + `state` (full name)
+3. Update all dependent queries and code
+4. Document migration in `website/docs/development/`
+
+**⚠️ MANDATORY: Website URL Field Naming**
+
+**ALL database tables, parquet files, and code MUST follow this standard:**
+
+✅ **DO THIS:**
+- Use `website_url` when there is only ONE web address column in the table
+- This is the standard column name for primary website URLs
+
+❌ **NEVER DO THIS:**
+- ❌ Use `website` (ambiguous - is it a URL or a name?)
+- ❌ Use `url` (too generic - URL to what?)
+- ❌ Use `web_url` or `site_url` (non-standard variants)
+- ❌ Use `homepage` or `homepage_url` (use `website_url` instead)
+
+**Examples:**
+
+```python
+# ✅ CORRECT - Parquet columns
+df = pd.DataFrame({
+    'jurisdiction_name': ['Mobile', 'Boston'],
+    'website_url': ['https://www.cityofmobile.org', 'https://www.boston.gov']
+})
+
+# ✅ CORRECT - SQL schema
+CREATE TABLE jurisdictions (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(200),
+    website_url VARCHAR(500)  -- Primary website
+);
+
+# ❌ WRONG - Don't use these
+url VARCHAR(500)           -- Too generic
+website VARCHAR(500)       -- Ambiguous
+homepage_url VARCHAR(500)  -- Use website_url instead
+```
+
+**When there are MULTIPLE URL columns:**
+- Use descriptive names: `facebook_url`, `twitter_url`, `youtube_url`, `linkedin_url`
+- Use specific purpose names: `meeting_stream_url`, `agenda_url`, `minutes_url`
+- Still use `website_url` for the primary/official website
+
+**✅ ALWAYS DO THIS:**
+- ✅ OpenStates database is at `postgresql://postgres:password@localhost:5433/openstates`
+- ✅ Check if database exists: `psql -h localhost -p 5433 -U postgres -d openstates -c "\dt"`
+- ✅ The database is ALREADY running on port **5433** (not 5432)
+- ✅ Use existing connection - don't create new containers
+
+**Database Architecture:**
+
+1. **OpenStates PostgreSQL** (localhost:5433)
+   - Database name: `openstates`
+   - Contains: `opencivicdata_person` table (22,546+ legislators)
+   - Source data for legislators, bills, votes
+   - Connection: `postgresql://postgres:password@localhost:5433/openstates`
+
+2. **Production PostgreSQL** (localhost:5433)
+   - Database name: `open_navigator`
+   - **THIS IS THE ONLY DATABASE - Contains all schemas:**
+     - `public` schema: Production marts and API tables
+     - `bronze` schema: Raw ingestion data (`bronze_*` tables)
+     - `staging` schema: Cleaned/validated data (for dbt intermediate processing)
+     - `intermediate` schema: Enriched data (for dbt intermediate processing)
+   - **THIS IS WHAT THE API SHOULD USE** (public schema only)
+   - Connection: `postgresql://postgres:password@localhost:5433/open_navigator`
+
+3. **Neon PostgreSQL** (cloud - for production deployment)
+   - Used for `contact`, `jurisdiction`, `organization_nonprofit`, `jurisdiction_state_aggregate`
+   - Connection via `NEON_DATABASE_URL` or `NEON_DATABASE_URL_DEV`
+   - Managed via `packages/hosting/src/hosting/neon/migrate.py` script
+
+**⚠️ CRITICAL: API Database Access Rules**
+
+**✅ API SHOULD USE:**
+- `open_navigator` database, `public` schema (or marts from dbt)
+- Tables: `jurisdiction_state_aggregate`, `jurisdiction`, `contact`, `organization_nonprofit`
+- Connection string: `NEON_DATABASE_URL_DEV` or `postgresql://postgres:password@localhost:5433/open_navigator`
+
+**❌ API SHOULD AVOID (use marts instead):**
+- Direct queries to `bronze.*` schema (use dbt marts in public schema)
+- Direct queries to `staging.*` or `intermediate.*` schemas
+- Bronze/staging are for data pipelines; APIs should use production marts
+
+**Why?**
+- Bronze contains raw, unprocessed data
+- Production marts (in public schema) are cleaned, deduplicated, and optimized
+- API responses should use production-ready data from marts
+- Bronze/staging schemas change frequently during development
+
+**Architecture Migration (Completed):**
+- ✅ Migrated from separate `open_navigator_bronze` database to schemas
+- ✅ All bronze tables now in `open_navigator.bronze` schema
+- ✅ Foreign Data Wrapper (FDW) removed - no longer needed
+- ✅ Single database simplifies queries and reduces complexity
+
+**Loading Legislators Data:**
+
+The legislators data flow is:
+1. Source: `opencivicdata_person` table in OpenStates DB (port 5433)
+2. Optional intermediate: `openstates_people` table (simplified schema)
+3. Gold tables: `data/gold/states/{STATE}/contact_official.parquet`
+4. Search index: `contact` table in Neon DB
+
+Use these scripts:
+- `scripts/datasources/openstates/load_openstates_people.py` - Load from GitHub repo to `openstates_people` table
+- `scripts/datasources/openstates/export_openstates_to_gold.py` - Export to gold parquet files
+- `packages/hosting/src/hosting/neon/migrate.py` - Load gold files into Neon `contact` table
+
+### ⚠️ CRITICAL: dbt Schema References
+
+**PostgreSQL schemas in single database - No special configuration needed.**
+
+**✅ ALWAYS DO THIS in dbt models:**
+
+All data is now in one database (`open_navigator`) with multiple schemas:
+- `bronze` - Raw data (bronze_* tables)
+- `staging` - dbt staging models  
+- `intermediate` - dbt intermediate models
+- `public` - Production marts
+
+```sql
+-- ✅ CORRECT - Direct schema references
+sources:
+  - name: bronze
+    schema: bronze  -- Direct schema reference in same database
+    tables:
+      - name: bronze_event
+      - name: bronze_decisions
+```
+
+**In dbt models:**
+```sql
+-- ✅ CORRECT - Source references work across schemas in same database
+SELECT * FROM {{ source('bronze', 'bronze_decisions') }}
+-- Resolves to: open_navigator.bronze.bronze_decisions
+
+-- ✅ CORRECT - Model references
+SELECT * FROM {{ ref('stg_bronze_event') }}
+-- Resolves to: open_navigator.staging.stg_bronze_event (or public, depending on target_schema)
+```
+
+**Key Points:**
+- Single database architecture - no cross-database queries needed
+- All schemas in `open_navigator` database
+- dbt `database` property not needed in sources.yml  
+- Schema changes are simple - no Foreign Data Wrapper complexity
+
+### Data Management Rules
+
+**CRITICAL - DO NOT DELETE APPLICATION CACHE:**
+- ❌ **NEVER** recommend deleting `/home/developer/projects/open-navigator/data/cache/`
+- ❌ **NEVER** suggest `rm -rf data/cache` or similar commands
+- This directory contains critical application data from data processing pipelines
+- Deleting it will cause data loss and require expensive reprocessing
+- If disk space cleanup is needed, suggest cleaning:
+  - Docker images/volumes: `docker system prune`
+  - System caches: `~/.cache/pip`, `~/.cache/npm`, `~/.cache/huggingface`
+  - Build artifacts: `frontend/dist`, `website/build`
+  - NOT the application data cache
+
+## File Organization Rules
+
+### What Goes Where
+
+**Root directory** (minimal):
+- README.md (developer quick start)
+- LICENSE, CONTRIBUTING.md
+- Configuration files (Dockerfile, docker-compose.yml, requirements.txt, etc.)
+- Shell scripts (start-all.sh, deploy-huggingface.sh, etc.)
+
+**Documentation** (`website/docs/`):
+- All markdown documentation
+- Organized by topic and audience
+- Automatically included in Docusaurus sidebar
+
+**Code** (`src/`, `api/`, `agents/`, etc.):
+- Python modules and packages
+- Organized by functionality
+
+## When Creating New Features
+
+1. **Code first**: Implement the feature
+2. **Tests**: Add tests if applicable
+3. **Documentation**: Create docs in `website/docs/` with proper frontmatter
+4. **README**: Update root README.md only if it affects quick start
+5. **Examples**: Add usage examples to documentation
+
+## Deployment Targets
+
+When suggesting deployment options, consider:
+- **Hugging Face Spaces**: Full Docker deployment (all 3 apps)
+- **Databricks Apps**: React + FastAPI for enterprise
+- **Local Development**: Using start-all.sh with tmux
+
+Always provide complete deployment instructions in `website/docs/deployment/`.
+
+## Calendar years in JSON (meetings manifests, APIs)
+
+- Use **string** JSON values for calendar years (e.g. `"year": "2026"`), not `int`, in `data/cache/scraped_meetings/**/_manifest.json` `pdfs[]` entries and similar payloads.
+- Rationale: years are labels, not numeric measures; keeps TypeScript / strict JSON consumers consistent with GEOID-style strings elsewhere.
+- When editing `scripts/discovery/comprehensive_discovery_pipeline_jurisdiction.py`, keep manifest `year` as `str(...)`.
+- To fix existing files: `python scripts/discovery/fix_scraped_meetings_manifest_years.py --dry-run` then without `--dry-run`.
 
 ---
 > Source: [getcommunityone/open-navigator](https://github.com/getcommunityone/open-navigator) — distributed by [TomeVault](https://tomevault.io).
