@@ -1,0 +1,9 @@
+{
+  "name": "datpaq--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "datpaq",
+  "homepage": "https://github.com/datpaq/cli",
+  "skills": []
+}
