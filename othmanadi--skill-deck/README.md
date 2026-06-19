@@ -7,11 +7,11 @@ Universal coding agent skill browser — desktop overlay for Claude Code, Cursor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [OthmanAdi/skill-deck](https://github.com/OthmanAdi/skill-deck).
+Original source: `AGENTS.md` in [OthmanAdi/skill-deck](https://github.com/OthmanAdi/skill-deck).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
