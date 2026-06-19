@@ -1,0 +1,44 @@
+{
+  "name": "atmb-us-address-directory",
+  "owner": "juzhp",
+  "repo": "atmb-us-address-directory",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e AnytimeMailbox\u5730\u5740\u6570\u636e\u7684\u7f8e\u56fd\u4f4f\u5b85\u5730\u5740\u7b5b\u9009\u9879\u76ee\uff0c\u901a\u8fc7\u8857\u666f\u3001RDI\u3001CMRA \u7b49\u4fe1\u606f\u8f85\u52a9\u5224\u65ad\uff0c\u5e2e\u52a9\u7528\u6237\u66f4\u5feb\u627e\u51fa\u5408\u9002\u7684\u7f8e\u56fd\u771f\u5b9e\u4f4f\u5b85\u5730\u5740\u79df\u7528\u3002\u5728\u7ebf\u67e5\u770b\uff1ahttps://usaddres.com",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/juzhp/atmb-us-address-directory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T21:08:39Z"
+}
