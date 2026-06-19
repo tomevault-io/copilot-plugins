@@ -7,11 +7,11 @@ Interactive deep-dive into Gemini CLI internals — 150+ illustrated pages, 50+ 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tt-a1i/coding-cli-guide](https://github.com/tt-a1i/coding-cli-guide).
+Original source: `CLAUDE.md` in [tt-a1i/coding-cli-guide](https://github.com/tt-a1i/coding-cli-guide).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
