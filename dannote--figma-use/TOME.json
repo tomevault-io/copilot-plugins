@@ -2,9 +2,9 @@
   "name": "figma-use",
   "owner": "dannote",
   "repo": "figma-use",
-  "description": "Control Figma from the command line. Full read/write access for AI agents \u2014 create shapes, text, components, set styles, export images. 100+ commands.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dannote/figma-use",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:39:33Z"
+  "distributed_at": "2026-06-19T18:43:14Z"
 }
