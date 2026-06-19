@@ -7,11 +7,11 @@ A demo created with https://github.com/ndjordjevic/pin-llm-wiki
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ndjordjevic/agentic-ai-wiki](https://github.com/ndjordjevic/agentic-ai-wiki).
+Original source: `CLAUDE.md` in [ndjordjevic/agentic-ai-wiki](https://github.com/ndjordjevic/agentic-ai-wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
