@@ -4,7 +4,7 @@
   "repo": "dpdk-stdlib-rust",
   "description": "High-performance userspace UDP/TCP networking library for Rust using DPDK. Drop-in replacement for std::net with zero-copy packet processing, and multi-queue scaling. Includes echo server and synthetic testing for cross-platform development.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gspivey/dpdk-stdlib-rust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T01:15:48Z"
+  "distributed_at": "2026-06-19T08:42:35Z"
 }
