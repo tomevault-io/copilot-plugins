@@ -7,11 +7,11 @@ Build agent-powered apps without reinventing the shell.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hachej/boring-ui](https://github.com/hachej/boring-ui).
+Original source: `CLAUDE.md` in [hachej/boring-ui](https://github.com/hachej/boring-ui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
