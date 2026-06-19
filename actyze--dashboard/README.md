@@ -7,11 +7,11 @@ Open-source AI-native analytics platform. Natural language to SQL, no-code ML pr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [actyze/dashboard](https://github.com/actyze/dashboard).
+Original source: `CLAUDE.md` in [actyze/dashboard](https://github.com/actyze/dashboard).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
