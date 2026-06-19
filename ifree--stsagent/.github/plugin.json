@@ -1,0 +1,9 @@
+{
+  "name": "ifree--stsagent",
+  "displayName": "STSAgent",
+  "description": "LLM-powered AI assistant mod for Slay the Spire.",
+  "version": "1.0.0",
+  "author": "ifree",
+  "homepage": "https://github.com/ifree/STSAgent",
+  "skills": []
+}
