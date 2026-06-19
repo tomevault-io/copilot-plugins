@@ -1,0 +1,9 @@
+{
+  "name": "ayanbekdos--ponystack",
+  "displayName": "ponystack",
+  "description": "Think expensive, write cheap. A Claude Code plugin that marries gstack's process with ponytail's lazy-senior restraint via an always-on phase router.",
+  "version": "1.0.0",
+  "author": "AyanbekDos",
+  "homepage": "https://github.com/AyanbekDos/ponystack",
+  "skills": []
+}
