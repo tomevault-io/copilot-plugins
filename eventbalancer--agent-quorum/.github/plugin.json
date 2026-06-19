@@ -1,0 +1,9 @@
+{
+  "name": "eventbalancer--agent-quorum",
+  "displayName": "agent-quorum",
+  "description": "Quality planning through agent consensus",
+  "version": "1.0.0",
+  "author": "eventbalancer",
+  "homepage": "https://github.com/eventbalancer/agent-quorum",
+  "skills": []
+}
