@@ -1,0 +1,9 @@
+{
+  "name": "cyb213--lab-zero",
+  "displayName": "Lab-Zero",
+  "description": "A clone-and-go workspace that gives your AI coding agent a memory \u2014 semantic recall, built-in work habits, and one-command project graduation. Works with Claude Code and Codex.",
+  "version": "1.0.0",
+  "author": "cyb213",
+  "homepage": "https://github.com/cyb213/Lab-Zero",
+  "skills": []
+}
