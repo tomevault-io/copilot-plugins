@@ -1,0 +1,29 @@
+## company-brain
+
+> A long-term **sync hub** that checks a company's data sources into Git as plain, searchable files, so an AI agent has durable, greppable context about the business. Data is pulled into the repo as Markdown; the agent reads files, greps, and follows links instead of querying live MCP servers.
+
+# company-brain
+
+A long-term **sync hub** that checks a company's data sources into Git as plain, searchable files, so an AI agent has durable, greppable context about the business. Data is pulled into the repo as Markdown; the agent reads files, greps, and follows links instead of querying live MCP servers.
+
+Runs on [Bun](https://bun.sh): TypeScript, no build step.
+
+## Layout
+
+- `src/connectors/<source>/` — one connector per data source, entry point `sync.ts`. Existing: `notion`, `repo`, `web`, `zendesk`, `pylon`, `granola`.
+- `src/lib/` — shared helpers
+- `context/<source>/` — synced output, committed to the repo so agents have durable context.
+- `.github/` — per-source sync action + workflow (schedules are opt-in; uncomment the `schedule:` block in the matching workflow to enable)
+- `.agents/skills/` — skills for common tasks: `add-connector`, `setup-connector`, `update-changelog`
+
+## Connector templates
+
+The canonical connector templates live at https://github.com/kombohq/company-brain/tree/main/src/connectors/. Before building a new connector from scratch, check there for the latest patterns.
+
+## Changelog
+
+Every user-facing change (a feature or bug fix) adds a terse bullet to `CHANGELOG.md` under `## [Unreleased]`. See the `update-changelog` skill. Releases are cut with `bun run release` (`scripts/release.sh`), which rolls `[Unreleased]` into a dated version section, tags, and creates the GitHub release. The script's pure helpers are unit-tested with [bashunit](https://bashunit.com) (`bun run test:sh`, `scripts/release_test.sh`).
+
+---
+> Source: [kombohq/company-brain](https://github.com/kombohq/company-brain) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-18 -->
