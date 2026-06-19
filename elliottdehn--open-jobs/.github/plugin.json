@@ -1,0 +1,9 @@
+{
+  "name": "elliottdehn--open-jobs",
+  "displayName": "open-jobs",
+  "description": "~967,000 live jobs from 16 ATS, enriched with LLM-extracted fields + embeddings, released CC0. Includes agent tooling to search them (hull -> learn -> rank).",
+  "version": "1.0.0",
+  "author": "elliottdehn",
+  "homepage": "https://github.com/elliottdehn/open-jobs",
+  "skills": []
+}
