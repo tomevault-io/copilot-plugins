@@ -1,0 +1,9 @@
+{
+  "name": "pebaryan--qalmsw",
+  "displayName": "qalmsw",
+  "description": "Automated QA for scientific LaTeX writing, powered by a local LLM",
+  "version": "1.0.0",
+  "author": "pebaryan",
+  "homepage": "https://github.com/pebaryan/qalmsw",
+  "skills": []
+}
