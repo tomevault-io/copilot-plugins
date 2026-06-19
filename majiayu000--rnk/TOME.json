@@ -4,7 +4,7 @@
   "repo": "rnk",
   "description": "Declarative TUI framework for Rust with React-like hooks, flexbox layout, and 45+ components",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/majiayu000/rnk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T21:02:01Z"
+  "distributed_at": "2026-06-19T03:12:11Z"
 }
