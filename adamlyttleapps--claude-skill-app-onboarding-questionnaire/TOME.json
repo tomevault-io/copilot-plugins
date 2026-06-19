@@ -2,9 +2,9 @@
   "name": "claude-skill-app-onboarding-questionnaire",
   "owner": "adamlyttleapps",
   "repo": "claude-skill-app-onboarding-questionnaire",
-  "description": " A Claude Code skill that designs and builds high-converting questionnaire-style app onboarding flows \u2014 modelled    on proven conversion patterns from top subscription apps like Mob, Headspace and Noom",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T03:34:59Z"
+  "distributed_at": "2026-06-19T15:03:16Z"
 }
