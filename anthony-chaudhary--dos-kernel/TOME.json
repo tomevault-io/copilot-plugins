@@ -4,7 +4,7 @@
   "repo": "dos-kernel",
   "description": "Catch your AI agents when they lie about what they shipped \u2014 verifies claims against git instead of believing the agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anthony-chaudhary/dos-kernel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T16:38:01Z"
+  "distributed_at": "2026-06-19T16:46:11Z"
 }
