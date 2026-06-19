@@ -4,7 +4,7 @@
   "repo": "libcudf-rs",
   "description": "Rust bindings for libcudf",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gabotechs/libcudf-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T18:58:59Z"
+  "distributed_at": "2026-06-19T01:07:01Z"
 }
