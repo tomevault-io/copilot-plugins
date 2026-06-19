@@ -2,15 +2,14 @@
 
 > Source: [mycelium-hq/ai-brain-starter](https://github.com/mycelium-hq/ai-brain-starter) — distributed by [TomeVault](https://tomevault.io)
 
-The operating system for Claude Code. Memory, accountability, journaling, knowledge graphs, pattern recognition — one install, every session compounds.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mycelium-hq/ai-brain-starter](https://github.com/mycelium-hq/ai-brain-starter).
+Original source: `` in [mycelium-hq/ai-brain-starter](https://github.com/mycelium-hq/ai-brain-starter).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
