@@ -1,0 +1,9 @@
+{
+  "name": "ackness--covel",
+  "displayName": "covel",
+  "description": "[Agentic AI-RPG] Agentic AI role-playing game framework \u2014 narration, NPCs, lore, and character creation are autonomous plugin agents. Build interactive fiction with DeepSeek / OpenAI / Anthropic / Qwe",
+  "version": "1.0.0",
+  "author": "ackness",
+  "homepage": "https://github.com/ackness/covel",
+  "skills": []
+}
