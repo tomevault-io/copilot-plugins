@@ -1,0 +1,9 @@
+{
+  "name": "baracudaz--fenix-tft",
+  "displayName": "fenix_tft",
+  "description": "Home Assistant integration for FENIX TFT WIFI Thermostat",
+  "version": "1.0.0",
+  "author": "baracudaz",
+  "homepage": "https://github.com/baracudaz/fenix_tft",
+  "skills": []
+}
