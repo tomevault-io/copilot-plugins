@@ -1,0 +1,9 @@
+{
+  "name": "lsp-client--lsp-cli",
+  "displayName": "lsp-cli",
+  "description": "CLI interface for the Language Server Agent Protocol (LSAP)",
+  "version": "1.0.0",
+  "author": "lsp-client",
+  "homepage": "https://github.com/lsp-client/lsp-cli",
+  "skills": []
+}
