@@ -1,0 +1,44 @@
+{
+  "name": "FinanceCopilot",
+  "owner": "marcobazzani",
+  "repo": "FinanceCopilot",
+  "description": "Offline-first personal finance and portfolio tracker for macOS, Windows, and Android. Banks, ETFs, bonds, real estate \u2014 ISIN-first matching, auto-fetched ETF composition, multi-currency. No cloud, no telemetry, MIT.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/marcobazzani/FinanceCopilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T23:15:55Z"
+}
