@@ -1,548 +1,1156 @@
 ## supertag-cli
 
-> **When implementing specs in `.specify/specs/`, invoke the SpecFlow skill.**
+> description: Complete Tana integration via MCP. USE WHEN user mentions Tana, tana search, tana notes, my notes, my knowledge base, find in Tana, create in Tana, OR needs to search, query, or write to Tana workspace. Provides full-text search, semantic search, node creation, and workspace management.
 
-# Supertag CLI - Claude Code Context
+# Supertag CLI Skill
 
-## SpecFlow Development
+---
+name: supertag
+description: Complete Tana integration via MCP. USE WHEN user mentions Tana, tana search, tana notes, my notes, my knowledge base, find in Tana, create in Tana, OR needs to search, query, or write to Tana workspace. Provides full-text search, semantic search, node creation, and workspace management.
+---
 
-**When implementing specs in `.specify/specs/`, invoke the SpecFlow skill.**
+## Overview
 
-This project uses spec-driven development. Specs are stored in `.specify/specs/<feature-id>/` with:
-- `spec.md` - What and Why (requirements)
-- `plan.md` - How (technical design)
-- `tasks.md` - Work items with TDD enforcement
+Supertag CLI provides complete Tana workspace integration through:
+- **MCP Server** (`supertag-mcp`) - AI tool integration for Claude, ChatGPT, Cursor, etc.
+- **CLI** (`supertag`) - Command-line queries, writes, and management
+- **Webhook Server** - HTTP API for automation and Tana Commands
 
-**Triggers:** "work on F-XXX", "implement F-XXX", "/specflow"
+## MCP Tools Reference
 
-## Documentation Locations
+### Progressive Disclosure (Start Here)
 
-**When releasing a new version, update ALL of these:**
+The MCP server supports progressive disclosure - a two-tier tool discovery pattern that reduces upfront token cost from ~2000 tokens to ~1000 tokens.
 
-| File | Purpose | Location |
-|------|---------|----------|
-| `CHANGELOG.md` | Internal version history (detailed) | `./CHANGELOG.md` |
-| `README.md` | Technical documentation, CLI usage, MCP setup | `./README.md` |
-| `SKILL.md` | PAI skill documentation with USE WHEN triggers | `./SKILL.md` |
-| `CHANGELOG.md` | Public release notes (customer-facing) | `~/work/web/invisible-store/tana/CHANGELOG.md` |
-| `USER-GUIDE.md` | Customer-facing user guide | `~/work/web/invisible-store/tana/USER-GUIDE.md` |
-| Marketing description | Store listing and marketing copy | `~/work/web/invisible-store/tana/index.html` |
+**Workflow:**
+1. Call `tana_capabilities` to get a lightweight overview of all tools
+2. Call `tana_tool_schema` to load full schemas for specific tools you need
+3. Execute tools with validated parameters
 
-## Release Checklist
+### tana_capabilities
+Get a lightweight overview of available tools, categorized by function.
 
-**IMPORTANT: Update CHANGELOG.md BEFORE running release.sh**
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `category` | string | No | Filter to specific category (query, explore, transcript, mutate, system) |
 
-1. Update `CHANGELOG.md` - Change `[Unreleased]` to `[X.Y.Z] - YYYY-MM-DD`
-2. Update version number in `package.json`
-3. Run `bun run typecheck` - Ensure TypeScript type checks pass
-4. Run `bun run test:full` - Ensure all tests pass
-5. Run `./release.sh X.Y.Z --push` to build, tag, and push
-6. Update public `CHANGELOG.md` at `~/work/web/invisible-store/tana/CHANGELOG.md`
-7. Update store listing if features changed
+**Categories:**
+- **query**: tana_search, tana_semantic_search, tana_tagged, tana_field_values, tana_batch_get, tana_query, tana_timeline, tana_recent, tana_table
+- **explore**: tana_node, tana_related, tana_stats, tana_supertags, tana_supertag_info
+- **transcript**: tana_transcript_list, tana_transcript_show, tana_transcript_search
+- **mutate**: tana_create, tana_batch_create, tana_update_node, tana_tag_add, tana_tag_remove, tana_create_tag, tana_set_field, tana_set_field_option, tana_trash_node, tana_done, tana_undone
+- **system**: tana_sync, tana_cache_clear, tana_capabilities, tana_tool_schema
 
-**Note:** The release script updates `package.json` version automatically if you pass a version argument. Step 2 can be skipped if using `./release.sh X.Y.Z`.
-
-## PR Checklist
-
-**IMPORTANT: Run these checks before pushing a PR:**
-
-1. Run `bun run typecheck` - TypeScript types must pass
-2. Run `bun run test` - Fast tests must pass (1741+ tests)
-3. Push and verify CI passes (GitHub Actions runs full test suite)
-
-## Key Architecture
-
-- **Main CLI**: `supertag` - query, write, sync, server, workspaces
-- **Export CLI**: `supertag-export` - Playwright browser automation
-- **MCP Server**: `supertag-mcp` - AI tool integration via Model Context Protocol
-
-## Important Technical Notes
-
-### Tana Input API Inline References
-
-**Two ways to create references via Input API:**
-
-1. **Inline reference in text** (within node name or child text):
-   ```html
-   <span data-inlineref-node="NODE_ID">Display Text</span>
-   ```
-   Example payload:
-   ```json
-   {"name": "Meeting with <span data-inlineref-node=\"abc123\">John Doe</span> today"}
-   ```
-
-2. **Child reference node** (entire child is a reference):
-   ```json
-   {"children": [{"dataType": "reference", "id": "NODE_ID"}]}
-   ```
-
-**IMPORTANT:** Do NOT end a node with an inline reference - always add text after the closing `</span>` tag.
-- ✅ `"Meeting with <span data-inlineref-node=\"id\">John</span> today"`
-- ❌ `"Meeting with <span data-inlineref-node=\"id\">John</span>"`
-
-**Note:** Tana Paste syntax (`[[Node Name]]`, `[[text^id]]`) does NOT work in Input API - use the HTML span syntax above.
-
-See `src/mcp/tools/create.ts` for implementation.
-
-### Config Namespace
-Uses `supertag` namespace (not `tana`) to avoid conflicts with official Tana app:
-- Config: `~/.config/supertag/config.json`
-- Data: `~/.local/share/supertag/`
-- Cache: `~/.cache/supertag/`
-
-### Export Format
-Tana exports now wrap data in `storeData` object. The schema registry handles both formats.
-
-### Export Location
-Tana JSON exports are stored at: `~/Documents/Tana-Export/main/`
-Files are named: `{workspaceId}@{date}.json` (e.g., `M9rkJkwuED@2025-12-12.json`)
-
-### Entity Detection (_flags)
-Based on Tana developer insights from Odin Urdland:
-- **Entity flag**: `props._flags % 2 === 1` (LSB set = entity) - NOTE: uses `_flags` with underscore prefix
-- **User override**: `props._entityOverride` (takes precedence if present)
-- Entities are "interesting" nodes: tagged items, library items, "Create new" items
-- Export contains ~13,735 entities with `_flags=1` out of 1.3M total nodes
-
-**Entity Detection Priority** (in order):
-1. `props._entityOverride` - Explicit user override (if true/false, use that)
-2. `props._flags % 2 === 1` - Automatic entity flag from Tana
-3. `props._ownerId.endsWith('_STASH')` - Library items (inferred)
-4. Has tag in `tag_applications` table - Tagged items (inferred)
-
-**Key Files:**
-- `src/db/entity.ts` - Entity detection functions (`isEntity`, `isEntityById`, `findNearestEntityAncestor`)
-- `src/types/tana-dump.ts` - Zod schema with `_flags` and `.passthrough()` to preserve props
-- `tests/entity-detection.test.ts` - Comprehensive entity detection tests
-
-### Field/Tuple Structures
-
-Tana stores field values in tuple nodes. There are **two patterns**:
-
-1. **Standard Field Tuples** (extracted ✅):
-   - Parent → Tuple → [Label, Value1, Value2, ...]
-   - May or may not have `_sourceId`
-   - Up to 50 children
-
-2. **Mega-Tuple Flat Structure** (not extracted ❌):
-   - Single tuple with 50-1000+ children
-   - Field labels: `"  - FieldName:"` (indentation in name)
-   - Values: `"    - Value text"` (more indentation)
-   - Labels and values are siblings, not parent-child
-   - Used by daily briefings/AI features
-
-**Key insight**: The `_sourceId` field is often missing on valid tuples. The `isFieldTuple()` function handles both cases.
-
-**See**: `docs/TANA-FIELD-STRUCTURES.md` for full technical documentation.
-
-### Content Filtering for Embeddings
-When generating embeddings, content is filtered to focus on meaningful nodes:
-
-**Default Filters** (`src/embeddings/content-filter.ts`):
-- `minLength: 15` - Minimum 15 characters (but entities bypass this)
-- `excludeTimestamps: true` - Exclude `1970-01-01...` artifacts
-- `excludeSystemTypes: true` - Exclude system docTypes (tuple, metanode, viewDef, etc.)
-
-**Important:** Entities bypass the minLength filter because short-named entities like "Animal #topic" are still meaningful. This ensures tagged items and library items always get embedded regardless of name length.
-
-**CLI Options for `embed generate`:**
-- `--min-length <n>` - Override minimum length (default: 15)
-- `--include-all` - Bypass all content filters
-- `--include-timestamps` - Include timestamp nodes
-- `--include-system` - Include system docTypes
-- `-t, --tag <tag>` - Only embed nodes with specific supertag
-
-### Graph Query DSL (F-102)
-
-Declarative graph query language for traversing typed relationships.
-
-**CLI:** `supertag gquery "<DSL>" [--explain] [--format json|csv|table] [--limit N]`
-
-**DSL syntax:**
+**Example:**
 ```
-FIND <supertag> [WHERE <field> <op> <value>]* [CONNECTED TO <supertag> [VIA <field>]]* [DEPTH <n>] RETURN <projection>
+What tools does the Tana MCP server provide?
+Show me query tools for searching content
 ```
 
-**Examples:**
-```bash
-supertag gquery "FIND person RETURN name"
-supertag gquery 'FIND person WHERE name ~ Simon RETURN name'
-supertag gquery 'FIND meeting CONNECTED TO person VIA Attendees RETURN name, person.name'
-supertag gquery 'FIND person CONNECTED TO meeting RETURN name' --explain
+### tana_tool_schema
+Load the full JSON schema for a specific tool. Use after `tana_capabilities` to get detailed parameter information.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `tool` | string | Yes | Tool name (e.g., "tana_search") |
+
+**Example:**
+```
+Get the full schema for tana_search
+What parameters does tana_create accept?
 ```
 
-**MCP tool:** `tana_graph_query` with `query`, `workspace`, `limit`, `explain` parameters.
+### tana_search
+Full-text search across Tana workspace using FTS5 indexing.
 
-**Architecture:** 4-stage pipeline — Tokenizer → Parser → Planner (validates tags/fields against DB) → Executor (orchestrates UnifiedQueryEngine + GraphTraversalService).
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | Search query |
+| `limit` | number | No | Max results (default: 20) |
+| `includeAncestor` | boolean | No | Include containing project/meeting context (default: true) |
+| `createdAfter` | string | No | Filter by creation date (YYYY-MM-DD) |
+| `createdBefore` | string | No | Filter by creation date |
+| `updatedAfter` | string | No | Filter by update date |
+| `updatedBefore` | string | No | Filter by update date |
+| `workspace` | string | No | Workspace alias (default: main) |
+| `select` | array | No | Fields to include in response (e.g., ["id", "name", "tags"]) |
 
-**Key files:**
-- `src/query/graph-types.ts` - Type definitions (GraphQueryAST, QueryPlan, QueryStep)
-- `src/query/graph-parser.ts` - Recursive descent parser
-- `src/query/graph-planner.ts` - Query planner with tag/field validation
-- `src/query/graph-executor.ts` - Executor via existing services
-- `src/query/graph-query-service.ts` - Service facade
-- `src/commands/gquery.ts` - CLI command
-- `src/mcp/tools/graph-query.ts` - MCP tool
-- `tests/graph-parser.test.ts`, `tests/graph-planner.test.ts`, `tests/graph-executor.test.ts` - Tests
+**Example:**
+```
+Search my Tana for "authentication implementation"
+Find notes about API design created after 2025-01-01
+```
 
-### Graph-Aware Embeddings (F-104)
+### tana_semantic_search
+Vector similarity search using embeddings. Finds conceptually related content without exact keyword matches.
 
-Embedding generation enriches node text with supertag type and field values before embedding, improving semantic search for typed queries like "find meetings about X".
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | Yes | Natural language query |
+| `limit` | number | No | Max results (default: 20) |
+| `minSimilarity` | number | No | Threshold 0-1 (higher = stricter) |
+| `includeContents` | boolean | No | Include full node details |
+| `includeAncestor` | boolean | No | Include ancestor context (default: true) |
+| `depth` | number | No | Child traversal depth (0-3) |
+| `workspace` | string | No | Workspace alias |
+| `select` | array | No | Fields to include in response (e.g., ["nodeId", "name", "similarity"]) |
 
-**Enriched text format:** `[Type: #meeting] [Date: 2026-02-20] [Attendees: Daniel, Sarah] Weekly sync`
+**Example:**
+```
+Find notes semantically related to "knowledge management systems"
+Search for concepts similar to "distributed architecture"
+```
 
-**CLI options for `embed generate`:**
-- `--graph-aware` (default: enabled) - Enrich text with type/field prefixes
-- `--no-graph-aware` - Use legacy ancestor-based contextualization
-- `--enrichment-preview <nodeId>` - Preview enriched text for a single node without generating embeddings
+### tana_tagged
+Find all nodes with a specific supertag applied.
 
-**Search query enrichment:**
-- CLI: `supertag search --semantic --type-hint meeting "weekly sync"`
-- MCP: `tana_semantic_search` with `typeHint: "meeting"` parameter
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| tagname` | string | Yes | Supertag name (e.g., "todo", "meeting") |
+| `limit` | number | No | Max results (default: 20) |
+| `orderBy` | string | No | Sort order (default: "created") |
+| `caseInsensitive` | boolean | No | Case-insensitive matching |
+| `createdAfter` | string | No | Filter by creation date |
+| `createdBefore` | string | No | Filter by creation date |
+| `workspace` | string | No | Workspace alias |
+| `select` | array | No | Fields to include in response (e.g., ["id", "name", "created"]) |
 
-**Per-supertag config:** `~/.config/supertag/embed-enrichment.json`
+**Example:**
+```
+Find all my todos in Tana
+List meetings from this month
+Show all contacts tagged as #person
+```
+
+### tana_node
+Get full contents of a specific node by ID.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Tana node ID |
+| `depth` | number | No | Child traversal (0 = none, 1+ = children) |
+| `workspace` | string | No | Workspace alias |
+| `select` | array | No | Fields to include in response (e.g., ["id", "name", "fields"]) |
+
+**Example:**
+```
+Show me node abc123 with its children
+Get the full contents of node xyz789 at depth 2
+```
+
+### tana_related
+Find nodes related to a given node through references, children, and field links. Uses BFS graph traversal with cycle detection.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Source node ID to find related nodes from |
+| `direction` | string | No | Traversal direction: "in", "out", or "both" (default: "both") |
+| `types` | array | No | Relationship types: child, parent, reference, field (default: all) |
+| `depth` | number | No | Multi-hop traversal depth 0-5 (default: 1) |
+| `limit` | number | No | Max results 1-100 (default: 50) |
+| `workspace` | string | No | Workspace alias |
+| `select` | array | No | Fields to include in response |
+
+**Relationship types:**
+- `child`: Node is a child of source
+- `parent`: Node is parent of source
+- `reference`: Node is referenced by source (inline refs, field refs)
+- `field`: Node is connected through a field value
+
+**Example:**
+```
+Find all nodes related to abc123
+What nodes reference project xyz789?
+Show incoming connections to meeting abc123
+Find nodes connected within 2 hops of task def456
+```
+
+### tana_create
+Create new nodes in Tana with supertags, fields, and references.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `supertag` | string | Yes | Supertag name (e.g., "todo") |
+| `name` | string | Yes | Node name/title |
+| `fields` | object | No | Field values (e.g., `{"Status": "Active"}`) |
+| `children` | array | No | Child nodes or references |
+| `target` | string | No | Target node ID (INBOX, SCHEMA, or specific) |
+| `dryRun` | boolean | No | Validate without creating |
+| `workspace` | string | No | Workspace alias |
+
+**Children formats:**
+- Plain text: `[{"name": "Child text"}]`
+- Nested: `[{"name": "Section", "children": [{"name": "Sub-item"}]}]`
+- Reference: `[{"name": "Link", "id": "abc123"}]`
+- Inline ref: `[{"name": "See <span data-inlineref-node=\"xyz\">Related</span> item"}]`
+
+**Inline reference syntax:**
+```html
+<span data-inlineref-node="NODE_ID">Display Text</span>
+```
+
+**IMPORTANT:** Never end a node name with an inline reference - always add text after `</span>`.
+
+**@Name reference syntax (F-094):**
+Use `@Name` prefix in field values to reference existing nodes by display name instead of node ID:
+```json
+{"fields": {"State": "@Open", "Owner": "@John Doe"}}
+```
+- Automatically looks up the node by name in the database
+- Filters by field's target supertag for precise matching
+- Falls back to creating a new node if name not found
+- Works with comma-separated values: `"@Alice,@Bob"`
+
+**Example:**
+```
+Create a todo called "Review PR #123" with status Active
+Create a meeting "Team Standup" with date field set to 2025-12-25
+Create a task "Bug fix" with state set to @Open (reference existing node)
+Create a meeting "Standup" with owner @John Doe
+```
+
+### tana_supertags
+List all available supertags with usage counts.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `limit` | number | No | Max results (default: 20) |
+| `workspace` | string | No | Workspace alias |
+
+**Example:**
+```
+What supertags do I have in Tana?
+List the most used tags in my workspace
+```
+
+### tana_stats
+Get database statistics: total nodes, supertags, fields, and references.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `workspace` | string | No | Workspace alias |
+
+**Example:**
+```
+How many nodes are in my Tana?
+Show database statistics
+```
+
+### tana_sync
+Trigger reindex, delta-sync, or check sync status.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `action` | string | No | "index" to reindex, "delta" for incremental sync, "status" to check (default: index) |
+| `workspace` | string | No | Workspace alias |
+
+**Delta-sync** (`action="delta"`) fetches only nodes changed since the last sync via Tana Desktop's Local API. Much faster than full reindex. Requires Tana Desktop running with Local API enabled.
+
+The MCP server also runs delta-sync automatically in the background (default: every 5 minutes). Configure interval via `localApi.deltaSyncInterval` in config or `TANA_DELTA_SYNC_INTERVAL` env var (0 disables).
+
+**Example:**
+```
+Reindex my Tana database
+Run incremental sync to get latest changes
+Check when Tana was last synced
+```
+
+### tana_batch_get
+Fetch multiple nodes by ID in a single request. Efficient for bulk lookups.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeIds` | array | Yes | Array of node IDs to fetch (max 100) |
+| `depth` | number | No | Child traversal depth 0-3 (default: 0) |
+| `select` | array | No | Fields to include (e.g., ["id", "name", "tags"]) |
+| `workspace` | string | No | Workspace alias |
+
+**Example:**
+```
+Get nodes with IDs abc123, def456, ghi789
+Fetch 5 nodes with their children (depth 1)
+```
+
+### tana_batch_create
+Create multiple nodes in a single request. Supports dry-run mode for validation.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodes` | array | Yes | Array of node objects (max 50), each with supertag and name |
+| `target` | string | No | Default target node ID for all nodes (INBOX, SCHEMA, or node ID) |
+| `dryRun` | boolean | No | Validate without creating (default: false) |
+| `workspace` | string | No | Workspace alias |
+
+**Node object structure:**
 ```json
 {
-  "defaults": {
-    "includeTagName": true,
-    "includeFields": ["options", "date", "instance"],
-    "maxFieldsPerTag": 5
+  "supertag": "todo",
+  "name": "Task name",
+  "fields": {"Status": "Open"},
+  "children": [{"name": "Subtask"}]
+}
+```
+
+**Example:**
+```
+Create 3 todo items: "Task A", "Task B", "Task C"
+Create meeting notes with children for agenda items
+Validate batch create with dry-run before creating
+```
+
+### tana_update_node
+Update a node's name or description. Requires Local API (Tana Desktop running).
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Tana node ID to update |
+| `name` | string | No | New node name |
+| `description` | string | No | New node description |
+
+### tana_tag_add
+Add supertags to a node. Requires Local API.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Tana node ID |
+| `tagIds` | array | Yes | Supertag IDs to add |
+
+### tana_tag_remove
+Remove supertags from a node. Requires Local API.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Tana node ID |
+| `tagIds` | array | Yes | Supertag IDs to remove |
+
+### tana_create_tag
+Create a new supertag definition. Requires Local API.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | Supertag name |
+| `description` | string | No | Optional description |
+
+### tana_set_field
+Set a text field value on a node. Requires Local API.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Tana node ID |
+| `attributeId` | string | Yes | Field attribute ID |
+| `content` | string | Yes | Field value |
+
+### tana_set_field_option
+Set a field option (dropdown) value on a node. Requires Local API.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Tana node ID |
+| `attributeId` | string | Yes | Field attribute ID |
+| `optionId` | string | Yes | Option ID to set |
+
+### tana_trash_node
+Move a node to trash. Requires Local API.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Tana node ID to trash |
+
+### tana_done
+Mark a node as done (checked). Requires Local API.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Tana node ID |
+
+### tana_undone
+Mark a node as not done (unchecked). Requires Local API.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `nodeId` | string | Yes | Tana node ID |
+
+### tana_query
+Unified query that combines tag filtering, field filtering, date ranges, and full-text search in a single expressive query. Replaces multi-step discovery→query→filter workflows.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `find` | string | Yes | Tag name to search (e.g., "task", "meeting", "*" for any) |
+| `where` | object | No | Field conditions (see below) |
+| `orderBy` | string | No | Sort field, prefix with "-" for descending (e.g., "-created") |
+| `limit` | number | No | Max results (default: 100) |
+| `offset` | number | No | Skip N results for pagination |
+| `select` | string/array | No | Field output: `"*"` for all fields, `["Email","Phone"]` for specific |
+| `workspace` | string | No | Workspace alias |
+
+**Select clause (field output):**
+- Default (no select): Core fields only (id, name, created, updated)
+- `"*"`: All supertag fields including inherited fields
+- `["Email", "Phone", "Company"]`: Specific fields by name
+- Multi-value fields are comma-joined in output
+
+**Where conditions (object keys are field names):**
+- Shorthand: `{"Status": "Done"}` (equality)
+- Operators: `{"Status": {"eq": "Done"}}`, `{"Status": {"neq": "Cancelled"}}`
+- Contains: `{"name": {"contains": "TypeScript"}}`
+- Dates: `{"created": {"after": "7d"}}`, `{"created": {"before": "2025-01-01"}}`
+- Comparison: `{"priority": {"gt": 5}}`, `{"count": {"lte": 10}}`
+- Exists: `{"Summary": {"exists": true}}`
+- Empty: `{"Status": {"isEmpty": true}}` - Find nodes with empty/missing field values
+
+**Relative dates:** `today`, `7d` (7 days ago), `1w` (1 week), `1m` (1 month), `1y` (1 year)
+
+**Example:**
+```
+Find all tasks with status Active created in the last week
+{
+  "find": "task",
+  "where": {
+    "Status": "Active",
+    "created": {"after": "7d"}
   },
-  "overrides": {
-    "meeting": { "includeFields": ["Date", "Attendees"], "maxFieldsPerTag": 3 },
-    "person": { "includeFields": ["Email", "Company"] },
-    "internal": { "disabled": true }
+  "orderBy": "-created",
+  "limit": 20
+}
+
+Find meetings with John in attendees
+{
+  "find": "meeting",
+  "where": {
+    "Attendees": {"contains": "John"}
+  }
+}
+
+Find any nodes matching "project" in name
+{
+  "find": "*",
+  "where": {
+    "name": {"contains": "project"}
+  }
+}
+
+Find contacts with all their fields
+{
+  "find": "contact",
+  "select": "*",
+  "limit": 10
+}
+
+Find contacts with specific fields (Email, Phone, Company)
+{
+  "find": "contact",
+  "select": ["Email", "Phone", "Company"],
+  "limit": 20
+}
+
+Find tasks with empty status field
+{
+  "find": "task",
+  "where": {
+    "Status": {"isEmpty": true}
   }
 }
 ```
-When no config file exists, all tags are enriched with fields matching the default field types (default behavior).
 
-**Key files:**
-- `src/types/enrichment.ts` - Type definitions and defaults
-- `src/embeddings/graph-enricher.ts` - Single-node and batch enrichment
-- `src/embeddings/enrichment-config.ts` - Config loader
-- `src/embeddings/enrichment-truncator.ts` - Token-aware truncation (512 token limit)
-- `tests/embeddings/enrichment-*.test.ts` - 25 unit tests
+### tana_field_values
+Query field values extracted from Tana nodes. Fields like "Gestern war gut weil", "Summary", or "Action Items" store structured data in tuple children.
 
-### Workspace Database Paths
-- **Workspace DB**: `~/.local/share/supertag/workspaces/{alias}/tana-index.db`
-- **Default workspace**: `main`
-- **Full path**: `~/.local/share/supertag/workspaces/main/tana-index.db`
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `mode` | string | Yes | "list", "query", or "search" |
+| `fieldName` | string | Conditional | Field name (required for "query" mode) |
+| `query` | string | Conditional | Search query (required for "search" mode) |
+| `limit` | number | No | Max results (default: 100 for query, 50 for search) |
+| `offset` | number | No | Skip N results for pagination |
+| `createdAfter` | string | No | Filter by creation date (YYYY-MM-DD) |
+| `createdBefore` | string | No | Filter by creation date |
+| `workspace` | string | No | Workspace alias |
+| `select` | array | No | Fields to include in response (e.g., ["fieldName", "count"]) |
 
-Always use the workspace-specific database, not the legacy path at `~/.local/share/supertag/tana-index.db`.
-
-### Unified Workspace Resolver (Spec 052)
-
-**ALWAYS use `resolveWorkspaceContext()` for workspace resolution** - never use `resolveWorkspace()` directly.
-
-```typescript
-import { resolveWorkspaceContext } from '../config/workspace-resolver';
-
-// Basic usage - uses default workspace
-const ws = resolveWorkspaceContext();
-console.log(ws.dbPath);  // ~/.local/share/supertag/workspaces/main/tana-index.db
-
-// Specific workspace
-const ws = resolveWorkspaceContext({ workspace: 'books' });
-
-// For commands that create databases (sync, export)
-const ws = resolveWorkspaceContext({
-  workspace: options.workspace,
-  requireDatabase: false,  // Don't throw if database doesn't exist
-});
+**Mode: list** - Discover available fields:
+```
+What fields are available in my Tana workspace?
+Show me all the different field types I use
 ```
 
-**ResolvedWorkspace interface:**
-```typescript
-interface ResolvedWorkspace {
-  alias: string;           // 'main', 'books', etc.
-  config: WorkspaceConfig; // Full workspace config
-  dbPath: string;          // Full path to SQLite database
-  schemaPath: string;      // Full path to schema cache
-  exportDir: string;       // Full path to export directory
-  isDefault: boolean;      // Whether this is the default workspace
-  nodeid?: string;         // Tana nodeid for API calls
-  rootFileId: string;      // Tana rootFileId
+**Mode: query** - Get values for a specific field:
+```
+Show me all my "Gestern war gut weil" entries
+What summaries have I written this month? (use createdAfter filter)
+List my recent action items from meetings
+Get the last 20 "Gratitude" entries
+```
+
+**Mode: search** - Full-text search across fields:
+```
+Search my field values for "sprint planning"
+Find summaries mentioning "authentication"
+Search my action items for anything about "review"
+```
+
+### tana_supertag_info
+Query supertag inheritance and field definitions. Useful for understanding supertag structure and validating field names.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `tagname` | string | Yes | Supertag name (e.g., "todo", "meeting") |
+| `mode` | string | No | "fields", "inheritance", or "full" (default: fields) |
+| `includeInherited` | boolean | No | Include inherited fields from parent tags |
+| `includeAncestors` | boolean | No | Include full ancestor chain with depth info |
+| `workspace` | string | No | Workspace alias |
+
+**Mode: fields** - Get field definitions:
+```
+What fields does the meeting supertag have?
+Show me all fields for #project including inherited fields
+```
+
+**Field info includes:**
+- `name` - Field name
+- `labelId` - Field label node ID
+- `inferredDataType` - Data type (text, date, reference, options, etc.)
+- `targetSupertagName` - For reference fields, the target supertag (e.g., "project")
+- `optionValues` - For inline options fields, array of available values (e.g., ["Active", "Next Up", "Done"])
+
+**Mode: inheritance** - Get parent relationships:
+```
+What does #manager inherit from?
+Show me the full inheritance chain for #employee
+```
+
+**Mode: full** - Get both fields and inheritance:
+```
+Tell me everything about the #todo supertag
+Show complete structure of #contact tag
+```
+
+### tana_timeline
+Time-bucketed activity view over a date range. Groups nodes by time period with configurable granularity.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `from` | string | No | Start date (ISO or relative: 7d, 1m, today) |
+| `to` | string | No | End date (ISO or relative, default: today) |
+| `granularity` | string | No | Time bucket size: hour, day, week, month, quarter, year (default: day) |
+| `tag` | string | No | Filter by supertag |
+| `limit` | number | No | Max items per bucket (default: 10) |
+| `workspace` | string | No | Workspace alias |
+
+**Example:**
+```
+Show me my activity for the last 30 days grouped by week
+{
+  "from": "30d",
+  "granularity": "week"
+}
+
+Show meeting activity for 2025 by month
+{
+  "from": "2025-01-01",
+  "to": "2025-12-31",
+  "granularity": "month",
+  "tag": "meeting"
 }
 ```
 
-**Error handling:**
-- `WorkspaceNotFoundError` - Workspace alias not in configuration
-- `WorkspaceDatabaseMissingError` - Database file doesn't exist (when `requireDatabase: true`)
+### tana_recent
+Recently created or updated items within a time period.
 
-**MCP cache clear:** Use `tana_cache_clear` tool or call `clearWorkspaceCache()` to refresh workspace data.
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `period` | string | No | Time period: Nh (hours), Nd (days), Nw (weeks), Nm (months) (default: 24h) |
+| `types` | array | No | Filter by supertag names |
+| `createdOnly` | boolean | No | Only show created items (not updated) |
+| `updatedOnly` | boolean | No | Only show updated items (not created) |
+| `limit` | number | No | Max results (default: 20) |
+| `workspace` | string | No | Workspace alias |
 
-### Query Builder Utilities (Spec 055)
-
-**ALWAYS use query builders for SQL construction** - never build LIMIT/OFFSET or ORDER BY manually.
-
-```typescript
-import { buildPagination, buildOrderBy, buildWhereClause } from '../db/query-builder';
-
-// Pagination - returns { sql: "LIMIT ? OFFSET ?", params: [100, 0] }
-const pagination = buildPagination({ limit: 100, offset: 0 });
-
-// Order by - returns { sql: "ORDER BY created DESC", params: [] }
-const orderBy = buildOrderBy({ sort: "created", direction: "DESC" }, []);
-
-// Where clause - returns { sql: "WHERE status = ?", params: ["active"] }
-const where = buildWhereClause([{ column: "status", operator: "=", value: "active" }]);
+**Example:**
 ```
-
-**Usage pattern with sqlParts array:**
-```typescript
-const sqlParts = ["SELECT * FROM nodes WHERE field_name = ?"];
-const params: SQLQueryBindings[] = [fieldName];
-
-// Add ORDER BY
-const orderBy = buildOrderBy({ sort: "created", direction: "DESC" }, []);
-sqlParts.push(orderBy.sql);
-
-// Add pagination
-const pagination = buildPagination({ limit, offset });
-if (pagination.sql) {
-  sqlParts.push(pagination.sql);
-  params.push(...(pagination.params as SQLQueryBindings[]));
+What did I create in the last 7 days?
+{
+  "period": "7d",
+  "createdOnly": true
 }
 
-return db.query(sqlParts.join(" ")).all(...params);
+Show recent meetings and tasks from this week
+{
+  "period": "1w",
+  "types": ["meeting", "task"]
+}
 ```
 
-**Available functions:**
-- `buildPagination({ limit?, offset? })` - LIMIT/OFFSET with safe defaults
-- `buildOrderBy({ sort, direction }, allowedColumns)` - ORDER BY with column whitelist validation
-- `buildWhereClause(conditions)` - WHERE with =, !=, >, <, LIKE, IN, IS NULL operators
-- `buildSelectQuery(options)` - Complete SELECT query composer
+### tana_table
+Export all instances of a supertag as a table with resolved field values. Uses batched queries — O(1) for field extraction and reference resolution.
 
-**Key files:**
-- `src/db/query-builder.ts` - Implementation (53 tests, 108 assertions)
-- Files using builders: `field-query.ts`, `field-values.ts`, `tana-query-engine.ts`, `search.ts`
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `supertag` | string | Yes | Supertag name to export (e.g., "book", "person") |
+| `workspace` | string | No | Workspace alias |
+| `fields` | array | No | Only include these fields (case-insensitive) |
+| `where` | array | No | Filter rows by "Field=value" conditions |
+| `sort` | string | No | Sort by field name |
+| `direction` | string | No | Sort direction: "asc" or "desc" (default: asc) |
+| `limit` | number | No | Max rows (1-1000, default: 100) |
+| `offset` | number | No | Skip first N rows |
+| `resolveReferences` | boolean | No | Resolve reference IDs to names (default: true) |
 
-**When NOT to use:**
-- Simple IN clauses already embedded in template literals (e.g., `WHERE id IN (${placeholders})`) - these are already safe with parameterized queries
+**Example:**
+```
+Export all my books as a table with their fields
+Show me all contacts with Name, Email, and Company fields
+Export tasks where Status is Done, sorted by name
+```
 
-### Running from Source vs Binary
-- **Binary**: `./supertag` - Compiled, may not have latest schema changes
-- **Source**: `bun run src/index.ts` - Always has latest code
+## CLI Commands
 
-After schema changes (like adding `_flags` support), you must either:
-1. Run from source: `bun run src/index.ts sync`
-2. Rebuild binary: `./scripts/build.sh`
-
-### Testing Workflow
-
-**IMPORTANT: Use fast tests during development, full suite only before pushing.**
+### Search Commands
 
 ```bash
-bun run test          # Fast tests only (~12s) - use during development
-bun run test:full     # ALL tests (~200s) - run before pushing/releasing
-bun run test:slow     # Slow tests only
+# Full-text search
+supertag search "meeting notes"
+
+# Semantic search (requires embeddings)
+supertag search "project ideas" --semantic
+
+# Filter by supertag
+supertag search "review" --tag todo
+
+# Filter by supertag and field value
+supertag search --tag meeting --field "Location=Zurich"
+supertag search --tag meeting --field "Location~Zur"  # Partial match
+
+# Date filtering
+supertag search "sprint" --created-after 2025-01-01
 ```
 
-**Do NOT run `bun test` directly** - it runs ALL tests including slow ones. Use `bun run test` instead.
-
-The build script (`./scripts/build.sh`) runs fast tests automatically.
-
-### Building After Implementation
-
-**IMPORTANT: After implementing any code changes, rebuild the binary:**
+### Node Commands
 
 ```bash
-./scripts/build.sh           # Build if source changed (runs fast tests first)
-./scripts/build.sh --force   # Force rebuild
-./scripts/build.sh --check   # Check if rebuild needed
+# Show node contents
+supertag nodes show <id> --depth 2
+
+# Show node references
+supertag nodes refs <id>
+
+# Recently updated nodes
+supertag nodes recent --limit 10
 ```
 
-The build script:
-1. Runs fast tests first (fails build if tests fail)
-2. Only rebuilds if source files changed (unless --force)
-3. Compiles to standalone `supertag` binary
+### Timeline Commands
 
-### Universal Format Options (Spec 060)
+```bash
+# Last 30 days, daily buckets (default)
+supertag timeline
 
-**All query commands support 6 output formats** via `--format <type>`:
+# Weekly view of last 3 months
+supertag timeline --from 3m --granularity week
+
+# Monthly view for a specific year
+supertag timeline --from 2025-01-01 --to 2025-12-31 --granularity month
+
+# Filter by supertag
+supertag timeline --tag meeting --granularity week
+
+# Recently created/updated items
+supertag recent                    # Last 24 hours
+supertag recent --period 7d        # Last 7 days
+supertag recent --period 1w --types meeting,task
+
+# Only created or only updated
+supertag recent --created          # Only newly created
+supertag recent --updated          # Only updated (not created)
+```
+
+### Tag Commands
+
+```bash
+# List all supertags
+supertag tags list
+
+# Most used supertags
+supertag tags top --limit 20
+
+# Show tag schema
+supertag tags show meeting
+
+# Show supertag inheritance
+supertag tags inheritance manager          # Tree view
+supertag tags inheritance manager --flat   # Flattened list
+supertag tags inheritance manager --json   # JSON output
+
+# Show supertag fields (with types, option values, references)
+supertag tags fields meeting              # Own fields only
+supertag tags fields manager --all        # Include inherited fields
+supertag tags fields manager --inherited  # Inherited only
+supertag tags fields manager --json       # JSON output
+# Field output shows:
+#   Type: options (Active, Next Up, Done)     <- inline options with values
+#   Type: reference → project                  <- reference field with target
+
+# Visualize inheritance graph
+supertag tags visualize                   # Mermaid flowchart (default)
+supertag tags visualize --format dot      # Graphviz DOT format
+supertag tags visualize --format json     # Raw JSON data
+supertag tags visualize --root entity     # Subtree from a tag
+supertag tags visualize --direction LR    # Left-to-right layout
+supertag tags visualize --show-fields     # Show field counts
+supertag tags visualize --colors          # Use tag colors (DOT)
+supertag tags visualize --output graph.md # Write to file
+```
+
+### Query Command
+
+The unified query command combines tag filtering, field filtering, and date ranges in a SQL-like syntax:
+
+```bash
+# Basic query by tag
+supertag query "find task"
+
+# Filter by field value
+supertag query "find task where Status = Done"
+
+# Multiple conditions (AND)
+supertag query "find task where Status = Active and Priority = High"
+
+# OR conditions (use parentheses)
+supertag query "find task where (Status = Done or Status = Cancelled)"
+
+# Contains operator (~)
+supertag query "find meeting where Attendees ~ John"
+supertag query "find * where name ~ project"
+
+# Date filtering with relative dates
+supertag query "find task where created > 7d"        # Last 7 days
+supertag query "find meeting where created > 1w"    # Last week
+supertag query "find note where created > 1m"       # Last month
+
+# Date filtering with ISO dates
+supertag query "find task where created > 2025-01-01"
+supertag query "find meeting where created > 2025-01-01 and created < 2025-12-31"
+
+# Ordering results
+supertag query "find task order by created"         # Ascending
+supertag query "find task order by -created"        # Descending
+supertag query "find task where Status = Active order by -created"
+
+# Pagination
+supertag query "find task limit 20"
+supertag query "find task limit 20 offset 40"
+
+# Field output - include all supertag fields
+supertag query "find contact select *"
+
+# Field output - specific fields only
+supertag query "find contact select 'Email,Phone,Company'"
+
+# Find nodes with empty/missing field values
+supertag query "find task where Status is empty"
+
+# Complete example
+supertag query "find task where Status = Active and created > 7d order by -created limit 20"
+
+# Output formats
+supertag query "find task" --format json
+supertag query "find task" --format csv > tasks.csv
+supertag query "find task" --format ids | xargs -I{} supertag nodes show {}
+```
+
+**Query syntax:**
+```
+find <tag> [where <conditions>] [order by [-]<field>] [limit N] [offset N] [select <fields>]
+```
+
+**Operators:**
+- `=` - Equality
+- `!=` - Not equal
+- `~` - Contains
+- `>`, `<`, `>=`, `<=` - Comparison
+- `exists` - Field exists check
+- `is empty` - Field is empty or missing
+
+**Select clause (inline in query):**
+- No select = Core fields only (id, name, created)
+- `select *` = All supertag fields including inherited
+- `select "Email,Phone"` = Specific fields by name
+
+**Relative dates:** `today`, `7d`, `1w`, `1m`, `1y`
+
+### Create Commands
+
+```bash
+# Basic creation
+supertag create todo "Buy groceries"
+
+# With fields
+supertag create meeting "Team Standup" --date 2025-12-25 --status scheduled
+
+# Multiple supertags
+supertag create video,towatch "Tutorial" --url https://example.com
+
+# With children
+supertag create todo "Project tasks" \
+  --children "First task" \
+  --children '{"name": "Reference", "id": "abc123"}'
+```
+
+### Batch Commands
+
+```bash
+# Fetch multiple nodes by ID
+supertag batch get id1 id2 id3
+
+# Pipe from search (get IDs, then fetch full details)
+supertag search "meeting" --format ids | supertag batch get --stdin
+
+# With children (depth 1-3)
+supertag batch get id1 id2 --depth 2
+
+# Create multiple nodes from JSON file
+supertag batch create --file nodes.json
+
+# Create from stdin
+echo '[{"supertag":"todo","name":"Task 1"}]' | supertag batch create --stdin
+
+# Dry-run mode (validate without creating)
+supertag batch create --file nodes.json --dry-run
+```
+
+### Workspace Commands
+
+```bash
+# List workspaces
+supertag workspace list
+
+# Add workspace
+supertag workspace add <rootFileId> --alias work
+
+# Set default
+supertag workspace set-default work
+
+# Query specific workspace
+supertag search "meeting" -w work
+```
+
+### Sync Commands
+
+```bash
+# Full reindex from export files
+supertag sync index
+
+# Delta-sync: fetch only changes since last sync (requires Tana Desktop + Local API)
+supertag sync index --delta
+
+# Check status (includes delta-sync info)
+supertag sync status
+
+# Cleanup old exports
+supertag sync cleanup --keep 5
+```
+
+### Table Commands
+
+```bash
+# Export all instances of a supertag as a table
+supertag table book
+
+# Select specific columns
+supertag table person --fields "Name,Email,Company"
+
+# Filter rows
+supertag table task --where "Status=Done"
+
+# Sort and paginate
+supertag table project --sort Name --direction asc --limit 50
+
+# Export formats
+supertag table book --format csv > books.csv
+supertag table book --format json
+supertag table book --format markdown
+
+# Show raw IDs instead of resolved names
+supertag table contact --no-resolve
+```
+
+### Field Commands
+
+```bash
+# List all field names with counts
+supertag fields list
+supertag fields list --limit 20 --json
+
+# Get values for a specific field
+supertag fields values "Summary" --limit 10
+supertag fields values "Gestern war gut weil" --after 2025-12-01
+supertag fields values "Action Items" --verbose  # Shows parent IDs
+
+# FTS search in field values
+supertag fields search "meeting notes"
+supertag fields search "project" --field "Summary"  # Search within field
+
+# Export for analysis
+supertag fields values "Gratitude" --json > gratitude.json
+supertag fields list --json | jq '.[] | .fieldName'
+```
+
+### Embedding Commands
+
+```bash
+# Configure embeddings
+supertag embed config --model bge-m3
+
+# Generate embeddings
+supertag embed generate
+
+# Generate with field values included in context
+supertag embed generate --include-fields
+
+# Embedding statistics
+supertag embed stats
+```
+
+## Output Formats
+
+All commands support `--format <type>` with these options:
 
 | Format | Description | Use Case |
 |--------|-------------|----------|
 | `table` | Human-readable with emojis | Interactive terminal use |
 | `json` | Pretty-printed JSON array | API integration, jq processing |
 | `csv` | RFC 4180 compliant CSV | Excel, spreadsheets |
-| `ids` | One ID per line | `xargs` piping |
-| `minimal` | JSON with id, name, tags only | Quick lookups |
+| `ids` | One ID per line | xargs piping, scripting |
+| `minimal` | Compact JSON (id, name, tags) | Quick lookups |
 | `jsonl` | JSON Lines (streaming) | Log processing, large datasets |
 
 **Format resolution priority:**
-1. `--format <type>` flag (highest)
-2. `--json` flag (legacy, maps to json)
-3. `--pretty` flag (legacy, maps to table)
-4. `SUPERTAG_FORMAT` environment variable
-5. Config file `output.format` setting
-6. Default: `table` (Unix-style TSV output)
+1. `--format <type>` flag (explicit)
+2. `--json` or `--pretty` flags (shortcuts)
+3. `SUPERTAG_FORMAT` environment variable
+4. Config file (`output.format`)
+5. TTY detection: `table` for interactive, `json` for pipes/scripts
 
-**Example usage:**
 ```bash
-# CSV export for spreadsheet
+# Explicit format
 supertag search "meeting" --format csv > meetings.csv
+supertag tags list --format ids | xargs -I{} supertag tags show {}
 
-# IDs for batch processing
-supertag search --tag todo --format ids | xargs -I{} supertag nodes show {}
+# TTY detection (interactive terminal gets table output)
+supertag search "meeting"
 
-# JSON Lines for streaming
-supertag nodes recent --format jsonl | while read -r line; do echo "$line" | jq .name; done
+# Piped output gets JSON (machine-readable)
+supertag search "meeting" | jq '.[] | .name'
 
-# Disable header row in CSV
-supertag tags list --format csv --no-header
+# JSON with field selection (reduces output)
+supertag search "meeting" --json --select id,name,tags
+supertag nodes show <id> --json --select id,name,fields
+
+# Verbose with timing
+supertag search "meeting" --verbose
 ```
 
-**Commands supporting --format:**
-- `search` (all modes: FTS, semantic, tagged)
-- `nodes show`, `nodes refs`, `nodes recent`
-- `tags list`, `tags top`, `tags show`, `tags inheritance`, `tags fields`
-- `fields list`, `fields values`, `fields search`
+## Webhook Server
 
-**Key files:**
-- `src/utils/output-formatter.ts` - Formatter implementations
-- `src/utils/output-options.ts` - Format resolution logic
-- `tests/format-integration.test.ts` - E2E format tests
+```bash
+# Start server
+supertag server start --port 3100 --daemon
 
-### Live Read Backend (F-097)
+# Stop server
+supertag server stop
 
-**Read/search operations route through Tana's Local API when available, with SQLite fallback.**
-
-```typescript
-import { resolveReadBackend } from '../api/read-backend-resolver';
-
-// Get the best available backend (never throws)
-const backend = await resolveReadBackend({ workspace: 'main' });
-const results = await backend.search('meeting notes', { limit: 20 });
-const node = await backend.readNode('nodeId', 2); // depth=2
-console.log(node.markdown);
+# Check status
+supertag server status
 ```
 
-**Resolution order:** `--offline` flag → cached backend → Local API healthy → SQLite fallback.
+### API Endpoints
 
-**Key files:**
-- `src/api/read-backend.ts` - `TanaReadBackend` interface + canonical types
-- `src/api/local-api-read-backend.ts` - Local API implementation
-- `src/api/sqlite-read-backend.ts` - SQLite implementation (wraps TanaQueryEngine + show.ts)
-- `src/api/read-backend-resolver.ts` - Backend resolver (never throws, session-cached)
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/search` | POST | Unified search (FTS, semantic, tagged) |
+| `/stats` | GET | Database statistics |
+| `/nodes/:id` | GET | Get node by ID |
+| `/nodes/:id/refs` | GET | Get node references |
+| `/tags` | GET | List supertags |
+| `/tags/top` | GET | Top supertags by usage |
+| `/workspaces` | GET | List available workspaces |
+| `/health` | GET | Server health check |
 
-**CLI helper:**
-```typescript
-import { resolveReadBackendFromOptions } from './helpers';
+## Configuration
 
-// In command action handlers:
-const backend = await resolveReadBackendFromOptions(options); // respects --offline, --workspace
-```
+Config file: `~/.config/supertag/config.json`
 
-**What routes through the read backend:**
-- FTS search (`supertag search`, `tana_search` MCP tool)
-- Node content (`supertag nodes show`, `tana_node` MCP tool)
-
-**What stays on SQLite:**
-- Semantic search (embeddings are local-only)
-- Tagged search, nodes recent, tags list (need structured query support)
-- Reference graph, field queries, aggregation
-
-### Watch Mode (F-103)
-
-**Continuous monitoring of Tana changes with hook-based automation.**
-
-**CLI:** `supertag sync watch [--interval <s>] [--filter-tag <tag>] [--on-change <cmd>] [--on-create <cmd>] [--on-modify <cmd>] [--on-delete <cmd>] [--event-log <path>] [--dry-run] [--max-failures <n>]`
-
-**Architecture:** Pre/post snapshot diffing around DeltaSyncService. Each poll cycle:
-1. Captures snapshot of current node state
-2. Runs delta-sync to fetch changes from Tana Local API
-3. Captures post-sync snapshot
-4. Diffs to detect creates, modifies, deletes
-5. Dispatches shell hooks with change details via env vars
-
-**Key files:**
-- `src/watch/watch-service.ts` - Main watch loop with backoff
-- `src/watch/differ.ts` - Snapshot diffing (creates/modifies/deletes)
-- `src/watch/snapshot.ts` - Pre/post snapshot capture
-- `src/watch/hook-runner.ts` - Shell hook execution ("never throws" pattern)
-- `src/watch/event-logger.ts` - JSONL event logging
-- `src/commands/sync.ts` - CLI command registration (lines 643-735)
-- `tests/watch/` - 6 test files, 70 tests
-
-**Design patterns:** Interface narrowing for DI (`Pick<Service, 'method'>`), exponential backoff with cap, JSONL event logs, "never throws" for side effects.
-
-### Error Handling System (Spec 073)
-
-**Structured Errors** - All errors extend `StructuredError` with consistent structure:
-
-```typescript
-import { StructuredError } from '../utils/structured-errors';
-
-// Creating errors
-throw new StructuredError("WORKSPACE_NOT_FOUND", "Workspace 'test' not found", {
-  details: { requestedWorkspace: "test", availableWorkspaces: ["main"] },
-  suggestion: "Try one of: main",
-  recovery: { canRetry: false, alternatives: ["main"] },
-});
-
-// For workspace errors, use specialized classes:
-import { WorkspaceNotFoundError, WorkspaceDatabaseMissingError } from '../config/workspace-resolver';
-throw new WorkspaceNotFoundError("test", ["main", "books"]);
-throw new WorkspaceDatabaseMissingError("test", "/path/to/db");
-```
-
-**Error Codes:**
-- `WORKSPACE_NOT_FOUND` - Workspace alias not in config
-- `DATABASE_NOT_FOUND` - Database file missing
-- `TAG_NOT_FOUND` - Supertag doesn't exist
-- `NODE_NOT_FOUND` - Node ID not found
-- `API_ERROR` - Tana API request failed
-- `VALIDATION_ERROR` - Input validation failed
-- `CONFIG_NOT_FOUND` - Config file missing
-- `UNKNOWN_ERROR` - Unclassified error
-
-**Formatting for different contexts:**
-
-```typescript
-import { formatErrorForCli, formatErrorForMcp } from '../utils/error-formatter';
-
-// CLI output (human-readable with colors)
-console.error(formatErrorForCli(error));
-
-// MCP output (structured JSON for AI agents)
-return { error: formatErrorForMcp(error) };
-```
-
-**Debug mode:**
-
-```typescript
-import { isDebugMode, setDebugMode, formatDebugError } from '../utils/debug';
-
-// Enable debug mode (shows stack traces)
-setDebugMode(true);
-
-// Format with debug info when in debug mode
-console.error(formatDebugError(error));
-```
-
-**MCP error handling:**
-
-```typescript
-import { handleMcpError } from '../mcp/error-handler';
-
-try {
-  const result = await someOperation();
-  return { content: [{ type: 'text', text: JSON.stringify(result) }] };
-} catch (error) {
-  return handleMcpError(error);  // Returns { isError: true, content: [...] }
+```json
+{
+  "output": {
+    "format": "table",
+    "humanDates": false
+  },
+  "embedding": {
+    "provider": "ollama",
+    "model": "bge-m3"
+  },
+  "localApi": {
+    "deltaSyncInterval": 5
+  },
+  "mcp": {
+    "toolMode": "full"
+  }
 }
 ```
 
-**Key files:**
-- `src/utils/structured-errors.ts` - StructuredError class
-- `src/utils/error-formatter.ts` - CLI and MCP formatters
-- `src/utils/error-registry.ts` - Error code registry
-- `src/utils/debug.ts` - Debug mode utilities
-- `src/mcp/error-handler.ts` - MCP error handling
-- `src/config/workspace-resolver.ts` - Workspace error classes
+**Output format options:** `table`, `json`, `csv`, `ids`, `minimal`, `jsonl`
+
+**MCP Tool Modes:**
+
+| Mode | Tools | Use Case |
+|------|-------|----------|
+| `full` | 33 | Standalone use — all tools available |
+| `slim` | 14 | Context-optimized — fewer tools for AI agents that perform better with less choice |
+| `lite` | 17 | Complement tana-local — analytics, search, and offline tools that tana-local doesn't provide |
+
+Set via `mcp.toolMode` in config or `TANA_MCP_TOOL_MODE` env var.
+
+**Lite Mode** is designed for two-layer MCP setups where tana-local handles live workspace CRUD (read, create, edit, tag, trash) and supertag-mcp provides the analytics and search layer (semantic search, aggregation, timeline, field queries, transcripts). Excluded tools return a helpful message pointing to the equivalent tana-local tool.
+
+```bash
+# Start in lite mode
+supertag-mcp --lite
+
+# Or via environment variable
+TANA_MCP_TOOL_MODE=lite supertag-mcp
+```
+
+## Prerequisites
+
+1. **Tana API Token** - Get from https://app.tana.inc/?bundle=settings&panel=api
+2. **Indexed Database** - Run `supertag sync index` after export
+3. **Schema Registry** (for creates) - Run `supertag schema sync`
+4. **Embeddings** (for semantic search) - Run `supertag embed generate`
+
+## Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `TANA_API_TOKEN` | Tana Input API token |
+| `TANA_WORKSPACE` | Default workspace alias |
+| `SUPERTAG_FORMAT` | Default output format (table, json, csv, ids, minimal, jsonl) |
+| `TANA_LOCAL_API_TOKEN` | Bearer token for Tana Desktop Local API |
+| `TANA_LOCAL_API_URL` | Local API endpoint URL (default: `http://localhost:8262`) |
+| `TANA_DELTA_SYNC_INTERVAL` | Delta-sync polling interval in minutes (default: 5, 0 disables) |
+| `TANA_MCP_TOOL_MODE` | MCP tool mode: `full` (33 tools), `slim` (14 tools), or `lite` (17 tools) |
+| `DEBUG` | Enable debug logging |
+
+## Data Locations
+
+| Type | Path |
+|------|------|
+| Config | `~/.config/supertag/` |
+| Data | `~/.local/share/supertag/` |
+| Exports | `~/Documents/Tana-Export/` |
+| Logs | `~/.local/state/supertag/` |
+
+## Performance
+
+| Operation | Speed |
+|-----------|-------|
+| Indexing | 107k nodes/sec |
+| FTS5 Search | <50ms |
+| Semantic Search | <100ms |
+| Database | ~500MB per 1M nodes |
+
+## Common Workflows
+
+### Daily Export + Sync
+```bash
+supertag-export run && supertag sync index
+```
+
+### Search and Create
+```bash
+# Find related work
+supertag search "authentication" --semantic
+
+# Create follow-up
+supertag create todo "Review auth implementation" --status active
+```
+
+### Multi-Workspace Queries
+```bash
+# Search personal workspace
+supertag search "vacation plans" -w personal
+
+# Search work workspace
+supertag search "sprint goals" -w work
+```
+
+### Debugging Errors
+```bash
+# Enable debug mode for verbose errors
+supertag search "test" --debug
+
+# View error log
+supertag errors --last 10
+
+# Export errors for analysis
+supertag errors --export > errors.json
+```
+
+## MCP Error Response Format
+
+When MCP tools encounter errors, they return structured JSON for AI agent recovery:
+
+```json
+{
+  "error": {
+    "code": "WORKSPACE_NOT_FOUND",
+    "message": "Workspace 'books' not found",
+    "details": {
+      "requestedWorkspace": "books",
+      "availableWorkspaces": ["main", "work"]
+    },
+    "suggestion": "Try one of: main, work",
+    "recovery": {
+      "canRetry": false,
+      "alternatives": ["main", "work"]
+    }
+  }
+}
+```
+
+**Error codes for AI agents:**
+- `WORKSPACE_NOT_FOUND` - Try `tana_cache_clear`, then use alternative from `alternatives`
+- `DATABASE_NOT_FOUND` - User needs to run `supertag sync index`
+- `TAG_NOT_FOUND` - Use `tana_supertags` to find correct tag name
+- `NODE_NOT_FOUND` - Use `tana_search` to find correct node ID
+- `VALIDATION_ERROR` - Check parameter requirements in tool schema
 
 ---
 > Source: [jcfischer/supertag-cli](https://github.com/jcfischer/supertag-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
