@@ -1,0 +1,9 @@
+{
+  "name": "fulcrumgenomics--chelae",
+  "displayName": "chelae",
+  "description": "Fast, highly accurate, read-trimming for NGS data.",
+  "version": "1.0.0",
+  "author": "fulcrumgenomics",
+  "homepage": "https://github.com/fulcrumgenomics/chelae",
+  "skills": []
+}
