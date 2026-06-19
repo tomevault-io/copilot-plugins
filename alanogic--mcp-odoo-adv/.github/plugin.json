@@ -1,0 +1,9 @@
+{
+  "name": "alanogic--mcp-odoo-adv",
+  "displayName": "mcp-odoo-adv",
+  "description": "Enhanced Odoo MCP server (STDIO, SSE, Streamable HTTP)",
+  "version": "1.0.0",
+  "author": "AlanOgic",
+  "homepage": "https://github.com/AlanOgic/mcp-odoo-adv",
+  "skills": []
+}
