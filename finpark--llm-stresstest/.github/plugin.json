@@ -1,0 +1,9 @@
+{
+  "name": "finpark--llm-stresstest",
+  "displayName": "llm_stresstest",
+  "description": "Analysen f\u00fcr LLM-Auswertungen",
+  "version": "1.0.0",
+  "author": "FinPark",
+  "homepage": "https://github.com/FinPark/llm_stresstest",
+  "skills": []
+}
