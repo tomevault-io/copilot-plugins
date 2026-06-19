@@ -4,7 +4,7 @@
   "repo": "findash",
   "description": "Claude skills that deliver a daily finance status dashboard to your telegram.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ya5huk/findash",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T04:39:54Z"
+  "distributed_at": "2026-06-19T11:01:33Z"
 }
