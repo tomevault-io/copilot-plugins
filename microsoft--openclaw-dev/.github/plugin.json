@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--openclaw-dev",
+  "displayName": "openclaw-dev",
+  "description": "An OpenClaw agent hosted in the cloud for development, testing and single tenant use cases. ",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/openclaw-dev",
+  "skills": []
+}
