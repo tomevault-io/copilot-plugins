@@ -1,0 +1,9 @@
+{
+  "name": "throgxyz--tronz",
+  "displayName": "tronz",
+  "description": "Idiomatic, async-first Rust SDK for the TRON network \u2014 inspired by alloy",
+  "version": "1.0.0",
+  "author": "throgxyz",
+  "homepage": "https://github.com/throgxyz/tronz",
+  "skills": []
+}
