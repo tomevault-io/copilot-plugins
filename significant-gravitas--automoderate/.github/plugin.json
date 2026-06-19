@@ -1,0 +1,9 @@
+{
+  "name": "significant-gravitas--automoderate",
+  "displayName": "AutoModerate",
+  "description": "An MIT Licensed content moderation platform that allows you to manage LLM generated content in your software!",
+  "version": "1.0.0",
+  "author": "Significant-Gravitas",
+  "homepage": "https://github.com/Significant-Gravitas/AutoModerate",
+  "skills": []
+}
