@@ -1,0 +1,9 @@
+{
+  "name": "avalonreset--hyperyap",
+  "displayName": "hyperyap",
+  "description": "Voice-to-text for Windows that just works. Open source speech-to-text powered by NVIDIA Parakeet TDT. No cloud, no internet required. Bundles hotkeys, terminal, and auto-boot in one install.",
+  "version": "1.0.0",
+  "author": "avalonreset",
+  "homepage": "https://github.com/avalonreset/hyperyap",
+  "skills": []
+}
