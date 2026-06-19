@@ -1,0 +1,9 @@
+{
+  "name": "onegayi--sentaurus-syntax-highlight",
+  "displayName": "sentaurus-syntax-highlight",
+  "description": "Full VSCode language support for Synopsys Sentaurus TCAD \u2014 syntax highlighting, semantic analysis, code navigation, and intelligent editing for SDE, SDEVICE, SPROCESS, EMW, INSPECT, and SVISUAL",
+  "version": "1.0.0",
+  "author": "ONEGAYI",
+  "homepage": "https://github.com/ONEGAYI/sentaurus-syntax-highlight",
+  "skills": []
+}
