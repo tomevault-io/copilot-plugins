@@ -1,0 +1,9 @@
+{
+  "name": "arozumenko--sdlc-skills",
+  "displayName": "sdlc-skills",
+  "description": "SDLC agents and skills for Claude Code, Cursor, Windsurf, Copilot",
+  "version": "1.0.0",
+  "author": "arozumenko",
+  "homepage": "https://github.com/arozumenko/sdlc-skills",
+  "skills": []
+}
