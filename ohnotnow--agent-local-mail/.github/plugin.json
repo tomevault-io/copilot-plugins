@@ -1,0 +1,9 @@
+{
+  "name": "ohnotnow--agent-local-mail",
+  "displayName": "agent-local-mail",
+  "description": "agent-local-mail",
+  "version": "1.0.0",
+  "author": "ohnotnow",
+  "homepage": "https://github.com/ohnotnow/agent-local-mail",
+  "skills": []
+}
