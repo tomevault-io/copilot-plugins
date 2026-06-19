@@ -1,107 +1,112 @@
-## viem
+## wagmi
 
-> Viem v2 integration patterns and Rules
+> Web3 integration patterns using Wagmi v2
 
+# Wagmi v2 Best Practices
 
-# Viem v2 Rules
+- **Use Wagmi v2.x**: Ensure all hooks and configurations adhere to Wagmi v2.x standards. ([Wagmi Migration Guide](mdc:basilic-evm/https:/wagmi.sh/react/guides/migrate-from-v1-to-v2))
 
-## Core Principles
-- Use viem 2.x APIs consistently
-- Use getAddress for address validation
-- Never cast directly as Address type
-- Handle RPC errors gracefully
+- **TypeScript Enforcement**: Use `wagmi/core` and `viem` types for strict type safety.
 
-## Address Handling
-```tsx
-import { getAddress, type Address } from 'viem'
+## Hooks and State Management Rules
 
-// Proper address validation
-function validateAddress(rawAddress: string) {
-  try {
-    return getAddress(rawAddress)
-  } catch (error) {
-    throw new Error('Invalid Ethereum address')
-  }
-}
+### Account Connection
 
-// Contract interaction pattern
-export async function readContract({
-  address,
-  abi,
-  functionName,
-  args
-}: ReadContractParams) {
-  const contractAddress = getAddress(address)
-  
-  return publicClient.readContract({
-    address: contractAddress,
-    abi,
-    functionName,
-    args
-  })
+- Use `useAccount`, `useConnect`, and `useDisconnect` hooks.
+- Avoid unnecessary re-renders.
+
+```typescript
+import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+
+function WalletConnect() {
+  const { address, isConnected } = useAccount()
+  const { connect } = useConnect({ connector: new InjectedConnector() })
+  const { disconnect } = useDisconnect()
+
+  return isConnected ? (
+    <button onClick={() => disconnect()}>Disconnect</button>
+  ) : (
+    <button onClick={() => connect()}>Connect Wallet</button>
+  )
 }
 ```
 
-## Transaction Handling
-```tsx
-import { type Hash, parseEther } from 'viem'
+## Smart Contract Interaction Rules
 
-// Send transaction pattern
-export async function sendTransaction({
-  to,
-  value,
-  data
-}: SendTransactionParams) {
-  try {
-    const hash = await walletClient.sendTransaction({
-      to: getAddress(to),
-      value: parseEther(value),
-      data
+### Reading from Contracts
+
+- Use `useReadContract` for single contract reads.
+
+```typescript
+import { useReadContract } from 'wagmi'
+import { wagmiContractConfig } from './contracts'
+
+function ReadContract() {
+  const { data: balance, isError, isLoading } = useReadContract({
+    ...wagmiContractConfig,
+    functionName: 'balanceOf',
+    args: ['0x03A71968491d55603FFe1b11A9e23eF013f75bCF'],
+  })
+
+  if (isLoading) return <div>Loading...</div>
+  if (isError) return <div>Error fetching balance</div>
+  return <div>Balance: {balance?.toString()}</div>
+}
+```
+
+### Writing to Contracts
+
+- Use `useWriteContract` for contract mutations.
+- Prefer small, composable hooks for encapsulating contract logic.
+
+```typescript
+import { UniswapV3QuoterV2Abi } from '@repo/core/abis'
+import type {
+  AbiParametersToPrimitiveTypes,
+  Address,
+  ExtractAbiFunction,
+} from 'abitype'
+import { useAccount, useWriteContract } from 'wagmi'
+
+export function useUniswapQuote({ quoterAddress }: { quoterAddress: Address }) {
+  const { address: account } = useAccount()
+  const { writeContract, ...o } = useWriteContract()
+
+  const getQuote = async (args: QuoteInputType) => {
+    if (!account) throw new Error('Wallet not connected')
+
+    const result = await writeContract({
+      address: quoterAddress,
+      abi: UniswapV3QuoterV2Abi,
+      functionName: 'quoteExactInput',
+      args,
+      account,
+      chain: undefined, // Let wagmi infer the current chain
     })
-    
-    return { hash }
-  } catch (error) {
-    if (error.code === 'INSUFFICIENT_FUNDS') {
-      throw new Error('Insufficient balance')
-    }
-    throw error
+    return result
+  }
+
+  return {
+    getQuote,
+    ...o,
   }
 }
+
+export type QuoteInputType = AbiParametersToPrimitiveTypes<
+  ExtractAbiFunction<typeof UniswapV3QuoterV2Abi, 'quoteExactInput'>['inputs']
+>
 ```
 
-## Event Handling
-```tsx
-// Event listening pattern
-export function useContractEvent({
-  address,
-  abi,
-  eventName
-}: ContractEventParams) {
-  const unwatch = publicClient.watchContractEvent({
-    address: getAddress(address),
-    abi,
-    eventName,
-    onLogs: (logs) => {
-      // Handle logs
-    }
-  })
+## Error Handling Rules
 
-  // Cleanup on unmount
-  onUnmount(() => unwatch())
-}
-```
+- Handle loading and error states in all async operations.
+- Avoid hooks inside loops or conditionals.
 
-## Error Handling
-- Use proper viem error types
-- Handle common RPC errors gracefully
-- Implement proper fallbacks
-- Provide user-friendly error messages
+## Performance and Optimization Rules
 
-## Performance
-- Use multicall for batch requests
-- Implement proper caching strategies
-- Handle rate limiting appropriately
-- Use WebSocket for real-time updates 
+- Use dynamic imports for non-critical components.
+- Implement Suspense with fallback components.
 
 ---
 > Source: [Boopi7/basilic-evm](https://github.com/Boopi7/basilic-evm) — distributed by [TomeVault](https://tomevault.io).
