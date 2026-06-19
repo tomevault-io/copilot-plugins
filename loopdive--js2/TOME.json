@@ -4,7 +4,7 @@
   "repo": "js2",
   "description": "ECMAScript to WebAssembly GC AOT compiler",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/loopdive/js2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T05:19:48Z"
+  "distributed_at": "2026-06-19T12:32:58Z"
 }
