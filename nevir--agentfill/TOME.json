@@ -3,7 +3,7 @@
   "owner": "nevir",
   "repo": "agentfill",
   "description": "A \"polyfill\" that standardizes and centralizes AGENTS.md configuration and Agent Skills support within your repository.",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nevir/agentfill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T14:30:25Z"
+  "distributed_at": "2026-06-19T14:42:52Z"
 }
