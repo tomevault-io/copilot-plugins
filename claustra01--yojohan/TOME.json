@@ -1,0 +1,44 @@
+{
+  "name": "yojohan",
+  "owner": "claustra01",
+  "repo": "yojohan",
+  "description": "SecHack365 2024 \u958b\u767a\u99c6\u52d5\u30b3\u30fc\u30b9\u4ef2\u5c71\u30bc\u30df \u4fee\u4e86\u4f5c\u54c1",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/claustra01/yojohan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T16:53:10Z"
+}
