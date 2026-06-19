@@ -1,0 +1,9 @@
+{
+  "name": "chrisbrooksbank--mazes",
+  "displayName": "mazes",
+  "description": "PWA: generate, solve, and walk through mazes in 2D/isometric/3D",
+  "version": "1.0.0",
+  "author": "ChrisBrooksbank",
+  "homepage": "https://github.com/ChrisBrooksbank/mazes",
+  "skills": []
+}
