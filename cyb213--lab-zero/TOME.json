@@ -1,0 +1,44 @@
+{
+  "name": "Lab-Zero",
+  "owner": "cyb213",
+  "repo": "Lab-Zero",
+  "description": "A clone-and-go workspace that gives your AI coding agent a memory \u2014 semantic recall, built-in work habits, and one-command project graduation. Works with Claude Code and Codex.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cyb213/Lab-Zero",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T04:53:42Z"
+}
