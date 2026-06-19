@@ -1,0 +1,9 @@
+{
+  "name": "yancheng-go--my-focal-ai",
+  "displayName": "my-focal-ai",
+  "description": "Personal news intelligence \u2014 aggregate AI content from curated sources, score with LLM, serve your own dashboard",
+  "version": "1.0.0",
+  "author": "YanCheng-go",
+  "homepage": "https://github.com/YanCheng-go/my-focal-ai",
+  "skills": []
+}
