@@ -1,0 +1,9 @@
+{
+  "name": "mivertowski--syntheticdata",
+  "displayName": "SyntheticData",
+  "description": "High-performance synthetic enterprise data generator. Produces 100+ interconnected financial tables \u2014 GL journal entries, document flows, subledgers, banking/KYC/AML, process mining (OCEL 2.0), graph ",
+  "version": "1.0.0",
+  "author": "mivertowski",
+  "homepage": "https://github.com/mivertowski/SyntheticData",
+  "skills": []
+}
