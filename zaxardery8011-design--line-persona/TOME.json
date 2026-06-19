@@ -4,7 +4,7 @@
   "repo": "line-persona",
   "description": "LINE \u5f71\u5206\u8eab \u2014 \u4f4e\u9580\u6abb\u7684 BYO-AI LINE \u5206\u8eab\u958b\u6e90\u6846\u67b6\u3002\u53eb AI \u8b80 AGENTS.md \u5c31\u80fd\u67b6\u51fa\u81ea\u5df1\u7684 LINE AI \u5206\u8eab:\u9935\u81ea\u5df1\u8cc7\u6599\u3001\u96f2\u7aef/\u672c\u5730\u6a21\u578b\u96a8\u5207\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zaxardery8011-design/line-persona",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T01:34:56Z"
+  "distributed_at": "2026-06-19T08:51:11Z"
 }
