@@ -7,11 +7,11 @@ Convert images into fuse bead (Perler/Hama) patterns with color quantization, di
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [a31521424/pixel-to-beads](https://github.com/a31521424/pixel-to-beads).
+Original source: `CLAUDE.md` in [a31521424/pixel-to-beads](https://github.com/a31521424/pixel-to-beads).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
