@@ -1,0 +1,9 @@
+{
+  "name": "dizzlkheinz--ynab-mcpb",
+  "displayName": "ynab-mcpb",
+  "description": "  MCP server for YNAB. Reconcile bank statements, itemize receipts, manage transactions \u2014 all through natural language.",
+  "version": "1.0.0",
+  "author": "dizzlkheinz",
+  "homepage": "https://github.com/dizzlkheinz/ynab-mcpb",
+  "skills": []
+}
