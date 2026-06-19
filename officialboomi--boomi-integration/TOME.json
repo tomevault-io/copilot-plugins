@@ -2,9 +2,9 @@
   "name": "boomi-integration",
   "owner": "OfficialBoomi",
   "repo": "boomi-integration",
-  "description": "Boomi Companion: Agent skill \"boomi-integration\" only",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OfficialBoomi/boomi-integration",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T02:15:29Z"
+  "distributed_at": "2026-06-19T12:42:40Z"
 }
