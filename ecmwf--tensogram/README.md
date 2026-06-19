@@ -7,11 +7,11 @@ A library for encoding and decoding binary scientific data with embedded semanti
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ecmwf/tensogram](https://github.com/ecmwf/tensogram).
+Original source: `AGENTS.md` in [ecmwf/tensogram](https://github.com/ecmwf/tensogram).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
