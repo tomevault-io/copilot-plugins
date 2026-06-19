@@ -4,7 +4,7 @@
   "repo": "dashboard",
   "description": "Open-source AI-native analytics platform. Natural language to SQL, no-code ML predictions, voice queries, federated multi-DB queries via Trino. AGPL v3, self-hosted.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/actyze/dashboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T04:55:13Z"
+  "distributed_at": "2026-06-19T11:15:40Z"
 }
