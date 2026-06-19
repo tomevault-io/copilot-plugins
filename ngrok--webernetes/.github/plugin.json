@@ -1,0 +1,9 @@
+{
+  "name": "ngrok--webernetes",
+  "displayName": "webernetes",
+  "description": "Kubernetes in the browser.",
+  "version": "1.0.0",
+  "author": "ngrok",
+  "homepage": "https://github.com/ngrok/webernetes",
+  "skills": []
+}
