@@ -1,0 +1,9 @@
+{
+  "name": "mysetsuna--ridge",
+  "displayName": "ridge",
+  "description": "\u5206\u5c4f\u7ec8\u7aef\u5de5\u4f5c\u53f0 \u2014 split panes, embedded editor, Git graph, Claude Code agent collaboration. Tauri + Svelte + Rust.",
+  "version": "1.0.0",
+  "author": "MySetsuna",
+  "homepage": "https://github.com/MySetsuna/ridge",
+  "skills": []
+}
