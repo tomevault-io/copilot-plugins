@@ -1,0 +1,44 @@
+{
+  "name": "Build26-DEM341-any-agent-any-cloud-standardized-tracing-with-foundry-and-opentelemetry",
+  "owner": "microsoft",
+  "repo": "Build26-DEM341-any-agent-any-cloud-standardized-tracing-with-foundry-and-opentelemetry",
+  "description": "Demo walkthrough and sample code for standardized multi-agent observability across clouds using Azure AI Foundry and OpenTelemetry GenAI semantic conventions. From Microsoft Build 2026.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/microsoft/Build26-DEM341-any-agent-any-cloud-standardized-tracing-with-foundry-and-opentelemetry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T20:55:45Z"
+}
