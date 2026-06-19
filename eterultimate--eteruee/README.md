@@ -7,11 +7,11 @@ EterUee is an Android APP that supports for multiple LLM providers.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [EterUltimate/EterUee](https://github.com/EterUltimate/EterUee).
+Original source: `CLAUDE.md` in [EterUltimate/EterUee](https://github.com/EterUltimate/EterUee).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
