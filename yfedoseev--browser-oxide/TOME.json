@@ -1,0 +1,44 @@
+{
+  "name": "browser_oxide",
+  "owner": "yfedoseev",
+  "repo": "browser_oxide",
+  "description": "Stealth headless browser engine in Rust \u2014 native BoringSSL TLS/JA4 fingerprint, real JS via deno_core, no Chromium, no CDP. Python + MCP bindings. A camoufox alternative.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yfedoseev/browser_oxide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T22:36:44Z"
+}
