@@ -1,0 +1,9 @@
+{
+  "name": "materwelondhruv--envapt",
+  "displayName": "envapt",
+  "description": "Type-safe config for TypeScript. Read typed values from any source, .env files, process.env, Workers bindings, browser bundles, or any object you bind. Zero runtime deps, one API across Node, Bun, Den",
+  "version": "1.0.0",
+  "author": "materwelonDhruv",
+  "homepage": "https://github.com/materwelonDhruv/envapt",
+  "skills": []
+}
