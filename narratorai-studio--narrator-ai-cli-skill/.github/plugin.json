@@ -1,0 +1,9 @@
+{
+  "name": "narratorai-studio--narrator-ai-cli-skill",
+  "displayName": "narrator-ai-cli-skill",
+  "description": "narrator-ai-cli-skill",
+  "version": "1.0.0",
+  "author": "NarratorAI-Studio",
+  "homepage": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill",
+  "skills": []
+}
