@@ -1,0 +1,9 @@
+{
+  "name": "aliou--pi-neuralwatt",
+  "displayName": "pi-neuralwatt",
+  "description": "Pi extension providing a Neuralwatt inference API provider with energy transparency",
+  "version": "1.0.0",
+  "author": "aliou",
+  "homepage": "https://github.com/aliou/pi-neuralwatt",
+  "skills": []
+}
