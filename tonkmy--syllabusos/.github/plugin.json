@@ -1,0 +1,9 @@
+{
+  "name": "tonkmy--syllabusos",
+  "displayName": "SyllabusOS",
+  "description": "A local-first agent workspace template for study and personal knowledge work: one registrar at root, customizable leaf   workspaces, and notes-first knowledge flow.",
+  "version": "1.0.0",
+  "author": "Tonkmy",
+  "homepage": "https://github.com/Tonkmy/SyllabusOS",
+  "skills": []
+}
