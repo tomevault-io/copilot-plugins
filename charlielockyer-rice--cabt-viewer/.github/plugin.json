@@ -1,0 +1,9 @@
+{
+  "name": "charlielockyer-rice--cabt-viewer",
+  "displayName": "cabt-viewer",
+  "description": "Svelte viewer for CABT battle states and replays",
+  "version": "1.0.0",
+  "author": "charlielockyer-rice",
+  "homepage": "https://github.com/charlielockyer-rice/cabt-viewer",
+  "skills": []
+}
