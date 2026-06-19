@@ -1,0 +1,9 @@
+{
+  "name": "opsworks-co--origin-cli",
+  "displayName": "origin-cli",
+  "description": "Open-source CLI for AI code attribution & governance. Track which AI agent wrote every line \u2014 Claude, Cursor, Gemini, Codex. Blame, audit, search, backfill.",
+  "version": "1.0.0",
+  "author": "opsworks-co",
+  "homepage": "https://github.com/opsworks-co/origin-cli",
+  "skills": []
+}
