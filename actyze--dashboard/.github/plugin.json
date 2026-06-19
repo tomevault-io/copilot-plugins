@@ -1,0 +1,9 @@
+{
+  "name": "actyze--dashboard",
+  "displayName": "dashboard",
+  "description": "Open-source AI-native analytics platform. Natural language to SQL, no-code ML predictions, voice queries, federated multi-DB queries via Trino. AGPL v3, self-hosted.",
+  "version": "1.0.0",
+  "author": "actyze",
+  "homepage": "https://github.com/actyze/dashboard",
+  "skills": []
+}
