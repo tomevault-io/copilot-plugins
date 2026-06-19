@@ -7,11 +7,11 @@ A compounding, AI-agent-maintained interview-prep wiki. Three-layer context-engi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AbhiK189/interview-prep-template](https://github.com/AbhiK189/interview-prep-template).
+Original source: `CLAUDE.md` in [AbhiK189/interview-prep-template](https://github.com/AbhiK189/interview-prep-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
