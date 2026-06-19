@@ -4,7 +4,7 @@
   "repo": "chatto",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chattocorp/chatto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T20:50:07Z"
+  "distributed_at": "2026-06-19T20:52:42Z"
 }
