@@ -1,0 +1,9 @@
+{
+  "name": "ekrich--exip",
+  "displayName": "exip",
+  "description": "Efficient XML Interchange (EXI) Embeddable C API",
+  "version": "1.0.0",
+  "author": "ekrich",
+  "homepage": "https://github.com/ekrich/exip",
+  "skills": []
+}
