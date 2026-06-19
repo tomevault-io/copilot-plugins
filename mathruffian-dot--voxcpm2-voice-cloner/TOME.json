@@ -4,7 +4,7 @@
   "repo": "voxcpm2-voice-cloner",
   "description": "VoxCPM2 voice cloner with auto GPU detection (CUDA/XPU/CPU) and Ultimate Cloning support",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mathruffian-dot/voxcpm2-voice-cloner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T16:30:52Z"
+  "distributed_at": "2026-06-19T16:33:25Z"
 }
