@@ -1,0 +1,186 @@
+## claude-obsidian-server
+
+> A Discord bot that provides mobile access to Claude Code within your Obsidian vault context. Built using the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview).
+
+# CLAUDE.md - Discord Obsidian Bot
+
+## Project Overview
+
+A Discord bot that provides mobile access to Claude Code within your Obsidian vault context. Built using the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview).
+
+**User Flow**:
+1. Share content in Discord (text, links, ideas)
+2. Bot creates a dedicated thread for your conversation
+3. Claude Code processes your request with full vault access
+4. Results are saved directly to your Obsidian notes
+
+**Why**: On desktop, you have Claude Code directly. On mobile, use Discord as your interface to chat with your vault and ingest content via Claude Code from anywhere.
+
+**Security**: This is designed for personal use on a private Discord server. The bot has full filesystem access to your vault.
+
+## Current Status
+- **Reference Implementation**: Production-ready codebase with working deployment pipeline
+- **Self-hosted**: Designed for personal deployment on your own infrastructure
+- **Features**: Conversation context, smart thread naming, resource management
+- **CI/CD**: Automated deployment example via GitHub Actions
+
+## Architecture
+
+### Core Components
+- **Discord Bot**: Node.js service that listens to Discord messages and forwards them to Claude Agent SDK
+- **Claude Agent SDK**: Executes Claude Code queries with access to your Obsidian vault filesystem
+- **Redis**: Stores conversation threads and session state (24h TTL, survives bot restarts)
+- **Obsidian Vault**: Your vault directory is mounted into the container, accessible to Claude Code
+
+### Vault Sync
+- **Mobile Sync**: Obsidian vault synced from Pixel 9 via Syncthing
+- **Git Integration**: Automated pull every 30min (fast-forward only)
+- **Documentation**: See [Obsidian Vault Sync Setup](../obsidian-vault/docs/obsidian-vault-sync.md)
+
+### Security
+- **Environment Variables**: Secrets stored in `discord-server/.env` (gitignored)
+- **GitHub Secrets**: Production secrets managed via GitHub Actions
+- **Access Control**: Health endpoint public, admin endpoints SSH-only
+
+## Development Workflow
+
+### Quick Start
+```bash
+# Start Redis
+docker run -d -p 6379:6379 --name redis-dev redis:alpine
+
+# Start bot
+cd discord-server && npm run dev
+```
+
+### Monitoring
+```bash
+# Local development
+tail -f discord-server/bot.log
+
+# Production
+npm run logs       # Follow live logs
+npm run status     # Container status
+npm run health     # Health check
+```
+
+### Split of Responsibility
+- **User**: Runs `npm run dev` in terminal, sees live output, controls process
+- **Claude**: Reads `bot.log` file for debugging and monitoring
+- **Benefit**: No port conflicts, user maintains control, Claude can help debug
+
+## Discord Bot Structure
+
+**Core Flow**: Discord message → Thread creation → Claude processing → Response formatting
+
+**Key Components**:
+- `ThreadManager` - Conversation context management
+- `RedisThreadManager` - Persistent thread state
+- `ThreadNamer` - Smart thread naming
+- `ResponseFormatter` - Message formatting
+- `ErrorHandler` - Error handling
+- `ProgressReporter` - Progress indicators
+
+### /stop Command
+
+Slash command `/stop` interrupts running Claude requests. Uses `stream.interrupt()` from Claude Agent SDK. Session context preserved (only current request stopped). Empty responses skipped to prevent Discord errors (bot.js:333).
+
+## Production Deployment
+
+### CI/CD via GitHub Actions (~70s)
+
+**Trigger**: Push to `main` with changes in `discord-server/**`, `docker-compose.yml`, `deploy.sh`, `.github/workflows/`
+
+**Optimizations**:
+- Claude CLI layer cached (rebuilds only on Dockerfile changes, not code)
+- Zero-downtime: builds first, deploys second; old container runs until new healthy
+- Health checks: Redis + bot `/health` endpoint; deployment fails if unhealthy
+- Fast feedback: status every 10s via `gh run list`
+
+**Deploy**: GitHub Actions → rsync → Docker build (cached) → `--no-deps` restart → health check wait (60s timeout)
+
+### GitHub Secrets Setup (One-Time)
+
+```bash
+./scripts/sync-secrets-to-github.sh
+```
+
+**What it does**:
+- Reads all secrets from `discord-server/.env` and syncs to GitHub
+- Auto-detects Hetzner SSH config from `~/.ssh/config`
+- Validates all required secrets are configured
+
+**Required Secrets**:
+- `DISCORD_BOT_TOKEN` - Discord bot authentication
+- `DISCORD_INBOX_CHANNEL_ID` - Channel for bot messages
+- `CLAUDE_CODE_OAUTH_TOKEN` - Claude API authentication
+- `HETZNER_SSH_KEY` - SSH private key for deployment
+- `HETZNER_HOST` - VPS IP address
+- `HETZNER_USER` - SSH user
+
+**When to Re-run**:
+- Initial setup (one-time)
+- When secrets change
+- When rotating credentials
+
+### Manual Deployment
+
+```bash
+./deploy.sh  # Detects CI mode automatically
+```
+
+## Production Management
+
+### Container Commands
+```bash
+# Status
+docker compose ps
+
+# Restart services
+docker compose restart
+
+# View logs
+docker compose logs -f discord-bot
+docker compose logs -f redis
+```
+
+### Required Configuration
+- **Environment**: `CLAUDE_CODE_OAUTH_TOKEN` + `OBSIDIAN_VAULT_PATH` in `.env`
+- **Redis**: Data persists via Docker volumes, 24h session TTL
+- **Network**: Bot connects to Discord via WebSocket (no public HTTP access needed)
+
+## Common Issues & Solutions
+
+### Redis Connection Error
+**Problem**: Redis container not running locally
+
+**Fix**:
+```bash
+docker run -d -p 6379:6379 --name redis-dev redis:alpine
+docker ps | grep redis  # Verify running
+```
+
+**Note**: Discord bot REQUIRES Redis for thread management - no fallback mode
+
+### Bot Doesn't Respond
+**Check**:
+- Discord token in `.env`: `DISCORD_BOT_TOKEN`
+- Channel ID in `.env`: `DISCORD_INBOX_CHANNEL_ID`
+- Claude auth in `.env`: `CLAUDE_CODE_OAUTH_TOKEN`
+
+### Invalid Working Directory
+**Problem**: Claude Code SDK can't find vault
+
+**Fix**: Set `OBSIDIAN_VAULT_PATH` to your actual vault directory in `.env`
+
+### Sessions Not Persisting
+**Check**: Redis connection in `/health` endpoint
+
+**Fix**: Ensure Redis is running (see Redis Connection Error above)
+
+### Claude CLI Authentication
+**Fix**: Run `claude setup-token` and copy token to `.env` as `CLAUDE_CODE_OAUTH_TOKEN`
+
+---
+> Source: [jonathanglasmeyer/claude-obsidian-server](https://github.com/jonathanglasmeyer/claude-obsidian-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-18 -->
