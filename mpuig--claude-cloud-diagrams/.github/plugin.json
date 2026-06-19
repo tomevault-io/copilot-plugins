@@ -1,0 +1,9 @@
+{
+  "name": "mpuig--claude-cloud-diagrams",
+  "displayName": "claude-cloud-diagrams",
+  "description": "An AI agent that explores your AWS account and draws what it finds. Not a perfect map. A useful one.",
+  "version": "1.0.0",
+  "author": "mpuig",
+  "homepage": "https://github.com/mpuig/claude-cloud-diagrams",
+  "skills": []
+}
