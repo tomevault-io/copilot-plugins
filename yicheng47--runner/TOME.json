@@ -4,7 +4,7 @@
   "repo": "runner",
   "description": "An editor for teams of local coding agents (Claude Code, Codex, and friends)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yicheng47/runner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T23:25:42Z"
+  "distributed_at": "2026-06-19T05:26:20Z"
 }
