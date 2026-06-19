@@ -4,7 +4,7 @@
   "repo": "blue-spec",
   "description": "\ud83c\udf0a Blue Spec is a toolkit for Security-Driven Hardening (SDH), a defensive workflow to help AI agents detect what a system does and harden the defenses that matter.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wellwelwel/blue-spec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T00:55:38Z"
+  "distributed_at": "2026-06-19T08:30:54Z"
 }
