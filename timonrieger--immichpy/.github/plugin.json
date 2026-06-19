@@ -1,0 +1,9 @@
+{
+  "name": "timonrieger--immichpy",
+  "displayName": "immichpy",
+  "description": "The stable, typed Python API layer for Immich automation and integrations.",
+  "version": "1.0.0",
+  "author": "timonrieger",
+  "homepage": "https://github.com/timonrieger/immichpy",
+  "skills": []
+}
