@@ -1,0 +1,9 @@
+{
+  "name": "temporalio--skill-temporal-cloud",
+  "displayName": "skill-temporal-cloud",
+  "description": "skill-temporal-cloud",
+  "version": "1.0.0",
+  "author": "temporalio",
+  "homepage": "https://github.com/temporalio/skill-temporal-cloud",
+  "skills": []
+}
