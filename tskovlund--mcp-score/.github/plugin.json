@@ -1,0 +1,9 @@
+{
+  "name": "tskovlund--mcp-score",
+  "displayName": "mcp-score",
+  "description": "MCP server for AI-driven music score generation and manipulation. Natural language to notation via MusicXML + live MuseScore integration.",
+  "version": "1.0.0",
+  "author": "tskovlund",
+  "homepage": "https://github.com/tskovlund/mcp-score",
+  "skills": []
+}
