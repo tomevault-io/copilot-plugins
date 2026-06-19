@@ -1,0 +1,9 @@
+{
+  "name": "lichtblick-suite--asam-osi-utilities",
+  "displayName": "asam-osi-utilities",
+  "description": "Utility library for reading and writing OSI multi channel trace files supporting the MCAP format.",
+  "version": "1.0.0",
+  "author": "lichtblick-suite",
+  "homepage": "https://github.com/lichtblick-suite/asam-osi-utilities",
+  "skills": []
+}
