@@ -1,0 +1,9 @@
+{
+  "name": "dasarne--gcode-lisa",
+  "displayName": "gcode-lisa",
+  "description": "GRBL G-Code Visualizer & Analyzer for CNC and 3D Printers",
+  "version": "1.0.0",
+  "author": "dasarne",
+  "homepage": "https://github.com/dasarne/gcode-lisa",
+  "skills": []
+}
