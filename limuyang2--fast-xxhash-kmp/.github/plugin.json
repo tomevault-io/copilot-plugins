@@ -1,0 +1,9 @@
+{
+  "name": "limuyang2--fast-xxhash-kmp",
+  "displayName": "fast-xxhash-kmp",
+  "description": "A xxhash Kotlin Multiplatform library(Android \\ iOS \\ Web \\ JVM). Support XXH3",
+  "version": "1.0.0",
+  "author": "limuyang2",
+  "homepage": "https://github.com/limuyang2/fast-xxhash-kmp",
+  "skills": []
+}
