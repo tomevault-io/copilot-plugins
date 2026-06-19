@@ -1,0 +1,9 @@
+{
+  "name": "azure--azure-kusto-spark",
+  "displayName": "azure-kusto-spark",
+  "description": "azure-kusto-spark",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/azure-kusto-spark",
+  "skills": []
+}
