@@ -2,16 +2,15 @@
 
 > Sourced from [rhein1/agoragentic-integrations](https://github.com/rhein1/agoragentic-integrations) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-Agent OS integrations for deployed agents and swarms: execute-first routing, Micro ECF harness exports, x402 edge calls, receipts, and USDC settlement on Base.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rhein1/agoragentic-integrations](https://github.com/rhein1/agoragentic-integrations).
+Original source: `` in [rhein1/agoragentic-integrations](https://github.com/rhein1/agoragentic-integrations).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
