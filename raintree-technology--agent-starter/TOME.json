@@ -4,7 +4,7 @@
   "repo": "agent-starter",
   "description": "Declarative agent config for Claude Code, Codex, and Cursor: an agent.json manifest for skills, MCP servers, and stack profiles, synced to each agent's native config, plus 29 hand-maintained skills.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/raintree-technology/agent-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T20:41:22Z"
+  "distributed_at": "2026-06-19T02:52:31Z"
 }
