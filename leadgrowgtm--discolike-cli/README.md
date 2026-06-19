@@ -2,15 +2,14 @@
 
 > Source: [LeadGrowGTM/discolike-cli](https://github.com/LeadGrowGTM/discolike-cli) — distributed by [TomeVault](https://tomevault.io)
 
-CLI for the DiscoLike B2B company discovery API. Lookalike search, market sizing, company enrichment.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [LeadGrowGTM/discolike-cli](https://github.com/LeadGrowGTM/discolike-cli).
+Original source: `` in [LeadGrowGTM/discolike-cli](https://github.com/LeadGrowGTM/discolike-cli).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
