@@ -1,0 +1,9 @@
+{
+  "name": "agentified--agentified",
+  "displayName": "agentified",
+  "description": "Context runtime that registers your tools and assembles the right context, tools, messages, and memory, for every agent turn",
+  "version": "1.0.0",
+  "author": "agentified",
+  "homepage": "https://github.com/agentified/agentified",
+  "skills": []
+}
