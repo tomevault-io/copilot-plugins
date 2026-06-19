@@ -1,0 +1,9 @@
+{
+  "name": "ya5huk--findash",
+  "displayName": "findash",
+  "description": "Claude skills that deliver a daily finance status dashboard to your telegram.",
+  "version": "1.0.0",
+  "author": "ya5huk",
+  "homepage": "https://github.com/ya5huk/findash",
+  "skills": []
+}
