@@ -1,0 +1,9 @@
+{
+  "name": "itsadrianxv--quant-strategy-builder-skill",
+  "displayName": "quant-strategy-builder-skill",
+  "description": "\u8bbe\u8ba1\u91cf\u5316\u4ea4\u6613\u7b56\u7565\u7684 agent SKILL",
+  "version": "1.0.0",
+  "author": "itsadrianxv",
+  "homepage": "https://github.com/itsadrianxv/quant-strategy-builder-skill",
+  "skills": []
+}
