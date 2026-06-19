@@ -1,0 +1,9 @@
+{
+  "name": "amahpour--claude-code-command-center",
+  "displayName": "claude-code-command-center",
+  "description": "Web-based dashboard for monitoring and managing multiple Claude Code sessions",
+  "version": "1.0.0",
+  "author": "amahpour",
+  "homepage": "https://github.com/amahpour/claude-code-command-center",
+  "skills": []
+}
