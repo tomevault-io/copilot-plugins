@@ -7,11 +7,11 @@ Type-safe config for TypeScript. Read typed values from any source, .env files, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [materwelonDhruv/envapt](https://github.com/materwelonDhruv/envapt).
+Original source: `CLAUDE.md` in [materwelonDhruv/envapt](https://github.com/materwelonDhruv/envapt).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
