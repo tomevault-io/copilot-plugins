@@ -1,0 +1,9 @@
+{
+  "name": "physics91--openrouter-mcp",
+  "displayName": "openrouter-mcp",
+  "description": "A Model Context Protocol (MCP) server for OpenRouter API - Access 100+ AI models through a unified interface with Claude Desktop integration",
+  "version": "1.0.0",
+  "author": "physics91",
+  "homepage": "https://github.com/physics91/openrouter-mcp",
+  "skills": []
+}
