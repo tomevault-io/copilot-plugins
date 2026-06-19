@@ -1,0 +1,9 @@
+{
+  "name": "smartsheet--smartsheet-deprecation-scanner",
+  "displayName": "smartsheet-deprecation-scanner",
+  "description": "smartsheet-deprecation-scanner",
+  "version": "1.0.0",
+  "author": "smartsheet",
+  "homepage": "https://github.com/smartsheet/smartsheet-deprecation-scanner",
+  "skills": []
+}
