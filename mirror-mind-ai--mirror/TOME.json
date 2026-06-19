@@ -4,7 +4,7 @@
   "repo": "mirror",
   "description": "A local-first memory and identity framework for agentic AI runtimes. Mirror Mind gives knowledge workers a coordinated team of specialized AI personas \u2014 all briefed on your identity, your projects, and your history \u2014 that carries context across every session and compounds over time.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mirror-mind-ai/mirror",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T00:35:35Z"
+  "distributed_at": "2026-06-19T07:17:44Z"
 }
