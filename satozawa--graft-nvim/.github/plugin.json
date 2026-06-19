@@ -1,0 +1,9 @@
+{
+  "name": "satozawa--graft-nvim",
+  "displayName": "graft.nvim",
+  "description": "Tree-aware text objects and operators for Markdown bullet lists in Neovim",
+  "version": "1.0.0",
+  "author": "satozawa",
+  "homepage": "https://github.com/satozawa/graft.nvim",
+  "skills": []
+}
