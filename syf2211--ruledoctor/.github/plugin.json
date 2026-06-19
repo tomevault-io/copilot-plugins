@@ -1,0 +1,9 @@
+{
+  "name": "syf2211--ruledoctor",
+  "displayName": "ruledoctor",
+  "description": "Agent Skill: read CLAUDE.md & project rules before coding. Optional CLI audit + hooks. Claude/Codex/Cursor.",
+  "version": "1.0.0",
+  "author": "syf2211",
+  "homepage": "https://github.com/syf2211/ruledoctor",
+  "skills": []
+}
