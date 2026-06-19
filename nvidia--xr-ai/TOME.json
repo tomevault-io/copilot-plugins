@@ -4,7 +4,7 @@
   "repo": "xr-ai",
   "description": "XR AI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA/xr-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T22:43:43Z"
+  "distributed_at": "2026-06-19T04:57:12Z"
 }
