@@ -1,0 +1,9 @@
+{
+  "name": "anthony-chaudhary--dos-kernel",
+  "displayName": "dos-kernel",
+  "description": "Catch your AI agents when they lie about what they shipped \u2014 verifies claims against git instead of believing the agent.",
+  "version": "1.0.0",
+  "author": "anthony-chaudhary",
+  "homepage": "https://github.com/anthony-chaudhary/dos-kernel",
+  "skills": []
+}
