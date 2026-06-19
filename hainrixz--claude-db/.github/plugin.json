@@ -1,0 +1,9 @@
+{
+  "name": "hainrixz--claude-db",
+  "displayName": "claude-db",
+  "description": "The multi-paradigm database expert for Claude Code \u2014 design a schema, audit it on two never-blended scores (Design & Integrity / Performance & Scale), and safely migrate. SQL \u00b7 document \u00b7 key-value \u00b7 ",
+  "version": "1.0.0",
+  "author": "Hainrixz",
+  "homepage": "https://github.com/Hainrixz/claude-db",
+  "skills": []
+}
