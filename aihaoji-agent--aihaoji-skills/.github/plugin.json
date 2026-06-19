@@ -1,0 +1,9 @@
+{
+  "name": "aihaoji-agent--aihaoji-skills",
+  "displayName": "aihaoji-skills",
+  "description": "aihaoji-skills",
+  "version": "1.0.0",
+  "author": "AiHaoJi-Agent",
+  "homepage": "https://github.com/AiHaoJi-Agent/aihaoji-skills",
+  "skills": []
+}
