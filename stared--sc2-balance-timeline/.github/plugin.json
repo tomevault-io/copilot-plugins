@@ -1,0 +1,9 @@
+{
+  "name": "stared--sc2-balance-timeline",
+  "displayName": "sc2-balance-timeline",
+  "description": "All StarCraft 2 balance updates visualized",
+  "version": "1.0.0",
+  "author": "stared",
+  "homepage": "https://github.com/stared/sc2-balance-timeline",
+  "skills": []
+}
