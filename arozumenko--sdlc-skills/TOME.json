@@ -4,7 +4,7 @@
   "repo": "sdlc-skills",
   "description": "SDLC agents and skills for Claude Code, Cursor, Windsurf, Copilot",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arozumenko/sdlc-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T20:54:41Z"
+  "distributed_at": "2026-06-19T21:00:19Z"
 }
