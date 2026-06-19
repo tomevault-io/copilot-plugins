@@ -1,0 +1,9 @@
+{
+  "name": "lobbystack--lobbystack",
+  "displayName": "lobbystack",
+  "description": "The open-source AI receptionist for calls, texts, and appointments. An alternative to Myaifrontdesk, Upfirst, Goodcall, Phonely, etc.",
+  "version": "1.0.0",
+  "author": "lobbystack",
+  "homepage": "https://github.com/lobbystack/lobbystack",
+  "skills": []
+}
