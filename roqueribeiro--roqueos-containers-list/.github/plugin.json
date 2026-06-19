@@ -1,0 +1,9 @@
+{
+  "name": "roqueribeiro--roqueos-containers-list",
+  "displayName": "roqueos-containers-list",
+  "description": "RoqueOS App Store - Docker containers catalog",
+  "version": "1.0.0",
+  "author": "roqueribeiro",
+  "homepage": "https://github.com/roqueribeiro/roqueos-containers-list",
+  "skills": []
+}
