@@ -1,0 +1,9 @@
+{
+  "name": "joonheeu--step-clock",
+  "displayName": "step-clock",
+  "description": "StepClock is a sequential timer app that runs in the macOS menu bar",
+  "version": "1.0.0",
+  "author": "joonheeu",
+  "homepage": "https://github.com/joonheeu/step-clock",
+  "skills": []
+}
