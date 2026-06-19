@@ -1,0 +1,9 @@
+{
+  "name": "cskwork--attach-to-browser-skill",
+  "displayName": "attach-to-browser-skill",
+  "description": "attach-to-browser-skill",
+  "version": "1.0.0",
+  "author": "cskwork",
+  "homepage": "https://github.com/cskwork/attach-to-browser-skill",
+  "skills": []
+}
