@@ -4,7 +4,7 @@
   "repo": "repo-harness",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ancienttwo/repo-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T22:54:17Z"
+  "distributed_at": "2026-06-19T21:10:47Z"
 }
