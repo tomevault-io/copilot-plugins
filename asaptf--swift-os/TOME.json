@@ -4,7 +4,7 @@
   "repo": "swift-os",
   "description": "OS written in Embedded Swift",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/asaptf/swift-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T19:09:10Z"
+  "distributed_at": "2026-06-19T01:19:21Z"
 }
