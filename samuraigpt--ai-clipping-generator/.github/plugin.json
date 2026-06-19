@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--ai-clipping-generator",
+  "displayName": "ai-clipping-generator",
+  "description": "Open-source AI video clipping generator \u2014 production-ready Next.js SaaS that auto-extracts viral shorts, Reels, and TikToks from long-form YouTube videos. Stripe billing, credits, NextAuth, and Prisma",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/ai-clipping-generator",
+  "skills": []
+}
