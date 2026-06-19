@@ -4,7 +4,7 @@
   "repo": "agent-quorum",
   "description": "Quality planning through agent consensus",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eventbalancer/agent-quorum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T07:20:26Z"
+  "distributed_at": "2026-06-19T12:48:39Z"
 }
