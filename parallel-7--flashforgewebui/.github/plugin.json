@@ -1,0 +1,9 @@
+{
+  "name": "parallel-7--flashforgewebui",
+  "displayName": "FlashForgeWebUI",
+  "description": "The WebUI from FlashForgeUI, designed for devices with limited resources",
+  "version": "1.0.0",
+  "author": "Parallel-7",
+  "homepage": "https://github.com/Parallel-7/FlashForgeWebUI",
+  "skills": []
+}
