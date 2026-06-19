@@ -1,0 +1,9 @@
+{
+  "name": "atakhadiviom--odoo-skill",
+  "displayName": "odoo-skill",
+  "description": "Odoo 19.0 development skill for Claude Code with module scaffolding, bug fixing workflows, and OWL 2.0 support",
+  "version": "1.0.0",
+  "author": "atakhadiviom",
+  "homepage": "https://github.com/atakhadiviom/odoo-skill",
+  "skills": []
+}
