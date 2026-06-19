@@ -1,0 +1,9 @@
+{
+  "name": "paultyng--skill-issue",
+  "displayName": "skill-issue",
+  "description": "Personal Claude Code / Cursor agent skills, rules, and config",
+  "version": "1.0.0",
+  "author": "paultyng",
+  "homepage": "https://github.com/paultyng/skill-issue",
+  "skills": []
+}
