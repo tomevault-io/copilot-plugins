@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--paperless-telegram-bot",
+  "displayName": "paperless-telegram-bot",
+  "description": "Manage Paperless-NGX documents entirely through Telegram - upload, search, tag, and organize",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/paperless-telegram-bot",
+  "skills": []
+}
