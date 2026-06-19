@@ -1,0 +1,9 @@
+{
+  "name": "ponikar--phone-for-ai-agent",
+  "displayName": "phone-for-ai-agent",
+  "description": "Your AI agent can have an android phone.",
+  "version": "1.0.0",
+  "author": "ponikar",
+  "homepage": "https://github.com/ponikar/phone-for-ai-agent",
+  "skills": []
+}
