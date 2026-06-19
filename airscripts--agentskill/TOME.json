@@ -2,9 +2,9 @@
   "name": "agentskill",
   "owner": "airscripts",
   "repo": "agentskill",
-  "description": "Let any agent produce code indistinguishable from the existing codebase.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/airscripts/agentskill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T02:01:17Z"
+  "distributed_at": "2026-06-19T22:42:10Z"
 }
