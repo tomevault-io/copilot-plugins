@@ -4,7 +4,7 @@
   "repo": "whatsapp-crm-panel",
   "description": "Panel de mensajeria con CRM multicanal single-tenant (WhatsApp + IA), autoalojable en Coolify",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kevinrivm/whatsapp-crm-panel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T20:39:38Z"
+  "distributed_at": "2026-06-19T20:45:35Z"
 }
