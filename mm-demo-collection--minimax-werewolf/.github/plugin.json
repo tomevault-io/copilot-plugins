@@ -1,0 +1,9 @@
+{
+  "name": "mm-demo-collection--minimax-werewolf",
+  "displayName": "minimax-werewolf",
+  "description": "MiniMax AI \u9a71\u52a8\u7684\u72fc\u4eba\u6740\u6e38\u620f\u6846\u67b6",
+  "version": "1.0.0",
+  "author": "mm-demo-collection",
+  "homepage": "https://github.com/mm-demo-collection/minimax-werewolf",
+  "skills": []
+}
