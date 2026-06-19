@@ -4,7 +4,7 @@
   "repo": "ultimate-pi",
   "description": "(Beta) The Ultimate AI Coding Harness (Built on top of by Pi.dev)",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aryaniyaps/ultimate-pi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T00:34:39Z"
+  "distributed_at": "2026-06-19T05:13:46Z"
 }
