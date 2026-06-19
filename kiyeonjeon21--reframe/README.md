@@ -7,11 +7,11 @@ Declarative motion graphics AI can write, humans can tweak — edits survive AI 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kiyeonjeon21/reframe](https://github.com/kiyeonjeon21/reframe).
+Original source: `CLAUDE.md` in [kiyeonjeon21/reframe](https://github.com/kiyeonjeon21/reframe).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
