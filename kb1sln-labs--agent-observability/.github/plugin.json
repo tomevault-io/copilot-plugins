@@ -1,0 +1,9 @@
+{
+  "name": "kb1sln-labs--agent-observability",
+  "displayName": "agent-observability",
+  "description": "Self-hosted OpenTelemetry observability stack for AI coding agents (Claude Code + OpenAI Codex). All telemetry stays local \u2014 OTel Collector \u2192 Prometheus + Loki \u2192 Grafana.",
+  "version": "1.0.0",
+  "author": "KB1SLN-Labs",
+  "homepage": "https://github.com/KB1SLN-Labs/agent-observability",
+  "skills": []
+}
