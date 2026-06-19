@@ -7,11 +7,11 @@ LINE 影分身 — 低門檻的 BYO-AI LINE 分身開源框架。叫 AI 讀 AGEN
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zaxardery8011-design/line-persona](https://github.com/zaxardery8011-design/line-persona).
+Original source: `CLAUDE.md` in [zaxardery8011-design/line-persona](https://github.com/zaxardery8011-design/line-persona).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
