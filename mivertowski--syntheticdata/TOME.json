@@ -1,0 +1,44 @@
+{
+  "name": "SyntheticData",
+  "owner": "mivertowski",
+  "repo": "SyntheticData",
+  "description": "High-performance synthetic enterprise data generator. Produces 100+ interconnected financial tables \u2014 GL journal entries, document flows, subledgers, banking/KYC/AML, process mining (OCEL 2.0), graph exports (PyTorch Geometric, Neo4j), and 20+ process chains \u2014 with Benford's Law compliance, ACFE-aligned fraud labels, and formal privacy guarantees.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mivertowski/SyntheticData",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T04:32:47Z"
+}
