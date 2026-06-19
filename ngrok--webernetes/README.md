@@ -7,11 +7,11 @@ Kubernetes in the browser.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ngrok/webernetes](https://github.com/ngrok/webernetes).
+Original source: `CLAUDE.md` in [ngrok/webernetes](https://github.com/ngrok/webernetes).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
