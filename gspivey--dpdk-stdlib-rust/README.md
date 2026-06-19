@@ -7,11 +7,11 @@ High-performance userspace UDP/TCP networking library for Rust using DPDK. Drop-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gspivey/dpdk-stdlib-rust](https://github.com/gspivey/dpdk-stdlib-rust).
+Original source: `CLAUDE.md` in [gspivey/dpdk-stdlib-rust](https://github.com/gspivey/dpdk-stdlib-rust).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
