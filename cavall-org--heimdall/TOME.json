@@ -4,7 +4,7 @@
   "repo": "Heimdall",
   "description": "A set of skills for molecular image to SMILES ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CAVALL-ORG/Heimdall",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T19:15:52Z"
+  "distributed_at": "2026-06-19T01:20:52Z"
 }
