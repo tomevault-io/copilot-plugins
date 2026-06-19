@@ -1,0 +1,9 @@
+{
+  "name": "ljchang--marimo-book",
+  "displayName": "marimo-book",
+  "description": "A Jupyter-Book-style static site generator for marimo notebooks",
+  "version": "1.0.0",
+  "author": "ljchang",
+  "homepage": "https://github.com/ljchang/marimo-book",
+  "skills": []
+}
