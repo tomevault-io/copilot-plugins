@@ -1,0 +1,9 @@
+{
+  "name": "noambrand--kivun-terminal-wsl",
+  "displayName": "kivun-terminal-wsl",
+  "description": "The only Claude Code terminal that renders Hebrew, Arabic, and Persian correctly. Mixed RTL+LTR text in their right place. One-click installer for Windows and Linux.  Live status bar, Folder picker, R",
+  "version": "1.0.0",
+  "author": "noambrand",
+  "homepage": "https://github.com/noambrand/kivun-terminal-wsl",
+  "skills": []
+}
