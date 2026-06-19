@@ -1,47 +1,63 @@
-## tailwind
+## typescript
 
-> Tailwind CSS and UI component guidelines
+> TypeScript coding standards and best practices
 
+# TypeScript Rules
 
-# Tailwind & UI Rules
+### **Core Principles**
+- Use **TypeScript** for all code; prefer **interfaces** over types.
+- Use the **`function`** keyword for pure functions; **omit semicolons**.
+- Avoid **enums**; use **maps** or **union types** instead.
+- Use **descriptive variable names** with auxiliary verbs (e.g., `isLoading`, `hasError`).
+- Follow the **RORO (Receive an Object, Return an Object)** pattern for function arguments and return values.
+- Use **lowercase-with-dashes** for directories (e.g., `components/auth-wizard`).
+- Favor **named exports** for components.
+- Use **functional & declarative programming** patterns; **avoid classes**.
+- Prefer **iteration & modularization** over code duplication.
+- **Avoid unnecessary curly braces** in conditionals, especially for single-line statements.
+- CRITICAL: Always infer types and keep them inline unless you need to reuse them.
 
-## Core Principles
-- Use mobile-first responsive design
-- Use Shadcn UI components from @repo/ui
-- Follow design system tokens
-- Use lucide-react icons
+### **Error Handling**
+- **Fail fast**: Handle errors early using **guard clauses & early returns**.
+- Place the **happy path last** for improved readability.
+- **Avoid unnecessary else statements**; prefer `if-return` pattern.
+- Use **preconditions** to check for invalid states upfront.
+- Throw errors from `@repo/errors` for consistency.
+- Implement **proper error logging** and **user-friendly messages**.
+- Consider using **custom error types** or **error factories** for consistent error handling.
 
-## Component Patterns
+### **File Structure & Organization** IMPORTANT
+Maintain a structured and logical order when organizing files:
+1. **Main Component** – The primary component that orchestrates logic and renders subcomponents.
+2. **Subcomponents** – Smaller, reusable components that support the main component.
+3. **Helpers & Utilities** – Functions or modules that provide reusable logic and utilities.
+4. **Static Content** – Non-code assets such as constants, images, or localization files.
+5. **Types & Interfaces** – Type definitions for TypeScript to ensure type safety and maintain consistency.
+
+This hierarchy improves **readability, maintainability, and scalability**.
+
+#### **Example**
 ```tsx
-import { cn } from '@repo/utils'
-import { cva } from 'class-variance-authority'
-
-const buttonVariants = cva(
-  'rounded-md font-medium transition-colors',
-  {
-    variants: {
-      variant: {
-        default: 'bg-primary text-white hover:bg-primary/90',
-        secondary: 'bg-secondary text-white hover:bg-secondary/90'
-      }
-    },
-    defaultVariants: {
-      variant: 'default'
-    }
-  }
-)
-
-function Button({ 
-  className, 
-  variant, 
-  ...props 
-}: ButtonProps) {
+export function MainComponent() {
   return (
-    <button 
-      className={cn(buttonVariants({ variant }), className)}
-      {...props}
-    />
+    <div className="flex flex-col gap-4">
+      <h1>{content.title}</h1>
+      <SubComponent message={content.welcome} />
+    </div>
   )
+}
+
+function SubComponent({ message }: SubComponentProps) {
+  return <p>{message}</p>
+}
+
+const content = {
+  title: "Main Component",
+  welcome: "Welcome"
+} as const
+
+interface SubComponentProps {
+  message: string
 }
 ``` 
 
