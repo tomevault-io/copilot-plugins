@@ -1,0 +1,9 @@
+{
+  "name": "mintuz--skills",
+  "displayName": "skills",
+  "description": "My collection of Claude Code Agents & Skills for web and iOS Development",
+  "version": "1.0.0",
+  "author": "mintuz",
+  "homepage": "https://github.com/mintuz/skills",
+  "skills": []
+}
