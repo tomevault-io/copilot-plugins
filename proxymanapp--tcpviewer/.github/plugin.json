@@ -1,0 +1,9 @@
+{
+  "name": "proxymanapp--tcpviewer",
+  "displayName": "TCPViewer",
+  "description": "The best-in-class macOS app to See every packet clearly on your Mac. Alternative to Wireshark",
+  "version": "1.0.0",
+  "author": "ProxymanApp",
+  "homepage": "https://github.com/ProxymanApp/TCPViewer",
+  "skills": []
+}
