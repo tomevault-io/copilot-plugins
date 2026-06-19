@@ -1,0 +1,9 @@
+{
+  "name": "danielraffel--pulp",
+  "displayName": "pulp",
+  "description": "Cross-platform audio plugin and application framework (in alpha). MIT licensed.",
+  "version": "1.0.0",
+  "author": "danielraffel",
+  "homepage": "https://github.com/danielraffel/pulp",
+  "skills": []
+}
