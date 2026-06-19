@@ -1,0 +1,9 @@
+{
+  "name": "pauloarthurrocha--onemanagency",
+  "displayName": "OneManAgency",
+  "description": "Open-source framework for orchestrating AI agents in any IDE. Context Engineering, PIV Loop, TDD enforcement and 17 specialized agents for Claude Code, Cursor, Windsurf & more.",
+  "version": "1.0.0",
+  "author": "pauloarthurrocha",
+  "homepage": "https://github.com/pauloarthurrocha/OneManAgency",
+  "skills": []
+}
