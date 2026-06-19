@@ -1,0 +1,9 @@
+{
+  "name": "wbopan--things-cloud-mcp",
+  "displayName": "things-cloud-mcp",
+  "description": "MCP server for Things 3 via Things Cloud API",
+  "version": "1.0.0",
+  "author": "wbopan",
+  "homepage": "https://github.com/wbopan/things-cloud-mcp",
+  "skills": []
+}
