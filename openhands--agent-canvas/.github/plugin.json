@@ -1,0 +1,9 @@
+{
+  "name": "openhands--agent-canvas",
+  "displayName": "agent-canvas",
+  "description": "OpenHands Agent Canvas is a self-hostable AI coding platform. Start locally, connect your tools, and automate workflows.",
+  "version": "1.0.0",
+  "author": "OpenHands",
+  "homepage": "https://github.com/OpenHands/agent-canvas",
+  "skills": []
+}
