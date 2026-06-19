@@ -7,13 +7,13 @@ co/core is a place where people share the compute they already own to run AI for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [graze-social/cocore](https://github.com/graze-social/cocore).
+Original source: `CLAUDE.md` in [graze-social/cocore](https://github.com/graze-social/cocore).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
