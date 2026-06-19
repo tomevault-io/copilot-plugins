@@ -4,7 +4,7 @@
   "repo": "MikroMCP",
   "description": "Production-grade MCP server for MikroTik RouterOS with secure AI-native network automation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AliKarami/MikroMCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T22:35:54Z"
+  "distributed_at": "2026-06-19T04:52:40Z"
 }
