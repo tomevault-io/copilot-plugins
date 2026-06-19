@@ -7,11 +7,11 @@ A xxhash Kotlin Multiplatform library(Android \ iOS \ Web \ JVM). Support XXH3
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [limuyang2/fast-xxhash-kmp](https://github.com/limuyang2/fast-xxhash-kmp).
+Original source: `CLAUDE.md` in [limuyang2/fast-xxhash-kmp](https://github.com/limuyang2/fast-xxhash-kmp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
