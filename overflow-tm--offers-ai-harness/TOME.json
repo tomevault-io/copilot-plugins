@@ -1,0 +1,44 @@
+{
+  "name": "offers-ai-harness",
+  "owner": "overflow-tm",
+  "repo": "offers-ai-harness",
+  "description": "Offers \u8ee2\u8077\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u3068 AI \u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u3092\u63a5\u7d9a\u3059\u308b Skill \u30bb\u30c3\u30c8\uff08Claude Code / Codex CLI \u5bfe\u5fdc\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/overflow-tm/offers-ai-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T00:42:03Z"
+}
