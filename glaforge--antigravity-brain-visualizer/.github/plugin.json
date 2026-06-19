@@ -1,0 +1,9 @@
+{
+  "name": "glaforge--antigravity-brain-visualizer",
+  "displayName": "antigravity-brain-visualizer",
+  "description": "An interactive web visualizer for Antigravity AI agent JSONL execution transcripts.",
+  "version": "1.0.0",
+  "author": "glaforge",
+  "homepage": "https://github.com/glaforge/antigravity-brain-visualizer",
+  "skills": []
+}
