@@ -1,0 +1,173 @@
+## seeker-robot
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Seeker Robot — a ROS 2 Jazzy robotics project with ESP32 microcontrollers communicating via micro-ROS. The system runs inside Docker and spans two workspaces: a ROS 2 workspace for high-level autonomy and a PlatformIO workspace for MCU firmware.
+
+## Architecture
+
+- **`ros2_ws/`** — ROS 2 colcon workspace. Packages live in `ros2_ws/src/`:
+  - `mcu_msgs` — Custom ROS 2 message/service/action definitions shared between ROS 2 nodes and micro-ROS MCUs. Includes `HexapodCmd.msg`, `OledFrame.msg`, `DetectedObject.msg`, `DetectedObjectArray.msg`, `SeekObject.action`, and `PerformMove.srv`. Also mounted into `mcu_ws/platformio/extra_packages/` by Docker so micro-ROS firmware can use the same interfaces.
+  - `seeker_description` — URDF/Xacro hexapod model and `robot_state_publisher` launch.
+  - `seeker_gazebo` — Gazebo Harmonic simulation, sensor bridges, and simulation launch files (including `sim_ball_search.launch.py`, `sim_object_seek.launch.py`, `sim_integrated_medium.launch.py`). Use `gui:=false` for headless performance on integrated graphics.
+  - `seeker_navigation` — Nav2, SLAM Toolbox, EKF configs. Mission planner split across `ball_searcher` and `object_seeker.py` — a YOLO-driven WANDER/SEEK/PERFORM_MOVE state machine exposed as the `SeekObject` Action Server. `find.py` is a CLI client for manual goals.
+  - `seeker_voice` — The "Brain". `command_node` acts as a `SeekObject` Action Client, using Gemini (with heuristic fallback when offline) to map free-form commands to robot actions and COCO classes. `transcription_node` handles speech → text. Launch via `local_mic.launch.py` (host mic) or `esp32_mic.launch.py` (ESP32 mic stream).
+  - `seeker_sim` — `fake_mcu_node`: simulates ESP32 gait + dance for testing without hardware.
+  - `seeker_test_cmd_vel` — `velocity_node`: minimal cmd_vel driver for manual/auto drive testing. Launch via `manual_drive.launch.py` / `auto_drive.launch.py`.
+  - `seeker_display` — OLED display nodes: `oled_sine_node` (animated sine wave demo) and `lcd_http_server` (shared helper that serves SSD1306 framebuffers over HTTP on port 8390 for the ESP32 `OledSubsystem`).
+  - `seeker_media` — MP4 media player node (`mp4_player_node`): decodes video to 128×64 SSD1306 framebuffers streamed over HTTP and audio to 16 kHz PCM streamed to the ESP32 speaker, with A/V sync.
+  - `seeker_tts` — Fish Audio TTS node plus a local-WAV playback topic, both re-served as an HTTP PCM stream for the ESP32 `SpeakerSubsystem`.
+  - `seeker_vision` — YOLO object detection (`vision_node`, `gazebo_vision_node`) with an HSV fallback (`use_yolo:=false` for light-weight color detection), DeepFace emotion detection (`emotion_node`), and an MJPEG camera proxy (`cam_proxy`) that bridges the ESP32 camera stream to localhost. Three launch files: `mcu_cam.launch.py` (ESP32 camera via proxy), `gazebo_cam.launch.py` (Gazebo `/camera/image`), `local_cam.launch.py` (host webcam).
+  - `seeker_web` — Browser dashboard with topic allowlist and rate params.
+  - `test_package` — Minimal C++ ROS 2 node for workflow verification.
+
+### Brain-Body action pattern
+
+Autonomous search is implemented as a **ROS 2 Action** rather than a one-shot topic:
+
+1. **Brain** (`command_node.py` in `seeker_voice`) receives a command (e.g. "hey hatsune find the ball over").
+2. **Brain** sends a `SeekObject` Goal to the **Body** (`ball_searcher` in `seeker_navigation`).
+3. **Body** runs the WANDER → SEEK → PERFORM_MOVE state machine and publishes feedback.
+4. **Body** returns a Success/Fail result once the object is reached.
+5. **Brain** announces the result via TTS.
+
+- **`mcu_ws/`** — PlatformIO workspace for ESP32 firmware. Uses micro-ROS WiFi transport (Jazzy distro). Multi-project layout:
+  - `platformio/platformio.ini` — Shared base config (board environments, build flags, library deps). All sketches inherit from this via `extra_configs`.
+  - `platformio/network_config.ini` — Local network settings (WiFi creds, agent IP, static IP). Gitignored; copy from `network_config.example.ini`.
+  - `src/<sketch>/` — Each sketch is a standalone PlatformIO project with its own `platformio.ini` and `src/` directory.
+  - `lib/` — Shared libraries available to all sketches via `lib_extra_dirs`.
+  - `libs_external/esp32/micro_ros_platformio/` — micro-ROS PlatformIO library (pre-vendored).
+  - `platformio/extra_packages/` — Extra ROS packages (including `mcu_msgs`) needed at micro-ROS build time.
+- **`docker/`** — Containerized dev environment:
+  - `Dockerfile` — Multi-stage build (`base` → `dev`/`prod`). Base installs micro-ROS agent, PlatformIO, ROS 2 Jazzy, and vision dependencies (ultralytics, deepface, tensorflow+CUDA). `dev` adds Gazebo Harmonic, RViz, rqt.
+  - `Dockerfile.init-bootstrap` — One-shot init container that chowns named volumes and seeds `libs_external` into the `mcu_lib_external` volume.
+  - `docker-compose.yml` — Defines `ros2` (main dev container), `init-bootstrap` (one-shot volume init), and GPU-enabled profile services `ros2-nvidia` (NVIDIA) and `ros2-amd` (AMD). `COMPOSE_PROJECT_NAME` in `.env` isolates containers/volumes per worktree.
+  - `.env.example` — Copy to `.env`. Set `COMPOSE_PROJECT_NAME`, `BUILD_TARGET=dev|prod`, and display/network config for your OS.
+
+## Docker / Build Commands
+
+All docker compose commands must be run from the `docker/` directory (or use `-f docker/docker-compose.yml`).
+
+```bash
+# Setup: copy env files
+cp docker/.env.example docker/.env
+cp mcu_ws/platformio/network_config.example.ini mcu_ws/platformio/network_config.ini
+
+# Build and start (force rebuild init-bootstrap)
+docker compose -f docker/docker-compose.yml build --no-cache init-bootstrap
+docker compose -f docker/docker-compose.yml up init-bootstrap
+docker compose -f docker/docker-compose.yml up -d ros2
+
+# Shell into the dev container (container name uses COMPOSE_PROJECT_NAME from .env)
+docker compose -f docker/docker-compose.yml exec ros2 bash
+
+# Inside the container — build ROS 2 packages
+cd ~/ros2_workspaces
+source /opt/ros/jazzy/setup.bash
+colcon build
+source install/setup.bash
+
+# Build a single package
+colcon build --packages-select mcu_msgs
+
+# Run tests
+colcon test
+colcon test --packages-select <package_name>
+colcon test-result --verbose
+```
+
+## MCU Firmware (PlatformIO)
+
+Each sketch under `mcu_ws/src/` is its own PlatformIO project. Build from within the sketch directory:
+
+```bash
+# Inside the container
+cd ~/mcu_workspaces/seeker_mcu/src/<sketch>
+pio run                        # build default env (esp32s3sense)
+pio run -e esp32dev            # build for specific board
+pio run -e esp32dev -t upload  # flash via serial
+```
+
+## Micro-ROS Agent
+
+The agent runs inside the dev container alongside the firmware. Start it before flashing:
+
+```bash
+# WiFi (UDP) transport — matches board_microros_transport = wifi in platformio.ini
+ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+
+# Serial transport — matches board_microros_transport = serial
+ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyUSB0
+```
+
+## Volume Layout (inside container)
+
+| Host path | Container path | Notes |
+|---|---|---|
+| `ros2_ws/src/` | `~/ros2_workspaces/src/seeker_ros/` | Source code (bind mount) |
+| `mcu_ws/` | `~/mcu_workspaces/seeker_mcu/` | MCU firmware (bind mount) |
+| `ros2_ws/src/mcu_msgs/` | `~/mcu_workspaces/seeker_mcu/platformio/extra_packages/mcu_msgs/` | Bind mount for micro-ROS build |
+| `mcu_ws/platformio/network_config.ini` | `~/mcu_workspaces/seeker_mcu/platformio/network_config.ini` | Network config (read-only) |
+| `scripts/` | `~/scripts/` | Utility scripts (bind mount) |
+| Named volumes | `~/ros2_workspaces/{build,install,log}` | colcon artifacts |
+| Named volume | `~/.platformio` | PlatformIO cache |
+| Named volume | `~/mcu_workspaces/seeker_mcu/libs_external` | Seeded micro-ROS lib |
+
+## MCU Library Architecture
+
+### ThreadedSubsystem (`mcu_ws/lib/ThreadedSubsystem/`)
+Base class for all hardware subsystems. Call `beginThreadedPinned(stackWords, priority, updateDelayMs, core)` to spawn a pinned FreeRTOS task. The task calls `begin()` once, then repeatedly calls `update()` with the specified delay.
+
+Task pinning conventions used across the codebase:
+- Core 0: LiDAR (time-critical serial drain, 1 ms cadence)
+- Core 1: WiFi (100 ms), Gyro (0 ms, semaphore-blocked on interrupt), Battery (50 ms), micro-ROS manager (10 ms)
+- All subsystems use `Threads::Mutex` / `Threads::Scope` (from `hal_thread.h`) for shared-resource protection (e.g., I2C bus, published data buffers).
+
+### MicrorosManager + IMicroRosParticipant (`mcu_ws/lib/Microros/`)
+The manager runs a 4-state reconnection machine: `WAITING_AGENT → AGENT_AVAILABLE → AGENT_CONNECTED → AGENT_DISCONNECTED`. In `update()` it pings the agent, spins the XRCE-DDS executor, and calls `publishAll()` on all registered participants.
+
+`IMicroRosParticipant` is the interface for anything that owns ROS publishers/subscribers:
+- `onCreate(MicroRosContext& ctx)` — create RCL entities (publishers, subscribers); return false to abort
+- `onDestroy()` — zero-init publishers (RCL session already torn down by manager before this fires)
+- `publishAll()` — called in the manager's loop under a transport mutex; must be non-blocking
+
+`MicroRosContext` exposes `createPublisherBestEffort()`, `createPublisherReliable()`, and subscription variants. Register participants before calling `manager.init()`.
+
+### MicroRosBridge — compile-time plugin pattern (`mcu_ws/lib/MicroRosBridge/`)
+`MicroRosBridge` implements `IMicroRosParticipant` and is the sole owner of all hardware publishers. Non-ROS-aware subsystems (gyro, battery, lidar) expose thread-safe getters; the bridge reads them and publishes at configured rates.
+
+Each publisher is gated by a preprocessor flag (default 0): `BRIDGE_ENABLE_HEARTBEAT`, `BRIDGE_ENABLE_GYRO`, `BRIDGE_ENABLE_BATTERY`, `BRIDGE_ENABLE_SERVO`, `BRIDGE_ENABLE_LIDAR`, `BRIDGE_ENABLE_DEBUG`. Disabled publishers cost zero RAM — the state struct becomes an `EmptyState` placeholder via `std::conditional_t`. The OLED display is **not** part of the bridge — `OledSubsystem` runs its own HTTP client that fetches 1024-byte SSD1306 framebuffers from the ROS 2 host at `GET /lcd_out` (port 8390, served by `seeker_display` or `seeker_media`). To add a new subsystem publisher:
+
+1. Add `#ifndef BRIDGE_ENABLE_FOO / #define BRIDGE_ENABLE_FOO 0` in `MicroRosBridge.h`
+2. Conditionally include the subsystem header and define `FooPublisherState`
+3. Add `kEnableFoo` to `BridgeConfig` and fields to `MicroRosBridgeSetup`
+4. Add `std::conditional_t<..., FooPublisherState, EmptyState> foo_` member
+5. Add `#if BRIDGE_ENABLE_FOO` blocks in `.cpp`: `onCreate`, `onDestroy`, `publishAll`
+6. Enable via `-DBRIDGE_ENABLE_FOO=1` in the sketch's `platformio.ini`
+
+### Sketch naming convention
+- `test_sub_*` — tests a single subsystem in isolation (serial only, no micro-ROS)
+- `test_bridge_*` — exercises the full micro-ROS stack via WiFi transport
+- `test_raw_*` — low-level hardware tests with no subsystem abstraction (e.g., raw camera I2C, raw PDM mic)
+- `test_all` — integration test for all subsystems together
+- `test_threaded_blink` — ThreadedSubsystem / FreeRTOS task smoke test
+- `build_microros` — placeholder sketch used only to pre-build the micro-ROS library
+- `main` — placeholder for full system integration (currently empty)
+
+## Conventions
+
+- **Commit messages**: Conventional Commits enforced via commitlint (`@commitlint/config-conventional`). Use prefixes like `feat:`, `fix:`, `docs:`, `chore:`, etc.
+- **ROS 2 distro**: Jazzy (matches micro-ROS distro setting in `platformio.ini`).
+- **`mcu_msgs` is shared**: Any changes to message definitions in `ros2_ws/src/mcu_msgs/` must be rebuilt on both the ROS 2 side (`colcon build --packages-select mcu_msgs`) and the MCU side (`pio run` — the bind-mount at `platformio/extra_packages/mcu_msgs` picks up changes automatically).
+- **Board environments**: `esp32s3sense` (Seeed XIAO ESP32-S3, default) and `esp32dev` (generic ESP32-WROOM-32). Pin definitions are in `mcu_ws/lib/RobotConfig/RobotConfig.h`, gated by `ENV_ESP32S3SENSE` / `ENV_ESP32DEV` macros set by the board's build flags.
+- **`test_sub_*` sketches** exclude `libs_external/esp32` from `lib_extra_dirs` to avoid pulling in micro-ROS; they set their own minimal `platformio.ini` env blocks with only `${common.lib_base}` and `../../lib/`.
+
+---
+> Source: [SeekerRobot/seeker-robot](https://github.com/SeekerRobot/seeker-robot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
