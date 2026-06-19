@@ -1,0 +1,9 @@
+{
+  "name": "komal-skynet--claude-skill-homeassistant",
+  "displayName": "claude-skill-homeassistant",
+  "description": "claude-skill-homeassistant",
+  "version": "1.0.0",
+  "author": "komal-SkyNET",
+  "homepage": "https://github.com/komal-SkyNET/claude-skill-homeassistant",
+  "skills": []
+}
