@@ -2,15 +2,14 @@
 
 > Sourced from [jcfischer/supertag-cli](https://github.com/jcfischer/supertag-cli) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-CLI for Tana integration - query, create, sync, and manage Tana workspaces with semantic search and MCP Server
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jcfischer/supertag-cli](https://github.com/jcfischer/supertag-cli).
+Original source: `` in [jcfischer/supertag-cli](https://github.com/jcfischer/supertag-cli).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
