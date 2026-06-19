@@ -1,0 +1,9 @@
+{
+  "name": "portolan-sdi--portolan-cli",
+  "displayName": "portolan-cli",
+  "description": "A CLI tool for managing cloud-native geospatial data",
+  "version": "1.0.0",
+  "author": "portolan-sdi",
+  "homepage": "https://github.com/portolan-sdi/portolan-cli",
+  "skills": []
+}
