@@ -4,7 +4,7 @@
   "repo": "pixel-to-beads",
   "description": "Convert images into fuse bead (Perler/Hama) patterns with color quantization, dithering algorithms, and automatic material counting.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/a31521424/pixel-to-beads",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T20:53:57Z"
+  "distributed_at": "2026-06-19T03:01:29Z"
 }
