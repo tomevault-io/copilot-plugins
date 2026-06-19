@@ -1,0 +1,9 @@
+{
+  "name": "tene-ai--tene",
+  "displayName": "tene",
+  "description": "AI-safe secret manager CLI for Claude Code, Cursor, and other AI agents. Local-first, encrypted, no cloud.",
+  "version": "1.0.0",
+  "author": "tene-ai",
+  "homepage": "https://github.com/tene-ai/tene",
+  "skills": []
+}
