@@ -1,0 +1,9 @@
+{
+  "name": "sudoprivacy--sudocode",
+  "displayName": "sudocode",
+  "description": "Rust-native CLI coding agent for hackers \u2014 terminal-native, pipe-composable, scrollback-safe. Built because Claude Code chose non-coders.",
+  "version": "1.0.0",
+  "author": "sudoprivacy",
+  "homepage": "https://github.com/sudoprivacy/sudocode",
+  "skills": []
+}
