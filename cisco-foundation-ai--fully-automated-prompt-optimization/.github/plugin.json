@@ -1,0 +1,9 @@
+{
+  "name": "cisco-foundation-ai--fully-automated-prompt-optimization",
+  "displayName": "fully-automated-prompt-optimization",
+  "description": "An self-improvement suite for optimizing chains with Claude Code",
+  "version": "1.0.0",
+  "author": "cisco-foundation-ai",
+  "homepage": "https://github.com/cisco-foundation-ai/fully-automated-prompt-optimization",
+  "skills": []
+}
