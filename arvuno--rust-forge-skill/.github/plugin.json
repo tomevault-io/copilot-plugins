@@ -1,0 +1,9 @@
+{
+  "name": "arvuno--rust-forge-skill",
+  "displayName": "rust-forge-skill",
+  "description": "rust-forge-skill",
+  "version": "1.0.0",
+  "author": "Arvuno",
+  "homepage": "https://github.com/Arvuno/rust-forge-skill",
+  "skills": []
+}
