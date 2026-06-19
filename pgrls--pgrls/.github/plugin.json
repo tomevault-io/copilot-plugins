@@ -1,0 +1,9 @@
+{
+  "name": "pgrls--pgrls",
+  "displayName": "pgrls",
+  "description": "Static analyzer for Postgres Row-Level Security \u2014 47 lint rules covering tenant and per-user row-scoping bugs, performance traps, and hygiene; 17 mechanically auto-fixable; semantic policy-diff comman",
+  "version": "1.0.0",
+  "author": "pgrls",
+  "homepage": "https://github.com/pgrls/pgrls",
+  "skills": []
+}
