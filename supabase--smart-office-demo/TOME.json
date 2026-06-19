@@ -4,7 +4,7 @@
   "repo": "smart-office-demo",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/supabase/smart-office-demo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T01:12:41Z"
+  "distributed_at": "2026-06-19T08:40:26Z"
 }
