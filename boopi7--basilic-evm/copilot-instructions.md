@@ -1,65 +1,107 @@
-## typescript
+## viem
 
-> TypeScript coding standards and best practices
+> Viem v2 integration patterns and Rules
 
-# TypeScript Rules
 
-### **Core Principles**
-- Use **TypeScript** for all code; prefer **interfaces** over types.
-- Use the **`function`** keyword for pure functions; **omit semicolons**.
-- Avoid **enums**; use **maps** or **union types** instead.
-- Use **descriptive variable names** with auxiliary verbs (e.g., `isLoading`, `hasError`).
-- Follow the **RORO (Receive an Object, Return an Object)** pattern for function arguments and return values.
-- Use **lowercase-with-dashes** for directories (e.g., `components/auth-wizard`).
-- Favor **named exports** for components.
-- Use **functional & declarative programming** patterns; **avoid classes**.
-- Prefer **iteration & modularization** over code duplication.
-- **Avoid unnecessary curly braces** in conditionals, especially for single-line statements.
-- CRITICAL: Always infer types and keep them inline unless you need to reuse them.
+# Viem v2 Rules
 
-### **Error Handling**
-- **Fail fast**: Handle errors early using **guard clauses & early returns**.
-- Place the **happy path last** for improved readability.
-- **Avoid unnecessary else statements**; prefer `if-return` pattern.
-- Use **preconditions** to check for invalid states upfront.
-- Throw errors from `@repo/errors` for consistency.
-- Implement **proper error logging** and **user-friendly messages**.
-- Consider using **custom error types** or **error factories** for consistent error handling.
+## Core Principles
+- Use viem 2.x APIs consistently
+- Use getAddress for address validation
+- Never cast directly as Address type
+- Handle RPC errors gracefully
 
-### **File Structure & Organization** IMPORTANT
-Maintain a structured and logical order when organizing files:
-1. **Main Component** – The primary component that orchestrates logic and renders subcomponents.
-2. **Subcomponents** – Smaller, reusable components that support the main component.
-3. **Helpers & Utilities** – Functions or modules that provide reusable logic and utilities.
-4. **Static Content** – Non-code assets such as constants, images, or localization files.
-5. **Types & Interfaces** – Type definitions for TypeScript to ensure type safety and maintain consistency.
-
-This hierarchy improves **readability, maintainability, and scalability**.
-
-#### **Example**
+## Address Handling
 ```tsx
-export function MainComponent() {
-  return (
-    <div className="flex flex-col gap-4">
-      <h1>{content.title}</h1>
-      <SubComponent message={content.welcome} />
-    </div>
-  )
+import { getAddress, type Address } from 'viem'
+
+// Proper address validation
+function validateAddress(rawAddress: string) {
+  try {
+    return getAddress(rawAddress)
+  } catch (error) {
+    throw new Error('Invalid Ethereum address')
+  }
 }
 
-function SubComponent({ message }: SubComponentProps) {
-  return <p>{message}</p>
+// Contract interaction pattern
+export async function readContract({
+  address,
+  abi,
+  functionName,
+  args
+}: ReadContractParams) {
+  const contractAddress = getAddress(address)
+  
+  return publicClient.readContract({
+    address: contractAddress,
+    abi,
+    functionName,
+    args
+  })
 }
+```
 
-const content = {
-  title: "Main Component",
-  welcome: "Welcome"
-} as const
+## Transaction Handling
+```tsx
+import { type Hash, parseEther } from 'viem'
 
-interface SubComponentProps {
-  message: string
+// Send transaction pattern
+export async function sendTransaction({
+  to,
+  value,
+  data
+}: SendTransactionParams) {
+  try {
+    const hash = await walletClient.sendTransaction({
+      to: getAddress(to),
+      value: parseEther(value),
+      data
+    })
+    
+    return { hash }
+  } catch (error) {
+    if (error.code === 'INSUFFICIENT_FUNDS') {
+      throw new Error('Insufficient balance')
+    }
+    throw error
+  }
 }
-``` 
+```
+
+## Event Handling
+```tsx
+// Event listening pattern
+export function useContractEvent({
+  address,
+  abi,
+  eventName
+}: ContractEventParams) {
+  const unwatch = publicClient.watchContractEvent({
+    address: getAddress(address),
+    abi,
+    eventName,
+    onLogs: (logs) => {
+      // Handle logs
+    }
+  })
+
+  // Cleanup on unmount
+  onUnmount(() => unwatch())
+}
+```
+
+## Error Handling
+- Use proper viem error types
+- Handle common RPC errors gracefully
+- Implement proper fallbacks
+- Provide user-friendly error messages
+
+## Performance
+- Use multicall for batch requests
+- Implement proper caching strategies
+- Handle rate limiting appropriately
+- Use WebSocket for real-time updates 
 
 ---
 > Source: [Boopi7/basilic-evm](https://github.com/Boopi7/basilic-evm) — distributed by [TomeVault](https://tomevault.io).
