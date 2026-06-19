@@ -1,0 +1,854 @@
+## rav1d-safe
+
+> Safe SIMD fork of rav1d — 160k lines of hand-written assembly replaced by safe Rust intrinsics.
+
+# rav1d-safe
+
+Safe SIMD fork of rav1d — 160k lines of hand-written assembly replaced by safe Rust intrinsics.
+
+## Porting Status
+
+**All major DSP modules ported.** 59k lines of safe Rust SIMD in `src/safe_simd/`.
+
+Completed modules (AVX2 + NEON, 8bpc + 16bpc):
+- mc (motion compensation) — including warp_affine
+- itx (inverse transforms) — 160 transforms each bpc
+- ipred (intra prediction) — all 14 modes
+- cdef (directional enhancement)
+- loopfilter
+- looprestoration (Wiener + SGR)
+- filmgrain
+- pal (palette)
+- refmvs (reference MVs)
+- msac (SSE2 adapt4/adapt8/hi_tok when unchecked+x86_64, branchless scalar otherwise, serial loop adapt16)
+
+**Remaining (not ported, scalar fallback):**
+- Scaled MC (put_8tap_scaled, prep_8tap_scaled, bilin_scaled) — complex per-pixel filter selection, ~2% of profile
+- AVX-512 paths (~26k lines) — falls back to AVX2
+- SSE-only paths (~52k lines) — falls back to scalar
+- ARM SVE2, dotprod, i8mm — falls back to NEON
+
+## Conformance
+
+784/803 dav1d test vectors pass at all bit depths and all CPU levels (scalar, SSE4, AVX2).
+19 failures are infrastructure (1 sframe, 6 SVC operating points, 12 vq_suite decode modes).
+
+## Benchmarks (2026-05-24 after SIMD row 1D transforms for dct8/16/32 + adst16)
+
+**4K photo AVIF (3840x2561) — interleaved A/B (30 iters/build, 4 runs):**
+
+| Build | ms/iter | vs ASM |
+|-------|---------|--------|
+| ASM | 119.0 | 1.0x |
+| Safe Checked | 198.3 | **1.66x** |
+| Safe Unchecked | 187.9 | **1.57x** |
+
+Progress vs 2026-02-13 baseline (Checked):
+- 4K AVIF: 1.98x → **1.66x** (~16% absolute gap closed; ~33% of remaining gap)
+
+Optimizations in this session (2026-05-24, all in safe checked, `#![forbid(unsafe_code)]`):
+- Dispatch refactor: loopfilter outer dispatch wrapped in #[arcane] V2, inner
+  loop_filter_4_8bpc switched to #[rite] so per-edge SIMD helpers inline
+  (no wall-clock change; cleaner symbol table)
+- SIMD row DCT-32 8bpc for 32x32, 32x16, 32x8, 32x64 (was scalar dct32_1d
+  per row; now dct32_1d_cols8 + 32x8→8x32 transpose, 8 rows in parallel
+  via SIMD lanes)
+- SIMD row DCT-16 8bpc for 16x16, 16x8, 16x32, 16x64 dct_dct + 3 dct-row
+  mixed variants (dct_adst, dct_flipadst, dct_identity at 16x16)
+- SIMD row DCT-8 8bpc for 8x8, 8x16, 8x32
+- SIMD row ADST-16 8bpc for 8 adst-row 16x16 variants (adst_dct, adst_adst,
+  adst_flipadst, adst_identity, flipadst_dct, flipadst_flipadst,
+  flipadst_adst, flipadst_identity)
+- Helpers: `simd_row_dct{8,16,32}_8bpc_8rows`, `simd_row_adst{8,16}_8bpc_8rows`
+  in safe_simd/itx.rs
+
+Pattern: load 8 i16 per column × N columns (contiguous in column-major
+coeff), cvtepi16_epi32, optional rect2_scale, {dct,adst}_1d_cols8, round+
+clip, 8x8 i32 transpose chunk(s), store row-major. Each helper is #[rite]
+target_feature so it inlines into the #[arcane] outer transform.
+
+Wall-clock impact (4K AVIF, checked, vs prior session baseline 1.78x):
+- After dispatch refactor: 1.78x (no change)
+- After SIMD row dct32: 1.71x (4.5% gap closure)
+- After SIMD row dct16: 1.69x (1% more)
+- After SIMD row dct8: 1.66x (2% more)
+- After SIMD row mixed dct/adst 16x16: 1.66x (small but consistent)
+
+Optimizations landed (all in safe checked, `#![forbid(unsafe_code)]`):
+- `cfl_pred` SIMD (8bpc+16bpc)
+- DCT column-pass SIMD wired into 8x8 (both bpcs), 16x16 (both bpcs), 32x32 dct_dct (square)
+- DCT column-pass SIMD wired into 8x16, 16x8, 16x32, 32x16, 8x32, 32x8, 16x4, 8x4, 64x16, 64x32 dct_dct + 16bpc equivalents (rectangular)
+- ADST / Identity / FlipADST column SIMD wired into all 14 non-trivial 16x16 transform combinations (both bpcs)
+- ADST / FlipADST / Identity column SIMD wired into all 14 non-trivial 8x8 transform combinations (8bpc)
+- Identity column SIMD inlined into identity_identity rectangular 8x32/32x8, 16x32/32x16 (both bpcs) plus 16bpc identity rect variants
+- **AVX-512 (Server64/X64V4Token) column transforms `dct16_cols_avx512` + `dct32_cols_avx512`**, wired into 16x16, 32x32, 16x32, 32x16, 64x16, 64x32 (both bpcs) — 16 cols/chunk vs 8 with AVX2
+- **Per-row DisjointMut guard batching** in inv_txfm_add scalar fallback + ipred scalar paths (splat_dc, cfl_pred, paeth, smooth_v/h, smooth, z1, z2): one wider `strided_slice_mut` covering the whole block instead of N guards per row
+- **SIMD v-direction loopfilter (8bpc)** for all widths (wd=4/6/8/16). Four #[arcane] functions with X64V2Token; contiguous 4-byte column loads + cvtepu8_epi32. Three-way branchless mask-select between 14-tap/8-tap/4-tap based on fm + flat8in + flat8out
+- **SIMD h-direction loopfilter (8bpc) for narrow + wd=8** via 4×4 i32 transpose loads: load each row's contiguous N-byte chunk, transpose to pixel-position vectors, compute, transpose back. wd=6 and wd=16 h-filter remain scalar
+
+Remaining biggest gaps (without unsafe):
+1. **Loopfilter** — `loop_filter_4_8bpc` is fully scalar at 10% of profile vs <1% ASM (biggest single remaining win, ~500-1000 lines of SIMD work)
+2. **msac** entropy decoding inside `decode_coefs` (37% of profile, mostly scalar)
+3. **DisjointMut BorrowTracker** overhead (~9% checked-only; eliminated only by the `unchecked` feature which uses unsafe)
+4. 32x32 ADST/identity column SIMD (32x32 is mostly dct-only in practice)
+5. 8x8 non-dct_dct transforms (no safe SIMD 2D path, falls back to scalar generic `inv_txfm_add`)
+6. Row-transform pass for dct/adst (stride=1, LLVM may already auto-vectorize)
+
+## MANDATORY: Safe intrinsics strategy
+
+**Rust 1.93+ made value-type SIMD intrinsics safe.** Computation intrinsics (`_mm256_add_epi32`, `_mm256_shuffle_epi8`, etc.) are now safe functions — no `unsafe` needed.
+
+**Two things still require wrappers:**
+
+1. **Pointer intrinsics (load/store)** — `_mm256_loadu_si256` takes `*const __m256i`, which requires `unsafe`. Use `safe_unaligned_simd` crate which wraps these as safe functions taking `&[T; N]` references. Our `loadu_256!`/`storeu_256!` macros dispatch to these.
+
+2. **Target feature dispatch** — intrinsics are only safe when called within a function annotated with `#[target_feature(enable = "avx2")]` (or equivalent). `archmage` handles this via token-based dispatch (`Desktop64::summon()`, `#[arcane]`), so we **never manually write `is_x86_feature_detected!()` checks or `#[target_feature]` annotations on our functions**.
+
+3. **Slice access** — Two APIs in `pixel_access.rs`, both zero-cost (verified identical asm):
+
+   **`Flex` trait** — Use in super hot loops where you'd otherwise reach for pointer arithmetic:
+   ```rust
+   use crate::src::safe_simd::pixel_access::Flex;
+   let c = coeff.flex();      // immutable FlexSlice with [] syntax
+   let mut d = dst.flex_mut(); // mutable FlexSliceMut with [] syntax
+   d[off] = ((d[off] as i32 + c[idx] as i32).clamp(0, 255)) as u8;
+   ```
+   - `slice.flex()[i]` / `slice.flex()[start..end]` / `slice.flex()[start..]`
+   - `slice.flex_mut()[i] = val` / `slice.flex_mut()[start..end]`
+   - Natural `[]` syntax, checked by default, unchecked when `unchecked` feature on
+
+   **`SliceExt` trait** — Simpler single-access API:
+   - `slice.at(i)` / `slice.at_mut(i)` — single element
+   - `slice.sub(start, len)` / `slice.sub_mut(start, len)` — subslice
+   - Import: `use crate::src::safe_simd::pixel_access::SliceExt;`
+
+**Do NOT:**
+- Manually add `#[target_feature(enable = "...")]` to new functions — use `#[arcane]` instead
+- Manually call `is_x86_feature_detected!()` — use `Desktop64::summon()` / `CpuFlags` instead
+- Use raw pointer load/store intrinsics — use `loadu_256!` / `storeu_256!` macros instead
+- Block on any nightly-only feature for safety — everything works on stable Rust 1.93+
+
+## Feature Flag Safety Model
+
+**`forbid(unsafe_code)` is ON by default.** When `asm`, `c-ffi`, or `unchecked` are enabled, it drops to `deny` so modules can use `#[allow(unsafe_code)]` on specific items (FFI wrappers, unchecked slice access, etc).
+
+```
+Default (no asm, no c-ffi, no unchecked): #![forbid(unsafe_code)]  — NO exceptions
+asm, c-ffi, or unchecked enabled:         #![deny(unsafe_code)]    — modules can #[allow]
+```
+
+This means: **every `#[allow(unsafe_code)]` in the codebase MUST be gated behind `cfg(feature = "asm")`, `cfg(feature = "c-ffi")`, `cfg(feature = "unchecked")`, or `cfg(target_arch)` that excludes the default build.** If an `#[allow(unsafe_code)]` item compiles in the default build, `forbid` will reject it.
+
+## HARD RULES — STOP GOING IN CIRCLES
+
+**READ AND OBEY THESE EVERY TIME. DO NOT SKIP.**
+
+1. **`#[arcane]` NEVER needs `#[allow(unsafe_code)]`.** It is safe by design. If you find yourself adding `allow(unsafe_code)` to an `#[arcane]` function, YOU ARE DOING SOMETHING WRONG. The function body itself must be rewritten to not use `unsafe` — use slices, safe macros, and safe intrinsics.
+
+2. **`#[rite]` NEVER needs `#[allow(unsafe_code)]`.** Same as `#[arcane]` — it's a safe inner helper.
+
+3. **Inner SIMD functions (using core::arch intrinsics) are NOT assembly.** `safe_simd/` contains ZERO `asm!` macros. Do NOT gate inner SIMD functions behind `#[cfg(feature = "asm")]`. Only gate `pub unsafe extern "C" fn` FFI wrappers behind asm.
+
+4. **If an `#[arcane]` function won't compile under `forbid(unsafe_code)`, the function body is wrong.** Rewrite the body to use slices + safe macros. Do NOT add `#[allow(unsafe_code)]`. Do NOT gate behind `#[cfg(feature = "asm")]`.
+
+5. **Read the archmage README before touching dispatch.** `Desktop64::summon()` for detection, `#[arcane]` for entry points, `#[rite]` for inner helpers. The prelude re-exports safe intrinsics. `safe_unaligned_simd` provides reference-based load/store.
+
+6. **Conversion pattern for making `#[arcane]` functions safe:**
+   - Change `dst: *mut u8` → `dst: &mut [u8]`
+   - Change `coeff: *mut i16` → `coeff: &mut [i16]`
+   - Replace `unsafe { *ptr.add(n) }` → `slice[n]`
+   - Replace `unsafe { _mm256_loadu_si256(ptr) }` → `loadu_256!(&slice[off..off+32], [u8; 32])`
+   - Replace `unsafe { _mm256_storeu_si256(ptr, v) }` → `storeu_256!(&mut slice[off..off+32], [u8; 32], v)`
+   - Replace `unsafe { _mm_cvtsi32_si128(*(ptr as *const i32)) }` → `loadi32!(&slice[off..off+4])`
+   - Remove ALL `unsafe {}` blocks — if intrinsics need unsafe, you're not in a `#[target_feature]` context (use `#[arcane]`/`#[rite]`)
+
+7. **When you don't know how something works, READ THE README/DOCS FIRST.** Do not guess. Do not add workarounds. Especially for archmage, zerocopy, safe_unaligned_simd.
+
+## Quick Commands
+
+```bash
+just build          # Safe-SIMD build
+just build-asm      # ASM build
+just test           # Run tests (cargo-nextest + doctests)
+just profile        # Benchmark all 3 modes (asm, checked, unchecked)
+just profile-quick  # Same but 100 iterations
+```
+
+**Tests run under `cargo-nextest`** (process-per-test). Use `cargo nextest run
+--release --no-default-features --features "bitdepth_8,bitdepth_16"` rather than
+`cargo test` — the process isolation is what keeps the token-permutation /
+CPU-mask / thread-count tests from racing (see issue #16). Nextest does **not**
+run doctests, so `just test` also runs `cargo test --doc` separately. Config +
+the `heavy-threading` serial group live in `.config/nextest.toml`. WASM and the
+QEMU aarch64 `cross test` path stay on `cargo test` (nextest can't host them).
+
+## Feature Flags
+
+- `asm` - Use hand-written assembly (default, original rav1d)
+- `bitdepth_8` - 8-bit pixel support
+- `bitdepth_16` - 10/12-bit pixel support
+
+## Safe-SIMD Modules
+
+### x86_64 (AVX2)
+
+| Module | Location | Status |
+|--------|----------|--------|
+| mc | `src/safe_simd/mc.rs` | **Complete** - 8bpc+16bpc |
+| itx | `src/safe_simd/itx.rs` | **Complete** - 160 transforms each for 8bpc/16bpc |
+| loopfilter | `src/safe_simd/loopfilter.rs` | **Complete** - 8bpc + 16bpc |
+| cdef | `src/safe_simd/cdef.rs` | **Complete** - 8bpc + 16bpc |
+| looprestoration | `src/safe_simd/looprestoration.rs` | **Complete** - Wiener + SGR 8bpc + 16bpc |
+| ipred | `src/safe_simd/ipred.rs` | **Complete** - All 14 modes, 8bpc + 16bpc |
+| filmgrain | `src/safe_simd/filmgrain.rs` | **Complete** - 8bpc + 16bpc |
+| pal | `src/safe_simd/pal.rs` | **Complete** - pal_idx_finish AVX2 |
+| refmvs | `src/safe_simd/refmvs.rs` | **Complete** - splat_mv AVX2 |
+| msac | `src/msac.rs` (inline) | **Complete** - SSE2 adapt4/adapt8/hi_tok (unchecked), branchless scalar (default) |
+
+### ARM aarch64 (NEON)
+
+| Module | Location | Status |
+|--------|----------|--------|
+| mc_arm | `src/safe_simd/mc_arm.rs` | **Complete** - 8bpc+16bpc (all MC functions including 8tap) |
+| ipred_arm | `src/safe_simd/ipred_arm.rs` | **Complete** - DC/V/H/paeth/smooth modes (8bpc + 16bpc) |
+| cdef_arm | `src/safe_simd/cdef_arm.rs` | **Complete** - All filter sizes (8bpc + 16bpc) |
+| loopfilter_arm | `src/safe_simd/loopfilter_arm.rs` | **Complete** - Y/UV H/V filters (8bpc + 16bpc) |
+| looprestoration_arm | `src/safe_simd/looprestoration_arm.rs` | **Complete** - Wiener + SGR (5x5, 3x3, mix) 8bpc + 16bpc |
+| itx_arm | `src/safe_simd/itx_arm.rs` | **Complete** - 334 FFI functions, 320 dispatch entries |
+| filmgrain_arm | `src/safe_simd/filmgrain_arm.rs` | **Complete** - 8bpc + 16bpc |
+| refmvs_arm | `src/safe_simd/refmvs_arm.rs` | **Complete** - splat_mv NEON |
+| msac | `src/msac.rs` (inline) | **Complete** - SSE2 adapt4/adapt8/hi_tok (unchecked), branchless scalar (default) |
+
+## Cross-compilation
+
+- x86_64: Full support (AVX2 SIMD, branchless scalar msac)
+- aarch64: Full support, NEON (cargo check --target aarch64-unknown-linux-gnu passes)
+
+## Architecture
+
+### Dispatch Pattern
+
+rav1d uses function pointer dispatch for SIMD:
+1. `wrap_fn_ptr!` macro creates type-safe function pointer wrappers
+2. For asm: `bd_fn!` macro links to asm symbols, `call` method invokes fn ptr
+3. For non-asm: `call` method uses `cfg_if` to call `*_dispatch` directly (no fn ptrs)
+4. `*_dispatch` functions do `Desktop64::summon()` or `CpuFlags::AVX2` check, call inner SIMD
+
+### FFI Wrapper Pattern (asm only)
+
+FFI wrappers are gated behind `#[cfg(feature = "asm")]`:
+```rust
+#[cfg(all(feature = "asm", target_arch = "x86_64"))]
+#[target_feature(enable = "avx2")]
+pub unsafe extern "C" fn function_8bpc_avx2(
+    dst: *const FFISafe<...>,
+    // ... other params
+) {
+    let dst = unsafe { *FFISafe::get(dst) };
+    // Call inner implementation
+}
+```
+
+## Safety Status
+
+**MILESTONE: `#![forbid(unsafe_code)]` ACHIEVED for default build** (commit b67f378).
+
+The default build (`cargo build --no-default-features --features "bitdepth_8,bitdepth_16"`) compiles
+under `#![forbid(unsafe_code)]` — the compiler guarantees zero unsafe in the entire crate when
+neither `asm` nor `c-ffi` features are enabled.
+
+All unsafe is now confined to:
+- `rav1d-disjoint-mut` sub-crate (PicBuf, Align types, AlignedVec AsMutPtr impls)
+- Code gated behind `#[cfg(feature = "asm")]` or `#[cfg(feature = "c-ffi")]`
+
+**How unsafe was eliminated from the default build:**
+- `picture.rs`: `Rav1dPictureDataComponentInner = PicBuf` (type alias to disjoint-mut crate type)
+- `msac.rs`: `MsacAsmContextBuf { pos: usize, end: usize }` (indices, not pointers)
+- `c_box.rs`: No custom Drop without c-ffi → destructurable, no Pin::new_unchecked
+- `c_arc.rs`: `Arc<Box<T>>` with safe view slicing (no StableRef, no raw pointers)
+- `assume.rs`: Gated behind c-ffi (only used by picture.rs ExternalAsMutPtr)
+- `align.rs`: Align types + ExternalAsMutPtr moved to disjoint-mut crate
+- `internal.rs`: Send/Sync auto-derived (no manual unsafe impls needed)
+- `partial_simd.rs`: Safe `#[target_feature(enable = "sse2")]` wrappers (Rust 1.93+)
+
+**C FFI types gated behind `cfg(feature = "c-ffi")`:**
+- `DavdPicture`, `DavdData`, `DavdDataProps`, `DavdUserData`, `DavdSettings`, `DavdLogger` — all gated
+- `ITUTT35PayloadPtr`, `Dav1dITUTT35` struct (with `Send`/`Sync` impls) — gated; safe type alias when c-ffi off
+- `RawArc`, `RawCArc`, `Dav1dContext`, `arc_into_raw` — gated (raw Arc ptr roundtrip)
+- `From<Dav1d*>` / `From<Rav1d*> for Dav1d*` conversions (containing `unsafe { CArc::from_raw }`) — all gated
+- Safe picture allocator: per-plane `Vec<u8>` from MemPool, no C callbacks needed
+- Fallible allocation: `MemPool::pop_init` returns `Result<Vec, TryReserveError>`, propagated as `Rav1dError::ENOMEM`
+
+**c-ffi build fully working** (previously blocked by 320 `forge_token_dangerously` errors in safe_simd):
+- Fixed: wrapped all `forge_token_dangerously()` calls in `unsafe { }` blocks (Rust 2024 edition compliance)
+- Both `cargo check --features c-ffi` and `cargo test --features c-ffi` pass clean
+
+**FFI wrappers gated behind `feature = "asm"`** in: cdef, cdef_arm, loopfilter, loopfilter_arm, looprestoration, looprestoration_arm, filmgrain, filmgrain_arm, pal.
+
+**Archmage conversions complete:** cdef constrain_avx2. msac SSE2 uses sse2!() macro (not archmage).
+
+**Feature flags:**
+- `unchecked` - Use unchecked slice access in SIMD hot paths (skips bounds checks)
+- `src/safe_simd/pixel_access.rs` - Helper module for checked/unchecked slice access + SIMD macros
+
+**Writing Clean Safe SIMD (the complete pattern):**
+
+Since Rust 1.93, value-type SIMD intrinsics are safe functions. The only remaining sources of `unsafe` in SIMD are:
+1. **Pointer load/store** — `_mm256_loadu_si256(*const)` takes raw pointers
+2. **Target feature dispatch** — intrinsics are only safe inside `#[target_feature(enable = "...")]` fns
+
+Both are solved without any `unsafe` in user code:
+
+```rust
+// 1. Module header — forbid unsafe (load/store macros handle it internally):
+#![cfg_attr(not(feature = "unchecked"), forbid(unsafe_code))]
+
+// 2. Import macros from pixel_access:
+use super::pixel_access::{loadu_256, storeu_256, load_256, store_256};
+
+// 3. Functions take SLICES, not raw pointers:
+// 4. Use #[arcane] for target_feature dispatch (NOT manual #[target_feature]):
+#[arcane]
+fn process(token: Desktop64, dst: &mut [u8], src: &[u8], w: usize) {
+    // Load 32 bytes from slice — safe, bounds-checked:
+    let v = load_256!(&src[0..32], [u8; 32]);
+
+    // All computation intrinsics are safe (Rust 1.93+):
+    let doubled = _mm256_add_epi8(v, v);
+    let shuffled = _mm256_shuffle_epi8(doubled, _mm256_setzero_si256());
+
+    // Store 32 bytes to slice — safe, bounds-checked:
+    store_256!(&mut dst[0..32], [u8; 32], shuffled);
+
+    // Or use typed array ref forms (no slice→array conversion):
+    let arr: &[u8; 32] = src[0..32].try_into().unwrap();
+    let v = loadu_256!(arr);
+    storeu_256!(<&mut [u8; 32]>::try_from(&mut dst[0..32]).unwrap(), v);
+}
+```
+
+**Why this works with `forbid(unsafe_code)`:**
+- `#[arcane]` (from archmage crate) handles `#[target_feature]` dispatch via tokens — no manual feature annotations needed
+- `load_256!`/`store_256!` expand to `safe_unaligned_simd` calls (safe, bounds-checked) when `unchecked` is off
+- Computation intrinsics (`_mm256_add_epi8`, `_mm256_shuffle_epi8`, etc.) are plain safe functions since Rust 1.93
+- Result: **zero `unsafe` blocks** in the SIMD function body
+
+**When `unchecked` is ON:** macros expand to `unsafe { _mm256_loadu_si256(ptr) }` with `debug_assert!` only — maximum perf, `deny(unsafe_code)` instead of `forbid`.
+
+**Load/Store macros (in `pixel_access.rs`):**
+
+| Macro | Width | Input | Description |
+|-------|-------|-------|-------------|
+| `loadu_256!(ref)` | 256 | `&[T; N]` | Load from typed array ref |
+| `storeu_256!(ref, v)` | 256 | `&mut [T; N]` | Store to typed array ref |
+| `load_256!(slice, T)` | 256 | `&[T]` | Load from slice (auto-converts to `&[T; N]`) |
+| `store_256!(slice, T, v)` | 256 | `&mut [T]` | Store to slice (auto-converts to `&mut [T; N]`) |
+| `loadu_128!` / `storeu_128!` | 128 | `&[T; N]` | SSE typed-ref variants |
+| `load_128!` / `store_128!` | 128 | `&[T]` | SSE from-slice variants |
+| `neon_ld1q_u8!` / `neon_st1q_u8!` | 128 | `&[u8; 16]` | aarch64 NEON u8 |
+| `neon_ld1q_u16!` / `neon_st1q_u16!` | 128 | `&[u16; 8]` | aarch64 NEON u16 |
+| `neon_ld1q_s16!` / `neon_st1q_s16!` | 128 | `&[i16; 8]` | aarch64 NEON i16 |
+
+**Slice access helpers (in `pixel_access.rs`):**
+
+| Helper | Description |
+|--------|-------------|
+| `row_slice(buf, off, len)` | Immutable `&[u8]` — unchecked when feature enabled |
+| `row_slice_mut(buf, off, len)` | Mutable `&mut [u8]` — unchecked when feature enabled |
+| `row_slice_u16(buf, off, len)` | Immutable `&[u16]` variant |
+| `row_slice_u16_mut(buf, off, len)` | Mutable `&mut [u16]` variant |
+| `idx(buf, i)` / `idx_mut(buf, i)` | Single element access |
+| `reinterpret_slice(src)` | Safe zerocopy type reinterpretation |
+
+**Migration checklist for converting a SIMD function to safe:**
+1. Change fn signature: raw pointers → slices (`*mut u8` → `&mut [u8]`)
+2. Add `#[arcane]` attribute, take `Desktop64` token param
+3. Replace `unsafe { _mm256_loadu_si256(ptr) }` → `load_256!(&slice[off..off+32], [u8; 32])`
+4. Replace `unsafe { _mm256_storeu_si256(ptr, v) }` → `store_256!(&mut slice[off..off+32], [u8; 32], v)`
+5. Remove `unsafe {}` blocks around computation intrinsics (they're safe since 1.93)
+6. Add `#![cfg_attr(not(feature = "unchecked"), forbid(unsafe_code))]` to module
+7. Gate FFI `extern "C"` wrappers behind `#[cfg(feature = "asm")]`
+
+**Unsafe reduction progress (safe_simd/):**
+- **itx.rs: ✅ FULLY SAFE when asm off** — all 85 #[arcane] fns converted from raw pointers to slices, 0 unsafe outside #[cfg(feature = "asm")] FFI wrappers
+- **filmgrain.rs: ✅ 0 allows** — all dispatch safe via zerocopy AsBytes/FromBytes
+- **pixel_access.rs: ✅ 0 allows** — SliceExt trait + FlexSlice zero-cost wrapper
+- **itx_arm.rs: ✅ 0 allows** — all FFI correctly gated behind asm
+- **ipred.rs: ✅ 0 allows** — all 28 inner SIMD fns converted to safe slices
+- **mc.rs: ✅ FULLY SAFE when asm off** — 29 rite fns converted from raw pointers to slices, 0 unsafe outside FFI wrappers
+- mc_arm.rs: 10 allows (FFI gated, inner fns use NEON intrinsics)
+- filmgrain_arm.rs: 8 allows (FFI gated, inner fns use NEON)
+- loopfilter_arm.rs: 3 allows
+- cdef.rs: 2 allows (test module calling #[target_feature] fns)
+- refmvs.rs/refmvs_arm.rs: 1 allow each
+- ipred_arm.rs: 1 allow
+- All safe_simd dispatch functions use tracked DisjointMut guards
+- Pixels trait gated behind cfg(asm) — dead code when asm disabled
+
+**c-ffi decoupled from fn-ptr dispatch.** The `c-ffi` feature now only controls the 19 `dav1d_*` extern "C" entry points in `src/lib.rs`. Internal DSP dispatch uses direct function calls (no function pointers) when `asm` is disabled.
+
+## Managed Safe API
+
+**Location:** `src/managed.rs` (~970 lines, 100% safe Rust)
+
+A fully safe, zero-copy API for decoding AV1 video. Enforced by `#![forbid(unsafe_code)]`.
+
+**Key types:**
+- `Decoder` - safe wrapper around `Rav1dContext` (new/with_settings/decode/flush/drop)
+- `Settings` - type-safe configuration with `InloopFilters`, `DecodeFrameType` enums
+- `Frame` - decoded frame with metadata (width, height, bit depth, color info, HDR)
+- `Planes` - enum dispatching to `Planes8`/`Planes16` for type-safe pixel access
+- `PlaneView8`/`PlaneView16` - zero-copy 2D strided views holding `DisjointImmutGuard`
+- `Error` - simple error enum with `From<Rav1dError>` (no thiserror dependency)
+
+**Color/HDR metadata:**
+- `ColorPrimaries`, `TransferCharacteristics`, `MatrixCoefficients` - color space info
+- `ColorRange` - Limited vs Full
+- `ContentLightLevel` - HDR max/avg nits
+- `MasteringDisplay` - SMPTE 2086 with nit conversion helpers
+
+**Input format:**
+- Expects raw OBU (Open Bitstream Unit) data, not container formats
+- For IVF files, use an IVF parser to extract OBU frames (see `tests/ivf_parser.rs`)
+- For Annex B or Section 5 low overhead formats, additional parsing may be needed
+
+**Threading:**
+- Default: `threads: 1` (single-threaded, deterministic, synchronous)
+- `threads: 0`: Auto-detect cores (frame threading, better performance, asynchronous)
+- With frame threading, `decode()` may return `None` for complete frames (call again or `flush()`)
+
+**Usage example:**
+```rust
+use rav1d_safe::src::managed::Decoder;
+
+let mut decoder = Decoder::new()?;
+if let Some(frame) = decoder.decode(obu_data)? {
+    match frame.planes() {
+        Planes::Depth8(planes) => {
+            for row in planes.y().rows() {
+                // Process 8-bit row
+            }
+        }
+        Planes::Depth16(planes) => {
+            let pixel = planes.y().pixel(0, 0);
+        }
+    }
+}
+```
+
+**Tests:**
+- `tests/managed_api_test.rs` - unit tests (decoder creation, settings, empty data)
+- `tests/integration_decode.rs` - integration tests with real IVF test vectors (2/2 passing)
+
+## CI & Testing Infrastructure
+
+### GitHub Actions Workflows (.github/workflows/ci.yml)
+
+**Build Matrix:**
+- OS: ubuntu-latest, windows-latest, macos-latest, ubuntu-24.04-arm
+- Features: `bitdepth_8,bitdepth_16` (safe-simd) and `asm,bitdepth_8,bitdepth_16`
+- Builds: debug + release
+- Tests: unit tests + integration tests (with test vectors)
+
+**Quality Checks:**
+- Clippy: `-D warnings` on all targets
+- Format: `cargo fmt --check`
+- Cross-compile: aarch64-unknown-linux-gnu, x86_64-unknown-linux-musl
+- Coverage: `cargo-llvm-cov` → codecov upload
+
+**Test Vectors:**
+- Downloads dav1d-test-data repository (~160k+ test files)
+- Caches in `target/test-vectors/`
+- Organized: 8-bit/, 10-bit/, 12-bit/, oss-fuzz/
+- Includes: conformance, film grain, HDR, argon samples
+
+### Test Infrastructure
+
+**Integration Tests (tests/integration_decode.rs):**
+- `test_decode_real_bitstream` - decode OBU files via managed API
+- `test_decode_hdr_metadata` - extract HDR metadata (CLL, mastering display)
+- Uses dav1d-test-data vectors
+- Marked `#[ignore]` until OBU format issue resolved
+
+**Test Vector Management (tests/test_vectors.rs):**
+- Download/cache infrastructure
+- SHA256 verification support
+- Extensible for multiple sources (AOM, dav1d, conformance)
+
+**Download Script (scripts/download-test-vectors.sh):**
+- Clones dav1d-test-data repository
+- Future: AOM test data from Google Cloud Storage
+- Cached downloads with size reporting
+
+### Examples
+
+**examples/managed_decode.rs:**
+- Full managed API demonstration
+- Decodes IVF/OBU files
+- Displays frame info, color metadata, HDR data
+- Sample pixel access (8-bit and 16-bit)
+
+### Justfile Commands
+
+```bash
+just build               # Safe-SIMD build
+just build-asm           # ASM build
+just test                # Run tests
+just download-vectors    # Fetch test vectors
+just test-integration    # Integration tests with vectors
+just clippy              # Lint checks
+just fmt / fmt-check     # Format code / check formatting
+just check               # All checks (fmt, clippy, test)
+just cross-aarch64       # Cross-compile check
+just doc                 # Generate and open docs
+just coverage            # HTML coverage report
+just ci                  # Run all CI checks locally
+```
+
+### Current Status
+
+- ✅ CI workflow configured (not yet pushed to GitHub)
+- ✅ Test vectors downloaded (dav1d-test-data cloned)
+- ✅ Integration test infrastructure in place
+- ✅ Managed API unit tests pass (3/3)
+- ✅ **Integration tests PASS (2/2)** - OBU decoding issue RESOLVED
+  - Added IVF container parser for test vectors
+  - Fixed managed API threading defaults (threads=1 for deterministic behavior)
+  - Successfully decodes 64x64 10-bit frames with HDR metadata
+- ✅ Justfile for common tasks
+- ✅ Example demonstrating managed API
+
+### Integration Test Infrastructure
+
+**IVF Parser (tests/ivf_parser.rs):**
+- Parses IVF container format (DKIF signature)
+- Extracts raw OBU frames from IVF files
+- Used by integration tests to feed proper OBU data to decoder
+
+**Threading Behavior:**
+- Managed API defaults to `threads: 1` (single-threaded, deterministic)
+- `threads: 0` enables frame threading (better performance, asynchronous behavior)
+- With frame threading, `decode()` may return `None` even with complete frames
+- Frame threading requires polling `decode()` or `flush()` multiple times
+
+
+## Test Vectors
+
+All test vectors are located in `test-vectors/` (gitignored, not committed to repo).
+
+### Download All Test Vectors
+
+```bash
+bash scripts/download-all-test-vectors.sh
+```
+
+This downloads:
+- **dav1d-test-data**: ~160,000+ files, 109MB
+- **Argon conformance suite**: ~2,763 files, 5.1GB
+- **Fluster AV1 vectors**: ~312 IVF files, 17MB
+- **Total**: ~5.2GB
+
+### Test Vector Sources
+
+| Source | Location | Files | Size | Description |
+|--------|----------|-------|------|-------------|
+| **dav1d-test-data** | `test-vectors/dav1d-test-data/` | ~160k | 109MB | VideoLAN test suite (8/10/12-bit, film grain, HDR, argon, oss-fuzz) |
+| **Argon Suite** | `test-vectors/argon/argon/` | 2,763 | 5.1GB | Formal verification conformance suite (exercises every AV1 spec equation) |
+| **AV1-TEST-VECTORS** | `test-vectors/fluster/resources/test_vectors/av1/AV1-TEST-VECTORS/` | 240 | 7.5MB | Google Cloud Storage test vectors |
+| **Chromium 8-bit** | `test-vectors/fluster/resources/test_vectors/av1/CHROMIUM-8bit-AV1-TEST-VECTORS/` | 36 | 2.4MB | Chromium 8-bit test vectors |
+| **Chromium 10-bit** | `test-vectors/fluster/resources/test_vectors/av1/CHROMIUM-10bit-AV1-TEST-VECTORS/` | 36 | 2.0MB | Chromium 10-bit test vectors |
+
+### Test Vector URLs
+
+**Primary Sources:**
+- dav1d: `https://code.videolan.org/videolan/dav1d-test-data.git`
+- Argon: `https://streams.videolan.org/argon/argon.tar.zst`
+- AOM: `https://storage.googleapis.com/aom-test-data/`
+- Chromium: `https://storage.googleapis.com/chromiumos-test-assets-public/tast/cros/video/test_vectors/av1/`
+
+**Fluster Framework:**
+- Repo: `https://github.com/fluendo/fluster`
+- Manages downloading and running test suites
+- Supports multiple decoders (dav1d, libaom, FFmpeg, GStreamer, etc.)
+
+### Running Tests Against All Vectors
+
+```bash
+# Integration tests (uses dav1d-test-data)
+just test-integration
+
+# Run against Fluster vectors
+cd test-vectors/fluster
+./fluster.py run -d rav1d-safe AV1-TEST-VECTORS
+
+# Run against Argon suite
+# TODO: Create argon test runner
+```
+
+## TODO: CI & Parity Testing
+
+### GitHub Actions Workflows
+
+Build matrix: `{x86_64, aarch64, wasm32-wasi (simd128)} × {linux, macos, windows}`
+
+Workflow must include:
+- `cargo build --no-default-features --features "bitdepth_8,bitdepth_16"` (pure safe)
+- `cargo build --no-default-features --features "bitdepth_8,bitdepth_16,c-ffi"` (safe + C API)
+- `cargo test --release`
+- `cargo fmt --check`
+- `cargo clippy --all-targets -- -D warnings`
+- Code coverage via `cargo-llvm-cov` uploaded to codecov
+- aarch64 cross-check via `cargo check --target aarch64-unknown-linux-gnu`
+- wasm32 simd128 build check
+
+### Decode Parity Testing (IMPLEMENTED)
+
+**Comparison harness:** `/home/lilith/work/zenavif/examples/compare_libavif.rs`
+
+Compares zenavif (rav1d-safe) vs libavif RGB output at multiple CPU feature levels.
+
+**Reference images:** Pre-generated libavif PNGs at `/mnt/v/output/zenavif/libavif-refs/` (3247 files).
+Generated via avifdec at `/home/lilith/work/libavif/build/avifdec`.
+
+**Dataset:** 3261 AVIF files at `/mnt/v/datasets/scraping/avif/` (unsplash, google-native, wikimedia, unsplash-scale).
+
+**CPU Feature Level Override:**
+- `rav1d_set_cpu_flags_mask(mask)` — global, applies to all safe_simd dispatch
+- `Settings { cpu_flags_mask: mask, .. }` — per-decoder in managed API
+- `DecoderConfig::new().cpu_flags_mask(mask)` — per-decoder in zenavif
+- All safe_simd dispatch functions check `crate::src::cpu::summon_avx2()` which gates on the mask
+
+| Level | Mask | Description |
+|-------|------|-------------|
+| v3-avx2 | `0xFFFFFFFF` | AVX2 + FMA (default, full SIMD) |
+| v2-sse4 | `0b0111` (7) | SSE4.1 only (no AVX2 dispatch) |
+| scalar | `0` | No SIMD (pure Rust scalar) |
+
+**Running comparisons:**
+```bash
+cd /home/lilith/work/zenavif
+
+# All levels (v3, v2, scalar) on full dataset
+./target/release/examples/compare_libavif
+
+# Specific level
+./target/release/examples/compare_libavif --level v3
+./target/release/examples/compare_libavif --level scalar
+
+# Custom directories
+./target/release/examples/compare_libavif /path/to/avif/dir /path/to/refs --level all
+```
+
+**Reports:** Written to `/mnt/v/output/zenavif/comparison-{level}.txt`
+
+**Note:** Error categories are vs libavif RGB output (YUV→RGB rounding differences expected):
+- Exact: 0 error
+- Close: max error ≤ 2 (rounding)
+- Minor: max error ≤ 10
+- Major: max error > 10 (potential bug)
+
+## Known Issues
+
+### Tile threading: WORKING under forbid(unsafe_code) (v0.5.4)
+
+**Status:** Tile threading (n_fc=1, n_tc>1) works in checked mode. Frame threading (n_fc>1)
+requires `unchecked`.
+
+**CDEF tile race (FIXED, commit b948270):** The `padding_8bpc`/`padding_16bpc` functions in
+`cdef.rs` locked 2 extra bytes (left-border context) even when `HAVE_LEFT` was false and those
+bytes were never read. The overly-wide guard overlapped with `backup2lines` writing to the
+adjacent row in `cdef_line_buf`. Fix: compute guard start from `HAVE_LEFT` flag — without it,
+start at offset+0 instead of offset-2. Zero performance impact. Verified 0/50 panics on 3
+crash files that previously triggered ~5% of the time.
+
+**Level cache (FIXED):** `f.lf.level` changed from `DisjointMut<Vec<u8>>` to `Vec<AtomicU8>`.
+The V filter reads entries across SB row boundaries while reconstruction writes to them
+concurrently. AtomicU8 with Relaxed ordering is zero-cost on x86_64. Inner loopfilter
+functions read entries on-demand via `.load(Relaxed)` — no gather allocation.
+
+**Pixel data (FIXED):** COW pattern via `with_pixel_guard_mut` closure:
+- Single-threaded (n_tc=1): zero-copy `narrow_guard_mut` (original fast path)
+- Multi-threaded (n_tc>1): per-row compact buffer guards (stride padding eliminated)
+- Loopfilter pixel data: per-row compact buffers with 2D decomposition matching filter reach
+- 37 call sites converted (33 SIMD dispatch + 4 scalar fallbacks)
+
+**Deblock progress barrier (FIXED):** The loop filter V-pass at the bottom of sbrow N
+reads/writes pixels extending up to 8 rows into sbrow N+1. Without synchronization,
+concurrent TileReconstruction for sbrow N+1 creates overlapping borrows. Fixed by adding
+a deblock progress check in `check_tile` — reconstruction of sbrow N blocks until
+DeblockRows for sbrow N-1 completes. Only active when n_tc>1 and loopfilter level_y != [0;2].
+In C dav1d this race is benign (raw pointers), but rav1d-safe's DisjointMut correctly
+detects it. Regression test: `tests/tile_threading_overlap.rs`.
+
+**recon.rs subtract overflow (OPEN, v0.5.3):** Fuzz-discovered via heic/fuzz_decode_av1.
+Panic at `src/recon.rs:204` — "attempt to subtract with overflow". Triggered by crafted AV1
+bitstream through the heic AVIF decode path. Separate from the CDEF race above.
+
+**Other fixes for threading:**
+- `ipred_prepare.rs`: per-pixel column reads instead of stride-wide strided_slice
+- `cdef_apply.rs`: per-row backup2lines instead of 2*stride wide guard
+- `looprestoration.rs`: per-row source reads instead of strided_slice
+- `ipred.rs`: per-row CFL prediction reads
+
+**Frame threading (n_fc>1) OPEN:** Reference frame guard conflicts between concurrent
+frame contexts (loopfilter mutable vs reference read immutable on the same frame's picture
+buffer). n_fc clamped to 1 without `unchecked`.
+
+Reproducer: `cargo test --release --test reproduce_overlap -- --ignored`
+
+### ARM loopfilter_arm.rs:69 — index out of bounds on aarch64
+
+Discovered during `just test-aarch64` (QEMU emulation). The scalar loopfilter fallback in
+`loopfilter_arm.rs:69` computes `signed_idx(base, strideb * -2)` which wraps to a huge index
+when `strideb` is negative. The `decode_cpu_levels` integration tests fail on aarch64 with:
+`index out of bounds: the len is 32768 but the index is 18446744073709550596`.
+Lib-only tests pass fine — issue is in the scalar loopfilter path exercised by full decode.
+
+## Technical Notes
+
+### Key Constants
+- `REST_UNIT_STRIDE = 390` for looprestoration (256 * 3/2 + 3 + 3)
+- `intermediate_bits = 4` for 8bpc MC filters
+- pmulhrsw rounding: `(a * b + 16384) >> 15`
+
+### SIMD Intrinsics
+- Use `#[target_feature(enable = "avx2")]` for FFI wrappers
+- Shift intrinsics require const generics: `_mm256_srai_epi32::<11>(sum)`
+- Mark inner implementations `unsafe fn` with explicit `unsafe {}` blocks
+
+## Known Issues - Managed API
+
+### ✅ RESOLVED: Thread Cleanup and Joining
+
+**Status:** ✅ **FIXED** (Commit 2e49d9c)
+
+Fixed architecture flaw where worker thread JoinHandles were stored inside Arc<Rav1dContext>, creating circular ownership that prevented proper thread cleanup.
+
+**Solution:** Moved JoinHandles out of Arc and into Decoder struct. Decoder::drop() now signals workers to die and joins them synchronously.
+
+**Verification:**
+- All thread cleanup tests pass (run with `--test-threads=1`)
+- No deadlocks
+- No thread leaks
+- Proper panic propagation
+
+See THREAD_FIX_COMPLETE.md for full implementation details.
+
+### ✅ RESOLVED: Panic Safety and Memory Management
+
+**Status:** ✅ **VERIFIED SAFE**
+
+The managed API (`src/managed.rs`) uses the safe `Rav1dData` wrapper with `CArc<[u8]>` (Arc-based smart pointer), not the unsafe `Dav1dData` C FFI struct. The implementation is panic-safe:
+
+1. **Automatic cleanup via RAII**: `Rav1dData` contains `Option<CArc<[u8]>>` which properly implements Drop through Arc's reference counting
+2. **Panic safety verified**: Stack unwinding correctly drops `Rav1dData`, cleaning up resources even on panic
+3. **No manual memory management**: The managed API never calls `dav1d_data_wrap`/`dav1d_data_unref` directly
+
+**Testing:**
+- `tests/panic_safety_test.rs` - 4 tests verifying panic safety and proper Drop behavior
+- All tests pass under normal operation and panic conditions
+- Memory leak detection via ASAN/LSAN can be added to CI for additional verification
+
+**Note:** The unsafe `Dav1dData` C FFI struct (used when `feature = "c-ffi"` is enabled) does NOT implement Drop and could leak on panic. However, this is not used by the managed API and only affects direct C FFI users who must manage `dav1d_data_unref` manually.
+
+### Recommended: Memory Leak Detection in CI
+
+**Status:** ⚠️ Enhancement
+
+While the managed API is structurally sound, adding ASAN/LSAN to CI would provide additional confidence:
+
+**Justfile additions:**
+```bash
+# Run tests with AddressSanitizer
+test-asan:
+    RUSTFLAGS="-Z sanitizer=address" cargo +nightly test --no-default-features --features "bitdepth_8,bitdepth_16" --target x86_64-unknown-linux-gnu
+
+# Run tests with LeakSanitizer
+test-lsan:
+    RUSTFLAGS="-Z sanitizer=leak" cargo +nightly test --no-default-features --features "bitdepth_8,bitdepth_16" --target x86_64-unknown-linux-gnu
+```
+
+**CI workflow addition:**
+```yaml
+- name: Run tests with ASAN
+  run: |
+    rustup toolchain install nightly
+    RUSTFLAGS="-Z sanitizer=address" cargo +nightly test --no-default-features --features "bitdepth_8,bitdepth_16" --target x86_64-unknown-linux-gnu
+```
+
+### Recommended: Thread Pool Cleanup Verification
+
+**Status:** ℹ️ Low Priority
+
+The `Rav1dContext` manages a thread pool for frame threading. While the Drop implementation appears correct, explicit verification would be valuable:
+
+**Areas to verify:**
+- `Arc<TaskThreadData>` drop implementation in `src/internal.rs`
+- Worker threads join properly on context drop
+- No hanging threads or leaked thread handles
+
+**Test approach:**
+```rust
+#[test]
+fn test_decoder_thread_cleanup() {
+    let initial_threads = thread_count();
+    {
+        let mut decoder = Decoder::with_settings(Settings {
+            threads: 0, // Auto-detect cores
+            ..Default::default()
+        }).unwrap();
+        decoder.decode(test_data).unwrap();
+    }
+    // Give OS time to clean up threads
+    thread::sleep(Duration::from_millis(100));
+    let final_threads = thread_count();
+    assert_eq!(initial_threads, final_threads);
+}
+```
+
+
+
+## Feature Dependency Chain
+
+```
+default:    #![forbid(unsafe_code)] — compiler-enforced, zero unsafe
+  └─> unchecked: get_unchecked in hot paths, debug_assert! bounds checks
+       └─> c-ffi: unsafe extern "C" FFI wrappers, raw pointer conversions
+            └─> asm: hand-written x86_64/aarch64 assembly via function pointers
+```
+
+**Cargo.toml:**
+```toml
+[features]
+default = ["bitdepth_8", "bitdepth_16"]
+unchecked = ["rav1d-disjoint-mut/unchecked"]
+c-ffi = ["unchecked"]
+asm = ["c-ffi"]
+```
+
+All unsafe in the default build is confined to the `rav1d-disjoint-mut` sub-crate (PicBuf, Align types, AlignedVec AsMutPtr impls). The main crate is provably safe — auditors only need to review the small sub-crate.
+
+
+## Known Bugs
+
+### z2_v4x order-dependent test failure (issue #16) — FIXED
+**Root cause (not what the symptom suggested):** the `z1/z2/z3_v4x_matches_avx2`
+tests summon AVX2/AVX-512 tokens at an `is_none()` gate, then *re-summon* with
+`.expect()` in `run_z*`. Those summons read archmage's process-wide
+token-disable state, which `test_avg_token_permutations` /
+`test_wht4_token_permutations` mutate (via `for_each_token_permutation`) while
+iterating. A permutation landing in that TOCTOU window made the token read as
+disabled → `.expect("avx2"/"v4x")` panicked → test failed (~20 % of parallel
+runs on the 7950X; invisible on CI, which lacks AVX-512). The
+`panicked at ipred.rs:2408` index-underflow prints were a **red herring** —
+out-of-reach synthetic configs the test's `catch_unwind` probe intentionally
+skips; the panic-hook still prints each caught one (≈30/run), which is noisy
+but harmless and unrelated to the failure. Not `set_tile_threading`.
+**Fix:** each v4x test holds `archmage::testing::lock_token_testing()` for its
+duration (the same mutex `for_each_token_permutation` acquires), so token state
+is stable end-to-end. Test-only; decoder parallelism/perf/accuracy unchanged.
+Verified: full lib suite 0/60 fails, v4x×permutations 0/150 fails (was 86/100).
+
+---
+> Source: [imazen/rav1d-safe](https://github.com/imazen/rav1d-safe) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
