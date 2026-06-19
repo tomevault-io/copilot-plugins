@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--flashdreams",
+  "displayName": "flashdreams",
+  "description": "high-performance inference and serving library for interactive autoregressive video and world models",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/flashdreams",
+  "skills": []
+}
