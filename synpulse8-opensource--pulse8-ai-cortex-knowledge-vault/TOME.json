@@ -1,0 +1,44 @@
+{
+  "name": "pulse8-ai-cortex-knowledge-vault",
+  "owner": "synpulse8-opensource",
+  "repo": "pulse8-ai-cortex-knowledge-vault",
+  "description": "Agent-native knowledge OS built on Markdown. A shared vault for AI agents and humans, backed by a typed knowledge graph, full-text search, and an LLM-powered compiler, all accessible through MCP. Drop files in, let agents read, write, search, link, and compile knowledge. No database required.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/synpulse8-opensource/pulse8-ai-cortex-knowledge-vault",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T23:00:36Z"
+}
