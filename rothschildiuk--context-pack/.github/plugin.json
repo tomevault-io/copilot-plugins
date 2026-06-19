@@ -1,0 +1,9 @@
+{
+  "name": "rothschildiuk--context-pack",
+  "displayName": "context-pack",
+  "description": "Compact CLI that turns a repository into a high-signal context bundle for coding agents.",
+  "version": "1.0.0",
+  "author": "Rothschildiuk",
+  "homepage": "https://github.com/Rothschildiuk/context-pack",
+  "skills": []
+}
