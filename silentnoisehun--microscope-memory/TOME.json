@@ -1,0 +1,44 @@
+{
+  "name": "microscope-memory",
+  "owner": "silentnoisehun",
+  "repo": "microscope-memory",
+  "description": "Hierarchical memory engine for AI agents. 9-level zoom (D0-D8), 13-layer consciousness architecture, sub-microsecond queries. Pure binary, mmap, SIMD. Spine Bridge REST API + MCP server. Zero JSON.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/silentnoisehun/microscope-memory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T14:56:38Z"
+}
