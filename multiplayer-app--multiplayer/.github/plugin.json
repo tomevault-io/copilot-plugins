@@ -1,0 +1,9 @@
+{
+  "name": "multiplayer-app--multiplayer",
+  "displayName": "multiplayer",
+  "description": "The open-source debugging agent for developers. We connect your favorite coding agent to prod to fix application bugs automatically. Run us locally and eliminate PR slop.",
+  "version": "1.0.0",
+  "author": "multiplayer-app",
+  "homepage": "https://github.com/multiplayer-app/multiplayer",
+  "skills": []
+}
