@@ -1,0 +1,9 @@
+{
+  "name": "lessica--webkitplayground",
+  "displayName": "WebKitPlayground",
+  "description": "Build an open-source version of WebKit and replace it system-wide on iOS jailbroken devices.",
+  "version": "1.0.0",
+  "author": "Lessica",
+  "homepage": "https://github.com/Lessica/WebKitPlayground",
+  "skills": []
+}
