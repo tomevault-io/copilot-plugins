@@ -1,0 +1,9 @@
+{
+  "name": "slopsync-labs--ha-app-nginx-proxy-manager",
+  "displayName": "ha-app-nginx-proxy-manager",
+  "description": "A Library Of Home Assistant Apps",
+  "version": "1.0.0",
+  "author": "SlopSync-Labs",
+  "homepage": "https://github.com/SlopSync-Labs/ha-app-nginx-proxy-manager",
+  "skills": []
+}
