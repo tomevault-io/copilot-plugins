@@ -1,0 +1,9 @@
+{
+  "name": "dongtang3--mnemic",
+  "displayName": "mnemic",
+  "description": "Local-first memory kernel for coding agents: MCP-native, temporal, auditable, source-keyed, and benchmarked.",
+  "version": "1.0.0",
+  "author": "dongtang3",
+  "homepage": "https://github.com/dongtang3/mnemic",
+  "skills": []
+}
