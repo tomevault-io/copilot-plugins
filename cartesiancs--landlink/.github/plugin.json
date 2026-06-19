@@ -1,0 +1,9 @@
+{
+  "name": "cartesiancs--landlink",
+  "displayName": "landlink",
+  "description": "\ud83d\udce1 Off-grid communication device. Build your own base station.",
+  "version": "1.0.0",
+  "author": "cartesiancs",
+  "homepage": "https://github.com/cartesiancs/landlink",
+  "skills": []
+}
