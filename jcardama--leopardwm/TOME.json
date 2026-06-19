@@ -4,7 +4,7 @@
   "repo": "LeopardWM",
   "description": "A tiling window manager for Windows",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jcardama/LeopardWM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T02:56:31Z"
+  "distributed_at": "2026-06-19T09:16:55Z"
 }
