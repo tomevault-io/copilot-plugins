@@ -1,0 +1,9 @@
+{
+  "name": "beeper--line",
+  "displayName": "line",
+  "description": "A bridgev2 project for bridging Matrix and LINE - Intended for use with Beeper",
+  "version": "1.0.0",
+  "author": "beeper",
+  "homepage": "https://github.com/beeper/line",
+  "skills": []
+}
