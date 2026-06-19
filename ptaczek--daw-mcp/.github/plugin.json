@@ -1,0 +1,9 @@
+{
+  "name": "ptaczek--daw-mcp",
+  "displayName": "daw-mcp",
+  "description": "DAW MCP for prompting against Bitwig Studio and Ableton Live from Claude (and other AI agents)",
+  "version": "1.0.0",
+  "author": "ptaczek",
+  "homepage": "https://github.com/ptaczek/daw-mcp",
+  "skills": []
+}
