@@ -1,0 +1,9 @@
+{
+  "name": "silentnoisehun--microscope-memory",
+  "displayName": "microscope-memory",
+  "description": "Hierarchical memory engine for AI agents. 9-level zoom (D0-D8), 13-layer consciousness architecture, sub-microsecond queries. Pure binary, mmap, SIMD. Spine Bridge REST API + MCP server. Zero JSON.",
+  "version": "1.0.0",
+  "author": "silentnoisehun",
+  "homepage": "https://github.com/silentnoisehun/microscope-memory",
+  "skills": []
+}
