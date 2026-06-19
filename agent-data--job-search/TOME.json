@@ -4,7 +4,7 @@
   "repo": "job-search",
   "description": "Turn Claude Code into your job search assistant.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agent-data/job-search",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T20:37:09Z"
+  "distributed_at": "2026-06-19T20:41:37Z"
 }
