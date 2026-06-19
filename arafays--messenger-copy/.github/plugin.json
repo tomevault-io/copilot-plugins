@@ -1,0 +1,9 @@
+{
+  "name": "arafays--messenger-copy",
+  "displayName": "messenger-copy",
+  "description": "Unofficial AI-assisted learning rebuild of messenger.abeto.co (SvelteKit + Three.js)",
+  "version": "1.0.0",
+  "author": "arafays",
+  "homepage": "https://github.com/arafays/messenger-copy",
+  "skills": []
+}
