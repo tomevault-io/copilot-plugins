@@ -4,7 +4,7 @@
   "repo": "Class-Production-AI-App",
   "description": "\ud83c\udfd7\ufe0f Production-ready AI app structure \u2014 RAG pipeline, hybrid search, self-correcting agents, 3-layer security, evaluation, observability & CI/CD. A reference architecture for Vibe Coders & ML Engineers building real-world AI applications.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fdhhhdjd/Class-Production-AI-App",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T23:00:55Z"
+  "distributed_at": "2026-06-19T05:06:30Z"
 }
