@@ -1,0 +1,9 @@
+{
+  "name": "mkavalecz--messenger-desktop",
+  "displayName": "messenger-desktop",
+  "description": "A lightweight desktop wrapper for Facebook Messenger built with Electron.",
+  "version": "1.0.0",
+  "author": "mkavalecz",
+  "homepage": "https://github.com/mkavalecz/messenger-desktop",
+  "skills": []
+}
