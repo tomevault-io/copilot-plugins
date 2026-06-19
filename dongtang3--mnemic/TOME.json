@@ -4,7 +4,7 @@
   "repo": "mnemic",
   "description": "Local-first memory kernel for coding agents: MCP-native, temporal, auditable, source-keyed, and benchmarked.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dongtang3/mnemic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T14:58:43Z"
+  "distributed_at": "2026-06-19T15:00:56Z"
 }
