@@ -1,0 +1,14 @@
+## graphify
+
+> graphify knowledge graph context
+
+
+This project has a graphify knowledge graph at graphify-out/.
+
+- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- After modifying code files in this session, run `GRAPHIFY_VIZ_NODE_LIMIT=200000 graphify update .` to keep the graph current (AST-only, no API cost). The default 5000-node viz cap skips and deletes `graphify-out/graph.html`; raising the limit keeps the merged graph’s HTML. If HTML is still missing, run `python scripts/regen_graphify_html.py`.
+
+---
+> Source: [aryaniyaps/ultimate-pi](https://github.com/aryaniyaps/ultimate-pi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-18 -->
