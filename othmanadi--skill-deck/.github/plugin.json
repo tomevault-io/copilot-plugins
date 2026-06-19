@@ -1,0 +1,9 @@
+{
+  "name": "othmanadi--skill-deck",
+  "displayName": "skill-deck",
+  "description": "Universal coding agent skill browser \u2014 desktop overlay for Claude Code, Cursor, Copilot, Codex and 15+ AI agents",
+  "version": "1.0.0",
+  "author": "OthmanAdi",
+  "homepage": "https://github.com/OthmanAdi/skill-deck",
+  "skills": []
+}
