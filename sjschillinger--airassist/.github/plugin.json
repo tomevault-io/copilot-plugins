@@ -1,0 +1,9 @@
+{
+  "name": "sjschillinger--airassist",
+  "displayName": "airassist",
+  "description": "Menu-bar thermal monitor + workload governor for fanless Macs, such as MacBook Airs and Neos",
+  "version": "1.0.0",
+  "author": "sjschillinger",
+  "homepage": "https://github.com/sjschillinger/airassist",
+  "skills": []
+}
