@@ -7,14 +7,14 @@ Bootstrap projects with pre-configured instructions, tests, and linters that gui
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [zpratt/lousy-agents](https://github.com/zpratt/lousy-agents).
+Original source: `CLAUDE.md` in [zpratt/lousy-agents](https://github.com/zpratt/lousy-agents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/zpratt/lousy-agents](https://github.com/zpratt/lousy-agents)
