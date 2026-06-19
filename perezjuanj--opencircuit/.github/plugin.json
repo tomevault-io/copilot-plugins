@@ -1,0 +1,9 @@
+{
+  "name": "perezjuanj--opencircuit",
+  "displayName": "OpenCircuit",
+  "description": "Local-first health data for the RingConn Gen 2 smart ring \u2014 read all metrics over BLE and write them to Apple Health. Inspired by openwhoop.",
+  "version": "1.0.0",
+  "author": "perezjuanj",
+  "homepage": "https://github.com/perezjuanj/OpenCircuit",
+  "skills": []
+}
