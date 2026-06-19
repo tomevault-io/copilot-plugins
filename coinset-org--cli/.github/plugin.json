@@ -1,0 +1,9 @@
+{
+  "name": "coinset-org--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "coinset-org",
+  "homepage": "https://github.com/coinset-org/cli",
+  "skills": []
+}
