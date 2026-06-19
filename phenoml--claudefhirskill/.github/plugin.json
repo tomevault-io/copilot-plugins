@@ -1,0 +1,9 @@
+{
+  "name": "phenoml--claudefhirskill",
+  "displayName": "ClaudeFHIRSkill",
+  "description": "ClaudeFHIRSkill",
+  "version": "1.0.0",
+  "author": "PhenoML",
+  "homepage": "https://github.com/PhenoML/ClaudeFHIRSkill",
+  "skills": []
+}
