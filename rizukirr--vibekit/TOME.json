@@ -4,7 +4,7 @@
   "repo": "vibekit",
   "description": "Vibe-coding pipeline with halt-on-defect guardrails. RTCO-compressed briefs, evidence-based verification, bounded autonomous re-runs. CC / Pi / Codex / OpenCode / Gemini CLI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rizukirr/vibekit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T23:02:29Z"
+  "distributed_at": "2026-06-19T05:08:02Z"
 }
