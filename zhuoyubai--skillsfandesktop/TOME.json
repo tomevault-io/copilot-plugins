@@ -4,7 +4,7 @@
   "repo": "SkillsFanDesktop",
   "description": "SkillsFan\u7684\u7535\u8111\u5ba2\u6237\u7aef",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZhuoyuBai/SkillsFanDesktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T19:34:43Z"
+  "distributed_at": "2026-06-19T02:43:24Z"
 }
