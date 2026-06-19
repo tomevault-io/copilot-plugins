@@ -1,0 +1,9 @@
+{
+  "name": "islo-labs--reward-hack-bench",
+  "displayName": "reward-hack-bench",
+  "description": "Benchmarking execution environments ability to prevent reward hacking in agent evals.",
+  "version": "1.0.0",
+  "author": "islo-labs",
+  "homepage": "https://github.com/islo-labs/reward-hack-bench",
+  "skills": []
+}
