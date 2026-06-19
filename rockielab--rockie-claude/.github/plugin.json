@@ -1,0 +1,9 @@
+{
+  "name": "rockielab--rockie-claude",
+  "displayName": "rockie-claude",
+  "description": "Autonomous AI research harness for Claude Code. Sibling to rockie-codex (OpenAI Codex CLI). Apache-2.0.",
+  "version": "1.0.0",
+  "author": "Rockielab",
+  "homepage": "https://github.com/Rockielab/rockie-claude",
+  "skills": []
+}
