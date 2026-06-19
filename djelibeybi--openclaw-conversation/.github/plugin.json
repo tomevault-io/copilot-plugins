@@ -1,0 +1,9 @@
+{
+  "name": "djelibeybi--openclaw-conversation",
+  "displayName": "openclaw_conversation",
+  "description": "Home Assistant custom component that gives OpenClaw access to your smart home",
+  "version": "1.0.0",
+  "author": "Djelibeybi",
+  "homepage": "https://github.com/Djelibeybi/openclaw_conversation",
+  "skills": []
+}
