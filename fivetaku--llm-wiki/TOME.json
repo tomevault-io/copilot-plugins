@@ -1,0 +1,44 @@
+{
+  "name": "llm-wiki",
+  "owner": "fivetaku",
+  "repo": "llm-wiki",
+  "description": "raw \uc18c\uc2a4\ub97c Claude Code\uac00 \uc704\ud0a4\ub85c \ud569\uc131\u00b7\uc720\uc9c0\ud558\ub294 \uc601\uad6c \ub9c8\ud06c\ub2e4\uc6b4 \uc9c0\uc2dd\ubca0\uc774\uc2a4 \ud15c\ud50c\ub9bf (LLM Wiki, Karpathy \ud328\ud134)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fivetaku/llm-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T14:59:12Z"
+}
