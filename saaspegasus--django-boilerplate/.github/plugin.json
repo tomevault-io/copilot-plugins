@@ -1,0 +1,9 @@
+{
+  "name": "saaspegasus--django-boilerplate",
+  "displayName": "django-boilerplate",
+  "description": "The original SaaS Boilerplate for Django, trusted by thousands.",
+  "version": "1.0.0",
+  "author": "saaspegasus",
+  "homepage": "https://github.com/saaspegasus/django-boilerplate",
+  "skills": []
+}
