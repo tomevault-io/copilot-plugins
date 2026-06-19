@@ -1,0 +1,9 @@
+{
+  "name": "coffeegrind123--gemini-for-claude-code",
+  "displayName": "gemini-for-claude-code",
+  "description": "This python program allows you to use Claude Code with Google's Gemini models.",
+  "version": "1.0.0",
+  "author": "coffeegrind123",
+  "homepage": "https://github.com/coffeegrind123/gemini-for-claude-code",
+  "skills": []
+}
