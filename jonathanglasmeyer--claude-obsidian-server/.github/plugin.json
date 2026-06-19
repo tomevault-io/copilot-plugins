@@ -1,0 +1,9 @@
+{
+  "name": "jonathanglasmeyer--claude-obsidian-server",
+  "displayName": "claude-obsidian-server",
+  "description": "Mobile access to Claude Code within your Obsidian vault via Discord. Self-hosted bot using Claude Agent SDK.",
+  "version": "1.0.0",
+  "author": "jonathanglasmeyer",
+  "homepage": "https://github.com/jonathanglasmeyer/claude-obsidian-server",
+  "skills": []
+}
