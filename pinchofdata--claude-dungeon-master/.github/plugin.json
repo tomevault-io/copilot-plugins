@@ -1,0 +1,9 @@
+{
+  "name": "pinchofdata--claude-dungeon-master",
+  "displayName": "claude-dungeon-master",
+  "description": "Play D&D with Claude Code.",
+  "version": "1.0.0",
+  "author": "PinchOfData",
+  "homepage": "https://github.com/PinchOfData/claude-dungeon-master",
+  "skills": []
+}
