@@ -7,11 +7,11 @@ PWA for managing Lightning and Nostr contacts
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hynek-jina/linky](https://github.com/hynek-jina/linky).
+Original source: `CLAUDE.md` in [hynek-jina/linky](https://github.com/hynek-jina/linky).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
