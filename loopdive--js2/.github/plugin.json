@@ -1,0 +1,9 @@
+{
+  "name": "loopdive--js2",
+  "displayName": "js2",
+  "description": "ECMAScript to WebAssembly GC AOT compiler",
+  "version": "1.0.0",
+  "author": "loopdive",
+  "homepage": "https://github.com/loopdive/js2",
+  "skills": []
+}
