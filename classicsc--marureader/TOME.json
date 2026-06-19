@@ -4,7 +4,7 @@
   "repo": "MaruReader",
   "description": "Manga, web, and book reader for Japanese language study",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/classicsc/MaruReader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T01:14:14Z"
+  "distributed_at": "2026-06-19T08:41:32Z"
 }
