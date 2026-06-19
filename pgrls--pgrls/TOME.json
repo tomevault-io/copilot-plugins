@@ -1,0 +1,44 @@
+{
+  "name": "pgrls",
+  "owner": "pgrls",
+  "repo": "pgrls",
+  "description": "Static analyzer for Postgres Row-Level Security \u2014 47 lint rules covering tenant and per-user row-scoping bugs, performance traps, and hygiene; 17 mechanically auto-fixable; semantic policy-diff command for CI gating; pytest plugin for RLS isolation tests.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pgrls/pgrls",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T22:51:35Z"
+}
