@@ -1,0 +1,9 @@
+{
+  "name": "herczegh-star--ledger-app",
+  "displayName": "LEDGER_APP",
+  "description": "Investi\u010dn\u00ed portfolio tracker \u2013 append-only tokov\u00fd ledger nad unified_format_raw",
+  "version": "1.0.0",
+  "author": "herczegh-star",
+  "homepage": "https://github.com/herczegh-star/LEDGER_APP",
+  "skills": []
+}
