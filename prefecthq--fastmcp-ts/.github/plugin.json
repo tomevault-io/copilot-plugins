@@ -1,0 +1,9 @@
+{
+  "name": "prefecthq--fastmcp-ts",
+  "displayName": "fastmcp-ts",
+  "description": "\ud83c\udfce\ufe0f  The official FastMCP TypeScript library - build MCP servers, clients, and apps... fast! \ud83c\udfce\ufe0f",
+  "version": "1.0.0",
+  "author": "PrefectHQ",
+  "homepage": "https://github.com/PrefectHQ/fastmcp-ts",
+  "skills": []
+}
