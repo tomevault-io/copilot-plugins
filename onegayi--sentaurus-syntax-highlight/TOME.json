@@ -1,0 +1,44 @@
+{
+  "name": "sentaurus-syntax-highlight",
+  "owner": "ONEGAYI",
+  "repo": "sentaurus-syntax-highlight",
+  "description": "Full VSCode language support for Synopsys Sentaurus TCAD \u2014 syntax highlighting, semantic analysis, code navigation, and intelligent editing for SDE, SDEVICE, SPROCESS, EMW, INSPECT, and SVISUAL",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ONEGAYI/sentaurus-syntax-highlight",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T21:06:36Z"
+}
