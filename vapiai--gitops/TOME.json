@@ -4,7 +4,7 @@
   "repo": "gitops",
   "description": "Vapi's best practices guide on how to support git tracking for teams owning and updating resources on their Vapi Org",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VapiAI/gitops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T23:15:01Z"
+  "distributed_at": "2026-06-19T02:41:53Z"
 }
