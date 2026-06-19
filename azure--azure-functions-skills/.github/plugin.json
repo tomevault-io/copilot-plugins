@@ -1,0 +1,9 @@
+{
+  "name": "azure--azure-functions-skills",
+  "displayName": "azure-functions-skills",
+  "description": "A repository for Azure Functions skills, prompts, and reusable definitions to support agentic development and operational workflows.",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/azure-functions-skills",
+  "skills": []
+}
