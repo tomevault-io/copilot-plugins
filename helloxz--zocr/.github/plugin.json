@@ -1,0 +1,9 @@
+{
+  "name": "helloxz--zocr",
+  "displayName": "zocr",
+  "description": "Online OCR recognition API service based on Baidu PP-OCRv6 model.",
+  "version": "1.0.0",
+  "author": "helloxz",
+  "homepage": "https://github.com/helloxz/zocr",
+  "skills": []
+}
