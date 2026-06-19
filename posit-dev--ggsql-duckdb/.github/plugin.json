@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--ggsql-duckdb",
+  "displayName": "ggsql-duckdb",
+  "description": "A DuckDB extension adding support for ggsql ",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/ggsql-duckdb",
+  "skills": []
+}
