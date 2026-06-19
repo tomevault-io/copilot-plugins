@@ -1,0 +1,9 @@
+{
+  "name": "atj393--promt-save-reuse-chatgpt-and-gemini",
+  "displayName": "promt-save-reuse-chatgpt-and-gemini",
+  "description": "A browser extension for saving, reusing, and managing prompts in ChatGPT and Gemini.",
+  "version": "1.0.0",
+  "author": "atj393",
+  "homepage": "https://github.com/atj393/promt-save-reuse-chatgpt-and-gemini",
+  "skills": []
+}
