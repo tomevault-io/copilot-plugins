@@ -4,7 +4,7 @@
   "repo": "frontpress-studio",
   "description": "Docspages",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/krstivoja/frontpress-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T22:37:26Z"
+  "distributed_at": "2026-06-19T04:54:10Z"
 }
