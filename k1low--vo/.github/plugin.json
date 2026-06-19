@@ -1,0 +1,9 @@
+{
+  "name": "k1low--vo",
+  "displayName": "vo",
+  "description": "On-device live transcription and translation CLI for macOS 26+ on Apple Silicon",
+  "version": "1.0.0",
+  "author": "k1LoW",
+  "homepage": "https://github.com/k1LoW/vo",
+  "skills": []
+}
