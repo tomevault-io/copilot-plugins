@@ -2,9 +2,9 @@
   "name": "claude-to-im-plus",
   "owner": "JiangJingC",
   "repo": "claude-to-im-plus",
-  "description": "Claude-to-IM Plus: bridge Claude Code and Codex sessions to IM platforms",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JiangJingC/claude-to-im-plus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T09:59:43Z"
+  "distributed_at": "2026-06-19T17:07:08Z"
 }
