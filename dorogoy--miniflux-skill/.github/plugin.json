@@ -1,0 +1,9 @@
+{
+  "name": "dorogoy--miniflux-skill",
+  "displayName": "miniflux-skill",
+  "description": "miniflux-skill",
+  "version": "1.0.0",
+  "author": "dorogoy",
+  "homepage": "https://github.com/dorogoy/miniflux-skill",
+  "skills": []
+}
