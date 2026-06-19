@@ -1,0 +1,9 @@
+{
+  "name": "messari--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "messari",
+  "homepage": "https://github.com/messari/skills",
+  "skills": []
+}
