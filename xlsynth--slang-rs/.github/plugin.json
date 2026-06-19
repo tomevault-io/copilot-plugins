@@ -1,0 +1,9 @@
+{
+  "name": "xlsynth--slang-rs",
+  "displayName": "slang-rs",
+  "description": "Rust bindings for the Slang Verilog parser",
+  "version": "1.0.0",
+  "author": "xlsynth",
+  "homepage": "https://github.com/xlsynth/slang-rs",
+  "skills": []
+}
