@@ -1,39 +1,91 @@
-## overview
+## launchpad
 
-> This app is used by Sentry (the error monitoring platform) to analyze pre-production artifacts (like iOS and Android builds) and determine the size of them, similar to Emerge Tools breakdown. For example for a given binary it will tell you which classes take up how much space on disk (and an estimate for download size). This app will act as a CLI utility that takes in a file path to the artifact that is to be analyzed, and then outputs a file with the results in a JSON format.
+> This is a Python CLI tool for analyzing iOS and Android app bundle sizes, similar to Emerge Tools.
 
-# Background
 
-This app is used by Sentry (the error monitoring platform) to analyze pre-production artifacts (like iOS and Android builds) and determine the size of them, similar to Emerge Tools breakdown. For example for a given binary it will tell you which classes take up how much space on disk (and an estimate for download size). This app will act as a CLI utility that takes in a file path to the artifact that is to be analyzed, and then outputs a file with the results in a JSON format.
+# Cursor Rules for launchpad
 
-# Existing legacy iOS code
+This is a Python CLI tool for analyzing iOS and Android app bundle sizes, similar to Emerge Tools.
 
-There is an existing project in `legacy/ios/sizeAnalysis/`. THIS IS CONSIDERED LEGACY CODE for the iOS size analysis project. When referencing this code, make sure to consider these rules:
+## Project Structure
 
-- Ignore all the S3 code, the new tool will only work on local input and output files.
-- Ignore any Capstone references. This code is no longer needed but hasn't been deleted from the repo yet. Not using this will simplify the new project.
+- `src/launchpad/` - Main package source code
+- `tests/` - Test files (pytest)
+- `tests/artifacts/` - Sample app bundles for testing
+- `legacy/` - Legacy Swift code (reference only, not to be used)
 
-# New iOS code
+## Development Guidelines
 
-The new project will be purely in python. Create a project structure that you think makes sense following the Sentry python guidelines and modern python practices. Keep in mind that there will be both iOS and Android size analysis projects, so consider that when organizing code and what might be shared between them.
+### Makefile
 
-The iOS analysis code ONLY has to work with `.xcarchive.zip` files as input.
+- Use our [Makefile](mdc:Makefile) as much as possible when interacting with our repo, e.g. for building and testing
 
-# Python rules
+### Python
 
-ALWAYS USE THE `.venv/bin/python` VERSION WHEN RUNNING COMMANDS.
+- Use modern Python 3.13+ with type hints
+- Follow PEP 8 and ruff formatting (line length 120)
+- Use `pytest` for testing
+- Use `click` for CLI interface
+- Use `lief` for Mach-O binary analysis
+- Package management and virtual environment via `uv`
+- Use `| None` instead of `Optional`
+- When writing comments try to keep them short and informative
+- Prefer empty `__init__.py` files.
 
-For the Python code make sure to follow all of Sentry's best practices, as well as modern Python best practices. Try to use types as much as possible. If standard repo setup is not present, feel free to configure it and add it to the repo since this is currently a bare setup.
+### Code Quality
 
-For the CLI, make sure to use the `click` library.
+- Always include type hints
+- Write comprehensive tests
+- Use descriptive variable and function names
+- Follow Sentry's Python best practices
 
-For the Mach-O handling, use the `lief` library and follow best practices for that. Make sure to focus on performance since this process can take several minutes, and I'm hoping to have no performance regressions compared to the Swift version.
+### Testing
 
-# Testing
+- Unit tests in `tests/unit/`
+- Integration tests in `tests/integration/`
+- Use sample artifacts from `tests/_fixtures/`
+- Prefer to write integration tests using test fixtures over unit tests with mocking. Try to avoid mocking as much as possible.
+- Prefer pytest fixtures for setup
 
-Included is a `test/artifacts` directory which contains sample "clean room" apps that can be used for writing integration tests and validating the output of this tool. Always write new tests to validate behavior and functionality. Prefer to write integration tests using the sample apps instead of writing smaller unit tests or using mocks.
+### CLI Development
 
-Make sure to write tests using `pytest`.
+- Use `click` library for commands
+- Support `--verbose` flag for debugging
+- Always validate input files
+- Provide helpful error messages
+
+### Dependencies
+
+- Core: `click`, `lief`, `pydantic`, `rich`, standard library
+- Development: `pytest`, `ruff`, `ty`, `isort`
+- Package management: `uv`
+- No legacy dependencies (no Capstone, no S3)
+
+### Debugging
+
+- Use VSCode/Cursor debug configurations
+- Test with sample artifacts
+- Check performance for large binaries
+
+## Key Commands
+
+- `make help` - Show all available commands
+- `make dev-setup` - Set up development environment
+- `make test` - Run all tests (`test-unit`, `test-integration` available separately)
+- `make check` - Run all code quality checks (`check-lint`, `check-format`, `check-types` available separately)
+- `make ci` - Full CI pipeline
+- `make run-cli` - Run the CLI tool (use ARGS="..." for arguments)
+- `make clean` - Clean build artifacts
+- `make fix` - Auto-fix code issues with ruff
+
+## When suggesting code:
+
+1. Always include proper type hints
+2. Add error handling and validation
+3. Consider performance implications
+4. Follow existing patterns in the codebase
+5. Include relevant tests
+6. Format imports using ruff
 
 ---
 > Source: [getsentry/launchpad](https://github.com/getsentry/launchpad) — distributed by [TomeVault](https://tomevault.io).
