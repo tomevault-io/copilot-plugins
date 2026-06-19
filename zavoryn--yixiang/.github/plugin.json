@@ -1,0 +1,9 @@
+{
+  "name": "zavoryn--yixiang",
+  "displayName": "yixiang",
+  "description": "\u80a1\u7968\u6295\u8d44\u79c1\u57df\u793e\u533a\u3002\u57fa\u4e8e Spring Boot + Redis + Kafka + Elasticsearch \u6784\u5efa\uff0c\u91c7\u7528\u4e8b\u4ef6\u9a71\u52a8\u67b6\u6784\uff0c\u652f\u6301\u5708\u5b50\u8fd0\u8425\u3001\u6295\u7814\u5185\u5bb9\u5206\u4eab\u3001AI \u667a\u80fd\u95ee\u7b54\u7b49\u6838\u5fc3\u80fd\u529b\u3002",
+  "version": "1.0.0",
+  "author": "zavoryn",
+  "homepage": "https://github.com/zavoryn/yixiang",
+  "skills": []
+}
