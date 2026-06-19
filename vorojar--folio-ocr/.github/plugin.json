@@ -1,0 +1,9 @@
+{
+  "name": "vorojar--folio-ocr",
+  "displayName": "Folio-OCR",
+  "description": "Open-source batch OCR workbench \u2014 a free, local alternative to ABBYY FineReader. Powered by Ollama + GLM-OCR + PP-DocLayoutV3, ~0.5s/page on RTX 4090. Three-panel editor, layout-aware, PDF/image batch",
+  "version": "1.0.0",
+  "author": "vorojar",
+  "homepage": "https://github.com/vorojar/Folio-OCR",
+  "skills": []
+}
