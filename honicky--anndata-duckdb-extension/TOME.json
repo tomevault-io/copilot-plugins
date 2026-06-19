@@ -1,0 +1,44 @@
+{
+  "name": "anndata-duckdb-extension",
+  "owner": "honicky",
+  "repo": "anndata-duckdb-extension",
+  "description": "Attach and AnnData file in duckdb and query it with SQL.  Perform SQL over groups of AnnData files",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/honicky/anndata-duckdb-extension",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T08:45:48Z"
+}
