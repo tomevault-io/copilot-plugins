@@ -1,0 +1,44 @@
+{
+  "name": "Build26-BRK242-turn-your-agents-into-action-connect-tools-apis-and-documents",
+  "owner": "microsoft",
+  "repo": "Build26-BRK242-turn-your-agents-into-action-connect-tools-apis-and-documents",
+  "description": "Resources for connecting agents to the right tools, APIs, and documents with context-aware toolset selection, efficient token usage, and built-in governance. From Microsoft Build 2026.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/microsoft/Build26-BRK242-turn-your-agents-into-action-connect-tools-apis-and-documents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T21:12:51Z"
+}
