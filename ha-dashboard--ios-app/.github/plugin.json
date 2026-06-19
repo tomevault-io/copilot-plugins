@@ -1,0 +1,9 @@
+{
+  "name": "ha-dashboard--ios-app",
+  "displayName": "ios-app",
+  "description": "Native iOS 9 Home Assistant dashboard app for iPad 2 and iPad mini 4",
+  "version": "1.0.0",
+  "author": "ha-dashboard",
+  "homepage": "https://github.com/ha-dashboard/ios-app",
+  "skills": []
+}
