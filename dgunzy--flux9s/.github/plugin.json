@@ -1,0 +1,9 @@
+{
+  "name": "dgunzy--flux9s",
+  "displayName": "flux9s",
+  "description": "A K9s-inspired terminal UI for monitoring Flux resources in real-time",
+  "version": "1.0.0",
+  "author": "dgunzy",
+  "homepage": "https://github.com/dgunzy/flux9s",
+  "skills": []
+}
