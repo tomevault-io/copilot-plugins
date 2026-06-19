@@ -4,7 +4,7 @@
   "repo": "lousy-agents",
   "description": "Bootstrap projects with pre-configured instructions, tests, and linters that guide AI coding agents to produce reliable code",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zpratt/lousy-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T14:38:17Z"
+  "distributed_at": "2026-06-19T14:48:52Z"
 }
