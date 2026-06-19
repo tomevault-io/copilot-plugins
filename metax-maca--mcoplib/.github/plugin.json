@@ -1,0 +1,9 @@
+{
+  "name": "metax-maca--mcoplib",
+  "displayName": "mcoplib",
+  "description": "A high perfromance op kernel lib running on metax HD platform ",
+  "version": "1.0.0",
+  "author": "MetaX-MACA",
+  "homepage": "https://github.com/MetaX-MACA/mcoplib",
+  "skills": []
+}
