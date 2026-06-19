@@ -1,0 +1,9 @@
+{
+  "name": "onsen-ai--rds-skill",
+  "displayName": "rds-skill",
+  "description": "rds-skill",
+  "version": "1.0.0",
+  "author": "onsen-ai",
+  "homepage": "https://github.com/onsen-ai/rds-skill",
+  "skills": []
+}
