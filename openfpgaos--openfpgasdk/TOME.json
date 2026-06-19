@@ -4,7 +4,7 @@
   "repo": "openfpgaSDK",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openfpgaOS/openfpgaSDK",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T02:47:30Z"
+  "distributed_at": "2026-06-19T09:07:44Z"
 }
