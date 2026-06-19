@@ -1,0 +1,44 @@
+{
+  "name": "claude-howto-zh-tw",
+  "owner": "huckly",
+  "repo": "claude-howto-zh-tw",
+  "description": "Claude Code \u4f7f\u7528\u6307\u5357\uff08\u6b63\u9ad4\u4e2d\u6587\u7ffb\u8b6f\uff09\u2014 \u539f\u59cb\u4f86\u6e90\uff1aluongnv89/claude-howto",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/huckly/claude-howto-zh-tw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T21:10:12Z"
+}
