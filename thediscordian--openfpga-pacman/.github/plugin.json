@@ -1,0 +1,9 @@
+{
+  "name": "thediscordian--openfpga-pacman",
+  "displayName": "openfpga-pacman",
+  "description": "Analogue Pocket openFPGA core for Namco Pac-Man hardware (Pac-Man, Ms. Pac-Man, and same-board variants).",
+  "version": "1.0.0",
+  "author": "TheDiscordian",
+  "homepage": "https://github.com/TheDiscordian/openfpga-pacman",
+  "skills": []
+}
