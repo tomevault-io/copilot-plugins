@@ -1,0 +1,9 @@
+{
+  "name": "xemantic--xemantic-neo4j-kotlin-driver",
+  "displayName": "xemantic-neo4j-kotlin-driver",
+  "description": "Kotlin coroutines adapter for the Neo4j Java driver (async)",
+  "version": "1.0.0",
+  "author": "xemantic",
+  "homepage": "https://github.com/xemantic/xemantic-neo4j-kotlin-driver",
+  "skills": []
+}
