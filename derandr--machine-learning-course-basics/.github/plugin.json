@@ -1,0 +1,9 @@
+{
+  "name": "derandr--machine-learning-course-basics",
+  "displayName": "machine_learning_course_basics",
+  "description": "Lecture notes, slides, and example notebooks for an introductory machine learning course.",
+  "version": "1.0.0",
+  "author": "DerAndr",
+  "homepage": "https://github.com/DerAndr/machine_learning_course_basics",
+  "skills": []
+}
