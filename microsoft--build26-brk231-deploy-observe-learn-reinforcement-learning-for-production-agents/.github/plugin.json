@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--build26-brk231-deploy-observe-learn-reinforcement-learning-for-production-agents",
+  "displayName": "Build26-BRK231-deploy-observe-learn-reinforcement-learning-for-production-agents",
+  "description": "Sample code for improving multi-tool AI agents using SFT distillation and reinforcement fine-tuning \u2014 Qwen3-32B RFT achieving 86.9% quality on a retail customer service agent. From Microsoft Build 202",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/Build26-BRK231-deploy-observe-learn-reinforcement-learning-for-production-agents",
+  "skills": []
+}
