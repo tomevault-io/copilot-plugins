@@ -1,0 +1,9 @@
+{
+  "name": "altzone--xike-manager",
+  "displayName": "xike_manager",
+  "description": "Modern web management interface for Xikestor network switches - replaces the chaotic factory UI",
+  "version": "1.0.0",
+  "author": "altzone",
+  "homepage": "https://github.com/altzone/xike_manager",
+  "skills": []
+}
