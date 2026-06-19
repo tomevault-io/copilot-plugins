@@ -1,115 +1,145 @@
-## react-hooks
+## solidity
 
-> React hooks patterns and Rules
+> Solidity development standards with Foundry
 
-# React Hooks Rules
+# Solidity & Foundry Rules
 
 ## Core Principles
-- Use TanStack Query (React Query) as primary data fetching solution
-- Use useAsync/useAsyncFn for one-off async operations
-- Follow hooks naming conventions ( use-something.ts )
-- Handle loading and error states consistently
-- Never build large hooks, use single responsibility 
+- Use latest stable Solidity version (^0.8.20)
+- Follow CEI (Checks-Effects-Interactions) pattern
+- Implement proper access control
+- Use custom errors instead of revert strings
+- Optimize for gas efficiency
 
-## TanStack Query Patterns
-```tsx
-import { useQuery, useMutation } from '@tanstack/react-query'
+## Contract Structure
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 
-// Data fetching with proper types
-export function useUserData(userId: string) {
-  return useQuery({
-    queryKey: ['user', userId],
-    queryFn: async () => {
-      const data = await fetchUser(userId)
-      return data as User
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+error Unauthorized();
+error InvalidAmount();
+
+contract ExampleContract is Ownable, ReentrancyGuard {
+    // Events
+    event Deposited(address indexed user, uint256 amount);
+    
+    // State variables
+    uint256 public constant MIN_DEPOSIT = 0.1 ether;
+    mapping(address => uint256) public balances;
+    
+    // Functions
+    function deposit() external payable nonReentrant {
+        // Checks
+        if (msg.value < MIN_DEPOSIT) revert InvalidAmount();
+        
+        // Effects
+        balances[msg.sender] += msg.value;
+        
+        // Interactions
+        emit Deposited(msg.sender, msg.value);
     }
-  })
 }
+```
 
-// Mutation with optimistic updates
-export function useUpdateUser() {
-  const queryClient = useQueryClient()
-  
-  return useMutation({
-    mutationFn: updateUser,
-    onMutate: async (newUser) => {
-      await queryClient.cancelQueries({ queryKey: ['user', newUser.id] })
-      const previousUser = queryClient.getQueryData(['user', newUser.id])
-      
-      queryClient.setQueryData(['user', newUser.id], newUser)
-      return { previousUser }
-    },
-    onError: (err, newUser, context) => {
-      queryClient.setQueryData(
-        ['user', newUser.id],
-        context?.previousUser
-      )
+## Foundry Testing
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+import "../src/ExampleContract.sol";
+
+contract ExampleTest is Test {
+    ExampleContract public example;
+    address public user;
+    
+    function setUp() public {
+        example = new ExampleContract();
+        user = makeAddr("user");
+        vm.deal(user, 100 ether);
     }
-  })
+    
+    function test_Deposit() public {
+        vm.startPrank(user);
+        example.deposit{value: 1 ether}();
+        assertEq(example.balances(user), 1 ether);
+        vm.stopPrank();
+    }
+    
+    function testFail_DepositUnderMin() public {
+        vm.prank(user);
+        example.deposit{value: 0.01 ether}();
+    }
 }
 ```
 
-## Async Operations
-```tsx
-import { useAsync, useAsyncFn } from 'react-use'
+## Gas Optimization
+- Use unchecked blocks for safe math
+- Pack storage variables efficiently
+- Use custom errors instead of strings
+- Cache storage variables in memory
+- Use calldata for readonly function parameters
 
-// For values that load once and remain static
-export function useStaticData() {
-  const state = useAsync(async () => {
-    const data = await fetchStaticData()
-    return data
-  }, [])
-
-  return state
-}
-
-// For operations that need manual triggering
-export function useManualOperation() {
-  const [state, execute] = useAsyncFn(async (params) => {
-    const result = await someOperation(params)
-    return result
-  }, [])
-
-  return { state, execute }
-}
-```
-
-## Custom Hooks Patterns
-```tsx
-// Combine multiple queries
-export function useUserWithPosts(userId: string) {
-  const user = useQuery({
-    queryKey: ['user', userId],
-    queryFn: () => fetchUser(userId)
-  })
-  
-  const posts = useQuery({
-    queryKey: ['posts', userId],
-    queryFn: () => fetchUserPosts(userId),
-    enabled: !!user.data
-  })
-
-  return {
-    user: user.data,
-    posts: posts.data,
-    isLoading: user.isLoading || posts.isLoading,
-    error: user.error || posts.error
-  }
+```solidity
+contract GasOptimized {
+    // Pack related variables
+    struct UserInfo {
+        uint96 balance;
+        uint96 stakedAmount;
+        uint64 lastUpdate;
+    }
+    
+    // Use unchecked when overflow is impossible
+    function increment(uint256 i) public pure returns (uint256) {
+        unchecked { return i + 1; }
+    }
+    
+    // Cache storage reads
+    function processUserBalance(address user) external {
+        UserInfo memory userInfo = users[user]; // Cache in memory
+        if (userInfo.balance < minBalance) revert InsufficientBalance();
+        // Process using memory values
+    }
 }
 ```
 
-## Error Handling
-- Always handle loading, error, and success states
-- Use proper error boundaries for query errors
-- Implement retry logic where appropriate
-- Show user-friendly error messages
+## Security Patterns
+- Use ReentrancyGuard for external calls
+- Implement proper access control
+- Follow checks-effects-interactions
+- Use pull over push payments
+- Validate all inputs
+- Use SafeERC20 for token transfers
 
-## Performance
-- Use proper query keys for caching
-- Implement stale-while-revalidate patterns
-- Use suspense mode when appropriate
-- Handle pagination and infinite queries efficiently
-```   
+## Testing Guidelines
+- Test both success and failure cases
+- Use fuzzing for edge cases
+- Test state changes thoroughly
+- Mock external dependencies
+- Use proper assertions
+
+```solidity
+function testFuzz_ValidateInput(uint256 amount) public {
+    // Bound input to realistic values
+    amount = bound(amount, MIN_AMOUNT, MAX_AMOUNT);
+    
+    vm.startPrank(user);
+    example.deposit{value: amount}();
+    
+    assertEq(example.balances(user), amount);
+    vm.stopPrank();
+}
+```
+
+## Deployment
+- Use proper constructor parameters
+- Verify contracts on block explorers
+- Document deployment addresses
+- Use timelock for admin functions
+- Implement proper upgrade patterns 
 
 ---
 > Source: [Boopi7/basilic-evm](https://github.com/Boopi7/basilic-evm) — distributed by [TomeVault](https://tomevault.io).
