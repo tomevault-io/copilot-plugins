@@ -1,0 +1,9 @@
+{
+  "name": "joel-claw--openmeshos",
+  "displayName": "OpenMeshOS",
+  "description": "Open-source standalone firmware for LilyGo T-Deck/T-Deck Plus based on MeshCore. Vibecoded by GLM-5.1.",
+  "version": "1.0.0",
+  "author": "Joel-Claw",
+  "homepage": "https://github.com/Joel-Claw/OpenMeshOS",
+  "skills": []
+}
