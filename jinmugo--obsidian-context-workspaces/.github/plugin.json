@@ -1,0 +1,9 @@
+{
+  "name": "jinmugo--obsidian-context-workspaces",
+  "displayName": "obsidian-context-workspaces",
+  "description": "A workspace toolkit to build focused, clutter-free zones for every task.",
+  "version": "1.0.0",
+  "author": "JinmuGo",
+  "homepage": "https://github.com/JinmuGo/obsidian-context-workspaces",
+  "skills": []
+}
