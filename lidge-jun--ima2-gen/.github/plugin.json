@@ -1,0 +1,9 @@
+{
+  "name": "lidge-jun--ima2-gen",
+  "displayName": "ima2-gen",
+  "description": "Minimal CLI + web UI for OpenAI GPT Image 2 generation. Dual auth: API Key (paid) or OAuth via ChatGPT (free). Text-to-image, image-to-image, parallel gen, custom sizes.",
+  "version": "1.0.0",
+  "author": "lidge-jun",
+  "homepage": "https://github.com/lidge-jun/ima2-gen",
+  "skills": []
+}
