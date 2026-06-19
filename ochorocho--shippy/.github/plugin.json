@@ -1,0 +1,9 @@
+{
+  "name": "ochorocho--shippy",
+  "displayName": "shippy",
+  "description": "Opinionated deployment tool for PHP/Composer based projects",
+  "version": "1.0.0",
+  "author": "ochorocho",
+  "homepage": "https://github.com/ochorocho/shippy",
+  "skills": []
+}
