@@ -1,0 +1,371 @@
+## pg-textsearch
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
+
+## Project Overview
+
+pg_textsearch is a Postgres extension providing full-text search with BM25
+ranking. (Internal name: Tapir) It implements a memtable-based architecture
+similar to LSM trees, with in-memory structures that spill to disk segments
+for scalability.
+
+**Current Version**: 1.4.0-dev
+
+**Postgres Version Support**: 17, 18 (tested in CI)
+
+**Schema Organization**: Currently uses public schema. Future versions may
+consider a dedicated `pg_textsearch` schema for cleaner namespace management.
+
+## Important Notes for Development
+
+- **pg_textsearch requires shared_preload_libraries** - Add `pg_textsearch`
+  to `shared_preload_libraries` in postgresql.conf and restart the server
+  before CREATE EXTENSION. A server restart is also required after updating
+  the binary (e.g., after `make install` during development).
+
+- **Every test failure matters.** We keep CI green on main. Do not
+  dismiss failures as "pre-existing" — they almost never are. If a
+  test fails, investigate and fix the root cause. If you believe a
+  failure is unrelated to your changes, verify by checking out main
+  and running the same test. Even if it does reproduce on main, it
+  still needs to be investigated and fixed, not ignored.
+
+- **Physical replication**: All page mutations are WAL-logged via
+  `GenericXLog` records. There is no custom resource manager;
+  pg_textsearch does not register an rmgr. Stock PostgreSQL replay
+  reconstructs every page on a streaming standby or during crash
+  recovery — including the on-disk memtable chain pages, segment
+  pages, and the metapage. This is what lets PostgreSQL's
+  single-page WAL-redo helper (and any other no-extension-load
+  replay context) work without loading `pg_textsearch.so`.
+  **The on-disk memtable design is spec'd at
+  [`docs/memtable_v2.md`](docs/memtable_v2.md); read it before
+  changing the write/read/spill flow.** Closes #345, #349,
+  #350, #374.
+
+- **Standby-safe segment reclaim (#380)**: A segment merge does not
+  free the displaced source pages to the FSM immediately. Doing so is
+  safe on the primary but unsafe for in-flight hot-standby queries,
+  because there is no custom rmgr to resolve recovery conflicts during
+  replay. Instead, displaced pages are *parked* in a WAL-logged
+  (`GenericXLog`) tombstone chain off the metapage (`pending_free_head`),
+  stamped with the merge's `FullTransactionId`. They return to the FSM
+  only once a later VACUUM (or the next merge) observes that the stamp
+  precedes `GetOldestNonRemovableTransactionId` — the standby-safe
+  reclaim horizon. **`hot_standby_feedback = on` is required** on hot
+  standbys serving queries, so their oldest snapshot holds the
+  primary's horizon back until they finish reading the pages. Observe
+  the parked count with `bm25_pending_free_pages(index_name)`.
+
+## Core Architecture
+
+### Storage Architecture
+
+The index uses an LSM-like layered storage approach:
+- **Memtable (L0)**: An on-disk paged structure stored in the index
+  relation itself. Writes append doc records (ctid + length +
+  packed bm25vector bytes) to a tail page chained off the
+  metapage. Mutations are WAL-logged via `GenericXLog`.
+  See [`docs/memtable_v2.md`](docs/memtable_v2.md).
+- **Segments**: Immutable disk-based structures using V2 block storage format
+  with skip lists for efficient top-k queries
+
+### Query Optimization
+
+- **Block-Max WAND (BMW)**: Top-k query optimization that uses block-level
+  upper bounds to skip non-contributing blocks
+- **Skip Lists**: Segment format includes skip entries for fast block seeking
+
+### Source Code Structure
+
+The `src/` directory is organized in layers (see CONTRIBUTING.md for
+details):
+
+- **Layer 1 (Postgres interface):** `access/` (AM handler, build,
+  scan, vacuum), `types/` (bm25query, bm25vector), `planner/`
+  (optimizer hooks, cost estimation)
+- **Layer 2 (Index coordination):** `scoring/` (BM25, Block-Max
+  WAND), `index/` (state lifecycle, registry, metapage, posting
+  source abstraction)
+- **Layer 3 (Storage):** `memtable/` (on-disk paged L0 — chain of
+  doc-record pages mutated under buffer locks, WAL-logged via
+  `GenericXLog`; see [`docs/memtable_v2.md`](docs/memtable_v2.md)),
+  `segment/` (on-disk segments, merge, compression)
+- **Cross-cutting:** `debug/` (dump utilities), `mod.c` (init)
+
+### Data Types
+
+- `bm25vector` - Stores term frequencies with index context for BM25 scoring
+  - Format: `"index_name:{lexeme1:freq1,lexeme2:freq2,...}"`
+- `bm25query` - Represents queries for BM25 scoring with optional index context
+  - Format: `"query terms"` or `"index_name:{query terms}"` (via to_bm25query)
+
+## Development Commands
+
+### Building and Testing
+```bash
+make                   # build extension
+make install           # install to Postgres
+make test              # run SQL regression tests only
+make installcheck      # run SQL regression tests
+make test-all          # run all tests (SQL + shell scripts)
+
+# Run a single test
+$(pg_config --pgxs | xargs dirname)/../../src/test/regress/pg_regress \
+  --inputdir=test --outputdir=test basic  # runs basic.sql only
+
+# Individual test types
+make test-concurrency  # multi-session concurrency tests
+make test-recovery     # crash recovery tests
+make test-segment      # multi-backend segment tests
+make test-stress       # long-running stress tests
+make test-shell        # run all shell-based tests
+make test-local        # run tests with dedicated Postgres instance
+make expected          # generate expected output from test results
+```
+
+### Debug Builds
+```bash
+# Enable debug index dumps (add to Makefile or command line)
+make PG_CPPFLAGS="-I$(pwd)/src -g -O2 -DDEBUG_DUMP_INDEX"
+```
+
+### Code Quality
+```bash
+make format            # auto-format C code with clang-format
+make format-check      # check C code formatting (alias: lint-format)
+make format-diff       # show formatting differences
+make format-single FILE=path/to/file.c  # format specific file
+```
+
+## Configuration
+
+### GUC Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `pg_textsearch.default_limit` | Default limit for queries without LIMIT | 1000 |
+| `pg_textsearch.log_scores` | Log BM25 scores during scans | false |
+| `pg_textsearch.log_bmw_stats` | Log BMW blocks scanned/skipped | false |
+| `pg_textsearch.bulk_load_threshold` | Terms/xact to trigger spill (0 = disable) | 100000 |
+| `pg_textsearch.memtable_pages_threshold` | Chain pages before auto-spill (0 = disable) | 64 |
+| `pg_textsearch.segments_per_level` | Segments before compaction | 8 |
+| `pg_textsearch.compress_segments` | Enable compression for new segment blocks | true |
+| `pg_textsearch.debug_panic_after_spill_finalize` | Trigger PANIC after spill finalize (testing only, superuser-only) | false |
+| `pg_textsearch.memtable_cache_enabled` | Serve query reads from the in-memory memtable cache instead of the on-disk chain (chain remains source of truth; standbys always use the chain) | true |
+| `pg_textsearch.log_cache_state` | Log in-memory cache apply outcomes (OK / BUDGET_EXCEEDED / cold_build / RETRY / ABORT / fall back to chain) | false |
+| `pg_textsearch.memory_limit` | Max shared memory (KB, `PGC_SIGHUP`) for the in-memory memtable cache. Three-tier budget: per-index soft cap (`limit/8`) → BUDGET_EXCEEDED + chain fallback; global soft cap (`limit/2`) → evict largest non-caller cache; global hard cap (`limit`) → refuse new cache builds. `0` = no limit. See `docs/memtable_cache.md` | 2 GB |
+
+
+### Index Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `text_config` | Postgres text search configuration | (required) |
+| `k1` | BM25 term frequency saturation | 1.2 |
+| `b` | BM25 length normalization | 0.75 |
+
+## Test Structure
+
+- **SQL tests** (`test/sql/`): Core functionality, BM25 scoring (scoring1-6),
+  storage/segments, query optimization (bmw, wand), table features
+  (partitioned, inheritance), and edge cases
+- **Shell tests** (`test/scripts/`): concurrency.sh, recovery.sh, segment.sh,
+  stress.sh for multi-session, crash recovery, and load testing
+- **Expected output** (`test/expected/`): Reference outputs for regression tests
+
+## BM25 Implementation
+
+### Query Processing
+
+- `text <@> bm25query` - primary operator, works in index scans and standalone
+- `text <@> text` - implicit form, planner rewrites to `text <@> bm25query`
+- Returns negative BM25 scores for Postgres ASC ordering
+- bm25query with index name required for WHERE clause queries
+
+### Query Style Guidelines
+
+**Do not use WHERE clauses that compare against BM25 scores** as a
+generic way to filter for matching documents. Numeric score
+comparisons like `WHERE content <@> query < 0` are an anti-pattern
+when used as a convenience filter in tests and examples:
+
+- BM25 scores are for ranking, not filtering; their numeric values are
+  opaque and not meaningful to compare against thresholds
+- A WHERE clause with `<@>` triggers standalone scoring (sequential
+  scan), not an index scan; index scans require ORDER BY
+- The correct pattern is `ORDER BY content <@> query LIMIT n`
+
+For counting matching documents, use a subquery with ORDER BY:
+```sql
+-- WRONG: standalone scoring as a convenience filter
+SELECT count(*) FROM docs
+WHERE content <@> to_bm25query('term', 'idx') < 0;
+
+-- RIGHT: index scan via ORDER BY
+SELECT count(*) FROM (
+    SELECT 1 FROM docs
+    ORDER BY content <@> to_bm25query('term', 'idx')
+) sub;
+```
+
+**Exception: standalone scoring as an explicit test target.** Tests
+that deliberately exercise the standalone scoring code path (e.g.,
+comparing index scan results against standalone results) should use
+WHERE with `<@>` and document the intent. See `validation.sql`
+(`validate_index_vs_standalone`), `queries.sql`, and `vector.sql`
+for examples of this pattern.
+
+### Block-Max WAND Optimization
+
+Top-k queries use Block-Max WAND optimization:
+- Block-level upper bounds computed during index build
+- Early termination when blocks cannot contribute to results
+- Skip lists for fast block seeking in segments
+
+### VACUUM and Alive Bitset
+
+VACUUM uses per-segment alive bitsets (1 bit per doc) to mark dead
+documents instead of rebuilding segments. This is O(dead_docs) instead
+of O(all_docs). Dead docs are filtered during BMW scoring and
+physically removed during segment merge.
+
+**Stale statistics after VACUUM**: After VACUUM marks docs dead, the
+segment's `total_docs`, `total_tokens`, and per-term `doc_freq` are
+not updated. This means BM25 IDF calculations use slightly stale
+corpus statistics until the next segment merge/compaction, which
+corrects them. For small numbers of deletes this is negligible; mass
+deletion can affect ranking quality until the next merge.
+
+## Benchmarking
+
+The `benchmarks/` directory contains performance testing tools:
+
+### Datasets
+- `sql/cranfield/` - Classic IR benchmark (Cranfield collection)
+- `datasets/msmarco/` - MS MARCO passage ranking (download required)
+- `datasets/wikipedia/` - Wikipedia articles (download required)
+
+### Scripts
+- `run_cranfield.sh` - Classic IR benchmark using Cranfield collection
+- `run_memory_stress.sh` - Memory usage and capacity testing
+- `sql/memory_stress*.sql` - Memory stress test configurations
+- `runner/run_benchmark.sh` - Full benchmark runner with metrics extraction
+
+### Comparative Benchmarks
+- `engines/tantivy/` - Tantivy comparison for validation
+
+## Continuous Integration
+
+GitHub Actions workflows:
+- `ci.yml` - Main CI pipeline testing Postgres 17, 18
+- `sanitizer-build-and-test.yml` - Address sanitizer builds
+- `formatting.yml` - Code formatting validation
+- `release.yml` - Automated release workflow
+- `package-release.yml` - Release packaging
+- `upgrade-tests.yml` - Version upgrade testing
+- `benchmark.yml` - Performance benchmarks
+- `nightly-stress.yml` - Nightly stress tests with memory leak detection
+- `claude-code-review.yml` - AI code review integration
+- `claude.yml` - Claude Code automation
+
+See [RELEASING.md](RELEASING.md) for release instructions.
+
+## Debug Functions
+
+- `bm25_dump_index(index_name)` - Shows internal index structure with term
+  dictionary, posting lists, and document entries
+- `bm25_dump_index(index_name, filepath)` - Dumps full index to file
+- `bm25_summarize_index(index_name)` - Shows high-level index statistics
+- `bm25_spill_index(index_name)` - Forces memtable spill to disk segment,
+  returns number of entries spilled
+- `bm25_pending_free_pages(index_name)` - Count displaced segment pages
+  currently parked in the deferred-free tombstone chain (issue #380),
+  awaiting standby-safe FSM reclaim
+- `bm25_debug_pageviz(index_name, file_path)` - Generate page layout visualization
+
+## Parallel Index Build
+
+Parallel index build uses multiple workers to speed up CREATE INDEX on large
+tables.
+
+### Requirements
+
+- Table must have >= 100,000 estimated rows (configurable via
+  `TP_MIN_PARALLEL_TUPLES`)
+- `max_parallel_maintenance_workers` must be > 0
+- Workers are automatically allocated based on table statistics
+
+### How It Works
+
+1. Leader launches parallel workers and assigns heap block ranges
+2. Workers scan their assigned blocks, tokenize documents, and build
+   local in-memory indexes
+3. Workers write intermediate segment data to temporary BufFiles
+4. Leader performs an N-way merge of all worker BufFiles, writing the
+   final merged segment directly to index pages
+5. Result is a single merged segment
+
+### Configuration
+
+| GUC | Description | Default |
+|-----|-------------|---------|
+| `max_parallel_maintenance_workers` | Max workers for parallel operations | 2 |
+
+### Limitations
+
+- Postgres may launch fewer workers than requested for smaller tables
+
+## Important Notes
+
+### Concurrency Safety
+
+- All shared memory structures protected by appropriate locks
+- String interning is thread-safe via hash table locks
+- Transaction isolation maintained through proper cleanup
+
+### Testing Requirements
+
+- Always run `make installcheck` before committing changes
+- Concurrency tests verify thread safety under load
+- Shell tests verify crash recovery and multi-backend behavior
+
+### Code Style
+
+- Uses clang-format for consistent C formatting
+- Postgres coding conventions followed
+- Memory allocation patterns follow Postgres standards
+- Wrap all lines at 79 characters
+- The L0 memtable is an on-disk chain of pages in the index relation
+  (one chain per index). Mutated under standard buffer locks and
+  WAL-logged via `GenericXLog`. See
+  [`docs/memtable_v2.md`](docs/memtable_v2.md) before changing
+  the write/read/spill flow.
+
+### Pre-Commit Checklist
+
+**ALWAYS complete these steps before committing changes:**
+1. `make` - Compile the extension
+2. `make installcheck` - Run SQL regression tests
+3. **Check test/regression.diffs** - Examine diffs to ensure your changes
+   didn't introduce failures
+4. If you modified error messages, update corresponding test/expected/*.out
+5. `make format-check` - Verify code formatting
+6. Re-run `make installcheck` after fixing any SQL test expectation files
+
+### Git Workflow
+
+- **After PRs are merged**: Always check if main has been updated, even if you
+  didn't do the merge yourself. Run `git fetch && git rebase origin/main` on
+  active branches to avoid merge conflicts.
+- **Before pushing**: Verify your branch is up-to-date with main to prevent
+  conflicts from divergent histories.
+
+---
+> Source: [timescale/pg_textsearch](https://github.com/timescale/pg_textsearch) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-19 -->
