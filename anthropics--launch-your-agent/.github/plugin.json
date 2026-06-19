@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--launch-your-agent",
+  "displayName": "launch-your-agent",
+  "description": "Claude Code skills that take a founder from idea to a live Claude Managed Agent: interview, scope a v0, launch in their own account, grade it, iterate, and schedule it",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/launch-your-agent",
+  "skills": []
+}
