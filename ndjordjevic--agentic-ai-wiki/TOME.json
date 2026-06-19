@@ -4,7 +4,7 @@
   "repo": "agentic-ai-wiki",
   "description": "A demo created with https://github.com/ndjordjevic/pin-llm-wiki",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ndjordjevic/agentic-ai-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T07:01:05Z"
+  "distributed_at": "2026-06-19T07:04:48Z"
 }
