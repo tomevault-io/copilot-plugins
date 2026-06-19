@@ -1,0 +1,9 @@
+{
+  "name": "grapeot--health-quantification",
+  "displayName": "health-quantification",
+  "description": "AI-first personal health quantification: Apple Health \u2192 SQLite \u2192 CLI \u2192 AI analysis",
+  "version": "1.0.0",
+  "author": "grapeot",
+  "homepage": "https://github.com/grapeot/health-quantification",
+  "skills": []
+}
