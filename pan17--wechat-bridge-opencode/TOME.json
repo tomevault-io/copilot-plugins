@@ -1,0 +1,44 @@
+{
+  "name": "wechat-bridge-opencode",
+  "owner": "pan17",
+  "repo": "wechat-bridge-opencode",
+  "description": "\u5c06\u5fae\u4fe1\u79c1\u804a\u6d88\u606f\u6865\u63a5\u5230 OpenCode\uff0c\u652f\u6301\u6587\u672c\u3001\u56fe\u7247\u3001\u6587\u4ef6\u3001\u97f3\u89c6\u9891\u7684\u53cc\u5411\u4f20\u8f93\u3002\u76ee\u6807\u662f\u5728\u5fae\u4fe1\u7aef\u8fd8\u539fOpenCode TUI\u548cDesktop\u7684\u4f53\u9a8c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pan17/wechat-bridge-opencode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T21:08:10Z"
+}
