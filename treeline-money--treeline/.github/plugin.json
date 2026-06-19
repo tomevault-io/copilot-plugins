@@ -1,0 +1,9 @@
+{
+  "name": "treeline-money--treeline",
+  "displayName": "treeline",
+  "description": "Open source personal finance app. Local-first, built on DuckDB. Import from any bank, write SQL against your transactions, extend with plugins. macOS, Windows, Linux.",
+  "version": "1.0.0",
+  "author": "treeline-money",
+  "homepage": "https://github.com/treeline-money/treeline",
+  "skills": []
+}
