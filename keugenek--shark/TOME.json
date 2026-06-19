@@ -2,9 +2,9 @@
   "name": "shark",
   "owner": "keugenek",
   "repo": "shark",
-  "description": "\ud83e\udd88 The Shark Skill - non-blocking AI agent execution for Claude Code and OpenClaw. A shark that stops swimming dies.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/keugenek/shark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T11:32:41Z"
+  "distributed_at": "2026-06-19T11:21:32Z"
 }
