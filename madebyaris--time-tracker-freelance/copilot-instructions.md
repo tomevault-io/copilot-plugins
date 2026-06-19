@@ -1,0 +1,185 @@
+## sdd-system
+
+> **Requires Cursor 3.2+** for async subagents, plugins, hooks, skills, agent multitasking, worktrees, and multi-root sessions.
+
+
+# SDD (Spec-Driven Development) System v5.1
+
+**Requires Cursor 3.2+** for async subagents, plugins, hooks, skills, agent multitasking, worktrees, and multi-root sessions.
+
+## Core Philosophy
+
+Create specifications **before** code. Plan-approve-execute for all operations.
+
+## Architecture
+
+```
+User Request → Main Agent → Subagents (parallel/async) → Skills (auto-invoked)
+                    ↓                    ↓
+              Verification ←── Subagent Tree (nested spawning)
+```
+
+## Subagents (`.cursor/agents/`)
+
+| Subagent | Model | Mode | Purpose |
+|----------|-------|------|---------|
+| `sdd-explorer` | inherit | foreground, readonly | Codebase discovery |
+| `sdd-planner` | inherit | foreground | Architecture design |
+| `sdd-implementer` | inherit | **background** | Code generation |
+| `sdd-verifier` | inherit | foreground | Validation |
+| `sdd-reviewer` | inherit | foreground, readonly | Code review |
+| `sdd-orchestrator` | inherit | **background** | Parallel coordination |
+
+### Foreground vs Background
+
+- **Foreground** blocks the parent until complete. Use when results are needed immediately (exploration, planning, verification).
+- **Background** (`is_background: true`) returns immediately. The parent continues working. Use for long-running implementations and orchestration.
+
+### Subagent Tree (2.5+)
+
+Subagents can spawn their own subagents:
+
+```
+sdd-orchestrator (background)
+├── sdd-implementer (task 1) → sdd-verifier
+├── sdd-implementer (task 2) → sdd-verifier
+└── sdd-implementer (task 3) → sdd-verifier
+```
+
+### Delegation Guidelines
+
+**Delegate when:** deep exploration, long implementation, parallel tasks, verification.
+**Keep in main context when:** simple operations, user interaction needed, sequential dependent steps.
+
+## Skills (`.cursor/skills/`)
+
+| Skill | Auto-Invoke When | Purpose |
+|-------|------------------|---------|
+| `sdd-research` | Technical approach unclear | Pattern investigation |
+| `sdd-planning` | Spec exists, no plan | Architecture generation |
+| `sdd-implementation` | Plan ready for execution | Todo-based coding |
+| `sdd-audit` | Code review requested | Spec compliance check |
+| `sdd-evolve` | Discoveries during dev | Spec updates |
+
+Skills use progressive loading — keep `SKILL.md` focused, put details in `references/`, scripts in `scripts/`, templates in `assets/`.
+
+## Workflows
+
+### Quick Planning (80% of features)
+- `/brief` → `feature-brief.md` (30-minute planning)
+- `/evolve` → Update specs with discoveries
+- `/refine` → Iterate on existing specs
+
+### Full Planning (complex features)
+`/research` → `/specify` → `/plan` → `/tasks` → `/implement`
+
+### Parallel Execution with DAG
+- `/sdd-full-plan` → Create roadmap with DAG structure
+- `/execute-task` → Sequential task execution
+- `/execute-parallel` → Parallel via async subagents
+
+### Cursor 3.2 Agent Runtime
+- Use `/multitask` for ad hoc independent work that does not need a roadmap, checkpoint, or dependency graph.
+- Use `/execute-parallel` for SDD roadmap execution because it handles dependencies, file-conflict batching, checkpoints, and verifier handoffs.
+- Use Agents Window worktrees for risky, parallel, or best-of-N implementation work. `.cursor/worktrees.json` prepares the isolated checkout.
+- In multi-root workspaces, resolve paths from the active project root and avoid assuming a single repository owns every file.
+
+## DAG-Based Execution
+
+Tasks as Directed Acyclic Graph with automatic parallelization:
+
+```json
+{
+  "dag": {
+    "roots": ["task-001", "task-003"],
+    "parallelGroups": [["task-001", "task-003"], ["task-002", "task-004"]]
+  }
+}
+```
+
+**Pattern:** Identify ready tasks → spawn background subagents in parallel → collect results → verify with `sdd-verifier` → continue.
+
+## Automated Verification
+
+Every implementation triggers verification:
+
+```
+sdd-implementer → [code] → sdd-verifier → [validation report]
+```
+
+Background implementers spawn foreground verifiers as child subagents.
+
+## Hooks (`.cursor/hooks.json`)
+
+SDD uses hooks for workflow automation:
+
+| Hook | Trigger | Purpose |
+|------|---------|---------|
+| `subagentStop` | Subagent completes | Track completion in roadmap |
+| `stop` | Agent session ends | Generate completion summary |
+
+See [Cursor hooks docs](https://cursor.com/docs/agent/hooks) for configuration.
+
+## Sandbox (`.cursor/sandbox.json`)
+
+Network access controls for sandboxed commands. Configure allowed domains for package registries and APIs. See `.cursor/sandbox.json` for project defaults.
+
+## File Organization
+
+```
+specs/
+├── active/[task-id]/          # Tasks in development
+├── todo-roadmap/[project]/    # Project roadmaps with DAG
+└── completed/                 # Delivered features
+
+.cursor/
+├── agents/                    # Subagents (foreground + background)
+├── skills/                    # Agent Skills (progressive loading)
+├── commands/                  # Slash commands
+├── hooks.json                 # Workflow automation hooks
+├── hooks/                     # JSON-stdin hook scripts
+├── worktrees.json             # Cursor 3.2 worktree setup
+└── sandbox.json               # Network access controls
+```
+
+## Command Reference
+
+| Command | Purpose | Uses |
+|---------|---------|------|
+| `/brief` | Quick 30-min planning | sdd-planning skill |
+| `/research` | Pattern investigation | sdd-explorer subagent |
+| `/specify` | Detailed requirements | sdd-planning skill |
+| `/plan` | Technical architecture | sdd-planner subagent |
+| `/tasks` | Task breakdown | sdd-planner subagent |
+| `/implement` | Execute implementation | sdd-implementer subagent |
+| `/audit` | Spec-driven audit | sdd-reviewer subagent |
+| `/evolve` | Update specs | sdd-evolve skill |
+| `/refine` | Iterate on existing specs | sdd-planning skill |
+| `/sdd-full-plan` | Full project roadmap | sdd-orchestrator |
+| `/execute-task` | Execute roadmap task | sdd-implementer |
+| `/execute-parallel` | Parallel DAG execution | sdd-orchestrator |
+| `/multitask` | Ad hoc Cursor 3.2 parallel work | Built-in async subagents |
+
+## Todo Execution Rules
+
+1. **Read entire list** before starting
+2. **Execute in order** — respect dependencies
+3. **Mark completion**: `- [ ]` → `- [x]`
+4. **Document blockers** — never skip silently
+5. **Verify after implementation** — use sdd-verifier
+
+## Plugin Distribution
+
+This system can be packaged as a Cursor Marketplace plugin. See `.cursor-plugin/plugin.json` for manifest.
+
+## References
+
+- **Agent Manual**: `.cursor/commands/_shared/agent-manual.md`
+- **Subagents**: `.cursor/agents/`
+- **Skills**: `.cursor/skills/`
+- **Hooks**: `.cursor/hooks.json`
+- **Sandbox**: `.cursor/sandbox.json`
+
+---
+> Source: [madebyaris/time-tracker-freelance](https://github.com/madebyaris/time-tracker-freelance) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-19 -->
