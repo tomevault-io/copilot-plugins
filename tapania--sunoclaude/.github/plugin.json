@@ -1,0 +1,9 @@
+{
+  "name": "tapania--sunoclaude",
+  "displayName": "SunoClaude",
+  "description": "Claude Code agent set for making Suno lyrics.",
+  "version": "1.0.0",
+  "author": "tapania",
+  "homepage": "https://github.com/tapania/SunoClaude",
+  "skills": []
+}
