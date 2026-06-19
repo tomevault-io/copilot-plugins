@@ -7,11 +7,11 @@ Svelte 的全栈个人站
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [afoim/svaf](https://github.com/afoim/svaf).
+Original source: `CLAUDE.md` in [afoim/svaf](https://github.com/afoim/svaf).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
