@@ -1,0 +1,9 @@
+{
+  "name": "fu351--doberman-core",
+  "displayName": "Doberman-Core",
+  "description": "Doberman is an AI agent security framework for guardrails, prompt injection defense, runtime policy enforcement, tool-use permissions, agent monitoring, audit logs, LLM safety, autonomous workflow pro",
+  "version": "1.0.0",
+  "author": "fu351",
+  "homepage": "https://github.com/fu351/Doberman-Core",
+  "skills": []
+}
