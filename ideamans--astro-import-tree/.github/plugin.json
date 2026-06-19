@@ -1,0 +1,9 @@
+{
+  "name": "ideamans--astro-import-tree",
+  "displayName": "astro-import-tree",
+  "description": "A library to parse Astro page URL paths and import trees using AST",
+  "version": "1.0.0",
+  "author": "ideamans",
+  "homepage": "https://github.com/ideamans/astro-import-tree",
+  "skills": []
+}
