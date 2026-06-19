@@ -1,0 +1,9 @@
+{
+  "name": "aignostics--tme-studio",
+  "displayName": "tme-studio",
+  "description": "\ud83c\udfa8 A toolkit to explore the OpenTME dataset.",
+  "version": "1.0.0",
+  "author": "aignostics",
+  "homepage": "https://github.com/aignostics/tme-studio",
+  "skills": []
+}
