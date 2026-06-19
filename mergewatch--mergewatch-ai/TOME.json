@@ -4,7 +4,7 @@
   "repo": "mergewatch.ai",
   "description": "AI-powered PR reviews running in your Cloud. Your models, your cloud, your rules. No code stored.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mergewatch/mergewatch.ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T03:01:01Z"
+  "distributed_at": "2026-06-19T09:20:09Z"
 }
