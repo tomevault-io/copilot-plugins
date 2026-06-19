@@ -1,0 +1,9 @@
+{
+  "name": "cobre-rs--cobre",
+  "displayName": "cobre",
+  "description": "Cobre is an open-source ecosystem of Rust crates for power system analysis and optimization.",
+  "version": "1.0.0",
+  "author": "cobre-rs",
+  "homepage": "https://github.com/cobre-rs/cobre",
+  "skills": []
+}
