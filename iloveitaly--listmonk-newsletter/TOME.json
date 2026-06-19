@@ -4,7 +4,7 @@
   "repo": "listmonk-newsletter",
   "description": "Generate a newsletter digest from an rss feed and send it to a listmonk instance",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iloveitaly/listmonk-newsletter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T14:44:22Z"
+  "distributed_at": "2026-06-19T14:45:16Z"
 }
