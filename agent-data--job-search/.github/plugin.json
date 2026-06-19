@@ -1,0 +1,9 @@
+{
+  "name": "agent-data--job-search",
+  "displayName": "job-search",
+  "description": "Turn Claude Code into your job search assistant.",
+  "version": "1.0.0",
+  "author": "agent-data",
+  "homepage": "https://github.com/agent-data/job-search",
+  "skills": []
+}
