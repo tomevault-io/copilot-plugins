@@ -1,0 +1,9 @@
+{
+  "name": "ampcode--cra-github",
+  "displayName": "cra-github",
+  "description": "Amp Code Review GitHub App",
+  "version": "1.0.0",
+  "author": "ampcode",
+  "homepage": "https://github.com/ampcode/cra-github",
+  "skills": []
+}
