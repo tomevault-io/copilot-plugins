@@ -1,0 +1,9 @@
+{
+  "name": "boopi7--basilic-evm",
+  "displayName": "basilic-evm",
+  "description": "BasilicEVM is a full-stack, monorepo starter kit for building Ethereum-compatible dApps with Foundry, Next.js, viem/wagmi, Supabase, and Ponder indexing.",
+  "version": "1.0.0",
+  "author": "Boopi7",
+  "homepage": "https://github.com/Boopi7/basilic-evm",
+  "skills": []
+}
