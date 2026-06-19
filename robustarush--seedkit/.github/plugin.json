@@ -1,0 +1,9 @@
+{
+  "name": "robustarush--seedkit",
+  "displayName": "seedkit",
+  "description": "Cook a Django project well \u2014 the agent-skill take on cookiecutter",
+  "version": "1.0.0",
+  "author": "RobustaRush",
+  "homepage": "https://github.com/RobustaRush/seedkit",
+  "skills": []
+}
