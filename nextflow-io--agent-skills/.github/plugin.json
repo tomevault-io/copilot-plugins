@@ -1,0 +1,9 @@
+{
+  "name": "nextflow-io--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Claude Code Plugin for Nextflow",
+  "version": "1.0.0",
+  "author": "nextflow-io",
+  "homepage": "https://github.com/nextflow-io/agent-skills",
+  "skills": []
+}
