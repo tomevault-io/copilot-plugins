@@ -1,0 +1,9 @@
+{
+  "name": "matgawin--bubblewrap-claude",
+  "displayName": "bubblewrap-claude",
+  "description": "A Nix flake providing a secure, isolated environment for running Claude Code using bubblewrap sandboxing.",
+  "version": "1.0.0",
+  "author": "matgawin",
+  "homepage": "https://github.com/matgawin/bubblewrap-claude",
+  "skills": []
+}
