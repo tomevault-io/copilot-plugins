@@ -7,11 +7,11 @@ Modern LSP, linter, and formatter for BIRD2/BIRD3 configuration files. VSCode, N
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bird-chinese-community/BIRD-LSP](https://github.com/bird-chinese-community/BIRD-LSP).
+Original source: `CLAUDE.md` in [bird-chinese-community/BIRD-LSP](https://github.com/bird-chinese-community/BIRD-LSP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
