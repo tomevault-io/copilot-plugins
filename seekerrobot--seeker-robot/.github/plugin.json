@@ -1,0 +1,9 @@
+{
+  "name": "seekerrobot--seeker-robot",
+  "displayName": "seeker-robot",
+  "description": "Ooga booga ros2 microcontrollers embedded systems autonomy ooga booga",
+  "version": "1.0.0",
+  "author": "SeekerRobot",
+  "homepage": "https://github.com/SeekerRobot/seeker-robot",
+  "skills": []
+}
