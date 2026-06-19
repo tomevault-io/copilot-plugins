@@ -1,0 +1,9 @@
+{
+  "name": "santanderai--ralph",
+  "displayName": "ralph",
+  "description": "A configurable Bash/PowerShell loop that runs an AI coding CLI with a fresh session each iteration",
+  "version": "1.0.0",
+  "author": "SantanderAI",
+  "homepage": "https://github.com/SantanderAI/ralph",
+  "skills": []
+}
