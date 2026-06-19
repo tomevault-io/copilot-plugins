@@ -1,0 +1,9 @@
+{
+  "name": "marcobazzani--financecopilot",
+  "displayName": "FinanceCopilot",
+  "description": "Offline-first personal finance and portfolio tracker for macOS, Windows, and Android. Banks, ETFs, bonds, real estate \u2014 ISIN-first matching, auto-fetched ETF composition, multi-currency. No cloud, no ",
+  "version": "1.0.0",
+  "author": "marcobazzani",
+  "homepage": "https://github.com/marcobazzani/FinanceCopilot",
+  "skills": []
+}
