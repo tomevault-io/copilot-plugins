@@ -7,11 +7,11 @@ A Claude Code operating system for running a structured agency team. 25 speciali
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [10Legs/freelance-developer-harness](https://github.com/10Legs/freelance-developer-harness).
+Original source: `CLAUDE.md` in [10Legs/freelance-developer-harness](https://github.com/10Legs/freelance-developer-harness).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
