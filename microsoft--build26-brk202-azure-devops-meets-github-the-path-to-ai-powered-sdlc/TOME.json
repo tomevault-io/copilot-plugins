@@ -1,0 +1,44 @@
+{
+  "name": "Build26-BRK202-azure-devops-meets-github-the-path-to-ai-powered-sdlc",
+  "owner": "microsoft",
+  "repo": "Build26-BRK202-azure-devops-meets-github-the-path-to-ai-powered-sdlc",
+  "description": "Demo videos and resources for integrating Azure DevOps with GitHub to enable Agentic DevOps \u2014 AI-powered capabilities across Azure Boards, Azure Pipelines, and GitHub. From Microsoft Build 2026.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/microsoft/Build26-BRK202-azure-devops-meets-github-the-path-to-ai-powered-sdlc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T20:57:15Z"
+}
