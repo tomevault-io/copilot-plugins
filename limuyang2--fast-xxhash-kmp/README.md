@@ -1,0 +1,26 @@
+# fast-xxhash-kmp
+
+> Tome by [limuyang2](https://github.com/limuyang2/fast-xxhash-kmp) — distributed by [TomeVault](https://tomevault.io)
+
+A xxhash Kotlin Multiplatform library(Android \ iOS \ Web \ JVM). Support XXH3
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [limuyang2/fast-xxhash-kmp](https://github.com/limuyang2/fast-xxhash-kmp).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [limuyang2/fast-xxhash-kmp](https://github.com/limuyang2/fast-xxhash-kmp) — a repo with 11+ stars on GitHub.
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
