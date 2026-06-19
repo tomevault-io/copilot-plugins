@@ -1,0 +1,44 @@
+{
+  "name": "claude-db",
+  "owner": "Hainrixz",
+  "repo": "claude-db",
+  "description": "The multi-paradigm database expert for Claude Code \u2014 design a schema, audit it on two never-blended scores (Design & Integrity / Performance & Scale), and safely migrate. SQL \u00b7 document \u00b7 key-value \u00b7 vector \u00b7 time-series \u00b7 graph. Works offline.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Hainrixz/claude-db",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-19T11:19:53Z"
+}
