@@ -2,9 +2,9 @@
   "name": "ios-agent-skill",
   "owner": "Nagarjuna2997",
   "repo": "ios-agent-skill",
-  "description": "Production-ready iOS SwiftUI guidance for AI coding agents.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nagarjuna2997/ios-agent-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T18:14:52Z"
+  "distributed_at": "2026-06-19T11:18:22Z"
 }
