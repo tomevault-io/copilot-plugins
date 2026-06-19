@@ -1,0 +1,9 @@
+{
+  "name": "eliaskempf--model-diffing",
+  "displayName": "model-diffing",
+  "description": "Official code for the paper: \"Simple LLM Baselines are Competitive for Model Diffing\"",
+  "version": "1.0.0",
+  "author": "eliaskempf",
+  "homepage": "https://github.com/eliaskempf/model-diffing",
+  "skills": []
+}
