@@ -1,0 +1,9 @@
+{
+  "name": "synpulse8-opensource--pulse8-ai-cortex-knowledge-vault",
+  "displayName": "pulse8-ai-cortex-knowledge-vault",
+  "description": "Agent-native knowledge OS built on Markdown. A shared vault for AI agents and humans, backed by a typed knowledge graph, full-text search, and an LLM-powered compiler, all accessible through MCP. Drop",
+  "version": "1.0.0",
+  "author": "synpulse8-opensource",
+  "homepage": "https://github.com/synpulse8-opensource/pulse8-ai-cortex-knowledge-vault",
+  "skills": []
+}
