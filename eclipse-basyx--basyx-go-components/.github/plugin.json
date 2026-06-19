@@ -1,0 +1,9 @@
+{
+  "name": "eclipse-basyx--basyx-go-components",
+  "displayName": "basyx-go-components",
+  "description": "The BaSyx Go Components include all standardized Server Components as per AAS Specification Part 2: Application Programming Interfaces",
+  "version": "1.0.0",
+  "author": "eclipse-basyx",
+  "homepage": "https://github.com/eclipse-basyx/basyx-go-components",
+  "skills": []
+}
