@@ -2,9 +2,9 @@
   "name": "paper-writing-skill",
   "owner": "SNL-UCSB",
   "repo": "paper-writing-skill",
-  "description": "A Claude Code skill that encodes battle-tested editorial principles, section-specific rhetorical moves, and a structured writing pipeline for research papers. Brainstorm \u2192 Draft 0 \u2192 Evaluate \u2192 Write \u2192 Compress.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SNL-UCSB/paper-writing-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T16:40:36Z"
+  "distributed_at": "2026-06-19T09:26:12Z"
 }
