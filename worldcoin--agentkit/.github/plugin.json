@@ -1,0 +1,9 @@
+{
+  "name": "worldcoin--agentkit",
+  "displayName": "agentkit",
+  "description": "Bridging humans and agents online.",
+  "version": "1.0.0",
+  "author": "worldcoin",
+  "homepage": "https://github.com/worldcoin/agentkit",
+  "skills": []
+}
