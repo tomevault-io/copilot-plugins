@@ -1,0 +1,9 @@
+{
+  "name": "gatchimuchio--gui-shell-public",
+  "displayName": "GUI-Shell-Public",
+  "description": "LLM-readable Runtime Operation Shell for local agents: Flutter UI, Rust broker, schemas, approvals, audit, recovery, and conformance-gated authority boundaries.",
+  "version": "1.0.0",
+  "author": "gatchimuchio",
+  "homepage": "https://github.com/gatchimuchio/GUI-Shell-Public",
+  "skills": []
+}
