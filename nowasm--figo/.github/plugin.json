@@ -1,0 +1,9 @@
+{
+  "name": "nowasm--figo",
+  "displayName": "figo",
+  "description": "build app with figma by ai.",
+  "version": "1.0.0",
+  "author": "nowasm",
+  "homepage": "https://github.com/nowasm/figo",
+  "skills": []
+}
