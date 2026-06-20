@@ -1,0 +1,9 @@
+{
+  "name": "qedgen--solana-skills",
+  "displayName": "solana-skills",
+  "description": "solana-skills",
+  "version": "1.0.0",
+  "author": "QEDGen",
+  "homepage": "https://github.com/QEDGen/solana-skills",
+  "skills": []
+}
