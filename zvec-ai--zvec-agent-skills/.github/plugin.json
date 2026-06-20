@@ -1,0 +1,9 @@
+{
+  "name": "zvec-ai--zvec-agent-skills",
+  "displayName": "zvec-agent-skills",
+  "description": "Official AI Agent skills for building with Zvec vector database",
+  "version": "1.0.0",
+  "author": "zvec-ai",
+  "homepage": "https://github.com/zvec-ai/zvec-agent-skills",
+  "skills": []
+}
