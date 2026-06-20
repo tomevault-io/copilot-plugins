@@ -1,0 +1,9 @@
+{
+  "name": "r97221004--ansible-tutorial",
+  "displayName": "ansible-tutorial",
+  "description": "A hands-on Ansible refresher that builds from local playbooks to a single-node Kubernetes lab over SSH.",
+  "version": "1.0.0",
+  "author": "r97221004",
+  "homepage": "https://github.com/r97221004/ansible-tutorial",
+  "skills": []
+}
