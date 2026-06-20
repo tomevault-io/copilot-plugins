@@ -1,0 +1,9 @@
+{
+  "name": "xutowei--reactivebinding",
+  "displayName": "ReactiveBinding",
+  "description": "A compile-time reactive data binding system using C# Source Generator.",
+  "version": "1.0.0",
+  "author": "XuToWei",
+  "homepage": "https://github.com/XuToWei/ReactiveBinding",
+  "skills": []
+}
