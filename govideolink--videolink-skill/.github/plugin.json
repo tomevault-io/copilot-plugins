@@ -1,0 +1,9 @@
+{
+  "name": "govideolink--videolink-skill",
+  "displayName": "videolink-skill",
+  "description": "videolink-skill",
+  "version": "1.0.0",
+  "author": "govideolink",
+  "homepage": "https://github.com/govideolink/videolink-skill",
+  "skills": []
+}
