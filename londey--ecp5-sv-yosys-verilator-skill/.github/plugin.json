@@ -1,0 +1,9 @@
+{
+  "name": "londey--ecp5-sv-yosys-verilator-skill",
+  "displayName": "ecp5-sv-yosys-verilator-skill",
+  "description": "ecp5-sv-yosys-verilator-skill",
+  "version": "1.0.0",
+  "author": "londey",
+  "homepage": "https://github.com/londey/ecp5-sv-yosys-verilator-skill",
+  "skills": []
+}
