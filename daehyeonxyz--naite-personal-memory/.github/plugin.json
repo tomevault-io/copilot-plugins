@@ -1,0 +1,9 @@
+{
+  "name": "daehyeonxyz--naite-personal-memory",
+  "displayName": "naite-personal-memory",
+  "description": "LLM-maintained personal knowledge vault. Grow a tree of linked Markdown pages with Claude Code or Codex.",
+  "version": "1.0.0",
+  "author": "daehyeonxyz",
+  "homepage": "https://github.com/daehyeonxyz/naite-personal-memory",
+  "skills": []
+}
