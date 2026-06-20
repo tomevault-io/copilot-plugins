@@ -2,9 +2,9 @@
   "name": "ultimate-ppt-master-skill",
   "owner": "kdnsna",
   "repo": "ultimate-ppt-master-skill",
-  "description": "\u7ec8\u6781\u878d\u5408PPT\u5927\u5e08: create editable PPTX or magazine-style web decks from source material",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kdnsna/ultimate-ppt-master-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T03:30:35Z"
+  "distributed_at": "2026-06-20T08:59:30Z"
 }
