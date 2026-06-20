@@ -1,0 +1,9 @@
+{
+  "name": "sepivip--solana-payments-skill",
+  "displayName": "solana-payments-skill",
+  "description": "solana-payments-skill",
+  "version": "1.0.0",
+  "author": "sepivip",
+  "homepage": "https://github.com/sepivip/solana-payments-skill",
+  "skills": []
+}
