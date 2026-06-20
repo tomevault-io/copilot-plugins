@@ -2,9 +2,9 @@
   "name": "outlook-cli",
   "owner": "yusufaltunbicak",
   "repo": "outlook-cli",
-  "description": "Outlook 365 CLI \u2014 read, send, and manage emails, calendar, and contacts from the terminal without API keys",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yusufaltunbicak/outlook-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T06:12:00Z"
+  "distributed_at": "2026-06-20T02:40:05Z"
 }
