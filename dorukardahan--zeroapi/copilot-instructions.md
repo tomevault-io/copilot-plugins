@@ -1,0 +1,446 @@
+## zeroapi
+
+> >
+
+
+# ZeroAPI v3.8.37 - Plugin-Based Model Routing
+
+You are configuring an OpenClaw **gateway plugin**. ZeroAPI routes **eligible** messages at runtime through the `before_model_resolve` hook. You do **not** route messages manually. Your job is to inspect the user's setup, generate `zeroapi-config.json`, align `openclaw.json`, install/update the plugin, and verify the result.
+
+This is **not prompt-based routing**. There is no extra LLM routing call, no context serialization, and no sub-agent layer in the runtime path.
+
+## Channel-first contract
+
+Treat `/zeroapi` as a **chat-native onboarding flow**. The primary surfaces are Slack, Telegram, WhatsApp, Matrix, Discord, terminal chat, and other OpenClaw text channels.
+
+Behavior rules:
+
+- ask **one short question at a time**
+- prefer **numbered choices**
+- keep replies compact and channel-safe
+- do not dump full JSON or large benchmark tables into chat
+- never ask the user to paste secrets into chat
+- when host access is required, give the shortest safe command and then resume the chat wizard
+- if the user first asks what the repo does or whether it is useful, answer that **neutrally from the repo/docs first**
+- do **not** infer repo ownership from the GitHub owner name, old memory, or previous installs unless the user explicitly states ownership or you have just verified the live host state
+- if the user shared the ZeroAPI GitHub link or asked a repo/product question, treat that as a **fresh-product explanation trigger** and do not mention local installs, MEMORY.md, or live host state in the first answer
+- when the user says only `kuralım`, `install`, or similar right after that repo/product question, continue the **fresh install flow** instead of jumping to "already installed" unless they explicitly asked to inspect the live host
+
+If the channel exposes only the generic skill runner, `/skill zeroapi` is an acceptable entry point. `scripts/first_run.ts` is only a terminal fallback for repo-local or shell-driven installs.
+
+## Provider exclusions
+
+ZeroAPI only routes across subscription-covered alternatives.
+
+- **Anthropic (Claude):** as of 2026-04-04, Claude subscriptions no longer cover OpenClaw usage in third-party tools. Anthropic models should not be included in ZeroAPI routing.
+- **Google (Gemini):** CLI OAuth usage with third-party tools is a ToS violation as of 2026-03-25. Google/Gemini should not be included in ZeroAPI routing.
+- **xAI OAuth vs API keys:** OpenClaw 2026.5.20+ can use SuperGrok device-code OAuth through the native `xai` provider; older 2026.5.18+ installs use browser OAuth. Only enable `xai/*` models in a subscription policy when that runtime account is OAuth/subscription-backed. Do not auto-add plain `XAI_API_KEY` billing as subscription capacity.
+
+## How it works
+
+Three layers:
+
+```text
+Layer 1: benchmarks.json
+  Embedded benchmark data maintained in the repo.
+
+Layer 2: SKILL.md (/zeroapi runs once)
+  Scans setup, chooses model pools, writes config, installs plugin.
+
+Layer 3: Plugin runtime (before_model_resolve)
+  Capability filter -> conservative classification -> balanced benchmark-aware selection.
+```
+
+Important authority order:
+
+1. **OpenClaw runtime** (`openclaw.json`) is the runtime authority.
+2. **ZeroAPI config** (`zeroapi-config.json`) is policy/config input for the plugin.
+3. Plugin may suggest a `modelOverride` on eligible turns only.
+
+ZeroAPI also supports a **subscription-aware foundation**:
+- a fixed provider tier catalog
+- a persistent global subscription profile
+- an optional same-provider `subscription_inventory` for multi-account setups
+- optional agent-level partial overrides
+- benchmark-frontier candidate ordering without exposing private usage data
+
+## Supported providers
+
+Six subscription or account-quota providers are currently supported by the routing policy.
+
+| Provider | OpenClaw ID | Auth | Tiers |
+|----------|-------------|------|-------|
+| OpenAI | `openai-codex` | OAuth PKCE via ChatGPT | Plus, Pro |
+| Kimi | `moonshot` (`kimi`, `kimi-coding` legacy aliases) | API key | Moderato, Allegretto, Allegro, Vivace |
+| Z AI (GLM) | `zai` | API key (`zai-coding-global`) | Lite, Pro, Max |
+| MiniMax | `minimax-portal` (`minimax` alias) | OAuth portal | Starter, Plus, Max, Ultra-HS |
+| Qwen Portal | `qwen-portal` (`qwen`, `qwen-dashscope` aliases) | OAuth portal | Free OAuth |
+| xAI Grok OAuth | `xai` (`xai-oauth` legacy Hermes alias) | OpenClaw or Hermes OAuth via SuperGrok | SuperGrok |
+
+See `references/cost-summary.md` for bundle examples and `references/subscription-catalog.md` for the public tier catalog used by the config.
+
+## Task categories and routing basis
+
+ZeroAPI classifies each eligible message into one of six categories, then picks the best available model for that category.
+
+| Category | Primary Basis | Secondary | Typical Keywords |
+|----------|---------------|-----------|------------------|
+| Code | `coding_index` (reweighted) | `terminalbench` | implement, function, class, refactor, fix, test, debug, diff |
+| Research | `gpqa`, `hle` | `lcr`, `scicode` | research, analyze, explain, compare, investigate |
+| Orchestration | `0.6*tau2 + 0.4*ifbench` | — | orchestrate, coordinate, pipeline, workflow, parallel |
+| Math | `math_index` | `aime_25` | calculate, solve, proof, optimize, formula |
+| Fast | speed + TTFT hard filter | — | quick, simple, format, convert, rename, one-liner |
+| Default | intelligence index | — | no keyword match |
+
+Conservative adjustments:
+
+- **Coding:** weight software engineering more heavily than scientific coding.
+- **Orchestration:** use a composite, not raw TAU-2 alone.
+- **Fast:** hard-filter slow-TTFT models even if throughput is high.
+- **High-risk keywords:** diagnostic only; they can raise the recorded risk label but must not block routing.
+
+See `references/benchmarks.md`, `references/routing-examples.md`, and `references/risk-policy.md` for the detailed tables.
+
+## Two-stage runtime routing
+
+### Stage 1: capability filter
+
+Eliminate models that cannot handle the request:
+
+- context window too small
+- vision required but unsupported
+- provider auth missing/expired
+- provider unavailable or cooling down
+- subscription profile disallows the provider/model for this agent
+
+### Stage 2: category selection
+
+Among surviving models:
+
+- classify the task conservatively
+- rank by the category's benchmark basis
+- apply subscription pressure only inside a benchmark frontier, then keep the rest in benchmark order
+- if the chosen model equals the current default, return no override
+- if there is no good match, stay on default
+
+## Setup flow
+
+When `/zeroapi` is invoked, follow this flow.
+
+Before changing anything, first figure out whether you are in:
+
+- a **channel-first run** where the user is talking from Slack/Telegram/WhatsApp/etc.
+- a **terminal/operator run** where direct shell access is available
+
+Prefer the same compact conversation contract in both cases.
+
+### Step 1: detect existing state
+
+Inspect:
+
+- `~/.openclaw/zeroapi-config.json`
+- `~/.openclaw/zeroapi-advisories.json`
+- `~/.openclaw/zeroapi-managed-install.json`
+- `~/.openclaw/openclaw.json`
+- auth profiles for excluded providers (Anthropic OAuth, Google/Gemini OAuth)
+
+Rules:
+
+- If existing ZeroAPI config is present, treat this as a re-run and show current subscriptions + routing rules before changing anything.
+- If `zeroapi-managed-install.json` exists, treat managed install as the expected host-side state and prefer that over ad hoc guesses about plugin packaging.
+- If `zeroapi-advisories.json` exists, summarize the pending provider or account additions first. Treat that as the primary reason for this re-run.
+- On re-runs, prefer the current provider set and modifier as the default answer instead of restarting from a blank selection.
+- Choose the **first rerun question** from `references/chat-rerun-playbook.md` based on drift kind:
+  - `provider_only`
+  - `account_only`
+  - `mixed`
+  - or normal refresh when there is no advisory
+- If Anthropic OAuth profiles exist, warn that they are not subscription-covered for OpenClaw and offer cleanup.
+- If Google/Gemini OAuth profiles exist, warn that they violate Google's ToS for third-party CLI OAuth and offer cleanup.
+- In channels, summarize findings in a short message before asking the next question. Do not start by pasting raw files.
+- Before claiming the plugin is missing or broken, check runtime evidence in this order:
+  1. `zeroapi-managed-install.json`
+  2. `openclaw.json` plugin install/entry state
+  3. gateway logs with `ZeroAPI Router ... loaded`
+  4. a **bounded** `timeout 10s openclaw plugins list` only if extra confirmation is still needed
+- If the user is still at the "should we install this repo?" stage, answer the repo/product question first and only switch into host-state inspection after they ask to install or inspect the live setup.
+
+### Step 2: collect available subscriptions
+
+Ask which subscriptions the user actively wants included.
+Use the fixed provider-tier catalog, not free-text plans.
+
+Then verify the live runtime with:
+
+```bash
+openclaw models status
+```
+
+Only keep models/providers that are actually usable (`ready` / `healthy`). Remove models showing `missing`, `auth_expired`, or equivalent failure states.
+
+Conversation rules for this step:
+
+- ask one provider/tier question at a time
+- if the user has multiple accounts under the same provider, explicitly ask whether they want account-pool behavior
+- if auth is missing, stop the wizard briefly, give the minimal host-side auth step, then continue
+- do not ask for raw API keys in chat
+
+Practical subscription mapping:
+
+- OpenAI -> GPT-5.5 family, with GPT-5.4 fallback
+- Kimi -> K2.5
+- Z AI -> GLM-5.1 / GLM-5 / GLM-5-Turbo / GLM-4.7 family
+- MiniMax -> MiniMax-M2.7
+- Qwen Portal -> coder-model, using Qwen3.6 Plus benchmark data as the closest public proxy
+- xAI Grok OAuth -> grok-4.3, only when OpenClaw exposes SuperGrok as `xai` OAuth or Hermes exposes it as `xai-oauth`
+
+Persist the result into a subscription profile with:
+- `global` provider selections
+- optional `agentOverrides`
+- optional one-value `routing_modifier` when the user explicitly wants a task-aware overlay:
+  - `coding-aware`
+  - `research-aware`
+  - `speed-aware`
+
+If the user has multiple accounts under the same provider, also build a `subscription_inventory` with one entry per account. Include `authProfile` when the user has matching OpenClaw auth profiles configured. ZeroAPI syncs that preferred profile into OpenClaw session state when the active session already exists, and otherwise continues to rely on OpenClaw `auth.order`. For the current account-pool scoring contract, see `references/account-pool-spec.md`.
+
+The user declares what subscriptions they have. ZeroAPI decides routing.
+
+### Step 3: generate config
+
+Build `~/.openclaw/zeroapi-config.json` from live availability + repo benchmarks.
+
+Do all of the following:
+
+1. Read `benchmarks.json`
+2. Check benchmark freshness
+3. Scan workspaces and infer broad workspace hints
+4. Scan agent model baselines and model catalog compatibility
+5. Scan cron jobs conservatively (preview-first)
+6. Select category leaders and cross-provider fallbacks
+7. Write `zeroapi-config.json`
+8. Back up and align `openclaw.json`
+
+Required config shape:
+
+```json
+{
+  "version": "3.8.37",
+  "generated": "<ISO timestamp>",
+  "benchmarks_date": "<fetched date>",
+  "subscription_catalog_version": "1.0.0",
+  "routing_mode": "balanced",
+  "routing_modifier": "coding-aware",
+  "subscription_profile": {
+    "version": "1.0.0",
+    "global": {},
+    "agentOverrides": {}
+  },
+  "subscription_inventory": {
+    "version": "1.0.0",
+    "accounts": {}
+  },
+  "default_model": "<best overall available model>",
+  "external_model_policy": "stay",
+  "models": {},
+  "routing_rules": {},
+  "workspace_hints": {},
+  "keywords": {},
+  "high_risk_keywords": [],
+  "fast_ttft_max_seconds": 5,
+  "vision_keywords": [],
+  "risk_levels": {}
+}
+```
+
+`vision_keywords` and `risk_levels` are optional overrides. Omit them to use the built-in plugin defaults. `external_model_policy` should usually stay at `"stay"` unless the user explicitly wants ZeroAPI to reclaim turns from non-ZeroAPI current models.
+
+Agent model safety rule: if an OpenClaw agent already has its own model assignment, preserve that assignment. Put that agent in `workspace_hints` as `null` unless the user explicitly wants ZeroAPI to route it. If the user does want routing for that agent, use a category list such as `["code", "research"]`; this is an explicit opt-in. For agents without their own model, use `npm run agent:audit -- --openclaw-dir ~/.openclaw` to preview missing model catalog entries and hinted-agent baseline changes, then `npm run agent:apply -- --openclaw-dir ~/.openclaw --yes` after approval. This prevents routed agents or cron jobs from falling back to OpenClaw's global default because a selected model is not in `agents.defaults.models`.
+
+Cron model safety rule: runtime ZeroAPI hooks never route `trigger: "cron"` turns. Cron model selection is an offline config alignment step. Use `npm run cron:audit -- --openclaw-dir ~/.openclaw` to preview which `agentTurn` jobs should get a `payload.model` and `payload.fallbacks` patch. The same audit reads OpenClaw's `jobs-state.json` when present and prints read-only preflight advisories for stale `runningAtMs`, overdue catch-up, provider rate-limit errors, repeated errors, and same-minute cron bursts. Apply model changes only after the user approves, preferably via OpenClaw's native `cron.update` tool so the gateway owns persistence. If shell access is the only available path, use `npm run cron:apply -- --openclaw-dir ~/.openclaw --yes`; it is dry-run by default, writes a backup before changes, and skips low-confidence changes unless explicitly allowed. Do not patch `systemEvent` jobs; OpenClaw strips model fields there by design. Do not write `jobs-state.json` from ZeroAPI; runtime-state advisories are diagnostics only.
+
+`routing_modifier` is also optional. Leave it unset for plain balanced mode unless the user explicitly wants one of the shipped overlays.
+
+Supported policy choices:
+
+- Plain balanced mode: omit `routing_modifier`
+- `coding-aware`: spend stronger models more readily on coding work
+- `research-aware`: spend stronger models more readily on research and long analysis
+- `speed-aware`: prefer lower-latency choices for quick tasks
+
+Do **not** offer `aggressive`, `conservative`, `quality_first`, or similar routing modes during onboarding. The implemented `routing_mode` contract is currently `balanced` only. If the user asks for a more aggressive setup, explain that ZeroAPI keeps `routing_mode: "balanced"` and then suggest the closest supported modifier, usually `coding-aware` for engineering-heavy OpenClaw use.
+
+Important rules:
+
+- `zeroapi-config.json` is **policy config**, not the runtime source of truth.
+- Default model should usually match the OpenClaw runtime default unless the user explicitly wants to change the runtime default too. Use routing rules and `routing_modifier` to send specialist tasks to stronger models.
+- Fallback chains must span multiple providers when possible.
+- Specialist agents and any OpenClaw agents with their own fixed model should generally get `null` workspace hints.
+- Cron changes are preview-first unless the user explicitly opts in.
+- Do not modify workspace memory/docs files as part of routing setup.
+- If a user says a provider or account exists but should not be used, add it to `subscription_inventory.accounts` with `enabled: false` and its `authProfile` when known. This marks it as reviewed so advisories do not keep asking about it.
+- Do not dump full `openclaw.json`, `.plugins`, or auth files into chat/session logs. Query only the specific non-secret fields needed for setup.
+
+For detailed cron, fallback, risk, and benchmark guidance see:
+
+- `references/cron-config.md`
+- `references/risk-policy.md`
+- `references/benchmarks.md`
+
+### Step 4: install or update plugin
+
+Preferred method:
+
+```bash
+node /tmp/ZeroAPI/scripts/managed_install.mjs --openclaw-dir ~/.openclaw
+```
+
+Managed install is the recommended host-side path because it keeps:
+
+- the runtime plugin
+- the `/zeroapi` skill files
+- the local managed repo snapshot
+
+on the same version line, and it can auto-apply future patch/minor releases with backup + rollback.
+
+Fallback method:
+
+```bash
+openclaw plugins install /tmp/ZeroAPI/plugin
+```
+
+This is a **host-side operator step**, not a chat-secret step. In Slack/Telegram/WhatsApp-style runs, explain that the plugin lives on the OpenClaw host and only needs to be installed once.
+
+The plugin auto-loads on gateway restart. Verify with:
+
+```bash
+timeout 10s openclaw plugins list
+```
+
+Channel-first caveat:
+
+- `managed_install.mjs` schedules a gateway restart shortly after it returns.
+- In Slack/Telegram/WhatsApp-style installs, do **not** run more host commands after `managed_install.mjs` succeeds.
+- Reply to the user immediately with the installed version, restart note, and next command (`/zeroapi status` or `/zeroapi` after the gateway comes back).
+- Running follow-up commands in the same turn can be killed by the scheduled restart and make the user think the install hung.
+
+Important verification rule:
+
+- Do **not** assume ZeroAPI is broken just because repo-local `plugin/` only contains `.ts` files or there is no `dist/` directory.
+- Repo-local and managed installs can load `./index.ts` directly. ClawHub releases are staged as a JavaScript runtime package and expose `./index.js` after install.
+- Missing `tsconfig.json`, missing `build` script, or missing `dist/` is **not** by itself evidence of a bad install.
+- Treat the plugin as runtime-loaded only after checking runtime evidence such as:
+  - `timeout 10s openclaw plugins list`
+  - gateway logs that include `ZeroAPI Router v... loaded`
+  - `plugins.entries` / `plugins.installs` state in `~/.openclaw/openclaw.json`
+- If `openclaw plugins list` times out on a busy host, fall back to `openclaw.json` install records plus gateway logs instead of treating the timeout itself as a plugin failure.
+- If runtime logs say the plugin loaded, do not tell the user to compile TypeScript first.
+
+### Step 5: summarize and restart
+
+Before restart:
+
+- summarize the default model
+- summarize routing rules by category
+- summarize any cleanup of excluded providers
+- summarize any cron preview or applied changes
+- in channel surfaces, present this as a compact human summary first and only show raw commands when needed
+
+Then restart the gateway and verify the runtime state.
+
+Use the workspace-safe restart pattern if messaging continuity matters.
+
+If you changed `zeroapi-config.json` or aligned `openclaw.json`, schedule the reload with:
+
+```bash
+node /tmp/ZeroAPI/scripts/reload_gateway.mjs --openclaw-dir ~/.openclaw
+```
+
+Channel-first caveat for config reruns:
+
+- after `reload_gateway.mjs` succeeds, do **not** run more host commands in that same turn
+- reply immediately with the changed routing summary and the restart note
+- do **not** say the new policy is active until the scheduled restart/reload has happened
+
+## Re-run behavior
+
+Re-running `/zeroapi` is safe.
+
+- `zeroapi-config.json` is overwritten on each successful run
+- `openclaw.json` must be backed up before edits
+- plugin reload happens on gateway restart
+- diffs should be shown before risky changes
+- cron changes remain opt-in unless explicitly approved
+- when a rerun changes policy files, schedule a delayed gateway restart before ending the turn
+
+## Policy Tuning
+
+ZeroAPI logs every routing decision to `~/.openclaw/logs/zeroapi-routing.log`. Use the eval script plus the raw log to tune routing policy from observed traffic.
+
+### Eval
+
+Run:
+
+```bash
+npm run eval
+```
+
+Optional filters:
+
+```bash
+npm run eval -- --since 2026-04-01
+npm run eval -- --last 500
+```
+
+### Tunable constants
+
+| Field | What it controls | Tune when |
+|-------|------------------|-----------|
+| `keywords` | Category classification triggers | Too many prompts land in `default` |
+| `high_risk_keywords` | High-risk diagnostic triggers | Risk diagnostics are too noisy or too weak |
+| `vision_keywords` | Vision/multimodal detection triggers | Vision routing has false positives or misses |
+| `risk_levels` | Per-category non-high-risk defaults | A category should default to a different risk level |
+| `fast_ttft_max_seconds` | Fast-category TTFT ceiling | Fast prompts still hit slow models |
+| `external_model_policy` | Whether ZeroAPI should leave foreign current models alone | User runs extra API-key providers outside the ZeroAPI pool |
+| `routing_rules` | Primary/fallback ordering per category | The wrong provider wins after filtering |
+
+### Tune loop
+
+1. Run eval: `npm run eval`
+2. Edit one constant in `~/.openclaw/zeroapi-config.json`
+3. Restart the gateway so the plugin reloads the config
+4. Re-run eval on fresh traffic
+
+Tune one constant at a time. Compare before/after and keep only the changes that improve the report.
+
+## What ZeroAPI does **not** do
+
+- does **not** run another LLM at runtime for classification
+- does **not** call external APIs at runtime
+- does **not** override explicit user model choices
+- does **not** route specialist agents that already have dedicated models
+- does **not** route cron-triggered or heartbeat-triggered messages
+- does **not** include Anthropic/Claude in routing policy
+- does **not** include Google/Gemini in routing policy
+- does **not** replace OpenClaw's built-in retry/failover system
+
+## References
+
+Use these only when needed:
+
+- `references/benchmarks.md` — current category leaders and key model profiles
+- `references/routing-examples.md` — example prompt -> routing outcomes
+- `references/cron-config.md` — cron heuristics and fallback chain policy
+- `references/risk-policy.md` — risk, logging, staleness policy
+- `references/oauth-setup.md` — provider auth notes
+- `references/provider-config.md` — provider/model ID notes
+- `references/channel-onboarding.md` — host-vs-channel onboarding contract
+- `references/managed-install.md` — managed installer, timer, and rollback contract
+- `references/chat-rerun-playbook.md` — drift-aware first-question contract for reruns
+- `references/troubleshooting.md` — common runtime issues
+- `references/cost-summary.md` — bundle planning examples
+- `references/subscription-catalog.md` — provider tiers and public catalog version
+
+---
+> Source: [dorukardahan/ZeroAPI](https://github.com/dorukardahan/ZeroAPI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
