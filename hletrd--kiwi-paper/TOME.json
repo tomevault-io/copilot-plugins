@@ -2,9 +2,9 @@
   "name": "kiwi-paper",
   "owner": "hletrd",
   "repo": "kiwi-paper",
-  "description": "\ud83e\udd5d \ub531\ub531\ud55c \ub17c\ubb38\uc774\ub098 API \ubb38\uc11c\ub97c \ub098\ubb34\uc704\ud0a4 \ubb38\uc11c\ub85c \ubc14\uafd4\uc90d\ub2c8\ub2e4. Claude Code, OpenCode, Codex, Gemini CLI \uc9c0\uc6d0.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hletrd/kiwi-paper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T14:46:24Z"
+  "distributed_at": "2026-06-20T13:21:26Z"
 }
