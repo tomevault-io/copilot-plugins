@@ -1,0 +1,9 @@
+{
+  "name": "bil0u--galaxy-os",
+  "displayName": "galaxy-os",
+  "description": "Bots written in Go for my Discord community server.",
+  "version": "1.0.0",
+  "author": "bil0u",
+  "homepage": "https://github.com/bil0u/galaxy-os",
+  "skills": []
+}
