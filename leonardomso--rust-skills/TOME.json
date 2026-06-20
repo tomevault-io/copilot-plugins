@@ -2,9 +2,9 @@
   "name": "rust-skills",
   "owner": "leonardomso",
   "repo": "rust-skills",
-  "description": "A collection of 179 rules that AI coding agents can use when writing Rust. ",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leonardomso/rust-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T19:57:33Z"
+  "distributed_at": "2026-06-20T07:06:57Z"
 }
