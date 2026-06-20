@@ -4,7 +4,7 @@
   "repo": "surge",
   "description": "Automatic updates for any application. Built in Rust. Ships in 5 minutes.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fintermobilityas/surge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T00:39:42Z"
+  "distributed_at": "2026-06-20T00:46:38Z"
 }
