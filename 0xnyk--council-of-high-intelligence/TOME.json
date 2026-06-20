@@ -2,9 +2,9 @@
   "name": "council-of-high-intelligence",
   "owner": "0xNyk",
   "repo": "council-of-high-intelligence",
-  "description": "18 AI personas deliberate your hardest decisions across multiple LLM providers. Aristotle, Feynman, Kahneman, Torvalds & more \u2014 structured multi-round deliberation with genuine model diversity. One command: /council",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0xNyk/council-of-high-intelligence",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T12:03:56Z"
+  "distributed_at": "2026-06-20T12:32:55Z"
 }
