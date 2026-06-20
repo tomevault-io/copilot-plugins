@@ -1,0 +1,9 @@
+{
+  "name": "iblai--iblai-claw-agents",
+  "displayName": "iblai-claw-agents",
+  "description": "48 pre-built agent configurations for OpenClaw and NemoClaw instances across higher education, enterprise, K-12, and small business verticals",
+  "version": "1.0.0",
+  "author": "iblai",
+  "homepage": "https://github.com/iblai/iblai-claw-agents",
+  "skills": []
+}
