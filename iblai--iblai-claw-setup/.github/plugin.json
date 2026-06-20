@@ -1,0 +1,9 @@
+{
+  "name": "iblai--iblai-claw-setup",
+  "displayName": "iblai-claw-setup",
+  "description": "Connect self-hosted OpenClaw and NemoClaw servers to the ibl.ai platform \u2014 server setup, Caddy TLS, and full API integration guides",
+  "version": "1.0.0",
+  "author": "iblai",
+  "homepage": "https://github.com/iblai/iblai-claw-setup",
+  "skills": []
+}
