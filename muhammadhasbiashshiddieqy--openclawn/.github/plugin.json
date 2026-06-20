@@ -1,0 +1,9 @@
+{
+  "name": "muhammadhasbiashshiddieqy--openclawn",
+  "displayName": "OpenClawn",
+  "description": "Lightweight, safe, self-improving multi-role AI agent framework. Hybrid local + cloud LLMs with self-calibrating routing, decaying skills, and confidence-gated learning \u2014 25 sandboxed tools for code, ",
+  "version": "1.0.0",
+  "author": "MuhammadHasbiAshshiddieqy",
+  "homepage": "https://github.com/MuhammadHasbiAshshiddieqy/OpenClawn",
+  "skills": []
+}
