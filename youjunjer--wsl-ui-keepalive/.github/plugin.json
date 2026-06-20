@@ -1,0 +1,9 @@
+{
+  "name": "youjunjer--wsl-ui-keepalive",
+  "displayName": "wsl-ui-keepalive",
+  "description": "WSL UI fork with keep-alive controls and host resource status",
+  "version": "1.0.0",
+  "author": "youjunjer",
+  "homepage": "https://github.com/youjunjer/wsl-ui-keepalive",
+  "skills": []
+}
