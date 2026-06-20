@@ -1,0 +1,9 @@
+{
+  "name": "sitrepai--sitrepnotetaker",
+  "displayName": "SitrepNoteTaker",
+  "description": "SitRep \u2014 free, open-source, offline voice dictation. Press a shortcut, speak, and your words appear in any text field. Powered by Whisper/Parakeet, built with Tauri.",
+  "version": "1.0.0",
+  "author": "SitRepAI",
+  "homepage": "https://github.com/SitRepAI/SitrepNoteTaker",
+  "skills": []
+}
