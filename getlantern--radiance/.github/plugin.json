@@ -1,0 +1,9 @@
+{
+  "name": "getlantern--radiance",
+  "displayName": "radiance",
+  "description": "Radiance is the Lantern client backend used for proxying, routing, creating a TUN device, etc",
+  "version": "1.0.0",
+  "author": "getlantern",
+  "homepage": "https://github.com/getlantern/radiance",
+  "skills": []
+}
