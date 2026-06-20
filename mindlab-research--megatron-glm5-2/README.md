@@ -7,11 +7,11 @@ Open source version of Mind Lab's internal Megatron-LM fork for supporting GLM5.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MindLab-Research/Megatron-GLM5.2](https://github.com/MindLab-Research/Megatron-GLM5.2).
+Original source: `CLAUDE.md` in [MindLab-Research/Megatron-GLM5.2](https://github.com/MindLab-Research/Megatron-GLM5.2).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
