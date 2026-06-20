@@ -1,0 +1,44 @@
+{
+  "name": "beyaz-yakali-otomasyon-rehberi",
+  "owner": "Harungokc",
+  "repo": "beyaz-yakali-otomasyon-rehberi",
+  "description": "Beyaz Yakal\u0131 Ofis \u00c7al\u0131\u015fanlar\u0131 \u0130\u00e7in AI Otomasyon Rehberi - 9 Otomasyon + LinkedIn Payla\u015f\u0131mlar\u0131",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Harungokc/beyaz-yakali-otomasyon-rehberi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-20T16:33:09Z"
+}
