@@ -2,9 +2,9 @@
   "name": "Hypo-Workflow",
   "owner": "HypoxanthineOvO",
   "repo": "Hypo-Workflow",
-  "description": "Serialized prompt execution engine for AI agents \u2014 TDD pipeline, self-review, interrupt recovery, multi-dimensional evaluation",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HypoxanthineOvO/Hypo-Workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T09:57:36Z"
+  "distributed_at": "2026-06-20T12:41:02Z"
 }
