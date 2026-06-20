@@ -1,0 +1,44 @@
+{
+  "name": "pisilist",
+  "owner": "lwinmoe51",
+  "repo": "pisilist",
+  "description": "Google Keep-inspired collaborative task management app \u2014 React Native, Expo, Firebase. Chapter 3 Assignment for Vibe Code Tours bootcamp.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lwinmoe51/pisilist",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-20T16:30:22Z"
+}
