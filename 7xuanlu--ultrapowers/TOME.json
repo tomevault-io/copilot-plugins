@@ -4,7 +4,7 @@
   "repo": "ultrapowers",
   "description": "Hand Claude Code a goal and walk away. ultrapowers plans it, builds it test-first, reviews every step, and hands back a branch you can trust. Built on Superpowers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/7xuanlu/ultrapowers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T14:31:45Z"
+  "distributed_at": "2026-06-20T14:32:43Z"
 }
