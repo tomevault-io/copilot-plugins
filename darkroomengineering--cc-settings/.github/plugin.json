@@ -1,0 +1,14 @@
+{
+  "name": "darkroomengineering--cc-settings",
+  "displayName": "cc-settings",
+  "description": "Vulcan may be a good name",
+  "version": "1.0.0",
+  "author": "darkroomengineering",
+  "homepage": "https://github.com/darkroomengineering/cc-settings",
+  "skills": [
+    {
+      "name": "nuclear-review",
+      "description": ""
+    }
+  ]
+}
