@@ -1,0 +1,9 @@
+{
+  "name": "gajendrasinghdawar--note-keeper",
+  "displayName": "Note-Keeper",
+  "description": "minimal Progressive Web App (PWA) built with React. It provides offline capabilities and can be installed locally on device.   ",
+  "version": "1.0.0",
+  "author": "GajendrasinghDawar",
+  "homepage": "https://github.com/GajendrasinghDawar/Note-Keeper",
+  "skills": []
+}
