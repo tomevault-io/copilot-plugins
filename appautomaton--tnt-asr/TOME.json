@@ -4,7 +4,7 @@
   "repo": "tnt-asr",
   "description": "TNT \ud83e\udde8, powered by Qwen3-ASR",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/appautomaton/tnt-asr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T06:47:55Z"
+  "distributed_at": "2026-06-20T07:00:08Z"
 }
