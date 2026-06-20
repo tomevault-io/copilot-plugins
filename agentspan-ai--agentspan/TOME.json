@@ -2,9 +2,9 @@
   "name": "agentspan",
   "owner": "agentspan-ai",
   "repo": "agentspan",
-  "description": "Durable, Distributed runtime for ALL of your agents - OpenAI, ADK, Langchain, Vercel, etc.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentspan-ai/agentspan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T16:43:19Z"
+  "distributed_at": "2026-06-20T07:10:37Z"
 }
