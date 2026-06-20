@@ -1,0 +1,9 @@
+{
+  "name": "gonnector--claude-session-wrapup-skill",
+  "displayName": "claude-session-wrapup-skill",
+  "description": "claude-session-wrapup-skill",
+  "version": "1.0.0",
+  "author": "gonnector",
+  "homepage": "https://github.com/gonnector/claude-session-wrapup-skill",
+  "skills": []
+}
