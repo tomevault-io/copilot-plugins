@@ -1,0 +1,9 @@
+{
+  "name": "keljian--jse",
+  "displayName": "JSE",
+  "description": "Local-first desktop assistant for the whole job hunt \u2014 scrape listings, match with a local LLM, generate applications in your own voice, and track everything on a Kanban board.",
+  "version": "1.0.0",
+  "author": "Keljian",
+  "homepage": "https://github.com/Keljian/JSE",
+  "skills": []
+}
