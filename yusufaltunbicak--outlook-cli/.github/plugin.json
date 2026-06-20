@@ -1,7 +1,7 @@
 {
   "name": "yusufaltunbicak--outlook-cli",
   "displayName": "outlook-cli",
-  "description": "Outlook 365 CLI \u2014 read, send, and manage emails, calendar, and contacts from the terminal without API keys",
+  "description": "outlook-cli",
   "version": "1.0.0",
   "author": "yusufaltunbicak",
   "homepage": "https://github.com/yusufaltunbicak/outlook-cli",
