@@ -1,0 +1,9 @@
+{
+  "name": "awp-worknet--ardi-skill",
+  "displayName": "ardi-skill",
+  "description": "ardi-skill",
+  "version": "1.0.0",
+  "author": "awp-worknet",
+  "homepage": "https://github.com/awp-worknet/ardi-skill",
+  "skills": []
+}
