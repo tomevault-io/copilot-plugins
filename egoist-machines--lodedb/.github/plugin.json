@@ -1,0 +1,9 @@
+{
+  "name": "egoist-machines--lodedb",
+  "displayName": "LodeDB",
+  "description": "Fast, exact, embedded vector database for local RAG: in-process, on-disk, GPU-optional, private by default",
+  "version": "1.0.0",
+  "author": "Egoist-Machines",
+  "homepage": "https://github.com/Egoist-Machines/LodeDB",
+  "skills": []
+}
