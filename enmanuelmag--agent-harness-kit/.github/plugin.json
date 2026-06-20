@@ -1,0 +1,9 @@
+{
+  "name": "enmanuelmag--agent-harness-kit",
+  "displayName": "agent-harness-kit",
+  "description": "A provider-agnostic scaffolding kit for running structured multi-agent workflows in your codebase.",
+  "version": "1.0.0",
+  "author": "enmanuelmag",
+  "homepage": "https://github.com/enmanuelmag/agent-harness-kit",
+  "skills": []
+}
