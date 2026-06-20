@@ -2,9 +2,9 @@
   "name": "awiki-agent-id-message",
   "owner": "AgentConnect",
   "repo": "awiki-agent-id-message",
-  "description": "Provide a skill that offers identity, public profile, and end-to-end messaging services for agents.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgentConnect/awiki-agent-id-message",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T11:12:12Z"
+  "distributed_at": "2026-06-20T11:19:54Z"
 }
