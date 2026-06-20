@@ -1,0 +1,9 @@
+{
+  "name": "45ck--noslop",
+  "displayName": "noslop",
+  "description": "Enforcement-first quality gate installer for 19 languages: TypeScript, Rust, C#, Go, Python, Java, PHP, Ruby, Swift, Kotlin, C++, Scala, Elixir, Dart, Zig, Haskell, Lua, OCaml & more",
+  "version": "1.0.0",
+  "author": "45ck",
+  "homepage": "https://github.com/45ck/noslop",
+  "skills": []
+}
