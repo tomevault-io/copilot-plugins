@@ -1,0 +1,9 @@
+{
+  "name": "joyfulhouse--pylxpweb",
+  "displayName": "pylxpweb",
+  "description": "Python client library for Luxpower/EG4 inverters and solar equipment",
+  "version": "1.0.0",
+  "author": "joyfulhouse",
+  "homepage": "https://github.com/joyfulhouse/pylxpweb",
+  "skills": []
+}
