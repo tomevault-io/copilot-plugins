@@ -1,0 +1,9 @@
+{
+  "name": "hoobio--command-palette-bitwarden",
+  "displayName": "command-palette-bitwarden",
+  "description": "PowerToys Command Palette extension for searching and accessing your Bitwarden vault",
+  "version": "1.0.0",
+  "author": "hoobio",
+  "homepage": "https://github.com/hoobio/command-palette-bitwarden",
+  "skills": []
+}
