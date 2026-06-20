@@ -2,9 +2,9 @@
   "name": "Network-AI",
   "owner": "Jovancoding",
   "repo": "Network-AI",
-  "description": "Traffic light for AI Agents and TypeScript/Node multi-agent orchestrator with shared state, guardrails, and adapters for 29 AI frameworks",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jovancoding/Network-AI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T13:04:45Z"
+  "distributed_at": "2026-06-20T12:54:42Z"
 }
