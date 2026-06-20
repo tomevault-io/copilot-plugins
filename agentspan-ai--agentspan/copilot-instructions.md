@@ -1,385 +1,827 @@
 ## agentspan
 
-> This file provides context for AI coding agents (Claude Code, Copilot, Cursor, etc.) working on the Agentspan SDK.
+> Agentspan is a distributed, durable runtime for AI agents. Agents survive crashes, scale across machines, and pause for human approval. Use Python SDK.
 
-# AGENTS.md — Guide for AI Agents Working on This Codebase
+# Agentspan — Build Durable AI Agents
 
-This file provides context for AI coding agents (Claude Code, Copilot, Cursor, etc.) working on the Agentspan SDK.
+Agentspan is a distributed, durable runtime for AI agents. Agents survive crashes, scale across machines, and pause for human approval. Use Python SDK.
 
-## Project Overview
+## Two Use Cases
 
-The `agentspan` Python SDK compiles Python `Agent` definitions into durable [Conductor](https://github.com/conductor-oss/conductor) executions. Agents survive process crashes, tools scale as distributed workers, and human-in-the-loop approvals can pause for days.
+**Developer building agents:** Define → deploy → serve → trigger by name. Long-lived, versioned, monitored.
 
-**Package name (PyPI):** `agentspan`
-**npm package:** `@agentspan-ai/agentspan`
-**Import path:** `from agentspan.agents import ...`
-**Python:** 3.10+
-**License:** MIT
+**Autonomous agent building ephemeral agents:** Define → `rt.run(agent, prompt)` → get result → move on. No deploy. No serve. One call.
 
-## Architecture
+## Quickstart (Ephemeral — for autonomous agents)
 
-### Core Design Principles
+```python
+from agentspan.agents import Agent, AgentRuntime
 
-1. **Everything is an Agent.** One class for single agents, multi-agent teams, and nested hierarchies. No Team, Network, or Swarm classes.
-2. **Server-first execution.** Tools execute as distributed Conductor tasks. The agent survives process crashes.
-3. **Compile, don't interpret.** Agent definitions are compiled into static Conductor workflow JSON at registration time.
-4. **Zero config for simple cases.** `Agent + tool + run` works in 5 lines.
-5. **Conductor-native.** Every SDK concept maps directly to a Conductor primitive.
+agent = Agent(name="helper", model="openai/gpt-4o", instructions="You are a helpful assistant.")
 
-### Compilation Pipeline
-
-```
-Agent(Python) → AgentCompiler.compile() → ConductorWorkflow(JSON) → execute on server
+with AgentRuntime() as rt:
+    result = rt.run(agent, "What is quantum computing?")
+    print(result.output["result"])   # String output
+    # Or: result.print_result()      # Pretty-printed
 ```
 
-When `run(agent, prompt)` is called:
-1. Agent is compiled into a Conductor workflow definition
-2. Worker processes are started for `@tool` functions
-3. Agent is executed on the Conductor server
-4. Result is extracted and returned as `AgentResult`
+`rt.run()` handles deploy + workers + execution internally. The agent is ephemeral — created for this task, discarded after.
 
-### Key Source Files
+## Production Pattern (for developers)
 
-| File | Purpose |
-|---|---|
-| `src/agentspan/agents/agent.py` | `Agent` class — the single orchestration primitive |
-| `src/agentspan/agents/tool.py` | `@tool` decorator, `ToolDef`, `http_tool()`, `mcp_tool()` |
-| `src/agentspan/agents/run.py` | Top-level `run()`, `start()`, `stream()`, `run_async()`, `plan()` with singleton runtime |
-| `src/agentspan/agents/result.py` | `AgentResult`, `AgentHandle`, `AgentStatus`, `AgentEvent`, `EventType` |
-| `src/agentspan/agents/guardrail.py` | `Guardrail`, `GuardrailResult`, `RegexGuardrail`, `LLMGuardrail` |
-| `src/agentspan/agents/memory.py` | `ConversationMemory` — session message history |
-| `src/agentspan/agents/semantic_memory.py` | `SemanticMemory`, `MemoryStore`, `MemoryEntry` — long-term memory |
-| `src/agentspan/agents/termination.py` | `TerminationCondition` and composable subclasses (`&`, `|` operators) |
-| `src/agentspan/agents/handoff.py` | `HandoffCondition`, `OnToolResult`, `OnTextMention`, `OnCondition` |
-| `src/agentspan/agents/code_executor.py` | `CodeExecutor` — Local, Docker, Jupyter, Serverless |
-| `src/agentspan/agents/ext.py` | `UserProxyAgent`, `GPTAssistantAgent` |
-| `src/agentspan/agents/tracing.py` | Optional OpenTelemetry integration |
-| `src/agentspan/agents/__init__.py` | Public API surface — all exports |
-| `src/agentspan/agents/compiler/agent_compiler.py` | Single agent compilation (DoWhile loops, tool dispatch) |
-| `src/agentspan/agents/compiler/multi_agent_compiler.py` | Multi-agent strategies (handoff, sequential, parallel, router) |
-| `src/agentspan/agents/compiler/tool_compiler.py` | `@tool` → TaskDef + ToolSpec + dispatch registration |
-| `src/agentspan/agents/compiler/_dispatch.py` | Universal dispatch worker (fuzzy parsing, circuit breaker) |
-| `src/agentspan/agents/runtime/runtime.py` | `AgentRuntime` — compile + execute + stream |
-| `src/agentspan/agents/runtime/worker_manager.py` | Auto-register `@tool` as Conductor workers |
-| `src/agentspan/agents/runtime/config.py` | `AgentConfig` — environment variable configuration |
-| `src/agentspan/agents/_internal/model_parser.py` | Parse `"provider/model"` strings |
-| `src/agentspan/agents/_internal/schema_utils.py` | JSON Schema generation from type hints |
+```python
+from agentspan.agents import Agent, AgentRuntime
 
-### Conductor Primitive Mapping
+agent = Agent(name="helper", model="openai/gpt-4o", instructions="...")
 
-| SDK Concept | Conductor Primitive |
-|---|---|
-| `Agent` | `ConductorWorkflow` |
-| `@tool` function | Task definition + `@worker_task` |
-| `http_tool` | `HttpTask` (server-side) |
-| `mcp_tool` | `ListMcpTools` + `CallMcpTool` |
-| Agentic loop | `DoWhileTask` |
-| LLM call | `LlmChatComplete` (system task) |
-| Handoff | `InlineSubWorkflowTask` |
-| Sequential | Chain of `SubWorkflowTask` |
-| Parallel | `ForkTask` + `JoinTask` |
-| Human approval | `WaitTask` |
-| Conversation state | `workflow.variables` |
-
-## Coding Conventions
-
-### Style
-
-- **Linter:** ruff (`target-version = "py310"`, `line-length = 100`)
-- **Type checker:** mypy (`python_version = "3.10"`, `ignore_missing_imports = true`)
-- **Imports:** isort via ruff (`"I"` rule)
-- **Python target:** 3.10+ (use `from __future__ import annotations` for newer typing syntax)
-
-### Module-Level Patterns
-
-- Every module uses `logging.getLogger("agentspan.agents.xxx")` for structured logging
-- The dispatch worker (`_dispatch.py`) deliberately does NOT use `from __future__ import annotations` because Conductor's worker framework needs real type objects for parameter resolution
-- The dispatch worker uses `object` type annotations (not `dict`/`list`) to avoid Conductor's `convert_from_dict_or_list()` issues
-- Tool functions, error counts, and approval flags are stored in module-level registries (`_tool_registry`, `_tool_error_counts`, `_tool_approval_flags`)
-
-### Public API
-
-All public exports are listed in `src/agentspan/agents/__init__.py` and its `__all__` list. When adding a new public class or function, add it to both the imports and `__all__`.
-
-### Agent Strategies
-
-Valid strategies are defined in `agent.py`:
-```
-"handoff", "sequential", "parallel", "router", "round_robin", "random", "swarm", "manual"
+if __name__ == "__main__":
+    with AgentRuntime() as rt:
+        # Deploy to server. CLI alternative (recommended for CI/CD):
+        #   agentspan deploy my_module
+        rt.deploy(agent)   # Push definition to server (idempotent)
+        rt.serve(agent)    # Start workers, poll for tasks (blocks forever)
 ```
 
-### Guardrail `on_fail` Modes
-
-```
-"retry", "raise", "fix", "human"
-```
-
-`"human"` is only valid for `position="output"` (input guardrails are client-side).
-
-## Testing
-
-### Running Tests
-
-```bash
-# Unit tests (no server required)
-python3 -m pytest tests/unit/ -v
-
-# Integration tests (require running Conductor server)
-python3 -m pytest tests/integration/ -v
-
-# Lint
-ruff check src/
-
-# Type check
-mypy src/agentspan/agents/ --ignore-missing-imports --no-strict-optional
-```
-
-### Test Files
-
-| File | Scope |
-|---|---|
-| `tests/unit/test_agent.py` | Agent creation, validation, chaining, repr |
-| `tests/unit/test_tool.py` | `@tool`, `http_tool`, `mcp_tool`, `get_tool_def`, `@worker_task` |
-| `tests/unit/test_compiler.py` | Model parser, schema gen, tool compiler, DoWhile structure |
-| `tests/unit/test_dispatch_advanced.py` | Fuzzy parsing, circuit breaker, approval, trimming, ToolContext |
-| `tests/unit/test_multi_agent_compiler.py` | Handoff, sequential, parallel, router, hybrid |
-| `tests/unit/test_result.py` | AgentResult, AgentStatus, AgentEvent, EventType |
-| `tests/unit/test_termination.py` | Termination conditions and composable operators |
-| `tests/integration/test_basic_execution.py` | End-to-end single agent execution |
-| `tests/integration/test_multi_agent.py` | End-to-end multi-agent execution |
-
-### Writing Tests
-
-- Unit tests must run without an Agentspan server (mock all external calls)
-- Place unit tests in `tests/unit/`, integration tests in `tests/integration/`
-- Follow existing naming: `test_{module}.py`
-- Use `pytest` fixtures and parametrize where appropriate
-- do NOT use mocks.  Mocks considered harmful.  Write tests that use the actual server
-- SDK e2e tests MUST rely on the Agentspan server to ensure we are testing the actual communication
-
-### Examples
-- Every feature MUST have an example in all the supported sdks (python/ etc)
-- If the feature requires multiple examples, then write multiple examples to demonstrate how to use that feature
-- Examples MUST be very clear and to the point.  Do not overload them with many features - one feature one examples.  Ofcourse you can use other features as required, but that is not a substitute for not writing examples for those features.
-
-## Validation Checklist
-
-Before merging any change:
-
-1. **Unit tests pass:** `python3 -m pytest tests/unit/ -v`
-2. **Lint clean:** `ruff check src/`
-3. **Type check clean:** `mypy src/agentspan/agents/ --ignore-missing-imports --no-strict-optional`
-4. **Public API unchanged** (or intentionally extended): check `__init__.py` `__all__`
-5. **Examples still work** for affected features (run against a live Agentspan server)
-
-## Common Patterns
-
-### Adding a New Tool Type
-
-1. Add a constructor function in `tool.py` (like `http_tool()`, `mcp_tool()`)
-2. Return a `ToolDef` with the appropriate `tool_type`
-3. Handle the new type in `compiler/tool_compiler.py`
-4. Export from `__init__.py`
-5. Add a test in `tests/unit/test_tool.py`
-6. Add an example in `examples/`
-
-### Adding a New Multi-Agent Strategy
-
-1. Add the strategy name to `_VALID_STRATEGIES` in `agent.py`
-2. Implement the compilation in `compiler/multi_agent_compiler.py`
-3. Add a test in `tests/unit/test_multi_agent_compiler.py`
-4. Add an example in `examples/`
-
-### Adding a New Guardrail Type
-
-1. Subclass `Guardrail` in `guardrail.py` (see `RegexGuardrail`, `LLMGuardrail`)
-2. Export from `__init__.py`
-3. Add an example in `examples/`
-
-### Adding a New Termination Condition
-
-1. Subclass `TerminationCondition` in `termination.py`
-2. Implement `should_terminate(self, context) -> TerminationResult`
-3. Export from `__init__.py`
-4. Add a test in `tests/unit/test_termination.py`
-
-## Runtime Server (Java)
-
-The `server/` directory contains the Agent Runtime — a Spring Boot server that embeds Conductor.
-
-### Server Key Source Files
-
-| File | Purpose |
-|---|---|
-| `server/src/.../controller/AgentController.java` | REST endpoints for agent lifecycle |
-| `server/src/.../service/AgentService.java` | Core service: compile, start, list, search, get, delete agents |
-| `server/src/.../compiler/AgentCompiler.java` | Compiles AgentConfig into Conductor WorkflowDef |
-| `server/src/.../model/*.java` | DTOs: AgentConfig, AgentSummary, AgentExecutionSummary, AgentExecutionDetail, etc. |
-
-### Server API Endpoints
-
-| Endpoint | Method | Description |
-|---|---|---|
-| `/api/agent/start` | POST | Compile, register, and start an agent execution |
-| `/api/agent/compile` | POST | Compile agent config (inspect only) |
-| `/api/agent/list` | GET | List all registered agents (filtered by `agent_sdk` metadata) |
-| `/api/agent/executions` | GET | Search agent executions (with `start`, `size`, `sort`, `freeText`, `status`, `agentName` params) |
-| `/api/agent/executions/{id}` | GET | Get detailed execution status (agent name, version, status, input, output, current task) |
-| `/api/agent/get/{name}` | GET | Get agent definition (`?version=` optional) |
-| `/api/agent/delete/{name}` | DELETE | Delete agent definition (`?version=` optional) |
-| `/api/agent/stream/{id}` | GET | SSE event stream for a running execution |
-| `/api/agent/{id}/respond` | POST | Respond to HITL task |
-| `/api/agent/{id}/status` | GET | Get execution status (legacy) |
-
-### Server Testing Requirements
-
-**All runtime features MUST have real E2E integration tests.** Do not rely solely on mocked unit tests for HTTP endpoints or SSE streaming. E2E tests boot the full Spring context (`@SpringBootTest` with `RANDOM_PORT`) and test over real HTTP connections.
-
-```bash
-# Run server tests
-cd server && ./gradlew test
-
-# Build server
-cd server && ./gradlew build
-```
-
-## CLI (Go)
-
-The `cli/` directory contains the AgentSpan CLI — a Go binary built with Cobra that manages the server and agents.
-
-### CLI Key Source Files
-
-| File | Purpose |
-|---|---|
-| `cli/main.go` | Entry point |
-| `cli/cmd/root.go` | Root command, version vars, `--server` flag |
-| `cli/cmd/server.go` | `server start/stop/logs` — JAR download, PID management |
-| `cli/cmd/server_unix.go` | Unix-specific process management (SIGTERM, Setpgid) |
-| `cli/cmd/server_windows.go` | Windows-specific process management |
-| `cli/cmd/run.go` | `agent run` — start agent by `--name` or `--config` |
-| `cli/cmd/list.go` | `agent list` — table display of registered agents |
-| `cli/cmd/get.go` | `agent get` — fetch agent definition as JSON |
-| `cli/cmd/delete.go` | `agent delete` — remove agent definition |
-| `cli/cmd/execution.go` | `agent execution` — search history with time parsing |
-| `cli/cmd/status.go` | `agent status` — detailed execution status |
-| `cli/cmd/update.go` | `update` — CLI self-update from GitHub releases |
-| `cli/cmd/agent.go` | Agent parent command, SSE event formatting helpers |
-| `cli/cmd/compile.go` | `agent compile` — compile config to agent def |
-| `cli/cmd/init.go` | `agent init` — generate starter config file |
-| `cli/cmd/stream.go` | `agent stream` — stream SSE events from running agent |
-| `cli/cmd/respond.go` | `agent respond` — HITL approval/denial |
-| `cli/cmd/configure.go` | `configure` — set server URL and auth |
-| `cli/cmd/helpers.go` | Config/client factory helpers |
-| `cli/client/client.go` | HTTP client for all server API calls |
-| `cli/config/config.go` | Config loading (file + env vars), `~/.agentspan/` dir |
-
-### CLI Build and Test
-
-```bash
-# Build locally
-cd cli && go build -o agentspan .
-
-# Verify
-./agentspan version
-./agentspan --help
-./agentspan agent --help
-./agentspan server --help
-
-# Cross-platform build (all 6 targets)
-cd cli && VERSION=0.1.0 ./build.sh
-```
-
-### CLI Coding Conventions
-
-- **Language:** Go 1.25+
-- **CLI framework:** Cobra (`github.com/spf13/cobra`)
-- **Module path:** `github.com/agentspan-ai/agentspan/cli`
-- **Binary name:** `agentspan`
-- **Config directory:** `~/.agentspan/`
-- **No third-party HTTP clients** — use stdlib `net/http`
-- **Platform-specific code** goes in `_unix.go` / `_windows.go` files with build tags
-- **Build-time version** is injected via `-ldflags` (see `build.sh`)
-
-### CLI Testing Checklist
-
-When modifying CLI commands:
-
-1. **Build succeeds:** `cd cli && go build -o /dev/null .`
-2. **Cross-platform build succeeds:** `cd cli && VERSION=test ./build.sh` (all 6 targets)
-3. **Help text is correct:** `./agentspan <command> --help`
-4. **Manual smoke test** against a running server:
-   - `agentspan server start` (downloads JAR, starts server)
-   - `agentspan server logs -f` (follows log output)
-   - `agentspan agent list` (returns `[]` or agent list)
-   - `agentspan agent init testbot && agentspan agent run --config testbot.yaml "hello"`
-   - `agentspan server stop` (sends SIGTERM, cleans PID file)
-
-### CLI Distribution
-
-Published via three channels (triggered by `cli-v*` git tags):
-
-1. **GitHub Releases** — 6 platform binaries (`agentspan_{os}_{arch}`)
-2. **npm** (`@agentspan-ai/agentspan`) — JS wrapper downloads Go binary on `postinstall`
-3. **Homebrew** (`agentspan-ai/homebrew-agentspan` tap) — macOS/Linux formula
-
-Release workflow: `.github/workflows/release-cli.yml`
-
-### Adding a New CLI Command
-
-1. Create `cli/cmd/<command>.go`
-2. Define a `*cobra.Command` with `Use`, `Short`, `Args`, `RunE`
-3. Register under the appropriate parent in `init()` (`agentCmd` for agent subcommands, `rootCmd` for top-level)
-4. If the command calls a new API endpoint, add the client method in `cli/client/client.go`
-5. If the endpoint doesn't exist, add it to `AgentService.java` + `AgentController.java`
-6. Test: build, help text, manual smoke test
-
-## Python SDK SSE Testing
-
-SSE streaming tests are organized in three tiers:
-
-1. **Tier 1 — SSE parsing unit tests** (`tests/unit/test_sse_parsing.py`): Tests `_parse_sse()` and `_sse_to_agent_event()` as pure functions. Zero dependencies, runs in CI.
-2. **Tier 2 — Mock SSE server tests** (`tests/unit/test_sse_client.py`): Spins up a real HTTP server in a thread, tests the full `_stream_sse()` code path. No Java server or LLM needed.
-3. **Tier 3 — Real server SSE tests** (`tests/integration/test_e2e_sse.py`): Full Python SDK → Runtime → SSE path. Requires `AGENTSPAN_STREAMING_ENABLED=true`.
-
-```bash
-# Tier 1 + 2 (no server needed, always run in CI)
-cd python && python3 -m pytest tests/unit/test_sse_parsing.py tests/unit/test_sse_client.py -v
-
-# Tier 3 (requires running runtime server + LLM key)
-cd python && AGENTSPAN_STREAMING_ENABLED=true python3 -m pytest tests/integration/test_e2e_sse.py -v
-```
-
-**When adding SSE features:** Add tests at all three tiers. Tier 1+2 are mandatory for CI. Tier 3 validates the real cross-process path.
-
-## CI/CD
-
-GitHub Actions workflow at `.github/workflows/ci.yml`:
-- Unit tests on Python 3.10-3.13
-- Lint with ruff
-- Type check with mypy
+Trigger from outside: `agentspan run helper "What is quantum computing?"`
 
 ## Configuration
 
-Environment variables:
+```python
+# Default: reads AGENTSPAN_SERVER_URL from environment
+rt = AgentRuntime()
 
-| Variable | Description | Default |
-|---|---|---|
-| `AGENTSPAN_SERVER_URL` | AgentSpan server API URL | `http://localhost:6767/api` |
-| `AGENTSPAN_AUTH_KEY` | Auth key (Orkes Cloud) | None |
-| `AGENTSPAN_AUTH_SECRET` | Auth secret (Orkes Cloud) | None |
-| `AGENTSPAN_AGENT_TIMEOUT` | Default execution timeout (seconds) | 300 |
-| `AGENTSPAN_LLM_RETRY_COUNT` | LLM task retry count | 3 |
-| `AGENTSPAN_WORKER_POLL_INTERVAL` | Worker poll interval (ms) | 100 |
-| `AGENTSPAN_WORKER_THREADS` | Worker threads per tool | 1 |
+# Explicit:
+from agentspan.agents import AgentConfig
+config = AgentConfig(server_url="http://localhost:6767/api", api_key="...")
+rt = AgentRuntime(config=config)
+```
 
-> **Note:** The legacy `CONDUCTOR_*` prefixed variables are still accepted for backward compatibility.
+Environment variables: `AGENTSPAN_SERVER_URL`, `AGENTSPAN_AUTH_KEY`, `AGENTSPAN_AUTH_SECRET`
 
-## Dependencies
+## Agent
 
-- **Required:** `conductor-python>=1.1.10`
-- **Optional:** `pydantic` (structured output), `openai` (GPTAssistantAgent), `litellm` (LLMGuardrail), `opentelemetry-api` + `opentelemetry-sdk` (tracing), `jupyter_client` + `ipykernel` (JupyterCodeExecutor)
-- **Dev:** `pytest>=7.0`, `pytest-asyncio>=0.21`, `ruff>=0.4`, `mypy>=1.10`
+```python
+Agent(
+    name="my_agent",                    # Required. Unique. Alphanumeric + underscore/hyphen.
+    model="openai/gpt-4o",             # "provider/model" format
+    instructions="You are a ...",       # System prompt (str, callable, or PromptTemplate)
+    tools=[my_tool],                    # List of @tool functions
+    max_turns=25,                       # Max LLM iterations
+    timeout_seconds=0,                  # 0 = no timeout
+    max_tokens=None,                    # Max output tokens per LLM call
+    temperature=None,                   # LLM temperature
+    output_type=MyPydanticModel,        # Structured output (Pydantic model)
+    planner=False,                      # Enable planning-first behavior
+    thinking_budget_tokens=None,        # Extended reasoning token budget
+    credentials=["API_KEY"],            # Credentials resolved from server
+    metadata={"team": "backend"},       # Custom metadata
+)
+```
+
+Model formats: `"openai/gpt-4o"`, `"anthropic/claude-sonnet-4-6"`, `"google_gemini/gemini-2.5-flash"`, `"claude-code/opus"`
+
+### @agent Decorator
+
+```python
+from agentspan.agents import agent
+
+@agent(model="openai/gpt-4o", tools=[search])
+def researcher():
+    """You are a research assistant. Find and summarize information."""
+
+# Use like: rt.run(researcher, "Find info about quantum computing")
+```
+
+The docstring becomes the instructions.
+
+## AgentResult
+
+```python
+result = rt.run(agent, "prompt")
+
+result.output            # Dict: {"result": "..."} or agent-specific shape
+result.output["result"]  # The text output (string)
+result.status            # "COMPLETED", "FAILED", "TERMINATED", "TIMED_OUT"
+result.execution_id      # Execution ID
+result.error             # Error message if failed, else None
+result.token_usage       # {"input_tokens": N, "output_tokens": N, ...}
+result.finish_reason     # "stop", "length", "error", "cancelled", "timeout", "guardrail"
+result.is_success        # True if COMPLETED
+result.is_failed         # True if FAILED/TERMINATED
+result.sub_results       # List of sub-agent results (multi-agent)
+result.print_result()    # Pretty-print the output
+```
+
+## Error Handling
+
+```python
+result = rt.run(agent, "prompt")
+
+if result.is_success:
+    print(result.output["result"])
+elif result.is_failed:
+    print(f"Failed: {result.error}")
+    print(f"Status: {result.status}")   # FAILED, TERMINATED, TIMED_OUT
+    print(f"Reason: {result.finish_reason}")
+```
+
+For autonomous agents building ephemeral agents — always check `result.is_success` before using `result.output`.
+
+## Tools
+
+```python
+from agentspan.agents import tool
+
+@tool
+def search(query: str) -> str:
+    """Search the web for information."""
+    return f"Results for: {query}"
+
+@tool(approval_required=True, credentials=["API_KEY"])
+def delete_file(path: str) -> str:
+    """Delete a file. Requires human approval."""
+    os.remove(path)
+    return f"Deleted {path}"
+```
+
+Tool functions must have type hints and a docstring. The schema is generated automatically.
+
+### ToolContext (dependency injection + shared state)
+
+```python
+from agentspan.agents import tool, ToolContext
+
+@tool
+def lookup(query: str, context: ToolContext) -> str:
+    """Search with context."""
+    wf_id = context.execution_id
+    session = context.session_id
+    state = context.state          # Mutable dict shared across tool calls
+    deps = context.dependencies    # From Agent(dependencies={...})
+    return f"Found in execution {wf_id}"
+```
+
+`context.state` is per-execution scratch shared across all tool calls in that run — useful for accumulating items, caching API responses, or coordinating between tool invocations without round-tripping through the LLM:
+
+```python
+@tool
+def add_item(item: str, context: ToolContext) -> dict:
+    """Append to a shared list."""
+    items = context.state.setdefault("cart", [])
+    items.append(item)
+    return {"added": item, "total": len(items)}
+
+@tool
+def get_cart(context: ToolContext) -> list:
+    """Read the shared list."""
+    return context.state.get("cart", [])
+```
+
+### Server-side tools (no local worker needed)
+
+```python
+from agentspan.agents import http_tool, mcp_tool, api_tool
+
+weather = http_tool(
+    name="get_weather",
+    description="Get weather for a city",
+    url="https://api.weather.com/v1/current?city=${city}",
+    credentials=["WEATHER_API_KEY"],
+)
+
+github = mcp_tool(
+    server_url="https://mcp.github.com",
+    tool_names=["create_issue", "list_repos"],
+    credentials=["GITHUB_TOKEN"],
+)
+
+stripe = api_tool(
+    url="https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.json",
+    tool_names=["CreatePaymentIntent", "ListCustomers"],
+    credentials=["STRIPE_SECRET_KEY"],
+)
+```
+
+## Multi-Agent
+
+All multi-agent compositions use one `Agent(...)` as the *parent* with `agents=[...]` sub-agents and a `strategy=` controlling how they're orchestrated. Parents can themselves be sub-agents of bigger parents — strategies nest freely.
+
+### Strategy Enum
+
+```python
+from agentspan.agents import Strategy
+
+Strategy.SEQUENTIAL    # Run in order; output of one feeds the next
+Strategy.PARALLEL      # Run concurrently; results aggregated
+Strategy.ROUTER        # Router agent picks ONE sub-agent to handle the input
+Strategy.HANDOFF       # Parent LLM picks next sub-agent each turn (default)
+Strategy.SWARM         # Peer-to-peer; sub-agents hand off via text mentions
+Strategy.ROUND_ROBIN   # Cycle through sub-agents in fixed order each turn
+Strategy.RANDOM        # Random sub-agent each turn (brainstorming/diversity)
+Strategy.MANUAL        # Human picks who responds next (pauses each turn)
+Strategy.PLAN_EXECUTE  # Planner emits JSON DAG; executor runs deterministically
+```
+
+Pass `strategy="parallel"` (string) or `strategy=Strategy.PARALLEL` — both work.
+
+### Sequential Pipeline (>>)
+
+```python
+researcher = Agent(name="researcher", model="openai/gpt-4o", instructions="Research the topic.")
+writer = Agent(name="writer", model="openai/gpt-4o", instructions="Write a summary.")
+
+pipeline = researcher >> writer
+```
+
+### Parallel
+
+```python
+Agent(
+    name="analysis",
+    model="openai/gpt-4o",
+    agents=[pros_agent, cons_agent],
+    strategy="parallel",
+)
+```
+
+### Router
+
+```python
+router_agent = Agent(name="router", model="openai/gpt-4o", instructions="Route to the right specialist.")
+
+Agent(
+    name="team",
+    model="openai/gpt-4o",
+    agents=[billing, technical],
+    strategy="router",
+    router=router_agent,
+)
+```
+
+### SWARM (peer-to-peer handoff)
+
+```python
+from agentspan.agents.handoff import OnTextMention
+
+coder = Agent(name="coder", model="openai/gpt-4o", instructions="Code. Say HANDOFF_TO_QA when done.")
+qa = Agent(name="qa", model="openai/gpt-4o", instructions="Test. Say HANDOFF_TO_CODER if bugs found.")
+
+Agent(
+    name="dev_team",
+    model="openai/gpt-4o",
+    agents=[coder, qa],
+    strategy="swarm",
+    handoffs=[
+        OnTextMention(text="HANDOFF_TO_QA", target="qa"),
+        OnTextMention(text="HANDOFF_TO_CODER", target="coder"),
+    ],
+)
+```
+
+### Scatter-Gather (fan-out/fan-in)
+
+```python
+from agentspan.agents import scatter_gather
+
+coordinator = scatter_gather(
+    name="multi_search",
+    worker=Agent(name="searcher", model="openai/gpt-4o-mini", instructions="Search and summarize."),
+    timeout_seconds=300,
+)
+# Spawns multiple copies of worker agent in parallel, aggregates results
+```
+
+### Round-Robin / Random / Manual
+
+```python
+Agent(agents=[a, b, c], strategy=Strategy.ROUND_ROBIN, max_turns=6)   # a→b→c→a→b→c
+Agent(agents=[a, b, c], strategy=Strategy.RANDOM, max_turns=6)        # random each turn
+Agent(agents=[a, b, c], strategy=Strategy.MANUAL, max_turns=6)        # human picks via handle.respond({"selected": "b"})
+```
+
+### Handoff (LLM-driven dispatch)
+
+```python
+# Default strategy: the parent LLM uses its instructions to pick which sub-agent runs next.
+ceo = Agent(
+    name="ceo",
+    model="openai/gpt-4o",
+    instructions="Delegate eng tasks to engineering_lead, marketing tasks to marketing_lead.",
+    agents=[engineering_lead, marketing_lead],
+    strategy=Strategy.HANDOFF,
+)
+```
+
+### Hierarchical Teams (nested strategies)
+
+Sub-agents can themselves be multi-agent. Compose freely:
+
+```python
+# Leaves
+backend_dev = Agent(name="backend", model=MODEL, instructions="Backend specialist.")
+frontend_dev = Agent(name="frontend", model=MODEL, instructions="Frontend specialist.")
+writer = Agent(name="writer", model=MODEL, instructions="Write copy.")
+seo = Agent(name="seo", model=MODEL, instructions="SEO expert.")
+
+# Mid-level leads (each is a small team)
+eng_lead = Agent(name="eng_lead", model=MODEL, agents=[backend_dev, frontend_dev], strategy=Strategy.HANDOFF)
+mkt_lead = Agent(name="mkt_lead", model=MODEL, agents=[writer, seo], strategy=Strategy.PARALLEL)
+
+# Top-level orchestrator
+ceo = Agent(name="ceo", model=MODEL, agents=[eng_lead, mkt_lead], strategy=Strategy.HANDOFF,
+            instructions="Route eng work to eng_lead, marketing to mkt_lead.")
+```
+
+Mix and match — `parallel >> sequential`, `router → swarm`, etc. The `>>` operator works on any agent (single or composite).
+
+### Agent as Tool
+
+```python
+from agentspan.agents import agent_tool
+
+specialist = Agent(name="math_expert", model="openai/gpt-4o", instructions="Solve math problems.")
+
+orchestrator = Agent(
+    name="orchestrator",
+    model="openai/gpt-4o",
+    instructions="Delegate math to the specialist.",
+    tools=[agent_tool(specialist, description="Call the math expert")],
+)
+```
+
+## Guardrails
+
+```python
+from agentspan.agents import RegexGuardrail, LLMGuardrail, Guardrail, GuardrailResult
+
+# Regex: block emails in output
+RegexGuardrail(
+    name="no_emails",
+    patterns=[r"[\w.+-]+@[\w-]+\.[\w.-]+"],
+    message="Remove email addresses.",
+    on_fail="retry",    # retry | raise | fix | human
+    max_retries=3,
+)
+
+# LLM: policy-based check
+LLMGuardrail(
+    name="safety",
+    model="openai/gpt-4o-mini",
+    policy="Reject responses with medical advice.",
+    on_fail="raise",
+)
+
+# Custom function
+def no_ssn(content: str) -> GuardrailResult:
+    if re.search(r"\b\d{3}-\d{2}-\d{4}\b", content):
+        return GuardrailResult(passed=False, message="Redact SSNs.")
+    return GuardrailResult(passed=True)
+
+Guardrail(no_ssn, position="output", on_fail="retry", max_retries=3)
+```
+
+## Termination Conditions
+
+```python
+from agentspan.agents import TextMentionTermination, MaxMessageTermination
+
+Agent(
+    name="worker",
+    model="openai/gpt-4o",
+    instructions="Say DONE when finished.",
+    termination=TextMentionTermination("DONE"),
+    # OR: termination=MaxMessageTermination(10),
+    # Composable: termination=TextMentionTermination("DONE") | MaxMessageTermination(10),
+)
+```
+
+## Gates (Conditional Pipelines)
+
+```python
+from agentspan.agents.gate import TextGate
+
+checker = Agent(name="checker", model="openai/gpt-4o",
+    instructions="Output NO_ISSUES if everything is fine.",
+    gate=TextGate("NO_ISSUES"),  # Stops pipeline if text present
+)
+fixer = Agent(name="fixer", model="openai/gpt-4o", instructions="Fix the issue.")
+
+pipeline = checker >> fixer  # fixer only runs if checker finds issues
+```
+
+## Memory
+
+```python
+from agentspan.agents import ConversationMemory, SemanticMemory
+
+# Conversation memory (chat history with windowing)
+agent = Agent(
+    name="chatbot",
+    model="openai/gpt-4o",
+    memory=ConversationMemory(max_messages=50),
+)
+
+# Semantic memory (long-term, searchable)
+memory = SemanticMemory()
+memory.add("User prefers Python over JavaScript")
+memory.add("User works at Acme Corp")
+results = memory.search("What language does the user prefer?")
+```
+
+## Claude Code Agents
+
+```python
+from agentspan.agents import Agent, ClaudeCode
+
+# Simple: slash syntax
+reviewer = Agent(
+    name="reviewer",
+    model="claude-code/sonnet",
+    instructions="Review code for quality.",
+    tools=["Read", "Glob", "Grep"],     # Built-in Claude tools (strings only)
+    max_turns=10,
+)
+
+# With config
+reviewer = Agent(
+    name="reviewer",
+    model=ClaudeCode("opus", permission_mode=ClaudeCode.PermissionMode.ACCEPT_EDITS),
+    instructions="Review code.",
+    tools=["Read", "Edit", "Bash"],
+)
+```
+
+Available tools: `Read`, `Edit`, `Write`, `Bash`, `Glob`, `Grep`, `WebSearch`, `WebFetch`
+
+## CLI Execution
+
+```python
+Agent(
+    name="deployer",
+    model="openai/gpt-4o",
+    instructions="Use git and gh to manage repos.",
+    cli_commands=True,
+    cli_allowed_commands=["git", "gh", "curl"],
+    credentials=["GITHUB_TOKEN"],
+)
+```
+
+## Schedules (Cron Triggers)
+
+Attach one or more cron triggers to an agent at deploy time. The scheduler fires the agent on its cadence with the supplied input.
+
+```python
+from agentspan.agents import Agent, AgentRuntime
+from agentspan.agents.schedule import Schedule
+
+agent = Agent(name="hello", model="openai/gpt-4o-mini", instructions="Say hi.")
+
+with AgentRuntime() as rt:
+    rt.deploy(
+        agent,
+        schedules=[
+            Schedule(
+                name="every-5s",                 # short id, unique per agent
+                cron="0/5 * * * * ?",            # 6-field Quartz cron (sec min hr dom mon dow)
+                input={"prompt": "Say hi."},     # input on each fire
+                timezone="UTC",                  # IANA tz (optional)
+                description="demo cadence",
+                paused=False,                    # start active
+                catchup=False,                   # don't replay missed fires
+            ),
+        ],
+    )
+    rt.serve(agent, blocking=False)   # workers must be up for LLM tasks to run
+```
+
+Wire name on the server is `{agent.name}-{schedule.name}`. List, pause/resume, or remove schedules via `rt.schedules_client().reconcile(agent.name, [...])` — pass `[]` to delete all. Cron is 6-field Quartz (seconds field required).
+
+## Code Execution
+
+```python
+Agent(
+    name="data_scientist",
+    model="openai/gpt-4o",
+    instructions="Write and run Python code to analyze data.",
+    local_code_execution=True,
+    allowed_languages=["python"],
+)
+```
+
+## Credentials
+
+Credentials are always resolved from the server. No env var fallback. Missing credentials cause `FAILED_WITH_TERMINAL_ERROR` (non-retryable).
+
+```bash
+# Store credentials on server
+agentspan credentials set --name GITHUB_TOKEN
+agentspan credentials set --name OPENAI_API_KEY
+```
+
+```python
+Agent(
+    name="github_agent",
+    model="openai/gpt-4o",
+    credentials=["GITHUB_TOKEN"],  # Resolved at tool execution time
+    tools=[my_github_tool],
+)
+```
+
+## Callbacks
+
+```python
+from agentspan.agents import CallbackHandler
+
+class MyCallbacks(CallbackHandler):
+    def on_agent_start(self, **kwargs): pass
+    def on_agent_end(self, **kwargs): pass
+    def on_model_start(self, **kwargs): pass
+    def on_model_end(self, **kwargs): pass
+
+Agent(name="agent", model="openai/gpt-4o", callbacks=[MyCallbacks()])
+```
+
+## Streaming & Human-in-the-Loop
+
+Use `rt.start()` + `handle.stream()` to react to events as they fire — required for interactive HITL (approval tools).
+
+```python
+from agentspan.agents import EventType
+
+with AgentRuntime() as rt:
+    handle = rt.start(agent, "Transfer $500 from A to B")
+    for event in handle.stream():
+        if event.type == EventType.THINKING:
+            print("thinking:", event.content)
+        elif event.type == EventType.TOOL_CALL:
+            print("tool_call:", event.tool_name, event.args)
+        elif event.type == EventType.TOOL_RESULT:
+            print("tool_result:", event.tool_name, event.result)
+        elif event.type == EventType.WAITING:
+            # Approval-required tool is paused — inspect schema and respond
+            status = handle.get_status()
+            schema = (status.pending_tool or {}).get("response_schema", {})
+            handle.respond({"approved": True})       # shape matches schema
+        elif event.type == EventType.DONE:
+            print("done:", event.output)
+```
+
+`handle` also supports `.pause()`, `.resume()`, `.cancel(reason)`, `.get_status()`.
+
+## Plan-Execute Strategy
+
+For LLM-generated plans that should run deterministically (DAG compiled into a Conductor workflow):
+
+```python
+from agentspan.agents import plan_execute, Agent, tool
+
+planner = Agent(name="planner", model="openai/gpt-4o", instructions="Produce a JSON plan...")
+fallback = Agent(name="fixer", model="openai/gpt-4o", instructions="Repair failed plan.")
+
+orchestrator = plan_execute(
+    name="report_builder",
+    planner=planner,
+    tools=[write_file, read_file],   # tools usable by plan ops
+    fallback=fallback,                # optional: runs if validation fails
+)
+rt.run(orchestrator, "Write a report on AI agents")
+```
+
+The planner emits a JSON fence describing a DAG; the executor compiles it and runs each op (static tool call or scoped LLM call) deterministically.
+
+## CLI Deploy
+
+Recommended for CI/CD — no Python imports needed at deploy time:
+
+```bash
+agentspan deploy --package my_package.my_module     # registers all Agent objects in module
+agentspan run agent_name "prompt text"              # trigger a deployed agent
+agentspan credentials set --name OPENAI_API_KEY     # store a credential on the server
+```
+
+## Structured Output
+
+```python
+from pydantic import BaseModel
+
+class Analysis(BaseModel):
+    sentiment: str
+    confidence: float
+    summary: str
+
+Agent(name="analyzer", model="openai/gpt-4o", output_type=Analysis)
+```
+
+## Framework Integration
+
+### LangGraph
+
+```python
+from langgraph.prebuilt import create_react_agent
+from langchain_openai import ChatOpenAI
+from agentspan.agents import AgentRuntime
+
+llm = ChatOpenAI(model="gpt-4o")
+graph = create_react_agent(llm, tools=[my_tool])
+
+with AgentRuntime() as rt:
+    result = rt.run(graph, "What is 15 * 7?")  # Ephemeral
+    # Or production: rt.deploy(graph); rt.serve(graph)
+```
+
+### OpenAI Agents SDK
+
+```python
+from agents import Agent as OpenAIAgent
+from agentspan.agents import AgentRuntime
+
+agent = OpenAIAgent(name="helper", instructions="...", model="gpt-4o")
+
+with AgentRuntime() as rt:
+    result = rt.run(agent, "Hello")  # Ephemeral
+```
+
+## Execution API
+
+```python
+with AgentRuntime() as rt:
+    # ── Ephemeral (autonomous agents) ──────────────────────
+    result = rt.run(agent, "prompt")                    # Sync: deploy + run + cleanup
+    result = await rt.run_async(agent, "prompt")        # Async variant
+
+    # ── With options ───────────────────────────────────────
+    result = rt.run(agent, "prompt",
+        session_id="conv-123",                          # Multi-turn conversation
+        media=["https://example.com/image.png"],        # Multimodal input
+        timeout=60000,                                  # Timeout in ms
+        credentials=["MY_API_KEY"],                     # Runtime credentials
+    )
+
+    # ── Streaming ──────────────────────────────────────────
+    stream = rt.stream(agent, "prompt")                 # Sync stream
+    for event in stream:
+        print(event.type, event.content)
+    result = stream.get_result()
+
+    stream = await rt.stream_async(agent, "prompt")     # Async stream
+
+    # ── Non-blocking ───────────────────────────────────────
+    handle = rt.start(agent, "prompt")                  # Returns immediately
+    status = rt.get_status(handle.execution_id)           # Poll status
+    handle.pause()                                       # Pause execution
+    handle.resume()                                      # Resume
+    handle.cancel("no longer needed")                    # Cancel
+
+    # ── By name (trigger deployed agent) ───────────────────
+    result = rt.run("agent_name", "prompt")
+
+    # ── Production ─────────────────────────────────────────
+    rt.deploy(agent)                                     # Push definition
+    rt.serve(agent)                                      # Start workers (blocks)
+```
+
+## Key Rules
+
+1. **Agent names must be unique** — alphanumeric, underscore, hyphen. Start with letter or underscore.
+2. **Tools need type hints + docstring** — schema is auto-generated
+3. **`result.output` is a dict** — use `result.output["result"]` for the text, or `result.print_result()`
+4. **Always check `result.is_success`** — especially in autonomous agent flows
+5. **Credentials come from server** — no env var fallback, `FAILED_WITH_TERMINAL_ERROR` if missing
+6. **Deploy is idempotent** — safe to call on every startup
+7. **Serve blocks forever** — run triggering comes from outside (CLI, API, another process)
+8. **`rt.run()` is self-contained** — handles deploy + workers + execution. Use for ephemeral agents.
+9. **Claude Code tools are strings** — `["Read", "Edit", "Bash"]`, not @tool functions
+10. **Schedules attach at deploy time** — `rt.deploy(agent, schedules=[Schedule(...)])`; wire name is `{agent}-{schedule.name}`; cron is 6-field Quartz (seconds field required)
+11. **HITL requires streaming** — use `rt.start()` + `handle.stream()` to handle `EventType.WAITING` for approval tools; `rt.run()` will block indefinitely on a pending human task
+12. **Workers must be running for LLM tasks** — even scheduled agents need `rt.serve(agent, blocking=False)` (or a separate serve process) so the agent loop can execute
+
+## Complete Worked Example (all features combined)
+
+A research-and-publish pipeline showing tools, server-side tools, shared state, parallel sub-agents, a gate, guardrails, HITL approval, structured output, and a cron schedule.
+
+```python
+from pydantic import BaseModel
+from agentspan.agents import (
+    Agent, AgentRuntime, Strategy, tool, http_tool, agent_tool,
+    RegexGuardrail, LLMGuardrail, EventType, ToolContext,
+)
+from agentspan.agents.gate import TextGate
+from agentspan.agents.schedule import Schedule
+
+
+# 1. Tools — local Python + server-side HTTP
+@tool
+def remember(fact: str, context: ToolContext) -> str:
+    """Stash a fact in shared per-execution state."""
+    context.state.setdefault("facts", []).append(fact)
+    return f"saved ({len(context.state['facts'])} total)"
+
+@tool(approval_required=True)
+def publish(title: str, body: str) -> dict:
+    """Publish an article. Requires human approval."""
+    return {"status": "published", "title": title}
+
+fetch_news = http_tool(
+    name="fetch_news",
+    description="Fetch latest headlines on a topic",
+    url="https://api.news.example/v1/search?q=${query}",
+    credentials=["NEWS_API_KEY"],
+)
+
+# 2. Structured output for the writer
+class Article(BaseModel):
+    title: str
+    body: str
+    tags: list[str]
+
+# 3. Parallel research phase (two specialists run concurrently)
+market = Agent(name="market", model="openai/gpt-4o-mini", tools=[fetch_news, remember],
+               instructions="Research market signals. Save findings with remember().")
+risk = Agent(name="risk", model="openai/gpt-4o-mini", tools=[remember],
+             instructions="Identify risks. Save findings with remember().")
+
+research = Agent(name="research_phase", model="openai/gpt-4o-mini",
+                 agents=[market, risk], strategy=Strategy.PARALLEL)
+
+# 4. Quality gate — skip writing if research is empty
+quality_check = Agent(
+    name="quality_check", model="openai/gpt-4o-mini",
+    instructions="Output NO_SIGNAL if the research lacks substance. Otherwise summarize.",
+    gate=TextGate("NO_SIGNAL"),
+)
+
+# 5. Writer with structured output + guardrails
+writer = Agent(
+    name="writer", model="openai/gpt-4o",
+    instructions="Synthesize the research into an article.",
+    output_type=Article,
+    tools=[publish],
+    guardrails=[
+        RegexGuardrail(name="no_emails", patterns=[r"[\w.+-]+@[\w-]+\.[\w.-]+"],
+                       message="Remove emails.", on_fail="retry", max_retries=2),
+        LLMGuardrail(name="safety", model="openai/gpt-4o-mini",
+                     policy="Reject content with PII or medical advice.", on_fail="raise"),
+    ],
+)
+
+# 6. Compose: research (parallel) → quality_check (gate) → writer (publishes via HITL)
+pipeline = research >> quality_check >> writer
+
+# 7. Deploy + schedule daily; stream to handle the approval pause
+if __name__ == "__main__":
+    with AgentRuntime() as rt:
+        rt.deploy(pipeline, schedules=[
+            Schedule(name="daily-9am", cron="0 0 9 * * ?",
+                     input={"prompt": "AI agents in production"}),
+        ])
+        rt.serve(pipeline, blocking=False)
+
+        # Ad-hoc trigger with HITL approval handling
+        handle = rt.start(pipeline, "Today's signals in AI agents")
+        for event in handle.stream():
+            if event.type == EventType.WAITING:
+                handle.respond({"approved": True})    # auto-approve in demo
+            elif event.type == EventType.DONE:
+                print(event.output)                   # Article dict
+                break
+```
+
+What this demonstrates:
+- **Tools**: local `@tool` with shared state via `context.state`, approval-gated tool, server-side `http_tool` with credentials.
+- **Multi-agent**: parallel research → sequential pipeline → handoff to writer.
+- **Gate**: `quality_check` short-circuits the pipeline if research is empty.
+- **Guardrails**: regex + LLM, with retry and raise behaviors.
+- **Structured output**: writer returns a typed `Article`.
+- **HITL**: `publish` pauses the workflow; streaming consumer responds via `handle.respond()`.
+- **Schedule**: cron fires the whole pipeline daily.
+- **Production wiring**: `rt.deploy(...)` registers everything, `rt.serve(..., blocking=False)` starts workers.
+
+## Build Recipes (when to reach for what)
+
+| Need | Construct |
+|---|---|
+| Single LLM call | `Agent(name, model, instructions)` + `rt.run` |
+| Tool-using agent | add `tools=[@tool funcs]` |
+| Server-side HTTP/MCP/OpenAPI tools (no worker) | `http_tool`, `mcp_tool`, `api_tool` |
+| Multi-step pipeline | `a >> b >> c` (sequential) |
+| Concurrent specialists | `Agent(agents=[...], strategy="parallel")` |
+| Pick one of N specialists | `strategy="router"` + `router=Agent(...)` |
+| Peer handoff via mention | `strategy="swarm"` + `handoffs=[OnTextMention(...)]` |
+| Fan-out N workers | `scatter_gather(worker=Agent(...))` |
+| Delegate inside an agent | `agent_tool(specialist)` in `tools=` |
+| Approval gating | `@tool(approval_required=True)` + `handle.stream()` |
+| Stop on condition | `termination=TextMentionTermination("DONE")` |
+| Skip downstream step | `gate=TextGate("NO_ISSUES")` |
+| Validate output | `RegexGuardrail` / `LLMGuardrail` / `Guardrail(fn)` |
+| Persistent chat history | `memory=ConversationMemory(...)` |
+| Codebase-aware agent | `model="claude-code/sonnet"` + string tools |
+| Run shell | `cli_commands=True, cli_allowed_commands=[...]` |
+| Run Python/bash sandboxed | `local_code_execution=True` |
+| Cron trigger | `Schedule(...)` in `rt.deploy(agent, schedules=[...])` |
+| LLM-planned DAG | `plan_execute(planner=..., tools=...)` |
+| Structured result | `output_type=PydanticModel` |
+| External framework (LangGraph/OpenAI Agents) | pass the framework's graph/agent to `rt.run` directly |
 
 ---
 > Source: [agentspan-ai/agentspan](https://github.com/agentspan-ai/agentspan) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
