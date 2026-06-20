@@ -1,7 +1,7 @@
 {
   "name": "jovancoding--network-ai",
   "displayName": "Network-AI",
-  "description": "Traffic light for AI Agents and TypeScript/Node multi-agent orchestrator with shared state, guardrails, and adapters for 29 AI frameworks",
+  "description": "Network-AI",
   "version": "1.0.0",
   "author": "Jovancoding",
   "homepage": "https://github.com/Jovancoding/Network-AI",
