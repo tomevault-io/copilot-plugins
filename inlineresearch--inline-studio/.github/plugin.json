@@ -1,0 +1,9 @@
+{
+  "name": "inlineresearch--inline-studio",
+  "displayName": "Inline-Studio",
+  "description": "Create visual art using moodboards, powered by ComfyUI",
+  "version": "1.0.0",
+  "author": "inlineresearch",
+  "homepage": "https://github.com/inlineresearch/Inline-Studio",
+  "skills": []
+}
