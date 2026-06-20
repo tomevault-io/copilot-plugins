@@ -1,0 +1,9 @@
+{
+  "name": "dockercore--sre-skill",
+  "displayName": "sre-skill",
+  "description": "sre-skill",
+  "version": "1.0.0",
+  "author": "dockercore",
+  "homepage": "https://github.com/dockercore/sre-skill",
+  "skills": []
+}
