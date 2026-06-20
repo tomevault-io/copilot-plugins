@@ -1,7 +1,7 @@
 {
   "name": "microsoft--microsoft-ui-reactor",
   "displayName": "microsoft-ui-reactor",
-  "description": "Reactor is an experimental set of extensions to WinUI",
+  "description": "microsoft-ui-reactor",
   "version": "1.0.0",
   "author": "microsoft",
   "homepage": "https://github.com/microsoft/microsoft-ui-reactor",
