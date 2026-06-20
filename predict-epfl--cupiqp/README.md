@@ -7,11 +7,11 @@ CuPIQP: GPU-accelerated Proximal-Interior-Point-Method QP solver for large-scale
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [PREDICT-EPFL/cupiqp](https://github.com/PREDICT-EPFL/cupiqp).
+Original source: `CLAUDE.md` in [PREDICT-EPFL/cupiqp](https://github.com/PREDICT-EPFL/cupiqp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
