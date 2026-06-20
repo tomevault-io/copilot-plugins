@@ -1,0 +1,9 @@
+{
+  "name": "sumit-ai-ml--claude-md-starter",
+  "displayName": "claude-md-starter",
+  "description": "A CLAUDE.md built on Karpathy's principles and gstack, adding a verification harness and autonomous-loop rules for Claude Code.",
+  "version": "1.0.0",
+  "author": "sumit-ai-ml",
+  "homepage": "https://github.com/sumit-ai-ml/claude-md-starter",
+  "skills": []
+}
