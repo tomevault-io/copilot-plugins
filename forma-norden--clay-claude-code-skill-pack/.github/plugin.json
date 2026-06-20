@@ -1,0 +1,9 @@
+{
+  "name": "forma-norden--clay-claude-code-skill-pack",
+  "displayName": "clay-claude-code-skill-pack",
+  "description": "Claude Code skill files for building Clay enrichment tables, AI columns, and outbound exports - for GTM engineers and revenue teams.",
+  "version": "1.0.0",
+  "author": "forma-norden",
+  "homepage": "https://github.com/forma-norden/clay-claude-code-skill-pack",
+  "skills": []
+}
