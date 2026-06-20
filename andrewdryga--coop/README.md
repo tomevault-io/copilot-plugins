@@ -7,14 +7,14 @@ Run a coding agent on your real repos every day — in a box it can't escape, wi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [AndrewDryga/coop](https://github.com/AndrewDryga/coop).
+Original source: `AGENTS.md` in [AndrewDryga/coop](https://github.com/AndrewDryga/coop).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [AndrewDryga/coop](https://github.com/AndrewDryga/coop) — a repo with 9+ stars on GitHub.
