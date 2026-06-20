@@ -2,9 +2,9 @@
   "name": "excalidraw-generator-skill",
   "owner": "AlanYu04",
   "repo": "excalidraw-generator-skill",
-  "description": "Excalidraw Generator is a flexible diagram design skill for creating and editing Excalidraw figures. It can generate structured visuals from descriptions, revise existing diagrams, adapt layouts to journal, conference, or slide-deck conventions, and apply custom styles defined by the user.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AlanYu04/excalidraw-generator-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T12:21:16Z"
+  "distributed_at": "2026-06-20T08:40:25Z"
 }
