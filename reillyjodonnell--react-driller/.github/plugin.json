@@ -1,0 +1,9 @@
+{
+  "name": "reillyjodonnell--react-driller",
+  "displayName": "react-driller",
+  "description": "tells you where your state should live (eliminates needless prop drilling)",
+  "version": "1.0.0",
+  "author": "reillyjodonnell",
+  "homepage": "https://github.com/reillyjodonnell/react-driller",
+  "skills": []
+}
