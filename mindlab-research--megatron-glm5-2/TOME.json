@@ -4,7 +4,7 @@
   "repo": "Megatron-GLM5.2",
   "description": "Open source version of Mind Lab's internal Megatron-LM fork for supporting GLM5.2",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MindLab-Research/Megatron-GLM5.2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T08:31:56Z"
+  "distributed_at": "2026-06-20T08:34:00Z"
 }
