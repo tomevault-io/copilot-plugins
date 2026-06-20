@@ -1,0 +1,44 @@
+{
+  "name": "iblai-claw-setup",
+  "owner": "iblai",
+  "repo": "iblai-claw-setup",
+  "description": "Connect self-hosted OpenClaw and NemoClaw servers to the ibl.ai platform \u2014 server setup, Caddy TLS, and full API integration guides",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iblai/iblai-claw-setup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-20T06:55:43Z"
+}
