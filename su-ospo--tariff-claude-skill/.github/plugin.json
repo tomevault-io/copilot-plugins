@@ -1,0 +1,9 @@
+{
+  "name": "su-ospo--tariff-claude-skill",
+  "displayName": "tariff-claude-skill",
+  "description": "tariff-claude-skill",
+  "version": "1.0.0",
+  "author": "SU-OSPO",
+  "homepage": "https://github.com/SU-OSPO/tariff-claude-skill",
+  "skills": []
+}
