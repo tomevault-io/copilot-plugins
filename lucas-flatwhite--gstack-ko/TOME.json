@@ -2,9 +2,9 @@
   "name": "gstack-ko",
   "owner": "lucas-flatwhite",
   "repo": "gstack-ko",
-  "description": "Use Garry Tan's exact Claude Code setup: 6 opinionated tools that serve as CEO, Eng Manager, Release Manager and QA Engineer (Korean)",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lucas-flatwhite/gstack-ko",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:30:38Z"
+  "distributed_at": "2026-06-20T05:16:10Z"
 }
