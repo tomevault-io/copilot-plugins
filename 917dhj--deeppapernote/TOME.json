@@ -2,9 +2,9 @@
   "name": "DeepPaperNote",
   "owner": "917Dhj",
   "repo": "DeepPaperNote",
-  "description": "DeepPaperNote is an agent skill for deep-reading a single paper and generating high-quality Obsidian-style research notes. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/917Dhj/DeepPaperNote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T05:14:21Z"
+  "distributed_at": "2026-06-20T05:28:21Z"
 }
