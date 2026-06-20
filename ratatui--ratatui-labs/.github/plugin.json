@@ -1,0 +1,9 @@
+{
+  "name": "ratatui--ratatui-labs",
+  "displayName": "ratatui-labs",
+  "description": "Experimental Ratatui crates and prototypes",
+  "version": "1.0.0",
+  "author": "ratatui",
+  "homepage": "https://github.com/ratatui/ratatui-labs",
+  "skills": []
+}
