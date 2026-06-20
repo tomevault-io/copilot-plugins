@@ -1,0 +1,9 @@
+{
+  "name": "ape-church--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "ape-church",
+  "homepage": "https://github.com/ape-church/agent-skills",
+  "skills": []
+}
