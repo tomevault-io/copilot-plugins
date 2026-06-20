@@ -26019,6 +26019,11 @@
       "description": "vanilla private server"
     },
     {
+      "name": "aldegad--sprite-gen",
+      "source": "./aldegad--sprite-gen",
+      "description": "sprite-gen"
+    },
+    {
       "name": "zhanghandong--agent-spec",
       "source": "./zhanghandong--agent-spec",
       "description": "`agent-spec` is an AI-native BDD/spec verification tool for task execution."
@@ -26532,6 +26537,11 @@
       "name": "ethanxwang--tvc-director",
       "source": "./ethanxwang--tvc-director",
       "description": "tvc-director"
+    },
+    {
+      "name": "yuzhworkhard-wq--image-to-code",
+      "source": "./yuzhworkhard-wq--image-to-code",
+      "description": "image-to-code"
     },
     {
       "name": "b-m-capital-research--honeclaw",
@@ -41604,6 +41614,11 @@
       "description": "A hive mind communication platform"
     },
     {
+      "name": "bananahub-ai--bananahub-skill",
+      "source": "./bananahub-ai--bananahub-skill",
+      "description": "bananahub-skill"
+    },
+    {
       "name": "iusztinpaul--designing-real-world-ai-agents-workshop",
       "source": "./iusztinpaul--designing-real-world-ai-agents-workshop",
       "description": "Hands-on workshop: Build a multi-agent AI system from scratch \u2014 Deep Research Agent + Writing Workflow served as MCP servers. Includes code, slides, and video (coming soon)"
@@ -45199,6 +45214,11 @@
       "description": "Kotlin Multiplatform movie database app built with Compose Multiplatform and Navigation 3. Browse movies, discover new releases, and explore detailed information powered by The Movie Database (TMDB) A"
     },
     {
+      "name": "juneyaooo--social-account-doctor",
+      "source": "./juneyaooo--social-account-doctor",
+      "description": "social-account-doctor"
+    },
+    {
       "name": "khanhnam-nathan--pyneat",
       "source": "./khanhnam-nathan--pyneat",
       "description": "Pyneat"
@@ -46807,6 +46827,11 @@
       "name": "scottcjn--rustchain-mcp",
       "source": "./scottcjn--rustchain-mcp",
       "description": "rustchain-mcp"
+    },
+    {
+      "name": "alchaincyf--taleb-skill",
+      "source": "./alchaincyf--taleb-skill",
+      "description": "taleb-skill"
     },
     {
       "name": "espennilsen--pi",
@@ -56939,6 +56964,11 @@
       "description": "web-scraper"
     },
     {
+      "name": "alchaincyf--paul-graham-skill",
+      "source": "./alchaincyf--paul-graham-skill",
+      "description": "paul-graham-skill"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -61354,6 +61384,11 @@
       "description": "forward-deployed-selling"
     },
     {
+      "name": "znyupup--ai-video-editing-skill",
+      "source": "./znyupup--ai-video-editing-skill",
+      "description": "ai-video-editing-skill"
+    },
+    {
       "name": "attilaszasz--sdd-pilot",
       "source": "./attilaszasz--sdd-pilot",
       "description": "Replace chaotic AI code generation with a disciplined, spec-driven workflow. SDD Pilot enforces structured development phases and quality gates, leveraging AI agents to conduct online research for bes"
@@ -62482,6 +62517,11 @@
       "name": "reflex-search--reflex",
       "source": "./reflex-search--reflex",
       "description": "Reflex - The instant, code-aware local search engine."
+    },
+    {
+      "name": "xmg2024--nvwa-skill",
+      "source": "./xmg2024--nvwa-skill",
+      "description": "nvwa-skill"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -65897,6 +65937,11 @@
       "name": "aber0724--crosspoint-reader-cjk",
       "source": "./aber0724--crosspoint-reader-cjk",
       "description": "CJK-adapted firmware for the Xteink X4 e-paper display reader. Xteink X4 \u7535\u5b50\u58a8\u6c34\u5c4f\u9605\u8bfb\u5668\u4e2d\u65e5\u6587\u9002\u914d\u56fa\u4ef6\u3002"
+    },
+    {
+      "name": "lucasfishh--vanta",
+      "source": "./lucasfishh--vanta",
+      "description": "Autonomous LLM squads compete in a tactical strategy game with on-chain Solana stakes."
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -76319,6 +76364,11 @@
       "description": "homework-skill"
     },
     {
+      "name": "oyyh-apple--video-storyboard-generator",
+      "source": "./oyyh-apple--video-storyboard-generator",
+      "description": "video-storyboard-generator"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -79587,6 +79637,11 @@
       "name": "soapbucket--sbproxy",
       "source": "./soapbucket--sbproxy",
       "description": "Single-binary AI gateway and reverse proxy. 200+ LLM providers, one config."
+    },
+    {
+      "name": "victoriaplummer--airtable-interface-extension-toolkit",
+      "source": "./victoriaplummer--airtable-interface-extension-toolkit",
+      "description": "airtable-interface-extension-toolkit"
     },
     {
       "name": "66reapollo2--agentsge",
@@ -89722,6 +89777,11 @@
       "name": "gradients-ai--g-o-d",
       "source": "./gradients-ai--g-o-d",
       "description": "G.O.D"
+    },
+    {
+      "name": "nanless--audio-paper-digest",
+      "source": "./nanless--audio-paper-digest",
+      "description": "audio-paper-digest"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -110104,6 +110164,11 @@
       "description": "syncdo"
     },
     {
+      "name": "jakemismas--forza-telemetry-splitter",
+      "source": "./jakemismas--forza-telemetry-splitter",
+      "description": "Send Forza telemetry to several tools at once (VirtualTCU, tuners, dashboards). Auto-detects the game; UI in EN/JA/FR/DE/ES. | Forza\u306e\u30c6\u30ec\u30e1\u30c8\u30ea\u3092\u8907\u6570\u30c4\u30fc\u30eb\u3078\u540c\u6642\u5206\u914d\uff08VirtualTCU\u4f75\u7528\u30fb\u81ea\u52d5\u30b7\u30d5\u30c8\uff09"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -116287,6 +116352,11 @@
       "name": "coltonbatts--vcr",
       "source": "./coltonbatts--vcr",
       "description": "VCR"
+    },
+    {
+      "name": "viperrcrypto--picasso",
+      "source": "./viperrcrypto--picasso",
+      "description": "picasso"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -129042,6 +129112,11 @@
       "name": "cyoda--cyoda-go",
       "source": "./cyoda--cyoda-go",
       "description": "Cyoda-Go: The Enterprise EDBMS"
+    },
+    {
+      "name": "agentconnect--awiki-agent-id-message",
+      "source": "./agentconnect--awiki-agent-id-message",
+      "description": "awiki-agent-id-message"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -141944,6 +142019,16 @@
       "description": "email-drafter"
     },
     {
+      "name": "lottshin--scholar-kit",
+      "source": "./lottshin--scholar-kit",
+      "description": "scholar-kit"
+    },
+    {
+      "name": "eriemon--agents-md-generator",
+      "source": "./eriemon--agents-md-generator",
+      "description": "agents-md-generator"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -146952,6 +147037,21 @@
       "name": "snice--app-page-studio",
       "source": "./snice--app-page-studio",
       "description": "\u4e00\u4e2a\u7528\u4e8e\u5c06 \u8bbe\u8ba1\u7a3f HTML / \u8bbe\u8ba1\u56fe(PNG/JPG/WebP) \u8f6c\u6362\u4e3a AI \u5f00\u53d1\u63d0\u793a\u8bcd\u7684\u5de5\u5177\uff0c\u5e2e\u52a9\u5feb\u901f\u8fd8\u539f Flutter\u3001React Native \u548c UniApp \u9875\u9762\u3002"
+    },
+    {
+      "name": "tonresistor--teleton-plugins",
+      "source": "./tonresistor--teleton-plugins",
+      "description": "teleton-plugins"
+    },
+    {
+      "name": "antonio0720--writing-intelligence",
+      "source": "./antonio0720--writing-intelligence",
+      "description": "writing-intelligence"
+    },
+    {
+      "name": "zwbao--bioinformatics-god-skill",
+      "source": "./zwbao--bioinformatics-god-skill",
+      "description": "bioinformatics-god-skill"
     },
     {
       "name": "lucas-acc--sancho-skills",
@@ -153287,6 +153387,11 @@
       "name": "gokeshenzhen--gen-tb-skill",
       "source": "./gokeshenzhen--gen-tb-skill",
       "description": "gen-tb-skill"
+    },
+    {
+      "name": "awp-worknet--ardi-skill",
+      "source": "./awp-worknet--ardi-skill",
+      "description": "ardi-skill"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -160052,6 +160157,11 @@
       "name": "ghostxia--airp-mcp-server",
       "source": "./ghostxia--airp-mcp-server",
       "description": "AIRP-MCP-Server"
+    },
+    {
+      "name": "1939869736luosi--codex-sessions-manager",
+      "source": "./1939869736luosi--codex-sessions-manager",
+      "description": "codex-sessions-manager"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -167847,6 +167957,11 @@
       "name": "abdullahmalik17--voice-assistant17",
       "source": "./abdullahmalik17--voice-assistant17",
       "description": "Link of Agent is :"
+    },
+    {
+      "name": "aeon-7--aeon-movie-maker",
+      "source": "./aeon-7--aeon-movie-maker",
+      "description": "aeon-movie-maker"
     },
     {
       "name": "lightninglabs--lnget",
@@ -179302,6 +179417,16 @@
       "name": "byterax--guodegang-skills",
       "source": "./byterax--guodegang-skills",
       "description": "guodegang-skills"
+    },
+    {
+      "name": "skanehira--vime-nvim",
+      "source": "./skanehira--vime-nvim",
+      "description": "vime.nvim"
+    },
+    {
+      "name": "imbad0202--cc-user-autopsy",
+      "source": "./imbad0202--cc-user-autopsy",
+      "description": "cc-user-autopsy"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -207959,6 +208084,26 @@
       "description": "ieee-latex-writer"
     },
     {
+      "name": "zly2006--zhurl",
+      "source": "./zly2006--zhurl",
+      "description": "zhurl"
+    },
+    {
+      "name": "kunhai1994--house-hunter",
+      "source": "./kunhai1994--house-hunter",
+      "description": "house-hunter"
+    },
+    {
+      "name": "ekuttan--codewiki",
+      "source": "./ekuttan--codewiki",
+      "description": "codewiki"
+    },
+    {
+      "name": "dongshao--undergrad-thesis-self-check",
+      "source": "./dongshao--undergrad-thesis-self-check",
+      "description": "undergrad-thesis-self-check"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -223769,6 +223914,16 @@
       "description": "iac-diagram-generator"
     },
     {
+      "name": "m10rten--typescript-bits",
+      "source": "./m10rten--typescript-bits",
+      "description": "typescript-bits"
+    },
+    {
+      "name": "wyxnick--agent-mermaid-skill",
+      "source": "./wyxnick--agent-mermaid-skill",
+      "description": "agent-mermaid-skill"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -227714,6 +227869,11 @@
       "description": "morph-skill"
     },
     {
+      "name": "thereddeveloper--plyx",
+      "source": "./thereddeveloper--plyx",
+      "description": "plyx"
+    },
+    {
       "name": "adityak74--embenx",
       "source": "./adityak74--embenx",
       "description": "embenx"
@@ -227902,6 +228062,21 @@
       "name": "th3ee9ine--xiaohongshu-claw-skill",
       "source": "./th3ee9ine--xiaohongshu-claw-skill",
       "description": "xiaohongshu-claw-skill"
+    },
+    {
+      "name": "mikezhang09-code--research-corpus",
+      "source": "./mikezhang09-code--research-corpus",
+      "description": "research-corpus"
+    },
+    {
+      "name": "dylandersen--sf-multiframework",
+      "source": "./dylandersen--sf-multiframework",
+      "description": "sf-multiframework"
+    },
+    {
+      "name": "ck42bb--procedural-weather-threejs",
+      "source": "./ck42bb--procedural-weather-threejs",
+      "description": "procedural-weather-threejs"
     },
     {
       "name": "amterp--council",
@@ -228157,6 +228332,26 @@
       "name": "ashutosh2m--expertlens",
       "source": "./ashutosh2m--expertlens",
       "description": "ExpertLens"
+    },
+    {
+      "name": "ailadin--promptimus",
+      "source": "./ailadin--promptimus",
+      "description": "promptimus"
+    },
+    {
+      "name": "sgaofen--huchenfeng-skill",
+      "source": "./sgaofen--huchenfeng-skill",
+      "description": "huchenfeng-skill"
+    },
+    {
+      "name": "nexu-io--roast-skill",
+      "source": "./nexu-io--roast-skill",
+      "description": "roast-skill"
+    },
+    {
+      "name": "ghbaud--codex-review-loop",
+      "source": "./ghbaud--codex-review-loop",
+      "description": "codex-review-loop"
     },
     {
       "name": "mkatogui--universal-design-system",
@@ -228537,6 +228732,21 @@
       "name": "pardnio--skill-readme-generate",
       "source": "./pardnio--skill-readme-generate",
       "description": "skill-readme-generate"
+    },
+    {
+      "name": "panmax--feynman-skill",
+      "source": "./panmax--feynman-skill",
+      "description": "feynman-skill"
+    },
+    {
+      "name": "kirbyju--tcia-query-skill",
+      "source": "./kirbyju--tcia-query-skill",
+      "description": "tcia-query-skill"
+    },
+    {
+      "name": "aureliendrr--claude-skill-impots-fr",
+      "source": "./aureliendrr--claude-skill-impots-fr",
+      "description": "claude-skill-impots-fr"
     },
     {
       "name": "redrock453--vika-ok",
@@ -229147,6 +229357,36 @@
       "name": "iceisfun--goindustrial",
       "source": "./iceisfun--goindustrial",
       "description": "goindustrial"
+    },
+    {
+      "name": "yzfly--chrome-qa-agent",
+      "source": "./yzfly--chrome-qa-agent",
+      "description": "chrome-qa-agent"
+    },
+    {
+      "name": "yukiovob--mdrise",
+      "source": "./yukiovob--mdrise",
+      "description": "mdrise"
+    },
+    {
+      "name": "tsukir1n--course-cheatsheet-maker",
+      "source": "./tsukir1n--course-cheatsheet-maker",
+      "description": "course-cheatsheet-maker"
+    },
+    {
+      "name": "godmodeai2025--missionforge",
+      "source": "./godmodeai2025--missionforge",
+      "description": "MissionForge"
+    },
+    {
+      "name": "nirmitgoyal--agile-loop",
+      "source": "./nirmitgoyal--agile-loop",
+      "description": "agile-loop"
+    },
+    {
+      "name": "panmax--socrates-skill",
+      "source": "./panmax--socrates-skill",
+      "description": "socrates-skill"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -230717,6 +230957,81 @@
       "name": "kaitzz--ququ-skill",
       "source": "./kaitzz--ququ-skill",
       "description": "ququ-skill"
+    },
+    {
+      "name": "zyp-up--humanizer-ai-zh",
+      "source": "./zyp-up--humanizer-ai-zh",
+      "description": "Humanizer-ai-zh"
+    },
+    {
+      "name": "gitjarno--handoff",
+      "source": "./gitjarno--handoff",
+      "description": "handoff"
+    },
+    {
+      "name": "aimonj0729-ai--ai-office-landing-skill",
+      "source": "./aimonj0729-ai--ai-office-landing-skill",
+      "description": "ai-office-landing-skill"
+    },
+    {
+      "name": "scotese-spec--docx-gb-t9704-2012",
+      "source": "./scotese-spec--docx-gb-t9704-2012",
+      "description": "docx-gb-t9704-2012"
+    },
+    {
+      "name": "clarkvalberg--studio-video-creator",
+      "source": "./clarkvalberg--studio-video-creator",
+      "description": "studio-video-creator"
+    },
+    {
+      "name": "angrymohican--soul-distillation",
+      "source": "./angrymohican--soul-distillation",
+      "description": "Soul_distillation"
+    },
+    {
+      "name": "eliy1988--nuwa-skill",
+      "source": "./eliy1988--nuwa-skill",
+      "description": "nuwa-skill"
+    },
+    {
+      "name": "jayweiler--suno-song-creator",
+      "source": "./jayweiler--suno-song-creator",
+      "description": "suno-song-creator"
+    },
+    {
+      "name": "wangpu1999--llm-wiki-skill",
+      "source": "./wangpu1999--llm-wiki-skill",
+      "description": "llm-wiki-skill"
+    },
+    {
+      "name": "bizrainfo--bizra-data-lake",
+      "source": "./bizrainfo--bizra-data-lake",
+      "description": "bizra-data-lake"
+    },
+    {
+      "name": "soumyakantabera--graphifychat",
+      "source": "./soumyakantabera--graphifychat",
+      "description": "graphifychat"
+    },
+    {
+      "name": "kayaduster607-jpg--learning-planner-skill",
+      "source": "./kayaduster607-jpg--learning-planner-skill",
+      "description": "learning-planner-skill"
+    },
+    {
+      "name": "illusions-lab--dazai-skill",
+      "source": "./illusions-lab--dazai-skill",
+      "description": "dazai-skill"
+    },
+    {
+      "name": "ehmo--rust-binary-size-reduction-skill",
+      "source": "./ehmo--rust-binary-size-reduction-skill",
+      "description": "rust-binary-size-reduction-skill"
+    },
+    {
+      "name": "ck42bb--procedural-stars-threejs",
+      "source": "./ck42bb--procedural-stars-threejs",
+      "description": "procedural-stars-threejs"
     },
     {
       "name": "constellos--claude-code",
@@ -343512,6 +343827,251 @@
       "name": "cghggchg765-create--latex-guard",
       "source": "./cghggchg765-create--latex-guard",
       "description": "latex-guard"
+    },
+    {
+      "name": "zwbao--ai-computation-god-skill",
+      "source": "./zwbao--ai-computation-god-skill",
+      "description": "ai-computation-god-skill"
+    },
+    {
+      "name": "jewzaam--claude-skill-dump",
+      "source": "./jewzaam--claude-skill-dump",
+      "description": "claude-skill-dump"
+    },
+    {
+      "name": "aztrock--django-general-expert",
+      "source": "./aztrock--django-general-expert",
+      "description": "django-general-expert"
+    },
+    {
+      "name": "ktulue--claude-office-hours",
+      "source": "./ktulue--claude-office-hours",
+      "description": "claude-office-hours"
+    },
+    {
+      "name": "om13rajpal--moodforge",
+      "source": "./om13rajpal--moodforge",
+      "description": "moodforge"
+    },
+    {
+      "name": "ditto190--modme-ui-01",
+      "source": "./ditto190--modme-ui-01",
+      "description": "modme-ui-01"
+    },
+    {
+      "name": "liusc45--codeigniter4-skill",
+      "source": "./liusc45--codeigniter4-skill",
+      "description": "CodeIgniter4-skill"
+    },
+    {
+      "name": "gonnector--claude-session-wrapup-skill",
+      "source": "./gonnector--claude-session-wrapup-skill",
+      "description": "claude-session-wrapup-skill"
+    },
+    {
+      "name": "racimrl--g-o-d",
+      "source": "./racimrl--g-o-d",
+      "description": "G.O.D"
+    },
+    {
+      "name": "jeremyrdavis--ddd-aggregates",
+      "source": "./jeremyrdavis--ddd-aggregates",
+      "description": "ddd-aggregates"
+    },
+    {
+      "name": "sisovin--mobile-fullstack-skill",
+      "source": "./sisovin--mobile-fullstack-skill",
+      "description": "mobile-fullstack-skill"
+    },
+    {
+      "name": "mse-lang--k-startup-ax-starter-kit",
+      "source": "./mse-lang--k-startup-ax-starter-kit",
+      "description": "k-startup-ax-starter-kit"
+    },
+    {
+      "name": "panmax--sudongpo-skill",
+      "source": "./panmax--sudongpo-skill",
+      "description": "sudongpo-skill"
+    },
+    {
+      "name": "leonforcode--github-assistant-skill",
+      "source": "./leonforcode--github-assistant-skill",
+      "description": "GitHub-Assistant-Skill"
+    },
+    {
+      "name": "cat-tj--visual-explainer",
+      "source": "./cat-tj--visual-explainer",
+      "description": "visual-explainer"
+    },
+    {
+      "name": "day8--re-frame-pair2",
+      "source": "./day8--re-frame-pair2",
+      "description": "re-frame-pair2"
+    },
+    {
+      "name": "godsplan135--123",
+      "source": "./godsplan135--123",
+      "description": "123"
+    },
+    {
+      "name": "fusions--fusionplace-librarian",
+      "source": "./fusions--fusionplace-librarian",
+      "description": "fusionplace-librarian"
+    },
+    {
+      "name": "maxschoon--ixbrl",
+      "source": "./maxschoon--ixbrl",
+      "description": "ixbrl"
+    },
+    {
+      "name": "yjlio--nvwa",
+      "source": "./yjlio--nvwa",
+      "description": "nvwa"
+    },
+    {
+      "name": "jinzheng8115--consult-agent",
+      "source": "./jinzheng8115--consult-agent",
+      "description": "consult-agent"
+    },
+    {
+      "name": "344zxc--skill1",
+      "source": "./344zxc--skill1",
+      "description": "skill1"
+    },
+    {
+      "name": "and3rn3t--apple-photos-cleaner",
+      "source": "./and3rn3t--apple-photos-cleaner",
+      "description": "apple-photos-cleaner"
+    },
+    {
+      "name": "sosoburner--gstack",
+      "source": "./sosoburner--gstack",
+      "description": "GStack"
+    },
+    {
+      "name": "autonome-research--thread-phase",
+      "source": "./autonome-research--thread-phase",
+      "description": "thread-phase"
+    },
+    {
+      "name": "cpard--github-pp-cli",
+      "source": "./cpard--github-pp-cli",
+      "description": "github-pp-cli"
+    },
+    {
+      "name": "ligianehua--gstack",
+      "source": "./ligianehua--gstack",
+      "description": "Gstack"
+    },
+    {
+      "name": "sheyuy--expense-report-wizard",
+      "source": "./sheyuy--expense-report-wizard",
+      "description": "expense-report-wizard"
+    },
+    {
+      "name": "segmind--segmind-media-skill",
+      "source": "./segmind--segmind-media-skill",
+      "description": "segmind-media-skill"
+    },
+    {
+      "name": "shuaimxu--caizhizhong-perspective-skill",
+      "source": "./shuaimxu--caizhizhong-perspective-skill",
+      "description": "caizhizhong-perspective-skill"
+    },
+    {
+      "name": "andrewdonelson--strata",
+      "source": "./andrewdonelson--strata",
+      "description": "Strata"
+    },
+    {
+      "name": "wukongnotnull--pangu-creator",
+      "source": "./wukongnotnull--pangu-creator",
+      "description": "pangu-creator"
+    },
+    {
+      "name": "naufalrusada--claude-skill-appstore-screenshots",
+      "source": "./naufalrusada--claude-skill-appstore-screenshots",
+      "description": "claude-skill-appstore-screenshots"
+    },
+    {
+      "name": "panmax--franklin-skill",
+      "source": "./panmax--franklin-skill",
+      "description": "franklin-skill"
+    },
+    {
+      "name": "algorithmbasics--gstack",
+      "source": "./algorithmbasics--gstack",
+      "description": "gstack"
+    },
+    {
+      "name": "legotec73--gstack",
+      "source": "./legotec73--gstack",
+      "description": "gstack"
+    },
+    {
+      "name": "joeylife94--gstack-2026-03",
+      "source": "./joeylife94--gstack-2026-03",
+      "description": "gstack-2026-03"
+    },
+    {
+      "name": "mangosteen-studio--executive-briefing",
+      "source": "./mangosteen-studio--executive-briefing",
+      "description": "executive-briefing"
+    },
+    {
+      "name": "panmax--wangfuzhi-skill",
+      "source": "./panmax--wangfuzhi-skill",
+      "description": "wangfuzhi-skill"
+    },
+    {
+      "name": "zepelinmad--boe-cli",
+      "source": "./zepelinmad--boe-cli",
+      "description": "boe-cli"
+    },
+    {
+      "name": "keylimesoda--visual-explainer-openclaw",
+      "source": "./keylimesoda--visual-explainer-openclaw",
+      "description": "visual-explainer-openclaw"
+    },
+    {
+      "name": "bartwscout--tech-stack-lens",
+      "source": "./bartwscout--tech-stack-lens",
+      "description": "tech-stack-lens"
+    },
+    {
+      "name": "ales375--zooidfund-skill",
+      "source": "./ales375--zooidfund-skill",
+      "description": "zooidfund-skill"
+    },
+    {
+      "name": "lapagayo--nexus",
+      "source": "./lapagayo--nexus",
+      "description": "nexus"
+    },
+    {
+      "name": "panmax--zhugeliang-skill",
+      "source": "./panmax--zhugeliang-skill",
+      "description": "zhugeliang-skill"
+    },
+    {
+      "name": "nchandik--openedge-doc-editor",
+      "source": "./nchandik--openedge-doc-editor",
+      "description": "openedge-doc-editor"
+    },
+    {
+      "name": "qwexs--kysely-postgres-skill",
+      "source": "./qwexs--kysely-postgres-skill",
+      "description": "kysely-postgres-skill"
+    },
+    {
+      "name": "matbeedotcom--remotemedia-pipelines-skill",
+      "source": "./matbeedotcom--remotemedia-pipelines-skill",
+      "description": "remotemedia-pipelines-skill"
+    },
+    {
+      "name": "jasonnamii--github-deploy",
+      "source": "./jasonnamii--github-deploy",
+      "description": "github-deploy"
     }
   ]
 }
