@@ -1,0 +1,9 @@
+{
+  "name": "mangosteencorp--everythingclient",
+  "displayName": "everythingclient",
+  "description": "Clients of common APIs (Pokedex, TMDB) for demoing best practices and iOS architectures",
+  "version": "1.0.0",
+  "author": "mangosteencorp",
+  "homepage": "https://github.com/mangosteencorp/everythingclient",
+  "skills": []
+}
