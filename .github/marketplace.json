@@ -125604,6 +125604,11 @@
       "description": "beamcode"
     },
     {
+      "name": "dswh--company-os",
+      "source": "./dswh--company-os",
+      "description": "Self-installing AI-native company operating system seed repo"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -179567,6 +179572,16 @@
       "name": "liuyuhong0324--animalislandui",
       "source": "./liuyuhong0324--animalislandui",
       "description": "AnimalIslandUI"
+    },
+    {
+      "name": "miraclefoundation--guideflow",
+      "source": "./miraclefoundation--guideflow",
+      "description": "Blazor product tours, onboarding flows, feature highlights, and guided walkthroughs inspired by Driver.js."
+    },
+    {
+      "name": "miraclefoundation--guideflow",
+      "source": "./miraclefoundation--guideflow",
+      "description": "Blazor product tours, onboarding flows, feature highlights, and guided walkthroughs inspired by Driver.js."
     },
     {
       "name": "yschimke--compose-ai-tools",
