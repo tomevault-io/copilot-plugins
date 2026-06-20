@@ -1,0 +1,9 @@
+{
+  "name": "getcabal--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "getcabal",
+  "homepage": "https://github.com/getcabal/agent-skills",
+  "skills": []
+}
