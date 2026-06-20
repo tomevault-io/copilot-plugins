@@ -1,0 +1,9 @@
+{
+  "name": "praetorian-inc--reduce-golang-detections-skill",
+  "displayName": "reduce-golang-detections-skill",
+  "description": "reduce-golang-detections-skill",
+  "version": "1.0.0",
+  "author": "praetorian-inc",
+  "homepage": "https://github.com/praetorian-inc/reduce-golang-detections-skill",
+  "skills": []
+}
