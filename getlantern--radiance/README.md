@@ -7,11 +7,11 @@ Radiance is the Lantern client backend used for proxying, routing, creating a TU
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [getlantern/radiance](https://github.com/getlantern/radiance).
+Original source: `CLAUDE.md` in [getlantern/radiance](https://github.com/getlantern/radiance).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
