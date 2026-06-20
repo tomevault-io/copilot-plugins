@@ -2,16 +2,15 @@
 
 > Source: [chenhg5/imole](https://github.com/chenhg5/imole) — distributed by [TomeVault](https://tomevault.io)
 
-An open-source iPhone slimming toolkit to find storage hogs, back up media locally, and safely free up space without relying on iCloud.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chenhg5/imole](https://github.com/chenhg5/imole).
+Original source: `` in [chenhg5/imole](https://github.com/chenhg5/imole).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
