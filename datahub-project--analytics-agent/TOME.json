@@ -4,7 +4,7 @@
   "repo": "analytics-agent",
   "description": "DataHub Talk-to-Data analytics agent",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/datahub-project/analytics-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T06:39:02Z"
+  "distributed_at": "2026-06-20T06:42:27Z"
 }
