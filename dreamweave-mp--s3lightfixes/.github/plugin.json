@@ -1,0 +1,9 @@
+{
+  "name": "dreamweave-mp--s3lightfixes",
+  "displayName": "S3LightFixes",
+  "description": "Generates and installs light fixing plugins for OpenMW.",
+  "version": "1.0.0",
+  "author": "DreamWeave-MP",
+  "homepage": "https://github.com/DreamWeave-MP/S3LightFixes",
+  "skills": []
+}
