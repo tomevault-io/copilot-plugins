@@ -2,9 +2,9 @@
   "name": "microsoft-ui-reactor",
   "owner": "microsoft",
   "repo": "microsoft-ui-reactor",
-  "description": "Reactor is an experimental set of extensions to WinUI",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/microsoft-ui-reactor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T21:37:28Z"
+  "distributed_at": "2026-06-20T02:35:46Z"
 }
