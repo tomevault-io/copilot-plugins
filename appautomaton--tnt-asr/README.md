@@ -7,11 +7,11 @@ TNT 🧨, powered by Qwen3-ASR
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [appautomaton/tnt-asr](https://github.com/appautomaton/tnt-asr).
+Original source: `CLAUDE.md` in [appautomaton/tnt-asr](https://github.com/appautomaton/tnt-asr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
