@@ -1,0 +1,9 @@
+{
+  "name": "gverac--briefer",
+  "displayName": "briefer",
+  "description": "A Raspberry Pi + receipt printer daily brief",
+  "version": "1.0.0",
+  "author": "gverac",
+  "homepage": "https://github.com/gverac/briefer",
+  "skills": []
+}
