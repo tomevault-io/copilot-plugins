@@ -1,0 +1,9 @@
+{
+  "name": "mindlab-research--megatron-glm5-2",
+  "displayName": "Megatron-GLM5.2",
+  "description": "Open source version of Mind Lab's internal Megatron-LM fork for supporting GLM5.2",
+  "version": "1.0.0",
+  "author": "MindLab-Research",
+  "homepage": "https://github.com/MindLab-Research/Megatron-GLM5.2",
+  "skills": []
+}
