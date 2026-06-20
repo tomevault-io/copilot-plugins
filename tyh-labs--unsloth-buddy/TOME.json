@@ -2,9 +2,9 @@
   "name": "unsloth-buddy",
   "owner": "TYH-labs",
   "repo": "unsloth-buddy",
-  "description": "Zero-friction LLM fine-tuning skill for Claude Code, Gemini CLI & any ACP agent. Unsloth on NVIDIA \u00b7 TRL+MPS/MLX on Apple Silicon. Automates env setup, LoRA training (SFT, DPO, GRPO, vision), post-hoc GRPO log diagnostics, evaluation, and export end-to-end. Part of the Gaslamp AI platform.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TYH-labs/unsloth-buddy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T23:02:26Z"
+  "distributed_at": "2026-06-20T12:42:10Z"
 }
