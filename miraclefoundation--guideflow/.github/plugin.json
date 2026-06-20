@@ -1,0 +1,9 @@
+{
+  "name": "miraclefoundation--guideflow",
+  "displayName": "GuideFlow",
+  "description": "Blazor product tours, onboarding flows, feature highlights, and guided walkthroughs inspired by Driver.js.",
+  "version": "1.0.0",
+  "author": "MiracleFoundation",
+  "homepage": "https://github.com/MiracleFoundation/GuideFlow",
+  "skills": []
+}
