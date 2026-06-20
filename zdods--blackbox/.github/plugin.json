@@ -1,0 +1,9 @@
+{
+  "name": "zdods--blackbox",
+  "displayName": "blackbox",
+  "description": "Self-hosted, single-user cloud storage.",
+  "version": "1.0.0",
+  "author": "zdods",
+  "homepage": "https://github.com/zdods/blackbox",
+  "skills": []
+}
