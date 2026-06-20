@@ -1,0 +1,9 @@
+{
+  "name": "lsh1215--oh-my-study-with-me",
+  "displayName": "oh-my-study-with-me",
+  "description": "A First Principles-based technical learning plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "lsh1215",
+  "homepage": "https://github.com/lsh1215/oh-my-study-with-me",
+  "skills": []
+}
