@@ -3,7 +3,7 @@
   "owner": "vincentkoc",
   "repo": "dotskills",
   "description": "\ud83d\udc19 A curated set of Codex and OpenClaw skills for workflow automation, technical debugging, and agent-assisted development patterns.",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vincentkoc/dotskills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T06:31:03Z"
+  "distributed_at": "2026-06-20T06:49:23Z"
 }
