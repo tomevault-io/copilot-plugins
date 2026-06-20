@@ -1,0 +1,9 @@
+{
+  "name": "jakemismas--forza-telemetry-splitter",
+  "displayName": "Forza-Telemetry-Splitter",
+  "description": "Send Forza telemetry to several tools at once (VirtualTCU, tuners, dashboards). Auto-detects the game; UI in EN/JA/FR/DE/ES. | Forza\u306e\u30c6\u30ec\u30e1\u30c8\u30ea\u3092\u8907\u6570\u30c4\u30fc\u30eb\u3078\u540c\u6642\u5206\u914d\uff08VirtualTCU\u4f75\u7528\u30fb\u81ea\u52d5\u30b7\u30d5\u30c8\uff09",
+  "version": "1.0.0",
+  "author": "jakemismas",
+  "homepage": "https://github.com/jakemismas/Forza-Telemetry-Splitter",
+  "skills": []
+}
