@@ -2,16 +2,15 @@
 
 > Source: [claude-world/notebooklm-skill](https://github.com/claude-world/notebooklm-skill) — distributed by [TomeVault](https://tomevault.io)
 
-NotebookLM does the research, Claude writes the content. Research → Synthesis → Content Creation → Publishing. Claude Code Skill + MCP Server.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [claude-world/notebooklm-skill](https://github.com/claude-world/notebooklm-skill).
+Original source: `` in [claude-world/notebooklm-skill](https://github.com/claude-world/notebooklm-skill).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
