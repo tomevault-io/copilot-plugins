@@ -7,11 +7,11 @@ Android FPS 游戏 AI 瞄准辅助工具，基于 YOLOv8n 实时目标检测，�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DreamFekk/YoloTouchHelp](https://github.com/DreamFekk/YoloTouchHelp).
+Original source: `CLAUDE.md` in [DreamFekk/YoloTouchHelp](https://github.com/DreamFekk/YoloTouchHelp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
