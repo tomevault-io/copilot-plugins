@@ -2,15 +2,14 @@
 
 > Tome by [0xNyk](https://github.com/0xNyk/council-of-high-intelligence) — distributed by [TomeVault](https://tomevault.io)
 
-18 AI personas deliberate your hardest decisions across multiple LLM providers. Aristotle, Feynman, Kahneman, Torvalds & more — structured multi-round deliberation with genuine model diversity. One command: /council
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [0xNyk/council-of-high-intelligence](https://github.com/0xNyk/council-of-high-intelligence).
+Original source: `` in [0xNyk/council-of-high-intelligence](https://github.com/0xNyk/council-of-high-intelligence).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
