@@ -1,0 +1,9 @@
+{
+  "name": "justinh-rahb--pandabreath-klipper",
+  "displayName": "pandabreath-klipper",
+  "description": "Klipper extras module for the BIQU Panda Breath smart chamber heater and air filter.",
+  "version": "1.0.0",
+  "author": "justinh-rahb",
+  "homepage": "https://github.com/justinh-rahb/pandabreath-klipper",
+  "skills": []
+}
