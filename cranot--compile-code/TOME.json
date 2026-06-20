@@ -1,0 +1,44 @@
+{
+  "name": "compile-code",
+  "owner": "Cranot",
+  "repo": "compile-code",
+  "description": "A compiler for AI coding tasks: pre-resolves repo facts before your agent's first token. Fewer turns, fewer tokens, same answers.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cranot/compile-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-20T14:31:18Z"
+}
