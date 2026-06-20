@@ -1,0 +1,9 @@
+{
+  "name": "iblai--iblai-infra-cli",
+  "displayName": "iblai-infra-cli",
+  "description": "Interactive CLI for provisioning the ibl.ai platform on AWS with Terraform and configuring servers with Ansible. Supports bootstrapping any existing server.",
+  "version": "1.0.0",
+  "author": "iblai",
+  "homepage": "https://github.com/iblai/iblai-infra-cli",
+  "skills": []
+}
