@@ -1,174 +1,555 @@
 ## microsoft-ui-reactor
 
-> Reactor is a declarative, component-based C# framework for building WinUI 3 desktop apps. It renders real WinUI controls via a virtual element tree and reconciler — similar to React's programming model but targeting native Windows UI.
+> >
 
-# Copilot Instructions — Microsoft.UI.Reactor
 
-Reactor is a declarative, component-based C# framework for building WinUI 3 desktop apps. It renders real WinUI controls via a virtual element tree and reconciler — similar to React's programming model but targeting native Windows UI.
+# Reactor — Getting Started
 
-## Build, Test, Lint
+> **Prefer the plugin.** This file is preserved for environments that don't
+> support the Copilot CLI / Claude plugin loading model. If you have a plugin
+> SDK available, install / load the `reactor` plugin (under
+> `plugins/reactor/` in source, or `agentkit/plugins/reactor/` in the NuGet).
+> The plugin splits this content into focused per-skill files and is materially
+> cheaper to load than this monolith.
+
+
+
+Reactor is a **React-inspired functional projection for WinUI 3**. You write
+functions that return lightweight element descriptions; a reconciler diffs
+old vs new trees and patches real WinUI controls. State changes trigger
+re-renders automatically. No XAML. No data binding. No ViewModels.
+
+## Which mode are you in? (read this first)
+
+Reactor ships as a NuGet package — apps reference it as
+`<PackageReference Include="Microsoft.UI.Reactor" Version="…" />` (or
+`#:package Microsoft.UI.Reactor@…` for single-file). The package carries
+the framework, the analyzers, and an **agent kit** (signatures index +
+this SKILL.md). Two paths:
+
+| Mode | How to detect | Bootstrap |
+|---|---|---|
+| **Selfhost** — you're in a Reactor source clone (`src/Reactor/Reactor.csproj` exists) | The repo's `local-nupkgs/` folder is the package source — see `nuget.config` at repo root. | Build `mur` once, then **`mur pack-local`** to populate `local-nupkgs/Microsoft.UI.Reactor.0.0.0-local.nupkg`. Re-run after framework changes. |
+| **Consumer** — you're in an app that depends on Microsoft.UI.Reactor | No `src/Reactor/` next to your project. | Nothing extra — the package already carries the analyzers and agent kit. If `mur` is on PATH, `mur --skill` and `mur --api` print the embedded docs. Otherwise read `<package-cache>/microsoft.ui.reactor/<version>/agentkit/`. |
+
+If you're in selfhost and `local-nupkgs/` is empty, restore will fail with
+"package Microsoft.UI.Reactor 0.0.0-local was not found." Run `mur pack-local`
+to fix it.
+
+### Bootstrap (selfhost, fresh clone)
+
+```powershell
+# Build the CLI; on first build the SignaturesGen project also writes
+# skills/reactor.api.txt as part of its AfterBuild target.
+dotnet build src/Reactor.Cli -p:Platform=ARM64
+
+# `mur` mirrors itself to <repo>/bin/<arch>/. Add that to PATH or invoke directly.
+.\bin\arm64\mur.exe pack-local
+```
+
+After this, any project under the clone resolves
+`Microsoft.UI.Reactor 0.0.0-local` from `local-nupkgs/` automatically (the
+repo-level `nuget.config` configures it). A consumer **outside** the clone
+needs a project-local `nuget.config` pointing at the absolute path of
+`<repo>/local-nupkgs/`.
+
+## Where to find docs (`mur --skill`, `mur --api`)
+
+The `mur` CLI ships these embedded — works from any directory:
+
+| Command | What it prints | Source |
+|---|---|---|
+| `mur --skill` | This SKILL.md | embedded in `mur` |
+| `mur --api`   | The signatures index (≈12K tokens, every factory/modifier/hook/Theme token/enum) | embedded in `mur` |
+| `mur --regen-api` | Rebuilds `skills/reactor.api.txt` from a freshly-built `Reactor.dll` (selfhost only) | rebuilds `tools/Reactor.SignaturesGen` |
+| `mur check <path>` | **Is** the build (same exit code as `dotnet build`); adds one-line diagnostics with skill pointers for known REACTOR_* IDs and `→ try:` did-you-mean suggestions | wraps MSBuild |
+
+A consumer who doesn't have `mur` can read the same files directly from the
+NuGet cache:
+
+```
+%USERPROFILE%\.nuget\packages\microsoft.ui.reactor\<version>\agentkit\
+├─ SKILL.md                  ← this file
+├─ reactor.api.txt           ← signatures index
+└─ skills\
+   ├─ async.md, design.md, commanding.md, navigation.md, forms.md,
+   │  input.md, charts.md, dsl-reference.md, devtools.md, perf-tips.md
+   └─ recipes\
+      ├─ index.md            ← intent → recipe map
+      └─ <name>.cs           ← paste-ready single-file programs
+```
+
+When SKILL.md or a recipe references `skills/foo.md`, a consumer agent
+reads it from `agentkit/skills/foo.md` in the package cache. Selfhost
+agents read it from `<repo>/skills/foo.md`.
+
+## API signatures index — load this before grepping source
+
+[`skills/reactor.api.txt`](skills/reactor.api.txt) is a generated, alphabetized
+flat list of every public Factory, Modifier, Hook, Theme token (with WinUI
+resource key), and enum in Reactor. **Load this when you need to confirm a
+signature.** It replaces grepping `src/Reactor/Elements/*.cs` and walking the
+sub-skills' tables.
+
+- **Local / selfhost:** the file is committed at `skills/reactor.api.txt`.
+  Run `mur --api` to print it. Run `mur --regen-api` after framework changes.
+- **NuGet consumer:** the same file ships in the package at
+  `<package-cache>/microsoft.ui.reactor/<version>/agentkit/reactor.api.txt`
+  (typically `%USERPROFILE%\.nuget\packages\microsoft.ui.reactor\<version>\agentkit\reactor.api.txt`).
+  If `mur` is on PATH, `mur --api` prints the embedded copy.
+
+## Recipes — paste-ready snippets indexed by intent
+
+[`skills/recipes/`](skills/recipes/) holds compilable single-file recipes for
+the most common Reactor patterns. **Load a recipe instead of synthesizing
+from skill prose.** See [`skills/recipes/index.md`](skills/recipes/index.md)
+for the intent → recipe map. Available today: list-add-delete, sidebar-nav,
+form-with-validation, async-fetch-list, themed-card, canvas-positioning,
+named-styles, calendar-multiselect.
+
+## `mur check` — fast feedback with skill pointers
+
+**`mur check` is the build, not a separate check step.** It runs `dotnet build`
+under the hood and returns the same exit code. When `mur check` exits 0, the
+build is green — **do not re-run `dotnet build` to confirm**. They're the same
+compilation; a redundant `dotnet build` afterwards is wasted work.
+
+Two enrichments over raw `dotnet build`:
+
+1. **Skill pointers** for known `REACTOR_*` IDs.
+2. **Did-you-mean `→ try:` suggestions** for unknown identifiers, computed against
+   the live Reactor surface for the exact diagnostic.
+
+```
+C:\path\Program.cs:15:23  W  REACTOR_DSL_001  Element produced by Select(...)…   → SKILL.md gotcha #6 (.WithKey on dynamic list items)
+C:\path\Program.cs:34:16  E  CS1061  'ButtonElement' does not contain a definition for 'OnClick'   → try: Button(label, onClick: ...)  // [factory has Action onClick parameter]
+```
+
+`<path>` defaults to `.` and accepts a `.csproj` or directory. Single-file
+`.cs` builds work but **don't load analyzers** — for analyzer coverage,
+use a `.csproj`.
+
+**Trust `→ try:` suggestions directly.** Use the suggested name verbatim in your
+next edit; don't grep adjacent or sibling names to second-guess it. The
+suggestion has been computed against the actual Reactor surface for this exact
+diagnostic. If wrong, the next `mur check` will tell you — that self-correcting
+loop is cheaper than manual verification.
+
+**Don't introspect via `[System.Reflection]`** to enumerate Reactor types or
+members — the skill files plus `mur check`'s did-you-mean suggestions plus
+`skills/reactor.api.txt` cover the surface.
+
+Workflow modes (Phase-2 ranker):
+
+- `mur check` — iteration mode (default). A ranker suppresses cosmetic noise
+  (CS1591 XML doc, CS0168 unused-var, IDE0xxx style, NuGet restore chatter)
+  mid-iteration so the real blocker doesn't scroll off attention. **When this
+  exits 0, you are done** — the build is green.
+- `mur check --final` — optional pre-merge sweep. Emits the cosmetic
+  diagnostics suppressed during iteration (XML doc, unused locals, style
+  hints, nullable warnings, transient restore noise). For human code review
+  or a CI ship-readiness gate; **not** a task-completion requirement and
+  skipping it is fine.
+- `mur check -- <msbuild args>` — anything after a bare `--` is forwarded
+  verbatim to `dotnet build` (override platform, config, restore, verbosity).
+
+## Sub-skills — load when the task calls for them
+
+| Skill | When to load |
+|---|---|
+| [`skills/async.md`](skills/async.md) | Fetching data, caching, pagination, optimistic writes. `UseResource`, `UseMutation`, `UseInfiniteResource`, `Pending`. |
+| [`skills/design.md`](skills/design.md) | Any visual-styling work. Windows 11 design rules — theme tokens, High Contrast, typography, 4px grid, acrylic surfaces, accessibility. |
+| [`skills/commanding.md`](skills/commanding.md) | Actions that appear in multiple surfaces (menu + toolbar), need keyboard shortcuts, or need `CanExecute`. `Command`, `StandardCommand`, `UseCommand`, `CommandHost`. |
+| [`skills/devtools.md`](skills/devtools.md) | Drive a running app via `mur devtools` — screenshot, inspect visual tree, click/type/scroll, read hook state. Load when diagnosing visible bugs (layout, contrast) or verifying a change landed. |
+| [`skills/navigation.md`](skills/navigation.md) | Multi-page apps, sidebar/tab navigation, routes, deep linking, page transitions, caching. `UseNavigation`, `NavigationHost`, `NavigationView`, `TabView`. |
+| [`skills/forms.md`](skills/forms.md) | Data-entry screens, validation, masked/formatted input. `UseValidationContext`, `FormField`, `MaskEngine`, `InputFormatter`. |
+| [`skills/input.md`](skills/input.md) | Gestures, pointer events, drag-and-drop, focus management. `OnPan`, `OnPinch`, `OnRotate`, `OnDragStarting`, `UseElementFocus`. |
+| [`skills/charts.md`](skills/charts.md) | Data visualization — choosing a chart type (incl. donut, `TreeChart`, `ForceGraph`), the chart DSL, the `LabelView` / `XTickLabelView` / `YTickLabelView` extension points for icon-plus-text and rich labels, plus the visualization-best-practices rules to refuse to break. |
+| [`skills/dsl-reference.md`](skills/dsl-reference.md) | Look up signatures — every factory, modifier, and enum in the DSL. |
+
+## Project Setup
+
+### .csproj (copy exactly)
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.22621.0</TargetFramework>
+    <Platforms>x64;ARM64</Platforms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWinUI>true</UseWinUI>
+    <WindowsPackageType>None</WindowsPackageType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.UI.Reactor" Version="0.0.0-local" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.0.1" />
+  </ItemGroup>
+</Project>
+```
+
+In selfhost the version is `0.0.0-local` (produced by `mur pack-local` —
+see "Which mode are you in?" above). Outside the source clone, replace it
+with whatever Microsoft.UI.Reactor version you depend on.
+
+**After `dotnet new reactorapp -n <Name>`, the workspace contains
+exactly two source files: `App.cs` (entry point + initial component)
+and `<Name>.csproj`.** There is no `Program.cs` and no
+`GlobalUsings.cs` — modify `App.cs` in place. The `.csproj` does
+**not** enable implicit usings; `App.cs` has its own `using`
+directives at the top — the canonical set (System + Reactor +
+Reactor.Core + Reactor.Layout + Xaml + Xaml.Controls + static
+Factories) — which is the only place you add new namespaces (e.g. `using System.Linq;` when
+you reach for `.Select(...)`). Don't probe the `.csproj` after
+scaffolding unless you're adding a `PackageReference` or changing a
+property — `Restore succeeded.` in the scaffold stdout is the only
+confirmation you need.
+
+**Verify your edits with `mur check`** before declaring done. From the
+project directory: `mur check` (no arguments) runs `dotnet build` and
+emits one compressed line per diagnostic with a `→ try:` suggestion
+when the engine recognizes the mistake; `mur check --final` is the
+explicit "I am done iterating" sweep that emits the full diagnostic
+set including suppressed iteration-mode warnings. For anything more
+involved than the build/fix loop — strict-mode failures, custom
+diagnostic gating, MSBuild passthrough flags — load the
+`reactor-build-and-check` skill.
+
+### nuget.config (selfhost only — sibling of the .csproj)
+
+If your .csproj lives **outside** the Reactor clone, add a `nuget.config`
+next to it pointing at the clone's `local-nupkgs/` (absolute path):
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="reactor-local" value="C:\path\to\reactor2\local-nupkgs" />
+    <add key="nuget.org"     value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+  </packageSources>
+</configuration>
+```
+
+Inside the clone you don't need this — the repo-level `nuget.config`
+already configures the feed.
+
+`WindowsPackageType` MUST be `None` (unpackaged, no App.xaml). `UseWinUI`
+MUST be `true`. No XAML files of any kind.
+
+### Required imports
+
+```csharp
+using Microsoft.UI.Reactor;
+using Microsoft.UI.Reactor.Core;
+using Microsoft.UI.Reactor.Layout;   // FlexDirection, FlexJustify, ... (if using Flex)
+using Microsoft.UI.Xaml;             // Thickness, HorizontalAlignment, VerticalAlignment
+using Microsoft.UI.Xaml.Controls;    // Orientation, InfoBarSeverity, etc.
+using static Microsoft.UI.Reactor.Factories;   // TextBlock(), Button(), VStack() bare calls
+```
+
+### App entry point
+
+```csharp
+// Component root
+ReactorApp.Run<MyRoot>("Title", width: 1024, height: 768);
+
+// Inline render function
+ReactorApp.Run("Title", ctx =>
+{
+    var (msg, setMsg) = ctx.UseState("Hello!");
+    return VStack(TextBlock(msg), Button("Change", () => setMsg("Changed!")));
+});
+```
+
+## Components
+
+### Class component (primary pattern)
+
+```csharp
+class Counter : Component
+{
+    public override Element Render()
+    {
+        var (count, setCount) = UseState(0);
+        return VStack(
+            TextBlock($"Count: {count}"),
+            Button("+1", () => setCount(count + 1)));
+    }
+}
+```
+
+### Function component (inline, small reusable pieces)
+
+```csharp
+var toggle = Func(ctx =>
+{
+    var (on, setOn) = ctx.UseState(false);
+    return ToggleSwitch(on, setOn);
+});
+```
+
+### Embedding & props
+
+```csharp
+// Embed:
+VStack(Component<MyWidget>(), Component<AnotherWidget>())
+
+// Typed props — use records for free structural equality:
+record UserCardProps(string Name, string Role);
+class UserCard : Component<UserCardProps> { ... }
+Component<UserCard, UserCardProps>(new UserCardProps("Alice", "Admin"))
+```
+
+### Memoized function component
+
+```csharp
+Memo(ctx => TextBlock("Stable"))           // render once + own state
+Memo(ctx => TextBlock($"Hi, {name}"), name) // re-render when deps change
+```
+
+Propless `Component` skips parent-triggered re-renders by default.
+`Component<TProps>` skips when `Equals(oldProps, newProps)`.
+
+## Hooks
+
+Rules: same order every render (no hooks in `if`/`for`), only from `Render()`
+or function-component body.
+
+| Hook | Returns | Use for |
+|---|---|---|
+| `UseState<T>(initial)` | `(T, Action<T>)` | Primary state |
+| `UseReducer<T>(initial)` | `(T, Action<Func<T,T>>)` | State derived from previous (lists) |
+| `UseEffect(action, deps)` | — | Side effects + cleanup |
+| `UseMemo<T>(factory, deps)` | `T` | Memoized computation |
+| `UseCallback(action, deps)` | `Action` | Stable callback reference |
+| `UseRef<T>(initial)` | `Ref<T>` | Mutable ref across renders |
+| `UseObservable<T>(source)` | `T` | Track `INotifyPropertyChanged` |
+| `UseCollection<T>(coll)` | `IReadOnlyList<T>` | Track `ObservableCollection` |
+| `UseContext<T>(ctx)` | `T` | Read tree-scoped ambient state |
+| `UsePersisted<T>(key, initial)` | `(T, Action<T>)` | State that survives unmount |
+| `UseResource<T>`, `UseInfiniteResource`, `UseMutation` | See `skills/async.md` | Async data |
+
+### UseState / UseReducer
+
+```csharp
+var (count, setCount) = UseState(0);
+var (items, updateItems) = UseReducer(new List<Todo>());
+
+// List mutation via UseReducer (UseState with List<T> won't re-render on mutate!):
+updateItems(list => [.. list, new Todo("New", false)]);
+```
+
+### UseEffect
+
+```csharp
+UseEffect(() => { /* mount */ });                // empty deps → once
+UseEffect(() => { /* on count change */ }, count);
+UseEffect(() =>
+{
+    var timer = new Timer(...);
+    return () => timer.Dispose();                // cleanup
+}, deps);
+```
+
+### UseContext
+
+```csharp
+public static readonly Context<string> ThemeCtx = new("light");
+
+// Provide:
+VStack(...).Provide(ThemeCtx, "dark")
+
+// Consume:
+var theme = UseContext(ThemeCtx);
+```
+
+## DSL — the essentials
+
+For the complete catalog (every factory, modifier, enum) see
+[`skills/dsl-reference.md`](skills/dsl-reference.md). The 90% cases:
+
+```csharp
+// Text + layout — prefer FlexRow/FlexColumn for linear layout; they use CSS Flexbox
+// semantics (grow/shrink/gap/wrap, justify-content, align-items) so the model matches
+// the web. VStack/HStack remain available when you specifically want StackPanel's
+// shrink-wrap behavior.
+FlexColumn(children...)         FlexRow(children...)
+VStack(spacing, children...)    HStack(spacing, children...)
+TextBlock("hi")  Heading("Title")    SubHeading("Section")  Caption("note")
+// WinUI 3 type-ramp factories — map 1:1 to TitleTextBlockStyle etc.
+Title("Page")    Subtitle("Group")   Body("paragraph")      BodyStrong("bold")  BodyLarge("intro")
+// Card(child) factory bakes in CardBackground + 1px CardStroke + 8 radius + 16 padding.
+Card(child)
+Border(child).CornerRadius(8).Background(Theme.CardBackground).Padding(16)
+ScrollView(VStack(...))      // modern InteractionTracker-backed; ScrollViewer(...) is the classic control if you need attached props / parallax
+Grid(columns: [GridSize.Star(), GridSize.Px(200)],
+     rows:    [GridSize.Auto,   GridSize.Star()],
+    childA.Grid(row: 0, column: 0), childB.Grid(row: 1, column: 1))
+TitleBar("App") with { Subtitle = "Home", Content = ..., RightHeader = ... }
+
+// Controls
+Button("Click", () => ...)      TextBox(value, setValue, placeholder)
+CheckBox(isChecked, setChecked) ToggleSwitch(on, setOn)
+Slider(v, 0, 100, setV)         ComboBox(items, index, setIndex)
+
+// Strings auto-convert to TextBlockElement: VStack("A", "B") works.
+```
+
+### Conditional rendering
+
+```csharp
+isLoggedIn ? TextBlock($"Hi, {name}") : Button("Log in", onLogin)
+VStack(TextBlock("always"), showExtra ? TextBlock("maybe") : null) // null filtered
+When(items.Any(), () => TextBlock($"{items.Count} items"))
+If(isError, () => InfoBar("Error", msg).Severity(InfoBarSeverity.Error),
+            () => TextBlock("OK"))
+status switch {
+    Status.Loading => ProgressIndeterminate(),
+    Status.Error   => TextBlock("Oops"),
+    Status.Success => Component<SuccessView>(),
+    _ => Empty()
+}
+ForEach(items, item => TextBlock(item.Name))
+// Or LINQ: VStack(items.Select(i => TextBlock(i.Name)).ToArray())
+```
+
+## Critical gotchas
+
+1. **Hook order is constant.** No hooks inside `if`/`for`. Call them all
+   unconditionally; conditionally use the result.
+2. **Type-specific sugar before generic modifiers.**
+   `TextBlock("Hi").Bold().Margin(10)` ✓ — `.Bold()` needs `TextBlockElement`.
+   `TextBlock("Hi").Margin(10).Bold()` ✗ — `.Margin()` returns `Element`.
+3. **List mutations use `UseReducer`.** `UseState(new List<T>())` + `list.Add()`
+   won't re-render — same reference. Use `UseReducer(list => [.. list, item])`.
+4. **Null children are filtered.** `VStack(a, condition ? b : null, c)` is safe.
+5. **Records with `with` for init-only properties.**
+   `NavigationView(items, content) with { SelectedTag = "home", IsPaneOpen = true }`.
+6. **`.WithKey("id")` on dynamic list items.** Without keys, the reconciler
+   matches by position and re-mounts everything on insert/reorder.
+7. **Memoize expensive computations.** `UseMemo(() => items.OrderBy(...).ToList(), items)`.
+8. **`.Flex(grow: 1)` is `flex-grow`, not the CSS `flex: 1` shorthand.** Default
+   basis is `auto` (content size), so a growing child with large intrinsic
+   content (e.g. `ListView` with many items) overflows the container and Yoga
+   shrinks every sibling proportionally — heading/buttons/inputs all collapse.
+   Pass `.Flex(grow: 1, basis: 0)` (matches CSS `flex: 1`) or add
+   `.Flex(shrink: 0)` to each fixed-size sibling. See `skills/dsl-reference.md`.
+
+## Starter template
+
+```csharp
+using Microsoft.UI.Reactor;
+using Microsoft.UI.Reactor.Core;
+using Microsoft.UI.Xaml;
+using static Microsoft.UI.Reactor.Factories;
+
+ReactorApp.Run<App>("My App", width: 1200, height: 800);
+
+class App : Component
+{
+    public override Element Render()
+    {
+        var (page, setPage) = UseState("Home");
+
+        return Grid(
+            columns: [GridSize.Star()],
+            rows: [GridSize.Auto, GridSize.Star()],
+            Border(
+                HStack(12,
+                    Heading("My App").VAlign(VerticalAlignment.Center),
+                    NavBtn("Home", page, setPage),
+                    NavBtn("Settings", page, setPage))
+            ).Background("#f0f0f0").Padding(horizontal: 24, vertical: 12).Grid(row: 0),
+
+            Border(page switch
+            {
+                "Home"     => Component<HomePage>(),
+                "Settings" => Component<SettingsPage>(),
+                _ => TextBlock("Not found")
+            }).Padding(24).Grid(row: 1));
+    }
+
+    static Element NavBtn(string label, string current, Action<string> set) =>
+        Button(label, () => set(label)).IsEnabled(!(label == current));
+}
+```
+
+## Testing
+
+Reactor has three test suites. Run the one that matches what you changed.
 
 ```bash
-# Build (platform defaults to machine arch for apps; libraries are AnyCPU)
-dotnet build Reactor.slnx
-
-# Unit tests — xUnit, headless, fast (~2200 tests incl. 590 Yoga fixtures)
+# Unit tests — fast, no UI window (~3s)
 dotnet test tests/Reactor.Tests
 
-# Single test class
-dotnet test tests/Reactor.Tests --filter "FullyQualifiedName~ReconcilerMountUpdateTests"
-
-# Selftests — real WinUI window, in-process (~10s)
+# Selfhost tests — real WinUI controls, in-process (~2 min)
 dotnet test tests/Reactor.SelfTests
 
-# Raw TAP output (faster iteration, supports --filter prefix)
-dotnet run --project tests/Reactor.AppTests.Host -- --self-test --filter "Flex"
+# Appium / E2E — cross-process UI Automation (~30s, needs WinAppDriver)
+dotnet test tests/Reactor.AppTests --filter "ClassName=Reactor.AppTests.Tests.InteractiveTests"
 
-# E2E — Appium/WinAppDriver (requires WinAppDriver installed)
-dotnet test tests/Reactor.AppTests
-
-# Single E2E class
-dotnet test tests/Reactor.AppTests --filter "ClassName=Reactor.AppTests.Tests.AccessibilityTests"
+# Everything
+dotnet test Reactor.slnx
 ```
 
-CI runs unit tests + selftests + full solution build on every PR. .NET 10 SDK, `windows-latest` runner.
+`samples/Reactor.TestApp` is the interactive demo, not a test runner.
 
-Full testing guide — tier selection, NativeAOT runs, code coverage — in [`TESTING.md`](TESTING.md).
+## Single-file apps with `dotnet run`
 
-## Architecture
-
-### Virtual DOM model
-
-UI is described as **immutable C# records** (`Element` subclasses), not WinUI controls. The reconciler diffs old vs. new element trees and patches only what changed on real controls.
-
-```
-Component.Render() → Element tree (records)
-                        ↓
-                   Reconciler
-                   ├── Mount  → creates WinUI controls
-                   └── Update → diffs & patches controls
-```
-
-### Reconciler is split across partial classes
-
-- `Reconciler.cs` — orchestration, child reconciliation, unmount, helpers
-- `Reconciler.Mount.cs` — `MountXxx()` handler per control type
-- `Reconciler.Update.cs` — `UpdateXxx()` handler per control type
-
-### Hooks follow React rules
-
-Hooks (`UseState`, `UseEffect`, `UseReducer`, `UseMemo`, etc.) are tracked by call order in `RenderContext`. They must be called unconditionally, in the same order every render — no conditional hooks. Pass `threadSafe: true` for cross-thread state updates.
-
-### Echo suppression for value controls
-
-Echo handling is a documented hybrid (spec-047 §8.3). Synchronous, exact-comparable, single-controlled-value round-trips (ComboBox, FlipView, GridView, ListBox, Pivot, PipsPager, RadioButtons, SelectorBar, TabView, TemplatedFlipView, ToggleSwitch, TextBox) use a value-diff arm (`ReactorState.PendingEchoMatch` + `ArmExpectedEcho`/`ShouldSuppressEcho`, opt-in `valueDiffEcho`). `ChangeEchoSuppressor` is **retained** as the suppress-counter fallback for the rest: doubles (Slider/NumberBox value), NumberBox coercion, CalendarView collection diff, deferred/coercion strings (AutoSuggest/Password/RichEdit), Expander, CheckBox path-B, the `ApplySetters` suppression scope, and the public `WriteSuppressed` primitive. Authors keep using the stable `WriteSuppressed` primitive (or declare `.Controlled` / `valueDiffEcho` on a descriptor) — never the suppressor directly.
-
-### Element pooling
-
-`ElementPool` recycles WinUI controls. Poolable types track one-time event wiring via `ConditionalWeakTable<FrameworkElement, PoolableWireFlags>` to avoid double-subscribing across rent/return cycles.
-
-### Per-element state via attached DP
-
-`ReactorAttached.StateProperty` stores `ReactorState` (Element pointer + `ModifierEventHandlerState` — the routed-input family, lazily allocated — + per-control `ControlEventStateBox` for control-intrinsic events) on native elements — not `FrameworkElement.Tag` or a CWT.
-
-## Key Conventions
-
-### Elements are immutable records
+For lightweight demos, skip the `.csproj` entirely. Add a file-level header:
 
 ```csharp
-public record MyControlElement(string Label, Action? OnClick = null) : Element;
+#:package Microsoft.UI.Reactor@0.0.0-local
+#:package Microsoft.WindowsAppSDK@2.0.1
+#:property OutputType=WinExe
+#:property TargetFramework=net10.0-windows10.0.22621.0
+#:property UseWinUI=true
+#:property WindowsPackageType=None
+
+using Microsoft.UI.Reactor;
+using static Microsoft.UI.Reactor.Factories;
+
+ReactorApp.Run("Hello", ctx =>
+{
+    var (count, setCount) = ctx.UseState(0);
+    return VStack(TextBlock($"Count: {count}"), Button("+1", () => setCount(count + 1)));
+});
 ```
 
-Use `with` expressions for variations. Never mutate.
+Run with `dotnet run MyApp.cs -p:Platform=ARM64` (or `x64`). In selfhost
+the version is `0.0.0-local` — run `mur pack-local` first if the package
+isn't found. Outside the clone, replace the version with the published
+release you depend on.
 
-### Factory methods over constructors
+> **Always capture `dotnet run` output.** Build errors exit with code 1.
+> Read compiler output, fix, retry. Don't assume success without checking.
+> Note: single-file builds **do not load analyzers** — for analyzer
+> coverage (`REACTOR_DSL_001`, `REACTOR_HOOKS_*`, etc.), use a `.csproj`.
 
-The DSL entry point is `using static Microsoft.UI.Reactor.Factories;`. Factory methods return Element records, never WinUI controls:
+## Comparison to React
 
-```csharp
-TextBlock("hello")       // not new TextBlockElement("hello")
-Button("+", () => ...)   // not new ButtonElement(...)
-VStack(child1, child2)   // layout containers
-```
-
-`Factories` is `public static partial class` — factory methods can be added from multiple files.
-
-### Fluent modifiers preserve concrete types
-
-Extension methods use `<T> where T : Element` to maintain the concrete type through chains:
-
-```csharp
-Text("Hello").Bold().Margin(16).Set(tb => tb.TextWrapping = TextWrapping.Wrap)
-// Still TextBlockElement throughout the chain
-```
-
-### Adding a new WinUI control
-
-The legacy Element-record + `MountXxx`/`UpdateXxx` dispatch-switch path is gone. The current path:
-
-1. **Element record** in `src/Reactor/Core/Element.cs`
-2. **Authoring shape** — a `ControlDescriptor<TElement, TControl>` (the primary path) or a hand-coded `IElementHandler<TElement, TControl>` for irregular controls.
-3. **Register** it in `RegisterV1BuiltInHandlers`.
-4. **Selftest fixture** in `tests/Reactor.AppTests.Host/SelfTest/Fixtures/`.
-
-See [`docs/guide/extensibility-preview.md`](docs/guide/extensibility-preview.md) for the authoring-shape decision tree (prop/engine shapes, children strategies, echo handling, pooling).
-
-Optionally: a factory method in `src/Reactor/Elements/Dsl.cs`, fluent modifiers in `ElementExtensions.cs`, and unit tests in `Reactor.Tests/`.
-
-### Test tier selection
-
-| Testing… | Write a… | Location |
-|---|---|---|
-| Algorithm, pure function, hook bookkeeping, D3 math | Unit test (xUnit) | `tests/Reactor.Tests/` |
-| Element mount/update against real WinUI controls | Selftest fixture | `tests/Reactor.AppTests.Host/SelfTest/Fixtures/` |
-| Real user input, UIA properties, cross-process | E2E test (Appium) | `tests/Reactor.AppTests/Tests/` |
-
-Start with unit tests. Use selftests only when you need a live WinUI control. E2E is the slowest tier.
-
-### Console-mutating tests need collection isolation
-
-Tests that write to `Console.Out`/`Console.Error` must be grouped with `[Collection("ConsoleTests")]` to prevent cross-test interference.
-
-### AOT compatibility
-
-`IsAotCompatible=true` is set for all net10.0+ projects. The core Reactor library promotes IL trimming/AOT warnings to errors — new reflection usage must be annotated before merging. Non-Reactor projects (tests, samples) suppress these warnings.
-
-### WinUI library projects
-
-Class libraries must set `WindowsAppSDKSelfContained=false`. Only app executables own Windows App SDK self-contained packaging.
-
-### No XAML
-
-Everything is C#. No `.xaml` files for UI (except `ReactorApplication.xaml` which loads `XamlControlsResources` for AOT compatibility).
-
-### User guide docs are generated
-
-Docs under `docs/guide/` are compiled from `docs/_pipeline/templates/*.md.dt` via `mur docs compile`. Edit the templates, not the compiled output.
-
-## Project Layout
-
-```
-src/Reactor/              Core framework
-  Core/                   Reconciler, Component, Element, Hooks, RenderContext
-  Elements/               DSL factories (Dsl.cs) + fluent modifiers (ElementExtensions.cs)
-  Flex/                   FlexPanel — CSS Flexbox via Yoga
-  Yoga/                   Pure C# port of Meta's Yoga layout engine
-  Hosting/                ReactorApp entry point, render loop, hot reload
-src/Reactor.Cli/          CLI tool (scaffolding, localization, preview)
-src/Reactor.Analyzers/    Roslyn analyzers (theming, accessibility)
-src/vscode-reactor/       VS Code live preview extension
-tests/
-  Reactor.Tests/          Unit tests (xUnit, headless)
-  Reactor.SelfTests/      Selftest runner (MSTest, wraps TAP subprocess)
-  Reactor.AppTests.Host/  Selftest host app + Appium fixture navigator
-  Reactor.AppTests/       E2E tests (MSTest + Appium/WinAppDriver)
-samples/                  Demo apps and samples
-docs/
-  guide/                  User documentation (generated from templates)
-  specs/                  Numbered design specs
-  reference/              API and subsystem reference
-```
+| React | Reactor |
+|---|---|
+| `function App() {}` | `class App : Component { Render() }` |
+| `useState(0)` | `UseState(0)` |
+| `useReducer` | `UseReducer(initial)` — updater is `Func<T,T>` |
+| `useEffect(() => {}, [dep])` | `UseEffect(() => {}, dep)` |
+| `useMemo(() => val, [dep])` | `UseMemo(() => val, dep)` |
+| `<div>` | `FlexColumn() / FlexRow() / Border()` (prefer over `VStack`/`HStack`) |
+| `<span>text</span>` | `TextBlock("text")` |
+| `<button onClick={fn}>` | `Button("label", fn)` |
+| `<input value={v} onChange={fn}>` | `TextBox(v, fn)` |
+| `{cond && <X/>}` | `cond ? X() : null` |
+| `{items.map(i => <X/>)}` | `items.Select(i => X()).ToArray()` |
+| `<Component />` | `Component<MyComponent>()` |
+| `createContext` + `useContext` | `Context<T>` + `.Provide()` + `UseContext()` |
+| React Query `useQuery` / `useMutation` | `UseResource` / `UseMutation` — see `skills/async.md` |
+| `className="..."` | `.Set(el => ...)` for native access |
+| `display: flex` / `flex-grow: 1` | `Flex()` / `.Flex(grow: 1)` |
+| `style={{margin: 10}}` | `.Margin(10)` |
+| JSX | C# calls + `using static Factories` |
 
 ---
 > Source: [microsoft/microsoft-ui-reactor](https://github.com/microsoft/microsoft-ui-reactor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-14 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
