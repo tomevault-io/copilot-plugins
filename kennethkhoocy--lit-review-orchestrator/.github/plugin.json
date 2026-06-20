@@ -1,0 +1,9 @@
+{
+  "name": "kennethkhoocy--lit-review-orchestrator",
+  "displayName": "lit-review-orchestrator",
+  "description": "Document-driven literature-review pipeline with an anti-hallucination verification stage (confirm-or-drop against OpenAlex/Crossref/Semantic Scholar).",
+  "version": "1.0.0",
+  "author": "kennethkhoocy",
+  "homepage": "https://github.com/kennethkhoocy/lit-review-orchestrator",
+  "skills": []
+}
