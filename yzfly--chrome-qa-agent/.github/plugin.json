@@ -1,0 +1,9 @@
+{
+  "name": "yzfly--chrome-qa-agent",
+  "displayName": "chrome-qa-agent",
+  "description": "chrome-qa-agent",
+  "version": "1.0.0",
+  "author": "yzfly",
+  "homepage": "https://github.com/yzfly/chrome-qa-agent",
+  "skills": []
+}
