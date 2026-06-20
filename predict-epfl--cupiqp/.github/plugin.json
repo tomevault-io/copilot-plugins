@@ -1,0 +1,9 @@
+{
+  "name": "predict-epfl--cupiqp",
+  "displayName": "cupiqp",
+  "description": "CuPIQP: GPU-accelerated Proximal-Interior-Point-Method QP solver for large-scale and batched QPs",
+  "version": "1.0.0",
+  "author": "PREDICT-EPFL",
+  "homepage": "https://github.com/PREDICT-EPFL/cupiqp",
+  "skills": []
+}
