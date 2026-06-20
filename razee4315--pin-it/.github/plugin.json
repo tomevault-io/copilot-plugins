@@ -1,0 +1,9 @@
+{
+  "name": "razee4315--pin-it",
+  "displayName": "Pin-It",
+  "description": "A minimal, distraction-free \"Always on Top\" utility for Windows built with Tauri v2.",
+  "version": "1.0.0",
+  "author": "Razee4315",
+  "homepage": "https://github.com/Razee4315/Pin-It",
+  "skills": []
+}
