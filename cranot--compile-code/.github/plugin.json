@@ -1,0 +1,9 @@
+{
+  "name": "cranot--compile-code",
+  "displayName": "compile-code",
+  "description": "A compiler for AI coding tasks: pre-resolves repo facts before your agent's first token. Fewer turns, fewer tokens, same answers.",
+  "version": "1.0.0",
+  "author": "Cranot",
+  "homepage": "https://github.com/Cranot/compile-code",
+  "skills": []
+}
