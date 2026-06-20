@@ -7,11 +7,11 @@ DataHub Talk-to-Data analytics agent
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [datahub-project/analytics-agent](https://github.com/datahub-project/analytics-agent).
+Original source: `CLAUDE.md` in [datahub-project/analytics-agent](https://github.com/datahub-project/analytics-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
