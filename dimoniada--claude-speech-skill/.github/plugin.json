@@ -1,0 +1,9 @@
+{
+  "name": "dimoniada--claude-speech-skill",
+  "displayName": "claude-speech-skill",
+  "description": "claude-speech-skill",
+  "version": "1.0.0",
+  "author": "Dimoniada",
+  "homepage": "https://github.com/Dimoniada/claude-speech-skill",
+  "skills": []
+}
