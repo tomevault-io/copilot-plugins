@@ -2,9 +2,9 @@
   "name": "SQL-ManyThing",
   "owner": "IOchair",
   "repo": "SQL-ManyThing",
-  "description": "Turn any source tree into a local SQLite database. FTS5 trigram search across 89K files in seconds. One file. No server. No network.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IOchair/SQL-ManyThing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-26T04:36:23Z"
+  "distributed_at": "2026-06-20T03:05:36Z"
 }
