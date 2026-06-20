@@ -1,0 +1,9 @@
+{
+  "name": "bankrbot--bankr-skill-shopify",
+  "displayName": "bankr-skill-shopify",
+  "description": "bankr-skill-shopify",
+  "version": "1.0.0",
+  "author": "BankrBot",
+  "homepage": "https://github.com/BankrBot/bankr-skill-shopify",
+  "skills": []
+}
