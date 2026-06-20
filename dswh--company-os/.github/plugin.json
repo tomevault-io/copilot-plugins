@@ -1,0 +1,9 @@
+{
+  "name": "dswh--company-os",
+  "displayName": "company-os",
+  "description": "Self-installing AI-native company operating system seed repo",
+  "version": "1.0.0",
+  "author": "dswh",
+  "homepage": "https://github.com/dswh/company-os",
+  "skills": []
+}
