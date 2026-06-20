@@ -1,0 +1,9 @@
+{
+  "name": "oodle-ai--discovery-agent-skills",
+  "displayName": "discovery-agent-skills",
+  "description": "discovery-agent-skills",
+  "version": "1.0.0",
+  "author": "oodle-ai",
+  "homepage": "https://github.com/oodle-ai/discovery-agent-skills",
+  "skills": []
+}
