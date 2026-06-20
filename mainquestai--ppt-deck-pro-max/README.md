@@ -5,10 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MainQuestAI/PPT-Deck-Pro-Max](https://github.com/MainQuestAI/PPT-Deck-Pro-Max).
+Original source: `` in [MainQuestAI/PPT-Deck-Pro-Max](https://github.com/MainQuestAI/PPT-Deck-Pro-Max).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
