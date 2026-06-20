@@ -4,7 +4,7 @@
   "repo": "naite-personal-memory",
   "description": "LLM-maintained personal knowledge vault. Grow a tree of linked Markdown pages with Claude Code or Codex.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/daehyeonxyz/naite-personal-memory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T04:36:43Z"
+  "distributed_at": "2026-06-20T04:38:10Z"
 }
