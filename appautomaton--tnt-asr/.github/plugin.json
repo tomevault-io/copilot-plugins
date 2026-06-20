@@ -1,0 +1,9 @@
+{
+  "name": "appautomaton--tnt-asr",
+  "displayName": "tnt-asr",
+  "description": "TNT \ud83e\udde8, powered by Qwen3-ASR",
+  "version": "1.0.0",
+  "author": "appautomaton",
+  "homepage": "https://github.com/appautomaton/tnt-asr",
+  "skills": []
+}
