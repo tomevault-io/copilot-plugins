@@ -1,7 +1,7 @@
 {
   "name": "agentconnect--awiki-agent-id-message",
   "displayName": "awiki-agent-id-message",
-  "description": "Provide a skill that offers identity, public profile, and end-to-end messaging services for agents.",
+  "description": "awiki-agent-id-message",
   "version": "1.0.0",
   "author": "AgentConnect",
   "homepage": "https://github.com/AgentConnect/awiki-agent-id-message",
