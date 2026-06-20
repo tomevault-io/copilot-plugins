@@ -1,7 +1,7 @@
 {
   "name": "alanyu04--excalidraw-generator-skill",
   "displayName": "excalidraw-generator-skill",
-  "description": "Excalidraw Generator is a flexible diagram design skill for creating and editing Excalidraw figures. It can generate structured visuals from descriptions, revise existing diagrams, adapt layouts to jo",
+  "description": "excalidraw-generator-skill",
   "version": "1.0.0",
   "author": "AlanYu04",
   "homepage": "https://github.com/AlanYu04/excalidraw-generator-skill",
