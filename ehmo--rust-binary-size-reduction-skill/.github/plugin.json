@@ -1,0 +1,9 @@
+{
+  "name": "ehmo--rust-binary-size-reduction-skill",
+  "displayName": "rust-binary-size-reduction-skill",
+  "description": "rust-binary-size-reduction-skill",
+  "version": "1.0.0",
+  "author": "ehmo",
+  "homepage": "https://github.com/ehmo/rust-binary-size-reduction-skill",
+  "skills": []
+}
