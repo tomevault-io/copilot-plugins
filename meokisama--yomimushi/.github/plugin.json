@@ -1,0 +1,9 @@
+{
+  "name": "meokisama--yomimushi",
+  "displayName": "yomimushi",
+  "description": "Download and decrypt your purchased BW library into DRM-free EPUB files.",
+  "version": "1.0.0",
+  "author": "meokisama",
+  "homepage": "https://github.com/meokisama/yomimushi",
+  "skills": []
+}
