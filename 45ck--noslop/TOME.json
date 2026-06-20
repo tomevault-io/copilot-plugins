@@ -4,7 +4,7 @@
   "repo": "noslop",
   "description": "Enforcement-first quality gate installer for 19 languages: TypeScript, Rust, C#, Go, Python, Java, PHP, Ruby, Swift, Kotlin, C++, Scala, Elixir, Dart, Zig, Haskell, Lua, OCaml & more",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/45ck/noslop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T00:41:11Z"
+  "distributed_at": "2026-06-20T00:47:38Z"
 }
