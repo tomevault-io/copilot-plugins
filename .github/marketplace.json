@@ -179584,6 +179584,11 @@
       "description": "Blazor product tours, onboarding flows, feature highlights, and guided walkthroughs inspired by Driver.js."
     },
     {
+      "name": "nowasm--figo",
+      "source": "./nowasm--figo",
+      "description": "build app with figma by ai."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
