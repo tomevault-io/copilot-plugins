@@ -1,0 +1,9 @@
+{
+  "name": "voigt--cluster-api-provider-stackit",
+  "displayName": "cluster-api-provider-stackit",
+  "description": "Cluster API implementation for STACKIT",
+  "version": "1.0.0",
+  "author": "voigt",
+  "homepage": "https://github.com/voigt/cluster-api-provider-stackit",
+  "skills": []
+}
