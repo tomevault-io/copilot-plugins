@@ -1,0 +1,9 @@
+{
+  "name": "ofsazib--floci-dash",
+  "displayName": "floci-dash",
+  "description": "A polished, production-grade management dashboard for Floci \u2014 the local AWS emulator. Browse, create, and manage 55+ AWS services (S3, DynamoDB, EC2, Lambda, IAM, and more) through an AWS Console-styl",
+  "version": "1.0.0",
+  "author": "ofsazib",
+  "homepage": "https://github.com/ofsazib/floci-dash",
+  "skills": []
+}
