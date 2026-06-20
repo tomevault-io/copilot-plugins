@@ -1,0 +1,1304 @@
+## ios26-adaptation-skill
+
+> iOS 26 adaptation expert. Guides through SDK build adaptation and Liquid Glass design language migration. Handles SceneDelegate architecture, deprecated API replacement, and two-phase adaptation strategy.
+
+
+# iOS 26 Adaptation Expert
+
+## Critical Information
+
+### Deadlines
+
+| Date | Requirement | Phase |
+|------|-------------|-------|
+| **2026-04-28** | Must build with iOS 26 SDK | Phase 1 |
+| **~2026-09** | Liquid Glass mandatory, `UIDesignRequiresCompatibility` removed | Phase 2 |
+
+### Common Misconceptions
+
+- ❌ **Deployment Target change required**: No, keep your current minimum version
+- ❌ **Users forced to iOS 26**: No, runtime requirement unchanged
+- ❌ **Existing apps removed**: No, only affects new submissions
+- ❌ **Grace period exists**: No, April 28 is a hard deadline
+
+---
+
+## Decision Framework
+
+### Step 1: Determine Adaptation Strategy
+
+Based on your next release date:
+
+```
+┌─────────────────────────────────────────────┐
+│  When is your next app release?              │
+└─────────────────────┬───────────────────────┘
+                      │
+    ┌─────────────────┼─────────────────┐
+    │                 │                 │
+    ▼                 ▼                 ▼
+┌──────────┐   ┌──────────────┐   ┌──────────────┐
+│ Before   │   │ 2026-04-28 ~ │   │ After Xcode  │
+│ 2026-04- │   │ Xcode 27     │   │ 27 (~2026-09)│
+│ 28       │   │              │   │              │
+└────┬─────┘   └──────┬───────┘   └──────┬───────┘
+     │                │                  │
+     ▼                ▼                  ▼
+┌──────────┐   ┌──────────────┐   ┌──────────────┐
+│ Strategy │   │ Strategy B   │   │ Strategy C   │
+│    A     │   │              │   │              │
+└──────────┘   └──────────────┘   └──────────────┘
+```
+
+### Strategy A: Branch-based Adaptation (Before 2026-04-28 release)
+
+**When to use**: You have a release planned before April 28, 2026
+
+**Approach**:
+1. Keep main branch unchanged for current release
+2. Create `feature/ios26-adaptation` branch
+3. Complete Phase 1 adaptation in branch
+4. Merge after April 28 deadline
+
+**Branch Commands**:
+```bash
+git checkout main
+git checkout -b feature/ios26-adaptation
+# Complete adaptation work
+git checkout main
+git merge feature/ios26-adaptation
+```
+
+### Strategy B: Phase 1 Required, Phase 2 Evaluated (April 28 ~ Xcode 27)
+
+**When to use**: Release between April 28 and Xcode 27 launch
+
+**Approach**:
+1. Must complete Phase 1 (SDK build adaptation)
+2. Temporarily disable Liquid Glass
+3. Evaluate Phase 2 based on pre-Xcode 27 releases
+
+### Strategy C: Combined Phases (After Xcode 27)
+
+**When to use**: No release until after Xcode 27
+
+**Approach**:
+1. Complete both phases in single iteration
+2. No temporary disabling needed
+3. Full Liquid Glass adaptation upfront
+
+---
+
+## Phase 1: SDK Build Adaptation
+
+### Goal
+Build with iOS 26 SDK, maintain existing UI appearance
+
+### Key Tasks
+
+#### 1. Environment Setup
+
+| Tool | Minimum Version |
+|------|-----------------|
+| Xcode | 26.0+ (recommend 26.3) |
+| macOS | Sequoia 15.3+ |
+| iOS SDK | 26.0+ |
+
+#### 2. Deprecated API Replacement
+
+| Deprecated API | Replacement | Severity |
+|---------------|-------------|----------|
+| `keyWindow` | Unified window access interface | Error |
+| `delegate.window` | Unified window access interface | Error |
+| `UNNotificationPresentationOptionAlert` | `Banner \| List` (iOS 14.0+) | Warning |
+| `UNAuthorizationOptionAlert` | Still valid — do NOT replace | — |
+| `UIScreen.main` | `UIWindowScene.screen` (iOS 13+) | Warning |
+
+#### 3. SceneDelegate Architecture
+
+**Required Changes**:
+
+1. **Create UIApplication Extension** (Unified Access)
+   - `mainWindow()` - Get current window
+   - `visibleViewController()` - Get top visible VC
+   - `currentNavigationController()` - Get current nav controller
+
+2. **Modify AppDelegate**
+   - Add `sharedInstance` class method
+   - Separate `setupApplication(launchOptions:)` method
+   - Separate `setupSceneUI(window:)` method
+   - Add Scene Session configuration
+
+3. **Create/Modify SceneDelegate**
+   - Window creation in `willConnectTo`
+   - Forward to AppDelegate for business setup
+   - Lifecycle event forwarding
+
+4. **Global Code Replacement**
+   - Replace all `keyWindow` calls
+   - Replace all `delegate.window` calls
+   - Update window-based navigation
+
+#### 4. Info.plist Configuration
+
+```xml
+<!-- Temporarily disable Liquid Glass -->
+<key>UIDesignRequiresCompatibility</key>
+<true/>
+
+<!-- SceneDelegate configuration -->
+<key>UIApplicationSceneManifest</key>
+<dict>
+    <key>UIApplicationSupportsMultipleScenes</key>
+    <false/>
+    <key>UISceneConfigurations</key>
+    <dict>
+        <key>UIWindowSceneSessionRoleApplication</key>
+        <array>
+            <dict>
+                <key>UISceneConfigurationName</key>
+                <string>Default Configuration</string>
+                <key>UISceneDelegateClassName</key>
+                <string>SceneDelegate</string>
+            </dict>
+        </array>
+    </dict>
+</dict>
+```
+
+#### 5. Complete Implementation Examples
+
+Select the section matching your project's primary language:
+
+- [Swift Projects](#swift-projects)
+- [Objective-C Projects](#objective-c-projects)
+- [Mixed (Swift/Objective-C) Projects](#mixed-swiftobjective-c-projects)
+
+Production-ready templates for each are in `templates/swift/`, `templates/objc/`, and `templates/mixed/`.
+
+##### Swift Projects
+
+Below is a minimal but complete example for a typical Swift iOS app supporting iOS 12+.
+
+**UIApplication+Extension.swift**
+```swift
+import UIKit
+
+extension UIApplication {
+    var mainWindow: UIWindow? {
+        if #available(iOS 13.0, *) {
+            return connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .first(where: { $0.activationState == .foregroundActive })?
+                .windows.first(where: \.isKeyWindow)
+                ?? connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .first?
+                .windows.first(where: \.isKeyWindow)
+                ?? windows.first(where: \.isKeyWindow)
+        } else {
+            return delegate?.window ?? nil
+        }
+    }
+
+    var visibleViewController: UIViewController? {
+        guard let root = mainWindow?.rootViewController else { return nil }
+        return findTop(from: root)
+    }
+
+    var currentNavigationController: UINavigationController? {
+        return visibleViewController?.navigationController
+    }
+
+    private func findTop(from root: UIViewController) -> UIViewController {
+        if let presented = root.presentedViewController {
+            return findTop(from: presented)
+        }
+        if let nav = root as? UINavigationController, let visible = nav.visibleViewController {
+            return findTop(from: visible)
+        }
+        if let tab = root as? UITabBarController, let selected = tab.selectedViewController {
+            return findTop(from: selected)
+        }
+        return root
+    }
+}
+```
+
+**AppDelegate.swift**
+```swift
+import UIKit
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+
+    class func sharedInstance() -> AppDelegate? {
+        return UIApplication.shared.delegate as? AppDelegate
+    }
+
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        setupApplication(launchOptions: launchOptions)
+
+        if #available(iOS 13.0, *) {
+            // iOS 13+ uses SceneDelegate for UI setup
+        } else {
+            // Note: UIScreen.main is deprecated in iOS 26 SDK but still required for iOS 12 path.
+            let window = UIWindow(frame: UIScreen.main.bounds)
+            setupSceneUI(window: window)
+        }
+        return true
+    }
+
+    func setupApplication(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        // One-time SDK initializations (analytics, push setup, etc.)
+    }
+
+    func setupSceneUI(window: UIWindow) {
+        let root = UINavigationController(rootViewController: RootViewController())
+        window.rootViewController = root
+        window.makeKeyAndVisible()
+
+        if #available(iOS 13.0, *) {
+            // SceneDelegate owns the window on iOS 13+
+        } else {
+            self.window = window
+        }
+    }
+
+    func application(_ application: UIApplication,
+                     configurationForConnecting connectingSceneSession: UISceneSession,
+                     options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+}
+```
+
+**SceneDelegate.swift**
+```swift
+import UIKit
+
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = scene as? UIWindowScene else { return }
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        AppDelegate.sharedInstance()?.setupSceneUI(window: window)
+    }
+
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        AppDelegate.sharedInstance()?.applicationDidBecomeActive(UIApplication.shared)
+    }
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        AppDelegate.sharedInstance()?.applicationWillResignActive(UIApplication.shared)
+    }
+
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        AppDelegate.sharedInstance()?.applicationWillEnterForeground(UIApplication.shared)
+    }
+
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        AppDelegate.sharedInstance()?.applicationDidEnterBackground(UIApplication.shared)
+    }
+}
+```
+
+##### Objective-C Projects
+
+Below is a minimal but complete example for a typical Objective-C iOS app supporting iOS 12+.
+
+**UIApplication+MainWindow.h**
+```objc
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface UIApplication (Extension)
+
+/// Returns the current key window, compatible with both iOS 12 and iOS 13+.
+- (nullable UIWindow *)mainWindow;
+
+/// Returns the topmost visible view controller from the current window.
+- (nullable UIViewController *)visibleViewController;
+
+/// Returns the current active navigation controller, if any.
+- (nullable UINavigationController *)currentNavigationController;
+
+@end
+
+NS_ASSUME_NONNULL_END
+```
+
+**UIApplication+MainWindow.m**
+```objc
+#import "UIApplication+MainWindow.h"
+
+@implementation UIApplication (Extension)
+
+- (nullable UIWindow *)mainWindow {
+    if (@available(iOS 13.0, *)) {
+        for (UIScene *scene in self.connectedScenes) {
+            if ([scene isKindOfClass:[UIWindowScene class]] && scene.activationState == UISceneActivationStateForegroundActive) {
+                UIWindowScene *windowScene = (UIWindowScene *)scene;
+                for (UIWindow *window in windowScene.windows) {
+                    if (window.isKeyWindow) {
+                        return window;
+                    }
+                }
+            }
+        }
+        
+        for (UIScene *scene in self.connectedScenes) {
+            if ([scene isKindOfClass:[UIWindowScene class]]) {
+                UIWindowScene *windowScene = (UIWindowScene *)scene;
+                for (UIWindow *window in windowScene.windows) {
+                    if (window.isKeyWindow) {
+                        return window;
+                    }
+                }
+            }
+        }
+        
+        for (UIWindow *window in self.windows) {
+            if (window.isKeyWindow) {
+                return window;
+            }
+        }
+        return nil;
+    } else {
+        return self.delegate.window;
+    }
+}
+
+- (nullable UIViewController *)visibleViewController {
+    UIViewController *rootViewController = self.mainWindow.rootViewController;
+    if (!rootViewController) {
+        return nil;
+    }
+    return [self findTopViewControllerFrom:rootViewController];
+}
+
+- (nullable UINavigationController *)currentNavigationController {
+    return self.visibleViewController.navigationController;
+}
+
+#pragma mark - Private Helpers
+
+- (UIViewController *)findTopViewControllerFrom:(UIViewController *)root {
+    if (root.presentedViewController) {
+        return [self findTopViewControllerFrom:root.presentedViewController];
+    }
+    if ([root isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *nav = (UINavigationController *)root;
+        if (nav.visibleViewController) {
+            return [self findTopViewControllerFrom:nav.visibleViewController];
+        }
+    }
+    if ([root isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tab = (UITabBarController *)root;
+        if (tab.selectedViewController) {
+            return [self findTopViewControllerFrom:tab.selectedViewController];
+        }
+    }
+    return root;
+}
+
+@end
+```
+
+**AppDelegate+Setup.h**
+```objc
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface AppDelegate (Setup)
+
+/// Class method to access the shared AppDelegate instance.
++ (instancetype)sharedInstance;
+
+/// Setup called once when the application launches.
+- (void)setupApplication:(nullable NSDictionary<UIApplicationLaunchOptionsKey, id> *)launchOptions;
+
+/// Setup called when a window is ready (iOS 13+ via SceneDelegate, iOS 12 directly).
+- (void)setupSceneUI:(UIWindow *)window;
+
+@end
+
+NS_ASSUME_NONNULL_END
+```
+
+**AppDelegate+Setup.m**
+```objc
+#import "AppDelegate+Setup.h"
+
+@implementation AppDelegate (Setup)
+
++ (instancetype)sharedInstance {
+    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
+
+- (void)setupApplication:(NSDictionary<UIApplicationLaunchOptionsKey, id> *)launchOptions {
+    // One-time SDK initializations (analytics, push setup, etc.)
+}
+
+- (void)setupSceneUI:(UIWindow *)window {
+    UIViewController *rootViewController = [[UIViewController alloc] init]; // Replace with your root VC
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+    window.rootViewController = navController;
+    [window makeKeyAndVisible];
+    
+    if (@available(iOS 13.0, *)) {
+        // iOS 13+ uses SceneDelegate.window; no need to store in AppDelegate
+    } else {
+        self.window = window;
+    }
+}
+
+@end
+```
+
+**SceneDelegate.h**
+```objc
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
+
+@property (strong, nonatomic) UIWindow * window;
+
+@end
+
+NS_ASSUME_NONNULL_END
+```
+
+**SceneDelegate.m**
+```objc
+#import "SceneDelegate.h"
+#import "AppDelegate.h"
+
+@implementation SceneDelegate
+
+- (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
+    if (![scene isKindOfClass:[UIWindowScene class]]) return;
+    
+    UIWindowScene *windowScene = (UIWindowScene *)scene;
+    UIWindow *window = [[UIWindow alloc] initWithWindowScene:windowScene];
+    self.window = window;
+    
+    [[AppDelegate sharedInstance] setupSceneUI:window];
+}
+
+- (void)sceneDidBecomeActive:(UIScene *)scene {
+    [[AppDelegate sharedInstance] applicationDidBecomeActive:[UIApplication sharedApplication]];
+}
+
+- (void)sceneWillResignActive:(UIScene *)scene {
+    [[AppDelegate sharedInstance] applicationWillResignActive:[UIApplication sharedApplication]];
+}
+
+- (void)sceneWillEnterForeground:(UIScene *)scene {
+    [[AppDelegate sharedInstance] applicationWillEnterForeground:[UIApplication sharedApplication]];
+}
+
+- (void)sceneDidEnterBackground:(UIScene *)scene {
+    [[AppDelegate sharedInstance] applicationDidEnterBackground:[UIApplication sharedApplication]];
+}
+
+- (void)sceneDidDisconnect:(UIScene *)scene {
+    // Optional: perform cleanup when scene is discarded by the system
+}
+
+@end
+```
+
+##### Mixed (Swift/Objective-C) Projects
+
+Mixed projects require extra care because `AppDelegate` and `SceneDelegate` may be written in different languages, and window-access helpers must be callable from both sides.
+
+**Recommended Architecture**
+
+| Decision | Recommendation |
+|----------|----------------|
+| Window Access | Implement in Objective-C (`templates/objc/UIApplication+MainWindow`). Swift sees it automatically via the bridging header as `UIApplication.shared.mainWindow()`. |
+| AppDelegate is Objective-C, SceneDelegate is Swift | Use the Objective-C AppDelegate template. Swift SceneDelegate calls through the bridging header. |
+| AppDelegate is Swift, SceneDelegate is Objective-C | Mark `sharedInstance()` and `setupSceneUI(_:)` with `@objc` / `@objcMembers` so Objective-C SceneDelegate can call them. |
+
+**Bridging Header Example (`YourProject-Bridging-Header.h`)**
+```objc
+#import "UIApplication+MainWindow.h"
+#import "AppDelegate.h"   // If AppDelegate is Objective-C
+```
+
+**Swift AppDelegate (exposed to Objective-C)**
+```swift
+import UIKit
+
+@main
+@objcMembers
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+
+    class func sharedInstance() -> AppDelegate? {
+        return UIApplication.shared.delegate as? AppDelegate
+    }
+
+    func setupApplication(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        // One-time SDK initializations (analytics, push setup, etc.)
+    }
+
+    func setupSceneUI(window: UIWindow) {
+        let root = UINavigationController(rootViewController: RootViewController())
+        window.rootViewController = root
+        window.makeKeyAndVisible()
+
+        if #available(iOS 13.0, *) {
+            // SceneDelegate owns the window on iOS 13+
+        } else {
+            self.window = window
+        }
+    }
+
+    func application(_ application: UIApplication,
+                     configurationForConnecting connectingSceneSession: UISceneSession,
+                     options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+}
+```
+
+See `templates/mixed/README.md` for the full mixed-project guide, additional bridging patterns, and cross-language lifecycle forwarding details.
+
+### Phase 1 Checklist
+
+#### Preparation
+- [ ] Determine next release date
+- [ ] Choose adaptation strategy (A/B/C)
+- [ ] Create adaptation branch
+- [ ] Upgrade Xcode to 26.0+
+- [ ] Upgrade macOS to Sequoia 15.3+ if needed
+
+#### Scanning
+- [ ] Scan for `keyWindow` usage
+- [ ] Scan for `delegate.window` usage
+- [ ] Scan for notification option alerts
+- [ ] Check SceneDelegate configuration status
+- [ ] Evaluate third-party SDK compatibility
+
+#### Implementation
+- [ ] Create UIApplication extension for unified access
+- [ ] Create SceneDelegate (if not exists)
+- [ ] Modify AppDelegate for dual-path support
+- [ ] Replace all deprecated window access
+- [ ] Replace notification option enums
+- [ ] Add Info.plist configurations
+- [ ] **Mixed projects only**: Verify bridging header includes `UIApplication+MainWindow`
+- [ ] **Mixed projects only**: Confirm `@objc` exposure for cross-language AppDelegate/SceneDelegate calls
+
+#### Verification
+- [ ] Build succeeds with iOS 26 SDK
+- [ ] No deprecated API warnings
+- [ ] iOS 12 device: launch normal
+- [ ] iOS 13+ device: launch normal
+- [ ] Lifecycle events work correctly
+- [ ] Global popups display correctly
+- [ ] Navigation works correctly
+- [ ] Liquid Glass disabled (no new effects)
+
+---
+
+## Phase 2: Liquid Glass Full Adaptation
+
+### Goal
+Full adaptation to Liquid Glass design language
+
+### Understanding Liquid Glass
+
+**Auto-adapting System Controls**:
+- UITabBar / UITabBarController
+- UINavigationBar / UINavigationController
+- Keyboard (new glassmorphism style)
+- UIToolbar
+- UIAlertController / UIActionSheet
+- UIButton, UISlider, UISwitch, UISegmentedControl
+- UIScrollView (`allowsLiquidTransform` enabled by default)
+- SwiftUI standard components
+
+**Visual Changes**:
+- Glass optical effects (refraction, reflection)
+- Rounded corners and shadows on keyboard
+- Enhanced translucency in TabBar
+- Navigation bar button styling changes
+
+### Key Tasks
+
+#### 1. Remove Temporary Configuration
+
+Remove from Info.plist:
+```xml
+<!-- Delete this entire entry -->
+<key>UIDesignRequiresCompatibility</key>
+<true/>
+```
+
+Then clean-build and verify on an iOS 26 device that system controls now show the new glassmorphism style.
+
+#### 2. Audit Custom UI Components
+
+Identify every custom component that touches system chrome or may clash with the new style:
+
+| Category | Examples | What to Check |
+|----------|----------|---------------|
+| Navigation | Custom nav bars, nav-bar background images, title views | Hardcoded colors, frame math, blur overrides |
+| TabBar | Custom tab bars, tab item badges, background images | Translucency conflicts, unreadable selected states |
+| Keyboard | Input accessory views, custom input views, keyboard observers | Layout gaps, safe-area mismatches |
+| Backgrounds | Full-screen gradients, solid color backgrounds | Clash with glass refraction behind system bars |
+| Controls | Custom buttons/switches/sliders placed next to system ones | Visual harmony, size mismatch, color drift |
+
+#### 3. Fix Navigation Bar Issues
+
+Common problems after removing `UIDesignRequiresCompatibility`:
+
+- **Hardcoded background colors** that fight the new translucency  
+  → Use `UINavigationBarAppearance` or let the system manage the background.
+- **Manual frame calculations on nav-bar subviews**  
+  → Avoid adding subviews directly to `UINavigationBar`. Use `navigationItem.titleView` or custom container VCs.
+- **Back-button image replacements looking cropped**  
+  → Re-test all custom back-button assets in Light, Dark, and tinted modes.
+
+##### 3a. Navigation Bar Button Spacing & Ordering (iOS 26+)
+
+iOS 26 Liquid Glass merges multiple navigation-bar buttons into a **single shared glass background block**. To keep the pre-iOS 26 appearance (each button has its own independent background), Apple provides `hidesSharedBackground`:
+
+```swift
+// Swift
+if #available(iOS 26.0, *) {
+    item.hidesSharedBackground = true
+}
+```
+
+```objc
+// Objective-C
+if (@available(iOS 26.0, *)) {
+    item.hidesSharedBackground = YES;
+}
+```
+
+However, enabling `hidesSharedBackground` introduces two new issues:
+
+1. **Extra spacing** between buttons — each item gets its own `_UINavigationBarPlatterView` container, and the system injects fixed spacing between them that cannot be removed via public APIs.
+2. **Reversed order for `rightBarButtonItems`** — on iOS 26, when multiple right-side items have `hidesSharedBackground = true`, they may render in the reverse order compared to iOS 25 and earlier.
+
+**Recommended Strategy**
+
+| Side | Recommendation | Reason |
+|------|---------------|--------|
+| **Right** (`rightBarButtonItems`) | **Apply fix globally** | Multiple action buttons are common; spacing and order issues are visually obvious and break muscle memory. |
+| **Left** (`leftBarButtonItems`) | **Leave as-is by default** | The system back button usually looks acceptable under Liquid Glass. Manual PlatterView adjustments can conflict with the back-button chevron layout. |
+
+> 💡 **Decision tip**: Only apply the left-side fix if your design team explicitly asks for it or if you use custom left buttons (not the system back button). Otherwise, let the system handle the back button.
+
+**Implementation**
+
+Use the runtime PlatterView fix to eliminate spacing and restore correct order:
+
+- Swift: `templates/swift/UINavigationBar+LiquidGlassAdapter.swift`
+- Objective-C: `templates/objc/UINavigationBar+LiquidGlassAdapter.h/.m`
+
+**Usage example**:
+
+```swift
+// Swift — apply to a specific navigation controller
+let nav = UINavigationController(rootViewController: rootVC)
+nav.applyLiquidGlassRightButtonFix()   // right items only (recommended)
+// nav.applyLiquidGlassAllButtonFix()  // both sides (use only if needed)
+```
+
+```objc
+// Objective-C — apply to a specific navigation controller
+UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:rootVC];
+[nav lg_applyLiquidGlassRightButtonFix];   // right items only (recommended)
+// [nav lg_applyLiquidGlassAllButtonFix];  // both sides (use only if needed)
+```
+
+**How the fix works**:
+
+1. Swizzles `layoutSubviews` on `UINavigationBar`.
+2. After the system lays out all buttons, recursively collects all private `_UINavigationBarPlatterView` containers by class-name string matching.
+3. Splits PlatterViews into left and right groups by their center-X relative to the navigation bar midpoint.
+4. **Right side**: sorts by original x-coordinate descending (rightmost first), then repositions each PlatterView from the right edge inward with zero spacing. This simultaneously fixes both the spacing gap and the reversed-order issue.
+5. **Left side** (optional): sorts ascending and packs from `safeAreaInsets.left` toward the center.
+6. Updates `NSLayoutConstraint.Leading` constants first, then falls back to direct `frame` assignment.
+
+**Important considerations**:
+
+| Consideration | Details |
+|---------------|---------|
+| Safe Area | Left-side start offset uses `safeAreaInsets.left` to respect Dynamic Island / notch. Right side reserves a 5-pt edge margin. |
+| Private class risk | Relies on string matching `"PlatterView"`. If Apple renames the class, update the match string. |
+| Constraint conflicts | Only `Leading` constraints are adjusted. If PlatterViews also have `Trailing` / `CenterX` constraints, additional handling may be needed. |
+| Scope | The swizzle is global per process. Call `applyRightBarButtonItemsFix()` on every `UINavigationBar` instance you want to fix, or subclass `UINavigationController` to apply it automatically. |
+
+#### 4. Fix Keyboard & Input Issues
+
+##### 4a. Liquid Glass Keyboard Toolbar (Optional)
+
+iOS 26 applies a glassmorphism effect to the keyboard's default **input accessory view** (the toolbar above the keyboard). Many teams report this looks visually disruptive — especially when the glass toolbar clashes with custom UI or the app's design system.
+
+**When to adjust**: Only if your testers/designers explicitly complain about the glass toolbar appearance.
+
+**Solution**: Clear the default `inputAccessoryView` on iOS 26+:
+
+```swift
+// Swift — per text field
+textField.inputAccessoryView = UIView()
+
+// Or use the adapter extension
+if #available(iOS 26.0, *) {
+    textField.inputAccessoryView = UIView()
+}
+```
+
+```objc
+// Objective-C
+if (@available(iOS 26.0, *)) {
+    textField.inputAccessoryView = [[UIView alloc] init];
+}
+```
+
+**Recommended approach**:
+
+| Approach | When to use | Pros | Cons |
+|----------|-------------|------|------|
+| **Per-control** (recommended) | Apply only to text inputs where the glass effect is problematic | Surgical, minimal side effects | Requires identifying each affected field |
+| **Custom subclass** | Your app has many custom `UITextField` / `UITextView` subclasses | One-line in `awakeFromNib` / `init` | Does not cover system text inputs |
+| **Global sweep** | Quick fix for all text inputs in the app | Fastest to implement | May remove legitimate custom toolbars (Done/Next buttons) — **discouraged** |
+
+**Scan priority**: Search the project for custom `UITextField` / `UITextView` subclasses first, then check standalone `inputAccessoryView` assignments.
+
+**Production templates**:
+- Swift: `templates/swift/UITextInput+LiquidGlassAdapter.swift`
+- Objective-C: `templates/objc/UITextInput+LiquidGlassAdapter.h/.m`
+
+##### 4b. General Keyboard Verification
+
+- Verify every text field still sits in the correct position when the keyboard appears.
+- Check input accessory views: their background may now sit on top of a glass keyboard. Consider using `UIInputView` with a system background or adding subtle padding.
+- Re-test secure text entry fields; their visual treatment may have changed.
+
+#### 5. Fix Scroll View & Animation Issues
+
+- `UIScrollView.allowsLiquidTransform` is **enabled by default** on iOS 26. If any scroll view looks distorted during edge scrolling, explicitly set `allowsLiquidTransform = false`.
+- Custom transition animations may be interrupted mid-flight on iOS 26. Add guards so your completion blocks do not run twice.
+- Navigation-bar frame math may return negative Y coordinates. Replace manual frame reads with `safeAreaInsets` or `layoutMarginsGuide` where possible.
+
+#### 6. Visual Regression Testing
+
+| Component | Check Point |
+|-----------|-------------|
+| Navigation Bar | Coordination with custom styling |
+| Keyboard | Input field positioning, accessory views |
+| TabBar | Text/icon readability |
+| Scroll Views | Scroll performance, visual effects |
+| Custom Controls | Harmony with system controls |
+
+#### 7. Technical Adaptations Summary
+
+- **Transition Animations**: iOS 26 allows interruption — add idempotency guards.
+- **Frame Adjustments**: Navigation bar may have negative Y coordinates — prefer Auto Layout / safe area.
+- **Custom Navigation**: Verify compatibility with new system behavior after removing the compatibility flag.
+
+### Phase 2 Checklist
+
+#### Preparation
+- [ ] Confirm Xcode 27 release timeline
+- [ ] Schedule dedicated UI testing time
+- [ ] Prepare iOS 26+ test devices
+
+#### Implementation
+- [ ] Remove `UIDesignRequiresCompatibility` flag
+- [ ] Review all custom UI components
+- [ ] Check navigation bar customizations
+- [ ] Verify keyboard accessory views
+- [ ] Test TabBar readability
+
+#### Verification
+- [ ] Liquid Glass effects display correctly
+- [ ] Navigation bar visual harmony
+- [ ] Keyboard interactions work correctly
+- [ ] TabBar text/icon readability
+- [ ] Long list scrolling smooth
+- [ ] Modal presentation normal
+- [ ] Custom controls coordinate with system
+
+---
+
+## Testing Framework
+
+### Version Compatibility Matrix
+
+| iOS Version | Phase 1 | Phase 2 | Priority |
+|-------------|---------|---------|----------|
+| Minimum supported | ✅ | ✅ | P0 |
+| iOS 13-15 | ✅ | - | P0 |
+| iOS 16-25 | ✅ | - | P1 |
+| iOS 26+ | ✅ | ✅ | P0 |
+
+### Critical Test Scenarios
+
+1. **Cold Launch**: App launch from terminated state
+2. **Hot Launch**: Resume from background
+3. **Lifecycle**: Background/foreground transitions
+4. **Window Access**: Global alerts, toasts, loading
+5. **Navigation**: Push/pop/present/dismiss
+6. **Notifications**: Receive and tap handling
+7. **Deep Link**: URL scheme handling
+8. **Rotation**: Device orientation changes
+
+### Third-Party SDK Testing
+
+| SDK Type | Test Points |
+|----------|-------------|
+| Push Notifications | Receive, tap, token refresh |
+| Share SDK | Share sheet, callback handling |
+| Analytics | Lifecycle event accuracy |
+| Maps | Location, map display |
+| Login | OAuth, callback |
+
+---
+
+## Risk Assessment
+
+| Risk | Level | Mitigation | Phase |
+|------|-------|------------|-------|
+| April 28 deadline missed | Critical | Start early, track progress | 1 |
+| Global replacement missed | High | Multiple scan rounds | 1 |
+| iOS 12 compatibility broken | Medium | Strict version branching | 1 |
+| Third-party SDK issues | Medium | Test all SDK functionality | 1/2 |
+| Lifecycle events lost | High | Ensure SceneDelegate forwarding | 1 |
+| Xcode 27 unprepared | Critical | Reserve Phase 2 time | 2 |
+| Liquid Glass visual issues | Medium | UI regression testing | 2 |
+| Keyboard layout broken | Medium | Check all input fields | 2 |
+
+---
+
+## Scanner Rules Reference
+
+### Window Access Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| WINDOW-001 | `UIApplication.shared.keyWindow` | Error |
+| WINDOW-002 | `[UIApplication sharedApplication].keyWindow` | Error |
+| WINDOW-003 | `delegate.window` | Warning |
+| WINDOW-004 | `AppDelegate.*window` | Warning |
+| WINDOW-005 | `.window.rootViewController` | Warning |
+| WINDOW-006 | `.window.visibleViewController` | Warning |
+
+### Notification Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| NOTIF-001 | `UNNotificationPresentationOptionAlert` | Warning |
+| NOTIF-002 | `UNAuthorizationOptionAlert` | Removed — not deprecated |
+
+### Screen Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| SCREEN-001 | `UIScreen.main` (Swift) | Warning |
+| SCREEN-002 | `[UIScreen mainScreen]` (Objective-C) | Warning |
+
+### WebView Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| WEB-001 | `UIWebView` | Error |
+
+### TLS / Network Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| TLS-001 | `TLSv10`, `TLSv11`, legacy `kCFStreamSSLLevel` | Warning |
+
+### CoreData Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| COREDATA-001 | `NSPersistentStoreUbiquitousContentNameKey` and related keys | Error |
+
+### Swift 6 Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| SWIFT6-001 | `@StateObject`, `@ObservedObject`, `@escaping` completion handlers | Info |
+
+### Status Bar Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| STATUS-001 | `statusBarStyle = UIStatusBarStyle` | Warning |
+| STATUS-002 | `UIApplication.shared.*statusBarStyle` | Warning |
+
+### StoreKit Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| STOREKIT-001 | `SKPaymentTransaction`, `SKProductsRequest`, `SKPaymentQueue` | Error |
+
+### SiriKit Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| SIRIKIT-001 | Deprecated SiriKit intent domains (CarPlay, Lists, Payments, etc.) | Warning |
+
+### SwiftUI Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| SWIFTUI-001 | `NavigationView` | Warning |
+| SWIFTUI-002 | `.cornerRadius()` | Warning |
+| SWIFTUI-003 | `.foregroundColor()` | Warning |
+
+### Photos Patterns
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| PHOTOS-001 | `UIImagePickerController` | Warning |
+
+### Keyboard Patterns (Liquid Glass)
+
+| Rule ID | Pattern | Severity |
+|---------|---------|----------|
+| KEYBOARD-001 | Custom `UITextField` subclass | Info |
+| KEYBOARD-002 | Custom `UITextView` subclass | Info |
+| KEYBOARD-003 | `inputAccessoryView` assignment | Info |
+
+---
+
+## Code Replacement Templates
+
+### Window Access
+
+**Before**:
+```swift
+// Swift
+let window = UIApplication.shared.keyWindow
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
+let vc = appDelegate.window?.rootViewController
+```
+
+```objc
+// Objective-C
+UIWindow *window = [UIApplication sharedApplication].keyWindow;
+AppDelegate *appDelegate = [AppDelegate sharedInstance];
+UIViewController *vc = [appDelegate.window rootViewController];
+```
+
+**After**:
+```swift
+// Swift
+let window = UIApplication.shared.mainWindow
+let vc = UIApplication.shared.visibleViewController
+```
+
+```objc
+// Objective-C
+UIWindow *window = [[UIApplication sharedApplication] mainWindow];
+UIViewController *vc = [[UIApplication sharedApplication] visibleViewController];
+```
+
+### Notification Options
+
+**Before**:
+```swift
+// Swift
+completionHandler([.alert, .sound, .badge])
+```
+
+```objc
+// Objective-C
+completionHandler(UNNotificationPresentationOptionAlert |
+                 UNNotificationPresentationOptionSound |
+                 UNNotificationPresentationOptionBadge);
+```
+
+**After**:
+```swift
+// Swift
+if #available(iOS 14.0, *) {
+    completionHandler([.banner, .list, .sound, .badge])
+} else {
+    completionHandler([.alert, .sound, .badge])
+}
+```
+
+```objc
+// Objective-C
+if (@available(iOS 14.0, *)) {
+    completionHandler(UNNotificationPresentationOptionBanner |
+                     UNNotificationPresentationOptionList |
+                     UNNotificationPresentationOptionSound |
+                     UNNotificationPresentationOptionBadge);
+} else {
+    completionHandler(UNNotificationPresentationOptionAlert |
+                     UNNotificationPresentationOptionSound |
+                     UNNotificationPresentationOptionBadge);
+}
+```
+
+### Authorization Options
+
+**Before**:
+```swift
+// Swift
+let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+```
+
+```objc
+// Objective-C
+UNAuthorizationOptions options = UNAuthorizationOptionAlert |
+                                 UNAuthorizationOptionSound |
+                                 UNAuthorizationOptionBadge;
+```
+
+**After**:
+```swift
+// Swift
+let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+```
+
+```objc
+// Objective-C
+UNAuthorizationOptions options = UNAuthorizationOptionAlert |
+                                 UNAuthorizationOptionSound |
+                                 UNAuthorizationOptionBadge;
+```
+
+> ⚠️ **Important**: `UNAuthorizationOptionAlert` is **NOT deprecated** and remains valid in iOS 26 SDK. `UNAuthorizationOptionBanner` does **NOT exist** in the SDK — do not use it.
+
+---
+
+## Troubleshooting
+
+### Build Errors
+
+**Error**: `'keyWindow' was deprecated in iOS 13.0`
+- **Solution**: Replace with unified window access interface
+
+**Error**: `Cannot find 'SceneDelegate' in scope`
+- **Solution**: Create SceneDelegate.swift/m file
+
+**Error**: `UIApplicationSceneManifest` missing
+- **Solution**: Add to Info.plist
+
+### Runtime Issues
+
+**Issue**: Window returns nil on iOS 13+
+- **Cause**: Still using AppDelegate.window in SceneDelegate architecture
+- **Solution**: Use unified access interface that checks connectedScenes
+
+**Issue**: Lifecycle events not firing
+- **Cause**: SceneDelegate not forwarding to AppDelegate
+- **Solution**: Implement forwarding in all SceneDelegate lifecycle methods
+
+**Issue**: Notifications not displaying correctly on iOS 26
+- **Cause**: Using deprecated Alert option
+- **Solution**: Update to Banner/List options with version check
+
+---
+
+## Consultation Triggers
+
+### Must Consult
+
+- Uncertain about release timeline
+- More than 100 deprecated API occurrences
+- Extensive custom UI components
+- Old third-party SDK versions
+- No iOS 26 testing devices available
+
+### Recommended to Confirm
+
+- Branch creation: `feature/ios26-adaptation`
+- Phase separation strategy
+- Testing device allocation
+- Rollback plan if issues arise
+
+---
+
+## Additional iOS 26 SDK Changes
+
+### Swift 6 Strict Concurrency
+
+Xcode 26 ships with Swift 6 and enables **complete strict concurrency checking** by default.
+
+| Change | Before | After |
+|--------|--------|-------|
+| Main-thread UI updates | Implicit | Require `@MainActor` |
+| Mutable shared state | Allowed | Require `Sendable` conformance or isolation |
+| `@escaping` closures | Silent | Compiler warns about data races |
+| `completionHandler` patterns | Common | Migrate to `async/await` where possible |
+
+**Quick fixes**:
+- Add `@MainActor` to ViewModels and UI-related classes
+- Mark reference types that cross isolation boundaries with `@unchecked Sendable` (with care)
+- Replace `DispatchQueue.main.async` with `@MainActor` methods
+- Use `async/await` instead of completion-handler patterns for new code
+
+> ⚠️ **Build impact**: Projects with many `@escaping` closures and shared mutable state may see hundreds of new warnings. Plan time for this.
+
+### TLS Minimum Version Raised to 1.2
+
+For apps linked against the iOS 26 SDK, the **minimum TLS version** for `URLSession` and Network framework has been raised from 1.0 to 1.2.
+
+- Internal APIs or third-party services using TLS 1.0/1.1 will fail to connect
+- Check `Info.plist` for `NSExceptionMinimumTLSVersion` overrides and remove them
+- Verify corporate VPN and MDM connections support TLS 1.2+
+
+### CoreData iCloud Ubiquitous Sync Keys Removed
+
+The following deprecated `NSPersistentStore` option keys have been **removed** in iOS 26:
+
+- `NSPersistentStoreUbiquitousContentNameKey`
+- `NSPersistentStoreUbiquitousContentURLKey`
+- `NSPersistentStoreUbiquitousPeerTokenOption`
+- `NSPersistentStoreRemoveUbiquitousMetadataOption`
+- `NSPersistentStoreUbiquitousContainerIdentifierKey`
+- `NSPersistentStoreRebuildFromUbiquitousContentOption`
+
+**Migration**: Use `NSPersistentCloudKitContainer` (iOS 13+) or `SwiftData` (iOS 17+).
+
+### Liquid Glass Detailed Impact
+
+Beyond visual changes, Liquid Glass introduces structural layout differences:
+
+1. **Floating TabBar changes `safeAreaInsets`** at the bottom. Hardcoded bottom padding (e.g., `bottom: 80`) or manually calculated `safeAreaInsets` may misalign FABs, bottom sheets, and custom bottom bars.
+   - **Fix**: Use `UIViewController.additionalSafeAreaInsets` and respond to `viewSafeAreaInsetsDidChange()` instead of fixed values.
+
+2. **`UIDropShadowView` auto-inserted** by the system behind navigation bars and toolbars. This can break existing hit-testing or view-traversal logic that assumes direct subviews.
+   - **Fix**: Avoid relying on exact subview indexes or `subviews.first` for system bars.
+
+3. **Custom solid background colors clash** with glass refraction layers. Glass effects expect alpha/translucency; solid colors create visual seams.
+   - **Fix**: Remove custom `backgroundColor` on `UINavigationBar`, `UITabBar`, `UIToolbar`. Let the system apply glass materials, or use `UIBlurEffect` / `UIVisualEffectView`.
+
+### Privacy Manifest (PrivacyInfo.xcprivacy)
+
+Since May 2024, **every app submitted to App Store Connect must include a `PrivacyInfo.xcprivacy` manifest file**. iOS 26 submissions will be rejected without it.
+
+**What to declare**:
+- **Required Reason APIs**: File timestamp, disk space, User Defaults, etc. — each needs an approved reason code
+- **Data collection categories**: What user data you collect and how it's used
+- **Third-party SDK declarations**: Every SDK must either bundle its own privacy manifest or be declared in yours
+
+**Quick setup**:
+1. In Xcode: File → New → App Privacy → name it `PrivacyInfo.xcprivacy`
+2. Add it to your app target
+3. Use Xcode's **Privacy Report** (Window → Organizer → Distribute App → Generate Privacy Report) to validate
+
+> ⚠️ **Third-party SDKs without manifests** are a common blocker. Check `pod outdated` / SPM for updates, or manually declare their data usage in your manifest.
+
+### StoreKit 1 → StoreKit 2 Migration
+
+StoreKit 1 APIs (`SKPaymentTransaction`, `SKProductsRequest`, `SKPaymentQueue`, `SKPaymentTransactionObserver`) are **removed** in Xcode 26, causing build failures.
+
+| StoreKit 1 | StoreKit 2 (iOS 15+) |
+|-----------|---------------------|
+| `SKProductsRequest` | `Product.products(for:)` |
+| `SKPaymentQueue` | `Product.purchase(confirmIn:options:)` |
+| `SKPaymentTransaction` | `Transaction` (JWS-signed) |
+| Receipt validation | App Store Server API |
+| `SKPaymentTransactionObserver` | `Transaction.updates` async sequence |
+
+**Backwards compatibility**: StoreKit 2 requires iOS 15+. If you support iOS 12-14, maintain dual-path logic:
+```swift
+if #available(iOS 15.0, *) {
+    // StoreKit 2 path
+} else {
+    // StoreKit 1 path (still compiles for older deployment targets)
+}
+```
+
+### SiriKit → App Intents Migration
+
+Apple has deprecated the following SiriKit intent domains. Siri will no longer support requests using these intents:
+
+- **CarPlay**: Set Audio Source, Climate Settings, Defroster, Seat Settings, Profile, Radio Station
+- **Lists & Notes**: Append to Note, Create Task List, Delete Tasks
+- **Payments**: Pay Bill, Search Bills, Transfer Money
+- **Photos**: Search Photos, Start Photo Playback
+- **Visual Codes**: Get Visual Code
+- **VoIP Calling**: Search Call History
+- **Ride Booking**: Deprecated (Maps/Shortcuts still support)
+
+**Migration**: Use the **App Intents** framework. Xcode provides automatic conversion from SiriKit Intents to App Intents.
+
+### SwiftUI Modern API Replacements
+
+If your project uses SwiftUI, update these deprecated patterns:
+
+| Deprecated | Modern Alternative | Since |
+|-----------|-------------------|-------|
+| `NavigationView` | `NavigationStack` | iOS 16 |
+| `.cornerRadius()` | `.clipShape(.rect(cornerRadius:))` | iOS 17 |
+| `.foregroundColor()` | `.foregroundStyle()` | iOS 17 |
+| `ObservableObject` / `@StateObject` | `@Observable` macro + `@State` | iOS 17 |
+| `onChange(of:) { value in }` | `onChange(of:) { old, new in }` | iOS 17 |
+| `presentationMode` | `@Environment(\.dismiss)` | iOS 15 |
+| `GeometryReader` (sizing) | `containerRelativeFrame()` | iOS 17 |
+
+> 💡 **Tip**: SwiftUI standard components (Button, List, TabView, etc.) automatically adapt to Liquid Glass when built with iOS 26 SDK — no code changes needed for basic usage.
+
+### Photos: UIImagePickerController → PHPickerViewController
+
+`UIImagePickerController` is deprecated. Use `PHPickerViewController` (PhotosUI, iOS 14+) for photo and video selection:
+
+```swift
+import PhotosUI
+
+var config = PHPickerConfiguration(photoLibrary: .shared())
+config.selectionLimit = 1
+config.filter = .images
+
+let picker = PHPickerViewController(configuration: config)
+picker.delegate = self
+present(picker, animated: true)
+```
+
+Benefits of PHPicker:
+- No photo library permission required (user grants per-selection)
+- Supports multi-selection, filtering, and Live Photos
+- Modern Swift async API available in iOS 15+
+
+---
+
+## Resources
+
+### Internal Documents
+- [Code Templates](../templates/) — Production-ready Swift and Objective-C templates (copy to your project and modify)
+  - `PrivacyInfo.xcprivacy` — Privacy Manifest template for App Store submission
+  - `Swift6ConcurrencyAdapter.swift` — Swift 6 strict concurrency migration patterns
+  - `UINavigationBar+LiquidGlassAdapter` — Fixes spacing & order reversal for nav-bar buttons under Liquid Glass
+- [FAQ](../docs/faq.md) — Common questions about deadlines, build errors, and Liquid Glass
+- [Testing Guide](../docs/testing-guide.md) — Complete testing framework for QA teams
+- [SDK Compatibility Cheat Sheet](../docs/sdk-compatibility.md) — Third-party SDK iOS 26 compatibility status
+- [Chinese Framework Guide](../.claude/iOS26-适配框架指南.md) — Full adaptation framework in Chinese
+
+### External Links
+- [Apple Developer News](https://developer.apple.com/news/)
+- [iOS 26 Release Notes](https://developer.apple.com/documentation/ios-release-notes)
+- [SceneDelegate Documentation](https://developer.apple.com/documentation/uikit/app_and_environment/scenes)
+- [Liquid Glass Design](https://developer.apple.com/design/)
+
+---
+
+**Author**: roder
+
+---
+> Source: [luodeCoding/ios26-adaptation-skill](https://github.com/luodeCoding/ios26-adaptation-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
