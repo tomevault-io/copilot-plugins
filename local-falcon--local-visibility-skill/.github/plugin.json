@@ -1,0 +1,9 @@
+{
+  "name": "local-falcon--local-visibility-skill",
+  "displayName": "local-visibility-skill",
+  "description": "local-visibility-skill",
+  "version": "1.0.0",
+  "author": "local-falcon",
+  "homepage": "https://github.com/local-falcon/local-visibility-skill",
+  "skills": []
+}
