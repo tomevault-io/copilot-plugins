@@ -4,7 +4,7 @@
   "repo": "app-page-studio",
   "description": "\u4e00\u4e2a\u7528\u4e8e\u5c06 \u8bbe\u8ba1\u7a3f HTML / \u8bbe\u8ba1\u56fe(PNG/JPG/WebP) \u8f6c\u6362\u4e3a AI \u5f00\u53d1\u63d0\u793a\u8bcd\u7684\u5de5\u5177\uff0c\u5e2e\u52a9\u5feb\u901f\u8fd8\u539f Flutter\u3001React Native \u548c UniApp \u9875\u9762\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/snice/app-page-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T06:52:20Z"
+  "distributed_at": "2026-06-20T07:03:13Z"
 }
