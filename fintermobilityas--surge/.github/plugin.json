@@ -1,0 +1,9 @@
+{
+  "name": "fintermobilityas--surge",
+  "displayName": "surge",
+  "description": "Automatic updates for any application. Built in Rust. Ships in 5 minutes.",
+  "version": "1.0.0",
+  "author": "fintermobilityas",
+  "homepage": "https://github.com/fintermobilityas/surge",
+  "skills": []
+}
