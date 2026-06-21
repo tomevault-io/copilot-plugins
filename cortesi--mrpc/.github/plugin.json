@@ -1,0 +1,9 @@
+{
+  "name": "cortesi--mrpc",
+  "displayName": "mrpc",
+  "description": "A MessagePack-RPC implementation for Rust",
+  "version": "1.0.0",
+  "author": "cortesi",
+  "homepage": "https://github.com/cortesi/mrpc",
+  "skills": []
+}
