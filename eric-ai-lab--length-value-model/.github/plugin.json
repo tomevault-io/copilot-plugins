@@ -1,0 +1,9 @@
+{
+  "name": "eric-ai-lab--length-value-model",
+  "displayName": "Length-Value-Model",
+  "description": "Official implementation of the paper \"Length Value Model: Pretraining Value Model for Scalable Length Prediction and Control\"",
+  "version": "1.0.0",
+  "author": "eric-ai-lab",
+  "homepage": "https://github.com/eric-ai-lab/Length-Value-Model",
+  "skills": []
+}
