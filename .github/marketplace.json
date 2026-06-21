@@ -208584,6 +208584,16 @@
       "description": "A powerful Figma plugin for managing design to"
     },
     {
+      "name": "joshxfi--noteside",
+      "source": "./joshxfi--noteside",
+      "description": "\ud83d\udcd3 A notebook for keyboard people."
+    },
+    {
+      "name": "joshxfi--noteside",
+      "source": "./joshxfi--noteside",
+      "description": "\ud83d\udcd3 A notebook for keyboard people."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -224582,6 +224592,31 @@
       "name": "schnickenpick--deepcodev3",
       "source": "./schnickenpick--deepcodev3",
       "description": "DeepCodev3"
+    },
+    {
+      "name": "whpthomas--spark-auto-round",
+      "source": "./whpthomas--spark-auto-round",
+      "description": "spark-auto-round"
+    },
+    {
+      "name": "huanchong-99--pocketaide",
+      "source": "./huanchong-99--pocketaide",
+      "description": "Your pocket AI secretary, powered by Claude Code."
+    },
+    {
+      "name": "italian-builders-org--magistra",
+      "source": "./italian-builders-org--magistra",
+      "description": "Open-source alternative to the Italian legal platform Lexroom"
+    },
+    {
+      "name": "geeksilva97--bethoven",
+      "source": "./geeksilva97--bethoven",
+      "description": "bethoven"
+    },
+    {
+      "name": "italian-builders-org--magistra",
+      "source": "./italian-builders-org--magistra",
+      "description": "Open-source alternative to the Italian legal platform Lexroom"
     },
     {
       "name": "cheerhuan--save-your-token",
