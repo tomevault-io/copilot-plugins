@@ -1,6 +1,7 @@
 ## codedebrief
 
-> <!-- codedebrief:instructions:start -->
+> Keep CodeDebrief synchronized
+
 
 <!-- codedebrief:instructions:start -->
 ## CodeDebrief
