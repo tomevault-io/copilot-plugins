@@ -1,0 +1,9 @@
+{
+  "name": "chasqui-stack--chasqui",
+  "displayName": "chasqui",
+  "description": "Open-source stack for custom AI chat agents \u2014 channel-agnostic core (FastAPI + LangGraph + pgvector), WhatsApp + Telegram gateways, React operator panel. Web widget on the roadmap.",
+  "version": "1.0.0",
+  "author": "chasqui-stack",
+  "homepage": "https://github.com/chasqui-stack/chasqui",
+  "skills": []
+}
