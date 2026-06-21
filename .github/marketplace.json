@@ -224619,6 +224619,21 @@
       "description": "Open-source alternative to the Italian legal platform Lexroom"
     },
     {
+      "name": "hoaxnerd--burnless",
+      "source": "./hoaxnerd--burnless",
+      "description": "The always-on financial companion for founders"
+    },
+    {
+      "name": "hoaxnerd--burnless",
+      "source": "./hoaxnerd--burnless",
+      "description": "The always-on financial companion for founders"
+    },
+    {
+      "name": "wubing2023--reprorun",
+      "source": "./wubing2023--reprorun",
+      "description": "\ud83d\udd2c A  skill that automatically reproduces the numerical claims of academic papers \u2014 read paper \u2192 find code \u2192 build env \u2192 run \u2192 compare against the paper. 1 orchestrator + 6 specialized agents."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -345182,6 +345197,11 @@
       "name": "relyky--asvt-n8blazorapp-tpl",
       "source": "./relyky--asvt-n8blazorapp-tpl",
       "description": "Asvt_N8BlazorApp_TPL"
+    },
+    {
+      "name": "merttbodur--anti-overengineering",
+      "source": "./merttbodur--anti-overengineering",
+      "description": "anti-overengineering"
     }
   ]
 }
