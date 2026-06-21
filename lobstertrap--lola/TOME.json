@@ -4,7 +4,7 @@
   "repo": "lola",
   "description": "Lola is able to package AI Context Modules or skills into a distributed package to be supported across multiple AI assistants. Think of your skill as the RPM package and Lola as the YUM/DNF. Write your skills once, run everywhere.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LobsterTrap/lola",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T05:49:18Z"
+  "distributed_at": "2026-06-21T05:50:42Z"
 }
