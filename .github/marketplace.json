@@ -137824,6 +137824,26 @@
       "description": "promptor"
     },
     {
+      "name": "ferdinandobons--codedebrief",
+      "source": "./ferdinandobons--codedebrief",
+      "description": "Local-first static analysis that turns source code into deterministic, source-grounded workflow maps for coding agents via MCP."
+    },
+    {
+      "name": "ferdinandobons--codedebrief",
+      "source": "./ferdinandobons--codedebrief",
+      "description": "Local-first static analysis that turns source code into deterministic, source-grounded workflow maps for coding agents via MCP."
+    },
+    {
+      "name": "ferdinandobons--codedebrief",
+      "source": "./ferdinandobons--codedebrief",
+      "description": "Local-first static analysis that turns source code into deterministic, source-grounded workflow maps for coding agents via MCP."
+    },
+    {
+      "name": "ferdinandobons--codedebrief",
+      "source": "./ferdinandobons--codedebrief",
+      "description": "Local-first static analysis that turns source code into deterministic, source-grounded workflow maps for coding agents via MCP."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
