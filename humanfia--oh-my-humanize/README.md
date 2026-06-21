@@ -1,0 +1,26 @@
+# oh-my-humanize
+
+> Tome by [humanfia](https://github.com/humanfia/oh-my-humanize) — distributed by [TomeVault](https://tomevault.io)
+
+⌥ AI Coding agent for the terminal — hash-anchored edits, optimized tool harness, LSP, Python, browser, subagents -- All for Long running Agentized Workflows
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [humanfia/oh-my-humanize](https://github.com/humanfia/oh-my-humanize).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/humanfia/oh-my-humanize](https://github.com/humanfia/oh-my-humanize)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-q -->
