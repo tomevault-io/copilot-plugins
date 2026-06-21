@@ -1,0 +1,9 @@
+{
+  "name": "lonexreb--site2cli",
+  "displayName": "site2cli",
+  "description": "Turn any website into a CLI/API for AI agents",
+  "version": "1.0.0",
+  "author": "lonexreb",
+  "homepage": "https://github.com/lonexreb/site2cli",
+  "skills": []
+}
