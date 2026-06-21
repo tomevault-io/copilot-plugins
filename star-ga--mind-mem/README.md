@@ -7,11 +7,11 @@ Persistent AI memory for Claude Code, OpenClaw, and any MCP-compatible agent. BM
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [star-ga/mind-mem](https://github.com/star-ga/mind-mem).
+Original source: `AGENTS.md` in [star-ga/mind-mem](https://github.com/star-ga/mind-mem).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
