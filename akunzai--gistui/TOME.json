@@ -4,7 +4,7 @@
   "repo": "gistui",
   "description": "A terminal UI for managing GitHub Gists",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/akunzai/gistui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T20:30:22Z"
+  "distributed_at": "2026-06-21T20:30:50Z"
 }
