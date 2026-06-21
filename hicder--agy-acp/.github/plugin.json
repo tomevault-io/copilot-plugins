@@ -1,0 +1,9 @@
+{
+  "name": "hicder--agy-acp",
+  "displayName": "agy-acp",
+  "description": "Fork from https://github.com/openabdev/openab/tree/main/agy-acp with additional fixes",
+  "version": "1.0.0",
+  "author": "hicder",
+  "homepage": "https://github.com/hicder/agy-acp",
+  "skills": []
+}
