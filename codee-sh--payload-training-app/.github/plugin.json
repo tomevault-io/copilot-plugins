@@ -1,0 +1,9 @@
+{
+  "name": "codee-sh--payload-training-app",
+  "displayName": "payload-training-app",
+  "description": "Open-source coaching app built with Payload CMS and Next.js. Coaches manage training plans in the admin; clients log workouts on mobile.",
+  "version": "1.0.0",
+  "author": "codee-sh",
+  "homepage": "https://github.com/codee-sh/payload-training-app",
+  "skills": []
+}
