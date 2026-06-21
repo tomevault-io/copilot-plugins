@@ -1,0 +1,44 @@
+{
+  "name": "ReproRun",
+  "owner": "WUBING2023",
+  "repo": "ReproRun",
+  "description": "\ud83d\udd2c A  skill that automatically reproduces the numerical claims of academic papers \u2014 read paper \u2192 find code \u2192 build env \u2192 run \u2192 compare against the paper. 1 orchestrator + 6 specialized agents.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WUBING2023/ReproRun",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-21T18:31:52Z"
+}
