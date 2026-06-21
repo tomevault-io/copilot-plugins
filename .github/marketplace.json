@@ -44934,11 +44934,6 @@
       "description": "TypeScript Interface for Machine Payments Protocol"
     },
     {
-      "name": "chenglou--sotaku",
-      "source": "./chenglou--sotaku",
-      "description": "sotaku"
-    },
-    {
       "name": "antigluten--amgi",
       "source": "./antigluten--amgi",
       "description": "An open-source, offline-first Anki-compatible iOS flashcard client with sync server support, powered by the official Anki Rust backend via C FFI."
@@ -44982,11 +44977,6 @@
       "name": "1password--scam",
       "source": "./1password--scam",
       "description": "SCAM - Security Comprehension Awareness Measure | Open-source benchmark that tests AI agents' security awareness during realistic, multi-turn workplace tasks."
-    },
-    {
-      "name": "chenglou--sotaku",
-      "source": "./chenglou--sotaku",
-      "description": "sotaku"
     },
     {
       "name": "fluid-design-io--payload-better-auth-starter",
@@ -45122,6 +45112,16 @@
       "name": "quolpr--quicktest-nvim",
       "source": "./quolpr--quicktest-nvim",
       "description": "Run your tests inside nvim in split window or popup with live feedback"
+    },
+    {
+      "name": "chenglou--sotaku",
+      "source": "./chenglou--sotaku",
+      "description": "sotaku"
+    },
+    {
+      "name": "chenglou--sotaku",
+      "source": "./chenglou--sotaku",
+      "description": "sotaku"
     },
     {
       "name": "butttons--dora",
@@ -208527,6 +208527,16 @@
       "name": "prasanjit101--leve",
       "source": "./prasanjit101--leve",
       "description": "filesystem-as-agent framework built on LangGraph"
+    },
+    {
+      "name": "codeaiagent-ctar--captora-app",
+      "source": "./codeaiagent-ctar--captora-app",
+      "description": "captora_app"
+    },
+    {
+      "name": "humanfia--oh-my-humanize",
+      "source": "./humanfia--oh-my-humanize",
+      "description": "\u2325 AI Coding agent for the terminal \u2014 hash-anchored edits, optimized tool harness, LSP, Python, browser, subagents -- All for Long running Agentized Workflows"
     },
     {
       "name": "ocrbase-hq--ocrbase",
