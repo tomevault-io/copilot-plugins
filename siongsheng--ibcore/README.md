@@ -1,0 +1,26 @@
+# ibcore
+
+> Tome by [siongsheng](https://github.com/siongsheng/ibcore) — distributed by [TomeVault](https://tomevault.io)
+
+Rust + Python wrapper for Interactive Brokers API — typed errors, diagnostic events, option chains, market snapshots
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [siongsheng/ibcore](https://github.com/siongsheng/ibcore).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/siongsheng/ibcore](https://github.com/siongsheng/ibcore)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
