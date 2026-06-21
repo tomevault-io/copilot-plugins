@@ -1,0 +1,9 @@
+{
+  "name": "serac-labs--serac",
+  "displayName": "serac",
+  "description": "AI-powered ServiceNow development with 400+ MCP tools. Works with Claude, GPT, Gemini, Ollama & 75+ providers. Deploy widgets, manage incidents, automate workflows - all through natural language. Open",
+  "version": "1.0.0",
+  "author": "serac-labs",
+  "homepage": "https://github.com/serac-labs/serac",
+  "skills": []
+}
