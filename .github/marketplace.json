@@ -224529,6 +224529,11 @@
       "description": "saras_ai_robot_v2"
     },
     {
+      "name": "igorwarzocha--pi-clawa",
+      "source": "./igorwarzocha--pi-clawa",
+      "description": "Everybody has their Claw and so do I"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
