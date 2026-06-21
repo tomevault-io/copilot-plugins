@@ -1,0 +1,9 @@
+{
+  "name": "osodevops--chukei",
+  "displayName": "chukei",
+  "description": "Open source Snowflake cost proxy. Verified caching, suspend, rewrites, attribution, and signed savings evidence.",
+  "version": "1.0.0",
+  "author": "osodevops",
+  "homepage": "https://github.com/osodevops/chukei",
+  "skills": []
+}
