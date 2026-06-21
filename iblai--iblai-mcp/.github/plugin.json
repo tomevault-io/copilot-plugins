@@ -1,0 +1,9 @@
+{
+  "name": "iblai--iblai-mcp",
+  "displayName": "iblai-mcp",
+  "description": "Model Context Protocol servers for ibl.ai \u2014 analytics, agent creation, agent chat, search, user management, and Canvas LMS integration",
+  "version": "1.0.0",
+  "author": "iblai",
+  "homepage": "https://github.com/iblai/iblai-mcp",
+  "skills": []
+}
