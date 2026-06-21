@@ -1,0 +1,9 @@
+{
+  "name": "ferdinandobons--codedebrief",
+  "displayName": "CodeDebrief",
+  "description": "Local-first static analysis that turns source code into deterministic, source-grounded workflow maps for coding agents via MCP.",
+  "version": "1.0.0",
+  "author": "ferdinandobons",
+  "homepage": "https://github.com/ferdinandobons/CodeDebrief",
+  "skills": []
+}
