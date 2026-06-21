@@ -4,7 +4,7 @@
   "repo": "noteside",
   "description": "\ud83d\udcd3 A notebook for keyboard people.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joshxfi/noteside",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T16:30:22Z"
+  "distributed_at": "2026-06-21T16:30:50Z"
 }
