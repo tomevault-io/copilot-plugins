@@ -7,11 +7,11 @@ Open-source stack for custom AI chat agents — channel-agnostic core (FastAPI +
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chasqui-stack/chasqui](https://github.com/chasqui-stack/chasqui).
+Original source: `CLAUDE.md` in [chasqui-stack/chasqui](https://github.com/chasqui-stack/chasqui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
