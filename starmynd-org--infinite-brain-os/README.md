@@ -7,11 +7,11 @@ A git-backed operating system for running a business with AI agents. Plain Markd
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [starmynd-org/infinite-brain-os](https://github.com/starmynd-org/infinite-brain-os).
+Original source: `CLAUDE.md` in [starmynd-org/infinite-brain-os](https://github.com/starmynd-org/infinite-brain-os).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
