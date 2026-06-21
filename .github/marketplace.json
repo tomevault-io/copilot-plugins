@@ -44934,6 +44934,11 @@
       "description": "TypeScript Interface for Machine Payments Protocol"
     },
     {
+      "name": "chenglou--sotaku",
+      "source": "./chenglou--sotaku",
+      "description": "sotaku"
+    },
+    {
       "name": "antigluten--amgi",
       "source": "./antigluten--amgi",
       "description": "An open-source, offline-first Anki-compatible iOS flashcard client with sync server support, powered by the official Anki Rust backend via C FFI."
@@ -44977,6 +44982,11 @@
       "name": "1password--scam",
       "source": "./1password--scam",
       "description": "SCAM - Security Comprehension Awareness Measure | Open-source benchmark that tests AI agents' security awareness during realistic, multi-turn workplace tasks."
+    },
+    {
+      "name": "chenglou--sotaku",
+      "source": "./chenglou--sotaku",
+      "description": "sotaku"
     },
     {
       "name": "fluid-design-io--payload-better-auth-starter",
@@ -45939,11 +45949,6 @@
       "description": "Spreadsheets"
     },
     {
-      "name": "chenglou--sotaku",
-      "source": "./chenglou--sotaku",
-      "description": "sotaku"
-    },
-    {
       "name": "hytidel--auto-tutor",
       "source": "./hytidel--auto-tutor",
       "description": "auto-tutor"
@@ -46002,11 +46007,6 @@
       "name": "hamelsmu--research-council",
       "source": "./hamelsmu--research-council",
       "description": "research-council"
-    },
-    {
-      "name": "chenglou--sotaku",
-      "source": "./chenglou--sotaku",
-      "description": "sotaku"
     },
     {
       "name": "pixel-tailor-cn--pixelmeter",
@@ -208504,6 +208504,16 @@
       "description": "Brigade \u2014 Your personal intelligence, built enterprise-grade"
     },
     {
+      "name": "jarczakpawel--orcastudio",
+      "source": "./jarczakpawel--orcastudio",
+      "description": "Bambu Studio fork with OrcaSlicer changes, restored BambuNetwork support through the Linux bambu_networking path, and BMCU fixes for A1 / A1-mini firmware locks."
+    },
+    {
+      "name": "prasanjit101--leve",
+      "source": "./prasanjit101--leve",
+      "description": "filesystem-as-agent framework built on LangGraph"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -224482,6 +224492,16 @@
       "name": "osodevops--chukei",
       "source": "./osodevops--chukei",
       "description": "Open source Snowflake cost proxy. Verified caching, suspend, rewrites, attribution, and signed savings evidence."
+    },
+    {
+      "name": "vercel-labs--eve-slack-agent-template",
+      "source": "./vercel-labs--eve-slack-agent-template",
+      "description": "eve-slack-agent-template"
+    },
+    {
+      "name": "techwithanant--saras-ai-robot-v2",
+      "source": "./techwithanant--saras-ai-robot-v2",
+      "description": "saras_ai_robot_v2"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -345042,6 +345062,11 @@
       "name": "gjrichter--ixmaps-skills",
       "source": "./gjrichter--ixmaps-skills",
       "description": "ixmaps-skills"
+    },
+    {
+      "name": "relyky--asvt-n8blazorapp-tpl",
+      "source": "./relyky--asvt-n8blazorapp-tpl",
+      "description": "Asvt_N8BlazorApp_TPL"
     }
   ]
 }
