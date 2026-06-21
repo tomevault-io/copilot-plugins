@@ -208489,6 +208489,21 @@
       "description": "Application for remote and local manage your Android devices"
     },
     {
+      "name": "bob-zebedy--codexbar",
+      "source": "./bob-zebedy--codexbar",
+      "description": "CodexBar"
+    },
+    {
+      "name": "bob-zebedy--codexbar",
+      "source": "./bob-zebedy--codexbar",
+      "description": "CodexBar"
+    },
+    {
+      "name": "spinabot--brigade",
+      "source": "./spinabot--brigade",
+      "description": "Brigade \u2014 Your personal intelligence, built enterprise-grade"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -224462,6 +224477,11 @@
       "name": "xiaolai--bureau",
       "source": "./xiaolai--bureau",
       "description": "Turn AI sessions into a maintained, human-reviewed knowledge base: capture \u2192 compile \u2192 review \u2192 query, gated by trust tiers, rendered by a bundled dashboard. Claude Code plugin."
+    },
+    {
+      "name": "osodevops--chukei",
+      "source": "./osodevops--chukei",
+      "description": "Open source Snowflake cost proxy. Verified caching, suspend, rewrites, attribution, and signed savings evidence."
     },
     {
       "name": "cheerhuan--save-your-token",
