@@ -7,11 +7,11 @@ ROCmFPX Family for AMD Hardware and Processors. More quants and special agent qu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [charlie12345/ROCmFPX](https://github.com/charlie12345/ROCmFPX).
+Original source: `CLAUDE.md` in [charlie12345/ROCmFPX](https://github.com/charlie12345/ROCmFPX).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
