@@ -1,0 +1,9 @@
+{
+  "name": "boettiger-lab--mcp-data-server",
+  "displayName": "mcp-data-server",
+  "description": "Duckdb-based MCP server for datasets",
+  "version": "1.0.0",
+  "author": "boettiger-lab",
+  "homepage": "https://github.com/boettiger-lab/mcp-data-server",
+  "skills": []
+}
