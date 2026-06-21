@@ -1,0 +1,44 @@
+{
+  "name": "ai-browser-mcp",
+  "owner": "AI-XiaoDao",
+  "repo": "ai-browser-mcp",
+  "description": "Windows MCP browser automation \u2014 217 tools \u00b7 Cursor/Claude/Cline \u00b7 web scraping \u00b7 POST reverse \u00b7 CDP debugger \u00b7 Playwright alternative \u00b7 FBrowser CEF \u00b7 x64+win32 \u00b7 MIT open source \u00b7 Download & run",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AI-XiaoDao/ai-browser-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-21T04:32:38Z"
+}
