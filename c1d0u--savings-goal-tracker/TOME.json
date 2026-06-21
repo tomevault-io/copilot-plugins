@@ -1,0 +1,44 @@
+{
+  "name": "Savings-Goal-Tracker",
+  "owner": "C1D0U",
+  "repo": "Savings-Goal-Tracker",
+  "description": "A decentralized savings goal tracking platform built on Stellar Soroban smart contracts. Users can create savings goals, monitor progress, manage contributions, and achieve financial milestones through a secure, transparent, and blockchain-powered experience.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/C1D0U/Savings-Goal-Tracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-21T02:32:44Z"
+}
