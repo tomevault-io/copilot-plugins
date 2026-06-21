@@ -1,0 +1,44 @@
+{
+  "name": "bureau",
+  "owner": "xiaolai",
+  "repo": "bureau",
+  "description": "Turn AI sessions into a maintained, human-reviewed knowledge base: capture \u2192 compile \u2192 review \u2192 query, gated by trust tiers, rendered by a bundled dashboard. Claude Code plugin.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaolai/bureau",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-21T04:34:31Z"
+}
