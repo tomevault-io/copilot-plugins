@@ -1,0 +1,44 @@
+{
+  "name": "korean-patent-mcp",
+  "owner": "chrisryugj",
+  "repo": "korean-patent-mcp",
+  "description": "KIPRIS \ud2b9\ud5c8\u00b7\uc2e4\uc6a9\uc2e0\uc548\u00b7\uc0c1\ud45c\u00b7\ub514\uc790\uc778 \uac80\uc0c9 MCP \u2014 \uc790\uc720\uac80\uc0c9/\ud56d\ubaa9\uac80\uc0c9/\ucd9c\uc6d0\uc778/\uad8c\ub9ac\uc790/\uc11c\uc9c0\uc0c1\uc138 7\uac1c \ub3c4\uad6c | KIPRIS Korean patent\u00b7utility\u00b7trademark\u00b7design search \u2192 7 MCP tools",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chrisryugj/korean-patent-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-21T14:31:47Z"
+}
