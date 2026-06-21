@@ -208314,6 +208314,11 @@
       "description": "Google Keep-inspired collaborative task management app \u2014 React Native, Expo, Firebase. Chapter 3 Assignment for Vibe Code Tours bootcamp."
     },
     {
+      "name": "hiramgabriel1--nightdev-rep",
+      "source": "./hiramgabriel1--nightdev-rep",
+      "description": "Build software from your pocket. A Telegram bot that receives prompts, processes them through specialized AI agents on a per-user isolated VPS, and returns working code."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -224267,6 +224272,16 @@
       "name": "jobdoesburg--homebridge-mhi-wfrac",
       "source": "./jobdoesburg--homebridge-mhi-wfrac",
       "description": "A homebridge plugin for Mitshubishi WF-RAC aircos (using the Smart M-Air app)"
+    },
+    {
+      "name": "sandarma--interview-coach-ai",
+      "source": "./sandarma--interview-coach-ai",
+      "description": "AI-powered technical interview practice platform that helps developers improve their understanding, explanation skills, and interview confidence through interactive coaching powered by Claude."
+    },
+    {
+      "name": "invictus737--nexus-bs",
+      "source": "./invictus737--nexus-bs",
+      "description": "Nexus-BS public repository"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -344722,6 +344737,81 @@
       "name": "mangosteencorp--everythingclient",
       "source": "./mangosteencorp--everythingclient",
       "description": "Clients of common APIs (Pokedex, TMDB) for demoing best practices and iOS architectures"
+    },
+    {
+      "name": "phucbm--claskit",
+      "source": "./phucbm--claskit",
+      "description": "claskit"
+    },
+    {
+      "name": "c1d0u--savings-goal-tracker",
+      "source": "./c1d0u--savings-goal-tracker",
+      "description": "A decentralized savings goal tracking platform built on Stellar Soroban smart contracts. Users can create savings goals, monitor progress, manage contributions, and achieve financial milestones throug"
+    },
+    {
+      "name": "yangyuxin-hub--ai-learning",
+      "source": "./yangyuxin-hub--ai-learning",
+      "description": "ai_learning"
+    },
+    {
+      "name": "xue7106211--super-hover",
+      "source": "./xue7106211--super-hover",
+      "description": "super-hover"
+    },
+    {
+      "name": "house-backk--house-client",
+      "source": "./house-backk--house-client",
+      "description": "house-client"
+    },
+    {
+      "name": "liagridd--liagridd-github-io",
+      "source": "./liagridd--liagridd-github-io",
+      "description": "liagridd.github.io"
+    },
+    {
+      "name": "willy-inovem--profile-remedial",
+      "source": "./willy-inovem--profile-remedial",
+      "description": "Profile-Remedial"
+    },
+    {
+      "name": "wangxiaoxiaoa--llamafactory-change",
+      "source": "./wangxiaoxiaoa--llamafactory-change",
+      "description": "llamafactory_change"
+    },
+    {
+      "name": "brianreynolds-dev--coachflow",
+      "source": "./brianreynolds-dev--coachflow",
+      "description": "coachflow"
+    },
+    {
+      "name": "gasserwerksolutions--zahnarzt",
+      "source": "./gasserwerksolutions--zahnarzt",
+      "description": "Zahnarzt"
+    },
+    {
+      "name": "arthurrmenezes--gs-mobile-fiap",
+      "source": "./arthurrmenezes--gs-mobile-fiap",
+      "description": "gs-mobile-fiap"
+    },
+    {
+      "name": "adrilzif--my-portfolio",
+      "source": "./adrilzif--my-portfolio",
+      "description": "my-portfolio"
+    },
+    {
+      "name": "liagridd--liagridd-github-io",
+      "source": "./liagridd--liagridd-github-io",
+      "description": "liagridd.github.io"
+    },
+    {
+      "name": "phanquocanhvlu--web",
+      "source": "./phanquocanhvlu--web",
+      "description": "web"
+    },
+    {
+      "name": "jianglililili--openagent",
+      "source": "./jianglililili--openagent",
+      "description": "openagent"
     }
   ]
 }
