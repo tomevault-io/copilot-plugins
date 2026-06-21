@@ -1,0 +1,9 @@
+{
+  "name": "ethan-youngq--invoice-downloader",
+  "displayName": "Invoice-Downloader",
+  "description": "Windows desktop app for extracting, classifying, and archiving invoice emails.",
+  "version": "1.0.0",
+  "author": "Ethan-YoungQ",
+  "homepage": "https://github.com/Ethan-YoungQ/Invoice-Downloader",
+  "skills": []
+}
