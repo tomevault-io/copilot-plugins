@@ -1,0 +1,9 @@
+{
+  "name": "pr4shxnt--solana-tx-doctor-skill",
+  "displayName": "solana-tx-doctor-skill",
+  "description": "The Solana transaction lifecycle expert \u2014 prevent failures before they happen, send reliably, and turn cryptic errors into precise fixes",
+  "version": "1.0.0",
+  "author": "pr4shxnt",
+  "homepage": "https://github.com/pr4shxnt/solana-tx-doctor-skill",
+  "skills": []
+}
