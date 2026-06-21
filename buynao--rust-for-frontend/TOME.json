@@ -4,7 +4,7 @@
   "repo": "rust-for-frontend",
   "description": "Rust for JSer / \u524d\u7aef\u5de5\u7a0b\u5e08\u7684 Rust \u4ea4\u4e92\u5f0f\u6559\u7a0b",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/buynao/rust-for-frontend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T04:31:17Z"
+  "distributed_at": "2026-06-21T04:31:44Z"
 }
