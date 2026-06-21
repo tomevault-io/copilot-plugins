@@ -7,11 +7,11 @@ This is a version of Second Brain that has been turned into a website for making
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [henrydaum/second-brain-art](https://github.com/henrydaum/second-brain-art).
+Original source: `CLAUDE.md` in [henrydaum/second-brain-art](https://github.com/henrydaum/second-brain-art).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
