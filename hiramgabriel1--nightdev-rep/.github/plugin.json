@@ -1,0 +1,9 @@
+{
+  "name": "hiramgabriel1--nightdev-rep",
+  "displayName": "nightdev_rep",
+  "description": "Build software from your pocket. A Telegram bot that receives prompts, processes them through specialized AI agents on a per-user isolated VPS, and returns working code.",
+  "version": "1.0.0",
+  "author": "hiramgabriel1",
+  "homepage": "https://github.com/hiramgabriel1/nightdev_rep",
+  "skills": []
+}
