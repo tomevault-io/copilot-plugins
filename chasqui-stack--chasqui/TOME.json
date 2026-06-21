@@ -4,7 +4,7 @@
   "repo": "chasqui",
   "description": "Open-source stack for custom AI chat agents \u2014 channel-agnostic core (FastAPI + LangGraph + pgvector), WhatsApp + Telegram gateways, React operator panel. Web widget on the roadmap.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chasqui-stack/chasqui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T00:31:17Z"
+  "distributed_at": "2026-06-21T00:31:44Z"
 }
