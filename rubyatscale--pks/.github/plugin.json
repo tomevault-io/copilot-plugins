@@ -1,0 +1,9 @@
+{
+  "name": "rubyatscale--pks",
+  "displayName": "pks",
+  "description": "A 100% Rust implementation of packwerk, a gradual modularization platform for Ruby.",
+  "version": "1.0.0",
+  "author": "rubyatscale",
+  "homepage": "https://github.com/rubyatscale/pks",
+  "skills": []
+}
