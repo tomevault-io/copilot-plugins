@@ -4,7 +4,7 @@
   "repo": "ROCmFPX",
   "description": "ROCmFPX Family for AMD Hardware and Processors. More quants and special agent quants",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/charlie12345/ROCmFPX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T00:30:22Z"
+  "distributed_at": "2026-06-21T00:30:49Z"
 }
