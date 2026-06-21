@@ -7,11 +7,11 @@ Rust for JSer / 前端工程师的 Rust 交互式教程
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [buynao/rust-for-frontend](https://github.com/buynao/rust-for-frontend).
+Original source: `CLAUDE.md` in [buynao/rust-for-frontend](https://github.com/buynao/rust-for-frontend).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
