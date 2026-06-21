@@ -1,0 +1,9 @@
+{
+  "name": "xiaolai--bureau",
+  "displayName": "bureau",
+  "description": "Turn AI sessions into a maintained, human-reviewed knowledge base: capture \u2192 compile \u2192 review \u2192 query, gated by trust tiers, rendered by a bundled dashboard. Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "xiaolai",
+  "homepage": "https://github.com/xiaolai/bureau",
+  "skills": []
+}
