@@ -7,11 +7,11 @@ Stayer 定义的 Claude Code Skills 集合
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [StayerYao/PM-Solution-Design-Skills](https://github.com/StayerYao/PM-Solution-Design-Skills).
+Original source: `CLAUDE.md` in [StayerYao/PM-Solution-Design-Skills](https://github.com/StayerYao/PM-Solution-Design-Skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
