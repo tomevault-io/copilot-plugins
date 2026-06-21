@@ -1,0 +1,9 @@
+{
+  "name": "pieper--slicer-skill",
+  "displayName": "slicer-skill",
+  "description": "slicer-skill",
+  "version": "1.0.0",
+  "author": "pieper",
+  "homepage": "https://github.com/pieper/slicer-skill",
+  "skills": []
+}
