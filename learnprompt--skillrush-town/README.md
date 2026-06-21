@@ -7,11 +7,11 @@ Skillrush Town: daily ClawHub Top100 snapshots and potential AI skill radar
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LearnPrompt/skillrush-town](https://github.com/LearnPrompt/skillrush-town).
+Original source: `CLAUDE.md` in [LearnPrompt/skillrush-town](https://github.com/LearnPrompt/skillrush-town).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
