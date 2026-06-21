@@ -1,0 +1,44 @@
+{
+  "name": "payload-training-app",
+  "owner": "codee-sh",
+  "repo": "payload-training-app",
+  "description": "Open-source coaching app built with Payload CMS and Next.js. Coaches manage training plans in the admin; clients log workouts on mobile.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/codee-sh/payload-training-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-21T22:31:21Z"
+}
