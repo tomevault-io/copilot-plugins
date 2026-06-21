@@ -1,0 +1,9 @@
+{
+  "name": "kargnas--mac-optimizing-looper",
+  "displayName": "mac-optimizing-looper",
+  "description": "A menu-bar macOS agent loop: every N minutes it asks Claude/Codex what's overloading your Mac and suggests one-click, risk-checked fixes.",
+  "version": "1.0.0",
+  "author": "kargnas",
+  "homepage": "https://github.com/kargnas/mac-optimizing-looper",
+  "skills": []
+}
