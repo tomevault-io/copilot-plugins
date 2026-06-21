@@ -208639,6 +208639,21 @@
       "description": "A terminal UI for managing GitHub Gists"
     },
     {
+      "name": "starmynd-org--infinite-brain-os",
+      "source": "./starmynd-org--infinite-brain-os",
+      "description": "A git-backed operating system for running a business with AI agents. Plain Markdown and YAML, readable by any file-reading agent, owned by you."
+    },
+    {
+      "name": "skizzophrenic--cardputer-csi-human-detector",
+      "source": "./skizzophrenic--cardputer-csi-human-detector",
+      "description": "Cardputer-CSI-Human-Detector"
+    },
+    {
+      "name": "starmynd-org--infinite-brain-os",
+      "source": "./starmynd-org--infinite-brain-os",
+      "description": "A git-backed operating system for running a business with AI agents. Plain Markdown and YAML, readable by any file-reading agent, owned by you."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -224697,6 +224712,11 @@
       "name": "lo2cin4--lo2cin4bt-2-0-beta",
       "source": "./lo2cin4--lo2cin4bt-2-0-beta",
       "description": "lo2cin4bt 2.0 beta: local AI-assisted quantitative research and backtesting framework."
+    },
+    {
+      "name": "codee-sh--payload-training-app",
+      "source": "./codee-sh--payload-training-app",
+      "description": "Open-source coaching app built with Payload CMS and Next.js. Coaches manage training plans in the admin; clients log workouts on mobile."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -345267,6 +345287,16 @@
       "name": "merttbodur--anti-overengineering",
       "source": "./merttbodur--anti-overengineering",
       "description": "anti-overengineering"
+    },
+    {
+      "name": "stkr22--private-assistant-spotify-skill-py",
+      "source": "./stkr22--private-assistant-spotify-skill-py",
+      "description": "private-assistant-spotify-skill-py"
+    },
+    {
+      "name": "stkr22--private-assistant-spotify-skill-py",
+      "source": "./stkr22--private-assistant-spotify-skill-py",
+      "description": "private-assistant-spotify-skill-py"
     }
   ]
 }
