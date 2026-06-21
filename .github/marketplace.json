@@ -179794,6 +179794,16 @@
       "description": "\u5c06word\u8fdb\u884clatex\u6a21\u677f\u7f16\u8bd1\u518d\u8f93\u51fa\u7f16\u8bd1\u597d\u7684PDF\u683c\u5f0f\u4ee5\u53ca\u7f16\u8bd1\u597d\u7684word\u6587\u4ef6\u7528\u4e8e\u518d\u6b21\u540e\u7eed\u66f4\u6539\u4ee5\u53ca\u540e\u7eed\u7684\u8f93\u5165\uff0c\u5b9e\u73b0word\u683c\u5f0f\u7684\u81ea\u52a8\u6392\u7248"
     },
     {
+      "name": "star-ga--mind-mem",
+      "source": "./star-ga--mind-mem",
+      "description": "Persistent AI memory for Claude Code, OpenClaw, and any MCP-compatible agent. BM25F + vector hybrid, governance-aware, local-first, zero-infrastructure."
+    },
+    {
+      "name": "star-ga--mind-mem",
+      "source": "./star-ga--mind-mem",
+      "description": "Persistent AI memory for Claude Code, OpenClaw, and any MCP-compatible agent. BM25F + vector hybrid, governance-aware, local-first, zero-infrastructure."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -208599,6 +208609,16 @@
       "description": "\ud83d\udcd3 A notebook for keyboard people."
     },
     {
+      "name": "akunzai--gistui",
+      "source": "./akunzai--gistui",
+      "description": "A terminal UI for managing GitHub Gists"
+    },
+    {
+      "name": "akunzai--gistui",
+      "source": "./akunzai--gistui",
+      "description": "A terminal UI for managing GitHub Gists"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -224637,6 +224657,26 @@
       "name": "wubing2023--reprorun",
       "source": "./wubing2023--reprorun",
       "description": "\ud83d\udd2c A  skill that automatically reproduces the numerical claims of academic papers \u2014 read paper \u2192 find code \u2192 build env \u2192 run \u2192 compare against the paper. 1 orchestrator + 6 specialized agents."
+    },
+    {
+      "name": "moinulmoin--threadlens",
+      "source": "./moinulmoin--threadlens",
+      "description": "Local search for coding-agent sessions \u2014 Codex, Claude Code, Cursor, Pi, OMP, Amp, Droid, OpenCode, and custom sources."
+    },
+    {
+      "name": "pr4shxnt--solana-tx-doctor-skill",
+      "source": "./pr4shxnt--solana-tx-doctor-skill",
+      "description": "The Solana transaction lifecycle expert \u2014 prevent failures before they happen, send reliably, and turn cryptic errors into precise fixes"
+    },
+    {
+      "name": "hicder--agy-acp",
+      "source": "./hicder--agy-acp",
+      "description": "Fork from https://github.com/openabdev/openab/tree/main/agy-acp with additional fixes"
+    },
+    {
+      "name": "lo2cin4--lo2cin4bt-2-0-beta",
+      "source": "./lo2cin4--lo2cin4bt-2-0-beta",
+      "description": "lo2cin4bt 2.0 beta: local AI-assisted quantitative research and backtesting framework."
     },
     {
       "name": "cheerhuan--save-your-token",
