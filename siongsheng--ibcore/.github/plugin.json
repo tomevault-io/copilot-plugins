@@ -1,0 +1,9 @@
+{
+  "name": "siongsheng--ibcore",
+  "displayName": "ibcore",
+  "description": "Rust + Python wrapper for Interactive Brokers API \u2014 typed errors, diagnostic events, option chains, market snapshots",
+  "version": "1.0.0",
+  "author": "siongsheng",
+  "homepage": "https://github.com/siongsheng/ibcore",
+  "skills": []
+}
