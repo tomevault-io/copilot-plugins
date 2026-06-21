@@ -1,0 +1,9 @@
+{
+  "name": "agopengps-official--agvaloniagps",
+  "displayName": "AgValoniaGPS",
+  "description": "Multi-platform (Windows/Linux/MacOS/iOS/Android) Rewrite of AgOpenGPS to Avalonia/.Net10/C# technology stack. Uses MVVM pattern to separate backend services from UI",
+  "version": "1.0.0",
+  "author": "AgOpenGPS-Official",
+  "homepage": "https://github.com/AgOpenGPS-Official/AgValoniaGPS",
+  "skills": []
+}
