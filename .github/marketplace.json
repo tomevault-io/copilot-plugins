@@ -224219,6 +224219,56 @@
       "description": "Freenove ESP32 Mini TV (FNK0112) claude code skills to start development for beginners "
     },
     {
+      "name": "charlie12345--rocmfpx",
+      "source": "./charlie12345--rocmfpx",
+      "description": "ROCmFPX Family for AMD Hardware and Processors. More quants and special agent quants"
+    },
+    {
+      "name": "charlie12345--rocmfpx",
+      "source": "./charlie12345--rocmfpx",
+      "description": "ROCmFPX Family for AMD Hardware and Processors. More quants and special agent quants"
+    },
+    {
+      "name": "chasqui-stack--chasqui",
+      "source": "./chasqui-stack--chasqui",
+      "description": "Open-source stack for custom AI chat agents \u2014 channel-agnostic core (FastAPI + LangGraph + pgvector), WhatsApp + Telegram gateways, React operator panel. Web widget on the roadmap."
+    },
+    {
+      "name": "chasqui-stack--chasqui",
+      "source": "./chasqui-stack--chasqui",
+      "description": "Open-source stack for custom AI chat agents \u2014 channel-agnostic core (FastAPI + LangGraph + pgvector), WhatsApp + Telegram gateways, React operator panel. Web widget on the roadmap."
+    },
+    {
+      "name": "ishandutta2007--awesome-agent-skills",
+      "source": "./ishandutta2007--awesome-agent-skills",
+      "description": "Skills for coding agents"
+    },
+    {
+      "name": "ishandutta2007--awesome-agent-skills",
+      "source": "./ishandutta2007--awesome-agent-skills",
+      "description": "Skills for coding agents"
+    },
+    {
+      "name": "cortesi--mrpc",
+      "source": "./cortesi--mrpc",
+      "description": "A MessagePack-RPC implementation for Rust"
+    },
+    {
+      "name": "cortesi--mrpc",
+      "source": "./cortesi--mrpc",
+      "description": "A MessagePack-RPC implementation for Rust"
+    },
+    {
+      "name": "rubyatscale--pks",
+      "source": "./rubyatscale--pks",
+      "description": "A 100% Rust implementation of packwerk, a gradual modularization platform for Ruby."
+    },
+    {
+      "name": "jobdoesburg--homebridge-mhi-wfrac",
+      "source": "./jobdoesburg--homebridge-mhi-wfrac",
+      "description": "A homebridge plugin for Mitshubishi WF-RAC aircos (using the Smart M-Air app)"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
