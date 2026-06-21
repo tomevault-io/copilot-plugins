@@ -1,0 +1,9 @@
+{
+  "name": "hantechnology--oh-my-openagent-toolkit",
+  "displayName": "oh-my-openagent-toolkit",
+  "description": "OpenCode companion toolkit built on oh-my-openagent with thin routing, skill surfaces, and support boundaries.",
+  "version": "1.0.0",
+  "author": "HanTechnology",
+  "homepage": "https://github.com/HanTechnology/oh-my-openagent-toolkit",
+  "skills": []
+}
