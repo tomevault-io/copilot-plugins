@@ -1,0 +1,9 @@
+{
+  "name": "qwepablo12--eatwise1",
+  "displayName": "EatWise1",
+  "description": "AI-powered 'Nutrition OS' calorie tracker built with React Native and Expo. Seamlessly parses natural food text using Gemini 2.5 Flash and syncs custom macro-metrics with Supabase backend.",
+  "version": "1.0.0",
+  "author": "qwepablo12",
+  "homepage": "https://github.com/qwepablo12/EatWise1",
+  "skills": []
+}
