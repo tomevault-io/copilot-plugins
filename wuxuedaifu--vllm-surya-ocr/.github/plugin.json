@@ -1,0 +1,9 @@
+{
+  "name": "wuxuedaifu--vllm-surya-ocr",
+  "displayName": "vllm-surya-ocr",
+  "description": "OpenAI-compatible, vLLM-served OCR API for the Surya-OCR-2 model \u2014 multilingual document OCR (layout + text recognition) with request batching, a local CLI, and Docker packaging.",
+  "version": "1.0.0",
+  "author": "wuxuedaifu",
+  "homepage": "https://github.com/wuxuedaifu/vllm-surya-ocr",
+  "skills": []
+}
