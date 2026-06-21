@@ -4,7 +4,7 @@
   "repo": "mrpc",
   "description": "A MessagePack-RPC implementation for Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cortesi/mrpc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T00:33:05Z"
+  "distributed_at": "2026-06-21T00:33:31Z"
 }
