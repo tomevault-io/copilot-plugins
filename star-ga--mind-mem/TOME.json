@@ -4,7 +4,7 @@
   "repo": "mind-mem",
   "description": "Persistent AI memory for Claude Code, OpenClaw, and any MCP-compatible agent. BM25F + vector hybrid, governance-aware, local-first, zero-infrastructure.",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/star-ga/mind-mem",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T20:42:47Z"
+  "distributed_at": "2026-06-21T20:43:19Z"
 }
