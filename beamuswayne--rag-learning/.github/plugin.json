@@ -1,0 +1,9 @@
+{
+  "name": "beamuswayne--rag-learning",
+  "displayName": "RAG-learning",
+  "description": "RE:\u4ece0\u5f00\u59cb\u7684RAG\u5b66\u4e60\u751f\u6d3b\u3002\u5305\u542bLangChain\u3001LangGraph\u3001LangSmith\u3001PydanticAI\u7b49\u6846\u67b6\u548c\u5de5\u5177\u7684\u5b66\u4e60\u6559\u7a0b\u3002",
+  "version": "1.0.0",
+  "author": "BeamusWayne",
+  "homepage": "https://github.com/BeamusWayne/RAG-learning",
+  "skills": []
+}
