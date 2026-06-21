@@ -1,0 +1,9 @@
+{
+  "name": "wangzhezbz--codex-bridge",
+  "displayName": "codex-bridge",
+  "description": "Local multi-model gateway and desktop manager for Codex. \u8ba9 Codex \u5728\u4e00\u4e2a\u6a21\u578b\u680f\u91cc\u4f7f\u7528 GPT\u3001DeepSeek\u3001Kimi \u548c\u66f4\u591a\u6a21\u578b\u3002",
+  "version": "1.0.0",
+  "author": "wangzhezbz",
+  "homepage": "https://github.com/wangzhezbz/codex-bridge",
+  "skills": []
+}
