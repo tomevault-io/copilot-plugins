@@ -142274,6 +142274,11 @@
       "description": "agents-md-generator"
     },
     {
+      "name": "qwepablo12--eatwise1",
+      "source": "./qwepablo12--eatwise1",
+      "description": "AI-powered 'Nutrition OS' calorie tracker built with React Native and Expo. Seamlessly parses natural food text using Gemini 2.5 Flash and syncs custom macro-metrics with Supabase backend."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -153672,6 +153677,11 @@
       "name": "stayeryao--pm-solution-design-skills",
       "source": "./stayeryao--pm-solution-design-skills",
       "description": "Stayer \u5b9a\u4e49\u7684 Claude Code Skills \u96c6\u5408"
+    },
+    {
+      "name": "wangzhezbz--codex-bridge",
+      "source": "./wangzhezbz--codex-bridge",
+      "description": "Local multi-model gateway and desktop manager for Codex. \u8ba9 Codex \u5728\u4e00\u4e2a\u6a21\u578b\u680f\u91cc\u4f7f\u7528 GPT\u3001DeepSeek\u3001Kimi \u548c\u66f4\u591a\u6a21\u578b\u3002"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -179742,6 +179752,11 @@
       "name": "hhuang999--ust-inform-trade-cff",
       "source": "./hhuang999--ust-inform-trade-cff",
       "description": "\u6821\u56ed\u67a2\u7ebd \u00b7 HKUST(GZ) \u6821\u56ed\u4fe1\u606f\u670d\u52a1\u4e0e\u4e8c\u624b\u4ea4\u6613\u5e73\u53f0 (Next.js 16 + Prisma + Neon + Cloudflare R2)"
+    },
+    {
+      "name": "h4ckologic--piranha",
+      "source": "./h4ckologic--piranha",
+      "description": "The Autonomous Bug-Bounty Swarm  A school of 53 specialized AI security agents + a deterministic engagement router that classify any target and strip it to the bone \u2014 in parallel."
     },
     {
       "name": "yschimke--compose-ai-tools",
