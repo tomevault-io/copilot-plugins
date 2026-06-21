@@ -7,11 +7,11 @@ A MessagePack-RPC implementation for Rust
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cortesi/mrpc](https://github.com/cortesi/mrpc).
+Original source: `CLAUDE.md` in [cortesi/mrpc](https://github.com/cortesi/mrpc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
