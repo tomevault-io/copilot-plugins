@@ -187044,11 +187044,6 @@
       "description": "My blog"
     },
     {
-      "name": "krstivoja--winden-tokens",
-      "source": "./krstivoja--winden-tokens",
-      "description": "A powerful Figma plugin for managing design to"
-    },
-    {
       "name": "jeffkit--as-dispatch",
       "source": "./jeffkit--as-dispatch",
       "description": "as-dispatch"
@@ -208582,6 +208577,11 @@
       "name": "chrisryugj--korean-patent-mcp",
       "source": "./chrisryugj--korean-patent-mcp",
       "description": "KIPRIS \ud2b9\ud5c8\u00b7\uc2e4\uc6a9\uc2e0\uc548\u00b7\uc0c1\ud45c\u00b7\ub514\uc790\uc778 \uac80\uc0c9 MCP \u2014 \uc790\uc720\uac80\uc0c9/\ud56d\ubaa9\uac80\uc0c9/\ucd9c\uc6d0\uc778/\uad8c\ub9ac\uc790/\uc11c\uc9c0\uc0c1\uc138 7\uac1c \ub3c4\uad6c | KIPRIS Korean patent\u00b7utility\u00b7trademark\u00b7design search \u2192 7 MCP tools"
+    },
+    {
+      "name": "krstivoja--winden-tokens",
+      "source": "./krstivoja--winden-tokens",
+      "description": "A powerful Figma plugin for managing design to"
     },
     {
       "name": "ocrbase-hq--ocrbase",
