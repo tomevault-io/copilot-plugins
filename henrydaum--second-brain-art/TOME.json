@@ -4,7 +4,7 @@
   "repo": "second-brain-art",
   "description": "This is a version of Second Brain that has been turned into a website for making algorithmic art.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/henrydaum/second-brain-art",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T04:32:11Z"
+  "distributed_at": "2026-06-21T04:33:35Z"
 }
