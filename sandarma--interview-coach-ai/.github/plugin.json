@@ -1,0 +1,9 @@
+{
+  "name": "sandarma--interview-coach-ai",
+  "displayName": "Interview-Coach-AI",
+  "description": "AI-powered technical interview practice platform that helps developers improve their understanding, explanation skills, and interview confidence through interactive coaching powered by Claude.",
+  "version": "1.0.0",
+  "author": "sandarma",
+  "homepage": "https://github.com/sandarma/Interview-Coach-AI",
+  "skills": []
+}
