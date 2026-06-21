@@ -1,0 +1,9 @@
+{
+  "name": "lobstertrap--lola",
+  "displayName": "lola",
+  "description": "Lola is able to package AI Context Modules or skills into a distributed package to be supported across multiple AI assistants. Think of your skill as the RPM package and Lola as the YUM/DNF. Write you",
+  "version": "1.0.0",
+  "author": "LobsterTrap",
+  "homepage": "https://github.com/LobsterTrap/lola",
+  "skills": []
+}
