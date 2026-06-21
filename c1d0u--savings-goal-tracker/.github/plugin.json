@@ -1,0 +1,9 @@
+{
+  "name": "c1d0u--savings-goal-tracker",
+  "displayName": "Savings-Goal-Tracker",
+  "description": "A decentralized savings goal tracking platform built on Stellar Soroban smart contracts. Users can create savings goals, monitor progress, manage contributions, and achieve financial milestones throug",
+  "version": "1.0.0",
+  "author": "C1D0U",
+  "homepage": "https://github.com/C1D0U/Savings-Goal-Tracker",
+  "skills": []
+}
