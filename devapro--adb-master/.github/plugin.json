@@ -1,0 +1,9 @@
+{
+  "name": "devapro--adb-master",
+  "displayName": "adb-master",
+  "description": "Application for remote and local manage your Android devices",
+  "version": "1.0.0",
+  "author": "devapro",
+  "homepage": "https://github.com/devapro/adb-master",
+  "skills": []
+}
