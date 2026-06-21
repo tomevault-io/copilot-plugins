@@ -1,0 +1,9 @@
+{
+  "name": "jobdoesburg--homebridge-mhi-wfrac",
+  "displayName": "homebridge-mhi-wfrac",
+  "description": "A homebridge plugin for Mitshubishi WF-RAC aircos (using the Smart M-Air app)",
+  "version": "1.0.0",
+  "author": "JobDoesburg",
+  "homepage": "https://github.com/JobDoesburg/homebridge-mhi-wfrac",
+  "skills": []
+}
