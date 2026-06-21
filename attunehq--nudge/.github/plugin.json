@@ -1,0 +1,9 @@
+{
+  "name": "attunehq--nudge",
+  "displayName": "nudge",
+  "description": "Give your agent a reminder.",
+  "version": "1.0.0",
+  "author": "attunehq",
+  "homepage": "https://github.com/attunehq/nudge",
+  "skills": []
+}
