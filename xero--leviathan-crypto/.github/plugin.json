@@ -1,9 +1,0 @@
-{
-  "name": "xero--leviathan-crypto",
-  "displayName": "leviathan-crypto",
-  "description": "Post-quantum WASM cryptography. Authenticated encryption, signatures with key agreement, transparency logs, and ratcheting built on constant-time bitsliced ciphers (Serpent, XChaCha20, AES), post-quan",
-  "version": "1.0.0",
-  "author": "xero",
-  "homepage": "https://github.com/xero/leviathan-crypto",
-  "skills": []
-}

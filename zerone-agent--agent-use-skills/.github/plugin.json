@@ -1,9 +1,0 @@
-{
-  "name": "zerone-agent--agent-use-skills",
-  "displayName": "agent-use-skills",
-  "description": "AgentUse: The Bridge to Agent-First Software",
-  "version": "1.0.0",
-  "author": "zerone-agent",
-  "homepage": "https://github.com/zerone-agent/agent-use-skills",
-  "skills": []
-}
