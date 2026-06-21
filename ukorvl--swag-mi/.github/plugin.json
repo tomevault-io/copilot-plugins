@@ -1,0 +1,9 @@
+{
+  "name": "ukorvl--swag-mi",
+  "displayName": "swag-mi",
+  "description": "Composable React hooks for production-grade wagmi transaction, chain, event, and contract-read workflows.",
+  "version": "1.0.0",
+  "author": "ukorvl",
+  "homepage": "https://github.com/ukorvl/swag-mi",
+  "skills": []
+}
