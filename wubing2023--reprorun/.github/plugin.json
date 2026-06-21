@@ -1,0 +1,9 @@
+{
+  "name": "wubing2023--reprorun",
+  "displayName": "ReproRun",
+  "description": "\ud83d\udd2c A  skill that automatically reproduces the numerical claims of academic papers \u2014 read paper \u2192 find code \u2192 build env \u2192 run \u2192 compare against the paper. 1 orchestrator + 6 specialized agents.",
+  "version": "1.0.0",
+  "author": "WUBING2023",
+  "homepage": "https://github.com/WUBING2023/ReproRun",
+  "skills": []
+}
