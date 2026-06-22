@@ -180089,6 +180089,11 @@
       "description": "guided-review-app"
     },
     {
+      "name": "madeye--ds-input",
+      "source": "./madeye--ds-input",
+      "description": "DS Input \u2014 an LLM whole-sentence pinyin input method (macOS + Windows): toneless pinyin \u2192 Chinese inline, no candidate window. Rust core (C ABI) + thin native frontends."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
