@@ -1,0 +1,9 @@
+{
+  "name": "laiso--ts-bench",
+  "displayName": "ts-bench",
+  "description": "Benchmark CLI for comparing AI coding agents on TypeScript workloads.",
+  "version": "1.0.0",
+  "author": "laiso",
+  "homepage": "https://github.com/laiso/ts-bench",
+  "skills": []
+}
