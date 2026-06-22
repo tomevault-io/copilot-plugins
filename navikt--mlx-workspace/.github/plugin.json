@@ -1,0 +1,9 @@
+{
+  "name": "navikt--mlx-workspace",
+  "displayName": "mlx-workspace",
+  "description": "Run LLMs locally on Apple Silicon with MLX and wire up AI coding tools to your local server \u2014 no cloud calls.",
+  "version": "1.0.0",
+  "author": "navikt",
+  "homepage": "https://github.com/navikt/mlx-workspace",
+  "skills": []
+}
