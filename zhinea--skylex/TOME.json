@@ -1,0 +1,44 @@
+{
+  "name": "skylex",
+  "owner": "zhinea",
+  "repo": "skylex",
+  "description": "Supabase alternatives for Production-grade self-hosted Database manager (Only 20MB RAM) w High Avability, Auto Backup S3, PITR by default. Without touching CLI",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhinea/skylex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-22T02:30:24Z"
+}
