@@ -1,0 +1,9 @@
+{
+  "name": "sravya0509--college-discovery-platform",
+  "displayName": "college_discovery_platform",
+  "description": "College Discovery Platform that enables students to search, compare, and explore colleges through an intuitive and responsive user experience. Built using Next.js, TypeScript, TailwindCSS, PostgreSQL,",
+  "version": "1.0.0",
+  "author": "Sravya0509",
+  "homepage": "https://github.com/Sravya0509/college_discovery_platform",
+  "skills": []
+}
