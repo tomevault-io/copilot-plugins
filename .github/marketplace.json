@@ -208664,6 +208664,16 @@
       "description": "A git-backed operating system for running a business with AI agents. Plain Markdown and YAML, readable by any file-reading agent, owned by you."
     },
     {
+      "name": "zhinea--skylex",
+      "source": "./zhinea--skylex",
+      "description": "Supabase alternatives for Production-grade self-hosted Database manager (Only 20MB RAM) w High Avability, Auto Backup S3, PITR by default. Without touching CLI"
+    },
+    {
+      "name": "mordwraith--gamehelper",
+      "source": "./mordwraith--gamehelper",
+      "description": "GameHelper for Path of Exile 2"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -224732,6 +224742,21 @@
       "name": "santanderai--linear-adapter-trainer",
       "source": "./santanderai--linear-adapter-trainer",
       "description": "Train linear embedding adapters with triplet loss to align retrieval embeddings with your queries (RAG)."
+    },
+    {
+      "name": "provasign--shale",
+      "source": "./provasign--shale",
+      "description": "Agent PR evidence \u2014 intent capture and session evidence rendered as a card on pull requests"
+    },
+    {
+      "name": "ko-ko-kirk--2026build-localhost-demo",
+      "source": "./ko-ko-kirk--2026build-localhost-demo",
+      "description": "2026Build-localhost-demo"
+    },
+    {
+      "name": "rewstapp--agent-smith-go",
+      "source": "./rewstapp--agent-smith-go",
+      "description": "agent-smith-go"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -345317,6 +345342,86 @@
       "name": "dpunj--blog",
       "source": "./dpunj--blog",
       "description": "blog"
+    },
+    {
+      "name": "astrozeta--memoria-historica",
+      "source": "./astrozeta--memoria-historica",
+      "description": "App web p\u00fablica y sin \u00e1nimo de lucro para que familiares de personas desaparecidas durante la Guerra Civil espa\u00f1ola y la posguerra puedan averiguar qu\u00e9 ocurri\u00f3 con sus seres queridos."
+    },
+    {
+      "name": "gabrielpeixoto-git--assistencia-impacto",
+      "source": "./gabrielpeixoto-git--assistencia-impacto",
+      "description": "Sistema de gest\u00e3o completo para empresas de manuten\u00e7\u00e3o residencial/comercial. CRM, ordens de servi\u00e7o, or\u00e7amentos, agenda, financeiro, estoque e relat\u00f3rios. Stack: FastAPI (Python 3.11+) + React 18 (Ty"
+    },
+    {
+      "name": "turcyoyo--doan-flutterapi",
+      "source": "./turcyoyo--doan-flutterapi",
+      "description": "DoAn_FlutterAPI"
+    },
+    {
+      "name": "kanokpol-natekuakul--rewite-resume",
+      "source": "./kanokpol-natekuakul--rewite-resume",
+      "description": "rewite_resume"
+    },
+    {
+      "name": "gabrielpeixoto-git--assistencia-impacto",
+      "source": "./gabrielpeixoto-git--assistencia-impacto",
+      "description": "Sistema de gest\u00e3o completo para empresas de manuten\u00e7\u00e3o residencial/comercial. CRM, ordens de servi\u00e7o, or\u00e7amentos, agenda, financeiro, estoque e relat\u00f3rios. Stack: FastAPI (Python 3.11+) + React 18 (Ty"
+    },
+    {
+      "name": "garbanaurelien-cell--project-anime-step-by-step",
+      "source": "./garbanaurelien-cell--project-anime-step-by-step",
+      "description": "Project-Anime-step-by-step"
+    },
+    {
+      "name": "kanokpol-natekuakul--rewite-resume",
+      "source": "./kanokpol-natekuakul--rewite-resume",
+      "description": "rewite_resume"
+    },
+    {
+      "name": "kanokpol-natekuakul--rewite-resume",
+      "source": "./kanokpol-natekuakul--rewite-resume",
+      "description": "rewite_resume"
+    },
+    {
+      "name": "sravya0509--college-discovery-platform",
+      "source": "./sravya0509--college-discovery-platform",
+      "description": "College Discovery Platform that enables students to search, compare, and explore colleges through an intuitive and responsive user experience. Built using Next.js, TypeScript, TailwindCSS, PostgreSQL,"
+    },
+    {
+      "name": "siri098--task-tracker-api",
+      "source": "./siri098--task-tracker-api",
+      "description": "task-tracker-api"
+    },
+    {
+      "name": "harshagunathilake--wa-crm",
+      "source": "./harshagunathilake--wa-crm",
+      "description": "WA-CRM"
+    },
+    {
+      "name": "heiwa4126--do-counter0",
+      "source": "./heiwa4126--do-counter0",
+      "description": "Cloudflare Durable Objects \u3092\u4f7f\u3063\u305f \"\u30a2\u30af\u30bb\u30b9\u30ab\u30a6\u30f3\u30bf\" \u307f\u305f\u3044\u306a\u3082\u306e\u3002"
+    },
+    {
+      "name": "hhulendra-hash--quize",
+      "source": "./hhulendra-hash--quize",
+      "description": "quize"
+    },
+    {
+      "name": "rasel-coder--finance-pilot",
+      "source": "./rasel-coder--finance-pilot",
+      "description": "finance-pilot"
+    },
+    {
+      "name": "turcyoyo--doan-flutterapi",
+      "source": "./turcyoyo--doan-flutterapi",
+      "description": "DoAn_FlutterAPI"
+    },
+    {
+      "name": "snginfodesk-commits--campaign-yehud-webinar1-1",
+      "source": "./snginfodesk-commits--campaign-yehud-webinar1-1",
+      "description": "campaign-yehud-webinar1.1"
     }
   ]
 }
