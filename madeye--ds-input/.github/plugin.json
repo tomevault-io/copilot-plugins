@@ -1,0 +1,9 @@
+{
+  "name": "madeye--ds-input",
+  "displayName": "ds-input",
+  "description": "DS Input \u2014 an LLM whole-sentence pinyin input method (macOS + Windows): toneless pinyin \u2192 Chinese inline, no candidate window. Rust core (C ABI) + thin native frontends.",
+  "version": "1.0.0",
+  "author": "madeye",
+  "homepage": "https://github.com/madeye/ds-input",
+  "skills": []
+}
