@@ -1,0 +1,9 @@
+{
+  "name": "phuthuycoding--moicle",
+  "displayName": "moicle",
+  "description": "Reusable AI agents, commands, skills, and architecture references for Claude Code, Antigravity, Cursor or AI IDE",
+  "version": "1.0.0",
+  "author": "phuthuycoding",
+  "homepage": "https://github.com/phuthuycoding/moicle",
+  "skills": []
+}
