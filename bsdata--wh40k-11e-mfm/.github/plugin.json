@@ -1,0 +1,9 @@
+{
+  "name": "bsdata--wh40k-11e-mfm",
+  "displayName": "wh40k-11e-mfm",
+  "description": "Snapshots data parsed from https://mfm.warhammer-community.com/",
+  "version": "1.0.0",
+  "author": "BSData",
+  "homepage": "https://github.com/BSData/wh40k-11e-mfm",
+  "skills": []
+}
