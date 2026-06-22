@@ -1,0 +1,9 @@
+{
+  "name": "krusemediallc--claude-code-ai-ad-builder-kie-ai",
+  "displayName": "claude-code-ai-ad-builder-kie-ai",
+  "description": "Create AI marketing videos and images using KIE AI API, powered by Claude Code and Cursor. Supports Veo 3.1, Sora 2, Kling 3.0, Runway, Seedance 2.0, Nano Banana, and more.",
+  "version": "1.0.0",
+  "author": "krusemediallc",
+  "homepage": "https://github.com/krusemediallc/claude-code-ai-ad-builder-kie-ai",
+  "skills": []
+}
