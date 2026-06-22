@@ -179829,6 +179829,11 @@
       "description": "browser"
     },
     {
+      "name": "santanderai--auto-bayesian",
+      "source": "./santanderai--auto-bayesian",
+      "description": "Config-driven, interpretable Bayesian network training for relational tabular data."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
