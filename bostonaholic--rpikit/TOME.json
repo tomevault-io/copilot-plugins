@@ -4,7 +4,7 @@
   "repo": "rpikit",
   "description": "A Claude Code plugin implementing the Research-Plan-Implement (RPI) framework for disciplined software engineering.",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -113,5 +113,5 @@
   ],
   "source_url": "https://github.com/bostonaholic/rpikit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T18:55:53Z"
+  "distributed_at": "2026-06-22T21:05:51Z"
 }
