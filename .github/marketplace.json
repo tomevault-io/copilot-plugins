@@ -224724,6 +224724,11 @@
       "description": "Open-source coaching app built with Payload CMS and Next.js. Coaches manage training plans in the admin; clients log workouts on mobile."
     },
     {
+      "name": "santanderai--linear-adapter-trainer",
+      "source": "./santanderai--linear-adapter-trainer",
+      "description": "Train linear embedding adapters with triplet loss to align retrieval embeddings with your queries (RAG)."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -345302,6 +345307,11 @@
       "name": "stkr22--private-assistant-spotify-skill-py",
       "source": "./stkr22--private-assistant-spotify-skill-py",
       "description": "private-assistant-spotify-skill-py"
+    },
+    {
+      "name": "dpunj--blog",
+      "source": "./dpunj--blog",
+      "description": "blog"
     }
   ]
 }
