@@ -225114,6 +225114,31 @@
       "description": "Monorepo of Pix, Distro of PI Coding Agent"
     },
     {
+      "name": "tma1-ai--openfuse",
+      "source": "./tma1-ai--openfuse",
+      "description": "Langfuse on GreptimeDB. Self-hosted LLM observability."
+    },
+    {
+      "name": "peterkracik--dev-secrets",
+      "source": "./peterkracik--dev-secrets",
+      "description": "Manage your local dev secrets & environment variables globally"
+    },
+    {
+      "name": "2199816672--czn-auto",
+      "source": "./2199816672--czn-auto",
+      "description": "\u5361\u5384\u65af\u68a6\u5883\u81ea\u52a8\u5237\u56fe\u811a\u672c"
+    },
+    {
+      "name": "brxs--slipmate",
+      "source": "./brxs--slipmate",
+      "description": "An AI DJ application"
+    },
+    {
+      "name": "2199816672--czn-auto",
+      "source": "./2199816672--czn-auto",
+      "description": "\u5361\u5384\u65af\u68a6\u5883\u81ea\u52a8\u5237\u56fe\u811a\u672c"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
