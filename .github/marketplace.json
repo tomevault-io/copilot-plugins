@@ -180129,6 +180129,11 @@
       "description": "Use the right \u2318 + key to switch application"
     },
     {
+      "name": "crypdick--pynchy",
+      "source": "./crypdick--pynchy",
+      "description": "A modular alternative to Clawdbot / OpenClaw that runs in containers for security. Connects to WhatsApp, has memory, scheduled jobs, and runs directly on Anthropic's Agents SDK"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -209019,6 +209024,21 @@
       "description": "CI/CD templates for NeMo-FW libraries"
     },
     {
+      "name": "grapheneos--platform-system-update-engine",
+      "source": "./grapheneos--platform-system-update-engine",
+      "description": "platform_system_update_engine"
+    },
+    {
+      "name": "franlol--iptop",
+      "source": "./franlol--iptop",
+      "description": "htop for your network; a beautiful, real-time terminal IP traffic monitor"
+    },
+    {
+      "name": "mistahoward--blazor-dev-tools",
+      "source": "./mistahoward--blazor-dev-tools",
+      "description": "Inspired by react dev tools - in browser blazor tools to make your life easier."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225192,6 +225212,26 @@
       "name": "zhuhaow--codex-fixes",
       "source": "./zhuhaow--codex-fixes",
       "description": "Community-maintained fixes for Codex bugs."
+    },
+    {
+      "name": "tomperi--brisk",
+      "source": "./tomperi--brisk",
+      "description": "brisk"
+    },
+    {
+      "name": "tomperi--brisk",
+      "source": "./tomperi--brisk",
+      "description": "brisk"
+    },
+    {
+      "name": "pimenov--codex-first-skills-pack",
+      "source": "./pimenov--codex-first-skills-pack",
+      "description": "\u041f\u0443\u0431\u043b\u0438\u0447\u043d\u044b\u0439 \u043f\u0430\u043a\u0435\u0442 \u0438\u043d\u0436\u0435\u043d\u0435\u0440\u043d\u044b\u0445 skills \u0434\u043b\u044f Codex"
+    },
+    {
+      "name": "bsdata--wh40k-11e-mfm",
+      "source": "./bsdata--wh40k-11e-mfm",
+      "description": "Snapshots data parsed from https://mfm.warhammer-community.com/"
     },
     {
       "name": "cheerhuan--save-your-token",
