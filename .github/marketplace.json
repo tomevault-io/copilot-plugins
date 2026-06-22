@@ -225094,6 +225094,11 @@
       "description": "a command-line tool for deploying services to Google Cloud Run"
     },
     {
+      "name": "xynogen--pix-mono",
+      "source": "./xynogen--pix-mono",
+      "description": "Monorepo of Pix, Distro of PI Coding Agent"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
