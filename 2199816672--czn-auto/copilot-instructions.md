@@ -1,21 +1,40 @@
-## maintain-structure-rule
+## project-structure
 
-> 修改代码后同步维护项目结构规则
+> 项目结构与架构概览（CZN Zero Farm 卡厄思梦境零式自动刷取脚本）
 
 
-# 维护结构规则
+# 项目概览
 
-每次修改代码后，判断改动是否影响 `.cursor/rules/project-structure.mdc` 中描述的内容，如有则同步更新该规则。
+**CZN Zero Farm** 是《卡厄思梦境》PC 端自动化刷取脚本。纯 OpenCV 模板匹配 + 状态机驱动，无 AI 模型 / 无 GPU，仅支持 Windows，基于 1920×1080 分辨率坐标（按比例缩放）。
 
-需要更新的典型场景：
+# 模块结构
 
-- 新增 / 删除 / 重命名模块文件（`*.py`）或目录
-- 改变某模块的核心职责
-- 新增或调整核心架构（状态机流程、输入后端、刷取模式等）
-- 修改 `config.json` 的配置结构或约定
-- 调整坐标 / 区域格式、`GameState` 扩展流程等开发约定
+| 文件 | 职责 |
+|---|---|
+| `main.py` | CLI 主入口。`Config` 加载配置、日志、热键、主循环 `main_loop`、状态分发 `handle_state`、`--capture` 模板采集模式 |
+| `gui.py` | MAA 风格暗色 GUI 主入口（双击 `run.bat` 或 `python gui.py` 启动），含配置编辑、实时统计、高 DPI 适配 |
+| `core/screencap/` | 屏幕捕获包：`capturer.py`（`ScreenCapturer` 门面，按 `capture_method` 选择捕获后端，窗口定位、裁剪与分辨率缩放）、`base.py`（抽象基类 `ScreencapBackend`）、`dxgi.py`（dxcam/DXGI 桌面复制，前台）、`framepool.py`（WinRT FramePool，后台/遮挡可截，依赖 `windows-capture`）、`printwindow.py`（GDI PrintWindow，后台/遮挡可截）、`__init__.py`（`create_backend` 工厂 + `AVAILABLE_METHODS` + 重新导出 `ScreenCapturer`） |
+| `core/input/` | 输入模拟包（后端分层）。`base.py` 定义 `InputMethod` 枚举与 `InputBackend` 抽象基类；`sendinput.py`/`sendmessage.py`/`postmessage.py` 三个后端实现；`simulator.py` 为门面 `InputSimulator`（兼容旧 API）；`__init__.py` 提供 `create_backend(method)` 工厂与 `AVAILABLE_METHODS`。三种后端：`sendinput`（前台/真实鼠标）、`sendmessage`（后台/仍移动光标）、`postmessage`（后台/不碰鼠标，按客户区坐标投递并解析子窗口） |
+| `detector.py` | `GameState` 枚举（60+ 状态）、`TemplateMatcher` 模板匹配（阈值 0.8）、`StateDetector` 状态检测 |
+| `combat.py` | `CombatModule`：战斗自动出牌逻辑（轮廓分析识别手牌） |
+| `ocr.py` | OCR 后端（PaddleOCR / WinRT），用于「赛季图初始刷取」模式按关键词刷 Buff |
+| `config.json` | 全部运行配置：坐标点、点击偏移、时序、OCR 关键词、模板 profile 等 |
+| `templates_cn/`、`templates_global/` | 国服 / 国际服模板图片（PNG），由 `config.json` 的 `template_profile` 切换 |
 
-仅做局部逻辑修改、不影响整体结构时无需改动该规则。更新后简要告知用户结构规则已同步。
+# 核心架构
+
+- **状态机循环**：`main_loop` 截屏 → `StateDetector.detect` 识别 `GameState` → `handle_state` 根据状态点击对应 `click_points`。
+- **捕获后端**：`ScreenCapturer` 不实现截图算法，按 `config.json` 的 `game.capture_method`（`auto`/`framepool`/`printwindow`，枚举 `core.screencap.CaptureMethod`，默认 `framepool`）经 `create_backend` 选择后端。桌面型后端（DXGI）抓整屏后按整窗口矩形裁剪再缩放到基准分辨率；窗口型后端（FramePool/PrintWindow，`returns_window_only=True`）抓整窗口后裁剪出客户区（不缩放，去标题栏/边框），支持窗口被遮挡/后台时截图。`game_to_screen` 坐标换算对桌面型用整窗口矩形、对窗口型用客户区矩形。
+- **坐标驱动**：所有点击坐标来自 `config.json` 的 `click_points` / `click_offsets`，基于 1920×1080，运行时按实际分辨率缩放。修改行为优先改配置而非硬编码坐标。
+- **两种模式**（`config.json` 的 `game.mission`）：`zero_system`（完整刷层状态机）与赛季图 OCR 刷 Buff。
+- **热键**：F6 开始 / F8 停止 / F9 暂停（需管理员权限）。
+
+# 约定
+
+- 坐标格式：`[x, y]` 像素；区域格式：`[x, y, w, h]`。
+- 新增游戏画面识别：在 `GameState` 加枚举 → `templates_*/` 加模板图 → `handle_state` 加分支 → `config.json` 加坐标。
+- 新增输入后端：在 `core/input/base.py` 的 `InputMethod` 加枚举 → 新建后端文件继承 `InputBackend` 并实现 `click()` → 在 `core/input/__init__.py` 的 `create_backend` / `AVAILABLE_METHODS` 注册。
+- 代码注释与日志混用中英文，保持现有风格；面向用户的文档用简体中文。
 
 ---
 > Source: [2199816672/czn_auto](https://github.com/2199816672/czn_auto) — distributed by [TomeVault](https://tomevault.io).
