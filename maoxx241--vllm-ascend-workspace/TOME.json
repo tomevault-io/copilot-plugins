@@ -4,7 +4,7 @@
   "repo": "vllm-ascend-workspace",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maoxx241/vllm-ascend-workspace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-22T05:40:40Z"
+  "distributed_at": "2026-06-22T05:44:32Z"
 }
