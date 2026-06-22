@@ -1,0 +1,9 @@
+{
+  "name": "rewstapp--agent-smith-go",
+  "displayName": "agent-smith-go",
+  "description": "agent-smith-go",
+  "version": "1.0.0",
+  "author": "RewstApp",
+  "homepage": "https://github.com/RewstApp/agent-smith-go",
+  "skills": []
+}
