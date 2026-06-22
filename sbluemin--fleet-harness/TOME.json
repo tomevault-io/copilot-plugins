@@ -4,7 +4,7 @@
   "repo": "fleet-harness",
   "description": "A multi-LLM orchestration kit that commands Claude Code, Codex, and Gemini as a naval carrier strike group",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sbluemin/fleet-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-22T05:39:38Z"
+  "distributed_at": "2026-06-22T05:40:06Z"
 }
