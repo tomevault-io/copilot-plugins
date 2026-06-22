@@ -1,22 +1,9 @@
 {
   "name": "ggombee--code-forge",
   "displayName": "code-forge",
-  "description": "code-forge",
+  "description": "AI agent\uc758 skills, agents \ub4f1\uc744 \uc870\ud569\ud574\uc11c \uc138\ud305\ud574\uc8fc\ub294 code-forge",
   "version": "1.0.0",
   "author": "ggombee",
   "homepage": "https://github.com/ggombee/code-forge",
-  "skills": [
-    {
-      "name": "node-express",
-      "description": ""
-    },
-    {
-      "name": "python-django",
-      "description": ""
-    },
-    {
-      "name": "python-fastapi",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
