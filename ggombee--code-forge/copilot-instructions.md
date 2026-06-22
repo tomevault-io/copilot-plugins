@@ -1,60 +1,94 @@
 ## code-forge
 
-> 프로젝트 스택에 맞는 에이전트, 스킬, 규칙을 자동으로 제공하는 Claude Code 플러그인.
+> 이 파일은 AAIF(Agent Architecture Instruction Format) 표준에 따라 작성되었다.
 
-# code-forge
+# AGENTS.md — code-forge Agent Instructions
 
-프로젝트 스택에 맞는 에이전트, 스킬, 규칙을 자동으로 제공하는 Claude Code 플러그인.
-설치 후 `/setup` 한 번이면 프로젝트에 맞는 CLAUDE.md + AGENTS.md가 자동 생성된다.
-(에이전트/스킬 개수는 디스크가 진실 — `ls agents/*.md | wc -l`, `ls skills/*/SKILL.md | wc -l`)
+이 파일은 AAIF(Agent Architecture Instruction Format) 표준에 따라 작성되었다.
+AI 에이전트(Codex/Cursor 포함)가 이 저장소에서 작업할 때 준수해야 할 규칙을 정의한다.
 
-## 설치
+> **카탈로그(에이전트/스킬/훅/규칙 표)는 여기 없다** — 단일 소스 [`docs/REFERENCE.md`](docs/REFERENCE.md) 참조.
+> 이 파일은 멀티모델 진입점 델타(수정 규칙 + 금지 작업)만 유지한다 (2026-06-12 H1 dedup).
 
-```bash
-claude plugin marketplace add https://github.com/ggombee/forge-market.git
-claude plugin install code-forge
-```
+---
 
-로컬: `claude --plugin-dir /path/to/code-forge` · 설치 후 `/setup` → 상세: README.md
-
-## 역할
-
-1. `/setup` → 스택 감지 → CLAUDE.md + AGENTS.md 자동 생성, 스택 모듈(컨벤션) 주입
-2. `/setup --profile` → 코딩 스타일 분석 → `.candidate/profile.md` 생성
-3. Smith: 프로젝트 전용 에이전트 빌드 (STATE+ACT 컴파일, setup이 자동 호출)
-
-## 핵심 워크플로우
+## 프로젝트 구조 개요
 
 ```
-/start feature.md   → 분석 → 구현 → 검증 → 커밋 → PR (원큐; 완료 검증/버그 옵션 제시는 규칙·훅에 흡수 — docs/CATALOG.md)
-/handoff            → 세션 핸드오프 (중요 맥락 → progress.md + 킥오프 프롬프트 클립보드)
-/test               → 테스트 통합 진입점 (유닛/E2E/세팅 자동 라우팅)
-/setup              → 스택 감지 → CLAUDE.md + AGENTS.md 생성
+code-forge/
+├── agents/          # 플러그인 에이전트 .md (직접 편집 가능)
+├── docs/            # 설계 원칙, 가이드, REFERENCE.md(카탈로그 단일 소스)
+├── hooks/           # Claude Code 훅 스크립트
+├── instructions/    # 멀티에이전트 협업 가이드
+├── modules/         # 스택별 컨벤션 모듈
+├── plugins/smith/   # Smith 빌드 시스템 (프로젝트 에이전트 소스)
+├── presets/         # 스택 프리셋
+├── rules/           # 사고 모델 + 코딩 표준
+├── skills/          # 스킬 커맨드 (/start, /handoff 등 — 목록은 REFERENCE.md)
+├── CLAUDE.md        # 플러그인 메인 설명서 (포인터 중심)
+└── AGENTS.md        # 이 파일
 ```
 
-## 자동 적재 규칙 (매 세션/파일별 — 실제 frontmatter가 진실)
+---
 
-| 규칙 | 적재 시점 |
-|------|---|
-| `rules/thinking-model.md` | **alwaysApply** — GROUND→APPLY→VERIFY→ADAPT |
-| `rules/candidate-profile.md` | **alwaysApply** — 프로필 참조 + 소통 보장선 + 커밋 컨벤션 |
-| `rules/coding-standards.md` | path-scoped `*.{ts,tsx,js,jsx}` |
-| `rules/review-guide.md` | 자동 주입 없음 — 리뷰 에이전트 @-include 전용 (이중 적재 해소) |
-| `rules/build-guide.md` | path-scoped `*.{tsx,jsx}` |
+## 설계 원칙
 
-## 카탈로그 (단일 소스 — 여기 표를 복제하지 말 것)
+이 플러그인을 수정/확장할 때 `docs/design-principles.md`를 반드시 참조한다.
+모든 변경은 설계 원칙에 위배되지 않아야 한다.
+
+---
+
+## 에이전트 수정 규칙
+
+### 플러그인 에이전트 (`agents/`)
+
+`agents/` 파일은 직접 편집한다. Smith 빌드 불필요.
+
+### 프로젝트 전용 에이전트
+
+```
+1. /code-forge:smith-create-agent → .agents/agents/ 에 생성 (STATE+ACT 조합, setup에서 자동 호출됨)
+2. /code-forge:smith-build --project → .claude/agents/ 컴파일
+```
+
+Smith 빌드는 프로젝트 에이전트 전용. STATE/ACT 부품은 `plugins/smith/agents/state/`, `plugins/smith/agents/act/`.
+
+---
+
+## 릴리스 절차 (버전 범프 시 필수)
+
+1. **`CHANGELOG.md` 최상단에 새 버전 섹션** 작성 — 추가/변경/수정/제거, 사용자 관점 패치노트
+2. `.claude-plugin/plugin.json` version 범프 — **CHANGELOG 갱신과 같은 커밋에**
+3. `git push origin main` → `claude plugin update code-forge@forge-market --scope project` (+ `--scope local`)
+4. 캐시(`~/.claude/plugins/cache/forge-market/code-forge/<ver>/`)에서 핵심 변경 1개 spot-check — **"소스 수정 ≠ 배포"** (2026-06-11 교훈: 픽스가 소스에만 있고 캐시는 한 달 stale이었음)
+
+---
+
+## 금지 작업
+
+| 금지 | 이유 |
+|------|------|
+| **CHANGELOG.md 갱신 없는 버전 범프** | 패치노트 없는 릴리스 — 변경 추적 불가 (§릴리스 절차) |
+| `.claude/agents/` (프로젝트 컴파일 출력) 직접 수정 | smith-build 출력물 — 다음 컴파일 시 덮어씌워짐. 소스는 `.agents/agents/` |
+| `hooks/hooks.json` 수동 수정 후 검증 생략 | JSON 파싱 오류로 훅 전체 비활성화됨 |
+| `rules/` 파일 삭제 | alwaysApply/path-scoped 규칙 — 모든 에이전트 동작에 영향 |
+| `presets/` 스키마 변경 | `/setup` 스킬 파싱 오류 유발 |
+| 민감한 파일(.env, credentials) 커밋 | `write-guard.sh`가 Write를 차단하지만 직접 커밋은 차단 안 됨 |
+| 폐지 스킬(/done /bug-fix /refactor /quality)을 문서/표에 재추가 | v4.0에서 규칙·훅으로 흡수됨 — 대체 매핑은 `docs/CATALOG.md` |
+| 에이전트/스킬 개수를 손으로 세서 문서에 박기 | 3중 불일치 사고(17/19/21, 2026-06-11 검출) 재발 방지 — 산출 명령 표기 |
+
+---
+
+## 카탈로그 참조 (단일 소스)
 
 | 찾는 것 | 위치 |
 |---------|------|
-| 에이전트 전체 (4단계 권한) · 스킬 전체 · 훅 · quality-gate · State Layer · 멀티에이전트 · 대장간 체계 | [`docs/REFERENCE.md`](docs/REFERENCE.md) |
-| 폐지 스킬(/done /bug-fix /refactor /quality → 대체 매핑) · 모듈 · 프리셋 | [`docs/CATALOG.md`](docs/CATALOG.md) |
-| 상태/이벤트/통합 계약 | `docs/contracts/` (state-schema · event-schema · INTEGRATION) |
-| 외부 도구의 상태 접근 | `bin/forge status --json` (파일 직독 금지) |
-
-## 수정 규칙
-
-이 저장소를 수정할 때의 규칙·금지 작업은 [`AGENTS.md`](AGENTS.md) 참조.
+| 에이전트 목록 (4단계 권한 + 모델 핀) | `docs/REFERENCE.md` §에이전트 |
+| 스킬 목록 (직접/자동 호출) | `docs/REFERENCE.md` §스킬 |
+| 훅 + quality-gate + State Layer | `docs/REFERENCE.md` §Hooks~ |
+| 규칙 적재 시점 (alwaysApply/path-scoped) | `docs/REFERENCE.md` §규칙 적재 |
+| 멀티에이전트 협업 (Agent Teams) | `docs/REFERENCE.md` §멀티에이전트 + `instructions/multi-agent/coordination-guide.md` |
 
 ---
 > Source: [ggombee/code-forge](https://github.com/ggombee/code-forge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-22 -->
