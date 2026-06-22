@@ -4,7 +4,7 @@
   "repo": "agent-git-service",
   "description": "Reimplement GitHub for Agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ngaut/agent-git-service",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-22T05:50:03Z"
+  "distributed_at": "2026-06-22T05:53:34Z"
 }
