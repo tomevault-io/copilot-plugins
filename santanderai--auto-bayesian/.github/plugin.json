@@ -1,0 +1,9 @@
+{
+  "name": "santanderai--auto-bayesian",
+  "displayName": "auto-bayesian",
+  "description": "Config-driven, interpretable Bayesian network training for relational tabular data.",
+  "version": "1.0.0",
+  "author": "SantanderAI",
+  "homepage": "https://github.com/SantanderAI/auto-bayesian",
+  "skills": []
+}
