@@ -1,0 +1,9 @@
+{
+  "name": "gabrielpeixoto-git--assistencia-impacto",
+  "displayName": "assistencia-impacto",
+  "description": "Sistema de gest\u00e3o completo para empresas de manuten\u00e7\u00e3o residencial/comercial. CRM, ordens de servi\u00e7o, or\u00e7amentos, agenda, financeiro, estoque e relat\u00f3rios. Stack: FastAPI (Python 3.11+) + React 18 (Ty",
+  "version": "1.0.0",
+  "author": "gabrielpeixoto-git",
+  "homepage": "https://github.com/gabrielpeixoto-git/assistencia-impacto",
+  "skills": []
+}
