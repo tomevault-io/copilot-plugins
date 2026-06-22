@@ -7,11 +7,11 @@ A multi-LLM orchestration kit that commands Claude Code, Codex, and Gemini as a 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sbluemin/fleet-harness](https://github.com/sbluemin/fleet-harness).
+Original source: `CLAUDE.md` in [sbluemin/fleet-harness](https://github.com/sbluemin/fleet-harness).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
