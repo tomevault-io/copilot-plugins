@@ -7,11 +7,11 @@ RAG parameter sweep experimentation tool — systematically evaluate embedding m
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [neomatrix369/rag-params-finder](https://github.com/neomatrix369/rag-params-finder).
+Original source: `CLAUDE.md` in [neomatrix369/rag-params-finder](https://github.com/neomatrix369/rag-params-finder).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
