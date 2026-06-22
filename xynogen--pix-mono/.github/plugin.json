@@ -1,0 +1,9 @@
+{
+  "name": "xynogen--pix-mono",
+  "displayName": "pix-mono",
+  "description": "Monorepo of Pix, Distro of PI Coding Agent",
+  "version": "1.0.0",
+  "author": "xynogen",
+  "homepage": "https://github.com/xynogen/pix-mono",
+  "skills": []
+}
