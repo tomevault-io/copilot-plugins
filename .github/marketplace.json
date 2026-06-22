@@ -26019,6 +26019,11 @@
       "description": "A minimal CSS framework with utilities that are actually useful."
     },
     {
+      "name": "laiso--ts-bench",
+      "source": "./laiso--ts-bench",
+      "description": "Benchmark CLI for comparing AI coding agents on TypeScript workloads."
+    },
+    {
       "name": "stolinski--graffiti",
       "source": "./stolinski--graffiti",
       "description": "A minimal CSS framework with utilities that are actually useful."
@@ -26312,11 +26317,6 @@
       "name": "tsiendragon--qwen-image-finetune",
       "source": "./tsiendragon--qwen-image-finetune",
       "description": "Repo for Qwen Image Finetune"
-    },
-    {
-      "name": "laiso--ts-bench",
-      "source": "./laiso--ts-bench",
-      "description": "Benchmark CLI for comparing AI coding agents on TypeScript workloads."
     },
     {
       "name": "tsiendragon--qwen-image-finetune",
@@ -60112,6 +60112,11 @@
       "name": "appandflow--react-native-transformer-text-input",
       "source": "./appandflow--react-native-transformer-text-input",
       "description": "TextInput component that allows transforming text synchronously with a worklet."
+    },
+    {
+      "name": "theexperiencecompany--motion-studio",
+      "source": "./theexperiencecompany--motion-studio",
+      "description": "Design Beautiful Motion Graphics Videos"
     },
     {
       "name": "robertbarclayy--conducty",
@@ -180389,6 +180394,11 @@
       "description": "lingti-code"
     },
     {
+      "name": "phuthuycoding--moicle",
+      "source": "./phuthuycoding--moicle",
+      "description": "Reusable AI agents, commands, skills, and architecture references for Claude Code, Antigravity, Cursor or AI IDE"
+    },
+    {
       "name": "kks0488--vibe-codex",
       "source": "./kks0488--vibe-codex",
       "description": "\u26a1 AI-first skills for autonomous coding. Fast loops, zero-setup, Codex & OpenCode compatible."
@@ -184012,6 +184022,11 @@
       "name": "qwibitai--nanoclaw-whatsapp",
       "source": "./qwibitai--nanoclaw-whatsapp",
       "description": "NanoClaw WhatsApp channel integration"
+    },
+    {
+      "name": "phuthuycoding--moicle",
+      "source": "./phuthuycoding--moicle",
+      "description": "Reusable AI agents, commands, skills, and architecture references for Claude Code, Antigravity, Cursor or AI IDE"
     },
     {
       "name": "martynpekala--openlens",
@@ -208679,6 +208694,16 @@
       "description": "GameHelper for Path of Exile 2"
     },
     {
+      "name": "pyts1n9--baiqingtodo",
+      "source": "./pyts1n9--baiqingtodo",
+      "description": "It is a Todo-List and Notepad Tool"
+    },
+    {
+      "name": "voidchecksum--pcx-ai-toolkit",
+      "source": "./voidchecksum--pcx-ai-toolkit",
+      "description": "AI-powered scripting toolkit for Perception.cx \u2014 complete Enma/AngelScript/Lua docs, coding guidelines, MCP configs, LSP servers, and Claude Code skills"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -208802,11 +208827,6 @@
       "name": "reporails--rules",
       "source": "./reporails--rules",
       "description": "Evidence-backed rules for validating AI coding agent instructions. Core rules for structure, content, efficiency, governance, and maintenance."
-    },
-    {
-      "name": "phuthuycoding--moicle",
-      "source": "./phuthuycoding--moicle",
-      "description": "Reusable AI agents, commands, skills, and architecture references for Claude Code, Antigravity, Cursor or AI IDE"
     },
     {
       "name": "dabstractor--mdsel",
@@ -211449,11 +211469,6 @@
       "description": "MCP server for ComfyUI - Enables AI assistants to generate images, video, audio, and 3D"
     },
     {
-      "name": "phuthuycoding--moicle",
-      "source": "./phuthuycoding--moicle",
-      "description": "Reusable AI agents, commands, skills, and architecture references for Claude Code, Antigravity, Cursor or AI IDE"
-    },
-    {
       "name": "vitalio-sh--thunderbird-cli",
       "source": "./vitalio-sh--thunderbird-cli",
       "description": "Give Claude full access to your email through Mozilla Thunderbird. CLI + MCP server for AI agents."
@@ -212712,11 +212727,6 @@
       "name": "zenmux--skills",
       "source": "./zenmux--skills",
       "description": "ZenMux Skills Repo"
-    },
-    {
-      "name": "theexperiencecompany--motion-studio",
-      "source": "./theexperiencecompany--motion-studio",
-      "description": "Design Beautiful Motion Graphics Videos"
     },
     {
       "name": "maf404--tml",
@@ -224762,6 +224772,11 @@
       "name": "rewstapp--agent-smith-go",
       "source": "./rewstapp--agent-smith-go",
       "description": "agent-smith-go"
+    },
+    {
+      "name": "mikhailmogilnikov--hyperellipse",
+      "source": "./mikhailmogilnikov--hyperellipse",
+      "description": "CSS corner-shape polyfill \u2014 squircles, superellipses, scoops & notches"
     },
     {
       "name": "cheerhuan--save-your-token",
