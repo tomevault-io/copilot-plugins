@@ -1,17 +1,25 @@
-## skill-maintenance
+## submodule-context
 
-> Synchronization constraints when editing agent skill packages under .agents/skills/
+> Submodule awareness and version-switch guidance for vllm-ascend-workspace
 
 
-# Skill Package Maintenance
+# Submodule Context
 
-When modifying any skill package, follow the maintenance rule in `AGENTS.md` — keep the per-skill bundle (SKILL.md + scripts/ + references/), shared modules, and remote-code-parity files in sync.
+This repository is a composable scaffold. `vllm/` and `vllm-ascend/` are Git submodules that may be checked out at **any** version — treat their content as volatile.
 
-## Script conventions (supplemental to AGENTS.md)
+## Key facts
 
-- CLI parsers must accept common aliases and disable brittle prefix-abbreviation.
-- Progress on `stderr` (`__VAWS_PROGRESS__=<json>`), final payload on `stdout` (single JSON object).
-- Default metadata that can be safely inferred; never silently default security-sensitive values.
+- Submodule versions switch frequently; never assume a specific commit or directory layout inside them.
+- Each submodule has its own `AGENTS.md` that ships with the checked-out version — always defer to **the submodule's own `AGENTS.md`** for version-specific coding conventions.
+- Do not modify `.gitmodules` URLs (keep community upstream URLs).
+- Submodule commits are independent of the parent scaffold repo.
+- Submodules may be uninitialized (empty directories); do not attempt to read their internal files when this is the case.
+
+## Cross-submodule search
+
+- `vllm/` is the upstream vLLM implementation (GPU-centric).
+- `vllm-ascend/` is the Ascend NPU hardware plugin built on top of vLLM.
+- When searching across both, be aware that identically-named symbols may have different semantics.
 
 ---
 > Source: [maoxx241/vllm-ascend-workspace](https://github.com/maoxx241/vllm-ascend-workspace) — distributed by [TomeVault](https://tomevault.io).
