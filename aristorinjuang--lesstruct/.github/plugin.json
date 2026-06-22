@@ -1,0 +1,9 @@
+{
+  "name": "aristorinjuang--lesstruct",
+  "displayName": "lesstruct",
+  "description": "An open-source CMS powered by Go. Fast, configurable, customizable. Built for humans and AI agents, extended with WebAssembly plugins. One binary, no Docker required.",
+  "version": "1.0.0",
+  "author": "aristorinjuang",
+  "homepage": "https://github.com/aristorinjuang/lesstruct",
+  "skills": []
+}
