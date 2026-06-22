@@ -1,0 +1,9 @@
+{
+  "name": "mistahoward--blazor-dev-tools",
+  "displayName": "blazor-dev-tools",
+  "description": "Inspired by react dev tools - in browser blazor tools to make your life easier.",
+  "version": "1.0.0",
+  "author": "mistahoward",
+  "homepage": "https://github.com/mistahoward/blazor-dev-tools",
+  "skills": []
+}
