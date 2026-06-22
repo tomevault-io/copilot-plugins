@@ -1,0 +1,22 @@
+## maintain-structure-rule
+
+> 修改代码后同步维护项目结构规则
+
+
+# 维护结构规则
+
+每次修改代码后，判断改动是否影响 `.cursor/rules/project-structure.mdc` 中描述的内容，如有则同步更新该规则。
+
+需要更新的典型场景：
+
+- 新增 / 删除 / 重命名模块文件（`*.py`）或目录
+- 改变某模块的核心职责
+- 新增或调整核心架构（状态机流程、输入后端、刷取模式等）
+- 修改 `config.json` 的配置结构或约定
+- 调整坐标 / 区域格式、`GameState` 扩展流程等开发约定
+
+仅做局部逻辑修改、不影响整体结构时无需改动该规则。更新后简要告知用户结构规则已同步。
+
+---
+> Source: [2199816672/czn_auto](https://github.com/2199816672/czn_auto) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-22 -->
