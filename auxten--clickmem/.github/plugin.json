@@ -1,0 +1,9 @@
+{
+  "name": "auxten--clickmem",
+  "displayName": "clickmem",
+  "description": "Agent memory built on chDB(ClickHouse embedded)",
+  "version": "1.0.0",
+  "author": "auxten",
+  "homepage": "https://github.com/auxten/clickmem",
+  "skills": []
+}
