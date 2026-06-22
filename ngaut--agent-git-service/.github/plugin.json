@@ -1,0 +1,9 @@
+{
+  "name": "ngaut--agent-git-service",
+  "displayName": "agent-git-service",
+  "description": "Reimplement GitHub for Agents.",
+  "version": "1.0.0",
+  "author": "ngaut",
+  "homepage": "https://github.com/ngaut/agent-git-service",
+  "skills": []
+}
