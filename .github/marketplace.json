@@ -129544,6 +129544,11 @@
       "description": "awiki-agent-id-message"
     },
     {
+      "name": "kyle-ssg--kyde",
+      "source": "./kyle-ssg--kyde",
+      "description": "A fast native commit and diff code editor"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -180107,6 +180112,11 @@
       "name": "lukaisailovic--openislands",
       "source": "./lukaisailovic--openislands",
       "description": "openislands"
+    },
+    {
+      "name": "cjami--watch-my-escape",
+      "source": "./cjami--watch-my-escape",
+      "description": "Watch LLMs try to solve your handmade escape rooms."
     },
     {
       "name": "yschimke--compose-ai-tools",
