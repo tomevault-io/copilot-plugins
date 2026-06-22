@@ -1,0 +1,44 @@
+{
+  "name": "ai-agent-fullstack-roadmap",
+  "owner": "qufei1993",
+  "repo": "ai-agent-fullstack-roadmap",
+  "description": "AI Agent Full-Stack Development Roadmap",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qufei1993/ai-agent-fullstack-roadmap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-22T03:30:23Z"
+}
