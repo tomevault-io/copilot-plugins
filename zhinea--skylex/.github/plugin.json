@@ -1,0 +1,9 @@
+{
+  "name": "zhinea--skylex",
+  "displayName": "skylex",
+  "description": "Supabase alternatives for Production-grade self-hosted Database manager (Only 20MB RAM) w High Avability, Auto Backup S3, PITR by default. Without touching CLI",
+  "version": "1.0.0",
+  "author": "zhinea",
+  "homepage": "https://github.com/zhinea/skylex",
+  "skills": []
+}
