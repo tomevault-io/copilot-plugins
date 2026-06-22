@@ -225149,6 +225149,36 @@
       "description": "\u5361\u5384\u65af\u68a6\u5883\u81ea\u52a8\u5237\u56fe\u811a\u672c"
     },
     {
+      "name": "schalkneethling--css-benchpress",
+      "source": "./schalkneethling--css-benchpress",
+      "description": "css-benchpress aims to help developers and tooling authors discover where CSS patterns become performance problems by growing realistic web-platform test cases until measurable regressions appear."
+    },
+    {
+      "name": "schalkneethling--css-benchpress",
+      "source": "./schalkneethling--css-benchpress",
+      "description": "css-benchpress aims to help developers and tooling authors discover where CSS patterns become performance problems by growing realistic web-platform test cases until measurable regressions appear."
+    },
+    {
+      "name": "ggwhite--4x",
+      "source": "./ggwhite--4x",
+      "description": "Multi-role AI development loop \u2014 Design, Code, Review, Test"
+    },
+    {
+      "name": "ggwhite--4x",
+      "source": "./ggwhite--4x",
+      "description": "Multi-role AI development loop \u2014 Design, Code, Review, Test"
+    },
+    {
+      "name": "ggwhite--4x",
+      "source": "./ggwhite--4x",
+      "description": "Multi-role AI development loop \u2014 Design, Code, Review, Test"
+    },
+    {
+      "name": "xiaoyuyu6420--modjing",
+      "source": "./xiaoyuyu6420--modjing",
+      "description": "An independent review platform for LLM API relay services"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
