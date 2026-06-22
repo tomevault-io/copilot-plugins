@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-nemo--fw-ci-templates",
+  "displayName": "FW-CI-templates",
+  "description": "CI/CD templates for NeMo-FW libraries",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/FW-CI-templates",
+  "skills": []
+}
