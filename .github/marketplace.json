@@ -168559,6 +168559,11 @@
       "description": "An open-source CMS powered by Go. Fast, configurable, customizable. Built for humans and AI agents, extended with WebAssembly plugins. One binary, no Docker required."
     },
     {
+      "name": "atharvamaik--donecheck",
+      "source": "./atharvamaik--donecheck",
+      "description": "Proof-of-done for AI coding agents. Local evidence receipts for Codex, Claude Code, Cursor, and GitHub Actions."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -180092,6 +180097,16 @@
       "name": "madeye--ds-input",
       "source": "./madeye--ds-input",
       "description": "DS Input \u2014 an LLM whole-sentence pinyin input method (macOS + Windows): toneless pinyin \u2192 Chinese inline, no candidate window. Rust core (C ABI) + thin native frontends."
+    },
+    {
+      "name": "lukaisailovic--openislands",
+      "source": "./lukaisailovic--openislands",
+      "description": "openislands"
+    },
+    {
+      "name": "lukaisailovic--openislands",
+      "source": "./lukaisailovic--openislands",
+      "description": "openislands"
     },
     {
       "name": "yschimke--compose-ai-tools",
