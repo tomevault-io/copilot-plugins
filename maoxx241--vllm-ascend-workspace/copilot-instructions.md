@@ -1,23 +1,17 @@
-## commit-conventions
+## skill-maintenance
 
-> Commit message and PR conventions for scaffold and vllm-ascend submodule
+> Synchronization constraints when editing agent skill packages under .agents/skills/
 
 
-# Commit Conventions
+# Skill Package Maintenance
 
-## Scaffold repository (this repo)
+When modifying any skill package, follow the maintenance rule in `AGENTS.md` — keep the per-skill bundle (SKILL.md + scripts/ + references/), shared modules, and remote-code-parity files in sync.
 
-Standard conventional commits:
+## Script conventions (supplemental to AGENTS.md)
 
-```
-<type>: <summary>
-```
-
-Types: `feat`, `fix`, `refactor`, `docs`, `chore`, `test`
-
-## vllm-ascend submodule
-
-Commits inside `vllm-ascend/` must follow the submodule's own conventions — always read `vllm-ascend/AGENTS.md` for the current commit format, sign-off requirements, and PR title rules.
+- CLI parsers must accept common aliases and disable brittle prefix-abbreviation.
+- Progress on `stderr` (`__VAWS_PROGRESS__=<json>`), final payload on `stdout` (single JSON object).
+- Default metadata that can be safely inferred; never silently default security-sensitive values.
 
 ---
 > Source: [maoxx241/vllm-ascend-workspace](https://github.com/maoxx241/vllm-ascend-workspace) — distributed by [TomeVault](https://tomevault.io).
