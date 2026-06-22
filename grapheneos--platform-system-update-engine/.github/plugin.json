@@ -1,0 +1,9 @@
+{
+  "name": "grapheneos--platform-system-update-engine",
+  "displayName": "platform_system_update_engine",
+  "description": "platform_system_update_engine",
+  "version": "1.0.0",
+  "author": "GrapheneOS",
+  "homepage": "https://github.com/GrapheneOS/platform_system_update_engine",
+  "skills": []
+}
