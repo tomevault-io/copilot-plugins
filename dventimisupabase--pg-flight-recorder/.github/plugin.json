@@ -1,0 +1,9 @@
+{
+  "name": "dventimisupabase--pg-flight-recorder",
+  "displayName": "pg_flight_recorder",
+  "description": "Server-side performance telemetry for PostgreSQL 15+ - extracted from SA-Toolkit",
+  "version": "1.0.0",
+  "author": "dventimisupabase",
+  "homepage": "https://github.com/dventimisupabase/pg_flight_recorder",
+  "skills": []
+}
