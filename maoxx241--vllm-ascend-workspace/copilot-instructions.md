@@ -1,25 +1,11 @@
-## submodule-context
+## vllm-ascend-coding
 
-> Submodule awareness and version-switch guidance for vllm-ascend-workspace
+> Version-independent NPU coding principles for vllm-ascend development
 
 
-# Submodule Context
+# vllm-ascend NPU Coding Guide
 
-This repository is a composable scaffold. `vllm/` and `vllm-ascend/` are Git submodules that may be checked out at **any** version — treat their content as volatile.
-
-## Key facts
-
-- Submodule versions switch frequently; never assume a specific commit or directory layout inside them.
-- Each submodule has its own `AGENTS.md` that ships with the checked-out version — always defer to **the submodule's own `AGENTS.md`** for version-specific coding conventions.
-- Do not modify `.gitmodules` URLs (keep community upstream URLs).
-- Submodule commits are independent of the parent scaffold repo.
-- Submodules may be uninitialized (empty directories); do not attempt to read their internal files when this is the case.
-
-## Cross-submodule search
-
-- `vllm/` is the upstream vLLM implementation (GPU-centric).
-- `vllm-ascend/` is the Ascend NPU hardware plugin built on top of vLLM.
-- When searching across both, be aware that identically-named symbols may have different semantics.
+For version-specific conventions (naming, file layout, patching patterns, review checklists), always read the current `vllm-ascend/AGENTS.md` first — it updates automatically with each submodule version.
 
 ---
 > Source: [maoxx241/vllm-ascend-workspace](https://github.com/maoxx241/vllm-ascend-workspace) — distributed by [TomeVault](https://tomevault.io).
