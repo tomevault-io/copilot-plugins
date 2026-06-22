@@ -1,0 +1,44 @@
+{
+  "name": "do-counter0",
+  "owner": "heiwa4126",
+  "repo": "do-counter0",
+  "description": "Cloudflare Durable Objects \u3092\u4f7f\u3063\u305f \"\u30a2\u30af\u30bb\u30b9\u30ab\u30a6\u30f3\u30bf\" \u307f\u305f\u3044\u306a\u3082\u306e\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/heiwa4126/do-counter0",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-22T02:39:02Z"
+}
