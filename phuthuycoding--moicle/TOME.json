@@ -3,8 +3,8 @@
   "owner": "phuthuycoding",
   "repo": "moicle",
   "description": "Reusable AI agents, commands, skills, and architecture references for Claude Code, Antigravity, Cursor or AI IDE",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/phuthuycoding/moicle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-22T05:30:22Z"
+  "distributed_at": "2026-06-22T05:32:20Z"
 }
