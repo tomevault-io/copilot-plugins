@@ -1,0 +1,9 @@
+{
+  "name": "ajipurn--fida",
+  "displayName": "fida",
+  "description": "a local-first secret leak prevention layer for AI coding agents",
+  "version": "1.0.0",
+  "author": "ajipurn",
+  "homepage": "https://github.com/ajipurn/fida",
+  "skills": []
+}
