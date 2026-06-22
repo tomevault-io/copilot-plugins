@@ -1,0 +1,9 @@
+{
+  "name": "atharvamaik--donecheck",
+  "displayName": "donecheck",
+  "description": "Proof-of-done for AI coding agents. Local evidence receipts for Codex, Claude Code, Cursor, and GitHub Actions.",
+  "version": "1.0.0",
+  "author": "AtharvaMaik",
+  "homepage": "https://github.com/AtharvaMaik/donecheck",
+  "skills": []
+}
