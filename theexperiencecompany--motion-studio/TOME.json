@@ -3,7 +3,7 @@
   "owner": "theexperiencecompany",
   "repo": "motion-studio",
   "description": "Design Beautiful Motion Graphics Videos",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theexperiencecompany/motion-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-22T05:31:00Z"
+  "distributed_at": "2026-06-22T05:49:32Z"
 }
