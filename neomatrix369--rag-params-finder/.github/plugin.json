@@ -1,0 +1,9 @@
+{
+  "name": "neomatrix369--rag-params-finder",
+  "displayName": "rag-params-finder",
+  "description": "RAG parameter sweep experimentation tool \u2014 systematically evaluate embedding models, chunking strategies, and retrieval methods using MongoDB Atlas Vector Search. Supports both Voyage AI (hosted) and ",
+  "version": "1.0.0",
+  "author": "neomatrix369",
+  "homepage": "https://github.com/neomatrix369/rag-params-finder",
+  "skills": []
+}
