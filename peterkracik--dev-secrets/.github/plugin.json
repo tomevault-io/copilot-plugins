@@ -1,0 +1,9 @@
+{
+  "name": "peterkracik--dev-secrets",
+  "displayName": "dev-secrets",
+  "description": "Manage your local dev secrets & environment variables globally",
+  "version": "1.0.0",
+  "author": "peterkracik",
+  "homepage": "https://github.com/peterkracik/dev-secrets",
+  "skills": []
+}
