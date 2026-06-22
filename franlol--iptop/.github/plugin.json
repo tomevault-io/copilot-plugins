@@ -1,0 +1,9 @@
+{
+  "name": "franlol--iptop",
+  "displayName": "iptop",
+  "description": "htop for your network; a beautiful, real-time terminal IP traffic monitor",
+  "version": "1.0.0",
+  "author": "franlol",
+  "homepage": "https://github.com/franlol/iptop",
+  "skills": []
+}
