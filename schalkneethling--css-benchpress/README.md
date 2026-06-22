@@ -7,11 +7,11 @@ css-benchpress aims to help developers and tooling authors discover where CSS pa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [schalkneethling/css-benchpress](https://github.com/schalkneethling/css-benchpress).
+Original source: `CLAUDE.md` in [schalkneethling/css-benchpress](https://github.com/schalkneethling/css-benchpress).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
