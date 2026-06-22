@@ -1,0 +1,9 @@
+{
+  "name": "schalkneethling--css-benchpress",
+  "displayName": "css-benchpress",
+  "description": "css-benchpress aims to help developers and tooling authors discover where CSS patterns become performance problems by growing realistic web-platform test cases until measurable regressions appear.",
+  "version": "1.0.0",
+  "author": "schalkneethling",
+  "homepage": "https://github.com/schalkneethling/css-benchpress",
+  "skills": []
+}
