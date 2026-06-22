@@ -1,0 +1,9 @@
+{
+  "name": "voidchecksum--pcx-ai-toolkit",
+  "displayName": "pcx-ai-toolkit",
+  "description": "AI-powered scripting toolkit for Perception.cx \u2014 complete Enma/AngelScript/Lua docs, coding guidelines, MCP configs, LSP servers, and Claude Code skills",
+  "version": "1.0.0",
+  "author": "VoidChecksum",
+  "homepage": "https://github.com/VoidChecksum/pcx-ai-toolkit",
+  "skills": []
+}
