@@ -1,0 +1,9 @@
+{
+  "name": "this-senda--senda",
+  "displayName": "senda",
+  "description": "Fast, lightweight, git-native API client. Collections are plain folders of YAML \u2014 no cloud account, no lock-in, just commit the diff. Go + SolidJS, ships as a ~24 MB binary. Desktop GUI, TUI, and head",
+  "version": "1.0.0",
+  "author": "this-senda",
+  "homepage": "https://github.com/this-senda/senda",
+  "skills": []
+}
