@@ -1,0 +1,9 @@
+{
+  "name": "cygnusb--coros-mcp",
+  "displayName": "coros-mcp",
+  "description": "MCP server for AI assistants to read and manage Coros fitness data: sleep, HRV, daily metrics, activities, and structured workouts via the unofficial Coros API",
+  "version": "1.0.0",
+  "author": "cygnusb",
+  "homepage": "https://github.com/cygnusb/coros-mcp",
+  "skills": []
+}
