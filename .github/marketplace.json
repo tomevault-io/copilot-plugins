@@ -179834,6 +179834,11 @@
       "description": "Config-driven, interpretable Bayesian network training for relational tabular data."
     },
     {
+      "name": "qufei1993--ai-agent-fullstack-roadmap",
+      "source": "./qufei1993--ai-agent-fullstack-roadmap",
+      "description": "AI Agent Full-Stack Development Roadmap"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
