@@ -2,9 +2,9 @@
   "name": "code-forge",
   "owner": "ggombee",
   "repo": "code-forge",
-  "description": "",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "description": "AI agent\uc758 skills, agents \ub4f1\uc744 \uc870\ud569\ud574\uc11c \uc138\ud305\ud574\uc8fc\ub294 code-forge",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,27 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "node-express",
-      "path": "modules/frameworks/node-express",
-      "github_url": "https://github.com/ggombee/code-forge/tree/main/modules/frameworks/node-express",
-      "description": ""
-    },
-    {
-      "name": "python-django",
-      "path": "modules/frameworks/python-django",
-      "github_url": "https://github.com/ggombee/code-forge/tree/main/modules/frameworks/python-django",
-      "description": ""
-    },
-    {
-      "name": "python-fastapi",
-      "path": "modules/frameworks/python-fastapi",
-      "github_url": "https://github.com/ggombee/code-forge/tree/main/modules/frameworks/python-fastapi",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/ggombee/code-forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T06:30:22Z"
+  "distributed_at": "2026-06-22T05:47:01Z"
 }
