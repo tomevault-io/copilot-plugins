@@ -1,0 +1,9 @@
+{
+  "name": "sbluemin--fleet-harness",
+  "displayName": "fleet-harness",
+  "description": "A multi-LLM orchestration kit that commands Claude Code, Codex, and Gemini as a naval carrier strike group",
+  "version": "1.0.0",
+  "author": "sbluemin",
+  "homepage": "https://github.com/sbluemin/fleet-harness",
+  "skills": []
+}
