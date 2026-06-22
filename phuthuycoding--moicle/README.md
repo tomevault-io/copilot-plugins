@@ -7,11 +7,11 @@ Reusable AI agents, commands, skills, and architecture references for Claude Cod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [phuthuycoding/moicle](https://github.com/phuthuycoding/moicle).
+Original source: `AGENTS.md` in [phuthuycoding/moicle](https://github.com/phuthuycoding/moicle).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
