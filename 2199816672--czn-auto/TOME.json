@@ -1,0 +1,44 @@
+{
+  "name": "czn_auto",
+  "owner": "2199816672",
+  "repo": "czn_auto",
+  "description": "\u5361\u5384\u65af\u68a6\u5883\u81ea\u52a8\u5237\u56fe\u811a\u672c",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/2199816672/czn_auto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-22T16:31:39Z"
+}
