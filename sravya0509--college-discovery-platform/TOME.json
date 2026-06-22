@@ -1,0 +1,44 @@
+{
+  "name": "college_discovery_platform",
+  "owner": "Sravya0509",
+  "repo": "college_discovery_platform",
+  "description": "College Discovery Platform that enables students to search, compare, and explore colleges through an intuitive and responsive user experience. Built using Next.js, TypeScript, TailwindCSS, PostgreSQL, and Prisma.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Sravya0509/college_discovery_platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-22T02:37:34Z"
+}
