@@ -1,0 +1,33 @@
+## architecture
+
+> Architectural and coding standards for Blazor Dev Tools
+
+
+# Core Principles
+* **SOLID First:** Enforce single responsibility in both the C# services and the TypeScript extension scripts. Interfaces should be used for all inter-process communication boundaries.
+* **Separation of Concerns:** The Chrome Extension should know nothing about Blazor's internals. It should only consume a standardized JSON messaging protocol. The Blazor library handles all reflection and runtime inspection.
+
+# C# and Blazor Best Practices
+* Use modern C# features (file-scoped namespaces, global usings, record types for immutable messaging payloads).
+* Avoid tightly coupling the inspection logic to specific Blazor rendering models (Wasm vs. Server). Abstract the component state retrieval so it can potentially handle both.
+* Dependency Injection: Ensure the library is easy to register in a consumer's `Program.cs` via a clean `IServiceCollection` extension method (e.g., `builder.Services.AddBlazorDevTools()`).
+
+# Chrome Extension (JavaScript/TypeScript) Best Practices
+* Use Manifest V3 standards strictly.
+* Implement a clear message-passing architecture between the DevTools page, the Background Service Worker, and the Content Script.
+* Keep the UI logic in the DevTools panel lightweight and reactive. 
+
+# Code Generation Rules
+* When generating new services or handlers, always write the interface first.
+* Include XML documentation for all public C# APIs and JSDoc for complex JavaScript functions.
+* Prioritize defensive programming when using C# Reflection to inspect components, as the component tree state can mutate rapidly.
+
+# XML Documentation (C#)
+* **Preserve existing `///` comments.** When editing C# files, do not delete XML documentation on types, members, or parameters unless the documented symbol itself is removed.
+* **Update, don't strip.** If a signature, behavior, return value, or exception surface changes, revise the existing XML docs to match — do not remove them and leave the member undocumented.
+* **Add for new public surface.** New public types and members still require XML docs per project standards.
+* **Refactors are not doc resets.** Renames, extractions, and behavior-preserving rewrites should carry forward (and adjust) existing documentation rather than rewriting the implementation with bare members.
+
+---
+> Source: [mistahoward/blazor-dev-tools](https://github.com/mistahoward/blazor-dev-tools) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-22 -->
