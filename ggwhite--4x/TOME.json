@@ -4,7 +4,7 @@
   "repo": "4x",
   "description": "Multi-role AI development loop \u2014 Design, Code, Review, Test",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ggwhite/4x",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-22T18:32:32Z"
+  "distributed_at": "2026-06-22T18:33:02Z"
 }
