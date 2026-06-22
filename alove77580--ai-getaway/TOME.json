@@ -1,0 +1,44 @@
+{
+  "name": "ai-getaway",
+  "owner": "alove77580",
+  "repo": "ai-getaway",
+  "description": "\u8f7b\u91cf\u7ea7 AI API \u4e2d\u8f6c\u7cfb\u7edf\uff0c\u517c\u5bb9 OpenAI API \u683c\u5f0f\uff0c\u6309\u7528\u6237\u7ed1\u5b9a\u72ec\u7acb\u4e0a\u6e38\u8d26\u53f7\uff0c\u5b9e\u73b0\u8ba2\u9605\u5236\u591a\u79df\u6237\u7f51\u5173\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alove77580/ai-getaway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-22T08:30:25Z"
+}
