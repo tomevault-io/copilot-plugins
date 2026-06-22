@@ -208949,6 +208949,21 @@
       "description": "Board2Notes"
     },
     {
+      "name": "arupdas0825--dev-track",
+      "source": "./arupdas0825--dev-track",
+      "description": "DevTrack is an AI-powered Developer Intelligence Platform that transforms GitHub activity into actionable insights, developer scores, growth analytics, and personalized career recommendations."
+    },
+    {
+      "name": "this-senda--senda",
+      "source": "./this-senda--senda",
+      "description": "Fast, lightweight, git-native API client. Collections are plain folders of YAML \u2014 no cloud account, no lock-in, just commit the diff. Go + SolidJS, ships as a ~24 MB binary. Desktop GUI, TUI, and head"
+    },
+    {
+      "name": "maylogger--agi",
+      "source": "./maylogger--agi",
+      "description": "Agentic Guideline Intelligence"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225017,6 +225032,26 @@
       "name": "mikhailmogilnikov--hyperellipse",
       "source": "./mikhailmogilnikov--hyperellipse",
       "description": "CSS corner-shape polyfill \u2014 squircles, superellipses, scoops & notches"
+    },
+    {
+      "name": "inquisimind--digital-life",
+      "source": "./inquisimind--digital-life",
+      "description": "Digital Life \u00b7 Life Engineering \u2014 A runtime framework for persistent, autonomous LLM agents"
+    },
+    {
+      "name": "inquisimind--digital-life",
+      "source": "./inquisimind--digital-life",
+      "description": "Digital Life \u00b7 Life Engineering \u2014 A runtime framework for persistent, autonomous LLM agents"
+    },
+    {
+      "name": "inquisimind--digital-life",
+      "source": "./inquisimind--digital-life",
+      "description": "Digital Life \u00b7 Life Engineering \u2014 A runtime framework for persistent, autonomous LLM agents"
+    },
+    {
+      "name": "ajipurn--fida",
+      "source": "./ajipurn--fida",
+      "description": "a local-first secret leak prevention layer for AI coding agents"
     },
     {
       "name": "cheerhuan--save-your-token",
