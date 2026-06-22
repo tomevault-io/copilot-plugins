@@ -180124,6 +180124,11 @@
       "description": "Watch LLMs try to solve your handmade escape rooms."
     },
     {
+      "name": "itcaat--rcmd",
+      "source": "./itcaat--rcmd",
+      "description": "Use the right \u2318 + key to switch application"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
