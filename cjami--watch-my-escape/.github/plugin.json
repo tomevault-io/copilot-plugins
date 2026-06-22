@@ -1,0 +1,9 @@
+{
+  "name": "cjami--watch-my-escape",
+  "displayName": "watch-my-escape",
+  "description": "Watch LLMs try to solve your handmade escape rooms.",
+  "version": "1.0.0",
+  "author": "cjami",
+  "homepage": "https://github.com/cjami/watch-my-escape",
+  "skills": []
+}
