@@ -4,7 +4,7 @@
   "repo": "pynchy",
   "description": "A modular alternative to Clawdbot / OpenClaw that runs in containers for security. Connects to WhatsApp, has memory, scheduled jobs, and runs directly on Anthropic's Agents SDK",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/crypdick/pynchy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T12:44:35Z"
+  "distributed_at": "2026-06-22T23:06:30Z"
 }
