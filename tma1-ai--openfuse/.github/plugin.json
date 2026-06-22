@@ -1,0 +1,9 @@
+{
+  "name": "tma1-ai--openfuse",
+  "displayName": "openfuse",
+  "description": "Langfuse on GreptimeDB. Self-hosted LLM observability.",
+  "version": "1.0.0",
+  "author": "tma1-ai",
+  "homepage": "https://github.com/tma1-ai/openfuse",
+  "skills": []
+}
