@@ -4,7 +4,7 @@
   "repo": "css-benchpress",
   "description": "css-benchpress aims to help developers and tooling authors discover where CSS patterns become performance problems by growing realistic web-platform test cases until measurable regressions appear.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/schalkneethling/css-benchpress",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-22T18:30:25Z"
+  "distributed_at": "2026-06-22T18:30:57Z"
 }
