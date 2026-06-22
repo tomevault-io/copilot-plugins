@@ -168529,6 +168529,16 @@
       "description": "AI agent\uc758 skills, agents \ub4f1\uc744 \uc870\ud569\ud574\uc11c \uc138\ud305\ud574\uc8fc\ub294 code-forge"
     },
     {
+      "name": "aristorinjuang--lesstruct",
+      "source": "./aristorinjuang--lesstruct",
+      "description": "An open-source CMS powered by Go. Fast, configurable, customizable. Built for humans and AI agents, extended with WebAssembly plugins. One binary, no Docker required."
+    },
+    {
+      "name": "aristorinjuang--lesstruct",
+      "source": "./aristorinjuang--lesstruct",
+      "description": "An open-source CMS powered by Go. Fast, configurable, customizable. Built for humans and AI agents, extended with WebAssembly plugins. One binary, no Docker required."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
