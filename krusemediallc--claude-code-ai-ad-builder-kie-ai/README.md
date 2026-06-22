@@ -7,11 +7,11 @@ Create AI marketing videos and images using KIE AI API, powered by Claude Code a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [krusemediallc/claude-code-ai-ad-builder-kie-ai](https://github.com/krusemediallc/claude-code-ai-ad-builder-kie-ai).
+Original source: `CLAUDE.md` in [krusemediallc/claude-code-ai-ad-builder-kie-ai](https://github.com/krusemediallc/claude-code-ai-ad-builder-kie-ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
