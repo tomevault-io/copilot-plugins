@@ -1,0 +1,44 @@
+{
+  "name": "memoria-historica",
+  "owner": "astrozeta",
+  "repo": "memoria-historica",
+  "description": "App web p\u00fablica y sin \u00e1nimo de lucro para que familiares de personas desaparecidas durante la Guerra Civil espa\u00f1ola y la posguerra puedan averiguar qu\u00e9 ocurri\u00f3 con sus seres queridos.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/astrozeta/memoria-historica",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-22T02:30:53Z"
+}
