@@ -1,0 +1,9 @@
+{
+  "name": "provasign--shale",
+  "displayName": "shale",
+  "description": "Agent PR evidence \u2014 intent capture and session evidence rendered as a card on pull requests",
+  "version": "1.0.0",
+  "author": "provasign",
+  "homepage": "https://github.com/provasign/shale",
+  "skills": []
+}
