@@ -1,0 +1,9 @@
+{
+  "name": "santanderai--linear-adapter-trainer",
+  "displayName": "linear-adapter-trainer",
+  "description": "Train linear embedding adapters with triplet loss to align retrieval embeddings with your queries (RAG).",
+  "version": "1.0.0",
+  "author": "SantanderAI",
+  "homepage": "https://github.com/SantanderAI/linear-adapter-trainer",
+  "skills": []
+}
