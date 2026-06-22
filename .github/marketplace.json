@@ -133744,6 +133744,11 @@
       "description": "Create AI marketing videos and images using KIE AI API, powered by Claude Code and Cursor. Supports Veo 3.1, Sora 2, Kling 3.0, Runway, Seedance 2.0, Nano Banana, and more."
     },
     {
+      "name": "bostonaholic--rpikit",
+      "source": "./bostonaholic--rpikit",
+      "description": "A Claude Code plugin implementing the Research-Plan-Implement (RPI) framework for disciplined software engineering."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -225177,6 +225182,11 @@
       "name": "xiaoyuyu6420--modjing",
       "source": "./xiaoyuyu6420--modjing",
       "description": "An independent review platform for LLM API relay services"
+    },
+    {
+      "name": "zhuhaow--codex-fixes",
+      "source": "./zhuhaow--codex-fixes",
+      "description": "Community-maintained fixes for Codex bugs."
     },
     {
       "name": "cheerhuan--save-your-token",
