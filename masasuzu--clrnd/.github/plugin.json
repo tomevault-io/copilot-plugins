@@ -1,0 +1,9 @@
+{
+  "name": "masasuzu--clrnd",
+  "displayName": "clrnd",
+  "description": "a command-line tool for deploying services to Google Cloud Run",
+  "version": "1.0.0",
+  "author": "masasuzu",
+  "homepage": "https://github.com/masasuzu/clrnd",
+  "skills": []
+}
