@@ -7,11 +7,11 @@ A Claude Code plugin implementing the Research-Plan-Implement (RPI) framework fo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bostonaholic/rpikit](https://github.com/bostonaholic/rpikit).
+Original source: `AGENTS.md` in [bostonaholic/rpikit](https://github.com/bostonaholic/rpikit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -32,7 +32,7 @@ Original source: `CLAUDE.md` in [bostonaholic/rpikit](https://github.com/bostona
 - [test-driven-development](https://github.com/bostonaholic/rpikit/tree/main/skills/test-driven-development)
 - [writing-plans](https://github.com/bostonaholic/rpikit/tree/main/skills/writing-plans)
 
-From [bostonaholic/rpikit](https://github.com/bostonaholic/rpikit) — a repo with 17+ stars on GitHub.
+From [bostonaholic/rpikit](https://github.com/bostonaholic/rpikit) — a repo with 0+ stars on GitHub.
 
 ---
 
