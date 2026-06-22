@@ -1,0 +1,9 @@
+{
+  "name": "neanderthal--mcp-qemu-vm",
+  "displayName": "mcp-qemu-vm",
+  "description": "MCP server for controlling QEMU virtual machines - give your AI full computer access safely",
+  "version": "1.0.0",
+  "author": "Neanderthal",
+  "homepage": "https://github.com/Neanderthal/mcp-qemu-vm",
+  "skills": []
+}
