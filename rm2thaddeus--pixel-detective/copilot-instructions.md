@@ -1,77 +1,149 @@
-## debugging
+## docker-mcp-operations
 
-> When debugging code
+> Docker operations should go through MCP server
 
-Before starting to debug, take your time to explore the files related with the user request.
+# Docker MCP Operations
 
-Once found, use appropriate MCP servers to gather relevant context and debug information:
+*Reference: Follow `@use-mcp-servers` for general MCP workflows and `@powershell-syntax` for terminal commands*
 
-## **MCP-Enhanced Debugging Workflow**
+## **Docker MCP Server Configuration**
 
-### **1. Collect Context & Evidence**
-- **Error Analysis**: Capture error messages, logs, stack traces
-- **File Discovery**: Use `grep_search` for exact matches, `codebase_search` for broader context
-- **Frontend Issues**: 
-  - Use **Browser Tools MCP** to capture console logs (`mcp_browser-tools_getConsoleLogs`, `mcp_browser-tools_getConsoleErrors`)
-  - Capture network errors (`mcp_browser-tools_getNetworkErrors`) 
-  - Take screenshots (`mcp_browser-tools_takeScreenshot`) for visual issues
-- **Database Issues**: Use **Supabase MCP** to query data and check schema integrity
-- **Library/API Issues**: Use **Context7 MCP** to gather relevant documentation
+### **Claude Desktop Setup**
+Add to your Claude Desktop config file:
+- **Windows**: `%APPDATA%/Claude/claude_desktop_config.json`
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
-### **2. Investigate Root Causes**
-- List ≥3 hypotheses based on collected evidence
-- Confirm via targeted file reading (`cat -n`) & project structure (`tree`)
-- **Frontend Root Causes**: Run comprehensive audits (`mcp_browser-tools_runAuditMode`)
-- **Performance Issues**: Use `mcp_browser-tools_runPerformanceAudit`
-- **Database Root Causes**: Execute diagnostic SQL queries via Supabase MCP
+```json
+{
+  "mcpServers": {
+    "docker-mcp": {
+      "command": "uvx",
+      "args": ["docker-mcp"]
+    }
+  }
+}
+```
 
-### **3. Reuse Patterns & Solutions**
-- Search for prior fixes or utilities in codebase
-- **Library Documentation**: Use Context7 MCP for up-to-date API examples and troubleshooting guides
-- **Similar Issues**: Use GitHub MCP to search for related issues in project history
+## **Available Docker MCP Tools**
 
-### **4. Analyze Impact & Dependencies** 
-- Trace dependencies and side-effects
-- **Frontend Impact**: Use Browser Control MCP to analyze affected pages/components
-- **Database Impact**: Check foreign key constraints and data integrity via Supabase MCP
-- **Cross-System Impact**: Consider how changes affect multiple MCP domains
+### **1. Container Management**
+- **`create-container`**: Create standalone Docker containers
+- **`list-containers`**: List all Docker containers with status
+- **`get-logs`**: Retrieve logs from specific containers
 
-### **5. Propose & Implement Fixes**
-- Specify file paths, line numbers, code snippets with clear justification
-- **Clean Debugging Environment**: Use `mcp_browser-tools_wipeLogs` before testing fixes
-- **Database Fixes**: Use transactions in Supabase MCP for safe schema/data changes
-- **Code Changes**: Use GitHub MCP for version-controlled implementation
+### **2. Docker Compose Operations**
+- **`deploy-compose`**: Deploy Docker Compose stacks
+- **Stack Management**: Manage multi-service applications
 
-### **6. Validate & Monitor**
-- **Test Cases**: Outline comprehensive test scenarios
-- **Frontend Validation**: 
-  - Re-run audits (`mcp_browser-tools_runAccessibilityAudit`, `mcp_browser-tools_runSEOAudit`)
-  - Capture post-fix screenshots for comparison
-- **Database Validation**: Execute verification queries via Supabase MCP
-- **Documentation**: Update Context7-sourced documentation if API usage patterns changed
-- **Monitoring**: Set up logging and establish rollback procedures via GitHub MCP
+## **Docker MCP Workflows**
 
-## **Issue Type → MCP Server Mapping**
+### **Container Creation Workflow**
+```json
+{
+  "image": "nginx:latest",
+  "name": "web-server",
+  "ports": {"80": "8080"},
+  "environment": {"ENV_VAR": "production"}
+}
+```
 
-| **Issue Type** | **Primary MCP** | **Secondary MCP** | **Actions** |
-|----------------|-----------------|-------------------|-------------|
-| **Frontend Bugs** | Browser Tools | Browser Control | Logs, audits, screenshots, content analysis |
-| **Database Issues** | Supabase | GitHub | Query diagnosis, schema fixes, version control |
-| **API/Library Problems** | Context7 | GitHub | Documentation lookup, implementation fixes |
-| **Performance Issues** | Browser Tools | Supabase | Performance audits, query optimization |
-| **Integration Issues** | Multiple | GitHub | Cross-system analysis, coordinated fixes |
+### **Compose Stack Deployment**
+```json
+{
+  "project_name": "pixel-detective-stack",
+  "compose_yaml": "version: '3.8'\nservices:\n  app:\n    image: node:18\n    ports:\n      - '3000:3000'"
+}
+```
 
-## **Emergency Debugging Protocol**
+### **Log Analysis Pattern**
+```json
+{
+  "container_name": "web-server"
+}
+```
 
-1. **Immediate Assessment**: Use Browser Tools MCP to capture current state
-2. **Quick Diagnosis**: Context7 MCP for known issue patterns  
-3. **Safe Recovery**: GitHub MCP for rollback capabilities
-4. **Root Cause Analysis**: Follow full workflow above
-5. **Prevention**: Update `@commentsoverwrite` documentation to prevent recurrence
+## **Best Practices for Docker MCP**
+
+### **Development Workflow**
+1. **Plan Architecture**: Define services, networks, and volumes needed
+2. **Start Small**: Begin with single containers before compose stacks
+3. **Monitor Logs**: Use `get-logs` for debugging and monitoring
+4. **Version Control**: Store compose files in repository with proper documentation
+
+### **Container Naming Conventions**
+- **Project Prefix**: `pixel-detective-web`, `pixel-detective-api`
+- **Environment Suffix**: `-dev`, `-staging`, `-prod`
+- **Service Description**: Clear, descriptive names
+
+### **Port Management**
+- **Development**: Use high ports (8000+) to avoid conflicts
+- **Documentation**: Always document port mappings in project docs
+- **Consistency**: Use same ports across environments when possible
+
+### **Environment Variables**
+- **Security**: Never commit sensitive environment variables
+- **Configuration**: Use `.env` files for development
+- **Documentation**: Document all required environment variables
+
+## **Integration with Other MCPs**
+
+### **Docker + GitHub MCP**
+- **Dockerfiles**: Version control all Docker configurations
+- **Compose Files**: Store in `/docker/` directory with proper documentation
+- **CI/CD**: Integrate Docker builds with GitHub Actions
+
+### **Docker + Supabase MCP**
+- **Database Containers**: Use Docker for local Supabase development
+- **Connection Management**: Configure container networking for database access
+- **Data Persistence**: Use volumes for database data
+
+### **Docker + Browser Tools MCP**
+- **Web Application Testing**: Use Browser Tools to test Dockerized web apps
+- **Performance Monitoring**: Monitor containerized applications
+- **Debugging**: Combine container logs with browser debugging
+
+## **Troubleshooting Docker MCP**
+
+### **Common Issues**
+1. **Docker Not Running**: Ensure Docker Desktop/Engine is started
+2. **Port Conflicts**: Check for existing services on target ports
+3. **Permission Issues**: Verify Docker daemon permissions
+4. **Network Issues**: Check Docker network configuration
+
+### **Debugging Commands**
+```powershell
+# Check Docker status
+docker ps -a
+
+# View container logs
+docker logs <container_name>
+
+# Inspect container details
+docker inspect <container_name>
+
+# Check Docker networks
+docker network ls
+```
+
+### **Emergency Recovery**
+- **Stop All Containers**: `docker stop $(docker ps -q)`
+- **Remove All Containers**: `docker rm $(docker ps -aq)`
+- **Clean System**: `docker system prune -a`
+
+## **Project Integration Checklist**
+
+- [ ] **Docker MCP Installed**: `uvx docker-mcp` completed
+- [ ] **Claude Desktop Configured**: Config file updated with Docker MCP
+- [ ] **Docker Running**: Docker Desktop/Engine is active
+- [ ] **Project Dockerfiles**: Created and version controlled
+- [ ] **Compose Files**: Defined for development and production
+- [ ] **Documentation**: Docker setup documented in project README
+- [ ] **Environment Files**: `.env` templates created
+- [ ] **Port Documentation**: Port mappings documented
 
 ---
 
-*This enhanced debugging workflow leverages all available MCP servers for comprehensive issue resolution while maintaining systematic problem-solving approach.*
+*This rule ensures efficient Docker container and compose management through Docker MCP integration with other development tools.*
 
 ---
 > Source: [rm2thaddeus/Pixel_Detective](https://github.com/rm2thaddeus/Pixel_Detective) — distributed by [TomeVault](https://tomevault.io).
