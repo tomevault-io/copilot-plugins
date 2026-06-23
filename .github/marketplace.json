@@ -209169,6 +209169,11 @@
       "description": "Install baz and empower your coding agent to be faster, cheaper and more precise"
     },
     {
+      "name": "wellcms--wellcmsv3",
+      "source": "./wellcms--wellcmsv3",
+      "description": "WellCMS 3.0 is a major milestone release, featuring a complete ground-up rewrite of the core framework. Built with a modern architecture, it delivers improved performance, scalability, and maintainabi"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225557,6 +225562,16 @@
       "name": "amotion-ai--airx",
       "source": "./amotion-ai--airx",
       "description": "airx"
+    },
+    {
+      "name": "vikrant-khedkar--gingerpaw",
+      "source": "./vikrant-khedkar--gingerpaw",
+      "description": "Local macOS multi-agent coding workspace \u2014 run Claude Code, Codex, Gemini & Cursor in parallel git worktrees, dispatch verified autonomous runs, and fix UIs by talking through a live preview. On-devic"
+    },
+    {
+      "name": "vikrant-khedkar--gingerpaw",
+      "source": "./vikrant-khedkar--gingerpaw",
+      "description": "Local macOS multi-agent coding workspace \u2014 run Claude Code, Codex, Gemini & Cursor in parallel git worktrees, dispatch verified autonomous runs, and fix UIs by talking through a live preview. On-devic"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -346362,6 +346377,21 @@
       "name": "hu-qi--macos-dev-machine-rebuild-skill",
       "source": "./hu-qi--macos-dev-machine-rebuild-skill",
       "description": "macos-dev-machine-rebuild-skill"
+    },
+    {
+      "name": "hacbs-release-tests--catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954",
+      "source": "./hacbs-release-tests--catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954",
+      "description": "catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954"
+    },
+    {
+      "name": "hacbs-release-tests--catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954",
+      "source": "./hacbs-release-tests--catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954",
+      "description": "catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954"
+    },
+    {
+      "name": "hacbs-release-tests--catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954",
+      "source": "./hacbs-release-tests--catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954",
+      "description": "catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954"
     }
   ]
 }
