@@ -7,11 +7,11 @@ md2idx — Markdown to indexed JSON. Slice big docs with jq, feed LLMs only what
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [oubakiou/md2idx](https://github.com/oubakiou/md2idx).
+Original source: `CLAUDE.md` in [oubakiou/md2idx](https://github.com/oubakiou/md2idx).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
