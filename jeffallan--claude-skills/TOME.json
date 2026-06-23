@@ -2,7 +2,7 @@
   "name": "claude-skills",
   "owner": "Jeffallan",
   "repo": "claude-skills",
-  "description": "",
+  "description": "66 Specialized Skills for Full-Stack Developers. Transform Claude Code into your expert pair programmer.",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Jeffallan",
+  "source_url": "https://github.com/Jeffallan/claude-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T14:50:39Z"
+  "distributed_at": "2026-06-23T04:30:54Z"
 }
