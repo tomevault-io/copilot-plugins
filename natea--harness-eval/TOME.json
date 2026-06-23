@@ -4,7 +4,7 @@
   "repo": "harness-eval",
   "description": "Eval framework that ranks agentic coding frameworks (Superpowers, Compound Engineering, Agent Skills, GSD) by having each build the same spec with the same harness+model in isolated sandboxes, graded on a weighted evidence-based rubric: PRD adherence, code quality, speed, token spend",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/natea/harness-eval",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T10:33:03Z"
+  "distributed_at": "2026-06-23T10:33:42Z"
 }
