@@ -4,7 +4,7 @@
   "repo": "Himmel",
   "description": "A managed, orchestrated harness for running Claude Code as a safe, repeatable agent: hooks, guardrails, slash commands, a Jira CLI, and a cross-session handover system.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yotamleo/Himmel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T18:36:46Z"
+  "distributed_at": "2026-06-23T18:37:21Z"
 }
