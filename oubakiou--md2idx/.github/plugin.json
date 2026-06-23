@@ -1,0 +1,9 @@
+{
+  "name": "oubakiou--md2idx",
+  "displayName": "md2idx",
+  "description": "md2idx \u2014 Markdown to indexed JSON. Slice big docs with jq, feed LLMs only what they need.",
+  "version": "1.0.0",
+  "author": "oubakiou",
+  "homepage": "https://github.com/oubakiou/md2idx",
+  "skills": []
+}
