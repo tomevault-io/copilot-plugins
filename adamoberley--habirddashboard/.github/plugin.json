@@ -1,0 +1,9 @@
+{
+  "name": "adamoberley--habirddashboard",
+  "displayName": "HABirdDashboard",
+  "description": "A live bird collage card for your Home Assistant dashboard.",
+  "version": "1.0.0",
+  "author": "adamoberley",
+  "homepage": "https://github.com/adamoberley/HABirdDashboard",
+  "skills": []
+}
