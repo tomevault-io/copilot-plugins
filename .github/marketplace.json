@@ -209304,6 +209304,26 @@
       "description": "A project for Internal competition"
     },
     {
+      "name": "evo-design--proto-language",
+      "source": "./evo-design--proto-language",
+      "description": "A high-level programming language for generative biology"
+    },
+    {
+      "name": "evo-design--proto-language",
+      "source": "./evo-design--proto-language",
+      "description": "A high-level programming language for generative biology"
+    },
+    {
+      "name": "evo-design--proto-language",
+      "source": "./evo-design--proto-language",
+      "description": "A high-level programming language for generative biology"
+    },
+    {
+      "name": "argonprotocol--mainchain",
+      "source": "./argonprotocol--mainchain",
+      "description": "Argon is a stable crypto asset, protected from inflation, immune to death spirals, and powered by Bitcoin. "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225747,6 +225767,56 @@
       "name": "sahajamit--framecast",
       "source": "./sahajamit--framecast",
       "description": "A recording studio in a browser tab, 100% local. Screen + draggable camera bubble, crash-safe direct-to-disk MP4, trim/convert/audio-enhance in the browser. Nothing leaves your machine."
+    },
+    {
+      "name": "goldjg--carl",
+      "source": "./goldjg--carl",
+      "description": "cARL"
+    },
+    {
+      "name": "goldjg--carl",
+      "source": "./goldjg--carl",
+      "description": "cARL"
+    },
+    {
+      "name": "goldjg--carl",
+      "source": "./goldjg--carl",
+      "description": "cARL"
+    },
+    {
+      "name": "goldjg--carl",
+      "source": "./goldjg--carl",
+      "description": "cARL"
+    },
+    {
+      "name": "yotamleo--himmel",
+      "source": "./yotamleo--himmel",
+      "description": "A managed, orchestrated harness for running Claude Code as a safe, repeatable agent: hooks, guardrails, slash commands, a Jira CLI, and a cross-session handover system."
+    },
+    {
+      "name": "jkroepke--helm-release-size-analyzer",
+      "source": "./jkroepke--helm-release-size-analyzer",
+      "description": "A cluster-free CLI that measures the exact decoded Helm release Secret size and breaks it down by top-level property."
+    },
+    {
+      "name": "adamoberley--habirddashboard",
+      "source": "./adamoberley--habirddashboard",
+      "description": "A live bird collage card for your Home Assistant dashboard."
+    },
+    {
+      "name": "adamoberley--habirddashboard",
+      "source": "./adamoberley--habirddashboard",
+      "description": "A live bird collage card for your Home Assistant dashboard."
+    },
+    {
+      "name": "yotamleo--himmel",
+      "source": "./yotamleo--himmel",
+      "description": "A managed, orchestrated harness for running Claude Code as a safe, repeatable agent: hooks, guardrails, slash commands, a Jira CLI, and a cross-session handover system."
+    },
+    {
+      "name": "yotamleo--himmel",
+      "source": "./yotamleo--himmel",
+      "description": "A managed, orchestrated harness for running Claude Code as a safe, repeatable agent: hooks, guardrails, slash commands, a Jira CLI, and a cross-session handover system."
     },
     {
       "name": "cheerhuan--save-your-token",
