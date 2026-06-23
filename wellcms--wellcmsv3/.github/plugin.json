@@ -1,0 +1,9 @@
+{
+  "name": "wellcms--wellcmsv3",
+  "displayName": "wellcmsV3",
+  "description": "WellCMS 3.0 is a major milestone release, featuring a complete ground-up rewrite of the core framework. Built with a modern architecture, it delivers improved performance, scalability, and maintainabi",
+  "version": "1.0.0",
+  "author": "wellcms",
+  "homepage": "https://github.com/wellcms/wellcmsV3",
+  "skills": []
+}
