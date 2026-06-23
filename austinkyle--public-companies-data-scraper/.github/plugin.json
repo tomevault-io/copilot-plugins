@@ -1,0 +1,9 @@
+{
+  "name": "austinkyle--public-companies-data-scraper",
+  "displayName": "public-companies-data-scraper",
+  "description": "Autonomous AI Private Equity Deal Screener \u2014 SEC EDGAR discovery, MCP financial reading, LLM screening, Stripe gating, Telegram alerts",
+  "version": "1.0.0",
+  "author": "austinkyle",
+  "homepage": "https://github.com/austinkyle/public-companies-data-scraper",
+  "skills": []
+}
