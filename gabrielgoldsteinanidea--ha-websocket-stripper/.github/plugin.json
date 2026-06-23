@@ -1,0 +1,9 @@
+{
+  "name": "gabrielgoldsteinanidea--ha-websocket-stripper",
+  "displayName": "HA-Websocket-Stripper",
+  "description": "Strip noisy websockets from dashboards",
+  "version": "1.0.0",
+  "author": "GabrielGoldsteinAnidea",
+  "homepage": "https://github.com/GabrielGoldsteinAnidea/HA-Websocket-Stripper",
+  "skills": []
+}
