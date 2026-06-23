@@ -225244,6 +225244,126 @@
       "description": "Export gitbook to PDF"
     },
     {
+      "name": "celsodesa--interview-prep",
+      "source": "./celsodesa--interview-prep",
+      "description": "interview-prep"
+    },
+    {
+      "name": "gabrielgoldsteinanidea--ha-websocket-stripper",
+      "source": "./gabrielgoldsteinanidea--ha-websocket-stripper",
+      "description": "Strip noisy websockets from dashboards"
+    },
+    {
+      "name": "lzh-xbccz--hermes-finance",
+      "source": "./lzh-xbccz--hermes-finance",
+      "description": "\u9762\u5411 AI Agent \u7684\u591a\u5e02\u573a\u91d1\u878d\u5206\u6790\u6846\u67b6\uff1aMCP + Skills \u53cc\u5165\u53e3\uff0c\u4e03\u7ef4\u8bc1\u636e\u6295\u7968 + \u7f20\u8bba\u786e\u8ba4\uff0c\u8986\u76d6\u52a0\u5bc6\u8d27\u5e01\u3001\u671f\u8d27\u3001\u5916\u6c47\u3001A\u80a1\u3001\u7f8e\u80a1"
+    },
+    {
+      "name": "lzh-xbccz--hermes-finance",
+      "source": "./lzh-xbccz--hermes-finance",
+      "description": "\u9762\u5411 AI Agent \u7684\u591a\u5e02\u573a\u91d1\u878d\u5206\u6790\u6846\u67b6\uff1aMCP + Skills \u53cc\u5165\u53e3\uff0c\u4e03\u7ef4\u8bc1\u636e\u6295\u7968 + \u7f20\u8bba\u786e\u8ba4\uff0c\u8986\u76d6\u52a0\u5bc6\u8d27\u5e01\u3001\u671f\u8d27\u3001\u5916\u6c47\u3001A\u80a1\u3001\u7f8e\u80a1"
+    },
+    {
+      "name": "lzh-xbccz--hermes-finance",
+      "source": "./lzh-xbccz--hermes-finance",
+      "description": "\u9762\u5411 AI Agent \u7684\u591a\u5e02\u573a\u91d1\u878d\u5206\u6790\u6846\u67b6\uff1aMCP + Skills \u53cc\u5165\u53e3\uff0c\u4e03\u7ef4\u8bc1\u636e\u6295\u7968 + \u7f20\u8bba\u786e\u8ba4\uff0c\u8986\u76d6\u52a0\u5bc6\u8d27\u5e01\u3001\u671f\u8d27\u3001\u5916\u6c47\u3001A\u80a1\u3001\u7f8e\u80a1"
+    },
+    {
+      "name": "xiangyupaiso--famas-skill",
+      "source": "./xiangyupaiso--famas-skill",
+      "description": "Fund Analysis Multi-Agent System (FAMAS) - \u57fa\u4e8e\u591aAgent\u534f\u4f5c\u7684\u57fa\u91d1\u6df1\u5ea6\u5206\u6790\u3001\u7b5b\u9009\u4e0e\u6301\u7eed\u76d1\u63a7\u51b3\u7b56\u652f\u6301\u7cfb\u7edf"
+    },
+    {
+      "name": "edualnog--medusa-clip",
+      "source": "./edualnog--medusa-clip",
+      "description": "Cortes verticais 9:16 pra gameplay \u2014 gr\u00e1tis, open source e 100% no seu PC. Sem cadastro, com a sua chave de IA."
+    },
+    {
+      "name": "viticci--fm-viewer",
+      "source": "./viticci--fm-viewer",
+      "description": "FM Viewer \u2014 local explorer for Apple Intelligence Report exports (Siri prompts, foundation model requests, PCC traces)"
+    },
+    {
+      "name": "fabiomb--wom",
+      "source": "./fabiomb--wom",
+      "description": "WOM - Strategic absurd Power Metal game"
+    },
+    {
+      "name": "lzh-xbccz--hermes-finance",
+      "source": "./lzh-xbccz--hermes-finance",
+      "description": "\u9762\u5411 AI Agent \u7684\u591a\u5e02\u573a\u91d1\u878d\u5206\u6790\u6846\u67b6\uff1aMCP + Skills \u53cc\u5165\u53e3\uff0c\u4e03\u7ef4\u8bc1\u636e\u6295\u7968 + \u7f20\u8bba\u786e\u8ba4\uff0c\u8986\u76d6\u52a0\u5bc6\u8d27\u5e01\u3001\u671f\u8d27\u3001\u5916\u6c47\u3001A\u80a1\u3001\u7f8e\u80a1"
+    },
+    {
+      "name": "viticci--fm-viewer",
+      "source": "./viticci--fm-viewer",
+      "description": "FM Viewer \u2014 local explorer for Apple Intelligence Report exports (Siri prompts, foundation model requests, PCC traces)"
+    },
+    {
+      "name": "fcqcc--auto-hub",
+      "source": "./fcqcc--auto-hub",
+      "description": "auto-hub: module collection"
+    },
+    {
+      "name": "lzh-xbccz--hermes-finance",
+      "source": "./lzh-xbccz--hermes-finance",
+      "description": "\u9762\u5411 AI Agent \u7684\u591a\u5e02\u573a\u91d1\u878d\u5206\u6790\u6846\u67b6\uff1aMCP + Skills \u53cc\u5165\u53e3\uff0c\u4e03\u7ef4\u8bc1\u636e\u6295\u7968 + \u7f20\u8bba\u786e\u8ba4\uff0c\u8986\u76d6\u52a0\u5bc6\u8d27\u5e01\u3001\u671f\u8d27\u3001\u5916\u6c47\u3001A\u80a1\u3001\u7f8e\u80a1"
+    },
+    {
+      "name": "eggyshrimp--generative-mud-world",
+      "source": "./eggyshrimp--generative-mud-world",
+      "description": "\u4ee5 LLM \u4e3a\u89c4\u5219\u5f15\u64ce\u7684 MUD \u6846\u67b6\uff0c\u6570\u636e\u4e0e\u4ee3\u7801\u786c\u5206\u79bb"
+    },
+    {
+      "name": "yarnobachmann--voxy-neoforge--1-21-1",
+      "source": "./yarnobachmann--voxy-neoforge--1-21-1",
+      "description": "Voxy-Neoforge.-1.21.1"
+    },
+    {
+      "name": "hyf0--machud",
+      "source": "./hyf0--machud",
+      "description": "A beautiful, zero-config terminal system monitor for macOS"
+    },
+    {
+      "name": "hyf0--machud",
+      "source": "./hyf0--machud",
+      "description": "A beautiful, zero-config terminal system monitor for macOS"
+    },
+    {
+      "name": "nuskey8--nulua",
+      "source": "./nuskey8--nulua",
+      "description": "Unified Lua5.x/LuaJIT/Luau bindings for .NET and Unity"
+    },
+    {
+      "name": "nuskey8--nulua",
+      "source": "./nuskey8--nulua",
+      "description": "Unified Lua5.x/LuaJIT/Luau bindings for .NET and Unity"
+    },
+    {
+      "name": "frgarciames--retris",
+      "source": "./frgarciames--retris",
+      "description": "Tetris-style game built with Remix 3"
+    },
+    {
+      "name": "zyt314415128--dyberpet-dahui",
+      "source": "./zyt314415128--dyberpet-dahui",
+      "description": "\u5c06\u5bb6\u91cc\u7684\u732b\u53d8\u6210\"\u6570\u5b57\u751f\u547d\"\u2014\u2014\u4e00\u53ea\u8fd0\u884c\u5728 Windows \u684c\u9762\u4e0a\u7684\u6a21\u62df\u517b\u6210\u684c\u9762\u5ba0\u7269\u3002"
+    },
+    {
+      "name": "akoenig--opentunnel",
+      "source": "./akoenig--opentunnel",
+      "description": "Your agent\u2019s tool calls, on any machine."
+    },
+    {
+      "name": "phuhao00--bony-agent",
+      "source": "./phuhao00--bony-agent",
+      "description": "\ud83e\udd16 Bony Agent \u2014 Full-stack AI content production & distribution platform. One person can run an entire team: AI chat \u00b7 image/video/music generation \u00b7 smart editing \u00b7 scheduled multi-platform publishing"
+    },
+    {
+      "name": "phuhao00--bony-agent",
+      "source": "./phuhao00--bony-agent",
+      "description": "\ud83e\udd16 Bony Agent \u2014 Full-stack AI content production & distribution platform. One person can run an entire team: AI chat \u00b7 image/video/music generation \u00b7 smart editing \u00b7 scheduled multi-platform publishing"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -345907,6 +346027,136 @@
       "name": "sinancan34--argos",
       "source": "./sinancan34--argos",
       "description": "Argos is a universal pixel code audit tool that validates tracking pixels from any provider"
+    },
+    {
+      "name": "jawadrao149--pickkaru-vibe-exmaple",
+      "source": "./jawadrao149--pickkaru-vibe-exmaple",
+      "description": "pickkaru-vibe-exmaple"
+    },
+    {
+      "name": "hacbs-release-tests--catalog-utils-e2e-94c8f563-7457-4f51-8ea7-fbb6526dab99",
+      "source": "./hacbs-release-tests--catalog-utils-e2e-94c8f563-7457-4f51-8ea7-fbb6526dab99",
+      "description": "catalog-utils-e2e-94c8f563-7457-4f51-8ea7-fbb6526dab99"
+    },
+    {
+      "name": "neriah333--ping-coming-soon-page-master",
+      "source": "./neriah333--ping-coming-soon-page-master",
+      "description": "ping-coming-soon-page-master"
+    },
+    {
+      "name": "tenkao--fetch-x-posts",
+      "source": "./tenkao--fetch-x-posts",
+      "description": "xAI API \u3067 X \u30dd\u30b9\u30c8\u3092\u53d6\u5f97\u3057\u3088\u3046\u3068\u3057\u305f\u3051\u3069\u3067\u304d\u306a\u304b\u3063\u305f"
+    },
+    {
+      "name": "hacbs-release-tests--catalog-utils-e2e-94c8f563-7457-4f51-8ea7-fbb6526dab99",
+      "source": "./hacbs-release-tests--catalog-utils-e2e-94c8f563-7457-4f51-8ea7-fbb6526dab99",
+      "description": "catalog-utils-e2e-94c8f563-7457-4f51-8ea7-fbb6526dab99"
+    },
+    {
+      "name": "sagnikdey--sagnik-design-system",
+      "source": "./sagnikdey--sagnik-design-system",
+      "description": "Sagnik's design system (Figma Connect)"
+    },
+    {
+      "name": "pmrmasterbranch--testcase-playwright-capstone",
+      "source": "./pmrmasterbranch--testcase-playwright-capstone",
+      "description": "TestCase_Playwright_Capstone"
+    },
+    {
+      "name": "neriah333--ping-coming-soon-page-master",
+      "source": "./neriah333--ping-coming-soon-page-master",
+      "description": "ping-coming-soon-page-master"
+    },
+    {
+      "name": "amrfakhri--figma-comments-board",
+      "source": "./amrfakhri--figma-comments-board",
+      "description": "Figma-Comments-Board"
+    },
+    {
+      "name": "hacbs-release-tests--catalog-utils-e2e-94c8f563-7457-4f51-8ea7-fbb6526dab99",
+      "source": "./hacbs-release-tests--catalog-utils-e2e-94c8f563-7457-4f51-8ea7-fbb6526dab99",
+      "description": "catalog-utils-e2e-94c8f563-7457-4f51-8ea7-fbb6526dab99"
+    },
+    {
+      "name": "austinkyle--public-companies-data-scraper",
+      "source": "./austinkyle--public-companies-data-scraper",
+      "description": "Autonomous AI Private Equity Deal Screener \u2014 SEC EDGAR discovery, MCP financial reading, LLM screening, Stripe gating, Telegram alerts"
+    },
+    {
+      "name": "shidara--invoice-automation",
+      "source": "./shidara--invoice-automation",
+      "description": "LINE\u30dc\u30c3\u30c8\u3067\u5165\u529b \u2192 \u8acb\u6c42\u66f8\u3092\u81ea\u52d5\u767a\u884c\u3057\u3066\u304f\u308c\u308b\u3082\u306e"
+    },
+    {
+      "name": "nilaamelia17--front-end-programming-task",
+      "source": "./nilaamelia17--front-end-programming-task",
+      "description": "Front-End-Programming-Task-"
+    },
+    {
+      "name": "dendoroff--deworld-forum",
+      "source": "./dendoroff--deworld-forum",
+      "description": "deworld forum via vercel"
+    },
+    {
+      "name": "amrfakhri--figma-comments-board",
+      "source": "./amrfakhri--figma-comments-board",
+      "description": "Figma-Comments-Board"
+    },
+    {
+      "name": "shubham23061989--super-ai-agent",
+      "source": "./shubham23061989--super-ai-agent",
+      "description": "super-ai-agent"
+    },
+    {
+      "name": "khnusman4562--demo1",
+      "source": "./khnusman4562--demo1",
+      "description": "demo1"
+    },
+    {
+      "name": "winnie-webb--locallinkja",
+      "source": "./winnie-webb--locallinkja",
+      "description": "LocalLinkJA"
+    },
+    {
+      "name": "dcarnelutti--bohi-website",
+      "source": "./dcarnelutti--bohi-website",
+      "description": "bohi-website"
+    },
+    {
+      "name": "gagndeep--clipforge",
+      "source": "./gagndeep--clipforge",
+      "description": "ClipForge \u2014 a fully client-side, browser-based video editor: multi-track timeline, effects, titles, export"
+    },
+    {
+      "name": "sonilade--minievent",
+      "source": "./sonilade--minievent",
+      "description": "minievent"
+    },
+    {
+      "name": "devanshupardeshi--keyboardshopify",
+      "source": "./devanshupardeshi--keyboardshopify",
+      "description": "KeyboardShopify"
+    },
+    {
+      "name": "shoaibshuja--novadigital",
+      "source": "./shoaibshuja--novadigital",
+      "description": "NovaDigital"
+    },
+    {
+      "name": "erikaheidi--sbomviz",
+      "source": "./erikaheidi--sbomviz",
+      "description": "SBOM visualization - demo"
+    },
+    {
+      "name": "eliazarnoallas--istv-academico",
+      "source": "./eliazarnoallas--istv-academico",
+      "description": "istv-academico"
+    },
+    {
+      "name": "polgimre--mve-webshop",
+      "source": "./polgimre--mve-webshop",
+      "description": "mve_webshop"
     }
   ]
 }
