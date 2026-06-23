@@ -1,0 +1,9 @@
+{
+  "name": "santifer--warpchart",
+  "displayName": "warpchart",
+  "description": "Growth telemetry for any GitHub repository. A live star chart of your repo's journey through the worldwide ranking, with sound.",
+  "version": "1.0.0",
+  "author": "santifer",
+  "homepage": "https://github.com/santifer/warpchart",
+  "skills": []
+}
