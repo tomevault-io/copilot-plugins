@@ -1,0 +1,9 @@
+{
+  "name": "anymaniax--cf-workers-query",
+  "displayName": "cf-workers-query",
+  "description": "Automatically cache and revalidate data in Cloudflare Workers. Using the Cache API and Execution Context.",
+  "version": "1.0.0",
+  "author": "anymaniax",
+  "homepage": "https://github.com/anymaniax/cf-workers-query",
+  "skills": []
+}
