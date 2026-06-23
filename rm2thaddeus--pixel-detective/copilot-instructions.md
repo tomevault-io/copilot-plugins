@@ -1,236 +1,322 @@
-## sprint-planning
+## sprint10-testing-patterns
 
-> sprint planning and execution
+> These testing patterns specifically target the 5 critical failure modes identified in Sprint 10.
 
-# Updated Sprint Planning Rules - Post Reorganization
+# Sprint 10 Testing Patterns - Prevention Through Testing
 
-**Purpose:** Comprehensive sprint planning workflow using organized documentation structure and MCP server integration.
+## 🎯 GOAL: Catch Sprint 10 Issues Before They Become Problems
 
----
+These testing patterns specifically target the 5 critical failure modes identified in Sprint 10.
 
-## 📋 **New Sprint Documentation Structure**
+### 🔥 HYDRATION ERROR TESTING
 
-Based on the reorganization completed, all sprint planning should follow this logical structure:
-
-### **Organized Documentation Hierarchy**
-```
-docs/sprints/
-├── sprint-{number}/           # Sprint-specific deliverables
-│   ├── README.md             # Sprint overview and status
-│   ├── PRD.md                # Product Requirements Document  
-│   ├── technical-implementation-plan.md  # Technical details
-│   ├── completion-summary.md  # Post-sprint results
-│   ├── QUICK_REFERENCE.md    # Fast lookup guide
-│   ├── PERFORMANCE_BREAKTHROUGH.md  # Major technical achievements
-│   └── transition-to-next-sprint.md  # Handoff planning
-├── planning/                  # Cross-sprint coordination  
-│   ├── SPRINT_STATUS.md      # Multi-sprint tracking
-│   ├── sprint-coordination.md # Transition protocols
-│   └── sprint-transition-notes.md # Planning coordination
-└── templates/                 # Reusable templates
-    ├── create-sprint.md      # Sprint setup guide
-    └── PRD-template.md       # PRD template
-```
-
-### **Project-Level vs Sprint-Level Documents**
-
-**✅ Keep in main `/docs/` (Project-Wide):**
-- `PROJECT_STATUS.md` - Overall project health dashboard
-- `README.md` - Project overview  
-- `roadmap.md` - Long-term development planning
-- `architecture.md` - Technical architecture
-- `CLI_ENTERPRISE_VISION.md` - Enterprise strategy
-
-**✅ Move to `/docs/sprints/` (Sprint-Specific):**
-- All sprint deliverables and documentation
-- Performance breakthrough reports
-- Sprint transition planning
-- Cross-sprint coordination tracking
-
----
-
-## 🚀 **Updated Sprint Planning Workflow**
-
-### **Phase 1: Sprint Setup** (Updated Directory Creation)
-
-#### **1.1 Create Sprint Structure**
+#### Pre-Commit Hydration Testing
 ```bash
-# Create new sprint directory  
-mkdir -p docs/sprints/sprint-{number}
+# MANDATORY before any theme/client-side commits
+#!/bin/bash
+echo "🧪 Testing for hydration issues..."
 
-# Initialize with templates
-cp docs/sprints/templates/PRD-template.md docs/sprints/sprint-{number}/PRD.md
+# 1. Production build test (catches 90% of hydration issues)
+npm run build
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed - fix before committing"
+  exit 1
+fi
 
-# Create initial README from template
-# (Use Sprint 02 README.md as reference)
+# 2. Start production server and test both themes
+npm start &
+SERVER_PID=$!
+sleep 5
+
+# 3. Check for hydration errors in browser console
+# Use Browser Tools MCP if available
+mcp_browser-tools_takeScreenshot || echo "⚠️ MCP not available, manual test required"
+
+kill $SERVER_PID
+echo "✅ Hydration test complete"
 ```
 
-#### **1.2 Sprint Preparation Checklist**
-Based on new coordination structure:
+#### Component-Level Hydration Testing
+```tsx
+// Test file: __tests__/hydration.test.tsx
+import { renderToString } from 'react-dom/server';
+import { render } from '@testing-library/react';
 
-- [ ] **Previous Sprint Closure**
-  - [ ] All documents in `/docs/sprints/sprint-{prev}/` complete
-  - [ ] Transition document created (e.g., `transition-to-sprint-{next}.md`)
-  - [ ] Architecture stability verified
+describe('Hydration Safety', () => {
+  test('Theme Provider renders consistently', () => {
+    const ThemeWrapper = ({ children }) => (
+      <ChakraProvider theme={theme}>{children}</ChakraProvider>
+    );
+    
+    // Server render
+    const serverHTML = renderToString(<ThemeWrapper><App /></ThemeWrapper>);
+    
+    // Client render
+    const { container } = render(<ThemeWrapper><App /></ThemeWrapper>);
+    
+    // Should match (simplified check)
+    expect(container.innerHTML).toContain('expected-theme-class');
+  });
   
-- [ ] **New Sprint Setup**  
-  - [ ] Sprint folder created: `/docs/sprints/sprint-{number}/`
-  - [ ] README.md created with sprint overview
-  - [ ] Prerequisites verified from previous sprint
-  - [ ] Success criteria defined
+  test('No browser APIs in initial render', () => {
+    // Mock browser APIs to undefined
+    Object.defineProperty(window, 'localStorage', { value: undefined });
+    Object.defineProperty(window, 'innerWidth', { value: undefined });
+    
+    // Should not throw during render
+    expect(() => {
+      render(<App />);
+    }).not.toThrow();
+  });
+});
+```
 
-- [ ] **Cross-Sprint Coordination**
-  - [ ] Update `/docs/sprints/planning/SPRINT_STATUS.md`
-  - [ ] Update `/docs/sprints/planning/sprint-coordination.md`
-  - [ ] Verify no architectural conflicts
+### 🔥 CIRCULAR IMPORT TESTING
 
-### **Phase 2: PRD Generation** (Enhanced with Logical Structure)
+#### Backend Import Validation
+```python
+# backend/tests/test_imports.py
+import ast
+import os
+from pathlib import Path
 
-#### **2.1 PRD Development Process**
-Follow the established pattern from Sprint 01 → Sprint 02:
+def test_no_main_imports_in_routers():
+    """Ensure routers never import from main.py"""
+    router_dir = Path("backend/routers")
+    violations = []
+    
+    for py_file in router_dir.glob("*.py"):
+        with open(py_file, 'r') as f:
+            content = f.read()
+            
+        # Parse AST to find imports
+        tree = ast.parse(content)
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom):
+                if node.module and "main" in node.module:
+                    violations.append(f"{py_file}: {ast.unparse(node)}")
+    
+    assert not violations, f"Found main.py imports in routers: {violations}"
 
-1. **Extract from Roadmap**: Use `/docs/roadmap.md` sprint sections as PRD foundation
-2. **Architecture Foundation**: Reference completed sprint deliverables  
-3. **Prerequisites Validation**: Verify dependencies from previous sprints
-4. **Success Criteria**: Build on established patterns
+def test_dependency_injection_usage():
+    """Ensure routers use Depends() pattern"""
+    router_dir = Path("backend/routers")
+    
+    for py_file in router_dir.glob("*.py"):
+        if py_file.name == "__init__.py":
+            continue
+            
+        with open(py_file, 'r') as f:
+            content = f.read()
+            
+        # Should use Depends() for shared resources
+        assert "Depends(" in content, f"{py_file} should use dependency injection"
+        assert "from ..dependencies import" in content, f"{py_file} should import from dependencies"
+```
 
-#### **2.2 PRD Template Usage**
-Use `/docs/sprints/templates/PRD-template.md` but adapt based on sprint type:
+#### Live Import Testing
+```bash
+# test-circular-imports.sh
+#!/bin/bash
+echo "🧪 Testing for circular imports..."
 
-**For Foundation Sprints** (like Sprint 01):
-- Focus on architecture and integration
-- Emphasize component organization
-- Performance preservation requirements
+# Test each router can be imported independently
+for router in backend/routers/*.py; do
+  if [ "$(basename "$router")" != "__init__.py" ]; then
+    echo "Testing $router..."
+    python -c "import $(echo $router | sed 's/backend\///g' | sed 's/\.py//g' | sed 's/\//./g')" 2>&1
+    if [ $? -ne 0 ]; then
+      echo "❌ Import failed for $router"
+      exit 1
+    fi
+  fi
+done
 
-**For Enhancement Sprints** (like Sprint 02):  
-- Build on established foundation
-- Focus on polish and user experience
-- Visual design and interaction requirements
+echo "✅ All router imports successful"
+```
 
-**For Feature Sprints** (like Sprint 03+):
-- New functionality implementation
-- Advanced capabilities development
-- Enterprise and scalability features
+### 🔥 MCP INTEGRATION TESTING
 
-### **Phase 3: Sprint Execution** (Updated Documentation Standards)
+#### MCP Setup Verification
+```bash
+# test-mcp-setup.sh
+#!/bin/bash
+echo "🧪 Testing MCP setup..."
 
-#### **3.1 Documentation During Sprint**
-**Daily Documentation Requirements:**
-- Update sprint README.md with progress
-- Log major decisions in sprint folder
-- Create technical implementation plans as needed
+# 1. Node.js version check
+NODE_VERSION=$(node --version | sed 's/v//' | cut -d. -f1)
+if [ "$NODE_VERSION" -lt 18 ]; then
+  echo "❌ Node.js version $NODE_VERSION < 18"
+  exit 1
+fi
 
-**Weekly Documentation Requirements:**
-- Update `/docs/sprints/planning/SPRINT_STATUS.md`
-- Review and update PROJECT_STATUS.md links
-- Coordinate with cross-sprint planning
+# 2. Browser Tools server test
+curl -f http://localhost:3025/health > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+  echo "❌ Browser Tools server not responding on port 3025"
+  echo "Run: npx @agentdeskai/browser-tools-server@latest"
+  exit 1
+fi
 
-#### **3.2 Sprint Deliverable Standards**
+# 3. Basic MCP connectivity
+mcp_browser-tools_wipeLogs
+if [ $? -ne 0 ]; then
+  echo "❌ MCP basic connectivity failed"
+  exit 1
+fi
 
-**Required Sprint Documents** (Based on Sprint 01 Pattern):
-- [ ] **README.md** - Sprint overview, objectives, what was built
-- [ ] **PRD.md** - Requirements, success criteria, implementation plan  
-- [ ] **technical-implementation-plan.md** - Detailed technical approach
-- [ ] **completion-summary.md** - Results, achievements, lessons learned
-- [ ] **QUICK_REFERENCE.md** - Fast lookup guide for sprint outcomes
+echo "✅ MCP setup verification complete"
+```
 
-**Optional Sprint Documents** (As Needed):
-- [ ] **PERFORMANCE_BREAKTHROUGH.md** - Major technical achievements
-- [ ] **transition-to-next-sprint.md** - Handoff planning and next steps
+### 🔥 REACT QUERY PATTERN TESTING
 
-### **Phase 4: Sprint Completion** (Updated Closure Process)
+#### API State Management Linting
+```bash
+# lint-api-patterns.sh
+#!/bin/bash
+echo "🧪 Checking API state management patterns..."
 
-#### **4.1 Sprint Documentation Closure**
-1. **Complete all required documents** in sprint folder
-2. **Update cross-sprint tracking** in `/docs/sprints/planning/`
-3. **Update project-level status** in `/docs/PROJECT_STATUS.md`
-4. **Create transition document** for next sprint
-5. **Verify documentation links** across all documents
+# Check for forbidden manual API patterns
+MANUAL_FETCH=$(grep -r "useEffect.*fetch" frontend/src/ || true)
+MANUAL_AXIOS=$(grep -r "useEffect.*axios" frontend/src/ || true)
+MANUAL_API=$(grep -r "useEffect.*api\." frontend/src/ || true)
 
-#### **4.2 Architecture Validation Protocol**
-- [ ] **System functionality verified** - All screens/features working
-- [ ] **Performance requirements met** - Benchmarks maintained
-- [ ] **Integration patterns established** - For next sprint foundation
-- [ ] **Documentation accuracy confirmed** - Matches implementation
+if [ ! -z "$MANUAL_FETCH" ] || [ ! -z "$MANUAL_AXIOS" ] || [ ! -z "$MANUAL_API" ]; then
+  echo "❌ Found manual API calls in useEffect:"
+  echo "$MANUAL_FETCH"
+  echo "$MANUAL_AXIOS"
+  echo "$MANUAL_API"
+  echo "Use React Query instead!"
+  exit 1
+fi
+
+# Check for React Query usage
+QUERY_USAGE=$(grep -r "useQuery\|useMutation" frontend/src/ || true)
+if [ -z "$QUERY_USAGE" ]; then
+  echo "⚠️ No React Query usage found - ensure server state uses queries"
+fi
+
+echo "✅ API pattern check complete"
+```
+
+### 🔥 DATABASE POINT ID TESTING
+
+#### Qdrant Point ID Validation
+```python
+# backend/tests/test_point_ids.py
+import uuid
+import hashlib
+from qdrant_client.models import PointStruct
+
+def test_point_id_format():
+    """Ensure all point IDs are valid UUIDs"""
+    
+    # ✅ Valid UUID format
+    valid_id = str(uuid.uuid4())
+    point = PointStruct(id=valid_id, vector=[0.1, 0.2], payload={})
+    assert isinstance(point.id, str)
+    assert len(point.id) == 36  # UUID string length
+    
+    # ❌ SHA256 should not be used as point ID
+    sha256_hash = hashlib.sha256(b"test").hexdigest()
+    # This should be in payload, not as ID
+    point_with_hash = PointStruct(
+        id=str(uuid.uuid4()),  # ✅ UUID for ID
+        vector=[0.1, 0.2],
+        payload={"file_hash": sha256_hash}  # ✅ Hash in payload
+    )
+    
+    assert point_with_hash.payload["file_hash"] == sha256_hash
+```
+
+### 🚀 CONTINUOUS INTEGRATION TESTING
+
+#### GitHub Actions Sprint 10 Workflow
+```yaml
+# .github/workflows/sprint10-validation.yml
+name: Sprint 10 Issue Prevention
+
+on: [push, pull_request]
+
+jobs:
+  prevent-sprint10-issues:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js ≥18
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+    
+    - name: Test Hydration Prevention
+      run: |
+        cd frontend
+        npm ci
+        npm run build  # Must pass without hydration warnings
+    
+    - name: Test Circular Import Prevention
+      run: |
+        cd backend
+        python -m py_compile main.py
+        # Test all routers import independently
+        python -c "from routers import search, collections"
+    
+    - name: Test API Pattern Compliance
+      run: |
+        # No manual useEffect API calls allowed
+        ! grep -r "useEffect.*\(fetch\|axios\|api\.\)" frontend/src/
+    
+    - name: Test Point ID Validation
+      run: |
+        cd backend
+        python -m pytest tests/test_point_ids.py -v
+```
+
+### 📊 TESTING METRICS & ALERTS
+
+#### Pre-Sprint Health Check
+```bash
+# Run before starting any new sprint
+#!/bin/bash
+echo "🧪 Sprint 10 Prevention Health Check..."
+
+SCORE=0
+
+# Hydration test
+npm run build > /dev/null 2>&1 && SCORE=$((SCORE + 20)) || echo "❌ Hydration issues detected"
+
+# Import test
+python -c "import backend.main" > /dev/null 2>&1 && SCORE=$((SCORE + 20)) || echo "❌ Import issues detected"
+
+# MCP test
+mcp_browser-tools_wipeLogs > /dev/null 2>&1 && SCORE=$((SCORE + 20)) || echo "❌ MCP issues detected"
+
+# API pattern test
+! grep -r "useEffect.*fetch" frontend/src/ > /dev/null 2>&1 && SCORE=$((SCORE + 20)) || echo "❌ API pattern issues detected"
+
+# Point ID test
+python -c "import uuid; str(uuid.uuid4())" > /dev/null 2>&1 && SCORE=$((SCORE + 20)) || echo "❌ UUID generation issues"
+
+echo "Health Score: $SCORE/100"
+if [ $SCORE -lt 80 ]; then
+  echo "🚨 Project health below threshold - fix issues before sprint work"
+  exit 1
+fi
+
+echo "✅ Project ready for sprint work"
+```
 
 ---
 
-## 🎯 **Sprint Planning Quality Standards**
+**🎯 Integration with Development:**
+- **Pre-commit hooks**: Run hydration and import tests
+- **CI/CD pipeline**: Include Sprint 10 validation workflow
+- **Daily standup**: Check health score metrics
+- **Sprint planning**: Verify 100% health score before starting
 
-### **Documentation Quality Checklist**
-- [ ] **Logical Organization**: All sprint documents in appropriate folders
-- [ ] **Cross-Reference Accuracy**: All links between documents working
-- [ ] **Template Consistency**: Following established patterns
-- [ ] **Project Integration**: Sprint docs link to project-level docs
-- [ ] **Future Sprint Preparation**: Clear handoff for next sprint
-
-### **Architectural Continuity Standards**
-- [ ] **Foundation Preservation**: Previous sprint achievements maintained
-- [ ] **Progressive Enhancement**: New capabilities build on existing base
-- [ ] **Performance Consistency**: Core metrics preserved (e.g., <1s startup)
-- [ ] **Component Integration**: New components follow established patterns
-
----
-
-## 📚 **Integration with Existing MCP Workflows**
-
-### **Updated MCP Integration Points**
-
-**GitHub MCP Usage:**
-- Create issues in sprint context: `labels: ["sprint-{number}", "epic/story"]`
-- Reference sprint documentation in commit messages
-- Use sprint folders for all project documentation commits
-
-**Context7 MCP Research:**
-- Document findings in sprint-specific folders
-- Reference research in sprint PRD documents
-- Create implementation guides within sprint context
-
-**Browser Tools MCP:**
-- Use for sprint-specific testing and validation
-- Document testing results in sprint completion summaries
-- Performance audits relevant to sprint objectives
-
-### **Cross-Sprint Coordination Rules**
-
-**Sprint Handoff Protocol:**
-1. Complete current sprint documentation
-2. Update `/docs/sprints/planning/sprint-coordination.md`
-3. Create transition document in current sprint folder  
-4. Prepare next sprint folder and initial documentation
-5. Verify architectural stability and dependencies
-
-**Documentation Maintenance:**
-- Weekly update of cross-sprint status tracking
-- Monthly review of project-level documentation
-- Quarterly archival assessment of completed sprints
-
----
-
-## 🚀 **Benefits of New Structure**
-
-### **Improved Organization**
-- **Clear Separation**: Sprint-specific vs project-wide documentation
-- **Easy Navigation**: Logical folder structure with clear hierarchy
-- **Scalability**: Pattern established for unlimited future sprints
-- **Maintainability**: Each sprint self-contained with all deliverables
-
-### **Enhanced Planning**
-- **Template-Driven**: Consistent approach across all sprints
-- **Cross-Sprint Coordination**: Central planning hub for dependencies
-- **Architectural Continuity**: Clear progression from sprint to sprint
-- **Documentation Quality**: Established patterns ensure completeness
-
-### **Better Team Coordination**  
-- **Sprint Focus**: All sprint work organized in one location
-- **Historical Reference**: Easy access to past sprint deliverables
-- **Planning Coordination**: Central hub for multi-sprint planning
-- **Knowledge Transfer**: Complete documentation for onboarding
-
----
-
-
-**🎯 Goal**: These updated rules ensure sprint planning follows the logical structure established during the reorganization, providing clear separation between sprint-specific and project-wide concerns while maintaining architectural continuity and documentation quality. 
+*These tests prevent the 5 critical Sprint 10 failures from recurring.*
 
 ---
 > Source: [rm2thaddeus/Pixel_Detective](https://github.com/rm2thaddeus/Pixel_Detective) — distributed by [TomeVault](https://tomevault.io).
