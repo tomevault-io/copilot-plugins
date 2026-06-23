@@ -7,7 +7,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Lzh-xbccz/hermes-finance](https://github.com/Lzh-xbccz/hermes-finance).
+Original source: `.windsurf/rules/*.md` in [Lzh-xbccz/hermes-finance](https://github.com/Lzh-xbccz/hermes-finance).
 
 ## Also available for
 
@@ -15,7 +15,7 @@ Original source: `GEMINI.md` in [Lzh-xbccz/hermes-finance](https://github.com/Lz
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 From [Lzh-xbccz/hermes-finance](https://github.com/Lzh-xbccz/hermes-finance) — a repo with 8+ stars on GitHub.
 
