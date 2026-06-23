@@ -1,0 +1,44 @@
+{
+  "name": "ipas-ai-quiz",
+  "owner": "yazelin",
+  "repo": "ipas-ai-quiz",
+  "description": "iPAS AI \u61c9\u7528\u898f\u5283\u5e2b\u7dda\u4e0a\u6a21\u64ec\u8003\u7df4\u7fd2(611 \u984c\u6b77\u5c46\u8003\u53e4\u984c,\u7d14\u524d\u7aef + Cloudflare \u540c\u6b65)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yazelin/ipas-ai-quiz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-23T04:31:24Z"
+}
