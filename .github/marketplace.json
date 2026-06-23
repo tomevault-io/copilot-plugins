@@ -209334,6 +209334,16 @@
       "description": "Argon is a stable crypto asset, protected from inflation, immune to death spirals, and powered by Bitcoin. "
     },
     {
+      "name": "janderswag--legal-document-chat",
+      "source": "./janderswag--legal-document-chat",
+      "description": "Self-hosted, privacy-first document chat for attorneys: parse legal PDFs and query them with local open-source LLMs (Ollama) + verifiable page citations."
+    },
+    {
+      "name": "anymaniax--cf-workers-query",
+      "source": "./anymaniax--cf-workers-query",
+      "description": "Automatically cache and revalidate data in Cloudflare Workers. Using the Cache API and Execution Context."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225827,6 +225837,16 @@
       "name": "yotamleo--himmel",
       "source": "./yotamleo--himmel",
       "description": "A managed, orchestrated harness for running Claude Code as a safe, repeatable agent: hooks, guardrails, slash commands, a Jira CLI, and a cross-session handover system."
+    },
+    {
+      "name": "megagimen--openroyale",
+      "source": "./megagimen--openroyale",
+      "description": "OpenRoyale"
+    },
+    {
+      "name": "gunasekar--imprint",
+      "source": "./gunasekar--imprint",
+      "description": "Turn Markdown into branded, typeset PDFs \u2014 specs, design docs, and reports that look official."
     },
     {
       "name": "cheerhuan--save-your-token",
