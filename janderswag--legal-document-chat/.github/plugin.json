@@ -1,0 +1,9 @@
+{
+  "name": "janderswag--legal-document-chat",
+  "displayName": "legal-document-chat",
+  "description": "Self-hosted, privacy-first document chat for attorneys: parse legal PDFs and query them with local open-source LLMs (Ollama) + verifiable page citations.",
+  "version": "1.0.0",
+  "author": "janderswag",
+  "homepage": "https://github.com/janderswag/legal-document-chat",
+  "skills": []
+}
