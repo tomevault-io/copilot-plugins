@@ -4,7 +4,7 @@
   "repo": "catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hacbs-release-tests/catalog-utils-e2e-62487f00-12bc-4845-8c50-4c19e607e954",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T12:31:47Z"
+  "distributed_at": "2026-06-23T12:32:48Z"
 }
