@@ -1,0 +1,9 @@
+{
+  "name": "fanyangwuye--ip-skills-example-package",
+  "displayName": "IP-skills-Example-package",
+  "description": "\u9762\u5411 Agent \u7684 IP \u521b\u4f5c\u6280\u80fd\u5e93\uff0c\u652f\u6301\u6587\u6848\u3001\u89d2\u8272\u56fe\u3001\u573a\u666f\u56fe\u3001\u97f3\u4e50\u3001\u6545\u4e8b\u677f\u3001\u5173\u952e\u5e27\u3001\u56fe\u751f\u89c6\u9891\u548c\u591a\u6bb5\u89c6\u9891\u8fde\u7eed\u6027\u5de5\u4f5c\u6d41\u3002",
+  "version": "1.0.0",
+  "author": "fanyangwuye",
+  "homepage": "https://github.com/fanyangwuye/IP-skills-Example-package",
+  "skills": []
+}
