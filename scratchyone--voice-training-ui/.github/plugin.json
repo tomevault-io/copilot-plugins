@@ -1,0 +1,9 @@
+{
+  "name": "scratchyone--voice-training-ui",
+  "displayName": "voice-training-ui",
+  "description": "A (mostly written by Claude) voice training tool I created for myself and am now releasing by popular demand",
+  "version": "1.0.0",
+  "author": "scratchyone",
+  "homepage": "https://github.com/scratchyone/voice-training-ui",
+  "skills": []
+}
