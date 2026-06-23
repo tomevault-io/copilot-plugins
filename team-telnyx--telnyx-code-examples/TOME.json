@@ -1,0 +1,44 @@
+{
+  "name": "telnyx-code-examples",
+  "owner": "team-telnyx",
+  "repo": "telnyx-code-examples",
+  "description": "Production-ready code examples for Telnyx AI Communications Infrastructure \u2014 Voice AI, SMS, SIP, and IoT APIs",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/team-telnyx/telnyx-code-examples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-23T04:31:53Z"
+}
