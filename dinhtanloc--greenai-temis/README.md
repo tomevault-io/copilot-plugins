@@ -7,11 +7,11 @@ A project for Internal competition
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dinhtanloc/GreenAI-Temis](https://github.com/dinhtanloc/GreenAI-Temis).
+Original source: `CLAUDE.md` in [dinhtanloc/GreenAI-Temis](https://github.com/dinhtanloc/GreenAI-Temis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
