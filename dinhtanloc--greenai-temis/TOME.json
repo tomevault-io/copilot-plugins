@@ -4,7 +4,7 @@
   "repo": "GreenAI-Temis",
   "description": "A project for Internal competition",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dinhtanloc/GreenAI-Temis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T16:30:13Z"
+  "distributed_at": "2026-06-23T16:30:47Z"
 }
