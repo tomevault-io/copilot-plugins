@@ -1,0 +1,9 @@
+{
+  "name": "the412banner--bannerlator",
+  "displayName": "Bannerlator",
+  "description": "Bannerlator \u2014 run Windows PC games and apps on Android (Wine + Box64/86). A personal, community-driven continuation of the discontinued Winlator Star Bionic project. GitHub Actions builds + releases.",
+  "version": "1.0.0",
+  "author": "The412Banner",
+  "homepage": "https://github.com/The412Banner/Bannerlator",
+  "skills": []
+}
