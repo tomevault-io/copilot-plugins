@@ -1,0 +1,44 @@
+{
+  "name": "agently.top",
+  "owner": "yunlongwen",
+  "repo": "agently.top",
+  "description": "\u6bcf\u65e5AI\u524d\u6cbf\u4fe1\u606f\u3002\u5f00\u6e90\u8d8b\u52bf\u3001\u793e\u533a\u70ed\u8bae\u3001AI \u52a8\u6001",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yunlongwen/agently.top",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-23T14:32:51Z"
+}
