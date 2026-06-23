@@ -209089,6 +209089,11 @@
       "description": "iPAS AI \u61c9\u7528\u898f\u5283\u5e2b\u7dda\u4e0a\u6a21\u64ec\u8003\u7df4\u7fd2(611 \u984c\u6b77\u5c46\u8003\u53e4\u984c,\u7d14\u524d\u7aef + Cloudflare \u540c\u6b65)"
     },
     {
+      "name": "shivamgupta42--goals",
+      "source": "./shivamgupta42--goals",
+      "description": "A no-nonsense goal workflow engine \u2014 keeps your AI on a plan you can read, decide on, and trust. Works with Claude Code & Codex."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225422,6 +225427,26 @@
       "name": "oubakiou--md2idx",
       "source": "./oubakiou--md2idx",
       "description": "md2idx \u2014 Markdown to indexed JSON. Slice big docs with jq, feed LLMs only what they need."
+    },
+    {
+      "name": "appergb--opentake",
+      "source": "./appergb--opentake",
+      "description": "Cross-platform, open-source AI video editor \u2014 a GPL-3.0 community fork of Palmier Pro. Rust core + Tauri 2 + React, FFmpeg + wgpu."
+    },
+    {
+      "name": "aaronlps--loop-builder",
+      "source": "./aaronlps--loop-builder",
+      "description": "loop-builder"
+    },
+    {
+      "name": "appergb--opentake",
+      "source": "./appergb--opentake",
+      "description": "Cross-platform, open-source AI video editor \u2014 a GPL-3.0 community fork of Palmier Pro. Rust core + Tauri 2 + React, FFmpeg + wgpu."
+    },
+    {
+      "name": "santifer--warpchart",
+      "source": "./santifer--warpchart",
+      "description": "Growth telemetry for any GitHub repository. A live star chart of your repo's journey through the worldwide ranking, with sound."
     },
     {
       "name": "cheerhuan--save-your-token",
