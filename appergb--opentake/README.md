@@ -7,11 +7,11 @@ Cross-platform, open-source AI video editor — a GPL-3.0 community fork of Palm
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [appergb/OpenTake](https://github.com/appergb/OpenTake).
+Original source: `AGENTS.md` in [appergb/OpenTake](https://github.com/appergb/OpenTake).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
