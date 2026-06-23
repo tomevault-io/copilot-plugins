@@ -1,0 +1,9 @@
+{
+  "name": "jetxu-llm--codex-deepseek-bridge",
+  "displayName": "codex-deepseek-bridge",
+  "description": "Use DeepSeek models inside OpenAI Codex through a tiny local Responses-compatible bridge.",
+  "version": "1.0.0",
+  "author": "JetXu-LLM",
+  "homepage": "https://github.com/JetXu-LLM/codex-deepseek-bridge",
+  "skills": []
+}
