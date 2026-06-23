@@ -1,0 +1,9 @@
+{
+  "name": "natea--harness-eval",
+  "displayName": "harness-eval",
+  "description": "Eval framework that ranks agentic coding frameworks (Superpowers, Compound Engineering, Agent Skills, GSD) by having each build the same spec with the same harness+model in isolated sandboxes, graded ",
+  "version": "1.0.0",
+  "author": "natea",
+  "homepage": "https://github.com/natea/harness-eval",
+  "skills": []
+}
