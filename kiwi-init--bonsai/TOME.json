@@ -4,7 +4,7 @@
   "repo": "BonsAI",
   "description": "A bucket for your thoughts",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kiwi-init/BonsAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T19:30:12Z"
+  "distributed_at": "2026-06-23T19:30:46Z"
 }
