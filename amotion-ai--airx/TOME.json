@@ -4,7 +4,7 @@
   "repo": "airx",
   "description": "airx",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amotion-ai/airx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T10:35:12Z"
+  "distributed_at": "2026-06-23T10:35:43Z"
 }
