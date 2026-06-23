@@ -1,28 +1,14 @@
-## lucky-ui-theme-token-discipline
+## no-conversation-requirements-in-comments
 
-> Lucky UI 主题变量与颜色使用规范
+> 禁止将会话需求写入代码注释
 
 
-# Theme Token Discipline
+# 注释边界约束
 
-## 目标
-
-- 避免硬编码颜色导致亮暗主题不一致。
-- 优先使用组件专用 token，确保语义清晰和可维护。
-
-## 规则
-
-- 禁止在组件与 demo 样式中新增硬编码颜色（`#hex`、`rgb/rgba`），除非用户明确要求固定色。
-- 优先使用 `--lk-switch-*`、`--lk-slider-*` 这类组件专用变量，不要直接混用通用变量替代组件变量。
-- 页面/容器背景优先使用 `--lk-color-bg-page` 或 `--lk-color-bg-container`，文本优先使用 `--lk-text-*` / `--lk-color-text-*`。
-- 若需要“主色浅底”效果，优先使用 `--lk-color-primary-bg-soft`（或兼容回退到 `--lk-color-primary-soft`）。
-- 改动颜色相关样式后，必须在回复中说明“亮/暗主题下预期变化”。
-
-## 快速自检
-
-- 是否新增了硬编码颜色？
-- 是否误把组件专用 token 改成了通用 token？
-- 暗色主题下对比度是否清晰（尤其是开关、滑块、按钮等状态组件）？
+- 禁止把“本次对话/会话”中的临时诉求直接写进源码注释。
+- 注释只能描述稳定的技术事实（实现原因、兼容性约束、算法意图），不得引用聊天语境。
+- 遇到一次性需求，优先通过代码本身表达；如必须说明，写入提交信息或文档，不写入组件实现注释。
+- 已有类似注释在修改同文件时应顺手清理，避免长期噪音。
 
 ---
 > Source: [Orpheus-K/lucky-ui](https://github.com/Orpheus-K/lucky-ui) — distributed by [TomeVault](https://tomevault.io).
