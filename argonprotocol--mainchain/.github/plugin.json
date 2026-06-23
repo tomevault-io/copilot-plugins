@@ -1,0 +1,9 @@
+{
+  "name": "argonprotocol--mainchain",
+  "displayName": "mainchain",
+  "description": "Argon is a stable crypto asset, protected from inflation, immune to death spirals, and powered by Bitcoin. ",
+  "version": "1.0.0",
+  "author": "argonprotocol",
+  "homepage": "https://github.com/argonprotocol/mainchain",
+  "skills": []
+}
