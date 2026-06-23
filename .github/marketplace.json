@@ -209184,6 +209184,11 @@
       "description": "WellCMS 3.0 is a major milestone release, featuring a complete ground-up rewrite of the core framework. Built with a modern architecture, it delivers improved performance, scalability, and maintainabi"
     },
     {
+      "name": "the412banner--bannerlator",
+      "source": "./the412banner--bannerlator",
+      "description": "Bannerlator \u2014 run Windows PC games and apps on Android (Wine + Box64/86). A personal, community-driven continuation of the discontinued Winlator Star Bionic project. GitHub Actions builds + releases."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225582,6 +225587,46 @@
       "name": "vikrant-khedkar--gingerpaw",
       "source": "./vikrant-khedkar--gingerpaw",
       "description": "Local macOS multi-agent coding workspace \u2014 run Claude Code, Codex, Gemini & Cursor in parallel git worktrees, dispatch verified autonomous runs, and fix UIs by talking through a live preview. On-devic"
+    },
+    {
+      "name": "xuanbingbingo--hf-video-kit",
+      "source": "./xuanbingbingo--hf-video-kit",
+      "description": "\u7ed9 Claude Code \u7684\u53e3\u64ad\u89c6\u9891\u81ea\u52a8\u751f\u4ea7\u7ebf\uff1a\u6587\u6848\u2192\u914d\u97f3\u2192\u573a\u666f\u8def\u7531\u2192\u9010\u5b57\u5b57\u5e55\u2192\u6210\u7247\uff0c\u652f\u6301 AI \u539f\u751f\u4e0e\u771f\u4eba\u539f\u58f0\u53cc\u6a21\u5f0f"
+    },
+    {
+      "name": "xuanbingbingo--hf-video-kit",
+      "source": "./xuanbingbingo--hf-video-kit",
+      "description": "\u7ed9 Claude Code \u7684\u53e3\u64ad\u89c6\u9891\u81ea\u52a8\u751f\u4ea7\u7ebf\uff1a\u6587\u6848\u2192\u914d\u97f3\u2192\u573a\u666f\u8def\u7531\u2192\u9010\u5b57\u5b57\u5e55\u2192\u6210\u7247\uff0c\u652f\u6301 AI \u539f\u751f\u4e0e\u771f\u4eba\u539f\u58f0\u53cc\u6a21\u5f0f"
+    },
+    {
+      "name": "bram1903--minecraftsourcesgenerator",
+      "source": "./bram1903--minecraftsourcesgenerator",
+      "description": "Decompile any Minecraft: Java Edition release (1.7.2 -> latest) into clean, navigable, properly-named source trees for plugin and mod development."
+    },
+    {
+      "name": "tommybez--evex",
+      "source": "./tommybez--evex",
+      "description": "evex"
+    },
+    {
+      "name": "yunlongwen--agently-top",
+      "source": "./yunlongwen--agently-top",
+      "description": "\u6bcf\u65e5AI\u524d\u6cbf\u4fe1\u606f\u3002\u5f00\u6e90\u8d8b\u52bf\u3001\u793e\u533a\u70ed\u8bae\u3001AI \u52a8\u6001"
+    },
+    {
+      "name": "aiaccelerationism--ai-native-eval",
+      "source": "./aiaccelerationism--ai-native-eval",
+      "description": "Eval is all you need \u2014 Evidence-driven evaluation and repair loop for AI-native repositories"
+    },
+    {
+      "name": "whitequeen306--code-cortex-loop",
+      "source": "./whitequeen306--code-cortex-loop",
+      "description": "One-command AI code quality pipeline: review, security, tests, performance, simplify & cleanup. Health scores, CI gate. For Cursor, Claude Code, Qoder, Trae."
+    },
+    {
+      "name": "fcsvorfeed--codex-pro-launcher",
+      "source": "./fcsvorfeed--codex-pro-launcher",
+      "description": "Codex-Pro-Launcher is an external enhancement launcher for the Codex desktop application."
     },
     {
       "name": "cheerhuan--save-your-token",
