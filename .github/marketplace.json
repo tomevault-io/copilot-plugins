@@ -180169,6 +180169,11 @@
       "description": "ai-investing"
     },
     {
+      "name": "jetxu-llm--codex-deepseek-bridge",
+      "source": "./jetxu-llm--codex-deepseek-bridge",
+      "description": "Use DeepSeek models inside OpenAI Codex through a tiny local Responses-compatible bridge."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
