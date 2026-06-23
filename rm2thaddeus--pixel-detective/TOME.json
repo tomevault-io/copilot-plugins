@@ -4,7 +4,7 @@
   "repo": "Pixel_Detective",
   "description": "A repository for the Pixel Detective project.",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/rm2thaddeus/Pixel_Detective",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T14:30:38Z"
+  "distributed_at": "2026-06-23T15:38:32Z"
 }
