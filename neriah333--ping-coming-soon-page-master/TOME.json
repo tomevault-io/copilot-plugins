@@ -4,7 +4,7 @@
   "repo": "ping-coming-soon-page-master",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Neriah333/ping-coming-soon-page-master",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T02:45:39Z"
+  "distributed_at": "2026-06-23T02:48:07Z"
 }
