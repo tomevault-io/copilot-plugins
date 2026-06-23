@@ -7,11 +7,11 @@ Unified Lua5.x/LuaJIT/Luau bindings for .NET and Unity
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nuskey8/NuLua](https://github.com/nuskey8/NuLua).
+Original source: `CLAUDE.md` in [nuskey8/NuLua](https://github.com/nuskey8/NuLua).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
