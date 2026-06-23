@@ -1,0 +1,9 @@
+{
+  "name": "yotamleo--himmel",
+  "displayName": "Himmel",
+  "description": "A managed, orchestrated harness for running Claude Code as a safe, repeatable agent: hooks, guardrails, slash commands, a Jira CLI, and a cross-session handover system.",
+  "version": "1.0.0",
+  "author": "yotamleo",
+  "homepage": "https://github.com/yotamleo/Himmel",
+  "skills": []
+}
