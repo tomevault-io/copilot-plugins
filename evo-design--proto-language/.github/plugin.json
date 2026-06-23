@@ -1,0 +1,9 @@
+{
+  "name": "evo-design--proto-language",
+  "displayName": "proto-language",
+  "description": "A high-level programming language for generative biology",
+  "version": "1.0.0",
+  "author": "evo-design",
+  "homepage": "https://github.com/evo-design/proto-language",
+  "skills": []
+}
