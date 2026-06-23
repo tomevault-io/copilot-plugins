@@ -1,0 +1,9 @@
+{
+  "name": "appergb--opentake",
+  "displayName": "OpenTake",
+  "description": "Cross-platform, open-source AI video editor \u2014 a GPL-3.0 community fork of Palmier Pro. Rust core + Tauri 2 + React, FFmpeg + wgpu.",
+  "version": "1.0.0",
+  "author": "appergb",
+  "homepage": "https://github.com/appergb/OpenTake",
+  "skills": []
+}
