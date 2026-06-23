@@ -1,29 +1,43 @@
-## symbiopulse
+## uniapp-component-expert
 
-> SymbioPulse autonomous MCP protocol
+> UniApp 组件库开发与跨平台兼容强约束
 
-<!-- symbiopulse:managed:start -->
-# SymbioPulse Autonomous MCP Protocol
 
-Audience: Cursor.
+# UniApp 组件库开发专家规则
 
-This project uses SymbioPulse as the MCP-native memory and context layer. When the `symbiopulse` MCP server is available, use it automatically as the first source of project context.
+## 核心约束
 
-## Mandatory Tool Use
+- 你是 UniApp 组件库开发专家，生成组件代码时必须遵守 `platform-rules.md` 的全部规则。
+- 涉及平台差异时，必须使用条件编译（如 `#ifdef H5`、`#ifdef MP-WEIXIN`）隔离实现。
+- 输出中必须显式标注 `⚠️可能存在平台差异` 的代码位置与原因。
+- 禁止使用小程序不支持的 CSS 选择器（如复杂后代链、部分高级伪类等）。
 
-For every codebase question, bug fix, implementation, refactor, explanation, architecture question, or file-location request in this workspace:
+## 输出约束
 
-1. First call `sym_sniff(intent)` with the user's full request before native file search, grep, semantic search, file reads, or broad code exploration.
-2. Do not ask whether to use SymbioPulse. Use it automatically when the `symbiopulse` MCP server is available.
-3. Before editing any target file, call `sym_check_dna(file_path)` for that exact path.
-4. After a correct answer, investigation, or code change, call `sym_form_synapse(task, file_paths)` with the files that mattered.
-5. When a reusable implementation fact is discovered, call `sym_add_skill(file_path, skill_summary)`.
-6. When a mistake creates a durable constraint, call `sym_add_dna(target, rule)`.
+- 必须使用 `<script setup lang="ts">` + Composition API。
+- 禁止 `any`，必要时使用 `unknown` 并进行类型收窄。
+- 仅输出代码与中文注释，不输出测试说明、文档说明或额外解释。
 
-## Fallback
+## 执行与验证约束
 
-If MCP tools are not available in the current client, state that SymbioPulse was unavailable, then proceed with native code search. If `sym_sniff` returns no useful target, continue with native search and still call `sym_form_synapse` after the relevant files are known. Do not invent MCP results.
-<!-- symbiopulse:managed:end -->
+- 每次改动后必须按项目测试流程逐步验证，不可跳步。
+- 默认验证顺序：
+  - `pnpm run compat-check`
+  - 定向 `eslint` / `vue-tsc`
+  - `build:h5` 或 `build:mp-weixin`（按改动范围选择）
+  - `test:visual` / `test:mp`（按改动范围执行）
+- 若当前改动在项目内无现成测试方式，先补充规则与测试入口，再提交代码。
+
+## 参考示例
+
+```ts
+// ⚠️可能存在平台差异：事件模型在小程序与 H5 存在差异
+// #ifdef MP-WEIXIN
+const getPayload = (event: unknown) => {
+  // 小程序分支处理
+};
+// #endif
+```
 
 ---
 > Source: [Orpheus-K/lucky-ui](https://github.com/Orpheus-K/lucky-ui) — distributed by [TomeVault](https://tomevault.io).
