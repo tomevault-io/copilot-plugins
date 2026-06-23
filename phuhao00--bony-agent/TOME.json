@@ -4,7 +4,7 @@
   "repo": "bony-agent",
   "description": "\ud83e\udd16 Bony Agent \u2014 Full-stack AI content production & distribution platform. One person can run an entire team: AI chat \u00b7 image/video/music generation \u00b7 smart editing \u00b7 scheduled multi-platform publishing \u00b7 27+ specialized Agents. FastAPI + Next.js + LangGraph",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/phuhao00/bony-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T02:44:40Z"
+  "distributed_at": "2026-06-23T02:45:10Z"
 }
