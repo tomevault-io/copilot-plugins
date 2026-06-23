@@ -1,112 +1,47 @@
-## powershell-syntax
+## projectrules
 
-> - **NEVER use `&&` in PowerShell** - it's not a valid command separator
+> Project rules
 
-# PowerShell Syntax Rules
+# Cursor AI Project Rules  
 
-## Command Separators
-- **NEVER use `&&` in PowerShell** - it's not a valid command separator
-- Use `;` for sequential commands: `cd frontend; npm run dev`
-- Use separate commands or PowerShell-specific operators
+These project-specific rules ensure that all generated code is **well-documented, structured, and prevents repeated mistakes.**  
 
-## Correct PowerShell Syntax Patterns
+---
 
-### Sequential Commands
-```powershell
-# CORRECT
-cd frontend; npm run dev
+## Comment Handling Guidelines  
 
-# CORRECT - Separate commands
-cd frontend
-npm run dev
+- **Preserve all existing comments**  
+   - Never delete or overwrite existing comments.  
+   - Only **append or modify** them to add new insights.  
 
-# INCORRECT - Will cause parser error
-cd frontend && npm run dev
+- **Enhance documentation over time**  
+   - If a file is modified, update its comments to reflect **why** and **how** changes were made.  
+   - Document **new dependencies, optimizations, and potential pitfalls.**  
+
+- **Explicit troubleshooting notes**  
+   - When a bug is encountered **more than once**, insert a **clear warning comment** explaining:  
+     - **The nature of the issue**  
+     - **Why it happens**  
+     - **How to fix or avoid it**  
+
+---
+
+## Troubleshooting & Debugging Best Practices  
+
+### Recurring Bugs Prevention  
+- If a bug is **fixed multiple times**, insert a **comment in the affected file** to prevent future reoccurrence.  
+- Example format:  
+
+```python
+# WARNING: This function previously caused an off-by-one error due to X.
+# Ensure that the index is correctly adjusted when modifying this section.
+
 ```
 
-### Conditional Execution
-```powershell
-# CORRECT - PowerShell conditional operators
-if (Test-Path "frontend") { cd frontend; npm run dev }
-
-# CORRECT - Error handling
-try { cd frontend; npm run dev } catch { Write-Error "Failed to start frontend" }
-```
-
-### Background Processes
-```powershell
-# CORRECT - PowerShell background execution
-Start-Process powershell -ArgumentList "-Command", "cd frontend; npm run dev" -WindowStyle Hidden
-```
-
-## Common Commands That Need PowerShell Syntax
-
-### File Operations
-```powershell
-# CORRECT
-Get-ChildItem -Recurse -Name "*.py"
-Test-Path "package.json"
-
-# INCORRECT (bash syntax)
-ls -la
-```
-
-### Network Testing
-```powershell
-# CORRECT - Use Invoke-WebRequest instead of curl
-Invoke-WebRequest -Uri "http://localhost:8080" -Method GET
-
-# INCORRECT
-curl http://localhost:8080
-```
-
-### Process Management
-```powershell
-# CORRECT
-Get-Process | Where-Object {$_.ProcessName -like "*node*"}
-netstat -ano | findstr ":8080"
-
-# CORRECT - Kill process by ID
-Stop-Process -Id 1234 -Force
-```
-
-## Environment-Specific Considerations
-
-### Windows Paths
-- Use backslashes or forward slashes (both work in PowerShell)
-- Be careful with spaces in paths - use quotes when needed
-
-### Environment Variables
-```powershell
-# CORRECT
-$env:NODE_ENV = "development"
-
-# CORRECT - Access environment variables
-echo $env:PATH
-```
-
-## Error Prevention Checklist
-
-Before running any command in PowerShell:
-1. ✅ Check if command uses `&&` - replace with `;` or separate commands
-2. ✅ Verify file paths use correct syntax
-3. ✅ Use PowerShell cmdlets instead of Unix commands when available
-4. ✅ Test commands in small increments
-5. ✅ Use proper error handling with try/catch blocks
-
-## Quick Reference
-
-| Bash/Unix | PowerShell Equivalent |
-|-----------|----------------------|
-| `&&` | `;` or separate commands |
-| `ls -la` | `Get-ChildItem` or `dir` |
-| `curl` | `Invoke-WebRequest` |
-| `grep` | `Select-String` or `findstr` |
-| `kill -9 PID` | `Stop-Process -Id PID -Force` |
-| `ps aux` | `Get-Process` |
-
-## Memory Note
-[[memory:8198111]] - The user prefers PowerShell's Invoke-WebRequest instead of curl for API requests, which aligns with these PowerShell syntax rules.
+## 🤖 AI Assistant Auto-Routing
+- **Smart Context Detection**: Follow `@smart-entry-points` for automatic rule selection
+- **File-Based Activation**: Rules auto-activate based on file patterns
+- **Emergency Routing**: Errors automatically route to correct solutions
 
 ---
 > Source: [rm2thaddeus/Pixel_Detective](https://github.com/rm2thaddeus/Pixel_Detective) — distributed by [TomeVault](https://tomevault.io).
