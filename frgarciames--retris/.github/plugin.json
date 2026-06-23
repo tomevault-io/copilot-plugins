@@ -1,0 +1,9 @@
+{
+  "name": "frgarciames--retris",
+  "displayName": "retris",
+  "description": "Tetris-style game built with Remix 3",
+  "version": "1.0.0",
+  "author": "frgarciames",
+  "homepage": "https://github.com/frgarciames/retris",
+  "skills": []
+}
