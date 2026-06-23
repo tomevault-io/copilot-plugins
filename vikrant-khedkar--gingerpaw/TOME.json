@@ -1,0 +1,44 @@
+{
+  "name": "gingerpaw",
+  "owner": "Vikrant-Khedkar",
+  "repo": "gingerpaw",
+  "description": "Local macOS multi-agent coding workspace \u2014 run Claude Code, Codex, Gemini & Cursor in parallel git worktrees, dispatch verified autonomous runs, and fix UIs by talking through a live preview. On-device voice, fully local.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Vikrant-Khedkar/gingerpaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-23T12:30:12Z"
+}
