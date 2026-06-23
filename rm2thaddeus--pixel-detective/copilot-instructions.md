@@ -1,196 +1,112 @@
-## mcp-browser-tools-setup
+## powershell-syntax
 
-> Use of browser tools MCP for UI debugging
+> - **NEVER use `&&` in PowerShell** - it's not a valid command separator
 
-# MCP Browser Tools Setup & Troubleshooting Protocol
+# PowerShell Syntax Rules
 
-## 🚨 CRITICAL: Browser Tools MCP Requires 3-Component Setup
+## Command Separators
+- **NEVER use `&&` in PowerShell** - it's not a valid command separator
+- Use `;` for sequential commands: `cd frontend; npm run dev`
+- Use separate commands or PowerShell-specific operators
 
-Sprint 10 revealed that Browser Tools MCP is **COMPLEX** and fails silently without proper setup. **ALWAYS verify all components**.
+## Correct PowerShell Syntax Patterns
 
-### **✅ MANDATORY 3-COMPONENT VERIFICATION:**
+### Sequential Commands
+```powershell
+# CORRECT
+cd frontend; npm run dev
 
-#### 1. Node.js Version Check (CRITICAL)
-```bash
-# ✅ MUST be Node.js v18+ (requires native fetch API)
-node --version  # Must show v18.0.0 or higher
+# CORRECT - Separate commands
+cd frontend
+npm run dev
 
-# ❌ If version is <18:
-nvm install 20
-nvm use 20
-nvm alias default 20
+# INCORRECT - Will cause parser error
+cd frontend && npm run dev
 ```
 
-#### 2. Browser Tools Server (Port 3025)
-```bash
-# ✅ Start the middleware server
-npx @agentdeskai/browser-tools-server@latest
+### Conditional Execution
+```powershell
+# CORRECT - PowerShell conditional operators
+if (Test-Path "frontend") { cd frontend; npm run dev }
 
-# ✅ Verify server is running
-netstat -an | findstr 3025  # Windows
-lsof -i :3025              # Mac/Linux
-
-# ✅ Should see output like:
-# TCP    0.0.0.0:3025    0.0.0.0:0    LISTENING
+# CORRECT - Error handling
+try { cd frontend; npm run dev } catch { Write-Error "Failed to start frontend" }
 ```
 
-#### 3. Chrome Extension Installation
-```bash
-# ✅ Clone and install extension
-git clone https://github.com/AgentDeskAI/browser-tools-mcp.git
-cd browser-tools-mcp
+### Background Processes
+```powershell
+# CORRECT - PowerShell background execution
+Start-Process powershell -ArgumentList "-Command", "cd frontend; npm run dev" -WindowStyle Hidden
 ```
 
-**Chrome Extension Steps:**
-1. Open Chrome → `chrome://extensions/`
-2. Enable "Developer mode" (top right toggle)
-3. Click "Load unpacked"
-4. Select folder: `browser-tools-mcp/chrome-extension`
-5. Verify "BrowserToolsMCP" appears in extensions list
+## Common Commands That Need PowerShell Syntax
 
-### **🔍 VERIFICATION PROTOCOL:**
+### File Operations
+```powershell
+# CORRECT
+Get-ChildItem -Recurse -Name "*.py"
+Test-Path "package.json"
 
-#### Test MCP Connection
-```bash
-# ✅ Test 1: Basic MCP connectivity
-mcp_browser-tools_wipeLogs
-# Expected: "All logs cleared successfully"
-
-# ✅ Test 2: Server communication
-mcp_browser-tools_getConsoleLogs
-# Expected: [] (empty array) or actual logs
-
-# ✅ Test 3: Full functionality (requires extension)
-mcp_browser-tools_takeScreenshot
-# Expected: Screenshot data or specific error message
+# INCORRECT (bash syntax)
+ls -la
 ```
 
-#### Extension Connection Check
-1. Open any webpage (e.g., https://example.com)
-2. Open Chrome DevTools (F12)
-3. Look for "BrowserTools" tab in DevTools
-4. Verify connection status shows "Connected"
+### Network Testing
+```powershell
+# CORRECT - Use Invoke-WebRequest instead of curl
+Invoke-WebRequest -Uri "http://localhost:8080" -Method GET
 
-### **❌ COMMON ERROR PATTERNS & FIXES:**
-
-#### Error: "Failed to discover browser connector server"
-```bash
-# ✅ FIX: Start Browser Tools Server
-npx @agentdeskai/browser-tools-server@latest
-
-# ✅ Verify server is accessible
-curl http://localhost:3025/health
+# INCORRECT
+curl http://localhost:8080
 ```
 
-#### Error: "Chrome extension not connected"
-```bash
-# ✅ FIX: Reinstall extension
-# 1. Remove extension from chrome://extensions/
-# 2. Reload unpacked extension
-# 3. Refresh target webpage
-# 4. Check DevTools for "BrowserTools" tab
+### Process Management
+```powershell
+# CORRECT
+Get-Process | Where-Object {$_.ProcessName -like "*node*"}
+netstat -ano | findstr ":8080"
+
+# CORRECT - Kill process by ID
+Stop-Process -Id 1234 -Force
 ```
 
-#### Error: "Error taking screenshot"
-```bash
-# ✅ FIX: Extension installed but not connected to active tab
-# 1. Refresh the target webpage
-# 2. Open DevTools (F12)
-# 3. Check "BrowserTools" tab connection status
-# 4. Try screenshot again
+## Environment-Specific Considerations
+
+### Windows Paths
+- Use backslashes or forward slashes (both work in PowerShell)
+- Be careful with spaces in paths - use quotes when needed
+
+### Environment Variables
+```powershell
+# CORRECT
+$env:NODE_ENV = "development"
+
+# CORRECT - Access environment variables
+echo $env:PATH
 ```
 
-#### Error: Node.js version issues
-```bash
-# ✅ FIX: Upgrade Node.js
-# Browser Tools MCP requires Node.js v18+ for native fetch API
-nvm install 20
-nvm alias default 20
-node --version  # Verify v20.x.x
-```
+## Error Prevention Checklist
 
-### **🚀 BEFORE USING BROWSER TOOLS MCP:**
+Before running any command in PowerShell:
+1. ✅ Check if command uses `&&` - replace with `;` or separate commands
+2. ✅ Verify file paths use correct syntax
+3. ✅ Use PowerShell cmdlets instead of Unix commands when available
+4. ✅ Test commands in small increments
+5. ✅ Use proper error handling with try/catch blocks
 
-**ALWAYS run this verification sequence:**
+## Quick Reference
 
-```bash
-# 1. Check Node.js version
-node --version  # Must be ≥18.0.0
+| Bash/Unix | PowerShell Equivalent |
+|-----------|----------------------|
+| `&&` | `;` or separate commands |
+| `ls -la` | `Get-ChildItem` or `dir` |
+| `curl` | `Invoke-WebRequest` |
+| `grep` | `Select-String` or `findstr` |
+| `kill -9 PID` | `Stop-Process -Id PID -Force` |
+| `ps aux` | `Get-Process` |
 
-# 2. Start server (in separate terminal)
-npx @agentdeskai/browser-tools-server@latest &
-
-# 3. Verify server
-curl http://localhost:3025/health || echo "Server not running"
-
-# 4. Test basic MCP connectivity
-mcp_browser-tools_wipeLogs
-
-# 5. Open target webpage and check extension
-# - Go to target website
-# - Open DevTools (F12)
-# - Verify "BrowserTools" tab exists and shows "Connected"
-
-# 6. Test full functionality
-mcp_browser-tools_takeScreenshot
-```
-
-### **🔧 DEVELOPMENT WORKFLOW:**
-
-#### Session Start Checklist
-- [ ] **Node.js ≥18**: `node --version` shows v18+
-- [ ] **Server Running**: Port 3025 accessible
-- [ ] **Extension Loaded**: Chrome extension installed and enabled
-- [ ] **Extension Connected**: DevTools shows "BrowserTools" tab
-- [ ] **MCP Responsive**: `wipeLogs` returns success
-- [ ] **Full Functionality**: Screenshot works
-
-#### Debugging Browser Tools Issues
-```bash
-# Debug server connectivity
-curl -v http://localhost:3025/health
-
-# Debug extension installation
-chrome://extensions/ # Check if "BrowserToolsMCP" is listed
-
-# Debug extension connection
-# Open DevTools → BrowserTools tab → Check connection status
-
-# Debug MCP server communication
-mcp_browser-tools_getConsoleLogs  # Should not timeout
-```
-
-### **📋 TROUBLESHOOTING FLOWCHART:**
-
-```
-Browser Tools MCP not working?
-├── Is Node.js ≥18? → NO: Upgrade Node.js
-├── Is server running on 3025? → NO: Start server
-├── Is Chrome extension installed? → NO: Install extension
-├── Is extension connected? → NO: Refresh page + DevTools
-└── All YES → Should work, check specific error message
-```
-
-### **⚠️ CRITICAL NOTES:**
-
-1. **Three Components Required**: MCP server, Browser Tools server, Chrome extension
-2. **Node.js Version Critical**: v18+ required for fetch API
-3. **Server Must Stay Running**: Keep `browser-tools-server` process alive
-4. **Extension Per Session**: May need to refresh extension connection
-5. **DevTools Required**: Extension only works with DevTools open
-
-### **🎯 SUCCESS INDICATORS:**
-
-- Node.js shows v18+ when running `node --version`
-- Port 3025 responds to health checks
-- Chrome extensions page shows "BrowserToolsMCP" installed
-- DevTools shows "BrowserTools" tab with "Connected" status
-- `mcp_browser-tools_wipeLogs` returns success message
-- `mcp_browser-tools_takeScreenshot` returns image data
-
----
-
-*Browser Tools MCP setup is complex but powerful when properly configured. Always verify all three components.*
+## Memory Note
+[[memory:8198111]] - The user prefers PowerShell's Invoke-WebRequest instead of curl for API requests, which aligns with these PowerShell syntax rules.
 
 ---
 > Source: [rm2thaddeus/Pixel_Detective](https://github.com/rm2thaddeus/Pixel_Detective) — distributed by [TomeVault](https://tomevault.io).
