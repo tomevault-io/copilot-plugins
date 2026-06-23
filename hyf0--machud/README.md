@@ -7,11 +7,11 @@ A beautiful, zero-config terminal system monitor for macOS
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hyf0/machud](https://github.com/hyf0/machud).
+Original source: `CLAUDE.md` in [hyf0/machud](https://github.com/hyf0/machud).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
