@@ -1,155 +1,318 @@
 ## claude-skills
 
-> > **Attribution:** Behavioral patterns adapted from [obra/superpowers](https://github.com/obra/superpowers) by Jesse Vincent (@obra), MIT License.
+> Use when encountering errors or unexpected behavior requiring investigation.
 
-# CLAUDE.md Template for Users
+# Claude Skills Project Configuration
 
-> **Attribution:** Behavioral patterns adapted from [obra/superpowers](https://github.com/obra/superpowers) by Jesse Vincent (@obra), MIT License.
->
-> Copy this content to your project's `CLAUDE.md` or personal `~/.claude/CLAUDE.md` file.
+> This file governs Claude's behavior when working on the claude-skills repository.
 
 ---
 
-## Skill Activation (The 1% Rule)
+## Skill Authorship Standards
 
-If there is even a 1% chance a skill applies to what you are doing, you ABSOLUTELY MUST read the skill.
+Skills follow the [Agent Skills specification](https://agentskills.io/specification). This section covers project-specific conventions that go beyond the base spec.
 
-This is not negotiable. This is not optional. You cannot rationalize your way out of this.
+### The Description Trap
 
-**Red flag thoughts to reject:**
-- "This is just a simple question"
-- "I remember what this skill says"
-- "This seems like overkill"
-- "I need more context first"
-
-When these thoughts occur, they indicate you should check the skill.
-
----
-
-## Verification Discipline
-
-**NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE.**
-
-Before asserting any task is complete:
-
-1. **Identify** - What command proves this claim?
-2. **Execute** - Run it fresh (not from memory)
-3. **Examine** - Read complete output and exit status
-4. **Confirm** - Do results actually support the claim?
-5. **Then state** - Make the claim with evidence
-
-Skipping any step is misrepresentation, not efficiency.
-
-**Forbidden language until verified:**
-- "should work"
-- "probably done"
-- "I think this fixes it"
-- "Done!" / "Perfect!" / "All set!"
-
----
-
-## Communication Standards
-
-Never use agreement theater.
-
-**Forbidden phrases:**
-- "You're absolutely right!"
-- "Great point!" / "Excellent feedback!"
-- Expressions of gratitude or enthusiasm
-- Excessive politeness
-
-Actions demonstrate understanding. Fix the issue directly. The code shows you heard the feedback.
-
-**Instead of:** "You're absolutely right! Great catch!"
-**Just say:** "Fixed. [description of change]"
-
----
-
-## Interaction Guardrails
-
-- **One question at a time** - Prevents cognitive overload
-- **Incremental validation** - Present in 200-300 word sections, confirm each before continuing
-- **Choice architecture** - Multiple choice over open-ended when clarifying
-- **YAGNI ruthlessly** - Remove unnecessary features from all designs
-
----
-
-## Debugging Threshold
-
-**After 3 failed fix attempts → STOP.**
-
-Three failures in different locations signals architectural problems, not isolated bugs.
-
-At this point:
-- Question whether the architecture supports the requirement
-- Discuss fundamental restructuring
-- Do NOT attempt a fourth fix
-
----
-
-## Systematic Debugging (When Applicable)
-
-**NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST.**
-
-Four mandatory phases:
-1. **Root Cause Investigation** - Trace data flow, reproduce reliably
-2. **Pattern Analysis** - Find working examples, identify differences
-3. **Hypothesis Testing** - One variable at a time, document each hypothesis
-4. **Implementation** - Failing test first, then fix
-
-Red flags requiring process reset:
-- Proposing solutions before tracing data flow
-- Multiple simultaneous changes
-- "Let's try this and see"
-
----
-
-## Testing Mandate
-
-**NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST.**
-
-The RED-GREEN-REFACTOR cycle:
-1. **RED** - Write minimal failing test
-2. **GREEN** - Implement simplest passing code
-3. **REFACTOR** - Improve while keeping tests green
-
-If you wrote code before the test, delete it and start over.
-
----
-
-## Code Review Standard
-
-Two-stage review process:
-
-1. **Spec Compliance Review** (FIRST)
-   - Does it meet requirements? Nothing more, nothing less?
-   - Missing features? Unnecessary additions? Interpretation gaps?
-
-2. **Code Quality Review** (ONLY after spec compliance passes)
-   - Maintainability, patterns, performance
-   - Don't waste time reviewing code that doesn't meet spec
-
-**When receiving feedback:**
-- Verify before implementing
-- Ask before assuming
-- Technical correctness over social comfort
-- Push back with technical reasoning when appropriate
-
----
-
-## The Description Trap (For Skill Authors)
-
-Never put process steps or workflow sequences in descriptions. If you do, agents follow the description instead of reading the full skill content.
+**Critical:** Never put process steps or workflow sequences in descriptions. When descriptions contain step-by-step instructions, agents follow the brief description instead of reading the full skill content. This defeats the purpose of detailed skills.
 
 Brief capability statements (what it does) and trigger conditions (when to use it) are both appropriate. Process steps (how it works) are not.
 
-**BAD:** `description: Use for debugging. First investigate root cause, then analyze patterns, test hypotheses, and implement fixes.`
+**BAD - Process steps in description:**
+```yaml
+description: Use for debugging. First investigate root cause, then analyze
+patterns, test hypotheses, and implement fixes with tests.
+```
 
-**GOOD:** `description: Diagnoses bugs through root cause analysis and pattern matching. Use when encountering errors or unexpected behavior requiring investigation.`
+**GOOD - Capability + trigger:**
+```yaml
+description: Diagnoses bugs through root cause analysis and pattern matching.
+Use when encountering errors or unexpected behavior requiring investigation.
+```
 
-Descriptions tell WHAT and WHEN. The skill body tells HOW.
+**Format:** `[Brief capability statement]. Use when [triggering conditions].`
+
+Descriptions tell WHAT the skill does and WHEN to use it. The SKILL.md body tells HOW.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Jeffallan)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Jeffallan)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+
+### Frontmatter Requirements
+
+Per the [Agent Skills specification](https://agentskills.io/specification), only `name` and `description` are top-level required fields. Custom fields go under `metadata`.
+
+```yaml
+---
+name: skill-name-with-hyphens
+description: [Brief capability statement]. Use when [triggering conditions] - max 1024 chars
+license: MIT
+metadata:
+  author: https://github.com/Jeffallan
+  version: "1.0.0"
+  domain: frontend
+  triggers: keyword1, keyword2, keyword3
+  role: specialist
+  scope: implementation
+  output-format: code
+  related-skills: fullstack-guardian, test-master, devops-engineer
+---
+```
+
+**Top-level fields (spec-defined):**
+- `name`: Letters, numbers, and hyphens only (no parentheses or special characters)
+- `description`: Maximum 1024 characters. Capability statement + trigger conditions. No process steps.
+- `license`: Always `MIT` for this project
+- `allowed-tools`: Space-delimited tool list (only on skills that restrict tools)
+
+**Metadata fields (project-specific):**
+- `author`: GitHub profile URL of the skill author
+- `version`: Semantic version string (quoted, e.g., `"1.0.0"`)
+- `domain`: Category from the domain list below
+- `triggers`: Comma-separated searchable keywords
+- `role`: `specialist` | `expert` | `architect` | `engineer`
+- `scope`: `implementation` | `review` | `design` | `system-design` | `testing` | `analysis` | `infrastructure` | `optimization` | `architecture`
+- `output-format`: `code` | `document` | `report` | `architecture` | `specification` | `schema` | `manifests` | `analysis` | `analysis-and-code` | `code+analysis`
+- `related-skills`: Comma-separated skill directory names (e.g., `fullstack-guardian, test-master`). Must resolve to existing skill directories.
+
+**Domain values:**
+`language` · `backend` · `frontend` · `infrastructure` · `api-architecture` · `quality` · `devops` · `security` · `data-ml` · `platform` · `specialized` · `workflow`
+
+---
+
+### Reference File Standards
+
+Reference files follow the [Agent Skills specification](https://agentskills.io/specification). No specific headers are required.
+
+**Guidelines:**
+- 100-600 lines per reference file
+- Keep files focused on a single topic
+- Complete, working code examples with TypeScript types
+- Cross-reference related skills where relevant
+- Include "when to use" and "when not to use" guidance
+- Practical patterns over theoretical explanations
+
+### Framework Idiom Principle
+
+Reference files for framework-specific skills must reflect the idiomatic best practices of that framework, not generic patterns applied uniformly across all skills. If a framework provides a built-in mechanism (e.g., global error handling, middleware, dependency injection), reference examples should use it rather than duplicating that behavior manually. Each framework's conventions for error handling, architecture, and code organization take precedence over cross-project consistency.
+
+---
+
+### Documentation Backlink
+
+Every `SKILL.md` MUST end with a single canonical Documentation link pointing back to the docs site:
+
+```
+[Documentation](https://jeffallan.github.io/claude-skills/skills/{domain}/{skill-name}/)
+```
+
+- `{domain}` is `metadata.domain` from the frontmatter (default `specialized` if absent — matches the fallback in `site/scripts/sync-content.mjs`).
+- `{skill-name}` is the skill's directory name.
+- Format is exactly markdown link syntax (`[text](url)`), not a bare URL. Strict CommonMark renderers do not auto-link bare URLs, and the line's purpose is to render as a real `<a href>` on aggregators (skills.sh, etc.) for SEO backlinks.
+
+**Why two surfaces, two behaviors:**
+
+- Aggregators consume raw `SKILL.md` from GitHub and render the line as a hyperlink. This is the SEO point.
+- The docs site itself would render this line as a self-link, which is redundant. `syncSkillPages` in `site/scripts/sync-content.mjs` strips the line at build time so the docs site, public markdown mirrors, `llms.txt`, and `llms-full.txt` never show it.
+
+**When adding or renaming a skill:** update both the directory name (which becomes `{skill-name}`) and the `metadata.domain` consistently with this URL formula, otherwise the backlink will 404.
+
+---
+
+### Progressive Disclosure Architecture
+
+**Tier 1 - SKILL.md (~80-100 lines)**
+- Role definition and expertise level
+- When-to-use guidance (triggers)
+- Core workflow (5 steps)
+- Constraints (MUST DO / MUST NOT DO)
+- Routing table to references
+
+**Tier 2 - Reference Files (100-600 lines each)**
+- Deep technical content
+- Complete code examples
+- Edge cases and anti-patterns
+- Loaded only when context requires
+
+**Goal:** 50% token reduction through selective loading.
+
+---
+
+## Project Workflow
+
+### When Creating New Skills
+
+1. Check existing skills for overlap
+2. Write SKILL.md with capability + trigger description (no process steps)
+3. Create reference files for deep content (100+ lines)
+4. Add routing table linking topics to references
+5. Append the canonical Documentation backlink as the last line (see Documentation Backlink above)
+6. Test skill triggers with realistic prompts
+7. Update SKILLS_GUIDE.md if adding new domain
+
+### When Modifying Skills
+
+1. Read the full current skill before editing
+2. Maintain capability + trigger description format (no process steps)
+3. Preserve progressive disclosure structure
+4. Update related cross-references
+5. Verify routing table accuracy
+
+---
+
+## Release Checklist
+
+When releasing a new version, follow these steps.
+
+### 1. Update Version and Counts
+
+Version and counts are managed through `version.json`:
+
+```json
+{
+  "version": "0.4.2",
+  "skillCount": 65,
+  "workflowCount": 9,
+  "referenceFileCount": 355
+}
+```
+
+**To release a new version:**
+
+1. Update the `version` field in `version.json`
+2. Run the update script:
+
+```bash
+python scripts/update-docs.py
+```
+
+The script will:
+- Compute counts from the filesystem (skills, references, workflows)
+- Update `version.json` with computed counts
+- Update all documentation files (README.md, plugin.json, etc.)
+
+**Options:**
+```bash
+python scripts/update-docs.py --check    # Verify files are in sync (CI use)
+python scripts/update-docs.py --dry-run  # Preview changes without writing
+```
+
+### 2. Update CHANGELOG.md
+
+Add new version entry at the top following Keep a Changelog format:
+
+```markdown
+## [X.Y.Z] - YYYY-MM-DD
+
+### Added
+- New features, skills, commands
+
+### Changed
+- Modified functionality, updated skills
+
+### Fixed
+- Bug fixes
+```
+
+Add version comparison link at bottom:
+```markdown
+[X.Y.Z]: https://github.com/jeffallan/claude-skills/compare/vPREVIOUS...vX.Y.Z
+```
+
+### 3. Update Documentation for New/Modified Content
+
+**For new skills:**
+- Add to `SKILLS_GUIDE.md` in appropriate category
+- Add to decision trees if applicable
+- Run `python scripts/update-docs.py` to update counts
+
+**For new commands:**
+- Add to `docs/WORKFLOW_COMMANDS.md`
+- Add to `README.md` Project Workflow Commands table
+- Run `python scripts/update-docs.py` to update counts
+
+**For modified skills/commands:**
+- Update any cross-references
+- Update SKILLS_GUIDE.md if triggers changed
+
+### 4. Generate Social Preview (conditional)
+
+The social preview embeds skill, workflow, and reference counts but **not** the version. Only regenerate when at least one of `skillCount`, `workflowCount`, or `referenceFileCount` in `version.json` changed in this release — patch releases that only fix docs or a single skill normally do not need it.
+
+When regeneration is needed:
+
+```bash
+npx -y -p puppeteer node ./assets/capture-screenshot.js
+```
+
+This creates `assets/social-preview.png` from `assets/social-preview.html`.
+
+### 5. Validate Skills Integrity
+
+**Critical:** Run validation before release to prevent broken skills from being published.
+
+```bash
+python scripts/validate-skills.py
+```
+
+The script validates:
+- **YAML frontmatter** - Parsing, required fields (name, description, triggers), format
+- **Name format** - Letters, numbers, hyphens only
+- **Description** - Max 1024 chars, must contain "Use when" trigger clause
+- **References** - Directory exists, has files, proper headers
+- **Count consistency** - Skills/reference counts match across documentation
+
+**Options:**
+```bash
+python scripts/validate-skills.py --check yaml       # YAML checks only
+python scripts/validate-skills.py --check references # Reference checks only
+python scripts/validate-skills.py --skill react-expert  # Single skill
+python scripts/validate-skills.py --format json      # JSON output for CI
+python scripts/validate-skills.py --help             # Full usage
+```
+
+**Exit codes:** 0 = success (warnings OK), 1 = errors found
+
+### 6. Validate Markdown Syntax
+
+**Critical:** Run markdown validation to catch parsing errors.
+
+```bash
+python scripts/validate-markdown.py
+```
+
+The script validates:
+- **HTML comments in tables** - Comments between table rows break parsing
+- **Unclosed code blocks** - Ensures all code fences are properly closed
+- **Missing table separators** - Tables require `|---|` row after header
+- **Column count consistency** - All table rows must have same column count
+
+**Options:**
+```bash
+python scripts/validate-markdown.py --check       # CI mode (exit code only)
+python scripts/validate-markdown.py --path FILE   # Single file
+python scripts/validate-markdown.py --format json # JSON output for CI
+```
+
+**Exit codes:** 0 = no issues, 1 = issues found
+
+### 7. Final Verification
+
+After running validation, manually verify:
+
+```bash
+# Check no old version references remain (except historical changelog)
+grep -r "OLD_VERSION" --include="*.md" --include="*.json" --include="*.html"
+```
+
+---
+
+## Attribution
+
+Behavioral patterns and process discipline adapted from:
+- **[obra/superpowers](https://github.com/obra/superpowers)** by Jesse Vincent (@obra)
+- License: MIT
+
+Research documented in: `research/superpowers.md`
+
+---
+> Source: [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
