@@ -1,0 +1,9 @@
+{
+  "name": "nuskey8--nulua",
+  "displayName": "NuLua",
+  "description": "Unified Lua5.x/LuaJIT/Luau bindings for .NET and Unity",
+  "version": "1.0.0",
+  "author": "nuskey8",
+  "homepage": "https://github.com/nuskey8/NuLua",
+  "skills": []
+}
