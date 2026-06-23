@@ -1,23 +1,320 @@
-## react
+## smart-entry-points
 
-> description: This rule explains React component patterns, hooks usage, and best practices.
+> Use these rules when unsure how to navigate project rules
+
+# Smart Entry Points - Intelligent Rule Routing System
+
+## 🎯 **Context-Aware Rule Activation**
+
+This file defines automatic routing logic for AI assistants to apply the right rules based on work context.
 
 ---
-description: This rule explains React component patterns, hooks usage, and best practices.
-globs: **/*.jsx,**/*.tsx
-alwaysApply: false
+
+## **Automatic Context Detection Rules**
+
+### **File Pattern → Rule Mapping**
+
+#### **Frontend Development Context**
+```yaml
+file_patterns:
+  - "frontend/**/*.tsx"
+  - "frontend/**/*.ts" 
+  - "frontend/**/*.jsx"
+  - "frontend/**/*.js"
+  - "frontend/**/*.css"
+  - "frontend/**/*.scss"
+
+primary_rule: "@frontend-development-index"
+secondary_rules:
+  - "@nextjs-hydration-prevention"      # For React components
+  - "@react-query-api-integration"      # For API calls
+  - "@component-architecture-patterns"  # For component design
+  - "@ux-workflow-patterns"            # For UX work
+  - "@nextjs-performance-optimization" # For performance
+
+prerequisites:
+  - "@sprint-lessons-learned"  # Always check Sprint 10 lessons
+  - "@mcp-browser-tools-setup" # Verify MCP setup for frontend work
+```
+
+#### **Backend Development Context**
+```yaml
+file_patterns:
+  - "backend/**/*.py"
+  - "src/**/*.py"
+  - "**/*api*.py"
+  - "**/*service*.py"
+  - "**/*model*.py"
+
+primary_rule: "@backend-development-index"
+secondary_rules:
+  - "@fastapi-dependency-injection"     # For API development
+  - "@api-design-patterns"             # For API design
+  - "@fastapi-microservice-patterns"   # For service architecture
+  - "@ml-service-integration"          # For ML services
+
+prerequisites:
+  - "@sprint-lessons-learned"  # Always check Sprint 10 lessons
+  - "@use-mcp-servers"        # For Supabase MCP usage
+```
+
+#### **Database Work Context**
+```yaml
+file_patterns:
+  - "**/*.sql"
+  - "**/migrations/**"
+  - "**/database/**"
+  - "**/schemas/**"
+
+primary_rule: "@use-mcp-servers"
+focus: "Supabase MCP operations"
+secondary_rules:
+  - "@api-design-patterns"  # For data modeling
+  
+prerequisites:
+  - "@sprint-lessons-learned"  # Check for database-related lessons
+```
+
+#### **Testing Context**
+```yaml
+file_patterns:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.test.py"
+  - "**/*.spec.*"
+  - "**/tests/**"
+
+primary_rule: "@sprint10-testing-patterns"
+secondary_rules:
+  - "@nextjs-hydration-prevention"    # For frontend tests
+  - "@fastapi-dependency-injection"   # For backend tests
+  - "@mcp-browser-tools-setup"       # For MCP testing
+
+prerequisites:
+  - "@sprint-lessons-learned"  # Apply testing lessons learned
+```
+
+#### **Documentation Context**
+```yaml
+file_patterns:
+  - "**/*.md"
+  - "docs/**"
+  - "README*"
+  - "CHANGELOG*"
+
+primary_rule: "@commentsoverwrite"
+secondary_rules:
+  - "@sprint-planning"        # For sprint documentation
+  - "@cross-reference-guide" # For navigation docs
+
+prerequisites:
+  - Current sprint context for sprint-specific docs
+```
+
+#### **Sprint Planning Context**
+```yaml
+file_patterns:
+  - "docs/sprints/**"
+  - "**/PRD.md"
+  - "**/sprint-*.md"
+
+primary_rule: "@sprint-planning"
+secondary_rules:
+  - "@use-mcp-servers"        # For MCP integration in planning
+  - "@commentsoverwrite"      # For documentation standards
+
+prerequisites:
+  - "@sprint-lessons-learned"  # Review lessons before planning
+```
+
 ---
 
-# React rules
+## **Emergency Context Detection**
 
-- Use functional components with hooks instead of class components
-- Use custom hooks for reusable logic
-- Use the Context API for state management when needed
-- Use proper prop validation with PropTypes
-- Use React.memo for performance optimization when necessary
-- Use fragments to avoid unnecessary DOM elements
-- Use proper list rendering with keys
-- Prefer composition over inheritance
+### **Error-Based Auto-Routing**
+
+#### **Hydration Errors** 
+```yaml
+error_indicators:
+  - "hydration"
+  - "Text content does not match server-rendered HTML"
+  - "Warning: Text content did not match"
+  - "Hydration failed"
+
+emergency_rule: "@quick-troubleshooting-index"
+specific_rule: "@nextjs-hydration-prevention"
+recovery_pattern: "mounted state implementation"
+```
+
+#### **Import/Circular Dependency Errors**
+```yaml
+error_indicators:
+  - "circular import"
+  - "ImportError"
+  - "cannot import name"
+  - "partially initialized module"
+
+emergency_rule: "@quick-troubleshooting-index"  
+specific_rule: "@fastapi-dependency-injection"
+recovery_pattern: "dependency injection refactor"
+```
+
+#### **MCP Connection Failures**
+```yaml
+error_indicators:
+  - "Failed to discover browser connector server"
+  - "Chrome extension not connected"
+  - "MCP server not responding"
+  - "Browser Tools server"
+
+emergency_rule: "@mcp-browser-tools-setup"
+recovery_pattern: "3-component verification protocol"
+```
+
+#### **PowerShell Syntax Errors**
+```yaml
+error_indicators:
+  - "The term '&&' is not recognized"
+  - "Unexpected token '&&'"
+  - "Cannot run program"
+  - "PATH environment variable"
+
+emergency_rule: "@powershell-syntax"
+recovery_pattern: "auto-safe command templates"
+auto_fix: "split compound commands into separate run_terminal_cmd calls"
+```
+
+---
+
+## **Work Type → Entry Point Routing**
+
+### **🚨 Emergency Debugging (Highest Priority)**
+```markdown
+Entry Point: @quick-troubleshooting-index
+├── Hydration errors → @nextjs-hydration-prevention
+├── Import errors → @fastapi-dependency-injection  
+├── MCP failures → @mcp-browser-tools-setup
+└── General issues → @debugging + @sprint-lessons-learned
+```
+
+### **🛠️ New Development Work**
+```markdown
+Entry Point: Context Detection (automatic)
+├── Frontend files → @frontend-development-index
+├── Backend files → @backend-development-index
+├── Database files → @use-mcp-servers (Supabase focus)
+└── Test files → @sprint10-testing-patterns
+```
+
+### **📋 Feature Implementation**
+```markdown
+Entry Point: @feature-request
+├── Frontend features → @frontend-development-index
+├── Backend features → @backend-development-index
+├── Full-stack features → @sprint-planning
+└── Integration features → @use-mcp-servers
+```
+
+### **🧪 Testing & Validation** 
+```markdown
+Entry Point: @sprint10-testing-patterns
+├── Frontend testing → @nextjs-hydration-prevention
+├── Backend testing → @fastapi-dependency-injection
+├── MCP testing → @mcp-browser-tools-setup
+└── Integration testing → @use-mcp-servers
+```
+
+### **📋 Sprint Planning & Documentation**
+```markdown
+Entry Point: @sprint-planning
+├── Technical planning → @use-mcp-servers
+├── Architecture planning → Context detection → specific rules
+├── Testing planning → @sprint10-testing-patterns
+└── Documentation → @commentsoverwrite
+```
+
+---
+
+## **AI Assistant Integration Protocol**
+
+### **Step-by-Step Activation Process**
+
+#### **1. Context Analysis (Automatic)**
+```bash
+# AI should automatically detect:
+- Current file type and location
+- Error messages (if any)
+- Work type (development/debugging/planning)
+- Sprint context (if applicable)
+- Terminal command usage (PowerShell environment)
+```
+
+#### **1.1 Universal PowerShell Rule Auto-Activation**
+```yaml
+# ALWAYS auto-activate when ANY terminal command is used:
+trigger_conditions:
+  - "run_terminal_cmd tool detected"
+  - "User OS: win32 (Windows)"
+  - "PowerShell environment detected"
+  - "Any command generation requested"
+
+auto_apply_rule: "@powershell-syntax"
+activation_mode: "preventive"  # Apply BEFORE generating commands
+mandatory: true               # Cannot be bypassed
+integration: "seamless"       # Works with all other rules
+```
+
+#### **2. Rule Hierarchy Application**  
+```bash
+# Apply rules in this order:
+Level 1: Emergency context (if errors detected)
+Level 2: File context (based on patterns above)  
+Level 3: Work type context (development/planning/testing)
+Level 4: Foundation rules (sprint lessons, documentation standards)
+```
+
+#### **3. Rule Loading Sequence**
+```bash
+# Load rules in parallel when possible:
+Primary rule (main context)
++ Secondary rules (specific patterns)
++ Prerequisites (always required)
++ Fallbacks (if primary doesn't apply)
+```
+
+### **Integration with Existing System**
+
+#### **Cross-Reference with Existing Rules**
+- This file **enhances** the existing `cross-reference-guide.mdc`
+- Provides **automatic routing** to existing comprehensive `.mdc` files
+- **Preserves** all existing rule content and patterns
+- **Adds intelligence** to rule discovery and application
+
+#### **Compatibility with Current Workflow**  
+- Works with existing **sprint-based development**
+- Enhances existing **MCP server integration**
+- Maintains **project-specific patterns** (Next.js/FastAPI)
+- Preserves **Sprint 10 lessons learned** integration
+
+---
+
+## **Success Metrics**
+
+### **Rule Application Effectiveness**
+- **Context Detection Accuracy**: >95% correct rule selection
+- **Emergency Response Time**: <30 seconds to correct rule
+- **Rule Discovery**: Zero manual rule hunting required
+- **Pattern Consistency**: Same approach applied across team
+
+### **Development Workflow Improvement**
+- **Faster Issue Resolution**: Auto-route to correct solution
+- **Consistent Implementation**: Same patterns every time  
+- **Reduced Context Switching**: Rules come to developer
+- **Better Documentation**: Standards automatically enforced
+
+---
+
+*This smart entry point system transforms your comprehensive rule collection into an intelligent, context-aware assistant that automatically applies the right knowledge at the right time.*
 
 ---
 > Source: [rm2thaddeus/Pixel_Detective](https://github.com/rm2thaddeus/Pixel_Detective) — distributed by [TomeVault](https://tomevault.io).
