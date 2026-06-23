@@ -1844,6 +1844,11 @@
       "description": "Harness engineering official style beginner tutorial, from 0 to 1"
     },
     {
+      "name": "jeffallan--claude-skills",
+      "source": "./jeffallan--claude-skills",
+      "description": "66 Specialized Skills for Full-Stack Developers. Transform Claude Code into your expert pair programmer."
+    },
+    {
       "name": "mark3labs--mcp-go",
       "source": "./mark3labs--mcp-go",
       "description": "A Go implementation of the Model Context Protocol (MCP), enabling seamless integration between LLM applications and external data sources and tools."
@@ -180139,6 +180144,11 @@
       "description": "A modular alternative to Clawdbot / OpenClaw that runs in containers for security. Connects to WhatsApp, has memory, scheduled jobs, and runs directly on Anthropic's Agents SDK"
     },
     {
+      "name": "robeortz--signal-light-demo",
+      "source": "./robeortz--signal-light-demo",
+      "description": "A project for managing TuyaOpen"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -209044,6 +209054,21 @@
       "description": "Inspired by react dev tools - in browser blazor tools to make your life easier."
     },
     {
+      "name": "yazelin--ipas-ai-quiz",
+      "source": "./yazelin--ipas-ai-quiz",
+      "description": "iPAS AI \u61c9\u7528\u898f\u5283\u5e2b\u7dda\u4e0a\u6a21\u64ec\u8003\u7df4\u7fd2(611 \u984c\u6b77\u5c46\u8003\u53e4\u984c,\u7d14\u524d\u7aef + Cloudflare \u540c\u6b65)"
+    },
+    {
+      "name": "team-telnyx--telnyx-code-examples",
+      "source": "./team-telnyx--telnyx-code-examples",
+      "description": "Production-ready code examples for Telnyx AI Communications Infrastructure \u2014 Voice AI, SMS, SIP, and IoT APIs"
+    },
+    {
+      "name": "yazelin--ipas-ai-quiz",
+      "source": "./yazelin--ipas-ai-quiz",
+      "description": "iPAS AI \u61c9\u7528\u898f\u5283\u5e2b\u7dda\u4e0a\u6a21\u64ec\u8003\u7df4\u7fd2(611 \u984c\u6b77\u5c46\u8003\u53e4\u984c,\u7d14\u524d\u7aef + Cloudflare \u540c\u6b65)"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225362,6 +225387,21 @@
       "name": "phuhao00--bony-agent",
       "source": "./phuhao00--bony-agent",
       "description": "\ud83e\udd16 Bony Agent \u2014 Full-stack AI content production & distribution platform. One person can run an entire team: AI chat \u00b7 image/video/music generation \u00b7 smart editing \u00b7 scheduled multi-platform publishing"
+    },
+    {
+      "name": "billy1437--kilo-carrier",
+      "source": "./billy1437--kilo-carrier",
+      "description": "kilo_carrier"
+    },
+    {
+      "name": "oubakiou--md2idx",
+      "source": "./oubakiou--md2idx",
+      "description": "md2idx \u2014 Markdown to indexed JSON. Slice big docs with jq, feed LLMs only what they need."
+    },
+    {
+      "name": "oubakiou--md2idx",
+      "source": "./oubakiou--md2idx",
+      "description": "md2idx \u2014 Markdown to indexed JSON. Slice big docs with jq, feed LLMs only what they need."
     },
     {
       "name": "cheerhuan--save-your-token",
