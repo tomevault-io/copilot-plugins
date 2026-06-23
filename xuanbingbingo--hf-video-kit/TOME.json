@@ -1,0 +1,44 @@
+{
+  "name": "hf-video-kit",
+  "owner": "xuanbingbingo",
+  "repo": "hf-video-kit",
+  "description": "\u7ed9 Claude Code \u7684\u53e3\u64ad\u89c6\u9891\u81ea\u52a8\u751f\u4ea7\u7ebf\uff1a\u6587\u6848\u2192\u914d\u97f3\u2192\u573a\u666f\u8def\u7531\u2192\u9010\u5b57\u5b57\u5e55\u2192\u6210\u7247\uff0c\u652f\u6301 AI \u539f\u751f\u4e0e\u771f\u4eba\u539f\u58f0\u53cc\u6a21\u5f0f",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xuanbingbingo/hf-video-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-23T14:30:45Z"
+}
