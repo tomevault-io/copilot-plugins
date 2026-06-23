@@ -7,11 +7,11 @@ A managed, orchestrated harness for running Claude Code as a safe, repeatable ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yotamleo/Himmel](https://github.com/yotamleo/Himmel).
+Original source: `AGENTS.md` in [yotamleo/Himmel](https://github.com/yotamleo/Himmel).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
