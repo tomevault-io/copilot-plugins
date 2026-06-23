@@ -1,9 +1,9 @@
 {
   "name": "jeffallan--claude-skills",
   "displayName": "claude-skills",
-  "description": "claude-skills",
+  "description": "66 Specialized Skills for Full-Stack Developers. Transform Claude Code into your expert pair programmer.",
   "version": "1.0.0",
   "author": "Jeffallan",
-  "homepage": "https://tomevault.io/claim/Jeffallan",
+  "homepage": "https://github.com/Jeffallan/claude-skills",
   "skills": []
 }
