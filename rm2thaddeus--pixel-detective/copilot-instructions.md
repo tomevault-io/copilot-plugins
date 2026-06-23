@@ -1,99 +1,196 @@
-## feature-request
+## mcp-browser-tools-setup
 
-> Feature implementation rules
+> Use of browser tools MCP for UI debugging
 
-# Feature Implementation with MCP Integration
+# MCP Browser Tools Setup & Troubleshooting Protocol
 
-*Reference: Follow `@use-mcp-servers` for detailed MCP workflows and best practices*
+## 🚨 CRITICAL: Browser Tools MCP Requires 3-Component Setup
 
-## **MCP-Enhanced Feature Development Workflow**
+Sprint 10 revealed that Browser Tools MCP is **COMPLEX** and fails silently without proper setup. **ALWAYS verify all components**.
 
-### **1. Map Context & Discovery**
-- **Project Structure**: `tree -L 4 --gitignore | cat` - identify modules/APIs
-- **Existing Patterns**: Use `codebase_search` to find similar features and reusable components
-- **Dependencies Analysis**: Use `grep_search` for exact symbol/import matches
-- **Documentation Research**: Use **Context7 MCP** to gather API docs for new libraries/frameworks needed
-- **Database Schema Review**: Use **Supabase MCP** to understand existing data structures if feature involves data
+### **✅ MANDATORY 3-COMPONENT VERIFICATION:**
 
-### **2. Specify Requirements & Architecture**
-- Break feature into **testable criteria**, **use cases**, and **constraints**
-- **Frontend Requirements**: Consider UI/UX implications, accessibility standards
-- **Backend Requirements**: Define data models, API endpoints, business logic
-- **Integration Points**: Identify touchpoints with existing systems
-- **Performance Criteria**: Set measurable performance benchmarks
-- **Documentation Standards**: Plan documentation updates per `@use-mcp-servers` guidelines
+#### 1. Node.js Version Check (CRITICAL)
+```bash
+# ✅ MUST be Node.js v18+ (requires native fetch API)
+node --version  # Must show v18.0.0 or higher
 
-### **3. Leverage Reusability & Research**
-- **Component Discovery**: Use `codebase_search` and `grep_search` to find reusable patterns
-- **Library Integration**: Use **Context7 MCP** to:
-  - Research best practices for new dependencies
-  - Find code examples and implementation patterns
-  - Understand API compatibility and version requirements
-- **Database Patterns**: Use **Supabase MCP** to identify reusable query patterns and schema structures
-- **Similar Features**: Use **GitHub MCP** to search project history for related implementations
+# ❌ If version is <18:
+nvm install 20
+nvm use 20
+nvm alias default 20
+```
 
-### **4. Plan Changes & MCP Strategy**
-- **File Inventory**: List all files to edit/create with specific paths
-- **Cross-Cutting Concerns**: Identify impacts on authentication, logging, error handling, testing
-- **MCP Server Selection**: Choose appropriate MCP servers per `@use-mcp-servers` task-based guide:
-  - **Frontend Features**: Browser Tools + Browser Control MCP for testing/validation
-  - **Backend Features**: Supabase MCP for database operations
-  - **API Integration**: Context7 MCP for documentation + GitHub MCP for implementation
-  - **Full-Stack Features**: Coordinate multiple MCP servers
-- **Branch Strategy**: Plan feature branch creation via **GitHub MCP**
+#### 2. Browser Tools Server (Port 3025)
+```bash
+# ✅ Start the middleware server
+npx @agentdeskai/browser-tools-server@latest
 
-### **5. Implement Precisely & Systematically**
-- **Step-by-Step Implementation**: Document with file paths, line numbers, code snippets
-- **Database Changes**: Use **Supabase MCP** with transactions for schema modifications
-- **Frontend Implementation**: 
-  - Code changes via **GitHub MCP**
-  - Real-time testing with **Browser Tools MCP** (console logs, performance audits)
-  - Visual validation with screenshots
-- **API Development**: Reference **Context7 MCP** docs during implementation
-- **Version Control**: Use **GitHub MCP** for incremental commits following Conventional Commits style
-- **Documentation**: Update inline documentation per `@commentsoverwrite` rules
+# ✅ Verify server is running
+netstat -an | findstr 3025  # Windows
+lsof -i :3025              # Mac/Linux
 
-### **6. Validate & Stabilize**
-- **Test Scenarios**: Define comprehensive test cases covering:
-  - **Functional Testing**: Core feature behavior
-  - **Integration Testing**: Cross-system interactions
-  - **Performance Testing**: Use **Browser Tools MCP** for frontend performance audits
-  - **Accessibility Testing**: Run `mcp_browser-tools_runAccessibilityAudit`
-  - **Database Testing**: Validate data integrity via **Supabase MCP**
-- **Quality Assurance**:
-  - **Frontend**: Run full audit suite (`mcp_browser-tools_runAuditMode`)
-  - **Backend**: Execute validation queries and check constraints
-  - **Security**: Review authentication/authorization impacts
-- **Monitoring & Rollback**:
-  - Set up logging and monitoring via **GitHub MCP** commits
-  - Document rollback procedures
-  - Use **Browser Tools MCP** for ongoing performance monitoring
-  - Update `/docs/CHANGELOG.md` via **GitHub MCP**
+# ✅ Should see output like:
+# TCP    0.0.0.0:3025    0.0.0.0:0    LISTENING
+```
 
-## **Feature Type → MCP Strategy Matrix**
+#### 3. Chrome Extension Installation
+```bash
+# ✅ Clone and install extension
+git clone https://github.com/AgentDeskAI/browser-tools-mcp.git
+cd browser-tools-mcp
+```
 
-| **Feature Type** | **Primary MCP** | **Secondary MCPs** | **Key Activities** |
-|------------------|-----------------|-------------------|-------------------|
-| **UI/UX Features** | Browser Tools | Browser Control, GitHub | Audits, screenshots, visual testing, commits |
-| **Data Features** | Supabase | GitHub, Context7 | Schema changes, queries, documentation, version control |
-| **API Integration** | Context7 | GitHub, Browser Tools | Documentation research, implementation, testing |
-| **Full-Stack Features** | GitHub | All MCPs | Coordinated development across all layers |
-| **Performance Features** | Browser Tools | Supabase, GitHub | Performance audits, query optimization, monitoring |
+**Chrome Extension Steps:**
+1. Open Chrome → `chrome://extensions/`
+2. Enable "Developer mode" (top right toggle)
+3. Click "Load unpacked"
+4. Select folder: `browser-tools-mcp/chrome-extension`
+5. Verify "BrowserToolsMCP" appears in extensions list
 
-## **Feature Completion Checklist**
+### **🔍 VERIFICATION PROTOCOL:**
 
-- [ ] **Code Quality**: All implementations follow project standards
-- [ ] **Testing**: Comprehensive test coverage with MCP-assisted validation
-- [ ] **Documentation**: Updated per `@use-mcp-servers` documentation standards
-- [ ] **Performance**: Browser Tools MCP audits pass acceptance criteria
-- [ ] **Accessibility**: Accessibility audit results meet standards
-- [ ] **Database**: Schema changes properly migrated and validated
-- [ ] **Version Control**: Clean commit history with conventional commit messages
-- [ ] **Monitoring**: Logging and rollback procedures in place
+#### Test MCP Connection
+```bash
+# ✅ Test 1: Basic MCP connectivity
+mcp_browser-tools_wipeLogs
+# Expected: "All logs cleared successfully"
+
+# ✅ Test 2: Server communication
+mcp_browser-tools_getConsoleLogs
+# Expected: [] (empty array) or actual logs
+
+# ✅ Test 3: Full functionality (requires extension)
+mcp_browser-tools_takeScreenshot
+# Expected: Screenshot data or specific error message
+```
+
+#### Extension Connection Check
+1. Open any webpage (e.g., https://example.com)
+2. Open Chrome DevTools (F12)
+3. Look for "BrowserTools" tab in DevTools
+4. Verify connection status shows "Connected"
+
+### **❌ COMMON ERROR PATTERNS & FIXES:**
+
+#### Error: "Failed to discover browser connector server"
+```bash
+# ✅ FIX: Start Browser Tools Server
+npx @agentdeskai/browser-tools-server@latest
+
+# ✅ Verify server is accessible
+curl http://localhost:3025/health
+```
+
+#### Error: "Chrome extension not connected"
+```bash
+# ✅ FIX: Reinstall extension
+# 1. Remove extension from chrome://extensions/
+# 2. Reload unpacked extension
+# 3. Refresh target webpage
+# 4. Check DevTools for "BrowserTools" tab
+```
+
+#### Error: "Error taking screenshot"
+```bash
+# ✅ FIX: Extension installed but not connected to active tab
+# 1. Refresh the target webpage
+# 2. Open DevTools (F12)
+# 3. Check "BrowserTools" tab connection status
+# 4. Try screenshot again
+```
+
+#### Error: Node.js version issues
+```bash
+# ✅ FIX: Upgrade Node.js
+# Browser Tools MCP requires Node.js v18+ for native fetch API
+nvm install 20
+nvm alias default 20
+node --version  # Verify v20.x.x
+```
+
+### **🚀 BEFORE USING BROWSER TOOLS MCP:**
+
+**ALWAYS run this verification sequence:**
+
+```bash
+# 1. Check Node.js version
+node --version  # Must be ≥18.0.0
+
+# 2. Start server (in separate terminal)
+npx @agentdeskai/browser-tools-server@latest &
+
+# 3. Verify server
+curl http://localhost:3025/health || echo "Server not running"
+
+# 4. Test basic MCP connectivity
+mcp_browser-tools_wipeLogs
+
+# 5. Open target webpage and check extension
+# - Go to target website
+# - Open DevTools (F12)
+# - Verify "BrowserTools" tab exists and shows "Connected"
+
+# 6. Test full functionality
+mcp_browser-tools_takeScreenshot
+```
+
+### **🔧 DEVELOPMENT WORKFLOW:**
+
+#### Session Start Checklist
+- [ ] **Node.js ≥18**: `node --version` shows v18+
+- [ ] **Server Running**: Port 3025 accessible
+- [ ] **Extension Loaded**: Chrome extension installed and enabled
+- [ ] **Extension Connected**: DevTools shows "BrowserTools" tab
+- [ ] **MCP Responsive**: `wipeLogs` returns success
+- [ ] **Full Functionality**: Screenshot works
+
+#### Debugging Browser Tools Issues
+```bash
+# Debug server connectivity
+curl -v http://localhost:3025/health
+
+# Debug extension installation
+chrome://extensions/ # Check if "BrowserToolsMCP" is listed
+
+# Debug extension connection
+# Open DevTools → BrowserTools tab → Check connection status
+
+# Debug MCP server communication
+mcp_browser-tools_getConsoleLogs  # Should not timeout
+```
+
+### **📋 TROUBLESHOOTING FLOWCHART:**
+
+```
+Browser Tools MCP not working?
+├── Is Node.js ≥18? → NO: Upgrade Node.js
+├── Is server running on 3025? → NO: Start server
+├── Is Chrome extension installed? → NO: Install extension
+├── Is extension connected? → NO: Refresh page + DevTools
+└── All YES → Should work, check specific error message
+```
+
+### **⚠️ CRITICAL NOTES:**
+
+1. **Three Components Required**: MCP server, Browser Tools server, Chrome extension
+2. **Node.js Version Critical**: v18+ required for fetch API
+3. **Server Must Stay Running**: Keep `browser-tools-server` process alive
+4. **Extension Per Session**: May need to refresh extension connection
+5. **DevTools Required**: Extension only works with DevTools open
+
+### **🎯 SUCCESS INDICATORS:**
+
+- Node.js shows v18+ when running `node --version`
+- Port 3025 responds to health checks
+- Chrome extensions page shows "BrowserToolsMCP" installed
+- DevTools shows "BrowserTools" tab with "Connected" status
+- `mcp_browser-tools_wipeLogs` returns success message
+- `mcp_browser-tools_takeScreenshot` returns image data
 
 ---
 
-*This enhanced workflow integrates all available MCP servers for efficient, well-documented, and thoroughly tested feature development.* 
+*Browser Tools MCP setup is complex but powerful when properly configured. Always verify all three components.*
 
 ---
 > Source: [rm2thaddeus/Pixel_Detective](https://github.com/rm2thaddeus/Pixel_Detective) — distributed by [TomeVault](https://tomevault.io).
