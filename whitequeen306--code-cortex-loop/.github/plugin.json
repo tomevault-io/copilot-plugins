@@ -1,0 +1,9 @@
+{
+  "name": "whitequeen306--code-cortex-loop",
+  "displayName": "code-cortex-loop",
+  "description": "One-command AI code quality pipeline: review, security, tests, performance, simplify & cleanup. Health scores, CI gate. For Cursor, Claude Code, Qoder, Trae.",
+  "version": "1.0.0",
+  "author": "whitequeen306",
+  "homepage": "https://github.com/whitequeen306/code-cortex-loop",
+  "skills": []
+}
