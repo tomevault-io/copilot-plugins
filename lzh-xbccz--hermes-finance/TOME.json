@@ -4,7 +4,7 @@
   "repo": "hermes-finance",
   "description": "\u9762\u5411 AI Agent \u7684\u591a\u5e02\u573a\u91d1\u878d\u5206\u6790\u6846\u67b6\uff1aMCP + Skills \u53cc\u5165\u53e3\uff0c\u4e03\u7ef4\u8bc1\u636e\u6295\u7968 + \u7f20\u8bba\u786e\u8ba4\uff0c\u8986\u76d6\u52a0\u5bc6\u8d27\u5e01\u3001\u671f\u8d27\u3001\u5916\u6c47\u3001A\u80a1\u3001\u7f8e\u80a1",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lzh-xbccz/hermes-finance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T02:33:01Z"
+  "distributed_at": "2026-06-23T02:33:31Z"
 }
