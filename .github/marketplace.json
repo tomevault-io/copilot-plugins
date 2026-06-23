@@ -82229,6 +82229,16 @@
       "description": "blave-quant-skill"
     },
     {
+      "name": "ilbertt--bun-sqlgen",
+      "source": "./ilbertt--bun-sqlgen",
+      "description": "Types generator for your Bun.sql queries"
+    },
+    {
+      "name": "ilbertt--bun-sqlgen",
+      "source": "./ilbertt--bun-sqlgen",
+      "description": "Types generator for your Bun.sql queries"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
