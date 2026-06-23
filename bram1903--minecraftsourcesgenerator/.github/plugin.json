@@ -1,0 +1,9 @@
+{
+  "name": "bram1903--minecraftsourcesgenerator",
+  "displayName": "MinecraftSourcesGenerator",
+  "description": "Decompile any Minecraft: Java Edition release (1.7.2 -> latest) into clean, navigable, properly-named source trees for plugin and mod development.",
+  "version": "1.0.0",
+  "author": "Bram1903",
+  "homepage": "https://github.com/Bram1903/MinecraftSourcesGenerator",
+  "skills": []
+}
