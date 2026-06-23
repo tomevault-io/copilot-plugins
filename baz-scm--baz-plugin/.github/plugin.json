@@ -1,0 +1,9 @@
+{
+  "name": "baz-scm--baz-plugin",
+  "displayName": "baz-plugin",
+  "description": "Install baz and empower your coding agent to be faster, cheaper and more precise",
+  "version": "1.0.0",
+  "author": "baz-scm",
+  "homepage": "https://github.com/baz-scm/baz-plugin",
+  "skills": []
+}
