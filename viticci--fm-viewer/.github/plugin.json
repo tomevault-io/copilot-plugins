@@ -1,0 +1,9 @@
+{
+  "name": "viticci--fm-viewer",
+  "displayName": "fm-viewer",
+  "description": "FM Viewer \u2014 local explorer for Apple Intelligence Report exports (Siri prompts, foundation model requests, PCC traces)",
+  "version": "1.0.0",
+  "author": "viticci",
+  "homepage": "https://github.com/viticci/fm-viewer",
+  "skills": []
+}
