@@ -4,7 +4,7 @@
   "repo": "OpenTake",
   "description": "Cross-platform, open-source AI video editor \u2014 a GPL-3.0 community fork of Palmier Pro. Rust core + Tauri 2 + React, FFmpeg + wgpu.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/appergb/OpenTake",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-23T06:30:57Z"
+  "distributed_at": "2026-06-23T06:32:00Z"
 }
