@@ -1,0 +1,44 @@
+{
+  "name": "FAMAS-Skill",
+  "owner": "xiangyupaiso",
+  "repo": "FAMAS-Skill",
+  "description": "Fund Analysis Multi-Agent System (FAMAS) - \u57fa\u4e8e\u591aAgent\u534f\u4f5c\u7684\u57fa\u91d1\u6df1\u5ea6\u5206\u6790\u3001\u7b5b\u9009\u4e0e\u6301\u7eed\u76d1\u63a7\u51b3\u7b56\u652f\u6301\u7cfb\u7edf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiangyupaiso/FAMAS-Skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-23T02:33:57Z"
+}
