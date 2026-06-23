@@ -7,11 +7,11 @@ airx
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [amotion-ai/airx](https://github.com/amotion-ai/airx).
+Original source: `CLAUDE.md` in [amotion-ai/airx](https://github.com/amotion-ai/airx).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
