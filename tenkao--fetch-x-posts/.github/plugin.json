@@ -1,0 +1,9 @@
+{
+  "name": "tenkao--fetch-x-posts",
+  "displayName": "fetch-x-posts",
+  "description": "xAI API \u3067 X \u30dd\u30b9\u30c8\u3092\u53d6\u5f97\u3057\u3088\u3046\u3068\u3057\u305f\u3051\u3069\u3067\u304d\u306a\u304b\u3063\u305f",
+  "version": "1.0.0",
+  "author": "tenkao",
+  "homepage": "https://github.com/tenkao/fetch-x-posts",
+  "skills": []
+}
