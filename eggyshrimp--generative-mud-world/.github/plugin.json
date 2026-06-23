@@ -1,0 +1,9 @@
+{
+  "name": "eggyshrimp--generative-mud-world",
+  "displayName": "generative-mud-world",
+  "description": "\u4ee5 LLM \u4e3a\u89c4\u5219\u5f15\u64ce\u7684 MUD \u6846\u67b6\uff0c\u6570\u636e\u4e0e\u4ee3\u7801\u786c\u5206\u79bb",
+  "version": "1.0.0",
+  "author": "eggyShrimp",
+  "homepage": "https://github.com/eggyShrimp/generative-mud-world",
+  "skills": []
+}
