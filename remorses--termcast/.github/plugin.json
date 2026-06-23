@@ -1,0 +1,14 @@
+{
+  "name": "remorses--termcast",
+  "displayName": "termcast",
+  "description": "Turn any Raycast extension into a terminal user interface (TUI). Powered by opentui & react",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/termcast",
+  "skills": [
+    {
+      "name": "termcast",
+      "description": ""
+    }
+  ]
+}
