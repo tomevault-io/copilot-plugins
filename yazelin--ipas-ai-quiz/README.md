@@ -7,11 +7,11 @@ iPAS AI 應用規劃師線上模擬考練習(611 題歷屆考古題,純前端 + 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yazelin/ipas-ai-quiz](https://github.com/yazelin/ipas-ai-quiz).
+Original source: `CLAUDE.md` in [yazelin/ipas-ai-quiz](https://github.com/yazelin/ipas-ai-quiz).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
