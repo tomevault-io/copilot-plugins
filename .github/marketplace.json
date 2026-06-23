@@ -107869,6 +107869,16 @@
       "description": "with"
     },
     {
+      "name": "spongebaby-124--cloudmusic-auto-player",
+      "source": "./spongebaby-124--cloudmusic-auto-player",
+      "description": "\u7f51\u6613\u4e91\u97f3\u4e50MCP\u667a\u80fd\u63a7\u5236\u5668\uff0c\u63d0\u4f9b\u5168\u5c40\u5feb\u6377\u952e\u3001\u641c\u7d22\u5355\u66f2\u64ad\u653e\u3001\u641c\u7d22\u6b4c\u5355\u64ad\u653e\u3001\u81ea\u5b9a\u4e49\u6b4c\u5355\u7ba1\u7406\u3001\u6bcf\u65e5\u63a8\u8350\u548c\u79c1\u4eba\u6f2b\u6e38\u7b49\u4e30\u5bcc\u529f\u80fd\u3002"
+    },
+    {
+      "name": "spongebaby-124--cloudmusic-auto-player",
+      "source": "./spongebaby-124--cloudmusic-auto-player",
+      "description": "\u7f51\u6613\u4e91\u97f3\u4e50MCP\u667a\u80fd\u63a7\u5236\u5668\uff0c\u63d0\u4f9b\u5168\u5c40\u5feb\u6377\u952e\u3001\u641c\u7d22\u5355\u66f2\u64ad\u653e\u3001\u641c\u7d22\u6b4c\u5355\u64ad\u653e\u3001\u81ea\u5b9a\u4e49\u6b4c\u5355\u7ba1\u7406\u3001\u6bcf\u65e5\u63a8\u8350\u548c\u79c1\u4eba\u6f2b\u6e38\u7b49\u4e30\u5bcc\u529f\u80fd\u3002"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -168584,6 +168594,11 @@
       "description": "Proof-of-done for AI coding agents. Local evidence receipts for Codex, Claude Code, Cursor, and GitHub Actions."
     },
     {
+      "name": "gscalzo--nimbo",
+      "source": "./gscalzo--nimbo",
+      "description": "A quick an nimble AI Coding Agent in Swift"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -180147,6 +180162,11 @@
       "name": "robeortz--signal-light-demo",
       "source": "./robeortz--signal-light-demo",
       "description": "A project for managing TuyaOpen"
+    },
+    {
+      "name": "daidaolemei--ai-investing",
+      "source": "./daidaolemei--ai-investing",
+      "description": "ai-investing"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -324674,11 +324694,6 @@
       "description": "ccm-backend"
     },
     {
-      "name": "trentleslie--kraken-chatbot",
-      "source": "./trentleslie--kraken-chatbot",
-      "description": "kraken-chatbot"
-    },
-    {
       "name": "perongh--mdtest-cli",
       "source": "./perongh--mdtest-cli",
       "description": "Run .test.md files using coding agent."
@@ -346197,6 +346212,16 @@
       "name": "polgimre--mve-webshop",
       "source": "./polgimre--mve-webshop",
       "description": "mve_webshop"
+    },
+    {
+      "name": "trentleslie--kraken-chatbot",
+      "source": "./trentleslie--kraken-chatbot",
+      "description": "kraken-chatbot"
+    },
+    {
+      "name": "strognoff--minimax-image",
+      "source": "./strognoff--minimax-image",
+      "description": "minimax-image"
     }
   ]
 }
