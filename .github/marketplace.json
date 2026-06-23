@@ -225234,6 +225234,11 @@
       "description": "Snapshots data parsed from https://mfm.warhammer-community.com/"
     },
     {
+      "name": "freebsd-ask--gitbook-pdf-export",
+      "source": "./freebsd-ask--gitbook-pdf-export",
+      "description": "Export gitbook to PDF"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
