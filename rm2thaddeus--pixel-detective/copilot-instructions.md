@@ -1,215 +1,236 @@
-## sprint-lessons-learned
+## sprint-planning
 
-> This rule captures the **most expensive mistakes** from Sprint 10 that must **NEVER be repeated**.
+> sprint planning and execution
 
-# Sprint 10 Critical Lessons Learned - Master Reference
+# Updated Sprint Planning Rules - Post Reorganization
 
-## 🚨 CRITICAL FAILURES & SOLUTIONS FROM SPRINT 10
+**Purpose:** Comprehensive sprint planning workflow using organized documentation structure and MCP server integration.
 
-This rule captures the **most expensive mistakes** from Sprint 10 that must **NEVER be repeated**.
+---
 
-### **🔥 LESSON 1: Hydration Errors Are Project Killers**
+## 📋 **New Sprint Documentation Structure**
 
-**Problem:** Recurring Next.js hydration errors with Chakra UI dark mode consumed **days** of debugging time.
+Based on the reorganization completed, all sprint planning should follow this logical structure:
 
-**Root Cause:** Server/client HTML mismatches from theme system and browser-only APIs.
+### **Organized Documentation Hierarchy**
+```
+docs/sprints/
+├── sprint-{number}/           # Sprint-specific deliverables
+│   ├── README.md             # Sprint overview and status
+│   ├── PRD.md                # Product Requirements Document  
+│   ├── technical-implementation-plan.md  # Technical details
+│   ├── completion-summary.md  # Post-sprint results
+│   ├── QUICK_REFERENCE.md    # Fast lookup guide
+│   ├── PERFORMANCE_BREAKTHROUGH.md  # Major technical achievements
+│   └── transition-to-next-sprint.md  # Handoff planning
+├── planning/                  # Cross-sprint coordination  
+│   ├── SPRINT_STATUS.md      # Multi-sprint tracking
+│   ├── sprint-coordination.md # Transition protocols
+│   └── sprint-transition-notes.md # Planning coordination
+└── templates/                 # Reusable templates
+    ├── create-sprint.md      # Sprint setup guide
+    └── PRD-template.md       # PRD template
+```
 
-**✅ PREVENTION PROTOCOL:**
+### **Project-Level vs Sprint-Level Documents**
+
+**✅ Keep in main `/docs/` (Project-Wide):**
+- `PROJECT_STATUS.md` - Overall project health dashboard
+- `README.md` - Project overview  
+- `roadmap.md` - Long-term development planning
+- `architecture.md` - Technical architecture
+- `CLI_ENTERPRISE_VISION.md` - Enterprise strategy
+
+**✅ Move to `/docs/sprints/` (Sprint-Specific):**
+- All sprint deliverables and documentation
+- Performance breakthrough reports
+- Sprint transition planning
+- Cross-sprint coordination tracking
+
+---
+
+## 🚀 **Updated Sprint Planning Workflow**
+
+### **Phase 1: Sprint Setup** (Updated Directory Creation)
+
+#### **1.1 Create Sprint Structure**
 ```bash
-# BEFORE any theme or client-side work:
-1. Set up proper ColorModeScript in <head>
-2. Use mounted state pattern for client-only components  
-3. Test in production build: npm run build && npm start
-4. NEVER use window/localStorage in render phase
+# Create new sprint directory  
+mkdir -p docs/sprints/sprint-{number}
+
+# Initialize with templates
+cp docs/sprints/templates/PRD-template.md docs/sprints/sprint-{number}/PRD.md
+
+# Create initial README from template
+# (Use Sprint 02 README.md as reference)
 ```
 
-**🚫 FORBIDDEN:** Any theme changes without hydration testing.
+#### **1.2 Sprint Preparation Checklist**
+Based on new coordination structure:
+
+- [ ] **Previous Sprint Closure**
+  - [ ] All documents in `/docs/sprints/sprint-{prev}/` complete
+  - [ ] Transition document created (e.g., `transition-to-sprint-{next}.md`)
+  - [ ] Architecture stability verified
+  
+- [ ] **New Sprint Setup**  
+  - [ ] Sprint folder created: `/docs/sprints/sprint-{number}/`
+  - [ ] README.md created with sprint overview
+  - [ ] Prerequisites verified from previous sprint
+  - [ ] Success criteria defined
+
+- [ ] **Cross-Sprint Coordination**
+  - [ ] Update `/docs/sprints/planning/SPRINT_STATUS.md`
+  - [ ] Update `/docs/sprints/planning/sprint-coordination.md`
+  - [ ] Verify no architectural conflicts
+
+### **Phase 2: PRD Generation** (Enhanced with Logical Structure)
+
+#### **2.1 PRD Development Process**
+Follow the established pattern from Sprint 01 → Sprint 02:
+
+1. **Extract from Roadmap**: Use `/docs/roadmap.md` sprint sections as PRD foundation
+2. **Architecture Foundation**: Reference completed sprint deliverables  
+3. **Prerequisites Validation**: Verify dependencies from previous sprints
+4. **Success Criteria**: Build on established patterns
+
+#### **2.2 PRD Template Usage**
+Use `/docs/sprints/templates/PRD-template.md` but adapt based on sprint type:
+
+**For Foundation Sprints** (like Sprint 01):
+- Focus on architecture and integration
+- Emphasize component organization
+- Performance preservation requirements
+
+**For Enhancement Sprints** (like Sprint 02):  
+- Build on established foundation
+- Focus on polish and user experience
+- Visual design and interaction requirements
+
+**For Feature Sprints** (like Sprint 03+):
+- New functionality implementation
+- Advanced capabilities development
+- Enterprise and scalability features
+
+### **Phase 3: Sprint Execution** (Updated Documentation Standards)
+
+#### **3.1 Documentation During Sprint**
+**Daily Documentation Requirements:**
+- Update sprint README.md with progress
+- Log major decisions in sprint folder
+- Create technical implementation plans as needed
+
+**Weekly Documentation Requirements:**
+- Update `/docs/sprints/planning/SPRINT_STATUS.md`
+- Review and update PROJECT_STATUS.md links
+- Coordinate with cross-sprint planning
+
+#### **3.2 Sprint Deliverable Standards**
+
+**Required Sprint Documents** (Based on Sprint 01 Pattern):
+- [ ] **README.md** - Sprint overview, objectives, what was built
+- [ ] **PRD.md** - Requirements, success criteria, implementation plan  
+- [ ] **technical-implementation-plan.md** - Detailed technical approach
+- [ ] **completion-summary.md** - Results, achievements, lessons learned
+- [ ] **QUICK_REFERENCE.md** - Fast lookup guide for sprint outcomes
+
+**Optional Sprint Documents** (As Needed):
+- [ ] **PERFORMANCE_BREAKTHROUGH.md** - Major technical achievements
+- [ ] **transition-to-next-sprint.md** - Handoff planning and next steps
+
+### **Phase 4: Sprint Completion** (Updated Closure Process)
+
+#### **4.1 Sprint Documentation Closure**
+1. **Complete all required documents** in sprint folder
+2. **Update cross-sprint tracking** in `/docs/sprints/planning/`
+3. **Update project-level status** in `/docs/PROJECT_STATUS.md`
+4. **Create transition document** for next sprint
+5. **Verify documentation links** across all documents
+
+#### **4.2 Architecture Validation Protocol**
+- [ ] **System functionality verified** - All screens/features working
+- [ ] **Performance requirements met** - Benchmarks maintained
+- [ ] **Integration patterns established** - For next sprint foundation
+- [ ] **Documentation accuracy confirmed** - Matches implementation
 
 ---
 
-### **🔥 LESSON 2: Backend Circular Imports Crash Everything**
+## 🎯 **Sprint Planning Quality Standards**
 
-**Problem:** Circular imports between `main.py` and routers caused backend startup failures.
+### **Documentation Quality Checklist**
+- [ ] **Logical Organization**: All sprint documents in appropriate folders
+- [ ] **Cross-Reference Accuracy**: All links between documents working
+- [ ] **Template Consistency**: Following established patterns
+- [ ] **Project Integration**: Sprint docs link to project-level docs
+- [ ] **Future Sprint Preparation**: Clear handoff for next sprint
 
-**Root Cause:** Routers importing from main.py to access shared state.
-
-**✅ PREVENTION PROTOCOL:**
-```python
-# ALWAYS use dependency injection pattern:
-# 1. Create dependencies.py with AppState class
-# 2. Use @asynccontextmanager lifespan in main.py
-# 3. Routers import dependencies, NEVER main.py
-# 4. Use Depends() for all shared resources
-```
-
-**🚫 FORBIDDEN:** Any router importing from main.py or app.state access.
+### **Architectural Continuity Standards**
+- [ ] **Foundation Preservation**: Previous sprint achievements maintained
+- [ ] **Progressive Enhancement**: New capabilities build on existing base
+- [ ] **Performance Consistency**: Core metrics preserved (e.g., <1s startup)
+- [ ] **Component Integration**: New components follow established patterns
 
 ---
 
-### **🔥 LESSON 3: MCP Browser Tools Setup Is Complex**
+## 📚 **Integration with Existing MCP Workflows**
 
-**Problem:** Browser Tools MCP failures wasted hours on "simple" debugging tasks.
+### **Updated MCP Integration Points**
 
-**Root Cause:** 3-component setup (Node.js v18+, server on 3025, Chrome extension) with silent failures.
+**GitHub MCP Usage:**
+- Create issues in sprint context: `labels: ["sprint-{number}", "epic/story"]`
+- Reference sprint documentation in commit messages
+- Use sprint folders for all project documentation commits
 
-**✅ PREVENTION PROTOCOL:**
-```bash
-# BEFORE using Browser Tools MCP:
-1. Verify Node.js ≥18: node --version
-2. Start server: npx @agentdeskai/browser-tools-server@latest
-3. Install Chrome extension in developer mode
-4. Test basic MCP: mcp_browser-tools_wipeLogs
-5. Verify full functionality: mcp_browser-tools_takeScreenshot
-```
+**Context7 MCP Research:**
+- Document findings in sprint-specific folders
+- Reference research in sprint PRD documents
+- Create implementation guides within sprint context
 
-**🚫 FORBIDDEN:** Using Browser Tools MCP without 3-component verification.
+**Browser Tools MCP:**
+- Use for sprint-specific testing and validation
+- Document testing results in sprint completion summaries
+- Performance audits relevant to sprint objectives
 
----
+### **Cross-Sprint Coordination Rules**
 
-### **🔥 LESSON 4: Manual API State Management Creates Bugs**
+**Sprint Handoff Protocol:**
+1. Complete current sprint documentation
+2. Update `/docs/sprints/planning/sprint-coordination.md`
+3. Create transition document in current sprint folder  
+4. Prepare next sprint folder and initial documentation
+5. Verify architectural stability and dependencies
 
-**Problem:** Complex manual `useEffect` + `useState` patterns for API calls introduced race conditions and inconsistent state.
-
-**Root Cause:** Not using React Query for server state management.
-
-**✅ PREVENTION PROTOCOL:**
-```tsx
-// ALWAYS use React Query for server state:
-// 1. All API calls through useQuery/useMutation
-// 2. Centralized error handling with query client
-// 3. Automatic caching and background refetching
-// 4. Consistent loading/error states
-```
-
-**🚫 FORBIDDEN:** Manual useEffect for API calls when React Query is available.
+**Documentation Maintenance:**
+- Weekly update of cross-sprint status tracking
+- Monthly review of project-level documentation
+- Quarterly archival assessment of completed sprints
 
 ---
 
-### **🔥 LESSON 5: Point ID Validation Causes Silent Failures**
+## 🚀 **Benefits of New Structure**
 
-**Problem:** Qdrant rejected SHA256 hashes as point IDs, causing ingestion pipeline failures.
+### **Improved Organization**
+- **Clear Separation**: Sprint-specific vs project-wide documentation
+- **Easy Navigation**: Logical folder structure with clear hierarchy
+- **Scalability**: Pattern established for unlimited future sprints
+- **Maintainability**: Each sprint self-contained with all deliverables
 
-**Root Cause:** Qdrant only accepts UUIDs or unsigned integers as point IDs.
+### **Enhanced Planning**
+- **Template-Driven**: Consistent approach across all sprints
+- **Cross-Sprint Coordination**: Central planning hub for dependencies
+- **Architectural Continuity**: Clear progression from sprint to sprint
+- **Documentation Quality**: Established patterns ensure completeness
 
-**✅ PREVENTION PROTOCOL:**
-```python
-# ALWAYS use UUID for Qdrant point IDs:
-point_id = str(uuid.uuid4())  # ✅ Valid
-# Store SHA256 in payload for deduplication:
-payload = {"file_hash": sha256_hash}  # ✅ For deduplication
-```
-
-**🚫 FORBIDDEN:** Using SHA256 hashes directly as Qdrant point IDs.
-
----
-
-## 🎯 **MANDATORY PRE-WORK CHECKLISTS**
-
-### **Before Frontend Theme Work:**
-- [ ] ColorModeScript properly placed in layout.tsx `<head>`
-- [ ] Mounted state pattern ready for client-only components
-- [ ] suppressHydrationWarning only on `<html>` tag
-- [ ] Production build test environment available
-
-### **Before Backend Development:**
-- [ ] Dependencies.py module exists with AppState class
-- [ ] Lifespan manager configured in main.py
-- [ ] Router files use Depends(), not direct imports
-- [ ] Circular import detection tool configured
-
-### **Before MCP Usage:**
-- [ ] Node.js version ≥18 verified
-- [ ] MCP-specific setup requirements documented
-- [ ] Browser Tools server setup if needed
-- [ ] Fallback strategies for MCP failures
-
-### **Before API Integration:**
-- [ ] React Query installed and configured
-- [ ] Query client with error handling setup
-- [ ] API client with interceptors configured
-- [ ] Error boundary components ready
-
-### **Before Vector Database Work:**
-- [ ] Point ID generation strategy using UUIDs
-- [ ] Payload structure for metadata storage
-- [ ] Deduplication logic using hashes in payload
-- [ ] Qdrant schema validation
+### **Better Team Coordination**  
+- **Sprint Focus**: All sprint work organized in one location
+- **Historical Reference**: Easy access to past sprint deliverables
+- **Planning Coordination**: Central hub for multi-sprint planning
+- **Knowledge Transfer**: Complete documentation for onboarding
 
 ---
 
-## 🚀 **EMERGENCY DEBUGGING PROTOCOLS**
 
-### **Hydration Error Recovery:**
-```bash
-1. Clear Next.js cache: rm -rf .next
-2. Check browser console for specific mismatch
-3. Apply mounted state pattern to problematic component
-4. Test in production build
-5. If persistent: Dynamic import with ssr: false
-```
-
-### **Backend Startup Failure Recovery:**
-```bash
-1. Check for circular imports: python -m py_compile main.py
-2. Verify dependencies.py exists and is importable
-3. Check lifespan function is properly async
-4. Test router imports independently
-5. Use dependency injection everywhere
-```
-
-### **MCP Connection Failure Recovery:**
-```bash
-1. Verify Node.js version: node --version ≥18
-2. Check server status: curl localhost:3025/health
-3. Reinstall Chrome extension if needed
-4. Test basic MCP connectivity first
-5. Check specific MCP server requirements
-```
-
----
-
-## 📊 **SUCCESS METRICS TO PREVENT REGRESSION**
-
-### **Development Speed Indicators:**
-- **Hydration Issues:** Zero hydration errors in console
-- **Backend Startup:** Clean uvicorn startup logs
-- **MCP Reliability:** First-try MCP tool success rate >90%
-- **API Integration:** No manual useEffect for server state
-- **Database Operations:** No point ID validation errors
-
-### **Quality Gates:**
-- [ ] **Build Success:** npm run build passes without warnings
-- [ ] **Startup Clean:** Backend starts without circular import errors
-- [ ] **MCP Ready:** All required MCP components verified before use
-- [ ] **Query Consistency:** All server state managed by React Query
-- [ ] **Database Validation:** All point IDs are valid UUIDs
-
----
-
-## 🔄 **CONTINUOUS IMPROVEMENT PROTOCOL**
-
-### **After Each Sprint:**
-1. **Document New Failures:** Add patterns that caused delays
-2. **Update Prevention Checklists:** Include new verification steps
-3. **Refine Setup Protocols:** Streamline complex setup processes
-4. **Test Emergency Procedures:** Verify recovery protocols work
-5. **Share Knowledge:** Update team on critical patterns
-
-### **Before Each New Feature:**
-1. **Review Relevant Lessons:** Check applicable failure patterns
-2. **Run Prevention Checklists:** Verify setup requirements
-3. **Test Integration Points:** Validate critical dependencies
-4. **Prepare Rollback Plan:** Document recovery procedures
-
----
-
-**⚠️ CRITICAL REMINDER:** These lessons represent **real development time lost**. Following these protocols prevents repeating the same expensive mistakes.
-
-**Status:** LIVING DOCUMENT - Update after each sprint with new critical lessons.
-
----
-
-*Sprint 10 taught us these lessons the hard way. Don't repeat these mistakes.*
+**🎯 Goal**: These updated rules ensure sprint planning follows the logical structure established during the reorganization, providing clear separation between sprint-specific and project-wide concerns while maintaining architectural continuity and documentation quality. 
 
 ---
 > Source: [rm2thaddeus/Pixel_Detective](https://github.com/rm2thaddeus/Pixel_Detective) — distributed by [TomeVault](https://tomevault.io).
