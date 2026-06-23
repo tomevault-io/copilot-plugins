@@ -180229,6 +180229,16 @@
       "description": "lucky-ui"
     },
     {
+      "name": "devnomad-byte--techneering",
+      "source": "./devnomad-byte--techneering",
+      "description": "techneering"
+    },
+    {
+      "name": "devnomad-byte--techneering",
+      "source": "./devnomad-byte--techneering",
+      "description": "techneering"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
