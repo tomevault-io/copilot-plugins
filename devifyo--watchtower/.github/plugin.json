@@ -1,0 +1,9 @@
+{
+  "name": "devifyo--watchtower",
+  "displayName": "watchtower",
+  "description": "Production-safe, driver-agnostic dashboard for Laravel crons, queues and errors \u2014 that also lets you fix them.",
+  "version": "1.0.0",
+  "author": "Devifyo",
+  "homepage": "https://github.com/Devifyo/watchtower",
+  "skills": []
+}
