@@ -1,0 +1,44 @@
+{
+  "name": "vibe-coding-starter-kit",
+  "owner": "backblaze-b2-samples",
+  "repo": "vibe-coding-starter-kit",
+  "description": "Starter kit for vibe coders building apps with file uploads and object storage. This full-stack dashboard template integrates with Backblaze B2 Cloud Storage and includes secure upload flows, file browsing, and basic storage management.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/backblaze-b2-samples/vibe-coding-starter-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T12:35:04Z"
+}
