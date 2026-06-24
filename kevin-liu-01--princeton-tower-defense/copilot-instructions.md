@@ -1,48 +1,41 @@
-## seo-og-metadata
+## typescript-react
 
-> SEO, Open Graph, and GEO conventions for Princeton Tower Defense
+> TypeScript and React code conventions
 
 
-# SEO / Open Graph / GEO Conventions
+# TypeScript & React Style
 
-## Meta Tag Lengths
+## TypeScript
 
-| Tag | Max Length |
+- `type` over `interface` unless declaration merging is needed.
+- `unknown` over `any`. If `any` is unavoidable, add a `// eslint-disable-next-line` with justification.
+- Use `satisfies` to validate object shapes without widening.
+- Import types with `import type`.
+- Derive types from values with `as const`, not the other way around.
+- Discriminated unions with exhaustive `switch` for domain variants.
+- Prefer `const` over `let`; never use `var`. Use `===` over `==`.
+- Named exports over default exports (except Next.js page/layout components).
+- Template literals over string concatenation.
+- Early returns over deeply nested conditionals.
+- No ternaries for control flow — ternaries are for value selection only.
+- If a function name contains "and", split it into two functions.
+
+## React
+
+- Hooks must always be called at the top level, before any conditional logic. Same order, every render.
+- No hooks inside conditions, loops, event handlers, or after early returns. Move hooks above the conditional.
+- `useEffect`, `useMemo`, and `useCallback` dependency arrays must include every referenced value. Never suppress the exhaustive-deps warning — restructure instead.
+- Name custom hooks after what they return, not what they do internally.
+- Self-closing components: `<Foo />` not `<Foo></Foo>`.
+
+## Hard Limits
+
+| Limit | Value |
 |---|---|
-| Title tag | 60 characters |
-| OG title | 60 characters |
-| Meta description | 160 characters |
-| OG description | 160 characters |
-| Twitter title | 70 characters |
-
-Truncated titles lose keyword placement and look broken in link previews.
-
-## OG Image
-
-- Dimensions: 1200×630px (required for `summary_large_image` cards).
-- Use the canonical production URL (`SITE_URL`) for image asset references in OG image generation, not `VERCEL_URL` (which varies per deployment).
-- Keep OG image generation on edge runtime for speed.
-
-## Schema (JSON-LD)
-
-- Place in page `<head>` via server rendering, not client-side injection.
-- Use one `@graph` block with `@id` references.
-- Baseline: Person + WebSite + page-specific type + BreadcrumbList.
-- Mirror on-page entities in schema fields (`name`, `description`, `about`, `sameAs`).
-- Use absolute URLs and ISO dates.
-
-## Entity Placement (5 Required Rules)
-
-1. Primary keyword in at least 4 of 6: URL slug, title tag, meta/social title, H1, H2, body intro.
-2. Primary entity and supporting entities in title, H1, intro, core sections, and schema.
-3. Entity gap analysis: add missing relevant entities from competitors.
-4. JSON-LD schema server-rendered in `<head>`.
-5. Schema entity reinforcement: mirror on-page entities inside schema fields.
-
-## AI Bot Crawlability
-
-Allow: Googlebot, Bingbot, GPTBot, ChatGPT-User, ClaudeBot, PerplexityBot.
-Do not blanket-block AI bots if the goal is AI visibility.
+| Function length | 70 lines |
+| File length | 500 lines (excluding tests) |
+| Nesting depth | 3 levels |
+| Argument count | 5 |
 
 ---
 > Source: [Kevin-Liu-01/Princeton-Tower-Defense](https://github.com/Kevin-Liu-01/Princeton-Tower-Defense) — distributed by [TomeVault](https://tomevault.io).
