@@ -22569,6 +22569,11 @@
       "description": "A flow-immersive Nvim colorscheme with fluorescent details."
     },
     {
+      "name": "paytonjjones--bsharp",
+      "source": "./paytonjjones--bsharp",
+      "description": "bsharp"
+    },
+    {
       "name": "863401402--she-love-me",
       "source": "./863401402--she-love-me",
       "description": "\u5979\u4e0d\u4e00\u6837   \u604b\u60c5\u5206\u6790\u5ba4 \u2014 \u5fae\u4fe1\u804a\u5929\u8bb0\u5f55\u604b\u7231\u5206\u6790 Agent Skill  \uff08\u66fe\u7528\u540d\uff1a\u5979\u7231\u6211\u5417\uff1f\uff09"
@@ -62799,6 +62804,11 @@
       "description": "nvwa-skill"
     },
     {
+      "name": "ralforion--orionbelt-semantic-layer",
+      "source": "./ralforion--orionbelt-semantic-layer",
+      "description": "Open-source Semantic Sidecar for AI, analytics, and governed data systems. Compiles declarative YAML models into optimized SQL, semantic context, KPIs, and DQ rules."
+    },
+    {
       "name": "hw-native-sys--pypto",
       "source": "./hw-native-sys--pypto",
       "description": "A community-driven pypto implementation "
@@ -93044,6 +93054,11 @@
       "description": "platform-skills"
     },
     {
+      "name": "realistic-farming--fs25-npcfavor",
+      "source": "./realistic-farming--fs25-npcfavor",
+      "description": "Living NPC neighbors with AI field schedules and a favor system for Farming Simulator 25. Build relationships with your neighbors \u2014 or risk their goodwill."
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -98257,6 +98272,16 @@
       "name": "zhaohongxuan--journal-partner",
       "source": "./zhaohongxuan--journal-partner",
       "description": "Obsidian plugin \u2013 highlight journal timestamps with custom colors and readonly protection"
+    },
+    {
+      "name": "thiagomiranda3--getman",
+      "source": "./thiagomiranda3--getman",
+      "description": "My own HTTP Client app"
+    },
+    {
+      "name": "thiagomiranda3--getman",
+      "source": "./thiagomiranda3--getman",
+      "description": "My own HTTP Client app"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -129864,6 +129889,11 @@
       "description": "A fast native commit and diff code editor"
     },
     {
+      "name": "josesiqueira--zotero-watch-folder",
+      "source": "./josesiqueira--zotero-watch-folder",
+      "description": "Zotero 7/8/9 plugin: watch a folder and auto-import PDFs with metadata, dedup, smart rules, and optional two-way collection sync with safe delete."
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -138352,6 +138382,16 @@
       "name": "j-wang--knowledge-agent-template",
       "source": "./j-wang--knowledge-agent-template",
       "description": "This is a generic knowledge agent for creating a RAG pipeline from source docs, etc."
+    },
+    {
+      "name": "thegreencedar--codestory",
+      "source": "./thegreencedar--codestory",
+      "description": "CodeStory is a codebase grounding engine that preindexes code into a knowledge graph and enriches it with semantic context. Paired with coding agents, it results in fewer tokens, fewer tool calls, and"
+    },
+    {
+      "name": "thegreencedar--codestory",
+      "source": "./thegreencedar--codestory",
+      "description": "CodeStory is a codebase grounding engine that preindexes code into a knowledge graph and enriches it with semantic context. Paired with coding agents, it results in fewer tokens, fewer tool calls, and"
     },
     {
       "name": "vm--nila-code",
@@ -180882,6 +180922,11 @@
       "name": "flinedev--recall",
       "source": "./flinedev--recall",
       "description": "Never lose context in Claude Code again \u2014 automatic context recovery after compaction and manual session recall"
+    },
+    {
+      "name": "whmmy--lolarena",
+      "source": "./whmmy--lolarena",
+      "description": "A benchmark that scores frontier LLMs on real League-of-Legends match prediction."
     },
     {
       "name": "yschimke--compose-ai-tools",
