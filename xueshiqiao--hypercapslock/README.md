@@ -7,11 +7,11 @@ Make your Capslock Powerful again!
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [XueshiQiao/HyperCapslock](https://github.com/XueshiQiao/HyperCapslock).
+Original source: `AGENTS.md` in [XueshiQiao/HyperCapslock](https://github.com/XueshiQiao/HyperCapslock).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
