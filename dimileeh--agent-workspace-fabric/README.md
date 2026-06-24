@@ -7,11 +7,11 @@ Control plane that runs AI coding agents (Codex, Claude Code, Gemini, OpenCode, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dimileeh/agent-workspace-fabric](https://github.com/dimileeh/agent-workspace-fabric).
+Original source: `AGENTS.md` in [dimileeh/agent-workspace-fabric](https://github.com/dimileeh/agent-workspace-fabric).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
