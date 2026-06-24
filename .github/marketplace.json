@@ -15324,6 +15324,11 @@
       "description": "\u5728\u9e3f\u8499\u4e0a\u8fd0\u884cLinux Shell\uff0c\u652f\u6301\u624b\u673a\u3001\u5e73\u677f\u30012in1/PC\u3001TV\uff08Run Linux Shell on HarmonyOS, Phone/Pad/2in1/PC,TV are supported\uff09"
     },
     {
+      "name": "lingyuanli--multigen",
+      "source": "./lingyuanli--multigen",
+      "description": "Multi-agent end-to-end application - General-purpose artificial intelligence agent for multimodal agent collaboration"
+    },
+    {
       "name": "meodai--heerich",
       "source": "./meodai--heerich",
       "description": "Tiny engine for 3D voxel scenes rendered to SVG \u2014 boolean ops, oblique/perspective cameras, zero dependencies. Inspired by the geometric cardboard sculptures of Erwin Heerich."
@@ -20507,6 +20512,11 @@
       "name": "vtemian--micode",
       "source": "./vtemian--micode",
       "description": "RPI OpenCode Plugin"
+    },
+    {
+      "name": "vakovalskii--neuraldeskapp",
+      "source": "./vakovalskii--neuraldeskapp",
+      "description": "Versatile Almost Local, Eventually Reasonable Assistant \ud83d\udd2b"
     },
     {
       "name": "ex-machina-co--opencode-anthropic-auth",
@@ -161284,6 +161294,11 @@
       "description": "A Fabric combat and progression overhaul that keeps Minecraft close to vanilla while expanding weapons, armor, enchantments, and combat utility."
     },
     {
+      "name": "diyanqi--copygen",
+      "source": "./diyanqi--copygen",
+      "description": "\u8f6f\u8457\u901a - \u4e00\u952e\u751f\u6210\u8f6f\u8457\u7533\u62a5\u6750\u6599"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -181042,6 +181057,11 @@
       "name": "randomsynergy17--arcane-mcp-server",
       "source": "./randomsynergy17--arcane-mcp-server",
       "description": "A comprehensive Model Context Protocol server that exposes the Arcane Docker Management API to AI assistants like Claude. 165+ tools covering containers, images, volumes, networks, Docker Compose stac"
+    },
+    {
+      "name": "todd866--codex-adversary",
+      "source": "./todd866--codex-adversary",
+      "description": "Recruit Codex (GPT) as an automatic adversarial reviewer inside Claude Code \u2014 diversity of thought, Claude has lead."
     },
     {
       "name": "yschimke--compose-ai-tools",
