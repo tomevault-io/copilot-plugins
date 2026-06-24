@@ -1,0 +1,9 @@
+{
+  "name": "matthiastjong--shellgate-legacy",
+  "displayName": "shellgate-legacy",
+  "description": "Self hosted secure gateway for AI agents. One token. Full control. Complete audit trail.",
+  "version": "1.0.0",
+  "author": "matthiastjong",
+  "homepage": "https://github.com/matthiastjong/shellgate-legacy",
+  "skills": []
+}
