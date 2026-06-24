@@ -1,0 +1,9 @@
+{
+  "name": "yukimemi--yui",
+  "displayName": "yui",
+  "description": "Target-as-truth dotfiles manager. Edit your live configs, source repo updates automatically via hardlink/junction/symlink.",
+  "version": "1.0.0",
+  "author": "yukimemi",
+  "homepage": "https://github.com/yukimemi/yui",
+  "skills": []
+}
