@@ -1,54 +1,48 @@
-## isometric-prism-footprints
+## seo-og-metadata
 
-> Enforce square footprints for drawIsometricPrism on structural elements
+> SEO, Open Graph, and GEO conventions for Princeton Tower Defense
 
 
-# Isometric Prism Footprints Must Be Square
+# SEO / Open Graph / GEO Conventions
 
-When calling `drawIsometricPrism(ctx, x, y, width, depth, height, ...)` for **structural elements** (foundations, platforms, pedestals, altars, tower bases, building bases), the `width` and `depth` parameters **MUST be equal** (square footprint).
+## Meta Tag Lengths
 
-## Why
+| Tag | Max Length |
+|---|---|
+| Title tag | 60 characters |
+| OG title | 60 characters |
+| Meta description | 160 characters |
+| OG description | 160 characters |
+| Twitter title | 70 characters |
 
-A 2:1 isometric grid produces diamond edges at 26.57°. When `width ≠ depth`, the diamond edges tilt to non-standard angles (e.g., ~20.6° for 32×24), causing visible misalignment with the rest of the isometric scene.
+Truncated titles lose keyword placement and look broken in link previews.
 
-Only a **square footprint** (`width === depth`) guarantees the correct 2:1 isometric diamond angle.
+## OG Image
 
-## Allowed Exceptions
+- Dimensions: 1200×630px (required for `summary_large_image` cards).
+- Use the canonical production URL (`SITE_URL`) for image asset references in OG image generation, not `VERCEL_URL` (which varies per deployment).
+- Keep OG image generation on edge runtime for speed.
 
-Rectangular footprints (`width ≠ depth`) are acceptable ONLY for elements that are **intentionally non-square by design**:
+## Schema (JSON-LD)
 
-- Walls and fences (long and thin)
-- Sign boards and plaques (wide and shallow)
-- Beams and lintels (elongated)
-- Crates and boxes (slight variation is fine)
-- Cannon bodies and similar equipment
-- Rubble and debris (irregular shapes)
-- Arch blocks / voussoirs
+- Place in page `<head>` via server rendering, not client-side injection.
+- Use one `@graph` block with `@id` references.
+- Baseline: Person + WebSite + page-specific type + BreadcrumbList.
+- Mirror on-page entities in schema fields (`name`, `description`, `about`, `sameAs`).
+- Use absolute URLs and ISO dates.
 
-## Examples
+## Entity Placement (5 Required Rules)
 
-```typescript
-// GOOD — square footprint for a foundation
-drawIsometricPrism(ctx, cx, cy, 28 * s, 28 * s, 5 * s, topColor, leftColor, rightColor);
+1. Primary keyword in at least 4 of 6: URL slug, title tag, meta/social title, H1, H2, body intro.
+2. Primary entity and supporting entities in title, H1, intro, core sections, and schema.
+3. Entity gap analysis: add missing relevant entities from competitors.
+4. JSON-LD schema server-rendered in `<head>`.
+5. Schema entity reinforcement: mirror on-page entities inside schema fields.
 
-// GOOD — square footprint for an altar base
-const altarSize = 7 * s;
-drawIsometricPrism(ctx, ax, ay, altarSize, altarSize, 3 * s, topColor, leftColor, rightColor);
+## AI Bot Crawlability
 
-// BAD — non-square foundation causes misaligned iso diamond
-drawIsometricPrism(ctx, cx, cy, 32 * s, 24 * s, 5 * s, topColor, leftColor, rightColor);
-
-// OK — intentionally rectangular wall
-drawIsometricPrism(ctx, wx, wy, 16 * s, 3 * s, 8 * s, topColor, leftColor, rightColor);
-```
-
-## Quick Check
-
-When adding or reviewing a `drawIsometricPrism` call, ask:
-
-1. Is this a structural/base element? → **width must equal depth**
-2. Is this intentionally elongated (wall, beam, sign)? → rectangular is fine
-3. Does the foundation use symmetric overhang? → e.g., `(W + 2) * s` for both width and depth, not `(W + 2, D + 1)`
+Allow: Googlebot, Bingbot, GPTBot, ChatGPT-User, ClaudeBot, PerplexityBot.
+Do not blanket-block AI bots if the goal is AI visibility.
 
 ---
 > Source: [Kevin-Liu-01/Princeton-Tower-Defense](https://github.com/Kevin-Liu-01/Princeton-Tower-Defense) — distributed by [TomeVault](https://tomevault.io).
