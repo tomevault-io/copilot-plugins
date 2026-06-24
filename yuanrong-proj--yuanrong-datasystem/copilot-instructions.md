@@ -1,0 +1,38 @@
+## repo-context
+
+> Shared repository context entrypoint for yuanrong-datasystem
+
+
+# Repository Context
+
+You are working in a high-performance, highly-available distributed cache and infrastructure system.
+
+Treat every implementation, bugfix, review, and design task as infrastructure engineering work, not CRUD work.
+Performance, concurrency safety, memory safety, recovery correctness, and operational availability are repository-level
+requirements.
+
+Use the shared repository-local context under `.repo_context/`.
+
+Read order:
+
+1. `.repo_context/README.md`
+2. `.repo_context/index.md`
+3. `.repo_context/maintenance.md`
+4. `.repo_context/generated/repo_index.md`
+5. `.repo_context/modules/overview/engineering-principles.md`
+6. relevant `.repo_context/modules/<domain>/*.md` or `.repo_context/playbooks/<category>/...`
+
+Rules:
+
+- source code is the final source of truth;
+- `.repo_context/` is an index and memory layer, not a substitute for reading code;
+- if touched module structure or behavior changed, update `.repo_context/` in the same task when practical;
+- if context is stale, correct it instead of ignoring the mismatch.
+- before adding new logic, search for existing helpers, utilities, status/error patterns, thread pools, persistence
+  helpers, recovery paths, and test harnesses;
+- identify hot-path, concurrency, ownership, persistence, recovery, and failover risk before making claims or edits;
+- before claiming completion, use `.repo_context/playbooks/upkeep/ai-self-verification.md`.
+
+---
+> Source: [yuanrong-proj/yuanrong-datasystem](https://github.com/yuanrong-proj/yuanrong-datasystem) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-24 -->
