@@ -1,0 +1,9 @@
+{
+  "name": "oss-garage--bedrock",
+  "displayName": "bedrock",
+  "description": "Experimental Hypervisor Purpose-Built for Deterministic Software Testing ",
+  "version": "1.0.0",
+  "author": "oss-garage",
+  "homepage": "https://github.com/oss-garage/bedrock",
+  "skills": []
+}
