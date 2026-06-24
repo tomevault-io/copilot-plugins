@@ -1,0 +1,9 @@
+{
+  "name": "buildhaus--workbench",
+  "displayName": "workbench",
+  "description": "This repository includes a workbench that can be used to work on requirements, features or bugs in different projects.",
+  "version": "1.0.0",
+  "author": "buildhaus",
+  "homepage": "https://github.com/buildhaus/workbench",
+  "skills": []
+}
