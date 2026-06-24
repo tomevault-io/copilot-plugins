@@ -180364,6 +180364,11 @@
       "description": "A bucket for your thoughts"
     },
     {
+      "name": "openai--planttalk",
+      "source": "./openai--planttalk",
+      "description": "Give your houseplants a voice with ChatGPT."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
