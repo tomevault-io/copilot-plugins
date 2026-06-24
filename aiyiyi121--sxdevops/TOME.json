@@ -1,0 +1,44 @@
+{
+  "name": "sxdevops",
+  "owner": "aiyiyi121",
+  "repo": "sxdevops",
+  "description": "SxDevOps \u662f\u4e00\u4e2a\u9762\u5411\u771f\u5b9e\u8fd0\u7ef4\u73b0\u573a\u7684\u5f00\u6e90\u667a\u80fd\u8fd0\u7ef4 Agent \u5e73\u53f0\u3002\u5b83\u628a \u53ef\u89c2\u6d4b\u6027\u3001\u4e8b\u4ef6\u4e2d\u5fc3\u3001\u4efb\u52a1\u4e2d\u5fc3\u3001\u5de5\u5355\u5ba1\u6279\u3001\u5bb9\u5668\u7ba1\u7406\u3001RBAC \u7b49\u5e73\u53f0\u80fd\u529b\u7ec4\u7ec7\u6210 Agent \u53ef\u8c03\u7528\u3001\u53ef\u5ba1\u8ba1\u3001\u53ef\u786e\u8ba4\u7684\u8fd0\u7ef4\u5de5\u4f5c\u6d41\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aiyiyi121/sxdevops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T09:32:21Z"
+}
