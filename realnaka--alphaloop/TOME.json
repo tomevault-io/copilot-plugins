@@ -1,0 +1,44 @@
+{
+  "name": "alphaloop",
+  "owner": "realnaka",
+  "repo": "alphaloop",
+  "description": "\u4eba\u673a\u6295\u7814\u95ed\u73af\uff1a\u4f60\u51fa\u65b9\u5411\uff0cAI \u5e2e\u4f60\u67e5\u8bc1/\u9009\u80a1/\u8bb0\u8d26\uff0c\u51b3\u7b56\u6743\u5f52\u4eba\u3002A human-agent investment-research operating model as an installable skill suite.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/realnaka/alphaloop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T06:38:30Z"
+}
