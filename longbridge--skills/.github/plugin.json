@@ -1,0 +1,14 @@
+{
+  "name": "longbridge--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "longbridge",
+  "homepage": "https://github.com/longbridge/skills",
+  "skills": [
+    {
+      "name": "longbridge-ml-strategy",
+      "description": ""
+    }
+  ]
+}
