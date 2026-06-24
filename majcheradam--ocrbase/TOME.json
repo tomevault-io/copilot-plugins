@@ -4,7 +4,7 @@
   "repo": "ocrbase",
   "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/majcheradam/ocrbase",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T04:37:01Z"
+  "distributed_at": "2026-06-24T04:38:27Z"
 }
