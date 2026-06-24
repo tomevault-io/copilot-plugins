@@ -1,0 +1,9 @@
+{
+  "name": "realistic-farming--fs25-seasonalcropstress",
+  "displayName": "FS25_SeasonalCropStress",
+  "description": "Soil moisture simulation, crop stress, and irrigation infrastructure for Farming Simulator 25. Real drought mechanics \u2014 water your fields or lose your harvest.",
+  "version": "1.0.0",
+  "author": "Realistic-Farming",
+  "homepage": "https://github.com/Realistic-Farming/FS25_SeasonalCropStress",
+  "skills": []
+}
