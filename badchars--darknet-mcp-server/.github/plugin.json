@@ -1,0 +1,9 @@
+{
+  "name": "badchars--darknet-mcp-server",
+  "displayName": "darknet-mcp-server",
+  "description": "66-tool MCP server for dark web intelligence \u2014 breach data, ransomware tracking, Tor .onion access, malware analysis, blockchain intel, exploit search, stealer logs",
+  "version": "1.0.0",
+  "author": "badchars",
+  "homepage": "https://github.com/badchars/darknet-mcp-server",
+  "skills": []
+}
