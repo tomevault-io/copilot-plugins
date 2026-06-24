@@ -1,0 +1,9 @@
+{
+  "name": "fhryzal--solana-auditor-skill",
+  "displayName": "solana-auditor-skill",
+  "description": "Production-grade Solana security auditor skill for AI agents",
+  "version": "1.0.0",
+  "author": "fhryzal",
+  "homepage": "https://github.com/fhryzal/solana-auditor-skill",
+  "skills": []
+}
