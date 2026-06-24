@@ -1,0 +1,9 @@
+{
+  "name": "souljorje--d3-maps",
+  "displayName": "d3-maps",
+  "description": "Interactive SVG maps toolkit for React 19 and Vue 3. Choropleths, markers, routes, bubble and zoomable maps with components powered by d3.js",
+  "version": "1.0.0",
+  "author": "souljorje",
+  "homepage": "https://github.com/souljorje/d3-maps",
+  "skills": []
+}
