@@ -7,11 +7,11 @@ A modern X11 server written from scratch in Rust.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [joske/yserver](https://github.com/joske/yserver).
+Original source: `CLAUDE.md` in [joske/yserver](https://github.com/joske/yserver).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
