@@ -1,0 +1,9 @@
+{
+  "name": "alseif0x--rustycore",
+  "displayName": "rustycore",
+  "description": "RustyCore \u2014 Open Source WoW server emulator in Rust (wotlk classic = 3.4.3.54261)",
+  "version": "1.0.0",
+  "author": "alseif0x",
+  "homepage": "https://github.com/alseif0x/rustycore",
+  "skills": []
+}
