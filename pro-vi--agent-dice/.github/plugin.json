@@ -1,0 +1,9 @@
+{
+  "name": "pro-vi--agent-dice",
+  "displayName": "agent-dice",
+  "description": "Probabilistic dice triggers for Claude Code hooks",
+  "version": "1.0.0",
+  "author": "pro-vi",
+  "homepage": "https://github.com/pro-vi/agent-dice",
+  "skills": []
+}
