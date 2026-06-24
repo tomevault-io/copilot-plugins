@@ -1,0 +1,9 @@
+{
+  "name": "lopadova--claude-mem-sync",
+  "displayName": "claude-mem-sync",
+  "description": "Team memory sharing for claude-mem \u2014 sync AI memories across developers, with Claude Code plugin, github action and knowledge distillation",
+  "version": "1.0.0",
+  "author": "lopadova",
+  "homepage": "https://github.com/lopadova/claude-mem-sync",
+  "skills": []
+}
