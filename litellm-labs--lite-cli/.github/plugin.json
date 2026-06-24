@@ -1,0 +1,9 @@
+{
+  "name": "litellm-labs--lite-cli",
+  "displayName": "lite-cli",
+  "description": "CLI tool wrapping claude code to help understand cost breakdown",
+  "version": "1.0.0",
+  "author": "LiteLLM-Labs",
+  "homepage": "https://github.com/LiteLLM-Labs/lite-cli",
+  "skills": []
+}
