@@ -1,0 +1,9 @@
+{
+  "name": "cyberash-dev--veche",
+  "displayName": "veche",
+  "description": "MCP server for bounded multi-agent committee meetings \u2014 Codex + Claude Code deliberate in rounds",
+  "version": "1.0.0",
+  "author": "cyberash-dev",
+  "homepage": "https://github.com/cyberash-dev/veche",
+  "skills": []
+}
