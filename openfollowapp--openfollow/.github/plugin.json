@@ -1,0 +1,9 @@
+{
+  "name": "openfollowapp--openfollow",
+  "displayName": "openfollow",
+  "description": "OpenFollow enables you to track people and objects in 3D to automate lighting, audio and media. Generate PosiStageNet (PSN) data using a gamepad, or utilize local AI detection based on camera input to",
+  "version": "1.0.0",
+  "author": "openfollowapp",
+  "homepage": "https://github.com/openfollowapp/openfollow",
+  "skills": []
+}
