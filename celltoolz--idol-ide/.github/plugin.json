@@ -1,0 +1,9 @@
+{
+  "name": "celltoolz--idol-ide",
+  "displayName": "idol-ide",
+  "description": "The Python IDE with a drag-and-drop Tkinter GUI Designer \u2014 plus LSP diagnostics, debugging, Git, and AI assistance, all built in.",
+  "version": "1.0.0",
+  "author": "celltoolz",
+  "homepage": "https://github.com/celltoolz/idol-ide",
+  "skills": []
+}
