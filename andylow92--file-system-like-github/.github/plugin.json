@@ -1,0 +1,9 @@
+{
+  "name": "andylow92--file-system-like-github",
+  "displayName": "file-system-like-github",
+  "description": "Self-improving, AI-native markdown vault you hand to an AI agent. GitHub-style file tree + Notion editing, exposed to Claude/Cursor via a built-in MCP server (24 tools): semantic & hybrid search, RAG,",
+  "version": "1.0.0",
+  "author": "andylow92",
+  "homepage": "https://github.com/andylow92/file-system-like-github",
+  "skills": []
+}
