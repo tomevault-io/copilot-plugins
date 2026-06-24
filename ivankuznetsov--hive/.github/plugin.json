@@ -1,0 +1,9 @@
+{
+  "name": "ivankuznetsov--hive",
+  "displayName": "hive",
+  "description": "An open-source agent workflow engine & meta-harness: orchestrates Claude, Codex, and Pi to run multi-step work as a folder-as-agent pipeline. Its flagship coding workflow turns a rough idea into a mer",
+  "version": "1.0.0",
+  "author": "ivankuznetsov",
+  "homepage": "https://github.com/ivankuznetsov/hive",
+  "skills": []
+}
