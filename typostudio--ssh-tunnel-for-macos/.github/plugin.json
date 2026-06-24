@@ -1,0 +1,9 @@
+{
+  "name": "typostudio--ssh-tunnel-for-macos",
+  "displayName": "ssh-tunnel-for-macos",
+  "description": "SSH Tunnel & Config Manager for macOS",
+  "version": "1.0.0",
+  "author": "TypoStudio",
+  "homepage": "https://github.com/TypoStudio/ssh-tunnel-for-macos",
+  "skills": []
+}
