@@ -1,0 +1,9 @@
+{
+  "name": "eliasecchig--a2a-gateway",
+  "displayName": "a2a-gateway",
+  "description": "Multi-channel gateway for A2A agents \u2014 one config, every messaging platform",
+  "version": "1.0.0",
+  "author": "eliasecchig",
+  "homepage": "https://github.com/eliasecchig/a2a-gateway",
+  "skills": []
+}
