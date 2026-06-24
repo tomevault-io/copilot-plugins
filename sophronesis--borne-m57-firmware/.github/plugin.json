@@ -1,0 +1,9 @@
+{
+  "name": "sophronesis--borne-m57-firmware",
+  "displayName": "borne-m57-firmware",
+  "description": "QMK/Vial firmware patches for the BORNE m57 (Knauf Corne 4x6) split keyboard - fixes broken LED matrix mapping and adds working QK_BOOT via PlumBL bootloader magic",
+  "version": "1.0.0",
+  "author": "sophronesis",
+  "homepage": "https://github.com/sophronesis/borne-m57-firmware",
+  "skills": []
+}
