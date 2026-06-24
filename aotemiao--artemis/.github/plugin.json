@@ -1,0 +1,9 @@
+{
+  "name": "aotemiao--artemis",
+  "displayName": "artemis",
+  "description": "\u5f00\u7bb1\u5373\u7528\u7684 Spring Cloud \u5fae\u670d\u52a1\u5de5\u7a0b\u5e95\u5ea7\uff0c\u5185\u7f6e DDD/COLA \u5206\u5c42\u3001\u53ef\u89c2\u6d4b\u6027\u3001\u6cbb\u7406\u811a\u672c\u4e0e\u9762\u5411 agentic \u5f00\u53d1\u7684 Harness Engineering\u3002",
+  "version": "1.0.0",
+  "author": "aotemiao",
+  "homepage": "https://github.com/aotemiao/artemis",
+  "skills": []
+}
