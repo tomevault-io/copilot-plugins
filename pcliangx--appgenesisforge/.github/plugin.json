@@ -1,0 +1,9 @@
+{
+  "name": "pcliangx--appgenesisforge",
+  "displayName": "AppGenesisForge",
+  "description": "Production-ready AI Agent Team template for Claude Code \u2014 14 specialists, Agile+Scrum+TDD enforced via skill/hook/DoD 3-layer (not wiki), PRD\u2192UAT 6 stage gates, 4-layer hook defense, multi-LLM (DeepSe",
+  "version": "1.0.0",
+  "author": "pcliangx",
+  "homepage": "https://github.com/pcliangx/AppGenesisForge",
+  "skills": []
+}
