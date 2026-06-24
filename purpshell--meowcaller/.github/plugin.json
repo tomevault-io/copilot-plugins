@@ -1,0 +1,9 @@
+{
+  "name": "purpshell--meowcaller",
+  "displayName": "meowcaller",
+  "description": "WhatsApp VoIP Go library for whatsmeow",
+  "version": "1.0.0",
+  "author": "purpshell",
+  "homepage": "https://github.com/purpshell/meowcaller",
+  "skills": []
+}
