@@ -4,7 +4,7 @@
   "repo": "offline-md-editor-viewer",
   "description": "Offline Markdown editor/viewer \u2014 single HTML browser app and portable Windows exe",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ishizakahiroshi/offline-md-editor-viewer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T23:09:59Z"
+  "distributed_at": "2026-06-24T23:11:33Z"
 }
