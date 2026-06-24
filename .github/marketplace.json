@@ -75609,6 +75609,21 @@
       "description": "Staging Room for benchmarking, orchestration and other operations for local Hermes AI Agent"
     },
     {
+      "name": "aotemiao--artemis",
+      "source": "./aotemiao--artemis",
+      "description": "\u5f00\u7bb1\u5373\u7528\u7684 Spring Cloud \u5fae\u670d\u52a1\u5de5\u7a0b\u5e95\u5ea7\uff0c\u5185\u7f6e DDD/COLA \u5206\u5c42\u3001\u53ef\u89c2\u6d4b\u6027\u3001\u6cbb\u7406\u811a\u672c\u4e0e\u9762\u5411 agentic \u5f00\u53d1\u7684 Harness Engineering\u3002"
+    },
+    {
+      "name": "aotemiao--artemis",
+      "source": "./aotemiao--artemis",
+      "description": "\u5f00\u7bb1\u5373\u7528\u7684 Spring Cloud \u5fae\u670d\u52a1\u5de5\u7a0b\u5e95\u5ea7\uff0c\u5185\u7f6e DDD/COLA \u5206\u5c42\u3001\u53ef\u89c2\u6d4b\u6027\u3001\u6cbb\u7406\u811a\u672c\u4e0e\u9762\u5411 agentic \u5f00\u53d1\u7684 Harness Engineering\u3002"
+    },
+    {
+      "name": "aotemiao--artemis",
+      "source": "./aotemiao--artemis",
+      "description": "\u5f00\u7bb1\u5373\u7528\u7684 Spring Cloud \u5fae\u670d\u52a1\u5de5\u7a0b\u5e95\u5ea7\uff0c\u5185\u7f6e DDD/COLA \u5206\u5c42\u3001\u53ef\u89c2\u6d4b\u6027\u3001\u6cbb\u7406\u811a\u672c\u4e0e\u9762\u5411 agentic \u5f00\u53d1\u7684 Harness Engineering\u3002"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -96389,6 +96404,16 @@
       "description": "docker-git"
     },
     {
+      "name": "crosspoint-reader--crosspoint-simulator",
+      "source": "./crosspoint-reader--crosspoint-simulator",
+      "description": "Simulate Crosspoint firmware without flashing onto your device"
+    },
+    {
+      "name": "crosspoint-reader--crosspoint-simulator",
+      "source": "./crosspoint-reader--crosspoint-simulator",
+      "description": "Simulate Crosspoint firmware without flashing onto your device"
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -98192,6 +98217,16 @@
       "name": "randolph2014--ai-team-platform",
       "source": "./randolph2014--ai-team-platform",
       "description": "AI Team Platform - \u4ece\u9700\u6c42\u5230\u4e0a\u7ebf\u7684\u81ea\u52a8\u5316\u4ea4\u4ed8\u5e73\u53f0"
+    },
+    {
+      "name": "zhaohongxuan--journal-partner",
+      "source": "./zhaohongxuan--journal-partner",
+      "description": "Obsidian plugin \u2013 highlight journal timestamps with custom colors and readonly protection"
+    },
+    {
+      "name": "zhaohongxuan--journal-partner",
+      "source": "./zhaohongxuan--journal-partner",
+      "description": "Obsidian plugin \u2013 highlight journal timestamps with custom colors and readonly protection"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -142759,6 +142794,11 @@
       "description": "Payload Components: registry-backed Payload CMS blocks installed wired, not pasted."
     },
     {
+      "name": "matthiastjong--shellgate-legacy",
+      "source": "./matthiastjong--shellgate-legacy",
+      "description": "Self hosted secure gateway for AI agents. One token. Full control. Complete audit trail."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -147797,6 +147837,31 @@
       "name": "nandinigoyaldev--open-source-contribution-atelier",
       "source": "./nandinigoyaldev--open-source-contribution-atelier",
       "description": "A full-stack learning and operations platform for teaching open source contribution from beginner to advanced levels"
+    },
+    {
+      "name": "agentra-labs--paper2product",
+      "source": "./agentra-labs--paper2product",
+      "description": "\"ArXiv to Product\" \u2014 A multi-agent CLI pipeline that analyzes research papers and generates ranked startup ideas with market analysis."
+    },
+    {
+      "name": "agentra-labs--paper2product",
+      "source": "./agentra-labs--paper2product",
+      "description": "\"ArXiv to Product\" \u2014 A multi-agent CLI pipeline that analyzes research papers and generates ranked startup ideas with market analysis."
+    },
+    {
+      "name": "aiki-sh--cli",
+      "source": "./aiki-sh--cli",
+      "description": "Agent agnostic framework for building autonomous coding workflows."
+    },
+    {
+      "name": "aiki-sh--cli",
+      "source": "./aiki-sh--cli",
+      "description": "Agent agnostic framework for building autonomous coding workflows."
+    },
+    {
+      "name": "oss-garage--bedrock",
+      "source": "./oss-garage--bedrock",
+      "description": "Experimental Hypervisor Purpose-Built for Deterministic Software Testing "
     },
     {
       "name": "lucas-acc--sancho-skills",
@@ -154197,6 +154262,11 @@
       "name": "celltoolz--idol-ide",
       "source": "./celltoolz--idol-ide",
       "description": "The Python IDE with a drag-and-drop Tkinter GUI Designer \u2014 plus LSP diagnostics, debugging, Git, and AI assistance, all built in."
+    },
+    {
+      "name": "lopadova--claude-mem-sync",
+      "source": "./lopadova--claude-mem-sync",
+      "description": "Team memory sharing for claude-mem \u2014 sync AI memories across developers, with Claude Code plugin, github action and knowledge distillation"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -168884,6 +168954,16 @@
       "description": "The Daimian Panel Android app provides quick, easy control of your devices on the go. \u5446\u5446\u9762\u677f\u5b89\u5353App\u7aef"
     },
     {
+      "name": "buildhaus--workbench",
+      "source": "./buildhaus--workbench",
+      "description": "This repository includes a workbench that can be used to work on requirements, features or bugs in different projects."
+    },
+    {
+      "name": "marcosmarf27--tecjustica",
+      "source": "./marcosmarf27--tecjustica",
+      "description": "tecjustica"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -180622,6 +180702,31 @@
       "name": "strike48-public--pick",
       "source": "./strike48-public--pick",
       "description": "Pick is a lightweight, headless penetration testing agent built with Dioxus, providing network reconnaissance, device discovery, and remote tool execution capabilities."
+    },
+    {
+      "name": "modem-dev--glance-agent-plugins",
+      "source": "./modem-dev--glance-agent-plugins",
+      "description": "Agent plugins for glance.sh \u2014 temporary image sharing for coding agents"
+    },
+    {
+      "name": "modem-dev--glance-agent-plugins",
+      "source": "./modem-dev--glance-agent-plugins",
+      "description": "Agent plugins for glance.sh \u2014 temporary image sharing for coding agents"
+    },
+    {
+      "name": "geeks-accelerator--ollama-herd",
+      "source": "./geeks-accelerator--ollama-herd",
+      "description": "Local AI load balancer for Ollama fleets \u2014 auto-discovery, smart routing, OpenAI-compatible API, zero config. Perfect for Mac Minis & Studios."
+    },
+    {
+      "name": "jerpint--woltspace",
+      "source": "./jerpint--woltspace",
+      "description": "gnaw, build, repeat \ud83e\uddab"
+    },
+    {
+      "name": "taka-avantgarde--due-diligence-engine",
+      "source": "./taka-avantgarde--due-diligence-engine",
+      "description": "AI-Powered Technical Due Diligence Engine for Venture Capital \u2014 Verify startup claims, detect AI-washing, score with confidence. Built on Claude Opus 4.6"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -209624,6 +209729,11 @@
       "description": "HanskiJay\u4e2a\u4eba\u4f7f\u7528\u7684Windows\u7cfb\u7edf\u7a0b\u5e8f\u5feb\u901f\u5b89\u88c5\u8f6f\u4ef6"
     },
     {
+      "name": "mangowhoiscloud--geode",
+      "source": "./mangowhoiscloud--geode",
+      "description": "GEODE v0.99.70: \ubc94\uc6a9 \uc790\uc728 \uc2e4\ud589 \uc5d0\uc774\uc804\ud2b8 \ud558\ub124\uc2a4 \u00b7 while(tool_use) AgenticLoop \u00b7 54 Tools + 13 MCP \u00b7 46 Hook Events (L1\u2192L4 \uc131\uc219\ub3c4) \u00b7 Autonomous Safety (\ube44\uc6a9 \uc0c1\ud55c + \ub798\uce6b + \ub2e4\uc591\uc131) \u00b7 5-Layer Verification \u00b7 3-Provider Resilience"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -226212,6 +226322,31 @@
       "name": "realnaka--alphaloop",
       "source": "./realnaka--alphaloop",
       "description": "\u4eba\u673a\u6295\u7814\u95ed\u73af\uff1a\u4f60\u51fa\u65b9\u5411\uff0cAI \u5e2e\u4f60\u67e5\u8bc1/\u9009\u80a1/\u8bb0\u8d26\uff0c\u51b3\u7b56\u6743\u5f52\u4eba\u3002A human-agent investment-research operating model as an installable skill suite."
+    },
+    {
+      "name": "harmont-dev--hyper",
+      "source": "./harmont-dev--hyper",
+      "description": "Distributed Firecracker VM Orchestrator written in Elixir"
+    },
+    {
+      "name": "lingyunjie321--text-to-sql-lite",
+      "source": "./lingyunjie321--text-to-sql-lite",
+      "description": "text-to-sql-lite"
+    },
+    {
+      "name": "abertnl--bili-ticket-get",
+      "source": "./abertnl--bili-ticket-get",
+      "description": "B\u7ad9\u4f1a\u5458\u8d2d\u62a2\u7968\u5de5\u5177"
+    },
+    {
+      "name": "harmont-dev--hyper",
+      "source": "./harmont-dev--hyper",
+      "description": "Distributed Firecracker VM Orchestrator written in Elixir"
+    },
+    {
+      "name": "real-simple-labs--parker-brain",
+      "source": "./real-simple-labs--parker-brain",
+      "description": "parker-brain"
     },
     {
       "name": "cheerhuan--save-your-token",
