@@ -1,0 +1,9 @@
+{
+  "name": "victor-software-house--pi-openai-proxy",
+  "displayName": "pi-openai-proxy",
+  "description": "Local OpenAI-compatible HTTP proxy built on pi's SDK",
+  "version": "1.0.0",
+  "author": "victor-software-house",
+  "homepage": "https://github.com/victor-software-house/pi-openai-proxy",
+  "skills": []
+}
