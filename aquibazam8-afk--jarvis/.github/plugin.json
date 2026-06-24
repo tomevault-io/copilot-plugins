@@ -1,0 +1,9 @@
+{
+  "name": "aquibazam8-afk--jarvis",
+  "displayName": "jarvis",
+  "description": "A local multi-agent \"second brain\" on Claude Code: agent orchestration, persistent memory, and custom workflows.",
+  "version": "1.0.0",
+  "author": "aquibazam8-afk",
+  "homepage": "https://github.com/aquibazam8-afk/jarvis",
+  "skills": []
+}
