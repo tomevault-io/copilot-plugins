@@ -1,0 +1,9 @@
+{
+  "name": "maddada--ghostex",
+  "displayName": "Ghostex",
+  "description": "Native Agent CLIs manager for macOS. Ghostty Terminals + Codex App Features/UX = Ghostex! Embedded browser & IDE. Strong agents support.",
+  "version": "1.0.0",
+  "author": "maddada",
+  "homepage": "https://github.com/maddada/Ghostex",
+  "skills": []
+}
