@@ -1,0 +1,9 @@
+{
+  "name": "junghan0611--entwurf",
+  "displayName": "entwurf",
+  "description": "Use Claude Code, Codex, and Gemini CLI through Agent Client Protocol (ACP) inside pi \u2014 and make native Claude Code sessions garden-addressable peers.",
+  "version": "1.0.0",
+  "author": "junghan0611",
+  "homepage": "https://github.com/junghan0611/entwurf",
+  "skills": []
+}
