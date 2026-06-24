@@ -105239,6 +105239,11 @@
       "description": "Composable React hooks for production-grade wagmi transaction, chain, event, and contract-read workflows."
     },
     {
+      "name": "gmr--postgres-lsp",
+      "source": "./gmr--postgres-lsp",
+      "description": "Language Server for Postgres and PL/PgSQL"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -123007,6 +123012,11 @@
       "name": "rm2thaddeus--pixel-detective",
       "source": "./rm2thaddeus--pixel-detective",
       "description": "A repository for the Pixel Detective project."
+    },
+    {
+      "name": "ajaxjiang96--lucide-swift",
+      "source": "./ajaxjiang96--lucide-swift",
+      "description": "Type-safe Swift package for Lucide Icons with vector rendering"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -160979,6 +160989,16 @@
       "description": "Reed-Solomon erasure coding backup tool with AES-256 encryption, GUI & CLI | Reed-Solomon \u7ea0\u5220\u7801\u52a0\u5bc6\u5907\u4efd\u5de5\u5177\uff0c\u652f\u6301 GUI \u548c CLI"
     },
     {
+      "name": "delphi-blocks--blocks",
+      "source": "./delphi-blocks--blocks",
+      "description": "Download, compile, and install versioned Delphi packages from GitHub into the IDE"
+    },
+    {
+      "name": "lacausecrypto--mcp-sports-hub",
+      "source": "./lacausecrypto--mcp-sports-hub",
+      "description": "A unified MCP server that aggregates 32 sports API providers into a single service. 336 tools covering scores, stats, odds, esports, college sports, chess, AFL, and more across 70+ sports."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -168832,6 +168852,11 @@
       "name": "guorui999--albumai",
       "source": "./guorui999--albumai",
       "description": "AlbumAI"
+    },
+    {
+      "name": "linzixuanzz--dumb-panel-app",
+      "source": "./linzixuanzz--dumb-panel-app",
+      "description": "The Daimian Panel Android app provides quick, easy control of your devices on the go. \u5446\u5446\u9762\u677f\u5b89\u5353App\u7aef"
     },
     {
       "name": "lightninglabs--lnget",
@@ -180537,6 +180562,36 @@
       "name": "encero-systems--inql",
       "source": "./encero-systems--inql",
       "description": "InQL"
+    },
+    {
+      "name": "smilefufu--crabot",
+      "source": "./smilefufu--crabot",
+      "description": "Crabot - \u4f60\u7684\u7845\u57fa\u670b\u53cb"
+    },
+    {
+      "name": "smilefufu--crabot",
+      "source": "./smilefufu--crabot",
+      "description": "Crabot - \u4f60\u7684\u7845\u57fa\u670b\u53cb"
+    },
+    {
+      "name": "morganfeeney--shadcnpreset",
+      "source": "./morganfeeney--shadcnpreset",
+      "description": "Discover and compare shadcn presets instantly"
+    },
+    {
+      "name": "victor-software-house--pi-openai-proxy",
+      "source": "./victor-software-house--pi-openai-proxy",
+      "description": "Local OpenAI-compatible HTTP proxy built on pi's SDK"
+    },
+    {
+      "name": "morganfeeney--shadcnpreset",
+      "source": "./morganfeeney--shadcnpreset",
+      "description": "Discover and compare shadcn presets instantly"
+    },
+    {
+      "name": "cramt--m365-copilot-proxy",
+      "source": "./cramt--m365-copilot-proxy",
+      "description": "m365-copilot-proxy"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -209534,6 +209589,11 @@
       "description": "Security-first, self-hosted AI agents - isolation you can prove, not just promise."
     },
     {
+      "name": "tommy131--owo-win-deployer",
+      "source": "./tommy131--owo-win-deployer",
+      "description": "HanskiJay\u4e2a\u4eba\u4f7f\u7528\u7684Windows\u7cfb\u7edf\u7a0b\u5e8f\u5feb\u901f\u5b89\u88c5\u8f6f\u4ef6"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -226104,6 +226164,26 @@
       "description": "66-tool MCP server for dark web intelligence \u2014 breach data, ransomware tracking, Tor .onion access, malware analysis, blockchain intel, exploit search, stealer logs"
     },
     {
+      "name": "denis-ya-32--prostograf",
+      "source": "./denis-ya-32--prostograf",
+      "description": "\u041f\u0440\u043e\u0441\u0442\u043e\u0413\u0440\u0430\u0444 \u2014 \u043c\u043d\u043e\u0433\u043e\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u0433\u0440\u0430\u0444\u043e\u0432\u0430\u044f RAG-\u0441\u0438\u0441\u0442\u0435\u043c\u0430: \u0432\u043e\u043f\u0440\u043e\u0441-\u043e\u0442\u0432\u0435\u0442 \u043f\u043e \u0432\u0430\u0448\u0438\u043c \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u043c (\u0444\u043e\u0440\u043a LightRAG)."
+    },
+    {
+      "name": "evanofslack--balatro-rs",
+      "source": "./evanofslack--balatro-rs",
+      "description": "balatro (lite) game engine and move generator"
+    },
+    {
+      "name": "clearcotelabs--clearcote-browser",
+      "source": "./clearcotelabs--clearcote-browser",
+      "description": "Open-source anti-detect Chromium 149 with engine-level fingerprint spoofing - de-Googled, drop-in Playwright, Windows x64, fully buildable and verifiable from source."
+    },
+    {
+      "name": "realnaka--alphaloop",
+      "source": "./realnaka--alphaloop",
+      "description": "\u4eba\u673a\u6295\u7814\u95ed\u73af\uff1a\u4f60\u51fa\u65b9\u5411\uff0cAI \u5e2e\u4f60\u67e5\u8bc1/\u9009\u80a1/\u8bb0\u8d26\uff0c\u51b3\u7b56\u6743\u5f52\u4eba\u3002A human-agent investment-research operating model as an installable skill suite."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -230012,6 +230092,11 @@
       "name": "dylannalex--llm-code-wiki",
       "source": "./dylannalex--llm-code-wiki",
       "description": "llm-code-wiki"
+    },
+    {
+      "name": "donnfelker--loop-skills",
+      "source": "./donnfelker--loop-skills",
+      "description": "Autonomous, self-re-prompting agent loops for Claude Code \u2014 packaged as independently-installable plugins (spec-development, dev-team, pr-autopilot, triangulated-code-review, multi-llm-convergence)."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
