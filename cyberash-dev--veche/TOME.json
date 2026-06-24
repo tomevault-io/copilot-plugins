@@ -4,7 +4,7 @@
   "repo": "veche",
   "description": "MCP server for bounded multi-agent committee meetings \u2014 Codex + Claude Code deliberate in rounds",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyberash-dev/veche",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T23:01:47Z"
+  "distributed_at": "2026-06-24T23:07:26Z"
 }
