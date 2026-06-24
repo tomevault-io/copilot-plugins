@@ -1,0 +1,44 @@
+{
+  "name": "AppGenesisForge",
+  "owner": "pcliangx",
+  "repo": "AppGenesisForge",
+  "description": "Production-ready AI Agent Team template for Claude Code \u2014 14 specialists, Agile+Scrum+TDD enforced via skill/hook/DoD 3-layer (not wiki), PRD\u2192UAT 6 stage gates, 4-layer hook defense, multi-LLM (DeepSeek/Doubao/Qwen/MiniMax), WeChat Mini Program, trilingual README (\u4e2d\u6587/EN/\u65e5\u672c\u8a9e). Ship a feature overnight.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pcliangx/AppGenesisForge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T21:36:16Z"
+}
