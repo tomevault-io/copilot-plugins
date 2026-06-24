@@ -1,0 +1,9 @@
+{
+  "name": "sharbelxyz--hermes-agent-mission-control",
+  "displayName": "hermes-agent-mission-control",
+  "description": "A web dashboard template for running and monitoring your OpenClaw AI agents. The SHAPE of Max HQ, for anyone building their own mission control.",
+  "version": "1.0.0",
+  "author": "sharbelxyz",
+  "homepage": "https://github.com/sharbelxyz/hermes-agent-mission-control",
+  "skills": []
+}
