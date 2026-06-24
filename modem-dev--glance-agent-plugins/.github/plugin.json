@@ -1,0 +1,9 @@
+{
+  "name": "modem-dev--glance-agent-plugins",
+  "displayName": "glance-agent-plugins",
+  "description": "Agent plugins for glance.sh \u2014 temporary image sharing for coding agents",
+  "version": "1.0.0",
+  "author": "modem-dev",
+  "homepage": "https://github.com/modem-dev/glance-agent-plugins",
+  "skills": []
+}
