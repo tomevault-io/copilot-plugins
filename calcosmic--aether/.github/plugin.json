@@ -1,0 +1,62 @@
+{
+  "name": "calcosmic--aether",
+  "displayName": "Aether",
+  "description": "Artificial Ecology For Thought and Emergent Reasoning.  The Colony That Builds With You.",
+  "version": "1.0.0",
+  "author": "calcosmic",
+  "homepage": "https://github.com/calcosmic/Aether",
+  "skills": [
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "django",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "description": ""
+    },
+    {
+      "name": "golang",
+      "description": ""
+    },
+    {
+      "name": "swift",
+      "description": ""
+    },
+    {
+      "name": "rest-api",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "description": ""
+    },
+    {
+      "name": "documentation-generation",
+      "description": ""
+    },
+    {
+      "name": "documentation-ingestion",
+      "description": ""
+    },
+    {
+      "name": "rust",
+      "description": ""
+    }
+  ]
+}
