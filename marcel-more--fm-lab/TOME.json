@@ -1,0 +1,51 @@
+{
+  "name": "fm-lab",
+  "owner": "marcel-more",
+  "repo": "fm-lab",
+  "description": "Open-source analysis foundation for FileMaker solutions. Converts SaXML exports into a fast, queryable DuckDB catalog with full object coverage and AI integration.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "install-claris-docs",
+      "path": ".claude/skills/install-claris-docs",
+      "github_url": "https://github.com/marcel-more/fm-lab/tree/main/.claude/skills/install-claris-docs",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/marcel-more/fm-lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T22:31:46Z"
+}
