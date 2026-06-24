@@ -1,0 +1,9 @@
+{
+  "name": "perminder-klair--locca",
+  "displayName": "locca",
+  "description": "A TUI around llama.cpp for running, managing, and benchmarking local GGUF models and launching the pi coding agent against your local server.",
+  "version": "1.0.0",
+  "author": "perminder-klair",
+  "homepage": "https://github.com/perminder-klair/locca",
+  "skills": []
+}
