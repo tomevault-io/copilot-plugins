@@ -1,0 +1,9 @@
+{
+  "name": "ozgurulukir--opencode-fff-search",
+  "displayName": "opencode-fff-search",
+  "description": "OpenCode plugin that replaces the default grep and glob file search tools with fff",
+  "version": "1.0.0",
+  "author": "ozgurulukir",
+  "homepage": "https://github.com/ozgurulukir/opencode-fff-search",
+  "skills": []
+}
