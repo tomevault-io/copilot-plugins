@@ -1,17 +1,24 @@
-## app-route-layout-patterns
+## registry-bases-parity
 
-> Follow established app page and layout patterns
+> Keep registry base and radix trees in sync when editing shared UI
 
 
-# App Route Layout Patterns
+# Registry bases: Base UI ↔ Radix parity
 
-When editing route files under `apps/shadcnpreset/app`, follow the existing `layout.tsx` patterns before introducing custom wrappers or manual headings.
+`apps/v4/registry/bases/base` and `apps/v4/registry/bases/radix` are **parallel registries**. Anything that exists in both trees for the same purpose (preview blocks, mirrored examples, shared card layouts, etc.) **must stay in sync**.
 
-- For section-style routes, prefer `DefaultLayout` in `layout.tsx` and put the shared section heading in that layout using `PageHeader`, `PageHeaderHeading`, and `PageHeaderDescription`.
-- For nested routes, prefer the closest matching `layout.tsx` for shared route-specific headings instead of putting all headings in the leaf `page.tsx` or overloading the parent section layout.
-- In those sections, keep `page.tsx` focused on the page body (`<main className="grid gap-4">` or similar) instead of repeating top-level container and heading markup.
-- Use `WideLayout` or `WideLayoutNoFooter` only when matching an established full-width/detail pattern such as `preset` or `assistant`.
-- Reuse existing container and header primitives from `components/default-layout.tsx`, `components/wide-layout.tsx`, and `components/page-header.tsx` instead of inventing one-off spacing or heading structures.
+## When editing
+
+- If you change a file under **`bases/base/...`**, apply the **same behavioral and visual change** to the matching path under **`bases/radix/...`** (and the reverse).
+- Only diverge where APIs differ (e.g. import paths like `@/registry/bases/base/ui/*` vs `@/registry/bases/radix/ui/*`, or Base UI vs Radix component props).
+- Do **not** update only one side unless the user explicitly asks for a single-base change.
+
+## Typical mirrored paths
+
+- `blocks/preview/**` — preview cards and blocks
+- Parallel `ui/*` components when both exist for the same component
+
+After edits, briefly confirm both trees were updated (or state why one side is intentionally unchanged).
 
 ---
 > Source: [morganfeeney/shadcnpreset](https://github.com/morganfeeney/shadcnpreset) — distributed by [TomeVault](https://tomevault.io).
