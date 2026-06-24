@@ -1,0 +1,9 @@
+{
+  "name": "evanofslack--balatro-rs",
+  "displayName": "balatro-rs",
+  "description": "balatro (lite) game engine and move generator",
+  "version": "1.0.0",
+  "author": "evanofslack",
+  "homepage": "https://github.com/evanofslack/balatro-rs",
+  "skills": []
+}
