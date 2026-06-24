@@ -1,55 +1,100 @@
-## animation
+## color
 
-> Framer Motion animation guidelines with LazyMotion
+> write a component
 
-# Animation with Framer Motion
 
-This project uses Framer Motion with LazyMotion for optimized bundle size.
+# Pastel Colors for TailwindCSS
 
-## Critical Rule: Use `m.` Instead of `motion.`
+You should use @https://github.com/Innei/Pastel Pastel color system with kawaii-inspired OKLCH colors and TailwindCSS v4 integration.
 
-**Always use `m.` prefix for animated components to ensure LazyMotion optimization:**
+Use Pastel color system with Tailwind classes. **Important**: Always use the correct Tailwind prefix for each color category:
 
-```typescript
-// ✅ Correct - Use m. prefix
-import { m } from 'framer-motion'
+**Regular Colors**: `text-blue`, `bg-pink`, `border-purple` (same for `green`, `orange`, `yellow`, `sky`, `red`, `brown`, `gray`, `neutral`, `black`, `white`)
 
-function AnimatedComponent() {
-  return (
-    <m.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-    >
-      Content
-    </m.div>
-  )
-}
+**Semantic Colors**:
 
-// ❌ Wrong - Don't use motion. prefix
-import { motion } from 'framer-motion'
+- **Text**: `text-text`, `text-placeholder-text`, `text-link`, `text-disabled-text`
+- **Background**: `bg-background`, `bg-background-secondary`, `bg-background-tertiary`, `bg-background-quaternary`, `bg-background-quinary`
+- **Border**: `border-border`, `border-separator`
+- **Fill**: `bg-fill`, `bg-fill-secondary`, `bg-fill-tertiary`, `bg-fill-quaternary`, `bg-fill-quinary`
+  - Use for form controls, interactive elements, and content containers that need subtle background colors
+  - `bg-fill`: Primary fill for buttons, inputs, cards
+  - `bg-fill-secondary`: Secondary elements like disabled states, inactive tabs
+  - `bg-fill-tertiary`: Subtle backgrounds for hover states, secondary actions
+  - `bg-fill-quaternary` & `bg-fill-quinary`: Very subtle backgrounds for grouping or visual hierarchy
 
-function WrongComponent() {
-  return (
-    <motion.div> {/* This breaks LazyMotion optimization */}
-      Content
-    </motion.div>
-  )
-}
+**Material Colors**: `bg-material-ultra-thick`, `bg-material-thick`, `bg-material-medium`, `bg-material-thin`, `bg-material-ultra-thin`, `bg-material-opaque`
+
+- Use for glass morphism effects, overlays, and semi-transparent surfaces
+- `bg-material-opaque`: Solid surfaces like modals, dropdowns
+- `bg-material-ultra-thick`: Heavy glass effect for important overlays
+- `bg-material-thick`: Medium glass effect for panels, sidebars
+- `bg-material-medium`: Standard glass effect for cards, tooltips
+- `bg-material-thin`: Light glass effect for subtle overlays
+- `bg-material-ultra-thin`: Minimal glass effect for delicate surfaces
+
+**Application Colors**: `bg-accent`, `bg-primary`, `bg-secondary`, `text-accent`, `text-primary`, `text-secondary`
+
+**Control Colors**: `bg-disabled-control`
+
+**Color Variants**:
+
+- **Kawaii (softer)**: Add `-kawaii` suffix: `bg-background-kawaii`, `text-text-kawaii`
+- **High contrast (accessible)**: Add `-hc` suffix: `bg-background-hc`, `text-text-hc`
+- **Light/Dark specific**: Add `-light` or `-dark` suffix: `bg-background-light`, `text-text-dark`
+
+**Dark Mode & Variants Control**:
+
+- **Dark mode**: Use `dark:` prefix with TailwindCSS v4 built-in support
+- **Color variants**: Use `data-contrast="low"` for kawaii or `data-contrast="high"` for high-contrast on HTML element
+- **Automatic adaptation**: All color variants work seamlessly with dark mode
+
+**Usage Examples**:
+
+```html
+<!-- Regular usage with automatic dark mode -->
+<div class="bg-background text-text border border-border">
+  Content with default colors
+</div>
+
+<!-- Kawaii variant -->
+<html data-contrast="low">
+  <div class="bg-background text-text">Kawaii colors with auto dark mode</div>
+</html>
+
+<!-- High contrast variant -->
+<html data-contrast="high">
+  <div class="bg-background text-text">High contrast colors</div>
+</html>
+
+<!-- Fixed kawaii colors (no dark mode switching) -->
+<div class="bg-background-kawaii text-text-kawaii">Always kawaii colors</div>
+
+<!-- Dark mode with regular colors -->
+<div class="bg-background dark:bg-background text-text dark:text-text">
+  Responsive dark mode
+</div>
+
+<!-- Fill colors for interactive elements -->
+<button class="bg-fill hover:bg-fill-secondary text-text">
+  Primary Button
+</button>
+<input
+  class="bg-fill-tertiary border border-border text-text placeholder:text-placeholder-text"
+  placeholder="Input field"
+/>
+
+<!-- Material colors for glass morphism -->
+<div class="bg-material-medium backdrop-blur border border-border">
+  Glass card with medium opacity
+</div>
+<div class="bg-material-opaque">Solid modal background</div>
+<div class="bg-material-thin hover:bg-material-medium transition-colors">
+  Interactive glass surface
+</div>
 ```
 
-## Available Components
-
-Use `m.` with any HTML element:
-```typescript
-<m.div />
-<m.button />
-<m.span />
-<m.img />
-<m.svg />
-<m.path />
-// ... any HTML element
-```
+These colors use OKLCH color space with sRGB and P3 fallbacks, providing modern color rendering with kawaii aesthetic and accessibility support. The system automatically adapts to light/dark mode following TailwindCSS v4 conventions.
 
 ---
 > Source: [ChrAlpha/LumaForge](https://github.com/ChrAlpha/LumaForge) — distributed by [TomeVault](https://tomevault.io).
