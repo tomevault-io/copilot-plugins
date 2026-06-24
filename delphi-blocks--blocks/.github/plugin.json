@@ -1,0 +1,9 @@
+{
+  "name": "delphi-blocks--blocks",
+  "displayName": "blocks",
+  "description": "Download, compile, and install versioned Delphi packages from GitHub into the IDE",
+  "version": "1.0.0",
+  "author": "delphi-blocks",
+  "homepage": "https://github.com/delphi-blocks/blocks",
+  "skills": []
+}
