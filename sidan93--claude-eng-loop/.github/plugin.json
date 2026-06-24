@@ -1,0 +1,9 @@
+{
+  "name": "sidan93--claude-eng-loop",
+  "displayName": "claude-eng-loop",
+  "description": "Engineering Loop \u2014 a CLAUDE.md workflow template that turns AI coding agents into structured engineers: 9-phase process from task intake to goal verification, with execution modes, escape hatches, and",
+  "version": "1.0.0",
+  "author": "sidan93",
+  "homepage": "https://github.com/sidan93/claude-eng-loop",
+  "skills": []
+}
