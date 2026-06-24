@@ -1,0 +1,14 @@
+{
+  "name": "marcel-more--fm-lab",
+  "displayName": "fm-lab",
+  "description": "Open-source analysis foundation for FileMaker solutions. Converts SaXML exports into a fast, queryable DuckDB catalog with full object coverage and AI integration.",
+  "version": "1.0.0",
+  "author": "marcel-more",
+  "homepage": "https://github.com/marcel-more/fm-lab",
+  "skills": [
+    {
+      "name": "install-claris-docs",
+      "description": ""
+    }
+  ]
+}
