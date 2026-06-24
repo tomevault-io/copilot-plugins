@@ -4,7 +4,7 @@
   "repo": "ironclaw",
   "description": "Security-first, self-hosted AI agents - isolation you can prove, not just promise.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IronSecCo/ironclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T02:30:14Z"
+  "distributed_at": "2026-06-24T02:30:45Z"
 }
