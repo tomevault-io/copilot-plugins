@@ -1,0 +1,9 @@
+{
+  "name": "yanivzalach--icegraph",
+  "displayName": "IceGraph",
+  "description": "Interactive Apache Iceberg debugger and visualization platform for exploring production tables, tracing metadata evolution, and understanding Iceberg internals through real time graph visualization.",
+  "version": "1.0.0",
+  "author": "YanivZalach",
+  "homepage": "https://github.com/YanivZalach/IceGraph",
+  "skills": []
+}
