@@ -1,0 +1,9 @@
+{
+  "name": "galileo-agent-labs--eval-engineer",
+  "displayName": "eval-engineer",
+  "description": "Bring Galileo powered eval workflows into Claude Code and Codex.",
+  "version": "1.0.0",
+  "author": "Galileo-Agent-Labs",
+  "homepage": "https://github.com/Galileo-Agent-Labs/eval-engineer",
+  "skills": []
+}
