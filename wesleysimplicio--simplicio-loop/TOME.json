@@ -1,0 +1,44 @@
+{
+  "name": "simplicio-loop",
+  "owner": "wesleysimplicio",
+  "repo": "simplicio-loop",
+  "description": "\ud83d\udd01 Finishes your entire backlog while you sleep. The AI orchestrator that DOES the work end-to-end on ANY LLM \u2014 discover \u2192 implement \u2192 verify \u2192 merge \u2192 24/7 \u2014 behind safety gates, at up to 96% fewer tokens. 43 extension points. Not a chatbot. A worker.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wesleysimplicio/simplicio-loop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T20:31:46Z"
+}
