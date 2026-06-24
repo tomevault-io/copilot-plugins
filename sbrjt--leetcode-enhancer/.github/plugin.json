@@ -1,0 +1,9 @@
+{
+  "name": "sbrjt--leetcode-enhancer",
+  "displayName": "leetcode-enhancer",
+  "description": "A browser extension to improve the LeetCode experience.",
+  "version": "1.0.0",
+  "author": "Sbrjt",
+  "homepage": "https://github.com/Sbrjt/leetcode-enhancer",
+  "skills": []
+}
