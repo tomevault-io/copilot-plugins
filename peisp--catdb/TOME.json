@@ -1,0 +1,44 @@
+{
+  "name": "catdb",
+  "owner": "peisp",
+  "repo": "catdb",
+  "description": "\u57fa\u4e8e Wails v3\uff08Go + Vue 3 + WebView\uff09\u7684\u8de8\u5e73\u53f0\u6570\u636e\u5e93\u5ba2\u6237\u7aef\u3002Cross-platform database client based on Wails3 (Go + Vue 3 + WebView).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/peisp/catdb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T12:38:46Z"
+}
