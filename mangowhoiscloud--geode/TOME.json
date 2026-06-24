@@ -4,7 +4,7 @@
   "repo": "geode",
   "description": "GEODE v0.99.70: \ubc94\uc6a9 \uc790\uc728 \uc2e4\ud589 \uc5d0\uc774\uc804\ud2b8 \ud558\ub124\uc2a4 \u00b7 while(tool_use) AgenticLoop \u00b7 54 Tools + 13 MCP \u00b7 46 Hook Events (L1\u2192L4 \uc131\uc219\ub3c4) \u00b7 Autonomous Safety (\ube44\uc6a9 \uc0c1\ud55c + \ub798\uce6b + \ub2e4\uc591\uc131) \u00b7 5-Layer Verification \u00b7 3-Provider Resilience",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/mangowhoiscloud/geode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T16:30:23Z"
+  "distributed_at": "2026-06-24T07:48:11Z"
 }
