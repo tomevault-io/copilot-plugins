@@ -4,7 +4,7 @@
   "repo": "OpenHBM",
   "description": "An open-source, JEDEC JESD270-4A-compliant HBM4 memory subsystem (controller + PHY-shim + DFT + RAS + security wrapper) tightly coupled to an open RISC-V-native LPU accelerator. Apache-2.0 RTL, CERN-OHL-W-2.0 analog/GDSII, trademark-controlled compatibility certification.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Netie-AI/OpenHBM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T23:24:42Z"
+  "distributed_at": "2026-06-24T23:26:14Z"
 }
