@@ -8554,6 +8554,16 @@
       "description": "karpathy-llm-wiki"
     },
     {
+      "name": "mex-memory--mex",
+      "source": "./mex-memory--mex",
+      "description": "Persistent project memory for AI coding agents. Structured scaffold + drift detection CLI."
+    },
+    {
+      "name": "mex-memory--mex",
+      "source": "./mex-memory--mex",
+      "description": "Persistent project memory for AI coding agents. Structured scaffold + drift detection CLI."
+    },
+    {
       "name": "study8677--antigravity-workspace-template",
       "source": "./study8677--antigravity-workspace-template",
       "description": "\ud83e\ude90 The ultimate starter kit for AI IDEs, Claude code\uff0ccodex, and other agentic coding environments."
@@ -33942,6 +33952,11 @@
       "name": "ttscoff--gather-cli",
       "source": "./ttscoff--gather-cli",
       "description": "gather-cli"
+    },
+    {
+      "name": "xixihhhh--clipforge",
+      "source": "./xixihhhh--clipforge",
+      "description": "ClipForge\uff08\u539f\u300e\u5e26\u8d27\u526a\u624b\u300f/ daihuo-jianshou\uff09\uff1a\u5f00\u6e90 AI \u5e26\u8d27\u77ed\u89c6\u9891\u795e\u5668\u2014\u2014\u4e0a\u4f20\u4e00\u5f20\u5546\u54c1\u56fe\uff0cAI \u81ea\u52a8\u63d0\u70bc\u5356\u70b9 + \u5199\u79cd\u8349\u811a\u672c + \u9501\u5b9a\u5546\u54c1\u539f\u56fe\u4e0d\u53d8\u5f62 + \u914d\u753b\u9762/\u914d\u97f3/\u5b57\u5e55\uff0c\u4e00\u952e\u4ea7\u51fa\u6296\u97f3\u5c0f\u5e97 / \u5feb\u624b / \u5c0f\u7ea2\u4e66 / TikTok Shop \u5356\u8d27\u77ed\u89c6\u9891\u30020 \u6210\u672c\u6279\u91cf\u51fa\u7247\u3001\u5f00\u6e90\u65e0\u6c34\u5370\u3001\u672c\u5730\u81ea\u90e8\u7f72\u3002\u4e5f\u652f\u6301\u4e00\u53e5\u8bdd\u4e3b\u9898\u6210\u7247\u3002Open-source AI e-commerce/U"
     },
     {
       "name": "kaihv--open-banking-chile",
@@ -87277,6 +87292,11 @@
       "name": "beamuswayne--rag-learning",
       "source": "./beamuswayne--rag-learning",
       "description": "RE:\u4ece0\u5f00\u59cb\u7684RAG\u5b66\u4e60\u751f\u6d3b\u3002\u5305\u542bLangChain\u3001LangGraph\u3001LangSmith\u3001PydanticAI\u7b49\u6846\u67b6\u548c\u5de5\u5177\u7684\u5b66\u4e60\u6559\u7a0b\u3002"
+    },
+    {
+      "name": "nimblesite--sharplsp",
+      "source": "./nimblesite--sharplsp",
+      "description": "SharpLsp"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -168804,6 +168824,16 @@
       "description": "A quick an nimble AI Coding Agent in Swift"
     },
     {
+      "name": "fivetran--connector-sdk-tools",
+      "source": "./fivetran--connector-sdk-tools",
+      "description": "AI coding agent tools to build connectors using Fivetran Connector SDK"
+    },
+    {
+      "name": "guorui999--albumai",
+      "source": "./guorui999--albumai",
+      "description": "AlbumAI"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -180502,6 +180532,11 @@
       "name": "nonz250--ai-rotom",
       "source": "./nonz250--ai-rotom",
       "description": "Pokemon Champions battle advisor MCP server"
+    },
+    {
+      "name": "encero-systems--inql",
+      "source": "./encero-systems--inql",
+      "description": "InQL"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -347102,6 +347137,11 @@
       "name": "pufacz--citysimulation",
       "source": "./pufacz--citysimulation",
       "description": "citysimulation"
+    },
+    {
+      "name": "itzaks--ably-realtime-skill",
+      "source": "./itzaks--ably-realtime-skill",
+      "description": "ably-realtime-skill"
     }
   ]
 }
