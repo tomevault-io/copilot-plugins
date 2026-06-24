@@ -1,0 +1,9 @@
+{
+  "name": "voleeo--voleeo-api",
+  "displayName": "voleeo-api",
+  "description": "Local-first desktop API client built for developers and AI agents",
+  "version": "1.0.0",
+  "author": "voleeo",
+  "homepage": "https://github.com/voleeo/voleeo-api",
+  "skills": []
+}
