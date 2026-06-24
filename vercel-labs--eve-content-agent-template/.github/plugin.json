@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--eve-content-agent-template",
+  "displayName": "eve-content-agent-template",
+  "description": "Content agent template for the Eve agent framework",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/eve-content-agent-template",
+  "skills": []
+}
