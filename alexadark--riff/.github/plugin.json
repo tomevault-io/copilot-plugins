@@ -1,0 +1,9 @@
+{
+  "name": "alexadark--riff",
+  "displayName": "riff",
+  "description": "Lean, profile-driven coding agent framework for Claude Code",
+  "version": "1.0.0",
+  "author": "alexadark",
+  "homepage": "https://github.com/alexadark/riff",
+  "skills": []
+}
