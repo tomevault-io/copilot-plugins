@@ -7,11 +7,11 @@ Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [stablenaira-hub/solidity-toolkit](https://github.com/stablenaira-hub/solidity-toolkit).
+Original source: `CLAUDE.md` in [stablenaira-hub/solidity-toolkit](https://github.com/stablenaira-hub/solidity-toolkit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
