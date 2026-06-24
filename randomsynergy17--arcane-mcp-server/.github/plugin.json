@@ -1,0 +1,9 @@
+{
+  "name": "randomsynergy17--arcane-mcp-server",
+  "displayName": "Arcane-MCP-Server",
+  "description": "A comprehensive Model Context Protocol server that exposes the Arcane Docker Management API to AI assistants like Claude. 165+ tools covering containers, images, volumes, networks, Docker Compose stac",
+  "version": "1.0.0",
+  "author": "RandomSynergy17",
+  "homepage": "https://github.com/RandomSynergy17/Arcane-MCP-Server",
+  "skills": []
+}
