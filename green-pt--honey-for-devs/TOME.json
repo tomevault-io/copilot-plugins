@@ -4,7 +4,7 @@
   "repo": "honey-for-devs",
   "description": "Honey (I Shrunk the AI) by GreenPT: a cross-tool coding skill that cuts AI coding-agent token usage and LLM API costs \u2014 write less code, less prose, and denser agent-to-agent handoffs (\u221253%, lossless in benchmarks) with no loss of quality. Works with Claude Code, Cursor, GitHub Copilot, Codex, Gemini CLI, Windsurf, Cline & Kiro.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Green-PT/honey-for-devs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T12:33:23Z"
+  "distributed_at": "2026-06-24T12:39:51Z"
 }
