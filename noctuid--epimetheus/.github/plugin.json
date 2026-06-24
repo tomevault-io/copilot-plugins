@@ -1,0 +1,9 @@
+{
+  "name": "noctuid--epimetheus",
+  "displayName": "epimetheus",
+  "description": "(beta) Hindsight integration for pi coding agent (with queueing, past session ingestion, and a focus on best practices)",
+  "version": "1.0.0",
+  "author": "noctuid",
+  "homepage": "https://github.com/noctuid/epimetheus",
+  "skills": []
+}
