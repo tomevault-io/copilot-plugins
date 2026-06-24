@@ -1,0 +1,9 @@
+{
+  "name": "baseintelligence--term-executor",
+  "displayName": "term-executor",
+  "description": "Secure agent execution service for term-challenge via Basilica",
+  "version": "1.0.0",
+  "author": "BaseIntelligence",
+  "homepage": "https://github.com/BaseIntelligence/term-executor",
+  "skills": []
+}
