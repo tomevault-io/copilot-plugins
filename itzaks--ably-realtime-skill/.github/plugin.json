@@ -1,0 +1,9 @@
+{
+  "name": "itzaks--ably-realtime-skill",
+  "displayName": "ably-realtime-skill",
+  "description": "ably-realtime-skill",
+  "version": "1.0.0",
+  "author": "itzaks",
+  "homepage": "https://github.com/itzaks/ably-realtime-skill",
+  "skills": []
+}
