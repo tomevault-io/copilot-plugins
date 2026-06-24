@@ -7,14 +7,14 @@ AI story-deck generator — give it a topic, get back a coherent illustrated PPT
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Crosery/ppt-anything](https://github.com/Crosery/ppt-anything).
+Original source: `GEMINI.md` in [Crosery/ppt-anything](https://github.com/Crosery/ppt-anything).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [Crosery/ppt-anything](https://github.com/Crosery/ppt-anything) — a repo with 11+ stars on GitHub.
