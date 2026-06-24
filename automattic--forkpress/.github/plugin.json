@@ -1,0 +1,9 @@
+{
+  "name": "automattic--forkpress",
+  "displayName": "forkpress",
+  "description": "WordPress, but git",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/forkpress",
+  "skills": []
+}
