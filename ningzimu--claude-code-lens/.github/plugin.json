@@ -1,0 +1,9 @@
+{
+  "name": "ningzimu--claude-code-lens",
+  "displayName": "claude-code-lens",
+  "description": "Local monitor for Claude Code API traffic, logs, prompts, and tools",
+  "version": "1.0.0",
+  "author": "ningzimu",
+  "homepage": "https://github.com/ningzimu/claude-code-lens",
+  "skills": []
+}
