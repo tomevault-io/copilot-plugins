@@ -1,0 +1,9 @@
+{
+  "name": "netie-ai--openhbm",
+  "displayName": "OpenHBM",
+  "description": "An open-source, JEDEC JESD270-4A-compliant HBM4 memory subsystem (controller + PHY-shim + DFT + RAS + security wrapper) tightly coupled to an open RISC-V-native LPU accelerator. Apache-2.0 RTL, CERN-O",
+  "version": "1.0.0",
+  "author": "Netie-AI",
+  "homepage": "https://github.com/Netie-AI/OpenHBM",
+  "skills": []
+}
