@@ -1,0 +1,9 @@
+{
+  "name": "agentbull--ankole",
+  "displayName": "ankole",
+  "description": "Ankole is an open-source, self-hosted AgentOS for shared AI colleagues.",
+  "version": "1.0.0",
+  "author": "AgentBull",
+  "homepage": "https://github.com/AgentBull/ankole",
+  "skills": []
+}
