@@ -1,0 +1,9 @@
+{
+  "name": "donnfelker--loop-skills",
+  "displayName": "loop-skills",
+  "description": "Autonomous, self-re-prompting agent loops for Claude Code \u2014 packaged as independently-installable plugins (spec-development, dev-team, pr-autopilot, triangulated-code-review, multi-llm-convergence).",
+  "version": "1.0.0",
+  "author": "donnfelker",
+  "homepage": "https://github.com/donnfelker/loop-skills",
+  "skills": []
+}
