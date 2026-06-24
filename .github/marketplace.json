@@ -126349,6 +126349,16 @@
       "description": "You build. Karis grows."
     },
     {
+      "name": "piconic-ai--barefootjs",
+      "source": "./piconic-ai--barefootjs",
+      "description": "Fine-grained reactive TSX compiler \u2013 TSX in. Your stack out."
+    },
+    {
+      "name": "piconic-ai--barefootjs",
+      "source": "./piconic-ai--barefootjs",
+      "description": "Fine-grained reactive TSX compiler \u2013 TSX in. Your stack out."
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -226982,6 +226992,36 @@
       "name": "hvardhan878--kevin",
       "source": "./hvardhan878--kevin",
       "description": "Why waste time say lot word when few word do trick? Kevin save money, time and token!"
+    },
+    {
+      "name": "wesleysimplicio--simplicio-loop",
+      "source": "./wesleysimplicio--simplicio-loop",
+      "description": "\ud83d\udd01 Finishes your entire backlog while you sleep. The AI orchestrator that DOES the work end-to-end on ANY LLM \u2014 discover \u2192 implement \u2192 verify \u2192 merge \u2192 24/7 \u2014 behind safety gates, at up to 96% fewer to"
+    },
+    {
+      "name": "wesleysimplicio--simplicio-loop",
+      "source": "./wesleysimplicio--simplicio-loop",
+      "description": "\ud83d\udd01 Finishes your entire backlog while you sleep. The AI orchestrator that DOES the work end-to-end on ANY LLM \u2014 discover \u2192 implement \u2192 verify \u2192 merge \u2192 24/7 \u2014 behind safety gates, at up to 96% fewer to"
+    },
+    {
+      "name": "wesleysimplicio--simplicio-loop",
+      "source": "./wesleysimplicio--simplicio-loop",
+      "description": "\ud83d\udd01 Finishes your entire backlog while you sleep. The AI orchestrator that DOES the work end-to-end on ANY LLM \u2014 discover \u2192 implement \u2192 verify \u2192 merge \u2192 24/7 \u2014 behind safety gates, at up to 96% fewer to"
+    },
+    {
+      "name": "kpavlov--tachyon",
+      "source": "./kpavlov--tachyon",
+      "description": "\ud83d\udcab Modern MCP Runtime for JVM"
+    },
+    {
+      "name": "ninemindai--agentback",
+      "source": "./ninemindai--agentback",
+      "description": "AI native API/MCP framework for the agent era. Built with agents, for agents."
+    },
+    {
+      "name": "litellm-labs--lite-cli",
+      "source": "./litellm-labs--lite-cli",
+      "description": "CLI tool wrapping claude code to help understand cost breakdown"
     },
     {
       "name": "cheerhuan--save-your-token",
