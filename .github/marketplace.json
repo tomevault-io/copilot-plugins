@@ -209344,6 +209344,11 @@
       "description": "Automatically cache and revalidate data in Cloudflare Workers. Using the Cache API and Execution Context."
     },
     {
+      "name": "javimosch--machin",
+      "source": "./javimosch--machin",
+      "description": "MFL \u2014 a machine-first backend language based on Go. Source is base64, one function per line; compiles to native code via C at C/Rust/Zig speed."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225847,6 +225852,26 @@
       "name": "gunasekar--imprint",
       "source": "./gunasekar--imprint",
       "description": "Turn Markdown into branded, typeset PDFs \u2014 specs, design docs, and reports that look official."
+    },
+    {
+      "name": "vercel-labs--eve-pr-triage-agent-template",
+      "source": "./vercel-labs--eve-pr-triage-agent-template",
+      "description": "GitHub PR triage agent built on eve"
+    },
+    {
+      "name": "juanitorduz--numpyro-forecast",
+      "source": "./juanitorduz--numpyro-forecast",
+      "description": "Forecasting Models in NumPyro"
+    },
+    {
+      "name": "ryandemelo--token-monitor",
+      "source": "./ryandemelo--token-monitor",
+      "description": "Measure how effectively your team spends AI coding-agent tokens \u2014 local-first, zero deps"
+    },
+    {
+      "name": "vercel-labs--eve-content-agent-template",
+      "source": "./vercel-labs--eve-content-agent-template",
+      "description": "Content agent template for the Eve agent framework"
     },
     {
       "name": "cheerhuan--save-your-token",
