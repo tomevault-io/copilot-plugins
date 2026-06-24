@@ -1,0 +1,9 @@
+{
+  "name": "peisp--catdb",
+  "displayName": "catdb",
+  "description": "\u57fa\u4e8e Wails v3\uff08Go + Vue 3 + WebView\uff09\u7684\u8de8\u5e73\u53f0\u6570\u636e\u5e93\u5ba2\u6237\u7aef\u3002Cross-platform database client based on Wails3 (Go + Vue 3 + WebView).",
+  "version": "1.0.0",
+  "author": "peisp",
+  "homepage": "https://github.com/peisp/catdb",
+  "skills": []
+}
