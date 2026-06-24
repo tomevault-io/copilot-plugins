@@ -1,0 +1,9 @@
+{
+  "name": "ojaneri--pfuzz",
+  "displayName": "pfuzz",
+  "description": "\ud83d\udd2b pfuzz \u2014 open-source LLM & system-prompt vulnerability scanner. Hardens your GenAI apps against jailbreaks, prompt injection, RAG poisoning & prompt extraction. Fork of ps-fuzz.",
+  "version": "1.0.0",
+  "author": "ojaneri",
+  "homepage": "https://github.com/ojaneri/pfuzz",
+  "skills": []
+}
