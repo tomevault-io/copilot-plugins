@@ -7,11 +7,11 @@ Security-first, self-hosted AI agents - isolation you can prove, not just promis
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [IronSecCo/ironclaw](https://github.com/IronSecCo/ironclaw).
+Original source: `CLAUDE.md` in [IronSecCo/ironclaw](https://github.com/IronSecCo/ironclaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
