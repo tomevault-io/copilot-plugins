@@ -15044,6 +15044,11 @@
       "description": "17,000+ Company-wise LeetCode Interview Questions. Filter by company, topic, and difficulty."
     },
     {
+      "name": "sauravrao637--oproxy",
+      "source": "./sauravrao637--oproxy",
+      "description": "Open-source MITM proxy to intercept, inspect, and mock network traffic."
+    },
+    {
       "name": "sethgammon--citadel",
       "source": "./sethgammon--citadel",
       "description": "Agent orchestration harness for Claude Code. Four-tier routing (/do), campaign persistence across sessions, parallel agents in isolated worktrees, discovery relay between waves, lifecycle hooks, circu"
@@ -15964,6 +15969,11 @@
       "description": "Web tool for monitoring a Meshtastic Node Deployment over TCP/HTTP"
     },
     {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Native Agent CLIs manager for macOS. Ghostty Terminals + Codex App Features/UX = Ghostex! Embedded browser & IDE. Strong agents support."
+    },
+    {
       "name": "aitytech--agentkits-marketing",
       "source": "./aitytech--agentkits-marketing",
       "description": "Enterprise-grade AI marketing automation for Claude Code, Cursor, GitHub Copilot, and any AI assistant supporting agents & skills"
@@ -16607,6 +16617,16 @@
       "name": "ha-pulse--home-assistant-global-health-score",
       "source": "./ha-pulse--home-assistant-global-health-score",
       "description": "The open standard for Home Assistant instance health monitoring."
+    },
+    {
+      "name": "joske--yserver",
+      "source": "./joske--yserver",
+      "description": "A modern X11 server written from scratch in Rust."
+    },
+    {
+      "name": "joske--yserver",
+      "source": "./joske--yserver",
+      "description": "A modern X11 server written from scratch in Rust."
     },
     {
       "name": "computerlovetech--agr",
@@ -25729,6 +25749,11 @@
       "description": "squix"
     },
     {
+      "name": "pcliangx--appgenesisforge",
+      "source": "./pcliangx--appgenesisforge",
+      "description": "Production-ready AI Agent Team template for Claude Code \u2014 14 specialists, Agile+Scrum+TDD enforced via skill/hook/DoD 3-layer (not wiki), PRD\u2192UAT 6 stage gates, 4-layer hook defense, multi-LLM (DeepSe"
+    },
+    {
       "name": "millionco--debug-agent",
       "source": "./millionco--debug-agent",
       "description": "Debugging skill for AI agents"
@@ -27242,6 +27267,11 @@
       "name": "whoschek--bzfs",
       "source": "./whoschek--bzfs",
       "description": "bzfs is a CLI built for highly reliable and scalable near real-time ZFS snapshot replication with minimal operational complexity. It reliably replicates ZFS datasets in parallel using zfs send/receive"
+    },
+    {
+      "name": "jbarbier--claude-md",
+      "source": "./jbarbier--claude-md",
+      "description": "One CLAUDE.md to make your coding agent ship like a senior engineer. Drop-in for Claude Code, Codex, Cursor, Gemini."
     },
     {
       "name": "dmmulroy--overseer",
@@ -40769,6 +40799,11 @@
       "description": "Declarative GitHub infrastructure management via YAML"
     },
     {
+      "name": "sharbelxyz--hermes-agent-mission-control",
+      "source": "./sharbelxyz--hermes-agent-mission-control",
+      "description": "A web dashboard template for running and monitoring your OpenClaw AI agents. The SHAPE of Max HQ, for anyone building their own mission control."
+    },
+    {
       "name": "tiangzlab--omicsclaw",
       "source": "./tiangzlab--omicsclaw",
       "description": "Conversational & memory-enabled AI research partner for multi-omics analysis. From biological idea to full research paper."
@@ -45034,6 +45069,31 @@
       "description": "Mermaid integration using pattern from cloudflare-docs"
     },
     {
+      "name": "threemoonslab--agents-shipgate",
+      "source": "./threemoonslab--agents-shipgate",
+      "description": "The deterministic merge gate for AI-generated agent capability changes \u2014 a local-first, static Tool-Use Readiness review for MCP, OpenAPI, and SDK tool surfaces. Open-source CLI + GitHub Action."
+    },
+    {
+      "name": "threemoonslab--agents-shipgate",
+      "source": "./threemoonslab--agents-shipgate",
+      "description": "The deterministic merge gate for AI-generated agent capability changes \u2014 a local-first, static Tool-Use Readiness review for MCP, OpenAPI, and SDK tool surfaces. Open-source CLI + GitHub Action."
+    },
+    {
+      "name": "threemoonslab--agents-shipgate",
+      "source": "./threemoonslab--agents-shipgate",
+      "description": "The deterministic merge gate for AI-generated agent capability changes \u2014 a local-first, static Tool-Use Readiness review for MCP, OpenAPI, and SDK tool surfaces. Open-source CLI + GitHub Action."
+    },
+    {
+      "name": "huggingface--lelab",
+      "source": "./huggingface--lelab",
+      "description": "\ud83e\udd17 LeLab: A web UI interface on top of LeRobot"
+    },
+    {
+      "name": "threemoonslab--agents-shipgate",
+      "source": "./threemoonslab--agents-shipgate",
+      "description": "The deterministic merge gate for AI-generated agent capability changes \u2014 a local-first, static Tool-Use Readiness review for MCP, OpenAPI, and SDK tool surfaces. Open-source CLI + GitHub Action."
+    },
+    {
       "name": "odradekai--bundles-forge",
       "source": "./odradekai--bundles-forge",
       "description": "An agentic skills framework & bundle-plugin engineering toolkit that works."
@@ -47069,6 +47129,11 @@
       "description": "taleb-skill"
     },
     {
+      "name": "mezonai--mezon-desktop",
+      "source": "./mezonai--mezon-desktop",
+      "description": "mezon-desktop"
+    },
+    {
       "name": "espennilsen--pi",
       "source": "./espennilsen--pi",
       "description": "pi"
@@ -48807,6 +48872,16 @@
       "name": "yishu5--content-curation",
       "source": "./yishu5--content-curation",
       "description": "\ud83d\udd07 NoiseFilter - \u4ece\u566a\u97f3\u4e2d\u63d0\u70bc\u4fe1\u53f7 | YouTube/Bilibili/\u5c0f\u5b87\u5b99 \u2192 AI\u6df1\u5ea6\u6458\u8981 \u2192 \u98de\u4e66\u591a\u7ef4\u8868\u683c \u2192 \u535a\u5ba2\u5c55\u793a"
+    },
+    {
+      "name": "chattersift--chattersift",
+      "source": "./chattersift--chattersift",
+      "description": "Reddit monitoring made simple: watch subreddits for the keywords that matter and get alerted when they appear."
+    },
+    {
+      "name": "chattersift--chattersift",
+      "source": "./chattersift--chattersift",
+      "description": "Reddit monitoring made simple: watch subreddits for the keywords that matter and get alerted when they appear."
     },
     {
       "name": "sugarforever--01coder-agent-skills",
@@ -57639,6 +57714,11 @@
       "description": "Seedance2.0-ShotDesign-Skills"
     },
     {
+      "name": "a-streetcoder--agent-deck",
+      "source": "./a-streetcoder--agent-deck",
+      "description": "Agent Deck"
+    },
+    {
       "name": "aelf-hzz780--ai-bounty-skill",
       "source": "./aelf-hzz780--ai-bounty-skill",
       "description": "Public Codex skill for claiming AI bounty on aelf tDVV via RewardClaimContract, supporting EOA Claim() and Portkey CA ClaimByPortkeyToCa()."
@@ -61704,6 +61784,11 @@
       "description": "Network-AI"
     },
     {
+      "name": "nshkrdotcom--trinity-coordinator",
+      "source": "./nshkrdotcom--trinity-coordinator",
+      "description": "TRINITY in Elixir (An Evolved LLM Coordinator): route LLM calls via a small-model hidden-state router + Axon coordination head, with Thinker/Worker/Verifier orchestration and policy loop for acceptanc"
+    },
+    {
       "name": "attilaszasz--sdd-pilot",
       "source": "./attilaszasz--sdd-pilot",
       "description": "Replace chaotic AI code generation with a disciplined, spec-driven workflow. SDD Pilot enforces structured development phases and quality gates, leveraging AI agents to conduct online research for bes"
@@ -62842,6 +62927,11 @@
       "name": "ralforion--orionbelt-semantic-layer",
       "source": "./ralforion--orionbelt-semantic-layer",
       "description": "Open-source Semantic Sidecar for AI, analytics, and governed data systems. Compiles declarative YAML models into optimized SQL, semantic context, KPIs, and DQ rules."
+    },
+    {
+      "name": "band-ai--codeband",
+      "source": "./band-ai--codeband",
+      "description": "A coding tool to orchestrate multiple coding agents"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -66272,6 +66362,11 @@
       "name": "bybit-exchange--skills",
       "source": "./bybit-exchange--skills",
       "description": "skills"
+    },
+    {
+      "name": "zulut30--wordpress-skills",
+      "source": "./zulut30--wordpress-skills",
+      "description": "Professional Agent Skill for building, auditing, testing, and releasing modern WordPress plugins with Codex, Cursor, and Claude Code."
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -72754,6 +72849,11 @@
       "description": "Mission control for agent skills. \u2b50 Star for a chance to win stickers."
     },
     {
+      "name": "hairushi--aidio",
+      "source": "./hairushi--aidio",
+      "description": "aidio"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -74569,6 +74669,11 @@
       "description": "zettel-builder"
     },
     {
+      "name": "extend-hq--extend-cli",
+      "source": "./extend-hq--extend-cli",
+      "description": "extend-cli"
+    },
+    {
       "name": "rust-works--succinctly",
       "source": "./rust-works--succinctly",
       "description": "Succinct data structures"
@@ -75702,6 +75807,11 @@
       "name": "aotemiao--artemis",
       "source": "./aotemiao--artemis",
       "description": "\u5f00\u7bb1\u5373\u7528\u7684 Spring Cloud \u5fae\u670d\u52a1\u5de5\u7a0b\u5e95\u5ea7\uff0c\u5185\u7f6e DDD/COLA \u5206\u5c42\u3001\u53ef\u89c2\u6d4b\u6027\u3001\u6cbb\u7406\u811a\u672c\u4e0e\u9762\u5411 agentic \u5f00\u53d1\u7684 Harness Engineering\u3002"
+    },
+    {
+      "name": "7xuanlu--wenlan",
+      "source": "./7xuanlu--wenlan",
+      "description": "A personal knowledge library for the AI-native age. Your AI agents capture what they learn, Wenlan keeps it current and distills it into source-cited wiki pages you can trust,"
     },
     {
       "name": "zhaono1--agent-playbook",
@@ -94722,6 +94832,11 @@
       "name": "baseintelligence--platform-v2",
       "source": "./baseintelligence--platform-v2",
       "description": "Fully decentralized P2P infrastructure for distributed evaluation on Bittensor"
+    },
+    {
+      "name": "voleeo--voleeo-api",
+      "source": "./voleeo--voleeo-api",
+      "description": "Local-first desktop API client built for developers and AI agents"
     },
     {
       "name": "compozy--kb",
@@ -123249,6 +123364,11 @@
       "description": "Pi Modular Persona Orchestrator: A lightweight, local-first agentic infrastructure that eliminates \"subagent bloat\" and \"framework soup\" using Pi's native TypeScript extensions and static, versioned P"
     },
     {
+      "name": "junghan0611--entwurf",
+      "source": "./junghan0611--entwurf",
+      "description": "Use Claude Code, Codex, and Gemini CLI through Agent Client Protocol (ACP) inside pi \u2014 and make native Claude Code sessions garden-addressable peers."
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -143034,6 +143154,31 @@
       "description": "\u57fa\u4e8e Spring Boot 4 + Vue 3 \u7684\u5fae\u670d\u52a1\u811a\u624b\u67b6\u5e73\u53f0\uff0c\u91c7\u7528 Harness \u5de5\u4e1a\u8bbe\u8ba1\u6a21\u5f0f\u6784\u5efa\uff0c\u4e3a AI \u8f85\u52a9\u5f00\u53d1\u63d0\u4f9b\u884c\u4e1a\u6700\u4f73\u5b9e\u8df5\u57fa\u7840\u3002"
     },
     {
+      "name": "stablenaira-hub--solidity-toolkit",
+      "source": "./stablenaira-hub--solidity-toolkit",
+      "description": "Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 infrastructure."
+    },
+    {
+      "name": "sbrjt--leetcode-enhancer",
+      "source": "./sbrjt--leetcode-enhancer",
+      "description": "A browser extension to improve the LeetCode experience."
+    },
+    {
+      "name": "stablenaira-hub--solidity-toolkit",
+      "source": "./stablenaira-hub--solidity-toolkit",
+      "description": "Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 infrastructure."
+    },
+    {
+      "name": "stablenaira-hub--solidity-toolkit",
+      "source": "./stablenaira-hub--solidity-toolkit",
+      "description": "Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 infrastructure."
+    },
+    {
+      "name": "griffinwork40--agent-framework",
+      "source": "./griffinwork40--agent-framework",
+      "description": "Force-multiplier skills, agents, and hooks for Claude Code"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -154517,6 +154662,16 @@
       "name": "realistic-farming--fs25-farmtablet",
       "source": "./realistic-farming--fs25-farmtablet",
       "description": "In-game tablet UI for Farming Simulator 25. Access farm stats, tools, and information at a glance \u2014 without leaving the field."
+    },
+    {
+      "name": "uphiago--recon-skills",
+      "source": "./uphiago--recon-skills",
+      "description": "212 offensive security skills for recon and pentest. Field-validated techniques from 600+ targets across 28 sectors. Updated with web enum, email sec, google dorks, cloud IAM."
+    },
+    {
+      "name": "fhryzal--solana-auditor-skill",
+      "source": "./fhryzal--solana-auditor-skill",
+      "description": "Production-grade Solana security auditor skill for AI agents"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -181252,6 +181407,31 @@
       "name": "allardvdb--ix500-linux",
       "source": "./allardvdb--ix500-linux",
       "description": "One-button scanning workflow for Fujitsu ScanSnap iX500 on Linux"
+    },
+    {
+      "name": "ndom91--llama-dash",
+      "source": "./ndom91--llama-dash",
+      "description": "The operations layer for your local LLM stack"
+    },
+    {
+      "name": "sthalbert--longue-vue",
+      "source": "./sthalbert--longue-vue",
+      "description": "CMDB for kubernetes"
+    },
+    {
+      "name": "itsab1989--chromiq",
+      "source": "./itsab1989--chromiq",
+      "description": "GUI for RGB printer ICC profiling \u2014 guided 5-step ArgyllCMS workflow, 3D gamut viewer, quality refinement \u00b7 macOS, Windows and Linux (Beta)"
+    },
+    {
+      "name": "ndom91--llama-dash",
+      "source": "./ndom91--llama-dash",
+      "description": "The operations layer for your local LLM stack"
+    },
+    {
+      "name": "sthalbert--longue-vue",
+      "source": "./sthalbert--longue-vue",
+      "description": "CMDB for kubernetes"
     },
     {
       "name": "yschimke--compose-ai-tools",
