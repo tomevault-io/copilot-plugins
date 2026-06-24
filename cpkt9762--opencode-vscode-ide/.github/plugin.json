@@ -1,0 +1,9 @@
+{
+  "name": "cpkt9762--opencode-vscode-ide",
+  "displayName": "opencode-vscode-ide",
+  "description": "VS Code fork with the OpenCode AI coding agent embedded natively as a sidebar SPA via an Electron-main loopback proxy. Open source AI IDE \u2014 alternative to Cursor / Windsurf / Claude Code Desktop.",
+  "version": "1.0.0",
+  "author": "cpkt9762",
+  "homepage": "https://github.com/cpkt9762/opencode-vscode-ide",
+  "skills": []
+}
