@@ -4,7 +4,7 @@
   "repo": "CodeStory",
   "description": "CodeStory is a codebase grounding engine that preindexes code into a knowledge graph and enriches it with semantic context. Paired with coding agents, it results in fewer tokens, fewer tool calls, and remains 100% local.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TheGreenCedar/CodeStory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T11:32:03Z"
+  "distributed_at": "2026-06-24T11:32:59Z"
 }
