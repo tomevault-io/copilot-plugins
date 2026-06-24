@@ -1,0 +1,123 @@
+{
+  "name": "Aether",
+  "owner": "calcosmic",
+  "repo": "Aether",
+  "description": "Artificial Ecology For Thought and Emergent Reasoning.  The Colony That Builds With You.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue",
+      "path": ".aether/skills/domain/vue",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/vue",
+      "description": ""
+    },
+    {
+      "name": "django",
+      "path": ".aether/skills/domain/django",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/django",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "path": ".aether/skills/domain/kubernetes",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/kubernetes",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "path": ".aether/skills/domain/terraform",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/terraform",
+      "description": ""
+    },
+    {
+      "name": "golang",
+      "path": ".aether/skills/domain/golang",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/golang",
+      "description": ""
+    },
+    {
+      "name": "swift",
+      "path": ".aether/skills/domain/swift",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/swift",
+      "description": ""
+    },
+    {
+      "name": "rest-api",
+      "path": ".aether/skills/domain/rest-api",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/rest-api",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "path": ".aether/skills/domain/graphql",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/graphql",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".aether/skills/domain/testing",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/testing",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".aether/skills/domain/flutter",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/flutter",
+      "description": ""
+    },
+    {
+      "name": "documentation-generation",
+      "path": ".aether/skills/colony/documentation-generation",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/colony/documentation-generation",
+      "description": ""
+    },
+    {
+      "name": "documentation-ingestion",
+      "path": ".aether/skills/colony/documentation-ingestion",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/colony/documentation-ingestion",
+      "description": ""
+    },
+    {
+      "name": "rust",
+      "path": ".aether/skills/domain/rust",
+      "github_url": "https://github.com/calcosmic/Aether/tree/main/.aether/skills/domain/rust",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/calcosmic/Aether",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T13:49:44Z"
+}
