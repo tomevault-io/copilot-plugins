@@ -4,7 +4,7 @@
   "repo": "mfs",
   "description": "A context harness for AI agents: all your scattered context \u2014 code, memory, docs, databases, SaaS \u2014 in one searchable, browsable, file-like interface.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zilliztech/mfs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T22:38:50Z"
+  "distributed_at": "2026-06-24T22:43:23Z"
 }
