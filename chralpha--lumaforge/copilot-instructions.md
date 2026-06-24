@@ -1,0 +1,56 @@
+## animation
+
+> Framer Motion animation guidelines with LazyMotion
+
+# Animation with Framer Motion
+
+This project uses Framer Motion with LazyMotion for optimized bundle size.
+
+## Critical Rule: Use `m.` Instead of `motion.`
+
+**Always use `m.` prefix for animated components to ensure LazyMotion optimization:**
+
+```typescript
+// ✅ Correct - Use m. prefix
+import { m } from 'framer-motion'
+
+function AnimatedComponent() {
+  return (
+    <m.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      Content
+    </m.div>
+  )
+}
+
+// ❌ Wrong - Don't use motion. prefix
+import { motion } from 'framer-motion'
+
+function WrongComponent() {
+  return (
+    <motion.div> {/* This breaks LazyMotion optimization */}
+      Content
+    </motion.div>
+  )
+}
+```
+
+## Available Components
+
+Use `m.` with any HTML element:
+```typescript
+<m.div />
+<m.button />
+<m.span />
+<m.img />
+<m.svg />
+<m.path />
+// ... any HTML element
+```
+
+---
+> Source: [ChrAlpha/LumaForge](https://github.com/ChrAlpha/LumaForge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-24 -->
