@@ -1,126 +1,175 @@
-## state-management
+## styling
 
-> Jotai state management patterns and guidelines
+> TailwindCSS styling guidelines and best practices
 
-# State Management with Jotai
 
-This project uses Jotai for state management with custom utilities and patterns.
+# TailwindCSS Styling Guidelines
 
-## Core Setup
+This project uses TailwindCSS 4 with specific patterns and constraints.
 
-**Global Store**: Use `jotaiStore` from `src/lib/jotai.ts`
+## Critical Rule: No Dynamic Classes
+
+**All Tailwind classes must be statically defined - no dynamic className values:**
+
 ```typescript
-import { jotaiStore } from '~/lib/jotai'
-```
+// ❌ Wrong - Dynamic class construction
+const size = 'large'
+const className = `text-${size}` // This won't work with Tailwind purging
 
-**Custom Hook Utility**: Use `createAtomHooks` for consistent atom patterns
-```typescript
-import { createAtomHooks } from '~/lib/jotai'
+// ❌ Wrong - Template literals with variables
+const color = 'blue'
+const className = `bg-${color}-500`
 
-const [useMyAtom, useSetMyAtom, useMyAtomValue, myAtom] = createAtomHooks(atom(null))
-```
-
-## Atom Organization
-
-**Atom Location**: Store atoms in `src/atoms/` directory
-```typescript
-// File: src/atoms/user.ts
-import { atom } from 'jotai'
-
-export const userAtom = atom(null)
-export const isLoggedInAtom = atom((get) => get(userAtom) !== null)
-```
-
-## Usage Patterns
-
-**Reading State**:
-```typescript
-import { useAtomValue } from 'jotai'
-import { userAtom } from '~/atoms/user'
-
-function UserProfile() {
-  const user = useAtomValue(userAtom)
-  return <div>{user?.name}</div>
-}
-```
-
-**Writing State**:
-```typescript
-import { useSetAtom } from 'jotai'
-import { userAtom } from '~/atoms/user'
-
-function LoginForm() {
-  const setUser = useSetAtom(userAtom)
-  
-  const handleLogin = (userData) => {
-    setUser(userData)
-  }
-}
-```
-
-**Reading and Writing**:
-```typescript
-import { useAtom } from 'jotai'
-import { userAtom } from '~/atoms/user'
-
-function UserSettings() {
-  const [user, setUser] = useAtom(userAtom)
-  
-  const updateUser = (updates) => {
-    setUser({ ...user, ...updates })
-  }
-}
-```
-
-## Advanced Patterns
-
-**Derived Atoms**:
-```typescript
-import { atom } from 'jotai'
-
-const countAtom = atom(0)
-const doubledAtom = atom((get) => get(countAtom) * 2)
-```
-
-**Async Atoms**:
-```typescript
-const userIdAtom = atom(1)
-const userAtom = atom(async (get) => {
-  const userId = get(userIdAtom)
-  return fetchUser(userId)
+// ✅ Correct - Static classes with conditional logic
+const className = clsx({
+  'text-base': size === 'small',
+  'text-lg': size === 'medium',
+  'text-xl': size === 'large',
 })
+
+// ✅ Correct - Predefined class mappings
+const sizeClasses = {
+  small: 'text-base',
+  medium: 'text-lg',
+  large: 'text-xl',
+}
+const className = sizeClasses[size]
 ```
 
-**Write-Only Atoms**:
+## Class Utility Function
+
+Use the `cn()` utility from `src/lib/cn.ts` for combining classes:
+
 ```typescript
-const writeOnlyAtom = atom(
-  null, // no read function
-  (get, set, newValue) => {
-    // write logic
-    set(someOtherAtom, newValue)
-  }
-)
+import { cn } from '~/lib/cn'
+
+function Button({ className, variant = 'primary', ...props }) {
+  return (
+    <button
+      className={cn(
+        // Base styles
+        'px-4 py-2 rounded-md font-medium transition-colors',
+        // Variant styles
+        {
+          'bg-primary text-white hover:bg-primary/90': variant === 'primary',
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80': variant === 'secondary',
+          'border border-border bg-background hover:bg-fill': variant === 'outline'
+        },
+        // External className override
+        className
+      )}
+      {...props}
+    />
+  )
+}
 ```
 
-## Provider Setup
+## Color System Integration
 
-The global Jotai provider is configured in `src/providers/root-providers.tsx`:
+**Always use Pastel colors** (see color.mdc rule):
+
 ```typescript
-import { Provider } from 'jotai'
-import { jotaiStore } from '~/lib/jotai'
+// ✅ Use Pastel semantic colors
+<div className="bg-background text-text border border-border">
 
-<Provider store={jotaiStore}>
-  {/* app content */}
-</Provider>
+// ✅ Use Pastel application colors
+<button className="bg-primary text-white">
+
+// ✅ Use Pastel fill colors for interactive elements
+<input className="bg-fill border border-border">
+```
+
+## Responsive Design Patterns
+
+```typescript
+// Mobile-first responsive design
+<div className="w-full md:w-1/2 lg:w-1/3">
+
+// Responsive spacing
+<div className="p-4 md:p-6 lg:p-8">
+
+// Responsive typography
+<h1 className="text-2xl md:text-3xl lg:text-4xl">
+```
+
+## Dark Mode Support
+
+Use TailwindCSS v4 built-in dark mode with `dark:` prefix:
+
+```typescript
+<div className="bg-background dark:bg-background text-text dark:text-text">
+  Content that adapts to dark mode
+</div>
+```
+
+## Component Styling Patterns
+
+**Base Component Pattern**:
+
+```typescript
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'outline'
+  size?: 'sm' | 'md' | 'lg'
+  className?: string
+}
+
+function Button({ variant = 'primary', size = 'md', className, ...props }: ButtonProps) {
+  return (
+    <button
+      className={cn(
+        // Base styles that always apply
+        'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+
+        // Size variants
+        {
+          'h-8 px-3 text-sm': size === 'sm',
+          'h-10 px-4': size === 'md',
+          'h-12 px-6 text-lg': size === 'lg'
+        },
+
+        // Color variants
+        {
+          'bg-primary text-white hover:bg-primary/90': variant === 'primary',
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80': variant === 'secondary',
+          'border border-border bg-background hover:bg-fill': variant === 'outline'
+        },
+
+        className
+      )}
+      {...props}
+    />
+  )
+}
+```
+
+## Animation Integration
+
+Combine with Framer Motion using `m.` prefix:
+
+```typescript
+import { m } from 'framer-motion'
+import { cn } from '~/lib/cn'
+
+<m.button
+  className={cn(
+    'bg-primary text-white px-4 py-2 rounded-md',
+    'transition-colors duration-200'
+  )}
+  whileHover={{ scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+>
+  Animated Button
+</m.button>
 ```
 
 ## Best Practices
 
-1. **Atom Naming**: Use descriptive names ending with `Atom`
-2. **File Organization**: Group related atoms in the same file
-3. **Custom Hooks**: Use `createAtomHooks` for consistent patterns
-4. **Global Store**: Always use the configured `jotaiStore` instance
-5. **Async Handling**: Use Suspense boundaries for async atoms
+1. **Static Classes Only**: Never construct class names dynamically
+2. **Use cn() Utility**: Always use the `cn()` function for class composition
+3. **Pastel Colors**: Prefer Pastel color system over standard Tailwind colors
+4. **Mobile First**: Design mobile-first with responsive breakpoints
+5. **Component Variants**: Use object-based variant patterns for reusable components
+6. **Dark Mode**: Always consider dark mode when styling components
 
 ---
 > Source: [ChrAlpha/LumaForge](https://github.com/ChrAlpha/LumaForge) — distributed by [TomeVault](https://tomevault.io).
