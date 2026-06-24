@@ -1,0 +1,44 @@
+{
+  "name": "CortexTerminal2",
+  "owner": "monster-echo",
+  "repo": "CortexTerminal2",
+  "description": "CortermTerminal2 \u662f\u4e00\u4e2a\u9762\u5411 AI Coding Agent \u7684\u8fdc\u7a0b\u7ec8\u7aef\u5ba2\u6237\u7aef\uff0c\u8ba9\u4f60\u53ef\u4ee5\u5728\u624b\u673a\u4e0a\u8fde\u63a5\u670d\u52a1\u5668\uff0c\u7ee7\u7eed\u64cd\u4f5c Claude Code\u3001Codex\u3001Copilot \u7b49\u7ec8\u7aef\u4efb\u52a1\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/monster-echo/CortexTerminal2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T23:22:03Z"
+}
