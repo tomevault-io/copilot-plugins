@@ -1,0 +1,9 @@
+{
+  "name": "hossain-khan--android-compose-highlight",
+  "displayName": "android-compose-highlight",
+  "description": "Simple lightweight library that leverages JS bridge to bring fast syntax highlighting to Android Jetpack Compose",
+  "version": "1.0.0",
+  "author": "hossain-khan",
+  "homepage": "https://github.com/hossain-khan/android-compose-highlight",
+  "skills": []
+}
