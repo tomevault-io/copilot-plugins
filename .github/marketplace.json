@@ -94689,6 +94689,11 @@
       "description": "llm-coding-workflow-skill"
     },
     {
+      "name": "baseintelligence--platform-v2",
+      "source": "./baseintelligence--platform-v2",
+      "description": "Fully decentralized P2P infrastructure for distributed evaluation on Bittensor"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -134134,6 +134139,11 @@
       "description": "A Claude Code plugin implementing the Research-Plan-Implement (RPI) framework for disciplined software engineering."
     },
     {
+      "name": "realistic-farming--fs25-workercosts",
+      "source": "./realistic-farming--fs25-workercosts",
+      "description": "Skill-based worker wages with configurable hourly rates for Farming Simulator 25. Make hiring decisions matter \u2014 pay your workers what they're worth."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -142947,6 +142957,11 @@
       "name": "chahua-im--chahua",
       "source": "./chahua-im--chahua",
       "description": "chahua"
+    },
+    {
+      "name": "wang-baohai--omni-stack",
+      "source": "./wang-baohai--omni-stack",
+      "description": "\u57fa\u4e8e Spring Boot 4 + Vue 3 \u7684\u5fae\u670d\u52a1\u811a\u624b\u67b6\u5e73\u53f0\uff0c\u91c7\u7528 Harness \u5de5\u4e1a\u8bbe\u8ba1\u6a21\u5f0f\u6784\u5efa\uff0c\u4e3a AI \u8f85\u52a9\u5f00\u53d1\u63d0\u4f9b\u884c\u4e1a\u6700\u4f73\u5b9e\u8df5\u57fa\u7840\u3002"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -154429,6 +154444,11 @@
       "description": "A self-hosted, memory-native AI agent framework and cross-platform GUI application."
     },
     {
+      "name": "realistic-farming--fs25-farmtablet",
+      "source": "./realistic-farming--fs25-farmtablet",
+      "description": "In-game tablet UI for Farming Simulator 25. Access farm stats, tools, and information at a glance \u2014 without leaving the field."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -161257,6 +161277,11 @@
       "name": "nvidia-isaac--cunls",
       "source": "./nvidia-isaac--cunls",
       "description": "Nvidia Isaac CUDA-Accelerated Nonlinear Least Square Solver "
+    },
+    {
+      "name": "mizius-studios--vanillasquared",
+      "source": "./mizius-studios--vanillasquared",
+      "description": "A Fabric combat and progression overhaul that keeps Minecraft close to vanilla while expanding weapons, armor, enchantments, and combat utility."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -180997,6 +181022,26 @@
       "name": "waishnav--self-improvement-frontend-design-skill-loop-for-codex",
       "source": "./waishnav--self-improvement-frontend-design-skill-loop-for-codex",
       "description": "self-improvement-frontend-design-skill-loop-for-codex"
+    },
+    {
+      "name": "xueshiqiao--hypercapslock",
+      "source": "./xueshiqiao--hypercapslock",
+      "description": "Make your Capslock Powerful again!"
+    },
+    {
+      "name": "xueshiqiao--hypercapslock",
+      "source": "./xueshiqiao--hypercapslock",
+      "description": "Make your Capslock Powerful again!"
+    },
+    {
+      "name": "dil4rd--dpp",
+      "source": "./dil4rd--dpp",
+      "description": "dpp"
+    },
+    {
+      "name": "randomsynergy17--arcane-mcp-server",
+      "source": "./randomsynergy17--arcane-mcp-server",
+      "description": "A comprehensive Model Context Protocol server that exposes the Arcane Docker Management API to AI assistants like Claude. 165+ tools covering containers, images, volumes, networks, Docker Compose stac"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -210009,6 +210054,16 @@
       "description": "Artificial Ecology For Thought and Emergent Reasoning.  The Colony That Builds With You."
     },
     {
+      "name": "subtlesayak--open-dash",
+      "source": "./subtlesayak--open-dash",
+      "description": "Open-source Android companion for bike dash navigation, garage, expenses, wallpapers, and ride history."
+    },
+    {
+      "name": "onism1767-creator--potato",
+      "source": "./onism1767-creator--potato",
+      "description": "Free Easy AI visibility check - measure how often a brand is mentioned & cited in Claude's web-search answers. Deterministic, reproducible, runs 100% locally, $0 mock by default."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -226687,6 +226742,21 @@
       "name": "quin95--sublink-worker",
       "source": "./quin95--sublink-worker",
       "description": "A lightweight proxy subscription converter and manager, support Clash/Sing-Box/Surge/Xray, deployable on Cloudflare Workers/Vercel/Node.js.\u8f7b\u91cf\u7ea7\u4ee3\u7406\u8ba2\u9605\u94fe\u63a5\u8f6c\u6362\u4e0e\u7ba1\u7406\u5de5\u5177\uff0c\u652f\u6301 Clash / Sing-Box / Surge / Xray\uff0c\u53ef\u5feb\u901f\u90e8\u7f72\u4e8e Cl"
+    },
+    {
+      "name": "andersonlimahw--lemon-ai-hub",
+      "source": "./andersonlimahw--lemon-ai-hub",
+      "description": "My ai marketplace with skills, agents an more"
+    },
+    {
+      "name": "andersonlimahw--lemon-ai-hub",
+      "source": "./andersonlimahw--lemon-ai-hub",
+      "description": "My ai marketplace with skills, agents an more"
+    },
+    {
+      "name": "leifericf--clj-zig",
+      "source": "./leifericf--clj-zig",
+      "description": "Clojure functions backed by Zig."
     },
     {
       "name": "cheerhuan--save-your-token",
