@@ -1,0 +1,9 @@
+{
+  "name": "tree-sitter-perl--perl-lsp",
+  "displayName": "perl-lsp",
+  "description": "perl-lsp \u2014 a fast Perl language server in Rust with cross-file type inference, completion, goto-def, and rename. Built on tree-sitter-perl and tower-lsp.",
+  "version": "1.0.0",
+  "author": "tree-sitter-perl",
+  "homepage": "https://github.com/tree-sitter-perl/perl-lsp",
+  "skills": []
+}
