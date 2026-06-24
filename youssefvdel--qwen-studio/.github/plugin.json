@@ -1,0 +1,9 @@
+{
+  "name": "youssefvdel--qwen-studio",
+  "displayName": "qwen-studio",
+  "description": "The official Qwen Studio app only supports Windows and macOS. This project brings the same desktop experience to Linux.",
+  "version": "1.0.0",
+  "author": "youssefvdel",
+  "homepage": "https://github.com/youssefvdel/qwen-studio",
+  "skills": []
+}
