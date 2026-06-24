@@ -1,0 +1,9 @@
+{
+  "name": "bastion-computer--bastion",
+  "displayName": "bastion",
+  "description": "Bastion deploys virtual computers for coding agents.",
+  "version": "1.0.0",
+  "author": "bastion-computer",
+  "homepage": "https://github.com/bastion-computer/bastion",
+  "skills": []
+}
