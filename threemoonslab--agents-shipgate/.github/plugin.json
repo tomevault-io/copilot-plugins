@@ -1,0 +1,9 @@
+{
+  "name": "threemoonslab--agents-shipgate",
+  "displayName": "agents-shipgate",
+  "description": "The deterministic merge gate for AI-generated agent capability changes \u2014 a local-first, static Tool-Use Readiness review for MCP, OpenAPI, and SDK tool surfaces. Open-source CLI + GitHub Action.",
+  "version": "1.0.0",
+  "author": "ThreeMoonsLab",
+  "homepage": "https://github.com/ThreeMoonsLab/agents-shipgate",
+  "skills": []
+}
