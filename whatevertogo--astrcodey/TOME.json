@@ -4,7 +4,7 @@
   "repo": "astrcodey",
   "description": "\u4e00\u4e2a\u5f00\u6e90\u7684rust code agent\uff0c\u53ef\u6269\u5c55\u6027\u975e\u5e38\u5f3a",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/whatevertogo/astrcodey",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T22:51:50Z"
+  "distributed_at": "2026-06-24T22:52:50Z"
 }
