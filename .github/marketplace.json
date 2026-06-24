@@ -77689,6 +77689,16 @@
       "description": "Agent memory built on chDB(ClickHouse embedded)"
     },
     {
+      "name": "guoriyue--vrl",
+      "source": "./guoriyue--vrl",
+      "description": "VRL"
+    },
+    {
+      "name": "guoriyue--vrl",
+      "source": "./guoriyue--vrl",
+      "description": "VRL"
+    },
+    {
       "name": "agents-squads--squads-cli",
       "source": "./agents-squads--squads-cli",
       "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents."
@@ -147659,6 +147669,11 @@
       "description": "Model Context Protocol servers for ibl.ai \u2014 analytics, agent creation, agent chat, search, user management, and Canvas LMS integration"
     },
     {
+      "name": "dishain--shain-designer-kit",
+      "source": "./dishain--shain-designer-kit",
+      "description": "shain-designer-kit"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -154052,6 +154067,11 @@
       "name": "mishamgla--opencraft1",
       "source": "./mishamgla--opencraft1",
       "description": "Half game, half experiment. World built out of GitHub issues \u2014 describe an idea, AI agents ship it live."
+    },
+    {
+      "name": "celltoolz--idol-ide",
+      "source": "./celltoolz--idol-ide",
+      "description": "The Python IDE with a drag-and-drop Tkinter GUI Designer \u2014 plus LSP diagnostics, debugging, Git, and AI assistance, all built in."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -180367,6 +180387,16 @@
       "name": "openai--planttalk",
       "source": "./openai--planttalk",
       "description": "Give your houseplants a voice with ChatGPT."
+    },
+    {
+      "name": "ifwlzs--jumusic-lx",
+      "source": "./ifwlzs--jumusic-lx",
+      "description": "juMusic_lx"
+    },
+    {
+      "name": "eurfelux--lyrisland",
+      "source": "./eurfelux--lyrisland",
+      "description": "A macOS Dynamic Island-style floating widget that displays real-time synced lyrics for Spotify. No login required."
     },
     {
       "name": "yschimke--compose-ai-tools",
