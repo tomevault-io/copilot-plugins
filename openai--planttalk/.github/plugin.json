@@ -1,0 +1,9 @@
+{
+  "name": "openai--planttalk",
+  "displayName": "planttalk",
+  "description": "Give your houseplants a voice with ChatGPT.",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/planttalk",
+  "skills": []
+}
