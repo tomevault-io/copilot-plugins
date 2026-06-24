@@ -1,0 +1,9 @@
+{
+  "name": "baseintelligence--baseagent",
+  "displayName": "baseagent",
+  "description": "baseagent",
+  "version": "1.0.0",
+  "author": "BaseIntelligence",
+  "homepage": "https://github.com/BaseIntelligence/baseagent",
+  "skills": []
+}
