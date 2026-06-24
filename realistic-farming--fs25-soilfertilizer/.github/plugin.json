@@ -1,0 +1,9 @@
+{
+  "name": "realistic-farming--fs25-soilfertilizer",
+  "displayName": "FS25_SoilFertilizer",
+  "description": "Realistic soil nutrient management for Farming Simulator 25. Track N/P/K, pH, and organic matter per field \u2014 with crop-specific depletion, fertilizer replenishment, weather effects, and seasonal cycle",
+  "version": "1.0.0",
+  "author": "Realistic-Farming",
+  "homepage": "https://github.com/Realistic-Farming/FS25_SoilFertilizer",
+  "skills": []
+}
