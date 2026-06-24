@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--eve-pr-triage-agent-template",
+  "displayName": "eve-pr-triage-agent-template",
+  "description": "GitHub PR triage agent built on eve",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/eve-pr-triage-agent-template",
+  "skills": []
+}
