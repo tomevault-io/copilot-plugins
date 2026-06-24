@@ -1,41 +1,25 @@
-## typescript-react
+## use-ripgrep
 
-> TypeScript and React code conventions
+> Use ripgrep (rg) instead of grep for all search operations
 
 
-# TypeScript & React Style
+# Use ripgrep Instead of grep
 
-## TypeScript
+NEVER use `grep` in shell commands. Always use `rg` (ripgrep) instead.
 
-- `type` over `interface` unless declaration merging is needed.
-- `unknown` over `any`. If `any` is unavoidable, add a `// eslint-disable-next-line` with justification.
-- Use `satisfies` to validate object shapes without widening.
-- Import types with `import type`.
-- Derive types from values with `as const`, not the other way around.
-- Discriminated unions with exhaustive `switch` for domain variants.
-- Prefer `const` over `let`; never use `var`. Use `===` over `==`.
-- Named exports over default exports (except Next.js page/layout components).
-- Template literals over string concatenation.
-- Early returns over deeply nested conditionals.
-- No ternaries for control flow — ternaries are for value selection only.
-- If a function name contains "and", split it into two functions.
+- `rg` is faster, respects `.gitignore` by default, and provides better output formatting.
+- All `grep` flags have `rg` equivalents — prefer the native `rg` flags.
 
-## React
+Common translations:
 
-- Hooks must always be called at the top level, before any conditional logic. Same order, every render.
-- No hooks inside conditions, loops, event handlers, or after early returns. Move hooks above the conditional.
-- `useEffect`, `useMemo`, and `useCallback` dependency arrays must include every referenced value. Never suppress the exhaustive-deps warning — restructure instead.
-- Name custom hooks after what they return, not what they do internally.
-- Self-closing components: `<Foo />` not `<Foo></Foo>`.
-
-## Hard Limits
-
-| Limit | Value |
-|---|---|
-| Function length | 70 lines |
-| File length | 500 lines (excluding tests) |
-| Nesting depth | 3 levels |
-| Argument count | 5 |
+| grep | rg |
+|------|-----|
+| `grep -r "pattern" .` | `rg "pattern"` |
+| `grep -rn "pattern"` | `rg -n "pattern"` |
+| `grep -rl "pattern"` | `rg -l "pattern"` |
+| `grep -i "pattern"` | `rg -i "pattern"` |
+| `grep -E "regex"` | `rg "regex"` (ERE by default) |
+| `grep --include="*.ts"` | `rg -t ts` or `rg -g "*.ts"` |
 
 ---
 > Source: [Kevin-Liu-01/Princeton-Tower-Defense](https://github.com/Kevin-Liu-01/Princeton-Tower-Defense) — distributed by [TomeVault](https://tomevault.io).
