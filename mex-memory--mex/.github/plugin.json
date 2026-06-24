@@ -1,0 +1,9 @@
+{
+  "name": "mex-memory--mex",
+  "displayName": "mex",
+  "description": "Persistent project memory for AI coding agents. Structured scaffold + drift detection CLI.",
+  "version": "1.0.0",
+  "author": "mex-memory",
+  "homepage": "https://github.com/mex-memory/mex",
+  "skills": []
+}
