@@ -4,7 +4,7 @@
   "repo": "ankole",
   "description": "Ankole is an open-source, self-hosted AgentOS for shared AI colleagues.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgentBull/ankole",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T22:32:30Z"
+  "distributed_at": "2026-06-24T22:32:59Z"
 }
