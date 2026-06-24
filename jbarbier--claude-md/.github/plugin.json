@@ -1,0 +1,9 @@
+{
+  "name": "jbarbier--claude-md",
+  "displayName": "CLAUDE.md",
+  "description": "One CLAUDE.md to make your coding agent ship like a senior engineer. Drop-in for Claude Code, Codex, Cursor, Gemini.",
+  "version": "1.0.0",
+  "author": "jbarbier",
+  "homepage": "https://github.com/jbarbier/CLAUDE.md",
+  "skills": []
+}
