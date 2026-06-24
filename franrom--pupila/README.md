@@ -7,11 +7,11 @@ Local-first daily job aggregator. AI review per job via your own LLM CLI, swipe-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [FranRom/pupila](https://github.com/FranRom/pupila).
+Original source: `AGENTS.md` in [FranRom/pupila](https://github.com/FranRom/pupila).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
