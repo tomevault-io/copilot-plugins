@@ -1,0 +1,9 @@
+{
+  "name": "averyy--fetchaller-mcp",
+  "displayName": "fetchaller-mcp",
+  "description": "Simple MCP server that allows Claude Code to fetch URLs without permission prompts (including Reddit).",
+  "version": "1.0.0",
+  "author": "Averyy",
+  "homepage": "https://github.com/Averyy/fetchaller-mcp",
+  "skills": []
+}
