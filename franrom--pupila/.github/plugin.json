@@ -1,0 +1,9 @@
+{
+  "name": "franrom--pupila",
+  "displayName": "pupila",
+  "description": "Local-first daily job aggregator. AI review per job via your own LLM CLI, swipe-to-apply triage, and an MCP server for AI clients.",
+  "version": "1.0.0",
+  "author": "FranRom",
+  "homepage": "https://github.com/FranRom/pupila",
+  "skills": []
+}
