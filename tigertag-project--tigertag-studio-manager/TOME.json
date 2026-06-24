@@ -1,0 +1,44 @@
+{
+  "name": "TigerTag-Studio-Manager",
+  "owner": "TigerTag-Project",
+  "repo": "TigerTag-Studio-Manager",
+  "description": "Desktop and web app to manage your 3D printing filament inventory via the TigerTag API. Read RFID spool tags with an ACR122U NFC reader, track remaining weight, view print temperatures, MSDS/TDS links and product details. Built with Electron, auto-updates via GitHub Releases. Works on Windows, macOS and Linux.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TigerTag-Project/TigerTag-Studio-Manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T23:23:06Z"
+}
