@@ -1,0 +1,9 @@
+{
+  "name": "backblaze-b2-samples--vibe-coding-starter-kit",
+  "displayName": "vibe-coding-starter-kit",
+  "description": "Starter kit for vibe coders building apps with file uploads and object storage. This full-stack dashboard template integrates with Backblaze B2 Cloud Storage and includes secure upload flows, file bro",
+  "version": "1.0.0",
+  "author": "backblaze-b2-samples",
+  "homepage": "https://github.com/backblaze-b2-samples/vibe-coding-starter-kit",
+  "skills": []
+}
