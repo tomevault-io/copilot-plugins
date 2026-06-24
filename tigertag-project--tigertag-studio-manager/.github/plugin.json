@@ -1,0 +1,9 @@
+{
+  "name": "tigertag-project--tigertag-studio-manager",
+  "displayName": "TigerTag-Studio-Manager",
+  "description": "Desktop and web app to manage your 3D printing filament inventory via the TigerTag API. Read RFID spool tags with an ACR122U NFC reader, track remaining weight, view print temperatures, MSDS/TDS links",
+  "version": "1.0.0",
+  "author": "TigerTag-Project",
+  "homepage": "https://github.com/TigerTag-Project/TigerTag-Studio-Manager",
+  "skills": []
+}
