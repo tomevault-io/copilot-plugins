@@ -1,0 +1,9 @@
+{
+  "name": "simonstorms--lore-glass",
+  "displayName": "lore-glass",
+  "description": "lore-glass: liquid-glass lens for React as a shadcn registry, SVG feDisplacementMap refraction with edge falloff, chroma, and baked specular",
+  "version": "1.0.0",
+  "author": "Simonstorms",
+  "homepage": "https://github.com/Simonstorms/lore-glass",
+  "skills": []
+}
