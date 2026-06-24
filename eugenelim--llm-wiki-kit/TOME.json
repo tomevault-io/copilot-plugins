@@ -4,7 +4,7 @@
   "repo": "llm-wiki-kit",
   "description": "Configurable group operating system and LLM Wiki knowledge management kit for teams and families. Obsidian vault templates, agent skills, and scripts for building structured, AI-maintained markdown knowledge bases. Works with Claude Code, Cowork, or any LLM agent. Includes work and family variants.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eugenelim/llm-wiki-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T23:11:01Z"
+  "distributed_at": "2026-06-24T23:12:34Z"
 }
