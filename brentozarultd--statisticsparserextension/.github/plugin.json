@@ -1,0 +1,9 @@
+{
+  "name": "brentozarultd--statisticsparserextension",
+  "displayName": "StatisticsParserExtension",
+  "description": "SSMS 22 extension that parses STATISTICS IO and STATISTICS TIME output into readable tables with per-table totals, in a WPF tool window that follows the active SSMS theme. C# port of Jorriss/Statistic",
+  "version": "1.0.0",
+  "author": "BrentOzarULTD",
+  "homepage": "https://github.com/BrentOzarULTD/StatisticsParserExtension",
+  "skills": []
+}
