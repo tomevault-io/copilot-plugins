@@ -4,7 +4,7 @@
   "repo": "journal-partner",
   "description": "Obsidian plugin \u2013 highlight journal timestamps with custom colors and readonly protection",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhaohongxuan/journal-partner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T08:32:26Z"
+  "distributed_at": "2026-06-24T08:34:59Z"
 }
