@@ -1,0 +1,44 @@
+{
+  "name": "TruthSeeker",
+  "owner": "re-gion",
+  "repo": "TruthSeeker",
+  "description": "\u57fa\u4e8e\u9c81\u68d2\u8054\u90a6\u5b66\u4e60\u4e0e\u591a\u667a\u80fd\u4f53\u4ea4\u53c9\u9a8c\u8bc1\u7684\u8de8\u6a21\u6001Deepfake\u9274\u4f2a\u4e0e\u6eaf\u6e90\u7cfb\u7edf",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/re-gion/TruthSeeker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T04:31:44Z"
+}
