@@ -1,0 +1,9 @@
+{
+  "name": "suzuke--agend-terminal",
+  "displayName": "agend-terminal",
+  "description": "Rust-based Agent Process Manager \u2014 PTY multiplexer optimized for AI CLI agents",
+  "version": "1.0.0",
+  "author": "suzuke",
+  "homepage": "https://github.com/suzuke/agend-terminal",
+  "skills": []
+}
