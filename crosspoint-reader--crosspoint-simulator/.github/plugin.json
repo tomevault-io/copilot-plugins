@@ -1,0 +1,9 @@
+{
+  "name": "crosspoint-reader--crosspoint-simulator",
+  "displayName": "crosspoint-simulator",
+  "description": "Simulate Crosspoint firmware without flashing onto your device",
+  "version": "1.0.0",
+  "author": "crosspoint-reader",
+  "homepage": "https://github.com/crosspoint-reader/crosspoint-simulator",
+  "skills": []
+}
