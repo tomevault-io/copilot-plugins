@@ -90239,6 +90239,11 @@
       "description": "Ontology-based MCP server that analyzes database schemas (PostgreSQL, Snowflake, ClickHouse, Dremio) and generates RDF/OWL ontologies with SQL mappings for fan-trap-free Text-to-SQL."
     },
     {
+      "name": "souljorje--d3-maps",
+      "source": "./souljorje--d3-maps",
+      "description": "Interactive SVG maps toolkit for React 19 and Vue 3. Choropleths, markers, routes, bubble and zoomable maps with components powered by d3.js"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -98342,6 +98347,16 @@
       "name": "thiagomiranda3--getman",
       "source": "./thiagomiranda3--getman",
       "description": "My own HTTP Client app"
+    },
+    {
+      "name": "notasithlord--peerd",
+      "source": "./notasithlord--peerd",
+      "description": "The first AI agent harness native to the browser. A Chrome/Firefox extension that runs the agent loop in your browser \u2014 drives your tabs, spins up sandboxed compute (JS notebooks, WASM Linux VMs, clie"
+    },
+    {
+      "name": "encero-systems--incan",
+      "source": "./encero-systems--incan",
+      "description": "Incan: a modern, Pythonic language that compiles to Rust! Type-safe, async-friendly, with fixtures, testing, and web/inter-op built in."
     },
     {
       "name": "mulhamna--jira-commands",
@@ -161344,6 +161359,46 @@
       "description": "My collection of maintained AUR packages, automatically updated via GitHub Actions."
     },
     {
+      "name": "chralpha--lumaforge",
+      "source": "./chralpha--lumaforge",
+      "description": "Apply LUTs to RAW photos right in your browser"
+    },
+    {
+      "name": "chralpha--lumaforge",
+      "source": "./chralpha--lumaforge",
+      "description": "Apply LUTs to RAW photos right in your browser"
+    },
+    {
+      "name": "chralpha--lumaforge",
+      "source": "./chralpha--lumaforge",
+      "description": "Apply LUTs to RAW photos right in your browser"
+    },
+    {
+      "name": "chralpha--lumaforge",
+      "source": "./chralpha--lumaforge",
+      "description": "Apply LUTs to RAW photos right in your browser"
+    },
+    {
+      "name": "chralpha--lumaforge",
+      "source": "./chralpha--lumaforge",
+      "description": "Apply LUTs to RAW photos right in your browser"
+    },
+    {
+      "name": "chralpha--lumaforge",
+      "source": "./chralpha--lumaforge",
+      "description": "Apply LUTs to RAW photos right in your browser"
+    },
+    {
+      "name": "chralpha--lumaforge",
+      "source": "./chralpha--lumaforge",
+      "description": "Apply LUTs to RAW photos right in your browser"
+    },
+    {
+      "name": "chralpha--lumaforge",
+      "source": "./chralpha--lumaforge",
+      "description": "Apply LUTs to RAW photos right in your browser"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -169232,6 +169287,16 @@
       "name": "jianjianai--4k-image-api",
       "source": "./jianjianai--4k-image-api",
       "description": "\u4e00\u4e2a\u57fa\u4e8e Nitro v3 \u7684 OpenAI \u517c\u5bb9\u751f\u56fe API \u670d\u52a1\u3002\u524d\u7aef\u6216\u7b2c\u4e09\u65b9\u5ba2\u6237\u7aef\u53ef\u4ee5\u6309 OpenAI Images / Responses \u7684\u8bf7\u6c42\u683c\u5f0f\u8c03\u7528\u672c\u670d\u52a1\uff0c\u540e\u7aef\u518d\u6309\u914d\u7f6e\u628a\u7edf\u4e00\u540e\u7684\u56fe\u7247\u4efb\u52a1\u5206\u53d1\u7ed9\u4e0d\u540c\u63d0\u4f9b\u5546\u3002"
+    },
+    {
+      "name": "danifunker--lbmactwo-mister",
+      "source": "./danifunker--lbmactwo-mister",
+      "description": "lbmactwo_MiSTer"
+    },
+    {
+      "name": "danifunker--lbmactwo-mister",
+      "source": "./danifunker--lbmactwo-mister",
+      "description": "lbmactwo_MiSTer"
     },
     {
       "name": "lightninglabs--lnget",
@@ -181167,6 +181232,16 @@
       "name": "kevin-liu-01--princeton-tower-defense",
       "source": "./kevin-liu-01--princeton-tower-defense",
       "description": "A full-featured tower defense game built entirely in the browser with just React, Canvas 2D, and Next.js. Princeton Tower Defense combines classic tower defense strategy with Princeton University-them"
+    },
+    {
+      "name": "dazeb--lvgl-ai-studio",
+      "source": "./dazeb--lvgl-ai-studio",
+      "description": "A web UI for LVGL UI generation in C or MicroPython."
+    },
+    {
+      "name": "allardvdb--ix500-linux",
+      "source": "./allardvdb--ix500-linux",
+      "description": "One-button scanning workflow for Fujitsu ScanSnap iX500 on Linux"
     },
     {
       "name": "yschimke--compose-ai-tools",
