@@ -1,0 +1,9 @@
+{
+  "name": "vishal2612200--agentpack",
+  "displayName": "agentpack",
+  "description": "Local context engine for AI coding agents. Routes tasks to relevant files, tests, rules, and skills, supports prompt caching, and builds compact context packs for Claude Code, Codex, Cursor, MCP, and ",
+  "version": "1.0.0",
+  "author": "vishal2612200",
+  "homepage": "https://github.com/vishal2612200/agentpack",
+  "skills": []
+}
