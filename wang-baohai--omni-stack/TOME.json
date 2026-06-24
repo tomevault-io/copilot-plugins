@@ -1,0 +1,44 @@
+{
+  "name": "Omni-Stack",
+  "owner": "wang-baohai",
+  "repo": "Omni-Stack",
+  "description": "\u57fa\u4e8e Spring Boot 4 + Vue 3 \u7684\u5fae\u670d\u52a1\u811a\u624b\u67b6\u5e73\u53f0\uff0c\u91c7\u7528 Harness \u5de5\u4e1a\u8bbe\u8ba1\u6a21\u5f0f\u6784\u5efa\uff0c\u4e3a AI \u8f85\u52a9\u5f00\u53d1\u63d0\u4f9b\u884c\u4e1a\u6700\u4f73\u5b9e\u8df5\u57fa\u7840\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wang-baohai/Omni-Stack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T14:31:42Z"
+}
