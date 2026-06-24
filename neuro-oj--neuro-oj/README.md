@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Neuro-OJ/neuro-oj](https://github.com/Neuro-OJ/neuro-oj).
+Original source: `CLAUDE.md` in [Neuro-OJ/neuro-oj](https://github.com/Neuro-OJ/neuro-oj).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
