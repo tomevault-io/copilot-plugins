@@ -1,0 +1,9 @@
+{
+  "name": "elghaied--payload-eve-chat",
+  "displayName": "payload-eve-chat",
+  "description": "AI chat agent (Eve) built inside Payload CMS \u2014 MCP tools + Vercel AI SDK, with optional hands-free voice (STT/TTS) and a one-command Docker stack.",
+  "version": "1.0.0",
+  "author": "elghaied",
+  "homepage": "https://github.com/elghaied/payload-eve-chat",
+  "skills": []
+}
