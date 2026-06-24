@@ -1,0 +1,9 @@
+{
+  "name": "yilunzhang--claude-code-inter-session",
+  "displayName": "claude-code-inter-session",
+  "description": "Agent-to-agent messaging for Claude Code sessions on the same machine.",
+  "version": "1.0.0",
+  "author": "yilunzhang",
+  "homepage": "https://github.com/yilunzhang/claude-code-inter-session",
+  "skills": []
+}
