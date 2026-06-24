@@ -4,7 +4,7 @@
   "repo": "yserver",
   "description": "A modern X11 server written from scratch in Rust.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joske/yserver",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T21:30:25Z"
+  "distributed_at": "2026-06-24T21:35:08Z"
 }
