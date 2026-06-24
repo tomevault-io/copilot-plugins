@@ -1,0 +1,44 @@
+{
+  "name": "aham-ui",
+  "owner": "li599198347-svg",
+  "repo": "aham-ui",
+  "description": "\u4f9b AI \u6d88\u8d39\u7684\u8bbe\u8ba1\u7cfb\u7edf\u2014\u2014\u5199\u4e00\u6b21\u89c4\u8303\uff0cAI \u4ea7\u51fa\u5904\u5904\u4e00\u81f4\u3002Aham\uff1a\u628a\u7075\u5149\u4e00\u73b0\uff0c\u505a\u6210\u80fd\u7528\u7684 AI \u5de5\u5177\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/li599198347-svg/aham-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T02:42:43Z"
+}
