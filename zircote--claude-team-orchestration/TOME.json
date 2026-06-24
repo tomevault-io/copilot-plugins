@@ -1,0 +1,99 @@
+{
+  "name": "claude-team-orchestration",
+  "owner": "zircote",
+  "repo": "claude-team-orchestration",
+  "description": "Multi-agent orchestration plugin for Claude Code. Coordinate agent teams with shared tasks, messaging, and 7 patterns including RLM (arXiv:2512.24601) for large-file analysis beyond context limits.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-types",
+      "path": "skills/agent-types",
+      "github_url": "https://github.com/zircote/claude-team-orchestration/tree/main/skills/agent-types",
+      "description": ""
+    },
+    {
+      "name": "error-handling",
+      "path": "skills/error-handling",
+      "github_url": "https://github.com/zircote/claude-team-orchestration/tree/main/skills/error-handling",
+      "description": ""
+    },
+    {
+      "name": "messaging",
+      "path": "skills/messaging",
+      "github_url": "https://github.com/zircote/claude-team-orchestration/tree/main/skills/messaging",
+      "description": ""
+    },
+    {
+      "name": "orchestrating",
+      "path": "skills/orchestrating",
+      "github_url": "https://github.com/zircote/claude-team-orchestration/tree/main/skills/orchestrating",
+      "description": ""
+    },
+    {
+      "name": "orchestration-patterns",
+      "path": "skills/orchestration-patterns",
+      "github_url": "https://github.com/zircote/claude-team-orchestration/tree/main/skills/orchestration-patterns",
+      "description": ""
+    },
+    {
+      "name": "rlm-pattern",
+      "path": "skills/rlm-pattern",
+      "github_url": "https://github.com/zircote/claude-team-orchestration/tree/main/skills/rlm-pattern",
+      "description": ""
+    },
+    {
+      "name": "spawn-backends",
+      "path": "skills/spawn-backends",
+      "github_url": "https://github.com/zircote/claude-team-orchestration/tree/main/skills/spawn-backends",
+      "description": ""
+    },
+    {
+      "name": "task-system",
+      "path": "skills/task-system",
+      "github_url": "https://github.com/zircote/claude-team-orchestration/tree/main/skills/task-system",
+      "description": ""
+    },
+    {
+      "name": "team-management",
+      "path": "skills/team-management",
+      "github_url": "https://github.com/zircote/claude-team-orchestration/tree/main/skills/team-management",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zircote/claude-team-orchestration",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T12:30:24Z"
+}
