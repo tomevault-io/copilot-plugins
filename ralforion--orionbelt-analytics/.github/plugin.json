@@ -1,0 +1,9 @@
+{
+  "name": "ralforion--orionbelt-analytics",
+  "displayName": "orionbelt-analytics",
+  "description": "Ontology-based MCP server that analyzes database schemas (PostgreSQL, Snowflake, ClickHouse, Dremio) and generates RDF/OWL ontologies with SQL mappings for fan-trap-free Text-to-SQL.",
+  "version": "1.0.0",
+  "author": "ralforion",
+  "homepage": "https://github.com/ralforion/orionbelt-analytics",
+  "skills": []
+}
