@@ -1,0 +1,137 @@
+## turbo-ea-capabilities
+
+> Always-on guardrails for any Claude Code session in this repo. Procedural workflows live in `.claude/skills/`; this file only encodes the invariants that protect the catalogue from accidental damage.
+
+# CLAUDE.md
+
+Always-on guardrails for any Claude Code session in this repo. Procedural workflows live in `.claude/skills/`; this file only encodes the invariants that protect the catalogue from accidental damage.
+
+## What this repo is
+
+An open-source Business Architecture Reference Catalogue with **three orthogonal artefacts**: capabilities (BC) describe WHAT, business processes (BP) describe HOW, value streams (VS) describe end-to-end value delivery. YAML files in `catalogue/` are the **single source of truth**. Everything else (`dist/api/*.json`, the bundled Python package data, the Astro site) is built from those YAML files.
+
+## Invariants — capabilities (BC-)
+
+- **Source of truth:** edit only `catalogue/*.yaml` and `schema/capability.schema.json`. Never hand-edit `dist/api/**` or `packages/py/src/turbo_ea_capabilities/data/**`. Both are build artefacts and are wiped by the next `npm run build`.
+- **ID format:** `BC-<L1>[.<L2>[.<L3>[.<L4>]]]`. Max depth is **L4**. If L5 feels needed, the model has slipped into process territory — push it into the process layer (`BP-` ids).
+- **MECE:** within any parent, children must be Mutually Exclusive and Collectively Exhaustive.
+- **Names are noun phrases:** Title Case, 2–5 words, no verbs, no articles, no vendor / product / org / geography names, no value-stream names (e.g. *Order-to-Cash* is a value stream, not a capability).
+- **Sparse numbering:** new siblings use 10, 20, 30, … to leave room for inserts. Retired IDs are **never reused**.
+- **Single parent:** a capability has exactly one parent. For multi-use, model a *shared service* relationship — not a multi-parent edge.
+- **Deprecation:** `deprecated: true` requires `deprecation_reason` and (when applicable) `successor_id`.
+- **Industry tag:** `Cross-Industry`, a single industry name, or `;`-separated list. L2+ inherits from L1 unless overridden.
+
+## Invariants — value streams (VS-)
+
+- **Source of truth:** `catalogue/_value-streams.yaml` (single file). Schema: `schema/value-stream.schema.json`.
+- **Stream id:** `VS-<n>` sparse 10/20/30. Names use the bookend pattern `<Trigger>-to-<Outcome>`.
+- **Stage id:** `VS-<n>.<m>` sparse 10/20/30. Stable across reorderings — `stage_order` is the visual rank, not part of identity.
+- **Stage `capability_ids` are L1 only.** Use `notes` to capture sub-scope detail. Stage `process_ids` may resolve at any BP depth.
+- Industry vocabulary inherited from BC L1s. `Cross-Industry` must stand alone.
+
+## Invariants — business processes (BP-)
+
+- **Source of truth:** `catalogue/processes/BP1-<slug>.yaml` (one file per Category), indexed in `catalogue/processes/_index.yaml`. Schema: `schema/business-process.schema.json`.
+- **ID format:** `BP-<L1>[.<L2>[.<L3>[.<L4>]]]` mirroring BC. Cross-Industry BP1s live in the sparse `BP-1000`..`BP-1160` range (one BP1 per Cross-Industry value stream, generated from BC + VS); industry-specific BP1s use `BP-130`..`BP-490`. Max depth **L4** (Category → Group → Process → Activity); Cross-Industry BPs stop at L3 by construction. BPMN-level steps belong in diagrams, not the catalogue.
+- **Naming is two-tier:** BP1 roots aligned to a value stream use the VS bookend name verbatim (*Order-to-Cash*, *Hire-to-Retire*, *Procure-to-Pay*). BP2/BP3/BP4 names are verb-phrased operational activities (*Capture Customer Order*, *Verify Customer Credit*, *Allocate Inventory to Order*). One canonical name per node; **aliases are disabled by governance** — do not author them.
+- **Industry tag:** same scheme as capabilities. BC L1 industry vocabulary is the master list.
+- **`realizes_capability_ids`** is the single source of truth for the BC↔BP link; the reverse `Capability.realizes_processes` is derived at build time.
+- **`framework_refs`** for structured cross-walks to APQC-PCF, BIAN, eTOM, ITIL, SCOR, DCOR, COBIT, SHRM-BoCK, ISO-55000, ISO-31000, COSO-ERM, TOGAF, BIZBOK, ACORD, ICMM. Cross-Industry BPs are no longer authored from APQC PCF — they are generated from BC + VS — but APQC-PCF can still be cited as a secondary cross-walk where structurally honest. Industry-specific BPs anchor on their domain framework (BIAN for banking, eTOM for telco, ACORD for insurance, ICMM for mining, the relevant APQC industry PCF, etc.). Used alongside (not instead of) the free-form `references[]` URI list.
+
+## Invariants — macro capabilities (MC-)
+
+- **Source of truth:** `catalogue/_macro-capabilities.yaml` (single file). Schema: `schema/macro-capability.schema.json`.
+- **Purpose:** an executive navigation overlay above L1 — a separate, orthogonal artefact (same pattern as value streams). Does **not** enter the BC tree; does **not** participate in VS / BP links; does **not** change any L1 id, level, or file.
+- **ID format:** `MC-<n>` with sparse 10/20/30 numbering. Stable; never reused.
+- **Naming:** Title Case noun phrase, 2–5 words, no verbs, no articles. Same rules as capability names.
+- **`capability_ids` is L1 only.** Plain `BC-<N>`, no dots. Sub-scope detail lives in the L1, not the macro.
+- **MECE between macros.** Every Cross-Industry L1 belongs to exactly one macro. Lint blocks orphans and double-claims (`npm run check:macro-coverage --strict`).
+- **Industry tag:** same scheme as capabilities. `Cross-Industry` must stand alone.
+- **Build-time backlink:** `Capability.macro_id` is derived from `MacroCapability.capability_ids` and populated on every L1 (and inherited to descendants). Authors never set it by hand.
+
+## Translations — sidecar invariants
+
+- **Source = English; translations = sidecars.** `catalogue/L1-*.yaml` etc. are the canonical English source. Translations live at `catalogue/i18n/<bcp47>/...` and are validated against `schema/i18n.schema.json`. Each sidecar declares `kind: capability | value-stream | business-process | macro-capability`.
+- **Locations:**
+  - capability → `catalogue/i18n/<locale>/L1-<slug>.yaml`, `source: L1-<slug>.yaml`
+  - business-process → `catalogue/i18n/<locale>/processes/BP1-<slug>.yaml`, `source: BP1-<slug>.yaml`
+  - value-stream → `catalogue/i18n/<locale>/_value-streams.yaml`, `source: _value-streams.yaml`
+  - macro-capability → `catalogue/i18n/<locale>/_macro-capabilities.yaml`, `source: _macro-capabilities.yaml`
+- **Translatable fields whitelist:** capability/business-process — `name`, `description`, `aliases`, `in_scope`, `out_of_scope`. value-stream — stream-level `name`, `description`; stage-level `stage_name`, `description`, `notes`. macro-capability — `name`, `description`, `in_scope`, `out_of_scope`. **Never** translate ids, levels, industry, references, framework_refs, deprecated, successor_id, or metadata.
+- **No orphans.** Every entry id in a sidecar must resolve to a node in the declared source. After a `cap:mv`/`cap:deprecate`/`bp:mv`/`bp:deprecate`/`vs:deprecate` the corresponding sidecar entries must be updated or removed in the same PR — lint blocks otherwise.
+- **Staleness detection.** Each sidecar entry carries an optional `source_hash` (SHA-256 fingerprint of the source's translatable surface at translation time). Lint flags any entry whose stored hash no longer matches the recomputed source. After editing a source `name`/`description`/`aliases`/`in_scope`/`out_of_scope`, retranslate the affected sidecar entry (typically via `/translate-language`) and run `npm run i18n:stamp` to refresh the hash. The stamp command is idempotent and safe to run on the whole catalogue.
+- **Locale tag = directory name.** `catalogue/i18n/fr-CA/...` files must declare `locale: fr-CA`. BCP-47 only.
+- **Bundle layout is additive.** `dist/api/capabilities.json`, `business-processes.json`, `value-streams.json`, `tree.json`, `bp-tree.json` stay English. Locale data ships separately under `dist/api/i18n/<locale>.json` and `dist/api/locales.json` — old consumers are unaffected.
+
+## Use the existing helpers — don't reinvent
+
+```bash
+# Capabilities
+npm run cap:add        -- --parent BC-100.10 --name "Forecast Reconciliation"
+npm run cap:mv         -- --id BC-300.10 --new-parent BC-100.10
+npm run cap:deprecate  -- --id BC-300.10 --successor BC-100.10 --reason "Merged"
+
+# Business processes
+npm run bp:add         -- --parent BP-10.10 --name "Forecast Reconciliation" --realizes BC-100.10
+npm run bp:mv          -- --id BP-30.10.20 --new-parent BP-20.10
+npm run bp:deprecate   -- --id BP-30.10.20 --successor BP-30.10.10 --reason "Merged"
+
+# Value streams
+npm run vs:add         -- --name "Quote-to-Cash" --industries Cross-Industry
+npm run vs:add-stage   -- --stream VS-30 --name "Quote Generation" --capabilities BC-100 [--processes BP-10.10]
+npm run vs:deprecate   -- --id VS-30 --successor VS-40 --reason "Merged"
+
+# Macro capabilities (navigation overlay above L1)
+npm run mc:add         -- --name "People & Workplace" --capabilities BC-300,BC-700,BC-710
+
+# Translations / staleness
+npm run i18n:stamp                    # backfill or refresh source_hash on every sidecar entry
+npm run i18n:stamp -- --check         # dry-run; non-zero exit if any entry is stale
+npm run i18n:stamp -- --locale fr     # restrict to one locale
+npm run i18n:stamp -- --kind business-process
+
+# Coverage checks (run after BP / VS / MC edits)
+npm run check:bc-coverage              # every Cross-Industry BC L1 has a realising BP
+npm run check:bc-coverage -- --strict  # exit non-zero on any orphan
+npm run check:macro-coverage           # every Cross-Industry BC L1 belongs to exactly one macro
+npm run check:macro-coverage -- --strict
+npm run check:i18n-coverage            # which (BP1 × locale) sidecars are missing
+npm run check:i18n-coverage -- --strict
+
+# Validation / build
+npm run lint           # required before commit; warns on BC-coverage gaps
+npm run build          # generates dist/api/, site/, package data
+```
+
+The CLI scripts under `scripts/cli/` preserve YAML formatting and compute next IDs deterministically (sparse 10/20/30). Driving them is safer than emitting YAML by hand.
+
+## Workflow
+
+1. Branch off `main` (or work on the feature branch you were assigned).
+2. Use the helper CLIs or edit YAML directly under `catalogue/`.
+3. Run `npm run lint` — a failing lint is a hard block on merge.
+4. Open a PR. `CODEOWNERS` for the L1 / BP1 file you touched is auto-requested for review.
+
+## Skills available in this repo
+
+- `/generate-capability` — draft new L1s or extend existing ones with MECE L2/L3 trees, industry-aware references, and metadata. Drives `cap:add` for ID safety.
+- `/generate-process` — synthesise a Cross-Industry BP1 from a value stream and the capabilities its stages exercise (or extend an existing BP1 with a new stage). Generates BP2 = stage, BP3 = verb-phrased activities; populates `realizes_capability_ids` and `framework_refs`. Drives `bp:bootstrap-bp1` and `bp:add`.
+- `/generate-value-stream` — propose new value streams with stages linked to capabilities and (optionally) processes. Drives `vs:add` / `vs:add-stage`.
+- `/map-value-streams` — legacy alias for value-stream mapping; superseded by `/generate-value-stream`.
+- `/translate-language` — generate or refresh sidecar translations under `catalogue/i18n/<locale>/`. Handles all three kinds (capability, business-process, value-stream).
+
+## Canonical docs
+
+- [`business-capability-governance-model.md`](business-capability-governance-model.md) — Parts A–F. Reference model (Part A), operational governance (Part B), value-stream layer (Part C), process layer (Part D), cross-layer linkage (Part E), macro capability layer (Part F).
+- [`schema/capability.schema.json`](schema/capability.schema.json) — JSON Schema for capability YAML.
+- [`schema/value-stream.schema.json`](schema/value-stream.schema.json) — JSON Schema for `_value-streams.yaml`.
+- [`schema/business-process.schema.json`](schema/business-process.schema.json) — JSON Schema for `processes/BP1-*.yaml`.
+- [`schema/macro-capability.schema.json`](schema/macro-capability.schema.json) — JSON Schema for `_macro-capabilities.yaml`.
+- [`schema/i18n.schema.json`](schema/i18n.schema.json) — JSON Schema for translation sidecars (all four kinds via `kind` discriminator).
+- [`catalogue/_index.yaml`](catalogue/_index.yaml) — registry of all L1 capability files; lint enforces every L1 file is indexed.
+- [`catalogue/processes/_index.yaml`](catalogue/processes/_index.yaml) — registry of all BP1 process files; same enforcement.
+- [`catalogue/_value-streams.yaml`](catalogue/_value-streams.yaml) — value-stream artefact.
+
+---
+> Source: [vincentmakes/turbo-ea-capabilities](https://github.com/vincentmakes/turbo-ea-capabilities) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-24 -->
