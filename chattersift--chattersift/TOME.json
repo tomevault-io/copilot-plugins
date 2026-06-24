@@ -4,7 +4,7 @@
   "repo": "ChatterSift",
   "description": "Reddit monitoring made simple: watch subreddits for the keywords that matter and get alerted when they appear.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ChatterSift/ChatterSift",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T21:36:48Z"
+  "distributed_at": "2026-06-24T21:42:45Z"
 }
