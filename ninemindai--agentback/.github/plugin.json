@@ -1,0 +1,9 @@
+{
+  "name": "ninemindai--agentback",
+  "displayName": "agentback",
+  "description": "AI native API/MCP framework for the agent era. Built with agents, for agents.",
+  "version": "1.0.0",
+  "author": "ninemindai",
+  "homepage": "https://github.com/ninemindai/agentback",
+  "skills": []
+}
