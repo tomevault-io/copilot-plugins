@@ -7,11 +7,11 @@ TVControl by Ferrox Labs — TradingView MCP System. AI remote control for Tradi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [FerroxLabs/tvcontrol](https://github.com/FerroxLabs/tvcontrol).
+Original source: `AGENTS.md` in [FerroxLabs/tvcontrol](https://github.com/FerroxLabs/tvcontrol).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
