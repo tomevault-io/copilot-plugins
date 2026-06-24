@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--lelab",
+  "displayName": "leLab",
+  "description": "\ud83e\udd17 LeLab: A web UI interface on top of LeRobot",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/leLab",
+  "skills": []
+}
