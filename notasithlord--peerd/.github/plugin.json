@@ -1,0 +1,9 @@
+{
+  "name": "notasithlord--peerd",
+  "displayName": "peerd",
+  "description": "The first AI agent harness native to the browser. A Chrome/Firefox extension that runs the agent loop in your browser \u2014 drives your tabs, spins up sandboxed compute (JS notebooks, WASM Linux VMs, clie",
+  "version": "1.0.0",
+  "author": "NotASithLord",
+  "homepage": "https://github.com/NotASithLord/peerd",
+  "skills": []
+}
