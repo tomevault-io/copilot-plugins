@@ -4,7 +4,7 @@
   "repo": "hyper",
   "description": "Distributed Firecracker VM Orchestrator written in Elixir",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harmont-dev/hyper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T08:40:41Z"
+  "distributed_at": "2026-06-24T08:43:56Z"
 }
