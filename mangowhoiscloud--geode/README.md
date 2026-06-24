@@ -7,11 +7,11 @@ GEODE v0.99.70: 범용 자율 실행 에이전트 하네스 · while(tool_use) A
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mangowhoiscloud/geode](https://github.com/mangowhoiscloud/geode).
+Original source: `AGENTS.md` in [mangowhoiscloud/geode](https://github.com/mangowhoiscloud/geode).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `CLAUDE.md` in [mangowhoiscloud/geode](https://github.com/mango
 
 - [codex-mcp-verify](https://github.com/mangowhoiscloud/geode/tree/main/.geode/skills/codex-mcp-verify)
 
-From [mangowhoiscloud/geode](https://github.com/mangowhoiscloud/geode) — a repo with 9+ stars on GitHub.
+From [mangowhoiscloud/geode](https://github.com/mangowhoiscloud/geode) — a repo with 0+ stars on GitHub.
 
 ---
 
