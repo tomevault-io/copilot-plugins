@@ -1,0 +1,9 @@
+{
+  "name": "dharness--photo-editor",
+  "displayName": "photo-editor",
+  "description": "Browser-based photo/video editor \u2014 TypeScript, Canvas 2D, Zustand",
+  "version": "1.0.0",
+  "author": "dharness",
+  "homepage": "https://github.com/dharness/photo-editor",
+  "skills": []
+}
