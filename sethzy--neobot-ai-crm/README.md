@@ -7,11 +7,11 @@ NeoBot: AI CRM workspace built on Next.js
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Sethzy/neobot-ai-crm](https://github.com/Sethzy/neobot-ai-crm).
+Original source: `AGENTS.md` in [Sethzy/neobot-ai-crm](https://github.com/Sethzy/neobot-ai-crm).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
