@@ -1,0 +1,44 @@
+{
+  "name": "OpenHBM",
+  "owner": "Netie-AI",
+  "repo": "OpenHBM",
+  "description": "An open-source, JEDEC JESD270-4A-compliant HBM4 memory subsystem (controller + PHY-shim + DFT + RAS + security wrapper) tightly coupled to an open RISC-V-native LPU accelerator. Apache-2.0 RTL, CERN-OHL-W-2.0 analog/GDSII, trademark-controlled compatibility certification.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Netie-AI/OpenHBM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T23:24:42Z"
+}
