@@ -1,0 +1,9 @@
+{
+  "name": "yupoet--aurumq-rl",
+  "displayName": "aurumq-rl",
+  "description": "RL stock selection for China A-share \u2014 bundled polars-native factor library (105 Alpha101 + 191 GTJA Alpha191 = 296 factors), board-aware price limits, GPU train + ONNX CPU infer, MIT-licensed.",
+  "version": "1.0.0",
+  "author": "yupoet",
+  "homepage": "https://github.com/yupoet/aurumq-rl",
+  "skills": []
+}
