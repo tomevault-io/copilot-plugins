@@ -4,7 +4,7 @@
   "repo": "agentic-coding-template",
   "description": "Spec-first (SDD) + test-first (TDD) project template for Claude Code, Codex, AntiGravity",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reginaldosilva27/agentic-coding-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T02:43:40Z"
+  "distributed_at": "2026-06-24T02:44:09Z"
 }
