@@ -7,11 +7,11 @@ Simulate Crosspoint firmware without flashing onto your device
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [crosspoint-reader/crosspoint-simulator](https://github.com/crosspoint-reader/crosspoint-simulator).
+Original source: `CLAUDE.md` in [crosspoint-reader/crosspoint-simulator](https://github.com/crosspoint-reader/crosspoint-simulator).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
