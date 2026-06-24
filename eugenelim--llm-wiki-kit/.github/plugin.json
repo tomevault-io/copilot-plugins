@@ -1,0 +1,9 @@
+{
+  "name": "eugenelim--llm-wiki-kit",
+  "displayName": "llm-wiki-kit",
+  "description": "Configurable group operating system and LLM Wiki knowledge management kit for teams and families. Obsidian vault templates, agent skills, and scripts for building structured, AI-maintained markdown kn",
+  "version": "1.0.0",
+  "author": "eugenelim",
+  "homepage": "https://github.com/eugenelim/llm-wiki-kit",
+  "skills": []
+}
