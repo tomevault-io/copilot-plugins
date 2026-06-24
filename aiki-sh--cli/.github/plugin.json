@@ -1,0 +1,9 @@
+{
+  "name": "aiki-sh--cli",
+  "displayName": "cli",
+  "description": "Agent agnostic framework for building autonomous coding workflows.",
+  "version": "1.0.0",
+  "author": "aiki-sh",
+  "homepage": "https://github.com/aiki-sh/cli",
+  "skills": []
+}
