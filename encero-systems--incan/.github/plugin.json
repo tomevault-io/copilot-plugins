@@ -1,0 +1,9 @@
+{
+  "name": "encero-systems--incan",
+  "displayName": "incan",
+  "description": "Incan: a modern, Pythonic language that compiles to Rust! Type-safe, async-friendly, with fixtures, testing, and web/inter-op built in.",
+  "version": "1.0.0",
+  "author": "encero-systems",
+  "homepage": "https://github.com/encero-systems/incan",
+  "skills": []
+}
