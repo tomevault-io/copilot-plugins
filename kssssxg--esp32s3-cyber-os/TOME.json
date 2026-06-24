@@ -4,7 +4,7 @@
   "repo": "esp32s3-cyber-os",
   "description": "ESP32-S3 \u5168\u80fd\u8d5b\u535a\u684c\u9762\u7cfb\u7edf \u2014 NES\u6a21\u62df\u5668 / DOOM / BLE\u8bbe\u5907\u8bf1\u9a97 / \u4e91\u97f3\u4e50 / \u592a\u7a7a\u4eba\u65f6\u949f",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kssssxg/esp32s3-cyber-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T02:36:48Z"
+  "distributed_at": "2026-06-24T02:40:16Z"
 }
