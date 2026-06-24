@@ -1,0 +1,14 @@
+{
+  "name": "software-mansion-labs--moq-kit",
+  "displayName": "moq-kit",
+  "description": "moq-kit",
+  "version": "1.0.0",
+  "author": "software-mansion-labs",
+  "homepage": "https://github.com/software-mansion-labs/moq-kit",
+  "skills": [
+    {
+      "name": "build-ios",
+      "description": ""
+    }
+  ]
+}
