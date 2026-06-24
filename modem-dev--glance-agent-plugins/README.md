@@ -7,11 +7,11 @@ Agent plugins for glance.sh — temporary image sharing for coding agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [modem-dev/glance-agent-plugins](https://github.com/modem-dev/glance-agent-plugins).
+Original source: `CLAUDE.md` in [modem-dev/glance-agent-plugins](https://github.com/modem-dev/glance-agent-plugins).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
