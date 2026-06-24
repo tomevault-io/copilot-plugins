@@ -1,0 +1,9 @@
+{
+  "name": "quantskills--agent-quantspace",
+  "displayName": "agent-quantspace",
+  "description": "AI-native quantitative research framework",
+  "version": "1.0.0",
+  "author": "quantskills",
+  "homepage": "https://github.com/quantskills/agent-quantspace",
+  "skills": []
+}
