@@ -1,0 +1,9 @@
+{
+  "name": "zetaphor--pi-vscode-extension",
+  "displayName": "pi-vscode-extension",
+  "description": "Pi coding agent, as a VSCode extension",
+  "version": "1.0.0",
+  "author": "Zetaphor",
+  "homepage": "https://github.com/Zetaphor/pi-vscode-extension",
+  "skills": []
+}
