@@ -1,0 +1,9 @@
+{
+  "name": "maakle--holo",
+  "displayName": "holo",
+  "description": "The agent context layer for all your companies knowledge",
+  "version": "1.0.0",
+  "author": "maakle",
+  "homepage": "https://github.com/maakle/holo",
+  "skills": []
+}
