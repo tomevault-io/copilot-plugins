@@ -4,7 +4,7 @@
   "repo": "payload-components",
   "description": "Payload Components: registry-backed Payload CMS blocks installed wired, not pasted.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ducksss/payload-components",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T04:39:55Z"
+  "distributed_at": "2026-06-24T04:40:28Z"
 }
