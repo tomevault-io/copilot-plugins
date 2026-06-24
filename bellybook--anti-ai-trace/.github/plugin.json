@@ -1,0 +1,9 @@
+{
+  "name": "bellybook--anti-ai-trace",
+  "displayName": "anti-ai-trace",
+  "description": "\u53cd AI \u8bc6\u522b\u56fe\u7247\u6e05\u6d17\u5de5\u5177\uff1a\u6697\u6c34\u5370\u5f52\u96f6 \u2192 JPEG \u6709\u635f\u4e2d\u8f6c \u2192 \u5143\u6570\u636e\u5265\u79bb \u2192 PNG \u51c0\u5316",
+  "version": "1.0.0",
+  "author": "BellyBook",
+  "homepage": "https://github.com/BellyBook/anti-ai-trace",
+  "skills": []
+}
