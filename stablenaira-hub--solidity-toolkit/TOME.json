@@ -4,7 +4,7 @@
   "repo": "solidity-toolkit",
   "description": "Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 infrastructure.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stablenaira-hub/solidity-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T21:45:24Z"
+  "distributed_at": "2026-06-24T21:46:54Z"
 }
