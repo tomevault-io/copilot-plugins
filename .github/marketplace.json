@@ -20944,6 +20944,16 @@
       "description": "Cleaner for WhatsApp - Clean WhatsApp's Redundant Media Files from Storage"
     },
     {
+      "name": "wukongopensource--wukong-aicrm",
+      "source": "./wukongopensource--wukong-aicrm",
+      "description": "The Open Source Salesforce + ChatGPT  Manage Customers. Query Knowledge. Execute Tasks. All Through Conversation."
+    },
+    {
+      "name": "wukongopensource--wukong-aicrm",
+      "source": "./wukongopensource--wukong-aicrm",
+      "description": "The Open Source Salesforce + ChatGPT  Manage Customers. Query Knowledge. Execute Tasks. All Through Conversation."
+    },
+    {
       "name": "peterjthomson--ledger",
       "source": "./peterjthomson--ledger",
       "description": "A modernised git interface for improved agent and human collaboration, review and control"
@@ -52309,6 +52319,11 @@
       "description": "claude-family-history-research-skill"
     },
     {
+      "name": "realistic-farming--fs25-soilfertilizer",
+      "source": "./realistic-farming--fs25-soilfertilizer",
+      "description": "Realistic soil nutrient management for Farming Simulator 25. Track N/P/K, pH, and organic matter per field \u2014 with crop-specific depletion, fertilizer replenishment, weather effects, and seasonal cycle"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -58782,6 +58797,11 @@
       "name": "agopengps-official--agvaloniagps",
       "source": "./agopengps-official--agvaloniagps",
       "description": "Multi-platform (Windows/Linux/MacOS/iOS/Android) Rewrite of AgOpenGPS to Avalonia/.Net10/C# technology stack. Uses MVVM pattern to separate backend services from UI"
+    },
+    {
+      "name": "tako-research--takovm",
+      "source": "./tako-research--takovm",
+      "description": "A secure file system for your agents to execute code"
     },
     {
       "name": "knowsuchagency--fulcrum",
@@ -209982,6 +210002,11 @@
       "name": "mangowhoiscloud--geode",
       "source": "./mangowhoiscloud--geode",
       "description": "GEODE v0.99.70: \ubc94\uc6a9 \uc790\uc728 \uc2e4\ud589 \uc5d0\uc774\uc804\ud2b8 \ud558\ub124\uc2a4 \u00b7 while(tool_use) AgenticLoop \u00b7 54 Tools + 13 MCP \u00b7 46 Hook Events (L1\u2192L4 \uc131\uc219\ub3c4) \u00b7 Autonomous Safety (\ube44\uc6a9 \uc0c1\ud55c + \ub798\uce6b + \ub2e4\uc591\uc131) \u00b7 5-Layer Verification \u00b7 3-Provider Resilience"
+    },
+    {
+      "name": "calcosmic--aether",
+      "source": "./calcosmic--aether",
+      "description": "Artificial Ecology For Thought and Emergent Reasoning.  The Colony That Builds With You."
     },
     {
       "name": "ocrbase-hq--ocrbase",
