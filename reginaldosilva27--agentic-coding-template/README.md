@@ -7,11 +7,11 @@ Spec-first (SDD) + test-first (TDD) project template for Claude Code, Codex, Ant
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [reginaldosilva27/agentic-coding-template](https://github.com/reginaldosilva27/agentic-coding-template).
+Original source: `CLAUDE.md` in [reginaldosilva27/agentic-coding-template](https://github.com/reginaldosilva27/agentic-coding-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
