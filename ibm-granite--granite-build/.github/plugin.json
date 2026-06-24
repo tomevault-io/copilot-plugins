@@ -1,0 +1,9 @@
+{
+  "name": "ibm-granite--granite-build",
+  "displayName": "granite.build",
+  "description": "Build orchestration for LLM pipelines",
+  "version": "1.0.0",
+  "author": "ibm-granite",
+  "homepage": "https://github.com/ibm-granite/granite.build",
+  "skills": []
+}
