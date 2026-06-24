@@ -159,6 +159,11 @@
       "description": "\u03c0 RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection \u2014 all without a single pixel of video."
     },
     {
+      "name": "headroomlabs-ai--headroom",
+      "source": "./headroomlabs-ai--headroom",
+      "description": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 60-95% fewer tokens, same answers. Library, proxy, MCP server."
+    },
+    {
       "name": "koala73--worldmonitor",
       "source": "./koala73--worldmonitor",
       "description": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface"
@@ -64194,6 +64199,11 @@
       "description": "rlm-workflow"
     },
     {
+      "name": "d1rshan--tsuki",
+      "source": "./d1rshan--tsuki",
+      "description": "just another anime/manga tracker but with insanely good ui"
+    },
+    {
       "name": "shinchven--nano-banana-skills",
       "source": "./shinchven--nano-banana-skills",
       "description": "Nano Banana Pro Skills"
@@ -113502,6 +113512,11 @@
       "name": "baseintelligence--term-executor",
       "source": "./baseintelligence--term-executor",
       "description": "Secure agent execution service for term-challenge via Basilica"
+    },
+    {
+      "name": "okasi--stealth-guard",
+      "source": "./okasi--stealth-guard",
+      "description": "A feature-rich privacy shield for browsers that protects against fingerprinting and tracking. It spoof and randomize identity data, providing robust anti-tracking protection and proxy support\u2014without "
     },
     {
       "name": "lucianaib0318--geomind",
@@ -169207,6 +169222,11 @@
       "name": "mila-iqia--cluv",
       "source": "./mila-iqia--cluv",
       "description": "A powerful and lightweight CLI tool to use UV across multiple clusters"
+    },
+    {
+      "name": "jianjianai--4k-image-api",
+      "source": "./jianjianai--4k-image-api",
+      "description": "\u4e00\u4e2a\u57fa\u4e8e Nitro v3 \u7684 OpenAI \u517c\u5bb9\u751f\u56fe API \u670d\u52a1\u3002\u524d\u7aef\u6216\u7b2c\u4e09\u65b9\u5ba2\u6237\u7aef\u53ef\u4ee5\u6309 OpenAI Images / Responses \u7684\u8bf7\u6c42\u683c\u5f0f\u8c03\u7528\u672c\u670d\u52a1\uff0c\u540e\u7aef\u518d\u6309\u914d\u7f6e\u628a\u7edf\u4e00\u540e\u7684\u56fe\u7247\u4efb\u52a1\u5206\u53d1\u7ed9\u4e0d\u540c\u63d0\u4f9b\u5546\u3002"
     },
     {
       "name": "lightninglabs--lnget",
