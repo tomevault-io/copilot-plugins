@@ -90189,6 +90189,16 @@
       "description": "audio-paper-digest"
     },
     {
+      "name": "ralforion--orionbelt-analytics",
+      "source": "./ralforion--orionbelt-analytics",
+      "description": "Ontology-based MCP server that analyzes database schemas (PostgreSQL, Snowflake, ClickHouse, Dremio) and generates RDF/OWL ontologies with SQL mappings for fan-trap-free Text-to-SQL."
+    },
+    {
+      "name": "ralforion--orionbelt-analytics",
+      "source": "./ralforion--orionbelt-analytics",
+      "description": "Ontology-based MCP server that analyzes database schemas (PostgreSQL, Snowflake, ClickHouse, Dremio) and generates RDF/OWL ontologies with SQL mappings for fan-trap-free Text-to-SQL."
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -113444,6 +113454,11 @@
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
     },
     {
+      "name": "baseintelligence--term-executor",
+      "source": "./baseintelligence--term-executor",
+      "description": "Secure agent execution service for term-challenge via Basilica"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -119927,6 +119942,11 @@
       "name": "insmtx--lework",
       "source": "./insmtx--lework",
       "description": "\u8ba9 AI \u50cf\u771f\u6b63\u7684\u56e2\u961f\u6210\u5458\u4e00\u6837\u53c2\u4e0e\u9879\u76ee\u3001\u6267\u884c\u4efb\u52a1\u3001\u534f\u4f5c\u4ea4\u4ed8\u7684 AI Native \u5de5\u4f5c\u5e73\u53f0\u3002"
+    },
+    {
+      "name": "pro-vi--agent-dice",
+      "source": "./pro-vi--agent-dice",
+      "description": "Probabilistic dice triggers for Claude Code hooks"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -161214,6 +161234,11 @@
       "description": "A unified MCP server that aggregates 32 sports API providers into a single service. 336 tools covering scores, stats, odds, esports, college sports, chess, AFL, and more across 70+ sports."
     },
     {
+      "name": "nvidia-isaac--cunls",
+      "source": "./nvidia-isaac--cunls",
+      "description": "Nvidia Isaac CUDA-Accelerated Nonlinear Least Square Solver "
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -169092,6 +169117,11 @@
       "name": "klboke--kkrepo",
       "source": "./klboke--kkrepo",
       "description": "Nexus-compatible self-hosted artifact repository"
+    },
+    {
+      "name": "mila-iqia--cluv",
+      "source": "./mila-iqia--cluv",
+      "description": "A powerful and lightweight CLI tool to use UV across multiple clusters"
     },
     {
       "name": "lightninglabs--lnget",
@@ -180927,6 +180957,26 @@
       "name": "whmmy--lolarena",
       "source": "./whmmy--lolarena",
       "description": "A benchmark that scores frontier LLMs on real League-of-Legends match prediction."
+    },
+    {
+      "name": "zircote--claude-team-orchestration",
+      "source": "./zircote--claude-team-orchestration",
+      "description": "Multi-agent orchestration plugin for Claude Code. Coordinate agent teams with shared tasks, messaging, and 7 patterns including RLM (arXiv:2512.24601) for large-file analysis beyond context limits."
+    },
+    {
+      "name": "robmorgan--timestretch-rs",
+      "source": "./robmorgan--timestretch-rs",
+      "description": "timestretch-rs"
+    },
+    {
+      "name": "backblaze-b2-samples--vibe-coding-starter-kit",
+      "source": "./backblaze-b2-samples--vibe-coding-starter-kit",
+      "description": "Starter kit for vibe coders building apps with file uploads and object storage. This full-stack dashboard template integrates with Backblaze B2 Cloud Storage and includes secure upload flows, file bro"
+    },
+    {
+      "name": "waishnav--self-improvement-frontend-design-skill-loop-for-codex",
+      "source": "./waishnav--self-improvement-frontend-design-skill-loop-for-codex",
+      "description": "self-improvement-frontend-design-skill-loop-for-codex"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -226584,6 +226634,36 @@
       "description": "\u7aef\u53e3\u8fdb\u7a0b\u67e5\u770b\u5668"
     },
     {
+      "name": "green-pt--honey-for-devs",
+      "source": "./green-pt--honey-for-devs",
+      "description": "Honey (I Shrunk the AI) by GreenPT: a cross-tool coding skill that cuts AI coding-agent token usage and LLM API costs \u2014 write less code, less prose, and denser agent-to-agent handoffs (\u221253%, lossless "
+    },
+    {
+      "name": "green-pt--honey-for-devs",
+      "source": "./green-pt--honey-for-devs",
+      "description": "Honey (I Shrunk the AI) by GreenPT: a cross-tool coding skill that cuts AI coding-agent token usage and LLM API costs \u2014 write less code, less prose, and denser agent-to-agent handoffs (\u221253%, lossless "
+    },
+    {
+      "name": "quin95--sublink-worker",
+      "source": "./quin95--sublink-worker",
+      "description": "A lightweight proxy subscription converter and manager, support Clash/Sing-Box/Surge/Xray, deployable on Cloudflare Workers/Vercel/Node.js.\u8f7b\u91cf\u7ea7\u4ee3\u7406\u8ba2\u9605\u94fe\u63a5\u8f6c\u6362\u4e0e\u7ba1\u7406\u5de5\u5177\uff0c\u652f\u6301 Clash / Sing-Box / Surge / Xray\uff0c\u53ef\u5feb\u901f\u90e8\u7f72\u4e8e Cl"
+    },
+    {
+      "name": "zeke--preview-deployments-skill",
+      "source": "./zeke--preview-deployments-skill",
+      "description": "An agent skill to add preview deployments to your Cloudflare apps using GitHub Actions workflows and the GitHub Deployments API."
+    },
+    {
+      "name": "green-pt--honey-for-devs",
+      "source": "./green-pt--honey-for-devs",
+      "description": "Honey (I Shrunk the AI) by GreenPT: a cross-tool coding skill that cuts AI coding-agent token usage and LLM API costs \u2014 write less code, less prose, and denser agent-to-agent handoffs (\u221253%, lossless "
+    },
+    {
+      "name": "quin95--sublink-worker",
+      "source": "./quin95--sublink-worker",
+      "description": "A lightweight proxy subscription converter and manager, support Clash/Sing-Box/Surge/Xray, deployable on Cloudflare Workers/Vercel/Node.js.\u8f7b\u91cf\u7ea7\u4ee3\u7406\u8ba2\u9605\u94fe\u63a5\u8f6c\u6362\u4e0e\u7ba1\u7406\u5de5\u5177\uff0c\u652f\u6301 Clash / Sing-Box / Surge / Xray\uff0c\u53ef\u5feb\u901f\u90e8\u7f72\u4e8e Cl"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -230507,6 +230587,11 @@
       "name": "simonlin1212--sdesign",
       "source": "./simonlin1212--sdesign",
       "description": "\u4e00\u53e5\u8bdd\u751f\u6210\u53ef\u6f14\u793a\u3001\u53ef\u5bfc\u51fa\u7684\u7cbe\u7f8e PPT\u2014\u2014\u7528\u4f60\u5df2\u6709\u7684 AI \u8ba2\u9605\uff08Claude Code \u7b49\uff09\u51fa\u7247\uff0c\u514d API key\u3002 Open-source AI slide generator \u2014 one sentence into a polished, exportable deck, powered by the AI subscription you already have. No API key"
+    },
+    {
+      "name": "peisp--catdb",
+      "source": "./peisp--catdb",
+      "description": "\u57fa\u4e8e Wails v3\uff08Go + Vue 3 + WebView\uff09\u7684\u8de8\u5e73\u53f0\u6570\u636e\u5e93\u5ba2\u6237\u7aef\u3002Cross-platform database client based on Wails3 (Go + Vue 3 + WebView)."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
