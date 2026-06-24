@@ -75569,6 +75569,11 @@
       "description": "api-image"
     },
     {
+      "name": "daniel-parke--patterstage",
+      "source": "./daniel-parke--patterstage",
+      "description": "Staging Room for benchmarking, orchestration and other operations for local Hermes AI Agent"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -102749,6 +102754,21 @@
       "description": "tech-earnings-deepdive-openclaw-skill"
     },
     {
+      "name": "re-gion--truthseeker",
+      "source": "./re-gion--truthseeker",
+      "description": "\u57fa\u4e8e\u9c81\u68d2\u8054\u90a6\u5b66\u4e60\u4e0e\u591a\u667a\u80fd\u4f53\u4ea4\u53c9\u9a8c\u8bc1\u7684\u8de8\u6a21\u6001Deepfake\u9274\u4f2a\u4e0e\u6eaf\u6e90\u7cfb\u7edf"
+    },
+    {
+      "name": "re-gion--truthseeker",
+      "source": "./re-gion--truthseeker",
+      "description": "\u57fa\u4e8e\u9c81\u68d2\u8054\u90a6\u5b66\u4e60\u4e0e\u591a\u667a\u80fd\u4f53\u4ea4\u53c9\u9a8c\u8bc1\u7684\u8de8\u6a21\u6001Deepfake\u9274\u4f2a\u4e0e\u6eaf\u6e90\u7cfb\u7edf"
+    },
+    {
+      "name": "re-gion--truthseeker",
+      "source": "./re-gion--truthseeker",
+      "description": "\u57fa\u4e8e\u9c81\u68d2\u8054\u90a6\u5b66\u4e60\u4e0e\u591a\u667a\u80fd\u4f53\u4ea4\u53c9\u9a8c\u8bc1\u7684\u8de8\u6a21\u6001Deepfake\u9274\u4f2a\u4e0e\u6eaf\u6e90\u7cfb\u7edf"
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -107899,6 +107919,11 @@
       "description": "\u7f51\u6613\u4e91\u97f3\u4e50MCP\u667a\u80fd\u63a7\u5236\u5668\uff0c\u63d0\u4f9b\u5168\u5c40\u5feb\u6377\u952e\u3001\u641c\u7d22\u5355\u66f2\u64ad\u653e\u3001\u641c\u7d22\u6b4c\u5355\u64ad\u653e\u3001\u81ea\u5b9a\u4e49\u6b4c\u5355\u7ba1\u7406\u3001\u6bcf\u65e5\u63a8\u8350\u548c\u79c1\u4eba\u6f2b\u6e38\u7b49\u4e30\u5bcc\u529f\u80fd\u3002"
     },
     {
+      "name": "openfollowapp--openfollow",
+      "source": "./openfollowapp--openfollow",
+      "description": "OpenFollow enables you to track people and objects in 3D to automate lighting, audio and media. Generate PosiStageNet (PSN) data using a gamepad, or utilize local AI detection based on camera input to"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -110517,6 +110542,11 @@
       "name": "yoichiojima-2--consultant",
       "source": "./yoichiojima-2--consultant",
       "description": "50+ consulting frameworks from McKinsey, BCG, Bain, and Accenture, packaged as a Claude Code skill for structured problem-solving and strategic analysis."
+    },
+    {
+      "name": "naorsabag--openhop",
+      "source": "./naorsabag--openhop",
+      "description": "Interactive data-flow diagrams your AI agent can write. One SKILL.md \u2014 install in Claude Code, Cursor, Codex, and 11+ other clients via `npx openskills install naorsabag/openhop`."
     },
     {
       "name": "iamtouchskyer--logex",
@@ -113262,6 +113292,16 @@
       "name": "judder659--forven",
       "source": "./judder659--forven",
       "description": "Forven"
+    },
+    {
+      "name": "majcheradam--ocrbase",
+      "source": "./majcheradam--ocrbase",
+      "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
+    },
+    {
+      "name": "majcheradam--ocrbase",
+      "source": "./majcheradam--ocrbase",
+      "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
     },
     {
       "name": "lucianaib0318--geomind",
@@ -126034,6 +126074,16 @@
       "description": "Metadata-first autonomous data analysis skill suite for Codex."
     },
     {
+      "name": "runxhq--runx",
+      "source": "./runxhq--runx",
+      "description": "the governed runtime for agent skill workflows, off the leash but on the record"
+    },
+    {
+      "name": "runxhq--runx",
+      "source": "./runxhq--runx",
+      "description": "the governed runtime for agent skill workflows, off the leash but on the record"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -138154,6 +138204,11 @@
       "description": "Local-first static analysis that turns source code into deterministic, source-grounded workflow maps for coding agents via MCP."
     },
     {
+      "name": "j-wang--knowledge-agent-template",
+      "source": "./j-wang--knowledge-agent-template",
+      "description": "This is a generic knowledge agent for creating a RAG pipeline from source docs, etc."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -142637,6 +142692,16 @@
       "name": "vitorcalvi--cog-mcp",
       "source": "./vitorcalvi--cog-mcp",
       "description": "Semantic Code Intelligence with Apple Silicon MLX - MCP Server for AI Assistants"
+    },
+    {
+      "name": "ducksss--payload-components",
+      "source": "./ducksss--payload-components",
+      "description": "Payload Components: registry-backed Payload CMS blocks installed wired, not pasted."
+    },
+    {
+      "name": "ducksss--payload-components",
+      "source": "./ducksss--payload-components",
+      "description": "Payload Components: registry-backed Payload CMS blocks installed wired, not pasted."
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -147672,6 +147737,11 @@
       "name": "dishain--shain-designer-kit",
       "source": "./dishain--shain-designer-kit",
       "description": "shain-designer-kit"
+    },
+    {
+      "name": "nandinigoyaldev--open-source-contribution-atelier",
+      "source": "./nandinigoyaldev--open-source-contribution-atelier",
+      "description": "A full-stack learning and operations platform for teaching open source contribution from beginner to advanced levels"
     },
     {
       "name": "lucas-acc--sancho-skills",
@@ -160882,6 +160952,11 @@
       "name": "scratchyone--voice-training-ui",
       "source": "./scratchyone--voice-training-ui",
       "description": "A (mostly written by Claude) voice training tool I created for myself and am now releasing by popular demand"
+    },
+    {
+      "name": "nigh--resobackup",
+      "source": "./nigh--resobackup",
+      "description": "Reed-Solomon erasure coding backup tool with AES-256 encryption, GUI & CLI | Reed-Solomon \u7ea0\u5220\u7801\u52a0\u5bc6\u5907\u4efd\u5de5\u5177\uff0c\u652f\u6301 GUI \u548c CLI"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -180397,6 +180472,36 @@
       "name": "eurfelux--lyrisland",
       "source": "./eurfelux--lyrisland",
       "description": "A macOS Dynamic Island-style floating widget that displays real-time synced lyrics for Spotify. No login required."
+    },
+    {
+      "name": "suzuke--agend-terminal",
+      "source": "./suzuke--agend-terminal",
+      "description": "Rust-based Agent Process Manager \u2014 PTY multiplexer optimized for AI CLI agents"
+    },
+    {
+      "name": "youssefvdel--qwen-studio",
+      "source": "./youssefvdel--qwen-studio",
+      "description": "The official Qwen Studio app only supports Windows and macOS. This project brings the same desktop experience to Linux."
+    },
+    {
+      "name": "ryanthedev--penman",
+      "source": "./ryanthedev--penman",
+      "description": "Convert markdown to rich text styled for any platform \u2014 Slack, Teams, Discord, Word, Notion, Outlook, Gmail \u2014 and drop it on the clipboard ready to paste. Claude Code plugin with MCP server."
+    },
+    {
+      "name": "team-cowork--cowork-server",
+      "source": "./team-cowork--cowork-server",
+      "description": "[ \ud611\uc5c5 \uad00\ub9ac \ud50c\ub7ab\ud3fc cowork | Server ]"
+    },
+    {
+      "name": "team-cowork--cowork-server",
+      "source": "./team-cowork--cowork-server",
+      "description": "[ \ud611\uc5c5 \uad00\ub9ac \ud50c\ub7ab\ud3fc cowork | Server ]"
+    },
+    {
+      "name": "nonz250--ai-rotom",
+      "source": "./nonz250--ai-rotom",
+      "description": "Pokemon Champions battle advisor MCP server"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -225954,6 +226059,16 @@
       "description": "An F#-first web crawling & scraping framework for .NET \u2014 crawl engine, HTML parsing DSL, browser-free extraction, and polite-by-default crawl ops."
     },
     {
+      "name": "yhfgyyf--vllm-deepseek-v4-sm89",
+      "source": "./yhfgyyf--vllm-deepseek-v4-sm89",
+      "description": "Run DeepSeek-V4-Flash on SM89 (Ada / RTX 4090) with vLLM \u2014 patch over PR #41834. Validated on 4x RTX 4090."
+    },
+    {
+      "name": "badchars--darknet-mcp-server",
+      "source": "./badchars--darknet-mcp-server",
+      "description": "66-tool MCP server for dark web intelligence \u2014 breach data, ransomware tracking, Tor .onion access, malware analysis, blockchain intel, exploit search, stealer logs"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -229857,6 +229972,11 @@
       "name": "reginaldosilva27--agentic-coding-template",
       "source": "./reginaldosilva27--agentic-coding-template",
       "description": "Spec-first (SDD) + test-first (TDD) project template for Claude Code, Codex, AntiGravity"
+    },
+    {
+      "name": "dylannalex--llm-code-wiki",
+      "source": "./dylannalex--llm-code-wiki",
+      "description": "llm-code-wiki"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
