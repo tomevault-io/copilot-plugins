@@ -1,0 +1,9 @@
+{
+  "name": "ivebenfreed--kata",
+  "displayName": "kata",
+  "description": "Workflow management CLI for Claude Code \u2014 structured session modes, phase tracking, and stop hooks",
+  "version": "1.0.0",
+  "author": "ivebenfreed",
+  "homepage": "https://github.com/ivebenfreed/kata",
+  "skills": []
+}
