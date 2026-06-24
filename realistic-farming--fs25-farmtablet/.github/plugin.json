@@ -1,0 +1,9 @@
+{
+  "name": "realistic-farming--fs25-farmtablet",
+  "displayName": "FS25_FarmTablet",
+  "description": "In-game tablet UI for Farming Simulator 25. Access farm stats, tools, and information at a glance \u2014 without leaving the field.",
+  "version": "1.0.0",
+  "author": "Realistic-Farming",
+  "homepage": "https://github.com/Realistic-Farming/FS25_FarmTablet",
+  "skills": []
+}
