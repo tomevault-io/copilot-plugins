@@ -1,0 +1,9 @@
+{
+  "name": "geeks-accelerator--ollama-herd",
+  "displayName": "ollama-herd",
+  "description": "Local AI load balancer for Ollama fleets \u2014 auto-discovery, smart routing, OpenAI-compatible API, zero config. Perfect for Mac Minis & Studios.",
+  "version": "1.0.0",
+  "author": "geeks-accelerator",
+  "homepage": "https://github.com/geeks-accelerator/ollama-herd",
+  "skills": []
+}
