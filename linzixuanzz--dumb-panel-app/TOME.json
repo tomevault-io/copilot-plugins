@@ -1,0 +1,44 @@
+{
+  "name": "Dumb-Panel-APP",
+  "owner": "linzixuanzz",
+  "repo": "Dumb-Panel-APP",
+  "description": "The Daimian Panel Android app provides quick, easy control of your devices on the go. \u5446\u5446\u9762\u677f\u5b89\u5353App\u7aef",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/linzixuanzz/Dumb-Panel-APP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T06:33:51Z"
+}
