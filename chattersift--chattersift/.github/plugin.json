@@ -1,0 +1,9 @@
+{
+  "name": "chattersift--chattersift",
+  "displayName": "ChatterSift",
+  "description": "Reddit monitoring made simple: watch subreddits for the keywords that matter and get alerted when they appear.",
+  "version": "1.0.0",
+  "author": "ChatterSift",
+  "homepage": "https://github.com/ChatterSift/ChatterSift",
+  "skills": []
+}
