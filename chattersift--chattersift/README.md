@@ -7,11 +7,11 @@ Reddit monitoring made simple: watch subreddits for the keywords that matter and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ChatterSift/ChatterSift](https://github.com/ChatterSift/ChatterSift).
+Original source: `CLAUDE.md` in [ChatterSift/ChatterSift](https://github.com/ChatterSift/ChatterSift).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
