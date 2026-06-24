@@ -27069,6 +27069,11 @@
       "description": "openclaw-ops"
     },
     {
+      "name": "dominikpeters--tikz-editor",
+      "source": "./dominikpeters--tikz-editor",
+      "description": "A WYSIWYG editor for TikZ that parses TikZ code"
+    },
+    {
       "name": "saramanda9988--lunabox",
       "source": "./saramanda9988--lunabox",
       "description": "Lightweight, fast, and feature-rich visual novel management and game statistics tool"
@@ -36114,6 +36119,11 @@
       "description": "Software Reliability & Correctness Skills"
     },
     {
+      "name": "aiyiyi121--sxdevops",
+      "source": "./aiyiyi121--sxdevops",
+      "description": "SxDevOps \u662f\u4e00\u4e2a\u9762\u5411\u771f\u5b9e\u8fd0\u7ef4\u73b0\u573a\u7684\u5f00\u6e90\u667a\u80fd\u8fd0\u7ef4 Agent \u5e73\u53f0\u3002\u5b83\u628a \u53ef\u89c2\u6d4b\u6027\u3001\u4e8b\u4ef6\u4e2d\u5fc3\u3001\u4efb\u52a1\u4e2d\u5fc3\u3001\u5de5\u5355\u5ba1\u6279\u3001\u5bb9\u5668\u7ba1\u7406\u3001RBAC \u7b49\u5e73\u53f0\u80fd\u529b\u7ec4\u7ec7\u6210 Agent \u53ef\u8c03\u7528\u3001\u53ef\u5ba1\u8ba1\u3001\u53ef\u786e\u8ba4\u7684\u8fd0\u7ef4\u5de5\u4f5c\u6d41\u3002"
+    },
+    {
       "name": "badlogic--pi-share-hf",
       "source": "./badlogic--pi-share-hf",
       "description": "Collect, review, and upload redacted pi session files to a Hugging Face dataset"
@@ -42467,6 +42477,16 @@
       "name": "ethan-youngq--invoice-downloader",
       "source": "./ethan-youngq--invoice-downloader",
       "description": "Windows desktop app for extracting, classifying, and archiving invoice emails."
+    },
+    {
+      "name": "sethzy--neobot-ai-crm",
+      "source": "./sethzy--neobot-ai-crm",
+      "description": "NeoBot: AI CRM workspace built on Next.js"
+    },
+    {
+      "name": "sethzy--neobot-ai-crm",
+      "source": "./sethzy--neobot-ai-crm",
+      "description": "NeoBot: AI CRM workspace built on Next.js"
     },
     {
       "name": "sk-wang--slio-git",
@@ -68737,6 +68757,16 @@
       "name": "wooter-s--weixin-devtools-mcp",
       "source": "./wooter-s--weixin-devtools-mcp",
       "description": "weixin-devtools-mcp"
+    },
+    {
+      "name": "gannonh--kata-symphony",
+      "source": "./gannonh--kata-symphony",
+      "description": "Agent orchestration for GitHub or Linear"
+    },
+    {
+      "name": "gannonh--kata-symphony",
+      "source": "./gannonh--kata-symphony",
+      "description": "Agent orchestration for GitHub or Linear"
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -123079,6 +123109,11 @@
       "description": "Type-safe Swift package for Lucide Icons with vector rendering"
     },
     {
+      "name": "realistic-farming--fs25-seasonalcropstress",
+      "source": "./realistic-farming--fs25-seasonalcropstress",
+      "description": "Soil moisture simulation, crop stress, and irrigation infrastructure for Farming Simulator 25. Real drought mechanics \u2014 water your fields or lose your harvest."
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -154269,6 +154304,11 @@
       "description": "Team memory sharing for claude-mem \u2014 sync AI memories across developers, with Claude Code plugin, github action and knowledge distillation"
     },
     {
+      "name": "ivebenfreed--kata",
+      "source": "./ivebenfreed--kata",
+      "description": "Workflow management CLI for Claude Code \u2014 structured session modes, phase tracking, and stop hooks"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -168964,6 +169004,16 @@
       "description": "tecjustica"
     },
     {
+      "name": "offlyn-ai--offlyn-apply",
+      "source": "./offlyn-ai--offlyn-apply",
+      "description": "Offlyn Apply"
+    },
+    {
+      "name": "klboke--kkrepo",
+      "source": "./klboke--kkrepo",
+      "description": "Nexus-compatible self-hosted artifact repository"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -180727,6 +180777,26 @@
       "name": "taka-avantgarde--due-diligence-engine",
       "source": "./taka-avantgarde--due-diligence-engine",
       "description": "AI-Powered Technical Due Diligence Engine for Venture Capital \u2014 Verify startup claims, detect AI-washing, score with confidence. Built on Claude Opus 4.6"
+    },
+    {
+      "name": "kevinspringer1--conserved-primer-design",
+      "source": "./kevinspringer1--conserved-primer-design",
+      "description": "Agent skill package for calling the VirusPrimerPro API for conserved primer and tNGS panel design"
+    },
+    {
+      "name": "sidan93--claude-eng-loop",
+      "source": "./sidan93--claude-eng-loop",
+      "description": "Engineering Loop \u2014 a CLAUDE.md workflow template that turns AI coding agents into structured engineers: 9-phase process from task intake to goal verification, with execution modes, escape hatches, and"
+    },
+    {
+      "name": "kevinspringer1--conserved-primer-design",
+      "source": "./kevinspringer1--conserved-primer-design",
+      "description": "Agent skill package for calling the VirusPrimerPro API for conserved primer and tNGS panel design"
+    },
+    {
+      "name": "yuxiaoji30-lang--ai-maintainer-copilot-skill",
+      "source": "./yuxiaoji30-lang--ai-maintainer-copilot-skill",
+      "description": "A public, evidence-first agent skill for open-source maintainers: AI-assisted issue triage, PR review, release notes, automation guardrails, and Codex for OSS application prep."
     },
     {
       "name": "yschimke--compose-ai-tools",
