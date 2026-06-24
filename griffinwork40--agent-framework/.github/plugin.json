@@ -1,0 +1,9 @@
+{
+  "name": "griffinwork40--agent-framework",
+  "displayName": "agent-framework",
+  "description": "Force-multiplier skills, agents, and hooks for Claude Code",
+  "version": "1.0.0",
+  "author": "griffinwork40",
+  "homepage": "https://github.com/griffinwork40/agent-framework",
+  "skills": []
+}
