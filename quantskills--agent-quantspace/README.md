@@ -7,11 +7,11 @@ AI-native quantitative research framework
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [quantskills/agent-quantspace](https://github.com/quantskills/agent-quantspace).
+Original source: `AGENTS.md` in [quantskills/agent-quantspace](https://github.com/quantskills/agent-quantspace).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
