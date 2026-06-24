@@ -1,0 +1,9 @@
+{
+  "name": "joske--yserver",
+  "displayName": "yserver",
+  "description": "A modern X11 server written from scratch in Rust.",
+  "version": "1.0.0",
+  "author": "joske",
+  "homepage": "https://github.com/joske/yserver",
+  "skills": []
+}
