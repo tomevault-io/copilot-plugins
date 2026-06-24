@@ -1,0 +1,9 @@
+{
+  "name": "dominikpeters--tikz-editor",
+  "displayName": "tikz-editor",
+  "description": "A WYSIWYG editor for TikZ that parses TikZ code",
+  "version": "1.0.0",
+  "author": "DominikPeters",
+  "homepage": "https://github.com/DominikPeters/tikz-editor",
+  "skills": []
+}
