@@ -161339,6 +161339,11 @@
       "description": "A scalable, feature-rich College Management System using MERN Stack"
     },
     {
+      "name": "theorangeguo--aur-packages",
+      "source": "./theorangeguo--aur-packages",
+      "description": "My collection of maintained AUR packages, automatically updated via GitHub Actions."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -181112,6 +181117,56 @@
       "name": "llonebot--luckylilliadesktop-avalonia",
       "source": "./llonebot--luckylilliadesktop-avalonia",
       "description": "LuckyLilliaDesktop.Avalonia"
+    },
+    {
+      "name": "ningpp--flux",
+      "source": "./ningpp--flux",
+      "description": "Java OCR"
+    },
+    {
+      "name": "kevin-liu-01--princeton-tower-defense",
+      "source": "./kevin-liu-01--princeton-tower-defense",
+      "description": "A full-featured tower defense game built entirely in the browser with just React, Canvas 2D, and Next.js. Princeton Tower Defense combines classic tower defense strategy with Princeton University-them"
+    },
+    {
+      "name": "kevin-liu-01--princeton-tower-defense",
+      "source": "./kevin-liu-01--princeton-tower-defense",
+      "description": "A full-featured tower defense game built entirely in the browser with just React, Canvas 2D, and Next.js. Princeton Tower Defense combines classic tower defense strategy with Princeton University-them"
+    },
+    {
+      "name": "averyy--fetchaller-mcp",
+      "source": "./averyy--fetchaller-mcp",
+      "description": "Simple MCP server that allows Claude Code to fetch URLs without permission prompts (including Reddit)."
+    },
+    {
+      "name": "kevin-liu-01--princeton-tower-defense",
+      "source": "./kevin-liu-01--princeton-tower-defense",
+      "description": "A full-featured tower defense game built entirely in the browser with just React, Canvas 2D, and Next.js. Princeton Tower Defense combines classic tower defense strategy with Princeton University-them"
+    },
+    {
+      "name": "45ck--content-machine",
+      "source": "./45ck--content-machine",
+      "description": "CLI-first automated short-form video generator for TikTok, Reels, and Shorts (npm: @45ck/content-machine)"
+    },
+    {
+      "name": "kevin-liu-01--princeton-tower-defense",
+      "source": "./kevin-liu-01--princeton-tower-defense",
+      "description": "A full-featured tower defense game built entirely in the browser with just React, Canvas 2D, and Next.js. Princeton Tower Defense combines classic tower defense strategy with Princeton University-them"
+    },
+    {
+      "name": "kevin-liu-01--princeton-tower-defense",
+      "source": "./kevin-liu-01--princeton-tower-defense",
+      "description": "A full-featured tower defense game built entirely in the browser with just React, Canvas 2D, and Next.js. Princeton Tower Defense combines classic tower defense strategy with Princeton University-them"
+    },
+    {
+      "name": "kevin-liu-01--princeton-tower-defense",
+      "source": "./kevin-liu-01--princeton-tower-defense",
+      "description": "A full-featured tower defense game built entirely in the browser with just React, Canvas 2D, and Next.js. Princeton Tower Defense combines classic tower defense strategy with Princeton University-them"
+    },
+    {
+      "name": "kevin-liu-01--princeton-tower-defense",
+      "source": "./kevin-liu-01--princeton-tower-defense",
+      "description": "A full-featured tower defense game built entirely in the browser with just React, Canvas 2D, and Next.js. Princeton Tower Defense combines classic tower defense strategy with Princeton University-them"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -226832,6 +226887,26 @@
       "name": "tristan666666--agent-island",
       "source": "./tristan666666--agent-island",
       "description": "MacBook notch companion for Claude Code and Codex: live status, usage, and auto-resume for long agent runs."
+    },
+    {
+      "name": "sargunv--compose-glfw",
+      "source": "./sargunv--compose-glfw",
+      "description": "JVM Compose host APIs for running Compose UI in GLFW windows."
+    },
+    {
+      "name": "aaronnat23--disp8ch",
+      "source": "./aaronnat23--disp8ch",
+      "description": "Self-hosted AI workspace where chat becomes visual workflows, multi-agent operations, and reviewable automations. Local memory; local or cloud models"
+    },
+    {
+      "name": "sargunv--compose-glfw",
+      "source": "./sargunv--compose-glfw",
+      "description": "JVM Compose host APIs for running Compose UI in GLFW windows."
+    },
+    {
+      "name": "hvardhan878--kevin",
+      "source": "./hvardhan878--kevin",
+      "description": "Why waste time say lot word when few word do trick? Kevin save money, time and token!"
     },
     {
       "name": "cheerhuan--save-your-token",
