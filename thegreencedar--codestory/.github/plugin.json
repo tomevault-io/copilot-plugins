@@ -1,0 +1,9 @@
+{
+  "name": "thegreencedar--codestory",
+  "displayName": "CodeStory",
+  "description": "CodeStory is a codebase grounding engine that preindexes code into a knowledge graph and enriches it with semantic context. Paired with coding agents, it results in fewer tokens, fewer tool calls, and",
+  "version": "1.0.0",
+  "author": "TheGreenCedar",
+  "homepage": "https://github.com/TheGreenCedar/CodeStory",
+  "skills": []
+}
