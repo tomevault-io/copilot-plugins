@@ -7,11 +7,11 @@ The deterministic merge gate for AI-generated agent capability changes — a loc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ThreeMoonsLab/agents-shipgate](https://github.com/ThreeMoonsLab/agents-shipgate).
+Original source: `CLAUDE.md` in [ThreeMoonsLab/agents-shipgate](https://github.com/ThreeMoonsLab/agents-shipgate).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
