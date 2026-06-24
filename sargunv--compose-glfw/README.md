@@ -7,11 +7,11 @@ JVM Compose host APIs for running Compose UI in GLFW windows.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sargunv/compose-glfw](https://github.com/sargunv/compose-glfw).
+Original source: `AGENTS.md` in [sargunv/compose-glfw](https://github.com/sargunv/compose-glfw).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
