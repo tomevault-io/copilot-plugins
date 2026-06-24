@@ -1,0 +1,9 @@
+{
+  "name": "dazeb--lvgl-ai-studio",
+  "displayName": "LVGL-AI-Studio",
+  "description": "A web UI for LVGL UI generation in C or MicroPython.",
+  "version": "1.0.0",
+  "author": "dazeb",
+  "homepage": "https://github.com/dazeb/LVGL-AI-Studio",
+  "skills": []
+}
