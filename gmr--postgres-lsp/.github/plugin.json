@@ -1,0 +1,9 @@
+{
+  "name": "gmr--postgres-lsp",
+  "displayName": "postgres-lsp",
+  "description": "Language Server for Postgres and PL/PgSQL",
+  "version": "1.0.0",
+  "author": "gmr",
+  "homepage": "https://github.com/gmr/postgres-lsp",
+  "skills": []
+}
