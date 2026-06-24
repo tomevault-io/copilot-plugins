@@ -1,0 +1,9 @@
+{
+  "name": "javimosch--machin",
+  "displayName": "machin",
+  "description": "MFL \u2014 a machine-first backend language based on Go. Source is base64, one function per line; compiles to native code via C at C/Rust/Zig speed.",
+  "version": "1.0.0",
+  "author": "javimosch",
+  "homepage": "https://github.com/javimosch/machin",
+  "skills": []
+}
