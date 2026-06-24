@@ -1,85 +1,72 @@
-## component-organization
+## routing
 
-> Component organization and architecture guidelines
+> File-based routing system guidelines
 
-# Component Organization
+# File-Based Routing System
 
-Follow this component architecture for consistent project structure:
+This project uses `vite-plugin-route-builder` for file-based routing. Follow these patterns:
 
-## Directory Structure
+## Route Types
 
-**Base UI Components**: `src/components/ui/`
-- Reusable primitives (buttons, inputs, modals, etc.)
-- Generic components that can be used across any application
-- Based on Radix UI primitives with custom styling
-- Examples: `Button`, `Input`, `Select`, `Tooltip`, `Accordion`
+**Sync Routes**: `.sync.tsx` files
+- Synchronous routes without code splitting
+- Used for critical pages that should load immediately
+- Example: `src/pages/(main)/index.sync.tsx` becomes root route
 
-**Common Components**: `src/components/common/`
-- App-specific shared components
-- Components used across multiple features but specific to this app
-- Examples: `ErrorElement`, `Footer`, `LoadRemixAsyncComponent`, `NotFound`
+**Async Routes**: `.tsx` files (without .sync)
+- Asynchronous routes with lazy loading and code splitting
+- Used for non-critical pages to optimize initial bundle size
+- Example: `src/pages/about.tsx` becomes `/about` route
 
-**Module Components**: `src/modules/`
-- Feature-specific components organized by domain
-- Business logic components that belong to specific features
-- Examples: `src/modules/feed/`, `src/modules/auth/`, `src/modules/user/`
+## Layout System
 
-## Component Placement Rules
+**Layout Files**: `layout.tsx` files serve as layout containers
+- Use `<Outlet />` within layout components to render child routes
+- Layouts automatically wrap their corresponding route segments
+- Example: `src/pages/(main)/layout.tsx` wraps all routes in the `(main)` group
 
-**Universal Components** → `src/components/ui/`
-- If the component could be used in any React app
-- Pure UI components without business logic
-- Reusable across different domains
-
-**Feature Components** → `src/modules/{domain}/`
-- If the component is specific to a business domain/feature
-- Contains domain-specific logic or data handling
-- Examples: `FeedTimeline`, `UserProfile`, `AuthForm`
-
-**App-Specific Shared** → `src/components/common/`
-- If the component is used across features but specific to this app
-- Contains app-specific logic but used in multiple places
-
-## Path Aliases
-
-Use `~/` for `src/` imports (configured in tsconfig):
+## Route Structure Examples
 
 ```typescript
-// Good
-import { Button } from '~/components/ui/button'
-import { UserProfile } from '~/modules/user/UserProfile'
-
-// Avoid
-import { Button } from '../../../components/ui/button'
-```
-
-## Component Examples
-
-```typescript
-// Universal UI component - goes in src/components/ui/
-// File: src/components/ui/button/Button.tsx
-export function Button({ children, ...props }) {
-  return <button className="..." {...props}>{children}</button>
+// Sync route - no code splitting
+// File: src/pages/(main)/index.sync.tsx
+export default function HomePage() {
+  return <div>Home Page</div>
 }
 
-// Feature component - goes in src/modules/
-// File: src/modules/feed/FeedTimeline.tsx
-export function FeedTimeline() {
-  // Feed-specific logic and UI
+// Async route - with code splitting
+// File: src/pages/dashboard.tsx
+export default function DashboardPage() {
+  return <div>Dashboard</div>
 }
 
-// App-specific shared - goes in src/components/common/
-// File: src/components/common/AppHeader.tsx
-export function AppHeader() {
-  // App-specific header with navigation
+// Layout component
+// File: src/pages/(main)/layout.tsx
+import { Outlet } from 'react-router'
+
+export default function MainLayout() {
+  return (
+    <div className="min-h-screen">
+      <nav>Navigation</nav>
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  )
 }
 ```
 
-## Module Architecture Principle
+## Generated Routes
 
-**If a component is specific to a business domain/feature, place it in the corresponding module directory.**
+- Routes are auto-generated in `src/generated-routes.ts`
+- **DO NOT EDIT** the generated routes file manually
+- The routing plugin handles all route generation automatically
 
-This keeps the codebase organized and makes it easy to find domain-specific functionality.
+## Documentation Reference
+
+For detailed usage, advanced patterns, and configuration options, **always refer to the official documentation**: https://github.com/Innei/vite-plugin-route-builder
+
+**Important**: When encountering unclear routing patterns or advanced use cases, consult the official documentation before implementation.
 
 ---
 > Source: [ChrAlpha/LumaForge](https://github.com/ChrAlpha/LumaForge) — distributed by [TomeVault](https://tomevault.io).
