@@ -1,0 +1,9 @@
+{
+  "name": "yuxiaoji30-lang--ai-maintainer-copilot-skill",
+  "displayName": "ai-maintainer-copilot-skill",
+  "description": "A public, evidence-first agent skill for open-source maintainers: AI-assisted issue triage, PR review, release notes, automation guardrails, and Codex for OSS application prep.",
+  "version": "1.0.0",
+  "author": "yuxiaoji30-lang",
+  "homepage": "https://github.com/yuxiaoji30-lang/ai-maintainer-copilot-skill",
+  "skills": []
+}
