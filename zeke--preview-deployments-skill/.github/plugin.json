@@ -1,0 +1,9 @@
+{
+  "name": "zeke--preview-deployments-skill",
+  "displayName": "preview-deployments-skill",
+  "description": "An agent skill to add preview deployments to your Cloudflare apps using GitHub Actions workflows and the GitHub Deployments API.",
+  "version": "1.0.0",
+  "author": "zeke",
+  "homepage": "https://github.com/zeke/preview-deployments-skill",
+  "skills": []
+}
