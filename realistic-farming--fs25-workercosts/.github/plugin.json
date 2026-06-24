@@ -1,0 +1,9 @@
+{
+  "name": "realistic-farming--fs25-workercosts",
+  "displayName": "FS25_WorkerCosts",
+  "description": "Skill-based worker wages with configurable hourly rates for Farming Simulator 25. Make hiring decisions matter \u2014 pay your workers what they're worth.",
+  "version": "1.0.0",
+  "author": "Realistic-Farming",
+  "homepage": "https://github.com/Realistic-Farming/FS25_WorkerCosts",
+  "skills": []
+}
