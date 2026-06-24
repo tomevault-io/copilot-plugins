@@ -1,35 +1,54 @@
-## coding-philosophy
+## isometric-prism-footprints
 
-> Agent coding philosophy — minimal, correct interventions
+> Enforce square footprints for drawIsometricPrism on structural elements
 
 
-# Coding Philosophy
+# Isometric Prism Footprints Must Be Square
 
-> You are a surgeon, not a painter. Your job is the minimal, correct intervention.
+When calling `drawIsometricPrism(ctx, x, y, width, depth, height, ...)` for **structural elements** (foundations, platforms, pedestals, altars, tower bases, building bases), the `width` and `depth` parameters **MUST be equal** (square footprint).
 
-## Before Writing Code
+## Why
 
-1. Understand the full scope. Read the files. Trace the call graph.
-2. Find the minimal fix. The best change is the smallest one that solves the problem completely.
-3. Ask: does this need to exist? Every line you write is a line someone debugs at 3 AM.
+A 2:1 isometric grid produces diamond edges at 26.57°. When `width ≠ depth`, the diamond edges tilt to non-standard angles (e.g., ~20.6° for 32×24), causing visible misalignment with the rest of the isometric scene.
 
-## While Writing Code
+Only a **square footprint** (`width === depth`) guarantees the correct 2:1 isometric diamond angle.
 
-- Fewer lines, not more. More code means more bugs, more review burden, more cognitive load.
-- No speculative code: do not add abstractions, helpers, or flexibility for hypothetical future use.
-- Match the surrounding style. Read the file before editing it.
-- Comments state what IS. Never narrate what is happening or restate what the code says.
-- The deletion test: if the comment disappears, does the reader lose information they could not get from reading the code? If no, delete it.
+## Allowed Exceptions
 
-## Deletions Are Progress
+Rectangular footprints (`width ≠ depth`) are acceptable ONLY for elements that are **intentionally non-square by design**:
 
-Every deletion is a net positive unless it removes something needed. The fix that deletes lines is almost always the right one.
+- Walls and fences (long and thin)
+- Sign boards and plaques (wide and shallow)
+- Beams and lintels (elongated)
+- Crates and boxes (slight variation is fine)
+- Cannon bodies and similar equipment
+- Rubble and debris (irregular shapes)
+- Arch blocks / voussoirs
 
-## Quality
+## Examples
 
-- Zero technical debt. What ships is solid. Features may be lacking, but what exists works.
-- Fail closed. If the system cannot prove a required invariant, reject the request.
-- Elegant means "obviously correct" — not clever.
+```typescript
+// GOOD — square footprint for a foundation
+drawIsometricPrism(ctx, cx, cy, 28 * s, 28 * s, 5 * s, topColor, leftColor, rightColor);
+
+// GOOD — square footprint for an altar base
+const altarSize = 7 * s;
+drawIsometricPrism(ctx, ax, ay, altarSize, altarSize, 3 * s, topColor, leftColor, rightColor);
+
+// BAD — non-square foundation causes misaligned iso diamond
+drawIsometricPrism(ctx, cx, cy, 32 * s, 24 * s, 5 * s, topColor, leftColor, rightColor);
+
+// OK — intentionally rectangular wall
+drawIsometricPrism(ctx, wx, wy, 16 * s, 3 * s, 8 * s, topColor, leftColor, rightColor);
+```
+
+## Quick Check
+
+When adding or reviewing a `drawIsometricPrism` call, ask:
+
+1. Is this a structural/base element? → **width must equal depth**
+2. Is this intentionally elongated (wall, beam, sign)? → rectangular is fine
+3. Does the foundation use symmetric overhang? → e.g., `(W + 2) * s` for both width and depth, not `(W + 2, D + 1)`
 
 ---
 > Source: [Kevin-Liu-01/Princeton-Tower-Defense](https://github.com/Kevin-Liu-01/Princeton-Tower-Defense) — distributed by [TomeVault](https://tomevault.io).
