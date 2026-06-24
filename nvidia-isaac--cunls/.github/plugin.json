@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-isaac--cunls",
+  "displayName": "cuNLS",
+  "description": "Nvidia Isaac CUDA-Accelerated Nonlinear Least Square Solver ",
+  "version": "1.0.0",
+  "author": "nvidia-isaac",
+  "homepage": "https://github.com/nvidia-isaac/cuNLS",
+  "skills": []
+}
