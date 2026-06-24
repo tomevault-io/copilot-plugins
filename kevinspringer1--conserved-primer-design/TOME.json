@@ -4,7 +4,7 @@
   "repo": "conserved-primer-design",
   "description": "Agent skill package for calling the VirusPrimerPro API for conserved primer and tNGS panel design",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KevinSpringer1/conserved-primer-design",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T09:32:51Z"
+  "distributed_at": "2026-06-24T09:35:59Z"
 }
