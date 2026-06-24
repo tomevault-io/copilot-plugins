@@ -1,0 +1,46 @@
+{
+  "name": "zircote--claude-team-orchestration",
+  "displayName": "claude-team-orchestration",
+  "description": "Multi-agent orchestration plugin for Claude Code. Coordinate agent teams with shared tasks, messaging, and 7 patterns including RLM (arXiv:2512.24601) for large-file analysis beyond context limits.",
+  "version": "1.0.0",
+  "author": "zircote",
+  "homepage": "https://github.com/zircote/claude-team-orchestration",
+  "skills": [
+    {
+      "name": "agent-types",
+      "description": ""
+    },
+    {
+      "name": "error-handling",
+      "description": ""
+    },
+    {
+      "name": "messaging",
+      "description": ""
+    },
+    {
+      "name": "orchestrating",
+      "description": ""
+    },
+    {
+      "name": "orchestration-patterns",
+      "description": ""
+    },
+    {
+      "name": "rlm-pattern",
+      "description": ""
+    },
+    {
+      "name": "spawn-backends",
+      "description": ""
+    },
+    {
+      "name": "task-system",
+      "description": ""
+    },
+    {
+      "name": "team-management",
+      "description": ""
+    }
+  ]
+}
