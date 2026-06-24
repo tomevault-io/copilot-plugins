@@ -7,13 +7,13 @@ Apply LUTs to RAW photos right in your browser
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ChrAlpha/LumaForge](https://github.com/ChrAlpha/LumaForge).
+Original source: `.cursor/rules/*.mdc` in [ChrAlpha/LumaForge](https://github.com/ChrAlpha/LumaForge).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
