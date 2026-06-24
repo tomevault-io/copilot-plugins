@@ -4,7 +4,7 @@
   "repo": "compose-glfw",
   "description": "JVM Compose host APIs for running Compose UI in GLFW windows.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sargunv/compose-glfw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T18:34:22Z"
+  "distributed_at": "2026-06-24T18:36:33Z"
 }
