@@ -1,0 +1,9 @@
+{
+  "name": "zulut30--wordpress-skills",
+  "displayName": "Wordpress-skills",
+  "description": "Professional Agent Skill for building, auditing, testing, and releasing modern WordPress plugins with Codex, Cursor, and Claude Code.",
+  "version": "1.0.0",
+  "author": "Zulut30",
+  "homepage": "https://github.com/Zulut30/Wordpress-skills",
+  "skills": []
+}
