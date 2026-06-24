@@ -1,0 +1,9 @@
+{
+  "name": "allardvdb--ix500-linux",
+  "displayName": "ix500-linux",
+  "description": "One-button scanning workflow for Fujitsu ScanSnap iX500 on Linux",
+  "version": "1.0.0",
+  "author": "allardvdb",
+  "homepage": "https://github.com/allardvdb/ix500-linux",
+  "skills": []
+}
