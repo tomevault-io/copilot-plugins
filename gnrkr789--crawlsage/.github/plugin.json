@@ -1,0 +1,9 @@
+{
+  "name": "gnrkr789--crawlsage",
+  "displayName": "CrawlSage",
+  "description": "An F#-first web crawling & scraping framework for .NET \u2014 crawl engine, HTML parsing DSL, browser-free extraction, and polite-by-default crawl ops.",
+  "version": "1.0.0",
+  "author": "gnrkr789",
+  "homepage": "https://github.com/gnrkr789/CrawlSage",
+  "skills": []
+}
