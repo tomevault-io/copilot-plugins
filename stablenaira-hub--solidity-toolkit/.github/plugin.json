@@ -1,0 +1,9 @@
+{
+  "name": "stablenaira-hub--solidity-toolkit",
+  "displayName": "solidity-toolkit",
+  "description": "Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 infrastructure.",
+  "version": "1.0.0",
+  "author": "stablenaira-hub",
+  "homepage": "https://github.com/stablenaira-hub/solidity-toolkit",
+  "skills": []
+}
