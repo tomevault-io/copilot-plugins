@@ -1,0 +1,9 @@
+{
+  "name": "dimileeh--agent-workspace-fabric",
+  "displayName": "agent-workspace-fabric",
+  "description": "Control plane that runs AI coding agents (Codex, Claude Code, Gemini, OpenCode, Grok, Cursor) as disciplined contributors: each task gets an isolated git worktree + Docker Compose stack, profile-drive",
+  "version": "1.0.0",
+  "author": "dimileeh",
+  "homepage": "https://github.com/dimileeh/agent-workspace-fabric",
+  "skills": []
+}
