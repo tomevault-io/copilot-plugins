@@ -4,7 +4,7 @@
   "repo": "rekipedia",
   "description": "Turn your codebase into readable format, for both Human and AI Agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/unrealandychan/rekipedia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T23:12:03Z"
+  "distributed_at": "2026-06-24T23:13:33Z"
 }
