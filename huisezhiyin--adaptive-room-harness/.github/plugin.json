@@ -1,0 +1,9 @@
+{
+  "name": "huisezhiyin--adaptive-room-harness",
+  "displayName": "adaptive-room-harness",
+  "description": "Local-first multi-agent discussion room for coding-agent workflows",
+  "version": "1.0.0",
+  "author": "huisezhiyin",
+  "homepage": "https://github.com/huisezhiyin/adaptive-room-harness",
+  "skills": []
+}
