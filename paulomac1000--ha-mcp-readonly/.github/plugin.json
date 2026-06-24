@@ -1,0 +1,9 @@
+{
+  "name": "paulomac1000--ha-mcp-readonly",
+  "displayName": "ha-mcp-readonly",
+  "description": "Homeassistant MCP server with readonly functions",
+  "version": "1.0.0",
+  "author": "paulomac1000",
+  "homepage": "https://github.com/paulomac1000/ha-mcp-readonly",
+  "skills": []
+}
