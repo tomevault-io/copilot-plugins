@@ -7,11 +7,11 @@ A lightweight proxy subscription converter and manager, support Clash/Sing-Box/S
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [quin95/sublink-worker](https://github.com/quin95/sublink-worker).
+Original source: `AGENTS.md` in [quin95/sublink-worker](https://github.com/quin95/sublink-worker).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
