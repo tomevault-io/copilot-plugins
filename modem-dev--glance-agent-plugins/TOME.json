@@ -4,7 +4,7 @@
   "repo": "glance-agent-plugins",
   "description": "Agent plugins for glance.sh \u2014 temporary image sharing for coding agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/modem-dev/glance-agent-plugins",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T08:30:16Z"
+  "distributed_at": "2026-06-24T08:32:57Z"
 }
