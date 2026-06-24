@@ -1,0 +1,9 @@
+{
+  "name": "45ck--content-machine",
+  "displayName": "content-machine",
+  "description": "CLI-first automated short-form video generator for TikTok, Reels, and Shorts (npm: @45ck/content-machine)",
+  "version": "1.0.0",
+  "author": "45ck",
+  "homepage": "https://github.com/45ck/content-machine",
+  "skills": []
+}
