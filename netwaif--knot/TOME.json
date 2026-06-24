@@ -4,7 +4,7 @@
   "repo": "knot",
   "description": "\ubca4\ub354\uc911\ub9bd \ud3c9\ubb38 \ub9c8\ud06c\ub2e4\uc6b4 \uc9c0\uc2dd vault (knot) \u2014 Claude/Codex/Gemini \uacf5\uc720 \uc9c0\uc2dd \uadf8\ubb3c, \ube48 \uc2a4\uce90\ud3f4\ub4dc",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/netwaif/knot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T02:31:50Z"
+  "distributed_at": "2026-06-24T02:34:47Z"
 }
