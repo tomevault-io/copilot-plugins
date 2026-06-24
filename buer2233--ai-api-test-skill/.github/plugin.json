@@ -1,0 +1,9 @@
+{
+  "name": "buer2233--ai-api-test-skill",
+  "displayName": "ai-api-test-skill",
+  "description": "AI\u63a5\u53e3\u81ea\u52a8\u5316\u6d4b\u8bd5 Skill\uff1a\u9762\u5411 Python + pytest + requests\uff0c\u9a71\u52a8 Codex / Claude Code \u751f\u6210\u3001\u7ef4\u62a4\u548c\u8c03\u8bd5\u63a5\u53e3\u7528\u4f8b\uff08AI API test automation skill for Python + pytest + requests\uff09",
+  "version": "1.0.0",
+  "author": "buer2233",
+  "homepage": "https://github.com/buer2233/ai-api-test-skill",
+  "skills": []
+}
