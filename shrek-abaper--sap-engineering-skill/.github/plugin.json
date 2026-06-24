@@ -1,0 +1,9 @@
+{
+  "name": "shrek-abaper--sap-engineering-skill",
+  "displayName": "sap-engineering-skill",
+  "description": "A growing collection of SKILL-spec agent skills for SAP ABAP engineering: ADT-based code read/write, security & quality review, transport release gating, and integration knowledge \u2014 read-only by defau",
+  "version": "1.0.0",
+  "author": "shrek-abaper",
+  "homepage": "https://github.com/shrek-abaper/sap-engineering-skill",
+  "skills": []
+}
