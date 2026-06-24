@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--flux-schema",
+  "displayName": "flux-schema",
+  "description": "Flux CLI plugin for Kubernetes manifests validation against JSON Schemas and CEL rules",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/flux-schema",
+  "skills": []
+}
