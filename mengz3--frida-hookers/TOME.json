@@ -1,0 +1,44 @@
+{
+  "name": "Frida-Hookers",
+  "owner": "Mengz3",
+  "repo": "Frida-Hookers",
+  "description": "\u57fa\u4e8e Frida \u7684 GUI \u96c6\u6210\u5de5\u5177\uff0c\u7b80\u5355\u6613\u4e0a\u624b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mengz3/Frida-Hookers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T22:49:22Z"
+}
