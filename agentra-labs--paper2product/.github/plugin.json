@@ -1,0 +1,9 @@
+{
+  "name": "agentra-labs--paper2product",
+  "displayName": "paper2product",
+  "description": "\"ArXiv to Product\" \u2014 A multi-agent CLI pipeline that analyzes research papers and generates ranked startup ideas with market analysis.",
+  "version": "1.0.0",
+  "author": "Agentra-Labs",
+  "homepage": "https://github.com/Agentra-Labs/paper2product",
+  "skills": []
+}
