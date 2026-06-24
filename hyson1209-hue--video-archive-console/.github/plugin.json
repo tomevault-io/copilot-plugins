@@ -1,0 +1,9 @@
+{
+  "name": "hyson1209-hue--video-archive-console",
+  "displayName": "video-archive-console",
+  "description": "AI \uc601\uc0c1 \ubd84\uc11d \ud30c\uc774\ud504\ub77c\uc778 + \ud558\uc774\ube0c\ub9ac\ub4dc \uac80\uc0c9 \uc544\uce74\uc774\ube0c (FastAPI \u00b7 Whisper \u00b7 GPT Vision \u00b7 SQLite FTS5 \u00b7 ChromaDB)",
+  "version": "1.0.0",
+  "author": "hyson1209-hue",
+  "homepage": "https://github.com/hyson1209-hue/video-archive-console",
+  "skills": []
+}
