@@ -4,7 +4,7 @@
   "repo": "meowcaller",
   "description": "WhatsApp VoIP Go library for whatsmeow",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/purpshell/meowcaller",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T10:39:35Z"
+  "distributed_at": "2026-06-24T10:42:57Z"
 }
