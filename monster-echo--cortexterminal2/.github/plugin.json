@@ -1,0 +1,9 @@
+{
+  "name": "monster-echo--cortexterminal2",
+  "displayName": "CortexTerminal2",
+  "description": "CortermTerminal2 \u662f\u4e00\u4e2a\u9762\u5411 AI Coding Agent \u7684\u8fdc\u7a0b\u7ec8\u7aef\u5ba2\u6237\u7aef\uff0c\u8ba9\u4f60\u53ef\u4ee5\u5728\u624b\u673a\u4e0a\u8fde\u63a5\u670d\u52a1\u5668\uff0c\u7ee7\u7eed\u64cd\u4f5c Claude Code\u3001Codex\u3001Copilot \u7b49\u7ec8\u7aef\u4efb\u52a1\u3002",
+  "version": "1.0.0",
+  "author": "monster-echo",
+  "homepage": "https://github.com/monster-echo/CortexTerminal2",
+  "skills": []
+}
