@@ -1,0 +1,9 @@
+{
+  "name": "flinedev--recall",
+  "displayName": "Recall",
+  "description": "Never lose context in Claude Code again \u2014 automatic context recovery after compaction and manual session recall",
+  "version": "1.0.0",
+  "author": "FlineDev",
+  "homepage": "https://github.com/FlineDev/Recall",
+  "skills": []
+}
