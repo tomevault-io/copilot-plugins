@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--sbi",
+  "displayName": "sbi",
+  "description": "Secure Base Image recommendations",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/sbi",
+  "skills": []
+}
