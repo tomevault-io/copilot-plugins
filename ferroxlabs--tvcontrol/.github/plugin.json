@@ -1,0 +1,9 @@
+{
+  "name": "ferroxlabs--tvcontrol",
+  "displayName": "tvcontrol",
+  "description": "TVControl by Ferrox Labs \u2014 TradingView MCP System. AI remote control for TradingView Desktop. 88 MCP tools driving symbols, indicators, Pine, snapshots, sweeps, replay, and live chart vision. All loca",
+  "version": "1.0.0",
+  "author": "FerroxLabs",
+  "homepage": "https://github.com/FerroxLabs/tvcontrol",
+  "skills": []
+}
