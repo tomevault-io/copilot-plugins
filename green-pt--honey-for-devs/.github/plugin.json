@@ -1,0 +1,9 @@
+{
+  "name": "green-pt--honey-for-devs",
+  "displayName": "honey-for-devs",
+  "description": "Honey (I Shrunk the AI) by GreenPT: a cross-tool coding skill that cuts AI coding-agent token usage and LLM API costs \u2014 write less code, less prose, and denser agent-to-agent handoffs (\u221253%, lossless ",
+  "version": "1.0.0",
+  "author": "Green-PT",
+  "homepage": "https://github.com/Green-PT/honey-for-devs",
+  "skills": []
+}
