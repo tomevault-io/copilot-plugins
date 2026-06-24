@@ -1,0 +1,9 @@
+{
+  "name": "bracketouverte--job-crawler",
+  "displayName": "job-crawler",
+  "description": "Crawl public ATS job boards, extract structured job-post data, and score job fit locally with Docker.",
+  "version": "1.0.0",
+  "author": "bracketouverte",
+  "homepage": "https://github.com/bracketouverte/job-crawler",
+  "skills": []
+}
