@@ -1,0 +1,44 @@
+{
+  "name": "tvcontrol",
+  "owner": "FerroxLabs",
+  "repo": "tvcontrol",
+  "description": "TVControl by Ferrox Labs \u2014 TradingView MCP System. AI remote control for TradingView Desktop. 88 MCP tools driving symbols, indicators, Pine, snapshots, sweeps, replay, and live chart vision. All local, zero cloud calls.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FerroxLabs/tvcontrol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T22:55:28Z"
+}
