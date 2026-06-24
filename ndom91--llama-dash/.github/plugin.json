@@ -1,0 +1,9 @@
+{
+  "name": "ndom91--llama-dash",
+  "displayName": "llama-dash",
+  "description": "The operations layer for your local LLM stack",
+  "version": "1.0.0",
+  "author": "ndom91",
+  "homepage": "https://github.com/ndom91/llama-dash",
+  "skills": []
+}
