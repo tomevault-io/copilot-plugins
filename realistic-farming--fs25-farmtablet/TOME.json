@@ -1,0 +1,44 @@
+{
+  "name": "FS25_FarmTablet",
+  "owner": "Realistic-Farming",
+  "repo": "FS25_FarmTablet",
+  "description": "In-game tablet UI for Farming Simulator 25. Access farm stats, tools, and information at a glance \u2014 without leaving the field.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Realistic-Farming/FS25_FarmTablet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T14:31:04Z"
+}
