@@ -1,0 +1,9 @@
+{
+  "name": "bparlan--pi-persona-orchestrator",
+  "displayName": "pi-persona-orchestrator",
+  "description": "Pi Modular Persona Orchestrator: A lightweight, local-first agentic infrastructure that eliminates \"subagent bloat\" and \"framework soup\" using Pi's native TypeScript extensions and static, versioned P",
+  "version": "1.0.0",
+  "author": "bparlan",
+  "homepage": "https://github.com/bparlan/pi-persona-orchestrator",
+  "skills": []
+}
