@@ -209354,6 +209354,16 @@
       "description": "MFL \u2014 a machine-first backend language based on Go. Source is base64, one function per line; compiles to native code via C at C/Rust/Zig speed."
     },
     {
+      "name": "ironsecco--ironclaw",
+      "source": "./ironsecco--ironclaw",
+      "description": "Security-first, self-hosted AI agents - isolation you can prove, not just promise."
+    },
+    {
+      "name": "ironsecco--ironclaw",
+      "source": "./ironsecco--ironclaw",
+      "description": "Security-first, self-hosted AI agents - isolation you can prove, not just promise."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -225879,6 +225889,41 @@
       "description": "Content agent template for the Eve agent framework"
     },
     {
+      "name": "neuro-oj--neuro-oj",
+      "source": "./neuro-oj--neuro-oj",
+      "description": "neuro-oj"
+    },
+    {
+      "name": "nyeinchan-lwin--wordguess",
+      "source": "./nyeinchan-lwin--wordguess",
+      "description": "Wordle-style word-guessing game"
+    },
+    {
+      "name": "dylanfriday--flashcard-ai-generator",
+      "source": "./dylanfriday--flashcard-ai-generator",
+      "description": "personal project"
+    },
+    {
+      "name": "neuro-oj--neuro-oj",
+      "source": "./neuro-oj--neuro-oj",
+      "description": "neuro-oj"
+    },
+    {
+      "name": "rover-aungkhine--mini-ai-marketing-agency",
+      "source": "./rover-aungkhine--mini-ai-marketing-agency",
+      "description": "Personal Project for ch-3"
+    },
+    {
+      "name": "dylanfriday--flashcard-ai-generator",
+      "source": "./dylanfriday--flashcard-ai-generator",
+      "description": "personal project"
+    },
+    {
+      "name": "gnrkr789--crawlsage",
+      "source": "./gnrkr789--crawlsage",
+      "description": "An F#-first web crawling & scraping framework for .NET \u2014 crawl engine, HTML parsing DSL, browser-free extraction, and polite-by-default crawl ops."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -229692,6 +229737,96 @@
       "name": "panmax--buffett-skill",
       "source": "./panmax--buffett-skill",
       "description": "buffett-skill"
+    },
+    {
+      "name": "netwaif--knot",
+      "source": "./netwaif--knot",
+      "description": "\ubca4\ub354\uc911\ub9bd \ud3c9\ubb38 \ub9c8\ud06c\ub2e4\uc6b4 \uc9c0\uc2dd vault (knot) \u2014 Claude/Codex/Gemini \uacf5\uc720 \uc9c0\uc2dd \uadf8\ubb3c, \ube48 \uc2a4\uce90\ud3f4\ub4dc"
+    },
+    {
+      "name": "netwaif--knot",
+      "source": "./netwaif--knot",
+      "description": "\ubca4\ub354\uc911\ub9bd \ud3c9\ubb38 \ub9c8\ud06c\ub2e4\uc6b4 \uc9c0\uc2dd vault (knot) \u2014 Claude/Codex/Gemini \uacf5\uc720 \uc9c0\uc2dd \uadf8\ubb3c, \ube48 \uc2a4\uce90\ud3f4\ub4dc"
+    },
+    {
+      "name": "ye-lynn-htet--ylh-portfolio",
+      "source": "./ye-lynn-htet--ylh-portfolio",
+      "description": "ylh-portfolio"
+    },
+    {
+      "name": "kssssxg--esp32s3-cyber-os",
+      "source": "./kssssxg--esp32s3-cyber-os",
+      "description": "ESP32-S3 \u5168\u80fd\u8d5b\u535a\u684c\u9762\u7cfb\u7edf \u2014 NES\u6a21\u62df\u5668 / DOOM / BLE\u8bbe\u5907\u8bf1\u9a97 / \u4e91\u97f3\u4e50 / \u592a\u7a7a\u4eba\u65f6\u949f"
+    },
+    {
+      "name": "germandz--es-invoices",
+      "source": "./germandz--es-invoices",
+      "description": "es-invoices"
+    },
+    {
+      "name": "netwaif--knot",
+      "source": "./netwaif--knot",
+      "description": "\ubca4\ub354\uc911\ub9bd \ud3c9\ubb38 \ub9c8\ud06c\ub2e4\uc6b4 \uc9c0\uc2dd vault (knot) \u2014 Claude/Codex/Gemini \uacf5\uc720 \uc9c0\uc2dd \uadf8\ubb3c, \ube48 \uc2a4\uce90\ud3f4\ub4dc"
+    },
+    {
+      "name": "tstambulsky--auto-vlog-editor",
+      "source": "./tstambulsky--auto-vlog-editor",
+      "description": "AI agent that turns daily phone clips into a narrated, captioned vertical video \u2014 reviewed/approved over Telegram, auto-published to X and LinkedIn."
+    },
+    {
+      "name": "ye-lynn-htet--ylh-portfolio",
+      "source": "./ye-lynn-htet--ylh-portfolio",
+      "description": "ylh-portfolio"
+    },
+    {
+      "name": "anousss007--ng-blatui",
+      "source": "./anousss007--ng-blatui",
+      "description": "Accessible Angular 22 UI library (standalone, signals, zoneless, SSR) ported from BlatUI \u2014 155 components, 16 blocks, 70 charts, 34 templates. AI-ready: MCP server + llms.txt + registry."
+    },
+    {
+      "name": "kssssxg--esp32s3-cyber-os",
+      "source": "./kssssxg--esp32s3-cyber-os",
+      "description": "ESP32-S3 \u5168\u80fd\u8d5b\u535a\u684c\u9762\u7cfb\u7edf \u2014 NES\u6a21\u62df\u5668 / DOOM / BLE\u8bbe\u5907\u8bf1\u9a97 / \u4e91\u97f3\u4e50 / \u592a\u7a7a\u4eba\u65f6\u949f"
+    },
+    {
+      "name": "osdeving--borrow-fighters",
+      "source": "./osdeving--borrow-fighters",
+      "description": "Docs-first 2D fighting game prototype with programming humor"
+    },
+    {
+      "name": "elghaied--payload-eve-chat",
+      "source": "./elghaied--payload-eve-chat",
+      "description": "AI chat agent (Eve) built inside Payload CMS \u2014 MCP tools + Vercel AI SDK, with optional hands-free voice (STT/TTS) and a one-command Docker stack."
+    },
+    {
+      "name": "simonstorms--lore-glass",
+      "source": "./simonstorms--lore-glass",
+      "description": "lore-glass: liquid-glass lens for React as a shadcn registry, SVG feDisplacementMap refraction with edge falloff, chroma, and baked specular"
+    },
+    {
+      "name": "rudra370--multee",
+      "source": "./rudra370--multee",
+      "description": "multee"
+    },
+    {
+      "name": "li599198347-svg--aham-ui",
+      "source": "./li599198347-svg--aham-ui",
+      "description": "\u4f9b AI \u6d88\u8d39\u7684\u8bbe\u8ba1\u7cfb\u7edf\u2014\u2014\u5199\u4e00\u6b21\u89c4\u8303\uff0cAI \u4ea7\u51fa\u5904\u5904\u4e00\u81f4\u3002Aham\uff1a\u628a\u7075\u5149\u4e00\u73b0\uff0c\u505a\u6210\u80fd\u7528\u7684 AI \u5de5\u5177\u3002"
+    },
+    {
+      "name": "osdeving--borrow-fighters",
+      "source": "./osdeving--borrow-fighters",
+      "description": "Docs-first 2D fighting game prototype with programming humor"
+    },
+    {
+      "name": "reginaldosilva27--agentic-coding-template",
+      "source": "./reginaldosilva27--agentic-coding-template",
+      "description": "Spec-first (SDD) + test-first (TDD) project template for Claude Code, Codex, AntiGravity"
+    },
+    {
+      "name": "reginaldosilva27--agentic-coding-template",
+      "source": "./reginaldosilva27--agentic-coding-template",
+      "description": "Spec-first (SDD) + test-first (TDD) project template for Claude Code, Codex, AntiGravity"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -346702,6 +346837,121 @@
       "name": "traecneh--thefreelittleflowerstand",
       "source": "./traecneh--thefreelittleflowerstand",
       "description": "thefreelittleflowerstand"
+    },
+    {
+      "name": "agents-cli-dev-bot--agents-cli-shadow-ci-win-w73hxa55",
+      "source": "./agents-cli-dev-bot--agents-cli-shadow-ci-win-w73hxa55",
+      "description": "agents-cli-shadow-ci-win-w73hxa55"
+    },
+    {
+      "name": "kiwon0102--picu",
+      "source": "./kiwon0102--picu",
+      "description": "picu"
+    },
+    {
+      "name": "ntccar01--teacher-toolkit",
+      "source": "./ntccar01--teacher-toolkit",
+      "description": "teacher-toolkit"
+    },
+    {
+      "name": "mousscales--curosity",
+      "source": "./mousscales--curosity",
+      "description": "curosity"
+    },
+    {
+      "name": "yrajaram112--jhilko",
+      "source": "./yrajaram112--jhilko",
+      "description": "jhilko"
+    },
+    {
+      "name": "rmloveland--rl",
+      "source": "./rmloveland--rl",
+      "description": "A quick readline wrapper"
+    },
+    {
+      "name": "insgahn--car-assembly-24024224",
+      "source": "./insgahn--car-assembly-24024224",
+      "description": "Solution\uac1c\ubc1c\ud300-24024224"
+    },
+    {
+      "name": "jungsunbeen--checkcheck",
+      "source": "./jungsunbeen--checkcheck",
+      "description": "checkcheck"
+    },
+    {
+      "name": "dharness--photo-editor",
+      "source": "./dharness--photo-editor",
+      "description": "Browser-based photo/video editor \u2014 TypeScript, Canvas 2D, Zustand"
+    },
+    {
+      "name": "agents-cli-dev-bot--agents-cli-shadow-ci-win-w73hxa55",
+      "source": "./agents-cli-dev-bot--agents-cli-shadow-ci-win-w73hxa55",
+      "description": "agents-cli-shadow-ci-win-w73hxa55"
+    },
+    {
+      "name": "hyson1209-hue--video-archive-console",
+      "source": "./hyson1209-hue--video-archive-console",
+      "description": "AI \uc601\uc0c1 \ubd84\uc11d \ud30c\uc774\ud504\ub77c\uc778 + \ud558\uc774\ube0c\ub9ac\ub4dc \uac80\uc0c9 \uc544\uce74\uc774\ube0c (FastAPI \u00b7 Whisper \u00b7 GPT Vision \u00b7 SQLite FTS5 \u00b7 ChromaDB)"
+    },
+    {
+      "name": "agberserk2--pacialmovil",
+      "source": "./agberserk2--pacialmovil",
+      "description": "pacialMovil"
+    },
+    {
+      "name": "maiconcutrim--claude-workspace",
+      "source": "./maiconcutrim--claude-workspace",
+      "description": "claude-workspace"
+    },
+    {
+      "name": "dpaunlimited--dpa-website",
+      "source": "./dpaunlimited--dpa-website",
+      "description": "DPA Website"
+    },
+    {
+      "name": "curtisslone--vibe-companion",
+      "source": "./curtisslone--vibe-companion",
+      "description": "A vibe companion to quickly build and ship a SaaS."
+    },
+    {
+      "name": "alinnygomes--jardim-colorado",
+      "source": "./alinnygomes--jardim-colorado",
+      "description": "Jardim-colorado"
+    },
+    {
+      "name": "ojaneri--pfuzz",
+      "source": "./ojaneri--pfuzz",
+      "description": "\ud83d\udd2b pfuzz \u2014 open-source LLM & system-prompt vulnerability scanner. Hardens your GenAI apps against jailbreaks, prompt injection, RAG poisoning & prompt extraction. Fork of ps-fuzz."
+    },
+    {
+      "name": "ojaneri--pfuzz",
+      "source": "./ojaneri--pfuzz",
+      "description": "\ud83d\udd2b pfuzz \u2014 open-source LLM & system-prompt vulnerability scanner. Hardens your GenAI apps against jailbreaks, prompt injection, RAG poisoning & prompt extraction. Fork of ps-fuzz."
+    },
+    {
+      "name": "qwsajcx--fast-trip-planner",
+      "source": "./qwsajcx--fast-trip-planner",
+      "description": "fast-trip-planner"
+    },
+    {
+      "name": "khalfaqi--coverage-test",
+      "source": "./khalfaqi--coverage-test",
+      "description": "coverage-test"
+    },
+    {
+      "name": "aquibazam8-afk--jarvis",
+      "source": "./aquibazam8-afk--jarvis",
+      "description": "A local multi-agent \"second brain\" on Claude Code: agent orchestration, persistent memory, and custom workflows."
+    },
+    {
+      "name": "atulpawar07--auction-pro",
+      "source": "./atulpawar07--auction-pro",
+      "description": "auction-pro"
+    },
+    {
+      "name": "pufacz--citysimulation",
+      "source": "./pufacz--citysimulation",
+      "description": "citysimulation"
     }
   ]
 }
