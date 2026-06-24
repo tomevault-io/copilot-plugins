@@ -1,0 +1,9 @@
+{
+  "name": "tako-research--takovm",
+  "displayName": "TakoVM",
+  "description": "A secure file system for your agents to execute code",
+  "version": "1.0.0",
+  "author": "Tako-Research",
+  "homepage": "https://github.com/Tako-Research/TakoVM",
+  "skills": []
+}
