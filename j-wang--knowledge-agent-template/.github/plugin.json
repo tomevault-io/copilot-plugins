@@ -1,0 +1,9 @@
+{
+  "name": "j-wang--knowledge-agent-template",
+  "displayName": "knowledge-agent-template",
+  "description": "This is a generic knowledge agent for creating a RAG pipeline from source docs, etc.",
+  "version": "1.0.0",
+  "author": "j-wang",
+  "homepage": "https://github.com/j-wang/knowledge-agent-template",
+  "skills": []
+}
