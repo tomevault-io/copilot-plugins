@@ -1,0 +1,9 @@
+{
+  "name": "fivetran--connector-sdk-tools",
+  "displayName": "connector_sdk_tools",
+  "description": "AI coding agent tools to build connectors using Fivetran Connector SDK",
+  "version": "1.0.0",
+  "author": "fivetran",
+  "homepage": "https://github.com/fivetran/connector_sdk_tools",
+  "skills": []
+}
