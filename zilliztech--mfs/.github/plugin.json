@@ -1,0 +1,9 @@
+{
+  "name": "zilliztech--mfs",
+  "displayName": "mfs",
+  "description": "A context harness for AI agents: all your scattered context \u2014 code, memory, docs, databases, SaaS \u2014 in one searchable, browsable, file-like interface.",
+  "version": "1.0.0",
+  "author": "zilliztech",
+  "homepage": "https://github.com/zilliztech/mfs",
+  "skills": []
+}
