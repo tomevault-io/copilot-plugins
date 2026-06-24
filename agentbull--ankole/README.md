@@ -7,11 +7,11 @@ Ankole is an open-source, self-hosted AgentOS for shared AI colleagues.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AgentBull/ankole](https://github.com/AgentBull/ankole).
+Original source: `CLAUDE.md` in [AgentBull/ankole](https://github.com/AgentBull/ankole).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
