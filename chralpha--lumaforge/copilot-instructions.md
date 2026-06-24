@@ -1,72 +1,126 @@
-## routing
+## state-management
 
-> File-based routing system guidelines
+> Jotai state management patterns and guidelines
 
-# File-Based Routing System
+# State Management with Jotai
 
-This project uses `vite-plugin-route-builder` for file-based routing. Follow these patterns:
+This project uses Jotai for state management with custom utilities and patterns.
 
-## Route Types
+## Core Setup
 
-**Sync Routes**: `.sync.tsx` files
-- Synchronous routes without code splitting
-- Used for critical pages that should load immediately
-- Example: `src/pages/(main)/index.sync.tsx` becomes root route
-
-**Async Routes**: `.tsx` files (without .sync)
-- Asynchronous routes with lazy loading and code splitting
-- Used for non-critical pages to optimize initial bundle size
-- Example: `src/pages/about.tsx` becomes `/about` route
-
-## Layout System
-
-**Layout Files**: `layout.tsx` files serve as layout containers
-- Use `<Outlet />` within layout components to render child routes
-- Layouts automatically wrap their corresponding route segments
-- Example: `src/pages/(main)/layout.tsx` wraps all routes in the `(main)` group
-
-## Route Structure Examples
-
+**Global Store**: Use `jotaiStore` from `src/lib/jotai.ts`
 ```typescript
-// Sync route - no code splitting
-// File: src/pages/(main)/index.sync.tsx
-export default function HomePage() {
-  return <div>Home Page</div>
-}
+import { jotaiStore } from '~/lib/jotai'
+```
 
-// Async route - with code splitting
-// File: src/pages/dashboard.tsx
-export default function DashboardPage() {
-  return <div>Dashboard</div>
-}
+**Custom Hook Utility**: Use `createAtomHooks` for consistent atom patterns
+```typescript
+import { createAtomHooks } from '~/lib/jotai'
 
-// Layout component
-// File: src/pages/(main)/layout.tsx
-import { Outlet } from 'react-router'
+const [useMyAtom, useSetMyAtom, useMyAtomValue, myAtom] = createAtomHooks(atom(null))
+```
 
-export default function MainLayout() {
-  return (
-    <div className="min-h-screen">
-      <nav>Navigation</nav>
-      <main>
-        <Outlet />
-      </main>
-    </div>
-  )
+## Atom Organization
+
+**Atom Location**: Store atoms in `src/atoms/` directory
+```typescript
+// File: src/atoms/user.ts
+import { atom } from 'jotai'
+
+export const userAtom = atom(null)
+export const isLoggedInAtom = atom((get) => get(userAtom) !== null)
+```
+
+## Usage Patterns
+
+**Reading State**:
+```typescript
+import { useAtomValue } from 'jotai'
+import { userAtom } from '~/atoms/user'
+
+function UserProfile() {
+  const user = useAtomValue(userAtom)
+  return <div>{user?.name}</div>
 }
 ```
 
-## Generated Routes
+**Writing State**:
+```typescript
+import { useSetAtom } from 'jotai'
+import { userAtom } from '~/atoms/user'
 
-- Routes are auto-generated in `src/generated-routes.ts`
-- **DO NOT EDIT** the generated routes file manually
-- The routing plugin handles all route generation automatically
+function LoginForm() {
+  const setUser = useSetAtom(userAtom)
+  
+  const handleLogin = (userData) => {
+    setUser(userData)
+  }
+}
+```
 
-## Documentation Reference
+**Reading and Writing**:
+```typescript
+import { useAtom } from 'jotai'
+import { userAtom } from '~/atoms/user'
 
-For detailed usage, advanced patterns, and configuration options, **always refer to the official documentation**: https://github.com/Innei/vite-plugin-route-builder
+function UserSettings() {
+  const [user, setUser] = useAtom(userAtom)
+  
+  const updateUser = (updates) => {
+    setUser({ ...user, ...updates })
+  }
+}
+```
 
-**Important**: When encountering unclear routing patterns or advanced use cases, consult the official documentation before implementation.
+## Advanced Patterns
+
+**Derived Atoms**:
+```typescript
+import { atom } from 'jotai'
+
+const countAtom = atom(0)
+const doubledAtom = atom((get) => get(countAtom) * 2)
+```
+
+**Async Atoms**:
+```typescript
+const userIdAtom = atom(1)
+const userAtom = atom(async (get) => {
+  const userId = get(userIdAtom)
+  return fetchUser(userId)
+})
+```
+
+**Write-Only Atoms**:
+```typescript
+const writeOnlyAtom = atom(
+  null, // no read function
+  (get, set, newValue) => {
+    // write logic
+    set(someOtherAtom, newValue)
+  }
+)
+```
+
+## Provider Setup
+
+The global Jotai provider is configured in `src/providers/root-providers.tsx`:
+```typescript
+import { Provider } from 'jotai'
+import { jotaiStore } from '~/lib/jotai'
+
+<Provider store={jotaiStore}>
+  {/* app content */}
+</Provider>
+```
+
+## Best Practices
+
+1. **Atom Naming**: Use descriptive names ending with `Atom`
+2. **File Organization**: Group related atoms in the same file
+3. **Custom Hooks**: Use `createAtomHooks` for consistent patterns
+4. **Global Store**: Always use the configured `jotaiStore` instance
+5. **Async Handling**: Use Suspense boundaries for async atoms
 
 ---
 > Source: [ChrAlpha/LumaForge](https://github.com/ChrAlpha/LumaForge) — distributed by [TomeVault](https://tomevault.io).
