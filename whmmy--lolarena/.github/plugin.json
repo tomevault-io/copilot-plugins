@@ -1,0 +1,9 @@
+{
+  "name": "whmmy--lolarena",
+  "displayName": "LoLArena",
+  "description": "A benchmark that scores frontier LLMs on real League-of-Legends match prediction.",
+  "version": "1.0.0",
+  "author": "whmmy",
+  "homepage": "https://github.com/whmmy/LoLArena",
+  "skills": []
+}
