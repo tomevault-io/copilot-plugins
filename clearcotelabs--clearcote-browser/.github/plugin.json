@@ -1,0 +1,9 @@
+{
+  "name": "clearcotelabs--clearcote-browser",
+  "displayName": "clearcote-browser",
+  "description": "Open-source anti-detect Chromium 149 with engine-level fingerprint spoofing - de-Googled, drop-in Playwright, Windows x64, fully buildable and verifiable from source.",
+  "version": "1.0.0",
+  "author": "clearcotelabs",
+  "homepage": "https://github.com/clearcotelabs/clearcote-browser",
+  "skills": []
+}
