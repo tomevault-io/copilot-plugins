@@ -1,0 +1,14 @@
+{
+  "name": "mostashraf--ai-sdlc-harness",
+  "displayName": "ai-sdlc-harness",
+  "description": "AI-driven SDLC harness for Claude Code \u2014 multi-agent TDD workflow (plan \u2192 tests \u2192 code \u2192 review \u2192 PR) with Azure DevOps, Jira, GitHub, GitLab, Zoho, and local-markdown providers. Language-agnostic, di",
+  "version": "1.0.0",
+  "author": "MostAshraf",
+  "homepage": "https://github.com/MostAshraf/ai-sdlc-harness",
+  "skills": [
+    {
+      "name": "security-report",
+      "description": ""
+    }
+  ]
+}
