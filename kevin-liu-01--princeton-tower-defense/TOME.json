@@ -4,7 +4,7 @@
   "repo": "Princeton-Tower-Defense",
   "description": "A full-featured tower defense game built entirely in the browser with just React, Canvas 2D, and Next.js. Princeton Tower Defense combines classic tower defense strategy with Princeton University-themed towers, heroes, and enemies.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kevin-Liu-01/Princeton-Tower-Defense",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T18:32:10Z"
+  "distributed_at": "2026-06-24T18:33:23Z"
 }
