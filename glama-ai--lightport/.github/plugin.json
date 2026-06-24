@@ -1,0 +1,9 @@
+{
+  "name": "glama-ai--lightport",
+  "displayName": "lightport",
+  "description": "A lightweight AI gateway that makes LLM providers OpenAI-compatible.",
+  "version": "1.0.0",
+  "author": "glama-ai",
+  "homepage": "https://github.com/glama-ai/lightport",
+  "skills": []
+}
