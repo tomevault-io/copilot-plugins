@@ -1,0 +1,44 @@
+{
+  "name": "android-compose-highlight",
+  "owner": "hossain-khan",
+  "repo": "android-compose-highlight",
+  "description": "Simple lightweight library that leverages JS bridge to bring fast syntax highlighting to Android Jetpack Compose",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hossain-khan/android-compose-highlight",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-24T23:21:34Z"
+}
