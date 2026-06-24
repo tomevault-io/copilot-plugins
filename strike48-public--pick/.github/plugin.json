@@ -1,0 +1,9 @@
+{
+  "name": "strike48-public--pick",
+  "displayName": "pick",
+  "description": "Pick is a lightweight, headless penetration testing agent built with Dioxus, providing network reconnaissance, device discovery, and remote tool execution capabilities.",
+  "version": "1.0.0",
+  "author": "Strike48-public",
+  "homepage": "https://github.com/Strike48-public/pick",
+  "skills": []
+}
