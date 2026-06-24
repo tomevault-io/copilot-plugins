@@ -1,0 +1,9 @@
+{
+  "name": "sargunv--compose-glfw",
+  "displayName": "compose-glfw",
+  "description": "JVM Compose host APIs for running Compose UI in GLFW windows.",
+  "version": "1.0.0",
+  "author": "sargunv",
+  "homepage": "https://github.com/sargunv/compose-glfw",
+  "skills": []
+}
