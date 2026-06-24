@@ -1,0 +1,9 @@
+{
+  "name": "modelplaneai--modelplane",
+  "displayName": "modelplane",
+  "description": "The open source control plane for AI inference",
+  "version": "1.0.0",
+  "author": "modelplaneai",
+  "homepage": "https://github.com/modelplaneai/modelplane",
+  "skills": []
+}
