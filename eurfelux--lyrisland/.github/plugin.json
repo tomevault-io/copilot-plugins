@@ -1,0 +1,9 @@
+{
+  "name": "eurfelux--lyrisland",
+  "displayName": "Lyrisland",
+  "description": "A macOS Dynamic Island-style floating widget that displays real-time synced lyrics for Spotify. No login required.",
+  "version": "1.0.0",
+  "author": "EurFelux",
+  "homepage": "https://github.com/EurFelux/Lyrisland",
+  "skills": []
+}
