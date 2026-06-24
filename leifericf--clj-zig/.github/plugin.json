@@ -1,0 +1,9 @@
+{
+  "name": "leifericf--clj-zig",
+  "displayName": "clj-zig",
+  "description": "Clojure functions backed by Zig.",
+  "version": "1.0.0",
+  "author": "leifericf",
+  "homepage": "https://github.com/leifericf/clj-zig",
+  "skills": []
+}
