@@ -1,0 +1,9 @@
+{
+  "name": "mila-iqia--cluv",
+  "displayName": "cluv",
+  "description": "A powerful and lightweight CLI tool to use UV across multiple clusters",
+  "version": "1.0.0",
+  "author": "mila-iqia",
+  "homepage": "https://github.com/mila-iqia/cluv",
+  "skills": []
+}
