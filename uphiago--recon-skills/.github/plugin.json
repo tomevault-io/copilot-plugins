@@ -1,0 +1,9 @@
+{
+  "name": "uphiago--recon-skills",
+  "displayName": "recon-skills",
+  "description": "212 offensive security skills for recon and pentest. Field-validated techniques from 600+ targets across 28 sectors. Updated with web enum, email sec, google dorks, cloud IAM.",
+  "version": "1.0.0",
+  "author": "uphiago",
+  "homepage": "https://github.com/uphiago/recon-skills",
+  "skills": []
+}
