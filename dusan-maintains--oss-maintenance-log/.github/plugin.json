@@ -1,0 +1,9 @@
+{
+  "name": "dusan-maintains--oss-maintenance-log",
+  "displayName": "oss-maintenance-log",
+  "description": "Automated OSS maintenance evidence log. Tracks 1.6M npm downloads/week across 7 packages. Self-updating every 6h via GitHub Actions.",
+  "version": "1.0.0",
+  "author": "dusan-maintains",
+  "homepage": "https://github.com/dusan-maintains/oss-maintenance-log",
+  "skills": []
+}
