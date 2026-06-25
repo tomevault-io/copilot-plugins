@@ -1,0 +1,9 @@
+{
+  "name": "awesome-embedded-learning-studio--cfbox",
+  "displayName": "CFBox",
+  "description": "A minimalist BusyBox alternative written in modern C++23.",
+  "version": "1.0.0",
+  "author": "Awesome-Embedded-Learning-Studio",
+  "homepage": "https://github.com/Awesome-Embedded-Learning-Studio/CFBox",
+  "skills": []
+}
