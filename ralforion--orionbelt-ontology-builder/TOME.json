@@ -1,0 +1,44 @@
+{
+  "name": "orionbelt-ontology-builder",
+  "owner": "ralforion",
+  "repo": "orionbelt-ontology-builder",
+  "description": "Browser-based ontology workbench for OWL ontologies and SKOS vocabularies. Streamlit + rdflib, no Java, no Prot\u00e9g\u00e9. Bulk operations, OWL-RL reasoning, gist upper-ontology starters, merge-aware imports, interactive vis-network graph.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ralforion/orionbelt-ontology-builder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T22:30:26Z"
+}
