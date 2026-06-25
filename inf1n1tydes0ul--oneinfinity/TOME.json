@@ -4,7 +4,7 @@
   "repo": "oneinfinity",
   "description": "One&Infinity \u2014 Autonomous Penetration Testing & Bug Bounty AI Framework",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Inf1n1tyDeS0ul/oneinfinity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T18:52:08Z"
+  "distributed_at": "2026-06-25T18:54:48Z"
 }
