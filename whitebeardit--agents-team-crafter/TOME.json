@@ -1,0 +1,44 @@
+{
+  "name": "agents-team-crafter",
+  "owner": "whitebeardit",
+  "repo": "agents-team-crafter",
+  "description": "Cria time de agentes de IA por empresas e permite execu\u00e7\u00e3o e isolamento entre os workspaces.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/whitebeardit/agents-team-crafter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T16:33:02Z"
+}
