@@ -1,0 +1,9 @@
+{
+  "name": "celestoai--smolfs",
+  "displayName": "smolfs",
+  "description": "Durable workspace folders for AI agents.",
+  "version": "1.0.0",
+  "author": "CelestoAI",
+  "homepage": "https://github.com/CelestoAI/smolfs",
+  "skills": []
+}
