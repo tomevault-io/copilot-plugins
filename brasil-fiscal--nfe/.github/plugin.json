@@ -1,0 +1,9 @@
+{
+  "name": "brasil-fiscal--nfe",
+  "displayName": "nfe",
+  "description": "Lib open-source em TypeScript para emissao de NFe (Nota Fiscal Eletronica) no Brasil. Arquitetura limpa, zero dependencias de runtime, totalmente plugavel.",
+  "version": "1.0.0",
+  "author": "brasil-fiscal",
+  "homepage": "https://github.com/brasil-fiscal/nfe",
+  "skills": []
+}
