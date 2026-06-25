@@ -1,0 +1,9 @@
+{
+  "name": "jz-wu--ai-knowledge-base",
+  "displayName": "ai-knowledge-base",
+  "description": "AI-native knowledge base: select text \u2192 ask AI \u2192 answer and edit the source file directly",
+  "version": "1.0.0",
+  "author": "JZ-Wu",
+  "homepage": "https://github.com/JZ-Wu/ai-knowledge-base",
+  "skills": []
+}
