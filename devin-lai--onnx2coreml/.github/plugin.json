@@ -1,0 +1,9 @@
+{
+  "name": "devin-lai--onnx2coreml",
+  "displayName": "onnx2coreml",
+  "description": "Convert ONNX models to Apple Core ML (.mlpackage / .mlmodel) with numerical-parity verification against ONNX Runtime.",
+  "version": "1.0.0",
+  "author": "devin-lai",
+  "homepage": "https://github.com/devin-lai/onnx2coreml",
+  "skills": []
+}
