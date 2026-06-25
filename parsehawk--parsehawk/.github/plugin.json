@@ -1,0 +1,9 @@
+{
+  "name": "parsehawk--parsehawk",
+  "displayName": "parsehawk",
+  "description": "Local-first document AI. Run 100% locally by default, with API, CLI, and Web UI.",
+  "version": "1.0.0",
+  "author": "parsehawk",
+  "homepage": "https://github.com/parsehawk/parsehawk",
+  "skills": []
+}
