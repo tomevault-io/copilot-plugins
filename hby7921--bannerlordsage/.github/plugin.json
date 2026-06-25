@@ -1,0 +1,9 @@
+{
+  "name": "hby7921--bannerlordsage",
+  "displayName": "BannerlordSage",
+  "description": "A Model Context Protocol (MCP) server for Mount & Blade II: Bannerlord. Gives AI agents access to decompiled source search, XML data browsing, gameplay queries, local mod source indexing, and patch ge",
+  "version": "1.0.0",
+  "author": "hby7921",
+  "homepage": "https://github.com/hby7921/BannerlordSage",
+  "skills": []
+}
