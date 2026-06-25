@@ -1,0 +1,9 @@
+{
+  "name": "yihuishou--llama-cpp-launcher",
+  "displayName": "llama.cpp-launcher",
+  "description": "A lightweight llama.cpp launcher with GUI",
+  "version": "1.0.0",
+  "author": "yihuishou",
+  "homepage": "https://github.com/yihuishou/llama.cpp-launcher",
+  "skills": []
+}
