@@ -1,0 +1,9 @@
+{
+  "name": "juliensimon--space-datasets",
+  "displayName": "space-datasets",
+  "description": "200+ auto-updated space, astronomy & physics datasets on Hugging Face (NASA, NOAA, ESA, JPL, SpaceX, Wikidata). Satellites, asteroids, space probes (Voyager, Cassini, Mars), space weather, exoplanets,",
+  "version": "1.0.0",
+  "author": "juliensimon",
+  "homepage": "https://github.com/juliensimon/space-datasets",
+  "skills": []
+}
