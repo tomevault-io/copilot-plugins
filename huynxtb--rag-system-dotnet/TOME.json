@@ -1,0 +1,44 @@
+{
+  "name": "rag-system-dotnet",
+  "owner": "huynxtb",
+  "repo": "rag-system-dotnet",
+  "description": "RAG system built with .NET 10, React, Qdrant, and OpenAI. Upload PDF, DOCX, and text files - automatically extract, chunk, and embed content into a vector store. Ask questions via chat and get AI-generated answers grounded in your uploaded documents with cited sources.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/huynxtb/rag-system-dotnet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T02:39:41Z"
+}
