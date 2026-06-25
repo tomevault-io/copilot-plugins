@@ -1,0 +1,9 @@
+{
+  "name": "kuro96--obsidian-salt-dashboard",
+  "displayName": "obsidian-salt-dashboard",
+  "description": "A grid-based, responsive dashboard for Obsidian. View dates, manage tasks, track habits, and render custom JSX widgets directly in your vault.",
+  "version": "1.0.0",
+  "author": "Kuro96",
+  "homepage": "https://github.com/Kuro96/obsidian-salt-dashboard",
+  "skills": []
+}
