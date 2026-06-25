@@ -1,0 +1,9 @@
+{
+  "name": "tuning-luna--github-avatar-generator",
+  "displayName": "github-avatar-generator",
+  "description": "[Unofficial] Generate GitHub-style identicon avatars from any string\u2764\ufe0f",
+  "version": "1.0.0",
+  "author": "Tuning-Luna",
+  "homepage": "https://github.com/Tuning-Luna/github-avatar-generator",
+  "skills": []
+}
