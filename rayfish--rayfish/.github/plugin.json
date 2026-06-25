@@ -1,0 +1,9 @@
+{
+  "name": "rayfish--rayfish",
+  "displayName": "rayfish",
+  "description": "P2P mesh VPN powered by iroh \u2014 connects peers by cryptographic identity",
+  "version": "1.0.0",
+  "author": "rayfish",
+  "homepage": "https://github.com/rayfish/rayfish",
+  "skills": []
+}
