@@ -1,0 +1,9 @@
+{
+  "name": "mark-life--telegram-claude-codex",
+  "displayName": "telegram-claude-codex",
+  "description": "Telegram bot that runs Claude Code or OpenAI Codex on your VPS and streams responses back to chat. Supports project switching, sessions, voice, plan mode, and queues.",
+  "version": "1.0.0",
+  "author": "Mark-Life",
+  "homepage": "https://github.com/Mark-Life/telegram-claude-codex",
+  "skills": []
+}
