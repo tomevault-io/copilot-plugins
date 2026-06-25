@@ -4,7 +4,7 @@
   "repo": "Sipp",
   "description": "A unified API for fast in-browser, client and cloud inference.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/noumena-labs/Sipp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T04:30:52Z"
+  "distributed_at": "2026-06-25T04:31:23Z"
 }
