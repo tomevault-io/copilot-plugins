@@ -7,11 +7,11 @@ A skill-driven Harness Engineering framework
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [btspoony/mstar-harness](https://github.com/btspoony/mstar-harness).
+Original source: `AGENTS.md` in [btspoony/mstar-harness](https://github.com/btspoony/mstar-harness).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
