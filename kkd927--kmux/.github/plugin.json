@@ -1,0 +1,9 @@
+{
+  "name": "kkd927--kmux",
+  "displayName": "kmux",
+  "description": "A keyboard-centric terminal workspace designed for running AI coding agents (Claude Code, Gemini CLI,   etc.) side-by-side on macOS and Linux. Features multi-session resume, API usage dashboards, and ",
+  "version": "1.0.0",
+  "author": "kkd927",
+  "homepage": "https://github.com/kkd927/kmux",
+  "skills": []
+}
