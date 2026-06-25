@@ -1,0 +1,44 @@
+{
+  "name": "cc-web-manager-open",
+  "owner": "liaoyiqiao",
+  "repo": "cc-web-manager-open",
+  "description": "Web-based management panel for remotely controlling AI coding agents (Claude Code, Codex, Gemini CLI) on GPU servers",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liaoyiqiao/cc-web-manager-open",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T20:37:07Z"
+}
