@@ -1,0 +1,44 @@
+{
+  "name": "Build26-BRK243-claw-and-agent-harness-in-microsoft-foundry",
+  "owner": "microsoft",
+  "repo": "Build26-BRK243-claw-and-agent-harness-in-microsoft-foundry",
+  "description": "Resources for building and deploying agents using Claw and agent harness in Microsoft Foundry \u2014 patterns for agent orchestration, testing, and production deployment. From Microsoft Build 2026.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/microsoft/Build26-BRK243-claw-and-agent-harness-in-microsoft-foundry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T02:30:25Z"
+}
