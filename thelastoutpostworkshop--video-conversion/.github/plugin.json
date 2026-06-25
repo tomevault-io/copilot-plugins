@@ -1,0 +1,9 @@
+{
+  "name": "thelastoutpostworkshop--video-conversion",
+  "displayName": "video_conversion",
+  "description": "Video Conversion Studio helps you convert video and audio for ESP32 small displays and embedded projects directly on your own machine.",
+  "version": "1.0.0",
+  "author": "thelastoutpostworkshop",
+  "homepage": "https://github.com/thelastoutpostworkshop/video_conversion",
+  "skills": []
+}
