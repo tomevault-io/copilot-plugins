@@ -123659,6 +123659,11 @@
       "description": "AngelscriptProject"
     },
     {
+      "name": "jaypopat--rewindos",
+      "source": "./jaypopat--rewindos",
+      "description": "A private, open-source alternative to Windows Recall \u2014 for Linux. Captures your screen, OCRs it, and makes everything you've seen instantly searchable. 100% local, no cloud."
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -182674,6 +182679,16 @@
       "description": "Video Conversion Studio helps you convert video and audio for ESP32 small displays and embedded projects directly on your own machine."
     },
     {
+      "name": "sozercan--orka",
+      "source": "./sozercan--orka",
+      "description": "\ud83d\udc0b Cloud and AI-native multi-agent orchestration platform for Kubernetes"
+    },
+    {
+      "name": "f-rustrated--eastguard",
+      "source": "./f-rustrated--eastguard",
+      "description": "EastGuard"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -228527,6 +228542,16 @@
       "name": "bearbin1215--mgp-vn-tool",
       "source": "./bearbin1215--mgp-vn-tool",
       "description": "\u840c\u767e\u89c6\u7814\u4f1a\u6761\u76ee\u5de5\u5177"
+    },
+    {
+      "name": "team-hashi--hashi-client",
+      "source": "./team-hashi--hashi-client",
+      "description": "\ubc1c\uacac\ubd80\ud130 \uc608\uc57d\uae4c\uc9c0, \ud3ec\uae30 \uc5c6\uc774"
+    },
+    {
+      "name": "swezinpreciousai-sys--project-idea-scorer",
+      "source": "./swezinpreciousai-sys--project-idea-scorer",
+      "description": "Score your project idea before you build it"
     },
     {
       "name": "cheerhuan--save-your-token",
