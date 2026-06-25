@@ -1,0 +1,9 @@
+{
+  "name": "huynxtb--rag-system-dotnet",
+  "displayName": "rag-system-dotnet",
+  "description": "RAG system built with .NET 10, React, Qdrant, and OpenAI. Upload PDF, DOCX, and text files - automatically extract, chunk, and embed content into a vector store. Ask questions via chat and get AI-gene",
+  "version": "1.0.0",
+  "author": "huynxtb",
+  "homepage": "https://github.com/huynxtb/rag-system-dotnet",
+  "skills": []
+}
