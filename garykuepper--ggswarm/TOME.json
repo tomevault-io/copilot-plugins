@@ -1,0 +1,44 @@
+{
+  "name": "ggSwarm",
+  "owner": "garykuepper",
+  "repo": "ggSwarm",
+  "description": "A fully decentralized coordination framework where global formation behavior emerges naturally from local agent interactions. By combining Graph Neural Networks for spatial reasoning with advanced trajectory optimization for flight dynamics, the system achieves a robust and fault-tolerant solution for complex aerial maneuvers",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/garykuepper/ggSwarm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T22:39:25Z"
+}
