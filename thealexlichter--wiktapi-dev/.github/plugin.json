@@ -1,0 +1,9 @@
+{
+  "name": "thealexlichter--wiktapi-dev",
+  "displayName": "wiktapi.dev",
+  "description": "A multilingual REST API for structured dictionary data",
+  "version": "1.0.0",
+  "author": "TheAlexLichter",
+  "homepage": "https://github.com/TheAlexLichter/wiktapi.dev",
+  "skills": []
+}
