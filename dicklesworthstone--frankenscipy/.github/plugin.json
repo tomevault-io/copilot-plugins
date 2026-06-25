@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankenscipy",
+  "displayName": "frankenscipy",
+  "description": "Clean-room Rust reimplementation of SciPy with Condition-Aware Solver Portfolio (CASP) \u2014 runtime algorithm selection driven by conditioning diagnostics, stability certificates, and decision-theoretic ",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankenscipy",
+  "skills": []
+}
