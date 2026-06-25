@@ -1,0 +1,9 @@
+{
+  "name": "mnemehq--mneme",
+  "displayName": "mneme",
+  "description": "Engineering governance for AI coding agents: keep AI-generated code aligned with your architecture, standards, and prior decisions.",
+  "version": "1.0.0",
+  "author": "MnemeHQ",
+  "homepage": "https://github.com/MnemeHQ/mneme",
+  "skills": []
+}
