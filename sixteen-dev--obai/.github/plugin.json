@@ -1,0 +1,9 @@
+{
+  "name": "sixteen-dev--obai",
+  "displayName": "obai",
+  "description": "OBaI is an open-source multi-agent platform for stock research,   strategy backtesting, and prediction market intelligence.",
+  "version": "1.0.0",
+  "author": "sixteen-dev",
+  "homepage": "https://github.com/sixteen-dev/obai",
+  "skills": []
+}
