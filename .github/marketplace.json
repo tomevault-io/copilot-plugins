@@ -100919,6 +100919,11 @@
       "description": "\u57fa\u4e8e FFmpeg + Qt \u7684\u591a\u7ebf\u7a0b\u5a92\u4f53\u64ad\u653e\u5668 + HTTP-MPEG-TS \u4f4e\u5ef6\u8fdf\u63a8\u6d41\u5668\uff0c\u5b9e\u73b0\u97f3\u89c6\u9891\u540c\u6b65\u3001\u97f3\u9891\u6df7\u5408\u3001seek \u7eed\u6d41\u4e0e\u6d4f\u89c8\u5668\u5b9e\u65f6\u64ad\u653e"
     },
     {
+      "name": "unconv-ai--un-0",
+      "source": "./unconv-ai--un-0",
+      "description": "Un-0"
+    },
+    {
       "name": "eliornl--applypilot",
       "source": "./eliornl--applypilot",
       "description": "Self-hosted, AI-powered job search companion. Paste a job posting and five AI agents run an orchestrated pipeline \u2014 analyze the role, score your fit, research the company, rewrite your resume, and wri"
@@ -130534,6 +130539,11 @@
       "description": "A Kotlin Multiplatform wrapper around different platform's native spell checker systems."
     },
     {
+      "name": "codegraphtheory--hermes-profile-template",
+      "source": "./codegraphtheory--hermes-profile-template",
+      "description": "Turn a prompt into an installable Hermes profile repo"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -148857,6 +148867,11 @@
       "name": "jxpeng98--qiongli",
       "source": "./jxpeng98--qiongli",
       "description": "\u7a77\u7406\u8bc1\u6f88 Plan the work, search the literature, draft and review manuscripts, run research code, and keep the evidence trail in one place."
+    },
+    {
+      "name": "vibedrift--vibedrift",
+      "source": "./vibedrift--vibedrift",
+      "description": "Ship agentic. Stay coherent. Self-checking code integrity for AI coding agents, via MCP."
     },
     {
       "name": "lucas-acc--sancho-skills",
@@ -182764,6 +182779,11 @@
       "description": "Inference as Code | 5 YAML verbs to orchestrate any AI, Rust engine, 9 providers, Single binary, AGPL-3.0, \ud83e\udd8b"
     },
     {
+      "name": "imanchalsingh--parkfinder",
+      "source": "./imanchalsingh--parkfinder",
+      "description": "This project demonstrates my ability to design and build production-ready applications with a strong focus on scalability, security, and user experience."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -212444,6 +212464,191 @@
       "description": "Open-source multi-tenant AI agent platform. Docker isolation, multi-channel, SIWE auth. Built on OpenClaw + Base. Our token is community-run. Agentbot builds the platform, while the market belongs to "
     },
     {
+      "name": "utsaaham--arogyamandiram",
+      "source": "./utsaaham--arogyamandiram",
+      "description": "\u0c06\u0c30\u0c4b\u0c17\u0c4d\u0c2f\u0c2e\u0c02\u0c26\u0c3f\u0c30\u0c02 ( Arogyamandiram ) is a holistic health and fitness platform that helps users track water intake, calories, weight, and workouts in one place. It offers personalized guidance and smart in"
+    },
+    {
+      "name": "openexec--openexec",
+      "source": "./openexec--openexec",
+      "description": "Executable engineering judgment for AI coding tools: blueprints, gates, checkpoints, policy, memory, and audit trails."
+    },
+    {
+      "name": "gusaguilra--linuxcourse",
+      "source": "./gusaguilra--linuxcourse",
+      "description": "Plataforma interactiva y open source para aprender Linux desde cero con laboratorios, quizzes y terminal simulada."
+    },
+    {
+      "name": "devin-lai--onnx2coreml",
+      "source": "./devin-lai--onnx2coreml",
+      "description": "Convert ONNX models to Apple Core ML (.mlpackage / .mlmodel) with numerical-parity verification against ONNX Runtime."
+    },
+    {
+      "name": "liaoyiqiao--cc-web-manager-open",
+      "source": "./liaoyiqiao--cc-web-manager-open",
+      "description": "Web-based management panel for remotely controlling AI coding agents (Claude Code, Codex, Gemini CLI) on GPU servers"
+    },
+    {
+      "name": "novarocks--novarocks",
+      "source": "./novarocks--novarocks",
+      "description": "NovaRocks is a Rust-based compute engine project under the StarRocks ecosystem.  It is currently an independent project and keeps FE protocol compatibility through a C++ shim layer, with execution sem"
+    },
+    {
+      "name": "thraenbe--cograph",
+      "source": "./thraenbe--cograph",
+      "description": "cograph"
+    },
+    {
+      "name": "hby7921--bannerlordsage",
+      "source": "./hby7921--bannerlordsage",
+      "description": "A Model Context Protocol (MCP) server for Mount & Blade II: Bannerlord. Gives AI agents access to decompiled source search, XML data browsing, gameplay queries, local mod source indexing, and patch ge"
+    },
+    {
+      "name": "james-traina--compound-science",
+      "source": "./james-traina--compound-science",
+      "description": "Research workflow toolkit for structural econometrics, causal inference, game theory, and quantitative social science \u2014 a Claude Code plugin"
+    },
+    {
+      "name": "novarocks--novarocks",
+      "source": "./novarocks--novarocks",
+      "description": "NovaRocks is a Rust-based compute engine project under the StarRocks ecosystem.  It is currently an independent project and keeps FE protocol compatibility through a C++ shim layer, with execution sem"
+    },
+    {
+      "name": "exit-zero-labs--threat-forge",
+      "source": "./exit-zero-labs--threat-forge",
+      "description": "Open-source threat modeling tool with a modern canvas, git-friendly YAML files, and AI-assisted STRIDE analysis \u2014 the alternative to Microsoft's TMT that works on Mac, Windows, and Linux."
+    },
+    {
+      "name": "koji-1009--setup-flutter",
+      "source": "./koji-1009--setup-flutter",
+      "description": "Set up Flutter SDK for GitHub Actions."
+    },
+    {
+      "name": "semantic-reasoning--wirelog",
+      "source": "./semantic-reasoning--wirelog",
+      "description": "Embedded-to-Enterprise Datalog Engine in C11"
+    },
+    {
+      "name": "thomasasen--autodarts-local-tournament",
+      "source": "./thomasasen--autodarts-local-tournament",
+      "description": "Lokale Turniere mit Autodarts ohne PremiumLizenz"
+    },
+    {
+      "name": "geeks-accelerator--bot-space-ai",
+      "source": "./geeks-accelerator--bot-space-ai",
+      "description": "Social network for AI agents. Facebook + Instagram where every user is an AI. REST API with bearer token auth. Humans watch in spectator mode."
+    },
+    {
+      "name": "loomle--loomle",
+      "source": "./loomle--loomle",
+      "description": "Agent-native Unreal Engine tooling through MCP"
+    },
+    {
+      "name": "ash1794--vibe-engineering",
+      "source": "./ash1794--vibe-engineering",
+      "description": "38 engineering discipline skills for Claude Code & OpenAI Codex \u2014 research, quality gates, testing, deployment, gap analysis, and more. Born from real pain, not theory."
+    },
+    {
+      "name": "semantic-reasoning--wirelog",
+      "source": "./semantic-reasoning--wirelog",
+      "description": "Embedded-to-Enterprise Datalog Engine in C11"
+    },
+    {
+      "name": "openexec--openexec",
+      "source": "./openexec--openexec",
+      "description": "Executable engineering judgment for AI coding tools: blueprints, gates, checkpoints, policy, memory, and audit trails."
+    },
+    {
+      "name": "kuro96--obsidian-salt-dashboard",
+      "source": "./kuro96--obsidian-salt-dashboard",
+      "description": "A grid-based, responsive dashboard for Obsidian. View dates, manage tasks, track habits, and render custom JSX widgets directly in your vault."
+    },
+    {
+      "name": "kawasima--stamm",
+      "source": "./kawasima--stamm",
+      "description": "Headless project management system"
+    },
+    {
+      "name": "ash1794--vibe-engineering",
+      "source": "./ash1794--vibe-engineering",
+      "description": "38 engineering discipline skills for Claude Code & OpenAI Codex \u2014 research, quality gates, testing, deployment, gap analysis, and more. Born from real pain, not theory."
+    },
+    {
+      "name": "bketelsen--mwb",
+      "source": "./bketelsen--mwb",
+      "description": "Mouse Without Borders client for Wayland and macOS"
+    },
+    {
+      "name": "meerkat-lang--meerkat",
+      "source": "./meerkat-lang--meerkat",
+      "description": "The implementation of the Meerkat language"
+    },
+    {
+      "name": "fesens--container-gui",
+      "source": "./fesens--container-gui",
+      "description": "Native macOS GUI for Apple's container CLI"
+    },
+    {
+      "name": "forceinjection--opencode-practise",
+      "source": "./forceinjection--opencode-practise",
+      "description": "OpenCode Practise"
+    },
+    {
+      "name": "dusan-maintains--oss-maintenance-log",
+      "source": "./dusan-maintains--oss-maintenance-log",
+      "description": "Automated OSS maintenance evidence log. Tracks 1.6M npm downloads/week across 7 packages. Self-updating every 6h via GitHub Actions."
+    },
+    {
+      "name": "decentricity--hitomi-android",
+      "source": "./decentricity--hitomi-android",
+      "description": "hitomi-android"
+    },
+    {
+      "name": "utsaaham--arogyamandiram",
+      "source": "./utsaaham--arogyamandiram",
+      "description": "\u0c06\u0c30\u0c4b\u0c17\u0c4d\u0c2f\u0c2e\u0c02\u0c26\u0c3f\u0c30\u0c02 ( Arogyamandiram ) is a holistic health and fitness platform that helps users track water intake, calories, weight, and workouts in one place. It offers personalized guidance and smart in"
+    },
+    {
+      "name": "openexec--openexec",
+      "source": "./openexec--openexec",
+      "description": "Executable engineering judgment for AI coding tools: blueprints, gates, checkpoints, policy, memory, and audit trails."
+    },
+    {
+      "name": "linkedinlearning--claude-code-designing-multi-model-ai-systems-5675005",
+      "source": "./linkedinlearning--claude-code-designing-multi-model-ai-systems-5675005",
+      "description": "This is a repo for the LinkedIn Learning course: Claude Code: Designing Multi-Model AI Systems"
+    },
+    {
+      "name": "intuware--intu-dev",
+      "source": "./intuware--intu-dev",
+      "description": "Git-native, AI-friendly healthcare interoperability framework that lets teams build, version, and deploy integration pipelines using YAML configuration and TypeScript transformers."
+    },
+    {
+      "name": "loveyless--wechat-pc-auto",
+      "source": "./loveyless--wechat-pc-auto",
+      "description": "\u5b9e\u65f6\u76d1\u542c\u5fae\u4fe1\u6d88\u606f\uff0c\u901a\u8fc7deeplx\u6e20\u9053\u6216\u8005LLM\u8fdb\u884c\u7ffb\u8bd1\uff0c\u53ef\u4ee5\u63a5\u5165\u5927\u6a21\u578bTTS\u8fdb\u884c\u81ea\u52a8\u6717\u8bfb\u3002"
+    },
+    {
+      "name": "dusan-maintains--oss-maintenance-log",
+      "source": "./dusan-maintains--oss-maintenance-log",
+      "description": "Automated OSS maintenance evidence log. Tracks 1.6M npm downloads/week across 7 packages. Self-updating every 6h via GitHub Actions."
+    },
+    {
+      "name": "stealthsurf-vpn--browser-extension",
+      "source": "./stealthsurf-vpn--browser-extension",
+      "description": "SOCKS5/HTTP proxy extension for Chrome and Firefox with split tunneling, auto-updates, and OAuth authorization. Ready to work with AI agents!"
+    },
+    {
+      "name": "utsaaham--arogyamandiram",
+      "source": "./utsaaham--arogyamandiram",
+      "description": "\u0c06\u0c30\u0c4b\u0c17\u0c4d\u0c2f\u0c2e\u0c02\u0c26\u0c3f\u0c30\u0c02 ( Arogyamandiram ) is a holistic health and fitness platform that helps users track water intake, calories, weight, and workouts in one place. It offers personalized guidance and smart in"
+    },
+    {
+      "name": "gmx-io--gmx-ai",
+      "source": "./gmx-io--gmx-ai",
+      "description": "Agent skills for trading perpetuals and swapping tokens on GMX V2."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -229337,6 +229542,31 @@
       "name": "alirezakeshavarz83--fix-quera",
       "source": "./alirezakeshavarz83--fix-quera",
       "description": "fix-quera"
+    },
+    {
+      "name": "modem-dev--drizzle-scoped-db",
+      "source": "./modem-dev--drizzle-scoped-db",
+      "description": "drizzle-scoped-db"
+    },
+    {
+      "name": "squadcodercom--squadcoder",
+      "source": "./squadcodercom--squadcoder",
+      "description": "Your AI dev team in a box \u2014 parallel specialist agents, persistent memory, 820+ skills. Open-source, local-first."
+    },
+    {
+      "name": "powleads--pipevoice",
+      "source": "./powleads--pipevoice",
+      "description": "PipeVoice"
+    },
+    {
+      "name": "modem-dev--drizzle-scoped-db",
+      "source": "./modem-dev--drizzle-scoped-db",
+      "description": "drizzle-scoped-db"
+    },
+    {
+      "name": "squadcodercom--squadcoder",
+      "source": "./squadcodercom--squadcoder",
+      "description": "Your AI dev team in a box \u2014 parallel specialist agents, persistent memory, 820+ skills. Open-source, local-first."
     },
     {
       "name": "cheerhuan--save-your-token",
