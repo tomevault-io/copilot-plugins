@@ -4,7 +4,7 @@
   "repo": "superpowers-ecc",
   "description": "The best of superpowers and everything-claude-code in one plugin. Disciplined workflow backbone with security scanning, continuous learning, and cross-platform support.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aman-2709/superpowers-ecc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T16:56:33Z"
+  "distributed_at": "2026-06-25T16:58:06Z"
 }
