@@ -148809,6 +148809,11 @@
       "description": "Lib open-source em TypeScript para emissao de NFe (Nota Fiscal Eletronica) no Brasil. Arquitetura limpa, zero dependencias de runtime, totalmente plugavel."
     },
     {
+      "name": "jxpeng98--qiongli",
+      "source": "./jxpeng98--qiongli",
+      "description": "\u7a77\u7406\u8bc1\u6f88 Plan the work, search the literature, draft and review manuscripts, run research code, and keep the evidence trail in one place."
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -162307,6 +162312,11 @@
       "name": "fishcodetech--muteki",
       "source": "./fishcodetech--muteki",
       "description": "Project Muteki (\u7121\u6575): autonomous multi-model CTF-solving AI agent swarm"
+    },
+    {
+      "name": "millermarru--team-doc",
+      "source": "./millermarru--team-doc",
+      "description": "team_doc"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -182587,6 +182597,16 @@
       "name": "kingdee--kingdee-skill-publisher",
       "source": "./kingdee--kingdee-skill-publisher",
       "description": "\u91d1\u8776\u4e91\u82cd\u7a79\u4e1a\u52a1Skill\u5feb\u901f\u53d1\u5e03\u5de5\u5177\u3002\u8fd9\u662f\u4e00\u4e2a\u5143Skill\uff0c\u7528\u4e8e\u57fa\u4e8e\u91d1\u8776\u82cd\u7a79\u5f00\u653e\u5e73\u53f0\u5df2\u53d1\u5e03\u7684API\u548cMCP\u670d\u52a1\uff0c\u5feb\u901f\u521b\u5efa\u548c\u53d1\u5e03\u8d22\u52a1\u51ed\u8bc1\u67e5\u8be2\u3001\u4f9b\u5e94\u94fe\u8ba2\u5355\u67e5\u8be2\u7b49\u4e1a\u52a1Skill\u3002"
+    },
+    {
+      "name": "rcampos09--performance-testing-skills",
+      "source": "./rcampos09--performance-testing-skills",
+      "description": "Open-source Claude Code skills for performance and load testing. Install any skill to get AI-guided test generation for your stack."
+    },
+    {
+      "name": "vineetu--jot-transcribe",
+      "source": "./vineetu--jot-transcribe",
+      "description": "JOT-Transcribe"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -228422,6 +228442,16 @@
       "name": "fancyboi999--open-tag",
       "source": "./fancyboi999--open-tag",
       "description": "The open-source, self-hosted workspace where humans, Claude Code, Codex, and AI agents collaborate in channels, threads, DMs, and shared tasks."
+    },
+    {
+      "name": "fast--macro-template",
+      "source": "./fast--macro-template",
+      "description": "Table-driven Rust code templates."
+    },
+    {
+      "name": "betasu--docs-harness",
+      "source": "./betasu--docs-harness",
+      "description": " an agent-native project documentation management tool"
     },
     {
       "name": "cheerhuan--save-your-token",
