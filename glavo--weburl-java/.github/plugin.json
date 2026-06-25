@@ -1,0 +1,9 @@
+{
+  "name": "glavo--weburl-java",
+  "displayName": "weburl-java",
+  "description": "A modern Java URL library that brings browser-grade WHATWG URL parsing to URI-style APIs.",
+  "version": "1.0.0",
+  "author": "Glavo",
+  "homepage": "https://github.com/Glavo/weburl-java",
+  "skills": []
+}
