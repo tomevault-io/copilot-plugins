@@ -1,0 +1,44 @@
+{
+  "name": "telegram-claude-codex",
+  "owner": "Mark-Life",
+  "repo": "telegram-claude-codex",
+  "description": "Telegram bot that runs Claude Code or OpenAI Codex on your VPS and streams responses back to chat. Supports project switching, sessions, voice, plan mode, and queues.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mark-Life/telegram-claude-codex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T22:47:28Z"
+}
