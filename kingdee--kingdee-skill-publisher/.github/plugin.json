@@ -1,7 +1,7 @@
 {
   "name": "kingdee--kingdee-skill-publisher",
   "displayName": "kingdee-skill-publisher",
-  "description": "kingdee-skill-publisher",
+  "description": "\u91d1\u8776\u4e91\u82cd\u7a79\u4e1a\u52a1Skill\u5feb\u901f\u53d1\u5e03\u5de5\u5177\u3002\u8fd9\u662f\u4e00\u4e2a\u5143Skill\uff0c\u7528\u4e8e\u57fa\u4e8e\u91d1\u8776\u82cd\u7a79\u5f00\u653e\u5e73\u53f0\u5df2\u53d1\u5e03\u7684API\u548cMCP\u670d\u52a1\uff0c\u5feb\u901f\u521b\u5efa\u548c\u53d1\u5e03\u8d22\u52a1\u51ed\u8bc1\u67e5\u8be2\u3001\u4f9b\u5e94\u94fe\u8ba2\u5355\u67e5\u8be2\u7b49\u4e1a\u52a1Skill\u3002",
   "version": "1.0.0",
   "author": "kingdee",
   "homepage": "https://github.com/kingdee/kingdee-skill-publisher",
