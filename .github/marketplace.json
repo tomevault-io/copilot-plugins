@@ -94929,6 +94929,11 @@
       "description": "Pi coding agent, as a VSCode extension"
     },
     {
+      "name": "boycececil666gmailcom--l4-pub-argus",
+      "source": "./boycececil666gmailcom--l4-pub-argus",
+      "description": "Always-on daemon that records active app + window time every 5s and generates daily/weekly behavior reports to understand yourself"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -182559,6 +182564,21 @@
       "description": "The Community Tweet Wall \u2014 a curated, newspaper-style wall of tweets from the community."
     },
     {
+      "name": "databricks--devhub",
+      "source": "./databricks--devhub",
+      "description": "DevHub (databricks.com/devhub) is the developer site for building on Databricks."
+    },
+    {
+      "name": "databricks--devhub",
+      "source": "./databricks--devhub",
+      "description": "DevHub (databricks.com/devhub) is the developer site for building on Databricks."
+    },
+    {
+      "name": "kingdee--kingdee-skill-publisher",
+      "source": "./kingdee--kingdee-skill-publisher",
+      "description": "\u91d1\u8776\u4e91\u82cd\u7a79\u4e1a\u52a1Skill\u5feb\u901f\u53d1\u5e03\u5de5\u5177\u3002\u8fd9\u662f\u4e00\u4e2a\u5143Skill\uff0c\u7528\u4e8e\u57fa\u4e8e\u91d1\u8776\u82cd\u7a79\u5f00\u653e\u5e73\u53f0\u5df2\u53d1\u5e03\u7684API\u548cMCP\u670d\u52a1\uff0c\u5feb\u901f\u521b\u5efa\u548c\u53d1\u5e03\u8d22\u52a1\u51ed\u8bc1\u67e5\u8be2\u3001\u4f9b\u5e94\u94fe\u8ba2\u5355\u67e5\u8be2\u7b49\u4e1a\u52a1Skill\u3002"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -228382,6 +228402,16 @@
       "name": "lambdalisue--cclens",
       "source": "./lambdalisue--cclens",
       "description": "cclens \u2014 a lens onto your Claude Code usage"
+    },
+    {
+      "name": "metapodder--hotlapdaily",
+      "source": "./metapodder--hotlapdaily",
+      "description": "Community driven racing game with new tracks everyday! Check your score live on leaderboard"
+    },
+    {
+      "name": "fancyboi999--open-tag",
+      "source": "./fancyboi999--open-tag",
+      "description": "The open-source, self-hosted workspace where humans, Claude Code, Codex, and AI agents collaborate in channels, threads, DMs, and shared tasks."
     },
     {
       "name": "cheerhuan--save-your-token",
