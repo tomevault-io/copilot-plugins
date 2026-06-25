@@ -1,0 +1,9 @@
+{
+  "name": "standardapplied--sail",
+  "displayName": "sail",
+  "description": "Isolated development environments for AI agents",
+  "version": "1.0.0",
+  "author": "standardapplied",
+  "homepage": "https://github.com/standardapplied/sail",
+  "skills": []
+}
