@@ -1,0 +1,9 @@
+{
+  "name": "andylee77--rid-scanner",
+  "displayName": "RID_Scanner",
+  "description": "ESP32-S3 Remote ID scanner firmware \u2014 WiFi NAN and BLE drone detection",
+  "version": "1.0.0",
+  "author": "andylee77",
+  "homepage": "https://github.com/andylee77/RID_Scanner",
+  "skills": []
+}
