@@ -1,0 +1,9 @@
+{
+  "name": "asysta-act--agent-flow",
+  "displayName": "agent-flow",
+  "description": "Claude Code plugin - automates bug-fix, feature, and scaffold workflows using 17 specialized AI agents",
+  "version": "1.0.0",
+  "author": "asysta-act",
+  "homepage": "https://github.com/asysta-act/agent-flow",
+  "skills": []
+}
