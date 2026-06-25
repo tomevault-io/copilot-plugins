@@ -1,0 +1,9 @@
+{
+  "name": "ghostyshell--godsend-360",
+  "displayName": "GODSend-360",
+  "description": "Open-source Xbox 360 game manager for Aurora. Pure-Go ISO\u2192GOD, Minerva (BitTorrent) + Internet Archive sources, DLC/TU management, save backup, RXEA asset editor, and FTP transfer - Win/macOS/Linux.",
+  "version": "1.0.0",
+  "author": "ghostyshell",
+  "homepage": "https://github.com/ghostyshell/GODSend-360",
+  "skills": []
+}
