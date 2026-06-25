@@ -1,0 +1,67 @@
+## openexec
+
+> This document provides foundational mandates for AI agents working on OpenExec. These take precedence over general defaults.
+
+# OpenExec Engineering Standards (GEMINI.md)
+
+This document provides foundational mandates for AI agents working on OpenExec. These take precedence over general defaults.
+
+## Senior Engineering Mandate: "Observe, then Resolve"
+
+To prevent thrashing and stalling during task execution, agents MUST adhere to these practices:
+
+### 1. Async & UI Testing (React/Vitest)
+- **Prefer `findBy*`**: Always use `screen.findByText()` or `screen.findByRole()` for elements that appear after an async action (like a button click).
+- **`userEvent` over `fireEvent`**: Use `@testing-library/user-event` for all interactions to ensure proper event bubbling and `act()` wrapping.
+- **Acknowledge State Transitions**: If a component has multiple states (e.g., `idle` -> `loading` -> `success`), ensure the test explicitly waits for the transition using `waitFor()`.
+- **Avoid `setTimeout`**: Never use manual delays in tests. Use Vitest's `vi.useFakeTimers()` or robust `waitFor` polling.
+
+### 2. Error Diagnostics & Hypothesis
+- **Verbosity First**: If a test fails once, do not immediately attempt a "fix." Instead, run the test again with `--verbose` or add `screen.debug()` to see the DOM state.
+- **Hypothesis Requirement**: Before modifying any code to fix a bug/test, the agent loop should state a clear hypothesis for the failure (e.g., "Hypothesis: The click is unmounting the component before the state update completes").
+- **No Progress = Revert**: If a change does not fix the reported error after one attempt, **REVERT** the file before trying a different strategy. Do not stack unverified changes.
+
+### 3. Environment & Preflights
+- **Verify Backend**: For UI tasks that interact with APIs, always verify the API schema (e.g., checking `internal/api/` or `types/`) before implementing the UI.
+- **Mock Integrity**: Ensure mocks exactly match the current API response format (check `snake_case` vs `camelCase`).
+
+### 4. Learning Loop (Engram)
+- When a complex bug is solved (like the Popover/Vitest timing issue), the agent should summarize the "Lesson Learned" and summarize it to `.openexec/engram/learning_log.json`.
+
+### 5. Git & Remote Policy (Production Safety)
+- **Local Commits ONLY**: Agents must strictly perform git commits LOCALLY. 
+- **NO Automatic Pushing**: Never execute `git push` or any command that synchronizes with a remote repository automatically. 
+- **Manual Promotion**: Code promotion to production or remote branches is a human-only task. This prevents accidental breakages during autonomous execution loops.
+- **Branching**: Agents should create feature branches for their work, but these branches must remain local until manually reviewed and pushed by the Operator.
+
+### 6. Architecture Decision Records (ADR-Driven Development)
+- **ADR Obligation**: For any major refactoring, design pattern introduction, or new subsystem wiring (such as implementing the SRE Command Registry or changing database locking behaviors), the agent **MUST** author an Architectural Decision Record inside `docs/architecture/` using `docs/architecture/ADR_TEMPLATE.md` before making code changes.
+- **Strict Compliance**: All code implementation must strictly adhere to the approved decisions, directory layouts, and API boundaries defined in the active ADR registry.
+
+---
+
+## Known Project Quirks
+- **Vitest & JSDOM**: Be aware that JSDOM does not perfectly simulate all layout-related events (like `onMouseEnter`). If tests fail on interactions, check if the component depends on layout properties.
+- **Audit Database**: The real source of truth for task progress is `openexec/.openexec/data/audit.db`.
+
+---
+
+## 📚 Three-Tier Reusability Mandate for AI Agents
+
+To prevent code duplication and architectural drift, all AI agents working on this workspace MUST adhere to our **Three-Tier Reusability Ecosystem**:
+
+### 1. Structure: Consult Tier 1 Architectural Library (`blueprints`)
+- Before creating a new service, database schema, or API endpoint, always verify if a matching layout or specification exists in `/Users/perttu/projects/blueprints`.
+- **Constraint**: Match the directory paths, schema types, and operation contracts defined in the blueprints. Do not design ad-hoc structures.
+
+### 2. Functional Requirements: Consult Tier 2 Functional Library (`intent-compiler/packs`)
+- Check `/Users/perttu/projects/intent-compiler/packs/` for standard logic models (e.g., `auth_standard.yaml`, `security_baseline.yaml`).
+- **Constraint**: Ensure your implementations are legally and technically compliant with the injected security rules and `evidence_required` test logging parameters of matching packs.
+
+### 3. Implementation Patterns: Consult Tier 3 Skills Engine (`SKILL.md`)
+- Check active local skills under `.openexec/skills/` or general skills under `~/.claude/skills/`.
+- **Constraint**: Reuse pre-built UI components, helper utilities, and test mocks defined in these packages. Do not write helper logic from scratch if a corresponding skill template is loaded.
+
+---
+> Source: [openexec/openexec](https://github.com/openexec/openexec) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-25 -->
