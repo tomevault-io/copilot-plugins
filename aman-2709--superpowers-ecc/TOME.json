@@ -1,0 +1,44 @@
+{
+  "name": "superpowers-ecc",
+  "owner": "aman-2709",
+  "repo": "superpowers-ecc",
+  "description": "The best of superpowers and everything-claude-code in one plugin. Disciplined workflow backbone with security scanning, continuous learning, and cross-platform support.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aman-2709/superpowers-ecc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T16:56:33Z"
+}
