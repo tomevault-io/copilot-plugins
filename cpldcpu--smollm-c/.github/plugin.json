@@ -1,0 +1,9 @@
+{
+  "name": "cpldcpu--smollm-c",
+  "displayName": "smollm.c",
+  "description": "LLM designed inference engine hardware for smollm2 - SMOLM-32",
+  "version": "1.0.0",
+  "author": "cpldcpu",
+  "homepage": "https://github.com/cpldcpu/smollm.c",
+  "skills": []
+}
