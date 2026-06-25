@@ -1,0 +1,9 @@
+{
+  "name": "wwind123--coding-review-agent-loop",
+  "displayName": "coding-review-agent-loop",
+  "description": "Local Claude/Codex PR review loop using existing CLI subscriptions instead of model API keys",
+  "version": "1.0.0",
+  "author": "wwind123",
+  "homepage": "https://github.com/wwind123/coding-review-agent-loop",
+  "skills": []
+}
