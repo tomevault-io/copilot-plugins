@@ -1,0 +1,44 @@
+{
+  "name": "next-role",
+  "owner": "tam159",
+  "repo": "next-role",
+  "description": "\ud83d\ude80 Level up your career with GenAI. \ud83d\udcc4 Tailor your CV to any JD, \ud83d\udd0d automate company research, and \ud83d\uddd3\ufe0f generate custom interview prep plans for your next role or internal promotion.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tam159/next-role",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T00:48:24Z"
+}
