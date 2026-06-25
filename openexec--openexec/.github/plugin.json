@@ -1,0 +1,9 @@
+{
+  "name": "openexec--openexec",
+  "displayName": "openexec",
+  "description": "Executable engineering judgment for AI coding tools: blueprints, gates, checkpoints, policy, memory, and audit trails.",
+  "version": "1.0.0",
+  "author": "openexec",
+  "homepage": "https://github.com/openexec/openexec",
+  "skills": []
+}
