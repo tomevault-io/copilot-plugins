@@ -4,7 +4,7 @@
   "repo": "agentpack",
   "description": "Local context engine for AI coding agents. Routes tasks to relevant files, tests, rules, and skills, supports prompt caching, and builds compact context packs for Claude Code, Codex, Cursor, MCP, and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vishal2612200/agentpack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T00:47:27Z"
+  "distributed_at": "2026-06-25T00:47:56Z"
 }
