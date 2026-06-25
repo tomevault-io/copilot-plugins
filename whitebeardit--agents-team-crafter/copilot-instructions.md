@@ -1,34 +1,15 @@
-## openai-tool-json-schema
+## second-brain-commit-push
 
-> JSON Schema válido para function tools OpenAI (internal_action / ws_*)
+> Ao alterar o vault Whitebeard (second-brain), commit e push obrigatórios no fim da tarefa.
 
 
-# Function tools — JSON Schema sempre válido (OpenAI)
+# Second-brain (vault): commit e push
 
-Ao expor tools à **OpenAI Responses API** / Agents SDK (`internal_action`, nomes `ws_*`, ou qualquer function tool):
+Raiz Git do vault Whitebeard: **`/home/whitebeard/DEV/OBSIDIAN/WhitebeardKnowledgeBaseAI`** (remote típico: `second-brain`).
 
-## Regras obrigatórias
+Depois de criar, editar ou apagar ficheiros nesse repo, **antes de concluir a tarefa**: `git status` → `git add` (só o que esta sessão alterou para o pedido) → `git commit` (mensagem clara; prefixo `docs`/`vault` se aplicável) → `git push` no branch actual (normalmente `main`). Não deixar alterações só no working tree.
 
-1. **`type: "object"` implica `properties`**
-   - O schema público da tool **não pode** ser `{ "type": "object" }` sem a chave `properties`.
-   - A API devolve erro do tipo: `400 Invalid schema for function '...': object schema missing properties`.
-   - Se precisares de payload livre, usa no mínimo `"properties": {}` **e** confirma que o SDK/API aceitam; quando possível, define campos reais alinhados ao handler.
-
-2. **Presets em `business-action-presets.ts`**
-   - Toda action com handler que lê `input` do corpo deve ter `inputSchema` com `type`, `properties` e `required` coerentes com o runtime (`BusinessToolRuntime` / `validateBusinessActionInput`).
-   - Não deixar apenas `title`, `description`, `packId` sem `inputSchema` quando a tool for registada.
-
-3. **Builder `buildLenientInternalActionJsonSchema` (e similares)**
-   - Antes de registar a tool, **normaliza** o schema: garante `properties` como objeto; nunca emites object sem `properties`.
-   - Ao adicionar novos caminhos que gerem JSON Schema para tools, aplica a mesma invariante.
-
-4. **Testes**
-   - Novos presets ou alterações a `inputSchema` de ações CRM/negócio devem ter cobertura em testes gold ou em `build-workspace-custom-tools.test.ts` quando o risco for schema exposto à API.
-
-## Referência de código
-
-- Presets: `backend/src/modules/business-tools/application/business-action-presets.ts`
-- Registo de tools workspace: `backend/src/modules/runtime/application/build-workspace-custom-tools.ts`
+**Excepção:** o utilizador pede explicitamente não commitar ou rever primeiro.
 
 ---
 > Source: [whitebeardit/agents-team-crafter](https://github.com/whitebeardit/agents-team-crafter) — distributed by [TomeVault](https://tomevault.io).
