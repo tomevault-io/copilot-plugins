@@ -1,0 +1,9 @@
+{
+  "name": "mozilla-ai--tinyagent",
+  "displayName": "tinyagent",
+  "description": "Minimalist framework for running and monitoring an agent",
+  "version": "1.0.0",
+  "author": "mozilla-ai",
+  "homepage": "https://github.com/mozilla-ai/tinyagent",
+  "skills": []
+}
