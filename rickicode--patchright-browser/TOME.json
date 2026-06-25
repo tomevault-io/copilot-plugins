@@ -1,0 +1,44 @@
+{
+  "name": "patchright-browser",
+  "owner": "rickicode",
+  "repo": "patchright-browser",
+  "description": "MCP server for browser automation via Patchright. Multi-profile Chromium, headed/headless, StreamableHTTP protocol. Includes dashboard, skills, and AI agent setup.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rickicode/patchright-browser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T02:32:19Z"
+}
