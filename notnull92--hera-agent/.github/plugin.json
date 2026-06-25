@@ -1,0 +1,9 @@
+{
+  "name": "notnull92--hera-agent",
+  "displayName": "hera-agent",
+  "description": "CLI remote control for Unity Editor. Zero dependencies, single binary.  AI agents can play, build, test, and screenshot your Unity project \u2014  no Python, no setup, just curl.",
+  "version": "1.0.0",
+  "author": "NotNull92",
+  "homepage": "https://github.com/NotNull92/hera-agent",
+  "skills": []
+}
