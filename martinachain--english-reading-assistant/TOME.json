@@ -1,0 +1,44 @@
+{
+  "name": "english-reading-assistant",
+  "owner": "martinachain",
+  "repo": "english-reading-assistant",
+  "description": "\u8bfb\u82f1\u8bed\u539f\u7248\u4e66\u7684 AI \u9605\u8bfb\u5668\uff1a\u53cc\u51fb\u67e5\u8bcd\u3001\u5212\u9009\u62c6\u53e5\u3001\u95f4\u9694\u91cd\u590d\u590d\u4e60\u3002EPUB/PDF, \u6570\u636e\u5168\u672c\u5730\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/martinachain/english-reading-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T14:36:34Z"
+}
