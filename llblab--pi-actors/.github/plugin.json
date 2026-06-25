@@ -1,0 +1,9 @@
+{
+  "name": "llblab--pi-actors",
+  "displayName": "pi-actors",
+  "description": "Local Actor Kernel for Pi",
+  "version": "1.0.0",
+  "author": "llblab",
+  "homepage": "https://github.com/llblab/pi-actors",
+  "skills": []
+}
