@@ -1,0 +1,9 @@
+{
+  "name": "jmagly--agentic-sandbox",
+  "displayName": "agentic-sandbox",
+  "description": "Self-hostable runtime for persistent autonomous coding agents \u2014 KVM-isolated VMs (or rootless containers), A2A-protocol executor with signed AgentCard discovery, AIWG mission dispatch, web dashboard, ",
+  "version": "1.0.0",
+  "author": "jmagly",
+  "homepage": "https://github.com/jmagly/agentic-sandbox",
+  "skills": []
+}
