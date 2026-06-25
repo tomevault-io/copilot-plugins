@@ -1,0 +1,9 @@
+{
+  "name": "ygao2005--scholar-feed-mcp",
+  "displayName": "scholar-feed-mcp",
+  "description": "MCP server for searching 600,000+ CS/AI research papers with citation graphs, full text, embeddings, and BibTeX. Works with Claude Code, Cursor, and any MCP client. No signup required.",
+  "version": "1.0.0",
+  "author": "YGao2005",
+  "homepage": "https://github.com/YGao2005/scholar-feed-mcp",
+  "skills": []
+}
