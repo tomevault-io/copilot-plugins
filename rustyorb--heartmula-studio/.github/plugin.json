@@ -1,0 +1,9 @@
+{
+  "name": "rustyorb--heartmula-studio",
+  "displayName": "heartmula-studio",
+  "description": "AI Music Generation Web UI \u2014 Suno-like studio for the open-source HeartMuLa model. Next.js 15 + FastAPI + WaveSurfer.js",
+  "version": "1.0.0",
+  "author": "rustyorb",
+  "homepage": "https://github.com/rustyorb/heartmula-studio",
+  "skills": []
+}
