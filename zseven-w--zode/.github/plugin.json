@@ -1,0 +1,9 @@
+{
+  "name": "zseven-w--zode",
+  "displayName": "zode",
+  "description": "AI-native coding CLI for your terminal. Microkernel + plugin architecture, multi-provider, full-screen TUI.",
+  "version": "1.0.0",
+  "author": "ZSeven-W",
+  "homepage": "https://github.com/ZSeven-W/zode",
+  "skills": []
+}
