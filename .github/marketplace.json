@@ -38354,6 +38354,11 @@
       "description": "MonsterMQ is a MQTT broker built on Vert.X and Hazelcast with data persistence through PostgreSQL or CrateDB or MongoDB.."
     },
     {
+      "name": "facebook--astryx",
+      "source": "./facebook--astryx",
+      "description": "An open source design system that's fully customizable and agent ready"
+    },
+    {
       "name": "aitorllj93--obsidian-lovely-bases",
       "source": "./aitorllj93--obsidian-lovely-bases",
       "description": "Beautiful, visual bases views for Obsidian"
@@ -155369,6 +155374,11 @@
       "description": "Git client for Android, built with Jetpack Compose and Material 3 Expressive. One-tap GitHub sign-in, no ads, no tracking."
     },
     {
+      "name": "parsehawk--parsehawk",
+      "source": "./parsehawk--parsehawk",
+      "description": "Local-first document AI. Run 100% locally by default, with API, CLI, and Web UI."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -162352,6 +162362,11 @@
       "name": "millermarru--team-doc",
       "source": "./millermarru--team-doc",
       "description": "team_doc"
+    },
+    {
+      "name": "cmaneu--entra-local",
+      "source": "./cmaneu--entra-local",
+      "description": "A local Entra ID emulator for application developers that need to mock authentication"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -170427,6 +170442,16 @@
       "name": "gmi-software--react-native-better-clustering",
       "source": "./gmi-software--react-native-better-clustering",
       "description": "Better (Faster) way to cluster points on react-native-maps"
+    },
+    {
+      "name": "vibesolve--vibesolve",
+      "source": "./vibesolve--vibesolve",
+      "description": "Convert plain-English problem description into a Timefold solver prototype"
+    },
+    {
+      "name": "vibesolve--vibesolve",
+      "source": "./vibesolve--vibesolve",
+      "description": "Convert plain-English problem description into a Timefold solver prototype"
     },
     {
       "name": "lightninglabs--lnget",
