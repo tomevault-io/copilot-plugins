@@ -1,0 +1,9 @@
+{
+  "name": "specir--speccompiler",
+  "displayName": "SpecCompiler",
+  "description": "A relational intermediate representation (IR) and extensible type system for Markdown specifications.",
+  "version": "1.0.0",
+  "author": "SpecIR",
+  "homepage": "https://github.com/SpecIR/SpecCompiler",
+  "skills": []
+}
