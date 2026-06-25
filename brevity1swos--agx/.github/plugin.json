@@ -1,0 +1,9 @@
+{
+  "name": "brevity1swos--agx",
+  "displayName": "agx",
+  "description": "Step through and debug AI agent traces without leaving your terminal. Written in Rust.",
+  "version": "1.0.0",
+  "author": "brevity1swos",
+  "homepage": "https://github.com/brevity1swos/agx",
+  "skills": []
+}
