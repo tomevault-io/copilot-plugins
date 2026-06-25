@@ -1,0 +1,9 @@
+{
+  "name": "jeremydong22--taobao-mcp",
+  "displayName": "taobao_mcp",
+  "description": "MCP server for Taobao/Tmall product scraping integration with Claude",
+  "version": "1.0.0",
+  "author": "JeremyDong22",
+  "homepage": "https://github.com/JeremyDong22/taobao_mcp",
+  "skills": []
+}
