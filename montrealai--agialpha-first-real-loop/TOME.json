@@ -1,0 +1,44 @@
+{
+  "name": "agialpha-first-real-loop",
+  "owner": "MontrealAI",
+  "repo": "agialpha-first-real-loop",
+  "description": "Replayable Nova-Seed \u2192 MARK \u2192 Mini Sovereign \u2192 AGI Jobs \u2192 Evidence Docket \u2192 vNext loop",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MontrealAI/agialpha-first-real-loop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T00:50:53Z"
+}
