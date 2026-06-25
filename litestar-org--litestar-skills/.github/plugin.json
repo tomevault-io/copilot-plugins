@@ -1,0 +1,14 @@
+{
+  "name": "litestar-org--litestar-skills",
+  "displayName": "litestar-skills",
+  "description": "Opinionated first-party agent skills, plugins, subagents, slash commands, and MCP servers for the Litestar framework ecosystem \u2014 publishable to Claude Code, Gemini CLI, Codex CLI, Cursor, OpenCode, an",
+  "version": "1.0.0",
+  "author": "litestar-org",
+  "homepage": "https://github.com/litestar-org/litestar-skills",
+  "skills": [
+    {
+      "name": "pytest-databases",
+      "description": ""
+    }
+  ]
+}
