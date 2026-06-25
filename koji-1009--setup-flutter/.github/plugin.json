@@ -1,0 +1,9 @@
+{
+  "name": "koji-1009--setup-flutter",
+  "displayName": "setup-flutter",
+  "description": "Set up Flutter SDK for GitHub Actions.",
+  "version": "1.0.0",
+  "author": "koji-1009",
+  "homepage": "https://github.com/koji-1009/setup-flutter",
+  "skills": []
+}
