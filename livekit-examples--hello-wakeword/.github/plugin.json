@@ -1,0 +1,9 @@
+{
+  "name": "livekit-examples--hello-wakeword",
+  "displayName": "hello-wakeword",
+  "description": "Spawning a LiveKit Agent with Wake Word Detection",
+  "version": "1.0.0",
+  "author": "livekit-examples",
+  "homepage": "https://github.com/livekit-examples/hello-wakeword",
+  "skills": []
+}
