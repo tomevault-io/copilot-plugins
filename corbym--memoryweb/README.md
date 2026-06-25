@@ -7,11 +7,11 @@ A memory web MCP server for Agents. Stores knowledge as a graph of nodes connect
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [corbym/memoryweb](https://github.com/corbym/memoryweb).
+Original source: `CLAUDE.md` in [corbym/memoryweb](https://github.com/corbym/memoryweb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
