@@ -1,0 +1,9 @@
+{
+  "name": "corbym--memoryweb",
+  "displayName": "memoryweb",
+  "description": "A memory web MCP server for Agents. Stores knowledge as a graph of nodes connected by typed, narrative edges.",
+  "version": "1.0.0",
+  "author": "corbym",
+  "homepage": "https://github.com/corbym/memoryweb",
+  "skills": []
+}
