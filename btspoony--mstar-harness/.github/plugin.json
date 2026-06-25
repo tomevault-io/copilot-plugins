@@ -1,0 +1,9 @@
+{
+  "name": "btspoony--mstar-harness",
+  "displayName": "mstar-harness",
+  "description": "A skill-driven Harness Engineering framework",
+  "version": "1.0.0",
+  "author": "btspoony",
+  "homepage": "https://github.com/btspoony/mstar-harness",
+  "skills": []
+}
