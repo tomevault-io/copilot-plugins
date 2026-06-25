@@ -139419,11 +139419,6 @@
       "description": "claude-subagent-editor"
     },
     {
-      "name": "taivop--marketplace",
-      "source": "./taivop--marketplace",
-      "description": "Coding agent skills for accessing Estonia's official public data"
-    },
-    {
       "name": "chicogong--html-tools",
       "source": "./chicogong--html-tools",
       "description": "\ud83d\udee0\ufe0f 1001+ \u7eaf\u524d\u7aef\u5728\u7ebf\u5de5\u5177\u96c6 | \u5355\u6587\u4ef6\u00b7\u96f6\u6784\u5efa\u00b7\u53ef\u79bb\u7ebf\u00b7\u9690\u79c1\u4f18\u5148 | Pure HTML Tools - Single file, Zero build, Offline-ready, Privacy-first"
@@ -143657,6 +143652,11 @@
       "name": "jeiel85--markleaf-android",
       "source": "./jeiel85--markleaf-android",
       "description": "A lightweight, local-first Markdown note app for Android."
+    },
+    {
+      "name": "taivop--marketplace",
+      "source": "./taivop--marketplace",
+      "description": "Coding agent skills for accessing Estonia's official public data"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -155314,6 +155314,11 @@
       "description": "\u9879\u76ee\u811a\u624b\u67b6 v2.0 Agent-First \u7684\u5de5\u7a0b\u5316\u914d\u7f6e\uff0c\u5b8c\u5168\u673a\u5668\u53ef\u6267\u884c\uff0c\u96f6\u6a21\u7cca\u6307\u4ee4  \u6838\u5fc3\u7406\u5ff5: \u8ba4\u77e5\u811a\u624b\u67b6 + \u8d28\u91cf\u95e8\u63a7 + \u77e5\u8bc6\u56fe\u8c31 + \u65ad\u70b9\u6062\u590d"
     },
     {
+      "name": "maneeshacooray--gitling",
+      "source": "./maneeshacooray--gitling",
+      "description": "Git client for Android, built with Jetpack Compose and Material 3 Expressive. One-tap GitHub sign-in, no ads, no tracking."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -162287,6 +162292,11 @@
       "name": "huynxtb--rag-system-dotnet",
       "source": "./huynxtb--rag-system-dotnet",
       "description": "RAG system built with .NET 10, React, Qdrant, and OpenAI. Upload PDF, DOCX, and text files - automatically extract, chunk, and embed content into a vector store. Ask questions via chat and get AI-gene"
+    },
+    {
+      "name": "fishcodetech--muteki",
+      "source": "./fishcodetech--muteki",
+      "description": "Project Muteki (\u7121\u6575): autonomous multi-model CTF-solving AI agent swarm"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -234072,6 +234082,11 @@
       "name": "pcwhy--scholarengineforai",
       "source": "./pcwhy--scholarengineforai",
       "description": "ScholarEngineForAI"
+    },
+    {
+      "name": "dianfangsihuo--gptsovits-codex-voice-skill",
+      "source": "./dianfangsihuo--gptsovits-codex-voice-skill",
+      "description": "gptsovits-codex-voice-skill"
     },
     {
       "name": "keshavxa--keshav-portfolio",
