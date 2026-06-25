@@ -4,7 +4,7 @@
   "repo": "squadcoder",
   "description": "Your AI dev team in a box \u2014 parallel specialist agents, persistent memory, 820+ skills. Open-source, local-first.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/squadcodercom/squadcoder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T20:35:02Z"
+  "distributed_at": "2026-06-25T20:38:39Z"
 }
