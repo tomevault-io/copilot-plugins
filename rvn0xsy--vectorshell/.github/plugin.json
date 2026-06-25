@@ -1,0 +1,9 @@
+{
+  "name": "rvn0xsy--vectorshell",
+  "displayName": "vectorshell",
+  "description": "An AI-driven remote command execution platform built with Rust. VectorShell bridges AI agents and remote targets \u2014 run shell commands, manage files, and execute platform-specific tools across your fle",
+  "version": "1.0.0",
+  "author": "Rvn0xsy",
+  "homepage": "https://github.com/Rvn0xsy/vectorshell",
+  "skills": []
+}
