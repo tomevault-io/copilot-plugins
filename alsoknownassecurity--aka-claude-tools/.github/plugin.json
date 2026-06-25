@@ -1,0 +1,9 @@
+{
+  "name": "alsoknownassecurity--aka-claude-tools",
+  "displayName": "aka-claude-tools",
+  "description": "The clean slate a fresh Claude Code should start from \u2014 clean context, locked credentials, guarded egress. Isolated profile, pick-and-choose.",
+  "version": "1.0.0",
+  "author": "alsoknownassecurity",
+  "homepage": "https://github.com/alsoknownassecurity/aka-claude-tools",
+  "skills": []
+}
