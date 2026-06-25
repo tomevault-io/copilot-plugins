@@ -1,0 +1,9 @@
+{
+  "name": "bottradingnet--tradingview-mcp",
+  "displayName": "tradingview-mcp",
+  "description": "Connect Claude to TradingView Desktop \u2014 78 MCP tools for chart analysis, Pine Script development, and workflow automation. By bottrading.net",
+  "version": "1.0.0",
+  "author": "bottradingnet",
+  "homepage": "https://github.com/bottradingnet/tradingview-mcp",
+  "skills": []
+}
