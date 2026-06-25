@@ -4,7 +4,7 @@
   "repo": "newmath",
   "description": "BEDC: Binary Emission Discovery Calculus (mathlib-free Lean 4 + LaTeX paper)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/the-omega-institute/newmath",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T01:05:05Z"
+  "distributed_at": "2026-06-25T01:05:35Z"
 }
