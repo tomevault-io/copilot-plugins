@@ -1,0 +1,9 @@
+{
+  "name": "martinachain--english-reading-assistant",
+  "displayName": "english-reading-assistant",
+  "description": "\u8bfb\u82f1\u8bed\u539f\u7248\u4e66\u7684 AI \u9605\u8bfb\u5668\uff1a\u53cc\u51fb\u67e5\u8bcd\u3001\u5212\u9009\u62c6\u53e5\u3001\u95f4\u9694\u91cd\u590d\u590d\u4e60\u3002EPUB/PDF, \u6570\u636e\u5168\u672c\u5730\u3002",
+  "version": "1.0.0",
+  "author": "martinachain",
+  "homepage": "https://github.com/martinachain/english-reading-assistant",
+  "skills": []
+}
