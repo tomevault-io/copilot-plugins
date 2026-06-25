@@ -1,0 +1,9 @@
+{
+  "name": "portpowered--you-agent-factory",
+  "displayName": "you-agent-factory",
+  "description": "Agent factory workflow engine for agents",
+  "version": "1.0.0",
+  "author": "portpowered",
+  "homepage": "https://github.com/portpowered/you-agent-factory",
+  "skills": []
+}
