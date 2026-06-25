@@ -7,11 +7,11 @@ The best of superpowers and everything-claude-code in one plugin. Disciplined wo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aman-2709/superpowers-ecc](https://github.com/aman-2709/superpowers-ecc).
+Original source: `CLAUDE.md` in [aman-2709/superpowers-ecc](https://github.com/aman-2709/superpowers-ecc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
