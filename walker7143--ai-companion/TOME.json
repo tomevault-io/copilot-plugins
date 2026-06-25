@@ -1,0 +1,44 @@
+{
+  "name": "ai-companion",
+  "owner": "Walker7143",
+  "repo": "ai-companion",
+  "description": "\u5f00\u6e90 AI \u966a\u4f34\u4ea7\u54c1\uff0c\u652f\u6301 macOS / Linux / Windows\u3002\u6bcf\u4e2a\u673a\u5668\u4eba\u6709\u72ec\u7acb\u4eba\u683c\u548c\u8bb0\u5fc6\u4f53\u7cfb\uff0c\u80fd\u50cf\u771f\u4eba\u4e00\u6837\u4e0e\u4f60\u4e92\u52a8\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Walker7143/ai-companion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T01:01:02Z"
+}
