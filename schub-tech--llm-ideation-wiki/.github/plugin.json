@@ -1,0 +1,9 @@
+{
+  "name": "schub-tech--llm-ideation-wiki",
+  "displayName": "llm-ideation-wiki",
+  "description": "AI-maintained Notion wiki that pressure-tests business ideas into evidence-bound verdicts.",
+  "version": "1.0.0",
+  "author": "schub-tech",
+  "homepage": "https://github.com/schub-tech/llm-ideation-wiki",
+  "skills": []
+}
