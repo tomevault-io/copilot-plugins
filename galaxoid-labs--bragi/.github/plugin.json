@@ -1,0 +1,9 @@
+{
+  "name": "galaxoid-labs--bragi",
+  "displayName": "Bragi",
+  "description": "A fast lightweight vim like editor",
+  "version": "1.0.0",
+  "author": "Galaxoid-Labs",
+  "homepage": "https://github.com/Galaxoid-Labs/Bragi",
+  "skills": []
+}
