@@ -7,11 +7,11 @@ Adds a configurable multi-agent layer to Pi Agent, with context management, MCP 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [n-r-w/pi-agent-suite](https://github.com/n-r-w/pi-agent-suite).
+Original source: `AGENTS.md` in [n-r-w/pi-agent-suite](https://github.com/n-r-w/pi-agent-suite).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
