@@ -1,0 +1,9 @@
+{
+  "name": "gusaguilra--linuxcourse",
+  "displayName": "linuxcourse",
+  "description": "Plataforma interactiva y open source para aprender Linux desde cero con laboratorios, quizzes y terminal simulada.",
+  "version": "1.0.0",
+  "author": "GusAguilra",
+  "homepage": "https://github.com/GusAguilra/linuxcourse",
+  "skills": []
+}
