@@ -1,0 +1,9 @@
+{
+  "name": "codegraphtheory--hermes-profile-template",
+  "displayName": "hermes-profile-template",
+  "description": "Turn a prompt into an installable Hermes profile repo",
+  "version": "1.0.0",
+  "author": "codegraphtheory",
+  "homepage": "https://github.com/codegraphtheory/hermes-profile-template",
+  "skills": []
+}
