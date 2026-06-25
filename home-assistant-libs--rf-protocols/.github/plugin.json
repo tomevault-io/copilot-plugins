@@ -1,0 +1,9 @@
+{
+  "name": "home-assistant-libs--rf-protocols",
+  "displayName": "rf-protocols",
+  "description": "Library to decode and encode radio frequency signals.",
+  "version": "1.0.0",
+  "author": "home-assistant-libs",
+  "homepage": "https://github.com/home-assistant-libs/rf-protocols",
+  "skills": []
+}
