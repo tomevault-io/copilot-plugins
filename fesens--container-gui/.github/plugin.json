@@ -1,0 +1,9 @@
+{
+  "name": "fesens--container-gui",
+  "displayName": "container-gui",
+  "description": "Native macOS GUI for Apple's container CLI",
+  "version": "1.0.0",
+  "author": "FeSens",
+  "homepage": "https://github.com/FeSens/container-gui",
+  "skills": []
+}
