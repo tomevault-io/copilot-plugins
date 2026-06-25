@@ -7,11 +7,11 @@ Telegram bot that runs Claude Code or OpenAI Codex on your VPS and streams respo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Mark-Life/telegram-claude-codex](https://github.com/Mark-Life/telegram-claude-codex).
+Original source: `AGENTS.md` in [Mark-Life/telegram-claude-codex](https://github.com/Mark-Life/telegram-claude-codex).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
