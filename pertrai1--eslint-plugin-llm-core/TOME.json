@@ -4,7 +4,7 @@
   "repo": "eslint-plugin-llm-core",
   "description": "ESLint rules that catch the patterns LLM agents get wrong \u2014 and teach them to self-correct through structured error messages.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pertrai1/eslint-plugin-llm-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T16:54:29Z"
+  "distributed_at": "2026-06-25T16:54:58Z"
 }
