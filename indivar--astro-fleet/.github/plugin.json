@@ -1,0 +1,9 @@
+{
+  "name": "indivar--astro-fleet",
+  "displayName": "astro-fleet",
+  "description": "One codebase, many sites. Multi-site Astro monorepo starter with shared components, design tokens, and per-site configuration.",
+  "version": "1.0.0",
+  "author": "Indivar",
+  "homepage": "https://github.com/Indivar/astro-fleet",
+  "skills": []
+}
