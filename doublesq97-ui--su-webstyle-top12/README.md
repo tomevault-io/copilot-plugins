@@ -7,11 +7,11 @@ Top 12 overseas web style atlas skill for Codex, Claude Code, and agentic coding
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [doublesq97-ui/su-webstyle-top12](https://github.com/doublesq97-ui/su-webstyle-top12).
+Original source: `AGENTS.md` in [doublesq97-ui/su-webstyle-top12](https://github.com/doublesq97-ui/su-webstyle-top12).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
