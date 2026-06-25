@@ -1,0 +1,9 @@
+{
+  "name": "intuware--intu-dev",
+  "displayName": "intu-dev",
+  "description": "Git-native, AI-friendly healthcare interoperability framework that lets teams build, version, and deploy integration pipelines using YAML configuration and TypeScript transformers.",
+  "version": "1.0.0",
+  "author": "intuware",
+  "homepage": "https://github.com/intuware/intu-dev",
+  "skills": []
+}
