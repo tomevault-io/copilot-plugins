@@ -1,0 +1,9 @@
+{
+  "name": "memtomem--memtomem",
+  "displayName": "memtomem",
+  "description": "Markdown-first, long-term memory infrastructure for AI agents. Hybrid BM25 + semantic search across markdown/code files via MCP.",
+  "version": "1.0.0",
+  "author": "memtomem",
+  "homepage": "https://github.com/memtomem/memtomem",
+  "skills": []
+}
