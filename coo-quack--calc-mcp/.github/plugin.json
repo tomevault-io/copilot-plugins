@@ -1,0 +1,9 @@
+{
+  "name": "coo-quack--calc-mcp",
+  "displayName": "calc-mcp",
+  "description": "MCP server with 21 tools for things AI is bad at \u2014 math, hashing, encoding, date arithmetic, and more.",
+  "version": "1.0.0",
+  "author": "coo-quack",
+  "homepage": "https://github.com/coo-quack/calc-mcp",
+  "skills": []
+}
