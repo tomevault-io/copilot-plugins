@@ -4,7 +4,7 @@
   "repo": "llm-ideation-wiki",
   "description": "AI-maintained Notion wiki that pressure-tests business ideas into evidence-bound verdicts.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/schub-tech/llm-ideation-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T00:43:30Z"
+  "distributed_at": "2026-06-25T00:44:01Z"
 }
