@@ -4,7 +4,7 @@
   "repo": "claudecode",
   "description": "About Use claude code and codex for free in the terminal, VSCode extension, and discord like OpenClaw (voice supported)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ritheshh-cmyk/claudecode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T01:14:39Z"
+  "distributed_at": "2026-06-25T01:22:08Z"
 }
