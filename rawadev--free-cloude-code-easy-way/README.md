@@ -7,11 +7,11 @@ this version is a way faster and easier
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rawadev/free-cloude-code-easy-way-](https://github.com/rawadev/free-cloude-code-easy-way-).
+Original source: `AGENTS.md` in [rawadev/free-cloude-code-easy-way-](https://github.com/rawadev/free-cloude-code-easy-way-).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
