@@ -1,0 +1,9 @@
+{
+  "name": "inetgas--arch-compiler",
+  "displayName": "arch-compiler",
+  "description": "An architecture-level AI harness that compiles constraints and NFRs into explicit, reviewable architecture decisions. Combines a deterministic compiler, curated pattern registry, and agent workflow sk",
+  "version": "1.0.0",
+  "author": "inetgas",
+  "homepage": "https://github.com/inetgas/arch-compiler",
+  "skills": []
+}
