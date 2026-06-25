@@ -1,0 +1,44 @@
+{
+  "name": "arch-compiler",
+  "owner": "inetgas",
+  "repo": "arch-compiler",
+  "description": "An architecture-level AI harness that compiles constraints and NFRs into explicit, reviewable architecture decisions. Combines a deterministic compiler, curated pattern registry, and agent workflow skills to drive approval, re-approval, and implementation against an architectural contract.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/inetgas/arch-compiler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T16:52:24Z"
+}
