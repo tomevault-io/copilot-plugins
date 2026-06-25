@@ -1,0 +1,9 @@
+{
+  "name": "engineai-dev--commitizen",
+  "displayName": "commitizen",
+  "description": "Fork of conventional commit messages CLI",
+  "version": "1.0.0",
+  "author": "engineai-dev",
+  "homepage": "https://github.com/engineai-dev/commitizen",
+  "skills": []
+}
