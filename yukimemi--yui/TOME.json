@@ -4,7 +4,7 @@
   "repo": "yui",
   "description": "Target-as-truth dotfiles manager. Edit your live configs, source repo updates automatically via hardlink/junction/symlink.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yukimemi/yui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T22:50:54Z"
+  "distributed_at": "2026-06-25T01:11:36Z"
 }
