@@ -1,0 +1,9 @@
+{
+  "name": "balcsida--pi-provider-litellm",
+  "displayName": "pi-provider-litellm",
+  "description": "LiteLLM proxy provider extension for Pi",
+  "version": "1.0.0",
+  "author": "balcsida",
+  "homepage": "https://github.com/balcsida/pi-provider-litellm",
+  "skills": []
+}
