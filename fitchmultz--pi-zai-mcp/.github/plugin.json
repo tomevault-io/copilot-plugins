@@ -1,0 +1,9 @@
+{
+  "name": "fitchmultz--pi-zai-mcp",
+  "displayName": "pi-zai-mcp",
+  "description": "Z.ai MCP server bridge for pi with web search, reader, zread, and vision tools.",
+  "version": "1.0.0",
+  "author": "fitchmultz",
+  "homepage": "https://github.com/fitchmultz/pi-zai-mcp",
+  "skills": []
+}
