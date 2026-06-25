@@ -1,0 +1,9 @@
+{
+  "name": "cmaneu--entra-local",
+  "displayName": "entra-local",
+  "description": "A local Entra ID emulator for application developers that need to mock authentication",
+  "version": "1.0.0",
+  "author": "cmaneu",
+  "homepage": "https://github.com/cmaneu/entra-local",
+  "skills": []
+}
