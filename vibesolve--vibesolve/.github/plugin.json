@@ -1,0 +1,9 @@
+{
+  "name": "vibesolve--vibesolve",
+  "displayName": "vibesolve",
+  "description": "Convert plain-English problem description into a Timefold solver prototype",
+  "version": "1.0.0",
+  "author": "vibesolve",
+  "homepage": "https://github.com/vibesolve/vibesolve",
+  "skills": []
+}
