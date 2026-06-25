@@ -1,0 +1,9 @@
+{
+  "name": "genggng--overleaf-git-sync",
+  "displayName": "overleaf-git-sync",
+  "description": "Map an online Overleaf project to a local Git-backed working repository.",
+  "version": "1.0.0",
+  "author": "genggng",
+  "homepage": "https://github.com/genggng/overleaf-git-sync",
+  "skills": []
+}
