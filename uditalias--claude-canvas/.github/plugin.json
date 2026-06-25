@@ -1,0 +1,9 @@
+{
+  "name": "uditalias--claude-canvas",
+  "displayName": "claude-canvas",
+  "description": "A shared visual canvas for Claude Code \u2014 draw, diagram, and get visual feedback through CLI commands and an interactive browser UI.",
+  "version": "1.0.0",
+  "author": "uditalias",
+  "homepage": "https://github.com/uditalias/claude-canvas",
+  "skills": []
+}
