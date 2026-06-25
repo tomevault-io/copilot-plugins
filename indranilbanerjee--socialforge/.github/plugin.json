@@ -1,0 +1,9 @@
+{
+  "name": "indranilbanerjee--socialforge",
+  "displayName": "socialforge",
+  "description": "Open-source agency-grade social media production plugin \u2014 16 skills, 25 commands, AI image (Nano Banana Pro) + AI video (Kling v3.0 Pro) + C2PA signing (EU AI Act Article 50). Installs on Claude Code,",
+  "version": "1.0.0",
+  "author": "indranilbanerjee",
+  "homepage": "https://github.com/indranilbanerjee/socialforge",
+  "skills": []
+}
