@@ -139419,6 +139419,11 @@
       "description": "claude-subagent-editor"
     },
     {
+      "name": "taivop--marketplace",
+      "source": "./taivop--marketplace",
+      "description": "Coding agent skills for accessing Estonia's official public data"
+    },
+    {
       "name": "chicogong--html-tools",
       "source": "./chicogong--html-tools",
       "description": "\ud83d\udee0\ufe0f 1001+ \u7eaf\u524d\u7aef\u5728\u7ebf\u5de5\u5177\u96c6 | \u5355\u6587\u4ef6\u00b7\u96f6\u6784\u5efa\u00b7\u53ef\u79bb\u7ebf\u00b7\u9690\u79c1\u4f18\u5148 | Pure HTML Tools - Single file, Zero build, Offline-ready, Privacy-first"
@@ -144002,11 +144007,6 @@
       "name": "ratulsarna--opencode-pocket",
       "source": "./ratulsarna--opencode-pocket",
       "description": "OpenCode Pocket is a mobile client for OpenCode"
-    },
-    {
-      "name": "taivop--marketplace",
-      "source": "./taivop--marketplace",
-      "description": "Coding agent skills for accessing Estonia's official public data"
     },
     {
       "name": "sutro-cloud--jellyflow",
@@ -170334,6 +170334,26 @@
       "description": "Step through and debug AI agent traces without leaving your terminal. Written in Rust."
     },
     {
+      "name": "upstash--skills",
+      "source": "./upstash--skills",
+      "description": "Collection of skills for Upstash"
+    },
+    {
+      "name": "noumena-labs--sipp",
+      "source": "./noumena-labs--sipp",
+      "description": "A unified API for fast in-browser, client and cloud inference."
+    },
+    {
+      "name": "noumena-labs--sipp",
+      "source": "./noumena-labs--sipp",
+      "description": "A unified API for fast in-browser, client and cloud inference."
+    },
+    {
+      "name": "sigpanic--goink",
+      "source": "./sigpanic--goink",
+      "description": "Goink \u684c\u9762 AI \u5c0f\u8bf4\u521b\u4f5c\u52a9\u624b\uff0c\u5bf9\u8bdd\u5f0f\u5199\u4f5c + \u81ea\u52a8\u72b6\u6001\u8ffd\u8e2a + \u672c\u5730\u8bed\u4e49\u641c\u7d22\u3002\u8de8\u5e73\u53f0\u5f00\u7bb1\u5373\u7528\u3002AI Agent Novel Generator."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -182522,6 +182542,11 @@
       "name": "hermes-webui--hermes-swift-ios",
       "source": "./hermes-webui--hermes-swift-ios",
       "description": "The best way to use Hermes from your iPhone!"
+    },
+    {
+      "name": "subhadeeproy3902--pretextwall",
+      "source": "./subhadeeproy3902--pretextwall",
+      "description": "The Community Tweet Wall \u2014 a curated, newspaper-style wall of tweets from the community."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -228332,6 +228357,21 @@
       "name": "ritheshh-cmyk--claudecode",
       "source": "./ritheshh-cmyk--claudecode",
       "description": "About Use claude code and codex for free in the terminal, VSCode extension, and discord like OpenClaw (voice supported)"
+    },
+    {
+      "name": "reverentgeek--metermaid",
+      "source": "./reverentgeek--metermaid",
+      "description": "Cross-platform desktop LUFS / EBU R128 loudness meter with true-peak and a real-time spectrum analyzer, built with Tauri (Rust + web UI)."
+    },
+    {
+      "name": "parlance-labs--super-oracle",
+      "source": "./parlance-labs--super-oracle",
+      "description": "A second-opinion oracle for coding agents, powered by Sakana Fugu Ultra via codex-fugu. Cross-agent skill packaged as a Codex/Claude plugin."
+    },
+    {
+      "name": "lambdalisue--cclens",
+      "source": "./lambdalisue--cclens",
+      "description": "cclens \u2014 a lens onto your Claude Code usage"
     },
     {
       "name": "cheerhuan--save-your-token",
