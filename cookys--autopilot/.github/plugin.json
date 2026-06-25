@@ -1,0 +1,9 @@
+{
+  "name": "cookys--autopilot",
+  "displayName": "autopilot",
+  "description": "Development workflow skills for Claude Code \u2014 dev-flow, survey, think-tank, CEO mode, retro, learn, context-reduce",
+  "version": "1.0.0",
+  "author": "cookys",
+  "homepage": "https://github.com/cookys/autopilot",
+  "skills": []
+}
