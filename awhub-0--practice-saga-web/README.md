@@ -7,11 +7,11 @@ practice for make new landing page
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [awhub-0/Practice-Saga-Web](https://github.com/awhub-0/Practice-Saga-Web).
+Original source: `AGENTS.md` in [awhub-0/Practice-Saga-Web](https://github.com/awhub-0/Practice-Saga-Web).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
