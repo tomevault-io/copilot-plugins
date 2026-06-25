@@ -1,0 +1,9 @@
+{
+  "name": "exit-zero-labs--threat-forge",
+  "displayName": "threat-forge",
+  "description": "Open-source threat modeling tool with a modern canvas, git-friendly YAML files, and AI-assisted STRIDE analysis \u2014 the alternative to Microsoft's TMT that works on Mac, Windows, and Linux.",
+  "version": "1.0.0",
+  "author": "exit-zero-labs",
+  "homepage": "https://github.com/exit-zero-labs/threat-forge",
+  "skills": []
+}
