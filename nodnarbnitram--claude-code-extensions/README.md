@@ -7,21 +7,19 @@ These are a collection of extension for Claude Code that can typically also be u
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nodnarbnitram/claude-code-extensions](https://github.com/nodnarbnitram/claude-code-extensions).
+Original source: `AGENTS.md` in [nodnarbnitram/claude-code-extensions](https://github.com/nodnarbnitram/claude-code-extensions).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (12)
+## Bundled Skills (11)
 
 - [tauri-v2](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/tauri-v2)
-- [esphome-config-helper](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/esphome-config-helper)
-- [kubernetes-operations](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/kubernetes-operations)
 - [ha-api](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/ha-api)
 - [kubernetes-health](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/kubernetes-health)
 - [ha-energy](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/ha-energy)
@@ -31,8 +29,9 @@ Original source: `CLAUDE.md` in [nodnarbnitram/claude-code-extensions](https://g
 - [ha-dashboard](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/ha-dashboard)
 - [ha-integration](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/ha-integration)
 - [skill-skeleton](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/templates/skill-skeleton)
+- [kubernetes-health](https://github.com/nodnarbnitram/claude-code-extensions/tree/main/plugins/cce-kubernetes/skills/kubernetes-health)
 
-From [nodnarbnitram/claude-code-extensions](https://github.com/nodnarbnitram/claude-code-extensions) — a repo with 9+ stars on GitHub.
+From [nodnarbnitram/claude-code-extensions](https://github.com/nodnarbnitram/claude-code-extensions) — a repo with 0+ stars on GitHub.
 
 ---
 
