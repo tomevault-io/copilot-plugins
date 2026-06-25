@@ -1,0 +1,9 @@
+{
+  "name": "the-omega-institute--newmath",
+  "displayName": "newmath",
+  "description": "BEDC: Binary Emission Discovery Calculus (mathlib-free Lean 4 + LaTeX paper)",
+  "version": "1.0.0",
+  "author": "the-omega-institute",
+  "homepage": "https://github.com/the-omega-institute/newmath",
+  "skills": []
+}
