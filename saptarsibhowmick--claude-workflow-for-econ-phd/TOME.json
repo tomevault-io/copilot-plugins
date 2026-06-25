@@ -1,0 +1,44 @@
+{
+  "name": "claude-workflow-for-econ-phd",
+  "owner": "saptarsibhowmick",
+  "repo": "claude-workflow-for-econ-phd",
+  "description": "A ready-to-fork Claude Code scaffold for multi-paper PhD dissertations in empirical economics \u2014 literature review to journal submission, with verification protocols, file safety, and 8 custom skills.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/saptarsibhowmick/claude-workflow-for-econ-phd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T14:59:57Z"
+}
