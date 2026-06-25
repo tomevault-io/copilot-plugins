@@ -11,14 +11,6 @@
       "description": ""
     },
     {
-      "name": "esphome-config-helper",
-      "description": ""
-    },
-    {
-      "name": "kubernetes-operations",
-      "description": ""
-    },
-    {
       "name": "ha-api",
       "description": ""
     },
@@ -52,6 +44,10 @@
     },
     {
       "name": "skill-skeleton",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-health",
       "description": ""
     }
   ]
