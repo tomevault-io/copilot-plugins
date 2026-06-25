@@ -4,7 +4,7 @@
   "repo": "drizzle-scoped-db",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/modem-dev/drizzle-scoped-db",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T20:33:28Z"
+  "distributed_at": "2026-06-25T20:37:40Z"
 }
