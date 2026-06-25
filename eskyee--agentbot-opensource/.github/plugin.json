@@ -1,0 +1,9 @@
+{
+  "name": "eskyee--agentbot-opensource",
+  "displayName": "agentbot-opensource",
+  "description": "Open-source multi-tenant AI agent platform. Docker isolation, multi-channel, SIWE auth. Built on OpenClaw + Base. Our token is community-run. Agentbot builds the platform, while the market belongs to ",
+  "version": "1.0.0",
+  "author": "Eskyee",
+  "homepage": "https://github.com/Eskyee/agentbot-opensource",
+  "skills": []
+}
