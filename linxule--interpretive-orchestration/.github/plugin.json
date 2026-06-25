@@ -1,0 +1,9 @@
+{
+  "name": "linxule--interpretive-orchestration",
+  "displayName": "interpretive-orchestration",
+  "description": " Epistemic partnership infrastructure for AI-assisted qualitative research. Claude Code plugin with 3-stage methodology, 4 specialized agents, and 11 skills.",
+  "version": "1.0.0",
+  "author": "linxule",
+  "homepage": "https://github.com/linxule/interpretive-orchestration",
+  "skills": []
+}
