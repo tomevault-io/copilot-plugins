@@ -1,0 +1,9 @@
+{
+  "name": "filearchitect--app",
+  "displayName": "app",
+  "description": "Create file and folder structures with plain text",
+  "version": "1.0.0",
+  "author": "filearchitect",
+  "homepage": "https://github.com/filearchitect/app",
+  "skills": []
+}
