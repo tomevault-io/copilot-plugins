@@ -4,7 +4,7 @@
   "repo": "obsidian-dedao-brain-sync",
   "description": "\u53cc\u5411\u540c\u6b65Obsidian&\u5f97\u5230\u5927\u8111\uff08aka. \u5f97\u5230\u8111\u673a \ud83d\ude02\uff09",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AndyZhengyan/obsidian-dedao-brain-sync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T00:56:16Z"
+  "distributed_at": "2026-06-25T00:57:43Z"
 }
