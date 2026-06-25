@@ -1,0 +1,44 @@
+{
+  "name": "Gungnir",
+  "owner": "kevinggraphiste-hub",
+  "repo": "Gungnir",
+  "description": "L'intelligence artificielle qui s'\u00e9veille \u00e0 votre m\u00e9tier. Plateforme IA souveraine, h\u00e9berg\u00e9e en Europe, auditable. Conscience v4 per-user, 11 plugins, 8 providers LLM, BSL.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kevinggraphiste-hub/Gungnir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T14:38:11Z"
+}
