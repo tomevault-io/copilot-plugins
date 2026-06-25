@@ -1,0 +1,9 @@
+{
+  "name": "arthur-ficial--translate",
+  "displayName": "translate",
+  "description": "On-device translator for macOS Tahoe \u2014 UNIX filter + drop-in HTTP server compatible with DeepL, LibreTranslate, and Google v2. 100% on-device, no cloud, no LLM, no API keys.",
+  "version": "1.0.0",
+  "author": "Arthur-Ficial",
+  "homepage": "https://github.com/Arthur-Ficial/translate",
+  "skills": []
+}
