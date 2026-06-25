@@ -1,0 +1,9 @@
+{
+  "name": "fadelabs--phantom",
+  "displayName": "phantom",
+  "description": "AI audio engineering system: MCP server + Claude Code skills for professional automated mixing and mastering",
+  "version": "1.0.0",
+  "author": "fadelabs",
+  "homepage": "https://github.com/fadelabs/phantom",
+  "skills": []
+}
