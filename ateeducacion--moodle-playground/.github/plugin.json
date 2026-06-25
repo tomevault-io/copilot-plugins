@@ -1,0 +1,9 @@
+{
+  "name": "ateeducacion--moodle-playground",
+  "displayName": "moodle-playground",
+  "description": "Run Moodle in the browser via WebAssembly PHP",
+  "version": "1.0.0",
+  "author": "ateeducacion",
+  "homepage": "https://github.com/ateeducacion/moodle-playground",
+  "skills": []
+}
