@@ -41544,6 +41544,11 @@
       "description": "Join the best AI Builder Community"
     },
     {
+      "name": "ralforion--orionbelt-ontology-builder",
+      "source": "./ralforion--orionbelt-ontology-builder",
+      "description": "Browser-based ontology workbench for OWL ontologies and SKOS vocabularies. Streamlit + rdflib, no Java, no Prot\u00e9g\u00e9. Bulk operations, OWL-RL reasoning, gist upper-ontology starters, merge-aware imports"
+    },
+    {
       "name": "hainrixz--open-carrusel",
       "source": "./hainrixz--open-carrusel",
       "description": "AI-powered Instagram carousel builder. Chat with Claude to design slides; export as PNGs at exact Instagram dimensions. Type /start in Claude Code to bootstrap."
@@ -105772,6 +105777,11 @@
       "name": "bes-dev--reharness",
       "source": "./bes-dev--reharness",
       "description": "reharness"
+    },
+    {
+      "name": "lookfree--cc-harness",
+      "source": "./lookfree--cc-harness",
+      "description": "cc-harness"
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -170499,6 +170509,21 @@
       "description": "archie-hq"
     },
     {
+      "name": "stancsz--fnd-reverb-vst3",
+      "source": "./stancsz--fnd-reverb-vst3",
+      "description": "Open-source, modular reverb engine offering high-fidelity algorithms inspired by Valhalla classics (VintageVerb, Room). Features community-contributed decay models, deep modulation, and VST3 compatibi"
+    },
+    {
+      "name": "shunsukehayashi--mergegate",
+      "source": "./shunsukehayashi--mergegate",
+      "description": "MergeGate: deterministic execution protocol for AI-assisted development and the execution layer for GitNexus-style code intelligence"
+    },
+    {
+      "name": "shunsukehayashi--mergegate",
+      "source": "./shunsukehayashi--mergegate",
+      "description": "MergeGate: deterministic execution protocol for AI-assisted development and the execution layer for GitNexus-style code intelligence"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -182782,6 +182807,21 @@
       "name": "imanchalsingh--parkfinder",
       "source": "./imanchalsingh--parkfinder",
       "description": "This project demonstrates my ability to design and build production-ready applications with a strong focus on scalability, security, and user experience."
+    },
+    {
+      "name": "jeremydong22--taobao-mcp",
+      "source": "./jeremydong22--taobao-mcp",
+      "description": "MCP server for Taobao/Tmall product scraping integration with Claude"
+    },
+    {
+      "name": "general-sense--xdflow",
+      "source": "./general-sense--xdflow",
+      "description": "Metadata-driven ML pipelines for labeled structured data"
+    },
+    {
+      "name": "anaxonda--dala",
+      "source": "./anaxonda--dala",
+      "description": "web to epub downloader with threaded comment navigation in epub. hacker news, substck, reddit, general, etc."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -212649,6 +212689,176 @@
       "description": "Agent skills for trading perpetuals and swapping tokens on GMX V2."
     },
     {
+      "name": "tigerbruce--double-spet-foc",
+      "source": "./tigerbruce--double-spet-foc",
+      "description": "\u53cc\u8f74\u6b65\u8fdb\u4f3a\u670d FOC \u63a7\u5236\u5668 \u2014 \u5c06\u4e24\u76f8\u6df7\u5408\u5f0f\u6b65\u8fdb\u7535\u673a\u53d8\u6210\u95ed\u73af\u4f3a\u670d\u3002"
+    },
+    {
+      "name": "filearchitect--app",
+      "source": "./filearchitect--app",
+      "description": "Create file and folder structures with plain text"
+    },
+    {
+      "name": "tigerbruce--double-spet-foc",
+      "source": "./tigerbruce--double-spet-foc",
+      "description": "\u53cc\u8f74\u6b65\u8fdb\u4f3a\u670d FOC \u63a7\u5236\u5668 \u2014 \u5c06\u4e24\u76f8\u6df7\u5408\u5f0f\u6b65\u8fdb\u7535\u673a\u53d8\u6210\u95ed\u73af\u4f3a\u670d\u3002"
+    },
+    {
+      "name": "berriai--litellm-observatory",
+      "source": "./berriai--litellm-observatory",
+      "description": "End-to-end testing suite for LiteLLM deployments - provider tests, performance metrics, and API validation"
+    },
+    {
+      "name": "tigerbruce--double-spet-foc",
+      "source": "./tigerbruce--double-spet-foc",
+      "description": "\u53cc\u8f74\u6b65\u8fdb\u4f3a\u670d FOC \u63a7\u5236\u5668 \u2014 \u5c06\u4e24\u76f8\u6df7\u5408\u5f0f\u6b65\u8fdb\u7535\u673a\u53d8\u6210\u95ed\u73af\u4f3a\u670d\u3002"
+    },
+    {
+      "name": "kunchenguid--tasks-axi",
+      "source": "./kunchenguid--tasks-axi",
+      "description": "Agent-ergonomic CLI for task/backlog management with pluggable backends (markdown, sqlite, remote trackers)"
+    },
+    {
+      "name": "tigerbruce--double-spet-foc",
+      "source": "./tigerbruce--double-spet-foc",
+      "description": "\u53cc\u8f74\u6b65\u8fdb\u4f3a\u670d FOC \u63a7\u5236\u5668 \u2014 \u5c06\u4e24\u76f8\u6df7\u5408\u5f0f\u6b65\u8fdb\u7535\u673a\u53d8\u6210\u95ed\u73af\u4f3a\u670d\u3002"
+    },
+    {
+      "name": "garykuepper--ggswarm",
+      "source": "./garykuepper--ggswarm",
+      "description": "A fully decentralized coordination framework where global formation behavior emerges naturally from local agent interactions. By combining Graph Neural Networks for spatial reasoning with advanced tra"
+    },
+    {
+      "name": "kunchenguid--tasks-axi",
+      "source": "./kunchenguid--tasks-axi",
+      "description": "Agent-ergonomic CLI for task/backlog management with pluggable backends (markdown, sqlite, remote trackers)"
+    },
+    {
+      "name": "nietsneuah--filemaker-mcp",
+      "source": "./nietsneuah--filemaker-mcp",
+      "description": "MCP server connecting AI assistants to FileMaker databases via OData"
+    },
+    {
+      "name": "tigerbruce--double-spet-foc",
+      "source": "./tigerbruce--double-spet-foc",
+      "description": "\u53cc\u8f74\u6b65\u8fdb\u4f3a\u670d FOC \u63a7\u5236\u5668 \u2014 \u5c06\u4e24\u76f8\u6df7\u5408\u5f0f\u6b65\u8fdb\u7535\u673a\u53d8\u6210\u95ed\u73af\u4f3a\u670d\u3002"
+    },
+    {
+      "name": "indranilbanerjee--contentforge",
+      "source": "./indranilbanerjee--contentforge",
+      "description": "Open-source enterprise content production plugin \u2014 21 skills, 13 agents, 11 quality gates, 29-pattern AI humanizer, fact-checker, real .docx output with C2PA signing (EU AI Act Article 50 ready). Inst"
+    },
+    {
+      "name": "nextcloud--roomvox",
+      "source": "./nextcloud--roomvox",
+      "description": "RoomVox"
+    },
+    {
+      "name": "tha23rd--recaf-mcp",
+      "source": "./tha23rd--recaf-mcp",
+      "description": "MCP server plugin for Recaf \u2014 enabling AI agents to perform Java reverse engineering"
+    },
+    {
+      "name": "garykuepper--ggswarm",
+      "source": "./garykuepper--ggswarm",
+      "description": "A fully decentralized coordination framework where global formation behavior emerges naturally from local agent interactions. By combining Graph Neural Networks for spatial reasoning with advanced tra"
+    },
+    {
+      "name": "azure--agentops",
+      "source": "./azure--agentops",
+      "description": "AgentOps Accelerator is an open source framework and CLI for adding continuous evaluation and observability to enterprise AI agents. It standardizes evaluation patterns, automates assessments in CI/CD"
+    },
+    {
+      "name": "nette--phpstan-rules",
+      "source": "./nette--phpstan-rules",
+      "description": "\ud83d\udc18 PHPStan rules and type extensions for Nette libraries"
+    },
+    {
+      "name": "polymaker3d--polymaker-preset",
+      "source": "./polymaker3d--polymaker-preset",
+      "description": "This is the place holding all filament presets from Polymaker"
+    },
+    {
+      "name": "standardapplied--sail",
+      "source": "./standardapplied--sail",
+      "description": "Isolated development environments for AI agents"
+    },
+    {
+      "name": "lllll081926i--ankismart",
+      "source": "./lllll081926i--ankismart",
+      "description": "Ankismart"
+    },
+    {
+      "name": "xuefei-wang--simple-agent-opt",
+      "source": "./xuefei-wang--simple-agent-opt",
+      "description": "simple-agent-opt"
+    },
+    {
+      "name": "nytroxdev--veltix",
+      "source": "./nytroxdev--veltix",
+      "description": "The networking library you always wanted"
+    },
+    {
+      "name": "mark-life--telegram-claude-codex",
+      "source": "./mark-life--telegram-claude-codex",
+      "description": "Telegram bot that runs Claude Code or OpenAI Codex on your VPS and streams responses back to chat. Supports project switching, sessions, voice, plan mode, and queues."
+    },
+    {
+      "name": "lefinepro--ocawe",
+      "source": "./lefinepro--ocawe",
+      "description": "Workflow automation as simple as taking notes"
+    },
+    {
+      "name": "thealexlichter--wiktapi-dev",
+      "source": "./thealexlichter--wiktapi-dev",
+      "description": "A multilingual REST API for structured dictionary data"
+    },
+    {
+      "name": "mark-life--telegram-claude-codex",
+      "source": "./mark-life--telegram-claude-codex",
+      "description": "Telegram bot that runs Claude Code or OpenAI Codex on your VPS and streams responses back to chat. Supports project switching, sessions, voice, plan mode, and queues."
+    },
+    {
+      "name": "specir--speccompiler",
+      "source": "./specir--speccompiler",
+      "description": "A relational intermediate representation (IR) and extensible type system for Markdown specifications."
+    },
+    {
+      "name": "figuretu--my-skills",
+      "source": "./figuretu--my-skills",
+      "description": "my-skills"
+    },
+    {
+      "name": "aluzed--light-whisper",
+      "source": "./aluzed--light-whisper",
+      "description": "Light-Whisper app for Linux, Mac and Windows. Built with Tauri, Whisper and Parakeet."
+    },
+    {
+      "name": "jmapio--jmap-test-suite",
+      "source": "./jmapio--jmap-test-suite",
+      "description": "JMAP Conformance Test Suite"
+    },
+    {
+      "name": "coo-quack--calc-mcp",
+      "source": "./coo-quack--calc-mcp",
+      "description": "MCP server with 21 tools for things AI is bad at \u2014 math, hashing, encoding, date arithmetic, and more."
+    },
+    {
+      "name": "pobsiz--obsidian-diary",
+      "source": "./pobsiz--obsidian-diary",
+      "description": "Obsidian Diary"
+    },
+    {
+      "name": "rustyorb--heartmula-studio",
+      "source": "./rustyorb--heartmula-studio",
+      "description": "AI Music Generation Web UI \u2014 Suno-like studio for the open-source HeartMuLa model. Next.js 15 + FastAPI + WaveSurfer.js"
+    },
+    {
+      "name": "dicklesworthstone--frankenscipy",
+      "source": "./dicklesworthstone--frankenscipy",
+      "description": "Clean-room Rust reimplementation of SciPy with Condition-Aware Solver Portfolio (CASP) \u2014 runtime algorithm selection driven by conditioning diagnostics, stability certificates, and decision-theoretic "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -229567,6 +229777,16 @@
       "name": "squadcodercom--squadcoder",
       "source": "./squadcodercom--squadcoder",
       "description": "Your AI dev team in a box \u2014 parallel specialist agents, persistent memory, 820+ skills. Open-source, local-first."
+    },
+    {
+      "name": "azizjail2003--deutsch-start",
+      "source": "./azizjail2003--deutsch-start",
+      "description": "Deutsch-start"
+    },
+    {
+      "name": "zarldev--zarlmono",
+      "source": "./zarldev--zarlmono",
+      "description": "mono repo"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -350772,6 +350992,11 @@
       "name": "awhub-0--practice-saga-web",
       "source": "./awhub-0--practice-saga-web",
       "description": "practice for make new landing page"
+    },
+    {
+      "name": "engineai-dev--commitizen",
+      "source": "./engineai-dev--commitizen",
+      "description": "Fork of conventional commit messages CLI"
     }
   ]
 }
