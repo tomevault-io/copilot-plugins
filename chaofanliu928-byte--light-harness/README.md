@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chaofanliu928-byte/light_harness](https://github.com/chaofanliu928-byte/light_harness).
+Original source: `CLAUDE.md` in [chaofanliu928-byte/light_harness](https://github.com/chaofanliu928-byte/light_harness).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
