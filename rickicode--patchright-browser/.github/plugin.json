@@ -1,0 +1,9 @@
+{
+  "name": "rickicode--patchright-browser",
+  "displayName": "patchright-browser",
+  "description": "MCP server for browser automation via Patchright. Multi-profile Chromium, headed/headless, StreamableHTTP protocol. Includes dashboard, skills, and AI agent setup.",
+  "version": "1.0.0",
+  "author": "rickicode",
+  "homepage": "https://github.com/rickicode/patchright-browser",
+  "skills": []
+}
