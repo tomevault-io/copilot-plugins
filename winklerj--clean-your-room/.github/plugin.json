@@ -1,0 +1,9 @@
+{
+  "name": "winklerj--clean-your-room",
+  "displayName": "clean-your-room",
+  "description": "Create clean room specs from GitHub repo",
+  "version": "1.0.0",
+  "author": "winklerj",
+  "homepage": "https://github.com/winklerj/clean-your-room",
+  "skills": []
+}
