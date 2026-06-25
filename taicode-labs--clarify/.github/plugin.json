@@ -1,0 +1,9 @@
+{
+  "name": "taicode-labs--clarify",
+  "displayName": "clarify",
+  "description": "An open-source documentation publishing tool built for MDX and OpenAPI. Seamlessly combine markdown, interactive JSX components, and API specifications to create modern, developer-friendly docs.",
+  "version": "1.0.0",
+  "author": "taicode-labs",
+  "homepage": "https://github.com/taicode-labs/clarify",
+  "skills": []
+}
