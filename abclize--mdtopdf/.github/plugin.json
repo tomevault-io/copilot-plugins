@@ -1,0 +1,9 @@
+{
+  "name": "abclize--mdtopdf",
+  "displayName": "mdtopdf",
+  "description": "Agent-friendly Markdown-to-PDF CLI with local PDF rendering and JSON diagnostics.",
+  "version": "1.0.0",
+  "author": "ABClize",
+  "homepage": "https://github.com/ABClize/mdtopdf",
+  "skills": []
+}
