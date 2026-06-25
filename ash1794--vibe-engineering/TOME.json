@@ -4,7 +4,7 @@
   "repo": "vibe-engineering",
   "description": "38 engineering discipline skills for Claude Code & OpenAI Codex \u2014 research, quality gates, testing, deployment, gap analysis, and more. Born from real pain, not theory.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ash1794/vibe-engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T20:44:16Z"
+  "distributed_at": "2026-06-25T20:46:53Z"
 }
