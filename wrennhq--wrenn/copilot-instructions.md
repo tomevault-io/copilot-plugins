@@ -1,0 +1,450 @@
+## wrenn
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Wrenn is an open-source, self-hosted dev environment platform. Users spin up isolated sandboxes (Cloud Hypervisor microVMs), run code inside them, and get output back via SDKs. Fast boot, persistent state, and a single agent binary on each host you own.
+
+## Build & Development Commands
+
+All commands go through the Makefile. Never use raw `go build` or `go run`.
+
+```bash
+make build              # Build all binaries → builds/
+make build-cp           # Control plane only
+make build-agent        # Host agent only
+make build-envd         # envd static binary (Rust, musl, verified statically linked)
+make build-frontend     # SvelteKit dashboard → frontend/build/ (served by Caddy)
+
+make dev                # Full local dev: infra + migrate + control plane
+make dev-infra          # Start PostgreSQL + Prometheus + Grafana (Docker)
+make dev-down           # Stop dev infra
+make dev-cp             # Control plane with hot reload (if air installed)
+make dev-frontend       # Vite dev server with HMR (port 5173)
+make dev-agent          # Host agent (sudo required)
+make dev-envd           # envd in debug mode (port 49983)
+
+make check              # fmt + vet + lint + test (CI order)
+make test               # Unit tests: go test -race -v ./internal/...
+make test-integration   # Integration tests (require host agent + Cloud Hypervisor)
+make fmt                # gofmt and rust fmt
+make vet                # go vet
+make lint               # golangci-lint
+
+make migrate-up         # Apply pending migrations
+make migrate-down       # Rollback last migration
+make migrate-create name=xxx  # Scaffold new goose migration (never create manually)
+make migrate-reset      # Drop + re-apply all
+
+make generate           # Proto (buf) + sqlc codegen
+make proto              # buf generate for proto dirs
+make tidy               # go mod tidy
+```
+
+Run a single test: `go test -race -v -run TestName ./internal/path/...`
+
+## Architecture
+
+```
+User SDK → HTTPS/WS → Control Plane → Connect RPC → Host Agent → HTTP/Connect RPC over TAP → envd (inside VM)
+```
+
+**Three binaries:**
+
+| Binary | Language | Entry point | Runs as |
+|--------|----------|-------------|---------|
+| wrenn-cp | Go (`git.omukk.dev/wrenn/wrenn`) | `cmd/control-plane/main.go` | Unprivileged |
+| wrenn-agent | Go (`git.omukk.dev/wrenn/wrenn`) | `cmd/host-agent/main.go` | `wrenn` user with capabilities (SYS_ADMIN, NET_ADMIN, NET_RAW, SYS_PTRACE, KILL, DAC_OVERRIDE, MKNOD) via setcap; also accepts root |
+| envd | Rust (`envd-rs/`) | `envd-rs/src/main.rs` | PID 1 inside guest VM |
+
+envd is a standalone Rust binary (Tokio + Axum + connectrpc-rs). It is completely independent from the Go module — the only connection is the protobuf contract. It compiles to a statically linked musl binary baked into rootfs images.
+
+**Key architectural invariant:** The host agent is **stateful** (in-memory `boxes` map is the source of truth for running VMs). The control plane is **stateless** (all persistent state in PostgreSQL). The reconciler (`internal/api/reconciler.go`) bridges the gap — it periodically compares DB records against the host agent's live state and marks orphaned sandboxes as "stopped".
+
+### Control Plane
+
+**Internal packages:** `internal/api/`, `internal/email/`
+
+**Public packages (importable by cloud repo):** `pkg/config/`, `pkg/db/`, `pkg/auth/`, `pkg/auth/oauth/`, `pkg/auth/session/`, `pkg/auth/session/middleware/`, `pkg/scheduler/`, `pkg/lifecycle/`, `pkg/channels/`, `pkg/audit/`, `pkg/service/`, `pkg/events/`, `pkg/id/`, `pkg/validate/`
+
+**Extension framework:** `pkg/cpextension/` (shared `Extension` interface + `ServerContext` + hook interfaces), `pkg/cpserver/` (exported `Run()` entrypoint with functional options for cloud `main.go`)
+
+The cloud repo imports this module as a Go dependency and calls `cpserver.Run(cpserver.WithExtensions(myExt))`. An extension always implements:
+- `RegisterRoutes(r chi.Router, sctx ServerContext)` — adds HTTP routes.
+- `BackgroundWorkers(sctx ServerContext) []func(context.Context)` — starts long-running goroutines.
+
+It can optionally implement any of these hook interfaces (the OSS server type-asserts at startup):
+- `MiddlewareProvider` — `Middlewares(sctx) []func(http.Handler) http.Handler`, applied before OSS routes so cloud middleware can wrap them (e.g. billing gates).
+- `AuthHook` — `OnSignup` (synchronous, error aborts the request with 500 `signup_hook_failed`), `OnLogin`, `OnAccountSoftDelete`, `OnAccountHardDelete` (the last three log + ignore errors). OnSignup fires after team provisioning in both email-activate and OAuth-new-signup paths.
+- `SandboxEventHook` — `OnSandboxEvent(ctx, SandboxEvent)`, invoked from the unified Redis stream consumer for capsule create/pause/resume/destroy success events. Hook errors leave the message un-acked so it will be redelivered; hooks must be idempotent.
+
+`ServerContext` carries the initialized OSS dependencies: `Queries`, `PgPool`, `Redis`, `HostPool`, `Scheduler`, `CA`, `Audit`, `Mailer`, `OAuthRegistry`, `Channels`, `ChannelPub`, `JWTSecret`, `Sessions`, `Config`. To expose a new OSS service to extensions, add it to `ServerContext` in `pkg/cpextension/extension.go` and populate it in `pkg/cpserver/run.go`.
+
+**Auth helpers for extensions** (`pkg/auth/session/middleware/`, re-exported via `cpextension`): `RequireSession(sctx)`, `RequireSessionOrAPIKey(sctx)`, `RequireAdmin(sctx)`, `RequireCSRF()`, `IssueSession(w, r, sctx, userID, teamID)`, `ClearSessionCookies(w, r)`. Cookie/header names are exported as `SessionCookieName`, `CSRFCookieName`, `CSRFHeaderName`. OSS handlers (`internal/api/middleware_session.go`) are thin shims over this package — single source of truth.
+
+**pkg/ vs internal/ decision rule:** A package belongs in `pkg/` only if the cloud repo needs to import it directly. Everything else stays in `internal/`. New OSS services (e.g. email, notifications) go in `internal/` — the cloud repo accesses them through `ServerContext`, not by importing the package. Do not put a service in `pkg/` just because the cloud repo uses it.
+
+Startup (`cmd/control-plane/main.go`) is a thin wrapper: `cpserver.Run(cpserver.WithVersion(...))`. All 20 initialization steps live in `pkg/cpserver/run.go`: config → pgxpool → `db.Queries` → Redis → mTLS CA → host client pool → scheduler → OAuth → channels → audit logger → `api.New()` → background workers → HTTP server. Everything flows through constructor injection.
+
+- **API Server** (`internal/api/server.go`): chi router with middleware. Creates handler structs (`sandboxHandler`, `execHandler`, `filesHandler`, etc.) injected with `db.Queries` and the host agent Connect RPC client. Routes under `/v1/capsules/*`. Accepts `[]cpextension.Extension` — each extension's `RegisterRoutes()` is called after all core routes are registered.
+- **Reconciler** (`internal/api/reconciler.go`): background goroutine (every 30s) that compares DB records against `agent.ListSandboxes()` RPC. Marks orphaned DB entries as "stopped".
+- **Dashboard** (SvelteKit + Tailwind + Bits UI, built to static files in `frontend/build/`, served by Caddy as a reverse proxy)
+- **Database**: PostgreSQL via pgx/v5. Queries generated by sqlc from `db/queries/*.sql` → `pkg/db/`. Migrations in `db/migrations/` (goose, plain SQL). `db/migrations/embed.go` exposes `migrations.FS` so the cloud repo can run OSS migrations via `go:embed`.
+- **Config** (`pkg/config/config.go`): purely environment variables (`DATABASE_URL`, `CP_LISTEN_ADDR`, `CP_HOST_AGENT_ADDR`), no YAML/file config.
+
+### Host Agent
+
+**Packages:** `internal/hostagent/`, `internal/sandbox/`, `internal/vm/`, `internal/network/`, `internal/devicemapper/`, `internal/envdclient/`, `internal/snapshot/`
+
+**Production deployment:** `make setup-host` (→ `scripts/setup-host.sh`) prepares the host: creates the `wrenn` system user, sets Linux capabilities (setcap) on wrenn-agent and all child binaries (iptables, losetup, dmsetup, etc.), installs an apt hook to restore capabilities after package updates, configures udev rules for `/dev/net/tun`, and loads required kernel modules. No sudo grants — all privilege is via capabilities. `make install` then copies the binaries to `/usr/local/bin` and installs the systemd units from `deploy/systemd/`.
+
+Startup (`cmd/host-agent/main.go`) wires: root/capabilities check → enable IP forwarding → clean up stale dm devices → `sandbox.Manager` (containing `vm.Manager` + `network.SlotAllocator` + `devicemapper.LoopRegistry`) → `hostagent.Server` (Connect RPC handler) → HTTP server.
+
+- **RPC Server** (`internal/hostagent/server.go`): implements `hostagentv1connect.HostAgentServiceHandler`. Thin wrapper — every method delegates to `sandbox.Manager`. Maps Connect error codes on return.
+- **Sandbox Manager** (`internal/sandbox/manager.go`): the core orchestration layer. Maintains in-memory state in `boxes map[string]*sandboxState` (protected by `sync.RWMutex`). Each `sandboxState` holds a `models.Sandbox`, a `*network.Slot`, and an `*envdclient.Client`. Runs a TTL reaper (every 10s) that auto-destroys timed-out sandboxes.
+- **VM Manager** (`internal/vm/manager.go`, `ch.go`, `config.go`): manages Cloud Hypervisor processes. Uses raw HTTP API over Unix socket (`/tmp/ch-{sandboxID}.sock`). Launches Cloud Hypervisor via `unshare -m` + `ip netns exec` with `--api-socket path=...`. Configures and boots VM via `PUT /vm.create` + `PUT /vm.boot`. Snapshot restore uses `--restore source_url=file://...`.
+- **Network** (`internal/network/setup.go`, `allocator.go`): per-sandbox network namespace with veth pair + TAP device. See Networking section below.
+- **Device Mapper** (`internal/devicemapper/devicemapper.go`): CoW rootfs via device-mapper snapshots. Shared read-only loop devices per base template (refcounted `LoopRegistry`), per-sandbox sparse CoW files, dm-snapshot create/restore/remove/flatten operations.
+- **envd Client** (`internal/envdclient/client.go`, `health.go`): dual interface to the guest agent. Connect RPC for streaming process exec (`process.Start()` bidirectional stream). Plain HTTP for file operations (POST/GET `/files?path=...&username=root`). Health check polls `GET /health` every 100ms until ready (30s timeout).
+
+### envd (Guest Agent)
+
+**Directory:** `envd-rs/` — standalone Rust crate
+
+Runs as PID 1 inside the microVM via `wrenn-init.sh` (mounts procfs/sysfs/dev, sets hostname, writes resolv.conf, then execs envd via tini). Built with `cargo build --release --target x86_64-unknown-linux-musl`. Listens on TCP `0.0.0.0:49983`.
+
+- **Stack**: Tokio (async runtime) + Axum (HTTP) + connectrpc-rs (Connect protocol RPC)
+- **ProcessService** (Connect RPC): start/connect/list/signal processes, stream stdout/stderr, PTY support
+- **FilesystemService** (Connect RPC): stat/list/mkdir/move/remove/watch files
+- **HTTP endpoints**: GET `/health`, GET `/metrics`, POST `/init`, POST `/snapshot/prepare`, GET/POST `/files`
+- **Proto codegen**: `connectrpc-build` compiles `proto/envd/*.proto` at `cargo build` time via `build.rs` — no committed stubs
+- **Build**: `make build-envd` → static musl binary in `builds/envd`
+- **Dev**: `make dev-envd` → `cargo run -- --port 49983`
+
+### Dashboard (Frontend)
+
+**Directory:** `frontend/` — standalone SvelteKit app (Svelte 5, runes mode)
+
+- **Stack**: SvelteKit + `adapter-static` + Tailwind CSS v4 + Bits UI (headless accessible components)
+- **Package manager**: Bun
+- **Routing**: SvelteKit file-based routing under `frontend/src/routes/`
+- **Routing layout**: `/login` and `/signup` at root, authenticated pages under `/dashboard/*` (e.g. `/dashboard/capsules`, `/dashboard/keys`)
+- **Build output**: `frontend/build/` — static files served by Caddy
+- **Serving**: Caddy reverse-proxies API requests to the control plane and serves the SvelteKit SPA directly. The control plane does not serve frontend assets.
+- **Dev workflow**: `make dev-frontend` runs Vite dev server on port 5173 with HMR. API calls proxy to `http://localhost:8000`
+- **Fonts**: Manrope (UI), Instrument Serif (headings), JetBrains Mono (code), Alice (brand wordmark) — all self-hosted via `@fontsource`
+- **Dark mode**: class-based (`.dark` on `<html>`) with system preference detection + localStorage persistence
+
+To add a new page: create `frontend/src/routes/your-page/+page.svelte`.
+
+### Networking (per sandbox)
+
+Each sandbox gets its own Linux network namespace (`ns-{idx}`). Slot index (1-based, up to 65534) determines all addressing:
+
+```
+Host Namespace                      Namespace "ns-{idx}"                   Guest VM
+──────────────────────────────────────────────────────────────────────────────────────
+veth-{idx}  ←──── veth pair ────→  eth0
+10.12.0.{idx*2}/31                 10.12.0.{idx*2+1}/31
+                                     │
+                                   tap0 (169.254.0.22/30) ←── TAP ──→ eth0 (169.254.0.21)
+                                                                          ↑ kernel ip= boot arg
+```
+
+- **Host-reachable IP**: `10.11.0.{idx}/32` — routed through veth to namespace, DNAT'd to guest
+- **Outbound NAT**: guest (169.254.0.21) → SNAT to vpeerIP inside namespace → MASQUERADE on host to default interface
+- **Inbound NAT**: host traffic to 10.11.0.{idx} → DNAT to 169.254.0.21 inside namespace
+- IP forwarding enabled inside each namespace
+- All details in `internal/network/setup.go`
+
+### Sandbox State Machine
+```
+PENDING → STARTING → RUNNING → PAUSED → HIBERNATED
+                       │          │
+                       ↓          ↓
+                    STOPPED    STOPPED → (destroyed)
+
+Any state → ERROR (on crash/failure)
+PAUSED → RUNNING (warm snapshot resume)
+HIBERNATED → RUNNING (cold snapshot resume, slower)
+```
+
+### Key Request Flows
+
+**Sandbox creation** (`POST /v1/capsules`):
+1. API handler generates sandbox ID, inserts into DB as "pending"
+2. RPC `CreateSandbox` → host agent → `sandbox.Manager.Create()`
+3. Manager: resolve base rootfs → acquire shared loop device → create dm-snapshot (sparse CoW file) → allocate network slot → `CreateNetwork()` (netns + veth + tap + NAT) → `vm.Create()` (start Cloud Hypervisor with `/dev/mapper/wrenn-{id}`, configure via `PUT /vm.create` + `PUT /vm.boot`) → `envdclient.WaitUntilReady()` (poll /health) → store in-memory state
+4. API handler updates DB to "running" with host_ip
+
+**Command execution** (`POST /v1/capsules/{id}/exec`):
+1. API handler verifies sandbox is "running" in DB
+2. RPC `Exec` → host agent → `sandbox.Manager.Exec()` → `envdclient.Exec()`
+3. envd client opens bidirectional Connect RPC stream (`process.Start`), collects stdout/stderr/exit_code
+4. API handler checks UTF-8 validity (base64-encodes if binary), updates last_active_at, returns result
+
+**Streaming exec** (`WS /v1/capsules/{id}/exec/stream`):
+1. WebSocket upgrade, read first message for cmd/args
+2. RPC `ExecStream` → host agent → `sandbox.Manager.ExecStream()` → `envdclient.ExecStream()`
+3. envd client returns a channel of events; host agent forwards events through the RPC stream
+4. API handler forwards stream events to WebSocket as JSON messages (`{type: "stdout"|"stderr"|"exit", ...}`)
+
+**File transfer**: Write uses multipart POST to envd `/files`; read uses GET. Streaming variants chunk in 64KB pieces through the RPC stream.
+
+## REST API
+
+Routes defined in `internal/api/server.go`, handlers in `internal/api/handlers_*.go`. OpenAPI spec embedded via `//go:embed` and served at `/openapi.yaml` (Swagger UI at `/docs`). JSON request/response. Error responses: `{"error": {"code": "...", "message": "..."}}`.
+
+### Authentication
+
+Two paths, no JWTs for user auth:
+
+- **SDK / server-to-server**: `X-API-Key: wrn_<32hex>` header. Keys are created via the dashboard or `POST /v1/api-keys`, SHA-256-hashed at rest, scoped to a single team. `requireSessionOrAPIKey` middleware accepts this on every capsule lifecycle route.
+- **Browser (dashboard)**: opaque cookie session. `POST /v1/auth/login` (or activate / oauth-callback) sets two cookies — `wrenn_sid` (HttpOnly+Secure+SameSite=Strict) and `wrenn_csrf` (readable by JS, SameSite=Strict). All non-GET requests must echo the CSRF token in an `X-CSRF-Token` header (double-submit). Sessions live in Postgres `sessions` plus a Redis cache (`wrenn:session:{sid}`) — see `pkg/auth/session/`.
+
+Session semantics:
+- **Idle**: 6h. Each request bumps the Redis TTL. Postgres `last_seen_at` is updated on a debounce.
+- **Absolute**: 24h from `created_at` (`expires_at`). Never extended.
+- **Rotation**: `POST /v1/auth/switch-team` issues a fresh SID and re-sets both cookies; old SID revoked.
+- **Revocation**: password change, password add, and password reset all call `RevokeAllForUser`. Self-service is at `GET /v1/me/sessions`, `DELETE /v1/me/sessions/{id}`, `POST /v1/auth/logout`, `POST /v1/auth/logout-all`.
+- **`is_admin` freshness**: the session blob caches it for display, but `requireAdmin` always re-reads Postgres so revoked admins lose access at the next admin request.
+
+Host JWTs (long-lived, signed by `JWT_SECRET`) are unchanged — that is the wrenn-cp ↔ wrenn-agent trust channel and has nothing to do with user auth.
+
+SSE / WebSocket auth: browsers send the `wrenn_sid` cookie automatically on `EventSource` and WS upgrades (same-origin via Caddy); SDKs set `X-API-Key`. No ticket exchange is involved.
+
+## Code Generation
+
+### Proto (Connect RPC)
+
+Proto source of truth is `proto/envd/*.proto` and `proto/hostagent/*.proto`. Run `make proto` to regenerate Go stubs. Two `buf.gen.yaml` files control Go output:
+
+| buf.gen.yaml location | Generates to | Used by |
+|---|---|---|
+| `proto/envd/buf.gen.yaml` | `proto/envd/gen/` | Main module (host agent's envd client) |
+| `proto/hostagent/buf.gen.yaml` | `proto/hostagent/gen/` | Main module (control plane ↔ host agent) |
+
+The Rust envd (`envd-rs/`) generates its own protobuf stubs at `cargo build` time via `connectrpc-build` in `envd-rs/build.rs`, reading from the same `proto/envd/*.proto` sources. No committed Rust stubs — they live in `OUT_DIR`.
+
+To add a new RPC method: edit the `.proto` file → `make proto` (Go stubs) → rebuild envd-rs (Rust stubs generated automatically) → implement the handler on both sides.
+
+### sqlc
+
+Config: `sqlc.yaml` (project root). Reads queries from `db/queries/*.sql`, reads schema from `db/migrations/`, outputs to `pkg/db/`.
+
+To add a new query: add it to the appropriate `.sql` file in `db/queries/` → `make generate` → use the new method on `*db.Queries`.
+
+## Key Technical Decisions
+
+- **Connect RPC** (not gRPC) for all RPC communication between components
+- **Buf + protoc-gen-connect-go** for Go code generation; **connectrpc-build** for Rust code generation in envd
+- **Raw Cloud Hypervisor HTTP API** via Unix socket (`PUT /vm.create` + `PUT /vm.boot`)
+- **TAP networking** (not vsock) for host-to-envd communication
+- **Device-mapper snapshots** for rootfs CoW — shared read-only loop device per base template, per-sandbox sparse CoW file, Cloud Hypervisor gets `/dev/mapper/wrenn-{id}`
+- **PostgreSQL** via pgx/v5 + sqlc (type-safe query generation). Goose for migrations (plain SQL, up/down)
+- **Dashboard**: SvelteKit (Svelte 5, adapter-static) + Tailwind CSS v4 + Bits UI. Built to static files in `frontend/build/`, served by Caddy (not embedded in the Go binary)
+- **Lago** for billing (external service, not in this codebase)
+
+## Coding Conventions
+
+- **Go style**: `gofmt`, `go vet`, `context.Context` everywhere, errors wrapped with `fmt.Errorf("action: %w", err)`, `slog` for logging, no global state
+- **Naming**: Sandbox IDs `sb-` + 8 hex, API keys `wrn_` + 32 chars, Host IDs `host-` + 8 hex
+- **Dependencies**: Use `go get` to add Go deps, never hand-edit go.mod. For envd-rs deps: edit `envd-rs/Cargo.toml`
+- **Generated code**: Always commit generated code (proto stubs, sqlc). Never add generated code to .gitignore
+- **Migrations**: Always use `make migrate-create name=xxx`, never create migration files manually
+- **Testing**: Table-driven tests for handlers and state machine transitions
+
+## Rootfs & Guest Init
+
+- **wrenn-init** (`images/wrenn-init.sh`): the PID 1 init script baked into every rootfs. Mounts virtual filesystems, sets hostname, writes `/etc/resolv.conf`, then execs envd.
+- **System base templates**: four built-in distro images — `minimal-ubuntu` (id 0, default), `minimal-alpine` (1), `minimal-arch` (2), `minimal-fedora` (3) — built via `images/build-{ubuntu,alpine,arch,fedora}.sh` (or `make images`). All platform-owned, protected from deletion (reserved IDs 0–1024). Same static envd + tini run on all four. Each has a `wrenn-user` with passwordless sudo.
+- **Updating the rootfs** after changing envd or wrenn-init: `bash scripts/update-minimal-rootfs.sh`. Builds envd via `make build-envd` (Rust → static musl binary), then re-injects envd + wrenn-init + tini into all four system base images.
+- Rootfs images are built from distro containers — no systemd (init is overridden to `wrenn-init`). Use `/bin/sh -c` for shell builtins inside the guest.
+
+## Fixed Paths (on host machine)
+
+- Kernel: `/var/lib/wrenn/kernels/vmlinux`
+- Base rootfs images: `/var/lib/wrenn/images/teams/{base36(teamID)}/{base36(templateID)}/rootfs.ext4` (system templates use the platform team, base36 all-zeros)
+- Sandbox clones: `/var/lib/wrenn/sandboxes/`
+- Cloud Hypervisor: `/usr/local/bin/cloud-hypervisor`
+
+## Design Context
+
+### Users
+Developers across the full spectrum — solo engineers building side projects, startup teams integrating sandboxed execution into products, and platform/infra engineers at larger organizations running production workloads on Cloud Hypervisor microVMs. They arrive with context: they know what a process is, what a rootfs is, what a TTY means. The interface must feel at home for all three: approachable enough not to intimidate a hacker, precise enough to earn the trust of a production ops team. Never condescend, never oversimplify. Trust the user to understand what they're looking at.
+
+**Primary job to be done:** Understand what's running, act on it confidently, and get back to code.
+
+### Brand Personality
+**Precise. Warm. Uncompromising.**
+
+Wrenn is an engineer's favorite tool — built with visible care, not assembled from defaults. It runs real infrastructure (Cloud Hypervisor microVMs), so the UI should reflect that seriousness without becoming cold or corporate. The warmth comes from the typography and color palette; the precision comes from hierarchy, density, and data fidelity.
+
+Emotional goal: **in control.** Users leave a session with full confidence in what's running, what happened, and what comes next. Nothing is hidden, nothing is ambiguous.
+
+### Aesthetic Direction
+**Dark-only (permanently), industrial-warm, data-forward.**
+
+No light mode planned. All design decisions should optimize for dark. The near-black-green background palette (`#0a0c0b` through `#2a302d`) reads as "black with intention" — not pitch black (cold) and not charcoal (dated). The sage green accent (`#5e8c58`) is muted and organic, a meaningful departure from the startup-green neon that saturates the developer tool space.
+
+**Anti-references:**
+- **Supabase**: avoid the friendly, approachable startup-green energy — too generic, too eager to please
+- **AWS / GCP consoles**: avoid utility-first density without craft — functional but joyless, visually dated
+
+**References that capture the right spirit:**
+- The precision of a well-calibrated instrument
+- Editorial typography from technical publications
+- The quiet confidence of tools that don't need to explain themselves
+
+### Type System
+Four fonts with strict roles — this is the design system's strongest personality trait and must be respected:
+
+| Font | CSS Class | Role | When to use |
+|------|-----------|------|-------------|
+| **Manrope** (variable, sans) | `font-sans` | UI workhorse | All body copy, nav, labels, buttons, form text |
+| **Instrument Serif** | `font-serif` | Display / editorial | Page titles (h1), dialog headings, metric values, hero moments |
+| **JetBrains Mono** (variable) | `font-mono` | Data / code | IDs, timestamps, key prefixes, file paths, terminal output, metrics |
+| **Alice** | brand wordmark only | Brand wordmark | "Wrenn" in sidebar and login only — nowhere else |
+
+Instrument Serif at scale creates the signature editorial moments. Mono provides the precision signal for technical data. Never swap these roles.
+
+**Tracking overrides (app.css):**
+- `.font-serif` — `letter-spacing: 0.015em` (positive tracking; Instrument Serif reads less condensed at display sizes)
+- `.font-mono` — `font-variant-numeric: tabular-nums` (numbers align in tables and metric displays)
+
+**Type scale (root: 87.5% = 14px base):**
+| Token | Value | Use |
+|---|---|---|
+| `--text-display` | 2.571rem (~36px) | Auth section headings |
+| `--text-page` | 2rem (~28px) | Page h1 titles |
+| `--text-heading` | 1.429rem (~20px) | Dialog headings, empty states |
+| `--text-body` | 1rem (~14px) | Primary body, buttons, inputs |
+| `--text-ui` | 0.929rem (~13px) | Nav labels, table cells |
+| `--text-meta` | 0.857rem (~12px) | Key prefixes, minor info |
+| `--text-label` | 0.786rem (~11px) | Uppercase section labels |
+| `--text-badge` | 0.714rem (~10px) | Live badges, tiny indicators |
+
+### Color System
+
+All values are CSS custom properties in `frontend/src/app.css`.
+
+**Backgrounds (6-step near-black-green scale):**
+| Token | Value | Use |
+|---|---|---|
+| `--color-bg-0` | `#0a0c0b` | Page base, sidebar deepest layer |
+| `--color-bg-1` | `#0f1211` | Sidebar surface |
+| `--color-bg-2` | `#141817` | Card backgrounds |
+| `--color-bg-3` | `#1a1e1c` | Table headers, elevated surfaces |
+| `--color-bg-4` | `#212624` | Hover states, inputs |
+| `--color-bg-5` | `#2a302d` | Highlighted items, selected rows |
+
+**Text (5-level hierarchy):**
+| Token | Value | Use |
+|---|---|---|
+| `--color-text-bright` | `#eae7e2` | H1s, dialog headings |
+| `--color-text-primary` | `#d0cdc6` | Body copy, primary labels |
+| `--color-text-secondary` | `#9b9790` | Secondary labels, descriptions |
+| `--color-text-tertiary` | `#6b6862` | Hints, placeholders |
+| `--color-text-muted` | `#454340` | Dividers as text, ultra-subtle |
+
+**Accent (sage green — use sparingly, must feel earned):**
+| Token | Value | Use |
+|---|---|---|
+| `--color-accent` | `#5e8c58` | Primary CTA, live indicators, focus rings, active nav |
+| `--color-accent-mid` | `#89a785` | Hover accent text |
+| `--color-accent-bright` | `#a4c89f` | Accent on dark backgrounds |
+| `--color-accent-glow` | `rgba(94,140,88,0.07)` | Subtle tinted backgrounds |
+| `--color-accent-glow-mid` | `rgba(94,140,88,0.14)` | Hover tint on accent items |
+
+**Status semantics:**
+| Token | Value | Use |
+|---|---|---|
+| `--color-amber` | `#d4a73c` | Warning, paused state |
+| `--color-red` | `#cf8172` | Error, destructive actions |
+| `--color-blue` | `#5a9fd4` | Info, neutral system states |
+
+**Borders:** `--color-border` (`#1f2321`) default; `--color-border-mid` (`#2a2f2c`) for inputs/hover.
+
+### Component Patterns
+
+**Buttons:**
+- Primary: solid sage green (`--color-accent`), hover brightness boost + micro-lift (`-translate-y-px`)
+- Secondary: bordered (`--color-border-mid`), text transitions to accent on hover
+- Danger: red text + subtle red background on hover
+- All: `transition-all duration-150`
+
+**Inputs:**
+- Border `--color-border`, background `--color-bg-2`; focus transitions border and icon to accent
+- Group focus pattern: `group` wrapper + `group-focus-within:text-[var(--color-accent)]` on icon
+
+**Tables / data lists:**
+- Grid layout; header `bg-3` + uppercase `--text-label`; row hover `hover:bg-[var(--color-bg-3)]`
+- Status stripe: left border color matches sandbox state
+
+**Status indicators:** Running = animated ping + sage green dot; Paused = amber dot; Stopped = muted gray. Color is never the sole differentiator.
+
+**Modals & dialogs:** Border + shadow only — no accent gradient bars/strips. `fadeUp` 0.35s entrance.
+
+**Empty states:** Large icon with glow, Instrument Serif heading, secondary body text, CTA below, `iconFloat` 4s animation.
+
+**Animations (always respect `prefers-reduced-motion`):** `fadeUp` (entrance), `status-ping` (live indicator), `iconFloat` (empty states), `spin-once` (refresh), staggered `animation-delay` on lists.
+
+### Design Principles
+
+1. **Precision over friendliness.** Every element earns its place. Wrenn doesn't need to tell you it's developer-friendly — that should be self-evident from the quality of the information architecture.
+
+2. **Density with breathing room.** Data-forward doesn't mean cramped. Strategic whitespace creates calm hierarchy within dense contexts. Sections breathe; rows don't waste space.
+
+3. **Industrial warmth.** The serif + mono + warm-black combination prevents sterility. This is a forge, not a gallery. The warmth is in the details, not the primary colors.
+
+4. **Legible at speed.** Users scan dashboards in seconds. Strong typographic contrast (serif h1, mono IDs, sans body), consistent patterns, and predictable placement let users orientate instantly without reading everything.
+
+5. **Craft signals trust.** For infrastructure that runs production code, the quality of the UI is a proxy for the quality of the product. Pixel-level decisions matter. Polish is not decoration — it's a trust signal.
+
+<!-- code-review-graph MCP tools -->
+## MCP Tools: code-review-graph
+
+**IMPORTANT: This project has a knowledge graph. ALWAYS use the
+code-review-graph MCP tools BEFORE using Grep/Glob/Read to explore
+the codebase.** The graph is faster, cheaper (fewer tokens), and gives
+you structural context (callers, dependents, test coverage) that file
+scanning cannot.
+
+### When to use graph tools FIRST
+
+- **Exploring code**: `semantic_search_nodes` or `query_graph` instead of Grep
+- **Understanding impact**: `get_impact_radius` instead of manually tracing imports
+- **Code review**: `detect_changes` + `get_review_context` instead of reading entire files
+- **Finding relationships**: `query_graph` with callers_of/callees_of/imports_of/tests_for
+- **Architecture questions**: `get_architecture_overview` + `list_communities`
+
+Fall back to Grep/Glob/Read **only** when the graph doesn't cover what you need.
+
+### Key Tools
+
+| Tool | Use when |
+|------|----------|
+| `detect_changes` | Reviewing code changes — gives risk-scored analysis |
+| `get_review_context` | Need source snippets for review — token-efficient |
+| `get_impact_radius` | Understanding blast radius of a change |
+| `get_affected_flows` | Finding which execution paths are impacted |
+| `query_graph` | Tracing callers, callees, imports, tests, dependencies |
+| `semantic_search_nodes` | Finding functions/classes by name or keyword |
+| `get_architecture_overview` | Understanding high-level codebase structure |
+| `refactor_tool` | Planning renames, finding dead code |
+
+### Workflow
+
+1. The graph auto-updates on file changes (via hooks).
+2. Use `detect_changes` for code review.
+3. Use `get_affected_flows` to understand impact.
+4. Use `query_graph` pattern="tests_for" to check coverage.
+
+---
+> Source: [wrennhq/wrenn](https://github.com/wrennhq/wrenn) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-25 -->
