@@ -1,0 +1,9 @@
+{
+  "name": "lin-guanguo--llm-agent-research",
+  "displayName": "llm-agent-research",
+  "description": "Agent control-flow architecture research: source-level analysis of 8+ frameworks (Mastra, Google ADK, LangGraph, LangChain, CrewAI, AgentScope, Pydantic AI, Dify). Sister repo to llm-memory-research.",
+  "version": "1.0.0",
+  "author": "Lin-Guanguo",
+  "homepage": "https://github.com/Lin-Guanguo/llm-agent-research",
+  "skills": []
+}
