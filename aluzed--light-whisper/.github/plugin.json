@@ -1,0 +1,9 @@
+{
+  "name": "aluzed--light-whisper",
+  "displayName": "light-whisper",
+  "description": "Light-Whisper app for Linux, Mac and Windows. Built with Tauri, Whisper and Parakeet.",
+  "version": "1.0.0",
+  "author": "aluzed",
+  "homepage": "https://github.com/aluzed/light-whisper",
+  "skills": []
+}
