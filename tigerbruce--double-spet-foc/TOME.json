@@ -1,0 +1,44 @@
+{
+  "name": "Double_SPET_FOC",
+  "owner": "TigerBruce",
+  "repo": "Double_SPET_FOC",
+  "description": "\u53cc\u8f74\u6b65\u8fdb\u4f3a\u670d FOC \u63a7\u5236\u5668 \u2014 \u5c06\u4e24\u76f8\u6df7\u5408\u5f0f\u6b65\u8fdb\u7535\u673a\u53d8\u6210\u95ed\u73af\u4f3a\u670d\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TigerBruce/Double_SPET_FOC",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T22:32:03Z"
+}
