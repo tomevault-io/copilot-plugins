@@ -1,0 +1,9 @@
+{
+  "name": "n-r-w--pi-agent-suite",
+  "displayName": "pi-agent-suite",
+  "description": "Adds a configurable multi-agent layer to Pi Agent, with context management, MCP support, Codex quota status, a custom footer, and more.",
+  "version": "1.0.0",
+  "author": "n-r-w",
+  "homepage": "https://github.com/n-r-w/pi-agent-suite",
+  "skills": []
+}
