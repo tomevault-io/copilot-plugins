@@ -1,0 +1,9 @@
+{
+  "name": "mindstone--mcp-servers",
+  "displayName": "mcp-servers",
+  "description": "Production-ready MCP connectors for popular SaaS tools. Works with Claude Desktop, Cursor, Rebel, and any MCP host.",
+  "version": "1.0.0",
+  "author": "mindstone",
+  "homepage": "https://github.com/mindstone/mcp-servers",
+  "skills": []
+}
