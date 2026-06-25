@@ -4,7 +4,7 @@
   "repo": "claude-code-extensions",
   "description": "These are a collection of extension for Claude Code that can typically also be used in opencode. ",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -42,18 +42,6 @@
       "name": "tauri-v2",
       "path": ".claude/skills/tauri-v2",
       "github_url": "https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/tauri-v2",
-      "description": ""
-    },
-    {
-      "name": "esphome-config-helper",
-      "path": ".claude/skills/esphome-config-helper",
-      "github_url": "https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/esphome-config-helper",
-      "description": ""
-    },
-    {
-      "name": "kubernetes-operations",
-      "path": ".claude/skills/kubernetes-operations",
-      "github_url": "https://github.com/nodnarbnitram/claude-code-extensions/tree/main/.claude/skills/kubernetes-operations",
       "description": ""
     },
     {
@@ -109,9 +97,15 @@
       "path": "templates/skill-skeleton",
       "github_url": "https://github.com/nodnarbnitram/claude-code-extensions/tree/main/templates/skill-skeleton",
       "description": ""
+    },
+    {
+      "name": "kubernetes-health",
+      "path": "plugins/cce-kubernetes/skills/kubernetes-health",
+      "github_url": "https://github.com/nodnarbnitram/claude-code-extensions/tree/main/plugins/cce-kubernetes/skills/kubernetes-health",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/nodnarbnitram/claude-code-extensions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T18:30:07Z"
+  "distributed_at": "2026-06-25T02:52:14Z"
 }
