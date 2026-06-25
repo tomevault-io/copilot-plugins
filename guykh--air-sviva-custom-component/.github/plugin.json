@@ -1,0 +1,9 @@
+{
+  "name": "guykh--air-sviva-custom-component",
+  "displayName": "air-sviva-custom-component",
+  "description": "Home Assistnat Custom Component for Air Quality from Israeli Ministry of Environmental Protection monitors",
+  "version": "1.0.0",
+  "author": "GuyKh",
+  "homepage": "https://github.com/GuyKh/air-sviva-custom-component",
+  "skills": []
+}
