@@ -4,7 +4,7 @@
   "repo": "agentbot-opensource",
   "description": "Open-source multi-tenant AI agent platform. Docker isolation, multi-channel, SIWE auth. Built on OpenClaw + Base. Our token is community-run. Agentbot builds the platform, while the market belongs to the community. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Eskyee/agentbot-opensource",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T18:53:13Z"
+  "distributed_at": "2026-06-25T18:55:50Z"
 }
