@@ -1,185 +1,176 @@
-## comm-protocol-knowledge
+## unnamed-skill
 
-> RK3576 ↔ STM32G474 通信协议模块知识库
+> M1 换新电机后的极对数配置与开环测试规程
 
 
-# RK3576 通信协议模块
+# M1 新电机: 极对数配置 + 开环测试
 
-## 架构概览
+> **前提**: 电流环校准已完成 (Rs/Ls/PI 已写入 Flash)
 
-```
-RK3576 (Linux)  ──── UART 1152000 8N1 ────  STM32G474 (FOC 控制器)
-                PB6(TX) / PB7(RX)
-字节序: 小端 (Little-Endian), 与双方 CPU 原生字节序一致
-```
+---
 
-### 数据流
+## 一、确定新电机极对数
 
-```
-RX 路径:
-  USART1_RDR → DMA1_CH2 Circular → s_rxBuf[128]
-  USART1 IDLE ISR (优先级 6) → 更新 s_rxWrIdx (读 DMA NDTR)
-  while(1) Protocol_Poll() → 帧解析 + CRC + 命令派发
+步进电机极对数 = 360° / 步距角 / 2
 
-TX 路径:
-  TIM4 ISR (1kHz, 优先级 10) → Comm_OnTIM4_1ms()
-    PROTOCOL 模式 → build_status_frame() → s_txBuf → DMA1_CH1 发送
-    VOFA 模式     → 设 DMA MemAddr=&g_VofaFrame → Vofa_OnTIM4_1ms()
+| 步距角 | 全步/圈 | 极对数 |
+|--------|---------|--------|
+| 1.8°   | 200     | **50** |
+| 0.9°   | 400     | **100** |
+| 其他   | 360/θ   | (360/θ)/2 |
 
-TX DMA 共享:
-  协议状态帧 和 VOFA 帧 共用 DMA1_CH1 → USART1_TDR
-  Comm_OnTIM4_1ms() 在 DMA 启动前设 MemoryAddress 确保源缓冲区正确
-```
+**务必从电机规格书确认步距角**, 不要猜。
 
-## 文件结构
+---
 
-| 文件 | 职责 |
-|---|---|
-| `comm_protocol.h` | 类型/常量/帧格式结构体(packed+static_assert)/命令枚举/API 声明 |
-| `comm_protocol.c` | CRC-CCITT 查表, RX DMA 初始化, IDLE, 环形缓冲解析, 命令派发, 状态帧 TX, 看门狗 |
-| `stm32g4xx_it.c` | USART1_IRQHandler (IDLE), TIM3 看门狗递增, TIM4 改调 Comm_OnTIM4_1ms() |
-| `main.c` | Comm_Init() + while(1) Protocol_Poll() + g_UpSeqNo++ |
+## 二、修改代码 (3 处宏, 均在 `main.h`)
 
-## 帧格式
+### 2.1 极对数
 
-```
-[0xAA][0x55][Len(1B)][Payload(N B)][CRC16(2B, 小端)]
-CRC-CCITT: poly=0x1021, init=0xFFFF, 无反射, 无最终异或
-覆盖范围: Header + Len + Payload (即帧中除 CRC 本身外所有字节)
-测试向量: CRC("123456789") = 0x29B1
-最小帧: 6B, 最大: 2+1+64+2 = 69B
+```185:185:Core/Inc/main.h
+#define M1_POLE_PAIRS     100U   /* 0.9° 步距角: 400步/圈, 100极对 */
 ```
 
-## 状态帧结构 (48B 总帧长)
-
-```
-Payload (43B):
-  [0]     CmdID=0x80     [1]  TxSeqNo     [2]  LastRxSeq    [3]  UpSeqNo
-  [4]     ProtoVer=1     [5]  SysFlags    [6]  LastCmdResult
-  [7:8]   Vbus_mV        [9:10] CrcErrCount
-  ---- M1 (16B) ----
-  [11]    CtrlMode       [12] Flags
-  [13:16] Speed_mRPM     (i32, 0.001 RPM = milliRPM)
-  [17:20] PosFbk         (i32, encoder counts)
-  [21:22] Id_mA          [23:24] Iq_mA     [25:26] Id_Eff_mA
-  ---- M2 (16B) ----
-  [27:42] (与 M1 相同)
+改为新电机的极对数, 例如 50 对:
+```c
+#define M1_POLE_PAIRS     50U    /* 1.8° 步距角: 200步/圈, 50极对 */
 ```
 
-## CAPS 响应 (14B 总帧长)
+**影响范围** (无需逐个改, 宏自动生效):
+- ISR: `g_Enc1_Angle * M1_POLE_PAIRS` → 电角度计算
+- ISR: `M1_OpenLoop_IncAngle_Ref()` → 开环角度递增的 frac_acc 除法
+- main.c: `RPM_to_AngleDelta(rpm, M1_POLE_PAIRS, ...)` → RPM→电角度步进
+- KTH71 校准: `KTH71_RPM_TO_DELTA(rpm, M1_POLE_PAIRS, ...)` → 校准转速
+
+### 2.2 开环斜坡分频 (可能需要调)
+
+```187:187:Core/Inc/main.h
+#define M1_RAMP_DIV       2U     /* M1 开环斜坡分频: delta 每 N 个 ISR 才 ±1 (高电感需慢加速) */
+```
+
+- **高电感电机** (Ls > 15mH): `M1_RAMP_DIV = 2~4` (加速慢, 防丢步)
+- **低电感电机** (Ls < 10mH): `M1_RAMP_DIV = 1` (与 M2 一致, 无需分频)
+- 判断依据: 看电流环校准出的 Ls 值
+
+### 2.3 编码器方向
+
+```188:188:Core/Inc/main.h
+#define M1_ENC_DIR        (1)    /* M1 编码器方向: +1=同向, -1=反向 (已通过交换接线修正) */
+```
+
+开环正转时 `g_Enc1_SpeedFilt` 应为正数:
+- 若同号 → 保持 `+1`
+- 若反号 → 改 `-1` (或交换编码器接线)
+
+---
+
+## 三、开环测试
+
+### 3.0 前置确认
+
+| 条件 | 预期值 | Live Watch 变量 |
+|------|--------|-----------------|
+| 控制模式 | 0 (开环) | `g_M1_CtrlMode` |
+| 力矩指令 | 50 mA (默认) | `g_M1_Iq_Ref_mA` |
+| 转速指令 | 400 RPM (默认) | `g_M1_RPM_Cmd` |
+| VOFA 数据源 | 1 (NORMAL) | `g_VofaSrc` |
+| VOFA 电机选择 | 1 (M1) | `g_VofaMotorSel` |
+
+> 默认值 `g_M1_Iq_Ref_mA=50`, `g_M1_RPM_Cmd=400` 已在 `main.c` 初始化,
+> 上电即自动开环旋转。
+
+### 3.1 上电观察
+
+1. **编译烧录**, 上电后 M1 应自动开环旋转
+2. **Live Watch 检查**:
+   - `g_Enc1_SpeedFilt` ≈ ±400 RPM (符号取决于 M1_ENC_DIR)
+   - `g_M1_Idq.q` ≈ 对应 50mA (Q15 ≈ 50 × 32768 / 825 ≈ 1986)
+3. **VOFA 波形** (NORMAL 模式, `g_VofaMotorSel=1`):
+
+- **I0** 原始转速 (RPM) — 预期 ≈ ±400, 有量化噪声 (编码器差分, 未滤波)
+- **I1** 滤波转速 (RPM) — 预期 ≈ ±400, 平滑 (一阶低通, PI 反馈信号)
+- **I2~I5** — 全为 0 (开环模式无控制器输出; 切速度/位置模式后才有数据)
+- **I6** Id_Eff (mA) — 预期 0 (三级自适应, 仅闭环有意义)
+- **I7** Id_fbk (mA) — 预期 ≈ 0 (d 轴电流反馈, 开环应接近零)
+- **I8** Iq_fbk (mA) — 预期 ≈ 50 (q 轴电流反馈, 应接近 Iq_Ref)
+- **I9** VqSat 报警 — 预期 0 (0=正常, 1000=Vq 饱和)
+
+### 3.2 方向验证
+
+| 观察 | 正确 | 错误 → 修复 |
+|------|------|-------------|
+| `g_M1_RPM_Cmd = 400`, `g_Enc1_SpeedFilt` > 0 | 方向一致 | — |
+| `g_M1_RPM_Cmd = 400`, `g_Enc1_SpeedFilt` < 0 | 方向相反 | `M1_ENC_DIR` 改 `-1` |
+
+### 3.3 转速扫描 (验证极对数正确)
+
+极对数错误的典型表现: **电机抖动/啸叫/不转, 或实际转速是指令的整数倍/分数**
+
+1. 先给低速: `g_M1_RPM_Cmd = 100`
+   - 正常: `g_Enc1_SpeedFilt ≈ 100`, 电机平滑慢转
+   - 异常: 转速远偏 100, 或电机卡顿 → 极对数可能不对
+2. 提高到 `g_M1_RPM_Cmd = 400`
+   - 正常: 平滑加速到 ~400 RPM
+3. 尝试反转: `g_M1_RPM_Cmd = -400`
+   - 应反向旋转, `g_Enc1_SpeedFilt ≈ -400`
+
+### 3.4 Iq 扫描 (验证力矩裕量)
+
+| g_M1_Iq_Ref_mA | 预期 |
+|-----------------|------|
+| 30 | 低力矩, 可能 400RPM 带不动 → 降速测 |
+| 50 | 默认, 大多数电机够用 |
+| 100 | 高力矩, 高速更稳 (注意发热) |
+
+### 3.5 常见异常 & 排查
+
+- **电机完全不转** — 原因: Iq 太小 / 极对数严重错误 → 提高 Iq 到 100; 验证极对数
+- **电机嗡嗡振动不旋转** — 原因: 极对数错误 (电角度增量不匹配) → 用手掰能否断续转动, 重新确认步距角
+- **转但速度不对** — 原因: 极对数不匹配 → 实际RPM/指令RPM = 实际pp/设置pp, 反推
+- **转速正确但个别位置卡顿** — 原因: 编码器 INL × 极对数放大 → 若 100pp 考虑换低pp电机或做 INL 补偿
+- **高速丢步 (>600RPM)** — 原因: `M1_RAMP_DIV` 太小 / 高电感 → 增大 `M1_RAMP_DIV` 或降低目标转速
+- **方向不一致 (正指令负反馈)** — 原因: `M1_ENC_DIR` 反了 → 改 `-1` 或交换编码器接线
+
+---
+
+## 四、开环正常后的下一步
+
+完成开环验证后, 按顺序执行:
 
 ```
-Payload (9B):
-  [0]   CmdID=0x81    [1:2] FwVersion(u16)   [3] ProtoVer
-  [4]   AxisCount=2   [5:8] Features(u32, bitmask)
+1. KTH71 ANLC 校准 → g_DoKth71Calib_M1 = 1
+   (详见 m1-encoder-calib.mdc)
 
-Features: bit0=VOFA, bit1=Follow, bit2=FlashParams, bit3=CurrCalib,
-          bit4=KTH71Calib, bit5=ZeroCalib, bit6=StepCapture
+2. 电角度零点标定 → g_DoZeroCalib_M1 = 1
+   (详见 m1-encoder-calib.mdc)
+
+3. 闭环测试 → g_M1_CtrlMode = 1 (速度模式)
+   给 g_M1_RPM_Cmd = 100, 观察跟踪
 ```
 
-## 速度分辨率
+---
 
-- 协议层: **int32_t milliRPM (0.001 RPM)**, 范围 ±2,147,483 RPM
-- 固件内部: `g_EncX_SpeedFilt` 是 int32_t RPM 整数, 频率法分辨率约 1 RPM
-- 状态帧: `speed_mrpm = SpeedFilt * 1000` — 忠实传递固件数据
-- **后续优化**: 改用周期测量法可将内部分辨率提升到 0.01 RPM 量级
+## 五、Live Watch 快速操作清单
 
-## 命令总表
-
-| CmdID | 名称 | Payload大小(含CmdID) | 帧总长 | 频率 | 状态 |
-|---|---|---|---|---|---|
-| 0x01 | QUERY_CAPS | 1B | 6B | 握手 | ✅ |
-| 0x10 | SET_MOTION | 6B | 11B | ≤200Hz | ✅ |
-| 0x11 | SET_POSITION | 6B | 11B | 偶发 | ✅ |
-| 0x12 | SET_IQ_REF | 5B/9B/13B | 10B/14B/18B | 偶发 | ✅ (v3: +Id+AngleDelta) |
-| 0x20 | SET_CTRL_MODE | 3B | 8B | 偶发 | ✅ |
-| 0x21 | SET_FOLLOW | 2B | 7B | 偶发 | ✅ |
-| 0x30 | SET_SPEED_PI | 10B | 15B | 偶发 | ✅ |
-| 0x31 | SET_POS_PID | 14B | 19B | 偶发 | TODO |
-| 0x32 | SET_ID_ADAPT | 8B | 13B | 偶发 | TODO |
-| 0x33 | SET_RAMP_RATE | 4B | 9B | 偶发 | TODO |
-| 0x40~0x42 | 校准触发 | 2B | 7B | 偶发 | ✅ |
-| 0x43 | FLASH_UNLOCK | 1B | 6B | 偶发 | ✅ |
-| 0x44 | FLASH_ERASE | 3B | 8B | 偶发 | ✅ |
-| 0x50 | QUERY_STATUS | 1B | 6B | 按需 | ✅ |
-| 0x51 | SET_VOFA_MODE | 3B | 8B | 调试 | ✅ |
-| 0x52 | EXIT_VOFA | 1B | 6B | 调试 | ✅ |
-| 0x53 | SET_STATUS_RATE | 3B | 8B | 偶发 | ✅ |
-
-## 看门狗
-
-- `g_CommWatchdogMs`: TIM3 ISR 每 1ms 无条件递增, Protocol_Poll 中有效帧清零
-- 超时阈值: `g_CommTimeoutMs` 默认 200ms
-- 超时动作: 切开环 + Iq/Id 归零 (零电流自由滑行)
-- RK3576 空闲时至少 5Hz 发 QUERY_STATUS 保活
-- **校准期间放宽**: handle_trig_calib() 设 g_CommTimeoutMs=20000, PollCalibTriggers() 完成后恢复 200
-
-## 与 VOFA 共存
-
-- `g_CommMode`: COMM_MODE_PROTOCOL (默认, 上电) / COMM_MODE_VOFA
-- `vofa_engine.c` 完全不修改
-- VOFA 模式切换: CMD_SET_VOFA_MODE (0x51) / CMD_EXIT_VOFA (0x52)
-- VOFA 模式下仍可收命令 (Protocol_Poll 持续运行)
-- VOFA 模式下 QUERY_STATUS 可临时插入一帧状态帧
-- DMA 源地址切换: PROTOCOL 用 s_txBuf, VOFA 用 &g_VofaFrame
-
-## NVIC 优先级 (以 CubeMX .ioc 生成为准, PRIORITYGROUP_4)
-
-| 优先级 | 中断 | 说明 |
-|---|---|---|
-| 0 | HRTIM1 FLT | 硬件故障保护 |
-| 1 | ADC1_2 (17kHz) | FOC 电流环 |
-| 2 | HRTIM1 Master | PWM 周期更新 |
-| 3 | TIM3 (1kHz) | 速度环/位置环/校准/看门狗递增 |
-| 7 | DMA1_CH2 (RX完成) | CubeMX 配, Comm_Init 已禁用 |
-| 8 | DMA1_CH1 (TX完成) | CubeMX 配, TX DMA 完成清理 |
-| 9 | USART1 (IDLE) | CubeMX 配, RX 写指针更新 |
-| 10 | TIM4 (1kHz) | 通信 TX / VOFA 发送 |
-| 15 | SysTick | HAL_IncTick |
-
-> 中断优先级由 CubeMX 统一管理, 代码中不手动设置 NVIC_SetPriority。
-
-## 全局变量
-
-| 变量 | 定义位置 | 用途 |
-|---|---|---|
-| `g_CommMode` | comm_protocol.c | PROTOCOL / VOFA 模式切换 |
-| `g_UpSeqNo` | comm_protocol.c | while(1) 递增, 主循环存活证明 |
-| `g_CrcErrCount` | comm_protocol.c | CRC 校验失败累计 |
-| `g_CommWatchdogMs` | comm_protocol.c | 看门狗计数 (TIM3 每 1ms 无条件递增) |
-| `g_CommTimeoutMs` | comm_protocol.c | 看门狗超时阈值, 默认 200ms |
-
-## CubeMX 注意事项
-
-- **USART1_IRQn**: CubeMX 已启用, 优先级 (9,0), NVIC 配置由 MX_USART1_UART_Init() 完成
-- **DMA1_CH1**: 优先级 (8,0), TX DMA 完成
-- **DMA1_CH2**: 优先级 (7,0), Comm_Init() 中已禁用 (Circular 不需要完成中断)
-- **USART1_IRQHandler**: 定义在 CubeMX 生成的 stm32g4xx_it.c, IDLE 处理代码放在 USER CODE BEGIN USART1_IRQn 0
-- **Comm_Init() 不再设 NVIC**: 仅做 DMA 地址绑定 + LL_USART_EnableIT_IDLE, NVIC 全部由 CubeMX 管理
-- **中断优先级只由 CubeMX 管理**, 代码中不手动调用 NVIC_SetPriority
-- 如重新生成代码, 需确认 USER CODE 区域保留
-
-## volatile 共享变量
-
-ISR (TIM4) 和 while(1) 之间共享的 static 变量:
-- `s_lastRxSeq` / `s_lastCmdResult` / `s_pendingCapsRsp` / `s_forceStatusOnce` — 均已标 volatile
-- while(1) 写, TIM4 ISR 读 → volatile 确保编译器不优化掉读取
-
-## 待实现 / 后续迭代
-
-- [x] SET_SPEED_PI (0x30) 已实现: Motor(u8)+kp(f32)+ki(f32)=9B
-- [x] SET_IQ_REF 扩展: 4B/8B/12B 可选 (含 Id + AngleDelta), 向后兼容
-- [x] watchdog_safety_action + IQ_REF 超时均清零 AngleDelta_Target
-- [x] 校准看门狗: handle_trig_calib 放宽 20s, PollCalibTriggers 完成后恢复 200ms
-- [ ] SET_POS_PID / SET_ID_ADAPT / SET_RAMP_RATE 参数设置命令
-- [ ] 速度估算改周期测量法, 提升低速分辨率
-- [x] g_CommWatchdogMs 递增已在 TIM3 ISR 中添加 (无条件, 优先于校准/速度环)
-- [x] NVIC 优先级已由 CubeMX 统一配置: DMA1_CH1=8, DMA1_CH2=7, USART1=9
-- [ ] I²t 热保护模型
-- [ ] SET_MOTION 的 M2_target 限幅需与实际机械限位对齐
-- [ ] 模式切换原子边界 (TIM3 ISR 生效 + Iq 斜坡归零)
-- [ ] 校准改非阻塞状态机 (ZeroCalib + KTH71)
-- [ ] IWDG 硬件看门狗配置
+```
+┌─ 修改代码 (编译前) ──────────────────────────────┐
+│ main.h: M1_POLE_PAIRS = <新极对数>                │
+│ main.h: M1_RAMP_DIV   = <1 或 2, 看电感>          │
+│ 编译 + 烧录                                      │
+├─ 上电观察 ───────────────────────────────────────┤
+│ 1. g_VofaMotorSel    = 1     (看 M1)             │
+│ 2. g_VofaSrc         = 1     (NORMAL)            │
+│ 3. 观察 g_Enc1_SpeedFilt ≈ 400                   │
+│ 4. 观察 VOFA I0/I1 ≈ 400 RPM                     │
+├─ 方向不对? ──────────────────────────────────────┤
+│ main.h: M1_ENC_DIR = -1, 重新编译                 │
+├─ 转速/力矩扫描 ─────────────────────────────────┤
+│ 5. g_M1_RPM_Cmd     = 100 → 400 → -400           │
+│ 6. g_M1_Iq_Ref_mA   = 30 → 50 → 100             │
+├─ 全部正常 → 进入编码器校准流程 ─────────────────┤
+│ (见 m1-encoder-calib.mdc)                         │
+└──────────────────────────────────────────────────┘
+```
 
 ---
 > Source: [TigerBruce/Double_SPET_FOC](https://github.com/TigerBruce/Double_SPET_FOC) — distributed by [TomeVault](https://tomevault.io).
