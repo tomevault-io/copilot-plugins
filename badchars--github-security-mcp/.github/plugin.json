@@ -1,0 +1,9 @@
+{
+  "name": "badchars--github-security-mcp",
+  "displayName": "github-security-mcp",
+  "description": "GitHub security posture analysis for AI agents \u2014 39 MCP tools, 45 checks across org, repos, Actions, secrets, supply chain, and access control",
+  "version": "1.0.0",
+  "author": "badchars",
+  "homepage": "https://github.com/badchars/github-security-mcp",
+  "skills": []
+}
