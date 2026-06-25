@@ -1,0 +1,44 @@
+{
+  "name": "obsidian-salt-dashboard",
+  "owner": "Kuro96",
+  "repo": "obsidian-salt-dashboard",
+  "description": "A grid-based, responsive dashboard for Obsidian. View dates, manage tasks, track habits, and render custom JSX widgets directly in your vault.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Kuro96/obsidian-salt-dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T20:45:51Z"
+}
