@@ -1,0 +1,9 @@
+{
+  "name": "kovyrin--agent-secret",
+  "displayName": "agent-secret",
+  "description": "A simple MacOS helper for safer exposure of secrets to your agents",
+  "version": "1.0.0",
+  "author": "kovyrin",
+  "homepage": "https://github.com/kovyrin/agent-secret",
+  "skills": []
+}
