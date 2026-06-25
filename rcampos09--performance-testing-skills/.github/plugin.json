@@ -1,0 +1,9 @@
+{
+  "name": "rcampos09--performance-testing-skills",
+  "displayName": "performance-testing-skills",
+  "description": "Open-source Claude Code skills for performance and load testing. Install any skill to get AI-guided test generation for your stack.",
+  "version": "1.0.0",
+  "author": "rcampos09",
+  "homepage": "https://github.com/rcampos09/performance-testing-skills",
+  "skills": []
+}
