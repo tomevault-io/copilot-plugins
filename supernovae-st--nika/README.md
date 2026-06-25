@@ -7,11 +7,11 @@ Inference as Code | 5 YAML verbs to orchestrate any AI, Rust engine, 9 providers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [supernovae-st/nika](https://github.com/supernovae-st/nika).
+Original source: `AGENTS.md` in [supernovae-st/nika](https://github.com/supernovae-st/nika).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
