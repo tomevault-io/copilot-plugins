@@ -7,11 +7,11 @@ Sandbox any AI agent in seconds - zero setup, zero latency.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nolabs-ai/nono](https://github.com/nolabs-ai/nono).
+Original source: `CLAUDE.md` in [nolabs-ai/nono](https://github.com/nolabs-ai/nono).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
