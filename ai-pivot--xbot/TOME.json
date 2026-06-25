@@ -4,7 +4,7 @@
   "repo": "xbot",
   "description": "Extensible AI agent framework in Go \u2014 multi-channel (Feishu/Slack/CLI), sandboxed tool execution, MCP integration, multi-tenant sessions",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai-pivot/xbot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T00:40:01Z"
+  "distributed_at": "2026-06-25T00:40:32Z"
 }
