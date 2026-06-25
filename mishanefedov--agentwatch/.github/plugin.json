@@ -1,0 +1,9 @@
+{
+  "name": "mishanefedov--agentwatch",
+  "displayName": "agentwatch",
+  "description": "Local-only observability for AI agents on your machine. One timeline across coding and non-coding agents.",
+  "version": "1.0.0",
+  "author": "mishanefedov",
+  "homepage": "https://github.com/mishanefedov/agentwatch",
+  "skills": []
+}
