@@ -33189,6 +33189,16 @@
       "description": "magic-slide"
     },
     {
+      "name": "dwebagents--agentpipe",
+      "source": "./dwebagents--agentpipe",
+      "description": "High performance multithreaded task execution and optimization engine for agents and dweb apps"
+    },
+    {
+      "name": "dwebagents--agentpipe",
+      "source": "./dwebagents--agentpipe",
+      "description": "High performance multithreaded task execution and optimization engine for agents and dweb apps"
+    },
+    {
       "name": "qingquanyao--xilinx-skill",
       "source": "./qingquanyao--xilinx-skill",
       "description": "Xilinx/AMD FPGA & MPSoC Vivado design skill for Claude \u2014 covers block design, IP config, XDC constraints, synthesis, implementation and bitstream generation."
@@ -182607,6 +182617,16 @@
       "name": "vineetu--jot-transcribe",
       "source": "./vineetu--jot-transcribe",
       "description": "JOT-Transcribe"
+    },
+    {
+      "name": "taicode-labs--clarify",
+      "source": "./taicode-labs--clarify",
+      "description": "An open-source documentation publishing tool built for MDX and OpenAPI. Seamlessly combine markdown, interactive JSX components, and API specifications to create modern, developer-friendly docs."
+    },
+    {
+      "name": "bruits--zoecss",
+      "source": "./bruits--zoecss",
+      "description": "An on-demand Atomic CSS engine, with a strong focus on performance and extensibility \u2622\ufe0f"
     },
     {
       "name": "yschimke--compose-ai-tools",
