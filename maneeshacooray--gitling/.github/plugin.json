@@ -1,0 +1,9 @@
+{
+  "name": "maneeshacooray--gitling",
+  "displayName": "Gitling",
+  "description": "Git client for Android, built with Jetpack Compose and Material 3 Expressive. One-tap GitHub sign-in, no ads, no tracking.",
+  "version": "1.0.0",
+  "author": "maneeshacooray",
+  "homepage": "https://github.com/maneeshacooray/Gitling",
+  "skills": []
+}
