@@ -1,0 +1,9 @@
+{
+  "name": "jeorrysyd--prism",
+  "displayName": "Prism",
+  "description": "A configurable personal AI workspace \u2014 notes, podcasts, writing, self-exploration. Pluggable AI providers (Claude CLI, Anthropic API, OpenAI).",
+  "version": "1.0.0",
+  "author": "Jeorrysyd",
+  "homepage": "https://github.com/Jeorrysyd/Prism",
+  "skills": []
+}
