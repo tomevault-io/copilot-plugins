@@ -1,0 +1,129 @@
+## nika
+
+> Guidance for AI coding agents (Claude Code, Cursor, Aider, etc.) working in
+
+# AGENTS — Nika Diamond
+
+Guidance for AI coding agents (Claude Code, Cursor, Aider, etc.) working in
+this repository. This is the public AGENTS counterpart to the
+`.claude/` rules — a single page that any agent can read on entry.
+
+## Repository snapshot
+
+| Field   | Value |
+|---------|-------|
+| Branch  | `main` (orphan, no shared history with `brouillon` · renamed 2026-05-06 from `nika-diamond` per Option C-full) |
+| Workspace | 0.90.0 (RC-grade) · real semver toward a 1.0 launch (amended D-2026-06-20-N1 · ADR-002) |
+
+**Live numbers live in ONE place** — the AUTO-GENERATED block in
+`.claude/CLAUDE.md` (regenerate: `bash scripts/refresh-status.sh` ·
+parity-enforced by hygiene vector 23). This file used to carry a
+hand-typed copy of that table and drifted badly (said 8 crates / 905
+tests while the block said 18 / 1267) — counts are never hand-typed
+here again. Architecture worth knowing on entry: the kernel is 4
+sibling crates (`nika-kernel-{core,ai,runtime,plugin}`) behind the
+`nika-kernel` facade hub (split 2026-06-10 · census forensic at
+`docs/architecture/kernel-split-census-2026-06-10.md`) · errors speak
+the `NikaErrorCode` trait + `nika_error::codes` registry (one-voice ·
+`docs/architecture/error-trait-completeness-2026-06-10.md`).
+
+## What to read first
+
+0. `llms.txt` — the agent on-ramp (curated index of every doc below, in order).
+1. `README.md` — user-facing overview + current state.
+2. `DIAMOND.md` — the Diamond rewrite philosophy.
+3. `docs/architecture/forward-compat-invariants.md` — 8 patterns, 10 rules, non-negotiable.
+4. `docs/architecture/crate-layer-registry.md` — L0 to L4 layer discipline.
+5. `ROADMAP.md` — real-semver plan toward 1.0 (amended D-2026-06-20-N1 · was "forever-v0.x"): latest tagged release 0.90.0 (RC-grade), `main` on the next dev version → 1.0.0 launch → 1.x adds the remaining crates.
+6. `.claude/CLAUDE.md` + `.claude/rules/` — project-specific enforcement.
+7. `docs/architecture/VISION_2040_intelligence-layer.md` — the long-horizon
+   direction (LSP, workflow generator, agent-comprehension, Connectome, Nika-OS).
+
+**Writing a `.nika.yaml` workflow?** That is a LANGUAGE task, not an
+engine task — follow the deterministic protocol in the spec repo:
+instantiate a template (`nika-spec/templates/` · 6 valid skeletons),
+fill the SLOT lines, validate, repair from the error. Protocol:
+`nika-spec/AGENTS.md` §Writing a workflow ·
+https://docs.nika.sh/guides/agent-authoring.
+
+## Hard rules (non-negotiable)
+
+- `brouillon` branch is **read-only** (legacy v0.79.3 reference). Access legacy code via `git show brouillon:path` only. Never `git checkout brouillon`.
+- No `.unwrap()` or `.expect(` in `src/` (use `?` propagation). Enforced by clippy + hygiene.
+- No `#[allow(dead_code)]` (delete or make `pub(crate)`).
+- Files greater than 1,500 LOC must be split. Crates greater than 15,000 LOC are rejected.
+- Every public error enum is `#[non_exhaustive]` from day one.
+- Every I/O is behind a kernel trait (ADR-006, ADR-014).
+- Commits are atomic: one logical change per commit. Co-authored by `Nika <nika@supernovae.studio>` (never "Claude").
+- No `--no-verify`, no `git add -A` / `git add .`, no `cargo test --test` (use `--lib` to avoid macOS Keychain popups).
+
+## Crate admission: 12 gates
+
+No crate enters `Cargo.toml` `members = [...]` without all 12 gates passing in the same PR. Summary:
+
+1. SPEC — `docs/crate-specs/nika-X.md`
+2. TDD — tests first, red before green
+3. IMPL — minimal, compiles, tests pass
+4. CLIPPY — 0 warnings
+5. MUTATION — greater than or equal to 90% killed
+6. PROPERTY — proptest for parsers, encoders, security paths
+7. BENCHMARKS — `benches/` if hot path
+8. DOCS — 0 `cargo doc` warnings, all pub items documented
+9. CANARY E2E — `tests/canary-X.nika.yaml`
+10. PARITY LEGACY — golden test vs `git show brouillon:...` output
+11. REVIEW SWARM — 3-agent parallel review
+12. ATOMIC COMMIT — 1 commit, `feat(nika-X): admit to workspace — all 12 gates passed`
+
+Full detail: `CONTRIBUTING.md` + `.claude/rules/diamond-discipline.md`.
+
+## Tooling agents should run
+
+```bash
+cargo test --workspace --lib              # always --lib, avoids Keychain
+cargo clippy --all-targets -- -D warnings
+cargo fmt --check
+bash scripts/hygiene/check-all.sh         # engine-internal hygiene vectors (incl.
+                                          # supply-chain cargo-deny, ADR-081 guard
+                                          # presence, error one-voice)
+bash scripts/refresh-status.sh            # regenerate canonical status block
+```
+
+Admission-tier gates (slow · run per crate when admitting, not in the suite):
+
+```bash
+bash scripts/ci/check-mutation-floor.sh <crate>   # real Gate 5 (cargo-mutants ≥90%)
+cargo deny check                                   # full supply-chain policy
+```
+
+## Code intelligence
+
+Local MCP sidecar is provided by **olympus**. Configured at user scope
+in `~/.claude.json` (private monorepo · binary built from the olympus
+OS workspace — path is machine-local, not committed here).
+Exposes three tools: `olympus_query`, `olympus_impact`, `olympus_context`.
+
+Never commit `nika/engine/.mcp.json` — this engine is a PUBLIC submodule.
+
+If olympus is unavailable, fall back to `Grep` + `Glob` + `cargo clippy`.
+
+## Scope boundaries
+
+This repository is **PUBLIC** (supernovae-st/nika). Never commit:
+
+- Brand bibles, launch plans, market research, competitive intel.
+- `.env*` files with production values, API tokens.
+- References to private monorepo paths (see monorepo hygiene vector 1).
+
+Privacy is enforced by the monorepo hygiene boundary (vector 1).
+
+## Getting help
+
+- Bug reports, feature requests: GitHub Issues.
+- Security reports: `nika@supernovae.studio` (see `SECURITY.md`).
+- Architecture questions: read the ADRs at `docs/adr/` first.
+
+Butterfly on the SuperNovae flag.
+
+---
+> Source: [supernovae-st/nika](https://github.com/supernovae-st/nika) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-25 -->
