@@ -1,0 +1,44 @@
+{
+  "name": "resume-builder-skill",
+  "owner": "cosen1024",
+  "repo": "resume-builder-skill",
+  "description": "\u7b80\u5386\u751f\u6210 Skill\uff08Codex / Claude Code/OpenCode \u7b49\uff09\uff1a\u4ee5 Markdown \u4e3a\u5185\u5bb9\u6e90\uff0c\u591a\u5957\u53ef\u5207\u6362\u6a21\u677f\u3001\u591a\u914d\u8272\u3001\u53ef\u9009\u8bc1\u4ef6\u7167\uff0cWeasyPrint \u79bb\u7ebf\u6e32\u67d3\u4e3a\u53ef\u641c\u7d22 A4 PDF\uff1b\u5185\u7f6e   STAR/\u91cf\u5316\u6da6\u8272\u4e0e JD \u5b9a\u5411\u5339\u914d\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cosen1024/resume-builder-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T02:36:17Z"
+}
