@@ -1,0 +1,44 @@
+## litellm-observatory
+
+> Testing orchestrator for LiteLLM deployments. Run test suites against LiteLLM instances and receive results via Slack.
+
+# LiteLLM Observatory - Cursor AI Rules
+
+## Project Overview
+Testing orchestrator for LiteLLM deployments. Run test suites against LiteLLM instances and receive results via Slack.
+
+## Essential Documentation
+- **Architecture**: See `ARCHITECTURE.md` for project structure and component overview
+- **Adding Test Suites**: See `docs/ADDING_TEST_SUITES.md` for complete guide
+- **Test Coverage**: See `docs/TEST_COVERAGE.md` for available test suites
+- **API Reference**: See `docs/API_REFERENCE.md` for endpoint documentation
+- **Queue System**: See `docs/QUEUE_SYSTEM.md` for concurrency control and duplicate detection
+- **Environment Variables**: See `docs/ENVIRONMENT_VARIABLES.md` for configuration
+
+## Key Patterns
+
+### Test Suites
+- All test suites inherit from `BaseTestSuite` in `litellm_observatory/test_suites/base.py`
+- Must implement `async def run(self, **params: Any) -> Dict[str, Any]`
+- Register new test suites in `litellm_observatory/models.py` TEST_SUITE_REGISTRY
+- Add to `docs/TEST_COVERAGE.md` when creating new test suites
+
+### Code Style
+- Keep docstrings concise - avoid obvious comments
+- Constants at top of file, self-explanatory names
+- Organize class methods: main/public methods first, then helper methods grouped by category with section comments
+
+### API Response Pattern
+- HTTP calls from clients to Observatory endpoints should return immediately
+- Test results are delivered via integrations (currently Slack webhook), not HTTP responses
+- Tests are queued and executed via `TestQueue` with concurrency control
+- Never block HTTP responses waiting for test completion
+- Duplicate requests (same parameters) return 409 Conflict
+
+### Testing
+- Always run `poetry run pytest` before committing
+- Test suite must be documented or `test_documentation_coverage.py` will fail
+
+---
+> Source: [BerriAI/litellm-observatory](https://github.com/BerriAI/litellm-observatory) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-25 -->
