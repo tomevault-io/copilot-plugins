@@ -1,0 +1,44 @@
+{
+  "name": "threat-forge",
+  "owner": "exit-zero-labs",
+  "repo": "threat-forge",
+  "description": "Open-source threat modeling tool with a modern canvas, git-friendly YAML files, and AI-assisted STRIDE analysis \u2014 the alternative to Microsoft's TMT that works on Mac, Windows, and Linux.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/exit-zero-labs/threat-forge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T20:41:11Z"
+}
