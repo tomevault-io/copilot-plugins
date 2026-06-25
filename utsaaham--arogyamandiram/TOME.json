@@ -4,7 +4,7 @@
   "repo": "arogyamandiram",
   "description": "\u0c06\u0c30\u0c4b\u0c17\u0c4d\u0c2f\u0c2e\u0c02\u0c26\u0c3f\u0c30\u0c02 ( Arogyamandiram ) is a holistic health and fitness platform that helps users track water intake, calories, weight, and workouts in one place. It offers personalized guidance and smart insights to build disciplined habits and achieve complete physical well-being.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/utsaaham/arogyamandiram",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T20:50:40Z"
+  "distributed_at": "2026-06-25T20:54:25Z"
 }
