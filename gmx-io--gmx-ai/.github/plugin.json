@@ -1,0 +1,9 @@
+{
+  "name": "gmx-io--gmx-ai",
+  "displayName": "gmx-ai",
+  "description": "Agent skills for trading perpetuals and swapping tokens on GMX V2.",
+  "version": "1.0.0",
+  "author": "gmx-io",
+  "homepage": "https://github.com/gmx-io/gmx-ai",
+  "skills": []
+}
