@@ -4,7 +4,7 @@
   "repo": "dbv-specs-ops",
   "description": "The blueprint that turns any AI assistant into a disciplined Senior Engineer.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davidbuenov/dbv-specs-ops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T22:34:59Z"
+  "distributed_at": "2026-06-25T00:38:30Z"
 }
