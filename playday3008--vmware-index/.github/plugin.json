@@ -1,0 +1,9 @@
+{
+  "name": "playday3008--vmware-index",
+  "displayName": "vmware-index",
+  "description": "Web app that indexes VMware product downloads from Broadcom/VMware update servers with Wayback Machine fallback",
+  "version": "1.0.0",
+  "author": "playday3008",
+  "homepage": "https://github.com/playday3008/vmware-index",
+  "skills": []
+}
