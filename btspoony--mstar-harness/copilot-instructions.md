@@ -1,0 +1,41 @@
+## repo-maintenance
+
+> Maintenance guardrails for Morning Star harness repository in Cursor
+
+
+# Morning Star Repository Maintenance Rule (Cursor)
+
+This rule applies when maintaining the Morning Star harness repository in Cursor.
+
+## Source of Truth
+
+- `AGENTS.md` is the canonical maintenance policy.
+- Runtime behavior remains in `mstar-*` skills.
+- Avoid duplicating long maintenance prose across runtime skill files.
+
+## What This Rule Adds (Cursor-specific)
+
+- Keep Cursor host guidance aligned with OpenCode host guidance.
+- Use `.cursor/skills/mstar-routing-eval/` only for routing/prompt/rule regression work, not normal feature implementation.
+- If routing/gate semantics changed, include routing-eval updates and evidence.
+
+## Required Maintenance Behavior
+
+- Read before edit, and keep edits surgical.
+- Keep skill descriptions trigger-accurate.
+- Use skill-creator guidance for new skills or major rewrites.
+- Sync bilingual docs when onboarding or install behavior changes.
+- Any change to installation/usage wording in `README.md` MUST be mirrored in `README_CN.md` in the same change set (and vice versa).
+- Never modify secrets or user-owned credential files.
+
+## Quick Validation
+
+- Before publishing the Cursor plugin: `.cursor/LOCAL-VALIDATION.md`.
+- Lint/typecheck as relevant to edited files.
+- Confirm docs and install snippets remain runnable.
+- If either README changed, verify both `README.md` and `README_CN.md` were reviewed and updated for parity.
+- Summarize host-specific divergence explicitly if introduced.
+
+---
+> Source: [btspoony/mstar-harness](https://github.com/btspoony/mstar-harness) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-25 -->
