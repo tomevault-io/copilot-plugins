@@ -1,0 +1,44 @@
+{
+  "name": "ttm",
+  "owner": "vst93",
+  "repo": "ttm",
+  "description": "Lightweight SSH bookmark manager built with Bubble Tea.  Manage, sync and connect to your servers from the terminal.  \u8f7b\u91cf\u7ea7\u7ec8\u7aef SSH \u4e66\u7b7e\u7ba1\u7406\u5668\uff0c\u57fa\u4e8e Bubble Tea \u6784\u5efa\u3002  \u5728\u7ec8\u7aef\u4e2d\u7ba1\u7406\u3001\u540c\u6b65\u548c\u8fde\u63a5\u4f60\u7684\u670d\u52a1\u5668\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vst93/ttm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T01:22:36Z"
+}
