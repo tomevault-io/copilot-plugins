@@ -1,0 +1,9 @@
+{
+  "name": "miron-tech--realtor-claude-skills",
+  "displayName": "realtor-claude-skills",
+  "description": "13 AI skills that turn Claude Code into your real estate business assistant. Research leads, pull live comps, generate listing marketing, build follow-up sequences \u2014 all from the terminal. Built by Cy",
+  "version": "1.0.0",
+  "author": "miron-tech",
+  "homepage": "https://github.com/miron-tech/realtor-claude-skills",
+  "skills": []
+}
