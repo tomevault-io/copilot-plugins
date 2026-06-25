@@ -1,0 +1,9 @@
+{
+  "name": "garykuepper--ggswarm",
+  "displayName": "ggSwarm",
+  "description": "A fully decentralized coordination framework where global formation behavior emerges naturally from local agent interactions. By combining Graph Neural Networks for spatial reasoning with advanced tra",
+  "version": "1.0.0",
+  "author": "garykuepper",
+  "homepage": "https://github.com/garykuepper/ggSwarm",
+  "skills": []
+}
