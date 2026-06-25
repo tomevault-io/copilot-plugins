@@ -1,0 +1,9 @@
+{
+  "name": "novarocks--novarocks",
+  "displayName": "NovaRocks",
+  "description": "NovaRocks is a Rust-based compute engine project under the StarRocks ecosystem.  It is currently an independent project and keeps FE protocol compatibility through a C++ shim layer, with execution sem",
+  "version": "1.0.0",
+  "author": "NovaRocks",
+  "homepage": "https://github.com/NovaRocks/NovaRocks",
+  "skills": []
+}
