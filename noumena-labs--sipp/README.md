@@ -7,11 +7,11 @@ A unified API for fast in-browser, client and cloud inference.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [noumena-labs/Sipp](https://github.com/noumena-labs/Sipp).
+Original source: `AGENTS.md` in [noumena-labs/Sipp](https://github.com/noumena-labs/Sipp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
