@@ -1,0 +1,9 @@
+{
+  "name": "konteks--cli",
+  "displayName": "cli",
+  "description": "A local context graph for AI coding agents.",
+  "version": "1.0.0",
+  "author": "konteks",
+  "homepage": "https://github.com/konteks/cli",
+  "skills": []
+}
