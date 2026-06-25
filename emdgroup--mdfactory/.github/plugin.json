@@ -1,0 +1,9 @@
+{
+  "name": "emdgroup--mdfactory",
+  "displayName": "mdfactory",
+  "description": "Library to parametrize, setup, run, analyze and manage MD simulations at high-throughput scale",
+  "version": "1.0.0",
+  "author": "emdgroup",
+  "homepage": "https://github.com/emdgroup/mdfactory",
+  "skills": []
+}
