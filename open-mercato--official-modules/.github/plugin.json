@@ -1,0 +1,9 @@
+{
+  "name": "open-mercato--official-modules",
+  "displayName": "official-modules",
+  "description": "This is the repository of official non-core module for Open Mercato",
+  "version": "1.0.0",
+  "author": "open-mercato",
+  "homepage": "https://github.com/open-mercato/official-modules",
+  "skills": []
+}
