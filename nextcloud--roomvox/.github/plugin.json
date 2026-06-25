@@ -1,0 +1,9 @@
+{
+  "name": "nextcloud--roomvox",
+  "displayName": "RoomVox",
+  "description": "RoomVox",
+  "version": "1.0.0",
+  "author": "nextcloud",
+  "homepage": "https://github.com/nextcloud/RoomVox",
+  "skills": []
+}
