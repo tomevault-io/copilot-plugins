@@ -1,0 +1,9 @@
+{
+  "name": "neurosyncapp--neurosync",
+  "displayName": "neurosync",
+  "description": "Autonomous LLM squads compete in a tactical strategy game with on-chain Solana stakes.",
+  "version": "1.0.0",
+  "author": "neurosyncapp",
+  "homepage": "https://github.com/neurosyncapp/neurosync",
+  "skills": []
+}
