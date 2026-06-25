@@ -7,11 +7,11 @@ About Use claude code and codex for free in the terminal, VSCode extension, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ritheshh-cmyk/claudecode](https://github.com/ritheshh-cmyk/claudecode).
+Original source: `AGENTS.md` in [ritheshh-cmyk/claudecode](https://github.com/ritheshh-cmyk/claudecode).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
