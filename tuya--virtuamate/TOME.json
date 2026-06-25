@@ -4,7 +4,7 @@
   "repo": "VirtuaMate",
   "description": "3D Avatar Companion, Claw Enabled ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tuya/VirtuaMate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T16:48:38Z"
+  "distributed_at": "2026-06-25T16:49:13Z"
 }
