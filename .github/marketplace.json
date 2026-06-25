@@ -139054,6 +139054,11 @@
       "description": "E-commerce search for catalogs that fit in RAM."
     },
     {
+      "name": "mnemehq--mneme",
+      "source": "./mnemehq--mneme",
+      "description": "Engineering governance for AI coding agents: keep AI-generated code aligned with your architecture, standards, and prior decisions."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
