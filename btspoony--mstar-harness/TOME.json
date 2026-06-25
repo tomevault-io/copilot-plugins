@@ -4,7 +4,7 @@
   "repo": "mstar-harness",
   "description": "A skill-driven Harness Engineering framework",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/btspoony/mstar-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T18:37:27Z"
+  "distributed_at": "2026-06-25T18:38:01Z"
 }
