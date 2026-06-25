@@ -4,7 +4,7 @@
   "repo": "oss-maintenance-log",
   "description": "Automated OSS maintenance evidence log. Tracks 1.6M npm downloads/week across 7 packages. Self-updating every 6h via GitHub Actions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dusan-maintains/oss-maintenance-log",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T20:49:36Z"
+  "distributed_at": "2026-06-25T20:53:22Z"
 }
