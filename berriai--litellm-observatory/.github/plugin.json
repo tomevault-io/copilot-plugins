@@ -1,0 +1,9 @@
+{
+  "name": "berriai--litellm-observatory",
+  "displayName": "litellm-observatory",
+  "description": "End-to-end testing suite for LiteLLM deployments - provider tests, performance metrics, and API validation",
+  "version": "1.0.0",
+  "author": "BerriAI",
+  "homepage": "https://github.com/BerriAI/litellm-observatory",
+  "skills": []
+}
