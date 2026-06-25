@@ -1,0 +1,9 @@
+{
+  "name": "conorbronsdon--substack-mcp",
+  "displayName": "substack-mcp",
+  "description": "MCP server for Substack \u2014 read posts, manage drafts. No publish or delete by design.",
+  "version": "1.0.0",
+  "author": "conorbronsdon",
+  "homepage": "https://github.com/conorbronsdon/substack-mcp",
+  "skills": []
+}
