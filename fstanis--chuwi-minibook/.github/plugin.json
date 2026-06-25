@@ -1,0 +1,9 @@
+{
+  "name": "fstanis--chuwi-minibook",
+  "displayName": "chuwi-minibook",
+  "description": "Kernel modules, tools and tweaks for getting Linux working optimally on the CHUWI MiniBook laptops.",
+  "version": "1.0.0",
+  "author": "fstanis",
+  "homepage": "https://github.com/fstanis/chuwi-minibook",
+  "skills": []
+}
