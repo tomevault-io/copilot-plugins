@@ -4,7 +4,7 @@
   "repo": "tasks-axi",
   "description": "Agent-ergonomic CLI for task/backlog management with pluggable backends (markdown, sqlite, remote trackers)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kunchenguid/tasks-axi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T22:37:22Z"
+  "distributed_at": "2026-06-25T22:39:48Z"
 }
