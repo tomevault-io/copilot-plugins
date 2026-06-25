@@ -1,0 +1,9 @@
+{
+  "name": "tmux-python--libtmux-mcp",
+  "displayName": "libtmux-mcp",
+  "description": "MCP for tmux, powered by libtmux",
+  "version": "1.0.0",
+  "author": "tmux-python",
+  "homepage": "https://github.com/tmux-python/libtmux-mcp",
+  "skills": []
+}
