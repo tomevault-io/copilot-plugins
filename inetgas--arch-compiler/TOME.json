@@ -4,7 +4,7 @@
   "repo": "arch-compiler",
   "description": "An architecture-level AI harness that compiles constraints and NFRs into explicit, reviewable architecture decisions. Combines a deterministic compiler, curated pattern registry, and agent workflow skills to drive approval, re-approval, and implementation against an architectural contract.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/inetgas/arch-compiler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T16:52:24Z"
+  "distributed_at": "2026-06-25T16:52:55Z"
 }
