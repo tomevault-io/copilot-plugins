@@ -1,0 +1,9 @@
+{
+  "name": "saptarsibhowmick--claude-workflow-for-econ-phd",
+  "displayName": "claude-workflow-for-econ-phd",
+  "description": "A ready-to-fork Claude Code scaffold for multi-paper PhD dissertations in empirical economics \u2014 literature review to journal submission, with verification protocols, file safety, and 8 custom skills.",
+  "version": "1.0.0",
+  "author": "saptarsibhowmick",
+  "homepage": "https://github.com/saptarsibhowmick/claude-workflow-for-econ-phd",
+  "skills": []
+}
