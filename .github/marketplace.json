@@ -53989,6 +53989,11 @@
       "description": "brain-in-the-fish"
     },
     {
+      "name": "neurosyncapp--neurosync",
+      "source": "./neurosyncapp--neurosync",
+      "description": "Autonomous LLM squads compete in a tactical strategy game with on-chain Solana stakes."
+    },
+    {
       "name": "m1zz--higlab",
       "source": "./m1zz--higlab",
       "description": "HIGLab"
@@ -134694,6 +134699,11 @@
       "description": "my-llm-wiki"
     },
     {
+      "name": "a-fig--accordion",
+      "source": "./a-fig--accordion",
+      "description": "\ud83c\udfc6 AI Hackathon 2026 @ UC Berkeley  Intelligent context management for developers"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -162269,6 +162279,11 @@
       "description": "A local context graph for AI coding agents."
     },
     {
+      "name": "huynxtb--rag-system-dotnet",
+      "source": "./huynxtb--rag-system-dotnet",
+      "description": "RAG system built with .NET 10, React, Qdrant, and OpenAI. Upload PDF, DOCX, and text files - automatically extract, chunk, and embed content into a vector store. Ask questions via chat and get AI-gene"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -170302,6 +170317,16 @@
       "name": "zexadev--jdnotes",
       "source": "./zexadev--jdnotes",
       "description": "\u7b80\u6d01\u9ad8\u6548\u7684\u672c\u5730\u7b14\u8bb0\u5e94\u7528\uff0c\u5185\u7f6e AI \u5199\u4f5c\u52a9\u624b | Local-first note-taking app with AI assistant"
+    },
+    {
+      "name": "rvn0xsy--vectorshell",
+      "source": "./rvn0xsy--vectorshell",
+      "description": "An AI-driven remote command execution platform built with Rust. VectorShell bridges AI agents and remote targets \u2014 run shell commands, manage files, and execute platform-specific tools across your fle"
+    },
+    {
+      "name": "brevity1swos--agx",
+      "source": "./brevity1swos--agx",
+      "description": "Step through and debug AI agent traces without leaving your terminal. Written in Rust."
     },
     {
       "name": "lightninglabs--lnget",
@@ -182472,6 +182497,26 @@
       "name": "linxule--interpretive-orchestration",
       "source": "./linxule--interpretive-orchestration",
       "description": " Epistemic partnership infrastructure for AI-assisted qualitative research. Claude Code plugin with 3-stage methodology, 4 specialized agents, and 11 skills."
+    },
+    {
+      "name": "microsoft--build26-brk243-claw-and-agent-harness-in-microsoft-foundry",
+      "source": "./microsoft--build26-brk243-claw-and-agent-harness-in-microsoft-foundry",
+      "description": "Resources for building and deploying agents using Claw and agent harness in Microsoft Foundry \u2014 patterns for agent orchestration, testing, and production deployment. From Microsoft Build 2026."
+    },
+    {
+      "name": "42u--laqrumcode",
+      "source": "./42u--laqrumcode",
+      "description": "Persistent cognitive architecture for Claude Code \u2014 graph memory with learned retrieval (98.2% R@5), automatic extraction of concepts, causal chains, skills, and corrections, emergent identity via sou"
+    },
+    {
+      "name": "ariespo--tavernlike",
+      "source": "./ariespo--tavernlike",
+      "description": "Claude Code Skill - Integrate SillyTavern ecosystem into web projects"
+    },
+    {
+      "name": "hermes-webui--hermes-swift-ios",
+      "source": "./hermes-webui--hermes-swift-ios",
+      "description": "The best way to use Hermes from your iPhone!"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -211494,6 +211539,16 @@
       "description": "Free Easy AI visibility check - measure how often a brand is mentioned & cited in Claude's web-search answers. Deterministic, reproducible, runs 100% locally, $0 mock by default."
     },
     {
+      "name": "rickicode--patchright-browser",
+      "source": "./rickicode--patchright-browser",
+      "description": "MCP server for browser automation via Patchright. Multi-profile Chromium, headed/headless, StreamableHTTP protocol. Includes dashboard, skills, and AI agent setup."
+    },
+    {
+      "name": "nodnarbnitram--claude-code-extensions",
+      "source": "./nodnarbnitram--claude-code-extensions",
+      "description": "These are a collection of extension for Claude Code that can typically also be used in opencode. "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -232202,6 +232257,21 @@
       "name": "peisp--catdb",
       "source": "./peisp--catdb",
       "description": "\u57fa\u4e8e Wails v3\uff08Go + Vue 3 + WebView\uff09\u7684\u8de8\u5e73\u53f0\u6570\u636e\u5e93\u5ba2\u6237\u7aef\u3002Cross-platform database client based on Wails3 (Go + Vue 3 + WebView)."
+    },
+    {
+      "name": "guykh--air-sviva-custom-component",
+      "source": "./guykh--air-sviva-custom-component",
+      "description": "Home Assistnat Custom Component for Air Quality from Israeli Ministry of Environmental Protection monitors"
+    },
+    {
+      "name": "abclize--mdtopdf",
+      "source": "./abclize--mdtopdf",
+      "description": "Agent-friendly Markdown-to-PDF CLI with local PDF rendering and JSON diagnostics."
+    },
+    {
+      "name": "cosen1024--resume-builder-skill",
+      "source": "./cosen1024--resume-builder-skill",
+      "description": "\u7b80\u5386\u751f\u6210 Skill\uff08Codex / Claude Code/OpenCode \u7b49\uff09\uff1a\u4ee5 Markdown \u4e3a\u5185\u5bb9\u6e90\uff0c\u591a\u5957\u53ef\u5207\u6362\u6a21\u677f\u3001\u591a\u914d\u8272\u3001\u53ef\u9009\u8bc1\u4ef6\u7167\uff0cWeasyPrint \u79bb\u7ebf\u6e32\u67d3\u4e3a\u53ef\u641c\u7d22 A4 PDF\uff1b\u5185\u7f6e   STAR/\u91cf\u5316\u6da6\u8272\u4e0e JD \u5b9a\u5411\u5339\u914d\u3002"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -349332,6 +349402,131 @@
       "name": "itzaks--ably-realtime-skill",
       "source": "./itzaks--ably-realtime-skill",
       "description": "ably-realtime-skill"
+    },
+    {
+      "name": "sameque--micro-commerce",
+      "source": "./sameque--micro-commerce",
+      "description": "micro-commerce"
+    },
+    {
+      "name": "sameque--micro-commerce",
+      "source": "./sameque--micro-commerce",
+      "description": "micro-commerce"
+    },
+    {
+      "name": "shaurya202--opencodelikeclaude",
+      "source": "./shaurya202--opencodelikeclaude",
+      "description": "a github repo that adds features to opencode"
+    },
+    {
+      "name": "carslewi1981--petit-com",
+      "source": "./carslewi1981--petit-com",
+      "description": "PetIT.com"
+    },
+    {
+      "name": "lmontero18--yourideaiscooked",
+      "source": "./lmontero18--yourideaiscooked",
+      "description": "YOURIDEAISCOOKED"
+    },
+    {
+      "name": "bottradingnet--tradingview-mcp",
+      "source": "./bottradingnet--tradingview-mcp",
+      "description": "Connect Claude to TradingView Desktop \u2014 78 MCP tools for chart analysis, Pine Script development, and workflow automation. By bottrading.net"
+    },
+    {
+      "name": "couterhs-ux--fazendaos",
+      "source": "./couterhs-ux--fazendaos",
+      "description": "FazendaOS"
+    },
+    {
+      "name": "lmontero18--yourideaiscooked",
+      "source": "./lmontero18--yourideaiscooked",
+      "description": "YOURIDEAISCOOKED"
+    },
+    {
+      "name": "zerotouk287-afk--habit-agents",
+      "source": "./zerotouk287-afk--habit-agents",
+      "description": "habit-agents"
+    },
+    {
+      "name": "bojiehuang1994--pomodoro",
+      "source": "./bojiehuang1994--pomodoro",
+      "description": "\u4e00\u4e2a\u7b80\u6d01\u7684\u684c\u9762\u756a\u8304\u949f"
+    },
+    {
+      "name": "pavanmundrai1611--programprachurana",
+      "source": "./pavanmundrai1611--programprachurana",
+      "description": "programprachurana"
+    },
+    {
+      "name": "joaov-rizzardo--espaco-ancora",
+      "source": "./joaov-rizzardo--espaco-ancora",
+      "description": "espaco-ancora"
+    },
+    {
+      "name": "must4faa--testing",
+      "source": "./must4faa--testing",
+      "description": "testing"
+    },
+    {
+      "name": "zerotouk287-afk--habit-agents",
+      "source": "./zerotouk287-afk--habit-agents",
+      "description": "habit-agents"
+    },
+    {
+      "name": "qtycc-cc--tencent2026-test",
+      "source": "./qtycc-cc--tencent2026-test",
+      "description": "Tencent2026_test"
+    },
+    {
+      "name": "danielvm-git--big-server-monitor",
+      "source": "./danielvm-git--big-server-monitor",
+      "description": "big-server-monitor"
+    },
+    {
+      "name": "naraatzy--ta-aran",
+      "source": "./naraatzy--ta-aran",
+      "description": "ta-aran"
+    },
+    {
+      "name": "clinically-au--laravel-ai-transcribe",
+      "source": "./clinically-au--laravel-ai-transcribe",
+      "description": "Amazon Transcribe driver for the official Laravel AI SDK"
+    },
+    {
+      "name": "awesomejt--studio-playlists",
+      "source": "./awesomejt--studio-playlists",
+      "description": "studio-playlists"
+    },
+    {
+      "name": "prashantalhat--document-intelligence",
+      "source": "./prashantalhat--document-intelligence",
+      "description": "document-intelligence"
+    },
+    {
+      "name": "prashantalhat--document-intelligence",
+      "source": "./prashantalhat--document-intelligence",
+      "description": "document-intelligence"
+    },
+    {
+      "name": "awhub-0--practice-saga-web",
+      "source": "./awhub-0--practice-saga-web",
+      "description": "practice for make new landing page"
+    },
+    {
+      "name": "a7k6h7i0--softing",
+      "source": "./a7k6h7i0--softing",
+      "description": "softing"
+    },
+    {
+      "name": "alantian--vsc",
+      "source": "./alantian--vsc",
+      "description": "vsc"
+    },
+    {
+      "name": "awhub-0--practice-saga-web",
+      "source": "./awhub-0--practice-saga-web",
+      "description": "practice for make new landing page"
     }
   ]
 }
