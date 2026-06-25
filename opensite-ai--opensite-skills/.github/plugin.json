@@ -1,0 +1,9 @@
+{
+  "name": "opensite-ai--opensite-skills",
+  "displayName": "opensite-skills",
+  "description": "AI agent skills library built by OpenSite AI. A single git repo that keeps Claude, Codex, Cursor, Copilot, and Perplexity Computer in perfect skill sync, with persistent cross-session memory and autom",
+  "version": "1.0.0",
+  "author": "opensite-ai",
+  "homepage": "https://github.com/opensite-ai/opensite-skills",
+  "skills": []
+}
