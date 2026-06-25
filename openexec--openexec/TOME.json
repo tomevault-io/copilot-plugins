@@ -4,7 +4,7 @@
   "repo": "openexec",
   "description": "Executable engineering judgment for AI coding tools: blueprints, gates, checkpoints, policy, memory, and audit trails.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openexec/openexec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T20:32:31Z"
+  "distributed_at": "2026-06-25T20:45:18Z"
 }
