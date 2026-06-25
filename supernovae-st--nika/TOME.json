@@ -4,7 +4,7 @@
   "repo": "nika",
   "description": "Inference as Code | 5 YAML verbs to orchestrate any AI, Rust engine, 9 providers, Single binary, AGPL-3.0, \ud83e\udd8b",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/supernovae-st/nika",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T16:34:34Z"
+  "distributed_at": "2026-06-25T16:36:12Z"
 }
