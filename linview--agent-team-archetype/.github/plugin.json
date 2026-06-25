@@ -1,0 +1,9 @@
+{
+  "name": "linview--agent-team-archetype",
+  "displayName": "agent-team-archetype",
+  "description": "An AI-native project archetype with agent team.",
+  "version": "1.0.0",
+  "author": "linview",
+  "homepage": "https://github.com/linview/agent-team-archetype",
+  "skills": []
+}
