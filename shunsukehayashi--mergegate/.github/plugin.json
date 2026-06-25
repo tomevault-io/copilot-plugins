@@ -1,0 +1,9 @@
+{
+  "name": "shunsukehayashi--mergegate",
+  "displayName": "mergegate",
+  "description": "MergeGate: deterministic execution protocol for AI-assisted development and the execution layer for GitNexus-style code intelligence",
+  "version": "1.0.0",
+  "author": "ShunsukeHayashi",
+  "homepage": "https://github.com/ShunsukeHayashi/mergegate",
+  "skills": []
+}
