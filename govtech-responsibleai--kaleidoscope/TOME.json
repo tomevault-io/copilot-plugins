@@ -4,7 +4,7 @@
   "repo": "kaleidoscope",
   "description": "A tool for automated Evals of AI applications",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/govtech-responsibleai/kaleidoscope",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T00:34:54Z"
+  "distributed_at": "2026-06-25T00:37:28Z"
 }
