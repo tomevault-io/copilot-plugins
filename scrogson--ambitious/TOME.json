@@ -4,7 +4,7 @@
   "repo": "ambitious",
   "description": "A native Rust implementation of Erlang/OTP primitives, bringing the power of the BEAM's concurrency model to Rust with full type safety.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/scrogson/ambitious",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T00:31:30Z"
+  "distributed_at": "2026-06-25T01:20:39Z"
 }
