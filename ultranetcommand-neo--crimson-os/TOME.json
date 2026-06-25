@@ -1,0 +1,44 @@
+{
+  "name": "Crimson-OS",
+  "owner": "ultranetcommand-neo",
+  "repo": "Crimson-OS",
+  "description": "Crimson OS \u2014 Reality-Guided Intelligence, not AGI: sovereign local OS on your NAS. Agent_Bridge markdown ledger, not RAM. GAS\u2192LIQUID\u2192CRYSTAL gate. Hausdorff F\u2082\u21aaSO(3) cos \u03b8=\u2153. Geometric_Unity_Validation: JHTDB ablation, negative JSON shipped. Beta \u00b7 Apache-2.0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ultranetcommand-neo/Crimson-OS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T18:54:18Z"
+}
