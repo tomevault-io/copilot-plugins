@@ -1,0 +1,9 @@
+{
+  "name": "general-sense--xdflow",
+  "displayName": "xdflow",
+  "description": "Metadata-driven ML pipelines for labeled structured data",
+  "version": "1.0.0",
+  "author": "general-sense",
+  "homepage": "https://github.com/general-sense/xdflow",
+  "skills": []
+}
