@@ -1,0 +1,9 @@
+{
+  "name": "santiagobobrik--llm-wiki-kit",
+  "displayName": "llm-wiki-kit",
+  "description": "Your second brain, maintained by Claude. Five skills that turn an Obsidian vault into a self-organizing wiki: init, compile, search, save, lint.",
+  "version": "1.0.0",
+  "author": "SantiagoBobrik",
+  "homepage": "https://github.com/SantiagoBobrik/llm-wiki-kit",
+  "skills": []
+}
