@@ -1,0 +1,9 @@
+{
+  "name": "fast--macroweave",
+  "displayName": "macroweave",
+  "description": "Table-driven Rust code templates.",
+  "version": "1.0.0",
+  "author": "fast",
+  "homepage": "https://github.com/fast/macroweave",
+  "skills": []
+}
