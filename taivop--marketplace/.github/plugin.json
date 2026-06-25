@@ -1,0 +1,9 @@
+{
+  "name": "taivop--marketplace",
+  "displayName": "marketplace",
+  "description": "Coding agent skills for accessing Estonia's official public data",
+  "version": "1.0.0",
+  "author": "taivop",
+  "homepage": "https://github.com/taivop/marketplace",
+  "skills": []
+}
