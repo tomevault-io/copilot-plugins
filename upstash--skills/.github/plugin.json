@@ -1,0 +1,9 @@
+{
+  "name": "upstash--skills",
+  "displayName": "skills",
+  "description": "Collection of skills for Upstash",
+  "version": "1.0.0",
+  "author": "upstash",
+  "homepage": "https://github.com/upstash/skills",
+  "skills": []
+}
