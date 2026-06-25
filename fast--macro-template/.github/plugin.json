@@ -1,0 +1,9 @@
+{
+  "name": "fast--macro-template",
+  "displayName": "macro-template",
+  "description": "Table-driven Rust code templates.",
+  "version": "1.0.0",
+  "author": "fast",
+  "homepage": "https://github.com/fast/macro-template",
+  "skills": []
+}
