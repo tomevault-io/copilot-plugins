@@ -1,0 +1,9 @@
+{
+  "name": "anaxonda--dala",
+  "displayName": "dala",
+  "description": "web to epub downloader with threaded comment navigation in epub. hacker news, substck, reddit, general, etc.",
+  "version": "1.0.0",
+  "author": "anaxonda",
+  "homepage": "https://github.com/anaxonda/dala",
+  "skills": []
+}
