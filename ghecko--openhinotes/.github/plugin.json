@@ -1,0 +1,9 @@
+{
+  "name": "ghecko--openhinotes",
+  "displayName": "OpenHiNotes",
+  "description": "OpenHiNotes Local control for your HiDock device. Manage recordings, access advanced AI transcription (local, OpenAI API compatible). An open-source alternative to HiNotes.",
+  "version": "1.0.0",
+  "author": "ghecko",
+  "homepage": "https://github.com/ghecko/OpenHiNotes",
+  "skills": []
+}
