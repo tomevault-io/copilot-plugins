@@ -1,0 +1,9 @@
+{
+  "name": "polymaker3d--polymaker-preset",
+  "displayName": "Polymaker-Preset",
+  "description": "This is the place holding all filament presets from Polymaker",
+  "version": "1.0.0",
+  "author": "Polymaker3D",
+  "homepage": "https://github.com/Polymaker3D/Polymaker-Preset",
+  "skills": []
+}
