@@ -1,0 +1,44 @@
+{
+  "name": "clarify",
+  "owner": "taicode-labs",
+  "repo": "clarify",
+  "description": "An open-source documentation publishing tool built for MDX and OpenAPI. Seamlessly combine markdown, interactive JSX components, and API specifications to create modern, developer-friendly docs.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/taicode-labs/clarify",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T09:31:25Z"
+}
