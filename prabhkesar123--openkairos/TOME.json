@@ -4,7 +4,7 @@
   "repo": "openkairos",
   "description": "Open implementation of Anthropic's leaked Kairos. Always-on daemon. ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prabhkesar123/openkairos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T22:34:31Z"
+  "distributed_at": "2026-06-25T00:39:30Z"
 }
