@@ -4,7 +4,7 @@
   "repo": "CFBox",
   "description": "A minimalist BusyBox alternative written in modern C++23.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Awesome-Embedded-Learning-Studio/CFBox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T16:44:22Z"
+  "distributed_at": "2026-06-25T16:46:01Z"
 }
