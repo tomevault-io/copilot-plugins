@@ -4,7 +4,7 @@
   "repo": "free-cloude-code-easy-way-",
   "description": "this version is a way faster and easier",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rawadev/free-cloude-code-easy-way-",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T01:07:35Z"
+  "distributed_at": "2026-06-25T01:08:07Z"
 }
