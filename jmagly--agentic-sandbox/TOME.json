@@ -4,7 +4,7 @@
   "repo": "agentic-sandbox",
   "description": "Self-hostable runtime for persistent autonomous coding agents \u2014 KVM-isolated VMs (or rootless containers), A2A-protocol executor with signed AgentCard discovery, AIWG mission dispatch, web dashboard, virtiofs shared storage. Runs on your hardware; no hosted control plane.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jmagly/agentic-sandbox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T14:57:15Z"
+  "distributed_at": "2026-06-25T15:01:03Z"
 }
