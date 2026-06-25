@@ -1,0 +1,9 @@
+{
+  "name": "ausagentsmith-org--rustnzb",
+  "displayName": "rustnzb",
+  "description": "A modern Usenet binary downloader written in Rust \u2014 SABnzbd drop-in replacement",
+  "version": "1.0.0",
+  "author": "AusAgentSmith-org",
+  "homepage": "https://github.com/AusAgentSmith-org/rustnzb",
+  "skills": []
+}
