@@ -1,0 +1,9 @@
+{
+  "name": "loomle--loomle",
+  "displayName": "loomle",
+  "description": "Agent-native Unreal Engine tooling through MCP",
+  "version": "1.0.0",
+  "author": "loomle",
+  "homepage": "https://github.com/loomle/loomle",
+  "skills": []
+}
