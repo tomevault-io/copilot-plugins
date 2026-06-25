@@ -7,11 +7,11 @@ ESLint rules that catch the patterns LLM agents get wrong — and teach them to 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pertrai1/eslint-plugin-llm-core](https://github.com/pertrai1/eslint-plugin-llm-core).
+Original source: `CLAUDE.md` in [pertrai1/eslint-plugin-llm-core](https://github.com/pertrai1/eslint-plugin-llm-core).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
