@@ -1,0 +1,44 @@
+{
+  "name": "vue-lynx-tailwind-starter",
+  "owner": "bekaku",
+  "repo": "vue-lynx-tailwind-starter",
+  "description": "Vue Lynx is a Vue 3 custom renderer for Lynx, enabling you to build native Lynx applications using Vue's familiar Composition API, single-file components, and reactive data model.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bekaku/vue-lynx-tailwind-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T00:45:59Z"
+}
