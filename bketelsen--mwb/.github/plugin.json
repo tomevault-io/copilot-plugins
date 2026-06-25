@@ -1,0 +1,9 @@
+{
+  "name": "bketelsen--mwb",
+  "displayName": "mwb",
+  "description": "Mouse Without Borders client for Wayland and macOS",
+  "version": "1.0.0",
+  "author": "bketelsen",
+  "homepage": "https://github.com/bketelsen/mwb",
+  "skills": []
+}
