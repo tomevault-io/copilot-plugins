@@ -1,0 +1,9 @@
+{
+  "name": "fishcodetech--muteki",
+  "displayName": "muteki",
+  "description": "Project Muteki (\u7121\u6575): autonomous multi-model CTF-solving AI agent swarm",
+  "version": "1.0.0",
+  "author": "FishCodeTech",
+  "homepage": "https://github.com/FishCodeTech/muteki",
+  "skills": []
+}
