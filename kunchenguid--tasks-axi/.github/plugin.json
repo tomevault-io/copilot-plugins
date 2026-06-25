@@ -1,0 +1,9 @@
+{
+  "name": "kunchenguid--tasks-axi",
+  "displayName": "tasks-axi",
+  "description": "Agent-ergonomic CLI for task/backlog management with pluggable backends (markdown, sqlite, remote trackers)",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/tasks-axi",
+  "skills": []
+}
