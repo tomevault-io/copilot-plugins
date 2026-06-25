@@ -1,0 +1,9 @@
+{
+  "name": "nette--phpstan-rules",
+  "displayName": "phpstan-rules",
+  "description": "\ud83d\udc18 PHPStan rules and type extensions for Nette libraries",
+  "version": "1.0.0",
+  "author": "nette",
+  "homepage": "https://github.com/nette/phpstan-rules",
+  "skills": []
+}
