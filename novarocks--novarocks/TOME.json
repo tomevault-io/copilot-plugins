@@ -4,7 +4,7 @@
   "repo": "NovaRocks",
   "description": "NovaRocks is a Rust-based compute engine project under the StarRocks ecosystem.  It is currently an independent project and keeps FE protocol compatibility through a C++ shim layer, with execution semantics implemented in Rust. At this stage, the repository is intended for learning and experimentation, not production use.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NovaRocks/NovaRocks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T20:38:08Z"
+  "distributed_at": "2026-06-25T20:40:41Z"
 }
