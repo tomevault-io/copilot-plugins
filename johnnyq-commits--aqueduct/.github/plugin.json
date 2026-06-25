@@ -1,0 +1,9 @@
+{
+  "name": "johnnyq-commits--aqueduct",
+  "displayName": "Aqueduct",
+  "description": "LLM-powered data engineering agent: converts requirement docs and natural language into production-ready SQL, automating data pipeline workflows for ETL and analytics tasks. Open-source, MIT licensed.",
+  "version": "1.0.0",
+  "author": "JohnnyQ-commits",
+  "homepage": "https://github.com/JohnnyQ-commits/Aqueduct",
+  "skills": []
+}
