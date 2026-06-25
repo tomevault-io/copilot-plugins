@@ -1,0 +1,9 @@
+{
+  "name": "stealthsurf-vpn--browser-extension",
+  "displayName": "browser-extension",
+  "description": "SOCKS5/HTTP proxy extension for Chrome and Firefox with split tunneling, auto-updates, and OAuth authorization. Ready to work with AI agents!",
+  "version": "1.0.0",
+  "author": "StealthSurf-VPN",
+  "homepage": "https://github.com/StealthSurf-VPN/browser-extension",
+  "skills": []
+}
