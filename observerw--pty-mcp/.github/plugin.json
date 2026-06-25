@@ -1,0 +1,9 @@
+{
+  "name": "observerw--pty-mcp",
+  "displayName": "pty-mcp",
+  "description": "MCP server for managing local PTY sessions and SSH-backed remote workflows that you really want.",
+  "version": "1.0.0",
+  "author": "observerw",
+  "homepage": "https://github.com/observerw/pty-mcp",
+  "skills": []
+}
