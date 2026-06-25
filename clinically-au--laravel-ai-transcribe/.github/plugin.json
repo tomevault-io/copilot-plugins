@@ -1,0 +1,9 @@
+{
+  "name": "clinically-au--laravel-ai-transcribe",
+  "displayName": "laravel-ai-transcribe",
+  "description": "Amazon Transcribe driver for the official Laravel AI SDK",
+  "version": "1.0.0",
+  "author": "clinically-au",
+  "homepage": "https://github.com/clinically-au/laravel-ai-transcribe",
+  "skills": []
+}
