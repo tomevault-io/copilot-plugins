@@ -1,0 +1,9 @@
+{
+  "name": "sigpanic--goink",
+  "displayName": "goink",
+  "description": "Goink \u684c\u9762 AI \u5c0f\u8bf4\u521b\u4f5c\u52a9\u624b\uff0c\u5bf9\u8bdd\u5f0f\u5199\u4f5c + \u81ea\u52a8\u72b6\u6001\u8ffd\u8e2a + \u672c\u5730\u8bed\u4e49\u641c\u7d22\u3002\u8de8\u5e73\u53f0\u5f00\u7bb1\u5373\u7528\u3002AI Agent Novel Generator.",
+  "version": "1.0.0",
+  "author": "sigpanic",
+  "homepage": "https://github.com/sigpanic/goink",
+  "skills": []
+}
