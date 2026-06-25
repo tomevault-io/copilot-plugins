@@ -1,0 +1,44 @@
+{
+  "name": "agent-interview-coach",
+  "owner": "xiaodeng-lp",
+  "repo": "agent-interview-coach",
+  "description": "\u4e00\u4e2a\u4f1a\u76ef\u7740\u7b80\u5386\u6f0f\u6d1e\u8ffd\u95ee\u7684 AI \u6a21\u62df\u9762\u8bd5\u5b98\uff0c\u652f\u6301\u5fae\u4fe1\u548c\u547d\u4ee4\u884c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaodeng-lp/agent-interview-coach",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T01:11:07Z"
+}
