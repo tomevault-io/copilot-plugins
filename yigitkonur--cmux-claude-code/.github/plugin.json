@@ -1,0 +1,9 @@
+{
+  "name": "yigitkonur--cmux-claude-code",
+  "displayName": "cmux-claude-code",
+  "description": "the definitive claude code + cmux integration \u2014 status pills, progress bars, sidebar logs, notifications, git integration, subagent tracking",
+  "version": "1.0.0",
+  "author": "yigitkonur",
+  "homepage": "https://github.com/yigitkonur/cmux-claude-code",
+  "skills": []
+}
