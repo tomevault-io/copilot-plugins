@@ -170479,6 +170479,11 @@
       "description": "LLM designed inference engine hardware for smollm2 - SMOLM-32"
     },
     {
+      "name": "sweatco--archie-hq",
+      "source": "./sweatco--archie-hq",
+      "description": "archie-hq"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -212234,6 +212239,211 @@
       "description": "MCP for tmux, powered by libtmux"
     },
     {
+      "name": "fast--macroweave",
+      "source": "./fast--macroweave",
+      "description": "Table-driven Rust code templates."
+    },
+    {
+      "name": "btspoony--mstar-harness",
+      "source": "./btspoony--mstar-harness",
+      "description": "A skill-driven Harness Engineering framework"
+    },
+    {
+      "name": "inf1n1tydes0ul--oneinfinity",
+      "source": "./inf1n1tydes0ul--oneinfinity",
+      "description": "One&Infinity \u2014 Autonomous Penetration Testing & Bug Bounty AI Framework"
+    },
+    {
+      "name": "eskyee--agentbot-opensource",
+      "source": "./eskyee--agentbot-opensource",
+      "description": "Open-source multi-tenant AI agent platform. Docker isolation, multi-channel, SIWE auth. Built on OpenClaw + Base. Our token is community-run. Agentbot builds the platform, while the market belongs to "
+    },
+    {
+      "name": "miron-tech--realtor-claude-skills",
+      "source": "./miron-tech--realtor-claude-skills",
+      "description": "13 AI skills that turn Claude Code into your real estate business assistant. Research leads, pull live comps, generate listing marketing, build follow-up sequences \u2014 all from the terminal. Built by Cy"
+    },
+    {
+      "name": "immich-lounge--immich-lounge",
+      "source": "./immich-lounge--immich-lounge",
+      "description": "Your memories, on the big screen"
+    },
+    {
+      "name": "btspoony--mstar-harness",
+      "source": "./btspoony--mstar-harness",
+      "description": "A skill-driven Harness Engineering framework"
+    },
+    {
+      "name": "btspoony--mstar-harness",
+      "source": "./btspoony--mstar-harness",
+      "description": "A skill-driven Harness Engineering framework"
+    },
+    {
+      "name": "robertsfeir--mybrain",
+      "source": "./robertsfeir--mybrain",
+      "description": "Personal knowledge base with semantic search for Claude \u2014 local PostgreSQL + pgvector, MCP server for Claude Code CLI and Claude Desktop. Inspired by Nate B Jones's Open Brain guide (promptkit.natebjo"
+    },
+    {
+      "name": "open-mercato--official-modules",
+      "source": "./open-mercato--official-modules",
+      "description": "This is the repository of official non-core module for Open Mercato"
+    },
+    {
+      "name": "badchars--github-security-mcp",
+      "source": "./badchars--github-security-mcp",
+      "description": "GitHub security posture analysis for AI agents \u2014 39 MCP tools, 45 checks across org, repos, Actions, secrets, supply chain, and access control"
+    },
+    {
+      "name": "ateeducacion--moodle-playground",
+      "source": "./ateeducacion--moodle-playground",
+      "description": "Run Moodle in the browser via WebAssembly PHP"
+    },
+    {
+      "name": "suprhimp--castla",
+      "source": "./suprhimp--castla",
+      "description": "Tesla Android Auto mirror app - Stream Android Auto to Tesla's browser"
+    },
+    {
+      "name": "11suixing11--mindnotes-pro",
+      "source": "./11suixing11--mindnotes-pro",
+      "description": "\u672c\u5730\u4f18\u5148\u767d\u677f\uff0c\u4ec53\u4e2a\u4f9d\u8d56\uff0c<1\u79d2\u52a0\u8f7d\uff0c\u96f6\u4e91\u7aef\u3002\u6253\u5f00\u5c31\u80fd\u753b\uff0c\u6570\u636e\u6c38\u4e0d\u4e0a\u4f20\u3002"
+    },
+    {
+      "name": "jz-wu--ai-knowledge-base",
+      "source": "./jz-wu--ai-knowledge-base",
+      "description": "AI-native knowledge base: select text \u2192 ask AI \u2192 answer and edit the source file directly"
+    },
+    {
+      "name": "advisorymonksconsulting--taste-skill",
+      "source": "./advisorymonksconsulting--taste-skill",
+      "description": "https://github.com/Leonxlnx/taste-skill.git"
+    },
+    {
+      "name": "badchars--cve-mcp",
+      "source": "./badchars--cve-mcp",
+      "description": "CVE/vulnerability intelligence MCP server \u2014 NVD, EPSS, KEV, GitHub Advisory, OSV"
+    },
+    {
+      "name": "cookys--autopilot",
+      "source": "./cookys--autopilot",
+      "description": "Development workflow skills for Claude Code \u2014 dev-flow, survey, think-tank, CEO mode, retro, learn, context-reduce"
+    },
+    {
+      "name": "cookys--autopilot",
+      "source": "./cookys--autopilot",
+      "description": "Development workflow skills for Claude Code \u2014 dev-flow, survey, think-tank, CEO mode, retro, learn, context-reduce"
+    },
+    {
+      "name": "winklerj--clean-your-room",
+      "source": "./winklerj--clean-your-room",
+      "description": "Create clean room specs from GitHub repo"
+    },
+    {
+      "name": "yigitkonur--cmux-claude-code",
+      "source": "./yigitkonur--cmux-claude-code",
+      "description": "the definitive claude code + cmux integration \u2014 status pills, progress bars, sidebar logs, notifications, git integration, subagent tracking"
+    },
+    {
+      "name": "metaphorex--metaphorex",
+      "source": "./metaphorex--metaphorex",
+      "description": "A materials library of load-bearing metaphors and other useful abstractions"
+    },
+    {
+      "name": "sixteen-dev--obai",
+      "source": "./sixteen-dev--obai",
+      "description": "OBaI is an open-source multi-agent platform for stock research,   strategy backtesting, and prediction market intelligence."
+    },
+    {
+      "name": "song-buaa--wealthpilot",
+      "source": "./song-buaa--wealthpilot",
+      "description": "WealthPilot"
+    },
+    {
+      "name": "metaphorex--metaphorex",
+      "source": "./metaphorex--metaphorex",
+      "description": "A materials library of load-bearing metaphors and other useful abstractions"
+    },
+    {
+      "name": "victor-software-house--pi-curated-themes",
+      "source": "./victor-software-house--pi-curated-themes",
+      "description": "Curated dark terminal themes for pi, adapted from iTerm2-Color-Schemes"
+    },
+    {
+      "name": "mstan--legendofzeldanesrecomp",
+      "source": "./mstan--legendofzeldanesrecomp",
+      "description": "Legend of Zelda NES static recompilation (NESRecomp)"
+    },
+    {
+      "name": "dpeluche--trs",
+      "source": "./dpeluche--trs",
+      "description": "Token-Reducing Shell \u2014 terminal output compression for AI coding agents"
+    },
+    {
+      "name": "song-buaa--wealthpilot",
+      "source": "./song-buaa--wealthpilot",
+      "description": "WealthPilot"
+    },
+    {
+      "name": "brainplusplus--9ed",
+      "source": "./brainplusplus--9ed",
+      "description": "9ed"
+    },
+    {
+      "name": "conorbronsdon--substack-mcp",
+      "source": "./conorbronsdon--substack-mcp",
+      "description": "MCP server for Substack \u2014 read posts, manage drafts. No publish or delete by design."
+    },
+    {
+      "name": "shadow3aaa--daatlocus",
+      "source": "./shadow3aaa--daatlocus",
+      "description": "An agent runtime."
+    },
+    {
+      "name": "brainplusplus--9ed",
+      "source": "./brainplusplus--9ed",
+      "description": "9ed"
+    },
+    {
+      "name": "inf1n1tydes0ul--oneinfinity",
+      "source": "./inf1n1tydes0ul--oneinfinity",
+      "description": "One&Infinity \u2014 Autonomous Penetration Testing & Bug Bounty AI Framework"
+    },
+    {
+      "name": "let-sunny--canicode",
+      "source": "./let-sunny--canicode",
+      "description": "Pre-implementation interview between Figma and AI codegen. Linter + plain-language Q&A for designers who want their craft to ship exactly. CLI / MCP / Claude Code skill."
+    },
+    {
+      "name": "eskyee--agentbot-opensource",
+      "source": "./eskyee--agentbot-opensource",
+      "description": "Open-source multi-tenant AI agent platform. Docker isolation, multi-channel, SIWE auth. Built on OpenClaw + Base. Our token is community-run. Agentbot builds the platform, while the market belongs to "
+    },
+    {
+      "name": "co-r-e--cerememory",
+      "source": "./co-r-e--cerememory",
+      "description": "cerememory"
+    },
+    {
+      "name": "ultranetcommand-neo--crimson-os",
+      "source": "./ultranetcommand-neo--crimson-os",
+      "description": "Crimson OS \u2014 Reality-Guided Intelligence, not AGI: sovereign local OS on your NAS. Agent_Bridge markdown ledger, not RAM. GAS\u2192LIQUID\u2192CRYSTAL gate. Hausdorff F\u2082\u21aaSO(3) cos \u03b8=\u2153. Geometric_Unity_Validatio"
+    },
+    {
+      "name": "inf1n1tydes0ul--oneinfinity",
+      "source": "./inf1n1tydes0ul--oneinfinity",
+      "description": "One&Infinity \u2014 Autonomous Penetration Testing & Bug Bounty AI Framework"
+    },
+    {
+      "name": "bastienallain--gemini-skill",
+      "source": "./bastienallain--gemini-skill",
+      "description": "gemini-skill"
+    },
+    {
+      "name": "eskyee--agentbot-opensource",
+      "source": "./eskyee--agentbot-opensource",
+      "description": "Open-source multi-tenant AI agent platform. Docker isolation, multi-channel, SIWE auth. Built on OpenClaw + Base. Our token is community-run. Agentbot builds the platform, while the market belongs to "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -229112,6 +229322,21 @@
       "name": "rayfernando1337--minimal-realtime-kit",
       "source": "./rayfernando1337--minimal-realtime-kit",
       "description": "Minimal, bring-your-own-key GPT Realtime voice agent (Swift/iOS) \u2014 spec, plan & starter snippets"
+    },
+    {
+      "name": "alsoknownassecurity--aka-claude-tools",
+      "source": "./alsoknownassecurity--aka-claude-tools",
+      "description": "The clean slate a fresh Claude Code should start from \u2014 clean context, locked credentials, guarded egress. Isolated profile, pick-and-choose."
+    },
+    {
+      "name": "rayfish--rayfish",
+      "source": "./rayfish--rayfish",
+      "description": "P2P mesh VPN powered by iroh \u2014 connects peers by cryptographic identity"
+    },
+    {
+      "name": "alirezakeshavarz83--fix-quera",
+      "source": "./alirezakeshavarz83--fix-quera",
+      "description": "fix-quera"
     },
     {
       "name": "cheerhuan--save-your-token",
