@@ -1,0 +1,44 @@
+{
+  "name": "vectorshell",
+  "owner": "Rvn0xsy",
+  "repo": "vectorshell",
+  "description": "An AI-driven remote command execution platform built with Rust. VectorShell bridges AI agents and remote targets \u2014 run shell commands, manage files, and execute platform-specific tools across your fleet, all orchestrated through a simple REPL, web UI, or MCP-compatible API.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Rvn0xsy/vectorshell",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T02:34:17Z"
+}
