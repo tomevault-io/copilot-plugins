@@ -1,0 +1,9 @@
+{
+  "name": "dwebagents--agentpipe",
+  "displayName": "AgentPipe",
+  "description": "High performance multithreaded task execution and optimization engine for agents and dweb apps",
+  "version": "1.0.0",
+  "author": "dwebagents",
+  "homepage": "https://github.com/dwebagents/AgentPipe",
+  "skills": []
+}
