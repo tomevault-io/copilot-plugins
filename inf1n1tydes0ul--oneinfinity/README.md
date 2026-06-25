@@ -7,11 +7,11 @@ One&Infinity — Autonomous Penetration Testing & Bug Bounty AI Framework
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Inf1n1tyDeS0ul/oneinfinity](https://github.com/Inf1n1tyDeS0ul/oneinfinity).
+Original source: `CLAUDE.md` in [Inf1n1tyDeS0ul/oneinfinity](https://github.com/Inf1n1tyDeS0ul/oneinfinity).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
