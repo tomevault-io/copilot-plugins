@@ -1,0 +1,9 @@
+{
+  "name": "tuya--virtuamate",
+  "displayName": "VirtuaMate",
+  "description": "3D Avatar Companion, Claw Enabled ",
+  "version": "1.0.0",
+  "author": "tuya",
+  "homepage": "https://github.com/tuya/VirtuaMate",
+  "skills": []
+}
