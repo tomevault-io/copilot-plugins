@@ -45844,6 +45844,11 @@
       "description": "Rust-first reimplementation of a local agent CLI inspired by Claude Code."
     },
     {
+      "name": "forest-isle--daimon",
+      "source": "./forest-isle--daimon",
+      "description": "daimon"
+    },
+    {
       "name": "0xsanei--darwinia",
       "source": "./0xsanei--darwinia",
       "description": "The Self-Evolving Agent Ecosystem \u2014 Trading agents that evolve through Darwinian selection and adversarial self-play"
@@ -170367,6 +170372,11 @@
       "name": "sigpanic--goink",
       "source": "./sigpanic--goink",
       "description": "Goink \u684c\u9762 AI \u5c0f\u8bf4\u521b\u4f5c\u52a9\u624b\uff0c\u5bf9\u8bdd\u5f0f\u5199\u4f5c + \u81ea\u52a8\u72b6\u6001\u8ffd\u8e2a + \u672c\u5730\u8bed\u4e49\u641c\u7d22\u3002\u8de8\u5e73\u53f0\u5f00\u7bb1\u5373\u7528\u3002AI Agent Novel Generator."
+    },
+    {
+      "name": "johnnyq-commits--aqueduct",
+      "source": "./johnnyq-commits--aqueduct",
+      "description": "LLM-powered data engineering agent: converts requirement docs and natural language into production-ready SQL, automating data pipeline workflows for ETL and analytics tasks. Open-source, MIT licensed."
     },
     {
       "name": "lightninglabs--lnget",
