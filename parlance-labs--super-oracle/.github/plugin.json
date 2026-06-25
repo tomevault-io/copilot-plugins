@@ -1,0 +1,9 @@
+{
+  "name": "parlance-labs--super-oracle",
+  "displayName": "super-oracle",
+  "description": "A second-opinion oracle for coding agents, powered by Sakana Fugu Ultra via codex-fugu. Cross-agent skill packaged as a Codex/Claude plugin.",
+  "version": "1.0.0",
+  "author": "parlance-labs",
+  "homepage": "https://github.com/parlance-labs/super-oracle",
+  "skills": []
+}
