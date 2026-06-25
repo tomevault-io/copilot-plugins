@@ -1,0 +1,9 @@
+{
+  "name": "minpeter--opensearch",
+  "displayName": "opensearch",
+  "description": "Web search and page fetch for agents and TypeScript apps.",
+  "version": "1.0.0",
+  "author": "minpeter",
+  "homepage": "https://github.com/minpeter/opensearch",
+  "skills": []
+}
