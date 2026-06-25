@@ -1,0 +1,9 @@
+{
+  "name": "hallboys--mcp4acumatica",
+  "displayName": "MCP4Acumatica",
+  "description": "MCP Server for Acumatica ERP",
+  "version": "1.0.0",
+  "author": "hallboys",
+  "homepage": "https://github.com/hallboys/MCP4Acumatica",
+  "skills": []
+}
