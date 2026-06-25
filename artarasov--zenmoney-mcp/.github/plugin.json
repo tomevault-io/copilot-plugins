@@ -1,0 +1,9 @@
+{
+  "name": "artarasov--zenmoney-mcp",
+  "displayName": "zenmoney-mcp",
+  "description": "MCP server for ZenMoney \u2014 manage your personal finances from Claude, Cursor, and other AI clients",
+  "version": "1.0.0",
+  "author": "artarasov",
+  "homepage": "https://github.com/artarasov/zenmoney-mcp",
+  "skills": []
+}
