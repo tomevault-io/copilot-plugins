@@ -1,0 +1,9 @@
+{
+  "name": "darkrock-studios--platformspellcheckerkt",
+  "displayName": "PlatformSpellCheckerKt",
+  "description": "A Kotlin Multiplatform wrapper around different platform's native spell checker systems.",
+  "version": "1.0.0",
+  "author": "Darkrock-Studios",
+  "homepage": "https://github.com/Darkrock-Studios/PlatformSpellCheckerKt",
+  "skills": []
+}
