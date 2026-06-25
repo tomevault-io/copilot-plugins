@@ -1,0 +1,44 @@
+{
+  "name": "mindnotes-pro",
+  "owner": "11suixing11",
+  "repo": "mindnotes-pro",
+  "description": "\u672c\u5730\u4f18\u5148\u767d\u677f\uff0c\u4ec53\u4e2a\u4f9d\u8d56\uff0c<1\u79d2\u52a0\u8f7d\uff0c\u96f6\u4e91\u7aef\u3002\u6253\u5f00\u5c31\u80fd\u753b\uff0c\u6570\u636e\u6c38\u4e0d\u4e0a\u4f20\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/11suixing11/mindnotes-pro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T18:41:16Z"
+}
