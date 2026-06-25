@@ -1,0 +1,9 @@
+{
+  "name": "slack-samples--bolt-js-support-agent",
+  "displayName": "bolt-js-support-agent",
+  "description": "Casey (it/this/that) - an AI-powered IT helpdesk agent in Slack using the Claude SDK and OpenAI SDK.",
+  "version": "1.0.0",
+  "author": "slack-samples",
+  "homepage": "https://github.com/slack-samples/bolt-js-support-agent",
+  "skills": []
+}
