@@ -1,0 +1,9 @@
+{
+  "name": "jmapio--jmap-test-suite",
+  "displayName": "jmap-test-suite",
+  "description": "JMAP Conformance Test Suite",
+  "version": "1.0.0",
+  "author": "jmapio",
+  "homepage": "https://github.com/jmapio/jmap-test-suite",
+  "skills": []
+}
