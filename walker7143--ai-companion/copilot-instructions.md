@@ -1,0 +1,139 @@
+## ai-companion
+
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+
+# AGENTS.md
+
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+
+## 常用命令
+
+```bash
+# 安装依赖
+pip install -r requirements.txt
+
+# 本地开发安装
+pip install -e .
+
+# 运行系统测试
+python tests/system_test_suite.py
+
+# 语法健康检查
+python -m compileall -q ai_companion
+
+# CLI 启动
+ai-companion start
+ai-companion start --bot <bot_id>  # 指定Bot
+
+# 配置向导
+ai-companion setup
+
+# 飞书网关
+ai-companion gateway start
+ai-companion gateway stop
+ai-companion gateway logs
+
+# 内置命令（在对话界面）
+/new          # 开始新会话
+/memory       # 查看记忆状态
+/forget <key> # 删除某条记忆
+quit          # 退出
+```
+
+## 项目架构
+
+### 核心模块层级
+
+```
+Platform Adapter（飞书/CLI/Webhook）
+         ↓
+Skill / MCP Dispatcher
+         ↓
+Model Adapter（统一接口，支持 MiniMax/OpenAI/Codex/Ollama/自定义）
+         ↓
+Agent Engine（Persona/Memory/Refusal/Proactive/Evolution）
+         ↓
+Storage Layer（SQLite + Chroma 向量）
+```
+
+### 关键目录
+
+| 目录 | 说明 |
+|------|------|
+| `ai_companion/bot/` | Bot 核心实例（BotInstance, BotManager） |
+| `ai_companion/memory/` | 三层记忆引擎（Working/Episodic/Semantic） |
+| `ai_companion/persona/` | 人格系统（Loader, Engine, RefusalEngine） |
+| `ai_companion/proactive/` | 主动唤醒系统（Engine, Scheduler, LifeEngine） |
+| `ai_companion/model/` | 模型适配器工厂（支持多模型热插拔） |
+| `ai_companion/gateway/` | 消息网关（Session, Delivery, Platform） |
+| `ai_companion/skill/` | 技能系统（Dispatcher, Registry） |
+| `ai_companion/context/` | 上下文管理（Compressor, TokenEstimator） |
+| `data/bots/` | 各 Bot 的 persona 配置和运行时数据 |
+
+### 三层记忆系统
+
+1. **Working Memory** - SQLite + jieba 分词，当前会话原始消息
+2. **Episodic Memory** - SQLite + Chroma 向量，情景片段语义召回
+3. **Semantic Memory** - SQLite，关键事实（用户画像）提取
+
+向量嵌入默认开启（`embedding: "local"`），安装项目时会安装 sentence-transformers 和 Chroma；如需关闭可设为 `embedding: "none"`。
+
+### 人格配置
+
+每个 Bot 的 persona 位于 `data/bots/{bot_id}/persona/`：
+- `profile.json` - 基础档案
+- `backstory.json` - 人生经历
+- `values.json` - 价值观和底线
+- `speaking_style.json` - 说话风格
+- `proactive.json` - 主动唤醒配置
+- `life.json` - Bot 人生轨迹配置
+
+### 运行时数据
+
+运行时数据（数据库、缓存）位于 `data/bots/{bot_id}/memory/`，通常不需要提交到 git。
+
+## 设计原则
+
+- **路径无关**：所有路径使用 `pathlib.Path`，数据存储在 `~/.ai-companion/`
+- **零配置启动**：安装后 `ai-companion setup` 向导覆盖所有必要配置
+- **跨平台优先**：使用 Python 3.11+，所有代码兼容 macOS/Linux/Windows
+- **性格推断拒绝**：基于人格判断该不该回答，不是简单的关键词过滤
+- **禁止穷举式语义判断**：不得用场景词、称谓词、关系词、生活事件词的硬编码枚举来判断“当前现实是什么”“谁是谁”“谁称呼谁”“谁对谁有权限”等语义事实。此类判断必须保留主体、客体、来源角色和时间，并交给统一语义状态/一致性层裁决；规则代码只能用于协议路由、安全护栏、格式清洗、兼容迁移等非现实事实创造场景。
+- **方向性优先**：身份、称谓、亲密关系、资产归属、权限关系、动作施事者都必须按方向存储和使用。记忆里“用户称呼 Bot 为 X”只表示用户 -> Bot，不能反推成 Bot -> 用户；没有明确证据时不得补全或调换主客体。
+
+## 配置位置
+
+用户配置和数据存储在 `~/.ai-companion/`：
+- `config/models.yaml` - 模型配置
+- `config/bots.yaml` - Bot 列表
+- `config/config.yaml` - 主配置
+- `data/bots/{bot_id}/` - 各 Bot 的人格和记忆
+
+## 管理后台 UI
+
+管理后台项目位于 `ai-companion-ui/`，技术栈：
+
+| 层 | 技术 |
+|----|------|
+| 前端框架 | React 19 + TypeScript |
+| 构建工具 | Vite 7 |
+| 样式 | TailwindCSS 4 |
+| 状态管理 | Zustand 5 |
+| 图表 | Recharts 3 |
+
+详细文档：
+- `docs/ui/UI_DESIGN.md` - UI 设计方案（设计规范、页面布局、组件规范）
+- `docs/ui/UI_SPEC.md` - 产品规格（功能清单、交互细节、验收标准）
+- `docs/ui/UI_TECH_DESIGN.md` - 技术设计方案（架构、API、目录结构）
+- `docs/ui/UI_PROGRESS.md` - 实现进度追踪（150个任务步骤）
+
+开发命令：
+```bash
+cd ai-companion-ui
+npm install
+npm run dev
+```
+
+---
+> Source: [Walker7143/ai-companion](https://github.com/Walker7143/ai-companion) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-24 -->
