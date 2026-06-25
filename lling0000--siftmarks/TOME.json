@@ -4,7 +4,7 @@
   "repo": "SiftMarks",
   "description": "Local-first AI bookmark manager with semantic search, cleanup review, Chrome sync-back, and MCP support.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lling0000/SiftMarks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T00:30:26Z"
+  "distributed_at": "2026-06-25T00:34:24Z"
 }
