@@ -1,0 +1,9 @@
+{
+  "name": "robertsfeir--mybrain",
+  "displayName": "mybrain",
+  "description": "Personal knowledge base with semantic search for Claude \u2014 local PostgreSQL + pgvector, MCP server for Claude Code CLI and Claude Desktop. Inspired by Nate B Jones's Open Brain guide (promptkit.natebjo",
+  "version": "1.0.0",
+  "author": "robertsfeir",
+  "homepage": "https://github.com/robertsfeir/mybrain",
+  "skills": []
+}
