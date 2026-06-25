@@ -1,0 +1,9 @@
+{
+  "name": "suharvest--rkvoice-stream",
+  "displayName": "rkvoice-stream",
+  "description": "Deploy streaming ASR + TTS on RK3576/RK3588 \u2014 120ms TTS, 52-language ASR, one Docker command",
+  "version": "1.0.0",
+  "author": "suharvest",
+  "homepage": "https://github.com/suharvest/rkvoice-stream",
+  "skills": []
+}
