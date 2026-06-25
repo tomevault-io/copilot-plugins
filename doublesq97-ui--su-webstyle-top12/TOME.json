@@ -4,7 +4,7 @@
   "repo": "su-webstyle-top12",
   "description": "Top 12 overseas web style atlas skill for Codex, Claude Code, and agentic coding tools.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/doublesq97-ui/su-webstyle-top12",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T16:38:55Z"
+  "distributed_at": "2026-06-25T16:42:48Z"
 }
