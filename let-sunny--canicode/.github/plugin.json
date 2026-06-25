@@ -1,0 +1,9 @@
+{
+  "name": "let-sunny--canicode",
+  "displayName": "canicode",
+  "description": "Pre-implementation interview between Figma and AI codegen. Linter + plain-language Q&A for designers who want their craft to ship exactly. CLI / MCP / Claude Code skill.",
+  "version": "1.0.0",
+  "author": "let-sunny",
+  "homepage": "https://github.com/let-sunny/canicode",
+  "skills": []
+}
