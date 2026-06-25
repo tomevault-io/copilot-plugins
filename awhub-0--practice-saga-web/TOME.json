@@ -4,7 +4,7 @@
   "repo": "Practice-Saga-Web",
   "description": "practice for make new landing page",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awhub-0/Practice-Saga-Web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T02:48:28Z"
+  "distributed_at": "2026-06-25T02:49:59Z"
 }
