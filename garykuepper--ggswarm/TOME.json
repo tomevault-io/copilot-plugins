@@ -4,7 +4,7 @@
   "repo": "ggSwarm",
   "description": "A fully decentralized coordination framework where global formation behavior emerges naturally from local agent interactions. By combining Graph Neural Networks for spatial reasoning with advanced trajectory optimization for flight dynamics, the system achieves a robust and fault-tolerant solution for complex aerial maneuvers",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/garykuepper/ggSwarm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T22:39:25Z"
+  "distributed_at": "2026-06-25T22:43:23Z"
 }
