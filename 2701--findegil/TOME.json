@@ -4,7 +4,7 @@
   "repo": "findegil",
   "description": "E-commerce search for catalogs that fit in RAM.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/2701/findegil",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T00:52:50Z"
+  "distributed_at": "2026-06-25T00:53:20Z"
 }
