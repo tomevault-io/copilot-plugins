@@ -1,0 +1,13 @@
+## translate
+
+> translate exists to make Apple's on-device Translation framework usable the way real software pipes and clients expect: deterministic, local, no cloud, no keys. It IS two things - a UNIX filter (`translate --to en`, stdin in, stdout out, exit codes, JSON/NDJSON) and a drop-in HTTP server (`translate --serve`) that is byte-compatible with DeepL `/v2/*`, LibreTranslate `/translate /detect /languages`, and Google v2 `/language/translate/v2/*`, so existing client libraries point at it unchanged. It runs 100% on-device on macOS Tahoe using Apple's deterministic neural Translation engine, auto-detecting source language with NaturalLanguage. It is NOT an LLM, not a cloud service, and not a wrapper around a third-party translation library - no network calls during translation, no API keys, no telemetry. Every design decision, test, and release is scored first against those two surfaces and the promise of same-input-same-output, byte-stable results.
+
+# translate - Project Instructions
+
+## The Golden Goal
+
+translate exists to make Apple's on-device Translation framework usable the way real software pipes and clients expect: deterministic, local, no cloud, no keys. It IS two things - a UNIX filter (`translate --to en`, stdin in, stdout out, exit codes, JSON/NDJSON) and a drop-in HTTP server (`translate --serve`) that is byte-compatible with DeepL `/v2/*`, LibreTranslate `/translate /detect /languages`, and Google v2 `/language/translate/v2/*`, so existing client libraries point at it unchanged. It runs 100% on-device on macOS Tahoe using Apple's deterministic neural Translation engine, auto-detecting source language with NaturalLanguage. It is NOT an LLM, not a cloud service, and not a wrapper around a third-party translation library - no network calls during translation, no API keys, no telemetry. Every design decision, test, and release is scored first against those two surfaces and the promise of same-input-same-output, byte-stable results.
+
+---
+> Source: [Arthur-Ficial/translate](https://github.com/Arthur-Ficial/translate) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-24 -->
