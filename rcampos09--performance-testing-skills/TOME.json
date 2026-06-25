@@ -1,0 +1,44 @@
+{
+  "name": "performance-testing-skills",
+  "owner": "rcampos09",
+  "repo": "performance-testing-skills",
+  "description": "Open-source Claude Code skills for performance and load testing. Install any skill to get AI-guided test generation for your stack.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rcampos09/performance-testing-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T08:32:36Z"
+}
