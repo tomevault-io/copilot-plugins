@@ -1,0 +1,9 @@
+{
+  "name": "databricks--devhub",
+  "displayName": "devhub",
+  "description": "DevHub (databricks.com/devhub) is the developer site for building on Databricks.",
+  "version": "1.0.0",
+  "author": "databricks",
+  "homepage": "https://github.com/databricks/devhub",
+  "skills": []
+}
