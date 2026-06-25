@@ -1,0 +1,9 @@
+{
+  "name": "athm793--meta-ads-scraper",
+  "displayName": "meta-ads-scraper",
+  "description": "Local self-hosted Meta Ad Library research tool: deep keyword/advertiser scraping, saved-ad swipe files, Hook Lab trend-stage intelligence, bulk company intelligence, and real-time outbound webhooks (",
+  "version": "1.0.0",
+  "author": "athm793",
+  "homepage": "https://github.com/athm793/meta-ads-scraper",
+  "skills": []
+}
