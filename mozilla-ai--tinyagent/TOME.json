@@ -4,7 +4,7 @@
   "repo": "tinyagent",
   "description": "Minimalist framework for running and monitoring an agent",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mozilla-ai/tinyagent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T00:51:52Z"
+  "distributed_at": "2026-06-25T00:52:20Z"
 }
