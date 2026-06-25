@@ -1,0 +1,44 @@
+{
+  "name": "BannerlordSage",
+  "owner": "hby7921",
+  "repo": "BannerlordSage",
+  "description": "A Model Context Protocol (MCP) server for Mount & Blade II: Bannerlord. Gives AI agents access to decompiled source search, XML data browsing, gameplay queries, local mod source indexing, and patch generation tools.\u4e3a\u300a\u9a91\u9a6c\u4e0e\u780d\u67402\uff1a\u9738\u4e3b\u300b\u6253\u9020\u7684 MCP \u670d\u52a1\u5668\uff0c\u652f\u6301\u6e90\u7801\u68c0\u7d22\u3001XML \u6570\u636e\u67e5\u8be2\u3001\u73a9\u6cd5\u6570\u636e\u6d4f\u89c8\u3001\u672c\u5730 Mod \u6e90\u7801\u7d22\u5f15\u4e0e\u8865\u4e01\u8f85\u52a9\u751f\u6210\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hby7921/BannerlordSage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T20:39:40Z"
+}
