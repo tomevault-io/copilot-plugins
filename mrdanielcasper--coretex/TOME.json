@@ -4,7 +4,7 @@
   "repo": "CoreTex",
   "description": "A UNIX-inspired, biomimetic, flat-file AI harness and knowledge engine.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrdanielcasper/CoreTex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T22:42:57Z"
+  "distributed_at": "2026-06-25T00:49:22Z"
 }
