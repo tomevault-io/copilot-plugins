@@ -1,0 +1,9 @@
+{
+  "name": "semantic-reasoning--wirelog",
+  "displayName": "wirelog",
+  "description": "Embedded-to-Enterprise Datalog Engine in C11",
+  "version": "1.0.0",
+  "author": "semantic-reasoning",
+  "homepage": "https://github.com/semantic-reasoning/wirelog",
+  "skills": []
+}
