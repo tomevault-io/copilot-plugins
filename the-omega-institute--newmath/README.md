@@ -7,11 +7,11 @@ BEDC: Binary Emission Discovery Calculus (mathlib-free Lean 4 + LaTeX paper)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [the-omega-institute/newmath](https://github.com/the-omega-institute/newmath).
+Original source: `CLAUDE.md` in [the-omega-institute/newmath](https://github.com/the-omega-institute/newmath).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
