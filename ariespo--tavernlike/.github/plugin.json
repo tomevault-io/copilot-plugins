@@ -1,0 +1,9 @@
+{
+  "name": "ariespo--tavernlike",
+  "displayName": "tavernlike",
+  "description": "Claude Code Skill - Integrate SillyTavern ecosystem into web projects",
+  "version": "1.0.0",
+  "author": "ariespo",
+  "homepage": "https://github.com/ariespo/tavernlike",
+  "skills": []
+}
