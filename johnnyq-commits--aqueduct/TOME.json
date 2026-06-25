@@ -1,0 +1,44 @@
+{
+  "name": "Aqueduct",
+  "owner": "JohnnyQ-commits",
+  "repo": "Aqueduct",
+  "description": "LLM-powered data engineering agent: converts requirement docs and natural language into production-ready SQL, automating data pipeline workflows for ETL and analytics tasks. Open-source, MIT licensed.\u53ef\u5d4c\u5165\u7684 LLM \u9a71\u52a8\u6570\u636e\u5f00\u53d1 Agent\uff1a\u5c06\u9700\u6c42\u6587\u6863\u548c\u81ea\u7136\u8bed\u8a00\u8f6c\u6362\u4e3a\u751f\u4ea7\u7ea7 SQL\uff0c\u81ea\u52a8\u5316 ETL \u548c\u5206\u6790\u4efb\u52a1\u7684\u6570\u636e\u6d41\u6c34\u7ebf\u5de5\u4f5c\u6d41\u3002\u5f00\u6e90\u9879\u76ee\uff0c\u91c7\u7528 MIT \u534f\u8bae\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JohnnyQ-commits/Aqueduct",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-25T07:30:57Z"
+}
