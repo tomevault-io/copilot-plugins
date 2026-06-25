@@ -1,0 +1,9 @@
+{
+  "name": "scrogson--ambitious",
+  "displayName": "ambitious",
+  "description": "A native Rust implementation of Erlang/OTP primitives, bringing the power of the BEAM's concurrency model to Rust with full type safety.",
+  "version": "1.0.0",
+  "author": "scrogson",
+  "homepage": "https://github.com/scrogson/ambitious",
+  "skills": []
+}
