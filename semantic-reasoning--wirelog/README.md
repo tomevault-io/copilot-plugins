@@ -7,11 +7,11 @@ Embedded-to-Enterprise Datalog Engine in C11
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [semantic-reasoning/wirelog](https://github.com/semantic-reasoning/wirelog).
+Original source: `AGENTS.md` in [semantic-reasoning/wirelog](https://github.com/semantic-reasoning/wirelog).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
