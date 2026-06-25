@@ -7,11 +7,11 @@ Automated OSS maintenance evidence log. Tracks 1.6M npm downloads/week across 7 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dusan-maintains/oss-maintenance-log](https://github.com/dusan-maintains/oss-maintenance-log).
+Original source: `AGENTS.md` in [dusan-maintains/oss-maintenance-log](https://github.com/dusan-maintains/oss-maintenance-log).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
