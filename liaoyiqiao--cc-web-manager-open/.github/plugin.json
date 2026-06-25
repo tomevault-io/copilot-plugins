@@ -1,0 +1,9 @@
+{
+  "name": "liaoyiqiao--cc-web-manager-open",
+  "displayName": "cc-web-manager-open",
+  "description": "Web-based management panel for remotely controlling AI coding agents (Claude Code, Codex, Gemini CLI) on GPU servers",
+  "version": "1.0.0",
+  "author": "liaoyiqiao",
+  "homepage": "https://github.com/liaoyiqiao/cc-web-manager-open",
+  "skills": []
+}
