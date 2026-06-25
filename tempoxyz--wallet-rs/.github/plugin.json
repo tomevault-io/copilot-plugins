@@ -1,0 +1,9 @@
+{
+  "name": "tempoxyz--wallet-rs",
+  "displayName": "wallet-rs",
+  "description": "Command-line wallet and HTTP client for the Tempo blockchain, with built-in Machine Payments Protocol support.",
+  "version": "1.0.0",
+  "author": "tempoxyz",
+  "homepage": "https://github.com/tempoxyz/wallet-rs",
+  "skills": []
+}
