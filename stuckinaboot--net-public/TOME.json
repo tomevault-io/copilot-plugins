@@ -2,9 +2,9 @@
   "name": "net-public",
   "owner": "stuckinaboot",
   "repo": "net-public",
-  "description": "Publicly available code for Net Protocol",
+  "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/stuckinaboot/net-public",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T00:46:39Z"
+  "distributed_at": "2026-06-26T15:30:32Z"
 }
