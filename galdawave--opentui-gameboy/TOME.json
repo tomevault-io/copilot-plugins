@@ -4,7 +4,7 @@
   "repo": "opentui-gameboy",
   "description": "An OpenTUI Gameboy Emulator",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/galdawave/opentui-gameboy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T00:39:48Z"
+  "distributed_at": "2026-06-26T01:08:00Z"
 }
