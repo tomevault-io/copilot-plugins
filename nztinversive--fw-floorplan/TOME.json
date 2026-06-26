@@ -4,7 +4,7 @@
   "repo": "fw-floorplan",
   "description": "FW Floor Plan Studio",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nztinversive/fw-floorplan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T16:40:33Z"
+  "distributed_at": "2026-06-26T16:43:45Z"
 }
