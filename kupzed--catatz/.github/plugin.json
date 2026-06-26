@@ -1,0 +1,9 @@
+{
+  "name": "kupzed--catatz",
+  "displayName": "catatz",
+  "description": "A personal finance management app powered by Next.js and Supabase. Key features include transaction tracking, account management, custom categories, debt tracking, monthly overviews, Excel/PDF exports",
+  "version": "1.0.0",
+  "author": "kupzed",
+  "homepage": "https://github.com/kupzed/catatz",
+  "skills": []
+}
