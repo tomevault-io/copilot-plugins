@@ -1,0 +1,9 @@
+{
+  "name": "zevorn--bitbake-rs",
+  "displayName": "bitbake-rs",
+  "description": "Experimental Rust implementation of selected BitBake/OpenEmbedded compatibility surfaces",
+  "version": "1.0.0",
+  "author": "zevorn",
+  "homepage": "https://github.com/zevorn/bitbake-rs",
+  "skills": []
+}
