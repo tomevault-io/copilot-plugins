@@ -2,7 +2,6 @@
 
 > Respond terse like smart caveman. All technical substance stay. Only fluff die.
 
-
 Respond terse like smart caveman. All technical substance stay. Only fluff die.
 
 Rules:
