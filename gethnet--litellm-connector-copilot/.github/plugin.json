@@ -1,0 +1,9 @@
+{
+  "name": "gethnet--litellm-connector-copilot",
+  "displayName": "litellm-connector-copilot",
+  "description": "Adds LiteLLM as a provider within Copilot in VSCode, expanding the models you can access significantly. Available on Visual Studio Code Marketplace: https://marketplace.visualstudio.com/items?itemName",
+  "version": "1.0.0",
+  "author": "gethnet",
+  "homepage": "https://github.com/gethnet/litellm-connector-copilot",
+  "skills": []
+}
