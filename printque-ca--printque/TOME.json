@@ -4,7 +4,7 @@
   "repo": "PrintQue",
   "description": "Software for 3D printer fleet management and automation",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PrintQue-ca/PrintQue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T18:34:16Z"
+  "distributed_at": "2026-06-26T18:40:10Z"
 }
