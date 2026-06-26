@@ -4,7 +4,7 @@
   "repo": "myco",
   "description": "Myco is the nervous system for AI-assisted software teams. Works automatically alongside the coding agents, subagents, and agent teams you already use",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/goondocks-co/myco",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T10:33:28Z"
+  "distributed_at": "2026-06-26T10:36:49Z"
 }
