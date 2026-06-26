@@ -1,0 +1,44 @@
+{
+  "name": "litellm-connector-copilot",
+  "owner": "gethnet",
+  "repo": "litellm-connector-copilot",
+  "description": "Adds LiteLLM as a provider within Copilot in VSCode, expanding the models you can access significantly. Available on Visual Studio Code Marketplace: https://marketplace.visualstudio.com/items?itemName=Gethnet.litellm-connector-copilot",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gethnet/litellm-connector-copilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T16:41:35Z"
+}
