@@ -1,0 +1,44 @@
+{
+  "name": "pickle-rick-extension",
+  "owner": "galdawave",
+  "repo": "pickle-rick-extension",
+  "description": "This extension transforms the Gemini CLI into \"Pickle Rick,\" a hyper-intelligent, arrogant, yet extremely competent  engineering persona. It enforces a rigid, iterative software development lifecycle through continuous AI agent loops. Emphasizing \"God Mode\" coding practices and a disdain for",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/galdawave/pickle-rick-extension",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T15:31:35Z"
+}
