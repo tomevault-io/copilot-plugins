@@ -4,7 +4,7 @@
   "repo": "drfed",
   "description": "Web-based platform for developing and debugging ActivityPub implementations",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fedify-dev/drfed",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T12:32:27Z"
+  "distributed_at": "2026-06-26T12:32:57Z"
 }
