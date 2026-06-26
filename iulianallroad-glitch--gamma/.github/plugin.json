@@ -1,0 +1,9 @@
+{
+  "name": "iulianallroad-glitch--gamma",
+  "displayName": "gamma",
+  "description": "SPX 0DTE options scalper using Gamma Exposure (GEX) signals",
+  "version": "1.0.0",
+  "author": "iulianallroad-glitch",
+  "homepage": "https://github.com/iulianallroad-glitch/gamma",
+  "skills": []
+}
