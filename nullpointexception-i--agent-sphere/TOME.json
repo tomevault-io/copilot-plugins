@@ -1,0 +1,44 @@
+{
+  "name": "agent-sphere",
+  "owner": "nullpointexception-i",
+  "repo": "agent-sphere",
+  "description": "This project is an AI Agent orchestration platform. It uses an LLM-driven decision engine, combined with capabilities (built-in tools, MCP protocol, CLI execution, browser operations, etc.), to achieve a basic closed loop from perception \u2192 planning \u2192 execution \u2192 feedback.\u672c\u9879\u76ee\u662f\u4e00\u4e2a\u9762\u5411 AI Agent \u7f16\u6392\u5e73\u53f0\u3002\u5b83\u901a\u8fc7 LLM \u9a71\u52a8\u7684\u51b3\u7b56\u5f15\u64ce\uff0c\u7ed3\u5408\u80fd\u529b\uff08\u5185\u7f6e\u5de5\u5177\u3001MCP \u534f\u8bae\u3001CLI \u6267\u884c\u3001\u6d4f\u89c8\u5668\u64cd\u4f5c\u7b49\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nullpointexception-i/agent-sphere",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T09:30:25Z"
+}
