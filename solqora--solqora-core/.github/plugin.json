@@ -1,0 +1,9 @@
+{
+  "name": "solqora--solqora-core",
+  "displayName": "solqora-core",
+  "description": "OpenAI-compatible API gateway for 40+ LLM providers. Pay with USDC on Solana.",
+  "version": "1.0.0",
+  "author": "Solqora",
+  "homepage": "https://github.com/Solqora/solqora-core",
+  "skills": []
+}
