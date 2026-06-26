@@ -4,7 +4,7 @@
   "repo": "Lume",
   "description": "A modern, native IPTV player for Apple platforms.  Browse, search, and stream your Xtream Codes or M3U/M3U8 playlists with a clean SwiftUI interface \u2014 Live TV, Movies, and Series, enriched with metadata, EPG, and watch progress that follows you across your devices.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bilipp/Lume",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T02:33:15Z"
+  "distributed_at": "2026-06-26T02:42:56Z"
 }
