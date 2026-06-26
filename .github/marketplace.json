@@ -103429,6 +103429,11 @@
       "description": "crypto ai research on solana by Claude AI - AI reasoning, on-chain data"
     },
     {
+      "name": "akiojin--unity-mcp-server",
+      "source": "./akiojin--unity-mcp-server",
+      "description": "[DEPRECATED] Unity MCP server \u2014 successor: akiojin/unity-cli"
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -117622,6 +117627,11 @@
       "name": "omnigentx--jarvis",
       "source": "./omnigentx--jarvis",
       "description": "Omnigentx Jarvis \u2014 voice + chat AI assistant powered by Fast Agent (MCP) with Vue dashboard. Single-user, self-hosted, multi-skill orchestration."
+    },
+    {
+      "name": "lwj1994--flutter-view-model",
+      "source": "./lwj1994--flutter-view-model",
+      "description": "pure & lightweight state management library for Flutter"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -162694,6 +162704,11 @@
       "description": "beluga-ai"
     },
     {
+      "name": "softbacon-software--mycelium",
+      "source": "./softbacon-software--mycelium",
+      "description": "Self-hosted, runtime-agnostic command center for coordinating AI agents, GPU drones, and humans"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -183247,6 +183262,21 @@
       "name": "dynokostya--just-works",
       "source": "./dynokostya--just-works",
       "description": "Set of instructions for Claude Code base installation that integrates in any project"
+    },
+    {
+      "name": "evanzhang008--open-walnut",
+      "source": "./evanzhang008--open-walnut",
+      "description": "Personal AI butler powered by Claude \u2014 task management, Claude Code sessions, memory system, and web UI. Self-hosted, local-first, open source."
+    },
+    {
+      "name": "chrplr--goxpyriment",
+      "source": "./chrplr--goxpyriment",
+      "description": "An (AI friendly) psychology experiment framework"
+    },
+    {
+      "name": "chrplr--goxpyriment",
+      "source": "./chrplr--goxpyriment",
+      "description": "An (AI friendly) psychology experiment framework"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -213519,6 +213549,41 @@
       "description": "prajaakeeya-frontend"
     },
     {
+      "name": "klh--speedy-claude",
+      "source": "./klh--speedy-claude",
+      "description": "Make Claude Code 10-1400x faster at file operations. Modern CLI tools + CLAUDE.md rules that replace sequential Read+Edit with single parallel pipelines."
+    },
+    {
+      "name": "just-be-dev--effect-typed-id",
+      "source": "./just-be-dev--effect-typed-id",
+      "description": "Typed IDs in Effect.ts"
+    },
+    {
+      "name": "easyeda--eext-run-api-gateway",
+      "source": "./easyeda--eext-run-api-gateway",
+      "description": "\u5609\u7acb\u521bEDA\u4e13\u4e1a\u7248\u6269\u5c55\uff1aRun API Gateway \u2014 \u4e3a AI \u7f16\u7a0b\u5de5\u5177\uff08OpenCode\u3001QwenCode\u3001KimiCode \u7b49\uff09\u63d0\u4f9b WebSocket API \u7f51\u5173\u6865\u63a5\u670d\u52a1\u7684\u5de5\u5177\u3002EasyEDA Pro Extension: Run API Gateway \u2014 a tool that provides WebSocket API gateway bridging services fo"
+    },
+    {
+      "name": "okikio--cloudflare-ddns",
+      "source": "./okikio--cloudflare-ddns",
+      "description": "DDNS using Cloudflare Workers, built for NAS, homelab, and self-hosted setups using Cloudflare domains."
+    },
+    {
+      "name": "erickuby--social-media-autoposting-with-claude-code",
+      "source": "./erickuby--social-media-autoposting-with-claude-code",
+      "description": "AI-powered social media content creation and distribution system built on Claude Code. Post to YouTube, Instagram, TikTok, and Facebook with 17 skills, face-tracking video editing, and brand voice DNA"
+    },
+    {
+      "name": "hunterislive-1--ghost-creator",
+      "source": "./hunterislive-1--ghost-creator",
+      "description": "ghost-creator"
+    },
+    {
+      "name": "inphinitiz--cls-telegraph",
+      "source": "./inphinitiz--cls-telegraph",
+      "description": "\u8d22\u8054\u793e\u7535\u62a5 CLI - \u83b7\u53d6\u3001\u7b5b\u9009\u548c\u5b9e\u65f6\u76d1\u63a7\u8d22\u8054\u793e\u7535\u62a5\u5feb\u8baf"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -230507,6 +230572,16 @@
       "name": "eve-146t--cube-run",
       "source": "./eve-146t--cube-run",
       "description": "3D endless runner but you are cube"
+    },
+    {
+      "name": "abivan-tech--zvec-mcp",
+      "source": "./abivan-tech--zvec-mcp",
+      "description": "zvec-mcp"
+    },
+    {
+      "name": "killmonday--cybersparker",
+      "source": "./killmonday--cybersparker",
+      "description": "\u81f4\u529b\u4e8e\u5f00\u6e90\u7684\u653b\u51fb\u9762\u7ba1\u7406\u548c\u5229\u7528\u7cfb\u7edf\uff0c\u76ee\u524d\u80fd\u529b\uff1a\u516c\u7f51/\u5185\u7f51\u6d4b\u7ed8\u3001\u6f0f\u6d1e\u9a8c\u8bc1\uff08py/nuclei\uff09\u3001\u591a\u6a21\u6001AI\u7ef4\u62a4PoC\u3001\u6307\u7eb9/PoC\u8c03\u8bd5\u80fd\u529b\u3002"
     },
     {
       "name": "cheerhuan--save-your-token",
