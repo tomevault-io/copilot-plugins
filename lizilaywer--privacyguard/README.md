@@ -7,11 +7,11 @@ PrivacyGuard 脱敏卫士 - 一个中国五线小城市律师用AI 开发的，�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lizilaywer/PrivacyGuard](https://github.com/lizilaywer/PrivacyGuard).
+Original source: `AGENTS.md` in [lizilaywer/PrivacyGuard](https://github.com/lizilaywer/PrivacyGuard).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
