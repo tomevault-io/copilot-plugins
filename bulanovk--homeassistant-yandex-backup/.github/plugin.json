@@ -1,0 +1,9 @@
+{
+  "name": "bulanovk--homeassistant-yandex-backup",
+  "displayName": "homeassistant-yandex-backup",
+  "description": "Home Assistant backup integration to store backup on Yandex Disk",
+  "version": "1.0.0",
+  "author": "bulanovk",
+  "homepage": "https://github.com/bulanovk/homeassistant-yandex-backup",
+  "skills": []
+}
