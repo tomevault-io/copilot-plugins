@@ -4,7 +4,7 @@
   "repo": "styled-components-to-stylex-codemod",
   "description": "styled-components to StyleX codemod",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/skovhus/styled-components-to-stylex-codemod",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T15:32:02Z"
+  "distributed_at": "2026-06-26T15:32:32Z"
 }
