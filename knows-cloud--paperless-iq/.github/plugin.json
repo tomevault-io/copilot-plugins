@@ -1,0 +1,9 @@
+{
+  "name": "knows-cloud--paperless-iq",
+  "displayName": "paperless-iq",
+  "description": "Open-source AI add-on for Paperless-NGX: automatic metadata & tagging, RAG document search, and automation with Ollama, Bedrock, Anthropic, and OpenAI",
+  "version": "1.0.0",
+  "author": "knows-cloud",
+  "homepage": "https://github.com/knows-cloud/paperless-iq",
+  "skills": []
+}
