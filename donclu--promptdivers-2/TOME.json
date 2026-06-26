@@ -4,7 +4,7 @@
   "repo": "Promptdivers-2",
   "description": "Meme framework about helldivers for prompts",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/donclu/Promptdivers-2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T00:44:07Z"
+  "distributed_at": "2026-06-26T01:20:54Z"
 }
