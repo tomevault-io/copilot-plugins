@@ -1,0 +1,9 @@
+{
+  "name": "bropines--tailsocks",
+  "displayName": "tailsocks",
+  "description": "Userspace socks5 tailscale implementation on android.",
+  "version": "1.0.0",
+  "author": "bropines",
+  "homepage": "https://github.com/bropines/tailsocks",
+  "skills": []
+}
