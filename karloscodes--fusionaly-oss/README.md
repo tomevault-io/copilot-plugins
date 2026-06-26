@@ -7,11 +7,11 @@ Single tenant, self-hosted analytics that runs on SQLite
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [karloscodes/fusionaly-oss](https://github.com/karloscodes/fusionaly-oss).
+Original source: `AGENTS.md` in [karloscodes/fusionaly-oss](https://github.com/karloscodes/fusionaly-oss).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
