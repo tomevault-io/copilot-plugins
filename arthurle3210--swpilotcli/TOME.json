@@ -4,7 +4,7 @@
   "repo": "SwpilotCLI",
   "description": "Autonomous SolidWorks AI assistant \u2014 embeds Claude Code / Codex CLI in the Task Pane to automate feature operations via natural language.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arthurle3210/SwpilotCLI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T00:53:40Z"
+  "distributed_at": "2026-06-26T00:59:26Z"
 }
