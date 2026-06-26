@@ -7,11 +7,11 @@ kernelbench.com — GPU kernel engineering benchmarks for autonomous LLM coding 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Infatoshi/kernelbench.com](https://github.com/Infatoshi/kernelbench.com).
+Original source: `AGENTS.md` in [Infatoshi/kernelbench.com](https://github.com/Infatoshi/kernelbench.com).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
