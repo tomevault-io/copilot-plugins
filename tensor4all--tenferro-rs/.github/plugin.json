@@ -1,0 +1,9 @@
+{
+  "name": "tensor4all--tenferro-rs",
+  "displayName": "tenferro-rs",
+  "description": "A general-purpose tensor computation library in Rust with CPU/GPU support",
+  "version": "1.0.0",
+  "author": "tensor4all",
+  "homepage": "https://github.com/tensor4all/tenferro-rs",
+  "skills": []
+}
