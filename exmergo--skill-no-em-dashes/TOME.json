@@ -4,7 +4,7 @@
   "repo": "skill-no-em-dashes",
   "description": "A Claude Code skill that produces writing with zero em dashes, and, just as important, writing built out of sentences that never reach for one in the first place. Works with most Agents",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/exmergo/skill-no-em-dashes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T16:32:03Z"
+  "distributed_at": "2026-06-26T16:33:04Z"
 }
