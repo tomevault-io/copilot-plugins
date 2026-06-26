@@ -1,0 +1,9 @@
+{
+  "name": "izaac--nixos-config",
+  "displayName": "nixos-config",
+  "description": "Izaac Reproducible Configuration",
+  "version": "1.0.0",
+  "author": "izaac",
+  "homepage": "https://github.com/izaac/nixos-config",
+  "skills": []
+}
