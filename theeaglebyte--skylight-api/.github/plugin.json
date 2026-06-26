@@ -1,0 +1,9 @@
+{
+  "name": "theeaglebyte--skylight-api",
+  "displayName": "skylight-api",
+  "description": "HAR-to-OpenAPI converter for reverse-engineering the Skylight family calendar API \u2014 generates interactive Swagger UI and ReDoc documentation",
+  "version": "1.0.0",
+  "author": "TheEagleByte",
+  "homepage": "https://github.com/TheEagleByte/skylight-api",
+  "skills": []
+}
