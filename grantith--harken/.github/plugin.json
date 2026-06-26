@@ -1,0 +1,9 @@
+{
+  "name": "grantith--harken",
+  "displayName": "harken",
+  "description": "A window manager written in AutoHotKey. Jump to windows without needing to know where they are.",
+  "version": "1.0.0",
+  "author": "grantith",
+  "homepage": "https://github.com/grantith/harken",
+  "skills": []
+}
