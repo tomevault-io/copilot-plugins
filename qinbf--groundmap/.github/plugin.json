@@ -1,0 +1,9 @@
+{
+  "name": "qinbf--groundmap",
+  "displayName": "groundmap",
+  "description": "Markdown-first knowledge base engine with Git as the source of truth",
+  "version": "1.0.0",
+  "author": "Qinbf",
+  "homepage": "https://github.com/Qinbf/groundmap",
+  "skills": []
+}
