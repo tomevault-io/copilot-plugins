@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-tao--tao-skills-bank",
+  "displayName": "tao-skills-bank",
+  "description": "tao-skills-bank",
+  "version": "1.0.0",
+  "author": "NVIDIA-TAO",
+  "homepage": "https://github.com/NVIDIA-TAO/tao-skills-bank",
+  "skills": []
+}
