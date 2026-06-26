@@ -1,0 +1,9 @@
+{
+  "name": "sebastilan--clipboard-img2file",
+  "displayName": "clipboard-img2file",
+  "description": "Auto-convert clipboard bitmap images to file paths for CLI tools like Claude Code",
+  "version": "1.0.0",
+  "author": "Sebastilan",
+  "homepage": "https://github.com/Sebastilan/clipboard-img2file",
+  "skills": []
+}
