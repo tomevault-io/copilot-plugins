@@ -183434,6 +183434,11 @@
       "description": "AI Novel Diagnosis Desk\uff1a\u4e00\u7ad9\u5f0f AI \u7f51\u6587\u8bca\u65ad\u5de5\u4f5c\u53f0\uff0c\u53ef\u81ea\u52a8\u89e3\u6790\u5c0f\u8bf4\u6587\u672c\uff0c\u751f\u6210\u5c0f\u8bf4\u4eba\u7269\u5173\u7cfb\u56fe\u8c31\uff0c\u8bca\u65ad\u8bfb\u8005\u6d41\u5931\u539f\u56e0\uff0c\u5e76\u8f93\u51fa\u53ef\u6267\u884c\u7684\u667a\u80fd\u6539\u7a3f Prompt\u3002"
     },
     {
+      "name": "surkaa--surkaa-pad",
+      "source": "./surkaa--surkaa-pad",
+      "description": "\u4e00\u4e2a\u7aef\u5230\u7aef\u52a0\u5bc6\u7684\u65e5\u8bb0\u8f6f\u4ef6"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -214099,6 +214104,111 @@
       "description": "Sync your Claude Code skills across devices with zero-knowledge encryption"
     },
     {
+      "name": "ckorhonen--claude-skills",
+      "source": "./ckorhonen--claude-skills",
+      "description": "A curated collection of skills for Claude Code and Codex \u2014 specialized capabilities across development, design, AI, security, and more. Part of the cdd.dev/skills family."
+    },
+    {
+      "name": "andotherstuff--pensieve",
+      "source": "./andotherstuff--pensieve",
+      "description": "The eternal memory well of Nostr"
+    },
+    {
+      "name": "fission-ui--fission",
+      "source": "./fission-ui--fission",
+      "description": " A cross-platform, GPU-accelerated UI framework for Rust. Build native desktop (windows, linux, macos), mobile(iOS, Android), and web (static sites, interactive canvas SPA or full server side rendered"
+    },
+    {
+      "name": "andotherstuff--pensieve",
+      "source": "./andotherstuff--pensieve",
+      "description": "The eternal memory well of Nostr"
+    },
+    {
+      "name": "andotherstuff--pensieve",
+      "source": "./andotherstuff--pensieve",
+      "description": "The eternal memory well of Nostr"
+    },
+    {
+      "name": "andotherstuff--pensieve",
+      "source": "./andotherstuff--pensieve",
+      "description": "The eternal memory well of Nostr"
+    },
+    {
+      "name": "wu529778790--libu-shenzjd-com",
+      "source": "./wu529778790--libu-shenzjd-com",
+      "description": "\u4e00\u4e2a\u73b0\u4ee3\u5316\u7684\u7535\u5b50\u793c\u7c3f\u7cfb\u7edf\uff0c\u4e13\u4e3a\u5a5a\u793c\u3001\u5bff\u5bb4\u7b49\u793e\u4ea4\u573a\u5408\u8bbe\u8ba1\u3002\u7528\u6237\u53ea\u9700\u4e0b\u8f7d\u5355\u4e2aHTML\u6587\u4ef6\u5e76\u53cc\u51fb\u6253\u5f00\u5373\u53ef\u4f7f\u7528\uff0c\u65e0\u9700\u5b89\u88c5\u8f6f\u4ef6\u6216\u914d\u7f6e\u670d\u52a1\u5668\u3002\u7cfb\u7edf\u91c7\u7528\u672c\u5730\u6d4f\u89c8\u5668\u5b58\u50a8\uff0c\u6240\u6709\u793c\u91d1\u6570\u636e\u4fdd\u5b58\u5728\u7528\u6237\u7535\u8111\u4e0a\uff0c\u4e0d\u4e0a\u4f20\u4efb\u4f55\u670d\u52a1\u5668\uff0c\u786e\u4fdd\u6570\u636e\u9690\u79c1\u5b89\u5168\u3002"
+    },
+    {
+      "name": "wu529778790--libu-shenzjd-com",
+      "source": "./wu529778790--libu-shenzjd-com",
+      "description": "\u4e00\u4e2a\u73b0\u4ee3\u5316\u7684\u7535\u5b50\u793c\u7c3f\u7cfb\u7edf\uff0c\u4e13\u4e3a\u5a5a\u793c\u3001\u5bff\u5bb4\u7b49\u793e\u4ea4\u573a\u5408\u8bbe\u8ba1\u3002\u7528\u6237\u53ea\u9700\u4e0b\u8f7d\u5355\u4e2aHTML\u6587\u4ef6\u5e76\u53cc\u51fb\u6253\u5f00\u5373\u53ef\u4f7f\u7528\uff0c\u65e0\u9700\u5b89\u88c5\u8f6f\u4ef6\u6216\u914d\u7f6e\u670d\u52a1\u5668\u3002\u7cfb\u7edf\u91c7\u7528\u672c\u5730\u6d4f\u89c8\u5668\u5b58\u50a8\uff0c\u6240\u6709\u793c\u91d1\u6570\u636e\u4fdd\u5b58\u5728\u7528\u6237\u7535\u8111\u4e0a\uff0c\u4e0d\u4e0a\u4f20\u4efb\u4f55\u670d\u52a1\u5668\uff0c\u786e\u4fdd\u6570\u636e\u9690\u79c1\u5b89\u5168\u3002"
+    },
+    {
+      "name": "andotherstuff--pensieve",
+      "source": "./andotherstuff--pensieve",
+      "description": "The eternal memory well of Nostr"
+    },
+    {
+      "name": "exochain--exochain",
+      "source": "./exochain--exochain",
+      "description": "The constitutional fabric for ASI: EXOCHAIN: Open-source Rust DAG-BFT substrate for privacy-by-physics-preserving identity, consented data sharing, and aligned superintelligence. Verifiable governance"
+    },
+    {
+      "name": "yorks0n--pebbleface-studio",
+      "source": "./yorks0n--pebbleface-studio",
+      "description": "A tool for generating Pebble watchfaces online."
+    },
+    {
+      "name": "yorks0n--pebbleface-studio",
+      "source": "./yorks0n--pebbleface-studio",
+      "description": "A tool for generating Pebble watchfaces online."
+    },
+    {
+      "name": "gonsolo--borg",
+      "source": "./gonsolo--borg",
+      "description": "Foundational workflow for an open-source GPU"
+    },
+    {
+      "name": "kiaquila--pallete-maker",
+      "source": "./kiaquila--pallete-maker",
+      "description": "Palette Match & Export is a lightweight web tool for building harmonious color palettes. Pick from 51 curated colors, check LCH compatibility, and export to PNG. Helps with wardrobe planning, interior"
+    },
+    {
+      "name": "bigccc--inputlock",
+      "source": "./bigccc--inputlock",
+      "description": "\u4e00\u6b3e\u7b80\u6d01\u7684 macOS \u72b6\u6001\u680f\u5de5\u5177\uff0c\u4e00\u952e\u9501\u5b9a\u8f93\u5165\u6cd5\uff0c\u544a\u522b\u8bef\u5207\u6362\u70e6\u607c\u3002A minimal macOS menu bar app that locks your input method to prevent accidental switching."
+    },
+    {
+      "name": "bigccc--inputlock",
+      "source": "./bigccc--inputlock",
+      "description": "\u4e00\u6b3e\u7b80\u6d01\u7684 macOS \u72b6\u6001\u680f\u5de5\u5177\uff0c\u4e00\u952e\u9501\u5b9a\u8f93\u5165\u6cd5\uff0c\u544a\u522b\u8bef\u5207\u6362\u70e6\u607c\u3002A minimal macOS menu bar app that locks your input method to prevent accidental switching."
+    },
+    {
+      "name": "karloscodes--fusionaly-oss",
+      "source": "./karloscodes--fusionaly-oss",
+      "description": "Single tenant, self-hosted analytics that runs on SQLite"
+    },
+    {
+      "name": "karloscodes--fusionaly-oss",
+      "source": "./karloscodes--fusionaly-oss",
+      "description": "Single tenant, self-hosted analytics that runs on SQLite"
+    },
+    {
+      "name": "chunhuitrue--aish",
+      "source": "./chunhuitrue--aish",
+      "description": "Aish is an AI-powered shell assistant designed for command-line environments."
+    },
+    {
+      "name": "chunhuitrue--aish",
+      "source": "./chunhuitrue--aish",
+      "description": "Aish is an AI-powered shell assistant designed for command-line environments."
+    },
+    {
+      "name": "ruiminyan--cuberoot-me",
+      "source": "./ruiminyan--cuberoot-me",
+      "description": "Modern speedcubing \u2014 Rubik's cube solvers, trainers, WCA stats. All in the browser."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -231242,6 +231352,71 @@
       "name": "officebeats--beats-pm-kit",
       "source": "./officebeats--beats-pm-kit",
       "description": "AI-powered Product Management second brain. Capture chaos. Surface patterns. Never let critical items slip."
+    },
+    {
+      "name": "redhatproductsecurity--secdevai",
+      "source": "./redhatproductsecurity--secdevai",
+      "description": "Secure-development AI skills package, empowering your AI development tools"
+    },
+    {
+      "name": "aleverrier--frontier",
+      "source": "./aleverrier--frontier",
+      "description": "Frontier decoder for quantum LDPC codes: pruned dynamic programming over boundary states for approximate logical maximum-likelihood decoding of sparse parity-check and detector-error-model matrices."
+    },
+    {
+      "name": "scaliuslabs--scalius-commerce-lite",
+      "source": "./scaliuslabs--scalius-commerce-lite",
+      "description": "The Open-Source Commerce Engine."
+    },
+    {
+      "name": "scaliuslabs--scalius-commerce-lite",
+      "source": "./scaliuslabs--scalius-commerce-lite",
+      "description": "The Open-Source Commerce Engine."
+    },
+    {
+      "name": "tmj-studio--cardwise",
+      "source": "./tmj-studio--cardwise",
+      "description": "iOS app to maximize credit card rewards with smart recommendations"
+    },
+    {
+      "name": "luanguimaraesla--garlic",
+      "source": "./luanguimaraesla--garlic",
+      "description": "garlic"
+    },
+    {
+      "name": "davidkoleczek--interop-router",
+      "source": "./davidkoleczek--interop-router",
+      "description": "Interoperate between AI providers using the OpenAI Responses API as a common interface."
+    },
+    {
+      "name": "tmj-studio--cardwise",
+      "source": "./tmj-studio--cardwise",
+      "description": "iOS app to maximize credit card rewards with smart recommendations"
+    },
+    {
+      "name": "eddacraft--anvil-plan-spec",
+      "source": "./eddacraft--anvil-plan-spec",
+      "description": "Lightweight spec for planning and task authorisation in AI-assisted development."
+    },
+    {
+      "name": "southlondonscientific--aeolus",
+      "source": "./southlondonscientific--aeolus",
+      "description": "Download, standardise and store air quality data from worldwide monitoring networks."
+    },
+    {
+      "name": "felixisaac--claude-code-sync",
+      "source": "./felixisaac--claude-code-sync",
+      "description": "Secure cross-platform CLI to sync Claude Code configs (~/.claude/) across machines via GitHub with age encryption"
+    },
+    {
+      "name": "open-source-legal--os-legal-style",
+      "source": "./open-source-legal--os-legal-style",
+      "description": "Styled Components For Projects"
+    },
+    {
+      "name": "spin-stack--spinbox",
+      "source": "./spin-stack--spinbox",
+      "description": "spinbox"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -352802,6 +352977,51 @@
       "name": "abinav-verge--meta-creative-analytics",
       "source": "./abinav-verge--meta-creative-analytics",
       "description": "meta-creative-analytics"
+    },
+    {
+      "name": "julesies11--trainingflow",
+      "source": "./julesies11--trainingflow",
+      "description": "TrainingFlow"
+    },
+    {
+      "name": "shivang-tripati--hms",
+      "source": "./shivang-tripati--hms",
+      "description": "hms"
+    },
+    {
+      "name": "yamichi77--movement-log",
+      "source": "./yamichi77--movement-log",
+      "description": "\u79fb\u52d5\u30ed\u30b0\u8a18\u9332\u30a2\u30d7\u30ea"
+    },
+    {
+      "name": "phuoc101--phuoc101-github-io",
+      "source": "./phuoc101--phuoc101-github-io",
+      "description": "Phuoc Nguyen's personal portfolio webpage"
+    },
+    {
+      "name": "lance-fisher--lancewfisher-v2",
+      "source": "./lance-fisher--lancewfisher-v2",
+      "description": "Personal splash page - lancewfisher.com"
+    },
+    {
+      "name": "lance-fisher--lancewfisher-v2",
+      "source": "./lance-fisher--lancewfisher-v2",
+      "description": "Personal splash page - lancewfisher.com"
+    },
+    {
+      "name": "shivang-tripati--hms",
+      "source": "./shivang-tripati--hms",
+      "description": "hms"
+    },
+    {
+      "name": "alexngai--agent-session-parser",
+      "source": "./alexngai--agent-session-parser",
+      "description": "agent-session-parser"
+    },
+    {
+      "name": "dgwartney--mcp-example",
+      "source": "./dgwartney--mcp-example",
+      "description": "Production-ready MCP server with SQLite-backed API key authentication"
     }
   ]
 }
