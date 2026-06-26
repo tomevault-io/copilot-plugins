@@ -1,0 +1,9 @@
+{
+  "name": "pzfreo--build123d-mcp",
+  "displayName": "build123d-mcp",
+  "description": "MCP server for build123d to improve AI cognition when creating 3D CAD models",
+  "version": "1.0.0",
+  "author": "pzfreo",
+  "homepage": "https://github.com/pzfreo/build123d-mcp",
+  "skills": []
+}
