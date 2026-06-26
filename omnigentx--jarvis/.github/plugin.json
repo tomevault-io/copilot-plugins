@@ -1,0 +1,9 @@
+{
+  "name": "omnigentx--jarvis",
+  "displayName": "jarvis",
+  "description": "Omnigentx Jarvis \u2014 voice + chat AI assistant powered by Fast Agent (MCP) with Vue dashboard. Single-user, self-hosted, multi-skill orchestration.",
+  "version": "1.0.0",
+  "author": "omnigentx",
+  "homepage": "https://github.com/omnigentx/jarvis",
+  "skills": []
+}
