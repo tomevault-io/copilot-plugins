@@ -1,0 +1,9 @@
+{
+  "name": "killmonday--cybersparker",
+  "displayName": "cybersparker",
+  "description": "\u81f4\u529b\u4e8e\u5f00\u6e90\u7684\u653b\u51fb\u9762\u7ba1\u7406\u548c\u5229\u7528\u7cfb\u7edf\uff0c\u76ee\u524d\u80fd\u529b\uff1a\u516c\u7f51/\u5185\u7f51\u6d4b\u7ed8\u3001\u6f0f\u6d1e\u9a8c\u8bc1\uff08py/nuclei\uff09\u3001\u591a\u6a21\u6001AI\u7ef4\u62a4PoC\u3001\u6307\u7eb9/PoC\u8c03\u8bd5\u80fd\u529b\u3002",
+  "version": "1.0.0",
+  "author": "killmonday",
+  "homepage": "https://github.com/killmonday/cybersparker",
+  "skills": []
+}
