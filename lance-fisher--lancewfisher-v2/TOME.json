@@ -4,7 +4,7 @@
   "repo": "lancewfisher-v2",
   "description": "Personal splash page - lancewfisher.com",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lance-fisher/lancewfisher-v2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T22:51:55Z"
+  "distributed_at": "2026-06-26T22:52:52Z"
 }
