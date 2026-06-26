@@ -1,219 +1,515 @@
-## quick-reference
+## storybook
 
-> Quick patterns and examples for using the Baukasten design system.
+> Apply when creating storybook comp
 
 
-# Baukasten Quick Reference
+# Baukasten Storybook Guidelines
 
-Quick patterns and examples for using the Baukasten design system.
+Guidelines for creating and organizing Storybook stories for Baukasten components.
 
-## 📍 Token Definitions
+## Story Structure
 
-**Source of Truth**: All tokens are defined in:
+All component stories MUST follow this standardized structure for consistency and usability:
 
-- `packages/Baukasten/src/styles/colors.ts`
-- `packages/Baukasten/src/styles/spacing.ts`
-- `packages/Baukasten/src/styles/typography.ts`
-- `packages/Baukasten/src/styles/effects.ts`
+### 1. Interactive Story (FIRST - Always Required)
 
-**Visual Documentation**: Run `npm run storybook` → "Design System / Tokens"
-
-## Most Common Tokens
-
-```css
-/* Colors */
---bk-color-primary
---bk-color-foreground
---bk-color-background
---bk-color-border
-
-/* Spacing */
---bk-spacing-4        /* 16px */
---bk-padding-md       /* 6px 14px */
---bk-gap-sm          /* 6px */
-
-/* Typography */
---bk-font-size-md    /* 13px */
---bk-font-weight-medium
-
-/* Effects */
---bk-radius-md
---bk-transition-colors
-```
-
-## Component Template
+The first story must be named **"Interactive"** and expose all component properties through controls.
 
 ```tsx
-import styled from "styled-components";
-
-export interface MyComponentProps {
-  size?: "sm" | "md" | "lg";
-}
-
-const StyledComponent = styled.div<{ $size: string }>`
-  padding: var(--bk-padding-${(props) => props.$size});
-  background-color: var(--bk-color-background);
-  color: var(--bk-color-foreground);
-  border: var(--bk-border-width-1) solid var(--bk-color-border);
-  border-radius: var(--bk-radius-md);
-  font-size: var(--bk-font-size-md);
-  transition: var(--bk-transition-colors);
-
-  &:hover {
-    background-color: var(--bk-color-hover);
-  }
-`;
-
-export const MyComponent: React.FC<MyComponentProps> = ({
-  size = "md",
-  ...props
-}) => {
-  return <StyledComponent $size={size} {...props} />;
+export const Interactive: Story = {
+  args: {
+    variant: "primary",
+    size: "md",
+    disabled: false,
+    // ... all component props with sensible defaults
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Interactive playground to explore all [component] properties. Try different combinations using the controls below.",
+      },
+    },
+  },
 };
 ```
 
-## File Structure
+**Purpose:**
 
-```
-ComponentName/
-├── ComponentName.tsx         # Implementation
-├── ComponentName.stories.tsx # Storybook
-└── index.ts                  # Exports
-```
+- Playground for designers/developers to experiment
+- First impression for new users
+- Testing ground for QA
+- Shows all available props in the Controls panel
 
-## Do's and Don'ts
+### 2. Property Comparison Stories (Required)
 
-✅ **Use semantic tokens**
+Group related properties for side-by-side comparison. Common groups:
 
-```tsx
-color: var(--bk-color-primary);
-padding: var(--bk-padding-md);
-```
-
-❌ **Don't hardcode or use VSCode vars directly**
+#### Variants
 
 ```tsx
-color: #007acc;  // Never hardcode
-background: var(--vscode-button-background);  // Too specific
-```
-
-## Reference Components
-
-Look at these for examples:
-
-- `packages/Baukasten/src/components/Button/Button.tsx`
-- `packages/Baukasten/src/components/Input/Input.tsx`
-- `packages/Baukasten/src/components/Badge/Badge.tsx`
-
-## Full Details
-
-See `@design-system` cursor rule for complete information and file locations.
-
-# Baukasten Quick Reference
-
-Quick patterns and examples for using the Baukasten design system.
-
-## 📍 Token Definitions
-
-**Source of Truth**: All tokens are defined in:
-
-- `packages/Baukasten/src/styles/colors.ts`
-- `packages/Baukasten/src/styles/spacing.ts`
-- `packages/Baukasten/src/styles/typography.ts`
-- `packages/Baukasten/src/styles/effects.ts`
-
-**Visual Documentation**: Run `npm run storybook` → "Design System / Tokens"
-
-## Most Common Tokens
-
-```css
-/* Colors */
---bk-color-primary
---bk-color-foreground
---bk-color-background
---bk-color-border
-
-/* Spacing */
---bk-spacing-4        /* 16px */
---bk-padding-md       /* 6px 14px */
---bk-gap-sm          /* 6px */
-
-/* Typography */
---bk-font-size-md    /* 13px */
---bk-font-weight-medium
-
-/* Effects */
---bk-radius-md
---bk-transition-colors
-```
-
-## Component Template
-
-```tsx
-import styled from "styled-components";
-
-export interface MyComponentProps {
-  size?: "sm" | "md" | "lg";
-}
-
-const StyledComponent = styled.div<{ $size: string }>`
-  padding: var(--bk-padding-${(props) => props.$size});
-  background-color: var(--bk-color-background);
-  color: var(--bk-color-foreground);
-  border: var(--bk-border-width-1) solid var(--bk-color-border);
-  border-radius: var(--bk-radius-md);
-  font-size: var(--bk-font-size-md);
-  transition: var(--bk-transition-colors);
-
-  &:hover {
-    background-color: var(--bk-color-hover);
-  }
-`;
-
-export const MyComponent: React.FC<MyComponentProps> = ({
-  size = "md",
-  ...props
-}) => {
-  return <StyledComponent $size={size} {...props} />;
+export const Variants: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "var(--bk-gap-sm)", flexWrap: "wrap" }}>
+      <Component variant="primary">Primary</Component>
+      <Component variant="secondary">Secondary</Component>
+      <Component variant="ghost">Ghost</Component>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Brief description of each variant and when to use them.",
+      },
+    },
+  },
 };
 ```
 
-## File Structure
-
-```
-ComponentName/
-├── ComponentName.tsx         # Implementation
-├── ComponentName.stories.tsx # Storybook
-└── index.ts                  # Exports
-```
-
-## Do's and Don'ts
-
-✅ **Use semantic tokens**
+#### Sizes
 
 ```tsx
-color: var(--bk-color-primary);
-padding: var(--bk-padding-md);
+export const Sizes: Story = {
+  render: () => (
+    <div
+      style={{ display: "flex", gap: "var(--bk-gap-sm)", alignItems: "flex-end" }}
+    >
+      <Component size="xs">Extra Small</Component>
+      <Component size="sm">Small</Component>
+      <Component size="md">Medium</Component>
+      <Component size="lg">Large</Component>
+      <Component size="xl">Extra Large</Component>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Five size options available: **xs**, **sm**, **md** (default), **lg**, **xl**.",
+      },
+    },
+  },
+};
 ```
 
-❌ **Don't hardcode or use VSCode vars directly**
+#### States
 
 ```tsx
-color: #007acc;  // Never hardcode
-background: var(--vscode-button-background);  // Too specific
+export const States: Story = {
+  render: () => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--bk-spacing-3)",
+      }}
+    >
+      <div>
+        <h4 style={{ marginBottom: "var(--bk-spacing-2)" }}>Default</h4>
+        <Component>Default State</Component>
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "var(--bk-spacing-2)" }}>Disabled</h4>
+        <Component disabled>Disabled State</Component>
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "var(--bk-spacing-2)" }}>Error</h4>
+        <Component error="Error message">Error State</Component>
+      </div>
+    </div>
+  ),
+};
 ```
 
-## Reference Components
+### 3. Usage Examples (Optional but Recommended)
 
-Look at these for examples:
+Show practical, real-world usage patterns:
 
-- `packages/Baukasten/src/components/Button/Button.tsx`
-- `packages/Baukasten/src/components/Input/Input.tsx`
-- `packages/Baukasten/src/components/Badge/Badge.tsx`
+- **WithIcons** - Icon usage patterns (icon+text, icon-only)
+- **WidthOptions** - Width configurations (block, wide, auto)
+- **FormExamples** - Common form patterns (login, registration, validation)
+- **UsageExamples** - Real-world use cases specific to the component
 
-## Full Details
+```tsx
+export const WithIcons: Story = {
+  render: () => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--bk-spacing-4)",
+      }}
+    >
+      <div>
+        <h4>Icon + Text</h4>
+        <Component>
+          <Icon />
+          Label
+        </Component>
+      </div>
+      <div>
+        <h4>Icon Only</h4>
+        <Component>
+          <Icon />
+        </Component>
+      </div>
+    </div>
+  ),
+};
+```
 
-See `@design-system` cursor rule for complete information and file locations.
+### 4. Showcase Story (LAST - Always Required)
+
+Comprehensive overview of all component capabilities. Should be the last story.
+
+```tsx
+export const Showcase: Story = {
+  render: () => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--bk-spacing-6)",
+        padding: "var(--bk-spacing-4)",
+      }}
+    >
+      <div>
+        <h3>Section Title</h3>
+        {/* All variants/combinations */}
+      </div>
+      {/* More sections... */}
+    </div>
+  ),
+  parameters: {
+    layout: "fullscreen",
+    docs: {
+      description: {
+        story:
+          "Comprehensive showcase demonstrating all [component] capabilities. Use this as a reference for all available combinations.",
+      },
+    },
+  },
+};
+```
+
+## Story Meta Configuration
+
+```tsx
+const meta = {
+  title: "Components/ComponentName",
+  component: ComponentName,
+  parameters: {
+    layout: "centered", // or 'padded', 'fullscreen'
+    docs: {
+      description: {
+        component: "Brief, clear description of the component and its purpose.",
+      },
+    },
+  },
+  tags: ["autodocs"], // REQUIRED - enables auto-generated docs
+  argTypes: {
+    propName: {
+      control: "select", // or 'boolean', 'text', etc.
+      options: ["option1", "option2"],
+      description: "Clear description of what this prop does",
+      table: {
+        defaultValue: { summary: "default" },
+      },
+    },
+    // ... document all props
+  },
+} satisfies Meta<typeof ComponentName>;
+```
+
+## Naming Conventions
+
+### Story Names
+
+- Use **PascalCase** for story exports
+- Use descriptive, clear names
+- Keep names concise but meaningful
+
+**Good:**
+
+- `Interactive`, `Variants`, `Sizes`, `States`, `WithIcons`, `Showcase`
+
+**Bad:**
+
+- `Story1`, `Example`, `Test`, `Demo`
+
+### Render Functions
+
+When using custom render functions, always wrap in a container with proper spacing:
+
+```tsx
+render: () => (
+  <div style={{ display: "flex", gap: "var(--bk-gap-sm)", flexWrap: "wrap" }}>
+    {/* Components */}
+  </div>
+);
+```
+
+## Styling Guidelines
+
+### Use Design Tokens
+
+ALWAYS use design system tokens for styling within stories:
+
+```tsx
+// ✅ DO
+gap: "var(--bk-gap-sm)";
+padding: "var(--bk-spacing-4)";
+fontSize: "var(--bk-font-size-md)";
+fontWeight: "var(--bk-font-weight-semibold)";
+
+// ❌ DON'T
+gap: "8px";
+padding: "16px";
+fontSize: "14px";
+fontWeight: "600";
+```
+
+### Section Headers
+
+Use consistent styling for section headers in showcase stories:
+
+```tsx
+<h3 style={{
+  marginBottom: 'var(--bk-spacing-3)',
+  fontSize: 'var(--bk-font-size-base)',
+  fontWeight: 'var(--bk-font-weight-semibold)'
+}}>
+  Section Title
+</h3>
+
+<h4 style={{
+  marginBottom: 'var(--bk-spacing-2)',
+  fontSize: 'var(--bk-font-size-sm)',
+  fontWeight: 'var(--bk-font-weight-medium)'
+}}>
+  Subsection Title
+</h4>
+```
+
+### Container Patterns
+
+**Horizontal Layout:**
+
+```tsx
+<div
+  style={{
+    display: "flex",
+    gap: "var(--bk-gap-sm)",
+    flexWrap: "wrap",
+    alignItems: "center",
+  }}
+>
+  {/* Components */}
+</div>
+```
+
+**Vertical Layout:**
+
+```tsx
+<div
+  style={{ display: "flex", flexDirection: "column", gap: "var(--bk-spacing-3)" }}
+>
+  {/* Components */}
+</div>
+```
+
+**Grid Layout:**
+
+```tsx
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+    gap: "var(--bk-spacing-3)",
+  }}
+>
+  {/* Components */}
+</div>
+```
+
+## Documentation
+
+### Story Descriptions
+
+Every story should have a clear description in the `parameters.docs.description.story` field:
+
+```tsx
+parameters: {
+  docs: {
+    description: {
+      story: 'Clear, concise description of what this story demonstrates. Use **bold** for emphasis.',
+    },
+  },
+}
+```
+
+### Component Description
+
+The meta object should include a component-level description:
+
+```tsx
+parameters: {
+  docs: {
+    description: {
+      component: 'Brief description of the component, its purpose, and key features.',
+    },
+  },
+}
+```
+
+### ArgTypes Documentation
+
+Document all props with descriptions and default values:
+
+```tsx
+argTypes: {
+  variant: {
+    control: 'select',
+    options: ['primary', 'secondary', 'ghost'],
+    description: 'Visual style variant of the component',
+    table: {
+      defaultValue: { summary: 'primary' },
+    },
+  },
+}
+```
+
+## Best Practices
+
+### Do's ✅
+
+1. **Always start with Interactive story** - This is the most important story
+2. **Group related properties** - Variants together, sizes together, etc.
+3. **Show realistic examples** - Use real-world use cases in usage examples
+4. **Use design tokens** - Never hardcode values
+5. **Add descriptions** - Every story should explain what it demonstrates
+6. **Keep it simple** - Each story should have a single, clear purpose
+7. **Show state combinations** - Include disabled, error, loading states
+8. **End with Showcase** - Comprehensive overview as the final story
+
+### Don'ts ❌
+
+1. **Don't create individual stories for each variant** - Group them instead
+2. **Don't hardcode colors, spacing, or typography** - Use design tokens
+3. **Don't skip the Interactive story** - Users expect it first
+4. **Don't forget descriptions** - Stories without context are confusing
+5. **Don't use overly complex examples** - Keep stories focused
+6. **Don't duplicate content** - Showcase should be comprehensive, other stories focused
+7. **Don't forget accessibility** - Consider keyboard navigation, screen readers
+
+## Layout Options
+
+Choose the appropriate layout for each story:
+
+- **`centered`** - Centers content (default for most component demos)
+- **`padded`** - Adds padding around content (good for form examples)
+- **`fullscreen`** - No padding (use for Showcase stories)
+
+```tsx
+parameters: {
+  layout: 'centered', // or 'padded', 'fullscreen'
+}
+```
+
+## Typical Story Count
+
+A well-structured component should have **7-10 stories**:
+
+1. Interactive (required)
+2. Variants (if applicable)
+3. Sizes (if applicable)
+4. States (if applicable)
+5. OutlineVariants (if applicable)
+6. 1-3 Usage Examples (optional)
+7. Showcase (required)
+
+## Example: Complete Story File Structure
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Component } from "./Component";
+
+const meta = {
+  title: "Components/Component",
+  component: Component,
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "Component description here.",
+      },
+    },
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    // ... all props documented
+  },
+} satisfies Meta<typeof Component>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// 1. Interactive (FIRST)
+export const Interactive: Story = {
+  /* ... */
+};
+
+// 2. Property Groups
+export const Variants: Story = {
+  /* ... */
+};
+export const Sizes: Story = {
+  /* ... */
+};
+export const States: Story = {
+  /* ... */
+};
+
+// 3. Usage Examples
+export const WithIcons: Story = {
+  /* ... */
+};
+export const WidthOptions: Story = {
+  /* ... */
+};
+
+// 4. Showcase (LAST)
+export const Showcase: Story = {
+  /* ... */
+};
+```
+
+## Reference Examples
+
+For complete examples, see:
+
+- `packages/Baukasten/src/components/Button/Button.stories.tsx`
+- `packages/Baukasten/src/components/Badge/Badge.stories.tsx`
+- `packages/Baukasten/src/components/Input/Input.stories.tsx`
+
+## Quick Checklist
+
+Before submitting a story file, ensure:
+
+- [ ] First story is named "Interactive" with all props exposed
+- [ ] All relevant property groups are included (Variants, Sizes, States)
+- [ ] At least one practical usage example is provided
+- [ ] Last story is "Showcase" with comprehensive overview
+- [ ] All stories have descriptions
+- [ ] Design tokens are used (no hardcoded values)
+- [ ] `tags: ['autodocs']` is set in meta
+- [ ] ArgTypes are fully documented
+- [ ] Layout is appropriate for each story
+- [ ] Component description is clear and helpful
+
+---
+
+**Remember**: The goal is to make components easy to discover, understand, and use. Well-organized stories with clear examples and documentation are essential for a great developer experience.
 
 ---
 > Source: [TypeFox/baukasten](https://github.com/TypeFox/baukasten) — distributed by [TomeVault](https://tomevault.io).
