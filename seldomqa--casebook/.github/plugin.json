@@ -1,0 +1,9 @@
+{
+  "name": "seldomqa--casebook",
+  "displayName": "casebook",
+  "description": "Casebook is an engineering workflow for test cases in the era of AI Agents.",
+  "version": "1.0.0",
+  "author": "SeldomQA",
+  "homepage": "https://github.com/SeldomQA/casebook",
+  "skills": []
+}
