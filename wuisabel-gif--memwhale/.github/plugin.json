@@ -1,0 +1,9 @@
+{
+  "name": "wuisabel-gif--memwhale",
+  "displayName": "MemWhale",
+  "description": "MemoryWhale is a Rust/Tauri local-first terminal memory system that remembers everything you put in, inspired by CodeWhale and MemPalace.",
+  "version": "1.0.0",
+  "author": "wuisabel-gif",
+  "homepage": "https://github.com/wuisabel-gif/MemWhale",
+  "skills": []
+}
