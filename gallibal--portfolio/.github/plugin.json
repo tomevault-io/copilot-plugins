@@ -1,0 +1,9 @@
+{
+  "name": "gallibal--portfolio",
+  "displayName": "portfolio",
+  "description": "Personal portfolio website built with Next.js, showcasing my background, work experience, hobbies, and travels.",
+  "version": "1.0.0",
+  "author": "gallibal",
+  "homepage": "https://github.com/gallibal/portfolio",
+  "skills": []
+}
