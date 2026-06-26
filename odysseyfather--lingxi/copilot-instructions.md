@@ -1,0 +1,927 @@
+## lingxi-agent
+
+> 灵犀 AI Agent 项目开发规范，适用于所有文件修改
+
+
+# 灵犀 AI Agent — Cursor 开发规范
+
+## 项目概述
+
+灵犀 AI Agent 是一个本地优先的桌面 AI Agent 工作台。架构为 **Electron (桌面壳) + React (前端) + Go (后端)**，通过本地 AI 引擎与多模型接入层连接不同模型供应商。
+
+## 关键规则
+
+### 1. 子代理限制
+
+**禁止在开发任务中开启子代理（subagent）。** 所有分析、编码、调试、打包任务必须在当前会话中直接完成。
+
+### 2. 信令服务器代码推送规则
+
+**凡对 `signaling-server/` 目录有代码变更，完成后必须 push 到独立仓库：**
+```bash
+# 克隆独立仓库
+git clone git@github.com:OdysseyFather/lingxi-singaling-server.git /tmp/lingxi-singaling-server
+# 复制变更文件
+cp signaling-server/main.go signaling-server/go.mod signaling-server/go.sum /tmp/lingxi-singaling-server/
+# 提交并推送
+cd /tmp/lingxi-singaling-server && git add -A && git commit -m "描述变更" && git push origin main
+```
+Render 部署（wss://lingxi-singaling-server.onrender.com）会自动拉取最新代码重新部署。
+
+### 3. 开发完成后的强制流程（每次改造后必须执行）
+
+**每次需求开发完成后，必须按顺序执行以下全部步骤，不可跳过：**
+
+1. **更新项目文档**
+   - 更新 `.cursor/rules/lingxi-agent.mdc`（如有架构/规范变更）
+   - 更新 `CLAUDE.md`（如有新增模块、技术栈变更、开发流程变更）
+   - 更新 `README.md`（如有新增用户可见功能、快捷键、配置项等）
+
+2. **打包编译**
+   ```bash
+   # 构建（需确保 Node.js >= 20.19 或 >= 22.12）
+   export PATH="/tmp/node22/bin:$PATH"  # 如系统 node 版本不够
+   cd <project-root> && ./build-desktop.sh
+   ```
+   构建产物在 `dist-electron/` 目录。
+
+3. **安装验证**
+   - macOS：打开 `dist-electron/mac-arm64/灵犀.app` 或安装 `.dmg`
+   - 确认新功能可正常使用
+
+**⚠️ 此流程为强制性规定，任何代码变更（无论大小）完成后都必须执行打包→安装，确保交付物始终可用。**
+
+---
+
+## 技术架构
+
+### 前端 (`frontend-desktop/`)
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| React | 19 | UI 框架 |
+| Vite | 8 | 构建工具（**需 Node.js ≥ 20.19 或 ≥ 22.12**） |
+| Tailwind CSS | 3.4 | 样式系统 |
+| Zustand | 5 | 全局状态管理 |
+| Framer Motion | 12 | 动画库 |
+| Lucide React | 1.14 | 图标库 |
+| Recharts | 3 | 图表库 |
+| react-markdown + remark-gfm | — | Markdown 渲染 |
+| prism-react-renderer | 2 | 代码语法高亮 |
+| @tanstack/react-virtual | 3 | 虚拟滚动 |
+
+### 后端 (`backend-desktop/`)
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| Go | 1.24 | 语言 |
+| Gin | 1.10 | HTTP 框架 |
+| Gorilla WebSocket | 1.5 | WebSocket |
+| ncruces/go-sqlite3 | 0.22 | SQLite 驱动（WASM 实现，无 CGO） |
+| ledongthuc/pdf | — | PDF 文本提取 |
+| nguyenthenguyen/docx | — | DOCX 文本提取 |
+
+### 桌面壳 (`electron/`)
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| Electron | 36 | 桌面容器 |
+| electron-builder | 25 | 打包工具 |
+
+---
+
+## 前端代码规范
+
+### 组件体系
+
+- **原子组件**在 `src/ui/primitives.jsx`：Button、Input、Textarea、Select、Badge、Card、Modal、ToastStack、Tooltip
+- 所有新页面/组件必须使用 primitives 中的封装组件，不允许使用原生 HTML 元素 + 手写样式
+- 使用 `cn()` 工具函数（`src/ui/cn.js`）合并 className，基于 `clsx` + `tailwind-merge`
+
+### 样式规范
+
+- **只使用 Tailwind CSS + CSS 变量**，不使用独立 CSS 文件（`App.css` 为遗留文件）
+- 颜色使用 CSS 变量：`var(--bg)`, `var(--text)`, `var(--accent)`, `var(--line)` 等
+- Tailwind 中引用 CSS 变量使用 `[color:var(--xxx)]` 语法
+- 主题定义在 `src/index.css` 中，通过 `[data-theme="xxx"]` 选择器
+- 当前主题：`light`, `dark`, `midnight`, `cyber`, `aurora`, `cosmos`
+
+### 状态管理
+
+- 全局状态使用 `useStore`（Zustand），定义在 `src/state/useStore.js`
+- 页面级临时状态使用 `useState`
+- 不引入 Redux / Context 等其他状态方案
+
+### 动画
+
+- 使用 `framer-motion` 的 `motion.div`、`AnimatePresence` 实现进场/退场动画
+- 页面级切换在 `AppShell.jsx` 中通过 `AnimatePresence mode="wait"` 管理
+- 列表增删使用 `AnimatePresence` + `motion.div` + `layout` 属性
+- CSS 动画关键帧定义在 `src/index.css`（`shimmer`, `breathe`, `riseFade`, `pulseRing`, `rise`）
+
+### 图标
+
+- 统一使用 `lucide-react`，不使用 emoji 或其他图标库
+- 图标尺寸：小按钮 `size={14}`，标准 `size={16-18}`，页面标题 `size={24-26}`
+
+### 文件组织
+
+```
+src/
+├── main.jsx              # 入口
+├── index.css             # Tailwind 基础 + 主题 CSS 变量
+├── api/client.js         # API 请求封装
+├── state/
+│   ├── useStore.js       # Zustand 全局状态（组合多切片）
+│   └── slices/           # 状态切片（authSlice/uiSlice/sessionSlice/chatSlice/nexusSlice/codingSlice）
+├── ui/                   # 通用 UI 组件
+│   ├── AppShell.jsx      # 主布局壳（顶部导航：主导航6项 + 辅助导航5项）
+│   ├── primitives.jsx    # 原子组件
+│   ├── cn.js             # className 合并工具
+│   ├── SidebarSessions.jsx # 会话列表（置顶/重命名/批量删除）
+│   ├── ModelSwitcher.jsx
+│   ├── RouterPill.jsx
+│   └── ErrorBoundary.jsx
+├── chat/                 # 对话相关
+│   ├── ChatView.jsx      # 对话主视图
+│   ├── Composer.jsx      # 输入框（含斜杠命令）
+│   ├── MessageList.jsx   # 消息列表（含虚拟滚动）
+│   ├── Bubble.jsx        # 消息气泡
+│   ├── blocks.jsx        # 消息块渲染（文本/思考/工具）
+│   ├── blockUtils.js     # 工具函数
+│   ├── SearchModal.jsx   # 全文搜索弹窗
+│   ├── AgentPicker.jsx   # 智能体选择器
+│   ├── AgentStatePill.jsx
+│   ├── ScreenBlock.jsx      # Screen Agent 屏幕截图 + 标注渲染
+│   └── ScreenAgentPanel.jsx # Screen Agent 控制面板（截屏/规划/执行/确认）
+├── settings/             # 设置页
+│   ├── SettingsPage.jsx
+│   ├── ProfilesPage.jsx  # 接入点管理
+│   ├── AppearancePage.jsx # 主题设置
+│   ├── MemoryPage.jsx    # 长期记忆管理
+│   ├── NexusSettingsPage.jsx # 网络与协作设置
+│   └── UsagePage.jsx     # 用量统计 + 预算预警
+├── ModeSelector.jsx      # 启动模式选择页（灵犀主模式 vs Coding Agent）
+├── code/                 # 编程视图（Coding Agent，独立模式）
+│   ├── CodingShell.jsx   # 独立模式布局壳（tab栏+图标栏+侧边栏+主区域+Changes面板+状态栏）
+│   ├── CodingChatView.jsx # 对话主视图（cc-haha 风格渲染）
+│   ├── CodingComposer.jsx # 输入栏（文件chip+文件浏览器+模型选择器+Run/Stop）
+│   ├── CodingToolCard.jsx # 工具调用卡片（颜色编码 + diff 渲染）
+│   ├── CodingIconBar.jsx # 左侧极窄图标栏（40px）
+│   ├── CodingSidebar.jsx # 左侧会话侧边栏（搜索+日期分组）
+│   ├── CodingTabBar.jsx  # 顶部多tab会话栏
+│   ├── SessionHeader.jsx # 会话标题+状态信息
+│   ├── AskQuestionBlock.jsx # Agent提问交互块
+│   ├── PermissionBlock.jsx # 权限确认块
+│   ├── TaskTodoList.jsx  # Task Todo List面板
+│   ├── AgentTeamPanel.jsx # Agent Teams协作面板
+│   ├── WorkspaceChanges.jsx # 右侧文件变更面板
+│   ├── DiffViewer.jsx    # Diff渲染组件
+│   ├── FileChip.jsx      # 文件附件chip组件
+│   ├── BottomStatusBar.jsx # 底部状态栏
+│   ├── CodingSettingsPage.jsx # Coding 专属设置页（独立于主界面）
+│   ├── CodingErrorBoundary.jsx # Coding View 专用 ErrorBoundary
+│   ├── WorkspacePanel.jsx  # 左侧工作空间面板（mini/expanded + 文件树/任务 tab）
+│   ├── AgentStatusCard.jsx # Agent 状态卡片
+│   ├── DrawerPanel.jsx     # 右侧抽屉面板（代码预览/Diff Review 多标签页）
+│   ├── AgentMessageCard.jsx # 分层消息卡片（思考/工具/正文/变更 四层）
+│   ├── DiffReviewView.jsx  # Diff 逐块审查（hunk 级 Accept/Reject）
+│   ├── PlanCard.jsx        # 可编辑任务计划卡片
+│   ├── ModeSwitcher.jsx    # Normal/Plan/Think 模式切换器
+│   ├── PermissionSettingsPanel.jsx # 权限设置面板
+│   ├── RemoteAccessPanel.jsx # 远程接入配对码面板
+│   ├── MobileRemoteView.jsx # 手机 H5 远程查看/审批 UI
+│   ├── permissionConfig.js # 工具风险等级定义
+│   ├── codingThemes.js    # 5 套 Coding 主题
+│   ├── keyboardShortcuts.js # 全局快捷键定义
+│   └── FileSidebar.jsx   # 文件树侧栏（暖色调 + 搜索过滤 + 拖拽引用）
+├── nexus/                # Agent 间对话（Project Nexus）
+│   ├── NexusPage.jsx     # 双栏通信界面（左侧对话列表 + 右侧发现/对话视图，无联系人）
+│   ├── A2AConversationView.jsx # Agent 对话观察视图（嵌入 NexusPage 右侧主区）
+│   ├── A2AMessageBubble.jsx    # 专用消息气泡
+│   └── StartA2AModal.jsx       # 发起对话弹窗
+├── LoginPage.jsx         # SSO 登录页（微信/QQ/Google/钉钉/抖音 + 游客）
+├── AgentFactoryPage.jsx  # 智能体工厂 + 模板市场
+├── WorkflowPage.jsx      # 可视化工作流编排（拖拽节点式编辑器）
+├── SkillsPage.jsx        # 技能管理
+├── KnowledgePage.jsx     # 知识库管理
+├── MCPPage.jsx           # MCP 管理
+├── IMConnectorPage.jsx   # IM 连接器管理
+└── ScheduledTasksPage.jsx # 定时任务管理
+```
+
+---
+
+## 后端代码规范
+
+### API 设计
+
+- RESTful 风格，路径前缀 `/api/`
+- WebSocket 路径 `/ws`
+- 使用 `gin.H{}` 返回 JSON
+- 错误统一返回 `{"error": "消息"}`
+
+### 数据库
+
+- SQLite 单文件，路径 `$HOME/Library/Application Support/灵犀/smart-agent.db`
+- 所有表定义和迁移在 `db/db.go` 的 `InitDB()` 中
+- 使用 `ncruces/go-sqlite3`（纯 Go WASM 实现，不需要 CGO）
+
+### 文件目录
+
+```
+backend-desktop/
+├── main.go              # 入口 + 路由注册
+├── config/config.go     # 配置
+├── logger/logger.go     # 结构化日志（slog JSON + LOG_LEVEL）
+├── db/
+│   ├── db.go            # 数据库初始化 + 迁移（schema_version 版本化）
+│   ├── session.go       # 会话/任务/挂起任务 CRUD
+│   ├── knowledge.go     # 知识库/分类 CRUD
+│   ├── provider.go      # Provider/APIProfile CRUD
+│   ├── usage.go         # 用量记录/配额 CRUD
+│   ├── scheduled.go     # 定时任务 CRUD
+│   ├── auth.go          # 用户/OAuth 配置 CRUD
+│   ├── im_connector.go  # IM 连接器 CRUD
+│   ├── evolution.go     # 自我进化日志 CRUD + InsertMemory
+│   ├── nexus.go         # Nexus 表 CRUD（peers/contacts/a2a）
+│   ├── group_chat.go    # 群聊 CRUD（group_chats/group_members/group_messages）
+│   ├── mcp_agent.go     # MCP-Agent 关联
+│   └── screen_agent.go  # Screen Agent screen_actions 表 CRUD
+├── handler/             # HTTP Handler
+│   ├── agent.go         # 智能体 CRUD（含 API 缓存）
+│   ├── cache.go         # TTL 缓存（sync.RWMutex，30s TTL）
+│   ├── chat.go          # 对话 + 流式 WebSocket
+│   ├── knowledge.go     # 知识库（支持 PDF/DOCX）
+│   ├── mcp.go           # MCP 管理
+│   ├── provider.go      # 模型接入点管理（含 API 缓存）
+│   ├── session.go       # 会话 + 消息搜索
+│   ├── skill.go         # 技能管理（含 API 缓存 + 增强导出）
+│   ├── usage.go         # 用量统计
+│   ├── im_connector.go  # IM 连接器
+│   ├── scheduled.go     # 定时任务 CRUD
+│   ├── auth.go          # SSO 登录（OAuth + 游客）
+│   ├── nexus.go         # Nexus 对外 API + 设置 + WAN 状态
+│   ├── a2a_conversation.go # A2A 对话管理（邀请/接受/拒绝/消息收发）
+│   ├── agent_nexus_config.go # Agent 对外设置 CRUD
+│   ├── evolution.go     # 自我进化引擎 + API
+│   ├── screen_agent.go  # Screen Agent API（截屏分析/操作规划/OTA 循环/安全确认）
+│   ├── backup.go        # 数据库备份（VACUUM INTO + 导出）
+│   ├── health.go        # 结构化健康检查
+│   ├── middleware.go    # CORS + Body Size + Rate Limiter
+│   ├── router_status.go # 路由状态
+│   ├── tasks.go         # 后台任务管理
+│   ├── memory.go        # 长期记忆 CRUD + 消息固定
+│   ├── transcribe.go    # 语音识别（本地 whisper.cpp 优先，回退远端 API）
+│   ├── pair_auth.go     # 手机配对认证中间件 + WS 一次性票据 + 配对 API
+│   └── ws_hub.go        # WebSocket Hub
+├── connector/           # IM 连接器实现
+├── model/model.go       # 数据模型
+├── nexus/               # Agent 间对话引擎（无 Token 认证，无联系人机制）
+│   ├── discovery.go     # mDNS 发现服务 + 广域网信令启动
+│   ├── conversation.go  # 对话执行引擎（第一人称自然对话提示词）
+│   ├── http_client.go   # HTTP 通信工具
+│   ├── transport.go     # Transport 接口（Send 无 token 参数）
+│   ├── lan_transport.go # 局域网 HTTP 直连传输
+│   ├── wan_transport.go # 广域网传输（信令中继）
+│   └── signaling.go     # 信令客户端（无 HMAC，支持 conversation_invite/accept/reject）
+├── proxy/               # 纯 Go 协议转换代理（Anthropic ↔ OpenAI，替代 LiteLLM）
+├── router/              # AI 引擎路由（Go 代理管理 + OpenAI 协议桥接）
+├── scheduler/           # 定时任务调度器（已修复时区 BUG + 启动自检 + WS 流式广播）
+├── evolution/           # 全局自我进化扫描器（定时巡检 + 安静时段 + 冷却）
+├── dream/              # 记忆巩固引擎（Dream：跨会话记忆整理/合并/精炼/清理）
+├── vectordb/            # 向量数据库（纯 Go cosine + 分块 + 嵌入 + 混合检索）
+│   ├── vectordb.go      # 向量 DB 初始化 + CRUD + cosine 搜索 + 配置管理
+│   ├── chunker.go       # 文本递归分块（512 字符/块，128 重叠）
+│   ├── embedder.go      # 嵌入接口（API 模式，调用 OpenAI 兼容端点）
+│   ├── retriever.go     # 混合检索（向量 KNN + 关键词 BM25 + RRF 融合）
+│   └── indexer.go       # 全量/增量索引引擎 + 进度广播
+├── watcher/             # 文件夹监控（fsnotify + 防抖 + 增量索引）
+│   └── watcher.go
+├── usage/               # 用量计算 + 定价
+```
+
+---
+
+## 构建 & 打包
+
+### 前置条件
+
+| 依赖 | 最低版本 | 说明 |
+|------|---------|------|
+| macOS | Apple Silicon arm64 | 打包目标 |
+| Node.js | 20.19 或 22.12 | Vite 8 要求 |
+| Go | 1.24 | 编译后端 |
+
+### 构建命令
+
+```bash
+./build-desktop.sh
+```
+
+构建步骤：
+1. 自动递增 version（patch +1）
+2. `go build` 编译 Go 后端 → `smart-agent`（macOS arm64 + Windows amd64）
+3. `npm run build` 构建前端 → `dist/`
+4. 复制 AI 引擎到 `electron/resources/ai-engine/`
+5. Go 协议转换代理已内置于后端（无需外部安装步骤）
+6. 复制 Node.js 运行时到 `electron/resources/node-bin/`
+7. `electron-builder` 打包（macOS + Windows）
+
+### 产物
+
+```
+dist-electron/
+├── mac-arm64/灵犀.app              # 可直接运行
+├── 灵犀-{version}-arm64.dmg        # macOS 安装包
+├── 灵犀 Setup {version}.exe        # Windows 安装包
+└── 灵犀 {version}.exe              # Windows 便携版
+```
+
+如需手动管理版本号，直接编辑 `electron/package.json` 的 `version` 字段后再构建。
+
+---
+
+## Node.js 版本注意事项
+
+系统 Node.js 版本可能低于 Vite 8 所需的 20.19+。如遇版本不兼容：
+
+```bash
+# 方法：使用预下载的 Node 22
+curl -L "https://nodejs.org/dist/v22.15.0/node-v22.15.0-darwin-arm64.tar.gz" -o /tmp/node22.tar.gz
+mkdir -p /tmp/node22 && tar xzf /tmp/node22.tar.gz -C /tmp/node22 --strip-components=1
+export PATH="/tmp/node22/bin:$PATH"
+```
+
+---
+
+## npm 缓存权限问题
+
+如果遇到 `EACCES` 错误（npm 缓存被 root 占用）：
+
+```bash
+NPM_CONFIG_CACHE=/tmp/npm-lingxi-cache npm install [package] --force
+```
+
+---
+
+## 本地多实例测试（Agent Nexus）
+
+测试 Agent 间对话需要两个**完全独立的灵犀实例**（不同端口、不同数据库、不同 instance ID）。
+不能用 `open -n` 启动两个安装版，因为它们共享同一个数据库，instance ID 相同，mDNS/WAN 会互相过滤。
+
+### 一键启动 / 关闭
+
+```bash
+# 启动两个实例
+./scripts/start-test-instances.sh
+
+# 关闭所有实例
+./scripts/stop-test-instances.sh
+```
+
+### 实例说明
+
+| 实例 | 端口 | 数据库 | 访问方式 |
+|------|------|--------|----------|
+| 实例1（安装版） | 3001 | `~/Library/Application Support/lingxi-agent/smart-agent.db` | 灵犀桌面 App |
+| 实例2（开发版） | 3099 | `/tmp/lingxi-instance2/smart-agent.db` | 浏览器 `http://localhost:3099` |
+
+### 手动启动实例2（不用脚本）
+
+```bash
+mkdir -p /tmp/lingxi-instance2
+cd backend-desktop
+PORT=3099 DB_PATH=/tmp/lingxi-instance2/smart-agent.db FRONTEND_DIST=../frontend-desktop/dist go run .
+```
+
+启动后需在实例2的设置中配置模型接入点（API Profile），否则 Agent 无法生成回复。
+两个实例通过广域网信令服务器自动发现对方，无需手动配置。
+
+---
+
+## 已实现的功能清单
+
+### 前端 UI
+- [x] Tailwind + primitives 统一 UI 体系
+- [x] 6 套主题（light/dark/midnight/cyber/aurora/cosmos）
+- [x] AnimatePresence 页面切换动画
+- [x] 顶部导航栏（主导航 6 项：对话/编程/智能体/技能/知识库/MCP + 辅助导航 5 项：Nexus/IM/工作流/定时/设置）
+- [x] 代码空间模块已移除（v1.0.13）
+- [x] 代码块语法高亮 + 复制按钮（prism-react-renderer）
+- [x] 消息复制按钮
+- [x] 虚拟滚动（100+ 条消息自动启用）
+- [x] 会话重命名（双击编辑）+ 会话置顶（Pin to top）
+- [x] 会话批量删除
+- [x] Modal 化删除确认
+- [x] 全文消息搜索（Cmd+K）
+- [x] 对话导出为 Markdown
+- [x] 斜杠命令快捷输入（/ 唤起）
+- [x] 智能体模板市场（4 类 17 个模板）
+- [x] 统一 Agent 模式（移除 Chat/Plan/Agent 切换）
+- [x] 交互式信息收集块（选择块 + 输入块）
+- [x] 对话头像（用户 + 智能体）
+- [x] 五步引导式智能体创建向导（身份/角色/能力/对外设置/预览）
+- [x] 图片粘贴（Cmd+V）+ 聊天中图片展示
+- [x] 定时任务管理页面（创建/编辑/删除/开关/执行记录）
+- [x] 交互式向导流（多选择题逐一展示 + 前后翻页 + 汇总确认）
+- [x] 两阶段规划模式（用户选择是否进入 → 沉浸式多维度选择面板 → 确认后执行）
+- [x] UI 精致化（气泡微交互/超薄滚动条/波浪连接动画/增强空状态）
+- [x] 消息编辑/重发（hover 编辑按钮 + textarea 内联编辑 + 保存并重发）
+- [x] 消息反馈（thumbs up/down，持久化到 SQLite，选中高亮）
+- [x] 知识库检索可视化（RAG Citation：内联 [N] 上角标 + hover 弹出引用卡片 + 底部引用列表）
+- [x] 语音输入（MediaRecorder 录音 + 后端 OpenAI 兼容 Whisper API 识别，点击录音 → 停止 → 转录 → 文字填入输入框）
+- [x] TTS 朗读（Web Speech API，AssistantBubble 朗读/停止按钮）
+- [x] 文件拖拽对话（拖入文本/代码文件，内容作为附件发送）
+- [x] 快捷截屏（Cmd+Shift+S 全局快捷键 + 按钮截屏，图片填入输入框）
+- [x] 消息固定（Pin 按钮，用户/助理消息均支持）
+- [x] 快捷回复建议（assistant 回复后推荐 2-3 个后续问题胶囊按钮）
+- [x] 长期记忆管理 UI（设置 > 长期记忆：查看/添加/删除/分类/清空）
+- [x] 可视化工作流编排（WorkflowPage：拖拽节点式编辑器，支持提示词/条件/循环/延迟/代码/输出 6 种节点）
+- [x] 对话中止按钮（abort 正在进行的 AI 回复）
+- [x] SSO 登录页（微信/QQ/Google/钉钉/抖音 + 游客登录，Electron Loopback OAuth）
+- [x] 登录状态管理（useStore authChecked/currentUser + AppShell 登录判断）
+- [x] 广域网设置 UI（NexusSettingsPage：启用 WAN/信令服务器地址/签名密钥）
+- [x] Zustand 模块化切片（authSlice/uiSlice/sessionSlice/chatSlice/nexusSlice）
+- [x] React.lazy 懒加载（非默认页组件按需加载，减小首屏 bundle）
+- [x] Modal 焦点陷阱（Tab 循环 + Escape 关闭 + ARIA 属性）
+- [x] WS 流式 token 50ms 缓冲刷新（减少高频 set() 触发的 React 重渲染）
+- [x] 自我进化 UI（Agent 编辑器内进化开关 + 进化日志查看/清空 + 消息气泡「提取知识」按钮）
+- [x] 自我进化全面重做（实时进度面板 + 对话内联通知 + 撤销能力 + 进化历程页筛选/搜索/可读卡片 + 提取按钮增强 + 会话级提取建议）
+- [x] 记忆巩固 Dream（后台自动整理/合并/精炼/清理记忆，定时巡检 + 手动触发 + WS 实时进度 + MemoryPage Dream 面板 + 巩固历史）
+
+### 后端
+- [x] 知识库支持 PDF/DOCX 格式
+- [x] 消息全文搜索 API
+- [x] 预算预警功能
+- [x] 费用估算兜底（非官方 API 用本地定价表估算）
+- [x] 技能在线编辑/导出 API
+- [x] Smithery.ai 市场代理 API（搜索/分类/详情/安装）
+- [x] 智能体 temperature / max_tokens 参数
+- [x] OpenAI reasoning token 透传（Go 代理自动处理 Anthropic thinking 事件）
+- [x] 定时任务调度器（scheduled_tasks + scheduled_task_runs 表，15 秒检查间隔，Go 侧时间比较）
+- [x] 定时任务 CRUD + 手动触发 + 桌面通知（WS desktop_notify 事件）
+- [x] 防死循环保护（禁止 Cursor 专有工具 + isNonExistentTool 检测）
+- [x] OpenAI 兼容模型技能识别增强（buildSkillInventory 注入已安装技能清单）
+- [x] 消息编辑接口（PUT /api/messages/:id + 删除后续消息）
+- [x] 消息反馈接口（POST /api/messages/:id/feedback，feedback 列迁移）
+- [x] 知识库引用标注指令（system prompt 追加 KB_CITATIONS 格式指令）
+- [x] 跨会话长期记忆（memories 表 CRUD + 按智能体隔离）
+- [x] 消息固定接口（POST /api/messages/:id/pin，pinned 列迁移）
+- [x] 语音识别（POST /api/transcribe → 本地 whisper.cpp 离线识别，回退远端 API）
+- [x] Electron desktopCapturer 截屏（capture-screen IPC handler + 全局快捷键推送）
+- [x] 会话文件夹数据模型（sessions.folder 列 + UpdateSession 支持 folder）
+- [x] 会话置顶（sessions.pinned 列 + UpdateSession 支持 pinned）
+- [x] 会话批量删除（POST /api/sessions/batch-delete）
+- [x] 会话批量导出 Markdown ZIP（POST /api/sessions/batch-export）
+- [x] 技能批量上传（POST /api/skills/batch-upload）
+- [x] 对话中止（POST /api/chat/abort）
+- [x] 对话批量发送（POST /api/chat/batch）
+- [x] 挂起任务查询与清除（GET/DELETE /api/sessions/:id/pending）
+- [x] 智能体工作流数据模型（agents.post_actions 列）
+- [x] 运行时密钥注入（POST /api/runtime/active-secret）
+- [x] SSO 登录后端（users 表 + OAuth code 换 token + 游客登录）
+- [x] OAuth 配置管理（oauth_configs 表，支持微信/QQ/Google/钉钉/抖音）
+- [x] 广域网信令客户端（WebSocket + HMAC 签名 + WSS 支持）
+- [x] Transport 抽象层（LANTransport + WANTransport + 信令中继）
+- [x] 广域网 API（GET /api/wan/peers, GET /api/wan/status）
+- [x] 结构化日志（log/slog JSON 格式，LOG_LEVEL 环境变量配置）
+- [x] 安全加固（WebSocket Origin 校验 + CORS 中间件 + Body Size 限制 + Rate Limiter）
+- [x] 优雅关闭（os.Signal 捕获 + context.WithTimeout + scheduler/nexus/backup 停止）
+- [x] API 缓存（TTL 30s sync.RWMutex 缓存 ListProviders/ListAgents/ListSkills + 变更自动失效）
+- [x] SQLite 连接池（SetMaxOpenConns(4) + WAL 并发读）
+- [x] 数据库备份（每日 VACUUM INTO + 7 天自动清理 + GET /api/backup/export 手动导出）
+- [x] 结构化健康检查（GET /api/health：db/goroutines/mem/uptime/go_version）
+- [x] 数据库迁移版本化（schema_version 表 + 编号迁移系统）
+- [x] 技能增强导出（folder→zip 动态打包 + manifest.json + POST /api/skills/batch-export 批量导出）
+- [x] 自我进化引擎（负反馈/手动触发 → LLM 分析 → 自动写入记忆/知识库 + evolution_logs 审计）
+- [x] 自我进化引擎增强（更宽松的自动触发：用户纠正/有价值对话/工具修复 + 细粒度进度广播 + 撤销 API + 健壮 JSON 解析）
+- [x] db 模块化拆分（session.go/knowledge.go/provider.go/usage.go/scheduled.go/auth.go/evolution.go）
+
+### 深度 RAG + 屏幕感知主动助手（v2.0 Phase 1）
+- [x] 本地向量索引引擎（纯 Go cosine similarity，768 维嵌入，独立 vectors.db）
+- [x] 文本递归分块（512 字符/块，128 重叠，按段落/句子/字符边界分割）
+- [x] 嵌入模型接口（API 模式，调用 OpenAI 兼容 /embeddings 端点，批量 20 条）
+- [x] 混合检索引擎（向量 KNN + 关键词 BM25 + RRF 融合排序，自动回退到关键词模式）
+- [x] 知识库上传自动向量索引（上传时异步分块+嵌入+入库）
+- [x] 全量重建索引 API（POST /api/knowledge/reindex + 实时进度广播）
+- [x] 语义搜索 API（GET /api/knowledge/search）
+- [x] 嵌入模型配置 API（GET/PUT /api/knowledge/embedding-config）
+- [x] 文件夹监控（fsnotify + 2 秒防抖 + 增量索引 + 递归子目录）
+- [x] 监控目录 CRUD API（GET/POST/DELETE /api/knowledge/watched-dirs）
+- [x] 前端知识库页面增强（语义搜索面板 + 索引状态面板 + 监控目录管理 + 嵌入配置）
+- [x] Spotlight 悬浮窗（Cmd+Shift+Space 全局唤出，alwaysOnTop 浮窗）
+- [x] 上下文传感器（AppleScript/Win32 获取活跃窗口+浏览器 URL）
+- [x] Quick Actions（基于上下文动态生成快捷操作按钮）
+- [x] 快捷对话 API（POST /api/chat/quick，带上下文元数据 + 知识库检索）
+- [x] 剪贴板智能监控（2 秒轮询 + 内容分类：代码/报错/URL/英文长文/命令）
+- [x] 剪贴板建议气泡（右下角非侵入式通知，6 秒自动消失）
+
+### Screen Agent（桌面操控）
+- [x] Screen Agent 截屏理解（Agent 主动截屏 + 多模态模型分析屏幕内容 + 增强上下文）
+- [x] Screen Agent 操作规划（截图 + 指令 → LLM 生成操作步骤列表 + 风险评估）
+- [x] Screen Agent 桌面操控引擎（AppleScript 鼠标/键盘/滚动/打开应用，electron/screen-controller.js）
+- [x] Screen Agent OTA 循环（Observe-Think-Act 逐步执行 + 截屏验证 + 实时 WS 进度推送）
+- [x] Screen Agent 人类确认（每步操作需用户确认，危险操作即使自动模式也强制确认）
+- [x] Screen Agent 安全机制（危险操作黑名单 + 速率限制 500ms/步 + 60 次/分钟上限 + 紧急中止 ⌘⇧Esc）
+- [x] Screen Agent 操作审计（screen_actions 表记录所有操作 + 状态追踪）
+- [x] Screen Agent 前端 UI（ScreenBlock 截图标注 + ScreenPlanBlock 步骤列表 + 确认面板 + 进度条）
+- [x] Screen Agent Composer 模式切换（Monitor 按钮开启/关闭 Screen Agent 面板）
+
+### Agent 间对话（Project Nexus）
+- [x] 局域网 mDNS 自动发现（_lingxi._tcp 服务广播 + 10s 扫描）
+- [x] 无需建联/无 Token 认证：直接从发现的 peer 发起对话邀请
+- [x] 对话邀请流程（conversation_invite → accept/reject → 生成共享 conv_uuid）
+- [x] 一对一 Agent 自动对话引擎（第一人称自然对话，无客套寒暄）
+- [x] 流式实时对话（每端映射独立会话，token 级流式 WS 推送）
+- [x] 双向流式对话（跨实例 stream-token 转发，双方均可实时看到对方 Agent 思考和输出）
+- [x] 持久会话（local_session_id 关联 sessions 表，跨轮次保持上下文）
+- [x] 统一 Bubble 渲染（A2AAgentBubble 组件 + BlocksRenderer，完整 Markdown/代码高亮/思考块/工具块）
+- [x] 己方/对方 Agent 视觉区分（不同颜色头像+标签+边框，紫色=对方，主题色=己方）
+- [x] 发起方和接收方均可实时观察 Agent 流式输出
+- [x] 智能滚动（stick-to-bottom：用户上滚不强制拉回）
+- [x] 人类介入（暂停/接管/终止/handoff 自动暂停通知）
+- [x] 对话摘要自动生成 + 审批流程
+- [x] 接收方完整邀请流程（主题/目标展示 + Agent 选择器 + 接受/拒绝）
+- [x] Agent 对外设置（公开/能力标签/授权级别/禁止透露/知识库限定）
+- [x] 双栏通信界面 NexusPage（Telegram/Discord 风格：左侧边栏联系人+对话列表，右侧发现面板/对话视图/联系人详情）
+- [x] Zustand nexus 状态切片（含 A2A 流式状态路由）+ api/client.js 调用方法
+- [x] 广域网 P2P 通信（信令服务器 + Transport 抽象 + WAN 建联）
+- [x] 发现面板（合并 LAN + WAN 节点统一列表，内联建联按钮）
+- [x] 信令通信安全加固（WSS/TLS + HMAC 消息签名 + 防重放）
+- [x] 广域网开箱即用（默认连接公共信令服务器，无需手动配置）
+- [x] A2A 对话持久化（离开页面重进自动恢复，定时轮询补充缺失消息）
+- [x] A2A 对话自动结束（[CLOSE] 标记检测 → 自动 terminate + 通知对方，避免无限寒暄循环）
+- [x] A2A 严格轮次对话（stream_done 同步发送 + 500ms 缓冲延迟 + 前端兜底清除远端流式状态，确保一来一回不抢话）
+- [x] **Agent 群聊（Group Chat）**：本地多 Agent + 跨实例远程 Agent 同一房间协作，支持 @ 提及/主持人调度/轮询/混合模式，[CLOSE] 自动结束
+- [x] **群聊数据模型**：group_chats / group_members / group_messages 表 + 房间级 UUID + 群主中转广播
+- [x] **群聊 HTTP API**：创建/列表/详情/发言/接受邀请/拒绝/退群/终止/删除
+- [x] **群聊 Nexus 协议**：/group/invite、/group/join_ack、/group/message、/group/leave、/group/stream_token、/group/recall
+- [x] **群聊主持人决策（已废弃）**：保留 ModeratorLLM 注入接口；调度切换为并发评估引擎
+- [x] **群聊 UI（NexusPage 一对一 / 群聊 tab + GroupChatView 流式气泡 + CreateGroupModal + @提及 picker + 群邀请卡片）**
+
+### 微信风群聊重做（v2025-05+）
+- [x] **群聊 UI 像素级仿微信**：绿色自己气泡（右）/ 白色他人气泡（左）+ 头像 36px 圆角 + 合并气泡（同发送者 + 3 分钟内）+ 时间戳胶囊（间隔 ≥3min 才显示）+ 顶部 9 头像堆叠 + 成员抽屉
+- [x] **引用 / 撤回 / 长按菜单**：长按或右键消息弹出（复制 / 引用 / 撤回 2 分钟内自己的消息）+ 灰色引用块 + 撤回提示"撤回了一条消息"
+- [x] **下拉加载更早消息**：GroupMessageList 滚动到顶部触发 listGroupMessagesPaged（before=oldestId, limit=30）
+- [x] **图片消息**：POST /api/group-chats/upload（multipart）→ /api/uploads/xxx → 气泡内 240px 缩略图 + 点击新窗放大
+- [x] **@ Mention 完整**：输入框输入 @ 实时弹出成员 picker（含已加入头像）+ 双击成员抽屉头像也可插入 @
+- [x] **Composer +**菜单：相册 / Emoji picker（30+ 常用）/ 引用预览 / 多图选择
+- [x] **新消息蓝色 Pill**：用户上滚后底部出现"X 条新消息"，点击回到底部；贴底时自动 stickToBottom
+- [x] **正在输入指示**：group_agent_typing WS 事件 → "三点动画"占位气泡（在 stream_start 前显示，stream_start 时自动清除）
+- [x] **Agent 群聊人格表**（`agent_personalities`）：tags / interests / speak_probability / min_delay_ms / max_delay_ms / emoji_freq / quiet_start / quiet_end / typo_rate / echo_rate / ghost_minutes / cold_start_eligible / style_hint
+- [x] **行为引擎（`backend-desktop/groupbehavior/`）**：每条新消息让所有 joined 本地 Agent **并发独立**评估：@me 强制 / 兴趣命中 +30 / 冷场 +40 / 安静时段 ×0.1 / 被怼 +50 / 最近自己说过 ×0.2，然后随机延迟（min/max_delay 内 + 抖动 + 高分加速）各自发言
+- [x] **冷场守望者**（`groupbehavior/StartColdStartWatcher`）：每 60s 巡检本端创建的活跃群，超 5 分钟无消息且 4 分钟内未触发过冷场则触发 PickSpeakers（仅 cold_start_eligible 的 Agent 救场）
+- [x] **人格 quirks**：MaybeAddTypo（随机交换相邻字）/ MaybeEcho（追加"+1"复读）/ MaybeEmpty（0.5% 直接 [SKIP]）/ EmojiSuffix（根据频率追加 emoji）
+- [x] **Group system prompt 重做**：buildGroupSystemPrompt（人设 + 性格标签 + 兴趣 + style_hint + WeChat 风铁律）+ buildGroupUserPrompt（成员名单 + 最近 15 条带 id 的消息 + 引用上下文）
+- [x] **@reply:<id> 协议**：Agent 在回复开头可写 `@reply:142`，后端解析为 reply_to_id（剥离标记后持久化）；UI 自动渲染微信风灰色引用块
+- [x] **group_messages 列扩展**：reply_to_id / is_recalled / recalled_at / images / client_msg_id / edited_at（迁移 addColumnIfMissing）
+- [x] **群聊 API 新增**：GET /api/group-chats/:id/messages?before=&limit= + POST /api/group-chats/:id/messages/:msgId/recall + POST /api/group-chats/upload + GET/PUT /api/agents/:id/personality
+- [x] **跨实例撤回同步**：POST /api/nexus/group/recall（host 转发给其他 peer，BroadcastGroupRecall 推送 WS）
+- [x] **AgentFactoryPage 角色步增加"群聊人格"面板**：标签/兴趣 ChipInput + 概率滑块 + 延迟数字框 + 安静时段时间输入 + Emoji 频率下拉 + 错别字率/复读率/被怼后冷静分钟 + 风格 hint Textarea
+
+### 定时任务 + 自我进化 + 富 Markdown
+- [x] **定时任务时区 BUG 修复**：fmtTimeForSQLite 改为 UTC，scan 时统一 Local() 化，避免 next_run_at 永远未来
+- [x] **定时任务启动自检**：扫描 enabled=1 但 next_run_at 为空的任务并补齐，避免空任务永不触发
+- [x] **调度器 WS 流式广播**：scheduled_task_started / scheduled_task_done 事件 → 前端 ScheduledTasksPage 实时显示运行中 + AppShell 顶部小红点徽章
+- [x] **会话级自动进化**：消息数 ≥ 6 且距上次进化 > 30 分钟时自动触发 auto_session_end
+- [x] **全局自动进化扫描器**：backend-desktop/evolution/scanner.go 每 6 小时巡检所有启用进化的 Agent，找出冷却完毕且消息数 ≥ N 的会话自动提取，支持安静时段配置
+- [x] **进化扫描器配置 API**：GET/PUT /api/evolution/scanner-config，EvolutionPage 顶部面板可视化配置
+- [x] **记忆巩固 Dream**：backend-desktop/dream/dream.go 定时巡检 + 跨会话记忆整理（合并/精炼/补充/清理）+ 手动触发 API + WS 实时进度广播
+- [x] **聊天富渲染**：MermaidBlock（mermaid v11 ESM 懒加载 + SVG 渲染 + 源码切换 + 放大）+ PlantUMLBlock（pako encode + kroki.io SVG）
+- [x] **System prompt 强化输出格式**：必用 Markdown 元素（标题/列表/表格/代码围栏）+ 主动使用 Mermaid 图表（流程/时序/架构/状态机/甘特/类图等）+ 复杂 UML 用 PlantUML
+- [x] **信令服务器 relay_multi 多播**：一份 data 同时分发给多个 peer，群聊广播成本从 O(N) 往返降为 O(1)
+
+### 平台
+- [x] IM 集成（企业微信/钉钉/飞书）
+- [x] MCP 工具管理
+- [x] **纯 Go 协议转换代理**（`backend-desktop/proxy/`：Anthropic ↔ OpenAI 双向转换，流式/非流式/Tool use/思考链/多模态，零启动延迟、零外部依赖，替代 Python LiteLLM）
+- [x] **Go 代理预启动**（激活 OpenAI 协议接入点时自动预启动代理，< 1ms 就绪）
+- [x] **自动获取可用模型列表**（POST /api/api-profiles/fetch-models，输入 API key 后查询供应商 /models 端点返回可用模型）
+- [x] **供应商预设配置**（内置 DeepSeek/Qwen/GLM/Moonshot/Doubao 等 base_url 和推荐模型列表，减少配置错误）
+- [x] **cc-haha Provider 架构优化**（新增 GLM/Kimi/MiniMax/Ollama/LMStudio Anthropic 直连、模型上下文窗口管理、auth_strategy 认证策略、provider 特定 env 变量、两阶段 provider 测试）
+- [x] **定时任务页面重构**（渐变 Hero + 4 格统计 + 任务卡片增强 + 时间线执行记录）
+- [x] **用量统计增强**（费用趋势折线图 + 按智能体聚合 + GroupUsageByAgent API + 双列布局）
+- [x] **Screen Agent 浏览器控制入口**（面板新增 Browser 模式 tab + Playwright MCP 就绪状态 + 快捷操作）
+- [x] **Coding View 编程视图**（全屏深色终端风格界面，工具调用卡片颜色编码，文件树侧栏，项目目录选择器，独立于通用助理的专业编程 Agent 体验）
+- [x] 技能管理（AI 生成/ZIP 导入/批量上传/在线编辑/导出/市场安装）
+- [x] Windows 构建支持（NSIS + Portable）
+- [x] 冷启动优化（Splash 页立即显示，后端就绪后无缝切换）
+- [x] 本地离线语音识别（内置 whisper.cpp + ggml-base 模型）
+
+### Coding View 全面重做（v2026-05 Phase 5）
+- [x] **独立模式架构**：Coding View 提升为与灵犀主模式并肩的独立模式（`appMode: 'main' | 'coding'`），首次启动显示 ModeSelector 选择页，持久化到 localStorage，随时可切换
+- [x] **CodingShell 独立布局**：完全独立于 AppShell 的布局壳（顶部 tab 栏 + 左侧图标栏 + 左侧会话侧边栏 + 主区域 + 右侧 Workspace Changes 面板 + 底部状态栏）
+- [x] **CodingComposer 重做**：文件 chip 附件（拖拽不再显示绝对路径，而是显示可点击/可移除的文件名 chip）+ +号文件浏览器 + 内联模型选择器 + Run/Stop 按钮 + 斜杠命令面板
+- [x] **CodingChatView 渲染重做**：cc-haha 风格的 AI 回复渲染（工具调用聚合卡片 + diff 视图 + 思考折叠 + coding 风格 Markdown + token 显示 + SessionHeader 状态信息）
+- [x] **CodingToolCard**：文件操作=蓝色、编辑=紫色、终端=绿色、搜索=橙色，可折叠展开查看详情 + 文件路径 Copy + diff 统计（+N -M）+ 行级颜色编码
+- [x] **AskQuestionBlock**：Agent 向用户提问的内联交互卡片（单选/自由文本 + Submit 按钮）
+- [x] **PermissionBlock**：Agent 请求工具权限的确认卡片（Allow / Allow for session / Deny + 可展开查看完整输入参数 + AWAITING APPROVAL 状态标记）
+- [x] **TaskTodoList**：内联任务列表面板（进度条 + 编号 + 状态图标 + Agent 派发信息 + 折叠展开）
+- [x] **AgentTeamPanel**：Agent 团队协作面板（总指挥 Crown 标记 + 子代理列表 + Working/Done/Idle 状态 + 添加/移除成员 + Start/Stop Team）
+- [x] **WorkspaceChanges**：右侧 Workspace Changes 面板（git status 文件变更列表 + M/U/D/A 状态标记 + +N -M 变更统计 + 搜索过滤）
+- [x] **DiffViewer**：完整 diff 渲染组件（双行号 + 行级颜色 + 变更统计柱状图 + Copy path）
+- [x] **FileChip**：文件附件 chip 组件（文件类型颜色区分 + 悬停显示完整路径 + 可点击/可移除）
+- [x] **BottomStatusBar**：底部状态栏（项目路径 + git 分支 + 工作树选择器）
+- [x] **CodingIconBar**：左侧极窄图标栏（40px，logo/新建/会话/定时任务/已更改文件/设置/模式切换）
+- [x] **CodingSidebar**：左侧会话侧边栏（搜索 + 按日期分组 Today/Yesterday/Earlier + 悬停删除）
+- [x] **CodingTabBar**：顶部多 tab 会话栏（类似浏览器标签，显示多个会话 + 活跃状态绿点 + 关闭按钮）
+- [x] **H5 响应式适配**：移动端自动隐藏侧边栏/图标栏/tab栏/Workspace Changes，显示简化的 MobileHeader
+- [x] **后端 Coding API**：GET /api/coding/changes（git status 文件变更）+ GET /api/coding/diff（文件 diff）+ GET /api/coding/branch（git 分支）
+- [x] **codingSlice**：Zustand 独立切片管理 Coding 模式状态（项目路径/工作区变更/Diff/Task/Agent Team/Git 分支）
+- [x] **完全独立主题**：Coding View 强制 `data-theme="light"`，所有组件使用硬编码暖色调，不受主界面主题切换影响
+- [x] **CodingSettingsPage 独立设置页**：Coding View 专属设置页（模型与接入点/长期记忆/用量统计/远程访问/关于），不复用灵犀主界面的 SettingsPage
+- [x] **FileSidebar 文件树**：项目工作目录文件树侧栏（暖色调主题 + 搜索过滤 + 拖拽文件引用 + 文件类型颜色区分 + 懒加载递归展开）
+- [x] **主界面 Coding 快捷入口**：主界面顶栏显示"Coding"按钮（暖棕色标签样式），点击一键切换到 Coding 模式
+- [x] **AppShell 模式分离**：移除 'code' NAV_TAB，添加 Code2 模式切换按钮，appMode 判断渲染 CodingShell 或主模式布局
+
+### Coding View 交互增强（v2026-05 Phase 6）
+- [x] **交互式选择/输入块渲染**：检测 AI 回复中的 `choice`/`input` JSON 代码块，自动渲染为可点击的选项卡片和输入表单（InteractiveChoiceBlock/InteractiveInputBlock），替代纯代码块展示
+- [x] **任务计划 task_plan**：AI 在多步骤任务开始前输出 `task_plan` JSON 块，后端检测并推送 `task_update` WS 事件，前端实时渲染进度
+- [x] **StickyTaskBar 吸顶任务栏**：任务进度条固定在聊天区域顶部，显示当前执行步骤、完成数/总数、进度百分比，可展开查看所有步骤详情
+- [x] **任务状态实时更新**：AI 每完成一步输出更新后的 task_plan（status: completed/in_progress/pending），后端检测推送，前端 codingTasks 合并更新，吸顶栏实时刷新
+- [x] **智能体选择器（Agent Picker）**：CodingComposer 工具栏内嵌 Agent 选择器，显示当前智能体名称/头像，点击弹出下拉菜单切换智能体
+- [x] **后端系统 prompt 增强**：新增"任务计划"指令段，要求 AI 在多步骤编码任务前输出 task_plan JSON 块，并在每步完成后更新状态
+- [x] **代码预览面板（CodePreview）**：点击 FileSidebar 文件时右侧弹出代码预览面板（语法高亮 + 行号 + 复制 + 插入到对话），暖色调 light 主题
+- [x] **WorkspaceChanges 实时刷新**：集成后端 `/api/coding/changes` API，30 秒自动刷新 + 手动刷新按钮，点击变更文件可预览
+- [x] **Cmd+K 全文搜索**：Coding View 支持 Cmd+K 快捷键弹出搜索面板，搜索所有会话消息
+- [x] **消息操作栏**：UserMessage hover 显示复制/编辑按钮，支持内联编辑+重发；AssistantMessage hover 显示复制按钮
+
+### Coding View 增强（v2026-05 Phase 6）
+- [x] **工作目录上下文注入**：Chat API 新增 `workingDir` 参数，后端设置 `cmd.Dir` 为用户选择的项目路径 + system prompt 注入工作目录信息，AI 不再去错误的目录查找文件
+- [x] **文件夹拖拽引用**：FileSidebar 和 CodingComposer 支持拖拽文件夹（不仅限文件），FileChip 区分文件/文件夹图标，文件浏览器可附加整个目录
+- [x] **TaskTodoList 实时集成**：后端检测 `TodoWrite` 工具调用并推送 `task_update` WS 事件，前端 codingTasks 状态实时更新，消息流内联渲染任务进度面板
+- [x] **AskQuestion / Permission 内联渲染**：新增 `ask_question` / `permission_request` WS 事件，CodingChatView 内联渲染交互卡片（单选/文本问答 + Allow/Deny 权限确认）
+- [x] **Agent 状态增强**：ThinkingIndicator 显示详细状态（Thinking/Reading/Executing/Waiting）+ 已用时间实时计数
+- [x] **ToolGroupCard 增强**：工具组卡片显示总耗时 + 工具名称列表预览 + Zap 闪电图标
+- [x] **UserMessage 文件引用渲染**：用户消息自动提取 @file 和 [目录:] 引用，渲染为文件/文件夹 chip 标签
+- [x] **SessionHeader 增强**：显示项目名称 + 实时 agent 状态（thinking/reading/executing）
+- [x] **会话切换清理**：切换会话时自动清空 codingTasks 状态
+
+### Coding View 深度优化（v2026-05 Phase 8）
+- [x] **裸 JSON 交互块检测**：前端 `splitInteractiveBlocks` 和后端 `emitInteractiveFromText`/`emitTaskPlanFromText` 均支持检测未包在代码围栏内的裸 JSON 对象（通过花括号配对扫描），解决 AI 输出裸 `choice`/`input`/`task_plan` JSON 时前端无法渲染交互 UI 的问题
+- [x] **后端 emitInteractiveFromText**：新增函数，在 `content_block_stop` 时检测文本中的 `choice`/`input` JSON 块并推送 `ask_question` WS 事件，确保交互块即使未被代码围栏包裹也能被前端渲染
+- [x] **代码预览上方布局**：CodePreview 面板从右侧分栏改为聊天区域上方展示，点击文件时在聊天上方打开可编辑的代码视图
+- [x] **代码编辑保存**：CodePreview 支持 Edit/Save 模式切换 + Cmd+S 快捷保存 + 展开/收起 + 行号编辑器
+- [x] **后端文件写入 API**：新增 `PUT /api/files/write` 端点（`WriteFileContent` handler），前端 `api.writeFile` 方法，支持 CodePreview 编辑保存
+- [x] **Coding 会话与主界面会话隔离**：`sessions` 表新增 `mode` 列（`''`=通用, `'coding'`=编程），`ListSessions` API 支持 `mode` 查询参数，`CreateSession` 自动携带当前 `appMode`。Coding View 的会话不在灵犀主界面显示，主界面会话不在 Coding View 显示。切换模式时自动刷新会话列表
+
+### Coding View 全面重构（v2026-05 Phase 9）
+- [x] **后端 Chat 逻辑分离**：新增 `coding_chat.go` + `coding_prompt.go`，独立 `POST /api/coding/chat` 和 `POST /api/coding/chat/answer-batch` API，Coding 模式使用纯编程 system prompt（无身份伪装/保密规则），独立 `runCodingClaude` 执行流
+- [x] **AskQuestion 批量缓冲**：后端 `runCodingClaude` 缓冲所有 `ask_question` 直到 `message_stop`，然后一次性通过 `ask_questions_batch` WS 事件推送给前端
+- [x] **questions_batch 协议**：system prompt 要求 AI 输出 `questions_batch` JSON 块，后端 `extractQuestionsBatch` 检测并缓冲
+- [x] **Sub-agent 事件检测**：`detectSubAgentEvents` 正则检测 Claude Code 输出中的 sub-agent 创建/完成信号，推送 `subagent_start`/`subagent_done` WS 事件
+- [x] **前端状态层分离**：新增 `codingChatSlice.js`，独立 `codingMessages`/`codingLiveBlocks`/`codingIsStreaming`/`codingAgentState` 等状态
+- [x] **WS 事件路由**：`useStore.initStore` 中根据 `appMode` 分发 WS 事件到 `codingHandleWSEvent` 或 `handleWSEvent`，Coding 模式完全不影响主模式状态
+- [x] **独立 Coding 发送**：`codingSendMessage` 调用 `POST /api/coding/chat`，不复用通用 `sendMessage`
+- [x] **AskQuestion 渐进式向导**：新增 `AskQuestionWizard.jsx`，批量问题缓冲→逐个展示（进度指示器+上一步/下一步导航）→汇总确认页→一次性提交，对话不中断
+- [x] **Agents Window**：新增 `AgentsWindow.jsx`，Cursor 风格 Sub-agent 监控面板（主 Agent 卡片+子 Agent 卡片列表+实时状态更新+进度条+折叠展开）
+- [x] **CodePreview 布局修复**：从"聊天区域上方"改为"右侧分栏"（flex 布局，可拖拽调整宽度），避免遮挡聊天内容
+- [x] **CodePreview 多文件标签页**：同时预览多个文件，标签页切换+关闭按钮
+- [x] **CodePreview 搜索**：Cmd+F 唤起搜索栏，实时高亮匹配行，上/下导航
+- [x] **CodePreview Tab 缩进**：编辑模式下 Tab 键插入 2 空格，Shift+Tab 反缩进
+- [x] **TaskTodoList 增强**：双向同步（用户点击 checkbox 发送指令给 AI）+ 子任务支持（递归渲染嵌套任务）+ 任务耗时显示
+- [x] **StickyTaskBar 增强**：增加"跳过当前任务"和"取消所有任务"操作按钮 + 实时耗时显示 + 展开/收起详情
+- [x] **CodingChatView 重写**：所有状态引用从 `chatSlice` 切换到 `codingChatSlice`，包括 UserMessage/AssistantMessage/TextBlock/LiveBlock/ThinkingIndicator/SessionHeader/CodingComposer
+- [x] **会话切换清理增强**：`setActiveSession` 同时清空 Coding 独立状态（messages/liveBlocks/streaming/questions/subAgents）
+
+### Coding View 持续增强（v2026-06 Phase 10）
+- [x] **会话按项目路径关联**：`sessions.project_path` 列 + `ListSessions` API 支持 `?project_path=xxx` 筛选 + `CreateSession` 自动携带项目路径，切换项目目录时自动显示该项目的会话
+- [x] **文件 Diff 内联展示**：移除顶部实时 LiveDiffPanel，改为在工具调用卡片（CodingToolCard）内展示可折叠的 git diff（行级颜色编码 + 变更统计），`file_diff` WS 事件附加到对应的 tool block
+- [x] **终端集成**：后端 `GET /api/terminal/ws` PTY WebSocket 端点（creack/pty）+ 前端 `TerminalPanel.jsx`（@xterm/xterm + FitAddon + WebLinksAddon），支持多标签页、最大化、VSCode 深色主题
+- [x] **CodingIconBar 新增终端按钮**：左侧图标栏新增 Terminal 图标，点击切换底部终端面板
+- [x] **H5 移动端完整适配**：viewport-fit=cover + safe-area-inset + 100dvh + MobileHeader 增强（汉堡菜单/终端/设置/模式切换）+ MobileDrawer 会话抽屉（项目选择/新建/切换）+ 全屏移动端终端 + 响应式 padding（px-3 sm:px-6）+ 触摸优化（tap-highlight-color/active 状态）
+
+### Coding View 专业化增强（v2026-06 Phase 11）
+- [x] **工具调用完整展示**：后端 `tool_end` 事件新增 `fullInput` 字段传递完整工具输入 JSON，前端 CodingToolCard 重写为专业开发者视图（Bash 命令直接显示、文件路径可复制、Edit old/new 对比、Read/Grep/Glob 参数详情、Task 子代理描述+prompt 预览）
+- [x] **ToolGroupCard 默认展开**：工具组卡片默认展开显示所有工具调用详情（可折叠），区别于主模式的默认折叠
+- [x] **任务计划强制规则**：system prompt 中 task_plan 规则升级为"最高优先级"，要求 Agent 在所有非 trivial 任务前必须先输出任务计划，每步完成后立即更新状态
+- [x] **图片粘贴支持**：CodingComposer 新增 `onPaste` + `pickImageFiles` + `<ImagePlus>` 图片上传按钮，Cmd+V 粘贴图片（预览缩略图 + 移除按钮）
+- [x] **桌面文件拖拽**：CodingComposer `handleDrop` 增强，支持桌面图片文件（自动 base64）和文本文件（读取内容附件）
+- [x] **思考模式开关**：`codingSlice` 新增 `codingThinkingEnabled`（持久化 localStorage），CodingComposer 工具栏 Think 开关按钮（紫色），消息携带 `thinking` 参数
+- [x] **后端思考模式支持**：`POST /api/coding/chat` 新增 `thinking` 布尔参数，`DISABLE_THINKING=1` 环境变量控制 Claude 思考链
+- [x] **CodePreview 全高度**：移除 `h-[45%]`，改为 `h-full` 占满右侧面板，移除展开/收起按钮
+
+### Coding View Agent-First 重构（v2026-06 Phase 12）
+- [x] **三栏布局重构**：`CodingShell` 从双栏改为三栏（左侧 WorkspacePanel + 中央对话 + 右侧 DrawerPanel），删除旧 CodingIconBar
+- [x] **WorkspacePanel 左侧面板**：mini/expanded 双模式 + 文件树/任务列表 tab 切换 + AgentStatusCard + 快捷操作栏
+- [x] **AgentMessageCard 消息分层**：替换 AssistantMessage，四层（ThinkingLayer / ToolLayer / TextLayer / ChangeSummaryLayer）
+- [x] **DrawerPanel 右侧抽屉**：多标签页（代码预览 / Diff Review）+ 可拖拽宽度 + 最大化 + framer-motion 动画
+- [x] **DiffReviewView 逐块审查**：统一 diff 解析 + 每个 hunk 独立 Accept/Reject + 进度可视化 + 批量操作
+- [x] **PlanCard 计划模式**：可编辑任务计划 + 步骤拖拽排序/新增/删除 + 确认后执行 + 进度条
+- [x] **ModeSwitcher 模式切换**：Normal / Plan / Think 三模式切换器
+- [x] **权限分级系统**：permissionConfig.js 工具风险等级 + PermissionSettingsPanel（trust/managed/strict）+ 白名单/黑名单状态
+- [x] **codingThemes 主题系统**：5 套预定义主题 + CSS 变量动态注入 + localStorage 持久化
+- [x] **keyboardShortcuts 快捷键体系**：21 个全局快捷键 + 平台适配 + 匹配工具函数
+- [x] **CodingErrorBoundary**：Coding View 专用 ErrorBoundary（友好错误 UI + 一键重试）
+- [x] **手机 H5 远程接入前端**：RemoteAccessPanel（桌面端配对码）+ MobileRemoteView（移动端审批/进度）
+- [x] **代码清理**：删除 5 个废弃文件，减少死代码约 1200 行
+
+### Coding View UI/UX 深度重构（v2026-06 Phase 13）
+- [x] **StatusBadge 原子组件**：支持 pending/running/done/error/warning 五态，framer-motion 缩放动画过渡，替代所有手工状态图标
+- [x] **GlassCard 容器组件**：glassmorphism 效果（backdrop-blur-xl + 半透明 + glow 边框），用于 AgentsWindow/ToolGroup 等悬浮卡片
+- [x] **SkeletonLoader 骨架屏**：加载态使用灰色脉冲骨架屏替代"Generating..."文字，防止布局抖动
+- [x] **ToastNotification 通知**：非阻塞式右下角自动消失通知组件，用于低危工具操作反馈
+- [x] **ThemedProgressBar 动画化**：进度条从 CSS transition 升级为 framer-motion 弹性动画
+- [x] **StickyTaskBar 流式重构**：任务卡片逐条 AnimatePresence 动画入场（非突然全部弹出）；状态切换 StatusBadge 动画；allDone 时 Sparkles 放大弹性动画
+- [x] **ToolGroupCard 工具聚合**：连续同类型工具调用自动聚合为折叠组（如 Read ×5），summary 头显示聚合信息 + 总耗时；单工具不聚合
+- [x] **CodingToolCard 重构**：按工具类型颜色编码（blue/amber/purple/emerald/sky/indigo），running 状态边框发光效果，详情面板 AnimatePresence 展开动画
+- [x] **AskQuestionWizard 重构**：问题卡片滑入动画（AnimatePresence mode="wait"），选项 whileHover/whileTap 微交互，进度指示器彩色段动画
+- [x] **AgentsWindow 树状可视化**：虚线连接器（border-dashed）表达父子层级，并行 Agent 用 mini 时间轴色块展示状态；AgentStatusPill 替代简单文字标签
+- [x] **PermissionBlock 风险分级渲染**：low 风险→内联绿色 auto-approved 提示；medium→amber 确认条（"Always allow"按钮）；high→红色全卡片阻断（AlertTriangle + 脉冲"Requires Approval"）
+- [x] **消息操作栏升级**：hover 时 AnimatePresence 浮现，backdrop-blur-xl 毛玻璃，按钮 hover:bg 过渡
+- [x] **AgentMessageCard ToolLayer 工具聚合**：AggregatedToolGroup 子组件，同名工具折叠为一条可展开行（"Read ×3"）
+- [x] **WelcomeScreen 精致化**：Sparkles 图标 + gradient bg + spring 动画入场 + 按钮 whileHover/whileTap
+- [x] **ThinkingIndicator 升级**：8×8 圆角容器 + 呼吸发光点 + 状态文字 + 计时器
+- [x] **SystemMessage 改为 pill 胶囊样式**：居中圆角 + 半透明背景 + scale 入场
+- [x] **全局 hover 微交互**：所有可点击元素增加 hover:bg/active:scale-[0.97] 反馈
+- [x] **dark mode 兼容**：所有颜色使用 CSS 变量 + /opacity 写法，border-[var(--coding-border)]/50 等避免硬编码颜色值
+
+### Coding View 交互修复（v2026-06 Phase 14）
+- [x] **AskQuestion 提交后 Q&A 显示**：`submitCodingAnswerBatch` 提交答案后，将问答内容作为用户消息追加到 `codingMessages`，同时将之前的 `liveBlocks` 合并为 assistant 消息保存
+- [x] **AskQuestion 提交后 Thinking 反馈**：提交答案后立即清空 `codingLiveBlocks` + 设置 `codingAgentState: 'THINKING'`，确保 ThinkingIndicator 显示，用户知道 agent 在继续工作
+- [x] **Permission Allow 修复**：修正 `CodingChatView.jsx` 中 `LiveBlock` 组件错误地访问 `activeSession?.id`（undefined），改为正确使用 `activeSessionId`，解决 Allow 后 agent 不继续的 bug
+- [x] **Permission 状态自动解除**：`codingHandleWSEvent` 检测 `agent_state` 从 `AWAITING_PERMISSION` → `THINKING` 时，自动标记最近的 permission block 为 `resolved: true`
+- [x] **AgentsWindow 固定到聊天上方**：将 Agent Tree 面板从消息滚动区域内部移到滚动区域外面固定位置（在 StickyTaskBar 下方、聊天内容上方），始终可见不随消息滚动
+
+### Coding View 体验优化（v2026-06 Phase 15）
+- [x] **灵犀主模式移除 task_plan**：主模式 system prompt 不再要求 AI 输出 task_plan JSON 块，保持简洁对话体验
+- [x] **新建会话按钮**：WorkspacePanel expanded 模式左上角添加显眼的「新建会话」按钮
+- [x] **会话-项目绑定**：切换工作目录后自动刷新会话列表并定位到对应项目的最近会话
+- [x] **全局文件搜索**：后端新增 `GET /api/files/search`（内容搜索）和 `GET /api/files/search-names`（文件名搜索）API；前端 WorkspacePanel 新增搜索 tab（Cmd+Shift+F 快捷键），支持关键词 + glob 过滤，结果按文件分组展示
+- [x] **Agent Tree 自动清空**：AI 回复自然完成后（done 事件）自动清空 subAgents，Agent Tree 面板消失
+- [x] **思考模式开关生效**：后端注入 `DISABLE_THINKING=1` 环境变量 + SDK runner 双重检查 `config.thinking === false || DISABLE_THINKING env`
+- [x] **Task 工具卡片默认折叠**：Task/TaskCreate 类型工具调用卡片默认不展开详情（避免暴露冗长的 subagent prompt）
+- [x] **任务 tab 替换为变更 tab**：WorkspacePanel 左侧面板从「文件/任务」改为「文件/搜索/变更」三功能，变更 tab 展示 git status 文件变更列表（自动刷新 + 状态颜色编码 + 增删统计）
+- [x] **目录浏览器弹窗**：非 Electron 环境（H5/手机端）选择工作目录时使用 DirectoryBrowserModal（后端 API 驱动的目录浏览器），替代 `prompt()` 手动输入
+- [x] **ModeSelector 视觉升级**：冷启动双模式选择页重新设计（暖色调渐变背景 + 装饰性光晕 + glassmorphism 卡片 + 顶部渐变指示条 + 功能标签 + 悬浮动效 + Sparkles 徽标）
+
+### Coding View 多媒体增强（v2026-06 Phase 16）
+- [x] **语音识别输入**：CodingComposer 新增麦克风按钮（Mic/MicOff/Loader2），复用主模式录音逻辑（MediaRecorder + api.transcribeAudio），录音中红色脉冲指示 + 识别中 Loader 状态
+- [x] **Finder 多选文件/目录**：Electron 新增 `select-files` IPC（openFile + openDirectory + multiSelections），`+` 按钮优先使用原生 Finder 多选，非 Electron 环境回退到文件浏览器
+- [x] **桌面拖拽绝对路径**：`handleDrop` 改为对非图片文件直接使用 `file.path` 绝对路径附加（不读取文件内容），避免上传到灵犀内部
+- [x] **用户消息图片显示修复**：UserMessage 新增 `parseUserContent` 解析 JSON 格式消息中的 images 数组，渲染网格缩略图 + 点击全屏预览弹窗
+
+### Coding View 7 项修复（v2026-06 Phase 17）
+- [x] **任务规划前置化**：`coding_prompt.go` 强化任务管理规则——严格要求先完整规划所有任务再逐项执行，禁止边做边想
+- [x] **Diff 弹窗修复**：`AgentMessageCard` 中 `handleViewDiff` 剥离项目路径前缀传相对路径给后端 git diff；`DrawerPanel` 新增 `useEffect` 自动切换到 diff tab
+- [x] **Markdown 预览**：`CodePreview.jsx` 支持 `.md` 文件渲染模式（ReactMarkdown + remarkGfm + 代码高亮），预览/源码一键切换
+- [x] **弹窗替代三栏**：`DrawerPanel` 从三栏右侧分栏改为全屏居中弹窗叠加层（dimmed backdrop + 960px max-width + Escape 关闭 + scale 动画），`CodingShell` 布局回归双栏
+- [x] **技能共享**：`coding_chat.go` 注入 `buildSkillInventory`，Coding 模式可使用灵犀主模式安装的全部技能
+- [x] **Stop 崩溃修复**：`codingAbort` 先 flush buffer 再原子清空所有流式状态（liveBlocks/tasks/subAgents/questions）；`codingHandleWSEvent` 新增流式事件 guard 跳过 abort 后的残留事件；`done` handler 加 try-catch + abort 检测
+- [x] **SubAgent 卡片精简**：`SubAgentCard` 默认收起，隐藏 tools 列表和 collapsed output 预览，只显示描述 + 状态标签
+
+### Coding View SDK 对齐（v2026-06 Phase 18）
+- [x] **Task 管理策略**：`CLAUDE_CODE_ENABLE_TASKS=0` 强制使用 TodoWrite（前端管线基于此构建），避免 SDK 默认 TaskCreate/TaskUpdate 不兼容
+- [x] **System Prompt 预设化**：从纯自定义 string 改为 `claude_code` 预设 + `append` 模式，`sdk-runner.js` 支持 `{type:"preset",preset:"claude_code",append:...}` 格式，继承内置工具指导/安全规则/编码规范
+- [x] **SDK 文件检查点**：`fileCheckpointing: true` 启用 SDK 原生文件修改追踪，捕获 `user` 消息中的 `checkpoint_id`，后端推送 `sdk_checkpoint` WS 事件，前端 `codingCheckpoints` 记录 + `rewindToCheckpoint`/`loadCheckpoints` 操作
+- [x] **Hooks 系统**：`sdk-runner.js` 新增 `options.hooks`——PreToolUse 拦截 Write/Edit/MultiEdit 对敏感文件（.env/.pem/.key/credentials.json/id_rsa/.ssh/config）的写入并阻止；PostToolUse 审计日志所有工具调用；`hook_event` 前端可接收
+- [x] **自定义子代理模板**：`db/coding_agents.go` 新增 `coding_agents` 表 CRUD；`handler/coding_agents.go` 新增 `GET/POST/DELETE /api/coding/agents` API；`buildSDKAgents()` 自动注入 SDK `options.agents`
+- [x] **会话 Fork**：`handler/session.go` 新增 `POST /api/sessions/:id/fork`（复制消息历史 + 保存 `fork:` 前缀 SDK session ID）；`sdk-runner.js` 检测 `fork:` 前缀使用 SDK `options.fork`
+- [x] **Plugin 加载**：`sdk-runner.js` 新增 `options.plugins` 支持（自动将字符串转 `{type:"local",path:...}`）；`handler/coding_agents.go` 新增 `GET/PUT /api/coding/plugins` API（kv_store 存储路径列表）；`coding_chat.go` 自动加载插件配置
+- [x] **Per-Model 成本追踪**：`sdk-runner.js` 从 `result.modelUsage` 提取并转发 `model_usage`；后端 `sdkEvent` 新增 `ModelUsage` 字段；`usagePayload` 包含 `model_usage` 明细供前端展示
+
+### Coding View 稳定性修复（v2026-06 Phase 20）
+- [x] **会话切换流式进度保留**：`setActiveSession` 和 `setAppMode` 在切换前检测正在流式输出的 `codingLiveBlocks`，自动合并为 assistant 消息保留进度，避免切换后聊天记录消失
+- [x] **DrawerPanel 弹窗布局修复**：`DrawerPanel` 从右侧 flex 分栏彻底改为 `fixed` 全屏居中弹窗叠加层（dimmed backdrop + 960px max-width + Escape 关闭 + scale 动画 + 最大化切换），解决点击文件预览/Diff审查时布局错乱的问题
+- [x] **DrawerPanel 移除 codingView 限制**：弹窗模式不再要求 `codingView === 'chat'` 才能显示，在任何子视图下都可打开文件预览和 Diff 审查
+
+### Coding View 移动端增强（v2026-06 Phase 21）
+- [x] **Agent 选择器**：ComposerV2 工具栏新增 Agent Picker 下拉菜单，支持从灵犀主模式智能体工厂选择任意智能体进行编程对话
+- [x] **移动端工作目录切换**：手机端（H5 远程模式）移动端顶栏项目名称可点击切换工作目录（DirectoryBrowserModal 弹窗浏览桌面端目录系统），侧边抽屉也增加项目目录切换入口
+- [x] **移动端发送/停止按钮优化**：ComposerV2 发送/停止按钮增加最小宽度 60px + 移动端增大 padding（px-4 py-2）+ 右侧增加 ml-2 间距，不再贴边难按
+- [x] **移动端自动进入 Coding View**：非 Electron 环境（H5 浏览器/手机端）检测窗口宽度 < 768px 时自动设置 `appMode = 'coding'`，跳过 ModeSelector 模式选择页
+
+### Coding View 三大修复（v2026-06 Phase 22）
+- [x] **防止子代理嵌套**：`sdk-runner.js` 自动从 `agents[].tools` 中过滤 `Agent`/`Task` 并注入 `disallowedTools: ["Agent"]`；后端 `buildSDKAgents()` 已有 `subAgentBaseTools` 排除 Agent + `disallowedTools` 双重保险
+- [x] **Agents 卡片右侧悬浮**：从 `MessageStream.jsx` 移除内联 `SubAgentCard`，改为 `CodingShellV2.jsx` 中 `fixed right-4 top-1/2` 悬浮卡片（260px 宽，AnimatePresence 动画进出），仅当 `subAgents.length > 0` 时显示，新对话自动清空 subAgents 后消失
+- [x] **Checkpoint Rollback 修复**：`CheckpointTimeline.jsx` 从错误的 `api.rewindCheckpoint` 改为正确的 `api.rollbackCheckpoint(cp.id)`，成功后调用 `loadCodingMessages` 刷新
+- [x] **Checkpoint 关联文件展示**：后端新增 `GET /api/coding/checkpoint-files/:id` API（`GetCheckpointFiles` handler），返回文件路径列表（不含内容）；前端 `CheckpointTimeline` 增强为可展开的 `CheckpointItem` 组件，点击展开显示文件列表，点击文件可内联查看 git diff（行级颜色编码）
+- [x] **权限响应管道确认完整**：后端 `handlePermissionRequest` 已实现完整链路（SDK stdout → WS 推送前端 → HTTP 响应 → Go channel → stdin 回写 SDK），`handleAskUserPermission` 同理，无需额外修复
+- [x] **PermissionDialog 增强**：新增工具摘要行（Bash 显示 command、Write/Edit 显示 file_path，带 Terminal/FileText 图标 + Copy 按钮）；增加 Deny with reason 模式（textarea 输入拒绝理由，agent 可看到并调整方案）；完整参数可折叠查看
+- [x] **AskUserQuestion 响应链路确认完整**：`ask_questions_batch` WS 事件携带 `permission_id`，前端 `submitCodingAnswerBatch` 通过 `api.submitCodingPermissionResponse` 路由回后端 channel，`handleAskUserPermission` 从 channel 读取后重新映射答案格式写入 SDK stdin
+
+### H5 公网远程访问（v2026-06 Phase 23）
+- [x] **云端 HTTP 隧道**：信令服务器新增 HTTP 反向代理能力（`handleTunnelHTTP`），桌面端通过 WebSocket 注册隧道 token（`tunnel_register`），手机端通过 `/tunnel/<token>/` 路径透明代理所有 HTTP 请求到桌面端
+- [x] **WebSocket 隧道代理**：信令服务器检测 WS 升级请求后建立双向桥接（`tunnel_ws_open`/`tunnel_ws_message`/`tunnel_ws_close`），手机端 WS 连接经信令服务器中转到桌面端本地 WS Hub
+- [x] **桌面端隧道客户端**：`backend-desktop/handler/h5_tunnel.go` 实现 H5TunnelClient（WS 连接信令服务器 + 注册 + HTTP/WS 请求转发 + 心跳 + 自动重连）
+- [x] **前端相对路径构建**：Vite `base: './'` + `TUNNEL_BASE` 动态前缀检测，确保隧道模式下资源/API/WS 请求正确路由，桌面端本地运行零影响
+- [x] **隧道入口免 token 验证**：`h5_page.go` 对 `lx_tunnel_` 前缀的隧道访问跳过 H5 令牌验证，直接游客登录后跳转
+- [x] **隧道配置持久化 + 自动重连**：信令地址和 token 存储到 `kv_store`，`AutoStartH5Tunnel()` 应用启动时自动恢复
+- [x] **灵犀主模式移动端适配**：AppShell 响应式布局（滑出侧边栏/移动端顶栏/底部智能体选择器）+ 微信浏览器兼容（`isH5Mobile()` 多策略检测）
+- [x] **设置页云端隧道面板**：RemoteAccessPage 新增云端隧道区块（信令地址配置 + 连接/断开 + 隧道 URL 显示 + 二维码生成）
+
+### 手机 App 配对认证（v2026-06 Phase 24）
+- [x] **PairTokenAuthMiddleware**：Gin 中间件，对非 localhost 请求强制 `X-Pair-Token` 认证，localhost 请求自动放行（Electron 桌面端 + h5_tunnel 本地代理不受影响）
+- [x] **路径豁免**：`/api/ping`、`/api/health`、`/api/pair/complete`、`/api/auth/guest` 等公开端点免认证
+- [x] **WS 一次性票据**：`POST /api/auth/ws-ticket` 生成 60 秒有效票据，避免 pair_token 泄漏到 WS URL 日志
+- [x] **配对 API**：PC 端 `POST /api/pair/initiate`（生成 challenge UUID + 6 位数字码 + QR 数据），手机端 `POST /api/pair/complete`（返回永久 pair_token）
+- [x] **设备管理 API**：列表 / 解绑 / token 轮换 / FCM 推送 token 注册 / 一键撤销全部
+- [x] **h5_access_tokens 表扩展**：新增 permanent/device_id/platform/device_name/push_token/last_seen_at 列，永久 token 跳过过期检查
+- [x] **配对挑战清理 goroutine**：每 60 秒清理过期挑战（5 分钟 TTL），防止内存泄漏
+- [x] **WS 认证增强**：WsHandler 和 TerminalWsHandler 入口增加 `WsAuthCheck`，非 localhost 需 ticket 或 pair_token
+- [x] **CORS 更新**：`Access-Control-Allow-Headers` 增加 `X-Pair-Token`
+
+### Flutter 手机端骨架（v2026-06 Phase 25）
+- [x] **Flutter 项目骨架**：`mobile-flutter/` 目录，Flutter 3.24+ / Dart 3.5+，Provider 状态管理
+- [x] **ApiClient**：HTTP 请求封装（自动注入 `X-Pair-Token`，401 统一处理，RESTful CRUD 方法）
+- [x] **WsClient**：WebSocket 客户端（one-time ticket 认证，自动重连，session 订阅/取消订阅，ping 保活）
+- [x] **ConnectionManager**：LAN/WAN 自动切换（优先 LAN 直连，回退 WAN 隧道代理，30s 心跳检测，SharedPreferences 持久化）
+- [x] **PairService**：QR 扫码配对 + 6 位码手动配对，支持 LAN 直连和 WAN 回退
+- [x] **PairScreen**：配对页面（QR 扫码 tab + 手动输码 tab，mobile_scanner 集成）
+- [x] **HomeScreen**：首页（会话列表 + 下拉刷新 + 智能体选择器 + 连接状态指示 + 左滑删除）
+- [x] **ChatScreen**：对话页面（WS 流式消息集成 + Markdown 渲染 + 思考块折叠 + 图片粘贴/拍照 + 发送/中止按钮 + sticky-to-bottom 滚动）
+- [x] **SettingsScreen**：设置页（LAN/WAN 连接状态 + 智能体列表 + 解除配对 + 重连）
+- [x] **MessageBubble**：消息气泡（flutter_markdown 渲染 + 代码高亮 + 图片缩略图 + 复制按钮）
+- [x] **ThinkingIndicator**：思考中指示器（折叠/展开思考内容）
+- [x] **数据模型**：Session / Message / LiveBlock / Agent，对齐后端 JSON 格式
+- [x] **Android 网络安全配置**：`network_security_config.xml` 允许 192.168/10.0/172.16 局域网明文 HTTP
+
+### 推送通知（v2026-06 Phase 26）
+- [x] **信令服务器 /push 端点**：接收 PC 端推送请求，通过 FCM Legacy HTTP API 发送到手机端（`Authorization: Bearer <PUSH_SECRET>` 鉴权）
+- [x] **后端推送集成**：AI 回复完成（`done` 事件）后异步检测已配对设备的 push_token，通过信令服务器中转 FCM 推送
+- [x] **推送配置 API**：`GET/PUT /api/push/config`（信令地址+密钥）+ `POST /api/push/test`（测试推送），kv_store 持久化
+- [x] **前端推送配置 UI**：RemoteAccessPage 新增"推送通知"折叠面板（信令地址+密钥配置+测试推送按钮）
+- [x] **Flutter FCM 集成**：firebase_messaging + flutter_local_notifications，前台/后台/冷启动三种通知场景处理
+- [x] **Flutter push token 注册**：配对成功和应用恢复时自动注册 FCM token 到 PC 后端，token 刷新时自动更新
+- [x] **通知点击跳转**：点击通知携带 session_id，跳转到对应对话页面
+
+### Flutter 手机端 Chat 增强（v2026-06 Phase 27）
+- [x] **代码块语法高亮**：`CodeBlockWidget`（flutter_highlight + github/atom-one-dark 主题 + 语言标签 + 复制按钮 + 横向滚动）
+- [x] **工具调用卡片**：`ToolCard`（颜色编码：文件=蓝/编辑=紫/终端=绿/搜索=橙 + 折叠详情 + 耗时 + running 动画）
+- [x] **工具组聚合**：`ToolGroupCard`（连续同类工具自动聚合折叠组 "Read ×5" + 总耗时）
+- [x] **思考过程折叠块**：`ThinkingBlock`（折叠/展开 + 预览 + 紫色主题 + live 呼吸脉冲）
+- [x] **RAG 引用脚注**：`CitationFooter`（引用来源列表 + 编号 + 折叠 + 标题/摘要）
+- [x] **WS 事件块级处理**：`_handleWsEvent` 重写为块级架构，AppState 维护 `List<LiveBlock>`
+- [x] **流式渲染增强**：ChatScreen 实时渲染思考块/工具卡片/Markdown，工具组自动聚合
+- [x] **消息气泡多块渲染**：MessageBubble 支持 `Message.blocks` 结构化块列表
+- [x] **消息反馈**：thumbs up/down（持久化 + 选中高亮 + 取消切换）
+- [x] **流式状态栏增强**：AppBar 显示详细状态（思考中/执行工具名/回复中）
+- [x] **消息编辑/重发**：长按用户消息弹出编辑对话框，保存后自动删除后续消息并重发
+- [x] **消息固定 Pin**：消息操作栏 Pin 按钮，已固定消息显示金色图钉标记
+- [x] **APK 构建成功**：Flutter 3.27.4 + Android SDK 34，Release APK 71.2MB
+
+### Flutter 手机端视觉重做（v2026-06 Phase 28）
+- [x] **Design Tokens**：`app_colors.dart`（品牌色/语义色/工具色/渐变/暗色映射）+ `app_dimens.dart`（圆角/间距/字号/头像统一定义）+ `app_theme.dart`（Light/Dark 双主题工厂）
+- [x] **Widgets 全面重写**：`message_bubble`（蓝紫用户气泡/浅灰蓝 AI 气泡/固定/反馈/编辑操作）、`thinking_block`（金色折叠 chip）、`tool_card`（6 色降饱和编码 + ToolGroupCard 聚合）、`citation_block`（引用块蓝色折叠）
+- [x] **新增 Widgets**：`streaming_cursor`（金色闪烁竖条）、`skeleton_loader`（shimmer 骨架屏）、`recommendation_chips`（后续问题胶囊）
+- [x] **ChatScreen 重做**：胶囊浮起 Composer（圆角+阴影+图片选择）+ 红色停止按钮 + 流式渲染（金色光标+工具组聚合+思考块折叠）+ 精致空状态欢迎页（推荐提示词 chip）
+- [x] **HomeScreen 重做**：智能体 Chip 选择器 + 连接状态 Dot + 会话卡片化（渐变头像+时间格式化+置顶图标）+ 滑动删除确认 + NavigationBar 底栏
+- [x] **PairScreen 重做**：渐变 Hero 背景 + 胶囊 Tab 切换 + QR 扫描区 + 手动输码
+- [x] **SettingsScreen 重做**：分组卡片 + 连接信息 + 设备管理 + 版本信息
+
+### 飞书机器人流式卡片消息（v2026-06 Phase 29）
+- [x] **StreamReplyFunc 接口扩展**：`IMMessage` 新增可选 `StreamReplyFunc func(chunk string, done bool) error`，支持流式回复的平台设置此字段
+- [x] **飞书流式卡片 API 封装**：`feishu_streaming.go` 实现完整生命周期——创建卡片实体（CardKit v1）→ 发送卡片消息 → 定期批量追加文本（PUT element content）→ 完成
+- [x] **流式推送控制**：`feishuStreamSender` 内部维护 flush timer（可配置间隔，默认 80ms）+ 严格递增 sequence + 累积文本前缀扩展 + tenant_access_token 自动刷新缓存
+- [x] **RunClaudeStreaming**：`handler/chat.go` 新增流式调用函数，每次收到 text_delta 时实时回调 onChunk，生成结束时调用 onChunk("", true)，持久化逻辑与 RunClaudeSync 一致
+- [x] **Dispatcher 流式路径**：`Dispatch()` 检测 `StreamReplyFunc != nil` 时走 `runClaudeStream`，流式模式下不发"收到"确认消息
+- [x] **FeishuConfig 扩展**：新增 `streaming_enabled` / `streaming_card_title` / `streaming_flush_ms` 三个可配置项
+- [x] **向后兼容**：`streaming_enabled` 默认 false（不改配置不启用），钉钉/企微保持原有同步路径，流式失败 fallback 到错误提示
+- [x] **其他平台预留**：`ClaudeStreamRunner` 接口 + `SetClaudeStreamRunner` 注入点，任意平台实现 `func(chunk, done)` 即可启用流式
+
+### Flutter 手机端 WS 稳定性修复（v2026-06 Phase 30）
+- [x] **WsClient 握手等待**：使用 `await _channel!.ready` 等待 WebSocket 握手完成后再标记 `_connected = true`，避免假连接状态导致顶部红条闪烁
+- [x] **指数退避重连**：重连间隔从固定 3 秒改为 2^attempt 秒（上限 30 秒），连接成功重置计数器，避免网络短暂不可用时重连风暴
+- [x] **并发连接防护**：`_connecting` flag + `_doConnect` 入口守卫，防止多个 Timer/heartbeat 同时触发连接
+- [x] **ConnectionManager 增强**：心跳和网络变化事件检查 `wsClient.connecting` 状态，避免打断正在进行的重连；网络变化防抖从 2s 加到 5s；`_probing` 锁防止并发探测
+- [x] **断线提示防抖加长**：AppState `onDisconnected` 防抖从 2s 增加到 4s，并检测 `connecting` 状态，避免重连过程中顶部红条闪现
+- [x] **reconnectNow() 公开方法**：外部可主动触发重连（重置退避计数），供 heartbeat 检测 WS 断开但 HTTP 正常时调用
+- [x] **后端 WS Ping/Pong 保活**：WsHandler 新增 `wsPingInterval=20s`（Ping 帧）+ `wsPongTimeout=40s`（读取超时），Pong handler 重置 deadline，确保移动网络 NAT 不超时断连
+- [x] **Flutter 心跳加强**：客户端 ping 间隔从 25s 缩短到 15s，且无论 `_subscribedSessions` 是否为空都发送保活消息，避免空闲连接被 NAT 静默断开
+- [x] **后端接口自动化测试**：58 个测试覆盖 WS Hub（12）/ 认证中间件（5）/ Sessions CRUD（7）/ Messages 分页（5）/ Agents（1）/ Memories（2）/ Knowledge（3）/ Skills（3）/ File Browser（5）/ Scheduled Tasks（1）/ Chat 验证（5）/ Health（2），使用独立临时 SQLite 数据库，互不干扰可重复运行
+- [x] **WS 认证简化**：移除 ticket 中间步骤，WsAuthCheck 新增 `pair_token` query 参数直接认证；Flutter WsClient 移除 ApiClient 依赖和 getWsTicket 调用，WS URL 直接拼接 `?pair_token=xxx` 一步连接；旧 ticket 方式保留为兼容回退
+
+### Flutter 手机端全面重构（v2026-06 Phase 31）
+- [x] **飞书流式消息修复**：`feishu_streaming.go` 新增 `frozenThinking`/`frozenTool` 字段，确保 PUT content 为前缀扩展
+- [x] **移动端 ask_question 支持**：`LiveBlock` 扩展 + `AskQuestionCard` Widget + ChatScreen 实时渲染
+- [x] **消息消失修复**：`done` 事件延迟 1.5s 后 `loadMessages`，解决竞态
+- [x] **5 Tab 底部导航**：HomeScreen 重构为 BottomNavigationBar + IndexedStack（对话/智能体/发现/我的/设置）
+- [x] **全局消息搜索**：`SearchMessagesScreen`（防抖搜索 + API + 结果卡片 + 跳转会话）
+- [x] **TTS 朗读**：`flutter_tts` 集成 + 消息长按菜单"朗读"
+- [x] **多文件上传**：`file_picker` 集成，附件 strip 预览 + 多文件发送
+- [x] **消息重生成**：长按菜单"重生成"，自动定位前一条用户消息并重发
+- [x] **智能体详情页**：`AgentDetailScreen`（Hero header + 描述 + 参数 + 开始对话）
+- [x] **技能市场页**：`SkillListScreen`（搜索 + 已安装标记 + 列表卡片）
+- [x] **知识库页**：`KnowledgeListScreen`（语义搜索 + 分类颜色 + 相关度展示）
+- [x] **发现页增强**：四宫格入口 + 热门智能体横滚 + 使用技巧推荐卡片
+- [x] **用量统计页**：`UsageScreen`（时段筛选 + 总费用 Hero + token/请求统计 + 消费记录）
+- [x] **长期记忆管理**：`MemoryScreen`（记忆列表 + 添加/删除 + 分类标签）
+- [x] **首次启动引导**：`OnboardingScreen`（3 页滑动引导 + 渐变背景 + 进度指示器）
+- [x] **Accessibility 增强**：Semantics 标签 + animated 底部导航指示器
+- [x] **图片缓存**：`cached_network_image` 集成
+- [x] **Android SDK 升级**：minSdkVersion 24 + compileSdk 36 + Kotlin 2.1.0
+- [x] **Release APK**：76.9MB 构建验证通过
+
+### Flutter 手机端 ask_question 交互修复（v2026-06 Phase 32）
+- [x] **完全对齐 PC 端交互逻辑**：重写 `ask_question_card.dart`，新增 `ChoiceCard`（选择块）/ `InputCard`（输入块）/ `PendingInteractivePlaceholder`（流式占位），与 PC 端 `SingleChoiceBlock` / `SingleInputBlock` / `PendingInteractivePlaceholder` 一一对应
+- [x] **选择后发送普通消息**：`ChoiceCard._submit` 格式化为 `[选择结果] 标题: 选项A, 选项B` 通过 `sendMessage` 发送（与 PC 端完全一致），不再使用 `submitQuestionAnswer` 特殊 API
+- [x] **输入后发送普通消息**：`InputCard._submit` 格式化为 `[信息回复] 标题:\n字段: 值` 通过 `sendMessage` 发送
+- [x] **本地 submitted 状态**：交互卡片的已提交状态由组件内部 `_submitted` 管理（非来自 props），历史消息重新加载后卡片恢复为可交互状态（与 PC 端一致）
+- [x] **流式期间显示占位符**：流式阶段检测到 choice/input JSON 后显示 `PendingInteractivePlaceholder`（"正在生成交互选项..."），流式结束后变为可交互卡片（与 PC 端 live 逻辑一致）
+- [x] **splitInteractiveBlocks 解析器**：`message_bubble.dart` 新增 Dart 版交互块解析器，支持 ` ```json ` 围栏和裸 JSON 花括号配对两种格式检测 `choice`/`input` JSON
+- [x] **三层渲染覆盖**：MessageBubble `_buildContentWithInteractive`（无 blocks 历史消息）+ `_addContentWithInteractive`（有 blocks 的 text 块）+ ChatScreen 流式 text 块，确保任何场景下 JSON 都正确渲染为交互 UI
+
+---
+> Source: [OdysseyFather/lingxi](https://github.com/OdysseyFather/lingxi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-25 -->
