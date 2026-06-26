@@ -1,0 +1,9 @@
+{
+  "name": "exmergo--skill-no-em-dashes",
+  "displayName": "skill-no-em-dashes",
+  "description": "A Claude Code skill that produces writing with zero em dashes, and, just as important, writing built out of sentences that never reach for one in the first place. Works with most Agents",
+  "version": "1.0.0",
+  "author": "exmergo",
+  "homepage": "https://github.com/exmergo/skill-no-em-dashes",
+  "skills": []
+}
