@@ -1,0 +1,9 @@
+{
+  "name": "gglafrance--goonhub",
+  "displayName": "GoonHub",
+  "description": "Self-hosted NSFW video library with automatic processing, full-text search, markers, playlists, and multi-user support. Go + Nuxt 4.",
+  "version": "1.0.0",
+  "author": "gglafrance",
+  "homepage": "https://github.com/gglafrance/GoonHub",
+  "skills": []
+}
