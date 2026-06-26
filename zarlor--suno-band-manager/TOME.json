@@ -4,7 +4,7 @@
   "repo": "suno-band-manager",
   "description": "AI-powered music production assistant for creating Suno-ready song packages \u2014 a BMad Method module",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zarlor/suno-band-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T04:37:54Z"
+  "distributed_at": "2026-06-26T04:38:46Z"
 }
