@@ -1,0 +1,9 @@
+{
+  "name": "px0-ai--px0",
+  "displayName": "px0",
+  "description": "px[0] is an open-source prompt infrastructure toolkit for managing prompts in production.",
+  "version": "1.0.0",
+  "author": "px0-ai",
+  "homepage": "https://github.com/px0-ai/px0",
+  "skills": []
+}
