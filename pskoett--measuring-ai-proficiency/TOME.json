@@ -4,7 +4,7 @@
   "repo": "measuring-ai-proficiency",
   "description": "Measuring AI Proficiency: Context Engineering as a Leading Indicator",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/pskoett/measuring-ai-proficiency",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T22:31:50Z"
+  "distributed_at": "2026-06-26T05:15:50Z"
 }
