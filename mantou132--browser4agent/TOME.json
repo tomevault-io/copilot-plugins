@@ -4,7 +4,7 @@
   "repo": "browser4agent",
   "description": "Expose browser tab reading, browser control, and page tool execution to user-configured AI agents through a local MCP service.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mantou132/browser4agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T01:00:59Z"
+  "distributed_at": "2026-06-26T01:06:33Z"
 }
