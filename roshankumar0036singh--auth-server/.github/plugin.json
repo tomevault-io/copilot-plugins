@@ -1,0 +1,9 @@
+{
+  "name": "roshankumar0036singh--auth-server",
+  "displayName": "auth-server",
+  "description": " Auth Server is a robust, production-ready authentication microservice built with Go and Gin. It provides a full OAuth 2.0 Provider implementation, MFA, and RBAC out of the box.",
+  "version": "1.0.0",
+  "author": "roshankumar0036singh",
+  "homepage": "https://github.com/roshankumar0036singh/auth-server",
+  "skills": []
+}
