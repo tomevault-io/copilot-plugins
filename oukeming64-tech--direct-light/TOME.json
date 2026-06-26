@@ -4,7 +4,7 @@
   "repo": "direct-light",
   "description": "\u767d\u68da\u706f\u5149\u9884\u6f14 \u00b7 A white-studio lighting previz sandbox for directors, DPs & gaffers (React + React Three Fiber)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oukeming64-tech/direct-light",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T04:36:53Z"
+  "distributed_at": "2026-06-26T04:38:19Z"
 }
