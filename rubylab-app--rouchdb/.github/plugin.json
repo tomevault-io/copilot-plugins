@@ -1,0 +1,9 @@
+{
+  "name": "rubylab-app--rouchdb",
+  "displayName": "rouchdb",
+  "description": "RouchDB is a pure-Rust local-first document database that bidirectionally replicates with CouchDB \u2014 the PouchDB equivalent for the Rust ecosystem.",
+  "version": "1.0.0",
+  "author": "rubylab-app",
+  "homepage": "https://github.com/rubylab-app/rouchdb",
+  "skills": []
+}
