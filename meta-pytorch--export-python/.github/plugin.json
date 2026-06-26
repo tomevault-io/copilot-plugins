@@ -1,0 +1,9 @@
+{
+  "name": "meta-pytorch--export-python",
+  "displayName": "export-python",
+  "description": "Conveniently export torch.compile compiled products into self-contained Python files",
+  "version": "1.0.0",
+  "author": "meta-pytorch",
+  "homepage": "https://github.com/meta-pytorch/export-python",
+  "skills": []
+}
