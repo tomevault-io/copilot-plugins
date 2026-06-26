@@ -7,11 +7,11 @@ agentmemory: persistent memory for coding agents (Claude Code, OpenAI Codex, Cur
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jayzeng/agentmemory](https://github.com/jayzeng/agentmemory).
+Original source: `CLAUDE.md` in [jayzeng/agentmemory](https://github.com/jayzeng/agentmemory).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
