@@ -1,0 +1,9 @@
+{
+  "name": "snailsploit--burp-mcp-security-analysis-toolkit",
+  "displayName": "Burp-MCP-Security-Analysis-Toolkit",
+  "description": "Burp MCP Security Analysis Toolkit",
+  "version": "1.0.0",
+  "author": "SnailSploit",
+  "homepage": "https://github.com/SnailSploit/Burp-MCP-Security-Analysis-Toolkit",
+  "skills": []
+}
