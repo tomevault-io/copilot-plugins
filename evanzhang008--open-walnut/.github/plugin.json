@@ -1,0 +1,9 @@
+{
+  "name": "evanzhang008--open-walnut",
+  "displayName": "open-walnut",
+  "description": "Personal AI butler powered by Claude \u2014 task management, Claude Code sessions, memory system, and web UI. Self-hosted, local-first, open source.",
+  "version": "1.0.0",
+  "author": "EvanZhang008",
+  "homepage": "https://github.com/EvanZhang008/open-walnut",
+  "skills": []
+}
