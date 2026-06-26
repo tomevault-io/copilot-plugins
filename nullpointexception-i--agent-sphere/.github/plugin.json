@@ -1,0 +1,9 @@
+{
+  "name": "nullpointexception-i--agent-sphere",
+  "displayName": "agent-sphere",
+  "description": "This project is an AI Agent orchestration platform. It uses an LLM-driven decision engine, combined with capabilities (built-in tools, MCP protocol, CLI execution, browser operations, etc.), to achiev",
+  "version": "1.0.0",
+  "author": "nullpointexception-i",
+  "homepage": "https://github.com/nullpointexception-i/agent-sphere",
+  "skills": []
+}
