@@ -1,0 +1,9 @@
+{
+  "name": "odyssey4me--agent-skills",
+  "displayName": "agent-skills",
+  "description": "AI Agent Skills to support software architecture, design and development",
+  "version": "1.0.0",
+  "author": "odyssey4me",
+  "homepage": "https://github.com/odyssey4me/agent-skills",
+  "skills": []
+}
