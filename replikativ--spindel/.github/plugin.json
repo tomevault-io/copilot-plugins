@@ -1,0 +1,9 @@
+{
+  "name": "replikativ--spindel",
+  "displayName": "spindel",
+  "description": "Cross-platform FRP runtime with a git-like memory model.",
+  "version": "1.0.0",
+  "author": "replikativ",
+  "homepage": "https://github.com/replikativ/spindel",
+  "skills": []
+}
