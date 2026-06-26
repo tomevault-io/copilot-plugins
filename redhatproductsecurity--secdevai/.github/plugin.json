@@ -1,0 +1,14 @@
+{
+  "name": "redhatproductsecurity--secdevai",
+  "displayName": "secdevai",
+  "description": "Secure-development AI skills package, empowering your AI development tools",
+  "version": "1.0.0",
+  "author": "RedHatProductSecurity",
+  "homepage": "https://github.com/RedHatProductSecurity/secdevai",
+  "skills": [
+    {
+      "name": "secdevai-review",
+      "description": ""
+    }
+  ]
+}
