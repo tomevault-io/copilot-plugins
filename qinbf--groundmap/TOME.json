@@ -4,7 +4,7 @@
   "repo": "groundmap",
   "description": "Markdown-first knowledge base engine with Git as the source of truth",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Qinbf/groundmap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T06:31:54Z"
+  "distributed_at": "2026-06-26T06:32:24Z"
 }
