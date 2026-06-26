@@ -1,37 +1,27 @@
 ## promptdivers-2
 
-> Promptdivers pack rule (dogfood). Keeps sessions governed: read context first, avoid invented facts, log decisions, and route work via squads/stratagems.
+> This file is optional. If your IDE reads it (GitHub Copilot), it should steer suggestions toward Promptdivers doctrine.
 
+# Copilot instructions — Promptdivers (optional)
 
-## Promptdivers rule — governed operation
+This file is optional. If your IDE reads it (GitHub Copilot), it should steer suggestions toward Promptdivers doctrine.
 
-### First contact
+## Non-negotiables
 
-- Read `AGENTS.md` before making changes.
-- If `PROJECT_LOG.md` exists, read the latest session entry and `HANDOFF_JSON`.
-- If `GALACTIC_WAR_MAP.md` exists, do the pre-drop planet check (`protocols/pre-drop.md`).
+- Read `AGENTS.md` before proposing changes.
+- Do not invent APIs, files, commands, or “Helldivers canon”. Helldivers terms are **metaphor**, not lore claims.
+- Keep scope tight; log scope expansions in `PROJECT_LOG.md` as `[PENDING SCOPE]`.
 
-### No invented canon / no invented APIs
+## How to work (Promptdivers)
 
-- Treat *Helldivers*-style language in this repo as **metaphor**. Do not assert game canon or mechanics as fact.
-- In code or docs: do not invent file paths, APIs, tools, or commands. If unsure, search the repo and cite evidence.
+- Start with a quick planet check: `GALACTIC_WAR_MAP.md` → `PROJECT_LOG.md` → `AGENTS.md`.
+- Use squads A–D for routing and stratagems for concrete actions (`QUICK_REFERENCE.md`, `stratagems/README.md`).
+- For parallel work, use RNF + ownership (DO NOT TOUCH). For multi-mission planet operations, use `PRD` (Parallel Drop).
 
-### Scope + evidence discipline
+## Output discipline
 
-- Keep scope locked to the user’s objective; log any scope expansion as `[PENDING SCOPE]` in `PROJECT_LOG.md`.
-- Prefer verifiable actions (diffs, tests, commands) over narrative. If you claim “verified”, show what was verified.
-
-### Token economy (default)
-
-- Use the lightest coordination that unblocks progress:
-  - **SOLO**: ≤5 files, clear next step.
-  - **RNF (Reinforce)**: needs parallel drafting/exploration.
-  - **SOS**: blocked and needs a human decision/access/intent.
-  - **ESCALATE**: high-risk policy/security/scope-contract change.
-
-### End of phase
-
-- When objectives exist, close with a Pelican debrief (`protocols/mission-debrief.md`) and update `PROJECT_LOG.md`.
+- Prefer verifiable outputs: file paths, diffs, tests, commands run.
+- If you claim “verified”, include what was verified.
 
 ---
 > Source: [donclu/Promptdivers-2](https://github.com/donclu/Promptdivers-2) — distributed by [TomeVault](https://tomevault.io).
