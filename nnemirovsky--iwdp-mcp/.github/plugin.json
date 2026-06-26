@@ -1,0 +1,9 @@
+{
+  "name": "nnemirovsky--iwdp-mcp",
+  "displayName": "iwdp-mcp",
+  "description": "MCP server + CLI for iOS Safari debugging via ios-webkit-debug-proxy \u2014 full WebKit Inspector Protocol support",
+  "version": "1.0.0",
+  "author": "nnemirovsky",
+  "homepage": "https://github.com/nnemirovsky/iwdp-mcp",
+  "skills": []
+}
