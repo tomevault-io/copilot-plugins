@@ -1,0 +1,9 @@
+{
+  "name": "netlify--axis",
+  "displayName": "axis",
+  "description": "Open source tooling and scoring framework to measure how well services work for AI agents.",
+  "version": "1.0.0",
+  "author": "netlify",
+  "homepage": "https://github.com/netlify/axis",
+  "skills": []
+}
