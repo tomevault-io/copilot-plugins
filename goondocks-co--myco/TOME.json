@@ -2,9 +2,9 @@
   "name": "myco",
   "owner": "goondocks-co",
   "repo": "myco",
-  "description": "",
+  "description": "Myco is the nervous system for AI-assisted software teams. Works automatically alongside the coding agents, subagents, and agent teams you already use",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/goondocks-co",
+  "source_url": "https://github.com/goondocks-co/myco",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T11:13:13Z"
+  "distributed_at": "2026-06-26T10:33:28Z"
 }
