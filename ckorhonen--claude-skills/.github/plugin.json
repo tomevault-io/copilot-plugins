@@ -1,0 +1,102 @@
+{
+  "name": "ckorhonen--claude-skills",
+  "displayName": "claude-skills",
+  "description": "A curated collection of skills for Claude Code and Codex \u2014 specialized capabilities across development, design, AI, security, and more. Part of the cdd.dev/skills family.",
+  "version": "1.0.0",
+  "author": "ckorhonen",
+  "homepage": "https://github.com/ckorhonen/claude-skills",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "app-marketing-copy",
+      "description": ""
+    },
+    {
+      "name": "bird-fast",
+      "description": ""
+    },
+    {
+      "name": "codex-advisor",
+      "description": ""
+    },
+    {
+      "name": "continuous-learning",
+      "description": ""
+    },
+    {
+      "name": "coreml-optimizer",
+      "description": ""
+    },
+    {
+      "name": "direct-mail-strategist",
+      "description": ""
+    },
+    {
+      "name": "freshdesk-api",
+      "description": ""
+    },
+    {
+      "name": "gemini-image-generator",
+      "description": ""
+    },
+    {
+      "name": "gemini-visual",
+      "description": ""
+    },
+    {
+      "name": "google",
+      "description": ""
+    },
+    {
+      "name": "gsplat-optimizer",
+      "description": ""
+    },
+    {
+      "name": "ios-app-tester",
+      "description": ""
+    },
+    {
+      "name": "markdown-fetch",
+      "description": ""
+    },
+    {
+      "name": "mcp-tester",
+      "description": ""
+    },
+    {
+      "name": "opensea-api",
+      "description": ""
+    },
+    {
+      "name": "playdate-dev",
+      "description": ""
+    },
+    {
+      "name": "poplar-direct-mail",
+      "description": ""
+    },
+    {
+      "name": "skill-finder",
+      "description": ""
+    },
+    {
+      "name": "tui-designer",
+      "description": ""
+    },
+    {
+      "name": "ui-design",
+      "description": ""
+    },
+    {
+      "name": "video-editor",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "description": ""
+    }
+  ]
+}
