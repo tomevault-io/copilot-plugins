@@ -1,0 +1,9 @@
+{
+  "name": "karloscodes--fusionaly-oss",
+  "displayName": "fusionaly-oss",
+  "description": "Single tenant, self-hosted analytics that runs on SQLite",
+  "version": "1.0.0",
+  "author": "karloscodes",
+  "homepage": "https://github.com/karloscodes/fusionaly-oss",
+  "skills": []
+}
