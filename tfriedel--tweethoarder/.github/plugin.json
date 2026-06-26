@@ -1,0 +1,9 @@
+{
+  "name": "tfriedel--tweethoarder",
+  "displayName": "tweethoarder",
+  "description": "dumps twitter likes & bookmarks",
+  "version": "1.0.0",
+  "author": "tfriedel",
+  "homepage": "https://github.com/tfriedel/tweethoarder",
+  "skills": []
+}
