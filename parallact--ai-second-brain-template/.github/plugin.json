@@ -1,0 +1,9 @@
+{
+  "name": "parallact--ai-second-brain-template",
+  "displayName": "ai-second-brain-template",
+  "description": "Personal knowledge system with persistent memory and domain routing for Claude Code",
+  "version": "1.0.0",
+  "author": "parallact",
+  "homepage": "https://github.com/parallact/ai-second-brain-template",
+  "skills": []
+}
