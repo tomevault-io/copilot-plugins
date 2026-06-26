@@ -7,11 +7,11 @@ ESPHome external component for the QMI8658C IMU found in Waveshare devices
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Djelibeybi/esphome-qmi8658](https://github.com/Djelibeybi/esphome-qmi8658).
+Original source: `AGENTS.md` in [Djelibeybi/esphome-qmi8658](https://github.com/Djelibeybi/esphome-qmi8658).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
