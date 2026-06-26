@@ -4,7 +4,7 @@
   "repo": "SYNAPSE",
   "description": "Architecture Visibility Platform for Large Software Systems",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dogsinatas29/SYNAPSE",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T14:31:36Z"
+  "distributed_at": "2026-06-26T14:34:43Z"
 }
