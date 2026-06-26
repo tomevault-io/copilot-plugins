@@ -170969,6 +170969,11 @@
       "description": "styled-components to StyleX codemod"
     },
     {
+      "name": "imdevarsh--gorkie",
+      "source": "./imdevarsh--gorkie",
+      "description": "gorkie"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -183377,6 +183382,16 @@
       "name": "cogitoforge-ai--cogito-studio",
       "source": "./cogitoforge-ai--cogito-studio",
       "description": "Cogito Studio: All-in-One Workspace AI"
+    },
+    {
+      "name": "djelibeybi--esphome-qmi8658",
+      "source": "./djelibeybi--esphome-qmi8658",
+      "description": "ESPHome external component for the QMI8658C IMU found in Waveshare devices"
+    },
+    {
+      "name": "djelibeybi--esphome-qmi8658",
+      "source": "./djelibeybi--esphome-qmi8658",
+      "description": "ESPHome external component for the QMI8658C IMU found in Waveshare devices"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -213794,6 +213809,46 @@
       "description": "Architecture Visibility Platform for Large Software Systems"
     },
     {
+      "name": "izaac--nixos-config",
+      "source": "./izaac--nixos-config",
+      "description": "Izaac Reproducible Configuration"
+    },
+    {
+      "name": "nugget--thane-ai-agent",
+      "source": "./nugget--thane-ai-agent",
+      "description": "Autonomous AI agent for Home Assistant with multi-model routing, persistent memory, and an OpenAI-compatible API"
+    },
+    {
+      "name": "kurikomi-labs--komi-store-backend-data",
+      "source": "./kurikomi-labs--komi-store-backend-data",
+      "description": "GitHub Store Knowledge base"
+    },
+    {
+      "name": "izaac--nixos-config",
+      "source": "./izaac--nixos-config",
+      "description": "Izaac Reproducible Configuration"
+    },
+    {
+      "name": "nugget--thane-ai-agent",
+      "source": "./nugget--thane-ai-agent",
+      "description": "Autonomous AI agent for Home Assistant with multi-model routing, persistent memory, and an OpenAI-compatible API"
+    },
+    {
+      "name": "ogulcancelik--pion",
+      "source": "./ogulcancelik--pion",
+      "description": "pion"
+    },
+    {
+      "name": "izaac--nixos-config",
+      "source": "./izaac--nixos-config",
+      "description": "Izaac Reproducible Configuration"
+    },
+    {
+      "name": "gethnet--litellm-connector-copilot",
+      "source": "./gethnet--litellm-connector-copilot",
+      "description": "Adds LiteLLM as a provider within Copilot in VSCode, expanding the models you can access significantly. Available on Visual Studio Code Marketplace: https://marketplace.visualstudio.com/items?itemName"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -230837,6 +230892,36 @@
       "name": "lucas-datacamp--vibe-design-system",
       "source": "./lucas-datacamp--vibe-design-system",
       "description": "Astro + Tailwind 4 + DaisyUI design system scaffold"
+    },
+    {
+      "name": "exmergo--skill-no-em-dashes",
+      "source": "./exmergo--skill-no-em-dashes",
+      "description": "A Claude Code skill that produces writing with zero em dashes, and, just as important, writing built out of sentences that never reach for one in the first place. Works with most Agents"
+    },
+    {
+      "name": "exmergo--skill-no-em-dashes",
+      "source": "./exmergo--skill-no-em-dashes",
+      "description": "A Claude Code skill that produces writing with zero em dashes, and, just as important, writing built out of sentences that never reach for one in the first place. Works with most Agents"
+    },
+    {
+      "name": "ingmarstein--havm",
+      "source": "./ingmarstein--havm",
+      "description": "Zero-config CLI for running Home Assistant OS on Apple Silicon using the native Virtualization framework. macOS 27+."
+    },
+    {
+      "name": "or-well--textile-app",
+      "source": "./or-well--textile-app",
+      "description": "A localization project management tool for fan translation teams."
+    },
+    {
+      "name": "exmergo--skill-no-em-dashes",
+      "source": "./exmergo--skill-no-em-dashes",
+      "description": "A Claude Code skill that produces writing with zero em dashes, and, just as important, writing built out of sentences that never reach for one in the first place. Works with most Agents"
+    },
+    {
+      "name": "heyroute-ai--codex-threadkeeper",
+      "source": "./heyroute-ai--codex-threadkeeper",
+      "description": "Keep Codex threads visible by syncing session metadata, SQLite state, and managed backups."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -352337,6 +352422,36 @@
       "name": "slideruleearth--sliderule-schema-server",
       "source": "./slideruleearth--sliderule-schema-server",
       "description": "JSON-only CloudFront distribution that serves SlideRule schema endpoints"
+    },
+    {
+      "name": "youngsi4--sweepers-in-unity-ecs",
+      "source": "./youngsi4--sweepers-in-unity-ecs",
+      "description": "\ub3d9\uc77c \uac1d\uccb4\uac00 \ub9ce\uc774 \ub098\uc62c \uacbd\uc6b0\uc758 \ucd5c\uc801\ud654\ub97c \uc704\ud55c \uc791\uc740 \ud504\ub85c\uc81d\ud2b8\uc785\ub2c8\ub2e4"
+    },
+    {
+      "name": "nztinversive--fw-floorplan",
+      "source": "./nztinversive--fw-floorplan",
+      "description": "FW Floor Plan Studio"
+    },
+    {
+      "name": "jatinaneja1812--jatinaneja-portfolio",
+      "source": "./jatinaneja1812--jatinaneja-portfolio",
+      "description": "jatinaneja-portfolio"
+    },
+    {
+      "name": "zmiszm-ctrl--deep-world-frontend",
+      "source": "./zmiszm-ctrl--deep-world-frontend",
+      "description": "\u4e00\u4e2a\u57fa\u4e8e Web \u7684\u865a\u62df\u6570\u5b57\u5f62\u8c61\u4e92\u52a8\u5e73\u53f0\uff0c\u7528\u6237\u53ef\u4e0a\u4f20\u3001\u521b\u5efa\u4e13\u5c5e\u865a\u62df\u5f62\u8c61\uff08\u4eba\u7269/\u52a8\u7269/\u865a\u62df\u751f\u547d\uff09\uff0c\u5f62\u8c61\u5177\u5907 AI \u81ea\u4e3b\u884c\u4e3a\u3001\u793e\u4ea4\u3001\u72b6\u6001\u53d8\u5316\u80fd\u529b\uff0c\u642d\u914d\u8da3\u5473\u73a9\u6cd5\u4e0e\u79ef\u5206\u4f53\u7cfb\uff0c\u6253\u9020\"\u6d3b\u7684\u865a\u62df\u4e16\u754c\"\u3002"
+    },
+    {
+      "name": "mohitgoswami18--vyom",
+      "source": "./mohitgoswami18--vyom",
+      "description": "An AI powered internship Applying Agent which assists in applying and handling internships"
+    },
+    {
+      "name": "nztinversive--fw-floorplan",
+      "source": "./nztinversive--fw-floorplan",
+      "description": "FW Floor Plan Studio"
     }
   ]
 }
