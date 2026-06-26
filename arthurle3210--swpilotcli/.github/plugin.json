@@ -1,0 +1,9 @@
+{
+  "name": "arthurle3210--swpilotcli",
+  "displayName": "SwpilotCLI",
+  "description": "Autonomous SolidWorks AI assistant \u2014 embeds Claude Code / Codex CLI in the Task Pane to automate feature operations via natural language.",
+  "version": "1.0.0",
+  "author": "arthurle3210",
+  "homepage": "https://github.com/arthurle3210/SwpilotCLI",
+  "skills": []
+}
