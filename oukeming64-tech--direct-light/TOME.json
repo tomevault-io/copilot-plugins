@@ -1,0 +1,44 @@
+{
+  "name": "direct-light",
+  "owner": "oukeming64-tech",
+  "repo": "direct-light",
+  "description": "\u767d\u68da\u706f\u5149\u9884\u6f14 \u00b7 A white-studio lighting previz sandbox for directors, DPs & gaffers (React + React Three Fiber)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oukeming64-tech/direct-light",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T04:36:53Z"
+}
