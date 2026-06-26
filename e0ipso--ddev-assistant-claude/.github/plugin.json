@@ -1,0 +1,9 @@
+{
+  "name": "e0ipso--ddev-assistant-claude",
+  "displayName": "ddev-assistant-claude",
+  "description": "ddev add-on for setting up the Claude Code assistant.",
+  "version": "1.0.0",
+  "author": "e0ipso",
+  "homepage": "https://github.com/e0ipso/ddev-assistant-claude",
+  "skills": []
+}
