@@ -1,0 +1,9 @@
+{
+  "name": "kiaquila--pallete-maker",
+  "displayName": "pallete-maker",
+  "description": "Palette Match & Export is a lightweight web tool for building harmonious color palettes. Pick from 51 curated colors, check LCH compatibility, and export to PNG. Helps with wardrobe planning, interior",
+  "version": "1.0.0",
+  "author": "kiaquila",
+  "homepage": "https://github.com/kiaquila/pallete-maker",
+  "skills": []
+}
