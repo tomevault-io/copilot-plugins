@@ -1,0 +1,9 @@
+{
+  "name": "lazhenyi--behest",
+  "displayName": "behest",
+  "description": "Rust-native building blocks for production AI agent runtimes \u2014 typed tools, pluggable providers, streaming, and observability",
+  "version": "1.0.0",
+  "author": "lazhenyi",
+  "homepage": "https://github.com/lazhenyi/behest",
+  "skills": []
+}
