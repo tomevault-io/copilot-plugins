@@ -1,0 +1,9 @@
+{
+  "name": "skovhus--styled-components-to-stylex-codemod",
+  "displayName": "styled-components-to-stylex-codemod",
+  "description": "styled-components to StyleX codemod",
+  "version": "1.0.0",
+  "author": "skovhus",
+  "homepage": "https://github.com/skovhus/styled-components-to-stylex-codemod",
+  "skills": []
+}
