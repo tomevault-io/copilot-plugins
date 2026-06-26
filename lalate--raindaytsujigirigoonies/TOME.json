@@ -1,0 +1,44 @@
+{
+  "name": "RainDayTsujigiriGoonies",
+  "owner": "lalate",
+  "repo": "RainDayTsujigiriGoonies",
+  "description": "RainDay\u8fbb\u65ac\u308aGoonies - OpenCode\u5c0f\u8aac\u30d1\u30a4\u30d7\u30e9\u30a4\u30f3",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lalate/RainDayTsujigiriGoonies",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T02:47:23Z"
+}
