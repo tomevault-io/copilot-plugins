@@ -1,0 +1,9 @@
+{
+  "name": "dirx-coder--chattohim",
+  "displayName": "chattohim",
+  "description": "Chattohim \u2014 A lightweight Next.js chat app providing real-time messaging and presence using Pusher, with a minimal UI (ChatView, IdentitySelect) and simple API routes for sending messages and typing i",
+  "version": "1.0.0",
+  "author": "dirx-coder",
+  "homepage": "https://github.com/dirx-coder/chattohim",
+  "skills": []
+}
