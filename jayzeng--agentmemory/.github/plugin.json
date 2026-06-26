@@ -1,0 +1,9 @@
+{
+  "name": "jayzeng--agentmemory",
+  "displayName": "agentmemory",
+  "description": "agentmemory: persistent memory for coding agents (Claude Code, OpenAI Codex, Cursor, Agent) with local markdown storage, daily logs, scratchpad, and qmd semantic search.",
+  "version": "1.0.0",
+  "author": "jayzeng",
+  "homepage": "https://github.com/jayzeng/agentmemory",
+  "skills": []
+}
