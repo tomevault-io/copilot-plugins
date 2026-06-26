@@ -1,0 +1,9 @@
+{
+  "name": "ingmarstein--havm",
+  "displayName": "havm",
+  "description": "Zero-config CLI for running Home Assistant OS on Apple Silicon using the native Virtualization framework. macOS 27+.",
+  "version": "1.0.0",
+  "author": "IngmarStein",
+  "homepage": "https://github.com/IngmarStein/havm",
+  "skills": []
+}
