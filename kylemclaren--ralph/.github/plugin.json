@@ -1,0 +1,9 @@
+{
+  "name": "kylemclaren--ralph",
+  "displayName": "ralph",
+  "description": "CLI tool implementing the Ralph Wiggum Loop \u2014 an autonomous AI coding loop that repeatedly runs Claude Code, Amp, OpenCode, or Codex until your PRD is complete.",
+  "version": "1.0.0",
+  "author": "kylemclaren",
+  "homepage": "https://github.com/kylemclaren/ralph",
+  "skills": []
+}
