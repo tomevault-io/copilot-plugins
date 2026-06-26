@@ -1,0 +1,9 @@
+{
+  "name": "titouannwtt--freqtrade-ultimate",
+  "displayName": "freqtrade-ultimate",
+  "description": "Production-grade Freqtrade fork for algorithmic trading on Hyperliquid. Multi-bot OHLCV/pairlist caching, PlateauSampler hyperopt, walk-forward with CPCV, custom hyperopt losses, liquidation detection",
+  "version": "1.0.0",
+  "author": "titouannwtt",
+  "homepage": "https://github.com/titouannwtt/freqtrade-ultimate",
+  "skills": []
+}
