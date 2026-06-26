@@ -4,7 +4,7 @@
   "repo": "unity-mcp-server",
   "description": "[DEPRECATED] Unity MCP server \u2014 successor: akiojin/unity-cli",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/akiojin/unity-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T08:30:22Z"
+  "distributed_at": "2026-06-26T08:40:21Z"
 }
