@@ -236104,11 +236104,6 @@
       "description": "gptsovits-codex-voice-skill"
     },
     {
-      "name": "david-hoze--bit",
-      "source": "./david-hoze--bit",
-      "description": "bit"
-    },
-    {
       "name": "keshavxa--keshav-portfolio",
       "source": "./keshavxa--keshav-portfolio",
       "description": "Keshav-portfolio"
@@ -237802,6 +237797,11 @@
       "name": "jtuttas--moodlemcp",
       "source": "./jtuttas--moodlemcp",
       "description": "MoodleMcp"
+    },
+    {
+      "name": "david-hoze--bit",
+      "source": "./david-hoze--bit",
+      "description": "bit"
     },
     {
       "name": "constellos--claude-code",
@@ -269077,11 +269077,6 @@
       "name": "jagjeevanak--video-eval",
       "source": "./jagjeevanak--video-eval",
       "description": "video-eval"
-    },
-    {
-      "name": "nixc0--laptop-local-clusters",
-      "source": "./nixc0--laptop-local-clusters",
-      "description": "laptop-local-clusters"
     },
     {
       "name": "rahulsapre1--newsroom-frontend",
@@ -351852,6 +351847,16 @@
       "name": "esjeong00-hue--vibe-workshop",
       "source": "./esjeong00-hue--vibe-workshop",
       "description": "vibe-workshop"
+    },
+    {
+      "name": "nixc0--laptop-local-clusters",
+      "source": "./nixc0--laptop-local-clusters",
+      "description": "laptop-local-clusters"
+    },
+    {
+      "name": "indroic--hexcore-skill",
+      "source": "./indroic--hexcore-skill",
+      "description": "hexcore-skill"
     }
   ]
 }
