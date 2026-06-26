@@ -1,0 +1,9 @@
+{
+  "name": "crewplaneai--crewplane",
+  "displayName": "crewplane",
+  "description": "A Markdown-native control plane for AI coding CLIs.",
+  "version": "1.0.0",
+  "author": "crewplaneai",
+  "homepage": "https://github.com/crewplaneai/crewplane",
+  "skills": []
+}
