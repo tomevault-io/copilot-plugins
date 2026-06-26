@@ -1,0 +1,9 @@
+{
+  "name": "fedify-dev--drfed",
+  "displayName": "drfed",
+  "description": "Web-based platform for developing and debugging ActivityPub implementations",
+  "version": "1.0.0",
+  "author": "fedify-dev",
+  "homepage": "https://github.com/fedify-dev/drfed",
+  "skills": []
+}
