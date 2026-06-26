@@ -1,0 +1,9 @@
+{
+  "name": "aimagelab-zip--calhippo-framework",
+  "displayName": "CALHippo-Framework",
+  "description": "MICCAI 2026 - CALHippo: A reproducible pipeline for cell-type-resolved instance segmentation and density-based mesoscale reconstruction of the human hippocampus.",
+  "version": "1.0.0",
+  "author": "AImageLab-zip",
+  "homepage": "https://github.com/AImageLab-zip/CALHippo-Framework",
+  "skills": []
+}
