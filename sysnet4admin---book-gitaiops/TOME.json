@@ -1,0 +1,44 @@
+{
+  "name": "_Book_GitAIOps",
+  "owner": "sysnet4admin",
+  "repo": "_Book_GitAIOps",
+  "description": "< AI \uc2dc\ub300\uc5d0 \uac1c\ubc1c\uc790\uac00 \uc54c\uc544\uc57c \ud560 \uc778\ud504\ub77c \uad6c\uc131 \ubc30\ud3ec with \ud074\ub85c\ub4dc \ucf54\ub4dc >",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sysnet4admin/_Book_GitAIOps",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T06:32:59Z"
+}
