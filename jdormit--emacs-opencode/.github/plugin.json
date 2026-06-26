@@ -1,0 +1,9 @@
+{
+  "name": "jdormit--emacs-opencode",
+  "displayName": "emacs-opencode",
+  "description": "OpenCode client for Emacs",
+  "version": "1.0.0",
+  "author": "jdormit",
+  "homepage": "https://github.com/jdormit/emacs-opencode",
+  "skills": []
+}
