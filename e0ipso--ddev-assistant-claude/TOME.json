@@ -4,7 +4,7 @@
   "repo": "ddev-assistant-claude",
   "description": "ddev add-on for setting up the Claude Code assistant.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/e0ipso/ddev-assistant-claude",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T18:45:33Z"
+  "distributed_at": "2026-06-26T18:49:41Z"
 }
