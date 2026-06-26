@@ -1,0 +1,9 @@
+{
+  "name": "southlondonscientific--aeolus",
+  "displayName": "aeolus",
+  "description": "Download, standardise and store air quality data from worldwide monitoring networks.",
+  "version": "1.0.0",
+  "author": "southlondonscientific",
+  "homepage": "https://github.com/southlondonscientific/aeolus",
+  "skills": []
+}
