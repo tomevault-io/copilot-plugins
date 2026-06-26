@@ -1,0 +1,9 @@
+{
+  "name": "artickc--kiro-telegram-bot",
+  "displayName": "kiro-telegram-bot",
+  "description": "Control Kiro CLI from Telegram over the Agent Client Protocol (ACP): switch projects, resume & attach to live coding sessions, streamed responses with diffs, queued follow-ups, and a 24/7 cross-platfo",
+  "version": "1.0.0",
+  "author": "artickc",
+  "homepage": "https://github.com/artickc/kiro-telegram-bot",
+  "skills": []
+}
