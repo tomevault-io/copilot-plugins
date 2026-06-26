@@ -1,0 +1,72 @@
+## opentui-gameboy
+
+> `opentui-gameboy` is a plug-and-play GameBoy emulator component designed for use with the `@opentui/core` terminal framework. It provides a full-featured emulation experience directly within the terminal, including a ROM selection UI, battery save support, and customizable themes.
+
+# GEMINI.md - opentui-gameboy
+
+## Project Overview
+`opentui-gameboy` is a plug-and-play GameBoy emulator component designed for use with the `@opentui/core` terminal framework. It provides a full-featured emulation experience directly within the terminal, including a ROM selection UI, battery save support, and customizable themes.
+
+### Key Technologies
+- **Runtime & Build:** [Bun](https://bun.sh/)
+- **Terminal Framework:** [@opentui/core](https://github.com/user/opentui)
+- **Emulation Engine:** [serverboy](https://www.npmjs.com/package/serverboy)
+- **Language:** TypeScript
+
+### Architecture
+- **Entry Point:** `src/index.ts` exports `launchGameboy` and `isGameboyActive`.
+- **Rendering:** Uses `FrameBufferRenderable` from `@opentui/core` to render GameBoy frames (160x144 pixels) mapped to terminal cells using half-block characters (`▀`).
+- **Input:** Maps terminal keypresses (arrows, Z, X, Enter, Shift) to GameBoy buttons.
+- **Persistence:** Manages `.sav` files in a structured directory format (`saves/<GameName>/slot0.sav`).
+
+## Building and Running
+
+### Development Commands
+- **Test:** `bun test`
+- **Type Check:** `bun run check` (runs `tsc --noEmit`)
+- **Lint:** `bun run lint` (runs `eslint`)
+- **Build:** `bun run build` (builds with Bun and generates type declarations)
+- **Preflight:** `bun run preflight` (runs lint, check, test, and build)
+- **Example:** `bun run dev:example`
+
+### Usage in Projects
+```typescript
+import { createCliRenderer } from "@opentui/core";
+import { launchGameboy, DEFAULT_THEME } from "opentui-gameboy";
+
+const renderer = await createCliRenderer();
+launchGameboy(renderer, {
+  romDirectory: "./roms",
+  saveDirectory: "./saves",
+  theme: DEFAULT_THEME,
+  onExit: () => process.exit(0)
+});
+renderer.start();
+```
+
+## Development Conventions
+
+### Coding Style
+- **Strict Typing:** Avoid `any` where possible. Recent refactoring removed many `any` usages in favor of specific types.
+- **Asynchronous IO:** Uses `node:fs/promises` for file operations.
+- **Component Design:** The emulator is encapsulated within the `GameboyUI` class, which manages its own UI lifecycle, input handling, and game loop.
+
+### Rendering Details
+- **Resolution:** Native GameBoy resolution is 160x144. In the terminal, this is compressed vertically using half-blocks (160x72), requiring a minimum terminal size of approximately 160x76.
+- **Grayscale:** RGB output from `serverboy` is converted to a 4-shade grayscale palette for terminal display.
+
+### Error Handling
+- Proactively checks terminal size and displays a "Terminal Too Small" warning if requirements are not met.
+- Includes a `debug` mode and log file support for troubleshooting emulator state and file IO.
+
+## Key Files
+- `src/index.ts`: Public API exports.
+- `src/ui/renderer.ts`: Core `GameboyUI` class handling rendering and game loop.
+- `src/emulator/engine.ts`: Wrapper for the `serverboy` emulator.
+- `src/emulator/persistence.ts`: Save/Load logic for battery saves.
+- `src/types.ts`: Centralized constants and interfaces.
+- `package.json`: Project configuration and dependencies.
+
+---
+> Source: [galdawave/opentui-gameboy](https://github.com/galdawave/opentui-gameboy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-25 -->
