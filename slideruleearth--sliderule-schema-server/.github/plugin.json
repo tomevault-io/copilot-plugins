@@ -1,0 +1,9 @@
+{
+  "name": "slideruleearth--sliderule-schema-server",
+  "displayName": "sliderule-schema-server",
+  "description": "JSON-only CloudFront distribution that serves SlideRule schema endpoints",
+  "version": "1.0.0",
+  "author": "SlideRuleEarth",
+  "homepage": "https://github.com/SlideRuleEarth/sliderule-schema-server",
+  "skills": []
+}
