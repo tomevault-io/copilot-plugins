@@ -2944,6 +2944,11 @@
       "description": "MaiSaka, an LLM-based intelligent agent, is a digital lifeform devoted to understanding you and interacting in the style of a real human. She does not pursue perfection, nor does she seek efficiency; "
     },
     {
+      "name": "agentscope-ai--agentteams",
+      "source": "./agentscope-ai--agentteams",
+      "description": "An open-source Collaborative Multi-Agent OS for transparent, human-in-the-loop task coordination via Matrix rooms."
+    },
+    {
       "name": "cloudflare--agents",
       "source": "./cloudflare--agents",
       "description": "Build and deploy AI Agents on Cloudflare "
@@ -170854,6 +170859,16 @@
       "description": "\u767d\u68da\u706f\u5149\u9884\u6f14 \u00b7 A white-studio lighting previz sandbox for directors, DPs & gaffers (React + React Three Fiber)"
     },
     {
+      "name": "mozaroc--3x-ui-pro",
+      "source": "./mozaroc--3x-ui-pro",
+      "description": "3x-ui-pro"
+    },
+    {
+      "name": "exasol--exasol-personal",
+      "source": "./exasol--exasol-personal",
+      "description": "The Analytics Database for Agentic AI \u2014 Free for Personal Use"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -183227,6 +183242,11 @@
       "name": "zampierilucas--redtrigger",
       "source": "./zampierilucas--redtrigger",
       "description": "Android app that enables shoulder triggers on Red Magic phones system-wide, without Game Space"
+    },
+    {
+      "name": "dynokostya--just-works",
+      "source": "./dynokostya--just-works",
+      "description": "Set of instructions for Claude Code base installation that integrates in any project"
     },
     {
       "name": "yschimke--compose-ai-tools",
