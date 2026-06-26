@@ -1,0 +1,9 @@
+{
+  "name": "fiveonecode--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Curated list of skills our agents use",
+  "version": "1.0.0",
+  "author": "fiveonecode",
+  "homepage": "https://github.com/fiveonecode/agent-skills",
+  "skills": []
+}
