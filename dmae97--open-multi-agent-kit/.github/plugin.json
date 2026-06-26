@@ -1,0 +1,9 @@
+{
+  "name": "dmae97--open-multi-agent-kit",
+  "displayName": "open-multi-agent-kit",
+  "description": "Evidence-gated runner for Codex, Claude Code, OpenCode, and local coding agents. Routes tasks into scoped DAG lanes with replayable artifacts.",
+  "version": "1.0.0",
+  "author": "dmae97",
+  "homepage": "https://github.com/dmae97/open-multi-agent-kit",
+  "skills": []
+}
