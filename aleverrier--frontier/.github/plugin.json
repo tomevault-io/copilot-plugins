@@ -1,0 +1,9 @@
+{
+  "name": "aleverrier--frontier",
+  "displayName": "frontier",
+  "description": "Frontier decoder for quantum LDPC codes: pruned dynamic programming over boundary states for approximate logical maximum-likelihood decoding of sparse parity-check and detector-error-model matrices.",
+  "version": "1.0.0",
+  "author": "aleverrier",
+  "homepage": "https://github.com/aleverrier/frontier",
+  "skills": []
+}
