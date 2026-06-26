@@ -7,11 +7,11 @@ digital.vasic.storage - KMP network storage service interfaces and abstractions
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vasic-digital/Storage-KMP](https://github.com/vasic-digital/Storage-KMP).
+Original source: `CLAUDE.md` in [vasic-digital/Storage-KMP](https://github.com/vasic-digital/Storage-KMP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
