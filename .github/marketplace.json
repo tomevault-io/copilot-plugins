@@ -117649,6 +117649,11 @@
       "description": "pure & lightweight state management library for Flutter"
     },
     {
+      "name": "solqora--solqora-core",
+      "source": "./solqora--solqora-core",
+      "description": "OpenAI-compatible API gateway for 40+ LLM providers. Pay with USDC on Solana."
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -130792,6 +130797,11 @@
       "name": "tensor4all--tenferro-rs",
       "source": "./tensor4all--tenferro-rs",
       "description": "A general-purpose tensor computation library in Rust with CPU/GPU support"
+    },
+    {
+      "name": "fiveonecode--agent-skills",
+      "source": "./fiveonecode--agent-skills",
+      "description": "Curated list of skills our agents use"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -149197,6 +149207,11 @@
       "name": "odysseyfather--lingxi",
       "source": "./odysseyfather--lingxi",
       "description": "\u672c\u5730\u4f18\u5148\u7684\u684c\u9762 AI Agent \u64cd\u4f5c\u7cfb\u7edf\u3002Coding View \u7f16\u7a0b\u5229\u5668\uff08Claude Agent SDK \u9a71\u52a8\uff0cAgent Tree \u76d1\u63a7\uff0c\u5de5\u5177\u53ef\u89c6\u5316\uff0c\u6743\u9650\u5ba1\u6279\uff0cDiff Review\uff0c\u96c6\u6210\u7ec8\u7aef\u3001\u624b\u673a\u64cd\u63a7\uff09\u3002\u652f\u6301\u6240\u6709llm\u63a5\u5165\u3002\u667a\u80fd\u4f53\u5de5\u5382+\u4eba\u683c\u84b8\u998f+\u81ea\u6211\u8fdb\u5316+RAG\u77e5\u8bc6\u5e93+MCP\u5de5\u5177\u3002Screen Agent\u64cd\u63a7\u684c\u9762\u3002Agent\u53ef\u5b9e\u73b0\u8f7b\u677eA2A Nexus\u8de8\u8bbe\u5907Agent\u4e92\u8054\uff0c\u968f\u610f\u5efa\u7fa4\u5f00\u542f\u5fae"
+    },
+    {
+      "name": "mrocklin--dask-array",
+      "source": "./mrocklin--dask-array",
+      "description": "dask-array"
     },
     {
       "name": "lucas-acc--sancho-skills",
@@ -183327,6 +183342,11 @@
       "name": "sebastilan--clipboard-img2file",
       "source": "./sebastilan--clipboard-img2file",
       "description": "Auto-convert clipboard bitmap images to file paths for CLI tools like Claude Code"
+    },
+    {
+      "name": "dromologue--workflowymcp",
+      "source": "./dromologue--workflowymcp",
+      "description": "An MCP server that uses Workflowy and Claude to manage Tasks & Information in Workflowy and create a Second Brain"
     },
     {
       "name": "yschimke--compose-ai-tools",
