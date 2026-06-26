@@ -1,0 +1,44 @@
+{
+  "name": "frontier",
+  "owner": "aleverrier",
+  "repo": "frontier",
+  "description": "Frontier decoder for quantum LDPC codes: pruned dynamic programming over boundary states for approximate logical maximum-likelihood decoding of sparse parity-check and detector-error-model matrices.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aleverrier/frontier",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T22:32:15Z"
+}
