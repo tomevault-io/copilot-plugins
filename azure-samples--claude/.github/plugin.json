@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--claude",
+  "displayName": "claude",
+  "description": "Deploy Anthropic Claude on Microsoft Foundry with `azd up` (Bicep or Terraform) and call it with the official Claude SDKs over Entra ID.",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/claude",
+  "skills": []
+}
