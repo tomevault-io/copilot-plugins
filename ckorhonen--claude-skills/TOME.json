@@ -1,0 +1,183 @@
+{
+  "name": "claude-skills",
+  "owner": "ckorhonen",
+  "repo": "claude-skills",
+  "description": "A curated collection of skills for Claude Code and Codex \u2014 specialized capabilities across development, design, AI, security, and more. Part of the cdd.dev/skills family.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": "skills/agent-browser",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "app-marketing-copy",
+      "path": "skills/app-marketing-copy",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/app-marketing-copy",
+      "description": ""
+    },
+    {
+      "name": "bird-fast",
+      "path": "skills/bird-fast",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/bird-fast",
+      "description": ""
+    },
+    {
+      "name": "codex-advisor",
+      "path": "skills/codex-advisor",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/codex-advisor",
+      "description": ""
+    },
+    {
+      "name": "continuous-learning",
+      "path": "skills/continuous-learning",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/continuous-learning",
+      "description": ""
+    },
+    {
+      "name": "coreml-optimizer",
+      "path": "skills/coreml-optimizer",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/coreml-optimizer",
+      "description": ""
+    },
+    {
+      "name": "direct-mail-strategist",
+      "path": "skills/direct-mail-strategist",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/direct-mail-strategist",
+      "description": ""
+    },
+    {
+      "name": "freshdesk-api",
+      "path": "skills/freshdesk-api",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/freshdesk-api",
+      "description": ""
+    },
+    {
+      "name": "gemini-image-generator",
+      "path": "skills/gemini-image-generator",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/gemini-image-generator",
+      "description": ""
+    },
+    {
+      "name": "gemini-visual",
+      "path": "skills/gemini-visual",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/gemini-visual",
+      "description": ""
+    },
+    {
+      "name": "google",
+      "path": "skills/google",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/google",
+      "description": ""
+    },
+    {
+      "name": "gsplat-optimizer",
+      "path": "skills/gsplat-optimizer",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/gsplat-optimizer",
+      "description": ""
+    },
+    {
+      "name": "ios-app-tester",
+      "path": "skills/ios-app-tester",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/ios-app-tester",
+      "description": ""
+    },
+    {
+      "name": "markdown-fetch",
+      "path": "skills/markdown-fetch",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/markdown-fetch",
+      "description": ""
+    },
+    {
+      "name": "mcp-tester",
+      "path": "skills/mcp-tester",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/mcp-tester",
+      "description": ""
+    },
+    {
+      "name": "opensea-api",
+      "path": "skills/opensea-api",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/opensea-api",
+      "description": ""
+    },
+    {
+      "name": "playdate-dev",
+      "path": "skills/playdate-dev",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/playdate-dev",
+      "description": ""
+    },
+    {
+      "name": "poplar-direct-mail",
+      "path": "skills/poplar-direct-mail",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/poplar-direct-mail",
+      "description": ""
+    },
+    {
+      "name": "skill-finder",
+      "path": "skills/skill-finder",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/skill-finder",
+      "description": ""
+    },
+    {
+      "name": "tui-designer",
+      "path": "skills/tui-designer",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/tui-designer",
+      "description": ""
+    },
+    {
+      "name": "ui-design",
+      "path": "skills/ui-design",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/ui-design",
+      "description": ""
+    },
+    {
+      "name": "video-editor",
+      "path": "skills/video-editor",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/video-editor",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "path": "skills/security-best-practices",
+      "github_url": "https://github.com/ckorhonen/claude-skills/tree/main/skills/security-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ckorhonen/claude-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T22:30:23Z"
+}
