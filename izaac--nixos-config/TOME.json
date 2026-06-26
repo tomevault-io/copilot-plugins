@@ -4,7 +4,7 @@
   "repo": "nixos-config",
   "description": "Izaac Reproducible Configuration",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/izaac/nixos-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T16:32:32Z"
+  "distributed_at": "2026-06-26T16:38:32Z"
 }
