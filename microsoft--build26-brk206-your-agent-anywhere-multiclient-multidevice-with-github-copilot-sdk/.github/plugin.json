@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--build26-brk206-your-agent-anywhere-multiclient-multidevice-with-github-copilot-sdk",
+  "displayName": "Build26-BRK206-your-agent-anywhere-multiclient-multidevice-with-github-copilot-sdk",
+  "description": "Resources for building cross-device agents using GitHub Copilot SDK \u2014 embed an agent in an app and access it across phones, machines, and cloud. From Microsoft Build 2026.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/Build26-BRK206-your-agent-anywhere-multiclient-multidevice-with-github-copilot-sdk",
+  "skills": []
+}
