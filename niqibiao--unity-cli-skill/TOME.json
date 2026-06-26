@@ -4,7 +4,7 @@
   "repo": "unity-cli-skill",
   "description": "AI agent skill for Unity \u2014 AI-driven scene editing, GameObject/Component manipulation, profiling, and C# REPL via 40+ built-in commands. Works with any Unity 2022.3+ project.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/niqibiao/unity-cli-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T02:30:53Z"
+  "distributed_at": "2026-06-26T02:42:27Z"
 }
