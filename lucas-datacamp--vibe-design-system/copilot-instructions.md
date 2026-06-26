@@ -1,33 +1,44 @@
-## design-context
+## vibe-design-system
 
-> Load design context from local PRODUCT.md and DESIGN.md before UI work
+> Astro 6, Tailwind 4, daisyUI 5. Pre-scaffolded for building a design system and landing pages.
 
+# Summer Vibes: Create Your Design System Using Cursor
 
-# Design Context
+Astro 6, Tailwind 4, daisyUI 5. Pre-scaffolded for building a design system and landing pages.
 
-Your design context lives in **`PRODUCT.md`** and **`DESIGN.md`** at the project root (gitignored).
+## Stack
+
+| Piece | Location |
+| --- | --- |
+| Pages | `src/pages/` |
+| Styles | `src/styles/global.css` (Tailwind + daisyUI plugin) |
+| Dev server | `npm run dev` → http://localhost:4321 |
+
+## Impeccable
+
+```sh
+npx impeccable skills install
+```
+
+Your design context lives in **`PRODUCT.md`** and **`DESIGN.md`** at the project root. Both are gitignored — local to this project, not shared via git.
+
+## Design Context
+
+**Do not hardcode design context in this file.** Read the local files below.
 
 Before UI or design work:
 
-1. Read `PRODUCT.md` if present — register, users, personality, anti-references, principles.
-2. Read `DESIGN.md` if present — colors, typography, components.
-3. If `PRODUCT.md` is missing, run `/impeccable init`. Do not infer brand from `README.md` or `prompts/`.
-4. Load context: `node .claude/skills/impeccable/scripts/context.mjs` (requires `npx impeccable skills install` first).
+1. Read `PRODUCT.md` if it exists (register, users, personality, anti-references, principles).
+2. Read `DESIGN.md` if it exists (colors, typography, components).
+3. If `PRODUCT.md` is missing, run `/impeccable init`. Do not infer brand from `README.md`.
+4. Load context: `node .claude/skills/impeccable/scripts/context.mjs`
 
-Do not hardcode design decisions here. Those local files are the source of truth.
+| File | Created by | Purpose |
+| --- | --- | --- |
+| `PRODUCT.md` | `/impeccable init` | Strategic design context |
+| `DESIGN.md` | `/impeccable document` | Visual system from your code |
 
-# Before building UI
-
-Do not jump straight to code. Interview first (`/grill-me`):
-
-1. Restate the problem in plain language (what fails, why it matters, what success looks like). No file names or solution language unless essential.
-2. Ask one question at a time. Wait for an answer.
-3. Do not assume branding from `README.md`, `prompts/`, or an empty `PRODUCT.md`.
-4. Stay strategic before colors, fonts, or components.
-5. Explore the codebase when you can answer from the repo.
-6. Write confirmed answers to `PRODUCT.md` before implementation.
-
-Do not infer taste from repo docs or start coding while the interview is open.
+Impeccable commands (`/impeccable craft`, `/impeccable live`, `/impeccable critique`, etc.) read those files before doing work.
 
 ---
 > Source: [lucas-datacamp/vibe-design-system](https://github.com/lucas-datacamp/vibe-design-system) — distributed by [TomeVault](https://tomevault.io).
