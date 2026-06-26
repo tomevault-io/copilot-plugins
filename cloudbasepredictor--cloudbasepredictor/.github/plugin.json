@@ -1,0 +1,9 @@
+{
+  "name": "cloudbasepredictor--cloudbasepredictor",
+  "displayName": "CloudbasePredictor",
+  "description": "Android app to check weather forecast for gliding sports",
+  "version": "1.0.0",
+  "author": "CloudbasePredictor",
+  "homepage": "https://github.com/CloudbasePredictor/CloudbasePredictor",
+  "skills": []
+}
