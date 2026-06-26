@@ -4,7 +4,7 @@
   "repo": "thane-ai-agent",
   "description": "Autonomous AI agent for Home Assistant with multi-model routing, persistent memory, and an OpenAI-compatible API",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nugget/thane-ai-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T16:35:31Z"
+  "distributed_at": "2026-06-26T16:39:03Z"
 }
