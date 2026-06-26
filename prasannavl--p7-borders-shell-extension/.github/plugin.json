@@ -1,0 +1,9 @@
+{
+  "name": "prasannavl--p7-borders-shell-extension",
+  "displayName": "p7-borders-shell-extension",
+  "description": "A GNOME shell extension for drawing borders to windows",
+  "version": "1.0.0",
+  "author": "prasannavl",
+  "homepage": "https://github.com/prasannavl/p7-borders-shell-extension",
+  "skills": []
+}
