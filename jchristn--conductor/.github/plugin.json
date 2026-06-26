@@ -1,0 +1,9 @@
+{
+  "name": "jchristn--conductor",
+  "displayName": "Conductor",
+  "description": "Conductor is a platform for managing models, model runners, model configurations, and virtualizing combinations into virtual model runners exposed to the network via OpenAI, Ollama, vLLM, or Gemini co",
+  "version": "1.0.0",
+  "author": "jchristn",
+  "homepage": "https://github.com/jchristn/Conductor",
+  "skills": []
+}
