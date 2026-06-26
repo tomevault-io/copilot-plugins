@@ -1,0 +1,9 @@
+{
+  "name": "theaichimera--claude-code-project-intelligence",
+  "displayName": "claude-code-project-intelligence",
+  "description": "Project Intelligence for Claude Code \u2014 learns how you work across sessions. Behavioral patterns, explicit preferences, skill synthesis, reasoning progressions, context checkpoints. Like OpenClaw memor",
+  "version": "1.0.0",
+  "author": "theaichimera",
+  "homepage": "https://github.com/theaichimera/claude-code-project-intelligence",
+  "skills": []
+}
