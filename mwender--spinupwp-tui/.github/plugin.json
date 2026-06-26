@@ -1,0 +1,9 @@
+{
+  "name": "mwender--spinupwp-tui",
+  "displayName": "spinupwp-tui",
+  "description": "Keyboard-driven terminal dashboard for your SpinupWP fleet: browse servers & sites, global search, live events, and htop-style server health over SSH. Built with OpenTUI and Bun.",
+  "version": "1.0.0",
+  "author": "mwender",
+  "homepage": "https://github.com/mwender/spinupwp-tui",
+  "skills": []
+}
