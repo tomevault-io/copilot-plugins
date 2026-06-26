@@ -1,0 +1,9 @@
+{
+  "name": "infatoshi--kernelbench-com",
+  "displayName": "kernelbench.com",
+  "description": "kernelbench.com \u2014 GPU kernel engineering benchmarks for autonomous LLM coding agents. v3 archive + v-hard latest.",
+  "version": "1.0.0",
+  "author": "Infatoshi",
+  "homepage": "https://github.com/Infatoshi/kernelbench.com",
+  "skills": []
+}
