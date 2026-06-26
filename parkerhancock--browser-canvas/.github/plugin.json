@@ -1,0 +1,9 @@
+{
+  "name": "parkerhancock--browser-canvas",
+  "displayName": "browser-canvas",
+  "description": "A Claude Code skill for rendering React UIs in a browser window with hot-reload",
+  "version": "1.0.0",
+  "author": "parkerhancock",
+  "homepage": "https://github.com/parkerhancock/browser-canvas",
+  "skills": []
+}
