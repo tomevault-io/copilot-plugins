@@ -4,7 +4,7 @@
   "repo": "agentmemory",
   "description": "agentmemory: persistent memory for coding agents (Claude Code, OpenAI Codex, Cursor, Agent) with local markdown storage, daily logs, scratchpad, and qmd semantic search.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jayzeng/agentmemory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T12:35:32Z"
+  "distributed_at": "2026-06-26T12:37:30Z"
 }
