@@ -1,0 +1,9 @@
+{
+  "name": "datacurve-ai--wide-research",
+  "displayName": "wide-research",
+  "description": "Spawn thousands of sub-agents in parallel",
+  "version": "1.0.0",
+  "author": "datacurve-ai",
+  "homepage": "https://github.com/datacurve-ai/wide-research",
+  "skills": []
+}
