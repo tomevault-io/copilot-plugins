@@ -7,11 +7,11 @@ Measuring AI Proficiency: Context Engineering as a Leading Indicator
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pskoett/measuring-ai-proficiency](https://github.com/pskoett/measuring-ai-proficiency).
+Original source: `AGENTS.md` in [pskoett/measuring-ai-proficiency](https://github.com/pskoett/measuring-ai-proficiency).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
