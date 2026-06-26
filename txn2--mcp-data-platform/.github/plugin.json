@@ -1,0 +1,9 @@
+{
+  "name": "txn2--mcp-data-platform",
+  "displayName": "mcp-data-platform",
+  "description": "A semantic data platform MCP server that composes multiple data tools with bidirectional cross-injection - tool responses automatically include critical context from other services.",
+  "version": "1.0.0",
+  "author": "txn2",
+  "homepage": "https://github.com/txn2/mcp-data-platform",
+  "skills": []
+}
