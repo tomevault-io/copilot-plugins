@@ -1,0 +1,9 @@
+{
+  "name": "hwajun1--telegram-claude-assistant",
+  "displayName": "telegram-claude-assistant",
+  "description": "Telegram bot powered by Claude CLI with smart scheduling and pattern learning",
+  "version": "1.0.0",
+  "author": "hwajun1",
+  "homepage": "https://github.com/hwajun1/telegram-claude-assistant",
+  "skills": []
+}
