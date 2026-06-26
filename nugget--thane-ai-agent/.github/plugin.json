@@ -1,0 +1,9 @@
+{
+  "name": "nugget--thane-ai-agent",
+  "displayName": "thane-ai-agent",
+  "description": "Autonomous AI agent for Home Assistant with multi-model routing, persistent memory, and an OpenAI-compatible API",
+  "version": "1.0.0",
+  "author": "nugget",
+  "homepage": "https://github.com/nugget/thane-ai-agent",
+  "skills": []
+}
