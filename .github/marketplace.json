@@ -38639,6 +38639,11 @@
       "description": "blblcd"
     },
     {
+      "name": "engmung--patternflow",
+      "source": "./engmung--patternflow",
+      "description": "An open-source LED synthesizer. Play light patterns with your fingertips. A modern reinterpretation of Nam June Paik's Participation TV (1963)."
+    },
+    {
       "name": "alphalab-ustc--ohmycode",
       "source": "./alphalab-ustc--ohmycode",
       "description": "Minimal and Customizable CC-Style Coding Agent"
