@@ -7,11 +7,11 @@ styled-components to StyleX codemod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [skovhus/styled-components-to-stylex-codemod](https://github.com/skovhus/styled-components-to-stylex-codemod).
+Original source: `CLAUDE.md` in [skovhus/styled-components-to-stylex-codemod](https://github.com/skovhus/styled-components-to-stylex-codemod).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
