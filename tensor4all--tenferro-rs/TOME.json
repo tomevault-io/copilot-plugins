@@ -4,7 +4,7 @@
   "repo": "tenferro-rs",
   "description": "A general-purpose tensor computation library in Rust with CPU/GPU support",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tensor4all/tenferro-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T10:30:29Z"
+  "distributed_at": "2026-06-26T10:32:58Z"
 }
