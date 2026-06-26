@@ -1,0 +1,9 @@
+{
+  "name": "amfaro--jarify",
+  "displayName": "jarify",
+  "description": "Bespoke SQL linter and formatter for DuckDB, powered by sqlglot",
+  "version": "1.0.0",
+  "author": "amfaro",
+  "homepage": "https://github.com/amfaro/jarify",
+  "skills": []
+}
