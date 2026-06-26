@@ -4,7 +4,7 @@
   "repo": "agents-lint",
   "description": "Your AGENTS.md is probably lying. Detect stale paths, dead npm scripts, outdated framework patterns, and context rot before they make your coding agents expensive and wrong.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/giacomo/agents-lint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T12:34:31Z"
+  "distributed_at": "2026-06-26T12:36:02Z"
 }
