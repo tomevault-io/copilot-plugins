@@ -1,0 +1,9 @@
+{
+  "name": "djelibeybi--esphome-qmi8658",
+  "displayName": "esphome-qmi8658",
+  "description": "ESPHome external component for the QMI8658C IMU found in Waveshare devices",
+  "version": "1.0.0",
+  "author": "Djelibeybi",
+  "homepage": "https://github.com/Djelibeybi/esphome-qmi8658",
+  "skills": []
+}
