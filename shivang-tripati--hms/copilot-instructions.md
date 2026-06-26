@@ -1,7 +1,6 @@
-## agent
+## hms
 
 > > Finance features: **Enabled**
-
 
 # Jetro Agent Context
 
