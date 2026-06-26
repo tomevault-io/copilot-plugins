@@ -1,0 +1,9 @@
+{
+  "name": "emiliolugo--clawmark",
+  "displayName": "clawmark",
+  "description": "clawmark run evaluates 2 CLAUDE.md files on standardized benchmarks",
+  "version": "1.0.0",
+  "author": "emiliolugo",
+  "homepage": "https://github.com/emiliolugo/clawmark",
+  "skills": []
+}
