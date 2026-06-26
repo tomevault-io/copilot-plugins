@@ -1,0 +1,44 @@
+{
+  "name": "chattohim",
+  "owner": "dirx-coder",
+  "repo": "chattohim",
+  "description": "Chattohim \u2014 A lightweight Next.js chat app providing real-time messaging and presence using Pusher, with a minimal UI (ChatView, IdentitySelect) and simple API routes for sending messages and typing indicators.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dirx-coder/chattohim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T02:46:53Z"
+}
