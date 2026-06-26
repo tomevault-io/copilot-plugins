@@ -213724,6 +213724,46 @@
       "description": "agentmemory: persistent memory for coding agents (Claude Code, OpenAI Codex, Cursor, Agent) with local markdown storage, daily logs, scratchpad, and qmd semantic search."
     },
     {
+      "name": "lazhenyi--behest",
+      "source": "./lazhenyi--behest",
+      "description": "Rust-native building blocks for production AI agent runtimes \u2014 typed tools, pluggable providers, streaming, and observability"
+    },
+    {
+      "name": "theaichimera--claude-code-project-intelligence",
+      "source": "./theaichimera--claude-code-project-intelligence",
+      "description": "Project Intelligence for Claude Code \u2014 learns how you work across sessions. Behavioral patterns, explicit preferences, skill synthesis, reasoning progressions, context checkpoints. Like OpenClaw memor"
+    },
+    {
+      "name": "dogsinatas29--synapse",
+      "source": "./dogsinatas29--synapse",
+      "description": "Architecture Visibility Platform for Large Software Systems"
+    },
+    {
+      "name": "alexishida--kindle-dashboard",
+      "source": "./alexishida--kindle-dashboard",
+      "description": "Turn your old Kindle into a dashboard display."
+    },
+    {
+      "name": "rubylab-app--rouchdb",
+      "source": "./rubylab-app--rouchdb",
+      "description": "RouchDB is a pure-Rust local-first document database that bidirectionally replicates with CouchDB \u2014 the PouchDB equivalent for the Rust ecosystem."
+    },
+    {
+      "name": "theaichimera--claude-code-project-intelligence",
+      "source": "./theaichimera--claude-code-project-intelligence",
+      "description": "Project Intelligence for Claude Code \u2014 learns how you work across sessions. Behavioral patterns, explicit preferences, skill synthesis, reasoning progressions, context checkpoints. Like OpenClaw memor"
+    },
+    {
+      "name": "dicklesworthstone--frankenjax",
+      "source": "./dicklesworthstone--frankenjax",
+      "description": "Clean-room Rust reimplementation of JAX transform semantics (jit, grad, vmap) with canonical JAXPR-like IR, Trace Transform Ledger, deterministic cache keys, and differential conformance harness"
+    },
+    {
+      "name": "dogsinatas29--synapse",
+      "source": "./dogsinatas29--synapse",
+      "description": "Architecture Visibility Platform for Large Software Systems"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -352262,6 +352302,11 @@
       "name": "djelibeybi--home-assistant-core",
       "source": "./djelibeybi--home-assistant-core",
       "description": "home-assistant-core"
+    },
+    {
+      "name": "slideruleearth--sliderule-schema-server",
+      "source": "./slideruleearth--sliderule-schema-server",
+      "description": "JSON-only CloudFront distribution that serves SlideRule schema endpoints"
     }
   ]
 }
