@@ -2,15 +2,14 @@
 
 > Source: [stuckinaboot/net-public](https://github.com/stuckinaboot/net-public) — distributed by [TomeVault](https://tomevault.io)
 
-Publicly available code for Net Protocol
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [stuckinaboot/net-public](https://github.com/stuckinaboot/net-public).
+Original source: `` in [stuckinaboot/net-public](https://github.com/stuckinaboot/net-public).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
@@ -21,7 +20,7 @@ Original source: `CLAUDE.md` in [stuckinaboot/net-public](https://github.com/stu
 
 - [net-protocol](https://github.com/stuckinaboot/net-public/tree/main/plugins/net-protocol/skills/net-protocol)
 
-From [stuckinaboot/net-public](https://github.com/stuckinaboot/net-public) — a repo with 12+ stars on GitHub.
+From [stuckinaboot/net-public](https://github.com/stuckinaboot/net-public) — a repo with 0+ stars on GitHub.
 
 ---
 
