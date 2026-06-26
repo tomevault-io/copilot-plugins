@@ -4,7 +4,7 @@
   "repo": "px0",
   "description": "px[0] is an open-source prompt infrastructure toolkit for managing prompts in production.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/px0-ai/px0",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T10:32:02Z"
+  "distributed_at": "2026-06-26T10:35:24Z"
 }
