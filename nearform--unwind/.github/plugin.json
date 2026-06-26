@@ -1,0 +1,9 @@
+{
+  "name": "nearform--unwind",
+  "displayName": "unwind",
+  "description": "Claude skills to deeply analyse and document a legacy codebase to rebuild with AI",
+  "version": "1.0.0",
+  "author": "nearform",
+  "homepage": "https://github.com/nearform/unwind",
+  "skills": []
+}
