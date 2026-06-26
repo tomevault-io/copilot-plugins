@@ -1,0 +1,9 @@
+{
+  "name": "niqibiao--unity-cli-skill",
+  "displayName": "unity-cli-skill",
+  "description": "AI agent skill for Unity \u2014 AI-driven scene editing, GameObject/Component manipulation, profiling, and C# REPL via 40+ built-in commands. Works with any Unity 2022.3+ project.",
+  "version": "1.0.0",
+  "author": "niqibiao",
+  "homepage": "https://github.com/niqibiao/unity-cli-skill",
+  "skills": []
+}
