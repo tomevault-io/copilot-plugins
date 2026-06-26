@@ -1,0 +1,9 @@
+{
+  "name": "martin-dlc--ai-solution-sales-insight-agent",
+  "displayName": "AI-Solution-Sales-Insight-Agent",
+  "description": "An auditable enterprise sales insight agent with LangGraph, evidence grounding, deterministic guardrails, evaluation, and human review.",
+  "version": "1.0.0",
+  "author": "Martin-DLC",
+  "homepage": "https://github.com/Martin-DLC/AI-Solution-Sales-Insight-Agent",
+  "skills": []
+}
