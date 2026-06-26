@@ -7,11 +7,11 @@ An opinionated mouse-focused terminal editor.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cloudmanic/spice-edit](https://github.com/cloudmanic/spice-edit).
+Original source: `AGENTS.md` in [cloudmanic/spice-edit](https://github.com/cloudmanic/spice-edit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
