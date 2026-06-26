@@ -1,0 +1,26 @@
+## coding-principles
+
+> Follow DRY and SOLID programming principles in all code changes
+
+
+# Coding Principles
+
+Follow DRY and SOLID principles in all code changes.
+
+## DRY — Don't Repeat Yourself
+
+- Extract repeated logic into shared functions or utilities.
+- If you copy-paste code, stop and refactor it into a single reusable piece.
+- Constants and config values belong in one place, not scattered across files.
+
+## SOLID
+
+- **Single Responsibility**: Each module, class, or function does one thing. If a function is growing large, split it.
+- **Open/Closed**: Extend behavior through new code (new functions, subclasses, config) rather than modifying existing working code.
+- **Liskov Substitution**: Subtypes must be usable wherever their parent type is expected without breaking behavior.
+- **Interface Segregation**: Don't force callers to depend on methods they don't use. Keep interfaces small and focused.
+- **Dependency Inversion**: Depend on abstractions, not concrete implementations. Pass dependencies in rather than hard-coding them.
+
+---
+> Source: [PrintQue-ca/PrintQue](https://github.com/PrintQue-ca/PrintQue) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-26 -->
