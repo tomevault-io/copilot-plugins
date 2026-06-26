@@ -16139,6 +16139,11 @@
       "description": "An obsidian plugin to interact with Google Gemini"
     },
     {
+      "name": "galdawave--pickle-rick-extension",
+      "source": "./galdawave--pickle-rick-extension",
+      "description": "This extension transforms the Gemini CLI into \"Pickle Rick,\" a hyper-intelligent, arrogant, yet extremely competent  engineering persona. It enforces a rigid, iterative software development lifecycle "
+    },
+    {
       "name": "tesslateai--studio",
       "source": "./tesslateai--studio",
       "description": "Open Source Locally Hosted Lovable with Full Stack Support"
@@ -149214,6 +149219,11 @@
       "description": "dask-array"
     },
     {
+      "name": "stuckinaboot--net-public",
+      "source": "./stuckinaboot--net-public",
+      "description": "net-public"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -162769,6 +162779,11 @@
       "description": "nono - kernel enforced sandoxing and security for AI agents in typescript / javascript"
     },
     {
+      "name": "samuelloranger--labby",
+      "source": "./samuelloranger--labby",
+      "description": "Self-hosted homelab dashboard"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -170942,6 +170957,16 @@
       "name": "exasol--exasol-personal",
       "source": "./exasol--exasol-personal",
       "description": "The Analytics Database for Agentic AI \u2014 Free for Personal Use"
+    },
+    {
+      "name": "skovhus--styled-components-to-stylex-codemod",
+      "source": "./skovhus--styled-components-to-stylex-codemod",
+      "description": "styled-components to StyleX codemod"
+    },
+    {
+      "name": "skovhus--styled-components-to-stylex-codemod",
+      "source": "./skovhus--styled-components-to-stylex-codemod",
+      "description": "styled-components to StyleX codemod"
     },
     {
       "name": "lightninglabs--lnget",
@@ -183347,6 +183372,11 @@
       "name": "dromologue--workflowymcp",
       "source": "./dromologue--workflowymcp",
       "description": "An MCP server that uses Workflowy and Claude to manage Tasks & Information in Workflowy and create a Second Brain"
+    },
+    {
+      "name": "cogitoforge-ai--cogito-studio",
+      "source": "./cogitoforge-ai--cogito-studio",
+      "description": "Cogito Studio: All-in-One Workspace AI"
     },
     {
       "name": "yschimke--compose-ai-tools",
