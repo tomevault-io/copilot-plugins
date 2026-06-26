@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--franken-ocr",
+  "displayName": "franken_ocr",
+  "description": "Pure-Rust, CPU-only OCR engine for Baidu Unlimited-OCR (a DeepSeek-OCR-derived 3B MoE VLM). One fixed model, custom int4/int8 kernels, no ML framework, no GPU. Pre-Phase-0 scaffold.",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/franken_ocr",
+  "skills": []
+}
