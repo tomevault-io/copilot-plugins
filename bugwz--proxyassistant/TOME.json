@@ -4,7 +4,7 @@
   "repo": "ProxyAssistant",
   "description": "chrome/firefox/edge browser proxy assistant plugin. \u8c37\u6b4c/\u706b\u72d0/\u5fae\u8f6f\u6d4f\u89c8\u5668\u4ee3\u7406\u52a9\u624b\u63d2\u4ef6.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bugwz/ProxyAssistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T18:37:40Z"
+  "distributed_at": "2026-06-26T18:38:10Z"
 }
