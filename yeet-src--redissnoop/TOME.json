@@ -4,7 +4,7 @@
   "repo": "redissnoop",
   "description": "Live, zero-config Redis traffic profiler built on eBPF. Reads plaintext and TLS, no app changes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yeet-src/redissnoop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T02:36:09Z"
+  "distributed_at": "2026-06-26T02:45:24Z"
 }
