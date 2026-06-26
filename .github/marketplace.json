@@ -162684,6 +162684,11 @@
       "description": "cv \u2014 turn a PDF resume into a living personal site. Multi-tenant resume hosting with a Claude Code / Codex plugin."
     },
     {
+      "name": "lookatitude--beluga-ai",
+      "source": "./lookatitude--beluga-ai",
+      "description": "beluga-ai"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -183217,6 +183222,11 @@
       "name": "weisser-dev--awesome-opencode",
       "source": "./weisser-dev--awesome-opencode",
       "description": "108 agents, 15 skills, smart model config, and interactive CLI for OpenCode \u2014 npx @weisser-dev/awesome-opencode"
+    },
+    {
+      "name": "zampierilucas--redtrigger",
+      "source": "./zampierilucas--redtrigger",
+      "description": "Android app that enables shoulder triggers on Red Magic phones system-wide, without Game Space"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -213424,6 +213434,71 @@
       "description": "Measuring AI Proficiency: Context Engineering as a Leading Indicator"
     },
     {
+      "name": "seldomqa--casebook",
+      "source": "./seldomqa--casebook",
+      "description": "Casebook is an engineering workflow for test cases in the era of AI Agents."
+    },
+    {
+      "name": "lastingyeh--adk-insurance-recommendation-agent",
+      "source": "./lastingyeh--adk-insurance-recommendation-agent",
+      "description": "\u57fa\u65bc Google ADK \u8207 MCP Toolbox \u7684\u4fdd\u96aa\u79d1\u6280\u63a8\u85a6 Agent \u539f\u578b\u3002\u6838\u5fc3 Agent \u80fd\u7406\u89e3\u4fdd\u96aa\u9700\u6c42\u3001\u4e3b\u52d5\u8ffd\u554f\uff0c\u4e26\u900f\u904e\u53d7\u63a7 SQL \u5de5\u5177\u67e5\u8a62\u91ab\u7642\u3001\u610f\u5916\u3001\u5bb6\u5ead\u8207\u6536\u5165\u4fdd\u969c\u7522\u54c1\u3002\u5f8c\u7aef\u63a1 FastAPI \u63d0\u4f9b SSE \u4e32\u6d41\u8207 WebSocket \u5373\u6642\u4e92\u52d5\uff0c\u524d\u7aef\u4ee5 Next.js \u5448\u73fe\u5c0d\u8a71\u4ecb\u9762\u3002\u77e5\u8b58\u5eab\u7d50\u5408 PostgreSQL \u8207 pgvector \u5be6\u73fe FAQ \u8a9e\u610f\u641c\u5c0b\u8207 RAG \u67e5"
+    },
+    {
+      "name": "sysnet4admin---book-gitaiops",
+      "source": "./sysnet4admin---book-gitaiops",
+      "description": "< AI \uc2dc\ub300\uc5d0 \uac1c\ubc1c\uc790\uac00 \uc54c\uc544\uc57c \ud560 \uc778\ud504\ub77c \uad6c\uc131 \ubc30\ud3ec with \ud074\ub85c\ub4dc \ucf54\ub4dc >"
+    },
+    {
+      "name": "cloudbasepredictor--cloudbasepredictor",
+      "source": "./cloudbasepredictor--cloudbasepredictor",
+      "description": "Android app to check weather forecast for gliding sports"
+    },
+    {
+      "name": "sysnet4admin---book-gitaiops",
+      "source": "./sysnet4admin---book-gitaiops",
+      "description": "< AI \uc2dc\ub300\uc5d0 \uac1c\ubc1c\uc790\uac00 \uc54c\uc544\uc57c \ud560 \uc778\ud504\ub77c \uad6c\uc131 \ubc30\ud3ec with \ud074\ub85c\ub4dc \ucf54\ub4dc >"
+    },
+    {
+      "name": "titouannwtt--freqtrade-ultimate",
+      "source": "./titouannwtt--freqtrade-ultimate",
+      "description": "Production-grade Freqtrade fork for algorithmic trading on Hyperliquid. Multi-bot OHLCV/pairlist caching, PlateauSampler hyperopt, walk-forward with CPCV, custom hyperopt losses, liquidation detection"
+    },
+    {
+      "name": "graphanov--open-scaffold",
+      "source": "./graphanov--open-scaffold",
+      "description": "Repo-native work record for AI-assisted work: plans, evidence, human gates, and clean agent handoffs."
+    },
+    {
+      "name": "sysnet4admin---book-gitaiops",
+      "source": "./sysnet4admin---book-gitaiops",
+      "description": "< AI \uc2dc\ub300\uc5d0 \uac1c\ubc1c\uc790\uac00 \uc54c\uc544\uc57c \ud560 \uc778\ud504\ub77c \uad6c\uc131 \ubc30\ud3ec with \ud074\ub85c\ub4dc \ucf54\ub4dc >"
+    },
+    {
+      "name": "jaan-mustafa--10x-team",
+      "source": "./jaan-mustafa--10x-team",
+      "description": "AI coding  plugin that gives you an entire engineering team \u2014 CTO, SRE, DBA, Security Engineer, and more \u2014 as AI skills."
+    },
+    {
+      "name": "shippy--personal-intelligence-kit",
+      "source": "./shippy--personal-intelligence-kit",
+      "description": "A read-only AI system that watches your digital exhaust and tells you what the engine is actually doing. Copier template for Claude Code."
+    },
+    {
+      "name": "murphys7017--ag99live",
+      "source": "./murphys7017--ag99live",
+      "description": "AG99live"
+    },
+    {
+      "name": "graphanov--open-scaffold",
+      "source": "./graphanov--open-scaffold",
+      "description": "Repo-native work record for AI-assisted work: plans, evidence, human gates, and clean agent handoffs."
+    },
+    {
+      "name": "prajaakeeya--prajaakeeya-frontend",
+      "source": "./prajaakeeya--prajaakeeya-frontend",
+      "description": "prajaakeeya-frontend"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -230384,6 +230459,36 @@
       "description": "Cocos Creator 3.x \u4ee3\u7801\u6df7\u6dc6\u63d2\u4ef6 \u2014 \u57fa\u4e8e javascript-obfuscator\uff0c\u652f\u6301\u6784\u5efa\u540e\u81ea\u52a8\u6df7\u6dc6\uff0c\u5185\u7f6e 5 \u7ea7\u9884\u8bbe\uff0c\u517c\u5bb9 web-mobile / android \u7b49\u591a\u5e73\u53f0"
     },
     {
+      "name": "qinbf--groundmap",
+      "source": "./qinbf--groundmap",
+      "description": "Markdown-first knowledge base engine with Git as the source of truth"
+    },
+    {
+      "name": "qinbf--groundmap",
+      "source": "./qinbf--groundmap",
+      "description": "Markdown-first knowledge base engine with Git as the source of truth"
+    },
+    {
+      "name": "aimagelab-zip--calhippo-framework",
+      "source": "./aimagelab-zip--calhippo-framework",
+      "description": "MICCAI 2026 - CALHippo: A reproducible pipeline for cell-type-resolved instance segmentation and density-based mesoscale reconstruction of the human hippocampus."
+    },
+    {
+      "name": "569270901--claude-web-test-harness",
+      "source": "./569270901--claude-web-test-harness",
+      "description": "\u9886\u57df\u65e0\u5173\u7684\u591a agent UI \u81ea\u52a8\u5316\u6d4b\u8bd5\u7f16\u6392\u9aa8\u67b6\uff0c\u7528 Claude Code \u9a71\u52a8\u300c\u63a2\u7d22\u9875\u9762\u2192\u8bbe\u8ba1\u7528\u4f8b\u2192\u5199\u6d4b\u8bd5\u2192\u5ba1\u67e5\u300d\u6d41\u6c34\u7ebf"
+    },
+    {
+      "name": "sugers955--agent-mill",
+      "source": "./sugers955--agent-mill",
+      "description": "AgentMill - Enterprise-Grade AI Agent Platform & Agent Factory for Building Custom Digital Employees"
+    },
+    {
+      "name": "eve-146t--cube-run",
+      "source": "./eve-146t--cube-run",
+      "description": "3D endless runner but you are cube"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -234342,6 +234447,21 @@
       "name": "dirx-coder--chattohim",
       "source": "./dirx-coder--chattohim",
       "description": "Chattohim \u2014 A lightweight Next.js chat app providing real-time messaging and presence using Pusher, with a minimal UI (ChatView, IdentitySelect) and simple API routes for sending messages and typing i"
+    },
+    {
+      "name": "liuethanyes-spec--vibecoding-linear-framework",
+      "source": "./liuethanyes-spec--vibecoding-linear-framework",
+      "description": "vibecoding-linear-framework"
+    },
+    {
+      "name": "steambalance--booster-plugins",
+      "source": "./steambalance--booster-plugins",
+      "description": "booster-plugins"
+    },
+    {
+      "name": "liuethanyes-spec--vibecoding-linear-framework",
+      "source": "./liuethanyes-spec--vibecoding-linear-framework",
+      "description": "vibecoding-linear-framework"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
