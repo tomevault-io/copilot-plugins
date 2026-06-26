@@ -4,7 +4,7 @@
   "repo": "fastxml",
   "description": "A fast, memory-efficient XML library for Rust with XPath and schema validation support",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reearth/fastxml",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T01:11:02Z"
+  "distributed_at": "2026-06-26T01:17:27Z"
 }
