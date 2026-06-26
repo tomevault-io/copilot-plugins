@@ -1,0 +1,9 @@
+{
+  "name": "dreiachse-cyber--image-cockpit-for-codex-workflows",
+  "displayName": "image-cockpit-for-codex-workflows",
+  "description": "Local cockpit for Codex imagegen, pixel art, image editing, animation, and sprite-sheet workflows.",
+  "version": "1.0.0",
+  "author": "dreiachse-cyber",
+  "homepage": "https://github.com/dreiachse-cyber/image-cockpit-for-codex-workflows",
+  "skills": []
+}
