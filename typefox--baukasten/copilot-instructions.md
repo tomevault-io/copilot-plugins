@@ -1,515 +1,737 @@
-## storybook
+## baukasten
 
-> Apply when creating storybook comp
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-# Baukasten Storybook Guidelines
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Guidelines for creating and organizing Storybook stories for Baukasten components.
+## Project Overview
 
-## Story Structure
+Baukasten is a VSCode webview UI toolkit built with React 19, TypeScript, vanilla-extract, and designed to match VSCode's native look and feel. This is a monorepo managed with npm workspaces.
 
-All component stories MUST follow this standardized structure for consistency and usability:
+## Monorepo Structure
 
-### 1. Interactive Story (FIRST - Always Required)
-
-The first story must be named **"Interactive"** and expose all component properties through controls.
-
-```tsx
-export const Interactive: Story = {
-  args: {
-    variant: "primary",
-    size: "md",
-    disabled: false,
-    // ... all component props with sensible defaults
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Interactive playground to explore all [component] properties. Try different combinations using the controls below.",
-      },
-    },
-  },
-};
+```
+baukasten/
+├── packages/
+│   ├── baukasten/           # Main UI component library (baukasten)
+│   ├── web-wrapper/         # VSCode theme wrapper for browser demos
+│   ├── website/             # Documentation website
+│   └── examples/
+│       ├── web-example/     # Web application example
+│       └── vscode/          # VSCode extension example (Log Viewer)
 ```
 
-**Purpose:**
+## Common Commands
 
-- Playground for designers/developers to experiment
-- First impression for new users
-- Testing ground for QA
-- Shows all available props in the Controls panel
+### Development
 
-### 2. Property Comparison Stories (Required)
+```bash
+# Install dependencies (run from root)
+npm install
 
-Group related properties for side-by-side comparison. Common groups:
+# Start developing the component library (with Vite)
+npm run dev
 
-#### Variants
+# Start Storybook for component documentation
+npm run storybook
+# Runs at http://localhost:6006
 
-```tsx
-export const Variants: Story = {
-  render: () => (
-    <div style={{ display: "flex", gap: "var(--bk-gap-sm)", flexWrap: "wrap" }}>
-      <Component variant="primary">Primary</Component>
-      <Component variant="secondary">Secondary</Component>
-      <Component variant="ghost">Ghost</Component>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Brief description of each variant and when to use them.",
-      },
-    },
-  },
-};
+# Run web example
+npm run example:web
+# Runs at http://localhost:3000
+
+# Run VSCode extension example (then press F5 in VSCode)
+npm run example:vscode
 ```
 
-#### Sizes
+### Building
+
+```bash
+# Build all packages
+npm run build
+
+# Build specific packages
+npm run build:baukasten
+npm run build:web-wrapper
+
+# Build Storybook documentation
+npm run build-storybook
+```
+
+### Linting
+
+```bash
+# Lint the baukasten package (from packages/baukasten directory)
+cd packages/baukasten
+npm run lint
+```
+
+## Design System Architecture
+
+Baukasten uses a **semantic design token system** that provides platform-agnostic theming. This is the most critical architectural pattern to understand.
+
+### Token Files (Source of Truth)
+
+All design tokens are defined in `packages/baukasten/src/styles/`:
+
+- **colors.ts** - Semantic color tokens (primary, secondary, success, warning, danger, info, etc.)
+- **spacing.ts** - Spacing scale, gaps, padding, component sizes
+- **typography.ts** - Font sizes, weights, line heights, font families
+- **effects.ts** - Border radius, shadows, transitions, opacity, z-index
+
+### CSS Variables
+
+Design tokens are exported as CSS custom properties (e.g., `--bk-color-primary`, `--bk-padding-md`, `--bk-font-size-md`) that map to VSCode theme variables by default but can be customized.
+
+### Critical Rule: Use Semantic Tokens
+
+**ALWAYS use semantic design tokens. NEVER hardcode values or use VSCode variables directly.**
 
 ```tsx
-export const Sizes: Story = {
-  render: () => (
-    <div
-      style={{ display: "flex", gap: "var(--bk-gap-sm)", alignItems: "flex-end" }}
+// ✅ CORRECT
+background-color: var(--bk-color-primary);
+padding: var(--bk-padding-md);
+font-size: var(--bk-font-size-md);
+
+// ❌ WRONG
+background-color: #007acc;              // Never hardcode
+padding: 8px 16px;                      // Never hardcode
+background: var(--vscode-button-background);  // Too specific
+```
+
+### Component Structure
+
+Each component follows this structure:
+
+```
+ComponentName/
+├── ComponentName.tsx         # Implementation
+├── ComponentName.css.ts      # vanilla-extract styles
+├── ComponentName.stories.tsx # Storybook documentation
+└── index.ts                  # Exports
+```
+
+**For components** (using vanilla-extract):
+
+1. Use semantic tokens from the design system via CSS variables
+2. Export TypeScript types for props
+3. Include comprehensive Storybook stories
+4. Use `recipe` API for variant-based styling
+5. Use `style` API for base styles
+6. Use `styleVariants` for simple variant maps
+
+### Theming System
+
+The project supports two environments:
+
+**VSCode Webview** (native environment):
+
+```tsx
+import { GlobalStyles } from 'baukasten-ui/core';
+// No wrapper needed - uses native VSCode theme
+<GlobalStyles />;
+```
+
+**Web Application** (browser demos/Storybook):
+
+```tsx
+import { GlobalStyles } from 'baukasten-ui/core';
+import { VSCodeThemeWrapper } from 'baukasten-ui-web-wrapper';
+// Wrapper simulates VSCode theming
+<>
+    <GlobalStyles />
+    <VSCodeThemeWrapper>...</VSCodeThemeWrapper>
+</>;
+```
+
+## Storybook Guidelines
+
+When creating Storybook stories, follow this exact order:
+
+1. **Interactive** (FIRST - required) - Playground with all props exposed via controls
+2. **Property Groups** - Variants, Sizes, States (grouped comparisons)
+3. **Usage Examples** - WithIcons, WidthOptions, FormExamples (practical patterns)
+4. **Showcase** (LAST - required) - Comprehensive overview with `layout: "fullscreen"`
+
+All stories must:
+
+- Use design tokens for spacing/styling
+- Include `tags: ['autodocs']` in meta
+- Have clear descriptions in `parameters.docs.description.story`
+- Document all argTypes with descriptions and defaults
+
+Reference: `packages/baukasten/src/components/Button/Button.stories.tsx`
+
+## Available Components
+
+Components are split across two entry points:
+
+### Core Components (`baukasten-ui/core`)
+
+**Form Controls:**
+
+- **Button** - Versatile button with variants (primary, secondary, ghost, outline) and sizes
+- **IconButton** - Square icon-only button matching Button height, for toolbar and compact actions
+- **Input** - Text input with label and error state support
+- **TextArea** - Multi-line text input
+- **Select** - Dropdown selection component
+- **Checkbox** - Checkbox with label support
+- **Radio** - Radio button and RadioGroup components
+- **Slider** - Range slider input
+
+**Form Helpers:**
+
+- **Label** - Form label component
+- **FieldLabel** - Field label with optional required indicator
+- **FormGroup** - Group form elements with consistent spacing
+- **FormHelper** - Helper text for form fields
+
+**Typography:**
+
+- **Heading** - h1-h6 headings with semantic sizing
+- **Text** - Inline text with size and weight variants
+- **Paragraph** - Block text element
+- **Code** - Inline and block code display
+- **Link** - Anchor links with variants
+- **Image** - Responsive images with loading states and captions
+
+**Data Display:**
+
+- **Badge** - Status indicator component
+- **Tag** - Categorization and labeling component with rounded-rectangle shape
+- **Table** - Basic table components with sorting and variants
+
+**Feedback:**
+
+- **Alert** - Alert messages with variants (info, success, warning, danger)
+- **Modal** - Modal dialog component
+- **Tooltip** - Hover tooltips
+- **Spinner** - Loading spinner
+- **ProgressBar** - Progress indicator with variants
+
+**Layout:**
+
+- **Divider** - Horizontal/vertical divider
+- **Dropdown** - Generic dropdown container
+
+**Specialized:**
+
+- **Icon** - VSCode Codicons integration
+
+**Context Providers:**
+
+- **PortalProvider** - Configures portal root for multi-window support (Theia secondary windows)
+- **GlobalStyles** - Global CSS reset and design token injection
+
+### Extra Components (`baukasten-ui/extra`)
+
+**Form Controls:**
+
+- **ButtonGroup** - Group of related buttons
+- **FileUpload** - File upload component with drag & drop
+
+**Data Display:**
+
+- **DataTable** - Advanced data table with virtualization, sorting, filtering
+- **Avatar** - User avatar with image/initials fallback
+
+**Navigation:**
+
+- **Tabs** - Tabbed navigation component
+- **Breadcrumbs** - Breadcrumb navigation
+- **Menu** - Dropdown menu component
+- **ContextMenu** - Right-click context menu
+- **Pagination** - Page navigation controls
+
+**Layout:**
+
+- **SplitPane** - Resizable split pane layout
+- **Accordion** - Collapsible content panels
+
+**Specialized:**
+
+- **StatusBar** - VSCode-style status bar
+- **Hero** - Hero section component
+
+## Key Technical Details
+
+### Build System
+
+- **Vite** - Build tool and dev server
+- **TypeScript** - Strict mode enabled
+- **vanilla-extract** - Zero-runtime CSS-in-TypeScript styling
+- **Storybook 8** - Component documentation
+
+### Package Exports
+
+Main package (`baukasten-ui`) provides three entry points:
+
+- `baukasten-ui` (`.`) — All components and types (re-exports core + extra)
+- `baukasten-ui/core` (`./core`) — Fundamental primitives (Button, Input, Icon, Typography, etc.)
+- `baukasten-ui/extra` (`./extra`) — Higher-level compositions (DataTable, Tabs, Menu, etc.)
+- `baukasten-ui/styles` (`./styles`) — Design token utilities
+
+**Core components** (23 families): Icon, IconButton, Button, Input, TextArea, Checkbox, Radio/RadioGroup, Select, Slider, Label, FieldLabel, FormGroup, FormHelper, Typography (Heading/Text/Paragraph/Code/Link/Image), Badge, Tag, Table, Alert, Spinner, ProgressBar, Tooltip, Modal, Divider, Dropdown, PortalProvider, Styles, GlobalStyles
+
+**Extra components** (14 families): DataTable, Tabs, Breadcrumbs, Pagination, Menu, ContextMenu, ButtonGroup, FileUpload, Accordion, SplitPane, StatusBar, Hero, Avatar
+
+`@tanstack/react-table` is an **optional peer dependency** — only needed when importing DataTable from extra.
+
+### Core / Extra Split Criteria
+
+| Criterion                | Core                                                  | Extra                                        |
+| ------------------------ | ----------------------------------------------------- | -------------------------------------------- |
+| **Usage frequency**      | Used in 80%+ of UIs                                   | Used in specific scenarios                   |
+| **Complexity**           | Atomic / molecular                                    | Composed from multiple core components       |
+| **External deps**        | Only `clsx`, `@floating-ui/react`, `@vscode/codicons` | `@tanstack/react-table` or future heavy deps |
+| **Cross-component deps** | May depend on Icon and styles only                    | May depend on any core component             |
+| **Self-contained**       | Can work alone with just styles                       | Needs core components at runtime             |
+
+**Key rule**: Extra can import from Core. Core **never** imports from Extra.
+
+### VSCode Integration
+
+- Uses `@vscode/codicons` for icons
+- Maps to VSCode CSS variables for seamless integration
+- No runtime dependencies on VSCode API (pure React)
+
+## Development Workflow
+
+1. **Start development**: `npm run storybook` (most common)
+2. **Add new component**:
+    - Create component directory in `packages/baukasten/src/components/`
+    - Implement component with design tokens
+    - Create Storybook stories following the guidelines
+    - Export from `packages/baukasten/src/core.ts` (if fundamental primitive) or `packages/baukasten/src/extra.ts` (if higher-level / composed)
+    - `src/index.ts` re-exports both automatically
+3. **Test in examples**:
+    - Web example for browser testing
+4. **Build**: `npm run build` before committing
+
+## Important Files
+
+- `.cursor/rules/design-system.mdc` - Complete design system documentation
+- `.cursor/rules/quick-reference.mdc` - Quick patterns and component template
+- `.cursor/rules/storybook.mdc` - Detailed Storybook guidelines
+- `packages/baukasten/src/styles/` - Design token definitions (source of truth)
+- `packages/baukasten/src/DesignSystem.stories.tsx` - Visual token documentation
+
+## Testing Changes
+
+- View in Storybook: `npm run storybook`
+- Test in web: `npm run example:web`
+- Test in VSCode: `npm run example:vscode` then F5
+- Use .vscode launch configurations for debugging
+
+## Notes
+
+- Node >= 18.0.0, npm >= 9.0.0 required
+- React 19 with vanilla-extract
+- All components are tree-shakeable
+- VSCode theme wrapper provides 5 theme presets for demos
+
+## Vanilla-Extract Coding Style Guide
+
+### File Naming Convention
+
+**Always use `.css.ts` extension** for style files:
+
+```
+Button.css.ts  ✅
+Button.styles.ts  ❌
+```
+
+### Import Style
+
+```typescript
+// In component file
+import * as styles from './Button.css';
+// or
+import { button, buttonVariants } from './Button.css';
+```
+
+### Basic Styling Patterns
+
+#### 1. Simple Static Styles
+
+Use `style` for static styles:
+
+```typescript
+// Button.css.ts
+import { style } from '@vanilla-extract/css';
+
+export const baseButton = style({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: '1px solid transparent',
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    transition: 'var(--bk-transition-colors)',
+    outline: 'none',
+
+    // Use CSS variables for design tokens
+    padding: 'var(--bk-padding-md)',
+    fontSize: 'var(--bk-font-size-md)',
+    backgroundColor: 'var(--bk-color-primary)',
+    color: 'var(--bk-color-primary-foreground)',
+
+    // Pseudo-selectors
+    ':hover:not(:disabled)': {
+        backgroundColor: 'var(--bk-color-primary-hover)',
+    },
+
+    ':disabled': {
+        opacity: 'var(--bk-opacity-disabled)',
+        cursor: 'not-allowed',
+    },
+});
+```
+
+#### 2. Variants with `styleVariants`
+
+Use `styleVariants` for simple variant maps:
+
+```typescript
+// Button.css.ts
+import { style, styleVariants } from '@vanilla-extract/css';
+
+const base = style({
+    padding: 'var(--bk-padding-md)',
+});
+
+// Simple variants
+export const buttonSize = styleVariants({
+    xs: [
+        base,
+        {
+            fontSize: 'var(--bk-font-size-xs)',
+            minHeight: 'var(--bk-size-xs)',
+        },
+    ],
+    sm: [
+        base,
+        {
+            fontSize: 'var(--bk-font-size-sm)',
+            minHeight: 'var(--bk-size-sm)',
+        },
+    ],
+    md: [
+        base,
+        {
+            fontSize: 'var(--bk-font-size-md)',
+            minHeight: 'var(--bk-size-md)',
+        },
+    ],
+    lg: [
+        base,
+        {
+            fontSize: 'var(--bk-font-size-base)',
+            minHeight: 'var(--bk-size-lg)',
+        },
+    ],
+});
+```
+
+#### 3. Complex Variants with `recipe`
+
+Use `recipe` for components with multiple variant dimensions:
+
+```typescript
+// Button.css.ts
+import { recipe } from '@vanilla-extract/recipes';
+
+export const button = recipe({
+    base: {
+        // Base styles applied to all variants
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: '1px solid transparent',
+        cursor: 'pointer',
+        fontFamily: 'inherit',
+        transition: 'var(--bk-transition-colors)',
+        outline: 'none',
+        whiteSpace: 'nowrap',
+        textDecoration: 'none',
+        gap: 'var(--bk-gap-sm)',
+    },
+
+    variants: {
+        // First variant dimension
+        variant: {
+            primary: {
+                backgroundColor: 'var(--bk-color-primary)',
+                color: 'var(--bk-color-primary-foreground)',
+                ':hover:not(:disabled)': {
+                    backgroundColor: 'var(--bk-color-primary-hover)',
+                },
+            },
+            secondary: {
+                backgroundColor: 'var(--bk-color-secondary)',
+                color: 'var(--bk-color-secondary-foreground)',
+                ':hover:not(:disabled)': {
+                    backgroundColor: 'var(--bk-color-secondary-hover)',
+                },
+            },
+            ghost: {
+                backgroundColor: 'transparent',
+                color: 'var(--bk-color-foreground)',
+                ':hover:not(:disabled)': {
+                    backgroundColor: 'var(--bk-color-secondary-hover)',
+                },
+            },
+        },
+
+        // Second variant dimension
+        size: {
+            xs: {
+                padding: 'var(--bk-padding-xs)',
+                fontSize: 'var(--bk-font-size-xs)',
+                minHeight: 'var(--bk-size-xs)',
+            },
+            sm: {
+                padding: 'var(--bk-padding-sm)',
+                fontSize: 'var(--bk-font-size-sm)',
+                minHeight: 'var(--bk-size-sm)',
+            },
+            md: {
+                padding: 'var(--bk-padding-md)',
+                fontSize: 'var(--bk-font-size-md)',
+                minHeight: 'var(--bk-size-md)',
+            },
+        },
+
+        // Boolean variants
+        outline: {
+            true: {
+                backgroundColor: 'transparent',
+                borderColor: 'var(--bk-color-primary)',
+            },
+            false: {},
+        },
+
+        circular: {
+            true: {
+                borderRadius: 'var(--bk-radius-full)',
+                aspectRatio: '1',
+                padding: '0',
+            },
+            false: {
+                borderRadius: 'var(--bk-radius-sm)',
+            },
+        },
+    },
+
+    // Compound variants - for variant combinations
+    compoundVariants: [
+        {
+            variants: {
+                variant: 'primary',
+                outline: true,
+            },
+            style: {
+                color: 'var(--bk-color-primary)',
+                borderColor: 'var(--bk-color-primary)',
+                ':hover:not(:disabled)': {
+                    backgroundColor: 'var(--bk-color-primary)',
+                    color: 'var(--bk-color-primary-foreground)',
+                },
+            },
+        },
+    ],
+
+    // Default variants
+    defaultVariants: {
+        variant: 'primary',
+        size: 'md',
+        outline: false,
+        circular: false,
+    },
+});
+```
+
+#### 4. Using Recipes in Components
+
+```typescript
+// Button.tsx
+import React from 'react';
+import { button } from './Button.css';
+import type { RecipeVariants } from '@vanilla-extract/recipes';
+
+// Extract prop types from recipe
+export type ButtonVariants = RecipeVariants<typeof button>;
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariants {
+  // Additional props
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  variant,
+  size,
+  outline,
+  circular,
+  className,
+  children,
+  ...props
+}) => {
+  return (
+    <button
+      className={button({ variant, size, outline, circular, className })}
+      {...props}
     >
-      <Component size="xs">Extra Small</Component>
-      <Component size="sm">Small</Component>
-      <Component size="md">Medium</Component>
-      <Component size="lg">Large</Component>
-      <Component size="xl">Extra Large</Component>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Five size options available: **xs**, **sm**, **md** (default), **lg**, **xl**.",
-      },
-    },
-  },
+      {children}
+    </button>
+  );
 };
 ```
 
-#### States
+### Critical Rules for vanilla-extract
 
-```tsx
-export const States: Story = {
-  render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--bk-spacing-3)",
-      }}
-    >
-      <div>
-        <h4 style={{ marginBottom: "var(--bk-spacing-2)" }}>Default</h4>
-        <Component>Default State</Component>
-      </div>
-      <div>
-        <h4 style={{ marginBottom: "var(--bk-spacing-2)" }}>Disabled</h4>
-        <Component disabled>Disabled State</Component>
-      </div>
-      <div>
-        <h4 style={{ marginBottom: "var(--bk-spacing-2)" }}>Error</h4>
-        <Component error="Error message">Error State</Component>
-      </div>
-    </div>
-  ),
-};
-```
+1. **Always Use CSS Variables for Design Tokens**
 
-### 3. Usage Examples (Optional but Recommended)
+    ```typescript
+    // ✅ CORRECT
+    backgroundColor: 'var(--bk-color-primary)',
+    padding: 'var(--bk-padding-md)',
 
-Show practical, real-world usage patterns:
+    // ❌ WRONG
+    backgroundColor: '#007acc',
+    padding: '8px 16px',
+    ```
 
-- **WithIcons** - Icon usage patterns (icon+text, icon-only)
-- **WidthOptions** - Width configurations (block, wide, auto)
-- **FormExamples** - Common form patterns (login, registration, validation)
-- **UsageExamples** - Real-world use cases specific to the component
+2. **No Runtime Logic in Style Files**
 
-```tsx
-export const WithIcons: Story = {
-  render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--bk-spacing-4)",
-      }}
-    >
-      <div>
-        <h4>Icon + Text</h4>
-        <Component>
-          <Icon />
-          Label
-        </Component>
-      </div>
-      <div>
-        <h4>Icon Only</h4>
-        <Component>
-          <Icon />
-        </Component>
-      </div>
-    </div>
-  ),
-};
-```
+    ```typescript
+    // ❌ WRONG - .css.ts files run at build time
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-### 4. Showcase Story (LAST - Always Required)
+    // ✅ CORRECT - Use variants or CSS variables
+    export const theme = styleVariants({
+        light: { backgroundColor: 'var(--bk-color-background)' },
+        dark: { backgroundColor: 'var(--bk-color-background-dark)' },
+    });
+    ```
 
-Comprehensive overview of all component capabilities. Should be the last story.
+3. **Use `recipe` for Components with Variants**
+    - More than 2 variant dimensions → `recipe`
+    - Simple variant map → `styleVariants`
+    - Static styles → `style`
 
-```tsx
-export const Showcase: Story = {
-  render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--bk-spacing-6)",
-        padding: "var(--bk-spacing-4)",
-      }}
-    >
-      <div>
-        <h3>Section Title</h3>
-        {/* All variants/combinations */}
-      </div>
-      {/* More sections... */}
-    </div>
-  ),
-  parameters: {
-    layout: "fullscreen",
-    docs: {
-      description: {
-        story:
-          "Comprehensive showcase demonstrating all [component] capabilities. Use this as a reference for all available combinations.",
+4. **Compound Variants for Conditional Styling**
+
+    ```typescript
+    compoundVariants: [
+      {
+        variants: { size: 'lg', variant: 'primary' },
+        style: { fontWeight: 'bold' },
       },
-    },
-  },
-};
-```
+    ],
+    ```
 
-## Story Meta Configuration
+5. **className Prop Pattern**
+
+    ```typescript
+    // Always allow className override
+    className={button({ variant, size, className })}
+    ```
+
+6. **Type Safety**
+
+    ```typescript
+    import type { RecipeVariants } from '@vanilla-extract/recipes';
+
+    export type ButtonVariants = RecipeVariants<typeof button>;
+    ```
+
+7. **Pseudo-selectors and Nested Selectors**
+
+    ```typescript
+    export const button = style({
+        // Pseudo-classes
+        ':hover': { opacity: 0.8 },
+        ':focus-visible': { outline: '2px solid var(--bk-color-focus)' },
+        ':disabled': { opacity: 0.5 },
+
+        // Nested selectors
+        selectors: {
+            '&:hover:not(:disabled)': { backgroundColor: 'var(--bk-color-hover)' },
+            '& svg': { width: '1em', height: '1em' },
+        },
+    });
+    ```
+
+8. **Media Queries**
+
+    ```typescript
+    import { style } from '@vanilla-extract/css';
+
+    export const responsive = style({
+        padding: 'var(--bk-padding-sm)',
+
+        '@media': {
+            'screen and (min-width: 768px)': {
+                padding: 'var(--bk-padding-md)',
+            },
+        },
+    });
+    ```
+
+````
+
+## Multi-Window Support (Eclipse Theia)
+
+### The Portal Problem
+
+Portal-based components (Select, Dropdown, Tooltip, ContextMenu, ButtonGroup) use `FloatingPortal` from `@floating-ui/react` to render floating content. By default, portals render to `document.body` of the main window. In Eclipse Theia's multi-window scenarios, this causes dropdowns opened in secondary/popup windows to appear in the main window instead.
+
+### Solution: PortalProvider
+
+The `PortalProvider` context allows specifying a custom root element for all portal-based components:
 
 ```tsx
-const meta = {
-  title: "Components/ComponentName",
-  component: ComponentName,
-  parameters: {
-    layout: "centered", // or 'padded', 'fullscreen'
-    docs: {
-      description: {
-        component: "Brief, clear description of the component and its purpose.",
-      },
-    },
-  },
-  tags: ["autodocs"], // REQUIRED - enables auto-generated docs
-  argTypes: {
-    propName: {
-      control: "select", // or 'boolean', 'text', etc.
-      options: ["option1", "option2"],
-      description: "Clear description of what this prop does",
-      table: {
-        defaultValue: { summary: "default" },
-      },
-    },
-    // ... document all props
-  },
-} satisfies Meta<typeof ComponentName>;
-```
+import { PortalProvider, Select, Dropdown, Button } from 'baukasten-ui/core';
+import { Menu } from 'baukasten-ui/extra';
 
-## Naming Conventions
+function SecondaryWindowContent() {
+const rootRef = useRef<HTMLDivElement>(null);
+const [ready, setReady] = useState(false);
 
-### Story Names
+useEffect(() => setReady(true), []);
 
-- Use **PascalCase** for story exports
-- Use descriptive, clear names
-- Keep names concise but meaningful
-
-**Good:**
-
-- `Interactive`, `Variants`, `Sizes`, `States`, `WithIcons`, `Showcase`
-
-**Bad:**
-
-- `Story1`, `Example`, `Test`, `Demo`
-
-### Render Functions
-
-When using custom render functions, always wrap in a container with proper spacing:
-
-```tsx
-render: () => (
-  <div style={{ display: "flex", gap: "var(--bk-gap-sm)", flexWrap: "wrap" }}>
-    {/* Components */}
-  </div>
+return (
+<div ref={rootRef} className="secondary-window-container">
+  {ready && (
+    <PortalProvider root={rootRef.current}>
+      {/* All dropdowns, tooltips, etc. will render in this window */}
+      <Select options={options} />
+      <Dropdown trigger={<Button>Menu</Button>}>
+        <Menu>...</Menu>
+      </Dropdown>
+    </PortalProvider>
+  )}
+</div>
 );
-```
-
-## Styling Guidelines
-
-### Use Design Tokens
-
-ALWAYS use design system tokens for styling within stories:
-
-```tsx
-// ✅ DO
-gap: "var(--bk-gap-sm)";
-padding: "var(--bk-spacing-4)";
-fontSize: "var(--bk-font-size-md)";
-fontWeight: "var(--bk-font-weight-semibold)";
-
-// ❌ DON'T
-gap: "8px";
-padding: "16px";
-fontSize: "14px";
-fontWeight: "600";
-```
-
-### Section Headers
-
-Use consistent styling for section headers in showcase stories:
-
-```tsx
-<h3 style={{
-  marginBottom: 'var(--bk-spacing-3)',
-  fontSize: 'var(--bk-font-size-base)',
-  fontWeight: 'var(--bk-font-weight-semibold)'
-}}>
-  Section Title
-</h3>
-
-<h4 style={{
-  marginBottom: 'var(--bk-spacing-2)',
-  fontSize: 'var(--bk-font-size-sm)',
-  fontWeight: 'var(--bk-font-weight-medium)'
-}}>
-  Subsection Title
-</h4>
-```
-
-### Container Patterns
-
-**Horizontal Layout:**
-
-```tsx
-<div
-  style={{
-    display: "flex",
-    gap: "var(--bk-gap-sm)",
-    flexWrap: "wrap",
-    alignItems: "center",
-  }}
->
-  {/* Components */}
-</div>
-```
-
-**Vertical Layout:**
-
-```tsx
-<div
-  style={{ display: "flex", flexDirection: "column", gap: "var(--bk-spacing-3)" }}
->
-  {/* Components */}
-</div>
-```
-
-**Grid Layout:**
-
-```tsx
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-    gap: "var(--bk-spacing-3)",
-  }}
->
-  {/* Components */}
-</div>
-```
-
-## Documentation
-
-### Story Descriptions
-
-Every story should have a clear description in the `parameters.docs.description.story` field:
-
-```tsx
-parameters: {
-  docs: {
-    description: {
-      story: 'Clear, concise description of what this story demonstrates. Use **bold** for emphasis.',
-    },
-  },
 }
-```
+````
 
-### Component Description
+### Components Using PortalProvider
 
-The meta object should include a component-level description:
+These components respect the `PortalProvider` context:
 
-```tsx
-parameters: {
-  docs: {
-    description: {
-      component: 'Brief description of the component, its purpose, and key features.',
-    },
-  },
-}
-```
+- **Select** - Dropdown options list
+- **Dropdown** - Generic dropdown container
+- **Tooltip** - Hover tooltips
+- **ContextMenu** - Right-click menus
+- **ButtonGroup.Dropdown** - Split button dropdowns
 
-### ArgTypes Documentation
+### Implementation Notes
 
-Document all props with descriptions and default values:
-
-```tsx
-argTypes: {
-  variant: {
-    control: 'select',
-    options: ['primary', 'secondary', 'ghost'],
-    description: 'Visual style variant of the component',
-    table: {
-      defaultValue: { summary: 'primary' },
-    },
-  },
-}
-```
-
-## Best Practices
-
-### Do's ✅
-
-1. **Always start with Interactive story** - This is the most important story
-2. **Group related properties** - Variants together, sizes together, etc.
-3. **Show realistic examples** - Use real-world use cases in usage examples
-4. **Use design tokens** - Never hardcode values
-5. **Add descriptions** - Every story should explain what it demonstrates
-6. **Keep it simple** - Each story should have a single, clear purpose
-7. **Show state combinations** - Include disabled, error, loading states
-8. **End with Showcase** - Comprehensive overview as the final story
-
-### Don'ts ❌
-
-1. **Don't create individual stories for each variant** - Group them instead
-2. **Don't hardcode colors, spacing, or typography** - Use design tokens
-3. **Don't skip the Interactive story** - Users expect it first
-4. **Don't forget descriptions** - Stories without context are confusing
-5. **Don't use overly complex examples** - Keep stories focused
-6. **Don't duplicate content** - Showcase should be comprehensive, other stories focused
-7. **Don't forget accessibility** - Consider keyboard navigation, screen readers
-
-## Layout Options
-
-Choose the appropriate layout for each story:
-
-- **`centered`** - Centers content (default for most component demos)
-- **`padded`** - Adds padding around content (good for form examples)
-- **`fullscreen`** - No padding (use for Showcase stories)
-
-```tsx
-parameters: {
-  layout: 'centered', // or 'padded', 'fullscreen'
-}
-```
-
-## Typical Story Count
-
-A well-structured component should have **7-10 stories**:
-
-1. Interactive (required)
-2. Variants (if applicable)
-3. Sizes (if applicable)
-4. States (if applicable)
-5. OutlineVariants (if applicable)
-6. 1-3 Usage Examples (optional)
-7. Showcase (required)
-
-## Example: Complete Story File Structure
-
-```tsx
-import type { Meta, StoryObj } from "@storybook/react";
-import { Component } from "./Component";
-
-const meta = {
-  title: "Components/Component",
-  component: Component,
-  parameters: {
-    layout: "centered",
-    docs: {
-      description: {
-        component: "Component description here.",
-      },
-    },
-  },
-  tags: ["autodocs"],
-  argTypes: {
-    // ... all props documented
-  },
-} satisfies Meta<typeof Component>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-// 1. Interactive (FIRST)
-export const Interactive: Story = {
-  /* ... */
-};
-
-// 2. Property Groups
-export const Variants: Story = {
-  /* ... */
-};
-export const Sizes: Story = {
-  /* ... */
-};
-export const States: Story = {
-  /* ... */
-};
-
-// 3. Usage Examples
-export const WithIcons: Story = {
-  /* ... */
-};
-export const WidthOptions: Story = {
-  /* ... */
-};
-
-// 4. Showcase (LAST)
-export const Showcase: Story = {
-  /* ... */
-};
-```
-
-## Reference Examples
-
-For complete examples, see:
-
-- `packages/Baukasten/src/components/Button/Button.stories.tsx`
-- `packages/Baukasten/src/components/Badge/Badge.stories.tsx`
-- `packages/Baukasten/src/components/Input/Input.stories.tsx`
-
-## Quick Checklist
-
-Before submitting a story file, ensure:
-
-- [ ] First story is named "Interactive" with all props exposed
-- [ ] All relevant property groups are included (Variants, Sizes, States)
-- [ ] At least one practical usage example is provided
-- [ ] Last story is "Showcase" with comprehensive overview
-- [ ] All stories have descriptions
-- [ ] Design tokens are used (no hardcoded values)
-- [ ] `tags: ['autodocs']` is set in meta
-- [ ] ArgTypes are fully documented
-- [ ] Layout is appropriate for each story
-- [ ] Component description is clear and helpful
-
----
-
-**Remember**: The goal is to make components easy to discover, understand, and use. Well-organized stories with clear examples and documentation are essential for a great developer experience.
+1. **Backward Compatible**: If `PortalProvider` is not used, components fall back to default portal behavior (`document.body`)
+2. **Hook**: Use `usePortalRoot()` hook to access the portal root in custom components
+3. **Context Location**: Defined in `packages/baukasten/src/context/PortalProvider.tsx`
 
 ---
 > Source: [TypeFox/baukasten](https://github.com/TypeFox/baukasten) — distributed by [TomeVault](https://tomevault.io).
