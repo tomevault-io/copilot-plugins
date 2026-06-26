@@ -1,0 +1,9 @@
+{
+  "name": "shippy--personal-intelligence-kit",
+  "displayName": "personal-intelligence-kit",
+  "description": "A read-only AI system that watches your digital exhaust and tells you what the engine is actually doing. Copier template for Claude Code.",
+  "version": "1.0.0",
+  "author": "shippy",
+  "homepage": "https://github.com/shippy/personal-intelligence-kit",
+  "skills": []
+}
