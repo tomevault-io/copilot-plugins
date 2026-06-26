@@ -1,0 +1,9 @@
+{
+  "name": "galdawave--opentui-gameboy",
+  "displayName": "opentui-gameboy",
+  "description": "An OpenTUI Gameboy Emulator",
+  "version": "1.0.0",
+  "author": "galdawave",
+  "homepage": "https://github.com/galdawave/opentui-gameboy",
+  "skills": []
+}
