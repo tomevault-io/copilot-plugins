@@ -76964,6 +76964,16 @@
       "description": "Self-updating multi-platform paid advertising audit & optimization skill for Claude Code \u2014 Google, Meta, TikTok, LinkedIn, Microsoft, Apple, YouTube. Now with /ads update for last-30-days platform ref"
     },
     {
+      "name": "leeexx2001--tmd",
+      "source": "./leeexx2001--tmd",
+      "description": "Twitter Media Downloader \u4fee\u6539\u65e5\u5fd7\u89c1 CHANGELOG.md"
+    },
+    {
+      "name": "leeexx2001--tmd",
+      "source": "./leeexx2001--tmd",
+      "description": "Twitter Media Downloader \u4fee\u6539\u65e5\u5fd7\u89c1 CHANGELOG.md"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -82607,6 +82617,16 @@
       "name": "ilbertt--bun-sqlgen",
       "source": "./ilbertt--bun-sqlgen",
       "description": "Types generator for your Bun.sql queries"
+    },
+    {
+      "name": "niqibiao--unity-cli-skill",
+      "source": "./niqibiao--unity-cli-skill",
+      "description": "AI agent skill for Unity \u2014 AI-driven scene editing, GameObject/Component manipulation, profiling, and C# REPL via 40+ built-in commands. Works with any Unity 2022.3+ project."
+    },
+    {
+      "name": "niqibiao--unity-cli-skill",
+      "source": "./niqibiao--unity-cli-skill",
+      "description": "AI agent skill for Unity \u2014 AI-driven scene editing, GameObject/Component manipulation, profiling, and C# REPL via 40+ built-in commands. Works with any Unity 2022.3+ project."
     },
     {
       "name": "w3cj--ruta",
@@ -134954,6 +134974,16 @@
       "description": "Autonomous SolidWorks AI assistant \u2014 embeds Claude Code / Codex CLI in the Task Pane to automate feature operations via natural language."
     },
     {
+      "name": "bilipp--lume",
+      "source": "./bilipp--lume",
+      "description": "A modern, native IPTV player for Apple platforms.  Browse, search, and stream your Xtream Codes or M3U/M3U8 playlists with a clean SwiftUI interface \u2014 Live TV, Movies, and Series, enriched with metada"
+    },
+    {
+      "name": "bilipp--lume",
+      "source": "./bilipp--lume",
+      "description": "A modern, native IPTV player for Apple platforms.  Browse, search, and stream your Xtream Codes or M3U/M3U8 playlists with a clean SwiftUI interface \u2014 Live TV, Movies, and Series, enriched with metada"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -170774,6 +170804,26 @@
       "description": "An opinionated mouse-focused terminal editor. "
     },
     {
+      "name": "prosusai--prism",
+      "source": "./prosusai--prism",
+      "description": "Give Claude Code persistent memory \u2014 captures patterns from your sessions, validates them with AI, and surfaces team knowledge as reusable skills"
+    },
+    {
+      "name": "microsoft--build26-brk206-your-agent-anywhere-multiclient-multidevice-with-github-copilot-sdk",
+      "source": "./microsoft--build26-brk206-your-agent-anywhere-multiclient-multidevice-with-github-copilot-sdk",
+      "description": "Resources for building cross-device agents using GitHub Copilot SDK \u2014 embed an agent in an app and access it across phones, machines, and cloud. From Microsoft Build 2026."
+    },
+    {
+      "name": "fedramp--rules",
+      "source": "./fedramp--rules",
+      "description": "This repository contains the structured machine-readable rules for FedRAMP."
+    },
+    {
+      "name": "nvidia-tao--tao-skills-bank",
+      "source": "./nvidia-tao--tao-skills-bank",
+      "description": "tao-skills-bank"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -183102,6 +183152,11 @@
       "name": "shawnstack--quickforge",
       "source": "./shawnstack--quickforge",
       "description": "quickforge"
+    },
+    {
+      "name": "bropines--tailsocks",
+      "source": "./bropines--tailsocks",
+      "description": "Userspace socks5 tailscale implementation on android."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -230249,6 +230304,16 @@
       "description": "The canonical reference for Grok Build CLI /goal \u2014 run-until-done objectives, patterns, verifier skills, and goal-audit CLI."
     },
     {
+      "name": "yeet-src--redissnoop",
+      "source": "./yeet-src--redissnoop",
+      "description": "Live, zero-config Redis traffic profiler built on eBPF. Reads plaintext and TLS, no app changes."
+    },
+    {
+      "name": "yeet-src--redissnoop",
+      "source": "./yeet-src--redissnoop",
+      "description": "Live, zero-config Redis traffic profiler built on eBPF. Reads plaintext and TLS, no app changes."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -234192,6 +234257,21 @@
       "name": "cosen1024--resume-builder-skill",
       "source": "./cosen1024--resume-builder-skill",
       "description": "\u7b80\u5386\u751f\u6210 Skill\uff08Codex / Claude Code/OpenCode \u7b49\uff09\uff1a\u4ee5 Markdown \u4e3a\u5185\u5bb9\u6e90\uff0c\u591a\u5957\u53ef\u5207\u6362\u6a21\u677f\u3001\u591a\u914d\u8272\u3001\u53ef\u9009\u8bc1\u4ef6\u7167\uff0cWeasyPrint \u79bb\u7ebf\u6e32\u67d3\u4e3a\u53ef\u641c\u7d22 A4 PDF\uff1b\u5185\u7f6e   STAR/\u91cf\u5316\u6da6\u8272\u4e0e JD \u5b9a\u5411\u5339\u914d\u3002"
+    },
+    {
+      "name": "learnwithsumit--prisma-course",
+      "source": "./learnwithsumit--prisma-course",
+      "description": "Prisma ORM Crash Course in Bangla | Next.js, MongoDB & PostgreSQL Magic!"
+    },
+    {
+      "name": "patrickloic-dev--splash",
+      "source": "./patrickloic-dev--splash",
+      "description": "Learn the animations every app needs. Implemented for React, Next.js, Vue, React Native, and Flutter."
+    },
+    {
+      "name": "dirx-coder--chattohim",
+      "source": "./dirx-coder--chattohim",
+      "description": "Chattohim \u2014 A lightweight Next.js chat app providing real-time messaging and presence using Pusher, with a minimal UI (ChatView, IdentitySelect) and simple API routes for sending messages and typing i"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -351517,6 +351597,191 @@
       "name": "jp-cruz--legionforge-secondbrain",
       "source": "./jp-cruz--legionforge-secondbrain",
       "description": "Sovereign, portable, AI-maintained personal knowledge base. Local-first, brand-independent, plain markdown + Git."
+    },
+    {
+      "name": "satcoresolutions--satcore-corporative",
+      "source": "./satcoresolutions--satcore-corporative",
+      "description": "Nuestro sitio web corporativo. Desarrollo web, automatizaci\u00f3n y soluciones tecnol\u00f3gicas para empresas."
+    },
+    {
+      "name": "usts-ai--484969",
+      "source": "./usts-ai--484969",
+      "description": "484969"
+    },
+    {
+      "name": "erxsss--nest-cleaning-robot",
+      "source": "./erxsss--nest-cleaning-robot",
+      "description": "Nest-cleaning-robot"
+    },
+    {
+      "name": "bigballgis--document-generation-system",
+      "source": "./bigballgis--document-generation-system",
+      "description": "Document-Generation-System"
+    },
+    {
+      "name": "avilches-salix--orcacustomhomes",
+      "source": "./avilches-salix--orcacustomhomes",
+      "description": "orcacustomhomes"
+    },
+    {
+      "name": "navehaus--nhcapptracker",
+      "source": "./navehaus--nhcapptracker",
+      "description": "NhcAppTracker"
+    },
+    {
+      "name": "nvnunes--astro-agents",
+      "source": "./nvnunes--astro-agents",
+      "description": "astro-agents"
+    },
+    {
+      "name": "jiahoo--cf-worker-ws-dev",
+      "source": "./jiahoo--cf-worker-ws-dev",
+      "description": "cf-worker-ws-dev"
+    },
+    {
+      "name": "amfaro--jarify",
+      "source": "./amfaro--jarify",
+      "description": "Bespoke SQL linter and formatter for DuckDB, powered by sqlglot"
+    },
+    {
+      "name": "vedantmahangade--fake-repo",
+      "source": "./vedantmahangade--fake-repo",
+      "description": "fake-repo"
+    },
+    {
+      "name": "donclu--promptdivers-2",
+      "source": "./donclu--promptdivers-2",
+      "description": "Meme framework about helldivers for prompts"
+    },
+    {
+      "name": "gun587330--korionpay-page-frontend",
+      "source": "./gun587330--korionpay-page-frontend",
+      "description": "KORIONPAY_PAGE_FRONTEND"
+    },
+    {
+      "name": "tintrungp--fundraiser-app",
+      "source": "./tintrungp--fundraiser-app",
+      "description": "fundraiser-app"
+    },
+    {
+      "name": "kentye666--sublink-worker",
+      "source": "./kentye666--sublink-worker",
+      "description": "sublink-worker"
+    },
+    {
+      "name": "bishaldebroy007--naruto-expense",
+      "source": "./bishaldebroy007--naruto-expense",
+      "description": "This is an Open Source Money management Project, Help me improve it with your valuable insight"
+    },
+    {
+      "name": "suyehanzi--qbankcrawler",
+      "source": "./suyehanzi--qbankcrawler",
+      "description": "Configurable Playwright workflow for authenticated content export to JSON and Word documents."
+    },
+    {
+      "name": "gallibal--portfolio",
+      "source": "./gallibal--portfolio",
+      "description": "Personal portfolio website built with Next.js, showcasing my background, work experience, hobbies, and travels."
+    },
+    {
+      "name": "mitchbrenner--books-frontend",
+      "source": "./mitchbrenner--books-frontend",
+      "description": "books-frontend"
+    },
+    {
+      "name": "lalate--raindaytsujigirigoonies",
+      "source": "./lalate--raindaytsujigirigoonies",
+      "description": "RainDay\u8fbb\u65ac\u308aGoonies - OpenCode\u5c0f\u8aac\u30d1\u30a4\u30d7\u30e9\u30a4\u30f3"
+    },
+    {
+      "name": "arif1314--cartsvista",
+      "source": "./arif1314--cartsvista",
+      "description": "Business website"
+    },
+    {
+      "name": "quintaus--alfred",
+      "source": "./quintaus--alfred",
+      "description": "An AI UI that manages your personal tasks autonomously with voice activation"
+    },
+    {
+      "name": "ilkayozay--arininbildigi",
+      "source": "./ilkayozay--arininbildigi",
+      "description": "arininbildigi"
+    },
+    {
+      "name": "hellojxc--calendar-fortune",
+      "source": "./hellojxc--calendar-fortune",
+      "description": "calendar-fortune"
+    },
+    {
+      "name": "mintlify-atlas--docs-atlas-78b02bc1",
+      "source": "./mintlify-atlas--docs-atlas-78b02bc1",
+      "description": "docs-atlas-78b02bc1"
+    },
+    {
+      "name": "sandhyasanam24-web--bloggingplatform",
+      "source": "./sandhyasanam24-web--bloggingplatform",
+      "description": "bloggingplatform"
+    },
+    {
+      "name": "bgotz01--panteoncapital",
+      "source": "./bgotz01--panteoncapital",
+      "description": "panteoncapital"
+    },
+    {
+      "name": "kentye666--sublink-worker",
+      "source": "./kentye666--sublink-worker",
+      "description": "sublink-worker"
+    },
+    {
+      "name": "hemanth-konduri--organic",
+      "source": "./hemanth-konduri--organic",
+      "description": "organic"
+    },
+    {
+      "name": "meeshabear1--templeton-redesign",
+      "source": "./meeshabear1--templeton-redesign",
+      "description": "templeton-redesign"
+    },
+    {
+      "name": "asmodiuss--proofly",
+      "source": "./asmodiuss--proofly",
+      "description": "Proofly"
+    },
+    {
+      "name": "kesava-raj--document-portal",
+      "source": "./kesava-raj--document-portal",
+      "description": "document-portal"
+    },
+    {
+      "name": "muhridwaan--0112523022-crud-karyawan",
+      "source": "./muhridwaan--0112523022-crud-karyawan",
+      "description": "ini adalah tugas crud sederhana menggunakan next.js "
+    },
+    {
+      "name": "zevorn--bitbake-rs",
+      "source": "./zevorn--bitbake-rs",
+      "description": "Experimental Rust implementation of selected BitBake/OpenEmbedded compatibility surfaces"
+    },
+    {
+      "name": "saad-salman-0311--toyshut-mobile-app",
+      "source": "./saad-salman-0311--toyshut-mobile-app",
+      "description": "toyshut-mobile-app"
+    },
+    {
+      "name": "dalydev-js--callstack",
+      "source": "./dalydev-js--callstack",
+      "description": "callstack"
+    },
+    {
+      "name": "kalaimagal06--weather-currency-companion",
+      "source": "./kalaimagal06--weather-currency-companion",
+      "description": "Weather-Currency_companion"
+    },
+    {
+      "name": "esjeong00-hue--vibe-workshop",
+      "source": "./esjeong00-hue--vibe-workshop",
+      "description": "vibe-workshop"
     }
   ]
 }
