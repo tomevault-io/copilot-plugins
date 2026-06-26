@@ -1,0 +1,9 @@
+{
+  "name": "bjesuiter--codex-switcher",
+  "displayName": "codex-switcher",
+  "description": "Switch pi, codex and opencode auth between multiple openAI Plus and Pro accounts",
+  "version": "1.0.0",
+  "author": "bjesuiter",
+  "homepage": "https://github.com/bjesuiter/codex-switcher",
+  "skills": []
+}
