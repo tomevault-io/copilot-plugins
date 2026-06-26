@@ -1,0 +1,9 @@
+{
+  "name": "felixisaac--claude-code-sync",
+  "displayName": "claude-code-sync",
+  "description": "Secure cross-platform CLI to sync Claude Code configs (~/.claude/) across machines via GitHub with age encryption",
+  "version": "1.0.0",
+  "author": "FelixIsaac",
+  "homepage": "https://github.com/FelixIsaac/claude-code-sync",
+  "skills": []
+}
