@@ -1,0 +1,9 @@
+{
+  "name": "klh--speedy-claude",
+  "displayName": "speedy-claude",
+  "description": "Make Claude Code 10-1400x faster at file operations. Modern CLI tools + CLAUDE.md rules that replace sequential Read+Edit with single parallel pipelines.",
+  "version": "1.0.0",
+  "author": "klh",
+  "homepage": "https://github.com/klh/speedy-claude",
+  "skills": []
+}
