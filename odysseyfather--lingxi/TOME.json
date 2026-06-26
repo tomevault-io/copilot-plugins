@@ -4,7 +4,7 @@
   "repo": "lingxi",
   "description": "\u672c\u5730\u4f18\u5148\u7684\u684c\u9762 AI Agent \u64cd\u4f5c\u7cfb\u7edf\u3002Coding View \u7f16\u7a0b\u5229\u5668\uff08Claude Agent SDK \u9a71\u52a8\uff0cAgent Tree \u76d1\u63a7\uff0c\u5de5\u5177\u53ef\u89c6\u5316\uff0c\u6743\u9650\u5ba1\u6279\uff0cDiff Review\uff0c\u96c6\u6210\u7ec8\u7aef\u3001\u624b\u673a\u64cd\u63a7\uff09\u3002\u652f\u6301\u6240\u6709llm\u63a5\u5165\u3002\u667a\u80fd\u4f53\u5de5\u5382+\u4eba\u683c\u84b8\u998f+\u81ea\u6211\u8fdb\u5316+RAG\u77e5\u8bc6\u5e93+MCP\u5de5\u5177\u3002Screen Agent\u64cd\u63a7\u684c\u9762\u3002Agent\u53ef\u5b9e\u73b0\u8f7b\u677eA2A Nexus\u8de8\u8bbe\u5907Agent\u4e92\u8054\uff0c\u968f\u610f\u5efa\u7fa4\u5f00\u542f\u5fae\u4fe1\u98ce\u7fa4\u804a\u3002\u65e0\u7f1d\u63a5\u5165\u4f01\u5fae/\u9489\u9489/\u98de\u4e66\u3002\u6570\u636e\u5168\u5728\u4f60\u672c\u5730\u3002\u7075\u7280-\u65b0\u4e00\u4ee3Agent\u7ec8\u7aef\u52a9\u7406,\u4e0d\u53ea\u662fcoding",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OdysseyFather/lingxi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T00:57:45Z"
+  "distributed_at": "2026-06-26T01:01:31Z"
 }
