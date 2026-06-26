@@ -1,0 +1,9 @@
+{
+  "name": "sinch--skills",
+  "displayName": "skills",
+  "description": "AI agent skills for Sinch communication APIs. Get expert guidance on getting started, best practices, and gotchas -- right inside your AI coding agent.",
+  "version": "1.0.0",
+  "author": "sinch",
+  "homepage": "https://github.com/sinch/skills",
+  "skills": []
+}
