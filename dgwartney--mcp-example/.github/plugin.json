@@ -1,0 +1,9 @@
+{
+  "name": "dgwartney--mcp-example",
+  "displayName": "mcp-example",
+  "description": "Production-ready MCP server with SQLite-backed API key authentication",
+  "version": "1.0.0",
+  "author": "dgwartney",
+  "homepage": "https://github.com/dgwartney/mcp-example",
+  "skills": []
+}
