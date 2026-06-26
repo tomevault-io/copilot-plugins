@@ -1,0 +1,9 @@
+{
+  "name": "kaademos--secure-sdlc-agents",
+  "displayName": "secure-sdlc-agents",
+  "description": "A team of Claude Code sub-agents that enforce security across the full SDLC, from ASVS requirements and threat modelling to SAST triage, IaC review, compliance attestation and release sign-off. Drop i",
+  "version": "1.0.0",
+  "author": "Kaademos",
+  "homepage": "https://github.com/Kaademos/secure-sdlc-agents",
+  "skills": []
+}
