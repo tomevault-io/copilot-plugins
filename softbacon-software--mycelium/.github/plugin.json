@@ -1,0 +1,9 @@
+{
+  "name": "softbacon-software--mycelium",
+  "displayName": "mycelium",
+  "description": "Self-hosted, runtime-agnostic command center for coordinating AI agents, GPU drones, and humans",
+  "version": "1.0.0",
+  "author": "SoftBacon-Software",
+  "homepage": "https://github.com/SoftBacon-Software/mycelium",
+  "skills": []
+}
