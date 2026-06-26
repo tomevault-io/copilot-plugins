@@ -1,0 +1,9 @@
+{
+  "name": "cloudmanic--spice-edit",
+  "displayName": "spice-edit",
+  "description": "An opinionated mouse-focused terminal editor. ",
+  "version": "1.0.0",
+  "author": "cloudmanic",
+  "homepage": "https://github.com/cloudmanic/spice-edit",
+  "skills": []
+}
