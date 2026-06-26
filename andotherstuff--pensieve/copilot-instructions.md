@@ -1,27 +1,248 @@
-## pensieve
+## rust-code-style
 
-> Overall project context and goals
+> This is a description of a coding style that every contributor **must** follow.
 
 
-This project is focused on making Nostr data easy to **archive**, **explore**, and **analyze** at network scale.
-1. Right now Nostr data is spread around many relays, which makes it hard to answer basic aggregate questions (active users, activity by kind, trends) without heavy bespoke crawling.
-1. Primary user: any person or application that needs to explore or consume **aggregate** Nostr data (analytics, counts, trends, datasets), not “read/write” relay behavior.
-1. Non-goal: Pensieve is **not** a normal Nostr relay. It prioritizes correctness, deduplication, and analytics-friendly storage over serving realtime client subscriptions.
-1. This project consists of several different crates:
-    1. `pensieve-core`: core types, validation utilities, and shared helpers used across the system.
-    1. `pensieve-ingest`: an ingester that connects to many relays, validates events, and writes to long-term storage + ClickHouse. See `docs/ingestion_pipeline.md` for detailed design rationale.
-        1. **Architecture**: archive-first. The archive is an append-only log (source of truth); ClickHouse is a derived index built by consuming the archive.
-        1. **Relay coverage**: start from a configured seed list, then discover additional relays via **NIP-65** relay lists. Relays requiring authentication (e.g., **NIP-42**) can be skipped initially. Coverage is best-effort.
-        1. **Correctness**: on ingestion, recompute and validate **event IDs and signatures** (per **NIP-01**). Invalid events must not be stored.
-        1. **Deduplication**: use an embedded **RocksDB** index keyed by event ID. Dedupe by event id (same event seen on multiple relays). Replaceable events are stored as distinct events because they have distinct ids.
-        1. **ClickHouse correctness**: prefer **at-most-once** insertion per event id. Checkpoint at the segment level; on restart, reconcile the uncommitted tail against ClickHouse.
-        1. **Deletions**: store deletion events (e.g., **NIP-09**) as normal events; do not remove referenced events from the archive. In ClickHouse, maintain a way to mark/filter "deleted" events for analytics queries.
-        1. **Archive format**: length-prefixed segments (`[u32 length][event]...`), partitioned by **ingestion time**. Sealed segments are synced to remote storage (Hetzner Storage Box via rclone). The archive stores canonical Nostr events only (no ingestion-specific metadata). Event encoding uses **[notepack](https://docs.rs/notepack/)** (Nostr-specific, ~128 bytes smaller per event than CBOR).
-        1. **Reliability**: the local archive log buffers events through downstream outages (ClickHouse, object storage).
-    1. `pensieve-serve`: an HTTP API for analytics-oriented queries against ClickHouse (details TBD; optimized for aggregate/counted queries).
-1. ClickHouse schema: `docs/clickhouse_self_hosted.sql` (starting point; will evolve to cover more common Nostr analytics use cases).
-1. Observability: all parts of the system should be well instrumented with **Prometheus metrics** and **distributed tracing** (OpenTelemetry), focused on service health and performance (avoid high-cardinality labels).
-1. Operations: designed to run self-hosted and deployable via Docker + configuration management (Ansible or similar).
+# Code style
+
+This is a description of a coding style that every contributor **must** follow.
+Please read the whole document before you start pushing code.
+
+## Generics
+
+All trait bounds should be written in `where`:
+
+```rust
+// GOOD
+pub fn new<N, T, P, E>(user_id: i32, name: N, title: T, png_sticker: P, emojis: E) -> Self
+where
+    N: Into<String>,
+    T: Into<String>,
+    P: Into<InputFile>,
+    E: Into<String>,
+{ ... }
+
+// BAD
+pub fn new<N: Into<String>,
+           T: Into<String>,
+           P: Into<InputFile>,
+           E: Into<String>>
+    (user_id: i32, name: N, title: T, png_sticker: P, emojis: E) -> Self { ... }
+```
+
+```rust
+// GOOD
+impl<T> Trait for Wrap<T>
+where
+    T: Trait
+{ ... }
+
+// BAD
+impl<T: Trait> Trait for Wrap<T> { ... }
+```
+
+## Use `Self` where possible
+
+When referring to the type for which block is implemented, prefer using `Self`, rather than the name of the type:
+
+```rust
+impl ErrorKind {
+    // GOOD
+    fn print(&self) {
+        match self {
+            Self::Io => println!("Io"),
+            Self::Network => println!("Network"),
+            Self::Json => println!("Json"),
+        }
+    }
+
+    // BAD
+    fn print(&self) {
+        match self {
+            ErrorKind::Io => println!("Io"),
+            ErrorKind::Network => println!("Network"),
+            ErrorKind::Json => println!("Json"),
+        }
+    }
+}
+```
+
+```rust
+impl<'a> AnswerCallbackQuery<'a> {
+    // GOOD
+    fn new<C>(bot: &'a Bot, callback_query_id: C) -> Self
+    where
+        C: Into<String>,
+    { ... }
+
+    // BAD
+    fn new<C>(bot: &'a Bot, callback_query_id: C) -> AnswerCallbackQuery<'a>
+    where
+        C: Into<String>,
+    { ... }
+}
+```
+
+**Rationale:** `Self` is generally shorter, and it is easier to copy-paste code or rename the type.
+
+## Deriving traits (in libraries)
+
+Derive `Debug`, `Clone`, `Copy`, `PartialEq`, `Eq` and `Hash` for public types when possible (in this order).
+
+**Rationale:** these traits can be useful for users and can be automatically implemented for most types.
+
+Derive `Default` when there is a reasonable default value for the type.
+
+## Full paths for logging
+
+Always write `tracing::<op>!(...)` instead of importing `use tracing::<op>;` and invoking `<op>!(...)`.
+
+```rust
+// GOOD
+tracing::warn!("Everything is on fire");
+
+// BAD
+use tracing::warn;
+
+warn!("Everything is on fire");
+```
+
+**Rationale:**
+- Less polluted import blocks
+- Uniformity
+
+## `&str` -> `String` conversion
+
+Prefer using `.to_string()` or `.to_owned()`, rather than `.into()`, `String::from`, etc.
+
+**Rationale:** uniformity, intent clarity.
+
+## Order of imports
+
+```rust
+// First core, alloc and/or std
+use core::fmt;
+use std::{...};
+
+// Second, external crates (both crates.io crates and other rust-analyzer crates).
+use crate_foo::{ ... };
+use crate_bar::{ ... };
+
+// If applicable, the current sub-modules
+mod x;
+mod y;
+
+// Finally, the internal crate modules and submodules
+use crate::{};
+use super::{};
+use self::y::Y;
+```
+
+## Import Style
+
+When implementing traits from `core::fmt`/`std::fmt` import the module:
+
+```rust
+// GOOD
+use core::fmt;
+
+impl fmt::Display for RenameError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { .. }
+}
+
+// BAD
+impl core::fmt::Display for RenameError {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result { .. }
+}
+```
+
+When imports sub-modules:
+
+```rust
+// GOOD
+mod x;
+
+use self::x::Y;
+
+// BAD
+mod x;
+
+use x::Y;
+```
+
+## If-let
+
+Avoid the `if let ... { } else { }` construct if possible, use `match` instead:
+
+```rust
+// GOOD
+match ctx.expected_type.as_ref() {
+    Some(expected_type) => completion_ty == expected_type && !expected_type.is_unit(),
+    None => false,
+}
+
+// BAD
+if let Some(expected_type) = ctx.expected_type.as_ref() {
+    completion_ty == expected_type && !expected_type.is_unit()
+} else {
+    false
+}
+```
+
+Use `if let ... { }` when a match arm is intentionally empty:
+
+```rust
+// GOOD
+if let Some(expected_type) = this.as_ref() {
+    // Handle it
+}
+
+// BAD
+match this.as_ref() {
+    Some(expected_type) => {
+        // Handle it
+    },
+    None => (),
+}
+```
+
+## Sub-modules
+
+Avoid the `mod x { .. }` construct if possible. Instead, crate a file `x.rs` and define it with `mod x;`
+
+**This applies to all sub-modules except `tests` and `benches`.**
+
+```rust
+// GOOD
+mod x;
+
+// BAD
+mod x {
+    ..
+}
+```
+
+```rust
+// GOOD
+#[cfg(test)]
+mod tests {
+    ..
+}
+
+// BAD
+mod tests;
+```
+
+```rust
+// GOOD
+#[cfg(bench)]
+mod benches {
+    ..
+}
+
+// BAD
+mod benches;
+```
 
 ---
 > Source: [andotherstuff/pensieve](https://github.com/andotherstuff/pensieve) — distributed by [TomeVault](https://tomevault.io).
