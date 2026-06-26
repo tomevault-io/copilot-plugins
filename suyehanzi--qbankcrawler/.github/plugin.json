@@ -1,0 +1,9 @@
+{
+  "name": "suyehanzi--qbankcrawler",
+  "displayName": "QBankCrawler",
+  "description": "Configurable Playwright workflow for authenticated content export to JSON and Word documents.",
+  "version": "1.0.0",
+  "author": "suyehanzi",
+  "homepage": "https://github.com/suyehanzi/QBankCrawler",
+  "skills": []
+}
