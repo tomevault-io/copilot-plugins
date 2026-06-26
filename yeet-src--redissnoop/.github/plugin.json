@@ -1,0 +1,9 @@
+{
+  "name": "yeet-src--redissnoop",
+  "displayName": "redissnoop",
+  "description": "Live, zero-config Redis traffic profiler built on eBPF. Reads plaintext and TLS, no app changes.",
+  "version": "1.0.0",
+  "author": "yeet-src",
+  "homepage": "https://github.com/yeet-src/redissnoop",
+  "skills": []
+}
