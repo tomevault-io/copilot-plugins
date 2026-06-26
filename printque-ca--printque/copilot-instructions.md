@@ -1,25 +1,26 @@
-## coding-principles
+## verify-before-done
 
-> Follow DRY and SOLID programming principles in all code changes
+> Require CI-equivalent checks to pass before marking work as completed
 
 
-# Coding Principles
+# Verify Before Done
 
-Follow DRY and SOLID principles in all code changes.
+Before declaring any task complete, run the relevant CI checks locally and confirm they pass.
 
-## DRY — Don't Repeat Yourself
+## CI checks (from `.github/workflows/ci.yml`)
 
-- Extract repeated logic into shared functions or utilities.
-- If you copy-paste code, stop and refactor it into a single reusable piece.
-- Constants and config values belong in one place, not scattered across files.
+| Check | Command | When to run |
+|-------|---------|-------------|
+| Python lint | `ruff check api/` | After editing any `api/**/*.py` file |
+| Backend tests | `cd api && pytest` | After editing any `api/**/*.py` file |
+| TypeScript type check | `cd app && npx tsc --noEmit` | After editing any `app/**/*.{ts,tsx}` file |
+| Frontend tests | `cd app && npm run test` | After editing any `app/**/*.{ts,tsx}` file |
 
-## SOLID
+## Rules
 
-- **Single Responsibility**: Each module, class, or function does one thing. If a function is growing large, split it.
-- **Open/Closed**: Extend behavior through new code (new functions, subclasses, config) rather than modifying existing working code.
-- **Liskov Substitution**: Subtypes must be usable wherever their parent type is expected without breaking behavior.
-- **Interface Segregation**: Don't force callers to depend on methods they don't use. Keep interfaces small and focused.
-- **Dependency Inversion**: Depend on abstractions, not concrete implementations. Pass dependencies in rather than hard-coding them.
+- Run **all** checks that apply to the files you changed — not just one.
+- If a check fails, fix the issue before marking the task complete.
+- Do not skip checks to save time. A failing CI pipeline is worse than a slow response.
 
 ---
 > Source: [PrintQue-ca/PrintQue](https://github.com/PrintQue-ca/PrintQue) — distributed by [TomeVault](https://tomevault.io).
