@@ -1,9 +1,9 @@
 {
   "name": "goondocks-co--myco",
   "displayName": "myco",
-  "description": "myco",
+  "description": "Myco is the nervous system for AI-assisted software teams. Works automatically alongside the coding agents, subagents, and agent teams you already use",
   "version": "1.0.0",
   "author": "goondocks-co",
-  "homepage": "https://tomevault.io/claim/goondocks-co",
+  "homepage": "https://github.com/goondocks-co/myco",
   "skills": []
 }
