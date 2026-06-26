@@ -1,0 +1,9 @@
+{
+  "name": "giacomo--agents-lint",
+  "displayName": "agents-lint",
+  "description": "Your AGENTS.md is probably lying. Detect stale paths, dead npm scripts, outdated framework patterns, and context rot before they make your coding agents expensive and wrong.",
+  "version": "1.0.0",
+  "author": "giacomo",
+  "homepage": "https://github.com/giacomo/agents-lint",
+  "skills": []
+}
