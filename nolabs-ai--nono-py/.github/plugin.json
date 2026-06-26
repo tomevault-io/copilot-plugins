@@ -1,0 +1,9 @@
+{
+  "name": "nolabs-ai--nono-py",
+  "displayName": "nono-py",
+  "description": "Python Library for nono - kernel enforced agent sandboxing",
+  "version": "1.0.0",
+  "author": "nolabs-ai",
+  "homepage": "https://github.com/nolabs-ai/nono-py",
+  "skills": []
+}
