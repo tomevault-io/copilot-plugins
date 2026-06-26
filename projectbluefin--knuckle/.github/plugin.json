@@ -1,0 +1,9 @@
+{
+  "name": "projectbluefin--knuckle",
+  "displayName": "knuckle",
+  "description": "Deploy Flatcar Container Linux / Core OS at home with a familiar UX",
+  "version": "1.0.0",
+  "author": "projectbluefin",
+  "homepage": "https://github.com/projectbluefin/knuckle",
+  "skills": []
+}
