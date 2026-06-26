@@ -4,7 +4,7 @@
   "repo": "n8n-nodes-plaud-unofficial",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leonardsellem/n8n-nodes-plaud-unofficial",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T18:43:23Z"
+  "distributed_at": "2026-06-26T18:45:00Z"
 }
