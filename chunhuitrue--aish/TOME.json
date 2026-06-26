@@ -4,7 +4,7 @@
   "repo": "aish",
   "description": "Aish is an AI-powered shell assistant designed for command-line environments.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chunhuitrue/aish",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T22:44:22Z"
+  "distributed_at": "2026-06-26T22:44:53Z"
 }
