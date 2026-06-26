@@ -2,20 +2,22 @@
 
 > Sourced from [goondocks-co/myco](https://github.com/goondocks-co/myco) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Myco is the nervous system for AI-assisted software teams. Works automatically alongside the coding agents, subagents, and agent teams you already use
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [goondocks-co/myco](https://github.com/goondocks-co/myco).
+Original source: `AGENTS.md` in [goondocks-co/myco](https://github.com/goondocks-co/myco).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/goondocks-co#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/goondocks-co/myco](https://github.com/goondocks-co/myco)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install goondocks-co/myco
 ```
-Or browse all formats at [https://tomevault.io/claim/goondocks-co](https://tomevault.io/claim/goondocks-co).
+Source: [github.com/goondocks-co/myco](https://github.com/goondocks-co/myco).
 
 <!-- genome:a-i-q -->
