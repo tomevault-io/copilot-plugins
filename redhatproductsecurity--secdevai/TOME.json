@@ -1,0 +1,51 @@
+{
+  "name": "secdevai",
+  "owner": "RedHatProductSecurity",
+  "repo": "secdevai",
+  "description": "Secure-development AI skills package, empowering your AI development tools",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "secdevai-review",
+      "path": "lola-module/skills/secdevai-review",
+      "github_url": "https://github.com/RedHatProductSecurity/secdevai/tree/main/lola-module/skills/secdevai-review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/RedHatProductSecurity/secdevai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T22:31:33Z"
+}
