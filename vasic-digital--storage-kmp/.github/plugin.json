@@ -1,0 +1,9 @@
+{
+  "name": "vasic-digital--storage-kmp",
+  "displayName": "Storage-KMP",
+  "description": "digital.vasic.storage - KMP network storage service interfaces and abstractions",
+  "version": "1.0.0",
+  "author": "vasic-digital",
+  "homepage": "https://github.com/vasic-digital/Storage-KMP",
+  "skills": []
+}
