@@ -1,0 +1,9 @@
+{
+  "name": "orochiwolf--webgpu-snake",
+  "displayName": "WebGPU-Snake",
+  "description": "a snake game in webGPU",
+  "version": "1.0.0",
+  "author": "orochiwolf",
+  "homepage": "https://github.com/orochiwolf/WebGPU-Snake",
+  "skills": []
+}
