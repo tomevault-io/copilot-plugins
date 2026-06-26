@@ -1,0 +1,44 @@
+{
+  "name": "10x-Team",
+  "owner": "Jaan-Mustafa",
+  "repo": "10x-Team",
+  "description": "AI coding  plugin that gives you an entire engineering team \u2014 CTO, SRE, DBA, Security Engineer, and more \u2014 as AI skills.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jaan-Mustafa/10x-Team",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T06:39:18Z"
+}
