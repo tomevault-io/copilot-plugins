@@ -1,0 +1,44 @@
+{
+  "name": "eext-run-api-gateway",
+  "owner": "easyeda",
+  "repo": "eext-run-api-gateway",
+  "description": "\u5609\u7acb\u521bEDA\u4e13\u4e1a\u7248\u6269\u5c55\uff1aRun API Gateway \u2014 \u4e3a AI \u7f16\u7a0b\u5de5\u5177\uff08OpenCode\u3001QwenCode\u3001KimiCode \u7b49\uff09\u63d0\u4f9b WebSocket API \u7f51\u5173\u6865\u63a5\u670d\u52a1\u7684\u5de5\u5177\u3002EasyEDA Pro Extension: Run API Gateway \u2014 a tool that provides WebSocket API gateway bridging services for AI programming tools (OpenCode, QwenCode, KimiCode, etc.).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/easyeda/eext-run-api-gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T08:33:55Z"
+}
