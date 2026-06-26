@@ -7,11 +7,11 @@ Myco is the nervous system for AI-assisted software teams. Works automatically a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [goondocks-co/myco](https://github.com/goondocks-co/myco).
+Original source: `CLAUDE.md` in [goondocks-co/myco](https://github.com/goondocks-co/myco).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
