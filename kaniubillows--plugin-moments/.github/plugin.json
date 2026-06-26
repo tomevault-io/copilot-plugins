@@ -1,0 +1,9 @@
+{
+  "name": "kaniubillows--plugin-moments",
+  "displayName": "plugin-moments",
+  "description": "Fork of halo-sigs/plugin-moments with exclusive page support and hidden tag filtering for Halo 2.x",
+  "version": "1.0.0",
+  "author": "KaniuBillows",
+  "homepage": "https://github.com/KaniuBillows/plugin-moments",
+  "skills": []
+}
