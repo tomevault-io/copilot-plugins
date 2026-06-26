@@ -7,14 +7,14 @@ This is an Open Source Money management Project, Help me improve it with your va
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [bishaldebroy007/naruto-expense](https://github.com/bishaldebroy007/naruto-expense).
+Original source: `AGENTS.md` in [bishaldebroy007/naruto-expense](https://github.com/bishaldebroy007/naruto-expense).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/bishaldebroy007/naruto-expense](https://github.com/bishaldebroy007/naruto-expense)
