@@ -4,7 +4,7 @@
   "repo": "tailwindcss-canonical-classes-monrepo",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/laststance/tailwindcss-canonical-classes-monrepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T01:09:58Z"
+  "distributed_at": "2026-06-26T01:16:28Z"
 }
