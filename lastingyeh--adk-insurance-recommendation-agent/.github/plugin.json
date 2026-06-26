@@ -1,0 +1,9 @@
+{
+  "name": "lastingyeh--adk-insurance-recommendation-agent",
+  "displayName": "adk-insurance-recommendation-agent",
+  "description": "\u57fa\u65bc Google ADK \u8207 MCP Toolbox \u7684\u4fdd\u96aa\u79d1\u6280\u63a8\u85a6 Agent \u539f\u578b\u3002\u6838\u5fc3 Agent \u80fd\u7406\u89e3\u4fdd\u96aa\u9700\u6c42\u3001\u4e3b\u52d5\u8ffd\u554f\uff0c\u4e26\u900f\u904e\u53d7\u63a7 SQL \u5de5\u5177\u67e5\u8a62\u91ab\u7642\u3001\u610f\u5916\u3001\u5bb6\u5ead\u8207\u6536\u5165\u4fdd\u969c\u7522\u54c1\u3002\u5f8c\u7aef\u63a1 FastAPI \u63d0\u4f9b SSE \u4e32\u6d41\u8207 WebSocket \u5373\u6642\u4e92\u52d5\uff0c\u524d\u7aef\u4ee5 Next.js \u5448\u73fe\u5c0d\u8a71\u4ecb\u9762\u3002\u77e5\u8b58\u5eab\u7d50\u5408 PostgreSQL \u8207 pgvector \u5be6\u73fe FAQ \u8a9e\u610f\u641c\u5c0b\u8207 RAG \u67e5",
+  "version": "1.0.0",
+  "author": "lastingyeh",
+  "homepage": "https://github.com/lastingyeh/adk-insurance-recommendation-agent",
+  "skills": []
+}
