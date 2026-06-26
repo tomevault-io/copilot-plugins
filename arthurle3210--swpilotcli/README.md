@@ -7,11 +7,11 @@ Autonomous SolidWorks AI assistant — embeds Claude Code / Codex CLI in the Tas
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [arthurle3210/SwpilotCLI](https://github.com/arthurle3210/SwpilotCLI).
+Original source: `AGENTS.md` in [arthurle3210/SwpilotCLI](https://github.com/arthurle3210/SwpilotCLI).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
