@@ -1,0 +1,9 @@
+{
+  "name": "davidkoleczek--interop-router",
+  "displayName": "interop-router",
+  "description": "Interoperate between AI providers using the OpenAI Responses API as a common interface.",
+  "version": "1.0.0",
+  "author": "DavidKoleczek",
+  "homepage": "https://github.com/DavidKoleczek/interop-router",
+  "skills": []
+}
