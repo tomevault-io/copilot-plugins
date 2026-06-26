@@ -1,0 +1,9 @@
+{
+  "name": "fedramp--rules",
+  "displayName": "rules",
+  "description": "This repository contains the structured machine-readable rules for FedRAMP.",
+  "version": "1.0.0",
+  "author": "FedRAMP",
+  "homepage": "https://github.com/FedRAMP/rules",
+  "skills": []
+}
