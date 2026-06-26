@@ -4,7 +4,7 @@
   "repo": "ASSERT",
   "description": "Requirement-driven evaluation harness for AI agents and LLM applications. Generate behavior-specific test cases, run them against any target (hosted models, callable wrappers, OTel-traced agents), and inspect local-first artifacts.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/responsibleai/ASSERT",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T00:33:12Z"
+  "distributed_at": "2026-06-26T00:35:00Z"
 }
