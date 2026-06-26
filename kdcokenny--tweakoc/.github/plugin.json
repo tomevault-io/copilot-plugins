@@ -1,0 +1,9 @@
+{
+  "name": "kdcokenny--tweakoc",
+  "displayName": "tweakoc",
+  "description": "Browser-based wizard for generating and sharing OpenCode/OCX harness profiles (opencode.jsonc and ocx.jsonc).",
+  "version": "1.0.0",
+  "author": "kdcokenny",
+  "homepage": "https://github.com/kdcokenny/tweakoc",
+  "skills": []
+}
