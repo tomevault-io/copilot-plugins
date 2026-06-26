@@ -4,7 +4,7 @@
   "repo": "pebbleface-studio",
   "description": "A tool for generating Pebble watchfaces online.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Yorks0n/pebbleface-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T22:39:33Z"
+  "distributed_at": "2026-06-26T22:40:58Z"
 }
