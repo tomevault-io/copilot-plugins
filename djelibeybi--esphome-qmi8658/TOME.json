@@ -4,7 +4,7 @@
   "repo": "esphome-qmi8658",
   "description": "ESPHome external component for the QMI8658C IMU found in Waveshare devices",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Djelibeybi/esphome-qmi8658",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T16:30:57Z"
+  "distributed_at": "2026-06-26T16:33:31Z"
 }
