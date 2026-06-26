@@ -1,0 +1,9 @@
+{
+  "name": "responsibleai--assert",
+  "displayName": "ASSERT",
+  "description": "Requirement-driven evaluation harness for AI agents and LLM applications. Generate behavior-specific test cases, run them against any target (hosted models, callable wrappers, OTel-traced agents), and",
+  "version": "1.0.0",
+  "author": "responsibleai",
+  "homepage": "https://github.com/responsibleai/ASSERT",
+  "skills": []
+}
