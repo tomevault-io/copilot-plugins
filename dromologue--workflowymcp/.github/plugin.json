@@ -1,0 +1,9 @@
+{
+  "name": "dromologue--workflowymcp",
+  "displayName": "workflowyMCP",
+  "description": "An MCP server that uses Workflowy and Claude to manage Tasks & Information in Workflowy and create a Second Brain",
+  "version": "1.0.0",
+  "author": "dromologue",
+  "homepage": "https://github.com/dromologue/workflowyMCP",
+  "skills": []
+}
