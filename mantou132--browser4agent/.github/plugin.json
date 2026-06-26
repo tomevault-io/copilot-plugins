@@ -1,0 +1,9 @@
+{
+  "name": "mantou132--browser4agent",
+  "displayName": "browser4agent",
+  "description": "Expose browser tab reading, browser control, and page tool execution to user-configured AI agents through a local MCP service.",
+  "version": "1.0.0",
+  "author": "mantou132",
+  "homepage": "https://github.com/mantou132/browser4agent",
+  "skills": []
+}
