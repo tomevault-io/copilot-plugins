@@ -1,277 +1,219 @@
-## design-system
+## quick-reference
 
-> Baukasten uses a **semantic design token system** that provides platform-agnostic theming. All components MUST use these design tokens instead of direct VSCode variables or hardcoded values.
+> Quick patterns and examples for using the Baukasten design system.
 
 
-# Baukasten Design System Guide
+# Baukasten Quick Reference
 
-## Overview
+Quick patterns and examples for using the Baukasten design system.
 
-Baukasten uses a **semantic design token system** that provides platform-agnostic theming. All components MUST use these design tokens instead of direct VSCode variables or hardcoded values.
+## 📍 Token Definitions
 
-## 📍 Source of Truth
+**Source of Truth**: All tokens are defined in:
 
-The design system is defined in these files:
+- `packages/Baukasten/src/styles/colors.ts`
+- `packages/Baukasten/src/styles/spacing.ts`
+- `packages/Baukasten/src/styles/typography.ts`
+- `packages/Baukasten/src/styles/effects.ts`
 
-### Design Token Modules (Single Source of Truth)
+**Visual Documentation**: Run `npm run storybook` → "Design System / Tokens"
 
-1. **Colors**: `packages/Baukasten/src/styles/colors.ts`
+## Most Common Tokens
 
-   - Semantic color tokens (primary, secondary, success, warning, danger, info)
-   - Neutral colors (background, foreground, border)
-   - Interactive states (hover, active, focus, selected)
-   - Component-specific colors (input, badge, link, etc.)
+```css
+/* Colors */
+--bk-color-primary
+--bk-color-foreground
+--bk-color-background
+--bk-color-border
 
-2. **Spacing**: `packages/Baukasten/src/styles/spacing.ts`
+/* Spacing */
+--bk-spacing-4        /* 16px */
+--bk-padding-md       /* 6px 14px */
+--bk-gap-sm          /* 6px */
 
-   - Spacing scale (0-24, base unit: 4px)
-   - Semantic spacing (gaps, padding, sizes)
-   - Component sizes (xs, sm, md, lg, xl)
-   - Circular sizes for icon buttons/avatars
+/* Typography */
+--bk-font-size-md    /* 13px */
+--bk-font-weight-medium
 
-3. **Typography**: `packages/Baukasten/src/styles/typography.ts`
-
-   - Font sizes (xs through 5xl)
-   - Font weights (light to bold)
-   - Line heights and letter spacing
-   - Font families (sans, mono)
-
-4. **Effects**: `packages/Baukasten/src/styles/effects.ts`
-   - Border radius (none to full)
-   - Shadows (sm to 2xl)
-   - Transitions (fast, base, slow)
-   - Opacity and z-index scales
-   - Border widths
-
-### Integration Files
-
-- **Combined CSS Variables**: `packages/Baukasten/src/styles/css-variables.ts`
-- **Global Styles Component**: `packages/Baukasten/src/styles/global-styles.tsx`
-- **TypeScript Types**: `packages/Baukasten/src/styles/types.ts`
-
-### Documentation & Examples
-
-- **Visual Documentation**: `packages/Baukasten/src/DesignSystem.stories.tsx`
-
-  - Interactive Storybook story showing all tokens
-  - Live examples and visual previews
-  - Run `npm run storybook` to view
-
-- **Reference Components**:
-  - `packages/Baukasten/src/components/Button/Button.tsx` - Full implementation example
-  - `packages/Baukasten/src/components/Input/Input.tsx` - Form component example
-  - `packages/Baukasten/src/components/Badge/Badge.tsx` - Simple component example
-
-## Core Principles
-
-### ✅ DO
-
-```tsx
-// Use semantic tokens from design system
-background-color: var(--bk-color-primary);
-padding: var(--bk-padding-md);
-font-size: var(--bk-font-size-md);
-border-radius: var(--bk-radius-md);
-transition: var(--bk-transition-colors);
+/* Effects */
+--bk-radius-md
+--bk-transition-colors
 ```
-
-### ❌ DON'T
-
-```tsx
-// Don't hardcode values
-background-color: #007acc;
-padding: 8px 16px;
-font-size: 13px;
-
-// Don't use VSCode variables directly
-background-color: var(--vscode-button-background);
-```
-
-## Creating New Components
-
-1. Check existing token files for available design tokens
-2. Use semantic tokens (never hardcode or use --vscode-\* directly)
-3. Use vanilla-extract for styling
-4. Export TypeScript types for props
-5. Create Storybook stories for documentation
 
 ## Component Template
 
-See `@quick-reference` cursor rule for a quick component template.
-
-## Helper Functions
-
-Each design token module exports TypeScript helper functions:
-
-- `getColorToken()` from `colors.ts`
-- `getSpacing()` from `spacing.ts`
-- `getFontSize()` from `typography.ts`
-- `getBorderRadius()` from `effects.ts`
-
-## Usage in Applications
-
-### VSCode Webview
-
 ```tsx
-import { GlobalStyles } from "baukasten-ui";
-// No wrapper needed - uses native VSCode theme
-<GlobalStyles />;
+import styled from "styled-components";
+
+export interface MyComponentProps {
+  size?: "sm" | "md" | "lg";
+}
+
+const StyledComponent = styled.div<{ $size: string }>`
+  padding: var(--bk-padding-${(props) => props.$size});
+  background-color: var(--bk-color-background);
+  color: var(--bk-color-foreground);
+  border: var(--bk-border-width-1) solid var(--bk-color-border);
+  border-radius: var(--bk-radius-md);
+  font-size: var(--bk-font-size-md);
+  transition: var(--bk-transition-colors);
+
+  &:hover {
+    background-color: var(--bk-color-hover);
+  }
+`;
+
+export const MyComponent: React.FC<MyComponentProps> = ({
+  size = "md",
+  ...props
+}) => {
+  return <StyledComponent $size={size} {...props} />;
+};
 ```
 
-### Web Application
+## File Structure
 
-```tsx
-import { GlobalStyles } from "baukasten-ui";
-import { VSCodeThemeWrapper } from "baukasten-ui-web-wrapper";
-// Wrapper simulates VSCode theming
-<>
-  <GlobalStyles />
-  <VSCodeThemeWrapper>...</VSCodeThemeWrapper>
-</>;
+```
+ComponentName/
+├── ComponentName.tsx         # Implementation
+├── ComponentName.stories.tsx # Storybook
+└── index.ts                  # Exports
 ```
 
-## Quick Reference
+## Do's and Don'ts
 
-For common tokens and quick patterns, see `@quick-reference` cursor rule.
-
----
-
-**Remember**: Always check the source files listed above for the most up-to-date token definitions. The code is the single source of truth!
-
-# Baukasten Design System Guide
-
-## Overview
-
-Baukasten uses a **semantic design token system** that provides platform-agnostic theming. All components MUST use these design tokens instead of direct VSCode variables or hardcoded values.
-
-## 📍 Source of Truth
-
-The design system is defined in these files:
-
-### Design Token Modules (Single Source of Truth)
-
-1. **Colors**: `packages/Baukasten/src/styles/colors.ts`
-
-   - Semantic color tokens (primary, secondary, success, warning, danger, info)
-   - Neutral colors (background, foreground, border)
-   - Interactive states (hover, active, focus, selected)
-   - Component-specific colors (input, badge, link, etc.)
-
-2. **Spacing**: `packages/Baukasten/src/styles/spacing.ts`
-
-   - Spacing scale (0-24, base unit: 4px)
-   - Semantic spacing (gaps, padding, sizes)
-   - Component sizes (xs, sm, md, lg, xl)
-   - Circular sizes for icon buttons/avatars
-
-3. **Typography**: `packages/Baukasten/src/styles/typography.ts`
-
-   - Font sizes (xs through 5xl)
-   - Font weights (light to bold)
-   - Line heights and letter spacing
-   - Font families (sans, mono)
-
-4. **Effects**: `packages/Baukasten/src/styles/effects.ts`
-   - Border radius (none to full)
-   - Shadows (sm to 2xl)
-   - Transitions (fast, base, slow)
-   - Opacity and z-index scales
-   - Border widths
-
-### Integration Files
-
-- **Combined CSS Variables**: `packages/Baukasten/src/styles/css-variables.ts`
-- **Global Styles Component**: `packages/Baukasten/src/styles/global-styles.tsx`
-- **TypeScript Types**: `packages/Baukasten/src/styles/types.ts`
-
-### Documentation & Examples
-
-- **Visual Documentation**: `packages/Baukasten/src/DesignSystem.stories.tsx`
-
-  - Interactive Storybook story showing all tokens
-  - Live examples and visual previews
-  - Run `npm run storybook` to view
-
-- **Reference Components**:
-  - `packages/Baukasten/src/components/Button/Button.tsx` - Full implementation example
-  - `packages/Baukasten/src/components/Input/Input.tsx` - Form component example
-  - `packages/Baukasten/src/components/Badge/Badge.tsx` - Simple component example
-
-## Core Principles
-
-### ✅ DO
+✅ **Use semantic tokens**
 
 ```tsx
-// Use semantic tokens from design system
-background-color: var(--bk-color-primary);
+color: var(--bk-color-primary);
 padding: var(--bk-padding-md);
-font-size: var(--bk-font-size-md);
-border-radius: var(--bk-radius-md);
-transition: var(--bk-transition-colors);
 ```
 
-### ❌ DON'T
+❌ **Don't hardcode or use VSCode vars directly**
 
 ```tsx
-// Don't hardcode values
-background-color: #007acc;
-padding: 8px 16px;
-font-size: 13px;
-
-// Don't use VSCode variables directly
-background-color: var(--vscode-button-background);
+color: #007acc;  // Never hardcode
+background: var(--vscode-button-background);  // Too specific
 ```
 
-## Creating New Components
+## Reference Components
 
-1. Check existing token files for available design tokens
-2. Use semantic tokens (never hardcode or use --vscode-\* directly)
-3. Use styled-components for styling
-4. Export TypeScript types for props
-5. Create Storybook stories for documentation
+Look at these for examples:
+
+- `packages/Baukasten/src/components/Button/Button.tsx`
+- `packages/Baukasten/src/components/Input/Input.tsx`
+- `packages/Baukasten/src/components/Badge/Badge.tsx`
+
+## Full Details
+
+See `@design-system` cursor rule for complete information and file locations.
+
+# Baukasten Quick Reference
+
+Quick patterns and examples for using the Baukasten design system.
+
+## 📍 Token Definitions
+
+**Source of Truth**: All tokens are defined in:
+
+- `packages/Baukasten/src/styles/colors.ts`
+- `packages/Baukasten/src/styles/spacing.ts`
+- `packages/Baukasten/src/styles/typography.ts`
+- `packages/Baukasten/src/styles/effects.ts`
+
+**Visual Documentation**: Run `npm run storybook` → "Design System / Tokens"
+
+## Most Common Tokens
+
+```css
+/* Colors */
+--bk-color-primary
+--bk-color-foreground
+--bk-color-background
+--bk-color-border
+
+/* Spacing */
+--bk-spacing-4        /* 16px */
+--bk-padding-md       /* 6px 14px */
+--bk-gap-sm          /* 6px */
+
+/* Typography */
+--bk-font-size-md    /* 13px */
+--bk-font-weight-medium
+
+/* Effects */
+--bk-radius-md
+--bk-transition-colors
+```
 
 ## Component Template
 
-See `@quick-reference` cursor rule for a quick component template.
-
-## Helper Functions
-
-Each design token module exports TypeScript helper functions:
-
-- `getColorToken()` from `colors.ts`
-- `getSpacing()` from `spacing.ts`
-- `getFontSize()` from `typography.ts`
-- `getBorderRadius()` from `effects.ts`
-
-## Usage in Applications
-
-### VSCode Webview
-
 ```tsx
-import { GlobalStyles } from "baukasten-ui";
-// No wrapper needed - uses native VSCode theme
-<GlobalStyles />;
+import styled from "styled-components";
+
+export interface MyComponentProps {
+  size?: "sm" | "md" | "lg";
+}
+
+const StyledComponent = styled.div<{ $size: string }>`
+  padding: var(--bk-padding-${(props) => props.$size});
+  background-color: var(--bk-color-background);
+  color: var(--bk-color-foreground);
+  border: var(--bk-border-width-1) solid var(--bk-color-border);
+  border-radius: var(--bk-radius-md);
+  font-size: var(--bk-font-size-md);
+  transition: var(--bk-transition-colors);
+
+  &:hover {
+    background-color: var(--bk-color-hover);
+  }
+`;
+
+export const MyComponent: React.FC<MyComponentProps> = ({
+  size = "md",
+  ...props
+}) => {
+  return <StyledComponent $size={size} {...props} />;
+};
 ```
 
-### Web Application
+## File Structure
 
-```tsx
-import { GlobalStyles } from "baukasten-ui";
-import { VSCodeThemeWrapper } from "baukasten-ui-web-wrapper";
-// Wrapper simulates VSCode theming
-<>
-  <GlobalStyles />
-  <VSCodeThemeWrapper>...</VSCodeThemeWrapper>
-</>;
+```
+ComponentName/
+├── ComponentName.tsx         # Implementation
+├── ComponentName.stories.tsx # Storybook
+└── index.ts                  # Exports
 ```
 
-## Quick Reference
+## Do's and Don'ts
 
-For common tokens and quick patterns, see `@quick-reference` cursor rule.
+✅ **Use semantic tokens**
 
----
+```tsx
+color: var(--bk-color-primary);
+padding: var(--bk-padding-md);
+```
 
-**Remember**: Always check the source files listed above for the most up-to-date token definitions. The code is the single source of truth!
+❌ **Don't hardcode or use VSCode vars directly**
+
+```tsx
+color: #007acc;  // Never hardcode
+background: var(--vscode-button-background);  // Too specific
+```
+
+## Reference Components
+
+Look at these for examples:
+
+- `packages/Baukasten/src/components/Button/Button.tsx`
+- `packages/Baukasten/src/components/Input/Input.tsx`
+- `packages/Baukasten/src/components/Badge/Badge.tsx`
+
+## Full Details
+
+See `@design-system` cursor rule for complete information and file locations.
 
 ---
 > Source: [TypeFox/baukasten](https://github.com/TypeFox/baukasten) — distributed by [TomeVault](https://tomevault.io).
