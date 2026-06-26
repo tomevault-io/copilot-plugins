@@ -1,0 +1,44 @@
+{
+  "name": "Atomic-Chat",
+  "owner": "AtomicBot-ai",
+  "repo": "Atomic-Chat",
+  "description": "Local AI app and inference engine for agents. Run open-weight LLMs locally \u2014 private, 100% offline on your computer.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AtomicBot-ai/Atomic-Chat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-26T04:36:24Z"
+}
