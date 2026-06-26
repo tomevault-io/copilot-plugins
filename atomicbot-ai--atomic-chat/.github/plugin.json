@@ -1,0 +1,9 @@
+{
+  "name": "atomicbot-ai--atomic-chat",
+  "displayName": "Atomic-Chat",
+  "description": "Local AI app and inference engine for agents. Run open-weight LLMs locally \u2014 private, 100% offline on your computer.",
+  "version": "1.0.0",
+  "author": "AtomicBot-ai",
+  "homepage": "https://github.com/AtomicBot-ai/Atomic-Chat",
+  "skills": []
+}
