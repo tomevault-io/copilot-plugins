@@ -1,0 +1,9 @@
+{
+  "name": "okikio--cloudflare-ddns",
+  "displayName": "cloudflare-ddns",
+  "description": "DDNS using Cloudflare Workers, built for NAS, homelab, and self-hosted setups using Cloudflare domains.",
+  "version": "1.0.0",
+  "author": "okikio",
+  "homepage": "https://github.com/okikio/cloudflare-ddns",
+  "skills": []
+}
