@@ -1,0 +1,9 @@
+{
+  "name": "ilgizar-valiullin--mcp-search",
+  "displayName": "mcp_search",
+  "description": "Unified MCP search server with 8 providers, caching, reranking, and rate limits",
+  "version": "1.0.0",
+  "author": "ilgizar-valiullin",
+  "homepage": "https://github.com/ilgizar-valiullin/mcp_search",
+  "skills": []
+}
