@@ -1,0 +1,9 @@
+{
+  "name": "ha7ch--cv-pro",
+  "displayName": "cv-pro",
+  "description": "cv \u2014 turn a PDF resume into a living personal site. Multi-tenant resume hosting with a Claude Code / Codex plugin.",
+  "version": "1.0.0",
+  "author": "HA7CH",
+  "homepage": "https://github.com/HA7CH/cv-pro",
+  "skills": []
+}
