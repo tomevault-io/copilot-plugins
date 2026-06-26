@@ -7,11 +7,11 @@ DailyScholar 是一套开箱即用的科研工作台，打通从论文抓取、L
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ShilongHong/DailyScholar](https://github.com/ShilongHong/DailyScholar).
+Original source: `CLAUDE.md` in [ShilongHong/DailyScholar](https://github.com/ShilongHong/DailyScholar).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
