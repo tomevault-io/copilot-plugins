@@ -1,0 +1,9 @@
+{
+  "name": "sd2k--conch",
+  "displayName": "conch",
+  "description": "Bash in WebAssembly",
+  "version": "1.0.0",
+  "author": "sd2k",
+  "homepage": "https://github.com/sd2k/conch",
+  "skills": []
+}
