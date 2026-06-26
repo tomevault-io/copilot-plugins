@@ -1,0 +1,9 @@
+{
+  "name": "eddacraft--anvil-plan-spec",
+  "displayName": "anvil-plan-spec",
+  "description": "Lightweight spec for planning and task authorisation in AI-assisted development.",
+  "version": "1.0.0",
+  "author": "eddacraft",
+  "homepage": "https://github.com/eddacraft/anvil-plan-spec",
+  "skills": []
+}
