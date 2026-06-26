@@ -213669,6 +213669,41 @@
       "description": "Agent Academy \u662f\u4e00\u4e2a\u5f00\u6e90\u7684 AI Agent \u8bad\u7ec3\u77e5\u8bc6\u5e93\uff0c\u81f4\u529b\u4e8e\u4e3a AI \u52a9\u624b\uff08\u5982 OpenClaw\u3001Claude\u3001ChatGPT \u7b49\uff09\u63d0\u4f9b\u7ed3\u6784\u5316\u7684\u6280\u80fd\u4f53\u7cfb\u548c\u77e5\u8bc6\u8d44\u6e90\u3002  \u5c31\u50cf\u4eba\u7c7b\u9700\u8981\u5728\u5b66\u6821\u5b66\u4e60\u5404\u79cd\u6280\u80fd\u4e00\u6837\uff0cAI Agent \u4e5f\u9700\u8981\u4e00\u4e2a\"\u5b66\u9662\"\u6765\u83b7\u53d6\u77e5\u8bc6\u3001\u63d0\u5347\u80fd\u529b\u3002Agent Academy \u6b63\u662f\u8fd9\u6837\u4e00\u4e2a\u77e5\u8bc6\u5b9d\u5e93\uff0c\u5305\u542b\u4e86\u8f6f\u4ef6\u5f00\u53d1\u3001\u4ea7\u54c1\u8bbe\u8ba1\u3001\u6570\u636e\u5206\u6790\u3001AI/ML \u7b49 12 \u4e2a\u9886\u57df"
     },
     {
+      "name": "localai-org--free-splatter-cpp",
+      "source": "./localai-org--free-splatter-cpp",
+      "description": "Turn images into 3D scenes - GGML port of FreeSplatter: Pose-free Gaussian Splatting for Sparse-view 3D Reconstruction "
+    },
+    {
+      "name": "giacomo--agents-lint",
+      "source": "./giacomo--agents-lint",
+      "description": "Your AGENTS.md is probably lying. Detect stale paths, dead npm scripts, outdated framework patterns, and context rot before they make your coding agents expensive and wrong."
+    },
+    {
+      "name": "jayzeng--agentmemory",
+      "source": "./jayzeng--agentmemory",
+      "description": "agentmemory: persistent memory for coding agents (Claude Code, OpenAI Codex, Cursor, Agent) with local markdown storage, daily logs, scratchpad, and qmd semantic search."
+    },
+    {
+      "name": "giacomo--agents-lint",
+      "source": "./giacomo--agents-lint",
+      "description": "Your AGENTS.md is probably lying. Detect stale paths, dead npm scripts, outdated framework patterns, and context rot before they make your coding agents expensive and wrong."
+    },
+    {
+      "name": "stevetgit--ai-master",
+      "source": "./stevetgit--ai-master",
+      "description": "AI_Master"
+    },
+    {
+      "name": "katagaki--sakurarss",
+      "source": "./katagaki--sakurarss",
+      "description": "RSS reader for iOS with rich multimedia, custom provider, and multilingual support."
+    },
+    {
+      "name": "jayzeng--agentmemory",
+      "source": "./jayzeng--agentmemory",
+      "description": "agentmemory: persistent memory for coding agents (Claude Code, OpenAI Codex, Cursor, Agent) with local markdown storage, daily logs, scratchpad, and qmd semantic search."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -230682,6 +230717,36 @@
       "name": "px0-ai--px0",
       "source": "./px0-ai--px0",
       "description": "px[0] is an open-source prompt infrastructure toolkit for managing prompts in production."
+    },
+    {
+      "name": "lucas-datacamp--vibe-design-system",
+      "source": "./lucas-datacamp--vibe-design-system",
+      "description": "Astro + Tailwind 4 + DaisyUI design system scaffold"
+    },
+    {
+      "name": "fedify-dev--drfed",
+      "source": "./fedify-dev--drfed",
+      "description": "Web-based platform for developing and debugging ActivityPub implementations"
+    },
+    {
+      "name": "fedify-dev--drfed",
+      "source": "./fedify-dev--drfed",
+      "description": "Web-based platform for developing and debugging ActivityPub implementations"
+    },
+    {
+      "name": "lucas-datacamp--vibe-design-system",
+      "source": "./lucas-datacamp--vibe-design-system",
+      "description": "Astro + Tailwind 4 + DaisyUI design system scaffold"
+    },
+    {
+      "name": "ninemindai--agentgem",
+      "source": "./ninemindai--agentgem",
+      "description": "A local web UI that introspects your coding-agent config, redacts secrets at capture, and builds a portable, composable Gem."
+    },
+    {
+      "name": "lucas-datacamp--vibe-design-system",
+      "source": "./lucas-datacamp--vibe-design-system",
+      "description": "Astro + Tailwind 4 + DaisyUI design system scaffold"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -352172,6 +352237,11 @@
       "name": "indroic--hexcore-skill",
       "source": "./indroic--hexcore-skill",
       "description": "hexcore-skill"
+    },
+    {
+      "name": "djelibeybi--home-assistant-core",
+      "source": "./djelibeybi--home-assistant-core",
+      "description": "home-assistant-core"
     }
   ]
 }
