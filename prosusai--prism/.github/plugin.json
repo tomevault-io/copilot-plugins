@@ -1,0 +1,9 @@
+{
+  "name": "prosusai--prism",
+  "displayName": "prism",
+  "description": "Give Claude Code persistent memory \u2014 captures patterns from your sessions, validates them with AI, and surfaces team knowledge as reusable skills",
+  "version": "1.0.0",
+  "author": "ProsusAI",
+  "homepage": "https://github.com/ProsusAI/prism",
+  "skills": []
+}
