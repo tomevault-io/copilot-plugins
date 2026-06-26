@@ -4,7 +4,7 @@
   "repo": "flutter_view_model",
   "description": "pure & lightweight state management library for Flutter",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/lwj1994/flutter_view_model",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T22:33:52Z"
+  "distributed_at": "2026-06-26T09:02:39Z"
 }
