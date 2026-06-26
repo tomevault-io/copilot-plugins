@@ -7,11 +7,11 @@ AI Novel Diagnosis Desk：一站式 AI 网文诊断工作台，可自动解析�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [myyimu/ai-novel-diagnosis](https://github.com/myyimu/ai-novel-diagnosis).
+Original source: `CLAUDE.md` in [myyimu/ai-novel-diagnosis](https://github.com/myyimu/ai-novel-diagnosis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
