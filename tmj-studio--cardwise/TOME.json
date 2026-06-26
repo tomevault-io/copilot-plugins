@@ -4,7 +4,7 @@
   "repo": "CardWise",
   "description": "iOS app to maximize credit card rewards with smart recommendations",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tmj-studio/CardWise",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T22:46:58Z"
+  "distributed_at": "2026-06-26T22:48:27Z"
 }
