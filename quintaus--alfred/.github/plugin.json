@@ -1,0 +1,9 @@
+{
+  "name": "quintaus--alfred",
+  "displayName": "Alfred",
+  "description": "An AI UI that manages your personal tasks autonomously with voice activation",
+  "version": "1.0.0",
+  "author": "QuintAus",
+  "homepage": "https://github.com/QuintAus/Alfred",
+  "skills": []
+}
