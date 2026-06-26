@@ -9634,6 +9634,11 @@
       "description": "MacOS\u8bed\u97f3\u8f93\u5165\u6cd5\uff0c\u5b9e\u65f6\u8bc6\u522b\u3001\u5927\u6a21\u578b\u6587\u672c\u4f18\u5316\u3001\u5168\u672c\u5730\u5b58\u50a8"
     },
     {
+      "name": "atomicbot-ai--atomic-chat",
+      "source": "./atomicbot-ai--atomic-chat",
+      "description": "Local AI app and inference engine for agents. Run open-weight LLMs locally \u2014 private, 100% offline on your computer."
+    },
+    {
       "name": "hexabot-ai--hexabot",
       "source": "./hexabot-ai--hexabot",
       "description": "Hexabot v3 is an AI automation platform, combining workflows, actions, agents, and conversational channels in one runtime."
@@ -101034,6 +101039,11 @@
       "description": "Un-0"
     },
     {
+      "name": "byrdocs--byrdocs-neowiki",
+      "source": "./byrdocs--byrdocs-neowiki",
+      "description": "BYR Docs \u7ef4\u57fa\u771f\u9898"
+    },
+    {
       "name": "eliornl--applypilot",
       "source": "./eliornl--applypilot",
       "description": "Self-hosted, AI-powered job search companion. Paste a job posting and five AI agents run an orchestrated pipeline \u2014 analyze the role, score your fit, research the company, rewrite your resume, and wri"
@@ -113784,11 +113794,6 @@
       "description": "gui and cli to download from tidal"
     },
     {
-      "name": "baekenough--oh-my-customcode",
-      "source": "./baekenough--oh-my-customcode",
-      "description": "oh-my-zsh style customization framework for Claude Code"
-    },
-    {
       "name": "dongshuyan--compass-skills",
       "source": "./dongshuyan--compass-skills",
       "description": "\u53f8\u5357\uff1a\u4e2a\u6027\u5316 AI \u4efb\u52a1\u603b\u63a7 Skills \u7cfb\u7edf /COMPASS: Personal Alignment Skills OS for AI Agents"
@@ -114077,6 +114082,11 @@
       "name": "fuqiang--feishu-deck-h5",
       "source": "./fuqiang--feishu-deck-h5",
       "description": "feishu-deck-h5"
+    },
+    {
+      "name": "baekenough--oh-my-customcode",
+      "source": "./baekenough--oh-my-customcode",
+      "description": "oh-my-zsh style customization framework for Claude Code"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -130737,6 +130747,11 @@
       "name": "sztu-acm--autocode",
       "source": "./sztu-acm--autocode",
       "description": "\u9762\u5411 ICPC/CCPC \u7684 AI \u8f85\u52a9\u81ea\u52a8\u5316\u51fa\u9898\u4e0e\u9a8c\u9898\u4e13\u5bb6\u7cfb\u7edf\u3002\u652f\u6301\u81ea\u52a8\u751f\u9898\u3001testlib \u6821\u9a8c\u3001\u5bf9\u62cd\u9a8c\u8bc1\u53ca Polygon \u683c\u5f0f\u6253\u5305\u3002"
+    },
+    {
+      "name": "biaspace--frontend-make-it-21",
+      "source": "./biaspace--frontend-make-it-21",
+      "description": "games that you should calculate the four number and make it 21"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -170824,6 +170839,16 @@
       "description": "tao-skills-bank"
     },
     {
+      "name": "oukeming64-tech--direct-light",
+      "source": "./oukeming64-tech--direct-light",
+      "description": "\u767d\u68da\u706f\u5149\u9884\u6f14 \u00b7 A white-studio lighting previz sandbox for directors, DPs & gaffers (React + React Three Fiber)"
+    },
+    {
+      "name": "oukeming64-tech--direct-light",
+      "source": "./oukeming64-tech--direct-light",
+      "description": "\u767d\u68da\u706f\u5149\u9884\u6f14 \u00b7 A white-studio lighting previz sandbox for directors, DPs & gaffers (React + React Three Fiber)"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -183157,6 +183182,41 @@
       "name": "bropines--tailsocks",
       "source": "./bropines--tailsocks",
       "description": "Userspace socks5 tailscale implementation on android."
+    },
+    {
+      "name": "zarlor--suno-band-manager",
+      "source": "./zarlor--suno-band-manager",
+      "description": "AI-powered music production assistant for creating Suno-ready song packages \u2014 a BMad Method module"
+    },
+    {
+      "name": "zarlor--suno-band-manager",
+      "source": "./zarlor--suno-band-manager",
+      "description": "AI-powered music production assistant for creating Suno-ready song packages \u2014 a BMad Method module"
+    },
+    {
+      "name": "arturoriosmock--mapa-emergencia-rescate",
+      "source": "./arturoriosmock--mapa-emergencia-rescate",
+      "description": "Mapa de emergencia y rescate: reportes ciudadanos en tiempo real para coordinar ayuda humanitaria (Next.js + Leaflet + Upstash Redis)"
+    },
+    {
+      "name": "knows-cloud--paperless-iq",
+      "source": "./knows-cloud--paperless-iq",
+      "description": "Open-source AI add-on for Paperless-NGX: automatic metadata & tagging, RAG document search, and automation with Ollama, Bedrock, Anthropic, and OpenAI"
+    },
+    {
+      "name": "zarlor--suno-band-manager",
+      "source": "./zarlor--suno-band-manager",
+      "description": "AI-powered music production assistant for creating Suno-ready song packages \u2014 a BMad Method module"
+    },
+    {
+      "name": "sepahead--crebain",
+      "source": "./sepahead--crebain",
+      "description": "Adaptive Response & Awareness System (ARAS): research-oriented tactical visualization & autonomy prototype \u2014 sensor fusion, ML detection, drone physics, ROS/Gazebo. Tauri + React + Rust."
+    },
+    {
+      "name": "weisser-dev--awesome-opencode",
+      "source": "./weisser-dev--awesome-opencode",
+      "description": "108 agents, 15 skills, smart model config, and interactive CLI for OpenCode \u2014 npx @weisser-dev/awesome-opencode"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -213359,6 +213419,11 @@
       "description": "A tiny, CPU-efficient transformer for generating ASCII art with 2D positional encoding"
     },
     {
+      "name": "pskoett--measuring-ai-proficiency",
+      "source": "./pskoett--measuring-ai-proficiency",
+      "description": "Measuring AI Proficiency: Context Engineering as a Leading Indicator"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -230314,6 +230379,11 @@
       "description": "Live, zero-config Redis traffic profiler built on eBPF. Reads plaintext and TLS, no app changes."
     },
     {
+      "name": "firekula--ccc-obfuscated-code-3x",
+      "source": "./firekula--ccc-obfuscated-code-3x",
+      "description": "Cocos Creator 3.x \u4ee3\u7801\u6df7\u6dc6\u63d2\u4ef6 \u2014 \u57fa\u4e8e javascript-obfuscator\uff0c\u652f\u6301\u6784\u5efa\u540e\u81ea\u52a8\u6df7\u6dc6\uff0c\u5185\u7f6e 5 \u7ea7\u9884\u8bbe\uff0c\u517c\u5bb9 web-mobile / android \u7b49\u591a\u5e73\u53f0"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -236032,6 +236102,11 @@
       "name": "dianfangsihuo--gptsovits-codex-voice-skill",
       "source": "./dianfangsihuo--gptsovits-codex-voice-skill",
       "description": "gptsovits-codex-voice-skill"
+    },
+    {
+      "name": "david-hoze--bit",
+      "source": "./david-hoze--bit",
+      "description": "bit"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -311072,11 +311147,6 @@
       "name": "kevinktg--teamllm",
       "source": "./kevinktg--teamllm",
       "description": "teamllm"
-    },
-    {
-      "name": "david-hoze--bit",
-      "source": "./david-hoze--bit",
-      "description": "bit"
     },
     {
       "name": "hackgvl--hackgreenville-com",
