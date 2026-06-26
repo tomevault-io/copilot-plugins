@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "AI agent skills for Sinch communication APIs. Get expert guidance on getting started, best practices, and gotchas -- right inside your AI coding agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sinch/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T01:12:02Z"
+  "distributed_at": "2026-06-26T01:19:27Z"
 }
