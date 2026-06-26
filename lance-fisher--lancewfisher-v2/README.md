@@ -7,11 +7,11 @@ Personal splash page - lancewfisher.com
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lance-fisher/lancewfisher-v2](https://github.com/lance-fisher/lancewfisher-v2).
+Original source: `CLAUDE.md` in [lance-fisher/lancewfisher-v2](https://github.com/lance-fisher/lancewfisher-v2).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
