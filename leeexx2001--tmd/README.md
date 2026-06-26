@@ -7,11 +7,11 @@ Twitter Media Downloader 修改日志见 CHANGELOG.md
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [leeexx2001/tmd](https://github.com/leeexx2001/tmd).
+Original source: `AGENTS.md` in [leeexx2001/tmd](https://github.com/leeexx2001/tmd).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
