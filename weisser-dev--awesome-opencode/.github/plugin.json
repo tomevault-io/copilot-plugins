@@ -1,0 +1,9 @@
+{
+  "name": "weisser-dev--awesome-opencode",
+  "displayName": "awesome-opencode",
+  "description": "108 agents, 15 skills, smart model config, and interactive CLI for OpenCode \u2014 npx @weisser-dev/awesome-opencode",
+  "version": "1.0.0",
+  "author": "weisser-dev",
+  "homepage": "https://github.com/weisser-dev/awesome-opencode",
+  "skills": []
+}
