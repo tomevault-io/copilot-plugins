@@ -1,0 +1,14 @@
+{
+  "name": "camunda--skills",
+  "displayName": "skills",
+  "description": "Camunda AI Agent skills",
+  "version": "1.0.0",
+  "author": "camunda",
+  "homepage": "https://github.com/camunda/skills",
+  "skills": [
+    {
+      "name": "camunda-development",
+      "description": ""
+    }
+  ]
+}
