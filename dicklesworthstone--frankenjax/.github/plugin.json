@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankenjax",
+  "displayName": "frankenjax",
+  "description": "Clean-room Rust reimplementation of JAX transform semantics (jit, grad, vmap) with canonical JAXPR-like IR, Trace Transform Ledger, deterministic cache keys, and differential conformance harness",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankenjax",
+  "skills": []
+}
