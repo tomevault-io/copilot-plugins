@@ -1,0 +1,9 @@
+{
+  "name": "exochain--exochain",
+  "displayName": "exochain",
+  "description": "The constitutional fabric for ASI: EXOCHAIN: Open-source Rust DAG-BFT substrate for privacy-by-physics-preserving identity, consented data sharing, and aligned superintelligence. Verifiable governance",
+  "version": "1.0.0",
+  "author": "exochain",
+  "homepage": "https://github.com/exochain/exochain",
+  "skills": []
+}
