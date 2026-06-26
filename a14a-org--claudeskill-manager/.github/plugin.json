@@ -1,0 +1,9 @@
+{
+  "name": "a14a-org--claudeskill-manager",
+  "displayName": "claudeskill-manager",
+  "description": "Sync your Claude Code skills across devices with zero-knowledge encryption",
+  "version": "1.0.0",
+  "author": "a14a-org",
+  "homepage": "https://github.com/a14a-org/claudeskill-manager",
+  "skills": []
+}
