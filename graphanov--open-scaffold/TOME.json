@@ -4,7 +4,7 @@
   "repo": "open-scaffold",
   "description": "Repo-native work record for AI-assisted work: plans, evidence, human gates, and clean agent handoffs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/graphanov/open-scaffold",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T06:38:20Z"
+  "distributed_at": "2026-06-26T06:40:48Z"
 }
