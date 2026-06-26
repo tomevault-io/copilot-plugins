@@ -280,4 +280,4 @@ claude mcp add-json aws-mcp --scope user '{"command":"uvx","args":["mcp-proxy-fo
 
 ---
 > Source: [baekenough/oh-my-customcode](https://github.com/baekenough/oh-my-customcode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-26 -->
