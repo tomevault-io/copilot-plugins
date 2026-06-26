@@ -1,0 +1,9 @@
+{
+  "name": "reearth--fastxml",
+  "displayName": "fastxml",
+  "description": "A fast, memory-efficient XML library for Rust with XPath and schema validation support",
+  "version": "1.0.0",
+  "author": "reearth",
+  "homepage": "https://github.com/reearth/fastxml",
+  "skills": []
+}
