@@ -4,7 +4,7 @@
   "repo": "claude-code-project-intelligence",
   "description": "Project Intelligence for Claude Code \u2014 learns how you work across sessions. Behavioral patterns, explicit preferences, skill synthesis, reasoning progressions, context checkpoints. Like OpenClaw memory, but for coders.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theaichimera/claude-code-project-intelligence",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T14:30:58Z"
+  "distributed_at": "2026-06-26T14:33:08Z"
 }
