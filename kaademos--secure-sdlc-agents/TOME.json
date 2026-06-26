@@ -4,7 +4,7 @@
   "repo": "secure-sdlc-agents",
   "description": "A team of Claude Code sub-agents that enforce security across the full SDLC, from ASVS requirements and threat modelling to SAST triage, IaC review, compliance attestation and release sign-off. Drop into any project. No security team required.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kaademos/secure-sdlc-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T10:31:33Z"
+  "distributed_at": "2026-06-26T10:35:51Z"
 }
