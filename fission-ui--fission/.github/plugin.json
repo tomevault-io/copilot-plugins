@@ -1,0 +1,9 @@
+{
+  "name": "fission-ui--fission",
+  "displayName": "fission",
+  "description": " A cross-platform, GPU-accelerated UI framework for Rust. Build native desktop (windows, linux, macos), mobile(iOS, Android), and web (static sites, interactive canvas SPA or full server side rendered",
+  "version": "1.0.0",
+  "author": "fission-ui",
+  "homepage": "https://github.com/fission-ui/fission",
+  "skills": []
+}
