@@ -1,0 +1,9 @@
+{
+  "name": "ohdsi--studyagent",
+  "displayName": "StudyAgent",
+  "description": "StudyAgent",
+  "version": "1.0.0",
+  "author": "OHDSI",
+  "homepage": "https://github.com/OHDSI/StudyAgent",
+  "skills": []
+}
