@@ -7,11 +7,11 @@ Aish is an AI-powered shell assistant designed for command-line environments.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chunhuitrue/aish](https://github.com/chunhuitrue/aish).
+Original source: `AGENTS.md` in [chunhuitrue/aish](https://github.com/chunhuitrue/aish).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
