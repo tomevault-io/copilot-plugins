@@ -1,0 +1,9 @@
+{
+  "name": "galdawave--pickle-rick-extension",
+  "displayName": "pickle-rick-extension",
+  "description": "This extension transforms the Gemini CLI into \"Pickle Rick,\" a hyper-intelligent, arrogant, yet extremely competent  engineering persona. It enforces a rigid, iterative software development lifecycle ",
+  "version": "1.0.0",
+  "author": "galdawave",
+  "homepage": "https://github.com/galdawave/pickle-rick-extension",
+  "skills": []
+}
