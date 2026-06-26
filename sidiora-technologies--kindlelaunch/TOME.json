@@ -4,7 +4,7 @@
   "repo": "KindleLaunch",
   "description": "Successor Protocol to Sidiora.fun Launchpad. Revamped mechanics for the new generation of Multi-purpose and agentic token launches",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sidiora-Technologies/KindleLaunch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T17:32:02Z"
+  "distributed_at": "2026-06-26T17:32:35Z"
 }
