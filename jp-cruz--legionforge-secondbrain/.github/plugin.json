@@ -1,0 +1,9 @@
+{
+  "name": "jp-cruz--legionforge-secondbrain",
+  "displayName": "LegionForge-SecondBrain",
+  "description": "Sovereign, portable, AI-maintained personal knowledge base. Local-first, brand-independent, plain markdown + Git.",
+  "version": "1.0.0",
+  "author": "jp-cruz",
+  "homepage": "https://github.com/jp-cruz/LegionForge-SecondBrain",
+  "skills": []
+}
