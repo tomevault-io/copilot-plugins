@@ -1,0 +1,9 @@
+{
+  "name": "viktorkav--qr-code-generator",
+  "displayName": "qr-code-generator",
+  "description": "A 100% client-side QR code generator with custom colors, transparent background, center logo, and PNG/SVG export \u2014 nothing leaves the browser.",
+  "version": "1.0.0",
+  "author": "viktorkav",
+  "homepage": "https://github.com/viktorkav/qr-code-generator",
+  "skills": []
+}
