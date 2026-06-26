@@ -130814,6 +130814,16 @@
       "description": "Curated list of skills our agents use"
     },
     {
+      "name": "btravstack--amqp-contract",
+      "source": "./btravstack--amqp-contract",
+      "description": "Type-safe contracts for AMQP/RabbitMQ messaging with TypeScript"
+    },
+    {
+      "name": "btravstack--amqp-contract",
+      "source": "./btravstack--amqp-contract",
+      "description": "Type-safe contracts for AMQP/RabbitMQ messaging with TypeScript"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -214019,6 +214029,76 @@
       "description": "A semantic data platform MCP server that composes multiple data tools with bidirectional cross-injection - tool responses automatically include critical context from other services."
     },
     {
+      "name": "iamevanyt--objc-js",
+      "source": "./iamevanyt--objc-js",
+      "description": "objc-js is an Objective-C bridge for Node.js."
+    },
+    {
+      "name": "tfriedel--tweethoarder",
+      "source": "./tfriedel--tweethoarder",
+      "description": "dumps twitter likes & bookmarks"
+    },
+    {
+      "name": "tfriedel--tweethoarder",
+      "source": "./tfriedel--tweethoarder",
+      "description": "dumps twitter likes & bookmarks"
+    },
+    {
+      "name": "femto--mcp-chrome",
+      "source": "./femto--mcp-chrome",
+      "description": "mcp-chrome"
+    },
+    {
+      "name": "parkerhancock--browser-canvas",
+      "source": "./parkerhancock--browser-canvas",
+      "description": "A Claude Code skill for rendering React UIs in a browser window with hot-reload"
+    },
+    {
+      "name": "iamevanyt--objc-js",
+      "source": "./iamevanyt--objc-js",
+      "description": "objc-js is an Objective-C bridge for Node.js."
+    },
+    {
+      "name": "theeaglebyte--skylight-api",
+      "source": "./theeaglebyte--skylight-api",
+      "description": "HAR-to-OpenAPI converter for reverse-engineering the Skylight family calendar API \u2014 generates interactive Swagger UI and ReDoc documentation"
+    },
+    {
+      "name": "prasannavl--p7-borders-shell-extension",
+      "source": "./prasannavl--p7-borders-shell-extension",
+      "description": "A GNOME shell extension for drawing borders to windows"
+    },
+    {
+      "name": "jchristn--conductor",
+      "source": "./jchristn--conductor",
+      "description": "Conductor is a platform for managing models, model runners, model configurations, and virtualizing combinations into virtual model runners exposed to the network via OpenAI, Ollama, vLLM, or Gemini co"
+    },
+    {
+      "name": "frequenk--douyin-enhancer-userscript",
+      "source": "./frequenk--douyin-enhancer-userscript",
+      "description": "douyin-enhancer-userscript"
+    },
+    {
+      "name": "raviriley--willpower",
+      "source": "./raviriley--willpower",
+      "description": "Resist distractions and focus on what matters"
+    },
+    {
+      "name": "brenwhyte--moon-dev-ai-agents",
+      "source": "./brenwhyte--moon-dev-ai-agents",
+      "description": "moon-dev-ai-agents"
+    },
+    {
+      "name": "kylemclaren--ralph",
+      "source": "./kylemclaren--ralph",
+      "description": "CLI tool implementing the Ralph Wiggum Loop \u2014 an autonomous AI coding loop that repeatedly runs Claude Code, Amp, OpenCode, or Codex until your PRD is complete."
+    },
+    {
+      "name": "a14a-org--claudeskill-manager",
+      "source": "./a14a-org--claudeskill-manager",
+      "description": "Sync your Claude Code skills across devices with zero-knowledge encryption"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -231137,6 +231217,31 @@
       "name": "getalby--sandbox",
       "source": "./getalby--sandbox",
       "description": "Explore everything you can do as a lightning app builder using Alby"
+    },
+    {
+      "name": "officebeats--beats-pm-kit",
+      "source": "./officebeats--beats-pm-kit",
+      "description": "AI-powered Product Management second brain. Capture chaos. Surface patterns. Never let critical items slip."
+    },
+    {
+      "name": "oirge--mineradio",
+      "source": "./oirge--mineradio",
+      "description": "Mineradio \u4e8c\u6539\u672c\u5730\u64ad\u653e\u5668\uff0c\u539f\u9879\u76ee: https://github.com/XxHuberrr/Mineradio"
+    },
+    {
+      "name": "mwender--spinupwp-tui",
+      "source": "./mwender--spinupwp-tui",
+      "description": "Keyboard-driven terminal dashboard for your SpinupWP fleet: browse servers & sites, global search, live events, and htop-style server health over SSH. Built with OpenTUI and Bun."
+    },
+    {
+      "name": "officebeats--beats-pm-kit",
+      "source": "./officebeats--beats-pm-kit",
+      "description": "AI-powered Product Management second brain. Capture chaos. Surface patterns. Never let critical items slip."
+    },
+    {
+      "name": "officebeats--beats-pm-kit",
+      "source": "./officebeats--beats-pm-kit",
+      "description": "AI-powered Product Management second brain. Capture chaos. Surface patterns. Never let critical items slip."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -352672,6 +352777,31 @@
       "name": "hwajun1--telegram-claude-assistant",
       "source": "./hwajun1--telegram-claude-assistant",
       "description": "Telegram bot powered by Claude CLI with smart scheduling and pattern learning"
+    },
+    {
+      "name": "vasic-digital--storage-kmp",
+      "source": "./vasic-digital--storage-kmp",
+      "description": "digital.vasic.storage - KMP network storage service interfaces and abstractions"
+    },
+    {
+      "name": "shortstheory--chatfun",
+      "source": "./shortstheory--chatfun",
+      "description": "chatfun"
+    },
+    {
+      "name": "noammichael--bayeseval",
+      "source": "./noammichael--bayeseval",
+      "description": "BayesEval"
+    },
+    {
+      "name": "vasic-digital--storage-kmp",
+      "source": "./vasic-digital--storage-kmp",
+      "description": "digital.vasic.storage - KMP network storage service interfaces and abstractions"
+    },
+    {
+      "name": "abinav-verge--meta-creative-analytics",
+      "source": "./abinav-verge--meta-creative-analytics",
+      "description": "meta-creative-analytics"
     }
   ]
 }
