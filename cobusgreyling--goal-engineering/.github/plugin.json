@@ -1,0 +1,9 @@
+{
+  "name": "cobusgreyling--goal-engineering",
+  "displayName": "goal-engineering",
+  "description": "The canonical reference for Grok Build CLI /goal \u2014 run-until-done objectives, patterns, verifier skills, and goal-audit CLI.",
+  "version": "1.0.0",
+  "author": "cobusgreyling",
+  "homepage": "https://github.com/cobusgreyling/goal-engineering",
+  "skills": []
+}
