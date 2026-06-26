@@ -213879,6 +213879,146 @@
       "description": "Adds LiteLLM as a provider within Copilot in VSCode, expanding the models you can access significantly. Available on Visual Studio Code Marketplace: https://marketplace.visualstudio.com/items?itemName"
     },
     {
+      "name": "printque-ca--printque",
+      "source": "./printque-ca--printque",
+      "description": "Software for 3D printer fleet management and automation"
+    },
+    {
+      "name": "gglafrance--goonhub",
+      "source": "./gglafrance--goonhub",
+      "description": "Self-hosted NSFW video library with automatic processing, full-text search, markers, playlists, and multi-user support. Go + Nuxt 4."
+    },
+    {
+      "name": "printque-ca--printque",
+      "source": "./printque-ca--printque",
+      "description": "Software for 3D printer fleet management and automation"
+    },
+    {
+      "name": "gglafrance--goonhub",
+      "source": "./gglafrance--goonhub",
+      "description": "Self-hosted NSFW video library with automatic processing, full-text search, markers, playlists, and multi-user support. Go + Nuxt 4."
+    },
+    {
+      "name": "nearform--unwind",
+      "source": "./nearform--unwind",
+      "description": "Claude skills to deeply analyse and document a legacy codebase to rebuild with AI"
+    },
+    {
+      "name": "typefox--baukasten",
+      "source": "./typefox--baukasten",
+      "description": "Baukasten UI \u2013 React components for feature-rich applications"
+    },
+    {
+      "name": "thankyou-cheems--bomana",
+      "source": "./thankyou-cheems--bomana",
+      "description": "A powerful War Thunder timer made for the \"Space Monkeys\" who love dropping bombs and eating bananas"
+    },
+    {
+      "name": "commanderfun--sts3215",
+      "source": "./commanderfun--sts3215",
+      "description": "A multi-part tutorial for controlling the Feetech STS3215 servo (12V-30kg or 7.4V-19kg torque model) with Python and a Waveshare Serial Bus Servo Driver Board."
+    },
+    {
+      "name": "typefox--baukasten",
+      "source": "./typefox--baukasten",
+      "description": "Baukasten UI \u2013 React components for feature-rich applications"
+    },
+    {
+      "name": "bugwz--proxyassistant",
+      "source": "./bugwz--proxyassistant",
+      "description": "chrome/firefox/edge browser proxy assistant plugin. \u8c37\u6b4c/\u706b\u72d0/\u5fae\u8f6f\u6d4f\u89c8\u5668\u4ee3\u7406\u52a9\u624b\u63d2\u4ef6."
+    },
+    {
+      "name": "bugwz--proxyassistant",
+      "source": "./bugwz--proxyassistant",
+      "description": "chrome/firefox/edge browser proxy assistant plugin. \u8c37\u6b4c/\u706b\u72d0/\u5fae\u8f6f\u6d4f\u89c8\u5668\u4ee3\u7406\u52a9\u624b\u63d2\u4ef6."
+    },
+    {
+      "name": "typefox--baukasten",
+      "source": "./typefox--baukasten",
+      "description": "Baukasten UI \u2013 React components for feature-rich applications"
+    },
+    {
+      "name": "ihxw--termiscope",
+      "source": "./ihxw--termiscope",
+      "description": "TermiScope"
+    },
+    {
+      "name": "that-in-rust--agent-room-of-requirements",
+      "source": "./that-in-rust--agent-room-of-requirements",
+      "description": "room of requirements for agents"
+    },
+    {
+      "name": "printque-ca--printque",
+      "source": "./printque-ca--printque",
+      "description": "Software for 3D printer fleet management and automation"
+    },
+    {
+      "name": "bulanovk--homeassistant-yandex-backup",
+      "source": "./bulanovk--homeassistant-yandex-backup",
+      "description": "Home Assistant backup integration to store backup on Yandex Disk"
+    },
+    {
+      "name": "ain3sh---agents",
+      "source": "./ain3sh---agents",
+      "description": ".agents"
+    },
+    {
+      "name": "sunnypatneedi--claude-starter-kit",
+      "source": "./sunnypatneedi--claude-starter-kit",
+      "description": "Complete starter kit for Claude Code with agents, skills, hooks, and MCP configurations"
+    },
+    {
+      "name": "shilonghong--dailyscholar",
+      "source": "./shilonghong--dailyscholar",
+      "description": "DailyScholar \u662f\u4e00\u5957\u5f00\u7bb1\u5373\u7528\u7684\u79d1\u7814\u5de5\u4f5c\u53f0\uff0c\u6253\u901a\u4ece\u8bba\u6587\u6293\u53d6\u3001LLM \u667a\u80fd\u7b5b\u9009\u5230\u901a\u77e5\u63a8\u9001\uff08\u9489\u9489\u3001\u90ae\u7bb1\u3001openclaw\uff09\u7684\u5b8c\u6574\u94fe\u8def\u3002\u7cfb\u7edf\u5185\u7f6e\u8bba\u6587\u9605\u8bfb\u5668\uff0c\u652f\u6301 PDF/Markdown/HTML \u591a\u89c6\u56fe\u9605\u8bfb\uff1b\u63d0\u4f9b AI \u7cbe\u8bfb\u89e3\u6790\uff0c\u5e2e\u52a9\u5feb\u901f\u63d0\u70bc\u6838\u5fc3\u8d21\u732e\u4e0e\u65b9\u6cd5\u8981\u70b9\uff1b\u652f\u6301\u5168\u6587\u7ffb\u8bd1\u4e0e\u53cc\u8bed\u9010\u6bb5\u5bf9\u7167\uff0c\u8ba9\u9605\u8bfb\u3001\u7406\u89e3\u4e0e\u6c89\u6dc0\u4e00\u7ad9\u5b8c\u6210\u3002"
+    },
+    {
+      "name": "shilonghong--dailyscholar",
+      "source": "./shilonghong--dailyscholar",
+      "description": "DailyScholar \u662f\u4e00\u5957\u5f00\u7bb1\u5373\u7528\u7684\u79d1\u7814\u5de5\u4f5c\u53f0\uff0c\u6253\u901a\u4ece\u8bba\u6587\u6293\u53d6\u3001LLM \u667a\u80fd\u7b5b\u9009\u5230\u901a\u77e5\u63a8\u9001\uff08\u9489\u9489\u3001\u90ae\u7bb1\u3001openclaw\uff09\u7684\u5b8c\u6574\u94fe\u8def\u3002\u7cfb\u7edf\u5185\u7f6e\u8bba\u6587\u9605\u8bfb\u5668\uff0c\u652f\u6301 PDF/Markdown/HTML \u591a\u89c6\u56fe\u9605\u8bfb\uff1b\u63d0\u4f9b AI \u7cbe\u8bfb\u89e3\u6790\uff0c\u5e2e\u52a9\u5feb\u901f\u63d0\u70bc\u6838\u5fc3\u8d21\u732e\u4e0e\u65b9\u6cd5\u8981\u70b9\uff1b\u652f\u6301\u5168\u6587\u7ffb\u8bd1\u4e0e\u53cc\u8bed\u9010\u6bb5\u5bf9\u7167\uff0c\u8ba9\u9605\u8bfb\u3001\u7406\u89e3\u4e0e\u6c89\u6dc0\u4e00\u7ad9\u5b8c\u6210\u3002"
+    },
+    {
+      "name": "leonardsellem--n8n-nodes-plaud-unofficial",
+      "source": "./leonardsellem--n8n-nodes-plaud-unofficial",
+      "description": "n8n-nodes-plaud-unofficial"
+    },
+    {
+      "name": "typefox--baukasten",
+      "source": "./typefox--baukasten",
+      "description": "Baukasten UI \u2013 React components for feature-rich applications"
+    },
+    {
+      "name": "sd2k--conch",
+      "source": "./sd2k--conch",
+      "description": "Bash in WebAssembly"
+    },
+    {
+      "name": "leonardsellem--n8n-nodes-plaud-unofficial",
+      "source": "./leonardsellem--n8n-nodes-plaud-unofficial",
+      "description": "n8n-nodes-plaud-unofficial"
+    },
+    {
+      "name": "obneyai--orc",
+      "source": "./obneyai--orc",
+      "description": "Short for Orchestrator"
+    },
+    {
+      "name": "iulianallroad-glitch--gamma",
+      "source": "./iulianallroad-glitch--gamma",
+      "description": "SPX 0DTE options scalper using Gamma Exposure (GEX) signals"
+    },
+    {
+      "name": "odyssey4me--agent-skills",
+      "source": "./odyssey4me--agent-skills",
+      "description": "AI Agent Skills to support software architecture, design and development"
+    },
+    {
+      "name": "txn2--mcp-data-platform",
+      "source": "./txn2--mcp-data-platform",
+      "description": "A semantic data platform MCP server that composes multiple data tools with bidirectional cross-injection - tool responses automatically include critical context from other services."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -230952,6 +231092,51 @@
       "name": "heyroute-ai--codex-threadkeeper",
       "source": "./heyroute-ai--codex-threadkeeper",
       "description": "Keep Codex threads visible by syncing session metadata, SQLite state, and managed backups."
+    },
+    {
+      "name": "ilgizar-valiullin--mcp-search",
+      "source": "./ilgizar-valiullin--mcp-search",
+      "description": "Unified MCP search server with 8 providers, caching, reranking, and rate limits"
+    },
+    {
+      "name": "viktorkav--qr-code-generator",
+      "source": "./viktorkav--qr-code-generator",
+      "description": "A 100% client-side QR code generator with custom colors, transparent background, center logo, and PNG/SVG export \u2014 nothing leaves the browser."
+    },
+    {
+      "name": "dicklesworthstone--franken-ocr",
+      "source": "./dicklesworthstone--franken-ocr",
+      "description": "Pure-Rust, CPU-only OCR engine for Baidu Unlimited-OCR (a DeepSeek-OCR-derived 3B MoE VLM). One fixed model, custom int4/int8 kernels, no ML framework, no GPU. Pre-Phase-0 scaffold."
+    },
+    {
+      "name": "e0ipso--ddev-assistant-claude",
+      "source": "./e0ipso--ddev-assistant-claude",
+      "description": "ddev add-on for setting up the Claude Code assistant."
+    },
+    {
+      "name": "ohdsi--studyagent",
+      "source": "./ohdsi--studyagent",
+      "description": "StudyAgent"
+    },
+    {
+      "name": "mattn--moonbit-postgres",
+      "source": "./mattn--moonbit-postgres",
+      "description": "moonbit-postgres"
+    },
+    {
+      "name": "bjesuiter--codex-switcher",
+      "source": "./bjesuiter--codex-switcher",
+      "description": "Switch pi, codex and opencode auth between multiple openAI Plus and Pro accounts"
+    },
+    {
+      "name": "e0ipso--ddev-assistant-claude",
+      "source": "./e0ipso--ddev-assistant-claude",
+      "description": "ddev add-on for setting up the Claude Code assistant."
+    },
+    {
+      "name": "getalby--sandbox",
+      "source": "./getalby--sandbox",
+      "description": "Explore everything you can do as a lightning app builder using Alby"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -352482,6 +352667,11 @@
       "name": "nztinversive--fw-floorplan",
       "source": "./nztinversive--fw-floorplan",
       "description": "FW Floor Plan Studio"
+    },
+    {
+      "name": "hwajun1--telegram-claude-assistant",
+      "source": "./hwajun1--telegram-claude-assistant",
+      "description": "Telegram bot powered by Claude CLI with smart scheduling and pattern learning"
     }
   ]
 }
