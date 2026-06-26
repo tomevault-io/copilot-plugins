@@ -1,0 +1,9 @@
+{
+  "name": "bugwz--proxyassistant",
+  "displayName": "ProxyAssistant",
+  "description": "chrome/firefox/edge browser proxy assistant plugin. \u8c37\u6b4c/\u706b\u72d0/\u5fae\u8f6f\u6d4f\u89c8\u5668\u4ee3\u7406\u52a9\u624b\u63d2\u4ef6.",
+  "version": "1.0.0",
+  "author": "bugwz",
+  "homepage": "https://github.com/bugwz/ProxyAssistant",
+  "skills": []
+}
