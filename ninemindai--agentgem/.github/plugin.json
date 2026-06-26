@@ -1,0 +1,9 @@
+{
+  "name": "ninemindai--agentgem",
+  "displayName": "agentgem",
+  "description": "A local web UI that introspects your coding-agent config, redacts secrets at capture, and builds a portable, composable Gem.",
+  "version": "1.0.0",
+  "author": "ninemindai",
+  "homepage": "https://github.com/ninemindai/agentgem",
+  "skills": []
+}
