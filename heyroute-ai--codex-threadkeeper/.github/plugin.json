@@ -1,0 +1,9 @@
+{
+  "name": "heyroute-ai--codex-threadkeeper",
+  "displayName": "codex-threadkeeper",
+  "description": "Keep Codex threads visible by syncing session metadata, SQLite state, and managed backups.",
+  "version": "1.0.0",
+  "author": "heyroute-ai",
+  "homepage": "https://github.com/heyroute-ai/codex-threadkeeper",
+  "skills": []
+}
