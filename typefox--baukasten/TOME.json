@@ -4,7 +4,7 @@
   "repo": "baukasten",
   "description": "Baukasten UI \u2013 React components for feature-rich applications",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TypeFox/baukasten",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-26T18:38:46Z"
+  "distributed_at": "2026-06-26T18:43:56Z"
 }
