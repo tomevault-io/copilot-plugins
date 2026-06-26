@@ -1,0 +1,9 @@
+{
+  "name": "artcc--freelingo",
+  "displayName": "freelingo",
+  "description": "Open source, self-hosted, Dockerized web application for learning languages with AI. A local language model (Ollama) evaluates your CEFR level, generates a personalized study plan, and guides you thro",
+  "version": "1.0.0",
+  "author": "ArtCC",
+  "homepage": "https://github.com/ArtCC/freelingo",
+  "skills": []
+}
