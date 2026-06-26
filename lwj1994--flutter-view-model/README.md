@@ -7,11 +7,11 @@ pure & lightweight state management library for Flutter
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lwj1994/flutter_view_model](https://github.com/lwj1994/flutter_view_model).
+Original source: `AGENTS.md` in [lwj1994/flutter_view_model](https://github.com/lwj1994/flutter_view_model).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
