@@ -1,0 +1,9 @@
+{
+  "name": "localai-org--free-splatter-cpp",
+  "displayName": "free-splatter.cpp",
+  "description": "Turn images into 3D scenes - GGML port of FreeSplatter: Pose-free Gaussian Splatting for Sparse-view 3D Reconstruction ",
+  "version": "1.0.0",
+  "author": "localai-org",
+  "homepage": "https://github.com/localai-org/free-splatter.cpp",
+  "skills": []
+}
