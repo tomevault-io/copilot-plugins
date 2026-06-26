@@ -1,0 +1,9 @@
+{
+  "name": "exasol--exasol-personal",
+  "displayName": "exasol-personal",
+  "description": "The Analytics Database for Agentic AI \u2014 Free for Personal Use",
+  "version": "1.0.0",
+  "author": "exasol",
+  "homepage": "https://github.com/exasol/exasol-personal",
+  "skills": []
+}
