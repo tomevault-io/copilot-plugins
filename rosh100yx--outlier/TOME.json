@@ -4,7 +4,7 @@
   "repo": "outlier",
   "description": "outlier is an open-source, local-first policy engine and governance framework designed to measure the true cost and risk of AI code generation. Enforce Zero-Trust and protect Human Mastery.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rosh100yx/outlier",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T14:31:00Z"
+  "distributed_at": "2026-06-27T14:32:42Z"
 }
