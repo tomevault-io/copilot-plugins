@@ -7,11 +7,11 @@ Fastcampus 온라인 강의 - Harness Engineering
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HyunjunJeon/fastcampus-harness-engineering-course](https://github.com/HyunjunJeon/fastcampus-harness-engineering-course).
+Original source: `CLAUDE.md` in [HyunjunJeon/fastcampus-harness-engineering-course](https://github.com/HyunjunJeon/fastcampus-harness-engineering-course).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
