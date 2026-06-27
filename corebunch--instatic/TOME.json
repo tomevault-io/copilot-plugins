@@ -4,7 +4,7 @@
   "repo": "Instatic",
   "description": "Instatic is a modern self-hosted visual CMS - get it running in 1 minute",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CoreBunch/Instatic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T00:37:54Z"
+  "distributed_at": "2026-06-27T00:39:50Z"
 }
