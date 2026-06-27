@@ -1,102 +1,63 @@
-## run-planning
+## scope-work
 
-> \"DISCOVER-PHASE ADVANCER — Drive the discover-phase checklist (specs/planning-status.yaml) through survey-context → scope-work → research-first → elaborate-spec → plan-release → slice-tasks. NOT a duplicate of plan-work or the planning spine; it orchestrates the pre-coding discover phase only.\
+> \"PLANNING SPINE STEP 1 of 3 — Scope the work: define what is in and out of scope and save as specs/product/SCOPE_LATEST.yaml. Use before slice-tasks or plan-release on any new initiative. Not a substitute for slice-tasks (step 2) or plan-work (step 3).\
 
 
 
-# Run Planning
+# Scope Work
 
-> **HARD GATE** — Before running planning skills, confirm the epic capsule exists and the active story is clear. Planning without a target is noise.
->
-> **Role:** DISCOVER-PHASE ADVANCER — orchestrates the discover-phase sequence; hands off to the scope-work → slice-tasks → plan-work spine for implementation planning.
+> **Spine position:** Step 1 — scope-work → slice-tasks → plan-work.
 
-Updates `specs/planning-status.yaml` as discover-phase skills complete. This is NOT a duplicate of plan-work — it orchestrates the *pre-coding* discovery phase only (Discover phase in the 6-phase PMBOK lifecycle), handing off to the planning spine for implementation detail.
-
-## When to use
-
-- Starting a brand-new feature or initiative with no prior planning artifacts
-- Returning to a stalled initiative and needing to resume the discovery workflow
-- After `orchestrate-project` hands off to the Discover phase
-- When a new epic emerges from `change-request` and needs to go through full discovery
+Turn the current conversation into a bounded PRD at `specs/product/SCOPE_LATEST.yaml`. Without a scope boundary, implementation drifts — stories expand, estimates blow up, and "done" becomes undefined.
 
 ## Pre-flight
 
-- [ ] Does `specs/planning-status.yaml` exist? If not, create it with the default workflow keys.
-- [ ] Does `specs/state.yaml` have `active_flow: planning`? Set it if not already.
-- [ ] Is the epic identified in `release-plan.yaml`? The epic must exist before discovery begins.
-
-## Workflows (default keys)
-
-- `survey-context` → `scope-work` → `research-first` → `elaborate-spec` (optional) → `plan-release` → `slice-tasks`
-
-Each key maps to a skill invocation. Optional keys can be skipped; required keys must complete before the phase advances.
+- [ ] Do you have a clear user need or problem statement? If not, run `elaborate-spec` first.
+- [ ] Does `specs/product/VISION_LATEST.yaml` exist? If yes, read it for north-star alignment.
+- [ ] Is there an existing `SCOPE_LATEST.yaml`? If yes, you're refining, not creating from scratch.
 
 ## Process
 
-1. **Read state** — Read `specs/planning-status.yaml` and `specs/state.yaml`. Understand where discovery stands: which workflow keys are `done`, which are `pending`, and which are `optional` (can be skipped).
-
-2. **Find next step** — Find the first workflow key with `status: pending`. If the key is `optional`, check if the user wants to run it. If not, mark it `skipped`.
-
-2a. **Context capsule check** — Before invoking `elaborate-spec`, check whether a fresh `specs/planning-context.yaml` exists:
+0. **Read planning-context.yaml** — If `specs/planning-context.yaml` exists, read it before doing anything else:
    ```bash
-   test -f specs/planning-context.yaml && python3 -c "
-import yaml, datetime
-d = yaml.safe_load(open('specs/planning-context.yaml'))
-written = d.get('written_at','')
-if written:
-    age = (datetime.datetime.now(datetime.timezone.utc) - datetime.datetime.fromisoformat(written)).total_seconds() / 3600
-    print(f'Context age: {age:.1f}h')
-" 2>/dev/null || echo "No context or no written_at"
+   test -f specs/planning-context.yaml && echo "Context found" || echo "No context — starting fresh"
    ```
-   - If context is **< 24h old**, ask: `"Planning context from Xh ago exists for '<feature_name>'. Re-run elaborate-spec? [y/N]"`. Skip elaborate-spec on N.
-   - If context is **≥ 24h old** or absent, run elaborate-spec normally.
-   - On planning cycle completion (all required keys done), clear the capsule: delete `specs/planning-context.yaml` and set `planning-status.yaml` `context_capsule: null`.
+   Pre-populate `feature_name`, `constraints`, and `out_of_scope` from the file. Skip re-asking questions already answered by elaborate-spec. If the file is absent, proceed normally.
 
-3. **Invoke the matching skill** — Run the skill that matches the workflow key:
-   - `survey-context` — where are we?
-   - `scope-work` — what's in and out?
-   - `research-first` — what already exists?
-   - `elaborate-spec` — refine the idea (optional)
-   - `plan-release` — sequence epics by WSJF
-   - `slice-tasks` — cut vertical slices
+1. **Gather context** — Read existing `specs/` artifacts (`release-plan.yaml`, `plans/TECH_STACK_LATEST.md`, `requirements/VISION_LATEST.yaml` if any). Understand what the project is building and why.
 
-4. **Update status** — On successful completion, set `status: done` for that workflow key in `planning-status.yaml`.
+2. **Interview (if needed)** — Clarify: What is the goal? Who are the users? What is definitely in scope? What is explicitly out of scope? What constraints exist (time, budget, tech)? How will success be measured?
 
-5. **Advance** — Set `state.yaml` `active_flow: planning` while in this chain. When all required keys are done, set `handoff.next_skill` to `plan-work`.
+3. **Write `specs/product/SCOPE_LATEST.yaml`** with these fields:
+   - `core_value` — one-sentence value proposition
+   - `summary` — 2-3 paragraph scope overview
+   - `in_scope[]` — list of what this initiative covers (each maps to an epic/story)
+   - `out_of_scope[]` — explicit exclusions (prevents scope creep)
+   - `constraints` — tech, time, resource boundaries
+   - `success_criteria` — observable outcomes that prove the scope is delivered
+   - `references` — links to related specs, ADRs, or documents
 
-## Workflow Keys Schema
+4. **Lightweight trade-off analysis** — For each `out_of_scope` item, note *why* it's excluded (deferred, not valuable, too risky, depends on external factor). This protects against "what about X?" questions later.
 
-In `specs/planning-status.yaml`:
-```yaml
-context_capsule:             # written by elaborate-spec; cleared on cycle completion
-  written_at: "2026-06-22T03:00:00Z"
-  written_by: elaborate-spec
-  feature_name: "add dark mode"
-workflows:
-  survey-context:
-    required: true
-    status: done
-  scope-work:
-    required: true
-    status: pending
-  research-first:
-    required: false
-    status: optional
-    note: "Skip if no external dependencies"
-  elaborate-spec:
-    required: false
-    status: optional
-  plan-release:
-    required: true
-    status: pending
-  slice-tasks:
-    required: true
-    status: pending
-```
+5. **Run `research-first`** if external dependencies are proposed — verify the dependency exists, is maintained, and fits the scope before committing to it.
+
+> **HARD GATE** — Every `in_scope` item must map to a future epic/story ID or explicit deferred note in `out_of_scope`. If an item can't be mapped, the scope is too vague — refine before proceeding.
+
+> **HARD GATE** — Do NOT include implementation details in SCOPE_LATEST.yaml. Scope is *what* and *why*, not *how*. Implementation detail belongs in epic capsules and slice-tasks.
+
+## Common Anti-Patterns
+
+- **"Everything is in scope"** — If nothing is out of scope, you haven't defined a scope. You've described a universe. Cut aggressively.
+- **"We'll figure it out later"** — Ambiguity in scope propagates to every downstream decision. Resolve now or explicitly defer in writing.
+- **Scope as architecture** — Saying "we need a PostgreSQL database" is architecture, not scope. Scope says "we need to store user profiles and transaction history."
+
+## Output
+
+`specs/product/SCOPE_LATEST.yaml` — the bounded PRD. Subsequent skills (`slice-tasks`, `plan-work`) reference this as the source of truth for what to build.
 
 ## Verify
 
-→ verify: `test -f specs/planning-status.yaml && grep -c 'status: done' specs/planning-status.yaml | awk '{if($1>=3) print "OK"; else print "INCOMPLETE"}'`
+→ verify: `test -f specs/product/SCOPE_LATEST.yaml && grep -c 'out_of_scope' specs/product/SCOPE_LATEST.yaml | awk '{if($1>0) print "OK"; else print "MISSING"}'`
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
