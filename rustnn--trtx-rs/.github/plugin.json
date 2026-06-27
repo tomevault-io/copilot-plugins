@@ -1,0 +1,9 @@
+{
+  "name": "rustnn--trtx-rs",
+  "displayName": "trtx-rs",
+  "description": "TRT-RTX rust binding",
+  "version": "1.0.0",
+  "author": "rustnn",
+  "homepage": "https://github.com/rustnn/trtx-rs",
+  "skills": []
+}
