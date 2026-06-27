@@ -7,11 +7,11 @@ Chinese traditional fortune-telling AI skill (BaZi 八字 + Zi Wei Dou Shu 紫�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ai-freer/fortune-skill](https://github.com/ai-freer/fortune-skill).
+Original source: `AGENTS.md` in [ai-freer/fortune-skill](https://github.com/ai-freer/fortune-skill).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
