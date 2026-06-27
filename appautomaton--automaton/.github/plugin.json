@@ -1,0 +1,9 @@
+{
+  "name": "appautomaton--automaton",
+  "displayName": "automaton",
+  "description": "AI coding agent framework \u2014 portable, stage-gated harness for Claude Code, Codex, and OpenCode",
+  "version": "1.0.0",
+  "author": "appautomaton",
+  "homepage": "https://github.com/appautomaton/automaton",
+  "skills": []
+}
