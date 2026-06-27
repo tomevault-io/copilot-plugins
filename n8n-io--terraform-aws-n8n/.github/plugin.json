@@ -1,0 +1,9 @@
+{
+  "name": "n8n-io--terraform-aws-n8n",
+  "displayName": "terraform-aws-n8n",
+  "description": "Production-grade n8n Enterprise on AWS \u2014 multi-main EKS, RDS Postgres, ElastiCache Redis, S3, and ALB in one terraform apply.",
+  "version": "1.0.0",
+  "author": "n8n-io",
+  "homepage": "https://github.com/n8n-io/terraform-aws-n8n",
+  "skills": []
+}
