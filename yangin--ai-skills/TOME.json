@@ -4,7 +4,7 @@
   "repo": "ai-skills",
   "description": "skills for me",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yangin/ai-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T22:38:50Z"
+  "distributed_at": "2026-06-27T23:41:50Z"
 }
