@@ -1,0 +1,9 @@
+{
+  "name": "bluedaniel--square-stats",
+  "displayName": "square-stats",
+  "description": "Desktop app for analysing Square Omni launch monitor sessions \u2014 drop in a CSV, get    shot dispersion, trends, and per-shot club face diagrams.",
+  "version": "1.0.0",
+  "author": "bluedaniel",
+  "homepage": "https://github.com/bluedaniel/square-stats",
+  "skills": []
+}
