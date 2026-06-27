@@ -1,0 +1,9 @@
+{
+  "name": "opencodexlabs--open-codex-computer-use",
+  "displayName": "open-codex-computer-use",
+  "description": "Open-source background computer use for Claude and Codex on macOS.",
+  "version": "1.0.0",
+  "author": "OpenCodexLabs",
+  "homepage": "https://github.com/OpenCodexLabs/open-codex-computer-use",
+  "skills": []
+}
