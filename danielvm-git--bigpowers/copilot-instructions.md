@@ -1,168 +1,100 @@
-## deploy
+## design-interface
 
-> \"Build → verify artifact → deploy → wait → smoke deployment pipeline. Platform-agnostic (MCP or CLI), with configurable timeout, retry with exponential backoff, and integrated health-check. The deploy half of CI/CD: run after build to push to production.\
+> Generate multiple radically different interface designs for a module using parallel sub-agents, then compare trade-offs. Based on \"Design It Twice\" from A Philosophy of Software Design. Use when user wants to design an API, explore interface options, compare module shapes, or mentions \"design it twice\".
 
 
 
-# Deploy
+# Design Interface
 
-> **HARD GATE** — Do not deploy without running tests first. Run `test` or your CI suite before this skill.
->
-> **HARD GATE** — Use this skill from a CI/CD pipeline or post-merge on `main`/`master`. Never deploy from a feature branch.
->
-> **HARD GATE** — The deploy skill orchestrates deployment; the `smoke-test` skill validates post-deploy health. Chain them: `deploy → smoke-test`.
+Based on "Design It Twice" from "A Philosophy of Software Design": your first idea is unlikely to be the best. Generate multiple radically different designs, then compare.
 
-Orchestrate a full build-to-deployment pipeline: build the artifact, verify it exists and is non-empty, invoke a platform deploy tool (MCP or CLI), poll until the deploy completes or times out, then run a baseline smoke test against the live URL.
+> **HARD GATE** — Multiple design options must be explored. Do NOT settle on first idea. Compare trade-offs (UX, complexity, extensibility, performance) before committing.
 
-## Pipeline Stages
+## Workflow
+
+### 1. Gather Requirements
+
+Before designing, understand:
+
+- [ ] What problem does this module solve?
+- [ ] Who are the callers? (other modules, external users, tests)
+- [ ] What are the key operations?
+- [ ] Any constraints? (performance, compatibility, existing patterns)
+- [ ] What should be hidden inside vs exposed?
+
+Ask: "What does this module need to do? Who will use it?"
+
+### 2. Generate Designs (Parallel Sub-Agents)
+
+Spawn 3+ sub-agents simultaneously using Task tool. Each must produce a **radically different** approach.
 
 ```
-build → verify artifact → deploy → wait/retry → smoke
+Prompt template for each sub-agent:
+
+Design an interface for: [module description]
+
+Requirements: [gathered requirements]
+
+Constraints for this design: [assign a different constraint to each agent]
+- Agent 1: "Minimize method count - aim for 1-3 methods max"
+- Agent 2: "Maximize flexibility - support many use cases"
+- Agent 3: "Optimize for the most common case"
+- Agent 4: "Take inspiration from [specific paradigm/library]"
+
+Output format:
+1. Interface signature (types/methods)
+2. Usage example (how caller uses it)
+3. What this design hides internally
+4. Trade-offs of this approach
 ```
 
-| Stage | Description | Failure mode |
-|-------|-------------|-------------|
-| Build | Execute the project's build command | Non-zero exit: report build error |
-| Verify | Check artifact exists and is non-empty | Missing/empty: report artifact path |
-| Deploy | Invoke platform deploy tool (MCP, Vercel CLI, rsync, etc.) | Non-zero exit: report deploy error |
-| Wait | Poll deploy status every 30s up to `DEPLOY_TIMEOUT` (default 5 min) | Timeout: report exceeded |
-| Smoke | `curl -sSf $DEPLOY_URL` as baseline health check | Non-200: report failure |
+### 3. Present Designs
 
-## Process
+Show each design with:
 
-### 1. Detect build command
+1. **Interface signature** — types, methods, params
+2. **Usage examples** — how callers actually use it in practice
+3. **What it hides** — complexity kept internal
 
-Read project manifest files in order to determine the build command:
+Present designs sequentially so user can absorb each approach before comparison.
 
-| Manifest | Build command |
-|----------|--------------|
-| `package.json` | `npm run build` (or `scripts.build` value) |
-| `Cargo.toml` | `cargo build --release` |
-| `pyproject.toml` / `setup.py` | Depends on build backend (`poetry build`, `pip install -e .`, etc.) |
-| `Makefile` | `make build` or first target named `build` |
-| `AGENTS.md` / `CLAUDE.md` | Look for `build:` in project commands section |
+### 4. Compare Designs
 
-If no manifest is found, prompt the user with: "No detected build command. Pass `--build 'npm run build'` or specify the command."
+After showing all designs, compare them on:
 
-### 2. Build the artifact
+- **Interface simplicity**: fewer methods, simpler params
+- **General-purpose vs specialized**: flexibility vs focus
+- **Implementation efficiency**: does shape allow efficient internals?
+- **Depth**: small interface hiding significant complexity (good) vs large interface with thin implementation (bad)
+- **Ease of correct use** vs **ease of misuse**
 
-```bash
-npm run build
-```
+Discuss trade-offs in prose, not tables. Highlight where designs diverge most.
 
-Or the detected command from step 1. If the build fails, exit non-zero and report the build output.
+### 5. Synthesize
 
-### 3. Verify the artifact
+Often the best design combines insights from multiple options. Ask:
 
-```bash
-ARTIFACT_DIR="${ARTIFACT_DIR:-dist}"
-if [ ! -d "$ARTIFACT_DIR" ] || [ -z "$(ls -A "$ARTIFACT_DIR" 2>/dev/null)" ]; then
-  echo "FAIL: build artifact not found at $ARTIFACT_DIR"
-  exit 1
-fi
-```
+- "Which design best fits your primary use case?"
+- "Any elements from other designs worth incorporating?"
 
-Configurable via `$ARTIFACT_DIR` environment variable (default: `dist/`).
+## Evaluation Criteria
 
-### 4. Deploy to platform
+From "A Philosophy of Software Design":
 
-Platform-agnostic — supports multiple deployment targets via environment variables:
+**Interface simplicity**: Fewer methods, simpler params = easier to learn and use correctly.
 
-| Platform | Env var | Example |
-|----------|---------|---------|
-| Vercel | `VERCEL_TOKEN`, `VERCEL_PROJECT_ID` | `vercel deploy --prod --token $VERCEL_TOKEN` |
-| Netlify | `NETLIFY_AUTH_TOKEN`, `NETLIFY_SITE_ID` | `netlify deploy --prod --auth $NETLIFY_AUTH_TOKEN --dir $ARTIFACT_DIR` |
-| BigBase MCP | MCP tool call | `mcp deploy` via BigBase server |
-| rsync/SSH | `DEPLOY_SSH_USER`, `DEPLOY_SSH_HOST`, `DEPLOY_SSH_PATH` | `rsync -avz $ARTIFACT_DIR/ $DEPLOY_SSH_USER@$DEPLOY_SSH_HOST:$DEPLOY_SSH_PATH` |
-| Custom | `DEPLOY_COMMAND` | Run any deploy command string |
+**General-purpose**: Can handle future use cases without changes. But beware over-generalization.
 
-The deploy tool is selected by which environment variables are set. If none are configured:
+**Implementation efficiency**: Does interface shape allow efficient implementation? Or force awkward internals?
 
-```bash
-echo "No deploy target configured. Set one of: VERCEL_TOKEN, NETLIFY_AUTH_TOKEN, DEPLOY_SSH_USER+DEPLOY_SSH_HOST, DEPLOY_COMMAND, or MCP deploy tool."
-exit 1
-```
+**Depth**: Small interface hiding significant complexity = deep module (good). Large interface with thin implementation = shallow module (avoid).
 
-### 5. Wait and poll status
+## Anti-Patterns
 
-After invoking the deploy command, poll for completion:
-
-```bash
-DEPLOY_TIMEOUT="${DEPLOY_TIMEOUT:-300}"   # seconds (default 5 minutes)
-DEPLOY_POLL_INTERVAL="${DEPLOY_POLL_INTERVAL:-30}"  # seconds
-
-start_time=$(date +%s)
-while true; do
-  elapsed=$(( $(date +%s) - start_time ))
-  if [ "$elapsed" -ge "$DEPLOY_TIMEOUT" ]; then
-    echo "FAIL: deploy status polling timed out after ${DEPLOY_TIMEOUT}s"
-    exit 1
-  fi
-  
-  status=$(get_deploy_status)  # platform-specific status check
-  if [ "$status" = "ready" ] || [ "$status" = "done" ]; then
-    echo "Deploy completed in ${elapsed}s"
-    break
-  fi
-  
-  sleep "$DEPLOY_POLL_INTERVAL"
-done
-```
-
-Use exponential backoff for retries on transient failures:
-
-```bash
-RETRY_MAX="${RETRY_MAX:-3}"
-base_delay=2
-for attempt in $(seq 1 "$RETRY_MAX"); do
-  if deploy_command; then
-    break
-  fi
-  if [ "$attempt" -eq "$RETRY_MAX" ]; then
-    echo "FAIL: deploy failed after ${RETRY_MAX} attempts"
-    exit 1
-  fi
-  sleep $(( base_delay * 2 ** (attempt - 1) ))
-done
-```
-
-### 6. Baseline smoke test
-
-```bash
-DEPLOY_URL="${DEPLOY_URL:?DEPLOY_URL must be set}"
-if curl -sSf "$DEPLOY_URL" > /dev/null 2>&1; then
-  echo "OK: $DEPLOY_URL responds with HTTP 200"
-else
-  echo "FAIL: $DEPLOY_URL is not responding with HTTP 200"
-  exit 1
-fi
-```
-
-For comprehensive health-checking, chain to the `smoke-test` skill:
-
-```bash
-# After deploy success
-bash scripts/run-smoke.sh "$DEPLOY_URL"
-```
-
-## Configuration
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `ARTIFACT_DIR` | `dist` | Build output directory |
-| `DEPLOY_URL` | *(required)* | Live URL for smoke test |
-| `DEPLOY_TIMEOUT` | `300` | Max wait for deploy completion (seconds) |
-| `DEPLOY_POLL_INTERVAL` | `30` | Polling interval (seconds) |
-| `RETRY_MAX` | `3` | Max deploy retry attempts |
-| `BUILD_COMMAND` | *(auto-detect)* | Override build command |
-
-## Verification
-
-→ verify: `test -f deploy/SKILL.md && grep -q 'name: deploy' deploy/SKILL.md && echo OK`
-→ verify: `grep -qi 'build\|artifact\|deploy\|smoke' deploy/SKILL.md && echo OK`
-→ verify: `grep -ci 'package.json\|Cargo.toml\|Makefile\|manifest' deploy/SKILL.md | awk '{if($1>=1) print "OK"; else print "FAIL"}'`
-→ verify: `grep -ci 'timeout\|poll\|status\|retry\|backoff' deploy/SKILL.md | awk '{if($1>=2) print "OK"; else print "FAIL"}'`
-→ verify: `grep -q 'curl.*DEPLOY_URL\|smoke\|health' deploy/SKILL.md && echo OK`
+- Don't let sub-agents produce similar designs — enforce radical difference
+- Don't skip comparison — the value is in contrast
+- Don't implement — this is purely about interface shape
+- Don't evaluate based on implementation effort
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
