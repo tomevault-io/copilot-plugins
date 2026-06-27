@@ -1,121 +1,140 @@
-## change-request
+## commit-message
 
-> Add a new requirement or reorder epics by WSJF against specs/release-plan.yaml and epic capsule directories. Modes Add and Reorder. Use when a new requirement arrives mid-release or the plan needs prioritization.
+> Reviews working-tree changes, then drafts a Conventional Commits title/body and states the semantic-release version bump a single such commit would imply. Also notes which defensive-code categories were touched. Use when the user wants to commit recent work, prepare a Conventional Commits message, or asks for semantic-release / semver-consistent messaging before git commit.
 
 
 
-# Change Request
+# Commit Message
+> **HARD GATE** — **HARD GATE** — Commits must follow Conventional Commits spec (type(scope): description). Do NOT use vague messages like 'fix' or 'updates.' The message must explain the 'why,' not the 'what.'
 
-> **HARD GATE** — `specs/release-plan.yaml` must exist before running either mode. If it doesn't, run `plan-release` first.
->
-> → verify: `[ -f specs/release-plan.yaml ] && echo "ready" || echo "BLOCKED: run plan-release first"`
 
-Two modes. State which one you want or the skill will ask.
+## Modes
 
-## Mode A — Add
+- Default: standard Conventional Commits message
+- --fix-type: Forces type=fix. Use when commit type is unambiguous.
 
-Intake a new requirement mid-flight without disrupting work in progress.
+## What "last chat" means
 
-1. **Capture**: What is the change? What problem does it solve?
-2. **Locate**: Which existing stories in `specs/epics/` does it affect or replace?
-3. **Draft**: Add story + `tasks[]` with Gherkin-style AC in epic YAML (each task has `verify`).
-4. **Place**: Append story under existing epic capsule, or create `specs/epics/eNN-slug.yaml` and register in `release-plan.yaml` `epics[]`.
-5. **Score**: Compute WSJF; note if it outranks in-progress work.
+- **Primary source of truth:** `git status`, `git diff` (unstaged), and `git diff --cached` (staged). Run these in the repo root (or the paths the user changed).
+- **Context:** use the current conversation to summarize *intent* and to spot **breaking** API/behavior changes that diff alone may not show.
+- If the user tracks a session baseline (e.g. branch, tag, or `git stash create` at start), you may `git diff <baseline>..HEAD` plus uncommitted diffs; otherwise use only the index and working tree.
 
-→ verify: `grep -c 'stories:' specs/epics/*/epic.yaml`
+## Quick workflow
 
-## Mode B — Reorder
+1. **Inventory** — List changed paths; group by feature vs chore vs docs vs test-only.
+2. **Decide commit shape** — One atomic commit is ideal. If the diff mixes unrelated concerns, recommend **multiple commits** (each with its own type/scope) before suggesting one message.
+3. **Classify for semantic release** — `fix` → patch, `feat` → minor, **breaking** → major.
+4. **Write the message** — `type(optional-scope)!: description` (see [REFERENCE.md](REFERENCE.md#message-format)). Use `!` or a `BREAKING CHANGE:` footer when behavior contracts change.
+5. **Note defensive-code categories touched** — from CONVENTIONS.md: Rate limit | Retry with backoff | Circuit breaker | Timeout | Graceful degradation
+6. **Note fix-ratio contribution** — Each `fix:` commit counts toward `metrics.commit_ratio.fix` in `specs/state.yaml`. After `release-branch`, `session-state` recalculates the ratio automatically. A high fix rate (>30%) triggers a deploy + smoke-test suggestion.
+7. **Deliver** — Output:
+   - Proposed **full commit message** (title + optional body + footers).
+   - **Release bump** this commit would drive: `patch` | `minor` | `major` | `none`.
+   - Optional `git add …` and `git commit -m` instructions; do **not** run destructive git commands unless the user asked.
 
-Value-engineering pass over the full release using WSJF.
+## Checklist before finalizing
 
-See [REFERENCE.md](REFERENCE.md) for the full WSJF scoring rubric.
+- [ ] Type matches the **dominant** user-visible outcome (`feat` vs `fix` vs `perf`, etc.).
+- [ ] **Scope** is a short noun in parentheses if it helps (e.g. `fix(api): …`).
+- [ ] Breaking changes are explicit (`!` and/or `BREAKING CHANGE:` in the body/footer).
+- [ ] Description is imperative, lowercase start after the prefix, no trailing period in the title line.
 
-1. **Score** each epic/story: BV + TC + RR / Job Size.
-2. **Re-sort** `release-plan.yaml` `epics[]` and per-epic `wsjf` fields.
-3. **Flag cut candidates**: WSJF < 1.5.
-4. **Update** `specs/release-plan.yaml` and epic `wsjf` keys with rationale.
-5. **Report** the delta.
+## When not to invent a bump
 
-→ verify: `grep -c 'wsjf' specs/release-plan.yaml specs/epics/*/epic.yaml`
+If the repo uses a custom `@semantic-release/commit-analyzer` preset, note that your bump is **heuristic** and they should match `.releaserc` / `release.config.*`. See [REFERENCE.md](REFERENCE.md#custom-repositories).
 
-## Conversational Mode
+## Further reading
 
-If the user's request is in natural language and does not match the structured format of Mode A or Mode B, enter Conversational Mode to extract the change parameters through interactive dialogue.
+- [REFERENCE.md](REFERENCE.md) — Message shape, footers, release mapping, squashing notes.
 
-### 5-Step Flow
+## Handoff
 
-1. **Capture**: Parse the natural-language request for what, why, and where. Ask at most 3 clarifying questions before drafting.
-2. **Locate**: Identify which epic or capability in `specs/epics/` the request affects or replaces.
-3. **Draft**: Present a structured draft of the proposed story and tasks for user confirmation.
-4. **Score**: Estimate the WSJF score and explain the calculation so the user understands the priority.
-5. **Place**: Confirm the final epic placement with the user before writing files.
-
-## After either mode
-
-Run `bash scripts/sync-status-from-epics.sh`. Suggest `plan-work` or `build-epic` for the top-ranked unstarted story.
+Gate: READY -> next: release-branch
+Writes: state.yaml handoff.next_skill = release-branch
 
 ---
 
-# WSJF Scoring Reference
+# Conventional Commits + semantic-style release (reference)
 
-Weighted Shortest Job First: **WSJF = (Business Value + Time Criticality + Risk Reduction) / Job Size**
+## Message format
 
-All dimensions scored 1–10 using a Fibonacci-like scale: 1, 2, 3, 5, 8, 10.
+From [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/#specification):
 
-## Business Value
+```text
+<type>[optional scope][optional !]: <description>
 
-| Score | Meaning |
-|-------|---------|
-| 10 | Core revenue path, legal requirement, blocking launch |
-| 8  | Significant user value, major pain point removed |
-| 5  | Notable improvement, medium user segment affected |
-| 3  | Nice-to-have, minor convenience |
-| 1  | Cosmetic or speculative |
+[optional body]
 
-## Time Criticality
+[optional footer(s)]
+```
 
-| Score | Meaning |
-|-------|---------|
-| 10 | Hard deadline (regulatory, contract, launch date) |
-| 8  | Competitive window closing, partner dependency |
-| 5  | Would delay next milestone if deferred |
-| 3  | Flexible, can slip one sprint |
-| 1  | No urgency |
+- **Scope:** parenthesized noun, e.g. `feat(parser): …`.
+- **Breaking:** `!` before `:` (e.g. `feat(api)!: …`) and/or footer `BREAKING CHANGE: description` (token must be uppercase per spec for that footer name).
+- **Description:** short summary; body explains *why* or migration steps.
 
-## Risk Reduction (or Opportunity Enablement)
+Common **types** (not exhaustive): `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore` — as in [Angular / commitlint conventions](https://github.com/conventional-changelog/commitlint).
 
-| Score | Meaning |
-|-------|---------|
-| 10 | Eliminates critical architectural risk or enables a new capability |
-| 8  | Reduces a known failure mode or unblocks high-value work |
-| 5  | Moderate risk mitigation or enablement |
-| 3  | Low risk reduction |
-| 1  | No risk relevance |
+## Advanced Specification Patterns
 
-## Job Size (effort denominator — larger = lower WSJF)
+### Reverts
+If the commit reverts a previous commit, it should begin with `revert:`, followed by the header of the reverted commit. In the body, it should say: `This reverts commit <hash>.`.
 
-| Score | Meaning |
-|-------|---------|
-| 1  | Hours |
-| 2  | 1 day |
-| 3  | 2–3 days |
-| 5  | 1 week |
-| 8  | 2 weeks |
-| 10 | 1 month+ |
+```text
+revert: feat(api): add user endpoint
 
-## Cut threshold
+This reverts commit 676104e.
+```
 
-Stories with WSJF < 1.5 are cut candidates: high effort, low combined value.
+### Breaking Changes
+A breaking change can be signaled by:
+1.  A **`BREAKING CHANGE:`** footer (must be uppercase, at the start of the footer). This is the **most compatible** way to trigger a Major release in `semantic-release` (Angular preset).
+2.  A **`!`** after the type/scope: `feat(api)!: change user response shape`.
 
-## Example
+**Pro-tip:** For maximum compatibility with all tooling (older and newer), use BOTH the `!` and the `BREAKING CHANGE:` footer.
 
-Story: "Add OAuth login"
-- Business Value: 8 (removes major sign-up friction)
-- Time Criticality: 5 (Q3 launch nice, not hard)
-- Risk Reduction: 3 (minor security improvement)
-- Job Size: 5 (one week)
+### Footers (Tokens & Values)
+Footers follow the same `Token: value` pattern as Git Trailers. Common tokens:
+- `Refs: #123`
+- `See-also: docs/ADR-001.md`
+- `Signed-off-by: Name <email>`
 
-WSJF = (8 + 5 + 3) / 5 = **3.2** — healthy, implement early.
+**Multi-line footers:** If a footer value spans multiple lines, each subsequent line must be indented.
+
+### Squashing & History
+When using `gh pr merge --squash`, the PR title is usually used as the commit subject. 
+- **PR Title:** MUST follow `<type>(<scope>): <description>`
+- **PR Body:** Content will be moved to the commit body.
+
+## Release Type Mapping (Default Angular Preset)
+
+This table reflects the **out-of-the-box** behavior of `semantic-release` using the `@semantic-release/commit-analyzer` default (Angular) rules.
+
+| Commit pattern | Release | Notes |
+|----------------|---------|-------|
+| `fix:` | **Patch** | Bug fixes |
+| `feat:` | **Minor** | New features |
+| `perf:` | **Patch** | Performance improvements |
+| `any type` + `BREAKING CHANGE:` footer | **Major** | **Mandatory** for Major version bumps in default configs. |
+| `any type!:` (exclamation mark) | **Major** | Supported by modern CC parsers, but use footer for max safety. |
+| `docs:`, `chore:`, `test:`, `ci:`, `refactor:`, `style:` | **None** | Does not trigger a new release by default. |
+
+> **Warning:** While `refactor:` and `style:` improve code, they do NOT trigger a release in the default Angular preset. Use `fix:` if a refactor also fixes a bug, or `feat:` if it adds new behavior.
+
+## Custom Repositories
+
+- Read `release.config.js`, `.releaserc`, or `package.json` → `release` / `semantic-release` config.
+- The **@semantic-release/commit-analyzer** preset may map types differently; prefer **their** rules when they conflict with this reference.
+
+## Squash and PR titles
+
+- If the team squashes on merge, the **PR title** often becomes the single squashed commit subject — it should still follow `type(scope): description` for tooling.
+- `revert:` type and `Refs:` footers are valid patterns; revert handling varies by [tooling](https://www.conventionalcommits.org/en/v1.0.0/#specification).
+
+## Links
+
+- [Conventional Commits — specification](https://www.conventionalcommits.org/en/v1.0.0/#specification)
+- [semantic-release — README (commit format & flow)](https://github.com/semantic-release/semantic-release#commit-message-format)
+- Fork pointer: [semantic-release-baby](https://github.com/danielvm-git/semantic-release-baby) (automation and docs align with upstream semantic-release)
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
