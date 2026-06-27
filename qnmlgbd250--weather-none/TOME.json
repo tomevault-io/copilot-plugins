@@ -1,0 +1,44 @@
+{
+  "name": "weather-none",
+  "owner": "qnmlgbd250",
+  "repo": "weather-none",
+  "description": "\u57fa\u4e8e\u5f69\u4e91\u5929\u6c14Api\u7684\u5b89\u5353\u5929\u6c14APP\u5e94\u7528\u7a0b\u5e8f\uff0c\u65e0\u5e7f\u544a\uff0c\u754c\u9762\u7b80\u6d01\u6613\u7528",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qnmlgbd250/weather-none",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T23:49:33Z"
+}
