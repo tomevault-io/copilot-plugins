@@ -1,0 +1,9 @@
+{
+  "name": "stuinfla--cognitum-learn",
+  "displayName": "cognitum-learn",
+  "description": "Learn-RV \u2014 Become a genius using Cognitum One See or RuVector.   Pure-Rust CLI that turns videos into queryable knowledge bases stored in RuVector RVF format. BGE-large embeddings, hybrid HNSW+BM25 re",
+  "version": "1.0.0",
+  "author": "stuinfla",
+  "homepage": "https://github.com/stuinfla/cognitum-learn",
+  "skills": []
+}
