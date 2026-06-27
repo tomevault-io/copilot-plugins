@@ -1,0 +1,9 @@
+{
+  "name": "sigmacomputing--sigma-agent-skills",
+  "displayName": "sigma-agent-skills",
+  "description": "Multi-provider agent skills for Sigma Computing. Runs in Claude Code, Cursor, OpenAI Codex, and Snowflake Cortex Code.",
+  "version": "1.0.0",
+  "author": "sigmacomputing",
+  "homepage": "https://github.com/sigmacomputing/sigma-agent-skills",
+  "skills": []
+}
