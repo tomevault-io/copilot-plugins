@@ -1,0 +1,9 @@
+{
+  "name": "dzianisv--opencode-plugins",
+  "displayName": "opencode-plugins",
+  "description": "Reflection/judge layer for OpenCode & Claude Code \u2014 catches premature stops, enforces workflow gates (tests, CI, PRs). 78% of agent stops are premature.",
+  "version": "1.0.0",
+  "author": "dzianisv",
+  "homepage": "https://github.com/dzianisv/opencode-plugins",
+  "skills": []
+}
