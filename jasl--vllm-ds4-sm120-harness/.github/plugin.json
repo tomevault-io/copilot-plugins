@@ -1,0 +1,9 @@
+{
+  "name": "jasl--vllm-ds4-sm120-harness",
+  "displayName": "vllm-ds4-sm120-harness",
+  "description": "vllm-ds4-sm120-harness",
+  "version": "1.0.0",
+  "author": "jasl",
+  "homepage": "https://github.com/jasl/vllm-ds4-sm120-harness",
+  "skills": []
+}
