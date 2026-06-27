@@ -4,7 +4,7 @@
   "repo": "cadenza",
   "description": "AI-powered MIDI generator for progressive house and melodic techno. Give it a BPM and a musical key \u2014 get three harmonically coherent MIDI files back.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Andrea-Cavallo/cadenza",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T22:51:33Z"
+  "distributed_at": "2026-06-27T22:56:48Z"
 }
