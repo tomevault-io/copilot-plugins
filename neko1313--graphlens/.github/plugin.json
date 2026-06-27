@@ -1,0 +1,9 @@
+{
+  "name": "neko1313--graphlens",
+  "displayName": "graphlens",
+  "description": "Polyglot code-analysis framework \u2014 parses Python, TypeScript, Go, Rust & PHP into a shared graph IR (tree-sitter + type-aware resolvers: ty, tsc, gopls, rust-analyzer). Call/dependency graphs, cross-l",
+  "version": "1.0.0",
+  "author": "Neko1313",
+  "homepage": "https://github.com/Neko1313/graphlens",
+  "skills": []
+}
