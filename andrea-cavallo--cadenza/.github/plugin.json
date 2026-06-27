@@ -1,0 +1,9 @@
+{
+  "name": "andrea-cavallo--cadenza",
+  "displayName": "cadenza",
+  "description": "AI-powered MIDI generator for progressive house and melodic techno. Give it a BPM and a musical key \u2014 get three harmonically coherent MIDI files back.",
+  "version": "1.0.0",
+  "author": "Andrea-Cavallo",
+  "homepage": "https://github.com/Andrea-Cavallo/cadenza",
+  "skills": []
+}
