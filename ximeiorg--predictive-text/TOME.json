@@ -1,0 +1,44 @@
+{
+  "name": "predictive-text",
+  "owner": "ximeiorg",
+  "repo": "predictive-text",
+  "description": "\u4e00\u4e2a\u4e13\u95e8\u5e94\u7528\u4e8e\u624b\u673a\u8f93\u5165\u6cd5\u7684\u667a\u80fd\u8054\u60f3\u6a21\u578b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ximeiorg/predictive-text",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T18:42:06Z"
+}
