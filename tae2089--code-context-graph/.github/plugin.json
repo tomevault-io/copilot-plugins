@@ -1,0 +1,9 @@
+{
+  "name": "tae2089--code-context-graph",
+  "displayName": "code-context-graph",
+  "description": "Vectorless code retrieval for AI coding agents \u2014 search code by business intent (@intent, @domainRule), built for MSA via MCP.",
+  "version": "1.0.0",
+  "author": "tae2089",
+  "homepage": "https://github.com/tae2089/code-context-graph",
+  "skills": []
+}
