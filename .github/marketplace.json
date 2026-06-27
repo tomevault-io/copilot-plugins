@@ -8044,6 +8044,11 @@
       "description": " AI\u2011supportive CRM / ERP / Business application framework \u2014 built to power R&D, operations, and growth. It\u2019s modular, extensible, and designed for teams that want strong defaults with room to customiz"
     },
     {
+      "name": "sybil-solutions--local-studio",
+      "source": "./sybil-solutions--local-studio",
+      "description": "Control panel for VLLM, Sglang, llama.cpp, exllamav3"
+    },
+    {
       "name": "debugtheworldbot--keystats",
       "source": "./debugtheworldbot--keystats",
       "description": "Keyboard & Mouse Stats for macOS/Windows"
@@ -155954,6 +155959,11 @@
       "description": "Octopus is a personal agent platform"
     },
     {
+      "name": "caio-moliveira--workshop-agent-harness",
+      "source": "./caio-moliveira--workshop-agent-harness",
+      "description": "workshop-agent-harness"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -171637,6 +171647,11 @@
       "name": "dososo--blcaptain-ppt-skill",
       "source": "./dososo--blcaptain-ppt-skill",
       "description": "AI \u539f\u751f\u00b7\u5355\u6587\u4ef6 HTML \u6f14\u793a Skill\uff1a7 \u5957\u951a\u5b9a\u516c\u8ba4\u8bbe\u8ba1\u4f53\u7cfb\u7684\u89c6\u89c9\u4eba\u683c\uff0c\u597d\u770b\uff08WCAG/\u95f4\u8ddd/32 \u7ef4\u5ba1\u8ba1\uff09\u4e0e\u8bda\u5b9e\uff08\u53cd\u4f2a\u9020\uff09\u90fd\u7531\u673a\u5668\u5f3a\u5236\uff0c\u96f6\u4f9d\u8d56\u3002 | AI-native single-file HTML presentation skill \u2014 7 design-system-anchored visual personas with machine-enforced taste an"
+    },
+    {
+      "name": "cas9877--mineradio-macos",
+      "source": "./cas9877--mineradio-macos",
+      "description": "Mineradio macOS \u684c\u9762\u7248 - \u7f51\u7edc\u7535\u53f0\u64ad\u653e\u5668"
     },
     {
       "name": "lightninglabs--lnget",
@@ -215254,6 +215269,71 @@
       "description": "\u4e13\u4e1a\u7ea7PPT\u751f\u6210Agent \u2014 6\u5c42\u6d41\u6c34\u7ebf\u67b6\u6784\uff0c\u591a\u683c\u5f0f\u8f93\u5165\uff0c4\u6b21\u4eba\u5de5\u5ba1\u6838\uff0c\u591a\u56fd\u4ea7LLM\u534f\u540c(GLM-4/DeepSeek-R1/Qwen-Max)\uff0c\u771f\u5b9e\u6570\u636e\u9a71\u52a8\u56fe\u8868\uff0c\u751f\u6210\u54a8\u8be2\u516c\u53f8\u7ea7\u6f14\u793a\u6587\u7a3f\u3002React+FastAPI\u3002"
     },
     {
+      "name": "photon-hq--advanced-imessage-ts",
+      "source": "./photon-hq--advanced-imessage-ts",
+      "description": "TypeScript SDK for the Apple level iMessage API via Photon's Spectrum gRPC gateway."
+    },
+    {
+      "name": "kevinten-ai--hunyuan3d-comprehensive",
+      "source": "./kevinten-ai--hunyuan3d-comprehensive",
+      "description": "\ud83c\udfaf \u62d3\u7af93D\u6253\u5370\u673a AI\u6a21\u578b\u751f\u6210\u65b9\u6848 - \u7528AI\u4ece\u6587\u5b57/\u56fe\u7247\u751f\u62103D\u6a21\u578b\uff0c\u76f4\u63a5\u6253\u5370\u3002\u652f\u6301 Hunyuan3D-1 \u6587\u5b57\u751f\u6210\u548c Hunyuan3D-2 \u56fe\u7247\u751f\u6210\uff0c\u81ea\u52a8\u6253\u5370\u5230 Bambu Lab \u6253\u5370\u673a\u3002"
+    },
+    {
+      "name": "neko1313--graphlens",
+      "source": "./neko1313--graphlens",
+      "description": "Polyglot code-analysis framework \u2014 parses Python, TypeScript, Go, Rust & PHP into a shared graph IR (tree-sitter + type-aware resolvers: ty, tsc, gopls, rust-analyzer). Call/dependency graphs, cross-l"
+    },
+    {
+      "name": "gabrielondelphi--claude-tools-for-delphi",
+      "source": "./gabrielondelphi--claude-tools-for-delphi",
+      "description": "Skills, agents, settings, md files for Claude Code for Delphi programmers"
+    },
+    {
+      "name": "stratasync--stratasync",
+      "source": "./stratasync--stratasync",
+      "description": "Sync that works offline."
+    },
+    {
+      "name": "morgeek--ha-plugin-pour-eau-du-grand-lyon",
+      "source": "./morgeek--ha-plugin-pour-eau-du-grand-lyon",
+      "description": "HomeAssistant Plugin pour Eau du Grand Lyon"
+    },
+    {
+      "name": "neko1313--graphlens",
+      "source": "./neko1313--graphlens",
+      "description": "Polyglot code-analysis framework \u2014 parses Python, TypeScript, Go, Rust & PHP into a shared graph IR (tree-sitter + type-aware resolvers: ty, tsc, gopls, rust-analyzer). Call/dependency graphs, cross-l"
+    },
+    {
+      "name": "str4vinci--breos",
+      "source": "./str4vinci--breos",
+      "description": "BREOS - Building Renewable Energy Optimization Software"
+    },
+    {
+      "name": "photon-hq--advanced-imessage-ts",
+      "source": "./photon-hq--advanced-imessage-ts",
+      "description": "TypeScript SDK for the Apple level iMessage API via Photon's Spectrum gRPC gateway."
+    },
+    {
+      "name": "nizoka--pdfnative",
+      "source": "./nizoka--pdfnative",
+      "description": "Zero-dependency native PDF engine in pure TypeScript. Create, parse, sign, and modify ISO 32000-1 documents. Supports PDF/A, PDF/UA, BiDi, and complex font shaping."
+    },
+    {
+      "name": "stratasync--stratasync",
+      "source": "./stratasync--stratasync",
+      "description": "Sync that works offline."
+    },
+    {
+      "name": "xesco--pivine",
+      "source": "./xesco--pivine",
+      "description": "Install Chromium + Widevine for Netflix and other DRM streaming on Ubuntu for Raspberry Pi"
+    },
+    {
+      "name": "ximeiorg--predictive-text",
+      "source": "./ximeiorg--predictive-text",
+      "description": "\u4e00\u4e2a\u4e13\u95e8\u5e94\u7528\u4e8e\u624b\u673a\u8f93\u5165\u6cd5\u7684\u667a\u80fd\u8054\u60f3\u6a21\u578b"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -232672,6 +232752,31 @@
       "name": "tae2089--code-context-graph",
       "source": "./tae2089--code-context-graph",
       "description": "Vectorless code retrieval for AI coding agents \u2014 search code by business intent (@intent, @domainRule), built for MSA via MCP."
+    },
+    {
+      "name": "diamondfsd--luna-ai-cut",
+      "source": "./diamondfsd--luna-ai-cut",
+      "description": "Luna AI Cut \u662f\u4e00\u6b3e\u9762\u5411 Insta360 Luna Ultra \u76f8\u673a\u7684\u684c\u9762\u5a92\u4f53\u7ba1\u7406\u5de5\u5177\u3002PC \u901a\u8fc7 Wi-Fi \u8fde\u63a5\u76f8\u673a\u540e\uff0c\u53ef\u4ee5\u6d4f\u89c8\u3001\u9009\u62e9\u3001\u4e0b\u8f7d\u76f8\u673a\u4e2d\u7684\u7167\u7247\u548c\u89c6\u9891\uff0c\u652f\u6301\u6c34\u5370\u5bfc\u51fa\u3001\u6279\u91cf\u64cd\u4f5c\u3001\u8fb9\u5230\u8fb9\u9884\u89c8\u7b49\u4e30\u5bcc\u529f\u80fd\u3002"
+    },
+    {
+      "name": "the-bazzar--subtitle-translation",
+      "source": "./the-bazzar--subtitle-translation",
+      "description": "YouTube \u89c6\u9891\u4e0b\u8f7d + WhisperX AI \u5b57\u5e55 + Netflix \u65f6\u95f4\u7801\u7f8e\u5316 + LLM \u4e2d\u82f1\u7ffb\u8bd1 + \u786c\u538b \u2014 \u4e00\u952e\u6d41\u6c34\u7ebf\u76f4\u8fbe burned.mkv  YouTube download + WhisperX ASR + Netflix timecode beautify + LLM EN\u2192ZH translate + burn-in \u2014 one-click pipeline to "
+    },
+    {
+      "name": "tsang12140--picmark",
+      "source": "./tsang12140--picmark",
+      "description": "\u7b80\u5355\u7684\u753b\u56fe\u6807\u6ce8\u8f6f\u4ef6\uff0cwin7/win10\u517c\u5bb9\u3002"
+    },
+    {
+      "name": "jscott3201--ghostwriter-rs",
+      "source": "./jscott3201--ghostwriter-rs",
+      "description": "ghostwriter-rs"
+    },
+    {
+      "name": "subhadeeproy3902--x-video-downloader",
+      "source": "./subhadeeproy3902--x-video-downloader",
+      "description": "RipTweet reads the post, finds the video, photo, or GIF inside it, and hands back the original file \u2014 full resolution, no re-encoding, no watermark. "
     },
     {
       "name": "cheerhuan--save-your-token",
