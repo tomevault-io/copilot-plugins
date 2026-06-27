@@ -1,0 +1,44 @@
+{
+  "name": "SynthNews",
+  "owner": "tam1012",
+  "repo": "SynthNews",
+  "description": "SynthNews l\u00e0 h\u1ec7 th\u1ed1ng \u0111\u1ecdc tin c\u00e1 nh\u00e2n d\u1ea1ng full-stack monorepo. \u1ee8ng d\u1ee5ng l\u1ea5y b\u00e0i t\u1eeb RSS, Web, Reddit v\u00e0 VOZ, l\u01b0u v\u00e0o PostgreSQL, d\u00f9ng AI \u0111\u1ec3 t\u00f3m t\u1eaft ti\u1ebfng Vi\u1ec7t, r\u1ed3i hi\u1ec3n th\u1ecb trong giao di\u1ec7n \u0111\u1ecdc nhanh cho desktop v\u00e0 mobile",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tam1012/SynthNews",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T22:37:22Z"
+}
