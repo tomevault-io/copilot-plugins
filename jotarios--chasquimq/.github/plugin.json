@@ -1,0 +1,9 @@
+{
+  "name": "jotarios--chasquimq",
+  "displayName": "chasquimq",
+  "description": "ChasquiMQ is a Redis-backed message broker / background job queue",
+  "version": "1.0.0",
+  "author": "jotarios",
+  "homepage": "https://github.com/jotarios/chasquimq",
+  "skills": []
+}
