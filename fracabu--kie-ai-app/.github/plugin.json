@@ -1,0 +1,9 @@
+{
+  "name": "fracabu--kie-ai-app",
+  "displayName": "kie-ai-app",
+  "description": "Automates the entire process of generating promotional videos, from AI-powered storyboard creation to video generation with Kie.ai Sora 2 and final merging.",
+  "version": "1.0.0",
+  "author": "fracabu",
+  "homepage": "https://github.com/fracabu/kie-ai-app",
+  "skills": []
+}
