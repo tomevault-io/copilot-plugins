@@ -215354,6 +215354,36 @@
       "description": "\u4e00\u4e2a\u4e13\u95e8\u5e94\u7528\u4e8e\u624b\u673a\u8f93\u5165\u6cd5\u7684\u667a\u80fd\u8054\u60f3\u6a21\u578b"
     },
     {
+      "name": "theoryfoundry--aimv2",
+      "source": "./theoryfoundry--aimv2",
+      "description": "The second version of AIM with a special focus on interaction and generalizability."
+    },
+    {
+      "name": "irahardianto--pathfinder",
+      "source": "./irahardianto--pathfinder",
+      "description": "The Headless IDE \u2014 an MCP server that gives AI coding agents AST-aware semantic code intelligence and LSP navigation."
+    },
+    {
+      "name": "hfknight--x-bookmarks-sync",
+      "source": "./hfknight--x-bookmarks-sync",
+      "description": "Sync your X (Twitter) bookmarks directly into your Obsidian vault as clean, structured Markdown notes. No API key. No OAuth."
+    },
+    {
+      "name": "oleewen--ai-knowledge",
+      "source": "./oleewen--ai-knowledge",
+      "description": "ai-knowledge"
+    },
+    {
+      "name": "pyapp-kit--pyqlementine",
+      "source": "./pyapp-kit--pyqlementine",
+      "description": "PyQt6/PySide6 Bindings for Qlementine"
+    },
+    {
+      "name": "promptowl--contextnest",
+      "source": "./promptowl--contextnest",
+      "description": "Structured, versioned context for AI agents. Context Nest organizes knowledge as markdown documents in a vault, with versioning, integrity verification, and a query language \u2014 accessible via CLI or MC"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -232797,6 +232827,36 @@
       "name": "subhadeeproy3902--x-video-downloader",
       "source": "./subhadeeproy3902--x-video-downloader",
       "description": "RipTweet reads the post, finds the video, photo, or GIF inside it, and hands back the original file \u2014 full resolution, no re-encoding, no watermark. "
+    },
+    {
+      "name": "flaser381--spotilyze",
+      "source": "./flaser381--spotilyze",
+      "description": "See what your music says about you. A private, local-first analyzer for your Spotify listening history. Patterns, life-phases, and an optional AI personality read."
+    },
+    {
+      "name": "cettocdx--rift",
+      "source": "./cettocdx--rift",
+      "description": "RIFT - Autonomous AI Penetration Testing Agent"
+    },
+    {
+      "name": "cettocdx--rift",
+      "source": "./cettocdx--rift",
+      "description": "RIFT - Autonomous AI Penetration Testing Agent"
+    },
+    {
+      "name": "cettocdx--rift",
+      "source": "./cettocdx--rift",
+      "description": "RIFT - Autonomous AI Penetration Testing Agent"
+    },
+    {
+      "name": "cettocdx--rift",
+      "source": "./cettocdx--rift",
+      "description": "RIFT - Autonomous AI Penetration Testing Agent"
+    },
+    {
+      "name": "cettocdx--rift",
+      "source": "./cettocdx--rift",
+      "description": "RIFT - Autonomous AI Penetration Testing Agent"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -354547,6 +354607,11 @@
       "name": "luandro--capy-cli",
       "source": "./luandro--capy-cli",
       "description": "capy-cli"
+    },
+    {
+      "name": "radu-bordea--nextjs-ecommerce",
+      "source": "./radu-bordea--nextjs-ecommerce",
+      "description": "NEXTjs-Ecommerce"
     }
   ]
 }
