@@ -1,0 +1,44 @@
+{
+  "name": "fluencer-predict-track",
+  "owner": "wzj998",
+  "repo": "fluencer-predict-track",
+  "description": "\u6295\u8d44\u5927V\u5408\u8ba2\u672c\uff1a\u8ffd\u8e2a\u6295\u8d44\u5927V\u5386\u53f2\u9884\u6d4b\uff0c\u5e76\u7528\u516c\u5f00\u6570\u636e\u9a8c\u8bc1\u51c6\u786e\u6027",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wzj998/fluencer-predict-track",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T04:31:51Z"
+}
