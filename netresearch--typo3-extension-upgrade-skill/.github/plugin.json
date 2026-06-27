@@ -1,0 +1,9 @@
+{
+  "name": "netresearch--typo3-extension-upgrade-skill",
+  "displayName": "typo3-extension-upgrade-skill",
+  "description": "Agent Skill for systematically upgrading TYPO3 extensions to newer LTS versions | Claude Code compatible",
+  "version": "1.0.0",
+  "author": "netresearch",
+  "homepage": "https://github.com/netresearch/typo3-extension-upgrade-skill",
+  "skills": []
+}
