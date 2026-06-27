@@ -1,0 +1,746 @@
+## edelweiss
+
+> Reference for contributors working on the Cahciua codebase. Improve code when you touch it; avoid one-off patterns.
+
+# Cahciua Agent Guide
+
+Reference for contributors working on the Cahciua codebase. Improve code when you touch it; avoid one-off patterns.
+
+**Maintenance rule**: When you add, rename, or remove a file, change a key pattern, or complete a milestone — update this file in the same commit. Outdated docs are worse than no docs.
+
+## What Is Cahciua
+
+Cahciua is a Telegram / QQ group chat bot built on the **Deterministic Context Pipeline (DCP)** architecture. DCP constructs LLM context through a three-layer pure-function pipeline:
+
+1. **Adaptation**: Platform Event → CanonicalIMEvent (anti-corruption layer).
+2. **Projection**: `IC' = Reducers(IC, CanonicalIMEvent)` — pure-function state machine producing an Intermediate Context (IC).
+3. **Rendering**: `RC = Render(IC, RenderParams)` — serialization with viewport filtering, producing Rendered Context (RC).
+
+The Driver layer sits after Rendering: it merges RC (chat context) with its own TRs (bot responses, tool results) by timestamp to assemble the final LLM API request. Driver owns tool call loops, reactive scheduling, and context compaction. Supports three API formats: OpenAI Chat Completions (`openai-chat`, via xsai with SSE streaming), OpenAI Responses API (`responses`, via direct fetch with SSE streaming), and Anthropic Messages API (`anthropic-messages`, via direct fetch with SSE streaming). TRs are stored as provider-agnostic `ConversationEntry[]` via the unified API layer; format conversion happens at API boundaries when composing context or sending requests.
+
+Key design goals: KV Cache friendly (append-only history, static system prompt, epoch-based compaction), group chat native (message batching, multi-user identity tracking, anti-injection via XML fencing), autonomous reply (bot decides whether to respond via Tool Call, not synchronous response).
+
+## Current Progress
+
+| Layer | Status | Notes |
+|-------|--------|-------|
+| Telegram integration | Done | Bot + userbot, dedup, fileId merge, credential redaction, per-session ingress queue, blocking image-to-text, blocking animation-to-text, blocking custom-emoji-to-text, send message reactions via bot, receive message reactions via Bot API updates, fetch reaction actors via userbot for count-only updates |
+| OneBot integration | Done | OneBot 11 reverse WebSocket server, access-token check, message/notice adaptation, QQ face descriptions, image-to-text hydration, send/download PlatformAdapter |
+| Adaptation | Done | Types, conversion, dual timestamps, rich text parsing, string IDs, phantom edit filtering |
+| DB / Persistence | Done | events, messages, turn_responses, turn_responses_v2, compactions, probe_responses, probe_responses_v2, image_alt_texts, subagents, subagent_messages, background_tasks, message_reaction_snapshots tables; 29 migrations |
+| Projection | Done | Reducer (message/blocked-message/edit/delete/reaction), MetaReducer (user rename detection), Immer-based immutability |
+| Rendering | Done | `render(IC, RenderParams) → RC`, XML serialization, viewport filtering, thumbnail content pieces, passive reaction event rendering, blocked-message placeholders as deleted messages, inline `<image>` / `<animation>` / `<sticker>` / `<custom-emoji>` alt text rendering |
+| Driver | Done | Triple-provider SSE streaming (OpenAI Chat Completions via xsai + Responses API via fetch + Anthropic Messages API via fetch), unified API codec layer (provider-agnostic IR with format conversion at boundaries), manual tool execution, Telegram-only `react_message`, per-step TR persistence (v2 schema), mid-turn interruption, reasoning sanitization (per-provider format), reactive orchestration (alien-signals), context compaction (LLM-based summarization with append-only history), probe/activate gate (small model decides silence vs activation), subagent delegation with isolated helper context and mailbox communication, skills system (user-facing tool definitions loaded from markdown files), background tasks (long-running shell tasks with lifecycle management), typing-aware debounce scheduling (debounce-scoped Telegram typing presence with online heartbeat / markAsRead / supergroup channel-difference fallback), offline/online reply gating via /offline /online commands, rtk output compaction (optional argv0 rewriting + pipe fallback for bash tool) |
+| Eval harness | Initial | Offline LLM eval suites for comparing prompt variants against fixed IC fixtures, repeated runs, custom TypeScript evaluators, side-effect-free tool traces, and probability summaries |
+
+## Tech Stack
+
+- **Runtime**: Node.js (>=22), TypeScript, tsx (dev), tsdown (build).
+- **Telegram Bot API**: grammY — primary message handling, sending replies, commands.
+- **Telegram User API**: gramjs (`telegram` on npm) — MTProto client for history fetching, reply-to context resolution, seeing other bots' messages.
+- **OneBot 11**: reverse WebSocket over `ws` — QQ ingress/egress via array message segments, with optional bearer access token. Outbound fenced code blocks can be rendered to images through the optional system `silicon` binary; if unavailable or failing, OneBot send falls back to plain text and logs a warning.
+- **LLM**: Three API format paths — OpenAI Chat Completions (via xsAI `chat()` with `stream: true`), OpenAI Responses API (via direct `fetch` with SSE streaming), and Anthropic Messages API (via direct `fetch` with SSE streaming). A unified API layer (`src/unified-api/`) provides provider-agnostic intermediate representation (`ConversationEntry[]`) with bidirectional codecs: each producer (streaming parser) emits IR, and each consumer (API sender) converts IR back to provider wire format. `composeContext()` builds a `ConversationEntry[]`: user content parts use `InputMessage` with `InputPart[]`, while assistant/tool entries are `OutputMessage` / `ToolResult`. Final conversion happens at the last send boundary via `toChatCompletionsInput()` / `toResponsesInput()` / `toMessagesInput()`. SSE streaming helpers in `src/driver/streaming.ts` (chat), `src/driver/streaming-responses.ts` (responses), and `src/driver/streaming-messages.ts` (anthropic-messages) parse chunks and emit IR.
+- **Image processing**: sharp — thumbnails, GIF frame extraction, image resizing.
+- **Animation processing**: ffmpeg-static + ffprobe-static (bundled binaries via npm) — MP4/WEBM frame extraction; lottie-frame (native rlottie + libpng addon) — TGS/Lottie frame rendering. System deps: `libpng-dev`, `librlottie-dev`.
+- **Database**: SQLite via better-sqlite3, Drizzle ORM.
+- **State management**: Immer — immutable IC updates in Projection reducers.
+- **Reactivity**: alien-signals — signal/computed/effect graph for Driver orchestration.
+- **Validation**: Valibot — schema validation for config and other runtime inputs where schemas are defined.
+- **Prompts**: @velin-dev/core — all LLM prompts are velin templates (`.velin.md`) in the `prompts/` directory, rendered via `renderMarkdownString`. Never hardcode prompt strings in source code.
+- **Logging**: @guiiai/logg — structured logger with pretty/JSON output.
+- **Testing**: Vitest.
+- **Linting**: ESLint with `@typescript-eslint`, `@stylistic/eslint-plugin`, `eslint-plugin-import`.
+- **Package manager**: pnpm (hoisted `node_modules` via `.npmrc`).
+
+## Project Structure
+
+```
+src/
+├── index.ts                # Entry point — thin wiring shell (config, DB, telegram, pipeline, driver)
+├── startup.ts              # Startup chat selection helpers (configured replay whitelist / in-memory residency checks)
+├── startup.test.ts         # Startup chat selection tests
+├── pipeline.ts             # Per-chat IC/RC state manager (reduce → render → log → dump)
+├── prompt-template.ts      # Shared Velin template rendering cleanup used by production prompts and evals
+├── http.ts                 # HTTP client with credential redaction (registerHttpSecret)
+├── contacts.ts             # Contact list loader (contacts.json → Map<id, displayName>)
+├── runtime-event.ts        # RuntimeEvent types for Driver-generated synthetic events (e.g. background task completion)
+├── config/
+│   ├── config.ts           # Unified YAML config loader (Valibot schema)
+│   └── logger.ts           # @guiiai/logg setup (pretty in dev, JSON in prod)
+├── adaptation/             # Layer 1: Platform Event → Canonical Event
+│   ├── types.ts            # CanonicalIMEvent, CanonicalUser, ContentNode, etc.
+│   ├── index.ts            # adaptMessage, adaptEdit, adaptDelete, parseContent, contentToPlainText + re-exports
+│   └── index.test.ts       # Adaptation unit tests
+├── projection/             # Layer 2: IC' = Reducers(IC, Event)
+│   ├── types.ts            # IntermediateContext, ICMessage, ICSystemEvent, ICUserState
+│   ├── reduce.ts           # reduce(IC, CanonicalIMEvent) → IC' with Immer
+│   ├── reduce.test.ts      # Reducer unit tests
+│   └── index.ts            # Barrel exports
+├── rendering/              # Layer 3: IC + RenderParams → RenderedContext (RC)
+│   ├── types.ts            # RenderParams, RenderedContentPiece, RenderedContextSegment, RenderedContext
+│   ├── index.ts            # render(), rcToXml(), XML serialization of ContentNode/attachments
+│   └── index.test.ts       # Rendering unit tests
+├── unified-api/            # Provider-agnostic IR layer (ConversationEntry codec)
+│   ├── types.ts            # ConversationEntry, Message, InputMessage, OutputMessage, ToolResult, InputPart, OutputPart, Extra
+│   ├── chat-types.ts       # OpenAI Chat Completions wire types
+│   ├── responses-types.ts  # OpenAI Responses API wire types
+│   ├── anthropic-types.ts  # Anthropic Messages API wire types
+│   ├── anthropic.test.ts   # Anthropic Messages codec round-trip tests
+│   ├── codec.ts            # createCodec() — bidirectional provider ↔ IR converters
+│   ├── codec.test.ts       # Codec round-trip tests
+│   ├── from-chat-output.ts    # Chat Completions output → IR
+│   ├── from-responses-output.ts # Responses API output → IR
+│   ├── from-messages-output.ts  # Anthropic Messages output → IR
+│   ├── to-chat-input.ts       # IR → Chat Completions input
+│   ├── to-responses-input.ts  # IR → Responses API input
+│   ├── to-messages-input.ts   # IR → Anthropic Messages input
+│   ├── reasoning.ts        # stripReasoning() — cross-provider reasoning signature handling
+│   ├── migrations.ts       # Historical TR data migration helpers (v1 → v2)
+│   ├── fixtures.ts         # Test fixtures for codec tests
+│   ├── fixtures.test.ts    # Fixture validation tests
+│   ├── shared.ts           # Shared helpers (image extraction, text assembly)
+│   └── index.ts            # Barrel exports
+├── driver/                 # Driver: RC + TRs → LLM API calls
+│   ├── types.ts            # TurnResponse, DriverConfig, ProviderFormat, LlmEndpoint, ContextChunk, CompactionSessionMeta
+│   ├── context.ts          # Pure functions: context composition (ConversationEntry[]), token trimming, reasoning sanitization, working window cursor
+│   ├── context.test.ts     # Context composition tests
+│   ├── merge.ts            # mergeContext(RC, TRs) → ContextChunk[] — timestamp-ordered interleave
+│   ├── merge.test.ts       # Merge logic tests
+│   ├── constants.ts        # Driver-scoped constants and dump-dir bootstrap helpers
+│   ├── sse.ts              # Shared SSE line-buffer parser used by all provider streamers
+│   ├── call-llm.ts         # Unified LLM call dispatcher (openai-chat / responses / anthropic-messages)
+│   ├── runner.ts           # LLM step loop: triple-provider SSE streaming + manual tool execution
+│   ├── streaming.ts        # SSE streaming chat: parses OpenAI-compat SSE → ChatCompletion → IR
+│   ├── streaming-responses.ts # SSE streaming responses: parses Responses API SSE → IR
+│   ├── streaming-messages.ts  # SSE streaming messages: parses Anthropic Messages SSE → IR
+│   ├── responses-types.ts   # OpenAI Responses API type definitions (shared with unified-api)
+│   ├── compaction.ts       # Context compaction: LLM-based conversation summarization (triple-provider)
+│   ├── prompt.ts           # Prompt rendering — loads all velin templates from prompts/
+│   ├── skills.ts           # Skill loader: reads markdown files/directories from skills/ folder → SkillInfo map
+│   ├── pseudo-commands.ts  # Built-in bash pseudo commands: chat_info and skill_info
+│   ├── send-message-human-likeness.ts # Heuristics for recent send_message human-likeness feedback (7 configurable checks)
+│   ├── send-message-human-likeness.test.ts # Human-likeness heuristic tests
+│   ├── system-prompt.test.ts # System prompt tests
+│   ├── index.test.ts      # Driver reactive scheduling/debounce tests
+│   ├── tools.ts            # Tool definitions: send_message, bash, web_search, download_file, read_image, load_skill, subagent communication, background-task helpers
+│   ├── tools.test.ts       # Tool capability tests
+│   ├── subagents/          # Subagent runtime: isolated helper manager, mailbox, lifecycle/types, communication/finalize tools
+│   │   ├── types.ts        # AgentId, SubagentState, AgentMessage, SubagentStatus
+│   │   ├── manager.ts      # SubagentManager: lifecycle, step loop, mailbox dispatch
+│   │   ├── mailbox.ts      # Agent message queue with blocking poll and delivery tracking
+│   │   ├── mailbox.test.ts # Mailbox unit tests
+│   │   ├── tools.ts        # Subagent communication tools (send_message, check_mailbox, finalize)
+│   │   └── tools.test.ts   # Subagent tool tests
+│   └── index.ts            # createDriver() — reactive orchestration (alien-signals)
+├── background-task/        # Long-running background task infrastructure
+│   ├── types.ts            # BackgroundTask, BackgroundTaskFactory, TaskContext, ActiveTaskInfo
+│   ├── manager.ts          # BackgroundTaskManager: lifecycle, pause/resume, timeout, checkpoint persistence
+│   ├── shell.ts            # Shell command BackgroundTask implementation
+│   └── index.ts            # Barrel exports
+├── evals/                  # Offline LLM eval harness
+│   ├── types.ts            # EvalSuite / EvalScenario / EvalRunResult / evaluator type definitions
+│   ├── runner.ts           # Suite runner: IC → RC → context → model/tool loop → evaluator
+│   ├── tools.ts            # Side-effect-free eval tools (send_message capture, dismiss, load_skill trace)
+│   ├── report.ts           # runs.jsonl / summary.json / summary.md reporting and probability stats
+│   ├── fixture-export.ts   # Export real chat windows from persisted events into eval fixtures, optionally with TR v2
+│   └── index.ts            # Public eval harness exports
+├── db/
+│   ├── client.ts           # Database init (better-sqlite3 + Drizzle), WAL mode
+│   ├── schema.ts           # Drizzle schema: users, messages, events, turnResponses, turnResponsesV2, compactions, probeResponses, probeResponsesV2, imageAltTexts, subagents, subagentMessages, backgroundTasks, messageReactionSnapshots tables
+│   ├── persistence.ts      # CRUD: persistEvent, persistTurnResponseV2, persistProbeResponseV2, persistCompaction, image alt text cache lookups, loadEvents, loadTurnResponsesV2, loadCompaction, subagent lifecycle, background task persistence
+│   ├── codec.ts            # ConversationEntry ↔ JSON serialization helpers
+│   ├── migrate-v2.ts       # v1 → v2 data migration (turnResponses → turnResponsesV2, probeResponses → probeResponsesV2)
+│   └── index.ts            # Barrel exports
+├── onebot/
+│   ├── index.ts             # OneBot exports + PlatformAdapter factory for Driver send/download hooks
+│   ├── server.ts            # OneBot 11 reverse WebSocket server + echo-correlated API client
+│   ├── types.ts             # OneBot 11 event/API/message-segment types
+│   ├── adaptation.ts        # OneBot message/notice → CanonicalIMEvent conversion
+│   ├── send.ts              # send_message text/attachment rendering into OneBot array segments
+│   ├── send.test.ts         # OneBot send rendering tests, including optional silicon code-block image conversion
+│   ├── image-to-text.ts     # OneBot image download + thumbnail generation via shared image-to-text resolver
+│   ├── face-config.ts       # QQ face ID → description lookup
+│   └── face-config.json     # QQ face metadata table
+├── types/
+│   ├── ffprobe-static.d.ts  # Type declarations for ffprobe-static npm package
+│   └── lottie-frame.d.ts    # Type declarations for lottie-frame native addon
+└── telegram/
+    ├── index.ts             # TelegramManager — unified facade, session ingress queue, blocking media transforms, dedup dispatch
+    ├── bot.ts               # grammY Bot API client; registerCommand() for external command registration before on('message')
+    ├── userbot.ts           # gramjs MTProto client
+    ├── event-bus.ts         # Simple typed pub/sub
+    ├── pack-title.ts        # Sticker pack metadata normalization (set_name → display title)
+    ├── pack-title.test.ts   # Pack title normalization tests
+    ├── image-to-text.ts     # Blocking image→alt text workflow + cache lookup/persist + model calls
+    ├── image-to-text.test.ts # Image-to-text workflow tests
+    ├── image-to-text-prompt.ts # Velin prompt renderer for image description workflow
+    ├── animation-to-text.ts   # Blocking animation→alt text workflow (GIF, animated/video stickers)
+    ├── animation-to-text-prompt.ts # Velin prompt renderer for animation description workflow
+    ├── custom-emoji-to-text.ts  # Blocking custom emoji→alt text workflow (static + animated)
+    ├── custom-emoji-to-text-prompt.ts # Velin prompt renderer for custom emoji description workflow
+    ├── frame-extractor.ts     # Frame extraction from animations (MP4/WEBM via ffmpeg, GIF via sharp, TGS via lottie-frame)
+    ├── frame-extractor.test.ts # Frame extraction tests
+    ├── llm-description.ts     # Shared utilities for image/animation description LLM calls (semaphore, streaming helpers)
+    ├── session-ingress-queue.ts # Per-chat ordered commit queue with speculative async transforms
+    ├── session-ingress-queue.test.ts # Ingress queue tests
+    ├── thumbnail.ts         # sharp-based thumbnail generation (pixel-budget ≤75k pixels ≈ 100 Claude tokens)
+    ├── typing-action.ts     # Shared typing-like MTProto action classifier
+    ├── typing-action.test.ts # Typing action classifier tests
+    ├── typing-poll.ts       # Debounce-scoped Telegram typing presence manager: online heartbeat, markAsRead, supergroup channel-difference fallback
+    ├── typing-poll.test.ts  # Typing presence lifecycle and channel-difference tests
+    ├── gramjs-logger.ts     # Patches gramjs internal logger to @guiiai/logg
+    ├── markdown.ts          # Markdown → Telegram HTML converter (MarkdownIt-based)
+    ├── session.ts           # Session file load/save
+    ├── login.ts             # Interactive MTProto login script (pnpm login)
+    └── message/
+        ├── types.ts         # TelegramUser, TelegramMessage, Attachment, ForwardInfo, MessageEntity
+        ├── gramjs.ts        # gramjs Api.Message → TelegramMessage conversion
+        ├── gramjs.test.ts   # GramJS message conversion + merge regression tests
+        ├── grammy.ts        # grammY Message → TelegramMessage conversion
+        ├── dedup.ts         # Set-based message dedup with LRU eviction (10k)
+        └── index.ts         # Barrel exports
+```
+
+Top-level directories:
+- `prompts/` — all LLM prompt templates (velin `.velin.md` files), rendered at runtime via `@velin-dev/core`
+  - `primary-system.velin.md` — main system prompt for chat LLM calls; **bot tone/style is hardcoded here**
+  - `subagent-system.velin.md` — internal helper-agent prompt; intentionally contains no group-chat/platform/end-user concepts
+  - `primary-late-binding.velin.md` — context-aware injection (probe/mention/reply state, recent send_message human-likeness feedback, background task status)
+  - `IDENTITY.velin.md` — bot identity / personality definition (loaded by prompt renderer); **bot persona is hardcoded here**
+  - `compaction-system.velin.md` — compaction LLM system prompt
+  - `compaction-late-binding.velin.md` — compaction LLM user instruction (output format)
+  - `image-to-text-system.velin.md` — blocking image description prompt used before events enter the pipeline
+  - `animation-to-text-system.velin.md` — blocking GIF/animation description prompt (multi-frame)
+  - `sticker-animation-to-text-system.velin.md` — blocking animated sticker description prompt (multi-frame)
+  - `custom-emoji-to-text-system.velin.md` — blocking static custom emoji description prompt
+- `skills/` — repository-provided skill definitions (markdown files) that can be copied into or used as the configured skills folder
+  - `skill-authoring.md` — reusable workflow for inspecting skill runtime info and writing new skill files
+- `evals/` — optional user-authored LLM eval suites, IC fixtures, prompt variants, and evaluator modules. These are run manually with `pnpm eval <suite.ts>` and are not part of ordinary Vitest unit tests.
+  - `evals/skill-activation/` — compares the pre/post Skill Activation system prompts with fake skills and reports `load_skill` / correct-skill call rates.
+- `docs/` — architecture and design documents (not prompts)
+  - `dcp-design.md` — architecture rationale and Driver/TR design
+  - `content-aware-frame-selection.md` — MSE-based frame selection findings and rationale
+  - `humanize.md` — human-likeness design notes
+  - `rc-change-side-effects.md` — RC 变更可能触发的副作用和代码位点
+  - `subagent-system.md` — subagent system design
+  - `telegram-typing-events.md` — Telegram typing event research
+  - `unified-api-integration.md` — unified API integration design
+- `dcp-updates.md` — implementation deltas from the original RFC
+
+### Type Ownership
+
+Platform types (`Attachment`, `ForwardInfo`, `MessageEntity`) are defined in `telegram/message/types.ts` — they belong to the telegram layer. `db/schema.ts` imports them for JSON column annotations. Never define platform types in the DB layer.
+
+Canonical types (`CanonicalIMEvent`, `CanonicalUser`, `ContentNode`, etc.) are defined in `adaptation/types.ts`. `ContentNode` is the platform-agnostic rich text representation — Adaptation parses platform-specific encodings (e.g. Telegram's text + offset-based entities) into `ContentNode[]` trees. All IDs in canonical types are strings (platform-agnostic).
+
+### Imports
+
+Use relative paths for all internal imports:
+```ts
+import { loadConfig } from './config/config';
+import type { CanonicalIMEvent } from '../adaptation/types';
+```
+
+## Commands
+
+- `pnpm dev` — run with file watching (tsx watch).
+- `pnpm start` — run once (tsx).
+- `pnpm build` — bundle with tsdown.
+- `pnpm typecheck` — `tsc --noEmit` (current `tsconfig.json` only includes `src/**/*.ts`).
+- `pnpm lint` uses `tsconfig.eslint.json` so `scripts/**/*.ts` can be linted without expanding the build/typecheck project.
+- `pnpm lint` / `pnpm lint:fix` — ESLint.
+- `pnpm test` / `pnpm test:run` — Vitest.
+- `pnpm eval <suite.ts>` — run an offline LLM eval suite. Loads models from `config.yaml`, calls real model endpoints, writes `runs.jsonl`, `summary.json`, and `summary.md` under `eval-results/<suite>/<timestamp>/` unless the suite overrides `outputDir`.
+- `pnpm eval:fixture --chat <chatId> --from-message <id> --to-message <id> --out <file>` — export a real chat slice from persisted canonical `events` into a TypeScript eval fixture. Also supports `--messages <id,id,...>`, `--from-ms/--to-ms`, `--include-replies`, `--context-before`, `--context-after`, `--include-trs`, and `--preview-xml <file>`.
+- `pnpm debug:rc --chat <chatId>` — render a persisted chat's full RC as formatted XML on stdout. Opens the DB read-only by default; add `--migrate` to opt in to migrations, or `--respect-compaction` to mirror the startup compacted viewport.
+- `pnpm login` — interactive MTProto session login.
+- `pnpm db:generate` — generate Drizzle migration from schema changes.
+
+## Architecture Rules
+
+### DCP Layers Are Pure Functions
+
+Projection reducers must be pure: `(IC, CanonicalIMEvent) => IC'`. No I/O, no side effects, no network calls. Projection only processes IM platform events — bot's own LLM interactions live exclusively in the Driver layer (unidirectional data flow, no backflow). External data (memory, user profiles) enters either through Driver-level late binding (current implementation) or as pre-fetched fields on the event.
+
+### Dual Timestamps
+
+Every `CanonicalIMEvent` carries two timestamps:
+- `receivedAtMs` (milliseconds): local receive time, captured at telegram ingress **before** any asynchronous media transforms or queue blocking. **Ordering source of truth** — ensures cold-start replay matches live processing even when ingress is blocked on image-to-text.
+- `timestampSec` (seconds): server-reported time, shown to the AI. For delete events (no server time), derived as `Math.floor(receivedAtMs / 1000)`.
+- `utcOffsetMin`: timezone offset captured at the same ingress moment as `receivedAtMs`. Rendering converts `timestampSec` to local time using this per-event offset.
+
+DB queries order by `(received_at, id)`.
+
+### Consistency Above Availability
+
+Highest design principle for ingress transforms: **never admit partially transformed events into the pipeline**. If image-to-text is enabled and an image event has not been fully resolved, that chat session must remain blocked. Timeouts, hangs, and infinite retries are acceptable; inconsistent data is not.
+
+This rule is fail-closed by design:
+- Image-to-text failures do **not** degrade to thumbnail-only or empty-alt-text fallback when the feature is enabled.
+- A blocked session may stop accepting new events into Projection/Rendering/Driver indefinitely.
+- Correctness of the event stream seen by DCP takes priority over latency and availability.
+
+### Session Ingress Queue
+
+Telegram ingress uses a **per-chat ordered commit queue**. Each event captures ingress timestamps immediately, then enters a queue with two phases:
+- **Transform**: asynchronous preprocessing (currently image-to-text and thumbnail generation). Later events in the same chat may start transforming before earlier events finish.
+- **Commit**: only the oldest contiguous ready prefix is allowed to enter Adaptation → Projection → Rendering. This preserves event order while still allowing speculative preprocessing of later blocked messages.
+
+The queue is fail-closed. If the head event's transform does not succeed, that chat's `nextCommitSeq` does not advance. Later events may finish transforming, but they remain buffered until the blocked head event resolves.
+
+### Dual Telegram Client
+
+- **grammY** (Bot API): receives messages from non-bot users, sends replies, handles `/commands`.
+- **gramjs** (User API): fetches history, resolves reply-to chains, sees other bots' messages (invisible to Bot API), receives edit/delete/typing events.
+
+Messages from both clients are deduplicated by `(chatId, messageId)` in the TelegramManager. Userbot events are filtered to bot-joined chats only (`botChats` set, seeded from the events table plus configured Telegram chat IDs on startup). When the bot version arrives second, its `fileId` is merged into the in-flight message for Bot API download preference. All message/edit/delete/reaction events then enter the per-chat ingress queue before Adaptation. Delete events without `chatId` (MTProto private chat deletes) are dropped — `lookupChatId` attempts resolution from the messages table, but if the message was never persisted the event is lost.
+
+### Configured Chat Residency
+
+The `chats` config is the in-memory residency whitelist. Startup seeds Telegram's known-chat filter from the full events table plus currently configured Telegram chats, so historical unconfigured groups can still persist incoming messages/edits/deletes, and configured chats with deleted context are still accepted by userbot. Cold-start replay only rebuilds IC/RC for chats present in both persisted events and config. Live ingress for unconfigured chats still persists `events` and `messages`, then stops before hydration, Projection, Rendering, Driver, and compaction. This keeps archival chats out of memory and avoids startup replay cost for chats that are no longer enabled.
+
+### Phantom Edit Filtering
+
+MTProto fires `updateEditMessage` for metadata-only changes (link preview loading, reactions in large supergroups, inline keyboard updates). These have no `editDate`. The userbot handler skips events without `editDate`. Live reactions are handled separately through Telegram Bot API `message_reaction` / `message_reaction_count` updates.
+
+### Telegram Reactions
+
+Incoming Telegram reaction updates come from Bot API polling with explicit `allowed_updates: ['message', 'message_reaction', 'message_reaction_count']`. Userbot is still used for reaction capabilities and actor lookup: `messages.getAvailableReactions` provides the global active emoji reaction list, per-chat `availableReactions` from `GetFullChat` / `GetFullChannel` constrains the final `react_message` tool enum, and `messages.getMessageReactionsList` resolves actor lists for `message_reaction_count` updates. Outgoing `react_message` calls use the Bot API `setMessageReaction` endpoint so the visible reaction sender is the real bot account. Custom, premium, and paid reactions are intentionally not exposed to the LLM.
+
+Incoming `message_reaction` updates identify the actor directly and are diffed from Bot API `old_reaction` / `new_reaction`. Incoming `message_reaction_count` updates are aggregate-only, so Cahciua asks userbot for the full `(emoji, sender)` reaction list, stores it per `(chatId, messageId)` in `message_reaction_snapshots`, then diffs that snapshot. Reaction updates emit append-only canonical `reaction` events only for additions. Removals update the snapshot but do not enter IC. If a message has no prior actor snapshot, the first aggregate snapshot seeds state without emitting historical reactions.
+
+Reaction IC nodes render as passive `<event type="reaction_added" .../>` RC segments. Live reaction ingress updates Pipeline/IC/RC but does not call `driver.handleEvent()`, so reaction storms do not wake or interrupt the LLM. Cold-start replay still passes passive reaction segments to Driver, but `latestExternalEventMs()` and `latestInterruptingExternalEventMs()` ignore `isPassiveEvent`.
+
+`react_message` is registered only for Telegram chats with a configured userbot and a non-empty allowed emoji list. Do not add reaction prompt text or tools to OneBot/QQ paths.
+
+### Sticker Pack Title Normalization
+
+Telegram exposes sticker/custom-emoji packs by raw `set_name` slug. Cahciua keeps that raw slug as `stickerSetId` and resolves the human-readable pack title into `stickerSetName` before messages enter Adaptation. Rendering and prompt generation must treat `stickerSetName` as display title only.
+
+Legacy events created before this split may still have raw `set_name` stored in `stickerSetName`. Cold-start replay normalizes those attachments once, persists the upgraded attachment JSON back to `events`, and reuses the same `resolvePackTitle()` path as live ingress and custom-emoji resolution.
+
+### IC Mutation Semantics
+
+Edit and delete events come exclusively from the userbot (gramjs / MTProto). Bot API does not push these notifications — without the userbot client, edits and deletes would not exist in the system.
+
+Two categories of IC mutation with different KV cache properties:
+- **In-place** (edit, delete): modify existing IC nodes at their original position with marks (`editedAtSec`, `deleted: true`). Causes KV cache miss from that point onward. Acceptable — edits are infrequent and usually recent.
+- **Append-only** (user rename, join/leave, reactions): insert system event nodes at the end. Old messages keep their original `sender` field. Rendering uses `node.sender` (name at message time), not `ic.users`. KV-cache friendly.
+
+Design rule: metadata changes about entities → append-only; content changes to specific messages → in-place with marks.
+
+### HTTP Credential Redaction
+
+`src/http.ts` exposes `registerHttpSecret(secret)`. Registered strings are masked with equal-length `*` in all `HttpError` messages. Bot token is registered at client creation.
+
+### Message Scheduling
+
+Projection runs immediately on every event — IC is always current. Scheduling is owned by the **Driver**. Current strategy: **debounce + natural batching with a cross-interrupt deadline** — when new external messages trigger the reply effect, a debounce timer (`initialDelayMs`, default 5s) starts and the current reply batch gets an absolute deadline (`Date.now() + maxDelayMs`, default 30s). New messages arriving during the wait reset only the debounce timer to `typingExtendMs` (default 5s); they do not move the batch deadline. MTProto typing events (`SendMessageTypingAction`) from non-bot users in the same chat also extend only the debounce timer, capped by the remaining deadline. The `running` flag prevents concurrent LLM calls. Before the batch deadline, new external chat messages arriving during a call abort the in-flight call and reschedule with `typingExtendMs`; once the deadline has passed, ordinary new messages no longer abort the current call, so the bot gets a chance to finish speaking. After a non-interrupted LLM attempt ends, the deadline is cleared; any still-pending external messages form a new batch. Bot responds via `send_message` tool call (not 1:1 response).
+
+The reply effect reads `rc()` directly (in addition to `needsReply()`) so that it re-runs when RC changes even if `needsReply()` stays `true` — this is required for debounce extension and in-flight interruption checks on new messages. Typing events bypass the signal graph entirely via `extendDebounce()`, which resets only the debounce timer without moving the batch deadline.
+
+**Config** (`debounce` section in chat config, per-chat overridable):
+- `initialDelayMs` (number, default `5000`): delay before first LLM call after new external messages.
+- `typingExtendMs` (number, default `5000`): delay reset on new messages or typing events.
+- `maxDelayMs` (number, default `30000`): per-batch hard deadline — forces an LLM call and, after expiry, prevents ordinary new messages from endlessly aborting it.
+
+Scheduling lives in Driver (not a separate orchestration layer) because the Driver already manages the reactive scheduling graph (signal/computed/effect) — externalizing it would create coordination overhead.
+
+**Offline mode**: Each chat scope has an `offline` signal. When offline, `needsReply` only becomes true if there is an unprocessed RC segment with `mentionsMe` or `repliesToMe` — ordinary new messages are ignored. After the LLM call triggered by a mention/reply completes (success or failure), the Driver automatically resets `offline` to `false` (back to online). Sending `/offline` while an LLM call is already running leaves the call unaffected and keeps offline mode active after it finishes. Commands:
+- `/offline` — enter offline mode; bot responds only to @mentions and replies, then auto-returns online.
+- `/online` — return to online mode immediately.
+
+Commands are registered via `bot.registerCommand()` in `src/index.ts` and reported to Telegram via `setMyCommands` at startup. Command messages are intercepted before `bot.on('message')` in the grammY middleware chain so they do not enter the LLM pipeline.
+
+### Tool Call Loop Interleaving
+
+Each LLM API call = one TR (not the entire loop as one TR). Each TR stores the complete output of one step: assistant response + tool results produced by executing that step's tool calls. When new external chat messages arrive during a tool call loop before the current reply batch deadline, the Driver's `checkInterrupt` detects the RC change and breaks the loop. After the deadline, ordinary new messages stop interrupting the current loop so the bot is not starved by constant chatter. Runtime events (for example background task completion) also break the loop at a step boundary so the next turn can recompose context with the event, but they do **not** abort an in-flight model API request and do **not** wait for debounce when they are the only pending trigger. The reactive effect then re-schedules a new LLM call when interruption is needed, composing fresh context from the latest RC (which now includes the new messages) and all persisted TRs. New messages' `receivedAtMs` > previous TR's `requestedAtMs` (causality), so they merge correctly after the TR. This is an **interrupt + re-schedule** mechanism, not mid-loop re-rendering — the interrupted loop exits, and a completely new call starts with a fresh step budget and updated system prompt. See `docs/dcp-design.md §Tool Call Loop Interleaving` for merge details.
+
+### Reasoning Signature Sanitization
+
+Anthropic and DeepSeek models return reasoning as thinking text + cryptographic signature. The signature is only valid within the same provider family. The unified API's `stripReasoning()` handles cross-provider compatibility: each `ConversationEntry` carries a `MessageReasoning` block. On context replay with a different provider format, all reasoning fields are stripped. Format conversion preserves reasoning through round-trips via the unified IR (`encrypted_content` ↔ `reasoning_opaque`, `summary` ↔ `reasoning_text`). In openai-chat format, reasoning appears as `reasoning_text` + `reasoning_opaque` fields on assistant entries. In responses format, reasoning appears as output items with `type: 'reasoning'`, carrying `encrypted_content` and `summary`. In anthropic-messages format, reasoning appears as `thinking` / `redacted_thinking` content blocks. The pair is always kept or stripped together.
+
+### Tool Call ID Sanitization
+
+Historical TRs keep provider-native tool call IDs exactly as returned. Some providers emit IDs that are valid for themselves but invalid for Anthropic Messages API replay (for example `send_message:103`, which violates `^[A-Za-z0-9_-]+$`). To keep the pipeline simple, `composeContext()` always sanitizes tool call IDs via `sanitizeToolCallIdsForMessagesApi()` after reasoning stripping / tool-result trimming and before token trimming:
+- assistant `tool_calls[].id` and matching tool `tool_call_id` are remapped to `[A-Za-z0-9_-]` only
+- remapping is deterministic within one request and collision-safe (`foo:1` and `foo?1` become `foo_1` and `foo_1_2`)
+- storage stays raw — `turn_responses_v2` and `probe_responses_v2` are never rewritten
+
+### Debug Dumps
+
+Driver writes the full LLM request JSON to `/tmp/cahciua/<chatId>.request.json` before each API call. This is intentional debug output — the project is not production-deployed. Do not flag as an issue.
+
+### RC and TRs — Orthogonal Merge
+
+RC (from Rendering) and TRs (from Driver) are two independent sorted streams:
+- RC segments carry `receivedAtMs` (milliseconds, from source events)
+- TRs carry `requestedAtMs` (milliseconds, `Date.now()` at API request time)
+
+Driver merges them by timestamp into the final LLM API messages array. Causality guarantees correct ordering in online operation. **Mandatory tiebreaker**: when timestamps are equal, RC is ordered before TRs — required because Anthropic Messages API enforces strict user/assistant role alternation.
+
+Data flows strictly forward (no backflow). Events table stores only IM platform events. IC is only derived from platform events. Driver is sole owner of TRs.
+
+### TR Storage
+
+TRs are stored in `turn_responses_v2` table as provider-agnostic `ConversationEntry[]` (JSON). The unified API codec normalizes all provider outputs into this IR before persistence. One row per TR:
+
+| Column | Type | Notes |
+|--------|------|-------|
+| id | INTEGER PK | autoincrement |
+| chat_id | TEXT NOT NULL | Session ID |
+| agent_id | TEXT NOT NULL DEFAULT 'main' | `'main'` for primary agent, `sa-<n>` for subagents |
+| requested_at | INTEGER NOT NULL | millisecond timestamp, merge ordering key |
+| entries | TEXT (JSON) NOT NULL | `ConversationEntry[]` in unified IR |
+| input_tokens | INTEGER NOT NULL | for statistics / cost tracking |
+| output_tokens | INTEGER NOT NULL | for statistics / cost tracking |
+| model_name | TEXT NOT NULL DEFAULT '' | model used for this turn |
+
+The old `turn_responses` table (provider-raw format with `provider` and `reasoning_signature_compat` columns) is deprecated. Data is migrated to v2 via `src/db/migrate-v2.ts`.
+
+Probe responses likewise use a v2 `probe_responses_v2` table with the same IR-based `entries` column plus `is_activated` and `created_at`.
+
+Same-provider reads are zero-conversion through the codec. Cross-provider reads use the unified API's bidirectional converters.
+
+### Anti-Injection
+
+User content in the rendered context is fenced with XML structure. Identity information (who said what) is carried as XML attributes (the truth source), not inline text that users could spoof.
+
+### KV Cache Optimization
+
+- System prompt is static and positioned first.
+- Chat history is append-only within an epoch.
+- **Current**: Dynamic action hints (probe / mention / reply state, conditional `human-likeness` feedback) are injected by the Driver as a final synthetic user message via `injectLateBindingPrompt()`. The `human-likeness` section is functionally derived from the current successful `send_message` tool-call history at render time; it flags up to 6 configurable patterns (markdown-heavy formatting, newlines, trailing periods, punctuation-heavy short messages — each independently toggleable via `humanLikeness` config), and is omitted entirely when no enabled checks fire.
+- **Planned**: Richer dynamic content (memory recall, cross-session awareness) should continue to be injected by the Driver through a more structured late-binding mechanism.
+- Compaction creates epoch boundaries — see [Context Compaction](#context-compaction) below.
+
+### Final Send Preparation
+
+Before any actual provider request is sent, the Driver applies a final request-local normalization step through the unified API:
+- `toChatCompletionsInput()`: converts `ConversationEntry[]` into Chat Completions API messages — moves image-bearing tool results into follow-up user messages prefixed with `The result of tool <name>`, keeping text/image ordering intact while preserving contiguous tool-result blocks.
+- `toResponsesInput()`: converts into Responses API input items.
+- `toMessagesInput()`: converts into Anthropic Messages API messages — parses `ToolCallPart.args` JSON strings into `input` objects, normalizes opaque-only reasoning to `redacted_thinking` blocks.
+- Model image limits (`maxImagesAllowed`) are enforced at this final send boundary on **every** request, not just once when a turn starts. This ensures tool-generated images (for example `read_image`) cannot bypass per-model image caps in later steps, probes, or compaction calls.
+
+`read_image` supports attachment file-id and local filesystem path modes.
+
+### isSelfSent Pipeline
+
+Bot's own sent messages are marked `isSelfSent: true` at creation time (in the synthetic event bypass in `src/index.ts`). This flag flows through the full pipeline: `CanonicalMessageEvent.isSelfSent` → `events.is_self_sent` (DB) → `ICMessage.isSelfSent` → `RenderedContextSegment.isSelfSent`. The flag is set at creation, not derived from sender ID (bot may change accounts).
+
+### Context Optimizations
+
+The following optimizations are always active in `composeContext()` (operates on `ConversationEntry[]`):
+
+- **trimStaleNoToolCallTurnResponses**: Keep only latest 5 TRs without tool calls; older pure-text TRs are dropped before merge.
+- **trimSelfMessagesCoveredBySendToolCalls**: Filter RC segments with `isSelfSent=true` from context assembly (removes duplicate representation — bot messages exist in both RC via userbot and TRs via tool call results).
+- **trimToolResults**: Distance-based mechanical trimming of older oversized tool call results. Oversized means text content `>512 chars` or image content with non-low detail. Only the latest 5 oversized results are kept untrimmed; older oversized results are mechanically trimmed / downgraded.
+
+### Human-Likeness Heuristic Toggles
+
+Each of the 6 heuristic checks in `send-message-human-likeness.ts` can be disabled independently via the `humanLikeness` key in chat config (all enabled by default). Disabling a check removes it from both detection and the late-binding XML feedback.
+
+| Config key | Check | Default |
+|------------|-------|---------|
+| `humanLikeness.trailingPeriod` | Message ends with a full stop | `true` |
+| `humanLikeness.denseClausePunctuation` | Short message packed with clause punctuation | `true` |
+| `humanLikeness.multipleMarkdownBold` | More than one `**bold**` span | `true` |
+| `humanLikeness.markdownList` | Markdown list | `true` |
+| `humanLikeness.markdownHeader` | Markdown header | `true` |
+| `humanLikeness.newline` | Any newline in a send_message | `true` |
+
+Toggles are per-chat (deep-merged with `default` like all other config). Defined in `ChatConfigSchema` / `ChatOverrideSchema` in `src/config/config.ts`; passed to `collectRecentSendMessageAssessments()` via `chatConfig.humanLikeness` in the Driver.
+
+### Unified API Layer
+
+`src/unified-api/` provides a provider-agnostic intermediate representation (IR) for all LLM interactions. This decouples TR storage from provider wire formats.
+
+**Core types** (`types.ts`):
+- `ConversationEntry = Message | ToolResult` — discriminated by `kind`
+- `Message` discriminated by `role`: `system` / `user` → `InputMessage`, `assistant` → `OutputMessage`
+- `InputPart = TextPart | ImagePart` — user content parts
+- `OutputPart = TextPart | ToolCallPart | ReasoningPart` — assistant output parts
+- `Extra<S>` — source-tagged container for provider-specific unknown fields (only on model-output nodes)
+
+**Codec** (`codec.ts`): `createCodec()` returns bidirectional converters:
+- `from<Provider>Output()` — parse LLM response → `OutputMessage` / `ToolResult`
+- `to<Provider>Input()` — `ConversationEntry[]` → provider wire format
+- Three provider pairs: Chat Completions, Responses, Anthropic Messages
+
+**Reasoning** (`reasoning.ts`): `stripReasoning()` removes all reasoning blocks from `ConversationEntry[]` when crossing provider families.
+
+**Migrations** (`migrations.ts`): decodes historical v1 `turn_responses` and `probe_responses` JSON into `ConversationEntry[]`.
+
+**IR invariants** (hold across all producers/consumers):
+- `ToolResult` is a user-side entry — never appears in `from-*Output` responses
+- `ToolCallPart.args` is the raw wire JSON string; only the Anthropic emitter boundary parses it
+- `Extra<S>` is source-tagged: emitters apply `extra.fields` only when `extra.source` matches their target format
+- Reasoning carriers: block-level `ReasoningPart` (Responses, Anthropic) and message-level `MessageReasoning` (Chat Completions). Emitters normalize opaque-only reasoning to `redacted_thinking` for symmetric cross-format round-trips.
+
+### Skills System
+
+`src/driver/skills.ts` loads user-facing skill/tool definitions from a configurable `skills/` folder. `SkillInfo.name` is the stable load ID and always comes from the file stem or directory name. Supported formats:
+- **CustomSkills**: single `.md` file without front-matter. File stem is the ID, first `#` heading is the catalog description, and the full markdown body is loaded.
+- **CustomSkillsV2**: single `.md` file with YAML front-matter: required `name` (catalog title) and `description`, optional `usage`. File stem remains the ID.
+- **AnthropicSkills**: directory whose name is the ID and whose main file is exactly `SKILL.md`. `SKILL.md` uses the same YAML front-matter loader as CustomSkillsV2, but the catalog omits `title` and shows only ID plus `description` / `usage`. Other files in the directory are listed as absolute resource paths when the skill is loaded, but their contents are not injected automatically.
+
+A `load_skill` tool lets the LLM fetch skill content at runtime by `skill_id`, injected into the system prompt as an available-tools catalog. When skills are available, `primary-system.velin.md` includes Skill Activation guidance: before answering or using other task-specific tools, the LLM must check the listed skills and load a clearly matching skill by exact ID. This decouples skill authoring from code changes — adding a skill is just creating a supported `.md` file or skill directory.
+
+The bash tool intercepts built-in pseudo commands before shell execution: `chat_info` returns the current chat ID, platform channel, and absolute skills folder; `skill_info <skill_id>` returns one loaded skill's metadata and absolute file/resource paths. Skills are loaded once when a chat scope is created, so changes to the skills folder require process restart or a fresh chat scope before these pseudo-command results update.
+
+### Background Tasks
+
+Long-running shell tasks managed by `src/background-task/`. The Driver's `start_background_task` tool spawns a task that runs independently of the LLM step loop. Key behaviors:
+- **Lifecycle**: start → run (with timeout) → complete → notify via RuntimeEvent → inject into late-binding prompt
+- **Pause/Resume**: tasks persist checkpoints to `background_tasks` table on shutdown; restored on cold start
+- **Factory pattern**: `BackgroundTaskFactory<TParams, TCheckpoint>` defines `start()` and `recover()` for each task type
+- **Shell tasks** (`shell.ts`): the primary implementation — runs shell commands with stdout/stderr capture
+- Completion is surfaced to the LLM as a synthetic runtime event in the conversation context
+
+### Telegram Typing Presence
+
+Telegram typing updates are ephemeral and only arrive reliably while Telegram considers the userbot online and interested in the chat. During Driver debounce windows, `src/telegram/typing-poll.ts` starts a debounce-scoped typing presence watch: a shared `account.updateStatus(offline=false)` heartbeat every 50 seconds, `markAsRead(peer)` for the watched chat, raw MTProto typing updates from `src/telegram/userbot.ts`, and `updates.getChannelDifference` fallback polling for supergroups/channels. Basic groups rely on raw `UpdateChatUserTyping` plus the same heartbeat/read priming. `src/telegram/typing-action.ts` classifies typing-like actions shared by both update paths. Typing events within a 6s validity window extend the reply debounce timer.
+
+### Context Compaction
+
+Compaction proactively summarizes historical conversation context to prevent LLM context overflow. Implemented as an independent reactive effect (`alien-signals`) that runs in parallel with the main reply flow.
+
+**Dual water mark strategy** (all thresholds use estimated tokens via `CHARS_PER_TOKEN = 2` heuristic, not actual tokenizer counts):
+- **High water mark** (`compaction.maxContextEstTokens`): compaction triggers when estimated raw content (RC + TRs after cursor, excluding summary) exceeds this threshold.
+- **Low water mark** (`compaction.workingWindowEstTokens`): after compaction, only this many estimated tokens of raw content are retained in the working window. The rest is replaced by a structured summary prepended as the first user message.
+
+**Data flow**:
+1. `compactionMeta` signal initialized from DB on cold start (`loadCompaction`)
+2. `cursorMs` and `summary` derived as `computed()` from `compactionMeta`
+3. Cursor auto-apply effect watches `cursorMs` → calls `pipeline.setCompactCursor()` → pipeline re-renders RC excluding segments before cursor
+4. Reply effect reads `cursorMs()` and `summary()` from signals — no runtime DB queries
+5. Compaction effect: when `estimatedTokens > maxContextEstTokens`, calls `runCompaction()` → `persistCompaction()` → updates `compactionMeta` signal → cursor effect auto-applies
+
+**Compaction storage** (`compactions` table): append-only — each compaction inserts a new row. `loadCompaction` reads the latest by `ORDER BY id DESC LIMIT 1`. Rolling back = deleting the latest row. Never upsert.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| id | INTEGER PK | autoincrement |
+| chat_id | TEXT NOT NULL | indexed |
+| old_cursor_ms | INTEGER NOT NULL | start of compacted window |
+| new_cursor_ms | INTEGER NOT NULL | end of compacted window (= new cursor position) |
+| summary | TEXT NOT NULL | structured plain-text summary |
+| input_tokens | INTEGER NOT NULL | LLM input tokens for this compaction call |
+| output_tokens | INTEGER NOT NULL | LLM output tokens for this compaction call |
+| created_at | INTEGER NOT NULL | millisecond timestamp |
+
+**Compaction is NOT a turn**: compaction has its own dedicated table, not stored in `turn_responses`. It produces a summary (pure text with structured sections), not a provider-format response.
+
+**Token estimation**: Context size is estimated using a `CHARS_PER_TOKEN = 2` heuristic (not an actual tokenizer). Summary size is excluded from the compaction trigger check to prevent the summary from growing until it fills the budget (which would degrade compaction into a sliding window). `findWorkingWindowCursor` counts both RC segments and TRs when determining the cursor position.
+
+**Config** (`compaction` section in `config.yaml`):
+- `maxContextEstTokens` (number, default `200000`): high water mark — trigger compaction when estimated context exceeds this. Also used by `trimContext` to cap the LLM request size.
+- `workingWindowEstTokens` (number, default `8000`): low water mark — how many estimated tokens of raw content to retain after compaction.
+- `model` (string, optional): override model for compaction LLM calls (references a key in the `models` registry). Defaults to `llm.model`.
+
+**Empty content sanitization**: Anthropic Messages API rejects assistant messages with empty `content` (empty string, null, or pure-thinking entries with no content/tool_calls). `composeContext` sanitizes these: empty or null `content` is deleted; empty-shell assistant messages (no content, no tool_calls) are filtered out entirely. This applies to all providers for consistency.
+
+### Probe / Activate Gate
+
+In group chats, most messages don't require a bot response. To avoid wasting tokens on the primary (large) model, the Driver supports a **probe gate**: when the bot hasn't been recently @'d or replied to, a small/cheap probe model runs first. If the probe chooses silence (no tool calls), the primary model is skipped. If the probe produces tool calls (intent to act), its result is discarded and the primary model is activated with the same context.
+
+**Terminology**:
+- **Probe model**: small/cheap model configured independently (`probe` config section)
+- **Primary model**: the main `llm` section model
+- **Probe**: single-step LLM call with no tool execution, result stored but not acted upon
+- **Activate**: probe detected tool calls → discard probe, run primary model step loop
+
+**Flow** (in Driver reply effect, after debounce):
+1. Compose context (same as normal flow)
+2. Check `needsProbe`: `probe.enabled && lastMentionedAtMs <= lastTrTimeMs`
+   - `lastMentionedAtMs`: max `receivedAtMs` of RC segments with `mentionsMe` or `repliesToMe` set
+   - `mentionsMe`: RC segment's source message content contains a `<mention>` node targeting bot's userId
+   - `repliesToMe`: RC segment's source message replies to a bot message
+3. If probe needed: call LLM with probe model (same context, same tools, single call — supports both `openai-chat` and `responses` API formats)
+   - No tool calls → persist probe response (`is_activated=false`), return (bot stays silent)
+   - Has tool calls → persist probe response (`is_activated=true`), fall through to primary step loop
+4. If probe not needed (bot was mentioned/replied to): skip probe, run primary step loop directly
+
+**Probe responses** are stored in `probe_responses_v2` table (not in `turn_responses_v2`). They do not participate in `composeContext` — probe TRs never enter the LLM context. They exist purely for debugging and analysis.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| id | INTEGER PK | autoincrement |
+| chat_id | TEXT NOT NULL | indexed |
+| requested_at | INTEGER NOT NULL | millisecond timestamp |
+| entries | TEXT (JSON) NOT NULL | `ConversationEntry[]` in unified IR |
+| input_tokens | INTEGER NOT NULL | token stats |
+| output_tokens | INTEGER NOT NULL | token stats |
+| model_name | TEXT NOT NULL DEFAULT '' | probe model used |
+| is_activated | INTEGER NOT NULL DEFAULT 0 | whether probe triggered primary activation |
+| created_at | INTEGER NOT NULL | millisecond timestamp |
+
+**Config** (`probe` section in `config.yaml`):
+- `enabled` (boolean, default `false`): whether to use probe gate
+- `model`: probe model (references a key in the `models` registry)
+
+### Image To Text
+
+Optional blocking ingress transform that resolves image attachments into cached alt text before they enter DCP.
+
+**Processing model**:
+- Only image events with unresolved image attachments trigger the workflow.
+- Cache key is the sha256 of the generated thumbnail (deterministic sharp WebP output). Both live ingress and cold-start replay produce the same thumbnail from the same image, so the cache key is stable.
+- The LLM input image is encoded as PNG. By default it is resized with a 512×512 pixel budget (`fit: inside`, no enlargement); `imageToText.compress=false` sends the original image pixels to the description model. Static stickers always force compression regardless of this config.
+- If alt text is present on an attachment, Rendering emits inline `<image ...>alt text</image>` and does **not** attach a separate image buffer content piece.
+- Alt text is **never** stored in the `events` table — it is always queried transiently from the `image_alt_texts` table at runtime.
+- Only whitelisted chats (`driver.chatIds`) trigger image-to-text resolution.
+
+**Storage** (`image_alt_texts` table): keyed by thumbnail hash.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| id | INTEGER PK | autoincrement |
+| image_hash | TEXT NOT NULL UNIQUE | sha256 of thumbnail WebP bytes |
+| alt_text | TEXT NOT NULL | resolved image description |
+| alt_text_tokens | INTEGER NOT NULL | model output token count for the stored alt text |
+| sticker_set_name | TEXT | sticker pack name (nullable, for stickers and custom emoji) |
+| created_at | INTEGER NOT NULL | millisecond timestamp |
+
+**Config** (`imageToText` section in `config.yaml`):
+- `enabled` (boolean, default `false`): whether to block ingress on image-to-text
+- `model`: model for the image-to-text workflow (references a key in the `models` registry)
+- `compress` (boolean, default `true`): whether to resize normal image inputs before calling the model; static stickers always compress
+- `pixelBudget` (number, default `262144`): maximum pixel count when compression is enabled (`512 * 512`)
+
+### Animation To Text
+
+Optional blocking ingress transform that resolves GIF animations and animated stickers into cached alt text, parallel to Image To Text.
+
+**Supported formats**:
+- **GIF / Animation** (`type: 'animation'`): Telegram delivers as MP4. Frames extracted via `ffmpeg` (bundled via `ffmpeg-static` npm package).
+- **Video sticker** (`type: 'sticker'`, `isVideoSticker: true`): WEBM format. Frames extracted via `ffmpeg`.
+- **Animated sticker** (`type: 'sticker'`, `isAnimatedSticker: true`): TGS format (gzipped Lottie JSON). Decompressed with `gunzipSync`, frames rendered via `lottie-frame` native addon (rlottie + libpng).
+- **Custom emoji**: not processed (excluded by `canExtractFrames`).
+
+**Frame extraction** (`src/telegram/frame-extractor.ts`):
+- Frame selection is **count-based**, not time-based: total frame count is determined first, then ≤maxFrames → keep all, >maxFrames → pick maxFrames equidistant frames (including first and last).
+- Frame count sources: GIF → `sharp.metadata().pages`; MP4/WEBM → `ffprobe -show_entries stream=nb_frames`; TGS → Lottie JSON `op - ip`.
+- TGS format auto-detected by gzip magic bytes (`0x1f 0x8b`) — does not rely on attachment metadata flags, which may be absent during backfill from `CanonicalAttachment`.
+- Each frame is resized to max 512px per edge (same as image-to-text) and encoded as PNG.
+- `FrameExtractionResult` includes optional `frameTimestamps` (seconds per selected frame). FPS sources: TGS → `parsed.fr`; Video → ffprobe `r_frame_rate`; GIF → omitted (no reliable source).
+- Content-aware (MSE-based) frame selection was explored and deferred — see `docs/content-aware-frame-selection.md` for findings and rationale.
+- Files >20MB are skipped.
+
+**Processing model**:
+- Cache key is `sha256(fileBuffer)` — content-addressable, same animation from different users shares a single cache entry.
+- The `animationHash` field is set on the Telegram-layer `Attachment` during live ingress, propagated through adaptation to `CanonicalAttachment`, and persisted in the `events` table attachments JSON. This enables cold-start cache lookup without re-downloading.
+- LLM receives all extracted frames as multiple image content parts in a single request. Two separate prompts: `animation-to-text-system.velin.md` for GIFs, `sticker-animation-to-text-system.velin.md` for animated stickers.
+- Alt text is stored in the same `image_alt_texts` table (reused from Image To Text — the schema is generic hash → alt text).
+- If alt text is present on an animated attachment, Rendering emits `<animation type="...">alt text</animation>` (distinct from static `<image>` tag). Stickers use a dedicated `<sticker pack="...">alt text</sticker>` tag with the sticker pack name. Static stickers/photos continue to use `<image>`.
+
+**Cold-start hydration**:
+- Events with existing `animationHash`: sync lookup from `image_alt_texts` cache (same as image-to-text).
+- Events missing `animationHash` (historical data before feature enablement): backfilled asynchronously after `telegram.start()` — files are re-downloaded via userbot (with Bot API fileId fallback from messages table), frames extracted, hash computed, and the events table is updated.
+
+**System dependencies**:
+- `ffmpeg-static` (npm, bundled binary) — provides `ffmpeg` for MP4/WEBM processing.
+- `ffprobe-static` (npm, bundled binary) — provides `ffprobe` for video frame count detection.
+- `lottie-frame` (npm, native C++ addon) — renders Lottie JSON frames to PNG. Requires system packages: `libpng-dev` and `librlottie-dev` (`apt-get install -y libpng-dev librlottie-dev`).
+
+**Config** (`animationToText` section in `config.yaml`):
+- `enabled` (boolean, default `false`): whether to block ingress on animation-to-text
+- `model`: model for the animation-to-text workflow (references a key in the `models` registry)
+- `maxFrames` (number, default `5`): maximum key frames to extract from each animation
+
+### Custom Emoji To Text
+
+Optional blocking ingress transform that resolves custom emoji (inline `MessageEntityCustomEmoji`) into cached text descriptions before they enter DCP.
+
+**Processing model**:
+- Custom emoji appear in message entities as `{type: 'custom_emoji', customEmojiId}` with a fallback emoji character in the message text.
+- During ingress (Phase 4 of `hydrateAttachments`), entities are scanned for `custom_emoji` type. All unique `customEmojiId` values are collected with their fallback emoji text.
+- `bot.api.getCustomEmojiStickers(ids)` fetches sticker metadata (file_id, is_animated, is_video) for the batch.
+- Each sticker is downloaded via Bot API and processed:
+  - **Static**: resized with sharp → LLM description via `custom-emoji-to-text-system.velin.md` prompt.
+  - **Animated/Video**: frame extraction via `extractFrames` (same as animation-to-text) → LLM description via `custom-emoji-animated-to-text-system.velin.md` prompt.
+- Cache key is `emoji:${customEmojiId}` — stored in the same `image_alt_texts` table. The `customEmojiId` is a document ID, globally unique and stable.
+- Alt text is set transiently on `ContentNode.altText` (type `custom_emoji`) during sync hydration, never stored in the events table.
+- PNGs sent to vision models are flattened onto a white background before base64 encoding. Some providers mishandle transparent PNG alpha and otherwise see black glyph stickers/custom emoji as solid black squares.
+
+**Rendering**: When `altText` is present on a `custom_emoji` ContentNode, Rendering emits `<custom-emoji pack="PackName">description</custom-emoji>` (with `pack` attribute when `stickerSetName` is available). Without alt text, the fallback emoji character is rendered directly.
+
+**Cold-start hydration**:
+- During initial replay, `hydrateAltTextFromCache` walks ContentNode trees and sets `altText` from cache.
+- After `telegram.start()`, uncached custom emoji IDs are batch-resolved via Bot API, then the affected chats are re-replayed with hydrated events.
+
+**Config** (`customEmojiToText` section in `config.yaml`):
+- `enabled` (boolean, default `false`): whether to resolve custom emoji descriptions
+- `model`: model for the description workflow (references a key in the `models` registry)
+- `maxFrames` (number, default `5`): maximum equidistant frames for animated custom emoji
+
+## Coding Conventions
+
+- **Functional style**: `const` + arrow functions everywhere, closure-based factories. Use classes only when required by library APIs (grammY, gramjs) or for `Error` subclasses.
+- **Strict types**: avoid `any`; use `unknown` + narrowing. `noUncheckedIndexedAccess` is enabled.
+- **Consistent type imports**: use `import type { ... }` for type-only imports (enforced by ESLint).
+- **File names**: `kebab-case`.
+- **Validation**: use Valibot for runtime schema validation; keep schemas close to their consumers.
+- **Immutable state**: use Immer's `produce()` in Projection reducers.
+- **Error handling**: prefer explicit error returns or Result types over thrown exceptions for expected failures.
+- **Logging**: use `@guiiai/logg` (`useLogger` / `useGlobalLogger`) for all runtime logs. Never use `console.log` for logging. `console.log` is only acceptable in CLI scripts for outputting raw data the user needs to copy (e.g. session strings).
+- **No speculative code**: if a design isn't settled, don't write a wrong placeholder. Either leave a `// TODO:` explaining the initial thinking, or don't write it at all. Wrong code looks authoritative and misleads future work.
+
+## Styling Rules (enforced by ESLint)
+
+- 2-space indent, single quotes, semicolons, trailing commas in multiline.
+- `1tbs` brace style (single-line allowed).
+- Interface/type members delimited by semicolons.
+- Arrow parens only when needed (`as-needed`).
+- Unix line endings.
+
+## Testing Practices
+
+- Use Vitest. Test files live next to source as `*.test.ts`.
+- Projection reducers are pure functions — test them with static CanonicalIMEvent fixtures.
+- Mock Telegram clients and DB for integration tests.
+- Driver, persistence, and Telegram integration are now complexity hotspots — expand test coverage there when behavior changes.
+- When fixing a bug, add a test that reproduces the previous failure.
+
+## Comments & Markers
+
+- **Don't write comments that restate what the code already says.** Function names, type signatures, and variable names should be self-documenting. If a comment just paraphrases the code, delete it.
+- **No file-header JSDoc blocks** (e.g. `/** This module does X. Responsibilities: ... */`). The file name and exports are enough.
+- **No JSDoc on interface fields** when the field name is self-explanatory (e.g. `/** The chat ID. */ chatId: string` is noise).
+- **No JSDoc on functions** unless the behavior is genuinely surprising or non-obvious from the signature.
+- **Do comment** non-obvious logic, workarounds, edge cases, and "why" (not "what").
+- Use markers consistently: `// TODO:`, `// REVIEW:`, `// NOTICE:`.
+- Keep comments with the code when refactoring. If removing a comment, note why.
+
+## Dependency Management
+
+- Use `pnpm add <dep>` / `pnpm add -D <dep>` to add dependencies. Do not edit `package.json` by hand.
+- Always run `pnpm typecheck` and `pnpm lint:fix` after finishing a task.
+
+## Data Migration Principle
+
+When existing data doesn't match the current schema or design, fix it with a **DB migration** (SQL UPDATE in a new migration file). Never add backward-compatibility code or runtime fallbacks to handle old data formats — code should only handle the latest design. This keeps the codebase clean and avoids accumulating compatibility shims.
+
+## DB Migration Workflow
+
+When you modify `src/db/schema.ts` (add/remove/change tables, columns, or indexes):
+
+1. **Generate**: `pnpm db:generate` — diffs schema.ts against the latest meta snapshot, produces a SQL migration with a random codename.
+2. **Review the generated SQL**: check that every statement is correct and necessary. Remove or adjust any unintended changes before committing. Verify:
+   - New tables have all expected columns, indexes, and constraints.
+   - Column additions use correct types and defaults.
+   - No unnecessary table recreations (e.g. boolean default `false` vs integer `0` mismatch — fix the snapshot if the diff is cosmetic).
+3. **Rename**: give the migration a descriptive name (e.g. `0026_create_subagents.sql`) and update the `tag` field for the corresponding entry in `drizzle/meta/_journal.json` to match.
+
+The meta snapshot chain (`drizzle/meta/` + `_journal.json`) is the source of truth for Drizzle Kit diffs. Keep it in sync with the actual database state. Never edit `_journal.json` to add entries for migrations that don't exist in the DB. If the chain breaks (duplicate snapshot ids, missing snapshot files), fix the chain before generating new migrations.
+
+## Commit Conventions
+
+- Use Conventional Commits: `feat:`, `fix:`, `refactor:`, `test:`, `chore:`, etc.
+- Keep commits focused and scoped.
+- When a commit changes project structure, key patterns, or completes a milestone, update this file in the same commit.
+- **NEVER commit or push without explicit human instruction.** Always wait for the user to verify changes, run the application, and explicitly request a commit. Unauthorized commits are strictly forbidden.
+
+---
+> Source: [chiyuki0325/Edelweiss](https://github.com/chiyuki0325/Edelweiss) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-27 -->
