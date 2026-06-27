@@ -7,11 +7,11 @@ Polyglot code-analysis framework — parses Python, TypeScript, Go, Rust & PHP i
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Neko1313/graphlens](https://github.com/Neko1313/graphlens).
+Original source: `AGENTS.md` in [Neko1313/graphlens](https://github.com/Neko1313/graphlens).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
