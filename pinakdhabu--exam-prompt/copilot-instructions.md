@@ -1,81 +1,32 @@
-## 000-global
+## 001-subjects
 
-> Global rules for Exam-Prompt — AI exam preparation system
+> SPPU Computer Engineering subject intelligence for answer generation
 
 
-# Exam-Prompt — Universal Agent Rules
+# SPPU Computer Engineering Subject Intelligence
 
-## Project Identity
-This is a **universal skill hub** that transforms any AI coding agent into a personal exam tutor for **any university worldwide**. It contains 24 reusable skills in `skills/<name>/SKILL.md` format.
+## Pre-Configured Subjects
+This repo is pre-configured with full syllabus intelligence for **SPPU Computer Engineering** (30+ subjects). The `skills/answer-writer/SKILL.md` contains keyword databases for all of these.
 
-## Key Files
-- `AGENTS.md` — XML registry of all available skills (auto-discovered by agents)
-- `CLAUDE.md` — Quick skill reference table
-- `USE-CASES.md` — 33 real-world workflow examples
-- `CONTRIBUTING.md` — How to contribute sample papers and skills
-- `.cursorrules` — Legacy cursor rules (this .mdc file replaces/extends it)
+## FE (First Year)
+Mathematics I & II, Physics, Chemistry, BEE, BXE, Mechanics, Graphics, Programming, SME
 
-## How to Operate
+## SE (Second Year)
+Discrete Mathematics, FDS, OOP, Computer Graphics, Digital Electronics, M3, DSA, Software Engineering, Microprocessor, PPL
 
-### When User Asks an Exam Question
-1. Read the relevant `skills/<name>/SKILL.md` file
-2. Follow its instructions step-by-step
-3. The skill contains all rules for generating the correct output format
+## TE (Third Year)
+DBMS, TOC, SPOS, Computer Networks, Data Science & BDA, Web Technology, AI
+Electives: IoT, HCI, Cloud Computing, Information Security, AR/VR, Software Modeling
 
-### When User Asks for Answers
-- Load `skills/answer-writer/SKILL.md`
-- Follow its 15-phase pipeline
-- Output: Direct answer, no preamble, bolded keywords, numbered points
+## BE (Fourth Year)
+DAA, Machine Learning, Blockchain Technology, Deep Learning, High Performance Computing
+Electives: NLP, Quantum Computing, Image Processing, Soft Computing, Cyber Forensics, etc.
 
-### When User Asks for Notes
-- Load `skills/notes-generator/SKILL.md`
-- Auto-select format based on subject type and time available
-- Include spaced repetition schedule and mnemonics
+## Syllabus Reference
+Full course outcomes, unit-wise content, and CO-PO mappings are in `SYLLABUS.md`.
 
-### When User Asks for PYQ Analysis
-- Load `skills/pyq-analyzer/SKILL.md`
-- Run 13+ statistical analyses
-- Output probability-ranked predictions
-
-### When User Asks for a Different University
-- Load `skills/universal-university-adapter/SKILL.md`
-- Detect university from PDFs or description
-- Route to correct pattern-specific output
-
-## Architecture
-```
-skills/                      # 24 skill modules (SKILL.md format)
-├── answer-writer/           # A+ answer generator
-├── notes-generator/         # 12+ note formats
-├── pyq-analyzer/            # PYQ analysis
-├── imp-topics-generator/    # IMP topics
-├── assignment-writer/       # Assignments
-├── exam-paper-generator/    # Question papers
-├── subject-prompt-bank/     # Sample answers
-├── universal-document-reader/ # PDF/image to text
-├── document-generator/      # MD to PDF
-├── universal-university-adapter/ # Any university
-├── flashcard-generator/     # Anki/Quizlet
-├── study-planner/           # Schedules
-├── mcq-practice-generator/  # MCQs
-├── viva-oral-exam-prep/     # Viva prep
-├── last-minute-crammer/     # Emergency plans
-├── lab-report-writer/       # Lab reports
-├── formula-sheet-generator/ # Formula sheets
-├── mind-map-generator/      # Mind maps
-├── case-study-solver/       # Case studies
-├── essay-grader/            # Answer grading
-├── cross-subject-mapper/    # Subject connections
-├── sppu-exam-simulator/     # Exam simulation
-├── session-config/          # Student profile
-└── qp-fetcher/              # PYQ auto-fetch
-```
-
-## Constraints
-- Never modify a `skills/<name>/SKILL.md` file unless asked
-- Never make up university patterns — use the adapter skill
-- Always prefer reading the SKILL.md over guessing the output format
-- Keep answers directly actionable — no meta-commentary
+## For Non-SPPU Universities
+Use `skills/universal-university-adapter/SKILL.md` — it auto-detects any university pattern from uploaded PDFs or description.
 
 ---
 > Source: [pinakdhabu/Exam-prompt](https://github.com/pinakdhabu/Exam-prompt) — distributed by [TomeVault](https://tomevault.io).
