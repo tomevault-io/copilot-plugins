@@ -1,0 +1,9 @@
+{
+  "name": "lienjack--learn-agent",
+  "displayName": "learn-agent",
+  "description": "A technical knowledge base for learning AI Agents, Claude Code internals, databases, Redis, and frontend engineering through system-level notes and source-code analysis.",
+  "version": "1.0.0",
+  "author": "LienJack",
+  "homepage": "https://github.com/LienJack/learn-agent",
+  "skills": []
+}
