@@ -4,7 +4,7 @@
   "repo": "CloudCode",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Robrusi/CloudCode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T22:42:04Z"
+  "distributed_at": "2026-06-27T22:46:21Z"
 }
