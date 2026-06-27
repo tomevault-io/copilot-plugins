@@ -1,0 +1,9 @@
+{
+  "name": "anomek--anomech",
+  "displayName": "AnoMech",
+  "description": "FFXIV Dalamud plugin - Another ffxiv mechanics simulator",
+  "version": "1.0.0",
+  "author": "anomek",
+  "homepage": "https://github.com/anomek/AnoMech",
+  "skills": []
+}
