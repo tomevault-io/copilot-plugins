@@ -1,0 +1,9 @@
+{
+  "name": "inbrace-tech--tokenline",
+  "displayName": "tokenline",
+  "description": "See your AI coding costs in real time. Tokenline adds context usage, prompt-cache savings, TTL countdown and rate-limit pacing to Claude Code and Antigravity CLI.",
+  "version": "1.0.0",
+  "author": "inbrace-tech",
+  "homepage": "https://github.com/inbrace-tech/tokenline",
+  "skills": []
+}
