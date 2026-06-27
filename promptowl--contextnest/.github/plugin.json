@@ -1,0 +1,9 @@
+{
+  "name": "promptowl--contextnest",
+  "displayName": "ContextNest",
+  "description": "Structured, versioned context for AI agents. Context Nest organizes knowledge as markdown documents in a vault, with versioning, integrity verification, and a query language \u2014 accessible via CLI or MC",
+  "version": "1.0.0",
+  "author": "PromptOwl",
+  "homepage": "https://github.com/PromptOwl/ContextNest",
+  "skills": []
+}
