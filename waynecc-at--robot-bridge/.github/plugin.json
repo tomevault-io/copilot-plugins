@@ -1,0 +1,9 @@
+{
+  "name": "waynecc-at--robot-bridge",
+  "displayName": "robot-bridge",
+  "description": "StackChan Robot Bridge - Connect ESP32 to Hermes Agent",
+  "version": "1.0.0",
+  "author": "waynecc-at",
+  "homepage": "https://github.com/waynecc-at/robot-bridge",
+  "skills": []
+}
