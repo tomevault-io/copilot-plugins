@@ -4,7 +4,7 @@
   "repo": "fortune-skill",
   "description": "Chinese traditional fortune-telling AI skill (BaZi \u516b\u5b57 + Zi Wei Dou Shu \u7d2b\u5fae\u6597\u6570) for Claude Code, Codex, Cursor, Trae and any agent platform. PolyForm Noncommercial.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai-freer/fortune-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T01:01:50Z"
+  "distributed_at": "2026-06-27T01:02:47Z"
 }
