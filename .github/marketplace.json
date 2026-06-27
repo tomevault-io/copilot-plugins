@@ -117739,6 +117739,11 @@
       "description": "OpenAI-compatible API gateway for 40+ LLM providers. Pay with USDC on Solana."
     },
     {
+      "name": "aestheticsuraj234--chai0-clone-build",
+      "source": "./aestheticsuraj234--chai0-clone-build",
+      "description": "chai0-clone-build"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -184147,6 +184152,21 @@
       "name": "flekschas--mcp-web",
       "source": "./flekschas--mcp-web",
       "description": "A set of libraries to enable AI apps/agents to control frontend web apps by exposing state and actions as tools using MCP"
+    },
+    {
+      "name": "projects-for-venezuela--infoayudavenezuela",
+      "source": "./projects-for-venezuela--infoayudavenezuela",
+      "description": "Sin descripci\u00f3n"
+    },
+    {
+      "name": "projects-for-venezuela--infoayudavenezuela",
+      "source": "./projects-for-venezuela--infoayudavenezuela",
+      "description": "Sin descripci\u00f3n"
+    },
+    {
+      "name": "event-catalog--agents",
+      "source": "./event-catalog--agents",
+      "description": "AI Agents designed to help manage and update EventCatalog for users"
     },
     {
       "name": "yschimke--compose-ai-tools",
