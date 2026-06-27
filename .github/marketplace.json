@@ -184129,6 +184129,11 @@
       "description": "Linux on the PlayStation Vita"
     },
     {
+      "name": "flekschas--mcp-web",
+      "source": "./flekschas--mcp-web",
+      "description": "A set of libraries to enable AI apps/agents to control frontend web apps by exposing state and actions as tools using MCP"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -215139,6 +215144,116 @@
       "description": "Nexus AI is an AI-powered monitoring tool for CI/CD pipelines. It watches your builds in real time, detects failures instantly, and uses AI to explain what went wrong and how to fix it \u2014 turning confu"
     },
     {
+      "name": "nebius--nebius-physical-ai",
+      "source": "./nebius--nebius-physical-ai",
+      "description": "nebius-physical-ai"
+    },
+    {
+      "name": "tsuyoshiushio--buka-samples",
+      "source": "./tsuyoshiushio--buka-samples",
+      "description": "Sample Project for the buka project"
+    },
+    {
+      "name": "cnick26--timemap-mcp",
+      "source": "./cnick26--timemap-mcp",
+      "description": "Chinese metaphysics MCP server \u2014 BaZi, Tong Shu, Feng Shui tools for AI agents"
+    },
+    {
+      "name": "yazanabuashour--openclerk",
+      "source": "./yazanabuashour--openclerk",
+      "description": "The governance layer for LLM-maintained Markdown wikis."
+    },
+    {
+      "name": "microsoft--entra-agentid-samples",
+      "source": "./microsoft--entra-agentid-samples",
+      "description": "entra-agentid-samples"
+    },
+    {
+      "name": "alexandre-schaffner--revv",
+      "source": "./alexandre-schaffner--revv",
+      "description": "**Revv** is an AI-powered code review desktop application. It's a Tauri v2 desktop app with a SvelteKit frontend and a local Bun/Elysia API server that syncs GitHub pull requests and enables AI-assist"
+    },
+    {
+      "name": "gzsakura1337--atri-skills",
+      "source": "./gzsakura1337--atri-skills",
+      "description": "ATRI-skills"
+    },
+    {
+      "name": "zyyoungm--codexbar-win",
+      "source": "./zyyoungm--codexbar-win",
+      "description": "A Windows-native tray utility for switching Codex OpenAI accounts and compatible providers without splitting the shared ~/.codex session history."
+    },
+    {
+      "name": "gurberat13-collab--agentreach",
+      "source": "./gurberat13-collab--agentreach",
+      "description": "agentreach"
+    },
+    {
+      "name": "nebius--nebius-physical-ai",
+      "source": "./nebius--nebius-physical-ai",
+      "description": "nebius-physical-ai"
+    },
+    {
+      "name": "ijustitay--neon-equalizer",
+      "source": "./ijustitay--neon-equalizer",
+      "description": "Modern Windows Equalizer APO GUI with parametric EQ, AutoEQ, Squiglink targets, presets, live preview, portable app, and installer."
+    },
+    {
+      "name": "openziti--agora",
+      "source": "./openziti--agora",
+      "description": "Zero trust network for governed agent-to-agent communication - discovery, engagement contracts, session governance, and auditable collaboration across organizational boundaries. Built on OpenZiti. A2A"
+    },
+    {
+      "name": "alexandre-schaffner--revv",
+      "source": "./alexandre-schaffner--revv",
+      "description": "**Revv** is an AI-powered code review desktop application. It's a Tauri v2 desktop app with a SvelteKit frontend and a local Bun/Elysia API server that syncs GitHub pull requests and enables AI-assist"
+    },
+    {
+      "name": "koigxx--auto-luckbag",
+      "source": "./koigxx--auto-luckbag",
+      "description": "\u4e00\u4e2a\u7b80\u6613\u81ea\u52a8\u62a2\u6296\u97f3\u798f\u888b\u7684\u8f6f\u4ef6"
+    },
+    {
+      "name": "ramsbaby--jarvis",
+      "source": "./ramsbaby--jarvis",
+      "description": "Self-healing AI operations platform \u2014 Discord bot + RAG + Insight Layer + 99 automation scripts. Runs 24/7, fixes itself, gets smarter. Zero API charges."
+    },
+    {
+      "name": "lucinate-ai--lucinate",
+      "source": "./lucinate-ai--lucinate",
+      "description": "Terminal-native chat client for OpenClaw, Hermes, Ollama and OpenAI-compatible providers. A pure, beautiful terminal chat experience - connect to the gateway, pick an agent, and chat with streaming re"
+    },
+    {
+      "name": "nebius--nebius-physical-ai",
+      "source": "./nebius--nebius-physical-ai",
+      "description": "nebius-physical-ai"
+    },
+    {
+      "name": "vasyakrg--reconops",
+      "source": "./vasyakrg--reconops",
+      "description": "reconops"
+    },
+    {
+      "name": "openziti--agora",
+      "source": "./openziti--agora",
+      "description": "Zero trust network for governed agent-to-agent communication - discovery, engagement contracts, session governance, and auditable collaboration across organizational boundaries. Built on OpenZiti. A2A"
+    },
+    {
+      "name": "koigxx--auto-luckbag",
+      "source": "./koigxx--auto-luckbag",
+      "description": "\u4e00\u4e2a\u7b80\u6613\u81ea\u52a8\u62a2\u6296\u97f3\u798f\u888b\u7684\u8f6f\u4ef6"
+    },
+    {
+      "name": "youmind-openlab--abti",
+      "source": "./youmind-openlab--abti",
+      "description": "ABTI (AI-Based Type Indicator) \u2014 AI personality test based on your chat memories. 28 types. Paste a prompt, get roasted. \ud83c\udfad"
+    },
+    {
+      "name": "brightbear2026--pptagent",
+      "source": "./brightbear2026--pptagent",
+      "description": "\u4e13\u4e1a\u7ea7PPT\u751f\u6210Agent \u2014 6\u5c42\u6d41\u6c34\u7ebf\u67b6\u6784\uff0c\u591a\u683c\u5f0f\u8f93\u5165\uff0c4\u6b21\u4eba\u5de5\u5ba1\u6838\uff0c\u591a\u56fd\u4ea7LLM\u534f\u540c(GLM-4/DeepSeek-R1/Qwen-Max)\uff0c\u771f\u5b9e\u6570\u636e\u9a71\u52a8\u56fe\u8868\uff0c\u751f\u6210\u54a8\u8be2\u516c\u53f8\u7ea7\u6f14\u793a\u6587\u7a3f\u3002React+FastAPI\u3002"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -232534,6 +232649,31 @@
       "description": "outlier is an open-source, local-first policy engine and governance framework designed to measure the true cost and risk of AI code generation. Enforce Zero-Trust and protect Human Mastery."
     },
     {
+      "name": "1jehuang--scrollwm",
+      "source": "./1jehuang--scrollwm",
+      "description": "Scrolling window manager for macOS (PaperWM-style strip, Accessibility-only, teleport navigation)"
+    },
+    {
+      "name": "white-sand-grand--karpathy-claude-md",
+      "source": "./white-sand-grand--karpathy-claude-md",
+      "description": "Internal Andrej Karpathy CLAUDE.md rules for Claude Code, fixes common LLM code generation flaws. Sourced from X leak, for learning & research."
+    },
+    {
+      "name": "vondervuflya--yggdrasil",
+      "source": "./vondervuflya--yggdrasil",
+      "description": "Durable, local-first memory for AI coding agents over MCP \u2014 zero-dependency, curated & semantically de-duped, you own the data (SQLite + Markdown). Works with Claude Code, Codex & any MCP host."
+    },
+    {
+      "name": "deangeckt--connectivity-explorer",
+      "source": "./deangeckt--connectivity-explorer",
+      "description": "open-source 3D viewer for cortical neuron connectivity"
+    },
+    {
+      "name": "tae2089--code-context-graph",
+      "source": "./tae2089--code-context-graph",
+      "description": "Vectorless code retrieval for AI coding agents \u2014 search code by business intent (@intent, @domainRule), built for MSA via MCP."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -236532,6 +236672,11 @@
       "name": "mhenrixon--phlex-reactive",
       "source": "./mhenrixon--phlex-reactive",
       "description": "Reactive Phlex components for Rails \u2014 Livewire-style actions and live cross-tab updates, without Stimulus boilerplate."
+    },
+    {
+      "name": "dnlbox--ai-protocol",
+      "source": "./dnlbox--ai-protocol",
+      "description": "Start with a concept, not a stack. A harness-agnostic protocol that scaffolds greenfield projects from a rigorous concept instead of a chain of prompts, so AI agents build from shared intent with self"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
