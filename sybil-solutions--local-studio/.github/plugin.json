@@ -1,0 +1,9 @@
+{
+  "name": "sybil-solutions--local-studio",
+  "displayName": "local-studio",
+  "description": "Control panel for VLLM, Sglang, llama.cpp, exllamav3",
+  "version": "1.0.0",
+  "author": "sybil-solutions",
+  "homepage": "https://github.com/sybil-solutions/local-studio",
+  "skills": []
+}
