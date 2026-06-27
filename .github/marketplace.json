@@ -163024,6 +163024,11 @@
       "description": "9-phase workflow for empirical economics papers (UK MSc / PhD / journal). Validated on two real papers in a single working day each. Pure public data + R + Pandoc."
     },
     {
+      "name": "adrielp--ai-engineering-harness",
+      "source": "./adrielp--ai-engineering-harness",
+      "description": "Provides a harness for various different AI agent for harness context engineering"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -232479,6 +232484,26 @@
       "description": "\u82b1\u5b50\u7684\u5976\u725b\u5173"
     },
     {
+      "name": "sepahead--pid-rs",
+      "source": "./sepahead--pid-rs",
+      "description": "Partial Information Decomposition and continuous mutual-information (KSG / I\u02e2\u02e3) estimators in safe Rust"
+    },
+    {
+      "name": "sepahead--pid-rs",
+      "source": "./sepahead--pid-rs",
+      "description": "Partial Information Decomposition and continuous mutual-information (KSG / I\u02e2\u02e3) estimators in safe Rust"
+    },
+    {
+      "name": "getlark--openlily",
+      "source": "./getlark--openlily",
+      "description": "A personal voice assistant with a wake word, swappable LLMs (gpt 5.5, opus 4.8, etc), and configurable tools (web search, email, calendar, etc)."
+    },
+    {
+      "name": "mercurievv--scalasemantic",
+      "source": "./mercurievv--scalasemantic",
+      "description": "MCP server for deep semantic analysis of Scala via SemanticDB \u2014 exact find-usages, class hierarchies, implicit resolution & call paths for AI coding agents like Claude Code. Beyond grep and standard L"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -236467,6 +236492,16 @@
       "name": "ruvnet--worldgraph",
       "source": "./ruvnet--worldgraph",
       "description": "Privacy-aware environmental digital twin for ambient/RF sensing in Rust \u2014 a typed, provenance-tracked graph of rooms, sensors, people & beliefs, geospatially grounded with predictive occupancy (OccWor"
+    },
+    {
+      "name": "wuxinbo-bo--math-model-skills",
+      "source": "./wuxinbo-bo--math-model-skills",
+      "description": "\u6570\u5b66\u5efa\u6a21\u7ade\u8d5b\u667a\u80fd\u4f53\u5de5\u7a0b\u7fa4 \u2014 14\u9636\u6bb5\u6d41\u6c34\u7ebf + 7\u89d2\u8272 + 35\u95e8\u7981"
+    },
+    {
+      "name": "mhenrixon--phlex-reactive",
+      "source": "./mhenrixon--phlex-reactive",
+      "description": "Reactive Phlex components for Rails \u2014 Livewire-style actions and live cross-tab updates, without Stimulus boilerplate."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
