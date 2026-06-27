@@ -49299,6 +49299,16 @@
       "description": "OpenHands Agent Canvas is a self-hostable AI coding platform. Start locally, connect your tools, and automate workflows."
     },
     {
+      "name": "socai-io--socai",
+      "source": "./socai-io--socai",
+      "description": "\u4e13\u4e3a\u5c0f\u7ea2\u4e66\u4f18\u5316\u7684Web Use Agent: \u8c03\u7814\u3001\u5185\u5bb9\u63d0\u53d6\u3001agent\u5206\u6790"
+    },
+    {
+      "name": "socai-io--socai",
+      "source": "./socai-io--socai",
+      "description": "\u4e13\u4e3a\u5c0f\u7ea2\u4e66\u4f18\u5316\u7684Web Use Agent: \u8c03\u7814\u3001\u5185\u5bb9\u63d0\u53d6\u3001agent\u5206\u6790"
+    },
+    {
       "name": "jjongguet--oh-my-product",
       "source": "./jjongguet--oh-my-product",
       "description": "oh-my-product"
@@ -51772,6 +51782,11 @@
       "name": "gsi-cyberjapan--gsi-3d-2025",
       "source": "./gsi-cyberjapan--gsi-3d-2025",
       "description": "gsi-3d-2025"
+    },
+    {
+      "name": "rimagination--instsci",
+      "source": "./rimagination--instsci",
+      "description": "InstSci: academic paper retrieval with Open Access fallback and browser-backed institutional access for AI agents and CLI workflows."
     },
     {
       "name": "databricks--databricks-agent-skills",
@@ -69942,6 +69957,11 @@
       "name": "marcelinevpq--ds5dongle-oled-edition",
       "source": "./marcelinevpq--ds5dongle-oled-edition",
       "description": "Pico2W DualSense 5 Bridge \u2014 fork of awalol/DS5Dongle with English translation"
+    },
+    {
+      "name": "luochang212--skill-zoo",
+      "source": "./luochang212--skill-zoo",
+      "description": "All-in-One Desktop Agent Skills Utility. Welcome to the Skill Zoo, where all your skills live!"
     },
     {
       "name": "lktiep--cortex-hub",
@@ -90629,6 +90649,16 @@
       "description": "A Neovim plugin for managing GitHub Actions workflows directly from Neovim"
     },
     {
+      "name": "hunmer--agent-spaces",
+      "source": "./hunmer--agent-spaces",
+      "description": "\u591aagents\u534f\u4f5c\u5e73\u53f0"
+    },
+    {
+      "name": "hunmer--agent-spaces",
+      "source": "./hunmer--agent-spaces",
+      "description": "\u591aagents\u534f\u4f5c\u5e73\u53f0"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -108734,6 +108764,11 @@
       "description": "KPilot: Unified control plane for multi-cluster Kubernetes management, GPU compute scheduling, and model serving."
     },
     {
+      "name": "tropeai--trope-cua",
+      "source": "./tropeai--trope-cua",
+      "description": "Background computer use for desktop agents on Windows and macOS"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -120767,6 +120802,16 @@
       "name": "seebom-labs--bomhort",
       "source": "./seebom-labs--bomhort",
       "description": "About standalone, Kubernetes-native Software Bill of Materials (SBOM) visualization and governance platform"
+    },
+    {
+      "name": "terremotovenezuela--mapa-emergencia-rescate",
+      "source": "./terremotovenezuela--mapa-emergencia-rescate",
+      "description": "Mapa de emergencia y rescate: reportes ciudadanos en tiempo real para coordinar ayuda humanitaria (Next.js + Leaflet + Upstash Redis)"
+    },
+    {
+      "name": "terremotovenezuela--mapa-emergencia-rescate",
+      "source": "./terremotovenezuela--mapa-emergencia-rescate",
+      "description": "Mapa de emergencia y rescate: reportes ciudadanos en tiempo real para coordinar ayuda humanitaria (Next.js + Leaflet + Upstash Redis)"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -139587,6 +139632,11 @@
       "name": "zuoxiange--dotnet-modulith",
       "source": "./zuoxiange--dotnet-modulith",
       "description": "\u57fa\u4e8e ASP.NET Core 10 \u7684\u6a21\u5757\u5316\u5355\u4f53\u793a\u4f8b\u9879\u76ee\uff0c\u501f\u9274 Spring Modulith \u8bbe\u8ba1\u7406\u5ff5\uff0c\u7ed3\u5408 DDD\u3001\u4e8b\u4ef6\u9a71\u52a8\u3001CQRS \u4e0e\u53ef\u89c2\u6d4b\u6027\uff0c\u6f14\u793a\u4e00\u4e2a\u53ef\u6f14\u8fdb\u5230\u5fae\u670d\u52a1\u7684\u5de5\u7a0b\u5b9e\u8df5"
+    },
+    {
+      "name": "aziz-zahran--obsidian-chroma-key",
+      "source": "./aziz-zahran--obsidian-chroma-key",
+      "description": "Easily remove the background from your pasted images directly within Obsidian. Perfect for screenshots, diagrams, and making your notes look clean, seamless, and professional."
     },
     {
       "name": "vm--nila-code",
@@ -163042,6 +163092,11 @@
       "name": "adrielp--ai-engineering-harness",
       "source": "./adrielp--ai-engineering-harness",
       "description": "Provides a harness for various different AI agent for harness context engineering"
+    },
+    {
+      "name": "fi-153--apfel-home-assistant",
+      "source": "./fi-153--apfel-home-assistant",
+      "description": "Homebrew wrapper that runs apfel as a Home Assistant conversation backend"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
