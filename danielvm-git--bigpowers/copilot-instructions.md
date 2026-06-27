@@ -1,74 +1,87 @@
-## request-review
+## research-first
 
-> Dispatch a fresh reviewer agent with a clean context to critique the code after audit-code passes. The reviewer has no shared state with the coding agent and gives a genuine second opinion. Use after audit-code passes, before committing, or when user wants an independent code review.
+> Look-before-build — search registries, repo, existing skills, and web for prior art before implementing. Appends Prior Art to the spec. Use after survey-context and before elaborate-spec, when adding dependencies, or when the task may already be solved.
 
 
 
-# Request Review
+# Research First
 
-Dispatch a fresh reviewer agent with a clean context. The reviewer has no shared state — it can give a genuine second opinion because it hasn't been involved in writing the code.
-
-**Distinct from `audit-code`:** `audit-code` is the coding agent checking its own work (internal). This skill dispatches an external agent whose job is to find what the coding agent missed.
-
-**Solo developer note:** This replaces the human reviewer. The reviewer agent IS the reviewer.
-
-**Run `audit-code` first.** This skill assumes `audit-code` has already passed. Don't waste a reviewer's attention on hygiene issues you could have caught yourself.
+> **HARD GATE** — Do NOT implement until prior art is searched. Minimum outcome: adopt, extend, compose, or build — with evidence.
 
 ## Process
 
-### 1. Prepare the review brief
+1. Read `specs/product/SCOPE_LATEST.yaml`, `specs/release-plan.yaml + epic shards`, and the current task statement.
+2. Search in order: this repo → bigpowers skills (`search-skills`) → package registries → web docs.
+3. **Check opensrc cache** — if the task integrates an external library, run `bash scripts/bp-opensrc-check.sh` (or `npx opensrc search <pkg>`) to find locally-cached source. Read the `src/` directory for API shapes before writing any integration code.
+4. For each candidate: note name, URL/path, fit (adopt | extend | compose | build).
+5. Append `## Prior Art` to `requirements/SCOPE_LATEST.yaml` notes or the active epic story.
 
-Write a self-contained brief for the reviewer agent. Include:
+## opensrc Integration
 
-- What was built (feature description, not implementation)
-- Which files changed (the diff context)
-- What `specs/` artifacts are relevant (active `epics/eNN-*.yaml`, `requirements/SCOPE_LATEST.yaml`, `bugs/BUG-*.md`)
-- What CONVENTIONS.md requires
-- What the verify command is
-- What you're most uncertain about (where you want fresh eyes)
+`opensrc` is a local cache of 200+ open-source repos and npm/PyPI packages. Query it before building any external integration to avoid re-inventing documented API shapes.
 
-### 2. Dispatch the reviewer agent
+```bash
+# Check if a package is cached
+npx opensrc search <package-name>
 
-Use the Agent tool with a completely fresh context. The agent prompt must be self-contained — no references to "our conversation" or "what we discussed."
-
-```
-You are a code reviewer. Review the following code changes.
-
-Context: [feature description]
-CONVENTIONS.md rules: [paste relevant sections]
-Active epic shard: [paste or summarize from specs/epics/]
-
-Diff: [paste git diff or describe changed files]
-
-Verify command: [runnable command]
-
-Review for:
-1. Correctness — does the code do what was intended?
-2. CONVENTIONS.md compliance — are all rules followed?
-3. Test quality — do tests verify behavior (not implementation)?
-4. Design — are there simpler or more robust approaches?
-5. Edge cases — what inputs or states could cause failures?
-6. Security — any injection, auth, or data exposure risks?
-
-For each finding, categorize as: must-fix / should-fix / consider.
-Run the verify command and report the result.
+# Or use the bundled helper (checks all deps from package.json or requirements.txt)
+bash scripts/bp-opensrc-check.sh [package.json|requirements.txt]
 ```
 
-### 3. Collect the report
+If opensrc finds a match, read its `src/` or source directory and append findings to the **Prior Art** section:
 
-When the reviewer returns:
-- Read every finding before acting on any
-- Note the verify command result
-- Compute the quality score: `100 × (total_items − must_fix − should_fix) / total_items`
-- Report the score to the user
+```
+opensrc: found <pkg> v<version> — exports <key classes/functions>
+```
 
-> **HARD GATE** — If score < 94%, do NOT merge. Run `respond-review` to resolve must-fix and should-fix findings first. The 94% threshold also applies to the compliance SCORE computed by `npm run compliance` (scripts/audit-compliance.sh): SCORE = passing Gherkin scenarios / total × 100.
+If opensrc is not installed or the package is not cached, fall through to web docs normally.
 
-### 4. Hand off to respond-review
+## Outcome matrix
 
-Pass the reviewer's report to `respond-review` to categorize findings and apply fixes.
+| Verdict | Action |
+|---------|--------|
+| **adopt** | Use as-is; link in plan; no new code |
+| **extend** | Wrap or configure existing solution |
+| **compose** | Chain existing skills/modules |
+| **build** | New implementation — justify why others failed |
 
-Report to user: "Review complete. [N] findings: [X] must-fix, [Y] should-fix, [Z] consider. Running respond-review."
+## Verify
+
+→ verify: `grep -c "Prior Art" specs/product/SCOPE_LATEST.yaml specs/release-plan.yaml + epic shards 2>/dev/null | awk '{s+=$1} END {if(s>0) print "OK"; else print "MISSING"}'`
+
+See [REFERENCE.md](REFERENCE.md) for search commands and registry checklist.
+
+---
+
+# Research First — Reference
+
+## Search commands
+
+```bash
+# Repo prior art
+rg -l "<keyword>" --glob '!node_modules' .
+find . -maxdepth 3 -name "SKILL.md" | xargs grep -l "<intent>"
+
+# Installed packages (if package.json exists)
+cat package.json | jq '.dependencies,.devDependencies' 2>/dev/null
+```
+
+## Registry checklist
+
+- [ ] npm / PyPI / crates.io (if applicable)
+- [ ] Existing bigpowers skill (`bash scripts/build-skill-index.sh && rg "<intent>" specs/SKILL-SEARCH-INDEX.md`)
+- [ ] Project `docs/` and `specs/adr/`
+- [ ] Official library documentation (quote one API detail)
+
+## Prior Art template
+
+```markdown
+## Prior Art
+
+| Candidate | Source | Verdict | Notes |
+|-----------|--------|---------|-------|
+| ... | ... | adopt/extend/compose/build | ... |
+```
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
