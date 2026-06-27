@@ -1,0 +1,88 @@
+## mostly-good-metrics-swift-sdk
+
+> This file provides guidance for Claude Code when working on this SDK.
+
+# CLAUDE.md
+
+This file provides guidance for Claude Code when working on this SDK.
+
+## Development Process
+
+### 1. All Changes Require Tests
+
+Every code change must include corresponding tests:
+- New features need unit tests covering the main functionality
+- Bug fixes need a test that reproduces the bug and verifies the fix
+- API changes need tests for both the old behavior (if backwards compatible) and new behavior
+
+### 2. PR Workflow
+
+After creating a PR:
+1. **Monitor CI** - Watch for failing tests in the PR checks
+2. **Fix failures** - If tests fail, fix them before requesting review
+3. **Verify locally** - Run the test suite locally before pushing fixes
+
+### 3. Code Quality
+
+- Follow existing code style and patterns in the codebase
+- Keep changes focused - one feature/fix per PR
+- Update documentation if adding new public APIs
+
+### 4. Public API Changes
+
+**DO NOT change public-facing APIs without explicit approval.**
+
+If a change absolutely requires modifying a public API:
+1. **STOP** and confirm with the user before proceeding
+2. If approved, add a prominent warning in the PR description:
+
+```
+## ⚠️ BREAKING CHANGE ⚠️
+
+This PR modifies public APIs:
+- `oldMethod()` renamed to `newMethod()`
+- `SomeClass` constructor signature changed
+
+Migration required for existing users.
+```
+
+Public APIs include:
+- Public method signatures (names, parameters, return types)
+- Public class/struct names and their public properties
+- Configuration options
+- Event names and property keys sent to the server
+
+### 5. Releasing
+
+**Always use Fastlane for releases** - it generates proper release notes via Claude.
+
+Setup (one time):
+```
+bundle install
+```
+
+To release:
+```
+bundle exec fastlane release
+```
+
+This will:
+1. Prompt for version bump type (patch/minor/major)
+2. Generate release notes from merged PRs
+3. Create a version bump PR and output the PR URL
+
+After Fastlane completes:
+1. Monitor the PR checks with `gh pr checks <PR_NUMBER>`
+2. When all checks pass, merge with `gh pr merge <PR_NUMBER> --squash --delete-branch`
+3. CI automatically publishes to CocoaPods and creates a GitHub release
+
+**DO NOT:**
+- Manually edit version in `.podspec`
+- Run `pod trunk push` directly
+- Create version tags manually
+
+Fastlane and CI handle all versioning and publishing automatically.
+
+---
+> Source: [Mostly-Good-Metrics/mostly-good-metrics-swift-sdk](https://github.com/Mostly-Good-Metrics/mostly-good-metrics-swift-sdk) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-26 -->
