@@ -7,11 +7,11 @@ See your AI coding costs in real time. Tokenline adds context usage, prompt-cach
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [inbrace-tech/tokenline](https://github.com/inbrace-tech/tokenline).
+Original source: `CLAUDE.md` in [inbrace-tech/tokenline](https://github.com/inbrace-tech/tokenline).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
