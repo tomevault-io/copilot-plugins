@@ -7,11 +7,11 @@ Arrange LLMs to code in harmony.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [loopflowstudio/loopflow](https://github.com/loopflowstudio/loopflow).
+Original source: `AGENTS.md` in [loopflowstudio/loopflow](https://github.com/loopflowstudio/loopflow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
