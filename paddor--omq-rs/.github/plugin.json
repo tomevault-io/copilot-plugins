@@ -1,0 +1,9 @@
+{
+  "name": "paddor--omq-rs",
+  "displayName": "omq.rs",
+  "description": "Pure Rust \u00d8MQ. Faster than libzmq. Batteries included for demanding workloads.",
+  "version": "1.0.0",
+  "author": "paddor",
+  "homepage": "https://github.com/paddor/omq.rs",
+  "skills": []
+}
