@@ -1,0 +1,9 @@
+{
+  "name": "getlark--openlily",
+  "displayName": "openlily",
+  "description": "A personal voice assistant with a wake word, swappable LLMs (gpt 5.5, opus 4.8, etc), and configurable tools (web search, email, calendar, etc).",
+  "version": "1.0.0",
+  "author": "getlark",
+  "homepage": "https://github.com/getlark/openlily",
+  "skills": []
+}
