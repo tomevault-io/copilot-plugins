@@ -1,0 +1,9 @@
+{
+  "name": "controlplane-com--ai-plugin",
+  "displayName": "ai-plugin",
+  "description": "AI assistant plugin for Control Plane: Claude Code, Codex, Antigravity, and MCP workflows for deploying, troubleshooting, and managing multi-cloud workloads.",
+  "version": "1.0.0",
+  "author": "controlplane-com",
+  "homepage": "https://github.com/controlplane-com/ai-plugin",
+  "skills": []
+}
