@@ -1,0 +1,9 @@
+{
+  "name": "sxdjt--bignumber-card-continued",
+  "displayName": "bignumber-card-continued",
+  "description": "Community-maintained continuation of bignumber-card - Display sensor values as large numbers with severity colors and progress bars for Home Assistant",
+  "version": "1.0.0",
+  "author": "sxdjt",
+  "homepage": "https://github.com/sxdjt/bignumber-card-continued",
+  "skills": []
+}
