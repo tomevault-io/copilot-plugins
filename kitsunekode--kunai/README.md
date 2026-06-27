@@ -7,11 +7,11 @@ Terminal-first streaming CLI for anime, series, and movies. Browse in an Ink she
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KitsuneKode/kunai](https://github.com/KitsuneKode/kunai).
+Original source: `CLAUDE.md` in [KitsuneKode/kunai](https://github.com/KitsuneKode/kunai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
