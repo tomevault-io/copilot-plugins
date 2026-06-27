@@ -4,7 +4,7 @@
   "repo": "agentware",
   "description": "Self learning AI agentic framework with loops and persistent memory that you own. Open-source & free.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/r5rana/agentware",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T10:32:45Z"
+  "distributed_at": "2026-06-27T10:33:13Z"
 }
