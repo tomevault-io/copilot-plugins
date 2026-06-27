@@ -7,11 +7,11 @@ Self learning AI agentic framework with loops and persistent memory that you own
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [r5rana/agentware](https://github.com/r5rana/agentware).
+Original source: `AGENTS.md` in [r5rana/agentware](https://github.com/r5rana/agentware).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
