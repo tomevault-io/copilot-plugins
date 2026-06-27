@@ -1,0 +1,9 @@
+{
+  "name": "zenitheditor--zenith",
+  "displayName": "zenith",
+  "description": "A design document format built for the age of AI agents.  Zenith is a plain-text format and engine for design files \u2014 posters, decks, books, social graphics, and more",
+  "version": "1.0.0",
+  "author": "zenitheditor",
+  "homepage": "https://github.com/zenitheditor/zenith",
+  "skills": []
+}
