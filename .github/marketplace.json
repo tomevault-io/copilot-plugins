@@ -39824,6 +39824,11 @@
       "description": "ai-media-generator"
     },
     {
+      "name": "needsbuilder--easyclaw",
+      "source": "./needsbuilder--easyclaw",
+      "description": "One-click installer for OpenClaw AI agent. macOS & Windows."
+    },
+    {
       "name": "vyrx-dev--toofan",
       "source": "./vyrx-dev--toofan",
       "description": "A minimal, lightning-fast typing TUI for your terminal"
@@ -67287,6 +67292,16 @@
       "name": "swaylq--master-skill",
       "source": "./swaylq--master-skill",
       "description": "master-skill"
+    },
+    {
+      "name": "sendmux--skills",
+      "source": "./sendmux--skills",
+      "description": "Agent skills for Sendmux"
+    },
+    {
+      "name": "sendmux--skills",
+      "source": "./sendmux--skills",
+      "description": "Agent skills for Sendmux"
     },
     {
       "name": "domye--solace",
