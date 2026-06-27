@@ -1,80 +1,168 @@
-## delegate-task
+## deploy
 
-> Delegate one complex task to a single subagent, review its work in two stages before merging back. Sequential — one agent at a time, with oversight. Use when a task is complex and requires careful review before the result is accepted. Distinct from dispatch-agents (no parallelism here; reviewer sees full diff before proceeding).
-
-
-
-# Delegate Task
-> **HARD GATE** — **HARD GATE** — Delegated work must have clear success criteria and verification commands. The delegate must be able to verify completion independently.
+> \"Build → verify artifact → deploy → wait → smoke deployment pipeline. Platform-agnostic (MCP or CLI), with configurable timeout, retry with exponential backoff, and integrated health-check. The deploy half of CI/CD: run after build to push to production.\
 
 
-Delegate a single complex task to a subagent with a two-stage review gate before accepting the result. Use when oversight of a single task matters more than speed.
 
-**Distinct from `dispatch-agents`:** This skill runs one subagent sequentially with a mandatory review. `dispatch-agents` runs multiple subagents in parallel without inter-task review gates.
+# Deploy
+
+> **HARD GATE** — Do not deploy without running tests first. Run `test` or your CI suite before this skill.
+>
+> **HARD GATE** — Use this skill from a CI/CD pipeline or post-merge on `main`/`master`. Never deploy from a feature branch.
+>
+> **HARD GATE** — The deploy skill orchestrates deployment; the `smoke-test` skill validates post-deploy health. Chain them: `deploy → smoke-test`.
+
+Orchestrate a full build-to-deployment pipeline: build the artifact, verify it exists and is non-empty, invoke a platform deploy tool (MCP or CLI), poll until the deploy completes or times out, then run a baseline smoke test against the live URL.
+
+## Pipeline Stages
+
+```
+build → verify artifact → deploy → wait/retry → smoke
+```
+
+| Stage | Description | Failure mode |
+|-------|-------------|-------------|
+| Build | Execute the project's build command | Non-zero exit: report build error |
+| Verify | Check artifact exists and is non-empty | Missing/empty: report artifact path |
+| Deploy | Invoke platform deploy tool (MCP, Vercel CLI, rsync, etc.) | Non-zero exit: report deploy error |
+| Wait | Poll deploy status every 30s up to `DEPLOY_TIMEOUT` (default 5 min) | Timeout: report exceeded |
+| Smoke | `curl -sSf $DEPLOY_URL` as baseline health check | Non-200: report failure |
 
 ## Process
 
-### 1. Define the task
+### 1. Detect build command
 
-Before spawning the agent, read `specs/state.yaml` if it exists. Then write a minimal self-contained brief using this template (brief size directly controls token cost and hallucination risk — do not pad):
+Read project manifest files in order to determine the build command:
 
-```
-Goal: [one sentence — specific, measurable outcome]
-In scope: [explicit file or module list]
-Out of bounds: [what NOT to do]
-Constraints: [relevant CONVENTIONS.md rules, existing patterns, test requirements]
-Verify: [runnable command]
-Prior decisions: [relevant entries from specs/state.yaml — omit section if none apply]
-```
+| Manifest | Build command |
+|----------|--------------|
+| `package.json` | `npm run build` (or `scripts.build` value) |
+| `Cargo.toml` | `cargo build --release` |
+| `pyproject.toml` / `setup.py` | Depends on build backend (`poetry build`, `pip install -e .`, etc.) |
+| `Makefile` | `make build` or first target named `build` |
+| `AGENTS.md` / `CLAUDE.md` | Look for `build:` in project commands section |
 
-Do not include full file contents, full conversation history, or decisions unrelated to this task.
+If no manifest is found, prompt the user with: "No detected build command. Pass `--build 'npm run build'` or specify the command."
 
-### 2. Spawn the subagent (iterative retrieval, max 3 cycles)
+### 2. Build the artifact
 
-Use the Agent tool with a **fresh context** per spawn. Pass prior decisions only via `specs/state.yaml`.
-
-**Cycle:** dispatch → evaluate output vs goal → refine brief → re-spawn if needed (max 3 cycles).
-
-Include in each brief:
-- All context the agent needs (it starts cold — no shared state)
-- Reference to CONVENTIONS.md constraints
-- The verify command it must run before reporting done
-
-### 3. Stage 1 review — output inspection
-
-When the subagent returns, review its report before looking at the diff:
-- Did it run the verify command? Did it pass?
-- Does it explain what it changed and why?
-- Are there any concerns raised by the agent?
-
-If the report raises red flags, ask the subagent for clarification or re-run with adjusted instructions.
-
-### 4. Stage 2 review — diff inspection
-
-Inspect the actual diff:
 ```bash
-git diff main...HEAD
+npm run build
 ```
 
-Check:
-- [ ] Changes are scoped to what was asked — nothing extra
-- [ ] No `any`, no `@ts-ignore`, no disabled lint rules
-- [ ] Tests added for new behavior
-- [ ] CONVENTIONS.md compliance (naming, structure, no gh issue creation)
-- [ ] Boy Scout Rule: touched areas are cleaner than before
+Or the detected command from step 1. If the build fails, exit non-zero and report the build output.
 
-### 5. Decision
+### 3. Verify the artifact
 
-- **Accept**: merge the result into the main working branch
-- **Revise**: send back to the subagent with specific feedback
-- **Reject**: discard and re-approach differently
-
-**After accepting**, append to `specs/state.yaml` under `## Active Decisions`:
-```
-**[task short name]**: [what approach the agent chose and why — one sentence]
+```bash
+ARTIFACT_DIR="${ARTIFACT_DIR:-dist}"
+if [ ! -d "$ARTIFACT_DIR" ] || [ -z "$(ls -A "$ARTIFACT_DIR" 2>/dev/null)" ]; then
+  echo "FAIL: build artifact not found at $ARTIFACT_DIR"
+  exit 1
+fi
 ```
 
-Report the decision and rationale to the user.
+Configurable via `$ARTIFACT_DIR` environment variable (default: `dist/`).
+
+### 4. Deploy to platform
+
+Platform-agnostic — supports multiple deployment targets via environment variables:
+
+| Platform | Env var | Example |
+|----------|---------|---------|
+| Vercel | `VERCEL_TOKEN`, `VERCEL_PROJECT_ID` | `vercel deploy --prod --token $VERCEL_TOKEN` |
+| Netlify | `NETLIFY_AUTH_TOKEN`, `NETLIFY_SITE_ID` | `netlify deploy --prod --auth $NETLIFY_AUTH_TOKEN --dir $ARTIFACT_DIR` |
+| BigBase MCP | MCP tool call | `mcp deploy` via BigBase server |
+| rsync/SSH | `DEPLOY_SSH_USER`, `DEPLOY_SSH_HOST`, `DEPLOY_SSH_PATH` | `rsync -avz $ARTIFACT_DIR/ $DEPLOY_SSH_USER@$DEPLOY_SSH_HOST:$DEPLOY_SSH_PATH` |
+| Custom | `DEPLOY_COMMAND` | Run any deploy command string |
+
+The deploy tool is selected by which environment variables are set. If none are configured:
+
+```bash
+echo "No deploy target configured. Set one of: VERCEL_TOKEN, NETLIFY_AUTH_TOKEN, DEPLOY_SSH_USER+DEPLOY_SSH_HOST, DEPLOY_COMMAND, or MCP deploy tool."
+exit 1
+```
+
+### 5. Wait and poll status
+
+After invoking the deploy command, poll for completion:
+
+```bash
+DEPLOY_TIMEOUT="${DEPLOY_TIMEOUT:-300}"   # seconds (default 5 minutes)
+DEPLOY_POLL_INTERVAL="${DEPLOY_POLL_INTERVAL:-30}"  # seconds
+
+start_time=$(date +%s)
+while true; do
+  elapsed=$(( $(date +%s) - start_time ))
+  if [ "$elapsed" -ge "$DEPLOY_TIMEOUT" ]; then
+    echo "FAIL: deploy status polling timed out after ${DEPLOY_TIMEOUT}s"
+    exit 1
+  fi
+  
+  status=$(get_deploy_status)  # platform-specific status check
+  if [ "$status" = "ready" ] || [ "$status" = "done" ]; then
+    echo "Deploy completed in ${elapsed}s"
+    break
+  fi
+  
+  sleep "$DEPLOY_POLL_INTERVAL"
+done
+```
+
+Use exponential backoff for retries on transient failures:
+
+```bash
+RETRY_MAX="${RETRY_MAX:-3}"
+base_delay=2
+for attempt in $(seq 1 "$RETRY_MAX"); do
+  if deploy_command; then
+    break
+  fi
+  if [ "$attempt" -eq "$RETRY_MAX" ]; then
+    echo "FAIL: deploy failed after ${RETRY_MAX} attempts"
+    exit 1
+  fi
+  sleep $(( base_delay * 2 ** (attempt - 1) ))
+done
+```
+
+### 6. Baseline smoke test
+
+```bash
+DEPLOY_URL="${DEPLOY_URL:?DEPLOY_URL must be set}"
+if curl -sSf "$DEPLOY_URL" > /dev/null 2>&1; then
+  echo "OK: $DEPLOY_URL responds with HTTP 200"
+else
+  echo "FAIL: $DEPLOY_URL is not responding with HTTP 200"
+  exit 1
+fi
+```
+
+For comprehensive health-checking, chain to the `smoke-test` skill:
+
+```bash
+# After deploy success
+bash scripts/run-smoke.sh "$DEPLOY_URL"
+```
+
+## Configuration
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `ARTIFACT_DIR` | `dist` | Build output directory |
+| `DEPLOY_URL` | *(required)* | Live URL for smoke test |
+| `DEPLOY_TIMEOUT` | `300` | Max wait for deploy completion (seconds) |
+| `DEPLOY_POLL_INTERVAL` | `30` | Polling interval (seconds) |
+| `RETRY_MAX` | `3` | Max deploy retry attempts |
+| `BUILD_COMMAND` | *(auto-detect)* | Override build command |
+
+## Verification
+
+→ verify: `test -f deploy/SKILL.md && grep -q 'name: deploy' deploy/SKILL.md && echo OK`
+→ verify: `grep -qi 'build\|artifact\|deploy\|smoke' deploy/SKILL.md && echo OK`
+→ verify: `grep -ci 'package.json\|Cargo.toml\|Makefile\|manifest' deploy/SKILL.md | awk '{if($1>=1) print "OK"; else print "FAIL"}'`
+→ verify: `grep -ci 'timeout\|poll\|status\|retry\|backoff' deploy/SKILL.md | awk '{if($1>=2) print "OK"; else print "FAIL"}'`
+→ verify: `grep -q 'curl.*DEPLOY_URL\|smoke\|health' deploy/SKILL.md && echo OK`
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
