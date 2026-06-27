@@ -4,7 +4,7 @@
   "repo": "Exam-prompt",
   "description": "20 AI skills for 10/10 exam answers at any university worldwide. Works with ChatGPT, Claude, Gemini, Cursor, Copilot, Codex.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pinakdhabu/Exam-prompt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T00:36:32Z"
+  "distributed_at": "2026-06-27T02:42:31Z"
 }
