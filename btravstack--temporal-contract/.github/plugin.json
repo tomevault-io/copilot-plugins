@@ -1,0 +1,9 @@
+{
+  "name": "btravstack--temporal-contract",
+  "displayName": "temporal-contract",
+  "description": "End-to-end type safety and automatic validation for workflows and activities",
+  "version": "1.0.0",
+  "author": "btravstack",
+  "homepage": "https://github.com/btravstack/temporal-contract",
+  "skills": []
+}
