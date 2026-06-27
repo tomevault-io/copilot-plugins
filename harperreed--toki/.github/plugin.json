@@ -1,0 +1,9 @@
+{
+  "name": "harperreed--toki",
+  "displayName": "toki",
+  "description": "Git-aware CLI todo manager with MCP server for AI agent integration",
+  "version": "1.0.0",
+  "author": "harperreed",
+  "homepage": "https://github.com/harperreed/toki",
+  "skills": []
+}
