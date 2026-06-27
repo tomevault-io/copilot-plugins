@@ -1,0 +1,9 @@
+{
+  "name": "tmc--gputrace",
+  "displayName": "gputrace",
+  "description": "Apple Silicon gputrace analysis tool",
+  "version": "1.0.0",
+  "author": "tmc",
+  "homepage": "https://github.com/tmc/gputrace",
+  "skills": []
+}
