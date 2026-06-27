@@ -1,0 +1,9 @@
+{
+  "name": "gonzalolarralde--cpicosdk",
+  "displayName": "CPicoSDK",
+  "description": "SwiftPM support for Raspberry Pi PicoSDK.",
+  "version": "1.0.0",
+  "author": "gonzalolarralde",
+  "homepage": "https://github.com/gonzalolarralde/CPicoSDK",
+  "skills": []
+}
