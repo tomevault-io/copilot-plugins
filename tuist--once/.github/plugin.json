@@ -1,0 +1,9 @@
+{
+  "name": "tuist--once",
+  "displayName": "once",
+  "description": "Run once. Reuse everywhere.",
+  "version": "1.0.0",
+  "author": "tuist",
+  "homepage": "https://github.com/tuist/once",
+  "skills": []
+}
