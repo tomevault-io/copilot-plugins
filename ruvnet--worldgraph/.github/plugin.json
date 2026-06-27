@@ -1,0 +1,9 @@
+{
+  "name": "ruvnet--worldgraph",
+  "displayName": "worldgraph",
+  "description": "Privacy-aware environmental digital twin for ambient/RF sensing in Rust \u2014 a typed, provenance-tracked graph of rooms, sensors, people & beliefs, geospatially grounded with predictive occupancy (OccWor",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/worldgraph",
+  "skills": []
+}
