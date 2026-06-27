@@ -1,58 +1,99 @@
-## fix-bug
+## grill-me
 
-> Bug fix orchestrator — active_flow fix_bug; reads specs/bugs/BUG-*.md; chains investigate-bug, develop-tdd, validate-fix. Use when user reports a defect.
+> Interactive assumption-surfacing Q&A that stress-tests a plan through relentless questioning until every decision is resolved. Use when user wants to challenge a plan, validate decisions from conversation/context, or mentions \"grill me\". For doc-grounded variant, use grill-with-docs.
 
 
 
-# Fix Bug
+# Grill Me
 
-**Boundary**: Orchestrator flow — chains `investigate-bug` (entry point + RCA via `diagnose-root`) → `develop-tdd` → `validate-fix`. Does not implement RCA or write bug files directly.
+> **Use this vs grill-with-docs:** `grill-me` surfaces assumptions from the conversation and context alone — no documentation fetching. Use `grill-with-docs` (the doc-grounded variant) when the plan relies on a specific library or external API and every challenge must cite a real doc URL.
 
-Orchestrates **fix_bug** flow without mixing epic build state.
+Two modes. Default is **Design**. Switch to **Docs** by saying "grill me with docs" or when the plan relies on a specific library or external API.
 
-> **HARD GATE** — Set `specs/state.yaml` `active_flow: fix_bug` and `bug_cycle.current_step: 1` before starting.
+> **HARD GATE** — Do NOT accept a design until every hard decision has been stress-tested. "Seems right" is not a decision. Grilling must identify and resolve tensions before build begins.
 
-## Five steps (`bug_cycle` in state.yaml)
+## Design mode (default)
 
-| Step | Skill / action |
-|------|----------------|
-| 1 | `investigate-bug` — create BUG-*.md with RCA |
-| 2 | `diagnose-root` — 4-phase root cause analysis |
-| 3 | `develop-tdd` — red-green against bug file verify steps |
-| 4 | `validate-fix` — re-run failing test, full suite, lint |
-| 5 | `release-branch` — PR or solo land the fix |
+Interview relentlessly about every aspect of this plan until reaching shared understanding. Walk each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer. Ask one question at a time.
 
-### Checkpoint / resume
+If a question can be answered by exploring the codebase, explore it instead.
 
-Track progress via `specs/state.yaml` `bug_cycle`:
-- `bug_cycle.current_step`: current step (1–5)
-- `bug_cycle.completed_steps`: completed step numbers
-- `handoff.next_skill`: skill for the current step
-- On resume, read `bug_cycle.current_step` and continue from there
+## Docs mode
 
-## Process
+Ground every challenge in real documentation — no assumption about a library's behavior goes unchecked. See [REFERENCE.md](REFERENCE.md) for the full process.
 
-1. **Step 1 — investigate-bug:** If no `specs/bugs/BUG-*.md`, run `investigate-bug` first — it handles history check, RCA (via `diagnose-root`), fix approach, and writes the bug file. Increment `bug_cycle.current_step` to 2 on completion.
-2. **Step 2 — diagnose-root:** Run 4-phase RCA (reproduce → isolate → hypothesize → verify). Record findings in the bug file. Increment to step 3.
-3. **Step 3 — develop-tdd:** `develop-tdd` against the bug file's verify steps. Increment to step 4 on all-green.
-4. **Step 4 — validate-fix:** `validate-fix` — re-run failing test, full suite, typecheck, lint. Increment to step 5.
-5. **Step 5 — release-branch:** Land the fix via `release-branch`. Clear `bug_cycle` and `active_flow` when done.
+Short form:
+1. List every external library, third-party API, and framework behavior relied upon.
+2. Fetch the actual docs for each (`WebFetch` the official API reference).
+3. Challenge each plan assumption against the real docs: correct method signature? right version? deprecated?
+4. Report confirmed ✓, corrected ✗ (with the real behavior), and uncertain → `spike-prototype`.
+5. Update the plan for each confirmed discrepancy.
 
-## Bug file SoT
+---
 
-One markdown file per bug with frontmatter:
+# Docs Mode — Full Process
 
-```yaml
-bug_id: BUG-001
-status: open
-severity: high
-scope: api
-title: Short title
+Triggered by "grill me with docs" or when a plan depends on a specific library or external API.
+
+**Why this matters:** AI agents hallucinate API methods, argument orders, and behaviors. Every assumption about an external dependency must be validated against the actual docs before code is written.
+
+## Step 1 — Identify the dependencies
+
+From the plan or conversation, list:
+- Every external library being used
+- Every third-party API being called
+- Every framework behavior being relied upon
+
+Ask: "Which of these are you most confident about? Which are you less sure of?"
+
+## Step 2 — Fetch the relevant docs
+
+For each dependency, fetch the actual documentation:
+
+```
+WebFetch the official docs for [library/API]
 ```
 
-## Verify
+Prioritize:
+- The API reference for the specific method being used
+- The changelog for the version in use (breaking changes)
+- Migration guides if upgrading from a previous version
+- Known gotchas / FAQ sections
 
-→ verify: `test -d specs/bugs && bash scripts/sync-bugs-registry.sh`
+## Step 3 — Challenge each assumption
+
+For every assumption in the plan, find the corresponding doc section and ask:
+
+- "Does the real API actually work this way? Show me the doc."
+- "Is this method available in the version you're using?"
+- "Does this argument order match the actual signature?"
+- "Are there rate limits, quotas, or timeout behaviors that affect this design?"
+- "Is this marked as deprecated in the current version?"
+
+Ask one question at a time. For each challenge, cite the specific URL and section.
+
+## Step 4 — Surface hallucinations
+
+When an assumption doesn't match the docs:
+
+> "Your plan uses `library.doThing(a, b)` but the [docs](URL) show the signature is `doThing(config: {a, b})` with a config object. This will fail at runtime."
+
+Document each discrepancy clearly.
+
+## Step 5 — Update the plan
+
+For each confirmed discrepancy, recommend a concrete fix:
+- Correct method signature
+- Correct argument order
+- Alternative approach that matches what the library actually supports
+- Whether a spike (`spike-prototype`) is needed to validate a remaining uncertainty
+
+## Step 6 — Sign off
+
+When all major assumptions have been validated against docs, report:
+- Which assumptions were confirmed ✓
+- Which were corrected ✗ + what the correct approach is
+- Which remain uncertain → recommend `spike-prototype`
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
