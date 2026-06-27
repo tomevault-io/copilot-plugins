@@ -1,0 +1,9 @@
+{
+  "name": "white-sand-grand--karpathy-claude-md",
+  "displayName": "karpathy-claude-md",
+  "description": "Internal Andrej Karpathy CLAUDE.md rules for Claude Code, fixes common LLM code generation flaws. Sourced from X leak, for learning & research.",
+  "version": "1.0.0",
+  "author": "white-sand-grand",
+  "homepage": "https://github.com/white-sand-grand/karpathy-claude-md",
+  "skills": []
+}
