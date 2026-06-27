@@ -1,0 +1,9 @@
+{
+  "name": "gabrielondelphi--claude-tools-for-delphi",
+  "displayName": "Claude-Tools-for-Delphi",
+  "description": "Skills, agents, settings, md files for Claude Code for Delphi programmers",
+  "version": "1.0.0",
+  "author": "GabrielOnDelphi",
+  "homepage": "https://github.com/GabrielOnDelphi/Claude-Tools-for-Delphi",
+  "skills": []
+}
