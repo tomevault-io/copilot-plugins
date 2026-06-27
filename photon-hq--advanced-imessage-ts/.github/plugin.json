@@ -1,0 +1,9 @@
+{
+  "name": "photon-hq--advanced-imessage-ts",
+  "displayName": "advanced-imessage-ts",
+  "description": "TypeScript SDK for the Apple level iMessage API via Photon's Spectrum gRPC gateway.",
+  "version": "1.0.0",
+  "author": "photon-hq",
+  "homepage": "https://github.com/photon-hq/advanced-imessage-ts",
+  "skills": []
+}
