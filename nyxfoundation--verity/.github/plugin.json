@@ -1,0 +1,9 @@
+{
+  "name": "nyxfoundation--verity",
+  "displayName": "verity",
+  "description": "The Provable Consensus Client \u2014 a formally verified Ethereum consensus client built with Lean 4.",
+  "version": "1.0.0",
+  "author": "NyxFoundation",
+  "homepage": "https://github.com/NyxFoundation/verity",
+  "skills": []
+}
