@@ -1,0 +1,9 @@
+{
+  "name": "chosen9115--opensop",
+  "displayName": "opensop",
+  "description": "Process as Infrastructure for agentic processes \u2014 the OpenSOP specification + a local-first CLI. Declare, version, fork, run, and audit processes as files. Reference server: Chosen9115/opensop-rails.",
+  "version": "1.0.0",
+  "author": "Chosen9115",
+  "homepage": "https://github.com/Chosen9115/opensop",
+  "skills": []
+}
