@@ -1,0 +1,9 @@
+{
+  "name": "wshmkr--astral-terminal",
+  "displayName": "astral-terminal",
+  "description": "open-source cmux alternative for windows + wsl",
+  "version": "1.0.0",
+  "author": "wshmkr",
+  "homepage": "https://github.com/wshmkr/astral-terminal",
+  "skills": []
+}
