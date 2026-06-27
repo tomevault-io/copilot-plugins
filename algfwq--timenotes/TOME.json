@@ -1,0 +1,44 @@
+{
+  "name": "TimeNotes",
+  "owner": "algfwq",
+  "repo": "TimeNotes",
+  "description": "TimeNotes \u4e00\u6b3e\u57fa\u4e8e Wails3 \u7684\u684c\u9762\u624b\u8d26\u5f0f\u7b14\u8bb0\u8f6f\u4ef6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/algfwq/TimeNotes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T00:58:13Z"
+}
