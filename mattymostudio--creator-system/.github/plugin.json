@@ -1,0 +1,9 @@
+{
+  "name": "mattymostudio--creator-system",
+  "displayName": "creator-system",
+  "description": "Personal Intelligence System for creative professionals \u2014 open-source, MIT-licensed. Vault scaffolding + 14 AI skills + 6 ingestion tools by Matty Mo Studio.",
+  "version": "1.0.0",
+  "author": "mattymostudio",
+  "homepage": "https://github.com/mattymostudio/creator-system",
+  "skills": []
+}
