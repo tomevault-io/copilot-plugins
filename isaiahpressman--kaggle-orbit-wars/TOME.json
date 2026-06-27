@@ -4,7 +4,7 @@
   "repo": "kaggle-orbit-wars",
   "description": "An RL library for the Kaggle 2026 Orbit Wars competition",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IsaiahPressman/kaggle-orbit-wars",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T00:42:40Z"
+  "distributed_at": "2026-06-27T00:45:57Z"
 }
