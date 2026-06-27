@@ -1,0 +1,9 @@
+{
+  "name": "masondelan--selvedge",
+  "displayName": "selvedge",
+  "description": "Long-term memory for AI-coded codebases. A git blame for AI agents \u2014 but for the why. MCP server that captures the agent's reasoning live, in context, as each change is made. Local SQLite, zero deps.",
+  "version": "1.0.0",
+  "author": "masondelan",
+  "homepage": "https://github.com/masondelan/selvedge",
+  "skills": []
+}
