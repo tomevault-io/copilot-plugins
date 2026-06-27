@@ -1,0 +1,9 @@
+{
+  "name": "veridise--audithub-mcp",
+  "displayName": "audithub-mcp",
+  "description": "MCP server for AuditHub",
+  "version": "1.0.0",
+  "author": "Veridise",
+  "homepage": "https://github.com/Veridise/audithub-mcp",
+  "skills": []
+}
