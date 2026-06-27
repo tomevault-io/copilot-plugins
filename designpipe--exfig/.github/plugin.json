@@ -1,0 +1,9 @@
+{
+  "name": "designpipe--exfig",
+  "displayName": "exfig",
+  "description": "ExFig \u2014 fast design-to-code CLI for Figma & Penpot with parallel exports, batch processing & smart caching for iOS, Android, Flutter & Web. Runs on macOS, Linux, Windows.",
+  "version": "1.0.0",
+  "author": "DesignPipe",
+  "homepage": "https://github.com/DesignPipe/exfig",
+  "skills": []
+}
