@@ -1,0 +1,9 @@
+{
+  "name": "rosh100yx--outlier",
+  "displayName": "outlier",
+  "description": "outlier is an open-source, local-first policy engine and governance framework designed to measure the true cost and risk of AI code generation. Enforce Zero-Trust and protect Human Mastery.",
+  "version": "1.0.0",
+  "author": "rosh100yx",
+  "homepage": "https://github.com/rosh100yx/outlier",
+  "skills": []
+}
