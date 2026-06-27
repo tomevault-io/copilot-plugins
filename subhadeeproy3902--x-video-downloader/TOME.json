@@ -1,0 +1,44 @@
+{
+  "name": "x-video-downloader",
+  "owner": "subhadeeproy3902",
+  "repo": "x-video-downloader",
+  "description": "RipTweet reads the post, finds the video, photo, or GIF inside it, and hands back the original file \u2014 full resolution, no re-encoding, no watermark. ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/subhadeeproy3902/x-video-downloader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T18:37:20Z"
+}
