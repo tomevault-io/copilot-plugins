@@ -1,81 +1,121 @@
-## build-epic
+## change-request
 
-> Eight-step epic build cycle — reads state.yaml, execution-status.yaml, and one epic capsule; updates status via bp-yaml-set or direct edit. Resume mode runs one step per invocation. Use instead of ad-hoc execute-plan for release work.
+> Add a new requirement or reorder epics by WSJF against specs/release-plan.yaml and epic capsule directories. Modes Add and Reorder. Use when a new requirement arrives mid-release or the plan needs prioritization.
 
 
 
-# Build Epic
+# Change Request
 
-Scope: one story. Called by orchestrate-project Phase 4. Not a replacement for orchestrate-project.
-
-Orchestrates the **build** flow for a single epic: survey → plan tasks → kickoff → TDD → verify → audit → commit → release.
-
-> **HARD GATE** — Set `specs/state.yaml` `active_flow: build_epic` and `active_epic: eNN` before starting.
+> **HARD GATE** — `specs/release-plan.yaml` must exist before running either mode. If it doesn't, run `plan-release` first.
 >
-> **HARD GATE** — Not on `main`/`master` before step 3 (kickoff-branch).
+> → verify: `[ -f specs/release-plan.yaml ] && echo "ready" || echo "BLOCKED: run plan-release first"`
 
-## Eight steps (`epic_cycle` in state.yaml)
+Two modes. State which one you want or the skill will ask.
 
-| Step | Skill / action |
-|------|----------------|
-| 1 | `survey-context` — confirm epic + story |
-| 2 | `plan-work` — flesh out story `tasks[]` in `specs/epics/eNN-slug/epic.yaml` |
-| 3 | `kickoff-branch` — feature branch + clean baseline |
-| 4 | `develop-tdd` — red-green per task |
-| 5 | `verify-work` — UAT + mechanical gates |
-| 6 | `audit-code` — **non-optional gate** (pass/fail; fail → loop back to step 4) |
-| 7 | `commit-message` — Conventional Commits draft |
-| 8 | `release-branch` — PR or solo land (supports `--squash-state`) |
+## Mode A — Add
 
-## Process
+Intake a new requirement mid-flight without disrupting work in progress.
 
-1. Read `specs/state.yaml`, `specs/execution-status.yaml`, `specs/release-plan.yaml`, active `specs/epics/eNN-slug/epic.yaml`.
-2. **Assess Impact (Step 2):** Before writing tasks, run `assess-impact --lightweight` on the proposed change. If the risk score exceeds 7, gate — require a `grill-me` session. Write the impact report to `specs/IMPACT-<epic>-<story>.md`. For net-new code with no existing dependents, skip.
-3. **BCP Tracking (Step 2):** After `plan-work` completes, read the `bcps:` count (Business Complexity Points story size) from the epic capsule and carry it into `state.yaml` as `epic_cycle.story_bcps = N`.
-3. If `epic_cycle.step` missing, set to `1`.
-4. Run **only the current step** (resume mode) unless user asked for full auto-run.
-5. After step verify passes, increment `epic_cycle.step` in `state.yaml` (or `bash scripts/bp-yaml-set.sh` if available).
-6. On story complete, set `execution-status.yaml` story key to `done`; run `bash scripts/sync-status-from-epics.sh`.
+1. **Capture**: What is the change? What problem does it solve?
+2. **Locate**: Which existing stories in `specs/epics/` does it affect or replace?
+3. **Draft**: Add story + `tasks[]` with Gherkin-style AC in epic YAML (each task has `verify`).
+4. **Place**: Append story under existing epic capsule, or create `specs/epics/eNN-slug.yaml` and register in `release-plan.yaml` `epics[]`.
+5. **Score**: Compute WSJF; note if it outranks in-progress work.
 
-### Step 6 — audit-code gate (non-optional)
+→ verify: `grep -c 'stories:' specs/epics/*/epic.yaml`
 
-After step 5 (verify-work) completes successfully, step 6 runs `audit-code` automatically in `--gate` mode:
+## Mode B — Reorder
 
-1. **Run audit:** Invoke `audit-code --gate` on the complete diff for this story.
-2. **Pass (exit 0):** All checklist sections pass → advance to step 7 (commit-message). Record `epic_cycle.audit_result: pass` in `state.yaml`.
-3. **Fail (exit 1):** One or more checklist sections fail → **reset `epic_cycle.current_step` to `4`** (develop-tdd) and add the failing section IDs to `completed_steps` as `"1,2,3,4,5,6(fail: ...)"`. Record `epic_cycle.audit_result: fail` in `state.yaml`. Do NOT advance past step 6 until audit passes.
-4. **Audit artifact:** Full audit report saved to `specs/verifications/AUDIT-<epic>-<story>.md` regardless of pass/fail, for reviewer traceability.
-5. **Enforce F.I.R.S.T:** After audit-code passes, run `enforce-first --quick` on new/modified tests. Append F.I.R.S.T violations (if any) to the audit report. Failing F.I.R.S.T criteria trigger the same loop-back to step 4.
+Value-engineering pass over the full release using WSJF.
 
-## --fast mode
+See [REFERENCE.md](REFERENCE.md) for the full WSJF scoring rubric.
 
-Coalesces read-and-report steps to reduce token overhead. Activate with `build-epic --fast`.
+1. **Score** each epic/story: BV + TC + RR / Job Size.
+2. **Re-sort** `release-plan.yaml` `epics[]` and per-epic `wsjf` fields.
+3. **Flag cut candidates**: WSJF < 1.5.
+4. **Update** `specs/release-plan.yaml` and epic `wsjf` keys with rationale.
+5. **Report** the delta.
 
-| Normal | --fast | Change |
-|--------|--------|--------|
-| Step 1 (survey-context) | 1+2 together | survey + plan in one invocation |
-| Step 2 (plan-work) | (absorbed into 1) | — |
-| Step 3 (kickoff-branch) | Step 2 | unchanged, sequential |
-| Step 4 (develop-tdd) | Step 3 | unchanged, sequential |
-| Step 5 (verify-work) | Step 4 | unchanged, sequential |
-| Step 6 (audit-code) | 5+6 together | audit + commit-message in one invocation |
-| Step 7 (commit-message) | (absorbed into 6) | — |
-| Step 8 (release-branch) | Step 7 | unchanged, sequential |
+→ verify: `grep -c 'wsjf' specs/release-plan.yaml specs/epics/*/epic.yaml`
 
-**Total invocations:** 8 → 6 per story.
+## Conversational Mode
 
-**Rules:**
-- Steps 3/4/5/8 (kickoff, develop, verify, release) still run sequentially — they require user interaction or branch state.
-- `--fast` does NOT skip any checklist items; it only coalesces steps that are pure read-and-report.
-- Record `epic_cycle.fast_mode: true` in `state.yaml` when this flag is active.
+If the user's request is in natural language and does not match the structured format of Mode A or Mode B, enter Conversational Mode to extract the change parameters through interactive dialogue.
 
-## Handoff
+### 5-Step Flow
 
-Write `handoff.next_skill` and `handoff.context` in `state.yaml` when pausing mid-epic.
+1. **Capture**: Parse the natural-language request for what, why, and where. Ask at most 3 clarifying questions before drafting.
+2. **Locate**: Identify which epic or capability in `specs/epics/` the request affects or replaces.
+3. **Draft**: Present a structured draft of the proposed story and tasks for user confirmation.
+4. **Score**: Estimate the WSJF score and explain the calculation so the user understands the priority.
+5. **Place**: Confirm the final epic placement with the user before writing files.
 
-## Verify
+## After either mode
 
-→ verify: `grep -q 'active_flow: build_epic' specs/state.yaml && test -f specs/epics/*/epic.yaml`
+Run `bash scripts/sync-status-from-epics.sh`. Suggest `plan-work` or `build-epic` for the top-ranked unstarted story.
+
+---
+
+# WSJF Scoring Reference
+
+Weighted Shortest Job First: **WSJF = (Business Value + Time Criticality + Risk Reduction) / Job Size**
+
+All dimensions scored 1–10 using a Fibonacci-like scale: 1, 2, 3, 5, 8, 10.
+
+## Business Value
+
+| Score | Meaning |
+|-------|---------|
+| 10 | Core revenue path, legal requirement, blocking launch |
+| 8  | Significant user value, major pain point removed |
+| 5  | Notable improvement, medium user segment affected |
+| 3  | Nice-to-have, minor convenience |
+| 1  | Cosmetic or speculative |
+
+## Time Criticality
+
+| Score | Meaning |
+|-------|---------|
+| 10 | Hard deadline (regulatory, contract, launch date) |
+| 8  | Competitive window closing, partner dependency |
+| 5  | Would delay next milestone if deferred |
+| 3  | Flexible, can slip one sprint |
+| 1  | No urgency |
+
+## Risk Reduction (or Opportunity Enablement)
+
+| Score | Meaning |
+|-------|---------|
+| 10 | Eliminates critical architectural risk or enables a new capability |
+| 8  | Reduces a known failure mode or unblocks high-value work |
+| 5  | Moderate risk mitigation or enablement |
+| 3  | Low risk reduction |
+| 1  | No risk relevance |
+
+## Job Size (effort denominator — larger = lower WSJF)
+
+| Score | Meaning |
+|-------|---------|
+| 1  | Hours |
+| 2  | 1 day |
+| 3  | 2–3 days |
+| 5  | 1 week |
+| 8  | 2 weeks |
+| 10 | 1 month+ |
+
+## Cut threshold
+
+Stories with WSJF < 1.5 are cut candidates: high effort, low combined value.
+
+## Example
+
+Story: "Add OAuth login"
+- Business Value: 8 (removes major sign-up friction)
+- Time Criticality: 5 (Q3 launch nice, not hard)
+- Risk Reduction: 3 (minor security improvement)
+- Job Size: 5 (one week)
+
+WSJF = (8 + 5 + 3) / 5 = **3.2** — healthy, implement early.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
