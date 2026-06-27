@@ -1,109 +1,185 @@
-## using-bigpowers
+## validate-contracts
 
-> One-time bootstrap that introduces the bigpowers skills system, the PMBOK lifecycle arc, and tells you which skill to call first for your situation. Use when starting with bigpowers for the first time, when user asks \"where do I start?\", or when the skills system needs to be explained.
-
-
-
-# Using bigpowers
-> **HARD GATE** — **HARD GATE** — This skill is the entry point. Do NOT skip it when onboarding new users or starting a new session. It establishes the bigpowers methodology, lifecycle phases, and conventions.
+> \"Assert data shape consistency across system boundaries — live API responses against JSON Schema, key-set comparison across layers, data shape validation for migrations and exports. Catches silent data corruption before deploy.\
 
 
-Welcome to **bigpowers** — a lifecycle of **61** agent skills for production-ready, TDD-driven software by solo developers.
 
-## Install
+# Validate Contracts
+
+> **HARD GATE** — Do NOT deploy or migrate data without running `validate-contracts` first. Silent data divergence between system boundaries causes the hardest-to-debug production bugs.
+>
+> **HARD GATE** — Contract files MUST be version-controlled alongside code. Outdated contracts are worse than no contracts. If a contract hasn't been reviewed in 30 days, flag it as stale.
+
+Validate that data structures stay in sync across system boundaries — front-end vs
+back-end, API responses vs expected schemas, config files vs code assumptions,
+migration output vs target shape.
+
+## Contract types
+
+Three modes of validation:
+
+| Mode | What it catches | When to use |
+|------|----------------|-------------|
+| **Schema** | API response shape mismatches (missing field, wrong type) | Before every deploy, after API changes |
+| **Key-set** | Missing/unexpected keys across two data sources | Translation files, configs, enum definitions |
+| **Shape** | Column type or format violations in data files | After migrations, before consuming exports |
+
+## Contract file convention
+
+All contract files live in `specs/contracts/` and use YAML:
+
+```
+specs/contracts/
+├── users.schema.yaml        # API response schema
+├── i18n-keys.yaml           # Key-set comparison
+├── migration-output.yaml    # Data shape contract
+└── README.md                # Local conventions
+```
+
+### 1. API Response Contracts (`--schema`)
+
+Define expected API response shapes and validate live endpoints against them:
+
+```yaml
+# specs/contracts/users.schema.yaml
+endpoint: /api/users
+method: GET
+schema:
+  type: object
+  required: [id, name, email]
+  properties:
+    id: { type: number }
+    name: { type: string }
+    email: { type: string, format: email }
+```
+
+Usage:
 
 ```bash
-npx bigpowers                  # one-shot setup
-npm install -g bigpowers       # global install, then run: bigpowers
+validate-contracts --schema specs/contracts/users.schema.yaml --url https://api.example.com/users
+# → PASS: /api/users matches expected schema (3/3 fields, types ok)
+# → FAIL: /api/users — field 'email' has type null (expected string)
 ```
 
-From source (contributors): `git clone` → `npm install` or `bash scripts/install.sh`.
+### 2. Key-Set Contracts (`--key-set`)
 
-Package: [bigpowers on npm](https://www.npmjs.com/package/bigpowers)
+Assert that two data sources share a consistent set of keys:
 
-## What bigpowers is
-
-A curated set of skills organized around the PMBOK developer lifecycle. Each skill does one thing. Skills reference each other by name only — low coupling, high cohesion. All written output goes to `specs/` at your project root.
-
-## The lifecycle at a glance
-
-See orchestrate-project for the canonical 6-phase lifecycle.
-
-```
-BOOTSTRAP   using-bigpowers (this skill, first time only)
-              ↓
-DISCOVER    survey-context → research-first → elaborate-spec
-              ↓
-DESIGN      model-domain / define-language / grill-me / deepen-architecture / design-interface
-              ↓
-PLAN        scope-work → slice-tasks → define-success → plan-work / plan-refactor
-              ↓
-INITIATE    kickoff-branch → guard-git / hook-commits / seed-conventions
-              ↓
-SPIKE?      spike-prototype → (feeds back to plan-work)
-              ↓
-EXECUTE     develop-tdd + enforce-first ←→ delegate-task / dispatch-agents / execute-plan
-              ↓
-VERIFY      run-evals → verify-work
-              ↓
-HARDEN      wire-observability (any phase)
-              ↓
-BUG?        investigate-bug → diagnose-root → validate-fix
-              ↓
-REVIEW      audit-code → request-review → respond-review
-              ↓
-INTEGRATE   commit-message → release-branch
-              ↓
-SUSTAIN     inspect-quality / organize-workspace (ongoing)
-
-UTILITY     terse-mode / craft-skill / edit-document (any phase)
+```yaml
+# specs/contracts/i18n-keys.yaml
+sources:
+  reference: src/frontend/locales/en.json
+  target: src/backend/messages/en.json
+mode: subset      # all target keys must exist in reference
 ```
 
-## Where to start
+Usage:
 
-| Your situation | First skill to call |
-|---------------|---------------------|
-| Greenfield project, nothing set up | `seed-conventions` |
-| Existing project, new task | `survey-context` |
-| Vague idea that needs shaping | `elaborate-spec` |
-| Plan exists, ready to implement | `kickoff-branch` → `develop-tdd` |
-| Bug to fix | `investigate-bug` |
-| Code ready for review | `audit-code` |
-| Shipping a feature | `commit-message` → `release-branch` |
-| Solo dev, PRs feel heavy | Enable `profiles/solo-git.md` → `specs/WORKFLOW-solo-git.md` → land via `scripts/land-branch.sh` |
+```bash
+validate-contracts --key-set specs/contracts/i18n-keys.yaml
+# → missing: 2 keys in reference not found in target: ['settings.privacy', 'help.faq']
+# → added: 1 key in target not in reference: ['deprecated.field']
+# → exit 1 (divergence)
+```
 
-## Solo Git profile
+### 3. Data Shape Contracts (`--shape`)
 
-If you work alone and do not want PR ceremony every task:
+Validate that a data file matches expected column types and constraints:
 
-1. Read [profiles/solo-git.md](../profiles/solo-git.md).
-2. Register with `compose-workflow` → `specs/WORKFLOW-solo-git.md`.
-3. Ship with `release-branch` in **solo-local** mode (`land-branch.sh`), not `gh pr create`.
+```yaml
+# specs/contracts/migration-output.yaml
+file: data/users-export.json
+format: json
+fields:
+  - name: user_id
+    type: number
+    required: true
+  - name: full_name
+    type: string
+    required: true
+  - name: created_at
+    type: string
+    format: date-time
+    required: false
+```
 
-You still use worktrees, protected `main`, and verification gates — only the integrate step changes.
+Usage:
 
-## YAML cockpit and dashboard
+```bash
+validate-contracts --shape specs/contracts/migration-output.yaml
+# → PASS: 3/3 fields validated, 5000 rows OK
+# → WARN: field 'full_name' has 12 null values (0.24%)
+# → FAIL: field 'user_id' has 3 rows with type string (expected number)
+```
 
-Operational source of truth:
+## Process
 
-- `specs/state.yaml` — session, active epic/story, handoff
-- `specs/release-plan.yaml` — release index and epic list
-- `specs/epics/eNN-*.yaml` — stories and tasks with `verify`
-- `specs/execution-status.yaml` — done/pending per story
+### 1. Define contract
 
-Start the HTTP dashboard with `visual-dashboard` → `GET /api/status?projectDir=<abs>` and `GET /cockpit.html` for a read-only PM view.
+Create a YAML file in `specs/contracts/` following the schema for the mode.
 
-## Key conventions
+### 2. Run validation
 
-- **specs/ is your memory.** All domain docs, plans, and investigation outputs go in `specs/` at your project root.
-- **Integrate:** team default is `gh pr` (team-pr); solo profile uses `land-branch.sh`. Never create GitHub issues from skills — use local Markdown files instead.
-- **One skill, one thing.** If you're unsure which skill to call, call `survey-context` — it reads your current state and recommends the next step.
-- **verify: every step.** Every epic task must have `verify: <runnable command>`. Evidence over claims.
-- **61 skills.** See `SKILL-INDEX.md`; find skills with `search-skills`.
+```bash
+bash scripts/validate-contracts.sh <contract-file>
+```
 
-## After this
+The runner auto-detects the contract type from the file content (presence of `schema:`,
+`sources:`, or `file:` + `fields:` keys).
 
-Call `survey-context` to read your project's current state and get a personalized recommendation for where to go next.
+### 3. Read the report
+
+Output is JSON Lines (one event per line) plus a human-readable summary:
+
+```
+{"event":"pass","check":"users.schema","detail":"3/3 fields match types"}
+{"event":"warn","check":"users.schema","detail":"field 'avatar' has format: uri (unexpected)"}
+{"event":"fail","check":"i18n-keys","detail":"missing: 2 keys in target"}
+```
+
+Final summary:
+
+```
+=== Validate Contracts Summary ===
+Schema: 3/3 pass | Key-set: 1/1 fail | Shape: 2/2 pass
+FAILED: 1 contract has divergence
+```
+
+### 4. Fix divergence
+
+- **Missing keys** → add to target source
+- **Type mismatches** → update schema or fix producer
+- **Shape violations** → fix migration or consumer
+
+### 5. Re-validate
+
+```bash
+bash scripts/validate-contracts.sh <contract-file>
+# → All pass → ready to deploy
+```
+
+## Integration
+
+- **Pre-deploy gate:** The `deploy` skill runs `validate-contracts` before smoke-test.
+- **CI pipeline:** JSON Lines output is CI-friendly; pipe to `jq` for assertions.
+- **Pre-migration:** Run `validate-contracts --shape` before consuming migration output.
+
+## Configuration
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `CONTRACTS_DIR` | `specs/contracts/` | Directory containing contract YAML files |
+| `VALIDATE_ALL` | `false` | If true, run all contracts in the directory |
+| `STRICT_MODE` | `false` | Treat warnings as failures |
+| `OUTPUT_FORMAT` | `text` | `text` or `json` |
+
+## Verification
+
+→ verify: `test -f validate-contracts/SKILL.md && grep -q 'name: validate-contracts' validate-contracts/SKILL.md && echo OK`
+→ verify: `grep -qi 'specs/contracts\|JSON Schema\|key.set\|data.shape' validate-contracts/SKILL.md && echo OK`
+→ verify: `grep -ci 'divergence\|missing key\|type mismatch\|diff\|conforms\|column' validate-contracts/SKILL.md | awk '{if($1>=3) print "OK"; else print "FAIL"}'`
+→ verify: `grep -ci 'JSON Lines\|machine.parse\|CI\|deploy.*gate\|pre.deploy' validate-contracts/SKILL.md | awk '{if($1>=2) print "OK"; else print "FAIL"}'`
+→ verify: `grep -q 'validate-contracts' SKILL-INDEX.md && echo OK`
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
